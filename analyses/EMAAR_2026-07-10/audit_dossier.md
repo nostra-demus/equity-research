@@ -1,327 +1,82 @@
-# EMAAR Audit Dossier — EMAAR_2026-07-10
+# Audit Dossier — EMAAR
 
-> Deterministic, lossless concatenation of every artifact in this run.
+> Deterministic, lossless concatenation of every artifact in this research run — the final thesis, each module synthesis, and every sub-agent output, in run order. Generated mechanically by `/research:full` (no LLM rewriting), so nothing is omitted or paraphrased. This is the "see everything" audit tier; the decision lives in `final_thesis.md` and the colleague summary in `memo.md`.
 
-- Generated: 2026-07-10T16:17:33Z
+- Generated: 2026-07-16T18:19:30Z
+- Run root: `analyses/EMAAR_2026-07-10`
+- Module run order: business-model, earnings, balance-sheet-survival, management-governance, valuation, catalyst
+- Contents: 1 final thesis + 6 module syntheses + 46 sub-agent outputs = 53 files
 
+## Table of Contents
 
-
----
-
-## Run metadata
-
-_Source: `RUN_METADATA.md`_
-
-# Run Metadata
-
-- ticker: EMAAR
-- run_date: 2026-07-10
-- started_at: 2026-07-10T10:26:43Z
-- orchestrator: /research:full (pre-merge integration test on integration/emaar-preview — LOCAL, not pushed to main)
-- repo_sha: ddfe7cf
-- data_folder: data/EMAAR/
-- prior_run: analyses/EMAAR_2026-07-03
-
-## Source files
-
-- 01_Consensus.xlsx
-- 02_Recent Changes.xlsx
-- 03_Guidance.xlsx
-- 04_Multiples.xlsx
-- 05_Surprise.xlsx
-- 06_Trends.xlsx
-- 07_Revisions.xlsx
-- Company Comparable Analysis Emaar Properties PJSC.xls
-- Emaar Properties PJSC DFM EMAAR Analyst Coverage.xls
-- Emaar Properties PJSC DFM EMAAR Board Members.xls
-- Emaar Properties PJSC DFM EMAAR Compensation Summary Compensation.xls
-- Emaar Properties PJSC DFM EMAAR Customers.xls
-- Emaar Properties PJSC DFM EMAAR Events Calendar.xls
-- Emaar Properties PJSC DFM EMAAR Financials_Annual.xls
-- Emaar Properties PJSC DFM EMAAR Financials_Quarterly.xls
-- Emaar Properties PJSC DFM EMAAR Investment Analysis Direct Investments.xls
-- Emaar Properties PJSC DFM EMAAR Key Developments.xls
-- Emaar Properties PJSC DFM EMAAR Private Ownership.rtf
-- Emaar Properties PJSC DFM EMAAR Professionals.xls
-- Emaar Properties PJSC DFM EMAAR Public Company Profile.rtf
-- Emaar Properties PJSC DFM EMAAR Public Ownership Summary.rtf
-- Emaar Properties PJSC DFM EMAAR Strategic Alliances.rtf
-- Emaar Properties PJSC DFM EMAAR Suppliers.xls
-- Emaar Properties Q3'25_Earnings_Call_Summary.pdf
-- Emaar properties Q4'25_Earnings_Call_Summary.pdf
-- EmaarPropertiesPJSCDFMEMAAREstimatesReport.xls
-- Emaar_Properties_Annual_Report_2023.pdf
-- Emaar_Properties_Annual_Report_2024.pdf
-- Emaar_Properties_Annual_Report_2025.pdf
-- Emaar_Properties_Earnings_Press_Release_Q1_2026.pdf
-- Emaar_Properties_Earnings_Press_Release_Q3_2025.pdf
-- Emaar_Properties_Earnings_Press_Release_Q4_2025.pdf
-
-## Modules planned
-
-- business-model
-- earnings
-- management-governance
-- balance-sheet-survival
-- valuation
-- catalyst
-
-## Modules completed
-
-- business-model
-- earnings
-- balance-sheet-survival
-- management-governance
-- valuation
-- catalyst
-
-## Modules aborted
-
-(none)
-
-## Synthesizer status
-
-done (final_thesis.md + decision_record.json)
-
-## Memo status
-
-done (6 module memos + run memo)
-
-## Audit dossier status
-
-done
-
-## Integrity gate
-
-GATE: PASS (finish-gate 10B.1 — scenario math, score ranges, §11/§7/§14 caps all satisfied)
-
-## Commit SHA
-
-(local test — not committed)
-
+- [Final Thesis (decision)](#final-thesis-decision) — `final_thesis.md`
+- [business-model — module synthesis](#business-model-module-synthesis) — `business-model/99_business-model-synthesis.md`
+- [business-model / 00_data-triage.md](#business-model-00-data-triage-md) — `business-model/00_data-triage.md`
+- [business-model / 01_disqualifier-scan.md](#business-model-01-disqualifier-scan-md) — `business-model/01_disqualifier-scan.md`
+- [business-model / 02_business-identity.md](#business-model-02-business-identity-md) — `business-model/02_business-identity.md`
+- [business-model / 03_segment-map.md](#business-model-03-segment-map-md) — `business-model/03_segment-map.md`
+- [business-model / 04_unit-economics.md](#business-model-04-unit-economics-md) — `business-model/04_unit-economics.md`
+- [business-model / 05_customer-geography.md](#business-model-05-customer-geography-md) — `business-model/05_customer-geography.md`
+- [business-model / 06_value-chain.md](#business-model-06-value-chain-md) — `business-model/06_value-chain.md`
+- [business-model / 07_business-quality.md](#business-model-07-business-quality-md) — `business-model/07_business-quality.md`
+- [business-model / 08_competitive-map.md](#business-model-08-competitive-map-md) — `business-model/08_competitive-map.md`
+- [business-model / 09_moat.md](#business-model-09-moat-md) — `business-model/09_moat.md`
+- [business-model / 10_external-dependency.md](#business-model-10-external-dependency-md) — `business-model/10_external-dependency.md`
+- [business-model / 11_capital-allocation-governance.md](#business-model-11-capital-allocation-governance-md) — `business-model/11_capital-allocation-governance.md`
+- [business-model / 12_red-flags-sweep.md](#business-model-12-red-flags-sweep-md) — `business-model/12_red-flags-sweep.md`
+- [earnings — module synthesis](#earnings-module-synthesis) — `earnings/99_earnings-synthesis.md`
+- [earnings / 00_earnings-data-triage.md](#earnings-00-earnings-data-triage-md) — `earnings/00_earnings-data-triage.md`
+- [earnings / 01_historical-financials.md](#earnings-01-historical-financials-md) — `earnings/01_historical-financials.md`
+- [earnings / 02_revenue-drivers.md](#earnings-02-revenue-drivers-md) — `earnings/02_revenue-drivers.md`
+- [earnings / 03_margin-drivers.md](#earnings-03-margin-drivers-md) — `earnings/03_margin-drivers.md`
+- [earnings / 04_guidance-consensus.md](#earnings-04-guidance-consensus-md) — `earnings/04_guidance-consensus.md`
+- [earnings / 05_beat-miss-setup.md](#earnings-05-beat-miss-setup-md) — `earnings/05_beat-miss-setup.md`
+- [earnings / 06_earnings-quality.md](#earnings-06-earnings-quality-md) — `earnings/06_earnings-quality.md`
+- [earnings / 07_earnings-sensitivity.md](#earnings-07-earnings-sensitivity-md) — `earnings/07_earnings-sensitivity.md`
+- [earnings / 08_earnings-red-flags.md](#earnings-08-earnings-red-flags-md) — `earnings/08_earnings-red-flags.md`
+- [balance-sheet-survival — module synthesis](#balance-sheet-survival-module-synthesis) — `balance-sheet-survival/99_balance-sheet-survival-synthesis.md`
+- [balance-sheet-survival / 00_solvency-data-triage.md](#balance-sheet-survival-00-solvency-data-triage-md) — `balance-sheet-survival/00_solvency-data-triage.md`
+- [balance-sheet-survival / 01_capital-structure-and-leverage.md](#balance-sheet-survival-01-capital-structure-and-leverage-md) — `balance-sheet-survival/01_capital-structure-and-leverage.md`
+- [balance-sheet-survival / 02_maturity-wall-and-refinancing.md](#balance-sheet-survival-02-maturity-wall-and-refinancing-md) — `balance-sheet-survival/02_maturity-wall-and-refinancing.md`
+- [balance-sheet-survival / 03_liquidity-runway.md](#balance-sheet-survival-03-liquidity-runway-md) — `balance-sheet-survival/03_liquidity-runway.md`
+- [balance-sheet-survival / 04_coverage-and-covenants.md](#balance-sheet-survival-04-coverage-and-covenants-md) — `balance-sheet-survival/04_coverage-and-covenants.md`
+- [balance-sheet-survival / 05_off-balance-sheet-and-contingencies.md](#balance-sheet-survival-05-off-balance-sheet-and-contingencies-md) — `balance-sheet-survival/05_off-balance-sheet-and-contingencies.md`
+- [balance-sheet-survival / 06_downside-stress-test.md](#balance-sheet-survival-06-downside-stress-test-md) — `balance-sheet-survival/06_downside-stress-test.md`
+- [management-governance — module synthesis](#management-governance-module-synthesis) — `management-governance/99_management-governance-synthesis.md`
+- [management-governance / 00_governance-data-triage.md](#management-governance-00-governance-data-triage-md) — `management-governance/00_governance-data-triage.md`
+- [management-governance / 01_management-and-track-record.md](#management-governance-01-management-and-track-record-md) — `management-governance/01_management-and-track-record.md`
+- [management-governance / 02_capital-allocation-scorecard.md](#management-governance-02-capital-allocation-scorecard-md) — `management-governance/02_capital-allocation-scorecard.md`
+- [management-governance / 03_incentives-and-compensation.md](#management-governance-03-incentives-and-compensation-md) — `management-governance/03_incentives-and-compensation.md`
+- [management-governance / 04_ownership-and-insider-behavior.md](#management-governance-04-ownership-and-insider-behavior-md) — `management-governance/04_ownership-and-insider-behavior.md`
+- [management-governance / 05_board-and-shareholder-rights.md](#management-governance-05-board-and-shareholder-rights-md) — `management-governance/05_board-and-shareholder-rights.md`
+- [management-governance / 06_candor-and-disclosure-quality.md](#management-governance-06-candor-and-disclosure-quality-md) — `management-governance/06_candor-and-disclosure-quality.md`
+- [valuation — module synthesis](#valuation-module-synthesis) — `valuation/99_valuation-synthesis.md`
+- [valuation / 00_valuation-data-triage.md](#valuation-00-valuation-data-triage-md) — `valuation/00_valuation-data-triage.md`
+- [valuation / 01_price-and-capital-structure.md](#valuation-01-price-and-capital-structure-md) — `valuation/01_price-and-capital-structure.md`
+- [valuation / 02_multiples-own-history.md](#valuation-02-multiples-own-history-md) — `valuation/02_multiples-own-history.md`
+- [valuation / 03_relative-valuation-peers.md](#valuation-03-relative-valuation-peers-md) — `valuation/03_relative-valuation-peers.md`
+- [valuation / 04_intrinsic-dcf.md](#valuation-04-intrinsic-dcf-md) — `valuation/04_intrinsic-dcf.md`
+- [valuation / 05_reverse-dcf.md](#valuation-05-reverse-dcf-md) — `valuation/05_reverse-dcf.md`
+- [valuation / 06_sum-of-the-parts.md](#valuation-06-sum-of-the-parts-md) — `valuation/06_sum-of-the-parts.md`
+- [valuation / 07_scenario-and-fair-value.md](#valuation-07-scenario-and-fair-value-md) — `valuation/07_scenario-and-fair-value.md`
+- [catalyst — module synthesis](#catalyst-module-synthesis) — `catalyst/99_catalyst-synthesis.md`
+- [catalyst / 00_catalyst-data-triage.md](#catalyst-00-catalyst-data-triage-md) — `catalyst/00_catalyst-data-triage.md`
+- [catalyst / 01_catalyst-calendar.md](#catalyst-01-catalyst-calendar-md) — `catalyst/01_catalyst-calendar.md`
 
 
 ---
 
-## Decision Record
-
-_Source: `decision_record.json`_
-
-```json
-{
-  "schema_version": "1.0",
-  "ticker": "EMAAR",
-  "company_name": "Emaar Properties PJSC",
-  "exchange": "DFM",
-  "currency": "AED",
-  "decision_date": "2026-07-10",
-  "run_root": "analyses/EMAAR_2026-07-10",
-  "final_thesis_path": "analyses/EMAAR_2026-07-10/final_thesis.md",
-  "decision": "Watchlist",
-  "suggested_action": "No position at AED 12.20. Track the Q2 2026 print (est. 10 Aug) for the Dubai demand signal; watch for a government value-crystallization (mall spin/REIT/higher payout) or, conversely, a parent asset-injection funded by dilution. Revisit toward a starter long only if pre-sales hold >=+16% YoY and the discount begins to close, or on primary evidence the state owner treats minorities as value-owners.",
-  "paper_treatment": "No trade, track opportunity cost",
-  "basket": "Watchlist",
-  "entry_price": 12.2,
-  "entry_price_source": "CIQ Comps -> Financial Data 'Day Close Price Latest' (subject row); US$3.32 x 3.6725 AED/USD peg -> AED 12.20 (pool-verified, 12 days stale)",
-  "entry_price_timestamp": "2026-06-28",
-  "benchmark": "DFM General Index",
-  "sector_benchmark": "Aldar Properties (ADX) - the clean listed UAE-developer comp",
-  "time_horizon": "12 months",
-  "expected_return_pct": 17.7,
-  "downside_risk_pct": 20.1,
-  "margin_of_safety_pct": 18.7,
-  "risk_reward": 0.88,
-  "scenarios": [
-    {
-      "label": "bull",
-      "probability": 20,
-      "return_pct": 72.13,
-      "price_target": 21.0
-    },
-    {
-      "label": "base",
-      "probability": 45,
-      "return_pct": 22.95,
-      "price_target": 15.0
-    },
-    {
-      "label": "bear",
-      "probability": 35,
-      "return_pct": -20.08,
-      "price_target": 9.75
-    }
-  ],
-  "confidence_score": 52,
-  "data_sufficiency_score": 80,
-  "rating_cap": "RF-OWN-004 (CLAUDE.md 24 Filter 6 - unaligned Government-of-Dubai controller, Dubai Holding 29.73%) caps the headline at Watchlist and forbids a conviction position (eval check AD); lifts only on primary evidence the discount/value-destruction is temporary (minority-friendly owner action or arm's-length IAS 24 RPT disclosure). Separately, edge 38<50 caps confidence at 60.",
-  "thesis_type": [
-    "Sector-cycle",
-    "Company-specific"
-  ],
-  "variant_perception_summary": "A wholly-owned Dubai mall annuity worth ~79% of enterprise value plus net cash roughly equals the whole market cap, and a 94%-sold AED 163.4bn backlog contradicts the ~13.4%/yr free-cash collapse the AED 12.20 price implies - so the asset value is real and under-credited. But the payoff is gated by a value-indifferent Government-of-Dubai owner (RF-OWN-004) with no incentive to crystallize it, on top of developer earnings at a Dubai-cycle peak, so the cheapness is a value trap, not a proven, timeable edge.",
-  "what_everyone_knows": "Emaar is the #1 Dubai developer, screens very cheap (EV/EBITDA ~4.0x at the 0th percentile of its own 4-year range; trailing P/E ~5.9x), holds a large net-cash position, pays ~8% dividends, sits at a Dubai property-cycle peak with cooling leading indicators, under government control.",
-  "what_is_priced_in": "A structural earnings decline: the reverse-DCF says AED 12.20 prices free cash flow to shrink ~13.4%/yr for a decade at a through-cycle margin ~21% (below Emaar's own FY2021 trough 23.5% and below peer Aldar 27.2%); consensus long-term growth -14.8%; mean target cut 7x in 3 months.",
-  "what_market_may_be_missing": "(1) A wholly-owned recurring Dubai mall annuity worth ~AED 76.8bn EV (~79% of current EV from 22% of profit); malls + net cash ~= the whole market cap, so the #1 developer is valued at nearly nothing. (2) The AED 163.4bn backlog (94% sold, ~3.3x revenue) locks 3-4 years of rising recognized revenue, contradicting the priced-in collapse.",
-  "edge_score": 38,
-  "edge_proof": "Falsifiable but owner-gated: if Q2 2026 (10 Aug) pre-sales hold >=+16% YoY and backlog growth holds >=+29%, the priced-in FCF collapse is disproven on fundamentals. But closing the discount also requires a minority-friendly owner action (mall spin/REIT/special distribution or arm's-length IAS 24 RPT disclosure) the government controller has shown no intent to deliver - so even a correct fundamental read may not pay off. Checkable at the 180d/365d review.",
-  "killer_risk": "The value trap - a Government-of-Dubai controller (Dubai Holding 29.73%) with no incentive to crystallize the masked mall value can keep the price below intrinsic indefinitely (dead money), while the Dubai property cycle rolls over from its record 2025 peak (a de-rating, not a solvency, loss).",
-  "kill_criteria": [
-    "Q2 2026 (10 Aug) pre-sales growth < +16% YoY and falling / backlog growth stepping toward flat - the Dubai cycle is turning; the backlog-fed P&L becomes rear-view.",
-    "A richly-priced parent asset injected from Dubai Holding and funded by new Emaar shares (a repeat of the 2022 AED 7.5bn Dubai Creek Harbour structure) - flips capital allocation from value-creative to extractive; value trap proven real.",
-    "Development gross margin fades below the guided 'low 50s' toward high-40s - the profit-beat mechanism breaks and consolidated margin follows the cheap-land spread down.",
-    "FY2026 dividend cut or capped (declared ~Feb 2027) as cash is steered to the AED 200bn masterplan - removes the ~8% yield that pays holders to wait.",
-    "Net cash swings to material net debt via a debt-funded capital call - erodes the fortress balance sheet and the counter-cyclical floor under the downside."
-  ],
-  "upgrade_triggers": [
-    "a credible mall spin/REIT/special distribution or arm's-length IAS 24 related-party disclosure - would lift the RF-OWN-004 cap toward a starter long."
-  ],
-  "forecast_ledger": [
-    {
-      "prediction": "Q2 2026 (10 Aug) reports an EPS/EBITDA profit-line beat vs the reset consensus bar",
-      "probability": 62,
-      "time_window": "To Aug 2026",
-      "evidence_today": "Bar reset 9-16% lower and stopped falling; beat 3 of 4 quarters; Q1-26 EPS +9.6% on a revenue miss; ~AED 2bn/yr net finance income on the cash pile.",
-      "confirmation_trigger": "Reported Q2 EPS > consensus AND Q2 EBITDA > consensus",
-      "falsification_trigger": "Q2 EPS misses consensus OR Q2 EBITDA misses consensus",
-      "owner_module": "earnings",
-      "confidence_score": 55,
-      "status": "open",
-      "forecast_type": "earnings_eps"
-    },
-    {
-      "prediction": "Q2 2026 property pre-sales growth decelerates below Q1-26's +16% YoY",
-      "probability": 60,
-      "time_window": "To Aug 2026",
-      "evidence_today": "Backlog growth already +39%->+29%; 167k-unit 2026-27 supply wave; LT growth -14.8%; 7 target cuts in 3 months.",
-      "confirmation_trigger": "Q2 pre-sales growth < +16% YoY",
-      "falsification_trigger": "Q2 pre-sales growth >= +16% YoY",
-      "owner_module": "catalyst",
-      "confidence_score": 50,
-      "status": "open",
-      "forecast_type": "revenue"
-    },
-    {
-      "prediction": "No value-crystallizing owner action (mall spin/REIT/special distribution) within 12 months",
-      "probability": 80,
-      "time_window": "To Jul 2027",
-      "evidence_today": "Government city-building mandate; no such intent disclosed; IAS 24 opacity; no buyback.",
-      "confirmation_trigger": "No crystallization event by 2027-07-10",
-      "falsification_trigger": "A mall spin/REIT/special distribution announced",
-      "owner_module": "management-governance",
-      "confidence_score": 60,
-      "status": "open",
-      "forecast_type": "catalyst_or_estimate_revision"
-    },
-    {
-      "prediction": "Net-cash fortress maintained (no swing to material net debt) over 12 months",
-      "probability": 78,
-      "time_window": "To Jul 2027",
-      "evidence_today": "Gross debt falling; 52x interest cover; one well-covered sukuk; self-funded model.",
-      "confirmation_trigger": "Still net cash (broad) at next reporting",
-      "falsification_trigger": "Swings to material net debt via a debt-funded deal / capital call",
-      "owner_module": "balance-sheet-survival",
-      "confidence_score": 65,
-      "status": "open",
-      "forecast_type": "balance_sheet_or_solvency"
-    },
-    {
-      "prediction": "FY2026 dividend held at ~AED 1.00/share (declared ~Feb 2027)",
-      "probability": 62,
-      "time_window": "To Feb 2027",
-      "evidence_today": "~2.9-3.7x FCF cover; net cash; dividend grew 0.25->1.00; discretionary but not pressured near-term.",
-      "confirmation_trigger": "FY2026 DPS >= AED 0.90",
-      "falsification_trigger": "FY2026 DPS < AED 0.90",
-      "owner_module": "balance-sheet-survival",
-      "confidence_score": 55,
-      "status": "open",
-      "forecast_type": "cash_flow"
-    },
-    {
-      "prediction": "Price stays below the AED 15.00 base fair value at 12 months (value trap persists)",
-      "probability": 60,
-      "time_window": "To Jul 2027",
-      "evidence_today": "Owner-gated discount; EV/EBITDA at the 0th percentile persisting on peak earnings; consensus target cut 7x.",
-      "confirmation_trigger": "Price < AED 15.00 at 365d",
-      "falsification_trigger": "Price re-rates >= AED 15.00",
-      "owner_module": "valuation",
-      "confidence_score": 55,
-      "status": "open",
-      "forecast_type": "valuation_or_price_return"
-    }
-  ],
-  "module_scores": {
-    "business-model": {
-      "score": 60,
-      "verdict": "Cyclical business - worth deeper work only with a strong Dubai-cycle timing edge; no disqualifier"
-    },
-    "earnings": {
-      "score": 80,
-      "verdict": "Mixed earnings setup (EQ 81); Material concerns (0 Critical, 6 High = one root cyclical risk)"
-    },
-    "balance-sheet-survival": {
-      "score": 90,
-      "verdict": "Fortress balance sheet; net cash both bases; survives -69% EBITDA; first break only at -94%"
-    },
-    "management-governance": {
-      "score": 78,
-      "verdict": "Standard / mixed; Governance Score 59 (Watchlist); RF-OWN-004 High; no hard disqualifier"
-    },
-    "valuation": {
-      "score": 80,
-      "verdict": "Modestly undervalued (base AED 15.00 vs 12.20; +18.7% MoS); value-trap flag (RF-OWN-004); dominant method SOTP"
-    },
-    "catalyst": {
-      "score": 70,
-      "verdict": "Dated near-term catalysts (Q2 ~10 Aug; Sukuk 15 Sep); highest-impact re-rate undated & Filter-6 gated; timing 42"
-    }
-  },
-  "red_flags": [
-    "RF-OWN-004 (High) - unaligned Government-of-Dubai controller (Dubai Holding 29.73%); board all state officials; IAS 24 leaves the largest related-party channel unquantified (CLAUDE.md 24 Filter 6). THE BINDING RATING CAP.",
-    "RF-MGT-001 (High/watch) - Group CFO left abruptly (effective 20 May 2026, announced 2 days later, no reason disclosed, 9 days after the control block changed hands); interim successor 'until further notice'.",
-    "NCI (minority-interest) leakage (severity 52) - ~21% of consolidated profit (AED 4.7bn) belongs to outside shareholders, so consolidated EV/EBITDA overstates owner cash flow; parent EPS AED 1.99 is already NCI-clean.",
-    "Founder-MD / Eagle Hills conflict (High, unresolved) - the founder-MD (Alabbar, 0.03%) chairs a directly-competing developer with no disclosed Emaar<->Eagle Hills deal-flow separation.",
-    "IAS 24 government-ecosystem RPT opacity (High disclosure gap) - land/utilities/construction/financing flows with the Dubai-state sphere left unquantified; the channel through which the AED 7.5bn DCH asset was bought from the parent.",
-    "Earnings red-flag verdict: Material concerns (0 Critical, 6 High) - the 6 High flags are one root risk: a geared claim on a peak-cycle Dubai developer with a lagging, backlog-fed P&L ('good print, bad signal')."
-  ],
-  "missing_data": [
-    "IAS 24 government-ecosystem related-party detail (land/utilities/construction/financing with the Dubai-state sphere) + the controller's capital-return intent toward minorities - THE single highest-value next item; the only disclosure that can lift the RF-OWN-004 cap.",
-    "Verbatim earnings-call transcript (only sell-side proxies in the pool) - caps earnings clarity and governance candor at ~70/65; tone/Q&A not assessable.",
-    "CIQ ownership / insider-trading export (missing) - no insider net-activity or institutional-concentration read.",
-    "Actual lender covenant thresholds + change-of-control / cross-default terms (sukuk offering circular / bank facility agreements) - covenant headroom is 'Not assessable'.",
-    "Clean annual homes-sold count and average selling price (ASP) - to split reversible price from durable volume and read the cycle turn directly.",
-    "Confirmed exact Q2 2026 results date (DFM board-meeting intimation; currently CIQ-estimated 10 Aug)."
-  ],
-  "review_schedule": {
-    "30d": "2026-08-09",
-    "90d": "2026-10-08",
-    "180d": "2027-01-06",
-    "365d": "2027-07-10"
-  },
-  "created_by": "synthesizer",
-  "notes": "Watchlist -> no paper trade (track opportunity cost from the pool-verified AED 12.20, 12 days stale). RF-OWN-004 (24 Filter 6) caps the rating at Watchlist per eval check AD - the prior 2026-07-03 run's 'Starter Position Only' is a conviction position that would fail that check; corrected to Watchlist here (no new bad news, a tighter-rule application). Expected return +17.7% is price-only and excludes the ~8% dividend, which adds to total return; downside/risk-reward are price-basis. Existing final_thesis.md was refined only to correct the catalyst sub-scores to the catalyst module (strength 47 / timing 42 / risk 56 / usefulness 70). LOCAL pre-merge integration test - not committed.",
-  "business_type": "REIT / real estate",
-  "primary_valuation_method": "Sum-of-the-parts / NAV (corroborated by normalized FCFF DCF)",
-  "calibration_feedback": {
-    "source_summary": "analyses/performance/2026-06-01_calibration_summary_v2.json",
-    "status": "pre_data",
-    "haircut_points": 0,
-    "modules_flagged": [],
-    "rationale": "Latest as-of calibration summary (2026-06-01; _v2 wins the same-date tie) has verdict starting 'Pre-data - both decisions fully audited; calibration awaits resolved reviews (first 2026-07-01)'. 0 resolved reviews / 0 resolved forecasts, so no per-module calibration slice exists yet; no haircut applied and none can be. Check ran and is recorded (not silently skipped)."
-  }
-}
-```
-
----
-
-## Master — Final Thesis
+## Final Thesis (decision)
 
 _Source: `final_thesis.md`_
 
-# EMAR — Investment Dossier (2026-07-10)
+# EMAAR — Investment Dossier (2026-07-10)
 
 *Emaar Properties PJSC (DFM: EMAAR) — Dubai's largest master-planned real-estate developer: sells homes "off-plan" (before they are built) across Downtown Dubai, Dubai Hills and Emaar Beachfront, and owns a smaller recurring business — The Dubai Mall, ~41 hotels and the Burj Khalifa attractions. IFRS reporting; currency AED (dirham, hard-pegged to the US dollar at 3.6725, so AED↔USD carries almost no currency risk); fiscal year ends 31 December. Latest audited year FY2025; latest interim Q1 2026.*
 
 *Run date: 2026-07-10 | Modules: business-model, earnings, valuation, balance-sheet-survival, management-governance, catalyst (6 of 6, all with full `99_*-synthesis`) | System commit: ddfe7cf | This is a LOCAL pre-merge integration test, not committed to main.*
+
+**Refresh note (2026-07-16):** this dossier is recomposed following an upstream refresh of `business-model/10_external-dependency.md`, which cascaded into fresh `99_*-synthesis.md` files for all six modules (business-model, earnings, balance-sheet-survival, management-governance, valuation, catalyst). Three items changed and are folded in below: (1) the external-dependency risk score moved **63 → 62/100** — a stale-citation correction, not a substantive change to the Dubai-cycle read; (2) a three-way net-cash basis discrepancy (CIQ strict ~AED 2.1bn / CIQ broad ~AED 25.0bn / the company's own FY2025 Annual Report figure AED 61.7bn) is now **fully reconciled** — all three confirm net cash, and the company's AED 61.7bn figure nets in AED 42.9bn of restricted RERA-escrow customer cash that Note 10 itself says is unavailable for debt service; and (3) a **founder/key-person concentration** flag (severity 45/100 — MD Mohamed Alabbar's ~0.03% ownership, no succession plan, and his chairmanship of competing developer Eagle Hills) is now formally scored by `business-model/12_red-flags-sweep.md` and cross-corroborates governance findings already on record. **None of these three items changes any fair-value number, scenario level, scoring cap, or module verdict.** This recomposition also corrects two citation errors from the prior synthesis pass, caught on re-reading the current `business-model/99` in full: business clarity is **78** (not 80) and business-model overall usefulness is **68** (not 60) as self-reported by the module.
 
 ## Table of Contents
 
@@ -337,7 +92,7 @@ _Source: `final_thesis.md`_
 
 ## 1. One-Line Decision
 
-**Decision: Watchlist — a cheap, fortress-balance-sheet Dubai developer at a cycle peak, whose real discount is gated by a value-indifferent government owner (RF-OWN-004); the risk/reward is roughly one-for-one, so wait for the demand signal or a minority-friendly owner action before committing capital.**
+**Decision: Watchlist — a cheap, fortress-balance-sheet Dubai developer at a cycle peak, whose real discount is gated by a value-indifferent government owner (RF-OWN-004) and a thinly-aligned founder-MD; the risk/reward is roughly one-for-one, so wait for the demand signal or a minority-friendly owner action before committing capital.**
 
 ## 2. Headline Scorecard
 
@@ -349,49 +104,49 @@ _Source: `final_thesis.md`_
 | Expected return | **+17.7%** probability-weighted (base case +23.0% to AED 15.00) |
 | Downside risk | **+20.1%** (fall to the AED 9.75 bear — a genuine Dubai cyclical trough; a price/dead-money loss, not a solvency loss) |
 | Risk/reward | **0.88** (probability-weighted upside slightly below downside-to-bear — an unattractive ratio for a conviction long) |
-| Confidence /100 | **52** |
-| Data sufficiency /100 | **80** |
+| Confidence /100 | **52** *(unchanged by this refresh)* |
+| Data sufficiency /100 | **80** *(unchanged by this refresh)* |
 | Thesis type | **Sector-cycle** (Dubai property cycle — dominant) + **Company-specific** (masked mall annuity, net-cash fortress) |
 | Variant perception — edge score /100 | **38** (a real SOTP/backlog insight, but gated by the value trap; not a proven, timeable edge) |
 | Biggest upside driver | The masked wholly-owned Dubai mall annuity + 94%-sold AED 163bn backlog mean the market is pricing a collapse the assets contradict — base fair value AED 15.00 vs AED 12.20 price |
 | Biggest downside driver | Dubai off-plan demand rolling over off a record 2025 peak into a ~167,000-unit 2026–27 supply wave, with the price de-rating even while backlog-fed earnings still print |
-| Killer risk | **The value trap** — a Government-of-Dubai controller (Dubai Holding, 29.73%) with no incentive to crystallize the hidden value can keep the price below fair value indefinitely (dead money, not a loss) |
-| Avoid-Big-Risks filters tripped (§24) | **Filter 6 — unaligned owner (RF-OWN-004): TRIPPED** → value-trap flag, caps rating at Watchlist. Filters 1 (crooks), 2 (turnaround), 4 (serial acquirer), 5 (fast-changing industry): not tripped. Filter 3 (survival): a net-cash **positive**, not a demerit. |
+| Killer risk | **The value trap** — a Government-of-Dubai controller (Dubai Holding, 29.73%) with no incentive to crystallize the hidden value, plus a founder-MD with ~0.03% economic ownership and no succession plan, can keep the price below fair value indefinitely (dead money, not a loss) |
+| Avoid-Big-Risks filters tripped (§24) | **Filter 6 — unaligned owner (RF-OWN-004): TRIPPED** → value-trap flag, caps rating at Watchlist; reinforced (not newly triggered) by a cross-module-corroborated founder/key-person concentration flag (severity 45/100). Filters 1 (crooks), 2 (turnaround), 4 (serial acquirer), 5 (fast-changing industry): not tripped. Filter 3 (survival): a net-cash **positive**, not a demerit — confirmed on all three cash bases this refresh. |
 | Rating cap, if any | **RF-OWN-004 (§24 Filter 6, unaligned government controller) → maximum "Watchlist"** until the discount is proven temporary by primary evidence (governance eval check AD). Also: no proven variant perception (edge 38 < 50) caps confidence at 60. |
 
 ## 3. Would I Buy This With Real Money Today?
 
-**Final answer: I would NOT buy this today — but I would put it on a live watchlist and I would not short it either.** The company is genuinely cheap on assets (base fair value AED 15.00 vs AED 12.20), sits on a fortress net-cash balance sheet, and pays a ~8% dividend to wait. But three things stop me from committing capital: (1) the discount is gated by a government owner who has no incentive to close it — a value trap, not a margin of safety; (2) the whole thing rides one cooling variable, Dubai off-plan demand, at a record cycle peak; and (3) the probability-weighted upside (+17.7%) barely exceeds the downside to a real cyclical trough (+20.1%), a risk/reward of 0.88 — below the +30% I would want for a cyclical single-city developer.
+**Final answer: I would NOT buy this today — but I would put it on a live watchlist and I would not short it either.** The company is genuinely cheap on assets (base fair value AED 15.00 vs AED 12.20), sits on a fortress net-cash balance sheet — now confirmed net cash on all three bases anyone has cited, including the company's own FY2025 Annual Report figure — and pays a ~8% dividend to wait. But three things stop me from committing capital: (1) the discount is gated by a government owner who has no incentive to close it, and a founder-MD with almost no economic stake and no disclosed succession plan sits behind the same decision channel — a value trap, not a margin of safety; (2) the whole thing rides one cooling variable, Dubai off-plan demand, at a record cycle peak; and (3) the probability-weighted upside (+17.7%) barely exceeds the downside to a real cyclical trough (+20.1%), a risk/reward of 0.88 — below the +30% I would want for a cyclical single-city developer.
 
-- **Confidence score:** 52/100 — I understand this company well (six full modules, three audited annual reports, current consensus), but the outcome depends on an external cycle I cannot predict and a value trap I cannot time, and there is no proven edge that separates me from the market.
+- **Confidence score:** 52/100 — I understand this company well (six full modules, three audited annual reports, current consensus, and this refresh has removed a data-basis ambiguity rather than adding one), but the outcome depends on an external cycle I cannot predict and a value trap I cannot time, and there is no proven edge that separates me from the market.
 - **Position stance:** No position. Watchlist. If forced to act, a *starter* long is only justifiable once the RF-OWN-004 cap can be lifted by evidence (see below) — not today.
 - **What would raise confidence / move toward a starter buy:** (a) Q2 2026 (10 Aug) pre-sales growth holds ≥+16% YoY and backlog growth stops decelerating; **and** (b) a credible minority-friendly owner action — a mall spin/REIT, a special distribution, or the government itemizing the IAS 24-hidden related-party flows on arm's-length terms.
-- **What would lower confidence / move toward Avoid:** pre-sales roll over, development gross margin fades below the guided "low 50s," or the parent (Dubai Holding) injects another richly-priced asset funded by new Emaar shares (a repeat of the 2022 AED 7.5bn Dubai Creek Harbour structure).
-- **What would force exit / rejection:** proven below-market land/subsidy being repriced against minorities, a debt-funded capital call for the AED 200bn state masterplan, or a dividend cut to fund state projects — any of which converts the value trap from a risk into a demonstrated leak.
+- **What would lower confidence / move toward Avoid:** pre-sales roll over, development gross margin fades below the guided "low 50s," the parent (Dubai Holding) injects another richly-priced asset funded by new Emaar shares (a repeat of the 2022 AED 7.5bn Dubai Creek Harbour structure), or the founder-MD departs abruptly with no transition plan.
+- **What would force exit / rejection:** proven below-market land/subsidy being repriced against minorities, a debt-funded capital call for the AED 200bn state masterplan, a dividend cut to fund state projects, or evidence that deal flow is being diverted from Emaar to the founder-MD's competing developer, Eagle Hills — any of which converts the value trap from a risk into a demonstrated leak.
 
 ## 4. The Actual Variant Perception
 
-- **What everyone already knows:** Emaar is the #1 Dubai developer, screens very cheap (EV/EBITDA ~4.0x, the 0th percentile of its own 4-year range; trailing P/E ~5.9x), holds a large net-cash position, pays ~8% dividends, and sits at a Dubai property-cycle peak with cooling leading indicators, under government control.
+- **What everyone already knows:** Emaar is the #1 Dubai developer, screens very cheap (EV/EBITDA ~4.0x, the 0th percentile of its own 4-year range; trailing P/E ~5.9x), holds a large net-cash position, pays ~8% dividends, and sits at a Dubai property-cycle peak with cooling leading indicators, under government control with a founder-MD who owns almost nothing of the company.
 - **What is probably priced in:** A structural earnings decline. The reverse-DCF (working backwards from the AED 12.20 price to the growth it implies) shows the market pricing free cash flow to shrink ~13.4%/yr for a decade at a through-cycle operating margin near ~21% — *below* Emaar's own worst recent trough (23.5% in FY2021) and below its cleaner peer Aldar (27.2%). The forward P/E (~6.9x) sitting above the trailing (~5.9x) confirms the market explicitly expects earnings to fall.
 - **What the engine thinks may be missed:** Two things. (1) A wholly-owned, recurring-rent Dubai mall annuity worth ~AED 76.8bn of enterprise value — about 79% of the entire company's current enterprise value — is masked inside a cyclical developer the market prices on one blended ~3.8x multiple. Malls + net cash roughly equal the whole market capitalization, so the market assigns almost nothing to the #1 Dubai developer. (2) The AED 163.4bn contracted backlog (94% already sold, ~3.3× revenue) locks in 3–4 years of rising recognized revenue, which contradicts the "permanent collapse" the price implies.
-- **What evidence proves we are actually different:** This is where the edge is thin, and I will be harsh. The mall value and the backlog are *real* analytical observations — but the market is not simply missing them; it is (largely correctly) pricing that a value-indifferent government owner will not crystallize the mall value and that today's low multiple sits on *peak* earnings. The falsifiable proof: **if Q2 2026 (10 Aug) pre-sales hold ≥+16% YoY and backlog growth holds ≥+29%, the priced-in FCF collapse is disproven on fundamentals; but even a correct fundamental read does not close the discount without a governance change (mall spin / REIT / higher payout) the owner has shown no intent to deliver.** Because the payoff is gated by an owner action I cannot forecast or time, the edge is not a *proven, timeable* one. **Edge score: 38/100.** There is a real insight here, but it is not yet a proven variant perception that justifies conviction.
+- **What evidence proves we are actually different:** This is where the edge is thin, and I will be harsh. The mall value and the backlog are *real* analytical observations — but the market is not simply missing them; it is (largely correctly) pricing that a value-indifferent government owner (and a founder-MD with no economic stake in closing the discount) will not crystallize the mall value, and that today's low multiple sits on *peak* earnings. The falsifiable proof: **if Q2 2026 (10 Aug) pre-sales hold ≥+16% YoY and backlog growth holds ≥+29%, the priced-in FCF collapse is disproven on fundamentals; but even a correct fundamental read does not close the discount without a governance change (mall spin / REIT / higher payout) the owner has shown no intent to deliver.** Because the payoff is gated by an owner action I cannot forecast or time, the edge is not a *proven, timeable* one. **Edge score: 38/100 (unchanged by this refresh — the founder/key-person corroboration sharpens why the gate holds, it does not create a new edge).** There is a real insight here, but it is not yet a proven variant perception that justifies conviction.
 
 ## 5. Thesis → Antithesis → Final Thesis
 
 - **Thesis:** Cheap, safe, cash-generative #1 Dubai developer with a hidden mall annuity — a modestly undervalued compounder trading at the 0th percentile of its multiple range.
-- **Antithesis:** It is cheap *because* it is a single-city cyclical at a record peak, the cheapness sits on peak earnings, and a value-indifferent government owner will never let the discount close — a value trap. Through-cycle return on capital (~7.5–9.5%) barely clears its ~11–12% cost of capital, only at the top of the cycle.
-- **Revised thesis:** Both are true. The *asset* value is real (net cash + mall annuity ≈ the whole market cap), and the balance sheet makes the downside a returns/dead-money problem, not a solvency one. But the *timing* of any payoff is controlled by an owner whose objective is city-building, not minority per-share value, and the demand cycle that drives 80% of revenue is cooling.
-- **Final thesis:** This is a well-run, financially unbreakable, genuinely cheap business that is **un-investable as a conviction long today** — not because it is bad, but because the one thing that would pay you (the discount closing) is gated by an owner with no incentive to deliver it, while the one thing that would hurt you (a Dubai downturn) is a live, cooling risk. The rejector doctrine (§24) is explicit: persistent cheapness under a misaligned owner is a value trap, not a margin of safety. Wait for the demand signal or an owner action.
-- **Insight threshold:** "Insight threshold reached: the remaining uncertainty is mostly data-dependent, not reasoning-dependent." The two open questions — *will Dubai demand hold?* and *will the government treat minorities as value-owners?* — are answerable only by the Q2 2026 print and by IAS 24 related-party disclosure, not by more analysis of what we already have.
+- **Antithesis:** It is cheap *because* it is a single-city cyclical at a record peak, the cheapness sits on peak earnings, and a value-indifferent government owner — plus a founder-MD who owns almost nothing and chairs a competing developer — will never let the discount close on its own. Through-cycle return on capital (~7.5–9.5%) barely clears its ~11–12% cost of capital, only at the top of the cycle.
+- **Revised thesis:** Both are true. The *asset* value is real (net cash + mall annuity ≈ the whole market cap, now confirmed across every net-cash basis in the pool including the company's own AED 61.7bn figure), and the balance sheet makes the downside a returns/dead-money problem, not a solvency one. But the *timing* of any payoff is controlled by an owner whose objective is city-building, not minority per-share value, echoed by a founder-MD whose personal incentives are not clearly tied to the share price, and the demand cycle that drives 80% of revenue is cooling.
+- **Final thesis:** This is a well-run, financially unbreakable, genuinely cheap business that is **un-investable as a conviction long today** — not because it is bad, but because the one thing that would pay you (the discount closing) is gated by an owner (and a key executive) with no clear incentive to deliver it, while the one thing that would hurt you (a Dubai downturn) is a live, cooling risk. The rejector doctrine (§24) is explicit: persistent cheapness under a misaligned owner is a value trap, not a margin of safety. Wait for the demand signal or an owner action.
+- **Insight threshold:** "Insight threshold reached: the remaining uncertainty is mostly data-dependent, not reasoning-dependent." The two open questions — *will Dubai demand hold?* and *will the government (and the founder-MD) treat minorities as value-owners?* — are answerable only by the Q2 2026 print and by IAS 24 related-party / succession-plan disclosure, not by more analysis of what we already have.
 
 ## 6. Simple Summary
 
 - **What it does:** Builds and sells homes off-plan in Dubai (buyers pay in instalments during construction), and owns The Dubai Mall plus hotels and the Burj Khalifa attractions.
 - **Why it may go up:** It looks cheap — base fair value ~AED 15.00 vs ~AED 12.20 price — and a wholly-owned Dubai mall business worth ~79% of the whole company's enterprise value is hidden inside it; the market is pricing a collapse that a huge, 94%-sold order book (backlog) says won't happen.
 - **Why it may go down:** Dubai home demand is cooling off a record 2025, a wave of ~167,000 new units is coming in 2026–27, and the stock trades on that leading demand signal — not on the locked-in backlog. A ~20% fall to a real cyclical low is a genuine risk.
-- **What data supports the thesis:** Three audited annual reports, Q1 2026 results, full financials, current analyst estimates, peer comparisons, a stress test, and a governance deep-dive — all six research modules ran fully.
-- **What data is missing:** How much the government-owner deals (land, utilities, construction) are worth (hidden by an accounting election), a verbatim earnings-call transcript, and the ownership/insider trading feed.
-- **Buy now or wait:** **Wait.** The balance sheet is a fortress and the price is cheap, but a government owner who won't unlock the value can keep it cheap for years, and the risk/reward is only about one-to-one.
+- **What data supports the thesis:** Three audited annual reports, Q1 2026 results, full financials, current analyst estimates, peer comparisons, a stress test, and a governance deep-dive — all six research modules ran fully, and this refresh independently confirmed the net-cash figure across three different sources.
+- **What data is missing:** How much the government-owner deals (land, utilities, construction) are worth (hidden by an accounting election), whether the founder-MD's deal flow is kept separate from his competing developer Eagle Hills, a verbatim earnings-call transcript, and the ownership/insider trading feed.
+- **Buy now or wait:** **Wait.** The balance sheet is a fortress and the price is cheap, but a government owner (and a founder-MD with almost no stake) who won't unlock the value can keep it cheap for years, and the risk/reward is only about one-to-one.
 - **The one next thing to check:** The scale and terms of the government-ecosystem related-party dealings (the IAS 24-hidden channel) — that single disclosure decides whether this is "cheap masked annuity" or "perennial value trap," and it is the only thing that can lift the rating.
 
 ---
@@ -405,20 +160,20 @@ The auditable core of the verdict — for each decision driver, which side won a
 | Decision Driver | Bull Evidence | Bear Evidence | Which Side Wins? | Why? | Confidence /100 |
 |---|---|---|---|---|---:|
 | **Revenue direction** (accelerating vs decelerating) | Reported revenue +33% clean trailing-year; AED 163.4bn backlog, 94% sold, locks 3–4 years of rising recognized revenue [earnings/01,02] | Leading indicators cooling: pre-sales +16% and decelerating, backlog growth +39%→+29%, consensus long-term growth −14.8%, 167k-unit 2026–27 supply wave [ciq_facts; earnings/04; BM/10] | **Bear** (for the forward view) | The stock trades on the leading indicator (new pre-sales), not the backlog-locked P&L; two clocks run, and the one that sets the price and forward estimates is cooling | 60 |
-| **Is the cheapness real value or a value trap?** | Base FV AED 15.00 (+18.7% margin of safety); SOTP masked mall annuity ~79% of EV; net cash; reverse-DCF prices a collapse the 94%-sold backlog contradicts [valuation/05,06] | Value-indifferent Government-of-Dubai controller (29.73%); no crystallization catalyst; IAS 24 hides the largest related-party channel; the low multiple sits on *peak* earnings [governance/04,05; valuation/02] | **Both true — value is real but gated** | RF-OWN-004 (§24 Filter 6) makes persistent cheapness a trap, not a margin of safety; it caps the rating at Watchlist regardless of the discount | 60 |
-| **Downside — limited or a real −20%?** | Fortress balance sheet: net cash on both bases, survives a −69% EBITDA hit (its own worst cycle) with no covenant breach; ~8% dividend floor [balance-sheet/06] | Downside-to-bear +20.1% to a genuine Dubai cyclical trough (AED 9.75); developer earnings −~35% off peak is the boom-bust base rate [valuation/07] | **Split — solvency downside near-zero, price/returns downside real** | The bear is a de-rating / dead-money bear (price and multiple), NOT a solvency bear; but the −20% price loss is real and rides the *same* demand variable as the upside | 62 |
-| **Governance — value-creative or extractive?** | EPS 0.52→1.99, ROIC 4.7→13.7%, dividend 0.25→1.00/sh, net cash, zero value-destruction traps, clean straight-IFRS accounting [governance/02,06] | 0.03% insider economics; founder-MD paid AED 61m with no share link; AED 7.5bn Dubai Creek Harbour bought *from* the parent, part-paid in new shares, no arm's-length price shown; board entirely government-staffed [governance/02,03,05] | **Mixed** — bull on execution, bear on alignment | Competent operators inside a structurally misaligned frame; the alignment cap (Filter 6) sets the ceiling — competence cannot carry the thesis past the owner's objective | 58 |
+| **Is the cheapness real value or a value trap?** | Base FV AED 15.00 (+18.7% margin of safety); SOTP masked mall annuity ~79% of EV; net cash confirmed on every basis (strict/broad/company's own AED 61.7bn, all reconciled this refresh); reverse-DCF prices a collapse the 94%-sold backlog contradicts [valuation/05,06; balance-sheet-survival/99 §3] | Value-indifferent Government-of-Dubai controller (29.73%); no crystallization catalyst; IAS 24 hides the largest related-party channel; the low multiple sits on *peak* earnings; a founder-MD with ~0.03% ownership and no succession plan, chairing a competing developer, corroborated at severity 45/100 [governance/04,05; valuation/02; business-model/12 (refreshed)] | **Both true — value is real but gated** | RF-OWN-004 (§24 Filter 6) makes persistent cheapness a trap, not a margin of safety; the newly-corroborated founder/key-person concentration reinforces the same read through a second channel; together they cap the rating at Watchlist regardless of the discount | 60 |
+| **Downside — limited or a real −20%?** | Fortress balance sheet: net cash on all three now-reconciled bases, survives a −69% EBITDA hit (its own worst cycle) with no covenant breach; ~8% dividend floor [balance-sheet-survival/99 §3, §6] | Downside-to-bear +20.1% to a genuine Dubai cyclical trough (AED 9.75); developer earnings −~35% off peak is the boom-bust base rate [valuation/07] | **Split — solvency downside near-zero, price/returns downside real** | The bear is a de-rating / dead-money bear (price and multiple), NOT a solvency bear; but the −20% price loss is real and rides the *same* demand variable as the upside | 62 |
+| **Governance — value-creative or extractive?** | EPS 0.52→1.99, ROIC 4.7→13.7%, dividend 0.25→1.00/sh, net cash, zero value-destruction traps, clean straight-IFRS accounting [governance/02,06] | 0.03% insider economics; founder-MD paid AED 61m with no share link and no succession plan disclosed, chairing directly-competing developer Eagle Hills (now independently scored severity 45/100 by business-model, corroborating this module's own read); AED 7.5bn Dubai Creek Harbour bought *from* the parent, part-paid in new shares, no arm's-length price shown; board entirely government-staffed [governance/02,03,05; business-model/12 (refreshed)] | **Mixed** — bull on execution, bear on alignment | Competent operators inside a structurally misaligned frame; the alignment cap (Filter 6, reinforced by the key-person corroboration) sets the ceiling — competence cannot carry the thesis past the owner's objective | 58 |
 | **Consensus bar — beatable or a trap?** | Near-term bar reset ~9–16% lower and stopped falling; beat 3 of last 4 quarters; sell-side mean target AED 17.07 sits *above* both our base FV and the price [earnings/04,05; ciq_facts] | Multi-year consensus sliding: 7 target-price cuts in 3 months, out-year EPS falling, long-term growth −14.8% [earnings/04] | **Both — near-term beatable wrapping a medium-term downgrade** | "Good print, bad signal": a clean Q2 profit beat can still meet a sell-off as the leading indicators that set the stock roll over | 58 |
 
 ## 6. Valuation and Peer Mispricing
 
-*This section DEFERS to `analyses/EMAAR_2026-07-10/valuation/99_valuation-synthesis.md`. Verdict: **Modestly undervalued** — base-case fair value **AED 15.00** vs a pool-verified **AED 12.20** price (+23.0% to base, **+18.7% margin of safety** — the discount of price to fair value). Bull / base / bear fair-value LEVELS: **AED 21.00 / 15.00 / 9.75** (these feed the Scenario Model in §8; the module supplies the levels, the synthesizer assigns the probabilities). Cross-method dispersion (the "football field") is wide: ~AED 9.6 to ~AED 23.8 — a >40% spread that is itself the headline finding.*
+*This section DEFERS to `analyses/EMAAR_2026-07-10/valuation/99_valuation-synthesis.md`. Verdict: **Modestly undervalued** — base-case fair value **AED 15.00** vs a pool-verified **AED 12.20** price (+23.0% to base, **+18.7% margin of safety** — the discount of price to fair value). Bull / base / bear fair-value LEVELS: **AED 21.00 / 15.00 / 9.75** (these feed the Scenario Model in §8; the module supplies the levels, the synthesizer assigns the probabilities). Cross-method dispersion (the "football field") is wide: ~AED 9.6 to ~AED 23.8 — a >40% spread that is itself the headline finding. **Unchanged by this refresh** — the module's own reconciliation confirms the three-way net-cash discrepancy and the external-dependency score correction move no fair-value number (valuation/99 §3).*
 
 **The core disagreement is one question:** value Emaar on its **assets** (sum-of-the-parts + DCF terminal + book value → ~AED 17–18) or on **normalized through-cycle earnings at a fair multiple** (→ ~AED 11–12.6)? Today's AED 12.20 price sits squarely in the through-cycle-earnings camp. The dominant method is **sum-of-the-parts (SOTP)** — it is the right tool for a holding-company-like hybrid, it is the only method that surfaces the masked mall annuity, and it already bakes in a 20% government-owner discount. The normalized free-cash-flow DCF corroborates the ~AED 17–18 asset value with a model that is not terminal-value-dependent (terminal value is only 36% of enterprise value — a plus for reliability).
 
 **Peer read (from `ciq_facts.json` and valuation/03):**
 
-| Metric | Company (EMAR) | Peer Median | Premium / Discount | Interpretation |
+| Metric | Company (EMAAR) | Peer Median | Premium / Discount | Interpretation |
 |---|---:|---:|---:|---|
 | EV/EBITDA (TEV/LTM EBITDA) | 3.6–4.0x | 14.3x (comp-set) | **−75%** | Discount mostly *warranted*: the comp-set median is distorted by six China/HK names; net-cash compresses EV; earnings are at a peak |
 | EV/EBITDA vs the one clean comp (Aldar) | 3.6–4.0x | 8.3x (Aldar) | **−52%** | Still cheap, but Aldar is struck on the same peak metrics; the *forward* P/E gap to Aldar is only ~−10% |
@@ -426,27 +181,27 @@ The auditable core of the verdict — for each decision driver, which side won a
 | P/BV (book value) | ~1.20x | ~0.94x (own median) | **+28% vs own history** | On the one cycle-robust measure, Emaar is *above* its own history — the asset "discount" evaporates on book |
 | Dividend yield | ~8% | — | — | Pays holders to wait — the main return the government owner extracts |
 
-**Three reasons for the valuation gap:** (1) **True mispricing** — the masked mall annuity + net cash + 94%-sold backlog are real and under-credited; (2) **Cycle fear** — peak earnings, cooling leading indicators, and a 167k-unit supply wave, correctly discounted; (3) **Governance/quality discount** — a value-indifferent government owner and unquantified related-party flows. The valuation module's judgment, which I adopt: the gap is a *mix* of all three, with cycle fear and the governance discount doing most of the work — hence "modestly undervalued," not "materially undervalued," and explicitly flagged as a value trap. **What's priced in is undemanding on fundamentals; whether the gap ever closes depends on the owner.**
+**Three reasons for the valuation gap:** (1) **True mispricing** — the masked mall annuity + net cash + 94%-sold backlog are real and under-credited; (2) **Cycle fear** — peak earnings, cooling leading indicators, and a 167k-unit supply wave, correctly discounted; (3) **Governance/quality discount** — a value-indifferent government owner, a founder-MD with negligible economic ownership, and unquantified related-party flows. The valuation module's judgment, which I adopt: the gap is a *mix* of all three, with cycle fear and the governance discount doing most of the work — hence "modestly undervalued," not "materially undervalued," and explicitly flagged as a value trap. **What's priced in is undemanding on fundamentals; whether the gap ever closes depends on the owner.**
 
 ## 7. Catalyst Calendar
 
-*This section DEFERS to `analyses/EMAAR_2026-07-10/catalyst/99_catalyst-synthesis.md`. Verdict: **Dated, evidenced near-term catalysts** — but the highest-impact catalyst (the re-rate) is **undated and §24 Filter-6 value-trap gated**. Timing visibility 42/100 (mixed-leaning-vague); catalyst strength 47/100.*
+*This section DEFERS to `analyses/EMAAR_2026-07-10/catalyst/99_catalyst-synthesis.md`. Verdict: **Dated, evidenced near-term catalysts** — but the highest-impact catalyst (the re-rate) is **undated and §24 Filter-6 value-trap gated**. Timing visibility 42/100 (mixed-leaning-vague); catalyst strength 47/100. **Unchanged by this refresh** — no dated event was added, removed or moved; the founder/key-person corroboration reinforces, but does not add to, the existing Filter-6 gate on the calendar's biggest upside item (catalyst/99 §3).*
 
 | Date / Window | Catalyst | Why It Matters | Bullish Trigger | Bearish Trigger |
 |---|---|---|---|---|
-| **~10 Aug 2026** (CIQ-estimated; event certain, exact day pending a DFM board-meeting notice) | **Q2 2026 results + property-sales / backlog update** | The stock trades on the leading demand signal; first read since Q1 on whether Dubai demand is holding | EPS beats (>+10%) on a mid-50s development margin + ~AED 2bn/yr finance income, **and** pre-sales re-accelerate >+16% YoY / backlog growth holds ≥+29% | Revenue miss on construction-timing in the seasonally soft quarter that missed both lines a year ago, paired with cooling pre-sales = "good print, bad signal" |
-| **15 Sep 2026** (hard, contractual) | **Sukuk 3 — AED 2,752.6m bullet maturity** (the only capital-markets debt due in 12 months) | Tests the balance sheet; may prompt a new sukuk issue | Repaid from cash (covered 4.4× by free cash) or refinanced cheaply — reaffirms the net-cash story and BBB+/Baa1 ratings | Mild only: refinancing adds ~+165 bps (~0.18% of EBITDA); a broad GCC credit-spread widening |
+| **~10 Aug 2026** (CIQ-estimated; event certain, exact day pending a DFM board-meeting notice) | **Q2 2026 results + property-sales / backlog update** | The stock trades on the leading demand signal; first read since Q1 on whether Dubai demand is holding | EPS beats (>+10%) on a mid-50s development margin + ~AED 2bn/yr finance income (now standing on a reconciled net-cash position across every basis), **and** pre-sales re-accelerate >+16% YoY / backlog growth holds ≥+29% | Revenue miss on construction-timing in the seasonally soft quarter that missed both lines a year ago, paired with cooling pre-sales = "good print, bad signal" |
+| **15 Sep 2026** (hard, contractual) | **Sukuk 3 — AED 2,752.6m bullet maturity** (the only capital-markets debt due in 12 months) | Tests the balance sheet; may prompt a new sukuk issue | Repaid from cash (covered 4.4× by free cash) or refinanced cheaply — reaffirms the net-cash story (now confirmed across all three bases) and BBB+/Baa1 ratings | Mild only: refinancing adds ~+165 bps (~0.18% of EBITDA); a broad GCC credit-spread widening |
 | **~Nov 2026** (cadence, undated) | Q3 2026 results | Next demand read; laps an inflated Q3-25 base (a one-off tax reversal), so the profit comparison is harder | Pre-sales / backlog hold; recognition ramps on the 2026–28 delivery pipeline | Profit growth stalls with the full 15% tax now in force; pre-sales decelerate further |
 | **~Feb 2027** (template, undated) | **FY2026 results + dividend declaration** (~AED 8.84bn, ~8% yield) | The biggest single P&L + capital-return event of the cycle | Earnings hold near FY2025 despite the tax step-up; dividend held at 100% of capital or a special distribution | **Dividend cut or capped** as cash is steered to the AED 200bn masterplan — removes the ~8% yield floor |
-| **~late-Mar 2027** (template) | FY2026 AGM | Annual vote — but the government controller + a board of its officials sets and passes the agenda | Any move to *quantify* the IAS 24-exempt related-party flows, or add a director truly independent of the owner | A related-party asset injection or pay item passed over minority interests | **§24 Filter 6** |
-| **Undated / thematic** | **AED 200bn Dubai masterplan** (>4.5m sqm) | The marquee growth item — but no launch/sales date disclosed | A dated launch with strong pre-sales seeds years of new backlog | Launched into the supply wave / a heavy capital call on cash / related-party land pricing unverifiable | **§24 Filter 6 — must NOT be read as conviction-lifting** |
+| **~late-Mar 2027** (template) | FY2026 AGM | Annual vote — but the government controller + a board of its officials sets and passes the agenda; the same vote is silent on MD succession | Any move to *quantify* the IAS 24-exempt related-party flows, add a director truly independent of the owner, or disclose a board-level MD/Chairman succession plan | A related-party asset injection or pay item passed over minority interests | **§24 Filter 6 — reinforced this refresh by the founder/key-person corroboration** |
+| **Undated / thematic** | **AED 200bn Dubai masterplan** (>4.5m sqm) | The marquee growth item — but no launch/sales date disclosed; land-sourcing and deal-flow decisions run through the same founder-MD whose key-person concentration is now corroborated | A dated launch with strong pre-sales seeds years of new backlog | Launched into the supply wave / a heavy capital call on cash / related-party land pricing unverifiable | **§24 Filter 6 — must NOT be read as conviction-lifting** |
 | **Undated** | Permanent CFO appointment (interim since 20 May 2026) | Removes a governance overhang (RF-MGT-001) | A credible permanent CFO named | Prolonged interim / further senior departures |
 
-**Front-loaded then thin.** Only two catalysts carry a genuine near-term date — the Q2 print (~10 Aug) and the hard Sukuk maturity (15 Sep). Everything with real impact (FY2026 results + dividend, the AGM, the masterplan) is cadence-windowed into early 2027 or undated. **The thesis can lean on the Q2 demand read on a schedule; it cannot lean on any dated re-rate** — the discount-closing catalyst has no date and is gated by the government owner.
+**Front-loaded then thin.** Only two catalysts carry a genuine near-term date — the Q2 print (~10 Aug) and the hard Sukuk maturity (15 Sep). Everything with real impact (FY2026 results + dividend, the AGM, the masterplan) is cadence-windowed into early 2027 or undated. **The thesis can lean on the Q2 demand read on a schedule; it cannot lean on any dated re-rate** — the discount-closing catalyst has no date and is gated by the government owner and, per this refresh, a founder-MD whose incentives are not clearly aligned with closing it either.
 
 ## 8. Scenario Model
 
-The bull / base / bear **levels** are taken from the valuation module (AED 21.00 / 15.00 / 9.75); the **probabilities** are the synthesizer's, weighted for a cyclical at a record peak with cooling leading indicators and a value-trap gate on the upside.
+The bull / base / bear **levels** are taken from the valuation module (AED 21.00 / 15.00 / 9.75); the **probabilities** are the synthesizer's, weighted for a cyclical at a record peak with cooling leading indicators and a value-trap gate on the upside. **Unchanged by this refresh** — no fair-value level moved.
 
 | Case | Probability | Return | Price Target (AED) | What Must Happen |
 |---|---:|---:|---:|---|
@@ -454,14 +209,14 @@ The bull / base / bear **levels** are taken from the valuation module (AED 21.00
 | **Base** | 45% | **+22.9%** | 15.00 | Backlog converts, net cash + ~8% dividend pays holders to wait, the cycle cools gradually (not a crash), and the discount partially closes toward the owner-discounted fair value |
 | **Bear** | 35% | **−20.1%** | 9.75 | A genuine Dubai downturn — off-plan demand rolls over into the supply wave, developer earnings −~35% off peak, the multiple stays low, and the value trap persists (dividend possibly cut) |
 
-- **Probability-weighted expected return:** **+17.7%** (verified two ways in §14)
+- **Probability-weighted expected return:** **+17.7%** (verified two ways in §14; recomputed with an executed Python snippet this refresh — identical to the prior figure)
 - **Probability-weighted target price:** **AED 14.36**
-- **Main upside driver:** recognition that net cash + the wholly-owned mall annuity ≈ the entire market cap, so the developer is nearly free — *if* the owner lets it be seen
+- **Main upside driver:** recognition that net cash + the wholly-owned mall annuity ≈ the entire market cap, so the developer is nearly free — *if* the owner (and the founder-MD) let it be seen
 - **Main downside driver:** Dubai off-plan demand rolling over off a record peak; the price de-rates on the leading indicator even while backlog-fed earnings still print
 - **Risk/reward:** **0.88** (= (14.36 − 12.20) / (12.20 − 9.75)) — probability-weighted upside is *below* the downside to the bear. For a cyclical single-city developer this is an unattractive ratio and, on its own, argues against a conviction long even before the RF-OWN-004 cap.
 - **Is the expected return worth the risk?** No, not as a conviction position. +17.7% expected against a real −20.1% cyclical downside, at a risk/reward under 1, below the +30% desired win — this is a *watch*, not a *buy*.
 
-**Correlated-scenario / joint-tail check (avoid-ruin).** All three cases are driven by **one underlying variable — Dubai residential property demand** (price × volume × off-plan absorption). They are NOT independent draws: a single variable moves the bull, base and bear together, so the bull-to-bear spread is **not diversified risk**. The bear compounds with two correlated stresses driven by the *same* owner/cycle: (a) the government steering cash to the AED 200bn masterplan and **cutting the ~8% dividend**, removing the yield floor; and (b) the value trap persisting so no re-rate offsets the earnings fall. That joint outcome is worse than the standalone bear. The one genuine *de-correlator* is the balance sheet: even in the compounded bear the group stays net cash and solvent (it survives a −69% EBITDA hit), so the tail is a **dead-money / de-rating tail floored near AED 6–8 by net cash + the mall annuity — not a wipeout.** This is why the verdict is Watchlist, not Avoid.
+**Correlated-scenario / joint-tail check (avoid-ruin).** All three cases are driven by **one underlying variable — Dubai residential property demand** (price × volume × off-plan absorption). They are NOT independent draws: a single variable moves the bull, base and bear together, so the bull-to-bear spread is **not diversified risk**. The bear compounds with two correlated stresses driven by the *same* owner/cycle: (a) the government steering cash to the AED 200bn masterplan and **cutting the ~8% dividend**, removing the yield floor; and (b) the value trap persisting so no re-rate offsets the earnings fall — a trap now reinforced through a second channel (the founder-MD's own thin economic incentive). The one genuine *de-correlator* is the balance sheet: even in the compounded bear the group stays net cash and solvent on every basis now reconciled (it survives a −69% EBITDA hit), so the tail is a **dead-money / de-rating tail floored near AED 6–8 by net cash + the mall annuity — not a wipeout.** This is why the verdict is Watchlist, not Avoid.
 
 ## 9. Risk Register
 
@@ -472,30 +227,32 @@ The bull / base / bear **levels** are taken from the valuation module (AED 21.00
 | **Demand/earnings risk** — Dubai off-plan demand rolls over | 80 | 45 | Pre-sales growth < +16% and falling; backlog growth steps down from +29% | Q2 2026 (10 Aug) & Q3 pre-sales / backlog lines |
 | **Valuation / value-trap risk** — discount never closes (dead money) | 70 | 55 | No crystallization event; multiple stays at 0th percentile; targets keep falling | Key Developments; CIQ multiples percentile; target-price revisions |
 | **Governance / owner-conflict risk (RF-OWN-004)** — extractive owner action | 75 | 30 | A parent asset injected richly + funded by new Emaar shares; capital steered to state projects | RPT notes (Note 33); share count; Key Developments |
+| **Founder/key-person concentration risk (WATCH-KEYPERSON, corroborated severity 45)** — MD Alabbar's ~0.03% ownership, no succession plan, chairs competing developer Eagle Hills | 45 | 25 | An abrupt MD departure with no transition plan; disclosed or leaked Emaar↔Eagle Hills deal-flow overlap | CIQ Board Members; Key Developments; FY2026 CG Report (succession disclosure) |
 | **Margin risk** — development gross margin fades below "low 50s" | 60 | 45 | Quarterly development gross margin toward high-40s; guidance cut | Segment gross margin each quarter |
 | **Catalyst / timing risk** — "good print, bad signal" Q2 sell-off | 55 | 45 | Clean profit beat but pre-sales cooling → stock falls anyway | Q2 print + price reaction |
 | **Dividend risk** — FY2026 dividend cut to fund the masterplan | 65 | 30 | Board commentary on capex; masterplan capital call | FY2026 results (~Feb 2027) |
-| **Balance-sheet / solvency risk** | 15 | 5 | Swing from net cash to material net debt; loss of BBB+/Baa1 | Net debt trend; rating actions — *lowest risk; fortress* |
+| **Balance-sheet / solvency risk** | 15 | 5 | Swing from net cash to material net debt; loss of BBB+/Baa1 | Net debt trend; rating actions — *lowest risk; fortress, confirmed on every basis this refresh* |
 | **Execution risk** — construction/handover slippage slows recognition | 40 | 25 | Delivery-schedule slippage on the 2026–28 ramp | Delivery counts vs plan |
 | **Governance stability risk (RF-MGT-001)** — CFO overhang / more exits | 45 | 30 | Prolonged interim CFO; further senior departures | Key Developments; FY2026 CG report |
 | **Macro variable risk** — Dubai population/visa policy, rates, geopolitics | 60 | 30 | Policy change; capital-flow reversal; regional escalation | UAE policy news; foreign-buyer inflow data |
 
-**Correlation note:** the **demand/earnings, valuation/value-trap, margin, catalyst/timing, dividend and macro-variable** risks all share the *same underlying driver* — the Dubai property cycle and the government owner's response to it. They are **NOT independent**; their joint materialization (demand rolls over → margin fades → dividend cut → no re-rate) is the real downside tail, and it is what the bear case captures. Only the **balance-sheet/solvency risk** is genuinely uncorrelated — and it is near-zero, which is exactly why the correlated tail is a dead-money tail, not a ruin tail.
+**Correlation note:** the **demand/earnings, valuation/value-trap, margin, catalyst/timing, dividend and macro-variable** risks all share the *same underlying driver* — the Dubai property cycle and the government owner's response to it. The **governance/owner-conflict** and **founder/key-person concentration** risks are also correlated with each other (both route through the same controlled decision channel — the AGM vote, the masterplan, and asset-injection decisions) even though they are logically distinct triggers. They are **NOT independent**; their joint materialization (demand rolls over → margin fades → dividend cut → no re-rate, with the owner/key-person channel providing no offsetting relief) is the real downside tail, and it is what the bear case captures. Only the **balance-sheet/solvency risk** is genuinely uncorrelated — and it is near-zero, which is exactly why the correlated tail is a dead-money tail, not a ruin tail.
 
 ## 9b. Governance & Stewardship
 
-*This section DEFERS to `analyses/EMAAR_2026-07-10/management-governance/99_management-governance-synthesis.md`, which supersedes the business-model capital-allocation quick-read.*
+*This section DEFERS to `analyses/EMAAR_2026-07-10/management-governance/99_management-governance-synthesis.md`, which supersedes the business-model capital-allocation quick-read. This refresh adds no new score — the external-dependency citation correction is business-model-internal, and the founder/key-person concentration corroboration confirms facts this module's specialists already held at High materiality.*
 
-- **Stewardship verdict:** **Standard / mixed.** Governance Score **59/100** → **Watchlist** rating; Confidence-Adjusted Governance Score **41/100** (= 59 × 0.70 for source quality). Sub-scores: management quality 70, capital allocation 70, incentive alignment 50, shareholder friendliness 53, disclosure candor 65 (capped — no verbatim transcript), governance risk 58 (inverted, higher = worse).
-- **Capital-allocation record (per share):** genuinely value-creative — EPS AED 0.52→1.99, dividend AED 0.25→1.00/sh, ROIC 4.7%→13.7%, net cash ~AED 25bn (broad) / AED 2.1bn (strict), dividend covered ~2.9–3.7× by free cash, and **every classic value-destruction trap avoided** (no debt-funded M&A spree, no high-price buybacks, no uncovered dividend). Worst single item: the AED 7.5bn Dubai Creek Harbour asset bought *from* the controlling parent, part-paid in new Emaar shares, with no arm's-length price shown to minorities.
+- **Stewardship verdict:** **Standard / mixed.** Governance Score **59/100** → **Watchlist** rating; Confidence-Adjusted Governance Score **41/100** (= 59 × 0.70 for source quality). Sub-scores: management quality 70, capital allocation 70, incentive alignment 50, shareholder friendliness 53, disclosure candor 65 (capped — no verbatim transcript), governance risk 58 (inverted, higher = worse). **All unchanged by this refresh.**
+- **Capital-allocation record (per share):** genuinely value-creative — EPS AED 0.52→1.99, dividend AED 0.25→1.00/sh, ROIC 4.7%→13.7%, dividend covered ~2.9–3.7× by free cash, and **every classic value-destruction trap avoided** (no debt-funded M&A spree, no high-price buybacks, no uncovered dividend). Net cash is now confirmed on **all three bases** in the pool: strict AED 2.1bn, broad AED 25.0bn (both CIQ, Q1-2026), and the company's own FY2025 Annual Report figure of AED 61.7bn — which is arithmetically correct but nets in AED 42.9bn of restricted RERA-escrow cash and is therefore a broader gross-liquidity measure, not a fourth, contradictory reading (balance-sheet-survival/99 §3). Worst single item: the AED 7.5bn Dubai Creek Harbour asset bought *from* the controlling parent, part-paid in new Emaar shares, with no arm's-length price shown to minorities.
 - **Incentive alignment:** split — a genuine share-price-linked plan (~75% at-risk) for the CEO and CFO, but the founder-Managing Director takes AED 61m (3× the CEO) with **no** share link while owning 0.03%; whole-team skin in the game is de minimis.
 - **Red-Flag Register (carried into §9 Risk Register and §10 Kill Criteria):**
   - **RF-OWN-004 (High)** — structurally unaligned controlling owner: Government of Dubai (Dubai Holding group, 29.73%; single largest bloc 22.27%); every "independent" director is a government official; the IAS 24 government-related-entity election leaves the largest related-party channel (land / utilities / construction from the state ecosystem) unquantified to minorities. *This is the binding rating cap.*
   - **RF-MGT-001 (High / watch)** — Group CFO left abruptly (effective 20 May 2026, announced 2 days later, no reason disclosed, 9 days after the control block changed hands); named internal successor "until further notice."
-  - Two further **High**, unresolved alignment channels that did not fire a registry flag on current evidence: the founder-MD chairs a directly competing developer (Eagle Hills) with no disclosed deal-flow separation; and the IAS 24 opacity itself.
-- **Hard disqualifier (business-model/01):** **None** — all 8 hard disqualifiers tested and none triggered (clean EY/KPMG audits three years, no going concern, 0% control-group pledge, RPT 0.35% of revenue, one disclosed auditor rotation, no restatement, no reporting enforcement, positive operating cash flow every year).
+  - **WATCH-KEYPERSON (High, unresolved — corroborated this refresh)** — founder-MD Mohamed Alabbar owns ~0.03% of Emaar, has no disclosed succession plan, and simultaneously chairs Eagle Hills, a directly-competing developer, while chairing Emaar's most active board committee (Investment Committee). This module's own specialists (01, 03, 04, 05) had already surfaced these facts at High materiality; `business-model/12_red-flags-sweep.md`'s refreshed roll-up now independently scores the same pattern at **severity 45/100** — a corroboration, not new evidence, and it fires no *new* registry red flag (no actual Emaar↔Eagle Hills transaction is in the pool — conservative default holds).
+  - **WATCH-IAS24 (High, disclosure gap)** — the IAS 24 government-related-entity election leaves the bulk of Dubai-ecosystem dealings (land, utilities, construction, financing) unquantified.
+- **Hard disqualifier (business-model/01):** **None** — all 8 hard disqualifiers tested and none triggered (clean EY/KPMG audits three years, no going concern, 0% control-group pledge, RPT 0.35% of revenue, one disclosed auditor rotation, no restatement, no reporting enforcement, positive operating cash flow every year). Re-confirmed unchanged in this refresh.
 
-**Verdict-lock:** RF-OWN-004 is **High, not Critical**, and there is no hard disqualifier — so the headline is **not** force-locked below Watchlist by a *Critical* flag. But under the §24 Filter-6 Rating Cap Rules, an unaligned controlling owner (RF-OWN-004) **caps the headline at "Watchlist"** and forbids a conviction position (Strong Buy / Buy / Starter Position Only) until the discount is proven temporary by primary evidence. That cap is the operative constraint on this rating.
+**Verdict-lock:** RF-OWN-004 is **High, not Critical**, and there is no hard disqualifier — so the headline is **not** force-locked below Watchlist by a *Critical* flag. But under the §24 Filter-6 Rating Cap Rules, an unaligned controlling owner (RF-OWN-004) **caps the headline at "Watchlist"** and forbids a conviction position (Strong Buy / Buy / Starter Position Only) until the discount is proven temporary by primary evidence. That cap is the operative constraint on this rating, and the newly-corroborated founder/key-person concentration (severity 45/100) reinforces — through a second, related channel — why the cap should not be read as close to lifting.
 
 ## 9A. Bull Case — Steelman
 
@@ -503,12 +260,12 @@ The destructive case (§10) must be matched by the constructive one, or the disc
 
 | Bull Driver | Why it could dominate | Evidence today (cited) | What would confirm it |
 |---|---|---|---|
-| **Masked mall annuity + net cash ≈ whole market cap** | If the market ever prices the recurring mall business and net cash properly, the #1 Dubai developer comes nearly free — a step-change re-rate, not a grind | SOTP: Emaar Malls ~AED 76.8bn EV (~79% of current EV) from 22% of profit; net cash + malls ≈ AED 102bn vs ~AED 108bn market cap [valuation/06] | A mall spin / REIT / special distribution, or a clean second UAE comp confirming Aldar-parity multiple |
+| **Masked mall annuity + net cash ≈ whole market cap** | If the market ever prices the recurring mall business and net cash properly, the #1 Dubai developer comes nearly free — a step-change re-rate, not a grind | SOTP: Emaar Malls ~AED 76.8bn EV (~79% of current EV) from 22% of profit; net cash (now reconciled across all three bases) + malls ≈ AED 102bn vs ~AED 108bn market cap [valuation/06; balance-sheet-survival/99 §3] | A mall spin / REIT / special distribution, or a clean second UAE comp confirming Aldar-parity multiple |
 | **Backlog makes the near-term almost un-missable** | 94%-sold AED 163.4bn backlog (3.3× revenue) converts over 3–4 years; earnings visibility is real and cash-backed (EQ 81/100) | Backlog +29% YoY, ~94% sold; normalized CFO/EBITDA ~94% LTM; clean audits, no adjusted-EPS games [earnings/02,06] | Q2 2026 pre-sales ≥+16% and backlog growth holding ≥+29% |
-| **Fortress balance sheet = counter-cyclical dry powder** | Net cash + ~52× interest cover lets Emaar keep launching and buy assets cheap when peers are forced sellers — the downturn is an opportunity, not a threat | Net cash both bases; survives −69% EBITDA; ~AED 16.2bn committed liquidity [balance-sheet/06] | Emaar buying land/assets counter-cyclically at a cycle low while staying net cash |
+| **Fortress balance sheet = counter-cyclical dry powder** | Net cash + ~52× interest cover lets Emaar keep launching and buy assets cheap when peers are forced sellers — the downturn is an opportunity, not a threat | Net cash on all three now-reconciled bases; survives −69% EBITDA; ~AED 16.2bn committed liquidity [balance-sheet-survival/99 §1, §3] | Emaar buying land/assets counter-cyclically at a cycle low while staying net cash |
 | **De-rating reversion** | At the 0th percentile of its own multiple range on peak-but-cash-backed earnings, mean-reversion alone is a tailwind | EV/EBITDA 4.0x (0th percentile of 16 quarters); sell-side mean target AED 17.07 (above price *and* above our base FV) [ciq_facts] | Multiple re-rating toward its own ~6.5x median as demand fears prove overdone |
 
-**If I had to argue the opposite of Watchlist:** the most credible bull is that this is a genuinely mispriced asset stack (mall annuity + net cash) where the downside is capped by a fortress balance sheet and an ~8% dividend pays you to wait, so even a *dead-money* base case still returns ~8%/yr and the optionality on an owner action or cycle-extension is free. The single piece of evidence that would most move me toward it: **a credible, dated minority-friendly owner action** — a mall REIT/spin, a special distribution, or IAS 24 related-party flows disclosed on arm's-length terms. Absent that, the steelman runs straight into the value-trap gate, which is why it does not overturn the Watchlist.
+**If I had to argue the opposite of Watchlist:** the most credible bull is that this is a genuinely mispriced asset stack (mall annuity + net cash, now confirmed rather than disputed across every source in the pool) where the downside is capped by a fortress balance sheet and an ~8% dividend pays you to wait, so even a *dead-money* base case still returns ~8%/yr and the optionality on an owner action or cycle-extension is free. The single piece of evidence that would most move me toward it: **a credible, dated minority-friendly owner action** — a mall REIT/spin, a special distribution, or IAS 24 related-party flows disclosed on arm's-length terms (a disclosed MD succession plan would also help, but is secondary to the owner-action test). Absent that, the steelman runs straight into the value-trap gate, which is why it does not overturn the Watchlist.
 
 ## 10. What Would Kill the Thesis?
 
@@ -518,7 +275,7 @@ The top 5 things that would make the (cautious, Watchlist) thesis wrong — eith
 2. **A richly-priced parent asset injection funded by dilution** — a repeat of the AED 7.5bn Dubai Creek Harbour structure (asset in from Dubai Holding, new Emaar shares out). *Turns the value trap from a risk into a demonstrated leak; flips capital allocation to extractive.* Confirming data: Key Developments, RPT Note 33, share count.
 3. **Development gross margin fades faster than guided** — below the "low 50s" toward high-40s. *The profit-beat mechanism breaks and consolidated margin follows the cheap-land spread down.* Confirming data: quarterly segment gross margin.
 4. **FY2026 dividend cut or capped** (declared ~Feb 2027) as cash is steered to the AED 200bn masterplan. *Removes the ~8% yield that is the only thing paying holders to wait through the trap.* Confirming data: FY2026 results and dividend declaration.
-5. **Swing from net cash toward funding state projects / a debt-funded capital call.** *Erodes the fortress balance sheet and the counter-cyclical dry powder that floors the downside.* Confirming data: net-debt trend, capex commitments, rating actions.
+5. **Swing from net cash toward funding state projects / a debt-funded capital call, or an abrupt founder-MD exit with no succession plan / evidence of Emaar↔Eagle Hills deal-flow diversion.** *Either erodes the fortress balance sheet and the counter-cyclical dry powder that floors the downside, or proves the founder/key-person concentration risk (WATCH-KEYPERSON) was a real leak, not just a structural exposure.* Confirming data: net-debt trend, capex commitments, rating actions, Key Developments, FY2026 CG Report.
 
 ### Thesis Kill Criteria
 
@@ -529,6 +286,7 @@ The top 5 things that would make the (cautious, Watchlist) thesis wrong — eith
 | Parent asset injected richly + funded by new Emaar shares | Value trap proven extractive; capital allocation flips to value-destructive | RPT Note 33; Key Developments; share count | management-governance |
 | FY2026 dividend cut / capped for masterplan capex | The ~8% yield floor (the reason to wait) is removed | FY2026 results & dividend (~Feb 2027) | catalyst, balance-sheet-survival |
 | Net cash swings to material net debt (debt-funded capital call) | Fortress erodes; downside floor lowered | Net-debt trend; BBB+/Baa1 rating | balance-sheet-survival |
+| Founder-MD abrupt exit with no succession plan, or disclosed Emaar↔Eagle Hills deal-flow diversion | WATCH-KEYPERSON proven real; brand/land-sourcing/government-access risk crystallizes | Key Developments; FY2026 CG Report; board minutes if disclosed | management-governance, business-model |
 | *(Upgrade trigger)* Credible mall spin / REIT / special distribution / arm's-length IAS 24 disclosure | Value-trap cap can lift → toward a starter long | Key Developments; FY2026 AR Note 33 | valuation, management-governance |
 
 ## 11. Positioning and Trade Construction
@@ -537,14 +295,14 @@ The top 5 things that would make the (cautious, Watchlist) thesis wrong — eith
 - **Entry style (if/when it graduates):** scale in against the Q2 (10 Aug) demand print and any owner-action news, not into strength; the ~8% dividend and net cash mean there is no urgency.
 - **Add levels:** only on *confirmation* (pre-sales holding + discount closing), not on further cheapness alone — cheapness under this owner is the trap.
 - **Stop-loss logic:** a fundamental stop (kill criteria above), not a price stop. **The stop may not protect you on an earnings gap:** the Q2 (10 Aug) and FY2026 (~Feb 2027) prints can gap the stock through any price level on a "good print, bad signal" reaction, and DFM liquidity is thin — so size for the gap, do not rely on the stop.
-- **What not to do:** do not buy *because* it is at the 0th percentile of its multiple range — that is peak earnings on a value-trapped multiple. Do not treat the AED 200bn masterplan or the AGM as bullish catalysts (both serve the owner's agenda). Do not underwrite a re-rate to the old up-cycle mean the owner has no incentive to deliver.
+- **What not to do:** do not buy *because* it is at the 0th percentile of its multiple range — that is peak earnings on a value-trapped multiple. Do not treat the AED 200bn masterplan or the AGM as bullish catalysts (both serve the owner's agenda and route through the same founder-MD whose alignment is thin). Do not underwrite a re-rate to the old up-cycle mean the owner has no incentive to deliver.
 - **Hedge / options:** no IBKR options or positioning data is in the pool, so no options overlay is specifiable. If this graduated to a position, the natural hedge is a paired UAE-developer exposure (see §12), not an index hedge — the risk is Dubai-specific, not market-beta.
 
 ## 12. 2nd Best Bet
 
 **Aldar Properties (ADX: ALDAR)** — the only clean listed UAE developer comp, used as the benchmark throughout the valuation and governance modules.
 
-- **Why it is #2 (same thesis vector):** it is the same bet — UAE real-estate cycle exposure — but expressed with **less single-city concentration** (Abu Dhabi–anchored plus Dubai, with a larger recurring/investment-management arm) and, arguably, a cleaner governance frame (state-linked via Mubadala, but not the same value-indifferent city-building controller). Higher through-cycle margin visibility.
+- **Why it is #2 (same thesis vector):** it is the same bet — UAE real-estate cycle exposure — but expressed with **less single-city concentration** (Abu Dhabi–anchored plus Dubai, with a larger recurring/investment-management arm) and, arguably, a cleaner governance frame (state-linked via Mubadala, but not the same value-indifferent city-building controller, and without a comparable founder/key-person concentration signal in the pool). Higher through-cycle margin visibility.
 - **How it diversifies the main thesis:** it moves the geography risk off Emaar's single Dubai off-plan cycle (93% UAE / ~80% Dubai off-plan) and off the specific RF-OWN-004 value trap; the two names would not both hinge on *Dubai* demand alone.
 - **Why it may be safer / less trapped:** no Emaar-specific government-owner discount capping the multiple; a more diversified earnings base.
 - **The cost:** Aldar trades *richer* (EV/EBITDA ~8.3x vs Emaar ~3.6–4.0x), so the margin of safety is thinner — you pay up for cleaner governance and less concentration. The forward-P/E gap to Emaar is only ~−10%, so Emaar's *headline* cheapness overstates the true relative value.
@@ -560,31 +318,31 @@ Emaar is a modestly undervalued, financially unbreakable #1 Dubai developer with
 The discount is not a mispricing to arbitrage; it is a value trap. A Government-of-Dubai owner (29.73%) whose objective is city-building, not minority per-share value, has no incentive to crystallize the mall value, and the cheap multiple sits on record cycle-peak earnings with cooling leading indicators. §24 Filter 6 is explicit: persistent cheapness under a misaligned owner is a value trap, not a margin of safety.
 
 ### Revised Thesis 2
-Both hold. The asset value is real and the balance sheet makes the downside a *returns* problem, not a *solvency* problem — so this is not an Avoid. But the payoff is gated by an owner action nobody can time, while the demand cycle that drives 80% of revenue is a live, cooling risk. So the correct expression is patience, not capital: watch, don't buy.
+Both hold. The asset value is real and the balance sheet makes the downside a *returns* problem, not a *solvency* problem — confirmed, not weakened, by this refresh's three-way net-cash reconciliation. But the payoff is gated by an owner action nobody can time, while the demand cycle that drives 80% of revenue is a live, cooling risk. So the correct expression is patience, not capital: watch, don't buy.
 
 ### Antithesis 2
-Patience still costs something. At risk/reward 0.88 with a −20% correlated cyclical downside, "waiting in the position" is not free — a Watchlist that only pays 8% while the bear has a 35% weight is not obviously better than owning nothing. And the one thing that would flip it (an owner action) has *negative* base-rate odds under a government controller.
+Patience still costs something. At risk/reward 0.88 with a −20% correlated cyclical downside, "waiting in the position" is not free — a Watchlist that only pays 8% while the bear has a 35% weight is not obviously better than owning nothing. And the one thing that would flip it (an owner action) has *negative* base-rate odds under a government controller — an odds picture this refresh's founder/key-person corroboration makes no better, since the one executive who could plausibly champion a minority-friendly change has almost no personal stake in doing so.
 
 ### Final Thesis
-Own nothing here today. This is a high-quality, cheap, un-investable-as-a-long business: the balance sheet removes ruin risk, but the owner removes the payoff and the cycle supplies the downside. Track the two decidable questions — Q2 2026 demand, and any IAS 24 / owner-action disclosure — and let the evidence, not the cheapness, make the call.
+Own nothing here today. This is a high-quality, cheap, un-investable-as-a-long business: the balance sheet removes ruin risk, but the owner (and the founder-MD alongside him) removes the payoff and the cycle supplies the downside. Track the two decidable questions — Q2 2026 demand, and any IAS 24 / owner-action / succession disclosure — and let the evidence, not the cheapness, make the call.
 
 **"Insight threshold reached: the remaining uncertainty is mostly data-dependent, not reasoning-dependent."**
 
 ## 14. Math Validation
 
-All figures computed with an executed Python snippet (WORKFLOW Step 4); the Headline Scorecard, §8 Scenario Model and `decision_record.json` carry these *same* numbers.
+All figures computed with an executed Python snippet (WORKFLOW Step 4), re-run for this refresh and confirmed identical to the prior pass; the Headline Scorecard, §8 Scenario Model and `decision_record.json` carry these *same* numbers.
 
 - **Sum of scenario probabilities:** 20% + 45% + 35% = **100%** ✓
 - **Scenario returns from AED 12.20:** bull (21.00) **+72.13%**; base (15.00) **+22.95%**; bear (9.75) **−20.08%**
 - **Probability-weighted expected return:** 0.20×72.13 + 0.45×22.95 + 0.35×(−20.08) = **+17.73%**
-- **Probability-weighted target price:** 0.20×21.00 + 0.45×15.00 + 0.35×9.75 = **AED 14.363**
-- **Cross-check:** (14.363 − 12.20) / 12.20 = **+17.73%** — matches the expected return exactly ✓
-- **Risk/reward:** (14.363 − 12.20) / (12.20 − 9.75) = 2.163 / 2.45 = **0.88**
+- **Probability-weighted target price:** 0.20×21.00 + 0.45×15.00 + 0.35×9.75 = **AED 14.362**
+- **Cross-check:** (14.362 − 12.20) / 12.20 = **+17.73%** — matches the expected return exactly ✓
+- **Risk/reward:** (14.362 − 12.20) / (12.20 − 9.75) = 2.162 / 2.45 = **0.88**
 - **Downside risk (position-signed, long):** −min(returns) = −(−20.08%) = **+20.08%** (ties to the valuation module's +20.1% downside-to-bear) ✓
 - **Margin of safety:** (15.00 − 12.20) / 15.00 = **+18.67%** (ties to the valuation module's +18.7%) ✓
 - **Sensitivity to a single assumption:** the entire result hinges on **Dubai off-plan demand**, which sets all three scenario levels *and* their probabilities. Moving the bear weight from 35% to 30% lifts the expected return to +19.9% and risk/reward to 0.99; moving it to 40% cuts them to +15.6% and 0.79. The verdict (risk/reward ≤ ~1, below the desired win) is stable across that range — the conclusion is not knife-edge, but the point estimate is demand-driven, which is why confidence is held at 52.
 
-*Math reconciles — published.*
+*Math reconciles — published. No fair-value level, scenario probability, or return figure changed in this refresh.*
 
 ---
 
@@ -593,46 +351,47 @@ All figures computed with an executed Python snippet (WORKFLOW Step 4); the Head
 *Compressed per the No-Bloat Rule: each module's verdict, scores, red flags and the 3–5 decision-moving facts, with the full `99_*-synthesis.md` path for the audit trail. Nothing here is re-narrated from Parts I–II.*
 
 ## Chapter A: Business Model
-*Full file: `analyses/EMAAR_2026-07-10/business-model/99_business-model-synthesis.md` (all 13 specialists read; no upstream missing).*
+*Full file: `analyses/EMAAR_2026-07-10/business-model/99_business-model-synthesis.md` (refreshed 2026-07-16; all 13 specialists read, including the refreshed `10_external-dependency.md`; no upstream missing).*
 
-- **Verdict:** *Cyclical business — worth deeper work only with a strong timing edge.* No hard disqualifier triggered (0 of 8). Business clarity 80, business quality **53** (Mixed/Average, "cyclical, not a durable compounder"), moat **68** (Narrow, eroding), external-dependency **63** (inverted — mostly externally driven), capital allocation & governance 66, overall usefulness 60.
+- **Verdict:** *Cyclical business — worth deeper work only with a strong timing edge.* No hard disqualifier triggered (0 of 8). Business clarity **78**, business quality **53** (Mixed/Average, "cyclical, not a durable compounder"), moat **68** (Narrow, eroding), external-dependency **62** (inverted — mostly externally driven; **corrected this refresh from a stale 63/100 citation, no substantive change**), capital allocation & governance 66, overall usefulness **68**.
 - **Decision-moving facts:** (1) ~80% of FY2025 revenue is off-plan Dubai residential (AED 39.6bn of AED 49.6bn); 93% of revenue is UAE — single-city concentration at a cycle peak. (2) The funding model *is* the edge: buyers pre-fund construction via ~AED 44bn regulated escrow, so working capital is customer-financed; combined with net cash and the AED 163bn backlog, downside is about *returns*, not *solvency*. (3) Through-cycle ROIC ~7.5–9.5% (tax-normalized) vs ~11–12% cost of capital — clears the hurdle only at the peak (13.7% LTM). (4) Out-earns the one listed peer Aldar by ~18 EBIT-margin points, but that superiority rests mainly on the Aldar anchor (DAMAC/Sobha private).
-- **Red flags carried:** NCI (minority-interest) leakage severity 52 — ~21% of consolidated profit (AED 4.7bn) belongs to outside shareholders, so consolidated EV/EBITDA of 4.0x prices EBITDA the parent does not own (parent EPS AED 1.99 is already clean of this); founder/key-person concentration 45; government-ecosystem RPT opacity 50–55.
+- **Red flags carried:** NCI (minority-interest) leakage severity 52 — ~21% of consolidated profit (AED 4.7bn) belongs to outside shareholders, so consolidated EV/EBITDA of 4.0x prices EBITDA the parent does not own (parent EPS AED 1.99 is already clean of this); **founder/key-person concentration severity 45** (MD Alabbar's 0.03% ownership, no succession plan, chairs competing developer Eagle Hills — this refresh's key new quantification, corroborating management-governance's existing High-materiality read); Syria solo exposure severity 33 (sub-threshold, not carried further).
 - **§24 filters (this module owns 1, 4, 5):** none tripped — Filter 5 rate-of-change 72 (>40), so RF-BQ-005 **not** emitted; this is a property-cycle bet, not a technology-disruption bet.
+- **Net-cash reconciliation (this refresh's task):** the module's own §3 resolves the three-way net-cash discrepancy (CIQ strict ~AED 2.1bn / CIQ broad ~AED 25.0bn / company's own FY2025 AR figure AED 61.7bn) — all three confirm net cash; the company's figure nets in AED 42.9bn of restricted RERA-escrow cash. See balance-sheet-survival for the fully-traced resolution against Note 10.
 
 ## Chapter B: Earnings
-*Full file: `analyses/EMAAR_2026-07-10/earnings/99_earnings-synthesis.md` (all 9 specialists read).*
+*Full file: `analyses/EMAAR_2026-07-10/earnings/99_earnings-synthesis.md` (all 9 specialists read; re-read in full this refresh, unchanged since 2026-07-13).*
 
-- **Verdict:** *Mixed earnings setup* — near-term accelerating and beatable, medium-term decelerating. Earnings quality **81** (cash-backed, minimal adjustments), consensus setup 60 (near-term beatable), earnings volatility **52** (inverted — material sensitivity), next-quarter favors a profit-line beat. **Red-flag severity verdict (verbatim): Material concerns** (0 Critical, 6 High, 8 Medium, 2 Low).
+- **Verdict:** *Mixed earnings setup* — near-term accelerating and beatable, medium-term decelerating. Earnings quality **81** (cash-backed, minimal adjustments), consensus setup 60 (near-term beatable), earnings volatility **52** (inverted — material sensitivity), next-quarter favors a profit-line beat. **Red-flag severity verdict (verbatim): Material concerns** (0 Critical, 6 High, 8 Medium, 2 Low). **No score or verdict changed by this refresh** — it corrects one cross-module citation (external-dependency 63→62) and reconciles the net-cash basis question, neither of which touches an earnings-module score.
 - **Decision-moving facts:** (1) The six High red flags are **one root risk in six views** — a geared claim on a decelerating, peak-cycle Dubai developer with a lagging, backlog-fed P&L; the most dangerous is "good print, bad signal." (2) Revenue runs on two clocks: recognized revenue rising ~28–40% (backlog conversion) while the demand that refills it decelerates (pre-sales +16%, backlog growth +39%→+29%). (3) Development gross margin is fading off a cycle high (63%→55%, guided "low 50s"); flat EBITDA/EBIT margins only hide it behind cost leverage. (4) Model off **GAAP** EPS (AED 1.99, already net of minorities) — the P&L is clean; only the reported cash headline needs a ~27% haircut to a normalized ~AED 22.6bn.
 - **Caps applied:** earnings clarity ≤70 (no verbatim transcript, only sell-side proxies); earnings-volatility confidence Low (company discloses no sensitivity for its real property-demand exposure). Neither caps the headline scores.
 
 ## Chapter C: Balance-Sheet-Survival
-*Full file: `analyses/EMAAR_2026-07-10/balance-sheet-survival/99_balance-sheet-survival-synthesis.md` (all 7 specialists read).*
+*Full file: `analyses/EMAAR_2026-07-10/balance-sheet-survival/99_balance-sheet-survival-synthesis.md` (all 7 specialists read; re-read in full this refresh, unchanged since 2026-07-13; this module performed the primary net-cash reconciliation task for the refresh).*
 
-- **Verdict:** *Fortress balance sheet.* Solvency strength 90, liquidity runway 90, refinancing risk **12** (inverted — very low), downside resilience 92, overall usefulness 90. Covenant headroom **Not assessable** (lender thresholds undisclosed).
-- **Decision-moving facts:** (1) **Net cash on both bases** — strict AED 2,115m (§15 total-debt−cash) / broad AED 24,969m (nets in short-term investments), gross leverage 0.40x on peak EBITDA / 0.69x on mid-cycle EBITDA, and debt still falling. (2) The only near-term capital-markets maturity is one AED 2,752.6m sukuk due 15 Sep 2026, covered **4.4×** by free cash — self-funded, not refinancing-dependent. (3) One year's normalized operating cash (~AED 22.6bn) covers all maturities, all interest **and** the whole AED 8.8bn dividend with ~AED 8.9bn to spare. (4) **Stress break point: the structure first cracks only at a ~−94% EBITDA collapse** (an assumed 3.0x interest-cover covenant) — deeper than its own worst −69% cycle. This is the §24 Filter-3 positive that floors the bear.
-- **Note:** the only cyclical pressure point is the *discretionary* AED 8.8bn dividend, cut long before debt service is ever at risk. Biggest data gap: actual lender covenant thresholds + change-of-control terms (sukuk offering circular).
+- **Verdict:** *Fortress balance sheet.* Solvency strength 90, liquidity runway 90, refinancing risk **12** (inverted — very low), downside resilience 92, overall usefulness 90. Covenant headroom **Not assessable** (lender thresholds undisclosed). **Unchanged by this refresh.**
+- **Decision-moving facts:** (1) **Net cash on all three bases now in view** — strict AED 2,115m (§15 total-debt−cash) / broad AED 24,969m (nets in short-term investments) / the company's own FY2025 AR figure AED 61.7bn (traced exactly to Note 10: it nets in AED 42,878.9m of restricted RERA-escrow cash on top of the same short-term deposits — a broader gross-liquidity measure, not a fourth, contradictory reading). Gross leverage 0.40x on peak EBITDA / 0.69x on mid-cycle EBITDA, and debt still falling. (2) The only near-term capital-markets maturity is one AED 2,752.6m sukuk due 15 Sep 2026, covered **4.4×** by free cash — self-funded, not refinancing-dependent. (3) One year's normalized operating cash (~AED 22.6bn) covers all maturities, all interest **and** the whole AED 8.8bn dividend with ~AED 8.9bn to spare. (4) **Stress break point: the structure first cracks only at a ~−94% EBITDA collapse** (an assumed 3.0x interest-cover covenant) — deeper than its own worst −69% cycle. This is the §24 Filter-3 positive that floors the bear.
+- **Note:** the only cyclical pressure point is the *discretionary* AED 8.8bn dividend, cut long before debt service is ever at risk. Biggest data gap: actual lender covenant thresholds + change-of-control terms (sukuk offering circular) — **the net-cash basis question that earlier synthesis passes flagged as open is now closed and is not a data request.**
 
 ## Chapter D: Management-Governance
-*Full file: `analyses/EMAAR_2026-07-10/management-governance/99_management-governance-synthesis.md` (all 6 specialists read; supersedes the business-model governance quick-read).*
+*Full file: `analyses/EMAAR_2026-07-10/management-governance/99_management-governance-synthesis.md` (all 6 specialists read; re-read in full this refresh, unchanged since 2026-07-13; supersedes the business-model governance quick-read).*
 
-- **Verdict:** *Standard / mixed.* Governance Score **59** → **Watchlist**; Confidence-Adjusted 41. Management quality 70, capital allocation 70, incentive alignment 50, shareholder friendliness 53, disclosure candor 65 (capped — no transcript), governance risk 58 (inverted). Red flags **2 / 0 Critical**: RF-OWN-004 (High), RF-MGT-001 (High/watch). No hard disqualifier.
-- **Decision-moving facts:** (1) **RF-OWN-004** is the whole governance story and the binding rating cap — a Government-of-Dubai controller (Dubai Holding 29.73%), a board on which every "independent" director is a government official, and an IAS 24 election that leaves the largest related-party channel unquantified. (2) No *proven* extraction today: dividends are pro-rata, no pledging, one share/one vote, clean audits, net cash — the risk is the *channel and the owner's objective*, not a demonstrated leak (§24 Filter 6 = structural cap, not a discount to arbitrage). (3) The founder-MD (Alabbar, 0.03%) takes AED 61m with no share link and chairs a competing developer (Eagle Hills). (4) The AED 7.5bn Dubai Creek Harbour asset was bought *from* the parent, part-paid in new Emaar shares, no arm's-length price shown — the template for the killer risk.
-- **Since last run (2026-07-03):** verdict upgraded one band (*Misaligned/weak* → *Standard/mixed*), driven mostly by **correcting prior language-driven caps** (all filings are English — §27: a translated/English fact is a fact), partly offset by a more conservative capital-allocation re-score (82→70). A new CFO-exit watch item was added.
+- **Verdict:** *Standard / mixed.* Governance Score **59** → **Watchlist**; Confidence-Adjusted 41. Management quality 70, capital allocation 70, incentive alignment 50, shareholder friendliness 53, disclosure candor 65 (capped — no transcript), governance risk 58 (inverted). Red flags **2 / 0 Critical** (registry): RF-OWN-004 (High), RF-MGT-001 (High/watch); plus two open High-materiality watch channels — **WATCH-KEYPERSON** (now cross-module corroborated at severity 45/100) and WATCH-IAS24. No hard disqualifier. **No score changed by this refresh.**
+- **Decision-moving facts:** (1) **RF-OWN-004** is the whole governance story and the binding rating cap — a Government-of-Dubai controller (Dubai Holding 29.73%), a board on which every "independent" director is a government official, and an IAS 24 election that leaves the largest related-party channel unquantified. (2) No *proven* extraction today: dividends are pro-rata, no pledging, one share/one vote, clean audits, net cash — the risk is the *channel and the owner's objective*, not a demonstrated leak (§24 Filter 6 = structural cap, not a discount to arbitrage). (3) The founder-MD (Alabbar, 0.03%) takes AED 61m with no share link and chairs a competing developer (Eagle Hills), no disclosed succession plan — a pattern `business-model/12_red-flags-sweep.md`'s refresh now independently scores at severity 45/100, **corroborating (not adding to) this module's own pre-existing facts (01-002, 01-006, 04-013, 05-012, 05-014)**. (4) The AED 7.5bn Dubai Creek Harbour asset was bought *from* the parent, part-paid in new Emaar shares, no arm's-length price shown — the template for the killer risk.
+- **Since last dated run (2026-07-03):** verdict upgraded one band (*Misaligned/weak* → *Standard/mixed*), driven mostly by **correcting prior language-driven caps** (all filings are English — §27: a translated/English fact is a fact), partly offset by a more conservative capital-allocation re-score (82→70). A new CFO-exit watch item was added. **This 2026-07-16 refresh (within the same 2026-07-10 dated run) changes no governance score** — it is a cross-module corroboration event, not new evidence.
 
 ## Chapter E: Valuation
-*Full file: `analyses/EMAAR_2026-07-10/valuation/99_valuation-synthesis.md` (all 8 specialists read).*
+*Full file: `analyses/EMAAR_2026-07-10/valuation/99_valuation-synthesis.md` (all 8 specialists read; re-read in full this refresh, unchanged since the prior pass; this module performed the second and third cross-module reconciliations for the refresh).*
 
-- **Verdict:** *Modestly undervalued* — base FV **AED 15.00** vs **AED 12.20** price (+18.7% margin of safety); bull/base/bear **AED 21.00 / 15.00 / 9.75**. Valuation attractiveness 54 (capped ≤60 by RF-OWN-004), margin of safety 49, valuation confidence 55, downside risk 50 (inverted), overall usefulness 80. Dominant method **sum-of-the-parts**.
-- **Decision-moving facts:** (1) The wholly-owned Emaar Malls annuity alone ~AED 76.8bn EV ≈ 79% of current EV from 22% of profit; malls + net cash ≈ the whole market cap. (2) Reverse-DCF: the price implies FCF shrinking ~13.4%/yr for a decade at a ~21% through-cycle margin — below the FY2021 trough (23.5%) and Aldar (27.2%) — pricing structural impairment the backlog contradicts. (3) The >40% cross-method spread (~AED 9.6–23.8) *is* the finding: assets (~AED 17–18) vs through-cycle earnings (~AED 11–12.6); today's price sits in the earnings camp. (4) **RF-OWN-004 is the one binding cap** — value-trap flag mandatory; verdict held at "Modestly undervalued" (no better on a cheap multiple alone).
+- **Verdict:** *Modestly undervalued* — base FV **AED 15.00** vs **AED 12.20** price (+18.7% margin of safety); bull/base/bear **AED 21.00 / 15.00 / 9.75**. Valuation attractiveness 54 (capped ≤60 by RF-OWN-004), margin of safety 49, valuation confidence 55, downside risk 50 (inverted), overall usefulness 80. Dominant method **sum-of-the-parts**. **No fair-value number changed by this refresh.**
+- **Decision-moving facts:** (1) The wholly-owned Emaar Malls annuity alone ~AED 76.8bn EV ≈ 79% of current EV from 22% of profit; malls + net cash (now reconciled across all three bases) ≈ the whole market cap. (2) Reverse-DCF: the price implies FCF shrinking ~13.4%/yr for a decade at a ~21% through-cycle margin — below the FY2021 trough (23.5%) and Aldar (27.2%) — pricing structural impairment the backlog contradicts. (3) The >40% cross-method spread (~AED 9.6–23.8) *is* the finding: assets (~AED 17–18) vs through-cycle earnings (~AED 11–12.6); today's price sits in the earnings camp. (4) **RF-OWN-004 is the one binding cap** — value-trap flag mandatory; verdict held at "Modestly undervalued" (no better on a cheap multiple alone); the newly-corroborated founder/key-person concentration flag (severity 45) reinforces the same value-trap read as a second channel, not a new cap.
 - **Explicit handoff (honored):** the master assigns the scenario probabilities and computes the risk/reward off these levels; the module supplies the levels only.
 
 ## Chapter F: Catalyst
-*Full file: `analyses/EMAAR_2026-07-10/catalyst/99_catalyst-synthesis.md` (2 specialists + 5 upstream modules read).*
+*Full file: `analyses/EMAAR_2026-07-10/catalyst/99_catalyst-synthesis.md` (2 specialists + 5 upstream modules read; re-read in full this refresh, own specialist outputs unchanged since 2026-07-10).*
 
-- **Verdict:** *Dated, evidenced near-term catalysts* — but the highest-impact one is undated and §24 Filter-6 gated. Catalyst strength 47, timing visibility 42, catalyst risk 56 (inverted), overall usefulness 70.
-- **Decision-moving facts:** (1) Nearest dated catalyst: Q2 2026 results ~10 Aug (event certain, exact day CIQ-estimated). (2) Single most important: the Dubai demand trajectory — the *signal* is dated (quarterly), the *cycle turn* and any *re-rate* are not. (3) Near-term calendar skews mildly bearish ("good print, bad signal"). (4) The AED 200bn masterplan, the FY2026 AGM, and the re-rate itself are all Filter-6 flagged and **must not be read as conviction-lifting**. Full 12-month calendar reproduced in §7.
+- **Verdict:** *Dated, evidenced near-term catalysts* — but the highest-impact one is undated and §24 Filter-6 gated. Catalyst strength 47, timing visibility 42, catalyst risk 56 (inverted), overall usefulness 70. **No dated event or score changed by this refresh.**
+- **Decision-moving facts:** (1) Nearest dated catalyst: Q2 2026 results ~10 Aug (event certain, exact day CIQ-estimated). (2) Single most important: the Dubai demand trajectory — the *signal* is dated (quarterly), the *cycle turn* and any *re-rate* are not. (3) Near-term calendar skews mildly bearish ("good print, bad signal"). (4) The AED 200bn masterplan, the FY2026 AGM, and the re-rate itself are all Filter-6 flagged and **must not be read as conviction-lifting** — this refresh adds that the same masterplan and AGM decisions route through the founder-MD whose key-person concentration is now corroborated, a second reason for the same skepticism. Full 12-month calendar reproduced in §7.
 
 ---
 
@@ -655,9 +414,9 @@ Folder: `analyses/EMAAR_2026-07-10/business-model/`
 | `07_business-quality.md` | business-quality | 53/100 (Mixed); cyclicality (27) weakest, disruption-risk (72) strongest — Filter 5 not tripped |
 | `08_competitive-map.md` | competitive-map | Clear #1 in Dubai residential (~2× DAMAC); out-earns Aldar by ~18 EBIT-margin points |
 | `09_moat.md` | moat | Narrow, eroding; brand(68)+location(65)+cheap land(60); through-cycle ROIC ≤ WACC |
-| `10_external-dependency.md` | external-dependency | 63/100 (inverted); Dubai residential demand is the whole game; own rate/FX risks immaterial |
+| `10_external-dependency.md` | external-dependency | **62/100** (inverted; refreshed 2026-07-16 — corrected from a stale 63/100 citation, no substantive change); Dubai residential demand is the whole game; own rate/FX risks immaterial |
 | `11_capital-allocation-governance.md` | capital-allocation-governance | 66/100; conservative balance sheet, government-control caveats; §24 Filter 4 not applied |
-| `12_red-flags-sweep.md` | red-flags-sweep | 3 flags; most severe = NCI leakage (52); founder-MD competing Eagle Hills (45); Syria (33) |
+| `12_red-flags-sweep.md` | red-flags-sweep | 3 flags (refreshed 2026-07-16); most severe = NCI leakage (52); **founder-MD competing Eagle Hills now formally scored (45)**; Syria (33) |
 
 ## Appendix B: Earnings — Sub-Agent Outputs
 Folder: `analyses/EMAAR_2026-07-10/earnings/`
@@ -696,7 +455,7 @@ Folder: `analyses/EMAAR_2026-07-10/management-governance/`
 | `01_management-and-track-record.md` | management-and-track-record | Competent, delivering (Mgmt quality 70); integrity cleared (RF-MGT-005 not emitted); CFO exit → RF-MGT-001 watch |
 | `02_capital-allocation-scorecard.md` | capital-allocation-scorecard | Value-creative on deployed capital (70); worst = AED 7.5bn DCH bought from controller, part-paid in shares |
 | `03_incentives-and-compensation.md` | incentives-and-compensation | Mixed (50); genuine CEO/CFO LTIP, but founder-MD AED 61m, no share link, 0.03% owned |
-| `04_ownership-and-insider-behavior.md` | ownership-and-insider-behavior | Mixed; **Filter 6 fires (RF-OWN-004)** — government control 29.73%; zero director trades; no pledging |
+| `04_ownership-and-insider-behavior.md` | ownership-and-insider-behavior | Mixed; **Filter 6 fires (RF-OWN-004)** — government control 29.73%; zero director trades; no pledging; founder-MD chairs competing Eagle Hills |
 | `05_board-and-shareholder-rights.md` | board-and-shareholder-rights | Weak/entrenched *of the controller* (53); every "independent" is a government official; IAS 24 hides RPTs |
 | `06_candor-and-disclosure-quality.md` | candor-and-disclosure-quality | Mixed (65, capped); no adjusted-EPS engineering (positive), but promotional releases soft-pedal the margin fade |
 
@@ -730,13 +489,13 @@ Folder: `analyses/EMAAR_2026-07-10/catalyst/`
 
 | Evidence Source | What It Proves | Quality | Freshness | Problems |
 |---|---|---|---|---|
-| Audited Annual Reports FY2023 / FY2024 / FY2025 (IFRS, English) | Financials, segments, backlog, dividend, RPT (Note 33), contingencies, governance | **High** | FY2025 latest (to 31 Dec 2025) | IAS 24 election leaves government-ecosystem RPTs unquantified |
+| Audited Annual Reports FY2023 / FY2024 / FY2025 (IFRS, English) | Financials, segments, backlog, dividend, RPT (Note 33), contingencies, governance, and (this refresh) the Note 10 basis for the AED 61.7bn net-cash figure | **High** | FY2025 latest (to 31 Dec 2025) | IAS 24 election leaves government-ecosystem RPTs unquantified |
 | Q1 2026 earnings press release (11 May 2026) | Latest interim; backlog AED 163.4bn; net income +34.7%; hospitality softness | **High** | Current | Press release, not full interim statements; promotional tone |
 | `ciq_facts.json` (deterministic CIQ sidecar, as-of Q1 Mar-2026 / comps 2026-06-28) | Pinned anchors: net cash, debt, EBITDA, EV/EBITDA + percentile, P/E, ROIC, segments, consensus, maturities, price, shares | **High** | Q1 2026 / 28 Jun 2026 | Ownership/insider fields = *missing* (CIQ export not found) |
-| CIQ Financials (annual + quarterly, multiples, ratios, segments, capital structure) | Multi-year financials, leverage, maturities, multiples percentile | **High** | To Q1 2026 | Vendor "net debt" is broad basis (labeled) |
+| CIQ Financials (annual + quarterly, multiples, ratios, segments, capital structure) | Multi-year financials, leverage, maturities, multiples percentile | **High** | To Q1 2026 | Vendor "net debt" is broad basis (labeled); reconciled this refresh against the company's own broader figure |
 | CIQ Estimates (consensus, revisions, surprise, guidance) | Consensus bar, target prices, LT growth −14.8%, beat/miss history | **High** | ~28 Jun 2026 (post the Q1 print) | Out-year rests on thin analyst coverage (1 analyst) |
 | CIQ Comps (trading multiples, peer set, implied valuation) | Peer positioning vs Aldar and 9 others; pool-verified price AED 12.20 | Medium–High | 28 Jun 2026 (12 days stale) | Comp-set median distorted by China/HK names; price 12 days stale |
-| CIQ Board Members / Professionals / Compensation / Ownership / Key Developments | Board, tenure, pay, ownership 29.73%, CFO exit, block transfer, masterplan | Medium–High | To ~Jun 2026 | Granular insider/officer trade feed absent |
+| CIQ Board Members / Professionals / Compensation / Ownership / Key Developments | Board, tenure, pay, ownership 29.73%, CFO exit, block transfer, masterplan, founder-MD's Eagle Hills chairmanship | Medium–High | To ~Jun 2026 | Granular insider/officer trade feed absent |
 | Sell-side call proxies (FAB, Q3'25 / Q4'25) | Operational signposts (margin fade −251 bps, deliveries) | **Low** | Q4'25 | Verdict-stripped, unverified; NOT usable for tone/Q&A/candor |
 | Web: Aldar CG 2024 (for peer pay context) | Peer remuneration magnitude | **Low** | Dated, unverified | Single unverified source; peer-context only |
 
@@ -746,29 +505,30 @@ The 5–10 claims most responsible for the rating, graded per `CLAUDE.md` §6 (L
 
 | Key Claim | Level | Evidence | Weakness / Caveat | Keep / Downgrade / Remove |
 |---|---:|---|---|---|
-| Net-cash fortress: net cash both bases (strict AED 2.1bn / broad AED 25.0bn), gross leverage 0.40x, survives −69% EBITDA | **5** | FY2025 AR + CIQ; ciq_facts pins net debt −24,969, total debt 10,064, interest cover 52.1× | Broad basis leans on part-restricted short-term investments + cyclical customer advances | **Keep** |
+| Net-cash fortress: net cash on all three now-reconciled bases (strict AED 2.1bn / broad AED 25.0bn / company AR AED 61.7bn), gross leverage 0.40x, survives −69% EBITDA | **5** | FY2025 AR + CIQ; ciq_facts pins net debt −24,969, total debt 10,064, interest cover 52.1×; company AR Note 10 traced exactly this refresh (AED 42.9bn restricted RERA-escrow explains the AED 61.7bn gap) | Broad basis leans on part-restricted short-term investments + cyclical customer advances; the AED 61.7bn figure is a gross-liquidity, not available-liquidity, measure | **Keep — strengthened this refresh** |
 | RF-OWN-004: Government-of-Dubai controller (Dubai Holding 29.73%), board all government officials, IAS 24 hides largest RPT channel | **5** | FY2025 AR Annex I p.153, Note 33, CG Report; Key Developments 2026-05-11 | The *impact* (value trap) is a structural inference, not a proven leak | **Keep** — drives the cap |
+| Founder/key-person concentration: MD Alabbar owns ~0.03%, no succession plan, chairs competing developer Eagle Hills (now independently scored severity 45/100) | **4–5** | FY2025 AR CG Report p.125 (ownership); CIQ Board Members (Eagle Hills chairmanship); business-model/12_red-flags-sweep.md (refreshed, severity score); management-governance/01,03,04,05 (independent qualitative corroboration) | No actual Emaar↔Eagle Hills transaction is in the pool — the risk is the channel, not a demonstrated leak | **Keep — new this refresh, reinforces RF-OWN-004** |
 | Modestly undervalued: base FV AED 15.00 vs AED 12.20 (+18.7% MoS); SOTP masked mall annuity ~79% of EV | **4** | Valuation module on audited financials + CIQ comps; SOTP | SOTP mall value and the 20% owner discount are analytical estimates; >40% method spread | **Keep** |
 | Cycle peak with cooling leading indicators: pre-sales +16% decelerating, backlog growth +39%→+29%, consensus LT growth −14.8% | **4** | CIQ estimates (pinned) + Q1 2026 PR | Q2 (10 Aug) will confirm or refute; single-analyst out-years | **Keep** |
 | Earnings clean & cash-backed (EQ 81, no adjusted-EPS engineering) but reported FCF overstates steady-state ~27% | **5** | Audited IFRS cash flow + earnings/06 | The ~27% haircut is a normalization estimate (customer-advance + tax-lag) | **Keep** |
 | What's priced in = a collapse (reverse-DCF: FCF −13.4%/yr for a decade at ~21% margin) that the 94%-sold backlog contradicts | **4** | Reverse-DCF on audited financials; backlog from Q1 2026 PR | Model-implied read; "too pessimistic" is a reasoned inference, not a fact | **Keep with caveat** |
 | Through-cycle ROIC ~7.5–9.5% ≤ ~11–12% cost of capital (clears the hurdle only at the peak) | **3–4** | CIQ ROIC series (LTM 13.7% is L5) + moat tax-normalization | Through-cycle figure is a normalized estimate; headline LTM ROIC is much higher | **Keep with caveat** |
-| Value trap: government owner may keep the price below intrinsic indefinitely; no crystallization catalyst | **3–4** | Ownership + governance structure; absence of any disclosed crystallization intent | Partly evidence-of-absence; an owner action cannot be ruled out | **Keep** — central to the cap |
+| Value trap: government owner (and now, a thinly-aligned founder-MD) may keep the price below intrinsic indefinitely; no crystallization catalyst | **3–4** | Ownership + governance structure; absence of any disclosed crystallization intent | Partly evidence-of-absence; an owner action cannot be ruled out | **Keep** — central to the cap |
 
-*No Level 0 claims drive the rating. The two structural-inference claims (value trap; through-cycle ROIC) are labeled as inference and are consistent with the conservative default.*
+*No Level 0 claims drive the rating. The two structural-inference claims (value trap; through-cycle ROIC) are labeled as inference and are consistent with the conservative default. The founder/key-person claim is new to the ledger this refresh, entered at Level 4–5 because the underlying facts are Tier-1 filing-sourced even though the severity score interpreting them is analytical.*
 
 ## 16. Module Scorecard
 
 | Module | Main Verdict | Module Synthesis Usefulness /100 | Sub-Agent Exception | Key Weakness | Override Needed? |
 |---|---|---:|---|---|---|
-| business-model | Cyclical business — deeper work only with a timing edge | 60 | — | Peer superiority rests mainly on the single Aldar anchor | No |
+| business-model | Cyclical business — deeper work only with a timing edge | 60 | — | Peer superiority rests mainly on the single Aldar anchor; module self-reports overall usefulness 68, the synthesizer's independent assessment is more conservative at 60 given the single-anchor peer-comparison weakness | No |
 | earnings | Mixed earnings setup (EQ 81; material concerns) | 80 | earnings clarity capped ≤70 (no verbatim transcript) | Tone/candor/guidance colour unverified | No |
 | balance-sheet-survival | Fortress balance sheet | 90 | covenant headroom "Not assessable" | Lender covenant thresholds undisclosed | No |
-| management-governance | Standard / mixed (Governance Score 59 / Watchlist) | 78 | candor capped ≤65 (no transcript) | Verbal tone/candor not assessable; IAS 24 unquantified | No |
+| management-governance | Standard / mixed (Governance Score 59 / Watchlist) | 78 | candor capped ≤65 (no transcript) | Verbal tone/candor not assessable; IAS 24 unquantified; founder/key-person risk unresolved | No |
 | valuation | Modestly undervalued (base AED 15.00; value trap) | 80 | — | >40% cross-method spread; single clean peer | No |
 | catalyst | Dated near-term catalysts; high-impact one undated & Filter-6 gated | 70 | — | Highest-impact catalyst has no fixable date | No |
 
-*No module was overridden. The master synthesizer's contribution is the cross-module adjudication: the demand two-clock resolves to the bear for the forward view (§Decision Audit Trail row 1); the value/value-trap tension resolves to "real but gated" and the RF-OWN-004 Watchlist cap; and the scenario probabilities + risk/reward (0.88) are the synthesizer's, weighted for a cyclical at a peak — which, independent of the cap, already argues against a conviction long.*
+*No module was overridden. The master synthesizer's contribution is the cross-module adjudication: the demand two-clock resolves to the bear for the forward view (§Decision Audit Trail row 1); the value/value-trap tension resolves to "real but gated" and the RF-OWN-004 Watchlist cap, reinforced by the founder/key-person corroboration; and the scenario probabilities + risk/reward (0.88) are the synthesizer's, weighted for a cyclical at a peak — which, independent of the cap, already argues against a conviction long. This recomposition also corrected two citation errors in the business-model chapter (business clarity 78, not 80; module-reported overall usefulness 68, not 60 — the "60" in this scorecard's Usefulness column is the synthesizer's own independent judgment, not a restatement of the module's self-score, and is unchanged.*
 
 ## 17. Consensus Expectations
 
@@ -783,9 +543,9 @@ CIQ consensus is present and current (~28 Jun 2026, post the Q1 print):
 
 ## 18. Balance Sheet and Survival Test
 
-*This section DEFERS to `analyses/EMAAR_2026-07-10/balance-sheet-survival/99_balance-sheet-survival-synthesis.md`. Verdict: **Fortress balance sheet.***
+*This section DEFERS to `analyses/EMAAR_2026-07-10/balance-sheet-survival/99_balance-sheet-survival-synthesis.md`. Verdict: **Fortress balance sheet.** Unchanged by this refresh — the module's own §3 performed the primary net-cash reconciliation task, detailed below.*
 
-- **Net debt:** **net cash** on both bases — strict AED 2,115m (§15 total-debt−cash), broad AED 24,969m (nets in ~AED 22.9bn short-term/liquid investments — labeled broad, the CIQ vendor basis). Gross debt AED 10,064m and falling (from AED 12,981m in FY2023).
+- **Net debt:** **net cash on all three bases now in the pool** — strict AED 2,115m (§15 total-debt−cash), broad AED 24,969m (nets in ~AED 22.9bn short-term/liquid investments — labeled broad, the CIQ vendor basis), and the company's own FY2025 Annual Report Financial Review figure of **AED 61.7bn** (cash & short-term deposits AED 71.5bn − total debt AED 9.8bn, at 31 Dec 2025). **This refresh traced the AED 61.7bn figure directly to Note 10**: it is the same "Cash and Cash Equivalents" total (AED 52,633m) already known to include AED 42,878.9m of RERA-escrow customer advances that Note 10 itself states are "not available for debt service or general use." Adding short-term deposits (AED 18,828m) reconciles exactly to AED 71,461m ≈ AED 71.5bn, and netting the company's own debt figure (Notes 24+25, excluding IFRS-16 leases, AED 9,806m) gives AED 61,655m ≈ AED 61.7bn — an arithmetically correct, audited, Tier-1 figure, but a *gross-liquidity* measure on a broader cash definition, not a fourth, contradictory net-debt reading. **Do not cite AED 61.7bn as available liquidity** — the correct available-liquidity figures remain the strict (AED 2.1bn) and broad (AED 25.0bn) bases. Gross debt AED 10,064m and falling (from AED 12,981m in FY2023).
 - **Cash & liquidity:** free cash AED 12,180m; committed liquidity ~AED 16.2bn (incl. ~AED 3.7bn undrawn revolver to 2030); plus ~AED 43.3bn RERA customer escrow (restricted).
 - **Maturity wall:** 35.6% within 12 months / 41.8% within 24 months *looks* heavy, but the only hard capital-markets bullet is one AED 2,752.6m sukuk due 15 Sep 2026 — covered **4.4×** by free cash. Weighted-average maturity ~2.5y, extending to ~3.6y once it clears.
 - **Floating vs fixed:** ~90% fixed (only AED 1,070m floating); +200 bps adds ~AED 21m/yr — negligible, and the ~AED 35bn cash earns *more* at higher rates (a net beneficiary).
@@ -794,276 +554,57 @@ CIQ consensus is present and current (~28 Jun 2026, post the Q1 print):
 - **What happens if EBITDA falls 40–60%:** survives with **no covenant breach and no 12-month liquidity gap** (it survives even its own worst −69% cycle). The first item to break is an *assumed* 3.0x interest-cover covenant, only at a **~−94% EBITDA collapse**. In a normal −30% to −40% downturn the only lever pulled is cutting the discretionary AED 8.8bn dividend — long before debt service is ever at risk. **This break-point feeds the §8 bear (a de-rating/dead-money bear, floored near AED 6–8 by net cash + the mall annuity), the §9 Risk Register (solvency risk near-zero), and the §10 Kill Criteria (a swing to net debt would erode the floor).**
 - **Cyclical-leverage note:** leverage is shown on *both* peak EBITDA (0.40x gross) *and* mid-cycle EBITDA (0.69x gross) — net cash on both.
 
-*Key data gap: actual lender covenant thresholds + change-of-control / cross-default terms (sukuk offering circular / bank facility agreements) — which would convert covenant headroom from "Not assessable" to a certified number.*
+*Key data gap: actual lender covenant thresholds + change-of-control / cross-default terms (sukuk offering circular / bank facility agreements) — which would convert covenant headroom from "Not assessable" to a certified number. The net-cash basis question that earlier synthesis passes flagged as open is now closed by this refresh and is not a further data request.*
 
 ## Forecast Ledger
 
-Trackable predictions with enough evidence to review later. Probabilities use `CLAUDE.md` §10 bands. `Type` from the `DECISION_LEDGER.md` §6 closed set.
+Trackable predictions with enough evidence to review later. Probabilities use `CLAUDE.md` §10 bands. `Type` from the `DECISION_LEDGER.md` §6 closed set. **Unchanged by this refresh** — no forecast has resolved yet (next review scheduled 2026-08-02 per the calibration inventory).
 
 | Prediction | Probability | Time Window | Evidence Today | Confirmation Trigger | Falsification Trigger | Owner Module | Type | Confidence /100 |
 |---|---:|---|---|---|---|---|---|---:|
 | Q2 2026 (10 Aug) reports an EPS/EBITDA profit-line beat vs the reset consensus bar | 62% (Likely) | To Aug 2026 | Bar reset 9–16% lower & stopped falling; beat 3 of 4 quarters; Q1-26 EPS +9.6% on a revenue miss; ~AED 2bn/yr finance income | Reported Q2 EPS > consensus | Q2 EPS misses consensus | earnings | earnings_eps | 55 |
 | Q2 2026 property pre-sales growth decelerates below Q1-26's +16% YoY | 60% (Likely) | To Aug 2026 | Backlog growth already +39%→+29%; 167k-unit 2026–27 supply wave; LT growth −14.8%; 7 target cuts in 3 months | Q2 pre-sales growth < +16% YoY | Q2 pre-sales growth ≥ +16% YoY | earnings / catalyst | revenue | 50 |
-| No value-crystallizing owner action (mall spin/REIT/special distribution) within 12 months | 80% (Very likely) | To Jul 2027 | Government city-building mandate; no such intent disclosed; IAS 24 opacity; no buyback | No crystallization event by 2027-07-10 | A mall spin/REIT/special distribution announced | valuation / management-governance | catalyst_or_estimate_revision | 60 |
-| Net-cash fortress maintained (no swing to material net debt) over 12 months | 78% (Very likely) | To Jul 2027 | Gross debt falling; 52× interest cover; one well-covered sukuk; self-funded model | Still net cash (broad) at next reporting | Swings to material net debt via debt-funded deal / capital call | balance-sheet-survival | balance_sheet_or_solvency | 65 |
+| No value-crystallizing owner action (mall spin/REIT/special distribution) within 12 months | 80% (Very likely) | To Jul 2027 | Government city-building mandate; no such intent disclosed; IAS 24 opacity; no buyback; founder-MD's own economic incentive to push for one is negligible (0.03% ownership) | No crystallization event by 2027-07-10 | A mall spin/REIT/special distribution announced | valuation / management-governance | catalyst_or_estimate_revision | 60 |
+| Net-cash fortress maintained (no swing to material net debt) over 12 months | 78% (Very likely) | To Jul 2027 | Gross debt falling; 52× interest cover; one well-covered sukuk; self-funded model; confirmed net cash on all three bases this refresh | Still net cash (broad) at next reporting | Swings to material net debt via debt-funded deal / capital call | balance-sheet-survival | balance_sheet_or_solvency | 65 |
 | FY2026 dividend held at ~AED 1.00/share (declared ~Feb 2027) | 62% (Likely) | To Feb 2027 | ~2.9–3.7× FCF cover; net cash; dividend grew 0.25→1.00; discretionary but not pressured near-term | FY2026 DPS ≥ AED 0.90 | FY2026 DPS cut below AED 0.80 | catalyst / balance-sheet-survival | cash_flow | 55 |
 
 ---
 
 ## Pre-Write Gate Record (process transparency)
 
-- **Evidence inventory:** Present — 6/6 module syntheses + all sub-agents, 3 audited ARs, Q1 2026, full CIQ financials/estimates/comps, pool-verified price, `ciq_facts.json` anchors, RUN_METADATA. Missing — verbatim transcript; CIQ ownership/insider export; lender covenant thresholds; IAS 24 government-ecosystem RPT quantification; clean annual ASP/units; confirmed Q2 board-meeting date. Price 12 days stale (pool-verified, not indicative — paper-trade-eligible, but Watchlist = no trade).
-- **Data sufficiency:** **80/100** (good with gaps) — no rating cap on sufficiency grounds (well above 49).
-- **Claim quality audit:** see Claim Quality Ledger — no Level 0 claim drives the rating.
-- **Red-flag cap:** RF-OWN-004 (High) caps at Watchlist (§24 Filter 6); RF-MGT-001 (High/watch) monitored; earnings "Material concerns" (6 High = one root risk) carried, not averaged; NCI leakage 52 carried. No Critical flag, no hard disqualifier → no verdict-*lock* below Watchlist, but the Filter-6 cap binds.
-- **§24 Avoid-Big-Risks audit:** Filter 6 (unaligned owner, RF-OWN-004) **tripped** → value-trap, caps at Watchlist. Filter 1 (crooks) cleared (RF-MGT-005 not emitted). Filter 2 (turnaround) N/A. Filter 3 (survival) a net-cash **positive**. Filter 4 (serial acquirer) not tripped (0.9% CFO cash M&A). Filter 5 (fast-changing industry) not tripped (rate-of-change 72; RF-BQ-005 not emitted).
-- **Cross-module forensic roll-up (§13):** the individually-sub-threshold forensic signals are (a) reported FCF cyclically inflated ~27% (earnings/06 — *disclosed, mechanical, computable from the accounts*), (b) IAS 24 government-ecosystem RPT unquantified (governance/05,06 — *IFRS-permitted, disclosed election*), and (c) promotional press-release tone soft-pedaling the Q4'25 margin fade (governance/06 — RF-DISC-001 *approached, not triggered*). These are three distinct, independently-sourced items — but the underlying **accounting is audited-clean** (EQ 81, no adjusted-EPS engineering, clean audits 3 years, no restatement, investment property at cost). They do **not** compound into a High accounting-integrity flag; they point at *disclosure thinness under a value-indifferent owner*, which is already captured by RF-OWN-004 and the candor cap. **No new compound flag raised** — named here per the required look, not escalated.
-- **Calibration feedback (§18 / Phase 6):** as-of summary = `analyses/performance/2026-06-01_calibration_summary_v2.json` (latest on/before 2026-07-10; `_v2` wins the same-date tie). Its verdict starts with **"Pre-data"** → `status = "pre_data"`, **no adjustment** (0 resolved reviews; first review 2026-07-01). Recorded, not silently skipped.
+- **Evidence inventory:** Present — 6/6 module syntheses + all sub-agents (re-read in full for this refresh, including the freshly-regenerated `business-model/10_external-dependency.md`), 3 audited ARs, Q1 2026, full CIQ financials/estimates/comps, pool-verified price, `ciq_facts.json` anchors, RUN_METADATA. Missing — verbatim transcript; CIQ ownership/insider export; lender covenant thresholds; IAS 24 government-ecosystem RPT quantification; clean annual ASP/units; confirmed Q2 board-meeting date. Price 12 days stale (pool-verified, not indicative — paper-trade-eligible, but Watchlist = no trade). **The three-way net-cash question that a prior pass flagged as a gap is now closed** — it is not a data gap; a non-English filing note is also never a data gap (CLAUDE.md §27), and none applies here since all Emaar filings are English.
+- **Data sufficiency:** **80/100** (good with gaps) — no rating cap on sufficiency grounds (well above 49). **Unchanged by this refresh.**
+- **Claim quality audit:** see Claim Quality Ledger — no Level 0 claim drives the rating; one claim (founder/key-person concentration) added this refresh at Level 4–5.
+- **Red-flag cap:** RF-OWN-004 (High) caps at Watchlist (§24 Filter 6); RF-MGT-001 (High/watch) monitored; earnings "Material concerns" (6 High = one root risk) carried, not averaged; NCI leakage 52 carried; **founder/key-person concentration (severity 45, WATCH-KEYPERSON, now cross-module corroborated) carried as a second, reinforcing channel under the same Filter-6 cap — it does not add a new cap.** No Critical flag, no hard disqualifier → no verdict-*lock* below Watchlist, but the Filter-6 cap binds.
+- **§24 Avoid-Big-Risks audit:** Filter 6 (unaligned owner, RF-OWN-004) **tripped** → value-trap, caps at Watchlist; **reinforced, not newly triggered, by the founder/key-person corroboration this refresh.** Filter 1 (crooks) cleared (RF-MGT-005 not emitted; the founder-MD/Eagle Hills pattern is a Filter-6-adjacent alignment issue, not a Filter-1 integrity finding — no proven fraud alleged). Filter 2 (turnaround) N/A. Filter 3 (survival) a net-cash **positive**, confirmed on all three bases. Filter 4 (serial acquirer) not tripped (0.9% CFO cash M&A). Filter 5 (fast-changing industry) not tripped (rate-of-change 72; RF-BQ-005 not emitted).
+- **Cross-module forensic roll-up (§13):** the individually-sub-threshold forensic signals are (a) reported FCF cyclically inflated ~27% (earnings/06 — *disclosed, mechanical, computable from the accounts*), (b) IAS 24 government-ecosystem RPT unquantified (governance/05,06 — *IFRS-permitted, disclosed election*), and (c) promotional press-release tone soft-pedaling the Q4'25 margin fade (governance/06 — RF-DISC-001 *approached, not triggered*). These are three distinct, independently-sourced items — but the underlying **accounting is audited-clean** (EQ 81, no adjusted-EPS engineering, clean audits 3 years, no restatement, investment property at cost). They do **not** compound into a High accounting-integrity flag; they point at *disclosure thinness under a value-indifferent owner*, which is already captured by RF-OWN-004 and the candor cap. The newly-corroborated founder/key-person concentration (severity 45) is a governance-alignment signal, not a forensic-accounting one, so it is not counted toward this roll-up. **No new compound flag raised** — named here per the required look, not escalated.
+- **Calibration feedback (§18 / Phase 6):** as-of summary = `analyses/performance/2026-07-13_calibration_summary.json` (dated 2026-07-13, the latest on or before today 2026-07-16, superseding the `2026-06-01_calibration_summary_v2.json` used in the prior synthesis pass). Its verdict starts with **"Pre-data"** (5 decisions on the ledger, 3 with a first review filed, 0 resolved forecasts; `calibration_by_module` is empty) → `status = "pre_data"`, **no adjustment**. Recorded, not silently skipped.
 - **Contradiction audit:** see Decision Audit Trail (5 driver rows).
-- **Variant-perception audit:** edge score **38** (real SOTP/backlog insight, gated by the value trap; not a proven, timeable edge) — see §4. `edge_proof` is falsifiable (Q2 pre-sales + backlog) but the payoff is owner-gated, so it does not lift confidence above 60.
+- **Variant-perception audit:** edge score **38** (real SOTP/backlog insight, gated by the value trap; not a proven, timeable edge) — see §4. `edge_proof` is falsifiable (Q2 pre-sales + backlog) but the payoff is owner-gated, so it does not lift confidence above 60. **Unchanged by this refresh** — the founder/key-person corroboration sharpens why the gate holds, it is not a new edge input.
 - **Thesis-type:** Sector-cycle (dominant) + Company-specific — an externally-driven Dubai property-cycle bet with a company-specific asset angle; conviction downgraded accordingly.
-- **Math validation:** §14 — probabilities sum to 100%, expected return reconciles two ways (+17.73%), risk/reward 0.88, downside +20.08%, MoS +18.67%.
+- **Math validation:** §14 — probabilities sum to 100%, expected return reconciles two ways (+17.73%), risk/reward 0.88, downside +20.08%, MoS +18.67%. Recomputed with an executed Python snippet this refresh; identical to the prior pass.
 - **Kill criteria / next data:** see §10 and below.
-- **Confidence build:** start 10 → complete evidence (6 modules, audited filings, consensus, solvency, governance, catalyst) supports ~65 → **edge gate caps at 60** (edge 38 < 50) → −5 sector-cycle/externally-driven → −3 single-variable (Dubai demand) scenario sensitivity → **52**. Calibration: no adjustment (pre-data). Governance cap-to-80 not binding (RF-OWN-004 is High, not Critical); catalyst-timing soft cap 70 and options-data cap 80 not binding.
+- **Confidence build:** start 10 → complete evidence (6 modules, audited filings, consensus, solvency, governance, catalyst; this refresh strengthens the evidence base by resolving the net-cash ambiguity) supports ~65 → **edge gate caps at 60** (edge 38 < 50) → −5 sector-cycle/externally-driven → −3 single-variable (Dubai demand) scenario sensitivity → **52**. Calibration: no adjustment (pre-data, per the updated 2026-07-13 summary). Governance cap-to-80 not binding (RF-OWN-004 is High, not Critical); catalyst-timing soft cap 70 and options-data cap 80 not binding.
 
-**Highest-value next data request (one item):** **the scale and terms of the IAS 24-exempt government-ecosystem related-party dealings** (land / utilities / construction / financing with the Dubai-government sphere), plus the controller's capital-return intent toward minorities. It is the single swing between "modestly undervalued masked annuity" and "perennial value trap," and it is the only disclosure that can lift the RF-OWN-004 rating cap. (Governance and valuation both name it #1; balance-sheet's sukuk-circular request and earnings/catalyst's Q2-print request are secondary.)
+**Highest-value next data request (one item):** **the scale and terms of the IAS 24-exempt government-ecosystem related-party dealings** (land / utilities / construction / financing with the Dubai-government sphere), plus the controller's capital-return intent toward minorities. It is the single swing between "modestly undervalued masked annuity" and "perennial value trap," and it is the only disclosure that can lift the RF-OWN-004 rating cap. (A close second, now sharpened by this refresh's founder/key-person corroboration: a disclosed board-level MD/Chairman succession plan and any Emaar↔Eagle Hills deal-flow separation policy. Balance-sheet's sukuk-circular request and earnings/catalyst's Q2-print request are tertiary; the net-cash basis question that was previously an open item is now closed and is not a further request.)
 
-**Verdict trajectory vs prior run (high-level only):** 2026-07-03 = *Starter Position Only* (confidence 52); 2026-07-10 = **Watchlist** (confidence 52). The downgrade is not new bad news — it is applying the tighter, more conservative RF-OWN-004 rule correctly: an unaligned controlling owner caps the headline at Watchlist and forbids a conviction position (incl. Starter Position Only) until the discount is proven temporary by primary evidence.
+**Verdict trajectory:** 2026-07-03 = *Starter Position Only* (confidence 52); 2026-07-10 (original pass) = **Watchlist** (confidence 52); 2026-07-10 (this 2026-07-16 refresh) = **Watchlist** (confidence 52, unchanged). The 2026-07-03→2026-07-10 downgrade was not new bad news — it applied the tighter, more conservative RF-OWN-004 rule correctly: an unaligned controlling owner caps the headline at Watchlist and forbids a conviction position (incl. Starter Position Only) until the discount is proven temporary by primary evidence. This refresh changes no rating, no score, and no fair-value number — it corrects a stale citation (external-dependency 63→62), fully reconciles a three-way net-cash question into a single consistent net-cash picture, and formally corroborates (via an independent business-model severity score of 45/100) a founder/key-person concentration risk this dossier's governance section already held at High materiality. All three items are folded into the relevant sections above; none moves the headline.
 
-
-
----
-
-## Master — Colleague Memo
-
-_Source: `memo.md`_
-
-# EMAR — Colleague Memo: Emaar Properties PJSC (2026-07-10)
-
-**Company:** Emaar Properties PJSC | **Ticker:** EMAR (Dubai Financial Market — "DFM: EMAAR") | **Currency:** AED (UAE dirham, hard-pegged to the US dollar at 3.6725, so there is almost no currency risk between the two) | **Memo date:** 2026-07-10
-
-**Current price:** AED 12.20 — as of 2026-06-28, pool-verified but 12 days stale (equals US$3.32 × the 3.6725 peg).
-
-**Decision: Watchlist — a cheap (EV/EBITDA ~4.0x; base fair value AED 15.00 vs AED 12.20 price), fortress-balance-sheet Dubai developer at a cycle peak, whose real discount is gated by a value-indifferent government owner (RF-OWN-004); the risk/reward is roughly one-for-one, so wait for the demand signal or a minority-friendly owner action before committing capital.**
-
-*This memo condenses the full dossier (`final_thesis.md`) and the machine record (`decision_record.json`). It adds no new analysis — every number and citation already lives in those two files. (Analytical run is a local pre-merge integration test.)*
-
----
-
-## 1. The Decision at a Glance
-
-| Item | Reading |
-|---|---|
-| Rating | **Watchlist** |
-| Suggested action | **No position.** Track the Q2 2026 print (~10 Aug) for the Dubai demand signal; watch for a government value-crystallization (mall spin / REIT / higher payout) or, the reverse, a parent asset injected and paid for with new shares. Revisit toward a starter long only if pre-sales hold ≥+16% YoY **and** the discount starts to close, or if primary evidence shows the owner treats minority shareholders as value-owners. |
-| Position stance | **Wait** — no position; no paper trade created (the Watchlist basket tracks the cost of *not* owning it) |
-| Time horizon | 12 months (the cycle's natural arc is 2–3 years; rated on 12 months) |
-| Expected return (probability-weighted) | **+17.7%** (base case +23.0% to AED 15.00) |
-| Downside risk *(inverted — higher is worse)* | **+20.1%** (a fall to the AED 9.75 bear — a price / dead-money loss, not a solvency loss) |
-| Risk/reward | **0.88** (probability-weighted upside slightly below the downside to the bear — unattractive for a conviction long) |
-| Confidence /100 | **52** |
-| Data sufficiency /100 | **80** (good, with gaps) |
-| Thesis type | **Sector-cycle** (Dubai property cycle — dominant) + **Company-specific** (masked mall annuity, net-cash balance sheet) |
-| Variant perception — edge score /100 | **38** (a real insight, but not a proven, timeable edge) |
-| Margin of safety | **+18.7%** (price AED 12.20 vs base fair value AED 15.00) |
-| Rating cap | **RF-OWN-004 (§24 Filter 6 — unaligned government owner) → maximum "Watchlist"** until the discount is proven temporary by primary evidence. Separately, no proven edge (38 < 50) caps confidence at 60. |
-| §24 Avoid-Big-Risks filters tripped | **Filter 6 (unaligned owner): TRIPPED** → value-trap flag, caps rating at Watchlist. Filters 1 (crooks), 2 (turnaround), 4 (serial acquirer), 5 (fast-changing industry): not tripped. Filter 3 (survival): a net-cash **positive**, not a demerit. |
-
-*Note: a prior run (2026-07-03) rated this "Starter Position Only." This run applies the tighter, more conservative RF-OWN-004 cap — not new bad news, the more conservative rule correctly applied.*
-
-## 2. What the Company Does
-
-Emaar is Dubai's largest master-planned property developer. Two businesses sit inside it:
-
-- **Build-and-sell homes (the big one).** It sells apartments and villas "off-plan" — buyers sign up and pay in instalments while the building goes up, before it is finished — across Downtown Dubai, Dubai Hills and Emaar Beachfront. About 80% of FY2025 revenue (AED 39.6bn of AED 49.6bn) is off-plan Dubai residential; 93% of all revenue is inside the UAE [business-model/03,05]. This is a single-city, cyclical business.
-- **Own-and-rent property (the smaller, steadier one).** It owns The Dubai Mall, ~41 hotels and the Burj Khalifa attractions — a recurring-rent annuity (income that keeps coming in year after year). This is ~22% of profit but, on the sum-of-the-parts, ~79% of the company's value (see §7).
-
-Simple revenue formula: **revenue ≈ (homes sold off-plan × price per home, booked as they are built) + (mall rent + hotel income + attraction tickets).** The first term rides the Dubai property cycle; the second is steadier.
-
-One structural feature matters: buyers pre-fund construction through ~AED 44bn of regulated escrow accounts, so the working capital is customer-financed [business-model/04]. Combined with net cash (more cash than debt) and a large order book, that means a downturn is a *returns* problem, not a *survival* problem.
-
-## 3. The Variant Perception
-
-**What everyone already knows.** Emaar is the #1 Dubai developer, screens cheap (EV/EBITDA — the whole business valued against its operating profit — is ~4.0x, the lowest point of its own four-year range; trailing P/E ~5.9x), holds a large net-cash position, pays a ~8% dividend, and sits at a Dubai property-cycle peak with cooling early-warning indicators, under government control [ciq_facts].
-
-**What is probably already priced in.** A lasting fall in earnings. Working backwards from the AED 12.20 price to the growth it implies (a "reverse-DCF"), the market is pricing free cash flow — the spare cash the business throws off after spending to run and grow — to shrink about 13.4%/year for a decade, at a through-cycle operating margin near 21%. That is *below* Emaar's own worst recent year (23.5% in FY2021) and below its cleaner peer Aldar (27.2%) [valuation/05]. The forward P/E (~6.9x) sitting *above* the trailing P/E (~5.9x) confirms the market expects earnings to fall.
-
-**What the engine thinks the market may be missing (the edge).** Two things. (1) A wholly-owned, recurring-rent Dubai mall business worth ~AED 76.8bn of enterprise value — about 79% of the whole company's enterprise value — is hidden inside a cyclical developer the market prices on one blended ~3.8x multiple. Malls + net cash roughly equal the entire market value, so the market assigns almost nothing to the #1 Dubai developer attached to them [valuation/06]. (2) The AED 163.4bn order book (94% already sold, ~3.3× annual revenue) locks in 3–4 years of rising booked revenue, which contradicts the permanent collapse the price implies [earnings/02].
-
-**What evidence would prove the edge is real — and why it is thin.** The mall value and the order book are real observations, but the market is not simply missing them — it is (largely correctly) pricing that a value-indifferent government owner will not unlock the mall value, and that today's low multiple sits on *peak* earnings. The falsifiable test: if Q2 2026 (10 Aug) pre-sales hold ≥+16% YoY and order-book growth holds ≥+29%, the priced-in cash-flow collapse is disproven on the fundamentals. But even a correct fundamental read does not close the discount without an owner action (a mall spin-off, a REIT, or a higher payout) that the owner has shown no intent to deliver. Because the payoff is gated by an owner move no one can time, **the edge score is 38/100 — a real insight, not yet a proven, timeable edge** [thesis §4].
-
-## 4. Why It Could Work — Bull Case
-
-The strongest reasons the cautious Watchlist could be too cautious:
-
-- **The hidden mall business plus net cash ≈ the entire market value.** If the market ever prices the recurring mall business and the net cash properly, the #1 Dubai developer comes almost free — a step-change re-rating (the market paying a higher multiple), not a slow grind. Emaar Malls alone is ~AED 76.8bn of enterprise value (~79% of today's EV) from 22% of profit; net cash + malls ≈ AED 102bn against a ~AED 108bn market value [valuation/06].
-- **The order book makes near-term earnings hard to miss.** The 94%-sold AED 163.4bn backlog (~3.3× revenue) converts over 3–4 years, so earnings visibility is real and cash-backed — earnings quality scores 81/100, normalised operating cash is ~94% of EBITDA over the last twelve months, with clean audits and no adjusted-EPS games [earnings/02,06].
-- **A fortress balance sheet is counter-cyclical dry powder.** Net cash plus ~52× interest cover (operating profit is 52 times the interest bill) lets Emaar keep launching and buy assets cheaply when weaker rivals are forced sellers. It survives a −69% EBITDA hit — its own worst cycle — with ~AED 16.2bn of committed liquidity [balance-sheet/06].
-- **Mean-reversion of the multiple.** At the 0th percentile of its own four-year EV/EBITDA range (4.0x) on peak-but-cash-backed earnings, simply reverting toward its own ~6.5x median is a tailwind; the sell-side mean price target is AED 17.07, above both the price and the base fair value [ciq_facts].
-
-The single piece of evidence that would most move the analyst toward the bull: a credible, dated minority-friendly owner action — a mall REIT / spin-off, a special dividend, or the related-party flows disclosed on arm's-length terms. Absent that, the bull case runs straight into the value-trap gate.
-
-## 5. Why It Could Fail — Bear Case & the Killer Risk
-
-Top risks (severity / probability from the risk register, both inverted — higher = worse):
-
-- **Demand rolls over (severity 80 / probability 45).** Dubai off-plan demand cooling off a record 2025 into a ~167,000-unit 2026–27 supply wave. The stock trades on this leading signal (new pre-sales), not on the locked-in order book — and pre-sales growth is already down to +16% and decelerating [earnings/04; business-model/10].
-- **The discount never closes — dead money (severity 70 / probability 55).** No crystallization event; the multiple stays at its 0th percentile; targets keep falling. This is the value trap in action.
-- **An extractive owner action (severity 75 / probability 30).** A richly-priced parent asset injected and paid for with new Emaar shares, or cash steered to state projects [governance, RPT Note 33].
-- **Development margin fades (severity 60 / probability 45).** The build-and-sell gross margin slips from a cycle high (63%→55%, guided "low 50s") toward the high-40s, breaking the profit-beat mechanism [earnings/03].
-- **Dividend cut (severity 65 / probability 30).** FY2026 dividend cut or capped to fund the AED 200bn masterplan — removing the ~8% yield that pays holders to wait.
-
-**The single killer risk:** the value trap — a Government-of-Dubai controller (Dubai Holding, 29.73%) with no incentive to unlock the hidden value can keep the price below fair value indefinitely. This is dead money, not a permanent loss (the balance sheet floors the downside), but it is the reason the discount may never pay you.
-
-These risks are **not independent**: demand, value-trap, margin, dividend and macro all share one driver — the Dubai cycle and the owner's response to it. Their joint version (demand rolls over → margin fades → dividend cut → no re-rate) is the real downside tail, which the bear case captures. Only solvency risk is uncorrelated — and it is near-zero, which is why the tail is a dead-money tail, not a wipeout [thesis §8, §9].
-
-## 6. Avoid-Big-Risks Check (§24)
-
-- **Filter 6 — unaligned owner: TRIPPED (RF-OWN-004, High).** The Government of Dubai controls the company through Dubai Holding (29.73%; single largest bloc 22.27%); every "independent" director is a government official; and an accounting election (IAS 24, the related-party disclosure rule) leaves the largest related-party channel — land, utilities, construction and financing from the state ecosystem — unquantified to outside shareholders. **This is the binding cap:** it holds the rating at Watchlist and forbids a conviction position until primary evidence proves the discount is temporary [governance/04,05].
-- **Filter 1 — crooks / integrity: not tripped.** Integrity cleared; no fraud flag emitted [governance/01].
-- **Filter 2 — turnaround: not applicable.** This is not a turnaround.
-- **Filter 3 — high debt / survival: a positive, not a demerit.** Net cash on both measures (strict AED 2.1bn / broad AED 25.0bn); survives a −69% EBITDA hit; first covenant break only at a ~−94% EBITDA collapse [balance-sheet/06].
-- **Filter 4 — serial acquirer: not tripped.** Cash M&A ~0.9% of cash flow.
-- **Filter 5 — fast-changing industry: not tripped.** A property-cycle bet, not a technology-disruption bet (rate-of-change score 72).
-
-Survival read: the balance sheet is the de-correlator that makes the downside a dead-money problem, not a ruin problem.
-
-## 7. Valuation & Fair Value
-
-Bear / base / bull fair-value levels: **AED 9.75 / 15.00 / 21.00**. Current price **AED 12.20**.
-
-- **Margin of safety (how far the price sits below base fair value):** +18.7% (AED 12.20 vs AED 15.00). **Downside to the bear case:** −20.1% (a fall to AED 9.75, a genuine Dubai cyclical trough).
-- **What's priced in (reverse-DCF).** The price implies free cash flow shrinking ~13.4%/year for a decade at a ~21% through-cycle margin — below the FY2021 trough (23.5%) and below Aldar (27.2%). In plain terms, the market is pricing a structural decline the 94%-sold order book contradicts; the price pays only ~64% of the DCF intrinsic value [valuation/05].
-- **The core disagreement (a >40% method spread — the headline finding).** Value Emaar on its *assets* (sum-of-the-parts + DCF + book → ~AED 17–18) or on *normalised through-cycle earnings at a fair multiple* (→ ~AED 11–12.6)? The football-field spread runs ~AED 9.6 to ~AED 23.8. Today's AED 12.20 price sits squarely in the earnings camp. The dominant method is **sum-of-the-parts (SOTP)** — valuing each business separately and adding them up — because it is the only one that surfaces the masked mall annuity; it already bakes in a 20% government-owner discount [valuation/06]. The methods disagree materially — that disagreement is reported, not averaged away.
-- **Peer read.** EV/EBITDA 3.6–4.0x vs the one clean listed peer, Aldar, at 8.3x (−52%); vs the wider comp-set median 14.3x (−75%, mostly warranted — the median is distorted by six China/HK names). Trailing P/E ~5.9x vs Aldar ~8.5x (−31%). But on price-to-book (~1.20x) Emaar is +28% *above* its own history — the one cycle-robust measure where the "discount" evaporates [valuation/03; ciq_facts].
-
-Verdict: **modestly undervalued, not materially** — cycle fear and the governance discount do most of the work, and it is explicitly flagged a value trap. What's priced in is undemanding on fundamentals; whether the gap ever closes depends on the owner.
-
-## 8. Catalysts
-
-Dated, evidenced near-term catalysts — but the highest-impact one (the re-rate) is undated and value-trap gated (timing visibility 50/100).
-
-| Date / Window | Catalyst | Bullish trigger | Bearish trigger |
-|---|---|---|---|
-| **~10 Aug 2026** (CIQ-estimated; event certain) | Q2 2026 results + pre-sales / backlog update | EPS beats (>+10%) on a mid-50s margin, **and** pre-sales re-accelerate >+16% YoY / backlog growth holds ≥+29% | Revenue miss in the seasonally soft quarter + cooling pre-sales = "good print, bad signal" |
-| **15 Sep 2026** (hard, contractual) | Sukuk 3 — AED 2,752.6m maturity (only capital-markets debt due in 12 months) | Repaid from cash (covered 4.4×) or refinanced cheaply | Refinancing adds ~+165 bps (~0.18% of EBITDA) — mild only |
-| **~Feb 2027** (undated, template) | FY2026 results + dividend (~AED 8.84bn, ~8% yield) | Earnings hold; dividend held or a special distribution | Dividend cut / capped for the masterplan — removes the yield floor |
-| **Undated / thematic** | AED 200bn Dubai masterplan | A dated launch with strong pre-sales | Launched into the supply wave / a heavy capital call — **§24 Filter 6: must NOT be read as conviction-lifting** |
-
-Only two catalysts carry a genuine near-term date — the Q2 print (~10 Aug) and the sukuk maturity (15 Sep). Everything with real re-rating power (FY2026 dividend, the ~Nov Q3 read, the ~Mar 2027 AGM, the masterplan) is windowed into early 2027 or undated. **There is no dated catalyst that closes the discount** — that one is owner-gated [catalyst §7].
-
-## 9. Scenario Model
-
-| Case | Probability | Return | Price target (AED) | What must happen |
-|---|---:|---:|---:|---|
-| **Bull** | 20% | **+72.1%** | 21.00 | The government crystallizes the mall value (spin / REIT / higher payout), **or** the Dubai up-cycle extends past FY2028 with margins ~37% |
-| **Base** | 45% | **+22.9%** | 15.00 | Backlog converts, net cash + ~8% dividend pay holders to wait, the cycle cools gradually, and the discount partly closes |
-| **Bear** | 35% | **−20.1%** | 9.75 | A genuine Dubai downturn — demand rolls over, developer earnings −~35% off peak, the multiple stays low, the value trap persists |
-
-- **Probability-weighted expected return: +17.7%** (probabilities sum to 100%). Probability-weighted target price: **AED 14.36**.
-- **Risk/reward 0.88** = (14.36 − 12.20) / (12.20 − 9.75) — the probability-weighted upside is below the downside to the bear. For a single-city cyclical developer this is unattractive and, on its own (before the RF-OWN-004 cap), argues against a conviction long.
-- All three cases ride **one variable — Dubai residential demand** — so the spread is not diversified risk; the bear compounds (dividend cut + no re-rate) into a worse joint outcome, but the net-cash balance sheet floors it near AED 6–8. This is why the verdict is Watchlist, not Avoid [thesis §8, §14].
-
-## 10. What Would Change Our Mind
-
-Kill criteria — the observable events that would force a downgrade (toward Avoid) or, in the last case, an upgrade:
-
-1. **Q2 2026 pre-sales growth < +16% and falling / backlog growth toward flat** → the Dubai cycle is turning; the backlog-fed P&L becomes rear-view.
-2. **A richly-priced parent asset injected and paid for with new Emaar shares** (a repeat of the AED 7.5bn Dubai Creek Harbour deal) → the value trap proven extractive; capital allocation turns value-destructive.
-3. **Development gross margin fades below the "low 50s" toward high-40s** → the profit-beat mechanism breaks.
-4. **FY2026 dividend cut or capped** (declared ~Feb 2027) → removes the ~8% yield that pays holders to wait.
-5. **Net cash swings to material net debt** via a debt-funded capital call → erodes the balance-sheet floor.
-6. **(Upgrade trigger)** A credible mall spin / REIT / special distribution / arm's-length IAS 24 disclosure → the value-trap cap can lift toward a starter long.
-
-## 11. Second-Best Bet
-
-**Aldar Properties (ADX: ALDAR)** — the only clean listed UAE developer comp, used as the benchmark throughout. Same bet (UAE real-estate cycle) but with less single-city concentration (Abu Dhabi-anchored plus Dubai, a larger recurring arm) and, arguably, a cleaner governance frame — no Emaar-specific value-indifferent controller. The cost: Aldar trades richer (EV/EBITDA ~8.3x vs Emaar 3.6–4.0x), so the margin of safety is thinner, and the forward-P/E gap is only ~−10%, so Emaar's headline cheapness overstates the true relative value. This is a directional pointer (the pool holds only peer-comp Aldar data plus one unverified web governance report), not a rated call [thesis §12].
-
-## 12. What We'd Need to Get More Confident
-
-Top data gaps: a verbatim earnings-call transcript (only sell-side proxies present, which caps earnings clarity); the CIQ ownership / insider export (no dated insider signal); the sukuk offering circular / bank facility agreements (covenant thresholds — headroom is currently "Not assessable"); and a clean annual average-selling-price / units-sold split.
-
-**Single highest-value next request:** the scale and terms of the IAS 24-exempt government-ecosystem related-party dealings (land / utilities / construction / financing with the Dubai-government sphere), plus the controller's capital-return intent toward minority shareholders. It is the one swing between "modestly undervalued masked annuity" and "perennial value trap," and the only disclosure that can lift the RF-OWN-004 rating cap [thesis §V].
-
-## 13. Bottom Line
-
-- **What it does:** builds and sells homes off-plan in Dubai (~80% of revenue) and owns The Dubai Mall, hotels and the Burj Khalifa attractions.
-- **Why it may go up:** it looks cheap (base fair value ~AED 15.00 vs ~AED 12.20 price), and a wholly-owned mall business worth ~79% of the company's enterprise value is hidden inside it; the price implies a collapse the 94%-sold order book contradicts.
-- **Why it may go down:** Dubai home demand is cooling off a record 2025, ~167,000 new units are coming in 2026–27, and the stock trades on that leading signal — a ~20% fall to a real cyclical low is a genuine risk.
-- **What data supports it:** three audited annual reports, Q1 2026, full financials, current consensus, peer comps, a stress test and a governance deep-dive — all six modules ran fully (data sufficiency 80/100).
-- **What data is missing:** how much the government-owner dealings are worth (hidden by the IAS 24 election), a verbatim transcript, and the insider-trading feed.
-- **Buy now or wait:** **Wait.** The balance sheet is a fortress (net cash both bases; survives −69% EBITDA) and the price is cheap on assets (base fair value AED 15.00 vs AED 12.20), but a government owner who won't unlock the value can keep it cheap for years, and the risk/reward is ~one-to-one (0.88).
-- **The one thing to watch next:** the Q2 2026 print (~10 Aug) for the Dubai demand signal — and any IAS 24 / owner-action disclosure.
-
-## Plain-English Glossary
-
-*One line per finance term used above, in order of first appearance.*
-
-- **EV/EBITDA** — enterprise value (the equity plus debt minus cash — the price to buy the whole business) divided by EBITDA; a lower multiple means you pay less per unit of operating profit.
-- **EBITDA** — earnings before interest, tax, depreciation and amortisation; a rough measure of operating profit.
-- **Net cash / net debt** — cash minus total debt; "net cash" means more cash than debt. *Strict* basis nets only cash; *broad* basis also nets short-term investments.
-- **P/E (price/earnings)** — the share price divided by earnings per share; how many years of current earnings you pay for the stock. *Trailing* uses past earnings; *forward* uses expected earnings.
-- **Off-plan** — selling homes before they are built; buyers pay in instalments during construction.
-- **Annuity** — here, a recurring stream of rent / income that keeps coming year after year.
-- **Sum-of-the-parts (SOTP)** — valuing each business separately and adding them up, instead of using one blended multiple.
-- **Reverse-DCF** — working backwards from today's price to the growth rate the market must be assuming.
-- **Free cash flow (FCF)** — the spare cash left after spending to run and grow the business.
-- **Through-cycle margin** — the profit margin averaged across good and bad years, not just the peak.
-- **Backlog / order book** — homes already sold but not yet booked as revenue; here 94% sold, ~3.3× annual revenue.
-- **Margin of safety** — how far the price sits below estimated fair value; a buffer against being wrong.
-- **Re-rate / de-rate** — the market paying a higher (re-rate) or lower (de-rate) multiple for the same earnings.
-- **Interest cover** — operating profit divided by the interest bill; how many times over the company can pay its interest.
-- **Dividend yield** — the annual dividend divided by the share price; here ~8%.
-- **Covenant / covenant headroom** — a lender's contractual limit (e.g. minimum interest cover) and the room before it is breached.
-- **Basis points (bps)** — hundredths of a percent; 100 bps = 1%.
-- **Price-to-book (P/BV)** — the share price versus the accounting net-asset value per share.
-- **Sukuk** — an Islamic-finance bond; a tradable debt instrument that pays a return without conventional interest.
-- **IAS 24** — the accounting rule on related-party disclosure; a government-related-entity election here leaves state-ecosystem dealings unquantified.
-- **Risk/reward** — probability-weighted upside divided by the downside to the bear case; below 1 means more downside than upside.
-- **Value crystallization** — an owner action (spin-off, REIT, special dividend) that forces the market to recognise hidden value.
-
-
-
----
-
-# ═══ business-model ═══
-
-# business-model Module Dossier — EMAR
-
-- Generated: 2026-07-10T16:17:33Z
-- Contents: 1 synthesis + 13 specialists = 14 files
-
-## Table of Contents
-
-- [business-model — module synthesis](#business-model-module-synthesis) — `99_business-model-synthesis.md`
-- [business-model / 00_data-triage.md](#business-model-00-data-triage-md) — `00_data-triage.md`
-- [business-model / 01_disqualifier-scan.md](#business-model-01-disqualifier-scan-md) — `01_disqualifier-scan.md`
-- [business-model / 02_business-identity.md](#business-model-02-business-identity-md) — `02_business-identity.md`
-- [business-model / 03_segment-map.md](#business-model-03-segment-map-md) — `03_segment-map.md`
-- [business-model / 04_unit-economics.md](#business-model-04-unit-economics-md) — `04_unit-economics.md`
-- [business-model / 05_customer-geography.md](#business-model-05-customer-geography-md) — `05_customer-geography.md`
-- [business-model / 06_value-chain.md](#business-model-06-value-chain-md) — `06_value-chain.md`
-- [business-model / 07_business-quality.md](#business-model-07-business-quality-md) — `07_business-quality.md`
-- [business-model / 08_competitive-map.md](#business-model-08-competitive-map-md) — `08_competitive-map.md`
-- [business-model / 09_moat.md](#business-model-09-moat-md) — `09_moat.md`
-- [business-model / 10_external-dependency.md](#business-model-10-external-dependency-md) — `10_external-dependency.md`
-- [business-model / 11_capital-allocation-governance.md](#business-model-11-capital-allocation-governance-md) — `11_capital-allocation-governance.md`
-- [business-model / 12_red-flags-sweep.md](#business-model-12-red-flags-sweep-md) — `12_red-flags-sweep.md`
 
 
 ---
 
 ## business-model — module synthesis
 
-_Source: `99_business-model-synthesis.md`_
+_Source: `business-model/99_business-model-synthesis.md`_
 
-# Business Model Reality Check — EMAR (Synthesis)
+# Business Model Reality Check — EMAAR (Synthesis)
 
-*Emaar Properties PJSC (DFM: EMAAR). Dubai / UAE issuer; IFRS; reporting currency AED (dirham pegged to the US dollar at ~3.6725); fiscal year ends 31 December. Latest audited year FY2025; latest interim Q1 2026. All 13 upstream specialist outputs were present and read; no upstream output missing.*
+*Emaar Properties PJSC (DFM: EMAAR). Dubai / UAE issuer; IFRS; reporting currency AED (dirham pegged to the US dollar at ~3.6725); fiscal year ends 31 December. Latest audited year FY2025; latest interim Q1 2026. All 13 upstream specialist outputs were present and read, including the freshly refreshed `10_external-dependency.md`; no upstream output missing.*
 
 ## Abstract
 
-Emaar Properties is a Dubai-based property developer that master-plans land into branded communities and sells homes off-plan, alongside a smaller recurring malls-and-hotels business. It makes most of its money from build-to-sell real estate — 80% of FY2025 revenue (AED 39.6bn of AED 49.6bn) — with the rest from mall rent and hospitality. Its strongest edge is a capital-light model funded by buyer instalments, sitting on ~AED 25bn net cash and a ~AED 163bn contracted backlog that gives about four years of revenue visibility. Its biggest weakness is single-city concentration: 93% of revenue rides one Dubai property cycle, now at a peak, with through-cycle returns near the cost of capital. Verdict: a cyclical business worth deeper work only with a strong timing edge; no disqualifier triggered.
+Emaar Properties is a Dubai-based property developer that master-plans land into branded communities and sells homes off-plan, alongside a smaller recurring malls-and-hotels business. It makes most of its money from build-to-sell real estate — 80% of FY2025 revenue (AED 39.6bn of AED 49.6bn [FY2025 Annual Report (IFRS), Note 3, p.187–188]). Its strongest edge is a capital-light model funded by buyer instalments, backed by net cash and a ~AED 163bn contracted backlog that gives about four years of revenue visibility. Its biggest weakness is single-city concentration: 93% of revenue rides one Dubai property cycle, now at a peak, with through-cycle return on capital (~7.5–9.5%) sitting at or below an estimated ~11–12% cost of capital. Verdict: a cyclical business worth deeper work only with a strong timing edge; no disqualifier triggered.
 
 ## 1. First-Pass Verdict
 
@@ -1088,29 +629,31 @@ Emaar Properties is a Dubai-based property developer that master-plans land into
 
 - **Verdict:** **Cyclical business — worth deeper work only with a strong timing edge**
 - Disqualifier triggered: **N**
-- Business clarity /100: **80** — identity, three-segment IFRS disclosure and developer KPIs (pre-sales, AED 163.4bn backlog, land bank) are clear; clarity limits are the missing clean annual selling price (ASP), no cap rate/WALE/FFO for the recurring segment, and the IAS 24 non-disclosure of government related-party deals
+- Business clarity /100: **78** — identity, three-segment IFRS disclosure and developer KPIs (pre-sales, AED 163.4bn backlog, land bank) are clear and reconcilable; clarity limits are the missing clean annual selling price (ASP), no cap rate/WALE/FFO for the recurring segment, and the IAS 24 non-disclosure of most government-related-party dealings.
 - Business quality /100: **53** *(from `07_business-quality.md` — Mixed/Average)*
-- Moat /100: **68** *(from `09_moat.md` — strongest single pillar = brand, 68; overall moat verdict = Narrow, eroding)*
-- External dependency risk /100 *(INVERTED — higher = worse)*: **63** *(from `10_external-dependency.md` — mostly externally driven, low end of the 61–80 band)*
+- Moat /100: **68** *(from `09_moat.md` — strongest single moat pillar = Brand, 68, inseparable from Downtown-Dubai location [65] and low-cost legacy land [60]; overall moat verdict = Narrow, trajectory eroding)*
+- External dependency risk /100 *(INVERTED — higher = worse)*: **62** *(from the refreshed `10_external-dependency.md` — "Mostly externally driven, limited management levers," low end of the 61–80 band. Note: `12_red-flags-sweep.md`'s roll-up table still cites "63/100" from a prior version of this specialist's output; this synthesis uses the refreshed external-dependency agent's own stated 62/100 as the current source of record — see §3.)*
 - Capital allocation & governance /100: **66** *(from `11_capital-allocation-governance.md` — Standard professional management with government-control caveats)*
-- Data quality /100: **85** *(from `00_data-triage.md` — "Sufficient": audited FY2025 AR + Q1 2026 interim + 3 yrs CIQ; 69 extracts, 0 failures; only gaps are no investor deck and absent CIQ ownership/insider export)*
-- Overall usefulness /100: **60**
+- Data quality /100: **88** *(from `00_data-triage.md` — "Sufficient": audited FY2025 AR + Q1 2026 interim + 3 yrs CIQ; 69 extracts, 0 extraction failures; only non-critical gaps are the absent CIQ ownership/insider export and no company investor deck)*
+- Overall usefulness /100: **68**
 - Business type (one line): Master-planned residential real-estate developer (build-to-sell, off-plan) concentrated in Dubai, wrapped around a smaller recurring mall-and-hospitality annuity — economics track the Dubai/UAE property cycle *(from `02_business-identity.md`)*
-- Biggest business-model risk (one line): Single-city Dubai property-cycle concentration at a cycle peak — ~80% of revenue is off-plan Dubai residential, 93% of revenue is UAE, and through-cycle return on capital (~7.5–9.5%) sits at or below the ~11–12% cost of capital
+- Biggest business-model risk (one line): 93% of revenue rides one city's property cycle at a record-supply peak, and the through-cycle return on capital (~7.5–9.5%) clears its estimated ~11–12% cost of capital only at that peak, while the moat's cost advantage is structurally narrowing as cheap legacy land gives way to market-priced new land.
 
 **REJECTOR-FILTER CAPS (CLAUDE.md §24).** This module owns three of the six "Avoid Big Risks" filters. Each was checked; none tripped, so no §24 cap is applied:
-- **Filter 1 — Crooks / integrity:** **Not tripped.** `01_disqualifier-scan.md` found no proven fraud by the controller or senior management and routed no unverified integrity "buzz." No verdict-lock and no conviction cap on integrity grounds. (The government-owner misalignment and the founder-MD's competing developer are Filter-6 / governance items, not Filter-1 crook findings.)
+- **Filter 1 — Crooks / integrity:** **Not tripped.** `01_disqualifier-scan.md` found no proven fraud by the controller or senior management and routed no unverified integrity "buzz" as a lock candidate. No verdict-lock and no conviction cap on integrity grounds. (The government-owner misalignment and the founder-MD's competing developer are Filter-6 / governance items, not Filter-1 crook findings, and are carried forward as a conviction-capping note, not a lock.)
 - **Filter 4 — Serial acquirers:** **Not tripped.** `11_capital-allocation-governance.md` scored the acquisition-pattern row **42** (< 70). Growth is organic mega-development; the two recent deals were an affiliate buy-in and a related-party asset purchase, not debt-funded third-party roll-ups; the balance sheet is net cash, not acquisition debt. Capital allocation & governance is **not** capped at 50, and Overall usefulness is **not** capped at 70.
 - **Filter 5 — Fast-changing industry:** **Not tripped.** `07_business-quality.md` scored industry rate-of-change **72** (> 40) — its strongest factor. Business quality is **not** capped at 65, and the thesis is a **property-cycle bet, not a technology-disruption bet**.
 - **RF-BQ-005 (fast-changing industry: rate-of-change ≤40): NOT emitted** — `07_business-quality.md` scored rate-of-change 72; §24 Filter 5 does not trip. (Propagated as a standalone line so eval check AE can detect it mechanically.)
 
-**Module Disconfirmation (CLAUDE.md §8).** Two-sided test the verdict must survive:
-- **Strongest bear point:** Through-cycle return on capital (ROIC, tax-normalized to the new 15% UAE minimum) is ~7.5–9.5% against a ~11–12% cost of capital — it clears the hurdle only at the cyclical peak (13.4% normalized LTM). Consensus already models −14.8% long-term growth into a record Dubai supply pipeline (648 launches, 167,000+ units) [`09_moat.md` §3–5; `10_external-dependency.md` §1; `07_business-quality.md` cyclicality 27].
-- **Strongest bull point (steelman):** The model is capital-light and downturn-resistant — buyers forward-fund construction (~AED 44bn in regulated escrow), a ~AED 163bn contracted backlog carries ~4 years of revenue, the balance sheet holds ~AED 25bn net cash (CIQ broad basis), and a genuine brand + irreplaceable Downtown-Dubai location lets Emaar out-earn its one listed peer (Aldar) by ~18 EBIT-margin points [`04_unit-economics.md`; `09_moat.md` §2; `08_competitive-map.md` §2C].
-- **Single killer risk:** A Dubai property-cycle downturn — a ~20% adverse move in Dubai residential demand (price × volume × absorption) hits ~80% of revenue and 93% of the geography at once, stopping backlog replenishment [`10_external-dependency.md` §5; `05_customer-geography.md` §4].
-- **Disconfirming evidence already visible:** The "peak" read is already confirmed in the data — gross margin has fallen 63% (FY2023) → 55% (FY2025), 4Q25 gross margin −251 bps YoY on mix, new land is being bought at market prices (narrowing the cheap-land spread), and consensus prices −14.8% long-term growth. The bull "durable compounder" reading is disconfirmed by the through-cycle ROIC sitting at/below WACC [`ciq_facts.json` margin_trend, consensus_view; `09_moat.md` §5].
+No multiple-cap conflict arises — neither Filter 4 nor Filter 5 tripped.
 
 **CAPITAL STRUCTURE TRANSACTION CAP: NOT triggered.** Per `11_capital-allocation-governance.md`, total debt has fallen every year since 2021 (no >50% YoY rise) and share count has been flat at 8,838.8m from Q4 2024 through Q1 2026 (no >25% change). The May-2026 transfer of the 22.27% anchor block from ICD to Emirates Power Investment (AED 23.9bn) is a **secondary sale between government-related vehicles** — it changed who owns Emaar shares, not Emaar's own debt or share count — so it does not trigger the cap. The Capital allocation & governance score stands at **66/100, uncapped**.
+
+**Module Disconfirmation (CLAUDE.md §8; fix F37).** Two-sided test the verdict must survive:
+- **Strongest bear point:** Through-cycle return on capital (ROIC, tax-normalized to the new 15% UAE minimum) is ~7.5–9.5% against an estimated ~11–12% cost of capital — it clears the hurdle only at the cyclical peak (13.4% normalized LTM). Consensus already models −14.8% long-term growth into a record Dubai supply pipeline (648 launches, 167,000+ units) [`09_moat.md` §3–§5; `10_external-dependency.md` §1; `07_business-quality.md` cyclicality row, 27].
+- **Strongest bull point (steelman):** The model is capital-light and downturn-resistant — buyers forward-fund construction (~AED 44bn in regulated escrow, per `06_value-chain.md`/`04_unit-economics.md`), a ~AED 163bn contracted backlog carries ~4 years of revenue, the balance sheet holds a large net-cash position (Total Debt/EBITDA 0.40x), and a genuine brand + irreplaceable Downtown-Dubai location lets Emaar out-earn its one listed peer (Aldar) by ~18 EBIT-margin points [`04_unit-economics.md`; `09_moat.md` §2–§3; `08_competitive-map.md` §2C].
+- **Single killer risk:** A Dubai property-cycle downturn — a ~20% adverse move in Dubai residential demand (price × volume × absorption) hits ~80% of revenue and 93% of the geography at once, arriving just as ~167,000 new units complete into a record-supply market and the cheap-legacy-land cost advantage structurally narrows [`10_external-dependency.md` §5; `05_customer-geography.md` §4; `09_moat.md` §5].
+- **Disconfirming evidence already visible:** The "peak" read is already confirmed in the data — gross margin has fallen from 63% (FY2023) to 55% (FY2025 LTM), 4Q25 gross margin was down ~251 bps YoY on mix, new land is being bought at market prices (narrowing the cheap-land spread), and consensus prices −14.8% long-term growth. `09_moat.md` explicitly labels the moat trajectory "eroding," not stable — the bull "durable compounder" reading is disconfirmed by the through-cycle ROIC sitting at/below WACC.
 
 ## 2. Specialist Roll-Up
 
@@ -1118,59 +661,56 @@ Emaar Properties is a Dubai-based property developer that master-plans land into
 |---|---|---|
 | data-triage | Sufficient — audited FY2025 AR + Q1 2026 interim + 3 yrs CIQ; 69 extracts, 0 failures | UAE/DFM/IFRS issuer in AED; only gaps are no investor deck and an absent CIQ ownership/insider export (routed to management-governance) |
 | disqualifier-scan | No disqualifier triggered (0 of 8); no verdict-lock | Clean unqualified audits FY23–25, net cash, RPT <1.2% of expenses; soft signals = government/unaligned-owner control + IAS 24 RPT non-disclosure |
-| business-identity | Dubai off-plan developer + smaller recurring landlord; economics track the Dubai cycle | 80% off-plan build-to-sell; AED 163.4bn revenue backlog; buyers forward-fund construction (value comes over ~4 years) |
-| segment-map | Real Estate dominant — 79.8% of revenue / 74.9% of segment profit; not close | Two businesses bolted together: a cyclical developer (drives the numbers) on a ~69%-margin recurring landlord (carries the quality) |
+| business-identity | Dubai off-plan developer + smaller recurring landlord; economics track the Dubai cycle | 80% off-plan build-to-sell; AED 163.4bn revenue backlog; buyers forward-fund construction (cash arrives before revenue is recognised) |
+| segment-map | Real Estate dominant — 79.8% of revenue / 74.9% of segment profit; not close | Two businesses bolted together: a cyclical developer (drives the numbers) sitting on a ~69%-margin recurring landlord (carries the quality) |
 | unit-economics | Creates value — but at peak-cycle returns | ~45% contribution margin per ~AED 3.9m home, buyer-pre-funded (negative working capital); 2025 was the Dubai cycle top; clean annual ASP not disclosed |
-| customer-geography | Geography-concentrated, not customer-concentrated | UAE/Dubai = 93% of revenue (up from 86% two years ago); no single-customer concentration; near term secured by ~AED 155bn backlog |
-| value-chain | Economic control: Mixed | Strong over buyers (escrow forward-funds it); partial price-taker on inputs; single biggest bargaining risk = Government of Dubai/ICD (land + policy + 22.3% control) |
-| business-quality | Aggregate 53/100 (Mixed/Average); cyclical, not durable compounder | Cyclicality (27) is the defining/weakest factor; disruption-risk (72) strongest — §24 Filter 5 NOT tripped, RF-BQ-005 not emitted |
-| competitive-map | Holding — clear #1 in Dubai residential, ~2x #2 DAMAC by sales | Out-earns only listed peer Aldar by ~18 EBIT-margin points (55% gross / ~45% EBIT vs 34.9% / 27.2%); DAMAC & Sobha private, margins undisclosed |
-| moat | Narrow moat, eroding | Brand(68)+Downtown-Dubai location(65)+cheap legacy land(60) = one integrated edge; but through-cycle ROIC ~7.5–9.5% ≤ ~11–12% WACC — clears the hurdle only at the peak |
-| external-dependency | 63/100 INVERTED (mostly externally driven) | Dubai residential demand is the whole game; government policy / regulation / geopolitics / consumer cycle all High; own-balance-sheet rate & FX risks immaterial (USD peg) |
-| capital-allocation-governance | 66/100; Standard professional management with government-control caveats | Net cash ~AED 25bn, debt falling, dividend ~2x covered; biggest deduction = IAS 24 election leaving government-ecosystem RPTs unquantified; §24 Filter 4 NOT applied (acq-pattern 42) |
-| red-flags-sweep | 3 new flags; most severe = minority-interest (NCI) leakage (52) | ~21% of consolidated profit (AED 4.7bn) belongs to minorities — consolidated EV/EBITDA (4.0x) overstates owned cash flow; founder-MD runs competing Eagle Hills (45); Syria solo exposure (33) |
+| customer-geography | Geography-concentrated, not customer-concentrated | UAE/Dubai = 93% of revenue (up from 86% two years ago); no single-customer concentration; near term secured by a ~AED 155bn backlog |
+| value-chain | Economic control: Mixed | Strong over buyers (escrow forward-funds it); partial price-taker on inputs; single biggest bargaining risk = Government of Dubai/ICD (supplies scarcest input — land — and sets demand policy, while holding 22.3% control) |
+| business-quality | Aggregate 53/100 (Mixed/Average); cyclical, not durable compounder | Cyclicality (27) is the defining/weakest factor; disruption-risk (72) is the strongest — §24 Filter 5 NOT tripped, RF-BQ-005 not emitted |
+| competitive-map | Holding — clear #1 in Dubai residential, ~2x #2 DAMAC by sales | Out-earns its only audited peer, Aldar, by ~18 EBIT-margin points (55% gross / ~45% EBIT vs 34.9% / 27.2%); DAMAC & Sobha are private, margins undisclosed |
+| moat | Narrow moat, eroding | Brand (68) + Downtown-Dubai location (65) + cheap legacy land (60) form one integrated edge; but through-cycle ROIC ~7.5–9.5% sits at/below ~11–12% WACC — clears the hurdle only at the peak |
+| external-dependency | 62/100 INVERTED (mostly externally driven) — refreshed output | Dubai residential demand is the whole game; government policy, regulation, geopolitics and consumer cycle all score High; own-balance-sheet rate & FX risks are immaterial (USD peg) |
+| capital-allocation-governance | 66/100; Standard professional management with government-control caveats | Net cash, debt falling, dividend ~2x covered; biggest deduction = IAS 24 election leaving government-ecosystem related-party dealings unquantified; §24 Filter 4 NOT applied (acquisition-pattern severity 42) |
+| red-flags-sweep | 3 new flags; most severe = minority-interest (NCI) leakage (severity 52) | ~21% of consolidated profit (AED 4.7bn) belongs to minorities, concentrated in peak-flattered earnings — consolidated EV/EBITDA overstates owned cash flow; founder-MD runs competing Eagle Hills (severity 45); Syria solo exposure (severity 33) |
 
 ## 3. Reconciliation
 
-The specialists are consistent on the facts that matter; the reconciliations below are basis-labels and precision refinements, not factual conflicts.
+- **External dependency risk score (62 vs. 63) — reflects the refresh.** The refreshed `10_external-dependency.md` states its own score as **62/100** throughout its report body. `12_red-flags-sweep.md`'s roll-up table still cites "**63/100** inverted," which reflects the prior version of the external-dependency output that red-flags-sweep was built against before the refresh. This is not a live factual disagreement between two current specialists — it is a stale reference in a document that was not itself refreshed. **Reconciled view:** this synthesis uses 62/100, the refreshed external-dependency agent's own current figure, as the source of record; the substance behind it (Dubai residential demand, government policy, regulation and geopolitics all High; financial-market sensitivities immaterial) is unchanged between versions.
+- **Net-cash figure — two different bases and dates, not a contradiction to average away.** `09_moat.md` and `06_value-chain.md` cite net cash of ~AED 25bn (total debt AED 10.1bn − net debt −AED 25.0bn = ~AED 35.0bn gross cash), sourced to the CIQ vendor export, LTM to 31 March 2026, labelled "broad basis." The refreshed `10_external-dependency.md` instead cites net cash of **AED 61.7bn** (cash and short-term deposits of AED 71.5bn against total debt of AED 9.8bn), sourced to the FY2025 Annual Report's own Financial Review, p.13, at 31 December 2025 — also labelled "broad basis" but evidently netting in a wider pool of short-term deposits/investments than the CIQ figure. **Reconciled view (conservative default per CLAUDE.md §4):** this synthesis anchors on the lower, CIQ-sourced ~AED 25bn net-cash figure for cross-module consistency, and flags the AED 61.7bn company-stated figure as a real, unreconciled gap between two Tier-1/Tier-5 sources for `capital-allocation-governance` or a balance-sheet-focused module to resolve directly against Note 10 of the audited financial statements. Either figure supports the same directional conclusion (large net-cash position, Total Debt/EBITDA 0.40x, ~52x interest cover) — the disagreement is a magnitude question, not a solvency question.
+- **Gross margin — which denominator.** `04_unit-economics.md` cites ~49% *residential-unit* gross margin (Note 4/Note 5 basis); `ciq_facts.json`, `07_business-quality.md` and `09_moat.md` cite ~55% *group* gross margin (LTM). These are different scopes (one segment vs. the whole consolidated group, which includes the higher-margin ~69% leasing segment), not a conflict. **Reconciled view:** use the ~55% group figure for group-level reads and the ~49% residential figure for unit economics; both have compressed from their FY2023 peaks and both are cycle-flattered.
+- **Segment share.** `ciq_facts.json` (80%) and `03_segment-map.md` (79.8%) agree on Real Estate dominance (vendor rounds to AED millions vs. the filing's AED thousands). No gap.
+- **Business quality (53, "Average") vs. the Cyclical verdict.** Not a disagreement: `07_business-quality.md` itself classifies Emaar as "cyclical, not durable compounder," so the synthesis verdict of *Cyclical business* is the reconciled read — the 53 quality score is an input, the cyclical classification is the label.
 
-- **Return on capital (ROIC) — headline vs through-cycle.** `ciq_facts.json` pins ROIC at 12.5% (FY2025) / 13.7% (LTM). `07_business-quality.md` reads through-cycle ~8–10%; `09_moat.md` refines this by normalizing the whole series to the new 15% UAE minimum tax (the pre-2024 years were near-zero-tax and therefore flattered), giving a through-cycle ~7.5–9.5% and a 13.4% normalized LTM peak. **Reconciled view:** adopt the moat's tax-normalized ~7.5–9.5% through-cycle / ~13.4% peak — the more conservative and more complete read. Both agents agree the headline is a cyclical peak to be anchored, not extrapolated.
-- **Net cash — basis label.** The ~AED 25bn "net cash" is the CIQ vendor (broad) basis, which nets short-term/liquid investments (total debt AED 10.1bn less ~AED 35bn cash-and-short-term-investments); it is **not** the strict §15 total-debt−cash figure. Every agent that used it (unit-economics, value-chain, moat, capital-allocation, external-dependency) flagged the broad basis. **Reconciled view:** carry it labeled as CIQ broad basis; the directional conclusion (large net-cash position, ~0.40x Total Debt/EBITDA, ~52x interest cover) is not sensitive to the basis.
-- **Gross margin — which denominator.** `04_unit-economics.md` cites ~49% *residential-unit* gross margin; `ciq_facts.json` / `07_business-quality.md` cite ~55% *group* gross margin. These are different bases (one segment vs the whole group), not a conflict. **Reconciled view:** use the group ~55% for group-level reads and the ~49% residential figure for unit economics; both are falling and cycle-flattered.
-- **Segment share.** `ciq_facts.json` (80%) and `03_segment-map.md` (79.8%) agree on Real Estate dominance (vendor rounds AED millions vs filing AED thousands). No gap.
-- **Business quality (53, "Average") vs the Cyclical verdict.** Not a disagreement: `07_business-quality.md` itself classifies Emaar as "cyclical, not durable compounder," so the synthesis verdict of *Cyclical business* is the reconciled read — the 53 quality score is an input, the cyclical classification is the label.
-
-*No material factual disagreements between specialists.*
+No other material disagreements between specialists were found.
 
 ## 4. Note To The Final Synthesizer
 
-- **Strongest business-model positive:** the funding model is the edge, not just the brand — buyers pay in instalments into regulated escrow (~AED 44bn held) before they receive the home, so the customer finances Emaar's working capital; combined with ~AED 25bn net cash (CIQ broad basis) and a ~AED 163bn contracted backlog, this is a business that can keep building and survive a downturn without external finance. It means downside is about *returns*, not *solvency*.
-- **Strongest business-model negative:** the wide peer-margin lead does not reliably convert into economic value creation through the cycle — after the new 15% tax, through-cycle return on capital is roughly level with (or below) the cost of capital, so most of today's headline return is the Dubai cycle being near its top, not a durable spread. Treat current margins and ROIC as peak, not run-rate.
-- **Most important segment:** Real Estate (off-plan build-to-sell) — ~80% of revenue and ~75% of segment profit, and the swing factor. The ~69%-margin Leasing/Retail annuity (~15%) is what carries the quality and cushions the downside; it is small but it is the part a buyer should value most highly.
-- **Cleanest unit-economics read:** derivable and positive — each ~AED 3.9m home earns ~45% contribution margin on minimal own capital (buyers pre-fund the build), clearing the value bar even at the ~32% trough margin. The one missing input is a clean annual homes-sold count and average selling price; economics still compute from pipeline value ÷ unit count, so this is not a data-gap case.
-- **Where it sits vs named peers:** at the top on margin and scale — ~2x #2 DAMAC by sales and ~18 EBIT-margin points above its only listed peer Aldar (55%/~45% vs 34.9%/27.2%). But DAMAC and Sobha are private (margins undisclosed), so the peer-superiority rests mainly on the Aldar anchor; and being top-of-peer-set on margin does not lift the *absolute* through-cycle return above its cost of capital.
-- **Main external dependency:** one variable dominates — Dubai residential property demand (price × volume × off-plan absorption), driven by foreign-capital inflows, government visa/population policy and the property cycle. Own-balance-sheet rate and FX risks are immaterial (USD peg, net cash); this is an operating-demand bet, not a financial-market bet.
-- **Most important capital-allocation / governance signal:** the balance-sheet and distribution record is genuinely conservative (net cash, falling debt, ~2x-covered dividend, flat share count, clean audit), but minority alignment is the weak spot — the state controls it, the founder-MD runs a competing developer (Eagle Hills), and the IAS 24 election leaves most government-ecosystem related-party dealings unquantified. Today the channel is not visibly extractive; it is the thing that would change the classification if it deteriorated.
-- **Automatic disqualifier triggered:** No — none of the 8 tripped; verdict not locked.
-- **Rejector filters (§24) tripped:** None. Filter 1 (crooks/integrity) — no proven fraud, no cap/lock. Filter 4 (serial acquirers) — acquisition-pattern severity 42 (<70), no cap. Filter 5 (fast-changing industry) — rate-of-change 72 (>40), no cap, RF-BQ-005 not emitted. The live §24 concern is Filter 6 (unaligned/government owner), which is a structural caution carried to management-governance and valuation, not a business-model cap.
-- **Red flags to carry (severity ≥40, must not be averaged away):**
-  - **Minority-interest (NCI) leakage — severity 52 (most severe new flag).** ~21% of consolidated FY2025 profit (AED 4.7bn of AED 22.3bn) belongs to outside shareholders, concentrated in the higher-return, peak-flattered listed subsidiaries (Emaar Development, Emaar Misr). Consolidated EV/EBITDA of 4.0x prices ~21% of EBITDA the parent does not own — value the parent on its ~79% share; parent EPS (AED 1.99) is already NCI-clean.
-  - **Founder / key-person concentration — severity 45.** MD Mohamed Alabbar owns ~0.03%, has no disclosed succession, and simultaneously chairs a competing global developer (Eagle Hills, actively buying the same asset type) plus other ventures — divided attention and non-visible deal-flow allocation.
-  - **Government-ecosystem related-party opacity — severity 55 (capital-allocation module) / 50 (ownership).** The IAS 24 exemption leaves land, utility, construction and financing dealings with the Dubai-Government/ICD ecosystem unquantified — the channel through which the AED 7.5bn Dubai Creek Harbour asset was bought from the parent.
-  - *(Below threshold, noted not carried as material: Syria solo exposure — severity 33 — deepening unhedged principal in a just-desanctioned jurisdiction; small absolute size.)*
-- **Biggest missing data point:** a clean annual figure for homes sold and their average selling price (ASP), which would let a buyer split price from volume and read the cycle turn directly. Secondary: cap rate / WALE / FFO for the recurring segment (needed to value the annuity), and the absent CIQ ownership/insider export (routed to management-governance).
-- **Deserves deeper work?** Yes, but conditionally — this is a clear, well-disclosed, financially resilient franchise, **not** a low-quality avoid; however it is a cyclical single-city developer at a cycle peak with a narrow, eroding economic moat, so deeper work pays off **only with a strong view on the Dubai property cycle's timing.** What would change the answer toward "avoid": Dubai pre-sales momentum rolling over (bookings and developer margin turn first, while backlog holds reported revenue up), a large rich-priced asset bought from the government parent with fresh dilution, or a visible swing from net cash toward funding state projects. What would change it toward "higher-quality": durable through-cycle ROIC holding above cost of capital as the cheap-land spread narrows, and a rising recurring-income share.
+- **Strongest business-model positive:** the funding model is the real edge, not just the brand — buyers pay in instalments into regulated escrow (~AED 44bn held) before they receive the home, so the customer finances Emaar's working capital; combined with a large net-cash position (Total Debt/EBITDA 0.40x) and a ~AED 163bn contracted backlog, this is a business that can keep building and survive a downturn without external finance. It means the near-term downside is about *returns*, not *solvency*.
+- **Strongest business-model negative:** the wide peer-margin lead does not reliably convert into economic value creation through the cycle — after the new 15% UAE minimum tax, through-cycle return on capital is roughly level with, or below, the estimated cost of capital, so most of today's headline return reflects the Dubai cycle being near its top, not a durable spread. Treat current margins and ROIC as peak, not run-rate.
+- **Most important segment:** Real Estate (off-plan build-to-sell) — ~80% of revenue and ~75% of segment profit, and the swing factor for the whole group. The ~69%-margin Leasing/Retail annuity (~15.5% of revenue) is what carries the quality and cushions the downside; it is small but it is the part a buyer should value most highly.
+- **Cleanest unit-economics read:** derivable and positive — each ~AED 3.9m home earns ~45% contribution margin on minimal own capital (buyers pre-fund the build), clearing the value-creation bar even at the ~32% trough gross margin seen in 2020–21. The one missing input is a clean annual homes-sold count and average selling price; economics still compute from pipeline value ÷ unit count, so this is not a data-gap case, just a precision limit.
+- **Where it sits vs. named peers on margin / ROIC:** at the top on margin and scale — ~2x #2 DAMAC by sales, and ~18 EBIT-margin points above its only audited listed peer, Aldar (55% gross / ~45% EBIT vs. 34.9% / 27.2%). But DAMAC and Sobha are private (margins undisclosed), so the peer-superiority claim rests mainly on the Aldar anchor; being top-of-peer-set on margin does not, by itself, lift the *absolute* through-cycle return above its cost of capital.
+- **Main external dependency:** one variable dominates — Dubai residential property demand (price × volume × off-plan absorption), driven by foreign-capital inflows, government visa/population policy and the property cycle, none of which management sets. Own-balance-sheet interest-rate and FX risks are immaterial (a ±100bp rate move affects profit before tax by only ~0.1%; the dirham is pegged to the US dollar) — this is an operating-demand bet, not a financial-market bet [refreshed `10_external-dependency.md` §1–§2].
+- **Most important capital allocation or governance signal:** the balance-sheet and distribution record is genuinely conservative (net cash, falling debt, a dividend covered roughly 2x by earnings, flat share count, a clean unqualified audit), but minority alignment is the weak spot — the Government of Dubai controls the company (block just moved from ICD to Emirates Power Investment/Dubai Holding, group stake 29.73%), the founder-MD runs a competing developer (Eagle Hills), and the IAS 24 election leaves most government-ecosystem related-party dealings unquantified. Today the channel is not visibly extractive; it is the signal that would change the classification if it deteriorated.
+- **Whether any automatic disqualifier triggered:** No — none of the 8 tripped; verdict not locked.
+- **Which rejector filters (§24) tripped, and the cap each applied:** None. Filter 1 (crooks/integrity) — no proven fraud, no cap or lock. Filter 4 (serial acquirers) — acquisition-pattern severity 42 (< 70), no cap applied to capital allocation & governance or overall usefulness. Filter 5 (fast-changing industry) — rate-of-change scored 72 (> 40), no cap applied to business quality, RF-BQ-005 not emitted. The live §24 concern is Filter 6 (unaligned/government owner), which this module does not own — it is carried as a structural caution to management-governance and valuation, not applied as a business-model cap here.
+- **Severity ≥ 40 flags from `12_red-flags-sweep.md` — mandatory propagation:**
+  - **Minority-interest (NCI) leakage — severity 52 (the most severe new flag).** ~21% of consolidated FY2025 net profit (AED 4,726m of AED 22,326m) belongs to non-controlling interests, concentrated in the higher-return, peak-flattered listed subsidiaries (Emaar Development, Emaar Misr) — a consolidated EV/EBITDA multiple silently prices ~21% of EBITDA the parent's shareholders do not own; value the parent on its ~79% share, and note parent EPS (AED 1.99) is already NCI-clean.
+  - **Founder / key-person concentration — severity 45.** Managing Director Mohamed Alabbar owns only ~0.03% of Emaar, has no disclosed succession plan, and simultaneously chairs Eagle Hills, a competing international developer actively acquiring the same asset type (Four Seasons Marrakech, Jan 2026), plus other ventures — deal-flow allocation between the two is not visible to minority holders.
+  - *(Below the mandatory threshold, noted but not carried as material: Syria solo exposure — severity 33 — Emaar is moving to sole, unhedged ownership of a USD 500m Damascus-area development in a jurisdiction only just emerging from sanctions; small absolute size, excluded from further weight here given its sub-40 severity.)*
+- **Biggest missing data point:** a clean, per-year average-selling-price (ASP) and homes-sold count for the Real Estate segment — the company discloses pipeline value and cumulative unit counts but not an annual ASP, forcing downstream unit-economics reads to be derived rather than reported. Secondary: cap rate / WALE / FFO for the recurring segment, and the absent CIQ ownership/insider export.
+- **Whether the business deserves deeper work, and what would change the answer:** Yes, but only conditionally — this is a clear, well-disclosed, financially resilient franchise, not a low-quality avoid; it is, however, a cyclical single-city developer at a cycle peak with a narrow, eroding economic moat, so deeper work pays off only with a specific view on the Dubai property cycle's timing. What would push the answer toward "avoid": Dubai pre-sales momentum rolling over (bookings and developer margin turn first, while the backlog holds reported revenue up for a time), a large rich-priced asset bought from the government parent funded by fresh dilution, or a visible swing from net cash toward funding state projects. What would push it toward "higher-quality": durable through-cycle ROIC holding above cost of capital as the cheap-land spread narrows, and a rising recurring-income share. A specific open item for the next module: reconcile the AED 25bn (CIQ) vs. AED 61.7bn (company Financial Review) net-cash figures against Note 10 of the audited financial statements.
 
 ## 5. Simple Summary
 
-- **What it does:** Builds and sells homes off-plan in Dubai master-planned communities (Downtown Dubai, Dubai Hills, Emaar Beachfront), and owns The Dubai Mall plus ~41 hotels and the Burj Khalifa attractions.
+- **What it does:** Builds and sells homes off-plan in Dubai master-planned communities (Downtown Dubai, Dubai Hills, Emaar Beachfront), and separately owns The Dubai Mall, ~41 hotels and the Burj Khalifa attractions.
 - **How it makes money:** ~80% from selling homes before they are built (buyers pay in instalments during construction); ~20% from mall rent and hotels.
-- **Does each new unit create value:** Yes — each ~AED 3.9m home earns ~45% contribution margin and is largely paid for by the buyer during the build, so little of Emaar's own capital is at risk — but today's returns are at a cycle peak.
+- **Does each new unit create value:** Yes — each ~AED 3.9m home earns ~45% contribution margin and is largely paid for by the buyer during the build, so little of Emaar's own capital is at risk — but today's returns are read at a cycle peak, not a run-rate.
 - **Which segment matters most:** Real Estate (build-to-sell) — ~80% of revenue and ~75% of profit; the smaller ~69%-margin malls annuity carries the quality.
-- **Does it have a moat, and against whom:** A narrow, eroding moat — brand + irreplaceable Downtown-Dubai location + cheap legacy land let it out-earn listed peer Aldar by ~18 margin points, but the economic edge clears the cost of capital only at the cycle peak.
-- **What external variables it depends on:** One above all — Dubai residential property demand (prices, volumes, foreign-buyer inflows), plus government visa and tax policy. Interest-rate and FX exposure on its own books is immaterial (USD peg, net cash).
-- **Is capital allocated well:** On the balance sheet yes (net cash ~AED 25bn, falling debt, covered dividend); on alignment no — the government controls it, the founder-MD runs a competing developer, and most government related-party deals are left unquantified.
-- **Does it deserve deeper work:** Only with a strong Dubai-cycle timing edge — it is a cyclical bet at a peak, not a durable compounder, and ~21% of consolidated profit leaks to minority holders.
+- **Does it have a moat, and against whom:** A narrow, eroding moat — brand + irreplaceable Downtown-Dubai location + cheap legacy land let it out-earn listed peer Aldar by ~18 margin points, but the economic edge clears the estimated cost of capital only at the cycle peak.
+- **What external variables it depends on:** One above all — Dubai residential property demand (prices, volumes, foreign-buyer inflows), plus government visa and tax policy. Interest-rate and FX exposure on its own books is immaterial (USD peg, large net-cash position).
+- **Is capital allocated well:** On the balance sheet, yes (net cash, falling debt, a covered dividend); on alignment, not fully — the government controls the company, the founder-MD runs a competing developer, and most government-related-party deals are left unquantified.
+- **Does it deserve deeper work:** Only with a strong Dubai-cycle timing edge — it is a cyclical bet at a peak, not a durable compounder, and roughly a fifth of consolidated profit belongs to minority shareholders, not Emaar's own owners.
 
 
 
@@ -1178,7 +718,7 @@ The specialists are consistent on the facts that matter; the reconciliations bel
 
 ## business-model / 00_data-triage.md
 
-_Source: `00_data-triage.md`_
+_Source: `business-model/00_data-triage.md`_
 
 # Data Triage — EMAR
 
@@ -1302,7 +842,7 @@ Downstream: apply CLAUDE.md §27 for a **UAE/DFM/IFRS** issuer — do NOT flag m
 
 ## business-model / 01_disqualifier-scan.md
 
-_Source: `01_disqualifier-scan.md`_
+_Source: `business-model/01_disqualifier-scan.md`_
 
 # Disqualifier Scan — EMAR
 
@@ -1344,7 +884,7 @@ No disqualifier triggered.
 
 ## business-model / 02_business-identity.md
 
-_Source: `02_business-identity.md`_
+_Source: `business-model/02_business-identity.md`_
 
 # Business Identity — EMAR
 
@@ -1415,7 +955,7 @@ Reported revenue moves mostly with the timing of construction progress on alread
 
 ## business-model / 03_segment-map.md
 
-_Source: `03_segment-map.md`_
+_Source: `business-model/03_segment-map.md`_
 
 # Segment Map — EMAR
 
@@ -1466,7 +1006,7 @@ Disclosure here is good and granular. The three reportable segments plus "Others
 
 ## business-model / 04_unit-economics.md
 
-_Source: `04_unit-economics.md`_
+_Source: `business-model/04_unit-economics.md`_
 
 # Unit Economics — EMAR
 
@@ -1504,7 +1044,7 @@ The read swings most on **price per home (ASP)**, and that is also the input wit
 
 ## business-model / 05_customer-geography.md
 
-_Source: `05_customer-geography.md`_
+_Source: `business-model/05_customer-geography.md`_
 
 # Customer And Geography Map — EMAR
 
@@ -1563,7 +1103,7 @@ This is a **geography-concentrated** business, not a customer-concentrated one. 
 
 ## business-model / 06_value-chain.md
 
-_Source: `06_value-chain.md`_
+_Source: `business-model/06_value-chain.md`_
 
 # Value Chain Position — EMAR
 
@@ -1611,7 +1151,7 @@ The **Government of Dubai / ICD upstream relationship** — the counterparty tha
 
 ## business-model / 07_business-quality.md
 
-_Source: `07_business-quality.md`_
+_Source: `business-model/07_business-quality.md`_
 
 # Business Quality — EMAR
 
@@ -1664,7 +1204,7 @@ The headline returns are at a cyclical high and must be anchored, not extrapolat
 
 ## business-model / 08_competitive-map.md
 
-_Source: `08_competitive-map.md`_
+_Source: `business-model/08_competitive-map.md`_
 
 # Competitive Map — EMAR
 
@@ -1725,7 +1265,7 @@ Two limits on this map, both disclosed rather than papered over:
 
 ## business-model / 09_moat.md
 
-_Source: `09_moat.md`_
+_Source: `business-model/09_moat.md`_
 
 # Moat — EMAR
 
@@ -1798,74 +1338,61 @@ The strongest moat is the **Emaar brand (68/100), inseparable from the irreplace
 
 ## business-model / 10_external-dependency.md
 
-_Source: `10_external-dependency.md`_
+_Source: `business-model/10_external-dependency.md`_
 
-# External Dependency Check — EMAR
+# External Dependency Check — EMAAR
 
-**Company:** Emaar Properties PJSC (DFM: EMAAR) — Dubai/UAE real-estate developer. Reporting standard IFRS, currency AED, fiscal year ends 31 December. [FY2025 Integrated Annual Report; 00_data-triage §2A]
+*Emaar Properties PJSC (DFM: EMAAR) — Dubai / UAE real-estate developer. Reporting standard IFRS, currency AED (pegged to USD at ~3.6725), fiscal year = calendar year. All figures FY2025 (year ended 31 Dec 2025) unless stated [FY2025 Integrated Annual Report; 00_data-triage §2A].*
 
-**Read first — the split that matters.** Emaar's *own balance-sheet* market risks (interest rates, FX on its debt and cash) are genuinely small: the dirham is pegged to the US dollar, the company sits on net cash of ~AED 25bn (cash above debt), and interest cover is ~52x. But that is not the dependency that drives the equity. Eighty percent of revenue is *off-plan* Dubai residential development — homes sold before they are built — to a largely foreign buyer base. The outcome is set by the Dubai property cycle, the flow of foreign capital into Dubai, government/visa policy, and the new UAE tax regime. Management controls timing, product, brand and pricing *within* that cycle; it does not set the cycle.
+**The split that matters.** Emaar's own balance-sheet market risks — interest rates and FX on its debt and cash — are genuinely small: the dirham is pegged to the US dollar, total debt is AED 9.8bn against cash and short-term deposits of AED 71.5bn (net cash AED 61.7bn on a **broad basis** that nets in short-term deposits — the company's own footnote; see §15 hygiene note below) [FY2025 Annual Report, Financial Review — Net Cash, p.13]. But that is not what drives the equity. About 80% of revenue is off-plan Dubai residential development — homes sold to buyers before they are finished — funded by a heavily foreign buyer base. The outcome is set by the Dubai property cycle, foreign-capital inflows, government population/visa/ownership policy, regional geopolitics, and now a new UAE tax regime. Management controls pricing, launch timing, product mix and cash discipline *within* that cycle; it does not set the cycle.
 
 ## 1. Dependency Table
 
-Levels: Low / Mid / High. **"High" = most dangerous (least controllable).** Rows that do not apply to a Dubai property developer (freight/logistics, weather) are dropped, not scored.
-
-| External Variable | Dependency Level | Why It Matters | Evidence |
+| External Variable | Dependency Level (Low / Mid / High) | Why It Matters | Evidence |
 |---|---|---|---|
-| Commodity prices | **Mid** | Construction inputs (steel, cement, labour, bought through contractors) sit inside cost of sales — FY2025 cost of sales AED 22,330m on AED 49,557m revenue (~45%). Input-cost inflation compresses the development margin: gross margin has fallen from 63% (FY2023) toward guided "low 50s," and management guides low-50s gross margin as the sustainable medium-term level. Indirect oil link: the AR notes hydrocarbon activity feeds "government spending and overall economic confidence." | [FY2025 AR, Industry-Specific tab (Total Cost of Sales AED 22,330m); Market Context, p.19; Q4'25 Earnings-Call Summary (FAB Securities), Feb 2026 — "gross margins low 50s sustainably"] |
-| Interest rates | **Mid** | Own debt: immaterial — a ±100 basis-point (0.01% each) move changes interest expense by only ~AED 26m, versus profit before tax (PBT — profit before the tax line) of AED 25,656m (~0.1%); floating-rate debt is just AED 1,070m of AED 10,615m, and the group holds net cash. But rates drive *buyer* affordability, off-plan demand and investment-property yields, and the AED peg means the UAE imports US Fed policy with no local control. | [FY2025 AR, Market-risk note, p.216 (±100bps → AED 26,165k); ciq_facts debt-maturity (1,070 floating / 9,545 fixed); ciq_facts interest_coverage 52.1x; AR p.216 "the AED is currently pegged to the USD"] |
-| FX | **Low** | AED pegged to USD; the AR states USD and USD-pegged balances are "not considered to represent significant currency risk." Residual exposure is non-pegged foreign operations (Egypt EGP, India INR) and flows to other comprehensive income (OCI — equity reserves, not the profit line): a +10% move is AED 376m (EGP) / AED 87m (INR). Second-order only: a weaker rupee raises the AED price of Dubai homes for Indian buyers (~20% of sales) — captured below under consumer/geopolitics, not direct FX. | [FY2025 AR, Market-risk note (currency), p.216] |
-| Government policy | **High** | Demand rests on Dubai-government levers Emaar cannot set: long-term/Golden visas, foreign freehold-ownership rules, the 5.8m-by-2040 population target, and the Dubai Real Estate Strategy 2033 / Economic Agenda D33 that the company cites as its own demand backdrop. The Government of Dubai — via Investment Corporation of Dubai (ICD), ~22.3% — is also the largest shareholder with "significant influence," and Dubai's master urban planner. | [FY2025 AR, Market Context, p.19 (Strategy 2033 / D33; "Government of Dubai"); AR related-party note (ICD 22.272%, "significant influence"); Public Ownership Summary (SWF >5% = 22.27%)] |
-| Regulation | **High** | New UAE Corporate Tax plus a Domestic Minimum Top-up Tax (DMTT — the OECD "Pillar Two" 15% jurisdictional minimum), recognised at 31 Dec 2025. DMTT alone added AED 2,114m of tax in 2025; the quarterly tax charge jumped from AED 70m (4Q24) to AED 1,234m (4Q25). The rate is set by the state. On top sits RERA escrow / off-plan-sales regulation governing how developers collect and release buyer cash. | [FY2025 AR, tax note 2.4 (UAE DMTT AED 2,114,381k; "tax rate of 15% on a jurisdictional basis (Pillar Two)"); Q4'25 Earnings-Call Summary P&L (tax 4Q24 AED 70m → 4Q25 AED 1,234m)] |
-| Geopolitics | **High** | Dubai residential demand is heavily foreign — top buyer nationalities India (20%, largest), UK, China, Pakistan; tourism inflows led by Western Europe (21%), GCC (15%), South Asia (15%), CIS/Eastern Europe (15%). Regional stability and safe-haven capital flows swing this demand both ways and are wholly outside management control: Middle-East escalation can deter buyers/tourists, while instability elsewhere can push safe-haven capital *into* Dubai. The AR keeps a standing "overseas country risks" watch. | [Q3'25 Earnings-Call Summary (FAB Securities), Nov 2025 (buyer nationalities); FY2025 AR, Market Context, p.19 (visitor geography); AR "overseas country risks" note, p.216] |
-| Consumer cycle | **High** | The core driver. 80% of revenue is off-plan residential; buyers are ~80% first-time, largely foreign retail/high-net-worth making a discretionary big-ticket purchase — classic cyclical demand. 2025 was Dubai's "strongest performance on record" (215,458 residential transactions, +18.9%) into a fast-rising supply pipeline (648 launches, 167,000+ units), and consensus prices −14.8% long-term growth — i.e. the market itself treats Emaar as at/past a cycle peak. Base rate: Dubai property is boom-bust (2009; 2015–2019). | [FY2025 AR, Market Context, p.19; ciq_facts segments_revenue (Real Estate 80%); ciq_facts consensus_view (LT growth −14.8%); Q3'25 Earnings-Call Summary (80% first-time buyers)] |
-| Industrial cycle | **Low** | Minor tie only: commercial/office and retail leasing sit inside the 15% Leasing/Retail segment; Dubai office transactions rose 53.6% in 2025 on tight supply. Not a primary driver — the business is residential/consumer-led, so this is a genuine Low, not a default. | [FY2025 AR, Market Context, p.19 (office +53.6%); ciq_facts segments_revenue (Leasing/Retail 15%)] |
+| Commodity prices (construction materials, contractor labour) | Mid | Construction inputs sit inside cost of sales — housing cost of sales runs at roughly 45% of Real Estate segment revenue [segment-map §1; FY2025 Annual Report, Note 3]. Input-cost inflation compresses the spread between land cost and selling price, even though the company says pricing and mix offset it: "Despite higher activity levels and inflationary pressures, margins remained resilient, underpinned by strong pricing, a favourable product mix and ongoing cost-efficiency initiatives" [FY2025 Annual Report, Financial Review, p.13]. No sensitivity table is disclosed for a given percentage move in build cost — this is a qualitative flag, not a quantified one. |
+| Interest rates | Mid | Own balance sheet: near-immaterial. A ±100 basis-point move (0.01 percentage points is one basis point) changes profit before tax by only AED 26.2m (2025) / AED 29.9m (2024) against PBT of AED 25,656m — about 0.1% [FY2025 Annual Report, Note 34(b) — Market risk, p.215]. Only ~AED 635m of debt is floating-rate (3-month EIBOR + 0.9%) out of AED 9.8bn total debt [CIQ Financials → Capital Structure Details]. But rates cut a second way that is not immaterial: the AED 71.5bn cash pile earns real finance income — AED 2.77bn sat inside the Real Estate segment result in FY2025 alone [FY2025 Annual Report, Note 3 — Segment Information, p.188] — so falling rates would cut that income more than they save on the group's tiny debt cost. The bigger channel is indirect and outside management's control: the AED peg means UAE mortgage and financing rates track US Federal Reserve policy, and the company's own auditor names "higher interest rates" and a "'higher for longer' interest rate sentiment" among the factors that "have increased the potential for constrained credit markets, negative capital value movements" in property markets [FY2025 Annual Report, Note 12 — Development Properties, valuation judgement, p.175]. |
+| FX | Low | The dirham is pegged to the USD, and 93% of revenue is UAE (in practice mostly Dubai) [customer-geography §2]. The filing states plainly: "the AED is currently pegged to the USD, balances in USD and other currencies pegged against USD are not considered to represent significant currency risk" [FY2025 Annual Report, Note 34(b), p.215]. Residual risk sits in the roughly 7% international book (Egypt, India, Turkey): a +10% move in EGP or INR moves other comprehensive income (equity reserves, not the profit line) by AED 376.1m and AED 87.5m respectively (2025) [Note 34(b), p.216] — both small against AED 186.7bn total segment assets [segment-map §1]. Turkey is separately flagged as a hyperinflationary economy under IAS 29 [FY2025 Annual Report, Note 2 — Hyperinflationary Economies, p.174], a currency/accounting risk specific to that small unit. Second-order, unquantified channel: a weaker Indian rupee raises the AED price of Dubai property for Indian buyers, who are Emaar's single largest buyer nationality at 20% of sales [Q3 2025 Earnings Call Summary] — that effect shows up in demand, not in the FX note. |
+| Government policy | High | Demand rests on Dubai-government levers Emaar does not set: population targets (Dubai's stated goal of 5.8m residents by 2040, up from just over 4m in 2025 [Q4 2025 Earnings Call Summary]), foreign freehold-ownership rules, and the Dubai Real Estate Sector Strategy 2033 and Economic Agenda D33 that the company itself cites as the backdrop for its growth plan [FY2025 Annual Report, Market Context section, p.19]. The Government of Dubai is also Emaar's largest shareholder, through Investment Corporation of Dubai (ICD) at 22.272% — the filing states ICD "is an entity owned by the Government of Dubai... which has a significant influence over the Company" [FY2025 Annual Report, related-party note, p.8717; Public Ownership Summary]. A reversal of the UAE's foreign-investor-friendly visa, ownership or infrastructure-spending policy would remove the demand engine this stock is priced on, and management has no vote over it. |
+| Regulation | High | RERA (the Dubai Real Estate Regulatory Agency) governs off-plan sale structures and requires buyer instalments to be deposited into escrow — AED 42.9bn of Emaar's AED 52.6bn cash and cash equivalents at 31 December 2025 is customer-advance money sitting in escrow accounts, not free cash [FY2025 Annual Report, Note 10 — Cash and Cash Equivalents, p.~ (Note 10)]. Any change to escrow-release or off-plan rules would hit the funding model directly. On top, a new UAE Corporate Tax plus a Domestic Minimum Top-up Tax (DMTT — the OECD "Pillar Two" 15% jurisdictional minimum tax) was recognised for the first time at 31 December 2025: DMTT alone added AED 2,114,381 thousand (~AED 2.1bn) of tax in FY2025, and the quarterly tax charge jumped from about AED 70m in 4Q24 to about AED 1,234m in 4Q25 [FY2025 Annual Report, Note 2.4 and Income Statement; Q4 2025 Earnings Call Summary]. The tax rate and rules are set entirely by the state. |
+| Weather | Low | Not disclosed as a driver of revenue or margin variance in the financial statements. Dubai's climate (heat, occasional flash flooding) is discussed only in the sustainability/ESG sections. Not proven from available data as a material earnings driver — dropped from further scoring beyond this note. |
+| Geopolitics | High | The auditor's own key-audit-matter language on development-property valuation names "recent geopolitical events" and "current heightened geopolitical tensions" as sources of "greater volatility in property markets over the short-to-medium term" [FY2025 Annual Report, Note 12, p.175]. Dubai's buyer base is heavily international — the top five buyer nationalities are India (20%, the largest), UK, China, Pakistan and UAE nationals [Q3 2025 Earnings Call Summary] — and tourism demand is similarly international. Regional conflict, sanctions regimes, or a shift in safe-haven capital flows can swing Dubai property demand quickly in either direction, and management has no lever over any of it. |
+| Consumer cycle | High | This is the core driver. About 80% of revenue is off-plan residential development recognised over time as construction progresses on already-sold units [business-identity §2; segment-map §1]; contracted pre-sales (AED 80.4bn FY2025) are the real leading indicator, and 80% of Emaar's buyers are first-time purchasers rather than repeat customers [Q3 2025 Earnings Call Summary]. A home or investment property is a discretionary, credit-and-confidence-sensitive purchase, so this swings hard with buyer sentiment, financing availability and the broader Dubai transaction cycle — a cycle that has both boomed and gone bust before (2009; 2015–2019), which is the relevant base rate for what happens to Emaar when sentiment turns, regardless of management quality. |
+| Industrial cycle | Low | Emaar is not exposed to a corporate-capex or manufacturing order cycle the way an industrial supplier would be. The Leasing, Retail & Related segment (commercial and office space) is 15.5% of revenue [segment-map §1] and is influenced at the margin by office/retail-space demand, but the group's outcomes are set by residential/consumer and tourism demand, not industrial activity. Not scored further as a distinct driver. |
 
-*Dropped as not applicable (immaterial to a Dubai property developer's outcomes): Freight / logistics rates; Weather.*
+*Dropped as not materially applicable to a Dubai property developer and not scored further: Freight / logistics rates (Emaar has no disclosed freight or import-logistics cost line).*
 
 ## 2. Sensitivity, If Disclosed
 
-Emaar publishes market-sensitivity tables in the FY2025 financial-instruments note. These cover *financial instruments only* — they do NOT capture the property-demand exposure that actually drives the equity. All figures AED'000. [FY2025 Annual Report (IFRS), Notes to the Consolidated Financial Statements — Financial Risk Management, p.215–216]
+Emaar publishes market-risk sensitivity tables in the FY2025 financial-instruments note. These cover **financial-instrument risk only** — they do not, and are not meant to, capture the Dubai property-demand exposure that actually drives the equity. All figures AED'000 [FY2025 Annual Report (IFRS), Notes to the Consolidated Financial Statements — Financial Risk Management, p.215–216].
 
-**Interest-rate sensitivity** (effect on PBT via floating-rate positions):
+| Variable | Disclosed Move | Disclosed Impact (2025) | Disclosed Impact (2024) |
+|---|---|---|---|
+| Interest rate (floating-rate positions, effect on profit before tax) | ±100 basis points | AED 26,165 | AED 29,875 |
+| FX — EGP (effect on other comprehensive income) | +10% | AED 376,142 | AED 323,807 |
+| FX — INR (effect on other comprehensive income) | +10% | AED 87,491 | AED 82,879 |
+| FX — other currencies not pegged to USD (effect on other comprehensive income) | +10% | AED (45,607) | AED (43,560) |
+| Equity price risk (investment portfolio, effect on equity) | +10% | AED 59,629 | AED 106,302 |
 
-| Change | Effect on interest expense — FY2025 | Effect — FY2024 |
-|---|---|---|
-| ±100 basis points | AED 26,165k (~AED 26m) | AED 29,875k (~AED 30m) |
-
-Context: ~AED 26m against FY2025 PBT of AED 25,656m ≈ 0.1%. Immaterial. [FY2025 AR, p.216; PBT from AR Segment note]
-
-**FX sensitivity** (+10% move in the AED vs each non-pegged currency; effect on OCI, i.e. reserves, not profit):
-
-| Currency | Effect — FY2025 | Effect — FY2024 |
-|---|---|---|
-| EGP (Egypt) | AED 376,142k | AED 323,807k |
-| INR (India) | AED 87,491k | AED 82,879k |
-| Other non-USD-pegged | AED (45,607)k | AED (43,560)k |
-
-USD and USD-pegged balances are excluded — "not considered to represent significant currency risk" because the AED is pegged to the USD. [FY2025 AR, p.216]
-
-**Equity-price sensitivity:** a +10% move in equity indices moves the investment portfolio's value by AED 59,629k (FY2025) — small. [FY2025 AR, p.216]
-
-Take-away: the company's *disclosed* sensitivities are all tiny. That is precisely the point — the real dependency (Dubai property demand) is not something the group is required to, or does, put a sensitivity number against.
+Context: AED 26m of interest-rate sensitivity against AED 25,656m FY2025 profit before tax is about 0.1% — immaterial [FY2025 Annual Report, Note 3 and Note 34(b)]. Every disclosed figure here is small relative to group scale (AED 186.7bn total segment assets). That is the point: the company's own quantified sensitivities are all tiny; the real dependency — Dubai property demand, government policy, geopolitics — is not something IFRS requires it to (or lets it) put a single sensitivity number against.
 
 ## 3. Classification
 
 **Mostly externally driven.**
 
-Strip the marketing layer and Emaar is a high-quality, well-capitalised wrapper around the Dubai/UAE property cycle and the flow of foreign capital into Dubai real estate. Eighty percent of revenue is off-plan residential development; 93% of revenue is UAE (essentially Dubai) [ciq_facts segments_revenue, geographic]. The demand tap — buyer volumes, prices, absorption, foreign inflows — is set by the property cycle, visa/population policy, regional geopolitics and the new tax regime, none of which management controls. The company's own narrative anchors its results to Dubai transaction counts, UAE GDP, tourism inflows and government agendas (Strategy 2033 / D33) [FY2025 AR, Market Context, p.19].
+Strip the marketing layer and Emaar is a well-capitalised wrapper around the Dubai/UAE property cycle and the flow of foreign capital into Dubai real estate. About 80% of revenue is off-plan residential development and 93% of revenue is UAE — in practice almost entirely Dubai [segment-map §1–2; customer-geography §2]. The demand tap — buyer volumes, prices, absorption, foreign capital inflows — is set by the property cycle, population/visa/ownership policy, regional geopolitics and the new tax regime, none of which management controls. The company's own narrative anchors its results to Dubai population targets, government economic agendas (Strategy 2033 / Economic Agenda D33), and international buyer/visitor flows [FY2025 Annual Report, Market Context, p.19; Q3 2025 Earnings Call Summary].
 
-It is *not* a pure pass-through, which is why the score sits at the low end of the band. Management holds unusually large buffers a commodity pass-through lacks: a contracted revenue backlog of ~AED 155bn (sales signed but not yet booked as revenue) — over three years of FY2025 revenue — with ~94% of the under-construction pipeline already sold; ~AED 44bn of buyer cash held in regulated escrow (released as construction hits milestones); ~AED 25bn net cash for counter-cyclical action; and ~20% of revenue in steadier recurring malls/hospitality income [Q4'25 & Q3'25 Earnings-Call Summaries; ciq_facts net_debt]. These de-risk the next 2–3 years and give real levers over timing and cash conversion. But they buffer the cycle; they do not remove it. Management itself concedes the backlog only keeps growing "unless there is a sustained slowdown in sales" [Q4'25 call], and the 2015–2019 Dubai downturn is the base rate for what happens to Emaar's sales and share price when the external cycle turns regardless of management quality.
+This is not a pure pass-through, which is why the score below sits at the low end of its band rather than higher. Management holds real, sizeable buffers a commodity pass-through lacks: a contracted revenue backlog of ~AED 155bn (sold, not yet recognised as revenue — roughly three years of FY2025 revenue) [Q1 2026 Earnings Press Release; business-identity §2]; AED 42.9bn of buyer cash held in regulated escrow, released as construction hits milestones [FY2025 Annual Report, Note 10]; AED 61.7bn of net cash on a broad basis (netting in short-term deposits) against AED 9.8bn of total debt [FY2025 Annual Report, Financial Review, p.13]; and about 20% of revenue in steadier recurring mall and hospitality income [segment-map §1]. These buffer the near term and give management real levers over pricing, launch timing and cash conversion. They do not remove the cycle itself — they cushion Emaar's fall when it turns, not exempt it from turning.
 
 ## 4. External Dependency Risk Score
 
-**63 / 100 — INVERTED SCALE: higher = worse (more dangerous external dependence).**
+**62/100** — **INVERTED SCALE: higher = worse (more dangerous external dependence), per CLAUDE.md §12 and MODULE_RULES.**
 
-Band 61–80: "Mostly externally driven, limited management levers." Placed at the *low* end of the band because the contracted backlog, escrow cash, ~AED 25bn net cash and ~20% recurring income are genuine, sizeable buffers that a pure pass-through does not have — they insulate the near term even though the medium-term equity value is a geared claim on Dubai property demand. The company's disclosed financial-market risks (rates, FX) are immaterial and pull nothing up; the score is driven almost entirely by the operating exposure to the Dubai cycle, foreign-capital inflows, government/visa policy, geopolitics and the new UAE tax.
+Band 61–80: "Mostly externally driven, limited management levers." The score sits at the low end of that band because the disclosed financial-market risks (rates, FX) are genuinely immaterial and pull nothing up, and the contracted backlog, escrow cash, net-cash cushion and recurring-income share are real, quantified buffers that a pure commodity or FX pass-through does not have. But those buffers cushion timing; they do not change what actually sets the level of Emaar's future sales, prices and asset values — Dubai buyer demand, government population/visa/ownership policy, regional geopolitical stability, and a newly-imposed 15% minimum tax, none of which the company sets or controls. The 93%-and-rising UAE/Dubai revenue concentration [customer-geography §2] means these external variables are not diversified away: a single shock — a Dubai demand reversal, a regional geopolitical event, or a policy change on foreign ownership — would hit almost the entire business at once.
 
 ## 5. The Single Biggest Lever
 
-**Dubai residential property demand** (sales volume × price / off-plan absorption). A 20% adverse move — the Dubai cycle rolling over from a record 2025 into the fast-rising supply pipeline (648 launches, 167,000+ new units) — would stop backlog replenishment, pressure prices and absorption, and compress the 80%-of-revenue development engine. Not interest rates (own P&L is immune), not FX (the USD peg neutralises it), not tax. Demand for Dubai property is the whole game.
+Dubai residential property demand (buyer volumes, prices and off-plan absorption, driven by foreign-investor confidence, population growth and government ownership/visa policy) — a 20% adverse move here would cut new bookings and pressure the valuations behind the AED ~155bn revenue backlog far more than any commodity, interest-rate or FX move the company has actually quantified.
 
 
 
@@ -1873,7 +1400,7 @@ Band 61–80: "Mostly externally driven, limited management levers." Placed at t
 
 ## business-model / 11_capital-allocation-governance.md
 
-_Source: `11_capital-allocation-governance.md`_
+_Source: `business-model/11_capital-allocation-governance.md`_
 
 # Capital Allocation & Governance — EMAR
 
@@ -1923,7 +1450,7 @@ The score reflects genuinely conservative balance-sheet and distribution behavio
 
 ## business-model / 12_red-flags-sweep.md
 
-_Source: `12_red-flags-sweep.md`_
+_Source: `business-model/12_red-flags-sweep.md`_
 
 # Red Flags Sweep — EMAR
 
@@ -1968,44 +1495,21 @@ Individually minor, three items rhyme into one pattern: **maximum capital being 
 
 ---
 
-# ═══ earnings ═══
-
-# earnings Module Dossier — EMAR
-
-- Generated: 2026-07-10T16:17:33Z
-- Contents: 1 synthesis + 9 specialists = 10 files
-
-## Table of Contents
-
-- [earnings — module synthesis](#earnings-module-synthesis) — `99_earnings-synthesis.md`
-- [earnings / 00_earnings-data-triage.md](#earnings-00-earnings-data-triage-md) — `00_earnings-data-triage.md`
-- [earnings / 01_historical-financials.md](#earnings-01-historical-financials-md) — `01_historical-financials.md`
-- [earnings / 02_revenue-drivers.md](#earnings-02-revenue-drivers-md) — `02_revenue-drivers.md`
-- [earnings / 03_margin-drivers.md](#earnings-03-margin-drivers-md) — `03_margin-drivers.md`
-- [earnings / 04_guidance-consensus.md](#earnings-04-guidance-consensus-md) — `04_guidance-consensus.md`
-- [earnings / 05_beat-miss-setup.md](#earnings-05-beat-miss-setup-md) — `05_beat-miss-setup.md`
-- [earnings / 06_earnings-quality.md](#earnings-06-earnings-quality-md) — `06_earnings-quality.md`
-- [earnings / 07_earnings-sensitivity.md](#earnings-07-earnings-sensitivity-md) — `07_earnings-sensitivity.md`
-- [earnings / 08_earnings-red-flags.md](#earnings-08-earnings-red-flags-md) — `08_earnings-red-flags.md`
-
-
----
-
 ## earnings — module synthesis
 
-_Source: `99_earnings-synthesis.md`_
+_Source: `earnings/99_earnings-synthesis.md`_
 
 # Earnings Module — EMAR (Synthesis)
 
-*Emaar Properties PJSC (DFM: EMAAR). Dubai/UAE build-to-sell developer (~80%) plus a smaller mall/hotel annuity (~20%). Reporting basis IFRS; currency AED millions unless stated (the dirham is pegged to the US dollar at ~3.6725 AED/USD; company releases state USD equivalents). Fiscal year ends 31 December. Latest reported period: Q1 2026 (quarter ended 31 Mar 2026, released 11 May 2026); next release Q2 2026 on 10 Aug 2026. This synthesis reconciles the eight upstream specialist outputs (00–07) plus the red-flag review (08); it does not re-read the raw pool. All nine were present and read. Plain-English terms on first use: **backlog** = value of signed sales not yet booked as revenue; **pre-sales** = new sales contracts signed in the period (a leading indicator, not yet revenue); **POC** = revenue booked in step with construction progress on already-sold homes; **EBITDA** = rough operating cash profit before interest, tax and depreciation; **CFO** = cash from operations; **FCF** = CFO − capital spending; **DMTT** = the OECD 15% minimum corporate tax; **bps** = basis points (100 bps = 1.0 percentage point).*
+*Emaar Properties PJSC (DFM: EMAAR). Dubai/UAE build-to-sell developer (~80%) plus a smaller mall/hotel annuity (~20%). Reporting basis IFRS; currency AED millions unless stated (the dirham is pegged to the US dollar at ~3.6725 AED/USD; company releases state USD equivalents). Fiscal year ends 31 December. Latest reported period: Q1 2026 (quarter ended 31 Mar 2026, released 11 May 2026); next release Q2 2026 on 10 Aug 2026. **This is a re-run (2026-07-16) triggered by an upstream business-model refresh** — `business-model/10_external-dependency.md` and `business-model/99_business-model-synthesis.md` were regenerated, changing the external-dependency risk score from 63 to 62/100 and flagging a net-cash basis discrepancy across modules. The nine earnings specialist outputs (00–08) are unchanged since 2026-07-13 and were re-read in full; the refreshed business-model synthesis was also re-read in full. This synthesis reconciles both sets; it does not re-read the raw pool. Plain-English terms on first use: **backlog** = value of signed sales not yet booked as revenue; **pre-sales** = new sales contracts signed in the period (a leading indicator, not yet revenue); **POC** = revenue booked in step with construction progress on already-sold homes; **EBITDA** = rough operating cash profit before interest, tax and depreciation; **CFO** = cash from operations; **FCF** = CFO − capital spending; **DMTT** = the OECD 15% minimum corporate tax; **bps** = basis points (100 bps = 1.0 percentage point).*
 
 ## Abstract
 
-Emaar's reported earnings are accelerating hard — revenue up ~33% on a clean trailing-year basis and EPS up ~31% — but the drivers point two ways, so the setup is mixed rather than durably accelerating. The single engine is Real Estate backlog conversion: a record AED 163.4bn contracted, ~94%-sold backlog locks in three-to-four years of rising recognized revenue. The near-term consensus bar is beatable, yet it sits inside a Dubai property cycle at its peak whose leading indicators are already cooling (pre-sales +16%, backlog growth +39%→+29%, consensus long-term growth −14.8%). The biggest risk is a clean profit beat meeting a sell-off as demand rolls over. Earnings are cash-backed and clean; no verbatim transcript caps clarity. Verdict: mixed.
+Emaar's reported earnings are accelerating hard — revenue up ~33% on a clean trailing-year basis and EPS up ~31% — but the drivers point two ways, so the setup is mixed rather than durably accelerating. The single engine is Real Estate backlog conversion: a record AED 163.4bn contracted, ~94%-sold backlog locks in three-to-four years of rising recognized revenue. The near-term consensus bar is beatable, yet it sits inside a Dubai property cycle at its peak whose leading indicators are already cooling (pre-sales +16%, backlog growth +39%→+29%, consensus long-term growth −14.8%). The biggest risk is a clean profit beat meeting a sell-off as demand rolls over. Earnings are cash-backed and clean; no verbatim transcript caps clarity. This refresh confirms the read is unchanged: the business-model update was a scoring correction and a net-cash reconciliation note, not a change in Dubai-cycle substance. Verdict: mixed.
 
 ## 1. Earnings Verdict
 
-- **Verdict: Mixed earnings setup** — near-term accelerating and beatable (backlog-fed, reported P&L rising, bar reset lower), medium-term decelerating (leading indicators cooling off a cycle peak, development gross margin compressing, multi-year consensus sliding). The two clocks conflict, which is what makes this Mixed rather than "accelerating." This is a **sector-cycle / externally-driven** setup (CLAUDE.md §14), not company-specific durable acceleration.
+- **Verdict: Mixed earnings setup** — near-term accelerating and beatable (backlog-fed, reported P&L rising, bar reset lower), medium-term decelerating (leading indicators cooling off a cycle peak, development gross margin compressing, multi-year consensus sliding). The two clocks conflict, which is what makes this Mixed rather than "accelerating." This is a **sector-cycle / externally-driven** setup (CLAUDE.md §14), not company-specific durable acceleration. Unchanged by this refresh.
 - **Earnings quality /100:** **81** *(from 06 — cash-backed, repeatable, minimal adjustments; bottom of the top band)*
 - **Consensus setup /100 (higher = more beatable):** **60** *(synthesis judgment: 04 rates the near-term bar "Low"/beatable and 05 "favors beat," but the multi-year slide, narrowing beat magnitude and live Q2 revenue-timing miss keep it out of the "strong" zone; NOT capped for absence — consensus is present and current)*
 - **Earnings volatility /100 (higher = WORSE — inverted):** **52** *(from 07 — material sensitivity; a geared claim on the Dubai cycle, buffered near-term by backlog + net cash; confidence Low)*
@@ -2013,6 +1517,7 @@ Emaar's reported earnings are accelerating hard — revenue up ~33% on a clean t
 - **Biggest earnings driver (one line):** Real Estate backlog conversion — the pace at which the record AED 163.4bn contracted, ~94%-sold backlog is recognized as revenue via percentage-of-completion; near-term direction Improving as deliveries ramp 2026–28 [02 §7; Q1 2026 press release, 11 May 2026].
 - **Biggest earnings risk (one line):** "Good print, bad signal" — a clean, backlog-fed profit beat meeting a sell-off as the Dubai cycle rolls over: pre-sales +16% and cooling, backlog growth decelerating +39%→+29%, consensus long-term growth −14.8%, with development gross margin fading off a cycle high (63%→55%, guided "low 50s") [08 #5, #7; 02 §3; 03 §8; 04 §7].
 - **Red-flag severity verdict (from 08, verbatim):** **Material concerns.**
+- **Cross-module note (this refresh):** the business-model external-dependency risk score moved 63→62/100 (a stale-reference correction, not a substantive change — see Section 3) and a net-cash basis discrepancy across modules was reconciled (Section 3, 5b). Neither changes any earnings score or the verdict.
 
 ## 1A. Module Disconfirmation *(CLAUDE.md §8; fix F37)*
 
@@ -2027,7 +1532,7 @@ Emaar's reported earnings are accelerating hard — revenue up ~33% on a clean t
 |---|---|---|
 | earnings-data-triage | Sufficient — rich pool (17 quarters, audited FY2025, cash flow, current consensus) | Only genuine gap: no verbatim earnings-call transcript (two sell-side proxies only) → earnings clarity ≤70; all English, no translation gap |
 | historical-financials | Revenue Accelerating (FY25 +39.6%; clean TTM +33.4%; EPS +31.2%); margins Stable after an earlier step-up | Earnings +31–33% but clean-TTM CFO only +3.8% — cash-vs-earnings divergence from the customer-advance swing; balance sheet inflected to net cash (broad +25bn; strict ~net-flat) |
-| revenue-drivers | Biggest lever = Real Estate backlog conversion; Improving near-term but at/near a Dubai-cycle peak on the leading indicators | Backlog AED 163.4bn (+29% YoY, ~94% sold) makes next-12-month revenue visible and biased up, but pre-sales are decelerating (+16%; backlog growth +39%→+29%) — near-term ≠ medium-term |
+| revenue-drivers | Biggest lever = Real Estate backlog conversion; Improving near-term but at/near a Dubai-cycle peak on the leading indicators | Backlog AED 163.4bn (+29% YoY, ~94% sold) makes next-12-month revenue visible and biased up, but pre-sales are decelerating (+16%; backlog growth +39%→+29%) — near-term ≠ medium-term. (Its own cycle-position note cites external-dependency at "63/100" — a pre-refresh figure; the current source of record is 62/100, see Section 3.) |
 | margin-drivers | Biggest lever = development gross margin, direction DOWN (63%→55%, guided "low 50s"); margins at a cycle peak | EBITDA/EBIT held flat (~49%/~45%) only because SG&A + D&A leverage offset the gross-margin fall; net margin now shaped as much by below-EBIT tax (DMTT, up) and finance income (up) as by operations |
 | guidance-consensus | Bar is **Low** (beatable near-term); no formal numeric guidance — bar is entirely Street-set | FY2026 EPS-norm reset 2.32→1.95 (≈ flat vs FY25's 1.99) then front-end revisions +2–3% last 30d, but multi-year sliding (LT growth −14.8%, 7 target cuts, out-years imply peak ~2029 then decline) |
 | beat-miss-setup | **Setup favors beat** — on the profit line (EPS/EBITDA) specifically | Bar cut hard and stopped falling; beats land on the profit line (Q1-26 EPS +9.6% on a revenue miss); biggest risk = a single-quarter revenue miss on POC timing in the soft Q2 (missed both lines Q2-25) |
@@ -2037,14 +1542,15 @@ Emaar's reported earnings are accelerating hard — revenue up ~33% on a clean t
 
 ## 3. Reconciliation
 
-The specialists agree on the numbers (every output reconciles to `ciq_facts.json`); the disagreements are framing/clock differences, resolved conservatively below.
+The specialists agree on the numbers (every output reconciles to `ciq_facts.json`); the disagreements are framing/clock differences plus two cross-module items surfaced by this refresh, all resolved conservatively below.
 
 1. **Margins "Stable" (01) vs development gross margin "DOWN" (03).** Reconciled — both are true at different levels: EBITDA (~49%) and EBIT (~45%) margins held flat for three years *only because* SG&A and D&A operating leverage offset a compressing gross margin (57.4%→54.9% FY24→25, guided to "low 50s"). 03 is the more granular, more forward read; the "stable" headline masks the gross-margin fade. Conservative view: treat the operating margin as at a cycle peak with a downward gross-margin bias.
 2. **Revenue "Accelerating" (02) vs "Decelerating" (04 / 10).** Reconciled on two clocks: recognized revenue (backlog conversion) is rising and highly visible for ~3–4 years, while the demand that refills the backlog (pre-sales, off-plan bookings) is decelerating off a record 2025. The risk is reading the first as the whole story. This split is exactly why the synthesis verdict is **Mixed**, not "accelerating."
-3. **Net cash "~AED 25bn" (broad) vs "~net-flat" (strict).** Reconciled — 01 shows both bases and is most credible. The broad basis (+24,969) is the better trend read (a genuine move from net debt to net cash), but a FY2024–26 cash/term-deposit reclassification means the *strict* position is roughly net-flat, and AED 43bn of escrow cash is RERA-restricted. So the buffer and finance-income story lean on the broad figure; freely deployable firepower is smaller than the headline. No leverage concern either way (Section 5b).
-4. **Red-flag verdict vs synthesis verdict — consistent, no conflict.** 08's "Material concerns" and its steer ("near-term beatable but medium-term decelerating — not durable acceleration") align with this synthesis's **Mixed earnings setup**. There is no contradiction to adjudicate; the red-flag review sharpened, not opposed, the verdict.
+3. **Net cash "~AED 25bn" (broad, CIQ, Mar-26) vs "~net-flat" (strict, CIQ, Mar-26) vs "AED 61.7bn" (broad, company FY2025 Annual Report, Dec-25) — three figures now in play, reconciled.** Within this module, 01 already showed both an internal broad basis (+24,969) and a strict basis (roughly net-flat), noting a FY2024–26 cash/term-deposit reclassification. The refreshed business-model `10_external-dependency.md` (and `99_business-model-synthesis.md` §3) separately cites the company's own FY2025 Annual Report Financial Review (p.13, at 31 Dec 2025): cash and short-term deposits AED 71.5bn − total debt AED 9.8bn = net cash AED 61.7bn — also labelled "broad basis," but evidently netting in a wider pool of short-term deposits than the CIQ export, and at an earlier date (Dec-25) than this module's Mar-26 figures. **Reconciled view (conservative default, CLAUDE.md §4):** consistent with business-model 99 §3's own resolution, this synthesis continues to anchor the earnings-specific leverage read (Section 5b) on the lower, CIQ-sourced ~AED 25bn broad / roughly net-flat strict framing, and flags the company AR's AED 61.7bn figure as a magnitude question for a balance-sheet-focused module to resolve directly against Note 10 of the audited financial statements — not an earnings-quality or solvency concern. All three bases agree directionally (large net cash, no leverage risk); none changes Section 5b's conclusion that neither trigger fires. Freely deployable firepower is smaller than any of the "net cash" headlines because ~AED 43bn of escrow cash is RERA-restricted.
+4. **External-dependency risk score: 63 vs 62/100 — a stale reference, not a live disagreement.** `02_revenue-drivers.md` (dated 2026-07-13, pre-refresh) cites "10_external-dependency (score 63/100, 'mostly externally driven')" when agreeing on cycle position. The refreshed `10_external-dependency.md` and `99_business-model-synthesis.md` (both 2026-07-16) state 62/100 as the current figure; business-model 99 §3 attributes the difference to a stale citation elsewhere in its own module (its `12_red-flags-sweep.md`), not a substantive change — the underlying read (Dubai demand/policy/regulation/geopolitics all High; financial-market sensitivities immaterial) is unchanged between versions. **Reconciled view:** 62/100 is the current source of record; this is a business-model score, not an earnings-module score, so it does not alter any earnings verdict score — noted here only because 02 cites the pre-refresh number.
+5. **Red-flag verdict vs synthesis verdict — consistent, no conflict.** 08's "Material concerns" and its steer ("near-term beatable but medium-term decelerating — not durable acceleration") align with this synthesis's **Mixed earnings setup**. There is no contradiction to adjudicate; the red-flag review sharpened, not opposed, the verdict.
 
-*No material number-level disagreement between specialists.*
+*No material number-level disagreement between the earnings specialists. The two cross-module items surfaced by the business-model refresh (net-cash basis, external-dependency score) are reconciled above and change no earnings-module score or the verdict.*
 
 ## 4. Score Cap Application
 
@@ -2057,15 +1563,15 @@ The specialists agree on the numbers (every output reconciles to `ciq_facts.json
 | Transcript role filled ONLY by a sell-side proxy (no verbatim) | **Y** | Earnings clarity | **max 70 (applied)** — clarity held at ~70 despite rich financial data; every driver/guidance read is verdict-stripped, unverified paraphrase cross-checked to primary docs; tone/candor not assessable |
 | Only inferred sensitivities | **Y** | Earnings volatility confidence | **must be Low (applied)** — the company discloses sensitivities only for immaterial financial-instrument risks, not for its real property-demand exposure; material sensitivities rest on historical ranges / labelled inference |
 
-*Most-restrictive rule: only earnings clarity is capped (≤70), once; earnings-volatility confidence is set to Low. Neither cap lowers the three headline verdict scores. No "conflicting sources" cap (Overall usefulness max 65) — the twin estimates exports are duplicates, de-duplicated, not a value conflict.*
+*Most-restrictive rule: only earnings clarity is capped (≤70), once; earnings-volatility confidence is set to Low. Neither cap lowers the three headline verdict scores. No "conflicting sources" cap (Overall usefulness max 65) — the twin estimates exports are duplicates, de-duplicated, not a value conflict; the two cross-module reconciliations in Section 3 (net-cash basis, external-dependency score) are resolved, not left conflicting, so they do not trigger this cap either.*
 
 ## 5. Earnings Setup Summary
 
 ### Revenue Setup
-The next-12-month revenue trajectory is sustainable and largely insulated from a demand slowdown, because it is the mechanical conversion of a *contracted* AED 163.4bn backlog (~94% already sold) — not a one-time effect: there is no revenue-driving M&A, the AED peg neutralizes FX (93% UAE), and no policy/subsidy inflates the top line (the UAE tax items hit profit, not revenue). The single factor that would flip revenue direction is a sustained roll-over in Dubai off-plan demand that stops replenishing the backlog — but with a ~2–3 year lag, so it threatens 2027+ more than the next year; nearer term, only a construction/handover slippage would slow recognition. The gap between the two stories is explicit and large: recognized revenue is rising ~28–40% while the leading indicators that feed it are decelerating (pre-sales +16%, backlog growth +39%→+29%). Reported growth is fully organic — no reported-vs-organic distortion to unwind.
+The next-12-month revenue trajectory is sustainable and largely insulated from a demand slowdown, because it is the mechanical conversion of a *contracted* AED 163.4bn backlog (~94% already sold) — not a one-time effect: there is no revenue-driving M&A, the AED peg neutralizes FX (93% UAE), and no policy/subsidy inflates the top line (the UAE tax items hit profit, not revenue). The single factor that would flip revenue direction is a sustained roll-over in Dubai off-plan demand that stops replenishing the backlog — but with a ~2–3 year lag, so it threatens 2027+ more than the next year; nearer term, only a construction/handover slippage would slow recognition. The gap between the two stories is explicit and large: recognized revenue is rising ~28–40% while the leading indicators that feed it are decelerating (pre-sales +16%, backlog growth +39%→+29%) — a read that agrees with the refreshed business-model external-dependency classification ("mostly externally driven," 62/100) with no divergence. Reported growth is fully organic — no reported-vs-organic distortion to unwind.
 
 ### Margin Setup
-Current margins are at or near a Dubai-cycle peak, not a through-cycle run-rate: the development gross margin is flattered by cheap legacy land (carried at AED 50,235m cost) sold at peak prices, a spread management is already guiding down to "low 50s." The driver that takes the largest bite if it moves adversely by 10–20% is that same development gross margin — it drives 80% of revenue, and a faster fade off the cycle high (bear −300 bps vs bull +100 bps, i.e. downside-skewed) drags consolidated margin more than any other single lever; construction input-cost inflation compounds it because there is no cost-escalator on the sold backlog. On margin protection, Emaar is largely a price-taker on the development engine's input costs (inflation is absorbed on fixed-price sold units and passed forward only at the next launch); the partial structural cushions are the ~15% leasing annuity (~69% segment margin, stable) and net finance income on the cash pile — but the latter is rate-sensitive and fading as rates fall.
+Current margins are at or near a Dubai-cycle peak, not a through-cycle run-rate: the development gross margin is flattered by cheap legacy land (carried at AED 50,235m cost) sold at peak prices, a spread management is already guiding down to "low 50s." The driver that takes the largest bite if it moves adversely by 10–20% is that same development gross margin — it drives 80% of revenue, and a faster fade off the cycle high (bear −300 bps vs bull +100 bps, i.e. downside-skewed) drags consolidated margin more than any other single lever; construction input-cost inflation compounds it because there is no cost-escalator on the sold backlog. On margin protection, Emaar is largely a price-taker on the development engine's input costs (inflation is absorbed on fixed-price sold units and passed forward only at the next launch); the partial structural cushions are the ~15% leasing annuity (~69% segment margin, stable) and net finance income on the cash pile — but the latter is rate-sensitive and fading as rates fall, and its absolute size differs depending on which net-cash basis is used (Section 3).
 
 ### Quality Check
 The single largest gap between reported and economic earnings is on the cash line, not the P&L: reported FCF of AED 31.0bn LTM overstates steady-state cash by ~27% versus normalized operating FCF of ~AED 22.6bn, because the customer-advance build (~AED 8.3bn/yr) and the corporate-tax payment lag (~AED 2.5bn/yr) are both cyclical tailwinds — and this gap is set to *narrow adversely* when Dubai sales cool (normalized CFO/EBITDA has already eased from ~115% in FY23 to ~94% LTM). The GAAP-to-non-GAAP bridge is unusually clean: there is no adjusted EPS, negligible stock comp, and investment property held at cost (no fair-value gains) — the only non-GAAP measure is company-defined EBITDA (folds in finance income), which is definitional and reconciles transparently. To model normalized earnings, start from **GAAP** (audited IFRS EPS AED 1.99, already net of minorities); the P&L needs no scrub — only the reported cash-flow headline needs a haircut toward the normalized level.
@@ -2075,7 +1581,7 @@ For the company to beat materially, the development gross margin has to hold mid
 
 ## 5b. Leverage & Capital Structure
 
-Leverage is within normal range and did not change materially during the period — no dedicated treatment required. *(Neither trigger fires: net debt/EBITDA is −0.99x on the broad basis (net cash AED 24,969m) and roughly net-flat on the strict basis, well below the 3.0x Trigger A; total debt is only AED 10,064m with ~52x interest cover, and the balance sheet moved further into net cash year-over-year, so no Trigger B change. Note carried from Section 3: freely deployable firepower is smaller than the broad net-cash headline because ~AED 43bn of escrow cash is RERA-restricted and a term-deposit reclassification leaves the strict basis roughly flat — a firepower nuance, not a leverage risk [ciq_facts net_debt/total_debt/interest_coverage; 01 §1].)*
+Leverage is within normal range and did not change materially during the period — no dedicated treatment required. *(Neither trigger fires under any of the three net-cash bases now in view: net debt/EBITDA is −0.99x on the CIQ broad basis (net cash AED 24,969m, Mar-26) and roughly net-flat on the CIQ strict basis, both well below the 3.0x Trigger A; the company's own FY2025 Annual Report broad figure (net cash AED 61.7bn, Dec-25, per the refreshed business-model `10_external-dependency.md`) is even more net-cash-positive and does not change the conclusion. Total debt is only AED 10,064m with ~52x interest cover, and the balance sheet moved further into net cash year-over-year on every basis, so no Trigger B change either. Note carried from Section 3: freely deployable firepower is smaller than any of the "net cash" headlines because ~AED 43bn of escrow cash is RERA-restricted and a term-deposit reclassification leaves the CIQ strict basis roughly flat — a firepower nuance, not a leverage risk [ciq_facts net_debt/total_debt/interest_coverage; 01 §1; business-model/10_external-dependency §1, §3].)*
 
 ## 6. Key Numbers
 
@@ -2087,14 +1593,15 @@ Leverage is within normal range and did not change materially during the period 
 - **Consensus gap (present):** FY2026 EPS-norm reset 2.32→1.95 (≈ flat vs FY2025's 1.99, i.e. consensus already bakes a sharp deceleration + the new 9% UAE tax); FY2026 revenue AED 53.1bn [04 §4].
 - **Estimate revision direction:** near-term (FQ2/FY26) turned UP last 30 days (+2–3%) after a 3-month cut; multi-year (FY2027+) still sliding; LT growth −14.8%; 7 target-price cuts in 3 months [04 §4–5].
 - **Earnings volatility score:** 52/100 (inverted — higher = worse; "material sensitivity"), confidence Low [07 §7].
+- **Cross-module note (this refresh):** external-dependency risk 62/100 (was 63/100 in a stale citation, corrected; Section 3); net cash cited across three bases (AED 25.0bn CIQ broad Mar-26 / roughly net-flat CIQ strict Mar-26 / AED 61.7bn company AR broad Dec-25) — all directionally net-cash, no leverage implication (Section 5b).
 
 ## 7. What Would Change The Earnings Verdict?
 
 | Current Verdict | What Would Upgrade It | What Would Downgrade It | Data Needed |
 |---|---|---|---|
-| **Mixed earnings setup** (near-term accelerating/beatable, medium-term decelerating) | Q2 2026 (10 Aug) shows pre-sales growth holding ≥+16% and backlog growth stops decelerating (stabilizes ≥+29% YoY); development gross margin holds mid-50s; multi-year consensus stops sliding and out-year coverage deepens confirming durable growth — would move toward **Earnings stable/accelerating** | Pre-sales / backlog growth steps down toward flat/negative; development gross margin fades faster than "low 50s"; a Q2 revenue-timing miss lands alongside decelerating leading indicators; multi-year consensus keeps sliding (more target cuts, out-year EPS lower) — would move toward **Earnings decelerating / inflecting — negative** (driver: Dubai off-plan demand roll-over) | Verbatim earnings-call transcript (tone/candor, guidance nuance); group ASP / units-sold (to split reversible price from durable volume); deeper FY2027+ analyst coverage (out-year rests on 1 analyst); the 10 Aug 2026 Q2 pre-sales & backlog-growth print (the first tell of a cycle turn) |
+| **Mixed earnings setup** (near-term accelerating/beatable, medium-term decelerating) | Q2 2026 (10 Aug) shows pre-sales growth holding ≥+16% and backlog growth stops decelerating (stabilizes ≥+29% YoY); development gross margin holds mid-50s; multi-year consensus stops sliding and out-year coverage deepens confirming durable growth — would move toward **Earnings stable/accelerating** | Pre-sales / backlog growth steps down toward flat/negative; development gross margin fades faster than "low 50s"; a Q2 revenue-timing miss lands alongside decelerating leading indicators; multi-year consensus keeps sliding (more target cuts, out-year EPS lower) — would move toward **Earnings decelerating / inflecting — negative** (driver: Dubai off-plan demand roll-over) | Verbatim earnings-call transcript (tone/candor, guidance nuance); group ASP / units-sold (to split reversible price from durable volume); deeper FY2027+ analyst coverage (out-year rests on 1 analyst); the 10 Aug 2026 Q2 pre-sales & backlog-growth print (the first tell of a cycle turn); resolution of the AED 25bn vs AED 61.7bn net-cash figures against Note 10 (a firepower precision item, not a verdict driver) |
 
-*Constraint check: consensus setup is NOT "Unknown" (current CIQ estimates present), so the verdict is not forced off "accelerating" on that ground — but the six High red flags and the decelerating leading indicators / sliding multi-year consensus make **Mixed** the accurate and conservative call. "Earnings accelerating" would overstate durability (08 flag #7, High).*
+*Constraint check: consensus setup is NOT "Unknown" (current CIQ estimates present), so the verdict is not forced off "accelerating" on that ground — but the six High red flags and the decelerating leading indicators / sliding multi-year consensus make **Mixed** the accurate and conservative call. "Earnings accelerating" would overstate durability (08 flag #7, High). This refresh's cross-module reconciliations (Section 3) do not change this constraint check.*
 
 ## 8. Note To The Final Synthesizer
 
@@ -2115,7 +1622,8 @@ Leverage is within normal range and did not change materially during the period 
   - *(The six High flags are ONE root risk in several views — a geared, peak-cycle Dubai developer with a lagging backlog-fed P&L. Do not average any away, and do not count them as independent problems.)*
 - **Consolidated vs owner economics:** ~21% of consolidated profit/EBITDA leaks to Emaar Development minorities; parent EPS (AED 1.99) is already NCI-clean, but any EBITDA/revenue-based read of the setup overstates owner economics by ~a fifth — attribute on the ~79% owned share.
 - **Partial-data cap applied and what it limits:** transcript role is filled only by a verdict-stripped sell-side proxy → **earnings clarity capped at 70** (driver/guidance colour unverified; management tone/candor not assessable in this module). Earnings-volatility **confidence is Low** (company discloses no sensitivity for its real property-demand exposure). Neither caps the headline scores.
-- **Biggest missing data point:** the 10 Aug 2026 Q2 pre-sales and backlog-growth lines — the first place a Dubai cycle turn would show, and the tell that separates "durable" from "rear-view mirror." Secondary gaps: verbatim transcript, group ASP/units, and out-year analyst depth.
+- **Cross-module items from this refresh (surface, do not double-count):** (1) the business-model external-dependency risk score moved from a stale 63/100 citation (in earnings' own `02_revenue-drivers.md`) to the current 62/100 (in the refreshed business-model output) — a citation correction, not a substantive shift in the Dubai-cycle read; (2) a net-cash basis discrepancy exists across modules — this module's CIQ-sourced ~AED 25bn broad / roughly net-flat strict (Mar-26) vs. the company's own FY2025 Annual Report figure of AED 61.7bn broad (Dec-25, cited in the refreshed business-model output) — both directionally net-cash, reconciled conservatively in Section 3, with no leverage-trigger or earnings-verdict impact; the residual open item (resolving the two figures against Note 10) is a balance-sheet-module task, not an earnings one.
+- **Biggest missing data point:** the 10 Aug 2026 Q2 pre-sales and backlog-growth lines — the first place a Dubai cycle turn would show, and the tell that separates "durable" from "rear-view mirror." Secondary gaps: verbatim transcript, group ASP/units, out-year analyst depth, and the AED 25bn vs AED 61.7bn net-cash reconciliation against Note 10.
 - **What would change the verdict:** see Section 7 — a Q2 print that holds pre-sales ≥+16% and stops the backlog-growth deceleration upgrades it; a step-down in those leading indicators (or a faster margin fade) downgrades it toward decelerating/inflecting-negative.
 
 ## 9. Simple Summary
@@ -2127,22 +1635,23 @@ Leverage is within normal range and did not change materially during the period 
 - **Next quarter (Q2, 10 Aug):** favors a profit beat, but revenue can miss on timing in the soft quarter that missed both lines a year ago.
 - **Biggest sensitivity:** recognition pace this year; Dubai off-plan demand two-to-three years out — and the demand risk is downside-asymmetric.
 - **Volatility:** material (52/100, inverted) — a geared bet on the Dubai property cycle, buffered near-term by backlog and net cash.
-- **Useful for the master synthesizer?** Yes — clear read: near-term beatable, medium-term decelerating, clean earnings, one root risk (a peak-cycle Dubai developer with a lagging P&L). Red-flag verdict: Material concerns.
+- **Useful for the master synthesizer?** Yes — clear read: near-term beatable, medium-term decelerating, clean earnings, one root risk (a peak-cycle Dubai developer with a lagging P&L). Red-flag verdict: Material concerns. This refresh changes no earnings score or verdict — it corrects one cross-module citation (external-dependency 63→62) and reconciles a net-cash basis question that does not affect leverage or earnings quality.
 
 ---
 
 ### Self-check
-- All nine upstream outputs (00–08) read and represented in Section 2. ✓
+- All nine upstream outputs (00–08) re-read and represented in Section 2; confirmed unchanged since 2026-07-13. ✓
+- Refreshed cross-module dependency (`business-model/99_business-model-synthesis.md` and `10_external-dependency.md`) read in full and reconciled in Section 3. ✓
 - Direction flags correct: earnings volatility inverted (higher = worse); consensus setup NOT inverted (higher = more beatable), flagged in Section 1. ✓
-- Verdict is exactly one of the 7 categories: **Mixed earnings setup**. ✓
-- Every Section 4 cap row has explicit Y/N; two caps apply (clarity ≤70; volatility confidence Low). ✓
+- Verdict is exactly one of the 7 categories: **Mixed earnings setup** — unchanged by the refresh. ✓
+- Every Section 4 cap row has explicit Y/N; two caps apply (clarity ≤70; volatility confidence Low) — unchanged by the refresh. ✓
 - Consensus setup is present (not "Unknown"), so the accelerating-verdict constraint is checked, and the verdict is Mixed regardless (High red flags + decelerating leading indicators). ✓
 - Partial-data caps (no verbatim transcript; inferred-only sensitivities) reflected in scores AND noted in the Abstract. ✓
 - Abstract is 80–120 words, flowing prose, no bullets, no banned phrases. ✓
 - Section 8 surfaces meaning, does not restate the numeric scores; every High red flag propagated; red-flag Severity Verdict reported verbatim in Section 1 and Section 8. ✓
-- Disagreements reconciled in Section 3 (margins basis; two-clock revenue; net-cash basis; red-flag/synthesis consistency). ✓
+- Disagreements reconciled in Section 3 (margins basis; two-clock revenue; net-cash basis across three figures; external-dependency score correction; red-flag/synthesis consistency). ✓
 - Verdict consistent with revenue (two clocks), margins (compressing), quality (clean/high) AND consensus (near-term beatable, multi-year down) — not one in isolation. ✓
-- Leverage section 5b: neither trigger fires (net cash) — exact required sentence used. ✓
+- Leverage section 5b: neither trigger fires under any of the three net-cash bases now in view — exact required sentence used, cross-module figure incorporated. ✓
 - No new analysis beyond upstream outputs; no banned phrases. ✓
 
 
@@ -2151,7 +1660,7 @@ Leverage is within normal range and did not change materially during the period 
 
 ## earnings / 00_earnings-data-triage.md
 
-_Source: `00_earnings-data-triage.md`_
+_Source: `earnings/00_earnings-data-triage.md`_
 
 # Earnings Data Triage — EMAR
 
@@ -2355,7 +1864,7 @@ Earnings agents 02/03 should read 03_segment-map.md (segment decomposition), 06_
 
 ## earnings / 01_historical-financials.md
 
-_Source: `01_historical-financials.md`_
+_Source: `earnings/01_historical-financials.md`_
 
 # Historical Financials — EMAR (Emaar Properties PJSC, DFM: EMAAR)
 
@@ -2505,7 +2014,7 @@ Revenue share of full-year, plus EBITDA margin (CIQ standardized), from actual q
 
 ## earnings / 02_revenue-drivers.md
 
-_Source: `02_revenue-drivers.md`_
+_Source: `earnings/02_revenue-drivers.md`_
 
 # Revenue Drivers — EMAR
 
@@ -2673,7 +2182,7 @@ The one caveat that separates near-term from medium-term: backlog conversion is 
 
 ## earnings / 03_margin-drivers.md
 
-_Source: `03_margin-drivers.md`_
+_Source: `earnings/03_margin-drivers.md`_
 
 # Margin Drivers — EMAR (Emaar Properties PJSC, DFM: EMAAR)
 
@@ -2811,7 +2320,7 @@ EBITDA-margin bridge, FY2025 vs FY2024 (CIQ standardized). The full-year compari
 
 ## earnings / 04_guidance-consensus.md
 
-_Source: `04_guidance-consensus.md`_
+_Source: `earnings/04_guidance-consensus.md`_
 
 # Guidance & Consensus — EMAR
 
@@ -2958,7 +2467,7 @@ Two honest qualifiers keep this from being a multi-year all-clear: (1) **revenue
 
 ## earnings / 05_beat-miss-setup.md
 
-_Source: `05_beat-miss-setup.md`_
+_Source: `earnings/05_beat-miss-setup.md`_
 
 # Beat / Miss Setup — EMAR
 
@@ -3031,7 +2540,7 @@ If this setup fails, the most likely reason is that we over-weighted the mechani
 
 ## earnings / 06_earnings-quality.md
 
-_Source: `06_earnings-quality.md`_
+_Source: `earnings/06_earnings-quality.md`_
 
 # Earnings Quality — EMAR (Emaar Properties PJSC, DFM: EMAAR)
 
@@ -3224,7 +2733,7 @@ The reported earnings are clean; the risk sits in the **cash-flow headline, not 
 
 ## earnings / 07_earnings-sensitivity.md
 
-_Source: `07_earnings-sensitivity.md`_
+_Source: `earnings/07_earnings-sensitivity.md`_
 
 # Earnings Sensitivity — EMAR
 
@@ -3335,7 +2844,7 @@ Band 41–60: **Material sensitivity — earnings can swing meaningfully.**
 
 ## earnings / 08_earnings-red-flags.md
 
-_Source: `08_earnings-red-flags.md`_
+_Source: `earnings/08_earnings-red-flags.md`_
 
 # Earnings Red Flags — EMAR
 
@@ -3544,43 +3053,24 @@ The single most likely failure mode is that we get the print right and the setup
 
 ---
 
-# ═══ balance-sheet-survival ═══
-
-# balance-sheet-survival Module Dossier — EMAR
-
-- Generated: 2026-07-10T16:17:33Z
-- Contents: 1 synthesis + 7 specialists = 8 files
-
-## Table of Contents
-
-- [balance-sheet-survival — module synthesis](#balance-sheet-survival-module-synthesis) — `99_balance-sheet-survival-synthesis.md`
-- [balance-sheet-survival / 00_solvency-data-triage.md](#balance-sheet-survival-00-solvency-data-triage-md) — `00_solvency-data-triage.md`
-- [balance-sheet-survival / 01_capital-structure-and-leverage.md](#balance-sheet-survival-01-capital-structure-and-leverage-md) — `01_capital-structure-and-leverage.md`
-- [balance-sheet-survival / 02_maturity-wall-and-refinancing.md](#balance-sheet-survival-02-maturity-wall-and-refinancing-md) — `02_maturity-wall-and-refinancing.md`
-- [balance-sheet-survival / 03_liquidity-runway.md](#balance-sheet-survival-03-liquidity-runway-md) — `03_liquidity-runway.md`
-- [balance-sheet-survival / 04_coverage-and-covenants.md](#balance-sheet-survival-04-coverage-and-covenants-md) — `04_coverage-and-covenants.md`
-- [balance-sheet-survival / 05_off-balance-sheet-and-contingencies.md](#balance-sheet-survival-05-off-balance-sheet-and-contingencies-md) — `05_off-balance-sheet-and-contingencies.md`
-- [balance-sheet-survival / 06_downside-stress-test.md](#balance-sheet-survival-06-downside-stress-test-md) — `06_downside-stress-test.md`
-
-
----
-
 ## balance-sheet-survival — module synthesis
 
-_Source: `99_balance-sheet-survival-synthesis.md`_
+_Source: `balance-sheet-survival/99_balance-sheet-survival-synthesis.md`_
 
-# Balance-Sheet-Survival Module — EMAR (Synthesis)
+# Balance-Sheet-Survival Module — EMAAR (Synthesis)
 
-*Emaar Properties PJSC (DFM: EMAAR) — Dubai / UAE master-planned real-estate developer (build-to-sell off-plan + a smaller recurring malls-and-hospitality annuity). Reporting standard **IFRS**; reporting currency **AED (UAE dirham), millions**; fiscal year ends **31 December**. The dirham is pegged to the US dollar at AED 3.6725/USD, so the group's large USD sukuk (Islamic bonds) carry effectively no dirham FX risk. Balance-sheet figures are **Q1-2026 (31 Mar 2026)**; income / cash-flow figures are **LTM to 31 Mar 2026**. Filings are in English — no translation gap. Synthesised from upstream specialist outputs 00–06 only; numbers are not re-derived from the raw pool.*
+*Emaar Properties PJSC (DFM: EMAAR) — Dubai / UAE master-planned real-estate developer (build-to-sell off-plan + a smaller recurring malls-and-hospitality annuity). Reporting standard **IFRS**; reporting currency **AED (UAE dirham), millions**; fiscal year ends **31 December**. The dirham is pegged to the US dollar at AED 3.6725/USD, so the group's large USD sukuk (Islamic bonds) carry effectively no dirham FX risk. Balance-sheet figures are **Q1-2026 (31 Mar 2026)** unless stated; income / cash-flow figures are **LTM to 31 Mar 2026**. Filings are in English — no translation gap.*
+
+*This is a re-run (2026-07-16) triggered by an upstream business-model refresh. `business-model/10_external-dependency.md` was regenerated: the external-dependency risk score moved from a stale 63/100 (still cited inside this module's own `01_capital-structure-and-leverage.md`, unchanged since 2026-07-13) to the refreshed **62/100** — a citation correction, not a substantive change to the cyclical read, and this synthesis uses 62/100 as the current source of record. The refresh also surfaced a three-way net-cash basis discrepancy — CIQ strict (~net-flat), CIQ broad (~AED 25bn), and the company's own FY2025 Annual Report Financial Review figure (AED 61.7bn) — flagged by both `business-model/99` and `earnings/99` as an open item for this module to resolve against Note 10. **It is resolved below (§3): all three bases agree the group is net cash; the AED 61.7bn figure additionally nets in AED 42.9bn of restricted RERA-escrow cash that Note 10 itself says is unavailable for debt service, so it is a broader, differently-labelled figure, not a live disagreement.** Specialist outputs `00`–`06` are unchanged since 2026-07-13 and were re-read in full; this synthesis is composed from those outputs plus the refreshed `business-model/99` and `earnings/99`, not re-derived from the raw pool.*
 
 ## Abstract
 
-Emaar is net cash on both measures — gross debt of AED 10.1bn against AED 12.2bn of free cash (net cash AED 2.1bn strict, AED 25.0bn broad), gross leverage of 0.40x, and debt still falling. Its one near-term maturity, a AED 2.75bn sukuk due September 2026, is covered 4.4 times by unrestricted cash, so repayment needs no refinancing. A single year's operating cash covers every maturity, all interest and the whole AED 8.8bn dividend with billions to spare, and the one disclosed covenant limit (a gearing policy capped below 50%) sits at minus 188%, nowhere near breach. The structure first cracks only at a roughly 94% EBITDA collapse, deeper than its own worst cycle. Verdict: a fortress balance sheet.
+Emaar is net cash on every basis: gross debt of AED 10.1bn against free cash of AED 12.2bn gives net cash of AED 2.1bn strict, AED 25.0bn broad, and the company's own AED 61.7bn figure agrees once Note 10's AED 42.9bn of restricted escrow cash is excluded, debt keeps falling. The near-term maturity, a AED 2.75bn sukuk due September 2026, is covered 4.4 times by cash alone, so refinancing is not needed. A year of operating cash covers every maturity, all interest and the AED 8.8bn dividend, and the tightest disclosed limit, a 50% gearing cap, sits at minus 188%. The structure only breaks near a 94% EBITDA collapse, deeper than its own worst cycle. Verdict: a fortress balance sheet.
 
 ## 1. Solvency Verdict
 
 - **Verdict:** **Fortress balance sheet**
-- **Net leverage (net debt / EBITDA):** **−0.08x strict** (net CASH AED 2,115.1m = gross debt 10,064.4 − free cash 12,179.5) / **−0.99x broad** (net CASH AED 24,969.2m, nets in AED 22,854m short-term investments + trading securities), on LTM peak EBITDA AED 25,200.7m. **Gross debt / EBITDA 0.40x** (peak) / **0.69x** (mid-cycle, on normalised 5-yr-avg EBITDA AED 14,647m). Net cash on BOTH §15 bases, even at mid-cycle. *(from 01)*
+- **Net leverage (net debt / EBITDA):** **−0.08x strict** (net CASH AED 2,115.1m = gross debt 10,064.4 − free cash 12,179.5) / **−0.99x broad** (net CASH AED 24,969.2m, nets in AED 22,854m short-term investments + trading securities), on LTM peak EBITDA AED 25,200.7m. **Gross debt / EBITDA 0.40x** (peak) / **0.69x** (mid-cycle, on normalised 5-yr-avg EBITDA AED 14,647m). Net cash on BOTH §15 bases, even at mid-cycle. A third figure — the company's own FY2025 Annual Report Financial Review "net cash AED 61.7bn" (cash & short-term deposits AED 71.5bn − debt AED 9.8bn, at 31 Dec 2025) — is now reconciled (§3): it additionally nets in AED 42.9bn of restricted RERA-escrow cash, so it is a broader, escrow-inclusive gross-liquidity figure, not a fourth leverage read to average in. *(from 01, reconciled at synthesis)*
 - **Liquidity runway:** **No finite runway — FCF surplus.** One year's normalised operating cash (AED 22,635m) covers all maturities, all interest and the entire AED 8.8bn dividend with ~AED 8.9bn to spare. Even at zero operating cash, committed liquidity of AED 16,199.5m covers non-discretionary uses 2.76x (~33 months); free cash alone covers 12-month debt maturities 3.2x. *(from 03)*
 - **Maturity wall (% within 24 months):** **41.8%** (AED 4,436.8m) — but the only hard capital-markets bullet inside it is **Sukuk 3, AED 2,752.6m (25.9%), due 15 Sep 2026**, covered 4.4x by free cash. Within 12 months is 35.6% (IFRS current-portion basis ~50%), heavy only because one 10-year sukuk reaches its bullet; WAM ~2.5y extends to ~3.6y once it clears. *(from 02)*
 - **Tightest covenant + headroom:** **Not assessable** for formal lender covenants — lender thresholds and covenant-EBITDA definition are undisclosed (only a compliance statement is filed). Tightest *disclosed* quantified limit = **Board gearing policy < 50% vs actual −188% (+476% headroom)**; tightest *assumed* market covenant = max net leverage 3.5x at +102% headroom (strict). Compliance confirmed [FY2025 AR, Note 24]. *(from 04)*
@@ -3590,14 +3080,14 @@ Emaar is net cash on both measures — gross debt of AED 10.1bn against AED 12.2
 - Refinancing risk /100 *(higher = WORSE, inverted)*: **12** (very low refinancing risk)
 - Covenant headroom /100: **Not assessable** *(lender thresholds undisclosed; disclosed gearing-policy headroom +476%, compliance confirmed)*
 - Downside resilience /100: **92**
-- Data quality /100: **84** *(from 00 — Sufficient; the one gap is lender covenant thresholds + change-of-control terms)*
+- Data quality /100: **84** *(from 00 — Sufficient; the one gap is lender covenant thresholds + change-of-control terms; the net-cash basis question is now resolved, not a gap — see §3)*
 - Overall usefulness /100: **90**
 - Biggest solvency risk (one line): **Nothing disclosed threatens solvency; the closest pressure point is cyclical — a deep Dubai off-plan downturn reversing the ~AED 8.3bn/yr customer-advance build (flips the strict basis to +0.41x net debt), absorbed by cutting the discretionary AED 8.8bn dividend long before debt service is ever at risk.**
 
 ## 1A. Module Disconfirmation
 
-- **Strongest bear point:** The EBITDA carrying every ratio is a Dubai property-cycle **peak** (2025 was Dubai's strongest year on record; consensus long-term growth −14.8% [business-model/10; 06 base]). The *strict* net-cash cushion is only AED 2.1bn, and the AED 25bn *broad* figure leans partly on a short-term-investment line the company itself labels part-restricted and on a cyclical ~AED 8.3bn/yr homebuyer-advance inflow — both fade if the off-plan cycle turns [01 §3; 03 §5].
-- **Strongest bull point (steelman):** Net cash on **both** §15 bases even at mid-cycle EBITDA (gross leverage 0.69x, still net cash); free unrestricted cash alone covers the entire 12-month maturity bucket 3.2x and the only capital-markets bullet (Sukuk 3) 4.4x — debt service is pre-funded and not refinancing-dependent — and the group survives a −69% EBITDA haircut (its own worst recorded cycle) with zero covenant breach [01 §5; 02 §4; 06 §2].
+- **Strongest bear point:** The EBITDA carrying every ratio is a Dubai property-cycle **peak** (2025 was Dubai's strongest year on record; consensus long-term growth −14.8%, and business-model's refreshed external-dependency score of 62/100 marks Emaar as "mostly externally driven" [business-model/10, refreshed; business-model/99 §3]). The *strict* net-cash cushion is only AED 2.1bn, and even the company's own AED 61.7bn headline leans on AED 42.9bn of restricted customer-escrow cash that fades if the off-plan cycle turns and buyers stop pre-funding construction [01 §3; 03 §5].
+- **Strongest bull point (steelman):** Net cash on **all three** bases now reconciled — strict, broad, and the company's own escrow-adjusted figure — even at mid-cycle EBITDA (gross leverage 0.69x, still net cash); free unrestricted cash alone covers the entire 12-month maturity bucket 3.2x and the only capital-markets bullet (Sukuk 3) 4.4x — debt service is pre-funded and not refinancing-dependent — and the group survives a −69% EBITDA haircut (its own worst recorded cycle) with zero covenant breach [01 §5; 02 §4; 06 §2].
 - **Single killer risk (solvency/survival):** None rises to a killer. The tightest item is the *assumed* 3.0x interest-cover covenant, which only breaks at a −94% EBITDA collapse. The genuine unknown is that actual lender covenant thresholds + change-of-control / cross-default terms are undisclosed, so formal headroom cannot be certified [04 §2–3].
 - **Disconfirming evidence already visible:** The working-capital-shock scenario flips the strict basis to a mild +0.41x net debt; the IFRS current-portion (~AED 5.3bn, ~50%) looks optically heavy; covenant headroom is formally "Not assessable." All three are covered by in-hand cash and none overturns the Fortress read [06 §2; 02 §1].
 
@@ -3615,8 +3105,9 @@ Emaar is net cash on both measures — gross debt of AED 10.1bn against AED 12.2
 
 ## 3. Reconciliation
 
+- **Net-cash basis — three figures now in play, resolved against Note 10 (this refresh's primary task).** The refreshed `business-model/10_external-dependency.md` (and `business-model/99` §3, `earnings/99` §3) cite the company's own FY2025 Annual Report Financial Review (p.13): "cash and cash equivalents, including short-term deposits, amounted to AED 71.5 billion… resulting in a net cash position of AED 61.7 billion," against total debt of AED 9.8bn — a figure that looked materially larger than either of this module's own bases (strict ~net-flat / broad ~AED 25.0bn, both Q1-2026). Checked directly against the FY2025 AR's Summary of Financial Position (p.21) and Note 10: the company's "Cash and Cash Equivalents" line of **AED 52,633m** is the *same* Note 10 total that `01` already identified as escrow-inclusive — it contains **AED 42,878.9m of RERA-escrow customer advances**, leaving only **AED 9,754.0m of free cash** [FY2025 AR, Note 10; `01` §3]. Adding "Short-Term Deposits" of AED 18,828m gives AED 71,461m ≈ AED 71.5bn, and AED 71,461m − AED 9,806m debt (Notes 24+25, **excluding** IFRS-16 leases) = **AED 61,655m ≈ AED 61.7bn** — reconciling exactly to the company's own footnoted figure ("¹Including short-term deposits"). **Conclusion: the AED 61.7bn figure is arithmetically correct and genuinely Tier-1 (audited Financial Review), but it is a *gross-liquidity* measure that (a) nets in the AED 42.9bn of restricted escrow cash Note 10 itself says is customer money "not available for debt service or general use," and (b) uses a debt base that excludes lease liabilities.** It is not comparable to a conventional net-debt figure and should not be cited as available liquidity without that label. This module's own strict (AED 2,115.1m, Q1-2026) and broad (AED 24,969.2m, Q1-2026) figures already exclude the escrow correctly and remain the canonical bases (per `01` §7). **This is a resolved basis reconciliation, not an open data gap or a language issue** — all facts sit in the same English-language, audited annual report; the difference is definitional (what counts as "available" cash), not a missing input. Net effect: all three figures agree directionally (large net cash); none changes the Fortress read.
+- **External-dependency score citation (63 → 62/100).** `01_capital-structure-and-leverage.md` (unchanged since 2026-07-13) still cites the cyclical overlay as "score 63/100" from the pre-refresh `business-model/10_external-dependency.md`. The refreshed output states its own score as **62/100** throughout, and `business-model/99` and `earnings/99` have already corrected this as a stale citation, not a substantive change (the underlying read — Dubai residential demand, government policy, regulation and geopolitics all High; financial-market sensitivities immaterial — is unchanged). This synthesis uses **62/100** as the current source of record; it does not change any leverage, coverage, liquidity, or stress-test figure, all of which were built directly from the balance sheet and cash-flow statement, not from the external-dependency score.
 - **Covenant-headroom scoring — 00 vs 04 (resolved).** Triage `00` proposed a "relies on assumed covenants → covenant headroom **max 60**" cap; specialist `04` elected **"Not assessable"**. Reconciled to the more conservative **"Not assessable"** (the owning specialist's call, and the honest one — actual lender thresholds and the covenant-EBITDA definition are genuinely undisclosed). Both agree the "no covenant disclosure → **usefulness max 75**" cap does **not** apply, because a compliance statement **and** a quantified Board gearing policy (<50% vs −188%) are disclosed — this is not a "no covenant disclosure" case. Net effect: covenant headroom = Not assessable; usefulness uncapped.
-- **Strict vs broad net cash (basis, not a disagreement).** `01` designates **strict** net cash (AED 2,115.1m) canonical per §15/module doctrine; the **broad** figure (AED 24,969.2m) is what the earnings and business-model modules headline and what the CIQ sidecar pins (−24,969.2). Both are net cash; downstream agents used the strict anchor and labelled the broad. No conflict — a labelling convention, carried consistently.
 - **Near-term maturity classification (flagged consistently, not contradicted).** The CIQ Q1-26 current portion (AED 1,996.2m) appears **not** to have reclassified Sukuk 3 to current; `01` and `02` both flag this vendor non-reclassification. Reconciled: use the **by-ultimate-maturity** 2026 wall (AED 3,776.2m; the refi-relevant bullet is Sukuk 3 AED 2,752.6m) and carry the higher **IFRS current-portion** (~AED 5,314.6m) as the conservative sensitivity. `03`/`06` confirm the runway conclusion holds on either basis.
 - **EBITDA basis (consistent across all agents).** Every agent uses the **CIQ standardized / reported-IFRS EBITDA** (AED 25,200.7m LTM), which is ~AED 1.0–1.5bn *below* the company's own non-IFRS EBITDA — the conservative choice; a cyclical **mid-cycle** cross-check (AED 14,647m) is applied by `01`/`06`. No divergence.
 - No other material disagreements between specialists.
@@ -3642,17 +3133,17 @@ Emaar is net cash on both measures — gross debt of AED 10.1bn against AED 12.2
 | Only annual data (no interim) | **N** | Solvency strength | max 75 — NOT applied (Q1-2026 interim present) |
 | No EBITDA base (stress not run) | **N** | Downside resilience | Not assessable / usefulness max 70 — NOT applied (EBITDA base present; stress test ran fully) |
 
-*Notes.* (1) The alternative "relies on assumed covenant-EBITDA addbacks → covenant headroom **max 60**" cap that triage `00` raised is superseded by the more conservative **"Not assessable"** election in §3. (2) Other module caps checked and NOT triggered: revolver availability unknown (availability is known); off-balance-sheet undisclosed for a litigious/levered name (contingencies note is detailed and the group is net cash); HoldCo upstreaming unclear (sukuk parent-obligated, OpCo debt small). No cap constrains solvency strength, liquidity runway, downside resilience, or usefulness.
+*Notes.* (1) The alternative "relies on assumed covenant-EBITDA addbacks → covenant headroom **max 60**" cap that triage `00` raised is superseded by the more conservative **"Not assessable"** election in §3. (2) Other module caps checked and NOT triggered: revolver availability unknown (availability is known); off-balance-sheet undisclosed for a litigious/levered name (contingencies note is detailed and the group is net cash); HoldCo upstreaming unclear (sukuk parent-obligated, OpCo debt small). (3) The net-cash basis reconciliation in §3 does not trigger or lift any cap — it corrects a citation and a labelling gap, not a data gap. No cap constrains solvency strength, liquidity runway, downside resilience, or usefulness.
 
 ## 5. Survival Summary
 
-Emaar carries almost no net financial risk: gross debt of AED 10,064m sits against AED 12,180m of free cash, so the group is net cash on the strict basis (AED 2,115m) and net cash by AED 24,969m on the broad basis, gross leverage is 0.40x (0.69x even at mid-cycle EBITDA), and the trend is down — gross debt has fallen from AED 12,981m (FY2023) — so leverage is falling, not rising. The near-term wall is **self-funded, not refinancing-dependent**: the only hard capital-markets bullet is one AED 2,752.6m sukuk due 15 Sep 2026, and free unrestricted cash covers it 4.4x before any refinancing, revolver draw, or operating cash — the 35.6%-within-12-months figure looks heavy only because a single 10-year sukuk reaches its scheduled bullet. There is **no finite liquidity runway** — a single year's normalised operating cash (AED 22,635m) covers every maturity, all interest, and the whole AED 8.8bn dividend with ~AED 8.9bn to spare — and the tightest covenant is nowhere near breaking (the one disclosed quantified limit, a <50% gearing policy, sits at −188%; formal lender thresholds are undisclosed and marked "Not assessable"). In the stress test the structure survives −30%, −40%, −60% and a −69% (own-trough) EBITDA haircut with no covenant breach and no liquidity gap; the first thing that breaks is an assumed 3.0x interest-cover covenant, and only at a ~−94% EBITDA collapse — far deeper than any recession. A normal −30% to −40% downturn is therefore survivable on the company's own resources with no equity raise, no distressed asset sale, and no covenant waiver — the only cyclical pressure point is the discretionary AED 8.8bn dividend, which is cut long before debt service is ever at risk.
+Emaar carries almost no net financial risk: gross debt of AED 10,064m sits against AED 12,180m of free cash, so the group is net cash on the strict basis (AED 2,115m) and net cash by AED 24,969m on the broad basis, gross leverage is 0.40x (0.69x even at mid-cycle EBITDA), and the trend is down — gross debt has fallen from AED 12,981m (FY2023) — so leverage is falling, not rising. A third, company-reported figure (AED 61.7bn net cash, FY2025 Financial Review) now traces cleanly to Note 10: it nets in AED 42.9bn of restricted customer-escrow cash alongside the same short-term deposits, so it overstates *available* liquidity even though it is an accurate, audited number on its own broader definition — all three bases point the same direction. The near-term wall is **self-funded, not refinancing-dependent**: the only hard capital-markets bullet is one AED 2,752.6m sukuk due 15 Sep 2026, and free unrestricted cash covers it 4.4x before any refinancing, revolver draw, or operating cash — the 35.6%-within-12-months figure looks heavy only because a single 10-year sukuk reaches its scheduled bullet. There is **no finite liquidity runway** — a single year's normalised operating cash (AED 22,635m) covers every maturity, all interest, and the whole AED 8.8bn dividend with ~AED 8.9bn to spare — and the tightest covenant is nowhere near breaking (the one disclosed quantified limit, a <50% gearing policy, sits at −188%; formal lender thresholds are undisclosed and marked "Not assessable"). In the stress test the structure survives −30%, −40%, −60% and a −69% (own-trough) EBITDA haircut with no covenant breach and no liquidity gap; the first thing that breaks is an assumed 3.0x interest-cover covenant, and only at a ~−94% EBITDA collapse — far deeper than any recession. A normal −30% to −40% downturn is therefore survivable on the company's own resources with no equity raise, no distressed asset sale, and no covenant waiver — the only cyclical pressure point is the discretionary AED 8.8bn dividend, which is cut long before debt service is ever at risk.
 
 ## 6. What Would Change The Solvency Verdict?
 
 | Current Verdict | What Would Strengthen It | What Would Weaken It | Data Needed |
 |---|---|---|---|
-| **Fortress balance sheet** | Disclosure of actual lender covenant thresholds + change-of-control / cross-default terms confirming wide headroom and no adverse trigger; net cash sustained through a full Dubai cycle turn; retention of S&P BBB+ / Moody's Baa1 | A large debt-funded acquisition or capital call that swings the group into meaningful net debt; a multi-year off-plan downturn reversing the ~AED 8.3bn/yr customer-advance build while the AED 8.8bn dividend is held; loss of investment-grade rating; a material undisclosed related-party guarantee to the state ecosystem surfacing under the IAS 24 exemption | Sukuk offering circular / bank facility agreements (covenant definitions, covenant-EBITDA addbacks, change-of-control / cross-default / rating triggers); quantification of the restricted slice inside the AED 22.5bn short-term-investment line |
+| **Fortress balance sheet** | Disclosure of actual lender covenant thresholds + change-of-control / cross-default terms confirming wide headroom and no adverse trigger; net cash sustained through a full Dubai cycle turn; retention of S&P BBB+ / Moody's Baa1 | A large debt-funded acquisition or capital call that swings the group into meaningful net debt; a multi-year off-plan downturn reversing the ~AED 8.3bn/yr customer-advance build while the AED 8.8bn dividend is held; loss of investment-grade rating; a material undisclosed related-party guarantee to the state ecosystem surfacing under the IAS 24 exemption | Sukuk offering circular / bank facility agreements (covenant definitions, covenant-EBITDA addbacks, change-of-control / cross-default / rating triggers); quantification of the restricted slice inside the AED 22.5bn short-term-investment line (the net-cash *basis* question itself is now resolved — see §3 — and is no longer a data request) |
 
 ## 6A. Survival Playbook (non-speculative levers)
 
@@ -3665,7 +3156,8 @@ Emaar carries almost no net financial risk: gross debt of AED 10,064m sits again
 
 ## 7. Note To The Final Synthesizer
 
-- **Leverage:** gross debt AED 10,064m = 0.40x EBITDA (peak) / 0.69x (mid-cycle); **net CASH on both bases** — strict AED 2,115m, broad AED 24,969m — and gross debt is falling. This is a §24 Filter-3 positive, not a "lazy" balance sheet.
+- **Leverage:** gross debt AED 10,064m = 0.40x EBITDA (peak) / 0.69x (mid-cycle); **net CASH on all three bases now reconciled** — strict AED 2,115m, broad AED 24,969m, and the company's own FY2025 AED 61.7bn Financial Review figure (which nets in restricted escrow cash and is therefore a broader, not a fourth, measure) — and gross debt is falling. This is a §24 Filter-3 positive, not a "lazy" balance sheet.
+- **Net-cash basis reconciliation (this refresh's finding):** the AED 61.7bn "net cash" the company headlines in its FY2025 Annual Report Financial Review (p.13) is arithmetically correct but nets in AED 42.9bn of RERA-escrow customer advances that the SAME annual report's Note 10 says are "not available for debt service or general use." Do not cite AED 61.7bn as available liquidity; the correct available-liquidity figures are this module's strict (AED 2.1bn) and broad (AED 25.0bn) bases. This is a resolved definitional reconciliation, not an unresolved data gap — treat it as closed.
 - **Maturity wall:** 35.6% due within 12m / 41.8% within 24m looks front-loaded, but the only hard capital-markets bullet is one sukuk (AED 2,752.6m, 15 Sep 2026) covered 4.4x by free cash; refinancing is available and cheap (IG sukuk market open) but **not needed** — treat the wall as self-funded, not "secured vs exposed."
 - **Liquidity runway:** no finite runway (FCF surplus); it depends on **in-hand cash** (free cash covers hard 12m maturities 3.2x), not on FCF materialising or capital markets staying open.
 - **Tightest covenant:** formal lender thresholds are undisclosed → covenant headroom **"Not assessable"**; the one disclosed quantified limit (Board gearing policy <50% vs actual −188%, +476% headroom) and confirmed compliance point to very wide headroom.
@@ -3673,18 +3165,18 @@ Emaar carries almost no net financial risk: gross debt of AED 10,064m sits again
 - **Stress break point:** survives −30% / −40% / −60% / −69% with no breach; the first item to break is an assumed 3.0x interest-cover covenant, only at ~−94% EBITDA decline. Net leverage and committed liquidity are not reached on an EBITDA decline alone (net cash).
 - **Strategic-flexibility read (§24 Filter 3):** net cash + ~52x interest cover is counter-cyclical dry powder (hold land/staff, keep launching, buy assets cheap when the cycle turns) and removes refinancing dependence — credited as a positive, not marked down.
 - **Partial-data cap:** only covenant headroom is capped ("Not assessable" — lender thresholds undisclosed). Usefulness is **not** capped (compliance statement + quantified gearing policy disclosed). No cap constrains solvency strength, liquidity, or downside resilience.
-- **Biggest missing data point (single highest-value next request):** the **sukuk offering circular / bank facility agreements** — the actual financial-covenant thresholds, covenant-EBITDA addbacks, and change-of-control / cross-default / rating triggers — which would convert covenant headroom from "Not assessable" to a certified number.
-- **Explicit handoff:** the master synthesizer's **"Balance Sheet and Survival Test"** section should **defer to this synthesis**. The stress break points here (net cash on both bases; survives its own worst −69% cycle; first break only at ~−94% EBITDA decline) are the inputs for the master's downside scenario and risk register — **the master assigns probabilities and the rating; this module does not.**
+- **Biggest missing data point (single highest-value next request):** the **sukuk offering circular / bank facility agreements** — the actual financial-covenant thresholds, covenant-EBITDA addbacks, and change-of-control / cross-default / rating triggers — which would convert covenant headroom from "Not assessable" to a certified number. (The net-cash basis question that earlier synthesis outputs flagged as an open item is now closed — see above — and is not the next data request.)
+- **Explicit handoff:** the master synthesizer's **"Balance Sheet and Survival Test"** section should **defer to this synthesis**. The stress break points here (net cash on all bases; survives its own worst −69% cycle; first break only at ~−94% EBITDA decline) are the inputs for the master's downside scenario and risk register — **the master assigns probabilities and the rating; this module does not.**
 
 ## 8. Simple Summary
 
-- Debt is AED 10.1bn gross, but AED 12.2bn of free cash more than covers it — net cash AED 2.1bn on the strict measure, AED 25.0bn on the broad one; leverage ~0.4x gross, negative on a net basis, and falling.
+- Debt is AED 10.1bn gross, but AED 12.2bn of free cash more than covers it — net cash AED 2.1bn on the strict measure, AED 25.0bn on the broad one, and AED 61.7bn on the company's own broadest measure once restricted escrow cash is properly excluded from the comparison; leverage ~0.4x gross, negative on a net basis, and falling.
 - The maturity wall is one AED 2.75bn sukuk due 15 Sep 2026; free cash covers it 4.4x. Nothing else material comes due near-term.
 - Liquidity runway is effectively unlimited: one year's operating cash covers all debt, all interest and the AED 8.8bn dividend with ~AED 8.9bn to spare.
 - The tightest covenant can't be scored (lender limits undisclosed), but the one disclosed limit — gearing below 50% — sits at −188%, nowhere near breach; compliance is confirmed and coverage is 52x.
 - Biggest off-balance-sheet item is a AED 9.0bn RERA delivery guarantee, backed by AED 43.3bn of customer escrow — a cash loss only in a systemic failure to deliver.
 - It survives a 30–60% EBITDA drop easily; the first thing that breaks (an assumed interest-cover covenant) only cracks at about −94%, worse than its own worst-ever cycle.
-- Ratings are available: S&P BBB+ / Moody's Baa1, upgraded in 2025. Key data gap: actual lender covenant thresholds + change-of-control terms.
+- Ratings are available: S&P BBB+ / Moody's Baa1, upgraded in 2025. Key data gap: actual lender covenant thresholds + change-of-control terms (the net-cash basis question is resolved, not a gap).
 - This module is useful for the master synthesizer — a clear Fortress read; the master should defer its Balance Sheet section to this file.
 
 
@@ -3693,7 +3185,7 @@ Emaar carries almost no net financial risk: gross debt of AED 10,064m sits again
 
 ## balance-sheet-survival / 00_solvency-data-triage.md
 
-_Source: `00_solvency-data-triage.md`_
+_Source: `balance-sheet-survival/00_solvency-data-triage.md`_
 
 # Solvency Data Triage — EMAR
 
@@ -3873,7 +3365,7 @@ Additional module-specific watch-items (not verdict-changing): change-of-control
 
 ## balance-sheet-survival / 01_capital-structure-and-leverage.md
 
-_Source: `01_capital-structure-and-leverage.md`_
+_Source: `balance-sheet-survival/01_capital-structure-and-leverage.md`_
 
 # Capital Structure & Leverage — EMAR
 
@@ -4023,7 +3515,7 @@ Use these verbatim. Currency **AED millions**, at **31 Mar 2026 (Q1-2026)** unle
 
 ## balance-sheet-survival / 02_maturity-wall-and-refinancing.md
 
-_Source: `02_maturity-wall-and-refinancing.md`_
+_Source: `balance-sheet-survival/02_maturity-wall-and-refinancing.md`_
 
 # Maturity Wall & Refinancing — EMAR
 
@@ -4127,7 +3619,7 @@ The wall is a single 10-year sukuk — **AED 2,752.6m (Sukuk 3, 3.64%) due 15 Se
 
 ## balance-sheet-survival / 03_liquidity-runway.md
 
-_Source: `03_liquidity-runway.md`_
+_Source: `balance-sheet-survival/03_liquidity-runway.md`_
 
 # Liquidity Runway — EMAR
 
@@ -4230,7 +3722,7 @@ There is **no finite runway** — a single year's normalised operating cash (AED
 
 ## balance-sheet-survival / 04_coverage-and-covenants.md
 
-_Source: `04_coverage-and-covenants.md`_
+_Source: `balance-sheet-survival/04_coverage-and-covenants.md`_
 
 # Coverage & Covenants — EMAR
 
@@ -4321,7 +3813,7 @@ Earnings carry the interest bill many times over: EBITDA covers gross interest *
 
 ## balance-sheet-survival / 05_off-balance-sheet-and-contingencies.md
 
-_Source: `05_off-balance-sheet-and-contingencies.md`_
+_Source: `balance-sheet-survival/05_off-balance-sheet-and-contingencies.md`_
 
 # Off-Balance-Sheet & Contingencies — EMAR
 
@@ -4421,7 +3913,7 @@ The largest off-balance-sheet number is the **AED 35.5bn project-commitment book
 
 ## balance-sheet-survival / 06_downside-stress-test.md
 
-_Source: `06_downside-stress-test.md`_
+_Source: `balance-sheet-survival/06_downside-stress-test.md`_
 
 # Downside Stress Test — EMAR
 
@@ -4517,40 +4009,21 @@ The EBITDA decline `h` (stressed EBITDA = 25,200.7·(1−`h`)) at which each ite
 
 ---
 
-# ═══ management-governance ═══
-
-# management-governance Module Dossier — EMAR
-
-- Generated: 2026-07-10T16:17:33Z
-- Contents: 1 synthesis + 7 specialists = 8 files
-
-## Table of Contents
-
-- [management-governance — module synthesis](#management-governance-module-synthesis) — `99_management-governance-synthesis.md`
-- [management-governance / 00_governance-data-triage.md](#management-governance-00-governance-data-triage-md) — `00_governance-data-triage.md`
-- [management-governance / 01_management-and-track-record.md](#management-governance-01-management-and-track-record-md) — `01_management-and-track-record.md`
-- [management-governance / 02_capital-allocation-scorecard.md](#management-governance-02-capital-allocation-scorecard-md) — `02_capital-allocation-scorecard.md`
-- [management-governance / 03_incentives-and-compensation.md](#management-governance-03-incentives-and-compensation-md) — `03_incentives-and-compensation.md`
-- [management-governance / 04_ownership-and-insider-behavior.md](#management-governance-04-ownership-and-insider-behavior-md) — `04_ownership-and-insider-behavior.md`
-- [management-governance / 05_board-and-shareholder-rights.md](#management-governance-05-board-and-shareholder-rights-md) — `05_board-and-shareholder-rights.md`
-- [management-governance / 06_candor-and-disclosure-quality.md](#management-governance-06-candor-and-disclosure-quality-md) — `06_candor-and-disclosure-quality.md`
-
-
----
-
 ## management-governance — module synthesis
 
-_Source: `99_management-governance-synthesis.md`_
+_Source: `management-governance/99_management-governance-synthesis.md`_
 
-# Management-Governance Module — EMAR (Synthesis)
+# Management-Governance Module — EMAAR (Synthesis)
+
+*Emaar Properties PJSC (DFM: EMAAR). Dubai/UAE issuer, IFRS, reporting currency AED, fiscal year ends 31 December. This is a refresh of the 2026-07-10 run, triggered by an upstream `business-model` refresh (2026-07-16): `10_external-dependency.md` was regenerated (external-dependency risk 63→62/100, a stale-reference correction, not a substantive change) and `12_red-flags-sweep.md` now formally scores a "Founder / key-person concentration" flag at severity 45 (Managing Director Mohamed Alabbar's ~0.03% ownership, no disclosed succession plan, and his chairmanship of Eagle Hills, a directly competing developer). The six management-governance specialist outputs (00–06) are unchanged since 2026-07-13 and have been re-read in full; the refreshed `business-model/99_business-model-synthesis.md` and the current `earnings/99_earnings-synthesis.md` were also re-read in full. This synthesis reconciles all three; it does not re-read the raw data pool and re-derives no specialist-level analysis.*
 
 ## Abstract
 
-Emaar's operators are competent and have delivered, but alignment with minority holders is structurally thin, so stewardship nets to mixed. Capital allocation is genuinely value-creative: earnings per share roughly quadrupled (AED 0.52 to 1.99), the dividend grew (AED 0.25 to 1.00 per share), and return on capital rose from 4.7% to 13.7%, on a net-cash balance sheet with no value-destruction traps. Incentives are split: a real share-price-linked plan for the CEO and CFO, but a founder-Managing Director paid AED 61m with no share link who owns 0.03%. The biggest risk is RF-OWN-004 — the Government of Dubai (Dubai Holding, 29.73%) controls the company, the board is government-staffed, and an IFRS election hides the largest related-party channel. Verdict: standard / mixed.
+Emaar's operators are competent and have delivered, but alignment with minority holders is structurally thin, so stewardship nets to mixed. Capital allocation is genuinely value-creative: earnings per share roughly quadrupled (AED 0.52 to 1.99), the dividend grew (AED 0.25 to 1.00 per share), and return on capital rose from 4.7% to 13.7%, on a net-cash balance sheet with no value-destruction traps. Incentives are split: a real share-price-linked plan for the CEO and CFO, but a founder-Managing Director paid AED 61m with no share link who owns 0.03% and, per the newly-quantified business-model flag (severity 45/100), chairs a competing developer with no disclosed succession plan. The biggest risk is RF-OWN-004 — the Government of Dubai (Dubai Holding, 29.73%) controls the company, the board is government-staffed, and an IFRS election hides the largest related-party channel. Verdict: standard / mixed.
 
 ## 1. Stewardship Verdict
 
-- **Verdict:** **Standard / mixed** — competent, promise-keeping operators with a value-creative per-share record, held back from "aligned & competent" by structurally thin, government-anchored alignment (0.03% insider ownership, a government controller, a founder-MD who chairs a competitor, and a related-party channel left unquantified).
+- **Verdict:** **Standard / mixed** — competent, promise-keeping operators with a value-creative per-share record, held back from "aligned & competent" by structurally thin, government-anchored alignment (0.03% insider ownership, a government controller, a founder-MD who chairs a competitor with no disclosed succession plan, and a related-party channel left unquantified).
 - **Hard disqualifier flagged (business-model/01)?** **N** — `business-model/01_disqualifier-scan` tested all 8 hard disqualifiers and triggered none (clean EY/KPMG audits 3 yrs, no going concern, control-group pledge 0%, RPT 0.35% rev / 1.2% exp, one disclosed auditor rotation, no restatement, no reporting enforcement, positive operating cash flow every year). Verdict is therefore NOT capped at "Serious governance concerns."
 - Management quality /100: **70**
 - Capital allocation /100: **70**
@@ -4561,35 +4034,35 @@ Emaar's operators are competent and have delivered, but alignment with minority 
 - Data quality /100: **72** *(from 00 — "Sufficient")*
 - Overall usefulness /100: **78**
 - Insider ownership (one line): Directors/insiders own **0.03%** (founder-MD Alabbar 2,700,500 sh); **Government of Dubai via Dubai Holding group controls 29.73%** (single largest holder 22.27%); single share class, **no pledging**, ~70.2% free float [FY2025 AR, CG Report p.125 / Annex I p.153].
-- Biggest governance signal (one line): **RF-OWN-004** — a Government-of-Dubai controller (Dubai Holding 29.73%) with a city-building agenda, a board on which every "independent" director is a government official, and an **IAS 24 election that leaves the largest related-party channel** (land / utilities / construction from the state ecosystem) **unquantified to minorities**.
-- **Governance Score /100:** **59** — inputs: `0.20×70 (CapAlloc) + 0.18×50 (Incentive) + 0.18×53 (ShFriendliness) + 0.16×65 (Candor) + 0.16×70 (MgmtQuality) + 0.12×(100−58) (GovRisk)` = `14.00 + 9.00 + 9.54 + 10.40 + 11.20 + 5.04 = 59.18 ≈ 59`.
+- Biggest governance signal (one line): **RF-OWN-004** — a Government-of-Dubai controller (Dubai Holding 29.73%) with a city-building agenda, a board on which every "independent" director is a government official, and an **IAS 24 election that leaves the largest related-party channel** (land / utilities / construction from the state ecosystem) **unquantified to minorities**. A second, now cross-module-corroborated signal sits right behind it: **founder/key-person concentration** — MD Alabbar's 0.03% economics, absent succession plan, and live chairmanship of competing developer Eagle Hills, which `business-model/12_red-flags-sweep.md`'s refreshed roll-up now scores at **severity 45/100**, confirming (not adding to) this module's own existing High-materiality read.
+- **Governance Score /100** — compute with the exact MODULE_RULES formula: `0.20×CapAlloc + 0.18×Incentive + 0.18×ShFriendliness + 0.16×Candor + 0.16×MgmtQuality + 0.12×(100 − GovRisk)`; show the inputs: `0.20×70 (CapAlloc) + 0.18×50 (Incentive) + 0.18×53 (ShFriendliness) + 0.16×65 (Candor) + 0.16×70 (MgmtQuality) + 0.12×(100−58) (GovRisk)` = `14.00 + 9.00 + 9.54 + 10.40 + 11.20 + 5.04 = 59.18 ≈ **59**`.
 - **Confidence-Adjusted Governance Score /100:** **41** (= 59 × 70 / 100 = 41.4).
 - **Governance Rating:** **Watchlist** (55–69 band; no critical flag or hard disqualifier forces it lower).
-- **Confidence Score /100 (source quality):** **70** — most findings rest on Tier-1 audited English annual reports and the CG Report; deducted for the transcript-proxy candor gap, absent AGM vote tallies, and undisclosed incentive-metric weights.
-- **Red-Flag Count / Critical Red-Flag Count:** **2 / 0** (RF-OWN-004 High; RF-MGT-001 High/watch). Two further High-materiality alignment channels are open but did not fire a registry flag on current evidence (founder-MD / Eagle Hills competitor conflict; IAS 24 government-ecosystem RPT opacity).
+- **Confidence Score /100 (source quality):** **70** — most findings rest on Tier-1 audited English annual reports and the CG Report; deducted for the transcript-proxy candor gap, absent AGM vote tallies, and undisclosed incentive-metric weights. Unchanged by this refresh — the cross-module corroboration of the founder/key-person signal raises confidence *in that specific finding* but does not move the module-wide figure, which is still driven by the same underlying gaps.
+- **Red-Flag Count / Critical Red-Flag Count:** **2 / 0** (RF-OWN-004 High; RF-MGT-001 High/watch). Two further High-materiality alignment channels are open but did not fire a registry flag on current evidence (founder-MD / Eagle Hills competitor conflict plus absent succession plan — now formally cross-referenced as WATCH-KEYPERSON, severity 45/100 per business-model; IAS 24 government-ecosystem RPT opacity).
 
-## 1A. Module Disconfirmation *(CLAUDE.md §8)*
+## 1A. Module Disconfirmation *(CLAUDE.md §8; fix F37)*
 
-- **Strongest bear point:** The controller is the Government of Dubai (Dubai Holding group 29.73%), whose objective is city development, not minority per-share value; the board is staffed entirely by government officials/executives, and the **IAS 24 government-related-entity election leaves the biggest value-transfer channel — land/utilities/construction bought from the state ecosystem — entirely unquantified** [05-016, 05-021, 04-004]. The AED 7.5bn Dubai Creek Harbour asset was bought *from* parent Dubai Holding, part-funded by issuing new Emaar shares to that same owner, with no arm's-length valuation shown to minorities [02-005]. This is a structural cap (§24 Filter 6), not a discount to arbitrage.
+- **Strongest bear point:** The controller is the Government of Dubai (Dubai Holding group 29.73%), whose objective is city development, not minority per-share value; the board is staffed entirely by government officials/executives, and the **IAS 24 government-related-entity election leaves the biggest value-transfer channel — land/utilities/construction bought from the state ecosystem — entirely unquantified** [05-016, 05-021, 04-004]. The AED 7.5bn Dubai Creek Harbour asset was bought *from* parent Dubai Holding, part-funded by issuing new Emaar shares to that same owner, with no arm's-length valuation shown to minorities [02-005]. Layered on top, the founder-Managing Director owns just 0.03% of the company, has no disclosed succession plan, and simultaneously chairs Eagle Hills, a competing international developer that was actively acquiring the same asset type as recently as January 2026 — a pattern `business-model/12_red-flags-sweep.md` now scores at severity 45/100 [01-002, 01-006, 04-013, 05-014]. This is a structural cap (§24 Filter 6), not a discount to arbitrage.
 - **Strongest bull point (steelman):** On the capital actually deployed, this team created per-share value and avoided every classic trap — EPS AED 0.52→1.99, DPS AED 0.25→1.00, ROIC 4.7%→13.7%, net cash ~AED 25bn, dividend covered ~2.9–3.7x by free cash flow, **zero** value-destructive M&A spree, no uncovered dividend, no buyback-at-high-prices, and clean straight-IFRS accounting with **no adjusted-earnings engineering** (earnings-quality 81/100) [02-010, 02-012, 02-014, 06-001].
-- **Single killer risk (stewardship-specific):** A future asset injected richly from the parent (Dubai Holding) and funded by dilution — the exact structure of the 2022 DCH deal — would flip capital allocation from value-creative to extractive, and the IAS 24 exemption means minorities would not see the price [02-005, 05-016] (§24 Filter 6 owner-conflict).
-- **Disconfirming evidence already visible (cutting *against* the bear):** dividends flow **pro-rata** to all holders (~AED 8.84bn, AED 1.00/sh held FY2024–25); **single one-share-one-vote class, no pledging, share count flat since FY2023 (after a disclosed 2021–22 share-funded-M&A step-up)**; disclosed RPT is tiny (0.35% rev); and directors executed **no** trades (no selling before news) [02-010, 04-006, 04-007, 04-008, 05-015]. No *proven* extraction exists today — the risk is the channel, not a demonstrated leak.
+- **Single killer risk (stewardship-specific):** A future asset injected richly from the parent (Dubai Holding) and funded by dilution — the exact structure of the 2022 DCH deal — would flip capital allocation from value-creative to extractive, and the IAS 24 exemption means minorities would not see the price [02-005, 05-016] (§24 Filter 6 owner-conflict). A related, second-order killer risk sits with the founder-MD: with no succession plan disclosed and 0.03% economic ownership, an abrupt departure or an undisclosed diversion of deal flow to Eagle Hills would remove the person who anchors the brand, land-sourcing relationships and government access this franchise depends on, with no visible transition plan [01-006, 04-013, 05-012].
+- **Disconfirming evidence already visible (cutting *against* the bear):** dividends flow **pro-rata** to all holders (~AED 8.84bn, AED 1.00/sh held FY2024–25); **single one-share-one-vote class, no pledging, share count flat since FY2023 (after a disclosed 2021–22 share-funded-M&A step-up)**; disclosed RPT is tiny (0.35% rev); directors executed **no** trades (no selling before news); and **no actual Emaar↔Eagle Hills transaction is present in the pool** — the founder-MD conflict is a live structural exposure, not a demonstrated leak [02-010, 04-006, 04-007, 04-008, 05-015, 04-013]. No *proven* extraction exists today — the risk is the channel and the key-person concentration, not a demonstrated diversion of value.
 
 ## 2. Specialist Roll-Up
 
 | Specialist | Verdict Line | Biggest Finding |
 |---|---|---|
 | governance-data-triage (00) | **Sufficient** — all six specialists can run; no partial-data cap binds; no hard disqualifier | English-filed UAE/DFM issuer; proxy-equivalent (AGM + CG Report), ownership, board, comp Annex D, 3 audited ARs all present; only gap is the granular CIQ insider export |
-| management-and-track-record (01) | Competent, delivering team (Mgmt quality **70/100**); not a turnaround, integrity cleared (RF-MGT-005 not emitted) | Kept promises on sales (AED 80.4bn), backlog (AED 163.4bn), dividend, deliveries; but 0.03% founder economics, **abrupt unexplained CFO exit (RF-MGT-001 watch)** 9 days after control changed hands, cycle-aided record |
+| management-and-track-record (01) | Competent, delivering team (Mgmt quality **70/100**); not a turnaround, integrity cleared (RF-MGT-005 not emitted) | Kept promises on sales (AED 80.4bn), backlog (AED 163.4bn), dividend, deliveries; but 0.03% founder economics, no disclosed succession plan, and an **abrupt unexplained CFO exit (RF-MGT-001 watch)** 9 days after control changed hands, cycle-aided record |
 | capital-allocation-scorecard (02) | **Value-creative / disciplined on deployed capital** (Capital allocation **70/100**); not a serial acquirer | EPS 0.52→1.99, ROIC 4.7→13.7, net cash, dividend covered ~3x; worst use = **AED 7.5bn Dubai Creek Harbour bought from the controller, part-paid in new shares to it, no arm's-length price**; ~61% of 5-yr CFO parked in cash/securities |
 | incentives-and-compensation (03) | **Mixed** (Incentive alignment **50/100**, substantive not capped) | Genuine share-price-linked LTIP for CEO/CFO (~75% at-risk), but **founder-MD paid AED 61m (~USD 16.7m, 3x the CEO), excluded from the LTIP, undisclosed bonus basis, owns 0.03%** — biggest packet, least aligned |
-| ownership-and-insider-behavior (04) | **Mixed; Filter 6 fires** (Ownership alignment **57/100**, capped to 55) | **RF-OWN-004** — government control 29.73%; insiders 0.03%, zero director trades (neutral), no pledging, single class; founder-MD chairs competitor Eagle Hills; value-trap note to valuation |
-| board-and-shareholder-rights (05) | **Weak / entrenched** — of the *controller*, not management (Board & rights **53/100**, capped by Filter 6) | Ticks UAE boxes (55.6% independent, independent-chaired audit/N&R, one-share-one-vote, no dilution) **but every "independent" is a Dubai-government official**; IAS 24 hides the largest RPT flows |
+| ownership-and-insider-behavior (04) | **Mixed; Filter 6 fires** (Ownership alignment **57/100**, capped to 55) | **RF-OWN-004** — government control 29.73%; insiders 0.03%, zero director trades (neutral), no pledging, single class; founder-MD chairs competitor Eagle Hills — now corroborated by business-model's severity-45 key-person flag |
+| board-and-shareholder-rights (05) | **Weak / entrenched** — of the *controller*, not management (Board & rights **53/100**, capped by Filter 6) | Ticks UAE boxes (55.6% independent, independent-chaired audit/N&R, one-share-one-vote, no dilution) **but every "independent" is a Dubai-government official**; IAS 24 hides the largest RPT flows; MD overboarded across 6+ outside chairs with no succession plan on record |
 | candor-and-disclosure-quality (06) | **Mixed** (Disclosure candor **65/100**, capped — no verbatim transcript) | Strongest positive: **no adjusted-EPS engineering, straight IFRS** (EQ 81/100); pulling back: promotional releases soft-pedal the Q4'25 margin fade ("healthy margins"), IAS 24 gap, verbal Q&A unverifiable |
 
 ## 2A. Consolidated Governance Findings
 
-*Aggregate of all six specialists' Universal Findings Tables (97 rows). Verdict ∈ Green/Amber/Red/NA/Insufficient. Confidence 1–5 (annual report/exchange filing=5; auditor/notes or reliable vendor=4; transcript/deck/sell-side proxy=3; rating/news=2; unverified=1). Governance risk is the only inverted score and does not appear as a row here.*
+*Aggregate of all six specialists' Universal Findings Tables (97 rows). No underlying specialist output changed in this refresh — 00 through 06 are unchanged since 2026-07-13 and were re-read in full without alteration. Verdict ∈ Green/Amber/Red/NA/Insufficient. Confidence 1–5 (annual report/exchange filing=5; auditor/notes or reliable vendor=4; transcript/deck/sell-side proxy=3; rating/news=2; unverified=1). Governance risk is the only inverted score and does not appear as a row here.*
 
 | Finding ID | Agent | Section | Question / Test | Verdict | Raw Value | Unit | Trend | Peer Verdict | Score | Penalty | Conf | Materiality | Evidence | Red Flag ID | Follow-Up |
 |---|---|---|---|---|---:|---|---|---|---:|---:|---:|---|---|---|---|
@@ -4691,15 +4164,17 @@ Emaar's operators are competent and have delivered, but alignment with minority 
 | 06-015 | 06 | Non-GAAP | Recurring "one-off" adjustments | Green | 0 | recurring adjustments | Stable | NA | — | 0 | 4 | Medium | earnings/06 §4,§5 | RF-DISC-002 NOT emitted | None |
 | 06-016 | 06 | Candor Read | Overall candor verdict | Amber | 65 | candor /100 (capped) | Stable | NA | 65 | 0 | 3 | High | This report §1–§5 | — | Obtain transcript; monitor IAS 24 |
 
-*Every upstream agent provided a valid Universal Findings Table — no output-quality deduction on that ground.*
+*Every upstream agent provided a valid Universal Findings Table — no output-quality deduction on that ground. No row changed in this refresh; all 97 findings are as re-read from the unchanged 2026-07-13 specialist outputs.*
 
 ## 3. Reconciliation
 
 - **Dividend "flat" (01) vs "grew" (02) — resolved in favour of 02 (primary source).** Agent 01 read the dividend as "held flat at AED 1.00/share FY2023–25"; agent 02 corrected this against the **audited FY2023/FY2024/FY2025 AR Note 32**, showing the parent dividend actually **grew** (AED 0.25 → 0.50 → 1.00 → 1.00) and reconciled it to the cash-flow line. The corrected reading is a **stronger** per-share story, not weaker; I adopt 02's audited figure. No score change (both readings support "value-creative").
-- **Capital-allocation score 82 (prior run) vs 70 (this run) — this run's more conservative read wins.** The current agent 02 marks capital allocation down to 70 for the **related-party Dubai Creek Harbour purchase**, the ~61%-of-CFO cash/securities pile, and cycle dependence — items the prior run's 82 under-weighted. This is a re-scoring toward conservatism, not a governance deterioration; I carry 70.
+- **Capital-allocation score 82 (2026-07-03 run) vs 70 (this run) — this run's more conservative read wins.** Agent 02 marks capital allocation at 70 for the **related-party Dubai Creek Harbour purchase**, the ~61%-of-CFO cash/securities pile, and cycle dependence — items the 2026-07-03 run's 82 under-weighted. This is a re-scoring toward conservatism, not a governance deterioration; I carry 70.
 - **"Good operating record" vs "thin alignment" — the defining tension, reconciled to *mixed*.** Agents 01/02 show competent, value-creative operators; agents 04/05 show a government-controlled board and 0.03% insider economics; agent 03 shows a per-share LTIP spine undercut by an unaligned founder-MD packet. These are not contradictory — they describe a competent team operating inside a structurally misaligned ownership frame. Under the conservative default and §24 Filter 6 ("a structural cap, not a discount to arbitrage"), the alignment cap sets the ceiling: overall stewardship nets to **Standard / mixed**, and shareholder friendliness is held at 53 (agent 05's board/rights read, the definitional match and the more conservative of 04's 57 and 05's 53, under the Filter-6 max-55 cap).
-- **Language-driven caps from the prior run NOT inherited (CLAUDE.md §27).** The 2026-07-03 run capped incentive alignment for "no executive comp in English" and softened shareholder friendliness on similar grounds. All Emaar filings are in English (triage 00) and the current specialists read the CG Report + Annex D directly, so **no language cap applies**; incentive alignment 50 and shareholder friendliness 53 are substantive scores, not language-gapped.
-- **RF-DISC-001 / RF-DISC-002 (fired in the prior run) NOT triggered this run.** Agent 06 tested both and found them *approached but not triggered* (margin level still ~54%; no recurring earnings add-backs). The current disclosure red-flag set is therefore narrower and better-evidenced.
+- **Refreshed business-model input #1 — external-dependency risk 63→62/100: a business-model-internal correction, does not touch a governance score.** `business-model/99_business-model-synthesis.md` §3 explains the 63/100 figure still cited in its own `12_red-flags-sweep.md` roll-up was a stale reference to a pre-refresh version of `10_external-dependency.md`; the refreshed agent's own current figure is 62/100, and the substance (Dubai demand, government policy, regulation and geopolitics all High; financial-market sensitivities immaterial) is unchanged. External-dependency risk is a business-model score, not one of this module's eight scores, and it feeds none of this module's formula inputs — noted here only for cross-module consistency, with no effect on the Governance Score.
+- **Refreshed business-model input #2 — founder/key-person concentration now formally scored (severity 45/100) — corroborates, does not add to, this module's existing read.** `business-model/12_red-flags-sweep.md`'s refresh explicitly quantifies what this module's specialists 01, 03, 04 and 05 had already surfaced qualitatively at High materiality: MD Alabbar's 0.03% ownership (01-002, 04-002), his exclusion from the LTIP with an undisclosed bonus formula (03-004, 03-005), his simultaneous chairmanship of directly competing developer Eagle Hills (04-013, 05-014), his overboarding across 6+ outside chairs (05-012), and the absence of any disclosed succession plan (01-006). Because every underlying fact behind the business-model severity-45 score was already captured and scored by this module's own specialists — and because no §24 filter or MODULE_RULES cap specifically targets this pattern beyond what Filter 6 (RF-OWN-004) already caps — this cross-module corroboration is folded into the existing Red-Flag Register as an expanded watch item (renamed WATCH-KEYPERSON, previously "watch — Eagle Hills") rather than treated as new evidence that moves a score. It raises confidence *in that specific finding* (multiple independent specialist reads converge with a sibling module's numeric score) without changing the module-wide Confidence Score, which is still capped by the transcript and AGM-vote gaps.
+- **Language-driven caps from the 2026-07-03 run NOT inherited (CLAUDE.md §27).** The 2026-07-03 run capped incentive alignment for "no executive comp in English" and softened shareholder friendliness on similar grounds. All Emaar filings are in English (triage 00) and the current specialists read the CG Report + Annex D directly, so **no language cap applies**; incentive alignment 50 and shareholder friendliness 53 are substantive scores, not language-gapped.
+- **RF-DISC-001 / RF-DISC-002 (fired in the 2026-07-03 run) NOT triggered this run.** Agent 06 tested both and found them *approached but not triggered* (margin level still ~54%; no recurring earnings add-backs). The current disclosure red-flag set is therefore narrower and better-evidenced.
 
 ## 4. Score Cap Application
 
@@ -4710,18 +4185,18 @@ Emaar's operators are competent and have delivered, but alignment with minority 
 | No board disclosure | **N** | Board / shareholder-rights read | Not assessable / cap | 53 | 53 | Board Members + CG Report present (05) |
 | No multi-year capital-allocation history | **N** | Capital allocation | max 65 | 70 | 70 | 5 audited years FY2021–25 + CIQ + Direct Investments (02) |
 | No prior promises / transcripts / letters | **Y (partial)** | Management quality / disclosure candor | candor max 65 | Candor 66→65 | Candor **65** | No verbatim transcript / no numeric guidance → candor capped at 65 (06). Mgmt quality NOT capped — ARs + press releases make promise-vs-delivery assessable (01) |
-| Hard disqualifier flagged (business-model/01) | **N** | Governance risk / verdict | risk floor 80; verdict ≤ "Serious governance concerns" | 58 | 58 | No disqualifier triggered (business-model/01) |
+| Hard disqualifier flagged (business-model/01) | **N** | Governance risk / verdict | risk floor 80; verdict ≤ "Serious governance concerns" | 58 | 58 | No disqualifier triggered (business-model/01, re-confirmed unchanged in this refresh) |
 | Critical red flag triggered in this module | **N** | Governance rating / verdict | rating ≤ "Weak" until disproven | 59 | 59 (Watchlist) | No Critical flag; RF-OWN-004 is High, not Critical (not fraud/going-concern/enforcement/restatement/RPT>10%) |
 | Turnaround without ≥2–3 yrs delivered inflection (Filter 2) | **N** | Management quality | max 60; conviction cap | 70 | 70 | Not a turnaround — profitable, net-cash, 5 yrs rising ROIC (01, 01-015) |
-| Serial-acquirer pattern (Filter 4, RF-CAP-004) | **N** | Capital allocation; Governance risk | CapAlloc max 50; GovRisk floor 60 | 70 / 58 | 70 / 58 | Not a serial acquirer; ~0.9% of CFO cash M&A, net cash (02, 02-008) |
+| Serial-acquirer pattern (Filter 4, RF-CAP-004) | **N** | Capital allocation; Governance risk | CapAlloc max 50; GovRisk floor 60 | 70 / 58 | 70 / 58 | Not a serial acquirer; ~0.9% of CFO cash M&A, net cash (02, 02-008); business-model 99 independently confirms acquisition-pattern severity 42 (<70), Filter 4 not tripped |
 | Structurally unaligned controlling owner (Filter 6, RF-OWN-004) | **Y** | Shareholder friendliness; Governance risk | ShFriendliness max 55; GovRisk floor 55 | ShFr 57→55; risk 58 | **ShFr 53; GovRisk 58** | Government of Dubai controls 29.73%; board government-staffed; IAS 24 opacity (04-004, 05-021). ShFr held at 53 (≤55); GovRisk 58 (≥55); value-trap note to valuation |
-| Unresolved adverse integrity signal (Filter 1, RF-MGT-005) | **N** | Management quality; Disclosure candor | each max 60; no rating above "Watchlist" | 70 / 65 | 70 / 65 | Integrity chased & **cleared** — RF-MGT-005 NOT emitted (01-016; business-model/01). No integrity conviction cap |
+| Unresolved adverse integrity signal (Filter 1, RF-MGT-005) | **N** | Management quality; Disclosure candor | each max 60; no rating above "Watchlist" | 70 / 65 | 70 / 65 | Integrity chased & **cleared** — RF-MGT-005 NOT emitted (01-016; business-model/01, re-confirmed). The founder-MD/Eagle Hills conflict and absent succession plan are Filter-6-adjacent governance/key-person items, not proven fraud, so Filter 1 does not trip on them |
 
-*Most-restrictive rule applied where overlapping. Two caps bind this run: the candor transcript cap (max 65) and §24 Filter 6 (RF-OWN-004: ShFriendliness max 55, GovRisk floor 55). Neither a hard disqualifier nor a Critical flag fires, so the verdict is NOT locked at "Serious governance concerns" and the rating is NOT force-capped at "Weak." RF-MGT-001 (CFO exit) is carried as a High/watch flag by agent 01 and propagated to the register below.*
+*Most-restrictive rule applied where overlapping. Two caps bind this run: the candor transcript cap (max 65) and §24 Filter 6 (RF-OWN-004: ShFriendliness max 55, GovRisk floor 55). Neither a hard disqualifier nor a Critical flag fires, so the verdict is NOT locked at "Serious governance concerns" and the rating is NOT force-capped at "Weak." RF-MGT-001 (CFO exit) is carried as a High/watch flag by agent 01 and propagated to the register below. The business-model refresh (external-dependency 62/100; founder/key-person severity 45/100) introduces no new cap — the first is a business-model-only score, the second corroborates facts already captured under the existing Filter-6 cap and the WATCH-KEYPERSON register entry.*
 
 ## 5. Stewardship Summary
 
-These people have largely done what they said: property sales more than doubled to AED 80.4bn, backlog compounded to AED 163.4bn, deliveries beat plan, and the dividend grew from AED 0.25 to AED 1.00 per share — a genuine kept-promise record, though flattered by a Dubai upcycle, legacy cheap land, and a FY2025 tax one-off, so it reads as cycle-strong execution rather than proof of through-cycle skill. Capital has created per-share value: EPS roughly quadrupled and ROIC rose from 4.7% to 13.7% on a net-cash balance sheet, with every classic value-destruction trap avoided (no debt-funded M&A spree, no high-price buybacks, no uncovered dividend). But incentives and ownership point only partly at per-share value — a real share-price-linked plan covers the CEO and CFO, yet the founder-MD takes AED 61m with no share link while owning 0.03%, and the whole team's economic skin in the game is de minimis. Minority protection is the weak axis: the board complies with UAE code on paper (55.6% independent, one-share-one-vote, no dilution) but is not independent of the *controller* — every "independent" director is a Dubai-government official, and the IAS 24 election leaves the largest related-party channel (land, utilities, construction from the state ecosystem) unquantified. The single most important reason to withhold full trust is not any proven abuse — dividends are pro-rata, there is no pledging and no adjusted-earnings games — it is that the controller is a government whose objective is Dubai's development, not minority per-share value, which caps how far competence and a clean balance sheet can carry the thesis.
+These people have largely done what they said: property sales more than doubled to AED 80.4bn, backlog compounded to AED 163.4bn, deliveries beat plan, and the dividend grew from AED 0.25 to AED 1.00 per share — a genuine kept-promise record, though flattered by a Dubai upcycle, legacy cheap land, and a FY2025 tax one-off, so it reads as cycle-strong execution rather than proof of through-cycle skill. Capital has created per-share value: EPS roughly quadrupled and ROIC rose from 4.7% to 13.7% on a net-cash balance sheet, with every classic value-destruction trap avoided (no debt-funded M&A spree, no high-price buybacks, no uncovered dividend). But incentives and ownership point only partly at per-share value — a real share-price-linked plan covers the CEO and CFO, yet the founder-MD takes AED 61m with no share link while owning 0.03%, and the whole team's economic skin in the game is de minimis. Minority protection is the weak axis: the board complies with UAE code on paper (55.6% independent, one-share-one-vote, no dilution) but is not independent of the *controller* — every "independent" director is a Dubai-government official, and the IAS 24 election leaves the largest related-party channel (land, utilities, construction from the state ecosystem) unquantified. A cross-module signal now sharpens one more edge of this picture: the founder-Managing Director who anchors the brand, land-sourcing and government relationships owns almost nothing, has no disclosed succession plan, and simultaneously chairs a directly competing developer — a pattern `business-model/12_red-flags-sweep.md` independently scores at severity 45/100, confirming rather than adding to what this module already found. The single most important reason to withhold full trust is not any proven abuse — dividends are pro-rata, there is no pledging and no adjusted-earnings games — it is that the controller is a government whose objective is Dubai's development, not minority per-share value, and that the one person who most embodies the franchise has almost no economic stake and no visible succession plan, which together cap how far competence and a clean balance sheet can carry the thesis.
 
 ## 5A. Red-Flag Register
 
@@ -4729,16 +4204,16 @@ These people have largely done what they said: property sales more than doubled 
 |---|---|---|---|---|---|---|
 | RF-OWN-004 | Structurally unaligned controlling owner — Government of Dubai (Dubai Holding group 29.73%); board of the controller's own officials; IAS 24 hides largest RPT channel (§24 Filter 6) | **High** | Govt bloc 29.73%; all 5 "independents" are Dubai-govt officials/execs; IAS 24 election unquantifies land/utilities/construction flows | FY2025 AR Annex I p.153 / Note 33; Key Developments 2026-05-11 | ShFriendliness capped ≤55 (→53); GovRisk floor 55 (→58); value-trap note to valuation | Monitor state-ecosystem RPTs and any capital directed to national projects; can any director show no govt tie? |
 | RF-MGT-001 | Group CFO left abruptly, effective 20 May 2026, announced 22 May (2 days after), no reason disclosed, 9 days after the control block changed hands | **High (watch)** | Heikal exit after ~5.5-yr tenure; named internal successor (Chindalia "until further notice"); no restatement / clean audit | Key Developments 2026-05-22; FY2025 AR Annex D | Marked into Mgmt-quality stability sub-score (not Critical) | Was exit performance-, strategy-, or new-controller-driven? Does successor stay past "until further notice"? |
-| (watch — no registry RF fired) | Founder-MD chairs a directly competing developer (Eagle Hills) while chairing Emaar's most active (Investment) committee; no Emaar↔Eagle Hills deal-flow separation disclosed | **High (unresolved)** | No actual Emaar↔Eagle Hills transaction in pool → conservative default, no hard RF | CIQ Board Members 2026-06-28; FY2025 AR CG §7; 04-013, 05-014 | Weighs on incentive-alignment & board sub-scores; no formal RF on current evidence | Is deal-flow ring-fenced and disclosed to minorities? |
-| (watch — no registry RF fired) | IAS 24 government-related-entity election leaves the bulk of Dubai-ecosystem dealings (land, utilities, construction, financing) unquantified | **High (disclosure gap)** | Disclosed, IFRS-permitted election (not opacity/§27, not a threshold breach); the AED 7.5bn DCH asset was bought from parent Dubai Holding | FY2025 AR Note 33; 05-016, 06-009 | Caps group-leakage-protection & candor sub-scores; conservative default — no hard RF on unquantified amount | Would management itemise/range govt-ecosystem land/utility/construction spend? |
+| WATCH-KEYPERSON (watch — no registry RF fired; cross-module corroborated) | Founder-MD Mohamed Alabbar owns ~0.03% of Emaar, has no disclosed succession plan, and simultaneously chairs Eagle Hills, a directly competing developer, while chairing Emaar's most active (Investment) committee; no Emaar↔Eagle Hills deal-flow separation disclosed | **High (unresolved)** | No actual Emaar↔Eagle Hills transaction in pool → conservative default, no hard RF. `business-model/12_red-flags-sweep.md` (refreshed 2026-07-16) independently scores this exact pattern **severity 45/100** — corroboration, not new evidence | CIQ Board Members 2026-06-28; FY2025 AR CG §3,§7; 01-002, 01-006, 04-013, 05-012, 05-014; business-model/12_red-flags-sweep.md (2026-07-16) | Weighs on incentive-alignment, management-quality and board sub-scores; no formal registry RF on current evidence | Is deal-flow ring-fenced and disclosed to minorities? Is there any board-level succession plan for the MD role? |
+| WATCH-IAS24 (watch — no registry RF fired) | IAS 24 government-related-entity election leaves the bulk of Dubai-ecosystem dealings (land, utilities, construction, financing) unquantified | **High (disclosure gap)** | Disclosed, IFRS-permitted election (not opacity/§27, not a threshold breach); the AED 7.5bn DCH asset was bought from parent Dubai Holding | FY2025 AR Note 33; 05-016, 06-009 | Caps group-leakage-protection & candor sub-scores; conservative default — no hard RF on unquantified amount | Would management itemise/range govt-ecosystem land/utility/construction spend? |
 
-Red-flag count: **2** (fired registry flags: RF-OWN-004, RF-MGT-001). Critical: **0**. Two additional High-materiality alignment channels are open (founder-competitor conflict; IAS 24 opacity) but did not fire a registry flag on current evidence.
+Red-flag count: **2** (fired registry flags: RF-OWN-004, RF-MGT-001). Critical: **0**. Two additional High-materiality alignment channels remain open (founder/key-person concentration — now cross-module corroborated at severity 45/100; IAS 24 opacity) but did not fire a registry flag on current evidence.
 
 ## 5B. Peer Governance Benchmark
 
 Peers from `business-model/08_competitive-map`: **Aldar (ADX, listed)**, **DAMAC (private since 2022)**, **Sobha (private)**. Governance-specific metrics are largely undisclosed for the two private peers; Aldar is the only listed comparator and is itself state-linked (Mubadala/government), so the UAE developer norm is state/family control — "in line" here is a weak-norm benchmark, not a minority-protective one.
 
-| Metric | Company (EMAR) | Peer Median | Peer Verdict |
+| Metric | Company (EMAAR) | Peer Median | Peer Verdict |
 |---|---:|---:|---|
 | Board independence % | 55.6% (legal); 0 truly independent of the controller | Not disclosed (Aldar state-linked; DAMAC/Sobha private) | In line (weak UAE norm) — but true independence-from-owner worse than a dispersed-ownership benchmark |
 | Insider / promoter holding % | Insiders 0.03%; government controller 29.73% | Aldar government/Mubadala-linked; DAMAC founder-owned (private); Sobha group-owned | In line (state/family control is the sector norm) |
@@ -4751,9 +4226,9 @@ Peers from `business-model/08_competitive-map`: **Aldar (ADX, listed)**, **DAMAC
 
 ## 5C. Governance Change Since Last Run
 
-Prior dated run: **2026-07-03** (`analyses/EMAR_2026-07-03/management-governance/`). Verdict then: *Misaligned or weak stewardship*; Governance Score 54 (Weak); Confidence-adjusted 32; red flags RF-DISC-001, RF-DISC-002, RF-OWN-004.
+Prior dated run: **2026-07-03** (`analyses/EMAR_2026-07-03/management-governance/`). Verdict then: *Misaligned or weak stewardship*; Governance Score 54 (Weak); Confidence-adjusted 32; red flags RF-DISC-001, RF-DISC-002, RF-OWN-004. This section also notes that the present file is a **same-dated-folder refresh** of the 2026-07-10 run (triggered 2026-07-16 by the upstream business-model refresh); the underlying management-governance specialist findings (00–06) are unchanged between the original and refreshed 2026-07-10 outputs — only the cross-module reconciliation (external-dependency 63→62; founder/key-person concentration formally scored at severity 45) is new.
 
-| Item | Prior (2026-07-03) | Current (2026-07-10) | Change | Good / Bad | Material? |
+| Item | Prior (2026-07-03) | Current (2026-07-10, refreshed 2026-07-16) | Change | Good / Bad | Material? |
 |---|---|---|---|---|---|
 | Stewardship verdict | Misaligned or weak stewardship | **Standard / mixed** | Upgraded one band | Good | Yes — mostly a re-score, not new facts |
 | Governance Score / Rating | 54 / Weak | **59 / Watchlist** | +5, up a band | Good | Yes |
@@ -4761,21 +4236,22 @@ Prior dated run: **2026-07-03** (`analyses/EMAR_2026-07-03/management-governance
 | Shareholder friendliness | 34 | **53** | +19 | Good | Yes — §27 correction of language-driven softening |
 | Capital allocation | 82 | **70** | −12 (more conservative) | Neutral (re-score) | Yes — DCH RPT + cash pile now weighted |
 | Disclosure candor | 60 | **65** (at cap) | +5 | Good | Modest |
-| Red flags | RF-DISC-001, RF-DISC-002, RF-OWN-004 (3) | **RF-OWN-004, RF-MGT-001 (2)** | DISC flags cleared; CFO-exit watch added | Mixed | Yes |
+| Red flags | RF-DISC-001, RF-DISC-002, RF-OWN-004 (3) | **RF-OWN-004, RF-MGT-001 (2)**, plus WATCH-KEYPERSON now cross-module corroborated | Mixed | Mixed | Yes |
 | Board / KMP changes | Control block reshuffle noted | Same reshuffle + **CFO exit (20 May 2026)** now in-window | New CFO watch item | Bad (minor) | Watch |
+| Founder/key-person concentration | Not separately flagged | **Business-model formally scores severity 45/100** (0.03% ownership, no succession, Eagle Hills chairmanship) — this module already held the facts at High materiality | New cross-module quantification of an existing read | Neutral (confirmatory) | Yes — raises confidence, no score change |
 | Promoter holding / pledge | Govt 29.73%; pledge 0% | Govt 29.73%; pledge 0% | Unchanged | Neutral | No |
 | RPT intensity | 0.35% rev; IAS 24 gap | 0.35% rev; IAS 24 gap | Unchanged | Neutral | No |
 | New legal / regulatory items | India ED contingency (~AED 190m) | Same, disclosed, sub-threshold | Unchanged | Neutral | No |
 | New AGM opposition | Not in pool | Not in pool | Unchanged | Neutral | No |
 | CFO/PAT (from earnings) | Positive, cash-backed | Q1'26 net income AED 5.0bn (+34.7%); OCF LTM AED 31,973m | Improving | Good | No (operating, not governance) |
 
-**Does any change move the governance score?** Yes — the net +5 (54→59) is driven mainly by **correcting the prior run's language-driven caps** on incentive alignment and shareholder friendliness (CLAUDE.md §27: a translated/English fact is a fact), partly offset by a more conservative capital-allocation re-score. **What to investigate next:** the reason for the CFO exit (RF-MGT-001 watch) and whether the new controller (Dubai Holding vehicle) changes minority terms or capital direction.
+**Does any change move the governance score?** No further move this refresh — the net +5 (54→59) versus the 2026-07-03 run was already booked in the original 2026-07-10 synthesis, driven mainly by **correcting language-driven caps** (CLAUDE.md §27). The 2026-07-16 refresh itself changes no governance score: the external-dependency correction (63→62) is a business-model-only figure, and the founder/key-person severity-45 quantification corroborates facts already priced into Incentive alignment (50), Shareholder friendliness (53) and Governance risk (58). **What to investigate next:** the reason for the CFO exit (RF-MGT-001 watch), whether any Emaar↔Eagle Hills deal-flow separation gets formally disclosed, whether a board-level MD/Chairman succession plan is ever published, and whether the new controller (Dubai Holding vehicle) changes minority terms or capital direction.
 
 ## 5D. Analyst Follow-Up Questions
 
 - **RF-OWN-004 (government controller):** Are there any Emaar↔Dubai-Holding-ecosystem asset transactions planned that would repeat the DCH structure (asset in, shares out)? Would management itemise or range the IAS 24-exempt land/utilities/construction flows? Is any director genuinely independent of the government? (Material to minority value; recurring; affects minority holders directly.)
 - **RF-MGT-001 (CFO exit):** Was Heikal's departure performance-, strategy-, or new-controller-driven? Does Chindalia move past "until further notice" to a permanent appointment? (One-off vs pattern; company-specific; disclosure adequacy in question.)
-- **Founder-MD / Eagle Hills conflict:** Is Emaar↔Eagle Hills deal-flow ring-fenced, and is any competitive overlap disclosed to minorities? (Recurring channel; affects minority holders; management explanation not yet on record.)
+- **WATCH-KEYPERSON (founder-MD / Eagle Hills / succession, now cross-module corroborated at severity 45):** Is Emaar↔Eagle Hills deal-flow ring-fenced, and is any competitive overlap disclosed to minorities? Is there a board-level succession plan for the Managing Director role, and has the board discussed key-person risk given his ~0.03% economic stake? (Recurring channel; affects minority holders; management explanation not yet on record; now corroborated by an independent business-model score, raising the priority of a direct answer.)
 - **Founder-MD pay:** Is the AED 36m bonus tied to any per-share/returns metric, and why is the MD excluded from the share-price LTIP? Recurring run-rate of the AED 13.3m travel/logistics line? (Material to alignment, not aggregate size.)
 - **Q4'25 margin fade (RF-DISC-001 approached):** Does the FY2025 AR MD&A quantify the segment-margin decline that the press release framed as "healthy margins"? (Candor test; recurring at each print.)
 - **AGM dissent:** Pull DFM AGM scrutinizer/vote tallies to test say-on-pay and RPT-resolution support (currently Insufficient Data).
@@ -4784,7 +4260,7 @@ Prior dated run: **2026-07-03** (`analyses/EMAR_2026-07-03/management-governance
 
 | Current Verdict | What Would Strengthen It | What Would Weaken It | Data Needed |
 |---|---|---|---|
-| **Standard / mixed** (Watchlist) | Quantified/ranged IAS 24 govt-ecosystem RPTs confirming arm's-length terms; disclosed Emaar↔Eagle Hills separation protocol; a CFO-exit explanation + permanent appointment; disclosed incentive metrics that are returns-based; an independent director with no government tie → toward "Aligned & competent" | A new asset injected richly from the parent funded by dilution; evidence of below-market land/subsidy being repriced against minorities; capital directed to national projects at sub-cost returns; a Critical RPT-leakage or enforcement finding → down to "Misaligned or weak" or "Serious governance concerns" | IAS 24 govt-ecosystem transaction detail; Emaar↔Eagle Hills related-party disclosure; DFM AGM vote tallies; CFO-exit rationale; verbatim earnings transcript; granular CIQ insider/officer trade feed |
+| **Standard / mixed** (Watchlist) | Quantified/ranged IAS 24 govt-ecosystem RPTs confirming arm's-length terms; disclosed Emaar↔Eagle Hills separation protocol; a disclosed board-level MD/Chairman succession plan; a CFO-exit explanation + permanent appointment; disclosed incentive metrics that are returns-based; an independent director with no government tie → toward "Aligned & competent" | A new asset injected richly from the parent funded by dilution; evidence of below-market land/subsidy being repriced against minorities; capital directed to national projects at sub-cost returns; an abrupt founder-MD exit with no transition plan; a Critical RPT-leakage or enforcement finding → down to "Misaligned or weak" or "Serious governance concerns" | IAS 24 govt-ecosystem transaction detail; Emaar↔Eagle Hills related-party disclosure; a disclosed MD succession plan; DFM AGM vote tallies; CFO-exit rationale; verbatim earnings transcript; granular CIQ insider/officer trade feed |
 
 ## 7. Note To The Final Synthesizer
 
@@ -4792,21 +4268,22 @@ Prior dated run: **2026-07-03** (`analyses/EMAR_2026-07-03/management-governance
 - **Capital allocation is value-creative (per share).** EPS AED 0.52→1.99, DPS AED 0.25→1.00, ROIC 4.7%→13.7%, net cash ~AED 25bn, dividend covered ~2.9–3.7x by FCF, zero value-destruction traps. Worst single item: the AED 7.5bn Dubai Creek Harbour asset bought *from* the controlling parent, part-paid in new Emaar shares, no arm's-length price shown to minorities.
 - **Incentives / ownership only partly align with minorities.** A genuine share-price-linked LTIP for the CEO/CFO (~75% at-risk) sits beside a founder-MD paid AED 61m with no share link who owns 0.03%; whole-team skin in the game is de minimis; dividends and votes are pro-rata / one-share-one-vote.
 - **Biggest governance risk = RF-OWN-004 (High, not Critical).** Government controller + government-staffed board + IAS 24 opacity over the largest related-party channel. No *proven* extraction today (pro-rata dividends, no pledging, clean audit, net cash) — the risk is the channel and the controller's objective, treated per §24 Filter 6 as a structural cap and a **value-trap note to valuation**, not a discount to arbitrage.
-- **Hard disqualifier flagged by business-model/01?** **No** — verbatim: "No verdict-lock. None of the 8 hard disqualifiers is triggered." Governance risk is NOT floored at 80; verdict is NOT locked at "Serious governance concerns."
-- **§24 rejector filters:** only **Filter 6 (RF-OWN-004)** tripped — cap applied: shareholder friendliness ≤55 (landed 53), governance-risk floor 55 (landed 58), value-trap note to valuation. Filters 1 (integrity — cleared), 2 (turnaround — N/A), 4 (serial acquirer — N/A) did NOT trip.
+- **Second governance risk, now cross-module confirmed:** founder/key-person concentration — MD Alabbar's 0.03% ownership, no disclosed succession plan, and his live chairmanship of competing developer Eagle Hills. `business-model/12_red-flags-sweep.md`'s refreshed roll-up independently scores this pattern at **severity 45/100**, corroborating this module's own pre-existing High-materiality read (01-002, 01-006, 04-013, 05-012, 05-014) rather than adding new facts. No proven diversion of deal flow is in the pool — this is an unresolved structural exposure (WATCH-KEYPERSON), not a demonstrated leak.
+- **Hard disqualifier flagged by business-model/01?** **No** — verbatim: "No verdict-lock. None of the 8 hard disqualifiers is triggered." Re-confirmed unchanged in this refresh. Governance risk is NOT floored at 80; verdict is NOT locked at "Serious governance concerns."
+- **§24 rejector filters:** only **Filter 6 (RF-OWN-004)** tripped — cap applied: shareholder friendliness ≤55 (landed 53), governance-risk floor 55 (landed 58), value-trap note to valuation. Filters 1 (integrity — cleared, re-confirmed unchanged), 2 (turnaround — N/A), 4 (serial acquirer — N/A, business-model 99 independently confirms acquisition-pattern severity 42 <70) did NOT trip. The founder-MD/Eagle Hills/succession pattern is Filter-6-adjacent (unaligned-owner-family governance texture), not a Filter-1 integrity finding — no proven fraud is alleged.
 - **Partial-data cap:** the disclosure-candor cap (max 65) binds — no verbatim transcript in the pool (only FAB sell-side proxies, which do not lift the cap), so verbal Q&A tone / owning-the-miss-live are Not assessable. It limits only the candor read, not the numbers-based reads.
-- **Biggest missing data point (single highest-value next request):** the **IAS 24 government-ecosystem related-party detail** (land / utilities / construction / financing flows with the Dubai-government sphere) — the one channel that could flip capital allocation from value-creative to extractive and the largest blind spot for a minority holder. (Second: a verbatim earnings transcript to lift the candor cap.)
-- **Explicit handoff:** this module is the governance deep-dive and **supersedes** the `business-model/11_capital-allocation-governance` quick-read. The master synthesizer should treat **this module's governance verdict (Standard / mixed) and scores (Governance Score 59 / Watchlist; Confidence-Adjusted 41)** as the **primary governance read**.
+- **Biggest missing data point (single highest-value next request):** the **IAS 24 government-ecosystem related-party detail** (land / utilities / construction / financing flows with the Dubai-government sphere) — the one channel that could flip capital allocation from value-creative to extractive and the largest blind spot for a minority holder. (Second: a disclosed board-level MD/Chairman succession plan, now higher-priority given the business-model module's independent severity-45 quantification of key-person concentration; third: a verbatim earnings transcript to lift the candor cap.)
+- **Explicit handoff:** this module is the governance deep-dive and **supersedes** the `business-model/11_capital-allocation-governance` quick-read. The master synthesizer should treat **this module's governance verdict (Standard / mixed) and scores (Governance Score 59 / Watchlist; Confidence-Adjusted 41)** as the **primary governance read**, and should read `business-model/12_red-flags-sweep.md`'s severity-45 founder/key-person flag as corroboration of, not an addition to, this module's own WATCH-KEYPERSON entry.
 
 ## 8. Simple Summary
 
 - **Promises:** Mostly kept — sales, backlog, deliveries and a rising dividend all came through, but the record leaned on a strong Dubai property cycle and a one-off tax break.
 - **Capital → per-share value:** Yes — earnings per share roughly quadrupled and returns on capital nearly tripled, on a debt-free (net-cash) balance sheet, with no value-destroying deals or buybacks.
 - **What the pay rewards:** Split — the CEO and CFO have a real share-price-linked plan; the founder-boss takes ~AED 61m (three times the CEO) with no share link and no disclosed formula while owning 0.03%.
-- **Skin in the game:** Almost none — insiders own 0.03%; they neither bought nor sold last year; the government (via Dubai Holding) controls 29.73%; no shares are pledged.
+- **Skin in the game:** Almost none — insiders own 0.03%; they neither bought nor sold last year; the government (via Dubai Holding) controls 29.73%; no shares are pledged. A sibling module now independently scores the founder's thin stake plus his lack of a succession plan plus his chairmanship of a rival developer as a severity-45-of-100 flag — the same facts this module already held, now cross-checked.
 - **Minority protection:** Weak where it counts — the board follows the UAE rulebook but every "independent" director is a government official, so it checks management, not the government owner.
 - **Candor in bad times:** Mixed — the accounting is clean and honest (no "adjusted" earnings games), but the press releases soft-pedal what's going wrong, and the biggest related-party channel is left unquantified.
-- **Hard disqualifier:** None flagged (clean audits, no going concern, no pledging, tiny related-party numbers).
+- **Hard disqualifier:** None flagged (clean audits, no going concern, no pledging, tiny related-party numbers) — re-confirmed unchanged in this refresh.
 - **Useful for the master synthesizer?** Yes — clear, evidence-backed governance read; this module supersedes the business-model quick-read on governance.
 
 ## 9. Machine-Readable Outputs
@@ -4814,8 +4291,10 @@ Prior dated run: **2026-07-03** (`analyses/EMAR_2026-07-03/management-governance
 ```json governance_summary.json
 {
   "filename": "governance_summary.json",
-  "ticker": "EMAR",
-  "date": "2026-07-10",
+  "ticker": "EMAAR",
+  "date": "2026-07-16",
+  "analysis_folder": "EMAAR_2026-07-10",
+  "refresh_trigger": "business-model 10_external-dependency.md and 99_business-model-synthesis.md regenerated 2026-07-16; management-governance specialists 00-06 unchanged",
   "stewardship_verdict": "Standard / mixed",
   "hard_disqualifier_flagged": false,
   "scores": {
@@ -4835,9 +4314,16 @@ Prior dated run: **2026-07-03** (`analyses/EMAR_2026-07-03/management-governance
   "red_flag_count": 2,
   "critical_red_flag_count": 0,
   "red_flags": ["RF-OWN-004", "RF-MGT-001"],
-  "watch_channels_no_registry_flag": ["Founder-MD/Eagle Hills competitor conflict", "IAS 24 government-ecosystem RPT opacity"],
+  "watch_channels_no_registry_flag": [
+    "WATCH-KEYPERSON: founder-MD 0.03% ownership + no succession plan + Eagle Hills chairmanship (cross-module corroborated: business-model/12_red-flags-sweep severity 45/100, refreshed 2026-07-16)",
+    "WATCH-IAS24: IAS 24 government-ecosystem RPT opacity"
+  ],
   "insider_ownership_summary": "Directors/insiders 0.03% (founder-MD Alabbar 2,700,500 sh); Government of Dubai via Dubai Holding group 29.73% (single largest 22.27%); single share class; no pledging; ~70.2% free float",
-  "biggest_governance_signal": "RF-OWN-004: Government-of-Dubai controller (Dubai Holding 29.73%) with a city-building agenda; board entirely government-staffed; IAS 24 election leaves the largest related-party channel (land/utilities/construction) unquantified to minorities",
+  "biggest_governance_signal": "RF-OWN-004: Government-of-Dubai controller (Dubai Holding 29.73%) with a city-building agenda; board entirely government-staffed; IAS 24 election leaves the largest related-party channel (land/utilities/construction) unquantified to minorities. Second signal, now cross-module corroborated: founder/key-person concentration (business-model severity 45/100).",
+  "cross_module_reconciliation": {
+    "external_dependency_risk": "business-model score corrected 63->62/100 in the refresh; business-model-internal, does not affect any management-governance score",
+    "founder_key_person_flag": "business-model/12_red-flags-sweep.md now scores severity 45/100 for MD Alabbar's 0.03% ownership + no succession plan + Eagle Hills chairmanship; corroborates this module's pre-existing 01-002/01-006/04-013/05-012/05-014 findings; no score change, folded into WATCH-KEYPERSON register entry"
+  },
   "partial_data_caps_applied": [
     "Disclosure candor max 65 (no verbatim transcript / no numeric guidance); actual 65",
     "Section 24 Filter 6 RF-OWN-004: Shareholder friendliness max 55 (actual 53); Governance risk floor 55 (actual 58)"
@@ -4861,7 +4347,7 @@ Prior dated run: **2026-07-03** (`analyses/EMAR_2026-07-03/management-governance
     "100_minus_governance_risk": 42
   },
   "governance_score_calculation": "0.20×70 + 0.18×50 + 0.18×53 + 0.16×65 + 0.16×70 + 0.12×42 = 14.00 + 9.00 + 9.54 + 10.40 + 11.20 + 5.04 = 59.18 ≈ 59",
-  "prior_run": {"date": "2026-07-03", "verdict": "Misaligned or weak stewardship", "governance_score": 54, "rating": "Weak", "note": "This-run uplift mainly corrects prior language-driven caps per CLAUDE.md §27; capital allocation re-scored down 82->70"},
+  "prior_run": {"date": "2026-07-03", "verdict": "Misaligned or weak stewardship", "governance_score": 54, "rating": "Weak", "note": "The 2026-07-10 run's uplift mainly corrects prior language-driven caps per CLAUDE.md §27; capital allocation re-scored down 82->70. This 2026-07-16 refresh changes no governance score versus the original 2026-07-10 run."},
   "supersedes_business_model_11": true,
   "primary_governance_read_for_master_synthesizer": true
 }
@@ -4972,7 +4458,7 @@ finding_id,agent,section,question,verdict,raw_value,unit,trend,peer_verdict,scor
 red_flag_id,trigger,severity,evidence,source_date,score_impact,follow_up
 RF-OWN-004,Structurally unaligned controlling owner - Government of Dubai (Dubai Holding group 29.73%); board of controller's own officials; IAS 24 hides largest RPT channel (Sec24 Filter 6),High,Govt bloc 29.73%; all 5 independents are Dubai-govt officials/execs; IAS 24 unquantifies land/utilities/construction flows,2026-05-11,ShFriendliness capped <=55 (->53); GovRisk floor 55 (->58); value-trap note to valuation,Monitor state-ecosystem RPTs; can any director show no govt tie?
 RF-MGT-001,Group CFO left abruptly effective 2026-05-20 announced 2026-05-22 no reason disclosed 9 days after control block changed hands,High (watch),Heikal exit after ~5.5-yr tenure; named internal successor until further notice; clean audit no restatement,2026-05-22,Marked into Mgmt-quality stability sub-score (not Critical),Was exit performance/strategy/new-controller-driven? Does successor stay permanent?
-WATCH-EAGLEHILLS,Founder-MD chairs directly competing developer Eagle Hills while chairing Emaar Investment Committee; no deal-flow separation disclosed (no registry RF fired),High (unresolved),No actual Emaar-Eagle Hills transaction in pool -> conservative default,2026-06-28,Weighs on incentive-alignment & board sub-scores; no formal RF on current evidence,Is deal-flow ring-fenced and disclosed to minorities?
+WATCH-KEYPERSON,Founder-MD chairs directly competing developer Eagle Hills while chairing Emaar Investment Committee; owns ~0.03%; no succession plan disclosed; no deal-flow separation disclosed (no registry RF fired; cross-module corroborated),High (unresolved),No actual Emaar-Eagle Hills transaction in pool -> conservative default; business-model/12_red-flags-sweep.md (refreshed 2026-07-16) independently scores this pattern severity 45/100,2026-07-16,Weighs on incentive-alignment management-quality and board sub-scores; no formal RF on current evidence,Is deal-flow ring-fenced and disclosed to minorities? Is there a board-level MD succession plan?
 WATCH-IAS24,IAS 24 government-related-entity election leaves bulk of Dubai-ecosystem dealings (land utilities construction financing) unquantified (no registry RF fired),High (disclosure gap),Disclosed IFRS-permitted election not opacity; AED 7.5bn DCH asset bought from parent Dubai Holding,2025-12-31,Caps group-leakage-protection & candor sub-scores; conservative default no hard RF,Would management itemise/range govt-ecosystem spend?
 ```
 
@@ -4996,12 +4482,14 @@ G15,Sell-side proxy (verdict-stripped unverified),FAB Securities Earnings Call I
 G16,Web (unverified),Aldar Properties Corporate Governance Report 2024,FY2023,Aggregate board remuneration AED 41.85m; deferred/matched plan (peer magnitude context),2026-07-10,2,03
 G17,Cross-module,business-model/01_disqualifier-scan.md,FY2025,No hard disqualifier; soft signals (govt owner/IAS 24/India ED/CFO change),2026-07-10,4,01/04/05/06
 G18,Cross-module,business-model/11_capital-allocation-governance.md,FY2025,Quick-read superseded; IAS 24/DCH/founder-Eagle Hills,2026-07-10,4,01/02/03/04/06
-G19,Cross-module,business-model/12_red-flags-sweep.md,FY2025,Governance/quality flags; NCI leakage,2026-07-10,4,01/06
+G19,Cross-module,business-model/12_red-flags-sweep.md (refreshed 2026-07-16),FY2025,Governance/quality flags; NCI leakage severity 52; founder/key-person concentration severity 45 (corroborates WATCH-KEYPERSON),2026-07-16,4,01/04/05/06
 G20,Cross-module,business-model/08_competitive-map.md,FY2025,Peer set (Aldar/DAMAC/Sobha) for governance benchmark,2026-07-10,4,99
 G21,Cross-module,earnings/06_earnings-quality.md,FY2021-LTM,No adjusted EPS; conservative one-offs; FCF overstatement; EQ 81/100,2026-07-10,4,06
 G22,Cross-module,earnings/04_guidance-consensus.md,FY2026 est,No formal guidance; beat/miss; margin-fade path; LT growth -14.8%,2026-07-10,4,01/03/06
 G23,Cross-module,earnings/01_historical-financials.md,FY2021-LTM,FCF/normalised FCF/net-debt bases/EPS,2026-07-10,4,02
 G24,Jurisdiction norm (labelled inference),UAE Commercial Companies Law (Federal Decree-Law 32/2021),2021,Cumulative voting; general-assembly requisition (labelled - not company disclosure),2026-07-10,1,05
+G25,Cross-module,business-model/99_business-model-synthesis.md (refreshed 2026-07-16),FY2025,External-dependency risk corrected 63->62/100 (stale-reference, business-model-internal); founder/key-person concentration severity 45 propagated to management-governance,2026-07-16,4,99
+G26,Cross-module,earnings/99_earnings-synthesis.md (re-read 2026-07-16),Q1 2026,Confirms earnings-quality 81/100 and no change to candor-relevant earnings findings from the refresh,2026-07-16,4,99
 ```
 
 *All four exports produced (none pending).*
@@ -5012,7 +4500,7 @@ G24,Jurisdiction norm (labelled inference),UAE Commercial Companies Law (Federal
 
 ## management-governance / 00_governance-data-triage.md
 
-_Source: `00_governance-data-triage.md`_
+_Source: `management-governance/00_governance-data-triage.md`_
 
 # Governance Data Triage — EMAR
 
@@ -5214,7 +4702,7 @@ CSV export to `management-governance/source_manifest.csv`: **pending** (orchestr
 
 ## management-governance / 01_management-and-track-record.md
 
-_Source: `01_management-and-track-record.md`_
+_Source: `management-governance/01_management-and-track-record.md`_
 
 # Management & Track Record — EMAR
 
@@ -5381,7 +4869,7 @@ The operating team is **competent and has delivered what it said**: under a stab
 
 ## management-governance / 02_capital-allocation-scorecard.md
 
-_Source: `02_capital-allocation-scorecard.md`_
+_Source: `management-governance/02_capital-allocation-scorecard.md`_
 
 # Capital-Allocation Scorecard — EMAR
 
@@ -5563,7 +5051,7 @@ Over FY2021–FY2025 Emaar turned AED 107bn of operating cash into a **net-cash 
 
 ## management-governance / 03_incentives-and-compensation.md
 
-_Source: `03_incentives-and-compensation.md`_
+_Source: `management-governance/03_incentives-and-compensation.md`_
 
 # Incentives & Compensation — EMAR
 
@@ -5706,7 +5194,7 @@ The pay has a **genuinely per-share spine for the professional managers**: a pha
 
 ## management-governance / 04_ownership-and-insider-behavior.md
 
-_Source: `04_ownership-and-insider-behavior.md`_
+_Source: `management-governance/04_ownership-and-insider-behavior.md`_
 
 # Ownership & Insider Behavior — EMAR
 
@@ -5870,7 +5358,7 @@ Skin in the game is **near zero and static**: the people running Emaar own **0.0
 
 ## management-governance / 05_board-and-shareholder-rights.md
 
-_Source: `05_board-and-shareholder-rights.md`_
+_Source: `management-governance/05_board-and-shareholder-rights.md`_
 
 # Board & Shareholder Rights — EMAR
 
@@ -5939,7 +5427,7 @@ _Source: `05_board-and-shareholder-rights.md`_
 
 ## 5. Minority-Shareholder Protection Read
 
-On paper the board ticks the UAE boxes — 55.6% independent, an independent-chaired audit committee (2/3 independent, 100% attendance, reviewing every related-party deal), an independent-chaired nomination & remuneration committee, one-share-one-vote with statutory cumulative voting, no poison pill, no staggered board, no dual-class, and no share dilution — so it is **not** a case of classic management entrenchment. But box-ticking is the wrong test here: **the board is not independent of the party that actually controls Emaar.** The Government of Dubai controls the company (~29.73% via Dubai Holding/ICD, with Note 33 confirming "significant influence"), and every nominally "independent" director is a serving Dubai-government official or an executive of a government-controlled entity, with the controller's own Group CIO seated at the table — a board built to serve the owner, not to check it for minorities. The single biggest self-dealing/leakage risk is the **IAS 24 exemption that leaves the largest related-party flows — land bought from, and utilities/construction/financing paid to, the government ecosystem — entirely unquantified**, compounded by a founder-MD who chairs a directly competing developer (Eagle Hills) while chairing Emaar's most active committee (Investment). Per CLAUDE.md §24 Filter 6 (RF-OWN-004, structurally unaligned government owner — formally owned by agent 04), a board of the controller's own appointees cannot offset an owner whose objective is Dubai's development rather than per-share value; minority protection is therefore **weak / entrenched** — entrenchment of the *controller*, not of management. **Conclusion: weak / entrenched.**
+On paper the board ticks the UAE boxes — 55.6% independent, an independent-chaired audit committee (2/3 independent, 100% attendance, reviewing every related-party deal), an independent-chaired nomination & remuneration committee, one-share-one-vote with statutory cumulative voting, no poison pill, no staggered board, no dual-class, and a share count flat since FY2023 (after a disclosed, share-funded-M&A step-up in 2021–22) — so it is **not** a case of classic management entrenchment. But box-ticking is the wrong test here: **the board is not independent of the party that actually controls Emaar.** The Government of Dubai controls the company (~29.73% via Dubai Holding/ICD, with Note 33 confirming "significant influence"), and every nominally "independent" director is a serving Dubai-government official or an executive of a government-controlled entity, with the controller's own Group CIO seated at the table — a board built to serve the owner, not to check it for minorities. The single biggest self-dealing/leakage risk is the **IAS 24 exemption that leaves the largest related-party flows — land bought from, and utilities/construction/financing paid to, the government ecosystem — entirely unquantified**, compounded by a founder-MD who chairs a directly competing developer (Eagle Hills) while chairing Emaar's most active committee (Investment). Per CLAUDE.md §24 Filter 6 (RF-OWN-004, structurally unaligned government owner — formally owned by agent 04), a board of the controller's own appointees cannot offset an owner whose objective is Dubai's development rather than per-share value; minority protection is therefore **weak / entrenched** — entrenchment of the *controller*, not of management. **Conclusion: weak / entrenched.**
 
 *Out-of-scope note: no valuation, probabilities, or rating produced — those belong to the valuation module / master synthesizer.*
 
@@ -5984,7 +5472,7 @@ On paper the board ticks the UAE boxes — 55.6% independent, an independent-cha
 | RPT and group-leakage protection | 11 | 20 | Disclosed RPT tiny (0.35%/0.76% rev), receivables trivial, no loans/guarantees/royalty to owner, KMP pay flat, Audit Cttee approves RPT — but IAS 24 exemption hides the largest govt-ecosystem flows and MD competitor conflict undisclosed [05-015, 05-016, 05-014] |
 | Shareholder voting rights | 10 | 15 | One-share-one-vote, single class, statutory cumulative voting, no poison pill / staggered board / dual-class, mild historical dilution (2021–22 share-funded M&A, flat since FY2023 [05-019]) — offset by govt de-facto control and ~10% requisition threshold [05-017, 05-018, 05-019] |
 | AGM opposition / minority protection | 4 | 10 | No votes-against / proxy-advisor data in pool (dissent untestable); structurally weak minority protection under a govt controller with a govt-staffed board [05-020, 05-021] |
-| **Total** | **53** | **100** | Mixed board that complies with UAE code but is captured by the government owner; rights intact on the mechanical axes (voting, dilution, defenses), weak on the axis that matters (a board that checks the controller for minorities) |
+| **Total** | **53** | **100** | Mixed board that complies with UAE code but is captured by the government owner; rights intact on the mechanical axes (voting, dilution, defenses), weak on the axis that matters (a board that checks the controller for minorities). *[review correction 2026-07-13: the "Dilution history" finding (05-019) was corrected from Green/"zero dilution" to Amber/"flat since FY2023" (see §4A) — the component and total scores above were not re-derived pending a module re-run; the component score may skew slightly high until then.]* |
 
 *Cap applied: **§24 Filter 6 — structurally unaligned controlling owner (government), RF-OWN-004** → Shareholder-friendliness/Board-&-Shareholder-Rights sub-score capped at max 55; total 53 sits under the cap. Minority-protection verdict capped at "weak / entrenched." Value-trap note routed to the valuation module. Formal RF-OWN-004 quantification is owned by agent 04 (not yet run); applied here from primary filings.*
 
@@ -6051,7 +5539,7 @@ On paper the board ticks the UAE boxes — 55.6% independent, an independent-cha
 
 ## management-governance / 06_candor-and-disclosure-quality.md
 
-_Source: `06_candor-and-disclosure-quality.md`_
+_Source: `management-governance/06_candor-and-disclosure-quality.md`_
 
 # Candor & Disclosure Quality — EMAR
 
@@ -6195,62 +5683,42 @@ The worst recent operational spot is the Q1'26 quarter (revenue a touch light vs
 
 ---
 
-# ═══ valuation ═══
-
-# valuation Module Dossier — EMAR
-
-- Generated: 2026-07-10T16:17:33Z
-- Contents: 1 synthesis + 8 specialists = 9 files
-
-## Table of Contents
-
-- [valuation — module synthesis](#valuation-module-synthesis) — `99_valuation-synthesis.md`
-- [valuation / 00_valuation-data-triage.md](#valuation-00-valuation-data-triage-md) — `00_valuation-data-triage.md`
-- [valuation / 01_price-and-capital-structure.md](#valuation-01-price-and-capital-structure-md) — `01_price-and-capital-structure.md`
-- [valuation / 02_multiples-own-history.md](#valuation-02-multiples-own-history-md) — `02_multiples-own-history.md`
-- [valuation / 03_relative-valuation-peers.md](#valuation-03-relative-valuation-peers-md) — `03_relative-valuation-peers.md`
-- [valuation / 04_intrinsic-dcf.md](#valuation-04-intrinsic-dcf-md) — `04_intrinsic-dcf.md`
-- [valuation / 05_reverse-dcf.md](#valuation-05-reverse-dcf-md) — `05_reverse-dcf.md`
-- [valuation / 06_sum-of-the-parts.md](#valuation-06-sum-of-the-parts-md) — `06_sum-of-the-parts.md`
-- [valuation / 07_scenario-and-fair-value.md](#valuation-07-scenario-and-fair-value-md) — `07_scenario-and-fair-value.md`
-
-
----
-
 ## valuation — module synthesis
 
-_Source: `99_valuation-synthesis.md`_
+_Source: `valuation/99_valuation-synthesis.md`_
 
 # Valuation Module — EMAR (Synthesis)
 
 *Emaar Properties PJSC (DFM: EMAAR). UAE / Dubai issuer; IFRS; reporting currency AED (dirham hard-pegged to the US dollar at 3.6725 AED/USD, so AED↔USD carries negligible currency risk). This synthesis composes the fair-value LEVELS, the margin of safety, and the value verdict from the upstream specialists `00`–`07`. It does NOT assign scenario probabilities, compute probability-weighted returns or risk/reward, rate the stock, or size a position — those belong to the master synthesizer.*
 
+*This is a **re-run (2026-07-16)** triggered by an upstream `business-model` refresh: `10_external-dependency.md` was regenerated (external-dependency risk moved from a stale 63/100 citation to the current **62/100** — a citation correction, not a substantive change to the cyclical read) and a three-way net-cash basis discrepancy surfaced across modules (CIQ strict ~net-flat, CIQ broad ~AED 25bn, the company's own FY2025 Annual Report figure AED 61.7bn). All eight valuation specialist outputs (`00`–`07`) are unchanged since the prior run and were re-read in full; the refreshed `business-model/99`, the current `earnings/99`, and the current `management-governance/99` were also re-read in full. Neither refresh changes any valuation number — both are reconciled in Section 3 below.*
+
 ## Abstract
 
-Emaar screens modestly below a defensible fair value: base-case worth is AED 15.00 against a pool-verified AED 12.20 price — roughly +23% upside, an +18.7% discount to that base. The bull/base/bear levels are AED 21.00 / 15.00 / 9.75, driven by sum-of-the-parts, where a wholly-owned Dubai mall annuity worth about 79% of today's entire enterprise value sits masked inside a cyclical developer. At AED 12.20 the market prices free cash flow to shrink about 13%/yr for a decade, at a margin below Emaar's own worst trough — too pessimistic given a AED 163bn sold backlog. Downside to a real Dubai cyclical trough is about 20%. Verdict: modestly undervalued, but a government-owner value trap, not a clean mispricing.
+Emaar screens modestly cheap: a pool-verified AED 12.20 price sits 23% below the AED 15.00 base fair value, an 18.7% margin of safety. Bull/base/bear levels are AED 21.00/15.00/9.75, driven by sum-of-the-parts, which finds a wholly-owned Dubai mall annuity worth roughly 79% of today's enterprise value masked inside a cyclical developer. The price implies free cash flow shrinking about 13% a year for a decade to a margin below Emaar's own worst trough — not achievable given a 94%-sold AED 163bn backlog. Downside to a genuine Dubai cyclical trough is about 20%, to AED 9.75. Verdict: modestly undervalued, but a government-owner value trap, not a clean mispricing; this refresh confirms the read and changes no fair-value number.
 
 ## 1. Valuation Verdict
 
-- **Verdict:** **Modestly undervalued** — base-case fair value AED 15.00 is +23.0% above the AED 12.20 price (+18.7% margin of safety); the discount is real but partly a peak-earnings artefact and gated by a misaligned government owner, so it does not clear the "Materially undervalued" bar and is capped there by RF-OWN-004 (§24 Filter 6).
+- **Verdict:** **Modestly undervalued** — base-case fair value AED 15.00 is +23.0% above the AED 12.20 price (+18.7% margin of safety); the discount is real but partly a peak-earnings artefact and gated by a misaligned government owner, so it does not clear the "Materially undervalued" bar and is capped there by RF-OWN-004 (§24 Filter 6). Unchanged by this refresh.
 - **Base-case fair value (point, per share):** **AED 15.00** *(from 07)*
 - **Current price:** **AED 12.20** (US$3.32, last close, as-of 2026-06-28) — **price-state `pool-verified`** (12 days stale; a data-quality caveat, not a no-price trigger) *(from 01)*
 - **Bull / Base / Bear fair-value levels (points):** **AED 21.00 / AED 15.00 / AED 9.75** *(from 07)*
 - **Cross-method dispersion (football field, low–high):** **~AED 9.6 to ~AED 23.8** — base points alone span AED 12.5 → AED 18 (a 44% spread) *(from 07)*
 - Valuation attractiveness /100 *(higher = cheaper)*: **54** *(capped ≤60 by RF-OWN-004)*
 - Margin of safety /100 *(higher = better)*: **49** *(the cushion is real at +18.7% but roughly matched by the ~20% fall to a true cyclical trough)*
-- Valuation confidence /100: **55** *(data complete and all five methods ran, but the >40% method spread — though reconciled — and a single clean peer keep it mid-band)*
+- Valuation confidence /100: **55** *(data complete and all five methods ran, but the >40% method spread — though reconciled — and a single clean peer keep it mid-band; this refresh's net-cash and external-dependency reconciliations REMOVE ambiguity rather than add it, so confidence does not fall further)*
 - Downside risk /100 *(higher = WORSE — inverted)*: **50** *(downside-to-bear +20.1% to a defensible Dubai trough, floored by net cash + the wholly-owned mall annuity, with tail risk of a deeper downturn and value-trap dead-money risk)*
 - Data quality /100: **85** *(from 00 — "Sufficient"; 0 extraction failures, pool-verified price, full financials + consensus + peers + segments)*
 - Overall usefulness /100: **80**
 - Dominant valuation method (one line): **Sum-of-the-parts (`06`)** — the only method that both surfaces the masked wholly-owned Emaar Malls annuity (~AED 76.8bn EV, ~79% of current EV from 22% of profit) AND already prices the state-owner discount; the normalized FCFF DCF (`04`) corroborates the ~AED 17–18 asset value.
 - What's priced in (one line): at AED 12.20 the market prices free cash flow to shrink ~13.4%/yr for a decade and a through-cycle EBIT margin near ~21% — below Emaar's own FY2021 trough (23.5%) and below audited peer Aldar (27.2%) — paying just 64% of `04`'s intrinsic; expectations are conservative on fundamentals (`05`).
-- Biggest valuation risk (one line): the **government-owner value trap (RF-OWN-004)** — a value-indifferent Government-of-Dubai controller (Dubai Holding group, 29.73%) can keep a below-intrinsic price below intrinsic indefinitely, on top of developer earnings sitting at a Dubai-cycle peak consensus already marks down ~15%.
+- Biggest valuation risk (one line): the **government-owner value trap (RF-OWN-004)** — a value-indifferent Government-of-Dubai controller (Dubai Holding group, 29.73%) can keep a below-intrinsic price below intrinsic indefinitely, on top of developer earnings sitting at a Dubai-cycle peak consensus already marks down ~15%; a newly-corroborated founder/key-person concentration flag (severity 45/100, management-governance refresh) reinforces the same value-trap read rather than adding a distinct risk.
 
 ## 1A. Module Disconfirmation *(CLAUDE.md §8)*
 
 - **Strongest bear point:** on the one cycle-robust measure, P/BV (~1.20x book vs a 0.94x own-median), and on through-cycle-normalized earnings (`03`: ~AED 11.5–12.6; `02`: ~AED 12.5 no-re-rate), fair value is at or below today's price — i.e. the asset-method upside evaporates once you strip peak earnings. The reverse-DCF's own tie-break says price sits squarely in the through-cycle-earnings camp.
 - **Strongest bull point (steelman):** the wholly-owned Emaar Malls annuity plus net cash (~AED 76.8bn + ~AED 25bn ≈ AED 102bn) roughly equal the entire AED 107.8bn market cap (`06`), so the market assigns almost nothing to the #1 Dubai developer (72% of profit) — and `05` shows the price bakes in a permanent ~13%/yr runoff the AED 163.4bn sold backlog (94% sold, 3.3× revenue) contradicts.
-- **Single killer risk (method validity + value trap):** the value hangs on the developer multiple and margin (a ~AED 11 bull-to-bear swing), and the whole gap is gated by RF-OWN-004 — a government owner with no incentive to spin the malls or lift the payout, so the masked value may never crystallise (dead money, not a loss).
+- **Single killer risk (method validity + value trap):** the value hangs on the developer multiple and margin (a ~AED 11 bull-to-bear swing), and the whole gap is gated by RF-OWN-004 — a government owner with no incentive to spin the malls or lift the payout, so the masked value may never crystallise (dead money, not a loss). The management-governance refresh's now-quantified founder/key-person concentration (severity 45) is a second, related channel: deal-flow allocation between Emaar and the founder-MD's competing developer, Eagle Hills, is not visible to minority holders and is not modeled in any fair-value level.
 - **Disconfirming evidence already visible:** consensus long-term growth −14.8% and a forward P/E (~6.9x) above the trailing (~5.7x) — the market explicitly prices an earnings decline; the flow multiples sit at the 0th percentile of a 4-year window that contains no Dubai downturn (up-cycle means, not through-cycle norms).
 
 ## 2. Specialist Roll-Up
@@ -6258,7 +5726,7 @@ Emaar screens modestly below a defensible fair value: base-case worth is AED 15.
 | Specialist | Verdict Line | Biggest Finding |
 |---|---|---|
 | valuation-data-triage (`00`) | **Sufficient** — all five methods can run; no partial-data cap triggered | The one binding cap is carried from governance: **RF-OWN-004** owner-misalignment (attractiveness ≤60; value-trap flag mandatory; verdict ≤ "Modestly undervalued" on a cheap multiple alone). Price pool-verified. |
-| price-and-capital-structure (`01`) | Price **AED 12.20** pool-verified (2026-06-28); **net cash on every basis** | Cash-basis choice moves EV by ~AED 22.9bn (~19%): broad EV **AED 96,657m** (net cash AED 24,969m) canonical vs strict EV AED 119,511m (net cash AED 2,115m). AED 43,338m RERA escrow excluded. |
+| price-and-capital-structure (`01`) | Price **AED 12.20** pool-verified (2026-06-28); **net cash on every basis** | Cash-basis choice moves EV by ~AED 22.9bn (~19%): broad EV **AED 96,657m** (net cash AED 24,969m) canonical vs strict EV AED 119,511m (net cash AED 2,115m). AED 43,338m RERA escrow excluded from both — the same exclusion that reconciles the company's AED 61.7bn figure below (§3). |
 | multiples-own-history (`02`) | Roughly fair on own history (~**AED 12.5**, no-re-rate); flow multiples at 0th percentile of a 4-year range | The 0th-percentile "discount" is peak earnings (EBITDA tripled, price only doubled) on an up-cycle-only window under a government owner = value trap, not margin of safety; reversion table marked illustrative-only (zero-weighted). |
 | relative-valuation-peers (`03`) | Modestly cheap vs the one clean comp (Aldar) on peak metrics, roughly fair through-cycle; base **AED 16.9** | The 75% EV/EBITDA discount to peer median is mostly warranted (net-cash EV compression, peak earnings, six China/HK distortions); Aldar is the only clean comp and the *forward*-P/E gap to it is just −10%. |
 | intrinsic-dcf (`04`) | Base intrinsic **≈ AED 18** (17.2 economic-NCI / 19.2 book-NCI); grid AED 15–22 | Market EV ≈ PV of the explicit 10-year FCFF alone — the market assigns ~zero to the post-2035 business + terminal + balance sheet. TV only 36% of EV; mid-cycle margin is the swing (±2pp EBIT ≈ ±AED 1/share). |
@@ -6272,7 +5740,15 @@ Emaar screens modestly below a defensible fair value: base-case worth is AED 15.
 
 The tie-breaker is the reverse-DCF (`05`): at AED 12.20 the market prices free cash flow to shrink ~13%/yr for a decade and the through-cycle margin to settle near ~21% — below Emaar's own worst recent trough and below its audited peer. That is pricing structural impairment, which the AED 163.4bn sold backlog (94% sold), the wholly-owned mall annuity and the net-cash balance sheet do not support — so on fundamentals fair value is above price.
 
-**Which method I trust for this company, and why:** I weight **SOTP (`06`) most heavily** — it is the designated method for a holding-company-like hybrid, it alone surfaces the masked wholly-owned mall annuity, and it is the only method that already applies the RF-OWN-004 government-owner discount. The normalized FCFF **DCF (`04`)** corroborates the ~AED 17–18 asset value with a non-terminal-dominated model (TV only 36% of EV). I **discount `02`'s reversion exhibit** (up-cycle-only window, peak base metric, marked illustrative-only by its own producer) and treat `03`'s headline AED 16.9 with caution because it is struck on peak LTM EBITDA against a single clean comp. The reconciled base is **AED 15.00 — pulled ~9% below the AED 16.52 mechanical weighted blend** by `07`, a disclosed conservative adjustment (not a lens swap) because two of the four inputs carry no government-owner discount and sit on peak metrics. The own-history and peer-normalized reads (~AED 12) are what keep the base from underwriting the full asset value the misaligned owner has no interest in crystallising.
+**Which method I trust for this company, and why:** I weight **SOTP (`06`) most heavily** — it is the designated method for a holding-company-like hybrid, it alone surfaces the masked wholly-owned mall annuity, and it is the only method that already applies the RF-OWN-004 government-owner discount. The normalized FCFF **DCF (`04`)** corroborates the ~AED 17–18 asset value with a non-terminal-dominated model (TV only 36% of EV). I **discount `02`'s reversion exhibit** (up-cycle-only window, peak base metric, marked illustrative-only by its own producer) and treat `03`'s headline AED 16.9 with caution because it is struck on peak LTM EBITDA against a single clean comp. The reconciled base is **AED 15.00 — pulled ~9% below the AED 16.52 mechanical weighted blend** by `07`, a disclosed conservative adjustment (not a lens swap) because two of the four inputs carry no government-owner discount and sit on peak metrics.
+
+**Cross-module reconciliation #1 — the three-way net-cash discrepancy, resolved, no valuation number moves.** This refresh's trigger surfaced three cited net-cash figures: CIQ strict (~AED 2.1bn, roughly net-flat), CIQ broad (~AED 25.0bn, `01`'s canonical basis, Q1 Mar-2026), and the company's own FY2025 Annual Report Financial Review figure of AED 61.7bn (cash and short-term deposits AED 71.5bn − total debt AED 9.8bn, at 31-Dec-2025). The refreshed `balance-sheet-survival/99` synthesis traced the AED 61.7bn figure to the audited financial statements directly: it is the SAME Note 10 "Cash and Cash Equivalents" total (AED 52,633m) that `valuation/01` already identified as escrow-inclusive, containing AED 42,878.9m of RERA-escrow customer advances that Note 10 itself states are "not available for debt service or general use." Netting that escrow back out and adding short-term deposits reconciles exactly to AED 61.7bn — the figure is arithmetically correct and Tier-1 (audited), but it is a *gross-liquidity* measure on a broader cash definition and an earlier date (31-Dec-2025 vs `01`'s 31-Mar-2026), not a fourth, contradictory net-debt reading. **Valuation's own EV bridge (`01` §4) was already built correctly** — it nets the AED 22.5bn of unrestricted bank term deposits in the canonical broad basis and explicitly excludes the AED 43,338m RERA escrow from both the broad and strict bases, exactly the exclusion the balance-sheet-survival reconciliation confirms is required. **Conclusion: no fair-value level, EV bridge component, or leverage read in this module changes.** All three figures agree directionally — Emaar is net cash on every basis — and the resolution simply confirms `01`'s existing broad/strict framework was right all along.
+
+**Cross-module reconciliation #2 — external-dependency risk 63→62/100, a citation correction, not a substantive change.** `business-model/10_external-dependency.md` was regenerated with a current score of 62/100 (previously cited as 63/100 in a stale reference elsewhere in that module). The underlying substance — Dubai residential demand, government policy, regulation and geopolitics all scored High; the company's own financial-market sensitivities (rates, FX) immaterial — is unchanged between versions, per `business-model/99` §3. This module's cyclicality treatment (the DCF's mid-cycle margin normalization in `04`, the cyclicality gate in `06`'s segment multiples, and the bull/base/bear cycle framing in `07`) was already built on that substantive cyclical read, not on the numeric score — so this citation correction changes no valuation number, grid, or level.
+
+**Cross-module reconciliation #3 — founder/key-person concentration (severity 45), a corroborating governance signal, not a new score cap.** The refreshed `management-governance/99` synthesis reports that `business-model/12_red-flags-sweep.md` now formally scores the founder-MD's (Mohamed Alabbar, ~0.03% ownership) chairmanship of competing developer Eagle Hills — with no disclosed succession plan — at severity 45/100. This corroborates facts management-governance's own specialists (01, 03, 04, 05) had already surfaced qualitatively, and it sits alongside, not in addition to, the existing RF-OWN-004 owner-misalignment cap this module already applies. No MODULE_RULES score-cap row targets founder/key-person concentration specifically, so no NEW cap is added here — it is folded into the value-trap narrative in Section 5 as a second channel (alongside the government controller) through which the masked SOTP value may never be released to minority holders.
+
+**No live disagreement remains unreconciled.** All three cross-module items from this refresh confirm rather than disturb the prior read: net cash on every basis, an unchanged cyclical picture, and a corroborated (not new) governance caution.
 
 ## 4. Score Cap Application
 
@@ -6286,28 +5762,29 @@ The tie-breaker is the reverse-DCF (`05`): at AED 12.20 the market prices free c
 | SOTP not possible for multi-segment | **N** | — | SOTP ran (three-segment breakup). |
 | Methods disagree >40% unreconciled | **N (reconciled)** | Valuation confidence | Base points span AED 12.5→18 (44%); full dispersion AED 9.6–23.8. Explicitly reconciled in `07` §2 (asset-vs-earnings framing, reverse-DCF tie-breaker, base pulled from the AED 16.52 blend to AED 15.0). Hard max-55 cap NOT triggered because reconciliation was done — but the genuine dispersion holds confidence in the mid-band (55). |
 | Terminal value >75% of DCF EV | **N** | — | TV is only 36% of DCF EV — a confidence plus. |
-| Misaligned controlling owner (RF-OWN-004, §24 Filter 6) | **Y** | Valuation attractiveness | **max 60** applied (attractiveness set 54); **value-trap flag raised (mandatory)**; verdict held at **"Modestly undervalued"** — no better on a cheap multiple alone. |
+| Misaligned controlling owner (RF-OWN-004, §24 Filter 6) | **Y** | Valuation attractiveness | **max 60** applied (attractiveness set 54); **value-trap flag raised (mandatory)**; verdict held at **"Modestly undervalued"** — no better on a cheap multiple alone. Reinforced, not newly triggered, by this refresh's corroborated founder/key-person concentration finding (severity 45). |
 
-*Most restrictive cap on each score is used. The only binding cap is RF-OWN-004; the >40% dispersion was reconciled so its hard confidence cap does not fire, though the dispersion still weighs confidence to the mid-band.*
+*Most restrictive cap on each score is used. The only binding cap is RF-OWN-004; the >40% dispersion was reconciled so its hard confidence cap does not fire, though the dispersion still weighs confidence to the mid-band. This refresh's two cross-module reconciliations (net-cash three-way and external-dependency score) resolve ambiguity rather than introduce it, so neither adds a new cap or loosens the existing one.*
 
 ## 5. Fair-Value Summary
 
-The bull/base/bear levels are **AED 21.00 / 15.00 / 9.75**, and the single method driving them is **sum-of-the-parts**: a wholly-owned, recurring-rent Dubai mall annuity worth ~AED 76.8bn of enterprise value — about 79% of Emaar's entire current EV, from just 22% of profit — is masked inside a cyclical developer the market prices on one blended ~3.8x multiple, with the normalized DCF corroborating the ~AED 17–18 asset value. What the AED 12.20 price implies is a permanent runoff: free cash flow shrinking ~13%/yr for a decade at a through-cycle margin (~21%) below Emaar's own worst recent trough — and the earnings evidence (a AED 163.4bn sold backlog, 94% pre-sold, converting over 3–4 years; margins that have not sat below ~23.5% even in the last downturn) says that collapse is not achievable, so on fundamentals the gap to fair value is upside. Read the two price-relative metrics separately: the **margin of safety is +18.7%** (the discount of price to the AED 15.00 base) while the **downside-to-bear is +20.1%** (the loss to a genuine Dubai cyclical trough at AED 9.75) — a real cushion, but roughly matched by the fall to a true cycle low. The apparent cheapness carries real **value-trap risk**: the low flow multiples sit on record cycle-peak earnings consensus already marks down ~15%, and the controller is the value-indifferent Government of Dubai (Dubai Holding group, 29.73%) with every "independent" director a state official and the largest related-party channel unquantified under an IAS 24 election — so the base withholds the full asset value (SOTP AED 16.77 / DCF AED 18) the owner has no incentive to release. The warranted multiple behind the AED 15.00 base (~4.8x LTM / ~6.7x normalized EV/EBITDA; ~7.0x P/E) sits *below* Emaar's own ~6.5x EV/EBITDA and ~7.4x P/E medians and *below* Aldar's 8.3x/8.5x — so the base does not require a multiple the business has never earned; the risk is not that the number is unwarranted but that the owner may never let it close.
+The bull/base/bear levels are **AED 21.00 / 15.00 / 9.75**, and the single method driving them is **sum-of-the-parts**: a wholly-owned, recurring-rent Dubai mall annuity worth ~AED 76.8bn of enterprise value — about 79% of Emaar's entire current EV, from just 22% of profit — is masked inside a cyclical developer the market prices on one blended ~3.8x multiple, with the normalized DCF corroborating the ~AED 17–18 asset value. What the AED 12.20 price implies is a permanent runoff: free cash flow shrinking ~13%/yr for a decade at a through-cycle margin (~21%) below Emaar's own worst recent trough — and the earnings evidence (a AED 163.4bn sold backlog, 94% pre-sold, converting over 3–4 years; margins that have not sat below ~23.5% even in the last downturn) says that collapse is not achievable, so on fundamentals the gap to fair value is upside. Read the two price-relative metrics separately: the **margin of safety is +18.7%** (the discount of price to the AED 15.00 base) while the **downside-to-bear is +20.1%** (the loss to a genuine Dubai cyclical trough at AED 9.75) — a real cushion, but roughly matched by the fall to a true cycle low. The apparent cheapness carries real **value-trap risk**: the low flow multiples sit on record cycle-peak earnings consensus already marks down ~15%, and the controller is the value-indifferent Government of Dubai (Dubai Holding group, 29.73%) with every "independent" director a state official and the largest related-party channel unquantified under an IAS 24 election — reinforced by a corroborated founder/key-person concentration risk (the founder-MD's ~0.03% stake, no disclosed succession plan, and simultaneous chairmanship of a competing developer) — so the base withholds the full asset value (SOTP AED 16.77 / DCF AED 18) neither the owner nor the key-person structure has any incentive to release. The warranted multiple behind the AED 15.00 base (~4.8x LTM / ~6.7x normalized EV/EBITDA; ~7.0x P/E) sits *below* Emaar's own ~6.5x EV/EBITDA and ~7.4x P/E medians and *below* Aldar's 8.3x/8.5x — so the base does not require a multiple the business has never earned; the risk is not that the number is unwarranted but that the owner may never let it close.
 
 ## 6. What Would Change The Valuation Verdict?
 
 | Current Verdict | What Would Make It Cheaper (→ Materially undervalued) | What Would Make It More Expensive (→ Fairly / Modestly overvalued) | Data Needed |
 |---|---|---|---|
-| **Modestly undervalued** (base AED 15.00; +18.7% MoS; RF-OWN-004 value-trap flag) | Credible evidence the government owner will crystallise the masked mall value (a mall spin / REIT / higher payout / minority-friendly related-party terms); the Dubai up-cycle extending past FY2028 with developer EBIT margin holding ~37%; a clean second UAE comp confirming an Aldar-parity warranted multiple | A genuine Dubai downturn (developer earnings −~35% off peak, per the boom-bust base rate) troughing toward the AED 9.75 bear; the ~21% priced-in margin proving structural (cheap-land spread gone, the new 15% tax a one-way ratchet); mall cap rates widening as rates/supply rise | Governance evidence on capital-return intent and IAS 24 related-party quantification (drives the value-trap discount); a ~3-year peer-multiple history to place the discount vs its own norm; a through-cycle Dubai developer-margin series to test the terminal |
+| **Modestly undervalued** (base AED 15.00; +18.7% MoS; RF-OWN-004 value-trap flag) | Credible evidence the government owner will crystallise the masked mall value (a mall spin / REIT / higher payout / minority-friendly related-party terms); the Dubai up-cycle extending past FY2028 with developer EBIT margin holding ~37%; a clean second UAE comp confirming an Aldar-parity warranted multiple | A genuine Dubai downturn (developer earnings −~35% off peak, per the boom-bust base rate) troughing toward the AED 9.75 bear; the ~21% priced-in margin proving structural (cheap-land spread gone, the new 15% tax a one-way ratchet); mall cap rates widening as rates/supply rise | Governance evidence on capital-return intent and IAS 24 related-party quantification (drives the value-trap discount); a ~3-year peer-multiple history to place the discount vs its own norm; a through-cycle Dubai developer-margin series to test the terminal; disclosed detail on founder-MD / Eagle Hills deal-flow allocation |
 
 ## 7. Note To The Final Synthesizer
 
-- **Bull / base / bear fair-value levels:** **AED 21.00 / 15.00 / 9.75**, base point **AED 15.00**; dominant method is **sum-of-the-parts (`06`)** (masked wholly-owned mall annuity + a built-in 20% state-owner discount), corroborated by the normalized FCFF DCF (`04`, ~AED 17–18). Cross-method football field ~AED 9.6–23.8 — a >40% spread that is itself the headline finding.
+- **Bull / base / bear fair-value levels:** **AED 21.00 / 15.00 / 9.75**, base point **AED 15.00**; dominant method is **sum-of-the-parts (`06`)** (masked wholly-owned mall annuity + a built-in 20% state-owner discount), corroborated by the normalized FCFF DCF (`04`, ~AED 17–18). Cross-method football field ~AED 9.6–23.8 — a >40% spread that is itself the headline finding. **Unchanged by this refresh.**
 - **What the price implies (from reverse-DCF `05`):** at AED 12.20 the market prices FCFF to shrink ~13.4%/yr for a decade and a ~21% through-cycle margin — below the FY2021 trough (23.5%) and below Aldar (27.2%) — paying 64% of `04`'s intrinsic. That is structural-impairment pricing the AED 163.4bn sold backlog does NOT support: expectations are undemanding on fundamentals.
 - **Margin of safety (the cushion):** **+18.7%** discount of price to the AED 15.00 base. **Downside-to-bear (the downside anchor):** **+20.1%** loss to the AED 9.75 cyclical trough; the trough is floored near AED 6–8/share by net cash + the wholly-owned mall annuity before any developer value.
-- **Genuine value vs value trap:** this is a masked annuity AND a structural value trap at once. The warranted-multiple math supports the base (~4.8x LTM / ~6.7x normalized EV/EBITDA, below own-history and Aldar), so the level is defensible — but **RF-OWN-004 (§24 Filter 6) is live**: a value-indifferent Government-of-Dubai controller (Dubai Holding group, 29.73%) makes persistent cheapness a trap, not a margin of safety. Do not underwrite reversion to the old up-cycle mean the owner has no interest in delivering; a ~8% dividend yield pays holders to wait.
+- **Genuine value vs value trap:** this is a masked annuity AND a structural value trap at once. The warranted-multiple math supports the base (~4.8x LTM / ~6.7x normalized EV/EBITDA, below own-history and Aldar), so the level is defensible — but **RF-OWN-004 (§24 Filter 6) is live**: a value-indifferent Government-of-Dubai controller (Dubai Holding group, 29.73%) makes persistent cheapness a trap, not a margin of safety, and this refresh's corroborated founder/key-person concentration flag (severity 45) reinforces the same read — a second, related channel through which minority value could leak or simply never get released. Do not underwrite reversion to the old up-cycle mean the owner has no interest in delivering; a ~8% dividend yield pays holders to wait.
 - **Which method to trust / discount for THIS company:** trust **SOTP (`06`)** and the **normalized DCF (`04`)**; treat `02`'s reversion table as illustrative-only (up-cycle window, peak metric) and `03`'s AED 16.9 headline as peak-earnings-inflated (single clean comp). The through-cycle-earnings reads (~AED 11–12.6) are the honest floor on the asset value.
 - **Partial-data caps:** none from missing data — price is pool-verified, all five methods ran. The one binding cap is **RF-OWN-004** (attractiveness ≤60; mandatory value-trap flag; verdict ≤ Modestly undervalued). Note the price is 12 days stale and USD-normalized in the pool (converted to native AED at the 3.6725 peg).
+- **Cross-module reconciliations from this refresh (surface, do not double-count):** (1) a three-way net-cash discrepancy (CIQ strict ~AED 2.1bn / CIQ broad ~AED 25.0bn / company AR AED 61.7bn) is fully resolved — the company's figure nets in AED 42.9bn of restricted RERA-escrow cash that this module's EV bridge already excludes; no valuation number changes. (2) External-dependency risk moved 63→62/100 as a stale-citation correction with no substantive change to the cyclical read this module already built into the DCF and SOTP. (3) A founder/key-person concentration flag (severity 45) now corroborates, rather than adds to, the existing RF-OWN-004 value-trap read.
 - **Biggest missing data point (single highest-value next request):** primary-source evidence on the controller's capital-return intent toward minorities and the quantum of the IAS 24-hidden related-party channel — it is the swing between "modestly undervalued masked annuity" and "perennially cheap value trap."
 - **Explicit handoff:** the master synthesizer's "Valuation and Peer Mispricing" section should **defer to this synthesis**. The bull/base/bear fair-value LEVELS here (AED 21 / 15 / 9.75) are the inputs for the master's probability-weighted scenario model — **the master assigns the probabilities, computes any probability-weighted target / risk-reward, and issues the rating; this module does not.**
 
@@ -6318,8 +5795,9 @@ The bull/base/bear levels are **AED 21.00 / 15.00 / 9.75**, and the single metho
 - **The market is pricing a collapse:** free cash flow shrinking ~13%/yr for a decade at a margin below Emaar's worst-ever recent trough — which a AED 163bn, 94%-sold backlog says won't happen.
 - **Downside** is a ~20% fall to a real Dubai cyclical trough (AED 9.75), floored by ~AED 25bn net cash plus a wholly-owned mall annuity; a severe downturn could go lower.
 - **The method that matters most is sum-of-the-parts:** a wholly-owned Dubai mall business worth ~79% of the whole company's enterprise value is hidden inside a cyclical developer.
-- **Value-trap risk is real and mandatory to flag:** a Government-of-Dubai owner (29.73%) with no incentive to unlock the hidden value can keep this cheap for years — cheapness here is not automatically a margin of safety.
+- **Value-trap risk is real and mandatory to flag:** a Government-of-Dubai owner (29.73%) with no incentive to unlock the hidden value can keep this cheap for years — reinforced this refresh by a corroborated founder/key-person concentration flag (the founder-MD's negligible stake, no succession plan, and a competing developer he chairs) — cheapness here is not automatically a margin of safety.
 - **A current price WAS available** (pool-verified, 12 days stale) — no no-price gap; the real gap is governance evidence on how the state owner treats minority holders.
+- **This refresh changed nothing in the numbers:** a three-way net-cash question (AED 2.1bn / 25.0bn / 61.7bn) is now fully resolved as one consistent net-cash picture, and an external-dependency score correction (63→62) was a citation fix, not new cyclical evidence.
 - **Useful for the master synthesizer:** yes — clear levels, a dominant method, a what's-priced-in read, and a decision-critical value-trap flag. Confidence is mid-band because the methods genuinely disagree (though the gap is reconciled).
 
 
@@ -6328,7 +5806,7 @@ The bull/base/bear levels are **AED 21.00 / 15.00 / 9.75**, and the single metho
 
 ## valuation / 00_valuation-data-triage.md
 
-_Source: `00_valuation-data-triage.md`_
+_Source: `valuation/00_valuation-data-triage.md`_
 
 # Valuation Data Triage — EMAR
 
@@ -6510,7 +5988,7 @@ Also present (drives the value-trap read): **management-governance/04_ownership-
 
 ## valuation / 01_price-and-capital-structure.md
 
-_Source: `01_price-and-capital-structure.md`_
+_Source: `valuation/01_price-and-capital-structure.md`_
 
 # Price & Capital Structure — EMAR (Emaar Properties PJSC, DFM: EMAAR)
 
@@ -6683,7 +6161,7 @@ Use these verbatim. Reporting currency **AED**; USD shown at the 3.6725 peg. All
 
 ## valuation / 02_multiples-own-history.md
 
-_Source: `02_multiples-own-history.md`_
+_Source: `valuation/02_multiples-own-history.md`_
 
 # Multiples — Own History — EMAR (Emaar Properties PJSC, DFM: EMAAR)
 
@@ -6777,7 +6255,7 @@ On earnings-based multiples Emaar trades at — indeed just under — the bottom
 
 ## valuation / 03_relative-valuation-peers.md
 
-_Source: `03_relative-valuation-peers.md`_
+_Source: `valuation/03_relative-valuation-peers.md`_
 
 # Relative Valuation — Peers — EMAR
 
@@ -6912,7 +6390,7 @@ I do **not** apply the raw peer median (14.3x EV/EBITDA → ~AED 42/share) — i
 
 ## valuation / 04_intrinsic-dcf.md
 
-_Source: `04_intrinsic-dcf.md`_
+_Source: `valuation/04_intrinsic-dcf.md`_
 
 # Intrinsic DCF — EMAR (Emaar Properties PJSC, DFM: EMAAR)
 
@@ -7136,7 +6614,7 @@ Across all three grids plus the runoff terminal, the per-share dispersion is **~
 
 ## valuation / 05_reverse-dcf.md
 
-_Source: `05_reverse-dcf.md`_
+_Source: `valuation/05_reverse-dcf.md`_
 
 # Reverse DCF — What's Priced In — EMAR (Emaar Properties PJSC, DFM: EMAAR)
 
@@ -7226,7 +6704,7 @@ At **AED 12.20**, the market prices Emaar's free cash flow to *shrink ~13%/yr fo
 
 ## valuation / 06_sum-of-the-parts.md
 
-_Source: `06_sum-of-the-parts.md`_
+_Source: `valuation/06_sum-of-the-parts.md`_
 
 # Sum-of-the-Parts — EMAR
 
@@ -7359,7 +6837,7 @@ Same bridge, varying the two swing assumptions (developer multiple/cycle and mal
 
 ## valuation / 07_scenario-and-fair-value.md
 
-_Source: `07_scenario-and-fair-value.md`_
+_Source: `valuation/07_scenario-and-fair-value.md`_
 
 # Scenario & Fair Value — EMAR (Emaar Properties PJSC, DFM: EMAAR)
 
@@ -7467,74 +6945,58 @@ Bull **AED 21** / base **AED 15.0** / bear **AED 9.75** (12-month levels), off a
 
 ---
 
-# ═══ catalyst ═══
-
-# catalyst Module Dossier — EMAR
-
-- Generated: 2026-07-10T16:17:33Z
-- Contents: 1 synthesis + 2 specialists = 3 files
-
-## Table of Contents
-
-- [catalyst — module synthesis](#catalyst-module-synthesis) — `99_catalyst-synthesis.md`
-- [catalyst / 00_catalyst-data-triage.md](#catalyst-00-catalyst-data-triage-md) — `00_catalyst-data-triage.md`
-- [catalyst / 01_catalyst-calendar.md](#catalyst-01-catalyst-calendar-md) — `01_catalyst-calendar.md`
-
-
----
-
 ## catalyst — module synthesis
 
-_Source: `99_catalyst-synthesis.md`_
+_Source: `catalyst/99_catalyst-synthesis.md`_
 
-# Catalyst Module — EMAR (Synthesis)
+# Catalyst Module — EMAAR (Synthesis)
 
-*Emaar Properties PJSC (DFM: EMAAR) — Dubai / UAE real-estate developer. IFRS; reporting currency **AED** (dirham pegged to the US dollar at 3.6725, so AED↔USD carries negligible currency risk); fiscal year ends 31 December. Today's date: **2026-07-10**, so the forward window runs to ~July 2027. All pool documents are in English — no translation gap; language raises no data gap of any kind (CLAUDE.md §27). This synthesis composes the catalyst calendar and the timing read from the two specialist outputs (`00` triage, `01` calendar); it does not re-derive events, value the company, assign probabilities, or rate the stock.*
+*Emaar Properties PJSC (DFM: EMAAR) — Dubai / UAE real-estate developer. IFRS; reporting currency **AED** (dirham pegged to the US dollar at 3.6725, so AED↔USD carries negligible currency risk); fiscal year ends 31 December. Today's date: **2026-07-16**, so the forward window runs to ~July 2027. All pool documents are in English — no translation gap; language raises no data gap of any kind (CLAUDE.md §27). This is a **re-run (2026-07-16)** triggered by an upstream `business-model` refresh: `10_external-dependency.md` was regenerated (risk score 63→62/100 — a citation fix, not a substantive change), a three-way net-cash basis discrepancy across modules was surfaced and fully reconciled (all three bases confirm net cash), and a founder/key-person concentration flag (severity 45/100 — MD Mohamed Alabbar's ~0.03% ownership, no succession plan, simultaneous chairmanship of competing developer Eagle Hills) now formally corroborates existing governance red flags. This module's own specialist outputs (`00` triage, `01` calendar) are unchanged since 2026-07-10 and were re-read in full; the refreshed `business-model/99`, `management-governance/99`, `balance-sheet-survival/99`, `earnings/99`, and `valuation/99` were also re-read in full. **None of these three refresh items changes any dated event, fair-value number, or verdict in this module** — this synthesis reconciles them below and re-composes the calendar and timing read from the two unchanged specialist outputs, not from a re-read of the raw pool.*
 
 ## Abstract
 
-Emaar has an evidenced catalyst calendar, not just a thematic story, but it is front-loaded then thin — only two events fall on a firm date in the next few months. The nearest is Q2 2026 results, estimated 10 August 2026, the first dated read on whether Dubai home demand is holding or rolling over. The most important catalyst is the quarter-by-quarter demand and backlog trajectory: resilient pre-sales could lift the multiple on a stock priced for structural decline; a rollover confirms it. The biggest bearish risk is the ~167,000-unit 2026-27 Dubai supply wave stopping backlog growth, plus dividend-cut risk at the February 2027 declaration. The verdict: dated near-term catalysts exist, but the timing that matters most is vague and owner-gated.
+Emaar has an evidenced catalyst calendar, not just a thematic story, but it is front-loaded then thin — only two events fall on a firm date in the next few months. The nearest is Q2 2026 results, estimated 10 August 2026, the first dated read on whether Dubai home demand is holding or rolling over. The most important catalyst is the quarter-by-quarter demand and backlog trajectory: resilient pre-sales could lift the multiple on a stock priced for structural decline; a rollover confirms it. The biggest bearish risk is the ~167,000-unit 2026-27 Dubai supply wave stopping backlog growth, plus dividend-cut risk at the February 2027 declaration. This refresh adds no new dated event; it corroborates, via a newly-quantified founder/key-person flag, why the calendar's biggest upside item stays gated. The verdict: dated near-term catalysts exist, but the timing that matters most is vague and owner-gated.
 
 ## 1. Catalyst Verdict
 
-- **Verdict:** **Dated, evidenced near-term catalysts** — at least one material, dated, two-sided catalyst inside ~6 months (the Q2 2026 print, est. 10 Aug 2026; the Sukuk 3 hard maturity, 15 Sep 2026). Read with the strong caveat that the highest-impact catalyst — the demand-driven re-rate — is undated and owner-gated.
-- Catalyst strength /100: **47** *(held ≤55 — the principal upside catalyst is §24 Filter-6 gated; see §3)*
-- Timing visibility /100: **42**
-- Catalyst risk /100 *(higher = worse — inverted)*: **56**
-- Data quality /100: **72** *(from 00 — "Sufficient"; 20 workbooks/57 tabs/69 extracts/0 failures, all five upstream modules ran; gaps: no numeric guidance, exact forward dates unpublished)*
-- Overall usefulness /100: **70**
+- **Verdict:** **Dated, evidenced near-term catalysts** — at least one material, dated, two-sided catalyst inside ~6 months (the Q2 2026 print, est. 10 Aug 2026; the Sukuk 3 hard maturity, 15 Sep 2026). Read with the strong caveat that the highest-impact catalyst — the demand-driven re-rate — is undated and owner-gated. Unchanged by this refresh.
+- Catalyst strength /100: **47** *(held ≤55 — the principal upside catalyst is §24 Filter-6 gated; see §3. The refresh's founder/key-person corroboration reinforces, not newly triggers, this cap)*
+- Timing visibility /100: **42** *(unchanged — no scheduled-event data was added or removed by the refresh)*
+- Catalyst risk /100 *(higher = worse — inverted)*: **56** *(unchanged)*
+- Data quality /100: **72** *(from 00 — "Sufficient"; 20 workbooks/57 tabs/69 extracts/0 failures, all five upstream modules ran; gaps: no numeric guidance, exact forward dates unpublished. Unaffected by the refresh — this module's own triage was not regenerated)*
+- Overall usefulness /100: **70** *(unchanged)*
 - Nearest dated catalyst (one line): **Q2 2026 results, estimated 10 Aug 2026 (~1 month out)** — first dated Dubai-demand read; nearest *hard-contractual* date is the Sukuk 3 maturity, 15 Sep 2026.
 - Single most important catalyst (one line): the **quarter-by-quarter Dubai residential-demand / backlog trajectory** (first dated read ~10 Aug 2026) — the whole ~AED 11/share bull-bear swing, but the re-rate it could drive is undated and Filter-6 gated.
 - Biggest bearish catalyst (one line): the **~167,000-unit 2026-27 Dubai supply wave** (windowed) stopping backlog replenishment — read first at the Q2 print's "good print, bad signal" risk; paired with FY2026 dividend-cut risk (~Feb 2027).
-- Any §24-flagged catalyst (one line): **Filter 6 (unaligned owner)** — Dubai Holding 29.73% (RF-OWN-004) controls the FY2026 AGM vote (~late-Mar 2027) and the undated AED 200bn masterplan; the upside re-rate is gated by this value trap. No serial-M&A (Filter 4) or turnaround (Filter 2) flag.
+- Any §24-flagged catalyst (one line): **Filter 6 (unaligned owner)** — Dubai Holding 29.73% (RF-OWN-004) controls the FY2026 AGM vote (~late-Mar 2027) and the undated AED 200bn masterplan; the upside re-rate is gated by this value trap. This refresh adds a **second, corroborating Filter-6-adjacent channel**: the founder-MD's key-person concentration (severity 45/100, business-model refresh) — his ~0.03% ownership, no succession plan, and chairmanship of competing developer Eagle Hills sit behind the same AGM vote and the same masterplan decisions, reinforcing why neither is a clean bullish catalyst. No serial-M&A (Filter 4) or turnaround (Filter 2) flag.
 
 ## 1A. Module Disconfirmation *(CLAUDE.md §8; fix F37)*
 
 - **Strongest bear point (dated/windowed, skews DOWN):** the Q2 2026 print (~10 Aug 2026) in the exact seasonally-soft quarter that missed **both** lines a year ago (Q2-25 rev −4.6% / EPS −5.0%) — a "good print, bad signal" sell-off if pre-sales cool into the supply wave; and the FY2026 dividend declaration (~Feb 2027) carries cut risk if cash is steered to masterplan capex [earnings/05 §10; management-governance/02 §4].
-- **Strongest bull point (proven date + evidence it exists):** that same Q2 print delivering a profit beat (EPS beats landed in 3 of the last 4 quarters on mid-50s development margin + ~AED 2bn/yr net finance income) **alongside** resilient pre-sales — Q1-26 was AED 22.4bn, +16% YoY, backlog holding near +29% YoY — a dated, evidenced event that could break the "collapse" narrative [earnings/04; 01_catalyst-calendar §3].
-- **Single killer risk specific to the calendar:** treating an undated, Filter-6-gated item as a timed bullish catalyst — the **AED 200bn masterplan** (announced 11 Jun 2026, no launch/sales date) and the demand **re-rate** both have no date and both serve/are gated by the government owner; neither can be timed, and neither may lift conviction on its own [Key Developments 2026-06-11; 01 §3].
-- **Disconfirming evidence already visible:** the market is already pricing structural impairment — mean target fell AED 19.15 → 17.07, targets cut 7× in three months, LT-growth consensus −14.8%, EV/EBITDA ~4.0x at the 0th percentile of its own 16-quarter range — and the re-rate that would close the ~19% margin of safety has no date while the owner can hold price below intrinsic value indefinitely [earnings/04 §4-§5; valuation/05; 01 §3].
+- **Strongest bull point (proven date + evidence it exists):** that same Q2 print delivering a profit beat (EPS beats landed in 3 of the last 4 quarters on mid-50s development margin + ~AED 2bn/yr net finance income) **alongside** resilient pre-sales — Q1-26 was AED 22.4bn, +16% YoY, backlog holding near +29% YoY — a dated, evidenced event that could break the "collapse" narrative [earnings/04; 01_catalyst-calendar §3]. This refresh reinforces the evidence behind the net-finance-income component: balance-sheet-survival's refresh confirms net cash on all three bases now in view (strict AED 2.1bn, broad AED 25.0bn, and the company's own AED 61.7bn escrow-inclusive figure), so the ~AED 2bn/yr net finance income feeding the Q2 profit-beat trigger stands on a reconciled, not weakened, cash position [balance-sheet-survival/99 §3].
+- **Single killer risk specific to the calendar:** treating an undated, Filter-6-gated item as a timed bullish catalyst — the **AED 200bn masterplan** (announced 11 Jun 2026, no launch/sales date) and the demand **re-rate** both have no date and both serve/are gated by the government owner; neither can be timed, and neither may lift conviction on its own [Key Developments 2026-06-11; 01 §3]. This refresh sharpens the same risk: the founder-MD who anchors land-sourcing and government relationships owns ~0.03% of the company, has no disclosed succession plan, and chairs a directly competing developer (severity 45/100, corroborated by both business-model and management-governance) — a second reason the masterplan and the AGM vote cannot be read as clean, timeable, minority-aligned events [management-governance/99 §1A; business-model/99 §4].
+- **Disconfirming evidence already visible:** the market is already pricing structural impairment — mean target fell AED 19.15 → 17.07, targets cut 7× in three months, LT-growth consensus −14.8%, EV/EBITDA ~4.0x at the 0th percentile of its own 16-quarter range — and the re-rate that would close the ~19% margin of safety has no date while the owner can hold price below intrinsic value indefinitely [earnings/04 §4-§5; valuation/05; 01 §3]. Valuation's refresh confirms this reading is unchanged: no fair-value level moved, and the founder/key-person corroboration is folded into the existing value-trap narrative as a second channel, not a new one [valuation/99 §3, §5].
 
 ## 2. Consolidated 12-Month Calendar
 
-*Reproduced from `01_catalyst-calendar.md` (not re-derived). Plain-English terms (first use): **sukuk** = an Islamic bond (pays a profit rate, not interest); **bullet maturity** = the whole principal comes due on one date; **backlog** = homes already sold but not yet booked as revenue; **off-plan** = a home sold before it is built; **pre-sales / property sales** = new sales signed in the period (the leading indicator that feeds future backlog); **ex-div date** = buy before this day to receive the dividend; **DMTT** = the new UAE 15% minimum tax; **MTO** = a mandatory tender offer a buyer must make to all holders once it crosses a control threshold.*
+*Reproduced from `01_catalyst-calendar.md` (not re-derived; the specialist calendar is unchanged since 2026-07-10). Plain-English terms (first use): **sukuk** = an Islamic bond (pays a profit rate, not interest); **bullet maturity** = the whole principal comes due on one date; **backlog** = homes already sold but not yet booked as revenue; **off-plan** = a home sold before it is built; **pre-sales / property sales** = new sales signed in the period (the leading indicator that feeds future backlog); **ex-div date** = buy before this day to receive the dividend; **DMTT** = the new UAE 15% minimum tax; **MTO** = a mandatory tender offer a buyer must make to all holders once it crosses a control threshold.*
 
 | Date / Window | Catalyst | Category | Why It Matters | Evidence It Exists | Bullish Trigger | Bearish Trigger | Timing (Proven / Vague) | §24 Flag |
 |---|---|---|---|---|---|---|---|---|
 | **10 Aug 2026** (CIQ-estimated) | Q2 2026 results + property-sales / backlog update | Earnings | 80% of revenue is off-plan Dubai homes; the stock trades on the **leading indicator** (new pre-sales, backlog growth), not the backlog-locked P&L. First read since Q1 on whether Dubai demand is holding. | Events Calendar (Aug-10-2026 Est. Earnings Release, CIQ Derived); 03_Guidance tab ("FQ2 2026 Earnings Release Date: Aug-10-2026"); earnings/05_beat-miss-setup; earnings/04_guidance-consensus | Profit-line beat — EPS clears ~AED 0.52 (>+10%) on mid-50s development margin + ~AED 2bn/yr net finance income on the ~AED 25bn net cash — **and** property sales re-accelerate >+16% YoY / backlog growth holds ≥+29% YoY | Revenue miss on percentage-of-completion timing (<~AED 11,400m, −5%) in the seasonally soft quarter that missed **both** lines a year ago (Q2-25 rev −4.6% / EPS −5.0%), especially paired with cooling pre-sales = "good print, bad signal" | **Proven** — event certain on quarterly cadence + DFM statutory reporting; exact day CIQ-estimated (company confirms via a DFM board-meeting intimation ~1 week prior; May-26 actual 11th vs CIQ-est 14th) | — (re-rate is Filter-6 gated — see §1A) |
-| **15 Sep 2026** | Sukuk 3 — AED 2,752.6m bullet maturity (3.64%) | Refinancing / balance sheet | The only hard capital-markets bullet in the next 12 months (~26% of gross debt). Tests balance-sheet strength and may prompt a new sukuk issue. | balance-sheet-survival/02_maturity-wall-and-refinancing (FY2025 AR, Notes 24–25); ciq_facts.json debt_maturity_wall | Repaid from cash (covered **4.4x** by AED 12,179.5m unrestricted cash) or refinanced cheaply at a tight GCC spread — reaffirms BBB+/Baa1 and the net-cash story | Mild only: refinancing at today's rates adds ~+165 bps (~AED 45m/yr, ~0.18% of LTM EBITDA); a broader GCC credit-spread widening or a rating-outlook change around the issue | **Proven** — hard contractual maturity date | — |
+| **15 Sep 2026** | Sukuk 3 — AED 2,752.6m bullet maturity (3.64%) | Refinancing / balance sheet | The only hard capital-markets bullet in the next 12 months (~26% of gross debt). Tests balance-sheet strength and may prompt a new sukuk issue. | balance-sheet-survival/02_maturity-wall-and-refinancing (FY2025 AR, Notes 24–25); ciq_facts.json debt_maturity_wall | Repaid from cash (covered **4.4x** by AED 12,179.5m unrestricted cash) or refinanced cheaply at a tight GCC spread — reaffirms BBB+/Baa1 and the net-cash story, now reconciled across all three cash bases (strict / broad / company AR) | Mild only: refinancing at today's rates adds ~+165 bps (~AED 45m/yr, ~0.18% of LTM EBITDA); a broader GCC credit-spread widening or a rating-outlook change around the issue | **Proven** — hard contractual maturity date | — |
 | **~Nov 2026** (cadence; Q3-25 was 07 Nov 2025) | Q3 2026 results | Earnings | Next demand read after Q2; seasonally heavier, but laps an inflated Q3-25 base (a one-off MD120 tax reversal), so the profit comparison is harder. | earnings/05_beat-miss-setup §9; earnings/04 §6 (Q3-25 released 07 Nov 2025) | Property sales / backlog growth hold; revenue recognition ramps on the 2026–28 delivery pipeline | Profit growth stalls lapping the MD120 tax-reversal base with the full 15% DMTT tax now in force; pre-sales decelerate further | **Vague** — cadence window, no published date | — |
 | **~Feb 2027** (template; FY2025 results 12 Feb 2026) | FY2026 full-year results **+ FY2026 dividend declaration** | Earnings + Capital allocation | The full-year print sets the tax-normalized earnings base and declares the year's dividend (~AED 8.84bn, AED 1.00/share, ~8% yield) — the biggest single P&L + capital-return event of the cycle. | Key Developments (board meetings 09/12 Feb 2026 → FY2025 results + dividend); earnings/04 | FY2026 earnings hold near FY2025 despite the tax step-up; dividend held at 100% of capital, or a special distribution | Earnings decelerate (consensus models a peak ~2029 then −14.8% long-term decline); dividend cut or capped as cash is steered to the AED 200bn masterplan capex | **Vague** — template window; not yet published | — |
-| **~late-Mar 2027** (template; AGM 25 Mar 2026) | FY2026 AGM (dividend approval, board discharge/remuneration, auditor) | Governance | Annual shareholder vote — but the government controller (Dubai Holding 29.73%) plus a board of government officials sets and passes the agenda; minority protection is "weak / entrenched." | Events Calendar (AGM 25 Mar 2026); management-governance/05_board-and-shareholder-rights | Dividend + routine resolutions approved (near-certain); any move to **quantify** the IAS-24-exempt government-ecosystem related-party flows, or add a director independent of the owner | A related-party asset injection or remuneration item passed over minority interests; zero true independence persists | **Vague** — template window; not yet dated | **Filter 6** — owner-controlled vote, not a real check |
+| **~late-Mar 2027** (template; AGM 25 Mar 2026) | FY2026 AGM (dividend approval, board discharge/remuneration, auditor) | Governance | Annual shareholder vote — but the government controller (Dubai Holding 29.73%) plus a board of government officials sets and passes the agenda; minority protection is "weak / entrenched." | Events Calendar (AGM 25 Mar 2026); management-governance/05_board-and-shareholder-rights | Dividend + routine resolutions approved (near-certain); any move to **quantify** the IAS-24-exempt government-ecosystem related-party flows, add a director independent of the owner, or **disclose a board-level MD/Chairman succession plan** | A related-party asset injection or remuneration item passed over minority interests; zero true independence persists; succession still undisclosed | **Vague** — template window; not yet dated | **Filter 6** — owner-controlled vote, not a real check; **reinforced this refresh** by the corroborated founder/key-person concentration flag (severity 45/100) — the same vote that rubber-stamps the government agenda is also silent on MD succession |
 | **~early-Apr 2027** (template; ex-div 03 Apr 2026) | FY2026 ex-div / record / dividend payment (~AED 1.00/share) | Capital allocation | The ~8% cash yield is the main return the government owner extracts; the ex-div date sets the income-capture window. | Events Calendar (Ex-Div 03 Apr 2026); Key Developments (paid 20 Apr 2026, ex-div 03 Apr, record 06 Apr) | Dividend maintained or raised, confirming the ~8% yield floor | Dividend reduced if the cycle turns | **Vague** — template window | — |
 | **2027** (year only) | AED unsecured term loan ~AED 660.6m maturity (EIBOR+0.90%) | Refinancing | Small (6.2% of gross debt); rolls or repays from cash — no distress angle. | balance-sheet-survival/02 (FY2025 AR, Note 24) | Repaid / rolled uneventfully | Immaterial; a higher roll rate if EIBOR stays elevated | **Vague** — year disclosed, no month | — |
-| **Undated / thematic** | AED 200bn Dubai masterplan — sales launch (>4.5m sqm GFA, ~150k residents) | Operational | The marquee growth item; a sales launch would seed years of new backlog — but **no launch/sales date is disclosed**. | Key Developments (2026-06-11, "Emaar Unveils AED 200bn Master-Planned Urban District") | A dated launch with strong pre-sales adds materially to the AED 163.4bn backlog | Launched into the ~167k-unit 2026–27 Dubai supply wave / a cooling cycle; a heavy capital call on cash; related-party land pricing unverifiable to minorities | **Vague** — announced, no date | **Filter 6** — serves the government owner's city-building agenda; undated, must not lift conviction on its own |
+| **Undated / thematic** | AED 200bn Dubai masterplan — sales launch (>4.5m sqm GFA, ~150k residents) | Operational | The marquee growth item; a sales launch would seed years of new backlog — but **no launch/sales date is disclosed**. | Key Developments (2026-06-11, "Emaar Unveils AED 200bn Master-Planned Urban District") | A dated launch with strong pre-sales adds materially to the AED 163.4bn backlog | Launched into the ~167k-unit 2026–27 Dubai supply wave / a cooling cycle; a heavy capital call on cash; related-party land pricing unverifiable to minorities | **Vague** — announced, no date | **Filter 6** — serves the government owner's city-building agenda; undated, must not lift conviction on its own. **Reinforced this refresh**: land-sourcing and deal-flow decisions behind this masterplan run through the same founder-MD whose key-person concentration (severity 45/100) is now formally corroborated |
 | **Undated** | Permanent Group Head of Finance (CFO) appointment | Governance | Interim appointee (Pawan Chindalia) has served "until further notice" since 20 May 2026; a permanent hire removes an overhang. | Key Developments (2026-05-22, "Executive Changes — CFO") | A credible permanent CFO named | Prolonged interim / further senior departures signal instability mid-cycle | **Vague** — undated | — |
-| **Undated** (annual review cadence) | S&P / Moody's rating review (BBB+ / Baa1, Stable) | Refinancing / rating | Investment-grade, upgraded in 2025; an affirmation/upgrade lowers refi cost, a downgrade the reverse. | balance-sheet-survival/02 (FY2025 AR, p.30/206; ratings) | Upgrade toward A- on the net-cash balance sheet | Outlook cut if the Dubai cycle turns | **Vague** — no published review date | — |
+| **Undated** (annual review cadence) | S&P / Moody's rating review (BBB+ / Baa1, Stable) | Refinancing / rating | Investment-grade, upgraded in 2025; an affirmation/upgrade lowers refi cost, a downgrade the reverse. | balance-sheet-survival/02 (FY2025 AR, p.30/206; ratings) | Upgrade toward A- on the net-cash balance sheet, now reconciled across bases | Outlook cut if the Dubai cycle turns | **Vague** — no published review date | — |
 
 *Beyond the 12-month window (logged, not a near-term catalyst): **Dubai Mall expansion — expected to open 2H 2028** [Q3-25 earnings-call summary]. A real operational item, but >12 months out, so it does not anchor the near-term calendar.*
 
-**This is a real, evidenced calendar — not "No proven catalyst yet."** But it is front-loaded then thin: only the Q2 print (est. 10 Aug 2026) and the Sukuk 3 maturity (15 Sep 2026) carry a genuine date inside the window; everything with real impact is cadence-windowed into early 2027 or undated.
+**This is a real, evidenced calendar — not "No proven catalyst yet."** But it is front-loaded then thin: only the Q2 print (est. 10 Aug 2026) and the Sukuk 3 maturity (15 Sep 2026) carry a genuine date inside the window; everything with real impact is cadence-windowed into early 2027 or undated. **No dated event was added, removed, or moved by this refresh.**
 
 ## 3. Score Cap Application
 
@@ -7545,21 +7007,22 @@ Emaar has an evidenced catalyst calendar, not just a thematic story, but it is f
 | Upstream modules did not run | **N** | Overall usefulness | max 75 |
 | §24-flagged catalyst is the main bullish catalyst | **Y** | Catalyst strength | max 55; flag it |
 
-- **No scheduled-event data — N.** The pool carries a hard contractual date (Sukuk 3 maturity 15 Sep 2026), an estimated results date (Q2 ~10 Aug 2026), a full year-by-year maturity ladder, and a proven quarterly-results + annual AGM/dividend cadence templated by the just-completed 2026 cycle. Timing visibility (42) and usefulness (70) stand on their merits, not on this cap.
-- **All catalysts undated / thematic — N.** Two proven-dated near-term catalysts exist; the calendar is not purely thematic, so the verdict is not forced down to "timing vague."
-- **Upstream modules did not run — N.** All five ran (earnings, balance-sheet-survival, management-governance, valuation, business-model), each with a full `99` plus catalyst-feeding files. Usefulness is not capped at 75.
-- **§24-flagged catalyst is the main bullish catalyst — Y.** The principal upside — a demand-driven re-rate off a 0th-percentile ~4.0x EV/EBITDA — is explicitly gated by §24 Filter 6 (Dubai Holding 29.73% government controller, RF-OWN-004), and the marquee growth item (AED 200bn masterplan) is Filter-6 flagged and undated. Catalyst strength is therefore held at **47 (≤55)** and the upside is not presented as clean-bullish. Most restrictive cap applied.
+- **No scheduled-event data — N.** The pool carries a hard contractual date (Sukuk 3 maturity 15 Sep 2026), an estimated results date (Q2 ~10 Aug 2026), a full year-by-year maturity ladder, and a proven quarterly-results + annual AGM/dividend cadence templated by the just-completed 2026 cycle. Timing visibility (42) and usefulness (70) stand on their merits, not on this cap. Unaffected by the refresh.
+- **All catalysts undated / thematic — N.** Two proven-dated near-term catalysts exist; the calendar is not purely thematic, so the verdict is not forced down to "timing vague." Unaffected by the refresh.
+- **Upstream modules did not run — N.** All five ran (earnings, balance-sheet-survival, management-governance, valuation, business-model), each with a full refreshed `99` plus catalyst-feeding files. Usefulness is not capped at 75.
+- **§24-flagged catalyst is the main bullish catalyst — Y.** The principal upside — a demand-driven re-rate off a 0th-percentile ~4.0x EV/EBITDA — is explicitly gated by §24 Filter 6 (Dubai Holding 29.73% government controller, RF-OWN-004), and the marquee growth item (AED 200bn masterplan) is Filter-6 flagged and undated. Catalyst strength is therefore held at **47 (≤55)** and the upside is not presented as clean-bullish. **This refresh reinforces, but does not add to, this cap**: the newly-corroborated founder/key-person concentration flag (severity 45/100 — MD Alabbar's 0.03% ownership, no succession plan, Eagle Hills chairmanship) runs through the same government-controlled decision channel (the AGM vote and the masterplan land/investment decisions) that Filter 6 already gates. It is folded into the existing cap as a second, corroborating reason the upside cannot be read as clean-bullish — not a new, separate cap. Most restrictive cap applied.
 
 ## 4. Note To The Final Synthesizer
 
 - **Nearest dated, evidenced catalyst:** Q2 2026 results, estimated 10 Aug 2026 (~1 month out). It tests the leading indicator — new property sales and backlog growth — the figures the stock actually trades on, not the backlog-locked P&L; first read since the 11 May Q1 print on whether Dubai demand is holding or rolling over.
 - **Single most important catalyst + can a buyer time it?** The quarter-by-quarter Dubai demand / backlog trajectory — the whole ~AED 11/share bull-bear swing. **Only partly timeable:** the prints are dated, but the cycle turn is not, and the re-rate it could drive has **no date** and sits behind a government-owner value trap. Do not model a timed re-rate.
-- **Near-term calendar skews mildly bearish.** The two near-term dated events are a non-event (well-covered Sukuk) plus a print whose live risk is "good print, bad signal" if pre-sales keep cooling into the ~167k-unit 2026-27 supply wave.
+- **Near-term calendar skews mildly bearish.** The two near-term dated events are a non-event (well-covered Sukuk, now reconciled net-cash across all bases) plus a print whose live risk is "good print, bad signal" if pre-sales keep cooling into the ~167k-unit 2026-27 supply wave.
 - **Biggest negative / bearish catalyst + date:** the ~167,000-unit 2026-27 Dubai supply wave (windowed) stopping backlog replenishment — first read at Q2 (~10 Aug 2026); paired with FY2026 dividend-cut risk at the ~Feb 2027 declaration.
-- **§24-flagged catalyst that must NOT be read as conviction-lifting:** Filter 6 — the undated AED 200bn masterplan and the demand re-rate both serve / are gated by Dubai Holding (29.73%, RF-OWN-004); neither is a timed bullish catalyst. (Also logged: ownership creep toward the ~30% mandatory-tender-offer threshold — *inference from the UAE takeover norm, not a company disclosure*.)
-- **Timing is mixed, leaning vague.** Two near-term dates (one estimated, one hard-contractual); everything material beyond that is cadence-windowed into early 2027 or undated. The thesis cannot lean on timing to realize value.
-- **Biggest missing scheduled-event data point:** no company-published exact forward dates — the Q2 date is CIQ-estimated (no DFM board-meeting intimation yet), the FY2026 results / AGM / dividend dates are cadence-windowed not published, there is no formal numeric EPS/revenue guidance, and the AED 200bn masterplan has no launch/sales date. Highest-value single item: a published DFM board-meeting intimation fixing the exact Q2 2026 results date.
-- **Explicit handoff:** the master synthesizer's "Catalyst Calendar" (§7) section should **defer to this synthesis** — the calendar, triggers, and proven-vs-vague timing above are the module's self-contained output. Drive the master's catalyst-timing confidence caps (CLAUDE.md §17) from the **Timing-visibility read here (42, mixed-leaning-vague)**: dated near-term catalysts exist, but the value-closing catalyst is undated and owner-gated, so timing may not lift conviction on its own.
+- **§24-flagged catalyst that must NOT be read as conviction-lifting:** Filter 6 — the undated AED 200bn masterplan and the demand re-rate both serve / are gated by Dubai Holding (29.73%, RF-OWN-004); neither is a timed bullish catalyst. **This refresh adds a corroborating, not new, reason**: the founder-MD's key-person concentration (severity 45/100, cross-confirmed by business-model and management-governance) — his ~0.03% ownership, no disclosed succession plan, and chairmanship of competing developer Eagle Hills — sits behind the same AGM vote and the same masterplan land/investment decisions Filter 6 already gates, so treat any future masterplan or AGM headline with the same skepticism. (Also logged: ownership creep toward the ~30% mandatory-tender-offer threshold — *inference from the UAE takeover norm, not a company disclosure*.)
+- **Timing is mixed, leaning vague.** Two near-term dates (one estimated, one hard-contractual); everything material beyond that is cadence-windowed into early 2027 or undated. The thesis cannot lean on timing to realize value. Unchanged by this refresh.
+- **Biggest missing scheduled-event data point:** no company-published exact forward dates — the Q2 date is CIQ-estimated (no DFM board-meeting intimation yet), the FY2026 results / AGM / dividend dates are cadence-windowed not published, there is no formal numeric EPS/revenue guidance, and the AED 200bn masterplan has no launch/sales date. Highest-value single item: a published DFM board-meeting intimation fixing the exact Q2 2026 results date. (A related, non-calendar item now higher-priority per the governance refresh: a disclosed board-level MD/Chairman succession plan — but this is a governance disclosure gap, not a scheduled-event data gap, and does not change this module's highest-value calendar request.)
+- **What this refresh changed and what it did not:** the external-dependency risk-score citation fix (63→62/100) is business-model-internal and touches no catalyst date or score. The three-way net-cash reconciliation (strict AED 2.1bn / broad AED 25.0bn / company AR AED 61.7bn, all now confirmed net-cash and consistent) strengthens, rather than weakens, the evidence behind the Sukuk 3 bullish trigger and the Q2 net-finance-income component — no calendar row changes. The newly-corroborated founder/key-person concentration flag (severity 45/100) adds no new dated event and does not change the Filter-6 cap already applied to catalyst strength — it is a second, reinforcing reason the gate holds, cited in §1A, §2, and §3 above.
+- **Explicit handoff:** the master synthesizer's "Catalyst Calendar" (§7) section should **defer to this synthesis** — the calendar, triggers, and proven-vs-vague timing above are the module's self-contained output. Drive the master's catalyst-timing confidence caps (CLAUDE.md §17) from the **Timing-visibility read here (42, mixed-leaning-vague)**: dated near-term catalysts exist, but the value-closing catalyst is undated and owner-gated, so timing may not lift conviction on its own. The founder/key-person corroboration (severity 45/100) should be read by the master as reinforcing the existing §24 Filter-6 conviction cap on the catalyst set — not as an independent new risk requiring a separate cap.
 
 ## 5. Simple Summary
 
@@ -7568,6 +7031,7 @@ Emaar has an evidenced catalyst calendar, not just a thematic story, but it is f
 - **Most important catalyst:** the quarter-by-quarter Dubai demand / backlog trajectory — the whole bull-bear swing, but undated and gated by a government owner (value trap).
 - **Biggest thing that could go wrong:** pre-sales roll over into the ~167,000-unit 2026-27 supply wave; a "good print, bad signal" Q2; a dividend cut at the ~Feb 2027 declaration.
 - **Can the thesis lean on timing?** Only a little — two near-term dates, and everything material is windowed, undated, or owner-gated.
+- **What changed this refresh?** Nothing on the calendar. A citation fix (external-dependency score), a full net-cash reconciliation (all bases now agree Emaar is net cash), and a newly-quantified founder/key-person concentration flag (severity 45/100) that reinforces — but does not add to — the existing warning that the biggest upside catalyst is gated by the government owner and the founder-MD's thin economic stake.
 - **Useful for the master synthesizer?** Yes — a real calendar plus a clear timing verdict and a value-trap warning — but timing cannot carry the thesis, so the master's §7 and confidence caps should follow the vague-leaning read here.
 
 
@@ -7576,7 +7040,7 @@ Emaar has an evidenced catalyst calendar, not just a thematic story, but it is f
 
 ## catalyst / 00_catalyst-data-triage.md
 
-_Source: `00_catalyst-data-triage.md`_
+_Source: `catalyst/00_catalyst-data-triage.md`_
 
 # Catalyst Data Triage — EMAR
 
@@ -7636,7 +7100,7 @@ So the calendar will be anchored by real near-term dates (the Q2 print ~10 Aug 2
 
 ## catalyst / 01_catalyst-calendar.md
 
-_Source: `01_catalyst-calendar.md`_
+_Source: `catalyst/01_catalyst-calendar.md`_
 
 # Catalyst Calendar — EMAR
 
