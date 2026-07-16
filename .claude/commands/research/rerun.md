@@ -168,8 +168,10 @@ Track two sets: `DECIDED` (modules whose 99 outcome is known this rerun) and `DI
 modules whose decision surface changed). Initialise from Wave 0: every entry module whose target
 was a specialist is UNDECIDED (its 99 hasn't run yet) but is **dirty-fed** — its 99 always re-runs
 when its target's `output_changed` is true, and is pruned to CLEAN only on byte-identical target
-output (`INCREMENTAL_RERUN.md` §3.2); every entry module whose target WAS the 99 is already
-DECIDED per its Wave-0 surface diff.
+output (`INCREMENTAL_RERUN.md` §3.2); every entry module whose target WAS the 99 **and actually
+ran in Wave 0** is already DECIDED per its Wave-0 surface diff. A **demoted FORCED entry module
+(step 4's ordering exception) is NOT decided** — its 99 never ran in Wave 0; it stays UNDECIDED
+and re-runs in its normal wave below.
 
 Then loop (wave number `k` = 1, 2, …) until every `<CASCADE>` module is DECIDED:
 
@@ -204,8 +206,11 @@ cascade module — never its specialists.
 
 ## 8. Re-run the master synthesizer — only if something is DIRTY
 
-**Prune check first.** If `DIRTY` is empty after step 7 (every cascade module resolved CLEAN — the
-refreshed orbs changed nothing decision-bearing), do NOT run the master: mark the
+**Prune check first — it does NOT apply to the explicit master target.** A rerun whose target is
+`master synthesizer` (step 1) skipped step 7 entirely, so `DIRTY` is vacuously empty — that is not
+a prune verdict; the explicitly requested master ALWAYS re-runs (step 1's rule). For every other
+rerun: if `DIRTY` is empty after step 7 (every cascade module resolved CLEAN — the refreshed orbs
+changed nothing decision-bearing), do NOT run the master: mark the
 `master/synthesizer` node `pruned` (`pruned_because: "no module resolved DIRTY — decision of
 record untouched"`), set `result.decision_of_record_changed: false`, skip step 8A (there is no
 rewritten thesis to gate — `final_thesis.md` and `decision_record.json` are untouched), and go to
