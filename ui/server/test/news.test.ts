@@ -47,6 +47,17 @@ await check('lookupSource: exact + subdomain match, look-alike rejected, off-lis
   assert.equal(lookupSource('nytimes.com'), null) // off-list
   assert.equal(lookupSource('sec.gov')?.input_nature, 'regulatory_filing')
 })
+await check('lookupSource: UAE + Gulf/MENA press is on the firewall (region OTHER), no com.sa hole', () => {
+  // The gap this wiring closed: Gulf publishers were dropped at Gate 0 because none were approved.
+  assert.equal(lookupSource('khaleejtimes.com')?.source_name, 'Khaleej Times')
+  assert.equal(lookupSource('www.gulfnews.com')?.source_name, 'Gulf News') // www + subdomain rule
+  assert.equal(lookupSource('english.mubasher.info')?.source_name, 'Mubasher') // subdomain → registrable
+  assert.equal(lookupSource('arnnewscentre.ae')?.region, 'OTHER')
+  // saudigazette.com.sa must be its OWN entry — never collapsed to the com.sa public suffix, which
+  // would approve every Saudi commercial domain (a firewall hole).
+  assert.equal(lookupSource('saudigazette.com.sa')?.source_name, 'Saudi Gazette')
+  assert.equal(lookupSource('evil.com.sa'), null) // com.sa is a public suffix, NOT an approved source
+})
 await check('normalizeDomain strips scheme/www/path; approvedDomains is non-empty', () => {
   assert.equal(normalizeDomain('https://www.Reuters.com/markets/x'), 'reuters.com')
   assert.ok(approvedDomains().length >= 15)

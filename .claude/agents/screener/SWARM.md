@@ -267,6 +267,33 @@ sources:
       - "Bangkok Post"
       - "Business Day (BusinessLive)"
       - "DealStreetAsia"
+      # UAE + Gulf / MENA direct-RSS coverage (Jul 2026; machine-mirrored in approved-domains.ts, every
+      #   feed verified live by scripts/verify-feeds.ts). The National (UAE) and Arab News are listed
+      #   above — they now also poll direct RSS. Mubasher/Argaam/Zawya carry Gulf listed-company &
+      #   exchange news (DFM/ADX/Tadawul/QE).
+      - "AGBI"
+      - "Al-Monitor"
+      - "ARN News Centre"
+      - "Arab Times Kuwait"
+      - "Arabian Business"
+      - "Argaam"
+      - "Daily News Egypt"
+      - "Economy Middle East"
+      - "Emirates 24|7"
+      - "Gulf News"
+      - "Gulf Times"
+      - "Khaleej Times"
+      - "Kuwait Times"
+      - "MEED"
+      - "Middle East Eye"
+      - "Mubasher"
+      - "Oman Observer"
+      - "Qatar Tribune"
+      - "Saudi Gazette"
+      - "The New Arab"
+      - "The Peninsula Qatar"
+      - "Wamda"
+      - "Zawya"
   thesis_structure:
     reject_if_unapproved: false
     note: "Prefer the signal_gate list plus primary data (filings, exchange data, official statistics). An off-list source must be dated and labelled, and never outranks an on-list source on the same fact. A social / Reddit (discovery-tier) item may corroborate a fact or surface a lead, but it does NOT satisfy M0.1's 60-second on-list source check on its own — find an on-list source before the thesis proceeds."

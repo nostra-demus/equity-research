@@ -279,6 +279,41 @@ const DOMAINS: Record<string, SourceMeta> = {
   //     firewall on these link domains (the API hosts differ). gdelt:false: read directly, not via GDELT.
   'hkexnews.hk': { source_name: 'HKEXnews (HK Exchange Filing)', region: 'CN', input_nature: 'exchange_announcement', gdelt: false },
   'asx.com.au': { source_name: 'ASX (Australia Exchange Filing)', region: 'OTHER', input_nature: 'exchange_announcement', gdelt: false },
+  // --- UAE + Gulf / MENA press (Jul 2026): direct-RSS coverage of the region, which the firewall
+  //     previously carried only via GDELT (The National, Arab News, Al Jazeera). Every domain reaches
+  //     the inbox through its OWN verified-live RSS in frameworks/screener/rss_feeds.json (gdelt:false),
+  //     firewall-gated on the item-LINK domain. All region 'OTHER' (a real but not-first-class market —
+  //     matches the existing The National / Arab News entries; Region has no MENA code). Mubasher carries
+  //     the UAE exchanges' listed-company news (DFM, ADX) whose own sites are Cloudflare/TLS-blocked to
+  //     the Node ingester. Verified live by scripts/verify-feeds.ts before adding. NOTE: The National
+  //     (thenationalnews.com) and Arab News (arabnews.com) keep their existing GDELT-queried firewall
+  //     entries above AND now also poll their direct RSS — dedup collapses the overlap.
+  // Checked-and-excluded (no Node-reachable feed): WAM/wam.ae (TLS-blocked), Al Arabiya, Gulf Business,
+  //     Ahram (Cloudflare 403), and DFM/ADX/Central Bank/SCA/SPA/BNA/KUNA (403/404/soft-404) — Gulf
+  //     market/company news still arrives via Mubasher, Argaam, Zawya, and the wires.
+  'agbi.com': { source_name: 'AGBI', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'al-monitor.com': { source_name: 'Al-Monitor', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'arabianbusiness.com': { source_name: 'Arabian Business', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'arabtimesonline.com': { source_name: 'Arab Times Kuwait', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'argaam.com': { source_name: 'Argaam', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'arnnewscentre.ae': { source_name: 'ARN News Centre', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'dailynewsegypt.com': { source_name: 'Daily News Egypt', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'economymiddleeast.com': { source_name: 'Economy Middle East', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'emirates247.com': { source_name: 'Emirates 24|7', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'gulf-times.com': { source_name: 'Gulf Times', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'gulfnews.com': { source_name: 'Gulf News', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'khaleejtimes.com': { source_name: 'Khaleej Times', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'kuwaittimes.com': { source_name: 'Kuwait Times', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'meed.com': { source_name: 'MEED', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'middleeasteye.net': { source_name: 'Middle East Eye', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'mubasher.info': { source_name: 'Mubasher', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'newarab.com': { source_name: 'The New Arab', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'omanobserver.om': { source_name: 'Oman Observer', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'qatar-tribune.com': { source_name: 'Qatar Tribune', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'saudigazette.com.sa': { source_name: 'Saudi Gazette', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'thepeninsulaqatar.com': { source_name: 'The Peninsula Qatar', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'wamda.com': { source_name: 'Wamda', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'zawya.com': { source_name: 'Zawya', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
   // --- DISCOVERY / SENTIMENT (sources/reddit.ts). reddit.com is on the INGESTION firewall so social
   //     posts reach the wire, but it is DELIBERATELY NOT mirrored into SWARM.md signal_gate.allowed nor
   //     intake.schema.json — keeping that promotion gate closed is what stops a Reddit-only signal from

@@ -44,6 +44,10 @@ MULTI_SUFFIX = {
     "co.uk", "gov.uk", "org.uk", "ac.uk", "co.in", "gov.in", "org.in", "nic.in", "co.jp",
     "or.jp", "go.jp", "com.au", "gov.au", "org.au", "co.nz", "govt.nz", "com.hk", "com.sg",
     "com.br", "gov.br", "co.za", "com.cn", "gov.cn", "europa.eu", "com.tw", "org.tw", "gov.tw",
+    # GCC / MENA public suffixes — without these, saudigazette.com.sa would collapse to the bare
+    # public suffix "com.sa" and approve EVERY Saudi commercial domain (a firewall hole).
+    "com.sa", "org.sa", "gov.sa", "com.kw", "net.kw", "com.qa", "com.bh", "com.eg", "com.om",
+    "co.ae", "com.ae", "gov.ae", "org.ae", "ac.ae",
 }
 # domains already on the firewall today (don't re-propose; section-only additions are fine)
 ALREADY = {
@@ -51,6 +55,9 @@ ALREADY = {
     "cnbc.com","marketwatch.com","economictimes.indiatimes.com","business-standard.com","livemint.com",
     "moneycontrol.com","sec.gov","nseindia.com","bseindia.com","iea.org","opec.org","eia.gov",
     "argusmedia.com","tasnimnews.com",
+    # already on the firewall as GDELT-queried MENA press — we now add their DIRECT RSS feeds, but
+    # keep the existing firewall entry (don't re-propose a duplicate key).
+    "arabnews.com","thenationalnews.com",
 }
 
 def registrable(host: str) -> str:
