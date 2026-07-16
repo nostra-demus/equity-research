@@ -392,8 +392,10 @@ export function EventRail() {
   const groups = useMemo(() => {
     const inBand = tab === 'all' ? items : items.filter((i) => i.band !== 'drop')
     const gs = groupByDedup(inBand)
-    if (sort === 'top') gs.sort((a, b) => b.effectiveScore - a.effectiveScore || (a.rep.ts < b.rep.ts ? 1 : -1))
-    else gs.sort((a, b) => (a.rep.ts < b.rep.ts ? 1 : -1)) // newest first
+    // Return 0 on equal ts so the comparator is a valid total order: returning -1 for equal elements breaks
+    // antisymmetry (compare(a,b) and compare(b,a) both -1) → an unstable / implementation-defined sort order.
+    if (sort === 'top') gs.sort((a, b) => b.effectiveScore - a.effectiveScore || (a.rep.ts === b.rep.ts ? 0 : a.rep.ts < b.rep.ts ? 1 : -1))
+    else gs.sort((a, b) => (a.rep.ts === b.rep.ts ? 0 : a.rep.ts < b.rep.ts ? 1 : -1)) // newest first
     return gs
   }, [items, tab, sort])
 
