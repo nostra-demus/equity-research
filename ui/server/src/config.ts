@@ -285,7 +285,11 @@ export const CHAT = {
 // The "forever-living" front door of the screener: pull a free news firehose (GDELT, keyless),
 // score each item with a FREE LLM (Groq) as a cheap brain, and fill a RANKED inbox — all at ~$0.
 // It writes the same inbox contract the manual /screener:sweep already fills, so nothing downstream
-// changes. It NEVER spends Claude money: promoting an inbox row into the paid gauntlet stays the
+// changes. It never charges a card by default: the only Claude seam that is ON is the last-resort triage
+// fallback, which runs on the host's flat-fee SUBSCRIPTION via the local `claude` CLI (no API key) and is
+// bounded by a daily $ ceiling — that ceiling doubles as the governor stopping news triage from starving
+// the research runs it shares the plan with. The theme namer is metered and stays off unless a key is set.
+// The expensive gauntlet stays free of both: promoting an inbox row into the paid gauntlet stays the
 // human's one-click action (the cockpit "check it ▸" button). Auto-promote is intentionally absent.
 //
 // Every knob is env-tunable; the loop is OFF unless a Groq key is present, so a deploy without the
@@ -511,8 +515,9 @@ export const NEWS = {
   // THEMES layer (news/themes/*): buckets the ranked firehose into living investment themes, scores +
   // ranks them (hot/active/cooling/parked, auto-decaying), and assigns 1st/2nd/3rd-order companies.
   // Assignment runs every cycle (deterministic, $0); discovery runs every Nth cycle. The discovery
-  // NAMING/ripple pass optionally uses Claude-Haiku (the ONE place the ingester can spend Claude
-  // money) — off unless THEMES_CLAUDE_API_KEY is set; otherwise discovery stays deterministic ($0).
+  // NAMING/ripple pass optionally uses Claude-Haiku (one of two gated, OFF-by-default places the
+  // ingester can spend Claude money; the other is the metered Haiku last-resort triage fallback,
+  // news/triage/anthropic.ts) — off unless THEMES_CLAUDE_API_KEY is set; else discovery stays $0.
   themesEnabled: process.env.NEWS_THEMES_ENABLED === '0' ? false : true,
   // Only items at/above this composite priority are bucketed into themes — routine low-materiality
   // filings (which flood the firehose) cluster on boilerplate and aren't investment themes; real
@@ -526,6 +531,46 @@ export const NEWS = {
   themesClaudeApiKey: process.env.THEMES_CLAUDE_API_KEY || process.env.ANTHROPIC_API_KEY || '',
   themesClaudeBaseUrl: process.env.THEMES_CLAUDE_BASE_URL || 'https://api.anthropic.com',
   themesClaudeDailyCap: capNum(process.env.NEWS_THEMES_CLAUDE_DAILY_CAP, 60), // max Claude discovery calls/day
+  // LAST-RESORT TRIAGE TIER. When EVERY free brain (Groq + the OpenAI-compatible overflow registry + the
+  // Gemini pool) is paced/capped/failing for a batch, it would otherwise DEFER — and on a sustained-overload
+  // day the deferred backlog overruns its 1,000-item cap and the low-priority tail is permanently dropped
+  // (never scored, never re-fetchable once it ages out of the source window). This tier scores that
+  // spillover on Claude Haiku instead, so recency is preserved and nothing is silently lost.
+  //
+  // TWO BACKENDS, default `subscription`:
+  //   subscription — the local `claude` CLI under the host keychain OAuth (news/triage/claude-cli.ts): the
+  //     SAME plan the research runs and chat already use. NO API key. The plan is flat-fee, so no card is
+  //     charged; but it is SHARED quota, so the daily $ ceiling below doubles as the governor that stops
+  //     news triage starving research. When the plan itself is spent the CLI reports a usage limit → the
+  //     batch defers and a cross-cycle cooldown waits for the plan to reset (never hammers it).
+  //   api — a DEDICATED metered key (news/triage/anthropic.ts). Separate billing, no plan contention.
+  //     Opt-in only; deliberately never defaults to ANTHROPIC_API_KEY or the themes key.
+  //
+  // Bounded by a daily $ ledger (UsdBudget, STATE_DIR — restart-safe): spend up to anthropicDailyUsd, then
+  // DEFER the rest exactly as before. On a healthy day the free tiers absorb everything and this never fires
+  // ($0 / no plan draw). Cost is reported on every cycle summary (anthropic_cost_usd) so it is never hidden.
+  // ON by default: it needs no key on the subscription path, and the whole point is to stop dropping items.
+  // Set NEWS_ANTHROPIC_FALLBACK_ENABLED=0 to turn it off.
+  anthropicFallbackEnabled: process.env.NEWS_ANTHROPIC_FALLBACK_ENABLED !== '0',
+  anthropicFallbackMode: (process.env.NEWS_ANTHROPIC_FALLBACK_MODE || 'subscription') as 'subscription' | 'api',
+  // The daily $ ceiling — the ONE bound the operator reasons in. Reached ⇒ items defer as before.
+  anthropicDailyUsd: capNum(process.env.NEWS_ANTHROPIC_FALLBACK_DAILY_USD, 5),
+  anthropicModel: process.env.NEWS_ANTHROPIC_FALLBACK_MODEL || 'claude-haiku-4-5',
+  // Per-call guards for the subscription CLI: a --max-budget-usd belt-and-braces and a wall-clock timeout
+  // (a triage completion is small; a hung child must never hold the cycle).
+  anthropicPerCallUsd: capNum(process.env.NEWS_ANTHROPIC_FALLBACK_PER_CALL_USD, 0.1),
+  anthropicTimeoutMs: capNum(process.env.NEWS_ANTHROPIC_FALLBACK_TIMEOUT_MS, 120_000),
+  anthropicRpm: capNum(process.env.NEWS_ANTHROPIC_FALLBACK_RPM, 25),
+  // Priority floor: only batches whose lead (highest-priority) item scores ≥ this on the deterministic
+  // pre-triage priority (rank.ts) route to this tier. 0 = score all spillover up to the daily $ ceiling.
+  anthropicMinPriority: capNum(process.env.NEWS_ANTHROPIC_FALLBACK_MIN_PRIORITY, 0),
+  // --- `api` mode only (opt-in; unused on the default subscription path) ---
+  anthropicApiKey: process.env.NEWS_ANTHROPIC_FALLBACK_API_KEY || '',
+  anthropicBaseUrl: process.env.NEWS_ANTHROPIC_FALLBACK_BASE_URL || 'https://api.anthropic.com',
+  anthropicMaxTokens: capNum(process.env.NEWS_ANTHROPIC_FALLBACK_MAX_TOKENS, 2400),
+  // Haiku 4.5 list prices ($/million tokens) — used to price `api`-mode calls for the same $ ledger.
+  anthropicInPricePerMTok: capNum(process.env.NEWS_ANTHROPIC_FALLBACK_IN_PRICE, 1.0),
+  anthropicOutPricePerMTok: capNum(process.env.NEWS_ANTHROPIC_FALLBACK_OUT_PRICE, 5.0),
   // Rolling token document-frequency (news/themes/token-df.ts): the self-learning boilerplate detector.
   // A token over `dailyRatio` of a day's items on ≥ `persistDays` of the last `windowDays` days is
   // corpus-generic and stops counting toward theme matches — new exchange phrasings and results-season
