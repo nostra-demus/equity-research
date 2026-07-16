@@ -1568,16 +1568,24 @@ export const useStore = create<State>((set, get) => ({
       } catch (e: any) {
         if (e?.body?.code !== 'subject_busy') throw e
         // The server's 409 subject_busy covers two different races under the same code: (1) ANY
-        // run in flight on this ticker (a full/module run — no intake plan is coming from it), or
-        // (2) another doc-intake analysis specifically racing this one (its write IS the plan we
-        // want). Only (2) is progress worth polling for — for (1), say so and stop instead of
-        // spinning "Analyzing…" for 3 minutes with nothing to show for it.
-        if (get().activeRunsForTicker(t).some((r) => r.kind !== 'doc-intake')) {
+        // run in flight on this ticker with no doc-intake run alongside it (a full/module run —
+        // no intake plan is coming from it), or (2) a doc-intake run IS live for this ticker
+        // (whether or not a module run is also going — the two coexist server-side), and its
+        // write IS the plan we want. Only (2) is progress worth polling for — for (1), say so and
+        // stop instead of spinning "Analyzing…" for 3 minutes with nothing to show for it.
+        // activeRunsForTicker can be stale (another tab, or a headless run refreshActiveRuns
+        // hasn't reconciled yet), so refresh from the server and read globalActive — it's set
+        // synchronously when refreshActiveRuns resolves, unlike activeRuns (reconciled async via
+        // reconnectRun).
+        await get().refreshActiveRuns()
+        const runsForTicker = get().globalActive.filter((r) => r.ticker === t)
+        if (runsForTicker.length > 0 && !runsForTicker.some((r) => r.kind === 'doc-intake')) {
           get().setToast({ msg: `A run is already in progress on ${t} — finish or stop it before analyzing new documents.`, tone: 'info' })
           return
         }
-        // Auto-analyze-on-landing (or an earlier click) already has an intake analysis in flight —
-        // fall through to the same poll loop instead of surfacing an error toast.
+        // A doc-intake run is live for this ticker (an auto-analyze-on-landing, an earlier click,
+        // or another tab) — fall through to the same poll loop instead of surfacing an error toast.
+        // If the server hasn't reconciled either run yet, fall through too rather than guess wrong.
       }
       for (let i = 0; i < 12; i++) {
         await new Promise((r) => setTimeout(r, 15_000))
