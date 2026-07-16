@@ -80,13 +80,17 @@ export interface ArticleReadResult {
 const EST_TOKENS = 4700 // a body read's rough input+output cost (capped); used for budget + limiter sizing — bumped for the richer transmission brief's larger JSON output (news_impact added ~9 fields)
 
 // A brief "has content" when it carries real signal — gist bullets, named firms, a beneficiary/exposed
-// read, OR a genuine news_impact verdict (analyst_takeaway is only non-empty when the LLM actually read
-// the article; coerceNewsImpact defaults it to "" on a missing/malformed block). Without the news_impact
-// disjunct, a routine/boilerplate article — whose gist/companies/beneficiaries/exposed are ALL correctly
-// empty per the DIGEST RULE — would look like "no usable brief" and get discarded here, one layer before
-// enrich.ts ever sees it, even though "no financial impact" is itself the correct, decision-useful answer.
+// read, a genuine news_impact verdict (analyst_takeaway is only non-empty when the LLM actually read
+// the article; coerceNewsImpact defaults it to "" on a missing/malformed block), OR a plain-English `story`
+// synopsis. Without the news_impact disjunct, a routine/boilerplate article — whose gist/companies/
+// beneficiaries/exposed are ALL correctly empty per the DIGEST RULE — would look like "no usable brief" and
+// get discarded here, one layer before enrich.ts ever sees it, even though "no financial impact" is itself
+// the correct, decision-useful answer. The `story` disjunct is what keeps a low-signal FOREIGN article (a PR
+// with no tradable name) from being discarded here — its English `story` is the exact text a non-English
+// item needs surfaced as summary_en (enrich.ts). A genuine cookie/boilerplate body returns story "" too, so
+// it still falls through as "no usable brief".
 function hasContent(b: ArticleBrief): boolean {
-  return !!(b.gist.length || b.companies.length || b.beneficiaries.length || b.exposed.length || b.news_impact?.analyst_takeaway)
+  return !!(b.gist.length || b.companies.length || b.beneficiaries.length || b.exposed.length || b.news_impact?.analyst_takeaway || b.story)
 }
 
 /**

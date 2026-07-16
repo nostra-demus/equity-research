@@ -1806,8 +1806,24 @@ a { color: inherit; }
 .evrail__segbtn--on { color: var(--accent-bright); background: var(--accent-wash); }
 .evrail__segbtn:active { transform: scale(0.97); }
 @media (hover: hover) and (pointer: fine) { .evrail__segbtn:not(.evrail__segbtn--on):hover { color: var(--text); } }
-/* a small live dot inside the "Latest" tab — signals the stream is running */
+/* a small live dot inside the "Newest" sort option — signals the stream is running (was the "Latest" tab) */
 .evrail__segpulse { width: 5px; height: 5px; flex-shrink: 0; border-radius: 50%; background: var(--live); box-shadow: 0 0 5px var(--live); animation: evpulse 1.9s var(--ease-out) infinite; }
+
+/* SORT toggle — the second axis under the view tabs (Top by score vs Newest by date). A secondary,
+   lighter segmented control so it reads below the view tabs, not beside them. Same tokens + press/hover
+   behaviour as .evrail__seg to stay one system. */
+.evrail__sortrow { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.evrail__sortlabel { font-size: 9.5px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); }
+.evrail__sort { display: inline-flex; gap: 2px; padding: 2px; border-radius: var(--r-md); background: var(--bg-2); border: 1px solid var(--hairline); }
+.evrail__sortbtn {
+  height: 22px; padding: 0 9px; border: none; background: transparent; cursor: pointer; border-radius: var(--r-sm);
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.1px; color: var(--text-muted); white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+.evrail__sortbtn--on { color: var(--accent-bright); background: var(--accent-wash); }
+.evrail__sortbtn:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) { .evrail__sortbtn:not(.evrail__sortbtn--on):hover { color: var(--text); } }
 
 /* ---- Calendar view (the forward events calendar — components/screener/CalendarView.tsx) ---- */
 .calview { position: absolute; inset: 0; display: flex; flex-direction: column; overflow: hidden; }
@@ -2258,7 +2274,7 @@ a { color: inherit; }
 /* keyboard focus — the rail is now the main way to move through events, so it must be visibly traversable.
    box-shadow ring (token-scoped to cyan) matches the .intake__input:focus idiom; inset on the full-width row. */
 .evrow__hit:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
-.evrail__segbtn:focus-visible, .evdetail__back:focus-visible, .evscope__chip:focus-visible, .evrow__shelve:focus-visible, .evrow__flag:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent); }
+.evrail__segbtn:focus-visible, .evrail__sortbtn:focus-visible, .evdetail__back:focus-visible, .evscope__chip:focus-visible, .evrow__shelve:focus-visible, .evrow__flag:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent); }
 
 @keyframes evpulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
 @keyframes evrowin { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
@@ -2266,7 +2282,7 @@ a { color: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   .evrow, .evdetail { animation: none; }
-  .evrow__hit:active, .evrail__segbtn:active, .evdetail__back:active, .evrow__shelve:active, .evscope__chip:active, .evdetail__party-name--btn:active { transform: none; }
+  .evrow__hit:active, .evrail__segbtn:active, .evrail__sortbtn:active, .evdetail__back:active, .evrow__shelve:active, .evscope__chip:active, .evdetail__party-name--btn:active { transform: none; }
   .evrail__dot--live, .evrail__segpulse { animation: none; }
   .evrow__glow { animation: none; opacity: 0; }
   .evdetail__shimmer::after { animation: none; }
@@ -2554,6 +2570,19 @@ a { color: inherit; }
 
 /* ---- the story / SEC filing (lazy-loaded) ---- */
 .evdetail__story { font-size: 13.5px; line-height: 1.6; color: var(--text); margin: 0; }
+/* original source-language text for a translated story — tucked behind a quiet disclosure so the reader
+   leads in English but the untranslated original is always one click away (the body twin of the headline's
+   "original · <language>" affordance). */
+.evdetail__story-orig { margin-top: 10px; }
+.evdetail__story-orig-toggle { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; padding: 2px 8px; font-size: 9px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); user-select: none; list-style: none; border: 1px solid var(--hairline); border-radius: var(--r-pill); transition: color 140ms ease, border-color 140ms ease, transform 140ms cubic-bezier(0.23, 1, 0.32, 1); }
+.evdetail__story-orig-toggle::-webkit-details-marker { display: none; }
+.evdetail__story-orig-toggle::marker { content: ''; }
+.evdetail__story-orig-toggle:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) { .evdetail__story-orig-toggle:hover { color: var(--text-muted); border-color: var(--text-faint); } }
+.evdetail__story-orig-chevron { width: 9px; height: 9px; flex-shrink: 0; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1); }
+.evdetail__story-orig[open] .evdetail__story-orig-chevron { transform: rotate(90deg); }
+.evdetail__story-orig-text { margin: 8px 0 0; font-size: 12.5px; line-height: 1.55; color: var(--text-muted); }
+@media (prefers-reduced-motion: reduce) { .evdetail__story-orig-chevron, .evdetail__story-orig-toggle { transition: none; } }
 /* corroboration banner — honest §3 label when the publisher blocked the direct read and the story was
    pieced together from other outlets. Quiet amber/accent note, not an error. */
 .evdetail__corrob { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; padding: 9px 12px; border: 1px solid var(--hairline); border-left: 2px solid var(--accent-deep); border-radius: var(--r-sm); background: var(--accent-wash-soft); }
