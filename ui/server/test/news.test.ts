@@ -47,6 +47,17 @@ await check('lookupSource: exact + subdomain match, look-alike rejected, off-lis
   assert.equal(lookupSource('nytimes.com'), null) // off-list
   assert.equal(lookupSource('sec.gov')?.input_nature, 'regulatory_filing')
 })
+await check('lookupSource: UAE + Gulf/MENA press is on the firewall (region OTHER), no com.sa hole', () => {
+  // The gap this wiring closed: Gulf publishers were dropped at Gate 0 because none were approved.
+  assert.equal(lookupSource('khaleejtimes.com')?.source_name, 'Khaleej Times')
+  assert.equal(lookupSource('www.gulfnews.com')?.source_name, 'Gulf News') // www + subdomain rule
+  assert.equal(lookupSource('english.mubasher.info')?.source_name, 'Mubasher') // subdomain → registrable
+  assert.equal(lookupSource('arnnewscentre.ae')?.region, 'OTHER')
+  // saudigazette.com.sa must be its OWN entry — never collapsed to the com.sa public suffix, which
+  // would approve every Saudi commercial domain (a firewall hole).
+  assert.equal(lookupSource('saudigazette.com.sa')?.source_name, 'Saudi Gazette')
+  assert.equal(lookupSource('evil.com.sa'), null) // com.sa is a public suffix, NOT an approved source
+})
 await check('normalizeDomain strips scheme/www/path; approvedDomains is non-empty', () => {
   assert.equal(normalizeDomain('https://www.Reuters.com/markets/x'), 'reuters.com')
   assert.ok(approvedDomains().length >= 15)
@@ -489,6 +500,7 @@ await check('overflow paces on the daily TOKEN cap, not just requests (token-gat
   // canSpend(est≈595) sees 600 already spent (600+595>900) and is gated BEFORE any call. A request-only cap
   // (the prior hardcoded 50M) would have scored both — so this proves runCycle honors p.dailyTokenCap.
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, triageBatch: 1,
+    anthropicFallbackEnabled: false, // FREE-chain test: keep the paid last-resort tier out (own file: triage-claude-cli.test.ts)
     overflowProviders: [{ id: 'cerebras', label: 'Cerebras', color: '--provider-cb', kind: 'openai', apiKey: 'k', baseUrl: 'https://cerebras.test/v1', model: 'llama-3.3-70b', maxTokens: 2500, rpm: 6000, tpm: 55_000, dailyReqCap: 14_400, dailyTokenCap: 900, budgetFile: 'cerebras-budget.json', limiter: 'cerebras' }] } as any
   const now = () => new Date('2026-06-12T09:30:00Z')
   const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
@@ -597,7 +609,8 @@ await check('a failed Groq batch is DEFERRED (not zero-scored-and-seen) and is s
     }
     return res({ articles: [] })
   }) as unknown as typeof fetch
-  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false } as any
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false,
+    anthropicFallbackEnabled: false } as any // FREE-chain test: keep the paid last-resort tier out (own file)
   // advanceable clock: cycle 1's Groq failure arms the cross-cycle cooldown (default 5 min), so cycle 2 must
   // sit PAST that window to re-probe the recovered Groq — exactly how the real scheduler behaves (the next
   // cycle after a failure keeps skipping Groq, protecting the daily request cap, until the cooldown lapses).
@@ -649,7 +662,8 @@ await check('a sustained Groq outage arms a cross-cycle cooldown — the next cy
   // NO overflow configured → Groq is the only brain, so the outage's defer/burn behavior shows in isolation.
   // themes off so the ONLY calls to the groq URL are triage probes (the themes namer hits the same baseUrl).
   // groqCooldownMs left at the NEWS default (300s).
-  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false } as any
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
+    anthropicFallbackEnabled: false } as any // FREE-chain test: keep the paid last-resort tier out (own file)
   let nowMs = Date.parse('2026-06-12T09:30:00Z')
   const now = () => new Date(nowMs)
   const groqReq = () => { try { return Number(JSON.parse(fs.readFileSync(path.join(state, 'groq-budget.json'), 'utf8')).requests) || 0 } catch { return 0 } }
@@ -700,6 +714,7 @@ await check('a sustained OVERFLOW-provider outage arms its own cross-cycle coold
     return res({ articles: [] })
   }) as unknown as typeof fetch
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
+    anthropicFallbackEnabled: false, // FREE-chain test: keep the paid last-resort tier out (own file: triage-claude-cli.test.ts)
     overflowProviders: [{ id: 'cerebras', label: 'Cerebras', color: '--x', kind: 'openai', apiKey: 'k', baseUrl: 'https://cerebras.test/v1', model: 'm', maxTokens: 900, rpm: 6000, tpm: 0, dailyReqCap: 2300, dailyTokenCap: 1e9, budgetFile: 'cerebras-budget.json', limiter: 'cerebras' }] } as any
   let nowMs = Date.parse('2026-06-12T09:30:00Z')
   const now = () => new Date(nowMs)
@@ -861,6 +876,112 @@ await check('Cerebras overflow defaults are the verified-live values (model + re
     if (prev === undefined) delete process.env.CEREBRAS_API_KEY
     else process.env.CEREBRAS_API_KEY = prev
   }
+})
+
+// ---- THE LAST-RESORT TIER, end to end. This is the whole point of the tier: when every FREE brain is out,
+// an item used to DEFER — and on a sustained-overload day the deferred backlog overruns its 1,000-item cap
+// and the low-priority tail is dropped for good. The tier must score it NOW instead (recency), and must
+// still stop dead at the daily $ ceiling. The CLI is injected, so no process is spawned and no plan quota
+// is drawn by this test. ----
+await check('free brains exhausted → the subscription tier SCORES the batch instead of deferring it', async () => {
+  resetSharedLimiters()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  let gdeltServed = false
+  // Groq is hard down and there is no overflow/Gemini configured → without the tier this item would defer
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('upstream sad', 503)
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{ url: 'https://reuters.com/tier', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  let cliCalls = 0
+  const claudeCliRunner = async () => {
+    cliCalls++
+    return {
+      text: JSON.stringify({ items: [{ i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A 50 bps cut lowers funding costs.', companies: [], size_bucket: 'unknown' }] }),
+      costUsd: 0.006,
+    }
+  }
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
+    overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 5, anthropicRpm: 6000, anthropicMinPriority: 0 } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
+  assert.equal(s.ok, true)
+  assert.equal(cliCalls, 1, 'the tier was reached exactly once (after Groq failed)')
+  assert.equal(s.picked, 1, 'SCORED by the subscription tier — not deferred, not dropped')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0, 'nothing deferred — the tier caught it')
+  assert.equal(s.anthropic_requests, 1)
+  assert.ok(Math.abs((s.anthropic_cost_usd ?? 0) - 0.006) < 1e-9, 'the cycle summary reports the spend honestly')
+  // and the $ ledger persisted what it spent, so a restart cannot reset the ceiling
+  const led = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+  assert.ok(Math.abs(led.usd - 0.006) < 1e-9, `ledger usd ${led.usd}`)
+})
+
+await check('daily $ ceiling reached → the tier stands down and the batch DEFERS (the operator\'s hard bound)', async () => {
+  resetSharedLimiters()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  // pre-spend today's ceiling, exactly as an earlier cycle would have left it
+  fs.mkdirSync(state, { recursive: true })
+  fs.writeFileSync(path.join(state, 'anthropic-triage-budget.json'), JSON.stringify({ date: new Date('2026-06-12T09:30:00Z').toISOString().slice(0, 10), usd: 5, calls: 800 }))
+  let gdeltServed = false
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('upstream sad', 503)
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{ url: 'https://reuters.com/capped', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  let cliCalls = 0
+  const claudeCliRunner = async () => { cliCalls++; return { text: '{"items":[]}', costUsd: 0.006 } }
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
+    overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 5, anthropicRpm: 6000, anthropicMinPriority: 0 } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
+  assert.equal(cliCalls, 0, 'the ceiling was already spent → NOT one more call')
+  assert.equal(s.picked + s.watched + s.dropped, 0, 'nothing scored')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1, 'the item defers, exactly as before the tier existed')
+})
+
+await check('plan usage limit → the batch defers AND a cross-cycle cooldown stops the next cycle re-spawning the CLI', async () => {
+  resetSharedLimiters()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('upstream sad', 503)
+    if (u.includes('gdelt')) return res({ articles: [{ url: 'https://reuters.com/limit', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  let cliCalls = 0
+  // the plan's own 5-hour/weekly quota is spent — the CLI reports it and we must back off, not hammer
+  const claudeCliRunner = async () => { cliCalls++; return { text: '', costUsd: 0, error: 'claude cli: usage limit reached — plan quota spent' } }
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
+    overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 5, anthropicRpm: 6000, anthropicMinPriority: 0 } as any
+  let nowMs = Date.parse('2026-06-12T09:30:00Z')
+  const now = () => new Date(nowMs)
+
+  const s1 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
+  assert.equal(cliCalls, 1)
+  assert.equal(s1.picked + s1.watched + s1.dropped, 0, 'nothing scored — the plan was out')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1, 'kept for the next cycle, not lost')
+  assert.ok(readCooldownUntil(state, 'anthropic-triage') > nowMs, 'a cooldown was armed to wait for the plan reset')
+
+  // the very next cycle must NOT re-spawn the CLI — that is the "defer intelligently until it resets" rule
+  nowMs += 30_000
+  await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
+  assert.equal(cliCalls, 1, 'still 1 — the cooldown suppressed the re-spawn while the plan is out')
 })
 
 console.log(`\n${passed} checks passed`)
