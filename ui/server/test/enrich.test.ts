@@ -358,6 +358,52 @@ await check('e2e: a missed read is DEGRADED, shows the rich lede (not the dek), 
   assert.ok(!/one overriding theme/i.test(r.summary || ''), 'never the vague dek when a richer lede exists')
 })
 
+// ---- non-English article → THE STORY reads in English (summary_en), original preserved ----
+// A Spanish wire item (the reported case): the wire stored an English headline + named the language, the
+// scraped lede is Spanish, and the read returns an English `story`. enrichEvent must surface that story as
+// summary_en (so the reader leads in English) while keeping the Spanish lede in `summary` (original one click
+// away). The English fixture above never gets summary_en — the lane is a no-op for English items.
+const SPANISH_SNIPPET =
+  'ABU DABI, EAU, 13 de julio de 2026 — Aurra Markets, un broker global de CFD multiactivos, ha finalizado su ' +
+  'patrocinio diamante y su participación en Money Expo Abu Dhabi 2026, celebrada en el Centro ADNEC del 8 al 9 de julio.'
+function tmpRepoForeign(): { repoRoot: string; stateDir: string } {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'enrich-test-es-'))
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  const item = {
+    kind: 'item', event_id: EVENT_ID, ts: NOW_ISO,
+    headline: 'Aurra Markets refuerza su presencia en la región MENA tras la Money Expo Abu Dhabi 2026',
+    headline_en: 'Aurra Markets strengthens its MENA presence after Money Expo Abu Dhabi 2026',
+    headline_lang: 'Spanish',
+    url: 'https://www.prnewswire.com/news/aurra-markets-mena', source_name: 'PR Newswire',
+    region: 'AE', input_nature: 'news_headline', snippet: SPANISH_SNIPPET,
+    companies: [], event_types: ['commercial'], triage_score: 32,
+  }
+  fs.writeFileSync(path.join(inbox, `${TODAY}_firehose.ndjson`), JSON.stringify(item) + '\n')
+  return { repoRoot: root, stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'enrich-state-es-')) }
+}
+const SPANISH_STORY = 'Aurra Markets, a global multi-asset CFD broker, completed its diamond sponsorship of Money Expo Abu Dhabi 2026, held at the ADNEC Centre on 8-9 July, to deepen its presence across the Middle East and North Africa.'
+// a low-signal foreign PR: no gist / no tradable firm (applyBrief fails) but a real English `story` — the
+// exact shape that used to leave the reader facing an untranslated Spanish lede.
+const SPANISH_BRIEF: ArticleBrief = { gist: [], companies: [], beneficiaries: [], exposed: [], theme: 'commercial', story: SPANISH_STORY }
+
+await check('e2e: a NON-ENGLISH item surfaces the English `story` as summary_en, keeps the original lede in summary', async () => {
+  const { repoRoot, stateDir } = tmpRepoForeign()
+  const r = await enrichEvent({ event_id: EVENT_ID }, baseDeps(repoRoot, stateDir, SPANISH_BRIEF))
+  assert.equal(r.summary_en, SPANISH_STORY, 'THE STORY reads in English (the read\'s story synopsis)')
+  assert.equal(r.summary_lang, 'Spanish', 'the named source language rides along for the "original · X" label')
+  assert.ok(r.summary && /Aurra Markets|patrocinio|EAU/.test(r.summary), `the Spanish original stays in summary, got: ${r.summary}`)
+  assert.ok(!r.gist?.length, 'no gist bullets (low-signal PR) — the English story carries THE STORY instead')
+})
+
+await check('e2e: an ENGLISH item never gets summary_en even when the read returns a story (the lane is a no-op for English)', async () => {
+  const { repoRoot, stateDir } = tmpRepo()
+  const brief: ArticleBrief = { ...EMPTY_BRIEF, story: 'A plain English synopsis the reader does not need translated.' }
+  const r = await enrichEvent({ event_id: EVENT_ID }, baseDeps(repoRoot, stateDir, brief))
+  assert.ok(r.summary_en == null, `English item must not carry summary_en, got: ${r.summary_en}`)
+  assert.ok(r.summary && r.summary.includes('$206.7 million'), 'still shows the English lede unchanged')
+})
+
 await check('e2e: NO-CLOBBER — a later miss never replaces a good cached read (the backup guard)', async () => {
   const { repoRoot, stateDir } = tmpRepo()
   const good = await enrichEvent({ event_id: EVENT_ID }, baseDeps(repoRoot, stateDir, GOOD_BRIEF))

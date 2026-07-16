@@ -104,14 +104,27 @@ function StoryBlock({ enr }: { enr: EventEnrichment | 'loading' | undefined }) {
           {enr.published && <div className="evdetail__hint">Published {fmtTime(enr.published)}</div>}
         </div>
       )}
-      {!sec && !enr.gist?.length && enr.summary && (
+      {!sec && !enr.gist?.length && (enr.summary_en || enr.summary) && (
         <div className="evdetail__block">
           <div className="evdetail__label">The story</div>
-          <p className="evdetail__story">{enr.summary}</p>
+          {/* A non-English article is read in ENGLISH (server enrich.ts → summary_en); the source-language
+              original stays one click away, mirroring the headline's "original · <language>" affordance. */}
+          <p className="evdetail__story">{enr.summary_en || enr.summary}</p>
+          {enr.summary_en && enr.summary && enr.summary.trim() !== enr.summary_en.trim() && (
+            <details className="evdetail__story-orig">
+              <summary className="evdetail__story-orig-toggle" title={`THE STORY as the source published it${enr.summary_lang ? ` (${enr.summary_lang})` : ''}, before translation to English`}>
+                <svg className="evdetail__story-orig-chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  <path d="M4.5 3 7.5 6 4.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span>original{enr.summary_lang ? ` · ${enr.summary_lang}` : ''}</span>
+              </summary>
+              <p className="evdetail__story-orig-text">{enr.summary}</p>
+            </details>
+          )}
           {enr.published && <div className="evdetail__hint">Published {fmtTime(enr.published)}</div>}
         </div>
       )}
-      {!sec && !enr.gist?.length && !enr.summary && (
+      {!sec && !enr.gist?.length && !enr.summary_en && !enr.summary && (
         <div className="evdetail__block">
           <div className="evdetail__label">The story</div>
           <div className="evdetail__hint">{enr.note || 'Source blocked — headline only. Open the source to read it.'}</div>
