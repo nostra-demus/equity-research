@@ -8,7 +8,7 @@ import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import { affectedModules, focusKeysFor } from './intake'
-import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
@@ -116,7 +116,11 @@ function detectWebGL(): boolean {
   return webglProbe
 }
 
-const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'module-routed', 'cost-tick', 'run-done', 'run-error', 'run-heartbeat', 'readiness-checking', 'readiness-report', 'readiness-blocked', 'readiness-resolved']
+const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'module-routed', 'cost-tick', 'run-done', 'run-error', 'run-heartbeat', 'run-activity', 'readiness-checking', 'readiness-report', 'readiness-blocked', 'readiness-resolved']
+
+// How many steps of a run's activity feed the client keeps. Matches the server's own ring (registry's
+// ACTIVITY_RING), so a subscribe-time replay never overflows what we hold and silently drop its head.
+const ACTIVITY_CAP = 80
 
 // Live SSE streams for the SELECTED ticker only, keyed by runId. A ticker switch closes them all;
 // background runs keep executing server-side and are rediscovered via /api/runs on return.
@@ -210,7 +214,7 @@ export interface ActiveRun {
   agentsDone?: number
   agentsTotal?: number
   lastStdoutAt?: number // when the engine child last produced ANY output — the "alive" signal
-  lastActivity?: { tool: string; ts: number } // the orchestrator's latest tool call — what it's DOING
+  lastActivity?: RunActivity // the orchestrator's latest tool call — what it's DOING
 }
 // A toast may carry ONE inline action (e.g. "Run anyway" on a run-lock conflict) so a dead-end rejection
 // becomes a one-click recovery. A toast with an action stays up longer (the user has to read + click it).
@@ -396,6 +400,10 @@ interface State {
   intakeFocusKeys: Set<string>
   intakePlanKeys: Set<string>
   intakeAnalyzing: boolean // a manual "analyze new documents" run is in flight (auto-analysis is silent)
+  // Every step a live run has taken, oldest first, keyed by runId — one entry per orchestrator tool
+  // call (run-activity SSE). This is what lets the "New data" dock name each document as it is read
+  // instead of showing a spinner. Capped per run; cleared with the rest of the view on subject switch.
+  runActivity: Record<string, RunActivity[]>
   setIntakeFocus: (keys: Set<string>) => void
   analyzeIntake: () => Promise<void> // manual trigger — writes/refreshes the scoped plan; launches no rerun
   // When the thesis plan was scoped by intake, what it kept vs re-ran — so the panel can explain + offer the
@@ -735,6 +743,7 @@ export const useStore = create<State>((set, get) => ({
   intakeFocusKeys: new Set(),
   intakePlanKeys: new Set(),
   intakeAnalyzing: false,
+  runActivity: {},
   thesisPlanIntake: null,
   openOutput: null,
   chatOpen: false,
@@ -926,7 +935,7 @@ export const useStore = create<State>((set, get) => ({
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
     chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
     // the completion plan is per-subject disk truth — never let a previous subject's plan survive a switch
-    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], runPanelDismissed: false, activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, thesisPlanIntake: null, ...CHAT_RESET })
+    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], runPanelDismissed: false, activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, ...CHAT_RESET })
     const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
@@ -1568,6 +1577,12 @@ export const useStore = create<State>((set, get) => ({
     try {
       try {
         await api.analyzeIntake(t)
+        // Attach to the run's live stream NOW rather than waiting for the next background poll: this is
+        // what feeds the dock's reading list, and the run starts reading the moment it spawns. (The
+        // server replays its activity ring on subscribe, so the steps taken in this gap are not lost —
+        // but every second the stream is late is a second the panel has nothing to show.)
+        await get().refreshActiveRuns()
+        if (get().selectToken !== token) return
       } catch (e: any) {
         if (e?.body?.code !== 'subject_busy') throw e
         // The server's 409 subject_busy covers two different races under the same code: (1) ANY
@@ -2226,6 +2241,16 @@ export const useStore = create<State>((set, get) => ({
             [e.runId]: { ...r, status: e.status ?? r.status, costUsd: e.costUsd ?? r.costUsd, agentsDone: e.agentsDone, agentsTotal: e.agentsTotal, lastStdoutAt: e.lastStdoutAt, lastActivity: e.lastActivity },
           }
         }
+        break
+      }
+      case 'run-activity': {
+        // One step of a live run, in order — the feed behind the "New data" dock's reading list. The
+        // server replays its ring on subscribe, so the same step can arrive twice (replay + live) if a
+        // stream reconnects; a tool+ts match drops the duplicate rather than showing a document twice.
+        const prev = get().runActivity[e.runId] ?? []
+        if (prev.some((a) => a.ts === e.ts && a.tool === e.tool && a.target === e.target)) break
+        const next = [...prev, { tool: e.tool, target: e.target, ts: e.ts }]
+        patch.runActivity = { ...get().runActivity, [e.runId]: next.length > ACTIVITY_CAP ? next.slice(-ACTIVITY_CAP) : next }
         break
       }
       case 'run-started': {

@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import type { ResultPromise } from 'execa'
 import { logFinish } from './activity-log'
-import type { AgentRunState, ReadinessDecision, ReadinessReport, RunKind, RunStatus, SseEvent } from './types'
+import type { AgentRunState, ReadinessDecision, ReadinessReport, RunActivity, RunKind, RunStatus, SseEvent } from './types'
 
 export interface SseClient {
   id: string
@@ -52,7 +52,8 @@ export interface RunState {
   numTurns?: number
   durationMs?: number
   lastStdoutAt?: number // when the engine child last wrote ANY stdout — the "engine is alive" signal
-  lastActivity?: { tool: string; ts: number } // the orchestrator's most recent tool call (heartbeat payload)
+  lastActivity?: RunActivity // the orchestrator's most recent tool call (heartbeat payload)
+  activity: RunActivity[] // bounded ring of recent tool calls — replayed on subscribe (see ACTIVITY_RING)
   sessionId?: string
   willCommitToMain: boolean
   writeTargetsAbs: string[] // absolute paths this run writes — D2 disjointness
@@ -113,7 +114,7 @@ export function setActiveTickerRun(runId: string, ticker: string) {
 }
 
 export function createRun(
-  init: Omit<RunState, 'runId' | 'eventLog' | 'subscribers' | 'agents' | 'expected' | 'toolUseToAgent' | 'child' | 'status' | 'startedAt' | 'subjectId' | 'swarmId' | 'unit'> &
+  init: Omit<RunState, 'runId' | 'eventLog' | 'subscribers' | 'agents' | 'expected' | 'toolUseToAgent' | 'child' | 'status' | 'startedAt' | 'subjectId' | 'swarmId' | 'unit' | 'activity'> &
     Partial<Pick<RunState, 'expected' | 'agents' | 'subjectId' | 'swarmId' | 'unit'>>,
 ): RunState {
   const runId = randomUUID()
@@ -126,6 +127,7 @@ export function createRun(
     expected: init.expected ?? new Map(),
     toolUseToAgent: new Map(),
     eventLog: [],
+    activity: [],
     subscribers: new Set(),
     ...init,
     // RunSubject defaults AFTER the spread so an omitted/undefined field can never shadow them:
@@ -169,6 +171,19 @@ export function emitTransient(run: RunState, event: SseEvent) {
   }
 }
 
+// ---- orchestrator activity ring ----
+// run-activity is transient (out of eventLog: a long run makes thousands of tool calls, and every one
+// would land in every new subscriber's replay). But a client that attaches a beat after launch — which
+// is EVERY client, since the run spawns before the cockpit can subscribe — would then miss the opening
+// steps and show a feed that starts in the middle. So keep the recent tail here and replay it on
+// subscribe: enough to reconstruct what a document-intake run has read, nowhere near a full run's log.
+const ACTIVITY_RING = 80
+
+export function recordActivity(run: RunState, entry: RunActivity) {
+  run.activity.push(entry)
+  if (run.activity.length > ACTIVITY_RING) run.activity.splice(0, run.activity.length - ACTIVITY_RING)
+}
+
 // ---- run heartbeat pump ----
 // Every in-flight run pulses a transient run-heartbeat so the cockpit can show "the engine is alive,
 // doing X, for Ys" between agent events — the anti-"is it stuck?" signal. 3s keeps the ambient labels
@@ -198,6 +213,9 @@ heartbeatTimer.unref()
 export function subscribe(run: RunState, client: SseClient) {
   // replay backlog, then live
   for (const e of run.eventLog) client.send(e)
+  // …then the activity tail (kept out of eventLog — see ACTIVITY_RING), so a client attaching mid-run
+  // sees the steps that ran before it connected instead of a feed that starts mid-thought.
+  for (const a of run.activity) client.send({ type: 'run-activity', runId: run.runId, tool: a.tool, target: a.target, ts: a.ts })
   run.subscribers.add(client)
 }
 

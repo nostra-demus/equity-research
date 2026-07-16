@@ -298,6 +298,16 @@ export interface AgentRunState {
   outputPath?: string
 }
 
+// ONE orchestrator tool call, as the cockpit reads it: the tool plus WHAT it acted on — the file
+// read, the pattern searched, the agent dispatched. `target` is source-honest: a repo-relative path
+// (never an absolute machine path), a Bash step's own description, a search's query. Absent when the
+// tool's input carries nothing worth naming. See activityTarget() in stream-parser.ts.
+export interface RunActivity {
+  tool: string
+  target?: string
+  ts: number
+}
+
 export type SseEvent =
   | { type: 'run-started'; runId: string; kind: RunKind; ticker: string; runRoot: string | null; sessionId?: string; willCommitToMain: boolean; swarm?: string; ts: number }
   | { type: 'agent-started'; runId: string; module: string; agentKey: string; name: string; layer: number; ts: number }
@@ -320,7 +330,13 @@ export type SseEvent =
   // agent events never look like a hang. Emitted via emitTransient (NOT recorded in eventLog, never
   // replayed): it is ambient state, not history. lastStdoutAt = when the engine child last produced
   // output; lastActivity = the orchestrator's most recent tool call (what the system is DOING now).
-  | { type: 'run-heartbeat'; runId: string; status: RunStatus; elapsedMs: number; agentsDone: number; agentsTotal: number; costUsd?: number; lastStdoutAt?: number; lastActivity?: { tool: string; ts: number }; ts: number }
+  | { type: 'run-heartbeat'; runId: string; status: RunStatus; elapsedMs: number; agentsDone: number; agentsTotal: number; costUsd?: number; lastStdoutAt?: number; lastActivity?: RunActivity; ts: number }
+  // TRANSIENT, one per orchestrator tool call — the step-by-step "what is it reading RIGHT NOW" feed.
+  // The 3s heartbeat carries only the LATEST call, so a run that reads five documents between two
+  // pulses shows four of them to nobody; this event is what makes the feed complete. Not recorded in
+  // eventLog (a long run would bloat every new subscriber's replay) — registry keeps a bounded ring
+  // and replays THAT on subscribe, so a client attaching mid-run still sees the steps it missed.
+  | { type: 'run-activity'; runId: string; tool: string; target?: string; ts: number }
 
 export interface CreditPreflight {
   ok: boolean

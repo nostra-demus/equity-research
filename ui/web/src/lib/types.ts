@@ -826,6 +826,15 @@ export interface ReadinessReport {
   ts: number
 }
 
+// One orchestrator tool call: the tool plus WHAT it acted on — the file read, the pattern searched, the
+// agent dispatched. `target` is repo-relative and already trimmed server-side; absent when the tool's
+// input names nothing worth showing (an old server sends no target at all — render the tool alone).
+export interface RunActivity {
+  tool: string
+  target?: string
+  ts: number
+}
+
 export type SseEvent =
   | { type: 'run-started'; runId: string; kind: string; ticker: string; runRoot: string | null; willCommitToMain: boolean; ts: number }
   | { type: 'agent-started'; runId: string; module: string; agentKey: string; name: string; layer: number; ts: number }
@@ -839,7 +848,11 @@ export type SseEvent =
   | { type: 'run-error'; runId: string; status: 'error' | 'cancelled' | 'incomplete'; reason: string; message?: string; ts: number }
   // transient liveness pulse (~3s per in-flight run; never replayed) — status/progress/cost between
   // agent events plus the engine's last output time and latest tool call ("what is it doing right now")
-  | { type: 'run-heartbeat'; runId: string; status: string; elapsedMs: number; agentsDone: number; agentsTotal: number; costUsd?: number; lastStdoutAt?: number; lastActivity?: { tool: string; ts: number }; ts: number }
+  | { type: 'run-heartbeat'; runId: string; status: string; elapsedMs: number; agentsDone: number; agentsTotal: number; costUsd?: number; lastStdoutAt?: number; lastActivity?: RunActivity; ts: number }
+  // one per orchestrator tool call — the step-by-step feed behind "New data"'s live reading list. The
+  // heartbeat only carries the LATEST call, so it alone would skip documents read between two pulses.
+  // The server replays a bounded tail on subscribe, so attaching mid-run still shows the earlier steps.
+  | { type: 'run-activity'; runId: string; tool: string; target?: string; ts: number }
   | { type: 'readiness-checking'; runId: string; ticker: string; kind: string; ts: number }
   | { type: 'readiness-report'; runId: string; report: ReadinessReport; ts: number }
   | { type: 'readiness-blocked'; runId: string; report: ReadinessReport; ts: number }

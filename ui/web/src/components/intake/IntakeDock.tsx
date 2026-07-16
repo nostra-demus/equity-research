@@ -3,6 +3,7 @@ import { useStore } from '../../lib/store'
 import type { AgentNode } from '../../lib/types'
 import { Spin } from '../Spin'
 import { IntakeDocCard } from './IntakeDocCard'
+import { IntakeReadingFeed } from './IntakeReadingFeed'
 import { RerunPlanList } from './RerunPlanList'
 import './IntakeDock.css'
 
@@ -26,7 +27,19 @@ export function IntakeDock() {
   const setFocus = useStore((s) => s.setIntakeFocus)
   const analyze = useStore((s) => s.analyzeIntake)
   const openPlan = useStore((s) => s.openThesisPlan)
+  const ticker = useStore((s) => s.selectedTicker)
+  const globalActive = useStore((s) => s.globalActive)
+  const runActivity = useStore((s) => s.runActivity)
   const [open, setOpen] = useState(true)
+
+  // The live document-intake run for this company — this click, an auto-analysis on landing, or one
+  // started in another tab. Its steps ARE the reading list. Positive `kind` match, never a fallback:
+  // an older server that doesn't report the kind must show no feed rather than a wrong one.
+  const intakeRun = useMemo(
+    () => globalActive.find((r) => r.ticker === ticker && r.kind === 'doc-intake') ?? null,
+    [globalActive, ticker],
+  )
+  const steps = intakeRun ? runActivity[intakeRun.runId] ?? [] : []
 
   const docCards = intake?.new_docs ?? []
   const keysFor = useMemo(() => (module: string, agent: string) => orbKeys([{ module, agent }], nodesByKey), [nodesByKey])
@@ -58,9 +71,13 @@ export function IntakeDock() {
 
       {open && (
         <div className="intake__body">
-          {analyzing && !docCards.length && (
-            <div className="intake__reading">Reading the new documents…</div>
-          )}
+          {/* While an analysis runs, name every step as it happens — including a ↻ re-read over docs
+              already listed below, which asks the same "what is it looking at?" question. The old static
+              "Reading the new documents…" line was true but blind: a minute-plus of a live engine with
+              nothing to show for it. It stays as the fallback for when there's no run to read steps from
+              (an older server, or the run not yet reconciled), so the panel never goes silent. */}
+          {analyzing && intakeRun && <IntakeReadingFeed steps={steps} live startedAt={intakeRun.startedAt} />}
+          {analyzing && !intakeRun && !docCards.length && <div className="intake__reading">Reading the new documents…</div>}
           {docCards.length > 0 && (
             <div className="intake__docs">
               {docCards.map((d, i) => (
