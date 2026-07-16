@@ -27,6 +27,19 @@ export function focusKeysFor(plan: IntakePlan | null | undefined, nodesByKey: Ma
   return keys
 }
 
+// Does a run that is NOT a doc-intake hold the subject busy? The server returns 409 subject_busy from
+// /api/intake/:ticker/analyze for ANY in-flight run on the subject (ui/server/src/server.ts), but only a
+// racing doc-intake's write IS the intake plan the Analyze poll loop waits for. If a full/module run is the
+// one in flight, no plan is coming — so the caller should stop and say so instead of polling for 3 minutes.
+// Feed this the SERVER-truth active-run list (store.globalActive), not the tab-local adopted set, so a run
+// started in another tab or headlessly is still seen. Scoped to `ticker` because globalActive spans subjects.
+export function blockingRunForIntake(
+  active: ReadonlyArray<{ ticker: string; kind: string }>,
+  ticker: string,
+): boolean {
+  return active.some((r) => r.ticker === ticker && r.kind !== 'doc-intake')
+}
+
 // A short, honest headline for the intake state, used by the dock + the thesis panel banner.
 export function intakeHeadline(plan: IntakePlan | null | undefined): string {
   if (!plan) return ''

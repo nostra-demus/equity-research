@@ -7,7 +7,7 @@ import { displayHeadline, originalHeadline, plainRoute, plainStage } from './pla
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
-import { affectedModules, focusKeysFor } from './intake'
+import { affectedModules, blockingRunForIntake, focusKeysFor } from './intake'
 import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
@@ -1571,13 +1571,17 @@ export const useStore = create<State>((set, get) => ({
         // run in flight on this ticker (a full/module run — no intake plan is coming from it), or
         // (2) another doc-intake analysis specifically racing this one (its write IS the plan we
         // want). Only (2) is progress worth polling for — for (1), say so and stop instead of
-        // spinning "Analyzing…" for 3 minutes with nothing to show for it.
-        if (get().activeRunsForTicker(t).some((r) => r.kind !== 'doc-intake')) {
+        // spinning "Analyzing…" for 3 minutes with nothing to show for it. Read SERVER truth first:
+        // the tab-local activeRuns only holds runs THIS tab has adopted a stream for, so a run
+        // started in another tab or a headless/autonomous run may be absent from it even though the
+        // server just 409'd on it — checking the local set would miss that and poll anyway.
+        await get().refreshActiveRuns()
+        if (blockingRunForIntake(get().globalActive, t)) {
           get().setToast({ msg: `A run is already in progress on ${t} — finish or stop it before analyzing new documents.`, tone: 'info' })
           return
         }
-        // Auto-analyze-on-landing (or an earlier click) already has an intake analysis in flight —
-        // fall through to the same poll loop instead of surfacing an error toast.
+        // Only a racing doc-intake remains — its write IS the plan we want, so fall through to the
+        // same poll loop instead of surfacing an error toast.
       }
       for (let i = 0; i < 12; i++) {
         await new Promise((r) => setTimeout(r, 15_000))
