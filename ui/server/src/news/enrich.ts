@@ -213,7 +213,9 @@ function collectParagraphs(html: string): string[] {
     // (CodeQL js/bad-tag-filter); \b so <scriptx>/</scriptx> isn't mistaken for a real script tag.
     .replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, ' ')
     .replace(/<style\b[\s\S]*?<\/style\b[^>]*>/gi, ' ')
-    .replace(/<(nav|header|footer|aside|form|figure|figcaption)\b[\s\S]*?<\/\1\b[^>]*>/gi, ' ')
+    // dialog = explicit popup markup; template = unrendered app-shell markup (subscribe modals ship in
+    // both) — a paragraph inside either is never article prose, whatever its vocabulary
+    .replace(/<(nav|header|footer|aside|form|figure|figcaption|dialog|template)\b[\s\S]*?<\/\1\b[^>]*>/gi, ' ')
     .replace(/<!--[\s\S]*?-->/g, ' ')
   const seen = new Set<string>()
   const paras: string[] = []
@@ -228,14 +230,75 @@ function collectParagraphs(html: string): string[] {
   return paras
 }
 
+/** STRUCTURED-DATA LANE — the article body a publisher ships as schema.org JSON-LD
+ *  (<script type="application/ld+json"> → NewsArticle.articleBody), plus datePublished. A subscribe /
+ *  consent / newsletter overlay can bury or dilute the RENDERED paragraphs, but it cannot touch this
+ *  block: publishers keep it complete for search engines even while a modal covers the page. This reads
+ *  only what the server actually SENT — no wall is bypassed: a hard paywall truncates or omits
+ *  articleBody in the response exactly like it stubs the visible text, and that still degrades honestly
+ *  (verdict → paywall, then the alternate-outlet / corroboration ladder). Tolerant of the shapes in the
+ *  wild: multiple blocks, top-level arrays, @graph containers, @type arrays, full schema.org IRIs;
+ *  malformed JSON is skipped, never thrown. Exported for the test suite. */
+export function extractJsonLdArticle(html: string): { paras: string[]; published?: string } | undefined {
+  if (!html || !/application\/ld\+json/i.test(html)) return undefined
+  const nodes: Record<string, unknown>[] = []
+  for (const m of html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script\b[^>]*>/gi)) {
+    let parsed: unknown
+    try { parsed = JSON.parse(m[1].trim()) } catch { continue } // one broken block must not cost the others
+    for (const top of Array.isArray(parsed) ? parsed : [parsed]) {
+      if (!top || typeof top !== 'object') continue
+      nodes.push(top as Record<string, unknown>)
+      const graph = (top as Record<string, unknown>)['@graph']
+      if (Array.isArray(graph)) for (const g of graph) if (g && typeof g === 'object') nodes.push(g as Record<string, unknown>)
+    }
+  }
+  // an Article-family node: NewsArticle / ReportageNewsArticle / Article / BlogPosting / …, possibly
+  // as an array of types or a full https://schema.org/NewsArticle IRI
+  const isArticle = (t: unknown): boolean => {
+    const types = Array.isArray(t) ? t : [t]
+    return types.some((x) => typeof x === 'string' && /(?:^|\/)(?:[A-Za-z]*Article|BlogPosting)$/.test(x.trim()))
+  }
+  let body = ''
+  let published: string | undefined
+  for (const n of nodes) {
+    if (!isArticle(n['@type'])) continue
+    const b = typeof n.articleBody === 'string' ? n.articleBody : ''
+    if (b.length > body.length) body = b // several Article nodes → the fullest body wins
+    if (!published && typeof n.datePublished === 'string' && n.datePublished.trim()) published = n.datePublished.trim()
+  }
+  if (!body && !published) return undefined
+  // the body is JSON-decoded plain text with newline separators, occasionally with embedded markup —
+  // strip tags, decode entities, and gate each paragraph on real prose so the SAME chrome filter
+  // (classifyParagraphs) can judge it exactly like rendered paragraphs
+  const paras = body
+    .split(/\n+/)
+    .map((p) => clean(p.replace(/<[^>]+>/g, ' ')))
+    .filter((p) => p.length >= 60 && /[a-z]/i.test(p) && /[.!?]/.test(p))
+  return { paras, published }
+}
+
 /** Pull the readable ARTICLE TEXT (not the page chrome) deterministically, PLUS the page-quality
  *  verdict. The text is what extractReadable always returned — the substantive paragraphs with the
  *  consent/terms/cookie/paywall chrome dropped (news/page-junk.ts). The verdict says what the page IS
  *  when the chrome dominates: an 'interstitial' (the ASX "agree and proceed" wall), a 'paywall' stub,
  *  or 'empty' (a JS shell) — so a caller can refuse to treat what's left as an article at all instead
- *  of ever presenting popup text as THE STORY. Exported for the test suite. */
+ *  of ever presenting popup text as THE STORY.
+ *
+ *  Two lanes compete: the rendered <p> paragraphs, and the schema.org JSON-LD articleBody
+ *  (extractJsonLdArticle). The structured body — junk-tested by the SAME chrome filter — wins when the
+ *  rendered read failed (a popup buried the visible text: the loaded-but-blocked page) or when it holds
+ *  substantially more prose (the visible text is a teaser diluted by the modal). A junk structured body
+ *  can never rescue a junk page: both lanes pass through classifyParagraphs, so the honest paywall /
+ *  interstitial verdict stands when neither holds real prose. Exported for the test suite. */
 export function extractArticleText(html: string): { text: string; verdict: PageTextVerdict } {
   const r = classifyParagraphs(collectParagraphs(html))
+  const ld = extractJsonLdArticle(html)
+  if (ld?.paras.length) {
+    const lr = classifyParagraphs(ld.paras)
+    if (lr.verdict === 'ok' && (r.verdict !== 'ok' || lr.keptChars >= Math.max(400, r.keptChars * 2))) {
+      return { text: lr.kept.join('\n\n').slice(0, 4000), verdict: 'ok' }
+    }
+  }
   return { text: r.kept.join('\n\n').slice(0, 4000), verdict: r.verdict }
 }
 
@@ -251,6 +314,9 @@ export function extractPublished(html: string): string | undefined {
     /<meta[^>]+name=["'][^"']*publish[^"']*["'][^>]+content=["']([^"']+)["']/i,
     /<time[^>]+datetime=["']([^"']+)["']/i,
   ])
+    // last resort: the Article node's own datePublished from the JSON-LD block (properly scoped to an
+    // Article-family node, never a stray "datePublished" string elsewhere on the page)
+    || extractJsonLdArticle(html)?.published
 }
 
 /** Parse an EDGAR filing index page (…-index.htm). Tolerant: any field that isn't found is simply

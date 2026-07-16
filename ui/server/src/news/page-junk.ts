@@ -39,6 +39,15 @@ const CHROME_RE: RegExp[] = [
   /\b(?:agree and proceed|i agree|i accept)\b.{0,60}\b(?:terms|notice|conditions)\b/i,
   /\bjavascript is (?:disabled|required|not enabled)\b|\benable javascript\b|\bbrowser is (?:not |un)supported\b/i,
   /\byour access and use of .{0,40} is (?:entirely )?at your own risk\b/i,
+  // newsletter / engagement nags — the overlay popups that dilute the rendered paragraphs
+  /\bsign up (?:for|to) (?:our|the|a) (?:free )?(?:daily |weekly |morning |breaking[- ]news )?newsletters?\b/i,
+  /\b(?:delivered|sent) (?:straight |right |directly )?to your inbox\b/i,
+  /\bby (?:signing up|subscribing|registering|creating an account),? you (?:agree|accept|consent)\b/i,
+  /\bgift this article\b/i,
+  /\bsupport (?:our|independent|quality|local|fearless) journalism\b.{0,80}\b(?:subscri|donat|contribut)/i,
+  /\b(?:turn off|disable|pause) your ad ?blocker\b/i,
+  /\bthank you for (?:reading|your support)\b.{0,60}\b(?:subscri|regist|sign)/i,
+  /\bfor the best experience,? (?:use|download|open|upgrade|switch)\b/i,
 ]
 
 // paywall / registration-wall phrasing — its own set so the verdict can name the cause
@@ -49,7 +58,21 @@ const PAYWALL_RE: RegExp[] = [
   /\bsubscription (?:is )?required\b/i,
   /\bthis (?:article|content|story) is (?:reserved|exclusive|available) (?:for|to) (?:our )?(?:subscribers|members)\b/i,
   /\bunlock (?:unlimited|full) access\b/i,
+  // subscription-OFFER modal copy — the "$1.99 your first month" overlay that covers a loaded article
+  /\b(?:get|enjoy|claim) unlimited (?:digital )?access\b/i,
+  /\bclaim (?:this|your) offer\b/i,
+  /\bstart (?:your|a) (?:free )?trial\b/i,
+  /\b(?:reached|read) (?:your|the) .{0,30}(?:article|story) limit\b/i,
+  /\bfree articles? (?:remaining|left)\b/i,
+  /\balready have an account\b/i,
 ]
+
+// two-signal combination: a money-per-period price counts as paywall chrome only NEXT TO
+// subscription-offer phrasing, so an article REPORTING a price ("raised its standard plan to
+// $15.49 a month") survives. Dropped as chrome but deliberately NOT counted as a paywall hit —
+// a pricing paragraph must never flip a thin page's verdict to 'paywall' on its own.
+const OFFER_PRICE_RE = /[$€£₹¥]\s?\d[\d.,]*\s*(?:\/\s*|per |a |an |(?:for )?(?:your |the )?first )(?:week|month|year|annum|quarter)\b/i
+const OFFER_CTA_RE = /\b(?:subscri|unlimited access|all[- ]access|introductory|billed (?:annually|monthly)|cancel (?:anytime|at any time)|free trial|sign up|special offer|limited[- ]time|sale ends)\b/i
 
 // two-signal combination: terms-of-use vocabulary counts as chrome only NEXT TO agreement/consent
 // phrasing, so an article REPORTING on someone's terms of use survives
@@ -67,6 +90,7 @@ export function isBoilerplateParagraph(p: string): boolean {
   for (const re of CHROME_RE) if (re.test(t)) return true
   for (const re of PAYWALL_RE) if (re.test(t)) return true
   if (TERMS_RE.test(t) && CONSENT_RE.test(t)) return true
+  if (OFFER_PRICE_RE.test(t) && OFFER_CTA_RE.test(t)) return true
   return false
 }
 
