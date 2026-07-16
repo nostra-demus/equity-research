@@ -206,9 +206,15 @@ export function extractSummary(html: string): string | undefined {
  *  prose whatever their vocabulary. A depth-counting scan, because a non-greedy pair regex stops at
  *  the FIRST close tag and leaks the outer element's tail, while a greedy one would eat the real
  *  article between two separate popups. An UNCLOSED container swallows the rest of the page — the
- *  conservative read for markup that declared itself a popup and never came back. */
+ *  conservative read for markup that declared itself a popup and never came back. Scripts/styles/
+ *  comments are stripped FIRST: a stray "<dialog"/"<template" inside a JS string literal or an HTML
+ *  comment would otherwise be matched as a real (possibly unclosed) tag and swallow the rest of the
+ *  page's actual article text. */
 function stripPopupContainers(html: string): string {
   let out = html
+    .replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, ' ')
+    .replace(/<style\b[\s\S]*?<\/style\b[^>]*>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
   for (const tag of ['dialog', 'template'] as const) {
     if (!new RegExp(`<${tag}\\b`, 'i').test(out)) continue
     const re = new RegExp(`<\\/?${tag}\\b[^>]*>`, 'gi')
@@ -285,7 +291,7 @@ function collectJsonLdBlocks(html: string): string[] {
       if (!c || /[\s>/]/.test(c)) break
     }
     if (close < 0) break
-    if (/type\s*=\s*["']?application\/ld\+json\b/.test(lower.slice(start, tagEnd))) blocks.push(html.slice(tagEnd + 1, close))
+    if (/(?:\s|^)type\s*=\s*["']?application\/ld\+json\b/.test(lower.slice(start, tagEnd))) blocks.push(html.slice(tagEnd + 1, close))
     i = close + 8
   }
   return blocks
@@ -299,9 +305,16 @@ function collectJsonLdBlocks(html: string): string[] {
  *  articleBody in the response exactly like it stubs the visible text, and that still degrades honestly
  *  (verdict → paywall, then the alternate-outlet / corroboration ladder). Tolerant of the shapes in the
  *  wild: multiple blocks, top-level arrays, @graph containers, @type arrays, full schema.org IRIs;
- *  malformed JSON is skipped, never thrown. Exported for the test suite. */
+ *  malformed JSON is skipped, never thrown. Exported for the test suite.
+ *
+ *  Single-entry memoized on the exact html string: extractArticleText and extractPublished both call
+ *  this on the SAME page body per enrichment, and the regex index-scan + JSON.parse work is real cost
+ *  worth skipping on the guaranteed-identical second call. */
+let ldCacheHtml: string | undefined
+let ldCacheResult: { paras: string[]; published?: string } | undefined
 export function extractJsonLdArticle(html: string): { paras: string[]; published?: string } | undefined {
   if (!html || !/application\/ld\+json/i.test(html)) return undefined
+  if (html === ldCacheHtml) return ldCacheResult
   const nodes: Record<string, unknown>[] = []
   for (const block of collectJsonLdBlocks(html)) {
     let parsed: unknown
@@ -327,15 +340,23 @@ export function extractJsonLdArticle(html: string): { paras: string[]; published
     if (b.length > body.length) body = b // several Article nodes → the fullest body wins
     if (!published && typeof n.datePublished === 'string' && n.datePublished.trim()) published = n.datePublished.trim()
   }
-  if (!body && !published) return undefined
+  if (!body && !published) {
+    ldCacheHtml = html
+    ldCacheResult = undefined
+    return undefined
+  }
   // the body is JSON-decoded plain text with newline separators, occasionally with embedded markup —
   // strip tags, decode entities, and gate each paragraph on real prose so the SAME chrome filter
-  // (classifyParagraphs) can judge it exactly like rendered paragraphs
+  // (classifyParagraphs) can judge it exactly like rendered paragraphs. The tag regex requires a
+  // letter/slash right after "<" so a comparison operator in financial prose ("margin < 10, ROIC > 20")
+  // isn't mistaken for an open tag and doesn't swallow everything up to the next real ">".
   const paras = body
     .split(/\n+/)
-    .map((p) => clean(p.replace(/<[^>]+>/g, ' ')))
+    .map((p) => clean(p.replace(/<[a-zA-Z/][^>]*>/g, ' ')))
     .filter((p) => p.length >= 60 && /[a-z]/i.test(p) && /[.!?]/.test(p))
-  return { paras, published }
+  ldCacheHtml = html
+  ldCacheResult = { paras, published }
+  return ldCacheResult
 }
 
 /** Pull the readable ARTICLE TEXT (not the page chrome) deterministically, PLUS the page-quality
