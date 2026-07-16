@@ -47,6 +47,14 @@
   inherits: true;
   initial-value: #1a1206;
 }
+/* Registered for reason (2), exactly like --accent-ink: it is never read by the globe, but it is the ink on
+   a filled button, so an unregistered ink going invalid-at-computed-value-time would resolve the INHERITED
+   `color` to --text and strand it on the armed fill. */
+@property --accent-bright-ink {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #1a1206;
+}
 
 :root {
   color-scheme: dark;
@@ -78,6 +86,13 @@
      material rather than as near-black parked on a color. Hard constraint: every scope must clear WCAG AA
      4.5:1 against BOTH --accent and --accent-soft — the hover states swap the fill, not the ink. */
   --accent-ink: #1a1206;
+  /* Ink for text sitting ON an --accent-bright fill (the .evrail__scanbtn--armed confirm step). A SECOND ink
+     is needed because --accent-bright is the high-emphasis shade and flips side across the themes: it is the
+     LIGHTEST shade in dark (so the ink stays dark, matching --accent-ink) and the DARKEST in light (so the
+     ink must go light, or dark-on-dark fails AA — measured 2.55:1 on the light screener before this token).
+     That flip is per-theme, so it is a token, not a component branch (DESIGN.md §1). Hard constraint: every
+     scope clears WCAG AA 4.5:1 against --accent-bright. */
+  --accent-bright-ink: #1a1206;
   --accent-glow: rgba(224, 163, 62, 0.55);
   --accent-wash: rgba(224, 163, 62, 0.12);
   --accent-wash-soft: rgba(224, 163, 62, 0.06);
@@ -162,6 +177,7 @@
   --accent-deep: #2f9aa5;
   --accent-soft: #7adde6;
   --accent-ink: #07161a; /* dark teal, not the :root brown — same role, this scope's hue */
+  --accent-bright-ink: #07161a; /* dark theme: --accent-bright is the LIGHTEST teal, so the ink stays dark */
   --accent-glow: rgba(63, 198, 210, 0.55);
   --accent-wash: rgba(63, 198, 210, 0.12);
   --accent-wash-soft: rgba(63, 198, 210, 0.06);
@@ -186,6 +202,8 @@
      the ~11% the grandfathered amber ink sits at. Registered above (reason 2) so a malformed manifest
      color falls back to :root's ink instead of collapsing this to --text. */
   --accent-ink: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 12%, black);
+  /* dark theme: --accent-bright is the manifest color lifted toward white, so this ink tracks --accent-ink */
+  --accent-bright-ink: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 12%, black);
   --accent-glow: color-mix(in srgb, var(--accent) 55%, transparent);
   --accent-wash: color-mix(in srgb, var(--accent) 12%, transparent);
   --accent-wash-soft: color-mix(in srgb, var(--accent) 6%, transparent);
@@ -203,7 +221,10 @@
    a brighter-than-white impossibility). Text targets WCAG AA on every surface;
    the amber/teal accents are deepened so they read on light (where the dark
    theme used their lighter variants), and "bright" becomes the DARK gold/teal
-   reserved for high-emphasis TEXT while "accent" stays the readable fill.
+   carrying high-emphasis TEXT and the one high-emphasis FILL (the armed confirm
+   step) while "accent" stays the readable fill. Because "bright" is the lightest
+   shade in dark and the darkest in light, anything sitting ON it inks from
+   --accent-bright-ink, which inverts across the themes with it.
    ========================================================================== */
 [data-theme='light'] {
   color-scheme: light;
@@ -225,6 +246,7 @@
   --accent-deep: #9c6c16;
   --accent-soft: #c8922c; /* PALER gold — fill-button hover stays light enough for dark text */
   --accent-ink: #1a1206; /* the light fills are deeper gold, but still hold the dark ink at 5.16:1 */
+  --accent-bright-ink: #f6efe4; /* pale cream — light's --accent-bright is the DARKEST gold, so the ink inverts (5.08:1) */
   --accent-glow: rgba(178, 125, 28, 0.42);
   --accent-wash: rgba(178, 125, 28, 0.15);
   --accent-wash-soft: rgba(178, 125, 28, 0.075);
@@ -284,6 +306,7 @@
   --accent-deep: #0c7c8a;
   --accent-soft: #16a6b8;
   --accent-ink: #07161a;
+  --accent-bright-ink: #e2f1f3; /* pale teal — inverted for light's darkest teal (6.23:1, was 2.55:1) */
   --accent-glow: rgba(14, 140, 156, 0.42);
   --accent-wash: rgba(14, 140, 156, 0.15);
   --accent-wash-soft: rgba(14, 140, 156, 0.075);
@@ -302,6 +325,9 @@
   --accent-deep: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 75%, black);
   --accent-soft: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 80%, white);
   --accent-ink: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 12%, black);
+  /* the inverted twin: 12% of the manifest color over WHITE, mirroring the ink-over-black above, so the
+     armed fill reads as one material in its own hue instead of white parked on a color (7.42:1 on violet) */
+  --accent-bright-ink: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 12%, white);
   --accent-glow: color-mix(in srgb, var(--accent) 42%, transparent);
   --accent-wash: color-mix(in srgb, var(--accent) 15%, transparent);
   --accent-wash-soft: color-mix(in srgb, var(--accent) 7.5%, transparent);
