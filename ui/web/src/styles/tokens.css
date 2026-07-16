@@ -10,12 +10,23 @@
    with the theme so all four combinations resolve correctly.
    ========================================================================== */
 
-/* The three accent tokens the 3D globe reads through getComputedStyle (useGlobeColors.ts) are
-   REGISTERED so a derived, color-mix()-based swarm palette (below) resolves to a CONCRETE color
-   at computed-value time — an unregistered custom property would hand the bridge the literal
-   "color-mix(…)" string. Note the resolved form is CSS Color 4 `color(srgb r g b)`, not rgb();
-   useGlobeColors.parseCssColor exists to parse exactly that. Hand-tuned hex palettes are
-   unaffected. */
+/* Registering a token buys TWO things, and the accent family needs both.
+   (1) SERIALIZATION, for the three tokens the 3D globe reads through getComputedStyle
+   (useGlobeColors.ts): registration makes a derived, color-mix()-based swarm palette (below)
+   resolve to a CONCRETE color at computed-value time — an unregistered custom property would hand
+   the bridge the literal "color-mix(…)" string. Note the resolved form is CSS Color 4
+   `color(srgb r g b)`, not rgb(); useGlobeColors.parseCssColor exists to parse exactly that.
+   (2) TYPE-CHECKING, which is what makes the derived family FAIL CLOSED. `syntax: '<color>'` makes
+   the browser discard a value that is not a color, so the token inherits :root's hand-tuned one.
+   That matters because a swarm's manifest color is author-written and reaches the CSS unvalidated
+   (SWARM.md `color:` → swarms.ts `str(data.color, …)` accepts any non-empty string → App.tsx
+   injects it verbatim as --swarm-color). A typo'd `color: "#8b5cf"` makes every color-mix() off it
+   invalid: REGISTERED tokens fall back to the research palette, unregistered ones keep the dead
+   literal and collapse when used. --accent-ink is registered for reason (2) alone — the globe never
+   reads it, but it is the ink on a filled button, and an unregistered ink is invalid-at-
+   computed-value-time, which for the INHERITED `color` property resolves to --text: near-white on
+   an amber fill (measured: 1.88:1). Registered, the same input gives 8.36:1.
+   Hand-tuned hex palettes are unaffected either way. */
 @property --accent {
   syntax: '<color>';
   inherits: true;
@@ -30,6 +41,11 @@
   syntax: '<color>';
   inherits: true;
   initial-value: #b9842c;
+}
+@property --accent-ink {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #1a1206;
 }
 
 :root {
@@ -167,9 +183,8 @@
   --accent-deep: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 80%, black);
   --accent-soft: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 65%, white);
   /* On-fill ink, derived like the rest of the family: a very dark tint of the manifest color, mirroring
-     the ~11% the grandfathered amber ink sits at. Unlike --accent/--accent-bright/--accent-deep this one
-     needs no @property registration — the globe never reads it, and a color-mix() resolves fine when a
-     plain custom property is consumed directly as a color. */
+     the ~11% the grandfathered amber ink sits at. Registered above (reason 2) so a malformed manifest
+     color falls back to :root's ink instead of collapsing this to --text. */
   --accent-ink: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 12%, black);
   --accent-glow: color-mix(in srgb, var(--accent) 55%, transparent);
   --accent-wash: color-mix(in srgb, var(--accent) 12%, transparent);

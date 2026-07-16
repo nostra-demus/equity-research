@@ -39,11 +39,21 @@ drifting apart. "It feels right" is part of done, next to "it works".
   concrete `color(srgb r g b)` at computed-value time — the one form
   `useGlobeColors.parseCssColor` handles. An oklab/oklch mix would serialize in a space the
   globe's parser does not cover. Do not change the mix space.
+- Registration is not only for the globe: `syntax: '<color>'` also TYPE-CHECKS the token, and that
+  is what makes a derived value fail closed. The manifest color is author-written and reaches the
+  CSS unvalidated (`SWARM.md` `color:` → `swarms.ts` accepts any non-empty string → `App.tsx`
+  injects it), so a typo'd `color: "#8b5cf"` makes every `color-mix()` off it invalid. A registered
+  token discards the bad value and inherits the research palette; an UNREGISTERED one keeps the dead
+  literal and collapses at use — for the inherited `color` property that means the ink resolves to
+  `--text` (measured: near-white on amber, 1.88:1). So any derived accent token consumed as text or
+  fill gets registered — `--accent-ink` is registered for this reason alone.
 - Adding a swarm = ONE `color:` line in `.claude/agents/<swarm>/SWARM.md` (commodity declares
   `color: "#8b5cf6"`). Zero component or CSS edits (CLAUDE.md §26). If a new swarm seems to need
   a CSS edit, the derivation block is wrong — fix it there, for every swarm at once.
 - Before the swarm list resolves, `--swarm-color` is absent and the family falls back to research
-  amber. That fallback is deliberate — fail closed (see §5).
+  amber. That fallback is deliberate — fail closed (see §5). The `var(--swarm-color, …)` fallback
+  covers the token being ABSENT; registration (above) is what covers it being INVALID. A derived
+  token needs both, and the two are not interchangeable.
 
 ## 3. Motion
 
