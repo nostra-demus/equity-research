@@ -81,7 +81,11 @@ function ScopeDropdown({ label, total, options, sel, onChange, open, onOpen, dis
   )
 }
 
-type View = 'ranked' | 'latest' | 'all'
+// The wire list has two independent axes (three tabs used to conflate them): WHICH set — the kept wire
+// vs Everything (the raw firehose incl. the low-signal `drop` tail) — and the SORT order — Top (by score)
+// vs Newest (by date). "Latest" was only the kept wire sorted by date, so it collapses into a sort of Wire.
+type ListTab = 'wire' | 'all'
+type SortKey = 'top' | 'newest'
 
 const agoMin = (iso?: string | null) => (iso ? Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60_000)) : null)
 // a friendly label for a YYYY-MM-DD archive day — e.g. "11 Jun 2026"
@@ -280,7 +284,17 @@ export function EventRail() {
   const runArchiveSearch = useStore((s) => s.scRunArchiveSearch)
   const loadMoreArchive = useStore((s) => s.scLoadMoreArchive)
   const loadFacets = useStore((s) => s.scLoadFacets)
-  const [view, setView] = useState<View>(cfg.defaultView === 'latest' && !cfg.flow ? 'latest' : 'ranked')
+  // WHICH set of events (kept wire vs Everything). Defaults to the wire; not persisted, matching the old
+  // default that always opened on a kept-events view, never Everything.
+  const [tab, setTab] = useState<ListTab>('wire')
+  // SORT order — persisted per swarm so a reader's choice sticks. The old per-swarm default view maps 1:1:
+  // a wire that defaulted to 'latest' (a non-flow subject wire) now defaults to Newest; everything else Top.
+  const sortKey = `wire.sort.${cfg.swarmId}`
+  const defaultSort: SortKey = cfg.defaultView === 'latest' && !cfg.flow ? 'newest' : 'top'
+  const [sort, setSort] = useState<SortKey>(() => {
+    try { const v = localStorage.getItem(sortKey); return v === 'top' || v === 'newest' ? v : defaultSort } catch { return defaultSort }
+  })
+  const pickSort = (s: SortKey) => { setSort(s); try { localStorage.setItem(sortKey, s) } catch { /* private mode */ } }
   // multi-select: empty = show everything; otherwise show the UNION of the picked scopes
   const [scopeFilter, setScopeFilter] = useState<Set<ScopeId>>(new Set())
   // subject-grouped wires: the UNION of picked subject chips (GOLD / SUGAR / … / Other); empty = all
@@ -305,7 +319,9 @@ export function EventRail() {
     next.has(s) ? next.delete(s) : next.add(s)
     setScopeFilter(next)
   }
-  const pickView = (v: View) => { setView(v); if (themesOpen) closeThemes(); if (ideasOpen) closeIdeas(); if (calendarOpen) closeCalendar() }
+  const pickTab = (t: ListTab) => { setTab(t); if (themesOpen) closeThemes(); if (ideasOpen) closeIdeas(); if (calendarOpen) closeCalendar() }
+  // the list surfaces (Wire / Everything) are showing when no full-pane surface (Themes / Calendar / Ideas) is open
+  const listActive = !themesOpen && !ideasOpen && !calendarOpen
   // The "Best ideas" tab is screener-only (the flow wire) AND deploy-skew-safe: it shows only when the
   // server positively sends the ideas array (a capability check, never a swarm-id literal — DESIGN.md §5/§7).
   const ideasAvailable = cfg.flow && Array.isArray(scBoard?.ideas)
@@ -370,15 +386,18 @@ export function EventRail() {
   // number of distinct kept STORIES (after story-collapse) — what the "Ranked" / "Latest" segments count
   const keptCount = useMemo(() => groupByDedup(items.filter((i) => i.band !== 'drop')).length, [items])
 
-  // the wire, collapsed into one entry per story, sorted by the current view. Ranked → corroboration-
-  // boosted score (a multi-source story rises); Latest & Everything → newest-first (the live stream).
+  // the wire, collapsed into one entry per story. WHICH set: the kept wire, or Everything (raw firehose
+  // incl. the low-signal `drop` tail). SORT: Top → corroboration-boosted score (a multi-source story
+  // rises); Newest → newest-first (the live stream). The axes are independent, so any set reads either way.
   const groups = useMemo(() => {
-    const inBand = view === 'all' ? items : items.filter((i) => i.band !== 'drop')
+    const inBand = tab === 'all' ? items : items.filter((i) => i.band !== 'drop')
     const gs = groupByDedup(inBand)
-    if (view === 'ranked') gs.sort((a, b) => b.effectiveScore - a.effectiveScore || (a.rep.ts < b.rep.ts ? 1 : -1))
-    else gs.sort((a, b) => (a.rep.ts < b.rep.ts ? 1 : -1)) // latest + everything: newest first
+    // Return 0 on equal ts so the comparator is a valid total order: returning -1 for equal elements breaks
+    // antisymmetry (compare(a,b) and compare(b,a) both -1) → an unstable / implementation-defined sort order.
+    if (sort === 'top') gs.sort((a, b) => b.effectiveScore - a.effectiveScore || (a.rep.ts === b.rep.ts ? 0 : a.rep.ts < b.rep.ts ? 1 : -1))
+    else gs.sort((a, b) => (a.rep.ts === b.rep.ts ? 0 : a.rep.ts < b.rep.ts ? 1 : -1)) // newest first
     return gs
-  }, [items, view])
+  }, [items, tab, sort])
 
   // story groups minus the ones the user set aside (the rep carries the group's shelved state)
   const baseGroups = useMemo(() => (showShelved ? groups : groups.filter((g) => !shelvedEvents.has(g.rep.event_id))), [groups, shelvedEvents, showShelved])
@@ -563,17 +582,31 @@ export function EventRail() {
           <button type="button" role="radio" aria-checked={calendarOpen} className={`evrail__segbtn${calendarOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => (calendarOpen ? closeCalendar() : openCalendar())} title="What's scheduled ahead — upcoming earnings dates and macro releases (a forward calendar)">
             Calendar
           </button>
-          <button type="button" role="radio" aria-checked={view === 'ranked' && !themesOpen && !ideasOpen && !calendarOpen} className={`evrail__segbtn${view === 'ranked' && !themesOpen && !ideasOpen && !calendarOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('ranked')} title="The events worth a look, most important first">
-            Ranked{keptCount ? ` · ${keptCount}` : ''}
+          <button type="button" role="radio" aria-checked={tab === 'wire' && listActive} className={`evrail__segbtn${tab === 'wire' && listActive ? ' evrail__segbtn--on' : ''}`} onClick={() => pickTab('wire')} title="The events worth a look — sort by Top (most important) or Newest">
+            Wire{keptCount ? ` · ${keptCount}` : ''}
           </button>
-          <button type="button" role="radio" aria-checked={view === 'latest' && !themesOpen && !ideasOpen && !calendarOpen} className={`evrail__segbtn${view === 'latest' && !themesOpen && !ideasOpen && !calendarOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('latest')} title="The same events, newest first — a live stream as news lands">
-            {status?.enabled && <span className="evrail__segpulse" aria-hidden />}
-            Latest
-          </button>
-          <button type="button" role="radio" aria-checked={view === 'all' && !themesOpen && !ideasOpen && !calendarOpen} className={`evrail__segbtn${view === 'all' && !themesOpen && !ideasOpen && !calendarOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('all')} title={`The full firehose, newest first${items.length ? ` (${items.length})` : ''} — includes the low-signal tail`}>
+          <button type="button" role="radio" aria-checked={tab === 'all' && listActive} className={`evrail__segbtn${tab === 'all' && listActive ? ' evrail__segbtn--on' : ''}`} onClick={() => pickTab('all')} title={`The full firehose${items.length ? ` (${items.length})` : ''} — includes the low-signal tail; sort by Top or Newest`}>
             Everything
           </button>
         </div>
+
+        {/* SORT — the second axis, split out from the old Ranked/Latest tabs. Shown only on the list
+            surfaces (Wire / Everything); Themes / Calendar / Ideas carry their own order. The live dot
+            rides on Newest (where a fresh item lands at the top), preserving the old "Latest" stream cue. */}
+        {listActive && (
+          <div className="evrail__sortrow">
+            <span className="evrail__sortlabel" aria-hidden>Sort</span>
+            <div className="evrail__sort" role="radiogroup" aria-label="Sort the wire">
+              <button type="button" role="radio" aria-checked={sort === 'top'} className={`evrail__sortbtn${sort === 'top' ? ' evrail__sortbtn--on' : ''}`} onClick={() => pickSort('top')} title="Most important first — by score (a multi-source story ranks higher)">
+                Top
+              </button>
+              <button type="button" role="radio" aria-checked={sort === 'newest'} className={`evrail__sortbtn${sort === 'newest' ? ' evrail__sortbtn--on' : ''}`} onClick={() => pickSort('newest')} title="Newest first — a live stream as news lands">
+                {status?.enabled && <span className="evrail__segpulse" aria-hidden />}
+                Newest
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* SCOPE filter — tap to add/remove (multi-select); company-specific vs broad context.
             Subject-grouped wires show their canonical SUBJECT chips instead (same look, same rules). */}
@@ -707,8 +740,8 @@ export function EventRail() {
               : broadActive || filtersActive(filters) || (subjectMode && subjectSel.size > 0)
               ? 'Nothing matches these filters right now — tap All or clear the filters to see the rest.'
               : items.length
-                ? view === 'ranked'
-                  ? 'Nothing ranked yet — switch to Everything to see the full wire.'
+                ? tab === 'wire'
+                  ? 'Nothing on the wire yet — switch to Everything to see the full firehose.'
                   : 'Nothing here yet — new events appear the moment the scanner scores them.'
                 : subjectMode && rawItems.length
                   ? 'Nothing on this wire in the loaded window — the scanner keeps watching; use the filters to search all history.'

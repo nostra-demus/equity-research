@@ -56,7 +56,8 @@ These need no realized returns and should always be computed when records exist:
 - average verification integrity score; count of verify verdicts (Clean/Minor/Material/Failed);
 - average pre-mortem confidence haircut; count of pre-mortem verdicts;
 - edge-score distribution from expectations-gap;
-- unsupported-claim / Material/Failed-verification rate (a leading quality signal even before outcomes).
+- unsupported-claim / Material/Failed-verification rate (a leading quality signal even before outcomes);
+- **error-taxonomy tally** — across every review record's `error_taxonomy` array (`CLAUDE.md` §20, `DECISION_LEDGER.md` §12: `missing data`, `stale data`, `bad source`, `bad extraction`, `bad math`, `bad base rate`, `bad causal inference`, `management deception`, `exogenous shock`, `timing error`, `valuation multiple error`, `ignored red flag`, plus the 5 feedback-loop tags `false positive`/`false negative`/`thesis drift`/`catalyst delay`/`beta confusion`), count occurrences of each tag into `error_taxonomy_distribution`. This is a **flat count, not a rate** — like the screener's `error_taxonomy_distribution` (`scripts/screener_calibrate.py`), it is honest at any N and is never gated behind the §3/§4 resolved-history floors; an empty distribution with `n_reviews > 0` truthfully means no reviewed call has gone wrong yet, not "not computed." Do not slice this by module or thesis type yet — with a handful of reviews any slice would be noise; revisit once volume supports it. Name the leading tag(s) (if any tag count ≥ 2) in the human summary (Step 9) — all tags tied for the highest count, not an arbitrary pick among them — this is the one concrete "why the engine is wrong" signal CLAUDE.md §20 exists to produce, and it must not go unread just because Brier is still pre-data.
 
 ## 6. Per-module calibration roll-up (§13)
 
@@ -95,19 +96,20 @@ Write a dated pair under `analyses/performance/` (create it): `<TODAY>_decision_
   "calibration_by_forecast_type": {},
   "confidence_calibration": {},
   "process_metrics": {},
+  "error_taxonomy_distribution": {},
   "module_calibration": {},
   "data_sufficiency_note": "",
   "verdict": ""
 }
 ```
 
-`calibration_by_module` / `calibration_by_forecast_type` are the §4 quantitative slices (Brier score + hit rate + reliability, keyed by `owner_module` value / `forecast_type` value, each `"insufficient (N=k)"` below its own floor) — distinct from `module_calibration`, which is the §6/§13 qualitative roll-up of `module_calibration_notes` from review records (which module a reviewer judged "most predictive," not a computed score).
+`calibration_by_module` / `calibration_by_forecast_type` are the §4 quantitative slices (Brier score + hit rate + reliability, keyed by `owner_module` value / `forecast_type` value, each `"insufficient (N=k)"` below its own floor) — distinct from `module_calibration`, which is the §6/§13 qualitative roll-up of `module_calibration_notes` from review records (which module a reviewer judged "most predictive," not a computed score). `error_taxonomy_distribution` is the §5 flat tally (`{tag: count}` across every review's `error_taxonomy` array) — always populated (`{}` if no review has tagged an error yet), never subject to the resolved-forecast floor, and never omitted from the JSON even when every other calibration field is `null`/`{}`.
 
 Use `{}`/`null`/`"insufficient (N=k)"` for anything the data does not yet support. Validate: `python3 -m json.tool "<json_file>" >/tmp/calib_check.json`. Fix if invalid.
 
 ## 9. Human summary + git
 
-Print: scope · N decisions / reviews / resolved forecasts · data-sufficiency verdict · the headline numbers that ARE supported (basket distribution, process metrics; cohort spread + Brier only if above the floor) · the single most useful read · output paths. Then commit straight to `main` (add only `analyses/performance/<TODAY>_*`), message `Calibrate ledger: <scope> — <verdict> (N=<n_decisions> decisions, <n_reviews> reviews)`, and push. Report the SHA.
+Print: scope · N decisions / reviews / resolved forecasts · data-sufficiency verdict · the headline numbers that ARE supported (basket distribution, process metrics; cohort spread + Brier only if above the floor) · the leading error-taxonomy tag(s) from `error_taxonomy_distribution` if any tag count ≥ 2 (never gated by the floor — this can be the single useful read even in a Pre-data run) · the single most useful read · output paths. Then commit straight to `main` (add only `analyses/performance/<TODAY>_*`), message `Calibrate ledger: <scope> — <verdict> (N=<n_decisions> decisions, <n_reviews> reviews)`, and push. Report the SHA.
 
 ---
 
