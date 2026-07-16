@@ -153,6 +153,23 @@ The plan the server serves is therefore always roster-consistent, even if the co
   force a rerun of it (CLAUDE.md §4; `EXTERNAL_DATA.md` §4). It still appears as a `new_doc` and the
   floor still marks the run stale; the *recommended action* is calibrated to the tier.
 - A filing (tier 1–3) that changes a number an orb consumes clears the gate readily.
+- A **screener-bridged wire event** (`screener_event_<EVENT_ID>.md`, written by the cockpit's
+  "Send to research" action — `ui/server/src/research-bridge.ts`) self-declares **tier 10** (dated web
+  source, unverified) in its header, exactly as the handoff memo self-declares tier 9. Treat it like
+  any other tier-10 web input: it appears as a `new_doc`, the floor marks the run stale, and a single
+  uncorroborated wire claim defaults to `note_only` — unless a filing or a second **independent**
+  source in the pool backs the same fact (the note's "Related wire coverage" section lists
+  corroboration leads to check). Independence is by ORIGIN, not by file: the note's own "Screener
+  enrichment" section (the engine's inference from the same article — §6 level 1, never citable as
+  the source), another outlet's syndicated copy of the same story (the note records its
+  `Story cluster` id; the bridge already refuses to write two notes for one cluster), and a
+  `screener_thesis_*.md` handoff memo built on the same event all share one origin — together they
+  are ONE source, not corroboration. Routing is **manual-first**: a human sends each event from the
+  reader, and those sends (logged in the engine's bridge ledger with score and outcome) are the
+  training data for the automatic ticker-match bridge, which stays OFF until enabled
+  (`SCREENER_RESEARCH_BRIDGE=1`). A fresh manual send also triggers this intake analysis
+  automatically — the send is the §24 consent for the cheap advisory scan; any re-run stays a
+  separate human click.
 
 ---
 

@@ -332,6 +332,13 @@ export interface EventEnrichment {
   read_from?: { kind: 'filing_doc' | 'alternate'; url?: string; domain?: string; source_name?: string }
 }
 
+// ---- screener wire → research data bridge (ui/server/src/research-bridge.ts) ----
+// A tracked subject this event has already been routed to (a note in its data/<TICKER>/ pool).
+export interface EventResearchLink {
+  ticker: string
+  path: string
+}
+
 // ---- screener card feedback (ui/server/src/screener-feedback.ts is the source of truth) ----
 export type FeedbackType = 'irrelevant' | 'score_too_high' | 'score_too_low' | 'wrong_company' | 'wrong_sector' | 'duplicate_stale' | 'should_be_higher' | 'relevant' | 'other'
 export interface FeedbackSubmitInput {

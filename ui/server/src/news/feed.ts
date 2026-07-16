@@ -155,6 +155,35 @@ export function listFirehoseDates(repoRoot: string, archiveDir = ''): string[] {
   return [...dates].sort((a, b) => (a < b ? 1 : -1)) // newest-first
 }
 
+/** Find ONE stored wire item by event id — a cheap line-scan (substring match first; JSON.parse only
+ *  the matching line), walking the date-rotated firehose newest-first across the local inbox AND the
+ *  Drive archive. The default depth (400 dates) mirrors searchFeed's maxDaysScan, so anything the
+ *  reader's archive search can DISPLAY can also be found here. Server-authoritative lookup for
+ *  consumers that must never trust client-supplied event fields (the research bridge). Never throws. */
+export function findFeedItemByEventId(
+  repoRoot: string,
+  eventId: string,
+  opts: { archiveDir?: string; maxDates?: number } = {},
+): FeedItem | null {
+  const archiveDir = opts.archiveDir || ''
+  const maxDates = Math.max(1, opts.maxDates ?? 400)
+  const needle = `"${eventId}"`
+  for (const date of listFirehoseDates(repoRoot, archiveDir).slice(0, maxDates)) {
+    const text = readFirehoseText(repoRoot, date, archiveDir)
+    if (text == null || !text.includes(eventId)) continue
+    for (const ln of text.split('\n')) {
+      if (!ln.includes(needle)) continue
+      try {
+        const o = JSON.parse(ln)
+        if (o && typeof o === 'object' && !Array.isArray(o) && o.kind === 'item' && o.event_id === eventId) return hydrate(o as FeedItem)
+      } catch {
+        /* corrupt line — keep scanning */
+      }
+    }
+  }
+  return null
+}
+
 function countItemLines(fp: string): number {
   try {
     let n = 0
