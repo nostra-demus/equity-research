@@ -1,0 +1,111 @@
+{
+  "agents": [
+    {
+      "agent": "screener-relevance",
+      "model": "claude-sonnet-5",
+      "calls": 5,
+      "usage": {
+        "input_tokens": 10,
+        "output_tokens": 7719,
+        "cache_read_input_tokens": 227496,
+        "cache_creation_input_tokens": 72873,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 72873,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.45733755,
+      "runtime_ms": 0,
+      "module": "screener/signal-gate"
+    },
+    {
+      "agent": "screener-novelty",
+      "model": "claude-sonnet-5",
+      "calls": 5,
+      "usage": {
+        "input_tokens": 10,
+        "output_tokens": 2954,
+        "cache_read_input_tokens": 223185,
+        "cache_creation_input_tokens": 61991,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 61991,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.34376175,
+      "runtime_ms": 0,
+      "module": "screener/signal-gate"
+    },
+    {
+      "agent": "screener-signal-synthesis",
+      "model": "claude-sonnet-5",
+      "calls": 14,
+      "usage": {
+        "input_tokens": 28,
+        "output_tokens": 7768,
+        "cache_read_input_tokens": 1032241,
+        "cache_creation_input_tokens": 97614,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 97614,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.7923288,
+      "runtime_ms": 0,
+      "module": "screener/signal-gate"
+    },
+    {
+      "agent": "screener-intake-gate0",
+      "model": "claude-sonnet-5",
+      "calls": 5,
+      "usage": {
+        "input_tokens": 10,
+        "output_tokens": 2255,
+        "cache_read_input_tokens": 214187,
+        "cache_creation_input_tokens": 57209,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 57209,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.31264485,
+      "runtime_ms": 0,
+      "module": "screener/signal-gate"
+    },
+    {
+      "agent": "screener-generic-media-detector",
+      "model": "claude-sonnet-5",
+      "calls": 3,
+      "usage": {
+        "input_tokens": 6,
+        "output_tokens": 718,
+        "cache_read_input_tokens": 95046,
+        "cache_creation_input_tokens": 65501,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 65501,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.28493055,
+      "runtime_ms": 0,
+      "module": "screener/signal-gate"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 27,
+    "usage": {
+      "input_tokens": 54,
+      "output_tokens": 7809,
+      "cache_read_input_tokens": 2250063,
+      "cache_creation_input_tokens": 73233,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 73233
+      }
+    },
+    "cost": 1.2317139,
+    "runtime_ms": 0
+  }
+}
