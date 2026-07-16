@@ -1687,18 +1687,33 @@ app.post('/api/screener/event/:eventId/send-to-research', { config: { rateLimit:
   }
   const { user, userVia } = identify(req)
   const item = findWireItem(REPO_ROOT, parsed.data.eventId, { archiveDir: NEWS.newsArchiveDir })
-  if (!item) return reply.code(404).send({ error: 'event not found on the wire (older than the retained firehose window)' })
+  if (!item) return reply.code(404).send({ error: 'event not found on the wire or in the archive' })
   try {
     const res = bridgeEventToSubject({
       item, ticker, mode: 'manual', user, userVia,
       enrichment: peekCachedEnrichment(STATE_DIR, parsed.data.eventId),
       opts: { dataDir: DATA_DIR, stateDir: STATE_DIR },
     })
-    // Say honestly whether the research tab will re-scope itself: auto-intake only fires for a subject
-    // with a FINISHED run (and only when INTAKE_AUTO_ANALYZE is on) — otherwise the note just joins the
-    // pool for the next run. resolveSwarmForSubject/AUTO_INTAKE_ON are the auto-intake's own gates.
+    // The send click IS the human consent (§24): after a FRESH note lands, launch the cheap advisory
+    // intake analysis right away, so the tier/materiality quality gate vets the event before anything
+    // re-runs (re-runs stay a separate human click). Same subject-lock + busy gates as the sibling
+    // /api/intake/:ticker/analyze; best-effort — a busy subject or no finished run just means the
+    // note sits in the pool and the manual "Analyze new data" button remains.
     const owner = resolveSwarmForSubject(ticker)
-    return { ok: true, ...res, willAutoAnalyze: AUTO_INTAKE_ON && !!owner, swarm: owner?.swarm ?? null }
+    let analyzing = false
+    if (res.already !== true && owner) {
+      try {
+        analyzing = await withSubjectLock(`intake:${ticker}`, async () => {
+          const busy = listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
+          if (busy) return false
+          await launch({ kind: 'doc-intake', ticker, ...(owner.swarm !== RESEARCH_SWARM_ID ? { swarm: owner.swarm } : {}), user, userVia })
+          return true
+        })
+      } catch {
+        analyzing = false // admission/capacity/lock conflict — the note is still in place
+      }
+    }
+    return { ok: true, ...res, analyzing, swarm: owner?.swarm ?? null }
   } catch (e: any) {
     return reply.code(e?.statusCode || 500).send({ error: e?.message || 'could not route the event' })
   }
@@ -1706,13 +1721,15 @@ app.post('/api/screener/event/:eventId/send-to-research', { config: { rateLimit:
 
 // Live wire: one SSE client set, bridged once from the ingest cycle's bus.
 const newsClients = new Set<{ send: (e: any) => void }>()
-// Auto-bridge on ingest: a material wire item whose extracted ticker matches a tracked subject is
-// routed into that subject's pool automatically (kill switch SCREENER_RESEARCH_BRIDGE=0; floors in
-// research-bridge.ts). Free — no LLM, no launch. Never breaks the fan-out.
+// Auto-bridge on ingest — OPT-IN (SCREENER_RESEARCH_BRIDGE=1): a material wire item whose extracted
+// ticker exactly matches a tracked subject is routed into that subject's pool. Ships OFF: manual
+// sends (and their bridge ledger) are the training data that earns this path its trust first. The
+// enrichment peek is a THUNK so the whole-cache parse only runs for the rare item that passes every
+// gate — never per wire item on the ingest hot path. Never breaks the fan-out.
 newsBus.subscribe((e) => {
   if (e.type !== 'news-item') return
   try {
-    autoBridgeItem(e.item, { dataDir: DATA_DIR, stateDir: STATE_DIR }, peekCachedEnrichment(STATE_DIR, e.item.event_id))
+    autoBridgeItem(e.item, { dataDir: DATA_DIR, stateDir: STATE_DIR }, () => peekCachedEnrichment(STATE_DIR, e.item.event_id))
   } catch {
     /* best-effort — a missed bridge loses one note, never the wire */
   }

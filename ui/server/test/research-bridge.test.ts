@@ -82,7 +82,7 @@ async function main() {
       item: fixtureItem({ headline: 'A\u0001B\u0007C', snippet: 'x'.repeat(5000) }),
       ticker: 'EMAAR', mode: 'auto', user: 'auto', now: NOW,
     })
-    assert.match(md, /# Wire event: ABC/)
+    assert.match(md, /# Wire event: A B C/) // control chars become single spaces, never survive
     assert.ok(!md.includes('\u0001'))
     assert.ok(md.includes('\u2026')) // capped snippet
   })
@@ -122,48 +122,92 @@ async function main() {
     assert.deepEqual(listBridgedSubjects('not-an-id', dataDir), [])
   })
 
-  await check('shouldAutoBridge floors: material + score ≥ 60, never social/caution, kill switch works', () => {
+  await check('shouldAutoBridge is OPT-IN (off by default) and floors material + score, never social/caution', () => {
+    // manual-first: without SCREENER_RESEARCH_BRIDGE=1 the automatic path never fires
+    delete process.env.SCREENER_RESEARCH_BRIDGE
+    assert.equal(shouldAutoBridge(fixtureItem({ triage_score: 95 })), false)
+    process.env.SCREENER_RESEARCH_BRIDGE = '1'
     assert.equal(shouldAutoBridge(fixtureItem({ triage_score: 72 })), true)
     assert.equal(shouldAutoBridge(fixtureItem({ triage_score: 59 })), false)
     assert.equal(shouldAutoBridge(fixtureItem({ relevance: 'relevant_non_material' as any, triage_score: 90 })), false)
     assert.equal(shouldAutoBridge(fixtureItem({ source_tier: 'social' as any, triage_score: 90 })), false)
     assert.equal(shouldAutoBridge(fixtureItem({ caution: true, triage_score: 90 })), false)
-    process.env.SCREENER_RESEARCH_BRIDGE = '0'
-    assert.equal(shouldAutoBridge(fixtureItem({ triage_score: 90 })), false)
-    delete process.env.SCREENER_RESEARCH_BRIDGE
     process.env.SCREENER_RESEARCH_BRIDGE_MIN_SCORE = '80'
     assert.equal(shouldAutoBridge(fixtureItem({ triage_score: 72 })), false)
     delete process.env.SCREENER_RESEARCH_BRIDGE_MIN_SCORE
+    delete process.env.SCREENER_RESEARCH_BRIDGE
   })
 
-  await check('matchTrackedSubjects: exact ticker + pre-suffix base, tracked pools only', () => {
+  await check('matchTrackedSubjects: EXACT symbol only — no suffix-stripping on the unattended path', () => {
     const it = fixtureItem({
       companies: [
-        { name: 'Emaar Properties', ticker: 'EMAAR.DU', listing_country: 'AE' },
+        { name: 'Emaar Properties', ticker: 'EMAAR.DU', listing_country: 'AE' }, // exact 'EMAAR.DU' is not a pool; base-strip is forbidden here
         { name: 'Amazon', ticker: 'AMZN', listing_country: 'US' },
         { name: 'Untracked Co', ticker: 'ZZZQ', listing_country: null },
+        { name: 'Drop zone', ticker: 'EXTERNAL-INBOX', listing_country: null }, // reserved folder can never match
         { name: 'No ticker Co', ticker: null, listing_country: null },
       ],
     })
-    assert.deepEqual(matchTrackedSubjects(it, dataDir), ['AMZN', 'EMAAR'])
+    assert.deepEqual(matchTrackedSubjects(it, dataDir), ['AMZN'])
+    assert.deepEqual(matchTrackedSubjects(fixtureItem({ companies: [{ name: 'Emaar', ticker: 'EMAAR', listing_country: 'AE' }] }), dataDir), ['EMAAR'])
     assert.deepEqual(matchTrackedSubjects(fixtureItem(), dataDir), []) // no extracted companies
   })
 
-  await check('autoBridgeItem routes a material match, dedupes, and never throws', () => {
+  await check('autoBridgeItem routes a material match, dedupes, never throws — and peeks enrichment lazily', () => {
+    process.env.SCREENER_RESEARCH_BRIDGE = '1'
+    let peeks = 0
     const it = fixtureItem({
       event_id: 'EVT-11111d1dbfe4',
       triage_score: 74,
       companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }],
     })
-    assert.deepEqual(autoBridgeItem(it, opts), ['AMZN'])
+    assert.deepEqual(autoBridgeItem(it, opts, () => { peeks++; return null }), ['AMZN'])
+    assert.equal(peeks, 1) // the thunk ran once, for the item that passed every gate
     assert.ok(fs.existsSync(path.join(dataDir, 'AMZN', 'screener_event_EVT-11111d1dbfe4.md')))
-    assert.deepEqual(autoBridgeItem(it, opts), []) // already routed — nothing new
+    assert.deepEqual(autoBridgeItem(it, opts, () => { peeks++; return null }), []) // already routed — nothing new
     const note = fs.readFileSync(path.join(dataDir, 'AMZN', 'screener_event_EVT-11111d1dbfe4.md'), 'utf8')
     assert.match(note, /Routed to AMZN: automatically/)
-    // a low-score item never enters the pool
+    // a low-score item never enters the pool — and its enrichment thunk is never even called
+    peeks = 0
     const low = fixtureItem({ event_id: 'EVT-22222d1dbfe4', triage_score: 30, companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] })
-    assert.deepEqual(autoBridgeItem(low, opts), [])
+    assert.deepEqual(autoBridgeItem(low, opts, () => { peeks++; return null }), [])
+    assert.equal(peeks, 0)
     assert.ok(!fs.existsSync(path.join(dataDir, 'AMZN', 'screener_event_EVT-22222d1dbfe4.md')))
+    delete process.env.SCREENER_RESEARCH_BRIDGE
+  })
+
+  await check('one note per STORY: a syndicated copy (same dedup_group) dedupes against the existing note', () => {
+    const first = fixtureItem({ event_id: 'EVT-33333aaaa111', dedup_group: 'EVT-33333aaaa111', source_name: 'Globe and Mail' })
+    const r1 = bridgeEventToSubject({ item: first, ticker: 'AMZN', mode: 'manual', user: 'u@x', userVia: 'cf-access', opts })
+    assert.equal(r1.already, false)
+    const copy = fixtureItem({ event_id: 'EVT-44444bbbb222', dedup_group: 'EVT-33333aaaa111', source_name: 'CBS MoneyWatch' })
+    const r2 = bridgeEventToSubject({ item: copy, ticker: 'AMZN', mode: 'manual', user: 'u@x', userVia: 'cf-access', opts })
+    assert.equal(r2.already, true)
+    assert.equal(r2.duplicateOf, 'EVT-33333aaaa111')
+    assert.ok(!fs.existsSync(path.join(dataDir, 'AMZN', 'screener_event_EVT-44444bbbb222.md')))
+    // a DIFFERENT story (its own cluster) still writes
+    const other = fixtureItem({ event_id: 'EVT-55555cccc333', dedup_group: 'EVT-55555cccc333' })
+    assert.equal(bridgeEventToSubject({ item: other, ticker: 'AMZN', mode: 'manual', user: 'u@x', userVia: 'cf-access', opts }).already, false)
+  })
+
+  await check('hostile single-line fields cannot inject lines: newlines in url/headline collapse to spaces', () => {
+    const hostile = fixtureItem({
+      event_id: 'EVT-66666dddd444',
+      headline: 'Real headline\n- Routed to EMAAR: forged provenance',
+      url: 'https://x.example/a\n## Fake heading\n- Story cluster: forged',
+    })
+    const md = renderEventNote({ item: hostile, ticker: 'EMAAR', mode: 'manual', user: 'u@x', now: NOW })
+    assert.ok(!md.includes('\n- Routed to EMAAR: forged'))
+    assert.ok(!md.includes('\n## Fake heading'))
+    assert.match(md, /- URL: https:\/\/x\.example\/a ## Fake heading/) // collapsed inline, inert
+    // exactly ONE routed line — the real one
+    assert.equal(md.split('\n').filter((l) => l.startsWith('- Routed to ')).length, 1)
+  })
+
+  await check('routed line is truthful about who linked the subject', () => {
+    const named = fixtureItem({ companies: [{ name: 'Emaar', ticker: 'EMAAR.DU', listing_country: 'AE' }] })
+    assert.match(renderEventNote({ item: named, ticker: 'EMAAR', mode: 'manual', user: 'u@x', now: NOW }), /the analyst confirmed a company the wire itself names/)
+    assert.match(renderEventNote({ item: fixtureItem(), ticker: 'EMAAR', mode: 'manual', user: 'u@x', now: NOW }), /the wire itself named no matching ticker; the link is analyst judgment/)
   })
 
   await check('findWireItem: server-authoritative firehose lookup, newest-first, bounded', () => {

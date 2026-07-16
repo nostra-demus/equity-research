@@ -472,8 +472,10 @@ export const api = {
     }
   },
   // Route the event into one tracked subject's data pool. The server builds the note from ITS stored
-  // wire record (never client fields) and answers whether the research tab will re-scope itself.
-  sendEventToResearch: async (eventId: string, ticker: string): Promise<{ ok: boolean; path: string; already: boolean; willAutoAnalyze?: boolean; swarm?: string | null }> => {
+  // wire record (never client fields), dedupes syndicated copies of the same story (duplicateOf), and
+  // — for a fresh send — launches the advisory intake analysis (analyzing) so the quality gate runs
+  // before anything re-runs.
+  sendEventToResearch: async (eventId: string, ticker: string): Promise<{ ok: boolean; path: string; already: boolean; duplicateOf?: string; analyzing?: boolean; swarm?: string | null }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/screener/event/${encodeURIComponent(eventId)}/send-to-research`, { ticker })
   },

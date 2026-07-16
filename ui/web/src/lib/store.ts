@@ -3211,29 +3211,39 @@ export const useStore = create<State>((set, get) => ({
     }
   },
 
-  // Event-level twin of sendToResearch: the note write is synchronous server-side (no run spawns),
-  // so the toast can speak in the past tense. Returns whether the send landed (drives the "✓ sent"
-  // row without a refetch). The user stays on the wire — the actionable toast offers the jump, so
-  // triaging three events in a row never warps them away mid-flow.
+  // Event-level twin of sendToResearch: the note write is synchronous server-side, so the toast can
+  // speak in the past tense. Returns whether the send landed (drives the "✓ sent" row without a
+  // refetch). The user stays on the wire — the actionable toast offers the jump, so triaging three
+  // events in a row never warps them away mid-flow.
   sendEventToResearch: async (it, ticker) => {
     if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — sending to research runs on your machine via npm run dev', tone: 'info' }); return false }
     if (HARD_DOWN.has(get().health)) { get().setToast({ msg: 'Engine offline — try again when it reconnects.', tone: 'info' }); return false }
     try {
       const res = await api.sendEventToResearch(it.event_id, ticker)
+      const targetSwarm = typeof res.swarm === 'string' && res.swarm ? res.swarm : 'research'
       const openIt = () => {
         get().scSelectEvent(null)
-        get().switchSwarm(typeof res.swarm === 'string' && res.swarm ? res.swarm : 'research', { payloadTicker: ticker, landTicker: ticker })
+        // switchSwarm no-ops on to === from, so land the ticker directly when already there
+        if (get().activeSwarm === targetSwarm) void get().selectTicker(ticker)
+        else get().switchSwarm(targetSwarm, { payloadTicker: ticker, landTicker: ticker })
       }
-      if (res.already === true) {
+      if (res.already === true && typeof res.duplicateOf === 'string' && res.duplicateOf) {
+        get().setToast({ msg: `${ticker} already has this story — another outlet's copy (${res.duplicateOf}) is in its data pool. Not adding a duplicate.`, tone: 'info', action: { label: 'Open research', onClick: openIt } })
+      } else if (res.already === true) {
         get().setToast({ msg: `${ticker} already has this event in its data pool.`, tone: 'info', action: { label: 'Open research', onClick: openIt } })
-      } else if (res.willAutoAnalyze === true) {
-        get().setToast({ msg: `Sent to ${ticker} — research is scanning what it changes; the affected orbs will light up there shortly.`, tone: 'good', action: { label: 'Open research', onClick: openIt } })
+      } else if (res.analyzing === true) {
+        get().setToast({ msg: `Sent to ${ticker} — research is checking what it changes; affected orbs will show up in its plan.`, tone: 'good', action: { label: 'Open research', onClick: openIt } })
       } else {
-        get().setToast({ msg: `Sent to ${ticker} — the note is in its data pool and will be read on the next run.`, tone: 'good', action: { label: 'Open research', onClick: openIt } })
+        get().setToast({ msg: `Sent to ${ticker} — the note is in its data pool; use "Analyze new data" there to scope what it changes.`, tone: 'good', action: { label: 'Open research', onClick: openIt } })
       }
       return true
     } catch (e: any) {
-      get().setToast({ msg: e?.message ? String(e.message) : 'Could not send this event to research', tone: 'bad' })
+      // an old engine during the deploy-skew window (or a stale tab) 404s with a bare "not found"
+      const raw = e?.message ? String(e.message) : ''
+      const msg = /not found/i.test(raw)
+        ? 'The engine doesn’t know this event — it may be too old, or the engine hasn’t restarted onto this feature yet.'
+        : raw || 'Could not send this event to research'
+      get().setToast({ msg, tone: 'bad' })
       return false
     }
   },
