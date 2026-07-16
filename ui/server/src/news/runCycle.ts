@@ -1,8 +1,9 @@
 // One ingest cycle, end to end: FETCH (GDELT + RSS in parallel) → NORMALIZE+FILTER+DEDUP → TRIAGE
 // (Groq, batched, budget- and rate-limited) → WRITE (ranked inbox + per-item feed records + firehose
 // summary + board refresh + live bus events). It NEVER throws — every stage degrades to a logged,
-// counted no-op — and it NEVER spends Claude money. All I/O is dependency-injectable so the whole
-// pipeline is unit-testable with mocked fetch + clock.
+// counted no-op — and by default it spends NO Claude money (the one paid seam is the OFF-by-default
+// metered Haiku last-resort triage tier, gated on a dedicated key; see triage/anthropic.ts). All I/O is
+// dependency-injectable so the whole pipeline is unit-testable with mocked fetch + clock.
 
 import path from 'node:path'
 import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
@@ -23,6 +24,7 @@ import { invalidateFacets } from './facets'
 import { SeenCache } from './seen-cache'
 import { Budget, armCooldown, clearCooldown, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, readCooldownUntil } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
+import { triageBatchAnthropic } from './triage/anthropic'
 import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
@@ -249,12 +251,27 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     coolingDown: isCoolingDown(stateDir, p.id, now().getTime()),
     cooldownWasSet: readCooldownUntil(stateDir, p.id), // >0 → a marker existed at start; clear it if we recover
   }))
+  // PAID last-resort tier (metered Anthropic Haiku) — OFF unless a dedicated key + flag are set. Its own
+  // daily budget (survives restarts, so a bounce can't reset + overspend) + its own per-minute limiter and
+  // cross-cycle cooldown, exactly like the free providers — but it spends money, so it is the LAST thing
+  // tried before a batch defers (news/triage/anthropic.ts). Absent key ⇒ null ⇒ the defer path is unchanged.
+  const anthropicOn = cfg.anthropicFallbackEnabled && !!cfg.anthropicApiKey
+  const anthropicBudget = anthropicOn
+    ? Budget.load(stateDir, cfg.anthropicDailyReqCap, cfg.anthropicDailyTokenCap, now().getTime(), 'anthropic-triage-budget.json')
+    : null
+  const anthropicLimiter = anthropicOn ? getNamedLimiter('anthropic-triage', cfg.anthropicRpm, 0) : null
+  const anthropicCooldownWasSet = anthropicOn ? readCooldownUntil(stateDir, 'anthropic-triage') : 0
+  const anthropicCoolingDown = anthropicOn && isCoolingDown(stateDir, 'anthropic-triage', now().getTime())
   const triaged: TriagedItem[] = []
   const deferred: NewsItem[] = [] // unscored this cycle (budget hit / batch failed) — re-queued next cycle
   let groqRequests = 0
   let groqTokens = 0
   let geminiRequests = 0
   let geminiTokens = 0
+  let anthropicRequests = 0
+  let anthropicTokens = 0
+  let anthropicCostUsd = 0
+  let anthropicDownThisCycle = false // once the paid tier fails this cycle, stop poking it (save the cap)
   let budgetHit = false
   let paceHit = false
   let batchFailed = false
@@ -358,6 +375,38 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         }
       }
     }
+    // PAID LAST-RESORT: every free brain is paced/capped/cooling/failed for this batch → score it on metered
+    // Haiku rather than deferring (and risking the 1,000-cap drop under sustained overload). Gated: enabled +
+    // key + not-already-failed-this-cycle + not cross-cycle cooling + daily budget room + the batch's lead
+    // item clears the priority floor. The queue is priority-sorted, so batch[0] is this batch's most material
+    // item — gating on it spends the paid budget on what matters first. OFF by default (anthropicOn) ⇒ skip.
+    if (
+      (!res || !res.ok) && anthropicOn && !anthropicDownThisCycle && !anthropicCoolingDown &&
+      anthropicBudget!.canSpend(est) && preTriagePriority(batch[0], nowDate) >= cfg.anthropicMinPriority
+    ) {
+      await anthropicLimiter!.acquire(est, sleep, () => now().getTime())
+      const ar = await triageBatchAnthropic(
+        batch,
+        { model: cfg.anthropicModel, baseUrl: cfg.anthropicBaseUrl, apiKey: cfg.anthropicApiKey, maxTokens: cfg.anthropicMaxTokens, inPricePerMTok: cfg.anthropicInPricePerMTok, outPricePerMTok: cfg.anthropicOutPricePerMTok },
+        fetchFn,
+        sleep,
+      )
+      res = ar
+      anthropicRequests += ar.requests
+      anthropicTokens += ar.tokens
+      anthropicCostUsd += ar.costUsd
+      anthropicBudget!.record(ar.requests, ar.tokens)
+      anthropicLimiter!.learn(ar.rate, () => now().getTime())
+      if (ar.ok) {
+        if (anthropicCooldownWasSet) clearCooldown(stateDir, 'anthropic-triage') // recovered → drop the marker
+      } else {
+        anthropicDownThisCycle = true // bad cycle → skip the paid tier for the rest of it (don't burn the cap)
+        // a terminal 4xx (bad key / no credits / quota) won't recover today → exhaust its daily budget so it's
+        // skipped across drains too until the daily reset (mirrors the overflow-registry 4xx-exhaust above).
+        if (/HTTP (400|401|402|403|404|413)/.test(ar.note || '')) anthropicBudget!.exhaust()
+        else armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'anthropic-triage', cfg.llmCooldownMaxMs) // transient → cross-cycle backoff
+      }
+    }
     if (!res) {
       // NOTHING was attempted: Groq capped/paced AND no overflow or Gemini has daily room left → all out.
       budgetHit = !budget.canSpend(est)
@@ -432,6 +481,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   budget.save()
   for (const g of geminiPool) g.budget.save()
   for (const o of overflow) o.budget.save()
+  if (anthropicBudget) anthropicBudget.save()
   seen.save()
   saveDeferred(stateDir, deferred)
 
@@ -534,13 +584,14 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     picked, watched, dropped, inboxed, groq_requests: groqRequests, groq_tokens: groqTokens,
     ...(geminiRequests ? { gemini_requests: geminiRequests, gemini_tokens: geminiTokens } : {}),
     ...(overflowReq ? { overflow_requests: overflowReq, overflow_tokens: overflowTok } : {}),
+    ...(anthropicRequests ? { anthropic_requests: anthropicRequests, anthropic_tokens: anthropicTokens, anthropic_cost_usd: Math.round(anthropicCostUsd * 10_000) / 10_000 } : {}),
     ...(sources ? { sources } : {}),
     phase,
     note,
   }
   appendFirehoseSummary(repoRoot, date, summary)
   newsBus.emit({ type: 'news-cycle', summary })
-  log(`news cycle: fetched ${raws.length}, ${items.length} new, picked ${picked}, watched ${watched}, dropped ${dropped}; groq ${groqRequests} req / ${groqTokens} tok${geminiRequests ? ` · gemini ${geminiRequests} req / ${geminiTokens} tok` : ''}${overflowLog}`)
+  log(`news cycle: fetched ${raws.length}, ${items.length} new, picked ${picked}, watched ${watched}, dropped ${dropped}; groq ${groqRequests} req / ${groqTokens} tok${geminiRequests ? ` · gemini ${geminiRequests} req / ${geminiTokens} tok` : ''}${overflowLog}${anthropicRequests ? ` · haiku ${anthropicRequests} req / $${anthropicCostUsd.toFixed(3)}` : ''}`)
 
   // 5. THEMES — bucket the material items into living, ranked investment themes (assign every cycle,
   // discover periodically, decay automatically). Runs AFTER the write and is fully guarded, so a themes
