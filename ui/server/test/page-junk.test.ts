@@ -6,7 +6,7 @@
 // Run: npx tsx test/page-junk.test.ts
 import assert from 'node:assert/strict'
 import { classifyParagraphs, isBoilerplateParagraph } from '../src/news/page-junk'
-import { extractArticleText, extractReadable } from '../src/news/enrich'
+import { extractArticleText, extractJsonLdArticle, extractPublished, extractReadable } from '../src/news/enrich'
 
 let passed = 0
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -97,6 +97,180 @@ await check('extractReadable: chrome paragraphs are dropped from a real article,
   const t = extractReadable(html)
   assert.ok(t.includes('Mozambique graphite'), 'prose kept')
   assert.ok(!/we use cookies/i.test(t), 'cookie banner dropped')
+})
+
+// ---- subscription-offer popups + the structured-data lane -----------------------------------------
+// The reported defect class: a subscribe modal ("Get unlimited access for just $1.99 your first month")
+// covers an article whose body IS loaded in the served page. The modal copy must never count as prose,
+// and the loaded body must still be readable — via the schema.org JSON-LD articleBody the popup can't touch.
+
+const OFFER_MODAL =
+  'Get unlimited access for just $1.99 your first month. Unlock the global benchmark for business news and stay ahead of the market.'
+const OFFER_PRICE =
+  'Just $0.50 per week for your first year. Cancel anytime — billed annually after the introductory period ends.'
+const OFFER_METER =
+  'You have reached your free article limit for this month. Already have an account? Sign in to keep reading the story.'
+const NEWSLETTER =
+  'Want more? Sign up for our morning newsletter to get the biggest stories delivered to your inbox every day before the opening bell.'
+const ADBLOCK =
+  'It looks like you are using an ad blocker. Please turn off your ad blocker to continue enjoying our award-winning coverage.'
+
+const TEASER =
+  'The United Arab Emirates is stepping up efforts to help term buyers of its crude avoid shipping through the Strait of Hormuz, according to people familiar with the matter.'
+const LD_P1 =
+  'Abu Dhabi National Oil Co. is offering term customers crude loading from the port of Fujairah on the Gulf of Oman, allowing tankers to load without entering the Strait of Hormuz, people with knowledge of the matter said.'
+const LD_P2 =
+  'The producer has adjusted its official selling prices to make barrels delivered outside the strait more attractive, the people said, asking not to be identified because the information is private.'
+const LD_P3 =
+  'Shipping costs and insurance premiums for voyages through the chokepoint have climbed since attacks on tankers intensified this month, pushing refiners in Asia to seek alternatives.'
+const LD_BODY = [LD_P1, LD_P2, LD_P3].join('\n\n')
+const ldScript = (obj: unknown) => `<script type="application/ld+json">${JSON.stringify(obj)}</script>`
+
+await check('subscription-offer / newsletter / adblock modal copy is recognised as boilerplate', () => {
+  for (const p of [OFFER_MODAL, OFFER_PRICE, OFFER_METER, NEWSLETTER, ADBLOCK]) {
+    assert.equal(isBoilerplateParagraph(p), true, `should be chrome: ${p.slice(0, 60)}…`)
+  }
+})
+
+await check('an article REPORTING a subscription price survives (price + CTA two-signal guard)', () => {
+  const pricing =
+    'Netflix raised the price of its standard plan to $15.49 a month in the United States, its second increase in two years, and said it expects the change to lift revenue from the first quarter.'
+  assert.equal(isBoilerplateParagraph(pricing), false)
+})
+
+await check('financial prose sharing offer vocabulary survives: clinical trials, onboarding, perks, ARPU, metered-strategy coverage', () => {
+  const prose = [
+    // "start a trial" (clinical) — never "start a FREE trial"
+    'The company said it will start a trial of the drug in 240 patients during the first quarter, with initial data expected about a year after enrollment begins.',
+    // "already have an account" (fintech onboarding) — the wall form carries the question mark
+    'Customers who already have an account with the brokerage can link it to the new app and begin trading within a day, the company said in its launch announcement.',
+    // "get unlimited access" (subscription-perk prose) — no price, no CTA
+    'Prime members get unlimited access to the streaming library at no extra cost, a perk the company says drives renewals.',
+    // per-period price next to "free trial" in EARNINGS prose — the CTA set is imperative-only
+    'Disney said average revenue per user fell to $7.28 a month in the first quarter as free trial conversions slowed.',
+    // metered-paywall STRATEGY coverage — third person, never "you … your"
+    'Readers who reached their free article limit were shown a discounted offer, the publisher said during the earnings call.',
+    // "$X for the first quarter" is guidance, not an offer
+    'Netflix forecast earnings of $5.58 for the first quarter after a limited-time promotion lifted signups in Asia.',
+  ]
+  for (const p of prose) assert.equal(isBoilerplateParagraph(p), false, `should be prose: ${p.slice(0, 60)}…`)
+})
+
+await check('an offer-modal stub over a bare teaser classifies as paywall', () => {
+  const r = classifyParagraphs([OFFER_MODAL, OFFER_METER, TEASER])
+  assert.equal(r.verdict, 'paywall')
+})
+
+await check('a pricing paragraph alone never flips a thin page to paywall (two-signal is chrome, not a wall)', () => {
+  const r = classifyParagraphs([OFFER_PRICE, TEASER])
+  assert.notEqual(r.verdict, 'paywall')
+})
+
+await check('extractJsonLdArticle: plain NewsArticle block → body paragraphs + datePublished', () => {
+  const html = `<html><head>${ldScript({ '@context': 'https://schema.org', '@type': 'NewsArticle', headline: 'x', datePublished: '2026-07-13T09:02:00+04:00', articleBody: LD_BODY })}</head><body></body></html>`
+  const r = extractJsonLdArticle(html)
+  assert.ok(r)
+  assert.equal(r!.paras.length, 3)
+  assert.equal(r!.published, '2026-07-13T09:02:00+04:00')
+})
+
+await check('extractJsonLdArticle: @graph container + @type array + a malformed sibling block all tolerated', () => {
+  const html =
+    '<script type="application/ld+json">{not json</script>' +
+    ldScript({ '@context': 'https://schema.org', '@graph': [
+      { '@type': 'Organization', name: 'Publisher' },
+      { '@type': ['ReportageNewsArticle', 'https://schema.org/NewsArticle'], articleBody: LD_BODY, datePublished: '2026-07-13' },
+    ] })
+  const r = extractJsonLdArticle(html)
+  assert.ok(r && r.paras.length === 3 && r.published === '2026-07-13')
+})
+
+await check('a popup-buried page reads its loaded body from JSON-LD (verdict ok, modal copy absent)', () => {
+  const html = `<html><head>${ldScript({ '@type': 'NewsArticle', articleBody: LD_BODY })}</head><body><p>${TEASER}</p><p>${OFFER_MODAL}</p></body></html>`
+  const r = extractArticleText(html)
+  assert.equal(r.verdict, 'ok')
+  assert.ok(r.text.includes('Fujairah'), 'the loaded body is read')
+  assert.ok(!/unlimited access/i.test(r.text), 'the modal copy never leaks')
+})
+
+await check('a teaser-only page upgrades to the substantially fuller JSON-LD body (popup-diluted case)', () => {
+  const html = `<html><head>${ldScript({ '@type': 'NewsArticle', articleBody: LD_BODY })}</head><body><p>${TEASER}</p></body></html>`
+  const r = extractArticleText(html)
+  assert.equal(r.verdict, 'ok')
+  assert.ok(r.text.includes('official selling prices'), 'the fuller structured body wins')
+})
+
+await check('the rendered body wins when the JSON-LD holds only a short description', () => {
+  const paras = [LD_P1, LD_P2, LD_P3, TEASER, PROSE_1, PROSE_2].map(para).join('')
+  const html = `<html><head>${ldScript({ '@type': 'NewsArticle', articleBody: TEASER })}</head><body>${paras}</body></html>`
+  const r = extractArticleText(html)
+  assert.equal(r.verdict, 'ok')
+  assert.ok(r.text.includes('Mozambique graphite'), 'rendered paragraphs kept')
+})
+
+await check('a junk JSON-LD body can never rescue a paywall page (both lanes junk-tested)', () => {
+  const html = `<html><head>${ldScript({ '@type': 'NewsArticle', articleBody: [ASX_TERMS, ASX_AGREE, COOKIES].join('\n\n') })}</head><body><p>${OFFER_MODAL}</p><p>${OFFER_METER}</p><p>${TEASER}</p></body></html>`
+  const r = extractArticleText(html)
+  assert.equal(r.verdict, 'paywall')
+})
+
+await check('a TRUNCATED teaser-length JSON-LD body can never flip a hard-paywall page to ok (honest degradation holds)', () => {
+  // a hard paywall commonly ships the SAME teaser in articleBody that it renders — rescuing on it
+  // would silence the paywall verdict and skip the alternate-outlet / corroboration ladder
+  const html = `<html><head>${ldScript({ '@type': 'NewsArticle', articleBody: TEASER })}</head><body><p>${TEASER}</p><p>${OFFER_MODAL}</p><p>${OFFER_METER}</p></body></html>`
+  const r = extractArticleText(html)
+  assert.equal(r.verdict, 'paywall')
+})
+
+await check('a JS shell (no rendered paragraphs at all) is rescued by the JSON-LD body', () => {
+  const html = `<html><head>${ldScript({ '@type': 'NewsArticle', articleBody: LD_BODY })}</head><body><script>window.__APP__={}</script><div id="root"></div></body></html>`
+  const r = extractArticleText(html)
+  assert.equal(r.verdict, 'ok')
+  assert.ok(r.text.includes('Fujairah'))
+})
+
+await check('type="application/ld+json; charset=utf-8" and single-quoted/unquoted variants all parse', () => {
+  const payload = JSON.stringify({ '@type': 'NewsArticle', articleBody: LD_BODY })
+  for (const tag of [
+    `<script type="application/ld+json; charset=utf-8">${payload}</script>`,
+    `<script type='application/ld+json' data-page="1">${payload}</script>`,
+    `<script async type=application/ld+json>${payload}</script>`,
+  ]) {
+    const r = extractJsonLdArticle(`<html><head>${tag}</head><body></body></html>`)
+    assert.ok(r && r.paras.length === 3, `should parse: ${tag.slice(0, 60)}…`)
+  }
+})
+
+await check('<dialog> and <template> markup is never collected as article paragraphs', () => {
+  const dialogProse =
+    'Choose the plan that works for you and join millions of readers who trust our coverage every single day.'
+  const templateProse =
+    'This special invitation is shown to a selected group of readers participating in our beta programme today.'
+  const html = `<html><body><dialog open><p>${dialogProse}</p></dialog><template id="subscribe-modal"><p>${templateProse}</p></template><p>${PROSE_1}</p><p>${PROSE_2}</p></body></html>`
+  const t = extractReadable(html)
+  assert.ok(t.includes('Mozambique graphite'), 'real prose kept')
+  assert.ok(!t.includes('join millions'), 'dialog content stripped')
+  assert.ok(!t.includes('beta programme'), 'template content stripped')
+})
+
+await check('a NESTED <dialog> leaks nothing — the outer element tail is stripped with it', () => {
+  const tail =
+    'Members of the loyalty programme also receive early access to selected reports and events across the region.'
+  const html = `<html><body><dialog><p>Pick the subscription plan that suits how you like to read the news every day.</p><dialog><p>Confirm your choice to continue with the selected reading plan right away today.</p></dialog><p>${tail}</p></dialog><p>${PROSE_1}</p><p>${PROSE_2}</p></body></html>`
+  const t = extractReadable(html)
+  assert.ok(t.includes('Mozambique graphite'), 'real prose kept')
+  assert.ok(!t.includes('loyalty programme'), 'the outer dialog tail is stripped, not leaked')
+})
+
+await check('extractPublished falls back to the JSON-LD datePublished when the page has no meta date', () => {
+  const html = `<html><head>${ldScript({ '@type': 'NewsArticle', articleBody: LD_BODY, datePublished: '2026-07-13T09:02:00Z' })}</head><body><p>${TEASER}</p></body></html>`
+  assert.equal(extractPublished(html), '2026-07-13T09:02:00Z')
+})
+
+await check('a datePublished-only Article node (no articleBody) still feeds extractPublished', () => {
+  const html = `<html><head>${ldScript({ '@type': 'NewsArticle', headline: 'x', datePublished: '2026-07-10' })}</head><body><p>${TEASER}</p></body></html>`
+  assert.equal(extractPublished(html), '2026-07-10')
+  assert.equal(extractArticleText(html).verdict, 'ok') // and the empty-body node never disturbs the rendered lane
 })
 
 console.log(`\npage-junk: ${passed} checks passed${process.exitCode ? ' (WITH FAILURES)' : ''}`)
