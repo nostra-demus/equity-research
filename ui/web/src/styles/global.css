@@ -1806,8 +1806,24 @@ a { color: inherit; }
 .evrail__segbtn--on { color: var(--accent-bright); background: var(--accent-wash); }
 .evrail__segbtn:active { transform: scale(0.97); }
 @media (hover: hover) and (pointer: fine) { .evrail__segbtn:not(.evrail__segbtn--on):hover { color: var(--text); } }
-/* a small live dot inside the "Latest" tab — signals the stream is running */
+/* a small live dot inside the "Newest" sort option — signals the stream is running (was the "Latest" tab) */
 .evrail__segpulse { width: 5px; height: 5px; flex-shrink: 0; border-radius: 50%; background: var(--live); box-shadow: 0 0 5px var(--live); animation: evpulse 1.9s var(--ease-out) infinite; }
+
+/* SORT toggle — the second axis under the view tabs (Top by score vs Newest by date). A secondary,
+   lighter segmented control so it reads below the view tabs, not beside them. Same tokens + press/hover
+   behaviour as .evrail__seg to stay one system. */
+.evrail__sortrow { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.evrail__sortlabel { font-size: 9.5px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); }
+.evrail__sort { display: inline-flex; gap: 2px; padding: 2px; border-radius: var(--r-md); background: var(--bg-2); border: 1px solid var(--hairline); }
+.evrail__sortbtn {
+  height: 22px; padding: 0 9px; border: none; background: transparent; cursor: pointer; border-radius: var(--r-sm);
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.1px; color: var(--text-muted); white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+.evrail__sortbtn--on { color: var(--accent-bright); background: var(--accent-wash); }
+.evrail__sortbtn:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) { .evrail__sortbtn:not(.evrail__sortbtn--on):hover { color: var(--text); } }
 
 /* ---- Calendar view (the forward events calendar — components/screener/CalendarView.tsx) ---- */
 .calview { position: absolute; inset: 0; display: flex; flex-direction: column; overflow: hidden; }
@@ -2258,7 +2274,7 @@ a { color: inherit; }
 /* keyboard focus — the rail is now the main way to move through events, so it must be visibly traversable.
    box-shadow ring (token-scoped to cyan) matches the .intake__input:focus idiom; inset on the full-width row. */
 .evrow__hit:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
-.evrail__segbtn:focus-visible, .evdetail__back:focus-visible, .evscope__chip:focus-visible, .evrow__shelve:focus-visible, .evrow__flag:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent); }
+.evrail__segbtn:focus-visible, .evrail__sortbtn:focus-visible, .evdetail__back:focus-visible, .evscope__chip:focus-visible, .evrow__shelve:focus-visible, .evrow__flag:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent); }
 
 @keyframes evpulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
 @keyframes evrowin { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
@@ -2266,7 +2282,7 @@ a { color: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   .evrow, .evdetail { animation: none; }
-  .evrow__hit:active, .evrail__segbtn:active, .evdetail__back:active, .evrow__shelve:active, .evscope__chip:active, .evdetail__party-name--btn:active { transform: none; }
+  .evrow__hit:active, .evrail__segbtn:active, .evrail__sortbtn:active, .evdetail__back:active, .evrow__shelve:active, .evscope__chip:active, .evdetail__party-name--btn:active { transform: none; }
   .evrail__dot--live, .evrail__segpulse { animation: none; }
   .evrow__glow { animation: none; opacity: 0; }
   .evdetail__shimmer::after { animation: none; }
