@@ -290,7 +290,7 @@ rewritten synthesis, and an untouched synthesis must not have its tiers churned:
 - **Deterministic pieces (Bash, zero LLM, run them now — they can overlap the LLM batch):**
   - the module dossier concatenation from `frameworks/MODULE_PIPELINE.md` Step 4.9B **verbatim**
     for each byte-changed module — cascade or Wave-0 `99` target (`RUN_ROOT`, `MODULE` bound
-    accordingly);
+    accordingly; it writes only `<RUN_ROOT>/<M>/<M>_dossier.md`);
   - if step 8 re-ran the master: the audit-dossier concatenation from `/research:full`
     step 10A.2 **verbatim** with `RUN_ROOT="<RUN_ROOT>"`.
   Both are read-only on artifacts, write only their own output file, and must never abort the rerun.
