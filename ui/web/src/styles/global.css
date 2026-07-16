@@ -2554,6 +2554,19 @@ a { color: inherit; }
 
 /* ---- the story / SEC filing (lazy-loaded) ---- */
 .evdetail__story { font-size: 13.5px; line-height: 1.6; color: var(--text); margin: 0; }
+/* original source-language text for a translated story — tucked behind a quiet disclosure so the reader
+   leads in English but the untranslated original is always one click away (the body twin of the headline's
+   "original · <language>" affordance). */
+.evdetail__story-orig { margin-top: 10px; }
+.evdetail__story-orig-toggle { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; padding: 2px 8px; font-size: 9px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); user-select: none; list-style: none; border: 1px solid var(--hairline); border-radius: var(--r-pill); transition: color 140ms ease, border-color 140ms ease, transform 140ms cubic-bezier(0.23, 1, 0.32, 1); }
+.evdetail__story-orig-toggle::-webkit-details-marker { display: none; }
+.evdetail__story-orig-toggle::marker { content: ''; }
+.evdetail__story-orig-toggle:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) { .evdetail__story-orig-toggle:hover { color: var(--text-muted); border-color: var(--text-faint); } }
+.evdetail__story-orig-chevron { width: 9px; height: 9px; flex-shrink: 0; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1); }
+.evdetail__story-orig[open] .evdetail__story-orig-chevron { transform: rotate(90deg); }
+.evdetail__story-orig-text { margin: 8px 0 0; font-size: 12.5px; line-height: 1.55; color: var(--text-muted); }
+@media (prefers-reduced-motion: reduce) { .evdetail__story-orig-chevron, .evdetail__story-orig-toggle { transition: none; } }
 /* corroboration banner — honest §3 label when the publisher blocked the direct read and the story was
    pieced together from other outlets. Quiet amber/accent note, not an error. */
 .evdetail__corrob { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; padding: 9px 12px; border: 1px solid var(--hairline); border-left: 2px solid var(--accent-deep); border-radius: var(--r-sm); background: var(--accent-wash-soft); }
