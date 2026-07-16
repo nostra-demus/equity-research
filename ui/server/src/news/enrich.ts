@@ -25,6 +25,7 @@ import { cleanText } from './clean'
 import { storyFloor, isFilingEvent, type StoryFloorInput } from './story-floor'
 import { SEC_FORM_TOKENS, lookupSecForm, parseEdgarFilingHeadline, tidyFilerName } from './sec-forms'
 import { filterCompanies, isCompanyName } from './entities'
+import { hasNonLatinScript, isEnglishLang } from './lang'
 import type { ArticleBrief, ArticleCompany, ArticleParty, NewsImpact } from './triage/groq'
 import { type ArticleReadProvider, readArticleBrief } from './triage/article-read'
 import { fetchGdeltDoc } from './sources/gdelt'
@@ -109,6 +110,11 @@ export interface EventEnrichment {
   fetched_at: string
   note?: string // why a section is thin (off-list domain, fetch failed, …)
   summary?: string // regex fallback: the real story beyond the headline (used when the Groq read is unavailable)
+  // English rendering of a NON-ENGLISH `summary`, from the article read's `story` synopsis — set only for a
+  // foreign-language item so a Latin-reading desk reads THE STORY in English (the body twin of headline_en).
+  // Absent for an English item (the original summary already reads), and absent when the read produced none.
+  summary_en?: string | null
+  summary_lang?: string | null // the source language named (e.g. "Spanish"), for the reader's "original · X" label
   published?: string
   sec?: SecFiling
   prior_coverage: PriorCoverage[]
@@ -661,7 +667,12 @@ export function isEnrichmentComplete(r: EventEnrichment): boolean {
     // "the read happened" signal article-read.ts's hasContent() gates on. Without this, such a read is
     // marked degraded → short TTL → the web store refetches it on every reopen, burning repeated LLM
     // reads until MAX_READ_ATTEMPTS.
-    (r.news_impact && r.news_impact.analyst_takeaway.length > 0)
+    (r.news_impact && r.news_impact.analyst_takeaway.length > 0) ||
+    // a FOREIGN item whose read produced only an English `story` (a low-signal PR with no tradable name) is
+    // still a complete read: summary_en IS the best obtainable substance (THE STORY, in English). Without
+    // this it would be marked degraded → short TTL → re-read on every reopen even though nothing more will
+    // ever come. Gated on summary_en (foreign-only), so English low-signal reads are unaffected.
+    (r.summary_en && r.summary_en.length > 0)
   )
 }
 /** A complete read is stable → 12h. A degraded one expires fast so the next look retries the real read. */
@@ -1128,6 +1139,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   let scope = input.scope
   let headline = (input.headline || '').trim()
   let headlineEn: string | null = null // English translation of a non-English headline (news/lang.ts), from the stored record
+  let headlineLang: string | null = null // the source language the model named (e.g. "Spanish") — the "this item is foreign" signal
   let snippet = '' // the feed's own lede (RSS) — a fetch-free body when the source page blocks us
   // carried so the story floor can tell a regulatory/exchange filing (headline IS the disclosure) from
   // an article (body is the story) — see story-floor.ts. Pulled from the event's OWN stored record.
@@ -1147,6 +1159,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       scope = (stored as any).scope || scope
       headline = cleanText(stored.headline) || headline // the stored headline is authoritative + cleaned
       headlineEn = (stored as any).headline_en ? cleanText((stored as any).headline_en) || null : null
+      headlineLang = (stored as any).headline_lang ? String((stored as any).headline_lang).trim() || null : null
       snippet = (stored as any).snippet || ''
       inputNature = (stored as any).input_nature || ''
       sourceTier = (stored as any).source_tier || ''
@@ -1295,6 +1308,11 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     // give the reader the English headline as its hint when we have one (the body is in the source
     // language; the brief comes back in English either way) — a clearer anchor, no behaviour change for English
     const readHeadline = headlineEn || headline
+    // Is this a NON-ENGLISH item? If so the fallback summary (the scraped lede) is in the source language and
+    // must be shown in English. Foreign when the wire stored an English headline translation, NAMED a
+    // non-English source language, OR the original headline carries a non-Latin script. English items skip
+    // the summary_en lane entirely — their summary already reads — so this is a no-op for them.
+    const isForeignItem = !!headlineEn || !isEnglishLang(headlineLang) || hasNonLatinScript(headline)
     // what the no-LLM fallback may lead with: the filing document's own opening beats the RSS lede beats
     // the floor — all real text, never chrome (a junk page contributes NOTHING to the fallback).
     // Keep a wider window than the final 600-char output: a BSE/NSE cover-page letterhead can run past 600
@@ -1321,6 +1339,11 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       // rate-limited / out of daily budget / past the deadline) is transient — counting it would let
       // MAX_READ_ATTEMPTS freeze a readable article on the dek under the exact saturation that caused the bug.
       attempted = r.attempted
+      // For a FOREIGN item, carry the read's always-English synopsis as THE STORY's English rendering — done
+      // here (right off the read), NOT gated on applyBrief, because a low-signal foreign PR whose brief has no
+      // gist/companies still fails applyBrief yet its `story` is exactly the English text the desk needs. The
+      // source-language lede is still kept as `summary` below, so the reader gets English with the original.
+      if (isForeignItem && brief?.story) { result.summary_en = brief.story; result.summary_lang = headlineLang || null }
     }
     if (applyBrief(result, brief)) {
       // the brief was read from the filing document itself — label the provenance so the reader knows

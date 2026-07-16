@@ -315,6 +315,11 @@ export interface NewsImpact {
 }
 export interface ArticleBrief {
   gist: string[] // 2-4 plain bullets, the crux
+  // a 2-3 sentence plain-ENGLISH synopsis of what the body actually says — always in English, whatever the
+  // source language. It exists so THE STORY still reads in English when the read finds no crisp gist bullets
+  // (a low-signal PR, a foreign-language article): enrich.ts surfaces it as summary_en for a non-English
+  // item, so a Latin-reading desk never faces an untranslated lede. "" / absent for a boilerplate body.
+  story?: string
   market_angle?: string // the single market-moving thread + transmission to asset prices (the "so what")
   companies: ArticleCompany[] // investable firms only, each with its role
   beneficiaries: ArticleParty[] // who gains (named firm or an inferred tradable group, flagged)
@@ -334,10 +339,11 @@ export interface ArticleBrief {
 export const ARTICLE_SYSTEM = `You are a buy-side analyst reading ONE news article for a portfolio manager. You are given the article's BODY TEXT (not just the headline). Produce a sharp, decision-ready brief that thinks in TRANSMISSION: event -> what changes in the real economy or a business -> which LISTED, TRADABLE asset moves, in what direction, by roughly how much, over what horizon. Second-level thinking, never a plain summary.
 
 Return ONLY this JSON (use [] or "" or null whenever the body does not support a field — NEVER invent to fill it):
-{"gist":["...","..."],"market_angle":"...","companies":[{"name":"...","ticker":null,"listing_status":"public|private|unknown","listing_country":null,"exchange":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"exposed":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"whats_priced":"...","the_edge":"...","watch_item":"...","theme":"<tag>","news_impact":{"impact_direction":"positive|negative|mixed|neutral|unknown","impact_magnitude":"low|medium|high|critical","affected_metric":["<zero or more SEPARATE values, each exactly one of: revenue, ebitda, pat_net_income, eps, cash_flow, debt, capex, commodity_price, valuation_multiple, regulatory_risk, thesis_quality — e.g. [\\"revenue\\",\\"eps\\"]; NEVER a single pipe-joined string>"],"quantified_impact_available":false,"extracted_numbers":["..."],"quick_dirty_calculation":"...","why_it_matters":"...","analyst_takeaway":"...","confidence":0}}
+{"gist":["...","..."],"story":"...","market_angle":"...","companies":[{"name":"...","ticker":null,"listing_status":"public|private|unknown","listing_country":null,"exchange":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"exposed":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"whats_priced":"...","the_edge":"...","watch_item":"...","theme":"<tag>","news_impact":{"impact_direction":"positive|negative|mixed|neutral|unknown","impact_magnitude":"low|medium|high|critical","affected_metric":["<zero or more SEPARATE values, each exactly one of: revenue, ebitda, pat_net_income, eps, cash_flow, debt, capex, commodity_price, valuation_multiple, regulatory_risk, thesis_quality — e.g. [\\"revenue\\",\\"eps\\"]; NEVER a single pipe-joined string>"],"quantified_impact_available":false,"extracted_numbers":["..."],"quick_dirty_calculation":"...","why_it_matters":"...","analyst_takeaway":"...","confidence":0}}
 
 GIST — 2 to 4 short bullets carrying the REAL crux: the number, threshold, call, or change that is the point. Lead with the punchline, not the setup (e.g. "sees 50-75bp of rate hikes and 5% FY27 CPI", not the CPI sub-components). Plain English, short sentences. Every number you state must appear in the body. No hype words (robust, strong, well-positioned, attractive, best-in-class). If the story is contested or two-sided, state BOTH sides. If the body is boilerplate, a cookie/ad notice, an "about us" page, or a login wall with no story, return gist [] and set theme to your best guess.
 For results, separate reported from adjusted and name any one-off behind a beat/miss (tax credit, disposal gain, customer advance) — lead with the underlying number, not the flattered one; margin moves in basis points.
+STORY — 2 to 3 sentences, ALWAYS in ENGLISH whatever the source language, plainly stating what the article actually says: the reader-facing narrative for a desk that may not read the original language. This is the fallback THE STORY when the crux is too diffuse for gist bullets — write it even when gist is []. Same rigour as GIST: every number must appear in the body, no hype words, translate the body's meaning faithfully and invent nothing. Keep company names, tickers and figures exactly as written. Use "" ONLY when the body is boilerplate / a cookie or login wall / an "about us" page with no real story (the same case that empties gist).
 DIGEST RULE: if the article bundles several unrelated items (a wire round-up, a "morning briefing"), lock onto the SINGLE most market-moving thread and brief only that. Ignore the trivia (sport, lifestyle, human-interest) — never let it drive a beneficiary or an exposed party.
 
 MARKET_ANGLE — one or two sentences: the "so what" for a market. Trace the transmission from the event to asset prices. For a macro / policy / commodity / geopolitics story this is the MOST important field (e.g. "A wider Middle-East war risks a crude supply shock: oil producers and tanker owners gain, while oil-importing economies, airlines and paint/tyre makers are squeezed on input costs."). Leave "" only if the story genuinely cannot move any tradable asset.
@@ -471,8 +477,13 @@ export function coerceArticleBrief(raw: any): ArticleBrief {
   // (isEnrichmentComplete → true). Absent stays absent so the read is retried / the Impact block hidden.
   const rawImpact = raw?.news_impact
   const news_impact = rawImpact && typeof rawImpact === 'object' && !Array.isArray(rawImpact) ? coerceNewsImpact(rawImpact) : undefined
+  // the always-English synopsis. Only carry it when the model actually supplied a non-empty one — an older
+  // cached brief (pre-`story` schema) or a boilerplate body leaves it absent, so enrich.ts falls back to the
+  // original lede exactly as before rather than showing an empty English block.
+  const story = str(raw?.story, 600)
   return {
     gist,
+    ...(story ? { story } : {}),
     market_angle: str(raw?.market_angle, 320),
     companies,
     beneficiaries,
