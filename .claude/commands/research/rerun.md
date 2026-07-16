@@ -77,8 +77,17 @@ is `<TARGET_OUT>` = `<RUN_ROOT>/<MODULE>/<NN>_<AGENT_SLUG>.md`, and its cascade 
 `<MODULE>/<NN>_<AGENT_SLUG>`.
 
 Note per pair whether the target **is the module synthesis** (`<NN>` = `99`). Such a target is
-re-run in step 5 (Wave 0) and must NOT be re-run again in step 7 — its Wave-0 surface diff directly
-decides its module's DIRTY/CLEAN state.
+normally re-run in step 5 (Wave 0) and must NOT be re-run again in step 7 — its Wave-0 surface diff
+directly decides its module's DIRTY/CLEAN state.
+
+**Ordering exception (multi-orb only):** an entry pair that targets a module synthesis whose module
+transitively `depends_on` another entry pair's module must NOT run in Wave 0 — it would adjudicate
+against stale upstream and never be re-adjudicated after that upstream refreshes. Demote it: remove
+it from the Wave-0 set and instead mark its module **FORCED** — in step 7 a FORCED module's `99`
+re-runs in its normal topological wave regardless of the dirty rule (the explicit request is
+honored, at the correct point in the order). A specialist entry in a downstream module keeps its
+Wave-0 slot: entry orbs fold the new evidence in independently and do not read each other's
+refreshed syntheses.
 
 ## 5. Re-run the target orbs (Wave 0) — snapshot, dispatch concurrently, diff
 
@@ -166,8 +175,9 @@ Then loop (wave number `k` = 1, 2, …) until every `<CASCADE>` module is DECIDE
 
 - **Ready set:** every UNDECIDED cascade module whose in-cascade `depends_on` are all DECIDED
   (dependencies outside `<CASCADE>` were never touched — they impose nothing).
-- **Split it:** a ready module re-runs iff it is dirty-fed (contains a changed entry target) or at
-  least one of its in-cascade dependencies is in `DIRTY`. Otherwise **prune it**: mark the node
+- **Split it:** a ready module re-runs iff it is dirty-fed (contains a changed entry target), is
+  marked **FORCED** (a demoted entry-99 target, step 4), or at least one of its in-cascade
+  dependencies is in `DIRTY`. Otherwise **prune it**: mark the node
   `status: "pruned"` with `pruned_because` naming the CLEAN dependencies, count the module DECIDED
   + CLEAN, and do NOT dispatch anything for it. A prune requires positive proof — if any
   dependency's diff errored or is missing, that dependency counts as DIRTY (fail toward blunt).
@@ -203,6 +213,12 @@ step 9. This is the honest fast path: the run's decision of record simply did no
 manifest + refreshed orb outputs are the committed evidence.
 
 Otherwise (any DIRTY module, or the explicit master target from step 1):
+
+**Master-target path only: create the rerun manifest now.** The master target skipped steps 5–7, so
+no manifest exists yet — write it per `INCREMENTAL_RERUN.md` §6 with the single node
+`master/synthesizer` (`role: "master"`, `status: "planned"`) before dispatching, and update it
+below like any other rerun. Without this, steps 8–9's manifest updates would have nothing to
+update and the audit trail would be silently absent.
 
 **Refresh the deterministic sidecar first — this is the only refresh the master-target path gets.**
 A `master synthesizer` rerun skips steps 5–7 (step 1 / step 4 jump straight here), so the Step-5
@@ -260,8 +276,9 @@ rewritten synthesis, and an untouched synthesis must not have its tiers churned:
 
 - **LLM batch — issue ALL of these Task calls in a single message so they run concurrently**
   (batched they cost about one memo's time, not the sum):
-  - one `module-memo-writer` Task per cascade module whose `99_*-synthesis.md` bytes changed
-    (`output_changed` from step 7; a pruned module never qualifies): `Read
+  - one `module-memo-writer` Task per module whose `99_*-synthesis.md` bytes changed THIS rerun —
+    cascade modules (`output_changed` from step 7) AND any Wave-0 entry target that was itself a
+    `99` (its bytes-changed check from step 5; a pruned module never qualifies): `Read
     <RUN_ROOT>/<M>/99_<...>-synthesis.md and write the module memo to
     <RUN_ROOT>/<M>/<M>_memo.md. Condense only what the synthesis carries; do not change its
     verdict, scores, or caps; the saved file starts with its # header and has no confirmation
@@ -272,7 +289,8 @@ rewritten synthesis, and an untouched synthesis must not have its tiers churned:
   (the synthesis / thesis is the decision of record).
 - **Deterministic pieces (Bash, zero LLM, run them now — they can overlap the LLM batch):**
   - the module dossier concatenation from `frameworks/MODULE_PIPELINE.md` Step 4.9B **verbatim**
-    for each byte-changed cascade module (`RUN_ROOT`, `MODULE` bound accordingly);
+    for each byte-changed module — cascade or Wave-0 `99` target (`RUN_ROOT`, `MODULE` bound
+    accordingly);
   - if step 8 re-ran the master: the audit-dossier concatenation from `/research:full`
     step 10A.2 **verbatim** with `RUN_ROOT="<RUN_ROOT>"`.
   Both are read-only on artifacts, write only their own output file, and must never abort the rerun.

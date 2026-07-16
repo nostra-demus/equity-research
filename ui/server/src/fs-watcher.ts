@@ -64,6 +64,11 @@ function maybeEmitRouting(run: RunState, module: string, content: string, isTria
 export function applyRerunManifest(run: RunState, fp: string) {
   let nodes: { key?: string; status?: string; pruned_because?: string }[]
   try {
+    // freshness guard (mtime vs startedAt, 2s skew — the finalDeliverablesShippedByThisAttempt
+    // pattern): reruns/ persists across reruns of the same folder, so a PRIOR attempt's committed
+    // manifest must never mark a current run's orbs skipped — on the live watcher path (a stray
+    // touch/copy event on an old file) just as on the end-of-run sweep.
+    if (fs.statSync(fp).mtimeMs < run.startedAt - 2_000) return
     const parsed = JSON.parse(fs.readFileSync(fp, 'utf8'))
     if (parsed?.schema !== 'rerun_manifest/v1' || !Array.isArray(parsed.nodes)) return
     nodes = parsed.nodes
@@ -190,19 +195,13 @@ export function sweepRunOutputs(run: RunState) {
   if (!run.runRoot) return
   // re-apply the rerun manifest FIRST: a final prune written moments before exit must mark its orbs
   // skipped before the output re-check below can misread their (prior-run) files as fresh 'done'.
-  // ONLY manifests written by THIS attempt count (mtime vs startedAt, same 2s-skew pattern as
-  // finalDeliverablesShippedByThisAttempt): reruns/ persists across reruns of the same folder, and a
-  // PRIOR rerun's committed manifest must never mark a current run's unreached orbs skipped.
+  // ONLY manifests written by THIS attempt count — applyRerunManifest enforces the freshness
+  // guard internally, for this sweep and the live watcher path alike.
   try {
     const rerunsDir = path.join(REPO_ROOT, run.runRoot, 'reruns')
     for (const f of fs.existsSync(rerunsDir) ? fs.readdirSync(rerunsDir) : []) {
       if (!/_rerun_manifest.*\.json$/.test(f)) continue
-      const abs = path.join(rerunsDir, f)
-      try {
-        if (fs.statSync(abs).mtimeMs >= run.startedAt - 2_000) applyRerunManifest(run, abs)
-      } catch {
-        /* unreadable manifest — skip */
-      }
+      applyRerunManifest(run, path.join(rerunsDir, f)) // freshness-guarded internally
     }
   } catch {
     /* sweep is best-effort */

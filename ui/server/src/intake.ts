@@ -186,10 +186,23 @@ export function readIntakePlan(ticker: string): IntakePlan | null {
     ? rawPlan.entry_orbs.filter((o: any) => orbValid(String(o?.module), String(o?.agent))).map((o: any) => ({ module: String(o.module), agent: String(o.agent) }))
     : []
 
-  // The one-click scoped batch: every validated command orb as a single multi-orb rerun launch.
-  // Cascade modules recomputed from the live DAG via the SAME merged expansion the launcher uses.
-  const batchOrbs = commands.map((c) => ({ module: c.module, agent: c.agent }))
-  const batch = batchOrbs.length
+  // The one-click scoped batch: the validated command orbs as a single multi-orb rerun launch.
+  // Deduplicated; capped at the launch route's 16-orb limit (an over-cap plan offers NO batch
+  // rather than a silently truncated one — fail toward blunt); synthesis-agent entries are
+  // excluded (a 99 is not a batchable Wave-0 entry — its module re-runs via the cascade, and the
+  // standalone per-orb command row stays available for it). Cascade modules recomputed from the
+  // live DAG via the SAME merged expansion the launcher uses.
+  const seenOrb = new Set<string>()
+  const batchOrbs = commands
+    .map((c) => ({ module: c.module, agent: c.agent }))
+    .filter((o) => {
+      const k = `${o.module}/${o.agent}`
+      if (seenOrb.has(k)) return false
+      seenOrb.add(k)
+      const cascade = downstreamCascade(o.module, o.agent, RESEARCH_SWARM_ID)
+      return cascade.length > 0 && cascade[0].kind === 'agent' // specialist entries only
+    })
+  const batch = batchOrbs.length >= 1 && batchOrbs.length <= 16
     ? {
         orbs: batchOrbs,
         command: `/research:rerun ${batchOrbs.map((o) => `${o.module} ${o.agent}`).join(' ')} ${ticker}`,

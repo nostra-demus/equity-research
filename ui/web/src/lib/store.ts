@@ -1351,7 +1351,7 @@ export const useStore = create<State>((set, get) => ({
       try {
         const { runId } = await api.launch({ kind: 'rerun', ticker: t, module: node.module, agent: node.name, orbs, force, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
         set({ launchConfirm: null })
-        beginRun(set, get, runId, { kind: 'rerun', module: node.module, agent: node.name, willCommitToMain: true }, planned)
+        beginRun(set, get, runId, { kind: 'rerun', module: node.module, agent: orbs && orbs.length > 1 ? `${orbs.length} orbs` : node.name, willCommitToMain: true }, planned)
         get().setToast({ msg: `Re-running ${label} + downstream on ${t}`, tone: 'good' })
       } catch (e: any) {
         set({ launchConfirm: null })
@@ -2241,8 +2241,8 @@ export const useStore = create<State>((set, get) => ({
         if (forSelected) {
           const cur = rt[e.agentKey]
           if (!cur || cur.status === 'queued') {
-            rt[e.agentKey] = { ...cur, status: 'skipped', runId: e.runId, verdict: e.reason || 'skipped — upstream unchanged' }
-            upsertRow(e.runId, e.agentKey, e.name, e.module, e.layer, 'skipped', e.reason || 'upstream unchanged')
+            rt[e.agentKey] = { ...cur, status: 'skipped', runId: e.runId, verdict: e.reason || 'skipped — upstream decision surface unchanged' }
+            upsertRow(e.runId, e.agentKey, e.name, e.module, e.layer, 'skipped', e.reason || 'upstream decision surface unchanged')
           }
         }
         break

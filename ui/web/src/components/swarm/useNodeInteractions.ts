@@ -26,7 +26,10 @@ export function useNodeInteractions() {
   // pending panel whose button runs/re-runs it. A finished module-synthesis orb with >1 saved tier opens
   // the module's 3-tier chooser (synthesis / memo / dossier), anchored at `anchor()`.
   const onNodeClick = (n: AgentNode, anchor?: () => { cx: number; top: number } | null) => {
-    if (nodeStatus(n.key) !== 'done') return selectNodeForRun(n)
+    const st = nodeStatus(n.key)
+    // 'skipped' (incremental-rerun prune) behaves like done: the standing output from the prior
+    // run is on disk and is exactly what the prune preserved — open it, don't offer a pending run.
+    if (st !== 'done' && st !== 'skipped') return selectNodeForRun(n)
     if (n.isSynthesis) {
       const r = moduleReports[n.module]
       const tierCount = [r?.synthesis, r?.memo, r?.dossier].filter(Boolean).length

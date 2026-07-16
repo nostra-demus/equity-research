@@ -451,9 +451,22 @@ export function mergedDownstreamCascade(entries: { module: string; agent?: strin
       } else if (node.kind === 'module-synthesis') synthByKey.set(node.key, node)
     }
   }
+  const graph = buildSwarmGraph(swarmId)
+  // ORDERING (INCREMENTAL_RERUN.md §3a): a synthesis target whose module is transitively downstream
+  // of another entry's module must not sit in Wave 0 — it would adjudicate before its upstream
+  // refreshes. Demote it into the ordered synthesis list (the command FORCES it there).
+  for (let i = targets.length - 1; i >= 0; i--) {
+    const t = targets[i]
+    if (t.kind !== 'module-synthesis') continue
+    const downstreamOfAnother = entries.some((e) =>
+      e.module !== t.module && transitiveDownstreamModules(graph, e.module).has(t.module))
+    if (downstreamOfAnother) {
+      synthByKey.set(t.key, t)
+      targets.splice(i, 1)
+    }
+  }
   // a target that IS its module's 99 must not repeat in the synthesis list
   for (const t of targets) if (t.kind === 'module-synthesis') synthByKey.delete(t.key)
-  const graph = buildSwarmGraph(swarmId)
   const ordered: CascadeNode[] = []
   for (const m of graph.modules) {
     for (const node of synthByKey.values()) if (node.module === m.name) ordered.push(node)

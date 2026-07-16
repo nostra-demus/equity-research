@@ -188,7 +188,7 @@ export function RunStreamPanel() {
                         {r.status === 'done' && !r.verdict && dur && <div className="streamrow__verdict streamrow__dur">{dur}</div>}
                         {r.status === 'running' && <div className="streamrow__verdict" style={{ color: 'var(--accent-bright)' }}>running{liveElapsed ? ` · ${liveElapsed}` : ''}{liveLeft ? ` · ${liveLeft}` : ''}</div>}
                         {r.status === 'failed' && <div className="streamrow__verdict" style={{ color: 'var(--bad)' }}>failed</div>}
-                        {r.status === 'skipped' && !r.verdict && <div className="streamrow__verdict streamrow__dur">skipped — upstream unchanged</div>}
+                        {r.status === 'skipped' && !r.verdict && <div className="streamrow__verdict streamrow__dur">skipped — upstream decision surface unchanged</div>}
                       </div>
                     </motion.div>
                   )

@@ -21,11 +21,12 @@ synthesis layers adjudicate on):
   • the Verdict category (the bold enum span of the `- **Verdict:**` line — not the rationale tail),
   • every `<label> /100: <value>` score bullet (value kept verbatim: number OR "Not assessable"),
     with its inverted-scale flag and any cap tags/limits attached to it,
-  • the Score Cap Application table rows (trigger, Applied? Y/N, numeric caps in the final column),
+  • the Score Cap Application table rows (trigger, the FULL Applied? cell verbatim — annotated
+    cells like 'Y (partial)' are committed house style, numeric caps in the final column),
   • the §24 filter status lines and standalone `... CAP: [NOT] triggered` lines,
   • the disqualifier check (triggered count + the `Disqualifier triggered: Y/N` bullet),
-  • red-flag tags (RF-XXX-NNN) that FIRED as standalone lines (rating_caps._tag_fired_standalone
-    semantics — table-row and negated mentions do not count),
+  • per red-flag tag (RF-XXX-NNN), the status its standalone lines report (fired / cleared via
+    strong negation phrases — so a fired↔cleared transition always flips the field),
   • numeric anchors in the Verdict section (fair-value levels, current price, red-flag counts …):
     every labelled bullet whose value carries digits, reduced to (label, digit-token tuple),
   • any fenced machine-readable JSON block (e.g. the MG synthesis's governance_summary.json),
@@ -58,14 +59,13 @@ import os
 import re
 import sys
 
-# Reuse the fixture-tested fired-tag detector rather than re-implementing it (CLAUDE.md §2).
-# rating_caps.py is the importable sibling (eval.py is a CLI that executes on import and must not
-# be imported from).
-try:
-    from rating_caps import _tag_fired_standalone  # type: ignore
-except ImportError:  # pragma: no cover - direct execution from repo root vs scripts/
-    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    from rating_caps import _tag_fired_standalone  # type: ignore
+# NOTE on rating_caps._tag_fired_standalone (deliberately NOT reused here — an exception to §2,
+# recorded): that detector is tuned for cap ENFORCEMENT, where a false "fired" is the conservative
+# error. For EQUALITY comparison the same false positive is anti-conservative — the committed
+# clearing phrasings ("…: NOT emitted", "(fired in the prior run) NOT triggered this run") read as
+# fired on BOTH sides, so a real fired↔cleared transition would compare equal and wrongly prune.
+# The comparator below classifies each standalone tag line by STRONG negation phrases instead, so
+# any real transition flips the status (adversarial review: 'extract_fired_tags misreads').
 
 SCHEMA = "decision_surface/v1"
 
@@ -176,22 +176,28 @@ def extract_scores(md):
         label = _norm_label(re.sub(r"^\s*[-*]\s*", "", pre))
         if not label:
             continue
-        # The value is the first NON-EMPTY bold span after '/100' — this skips the label's own
-        # closing '**', stray colons, and any italic '*(gloss)*' between '/100' and the value
-        # (all three shapes live in committed runs). Bare-number fallback for unstyled values.
-        vb = re.search(r"\*\*\s*([^*\s][^*\n]*?)\s*\*\*", post)
-        if vb:
-            value = _strip_md(vb.group(1))
-            after = post[vb.end():]
-        else:
-            vn = re.match(r"[\s:*]*(?:\*\([^)]*\)\*)?[\s:*]*(\d{1,3}(?:\.\d+)?)\b", post)
-            if not vn:
-                continue  # no extractable value → not a score bullet (fail-soft; other fields still parse)
+        # The value is ANCHORED right after '/100': drop italic '*(gloss)*' spans from the value
+        # path (they are direction glosses / provenance / cap annotations — the caps are harvested
+        # from the full line below), shed the label's closing '**'/colons/spaces, then take a bare
+        # number first, else the bold-span content. Anchoring matters: a search for the first bold
+        # span ANYWHERE after '/100' would, for an unstyled value followed by a bold annotation
+        # ('… /100: 85 — capped by **RF-X-001**'), capture the annotation as the value on both
+        # sides and hide a real score move (adversarial review, extractor lens).
+        clean = re.sub(r"\*\([^)]*\)\*", " ", post)
+        tail = clean[re.match(r"^[\s:*]*", clean).end():]
+        vn = re.match(r"(\d{1,3}(?:\.\d+)?)\b", tail)
+        vb = re.match(r"([^*\n]+?)\*\*", tail)
+        if vn:
             value = vn.group(1)
-            after = post[vn.end():]
+        elif vb and vb.group(1).strip():
+            value = _strip_md(vb.group(1))
+        else:
+            continue  # no extractable value → not a score bullet (fail-soft; other fields still parse)
         inverted = "invert" in raw.lower()
-        cap_tags = sorted(set(_RF_TAG.findall(after)))
-        cap_limits = sorted(set(m2.group(1) for m2 in re.finditer(r"(?:≤|<=|max\s+)(\d{1,3})", after)))
+        # cap attachments are harvested from the WHOLE post-'/100' line (value included) — more
+        # sensitive than an after-the-value slice, and sensitivity fails toward changed.
+        cap_tags = sorted(set(_RF_TAG.findall(post)))
+        cap_limits = sorted(set(m2.group(1) for m2 in re.finditer(r"(?:≤|<=|max\s+)(\d{1,3})", post)))
         out[label] = {
             "label": label,
             "value": value,
@@ -204,8 +210,13 @@ def extract_scores(md):
 
 def extract_cap_table(md):
     """Rows of any 'Score Cap Application' table (matched by heading NAME anywhere in the doc):
-    sorted list of {trigger, applied, final_numbers}. applied is the normalized Y/N cell; the
-    final-cap column is reduced to its numeric tokens (regeneration-stable)."""
+    sorted list of {trigger, applied, final_numbers}. `applied` is the FULL normalized cell text
+    uppercased — NOT reduced to Y/N. The committed house style annotates the cell ('Y (partial)',
+    'N (reconciled)', 'Partial'), and an exact-Y/N filter silently dropped those rows on BOTH
+    sides, so a cap-application FLIP inside an annotated row compared UNCHANGED and wrongly
+    pruned the cascade (adversarial review, confirmed high). Verbatim retention is
+    regeneration-stable and any flip now compares unequal. Only header/separator rows are
+    excluded, by shape: a dashes-only cell or a cell naming the column ('Applied?/Y/N')."""
     sec = _section(md, lambda h: "score cap application" in h)
     rows = []
     for raw in sec.split("\n"):
@@ -215,8 +226,10 @@ def extract_cap_table(md):
         if len(cells) < 3:
             continue
         applied = _strip_md(cells[1]).upper()
-        if applied not in ("Y", "N"):
-            continue  # header / separator / prose rows
+        if not applied or re.fullmatch(r"[-: ]+", applied):
+            continue  # separator row
+        if "APPLIED" in applied or applied in ("Y/N", "(Y/N)"):
+            continue  # header row
         rows.append({
             "trigger": _norm_label(cells[0]),
             "applied": applied,
@@ -270,12 +283,42 @@ def extract_disqualifier(md):
     return out
 
 
-def extract_fired_tags(md):
-    """Red-flag/cap tags that FIRED as standalone lines. The tag universe is discovered from the
-    document itself (every RF-XXX-NNN token), then each is tested with the fixture-proven
-    _tag_fired_standalone — so cap-table rows and 'NOT emitted' propagation lines never count."""
-    tags = sorted(set(_RF_TAG.findall(md or "")))
-    return [t for t in tags if _tag_fired_standalone(md, t)]
+# Strong clearing phrases: when one of these appears in a standalone tag line's remainder, the
+# line is reporting the tag as NOT fired. Deliberately strong/verbatim (never bare 'none'/'absent',
+# which occur inside fired rationales) so a fired line is not misread as cleared — and any real
+# fired↔cleared transition rewrites the line across this boundary, flipping the status.
+_TAG_CLEARED = ("not emitted", "not triggered", "not fired", "did not fire", "not applicable",
+                "n/a", "no cap applied")
+
+
+def extract_tag_statuses(md):
+    """Per red-flag/cap tag, the sorted set of statuses its STANDALONE lines report:
+    {tag: ['cleared'] | ['fired'] | ['cleared', 'fired']}. A standalone line is one whose first
+    non-markup token is the tag (markdown heading/bullet/quote cruft shed — same line shape
+    rating_caps recognises); first-cell table rows (`TAG | N | …`) are excluded as status grids.
+    The comparator property this field exists for: a real fired↔cleared transition rewrites the
+    line across the _TAG_CLEARED boundary and the status flips, while a same-status rationale
+    rewording keeps it stable."""
+    out = {}
+    for raw in (md or "").splitlines():
+        line = raw.strip().lstrip("#-*•>|` \t").rstrip("` \t")
+        m = _RF_TAG.match(line)
+        if not m:
+            continue
+        rest = line[m.end():]
+        if rest.lstrip().startswith("|"):
+            continue  # first-cell status table row, not a standalone tag line
+        # Scope the negation scan to the line's STATEMENT — the text before the bold close (or the
+        # first sentence end). The rationale tail after it may legitimately contain negation words
+        # ('Agent 06 found them *approached but not triggered*' follows a CLEARED statement, and a
+        # FIRED statement's rationale could equally carry one) — scanning the whole line would make
+        # the status depend on reworded rationale instead of the statement itself.
+        stmt = rest.split("**")[0]
+        stmt = re.split(r"(?<=\.)\s", stmt, 1)[0]
+        low = _strip_md(stmt).lower()
+        status = "cleared" if any(neg in low for neg in _TAG_CLEARED) else "fired"
+        out.setdefault(m.group(0), set()).add(status)
+    return {tag: sorted(v) for tag, v in sorted(out.items())}
 
 
 def extract_numeric_anchors(md):
@@ -304,8 +347,11 @@ def extract_numeric_anchors(md):
         nums = _digit_tokens(value)
         if not label or not nums:
             continue
-        if label == "verdict":
-            continue  # owned by extract_verdict_category
+        if label.startswith("verdict"):
+            # owned by extract_verdict_category; the colon-inside-bold shape ('**Verdict: Mixed
+            # earnings setup**') would otherwise leak its reworded rationale tail's digits into the
+            # anchors and block the cutoff forever (adversarial review, extractor lens)
+            continue
         out[label] = list(nums)
     return dict(sorted(out.items()))
 
@@ -353,7 +399,7 @@ def extract_surface(md):
         "cap_table": extract_cap_table(md),
         "filter_statuses": extract_filter_statuses(md),
         "disqualifier": extract_disqualifier(md),
-        "fired_tags": extract_fired_tags(md),
+        "tag_statuses": extract_tag_statuses(md),
         "numeric_anchors": extract_numeric_anchors(md),
         "fenced_json": extract_fenced_json(md),
     }
@@ -367,7 +413,7 @@ def extract_surface(md):
 
 
 _COMPARED_FIELDS = ("verdict", "scores", "cap_table", "filter_statuses",
-                    "disqualifier", "fired_tags", "numeric_anchors", "fenced_json")
+                    "disqualifier", "tag_statuses", "numeric_anchors", "fenced_json")
 
 
 def diff_surfaces(old, new):
@@ -380,7 +426,16 @@ def diff_surfaces(old, new):
             return {"changed": True, "reasons": [f"{side} surface missing or wrong schema"]}
         if not s.get("parse_ok"):
             return {"changed": True, "reasons": [f"{side} surface parse failure: {s.get('reason', 'unknown')}"]}
-    if (old.get("verdict") or "").strip().lower() != (new.get("verdict") or "").strip().lower():
+    # a missing verdict category is itself a change signal: if BOTH sides failed to yield one, a
+    # verdict flip would otherwise compare None == None and prune (adversarial review, extractor
+    # lens). Module syntheses — the only prune boundary — always carry a verdict bullet, so this
+    # strictness costs nothing on the paths that matter.
+    if old.get("verdict") is None or new.get("verdict") is None:
+        reasons.append("verdict category missing on "
+                       + ("both sides" if old.get("verdict") is None and new.get("verdict") is None
+                          else "one side")
+                       + " — not comparable, treated as changed")
+    elif (old.get("verdict") or "").strip().lower() != (new.get("verdict") or "").strip().lower():
         reasons.append(f"verdict category: {old.get('verdict')!r} → {new.get('verdict')!r}")
     o_scores = {s["label"]: s for s in old.get("scores", [])}
     n_scores = {s["label"]: s for s in new.get("scores", [])}
@@ -396,8 +451,8 @@ def diff_surfaces(old, new):
     for field in ("cap_table", "filter_statuses", "disqualifier", "numeric_anchors", "fenced_json"):
         if old.get(field) != new.get(field):
             reasons.append(f"{field} changed")
-    if old.get("fired_tags") != new.get("fired_tags"):
-        reasons.append(f"fired tags: {old.get('fired_tags')} → {new.get('fired_tags')}")
+    if old.get("tag_statuses") != new.get("tag_statuses"):
+        reasons.append(f"red-flag tag statuses: {old.get('tag_statuses')} → {new.get('tag_statuses')}")
     return {"changed": bool(reasons), "reasons": reasons}
 
 
@@ -407,7 +462,9 @@ def diff_files(old_path, new_path):
     sides = {}
     for name, p in (("old", old_path), ("new", new_path)):
         try:
-            with open(p, "r", encoding="utf-8") as f:
+            # errors='replace' keeps a stray non-UTF-8 byte from crashing outside the documented
+            # exit contract; replacement is deterministic, so equality semantics are preserved
+            with open(p, "r", encoding="utf-8", errors="replace") as f:
                 sides[name] = f.read()
         except OSError as e:
             return {"changed": True, "reasons": [f"{name} file unreadable: {e}"],
@@ -464,18 +521,29 @@ def selftest():
     check(scores.get("valuation attractiveness", {}).get("cap_tags") == ["RF-OWN-004"]
           and scores["valuation attractiveness"]["cap_limits"] == ["60"], "inline cap tag + limit")
     check(scores.get("catalyst strength", {}).get("cap_limits") == ["55"], "held ≤N cap limit")
+    anchored = {sc["label"]: sc for sc in extract_scores("- Data quality /100: 85 — capped by **RF-X-001** next year")}
+    check(anchored.get("data quality", {}).get("value") == "85",
+          "unstyled value is anchored — a later bold annotation is never mistaken for the value")
 
-    # cap table — Y/N normalization + final-cap numerics; catalyst §3 vs §4 numbering irrelevance
+    # cap table — full Applied?-cell retention (annotated cells are committed house style) +
+    # final-cap numerics; header/separator excluded by shape, not by exact-Y/N matching
     md_cap = "\n".join([
         "## 4. Score Cap Application",
         "| Cap Trigger | Applied? (Y/N) | Affected Score | Final Cap |",
         "|---|---|---|---|",
         "| No consensus / estimate data | **N** | Consensus setup | max 30 — not applied |",
         "| Transcript role filled ONLY by a sell-side proxy | **Y** | Earnings clarity | **max 70 (applied)** |",
+        "| Methods disagree >40% unreconciled | **N (reconciled)** | Valuation confidence | max 55 — not applied |",
+        "| No covenant disclosure | **Partial** | Covenant headroom | Not assessable |",
     ])
     rows = extract_cap_table(md_cap)
-    check([r["applied"] for r in rows] == ["N", "Y"], "cap table Y/N rows (sorted by trigger)")
-    check(rows[1]["final_numbers"] == ["70"], "final-cap numerics")
+    check([r["applied"] for r in rows] == ["N (RECONCILED)", "N", "PARTIAL", "Y"],
+          "cap table keeps annotated cells verbatim (sorted by trigger)")
+    check(rows[3]["final_numbers"] == ["70"], "final-cap numerics")
+    # THE FLIP CLASS: an annotated cap-application flip must read as changed (review finding)
+    a_cap = extract_surface("- **Verdict:** Sufficient\n" + md_cap)
+    b_cap = extract_surface(("- **Verdict:** Sufficient\n" + md_cap).replace("**N (reconciled)**", "**Y (unreconciled)**"))
+    check(diff_surfaces(a_cap, b_cap)["changed"] is True, "annotated cap-application flip reads changed")
 
     # filter statuses + standalone cap lines (BM shapes)
     md_filters = "\n".join([
@@ -504,17 +572,29 @@ def selftest():
     check(dq.get("triggered_count") == 1 and dq.get("verdict_locked") is False and dq.get("bullet") == "N",
           "disqualifier extraction")
 
-    # fired tags — semantics are rating_caps._tag_fired_standalone's, mirrored via import (one
-    # source of truth): a standalone leading-tag line fires; an anchored negation ("not triggered")
-    # and a table-row mention do not. NOTE the identity requirement is only STABILITY across
-    # regenerations, and the detector is deterministic, so quirks (e.g. a parenthetical between the
-    # tag and its negation defeating the anchor) affect old and new sides identically.
+    # tag statuses — the committed clearing phrasings must read as cleared, a fired line as fired,
+    # table rows excluded; and BOTH transition directions must read as changed (review finding:
+    # the enforcement detector's boolean hid fired↔cleared transitions).
     md_tags = "\n".join([
-        "RF-BQ-005 not triggered — rate-of-change 72, Filter 5 clear.",
+        "- **RF-BQ-005 (fast-changing industry: rate-of-change ≤40): NOT emitted** — scored 72.",
+        "- **RF-DISC-001 / RF-DISC-002 (fired in the prior run) NOT triggered this run.**",
         "| Serial-acquirer pattern (RF-CAP-004) | N | capital allocation | max 50 |",
         "RF-OWN-004 — government-owner value trap: fired, cap applied.",
     ])
-    check(extract_fired_tags(md_tags) == ["RF-OWN-004"], "fired-tag semantics (negation + table row excluded)")
+    ts_ = extract_tag_statuses(md_tags)
+    check(ts_.get("RF-BQ-005") == ["cleared"], "committed NOT-emitted phrasing reads cleared")
+    check(ts_.get("RF-DISC-001") == ["cleared"], "committed NOT-triggered-this-run phrasing reads cleared")
+    check("RF-CAP-004" not in ts_, "first-cell table row excluded")
+    check(ts_.get("RF-OWN-004") == ["fired"], "fired standalone line reads fired")
+    base_tags = extract_surface("- **Verdict:** Sufficient\n" + md_tags)
+    refired = extract_surface(("- **Verdict:** Sufficient\n" + md_tags).replace(
+        "(fired in the prior run) NOT triggered this run.**",
+        "(fired in the prior run) FIRED AGAIN this run.** The FY25 report is again delayed."))
+    check(diff_surfaces(base_tags, refired)["changed"] is True, "cleared→fired transition reads changed")
+    unfired = extract_surface(("- **Verdict:** Sufficient\n" + md_tags).replace(
+        "RF-OWN-004 — government-owner value trap: fired, cap applied.",
+        "RF-OWN-004 not triggered — the controller sold down below the threshold."))
+    check(diff_surfaces(base_tags, unfired)["changed"] is True, "fired→cleared transition reads changed")
 
     # numeric anchors — verdict-section labelled numerics only; prose bullets skipped
     md_anchor = "\n".join([
@@ -552,6 +632,10 @@ def selftest():
     reworded = md_anchor.replace("gated by RF-OWN-004", "held back by the government-owner trap RF-OWN-004")
     check(diff_surfaces(a, extract_surface(reworded))["changed"] is False,
           "prose rewording with identical decision values is unchanged")
+    # a verdict-less pair must not compare equal (None == None would hide a category flip)
+    noverdict = extract_surface("## 1. Some Verdict\n- Data quality /100: **80**")
+    check(noverdict["parse_ok"] and diff_surfaces(noverdict, noverdict)["changed"] is True,
+          "verdict missing on both sides still reads changed")
     # parse failure on either side propagates
     check(diff_surfaces(extract_surface(""), a)["changed"], "empty old surface fails toward changed")
     check(diff_surfaces(a, extract_surface("no structure at all"))["changed"],
@@ -586,14 +670,15 @@ def main(argv):
         argv = argv[:i] + argv[i + 2:]
     try:
         if len(argv) == 2 and argv[0] == "extract":
-            with open(argv[1], "r", encoding="utf-8") as f:
+            with open(argv[1], "r", encoding="utf-8", errors="replace") as f:
                 _write_or_print(extract_surface(f.read()), json_out)
             return 0
         if len(argv) == 3 and argv[0] == "diff":
             res = diff_files(argv[1], argv[2])
             _write_or_print(res, json_out)
             return 3 if res["changed"] else 0
-    except OSError as e:
+    except Exception as e:  # any unexpected failure must land INSIDE the exit contract (2 = error,
+        # which every caller treats as changed) — never a bare traceback with exit 1
         print(f"[decision_surface] ERROR: {e}", file=sys.stderr)
         return 2
     print(__doc__)

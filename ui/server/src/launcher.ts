@@ -602,7 +602,11 @@ export interface RerunOrb {
 // The cascade a rerun covers: single-orb (module+agent) or the merged multi-orb union. One place,
 // so prompt / expected-set / covered-modules / estimate can never disagree about the same launch.
 function rerunCascade(swarmId: string, module?: string, agent?: string, orbs?: RerunOrb[]) {
-  return orbs && orbs.length > 1 ? mergedDownstreamCascade(orbs, swarmId) : downstreamCascade(module!, agent, swarmId)
+  if (orbs && orbs.length > 1) return mergedDownstreamCascade(orbs, swarmId)
+  // a 1-entry orbs list is the single-orb case; module/agent may be absent then (estimate route)
+  const m = orbs?.length ? orbs[0].module : module
+  const a = orbs?.length ? orbs[0].agent : agent
+  return m ? downstreamCascade(m, a, swarmId) : []
 }
 
 // Modules this run writes into (for D2b / D3 admission). swarmId is resolved by the caller.

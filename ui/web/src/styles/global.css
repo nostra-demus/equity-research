@@ -247,6 +247,10 @@ a { color: inherit; }
 .node--done .node__core { width: 52%; height: 52%; box-shadow: 0 0 10px var(--accent-glow); }
 .node--failed .node__ring { border-color: var(--bad); }
 .node--failed .node__core { width: 30%; height: 30%; background: var(--bad); }
+/* skipped = incremental-rerun prune: terminal like done, but nothing was re-written — settled and
+   muted (neutral token), never live-pulsing, clearly distinct from a never-run default ring */
+.node--skipped .node__ring { border-color: var(--neutral); }
+.node--skipped .node__core { width: 40%; height: 40%; background: var(--neutral); opacity: 0.65; }
 .node--synthesis .node__ring { border-width: 2px; }
 .node--selected .node__ring { box-shadow: 0 0 0 3px var(--accent-wash), 0 0 18px var(--accent-glow); border-color: var(--accent-bright); }
 
@@ -262,7 +266,7 @@ a { color: inherit; }
 /* past the estimate: the ring holds full and breathes (still working) instead of faking completion */
 .node--overrun .node__sweep-arc { stroke: var(--accent); animation: orboverrun 2s ease-in-out infinite; }
 @keyframes orboverrun { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-.node--done .node__fill, .node--done .node__sweep, .node--failed .node__fill, .node--failed .node__sweep { opacity: 0; }
+.node--done .node__fill, .node--done .node__sweep, .node--failed .node__fill, .node--failed .node__sweep, .node--skipped .node__fill, .node--skipped .node__sweep { opacity: 0; }
 
 /* live module timer at the cluster label — orbs done/total · elapsed · ~time-left, with a slim flow bar */
 .cluster__timer { margin-top: 3px; display: flex; flex-direction: column; align-items: center; gap: 4px; }

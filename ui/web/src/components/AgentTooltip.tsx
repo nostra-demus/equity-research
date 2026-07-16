@@ -24,7 +24,7 @@ function hint(node: AgentNode, status: NodeStatus): { text: string; go: boolean 
     case 'done':
       return { text: 'Click to view output', go: true }
     case 'skipped':
-      return { text: 'Skipped — upstream unchanged · click to view the standing output', go: true }
+      return { text: 'Skipped — upstream decision surface unchanged · click to view the standing output', go: true }
     case 'running':
       return { text: 'Running…', go: false }
     case 'queued':
@@ -43,7 +43,7 @@ function timeLine(status: NodeStatus, startedAt?: number, endedAt?: number, expe
     return p.overrun ? `elapsed ${fmtClock(p.elapsedMs)} · over estimate` : `elapsed ${fmtClock(p.elapsedMs)} · ${fmtEtaLeft(p.remainingMs)}`
   }
   if (status === 'done' && startedAt && endedAt && endedAt > startedAt) return `took ${fmtSpan(endedAt - startedAt)}`
-  if (status === 'skipped') return 'not re-run — its inputs were proven decision-identical'
+  if (status === 'skipped') return 'not re-run — its refreshed upstream carried an identical decision surface'
   if (status === 'queued') return 'queued — timer starts when data arrives'
   return null
 }

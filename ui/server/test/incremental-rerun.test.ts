@@ -67,6 +67,23 @@ check('two entries: targets first (entry order), shared syntheses once in topo o
   assert.ok(bm99 >= 0 && earn99 >= 0 && bm99 < earn99, `expected bm 99 before earnings 99 in ${keys.join(', ')}`)
 })
 
+check('a synthesis entry DOWNSTREAM of another entry is demoted out of Wave-0 targets (ordering, §3a)', () => {
+  const merged = mergedDownstreamCascade([
+    { module: 'business-model', agent: 'external-dependency' },
+    { module: 'earnings', agent: 'earnings-synthesis' }, // earnings depends_on business-model
+  ])
+  const keys = merged.map((c) => c.key)
+  // the earnings 99 must NOT lead the cascade (it would adjudicate against stale business-model);
+  // it appears exactly once, in the topologically ordered synthesis run, after business-model's 99
+  assert.equal(merged[0].module, 'business-model')
+  assert.equal(merged[0].kind, 'agent')
+  assert.notEqual(merged[1]?.key.startsWith('earnings/99_'), true)
+  const bm99 = keys.findIndex((k) => /^business-model\/99_/.test(k))
+  const earn99 = keys.findIndex((k) => /^earnings\/99_/.test(k))
+  assert.ok(bm99 >= 0 && earn99 > bm99, `earnings 99 must follow business-model 99 in ${keys.join(', ')}`)
+  assert.equal(keys.filter((k) => /^earnings\/99_/.test(k)).length, 1)
+})
+
 check('an entry that IS a 99 synthesis is not duplicated in the synthesis list', () => {
   const merged = mergedDownstreamCascade([
     { module: 'earnings', agent: 'earnings-synthesis' },

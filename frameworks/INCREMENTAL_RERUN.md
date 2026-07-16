@@ -28,7 +28,7 @@ concurrent waves, and reports honestly what it skipped and why.
   requires positive, deterministic proof of equality; silence or breakage never prunes.
 - **Nothing is skipped silently (§5).** Every pruned node is recorded in the rerun manifest with
   its reason and the diff evidence, committed with the run. The cockpit shows pruned orbs as
-  "skipped — upstream unchanged", never as done and never as missing.
+  "skipped — upstream decision surface unchanged", never as done and never as missing.
 - **§22 defines the surface.** Downstream synthesis layers adjudicate each module's *verdict,
   scores, caps, and red flags* — so those (plus the numeric anchors of the verdict block and any
   fenced machine-readable JSON) ARE the decision surface. Free prose is excluded because a
@@ -44,10 +44,10 @@ report to:
 | --- | --- | --- |
 | `verdict` | the bold enum span of the `- **Verdict:**` line (not the rationale tail) | yes — module rules fix the category vocabulary |
 | `scores` | every `<label> /100: <value>` bullet: value verbatim (number or "Not assessable"), inverted flag, inline cap tags/limits | yes — numbers and caps only |
-| `cap_table` | Score Cap Application rows: trigger, Applied? Y/N, numeric caps | yes |
+| `cap_table` | Score Cap Application rows: trigger, the FULL Applied? cell verbatim (annotated cells included), numeric caps | yes |
 | `filter_statuses` | §24 filter lines (`Filter N … Tripped/Not tripped`) and standalone `… CAP: [NOT] triggered` lines | yes |
 | `disqualifier` | disqualifier-check table Y-count, verdict-lock line, `Disqualifier triggered: Y/N` bullet | yes |
-| `fired_tags` | RF-tags that fired as standalone lines (`rating_caps._tag_fired_standalone` semantics, imported — one source of truth) | yes |
+| `tag_statuses` | per RF-tag, the fired/cleared status its standalone lines report (strong-negation phrases, statement-scoped — a fired↔cleared transition always flips it) | yes |
 | `numeric_anchors` | every labelled bullet in the Verdict section whose value carries digits, reduced to its digit tuple (fair-value levels, current price, red-flag counts…) | yes |
 | `fenced_json` | named machine-readable fenced JSON blocks (e.g. `governance_summary.json`), parsed | yes |
 
@@ -77,8 +77,16 @@ and (research swarm only) the master synthesizer.
    in-cascade dependency resolved CLEAN, the module is PRUNED (its inputs are decision-identical to
    what its existing synthesis already adjudicated — its own specialists were never re-run, so no
    other input of it moved). A pruned module is CLEAN for propagation purposes.
+3a. **Multi-orb ordering exception.** An entry orb that IS a module synthesis whose module
+   transitively depends on another entry's module never runs in Wave 0 — it would adjudicate
+   against stale upstream and never be re-adjudicated. It is demoted to its normal topological
+   wave and its module is FORCED: the 99 re-runs there regardless of the dirty rule, honoring the
+   explicit request at the correct point in the order. Specialist entries in downstream modules
+   keep Wave 0 — entry orbs fold new evidence in independently and do not read each other's
+   refreshed syntheses.
 4. **The master synthesizer re-runs iff any module resolved DIRTY** (or the rerun targeted
-   `master` directly). When master is pruned, the decision of record (`final_thesis.md` +
+   `master` directly — that path creates the manifest at the master step, since steps that
+   normally write it were skipped). When master is pruned, the decision of record (`final_thesis.md` +
    `decision_record.json`) is untouched — so the deterministic finish-gate, the run memo, and the
    audit dossier are all correctly skipped too: there is nothing new to gate or re-project. When
    master re-runs, the finish-gate runs unconditionally, exactly as before.
@@ -158,6 +166,31 @@ Rules:
 - The `.md` twin is a one-page §21 plain-English rendering of the same facts (what re-ran, what
   was skipped and why, what the decision of record did).
 
+## 6a. Honest limits — what the cutoff does and does not prove
+
+The cutoff proves the upstream module's DECISION SURFACE is unchanged — verdict, scores, caps,
+filters, disqualifiers, red-flag statuses, verdict-block numeric anchors, machine-readable blocks.
+It deliberately does NOT compare free prose (the Abstract, the Module Disconfirmation, the Note To
+The Final Synthesizer, roll-up commentary), because a regenerated report ALWAYS rewords prose —
+comparing it would mean the cutoff never fires. Three consequences, stated plainly:
+
+- A change expressed ONLY in prose — with every score, cap, flag, and anchor identical — will not
+  propagate. The engine's position: a module whose own refreshed adjudication moved nothing
+  decision-bearing has not changed its decision (§22 defines what downstream layers consume);
+  every module synthesis is REQUIRED to express material shifts through its verdict, scores,
+  caps, and flags, and prose-only drift around an identical decision is presentation.
+- The refreshed target orb's file changes even when the cascade prunes. A downstream synthesis
+  that would have re-read that orb's narrative through the cross-module folder pointer does not —
+  by design: the orb's own module 99 re-ran, read it in full, and adjudicated it (the 99s declare
+  only their OWN module's specialists as inputs; cross-module consumption happens at synthesis
+  level, which the surface covers).
+- When a human doubts a specific prune, the blunt path still exists and costs one click: the
+  intake dock's "full module completion" fallback, or a whole-module `/research:rerun` — both
+  re-run without relying on any prior prune (§8: prune decisions are never reused).
+
+UI and reports must describe a prune as what it is — "upstream decision surface unchanged" — never
+as a claim that the upstream FILE did not change (its bytes usually did).
+
 ## 7. Multi-orb entry
 
 One rerun may carry several entry orbs — the normal case for an intake plan that maps one document
@@ -180,8 +213,10 @@ subject-exclusive, so the alternative was strictly serial duplication of master 
   is recorded `failed` in the manifest; its module counts as DIRTY (fail toward blunt) but the
   orchestrator STOPS before the master step and reports, exactly as the blunt rerun did — a
   half-refreshed cascade must not rewrite the decision of record.
-- The manifest is the audit trail of an interrupted rerun: `planned`/`running` rows show exactly
-  where it stopped. A follow-up rerun starts fresh (new manifest version); it never trusts a prior
+- The manifest is the on-disk audit trail of an interrupted rerun: `planned`/`running` rows show
+  exactly where it stopped. Nothing commits on interruption (unchanged from the blunt rerun — the
+  single commit is the last step), so the manifest and any refreshed outputs sit uncommitted in
+  the run folder until the next successful rerun's commit sweeps the folder in. A follow-up rerun starts fresh (new manifest version); it never trusts a prior
   manifest's prune decisions, because the pool may have changed since — every prune is re-proven
   from current bytes.
 

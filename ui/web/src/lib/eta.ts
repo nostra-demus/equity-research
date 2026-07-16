@@ -112,20 +112,23 @@ export interface ScopeTiming {
   fraction: number // done / total
 }
 export function scopeTiming(orbs: ScopeOrb[], exp: ExpectedDurations, now: number): ScopeTiming {
-  const total = orbs.length
-  // 'skipped' (incremental-rerun prune) is terminal: counting it done keeps the fraction honest,
-  // and excluding it from remaining work below stops a pruned orb inflating the ETA forever.
-  const done = orbs.filter((o) => o.endedAt || o.status === 'done' || o.status === 'skipped').length
-  const starts = orbs.map((o) => o.startedAt).filter((v): v is number => !!v)
+  // 'skipped' (incremental-rerun prune) is zero-cost NON-work: counting a free skip as completed
+  // work would inflate fraction and make the elapsed/fraction projection understate the remaining
+  // real (dirty synthesis / master) time. Exclude skips from the timing scope entirely — they are
+  // terminal for the DISPLAY counts (the panel counts them itself), but not work to project over.
+  const scoped = orbs.filter((o) => o.status !== 'skipped')
+  const total = scoped.length
+  const done = scoped.filter((o) => o.endedAt || o.status === 'done').length
+  const starts = scoped.map((o) => o.startedAt).filter((v): v is number => !!v)
   const started = starts.length > 0
-  const live = orbs.some((o) => o.status === 'queued' || o.status === 'running')
+  const live = scoped.some((o) => o.status === 'queued' || o.status === 'running')
   const firstStart = started ? Math.min(...starts) : now
   const elapsedMs = started ? Math.max(0, now - firstStart) : 0
   const fraction = total ? done / total : 0
 
   // longest-pole floor: the scope cannot finish before its currently-running orbs do
   let longestPole = 0
-  for (const o of orbs) {
+  for (const o of scoped) {
     if (o.status === 'running' && o.startedAt) {
       const rem = Math.max(0, expectedFor(o.cls, exp) - (now - o.startedAt))
       if (rem > longestPole) longestPole = rem
@@ -140,13 +143,13 @@ export function scopeTiming(orbs: ScopeOrb[], exp: ExpectedDurations, now: numbe
       etaRemainingMs = Math.max(projectedTotal - elapsedMs, longestPole)
     } else {
       // too early to project: seed-sum of the not-yet-done orbs over the observed/assumed parallel width
-      const remainingWork = orbs
-        .filter((o) => !(o.endedAt || o.status === 'done' || o.status === 'skipped'))
+      const remainingWork = scoped
+        .filter((o) => !(o.endedAt || o.status === 'done'))
         .reduce((s, o) => {
           if (o.status === 'running' && o.startedAt) return s + Math.max(0, expectedFor(o.cls, exp) - (now - o.startedAt))
           return s + expectedFor(o.cls, exp)
         }, 0)
-      const peakConcurrency = Math.max(1, orbs.filter((o) => o.status === 'running').length)
+      const peakConcurrency = Math.max(1, scoped.filter((o) => o.status === 'running').length)
       etaRemainingMs = Math.max(remainingWork / Math.min(peakConcurrency || 3, 4), longestPole)
     }
   }
