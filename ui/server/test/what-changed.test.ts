@@ -263,6 +263,39 @@ await check("memo absent in both -> memo.state 'unknown' (a missing witness is N
   assert.equal(((await readWhatChanged({ runRoot: R })) as any).memo.state, 'unknown')
 })
 
+await check('record identical + memo REWRITTEN -> never says "Nothing changed"', async () => {
+  // Found in review: the record diff cannot see the memo, so verdict 'identical' produced the headline
+  // "Nothing changed." while memo.md had been rewritten underneath it — and the memo is the artefact most
+  // people actually read.
+  // The record must be BYTE-different but CANONICALLY equal, or git records no second version of it at
+  // all (this is exactly the reachable shape: a re-run rewrites the file, reordering keys / 17.70 -> 17.7,
+  // while the analysis underneath is unchanged).
+  const R = write('analyses/MEMOONLY_2026-07-10', JSON.stringify({ decision: 'Watchlist', confidence_score: 52 }), '# memo v1')
+  commit(R, 'v1')
+  write(R, JSON.stringify({ confidence_score: 52.0, decision: 'Watchlist' }, null, 2), '# memo v2 — rewritten')
+  commit(R, 'v2')
+  const r = await readWhatChanged({ runRoot: R })
+  assert.ok(r && r.state === 'compared')
+  assert.equal(r.diff.verdict, 'identical')
+  assert.equal(r.memo.state, 'changed')
+  assert.doesNotMatch(r.diff.headline, /Nothing changed/i)
+  assert.match(r.diff.headline, /memo was rewritten/i)
+  assert.doesNotMatch(whatChangedMarkdown(r), /Nothing changed/i)
+})
+
+await check('record identical + memo identical -> the flat "Nothing changed." IS licensed', async () => {
+  const R = write('analyses/TRULYSAME_2026-07-10', JSON.stringify({ decision: 'Watchlist', confidence_score: 52 }), '# memo')
+  commit(R, 'v1')
+  // byte-different, canonically identical, memo untouched -> the ONE case that licenses a flat
+  // "Nothing changed."
+  write(R, JSON.stringify({ confidence_score: 52.0, decision: 'Watchlist' }, null, 2))
+  commit(R, 'v2 — reformatted only')
+  const r = await readWhatChanged({ runRoot: R })
+  assert.ok(r && r.state === 'compared')
+  assert.equal(r.diff.verdict, 'identical')
+  assert.match(r.diff.headline, /Nothing changed/i)
+})
+
 await check("memo added in cur only -> memo.state 'added'", async () => {
   const R = write('analyses/MEMOADD_2026-07-10', REC({ confidence_score: 60 }))
   commit(R, 'v1')

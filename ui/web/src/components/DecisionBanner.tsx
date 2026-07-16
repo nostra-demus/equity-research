@@ -24,16 +24,18 @@ function chipCopy(wc: WhatChangedRead): { text: string; tone: string; title: str
     return { text: 'First version', tone: 'inert', title: wc.detail }
   }
   if (wc.state !== 'compared') return null // no_history -> render nothing at all
-  const since = wc.cur.uncommitted ? shortDate(wc.prev.date) : shortDate(wc.prev.date)
+  const since = shortDate(wc.prev.date)
   const { diff } = wc
   switch (diff.verdict) {
     case 'identical':
       return { text: `Unchanged since ${since}`, tone: 'flat', title: diff.headline }
     case 'call_held':
+      // the count comes from the server's one tailSummary — never re-derived here, or the chip and the
+      // panel can quote different numbers for the same run
       return {
-        text: `Call held since ${since} · ${diff.evidenceCount || diff.wordingCount} change${(diff.evidenceCount || diff.wordingCount) === 1 ? '' : 's'}`,
+        text: `Call held since ${since} · ${diff.evidenceCount + diff.wordingCount} changes`,
         tone: 'moved',
-        title: `${diff.headline} ${diff.subline}`,
+        title: `${diff.headline} ${diff.subline} ${diff.tailSummary}`.trim(),
       }
     case 'anchors_moved': {
       const m = diff.anchors.find((a) => a.moved)

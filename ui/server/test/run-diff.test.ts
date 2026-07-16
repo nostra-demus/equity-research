@@ -276,6 +276,119 @@ check('an unknown item shape -> reads as changed (fails toward SHOWING, never hi
   assert.equal(rf.removed.length, 1)
 })
 
+// ---- itemText must never drop an entry's BODY (the TMCV `trigger` shape) ---------------------------
+// Found in review: TEXT_FIELDS omitted `trigger`, and `severity` alone satisfied the "found something"
+// check — so all NINE of TMCV's real red flags collapsed to the literal string "(High)", and an added
+// Critical flag would have been reported to the reader as "a red flag was added: (Critical)".
+const TMCV_FLAG = {
+  id: 'RF-CAP-001',
+  severity: 'High',
+  source: 'FY26 filing',
+  trigger: 'Iveco EUR3.8bn acquisition — zero ROIC target, synergy, or leverage ceiling disclosed; 3.3x book equity',
+}
+check('itemText keeps the BODY of a TMCV-shaped red flag (trigger), not just its severity', () => {
+  const t = itemText(TMCV_FLAG)
+  assert.match(t, /Iveco EUR3\.8bn acquisition/)
+  assert.match(t, /\(High\)/)
+  assert.notEqual(t, '(High)', 'severity alone must never be the whole rendered entry')
+})
+check('an added Critical flag of the TMCV shape names the FINDING, not just "(Critical)"', () => {
+  const crit = { id: 'RF-NEW-001', severity: 'Critical', trigger: 'Auditor resigned mid-audit citing unreconciled related-party balances' }
+  const d = diffDecisionRecords({ red_flags: [TMCV_FLAG] }, { red_flags: [TMCV_FLAG, crit] })
+  const rf = d.lists.find((l) => l.field === 'red_flags')!
+  assert.equal(rf.added.length, 1)
+  assert.match(rf.added[0], /Auditor resigned mid-audit/)
+})
+check('an UNMAPPED body key falls through to canonical JSON — never a bare severity', () => {
+  const t = itemText({ id: 'X', severity: 'High', someFutureBodyKey: 'the actual finding' })
+  assert.notEqual(t, '(High)')
+  assert.match(t, /the actual finding/)
+})
+check('a same-severity swap is still distinguishable (both texts survive)', () => {
+  const a = { id: 'RF-1', severity: 'High', trigger: 'first finding' }
+  const b = { id: 'RF-2', severity: 'High', trigger: 'second finding' }
+  const d = diffDecisionRecords({ red_flags: [a] }, { red_flags: [b] })
+  const rf = d.lists.find((l) => l.field === 'red_flags')!
+  assert.match(rf.added[0], /second finding/)
+  assert.match(rf.removed[0], /first finding/)
+})
+check('a reworded TMCV flag under the same id shows the NEW body, not "(High)"', () => {
+  const b = { ...TMCV_FLAG, trigger: 'Iveco deal repriced; still no ROIC target disclosed' }
+  const d = diffDecisionRecords({ red_flags: [TMCV_FLAG] }, { red_flags: [b] })
+  const rf = d.lists.find((l) => l.field === 'red_flags')!
+  assert.equal(rf.reworded.length, 1)
+  assert.match(rf.reworded[0].cur, /repriced/)
+})
+
+// ---- direction 'changed' is NOT a scored tone ------------------------------------------------------
+check("a margin of safety that FIRST APPEARS is neutral, never 'worse' (red)", () => {
+  // margin_of_safety_pct is genuinely absent in 5 of the 6 committed records — this is the common path
+  const d = diffDecisionRecords({ decision: 'Watchlist' }, { decision: 'Watchlist', margin_of_safety_pct: 18.7 })
+  const a = d.anchors.find((x) => x.field === 'margin_of_safety_pct')!
+  assert.equal(a.direction, 'changed')
+  assert.equal(a.tone, 'neutral', 'establishing a margin of safety must not render as a deterioration')
+})
+check('a higher_better anchor that DISAPPEARS is neutral, not scored', () => {
+  const d = diffDecisionRecords({ edge_score: 62 }, { decision: 'Watchlist' })
+  assert.equal(d.anchors.find((x) => x.field === 'edge_score')!.tone, 'neutral')
+})
+check("an inverted anchor arriving as a non-number is neutral, never painted 'better'", () => {
+  const d = diffDecisionRecords({ decision: 'Buy' }, { decision: 'Buy', downside_risk_pct: 20.1 })
+  assert.equal(d.anchors.find((x) => x.field === 'downside_risk_pct')!.tone, 'neutral')
+})
+
+// ---- untracked fields are reported INDEPENDENTLY ---------------------------------------------------
+check('an untracked field that moved is reported even when an anchor ALSO moved', () => {
+  const d = diffDecisionRecords(
+    { decision: 'Watchlist', confidence_score: 52, forecast_ledger: [{ prediction: 'a' }] },
+    { decision: 'Watchlist', confidence_score: 46, forecast_ledger: [{ prediction: 'b' }] },
+  )
+  assert.equal(d.verdict, 'anchors_moved')
+  const u = d.prose.find((p) => p.field === '_untracked')
+  assert.ok(u, 'gating this on "nothing else moved" silently swore the ledger was untouched')
+  assert.match(u!.label, /forecast_ledger/)
+})
+check('an untracked field that did NOT move is not reported', () => {
+  const d = diffDecisionRecords(
+    { decision: 'Watchlist', confidence_score: 52, basket: 'Watchlist' },
+    { decision: 'Watchlist', confidence_score: 46, basket: 'Watchlist' },
+  )
+  assert.equal(d.prose.find((p) => p.field === '_untracked'), undefined)
+})
+check('the untracked sweep names the real fields', () => {
+  const d = diffDecisionRecords({ decision: 'Buy', paper_treatment: 'x' }, { decision: 'Buy', paper_treatment: 'y' })
+  assert.match(d.prose.find((p) => p.field === '_untracked')!.label, /paper_treatment/)
+})
+
+// ---- structural anchors never render "N entries → N entries" ---------------------------------------
+check('a same-length thesis_type change renders "changed", not "1 entries → 1 entries"', () => {
+  const d = diffDecisionRecords({ thesis_type: ['Company-specific'] }, { thesis_type: ['Macro-conditional'] })
+  const a = d.anchors.find((x) => x.field === 'thesis_type')!
+  assert.equal(a.moved, true)
+  assert.equal(a.prev, '1 entries')
+  assert.equal(a.cur, 'changed', 'a moved row whose two cells are identical reads as a rendering bug')
+})
+check('a same-length scenarios change renders "changed"', () => {
+  const s = (p: number) => [{ label: 'base', probability: p }]
+  const d = diffDecisionRecords({ scenarios: s(45) }, { scenarios: s(50) })
+  assert.equal(d.anchors.find((x) => x.field === 'scenarios')!.cur, 'changed')
+})
+check('a DIFFERENT-length structural change still shows both counts', () => {
+  const d = diffDecisionRecords({ thesis_type: ['a'] }, { thesis_type: ['a', 'b'] })
+  const a = d.anchors.find((x) => x.field === 'thesis_type')!
+  assert.equal(a.prev, '1 entries')
+  assert.equal(a.cur, '2 entries')
+})
+
+// ---- one count, rendered everywhere ---------------------------------------------------------------
+check('tailSummary names BOTH tiers and is the single user-facing count', () => {
+  assert.match(emaar.tailSummary, /3 changes to the evidence/)
+  assert.match(emaar.tailSummary, /5 fields reworded/)
+})
+check('tailSummary is empty when nothing moved below the call', () => {
+  assert.equal(diffDecisionRecords({ decision: 'Buy' }, { decision: 'Buy' }).tailSummary, '')
+})
+
 // ---- §12 inverted anchors + the two sign conventions ------------------------------------------------
 const dr = (p: number, c: number) => diffDecisionRecords({ downside_risk_pct: p }, { downside_risk_pct: c }).anchors.find((a) => a.field === 'downside_risk_pct')!
 check('§12: downside_risk_pct 20.1 -> 24.0 (both >= 0, magnitude) => lower_better, up, tone worse', () => {

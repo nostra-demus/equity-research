@@ -14,7 +14,7 @@
 .wc__head { padding-bottom: 10px; }
 .wc__body { min-height: 0; overflow-y: auto; padding: 0 20px 4px; }
 
-.wc__sub { font-size: 11px; color: var(--text-faint); font-family: var(--mono); }
+.wc__sub { font-size: 11px; color: var(--text-faint); font-family: var(--font-mono); }
 .wc__actions { display: flex; justify-content: flex-end; padding: 12px 20px 16px; }
 
 /* ---- provenance: the axis, then the two revisions ---------------------------------------------- */
@@ -23,7 +23,7 @@
    every time. */
 .wc__axis { font-size: 11.5px; color: var(--text-faint); margin: 0 0 8px; line-height: 1.5; }
 .wc__vers { display: flex; flex-direction: column; gap: 3px; padding: 9px 11px; border: 1px solid var(--hairline); border-radius: var(--r-sm); }
-.wc__ver { font-size: 11px; color: var(--text-dim); font-family: var(--mono); }
+.wc__ver { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); }
 .wc__ver b { color: var(--text); font-weight: 600; }
 /* the commit subject is the engine's OWN account of why this version exists — quoted verbatim, never
    paraphrased into an inferred cause */
@@ -32,8 +32,8 @@
 /* ---- the verdict: the whole answer, at a glance ------------------------------------------------- */
 .wc__verdict { padding: 14px 0 10px; border-bottom: 1px solid var(--hairline); }
 .wc__headline { margin: 0; font-size: 16px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
-.wc__headline--quiet { font-size: 13px; font-weight: 400; color: var(--text-dim); line-height: 1.55; padding: 14px 0; }
-.wc__subline { margin: 5px 0 0; font-size: 12px; color: var(--text-dim); font-family: var(--mono); }
+.wc__headline--quiet { font-size: 13px; font-weight: 400; color: var(--text-muted); line-height: 1.55; padding: 14px 0; }
+.wc__subline { margin: 5px 0 0; font-size: 12px; color: var(--text-muted); font-family: var(--font-mono); }
 .wc__under { margin: 5px 0 0; font-size: 11.5px; color: var(--rerun); }
 
 /* ---- sections ---------------------------------------------------------------------------------- */
@@ -47,7 +47,7 @@
 .wc__sect--fold > summary::-webkit-details-marker { display: none; }
 .wc__sect--fold > summary h4::before { content: '▸ '; }
 .wc__sect--fold[open] > summary h4::before { content: '▾ '; }
-.wc__prose { margin: 0; font-size: 11.5px; color: var(--text-dim); line-height: 1.55; }
+.wc__prose { margin: 0; font-size: 11.5px; color: var(--text-muted); line-height: 1.55; }
 
 /* ---- anchor rows ------------------------------------------------------------------------------- */
 /* Unchanged anchors are SHOWN, muted. An unchanged anchor is evidence — it is the actual answer to
@@ -67,10 +67,10 @@
      long one visibly crawl. Neither existing dock caps — their lists are short; this one is not. */
   animation-delay: calc(min(var(--i, 0), 8) * 34ms);
 }
-.wc__row[data-moved] { color: var(--text-dim); }
+.wc__row[data-moved] { color: var(--text-muted); }
 .wc__rowlabel { color: inherit; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.wc__rowlabel--sub { padding-left: 10px; font-size: 11px; font-family: var(--mono); }
-.wc__val { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; color: inherit; }
+.wc__rowlabel--sub { padding-left: 10px; font-size: 11px; font-family: var(--font-mono); }
+.wc__val { font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; color: inherit; }
 .wc__row[data-moved] .wc__val { color: var(--text); }
 .wc__arrow { color: var(--text-faint); text-align: center; }
 .wc__inv { margin-left: 4px; color: var(--conv-warn); cursor: help; }
@@ -81,15 +81,15 @@
 /* ---- evidence list ----------------------------------------------------------------------------- */
 .wc__list { padding: 5px 0; }
 .wc__list + .wc__list { border-top: 1px dashed var(--hairline); margin-top: 6px; }
-.wc__listhead { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-size: 12px; color: var(--text-dim); }
-.wc__count { font-size: 11px; color: var(--text-faint); font-family: var(--mono); }
+.wc__listhead { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-size: 12px; color: var(--text-muted); }
+.wc__count { font-size: 11px; color: var(--text-faint); font-family: var(--font-mono); }
 .wc__item {
   display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 4px;
-  margin: 4px 0 0; font-size: 11.5px; line-height: 1.5; color: var(--text-dim);
+  margin: 4px 0 0; font-size: 11.5px; line-height: 1.5; color: var(--text-muted);
   animation: wc-row-in var(--dur-fast) var(--ease-out) both;
   animation-delay: calc(min(var(--i, 0), 8) * 34ms);
 }
-.wc__sign { font-family: var(--mono); font-weight: 600; }
+.wc__sign { font-family: var(--font-mono); font-weight: 600; }
 /* violet = "new data touched this", the same meaning it already carries on a to-be-reheated orb. Ties the
    two halves of the story together (the dock that showed the document, and this) with no new token. */
 .wc__item--add .wc__sign { color: var(--rerun); }
@@ -99,10 +99,11 @@
 /* mute via CONTENT colour, never container opacity: the entrance animation's `forwards` fill lands on
    opacity:1 and would override a card-level opacity outright */
 .wc__item--rm span:not(.wc__sign) { color: var(--text-faint); }
-.wc__sub { font-style: italic; color: var(--text-faint); }
+/* inline aside inside a line of text — distinct from .wc__sub, the modal header subtitle */
+.wc__aside { font-style: italic; color: var(--text-faint); }
 
 .wc__memo { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--hairline); font-size: 11.5px; color: var(--text-faint); }
-.wc__memo b { color: var(--text-dim); font-weight: 500; }
+.wc__memo b { color: var(--text-muted); font-weight: 500; }
 
 /* ---- the banner chip --------------------------------------------------------------------------- */
 .wc__chip {
@@ -115,7 +116,7 @@
   transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) {
-  .wc__chip:hover { border-color: var(--hairline-strong); color: var(--text-dim); }
+  .wc__chip:hover { border-color: var(--hairline-strong); color: var(--text-muted); }
 }
 /* instant feedback on press — the UI must feel like it heard the click */
 .wc__chip:active { transform: scale(0.97); }

@@ -78,10 +78,15 @@ export interface RecordDiff {
   lists: ListDelta[] // only deltas with moved === true
   modules: ModuleDelta[]
   prose: ProseDelta[] // only changed; named, never rendered diff-style
-  evidenceCount: number // Tier-2 fields that moved — "3 things changed underneath" (the material tail)
+  evidenceCount: number // Tier-2 fields that moved (the material tail)
   wordingCount: number // Tier-3 fields reworded — real, but not a number moving
   belowCount: number // evidenceCount + wordingCount. VERDICT-CRITICAL: 'identical' is only licensed when
   // this is 0 AND the canonical JSON matches, so a pure-prose rewrite can never render "nothing changed".
+  // THE one user-facing count. Every surface renders this string verbatim — the chip, the panel and the
+  // chat block each used to derive their own from a different field (belowCount / evidenceCount /
+  // evidenceCount||wordingCount), so the same run could say "16 changes", "3" and "3" in three places at
+  // once. A number the user can catch disagreeing with itself costs more trust than it buys.
+  tailSummary: string
   hasInverted: boolean // any rendered anchor is lower_better|ambiguous -> §12 header marker required
 }
 
@@ -115,23 +120,30 @@ export function itemKey(x: unknown): string {
   return 'json:' + canonicalJson(x)
 }
 
-const TEXT_FIELDS = ['description', 'condition', 'text', 'summary', 'need', 'title'] as const
+// Every content key the corpus actually uses. `trigger` is TMCV's red-flag body; `what_it_means` and
+// `prediction` are the same class. Missing one silently guts the entry (see the guard below).
+const TEXT_FIELDS = ['description', 'condition', 'trigger', 'what_it_means', 'prediction', 'text', 'summary', 'need', 'title'] as const
 
 export function itemText(x: unknown): string {
   if (typeof x === 'string') return x.trim()
   if (isPlainObject(x)) {
-    const parts: string[] = []
+    let body: string | null = null
     for (const f of TEXT_FIELDS) {
       const v = x[f]
-      if (typeof v === 'string' && v.trim()) {
-        parts.push(v.trim())
-        break
-      }
+      if (typeof v === 'string' && v.trim()) { body = v.trim(); break }
     }
+    // NO BODY => FALL THROUGH TO canonicalJson, ALWAYS. This is the load-bearing line. `severity` must
+    // never on its own satisfy "we found something to show": when it did, an unmapped shape rendered as
+    // the bare string "(High)" — every one of TMCV's nine red flags collapsed to the same four
+    // characters, and an added Critical flag would have been reported to the reader, verbatim, as
+    // "a red flag was added: (Critical)". Dropping the body of a §13 hard-cap field is the §20
+    // bad-extraction this module exists to prevent. Showing raw JSON is ugly; showing a severity with no
+    // finding attached is a lie. Prefer ugly.
+    if (!body) return canonicalJson(x)
     const sev = x.severity
-    if (typeof sev === 'string' && sev.trim()) parts.push(`(${sev.trim()})`)
-    else if (typeof sev === 'number') parts.push(`(severity ${sev})`)
-    return parts.length ? parts.join(' ') : canonicalJson(x) // NEVER "[object Object]"
+    if (typeof sev === 'string' && sev.trim()) return `${body} (${sev.trim()})`
+    if (typeof sev === 'number') return `${body} (severity ${sev})`
+    return body
   }
   return String(x)
 }
@@ -154,6 +166,12 @@ export function moduleScore(v: unknown): { score: number | null; verdict: string
 
 function toneOf(p: Polarity, d: Direction): Tone {
   if (d === 'flat') return 'flat'
+  // 'changed' means "we could not compute a direction" (one side absent, null, or non-numeric), so it can
+  // never carry a scored tone. Without this, a re-run that FIRST ESTABLISHES a margin of safety renders
+  // the arrival of 18.7% in red as a deterioration — and margin_of_safety_pct is genuinely absent in 5 of
+  // the 6 committed records, so this is the common path, not an edge case. Same trap waiting for
+  // `conviction`/`analysis_confidence` the day the first two-number-confidence record lands.
+  if (d === 'changed') return 'neutral'
   switch (p) {
     case 'higher_better':
       return d === 'up' ? 'better' : 'worse'
@@ -239,6 +257,16 @@ function fmtAnchor(v: unknown, polarity: Polarity): string | number | null {
   if (polarity === 'structural') return Array.isArray(v) ? `${v.length} entries` : 'present'
   if (typeof v === 'number' || typeof v === 'string') return v
   return canonicalJson(v)
+}
+
+// A structural anchor is compared by deep-equality but DISPLAYED as a count, so a same-length change
+// (thesis_type ['Company-specific'] -> ['Macro-conditional'], or a scenario whose probability moved)
+// renders "1 entries → 1 entries" — a row flagged as moved whose two cells are identical, which reads as
+// a rendering bug and teaches the reader to distrust the table. Say what actually happened instead.
+function structuralCells(a: AnchorDelta): AnchorDelta {
+  if (a.polarity !== 'structural' || !a.moved) return a
+  if (a.prev !== null && a.cur !== null && a.prev === a.cur) return { ...a, cur: 'changed' }
+  return a
 }
 
 function buildAnchor(spec: AnchorSpec, prevRec: Record<string, unknown>, curRec: Record<string, unknown>): AnchorDelta | null {
@@ -410,11 +438,11 @@ export function diffDecisionRecords(prev: unknown, cur: unknown, opts?: { verdic
   const anchors: AnchorDelta[] = []
   const callSpec: AnchorSpec = { field: callField, label: 'the call', polarity: 'categorical' }
   const callAnchor = buildAnchor(callSpec, prevRec, curRec)
-  if (callAnchor) anchors.push(callAnchor)
+  if (callAnchor) anchors.push(structuralCells(callAnchor))
   for (const spec of ANCHOR_SPECS) {
     if (spec.field === callField) continue
     const a = buildAnchor(spec, prevRec, curRec)
-    if (a) anchors.push(a)
+    if (a) anchors.push(structuralCells(a))
   }
 
   const modules = buildModules(prevRec, curRec)
@@ -435,13 +463,25 @@ export function diffDecisionRecords(prev: unknown, cur: unknown, opts?: { verdic
   const anchorsMoved = anchors.some((a) => a.moved) || moduleScoreMoved
   const identical = canonicalJson(prevRec) === canonicalJson(curRec)
 
-  // The records differ, but no tier saw it — a field this view does not track (a new key, a reordered
-  // array of unknown shape). Name it rather than let the tail render empty: an empty tail under "the call
-  // didn't move" reads as "and nothing else did", which would be exactly the quiet falsehood this whole
-  // module exists to prevent (§3). Keeps BOTH invariants true: 'identical' still means byte-equal, and
-  // 'call_held' still never ships with an empty tail.
-  if (!identical && !anchorsMoved && lists.length === 0 && prose.length === 0) {
-    prose.push({ field: '_untracked', label: 'other fields this view does not itemise' })
+  // Fields no tier tracks — forecast_ledger, basket, paper_treatment, data_needs, calibration_feedback,
+  // review_due and anything a future schema adds — all really exist in the committed records. Report them
+  // INDEPENDENTLY, not as a fallback: gating this on "nothing else moved" meant a re-run that nudged
+  // confidence AND rewrote the entire forecast ledger reported only the confidence, and silently swore
+  // the ledger was untouched. §3 (never hide missing data) is not conditional on the rest of the diff
+  // being quiet. The check is a set-difference against everything we DID look at, so it stays honest as
+  // the schema grows rather than needing a maintainer to remember this line.
+  const seen = new Set<string>([
+    callField, ...ANCHOR_SPECS.map((s) => s.field), ...LIST_SPECS.map((s) => s.field),
+    ...PROSE_SPECS.map((s) => s.field), 'module_scores', 'sizing_hint',
+  ])
+  const untracked = [...new Set([...Object.keys(prevRec), ...Object.keys(curRec)])]
+    .filter((k) => !seen.has(k))
+    .filter((k) => canonicalJson(prevRec[k]) !== canonicalJson(curRec[k]))
+  if (untracked.length) {
+    prose.push({
+      field: '_untracked',
+      label: `${untracked.length} other field${untracked.length === 1 ? '' : 's'} (${untracked.slice(0, 4).join(', ')}${untracked.length > 4 ? ', …' : ''})`,
+    })
   }
 
   const evidenceCount = lists.length
@@ -453,6 +493,13 @@ export function diffDecisionRecords(prev: unknown, cur: unknown, opts?: { verdic
   else if (callAnchor?.moved) verdict = 'call_changed'
   else if (anchorsMoved) verdict = 'anchors_moved'
   else verdict = 'call_held'
+
+  // One sentence, built once, rendered verbatim everywhere. Names BOTH tiers rather than a single count:
+  // "3 changes" understates when 13 fields were also reworded, and "16 changes" buries the 3 that matter.
+  const parts: string[] = []
+  if (evidenceCount) parts.push(`${evidenceCount} change${evidenceCount === 1 ? '' : 's'} to the evidence`)
+  if (wordingCount) parts.push(`${wordingCount} field${wordingCount === 1 ? '' : 's'} reworded`)
+  const tailSummary = parts.length ? `${parts.join(' · ')} underneath.` : ''
 
   return {
     verdict,
@@ -466,6 +513,7 @@ export function diffDecisionRecords(prev: unknown, cur: unknown, opts?: { verdic
     evidenceCount,
     wordingCount,
     belowCount,
+    tailSummary,
     hasInverted: anchors.some((a) => a.polarity === 'lower_better' || a.polarity === 'ambiguous'),
   }
 }

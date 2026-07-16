@@ -346,6 +346,15 @@ export async function readWhatChanged(args: { runRoot: string; verdictField?: st
     const diff = diffDecisionRecords(prevRec, curRec, { verdictField: callField })
     diff.headline = headlineWithDate(diff, callField, prevRef.date)
 
+    // The record diff cannot see the memo, so 'identical' means "the RECORD is identical" — but the
+    // headline it produces says "Nothing changed.", which a reader takes to mean everything. When the memo
+    // was rewritten under an unchanged record that sentence is simply false, and the memo is the artefact
+    // most people actually read. Reconcile it here, where both witnesses are in hand.
+    if (diff.verdict === 'identical' && (memo.state === 'changed' || memo.state === 'added')) {
+      diff.headline = 'The call and the record are unchanged — but the memo was rewritten.'
+      diff.subline = `Every number is the same as ${prevRef.date}. The write-up around them is not.`
+    }
+
     const prevDir = posixDirname(prevRef.pathAtRev)
     const curDir = posixDirname(curRef.pathAtRev)
 
@@ -402,7 +411,7 @@ export function whatChangedMarkdown(read: WhatChangedRead): string {
   if (read.renamedFrom) lines.push(`- Note: this run was renamed from ${read.renamedFrom}.`)
   lines.push('', `VERDICT: ${diff.headline}`)
   if (diff.subline) lines.push(diff.subline)
-  if (diff.belowCount > 0) lines.push(`${diff.belowCount} thing${diff.belowCount === 1 ? '' : 's'} changed underneath.`)
+  if (diff.tailSummary) lines.push(diff.tailSummary)
 
   // Tier 1 — every anchor, moved or not. An unchanged anchor is evidence.
   lines.push('', `THE CALL (Tier 1)${diff.hasInverted ? ' — higher is better unless marked ⌄' : ''}`)

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import type { AnchorDelta, ListDelta, WhatChangedRead } from '../lib/types'
@@ -80,7 +80,7 @@ function ListRows({ l }: { l: ListDelta }) {
         <p key={`w${i}`} className="wc__item wc__item--rw" style={{ '--i': l.added.length + l.removed.length + i } as React.CSSProperties}>
           <span className="wc__sign" aria-hidden>±</span>
           {r.cur}
-          {r.prev === r.cur && <em className="wc__sub"> — the detail behind it was edited</em>}
+          {r.prev === r.cur && <em className="wc__aside"> — the detail behind it was edited</em>}
         </p>
       ))}
     </div>
@@ -110,7 +110,7 @@ function Body({ read }: { read: WhatChangedRead }) {
           <span className="wc__arrow" aria-hidden>→</span>{' '}
           <b>{cur.shortRev}</b>{cur.date ? ` · ${shortDate(cur.date)}` : ''}
           {cur.subject && <em> · “{cur.subject}”</em>}
-          {cur.uncommitted && <em className="wc__sub"> · on disk, not yet committed</em>}
+          {cur.uncommitted && <em className="wc__aside"> · on disk, not yet committed</em>}
         </span>
       </div>
       {renamedFrom && <p className="wc__note">This run was renamed from {renamedFrom}.</p>}
@@ -118,11 +118,9 @@ function Body({ read }: { read: WhatChangedRead }) {
       <div className="wc__verdict">
         <p className="wc__headline">{diff.headline}</p>
         {diff.subline && <p className="wc__subline">{diff.subline}</p>}
-        {diff.evidenceCount > 0 && (
-          <p className="wc__under">
-            {diff.evidenceCount} thing{diff.evidenceCount === 1 ? '' : 's'} changed underneath.
-          </p>
-        )}
+        {/* server-built, rendered verbatim — the chip, this panel and the chat must never derive their
+            own count and disagree */}
+        {diff.tailSummary && <p className="wc__under">{diff.tailSummary}</p>}
       </div>
 
       <section className="wc__sect">
@@ -177,6 +175,8 @@ export function WhatChangedPanel() {
   const read = useStore((s) => s.whatChanged)
   const close = useStore((s) => s.closeWhatChanged)
   const reduce = useReducedMotion()
+  const closeRef = useRef<HTMLButtonElement>(null)
+  const returnTo = useRef<Element | null>(null)
 
   // Escape is registered ONLY while open — a listener that outlives the panel steals the key from
   // whatever opens next.
@@ -186,6 +186,16 @@ export function WhatChangedPanel() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [open, close])
+
+  // aria-modal="true" tells a screen reader the rest of the page is inert — a promise worth keeping.
+  // Move focus in on open and put it back on the chip on close, so a keyboard user is not left tabbing
+  // through a page their reader has been told is not there.
+  useEffect(() => {
+    if (!open) return
+    returnTo.current = document.activeElement
+    closeRef.current?.focus()
+    return () => { (returnTo.current as HTMLElement | null)?.focus?.() }
+  }, [open])
 
   if (!open || !read) return null
   const title = read.runRoot.replace(/^analyses\//, '')
@@ -209,7 +219,7 @@ export function WhatChangedPanel() {
         </div>
         <Body read={read} />
         <div className="modal__actions wc__actions">
-          <button type="button" className="btn" onClick={close}>Close</button>
+          <button ref={closeRef} type="button" className="btn" onClick={close}>Close</button>
         </div>
       </motion.div>
     </div>

@@ -155,6 +155,7 @@ export interface RecordDiff {
   evidenceCount: number
   wordingCount: number
   belowCount: number
+  tailSummary: string // THE one user-facing count sentence — render verbatim, never re-derive
   hasInverted: boolean
 }
 export interface VersionRef {

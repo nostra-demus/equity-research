@@ -2318,11 +2318,15 @@ export const useStore = create<State>((set, get) => ({
             if (bloomTimer) clearTimeout(bloomTimer)
             bloomTimer = setTimeout(() => set({ coreBloom: false }), 4500)
             api.decision(selected, rSw, r.runRoot ?? undefined).then((d) => set({ decision: d })).catch(() => {})
-            // a finished re-run is exactly when a new version of the record exists. Deliberately NOT on
+            // A finished re-run is exactly when a new version of the record exists. Deliberately NOT on
             // the data-changed SSE: that watches data/, and a document landing does not change the diff —
             // only a re-run does. And because the reader treats the working tree as current, the delta is
             // right the moment the run WRITES, so no analyses/ watcher is needed either.
-            if (rSw === 'research') void get().refreshWhatChanged()
+            // `rSw` is UNDEFINED for research (it is an API param where undefined MEANS research, set at
+            // the top of this block) — so `rSw === 'research'` is never true and this once silently never
+            // fired: the chip would sit stale until the next company switch, quietly describing the run
+            // before the one that just finished.
+            if (!rSw) void get().refreshWhatChanged()
             if (chained) set({ chainTickers: new Set([...get().chainTickers].filter((x) => x !== r.ticker)) })
             get().setToast({ msg: 'Run complete', tone: 'good' })
           } else {
