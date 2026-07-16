@@ -527,11 +527,12 @@ export const api = {
     if ((await ensureMode()) === 'static') return { ok: true, checked: false }
     return post(`/api/credit-check`)
   },
-  estimate: async (kind: string, ticker: string, module?: string, agent?: string, swarm?: string): Promise<LaunchPreflight> => {
+  estimate: async (kind: string, ticker: string, module?: string, agent?: string, swarm?: string, orbs?: { module: string; agent: string }[]): Promise<LaunchPreflight> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return get(`/api/launch/estimate?kind=${kind}&ticker=${encodeURIComponent(ticker)}${module ? `&module=${module}` : ''}${agent ? `&agent=${agent}` : ''}${swarm ? `&swarm=${encodeURIComponent(swarm)}` : ''}`)
+    const orbsQ = orbs?.length ? `&orbs=${encodeURIComponent(orbs.map((o) => `${o.module}/${o.agent}`).join(','))}` : ''
+    return get(`/api/launch/estimate?kind=${kind}&ticker=${encodeURIComponent(ticker)}${module ? `&module=${module}` : ''}${agent ? `&agent=${agent}` : ''}${swarm ? `&swarm=${encodeURIComponent(swarm)}` : ''}${orbsQ}`)
   },
-  launch: async (body: { kind: string; ticker: string; module?: string; agent?: string; window?: string; model?: string; confirmTicker?: string; force?: boolean; swarm?: string }): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> => {
+  launch: async (body: { kind: string; ticker: string; module?: string; agent?: string; orbs?: { module: string; agent: string }[]; window?: string; model?: string; confirmTicker?: string; force?: boolean; swarm?: string }): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/launch`, body)
   },

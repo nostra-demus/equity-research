@@ -1,5 +1,7 @@
 export type Sufficiency = 'Sufficient' | 'Partial' | 'Insufficient'
-export type NodeStatus = 'dormant' | 'locked' | 'ready' | 'notready' | 'queued' | 'running' | 'done' | 'failed'
+// 'skipped' = an incremental rerun pruned the orb (upstream decision surface proven unchanged,
+// frameworks/INCREMENTAL_RERUN.md) — terminal like 'done', but nothing was re-written.
+export type NodeStatus = 'dormant' | 'locked' | 'ready' | 'notready' | 'queued' | 'running' | 'done' | 'failed' | 'skipped'
 // engine reachability, driven by the /api/health heartbeat (lib/store). `your-network` = the visitor's
 // own connection is down; `session-expired` = Cloudflare Access cookie gone (reachable but not JSON-ok).
 export type HealthState = 'connecting' | 'online' | 'reconnecting' | 'engine-offline' | 'your-network' | 'session-expired'
@@ -62,6 +64,9 @@ export interface IntakeRerunPlan {
   entry_orbs: { module: string; agent: string }[]
   commands: IntakeRerunCommand[]
   note_only: { path: string; reason: string }[]
+  // server-computed multi-orb batch: all validated command orbs as ONE incremental rerun launch
+  // (frameworks/INCREMENTAL_RERUN.md §7). Absent on old servers → the button falls back (fail-closed).
+  batch?: { orbs: { module: string; agent: string }[]; command: string; cascade_modules: string[] }
 }
 export interface IntakePlan {
   schema_version: string
@@ -831,6 +836,8 @@ export type SseEvent =
   | { type: 'agent-started'; runId: string; module: string; agentKey: string; name: string; layer: number; ts: number }
   | { type: 'agent-done'; runId: string; agentKey: string; module: string; name: string; layer: number; outputPath: string; verdict: string | null; bytes: number; ts: number }
   | { type: 'agent-failed'; runId: string; agentKey: string; module: string; name: string; layer: number; reason: string; ts: number }
+  // incremental rerun pruned this orb (deploy-skew safe: an old server never sends it)
+  | { type: 'agent-skipped'; runId: string; agentKey: string; module: string; name: string; layer: number; reason?: string; ts: number }
   | { type: 'layer-advanced'; runId: string; module: string; toLayer: number; doneCount: number; expectedCount: number; ts: number }
   | { type: 'module-done'; runId: string; module: string; status: 'completed' | 'aborted'; reason?: string; verdict?: string | null; ts: number }
   | { type: 'module-routed'; runId: string; module: string; route: string; terminal: boolean; nextModule: string | null; ts: number }

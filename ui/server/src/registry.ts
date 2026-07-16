@@ -184,7 +184,9 @@ const heartbeatTimer = setInterval(() => {
       runId: run.runId,
       status: run.status,
       elapsedMs: now - run.startedAt,
-      agentsDone: agents.filter((a) => a.status === 'done').length,
+      // 'skipped' (incremental-rerun prune) is terminal for progress purposes — a pruned orb will
+      // never run, so leaving it out of agentsDone would freeze the heartbeat's progress fraction.
+      agentsDone: agents.filter((a) => a.status === 'done' || a.status === 'skipped').length,
       agentsTotal: agents.length,
       costUsd: run.costUsd,
       lastStdoutAt: run.lastStdoutAt,

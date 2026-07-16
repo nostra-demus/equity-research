@@ -68,6 +68,9 @@ jobs:
       - name: Confidence scorer unit tests (deterministic two-number confidence)
         run: python3 scripts/test_confidence.py
 
+      - name: Decision-surface extractor + differ tests (incremental-rerun early cutoff)
+        run: python3 scripts/test_decision_surface.py
+
       - name: commit-run.sh push regression test (fast-forward push from a non-main branch)
         run: python3 scripts/test_commit_run.py
 

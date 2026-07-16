@@ -10,6 +10,7 @@ const dotColor: Record<string, string> = {
   done: 'var(--accent)',
   failed: 'var(--bad)',
   queued: 'var(--accent-deep)',
+  skipped: 'var(--neutral)', // incremental-rerun prune — terminal but nothing re-written; never pulses
 }
 
 const runLabel = (r: { kind: string; module?: string; agent?: string }) =>
@@ -83,12 +84,15 @@ export function RunStreamPanel() {
 
   const perRun = runs.map((run) => {
     const rows = runStream.filter((r) => r.runId === run.runId)
-    const done = rows.filter((r) => r.status === 'done').length
+    // 'skipped' (incremental-rerun prune) is terminal for progress: it counts toward done/total so the
+    // bar and ETA collapse the moment the cascade is cut — and is surfaced separately ("K skipped").
+    const skipped = rows.filter((r) => r.status === 'skipped').length
+    const done = rows.filter((r) => r.status === 'done').length + skipped
     const total = run.plannedCount ?? rows.length
     // every in-flight status counts as live — including the pre-spawn gate phases the early-acked
     // launch now surfaces (a gate-parked run must keep its card, its Cancel, and its progress bar)
     const running = run.status === 'running' || run.status === 'starting' || run.status === 'readiness-checking' || run.status === 'awaiting-readiness-decision'
-    return { run, rows, done, total, running }
+    return { run, rows, done, total, skipped, running }
   })
   const aggDone = perRun.reduce((s, p) => s + p.done, 0)
   const aggTotal = perRun.reduce((s, p) => s + p.total, 0)
@@ -114,7 +118,7 @@ export function RunStreamPanel() {
             <Spin /> {launchPending!.label}
           </div>
         )}
-        {perRun.map(({ run, rows, done, total, running }) => {
+        {perRun.map(({ run, rows, done, total, skipped, running }) => {
           const pct = total ? Math.min(100, Math.round((done / total) * 100)) : 0
           const elapsedMs = run.startedAt ? now - run.startedAt : 0
           // honest run ETA: progress-projection once an orb has finished; the launch-time range until then
@@ -137,7 +141,7 @@ export function RunStreamPanel() {
                         // a sweep has no orbs — a "0/0 orbs" line would read as broken. Show the clock (and,
                         // once done, the plain status) instead; the heartbeat line below carries the live detail.
                         ? (running ? `scanning · ${fmtClock(elapsedMs)}` : run.status)
-                        : `${done}/${total} orbs · ${running ? `${fmtClock(elapsedMs)} · ${etaText}` : run.status}`}
+                        : `${done}/${total} orbs${skipped ? ` · ${skipped} skipped` : ''} · ${running ? `${fmtClock(elapsedMs)} · ${etaText}` : run.status}`}
                   </div>
                 </div>
                 {run.willCommitToMain && <span className="chip" style={{ color: 'var(--accent-bright)', borderColor: 'var(--accent-deep)' }}>commits main</span>}
@@ -184,6 +188,7 @@ export function RunStreamPanel() {
                         {r.status === 'done' && !r.verdict && dur && <div className="streamrow__verdict streamrow__dur">{dur}</div>}
                         {r.status === 'running' && <div className="streamrow__verdict" style={{ color: 'var(--accent-bright)' }}>running{liveElapsed ? ` · ${liveElapsed}` : ''}{liveLeft ? ` · ${liveLeft}` : ''}</div>}
                         {r.status === 'failed' && <div className="streamrow__verdict" style={{ color: 'var(--bad)' }}>failed</div>}
+                        {r.status === 'skipped' && !r.verdict && <div className="streamrow__verdict streamrow__dur">skipped — upstream unchanged</div>}
                       </div>
                     </motion.div>
                   )

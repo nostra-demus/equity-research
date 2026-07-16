@@ -394,7 +394,17 @@ app.get('/api/launch/estimate', async (req, reply) => {
   if (![...researchKinds, ...screenerKinds].includes(kind)) return reply.code(400).send({ error: 'bad kind' })
   if (researchKinds.includes(kind)) {
     if (!TICKER_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad ticker' })
-    return estimate(kind, q.ticker, q.module, q.agent)
+    // kind 'rerun' may carry ?orbs=module/agent,module/agent (the multi-orb batch) — parsed, shape-checked
+    let orbs: { module: string; agent: string }[] | undefined
+    if (kind === 'rerun' && typeof q.orbs === 'string' && q.orbs.length) {
+      orbs = []
+      for (const pair of q.orbs.split(',')) {
+        const [m, a] = pair.split('/')
+        if (!m || !a || !MODULE_RE.test(m) || !AGENT_RE.test(a)) return reply.code(400).send({ error: 'bad orbs param' })
+        orbs.push({ module: m, agent: a })
+      }
+    }
+    return estimate(kind, q.ticker, q.module, q.agent, undefined, orbs)
   }
   if (kind === 'screener-agent' && !SIG_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad signal id' })
   if (kind === 'handoff' && !TICKER_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad ticker' })
@@ -409,6 +419,10 @@ const ResearchLaunchBody = z.object({
   ticker: z.string().regex(TICKER_RE),
   module: z.string().regex(MODULE_RE).optional(),
   agent: z.string().regex(AGENT_RE).optional(),
+  // kind 'rerun' only: multi-orb incremental rerun (frameworks/INCREMENTAL_RERUN.md §7) — 2+ entry
+  // orbs share ONE merged downstream cascade instead of paying it per orb. Single-orb callers keep
+  // using module+agent unchanged.
+  orbs: z.array(z.object({ module: z.string().regex(MODULE_RE), agent: z.string().regex(AGENT_RE) })).min(1).max(16).optional(),
   // review window (for kind 'review'); ignored by other kinds. Defaults to ad-hoc below.
   window: z.enum(['30d', '90d', '180d', '365d', '24m', '36m', 'ad-hoc', 'post-mortem']).optional(),
   model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
@@ -622,12 +636,31 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
   if (rkind === 'agent') {
     if (!agent || !agentNamesForModule(module!).includes(agent)) return reply.code(400).send({ error: 'unknown agent for module' })
   }
+  let rerunOrbs: { module: string; agent: string }[] | undefined
   if (rkind === 'rerun') {
-    // rerun needs an orb (module+agent). 'master' is the Memo (master synthesizer) — not a module dir, so skip the roster check for it.
-    if (!module || !agent) return reply.code(400).send({ error: 'rerun requires module and agent' })
-    if (module !== 'master') {
-      if (!listModuleNames().includes(module)) return reply.code(400).send({ error: 'unknown module' })
-      if (!agentNamesForModule(module).includes(agent)) return reply.code(400).send({ error: 'unknown agent for module' })
+    const raw = parsed.data.orbs
+    if (raw?.length) {
+      // multi-orb form: every entry roster-validated; 'master' is not a batchable entry (it is the
+      // whole-thesis pseudo-target and only makes sense as the single module+agent form).
+      const seen = new Set<string>()
+      rerunOrbs = []
+      for (const o of raw) {
+        if (o.module === 'master') return reply.code(400).send({ error: "master must be a single-orb rerun (module 'master', agent 'synthesizer')" })
+        if (!listModuleNames().includes(o.module)) return reply.code(400).send({ error: `unknown module ${o.module}` })
+        if (!agentNamesForModule(o.module).includes(o.agent)) return reply.code(400).send({ error: `unknown agent ${o.agent} for module ${o.module}` })
+        const k = `${o.module}/${o.agent}`
+        if (!seen.has(k)) {
+          seen.add(k)
+          rerunOrbs.push(o)
+        }
+      }
+    } else {
+      // single-orb form (unchanged). 'master' is the Memo (master synthesizer) — not a module dir, so skip the roster check for it.
+      if (!module || !agent) return reply.code(400).send({ error: 'rerun requires module and agent (or an orbs array)' })
+      if (module !== 'master') {
+        if (!listModuleNames().includes(module)) return reply.code(400).send({ error: 'unknown module' })
+        if (!agentNamesForModule(module).includes(agent)) return reply.code(400).send({ error: 'unknown agent for module' })
+      }
     }
   }
   if (rkind === 'full' && confirmTicker !== ticker) {
@@ -635,7 +668,14 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
   }
 
   try {
-    const out = await launch({ kind: rkind, ticker, module, agent, window, model, user, userVia, force: parsed.data.force })
+    const out = await launch({
+      kind: rkind,
+      ticker,
+      module: rerunOrbs?.length ? rerunOrbs[0].module : module,
+      agent: rerunOrbs?.length ? rerunOrbs[0].agent : agent,
+      orbs: rerunOrbs?.length ? rerunOrbs : undefined,
+      window, model, user, userVia, force: parsed.data.force,
+    })
     return out
   } catch (e: any) {
     return fail(e)

@@ -113,7 +113,9 @@ export interface ScopeTiming {
 }
 export function scopeTiming(orbs: ScopeOrb[], exp: ExpectedDurations, now: number): ScopeTiming {
   const total = orbs.length
-  const done = orbs.filter((o) => o.endedAt || o.status === 'done').length
+  // 'skipped' (incremental-rerun prune) is terminal: counting it done keeps the fraction honest,
+  // and excluding it from remaining work below stops a pruned orb inflating the ETA forever.
+  const done = orbs.filter((o) => o.endedAt || o.status === 'done' || o.status === 'skipped').length
   const starts = orbs.map((o) => o.startedAt).filter((v): v is number => !!v)
   const started = starts.length > 0
   const live = orbs.some((o) => o.status === 'queued' || o.status === 'running')
@@ -139,7 +141,7 @@ export function scopeTiming(orbs: ScopeOrb[], exp: ExpectedDurations, now: numbe
     } else {
       // too early to project: seed-sum of the not-yet-done orbs over the observed/assumed parallel width
       const remainingWork = orbs
-        .filter((o) => !(o.endedAt || o.status === 'done'))
+        .filter((o) => !(o.endedAt || o.status === 'done' || o.status === 'skipped'))
         .reduce((s, o) => {
           if (o.status === 'running' && o.startedAt) return s + Math.max(0, expectedFor(o.cls, exp) - (now - o.startedAt))
           return s + expectedFor(o.cls, exp)

@@ -426,3 +426,37 @@ export function downstreamCascade(moduleName: string, agentName?: string, swarmI
   if (swarmId === RESEARCH_SWARM_ID) out.push(MASTER_CASCADE)
   return out
 }
+
+// Merged cascade for a MULTI-orb rerun (frameworks/INCREMENTAL_RERUN.md §7): the union of each
+// entry's cascade, deduplicated by key — all entry targets first (Wave 0, in entry order), then
+// every affected module synthesis once in graph topological order, then the master once. Two entry
+// orbs this way share ONE downstream chain instead of paying it per orb. An entry that resolves to
+// an empty cascade (unknown module/agent) empties the whole result — callers already treat an
+// empty cascade as a validation failure, and a silently-dropped entry would under-declare the
+// run's write set to admission.
+export function mergedDownstreamCascade(entries: { module: string; agent?: string }[], swarmId: string = RESEARCH_SWARM_ID): CascadeNode[] {
+  if (entries.length <= 1) {
+    return entries.length ? downstreamCascade(entries[0].module, entries[0].agent, swarmId) : []
+  }
+  const targets: CascadeNode[] = []
+  const synthByKey = new Map<string, CascadeNode>()
+  let hasMaster = false
+  for (const e of entries) {
+    const single = downstreamCascade(e.module, e.agent, swarmId)
+    if (!single.length) return []
+    for (const [i, node] of single.entries()) {
+      if (node.kind === 'master') hasMaster = true
+      else if (i === 0) {
+        if (!targets.some((t) => t.key === node.key)) targets.push(node)
+      } else if (node.kind === 'module-synthesis') synthByKey.set(node.key, node)
+    }
+  }
+  // a target that IS its module's 99 must not repeat in the synthesis list
+  for (const t of targets) if (t.kind === 'module-synthesis') synthByKey.delete(t.key)
+  const graph = buildSwarmGraph(swarmId)
+  const ordered: CascadeNode[] = []
+  for (const m of graph.modules) {
+    for (const node of synthByKey.values()) if (node.module === m.name) ordered.push(node)
+  }
+  return [...targets, ...ordered, ...(hasMaster ? [MASTER_CASCADE] : [])]
+}

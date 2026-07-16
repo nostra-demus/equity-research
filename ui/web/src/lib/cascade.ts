@@ -63,6 +63,31 @@ export function downstreamCascade(graph: SwarmGraph | null, moduleName: string, 
   return out
 }
 
+// Merged multi-orb cascade (mirrors roster.ts mergedDownstreamCascade): targets first in entry
+// order, each affected synthesis once in graph topo order, master once. Empty if ANY entry fails
+// to resolve — the caller treats that as a validation failure, same as the single-orb path.
+export function mergedDownstreamCascade(graph: SwarmGraph | null, orbs: { module: string; agent: string }[]): CascadeNode[] {
+  if (orbs.length <= 1) return orbs.length ? downstreamCascade(graph, orbs[0].module, orbs[0].agent) : []
+  if (!graph) return []
+  const targets: CascadeNode[] = []
+  const synthByKey = new Map<string, CascadeNode>()
+  let hasMaster = false
+  for (const o of orbs) {
+    const single = downstreamCascade(graph, o.module, o.agent)
+    if (!single.length) return []
+    single.forEach((node, i) => {
+      if (node.kind === 'master') hasMaster = true
+      else if (i === 0) {
+        if (!targets.some((t) => t.key === node.key)) targets.push(node)
+      } else if (node.kind === 'module-synthesis') synthByKey.set(node.key, node)
+    })
+  }
+  for (const t of targets) if (t.kind === 'module-synthesis') synthByKey.delete(t.key)
+  const ordered: CascadeNode[] = []
+  for (const m of graph.modules) for (const node of synthByKey.values()) if (node.module === m.name) ordered.push(node)
+  return [...targets, ...ordered, ...(hasMaster ? [MASTER_CASCADE] : [])]
+}
+
 // Short human label for a cascade entry, e.g. "segment-map", "business-model synthesis", "Memo (master)".
 export function cascadeLabel(c: CascadeNode): string {
   if (c.kind === 'master') return 'Memo (master synthesizer)'

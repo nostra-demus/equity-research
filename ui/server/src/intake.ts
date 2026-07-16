@@ -14,7 +14,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { dataPoolNewest, todayDate } from './completion'
-import { findLatestRunRoot, listModuleNames, agentNamesForModule, downstreamCascade } from './roster'
+import { findLatestRunRoot, listModuleNames, agentNamesForModule, downstreamCascade, mergedDownstreamCascade } from './roster'
 import { RESEARCH_SWARM_ID } from './swarms'
 
 export interface IntakeEntryOrb {
@@ -47,6 +47,11 @@ export interface IntakeRerunPlan {
   entry_orbs: { module: string; agent: string }[]
   commands: IntakeRerunCommand[]
   note_only: { path: string; reason: string }[]
+  // Server-computed multi-orb batch (frameworks/INCREMENTAL_RERUN.md §7): all validated command
+  // orbs as ONE rerun launch sharing a single merged cascade — the scoped one-click the cockpit
+  // offers instead of N sequential full cascades. Present iff at least one command survived
+  // validation; derived here, never trusted from the plan file.
+  batch?: { orbs: { module: string; agent: string }[]; command: string; cascade_modules: string[] }
 }
 export interface IntakePlan {
   schema_version: string
@@ -181,11 +186,23 @@ export function readIntakePlan(ticker: string): IntakePlan | null {
     ? rawPlan.entry_orbs.filter((o: any) => orbValid(String(o?.module), String(o?.agent))).map((o: any) => ({ module: String(o.module), agent: String(o.agent) }))
     : []
 
+  // The one-click scoped batch: every validated command orb as a single multi-orb rerun launch.
+  // Cascade modules recomputed from the live DAG via the SAME merged expansion the launcher uses.
+  const batchOrbs = commands.map((c) => ({ module: c.module, agent: c.agent }))
+  const batch = batchOrbs.length
+    ? {
+        orbs: batchOrbs,
+        command: `/research:rerun ${batchOrbs.map((o) => `${o.module} ${o.agent}`).join(' ')} ${ticker}`,
+        cascade_modules: [...new Set(mergedDownstreamCascade(batchOrbs, RESEARCH_SWARM_ID).filter((c) => c.module !== 'master').map((c) => c.module))],
+      }
+    : undefined
+
   const rerunPlan: IntakeRerunPlan = {
     materiality_gate: typeof rawPlan.materiality_gate === 'number' ? rawPlan.materiality_gate : 60,
     entry_orbs: planEntryOrbs,
     commands,
     note_only: Array.isArray(rawPlan.note_only) ? rawPlan.note_only.map((n: any) => ({ path: String(n?.path ?? ''), reason: String(n?.reason ?? '') })) : [],
+    ...(batch ? { batch } : {}),
   }
 
   // verdict is derived from the VALIDATED commands, not trusted from the file: if every command was

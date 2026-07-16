@@ -30,7 +30,8 @@ export function LaunchConfirm() {
   const starting = launchPending?.key === 'confirm'
   const p = lc.preflight
   const isRerun = lc.kind === 'rerun'
-  const orbLabel = lc.node?.module === 'master' ? 'the Memo' : (lc.node?.name || 'orb').replace(/-/g, ' ')
+  const batchN = lc.orbs && lc.orbs.length > 1 ? lc.orbs.length : 0
+  const orbLabel = batchN ? `${batchN} orbs` : lc.node?.module === 'master' ? 'the Memo' : (lc.node?.name || lc.orbs?.[0]?.agent || 'orb').replace(/-/g, ' ')
   // full needs typed-ticker confirmation; a re-run does not
   const needsTyped = p.requiresTypedConfirm
   const ok = !needsTyped || typed.trim().toUpperCase() === (ticker || '').toUpperCase()
@@ -41,10 +42,10 @@ export function LaunchConfirm() {
       <motion.div className="modal" initial={{ opacity: 0, scale: 0.96, y: 8 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }} onClick={(e) => e.stopPropagation()}>
         <div className="modal__head">
           <div className="modal__title">{isRerun ? `Re-run ${orbLabel} + downstream on ${ticker}` : `Run the full pipeline on ${ticker}`}</div>
-          <div className="modal__sub">{isRerun ? 'Re-runs the orb, then every synthesis its output flows into — to the Memo. Reuses every other output.' : 'Launches the engine for real — every module, then the master synthesizer.'}</div>
+          <div className="modal__sub">{isRerun ? (batchN ? 'Re-runs the orbs together, then only the syntheses their refreshed evidence actually changes (deterministic early cutoff) — one shared cascade, one commit.' : 'Re-runs the orb, then only the syntheses its refreshed evidence actually changes (deterministic early cutoff) — unchanged downstream work is skipped and shown as skipped.') : 'Launches the engine for real — every module, then the master synthesizer.'}</div>
         </div>
         <div className="modal__body">
-          <div className="modal__row"><span className="modal__k">{isRerun ? 'Orbs re-run' : 'Agents'}</span><span className="modal__v">{p.agentCount}</span></div>
+          <div className="modal__row"><span className="modal__k">{isRerun ? 'Orbs (max)' : 'Agents'}</span><span className="modal__v">{p.agentCount}</span></div>
           <div className="modal__row"><span className="modal__k">Est. cost</span><span className="modal__v">${p.estCostUsdRange[0]}–{p.estCostUsdRange[1]}</span></div>
           <div className="modal__row"><span className="modal__k">Est. time</span><span className="modal__v">{p.estMinutesRange[0]}–{p.estMinutesRange[1]} min</span></div>
           <div className="modal__row"><span className="modal__k">Writes to main</span><span className="modal__v warn">{p.estCommits} commit{p.estCommits === 1 ? '' : 's'} · pushed</span></div>
@@ -52,7 +53,7 @@ export function LaunchConfirm() {
         </div>
         {isRerun && lc.cascade && lc.cascade.length > 0 && (
           <div style={{ padding: '0 20px 12px' }}>
-            <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--text-faint)', marginBottom: 6 }}>Re-runs in order</div>
+            <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--text-faint)', marginBottom: 6 }}>Re-runs in order (pruned where upstream is proven unchanged)</div>
             <div style={{ fontSize: 12, lineHeight: 1.7, color: 'var(--text-muted)', maxHeight: 120, overflowY: 'auto' }}>
               {lc.cascade.map((c, i) => (
                 <span key={c.key}>

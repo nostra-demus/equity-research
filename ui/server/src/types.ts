@@ -234,7 +234,10 @@ export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track'
 export type RunStatus =
   | 'starting' | 'readiness-checking' | 'awaiting-readiness-decision'
   | 'running' | 'done' | 'error' | 'cancelled' | 'incomplete'
-export type AgentRunStatus = 'queued' | 'running' | 'done' | 'failed'
+// 'skipped' = an incremental rerun PRUNED this orb — its upstream's decision surface was proven
+// unchanged (frameworks/INCREMENTAL_RERUN.md), so the work was never dispatched. Terminal like
+// 'done', but the orb's on-disk output is the PRIOR run's (still valid) file, not a fresh write.
+export type AgentRunStatus = 'queued' | 'running' | 'done' | 'failed' | 'skipped'
 
 // ---- data-readiness gate (pre-spawn; deterministic, no LLM) ----
 export type ReadinessSeverity = 'blocker' | 'degrade' | 'info'
@@ -303,6 +306,10 @@ export type SseEvent =
   | { type: 'agent-started'; runId: string; module: string; agentKey: string; name: string; layer: number; ts: number }
   | { type: 'agent-done'; runId: string; agentKey: string; module: string; name: string; layer: number; outputPath: string; verdict: string | null; bytes: number; ts: number }
   | { type: 'agent-failed'; runId: string; agentKey: string; module: string; name: string; layer: number; reason: string; ts: number }
+  // an incremental rerun pruned this orb: the engine's rerun manifest proved its refreshed upstream
+  // decision-identical, so the orb never runs. Terminal for progress/ETA purposes. Old clients that
+  // don't know the event ignore it (fail-closed, DESIGN.md §5 deploy-skew rule).
+  | { type: 'agent-skipped'; runId: string; agentKey: string; module: string; name: string; layer: number; reason?: string; ts: number }
   | { type: 'layer-advanced'; runId: string; module: string; toLayer: number; doneCount: number; expectedCount: number; ts: number }
   | { type: 'module-done'; runId: string; module: string; status: 'completed' | 'aborted'; reason?: string; verdict?: string | null; ts: number }
   // swarm-routing contract event (SWARM.md `routing:`): a module's synthesis (or terminal gate)

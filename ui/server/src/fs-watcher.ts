@@ -18,6 +18,10 @@ function maybeLayerAdvanced(run: RunState, module: string, layer: number) {
 function markDone(run: RunState, key: string, module: string, name: string, layer: number, outputPath: string, verdict: string | null, bytes: number) {
   const a = run.agents.get(key) || { key, module, name, layer, status: 'running' as const }
   if (a.status === 'done') return false
+  // a PRUNED orb's on-disk output is the PRIOR run's file — the end-of-run sweep (and any late file
+  // event) must not launder it into a fresh 'done'. Only a real Task start (stream-parser) may move
+  // a skipped orb, because then the work genuinely ran.
+  if (a.status === 'skipped') return false
   a.status = 'done'
   a.verdict = verdict || undefined
   a.outputPath = outputPath
@@ -48,6 +52,42 @@ function maybeEmitRouting(run: RunState, module: string, content: string, isTria
     ts: Date.now(),
   })
   return { terminal }
+}
+
+// Consume an incremental-rerun manifest: every node the engine marked `pruned` whose key is in this
+// run's expected set becomes a terminal 'skipped' orb (idempotent — re-reads on every manifest update
+// are no-ops for already-skipped keys). The manifest only ANNOTATES skips: it can never mark real
+// work done ('done'/'failed' stay owned by file events and the CLI stream), and a node that later
+// genuinely runs flips to 'running' via the stream's Task start, which overrides the skip honestly.
+// Exported for tests + the end-of-run sweep. Tolerant by construction: a half-written or invalid
+// JSON parse is silently ignored — the next watcher event (or the sweep) re-reads the settled file.
+export function applyRerunManifest(run: RunState, fp: string) {
+  let nodes: { key?: string; status?: string; pruned_because?: string }[]
+  try {
+    const parsed = JSON.parse(fs.readFileSync(fp, 'utf8'))
+    if (parsed?.schema !== 'rerun_manifest/v1' || !Array.isArray(parsed.nodes)) return
+    nodes = parsed.nodes
+  } catch {
+    return // half-written / invalid — chokidar fires again when the write settles
+  }
+  for (const node of nodes) {
+    if (node?.status !== 'pruned' || typeof node.key !== 'string') continue
+    const expected = run.expected.get(node.key)
+    if (!expected) continue
+    const a = run.agents.get(node.key)
+    if (a && a.status !== 'queued') continue // done/failed/running/skipped — never demote real state
+    run.agents.set(node.key, { key: node.key, module: expected.module, name: expected.name, layer: expected.layer, status: 'skipped' })
+    emit(run, {
+      type: 'agent-skipped',
+      runId: run.runId,
+      agentKey: node.key,
+      module: expected.module,
+      name: expected.name,
+      layer: expected.layer,
+      reason: typeof node.pruned_because === 'string' ? node.pruned_because : undefined,
+      ts: Date.now(),
+    })
+  }
 }
 
 // Run-root-prefix matcher (path-shape agnostic): a file belongs to a run iff it sits inside the
@@ -81,6 +121,14 @@ export function handleFile(run: RunState, fp: string) {
       return
     }
     markDone(run, 'master/synthesizer', 'master', 'synthesizer', 99, `${run.runRoot}/final_thesis.md`, extractVerdict(content) || 'Final thesis written', bytes)
+    return
+  }
+
+  // incremental-rerun manifest (frameworks/INCREMENTAL_RERUN.md §6): <runRoot>/reruns/*_rerun_manifest*.json.
+  // The engine updates it after every wave; pruned nodes become 'skipped' orbs live, so the cockpit's
+  // count and ETA shrink the moment the cascade is cut instead of stranding orbs at 'queued'.
+  if (parts.length === 2 && parts[0] === 'reruns' && /_rerun_manifest.*\.json$/.test(parts[1])) {
+    applyRerunManifest(run, fp)
     return
   }
 
@@ -140,9 +188,28 @@ export function handleFile(run: RunState, fp: string) {
 // (markDone ignores already-done orbs).
 export function sweepRunOutputs(run: RunState) {
   if (!run.runRoot) return
+  // re-apply the rerun manifest FIRST: a final prune written moments before exit must mark its orbs
+  // skipped before the output re-check below can misread their (prior-run) files as fresh 'done'.
+  // ONLY manifests written by THIS attempt count (mtime vs startedAt, same 2s-skew pattern as
+  // finalDeliverablesShippedByThisAttempt): reruns/ persists across reruns of the same folder, and a
+  // PRIOR rerun's committed manifest must never mark a current run's unreached orbs skipped.
+  try {
+    const rerunsDir = path.join(REPO_ROOT, run.runRoot, 'reruns')
+    for (const f of fs.existsSync(rerunsDir) ? fs.readdirSync(rerunsDir) : []) {
+      if (!/_rerun_manifest.*\.json$/.test(f)) continue
+      const abs = path.join(rerunsDir, f)
+      try {
+        if (fs.statSync(abs).mtimeMs >= run.startedAt - 2_000) applyRerunManifest(run, abs)
+      } catch {
+        /* unreadable manifest — skip */
+      }
+    }
+  } catch {
+    /* sweep is best-effort */
+  }
   for (const e of run.expected.values()) {
     const a = run.agents.get(e.key)
-    if (a?.status === 'done') continue
+    if (a?.status === 'done' || a?.status === 'skipped') continue
     const abs = path.join(REPO_ROOT, run.runRoot, e.outputRel)
     try {
       if (fs.existsSync(abs)) handleFile(run, abs)

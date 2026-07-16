@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { api, ensureMode, isStatic, snapshotGeneratedAt } from './api'
 import type { ArchiveQuery, FeedFacets, SearchCursor } from './api'
-import { downstreamCascade, type CascadeNode } from './cascade'
+import { downstreamCascade, mergedDownstreamCascade, type CascadeNode } from './cascade'
 import { moduleLabel, resolveVerdict } from './format'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
@@ -116,7 +116,7 @@ function detectWebGL(): boolean {
   return webglProbe
 }
 
-const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'module-routed', 'cost-tick', 'run-done', 'run-error', 'run-heartbeat', 'readiness-checking', 'readiness-report', 'readiness-blocked', 'readiness-resolved']
+const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'agent-skipped', 'layer-advanced', 'module-done', 'module-routed', 'cost-tick', 'run-done', 'run-error', 'run-heartbeat', 'readiness-checking', 'readiness-report', 'readiness-blocked', 'readiness-resolved']
 
 // Live SSE streams for the SELECTED ticker only, keyed by runId. A ticker switch closes them all;
 // background runs keep executing server-side and are rediscovered via /api/runs on return.
@@ -286,7 +286,7 @@ interface State {
   scoringOpen: boolean
   callsOpen: boolean
   selectedNodeKey: string | null
-  launchConfirm: { kind: 'full' | 'rerun'; preflight: LaunchPreflight; cascade?: CascadeNode[]; node?: { module: string; name: string; key: string } } | null
+  launchConfirm: { kind: 'full' | 'rerun'; preflight: LaunchPreflight; cascade?: CascadeNode[]; node?: { module: string; name: string; key: string }; orbs?: { module: string; agent: string }[] } | null
   // Synchronous click→feedback state: set BEFORE any launch-family await so every Run control renders
   // an instant pending state (spinner + disabled), cleared in the action's finally. `key` identifies
   // the specific control so only IT spins; `ticker` scopes stage-level ambient indicators.
@@ -371,6 +371,9 @@ interface State {
   requestFull: () => Promise<void>
   confirmFull: () => Promise<void>
   launchRerun: (node: { module: string; name: string; key: string }) => Promise<void>
+  // multi-orb incremental rerun (frameworks/INCREMENTAL_RERUN.md §7): all entry orbs in ONE run
+  // sharing a single merged cascade — the intake dock's scoped one-click.
+  launchRerunBatch: (orbs: { module: string; agent: string }[]) => Promise<void>
   confirmRerun: () => Promise<void>
   cancelLaunch: () => void
   cancelRun: (runId: string) => Promise<void>
@@ -1312,26 +1315,47 @@ export const useStore = create<State>((set, get) => ({
     }
   },
 
+  // The intake dock's scoped batch: N entry orbs as ONE rerun sharing a merged cascade. Same
+  // confirm-then-launch shape as launchRerun; the engine's early cutoff prunes the downstream the
+  // refreshed evidence doesn't move, so the estimate band's floor is far below its ceiling.
+  launchRerunBatch: async (orbs) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — re-runs happen on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    const t = get().selectedTicker
+    if (!t || !orbs.length) return
+    const cascade = mergedDownstreamCascade(get().graph, orbs)
+    if (!cascade.length) return get().setToast({ msg: 'Can\'t resolve the downstream of the scoped orbs', tone: 'bad' })
+    if (get().targetInFlight(t, cascade.map((c) => c.key))) return get().setToast({ msg: 'Part of the scoped rerun is already running', tone: 'info' })
+    try {
+      const preflight = await api.estimate('rerun', t, orbs[0].module, orbs[0].agent, undefined, orbs)
+      set({ launchConfirm: { kind: 'rerun', preflight, cascade, orbs } })
+    } catch (e: any) {
+      get().setToast({ msg: `Re-run estimate failed: ${e?.message || e}`, tone: 'bad' })
+    }
+  },
+
   confirmRerun: async () => {
     const t = get().selectedTicker
     const lc = get().launchConfirm
-    if (!t || !lc?.node) return
+    if (!t || (!lc?.node && !lc?.orbs?.length)) return
     if (HARD_DOWN.has(get().health)) { set({ launchConfirm: null }); return get().setToast({ msg: 'Engine offline — the run was not started.', tone: 'bad' }) }
-    const node = lc.node
-    const planned = (lc.cascade ?? downstreamCascade(get().graph, node.module, node.name)).map((c) => c.key)
+    const orbs = lc.orbs?.length ? lc.orbs : undefined
+    const node = lc.node ?? { module: orbs![0].module, name: orbs![0].agent, key: `${orbs![0].module}/${orbs![0].agent}` }
+    const planned = (lc.cascade ?? (orbs ? mergedDownstreamCascade(get().graph, orbs) : downstreamCascade(get().graph, node.module, node.name))).map((c) => c.key)
+    const label = orbs && orbs.length > 1 ? `${orbs.length} orbs` : node.name
     // Local launcher so the conflict "Run anyway" retry can re-fire with force AFTER the confirm dialog is
     // gone — node + planned are captured here, not re-read from the (now-cleared) launchConfirm.
     // The modal stays open with its Launch button spinning until the server acks (same as confirmFull).
     const doRerun = async (force?: boolean) => {
-      set({ launchPending: { key: 'confirm', label: `Starting the re-run of ${node.name}…`, ticker: t } })
+      set({ launchPending: { key: 'confirm', label: `Starting the re-run of ${label}…`, ticker: t } })
       try {
-        const { runId } = await api.launch({ kind: 'rerun', ticker: t, module: node.module, agent: node.name, force, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
+        const { runId } = await api.launch({ kind: 'rerun', ticker: t, module: node.module, agent: node.name, orbs, force, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
         set({ launchConfirm: null })
         beginRun(set, get, runId, { kind: 'rerun', module: node.module, agent: node.name, willCommitToMain: true }, planned)
-        get().setToast({ msg: `Re-running ${node.name} + downstream on ${t}`, tone: 'good' })
+        get().setToast({ msg: `Re-running ${label} + downstream on ${t}`, tone: 'good' })
       } catch (e: any) {
         set({ launchConfirm: null })
-        launchErrorToast(get, e, t, `re-run of ${node.name}`, force ? undefined : () => doRerun(true))
+        launchErrorToast(get, e, t, `re-run of ${label}`, force ? undefined : () => doRerun(true))
       } finally {
         set({ launchPending: null })
       }
@@ -2208,6 +2232,18 @@ export const useStore = create<State>((set, get) => ({
         if (forSelected) {
           rt[e.agentKey] = { ...rt[e.agentKey], status: 'failed', runId: e.runId, endedAt: e.ts }
           upsertRow(e.runId, e.agentKey, e.name, e.module, e.layer, 'failed')
+        }
+        break
+      case 'agent-skipped':
+        // incremental rerun pruned this orb (upstream decision surface proven unchanged). Terminal,
+        // but deliberately no endedAt: eta.ts must not read it as a duration sample. Never demote a
+        // node that genuinely ran (positively match queued/unknown only — deploy-skew rule).
+        if (forSelected) {
+          const cur = rt[e.agentKey]
+          if (!cur || cur.status === 'queued') {
+            rt[e.agentKey] = { ...cur, status: 'skipped', runId: e.runId, verdict: e.reason || 'skipped — upstream unchanged' }
+            upsertRow(e.runId, e.agentKey, e.name, e.module, e.layer, 'skipped', e.reason || 'upstream unchanged')
+          }
         }
         break
       case 'cost-tick': {

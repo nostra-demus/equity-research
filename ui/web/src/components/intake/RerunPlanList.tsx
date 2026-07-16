@@ -11,6 +11,7 @@ export function RerunPlanList({
   onRowEnter,
   onLeave,
   onRun,
+  onRunScoped,
   running,
 }: {
   plan: IntakePlan
@@ -18,6 +19,9 @@ export function RerunPlanList({
   onRowEnter: (keys: Set<string>) => void
   onLeave: () => void
   onRun: () => void
+  // launch the server-computed multi-orb batch (ONE rerun, merged cascade, early cutoff) — offered
+  // only when the plan carries `batch` (old servers don't; the button falls back to onRun).
+  onRunScoped?: () => void
   running: boolean
 }) {
   const cmds = plan.rerun_plan?.commands ?? []
@@ -59,10 +63,26 @@ export function RerunPlanList({
           </div>
         ))}
       </div>
-      <button className="iplan__run" onClick={onRun} disabled={running}>
-        Re-run {cmds.length} orb{cmds.length === 1 ? '' : 's'} + downstream — keep the rest
-      </button>
-      <div className="iplan__foot">Opens the scoped plan (priced, one confirm) — reruns never auto-spend.</div>
+      {plan.rerun_plan?.batch && onRunScoped ? (
+        <>
+          <button className="iplan__run" onClick={onRunScoped} disabled={running}>
+            Re-run {plan.rerun_plan.batch.orbs.length} orb{plan.rerun_plan.batch.orbs.length === 1 ? '' : 's'} + only what they change — keep the rest
+          </button>
+          <div className="iplan__foot">
+            One priced run; downstream syntheses re-run only where the refreshed evidence actually moved the decision (deterministic check — skipped work is shown, never hidden).{' '}
+            <span role="button" tabIndex={0} style={{ textDecoration: 'underline', cursor: 'pointer' }} onClick={onRun} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onRun() }}>
+              Full module completion instead
+            </span>
+          </div>
+        </>
+      ) : (
+        <>
+          <button className="iplan__run" onClick={onRun} disabled={running}>
+            Re-run {cmds.length} orb{cmds.length === 1 ? '' : 's'} + downstream — keep the rest
+          </button>
+          <div className="iplan__foot">Opens the scoped plan (priced, one confirm) — reruns never auto-spend.</div>
+        </>
+      )}
     </div>
   )
 }

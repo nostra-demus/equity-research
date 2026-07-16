@@ -23,6 +23,8 @@ function hint(node: AgentNode, status: NodeStatus): { text: string; go: boolean 
       return { text: 'No data for this module yet', go: false }
     case 'done':
       return { text: 'Click to view output', go: true }
+    case 'skipped':
+      return { text: 'Skipped — upstream unchanged · click to view the standing output', go: true }
     case 'running':
       return { text: 'Running…', go: false }
     case 'queued':
@@ -41,6 +43,7 @@ function timeLine(status: NodeStatus, startedAt?: number, endedAt?: number, expe
     return p.overrun ? `elapsed ${fmtClock(p.elapsedMs)} · over estimate` : `elapsed ${fmtClock(p.elapsedMs)} · ${fmtEtaLeft(p.remainingMs)}`
   }
   if (status === 'done' && startedAt && endedAt && endedAt > startedAt) return `took ${fmtSpan(endedAt - startedAt)}`
+  if (status === 'skipped') return 'not re-run — its inputs were proven decision-identical'
   if (status === 'queued') return 'queued — timer starts when data arrives'
   return null
 }
@@ -51,7 +54,7 @@ export function AgentTooltip({ node, status, verdict, startedAt, endedAt, expect
   const top = Math.max(12, Math.min(screenY - 30, window.innerHeight - 220))
   const h = hint(node, status)
   const t = timeLine(status, startedAt, endedAt, expectedMs, now)
-  const tdim = status === 'done' || status === 'queued'
+  const tdim = status === 'done' || status === 'queued' || status === 'skipped'
   return (
     <div className="tipcard" style={{ left, top, width: w }}>
       <div className="tipcard__top">
@@ -60,7 +63,7 @@ export function AgentTooltip({ node, status, verdict, startedAt, endedAt, expect
       </div>
       <div className="tipcard__desc">{node.description}</div>
       {t && <div className={`tipcard__time${tdim ? ' tipcard__time--dim' : ''}`}>{t}</div>}
-      {status === 'done' && verdict && <div className="tipcard__verdict">{verdict}</div>}
+      {(status === 'done' || status === 'skipped') && verdict && <div className="tipcard__verdict">{verdict}</div>}
       <div className="tipcard__tools">
         {node.tools.slice(0, 6).map((t) => (
           <span className="chip" key={t}>{t}</span>

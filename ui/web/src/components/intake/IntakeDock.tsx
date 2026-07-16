@@ -26,6 +26,7 @@ export function IntakeDock() {
   const setFocus = useStore((s) => s.setIntakeFocus)
   const analyze = useStore((s) => s.analyzeIntake)
   const openPlan = useStore((s) => s.openThesisPlan)
+  const launchRerunBatch = useStore((s) => s.launchRerunBatch)
   const [open, setOpen] = useState(true)
 
   const docCards = intake?.new_docs ?? []
@@ -77,6 +78,7 @@ export function IntakeDock() {
               onRowEnter={setFocus}
               onLeave={clear}
               onRun={() => void openPlan()}
+              onRunScoped={intake.rerun_plan?.batch ? () => void launchRerunBatch(intake.rerun_plan.batch!.orbs) : undefined}
               running={false}
             />
           )}

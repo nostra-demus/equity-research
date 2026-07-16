@@ -12,7 +12,7 @@ import { createRun, emit, finishRun, getRun, IN_FLIGHT_STATUSES, inFlightRunsFor
 import { clearRunMarker, resolveRunRoot, writeRunMarker } from './outputs'
 import { runReadiness } from './readiness'
 import { providerEnvKeys } from './load-env'
-import { buildSwarmGraph, downstreamCascade } from './roster'
+import { buildSwarmGraph, downstreamCascade, mergedDownstreamCascade } from './roster'
 import { resolveInsideScreener } from './sandbox'
 import { RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { finalPaths, handleStreamLine } from './stream-parser'
@@ -593,11 +593,23 @@ function resolveAgentRunRoot(ticker: string): string {
   return resolveRunRoot({ ticker }) ?? today
 }
 
+// A rerun entry orb (multi-orb incremental rerun, frameworks/INCREMENTAL_RERUN.md §7).
+export interface RerunOrb {
+  module: string
+  agent: string
+}
+
+// The cascade a rerun covers: single-orb (module+agent) or the merged multi-orb union. One place,
+// so prompt / expected-set / covered-modules / estimate can never disagree about the same launch.
+function rerunCascade(swarmId: string, module?: string, agent?: string, orbs?: RerunOrb[]) {
+  return orbs && orbs.length > 1 ? mergedDownstreamCascade(orbs, swarmId) : downstreamCascade(module!, agent, swarmId)
+}
+
 // Modules this run writes into (for D2b / D3 admission). swarmId is resolved by the caller.
-function coveredModulesFor(swarmId: string, kind: RunKind, module?: string, agent?: string): string[] {
+function coveredModulesFor(swarmId: string, kind: RunKind, module?: string, agent?: string, orbs?: RerunOrb[]): string[] {
   const g = buildSwarmGraph(swarmId)
   if (kind === 'full' || kind === 'signal') return g.modules.map((m) => m.name)
-  if (kind === 'rerun') return [...new Set(downstreamCascade(module!, agent, swarmId).filter((c) => c.module !== 'master').map((c) => c.module))]
+  if (kind === 'rerun') return [...new Set(rerunCascade(swarmId, module, agent, orbs).filter((c) => c.module !== 'master').map((c) => c.module))]
   return module ? [module] : []
 }
 
@@ -649,7 +661,7 @@ export function screenerMarkerDir(swarmId: string | undefined, sigId: string): s
 }
 
 // Exported for the build-prompt routing test (test/build-prompt.test.ts).
-export function buildPrompt(swarmId: string, kind: RunKind, ticker: string, module?: string, agent?: string, window?: string, extra?: { thesisId?: string }): string {
+export function buildPrompt(swarmId: string, kind: RunKind, ticker: string, module?: string, agent?: string, window?: string, extra?: { thesisId?: string; orbs?: RerunOrb[] }): string {
   // Generic constellation swarm (e.g. commodity): full/module/agent through the manifest's command
   // namespace — never hardcode the swarm's literal beyond reading commandNs (CLAUDE.md §26).
   if (swarmId !== 'research' && !SCREENER_KINDS.has(kind)) {
@@ -667,6 +679,10 @@ export function buildPrompt(swarmId: string, kind: RunKind, ticker: string, modu
   }
   if (kind === 'full') return `/research:full ${ticker}`
   if (kind === 'module') return `/research:${module} ${ticker}`
+  // multi-orb incremental rerun (frameworks/INCREMENTAL_RERUN.md §7): pairs before the ticker.
+  if (kind === 'rerun' && extra?.orbs && extra.orbs.length > 1) {
+    return `/research:rerun ${extra.orbs.map((o) => `${o.module} ${o.agent}`).join(' ')} ${ticker}`
+  }
   if (kind === 'rerun') return `/research:rerun ${module} ${agent} ${ticker}`
   // file one outcome review for this ticker's latest run (window defaults to ad-hoc — the "update now" snapshot).
   if (kind === 'review') return `/research:review-decisions ${ticker} ${window || 'ad-hoc'}`
@@ -699,7 +715,7 @@ function plannedModules(swarmId: string, kind: RunKind, module?: string): string
   return module ? [module] : []
 }
 
-function buildExpected(swarmId: string, kind: RunKind, module?: string, agent?: string): Map<string, ExpectedAgent> {
+function buildExpected(swarmId: string, kind: RunKind, module?: string, agent?: string, orbs?: RerunOrb[]): Map<string, ExpectedAgent> {
   const g = buildSwarmGraph(swarmId)
   const map = new Map<string, ExpectedAgent>()
   if (kind === 'sweep' || kind === 'handoff') return map // no orb outputs — inbox/ledger writes only
@@ -711,7 +727,7 @@ function buildExpected(swarmId: string, kind: RunKind, module?: string, agent?: 
   }
   if (kind === 'rerun') {
     // the target orb (or whole module) + the downstream synthesis chain (so the swarm shows the planned re-run)
-    for (const c of downstreamCascade(module!, agent, swarmId)) {
+    for (const c of rerunCascade(swarmId, module, agent, orbs)) {
       map.set(c.key, { key: c.key, module: c.module, name: c.name, layer: c.layer, outputRel: c.outputRel || 'final_thesis.md' })
     }
     return map
@@ -726,14 +742,14 @@ function buildExpected(swarmId: string, kind: RunKind, module?: string, agent?: 
   return map
 }
 
-export function estimate(kind: RunKind, ticker: string, module?: string, agent?: string, swarm?: string): LaunchPreflight {
+export function estimate(kind: RunKind, ticker: string, module?: string, agent?: string, swarm?: string, orbs?: RerunOrb[]): LaunchPreflight {
   const swarmId = swarmIdFor(kind, swarm)
   const g = buildSwarmGraph(swarmId)
   let agentCount = 1
   if (kind === 'full') agentCount = g.totals.agents + 1
   else if (kind === 'signal') agentCount = g.totals.agents // gauntlet; gates mean most signals stop early
   else if (kind === 'module') agentCount = g.modules.find((m) => m.name === module)?.agentCount ?? 0
-  else if (kind === 'rerun') agentCount = downstreamCascade(module!, agent, swarmId).length
+  else if (kind === 'rerun') agentCount = rerunCascade(swarmId, module, agent, orbs).length
 
   let estCostUsdRange: [number, number]
   let estMinutesRange: [number, number]
@@ -753,6 +769,18 @@ export function estimate(kind: RunKind, ticker: string, module?: string, agent?:
   } else if (kind === 'handoff') {
     estCostUsdRange = [1, 4]
     estMinutesRange = [1, 4]
+  } else if (kind === 'rerun') {
+    // Incremental rerun (frameworks/INCREMENTAL_RERUN.md): the cascade prunes at the first node whose
+    // decision surface is unchanged, so the FLOOR is entry orbs (one concurrent wave) + one synthesis;
+    // the CEILING is the whole cascade when every node stays dirty. An honest band, not a point — the
+    // old single-band estimate assumed the full cascade always runs and so overstated the common
+    // (note-only, nothing-moved) case several-fold.
+    const entryCount = Math.max(1, orbs?.length ?? 1)
+    const floorOrbs = Math.min(agentCount, 2) // entry wave (concurrent ≈ one orb of wall-clock) + first synthesis
+    estCostUsdRange = [round1((entryCount + 1) * ESTIMATES.perAgentUsd[0]), round1(agentCount * ESTIMATES.perAgentUsd[1])]
+    estMinutesRange = [Math.max(1, Math.ceil(floorOrbs * ESTIMATES.perAgentMin[0])), Math.max(2, Math.ceil(agentCount * ESTIMATES.perAgentMin[1]))]
+    if (estCostUsdRange[0] > estCostUsdRange[1]) estCostUsdRange = [estCostUsdRange[1], estCostUsdRange[1]]
+    if (estMinutesRange[0] > estMinutesRange[1]) estMinutesRange = [estMinutesRange[1], estMinutesRange[1]]
   } else {
     estCostUsdRange = [round1(agentCount * ESTIMATES.perAgentUsd[0]), round1(agentCount * ESTIMATES.perAgentUsd[1])]
     estMinutesRange = [Math.max(1, Math.ceil(agentCount * ESTIMATES.perAgentMin[0])), Math.max(2, Math.ceil(agentCount * ESTIMATES.perAgentMin[1]))]
@@ -801,6 +829,10 @@ export interface LaunchParams {
   module?: string
   agent?: string
   window?: string // review window (kind 'review'); ignored by other kinds
+  // kind 'rerun' (research): OPTIONAL multi-orb entry set (frameworks/INCREMENTAL_RERUN.md §7). When
+  // 2+ orbs are given they run as ONE rerun sharing a single merged downstream cascade; module/agent
+  // stay the single-orb path (and mirror orbs[0] for display when orbs are present).
+  orbs?: RerunOrb[]
   model?: string
   intake?: SignalIntakeInput // kind 'signal' (new signal): materialized into <runRoot>/intake.json
   inboxId?: string // kind 'signal' launched from an Inbox card — recorded as the intake's provenance
@@ -1110,7 +1142,7 @@ export async function cancelSubject(subjectId: string, swarmId = 'research'): Pr
 }
 
 export async function launch(params: LaunchParams): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> {
-  const { kind, module, agent, window } = params
+  const { kind, module, agent, window, orbs } = params
   const model = params.model || DEFAULT_MODEL
   const user = params.user || 'local'
   const userVia = params.userVia || 'local'
@@ -1262,11 +1294,11 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   }
 
   const ticker = subjectId // RunState display/compat field: research = the ticker; swarms = the subject id
-  const prompt = buildPrompt(swarmId, kind, ticker, module, agent, window, { thesisId: params.thesisId })
-  const expected = buildExpected(swarmId, kind, module, agent)
+  const prompt = buildPrompt(swarmId, kind, ticker, module, agent, window, { thesisId: params.thesisId, orbs })
+  const expected = buildExpected(swarmId, kind, module, agent, orbs)
 
   // Admission metadata — derived once here, stored on the run, reused by admitRun.
-  const coveredModules = coveredModulesFor(swarmId, kind, module, agent)
+  const coveredModules = coveredModulesFor(swarmId, kind, module, agent, orbs)
   // Root artifacts a research full/rerun writes (final_thesis / memo / decision) are research-only — a
   // constellation swarm (e.g. commodity) has no master synthesizer, so it declares none here.
   const rootArtifacts = swarmId === 'research' && kind === 'full' ? ROOT_ARTIFACTS_FULL
@@ -1402,7 +1434,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   // seconds-to-minutes of dead air after the click — and on a cold/scanned pool (extract timeout 300s)
   // it could outlive the edge's ~100s proxy timeout, showing a FAILED launch for a run that started.
   void continueLaunch(run)
-  return { runId: run.runId, preflight: estimate(kind, ticker, module, agent, swarmId) }
+  return { runId: run.runId, preflight: estimate(kind, ticker, module, agent, swarmId, orbs) }
 }
 
 // The post-ack half of launch(): readiness gate, then spawn (or park at the gate for a human decision).
