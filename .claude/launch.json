@@ -11,7 +11,7 @@
     {
       "name": "cockpit-dev-8899",
       "runtimeExecutable": "bash",
-      "runtimeArgs": ["-lc", "cd ui/server && PORT=8899 GROQ_API_KEY= npx tsx src/server.ts"],
+      "runtimeArgs": ["-lc", "cd ui/server && PORT=8899 GROQ_API_KEY= INTAKE_AUTO_ANALYZE=0 npx tsx src/server.ts"],
       "port": 8899
     },
     {

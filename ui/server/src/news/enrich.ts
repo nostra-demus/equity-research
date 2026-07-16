@@ -492,6 +492,19 @@ function saveCache(stateDir: string, cache: Record<string, EventEnrichment>): vo
   } catch {}
 }
 
+/** Read-only peek at an event's cached enrichment — for consumers (e.g. the research-bridge note) that
+ *  want the article read IF a reader already paid for it, but must never trigger a fetch or an LLM call
+ *  themselves. Returns only a COMPLETE read (a degraded one is exactly the poisoned-dek case the TTL
+ *  machinery exists to heal — it must not be frozen into a pool note). Never throws. */
+export function peekCachedEnrichment(stateDir: string, eventId: string): EventEnrichment | null {
+  try {
+    const hit = loadCache(stateDir)[eventId]
+    return hit && isEnrichmentComplete(hit) ? hit : null
+  } catch {
+    return null
+  }
+}
+
 /** Did this enrichment produce its best obtainable substance? A rich brief, an SEC parse, a filing floor
  *  (the headline IS the disclosure), or an article where retries are exhausted (complete set explicitly). */
 export function isEnrichmentComplete(r: EventEnrichment): boolean {

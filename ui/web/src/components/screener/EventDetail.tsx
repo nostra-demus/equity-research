@@ -12,6 +12,7 @@ import { useStore } from '../../lib/store'
 import type { ArticleParty, EventEnrichment, FeedItem, ListingStatus, NewsImpact, RelatedEvent } from '../../lib/types'
 import { FeedbackMenu } from './FeedbackMenu'
 import { RunChecksMenu } from './RunChecksMenu'
+import { SendToResearchMenu } from './SendToResearchMenu'
 import type { FeedbackPolarity } from '../../lib/feedbackTypes'
 import type { ReportMenuAnchor } from '../ActivityReportMenu'
 import { useWireConfig } from '../wire/WireContext'
@@ -707,6 +708,8 @@ export function EventDetail({ it }: { it: FeedItem }) {
                   <svg viewBox="0 0 24 24" aria-hidden><path d="M17 14V3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-3zm0 0-4.5 7a2 2 0 0 1-3.7-1.3L9.5 15H4a2 2 0 0 1-2-2.3l1.3-7A2 2 0 0 1 5.3 4H17" /></svg>
                 </button>
               </div>
+              {/* route this event into a tracked subject's data pool — the screener→research bridge */}
+              <SendToResearchMenu it={it} />
               <button className="btn btn--ghost evdetail__shelfbtn" onClick={() => toggleShelve(it.event_id)} title={shelved ? 'Bring this back to the wire' : 'Set this aside — not worth a check right now'}>
                 {shelved ? 'Bring back' : 'Set aside'}
               </button>

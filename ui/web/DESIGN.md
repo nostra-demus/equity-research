@@ -102,7 +102,7 @@ merging.**
 | Surface | Role | Used by |
 |---|---|---|
 | `src/components/wire/*` — `WireSurface`, `WireContext`, `SubjectChips`, `SubjectPulse`, `WireLaunchBar` | the shared, config-driven wire surface (§7) | screener, commodity |
-| `src/components/screener/{EventRail,EventDetail,ThemesView,FeedFilters,CompanyView,LiveFeed,PulseMap}.tsx` | the wire's organs — screener-named for history, cross-swarm in effect | screener, commodity |
+| `src/components/screener/{EventRail,EventDetail,ThemesView,FeedFilters,CompanyView,LiveFeed,PulseMap,SendToResearchMenu}.tsx` | the wire's organs — screener-named for history, cross-swarm in effect | screener, commodity |
 | `src/lib/{dedup,scope,taxonomy,themes,wire}.ts` | wire data plumbing: dedup clusters, event scope, taxonomy, theme grouping, wire config | screener, commodity |
 | `src/components/LaunchConfirm.tsx` | the launch confirm dialog | all swarms |
 | `src/components/CommandBar.tsx` | top bar: swarm switcher, theme toggle, status | all swarms |

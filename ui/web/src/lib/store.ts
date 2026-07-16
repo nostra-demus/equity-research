@@ -476,6 +476,9 @@ interface State {
   openThesisDetail: (thesisId: string) => Promise<void>
   closeThesisDetail: () => void
   sendToResearch: (thesisId: string, ticker: string, poolPresent: boolean) => Promise<void>
+  // event-level twin of sendToResearch: route ONE wire event into a tracked subject's data pool as a
+  // tier-10 note — the doc-intake machinery then flags the affected orbs in the research tab.
+  sendEventToResearch: (it: FeedItem, ticker: string) => Promise<boolean>
   openScreenerOutput: (node: AgentNode) => void
   _handleScreenerEvent: (e: SseEvent) => void
   // the persistent event rail: keep the wire backfilled+streaming whenever the screener stage is mounted,
@@ -3205,6 +3208,33 @@ export const useStore = create<State>((set, get) => ({
       get().setToast({ msg: e?.message ? String(e.message) : 'Handoff failed', tone: e?.body?.code ? 'info' : 'bad' })
     } finally {
       set({ launchPending: null })
+    }
+  },
+
+  // Event-level twin of sendToResearch: the note write is synchronous server-side (no run spawns),
+  // so the toast can speak in the past tense. Returns whether the send landed (drives the "✓ sent"
+  // row without a refetch). The user stays on the wire — the actionable toast offers the jump, so
+  // triaging three events in a row never warps them away mid-flow.
+  sendEventToResearch: async (it, ticker) => {
+    if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — sending to research runs on your machine via npm run dev', tone: 'info' }); return false }
+    if (HARD_DOWN.has(get().health)) { get().setToast({ msg: 'Engine offline — try again when it reconnects.', tone: 'info' }); return false }
+    try {
+      const res = await api.sendEventToResearch(it.event_id, ticker)
+      const openIt = () => {
+        get().scSelectEvent(null)
+        get().switchSwarm(typeof res.swarm === 'string' && res.swarm ? res.swarm : 'research', { payloadTicker: ticker, landTicker: ticker })
+      }
+      if (res.already === true) {
+        get().setToast({ msg: `${ticker} already has this event in its data pool.`, tone: 'info', action: { label: 'Open research', onClick: openIt } })
+      } else if (res.willAutoAnalyze === true) {
+        get().setToast({ msg: `Sent to ${ticker} — research is scanning what it changes; the affected orbs will light up there shortly.`, tone: 'good', action: { label: 'Open research', onClick: openIt } })
+      } else {
+        get().setToast({ msg: `Sent to ${ticker} — the note is in its data pool and will be read on the next run.`, tone: 'good', action: { label: 'Open research', onClick: openIt } })
+      }
+      return true
+    } catch (e: any) {
+      get().setToast({ msg: e?.message ? String(e.message) : 'Could not send this event to research', tone: 'bad' })
+      return false
     }
   },
 

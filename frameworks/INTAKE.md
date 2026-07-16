@@ -153,6 +153,14 @@ The plan the server serves is therefore always roster-consistent, even if the co
   force a rerun of it (CLAUDE.md §4; `EXTERNAL_DATA.md` §4). It still appears as a `new_doc` and the
   floor still marks the run stale; the *recommended action* is calibrated to the tier.
 - A filing (tier 1–3) that changes a number an orb consumes clears the gate readily.
+- A **screener-bridged wire event** (`screener_event_<EVENT_ID>.md`, written by the cockpit's
+  "Send to research" action or the automatic ticker-match bridge — `ui/server/src/research-bridge.ts`)
+  self-declares **tier 10** (dated web source, unverified) in its header, exactly as the handoff memo
+  self-declares tier 9. Treat it like any other tier-10 web input: it appears as a `new_doc`, the floor
+  marks the run stale, and a single uncorroborated wire claim defaults to `note_only` — unless a
+  filing or a second independent source in the pool backs the same fact (the note's "Related wire
+  coverage" section lists corroboration leads to check). The note's "Screener enrichment" section is
+  the engine's own inference (§6 level 1–3), never citable as the source; the article is.
 
 ---
 

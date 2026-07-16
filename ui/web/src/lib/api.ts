@@ -1,7 +1,7 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
-import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, RunHistoryEntry, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, RunHistoryEntry, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -459,6 +459,23 @@ export const api = {
   handoff: async (thesisId: string, ticker: string): Promise<{ alreadyHandedOff: boolean; runId?: string; handoff?: any }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/screener/handoff`, { thesisId, ticker })
+  },
+  // ---- wire event → research data bridge (event-level twin of the thesis handoff above) ----
+  // Which tracked subjects this event was already routed to. Fail-closed to [] (old server / static).
+  eventResearchLinks: async (eventId: string): Promise<EventResearchLink[]> => {
+    if ((await ensureMode()) === 'static') return []
+    try {
+      const r = await get<{ links: EventResearchLink[] }>(`/api/screener/event/${encodeURIComponent(eventId)}/research-links`, 8_000)
+      return Array.isArray(r.links) ? r.links : []
+    } catch {
+      return []
+    }
+  },
+  // Route the event into one tracked subject's data pool. The server builds the note from ITS stored
+  // wire record (never client fields) and answers whether the research tab will re-scope itself.
+  sendEventToResearch: async (eventId: string, ticker: string): Promise<{ ok: boolean; path: string; already: boolean; willAutoAnalyze?: boolean; swarm?: string | null }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/screener/event/${encodeURIComponent(eventId)}/send-to-research`, { ticker })
   },
   tickers: async (): Promise<{ tickers: TickerSummary[]; emptyState: boolean; dataDir?: string; driveEnabled?: boolean; coverage?: CoverageGroup[] }> => {
     if ((await ensureMode()) === 'static') return { tickers: snap.tickers, emptyState: snap.emptyState, dataDir: snap.dataDir, driveEnabled: false, coverage: snap.defaultCoverage || [] }

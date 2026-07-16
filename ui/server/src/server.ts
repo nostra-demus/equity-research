@@ -34,7 +34,8 @@ import { buildGeoThemesIndex, hasThemeGeo, type ThemeGeo } from './news/themes/g
 import { buildCommodityThemesIndex } from './news/themes/commodity-index'
 import type { ThemesIndex } from './news/themes/types'
 import { buildThemeBrief } from './news/themes/brief'
-import { enrichEvent, listCoveredTickers } from './news/enrich'
+import { enrichEvent, listCoveredTickers, peekCachedEnrichment } from './news/enrich'
+import { autoBridgeItem, bridgeEventToSubject, findWireItem, listBridgedSubjects } from './research-bridge'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
 import { appendIdeaFeedback, readIdeaById, writeIdea } from './news/ideas/ideas-store'
@@ -1652,8 +1653,70 @@ app.get('/api/news/enrich', async (req, reply) => {
   }
 })
 
+// ---------- screener wire → research data bridge ----------
+// A wire event becomes a tier-10 note in a tracked subject's data pool (research-bridge.ts). The
+// pool watcher + doc-intake then take over — the SAME machinery a hand-dropped document uses — so
+// the research tab flags the affected orbs and offers the scoped re-run. Writing the note is free;
+// the paid intake analysis stays governed by its own INTAKE_AUTO_ANALYZE + finished-run gates, and
+// a rerun is always an explicit human click (CLAUDE.md §24).
+const EventBridgeParams = z.object({ eventId: z.string().regex(EVENT_ID_RE) })
+const EventBridgeBody = z.object({ ticker: z.string().regex(TICKER_RE) })
+
+// Which tracked subjects this event was already routed to (drives the "✓ sent" rows in the picker).
+app.get('/api/screener/event/:eventId/research-links', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const parsed = EventBridgeParams.safeParse(req.params)
+  if (!parsed.success) return reply.code(400).send({ error: 'bad event id' })
+  return { links: listBridgedSubjects(parsed.data.eventId, DATA_DIR) }
+})
+
+// Route one wire event into one tracked subject's pool. Server-authoritative: the note is built from
+// the event's own stored firehose record (never from client fields — same anti-poisoning rule as
+// /api/news/enrich), plus the CACHED article read if a reader already paid for it. Idempotent on
+// <event_id>::<ticker> (the note's deterministic filename).
+app.post('/api/screener/event/:eventId/send-to-research', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const parsed = EventBridgeParams.safeParse(req.params)
+  if (!parsed.success) return reply.code(400).send({ error: 'bad event id' })
+  const body = EventBridgeBody.safeParse(req.body)
+  if (!body.success) return reply.code(400).send({ error: 'bad ticker' })
+  const { ticker } = body.data
+  if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  // Same data-pool allow-list as /api/intake/:ticker/analyze — only an EXISTING tracked subject.
+  if (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
+    return reply.code(400).send({ error: `unknown ticker ${ticker}` })
+  }
+  const { user, userVia } = identify(req)
+  const item = findWireItem(REPO_ROOT, parsed.data.eventId, { archiveDir: NEWS.newsArchiveDir })
+  if (!item) return reply.code(404).send({ error: 'event not found on the wire (older than the retained firehose window)' })
+  try {
+    const res = bridgeEventToSubject({
+      item, ticker, mode: 'manual', user, userVia,
+      enrichment: peekCachedEnrichment(STATE_DIR, parsed.data.eventId),
+      opts: { dataDir: DATA_DIR, stateDir: STATE_DIR },
+    })
+    // Say honestly whether the research tab will re-scope itself: auto-intake only fires for a subject
+    // with a FINISHED run (and only when INTAKE_AUTO_ANALYZE is on) — otherwise the note just joins the
+    // pool for the next run. resolveSwarmForSubject/AUTO_INTAKE_ON are the auto-intake's own gates.
+    const owner = resolveSwarmForSubject(ticker)
+    return { ok: true, ...res, willAutoAnalyze: AUTO_INTAKE_ON && !!owner, swarm: owner?.swarm ?? null }
+  } catch (e: any) {
+    return reply.code(e?.statusCode || 500).send({ error: e?.message || 'could not route the event' })
+  }
+})
+
 // Live wire: one SSE client set, bridged once from the ingest cycle's bus.
 const newsClients = new Set<{ send: (e: any) => void }>()
+// Auto-bridge on ingest: a material wire item whose extracted ticker matches a tracked subject is
+// routed into that subject's pool automatically (kill switch SCREENER_RESEARCH_BRIDGE=0; floors in
+// research-bridge.ts). Free — no LLM, no launch. Never breaks the fan-out.
+newsBus.subscribe((e) => {
+  if (e.type !== 'news-item') return
+  try {
+    autoBridgeItem(e.item, { dataDir: DATA_DIR, stateDir: STATE_DIR }, peekCachedEnrichment(STATE_DIR, e.item.event_id))
+  } catch {
+    /* best-effort — a missed bridge loses one note, never the wire */
+  }
+})
 newsBus.subscribe((e) => {
   // Explicit per-variant mapping (not a fall-through ternary): adding a bus event must be a compile
   // error here, never a silently mis-shaped payload on the wire.
