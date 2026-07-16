@@ -54,6 +54,14 @@
   --accent-bright: #f4c66b;
   --accent-deep: #b9842c;
   --accent-soft: #f4c66b; /* fill-button hover (lighter in dark, so dark on-fill text stays readable) */
+  /* Ink for text/glyphs sitting ON an --accent or --accent-soft fill (.btn--amber, .seg__btn--on,
+     .iplan__run, the pill badges). It is part of the ACCENT FAMILY — scoped per swarm and per theme with
+     the fills it sits on — because a fill and its ink are one decision: amber's brown dropped on the
+     screener's teal or a manifest violet is a foreign hue. Each scope's value is a very dark tint of ITS
+     OWN accent (the grandfathered #1a1206 is amber at ~11% over black), so the button reads as one
+     material rather than as near-black parked on a color. Hard constraint: every scope must clear WCAG AA
+     4.5:1 against BOTH --accent and --accent-soft — the hover states swap the fill, not the ink. */
+  --accent-ink: #1a1206;
   --accent-glow: rgba(224, 163, 62, 0.55);
   --accent-wash: rgba(224, 163, 62, 0.12);
   --accent-wash-soft: rgba(224, 163, 62, 0.06);
@@ -137,6 +145,7 @@
   --accent-bright: #7adde6;
   --accent-deep: #2f9aa5;
   --accent-soft: #7adde6;
+  --accent-ink: #07161a; /* dark teal, not the :root brown — same role, this scope's hue */
   --accent-glow: rgba(63, 198, 210, 0.55);
   --accent-wash: rgba(63, 198, 210, 0.12);
   --accent-wash-soft: rgba(63, 198, 210, 0.06);
@@ -157,6 +166,11 @@
   --accent-bright: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 65%, white);
   --accent-deep: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 80%, black);
   --accent-soft: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 65%, white);
+  /* On-fill ink, derived like the rest of the family: a very dark tint of the manifest color, mirroring
+     the ~11% the grandfathered amber ink sits at. Unlike --accent/--accent-bright/--accent-deep this one
+     needs no @property registration — the globe never reads it, and a color-mix() resolves fine when a
+     plain custom property is consumed directly as a color. */
+  --accent-ink: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 12%, black);
   --accent-glow: color-mix(in srgb, var(--accent) 55%, transparent);
   --accent-wash: color-mix(in srgb, var(--accent) 12%, transparent);
   --accent-wash-soft: color-mix(in srgb, var(--accent) 6%, transparent);
@@ -195,6 +209,7 @@
   --accent-bright: #8a5c0c;
   --accent-deep: #9c6c16;
   --accent-soft: #c8922c; /* PALER gold — fill-button hover stays light enough for dark text */
+  --accent-ink: #1a1206; /* the light fills are deeper gold, but still hold the dark ink at 5.16:1 */
   --accent-glow: rgba(178, 125, 28, 0.42);
   --accent-wash: rgba(178, 125, 28, 0.15);
   --accent-wash-soft: rgba(178, 125, 28, 0.075);
@@ -253,6 +268,7 @@
   --accent-bright: #08606e;
   --accent-deep: #0c7c8a;
   --accent-soft: #16a6b8;
+  --accent-ink: #07161a;
   --accent-glow: rgba(14, 140, 156, 0.42);
   --accent-wash: rgba(14, 140, 156, 0.15);
   --accent-wash-soft: rgba(14, 140, 156, 0.075);
@@ -270,6 +286,7 @@
   --accent-bright: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 62%, black);
   --accent-deep: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 75%, black);
   --accent-soft: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 80%, white);
+  --accent-ink: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 12%, black);
   --accent-glow: color-mix(in srgb, var(--accent) 42%, transparent);
   --accent-wash: color-mix(in srgb, var(--accent) 15%, transparent);
   --accent-wash-soft: color-mix(in srgb, var(--accent) 7.5%, transparent);
