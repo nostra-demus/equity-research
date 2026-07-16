@@ -298,6 +298,10 @@ export interface EventEnrichment {
   fetched_at: string
   note?: string
   summary?: string // regex fallback when the article-body read is unavailable
+  // English rendering of a NON-ENGLISH `summary` (server enrich.ts, from the read's `story` synopsis) — set
+  // only for a foreign-language item so THE STORY reads in English; the original stays in `summary` beneath.
+  summary_en?: string | null
+  summary_lang?: string | null // the source language named (e.g. "Spanish"), for the "original · X" label
   published?: string
   sec?: SecFiling
   prior_coverage: PriorCoverage[]
