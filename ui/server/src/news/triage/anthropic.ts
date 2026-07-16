@@ -61,6 +61,7 @@ export async function triageBatchAnthropic(
   const maxAttempts = opts.maxAttempts ?? 2
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
+      requests++
       const res = await fetchFn(`${opts.baseUrl}/v1/messages`, {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-api-key': opts.apiKey, 'anthropic-version': '2023-06-01', ...(opts.headers || {}) },
@@ -73,7 +74,6 @@ export async function triageBatchAnthropic(
           messages: [{ role: 'user', content: buildUserMessage(items) }],
         }),
       })
-      requests++
       if (!res.ok) {
         const raw = await res.text().catch(() => '')
         const rate: RateInfo = res.status === 429 ? { retryAfterMs: durToMs(res.headers?.get?.('retry-after')) } : {}
@@ -102,7 +102,9 @@ export async function triageBatchAnthropic(
       if (!content) return { byIndex, requests, tokens, ok: false, note: 'anthropic: empty content', costUsd }
       let parsed: any
       try { parsed = JSON.parse(content) } catch { parsed = braceSlice(content) }
-      if (!parsed) return { byIndex, requests, tokens, ok: false, note: 'anthropic: non-JSON content', costUsd }
+      // must be an object or array — reject bare primitives (numbers/strings/booleans parse as valid JSON
+      // but carry no rows; the array branch below is a legitimate top-level-array response, not an error)
+      if (parsed === null || typeof parsed !== 'object') return { byIndex, requests, tokens, ok: false, note: 'anthropic: non-JSON content', costUsd }
       const arr: any[] = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.items) ? parsed.items : []
       for (const row of arr) {
         const i = Number(row?.i)
