@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "ticker": "EMAAR",
+  "run_root": "analyses/EMAAR_2026-07-10",
+  "scan_date": "2026-07-16",
+  "watermark": "analyses/EMAAR_2026-07-10/final_thesis.md",
+  "new_docs": [],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [],
+    "commands": [],
+    "note_only": []
+  },
+  "verdict": "note_only",
+  "summary": "No new documents since the last run. The watermark (final_thesis.md, updated 2026-07-16 23:46 by the prior same-day business-model/external-dependency re-run) is newer than every file in the data/EMAAR pool, including the screener wire note already covered by the 2026-07-16_intake_plan note-only recommendation. Nothing to scope."
+}
