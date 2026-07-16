@@ -272,8 +272,8 @@ sources:
       #   above — they now also poll direct RSS. Mubasher/Argaam/Zawya carry Gulf listed-company &
       #   exchange news (DFM/ADX/Tadawul/QE).
       - "AGBI"
-      - "ARN News Centre"
       - "Al-Monitor"
+      - "ARN News Centre"
       - "Arab Times Kuwait"
       - "Arabian Business"
       - "Argaam"
