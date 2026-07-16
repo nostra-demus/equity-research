@@ -124,8 +124,10 @@ export function SendToResearchMenu({ it }: Props) {
   }, [subjects, links, sentLocal, namedTickers])
 
   const fire = (ticker: string) => {
+    const forEvent = it.event_id // guard: switching events mid-flight must not paint state onto the new one
     setSending(ticker)
     void send(it, ticker).then((ok) => {
+      if (forEvent !== eventRef.current) return
       setSending(null)
       setArmed(null)
       if (ok) {

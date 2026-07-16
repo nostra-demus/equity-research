@@ -175,7 +175,7 @@ export function findFeedItemByEventId(
       if (!ln.includes(needle)) continue
       try {
         const o = JSON.parse(ln)
-        if (o?.kind === 'item' && o.event_id === eventId) return hydrate(o as FeedItem)
+        if (o && typeof o === 'object' && !Array.isArray(o) && o.kind === 'item' && o.event_id === eventId) return hydrate(o as FeedItem)
       } catch {
         /* corrupt line — keep scanning */
       }

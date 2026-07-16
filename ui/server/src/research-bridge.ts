@@ -181,7 +181,7 @@ export function renderEventNote(o: RenderNoteOpts): string {
     if (enr.market_angle) eLines.push(`- Market angle: ${cap(enr.market_angle, 500)}`)
     const listParties = (label: string, ps?: { name: string; mechanism?: string; basis?: string }[]) => {
       for (const p of (ps || []).slice(0, 4)) {
-        const why = cap((p as any).mechanism || (p as any).basis, 300)
+        const why = cap(p.mechanism || p.basis, 300)
         eLines.push(`- ${label}: ${cap(p.name, 100)}${why ? ` — ${why}` : ''}`)
       }
     }
@@ -278,7 +278,9 @@ export function bridgeEventToSubject(o: {
   // The temp file lives in the SAME directory (data/ is a Drive/FUSE mount — a cross-device rename
   // would EXDEV) and starts with a dot so the pool scanners (which skip dot-files) never count it.
   // The finally-unlink clears it if the rename fails (a Drive flake must not leave litter behind).
-  const tmp = path.join(dir, `.${noteName}.tmp.${process.pid}`)
+  // random suffix (not just pid) — two concurrent sends for the SAME event+ticker in the same process
+  // would otherwise share one tmp name and race on write/rename
+  const tmp = path.join(dir, `.${noteName}.tmp.${process.pid}.${Math.random().toString(36).slice(2)}`)
   try {
     fs.writeFileSync(tmp, md)
     fs.renameSync(tmp, fp)
