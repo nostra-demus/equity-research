@@ -5,8 +5,8 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { approvedDomains, lookupSource, normalizeDomain } from '../src/news/sources/approved-domains'
-import { buildQueries, fetchGdelt, fetchGdeltDoc, resetGdeltBackoff } from '../src/news/sources/gdelt'
+import { allApprovedDomains, approvedDomains, lookupSource, normalizeDomain } from '../src/news/sources/approved-domains'
+import { buildQueries, fetchGdelt, fetchGdeltDoc, GDELT_MAX_QUERY_CHARS, resetGdeltBackoff } from '../src/news/sources/gdelt'
 import { eventIdFor, loadLedgerEventIds, normalizeAndFilter, parseSeendate } from '../src/news/normalize'
 import { SeenCache } from '../src/news/seen-cache'
 import { Budget, RateLimiter, armCooldown, clearCooldown, readCooldownUntil, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
@@ -105,6 +105,39 @@ await check('buildQueries chunks approved domains into domain: OR groups', () =>
   assert.equal(q.length, 2)
   assert.equal(q[0], '(domain:a.com OR domain:b.com)')
   assert.equal(q[1], '(domain:c.com)')
+})
+await check('buildQueries: every query for the REAL approved list stays under GDELT’s length ceiling', () => {
+  // The month-long silent GDELT outage: an 11-domain chunk grew to 257 chars, GDELT rejected it with
+  // HTTP *200* + "Your query was too short or too long.", so it yielded 0 articles and never tripped the
+  // 429 backoff. This guard fails the build if the approved list ever drifts back over the ceiling.
+  for (const q of buildQueries(allApprovedDomains(), 6)) {
+    assert.ok(q.length <= GDELT_MAX_QUERY_CHARS, `query too long (${q.length} chars): ${q}`)
+  }
+  // length must bind before count when domains are long (six 30-char domains would be ~244 chars)
+  const long = Array.from({ length: 6 }, (_, i) => `averyveryverylongdomain${i}.example.com`)
+  for (const q of buildQueries(long, 6)) assert.ok(q.length <= GDELT_MAX_QUERY_CHARS, `len ${q.length}`)
+  // a single domain that alone exceeds the cap is still emitted, never silently dropped
+  assert.equal(buildQueries([`${'x'.repeat(250)}.com`], 6).length, 1)
+})
+await check('fetchGdelt: a 200-body "query too long" is reported, not swallowed as a parse error', async () => {
+  resetGdeltBackoff()
+  const logs: string[] = []
+  const fetchFn = (async () => res('Your query was too short or too long.')) as unknown as typeof fetch
+  const out = await fetchGdelt({ lookbackMin: 40, baseUrl: 'https://x/api', chunkSize: 6 }, { fetchFn, sleep: async () => {}, log: (m) => logs.push(m) })
+  assert.equal(out.length, 0)
+  assert.ok(logs.some((l) => /query too long/i.test(l)), `expected an explicit rejection log, got: ${logs.join(' | ')}`)
+})
+await check('fetchGdelt: rate-limit delivered as a 200 BODY triggers the same backoff as a 429', async () => {
+  resetGdeltBackoff()
+  let calls = 0
+  const fetchFn = (async () => { calls++; return res('Please limit requests to one every 5 seconds or contact …') }) as unknown as typeof fetch
+  const opts = { lookbackMin: 40, baseUrl: 'https://x/api', chunkSize: 6, cycleMs: 60_000, backoffCyclesOn429: 4 }
+  await fetchGdelt(opts, { fetchFn, sleep: async () => {}, log: () => {} })
+  assert.equal(calls, 1) // aborts the whole cycle on the first rate-limit body, doesn't keep poking
+  const after = await fetchGdelt(opts, { fetchFn, sleep: async () => {}, log: () => {} })
+  assert.equal(calls, 1) // still 1 → the backoff held GDELT off entirely
+  assert.equal(after.length, 0)
+  resetGdeltBackoff()
 })
 await check('fetchGdelt: parses ArtList, dedups by url across chunks, skips non-JSON', async () => {
   let calls = 0

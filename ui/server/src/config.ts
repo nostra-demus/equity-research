@@ -428,11 +428,15 @@ export const NEWS = {
   gdeltLookbackMin: capNum(process.env.NEWS_GDELT_LOOKBACK_MIN, 40),
   gdeltBaseUrl: process.env.NEWS_GDELT_BASE_URL || 'https://api.gdeltproject.org/api/v2/doc/doc',
   // GDELT rate limits HARD: its 429 body literally says "limit requests to one every 5 seconds", and a
-  // burst parks the whole IP. With ~22 GDELT-queried domains, chunkSize 11 = just 2 OR-queries/cycle
-  // (each ~250 chars — safely under GDELT's query-length ceiling, where ~28 domains/632 chars is "too
-  // long"), spaced 6s apart so each lands in its own 5s window. This was the GDELT outage: 4 queries at
-  // 1.5s spacing 429'd every cycle, so GDELT (our broadest genuinely-new global source) returned ~zero.
-  gdeltChunkSize: capNum(process.env.NEWS_GDELT_CHUNK_SIZE, 11),
+  // burst parks the whole IP — so we send few queries, spaced 6s apart (each lands in its own 5s window).
+  // But the OPPOSITE failure is worse and silent: an over-long query is rejected with HTTP **200** and the
+  // body "Your query was too short or too long.", which parses to zero articles and never trips the 429
+  // backoff. That is exactly what happened — chunkSize 11 was chosen when the list was ~22 SHORT domains
+  // ("~250 chars, safely under the ceiling"); the list then grew to 37 with long members
+  // (economictimes.indiatimes.com), pushing a chunk to 257 chars → REJECTED → GDELT returned 0 articles for
+  // ~a month with no error surfaced. Do not tune this by count alone: buildQueries also caps each query at
+  // GDELT_MAX_QUERY_CHARS, and a test asserts the real approved list stays under it.
+  gdeltChunkSize: capNum(process.env.NEWS_GDELT_CHUNK_SIZE, 6),
   gdeltChunkGapMs: capNum(process.env.NEWS_GDELT_CHUNK_GAP_MS, 6000),
   // After a 429, skip GDELT entirely for this many whole cycles so its IP penalty-box can decay (a
   // compliant once-per-cycle poke can still keep the penalty alive). 0 disables the multi-cycle backoff.

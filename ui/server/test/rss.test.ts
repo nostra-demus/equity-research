@@ -218,4 +218,41 @@ await check('fetchRss: a transient connection error (fetch failed) STILL gets th
   assert.equal(sleeps, 2, 'backoff sleeps between the 3 attempts')
 })
 
+// Google-News sitemap: the ONLY machine-readable route to Reuters (no public RSS since 2020). Shape is
+// copied from the live Reuters Arc feed: <urlset xmlns:news>, CDATA titles, ISO publication_date.
+const NEWS_SITEMAP = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+<url><loc>https://www.reuters.com/world/middle-east/booms-heard-uaes-downtown-dubai-2026-07-16/</loc>
+<lastmod>2026-07-16T17:16:07.377Z</lastmod>
+<news:news><news:publication><news:name>Reuters</news:name><news:language>en</news:language></news:publication>
+<news:publication_date>2026-07-16T17:16:07.377Z</news:publication_date>
+<news:title><![CDATA[Booms heard in UAE's Downtown Dubai, witnesses say]]></news:title></news:news></url>
+<url><loc>https://www.reuters.com/business/gold-falls-mideast-escalation-2026-07-16/</loc>
+<news:news><news:publication_date>2026-07-16T16:00:00.000Z</news:publication_date>
+<news:title>Gold falls as Mideast escalation dims hopes</news:title></news:news></url>
+<url><loc>/relative-not-absolute/</loc><news:news><news:title>dropped: not an absolute URL</news:title></news:news></url>
+<url><loc>https://www.reuters.com/no-title/</loc><news:news><news:publication_date>2026-07-16T15:00:00.000Z</news:publication_date></news:news></url>
+</urlset>`
+
+await check('parseFeed reads a Google-News sitemap (Reuters route): loc + news:title + publication_date', () => {
+  const items = parseFeed(NEWS_SITEMAP)
+  // 4 <url> blocks in, 2 valid out: the relative <loc> and the title-less entry are dropped, not thrown on
+  assert.equal(items.length, 2)
+  assert.equal(items[0].title, "Booms heard in UAE's Downtown Dubai, witnesses say") // CDATA unwrapped
+  assert.equal(items[0].link, 'https://www.reuters.com/world/middle-east/booms-heard-uaes-downtown-dubai-2026-07-16/')
+  assert.equal(items[0].date, '2026-07-16T17:16:07.377Z') // news:publication_date → lookback filter works
+  assert.equal(items[1].title, 'Gold falls as Mideast escalation dims hopes')
+  assert.ok(items.every((i) => /^https?:\/\//.test(i.link)))
+})
+await check('parseFeed: the <urlset> wrapper is never mistaken for a <url> entry; maxItems caps sitemaps', () => {
+  assert.equal(parseFeed(NEWS_SITEMAP, 1).length, 1)
+  // a plain sitemap with no news namespace stays unsupported (no headlines to read) rather than
+  // emitting title-less junk — it must not be detected as a feed at all
+  assert.equal(parseFeed('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://x.com/a</loc></url></urlset>').length, 0)
+})
+await check('parseFeed still reads ordinary RSS after the sitemap branch (no regression)', () => {
+  assert.ok(parseFeed(RSS2).length >= 1)
+  assert.ok(parseFeed(ATOM).length >= 1)
+})
+
 console.log(`\n${passed} checks passed`)

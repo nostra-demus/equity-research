@@ -39,13 +39,32 @@ let gdeltSkipUntilMs = 0
 /** Test hook: clear the cross-cycle GDELT backoff so cases don't leak into each other. */
 export function resetGdeltBackoff(): void { gdeltSkipUntilMs = 0 }
 
-/** Group domains into OR-queries so each GDELT call stays small and reliable. */
-export function buildQueries(domains: string[], chunkSize = 6): string[] {
+// GDELT rejects an over-long query with HTTP **200** and the plain-text body "Your query was too short
+// or too long." — never a 4xx. That made an over-long query a SILENT total outage: JSON.parse fails, the
+// chunk yields nothing, no 429 means no backoff, and GDELT returns zero articles every cycle forever.
+// This is not hypothetical: an 11-domain chunk measured 257 chars and was rejected live, which is why
+// GDELT contributed 0 items for ~a month. A COUNT-only cap can't prevent it (domain lengths vary — six
+// 30-char domains ≈ 244 chars), so we cap the built query by LENGTH and let the count be whatever fits.
+export const GDELT_MAX_QUERY_CHARS = 200
+
+/** Group domains into OR-queries so each GDELT call stays small and reliable. Chunks are bounded by
+ *  BOTH `chunkSize` (max domains) and `GDELT_MAX_QUERY_CHARS` (max built-query length) — whichever binds
+ *  first — so however the approved-domain list grows, no query can silently cross GDELT's ceiling. */
+export function buildQueries(domains: string[], chunkSize = 6, maxChars = GDELT_MAX_QUERY_CHARS): string[] {
   const queries: string[] = []
-  for (let i = 0; i < domains.length; i += chunkSize) {
-    const group = domains.slice(i, i + chunkSize)
-    queries.push('(' + group.map((d) => `domain:${d}`).join(' OR ') + ')')
+  let group: string[] = []
+  const render = (g: string[]) => '(' + g.map((d) => `domain:${d}`).join(' OR ') + ')'
+  for (const d of domains) {
+    const next = [...group, d]
+    // keep a lone over-long domain rather than dropping it: a 1-domain query is always valid
+    if (group.length && (next.length > chunkSize || render(next).length > maxChars)) {
+      queries.push(render(group))
+      group = [d]
+    } else {
+      group = next
+    }
   }
+  if (group.length) queries.push(render(group))
   return queries
 }
 
@@ -109,8 +128,21 @@ export async function fetchGdelt(opts: GdeltOptions, deps: GdeltDeps = {}): Prom
         }
         if (!res.ok) { log(`gdelt chunk ${qi}: HTTP ${res.status}`); break }
         const text = await res.text()
+        // GDELT signals BOTH "query rejected" and "rate limited" as HTTP 200 + a plain-text body. Those
+        // must never look like a generic parse failure: an over-long query is a permanent, silent outage
+        // (it fixes itself only when we shorten the query), and the rate-limit text needs the SAME
+        // penalty backoff a 429 gets — poking a throttled IP keeps the penalty alive.
+        if (/query was too short or too long/i.test(text)) {
+          log(`gdelt chunk ${qi}: REJECTED — query too long (${queries[qi].length} chars, max ${GDELT_MAX_QUERY_CHARS}); shorten NEWS_GDELT_CHUNK_SIZE. This yields ZERO articles.`)
+          break
+        }
+        if (/limit requests to one every/i.test(text)) {
+          if (backoffEnabled) gdeltSkipUntilMs = Date.now() + opts.cycleMs! * opts.backoffCyclesOn429!
+          log(`gdelt chunk ${qi}: rate-limited via 200-body${backoffEnabled ? ` — backing off ${opts.backoffCyclesOn429} cycles` : ''}`)
+          return [...byUrl.values()]
+        }
         let data: any
-        try { data = JSON.parse(text) } catch { log(`gdelt chunk ${qi}: non-JSON body`); break }
+        try { data = JSON.parse(text) } catch { log(`gdelt chunk ${qi}: non-JSON body: ${text.slice(0, 80)}`); break }
         for (const a of data?.articles || []) {
           const u = String(a?.url || '').trim()
           if (!u || byUrl.has(u)) continue
