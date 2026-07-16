@@ -113,10 +113,13 @@ await check('terminal 401 returns a note the caller matches to exhaust the daily
   assert.ok(/HTTP (400|401|402|403|404|413)/.test(r.note || ''), 'note must match the runCycle 4xx-exhaust regex')
 })
 
-// ---- the off-by-default invariant: no flag + no dedicated key ⇒ tier is dark (spends no Claude money) ----
-await check('config defaults keep the paid tier OFF (no flag, no dedicated key)', () => {
-  assert.equal(NEWS.anthropicFallbackEnabled, false)
-  assert.equal(NEWS.anthropicApiKey, '')
+// ---- defaults: the tier is ON, on the SUBSCRIPTION backend (no key), bounded by a $5/day ceiling. The
+// metered `api` path this file tests is opt-in and must never arm itself off a stray ANTHROPIC_API_KEY. ----
+await check('config defaults: tier ON, subscription backend, no API key needed, $5/day ceiling', () => {
+  assert.equal(NEWS.anthropicFallbackEnabled, true)
+  assert.equal(NEWS.anthropicFallbackMode, 'subscription')
+  assert.equal(NEWS.anthropicApiKey, '') // api mode is opt-in — never defaults to ANTHROPIC_API_KEY/themes key
+  assert.equal(NEWS.anthropicDailyUsd, 5)
   assert.equal(NEWS.anthropicModel, 'claude-haiku-4-5')
 })
 

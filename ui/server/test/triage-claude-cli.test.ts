@@ -1,0 +1,135 @@
+// The SUBSCRIPTION last-resort triage tier (news/triage/claude-cli.ts) + its daily $ ledger (UsdBudget).
+// This tier is what stops the ingester dropping items on an overload day, so its failure posture is the
+// whole point: every failure must DEFER the batch (ok:false), never score it zero — and the plan's own
+// "usage limit reached" must be reported in a way the caller can match to arm its cross-cycle cooldown
+// (i.e. wait for the plan to reset instead of re-spawning the CLI every cycle). The $ ledger must be
+// restart-safe, or a server bounce would silently reset the ceiling and keep drawing on the plan.
+// Run: npx tsx test/triage-claude-cli.test.ts
+process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
+import assert from 'node:assert/strict'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+import { triageBatchClaudeCli, isUsageLimit, type ClaudeCliRunner } from '../src/news/triage/claude-cli'
+import { UsdBudget } from '../src/news/triage/budget'
+import type { NewsItem } from '../src/news/types'
+
+let passed = 0
+async function check(name: string, fn: () => void | Promise<void>) {
+  try { await fn(); passed++; console.log(`  ok  ${name}`) }
+  catch (e: any) { console.error(`FAIL  ${name}\n      ${e?.stack || e?.message || e}`); process.exitCode = 1 }
+}
+
+const items = [
+  { headline: 'Acme cuts FY guidance 20%', source_name: 'NSE', region: 'IN' },
+  { headline: 'Local weather stays mild', source_name: 'Blog', region: 'US' },
+] as unknown as NewsItem[]
+
+const opts = { model: 'claude-haiku-4-5' }
+
+// ---- happy path: the CLI text is parsed, rows coerced, and the reported cost surfaces for the ledger ----
+await check('scores every index and surfaces the CLI-reported costUsd (what the $ ledger meters on)', async () => {
+  const run: ClaudeCliRunner = async () => ({
+    text: JSON.stringify({ items: [
+      { i: 0, relevance: 'material', materiality_pre_score: 84, issuer_linkage: 'primary', why: 'guidance cut 20%' },
+      { i: 1, relevance: 'irrelevant', materiality_pre_score: 2 },
+    ] }),
+    costUsd: 0.0061,
+  })
+  const r = await triageBatchClaudeCli(items, opts, run)
+  assert.equal(r.ok, true)
+  assert.equal(r.byIndex.size, 2)
+  assert.equal(r.byIndex.get(0)!.materiality_pre_score, 84)
+  assert.equal(r.byIndex.get(0)!.issuer_linkage, 'primary')
+  assert.equal(r.byIndex.get(1)!.materiality_pre_score, 2)
+  assert.equal(r.costUsd, 0.0061)
+  assert.equal(r.requests, 1)
+})
+
+// ---- prose-wrapped JSON (the CLI has no JSON mode) still parses ----
+await check('parses JSON even when the model wraps it in prose', async () => {
+  const run: ClaudeCliRunner = async () => ({ text: 'Sure:\n{"items":[{"i":0,"materiality_pre_score":61}]}\n', costUsd: 0.002 })
+  const r = await triageBatchClaudeCli(items, opts, run)
+  assert.equal(r.ok, true)
+  assert.equal(r.byIndex.get(0)!.materiality_pre_score, 61)
+})
+
+// ---- THE load-bearing case: the plan's quota is spent → defer + a note the caller matches for cooldown ----
+await check('plan usage limit → ok:false (defer), note matches the caller\'s /usage limit/ cooldown trigger', async () => {
+  const run: ClaudeCliRunner = async () => ({ text: '', costUsd: 0, error: 'claude cli: usage limit reached — plan quota spent' })
+  const r = await triageBatchClaudeCli(items, opts, run)
+  assert.equal(r.ok, false)
+  assert.equal(r.byIndex.size, 0) // nothing scored → caller defers; never scored zero
+  assert.ok(/usage limit/i.test(r.note || ''), 'runCycle arms the cross-cycle cooldown off this substring')
+})
+
+// ---- isUsageLimit: recognises the plan-exhausted shapes the CLI reports ----
+await check('isUsageLimit recognises 429 / usage-limit / rate-limit results, not ordinary errors', () => {
+  assert.equal(isUsageLimit({ api_error_status: 429 }), true)
+  assert.equal(isUsageLimit({ result: 'Claude usage limit reached — try again after the plan resets' }), true)
+  assert.equal(isUsageLimit({ result: 'rate limit exceeded' }), true)
+  assert.equal(isUsageLimit({ result: 'some other failure' }), false)
+  assert.equal(isUsageLimit({}), false)
+})
+
+// ---- a non-JSON reply defers rather than half-scoring ----
+await check('non-JSON reply → ok:false (defer), never a partial score', async () => {
+  const run: ClaudeCliRunner = async () => ({ text: 'I cannot help with that.', costUsd: 0.001 })
+  const r = await triageBatchClaudeCli(items, opts, run)
+  assert.equal(r.ok, false)
+  assert.equal(r.byIndex.size, 0)
+  assert.match(r.note || '', /non-JSON/)
+})
+
+// ---- a runner that throws must not kill the cycle ----
+await check('an unexpected throw in the runner degrades to ok:false, never propagates', async () => {
+  const run: ClaudeCliRunner = async () => { throw new Error('spawn EACCES') }
+  const r = await triageBatchClaudeCli(items, opts, run)
+  assert.equal(r.ok, false)
+  assert.match(r.note || '', /EACCES/)
+})
+
+// ---- empty batch is a no-op, not a spawn ----
+await check('empty batch never spawns', async () => {
+  let calls = 0
+  const run: ClaudeCliRunner = async () => { calls++; return { text: '', costUsd: 0 } }
+  const r = await triageBatchClaudeCli([], opts, run)
+  assert.equal(r.ok, true)
+  assert.equal(calls, 0)
+})
+
+// ---- the $ ledger: spends to the ceiling, then defers; and survives a restart ----
+await check('UsdBudget spends to the $ ceiling then refuses — and is restart-safe', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'usdbudget-'))
+  const b = UsdBudget.load(dir, 5, Date.now(), 'anthropic-triage-budget.json')
+  assert.equal(b.canSpend(), true)
+  b.record(3.0)
+  assert.equal(b.canSpend(), true) // 3.0 of 5 spent — still room
+  b.record(2.0)
+  assert.equal(b.canSpend(), false) // ceiling reached → the caller defers the rest of the day
+  assert.equal(b.calls, 2)
+  b.save()
+
+  // a server bounce must NOT reset the counter (else it would keep drawing on the plan all day)
+  const reloaded = UsdBudget.load(dir, 5, Date.now(), 'anthropic-triage-budget.json')
+  assert.equal(reloaded.canSpend(), false)
+  assert.ok(Math.abs(reloaded.usd - 5.0) < 1e-9, `usd ${reloaded.usd}`)
+
+  // a NEW day starts fresh
+  const tomorrow = UsdBudget.load(dir, 5, Date.now() + 86_400_000, 'anthropic-triage-budget.json')
+  assert.equal(tomorrow.canSpend(), true)
+  assert.equal(tomorrow.usd, 0)
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+
+// ---- exhaust(): a terminal error parks the tier for the day ----
+await check('UsdBudget.exhaust parks the tier for the rest of the day', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'usdbudget2-'))
+  const b = UsdBudget.load(dir, 5, Date.now(), 'anthropic-triage-budget.json')
+  assert.equal(b.canSpend(), true)
+  b.exhaust()
+  assert.equal(b.canSpend(), false)
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+
+console.log(`\n${passed} checks passed`)

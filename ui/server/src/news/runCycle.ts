@@ -1,9 +1,9 @@
 // One ingest cycle, end to end: FETCH (GDELT + RSS in parallel) → NORMALIZE+FILTER+DEDUP → TRIAGE
 // (Groq, batched, budget- and rate-limited) → WRITE (ranked inbox + per-item feed records + firehose
 // summary + board refresh + live bus events). It NEVER throws — every stage degrades to a logged,
-// counted no-op — and by default it spends NO Claude money (the one paid seam is the OFF-by-default
-// metered Haiku last-resort triage tier, gated on a dedicated key; see triage/anthropic.ts). All I/O is
-// dependency-injectable so the whole pipeline is unit-testable with mocked fetch + clock.
+// counted no-op — and it never charges a card: the last-resort triage tier runs on the host's flat-fee
+// Claude subscription (triage/claude-cli.ts), bounded by a daily $ ceiling, and only once every free brain
+// is out. All I/O is dependency-injectable so the pipeline is unit-testable with mocked fetch + clock.
 
 import path from 'node:path'
 import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
@@ -22,9 +22,10 @@ import { resolveEventRegion } from './geo'
 import { resolveCountry } from './geography'
 import { invalidateFacets } from './facets'
 import { SeenCache } from './seen-cache'
-import { Budget, armCooldown, clearCooldown, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, readCooldownUntil } from './triage/budget'
+import { Budget, UsdBudget, armCooldown, clearCooldown, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, readCooldownUntil } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
 import { triageBatchAnthropic } from './triage/anthropic'
+import { triageBatchClaudeCli, type ClaudeCliRunner } from './triage/claude-cli'
 import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
@@ -97,6 +98,10 @@ export interface RunCycleDeps {
   // the cycle's abort signal (from runAbortableCycle's wall-clock guard). When it fires, the triage loop
   // stops starting new batches/provider calls instead of grinding the whole backlog — see the break below.
   signal?: AbortSignal
+  // The subscription last-resort tier SPAWNS the `claude` CLI, which `fetchFn` cannot stub. Inject a fake
+  // here to exercise that tier without a real process (and without drawing the host's plan quota); a test
+  // that doesn't care should instead set config.anthropicFallbackEnabled=false. Undefined ⇒ the real CLI.
+  claudeCliRunner?: ClaudeCliRunner
 }
 
 export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSummary> {
@@ -251,13 +256,15 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     coolingDown: isCoolingDown(stateDir, p.id, now().getTime()),
     cooldownWasSet: readCooldownUntil(stateDir, p.id), // >0 → a marker existed at start; clear it if we recover
   }))
-  // PAID last-resort tier (metered Anthropic Haiku) — OFF unless a dedicated key + flag are set. Its own
-  // daily budget (survives restarts, so a bounce can't reset + overspend) + its own per-minute limiter and
-  // cross-cycle cooldown, exactly like the free providers — but it spends money, so it is the LAST thing
-  // tried before a batch defers (news/triage/anthropic.ts). Absent key ⇒ null ⇒ the defer path is unchanged.
-  const anthropicOn = cfg.anthropicFallbackEnabled && !!cfg.anthropicApiKey
+  // LAST-RESORT tier (Claude Haiku). Default backend = the host's flat-fee SUBSCRIPTION via the local
+  // `claude` CLI, which needs NO key — so it is ON by default; `api` mode instead needs a dedicated metered
+  // key. Bounded by a daily $ LEDGER (restart-safe) rather than request counts, because that is the unit the
+  // operator reasons in and the unit the CLI reports. Own per-minute limiter + cross-cycle cooldown, exactly
+  // like the free providers — but it draws real (plan or metered) budget, so it is the LAST thing tried
+  // before a batch defers. Ceiling reached ⇒ null-op ⇒ the defer path below is unchanged.
+  const anthropicOn = cfg.anthropicFallbackEnabled && (cfg.anthropicFallbackMode === 'subscription' || !!cfg.anthropicApiKey)
   const anthropicBudget = anthropicOn
-    ? Budget.load(stateDir, cfg.anthropicDailyReqCap, cfg.anthropicDailyTokenCap, now().getTime(), 'anthropic-triage-budget.json')
+    ? UsdBudget.load(stateDir, cfg.anthropicDailyUsd, now().getTime(), 'anthropic-triage-budget.json')
     : null
   const anthropicLimiter = anthropicOn ? getNamedLimiter('anthropic-triage', cfg.anthropicRpm, 0) : null
   const anthropicCooldownWasSet = anthropicOn ? readCooldownUntil(stateDir, 'anthropic-triage') : 0
@@ -375,36 +382,42 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         }
       }
     }
-    // PAID LAST-RESORT: every free brain is paced/capped/cooling/failed for this batch → score it on metered
-    // Haiku rather than deferring (and risking the 1,000-cap drop under sustained overload). Gated: enabled +
-    // key + not-already-failed-this-cycle + not cross-cycle cooling + daily budget room + the batch's lead
-    // item clears the priority floor. The queue is priority-sorted, so batch[0] is this batch's most material
-    // item — gating on it spends the paid budget on what matters first. OFF by default (anthropicOn) ⇒ skip.
+    // LAST-RESORT: every free brain is paced/capped/cooling/failed for this batch → score it on Claude Haiku
+    // (the host's subscription by default) rather than deferring and risking the 1,000-cap drop under
+    // sustained overload. This is what keeps RECENCY: the item is scored now, not next reset. Gated: enabled
+    // + not-already-failed-this-cycle + not cross-cycle cooling + daily $ ceiling not reached + the batch's
+    // lead item clears the priority floor. The queue is priority-sorted, so batch[0] is this batch's most
+    // material item — gating on it spends the scarce budget on what matters first.
     if (
       (!res || !res.ok) && anthropicOn && !anthropicDownThisCycle && !anthropicCoolingDown &&
-      anthropicBudget!.canSpend(est) && preTriagePriority(batch[0], nowDate) >= cfg.anthropicMinPriority
+      anthropicBudget!.canSpend() && preTriagePriority(batch[0], nowDate) >= cfg.anthropicMinPriority
     ) {
       await anthropicLimiter!.acquire(est, sleep, () => now().getTime())
-      const ar = await triageBatchAnthropic(
-        batch,
-        { model: cfg.anthropicModel, baseUrl: cfg.anthropicBaseUrl, apiKey: cfg.anthropicApiKey, maxTokens: cfg.anthropicMaxTokens, inPricePerMTok: cfg.anthropicInPricePerMTok, outPricePerMTok: cfg.anthropicOutPricePerMTok },
-        fetchFn,
-        sleep,
-      )
+      const ar = cfg.anthropicFallbackMode === 'subscription'
+        ? await triageBatchClaudeCli(batch, { model: cfg.anthropicModel, timeoutMs: cfg.anthropicTimeoutMs, budgetUsd: cfg.anthropicPerCallUsd }, deps.claudeCliRunner)
+        : await triageBatchAnthropic(
+            batch,
+            { model: cfg.anthropicModel, baseUrl: cfg.anthropicBaseUrl, apiKey: cfg.anthropicApiKey, maxTokens: cfg.anthropicMaxTokens, inPricePerMTok: cfg.anthropicInPricePerMTok, outPricePerMTok: cfg.anthropicOutPricePerMTok },
+            fetchFn,
+            sleep,
+          )
       res = ar
       anthropicRequests += ar.requests
       anthropicTokens += ar.tokens
       anthropicCostUsd += ar.costUsd
-      anthropicBudget!.record(ar.requests, ar.tokens)
+      anthropicBudget!.record(ar.costUsd) // the $ ledger meters on what the call actually reported
       anthropicLimiter!.learn(ar.rate, () => now().getTime())
       if (ar.ok) {
         if (anthropicCooldownWasSet) clearCooldown(stateDir, 'anthropic-triage') // recovered → drop the marker
       } else {
-        anthropicDownThisCycle = true // bad cycle → skip the paid tier for the rest of it (don't burn the cap)
-        // a terminal 4xx (bad key / no credits / quota) won't recover today → exhaust its daily budget so it's
-        // skipped across drains too until the daily reset (mirrors the overflow-registry 4xx-exhaust above).
+        anthropicDownThisCycle = true // bad cycle → skip this tier for the rest of it (don't burn the budget)
+        // A terminal 4xx (api mode: bad key / no credits) won't recover today → exhaust the day's ledger.
+        // Everything else — including the SUBSCRIPTION's own "usage limit reached" (the plan's 5-hour/weekly
+        // quota is spent) — arms the cross-cycle cooldown, so later cycles wait for the plan to reset instead
+        // of re-spawning the CLI every minute. That is the "defer intelligently until the limit resets" path:
+        // the backlog is kept, and the drain picks it up the moment quota returns.
         if (/HTTP (400|401|402|403|404|413)/.test(ar.note || '')) anthropicBudget!.exhaust()
-        else armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'anthropic-triage', cfg.llmCooldownMaxMs) // transient → cross-cycle backoff
+        else armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'anthropic-triage', cfg.llmCooldownMaxMs)
       }
     }
     if (!res) {

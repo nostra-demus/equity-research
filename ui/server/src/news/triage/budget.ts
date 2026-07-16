@@ -212,6 +212,64 @@ export function clearCooldown(stateDir: string, id = 'groq'): void {
 /** Test hook only — clears the process-wide in-memory cooldown fallback between hermetic cases. */
 export function resetCooldownMemory(): void { cooldownMem.clear() }
 
+interface UsdState { date: string; usd: number; calls: number }
+
+/**
+ * A daily DOLLAR ledger — the guardrail for the paid/subscription last-resort tier, whose cost is reported
+ * per call (the `claude` CLI's total_cost_usd, or an API usage×price calc) rather than in tokens. The Budget
+ * class above meters requests+tokens; this meters spend, which is the unit the operator actually reasons in
+ * ("score the overflow, but stop at $5/day and defer the rest").
+ *
+ * On the SUBSCRIPTION path no card is charged (the plan is flat-fee) — there the reported cost is a proxy
+ * for how much of the shared plan quota this tier has drawn, so the same ceiling doubles as the governor
+ * that stops news triage starving the research runs. Persisted in STATE_DIR, keyed on the day, so a server
+ * restart cannot silently reset the counter and overspend.
+ */
+export class UsdBudget {
+  private state: UsdState
+  constructor(private file: string, private capUsd: number, now = Date.now(), private dayTz?: string) {
+    this.state = { date: dayKey(now, dayTz), usd: 0, calls: 0 }
+    try {
+      const loaded = JSON.parse(fs.readFileSync(file, 'utf8')) as UsdState
+      if (loaded && loaded.date === this.state.date) this.state = loaded // today's counters; else a fresh day
+    } catch {
+      // no prior file → today starts at zero
+    }
+  }
+
+  static load(stateDir: string, capUsd: number, now = Date.now(), fileName = 'anthropic-triage-budget.json', dayTz?: string): UsdBudget {
+    return new UsdBudget(path.join(stateDir, fileName), capUsd, now, dayTz)
+  }
+
+  /** Room for one more call expected to cost ~estUsd. False once the day's ceiling is reached. NB the
+   *  `>=` guard is load-bearing: with the default estUsd=0 a plain `usd + est <= cap` would still answer
+   *  TRUE at exactly the ceiling, letting one extra call through every cycle after the budget was spent. */
+  canSpend(estUsd = 0): boolean {
+    if (this.state.usd >= this.capUsd) return false
+    return this.state.usd + Math.max(0, estUsd) <= this.capUsd
+  }
+
+  /** Mark the day's ceiling as reached — e.g. a terminal auth/quota error that won't recover today. */
+  exhaust(): void { this.state.usd = Math.max(this.state.usd, this.capUsd) }
+
+  record(usd: number): void {
+    this.state.usd += Math.max(0, Number(usd) || 0)
+    this.state.calls += 1
+  }
+
+  save(): void {
+    try {
+      fs.mkdirSync(path.dirname(this.file), { recursive: true })
+      fs.writeFileSync(this.file, JSON.stringify(this.state))
+    } catch {
+      // best-effort; a missed write only risks a slightly stale counter next cycle
+    }
+  }
+
+  get usd(): number { return this.state.usd }
+  get calls(): number { return this.state.calls }
+}
+
 // What Groq tells us about the live rate-limit state, parsed from the response headers (groq.ts).
 export interface RateInfo {
   tpmLimit?: number // x-ratelimit-limit-tokens — the per-MINUTE token ceiling (the binding free-tier limit)
