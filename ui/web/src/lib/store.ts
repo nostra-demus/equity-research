@@ -8,7 +8,7 @@ import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import { affectedModules, focusKeysFor } from './intake'
-import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
@@ -414,6 +414,12 @@ interface State {
   // refreshed on select + on data-changed — read by the read-only "Data needs" dock. Null = none / no run.
   dataNeeds: DataNeedsRead | null
   refreshDataNeeds: () => Promise<void>
+  // "What changed since the last version" — the server-computed git delta for the run on screen.
+  whatChanged: WhatChangedRead | null
+  whatChangedOpen: boolean
+  refreshWhatChanged: () => Promise<void>
+  openWhatChanged: () => void
+  closeWhatChanged: () => void
   openThesisPlan: () => Promise<void>
   closeThesisPlan: () => void
   toggleThesisRerun: (module: string) => void // flip one module between "reuse" and "re-run", then re-price
@@ -740,6 +746,8 @@ export const useStore = create<State>((set, get) => ({
   thesisPlanError: null,
   intake: null,
   dataNeeds: null,
+  whatChanged: null,
+  whatChangedOpen: false,
   intakeFocusKeys: new Set(),
   intakePlanKeys: new Set(),
   intakeAnalyzing: false,
@@ -935,7 +943,7 @@ export const useStore = create<State>((set, get) => ({
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
     chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
     // the completion plan is per-subject disk truth — never let a previous subject's plan survive a switch
-    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], runPanelDismissed: false, activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, ...CHAT_RESET })
+    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], runPanelDismissed: false, activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, ...CHAT_RESET })
     const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
@@ -955,6 +963,9 @@ export const useStore = create<State>((set, get) => ({
       if (manifest.finalThesis) seed['master/synthesizer'] = { status: 'done', outputPath: `${manifest.runRoot}/final_thesis.md` }
       set({ nodeRuntime: seed, runRoot: manifest.runRoot ?? null, reports: { memo: !!manifest.memo, thesis: !!manifest.finalThesis, dossier: !!manifest.fullDossier }, moduleReports: manifest.moduleReports ?? {} })
     } catch {}
+    // AFTER the manifest set runRoot: the version delta must target the run the banner is about to show,
+    // not whatever run resolving the bare ticker would pick.
+    if (isResearch) void get().refreshWhatChanged()
     try {
       // honor the run-history pick: an explicit runRoot loads THAT run's decision (not the standing run's),
       // so the manifest and the decision banner stay on the same run instead of mixing an older verdict in.
@@ -1560,6 +1571,25 @@ export const useStore = create<State>((set, get) => ({
       if (get().selectToken === token) set({ dataNeeds: null })
     }
   },
+
+  refreshWhatChanged: async () => {
+    const t = get().selectedTicker
+    // research-only v1, matched POSITIVELY (never `!== 'screener'`): an old engine mid-deploy 404s and
+    // api.whatChanged returns null, so the chip hides rather than defaulting permissive.
+    if (!t || get().staticMode || get().activeSwarm !== 'research') return
+    const token = get().selectToken
+    try {
+      // the SAME runRoot the banner's decision was fetched with — selectTicker(t, runRoot) honours a
+      // run-history pick, so a ticker-only fetch would describe a DIFFERENT run than the one on screen.
+      const read = await api.whatChanged(t, get().runRoot ?? undefined)
+      if (get().selectToken !== token) return // a newer selection superseded this fetch
+      set({ whatChanged: read })
+    } catch {
+      if (get().selectToken === token) set({ whatChanged: null }) // fail to null, never fabricate
+    }
+  },
+  openWhatChanged: () => set({ whatChangedOpen: true }),
+  closeWhatChanged: () => set({ whatChangedOpen: false }),
 
   setIntakeFocus: (keys) => set({ intakeFocusKeys: keys }),
 
@@ -2288,6 +2318,11 @@ export const useStore = create<State>((set, get) => ({
             if (bloomTimer) clearTimeout(bloomTimer)
             bloomTimer = setTimeout(() => set({ coreBloom: false }), 4500)
             api.decision(selected, rSw, r.runRoot ?? undefined).then((d) => set({ decision: d })).catch(() => {})
+            // a finished re-run is exactly when a new version of the record exists. Deliberately NOT on
+            // the data-changed SSE: that watches data/, and a document landing does not change the diff —
+            // only a re-run does. And because the reader treats the working tree as current, the delta is
+            // right the moment the run WRITES, so no analyses/ watcher is needed either.
+            if (rSw === 'research') void get().refreshWhatChanged()
             if (chained) set({ chainTickers: new Set([...get().chainTickers].filter((x) => x !== r.ticker)) })
             get().setToast({ msg: 'Run complete', tone: 'good' })
           } else {

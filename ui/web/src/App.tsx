@@ -25,6 +25,7 @@ import { FeedbackPanel } from './components/FeedbackPanel'
 import { CallsTracker } from './components/CallsTracker'
 import { LaunchConfirm } from './components/LaunchConfirm'
 import { ThesisPlanPanel } from './components/ThesisPlanPanel'
+import { WhatChangedPanel } from './components/WhatChangedPanel'
 import { AddCompany } from './components/AddCompany'
 import { ReadinessWarnings } from './components/ReadinessWarnings'
 import { DataUploadEmptyState } from './components/DataUploadEmptyState'
@@ -206,6 +207,7 @@ export function App() {
       <SignalIntake />
       <LaunchConfirm />
       <ThesisPlanPanel />
+      <WhatChangedPanel />
       <AddCompany />
       <ReadinessWarnings />
       <SwarmWarp />

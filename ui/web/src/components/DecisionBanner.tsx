@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { decisionColor, resolveVerdict } from '../lib/format'
+import type { WhatChangedRead } from '../lib/types'
 
 // the three shareable tiers of a finished run, opened from below the Memo orb
 const TIERS = [
@@ -8,6 +9,73 @@ const TIERS = [
   { key: 'thesis' as const, label: 'Thesis' },
   { key: 'dossier' as const, label: 'Full dossier' },
 ]
+
+/** "2026-07-13" → "13 Jul". */
+function shortDate(iso?: string | null): string {
+  if (!iso) return ''
+  const [y, m, d] = iso.split('-').map(Number)
+  if (!y || !m || !d) return iso
+  return `${d} ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][m - 1]}`
+}
+
+/** The chip copy. Verdict-first — never a bare change count, which answers a question nobody asked. */
+function chipCopy(wc: WhatChangedRead): { text: string; tone: string; title: string } | null {
+  if (wc.state === 'first_version') {
+    return { text: 'First version', tone: 'inert', title: wc.detail }
+  }
+  if (wc.state !== 'compared') return null // no_history -> render nothing at all
+  const since = wc.cur.uncommitted ? shortDate(wc.prev.date) : shortDate(wc.prev.date)
+  const { diff } = wc
+  switch (diff.verdict) {
+    case 'identical':
+      return { text: `Unchanged since ${since}`, tone: 'flat', title: diff.headline }
+    case 'call_held':
+      return {
+        text: `Call held since ${since} · ${diff.evidenceCount || diff.wordingCount} change${(diff.evidenceCount || diff.wordingCount) === 1 ? '' : 's'}`,
+        tone: 'moved',
+        title: `${diff.headline} ${diff.subline}`,
+      }
+    case 'anchors_moved': {
+      const m = diff.anchors.find((a) => a.moved)
+      return {
+        text: m ? `${m.label} ${m.prev} → ${m.cur} since ${since}` : `Changed since ${since}`,
+        tone: m?.tone === 'better' ? 'better' : m?.tone === 'worse' ? 'worse' : 'moved',
+        title: diff.headline,
+      }
+    }
+    case 'call_changed': {
+      const call = diff.anchors.find((a) => a.moved && (a.prev !== null || a.cur !== null))
+      return { text: `Was ${call?.prev ?? '—'}`, tone: 'call', title: diff.headline }
+    }
+  }
+}
+
+/** The glance layer: the whole answer in one line, or nothing. Opens the detail panel. */
+function WhatChangedChip() {
+  const wc = useStore((s) => s.whatChanged)
+  const open = useStore((s) => s.openWhatChanged)
+  // Deploy skew: the new bundle can be served by an engine 15-30s older, which 404s this route -> the
+  // field is absent -> the chip stays hidden. Positive match only, never default-to-permissive.
+  if (!wc) return null
+  const copy = chipCopy(wc)
+  if (!copy) return null
+  // `first_version` has nothing to open — a control that looks pressable and isn't teaches the user the
+  // panel is broken. Render it as a plain span instead.
+  if (copy.tone === 'inert') {
+    return <span className="wc__chip wc__chip--inert" title={copy.title}>{copy.text}</span>
+  }
+  return (
+    <button
+      type="button"
+      className="wc__chip"
+      data-tone={copy.tone}
+      title={`${copy.title} — click for the full comparison`}
+      onClick={(e) => { e.stopPropagation(); open() }}
+    >
+      {copy.text}<span aria-hidden>▸</span>
+    </button>
+  )
+}
 
 export function DecisionBanner() {
   const decision = useStore((s) => s.decision)
@@ -51,6 +119,11 @@ export function DecisionBanner() {
         <span className="decision__stat">exp ret <b style={{ color: er >= 0 ? 'var(--accent-bright)' : 'var(--bad)' }}>{er > 0 ? '+' : ''}{er}%</b></span>
       )}
       {decision.entry_price && <span className="decision__stat">@ <b>{decision.currency || ''} {decision.entry_price}</b></span>}
+      {/* Sits with the call it describes. The banner's own gate — a decided run, not mid-run — is exactly
+          when a version comparison can exist, which is why this lives here and not in the "New data" dock
+          (whose gate empties the moment a re-run consumes the documents: the answer would vanish at the
+          moment the user asks the question). */}
+      {isResearch && <WhatChangedChip />}
       {anyTier && (
         <>
           <div className="decision__divider" />

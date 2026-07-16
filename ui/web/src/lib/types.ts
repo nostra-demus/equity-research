@@ -104,6 +104,87 @@ export interface DataNeedsRead {
   widened: string[]
 }
 
+// ---- "What changed since the last version" (server: what-changed.ts / run-diff.ts) ----
+// The diff is computed SERVER-side and arrives finished. Never re-derive it in a selector: a
+// constructing zustand selector returns a fresh reference on every store write (the getSnapshot loop),
+// and two surfaces computing the same diff twice could disagree about the call.
+export type ChangeVerdict = 'identical' | 'call_held' | 'anchors_moved' | 'call_changed'
+export type ChangeTone = 'better' | 'worse' | 'flat' | 'neutral'
+export type ChangePolarity = 'higher_better' | 'lower_better' | 'neutral' | 'categorical' | 'structural' | 'ambiguous'
+
+export interface AnchorDelta {
+  field: string
+  label: string
+  prev: string | number | null
+  cur: string | number | null
+  present: { prev: boolean; cur: boolean }
+  moved: boolean
+  direction: 'up' | 'down' | 'flat' | 'changed'
+  polarity: ChangePolarity
+  tone: ChangeTone
+  note?: string
+}
+export interface ListDelta {
+  field: string
+  label: string
+  prevCount: number
+  curCount: number
+  added: string[]
+  removed: string[]
+  reworded: { key: string; prev: string; cur: string }[]
+  moved: boolean
+  note?: string
+}
+export interface ModuleDelta {
+  module: string
+  prevScore: number | null
+  curScore: number | null
+  scoreMoved: boolean
+  scoreReadable: boolean
+  verdictChanged: boolean
+}
+export interface RecordDiff {
+  verdict: ChangeVerdict
+  headline: string
+  subline: string
+  anchors: AnchorDelta[]
+  anchorsMoved: boolean
+  lists: ListDelta[]
+  modules: ModuleDelta[]
+  prose: { field: string; label: string }[]
+  evidenceCount: number
+  wordingCount: number
+  belowCount: number
+  hasInverted: boolean
+}
+export interface VersionRef {
+  rev: string
+  shortRev: string
+  date: string
+  subject: string
+  pathAtRev: string
+  uncommitted?: true
+}
+export interface WhatChangedCompared {
+  state: 'compared'
+  runRoot: string
+  prev: VersionRef
+  cur: VersionRef
+  versionsFound: number
+  renamedFrom?: string
+  diff: RecordDiff
+  memo: { state: 'unchanged' | 'changed' | 'added' | 'unknown'; note?: string }
+}
+export interface WhatChangedNone {
+  state: 'first_version' | 'no_history'
+  runRoot: string
+  cur: VersionRef | null
+  reason: 'first_version' | 'untracked' | 'not_committed' | 'no_repo' | 'prior_unreadable' | 'unavailable'
+  detail: string
+  versionsFound: number
+}
+export type WhatChangedRead = WhatChangedCompared | WhatChangedNone
+
 export interface ModuleNode {
   name: string
   order: number

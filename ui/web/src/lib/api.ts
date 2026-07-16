@@ -1,7 +1,7 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
-import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, RunHistoryEntry, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, RunHistoryEntry, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -680,6 +680,20 @@ export const api = {
   // ---- data needs (the "surface a data gap → build a durable connector → re-score" loop) ----
   // The structured data_needs[] the run's terminal synthesizer surfaced, roster-validated server-side, or
   // null when there's no run/record. 404 / old server / static → null (fail-closed: the dock stays hidden).
+  // The git-history delta for ONE run. runRoot targets the EXACT run on screen — selectTicker(t, runRoot)
+  // honours a run-history pick, so a ticker-only fetch would describe a DIFFERENT run than the banner.
+  // Any failure (404 on an older engine mid-deploy, static mode) -> null -> the chip stays hidden.
+  whatChanged: async (ticker: string, runRoot?: string): Promise<WhatChangedRead | null> => {
+    if ((await ensureMode()) === 'static') return null
+    try {
+      const qs = runRoot ? `?runRoot=${encodeURIComponent(runRoot)}` : ''
+      const r = await get<{ read: WhatChangedRead | null }>(`/api/what-changed/${encodeURIComponent(ticker)}${qs}`, 8_000)
+      return r.read ?? null
+    } catch {
+      return null
+    }
+  },
+
   dataNeeds: async (subject: string, swarm: string): Promise<DataNeedsRead | null> => {
     if ((await ensureMode()) === 'static') return null
     try {
