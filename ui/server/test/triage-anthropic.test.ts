@@ -120,7 +120,9 @@ await check('config defaults: tier ON, subscription backend, no API key needed, 
   assert.equal(NEWS.anthropicFallbackMode, 'subscription')
   assert.equal(NEWS.anthropicApiKey, '') // api mode is opt-in — never defaults to ANTHROPIC_API_KEY/themes key
   assert.equal(NEWS.anthropicDailyUsd, 5)
-  assert.equal(NEWS.anthropicModel, 'claude-haiku-4-5')
+  // this metered backend addresses the model by its Messages-API id; the SUBSCRIPTION backend uses the CLI
+  // alias ('haiku') instead — conflating the two silently ran the wrong model (see triage-claude-cli.test.ts)
+  assert.equal(NEWS.anthropicApiModel, 'claude-haiku-4-5')
 })
 
 console.log(`\n${passed} checks passed`)
