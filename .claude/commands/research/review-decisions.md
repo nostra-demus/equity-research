@@ -162,11 +162,13 @@ The finish-gate's pre-mortem (`/research:full` step 10B.2) writes a falsifiable 
 
    | Pre-mortem verdict | This review's `thesis_status` / `risk_results` | `outcome_vs_verdict` |
    |---|---|---|
-   | `Survives` / `Survives with haircut` | `on-track` or `confirmed`, AND the pre-mortem's `killer_risk` reads `not materialized`/`not assessable` in `risk_results` | `vindicated` |
    | `Survives` / `Survives with haircut` | `at-risk` or `broken`, OR the pre-mortem's `killer_risk` reads materialized/at-risk in `risk_results` | `contradicted` — **false comfort**. Name the `kill_criteria_attack` item (if any) already flagged high/partway that turned out to be the actual proximate cause. |
-   | `Does not survive — downgrade` / `Thesis broken` | `at-risk` or `broken` | `vindicated` |
    | `Does not survive — downgrade` / `Thesis broken` | `confirmed` (the original call would have performed fine) | `contradicted` — **excess caution**: the red-team would have killed a call the outcome does not support. |
-   | either | `on-track` with nothing in `risk_results` resolved yet, or `expired` | `too_early` |
+   | `Survives` / `Survives with haircut` | `confirmed` (a **resolved** positive outcome), AND the pre-mortem's `killer_risk` reads `not materialized` in `risk_results` | `vindicated` |
+   | `Does not survive — downgrade` / `Thesis broken` | `at-risk` or `broken` | `vindicated` |
+   | either | `on-track` (the thesis is still playing out — nothing resolved either way), or `expired` | `too_early` |
+
+   Read the rows **in order** — the first match wins. The `contradicted` rows come first so a materialized killer risk is never read as vindication, and `vindicated` requires a **resolved** outcome (`confirmed`, or `at-risk`/`broken` for a kill verdict): a still-`on-track` thesis is `too_early`, never `vindicated` — crediting the red-team before the outcome is observable is exactly the false confidence this step exists to measure (`not assessable` is unresolved and can never vindicate). This mirrors `DECISION_LEDGER.md` §8 exactly.
 
    This table is the default read; only override it with a one-sentence justification in `notes` when the mechanical mapping would misrepresent a genuinely mixed case (use `partial` and explain the split) — never silently.
 5. `pre_mortem_confidence_haircut` = the pre-mortem's own `confidence_haircut` field, copied verbatim (what was claimed, not what you are judging).

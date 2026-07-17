@@ -335,7 +335,8 @@ Each references the original decision; the original decision record is never edi
   "error_taxonomy": [],
   "lessons": [],
   "module_calibration_notes": {},
-  "memo_delta": {}
+  "memo_delta": {},
+  "pre_mortem_check": {}
 }
 ```
 
@@ -408,7 +409,7 @@ Rules:
 - `outcome_vs_verdict` ∈ {`not_applicable`, `too_early`, `vindicated`, `contradicted`, `partial`}:
   - `not_applicable` — no `pre_mortem*.json` exists in the run root. This value is reserved for exactly that case; it must never be used when a pre-mortem file exists but the reviewer simply didn't check it.
   - `too_early` — a pre-mortem exists, but this review's own `thesis_status` is still `on-track` with nothing in `risk_results` yet resolved either way.
-  - `vindicated` — the pre-mortem's verdict correctly anticipated the outcome: a `Survives`/`Survives with haircut` verdict paired with `thesis_status` ∈ {`on-track`, `confirmed`} and the pre-mortem's own `killer_risk` reading `not materialized`/`not assessable` in `risk_results`; OR a `Does not survive — downgrade`/`Thesis broken` verdict paired with `thesis_status` ∈ {`at-risk`, `broken`}.
+  - `vindicated` — the pre-mortem's verdict correctly anticipated a **resolved** outcome: a `Survives`/`Survives with haircut` verdict paired with `thesis_status` = `confirmed` and the pre-mortem's own `killer_risk` reading `not materialized` in `risk_results`; OR a `Does not survive — downgrade`/`Thesis broken` verdict paired with `thesis_status` ∈ {`at-risk`, `broken`}. A still-`on-track` thesis is **never** vindication — nothing has resolved either way yet, so it is `too_early`. (Crediting the red-team on an unresolved 30d/90d review is precisely the false confidence this block exists to measure; `not assessable` is by definition unresolved and can never vindicate.)
   - `contradicted` — the pre-mortem's verdict was wrong, in either of the two directions an audit layer can fail: **false comfort** (`Survives`/`Survives with haircut` paired with `thesis_status` ∈ {`at-risk`, `broken`}, or the pre-mortem's own `killer_risk` shows materialized/at-risk in `risk_results` — the red-team missed the actual proximate cause); or **excess caution** (`Does not survive — downgrade`/`Thesis broken` paired with `thesis_status` = `confirmed` — the red-team would have killed a call that played out fine, the same false-negative cost §24 warns against).
   - `partial` — mixed signal that does not cleanly fit the above; `notes` must explain the split.
 - `notes`: 1–3 sentences. For `vindicated`/`contradicted`, name the specific `kill_criteria_attack` item (if any) that drove the read — this is the diagnostic payoff, not a formality.

@@ -2049,7 +2049,10 @@ for drp in runs:
     #   (DECISION_LEDGER.md §8). Mirrors check R's per-review iteration pattern exactly.
     PRE_MORTEM_CHECK_DATE="2026-07-17"
     PM_OUTCOMES={"not_applicable","too_early","vindicated","contradicted","partial"}
-    has_pm_file=bool(glob.glob(os.path.join(run,"pre_mortem*.json")))
+    # [review fix] resolve via _latest — the SAME resolver G/O/S use (exact `pre_mortem.json` / `pre_mortem_v<n>.json`
+    # stem). A raw `pre_mortem*.json` glob over-matches siblings (e.g. pre_mortem_summary.json), which would make
+    # this check disagree with G/O/S about whether a pre-mortem exists — the exact defect a prior review fixed at S.
+    has_pm_file=bool(_latest("pre_mortem.json"))
     aldet=[]; alseen=False
     for rvf in sorted(glob.glob(os.path.join(run,"reviews","*_decision_review*.json"))):
         try: rv=json.load(open(rvf))
@@ -2065,11 +2068,20 @@ for drp in runs:
         if ov not in PM_OUTCOMES:
             aldet.append(f"{os.path.basename(rvf)}: outcome_vs_verdict={ov!r} not in {sorted(PM_OUTCOMES)}")
         elif has_pm_file and ov=="not_applicable":
-            aldet.append(f"{os.path.basename(rvf)}: pre_mortem*.json exists in run root but outcome_vs_verdict=not_applicable")
+            aldet.append(f"{os.path.basename(rvf)}: pre_mortem.json exists in run root but outcome_vs_verdict=not_applicable")
         elif not has_pm_file and ov!="not_applicable":
-            aldet.append(f"{os.path.basename(rvf)}: no pre_mortem*.json in run root but outcome_vs_verdict={ov!r} (should be not_applicable)")
-        if ov in ("vindicated","contradicted") and not str(pmc.get("notes") or "").strip():
+            aldet.append(f"{os.path.basename(rvf)}: no pre_mortem.json in run root but outcome_vs_verdict={ov!r} (should be not_applicable)")
+        # §8 requires `partial` to explain the split, exactly as vindicated/contradicted must name the driver.
+        if ov in ("vindicated","contradicted","partial") and not str(pmc.get("notes") or "").strip():
             aldet.append(f"{os.path.basename(rvf)}: outcome_vs_verdict={ov!r} needs a notes explanation")
+        # [review fix] The copied pre-mortem fields are what /research:calibrate reads to split `contradicted`
+        # into false_comfort vs excess_caution — a block carrying only outcome_vs_verdict passes the enum test
+        # yet silently breaks that aggregation. Require them whenever a pre-mortem actually exists (§8).
+        if has_pm_file and ov in PM_OUTCOMES and ov!="not_applicable":
+            for _f in ("pre_mortem_file","pre_mortem_verdict"):
+                if not str(pmc.get(_f) or "").strip():
+                    aldet.append(f"{os.path.basename(rvf)}: {_f} is empty but a pre-mortem exists "
+                                 f"(calibrate needs the copied verdict to split contradicted)")
     if alseen:
         add("AL_pre_mortem_check", not aldet, "; ".join(aldet) or "pre_mortem_check present, enum valid, consistent with pre_mortem*.json presence")
     else:
