@@ -30,7 +30,7 @@ drifting apart. "It feels right" is part of done, next to "it works".
   dark, 303–314 light). Do not hand-tune a third.
 - Every OTHER swarm derives its whole accent family — `--accent`, `--accent-bright`,
   `--accent-deep`, `--accent-soft`, `--accent-ink`, `--accent-bright-ink`, glows, washes, `--good`,
-  `--core-glow`, `--app-bg` — from its manifest color. `App.tsx` (~lines 148–159) reads the swarm's
+  `--core-glow`, `--app-bg` — from its manifest color. `App.tsx` (~lines 163–174) reads the swarm's
   `SWARM.md` `color:`, sets `data-swarm` on the app root, and injects the color as `--swarm-color`;
   the derived blocks
   `.app[data-swarm]:not([data-swarm='research']):not([data-swarm='screener'])` (`tokens.css`
