@@ -134,9 +134,15 @@ append-only and machine-readable, with any subset of:
   decimal probability to the 0–100 scale; `sign_fix` normalises a loss magnitude to
   positive-means-loss; `shape_fix` coerces a legacy list shape to the canonical object shape;
   `math_reconcile` / `note_clear` are documentation-only (they record a prose defect — e.g. a
-  `final_thesis.md` headline that contradicts its own model — without any numeric transform; the
-  correction to the prose is a machine-managed **banner** on `final_thesis.md`, the same idempotent
-  banner the `/research:full` finish-gate stamps, never a hindsight rewrite of the analysis).
+  `final_thesis.md` headline that contradicts its own model — without any numeric transform). Where
+  the defect is in `final_thesis.md` prose that a human reads directly, the correction may ALSO be a
+  one-time, hand-authored **erratum banner** prepended to `final_thesis.md`: a clearly-marked
+  `> **ERRATUM (appended …)**` blockquote that states the correct value and leaves the analysis body
+  untouched — an appended note, never a rewrite. This is NOT auto-managed: no code re-stamps or
+  de-duplicates it (the `/research:full` finish-gate strips only its OWN `PROVISIONAL` blockquote, so
+  a distinctly-marked `ERRATUM` banner survives untouched). A future re-synthesis that rewrites
+  `final_thesis.md` drops the banner; the `corrections.json` erratum is the durable record, and the
+  banner is re-applied by hand if still needed.
 
 **Inviolable properties.** The frozen `decision_record.json` is **never touched** — the sidecar is
 the only thing written, and it only ever grows. A correction must be **explicit and declared**: a
@@ -366,6 +372,7 @@ Each references the original decision; the original decision record is never edi
   "original_decision": "",
   "basket": "",
   "entry_price": null,
+  "tracking_price": null,
   "review_price": null,
   "absolute_return_pct": null,
   "benchmark_return_pct": null,
@@ -386,6 +393,8 @@ Each references the original decision; the original decision record is never edi
 ```
 
 `review_window` ∈ {30d, 90d, 180d, 365d, 24m, 36m, ad-hoc, post-mortem}. `thesis_status` ∈ {on-track, at-risk, confirmed, broken, expired}. `decision_quality` records the §10 luck-vs-skill verdict. `error_taxonomy` is populated only when the call went wrong (§12).
+
+`tracking_price` (additive; review-file-only, never written to the frozen decision record) — the return anchor for a call whose `entry_price` is `null` (§4 barred a web/indicative price from populating the frozen record, so an entry-based return is otherwise impossible). It is a block `{ price, source, as_of, currency, established_at_window }`, source- and date-labelled (indicative/unverified is acceptable). The **first** review that finds a usable price establishes it; **every later window reuses that earliest block verbatim** so all windows measure from one fixed anchor, not a moving one. When `tracking_price` carries the return, `absolute_return_pct` = (review_price − tracking_price.price) / tracking_price.price × 100 and every `entry_price`-derived field stays `null`. `null` whenever `entry_price` exists or no usable price was found. `/research:calibrate` reads it so a null-entry call still enters the hit-rate and cohort math instead of being silently dropped.
 
 ### Memo delta (`memo_delta`) — what changed since the memo (additive; required for reviews filed on/after 2026-06-10)
 

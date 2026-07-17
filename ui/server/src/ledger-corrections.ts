@@ -41,13 +41,18 @@ export function supersededTarget(c: Corrections): string | null {
 }
 
 function scaleFix(record: any, field: string) {
-  const bump = (o: any) => {
+  const bumpProb = (o: any) => {
     if (o && typeof o.probability === 'number' && o.probability > 0 && o.probability <= 1) {
       o.probability = Math.round(o.probability * 100 * 1e6) / 1e6
     }
   }
-  if (field === 'forecast_ledger[].probability' && Array.isArray(record?.forecast_ledger)) record.forecast_ledger.forEach(bump)
-  else if (field === 'scenarios[].probability' && Array.isArray(record?.scenarios)) record.scenarios.forEach(bump)
+  if (field === 'forecast_ledger[].probability' && Array.isArray(record?.forecast_ledger)) record.forecast_ledger.forEach(bumpProb)
+  else if (field === 'scenarios[].probability' && Array.isArray(record?.scenarios)) record.scenarios.forEach(bumpProb)
+  else if (!field.includes('[]') && record && typeof record === 'object') {
+    // bare top-level probability field (mirrors ledger_records.py _walk_probability_fields)
+    const v = record[field]
+    if (typeof v === 'number' && v > 0 && v <= 1) record[field] = Math.round(v * 100 * 1e6) / 1e6
+  }
 }
 
 function signFix(record: any, field: string) {
@@ -72,14 +77,17 @@ function shapeFix(record: any, field: string) {
 }
 
 // scale_fix/sign_fix/shape_fix transform; math_reconcile/note_clear are documentation-only (recorded,
-// no transform). Unknown kinds are ignored — a future kind must never corrupt an old reader.
-const TRANSFORMS: Record<string, ((r: any, f: string) => void) | null> = {
+// no transform). Unknown kinds are ignored — a future kind must never corrupt an old reader. A
+// prototype-less map (Object.create(null)) so a kind that collides with an Object.prototype member
+// ('__proto__', 'hasOwnProperty', 'toString', 'constructor') is treated as unknown — matching Python's
+// dict.get, not JS's `in`/index which would walk the prototype chain (parity-critical, review finding).
+const TRANSFORMS: Record<string, ((r: any, f: string) => void) | null> = Object.assign(Object.create(null), {
   scale_fix: scaleFix,
   sign_fix: signFix,
   shape_fix: shapeFix,
   math_reconcile: null,
   note_clear: null,
-}
+})
 
 // Return a normalised COPY of `record` with the sidecar's errata applied. Original never mutated.
 export function applyErrata(record: any, c: Corrections): any {
@@ -87,7 +95,9 @@ export function applyErrata(record: any, c: Corrections): any {
   const applied: any[] = []
   for (const e of c.errata ?? []) {
     if (!e || typeof e !== 'object') continue
-    if (!(e.kind in TRANSFORMS)) {
+    // own-property check (not `e.kind in TRANSFORMS`) so a prototype-member kind is 'unknown-kind', never
+    // an accidentally-resolved Object.prototype function that would throw or mis-apply (matches dict.get).
+    if (!Object.prototype.hasOwnProperty.call(TRANSFORMS, e.kind)) {
       applied.push({ field: e.field, kind: e.kind, status: 'unknown-kind' })
       continue
     }

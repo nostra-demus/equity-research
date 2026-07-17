@@ -123,7 +123,10 @@ For each record being reviewed, Read:
 Pull from the decision record: `decision`, `basket`, `entry_price`, `entry_price_source`, `entry_price_timestamp`, `benchmark`, `sector_benchmark`, `time_horizon`, `forecast_ledger`, `kill_criteria`, `red_flags`, `missing_data`, `notes`, `decision_date`.
 
 **Price / return handling:**
-- **If `entry_price` is `null`:** the frozen record has no price anchor (§4 barred a web/indicative price from populating it), so a `entry_price`-based return is impossible AND the frozen record must never be edited (§4). Do NOT fake a paper trade. BUT establish a **`tracking_price`** so the call is not permanently unscoreable: on the FIRST review that finds a usable price, record, in THIS review file only (never the decision record), a `tracking_price` block — `{ price, source, as_of, currency, established_at_window }` — labelled source+date (indicative/unverified is fine). From then on compute returns from the `tracking_price` (carry the SAME `tracking_price` forward on later reviews so every window measures from one fixed anchor, not a moving one), and set `absolute_return_pct` = (review_price − tracking_price.price) / tracking_price.price × 100, flagged in `lessons` as "tracking-price basis (no pool entry price existed)". Keep `entry_price`-derived fields `null`. `/research:calibrate` reads `tracking_price` for a null-entry call so it enters the hit-rate and cohort math instead of being dropped. Still review thesis status, forecast status, missing data, and process quality regardless.
+- **If `entry_price` is `null`:** the frozen record has no price anchor (§4 barred a web/indicative price from populating it), so an `entry_price`-based return is impossible AND the frozen record must never be edited (§4). Do NOT fake a paper trade. BUT establish a **`tracking_price`** so the call is not permanently unscoreable — a review-file-only anchor, never written to the decision record:
+  - **First, look for an anchor already established.** Glob the run's prior review files (`analyses/<run>/reviews/*_decision_review*.json`), read each, and if any earlier review carries a `tracking_price` block, **reuse the EARLIEST one verbatim** (same price, source, as_of) — so every window measures from one fixed anchor, not a moving one.
+  - **Only if none exists**, and this review found a usable price, establish a new `tracking_price` block: `{ price, source, as_of, currency, established_at_window }`, labelled source+date (indicative/unverified is fine).
+  - Then compute `absolute_return_pct` = (review_price − tracking_price.price) / tracking_price.price × 100, flag `lessons` "tracking-price basis (no pool entry price existed)", and keep every `entry_price`-derived field `null`. `/research:calibrate` reads `tracking_price` for a null-entry call so it enters the hit-rate and cohort math instead of being dropped. Still review thesis status, forecast status, missing data, and process quality regardless.
 - **If `entry_price` exists:** attempt to gather, via WebSearch/WebFetch, a current/review price for the ticker as of `<REVIEW_DATE>`, plus benchmark and sector-benchmark total returns over the same window. Compute:
   - `absolute_return_pct` = (review_price − entry_price) / entry_price × 100
   - `benchmark_relative_return_pct` = `absolute_return_pct` − `benchmark_return_pct`
@@ -240,6 +243,7 @@ Use the **exact** outcome-review schema from `DECISION_LEDGER.md` §8 (do not dr
   "original_decision": "",
   "basket": "",
   "entry_price": null,
+  "tracking_price": null,
   "review_price": null,
   "absolute_return_pct": null,
   "benchmark_return_pct": null,
@@ -259,7 +263,7 @@ Use the **exact** outcome-review schema from `DECISION_LEDGER.md` §8 (do not dr
 }
 ```
 
-Fill: `ticker`, `original_decision_date` (= record `decision_date`), `review_date` (= `<TODAY>`), `review_window`, `original_decision` (= record `decision`), `basket` (= record `basket`), `entry_price` (= record `entry_price`, unchanged), the fields produced in Steps 5–10, `pre_mortem_check` = the full §8 block built in Step 7A (required for reviews filed on/after 2026-07-17), and `memo_delta` = the full §8 block built in Step 11 (required for reviews filed on/after 2026-06-10). `lessons` is an array of short strings (the §7 answers, web-source labels, and the single most important takeaway).
+Fill: `ticker`, `original_decision_date` (= record `decision_date`), `review_date` (= `<TODAY>`), `review_window`, `original_decision` (= record `decision`), `basket` (= record `basket`), `entry_price` (= record `entry_price`, unchanged), `tracking_price` (the Step-5 review-side anchor block for a null-entry call — carried forward verbatim from the earliest prior review that established it, or newly established here; `null` when `entry_price` exists or no usable price was found), the fields produced in Steps 5–10, `pre_mortem_check` = the full §8 block built in Step 7A (required for reviews filed on/after 2026-07-17), and `memo_delta` = the full §8 block built in Step 11 (required for reviews filed on/after 2026-06-10). `lessons` is an array of short strings (the §7 answers, web-source labels, and the single most important takeaway).
 
 Conventions (must hold): valid JSON; no markdown fences; no comments; no trailing commas; `null` for unknown numbers; `""` for unknown strings; `[]` for empty arrays; `{}` for empty objects. Never fabricate a value.
 

@@ -27,30 +27,38 @@ const DAILY_CAP = Math.max(1, Number(process.env.REVIEW_DAILY_CAP) || 8)
 const MAX_TURNS = Math.max(10, Number(process.env.ENGINE_REVIEW_MAX_TURNS) || 120)
 const BUDGET_USD = Math.max(1, Number(process.env.ENGINE_REVIEW_BUDGET_USD) || 20)
 
-const inflightTickers = new Set<string>()
+const inflightRuns = new Set<string>() // keyed on `${runRoot}|${window}` — the exact run being reviewed
 
 const log = (m: string) => console.log(`[review-dispatch] ${m}`) // eslint-disable-line no-console
 const today = () => new Date().toISOString().slice(0, 10)
 
-function firedToday(): number {
+// Persisted per-day state: the spawn budget AND the set of (runRoot|window) already fired today. The
+// fired-today set survives a restart, so a detached review child still running after a bounce is not
+// re-fired (the in-memory inflight guard alone would be lost on restart). Both reset when the date rolls.
+function readState(): { date: string; fired: number; keys: string[] } {
   try {
     const b = JSON.parse(fs.readFileSync(BUDGET_FILE, 'utf8'))
-    return b?.date === today() ? Number(b.fired) || 0 : 0
-  } catch {
-    return 0
-  }
+    if (b?.date === today()) return { date: b.date, fired: Number(b.fired) || 0, keys: Array.isArray(b.keys) ? b.keys : [] }
+  } catch { /* fresh */ }
+  return { date: today(), fired: 0, keys: [] }
 }
-function bumpFired(): void {
+function firedToday(): number { return readState().fired }
+function firedKeyToday(key: string): boolean { return readState().keys.includes(key) }
+function recordFired(key: string): void {
   try {
     fs.mkdirSync(STATE_DIR, { recursive: true })
-    fs.writeFileSync(BUDGET_FILE, JSON.stringify({ date: today(), fired: firedToday() + 1 }))
+    const s = readState()
+    if (!s.keys.includes(key)) s.keys.push(key)
+    fs.writeFileSync(BUDGET_FILE, JSON.stringify({ date: today(), fired: s.fired + 1, keys: s.keys }))
   } catch { /* best-effort */ }
 }
 
-// Every standing call with a review checkpoint that is DUE or OVERDUE today, one row per ticker (the
-// earliest such window), computed by the shared listAllCalls() timeline. A superseded run never appears.
-export function dueReviews(): { ticker: string; window: string }[] {
-  const out: { ticker: string; window: string }[] = []
+// Every standing call with a review checkpoint DUE or OVERDUE today, keyed on the RUN it belongs to (not
+// the bare ticker): listAllCalls() emits one row per run folder, and next_checkpoint is THAT run's earliest
+// pending window. A superseded run never appears. Reviewing by ticker would resolve to the latest run and
+// silently skip an older still-due run of the same ticker.
+export function dueReviews(): { runRoot: string; window: string }[] {
+  const out: { runRoot: string; window: string }[] = []
   let calls: any[] = []
   try {
     calls = listAllCalls().calls
@@ -59,32 +67,33 @@ export function dueReviews(): { ticker: string; window: string }[] {
   }
   for (const c of calls) {
     const nc = c?.next_checkpoint
-    if (nc && (nc.status === 'due' || nc.status === 'overdue') && c.ticker && nc.window) {
-      out.push({ ticker: String(c.ticker), window: String(nc.window) })
+    if (nc && (nc.status === 'due' || nc.status === 'overdue') && c.run_root && nc.window) {
+      out.push({ runRoot: String(c.run_root), window: String(nc.window) })
     }
   }
   return out
 }
 
-function spawnReview(ticker: string, window: string): boolean {
-  if (inflightTickers.has(ticker)) return false
-  if (inflightTickers.size >= MAX_CONCURRENT) return false
-  if (firedToday() >= DAILY_CAP) { log(`daily cap ${DAILY_CAP} reached — holding ${ticker} ${window}`); return false }
-  inflightTickers.add(ticker)
-  bumpFired()
-  const args = ['--print', `/research:review-decisions ${ticker} ${window}`, '--output-format', 'stream-json', '--verbose',
+function spawnReview(runRoot: string, window: string): boolean {
+  const key = `${runRoot}|${window}`
+  if (inflightRuns.has(key) || firedKeyToday(key)) return false // in-flight, or already fired today (restart-safe)
+  if (inflightRuns.size >= MAX_CONCURRENT) return false
+  if (firedToday() >= DAILY_CAP) { log(`daily cap ${DAILY_CAP} reached — holding ${key}`); return false }
+  inflightRuns.add(key)
+  const args = ['--print', `/research:review-decisions ${runRoot} ${window}`, '--output-format', 'stream-json', '--verbose',
     '--permission-mode', 'bypassPermissions', '--model', DEFAULT_MODEL, '--max-turns', String(MAX_TURNS), '--max-budget-usd', String(BUDGET_USD)]
   try {
     const child = spawn(CLAUDE_BIN, args, { cwd: REPO_ROOT, stdio: 'ignore', detached: true })
-    const clear = () => inflightTickers.delete(ticker)
-    child.on('exit', (code) => { clear(); log(`review ${ticker} ${window} exited ${code}`) })
-    child.on('error', (e) => { clear(); log(`review ${ticker} ${window} spawn error: ${e.message}`) })
+    recordFired(key) // only after a successful spawn — a failed launch must not burn the daily cap
+    const clear = () => inflightRuns.delete(key)
+    child.on('exit', (code) => { clear(); log(`review ${key} exited ${code}`) })
+    child.on('error', (e) => { clear(); log(`review ${key} spawn error: ${e.message}`) })
     child.unref()
-    log(`fired review ${ticker} ${window}`)
+    log(`fired review ${key}`)
     return true
   } catch (e: any) {
-    inflightTickers.delete(ticker)
-    log(`could not spawn review ${ticker} ${window}: ${e?.message || e}`)
+    inflightRuns.delete(key) // spawn threw — budget was NOT bumped, guard released
+    log(`could not spawn review ${key}: ${e?.message || e}`)
     return false
   }
 }
@@ -92,9 +101,9 @@ function spawnReview(ticker: string, window: string): boolean {
 /** The due reconciler — one pass. Crash-safe: re-running fires anything still due and unfired. */
 export function dispatchDueReviews(): void {
   if (!ENABLED) return
-  for (const { ticker, window } of dueReviews()) {
-    if (inflightTickers.size >= MAX_CONCURRENT) break
-    spawnReview(ticker, window)
+  for (const { runRoot, window } of dueReviews()) {
+    if (inflightRuns.size >= MAX_CONCURRENT) break
+    spawnReview(runRoot, window)
   }
 }
 

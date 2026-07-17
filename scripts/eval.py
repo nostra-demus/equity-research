@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deterministic eval harness for the equity-research engine.
 
-Checks invariants A-Z, AA-AL, and J (framework-source contracts) against every committed
+Checks invariants A-Z, AA-AN, and J (framework-source contracts) against every committed
 decision record in analyses/. Called by /research:eval and by CI.
 
 Usage:
@@ -756,11 +756,23 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
     return det
 
 # ── Check AN (§4a supersession-integrity) — module-level so `eval.py selftest` drives it fixture-free ──
+def _an_valid_sidecar(run_dir):
+    """A run's corrections sidecar, but ONLY if it passes the schema gate the resolver applies
+    (schema == 'corrections/v1'); else {} — so AN honors exactly the sidecars ledger_records honors."""
+    try:
+        with open(os.path.join(run_dir, "corrections.json")) as f:
+            c = json.load(f)
+        return c if (isinstance(c, dict) and c.get("schema") == "corrections/v1") else {}
+    except Exception:
+        return {}
+
 def eval_an_supersession_integrity(corrections):
     """Check AN: an append-only corrections.json that declares `superseded_by` (DECISION_LEDGER §4a)
-    must point at a real, existing run folder carrying a decision record. A DANGLING supersession
-    would silently drop a live call from the standing set (tracker / calibrate) with no replacement.
-    Returns None (no sidecar / no supersession → N/A) or a list of violations (empty = valid)."""
+    must point at a real, existing run folder carrying a decision record, AND the supersession CHAIN
+    from it must terminate on a LIVE (non-superseded) record — a dangling, circular (A→B→A), or
+    chain-ends-on-another-superseded-run supersession would silently drop every call in the chain
+    from the standing set with no live replacement. Returns None (no sidecar / no supersession → N/A)
+    or a list of violations (empty = valid)."""
     if not isinstance(corrections, dict):
         return None
     sup = corrections.get("superseded_by")
@@ -769,11 +781,25 @@ def eval_an_supersession_integrity(corrections):
     tgt = sup.get("run_root")
     if not (isinstance(tgt, str) and tgt.strip()):
         return ["superseded_by present but carries no run_root"]
+    tgt = tgt.strip()
     if not os.path.isdir(tgt):
         return [f"superseded_by.run_root {tgt!r} does not exist"]
     if not os.path.exists(os.path.join(tgt, "decision_record.json")):
         return [f"superseded_by target {tgt!r} has no decision_record.json"]
-    return []
+    # walk the chain to its terminal live record, detecting cycles
+    seen, cur = set(), tgt
+    while True:
+        if cur in seen:
+            return [f"supersession chain is circular at {cur!r} — no live replacement record"]
+        seen.add(cur)
+        nxt_sup = _an_valid_sidecar(cur).get("superseded_by")
+        nxt = nxt_sup.get("run_root") if isinstance(nxt_sup, dict) else None
+        if not (isinstance(nxt, str) and nxt.strip()):
+            return []  # cur is a live, non-superseded record — the chain terminates validly
+        nxt = nxt.strip()
+        if not (os.path.isdir(nxt) and os.path.exists(os.path.join(nxt, "decision_record.json"))):
+            return [f"supersession chain: {cur!r} is superseded by {nxt!r} which does not exist"]
+        cur = nxt
 
 # ── Check AM (§8/§16 bear-case sanity) — a Selected/conviction long must have a real loss branch ──
 AM_DATE = "2026-07-17"
@@ -1759,7 +1785,7 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AK({dt_!r},red_flags={d_.get('red_flags')!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
     bad+=akbad
 
-    # check AL — supersession-integrity (§4a). Fixture-free: build tmp target dirs to exercise the
+    # check AN — supersession-integrity (§4a). Fixture-free: build tmp target dirs to exercise the
     # existence branches. A valid sidecar → []; a dangling/empty target → violation; no supersession → None.
     import tempfile as _tf
     anbad=0
@@ -1767,13 +1793,19 @@ if scope=="selftest":
         _good=os.path.join(_td,"EMAAR_2026-07-10"); os.makedirs(_good)
         open(os.path.join(_good,"decision_record.json"),"w").write("{}")
         _empty=os.path.join(_td,"EMPTY_2026-01-01"); os.makedirs(_empty)  # exists but no decision_record.json
+        # circular pair: CYCA superseded_by CYCB, CYCB superseded_by CYCA — both dropped, no live record
+        _cyca=os.path.join(_td,"CYCA_2026-01-01"); os.makedirs(_cyca); open(os.path.join(_cyca,"decision_record.json"),"w").write("{}")
+        _cycb=os.path.join(_td,"CYCB_2026-01-01"); os.makedirs(_cycb); open(os.path.join(_cycb,"decision_record.json"),"w").write("{}")
+        open(os.path.join(_cyca,"corrections.json"),"w").write(json.dumps({"schema":"corrections/v1","superseded_by":{"run_root":_cycb}}))
+        open(os.path.join(_cycb,"corrections.json"),"w").write(json.dumps({"schema":"corrections/v1","superseded_by":{"run_root":_cyca}}))
         ancases=[
             ({}, None),                                                                     # no sidecar → N/A
             ({"errata":[{"field":"x","kind":"scale_fix"}]}, None),                          # errata-only → N/A
-            ({"superseded_by":{"run_root":_good}}, []),                                     # valid target → pass
+            ({"superseded_by":{"run_root":_good}}, []),                                     # valid live target → pass
             ({"superseded_by":{"run_root":os.path.join(_td,"NOPE_2026-01-01")}}, ["does not exist"]),
             ({"superseded_by":{"run_root":_empty}}, ["no decision_record.json"]),
             ({"superseded_by":{"reason":"x"}}, ["no run_root"]),                            # missing run_root
+            ({"superseded_by":{"run_root":_cyca}}, ["circular"]),                           # A→B→A chain → caught
         ]
         for corr_,exp in ancases:
             got=eval_an_supersession_integrity(corr_)
@@ -2636,12 +2668,10 @@ for drp in runs:
         add("AK_red_flag_severity_reconciliation",True,
             "module-declared Critical red-flag counts reconcile with decision_record.json red_flags "
             "and the Headline Scorecard Rating-cap cell does not deny one")
-    # AL supersession-integrity (§4a): validate any append-only corrections.json's superseded_by target.
-    _corr={}
-    try:
-        with open(os.path.join(run,"corrections.json")) as _cf: _corr=json.load(_cf)
-    except Exception: _corr={}
-    _anresult=eval_an_supersession_integrity(_corr if isinstance(_corr,dict) else {})
+    # AN supersession-integrity (§4a): validate any append-only corrections.json's superseded_by chain.
+    # Schema-gated (only a corrections/v1 sidecar counts) so AN honors exactly what the resolver honors.
+    _corr=_an_valid_sidecar(run)
+    _anresult=eval_an_supersession_integrity(_corr)
     if _anresult is None:
         add("AN_supersession_integrity",True,"no supersession sidecar — N/A",na=True)
     elif _anresult:

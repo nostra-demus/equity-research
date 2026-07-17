@@ -68,6 +68,19 @@ check('unknown kind: recorded, never applied, never throws', () => {
   assert.equal(got.x, 1)
 })
 
+check('prototype-member kinds are unknown-kind, never applied, never throw (parity with dict.get)', () => {
+  for (const kind of ['__proto__', 'hasOwnProperty', 'toString', 'constructor', 'valueOf']) {
+    const got = applyErrata({ x: 1 }, { schema: CORRECTIONS_SCHEMA, errata: [{ field: 'x', kind }] })
+    assert.equal(got._corrections_applied[0].status, 'unknown-kind', `${kind} must be unknown-kind`)
+    assert.equal(got.x, 1, `${kind} must not mutate`)
+  }
+})
+
+check('scale_fix on a BARE top-level probability field (mirrors the Python bare-field path)', () => {
+  const got = applyErrata({ probability: 0.6 }, { schema: CORRECTIONS_SCHEMA, errata: [{ field: 'probability', kind: 'scale_fix' }] })
+  assert.equal(got.probability, 60)
+})
+
 check('supersededTarget: reads the target, else null', () => {
   assert.equal(supersededTarget({ superseded_by: { run_root: 'analyses/EMAAR_2026-07-10' } }), 'analyses/EMAAR_2026-07-10')
   assert.equal(supersededTarget({}), null)

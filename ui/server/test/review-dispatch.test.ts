@@ -18,16 +18,17 @@ function check(name: string, fn: () => void) {
   }
 }
 
-check('dueReviews() returns only DUE/OVERDUE {ticker, window} rows and never throws', () => {
+check('dueReviews() returns only DUE/OVERDUE {runRoot, window} rows (keyed on the run, not the ticker) and never throws', () => {
   const rows = dueReviews()
   assert.ok(Array.isArray(rows), 'must return an array')
   for (const r of rows) {
-    assert.equal(typeof r.ticker, 'string')
+    assert.equal(typeof r.runRoot, 'string')
+    assert.ok(r.runRoot.startsWith('analyses/'), `runRoot must be a run path, got ${r.runRoot}`)
     assert.ok(['30d', '90d', '180d', '365d', 'ad-hoc'].includes(r.window), `unexpected window ${r.window}`)
   }
-  // one row per ticker at most (listAllCalls' next_checkpoint is a single earliest window per call)
-  const perTicker = new Set(rows.map((r) => r.ticker))
-  assert.ok(perTicker.size <= rows.length)
+  // keyed on the exact run so an older still-due run of a ticker is not skipped for the latest one
+  const keys = rows.map((r) => `${r.runRoot}|${r.window}`)
+  assert.equal(new Set(keys).size, keys.length, 'run+window keys must be unique')
 })
 
 check('dispatchDueReviews() is a no-op when disabled (never spawns a paid review)', () => {

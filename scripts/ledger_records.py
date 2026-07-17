@@ -231,6 +231,12 @@ def selftest():
     got = apply_errata(rec, corr)
     check([e["probability"] for e in got["forecast_ledger"]] == [60, 55, 70], "scale_fix decimal→percent")
     check(rec["forecast_ledger"][0]["probability"] == 0.60, "original record not mutated")
+    # bare top-level probability field + prototype-name kinds (TS-parity: both must behave identically)
+    check(apply_errata({"probability": 0.6}, {"schema": CORRECTIONS_SCHEMA,
+          "errata": [{"field": "probability", "kind": "scale_fix"}]})["probability"] == 60, "scale_fix bare field")
+    for kind in ("__proto__", "hasOwnProperty", "toString", "constructor"):
+        check(apply_errata({"x": 1}, {"schema": CORRECTIONS_SCHEMA, "errata": [{"field": "x", "kind": kind}]})
+              ["_corrections_applied"][0]["status"] == "unknown-kind", f"prototype-name kind {kind} is unknown")
 
     # sign_fix: loss magnitude normalised to positive
     check(apply_errata({"downside_risk_pct": -31.1},
