@@ -3,7 +3,7 @@ import type { IntakeNewDoc } from '../../lib/types'
 // One freshly-arrived document, drawn as an angular "shard" (folded top-right corner + left accent spine)
 // so it can never read as a round analysis orb. Hovering it lights the orbs its evidence bears on.
 const humanType = (t?: string | null) => (t || 'document').replace(/_/g, ' ')
-const fileName = (p: string) => p.split('/').pop() || p
+export const fileName = (p: string) => p.split('/').pop() || p
 const tierLabel = (t?: number | null) => (typeof t === 'number' ? `T${t}` : null)
 
 function impactMark(dir: string): { glyph: string; tone: string } {

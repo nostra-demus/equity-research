@@ -2,10 +2,15 @@
    live-tick surface — it refreshes on data-changed, so it uses the instant-close rule: no exit animation).
    Themes entirely from the accent family, so it resolves in light + dark and for any swarm's accent. */
 
-/* ---- the docked panel (top-left, distinct from DataFilesPanel which sits bottom-left) ---- */
+/* ---- the docked panel (the top of the left rail; the data pool sits below it in the same column) ---- */
+/* A rail child (.stagerail in global.css): position/width come from the column, not from the stage's
+   corner — it used to be `absolute; left:18px; top:70px`, growing DOWN into a pool that grew UP from
+   `bottom:18px`, which is how a 33-file pool and a long intake plan ended up painted over each other.
+   `relative` only so its z-index still counts; min-height:0 so a long plan scrolls INSIDE the dock. */
 .intake {
-  position: absolute; left: 18px; top: 70px; z-index: 21;
-  width: 320px; max-width: 38vw;
+  position: relative; z-index: 21;
+  width: 100%; min-height: 0;
+  display: flex; flex-direction: column;
   background: var(--datafiles-bg);
   border: 1px solid var(--accent-wash);
   border-radius: var(--r-md);
@@ -35,11 +40,60 @@
 @media (hover: hover) and (pointer: fine) { .intake__reanalyze:hover { color: var(--accent-bright); background: var(--accent-wash); } }
 .intake__reanalyze:active { transform: scale(0.9) rotate(-30deg); }
 
-.intake__body { padding: 4px 12px 12px; }
+.intake__head { flex: none; } /* the header stays put; only the body below it scrolls */
+.intake__body { padding: 4px 12px 12px; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
 .intake__reading { padding: 8px 2px; color: var(--text-muted); font-style: italic; }
+
+/* ---- the live reading list (what the run is opening, right now) ---- */
+.ifeed { padding: 4px 0 0; }
+.ifeed__head { display: flex; align-items: baseline; gap: 8px; padding: 2px 2px 7px; }
+.ifeed__title { flex: 1; min-width: 0; color: var(--text-muted); }
+.ifeed__clock { flex: none; font-size: 11px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.ifeed__empty { padding: 6px 2px 8px; color: var(--text-faint); font-style: italic; }
+
+.ifeed__rows {
+  display: flex; flex-direction: column; gap: 1px;
+  max-height: 156px; overflow-y: auto; overscroll-behavior: contain;
+  padding: 4px 0; border-radius: var(--r-sm);
+  background: var(--accent-wash-soft); border: 1px solid var(--accent-wash);
+}
+.ifeed__rows::-webkit-scrollbar { width: 6px; }
+.ifeed__rows::-webkit-scrollbar-thumb { background: var(--accent-wash); border-radius: var(--r-pill); }
+
+/* One step. Rows arrive one at a time in real time, so each animates itself in on mount — a one-shot
+   entry per element, never a list-wide stagger that would replay on every new step. */
+.ifeed__row {
+  display: flex; align-items: baseline; gap: 7px; padding: 3px 9px;
+  animation: ifeed-row-in 180ms var(--ease-out) both;
+}
+@keyframes ifeed-row-in { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Done steps recede so the live one is the thing the eye lands on. */
+.ifeed__dot {
+  flex: none; width: 5px; height: 5px; border-radius: 50%; align-self: center;
+  background: var(--accent-deep); opacity: 0.5;
+}
+.ifeed__dot--live {
+  background: var(--accent-bright); opacity: 1;
+  box-shadow: 0 0 6px var(--accent-glow);
+  animation: ifeed-live 1.6s var(--ease) infinite;
+}
+/* opacity/transform only — this pulses for the whole analysis, so it must stay off paint + the main thread */
+@keyframes ifeed-live { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(0.8); } }
+
+.ifeed__text { min-width: 0; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ifeed__verb { color: var(--text-faint); font-size: 11px; }
+.ifeed__subject { color: var(--text-muted); }
+/* The live row is marked by colour + the pulsing dot. NOT by weight: bold is ~8% wider, and on the one
+   row whose name matters most that stole the characters back off the end of the file name. */
+.ifeed__row[data-current] .ifeed__subject { color: var(--text); }
+.ifeed__age { flex: none; font-size: 10.5px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.ifeed__foot { padding: 6px 2px 0; font-size: 10.5px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
 
 /* ---- the document shards ---- */
 .intake__docs { display: flex; flex-direction: column; gap: 7px; }
+/* a ↻ re-read runs with the previous plan's shards still listed — keep the feed off their shoulders */
+.ifeed + .intake__docs { margin-top: 11px; }
 .intake__docwrap { animation: idoc-in 240ms var(--ease-out) both; animation-delay: calc(var(--i) * 45ms); }
 @keyframes idoc-in { from { opacity: 0; transform: translateY(6px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
@@ -98,6 +152,17 @@
 .iplan__run:disabled { opacity: 0.6; cursor: default; }
 .iplan__foot { margin-top: 6px; font-size: 10.5px; color: var(--text-faint); text-align: center; }
 
+/* The "re-run anyway" escape hatch. Deliberately secondary — the engine's read is still "nothing here
+   changes an orb's inputs", so this must not compete with the primary Re-run button on a plan that DOES
+   have work. Same shape, drained of its fill. */
+.iplan__run--ghost {
+  background: transparent; color: var(--text-muted);
+  border: 1px solid var(--hairline-strong);
+}
+@media (hover: hover) and (pointer: fine) {
+  .iplan__run--ghost:hover { background: var(--accent-wash-soft); border-color: var(--accent-deep); color: var(--accent-bright); filter: none; }
+}
+
 .iplan--none { margin-top: 10px; padding: 10px 11px; background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-sm); }
 .iplan__none-head { color: var(--text); font-weight: 600; }
 .iplan__none-note { margin-top: 3px; color: var(--text-muted); line-height: 1.4; }
@@ -130,8 +195,10 @@
 .swarm .swarm__svg { transition: opacity var(--dur) var(--ease-out); }
 
 @media (prefers-reduced-motion: reduce) {
-  .intake, .intake__docwrap { animation: none; }
+  .intake, .intake__docwrap, .ifeed__row { animation: none; }
   .intake__reanalyze:active { transform: none; }
   .iplan__run:active { transform: none; }
   .intake-beam--bright { animation: intake-beam-in 1ms both; }
+  /* the live dot keeps its identity without motion — colour + glow already separate it from a done step */
+  .ifeed__dot--live { animation: none; }
 }

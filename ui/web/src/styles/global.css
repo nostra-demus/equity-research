@@ -181,10 +181,56 @@ a { color: inherit; }
 
 /* ---------- main split ---------- */
 .main { position: relative; z-index: 1; flex: 1; display: flex; min-height: 0; }
-.stage { position: relative; flex: 1; min-width: 0; overflow: hidden; }
+/* container-type so the rail's reserve below can key off the STAGE's own width, not the viewport's:
+   opening the run panel (.sidepanel, a flex sibling) narrows the stage without touching the viewport,
+   and that is exactly the state where reserving a column would squeeze the field too far. Safe here
+   because .stage is already the containing block for its absolute children (position: relative), and
+   the stacking context it gains contains only children that already stack against each other. */
+.stage { position: relative; flex: 1; min-width: 0; overflow: hidden; container-type: inline-size; }
 /* crossfade wrapper for the constellation⇄globe handoff — both renderers stack here (each is inset:0) and
    animate on transform/opacity only; transform-origin centered so the constellation scales from the middle */
-.stageview { position: absolute; inset: 0; transform-origin: center center; will-change: transform, opacity; }
+/* `left` (not inset) so the left rail can reserve its column — see --stage-reserve. */
+.stageview { position: absolute; top: 0; right: 0; bottom: 0; left: 0; transform-origin: center center; will-change: transform, opacity; }
+
+/* ---------- the left rail ---------- */
+/* ONE column owning the left edge, so the docks can never overlap each other again. No z-index of its
+   own: the docks keep theirs (z20/z21) and the rail must not become a stacking context that traps them
+   or steals the decision banner's clicks. pointer-events:none so the gaps between docks — and the empty
+   column below them — never eat a click meant for the field behind. */
+.stagerail {
+  position: absolute; left: 18px; top: 70px; bottom: 18px; width: var(--dock-w);
+  display: flex; flex-direction: column; gap: 10px;
+  pointer-events: none;
+}
+.stagerail > * { pointer-events: auto; }
+/* The pool keeps the bottom anchor it has always had while the column has room. When both docks are
+   tall this collapses to 0 on its own and they simply stack — no overlap, no rule needed. */
+.stagerail > .datafiles { margin-top: auto; }
+
+/* Reserve the rail's column so the constellation never lays an orb underneath it — the "I can't see the
+   purple orbs" bug. The docks CANNOT simply be raised above the orbs instead: .stageview declares
+   `will-change: transform, opacity`, which makes it a stacking context, so every orb is sealed inside it
+   and no z-index on any dock can lift one out. Insetting the field is the only mechanism that works.
+   SwarmField measures its own container with a ResizeObserver, so a narrower .stageview just recomputes
+   the layout and the orbs move right — nothing is hidden and nothing is clipped.
+   `:has(> .stagerail > *)` earns the reserve twice over: an EMPTY rail (no ticker, no data pool, a swarm
+   with no intake) reserves nothing and the field keeps the whole canvas, and the DIRECT-child match
+   scopes this to the plain constellation stage — a wire swarm nests its rail deeper, where these
+   coordinates don't hold, and is left exactly as it is today.
+   Below 1000px of stage the field is too narrow to give up a column (SwarmField clamps its layout at
+   640px, so it would start clipping instead): the rail floats over the field there, as it does today.
+   The @container rules target the stage's CHILDREN, not .stage itself — an element is never its own
+   container, so a `.stage {…}` rule inside this block would silently never match. */
+.stage:has(> .stagerail > *) { --stage-reserve: calc(18px + var(--dock-w) + 24px); }
+@container (min-width: 1000px) {
+  .stage > .stageview { left: var(--stage-reserve, 0px); }
+}
+/* NOT re-centred over the reserved field on purpose: .decision's `transform: translateX(-50%)` is dead —
+   DecisionBanner is a motion.div, and framer-motion writes `transform: none` inline once its entry
+   settles, clobbering it. The banner is therefore left-ANCHORED at 50%, not centred, so shifting it by
+   half the reserve walks its right edge into the stage edge. Left alone it lands close to the field's
+   centre anyway. (The dead transform is a real pre-existing bug — it wants `translate: -50% 0`, which
+   framer-motion does not touch — but it is nothing to do with the left rail.) */
 
 /* ---------- swarm ---------- */
 .swarm { position: absolute; inset: 0; }
@@ -1112,14 +1158,21 @@ a { color: inherit; }
 }
 
 /* ---- data-pool files panel (multi-tab workbook inspector) ---- */
+/* A rail child (see .stagerail): position/width come from the column, not from the stage's corner.
+   `relative` only so its z-index still counts; min-height:0 so a 33-file pool scrolls INSIDE the dock
+   instead of growing the column until it collides with the dock above it. */
 .datafiles {
-  position: absolute; left: 18px; bottom: 18px; z-index: 20;
-  width: 304px; max-width: 36vw;
+  position: relative; z-index: 20;
+  width: 100%; min-height: 0;
+  display: flex; flex-direction: column;
   background: var(--datafiles-bg);
   border: 1px solid var(--hairline); border-radius: var(--r-md);
   box-shadow: var(--shadow-2); backdrop-filter: blur(8px); overflow: hidden;
   font-size: 12px;
 }
+/* the header stays put; only the list below it scrolls */
+.datafiles__headrow { flex: none; }
+.datafiles__body { min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
 .datafiles__head {
   display: flex; align-items: center; gap: 8px; width: 100%;
   padding: 9px 12px; text-align: left; transition: background var(--dur-fast);

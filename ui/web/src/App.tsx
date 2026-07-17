@@ -114,8 +114,15 @@ function ResearchStage() {
       </AnimatePresence>
       <ViewToggle />
       <DataUploadEmptyState />
-      <DataFilesPanel />
-      <IntakeDock />
+      {/* The left rail. These two docks are about the SAME subject — this company's documents — and
+          share the left edge. They used to be two independent absolute overlays anchored to OPPOSITE
+          edges (the pool at bottom:18px, intake at top:70px): expand both and they grew into each
+          other until z-index picked a winner. One flex column cannot overlap itself. Intake sits on
+          top (it is the transient, "look at this now" surface); the pool keeps its bottom anchor. */}
+      <div className="stagerail">
+        <IntakeDock />
+        <DataFilesPanel />
+      </div>
       <DataNeedsDock />
       <DecisionBanner />
     </>

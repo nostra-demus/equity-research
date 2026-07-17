@@ -8,7 +8,7 @@ import { sweepRunOutputs } from './fs-watcher'
 // top-level code runs), and both files only call the other's export from inside a function body, at
 // runtime, never at module-init time. See the comment on recordStreamResultFailure (Finding 1).
 import { recordStreamResultFailure } from './launcher'
-import { emit, finishRun, type RunState } from './registry'
+import { emit, emitTransient, finishRun, recordActivity, type RunState } from './registry'
 import { agentNameIndexAllSwarms, buildSwarmGraph } from './roster'
 
 let nameIndex: Map<string, { key: string; module: string; layer: number; name: string }> | null = null
@@ -34,6 +34,74 @@ export function finalPaths(run: RunState) {
   return out
 }
 
+// ---- what a tool call is ACTING ON ----
+// The stream has always carried the tool NAME ("Read"), which answers "is it alive?" but never "what
+// is it reading?" — the one thing someone watching a document-intake run actually wants. These helpers
+// pull the single string from each tool's input that names its subject.
+
+const TARGET_MAX = 160
+
+// A tool input is model-authored free text: it can be long or span lines, and the cockpit renders this
+// inline. Flatten to one line and cap it.
+function tidy(s: string | undefined): string | undefined {
+  if (!s) return undefined
+  const one = s.replace(/\s+/g, ' ').trim()
+  if (!one) return undefined
+  return one.length > TARGET_MAX ? `${one.slice(0, TARGET_MAX - 1)}…` : one
+}
+
+// An absolute path is machine detail. Show the repo-relative name — the same one the citation rules use
+// (`data/<TICKER>/…`, `analyses/<RUN>/…`). A path outside the repo keeps only its last two segments, so
+// a stray temp/home path can never print someone's directory tree into the cockpit.
+function relPath(p: string | undefined): string | undefined {
+  const abs = p?.trim()
+  if (!abs) return undefined
+  const rel = path.relative(REPO_ROOT, abs)
+  if (rel && !rel.startsWith('..') && !path.isAbsolute(rel)) return tidy(rel)
+  return tidy(abs.startsWith('/') ? abs.split('/').slice(-2).join('/') : abs)
+}
+
+function str(input: any, ...keys: string[]): string | undefined {
+  for (const k of keys) if (typeof input?.[k] === 'string' && input[k].trim()) return input[k] as string
+  return undefined
+}
+
+export function activityTarget(tool: string, input: any): string | undefined {
+  if (!input || typeof input !== 'object') return undefined
+  switch (tool) {
+    case 'Read':
+    case 'Write':
+    case 'Edit':
+    case 'NotebookEdit':
+      return relPath(str(input, 'file_path', 'notebook_path'))
+    case 'Glob':
+    case 'Grep': {
+      const pat = tidy(str(input, 'pattern'))
+      const where = relPath(str(input, 'path'))
+      return pat && where ? `${pat} in ${where}` : pat || where
+    }
+    // Claude Code sends every Bash call a one-line `description` saying what the step is FOR — which
+    // reads far better than the shell it runs. The command is the fallback, first clause only.
+    case 'Bash':
+      return tidy(str(input, 'description')) || tidy(str(input, 'command')?.split(/[\n|&;]/)[0])
+    case 'Task':
+      return tidy(str(input, 'description', 'subagent_type'))
+    case 'WebFetch': {
+      const url = str(input, 'url')
+      // hostname via the URL parser, never a substring test on the raw string (a crafted URL can put
+      // any host in its path/userinfo).
+      try {
+        return url ? new URL(url).hostname : undefined
+      } catch {
+        return tidy(url)
+      }
+    }
+    case 'WebSearch':
+      return tidy(str(input, 'query'))
+  }
+  return undefined
+}
+
 // Parse one NDJSON line from `claude --output-format stream-json --verbose`.
 export function handleStreamLine(run: RunState, line: string) {
   const t = line.trim()
@@ -57,10 +125,15 @@ export function handleStreamLine(run: RunState, line: string) {
       const content = obj.message?.content
       if (!Array.isArray(content)) break
       for (const block of content) {
-        // remember the orchestrator's latest tool call — the run heartbeat surfaces it as the live
-        // "what is the system doing right now" line (Task = dispatching an agent; Read/Bash/… = pipeline work)
+        // Every orchestrator tool call, with WHAT it acted on (Task = dispatching an agent; Read/Bash/…
+        // = pipeline work). Two consumers, deliberately: `lastActivity` rides the 3s heartbeat as the
+        // ambient "doing X right now" line, and the per-call `run-activity` event is the step-by-step
+        // feed — a run can read several documents between two heartbeats, and each one must be seen.
         if (block?.type === 'tool_use' && typeof block?.name === 'string') {
-          run.lastActivity = { tool: block.name, ts }
+          const activity = { tool: block.name, target: activityTarget(block.name, block.input), ts }
+          run.lastActivity = activity
+          recordActivity(run, activity)
+          emitTransient(run, { type: 'run-activity', runId: run.runId, tool: activity.tool, target: activity.target, ts })
         }
         if (block?.type === 'tool_use' && block?.name === 'Task') {
           const sub = block.input?.subagent_type
