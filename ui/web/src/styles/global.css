@@ -2459,17 +2459,24 @@ a { color: inherit; }
 }
 .evrail__scanbtn:active { transform: scale(0.97); }
 .evrail__scanbtn:focus-visible { outline: 2px solid var(--accent-glow); outline-offset: 2px; }
-/* the paid primary — filled cyan, near-black label for AA on the accent (same posture as .btn--amber) */
+/* the paid primary — filled accent, with the accent family's own on-fill ink (same posture as .btn--amber).
+   --accent-ink is scoped per swarm AND per theme, so this rail reads in the swarm's own hue on every wire
+   it is rented to (§6) instead of dropping one swarm's near-black onto another's fill. The hover swaps the
+   fill to --accent-soft and keeps the ink: those are exactly the two fills --accent-ink guarantees AA on. */
 .evrail__scanbtn--primary {
-  background: var(--accent); border-color: var(--accent-deep); color: #04171a; font-weight: 600;
+  background: var(--accent); border-color: var(--accent-deep); color: var(--accent-ink); font-weight: 600;
 }
 @media (hover: hover) and (pointer: fine) {
-  .evrail__scanbtn--primary:hover { background: var(--accent-soft); border-color: var(--accent-deep); color: #04171a; }
+  .evrail__scanbtn--primary:hover { background: var(--accent-soft); border-color: var(--accent-deep); color: var(--accent-ink); }
 }
 /* armed = the confirm step: a static glow ring draws the eye to the second click (never animated — the ring
-   is a state, not motion) plus the darker accent fill, so "Confirm · scan now" reads as deliberate. */
+   is a state, not motion) plus the high-emphasis accent fill, so "Confirm · scan now" reads as deliberate.
+   --accent-bright is that emphasis in BOTH themes, but it flips side to get there — lightest in dark, darkest
+   in light — so the fill carries its own paired ink rather than a fixed near-black, which measured 2.55:1 on
+   the light screener and 2.14:1 on the light commodity wire. Keep the fill on --accent-bright: --accent-deep
+   fails AA here in four of the six scopes, and --accent would collapse this into the resting primary. */
 .evrail__scanbtn--armed, .evrail__scanbtn--armed:hover {
-  background: var(--accent-bright); border-color: var(--accent-bright); color: #04171a;
+  background: var(--accent-bright); border-color: var(--accent-bright); color: var(--accent-bright-ink);
   box-shadow: 0 0 0 2px var(--accent-glow);
 }
 /* the little live dot inside "Watch live" — reuses the rail's evpulse (opacity-only) keyframe */

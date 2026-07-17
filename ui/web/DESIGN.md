@@ -26,16 +26,17 @@ drifting apart. "It feels right" is part of done, next to "it works".
 ## 2. Swarm accent derivation
 
 - Two palettes are hand-tuned and grandfathered: research (`:root` amber, `tokens.css` lines
-  35–125; light overrides at 172–237) and screener (`[data-swarm='screener']` teal, lines 128–137
-  dark, 241–250 light). Do not hand-tune a third.
+  59–171; light overrides at 229–299) and screener (`[data-swarm='screener']` teal, lines 174–185
+  dark, 303–314 light). Do not hand-tune a third.
 - Every OTHER swarm derives its whole accent family — `--accent`, `--accent-bright`,
-  `--accent-deep`, `--accent-soft`, glows, washes, `--good`, `--core-glow`, `--app-bg` — from its
-  manifest color. `App.tsx` (~lines 148–159) reads the swarm's `SWARM.md` `color:`, sets
-  `data-swarm` on the app root, and injects the color as `--swarm-color`; the derived blocks
+  `--accent-deep`, `--accent-soft`, `--accent-ink`, `--accent-bright-ink`, glows, washes, `--good`,
+  `--core-glow`, `--app-bg` — from its manifest color. `App.tsx` (~lines 163–174) reads the swarm's
+  `SWARM.md` `color:`, sets `data-swarm` on the app root, and injects the color as `--swarm-color`;
+  the derived blocks
   `.app[data-swarm]:not([data-swarm='research']):not([data-swarm='screener'])` (`tokens.css`
-  lines 148–161 dark, 258–272 light) `color-mix()` the family from it.
+  lines 196–215 dark, 322–340 light) `color-mix()` the family from it.
 - Mixes stay `in srgb`. The three tokens the WebGL globe reads (`--accent`, `--accent-bright`,
-  `--accent-deep`) are `@property`-registered (`tokens.css` lines 19–33) so a mix resolves to a
+  `--accent-deep`) are `@property`-registered (`tokens.css` lines 30–57) so a mix resolves to a
   concrete `color(srgb r g b)` at computed-value time — the one form
   `useGlobeColors.parseCssColor` handles. An oklab/oklch mix would serialize in a space the
   globe's parser does not cover. Do not change the mix space.
@@ -61,7 +62,7 @@ The enforceable list. Every rule below is checkable in review.
 
 - Animate ONLY `transform` and `opacity`. Never `width`/`height`/`margin`/`padding`/`top`/`left`,
   never `transition: all`.
-- UI transitions stay ≤300ms. Use the shared tokens (`tokens.css` lines 111–116): `--dur-fast`
+- UI transitions stay ≤300ms. Use the shared tokens (`tokens.css` lines 158–162): `--dur-fast`
   (140ms), `--dur` (240ms), `--dur-slow` (420ms — stage-level moves only, not UI feedback), with
   `--ease` (`cubic-bezier(0.22, 0.61, 0.36, 1)`) or `--ease-out` (`cubic-bezier(0.16, 1, 0.3, 1)`).
   Custom curves only — never plain `ease-in`.
