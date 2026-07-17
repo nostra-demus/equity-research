@@ -1,6 +1,1976 @@
 {
-  "generated_at": "2026-07-16T05:35:47Z",
+  "generated_at": "2026-07-17T01:22:43Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260717-001",
+      "headline": "3 - Jones Ventures INTL Acquisition1 Corp (0002129056) (Issuer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2129056/000121390026078851/0001213900-26-078851-index.htm",
+      "source_name": "SEC EDGAR",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-07-16T23:55:22Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Jones Ventures INTL Acquisition1 Corp has filed for bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jones Ventures INTL Acquisition1 Corp has filed for bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jones Ventures INTL Acquisition1 Corp",
+          "ticker": "0002129056",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-002",
+      "headline": "IPC: Profit Guidance [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IPC?key=2924-03111912-2A1684885",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-07-16T23:43:57Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "IPC has cut its profit guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IPC has cut its profit guidance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IPC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-003",
+      "headline": "RRL: Stronger Production Outlook Lifts FY27 Guidance [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RRL?key=2924-03111798-6A1334219",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-07-16T22:21:42Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "RRL has lifted its FY27 guidance due to stronger production outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RRL has lifted its FY27 guidance due to stronger production outlook.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RRL",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-005",
+      "headline": "CHINA WOOD INT (01822): (1) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) EXISTING SHARE HELD ON RECORD DATE ON A NON-UNDERWRITTEN BASIS; AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0717/2026071700025.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-07-16T22:15:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "China Wood Int has proposed a rights issue and an extraordinary general meeting.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China Wood Int has proposed a rights issue and an extraordinary general meeting.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Wood Int",
+          "ticker": "01822",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-006",
+      "headline": "TWINTEK (06182): (1) PROPOSED GRANT OF GENERAL MANDATES TO ISSUE NEW SHARES AND REPURCHASE BY THE COMPANY OF ITS OWN SHARES; (2) PROPOSED RE-ELECTION OF RETIRING DIRECTORS; (3) PROPOSED RE-APPOINTMENT OF AUDITOR; AND (4) NOTICE OF ANNUAL GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0717/2026071700017.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-07-16T22:07:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "TwinTek has proposed the grant of general mandates, re-election of directors, re-appointment of auditor, and an annual general meeting.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TwinTek has proposed the grant of general mandates, re-election of directors, re-appointment of auditor, and an annual general meeting.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TwinTek",
+          "ticker": "06182",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-041",
+      "headline": "FCPT Closes Acquisition of 102 Mission Pet Health Veterinary Properties for $268 Million as part of Previously Announced Mission Pet Health Veterinary Transaction",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20260716381255/en/FCPT-Closes-Acquisition-of-102-Mission-Pet-Health-Veterinary-Properties-for-268-Million-as-part-of-Previously-Announced-Mission-Pet-Health-Veterinary-Transaction/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire",
+      "input_nature": "company_press_release",
+      "found_at": "2026-07-16T20:47:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "FCPT closes acquisition of 102 Mission Pet Health Veterinary Properties for $268 million as part of previously announced Mission Pet Health Veterinary transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FCPT closes acquisition of 102 Mission Pet Health Veterinary Properties for $268 million as part of previously announced Mission Pet Health Veterinary transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FCPT",
+          "ticker": "FCPT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-065",
+      "headline": "Alcoa Cuts Production Guidance, Says Alumina Prices Stable Despite Iran War",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/alcoa-cuts-full-year-alumina-guidance-posts-higher-second-quarter-profit-c693eee8?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T23:07:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Alcoa cuts production guidance while alumina prices remain stable despite the Iran war.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alcoa cuts production guidance while alumina prices remain stable despite the Iran war.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alcoa",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-079",
+      "headline": "Uber agrees €12.7bn takeover of Delivery Hero",
+      "headline_en": null,
+      "url": "https://www.qatar-tribune.com/article/244669/business/uber-agrees-127bn-takeover-of-delivery-hero",
+      "source_name": "Qatar Tribune",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T21:29:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Uber announced a €12.7 bn takeover of Delivery Hero, a large M&A transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber announced a €12.7 bn takeover of Delivery Hero, a large M&A transaction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Delivery Hero",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-089",
+      "headline": "Stock Market Today, July 16: AtaiBeckley Surges on Eli Lilly Acquisition Worth Up To $3.8 Billion",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/stock-market-today/2026/07/16/stock-market-today-july-16-ataibeckley-surges-on-eli-lilly-acquisition-worth-up-to-usd3-8-billion/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T20:59:05Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Eli Lilly announced a $3.8 billion acquisition of AtaiBeckley, a large M&A deal that can affect revenue and margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eli Lilly announced a $3.8 billion acquisition of AtaiBeckley, a large M&A deal that can affect revenue and margins.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "AtaiBeckley",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-098",
+      "headline": "Popular candy company files for Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/candy-sense-files-for-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T20:05:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Specialty candy company filed for Chapter 11 bankruptcy, indicating default risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Specialty candy company filed for Chapter 11 bankruptcy, indicating default risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-108",
+      "headline": "Jamie Dimon's JPMorgan Chase Just Posted 86% Growth in Equities Trading Revenue and Raised Its Full-Year Net Interest Income Guidance to $105.5 Billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/jamie-dimons-jpmorgan-chase-just-posted-86-growth-equities-trading-revenue-and-raised-its",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T17:56:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "JPMorgan reported 86% growth in equities trading revenue and raised full‑year NII guidance to $105.5 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JPMorgan reported 86% growth in equities trading revenue and raised full‑year NII guidance to $105.5 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JPMorgan Chase",
+          "ticker": "JPM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-123",
+      "headline": "Lilly to buy AtaiBeckley for $2.8B, further validating psychedelics",
+      "headline_en": null,
+      "url": "https://www.biopharmadive.com/news/lilly-ataibeckley-psychedelics-acquisition-deal-mebufotenin-depression/825425/",
+      "source_name": "BioPharma Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T16:19:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Eli Lilly announced acquisition of AtaiBeckley for $2.8 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eli Lilly announced acquisition of AtaiBeckley for $2.8 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": "LLY",
+          "listing_country": "US"
+        },
+        {
+          "name": "AtaiBeckley",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-170",
+      "headline": "TAT: $5.18 million strategic investment from Xingye at 5.3 cents [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TAT?key=2924-03111892-2A1684878",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-07-16T23:30:12Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "TAT receives a $5.18 million strategic investment at 5.3 cents per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TAT receives a $5.18 million strategic investment at 5.3 cents per share.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 40,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TAT",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-213",
+      "headline": "GE HealthCare, Catholic Health strike 10-year, $500M technology partnership",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/health-tech/ge-healthcare-catholic-health-strike-10-year-500m-technology-partnership",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-17T00:48:28Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "GE HealthCare and Catholic Health sign a 10‑year, $500 million technology partnership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GE HealthCare and Catholic Health sign a 10‑year, $500 million technology partnership.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE HealthCare",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Catholic Health",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-227",
+      "headline": "TSMC plans further $100bn US investment to feed AI demand",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/tech/semiconductors/tsmc-plans-further-100bn-us-investment-to-feed-ai-demand",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-17T00:48:30Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "TSMC announced plans for an additional $100 billion investment in the United States to meet AI demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TSMC announced plans for an additional $100 billion investment in the United States to meet AI demand.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Taiwan Semiconductor Manufacturing Co",
+          "ticker": null,
+          "listing_country": "TW"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-194",
+      "headline": "Novartis Fabhalta® (iptacopan) receives FDA traditional approval as first and only complement inhibitor to significantly slow kidney function decline in primary IgAN",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/07/16/3328875/0/en/Novartis-Fabhalta-iptacopan-receives-FDA-traditional-approval-as-first-and-only-complement-inhibitor-to-significantly-slow-kidney-function-decline-in-primary-IgAN.html",
+      "source_name": "GlobeNewswire",
+      "input_nature": "company_press_release",
+      "found_at": "2026-07-16T23:02:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Novartis' Fabhalta (iptacopan) received FDA approval, enabling sales of a new kidney disease treatment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Novartis' Fabhalta (iptacopan) received FDA approval, enabling sales of a new kidney disease treatment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novartis",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-150",
+      "headline": "'Unbreakable Red Line': Iran Warns US Over Strait of Hormuz Amid Fresh Strikes",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/news/unbreakable-red-line-iran-warns-us-over-strait-of-hormuz-amid-fresh-strikes",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T14:43:49Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Iran warned the US over the Strait of Hormuz amid fresh strikes, raising geopolitical risk for global oil markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Iran warned the US over the Strait of Hormuz amid fresh strikes, raising geopolitical risk for global oil markets.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 1,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-226",
+      "headline": "Japan's Inpex breaks ground on $21bn Indonesia LNG project",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/energy/japan-s-inpex-breaks-ground-on-21bn-indonesia-lng-project",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-17T00:48:30Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Inpex broke ground on a $21 billion LNG project in Indonesia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Inpex broke ground on a $21 billion LNG project in Indonesia.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Inpex Corp",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-066",
+      "headline": "Netflix shares tank over 9% afterhours after earnings, guidance disappoint",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/netflix-q2-results-revenue-eps-q3-2026-guidance-metrics-reporting-timeline-share-price-19947672.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T23:35:14Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Netflix shares fell >9% after earnings and weaker guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Netflix shares fell >9% after earnings and weaker guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Netflix",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-014",
+      "headline": "TRELLIS BIOSCIENCE RAISES $9 MILLION TO ADVANCE CLINICAL DEVELOPMENT OF CALPURBATUG (TRL1068)",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/trellis-bioscience-raises-9-million-to-advance-clinical-development-of-calpurbatug-trl1068-302828030.html",
+      "source_name": "PR Newswire",
+      "input_nature": "company_press_release",
+      "found_at": "2026-07-16T21:33:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Trellis Bioscience raises $9 million to advance clinical development of Calpurbatug.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Trellis Bioscience raises $9 million to advance clinical development of Calpurbatug.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capital_actions",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trellis Bioscience",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-102",
+      "headline": "NetApp Acquires DataPelago To Boost AI Data Processing Capabilities",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/netapp-acquires-datapelago-boost-ai-data-processing-capabilities",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T18:34:16Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "NetApp announced acquisition of DataPelago to enhance AI data processing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "NetApp announced acquisition of DataPelago to enhance AI data processing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NetApp",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "DataPelago",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-256",
+      "headline": "US and Iran exchange blows in rekindled Middle East war",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/world/middle-east/article/3360852/us-and-iran-exchange-blows-rekindled-middle-east-war?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T23:53:22Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "US and Iran exchange blows, marking a rekindling of Middle East war.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "US and Iran exchange blows, marking a rekindling of Middle East war.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-309",
+      "headline": "Netflix shares tumble as growth forecast disappoints",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/companies-markets/netflix-shares-tumble-as-growth-forecast-disappoints",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T23:16:05Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Netflix shares tumble after disappointing growth forecast",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Netflix shares tumble after disappointing growth forecast",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Netflix",
+          "ticker": "NFLX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-031",
+      "headline": "IPG Photonics Announces Binding Offer to Acquire Lumibird Medical, Expanding IPG’s Medical Laser Growth Platform | IPGP Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/IPGP/ipg-photonics-announces-binding-offer-to-acquire-lumibird-medical-tpbnw9etmm6v.html",
+      "source_name": "Stock Titan",
+      "input_nature": "company_press_release",
+      "found_at": "2026-07-16T21:59:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "IPG Photonics announces a binding offer to acquire Lumibird Medical, expanding its medical laser growth platform.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "IPG Photonics announces a binding offer to acquire Lumibird Medical, expanding its medical laser growth platform.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IPG Photonics",
+          "ticker": "IPGP",
+          "listing_country": null
+        },
+        {
+          "name": "Lumibird Medical",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-034",
+      "headline": "Riassunto: NetApp acquista DataPelago, rendendo i dati pronti per l'intelligenza artificiale a livello di infrastruttura",
+      "headline_en": "NetApp acquires DataPelago, making data ready for artificial intelligence at infrastructure level.",
+      "url": "http://www.businesswire.com/news/home/20260715539462/it/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
+      "source_name": "Business Wire",
+      "input_nature": "company_press_release",
+      "found_at": "2026-07-16T22:22:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "NetApp acquires DataPelago, making data ready for artificial intelligence at infrastructure level.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "NetApp acquires DataPelago, making data ready for artificial intelligence at infrastructure level.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NetApp",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "DataPelago",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-095",
+      "headline": "Netflix’s quarterly earnings forecast falls short of Wall Street targets",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-netflix-earnings-forecast-wall-street/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T20:14:29Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Netflix forecast falls short of Wall Street targets, shares tumble",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Netflix forecast falls short of Wall Street targets, shares tumble",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Netflix",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-156",
+      "headline": "Wipro Q2 Guidance: Sequential Revenue Growth Seen Between -1.5% And 0.5%",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/wipro-q2-guidance-sequential-revenue-growth-seen-between-1-5-and-0-5-11780500#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T14:10:15Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Wipro forecasts sequential revenue decline of up to -1.5% indicating weaker growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Wipro forecasts sequential revenue decline of up to -1.5% indicating weaker growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wipro",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-180",
+      "headline": "Saronic Finalizes Plan to Build Giant Shipyard at Port of Brownsville",
+      "headline_en": null,
+      "url": "https://maritime-executive.com/article/saronic-agrees-to-build-giant-shipyard-at-port-of-brownsville",
+      "source_name": "Maritime Executive",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-07-16T23:09:55Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Saronic plans to build a giant shipyard at the Port of Brownsville.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Saronic plans to build a giant shipyard at the Port of Brownsville.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 5,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "official_data",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saronic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-109",
+      "headline": "Physicswallah to acquire additional 11% stake in Sarrthi IAS for ₹72 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/physicswallah-share-price-to-acquire-additional-11-stake-in-sarrthi-ias-for-rs-72-crore-19947618.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T17:40:08Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Physicswallah will acquire an additional 11% stake in Sarrthi IAS for ₹72 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Physicswallah will acquire an additional 11% stake in Sarrthi IAS for ₹72 crore.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Physicswallah",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Sarrthi IAS",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-132",
+      "headline": "Aurum PropTech To Acquire 100% Stakes Of Housing.com For Rs 458 Crore",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/aurum-proptech-to-acquire-100-stakes-of-housing-com-for-rs-458-crore-bets-on-ai-powered-real-estate-platform-11781110#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T15:54:18Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Aurum PropTech to acquire Housing.com for Rs 458 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Aurum PropTech to acquire Housing.com for Rs 458 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aurum PropTech",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Housing.com",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-173",
+      "headline": "Columbia Financial, Inc. Announces the Results of Its Offering; Final Merger Consideration; and Anticipated Closing Date",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/07/17/3328884/0/en/Columbia-Financial-Inc-Announces-the-Results-of-Its-Offering-Final-Merger-Consideration-and-Anticipated-Closing-Date.html",
+      "source_name": "GlobeNewswire",
+      "input_nature": "company_press_release",
+      "found_at": "2026-07-17T00:15:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Columbia Financial announced results of its offering, final merger consideration, and anticipated closing date.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Columbia Financial announced results of its offering, final merger consideration, and anticipated closing date.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Columbia Financial, Inc.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-307",
+      "headline": "Citadel Securities invests $400M in Crypto.com at $20B valuation",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/citadel-securities-invests-400m-in-cryptocom-at-20b-valuation?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T23:47:12Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Citadel invests $400M in Crypto.com, valuing it at $20B",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Citadel invests $400M in Crypto.com, valuing it at $20B",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Crypto.com",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-101",
+      "headline": "Wonder tops $9B valuation, raises $650M",
+      "headline_en": null,
+      "url": "https://www.restaurantdive.com/news/wonder-valuation-9-billion-latest-650m-funding/825417/",
+      "source_name": "Restaurant Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T19:04:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Wonder raised $650 million, valuing the company at $9 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Wonder raised $650 million, valuing the company at $9 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wonder",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-103",
+      "headline": "Adani strengthens defence play with full buyout of flight simulator firm",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/adani-strengthens-defence-play-with-full-buyout-of-flight-simulator-firm-19947637.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T18:29:30Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Adani completed full buyout of a flight simulator firm, expanding its defence portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Adani completed full buyout of a flight simulator firm, expanding its defence portfolio.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-136",
+      "headline": "CEAT’s 22% revenue growth masks margin squeeze; ₹1,205-crore expansion raises the stakes",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/ceats-22-revenue-growth-masks-margin-squeeze-1205-crore-expansion-raises-the-stakes/article71230626.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T15:42:09Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "CEAT reports 22 % revenue growth but margin squeeze; announces ₹1,205‑crore expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "CEAT reports 22 % revenue growth but margin squeeze; announces ₹1,205‑crore expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 12,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CEAT",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-202",
+      "headline": "Tata, SP Group explore share swap to unlock Tata Sons stake amid valuation divide",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/tata-sp-group-explore-share-swap-to-unlock-tata-sons-stake-amid-valuation-divide/articleshow/132447787.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-17T00:30:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Tata and SP Group consider a share‑swap to unlock Tata Sons stake",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Tata and SP Group consider a share‑swap to unlock Tata Sons stake",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "SP Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-012",
+      "headline": "Jasper Therapeutics Announces Merger with Kira Pharmaceuticals",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/07/16/3328849/0/en/Jasper-Therapeutics-Announces-Merger-with-Kira-Pharmaceuticals.html",
+      "source_name": "GlobeNewswire",
+      "input_nature": "company_press_release",
+      "found_at": "2026-07-16T21:15:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Jasper Therapeutics announces merger with Kira Pharmaceuticals.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Jasper Therapeutics announces merger with Kira Pharmaceuticals.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jasper Therapeutics",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Kira Pharmaceuticals",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-050",
+      "headline": "ARRAY Technologies to Acquire Affordable Wire Management (AWM), Creating New Growth Platform in Balance-of-System Solutions | ARRY Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/ARRY/array-technologies-to-acquire-affordable-wire-management-awm-tr97v7phgoy2.html",
+      "source_name": "Stock Titan",
+      "input_nature": "company_press_release",
+      "found_at": "2026-07-16T20:30:00Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "ARRAY Technologies announced acquisition of Affordable Wire Management to expand its balance‑of‑system solutions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "ARRAY Technologies announced acquisition of Affordable Wire Management to expand its balance‑of‑system solutions.",
+      "region": "US",
+      "relevance": "irrelevant",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 40,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ARRAY Technologies",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Affordable Wire Management",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-300",
+      "headline": "Alphabet shares fall on report its most powerful AI model Gemini 3.5 Pro is delayed",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/07/16/alphabet-stock-gemini-3-5-pro-ai.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-17T01:20:08Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Alphabet shares fell 4.4%, erasing roughly $200-225bn of market value, after reports its flagship Gemini 3.5 Pro AI model is months behind schedule and two senior DeepMind researchers departed for OpenAI and Anthropic — plausibly clears the management-credibility and analyst-expectations materiality criteria.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": null,
+      "triage_reason": "",
+      "region": "",
+      "relevance": "",
+      "materiality_pre_score": null,
+      "rank_factors": null,
+      "event_types": [],
+      "issuer_linkage": "",
+      "companies": [],
+      "size_bucket": "",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260717-301",
+      "headline": "Iraq Pauses Basrah Oil Loadings After Drone Attack on Tanker",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-07-16/iraq-suspends-basrah-oil-loadings-after-drone-attack-on-tanker",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-17T01:20:08Z",
+      "sweep_file": "screener/inbox/2026-07-17_sweep.json",
+      "prelim_note": "Iraq briefly suspended crude loadings at all its Basra export terminals after a drone struck a tanker, amid the wider US-Iran conflict and Strait of Hormuz disruption — plausibly clears the supply/demand-dynamics and operational-risk materiality criteria for oil and shipping exposure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": null,
+      "triage_reason": "",
+      "region": "",
+      "relevance": "",
+      "materiality_pre_score": null,
+      "rank_factors": null,
+      "event_types": [],
+      "issuer_linkage": "",
+      "companies": [],
+      "size_bucket": "",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260716-002",
       "headline": "ODY: High-Grade Results Confirm New Shackle Discovery [price-sensitive]",
@@ -651,37 +2621,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260716-116",
-      "headline": "Uber nears €12.5bn deal to acquire Delivery Hero",
+      "inbox_id": "INB-20260716-267",
+      "headline": "Uber Announces Acquisition Offer for Delivery Hero",
       "headline_en": null,
-      "url": "https://www.ft.com/content/c15115ea-7386-4f44-9643-f95f58187514",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-07-15T17:47:40Z",
+      "url": "http://www.businesswire.com/news/home/20260715826698/en/Uber-Announces-Acquisition-Offer-for-Delivery-Hero/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire",
+      "input_nature": "company_press_release",
+      "found_at": "2026-07-16T05:57:00Z",
       "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Uber is close to a €12.5 bn acquisition of Delivery Hero.",
+      "prelim_note": "Uber's acquisition offer for Delivery Hero is a large M&A deal that could affect Uber's market position",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Uber is close to a €12.5 bn acquisition of Delivery Hero.",
-      "region": "GLOBAL",
+      "triage_reason": "Uber's acquisition offer for Delivery Hero is a large M&A deal that could affect Uber's market position",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
         "materiality": 80,
-        "source_tier": 0,
+        "source_tier": 3,
         "scope": 5,
         "event": 9,
         "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 6,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
-        "source_tier_id": "news",
+        "source_tier_id": "company",
         "event_id": "mna",
-        "size_bucket": "mega"
+        "size_bucket": "large"
       },
       "event_types": [
         "mna"
@@ -690,7 +2660,7 @@
       "companies": [
         {
           "name": "Uber",
-          "ticker": null,
+          "ticker": "UBER",
           "listing_country": "US"
         },
         {
@@ -699,7 +2669,7 @@
           "listing_country": "DE"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1300,80 +3270,91 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260716-086",
-      "headline": "US launches fresh strikes on Iran as Trump warns Tehran it 'better behave'",
+      "inbox_id": "INB-20260716-271",
+      "headline": "VINCI Energies is reinforcing its digital infrastructure services business by launching a public tender offer for All for One",
       "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/c9323zgq6wvo?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News",
-      "input_nature": "news_headline",
-      "found_at": "2026-07-15T21:55:04Z",
+      "url": "https://www.globenewswire.com/news-release/2026/07/16/3328239/0/en/VINCI-Energies-is-reinforcing-its-digital-infrastructure-services-business-by-launching-a-public-tender-offer-for-All-for-One.html",
+      "source_name": "GlobeNewswire",
+      "input_nature": "company_press_release",
+      "found_at": "2026-07-16T06:30:00Z",
       "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "The United States launched fresh strikes on Iran as Trump warned Tehran to behave.",
+      "prelim_note": "VINCI Energies is launching a public tender offer to acquire All for One.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The United States launched fresh strikes on Iran as Trump warned Tehran to behave.",
-      "region": "GLOBAL",
+      "triage_score": 100,
+      "triage_reason": "VINCI Energies is launching a public tender offer to acquire All for One.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 1,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
+        "materiality": 75,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
       },
       "event_types": [
-        "macro_sector"
+        "mna"
       ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VINCI Energies",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "All for One",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260716-245",
-      "headline": "[Economy Analysis] Bank of Korea Returns to Tightening with Rate Hike",
+      "inbox_id": "INB-20260716-274",
+      "headline": "Telenor Cuts Guidance Following Challenging Quarter",
       "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=273167",
-      "source_name": "BusinessKorea",
+      "url": "https://www.wsj.com/business/earnings/telenor-cuts-guidance-following-challenging-quarter-4931a867?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-07-16T06:57:39Z",
+      "found_at": "2026-07-16T06:06:00Z",
       "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Bank of Korea returns to tightening with rate hike",
+      "prelim_note": "Telenor has cut its financial guidance following a challenging quarter.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Bank of Korea returns to tightening with rate hike",
-      "region": "KR",
+      "triage_score": 100,
+      "triage_reason": "Telenor has cut its financial guidance following a challenging quarter.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 80,
         "source_tier": 0,
-        "scope": 2,
+        "scope": 6,
         "event": 7,
-        "size": 0,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
+        "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "guidance_change",
-        "size_bucket": "unknown"
+        "size_bucket": "large"
       },
       "event_types": [
         "guidance_change"
@@ -1381,42 +3362,42 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Bank of Korea",
+          "name": "Telenor",
           "ticker": null,
-          "listing_country": "KR"
+          "listing_country": "NO"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260716-257",
-      "headline": "Hyundai Motor Group Secures 100% Stake in Boston Dynamics",
+      "inbox_id": "INB-20260716-294",
+      "headline": "Hyundai to acquire remaining Boston Dynamics stake: sources",
       "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=273168",
-      "source_name": "BusinessKorea",
+      "url": "https://en.yna.co.kr/view/AEN20260716006400320",
+      "source_name": "Yonhap News Agency",
       "input_nature": "news_headline",
-      "found_at": "2026-07-16T07:11:17Z",
+      "found_at": "2026-07-16T05:29:40Z",
       "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Hyundai Motor Group acquired 100% of Boston Dynamics",
+      "prelim_note": "Hyundai is reportedly acquiring the remaining stake in Boston Dynamics.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Hyundai Motor Group acquired 100% of Boston Dynamics",
+      "triage_score": 100,
+      "triage_reason": "Hyundai is reportedly acquiring the remaining stake in Boston Dynamics.",
       "region": "KR",
       "relevance": "material",
-      "materiality_pre_score": 78,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 78,
+        "materiality": 80,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -1430,9 +3411,9 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Hyundai Motor Group",
+          "name": "Hyundai",
           "ticker": null,
-          "listing_country": "KR"
+          "listing_country": null
         },
         {
           "name": "Boston Dynamics",
@@ -1446,343 +3427,101 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260716-046",
-      "headline": "Cloudastructure Schedules Q1 2026 Earnings Call | CSAI Stock News",
+      "inbox_id": "INB-20260716-297",
+      "headline": "FirstCash sweetens Ramsdens takeover to £232m and declares offer final",
       "headline_en": null,
-      "url": "https://www.stocktitan.net/news/CSAI/cloudastructure-schedules-q1-2026-earnings-ic4ztazkcqkk.html",
-      "source_name": "Stock Titan",
-      "input_nature": "company_press_release",
-      "found_at": "2026-07-15T23:34:00Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Schedules Q1 2026 earnings call",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Schedules Q1 2026 earnings call",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cloudastructure",
-          "ticker": "CSAI",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-202",
-      "headline": "Elon Musk Discreetly Bought a $1 Billion Gas Turbine Company to Power AI. Here's What it Means for SpaceX Investors.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/elon-musk-discreetly-bought-1-billion-gas-turbine-company-power-ai-heres-what-it-means",
-      "source_name": "Nasdaq",
+      "url": "https://ukinvestormagazine.co.uk/firstcash-sweetens-ramsdens-takeover-to-232m-and-declares-offer-final/",
+      "source_name": "UK Investor Magazine",
       "input_nature": "news_headline",
-      "found_at": "2026-07-15T22:51:01Z",
+      "found_at": "2026-07-16T06:22:31Z",
       "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Elon Musk reportedly bought a $1 billion gas turbine company to power AI, a sizable acquisition that could benefit SpaceX investors.",
+      "prelim_note": "FirstCash has increased its takeover offer for Ramsdens to £232m, declaring it final.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Elon Musk reportedly bought a $1 billion gas turbine company to power AI, a sizable acquisition that could benefit SpaceX investors.",
-      "region": "US",
+      "triage_score": 100,
+      "triage_reason": "FirstCash has increased its takeover offer for Ramsdens to £232m, declaring it final.",
+      "region": "GB",
       "relevance": "material",
-      "materiality_pre_score": 78,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 78,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "large"
+        "size_bucket": "mid"
       },
       "event_types": [
-        "mna",
-        "capital_actions"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "SpaceX",
+          "name": "FirstCash",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "US"
+        },
+        {
+          "name": "Ramsdens",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260716-266",
-      "headline": "ICICI Lombard Shares Tank 15 % To Hit Two-Year Low As Q1 Profit Slumps 46%",
+      "inbox_id": "INB-20260716-313",
+      "headline": "ArisInfra Solutions Ltd: Press Release titled \"Arisinfra Bags Rs. 79.05 Crore Work Order for Mumbai's GMLR Twin Tunnel Project\"",
       "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/icici-lombard-shares-tank-15-to-hit-two-year-low-as-q1-profit-slumps-46-11777927#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-07-16T04:27:26Z",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5b7a1ac6-208d-48d3-b246-353abfffb6d8.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-07-16T06:36:01Z",
       "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "ICICI Lombard Q1 profit fell 46%, causing a 15% share drop.",
+      "prelim_note": "ArisInfra Solutions Ltd secured a work order worth Rs. 79.05 Crore for the Mumbai GMLR Twin Tunnel Project.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "ICICI Lombard Q1 profit fell 46%, causing a 15% share drop.",
+      "triage_score": 100,
+      "triage_reason": "ArisInfra Solutions Ltd secured a work order worth Rs. 79.05 Crore for the Mumbai GMLR Twin Tunnel Project.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ICICI Lombard",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-048",
-      "headline": "Figure Technology Solutions Announces Date for Second Quarter 2026 Results | FIGR Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/FIGR/figure-technology-solutions-announces-date-for-second-quarter-2026-zbwnoqelxf71.html",
-      "source_name": "Stock Titan",
-      "input_nature": "company_press_release",
-      "found_at": "2026-07-15T21:31:00Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Figure Technology Solutions announces date for second quarter 2026 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Figure Technology Solutions announces date for second quarter 2026 results.",
-      "region": "US",
-      "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
         "materiality": 80,
-        "source_tier": 3,
+        "source_tier": 8,
         "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Figure Technology Solutions",
-          "ticker": "FIGR",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-051",
-      "headline": "Record Revenue and Successful Mountain Commerce Bancorp Acquisition Drive Strong Second Quarter Results for HOMB | HOMB Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/HOMB/record-revenue-and-successful-mountain-commerce-bancorp-acquisition-0b90wsz0j2a3.html",
-      "source_name": "Stock Titan",
-      "input_nature": "company_press_release",
-      "found_at": "2026-07-15T21:15:00Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Record revenue and successful Mountain Commerce Bancorp acquisition drive strong second quarter results for HOMB.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Record revenue and successful Mountain Commerce Bancorp acquisition drive strong second quarter results for HOMB.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HOMB",
-          "ticker": "HOMB",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-052",
-      "headline": "Great Southern Bancorp, Inc. Reports Preliminary Second Quarter Earnings of $1.43 Per Diluted Common Share | GSBC Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/GSBC/great-southern-bancorp-inc-reports-preliminary-second-quarter-8rgluf8gvctc.html",
-      "source_name": "Stock Titan",
-      "input_nature": "company_press_release",
-      "found_at": "2026-07-15T21:15:00Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Great Southern Bancorp, Inc. reports preliminary second quarter earnings of $1.43 per diluted common share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Great Southern Bancorp, Inc. reports preliminary second quarter earnings of $1.43 per diluted common share.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Great Southern Bancorp, Inc.",
-          "ticker": "GSBC",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-054",
-      "headline": "Xanadu to Report Second Quarter 2026 Financial Results on August 5th, 2026",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/07/15/3328157/0/en/Xanadu-to-Report-Second-Quarter-2026-Financial-Results-on-August-5th-2026.html",
-      "source_name": "GlobeNewswire",
-      "input_nature": "company_press_release",
-      "found_at": "2026-07-15T21:10:00Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Xanadu to report second quarter 2026 financial results on August 5th, 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Xanadu to report second quarter 2026 financial results on August 5th, 2026.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 5,
+        "event": 3,
         "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
+        "source_tier_id": "primary_filing",
+        "event_id": "commercial",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "commercial"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Xanadu",
+          "name": "ArisInfra Solutions Ltd",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -1791,85 +3530,35 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260716-058",
-      "headline": "United Posts Q2 Results Above Wall Street Expectations and Raises Full-Year 2026 Adjusted EPS Guidance¹ Despite a Nearly $6 Billion Increase In Anticipated Fuel Costs | UAL Stock News",
+      "inbox_id": "INB-20260716-325",
+      "headline": "TRG Screen Acquires BST America to Strengthen Market Data Advisory Capability",
       "headline_en": null,
-      "url": "https://www.stocktitan.net/news/UAL/united-posts-q2-results-above-wall-street-expectations-and-raises-ydkmmcx991y7.html",
-      "source_name": "Stock Titan",
+      "url": "https://www.globenewswire.com/news-release/2026/07/16/3328243/0/en/TRG-Screen-Acquires-BST-America-to-Strengthen-Market-Data-Advisory-Capability.html",
+      "source_name": "GlobeNewswire",
       "input_nature": "company_press_release",
-      "found_at": "2026-07-15T20:01:00Z",
+      "found_at": "2026-07-16T07:00:00Z",
       "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "United posted Q2 results above expectations and raised full-year EPS guidance despite a $6 billion increase in anticipated fuel costs.",
+      "prelim_note": "Acquisition of BST America by TRG Screen, expected to strengthen market data advisory capability",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "United posted Q2 results above expectations and raised full-year EPS guidance despite a $6 billion increase in anticipated fuel costs.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "United Airlines",
-          "ticker": "UAL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-133",
-      "headline": "NC’s First Bank to buy SC lender for $166M",
-      "headline_en": null,
-      "url": "https://www.bankingdive.com/news/nc-sc-166-million-acquisition-first-bank-carolina/825315/",
-      "source_name": "Banking Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-07-15T16:01:49Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "NC’s First Bank agreed to acquire a South Carolina lender for $166 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "NC’s First Bank agreed to acquire a South Carolina lender for $166 million.",
+      "triage_score": 100,
+      "triage_reason": "Acquisition of BST America by TRG Screen, expected to strengthen market data advisory capability",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
+        "materiality": 80,
+        "source_tier": 3,
         "scope": 5,
         "event": 9,
         "size": 0,
-        "recency": 2,
+        "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 6,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
-        "source_tier_id": "news",
+        "source_tier_id": "company",
         "event_id": "mna",
         "size_bucket": "unknown"
       },
@@ -1879,17 +3568,332 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "NC’s First Bank",
+          "name": "TRG Screen",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "BST America",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-331",
+      "headline": "Angelini Pharma Completes Acquisition of Catalyst Pharmaceuticals",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/07/16/3328252/0/en/Angelini-Pharma-Completes-Acquisition-of-Catalyst-Pharmaceuticals.html",
+      "source_name": "GlobeNewswire",
+      "input_nature": "company_press_release",
+      "found_at": "2026-07-16T07:36:00Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "Completion of a corporate acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Completion of a corporate acquisition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Angelini Pharma",
           "ticker": null,
           "listing_country": null
         },
         {
-          "name": "SC lender",
+          "name": "Catalyst Pharmaceuticals",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-339",
+      "headline": "ABB Agrees To Buy Rotork In Deal With $5.5 Bln Enterprise Value",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/abb-agrees-buy-rotork-deal-55-bln-enterprise-value",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T05:21:41Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "ABB agreed to acquire Rotork in a deal valued at $5.5 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ABB agreed to acquire Rotork in a deal valued at $5.5 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ABB",
+          "ticker": null,
+          "listing_country": "CH"
+        },
+        {
+          "name": "Rotork",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-343",
+      "headline": "ABB to Buy Rotork in $5.5 Billion Deal to Strengthen Electrification Business",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/abb-to-buy-rotork-to-strengthen-electrification-business-7fac8604?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T06:01:00Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "Large M&A deal valued at $5.6 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Large M&A deal valued at $5.6 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ABB",
+          "ticker": null,
+          "listing_country": "CH"
+        },
+        {
+          "name": "Rotork",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-394",
+      "headline": "ITI Ltd: ITI Limited Wins 4G Expansion Phase IX Order from BSNL Worth Rs.856.39 Crores.",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d9f049fe-bfe8-4d9e-b7f0-c2612d03c107.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-07-16T06:50:54Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "Company won a significant contract worth Rs.856.39 Crores.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company won a significant contract worth Rs.856.39 Crores.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 3,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "commercial",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ITI Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-399",
+      "headline": "Frasers shares slump after it withholds outlook amid Hugo Boss takeover talks",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-15979695/Frasers-shares-slump-withholds-outlook-amid-Hugo-Boss-takeover-talks.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail)",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T08:39:03Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "Frasers Group shares fell after the company withheld its outlook while engaged in takeover talks for Hugo Boss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Frasers Group shares fell after the company withheld its outlook while engaged in takeover talks for Hugo Boss.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Frasers Group",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Hugo Boss",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-405",
+      "headline": "Australia's Macquarie DC acquires 34,200 sqm site in Sydney for 200MW data center campus",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/australias-macquarie-dc-acquires-34200-sqm-site-in-sydney-for-200mw-data-center-campus/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T11:23:52Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "Macquarie is investing in a major 200MW data center campus, representing significant capital expenditure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Macquarie is investing in a major 200MW data center campus, representing significant capital expenditure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Macquarie",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -13044,7 +15048,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 267,
+    "inbox_unconsumed": 307,
     "signals_total": 14,
     "hidden": 0,
     "parked": 3,
@@ -13053,9 +15057,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 16818,
-    "news_picked_today": 607,
-    "news_dropped_today": 2132
+    "news_seen_today": 19031,
+    "news_picked_today": 336,
+    "news_dropped_today": 1311
   },
   "book_momentum": {
     "live_count": 8,
