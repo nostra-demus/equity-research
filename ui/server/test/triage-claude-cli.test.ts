@@ -12,6 +12,8 @@ import os from 'node:os'
 import path from 'node:path'
 import { triageBatchClaudeCli, isUsageLimit, type ClaudeCliRunner } from '../src/news/triage/claude-cli'
 import { UsdBudget } from '../src/news/triage/budget'
+import { NEWS } from '../src/config'
+import { DEFERRED_CAP } from '../src/news/runCycle'
 import type { NewsItem } from '../src/news/types'
 
 let passed = 0
@@ -130,6 +132,25 @@ await check('UsdBudget.exhaust parks the tier for the rest of the day', () => {
   b.exhaust()
   assert.equal(b.canSpend(), false)
   fs.rmSync(dir, { recursive: true, force: true })
+})
+
+// ---- REGRESSION (live incident, 2026-07-16). The CLI's --model takes an ALIAS ('haiku'/'sonnet'/'opus')
+// or a FULL name ('claude-haiku-4-5-20251001'). We shipped the Messages-API alias 'claude-haiku-4-5', which
+// the CLI could not resolve, so it silently ran its DEFAULT (Sonnet-class) model: 17 live calls billed
+// $0.947 (~$0.068/call) instead of Haiku's ~$0.006-0.015 — burning the $5 ceiling ~10x too fast and draining
+// ~5x more of the plan window the research runs share. The subscription model MUST stay CLI-resolvable; the
+// metered api backend keeps its own Messages-API id. ----
+await check('subscription model is a CLI-resolvable alias — never the Messages-API-only id', () => {
+  assert.equal(NEWS.anthropicModel, 'haiku')
+  assert.notEqual(NEWS.anthropicModel, 'claude-haiku-4-5') // the CLI cannot resolve the bare API alias
+  assert.equal(NEWS.anthropicApiModel, 'claude-haiku-4-5') // api backend addresses it by API id — kept apart
+})
+
+// ---- REGRESSION: the deferred backlog cap is a LOSS boundary. It sat at 1,000 while real peaks were
+// 2,383 (07-07) and 1,244 (07-16), so the tail past it was binned on exactly the overload days it exists
+// for. It must clear the observed peaks with headroom, so an exhaustion window only DELAYS items. ----
+await check('deferred backlog cap clears the observed real-world peaks (deferring is fine, dropping is not)', () => {
+  assert.ok(DEFERRED_CAP >= 2383, `cap ${DEFERRED_CAP} must exceed the 2,383 peak seen on 2026-07-07`)
 })
 
 console.log(`\n${passed} checks passed`)

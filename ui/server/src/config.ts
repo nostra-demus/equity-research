@@ -555,7 +555,14 @@ export const NEWS = {
   anthropicFallbackMode: (process.env.NEWS_ANTHROPIC_FALLBACK_MODE || 'subscription') as 'subscription' | 'api',
   // The daily $ ceiling — the ONE bound the operator reasons in. Reached ⇒ items defer as before.
   anthropicDailyUsd: capNum(process.env.NEWS_ANTHROPIC_FALLBACK_DAILY_USD, 5),
-  anthropicModel: process.env.NEWS_ANTHROPIC_FALLBACK_MODEL || 'claude-haiku-4-5',
+  // MODEL. On the `subscription` path this goes to the CLI's `--model`, which takes an ALIAS ('haiku' /
+  // 'sonnet' / 'opus') or a FULL name ('claude-haiku-4-5-20251001') — NOT the Messages-API alias
+  // 'claude-haiku-4-5'. An unresolvable name silently falls back to the CLI's DEFAULT (Sonnet-class): live
+  // cycles on 2026-07-16 billed ~$0.068/call vs Haiku's ~$0.006-0.015, so the $ ceiling bought ~14 batches
+  // instead of hundreds AND drained ~5x more of the plan window the research runs share. Keep this an alias
+  // the CLI resolves; the metered `api` backend addresses the model by its API id (below) instead.
+  anthropicModel: process.env.NEWS_ANTHROPIC_FALLBACK_MODEL || 'haiku',
+  anthropicApiModel: process.env.NEWS_ANTHROPIC_FALLBACK_API_MODEL || 'claude-haiku-4-5',
   // Per-call guards for the subscription CLI: a --max-budget-usd belt-and-braces and a wall-clock timeout
   // (a triage completion is small; a hung child must never hold the cycle).
   anthropicPerCallUsd: capNum(process.env.NEWS_ANTHROPIC_FALLBACK_PER_CALL_USD, 0.1),

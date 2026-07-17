@@ -41,10 +41,15 @@ import fs from 'node:fs'
 // retry) spill into this file and are re-queued next cycle. Without it they'd be silently lost:
 // the sources won't hand them back (GDELT's lookback ages out; an unchanged RSS feed answers 304).
 const DEFERRED_FILE = 'news-deferred.json'
-// Spillover backlog of items not yet scored (budget hit / Groq hiccup). Raised with the expanded
-// source set so a burst day (earnings season, many filings) doesn't truncate unscored items before
-// the next cycle can pick them up.
-const DEFERRED_CAP = 1000
+// Spillover backlog of items not yet scored (budget hit / LLM hiccup / plan quota spent). THE CAP IS A
+// LOSS BOUNDARY, not a nicety: whatever sits past it when saveDeferred runs is written to no file and,
+// once it ages out of its source window, is gone — never scored, never re-fetchable. 1,000 was BELOW real
+// peaks (2,383 on 2026-07-07; 1,244 on 2026-07-16), so the low-priority tail was still being silently
+// binned on exactly the overload days this backlog exists for. It must comfortably exceed the inflow of a
+// whole exhaustion window (free tiers AND the plan out) so nothing is lost while we WAIT for quota —
+// deferring is fine, dropping is not. The cost of a bigger cap is file size / write volume (~500B an item,
+// rewritten each cycle), which is why it stays bounded and env-tunable rather than unlimited.
+export const DEFERRED_CAP = (() => { const n = Number(process.env.NEWS_DEFERRED_CAP); return Number.isFinite(n) && n > 0 ? n : 5000 })()
 
 function loadDeferred(stateDir: string): NewsItem[] {
   try {
@@ -397,7 +402,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         ? await triageBatchClaudeCli(batch, { model: cfg.anthropicModel, timeoutMs: cfg.anthropicTimeoutMs, budgetUsd: cfg.anthropicPerCallUsd }, deps.claudeCliRunner)
         : await triageBatchAnthropic(
             batch,
-            { model: cfg.anthropicModel, baseUrl: cfg.anthropicBaseUrl, apiKey: cfg.anthropicApiKey, maxTokens: cfg.anthropicMaxTokens, inPricePerMTok: cfg.anthropicInPricePerMTok, outPricePerMTok: cfg.anthropicOutPricePerMTok },
+            { model: cfg.anthropicApiModel, baseUrl: cfg.anthropicBaseUrl, apiKey: cfg.anthropicApiKey, maxTokens: cfg.anthropicMaxTokens, inPricePerMTok: cfg.anthropicInPricePerMTok, outPricePerMTok: cfg.anthropicOutPricePerMTok },
             fetchFn,
             sleep,
           )
