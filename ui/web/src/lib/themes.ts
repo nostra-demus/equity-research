@@ -41,12 +41,25 @@ export interface ThemesIndex {
   counts: { hot: number; active: number; cooling: number; parked: number; retired: number; total: number }
   history_days: number // days of real daily-flow history available (caps how far the window selector reaches)
 }
+// one member story that named a company — the sourced evidence for its order-tier placement (server why.ts)
+export interface CompanyEvidence {
+  headline: string
+  event_id: string
+  score: number
+}
+// the plain-English "why is this company here" for the deep-dive (server buildThemeDetail). Optional: an
+// OLD engine won't send it (deploy skew, DESIGN.md §5) — the chip falls back to its impact/mention read.
+export interface CompanyWhy {
+  reason: string
+  evidence: CompanyEvidence[]
+}
 export interface ThemeCompany extends ThemeCompanyLite {
   listing_country: string | null
   name_key: string
   mention_count: number
   impact: { directness: number; magnitude: number; speed: number; reversibility: number; composite: number }
   last_seen: string
+  why?: CompanyWhy
 }
 // /api/news/themes/:id → the deep-dive
 export interface ThemeDetail {

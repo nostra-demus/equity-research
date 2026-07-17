@@ -4,7 +4,8 @@
 // plus a deep-dive that reuses the existing event reader + "run the checks" funnel. Custom inline SVG
 // (no graph lib), tokens-only colour, transform/opacity animation, reduced-motion aware.
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
+import { createPortal } from 'react-dom'
 import { fmtStampLocal } from '../../lib/format'
 import { displayHeadline } from '../../lib/plain'
 import { useStore } from '../../lib/store'
@@ -728,6 +729,219 @@ function ThemeBriefBlock({ brief, note, loading, refreshing, canRefresh, onRefre
   )
 }
 
+// ---- order tiers + the per-company "why is it here" popover ----
+
+// Which order tier a chip sits in, spoken, for the popover badge + the aria label.
+const ORDER_NOUN: Record<number, string> = { 1: 'Direct (1st-order)', 2: 'Ripple (2nd-order)', 3: 'Read-across (3rd-order)' }
+// One card is open at a time, so a single stable id is enough to point the active chip's aria-describedby
+// at it — a screen reader then announces the card's reason + stories + impact on focus (not just the label).
+const WHY_CARD_ID = 'themewhy-card'
+// The four impact sub-scores (0–25 each) in plain English — short label for the bar, long for the title.
+const IMPACT_BARS: { key: keyof ThemeCompany['impact']; short: string; long: string }[] = [
+  { key: 'directness', short: 'direct', long: 'How directly the theme’s news points at it' },
+  { key: 'magnitude', short: 'size', long: 'How material the news naming it is' },
+  { key: 'speed', short: 'speed', long: 'How fast the driving event plays out' },
+  { key: 'reversibility', short: 'lasting', long: 'How lasting the effect is (structural vs easily hedged)' },
+]
+const scoreTone = (n: number) => (n >= 70 ? 'var(--live)' : n >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)')
+
+// The reason shown when the server hasn't sent a `why` (an OLD engine during a deploy, DESIGN.md §5) — a
+// plain, honest fallback built from the fields the chip already has, so the card is never empty pre-deploy.
+function fallbackReason(c: ThemeCompany): string {
+  const times = c.mention_count <= 0 ? 'named' : c.mention_count === 1 ? 'named once' : `named ${c.mention_count} times`
+  const noun = c.order === 1 ? 'a direct (first-order)' : c.order === 2 ? 'a ripple (second-order)' : 'a read-across (third-order)'
+  return `${times} in this theme’s news — ${noun} name.`
+}
+
+type WhyPos = { left: number; top: number; width: number; originX: number; originY: 'top' | 'bottom' }
+type WhyActive = { key: string; c: ThemeCompany; sticky: boolean; rect: DOMRect; instant: boolean }
+
+/** Place the card against the chip using its MEASURED height: below by default, flipped above when below
+ *  can't hold it and above has more room, then clamped so it never runs off the top or bottom. The
+ *  transform-origin sits under the chip (origin-aware, DESIGN.md §3 / emil). Absolute top (not bottom) so
+ *  the clamp is exact regardless of which side it opened toward. */
+function placeWhy(rect: DOMRect, height: number, instant: boolean): WhyPos {
+  const GAP = 8
+  const vw = window.innerWidth
+  const vh = window.innerHeight
+  const width = Math.min(320, vw - 16)
+  const belowSpace = vh - rect.bottom
+  const above = belowSpace < height + GAP && rect.top - GAP > belowSpace
+  const left = Math.max(8, Math.min(rect.left, vw - 8 - width))
+  const originX = Math.max(14, Math.min(width - 14, rect.left + rect.width / 2 - left))
+  const rawTop = above ? rect.top - GAP - height : rect.bottom + GAP
+  const top = Math.max(8, Math.min(rawTop, vh - 8 - height)) // never clip top or bottom
+  return { left, top, width, originX, originY: above ? 'bottom' : 'top' }
+}
+
+// The orders section: three tiers of company chips. Hovering (or tapping) a chip opens a single shared
+// card explaining WHY it sits in that tier — the plain reason + the real stories that named it + the
+// impact breakdown. One card at a time (a tooltip singleton), portaled so it never clips the scroll panel.
+function ThemeOrders({ orders }: { orders: [string, ThemeCompany[]][] }) {
+  const [active, setActive] = useState<WhyActive | null>(null)
+  const openRef = useRef(false) // is a card currently open? — drives the instant-subsequent-hover skip (emil)
+  const openTimer = useRef<number | undefined>(undefined)
+  const closeTimer = useRef<number | undefined>(undefined)
+  const openedAt = useRef(0) // when the current card opened — lets onScroll ignore the auto-scroll that FOCUS itself causes
+  const activeRef = useRef<WhyActive | null>(null)
+  activeRef.current = active
+  const fine = () => typeof window !== 'undefined' && !!window.matchMedia?.('(hover: hover) and (pointer: fine)').matches
+
+  const clearTimers = () => { window.clearTimeout(openTimer.current); window.clearTimeout(closeTimer.current) }
+  const close = () => { clearTimers(); openRef.current = false; setActive(null) }
+
+  const openFor = (key: string, c: ThemeCompany, el: HTMLElement, sticky: boolean, instant: boolean) => {
+    clearTimers()
+    openRef.current = true
+    openedAt.current = performance.now()
+    setActive({ key, c, sticky, rect: el.getBoundingClientRect(), instant })
+  }
+
+  // hover intent: open after a short delay, or INSTANTLY if a card is already open (adjacent chips read fast)
+  const onEnter = (key: string, c: ThemeCompany, el: HTMLElement) => {
+    if (!fine() || activeRef.current?.sticky) return
+    clearTimers()
+    if (openRef.current) { openFor(key, c, el, false, true); return }
+    openTimer.current = window.setTimeout(() => openFor(key, c, el, false, false), 120)
+  }
+  const onLeave = (key: string) => {
+    window.clearTimeout(openTimer.current)
+    const a = activeRef.current
+    if (!a || a.sticky || a.key !== key) return
+    closeTimer.current = window.setTimeout(() => { if (!activeRef.current?.sticky) close() }, 110)
+  }
+  // click toggles a sticky card (also the touch path — no hover there); focus previews; blur closes a hover card
+  const onClick = (key: string, c: ThemeCompany, el: HTMLElement) => {
+    const a = activeRef.current
+    if (a?.key === key && a.sticky) { close(); return }
+    openFor(key, c, el, true, true)
+  }
+  // focus always moves the card to the newly-focused chip (keyboard Tab), replacing any prior card — so a
+  // pinned card never strands focus on a different chip. Opened non-sticky (a preview); Enter/Space pins it.
+  const onFocus = (key: string, c: ThemeCompany, el: HTMLElement) => openFor(key, c, el, false, true)
+  const onBlur = (key: string) => { const a = activeRef.current; if (a && !a.sticky && a.key === key) close() }
+
+  // while a card is open: Esc + an outside pointerdown close a sticky card; a genuine user scroll/resize
+  // closes both (a fixed card would detach from a chip that scrolled away). The scroll a keyboard FOCUS
+  // triggers to bring an off-screen chip into view fires right after open — ignore it, or the card the
+  // focus just opened would vanish in the same frame.
+  useEffect(() => {
+    if (!active) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close() }
+    const onDown = (e: PointerEvent) => { if (activeRef.current?.sticky && !(e.target as HTMLElement)?.closest?.('.themedd__co')) close() }
+    const onScroll = () => { if (performance.now() - openedAt.current > 300) close() } // skip the focus-induced auto-scroll
+    const onResize = () => close()
+    window.addEventListener('keydown', onKey)
+    window.addEventListener('pointerdown', onDown, true)
+    window.addEventListener('scroll', onScroll, true)
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      window.removeEventListener('pointerdown', onDown, true)
+      window.removeEventListener('scroll', onScroll, true)
+      window.removeEventListener('resize', onResize)
+    }
+  }, [active])
+  useEffect(() => () => clearTimers(), [])
+
+  return (
+    <div className="themedd__orders">
+      {orders.map(([label, cos]) => cos.length > 0 && (
+        <div key={label} className="themedd__ordergrp">
+          <div className="themedd__orderlabel">{label}</div>
+          <div className="themedd__cos">
+            {real(cos).slice(0, 12).map((c, i) => {
+              const key = `${label}-${c.name_key || c.name}-${i}`
+              const on = active?.key === key
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  className={`themedd__co themedd__co--${c.side}${on ? ' is-open' : ''}`}
+                  aria-expanded={on && !!active?.sticky}
+                  aria-describedby={on ? WHY_CARD_ID : undefined}
+                  aria-label={`${c.ticker ? `${c.ticker} ` : ''}${c.name} — ${ORDER_NOUN[c.order]} in this theme`}
+                  onPointerEnter={(e) => onEnter(key, c, e.currentTarget)}
+                  onPointerLeave={() => onLeave(key)}
+                  onFocus={(e) => onFocus(key, c, e.currentTarget)}
+                  onBlur={() => onBlur(key)}
+                  onClick={(e) => onClick(key, c, e.currentTarget)}
+                >
+                  {c.ticker ? <b>{c.ticker}</b> : null}{c.name}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      ))}
+      {active && <CompanyWhyCard key={active.key} c={active.c} rect={active.rect} instant={active.instant} />}
+    </div>
+  )
+}
+
+// The card itself — portaled to <body> so `position: fixed` escapes the scroll panel and any transformed
+// ancestor. Pure information (pointer-events: none): the reason, the sourced stories, and the impact bars.
+// It renders hidden for one layout pass, MEASURES its real height, then places itself against the chip so
+// it can never clip the top or bottom (heights vary with the number of stories). useLayoutEffect runs
+// before paint, so there is no visible jump.
+function CompanyWhyCard({ c, rect, instant }: { c: ThemeCompany; rect: DOMRect; instant: boolean }) {
+  const why = c.why
+  const reason = why?.reason || fallbackReason(c)
+  const evidence = why?.evidence || []
+  const ref = useRef<HTMLDivElement>(null)
+  const [pos, setPos] = useState<WhyPos | null>(null)
+  useLayoutEffect(() => {
+    const h = ref.current?.offsetHeight ?? 300
+    setPos(placeWhy(rect, h, instant))
+  }, [rect])
+  const style: CSSProperties = pos
+    ? { left: pos.left, top: pos.top, width: pos.width, transformOrigin: `${pos.originX}px ${pos.originY}` }
+    : { left: rect.left, top: 0, width: Math.min(320, window.innerWidth - 16), visibility: 'hidden' } // measured next frame
+  return createPortal(
+    <div ref={ref} id={WHY_CARD_ID} className={`themewhy${pos && instant ? ' themewhy--instant' : ''}`} role="tooltip" style={style}>
+      <div className="themewhy__head">
+        {c.ticker ? <b className="themewhy__tk mono">{c.ticker}</b> : null}
+        <span className="themewhy__name">{c.name}</span>
+        <span className={`themewhy__tier themewhy__tier--o${c.order}`}>{orderLabel(c.order)}</span>
+        {c.side !== 'mixed' && (
+          <span className={`themewhy__side themewhy__side--${c.side}`}>{c.side === 'beneficiary' ? 'may gain' : 'may be hurt'}</span>
+        )}
+      </div>
+      <p className="themewhy__reason">{reason}</p>
+      {evidence.length > 0 ? (
+        <div className="themewhy__ev">
+          <div className="themewhy__evlabel">Why it’s here — the stories that named it</div>
+          <ul className="themewhy__evlist">
+            {evidence.map((e) => (
+              <li key={e.event_id} className="themewhy__evrow">
+                <span className="themewhy__evscore mono" style={{ color: scoreTone(e.score) }}>{e.score}</span>
+                <span className="themewhy__evhl">{e.headline}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <div className="themewhy__evempty">Named in this theme’s recent news.</div>
+      )}
+      <div className="themewhy__impact">
+        <span className="themewhy__impacttitle">Impact <b className="mono">{c.impact.composite}</b><span className="themewhy__impactmax">/100</span></span>
+        <div className="themewhy__bars">
+          {IMPACT_BARS.map((b) => {
+            const v = Math.max(0, Math.min(25, c.impact[b.key]))
+            return (
+              <div key={b.key} className="themewhy__bar" title={`${b.long}: ${v}/25`} aria-label={`${b.short} ${v} of 25`}>
+                <span className="themewhy__barlabel" aria-hidden>{b.short}</span>
+                <span className="themewhy__bartrack" aria-hidden><span className="themewhy__barfill" style={{ transform: `scaleX(${v / 25})` }} /></span>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </div>,
+    document.body,
+  )
+}
+
 function ThemeDeepDive() {
   const detail = useStore((s) => s.themeDetail)
   const loading = useStore((s) => s.themesLoading)
@@ -763,18 +977,7 @@ function ThemeDeepDive() {
       <ThemeBriefBlock brief={brief?.brief?.trim() || (briefLoading ? '' : t.description)} note={brief?.generation === 'deterministic' ? brief?.note : undefined} loading={briefLoading && !brief} refreshing={briefLoading} canRefresh={!!brief} onRefresh={regenerateThemeBrief} />
       <div className="themedd__sparkrow"><Sparkline series={t.flow_series} w={220} h={36} interactive /><span className="themedd__scores">freshness {detail.scores.freshness} · breadth {detail.scores.breadth} · staying power {detail.scores.persistence}</span></div>
 
-      <div className="themedd__orders">
-        {orders.map(([label, cos]) => cos.length > 0 && (
-          <div key={label} className="themedd__ordergrp">
-            <div className="themedd__orderlabel">{label}</div>
-            <div className="themedd__cos">
-              {real(cos).slice(0, 12).map((c, i) => (
-                <span key={i} className={`themedd__co themedd__co--${c.side}`} title={`impact ${c.impact.composite}/100${c.mention_count ? ` · named ${c.mention_count}×` : ''}`}>{c.ticker ? <b>{c.ticker}</b> : null}{c.name}</span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+      <ThemeOrders orders={orders} />
 
       {detail.related_themes.length > 0 && (
         <div className="themedd__related">
