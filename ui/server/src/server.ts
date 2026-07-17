@@ -61,6 +61,7 @@ import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
 import { carryForwardModules, dataPoolNewest, prepareModuleResume, thesisPlan } from './completion'
 import { readIntakePlan } from './intake'
+import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-changed'
 import { readDataNeeds } from './data-needs'
 import { SubjectBusyError, withSubjectLock } from './subject-lock'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
@@ -757,6 +758,44 @@ app.get('/api/intake/:ticker', { config: { rateLimit: { max: 600, timeWindow: '1
   }
 })
 
+// ---------- what changed since the last version ----------
+// The git-history delta of THIS run's decision_record.json. The engine commits every run and a re-run
+// writes IN PLACE, so git is the only witness the previous version existed — without this the cockpit can
+// only ever show one snapshot and honestly refuse to say what moved.
+//
+// Computed server-side and handed to the client finished — never diffed client-side: a constructing
+// zustand selector returns a fresh reference on every store write (the getSnapshot loop), and two
+// surfaces computing the same diff twice could disagree about the call. Read-only: it shells
+// git log/show/rev-parse/ls-files/hash-object, none of which take the index lock, so it never races
+// commit-run.sh publishing a run.
+//
+// Route-param barrier: the SAME zod regex the launch routes use. It shapes the param AND is the taint
+// sanitizer CodeQL recognizes, so `ticker` never reaches path.join / git argv as an untrusted value.
+// isValidTicker below is the stricter real guard (TICKER_RE admits '..'). The optional runRoot targets
+// the EXACT run the cockpit is showing — selectTicker(t, runRoot) honours a run-history pick, so
+// resolving from the bare ticker here would describe a DIFFERENT run than the banner above it.
+const WhatChangedParams = z.object({ ticker: z.string().regex(TICKER_RE) })
+const WhatChangedQuery = z.object({ runRoot: z.string().regex(RUN_ROOT_RE).max(300).optional() })
+
+app.get('/api/what-changed/:ticker', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const parsed = WhatChangedParams.safeParse(req.params)
+  if (!parsed.success) return reply.code(400).send({ error: 'bad ticker' })
+  const { ticker } = parsed.data
+  if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  const q = WhatChangedQuery.safeParse(req.query ?? {})
+  if (!q.success) return reply.code(400).send({ error: 'bad runRoot' })
+  try {
+    const runRoot = resolveRunRoot({ runRoot: q.data.runRoot, ticker, preferComplete: true })
+    if (!runRoot) return { read: null }
+    // the pair must agree — a runRoot naming another company would silently answer about the wrong subject
+    if (!runRoot.startsWith(`analyses/${ticker}_`)) return reply.code(400).send({ error: 'runRoot does not match ticker' })
+    return { read: await readWhatChanged({ runRoot }) }
+  } catch (e: any) {
+    if (e?.statusCode === 400) return reply.code(400).send({ error: 'bad ticker' })
+    return reply.code(500).send({ error: e?.message || 'could not read the version history' })
+  }
+})
+
 // Data-needs dock (the "surface a data gap → build a durable connector → re-score" loop): the structured
 // data_needs[] the run's terminal synthesizer wrote onto decision_record.json, normalized + roster-validated
 // by readDataNeeds. Read-only. Same TICKER_RE zod barrier + isValidTicker guard as /api/intake (the subject
@@ -1189,9 +1228,22 @@ app.post('/api/chat', async (req, reply) => {
   }
   if (!runRoot) return reply.code(404).send({ error: 'no run found for this subject yet — run the engine first' })
 
+  // The git-history delta for the SAME runRoot the context is built from — never re-resolved from the
+  // subject, or this block would describe a different run than every other piece. Run scope only: an
+  // orb/module question is not a run-level question. Awaited HERE, in the already-async handler, so
+  // assembleContext stays sync and execFileSync never touches the loop serving the SSE streams.
+  // `.catch(() => null)` — a git failure degrades to today's honest refusal, never a 500.
+  const wc =
+    swarmId === RESEARCH_SWARM_ID && scope === 'run'
+      ? await readWhatChanged({ runRoot }).catch(() => null)
+      : null
+
   let assembled
   try {
-    assembled = assembleContext({ scope, runRoot, module, orbPath, swarmId })
+    assembled = assembleContext({
+      scope, runRoot, module, orbPath, swarmId,
+      whatChanged: wc ? { markdown: whatChangedMarkdown(wc) } : null,
+    })
   } catch (e: any) {
     return reply.code(400).send({ error: 'cannot assemble context', detail: String(e?.message || e) })
   }

@@ -59,6 +59,7 @@ export interface AssembledContext {
   degraded: boolean
   degradeNote?: string
   missingHint?: string // set when !present — what the user must run first
+  hasChangeBlock?: boolean // a "What changed since the last version" piece is in the context
 }
 
 function tryRead(relPath: string): string | null {
@@ -127,6 +128,11 @@ export function assembleContext(opts: {
   module?: string
   orbPath?: string
   swarmId?: string // which swarm's module graph to walk for the run scope (default research)
+  // The git-history delta, pre-computed by the caller. It arrives ALREADY RENDERED because reading git
+  // is async and this assembler is sync with one caller (an already-async route handler). Keeping it that
+  // way is deliberate: making this async would cascade, and the only sync alternative — execFileSync —
+  // stalls the event loop that serves the live SSE streams, which the cockpit reads as "System offline".
+  whatChanged?: { markdown: string } | null
 }): AssembledContext {
   const { scope, runRoot } = opts
   const swarmId = opts.swarmId ?? 'research'
@@ -218,6 +224,16 @@ export function assembleContext(opts: {
       })
     } catch { /* unreadable decision record — skip */ }
   }
+  // The version delta sits with the decision record it describes (priority 4): only final_thesis.md (5)
+  // outranks it, so it survives every realistic trim.
+  if (opts.whatChanged) {
+    pieces.push({
+      heading: 'What changed since the last version',
+      relPath: `${runRoot}/decision_record.json — git history`,
+      markdown: opts.whatChanged.markdown,
+      priority: 4,
+    })
+  }
   // every module synthesis, in discovered (topo) order (this swarm's graph)
   const g = buildSwarmGraph(swarmId)
   for (const m of g.modules) {
@@ -239,6 +255,9 @@ export function assembleContext(opts: {
   const degraded = dropped.length > 0
   return {
     present: true, scope, runRoot, label: 'Whole run', sourcePath,
+    // derived from what SURVIVED the trim, never from what we pushed — the rule must not promise the
+    // model a section that got dropped on the way out.
+    hasChangeBlock: kept.some((p) => p.heading === 'What changed since the last version'),
     context: render(kept),
     files: kept.map((p) => ({ path: p.relPath, heading: p.heading, tokens: estTokens(p.markdown) })),
     approxTokens: kept.reduce((n, p) => n + estTokens(p.markdown), 0),
@@ -283,6 +302,19 @@ export function scopeAvailability(ticker: string, runRoot: string | null, swarmI
 }
 
 // ---- prompt construction (closed-book system + the context/transcript/question user message) ----
+// Added ONLY when the delta block actually survived into the context. With no block, the chat keeps its
+// honest refusal ("I have one snapshot and cannot diff") — which was correct behaviour, not a bug. We
+// retire that refusal only when we can back it with evidence.
+const CHANGE_RULE =
+  'A "What changed since the last version" section is in the CONTEXT. When asked what changed, answer from ' +
+  'it ONLY — never infer a change by re-reading the current snapshot. If it says the call did not move, lead ' +
+  'with that plainly: an unchanged call is a real answer, not a failure (doctrine §1). Then name everything ' +
+  'it lists as changed. Never say "nothing changed" while a red flag, kill criterion, missing-data item or ' +
+  'module verdict moved — that section separates the call from the evidence underneath it precisely so both ' +
+  'get reported. Name the two versions you are comparing (revision + date), and say so if the current one is ' +
+  'marked not yet committed. Do not call a change to the call an upgrade or a downgrade — the ratings are not ' +
+  'a ladder; say it changed from X to Y.'
+
 export function buildChatPrompts(args: {
   assembled: AssembledContext
   messages: ChatMessage[]
@@ -291,18 +323,24 @@ export function buildChatPrompts(args: {
 }): { system: string; user: string } {
   const { assembled, messages, subject } = args
   const styleInstruction = CHAT_STYLE_INSTRUCTIONS[args.style ?? DEFAULT_CHAT_STYLE]
-  const degradeRule = assembled.degraded
-    ? '\n6. NOTE: the CONTEXT was trimmed to fit, so some orb-level detail may be missing. If a question needs more depth than the CONTEXT holds, tell the user to narrow the chat to that single module or orb.'
-    : ''
+  // Rules are numbered from their INDEX, never hand-numbered: the conditional rules below used to append
+  // a hardcoded "6.", so adding a second optional rule would have printed two 6s.
+  const rules = [
+    'Closed book. Use ONLY the CONTEXT. You have NO tools and cannot browse, fetch prices, or read other files. Do not use outside knowledge, and do not rely on anything not written in the CONTEXT.',
+    "No source = no claim (engine doctrine §3). If the answer is not in the CONTEXT, say so plainly in one line and name which module or orb the user should run to get it. Never guess, estimate, or fill a gap from memory.",
+    'Cite as you go. After a fact, name the heading it came from, e.g. "(Valuation — module synthesis)" or "(Earnings · 03_margin-drivers)", so every number is traceable.',
+    'Plain English, short sentences (doctrine §21). Keep technical terms (EBITDA, FCF, net debt, ROIC, …) but add a short plain meaning the first time one appears. Lead with the answer; be concise and specific.',
+    "Numbers must match the CONTEXT exactly — do not recompute or round away precision, and keep the company's own currency and units.",
+    ...(assembled.hasChangeBlock ? [CHANGE_RULE] : []),
+    ...(assembled.degraded
+      ? ['NOTE: the CONTEXT was trimmed to fit, so some orb-level detail may be missing. If a question needs more depth than the CONTEXT holds, tell the user to narrow the chat to that single module or orb.']
+      : []),
+  ]
   const system = [
     `You are the research-desk assistant inside an institutional equity-research engine. You answer questions about ONE company using ONLY the CONTEXT block in the user's message — the engine's own synthesized notes for ${subject} (scope: ${assembled.label}).`,
     '',
     'Rules you must follow:',
-    '1. Closed book. Use ONLY the CONTEXT. You have NO tools and cannot browse, fetch prices, or read other files. Do not use outside knowledge, and do not rely on anything not written in the CONTEXT.',
-    "2. No source = no claim (engine doctrine §3). If the answer is not in the CONTEXT, say so plainly in one line and name which module or orb the user should run to get it. Never guess, estimate, or fill a gap from memory.",
-    '3. Cite as you go. After a fact, name the heading it came from, e.g. "(Valuation — module synthesis)" or "(Earnings · 03_margin-drivers)", so every number is traceable.',
-    '4. Plain English, short sentences (doctrine §21). Keep technical terms (EBITDA, FCF, net debt, ROIC, …) but add a short plain meaning the first time one appears. Lead with the answer; be concise and specific.',
-    "5. Numbers must match the CONTEXT exactly — do not recompute or round away precision, and keep the company's own currency and units." + degradeRule,
+    ...rules.map((r, i) => `${i + 1}. ${r}`),
     '',
     styleInstruction,
   ].join('\n')

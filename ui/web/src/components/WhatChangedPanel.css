@@ -1,0 +1,140 @@
+/* "What changed since the last version".
+   Motion budget: transform/opacity only, every UI transition <300ms, custom easing (--ease-out).
+   The modal itself stays centered (it is not anchored to a trigger); only popovers are origin-aware.
+   Tokens only — no hex/rgb() here, so the panel resolves in {dark, light} x {hand-tuned accent,
+   color-mix-derived accent} without a fifth code path. */
+
+.wc {
+  width: 620px; max-width: calc(100vw - 32px);
+  max-height: min(88vh, 900px);
+  display: flex; flex-direction: column;
+}
+/* chrome is fixed; only the body scrolls — the title and Close must never be pushed off a short viewport */
+.wc .modal__head, .wc .modal__actions { flex: none; }
+.wc__head { padding-bottom: 10px; }
+.wc__body { min-height: 0; overflow-y: auto; padding: 0 20px 4px; }
+
+.wc__sub { font-size: 11px; color: var(--text-faint); font-family: var(--font-mono); }
+.wc__actions { display: flex; justify-content: flex-end; padding: 12px 20px 16px; }
+
+/* ---- provenance: the axis, then the two revisions ---------------------------------------------- */
+/* The axis line is not decoration. Sibling run folders always exist (EMAAR_2026-06-22 / _07-03 / _07-10),
+   so "the previous version" is genuinely ambiguous until it is named. Say which comparison this is,
+   every time. */
+.wc__axis { font-size: 11.5px; color: var(--text-faint); margin: 0 0 8px; line-height: 1.5; }
+.wc__vers { display: flex; flex-direction: column; gap: 3px; padding: 9px 11px; border: 1px solid var(--hairline); border-radius: var(--r-sm); }
+.wc__ver { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); }
+.wc__ver b { color: var(--text); font-weight: 600; }
+/* the commit subject is the engine's OWN account of why this version exists — quoted verbatim, never
+   paraphrased into an inferred cause */
+.wc__ver em { font-style: normal; color: var(--text-faint); }
+
+/* ---- the verdict: the whole answer, at a glance ------------------------------------------------- */
+.wc__verdict { padding: 14px 0 10px; border-bottom: 1px solid var(--hairline); }
+.wc__headline { margin: 0; font-size: 16px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+.wc__headline--quiet { font-size: 13px; font-weight: 400; color: var(--text-muted); line-height: 1.55; padding: 14px 0; }
+.wc__subline { margin: 5px 0 0; font-size: 12px; color: var(--text-muted); font-family: var(--font-mono); }
+.wc__under { margin: 5px 0 0; font-size: 11.5px; color: var(--rerun); }
+
+/* ---- sections ---------------------------------------------------------------------------------- */
+.wc__sect { padding: 12px 0; border-bottom: 1px solid var(--hairline); }
+.wc__sect:last-of-type { border-bottom: none; }
+.wc__secthead, .wc__sect--fold > summary { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+.wc__secthead h4, .wc__sect--fold h4 { margin: 0; font-size: 9px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-faint); font-weight: 600; }
+.wc__hint { font-size: 10.5px; color: var(--text-faint); }
+
+.wc__sect--fold > summary { cursor: pointer; list-style: none; }
+.wc__sect--fold > summary::-webkit-details-marker { display: none; }
+.wc__sect--fold > summary h4::before { content: '▸ '; }
+.wc__sect--fold[open] > summary h4::before { content: '▾ '; }
+.wc__prose { margin: 0; font-size: 11.5px; color: var(--text-muted); line-height: 1.55; }
+
+/* ---- anchor rows ------------------------------------------------------------------------------- */
+/* Unchanged anchors are SHOWN, muted. An unchanged anchor is evidence — it is the actual answer to
+   "did my confidence change?" — so it is never hidden to shorten the list. */
+.wc__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 72px 14px 72px;
+  align-items: baseline;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 12px;
+  color: var(--text-faint);
+  /* enter-only: this panel can re-render on a run tick, and a framer exit can freeze mid-flight — so the
+     rows cascade in and are removed instantly. `both` holds the truthful end state. */
+  animation: wc-row-in var(--dur-fast) var(--ease-out) both;
+  /* stagger 34ms, CAPPED at 8: a change list has no fixed length, and an uncapped cascade would make a
+     long one visibly crawl. Neither existing dock caps — their lists are short; this one is not. */
+  animation-delay: calc(min(var(--i, 0), 8) * 34ms);
+}
+.wc__row[data-moved] { color: var(--text-muted); }
+.wc__rowlabel { color: inherit; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wc__rowlabel--sub { padding-left: 10px; font-size: 11px; font-family: var(--font-mono); }
+.wc__val { font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; color: inherit; }
+.wc__row[data-moved] .wc__val { color: var(--text); }
+.wc__arrow { color: var(--text-faint); text-align: center; }
+.wc__inv { margin-left: 4px; color: var(--conv-warn); cursor: help; }
+.wc__note { grid-column: 1 / -1; margin: 3px 0 0; font-size: 10.5px; color: var(--text-faint); line-height: 1.5; font-style: italic; }
+
+@keyframes wc-row-in { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+
+/* ---- evidence list ----------------------------------------------------------------------------- */
+.wc__list { padding: 5px 0; }
+.wc__list + .wc__list { border-top: 1px dashed var(--hairline); margin-top: 6px; }
+.wc__listhead { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-size: 12px; color: var(--text-muted); }
+.wc__count { font-size: 11px; color: var(--text-faint); font-family: var(--font-mono); }
+.wc__item {
+  display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 4px;
+  margin: 4px 0 0; font-size: 11.5px; line-height: 1.5; color: var(--text-muted);
+  animation: wc-row-in var(--dur-fast) var(--ease-out) both;
+  animation-delay: calc(min(var(--i, 0), 8) * 34ms);
+}
+.wc__sign { font-family: var(--font-mono); font-weight: 600; }
+/* violet = "new data touched this", the same meaning it already carries on a to-be-reheated orb. Ties the
+   two halves of the story together (the dock that showed the document, and this) with no new token. */
+.wc__item--add .wc__sign { color: var(--rerun); }
+.wc__item--rm { color: var(--text-faint); }
+.wc__item--rm .wc__sign { color: var(--bad); }
+.wc__item--rw .wc__sign { color: var(--conv-warn); }
+/* mute via CONTENT colour, never container opacity: the entrance animation's `forwards` fill lands on
+   opacity:1 and would override a card-level opacity outright */
+.wc__item--rm span:not(.wc__sign) { color: var(--text-faint); }
+/* inline aside inside a line of text — distinct from .wc__sub, the modal header subtitle */
+.wc__aside { font-style: italic; color: var(--text-faint); }
+
+.wc__memo { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--hairline); font-size: 11.5px; color: var(--text-faint); }
+.wc__memo b { color: var(--text-muted); font-weight: 500; }
+
+/* ---- the banner chip --------------------------------------------------------------------------- */
+.wc__chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 2px 7px;
+  border: 1px solid var(--hairline); border-radius: 999px;
+  background: transparent;
+  font: inherit; font-size: 10.5px; color: var(--text-faint);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .wc__chip:hover { border-color: var(--hairline-strong); color: var(--text-muted); }
+}
+/* instant feedback on press — the UI must feel like it heard the click */
+.wc__chip:active { transform: scale(0.97); }
+.wc__chip[data-tone='moved'] { color: var(--rerun); border-color: var(--rerun-wash); }
+.wc__chip[data-tone='better'] { color: var(--accent-bright); }
+.wc__chip[data-tone='worse'] { color: var(--bad); }
+.wc__chip[data-tone='call'] { color: var(--conv-warn); border-color: var(--conv-warn); }
+/* first_version has nothing to open. A control that LOOKS pressable and isn't teaches the user the panel
+   is broken — so it renders as a plain span with no hover, no press, no pointer. */
+.wc__chip--inert { cursor: default; }
+@media (hover: hover) and (pointer: fine) {
+  .wc__chip--inert:hover { border-color: var(--hairline); color: var(--text-faint); }
+}
+.wc__chip--inert:active { transform: none; }
+
+/* Reduced motion: drop the movement, keep the truthful end state. */
+@media (prefers-reduced-motion: reduce) {
+  .wc__row, .wc__item { animation: none; }
+  .wc__chip { transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
+  .wc__chip:active { transform: none; }
+}
