@@ -1,5 +1,9 @@
 # TMCV — Investment Dossier (2026-06-07)
 
+> **ERRATUM (appended 2026-07-17 · the analysis below is unchanged · frozen record untouched, DECISION_LEDGER §4a).**
+> The Part I headline scorecard states **Expected return +4.3%** and **Risk/reward 0.72×**, and §3 repeats +4.3%. These are wrong.
+> The engine's own §8/§14 scenario math computes the probability-weighted expected return as **−4.4%** and the base-case risk/reward as **−0.23** (the "+4.3% ✓" in §8 is an un-cleared draft slip whose own parenthetical shows −4.35%; §14 shows 0.74× / −0.23). `decision_record.json` already carries the correct **−4.4% / −0.23**, so the rating (Watchlist) and every scored field are unaffected — only this headline prose was inconsistent. See `corrections.json` (kind: math_reconcile).
+
 **Tata Motors Limited (NSEI:TMCV)** — India's largest pure-play commercial vehicle (CV) manufacturer, demerged from the old Tata Motors group and separately listed in November 2025. Sells trucks, buses, and light commercial vehicles across 52 countries. Revenue ₹83,855 crore (FY26). Market cap ₹1,35,933 crore. Current price ₹369.15.
 
 Run date: 2026-06-07 | Modules: business-model, earnings, balance-sheet-survival, management-governance, valuation, catalyst (all completed) | System commit: 10fb6ffa9cb3772f987d298b46321d5a755d1248

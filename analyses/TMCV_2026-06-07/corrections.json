@@ -1,0 +1,11 @@
+{
+  "schema": "corrections/v1",
+  "errata": [
+    {
+      "field": "final_thesis.md#headline_scorecard",
+      "kind": "math_reconcile",
+      "reason": "final_thesis.md Part I headline scorecard states Expected return '+4.3%' (line 32) and Risk/reward '0.72×' (line 34), and §3 repeats '+4.3%' (line 47). These contradict the engine's own §8/§14 scenario math, which computes the probability-weighted expected return as -4.4% and the base-case risk/reward as -0.23 / 0.74× (the §8 line 169 '+4.3% ✓' is an un-cleared draft arithmetic slip — its own parenthetical shows the exact figure is -4.35%). decision_record.json ALREADY carries the correct values (expected_return_pct=-4.4, risk_reward=-0.23), so no scored field is wrong — only the final_thesis.md prose headline. Corrected via an idempotent ERRATUM banner prepended to final_thesis.md (the sanctioned finish-gate banner mechanism); the frozen decision record is unchanged. eval check AI (headline-scorecard reconciliation) flags this as an advisory; the banner resolves the human-facing contradiction.",
+      "evidence": "analyses/TMCV_2026-06-07/final_thesis.md lines 32/34/47/169 vs decision_record.json expected_return_pct=-4.4, risk_reward=-0.23; eval.py check AI advisory"
+    }
+  ]
+}

@@ -123,7 +123,7 @@ For each record being reviewed, Read:
 Pull from the decision record: `decision`, `basket`, `entry_price`, `entry_price_source`, `entry_price_timestamp`, `benchmark`, `sector_benchmark`, `time_horizon`, `forecast_ledger`, `kill_criteria`, `red_flags`, `missing_data`, `notes`, `decision_date`.
 
 **Price / return handling:**
-- **If `entry_price` is `null`:** do NOT compute a return and do NOT fake a paper trade. Keep `review_price`, `absolute_return_pct`, `benchmark_return_pct`, `sector_return_pct`, and both relative-return fields `null`. Still review thesis status, forecast status, missing data, and process quality. Note in `lessons` that no entry price existed so price-quality is not assessable (consistent with the original record's missing-price caveat).
+- **If `entry_price` is `null`:** the frozen record has no price anchor (§4 barred a web/indicative price from populating it), so a `entry_price`-based return is impossible AND the frozen record must never be edited (§4). Do NOT fake a paper trade. BUT establish a **`tracking_price`** so the call is not permanently unscoreable: on the FIRST review that finds a usable price, record, in THIS review file only (never the decision record), a `tracking_price` block — `{ price, source, as_of, currency, established_at_window }` — labelled source+date (indicative/unverified is fine). From then on compute returns from the `tracking_price` (carry the SAME `tracking_price` forward on later reviews so every window measures from one fixed anchor, not a moving one), and set `absolute_return_pct` = (review_price − tracking_price.price) / tracking_price.price × 100, flagged in `lessons` as "tracking-price basis (no pool entry price existed)". Keep `entry_price`-derived fields `null`. `/research:calibrate` reads `tracking_price` for a null-entry call so it enters the hit-rate and cohort math instead of being dropped. Still review thesis status, forecast status, missing data, and process quality regardless.
 - **If `entry_price` exists:** attempt to gather, via WebSearch/WebFetch, a current/review price for the ticker as of `<REVIEW_DATE>`, plus benchmark and sector-benchmark total returns over the same window. Compute:
   - `absolute_return_pct` = (review_price − entry_price) / entry_price × 100
   - `benchmark_relative_return_pct` = `absolute_return_pct` − `benchmark_return_pct`
@@ -199,7 +199,11 @@ Populate `module_calibration_notes` as a JSON object (§13). Address, where evid
 - which module looks **most accurate** so far;
 - which module **missed the key variable**, if any;
 - whether **valuation / earnings / governance / balance-sheet-survival / business-quality** mattered most to the realized outcome;
-- whether `confidence_score` / `data_sufficiency_score` should have been higher or lower in hindsight.
+- whether `confidence_score` / `data_sufficiency_score` should have been higher or lower **given only what was knowable on or before `decision_date`** (see the information-partition rule below).
+
+**Information-partition rule (no look-ahead in the process judgment).** Two different questions get two different evidence sets, and mixing them corrupts the calibration-feedback haircut (which reads these notes):
+- **Process / "should-have-known" judgment** (`decision_quality`, `module_calibration_notes`, "confidence should have been higher/lower", `error_taxonomy` of type *bad process*) uses **only information dated on or before `decision_date`** — the evidence the engine actually had. A miss that only a post-decision disclosure revealed is **not** a process error; grading it as one teaches the engine the wrong lesson (resulting / hindsight bias). If a web fact you found is dated after `decision_date`, it may NOT downgrade the original reasoning.
+- **Outcome fields** (`thesis_status`, `forecast_results`, `catalyst_results`, `risk_results`, returns) use **post-decision facts** — that is their whole point. Label each web fact with its date so the two sets stay separable.
 
 If there is not enough evidence yet (e.g. an early `30d` review), say so explicitly in the object rather than guessing.
 

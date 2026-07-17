@@ -1,0 +1,22 @@
+{
+  "schema": "corrections/v1",
+  "superseded_by": {
+    "run_root": "analyses/EMAAR_2026-07-10",
+    "reason": "This 'Starter Position Only' (Selected) call was corrected to Watchlist by the 2026-07-10 re-run under a tighter rule application. It exceeds the §24 Filter-6 (unaligned-owner, RF-OWN-004) conviction cap that limits this thesis to Watchlist (eval check AD FAILs it), and its scenario tree has no genuine loss branch — the 'bear' case is a +63.9% GAIN (price target AED 20.0 vs entry AED 12.20), and downside_risk_pct -63.9 is that gain sign-flipped into a loss field (fails §8 strongest-bear-case and §16). It is retained frozen for audit but must not count as a live call.",
+    "date": "2026-07-17"
+  },
+  "errata": [
+    {
+      "field": "scenarios",
+      "kind": "note_clear",
+      "reason": "Documentation only (this run is superseded, so it is dropped from the standing set and never scored). The bear-case scenario has price_target AED 20.0 > entry AED 12.20 — a gain, not a loss; there is no downside branch. eval check AM now catches this class at authoring time for any future Selected/conviction call dated on or after 2026-07-17.",
+      "evidence": "analyses/EMAAR_2026-07-03/decision_record.json scenarios[bear].price_target=20.0 vs entry_price=12.2; CLAUDE.md §8, §16"
+    },
+    {
+      "field": "downside_risk_pct",
+      "kind": "note_clear",
+      "reason": "Documentation only. downside_risk_pct -63.9 is the bear-case GAIN (+63.9%) sign-flipped into the loss field — the record has no real capital-loss downside because the bear case is itself a gain. Not normalised (the run is superseded and excluded from scoring); recorded so the defect is an auditable lesson, not a silent overwrite.",
+      "evidence": "analyses/EMAAR_2026-07-03/decision_record.json downside_risk_pct=-63.9 vs scenarios[bear].return_pct=+63.9"
+    }
+  ]
+}

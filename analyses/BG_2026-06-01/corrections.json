@@ -1,0 +1,17 @@
+{
+  "schema": "corrections/v1",
+  "errata": [
+    {
+      "field": "forecast_ledger[].probability",
+      "kind": "scale_fix",
+      "reason": "The forecast-ledger probabilities were recorded as decimal fractions (0.60, 0.55, 0.45, 0.60, 0.70, 0.80) instead of the 0-100 scale DECISION_LEDGER §6 requires. Read verbatim, a 60% belief becomes 0.6% in a Brier score — silently corrupting the first calibration. scale_fix restores the 0-100 scale on read (×100); the frozen record is unchanged. This run predates eval check T2's date gate (2026-06-22), so the record itself was never re-validated.",
+      "evidence": "analyses/BG_2026-06-01/decision_record.json forecast_ledger[].probability all in (0,1]; DECISION_LEDGER.md §6 ('a decimal-fraction value ... is a defect')"
+    },
+    {
+      "field": "entry_price",
+      "kind": "note_clear",
+      "reason": "entry_price is null — no pool-verified price existed at decision (only an indicative web quote, barred from entry_price by §4). The frozen record cannot be edited. Per review-decisions.md, the first review that finds a usable price establishes a review-side tracking_price so BG can enter the hit-rate / cohort math from that anchor; nothing is written to this record.",
+      "evidence": "analyses/BG_2026-06-01/decision_record.json entry_price=null; frameworks/DECISION_LEDGER.md §4"
+    }
+  ]
+}

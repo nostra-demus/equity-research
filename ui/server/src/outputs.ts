@@ -3,6 +3,7 @@ import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT } from './config'
 import { resolveInsideAnalyses, resolveInsidePrompts } from './sandbox'
 import { extractVerdict } from './verdict'
+import { isSupersededRun, normalizeRecord } from './ledger-corrections'
 
 // `resolve` defaults to the analyses/ sandbox (research). The chat reader passes resolveInsideRuns so it
 // can ground on any swarm's run folder; every other caller keeps the analyses-only default unchanged.
@@ -417,9 +418,13 @@ export function listAllCalls() {
   for (const name of entries) {
     if (!/_\d{4}-\d{2}-\d{2}$/.test(name)) continue // only <TICKER>_<YYYY-MM-DD> run folders
     const runRoot = `analyses/${name}`
+    // Skip a corrected-away duplicate (frameworks/DECISION_LEDGER.md §4a): a run superseded by an
+    // append-only corrections.json is not a live call — this is what de-double-counts EMAAR here and
+    // in the cockpit Calls view, matching scripts/ledger_records.py's standing set.
+    if (isSupersededRun(runRoot)) continue
     let d: any
     try {
-      d = readDecision(runRoot)
+      d = normalizeRecord(runRoot, readDecision(runRoot)) // apply append-only field errata on read
     } catch {
       continue
     }

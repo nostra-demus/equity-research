@@ -47,6 +47,22 @@ Tune the cap by adding `HOUSEKEEPING_BUDGET_USD` (default `8`) to any `hk-*` pli
 to `~/Library/Logs/nostradamus-housekeeping.log`. New full research runs are **never** scheduled — they stay
 human-initiated.
 
+**Server-side feedback loops (on for the doer).** The engine plist
+(`com.nostradamus.engine.plist`) now sets two more flags so the closed loops run from the always-on
+server, not only the macOS `hk-*` timers:
+- `CONVICTION_LOOP_ENABLED=1` — the screener conviction reconciler (`conviction-dispatch.ts`)
+  auto-fires `/screener:validate` on due checkpoints (+ a wire accelerant), so locked theses actually
+  re-rate instead of sitting `scheduled`. Bounded by `CONVICTION_MAX_CONCURRENT` (2), `CONVICTION_DAILY_CAP`
+  (12), `CONVICTION_TICK_SEC` (600).
+- `REVIEW_DISPATCH_ENABLED=1` — the research review tick (`review-dispatch.ts`) fires due
+  30/90/180/365d decision reviews from the server, so the outcome-measurement layer survives the doer
+  Mac being asleep (the first three 30d reviews slipped 10-12 days on the launchd-only path). It reuses
+  `listAllCalls()`'s DUE timeline (same `review_due` rule; honors the §4a supersession layer). Bounded by
+  `REVIEW_MAX_CONCURRENT` (1), `REVIEW_DAILY_CAP` (8), `REVIEW_TICK_SEC` (3600). It is a *superset* of the
+  `hk-review` launchd timer — running both is safe (per-ticker in-flight guard + the DUE gate), so the
+  timer can stay as a belt-and-braces fallback. **Reinstall the service to pick the flags up**
+  (`scripts/ops/install-services.sh`, then `launchctl kickstart -k gui/$UID/com.nostradamus.engine`).
+
 **Auth for the doer (required).** Both the cockpit and the `hk-*` timers spawn a headless `claude` under
 launchd, which cannot prompt for an interactive login — so the doer needs Anthropic credentials available
 non-interactively. Provide them the way the engine already reads them (`ui/server/src/load-env.ts`): put

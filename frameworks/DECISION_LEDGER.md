@@ -114,6 +114,51 @@ Paper trades are **simulated research outcomes, not real orders**.
 
 ---
 
+## 4a. Append-Only Correction Layer
+
+§4's "never overwrite" is absolute — a committed `decision_record.json` is frozen forever. But a
+committed record can still carry a defect that would **corrupt the calibration scoreboard** if read
+verbatim: a superseded duplicate (two live calls for one ticker), a decimal-fraction probability
+that turns 60% into 0.6% in a Brier score, an inconsistent `downside_risk_pct` sign. The only
+sanctioned way to correct these without editing the frozen file is the **same mechanism §8 already
+uses for outcomes** — an append-only sidecar — generalised from outcomes to record-level
+corrections.
+
+**The sidecar.** A run may carry `analyses/<RUN>/corrections.json` (schema `corrections/v1`),
+append-only and machine-readable, with any subset of:
+- `superseded_by: { run_root, reason, date }` — this run has been corrected-away by a later run; it
+  is **dropped from the standing set** (it is not a live call). Use this when a re-run replaces a
+  defective decision (e.g. a §24-cap violation corrected to a lower rating).
+- `errata: [ { field, kind, reason, evidence } ]` — a field the reader must normalise on read.
+  `kind ∈ { scale_fix, sign_fix, shape_fix, math_reconcile, note_clear }`. `scale_fix` restores a
+  decimal probability to the 0–100 scale; `sign_fix` normalises a loss magnitude to
+  positive-means-loss; `shape_fix` coerces a legacy list shape to the canonical object shape;
+  `math_reconcile` / `note_clear` are documentation-only (they record a prose defect — e.g. a
+  `final_thesis.md` headline that contradicts its own model — without any numeric transform; the
+  correction to the prose is a machine-managed **banner** on `final_thesis.md`, the same idempotent
+  banner the `/research:full` finish-gate stamps, never a hindsight rewrite of the analysis).
+
+**Inviolable properties.** The frozen `decision_record.json` is **never touched** — the sidecar is
+the only thing written, and it only ever grows. A correction must be **explicit and declared**: a
+missing or malformed sidecar changes nothing (fail toward the frozen original), and a reader never
+infers a correction silently. The transform for each `kind` is **deterministic**.
+
+**One resolver, every reader.** `scripts/ledger_records.py` (`load_standing_records()` /
+`--standing-json`) is the authoritative resolver: it drops superseded runs and applies errata on
+read, and `/research:track`, `/research:calibrate`, and `/research:size` iterate **its** standing
+set instead of a raw `analyses/*/decision_record.json` glob. The cockpit's live Calls view
+(`GET /api/calls`) resolves through the byte-for-byte mirror `ui/server/src/ledger-corrections.ts`
+(a shared fixture, `ui/server/test/ledger-corrections.test.ts`, locks the two implementations
+together). `scripts/eval.py` deliberately does NOT drop superseded runs — every committed folder
+stays a structural fixture — but it validates that a superseded run's sidecar points at a real,
+existing target and that a Selected/Short call is never left standing with a corrected-away twin.
+
+This layer only corrects **integrity defects** — a duplicate, a scale, a sign, a self-contradiction
+the record already proves. It is **not** a channel for changing a decision with hindsight (that is
+§8's review + `memo_delta`, which recommends a fresh re-run and never edits the record either).
+
+---
+
 ## 5. Decision Record Schema
 
 The canonical `decision_record.json` the synthesizer emits — one per final thesis, written to `<RUN_ROOT>/decision_record.json` alongside `final_thesis.md` (Phase 2, live since the BG run). This schema is **proven** — it validated cleanly on BG — and is preserved unchanged.
