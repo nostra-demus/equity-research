@@ -24,31 +24,38 @@ interface SourceMeta {
 
 // domain → meta. Keys are bare registrable domains (no www, no path). Subdomains match by suffix.
 const DOMAINS: Record<string, SourceMeta> = {
-  // global wires
+  // global wires. NOTE (Jul 2026): the wires that HAVE their own direct feed are gdelt:false, per the
+  // rule above — Bloomberg/FT/WSJ/CNBC/MarketWatch/ET/Mint/Moneycontrol were being asked of GDELT for
+  // nothing, and every wasted domain lengthened the OR-query that GDELT was silently rejecting as "too
+  // long" (see gdelt.ts GDELT_MAX_QUERY_CHARS). Trimming them took the query set from 37 domains /
+  // 3-of-4-queries-rejected back to 23 domains / 4 valid queries.
+  // reuters.com is the DELIBERATE exception: it has no RSS (killed 2020) and is read via its Arc
+  // news-sitemap (rss_feeds.json), but that route is new — GDELT stays armed as a redundant path for
+  // the single most important wire on this desk. AP/AFP have no feed at all: GDELT is their ONLY route.
   'reuters.com': { source_name: 'Reuters', region: 'GLOBAL', input_nature: 'news_headline' },
   'apnews.com': { source_name: 'Associated Press', region: 'GLOBAL', input_nature: 'news_headline' },
   'ap.org': { source_name: 'Associated Press', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false }, // GDELT indexes AP under apnews.com, not ap.org (verified empty) — keep approved, drop the wasted query slot
-  'bloomberg.com': { source_name: 'Bloomberg', region: 'GLOBAL', input_nature: 'news_headline' },
+  'bloomberg.com': { source_name: 'Bloomberg', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false },
   'afp.com': { source_name: 'AFP', region: 'GLOBAL', input_nature: 'news_headline' },
-  'ft.com': { source_name: 'Financial Times', region: 'GLOBAL', input_nature: 'news_headline' },
+  'ft.com': { source_name: 'Financial Times', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false },
   'spglobal.com': { source_name: 'S&P Global Market Intelligence', region: 'GLOBAL', input_nature: 'news_headline' },
   // US press
-  'wsj.com': { source_name: 'The Wall Street Journal', region: 'US', input_nature: 'news_headline' },
-  'cnbc.com': { source_name: 'CNBC', region: 'US', input_nature: 'news_headline' },
-  'marketwatch.com': { source_name: 'MarketWatch', region: 'US', input_nature: 'news_headline' },
+  'wsj.com': { source_name: 'The Wall Street Journal', region: 'US', input_nature: 'news_headline', gdelt: false },
+  'cnbc.com': { source_name: 'CNBC', region: 'US', input_nature: 'news_headline', gdelt: false },
+  'marketwatch.com': { source_name: 'MarketWatch', region: 'US', input_nature: 'news_headline', gdelt: false },
   // India press
-  'economictimes.indiatimes.com': { source_name: 'The Economic Times', region: 'IN', input_nature: 'news_headline' },
+  'economictimes.indiatimes.com': { source_name: 'The Economic Times', region: 'IN', input_nature: 'news_headline', gdelt: false },
   'business-standard.com': { source_name: 'Business Standard', region: 'IN', input_nature: 'news_headline' },
-  'livemint.com': { source_name: 'LiveMint', region: 'IN', input_nature: 'news_headline' },
-  'moneycontrol.com': { source_name: 'Moneycontrol', region: 'IN', input_nature: 'news_headline' },
+  'livemint.com': { source_name: 'LiveMint', region: 'IN', input_nature: 'news_headline', gdelt: false },
+  'moneycontrol.com': { source_name: 'Moneycontrol', region: 'IN', input_nature: 'news_headline', gdelt: false },
   // regulators / exchanges → classified as filings / exchange intimations
-  'sec.gov': { source_name: 'SEC EDGAR', region: 'US', input_nature: 'regulatory_filing' },
-  'nseindia.com': { source_name: 'BSE / NSE Exchange Filing', region: 'IN', input_nature: 'exchange_announcement' },
-  'bseindia.com': { source_name: 'BSE / NSE Exchange Filing', region: 'IN', input_nature: 'exchange_announcement' },
+  'sec.gov': { source_name: 'SEC EDGAR', region: 'US', input_nature: 'regulatory_filing', gdelt: false },
+  'nseindia.com': { source_name: 'BSE / NSE Exchange Filing', region: 'IN', input_nature: 'exchange_announcement', gdelt: false },
+  'bseindia.com': { source_name: 'BSE / NSE Exchange Filing', region: 'IN', input_nature: 'exchange_announcement', gdelt: false },
   // energy / commodity agencies → macro prints (indexed thinly by GDELT, included where useful)
   'iea.org': { source_name: 'IEA', region: 'GLOBAL', input_nature: 'macro_data_release' },
   'opec.org': { source_name: 'OPEC Secretariat', region: 'GLOBAL', input_nature: 'macro_data_release' },
-  'eia.gov': { source_name: 'US EIA', region: 'US', input_nature: 'macro_data_release' },
+  'eia.gov': { source_name: 'US EIA', region: 'US', input_nature: 'macro_data_release', gdelt: false },
   'argusmedia.com': { source_name: 'Argus Media', region: 'GLOBAL', input_nature: 'commodity_price_move' },
   // other agency on the list
   'tasnimnews.com': { source_name: 'Tasnim News Agency', region: 'OTHER', input_nature: 'news_headline', gdelt: false }, // GDELT returns nothing for tasnimnews.com (verified empty) — drop the wasted query slot
@@ -270,8 +277,8 @@ const DOMAINS: Record<string, SourceMeta> = {
   'lesechos.fr': { source_name: 'Les Echos', region: 'OTHER', input_nature: 'news_headline' },
   'ilsole24ore.com': { source_name: 'Il Sole 24 Ore', region: 'OTHER', input_nature: 'news_headline' },
   'expansion.com': { source_name: 'Expansión', region: 'OTHER', input_nature: 'news_headline' },
-  'thenationalnews.com': { source_name: 'The National (UAE)', region: 'OTHER', input_nature: 'news_headline' },
-  'arabnews.com': { source_name: 'Arab News', region: 'OTHER', input_nature: 'news_headline' },
+  'thenationalnews.com': { source_name: 'The National (UAE)', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'arabnews.com': { source_name: 'Arab News', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
   'bangkokpost.com': { source_name: 'Bangkok Post', region: 'OTHER', input_nature: 'news_headline' },
   'businesslive.co.za': { source_name: 'Business Day (BusinessLive)', region: 'OTHER', input_nature: 'news_headline' },
   'dealstreetasia.com': { source_name: 'DealStreetAsia', region: 'OTHER', input_nature: 'news_headline' },

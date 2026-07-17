@@ -167,9 +167,33 @@ function firstHttpHref(html: string | null): string | null {
   return m ? m[1] : null
 }
 
-/** Parse one RSS 2.0 or Atom document into raw articles. Tolerant by construction: a malformed
- *  entry yields nothing rather than an error. Exported for the test suite. */
+/** Google-News sitemap (`<urlset xmlns:news=…><url><loc>…</loc><news:news><news:title>…`).
+ *  Some major wires expose their recent articles ONLY this way: Reuters has had no public RSS since
+ *  2020, but its Arc news-sitemap carries the same three fields we need (article URL, headline,
+ *  publication date) for the ~50 newest stories per page. Treating it as just another feed shape
+ *  keeps it a plain rss_feeds.json row — no bespoke per-publisher adapter, and verify-feeds.ts /
+ *  feed-health.ts check it byte-for-byte the way production does, because they reuse parseFeed. */
+function parseNewsSitemap(xml: string, maxItems: number): { title: string; link: string; date: string | null; snippet: string | null }[] {
+  const out: { title: string; link: string; date: string | null; snippet: string | null }[] = []
+  // `<url[\s>]` can't match `<urlset …` (the next char is "s"), so the wrapper never becomes an entry.
+  const blocks = xml.split(/<url[\s>]/i).slice(1)
+  for (const rawBlock of blocks.slice(0, maxItems)) {
+    const block = rawBlock.split(/<\/url>/i)[0]
+    const link = textOf(block, 'loc')
+    if (!link || !/^https?:\/\//i.test(link)) continue
+    const title = textOf(block, 'news:title')
+    if (!title) continue
+    out.push({ title, link, date: textOf(block, 'news:publication_date') || textOf(block, 'lastmod'), snippet: null })
+  }
+  return out
+}
+
+/** Parse one RSS 2.0, Atom, or Google-News-sitemap document into raw articles. Tolerant by
+ *  construction: a malformed entry yields nothing rather than an error. Exported for the test suite. */
 export function parseFeed(xml: string, maxItems = 60, baseUrl?: string): { title: string; link: string; date: string | null; snippet: string | null }[] {
+  // A news sitemap has no <item>/<entry>, so the RSS/Atom split below would yield nothing — detect it
+  // by its news namespace (a plain URL sitemap without <news:title> stays unsupported: no headlines).
+  if (/<urlset[^>]*xmlns:news\s*=/i.test(xml)) return parseNewsSitemap(xml, maxItems)
   const out: { title: string; link: string; date: string | null; snippet: string | null }[] = []
   // entry blocks: RSS <item>…</item>, Atom <entry>…</entry>
   const blocks = xml.split(/<(?:item|entry)[\s>]/i).slice(1)

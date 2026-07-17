@@ -1,5 +1,5 @@
 {
-  "_doc": "Layer 2 of the screener's news ingestion (CLAUDE.md-versioned doctrine, not engine code): direct publisher RSS/Atom feeds, polled alongside GDELT (Layer 1) and the NSE disclosure API (Layer 3) every cycle. Items still pass the approved-domains firewall on their LINK domain — adding a feed here never bypasses Gate 0. Every URL was verified live (HTTP 200 + parseable by scripts/verify-feeds.ts, which reuses the production parseFeed) before being added. The fetcher uses a browser User-Agent by default (UA-sniffing publishers soft-block bots); per-feed `user_agent` overrides it where required — SEC/.gov feeds carry a descriptive contact UA. Known non-starters, checked and excluded: Reuters (no public RSS since 2020) and AP/AFP direct (only via Google News, which we drop to preserve Gate-0 link-domain discipline) — these still arrive via GDELT; Business Standard RSS (403 on every UA). NSE/BSE corporate filings come via the NSE adapter (sources/nse.ts), not RSS. To add a feed: verify it with `npx tsx scripts/verify-feeds.ts`, then ensure its LINK domain is on the approved-domains firewall.",
+  "_doc": "Layer 2 of the screener's news ingestion (CLAUDE.md-versioned doctrine, not engine code): direct publisher RSS/Atom feeds, polled alongside GDELT (Layer 1) and the NSE disclosure API (Layer 3) every cycle. Items still pass the approved-domains firewall on their LINK domain — adding a feed here never bypasses Gate 0. Every URL was verified live (HTTP 200 + parseable by scripts/verify-feeds.ts, which reuses the production parseFeed) before being added. The fetcher uses a browser User-Agent by default (UA-sniffing publishers soft-block bots); per-feed `user_agent` overrides it where required — SEC/.gov feeds carry a descriptive contact UA. Reuters has no public RSS (killed 2020) but IS read directly here via its Arc GOOGLE-NEWS SITEMAP (parseFeed detects <urlset xmlns:news> and reads loc/news:title/news:publication_date) — do NOT rely on GDELT for it. Known non-starters, checked and excluded: AP/AFP direct (only via Google News, which we drop to preserve Gate-0 link-domain discipline) — they remain GDELT-only; Business Standard RSS (403 on every UA). NSE/BSE corporate filings come via the NSE adapter (sources/nse.ts), not RSS. To add a feed: verify it with `npx tsx scripts/verify-feeds.ts`, then ensure its LINK domain is on the approved-domains firewall.",
   "feeds": [
     {
       "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=8-K&output=atom&count=100",
@@ -1883,6 +1883,26 @@
     {
       "url": "https://www.dailynewsegypt.com/category/business/feed/",
       "source_name": "Daily News Egypt — Business"
+    },
+    {
+      "url": "https://www.reuters.com/arc/outboundfeeds/news-sitemap/?outputType=xml",
+      "source_name": "Reuters — Latest (news sitemap)"
+    },
+    {
+      "url": "https://www.reuters.com/arc/outboundfeeds/news-sitemap/?outputType=xml&from=50",
+      "source_name": "Reuters — Latest, next page (news sitemap)"
+    },
+    {
+      "url": "https://www.ft.com/world/mideast?format=rss",
+      "source_name": "Financial Times — Middle East"
+    },
+    {
+      "url": "https://feeds.a.dj.com/rss/RSSWorldNews.xml",
+      "source_name": "The Wall Street Journal — World News"
+    },
+    {
+      "url": "https://feeds.a.dj.com/rss/RSSMarketsMain.xml",
+      "source_name": "The Wall Street Journal — Markets"
     }
   ]
 }
