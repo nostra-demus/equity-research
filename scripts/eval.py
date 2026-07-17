@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deterministic eval harness for the equity-research engine.
 
-Checks invariants A-Z, AA-AH, and J (framework-source contracts) against every committed
+Checks invariants A-Z, AA-AL, and J (framework-source contracts) against every committed
 decision record in analyses/. Called by /research:eval and by CI.
 
 Usage:
@@ -2042,6 +2042,50 @@ for drp in runs:
         add("R_memo_delta", not rdet, "; ".join(rdet) or "memo_delta blocks valid; paired markdown present; rerun targets are real modules")
     else:
         add("R_memo_delta", True, f"no reviews filed on/after {MEMO_DELTA_DATE} — N/A", na=True)
+    # AL pre-mortem calibration check (forward-looking; landing 2026-07-17) — audit-of-the-auditor. A review
+    #   filed on/after the landing date must carry pre_mortem_check with a valid outcome_vs_verdict enum, and
+    #   outcome_vs_verdict must be "not_applicable" IFF no pre_mortem*.json exists in the run root — never a
+    #   silent skip (missing block) and never a false "checked" claim when nothing was actually compared
+    #   (DECISION_LEDGER.md §8). Mirrors check R's per-review iteration pattern exactly.
+    PRE_MORTEM_CHECK_DATE="2026-07-17"
+    PM_OUTCOMES={"not_applicable","too_early","vindicated","contradicted","partial"}
+    # [review fix] resolve via _latest — the SAME resolver G/O/S use (exact `pre_mortem.json` / `pre_mortem_v<n>.json`
+    # stem). A raw `pre_mortem*.json` glob over-matches siblings (e.g. pre_mortem_summary.json), which would make
+    # this check disagree with G/O/S about whether a pre-mortem exists — the exact defect a prior review fixed at S.
+    has_pm_file=bool(_latest("pre_mortem.json"))
+    aldet=[]; alseen=False
+    for rvf in sorted(glob.glob(os.path.join(run,"reviews","*_decision_review*.json"))):
+        try: rv=json.load(open(rvf))
+        except Exception: continue  # already reported by check R/F
+        rdate=rv.get("review_date") or ""
+        if not (isdate(rdate) and rdate>=PRE_MORTEM_CHECK_DATE): continue
+        alseen=True
+        pmc=rv.get("pre_mortem_check")
+        if not isinstance(pmc,dict) or not pmc:
+            aldet.append(f"{os.path.basename(rvf)}: pre_mortem_check missing (required for reviews filed on/after {PRE_MORTEM_CHECK_DATE})")
+            continue
+        ov=pmc.get("outcome_vs_verdict")
+        if ov not in PM_OUTCOMES:
+            aldet.append(f"{os.path.basename(rvf)}: outcome_vs_verdict={ov!r} not in {sorted(PM_OUTCOMES)}")
+        elif has_pm_file and ov=="not_applicable":
+            aldet.append(f"{os.path.basename(rvf)}: pre_mortem.json exists in run root but outcome_vs_verdict=not_applicable")
+        elif not has_pm_file and ov!="not_applicable":
+            aldet.append(f"{os.path.basename(rvf)}: no pre_mortem.json in run root but outcome_vs_verdict={ov!r} (should be not_applicable)")
+        # §8 requires `partial` to explain the split, exactly as vindicated/contradicted must name the driver.
+        if ov in ("vindicated","contradicted","partial") and not str(pmc.get("notes") or "").strip():
+            aldet.append(f"{os.path.basename(rvf)}: outcome_vs_verdict={ov!r} needs a notes explanation")
+        # [review fix] The copied pre-mortem fields are what /research:calibrate reads to split `contradicted`
+        # into false_comfort vs excess_caution — a block carrying only outcome_vs_verdict passes the enum test
+        # yet silently breaks that aggregation. Require them whenever a pre-mortem actually exists (§8).
+        if has_pm_file and ov in PM_OUTCOMES and ov!="not_applicable":
+            for _f in ("pre_mortem_file","pre_mortem_verdict"):
+                if not str(pmc.get(_f) or "").strip():
+                    aldet.append(f"{os.path.basename(rvf)}: {_f} is empty but a pre-mortem exists "
+                                 f"(calibrate needs the copied verdict to split contradicted)")
+    if alseen:
+        add("AL_pre_mortem_check", not aldet, "; ".join(aldet) or "pre_mortem_check present, enum valid, consistent with pre_mortem*.json presence")
+    else:
+        add("AL_pre_mortem_check", True, f"no reviews filed on/after {PRE_MORTEM_CHECK_DATE} — N/A", na=True)
     # S pre-mortem haircut propagated to decision_record (forward-looking; landing 2026-06-12 / fix F28)
     #   When the finish-gate's pre-mortem applied a haircut > 0, the decision_record must carry
     #   post_review_confidence_score == pre_mortem.recommended_confidence so the calibration and
@@ -2598,11 +2642,11 @@ FRAMEWORK_CONTRACTS={
  ".claude/commands/research/track.md":["analyses/tracking","_calls_tracker","review_schedule","ad-hoc","memo_delta_file"],
  ".claude/settings.json":["SessionStart","review_due.py"],
  ".claude/hooks/review_due.py":["review_schedule","research:review-decisions due"],
- "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method","forecast_type","Calibration Feedback Gate","calibration_feedback","calibration_by_module","error_taxonomy_distribution"],
- ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
+ "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method","forecast_type","Calibration Feedback Gate","calibration_feedback","calibration_by_module","error_taxonomy_distribution","pre_mortem_check","audit-of-the-auditor","outcome_vs_verdict","false comfort","excess caution"],
+ ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta","pre_mortem_check","outcome_vs_verdict","7A. Pre-mortem calibration check"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- ".claude/commands/research/calibrate.md":["calibration_by_module","calibration_by_forecast_type","owner_module","forecast_type","Phase 6","error_taxonomy_distribution","flat count, not a rate","never subject to the resolved-forecast floor"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM"],
+ ".claude/commands/research/calibrate.md":["calibration_by_module","calibration_by_forecast_type","owner_module","forecast_type","Phase 6","error_taxonomy_distribution","flat count, not a rate","never subject to the resolved-forecast floor","pre_mortem_calibration","outcome_distribution","false_comfort","excess_caution"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
