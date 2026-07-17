@@ -467,6 +467,14 @@ check('diffDecisionRecords(null, {}) and ({}, null) do not throw', () => {
 check('canonicalJson is key-order independent', () => {
   assert.equal(canonicalJson({ a: 1, b: 2 }), canonicalJson({ b: 2, a: 1 }))
 })
+check('canonicalJson: a missing key (undefined) is NOT the same identity as an explicit null', () => {
+  assert.notEqual(canonicalJson(undefined), canonicalJson(null))
+  // A field going from present-and-null to absent-from-the-record must read as CHANGED, e.g. for the
+  // untracked-field sweep at the bottom of diffDecisionRecords (a vanished key is real information).
+  const prev: Record<string, unknown> = { a: null }
+  const cur: Record<string, unknown> = {}
+  assert.notEqual(canonicalJson(prev.a), canonicalJson(cur.a))
+})
 
 console.log(`\n${pass}/${pass + fail} checks passed`)
 process.exitCode = fail ? 1 : 0

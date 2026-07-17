@@ -23,7 +23,7 @@ import './WhatChangedPanel.css'
 function shortDate(iso?: string | null): string {
   if (!iso) return ''
   const [y, m, d] = iso.split('-').map(Number)
-  if (!y || !m || !d) return iso
+  if (!y || !m || !d || m < 1 || m > 12) return iso
   return `${d} ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][m - 1]}`
 }
 

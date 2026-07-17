@@ -97,8 +97,11 @@ export interface RecordDiff {
 const isPlainObject = (x: unknown): x is Record<string, unknown> =>
   !!x && typeof x === 'object' && !Array.isArray(x)
 
-/** Key-sorted JSON, so {a:1,b:2} and {b:2,a:1} are the same entry. The identity of last resort. */
+/** Key-sorted JSON, so {a:1,b:2} and {b:2,a:1} are the same entry. The identity of last resort.
+ *  `undefined` (a missing key) and `null` (an explicit null) are DIFFERENT states — §3 bars hiding
+ *  missing data, so a field vanishing from the record must not canonicalize the same as it going null. */
 export function canonicalJson(x: unknown): string {
+  if (x === undefined) return 'undefined'
   return JSON.stringify(x, (_k, v) =>
     isPlainObject(v) ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, v[k]])) : v,
   ) ?? 'null'
