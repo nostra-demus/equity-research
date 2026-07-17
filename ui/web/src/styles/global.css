@@ -602,7 +602,7 @@ a { color: inherit; }
 .seg__btn:hover { background: var(--surface-3); color: var(--text); }
 .seg__btn:active { transform: scale(0.97); }
 .seg__btn--on { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
-.seg__btn--on:hover { background: var(--accent-soft); color: var(--accent-ink); }
+.seg__btn--on:hover { background: var(--accent-soft); }
 
 .fld {
   height: 30px; padding: 0 9px; border-radius: var(--r-md);
