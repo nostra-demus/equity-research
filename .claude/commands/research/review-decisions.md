@@ -151,6 +151,27 @@ One of: `on-track`, `at-risk`, `confirmed`, `broken`, `expired` (§8). Base it o
 - `catalyst_results`: for each catalyst in the thesis's catalyst calendar, mark materialized / not / pending with evidence.
 - `risk_results`: for each Critical/High risk or red flag, mark materialized / not / pending with evidence.
 
+## 7A. Pre-mortem calibration check (`pre_mortem_check`) — audit-of-the-auditor
+
+The finish-gate's pre-mortem (`/research:full` step 10B.2) writes a falsifiable prediction for every conviction-basket run — a `verdict` (`Survives` / `Survives with haircut` / `Does not survive — downgrade` / `Thesis broken`), a `killer_risk`, and a per-criterion `kill_criteria_attack[]` — and until now nothing ever checked it against what actually happened. `CLAUDE.md` §19: "a forecast that cannot be checked later is not a forecast." This step closes that loop using the `thesis_status` and `risk_results` you just built in Step 7 — do not skip ahead of Step 7, this step depends on it.
+
+1. Find the latest pre-mortem report for this run: `ls -1 <RUN_ROOT>/pre_mortem*.json 2>/dev/null | sort -V | tail -n1` (versioned `_v2`/`_v3`… — highest wins, the same convention the finish-gate uses).
+2. **No file found** → `pre_mortem_check = {"pre_mortem_file": "", "pre_mortem_verdict": "", "pre_mortem_confidence_haircut": null, "outcome_vs_verdict": "not_applicable", "notes": "no pre-mortem ran for this decision"}`. Skip the rest of this step.
+3. Otherwise read the file (read-only — never edit it) and take `verdict`, `confidence_haircut`, `killer_risk`, `kill_criteria_attack[]`.
+4. Classify `outcome_vs_verdict` (`DECISION_LEDGER.md` §8 defines the enum and the two failure directions):
+
+   | Pre-mortem verdict | This review's `thesis_status` / `risk_results` | `outcome_vs_verdict` |
+   |---|---|---|
+   | `Survives` / `Survives with haircut` | `on-track` or `confirmed`, AND the pre-mortem's `killer_risk` reads `not materialized`/`not assessable` in `risk_results` | `vindicated` |
+   | `Survives` / `Survives with haircut` | `at-risk` or `broken`, OR the pre-mortem's `killer_risk` reads materialized/at-risk in `risk_results` | `contradicted` — **false comfort**. Name the `kill_criteria_attack` item (if any) already flagged high/partway that turned out to be the actual proximate cause. |
+   | `Does not survive — downgrade` / `Thesis broken` | `at-risk` or `broken` | `vindicated` |
+   | `Does not survive — downgrade` / `Thesis broken` | `confirmed` (the original call would have performed fine) | `contradicted` — **excess caution**: the red-team would have killed a call the outcome does not support. |
+   | either | `on-track` with nothing in `risk_results` resolved yet, or `expired` | `too_early` |
+
+   This table is the default read; only override it with a one-sentence justification in `notes` when the mechanical mapping would misrepresent a genuinely mixed case (use `partial` and explain the split) — never silently.
+5. `pre_mortem_confidence_haircut` = the pre-mortem's own `confidence_haircut` field, copied verbatim (what was claimed, not what you are judging).
+6. Write the result into `pre_mortem_check`.
+
 ## 8. Separate price outcome from thesis outcome (`decision_quality`)
 
 Follow `DECISION_LEDGER.md` §10. Classify `decision_quality` as one of:
@@ -227,11 +248,12 @@ Use the **exact** outcome-review schema from `DECISION_LEDGER.md` §8 (do not dr
   "error_taxonomy": [],
   "lessons": [],
   "module_calibration_notes": {},
+  "pre_mortem_check": {},
   "memo_delta": {}
 }
 ```
 
-Fill: `ticker`, `original_decision_date` (= record `decision_date`), `review_date` (= `<TODAY>`), `review_window`, `original_decision` (= record `decision`), `basket` (= record `basket`), `entry_price` (= record `entry_price`, unchanged), the fields produced in Steps 5–10, and `memo_delta` = the full §8 block built in Step 11 (required for reviews filed on/after 2026-06-10). `lessons` is an array of short strings (the §7 answers, web-source labels, and the single most important takeaway).
+Fill: `ticker`, `original_decision_date` (= record `decision_date`), `review_date` (= `<TODAY>`), `review_window`, `original_decision` (= record `decision`), `basket` (= record `basket`), `entry_price` (= record `entry_price`, unchanged), the fields produced in Steps 5–10, `pre_mortem_check` = the full §8 block built in Step 7A (required for reviews filed on/after 2026-07-17), and `memo_delta` = the full §8 block built in Step 11 (required for reviews filed on/after 2026-06-10). `lessons` is an array of short strings (the §7 answers, web-source labels, and the single most important takeaway).
 
 Conventions (must hold): valid JSON; no markdown fences; no comments; no trailing commas; `null` for unknown numbers; `""` for unknown strings; `[]` for empty arrays; `{}` for empty objects. Never fabricate a value.
 
@@ -288,6 +310,7 @@ After writing each review JSON + memo delta pair, print a short block:
 - thesis status · thesis delta verdict
 - decision quality
 - forecasts: counts of confirmed / falsified / expired / still open / not assessable
+- pre-mortem check: `outcome_vs_verdict` (and, if `contradicted`, whether it was false comfort or excess caution)
 - changed sections: count, and how many carry a re-run recommendation (with the exact commands)
 - the single key lesson
 - confirmation that the original `decision_record.json` and `final_thesis.md` were NOT modified
@@ -308,7 +331,7 @@ Capture and report the commit SHA from `git rev-parse HEAD`. If no review files 
 
 ## Hard rules
 
-- This command reads originals and writes only `analyses/<TICKER>_<DATE>/reviews/…_decision_review*.json` plus the paired `…_memo_delta*.md`. It never edits `decision_record.json`, `final_thesis.md`, `RUN_METADATA.md`, or any module output.
+- This command reads originals and writes only `analyses/<TICKER>_<DATE>/reviews/…_decision_review*.json` plus the paired `…_memo_delta*.md`. It never edits `decision_record.json`, `final_thesis.md`, `RUN_METADATA.md`, `pre_mortem*.json`, `verification_report*.json`, or any module output — Step 7A reads `pre_mortem.json` read-only, exactly like every other original input.
 - Review files are append-only — existing reviews are never overwritten; collisions get a `_v2`, `_v3`, … suffix (Step 4); the memo delta carries the same suffix as its JSON.
 - The memo delta is a comparison, not a re-run: it never updates the financial model and never re-does module work. A re-run is only ever a *recommendation*, named with its module(s) and exact command (`rerun_command`).
 - The outcome-review schema and all doctrine come from `frameworks/DECISION_LEDGER.md`; this command does not redefine them.

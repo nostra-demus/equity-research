@@ -387,6 +387,33 @@ Rules:
 - The memo delta **never** updates the financial model, the original memo, `final_thesis.md`, or `decision_record.json`. It may *recommend* re-running a module or orb; the re-run itself is a separate, explicit action.
 - Additive: `schema_version` stays "1.0". Reviews filed before 2026-06-10 omit the block (same convention as the decision-record `scenarios[]` field).
 
+### Pre-mortem check (`pre_mortem_check`) — audit-of-the-auditor (additive; required for reviews filed on/after 2026-07-17)
+
+The finish-gate's pre-mortem (`/research:full` step 10B.2, `.claude/commands/research/pre-mortem.md`) writes its own falsifiable prediction on every conviction-basket run: a `verdict` (`Survives` / `Survives with haircut` / `Does not survive — downgrade` / `Thesis broken`), a `killer_risk`, and a per-criterion `kill_criteria_attack[]` — then that verdict is never checked again. `CLAUDE.md` §19 is explicit: "a forecast that cannot be checked later is not a forecast." Until this block existed, the pre-mortem's verdict was exactly that — unchecked. This closes the loop, and it is the one place the engine measures whether its own red-team layer is adding signal or just adding a haircut nobody verifies.
+
+```json
+"pre_mortem_check": {
+  "pre_mortem_file": "",
+  "pre_mortem_verdict": "",
+  "pre_mortem_confidence_haircut": null,
+  "outcome_vs_verdict": "",
+  "notes": ""
+}
+```
+
+Rules:
+
+- `pre_mortem_file`: repo-relative path to the pre-mortem report actually read (the highest `_vN` under `<RUN_ROOT>/pre_mortem*.json`), or `""` if none exists.
+- `pre_mortem_verdict` / `pre_mortem_confidence_haircut`: copied verbatim from that file — what the pre-mortem CLAIMED, not what this review is judging.
+- `outcome_vs_verdict` ∈ {`not_applicable`, `too_early`, `vindicated`, `contradicted`, `partial`}:
+  - `not_applicable` — no `pre_mortem*.json` exists in the run root. This value is reserved for exactly that case; it must never be used when a pre-mortem file exists but the reviewer simply didn't check it.
+  - `too_early` — a pre-mortem exists, but this review's own `thesis_status` is still `on-track` with nothing in `risk_results` yet resolved either way.
+  - `vindicated` — the pre-mortem's verdict correctly anticipated the outcome: a `Survives`/`Survives with haircut` verdict paired with `thesis_status` ∈ {`on-track`, `confirmed`} and the pre-mortem's own `killer_risk` reading `not materialized`/`not assessable` in `risk_results`; OR a `Does not survive — downgrade`/`Thesis broken` verdict paired with `thesis_status` ∈ {`at-risk`, `broken`}.
+  - `contradicted` — the pre-mortem's verdict was wrong, in either of the two directions an audit layer can fail: **false comfort** (`Survives`/`Survives with haircut` paired with `thesis_status` ∈ {`at-risk`, `broken`}, or the pre-mortem's own `killer_risk` shows materialized/at-risk in `risk_results` — the red-team missed the actual proximate cause); or **excess caution** (`Does not survive — downgrade`/`Thesis broken` paired with `thesis_status` = `confirmed` — the red-team would have killed a call that played out fine, the same false-negative cost §24 warns against).
+  - `partial` — mixed signal that does not cleanly fit the above; `notes` must explain the split.
+- `notes`: 1–3 sentences. For `vindicated`/`contradicted`, name the specific `kill_criteria_attack` item (if any) that drove the read — this is the diagnostic payoff, not a formality.
+- Additive: `schema_version` stays "1.0". Reviews filed before 2026-07-17 omit the block.
+
 ---
 
 ## 9. Outcome Metrics
@@ -412,6 +439,7 @@ Rules:
 - timing accuracy
 - data sufficiency calibration
 - confidence calibration
+- pre-mortem calibration (was the red-team's `Survives` / `downgrade` verdict later vindicated or contradicted — §8 `pre_mortem_check`)
 
 **Process metrics:**
 - unsupported claim rate
