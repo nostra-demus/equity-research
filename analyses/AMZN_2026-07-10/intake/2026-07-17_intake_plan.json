@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "ticker": "AMZN",
+  "run_root": "analyses/AMZN_2026-07-10",
+  "scan_date": "2026-07-17",
+  "watermark": "analyses/AMZN_2026-07-10/final_thesis.md",
+  "new_docs": [],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [],
+    "commands": [],
+    "note_only": []
+  },
+  "verdict": "note_only",
+  "summary": "No new documents since the last run. The newest pool file (YipitData Cloud panel, dated 2026-07-10 23:49) predates the run's watermark (2026-07-13 14:49). Nothing to scope — keep the current thesis."
+}
