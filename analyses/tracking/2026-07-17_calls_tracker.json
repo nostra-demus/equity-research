@@ -1,0 +1,368 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-07-17",
+  "scope": "all",
+  "n_calls": 6,
+  "calls": [
+    {
+      "ticker": "AMZN",
+      "company": "Amazon.com, Inc.",
+      "decision_date": "2026-07-10",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "decision_is_post_mortem_capped": false,
+      "confidence": 57,
+      "confidence_is_post_review": false,
+      "time_horizon": "12 months",
+      "entry_price": 238.34,
+      "currency": "USD",
+      "expected_return_pct": -16.1,
+      "implied_target": 199.97,
+      "downside_risk_pct": 38.7,
+      "kill_criteria_count": 5,
+      "forecasts": {
+        "open": 5,
+        "confirmed": 0,
+        "falsified": 0,
+        "expired": 0,
+        "other": 0
+      },
+      "run_root": "analyses/AMZN_2026-07-10",
+      "final_thesis_path": "analyses/AMZN_2026-07-10/final_thesis.md",
+      "latest_thesis_status": null,
+      "next_checkpoint": {
+        "window": "30d",
+        "due_date": "2026-08-09",
+        "status": "upcoming"
+      },
+      "review_count": 0,
+      "timeline": [
+        {
+          "window": "30d",
+          "due_date": "2026-08-09",
+          "status": "upcoming"
+        },
+        {
+          "window": "90d",
+          "due_date": "2026-10-08",
+          "status": "upcoming"
+        },
+        {
+          "window": "180d",
+          "due_date": "2027-01-06",
+          "status": "upcoming"
+        },
+        {
+          "window": "365d",
+          "due_date": "2027-07-10",
+          "status": "upcoming"
+        }
+      ]
+    },
+    {
+      "ticker": "EMAAR",
+      "company": "Emaar Properties PJSC",
+      "decision_date": "2026-07-10",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "decision_is_post_mortem_capped": false,
+      "confidence": 52,
+      "confidence_is_post_review": false,
+      "time_horizon": "12 months",
+      "entry_price": 12.2,
+      "currency": "AED",
+      "expected_return_pct": 17.7,
+      "implied_target": 14.36,
+      "downside_risk_pct": 20.1,
+      "kill_criteria_count": 6,
+      "forecasts": {
+        "open": 6,
+        "confirmed": 0,
+        "falsified": 0,
+        "expired": 0,
+        "other": 0
+      },
+      "run_root": "analyses/EMAAR_2026-07-10",
+      "final_thesis_path": "analyses/EMAAR_2026-07-10/final_thesis.md",
+      "latest_thesis_status": null,
+      "next_checkpoint": {
+        "window": "30d",
+        "due_date": "2026-08-09",
+        "status": "upcoming"
+      },
+      "review_count": 0,
+      "timeline": [
+        {
+          "window": "30d",
+          "due_date": "2026-08-09",
+          "status": "upcoming"
+        },
+        {
+          "window": "90d",
+          "due_date": "2026-10-08",
+          "status": "upcoming"
+        },
+        {
+          "window": "180d",
+          "due_date": "2027-01-06",
+          "status": "upcoming"
+        },
+        {
+          "window": "365d",
+          "due_date": "2027-07-10",
+          "status": "upcoming"
+        }
+      ]
+    },
+    {
+      "ticker": "EMAAR",
+      "company": "Emaar Properties PJSC",
+      "decision_date": "2026-07-03",
+      "decision": "Starter Position Only",
+      "basket": "Selected",
+      "decision_is_post_mortem_capped": false,
+      "confidence": 52,
+      "confidence_is_post_review": false,
+      "time_horizon": "12 months",
+      "entry_price": 12.2,
+      "currency": "AED",
+      "expected_return_pct": 118.8,
+      "implied_target": 26.69,
+      "downside_risk_pct": -63.9,
+      "kill_criteria_count": 7,
+      "forecasts": {
+        "open": 6,
+        "confirmed": 0,
+        "falsified": 0,
+        "expired": 0,
+        "other": 0
+      },
+      "run_root": "analyses/EMAAR_2026-07-03",
+      "final_thesis_path": "analyses/EMAAR_2026-07-03/final_thesis.md",
+      "latest_thesis_status": null,
+      "next_checkpoint": {
+        "window": "30d",
+        "due_date": "2026-08-02",
+        "status": "upcoming"
+      },
+      "review_count": 0,
+      "timeline": [
+        {
+          "window": "30d",
+          "due_date": "2026-08-02",
+          "status": "upcoming"
+        },
+        {
+          "window": "90d",
+          "due_date": "2026-10-01",
+          "status": "upcoming"
+        },
+        {
+          "window": "180d",
+          "due_date": "2026-12-30",
+          "status": "upcoming"
+        },
+        {
+          "window": "365d",
+          "due_date": "2027-07-03",
+          "status": "upcoming"
+        }
+      ]
+    },
+    {
+      "ticker": "TMCV",
+      "company": "Tata Motors Limited (Commercial Vehicles)",
+      "decision_date": "2026-06-07",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "decision_is_post_mortem_capped": false,
+      "confidence": 47,
+      "confidence_is_post_review": false,
+      "time_horizon": "12 months",
+      "entry_price": 369.15,
+      "currency": "INR",
+      "expected_return_pct": -4.4,
+      "implied_target": 352.91,
+      "downside_risk_pct": -81.0,
+      "kill_criteria_count": 5,
+      "forecasts": {
+        "open": 6,
+        "confirmed": 0,
+        "falsified": 0,
+        "expired": 0,
+        "other": 0
+      },
+      "run_root": "analyses/TMCV_2026-06-07",
+      "final_thesis_path": "analyses/TMCV_2026-06-07/final_thesis.md",
+      "latest_thesis_status": "at-risk",
+      "next_checkpoint": {
+        "window": "90d",
+        "due_date": "2026-09-05",
+        "status": "upcoming"
+      },
+      "review_count": 1,
+      "timeline": [
+        {
+          "window": "30d",
+          "due_date": "2026-07-07",
+          "status": "done",
+          "review_date": "2026-07-13",
+          "review_price": 422.2,
+          "absolute_return_pct": 14.37,
+          "thesis_status": "at-risk",
+          "forecasts_confirmed": 0,
+          "forecasts_falsified": 0,
+          "review_file": "analyses/TMCV_2026-06-07/reviews/2026-07-13_30d_decision_review.json",
+          "review_count": 1,
+          "memo_delta_file": "analyses/TMCV_2026-06-07/reviews/2026-07-13_30d_memo_delta.md",
+          "stage_one_comment": "TMCV is up about 14% since our June 7 Watchlist call, well ahead of the Nifty 50's roughly 2%. That is a real gap and worth flagging, but it has not been earned by resolution of either risk we said would move the rating: the Iveco Group deal is still not closed (France and Spain regulators have not signed off yet), and we could not confirm from public sources whether the TMF Holdings-related AGM vote on June 29 passed comfortably or with real institutional pushback -- coverage says a related-party resolution was approved, but not the margin. Nothing in the filings changed the ~80% downside case if Iveco closes fully debt-funded, and that risk is still live. We are treating this as the market getting ahead of an unresolved binary, not as confirmation we were wrong -- but the gap is now large enough that a materially lower entry point no longer exists if the binary resolves favorably, which cuts into the safety margin of waiting. We are not chasing the rally. Hold Watchlist; revisit hard at Q1 FY27 results and on any Iveco financing-structure disclosure."
+        },
+        {
+          "window": "90d",
+          "due_date": "2026-09-05",
+          "status": "upcoming"
+        },
+        {
+          "window": "180d",
+          "due_date": "2026-12-04",
+          "status": "upcoming"
+        },
+        {
+          "window": "365d",
+          "due_date": "2027-06-07",
+          "status": "upcoming"
+        }
+      ]
+    },
+    {
+      "ticker": "BG",
+      "company": "Bunge Global SA",
+      "decision_date": "2026-06-01",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "decision_is_post_mortem_capped": false,
+      "confidence": 46,
+      "confidence_is_post_review": false,
+      "time_horizon": "12 months",
+      "entry_price": null,
+      "currency": "USD",
+      "expected_return_pct": -11.5,
+      "implied_target": null,
+      "downside_risk_pct": -31.1,
+      "kill_criteria_count": 7,
+      "forecasts": {
+        "open": 6,
+        "confirmed": 0,
+        "falsified": 0,
+        "expired": 0,
+        "other": 0
+      },
+      "run_root": "analyses/BG_2026-06-01",
+      "final_thesis_path": "analyses/BG_2026-06-01/final_thesis.md",
+      "latest_thesis_status": "on-track",
+      "next_checkpoint": {
+        "window": "90d",
+        "due_date": "2026-08-30",
+        "status": "upcoming"
+      },
+      "review_count": 1,
+      "timeline": [
+        {
+          "window": "30d",
+          "due_date": "2026-07-01",
+          "status": "done",
+          "review_date": "2026-07-13",
+          "review_price": null,
+          "absolute_return_pct": null,
+          "thesis_status": "on-track",
+          "forecasts_confirmed": 0,
+          "forecasts_falsified": 0,
+          "review_file": "analyses/BG_2026-06-01/reviews/2026-07-13_30d_decision_review.json",
+          "review_count": 1,
+          "memo_delta_file": "analyses/BG_2026-06-01/reviews/2026-07-13_30d_memo_delta.md",
+          "stage_one_comment": "BG remains Watchlist, unchanged. Since the June 1 decision, the stock has drifted up to a web-sourced ~$126.50 (no pool-verified quote exists yet -- the single biggest data gap, unresolved), and sell-side sentiment has firmed to Strong Buy with an average target near $139, closer to our own bull case than our base case. Nothing has actually broken: no Viterra goodwill impairment, no covenant or rating event, no biofuel-policy reversal, and Q2 FY2026 earnings (July 29) -- the print that actually tests whether the H2 guide holds and whether cash conversion recovers -- has not landed yet. We are not chasing the more bullish tape; our base fair value (~$108) rests on a mid-cycle DCF that this business has not yet earned through a full cycle, and the thesis explicitly flags the current setup as a value trap if the market keeps paying up without the ROIC improving. Action: hold the Watchlist call, do not buy at current levels, and treat the July 29 print and the subsequent cash-flow statement as the real test."
+        },
+        {
+          "window": "90d",
+          "due_date": "2026-08-30",
+          "status": "upcoming"
+        },
+        {
+          "window": "180d",
+          "due_date": "2026-11-28",
+          "status": "upcoming"
+        },
+        {
+          "window": "365d",
+          "due_date": "2027-06-01",
+          "status": "upcoming"
+        }
+      ]
+    },
+    {
+      "ticker": "HCG",
+      "company": "HealthCare Global Enterprises Limited",
+      "decision_date": "2026-06-01",
+      "decision": "Avoid",
+      "basket": "Rejected",
+      "decision_is_post_mortem_capped": false,
+      "confidence": 70,
+      "confidence_is_post_review": false,
+      "time_horizon": "12 months",
+      "entry_price": 646.15,
+      "currency": "INR",
+      "expected_return_pct": -13.4,
+      "implied_target": 559.57,
+      "downside_risk_pct": -31.9,
+      "kill_criteria_count": 8,
+      "forecasts": {
+        "open": 6,
+        "confirmed": 0,
+        "falsified": 0,
+        "expired": 0,
+        "other": 0
+      },
+      "run_root": "analyses/HCG_2026-06-01",
+      "final_thesis_path": "analyses/HCG_2026-06-01/final_thesis.md",
+      "latest_thesis_status": "on-track",
+      "next_checkpoint": {
+        "window": "90d",
+        "due_date": "2026-08-30",
+        "status": "upcoming"
+      },
+      "review_count": 1,
+      "timeline": [
+        {
+          "window": "30d",
+          "due_date": "2026-07-01",
+          "status": "done",
+          "review_date": "2026-07-11",
+          "review_price": 602.0,
+          "absolute_return_pct": -6.8,
+          "thesis_status": "on-track",
+          "forecasts_confirmed": 0,
+          "forecasts_falsified": 0,
+          "review_file": "analyses/HCG_2026-06-01/reviews/2026-07-11_30d_decision_review.json",
+          "review_count": 1,
+          "memo_delta_file": "analyses/HCG_2026-06-01/reviews/2026-07-11_30d_memo_delta.md",
+          "stage_one_comment": "HCG is down roughly 6.8% since the June 1 Avoid call versus a roughly 3.3% rise in NIFTY 50, giving the Avoid an approximate 10-point relative benefit in 40 days. The thesis is on-track but not yet confirmed: no upgrade kill criteria have triggered and the biggest test, the FY26 audited annual report, is still pending and overdue vs the expected June-August 2026 window. A potential fourth CFO change (Sanjeev Kumar replacing Mattoo if post-pool cutoff) would deepen the governance concern but does not change the rating -- the Avoid was already supported by 7 High governance flags. Q1 FY27 results are due around July 30 against a demanding revenue bar of approximately plus 20% versus a plus 11.5% exit rate; a miss would further validate the Avoid thesis. We maintain the Avoid at approximately INR 602, with the next major catalysts the FY26 audited AR and the Q1 FY27 print. Re-underwrite threshold remains INR 520 or two consecutive clean prints showing ROIC rising toward the cost of capital."
+        },
+        {
+          "window": "90d",
+          "due_date": "2026-08-30",
+          "status": "upcoming"
+        },
+        {
+          "window": "180d",
+          "due_date": "2026-11-28",
+          "status": "upcoming"
+        },
+        {
+          "window": "365d",
+          "due_date": "2027-06-01",
+          "status": "upcoming"
+        }
+      ]
+    }
+  ]
+}
