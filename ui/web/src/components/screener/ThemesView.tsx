@@ -756,11 +756,17 @@ function fallbackReason(c: ThemeCompany): string {
 type WhyPos = { left: number; top: number; width: number; originX: number; originY: 'top' | 'bottom' }
 type WhyActive = { key: string; c: ThemeCompany; sticky: boolean; rect: DOMRect; instant: boolean }
 
+// A stable, always-mounted description target so aria-describedby resolves from the FIRST focus event
+// (a screen reader reads the accessibility tree at focus time — an id added only after focus, once React
+// commits the "card is open" state, is too late for many readers). aria-live announces content changes
+// even when focus stays on the same chip (e.g. Tab moving the card between adjacent chips).
+const WHY_DESC_ID = 'themewhy-desc'
+
 /** Place the card against the chip using its MEASURED height: below by default, flipped above when below
  *  can't hold it and above has more room, then clamped so it never runs off the top or bottom. The
  *  transform-origin sits under the chip (origin-aware, DESIGN.md §3 / emil). Absolute top (not bottom) so
  *  the clamp is exact regardless of which side it opened toward. */
-function placeWhy(rect: DOMRect, height: number, instant: boolean): WhyPos {
+function placeWhy(rect: DOMRect, height: number): WhyPos {
   const GAP = 8
   const vw = window.innerWidth
   const vh = window.innerHeight
@@ -825,12 +831,13 @@ function ThemeOrders({ orders }: { orders: [string, ThemeCompany[]][] }) {
   // closes both (a fixed card would detach from a chip that scrolled away). The scroll a keyboard FOCUS
   // triggers to bring an off-screen chip into view fires right after open — ignore it, or the card the
   // focus just opened would vanish in the same frame.
+  // Registered once (not re-bound per open/close) — every handler reads activeRef.current so it always
+  // sees the live state without the effect re-running on every hover/focus transition.
   useEffect(() => {
-    if (!active) return
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close() }
-    const onDown = (e: PointerEvent) => { if (activeRef.current?.sticky && !(e.target as HTMLElement)?.closest?.('.themedd__co')) close() }
-    const onScroll = () => { if (performance.now() - openedAt.current > 300) close() } // skip the focus-induced auto-scroll
-    const onResize = () => close()
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape' && activeRef.current) close() }
+    const onDown = (e: PointerEvent) => { if (activeRef.current?.sticky && !(e.target as HTMLElement)?.closest?.('.themedd__co, .themewhy')) close() }
+    const onScroll = () => { if (activeRef.current && performance.now() - openedAt.current > 300) close() } // skip the focus-induced auto-scroll
+    const onResize = () => { if (activeRef.current) close() }
     window.addEventListener('keydown', onKey)
     window.addEventListener('pointerdown', onDown, true)
     window.addEventListener('scroll', onScroll, true)
@@ -841,7 +848,7 @@ function ThemeOrders({ orders }: { orders: [string, ThemeCompany[]][] }) {
       window.removeEventListener('scroll', onScroll, true)
       window.removeEventListener('resize', onResize)
     }
-  }, [active])
+  }, [])
   useEffect(() => () => clearTimers(), [])
 
   return (
@@ -859,7 +866,7 @@ function ThemeOrders({ orders }: { orders: [string, ThemeCompany[]][] }) {
                   type="button"
                   className={`themedd__co themedd__co--${c.side}${on ? ' is-open' : ''}`}
                   aria-expanded={on && !!active?.sticky}
-                  aria-describedby={on ? WHY_CARD_ID : undefined}
+                  aria-describedby={WHY_DESC_ID}
                   aria-label={`${c.ticker ? `${c.ticker} ` : ''}${c.name} — ${ORDER_NOUN[c.order]} in this theme`}
                   onPointerEnter={(e) => onEnter(key, c, e.currentTarget)}
                   onPointerLeave={() => onLeave(key)}
@@ -874,17 +881,23 @@ function ThemeOrders({ orders }: { orders: [string, ThemeCompany[]][] }) {
           </div>
         </div>
       ))}
-      {active && <CompanyWhyCard key={active.key} c={active.c} rect={active.rect} instant={active.instant} />}
+      {/* sr-only, always mounted (not portaled) — see WHY_DESC_ID above */}
+      <span id={WHY_DESC_ID} className="sr-only" aria-live="polite">{active ? (active.c.why?.reason || fallbackReason(active.c)) : ''}</span>
+      {active && <CompanyWhyCard key={active.key} c={active.c} rect={active.rect} instant={active.instant} sticky={active.sticky} />}
     </div>
   )
 }
 
-// The card itself — portaled to <body> so `position: fixed` escapes the scroll panel and any transformed
-// ancestor. Pure information (pointer-events: none): the reason, the sourced stories, and the impact bars.
-// It renders hidden for one layout pass, MEASURES its real height, then places itself against the chip so
-// it can never clip the top or bottom (heights vary with the number of stories). useLayoutEffect runs
-// before paint, so there is no visible jump.
-function CompanyWhyCard({ c, rect, instant }: { c: ThemeCompany; rect: DOMRect; instant: boolean }) {
+// The card itself — portaled into the active swarm's token scope (falling back to <body>) so `position:
+// fixed` still escapes the scroll panel/any transformed ancestor, but the swarm-scoped color tokens
+// ([data-swarm], DESIGN.md) still resolve — a plain document.body portal would fall back to the root
+// research amber tokens in a screener/commodity context. Pure information visually (pointer-events: none;
+// pointer-events: auto only while sticky, so a tap on the open card can't fall through to whatever sits
+// beneath it) — the reason, the sourced stories, and the impact bars. It renders hidden for one layout
+// pass, MEASURES its real height, then places itself against the chip so it can never clip the top or
+// bottom (heights vary with the number of stories). useLayoutEffect runs before paint, so there is no
+// visible jump.
+function CompanyWhyCard({ c, rect, instant, sticky }: { c: ThemeCompany; rect: DOMRect; instant: boolean; sticky: boolean }) {
   const why = c.why
   const reason = why?.reason || fallbackReason(c)
   const evidence = why?.evidence || []
@@ -892,13 +905,16 @@ function CompanyWhyCard({ c, rect, instant }: { c: ThemeCompany; rect: DOMRect; 
   const [pos, setPos] = useState<WhyPos | null>(null)
   useLayoutEffect(() => {
     const h = ref.current?.offsetHeight ?? 300
-    setPos(placeWhy(rect, h, instant))
+    setPos(placeWhy(rect, h))
   }, [rect])
   const style: CSSProperties = pos
     ? { left: pos.left, top: pos.top, width: pos.width, transformOrigin: `${pos.originX}px ${pos.originY}` }
     : { left: rect.left, top: 0, width: Math.min(320, window.innerWidth - 16), visibility: 'hidden' } // measured next frame
+  // aria-hidden: the description that matters to a screen reader is WHY_DESC_ID (a stable, always-mounted
+  // sr-only region, wired via aria-describedby) — this visual card is not referenced by any aria-* attribute,
+  // so hide it from the accessibility tree rather than let a browse-mode virtual cursor surface it twice.
   return createPortal(
-    <div ref={ref} id={WHY_CARD_ID} className={`themewhy${pos && instant ? ' themewhy--instant' : ''}`} role="tooltip" style={style}>
+    <div ref={ref} id={WHY_CARD_ID} className={`themewhy${pos && instant ? ' themewhy--instant' : ''}${sticky ? ' themewhy--sticky' : ''}`} aria-hidden="true" style={style}>
       <div className="themewhy__head">
         {c.ticker ? <b className="themewhy__tk mono">{c.ticker}</b> : null}
         <span className="themewhy__name">{c.name}</span>
@@ -924,10 +940,10 @@ function CompanyWhyCard({ c, rect, instant }: { c: ThemeCompany; rect: DOMRect; 
         <div className="themewhy__evempty">Named in this theme’s recent news.</div>
       )}
       <div className="themewhy__impact">
-        <span className="themewhy__impacttitle">Impact <b className="mono">{c.impact.composite}</b><span className="themewhy__impactmax">/100</span></span>
+        <span className="themewhy__impacttitle">Impact <b className="mono">{c.impact?.composite ?? 0}</b><span className="themewhy__impactmax">/100</span></span>
         <div className="themewhy__bars">
           {IMPACT_BARS.map((b) => {
-            const v = Math.max(0, Math.min(25, c.impact[b.key]))
+            const v = Math.max(0, Math.min(25, c.impact?.[b.key] ?? 0))
             return (
               <div key={b.key} className="themewhy__bar" title={`${b.long}: ${v}/25`} aria-label={`${b.short} ${v} of 25`}>
                 <span className="themewhy__barlabel" aria-hidden>{b.short}</span>
@@ -938,7 +954,7 @@ function CompanyWhyCard({ c, rect, instant }: { c: ThemeCompany; rect: DOMRect; 
         </div>
       </div>
     </div>,
-    document.body,
+    document.querySelector('.app[data-swarm]') ?? document.body,
   )
 }
 

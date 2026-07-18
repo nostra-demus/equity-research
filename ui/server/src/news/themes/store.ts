@@ -231,7 +231,7 @@ export function buildThemeDetail(repoRoot: string, theme: Theme): ThemeDetail {
   const whyIndex = buildWhyIndex(theme.members)
   const withWhy = (c: ThemeCompany): ThemeCompany => ({ ...c, why: buildCompanyWhy(c, c.name_key, whyIndex) })
   const byOrder: CompaniesByOrder = { first: [], second: [], third: [] }
-  for (const c of theme.companies) (c.order === 1 ? byOrder.first : c.order === 2 ? byOrder.second : byOrder.third).push(withWhy(c))
+  for (const c of theme.companies || []) (c.order === 1 ? byOrder.first : c.order === 2 ? byOrder.second : byOrder.third).push(withWhy(c))
 
   return {
     theme: buildSummary(theme),
