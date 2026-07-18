@@ -71,6 +71,14 @@ jobs:
       - name: Ledger-records resolver tests (append-only correction layer — supersession + errata)
         run: python3 scripts/test_ledger_records.py
 
+      - name: Calibration scoreboard tests (Brier, Murphy, Clopper-Pearson, e-value, effective-N, honesty)
+        run: python3 scripts/test_calibrate.py
+
+      - name: Calibration + market-feed selftests (deterministic engine + price-feed reader — fixture-free)
+        run: |
+          python3 scripts/calibrate.py --selftest
+          python3 scripts/market_prices.py --selftest
+
       - name: commit-run.sh push regression test (fast-forward push from a non-main branch)
         run: python3 scripts/test_commit_run.py
 

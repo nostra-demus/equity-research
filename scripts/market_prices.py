@@ -1,0 +1,342 @@
+#!/usr/bin/env python3
+"""market_prices.py — pure reader for the market price / benchmark feed (the user-provided source).
+
+WHY THIS EXISTS
+---------------
+The calibration scoreboard (`scripts/calibrate.py`) must judge a call on a BENCHMARK-ADJUSTED basis —
+a long that merely rode a rising market did not show skill (CLAUDE.md §9 base-rate discipline). And a
+review of a null-entry call (BG) needs a source+dated price to anchor returns from. Both want the same
+thing: a daily close series for the stock, its benchmark, and its sector. This module reads that feed.
+
+It follows the `frameworks/EXTERNAL_DATA.md` §7 paid-API / file-drop contract exactly: a fetcher (or the
+user) WRITES FILES; there is NO engine wiring and no live API call from the engine. The feed is a
+cross-cutting reference series (index / sector closes), not ticker-scoped, so it lives in a shared lane
+rather than a ticker's `external/` folder:
+
+  data/_market/<provider>/
+     <anything>.csv          long-format daily closes — header:  date,symbol,close
+     <file>.source.json      OPTIONAL provenance sidecar (§3 shape); path-derived fallback if absent
+     _symbols.json           OPTIONAL map {symbol: {kind, sector, benchmark, beta}} for adjustment
+
+CSV contract (deliberately minimal, so any source can emit it):
+  • one row per (symbol, date): `date,symbol,close`
+  • date = ISO `YYYY-MM-DD`; symbol = a stable ticker/index string; close = a float in the symbol's
+    own currency (returns are unit-free, so currency need not be uniform across symbols — but a stock
+    and ITS benchmark must share a currency for the excess to be meaningful).
+  • the as-of is the max date IN the data, never a file mtime (EXTERNAL_DATA §8 / fix F23).
+
+CONTRACT (mirrors ledger_records.py / extract_pool.py):
+  • Pure + importable; the CLI runs only under __main__. Read-only. Never writes into the feed.
+  • Tolerant: a missing feed, a malformed row, a bad date → skipped, never a crash. Absence yields an
+    empty reader whose `available()` is False, so callers degrade gracefully and say so.
+  • Deterministic: identical files → identical output.
+
+CLI:
+  python3 scripts/market_prices.py --print          # summarise what feed is present
+  python3 scripts/market_prices.py --selftest        # pure-math + tolerant-read selftests
+"""
+from __future__ import annotations
+
+import csv
+import datetime
+import glob
+import json
+import math
+import os
+import sys
+
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FEED_ROOT = os.path.join(REPO, "data", "_market")
+
+
+# ── reading ──────────────────────────────────────────────────────────────────────────────────────
+
+def _read_csv_closes(path):
+    """Yield (symbol, date, close) from one long-format CSV. Malformed rows are skipped, not fatal."""
+    try:
+        with open(path, newline="", encoding="utf-8", errors="replace") as f:
+            reader = csv.DictReader(f)
+            if not reader.fieldnames:
+                return
+            cols = {c.lower().strip(): c for c in reader.fieldnames}
+            if not {"date", "symbol", "close"} <= set(cols):
+                return  # not our schema
+            for row in reader:
+                try:
+                    sym = str(row[cols["symbol"]]).strip()
+                    date = str(row[cols["date"]]).strip()[:10]
+                    close = float(str(row[cols["close"]]).strip())
+                except (KeyError, ValueError, TypeError, AttributeError):
+                    continue
+                # a close must be a FINITE POSITIVE price: NaN/±inf produce nonsensical/infinite returns,
+                # and 0 or negative would divide-by-zero or sign-flip in total_return — skip the bad row.
+                if sym and _is_iso(date) and math.isfinite(close) and close > 0:
+                    yield sym, date, close
+    except OSError:
+        return
+
+
+def _days_between(d_early, d_late):
+    """Calendar days from `d_early` to `d_late` (both YYYY-MM-DD). Large sentinel if either is unparseable
+    (treat as maximally stale, so a bad date never sneaks a carry through the staleness guard)."""
+    try:
+        a = datetime.date(int(d_early[:4]), int(d_early[5:7]), int(d_early[8:10]))
+        b = datetime.date(int(d_late[:4]), int(d_late[5:7]), int(d_late[8:10]))
+        return (b - a).days
+    except (ValueError, TypeError, IndexError):
+        return 10 ** 9
+
+
+def _is_iso(s):
+    """True only for a REAL calendar date in strict YYYY-MM-DD form. A day-of-month must be valid for
+    its month (rejects 2026-02-31, 2026-04-31, 2026-13-01) — otherwise one impossible provider row could
+    become the feed's as_of or be picked by close_on's string comparison and corrupt a reported return."""
+    if not (isinstance(s, str) and len(s) == 10 and s[4] == "-" and s[7] == "-"):
+        return False
+    try:
+        y, m, d = int(s[:4]), int(s[5:7]), int(s[8:10])
+        if y < 1900:
+            return False
+        datetime.date(y, m, d)  # raises ValueError on an impossible calendar date
+        return True
+    except ValueError:
+        return False
+
+
+class MarketFeed:
+    """The parsed feed: per-symbol sorted (date, close) series + optional symbol metadata + per-close
+    provenance (which provider supplied each close), so a review's `tracking_price` can cite its source."""
+
+    def __init__(self, closes, meta, providers, files, sources=None):
+        self._closes = closes          # {symbol: [(date, close)] sorted by date}
+        self._meta = meta              # {symbol: {kind, sector, benchmark, beta}}
+        self.providers = providers     # [provider names present]
+        self.files = files             # [relpaths read]
+        self._sources = sources or {}  # {(symbol, date): provider} — provenance for the tracking_price.source contract
+
+    def available(self):
+        return bool(self._closes)
+
+    def symbols(self):
+        return sorted(self._closes)
+
+    def as_of(self):
+        """The latest date anywhere in the feed (its freshness), or None."""
+        alld = [s[-1][0] for s in self._closes.values() if s]
+        return max(alld) if alld else None
+
+    MAX_CARRY_DAYS = 7  # a close may carry forward at most a week (long weekend + holidays); beyond that the
+                        # symbol is stale for the requested date and must NOT anchor a price as if it were priced
+
+    def close_dated_sourced_on(self, symbol, date, max_stale_days=MAX_CARRY_DAYS):
+        """(close, actual_close_date, source_provider) for the last close ON OR BEFORE `date`, or
+        (None, None, None). Carries forward over non-trading days, but at most `max_stale_days` calendar
+        days — a symbol that stopped updating weeks ago must NOT anchor a price as if the requested date
+        were priced (another symbol can keep the feed-level as_of fresh, hiding the staleness). Returns the
+        ACTUAL close date (how stale the anchor is) AND the provider that supplied it, so a review's
+        `tracking_price` can carry the required `source` + `as_of` (review-decisions contract, §5).
+        `max_stale_days=None` disables the limit."""
+        series = self._closes.get(symbol)
+        if not series:
+            return (None, None, None)
+        chosen = (None, None)
+        for d, c in series:  # sorted ascending
+            if d <= date:
+                chosen = (c, d)
+            else:
+                break
+        c, d = chosen
+        if c is None:
+            return (None, None, None)
+        if max_stale_days is not None and _days_between(d, date) > max_stale_days:
+            return (None, None, None)  # the nearest close is too stale to represent `date`
+        return (c, d, self._sources.get((symbol, d)))
+
+    def close_and_date_on(self, symbol, date, max_stale_days=MAX_CARRY_DAYS):
+        """(close, actual_close_date) — see close_dated_sourced_on; this drops the source for callers that
+        don't need to cite provenance."""
+        c, d, _ = self.close_dated_sourced_on(symbol, date, max_stale_days)
+        return (c, d)
+
+    def close_on(self, symbol, date, max_stale_days=MAX_CARRY_DAYS):
+        """The last close on or before `date` (carry-forward for a non-trading day, up to `max_stale_days`),
+        or None. Used to anchor an entry/review/tracking price (review-decisions backfill). A close older
+        than the window is rejected, so a stale feed cannot silently anchor a weeks-old price."""
+        return self.close_dated_sourced_on(symbol, date, max_stale_days)[0]
+
+    def total_return(self, symbol, d0, d1):
+        """Total price return (%) of `symbol` from d0 to d1 using on-or-before closes (each within the
+        carry-forward window). None if either endpoint is missing or too stale. Raw return — never a skill
+        signal on its own (§9)."""
+        c0, c1 = self.close_on(symbol, d0), self.close_on(symbol, d1)
+        if c0 is None or c1 is None or c0 == 0:
+            return None
+        return round((c1 / c0 - 1.0) * 100.0, 4)
+
+    def beta_of(self, symbol):
+        m = self._meta.get(symbol) or {}
+        b = m.get("beta")
+        # A user-provided beta must be a FINITE real number. A bool, NaN, or Infinity in _symbols.json
+        # would otherwise flow into beta_adjusted_excess() and emit a non-finite `beta_adjusted_excess_pct`
+        # — invalid strict JSON downstream, or a silently-nulled adjustment. Fall back to 1.0 (no
+        # adjustment, naive excess) instead of trusting a poisoned value.
+        if isinstance(b, (int, float)) and not isinstance(b, bool) and math.isfinite(b):
+            return float(b)
+        return 1.0
+
+    def benchmark_of(self, symbol):
+        b = (self._meta.get(symbol) or {}).get("benchmark")
+        # A benchmark must be a non-empty STRING symbol. A non-string container (list/dict) in a
+        # user-provided _symbols.json would otherwise reach total_return() → _closes.get(unhashable) and
+        # raise TypeError, crashing beta_adjusted_excess — treat it as missing (None) instead.
+        return b if (isinstance(b, str) and b.strip()) else None
+
+    def beta_adjusted_excess(self, symbol, d0, d1, benchmark=None, beta=None):
+        """Beta-adjusted excess return (%): stock_return − beta·benchmark_return over [d0, d1]. This is
+        the honest skill number — it strips the market move the stock would have made just by having
+        beta exposure, so only the residual (alpha) counts (§9). Returns a dict with the raw and the
+        adjusted figures (so a caller can show BOTH and see they diverge), or None if data is missing.
+        `benchmark`/`beta` default to the symbol's `_symbols.json` metadata."""
+        benchmark = benchmark or self.benchmark_of(symbol)
+        beta = self.beta_of(symbol) if beta is None else beta
+        if not benchmark:
+            return None
+        sr = self.total_return(symbol, d0, d1)
+        br = self.total_return(benchmark, d0, d1)
+        if sr is None or br is None:
+            return None
+        return {
+            "symbol": symbol, "benchmark": benchmark, "beta": round(beta, 4),
+            "stock_return_pct": sr, "benchmark_return_pct": br,
+            "raw_excess_pct": round(sr - br, 4),                 # naive (beta=1) excess
+            "beta_adjusted_excess_pct": round(sr - beta * br, 4),  # the skill number
+        }
+
+
+def load_feed(feed_root=FEED_ROOT):
+    """Read every `data/_market/<provider>/*.csv` into a MarketFeed, plus any `_symbols.json` metadata.
+    A missing feed root returns an empty (unavailable) feed — the normal state until the user drops one."""
+    closes, meta, providers, files = {}, {}, [], []
+    sources = {}  # {(symbol, date): provider} — which provider supplied each close (for tracking_price.source)
+    if not os.path.isdir(feed_root):
+        return MarketFeed(closes, meta, providers, files)
+    for provider in sorted(os.listdir(feed_root)):
+        pdir = os.path.join(feed_root, provider)
+        if not os.path.isdir(pdir):
+            continue
+        providers.append(provider)
+        mpath = os.path.join(pdir, "_symbols.json")
+        if os.path.isfile(mpath):
+            try:
+                with open(mpath, encoding="utf-8") as f:
+                    m = json.load(f)
+                if isinstance(m, dict):
+                    for k, v in m.items():
+                        if isinstance(v, dict):
+                            meta[str(k).strip()] = v
+            except (OSError, json.JSONDecodeError, ValueError):
+                pass
+        for path in sorted(glob.glob(os.path.join(pdir, "*.csv"))):
+            found = False
+            for sym, date, close in _read_csv_closes(path):
+                closes.setdefault(sym, {})[date] = close  # dedup: last write per (sym,date) wins
+                sources[(sym, date)] = provider           # …and record which provider it came from
+                found = True
+            if found:
+                files.append(os.path.relpath(path, REPO))
+    # freeze each symbol to a date-sorted list
+    sorted_closes = {sym: sorted(byd.items()) for sym, byd in closes.items()}
+    return MarketFeed(sorted_closes, meta, providers, files, sources)
+
+
+# ── selftest + CLI ─────────────────────────────────────────────────────────────────────────────────
+
+def selftest():
+    import tempfile
+    ok = True
+
+    def check(cond, msg):
+        nonlocal ok
+        if not cond:
+            ok = False
+            print(f"[market_prices] SELFTEST FAIL: {msg}")
+
+    # empty / missing feed → unavailable, never crashes
+    empty = load_feed("/nonexistent/_market/xyz")
+    check(empty.available() is False, "missing feed → unavailable")
+    check(empty.close_on("SPX", "2026-01-01") is None, "missing feed → close_on None")
+    check(empty.total_return("SPX", "2026-01-01", "2026-02-01") is None, "missing feed → return None")
+
+    with tempfile.TemporaryDirectory() as td:
+        prov = os.path.join(td, "SampleProvider")
+        os.makedirs(prov)
+        with open(os.path.join(prov, "closes.csv"), "w", encoding="utf-8") as f:
+            f.write("date,symbol,close\n")
+            f.write("2026-06-01,STK,100\n2026-07-01,STK,120\n")   # stock +20%
+            f.write("2026-06-01,BENCH,200\n2026-07-01,BENCH,220\n")  # benchmark +10%
+        with open(os.path.join(prov, "_symbols.json"), "w", encoding="utf-8") as f:
+            json.dump({"STK": {"kind": "equity", "benchmark": "BENCH", "beta": 1.5}}, f)
+        feed = load_feed(td)
+
+        check(feed.available() and feed.symbols() == ["BENCH", "STK"], "reads both symbols")
+        check(feed.as_of() == "2026-07-01", "as_of is the latest date in the data (not mtime)")
+        check(feed.close_on("STK", "2026-06-03") == 100.0, "close_on carries the prior close forward over a non-trading day (2 days)")
+        check(feed.close_on("STK", "2026-06-15") is None, "close_on REJECTS a >7-day-stale carry (14 days after the last close)")
+        check(feed.close_on("STK", "2026-06-15", max_stale_days=None) == 100.0, "…unless the staleness limit is disabled")
+        c, d = feed.close_and_date_on("STK", "2026-06-03")
+        check(c == 100.0 and d == "2026-06-01", "close_and_date_on returns the ACTUAL (stale-aware) close date")
+        c2, d2, src = feed.close_dated_sourced_on("STK", "2026-06-03")
+        check(c2 == 100.0 and d2 == "2026-06-01" and src == "SampleProvider",
+              "close_dated_sourced_on carries the provider provenance (for tracking_price.source)")
+        check(feed.close_on("STK", "2026-05-01") is None, "close_on before the series → None")
+        check(feed.total_return("STK", "2026-06-01", "2026-07-01") == 20.0, "stock total return +20%")
+        check(feed.total_return("BENCH", "2026-06-01", "2026-07-01") == 10.0, "benchmark total return +10%")
+
+        adj = feed.beta_adjusted_excess("STK", "2026-06-01", "2026-07-01")
+        check(adj is not None, "beta-adjusted excess computes with metadata")
+        check(adj["raw_excess_pct"] == 10.0, "raw (beta=1) excess = 20 − 10 = 10pp")
+        check(adj["beta_adjusted_excess_pct"] == 5.0, "beta-adjusted excess = 20 − 1.5·10 = 5pp")
+        check(adj["raw_excess_pct"] != adj["beta_adjusted_excess_pct"],
+              "raw and beta-adjusted DIVERGE (the point — high beta explains part of the outperformance)")
+        # explicit override beats metadata
+        adj2 = feed.beta_adjusted_excess("STK", "2026-06-01", "2026-07-01", beta=2.0)
+        check(adj2["beta_adjusted_excess_pct"] == 0.0, "beta=2.0 override → 20 − 2·10 = 0pp (no alpha)")
+
+        # a malformed row is skipped, not fatal
+        with open(os.path.join(prov, "bad.csv"), "w", encoding="utf-8") as f:
+            f.write("date,symbol,close\nnot-a-date,STK,oops\n2026-08-01,STK,130\n")
+        feed2 = load_feed(td)
+        check(feed2.close_on("STK", "2026-08-01") == 130.0, "good row read despite a sibling malformed row")
+
+        # non-finite / non-positive closes AND an impossible calendar date are all skipped, not ingested
+        with open(os.path.join(prov, "junk.csv"), "w", encoding="utf-8") as f:
+            f.write("date,symbol,close\n")
+            f.write("2026-09-01,JUNK,inf\n2026-09-02,JUNK,-5\n2026-09-03,JUNK,0\n")   # inf / negative / zero
+            f.write("2026-02-31,JUNK,50\n")                                            # impossible date
+            f.write("2026-09-05,JUNK,42\n")                                            # the one good row
+        feed3 = load_feed(td)
+        check(feed3.symbols().count("JUNK") == 1 and feed3.as_of() == "2026-09-05",
+              "inf/-5/0/impossible-date rows skipped; only the good JUNK row (42 @ 2026-09-05) survives")
+        check(feed3.close_on("JUNK", "2026-09-06") == 42.0, "close_on never returns a skipped bad price (the good 42 @ 09-05)")
+
+    print("[market_prices] selftest", "PASS" if ok else "FAIL")
+    return ok
+
+
+def main(argv):
+    if "--selftest" in argv:
+        return 0 if selftest() else 1
+    feed = load_feed()
+    if not feed.available():
+        print(f"No market feed present under {os.path.relpath(FEED_ROOT, REPO)}/ — "
+              f"drop a provider folder with `date,symbol,close` CSVs to enable benchmark-adjusted scoring.")
+        return 0
+    print(f"Market feed: providers={feed.providers}; symbols={len(feed.symbols())}; as_of={feed.as_of()}; files={len(feed.files)}")
+    if "--print" in argv:
+        print(json.dumps({"providers": feed.providers, "symbols": feed.symbols(),
+                          "as_of": feed.as_of(), "files": feed.files}, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
