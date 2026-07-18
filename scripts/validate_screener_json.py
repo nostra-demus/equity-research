@@ -36,6 +36,7 @@ Exit 0 = all valid; 1 = violations printed.
 """
 from __future__ import annotations
 
+import datetime
 import glob
 import json
 import os
@@ -190,9 +191,11 @@ def check_commodity_review_anchors(doc_path: str) -> list[str]:
     so any mismatch means the review was built against a different or since-corrected run).
 
     It also enforces the anchor/outcome integrity the learning loop depends on: reference_price
-    must equal the frozen current_price (never re-derived), one risk_result per original key_risk,
-    and a scheduled window must genuinely be that far out. Malformed inputs (a non-object JSON, a
-    null date) report a graceful error instead of crashing the validator."""
+    must equal the frozen current_price (never re-derived); one risk_result per original key_risk,
+    each copying its key_risk verbatim (not duplicated/fabricated); absolute_return_pct must equal
+    the recomputed price return; both dates must be real calendar dates; the filename window token
+    must match the review_window field; and a scheduled window must genuinely be that far out.
+    Malformed inputs (a non-object JSON, a null date) report a graceful error instead of crashing."""
     reviews_dir = os.path.dirname(doc_path)
     run_dir = os.path.dirname(reviews_dir)
     record_path = os.path.join(run_dir, "decision_record.json")
@@ -216,6 +219,15 @@ def check_commodity_review_anchors(doc_path: str) -> list[str]:
     original_date = doc.get("original_decision_date")
     if isinstance(review_date, str) and isinstance(original_date, str) and review_date < original_date:
         errs.append(f"review_date {review_date!r} predates original_decision_date {original_date!r}")
+    # both dates must be REAL calendar dates, not just the schema's YYYY-MM-DD shape — "2026-99-99"
+    # matches the regex but is a date the due/window/calibration math cannot use (§5: dates are real)
+    for fld in ("review_date", "original_decision_date"):
+        v = doc.get(fld)
+        if isinstance(v, str):
+            try:
+                datetime.date.fromisoformat(v)
+            except ValueError:
+                errs.append(f"{fld} {v!r} is not a real calendar date (YYYY-MM-DD)")
     # reference_price is copied verbatim from the frozen current_price, never re-derived — a
     # fat-fingered anchor would corrupt every window's return, so cross-check it against the record
     ref = doc.get("reference_price")
@@ -227,22 +239,55 @@ def check_commodity_review_anchors(doc_path: str) -> list[str]:
                     f"reference_price.{k} {ref.get(k)!r} != decision_record current_price.{k} {cur.get(k)!r} "
                     f"(the anchor is copied verbatim from the frozen record, never re-derived)"
                 )
+    # absolute_return_pct is the field the calibration layer aggregates — it must equal the
+    # recomputed (review_price − reference_price) / reference_price × 100 (review.md Step 5's exact
+    # formula), never a hand-typed number, or a mis-keyed return silently corrupts the loop (§20 bad-math)
+    rvp = doc.get("review_price")
+    stored_ret = doc.get("absolute_return_pct")
+    if isinstance(ref, dict) and isinstance(rvp, dict) and isinstance(stored_ret, (int, float)) \
+            and not isinstance(stored_ret, bool):
+        rvv, rfv = rvp.get("value"), ref.get("value")
+        if isinstance(rvv, (int, float)) and not isinstance(rvv, bool) \
+                and isinstance(rfv, (int, float)) and not isinstance(rfv, bool) and rfv != 0:
+            computed = (rvv - rfv) / rfv * 100
+            if abs(stored_ret - computed) > 0.05:
+                errs.append(
+                    f"absolute_return_pct {stored_ret} != recomputed {computed:.4f} from "
+                    f"(review_price {rvv} − reference_price {rfv}) / {rfv} × 100 (§20 bad-math)"
+                )
     # one risk_result per original key_risk — an empty array would skip the falsification checks
     # the review exists to run (each key_risk must be resolved materialized/not/partial/pending)
     rr = doc.get("risk_results")
     kr = record.get("key_risks")
-    if isinstance(rr, list) and isinstance(kr, list) and len(rr) != len(kr):
-        errs.append(
-            f"risk_results has {len(rr)} entr{'y' if len(rr) == 1 else 'ies'} but decision_record key_risks "
-            f"has {len(kr)} — the schema requires exactly one risk_result per key_risk"
-        )
+    if isinstance(rr, list) and isinstance(kr, list):
+        if len(rr) != len(kr):
+            errs.append(
+                f"risk_results has {len(rr)} entr{'y' if len(rr) == 1 else 'ies'} but decision_record key_risks "
+                f"has {len(kr)} — the schema requires exactly one risk_result per key_risk"
+            )
+        else:
+            # length alone lets duplicated/fabricated rows pass — each risk_result.risk must copy its
+            # key_risk verbatim (schema: "one entry per key_risks[] item"), so the review actually tests
+            # the risks that were meant to falsify the call, not re-labelled or duplicated placeholders
+            # str-only (a missing/non-str risk is the schema's job to flag — never crash sorted() here)
+            got = sorted(r.get("risk") for r in rr if isinstance(r, dict) and isinstance(r.get("risk"), str))
+            want = sorted(k for k in kr if isinstance(k, str))
+            if got != want:
+                missing = [k for k in want if k not in got]
+                extra = [g for g in got if g not in want]
+                def _clip(xs):
+                    return ", ".join(repr((x or "")[:60]) for x in xs[:2]) + ("…" if len(xs) > 2 else "")
+                errs.append(
+                    "risk_results risks do not match decision_record key_risks 1:1 "
+                    f"(uncovered key_risks: [{_clip(missing)}]; fabricated/duplicated risk_results: [{_clip(extra)}]) — "
+                    "each risk_result.risk must copy its key_risk verbatim"
+                )
     # a scheduled window (30d/90d/180d/365d) must genuinely be that far out; an early file would
     # otherwise mark the real checkpoint as already reviewed — an early honest check-in is 'ad-hoc'
     window = doc.get("review_window")
     if isinstance(window, str) and window in REVIEW_WINDOW_DAYS \
             and isinstance(review_date, str) and isinstance(original_date, str):
         try:
-            import datetime
             elapsed = (datetime.date.fromisoformat(review_date) - datetime.date.fromisoformat(original_date)).days
         except ValueError:
             elapsed = None
@@ -252,6 +297,21 @@ def check_commodity_review_anchors(doc_path: str) -> list[str]:
                 f"a scheduled window must be at least {REVIEW_WINDOW_DAYS[window]}d out; "
                 f"record an early check as review_window 'ad-hoc'"
             )
+    # the filename window token must match the review_window field. The due-scanner (review.md Step 3)
+    # keys "already reviewed" on the FILENAME window, so a file named *_365d_* whose review_window is
+    # 'ad-hoc' (or any other) would make it mask the real 365d checkpoint — the two must agree.
+    base = os.path.basename(doc_path)
+    fname_m = re.match(r"^\d{4}-\d{2}-\d{2}_(30d|90d|180d|365d|ad-hoc)_decision_review(?:_v\d+)?\.json$", base)
+    if fname_m is None:
+        errs.append(
+            f"review filename {base!r} does not match <YYYY-MM-DD>_<window>_decision_review[_vN].json "
+            f"— the due-scanner keys on this name"
+        )
+    elif isinstance(window, str) and fname_m.group(1) != window:
+        errs.append(
+            f"filename window {fname_m.group(1)!r} != review_window field {window!r} — they must match "
+            f"so the due-scanner can't mistake this file for a different checkpoint"
+        )
     return errs
 
 

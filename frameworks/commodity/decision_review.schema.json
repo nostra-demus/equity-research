@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "frameworks/commodity/decision_review.schema.json",
   "title": "Commodity decision review",
-  "description": "The commodity-scoped twin of the research swarm's outcome-review schema (frameworks/DECISION_LEDGER.md §8), deliberately smaller — the commodity decision_record.json has no entry_price/basket/forecast_ledger (decision_record.schema.json's own description explains why: CLAUDE.md §10 scenario math does not apply to the single-verdict commodity dossier). Written by .claude/commands/commodity/review.md to commodity/runs/<COMMODITY>/reviews/<REVIEW_DATE>_<WINDOW>_decision_review.json — APPEND-ONLY, one file per review, never overwritten (collisions get a _v2/_v3 suffix, same convention as frameworks/DECISION_LEDGER.md §8). The original decision_record.json is never edited by any review. Validated by scripts/validate_screener_json.py --fixture (schemas_root, per .claude/agents/commodity/SWARM.md), which also cross-checks a review's original_commodity/original_decision_date/original_action against the decision_record.json it reviews.",
+  "description": "The commodity-scoped twin of the research swarm's outcome-review schema (frameworks/DECISION_LEDGER.md §8), deliberately smaller — the commodity decision_record.json has no entry_price/basket/forecast_ledger (decision_record.schema.json's own description explains why: CLAUDE.md §10 scenario math does not apply to the single-verdict commodity dossier). Written by .claude/commands/commodity/review.md to commodity/runs/<COMMODITY>/reviews/<REVIEW_DATE>_<WINDOW>_decision_review.json — APPEND-ONLY, one file per review, never overwritten (collisions get a _v2/_v3 suffix, same convention as frameworks/DECISION_LEDGER.md §8). The original decision_record.json is never edited by any review. Validated by scripts/validate_screener_json.py --fixture (schemas_root, per .claude/agents/commodity/SWARM.md), which also cross-checks a review's commodity/original_decision_date/original_action against the decision_record.json it reviews.",
   "type": "object",
   "required": [
     "schema_version", "swarm", "commodity", "original_decision_date", "review_date",
@@ -29,7 +29,14 @@
         "unit": { "type": "string" },
         "as_of": { "type": "string" },
         "source": { "type": "string" }
-      }
+      },
+      "allOf": [
+        {
+          "$comment": "When the anchor price is known (a number), it must carry currency/unit/as_of — those are the exact keys validate_screener_json.py cross-checks against the frozen current_price, and an unlabelled number is uninterpretable (CLAUDE.md §15). Omit only for the explicit null case.",
+          "if": { "properties": { "value": { "type": "number" } } },
+          "then": { "required": ["value", "currency", "unit", "as_of"] }
+        }
+      ]
     },
     "review_price": {
       "type": "object",
@@ -41,7 +48,14 @@
         "unit": { "type": "string" },
         "as_of": { "type": "string" },
         "source": { "type": "string" }
-      }
+      },
+      "allOf": [
+        {
+          "$comment": "The review price is fetched live at review time, so a known value must carry currency/unit/as_of AND a source (CLAUDE.md §5 web sources must be dated/labelled; §15 no unlabelled number). A commodity quoted in the wrong unit (cents/bushel vs $/bushel) makes absolute_return_pct meaningless. Omit only for the explicit null (no verifiable source found) case.",
+          "if": { "properties": { "value": { "type": "number" } } },
+          "then": { "required": ["value", "currency", "unit", "as_of", "source"] }
+        }
+      ]
     },
     "absolute_return_pct": { "type": ["number", "null"] },
     "price_vs_levels": {

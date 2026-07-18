@@ -39,7 +39,7 @@ Glob `commodity/runs/*/decision_record.json`. Validate each: parse as JSON and c
 Narrow by mode:
 - **mode `commodity`:** `commodity/runs/<TARGET>/decision_record.json`. If absent, STOP and report "No decision record for commodity `<TARGET>`."
 - **mode `all`:** every validated record.
-- **mode `due`:** every `(commodity, window)` pair the Step 3 helper marks `DUE`.
+- **mode `due`:** every `(commodity, window)` pair the Step 3 helper marks `DUE` — but if `<WINDOW_ARG>` was supplied, restrict to that window only (so `/commodity:review due 30d` acts on the due 30d checkpoints, not every due window).
 
 ## 3. Compute review windows (no stored schedule — derive it)
 
@@ -86,7 +86,7 @@ for f in sorted(glob.glob("commodity/runs/*/decision_record.json")):
 PY
 ```
 
-Use the `DUE` lines to drive mode `due`. `REVIEWED` windows are skipped (append-only). In mode `commodity`/`all` with no `<WINDOW_ARG>`: use the earliest `DUE` window if one exists, else `ad-hoc` — an early honest check-in is allowed and useful (mirrors `DECISION_LEDGER.md`'s `ad-hoc` window), but it can only ever land `action_outcome: too_early` for anything not yet resolvable; do not force a verdict a window this young cannot support.
+Use the `DUE` lines to drive mode `due` — filtered to `<WINDOW_ARG>` when one was supplied (drop every `DUE` pair whose window isn't the requested one). `REVIEWED` windows are skipped (append-only). In mode `commodity`/`all` with no `<WINDOW_ARG>`: use the earliest `DUE` window if one exists, else `ad-hoc` — an early honest check-in is allowed and useful (mirrors `DECISION_LEDGER.md`'s `ad-hoc` window), but it can only ever land `action_outcome: too_early` for anything not yet resolvable; do not force a verdict a window this young cannot support.
 
 ## 4. Resolve the review output path (append-only)
 
@@ -124,8 +124,8 @@ Read this table **in order** (first match wins), same discipline as `DECISION_LE
 |---|---|---|
 | `Research More` | genuinely new primary data landed since `decision_date` that would let the swarm re-run to a real verdict | `vindicated` (the call to wait was right — there was real information still missing) |
 | `Research More` | no new data landed, or a directional call could have been made just as well with what already existed | `contradicted` |
+| `Buy` | `support_breached` and/or `thesis_status` is `broken` | `contradicted` (a broken thesis is not vindicated by a price that merely rose — §24/§10: luck at best, not skill — so this row is tested BEFORE the price-rose row below) |
 | `Buy` | price rose materially and/or `thesis_status` is `confirmed` | `vindicated` |
-| `Buy` | `support_breached` and/or `thesis_status` is `broken` | `contradicted` |
 | `Avoid` / `Trim` | price fell materially and/or a flagged key risk `materialized` | `vindicated` |
 | `Avoid` / `Trim` | price rallied through `resistance_breached` with no key risk materializing | `contradicted` |
 | `Hold` | price stayed within the `key_levels` range and `thesis_status` is `on-track`/`confirmed` | `vindicated` (a `Hold` predicts stability — staying in range over the window IS the call playing out) |
