@@ -192,15 +192,18 @@ def test_end_to_end_floor_met():
 
 def test_probability_scale():
     # the ledger is 0-100; probability=1 means 1% (=0.01), NOT 100% — never re-guess "is it a fraction?"
+    # the valid endpoints 0 (==0%) and 100 (==100%) are degenerate but scorable and must be KEPT.
     rec = {"forecast_ledger": [{"prediction": "a", "probability": 1, "owner_module": "earnings"},
                                {"prediction": "b", "probability": 100, "owner_module": "earnings"},
-                               {"prediction": "c", "probability": 75, "owner_module": "earnings"}]}
+                               {"prediction": "c", "probability": 75, "owner_module": "earnings"},
+                               {"prediction": "d", "probability": 0, "owner_module": "earnings"}]}
     reviews = [{"forecast_results": [{"prediction": "a", "status": "confirmed"},
                                      {"prediction": "b", "status": "confirmed"},
-                                     {"prediction": "c", "status": "falsified"}]}]
+                                     {"prediction": "c", "status": "falsified"},
+                                     {"prediction": "d", "status": "falsified"}]}]
     pairs = C.match_resolved_forecasts(rec, reviews)
     probs = sorted(pp["prob"] for pp in pairs)
-    check(probs == [0.01, 0.75, 1.0], f"probability 1/75/100 → 0.01/0.75/1.0 (0-100 scale) (got {probs})")
+    check(probs == [0.0, 0.01, 0.75, 1.0], f"probability 0/1/75/100 → 0.0/0.01/0.75/1.0, endpoints kept (got {probs})")
 
 
 def test_below_floor_withholds():

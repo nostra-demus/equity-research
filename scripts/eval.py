@@ -873,6 +873,9 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
     ledger) or a list of violations (empty = pass)."""
     if not (isdate(decision_date) and decision_date >= AO_DATE):
         return None
+    if forecast_ledger is not None and not isinstance(forecast_ledger, list):
+        return None  # a malformed (non-list) forecast_ledger is a STRUCTURAL defect for check A/T to flag,
+                     # not AO's — return N/A rather than TypeError-crash the whole eval harness on one record
     fl = forecast_ledger or []
     if not fl:
         return None  # empty forecast_ledger is allowed (§19)
@@ -1936,6 +1939,8 @@ if scope=="selftest":
         ("2026-07-18",[_fc_ident],["outcome space is not partitioned"]),       # identical triggers → FAIL
         ("2026-07-18",[_fc_far,_fc_far],["no near-term"]),                     # every dateable fc >90d → record FAIL
         ("2026-07-18",[_fc_good,_fc_far],[]),                                  # one near-term proof point → pass
+        ("2026-07-18",5,None),                                                 # malformed (non-list) → N/A, never crash
+        ("2026-07-18",None,None),                                              # None ledger → N/A
     ]
     for dt_,fl_,exp in aocases:
         got=eval_ao_forecast_resolvability(dt_,fl_)
@@ -1943,7 +1948,8 @@ if scope=="selftest":
         elif not exp: ok=(isinstance(got,list) and len(got)==0)
         else: ok=(isinstance(got,list) and len(got)>0 and all(any(s in v for v in got) for s in exp))
         if not ok: aobad+=1
-        print(f"  [{'ok' if ok else 'XX'}] AO({dt_!r},n={len(fl_)}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+        _n=len(fl_) if isinstance(fl_,list) else repr(fl_)  # non-list fixtures (malformed-ledger cases) have no len()
+        print(f"  [{'ok' if ok else 'XX'}] AO({dt_!r},fl={_n}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
     bad+=aobad
 
     print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(aocases)} check-AO cases")

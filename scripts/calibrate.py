@@ -142,13 +142,15 @@ def betai(x, a, b):
 
 
 def beta_ppf(p, a, b):
-    """Inverse of I_x(a,b): the x with betai(x,a,b)=p. Bisection (monotone in x); ~1e-10."""
+    """Inverse of I_x(a,b): the x with betai(x,a,b)=p. Bisection (monotone in x). 80 halvings drive the
+    interval to 2^-80 (≪ float64 machine epsilon ~1e-16), so the result is bit-identical to more
+    iterations — betai's own ~1e-12 precision is the binding limit, reached well before then."""
     if p <= 0.0:
         return 0.0
     if p >= 1.0:
         return 1.0
     lo, hi = 0.0, 1.0
-    for _ in range(200):
+    for _ in range(80):
         mid = 0.5 * (lo + hi)
         if betai(mid, a, b) < p:
             lo = mid
@@ -397,12 +399,14 @@ def match_resolved_forecasts(record, reviews):
         if not isinstance(prob, (int, float)) or isinstance(prob, bool):
             continue
         # The ledger is ALWAYS on the 0-100 scale (§6/§10); ledger_records.py applies any scale_fix
-        # erratum before we see it. A value strictly in (0,1) is a MIS-SCALED fraction that slipped the
+        # erratum before we see it. A value STRICTLY in (0,1) is a MIS-SCALED fraction that slipped the
         # errata layer (0.8 meaning 80%, not 0.8%) — excluding it is correct: silently reading it as
         # 0.8% would 100×-corrupt the Brier score, and guessing its scale duplicates the errata layer and
-        # would misread a legitimate probability of exactly 1 (==1%). So score only a proper 0-100 value.
-        if not (1 <= prob <= 100):
-            continue  # <1 (mis-scaled fraction) or >100 (out of range) → excluded, not mis-scored
+        # would misread a legitimate probability of exactly 1 (==1%). Exclude the open interval (0,1) and
+        # out-of-range values, but KEEP the valid endpoints: 0 (==0%, "definitely won't") and 100 (==100%)
+        # are degenerate but mathematically scorable, so they must not be dropped.
+        if (0 < prob < 1) or prob < 0 or prob > 100:
+            continue  # (0,1) mis-scaled fraction, or out of [0,100] → excluded, not mis-scored
         out.append({
             "prob": prob / 100.0, "realized": int(y),
             "owner_module": src.get("owner_module") or "untagged",
