@@ -47,9 +47,9 @@ Unlike the research swarm's `decision_record.json`, the commodity schema carries
 
 ```bash
 python3 - <<'PY'
-import json, glob, os, subprocess, datetime
-today = subprocess.check_output(["date","+%F"]).decode().strip()
-today_d = datetime.date.fromisoformat(today)
+import json, glob, os, datetime
+today_d = datetime.date.today()            # platform-independent; no `date` subprocess
+today = today_d.isoformat()
 WINDOWS = {"30d": 30, "90d": 90, "180d": 180, "365d": 365}
 for f in sorted(glob.glob("commodity/runs/*/decision_record.json")):
     try:
@@ -63,11 +63,24 @@ for f in sorted(glob.glob("commodity/runs/*/decision_record.json")):
     if d.get("swarm") != "commodity":
         print("SKIP wrong_swarm", f); continue
     run_dir = os.path.dirname(f)
-    dec_d = datetime.date.fromisoformat(d["decision_date"])
+    dec_date = d["decision_date"]
+    dec_d = datetime.date.fromisoformat(dec_date)
     for w, offset in WINDOWS.items():
         due_date = dec_d + datetime.timedelta(days=offset)
         due = due_date <= today_d
-        existing = glob.glob(os.path.join(run_dir, "reviews", "*_%s_decision_review*.json" % w))
+        # A window counts as REVIEWED only if an existing review for THIS decision covers it —
+        # matched on original_decision_date, not just the filename window. commodity:rerun reuses
+        # the stable run folder and rewrites decision_record.json with a NEW decision_date, so a
+        # stale review from the prior (since-rewritten) decision must NOT suppress the new
+        # decision's checkpoints.
+        existing = []
+        for r in glob.glob(os.path.join(run_dir, "reviews", "*_%s_decision_review*.json" % w)):
+            try:
+                rv = json.load(open(r))
+            except Exception:
+                continue
+            if isinstance(rv, dict) and rv.get("original_decision_date") == dec_date:
+                existing.append(r)
         status = "DUE" if (due and not existing) else ("REVIEWED" if existing else "NOT_DUE")
         print(status, run_dir, w, str(due_date), "today="+today)
 PY
@@ -111,13 +124,13 @@ Read this table **in order** (first match wins), same discipline as `DECISION_LE
 |---|---|---|
 | `Research More` | genuinely new primary data landed since `decision_date` that would let the swarm re-run to a real verdict | `vindicated` (the call to wait was right — there was real information still missing) |
 | `Research More` | no new data landed, or a directional call could have been made just as well with what already existed | `contradicted` |
-| any | `thesis_status` is `on-track` (nothing has resolved yet) | `too_early` |
 | `Buy` | price rose materially and/or `thesis_status` is `confirmed` | `vindicated` |
 | `Buy` | `support_breached` and/or `thesis_status` is `broken` | `contradicted` |
 | `Avoid` / `Trim` | price fell materially and/or a flagged key risk `materialized` | `vindicated` |
 | `Avoid` / `Trim` | price rallied through `resistance_breached` with no key risk materializing | `contradicted` |
-| `Hold` | price stayed within the `key_levels` range and `thesis_status` is `on-track`/`confirmed` | `vindicated` |
+| `Hold` | price stayed within the `key_levels` range and `thesis_status` is `on-track`/`confirmed` | `vindicated` (a `Hold` predicts stability — staying in range over the window IS the call playing out) |
 | `Hold` | price broke decisively through `support`/`resistance` in a way `Buy`/`Avoid` would have captured and `Hold` missed | `contradicted` |
+| any | `thesis_status` is `on-track` and nothing above resolved (a directional call whose price has not yet moved) | `too_early` |
 | anything not cleanly matched above | — | `partial`, and explain the split in `notes` |
 
 "Materially" is a judgment call, not a fixed percentage — anchor it to the specific commodity's own recent volatility (visible in the original run's `market-structure` output if still on disk) rather than a generic threshold. Never force `vindicated`/`contradicted` past what the evidence actually shows; `too_early`/`partial` are honest, valid outcomes.
@@ -156,10 +169,15 @@ If no records were due/found (mode `due` with nothing scheduled yet), say so pla
 
 ## 13. Commit and push to main
 
-Per `CLAUDE.md` git policy — this writes only under `commodity/runs/<COMMODITY>/reviews/`, the same data stream `commodity:full`/`commodity:rerun` already commit straight to `main` via `commit-run.sh`:
+Per `CLAUDE.md` git policy — this writes only under `commodity/runs/<COMMODITY>/reviews/`, the same data stream `commodity:full`/`commodity:rerun` already commit straight to `main` via `commit-run.sh`.
+
+Stage **only the exact review files this run wrote** (the paths resolved in Step 4), listed explicitly — never a `commodity/runs/*/reviews/*` wildcard. `commit-run.sh` stages precisely the pathspecs it is handed (`git add -- "$@"`), so a wildcard would sweep in any *other* commodity's uncommitted review left by a concurrent or aborted run, breaking the per-run commit isolation the helper exists to preserve:
 
 ```bash
-bash scripts/commit-run.sh "Commodity review: <N> review(s) on <REVIEW_DATE>" -- "commodity/runs/*/reviews/*_decision_review*.json"
+# one path per review actually written this run (Step 4), e.g. for a due-mode run that reviewed COPPER + GOLD:
+bash scripts/commit-run.sh "Commodity review: <N> review(s) on <REVIEW_DATE>" -- \
+  "commodity/runs/COPPER/reviews/<REVIEW_DATE>_<WINDOW>_decision_review.json" \
+  "commodity/runs/GOLD/reviews/<REVIEW_DATE>_<WINDOW>_decision_review.json"
 ```
 
 Report the commit SHA from `git rev-parse HEAD`. If no review files were created, skip the commit.

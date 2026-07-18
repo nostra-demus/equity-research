@@ -159,6 +159,7 @@ FIXTURE_PAIRS = [
 
 COMMODITY_SCHEMA = "frameworks/commodity/decision_record.schema.json"
 COMMODITY_REVIEW_SCHEMA = "frameworks/commodity/decision_review.schema.json"
+REVIEW_WINDOW_DAYS = {"30d": 30, "90d": 90, "180d": 180, "365d": 365}
 COMMODITY_DOSSIER = "commodity-thesis/99_commodity-thesis-synthesis.md"
 COMMODITY_TRIAGE = "market-structure/00_commodity-triage.md"
 ROUTING_ACTION_RE = re.compile(r"##\s*Routing[\s\S]*?^Action:\s*(.+)$", re.MULTILINE)
@@ -186,14 +187,23 @@ def check_commodity_review_anchors(doc_path: str) -> list[str]:
     commodity-scoped twin of the anchor discipline frameworks/DECISION_LEDGER.md §8 already
     requires: the review's own commodity/original_decision_date/original_action must match
     the frozen record's commodity/decision_date/action exactly (the record is never edited,
-    so any mismatch means the review was built against a different or since-corrected run)."""
+    so any mismatch means the review was built against a different or since-corrected run).
+
+    It also enforces the anchor/outcome integrity the learning loop depends on: reference_price
+    must equal the frozen current_price (never re-derived), one risk_result per original key_risk,
+    and a scheduled window must genuinely be that far out. Malformed inputs (a non-object JSON, a
+    null date) report a graceful error instead of crashing the validator."""
     reviews_dir = os.path.dirname(doc_path)
     run_dir = os.path.dirname(reviews_dir)
     record_path = os.path.join(run_dir, "decision_record.json")
     doc = json.load(open(doc_path, encoding="utf-8"))
+    if not isinstance(doc, dict):
+        return ["review document is not a JSON object"]
     if not os.path.exists(record_path):
         return [f"decision_record.json not found at {os.path.relpath(record_path, REPO)} — cannot cross-check anchors"]
     record = json.load(open(record_path, encoding="utf-8"))
+    if not isinstance(record, dict):
+        return [f"decision_record.json at {os.path.relpath(record_path, REPO)} is not a JSON object — cannot cross-check anchors"]
     errs = []
     if doc.get("commodity") != record.get("commodity"):
         errs.append(f"review commodity {doc.get('commodity')!r} != decision_record commodity {record.get('commodity')!r}")
@@ -201,8 +211,47 @@ def check_commodity_review_anchors(doc_path: str) -> list[str]:
         errs.append(f"review original_decision_date {doc.get('original_decision_date')!r} != decision_record decision_date {record.get('decision_date')!r}")
     if doc.get("original_action") != record.get("action"):
         errs.append(f"review original_action {doc.get('original_action')!r} != decision_record action {record.get('action')!r}")
-    if doc.get("review_date", "") < doc.get("original_decision_date", ""):
-        errs.append(f"review_date {doc.get('review_date')!r} predates original_decision_date {doc.get('original_decision_date')!r}")
+    # review_date cannot predate the decision (None-safe: schema catches wrong/absent types)
+    review_date = doc.get("review_date")
+    original_date = doc.get("original_decision_date")
+    if isinstance(review_date, str) and isinstance(original_date, str) and review_date < original_date:
+        errs.append(f"review_date {review_date!r} predates original_decision_date {original_date!r}")
+    # reference_price is copied verbatim from the frozen current_price, never re-derived — a
+    # fat-fingered anchor would corrupt every window's return, so cross-check it against the record
+    ref = doc.get("reference_price")
+    cur = record.get("current_price")
+    if isinstance(ref, dict) and isinstance(cur, dict):
+        for k in ("value", "currency", "unit", "as_of"):
+            if k in cur and ref.get(k) != cur.get(k):
+                errs.append(
+                    f"reference_price.{k} {ref.get(k)!r} != decision_record current_price.{k} {cur.get(k)!r} "
+                    f"(the anchor is copied verbatim from the frozen record, never re-derived)"
+                )
+    # one risk_result per original key_risk — an empty array would skip the falsification checks
+    # the review exists to run (each key_risk must be resolved materialized/not/partial/pending)
+    rr = doc.get("risk_results")
+    kr = record.get("key_risks")
+    if isinstance(rr, list) and isinstance(kr, list) and len(rr) != len(kr):
+        errs.append(
+            f"risk_results has {len(rr)} entr{'y' if len(rr) == 1 else 'ies'} but decision_record key_risks "
+            f"has {len(kr)} — the schema requires exactly one risk_result per key_risk"
+        )
+    # a scheduled window (30d/90d/180d/365d) must genuinely be that far out; an early file would
+    # otherwise mark the real checkpoint as already reviewed — an early honest check-in is 'ad-hoc'
+    window = doc.get("review_window")
+    if isinstance(window, str) and window in REVIEW_WINDOW_DAYS \
+            and isinstance(review_date, str) and isinstance(original_date, str):
+        try:
+            import datetime
+            elapsed = (datetime.date.fromisoformat(review_date) - datetime.date.fromisoformat(original_date)).days
+        except ValueError:
+            elapsed = None
+        if elapsed is not None and elapsed < REVIEW_WINDOW_DAYS[window]:
+            errs.append(
+                f"review_window {window!r} but only {elapsed}d elapsed since original_decision_date — "
+                f"a scheduled window must be at least {REVIEW_WINDOW_DAYS[window]}d out; "
+                f"record an early check as review_window 'ad-hoc'"
+            )
     return errs
 
 
