@@ -351,7 +351,10 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         // skip already-failed (this cycle), cross-cycle cooling-down, or out-of-budget providers
         if (ov.failed || ov.coolingDown || !ov.budget.canSpend(est)) continue
         await ov.limiter.acquire(est, sleep, () => now().getTime())
-        res = await triageBatch(batch, { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody }, fetchFn, sleep)
+        // timeoutMs/maxAttempts: undefined for every provider except one that opts into a longer-than-generic
+        // call guard (e.g. the local tier — see its OverflowProvider entry) — triageBatch's own defaults
+        // (30_000ms, 2 attempts) apply exactly as before when omitted.
+        res = await triageBatch(batch, { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: ov.p.maxAttempts }, fetchFn, sleep)
         ov.requests += res.requests
         ov.tokens += res.tokens
         ov.budget.record(res.requests, res.tokens)
