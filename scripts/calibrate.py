@@ -392,6 +392,29 @@ def latest_review(reviews):
     return reviews[-1] if reviews else None
 
 
+def latest_priced_review(reviews):
+    """The most recent review (by the read_reviews ordering) that carries a computable BENCHMARK-relative
+    return — used for RETURN scoring (directional hit, cohort returns). A later ad-hoc / post-mortem review
+    often leaves the return fields null; using it for returns would erase an earlier 30d/90d review that
+    DID price the call. (Forecast RESOLUTION and thesis status still use the latest review of any kind.)"""
+    for rev in reversed(reviews or []):
+        if _review_rel(rev) is not None:
+            return rev
+    return None
+
+
+def standing_reviews(reviews):
+    """One review per DISTINCT (review_date, review_window) — the highest correction version of each. The
+    flat tallies (error taxonomy, pre-mortem) count each distinct review WINDOW once; without this, a
+    `_v2` correction of a review would be counted alongside the stale `_v1`, inflating the always-honest
+    distributions with the correction history instead of the standing record. `reviews` is assumed sorted
+    ascending by (date, window-rank, version) — as read_reviews returns — so the LAST seen per key wins."""
+    by_window = {}
+    for rev in reviews or []:
+        by_window[(rev.get("review_date"), _norm(rev.get("review_window")))] = rev
+    return list(by_window.values())
+
+
 def _slice_key(v):
     """Coerce a forecast's owner_module / forecast_type to a hashable, non-empty STRING for use as a
     slice key. A malformed truthy value (a list/dict) would otherwise raise 'unhashable type' in _slice()
@@ -464,11 +487,14 @@ def match_resolved_forecasts(record, reviews):
 
 
 def _review_rel(review):
-    """The benchmark-relative return (%) for a review, or None. Recovers the TRACKING-PRICE (null-entry)
+    """The BENCHMARK-relative return (%) for a review, or None. Recovers the TRACKING-PRICE (null-entry)
     case — the whole point of the tracking_price flow (BG): a null-entry review leaves the entry-derived
     `benchmark_relative_return_pct` null but still fills `absolute_return_pct` (from the tracking price)
-    and `benchmark_return_pct`, so the relative return is their difference. Preference order: the stated
-    benchmark-relative → absolute − benchmark (tracking-price recovery) → sector-relative."""
+    and `benchmark_return_pct`, so the relative return is their difference. Preference: the stated
+    benchmark-relative → absolute − benchmark (tracking-price recovery). It does NOT fall back to
+    sector-relative: the directional hit is defined against the stock's OWN benchmark, and a stock can beat
+    its sector while lagging the benchmark — scoring a sector-relative number as a benchmark hit would
+    mislabel it (the schema tracks the two baselines separately)."""
     if not review:
         return None
     r = review.get("benchmark_relative_return_pct")
@@ -478,9 +504,6 @@ def _review_rel(review):
     if (isinstance(a, (int, float)) and not isinstance(a, bool)
             and isinstance(b, (int, float)) and not isinstance(b, bool)):
         return round(a - b, 6)
-    s = review.get("sector_relative_return_pct")
-    if isinstance(s, (int, float)) and not isinstance(s, bool):
-        return float(s)
     return None
 
 
@@ -503,8 +526,9 @@ def directional_hit(record, review):
         return 1 if rel > 0 else 0
     if basket in ("rejected", "short"):
         return 1 if rel < 0 else 0
-    if basket in ("watchlist", "insufficient"):
-        return None  # an EXPLICIT non-directional (or capped-away) basket — decision must NOT resurrect it
+    if basket == "watchlist" or basket.startswith("insufficient"):
+        return None  # an EXPLICIT non-directional basket — Watchlist, or any 'Insufficient…' / 'Insufficient
+                     # Data' the engine refused to rate. The raw decision must NOT resurrect it as a long.
     # basket absent ("unclassified" = the basket_of default for a missing field) or unrecognised → fall
     # back to the raw decision; a genuinely non-directional basket above has already returned None
     decision = _norm(record.get("decision"))
@@ -551,7 +575,8 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         if not (tkr and rec.get("decision") and rec.get("decision_date")):
             continue
         reviews = reviews_provider(run_root)
-        rev = latest_review(reviews)
+        rev = latest_review(reviews)                  # latest of ANY kind — for forecast resolution & status
+        priced_rev = latest_priced_review(reviews)    # latest with a computable return — for return scoring
         basket = basket_of(rec)
         conf, conf_field = confidence_of(rec)
         basket_dist[basket] = basket_dist.get(basket, 0) + 1
@@ -563,7 +588,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         pairs = match_resolved_forecasts(rec, reviews)
         for p in pairs:
             all_pairs.append(p)
-        dh = directional_hit(rec, rev)
+        dh = directional_hit(rec, priced_rev)  # score the direction on the latest PRICED review, not any
         if dh is not None:
             directional.append({"ticker": tkr, "hit": dh, "basket": basket})
         # Effective-N clusters by ticker over EVERY scored bet this run contributes — resolved forecast
@@ -574,16 +599,17 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         if scored_here:
             cluster_by_ticker[_norm(tkr)] = cluster_by_ticker.get(_norm(tkr), 0) + scored_here
 
-        rel = _review_rel(rev)  # tracking-price-aware (recovers a null-entry review's benchmark-relative)
+        rel = _review_rel(priced_rev)  # returns from the latest PRICED review (tracking-price-aware)
         if isinstance(rel, (int, float)):
             basket_returns.setdefault(basket, []).append(rel)
 
-        # Flat tallies (§20 error taxonomy, §5 pre-mortem audit) aggregate across EVERY review of the
-        # run, not just the latest — an earlier review's error tag / pre-mortem outcome is a distinct
-        # observation the calibration loop must not lose when a newer window is filed (calibrate.md §5:
-        # "across every review record's error_taxonomy array"). (Forecast RESOLUTION still uses the latest
-        # review, correctly — a later status supersedes an earlier read of the same prediction.)
-        for a_rev in reviews:
+        # Flat tallies (§20 error taxonomy, §5 pre-mortem audit) aggregate across every distinct review
+        # WINDOW of the run (not just the latest window — an earlier window's error tag / pre-mortem outcome
+        # is a distinct observation the loop must not lose; calibrate.md §5 "across every review record").
+        # `standing_reviews` keeps one review per (date, window) — the highest correction version — so a
+        # `_v2` correction is not double-counted alongside its stale `_v1`. (Forecast RESOLUTION still uses
+        # the single latest review, correctly — a later status supersedes an earlier read.)
+        for a_rev in standing_reviews(reviews):
             for tag in (a_rev.get("error_taxonomy") or []):
                 t = tag if isinstance(tag, str) else (tag.get("tag") if isinstance(tag, dict) else None)
                 if t:
@@ -819,6 +845,20 @@ def _verdict(out):
 #  LAYER 4 — render + write
 # ════════════════════════════════════════════════════════════════════════════════════════════════
 
+def _finite_only(obj):
+    """Recursively replace any non-finite float (NaN / ±inf) with None so the written JSON is ALWAYS
+    strict-standard. A malformed decision/review JSON can carry a non-finite token that Python parses and
+    the math propagates; json.dump's allow_nan default would then emit bare NaN/Infinity that strict
+    downstream parsers reject. Returns a cleaned copy; the 1e308 e-value sentinel is finite and kept."""
+    if isinstance(obj, float):
+        return obj if math.isfinite(obj) else None
+    if isinstance(obj, dict):
+        return {k: _finite_only(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_finite_only(v) for v in obj]
+    return obj
+
+
 def render_markdown(out):
     L = [f"# Decision Calibration Scoreboard — {out['generated_at']}", ""]
     L.append(f"**Scope:** {out['scope']}  ")
@@ -891,7 +931,9 @@ def write_outputs(out):
         jpath = os.path.join(out_dir, f"{jbase}_v{n}.json")
         mpath = os.path.join(out_dir, f"{mbase}_v{n}.md")
     with open(jpath, "w", encoding="utf-8") as f:
-        json.dump(out, f, indent=2, ensure_ascii=False)
+        # allow_nan=False makes a stray non-finite value FAIL loudly rather than emit invalid JSON;
+        # _finite_only pre-sanitizes so a single malformed input row yields None, not a crash or bad token.
+        json.dump(_finite_only(out), f, indent=2, ensure_ascii=False, allow_nan=False)
         f.write("\n")
     with open(mpath, "w", encoding="utf-8") as f:
         f.write(render_markdown(out))

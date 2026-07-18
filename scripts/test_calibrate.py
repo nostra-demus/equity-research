@@ -362,6 +362,77 @@ def test_malformed_slice_key_does_not_crash():
     check(got and got[0]["owner_module"] == "untagged", "a list owner_module becomes 'untagged', calibration does not crash")
 
 
+def test_sector_relative_not_a_benchmark_hit():
+    # Codex r4 #3: a sector-relative return must NOT be scored as a benchmark hit (different baseline)
+    check(C._review_rel({"sector_relative_return_pct": 5.0}) is None,
+          "sector-relative alone → None (not a benchmark-relative return)")
+    check(C.directional_hit({"basket": "Selected", "decision": "Buy"}, {"sector_relative_return_pct": 5.0}) is None,
+          "a review with only a sector-relative return is not a benchmark directional hit")
+    check(C._review_rel({"benchmark_relative_return_pct": 3.0, "sector_relative_return_pct": -9.0}) == 3.0,
+          "benchmark-relative still used when present")
+
+
+def test_insufficient_data_basket_not_scored():
+    # Codex r4 #4: a Buy capped to 'Insufficient Data' must NOT be resurrected as a long
+    check(C.directional_hit({"basket": "Selected", "decision": "Buy", "post_mortem_basket": "Insufficient Data"},
+                            {"benchmark_relative_return_pct": 4.0}) is None,
+          "post_mortem_basket 'Insufficient Data' → not a directional bet (decision must not resurrect it)")
+    check(C.directional_hit({"basket": "Insufficient", "decision": "Avoid"},
+                            {"benchmark_relative_return_pct": -4.0}) is None,
+          "'Insufficient' basket → not scored either")
+
+
+def test_latest_priced_review_for_returns():
+    # Codex r4 #2: a later un-priced post-mortem must not erase an earlier priced review for return scoring
+    reviews = [{"review_date": "2026-07-01", "review_window": "30d", "benchmark_relative_return_pct": 6.0},
+               {"review_date": "2026-08-01", "review_window": "post-mortem", "benchmark_relative_return_pct": None}]
+    check(C.latest_review(reviews)["review_window"] == "post-mortem", "latest overall is the post-mortem")
+    check(C.latest_priced_review(reviews)["review_window"] == "30d", "latest PRICED is the 30d review")
+    rr = "analyses/PR_2026-06-01"
+    standing = [{"run_root": rr, "record": {
+        "ticker": "PR", "decision": "Buy", "decision_date": "2026-06-01", "basket": "Selected", "forecast_ledger": []}}]
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: reviews)
+    hit = next((row["directional_hit"] for row in out["inventory"] if row["ticker"] == "PR"), "missing")
+    check(hit == 1, f"the priced 30d review's +6% is scored as a hit, not dropped by the null post-mortem (got {hit})")
+
+
+def test_flat_tallies_dedup_corrected_versions():
+    # Codex r4 #5: a _v2 correction of a review must not be counted alongside its stale _v1
+    revs = [{"review_date": "2026-07-01", "review_window": "30d", "_version": 1, "error_taxonomy": ["bad math"]},
+            {"review_date": "2026-07-01", "review_window": "30d", "_version": 2, "error_taxonomy": ["stale data"]}]
+    standing = C.standing_reviews(revs)
+    check(len(standing) == 1 and standing[0]["_version"] == 2, "only the highest-version review per (date,window) survives")
+    rr = "analyses/DV_2026-06-01"
+    st = [{"run_root": rr, "record": {"ticker": "DV", "decision": "Watchlist", "decision_date": "2026-06-01",
+                                      "basket": "Watchlist", "forecast_ledger": []}}]
+    out = C.build(standing=st, today="2026-07-18", reviews_provider=lambda r: revs)
+    et = out["error_taxonomy_distribution"]
+    check(et.get("stale data") == 1 and "bad math" not in et,
+          f"the corrected tag counts once; the superseded _v1 tag is not double-counted (got {et})")
+
+
+def test_output_json_is_strict_even_with_nan():
+    # Codex r4 #6: a non-finite value in the output is sanitized to None; the JSON is strict-standard
+    check(C._finite_only(float("nan")) is None and C._finite_only(float("inf")) is None, "NaN/inf → None")
+    check(C._finite_only({"a": float("-inf"), "b": [1.0, float("nan")]}) == {"a": None, "b": [1.0, None]},
+          "sanitizer recurses into dicts/lists")
+    check(C._finite_only(1e308) == 1e308, "the finite e-value sentinel is kept")
+    import os, tempfile, json as _json
+    standing = [{"run_root": "analyses/NANX_2026-06-01", "record": {
+        "ticker": "NANX", "decision": "Buy", "decision_date": "2026-06-01", "basket": "Selected", "forecast_ledger": []}}]
+    saved = C.PERF_DIR
+    try:
+        with tempfile.TemporaryDirectory() as td:
+            C.PERF_DIR = td
+            out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: [])
+            out["_injected_nan"] = float("nan")  # simulate a propagated non-finite value
+            jpath, _ = C.write_outputs(out)
+            _json.load(open(jpath), parse_constant=lambda x: (_ for _ in ()).throw(ValueError(f"non-strict: {x}")))
+    finally:
+        C.PERF_DIR = saved
+    check(True, "write_outputs produces strict JSON even when the summary carries a NaN")
+
+
 def test_below_floor_withholds():
     standing = [{"run_root": "analyses/ONE_2026-06-01", "record": {
         "ticker": "ONE", "decision": "Buy", "decision_date": "2026-06-01", "basket": "Selected",
@@ -381,7 +452,9 @@ def main():
                test_expired_is_a_settled_miss, test_tracking_price_return_recovered,
                test_effective_n_counts_directional_only_runs, test_reviews_sort_by_horizon_not_text,
                test_explicit_reference_join, test_review_version_numeric_sort,
-               test_malformed_slice_key_does_not_crash,
+               test_malformed_slice_key_does_not_crash, test_sector_relative_not_a_benchmark_hit,
+               test_insufficient_data_basket_not_scored, test_latest_priced_review_for_returns,
+               test_flat_tallies_dedup_corrected_versions, test_output_json_is_strict_even_with_nan,
                test_end_to_end_floor_met, test_probability_scale, test_below_floor_withholds):
         print(f"[{fn.__name__}]")
         fn()

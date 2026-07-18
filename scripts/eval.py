@@ -924,11 +924,16 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
             issues.append(f"forecast_ledger[{i}] confirmation and falsification triggers are identical — the outcome space is not partitioned")
         has_doc = bool(_AO_NAMED_DOC.search(both))
         pins_number = _ao_pins_a_number(both)  # a REAL threshold, not just a fiscal-period label ('FY27')
-        if _AO_CONSENSUS.search(both) and not pins_number:
+        # A consensus reference must pin its number in a trigger that ACTUALLY references consensus — an
+        # unrelated number in the other trigger ('revenue below 2026 cr' alongside 'EPS beats consensus')
+        # does not settle the EPS-vs-consensus call. Check the consensus-referencing triggers specifically.
+        cons_triggers = [t for t in (ct, ft) if _AO_CONSENSUS.search(t)]
+        if cons_triggers and not any(_ao_pins_a_number(t) for t in cons_triggers):
             # consensus needs a pinned NUMBER, not just a period digit — 'FY27 EPS beats consensus' pins none.
             # The specific diagnosis wins even when a doc is named: the consensus VALUE is still unsettled.
-            issues.append(f"forecast_ledger[{i}] references consensus/estimates but pins no number (a fiscal-year or "
-                          f"quarter digit is not a consensus value) — a bare 'beats consensus' cannot be settled (§5)")
+            issues.append(f"forecast_ledger[{i}] references consensus/estimates but pins no number in the "
+                          f"consensus trigger (a fiscal-year/quarter digit, or an unrelated number in the other "
+                          f"trigger, is not the consensus value) — a bare 'beats consensus' cannot be settled (§5)")
         elif not pins_number and not has_doc:
             # a fiscal-period digit ('FY27 margin improves') is NOT a pinned bar — require a real threshold
             # or a named settleable document, else the forecast cannot be mechanically resolved.
@@ -2000,6 +2005,7 @@ if scope=="selftest":
     _fc_nextq={"confirmation_trigger":"margin improves next quarter","falsification_trigger":"margin does not improve next quarter","time_window":"August 2026"}
     _fc_baddate={"confirmation_trigger":"margin above 12%","falsification_trigger":"margin below 12%","time_window":"resolves 2026-02-31"}
     _fc_nt={"confirmation_trigger":"margin above 12%","falsification_trigger":"margin below 12%","time_window":"August 2026"}
+    _fc_conssplit={"confirmation_trigger":"FY27 EPS beats consensus","falsification_trigger":"revenue below 2026 cr","time_window":"August 2026"}
     aocases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substrings]=fail-with)
         ("2026-07-17",[_fc_good],None),                                        # predates AO_DATE → N/A
         ("2026-07-18",[],None),                                                # empty ledger → N/A (§19)
@@ -2021,6 +2027,7 @@ if scope=="selftest":
         ("2026-07-18",[_fc_nextq],["not mechanically resolvable"]),            # bare 'next quarter' is not a document → FAIL (r3 #4)
         ("2026-07-18",[_fc_baddate],["impossible calendar date"]),            # 2026-02-31 → flagged, not silently undateable (r3 #2)
         ("2026-07-18",[_fc_nt,_fc_far,_fc_far,_fc_far,_fc_far],["insufficient near-term"]), # 1 near / 4 long = 20% < 40% → FAIL (r3 #3)
+        ("2026-07-18",[_fc_conssplit],["pins no number in the consensus trigger"]), # consensus in one trigger, unrelated number in the other → FAIL (r4 #1)
         ("2026-07-18",5,None),                                                 # malformed (non-list) → N/A, never crash
         ("2026-07-18",None,None),                                              # None ledger → N/A
     ]
