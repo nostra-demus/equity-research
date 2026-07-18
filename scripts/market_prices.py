@@ -176,7 +176,13 @@ class MarketFeed:
     def beta_of(self, symbol):
         m = self._meta.get(symbol) or {}
         b = m.get("beta")
-        return float(b) if isinstance(b, (int, float)) else 1.0
+        # A user-provided beta must be a FINITE real number. A bool, NaN, or Infinity in _symbols.json
+        # would otherwise flow into beta_adjusted_excess() and emit a non-finite `beta_adjusted_excess_pct`
+        # — invalid strict JSON downstream, or a silently-nulled adjustment. Fall back to 1.0 (no
+        # adjustment, naive excess) instead of trusting a poisoned value.
+        if isinstance(b, (int, float)) and not isinstance(b, bool) and math.isfinite(b):
+            return float(b)
+        return 1.0
 
     def benchmark_of(self, symbol):
         return (self._meta.get(symbol) or {}).get("benchmark")

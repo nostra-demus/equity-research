@@ -429,7 +429,8 @@ def standing_reviews(reviews):
     ascending by (date, window-rank, version) — as read_reviews returns — so the LAST seen per key wins."""
     by_window = {}
     for rev in reviews or []:
-        by_window[(rev.get("review_date"), _norm(rev.get("review_window")))] = rev
+        by_window[(_norm(rev.get("review_date")), _norm(rev.get("review_window")))] = rev  # str-safe key:
+        #   a malformed (list/dict) review_date must not raise 'unhashable type' and abort the whole run
     return list(by_window.values())
 
 
@@ -450,11 +451,22 @@ def match_resolved_forecasts(record, reviews):
     prediction (§24 — prefer omission to a mis-scored commission). An unmatchable entry is excluded. Only
     the LATEST review per run is used (a later review supersedes an earlier read). Returns matched pairs."""
     ledger = record.get("forecast_ledger", []) or []
+    # Build the text→entry map, but DROP any prediction text carried by more than one ledger row: a
+    # review that repeats that text is ambiguous (which row's probability/module?), and silently
+    # scoring it against the first row is a mis-scored commission (§24 — prefer omission). An ambiguous
+    # text then falls through to _by_reference (an explicit forecast_index / '#N' still resolves), and
+    # is otherwise excluded — never guessed. Eval checks that `prediction` exists, not that it is unique.
+    text_counts = {}
+    for e in ledger:
+        if isinstance(e, dict):
+            k = _norm(e.get("prediction"))
+            if k:
+                text_counts[k] = text_counts.get(k, 0) + 1
     by_text = {}
     for e in ledger:
         if isinstance(e, dict):
             k = _norm(e.get("prediction"))
-            if k and k not in by_text:  # first ledger entry wins on a duplicate text (deterministic)
+            if k and text_counts[k] == 1:  # unique text only — duplicates are ambiguous, not first-wins
                 by_text[k] = e
 
     def _by_reference(result):
@@ -590,6 +602,9 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
 
     for entry in standing:
         rec, run_root = entry["record"], entry["run_root"]
+        if os.path.isabs(run_root):
+            run_root = os.path.relpath(run_root, REPO)  # repo-relative in the committed JSON inventory —
+            #   no absolute machine paths leaked, so a same-input rerun from any checkout diffs clean
         tkr = rec.get("ticker")
         if not (tkr and rec.get("decision") and rec.get("decision_date")):
             continue

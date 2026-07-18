@@ -544,6 +544,65 @@ def test_below_floor_withholds():
     check(isinstance(out["error_taxonomy_distribution"], dict), "flat tallies always present (even at N=0)")
 
 
+def test_duplicate_forecast_text_ambiguous():
+    # Codex r7: two ledger rows sharing prediction TEXT are ambiguous — a plain-text review reference must
+    # NOT be first-wins scored against row 1; only an explicit forecast_index/#N resolves it (§24 omission).
+    rec = {"forecast_ledger": [
+        {"prediction": "Margin expands", "probability": 80, "owner_module": "earnings"},
+        {"prediction": "Margin expands", "probability": 20, "owner_module": "valuation"}]}
+    plain = [{"forecast_results": [{"prediction": "Margin expands", "status": "confirmed"}]}]
+    check(C.match_resolved_forecasts(rec, plain) == [],
+          "duplicate prediction text with no explicit reference is excluded, not first-wins scored")
+    byidx = [{"forecast_results": [{"prediction": "Margin expands", "forecast_index": 2, "status": "confirmed"}]}]
+    got = C.match_resolved_forecasts(rec, byidx)
+    check(len(got) == 1 and got[0]["prob"] == 0.20,
+          "an explicit forecast_index=2 still resolves the ambiguous text to row 2 (0.20)")
+    rec2 = {"forecast_ledger": [{"prediction": "EPS up", "probability": 70, "owner_module": "earnings"}]}
+    uniq = [{"forecast_results": [{"prediction": "EPS up", "status": "confirmed"}]}]
+    check(len(C.match_resolved_forecasts(rec2, uniq)) == 1, "a UNIQUE prediction text still matches (no regression)")
+
+
+def test_standing_reviews_malformed_date_no_crash():
+    # Codex r7: a list/dict review_date must not raise 'unhashable type' in standing_reviews' dedup key
+    revs = [{"review_date": ["2026-07-01"], "review_window": "30d", "error_taxonomy": ["bad math"]},
+            {"review_date": "2026-07-02", "review_window": "90d", "error_taxonomy": ["timing error"]}]
+    got = C.standing_reviews(revs)  # must not raise
+    check(len(got) == 2, "a malformed-date review is bucketed (coerced to ''), not crashed on")
+    rr = "analyses/MD_2026-06-01"
+    standing = [{"run_root": rr, "record": {"ticker": "MD", "decision": "Watchlist",
+                 "decision_date": "2026-06-01", "basket": "Watchlist", "forecast_ledger": []}}]
+    out = C.build(standing=standing, today="2026-07-18",
+                  reviews_provider=lambda r: [{"review_date": {"bad": 1}, "review_window": "30d",
+                                               "error_taxonomy": ["bad extraction"]}])
+    check(out["error_taxonomy_distribution"] == {"bad extraction": 1},
+          "a malformed review_date is tolerated through the full build, not fatal")
+
+
+def test_beta_of_rejects_non_finite():
+    # Codex r7: a NaN/Infinity/bool beta in _symbols.json must fall back to 1.0 (no adjustment), never
+    # poison beta_adjusted_excess with a non-finite value (invalid strict JSON downstream)
+    import market_prices as M
+    feed = M.MarketFeed(closes={}, meta={
+        "GOOD": {"beta": 1.3}, "NAN": {"beta": float("nan")}, "INF": {"beta": float("inf")},
+        "BOOL": {"beta": True}, "STR": {"beta": "1.2"}}, providers=[], files=[])
+    check(feed.beta_of("GOOD") == 1.3, "a finite beta is used")
+    check(feed.beta_of("NAN") == 1.0 and feed.beta_of("INF") == 1.0, "NaN / Infinity beta → 1.0 fallback")
+    check(feed.beta_of("BOOL") == 1.0 and feed.beta_of("STR") == 1.0, "bool / non-numeric beta → 1.0 fallback")
+    check(feed.beta_of("MISSING") == 1.0, "a symbol with no metadata → 1.0")
+
+
+def test_run_root_relative_in_inventory():
+    # Codex r7: an absolute run_root must be stored REPO-RELATIVE in the committed inventory — no machine
+    # paths leaked, so a same-input rerun from any checkout root diffs clean
+    abs_rr = os.path.join(C.REPO, "analyses", "REL_2026-06-01")
+    standing = [{"run_root": abs_rr, "record": {"ticker": "REL", "decision": "Buy",
+                 "decision_date": "2026-06-01", "basket": "Selected", "forecast_ledger": []}}]
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: [])
+    row = next(r for r in out["inventory"] if r["ticker"] == "REL")
+    check(row["run_root"] == "analyses/REL_2026-06-01" and not os.path.isabs(row["run_root"]),
+          f"absolute run_root relativized to repo-relative in inventory (got {row['run_root']})")
+
+
 def main():
     print("test_calibrate.py")
     for fn in (test_incomplete_beta, test_clopper_pearson, test_brier_and_murphy, test_e_value,
@@ -559,7 +618,9 @@ def main():
                test_non_finite_inputs_excluded, test_short_basket_cohort_inverted,
                test_malformed_error_tag_skipped, test_all_scope_rerun_overwrites_base,
                test_module_slice_gated_on_distinct_tickers, test_slice_key_stripped_and_str_safe,
-               test_false_comfort_named_in_markdown,
+               test_false_comfort_named_in_markdown, test_duplicate_forecast_text_ambiguous,
+               test_standing_reviews_malformed_date_no_crash, test_beta_of_rejects_non_finite,
+               test_run_root_relative_in_inventory,
                test_end_to_end_floor_met, test_probability_scale, test_below_floor_withholds):
         print(f"[{fn.__name__}]")
         fn()
