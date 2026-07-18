@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/commodity/decision_review.schema.json",
+  "title": "Commodity decision review",
+  "description": "The commodity-scoped twin of the research swarm's outcome-review schema (frameworks/DECISION_LEDGER.md §8), deliberately smaller — the commodity decision_record.json has no entry_price/basket/forecast_ledger (decision_record.schema.json's own description explains why: CLAUDE.md §10 scenario math does not apply to the single-verdict commodity dossier). Written by .claude/commands/commodity/review.md to commodity/runs/<COMMODITY>/reviews/<REVIEW_DATE>_<WINDOW>_decision_review.json — APPEND-ONLY, one file per review, never overwritten (collisions get a _v2/_v3 suffix, same convention as frameworks/DECISION_LEDGER.md §8). The original decision_record.json is never edited by any review. Validated by scripts/validate_screener_json.py --fixture (schemas_root, per .claude/agents/commodity/SWARM.md), which also cross-checks a review's commodity/original_decision_date/original_action against the decision_record.json it reviews.",
+  "type": "object",
+  "required": [
+    "schema_version", "swarm", "commodity", "original_decision_date", "review_date",
+    "review_window", "original_action", "original_confidence", "reference_price", "review_price",
+    "absolute_return_pct", "price_vs_levels", "thesis_status", "action_outcome",
+    "decision_quality", "risk_results", "error_taxonomy", "lessons", "notes"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "swarm": { "const": "commodity" },
+    "commodity": { "type": "string", "minLength": 1, "pattern": "^[A-Z0-9_]+$" },
+    "original_decision_date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "review_date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "review_window": { "type": "string", "enum": ["30d", "90d", "180d", "365d", "ad-hoc"] },
+    "original_action": { "type": "string", "enum": ["Buy", "Hold", "Trim", "Avoid", "Research More"] },
+    "original_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Copied verbatim from decision_record.json's own confidence (a required, always-numeric field there — frameworks/commodity/decision_record.schema.json). Required here for the same reason: the command instructs the reviewer to pull it, and the calibration loop needs the copied conviction to ask whether high-confidence calls were actually calibrated. validate_screener_json.py cross-checks this value against the frozen record's confidence."
+    },
+    "reference_price": {
+      "type": "object",
+      "description": "Copied verbatim from decision_record.json's own current_price — the fixed anchor every window measures from (never re-derived on a later review). validate_screener_json.py cross-checks value/currency/unit/as_of against the frozen record.",
+      "required": ["value"],
+      "properties": {
+        "value": { "type": ["number", "null"] },
+        "currency": { "type": "string", "minLength": 1 },
+        "unit": { "type": "string", "minLength": 1 },
+        "as_of": { "type": "string", "minLength": 1 },
+        "source": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "$comment": "When the anchor price is known (a number), it must carry currency/unit/as_of — those are the exact keys validate_screener_json.py cross-checks against the frozen current_price, and an unlabelled number is uninterpretable (CLAUDE.md §15). Omit only for the explicit null case. minLength:1 on the labels themselves stops an empty string from satisfying 'required' as a placeholder.",
+          "if": { "properties": { "value": { "type": "number" } } },
+          "then": { "required": ["value", "currency", "unit", "as_of"] }
+        }
+      ]
+    },
+    "review_price": {
+      "type": "object",
+      "description": "The commodity's price as of review_date. null value with a caveat in notes if no verifiable source was found — never fabricated (present-but-null, never absent).",
+      "required": ["value"],
+      "properties": {
+        "value": { "type": ["number", "null"] },
+        "currency": { "type": "string", "minLength": 1 },
+        "unit": { "type": "string", "minLength": 1 },
+        "as_of": { "type": "string", "minLength": 1 },
+        "source": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "$comment": "The review price is fetched live at review time, so a known value must carry currency/unit/as_of AND a source (CLAUDE.md §5 web sources must be dated/labelled; §15 no unlabelled number). A commodity quoted in the wrong unit (cents/bushel vs $/bushel) makes absolute_return_pct meaningless. Omit only for the explicit null (no verifiable source found) case. minLength:1 on the labels themselves stops an empty string from satisfying 'required' as a placeholder.",
+          "if": { "properties": { "value": { "type": "number" } } },
+          "then": { "required": ["value", "currency", "unit", "as_of", "source"] }
+        }
+      ]
+    },
+    "absolute_return_pct": { "type": ["number", "null"] },
+    "price_vs_levels": {
+      "type": "object",
+      "description": "Checks review_price against decision_record.json's own key_levels (copied here, not re-derived).",
+      "properties": {
+        "support": { "type": ["number", "null"] },
+        "resistance": { "type": ["number", "null"] },
+        "fair_value_range": { "type": ["string", "null"] },
+        "support_breached": { "type": ["boolean", "null"] },
+        "resistance_breached": { "type": ["boolean", "null"] },
+        "within_fair_value_range": { "type": ["boolean", "null"] },
+        "detail": { "type": "string" }
+      }
+    },
+    "thesis_status": { "type": "string", "enum": ["on-track", "at-risk", "confirmed", "broken", "expired"] },
+    "risk_results": {
+      "type": "array",
+      "description": "One entry per decision_record.json key_risks[] item.",
+      "items": {
+        "type": "object",
+        "required": ["risk", "status", "evidence"],
+        "properties": {
+          "risk": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "enum": ["materialized", "not_materialized", "partial", "pending"] },
+          "evidence": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "action_outcome": {
+      "type": "string",
+      "enum": ["vindicated", "contradicted", "too_early", "partial", "not_applicable"],
+      "description": "Was the original Action verdict right, judged against what actually happened. 'not_applicable' is reserved for 'Research More' calls being reviewed purely on whether more data actually arrived (a directional judgment does not apply to a data-sufficiency verdict). Mirrors decision_record's pre_mortem_check.outcome_vs_verdict naming (frameworks/DECISION_LEDGER.md §8) — same discipline, same five-way honest split, applied to the Action verdict instead of the pre-mortem's verdict."
+    },
+    "decision_quality": {
+      "type": "string",
+      "enum": ["skill", "luck", "good process / bad luck or too early", "genuine miss", "not assessable"],
+      "description": "frameworks/DECISION_LEDGER.md §10 luck-vs-skill matrix, applied identically."
+    },
+    "error_taxonomy": {
+      "type": "array",
+      "description": "Populated only when the call went wrong. CLAUDE.md §20 + DECISION_LEDGER.md §12 taxonomy.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "missing data", "stale data", "bad source", "bad extraction", "bad math",
+          "bad base rate", "bad causal inference", "management deception", "exogenous shock",
+          "timing error", "valuation multiple error", "ignored red flag",
+          "false positive", "false negative", "thesis drift", "catalyst delay", "beta confusion"
+        ]
+      }
+    },
+    "lessons": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text: web-source labels, boundary-case justification for action_outcome, anything that doesn't fit a typed field. Never used to smuggle an unlabeled number."
+    }
+  }
+}
