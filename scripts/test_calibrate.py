@@ -689,6 +689,55 @@ def test_superseded_priced_review_not_resurrected():
           "falls back to the earlier 30d priced review across WINDOWS, not the superseded 90d_v1")
 
 
+def test_skill_declaration_needs_distinct_tickers():
+    # Codex r11: 10 correlated directional calls on ONE ticker must NOT declare skill (effective N = 1) even
+    # though the e-value crosses; 10 across distinct names may.
+    mono, revs = [], {}
+    for i in range(10):
+        rr = f"analyses/MONO_2026-06-{i+1:02d}"
+        mono.append({"run_root": rr, "record": {"ticker": "MONO", "decision": "Buy",
+                     "decision_date": f"2026-06-{i+1:02d}", "basket": "Selected", "forecast_ledger": []}})
+        revs[rr] = [{"review_window": "30d", "review_date": f"2026-07-{i+1:02d}", "benchmark_relative_return_pct": 5.0}]
+    st = C.build(standing=mono, today="2026-08-01", reviews_provider=lambda r: revs.get(r, []))["sequential_test"]
+    check(st["n"] == 10 and st["n_distinct_tickers"] == 1, f"10 calls, 1 distinct name (got n={st.get('n')}, tickers={st.get('n_distinct_tickers')})")
+    check(st["skill_declared"] is False, "skill NOT declared on 10 correlated calls from one ticker (effective N=1)")
+    multi, revs2 = [], {}
+    for i in range(10):
+        rr = f"analyses/MUL{i}_2026-06-01"
+        multi.append({"run_root": rr, "record": {"ticker": f"MUL{i}", "decision": "Buy",
+                      "decision_date": "2026-06-01", "basket": "Selected", "forecast_ledger": []}})
+        revs2[rr] = [{"review_window": "30d", "review_date": "2026-07-01", "benchmark_relative_return_pct": 5.0}]
+    st2 = C.build(standing=multi, today="2026-08-01", reviews_provider=lambda r: revs2.get(r, []))["sequential_test"]
+    check(st2["n_distinct_tickers"] == 10, f"10 distinct names counted (got {st2.get('n_distinct_tickers')})")
+    check(st2["skill_declared"] == (st2["e_value"] >= st2["skill_threshold"]),
+          "with 10 distinct names, the ticker gate no longer blocks — skill_declared tracks the e-value alone")
+
+
+def test_spread_matched_by_horizon():
+    # Codex r11: the Selected−Rejected spread (§2) must not subtract mismatched horizons (30d vs 365d)
+    def mk(t, basket, window, rel):
+        rr = f"analyses/{t}_2026-06-01"
+        rec = {"run_root": rr, "record": {"ticker": t, "decision": ("Buy" if basket == "Selected" else "Avoid"),
+               "decision_date": "2026-06-01", "basket": basket, "forecast_ledger": []}}
+        return rec, rr, {"review_window": window, "review_date": "2026-07-01", "benchmark_relative_return_pct": rel}
+    mism, revs = [], {}
+    for i in range(5):
+        rec, rr, rv = mk(f"S{i}", "Selected", "30d", 4.0); mism.append(rec); revs[rr] = [rv]
+    for i in range(5):
+        rec, rr, rv = mk(f"R{i}", "Rejected", "365d", -3.0); mism.append(rec); revs[rr] = [rv]
+    out = C.build(standing=mism, today="2026-07-18", reviews_provider=lambda r: revs.get(r, []))
+    check(out["selected_minus_rejected_pct"] is None,
+          "spread WITHHELD when Selected (30d) and Rejected (365d) horizons don't match")
+    match, revs2 = [], {}
+    for i in range(5):
+        rec, rr, rv = mk(f"S{i}", "Selected", "30d", 4.0); match.append(rec); revs2[rr] = [rv]
+    for i in range(5):
+        rec, rr, rv = mk(f"R{i}", "Rejected", "30d", -3.0); match.append(rec); revs2[rr] = [rv]
+    out2 = C.build(standing=match, today="2026-07-18", reviews_provider=lambda r: revs2.get(r, []))
+    check(out2["selected_minus_rejected_pct"] == 7.0 and out2["selected_minus_rejected_window"] == "30d",
+          f"spread at the matched 30d window: 4.0 − (−3.0) = 7.0 (got {out2.get('selected_minus_rejected_pct')} @ {out2.get('selected_minus_rejected_window')})")
+
+
 def main():
     print("test_calibrate.py")
     for fn in (test_incomplete_beta, test_clopper_pearson, test_brier_and_murphy, test_e_value,
@@ -708,7 +757,8 @@ def main():
                test_standing_reviews_malformed_date_no_crash, test_beta_of_rejects_non_finite,
                test_run_root_relative_in_inventory, test_pair_trade_basket_not_scored,
                test_false_comfort_derived_from_verdict, test_arrival_span_malformed_date_no_crash,
-               test_superseded_priced_review_not_resurrected,
+               test_superseded_priced_review_not_resurrected, test_skill_declaration_needs_distinct_tickers,
+               test_spread_matched_by_horizon,
                test_end_to_end_floor_met, test_probability_scale, test_below_floor_withholds):
         print(f"[{fn.__name__}]")
         fn()

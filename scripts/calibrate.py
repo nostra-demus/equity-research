@@ -600,7 +600,8 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         standing = [e for e in standing if _norm(e["record"].get("ticker")) == _norm(scope)]
 
     inventory, all_pairs, directional = [], [], []
-    basket_returns = {}          # basket -> [benchmark_relative_return_pct]
+    basket_returns = {}          # basket -> [benchmark_relative_return_pct] (pooled, for per-basket cohort mean)
+    basket_window_returns = {}   # (basket, review_window) -> [returns] — for the horizon-MATCHED §2 spread
     error_tax = {}               # §20 tag -> count
     premortem_outcomes = {"not_applicable": 0, "too_early": 0, "vindicated": 0, "contradicted": 0, "partial": 0}
     premortem_contra = {"false_comfort": 0, "excess_caution": 0}
@@ -650,7 +651,10 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
             # underperformed made the short money), so invert before aggregating — otherwise a profitable
             # short basket would report a negative mean. Long / Rejected / Watchlist store the underlying
             # excess as-is (the Selected−Rejected spread compares like-for-like underlying excess).
-            basket_returns.setdefault(basket, []).append(-rel if _norm(basket) == "short" else rel)
+            val = -rel if _norm(basket) == "short" else rel
+            basket_returns.setdefault(basket, []).append(val)
+            w = _norm(priced_rev.get("review_window")) if priced_rev else ""
+            basket_window_returns.setdefault((basket, w), []).append(val)  # keep the horizon for the §2 spread
 
         # Flat tallies (§20 error taxonomy, §5 pre-mortem audit) aggregate across every distinct review
         # WINDOW of the run (not just the latest window — an earlier window's error tag / pre-mortem outcome
@@ -730,6 +734,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         "hit_rate": None,
         "hit_rate_ci95": None,
         "selected_minus_rejected_pct": None,
+        "selected_minus_rejected_window": None,
         "calibration": None,
         "calibration_by_module": {},
         "calibration_by_forecast_type": {},
@@ -776,23 +781,44 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
             out["cohort_returns"][basket] = {"n": len(rets), "mean_benchmark_relative_pct": round(statistics.mean(rets), 3)}
         else:
             out["cohort_returns"][basket] = f"insufficient (N={len(rets)}; floor {MIN_REVIEWED_PER_BASKET})"
-    sel = basket_returns.get("Selected", [])
-    rej = basket_returns.get("Rejected", [])
-    if len(sel) >= MIN_REVIEWED_PER_BASKET and len(rej) >= MIN_REVIEWED_PER_BASKET:
-        out["selected_minus_rejected_pct"] = round(statistics.mean(sel) - statistics.mean(rej), 3)
+    # Selected − Rejected spread (§2 North Star) — MATCHED by review horizon. A 30-day Selected return is
+    # not comparable to a 365-day Rejected return (longer windows carry larger moves), so the spread is
+    # computed only WITHIN a review window where BOTH baskets clear the floor, and the longest such matched
+    # window (the most mature like-for-like comparison) is reported with its horizon labelled. Withheld when
+    # no single window pairs both baskets at floor — never a cross-horizon subtraction.
+    matched = []
+    for w in {win for (_b, win) in basket_window_returns}:
+        s = basket_window_returns.get(("Selected", w), [])
+        r = basket_window_returns.get(("Rejected", w), [])
+        if len(s) >= MIN_REVIEWED_PER_BASKET and len(r) >= MIN_REVIEWED_PER_BASKET:
+            matched.append((w, round(statistics.mean(s) - statistics.mean(r), 3)))
+    if matched:
+        matched.sort(key=lambda m: _window_rank(m[0]))  # longest horizon last
+        out["selected_minus_rejected_pct"] = matched[-1][1]
+        out["selected_minus_rejected_window"] = matched[-1][0]
 
     # ── directional hit rate + Clopper-Pearson + e-process (own floor) ──
     if n_directional > 0:
         k = sum(d["hit"] for d in directional)
         ev = e_value_hit_rate(k, n_directional, 0.5)
+        # A skill DECLARATION needs enough INDEPENDENT bets, not just a raw count: ten correlated calls on
+        # one ticker are one effective observation, and the e-value's independence assumption fails on them
+        # (§11/§24 — never declare skill on thin/correlated data). Gate on distinct directional tickers
+        # reaching the same floor, so repeated reviews/reruns of one name can't declare benchmark-beating
+        # skill. The raw e-value is still reported (honestly labelled), only the skill_declared flag is gated.
+        n_dir_tickers = len({d["ticker"] for d in directional})
+        declared = ev >= 1.0 / E_ALPHA and n_directional >= MIN_DIRECTIONAL_HITS and n_dir_tickers >= MIN_DIRECTIONAL_HITS
         out["sequential_test"] = {
             "metric": "benchmark-adjusted directional hit rate vs p0=0.5 (coin-flip on beating the benchmark)",
-            "k_hits": k, "n": n_directional, "e_value": ev, "skill_threshold": round(1.0 / E_ALPHA, 1),
-            "skill_declared": bool(ev >= 1.0 / E_ALPHA and n_directional >= MIN_DIRECTIONAL_HITS),
+            "k_hits": k, "n": n_directional, "n_distinct_tickers": n_dir_tickers,
+            "e_value": ev, "skill_threshold": round(1.0 / E_ALPHA, 1),
+            "skill_declared": bool(declared),
             "anytime_valid": True,
-            "note": ("e-value below 1/α and/or below the N floor — no skill claim (correct at this sample)."
-                     if not (ev >= 1.0 / E_ALPHA and n_directional >= MIN_DIRECTIONAL_HITS)
-                     else "e-value crossed 1/α above the floor — benchmark-beating skill is statistically supported."),
+            "note": ("e-value below 1/α, and/or below the N floor, and/or fewer than "
+                     f"{MIN_DIRECTIONAL_HITS} distinct names — no skill claim (correct at this sample)."
+                     if not declared
+                     else f"e-value crossed 1/α above the floor across ≥{MIN_DIRECTIONAL_HITS} distinct "
+                     "names — benchmark-beating skill is statistically supported."),
         }
         if n_directional >= MIN_DIRECTIONAL_HITS:
             out["hit_rate"] = round(k / n_directional, 4)

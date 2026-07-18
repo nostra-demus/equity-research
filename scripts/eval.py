@@ -894,6 +894,30 @@ def _ao_earliest_date(time_window, not_before=None):
             return min(future)
     return min(cands)
 
+def _ao_month_last(y, mo):
+    """Last calendar day of month mo/year y as YYYY-MM-DD (no `calendar` import: first of next month − 1 day)."""
+    first_next = datetime.date(y + (mo // 12), (mo % 12) + 1, 1)
+    last = first_next - datetime.timedelta(days=1)
+    return f"{last.year:04d}-{last.month:02d}-{last.day:02d}"
+
+def _ao_latest_date(time_window):
+    """Best-effort LATEST plausible resolution date (YYYY-MM-DD) from a free-text time_window — an ISO date
+    is a POINT; a 'Month YYYY' resolves BY its last day. Used only for the stale test: a window is 'already
+    stale' only if its LATEST plausible resolution is before the decision (the whole window has elapsed), so
+    'results July 2026' is not stale-failed on a 2026-07-18 decision just because the month began on the 1st.
+    Returns None when nothing is confidently parseable."""
+    cands = []
+    for m in _AO_ISO_RE.finditer(time_window or ""):
+        y, mo, d = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        try:
+            datetime.date(y, mo, d)
+            cands.append(f"{y:04d}-{mo:02d}-{d:02d}")
+        except ValueError:
+            continue
+    for m in _AO_MONTH_RE.finditer(time_window or ""):
+        cands.append(_ao_month_last(int(m.group(2)), _AO_MONTHS[m.group(1)[:3].lower()]))
+    return max(cands) if cands else None
+
 def _ao_has_impossible_iso(time_window):
     """True if the window contains an ISO-shaped YYYY-MM-DD token that is NOT a real calendar date
     (e.g. 2026-02-31). Such a window can never settle on a real date and must be flagged, not silently
@@ -943,11 +967,15 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
         # unrelated number in the other trigger ('revenue below 2026 cr' alongside 'EPS beats consensus')
         # does not settle the EPS-vs-consensus call. Check the consensus-referencing triggers specifically.
         cons_triggers = [t for t in (ct, ft) if _AO_CONSENSUS.search(t)]
-        if cons_triggers and not any(_ao_pins_a_number(t) for t in cons_triggers):
-            # consensus needs a pinned NUMBER, not just a period digit — 'FY27 EPS beats consensus' pins none.
+        if any(not _ao_pins_a_number(t) for t in cons_triggers):
+            # EACH consensus-referencing trigger needs its OWN pinned number, not just a period digit and not
+            # a number borrowed from the other side: 'FY27 EPS beats consensus' / 'FY27 EPS below consensus in
+            # Q1 results' names a document but never pins the consensus value on the falsification side, so the
+            # miss cannot be settled. One pinned side does not excuse an unpinned consensus side.
             issues.append(f"forecast_ledger[{i}] references consensus/estimates but pins no number in the "
-                          f"consensus trigger (a fiscal-year/quarter digit, or an unrelated number in the other "
-                          f"trigger, is not the consensus value) — a bare 'beats consensus' cannot be settled (§5)")
+                          f"consensus trigger (a fiscal-year/quarter digit, a named document, or an unrelated "
+                          f"number in the other trigger is not the consensus value) — each consensus-referencing "
+                          f"trigger must pin its own value; a bare 'beats/misses consensus' cannot be settled (§5)")
         else:
             # Validate EACH trigger INDEPENDENTLY — a number/document on only ONE side masks an unresolvable
             # other half ('margin above 12%' confirmation with a vague 'margin does not improve' falsification).
@@ -964,20 +992,28 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
                           f"short month) — it can never settle on a real date")
             continue  # do not let an impossible date fall through to 'undateable' and suppress the quota
         tgt = _ao_earliest_date(window, decision_date)
+        latest = _ao_latest_date(window)   # LATEST plausible resolution (month → its last day); for the stale test
         if tgt:
-            days = _ao_days_after(decision_date, tgt)
-            if days is None:
+            e_days = _ao_days_after(decision_date, tgt)
+            l_days = _ao_days_after(decision_date, latest) if latest else e_days
+            if e_days is None:
                 undateable += 1  # a date we couldn't place relative to the decision → treat as undateable
-            elif days < 0:
-                # a window that resolves BEFORE the decision is already stale — it can never be a future
-                # proof point. Flag it (a defect), and do NOT count it as undateable (which would wrongly
-                # suppress the near-term-quota failure).
-                issues.append(f"forecast_ledger[{i}] time_window resolves on {tgt}, BEFORE the decision date "
+            elif l_days is not None and l_days < 0:
+                # The WHOLE window — even its last plausible day — is before the decision → genuinely stale
+                # (it can never be a future proof point). A 'Month YYYY' is a RANGE: 'results July 2026' on a
+                # 2026-07-18 decision is NOT stale (the month runs to the 31st), only 'January 2026' is. Flag
+                # it (a defect), and do NOT count it as undateable (which would suppress the quota failure).
+                issues.append(f"forecast_ledger[{i}] time_window resolves by {latest}, BEFORE the decision date "
                               f"{decision_date} — already stale at decision, cannot provide a future proof point")
-            elif days <= 90:
-                near_term += 1
             else:
-                parseable_long += 1
+                # Resolves on/after the decision (at least partly). Near-term if the EARLIEST plausible
+                # resolution — never before the decision itself — is within 90 days (a same-month window is 0
+                # days out → near-term, never misread as long).
+                eff = max(e_days, 0)
+                if eff <= 90:
+                    near_term += 1
+                else:
+                    parseable_long += 1
         else:
             undateable += 1      # no confidently-parseable date in the window
     # Near-term quota (§19: ≥2 OR ≥40% of the dateable forecasts resolve within 90 days), measured over the
@@ -2035,6 +2071,8 @@ if scope=="selftest":
     _fc_q1results={"confirmation_trigger":"guidance raised in the Q1 results","falsification_trigger":"guidance cut in the Q1 results","time_window":"August 2026"}
     _fc_periodlbl={"confirmation_trigger":"Q1 EBITDA margin at or below 12.0%","falsification_trigger":"Q1 margin at or above 12.3%","time_window":"quarter ended June 2026; results August 2026"}
     _fc_vague={"confirmation_trigger":"net cash eliminated below 0","falsification_trigger":"net cash still above 0","time_window":"over the next few years"}
+    _fc_samemonth={"confirmation_trigger":"Q1 EBITDA margin at or below 12.0%","falsification_trigger":"Q1 margin at or above 12.3%","time_window":"results July 2026"}
+    _fc_conshalf={"confirmation_trigger":"FY27 EPS above 42 vs consensus 40","falsification_trigger":"FY27 EPS below consensus in Q1 results","time_window":"August 2026"}
     aocases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substrings]=fail-with)
         ("2026-07-17",[_fc_good],None),                                        # predates AO_DATE → N/A
         ("2026-07-18",[],None),                                                # empty ledger → N/A (§19)
@@ -2063,6 +2101,8 @@ if scope=="selftest":
         ("2026-07-18",[_fc_q1results],[]),                                     # 'Q1 results' IS a period-qualified settleable document → pass (r6 #5)
         ("2026-07-18",[_fc_periodlbl],[]),                                     # window names a pre-decision PERIOD label (June) AND a resolution date (Aug) → pick the on/after date → near-term pass, not misread as stale (r8)
         ("2026-07-18",[_fc_vague,_fc_far,_fc_far,_fc_far,_fc_far],["insufficient near-term"]), # 1 undateable + 4 long, 0 near-term → the undateable one can't dodge the quota when a long forecast exists (r10)
+        ("2026-07-18",[_fc_samemonth],[]),                                     # 'results July 2026' on a July-18 decision → month runs to the 31st, NOT stale, near-term → pass (r11)
+        ("2026-07-18",[_fc_conshalf],["pins no number in the consensus trigger"]), # one consensus side pins 42/40, the other 'below consensus in Q1 results' names a doc but pins no consensus value → FAIL (r11)
         ("2026-07-18",5,None),                                                 # malformed (non-list) → N/A, never crash
         ("2026-07-18",None,None),                                              # None ledger → N/A
     ]
