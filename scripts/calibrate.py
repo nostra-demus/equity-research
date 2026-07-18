@@ -796,7 +796,12 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         # row's latest review (Watchlist/non-directional reviews spanning a wider range would distort the
         # rate). Pass the REAL span (no artificial floor): a span under a month is honestly "not
         # projectable". A verdict needs BOTH the e-value threshold AND the N=MIN_DIRECTIONAL_HITS floor.
-        dates = [d["review_date"] for d in directional if d.get("review_date")]
+        # Only real STRING dates enter the span — a malformed truthy review_date (list/dict) would pass a
+        # bare truthiness filter and make min()/max() raise 'TypeError: '<' not supported' mid-write, the
+        # same crash the sort/dedup paths already guard. A run whose directional dates are all malformed
+        # falls to <2 dates → span 0 → honestly "not projectable", never a crash.
+        dates = [d["review_date"] for d in directional
+                 if isinstance(d.get("review_date"), str) and d["review_date"].strip()]
         span_months = _month_span(min(dates), max(dates)) if len(dates) >= 2 else 0.0
         out["months_to_significance"] = months_to_significance(k, n_directional, span_months, 0.5)
 

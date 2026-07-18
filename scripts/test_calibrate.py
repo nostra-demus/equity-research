@@ -650,6 +650,26 @@ def test_false_comfort_derived_from_verdict():
           "an explicit contradiction_kind still classifies (no regression)")
 
 
+def test_arrival_span_malformed_date_no_crash():
+    # Codex r9: a malformed (list/dict) review_date among priced directional reviews must not crash
+    # min()/max() in the arrival-rate span — filter non-string dates, don't abort the whole write.
+    standing = [
+        {"run_root": "analyses/AAA_2026-06-01", "record": {"ticker": "AAA", "decision": "Buy",
+         "decision_date": "2026-06-01", "basket": "Selected", "forecast_ledger": []}},
+        {"run_root": "analyses/BBB_2026-06-01", "record": {"ticker": "BBB", "decision": "Buy",
+         "decision_date": "2026-06-01", "basket": "Selected", "forecast_ledger": []}},
+    ]
+    revs = {
+        "analyses/AAA_2026-06-01": [{"review_window": "30d", "review_date": ["2026-07-01"],  # malformed date
+                                     "benchmark_relative_return_pct": 5.0}],
+        "analyses/BBB_2026-06-01": [{"review_window": "30d", "review_date": "2026-07-10",
+                                     "benchmark_relative_return_pct": 3.0}],
+    }
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: revs.get(r, []))  # must not raise
+    check(out["sequential_test"].get("n") == 2, "both directional calls counted despite one malformed review_date")
+    check(out["months_to_significance"] is not None, "arrival-rate span computed without crashing on the malformed date")
+
+
 def main():
     print("test_calibrate.py")
     for fn in (test_incomplete_beta, test_clopper_pearson, test_brier_and_murphy, test_e_value,
@@ -668,7 +688,7 @@ def main():
                test_false_comfort_named_in_markdown, test_duplicate_forecast_text_ambiguous,
                test_standing_reviews_malformed_date_no_crash, test_beta_of_rejects_non_finite,
                test_run_root_relative_in_inventory, test_pair_trade_basket_not_scored,
-               test_false_comfort_derived_from_verdict,
+               test_false_comfort_derived_from_verdict, test_arrival_span_malformed_date_no_crash,
                test_end_to_end_floor_met, test_probability_scale, test_below_floor_withholds):
         print(f"[{fn.__name__}]")
         fn()
