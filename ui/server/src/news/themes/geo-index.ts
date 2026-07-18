@@ -25,7 +25,12 @@ export interface ThemeGeo {
   geoRegion?: string // continent group (the branch)
 }
 
-const top = <T>(a: T[], n: number): T[] => a.slice(0, n)
+// Array-safe: themes come from loadThemes(), which parses raw ledger lines with no schema normalisation,
+// so `companies` / `related_themes` can be missing or a corrupt non-array truthy value. Guard so the
+// geo-sliced index never throws on `.slice` (mirrors store.ts top()).
+const top = <T>(a: T[] | null | undefined, n: number): T[] => (Array.isArray(a) ? a.slice(0, n) : [])
+// Coerce an untrusted ledger array field to a real array (missing, or `{}` / `true` from a corrupt row).
+const arr = <T>(v: T[] | null | undefined): T[] => (Array.isArray(v) ? v : [])
 
 /** The ISO alpha-2 country a member is ABOUT — its persisted country when present, else resolved lazily
  *  from the same signals the archive uses (a primary single-company listing, or a country named in the
@@ -85,10 +90,10 @@ export function buildGeoThemesIndex(
 
   for (const t of themes) {
     if (t.status !== 'live') continue
-    const geoMembers = (t.members || []).filter((m) => memberMatchesGeo(m, geo))
+    const geoMembers = arr(t.members).filter((m) => memberMatchesGeo(m, geo))
     if (!geoMembers.length) continue // this theme isn't about the requested geography → drop it
 
-    const geoCompanies = (t.companies || []).filter((c) => companyMatchesGeo(c, geo))
+    const geoCompanies = arr(t.companies).filter((c) => companyMatchesGeo(c, geo))
     // Re-score from the geo slice. Sectors carry no country, so they can't be attributed to a geography —
     // breadth reads off the geo companies only (conservative, and consistent across every theme).
     const scored = scoreTheme({ members: geoMembers, companies: geoCompanies, sectors: [], first_seen: t.first_seen }, nowD, cfg)
@@ -114,7 +119,7 @@ export function buildGeoThemesIndex(
       flow_daily,
       member_count: geoMembers.length, // honest: recent geo items in the ring (caps at the ring size)
       top_companies: top(geoCompanies, 8).map((c) => ({ name: c.name, ticker: c.ticker, order: c.order, side: c.side })),
-      related_themes: top(t.related_themes || [], 5).map((r) => ({ theme_id: r.theme_id, name: r.name, kind: r.kind })),
+      related_themes: top(t.related_themes, 5).map((r) => ({ theme_id: r.theme_id, name: r.name, kind: r.kind })),
       last_flow: geoMembers.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), ''),
       rev: t.rev,
     })
