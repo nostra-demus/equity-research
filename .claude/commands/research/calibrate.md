@@ -18,7 +18,7 @@ Run the aggregator. If `SCOPE` is empty or `all`, run it bare; if `SCOPE` is a t
 python3 scripts/calibrate.py --print
 ```
 
-The script reads the **STANDING, corrected** ledger via `scripts/ledger_records.py` (drops superseded runs, applies append-only errata on read — `frameworks/DECISION_LEDGER.md` §4a) plus each run's review files. It writes the pair under `analyses/performance/` — `<TODAY>_calibration_summary.json` (machine) + `<TODAY>_decision_performance_summary.md` (human) — and prints the verdict. It is **read-only** on every decision/review record. It computes, each **withheld below its own floor** (CLAUDE.md §11 — a metric a tiny sample can't support is `null` / `"insufficient (N=k)"`, never estimated):
+The script reads the **STANDING, corrected** ledger via `scripts/ledger_records.py` (drops superseded runs, applies append-only errata on read — `frameworks/DECISION_LEDGER.md` §4a) plus each run's review files. An **all-ledger** run writes the pair under `analyses/performance/` — `<TODAY>_calibration_summary.json` (machine) + `<TODAY>_decision_performance_summary.md` (human) — which is the file the Phase-6 synthesizer/eval glob reads. A **scoped** (single-ticker) run instead writes under `analyses/performance/scoped/` so a one-ticker snapshot can never become the as-of calibration summary that drives every other company's haircut. It prints the verdict. It is **read-only** on every decision/review record. It computes, each **withheld below its own floor** (CLAUDE.md §11 — a metric a tiny sample can't support is `null` / `"insufficient (N=k)"`, never estimated):
 
 - **benchmark-adjusted directional hit rate** with an **exact Clopper-Pearson** 95% interval — a call "hits" only when it beats its OWN benchmark in the bet's direction, never on a raw return;
 - **Brier + Murphy decomposition** (reliability / resolution / uncertainty) and a §10-band reliability read;
@@ -44,7 +44,8 @@ Read the printed JSON and say:
 - the **verdict** line and the **honesty statement** (when a real skill verdict becomes possible), verbatim in spirit;
 - the counts — decisions, reviews, resolved forecasts, resolved directional calls — and the **effective** sample vs the raw one;
 - every skill metric that IS above its floor (hit rate + its CI, Brier, Selected−Rejected spread, whether the e-value has crossed the skill threshold); for anything still below floor, say so and give the N vs the floor — never present a withheld metric as if it were measured;
-- the leading `error_taxonomy_distribution` tag(s) if any count ≥ 2 (this is the one concrete "why the engine is wrong" read even in a Pre-data run — never gated by the floor), and every `pre_mortem_calibration` `contradicted (false_comfort)` case by ticker (a red-team that gave false comfort on a broken thesis is the costliest miss in that metric).
+- the leading `error_taxonomy_distribution` tag(s) if any count ≥ 2 (this is the one concrete "why the engine is wrong" read even in a Pre-data run — never gated by the floor), and every `pre_mortem_calibration.false_comfort_cases` entry by ticker (the script lists them — a red-team that gave false comfort on a broken thesis is the costliest miss in that metric);
+- when the `hit_rate` is still withheld but `calibration` (Brier) IS computed, report the Brier — the `honesty_statement` already says so; do not repeat the flat "everything withheld" line, which is only true when both are below floor.
 
 ## Hard rules
 

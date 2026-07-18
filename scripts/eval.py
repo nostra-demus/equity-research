@@ -838,6 +838,18 @@ _AO_CONSENSUS = re.compile(r"\b(consensus|estimate|estimates|expectation|expecta
 _AO_MONTHS = {"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"oct":10,"nov":11,"dec":12}
 _AO_MONTH_RE = re.compile(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+(\d{4})\b", re.I)
 _AO_ISO_RE = re.compile(r"\b(\d{4})-(\d{2})-(\d{2})\b")
+# Period / date TOKENS (a fiscal year, quarter, half, calendar year/date) — digits that only LABEL a period,
+# not a pinned threshold. Stripped before asking "is there a real number here?", so 'FY27 EPS beats
+# consensus' is correctly seen as pinning NO consensus value (its only digit is the fiscal year).
+_AO_PERIOD_TOKENS = re.compile(
+    r"\bfy\s?\d{2,4}\b|\b[1-4]?q\s?[1-4]?\b|\bh[12]\b|\b(19|20)\d{2}\b|\b\d{4}-\d{2}-\d{2}\b|"
+    r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+\d{4}\b", re.I)
+
+def _ao_pins_a_number(text):
+    """True if `text` carries a numeric threshold that is NOT merely a period/date LABEL. Strips fiscal
+    years, quarters, halves, and calendar dates first, then looks for a remaining digit. 'FY27 EPS beats
+    consensus' → False (only the year); 'FY27 EPS above ₹42' → True (42 survives the strip)."""
+    return bool(re.search(r"\d", _AO_PERIOD_TOKENS.sub(" ", text or "")))
 
 def _ao_earliest_date(time_window):
     """Best-effort EARLIEST confidently-parseable resolution date (YYYY-MM-DD) from a free-text
@@ -880,7 +892,7 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
     if not fl:
         return None  # empty forecast_ledger is allowed (§19)
     issues = []
-    near_term = parseable_long = 0
+    near_term = parseable_long = undateable = 0
     for i, e in enumerate(fl):
         if not isinstance(e, dict):
             continue  # T flags non-object entries
@@ -889,12 +901,13 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
         both = ct + " ⋮ " + ft
         if ct and ft and ct.lower() == ft.lower():
             issues.append(f"forecast_ledger[{i}] confirmation and falsification triggers are identical — the outcome space is not partitioned")
-        has_digit = bool(re.search(r"\d", both))
         has_doc = bool(_AO_NAMED_DOC.search(both))
-        if _AO_CONSENSUS.search(both) and not has_digit:
-            # the more specific diagnosis wins even when a doc is named — the consensus NUMBER is still unpinned
-            issues.append(f"forecast_ledger[{i}] references consensus/estimates but pins no number — a bare 'beats consensus' cannot be settled (§5)")
-        elif not has_digit and not has_doc:
+        if _AO_CONSENSUS.search(both) and not _ao_pins_a_number(both):
+            # consensus needs a pinned NUMBER, not just a period digit — 'FY27 EPS beats consensus' pins none.
+            # The specific diagnosis wins even when a doc is named: the consensus VALUE is still unsettled.
+            issues.append(f"forecast_ledger[{i}] references consensus/estimates but pins no number (a fiscal-year or "
+                          f"quarter digit is not a consensus value) — a bare 'beats consensus' cannot be settled (§5)")
+        elif not bool(re.search(r"\d", both)) and not has_doc:
             issues.append(f"forecast_ledger[{i}] triggers carry no pinned numeric bar and name no settleable document — not mechanically resolvable (§5/§19)")
         tgt = _ao_earliest_date(str(e.get("time_window") or ""))
         if tgt:
@@ -904,9 +917,17 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
                     near_term += 1
                 else:
                     parseable_long += 1
-    if near_term == 0 and parseable_long >= 2:
-        issues.append(f"no near-term (≤90-day) resolvable forecast — all {parseable_long} dateable forecasts settle beyond one "
-                      f"quarter from the decision date; the call cannot be checked for months (§19 wants ≥2 or ≥40% within 90 days)")
+            else:
+                undateable += 1  # a date we couldn't place relative to the decision → treat as undateable
+        else:
+            undateable += 1      # no confidently-parseable date in the window
+    # Fail the near-term quota only when CONFIDENT: zero near-term proof points AND every forecast we could
+    # date settles beyond a quarter (no undateable ones that MIGHT be near-term). This now catches a
+    # single long-dated forecast (parseable_long == 1), not just ≥2 — for a one-forecast ledger the §19
+    # "≥2 or ≥40%" rule means that single forecast must itself be near-term.
+    if near_term == 0 and parseable_long >= 1 and undateable == 0:
+        issues.append(f"no near-term (≤90-day) resolvable forecast — every dateable forecast (N={parseable_long}) settles "
+                      f"beyond one quarter from the decision date; the call cannot be checked for months (§19 wants ≥2 or ≥40% within 90 days)")
     return issues
 
 if scope=="selftest":
@@ -1930,6 +1951,9 @@ if scope=="selftest":
     _fc_nonum={"confirmation_trigger":"the plan works","falsification_trigger":"the plan fails","time_window":"August 2026"}
     _fc_ident={"confirmation_trigger":"margin above 12%","falsification_trigger":"margin above 12%","time_window":"August 2026"}
     _fc_far={"confirmation_trigger":"net cash eliminated below 0","falsification_trigger":"net cash still above 0","time_window":"December 2028"}
+    _fc_fycons={"confirmation_trigger":"FY27 EPS beats consensus","falsification_trigger":"FY27 EPS below consensus","time_window":"August 2026"}
+    _fc_realcons={"confirmation_trigger":"FY27 EPS above 42 vs consensus 40","falsification_trigger":"FY27 EPS below 40","time_window":"August 2026"}
+    _fc_far_undate={"confirmation_trigger":"net cash below 0","falsification_trigger":"net cash above 0","time_window":"the medium term"}
     aocases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substrings]=fail-with)
         ("2026-07-17",[_fc_good],None),                                        # predates AO_DATE → N/A
         ("2026-07-18",[],None),                                                # empty ledger → N/A (§19)
@@ -1939,6 +1963,10 @@ if scope=="selftest":
         ("2026-07-18",[_fc_ident],["outcome space is not partitioned"]),       # identical triggers → FAIL
         ("2026-07-18",[_fc_far,_fc_far],["no near-term"]),                     # every dateable fc >90d → record FAIL
         ("2026-07-18",[_fc_good,_fc_far],[]),                                  # one near-term proof point → pass
+        ("2026-07-18",[_fc_fycons],["pins no number"]),                        # consensus + only a FISCAL-YEAR digit → FAIL (fix #2)
+        ("2026-07-18",[_fc_realcons],[]),                                      # consensus WITH a real pinned number → pass (fix #2)
+        ("2026-07-18",[_fc_far],["no near-term"]),                             # a SINGLE long-dated forecast → FAIL (fix #4)
+        ("2026-07-18",[_fc_far_undate],[]),                                    # long trigger but UNDATEABLE window → no quota fail (lenient)
         ("2026-07-18",5,None),                                                 # malformed (non-list) → N/A, never crash
         ("2026-07-18",None,None),                                              # None ledger → N/A
     ]

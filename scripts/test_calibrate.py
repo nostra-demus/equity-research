@@ -206,6 +206,80 @@ def test_probability_scale():
     check(probs == [0.0, 0.01, 0.75, 1.0], f"probability 0/1/75/100 → 0.0/0.01/0.75/1.0, endpoints kept (got {probs})")
 
 
+def test_all_reviews_tallied():
+    # Bug-7 guard: error-taxonomy + pre-mortem tallies aggregate across EVERY review, not just the latest
+    rr = "analyses/MULTI_2026-06-01"
+    standing = [{"run_root": rr, "record": {
+        "ticker": "MULTI", "decision": "Watchlist", "decision_date": "2026-06-01", "basket": "Watchlist",
+        "forecast_ledger": []}}]
+    reviews = [
+        {"review_window": "30d", "error_taxonomy": ["timing error"],
+         "pre_mortem_check": {"outcome_vs_verdict": "vindicated"}},
+        {"review_window": "90d", "error_taxonomy": ["bad base rate"],
+         "pre_mortem_check": {"outcome_vs_verdict": "too_early"}},
+    ]
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: reviews)
+    et = out["error_taxonomy_distribution"]
+    check(et.get("timing error") == 1 and et.get("bad base rate") == 1,
+          f"both reviews' error tags counted, not just the latest (got {et})")
+    pod = out["pre_mortem_calibration"]["outcome_distribution"]
+    check(pod["vindicated"] == 1 and pod["too_early"] == 1, "both reviews' pre-mortem outcomes counted")
+
+
+def test_false_comfort_named():
+    # Bug-8 guard: a false_comfort case is kept WITH its ticker/run, not just counted
+    rr = "analyses/FC_2026-06-01"
+    standing = [{"run_root": rr, "record": {
+        "ticker": "FC", "decision": "Buy", "decision_date": "2026-06-01", "basket": "Selected",
+        "forecast_ledger": []}}]
+    reviews = [{"review_window": "90d",
+                "pre_mortem_check": {"outcome_vs_verdict": "contradicted", "contradiction_kind": "false_comfort"}}]
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: reviews)
+    cases = out["pre_mortem_calibration"]["false_comfort_cases"]
+    check(len(cases) == 1 and cases[0]["ticker"] == "FC" and cases[0]["window"] == "90d",
+          f"false_comfort case named by ticker/window, not just counted (got {cases})")
+
+
+def test_brier_ready_not_reported_withheld():
+    # Bug-5 guard: ≥10 resolved forecasts but 0 directional calls → Brier IS computed; the honesty
+    # statement must report it, not falsely claim every metric is withheld
+    standing, reviews_by_run = [], {}
+    for i in range(11):  # 11 Watchlist runs, each with one resolved forecast, no directional bet
+        rr = f"analyses/W{i}_2026-06-01"
+        standing.append({"run_root": rr, "record": {
+            "ticker": f"W{i}", "decision": "Watchlist", "decision_date": "2026-06-01", "basket": "Watchlist",
+            "forecast_ledger": [{"prediction": f"p{i}", "probability": 60, "owner_module": "earnings"}]}})
+        reviews_by_run[rr] = [{"forecast_results": [{"prediction": f"p{i}", "status": "confirmed"}]}]
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: reviews_by_run.get(r, []))
+    check(isinstance(out["calibration"], dict) and out["calibration"]["brier"] is not None, "Brier computed (11 ≥ floor)")
+    check(out["hit_rate"] is None, "hit rate still withheld (0 directional calls)")
+    check("Brier calibration IS available" in out["honesty_statement"],
+          f"honesty reports the Brier signal, not 'everything withheld' (got: {out['honesty_statement'][:80]})")
+
+
+def test_scoped_output_isolated():
+    # Bug-6 guard: a scoped (single-ticker) run must NOT land on the global Phase-6 glob pattern
+    import os, tempfile
+    standing = [{"run_root": "analyses/AAA_2026-06-01", "record": {
+        "ticker": "AAA", "decision": "Buy", "decision_date": "2026-06-01", "basket": "Selected", "forecast_ledger": []}}]
+    saved = C.PERF_DIR
+    try:
+        with tempfile.TemporaryDirectory() as td:
+            C.PERF_DIR = td
+            scoped = C.build(scope="AAA", standing=standing, today="2026-07-18", reviews_provider=lambda r: [])
+            jpath, _ = C.write_outputs(scoped)
+            check("/scoped/" in jpath.replace(os.sep, "/"),
+                  f"scoped run writes under scoped/, not the global feed (got {jpath})")
+            check(not jpath.endswith(os.path.join(td, "2026-07-18_calibration_summary.json")),
+                  "scoped run does NOT occupy the global <date>_calibration_summary.json name")
+            allrun = C.build(scope="all", standing=standing, today="2026-07-18", reviews_provider=lambda r: [])
+            jpath2, _ = C.write_outputs(allrun)
+            check(jpath2 == os.path.join(td, "2026-07-18_calibration_summary.json"),
+                  "an all-ledger run keeps the global name the Phase-6 glob reads")
+    finally:
+        C.PERF_DIR = saved
+
+
 def test_below_floor_withholds():
     standing = [{"run_root": "analyses/ONE_2026-06-01", "record": {
         "ticker": "ONE", "decision": "Buy", "decision_date": "2026-06-01", "basket": "Selected",
@@ -220,8 +294,9 @@ def main():
     print("test_calibrate.py")
     for fn in (test_incomplete_beta, test_clopper_pearson, test_brier_and_murphy, test_e_value,
                test_effective_n, test_months_to_significance_honesty, test_forecast_join_never_misscores,
-               test_fraction_slip_excluded, test_effective_n_clusters_by_ticker, test_end_to_end_floor_met,
-               test_probability_scale, test_below_floor_withholds):
+               test_fraction_slip_excluded, test_effective_n_clusters_by_ticker, test_all_reviews_tallied,
+               test_false_comfort_named, test_brier_ready_not_reported_withheld, test_scoped_output_isolated,
+               test_end_to_end_floor_met, test_probability_scale, test_below_floor_withholds):
         print(f"[{fn.__name__}]")
         fn()
     print()

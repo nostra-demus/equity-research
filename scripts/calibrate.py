@@ -475,6 +475,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
     error_tax = {}               # §20 tag -> count
     premortem_outcomes = {"not_applicable": 0, "too_early": 0, "vindicated": 0, "contradicted": 0, "partial": 0}
     premortem_contra = {"false_comfort": 0, "excess_caution": 0}
+    premortem_contra_cases = []  # [{ticker, run, window}] for each false_comfort case (named in §9 summary)
     cluster_by_ticker = {}       # ticker -> total resolved-forecast count (for effective-N; a ticker's
                                  # forecasts across runs are one correlated cluster, not independent bets)
     basket_dist, conf_scores, ds_scores = {}, [], []
@@ -507,12 +508,17 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         if isinstance(rel, (int, float)):
             basket_returns.setdefault(basket, []).append(rel)
 
-        if rev:
-            for tag in (rev.get("error_taxonomy") or []):
+        # Flat tallies (§20 error taxonomy, §5 pre-mortem audit) aggregate across EVERY review of the
+        # run, not just the latest — an earlier review's error tag / pre-mortem outcome is a distinct
+        # observation the calibration loop must not lose when a newer window is filed (calibrate.md §5:
+        # "across every review record's error_taxonomy array"). (Forecast RESOLUTION still uses the latest
+        # review, correctly — a later status supersedes an earlier read of the same prediction.)
+        for a_rev in reviews:
+            for tag in (a_rev.get("error_taxonomy") or []):
                 t = tag if isinstance(tag, str) else (tag.get("tag") if isinstance(tag, dict) else None)
                 if t:
                     error_tax[t] = error_tax.get(t, 0) + 1
-            pmc = rev.get("pre_mortem_check") or {}
+            pmc = a_rev.get("pre_mortem_check") or {}
             ov = _norm(pmc.get("outcome_vs_verdict"))
             key = {"not_applicable": "not_applicable", "too_early": "too_early", "vindicated": "vindicated",
                    "contradicted": "contradicted", "partial": "partial"}.get(ov)
@@ -522,6 +528,11 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
                     sub = _norm(pmc.get("contradiction_kind"))
                     if sub in ("false_comfort", "excess_caution"):
                         premortem_contra[sub] += 1
+                        # false comfort (a red-team that missed a real risk) is the costliest audit miss —
+                        # keep the ticker/run/window so the human summary can NAME it, not just count it (§9)
+                        if sub == "false_comfort":
+                            premortem_contra_cases.append(
+                                {"ticker": tkr, "run": _run_date(run_root), "window": a_rev.get("review_window")})
 
         inventory.append({
             "ticker": tkr, "run": _run_date(run_root), "run_root": run_root,
@@ -572,11 +583,17 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
             "available": feed.available(),
             "providers": feed.providers if feed.available() else [],
             "as_of": feed.as_of() if feed.available() else None,
-            "return_basis": ("market feed present (data/_market) — beta-adjusted excess available per "
-                             "scripts/market_prices.py when a ticker→benchmark symbol map is supplied"
+            # Directional scoring ALWAYS uses each review's own benchmark-relative return today — the feed
+            # is read for price/tracking backfill but is NOT yet wired into hit/basket scoring (that needs
+            # a ticker→benchmark symbol map). Say so honestly whether or not a feed is present, so the label
+            # never implies feed-backed skill numbers the scoreboard is not actually computing.
+            "returns_used": "review-time benchmark-relative (each review's own benchmark_relative_return_pct)",
+            "return_basis": ("market feed present (data/_market), but directional scoring still uses each "
+                             "review's benchmark-relative return; a feed-backed beta-adjusted excess is not "
+                             "yet wired into scoring (pending a ticker→benchmark symbol map, EXTERNAL_DATA §7A)"
                              if feed.available() else
-                             "no market feed — hits use the review-time benchmark-relative return each "
-                             "review already computed; a beta-adjusted excess is not recomputed (EXTERNAL_DATA §7A)"),
+                             "no market feed — hits use the review-time benchmark-relative return each review "
+                             "already computed; a beta-adjusted excess is not recomputed (EXTERNAL_DATA §7A)"),
         },
         "months_to_significance": {},
         "process_metrics": {
@@ -589,6 +606,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         "pre_mortem_calibration": {                          # §5 audit-of-the-auditor — flat count
             "outcome_distribution": premortem_outcomes,
             "contradicted_breakdown": premortem_contra,
+            "false_comfort_cases": premortem_contra_cases,   # named by ticker/run/window — the costliest miss (§9)
         },
         "honesty_statement": "",
         "data_sufficiency_note": "",
@@ -682,10 +700,21 @@ def _month_span(d0, d1):
 def _honesty(out):
     n_dir, n_res = out["n_directional_calls_resolved"], out["n_resolved_forecasts"]
     mts = out.get("months_to_significance") or {}
+    brier_ready = isinstance(out["calibration"], dict)  # Brier IS computed (n_resolved ≥ floor)
     if out["hit_rate"] is not None:
-        return (f"Hit rate {out['hit_rate']:.0%} on {n_dir} directional calls, 95% CI "
-                f"[{out['hit_rate_ci95'][0]:.0%}, {out['hit_rate_ci95'][1]:.0%}] (exact). "
-                f"Skill {'IS' if out['sequential_test'].get('skill_declared') else 'is NOT yet'} statistically supported.")
+        s = (f"Hit rate {out['hit_rate']:.0%} on {n_dir} directional calls, 95% CI "
+             f"[{out['hit_rate_ci95'][0]:.0%}, {out['hit_rate_ci95'][1]:.0%}] (exact). "
+             f"Skill {'IS' if out['sequential_test'].get('skill_declared') else 'is NOT yet'} statistically supported.")
+        if brier_ready:
+            s += f" Brier {out['calibration']['brier']} over {out['calibration']['n']} resolved forecasts."
+        return s
+    if brier_ready:
+        # the first real Brier signal has arrived even though the DIRECTIONAL hit rate is still below floor —
+        # report it rather than falsely claiming everything is withheld (the JSON already carries it)
+        return (f"Brier calibration IS available: {out['calibration']['brier']} over {out['calibration']['n']} "
+                f"resolved forecasts (calibration / reliability computed). The benchmark-adjusted HIT RATE is "
+                f"still withheld ({n_dir} directional calls < the {MIN_DIRECTIONAL_HITS} floor), as is the "
+                f"Selected−Rejected spread — those await more resolved directional bets.")
     if mts.get("projectable"):
         return (f"No skill verdict yet: {n_dir} directional / {n_res} forecast resolutions. At the current "
                 f"hit rate and ~{mts['rate_per_month']:.1f} resolutions/month, a real verdict is ~"
@@ -735,7 +764,8 @@ def render_markdown(out):
     es = out["effective_sample"]
     L.append(f"- Effective sample: **{es['effective_n']}** independent (of {es['n_raw']} raw across {es['n_clusters']} tickers)")
     mf = out["market_feed"]
-    L.append(f"- Return basis: **{'market feed (' + ', '.join(mf['providers']) + ')' if mf['available'] else 'review-time benchmark-relative (no market feed)'}**")
+    L.append(f"- Return basis: **review-time benchmark-relative**"
+             + (f" (market feed present [{', '.join(mf['providers'])}] but not yet used for scoring)" if mf['available'] else " (no market feed)"))
     L.append("")
     L.append("## Skill metrics (withheld below floor — this is the point)")
     hr = "withheld" if out["hit_rate"] is None else f"{out['hit_rate']:.0%} (95% CI [{out['hit_rate_ci95'][0]:.0%}, {out['hit_rate_ci95'][1]:.0%}])"
@@ -769,16 +799,27 @@ def render_markdown(out):
 
 
 def write_outputs(out):
-    os.makedirs(PERF_DIR, exist_ok=True)
+    # A SCOPED run (a single ticker) must NEVER land on the global `<date>_calibration_summary.json`
+    # pattern: the Phase-6 synthesizer/eval glob (`analyses/performance/*_calibration_summary.json`,
+    # non-recursive) reads the latest match without checking `scope`, so a one-ticker snapshot would
+    # become the as-of calibration summary for EVERY later company and drive its pre_data/haircut
+    # decision from the wrong population. Scoped runs go to a `scoped/` subfolder the glob cannot see;
+    # only an all-ledger run feeds Phase 6.
+    scope = out.get("scope") or "all"
+    is_scoped = scope != "all"
+    out_dir = os.path.join(PERF_DIR, "scoped") if is_scoped else PERF_DIR
+    os.makedirs(out_dir, exist_ok=True)
     day = out["generated_at"][:10]
-    jpath = os.path.join(PERF_DIR, f"{day}_calibration_summary.json")
-    mpath = os.path.join(PERF_DIR, f"{day}_decision_performance_summary.md")
-    if os.path.exists(jpath):  # a snapshot already exists for today — version it, never overwrite
+    tag = f"_{_norm(scope)}" if is_scoped else ""  # keep the ticker in the scoped filename for humans
+    jbase, mbase = f"{day}{tag}_calibration_summary", f"{day}{tag}_decision_performance_summary"
+    jpath = os.path.join(out_dir, f"{jbase}.json")
+    mpath = os.path.join(out_dir, f"{mbase}.md")
+    if os.path.exists(jpath):  # a snapshot already exists — version it, never overwrite
         n = 2
-        while os.path.exists(os.path.join(PERF_DIR, f"{day}_calibration_summary_v{n}.json")):
+        while os.path.exists(os.path.join(out_dir, f"{jbase}_v{n}.json")):
             n += 1
-        jpath = os.path.join(PERF_DIR, f"{day}_calibration_summary_v{n}.json")
-        mpath = os.path.join(PERF_DIR, f"{day}_decision_performance_summary_v{n}.md")
+        jpath = os.path.join(out_dir, f"{jbase}_v{n}.json")
+        mpath = os.path.join(out_dir, f"{mbase}_v{n}.md")
     with open(jpath, "w", encoding="utf-8") as f:
         json.dump(out, f, indent=2, ensure_ascii=False)
         f.write("\n")

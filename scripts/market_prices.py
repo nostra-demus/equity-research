@@ -38,6 +38,7 @@ CLI:
 from __future__ import annotations
 
 import csv
+import datetime
 import glob
 import json
 import os
@@ -73,11 +74,17 @@ def _read_csv_closes(path):
 
 
 def _is_iso(s):
+    """True only for a REAL calendar date in strict YYYY-MM-DD form. A day-of-month must be valid for
+    its month (rejects 2026-02-31, 2026-04-31, 2026-13-01) — otherwise one impossible provider row could
+    become the feed's as_of or be picked by close_on's string comparison and corrupt a reported return."""
     if not (isinstance(s, str) and len(s) == 10 and s[4] == "-" and s[7] == "-"):
         return False
     try:
         y, m, d = int(s[:4]), int(s[5:7]), int(s[8:10])
-        return 1 <= m <= 12 and 1 <= d <= 31 and y >= 1900
+        if y < 1900:
+            return False
+        datetime.date(y, m, d)  # raises ValueError on an impossible calendar date
+        return True
     except ValueError:
         return False
 
