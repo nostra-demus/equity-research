@@ -848,7 +848,10 @@ _AO_ISO_RE = re.compile(r"\b(\d{4})-(\d{2})-(\d{2})\b")
 # eval gate blocks valid PRs — worse than letting a weak year-only reference pass). Years are stripped
 # only in an explicit date context (FY__, ISO date, Month YYYY).
 _AO_PERIOD_TOKENS = re.compile(
-    r"\bfy\s?\d{2,4}\b|\bq[1-4]\b|\b[1-4]q\b|\bh[12]\b|\b\d{4}-\d{2}-\d{2}\b|"
+    # `fy26`, and also the Indian fiscal-YEAR-RANGE spelling `FY26-27` / `FY2026-27` / `FY26/27` — the
+    # optional second-year group strips the trailing `-27` that would otherwise survive and be misread as
+    # a pinned number (CLAUDE.md §27 makes an Indian company the default case, where `FY26-27` is routine).
+    r"\bfy\s?\d{2,4}(?:\s?[-/]\s?\d{2,4})?\b|\bq[1-4]\b|\b[1-4]q\b|\bh[12]\b|\b\d{4}-\d{2}-\d{2}\b|"
     r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+\d{4}\b", re.I)
 
 def _ao_pins_a_number(text):
@@ -1997,6 +2000,7 @@ if scope=="selftest":
     _fc_ident={"confirmation_trigger":"margin above 12%","falsification_trigger":"margin above 12%","time_window":"August 2026"}
     _fc_far={"confirmation_trigger":"net cash eliminated below 0","falsification_trigger":"net cash still above 0","time_window":"December 2028"}
     _fc_fycons={"confirmation_trigger":"FY27 EPS beats consensus","falsification_trigger":"FY27 EPS below consensus","time_window":"August 2026"}
+    _fc_fyrangecons={"confirmation_trigger":"FY26-27 EPS beats consensus","falsification_trigger":"FY26-27 EPS below consensus","time_window":"August 2026"}
     _fc_realcons={"confirmation_trigger":"FY27 EPS above 42 vs consensus 40","falsification_trigger":"FY27 EPS below 40","time_window":"August 2026"}
     _fc_far_undate={"confirmation_trigger":"net cash below 0","falsification_trigger":"net cash above 0","time_window":"the medium term"}
     _fc_yearthresh={"confirmation_trigger":"revenue above 2026 cr, beating consensus","falsification_trigger":"revenue below 2026 cr","time_window":"August 2026"}
@@ -2019,6 +2023,7 @@ if scope=="selftest":
         ("2026-07-18",[_fc_far,_fc_far],["insufficient near-term"]),           # every dateable fc >90d → record FAIL
         ("2026-07-18",[_fc_good,_fc_far],[]),                                  # 1-of-2 near-term (50% ≥ 40%) → pass
         ("2026-07-18",[_fc_fycons],["pins no number"]),                        # consensus + only a FISCAL-YEAR digit → FAIL
+        ("2026-07-18",[_fc_fyrangecons],["pins no number"]),                   # consensus + only a FISCAL-YEAR-RANGE (FY26-27) → FAIL (the '-27' must not read as a pinned number)
         ("2026-07-18",[_fc_realcons],[]),                                      # consensus WITH a real pinned number → pass
         ("2026-07-18",[_fc_far],["insufficient near-term"]),                   # a SINGLE long-dated forecast → FAIL
         ("2026-07-18",[_fc_far_undate],[]),                                    # long trigger but UNDATEABLE window → no quota fail (lenient)
