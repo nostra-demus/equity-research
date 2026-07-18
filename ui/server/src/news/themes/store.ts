@@ -99,7 +99,10 @@ export function maybeCompactThemesLedger(
   }
 }
 
-const top = <T>(arr: T[], n: number): T[] => arr.slice(0, n)
+// Null-safe: loadThemes() parses raw ledger lines with no schema normalisation, so a legacy/partial
+// theme row can lack `companies` / `related_themes`. Guard here so every top() call site (buildSummary,
+// deep-dive) degrades gracefully instead of throwing on `.slice` of undefined.
+const top = <T>(arr: T[] | undefined | null, n: number): T[] => (arr || []).slice(0, n)
 
 /** Compact projection: Theme → ThemeSummary (no member arrays) for the index + SSE bus. */
 export function buildSummary(t: Theme): ThemeSummary {
