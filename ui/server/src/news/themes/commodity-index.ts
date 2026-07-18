@@ -26,7 +26,11 @@ export interface ThemeCommodityFilter {
   geo?: ThemeGeo | null // optional geography to compose with (memberMatchesGeo)
 }
 
-const top = <T>(a: T[], n: number): T[] => a.slice(0, n)
+// Array-safe: themes come from loadThemes(), which parses raw ledger lines with no schema normalisation,
+// so `companies` / `related_themes` / `members` can be missing or a corrupt non-array truthy value. Guard
+// so the commodity-sliced index never throws on `.slice` / `.filter` (mirrors store.ts top()).
+const top = <T>(a: T[] | null | undefined, n: number): T[] => (Array.isArray(a) ? a.slice(0, n) : [])
+const arr = <T>(v: T[] | null | undefined): T[] => (Array.isArray(v) ? v : [])
 
 /** The canonical commodity tag(s) a member carries — its persisted tags when present, else derived
  *  lazily from the member's own headline with the SAME tagger the feed/archive use. Empty array when
@@ -62,7 +66,7 @@ export function buildCommodityThemesIndex(
 
   for (const t of themes) {
     if (t.status !== 'live') continue
-    const sliceMembers = (t.members || []).filter((m) => memberMatchesCommodity(m, filter))
+    const sliceMembers = arr(t.members).filter((m) => memberMatchesCommodity(m, filter))
     if (!sliceMembers.length) continue // this theme isn't about the requested commodity → drop it
 
     // Re-score from the slice. Companies/sectors carry no commodity attribution, so breadth reads off
@@ -91,8 +95,8 @@ export function buildCommodityThemesIndex(
       flow_daily,
       member_count: sliceMembers.length, // honest: recent sliced items in the ring (caps at the ring size)
       // the theme's own company tiers, unchanged — commodity stories still name producers/users worth seeing
-      top_companies: top(t.companies || [], 8).map((c) => ({ name: c.name, ticker: c.ticker, order: c.order, side: c.side })),
-      related_themes: top(t.related_themes || [], 5).map((r) => ({ theme_id: r.theme_id, name: r.name, kind: r.kind })),
+      top_companies: top(t.companies, 8).map((c) => ({ name: c.name, ticker: c.ticker, order: c.order, side: c.side })),
+      related_themes: top(t.related_themes, 5).map((r) => ({ theme_id: r.theme_id, name: r.name, kind: r.kind })),
       last_flow: sliceMembers.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), ''),
       rev: t.rev,
     })
