@@ -114,3 +114,15 @@ Every agent still obeys the root `CLAUDE.md` (§3 no source = no claim, §4 hier
 plain English, §24 avoid-big-risks) and this swarm's `MODULE_RULES.md`. A commodity thesis is a
 `Commodity-conditional` thesis by classification (§14): it turns on external drivers, so conviction is
 capped accordingly and the verdict is honest about what it depends on.
+
+## Learning loop
+
+`/commodity:review <COMMODITY_OR_DUE> [WINDOW]` (`.claude/commands/commodity/review.md`) is this
+swarm's twin of `/research:review-decisions` (`CLAUDE.md` §19: "a forecast that cannot be checked
+later is not a forecast" — the `Action:` verdict is exactly that kind of forecast). It reads a
+committed `decision_record.json`, checks the `Action:` call against what actually happened at the
+30d/90d/180d/365d marks (computed from `decision_date` — the commodity schema carries no stored
+`review_schedule`), and writes an append-only review to `commodity/runs/<COMMODITY>/reviews/`,
+schema `frameworks/commodity/decision_review.schema.json`. It never edits `decision_record.json`.
+There is no calibration/dashboard layer yet (the research swarm's `/research:calibrate` twin) —
+that is the natural next step once enough reviews exist to aggregate.

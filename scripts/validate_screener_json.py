@@ -20,15 +20,23 @@ plus two structural cross-checks against the run's own upstream artifacts:
   Insufficient... never paper over a gap with false confidence") — the commodity-scoped
   twin of eval.py's Y_data_sufficiency_cap for the research swarm.
 
+Also validates every committed commodity/runs/<COMMODITY>/reviews/*_decision_review*.json
+against frameworks/commodity/decision_review.schema.json (auto-discovered, same convention),
+cross-checking each review's commodity/original_decision_date/original_action against the
+decision_record.json it reviews — the commodity-scoped twin of the anchor-consistency
+discipline frameworks/DECISION_LEDGER.md §8 already requires of the research swarm's reviews.
+
 Usage:
     python3 scripts/validate_screener_json.py <schema.json> <doc.json> [...more pairs]
     python3 scripts/validate_screener_json.py --fixture   # validate the committed fixture set
                                                            # + all commodity/runs/<COMMODITY>/
+                                                           # + all commodity/runs/*/reviews/
 
 Exit 0 = all valid; 1 = violations printed.
 """
 from __future__ import annotations
 
+import datetime
 import glob
 import json
 import os
@@ -151,6 +159,8 @@ FIXTURE_PAIRS = [
 ]
 
 COMMODITY_SCHEMA = "frameworks/commodity/decision_record.schema.json"
+COMMODITY_REVIEW_SCHEMA = "frameworks/commodity/decision_review.schema.json"
+REVIEW_WINDOW_DAYS = {"30d": 30, "90d": 90, "180d": 180, "365d": 365}
 COMMODITY_DOSSIER = "commodity-thesis/99_commodity-thesis-synthesis.md"
 COMMODITY_TRIAGE = "market-structure/00_commodity-triage.md"
 ROUTING_ACTION_RE = re.compile(r"##\s*Routing[\s\S]*?^Action:\s*(.+)$", re.MULTILINE)
@@ -163,6 +173,156 @@ def commodity_decision_records() -> list[str]:
         os.path.relpath(p, REPO)
         for p in glob.glob(os.path.join(REPO, "commodity", "runs", "*", "decision_record.json"))
     )
+
+
+def commodity_decision_reviews() -> list[str]:
+    """Every committed commodity/runs/<COMMODITY>/reviews/*_decision_review*.json (repo-relative)."""
+    return sorted(
+        os.path.relpath(p, REPO)
+        for p in glob.glob(os.path.join(REPO, "commodity", "runs", "*", "reviews", "*_decision_review*.json"))
+    )
+
+
+def check_commodity_review_anchors(doc_path: str) -> list[str]:
+    """A review must not silently drift from the decision_record.json it reviews — the
+    commodity-scoped twin of the anchor discipline frameworks/DECISION_LEDGER.md §8 already
+    requires: the review's own commodity/original_decision_date/original_action must match
+    the frozen record's commodity/decision_date/action exactly (the record is never edited,
+    so any mismatch means the review was built against a different or since-corrected run).
+
+    It also enforces the anchor/outcome integrity the learning loop depends on: original_confidence
+    and reference_price must equal the frozen record's confidence and current_price (never
+    re-derived); one risk_result per original key_risk, each copying its key_risk verbatim (not
+    duplicated/fabricated); absolute_return_pct must equal the recomputed price return; both dates
+    must be real calendar dates; the filename window token must match the review_window field; and
+    a scheduled window must genuinely be that far out. Malformed inputs (a non-object JSON, a null
+    date) report a graceful error instead of crashing."""
+    reviews_dir = os.path.dirname(doc_path)
+    run_dir = os.path.dirname(reviews_dir)
+    record_path = os.path.join(run_dir, "decision_record.json")
+    doc = json.load(open(doc_path, encoding="utf-8"))
+    if not isinstance(doc, dict):
+        return ["review document is not a JSON object"]
+    if not os.path.exists(record_path):
+        return [f"decision_record.json not found at {os.path.relpath(record_path, REPO)} — cannot cross-check anchors"]
+    record = json.load(open(record_path, encoding="utf-8"))
+    if not isinstance(record, dict):
+        return [f"decision_record.json at {os.path.relpath(record_path, REPO)} is not a JSON object — cannot cross-check anchors"]
+    errs = []
+    if doc.get("commodity") != record.get("commodity"):
+        errs.append(f"review commodity {doc.get('commodity')!r} != decision_record commodity {record.get('commodity')!r}")
+    if doc.get("original_decision_date") != record.get("decision_date"):
+        errs.append(f"review original_decision_date {doc.get('original_decision_date')!r} != decision_record decision_date {record.get('decision_date')!r}")
+    if doc.get("original_action") != record.get("action"):
+        errs.append(f"review original_action {doc.get('original_action')!r} != decision_record action {record.get('action')!r}")
+    # original_confidence is copied verbatim from the frozen record's own confidence (required,
+    # always-numeric there) — a silently-drifted copy would corrupt calibration's read on whether
+    # high-confidence calls were actually calibrated. Number-only guard: the schema's own type check
+    # already rejects a non-number, so this only fires on a genuine value mismatch.
+    oc = doc.get("original_confidence")
+    rc = record.get("confidence")
+    if isinstance(oc, (int, float)) and not isinstance(oc, bool) \
+            and isinstance(rc, (int, float)) and not isinstance(rc, bool) and oc != rc:
+        errs.append(f"original_confidence {oc!r} != decision_record confidence {rc!r} (copied verbatim, never re-derived)")
+    # review_date cannot predate the decision (None-safe: schema catches wrong/absent types)
+    review_date = doc.get("review_date")
+    original_date = doc.get("original_decision_date")
+    if isinstance(review_date, str) and isinstance(original_date, str) and review_date < original_date:
+        errs.append(f"review_date {review_date!r} predates original_decision_date {original_date!r}")
+    # both dates must be REAL calendar dates, not just the schema's YYYY-MM-DD shape — "2026-99-99"
+    # matches the regex but is a date the due/window/calibration math cannot use (§5: dates are real)
+    for fld in ("review_date", "original_decision_date"):
+        v = doc.get(fld)
+        if isinstance(v, str):
+            try:
+                datetime.date.fromisoformat(v)
+            except ValueError:
+                errs.append(f"{fld} {v!r} is not a real calendar date (YYYY-MM-DD)")
+    # reference_price is copied verbatim from the frozen current_price, never re-derived — a
+    # fat-fingered anchor would corrupt every window's return, so cross-check it against the record
+    ref = doc.get("reference_price")
+    cur = record.get("current_price")
+    if isinstance(ref, dict) and isinstance(cur, dict):
+        for k in ("value", "currency", "unit", "as_of"):
+            if k in cur and ref.get(k) != cur.get(k):
+                errs.append(
+                    f"reference_price.{k} {ref.get(k)!r} != decision_record current_price.{k} {cur.get(k)!r} "
+                    f"(the anchor is copied verbatim from the frozen record, never re-derived)"
+                )
+    # absolute_return_pct is the field the calibration layer aggregates — it must equal the
+    # recomputed (review_price − reference_price) / reference_price × 100 (review.md Step 5's exact
+    # formula), never a hand-typed number, or a mis-keyed return silently corrupts the loop (§20 bad-math)
+    rvp = doc.get("review_price")
+    stored_ret = doc.get("absolute_return_pct")
+    if isinstance(ref, dict) and isinstance(rvp, dict) and isinstance(stored_ret, (int, float)) \
+            and not isinstance(stored_ret, bool):
+        rvv, rfv = rvp.get("value"), ref.get("value")
+        if isinstance(rvv, (int, float)) and not isinstance(rvv, bool) \
+                and isinstance(rfv, (int, float)) and not isinstance(rfv, bool) and rfv != 0:
+            computed = (rvv - rfv) / rfv * 100
+            if abs(stored_ret - computed) > 0.05:
+                errs.append(
+                    f"absolute_return_pct {stored_ret} != recomputed {computed:.4f} from "
+                    f"(review_price {rvv} − reference_price {rfv}) / {rfv} × 100 (§20 bad-math)"
+                )
+    # one risk_result per original key_risk — an empty array would skip the falsification checks
+    # the review exists to run (each key_risk must be resolved materialized/not/partial/pending)
+    rr = doc.get("risk_results")
+    kr = record.get("key_risks")
+    if isinstance(rr, list) and isinstance(kr, list):
+        if len(rr) != len(kr):
+            errs.append(
+                f"risk_results has {len(rr)} entr{'y' if len(rr) == 1 else 'ies'} but decision_record key_risks "
+                f"has {len(kr)} — the schema requires exactly one risk_result per key_risk"
+            )
+        else:
+            # length alone lets duplicated/fabricated rows pass — each risk_result.risk must copy its
+            # key_risk verbatim (schema: "one entry per key_risks[] item"), so the review actually tests
+            # the risks that were meant to falsify the call, not re-labelled or duplicated placeholders
+            # str-only (a missing/non-str risk is the schema's job to flag — never crash sorted() here)
+            got = sorted(r.get("risk") for r in rr if isinstance(r, dict) and isinstance(r.get("risk"), str))
+            want = sorted(k for k in kr if isinstance(k, str))
+            if got != want:
+                missing = [k for k in want if k not in got]
+                extra = [g for g in got if g not in want]
+                def _clip(xs):
+                    return ", ".join(repr((x or "")[:60]) for x in xs[:2]) + ("…" if len(xs) > 2 else "")
+                errs.append(
+                    "risk_results risks do not match decision_record key_risks 1:1 "
+                    f"(uncovered key_risks: [{_clip(missing)}]; fabricated/duplicated risk_results: [{_clip(extra)}]) — "
+                    "each risk_result.risk must copy its key_risk verbatim"
+                )
+    # a scheduled window (30d/90d/180d/365d) must genuinely be that far out; an early file would
+    # otherwise mark the real checkpoint as already reviewed — an early honest check-in is 'ad-hoc'
+    window = doc.get("review_window")
+    if isinstance(window, str) and window in REVIEW_WINDOW_DAYS \
+            and isinstance(review_date, str) and isinstance(original_date, str):
+        try:
+            elapsed = (datetime.date.fromisoformat(review_date) - datetime.date.fromisoformat(original_date)).days
+        except ValueError:
+            elapsed = None
+        if elapsed is not None and elapsed < REVIEW_WINDOW_DAYS[window]:
+            errs.append(
+                f"review_window {window!r} but only {elapsed}d elapsed since original_decision_date — "
+                f"a scheduled window must be at least {REVIEW_WINDOW_DAYS[window]}d out; "
+                f"record an early check as review_window 'ad-hoc'"
+            )
+    # the filename window token must match the review_window field. The due-scanner (review.md Step 3)
+    # keys "already reviewed" on the FILENAME window, so a file named *_365d_* whose review_window is
+    # 'ad-hoc' (or any other) would make it mask the real 365d checkpoint — the two must agree.
+    base = os.path.basename(doc_path)
+    fname_m = re.match(r"^\d{4}-\d{2}-\d{2}_(30d|90d|180d|365d|ad-hoc)_decision_review(?:_v\d+)?\.json$", base)
+    if fname_m is None:
+        errs.append(
+            f"review filename {base!r} does not match <YYYY-MM-DD>_<window>_decision_review[_vN].json "
+            f"— the due-scanner keys on this name"
+        )
+    elif isinstance(window, str) and fname_m.group(1) != window:
+        errs.append(
+            f"filename window {fname_m.group(1)!r} != review_window field {window!r} — they must match "
+            f"so the due-scanner can't mistake this file for a different checkpoint"
+        )
+    return errs
 
 
 def check_commodity_routing(doc_path: str) -> list[str]:
@@ -213,6 +373,7 @@ def main(argv: list[str]) -> int:
     if len(argv) >= 2 and argv[1] == "--fixture":
         pairs = [(os.path.join(REPO, s), os.path.join(REPO, d)) for s, d in FIXTURE_PAIRS]
         pairs += [(os.path.join(REPO, COMMODITY_SCHEMA), os.path.join(REPO, d)) for d in commodity_decision_records()]
+        pairs += [(os.path.join(REPO, COMMODITY_REVIEW_SCHEMA), os.path.join(REPO, d)) for d in commodity_decision_reviews()]
     elif len(argv) >= 3 and len(argv) % 2 == 1:
         pairs = list(zip(argv[1::2], argv[2::2]))
     else:
@@ -224,6 +385,8 @@ def main(argv: list[str]) -> int:
         rel = os.path.relpath(doc_p, REPO)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_SCHEMA)):
             errs = errs + check_commodity_routing(doc_p) + check_commodity_data_sufficiency(doc_p)
+        if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_REVIEW_SCHEMA)):
+            errs = errs + check_commodity_review_anchors(doc_p)
         if errs:
             bad += 1
             print(f"FAIL {rel}")
