@@ -831,9 +831,11 @@ AO_DATE = "2026-07-18"
 # numeric bar or a named settleable document (not a bare "beats consensus"), triggers that actually
 # partition the outcome space (not identical text), and — at the record level — at least one near-term
 # (≤90-day) proof point so the whole call is not un-checkable until years out.
-_AO_NAMED_DOC = re.compile(r"\b(10-?k|10-?q|8-?k|20-?f|6-?k|annual report|quarter|results|filing|filed|"
-                           r"transcript|nse|bse|sec|sebi|def ?14a|proxy|press release|guidance|rating|"
-                           r"crisil|icra|care|circular|prospectus|investor\s+(?:presentation|day|deck|update|briefing))\b", re.I)
+_AO_NAMED_DOC = re.compile(r"\b(10-?k|10-?q|8-?k|20-?f|6-?k|annual report|annual results|"
+                           r"quarterly\s+(?:results?|report|filing|earnings|numbers)|results filing|"
+                           r"results|filing|filed|transcript|nse|bse|sec|sebi|def ?14a|proxy|press release|"
+                           r"guidance|rating|crisil|icra|care|circular|prospectus|"
+                           r"investor\s+(?:presentation|day|deck|update|briefing))\b", re.I)
 _AO_CONSENSUS = re.compile(r"\b(consensus|estimate|estimates|expectation|expectations|street|analysts?)\b", re.I)
 _AO_MONTHS = {"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"oct":10,"nov":11,"dec":12}
 _AO_MONTH_RE = re.compile(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+(\d{4})\b", re.I)
@@ -865,12 +867,26 @@ def _ao_earliest_date(time_window):
     cands = []
     for m in _AO_ISO_RE.finditer(time_window or ""):
         y, mo, d = int(m.group(1)), int(m.group(2)), int(m.group(3))
-        if 1 <= mo <= 12 and 1 <= d <= 31:
+        try:
+            datetime.date(y, mo, d)  # only a REAL calendar date is a candidate (skip 2026-02-31)
             cands.append(f"{y:04d}-{mo:02d}-{d:02d}")
+        except ValueError:
+            continue
     for m in _AO_MONTH_RE.finditer(time_window or ""):
         mo = _AO_MONTHS[m.group(1)[:3].lower()]
         cands.append(f"{int(m.group(2)):04d}-{mo:02d}-01")  # 1st of the month = earliest it could resolve
     return min(cands) if cands else None
+
+def _ao_has_impossible_iso(time_window):
+    """True if the window contains an ISO-shaped YYYY-MM-DD token that is NOT a real calendar date
+    (e.g. 2026-02-31). Such a window can never settle on a real date and must be flagged, not silently
+    dropped to 'undateable' (which would suppress the near-term-quota failure)."""
+    for m in _AO_ISO_RE.finditer(time_window or ""):
+        try:
+            datetime.date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+        except ValueError:
+            return True
+    return False
 
 def _ao_days_after(decision_date, target):
     try:
@@ -907,14 +923,23 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
         if ct and ft and ct.lower() == ft.lower():
             issues.append(f"forecast_ledger[{i}] confirmation and falsification triggers are identical — the outcome space is not partitioned")
         has_doc = bool(_AO_NAMED_DOC.search(both))
-        if _AO_CONSENSUS.search(both) and not _ao_pins_a_number(both):
+        pins_number = _ao_pins_a_number(both)  # a REAL threshold, not just a fiscal-period label ('FY27')
+        if _AO_CONSENSUS.search(both) and not pins_number:
             # consensus needs a pinned NUMBER, not just a period digit — 'FY27 EPS beats consensus' pins none.
             # The specific diagnosis wins even when a doc is named: the consensus VALUE is still unsettled.
             issues.append(f"forecast_ledger[{i}] references consensus/estimates but pins no number (a fiscal-year or "
                           f"quarter digit is not a consensus value) — a bare 'beats consensus' cannot be settled (§5)")
-        elif not bool(re.search(r"\d", both)) and not has_doc:
-            issues.append(f"forecast_ledger[{i}] triggers carry no pinned numeric bar and name no settleable document — not mechanically resolvable (§5/§19)")
-        tgt = _ao_earliest_date(str(e.get("time_window") or ""))
+        elif not pins_number and not has_doc:
+            # a fiscal-period digit ('FY27 margin improves') is NOT a pinned bar — require a real threshold
+            # or a named settleable document, else the forecast cannot be mechanically resolved.
+            issues.append(f"forecast_ledger[{i}] triggers carry no pinned numeric bar (a fiscal-year/quarter label "
+                          f"is not a threshold) and name no settleable document — not mechanically resolvable (§5/§19)")
+        window = str(e.get("time_window") or "")
+        if _ao_has_impossible_iso(window):
+            issues.append(f"forecast_ledger[{i}] time_window contains an impossible calendar date (e.g. a 31st of a "
+                          f"short month) — it can never settle on a real date")
+            continue  # do not let an impossible date fall through to 'undateable' and suppress the quota
+        tgt = _ao_earliest_date(window)
         if tgt:
             days = _ao_days_after(decision_date, tgt)
             if days is None:
@@ -931,13 +956,16 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
                 parseable_long += 1
         else:
             undateable += 1      # no confidently-parseable date in the window
-    # Fail the near-term quota only when CONFIDENT: zero near-term proof points AND every forecast we could
-    # date settles beyond a quarter (no undateable ones that MIGHT be near-term). This now catches a
-    # single long-dated forecast (parseable_long == 1), not just ≥2 — for a one-forecast ledger the §19
-    # "≥2 or ≥40%" rule means that single forecast must itself be near-term.
-    if near_term == 0 and parseable_long >= 1 and undateable == 0:
-        issues.append(f"no near-term (≤90-day) resolvable forecast — every dateable forecast (N={parseable_long}) settles "
-                      f"beyond one quarter from the decision date; the call cannot be checked for months (§19 wants ≥2 or ≥40% within 90 days)")
+    # Near-term quota (§19: ≥2 OR ≥40% of the dateable forecasts resolve within 90 days). Applied only when
+    # CONFIDENT — every forecast has a placeable future date (undateable == 0), so an unknown-timing forecast
+    # can never be assumed near-term to rescue the record. A 5-forecast ledger with 1 near-term / 4 long
+    # (20%) fails; 1-of-2 (50%) or a lone near-term passes.
+    dateable = near_term + parseable_long
+    if undateable == 0 and dateable >= 1 and near_term < 2 and near_term < 0.4 * dateable:
+        pct = round(100.0 * near_term / dateable)
+        issues.append(f"insufficient near-term proof points — only {near_term} of {dateable} dateable forecasts "
+                      f"({pct}%) resolve within 90 days of the decision; §19 wants ≥2 or ≥40%, else the call cannot "
+                      f"be checked for months")
     return issues
 
 if scope=="selftest":
@@ -1968,23 +1996,31 @@ if scope=="selftest":
     _fc_invbare={"confirmation_trigger":"investor confidence improves","falsification_trigger":"investor confidence weakens","time_window":"August 2026"}
     _fc_invdoc={"confirmation_trigger":"guidance raised at the investor presentation","falsification_trigger":"guidance cut at the investor presentation","time_window":"August 2026"}
     _fc_stale={"confirmation_trigger":"margin above 12%","falsification_trigger":"margin below 12%","time_window":"January 2026"}
+    _fc_fyonly={"confirmation_trigger":"FY27 margin improves","falsification_trigger":"FY27 margin weakens","time_window":"August 2026"}
+    _fc_nextq={"confirmation_trigger":"margin improves next quarter","falsification_trigger":"margin does not improve next quarter","time_window":"August 2026"}
+    _fc_baddate={"confirmation_trigger":"margin above 12%","falsification_trigger":"margin below 12%","time_window":"resolves 2026-02-31"}
+    _fc_nt={"confirmation_trigger":"margin above 12%","falsification_trigger":"margin below 12%","time_window":"August 2026"}
     aocases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substrings]=fail-with)
         ("2026-07-17",[_fc_good],None),                                        # predates AO_DATE → N/A
         ("2026-07-18",[],None),                                                # empty ledger → N/A (§19)
         ("2026-07-18",[_fc_good],[]),                                          # pinned + near-term → pass
         ("2026-07-18",[_fc_bare],["pins no number"]),                          # bare 'beats consensus' → FAIL
-        ("2026-07-18",[_fc_nonum],["no pinned numeric bar and name no settleable"]), # no number, no doc → FAIL
+        ("2026-07-18",[_fc_nonum],["not mechanically resolvable"]),            # no number, no doc → FAIL
         ("2026-07-18",[_fc_ident],["outcome space is not partitioned"]),       # identical triggers → FAIL
-        ("2026-07-18",[_fc_far,_fc_far],["no near-term"]),                     # every dateable fc >90d → record FAIL
-        ("2026-07-18",[_fc_good,_fc_far],[]),                                  # one near-term proof point → pass
-        ("2026-07-18",[_fc_fycons],["pins no number"]),                        # consensus + only a FISCAL-YEAR digit → FAIL (fix #2)
-        ("2026-07-18",[_fc_realcons],[]),                                      # consensus WITH a real pinned number → pass (fix #2)
-        ("2026-07-18",[_fc_far],["no near-term"]),                             # a SINGLE long-dated forecast → FAIL (fix #4)
+        ("2026-07-18",[_fc_far,_fc_far],["insufficient near-term"]),           # every dateable fc >90d → record FAIL
+        ("2026-07-18",[_fc_good,_fc_far],[]),                                  # 1-of-2 near-term (50% ≥ 40%) → pass
+        ("2026-07-18",[_fc_fycons],["pins no number"]),                        # consensus + only a FISCAL-YEAR digit → FAIL
+        ("2026-07-18",[_fc_realcons],[]),                                      # consensus WITH a real pinned number → pass
+        ("2026-07-18",[_fc_far],["insufficient near-term"]),                   # a SINGLE long-dated forecast → FAIL
         ("2026-07-18",[_fc_far_undate],[]),                                    # long trigger but UNDATEABLE window → no quota fail (lenient)
-        ("2026-07-18",[_fc_yearthresh],[]),                                    # a 2026 THRESHOLD (not a year) survives → consensus pins a number → pass (fix #1)
-        ("2026-07-18",[_fc_invbare],["no pinned numeric bar and name no settleable"]), # bare 'investor confidence' is not a document → FAIL (fix #6)
-        ("2026-07-18",[_fc_invdoc],[]),                                        # 'investor presentation' IS a settleable document → pass (fix #6)
-        ("2026-07-18",[_fc_stale],["BEFORE the decision date"]),              # window resolves before decision → stale → FAIL (fix #8)
+        ("2026-07-18",[_fc_yearthresh],[]),                                    # a 2026 THRESHOLD (not a year) survives → pins a number → pass
+        ("2026-07-18",[_fc_invbare],["not mechanically resolvable"]),          # bare 'investor confidence' is not a document → FAIL
+        ("2026-07-18",[_fc_invdoc],[]),                                        # 'investor presentation' IS a settleable document → pass
+        ("2026-07-18",[_fc_stale],["BEFORE the decision date"]),              # window resolves before decision → stale → FAIL
+        ("2026-07-18",[_fc_fyonly],["not mechanically resolvable"]),           # 'FY27 margin improves' — a fiscal digit is not a threshold → FAIL (r3 #1)
+        ("2026-07-18",[_fc_nextq],["not mechanically resolvable"]),            # bare 'next quarter' is not a document → FAIL (r3 #4)
+        ("2026-07-18",[_fc_baddate],["impossible calendar date"]),            # 2026-02-31 → flagged, not silently undateable (r3 #2)
+        ("2026-07-18",[_fc_nt,_fc_far,_fc_far,_fc_far,_fc_far],["insufficient near-term"]), # 1 near / 4 long = 20% < 40% → FAIL (r3 #3)
         ("2026-07-18",5,None),                                                 # malformed (non-list) → N/A, never crash
         ("2026-07-18",None,None),                                              # None ledger → N/A
     ]

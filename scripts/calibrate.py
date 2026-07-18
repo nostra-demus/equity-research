@@ -52,6 +52,7 @@ import glob
 import json
 import math
 import os
+import re
 import statistics
 import sys
 from datetime import datetime, timezone
@@ -363,9 +364,16 @@ def _window_rank(w):
     return _WINDOW_RANK.get(_norm(w), 50000)  # an unknown window sorts between the dated windows and ad-hoc
 
 
+def _review_version(path):
+    """The trailing `_v<N>` correction version of a review filename (1 when unversioned). Parsed as an INT
+    so `_v10` sorts after `_v2` — a lexicographic sort would pick the older `_v2`/`_v9` as 'latest'."""
+    m = re.search(r"_v(\d+)\.json$", path or "")
+    return int(m.group(1)) if m else 1
+
+
 def read_reviews(run_root):
-    """All review JSONs for a run, sorted by (review_date, window DURATION) so the last element is the
-    most recent and, within a day, the most mature horizon."""
+    """All review JSONs for a run, sorted by (review_date, window DURATION, correction version) so the
+    last element is the most recent and, within a day+window, the highest-numbered correction."""
     out = []
     for fp in sorted(glob.glob(os.path.join(REPO, run_root, "reviews", "*_decision_review*.json"))):
         try:
@@ -373,24 +381,32 @@ def read_reviews(run_root):
                 d = json.load(f)
             if isinstance(d, dict):
                 d["_path"] = os.path.relpath(fp, REPO)
+                d["_version"] = _review_version(fp)
                 out.append(d)
         except (OSError, json.JSONDecodeError, ValueError):
             continue
-    return sorted(out, key=lambda r: (r.get("review_date") or "", _window_rank(r.get("review_window"))))
+    return sorted(out, key=lambda r: (r.get("review_date") or "", _window_rank(r.get("review_window")), r.get("_version", 1)))
 
 
 def latest_review(reviews):
     return reviews[-1] if reviews else None
 
 
+def _slice_key(v):
+    """Coerce a forecast's owner_module / forecast_type to a hashable, non-empty STRING for use as a
+    slice key. A malformed truthy value (a list/dict) would otherwise raise 'unhashable type' in _slice()
+    and abort the whole calibration write — fall back to 'untagged' instead of crashing on one bad row."""
+    return v if (isinstance(v, str) and v.strip()) else "untagged"
+
+
 def match_resolved_forecasts(record, reviews):
-    """Join each review's resolved forecast_results back to its originating forecast_ledger entry — by
-    exact prediction TEXT only — to recover (probability, realized, owner_module, forecast_type). Only the
-    LATEST review per run is used (a later review supersedes an earlier read). An entry that cannot be
-    text-matched is EXCLUDED, never guessed: forecast_results is routinely a re-ordered subset of the
-    ledger, so an index-based fallback would score a probability against the WRONG prediction's outcome
-    (§24 — prefer omission to a mis-scored commission). Returns [] plus, on the record, sets nothing —
-    the caller counts exclusions separately if needed. Returns a list of matched pair dicts."""
+    """Join each review's resolved forecast_results back to its originating forecast_ledger entry to
+    recover (probability, realized, owner_module, forecast_type). Match order: exact prediction TEXT, then
+    an EXPLICIT deliberate reference — a `forecast_index` field or a 'forecast #N' / 'prediction #N' token
+    (1-based into forecast_ledger). NEVER the positional index of the results array: forecast_results is
+    routinely a re-ordered subset, so a positional guess would score a probability against the WRONG
+    prediction (§24 — prefer omission to a mis-scored commission). An unmatchable entry is excluded. Only
+    the LATEST review per run is used (a later review supersedes an earlier read). Returns matched pairs."""
     ledger = record.get("forecast_ledger", []) or []
     by_text = {}
     for e in ledger:
@@ -398,6 +414,22 @@ def match_resolved_forecasts(record, reviews):
             k = _norm(e.get("prediction"))
             if k and k not in by_text:  # first ledger entry wins on a duplicate text (deterministic)
                 by_text[k] = e
+
+    def _by_reference(result):
+        """A DELIBERATE 1-based reference into forecast_ledger, or None. Honours an explicit
+        `forecast_index` field and a 'forecast #N' / 'prediction #N' / '#N' token in the prediction text —
+        an intentional short-hand, distinct from (and never) the results-array position."""
+        idx = result.get("forecast_index")
+        if isinstance(idx, int) and not isinstance(idx, bool) and 1 <= idx <= len(ledger):
+            e = ledger[idx - 1]
+            return e if isinstance(e, dict) else None
+        m = re.search(r"(?:forecast|prediction|fc)\s*#?\s*(\d+)|^#\s*(\d+)$", _norm(result.get("prediction")))
+        if m:
+            n = int(m.group(1) or m.group(2))
+            if 1 <= n <= len(ledger) and isinstance(ledger[n - 1], dict):
+                return ledger[n - 1]
+        return None
+
     rev = latest_review(reviews)
     if not rev:
         return []
@@ -408,9 +440,9 @@ def match_resolved_forecasts(record, reviews):
         y = _realized(r.get("status"))
         if y is None:
             continue  # unresolved — excluded
-        src = by_text.get(_norm(r.get("prediction")))
+        src = by_text.get(_norm(r.get("prediction"))) or _by_reference(r)
         if src is None:
-            continue  # cannot text-match back → not Brier-scorable, never index-guessed
+            continue  # neither text nor an explicit reference matched → not Brier-scorable, never positional-guessed
         prob = src.get("probability")
         if not isinstance(prob, (int, float)) or isinstance(prob, bool):
             continue
@@ -425,8 +457,8 @@ def match_resolved_forecasts(record, reviews):
             continue  # (0,1) mis-scaled fraction, or out of [0,100] → excluded, not mis-scored
         out.append({
             "prob": prob / 100.0, "realized": int(y),
-            "owner_module": src.get("owner_module") or "untagged",
-            "forecast_type": src.get("forecast_type") or "untagged",
+            "owner_module": _slice_key(src.get("owner_module")),   # always a hashable string (never crashes _slice)
+            "forecast_type": _slice_key(src.get("forecast_type")),
         })
     return out
 

@@ -326,6 +326,42 @@ def test_reviews_sort_by_horizon_not_text():
           "the most mature same-day horizon (365d) is 'latest', not the lexicographically-largest '90d'")
 
 
+def test_explicit_reference_join():
+    # Codex r3 #5: an explicit reference (forecast_index or 'forecast #N') is honoured — but never the
+    # positional index of the results array (which would mis-score, the round-1 bug)
+    rec = {"forecast_ledger": [{"prediction": "EPS up", "probability": 90, "owner_module": "earnings"},
+                               {"prediction": "Margin down", "probability": 30, "owner_module": "earnings"}]}
+    by_field = [{"forecast_results": [{"prediction": "see ledger", "forecast_index": 2, "status": "confirmed"}]}]
+    got = C.match_resolved_forecasts(rec, by_field)
+    check(len(got) == 1 and got[0]["prob"] == 0.30, "forecast_index=2 → scored against ledger entry 2 (0.30)")
+    by_text_ref = [{"forecast_results": [{"prediction": "forecast #1", "status": "falsified"}]}]
+    got2 = C.match_resolved_forecasts(rec, by_text_ref)
+    check(len(got2) == 1 and got2[0]["prob"] == 0.90, "'forecast #1' → scored against ledger entry 1 (0.90)")
+    # a plain unmatchable text with NO reference is still excluded (no positional guess)
+    check(C.match_resolved_forecasts(rec, [{"forecast_results": [{"prediction": "totally unrelated", "status": "confirmed"}]}]) == [],
+          "an unreferenced, unmatchable prediction is excluded, not positionally guessed")
+
+
+def test_review_version_numeric_sort():
+    # Codex r3 #6: _v10 must sort AFTER _v2 (numeric), not lexicographically
+    check(C._review_version("x_v10.json") == 10 and C._review_version("x_v2.json") == 2, "version parsed as int")
+    check(C._review_version("x.json") == 1, "unversioned → 1")
+    paths = ["a_v2.json", "a_v10.json", "a.json"]
+    latest = max(paths, key=C._review_version)
+    check(latest == "a_v10.json", "_v10 is the highest version, not lexicographically-smallest")
+
+
+def test_malformed_slice_key_does_not_crash():
+    # Codex r3 #7: a malformed truthy owner_module (a list) must not raise 'unhashable type' in _slice
+    check(C._slice_key(["earnings"]) == "untagged" and C._slice_key({"m": 1}) == "untagged",
+          "non-string owner_module coerced to 'untagged' (hashable)")
+    check(C._slice_key("earnings") == "earnings" and C._slice_key("") == "untagged", "valid string kept; empty → untagged")
+    rec = {"forecast_ledger": [{"prediction": "p", "probability": 60, "owner_module": ["earnings"]}]}
+    reviews = [{"forecast_results": [{"prediction": "p", "status": "confirmed"}]}]
+    got = C.match_resolved_forecasts(rec, reviews)  # must not raise
+    check(got and got[0]["owner_module"] == "untagged", "a list owner_module becomes 'untagged', calibration does not crash")
+
+
 def test_below_floor_withholds():
     standing = [{"run_root": "analyses/ONE_2026-06-01", "record": {
         "ticker": "ONE", "decision": "Buy", "decision_date": "2026-06-01", "basket": "Selected",
@@ -344,6 +380,8 @@ def main():
                test_false_comfort_named, test_brier_ready_not_reported_withheld, test_scoped_output_isolated,
                test_expired_is_a_settled_miss, test_tracking_price_return_recovered,
                test_effective_n_counts_directional_only_runs, test_reviews_sort_by_horizon_not_text,
+               test_explicit_reference_join, test_review_version_numeric_sort,
+               test_malformed_slice_key_does_not_crash,
                test_end_to_end_floor_met, test_probability_scale, test_below_floor_withholds):
         print(f"[{fn.__name__}]")
         fn()
