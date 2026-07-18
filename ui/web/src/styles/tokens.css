@@ -117,6 +117,7 @@
   --provider-nv: #76b900; /* NVIDIA NIM overflow accent (NVIDIA green) */
   --provider-cb: #ff6a3d; /* Cerebras overflow accent (brand orange) — distinct from the muted status red/amber */
   --provider-ml: #ec5aa8; /* Mistral overflow accent (pink-magenta) — a distinct hue so it never reads as the Cerebras orange chip */
+  --provider-local: #4aa8ff; /* Local (on-device Ollama/llama.cpp) overflow accent (azure) — distinct from every cloud provider hue */
   --live-wash: rgba(67, 181, 129, 0.14);
 
   /* chrome — values the dark theme used to hardcode in global.css, now tokenized so they flip */
@@ -268,6 +269,7 @@
   --provider-nv: #4f7d00; /* NVIDIA NIM overflow accent (NVIDIA green, darkened for light-mode contrast) */
   --provider-cb: #d4501c; /* Cerebras overflow accent (brand orange, darkened for light-mode contrast) */
   --provider-ml: #c23d84; /* Mistral overflow accent (pink-magenta, darkened for light-mode contrast) */
+  --provider-local: #2673cc; /* Local (on-device Ollama/llama.cpp) overflow accent (azure, darkened for light-mode contrast) */
   --live-wash: rgba(12, 112, 72, 0.16);
 
   --scrollbar-hover: #b8b4ab;

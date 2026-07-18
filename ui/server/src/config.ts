@@ -221,6 +221,35 @@ export function buildOverflowProviders(): OverflowProvider[] {
       budgetFile: 'nvidia-budget.json',
     })
   }
+  // Local model (Ollama / llama.cpp / LM Studio) — the ONLY tier here that is unlimited, never rate-limited,
+  // and $0. It exists to drain the paced backlog the metered free clouds above can't reach, and to keep the
+  // paid last-resort (Anthropic) from ever firing. OpenAI-compatible (/v1/chat/completions) so it reuses the
+  // exact same call path — no new provider code. It runs on a separate always-available box: here the M3
+  // MacBook Air, which the engine (on the primary) reaches over the LAN via NEWS_LOCAL_BASE_URL (a localhost
+  // default when the model runs on the same box). When that box sleeps or is unreachable, the loop's
+  // 429/network handling arms a cooldown and falls straight through to Gemini -> paid -> defer, exactly as for
+  // any other provider — so a part-time local box degrades gracefully, it never stalls the pipeline. OFF by
+  // default: enable only once the local server is actually up, with NEWS_LOCAL_ENABLED=1.
+  //   - MODEL: default qwen2.5:7b-instruct. On a 16GB Apple-Silicon box it fits in ~4.7GB at 4-bit and is the
+  //     strongest small model at the two things triage leans on — reliable batched JSON and non-English
+  //     headline translation (llama-3.1-8b, the Groq primary, is weaker at both). Override via NEWS_LOCAL_MODEL.
+  //   - KEY: a local server needs none, but article-read skips any provider with an empty apiKey, so we send a
+  //     harmless dummy ('local'); Ollama/llama.cpp ignore the Bearer header. Override if the server enforces one.
+  //   - UNLIMITED: rpm 0 -> no per-minute spacing (RateLimiter treats 0 as "no gap"); no tpm/dailyTokenCap; a
+  //     huge dailyReqCap so canSpend() never blocks. Placed LAST so the stronger capped clouds get first crack
+  //     and local absorbs only the tail — and it still runs before Gemini + the paid tier, killing deferral/spend.
+  if (process.env.NEWS_LOCAL_ENABLED === '1') {
+    out.push({
+      id: 'local', label: 'Local', color: '--provider-local',
+      apiKey: process.env.NEWS_LOCAL_API_KEY || 'local', // dummy non-empty — see KEY note above
+      baseUrl: process.env.NEWS_LOCAL_BASE_URL || 'http://localhost:11434/v1',
+      model: process.env.NEWS_LOCAL_MODEL || 'qwen2.5:7b-instruct',
+      dailyReqCap: capNum(process.env.NEWS_LOCAL_DAILY_REQ_CAP, 100_000_000), // effectively unlimited
+      rpm: capNum(process.env.NEWS_LOCAL_RPM, 0), // 0 -> no per-minute spacing (a local model has no rate limit)
+      maxTokens: capNum(process.env.NEWS_LOCAL_MAX_TOKENS, 3_500),
+      budgetFile: 'local-budget.json',
+    })
+  }
   return out
 }
 export const LAUNCH_GUARDS: Record<LaunchKind, { maxTurns: number; budgetUsd: number }> = {
