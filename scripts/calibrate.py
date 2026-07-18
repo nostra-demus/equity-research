@@ -328,6 +328,16 @@ def _norm(s):
     return (s or "").strip().lower()
 
 
+def _finite_num(v):
+    """A FINITE number as a float, or None. Rejects bools, non-numbers, and NaN/±inf. Python's JSON
+    parser accepts NaN/Infinity tokens, and NaN silently defeats every range/comparison check (NaN>0 is
+    False, NaN in (0,1) is False), so a malformed input would slip through as a garbage-scored row and
+    inflate the sample. Every numeric value that enters the scoreboard passes through here first."""
+    if isinstance(v, bool) or not isinstance(v, (int, float)):
+        return None
+    return float(v) if math.isfinite(v) else None
+
+
 def _realized(status):
     """Map a forecast_results status to 1 / 0 / None (unresolved)."""
     s = _norm(status)
@@ -466,8 +476,8 @@ def match_resolved_forecasts(record, reviews):
         src = by_text.get(_norm(r.get("prediction"))) or _by_reference(r)
         if src is None:
             continue  # neither text nor an explicit reference matched → not Brier-scorable, never positional-guessed
-        prob = src.get("probability")
-        if not isinstance(prob, (int, float)) or isinstance(prob, bool):
+        prob = _finite_num(src.get("probability"))  # rejects NaN/inf/bool — a NaN prob would defeat the range check
+        if prob is None:
             continue
         # The ledger is ALWAYS on the 0-100 scale (§6/§10); ledger_records.py applies any scale_fix
         # erratum before we see it. A value STRICTLY in (0,1) is a MIS-SCALED fraction that slipped the
@@ -497,12 +507,11 @@ def _review_rel(review):
     mislabel it (the schema tracks the two baselines separately)."""
     if not review:
         return None
-    r = review.get("benchmark_relative_return_pct")
-    if isinstance(r, (int, float)) and not isinstance(r, bool):
-        return float(r)
-    a, b = review.get("absolute_return_pct"), review.get("benchmark_return_pct")
-    if (isinstance(a, (int, float)) and not isinstance(a, bool)
-            and isinstance(b, (int, float)) and not isinstance(b, bool)):
+    r = _finite_num(review.get("benchmark_relative_return_pct"))  # NaN/inf → None (would corrupt hit scoring)
+    if r is not None:
+        return r
+    a, b = _finite_num(review.get("absolute_return_pct")), _finite_num(review.get("benchmark_return_pct"))
+    if a is not None and b is not None:
         return round(a - b, 6)
     return None
 
@@ -590,7 +599,8 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
             all_pairs.append(p)
         dh = directional_hit(rec, priced_rev)  # score the direction on the latest PRICED review, not any
         if dh is not None:
-            directional.append({"ticker": tkr, "hit": dh, "basket": basket})
+            directional.append({"ticker": tkr, "hit": dh, "basket": basket,
+                                "review_date": priced_rev.get("review_date") if priced_rev else None})
         # Effective-N clusters by ticker over EVERY scored bet this run contributes — resolved forecast
         # pairs AND a directional call. Counting only forecast pairs let a run resolve a directional hit
         # (returns settle before forecast outcomes, or a decision has no forecast ledger) while reporting
@@ -600,8 +610,13 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
             cluster_by_ticker[_norm(tkr)] = cluster_by_ticker.get(_norm(tkr), 0) + scored_here
 
         rel = _review_rel(priced_rev)  # returns from the latest PRICED review (tracking-price-aware)
-        if isinstance(rel, (int, float)):
-            basket_returns.setdefault(basket, []).append(rel)
+        if rel is not None:
+            # cohort_returns is a POSITION return (positive = the paper position made money). For a Short,
+            # the position P&L is the INVERSE of the underlying's benchmark-relative move (a name that
+            # underperformed made the short money), so invert before aggregating — otherwise a profitable
+            # short basket would report a negative mean. Long / Rejected / Watchlist store the underlying
+            # excess as-is (the Selected−Rejected spread compares like-for-like underlying excess).
+            basket_returns.setdefault(basket, []).append(-rel if _norm(basket) == "short" else rel)
 
         # Flat tallies (§20 error taxonomy, §5 pre-mortem audit) aggregate across every distinct review
         # WINDOW of the run (not just the latest window — an earlier window's error tag / pre-mortem outcome
@@ -612,8 +627,8 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         for a_rev in standing_reviews(reviews):
             for tag in (a_rev.get("error_taxonomy") or []):
                 t = tag if isinstance(tag, str) else (tag.get("tag") if isinstance(tag, dict) else None)
-                if t:
-                    error_tax[t] = error_tax.get(t, 0) + 1
+                if isinstance(t, str) and t.strip():  # only a real string tag is a hashable key — a malformed
+                    error_tax[t] = error_tax.get(t, 0) + 1  # {"tag": [...]} shape is skipped, never crashes _slice
             pmc = a_rev.get("pre_mortem_check") or {}
             ov = _norm(pmc.get("outcome_vs_verdict"))
             key = {"not_applicable": "not_applicable", "too_early": "too_early", "vindicated": "vindicated",
@@ -736,11 +751,12 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         if n_directional >= MIN_DIRECTIONAL_HITS:
             out["hit_rate"] = round(k / n_directional, 4)
             out["hit_rate_ci95"] = list(clopper_pearson(k, n_directional, 0.05))
-        # months-to-significance uses the observed arrival rate over the review span. Pass the REAL span
-        # (no artificial floor): a span under a month is honestly "not projectable" (an inflated 0.5-month
-        # floor would fabricate a fast arrival rate and understate the time-to-verdict — the dangerous
-        # direction). Requires reaching BOTH the e-value threshold AND the N=MIN_DIRECTIONAL_HITS floor.
-        dates = [row["latest_review_date"] for row in inventory if row["latest_review_date"]]
+        # months-to-significance: the arrival RATE is n_directional / span, so the span must be measured
+        # over the DIRECTIONAL reviews that actually contributed to n_directional — NOT every inventory
+        # row's latest review (Watchlist/non-directional reviews spanning a wider range would distort the
+        # rate). Pass the REAL span (no artificial floor): a span under a month is honestly "not
+        # projectable". A verdict needs BOTH the e-value threshold AND the N=MIN_DIRECTIONAL_HITS floor.
+        dates = [d["review_date"] for d in directional if d.get("review_date")]
         span_months = _month_span(min(dates), max(dates)) if len(dates) >= 2 else 0.0
         out["months_to_significance"] = months_to_significance(k, n_directional, span_months, 0.5)
 
@@ -924,7 +940,12 @@ def write_outputs(out):
     jbase, mbase = f"{day}{tag}_calibration_summary", f"{day}{tag}_decision_performance_summary"
     jpath = os.path.join(out_dir, f"{jbase}.json")
     mpath = os.path.join(out_dir, f"{mbase}.md")
-    if os.path.exists(jpath):  # a snapshot already exists — version it, never overwrite
+    # An ALL-scope same-day RERUN OVERWRITES the base `<date>_calibration_summary.json`: the summary is a
+    # derived, regenerable aggregate and the Phase-6 readers glob `*_calibration_summary.json` (which does
+    # NOT match a `_v2` suffix), so a `_v2` rerun would be committed but invisible, leaving the first stale
+    # snapshot in force. The latest same-day all-scope run must BE the file Phase-6 reads. (git keeps the
+    # history.) Scoped runs — which Phase-6 never reads — version instead, so a human can compare snapshots.
+    if is_scoped and os.path.exists(jpath):
         n = 2
         while os.path.exists(os.path.join(out_dir, f"{jbase}_v{n}.json")):
             n += 1

@@ -76,6 +76,17 @@ def _read_csv_closes(path):
         return
 
 
+def _days_between(d_early, d_late):
+    """Calendar days from `d_early` to `d_late` (both YYYY-MM-DD). Large sentinel if either is unparseable
+    (treat as maximally stale, so a bad date never sneaks a carry through the staleness guard)."""
+    try:
+        a = datetime.date(int(d_early[:4]), int(d_early[5:7]), int(d_early[8:10]))
+        b = datetime.date(int(d_late[:4]), int(d_late[5:7]), int(d_late[8:10]))
+        return (b - a).days
+    except (ValueError, TypeError, IndexError):
+        return 10 ** 9
+
+
 def _is_iso(s):
     """True only for a REAL calendar date in strict YYYY-MM-DD form. A day-of-month must be valid for
     its month (rejects 2026-02-31, 2026-04-31, 2026-13-01) — otherwise one impossible provider row could
@@ -112,23 +123,41 @@ class MarketFeed:
         alld = [s[-1][0] for s in self._closes.values() if s]
         return max(alld) if alld else None
 
-    def close_on(self, symbol, date):
-        """The last close on or before `date` (carry-forward for a non-trading day), or None. Used to
-        anchor an entry/review price for a call whose pool had no price (review-decisions backfill)."""
+    MAX_CARRY_DAYS = 7  # a close may carry forward at most a week (long weekend + holidays); beyond that the
+                        # symbol is stale for the requested date and must NOT anchor a price as if it were priced
+
+    def close_and_date_on(self, symbol, date, max_stale_days=MAX_CARRY_DAYS):
+        """(close, actual_close_date) for the last close ON OR BEFORE `date`, or (None, None). Carries
+        forward over non-trading days, but at most `max_stale_days` calendar days — a symbol that stopped
+        updating weeks ago must NOT anchor a price as if the requested date were priced (another symbol can
+        keep the feed-level as_of fresh, hiding the staleness). Returns the ACTUAL close date so a caller
+        can see how stale the anchor is. `max_stale_days=None` disables the limit."""
         series = self._closes.get(symbol)
         if not series:
-            return None
-        chosen = None
+            return (None, None)
+        chosen = (None, None)
         for d, c in series:  # sorted ascending
             if d <= date:
-                chosen = c
+                chosen = (c, d)
             else:
                 break
-        return chosen
+        c, d = chosen
+        if c is None:
+            return (None, None)
+        if max_stale_days is not None and _days_between(d, date) > max_stale_days:
+            return (None, None)  # the nearest close is too stale to represent `date`
+        return (c, d)
+
+    def close_on(self, symbol, date, max_stale_days=MAX_CARRY_DAYS):
+        """The last close on or before `date` (carry-forward for a non-trading day, up to `max_stale_days`),
+        or None. Used to anchor an entry/review/tracking price (review-decisions backfill). A close older
+        than the window is rejected, so a stale feed cannot silently anchor a weeks-old price."""
+        return self.close_and_date_on(symbol, date, max_stale_days)[0]
 
     def total_return(self, symbol, d0, d1):
-        """Total price return (%) of `symbol` from d0 to d1 using on-or-before closes. None if either
-        endpoint is missing. This is the raw return — never a skill signal on its own (§9)."""
+        """Total price return (%) of `symbol` from d0 to d1 using on-or-before closes (each within the
+        carry-forward window). None if either endpoint is missing or too stale. Raw return — never a skill
+        signal on its own (§9)."""
         c0, c1 = self.close_on(symbol, d0), self.close_on(symbol, d1)
         if c0 is None or c1 is None or c0 == 0:
             return None
@@ -229,7 +258,11 @@ def selftest():
 
         check(feed.available() and feed.symbols() == ["BENCH", "STK"], "reads both symbols")
         check(feed.as_of() == "2026-07-01", "as_of is the latest date in the data (not mtime)")
-        check(feed.close_on("STK", "2026-06-15") == 100.0, "close_on carries the prior close forward (non-trading day)")
+        check(feed.close_on("STK", "2026-06-03") == 100.0, "close_on carries the prior close forward over a non-trading day (2 days)")
+        check(feed.close_on("STK", "2026-06-15") is None, "close_on REJECTS a >7-day-stale carry (14 days after the last close)")
+        check(feed.close_on("STK", "2026-06-15", max_stale_days=None) == 100.0, "…unless the staleness limit is disabled")
+        c, d = feed.close_and_date_on("STK", "2026-06-03")
+        check(c == 100.0 and d == "2026-06-01", "close_and_date_on returns the ACTUAL (stale-aware) close date")
         check(feed.close_on("STK", "2026-05-01") is None, "close_on before the series → None")
         check(feed.total_return("STK", "2026-06-01", "2026-07-01") == 20.0, "stock total return +20%")
         check(feed.total_return("BENCH", "2026-06-01", "2026-07-01") == 10.0, "benchmark total return +10%")
@@ -259,7 +292,7 @@ def selftest():
         feed3 = load_feed(td)
         check(feed3.symbols().count("JUNK") == 1 and feed3.as_of() == "2026-09-05",
               "inf/-5/0/impossible-date rows skipped; only the good JUNK row (42 @ 2026-09-05) survives")
-        check(feed3.close_on("JUNK", "2026-09-30") == 42.0, "close_on never returns a skipped bad price")
+        check(feed3.close_on("JUNK", "2026-09-06") == 42.0, "close_on never returns a skipped bad price (the good 42 @ 09-05)")
 
     print("[market_prices] selftest", "PASS" if ok else "FAIL")
     return ok

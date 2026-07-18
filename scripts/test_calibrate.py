@@ -433,6 +433,67 @@ def test_output_json_is_strict_even_with_nan():
     check(True, "write_outputs produces strict JSON even when the summary carries a NaN")
 
 
+def test_non_finite_inputs_excluded():
+    # Codex r5 #1/#3: NaN/inf probabilities and review returns must be excluded, not slip through as
+    # garbage-scored rows (NaN defeats every range/comparison check)
+    check(C._finite_num(float("nan")) is None and C._finite_num(float("inf")) is None, "_finite_num rejects NaN/inf")
+    check(C._finite_num(True) is None and C._finite_num("x") is None, "_finite_num rejects bool/non-number")
+    check(C._finite_num(42) == 42.0, "_finite_num keeps a real number")
+    rec = {"forecast_ledger": [{"prediction": "p", "probability": float("nan"), "owner_module": "earnings"}]}
+    check(C.match_resolved_forecasts(rec, [{"forecast_results": [{"prediction": "p", "status": "confirmed"}]}]) == [],
+          "a NaN probability forecast is excluded from the Brier sample")
+    check(C.directional_hit({"basket": "Selected", "decision": "Buy"},
+                            {"benchmark_relative_return_pct": float("inf")}) is None,
+          "a non-finite review return is not scored as a directional hit")
+
+
+def test_short_basket_cohort_inverted():
+    # Codex r5 #2: a profitable short (underlying underperformed) must show a POSITIVE cohort mean
+    standing, reviews_by_run = [], {}
+    for i in range(5):
+        rr = f"analyses/SH{i}_2026-06-01"
+        standing.append({"run_root": rr, "record": {
+            "ticker": f"SH{i}", "decision": "Short Candidate", "decision_date": "2026-06-01",
+            "basket": "Short", "forecast_ledger": []}})
+        reviews_by_run[rr] = [{"benchmark_relative_return_pct": -4.0}]  # underlying lagged → short made money
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: reviews_by_run.get(r, []))
+    short = out["cohort_returns"].get("Short")
+    check(isinstance(short, dict) and short["mean_benchmark_relative_pct"] == 4.0,
+          f"a profitable short basket reports a POSITIVE cohort mean (+4), not the raw −4 (got {short})")
+
+
+def test_malformed_error_tag_skipped():
+    # Codex r5 #5: a malformed error_taxonomy entry ({"tag": [...]}) must be skipped, not crash the write
+    rr = "analyses/BADTAG_2026-06-01"
+    standing = [{"run_root": rr, "record": {"ticker": "BADTAG", "decision": "Watchlist",
+                 "decision_date": "2026-06-01", "basket": "Watchlist", "forecast_ledger": []}}]
+    reviews = [{"review_window": "30d", "error_taxonomy": [{"tag": ["bad math"]}, "stale data"]}]  # one bad, one good
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: reviews)  # must not raise
+    check(out["error_taxonomy_distribution"] == {"stale data": 1},
+          f"the list-shaped tag is skipped; only the real string tag counts (got {out['error_taxonomy_distribution']})")
+
+
+def test_all_scope_rerun_overwrites_base():
+    # Codex r5 #4: an all-scope same-day rerun must OVERWRITE the base file the Phase-6 glob reads,
+    # not write an invisible _v2
+    import os, tempfile
+    standing = [{"run_root": "analyses/AAA_2026-06-01", "record": {
+        "ticker": "AAA", "decision": "Buy", "decision_date": "2026-06-01", "basket": "Selected", "forecast_ledger": []}}]
+    saved = C.PERF_DIR
+    try:
+        with tempfile.TemporaryDirectory() as td:
+            C.PERF_DIR = td
+            out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: [])
+            j1, _ = C.write_outputs(out)
+            j2, _ = C.write_outputs(out)  # same-day rerun
+            base = os.path.join(td, "2026-07-18_calibration_summary.json")
+            check(j1 == base and j2 == base, "both all-scope runs write the SAME base file the Phase-6 glob matches")
+            check(not os.path.exists(os.path.join(td, "2026-07-18_calibration_summary_v2.json")),
+                  "no invisible _v2 is created for an all-scope rerun")
+    finally:
+        C.PERF_DIR = saved
+
+
 def test_below_floor_withholds():
     standing = [{"run_root": "analyses/ONE_2026-06-01", "record": {
         "ticker": "ONE", "decision": "Buy", "decision_date": "2026-06-01", "basket": "Selected",
@@ -455,6 +516,8 @@ def main():
                test_malformed_slice_key_does_not_crash, test_sector_relative_not_a_benchmark_hit,
                test_insufficient_data_basket_not_scored, test_latest_priced_review_for_returns,
                test_flat_tallies_dedup_corrected_versions, test_output_json_is_strict_even_with_nan,
+               test_non_finite_inputs_excluded, test_short_basket_cohort_inverted,
+               test_malformed_error_tag_skipped, test_all_scope_rerun_overwrites_base,
                test_end_to_end_floor_met, test_probability_scale, test_below_floor_withholds):
         print(f"[{fn.__name__}]")
         fn()
