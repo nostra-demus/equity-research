@@ -30,10 +30,10 @@ Do **not** compute or estimate any metric yourself, and do not "fill in" a value
 
 ## 2. Commit the output (DATA → main, per CLAUDE.md §25)
 
-The performance summary is a derived, regenerable aggregate (not immutable), so it commits straight to `main` via the serialized helper — data-only pathspec (use the scope in the message, defaulting to `all`):
+The performance summary is a derived, regenerable aggregate (not immutable), so it commits straight to `main` via the serialized helper. Pass **only the two exact paths the script just printed** as `WROTE …` (the dated JSON + MD for THIS run — under `analyses/performance/scoped/` for a scoped run) — never the whole `analyses/performance/` directory, so a concurrent or scoped in-flight output is never swept into this commit (§28 — `commit-run.sh` stages only the pathspecs it is handed). Use the scope in the message (defaulting to `all`):
 
 ```
-bash scripts/commit-run.sh "Calibrate ledger: all — $(date +%Y-%m-%d)" -- "analyses/performance/"
+bash scripts/commit-run.sh "Calibrate ledger: all — $(date +%Y-%m-%d)" -- <the two WROTE paths, e.g. analyses/performance/<TODAY>_calibration_summary.json analyses/performance/<TODAY>_decision_performance_summary.md>
 ```
 
 Report the commit SHA.

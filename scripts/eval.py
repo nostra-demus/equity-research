@@ -863,12 +863,18 @@ def _ao_pins_a_number(text):
     2026 cr' → True (a bare four-digit threshold is kept, not mistaken for a year)."""
     return bool(re.search(r"\d", _AO_PERIOD_TOKENS.sub(" ", text or "")))
 
-def _ao_earliest_date(time_window):
+def _ao_earliest_date(time_window, not_before=None):
     """Best-effort EARLIEST confidently-parseable resolution date (YYYY-MM-DD) from a free-text
     time_window — an ISO date, or a 'Month YYYY'. Biased to the earliest match so a genuinely near-term
     window is never misread as long. Returns None when nothing is confidently parseable (ambiguity is
     never failed) — fiscal-quarter-only text ('Q1 FY27' with no month) is deliberately treated as
-    unparseable, since Q1 spans different calendar months across jurisdictions."""
+    unparseable, since Q1 spans different calendar months across jurisdictions.
+
+    When `not_before` (the decision date) is given, prefer the earliest candidate ON OR AFTER it: a
+    window that names both a reporting-PERIOD label and a later resolution date ('quarter ended June
+    2026; results August 2026') must resolve on the future date, not be misread as already-stale by the
+    period label. Only when NO candidate is on/after not_before does it fall back to the earliest overall
+    — so a genuinely all-before-decision window still surfaces as stale."""
     cands = []
     for m in _AO_ISO_RE.finditer(time_window or ""):
         y, mo, d = int(m.group(1)), int(m.group(2)), int(m.group(3))
@@ -880,7 +886,13 @@ def _ao_earliest_date(time_window):
     for m in _AO_MONTH_RE.finditer(time_window or ""):
         mo = _AO_MONTHS[m.group(1)[:3].lower()]
         cands.append(f"{int(m.group(2)):04d}-{mo:02d}-01")  # 1st of the month = earliest it could resolve
-    return min(cands) if cands else None
+    if not cands:
+        return None
+    if not_before and isinstance(not_before, str):
+        future = [c for c in cands if c >= not_before[:10]]  # ISO strings compare as dates (YYYY-MM-DD)
+        if future:
+            return min(future)
+    return min(cands)
 
 def _ao_has_impossible_iso(time_window):
     """True if the window contains an ISO-shaped YYYY-MM-DD token that is NOT a real calendar date
@@ -951,7 +963,7 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
             issues.append(f"forecast_ledger[{i}] time_window contains an impossible calendar date (e.g. a 31st of a "
                           f"short month) — it can never settle on a real date")
             continue  # do not let an impossible date fall through to 'undateable' and suppress the quota
-        tgt = _ao_earliest_date(window)
+        tgt = _ao_earliest_date(window, decision_date)
         if tgt:
             days = _ao_days_after(decision_date, tgt)
             if days is None:
@@ -2017,6 +2029,7 @@ if scope=="selftest":
     _fc_onesided={"confirmation_trigger":"margin above 12%","falsification_trigger":"margin does not improve","time_window":"August 2026"}
     _fc_bareresults={"confirmation_trigger":"operating results improve","falsification_trigger":"operating results worsen","time_window":"August 2026"}
     _fc_q1results={"confirmation_trigger":"guidance raised in the Q1 results","falsification_trigger":"guidance cut in the Q1 results","time_window":"August 2026"}
+    _fc_periodlbl={"confirmation_trigger":"Q1 EBITDA margin at or below 12.0%","falsification_trigger":"Q1 margin at or above 12.3%","time_window":"quarter ended June 2026; results August 2026"}
     aocases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substrings]=fail-with)
         ("2026-07-17",[_fc_good],None),                                        # predates AO_DATE → N/A
         ("2026-07-18",[],None),                                                # empty ledger → N/A (§19)
@@ -2043,6 +2056,7 @@ if scope=="selftest":
         ("2026-07-18",[_fc_onesided],["the falsification trigger"]),          # numbered confirmation, vague falsification → FAIL (r5 #6)
         ("2026-07-18",[_fc_bareresults],["not mechanically resolvable"]),     # bare 'operating results' is not a specific document → FAIL (r6 #5)
         ("2026-07-18",[_fc_q1results],[]),                                     # 'Q1 results' IS a period-qualified settleable document → pass (r6 #5)
+        ("2026-07-18",[_fc_periodlbl],[]),                                     # window names a pre-decision PERIOD label (June) AND a resolution date (Aug) → pick the on/after date → near-term pass, not misread as stale (r8)
         ("2026-07-18",5,None),                                                 # malformed (non-list) → N/A, never crash
         ("2026-07-18",None,None),                                              # None ledger → N/A
     ]

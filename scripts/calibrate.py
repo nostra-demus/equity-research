@@ -557,9 +557,12 @@ def directional_hit(record, review):
         return 1 if rel > 0 else 0
     if basket in ("rejected", "short"):
         return 1 if rel < 0 else 0
-    if basket == "watchlist" or basket.startswith("insufficient"):
-        return None  # an EXPLICIT non-directional basket — Watchlist, or any 'Insufficient…' / 'Insufficient
-                     # Data' the engine refused to rate. The raw decision must NOT resurrect it as a long.
+    if (basket == "watchlist" or basket.startswith("insufficient")
+            or basket.startswith("pair") or "hedge" in basket):
+        return None  # an EXPLICIT non-directional basket — Watchlist, any 'Insufficient…' the engine
+                     # refused to rate, or a 'Pair Trade / Hedge Required' hedged output (§18, an allowed
+                     # decision that is NOT a standalone long/short). The raw decision must NOT resurrect
+                     # any of these as a directional long.
     # basket absent ("unclassified" = the basket_of default for a missing field) or unrecognised → fall
     # back to the raw decision; a genuinely non-directional basket above has already returned None
     decision = _norm(record.get("decision"))
@@ -662,6 +665,18 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
                 premortem_outcomes[key] += 1
                 if key == "contradicted":
                     sub = _norm(pmc.get("contradiction_kind"))
+                    if sub not in ("false_comfort", "excess_caution"):
+                        # The writer contract (review-decisions.md §7A) does NOT store an explicit
+                        # contradiction_kind — the split is DERIVED from the pre_mortem_verdict that got
+                        # contradicted: an optimistic verdict ('Survives…') the outcome broke = false
+                        # comfort; a pessimistic verdict ('Does not survive…' / 'Thesis broken') the
+                        # outcome did not support = excess caution (§8 two failure directions). Without
+                        # this, a schema-conformant contradicted review counted zero in the audit tally.
+                        pmv = _norm(pmc.get("pre_mortem_verdict"))
+                        if pmv.startswith("survives"):
+                            sub = "false_comfort"
+                        elif pmv.startswith("does not survive") or pmv.startswith("thesis broken"):
+                            sub = "excess_caution"
                     if sub in ("false_comfort", "excess_caution"):
                         premortem_contra[sub] += 1
                         # false comfort (a red-team that missed a real risk) is the costliest audit miss —

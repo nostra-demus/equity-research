@@ -603,6 +603,53 @@ def test_run_root_relative_in_inventory():
           f"absolute run_root relativized to repo-relative in inventory (got {row['run_root']})")
 
 
+def test_pair_trade_basket_not_scored():
+    # Codex r8: a call capped to 'Pair Trade / Hedge Required' (§18 hedged output) must NOT be scored as
+    # a directional long/short via the raw decision
+    check(C.directional_hit({"basket": "Selected", "decision": "Buy", "post_mortem_basket": "Pair Trade"},
+                            {"benchmark_relative_return_pct": 6.0}) is None,
+          "post_mortem_basket 'Pair Trade' → not a directional bet (decision must not resurrect it)")
+    check(C.directional_hit({"basket": "Pair Trade / Hedge Required", "decision": "Buy"},
+                            {"benchmark_relative_return_pct": 6.0}) is None,
+          "'Pair Trade / Hedge Required' basket → not scored as a long")
+    check(C.directional_hit({"basket": "Hedge Required", "decision": "Buy"},
+                            {"benchmark_relative_return_pct": -3.0}) is None,
+          "'Hedge Required' basket → not scored either")
+    # a real Selected long still scores (no regression)
+    check(C.directional_hit({"basket": "Selected", "decision": "Buy"}, {"benchmark_relative_return_pct": 6.0}) == 1,
+          "a genuine Selected long still scores a hit")
+
+
+def test_false_comfort_derived_from_verdict():
+    # Codex r8: the writer contract (review-decisions.md §7A) stores NO contradiction_kind — the split is
+    # derived from the contradicted pre_mortem_verdict ('Survives…' → false comfort; 'Does not survive' /
+    # 'Thesis broken' → excess caution). A schema-conformant contradicted review must still be classified.
+    fc = [{"review_window": "90d", "pre_mortem_check": {
+        "outcome_vs_verdict": "contradicted", "pre_mortem_verdict": "Survives with haircut"}}]
+    out = C.build(standing=[{"run_root": "analyses/FCV_2026-06-01", "record": {"ticker": "FCV",
+                  "decision": "Buy", "decision_date": "2026-06-01", "basket": "Selected", "forecast_ledger": []}}],
+                  today="2026-07-18", reviews_provider=lambda r: fc)
+    pm = out["pre_mortem_calibration"]
+    check(pm["contradicted_breakdown"]["false_comfort"] == 1,
+          f"a contradicted 'Survives' verdict → false_comfort with no contradiction_kind field (got {pm['contradicted_breakdown']})")
+    check(any(c["ticker"] == "FCV" for c in pm["false_comfort_cases"]), "the derived false-comfort case is named by ticker")
+    ec = [{"review_window": "90d", "pre_mortem_check": {
+        "outcome_vs_verdict": "contradicted", "pre_mortem_verdict": "Thesis broken"}}]
+    out2 = C.build(standing=[{"run_root": "analyses/EC_2026-06-01", "record": {"ticker": "EC",
+                   "decision": "Avoid", "decision_date": "2026-06-01", "basket": "Rejected", "forecast_ledger": []}}],
+                   today="2026-07-18", reviews_provider=lambda r: ec)
+    check(out2["pre_mortem_calibration"]["contradicted_breakdown"]["excess_caution"] == 1,
+          "a contradicted 'Thesis broken' verdict → excess_caution")
+    # an explicit contradiction_kind is still honoured (belt-and-suspenders, no regression)
+    ek = [{"review_window": "90d", "pre_mortem_check": {
+        "outcome_vs_verdict": "contradicted", "contradiction_kind": "false_comfort", "pre_mortem_verdict": ""}}]
+    out3 = C.build(standing=[{"run_root": "analyses/EK_2026-06-01", "record": {"ticker": "EK",
+                   "decision": "Buy", "decision_date": "2026-06-01", "basket": "Selected", "forecast_ledger": []}}],
+                   today="2026-07-18", reviews_provider=lambda r: ek)
+    check(out3["pre_mortem_calibration"]["contradicted_breakdown"]["false_comfort"] == 1,
+          "an explicit contradiction_kind still classifies (no regression)")
+
+
 def main():
     print("test_calibrate.py")
     for fn in (test_incomplete_beta, test_clopper_pearson, test_brier_and_murphy, test_e_value,
@@ -620,7 +667,8 @@ def main():
                test_module_slice_gated_on_distinct_tickers, test_slice_key_stripped_and_str_safe,
                test_false_comfort_named_in_markdown, test_duplicate_forecast_text_ambiguous,
                test_standing_reviews_malformed_date_no_crash, test_beta_of_rejects_non_finite,
-               test_run_root_relative_in_inventory,
+               test_run_root_relative_in_inventory, test_pair_trade_basket_not_scored,
+               test_false_comfort_derived_from_verdict,
                test_end_to_end_floor_met, test_probability_scale, test_below_floor_withholds):
         print(f"[{fn.__name__}]")
         fn()

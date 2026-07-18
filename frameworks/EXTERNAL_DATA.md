@@ -135,8 +135,11 @@ no live engine API call).
 - **The as-of is the latest date IN the data**, never a file mtime (§8 / fix F23).
 - **Readers:** `scripts/market_prices.py` (pure, read-only — `close_on`, `total_return`,
   `beta_adjusted_excess` returning BOTH the raw and the beta-adjusted figure). `scripts/calibrate.py`
-  reports feed presence and the return basis; `/research:review-decisions` may use `close_on` to
-  establish an append-only `tracking_price` for a call whose pool had no price.
+  reports feed presence and the return basis; `/research:review-decisions` may use
+  `close_dated_sourced_on` — which returns `(close, as_of_date, source_provider)` — to establish an
+  append-only `tracking_price` for a call whose pool had no price, so the anchor carries its `source`
+  and `as_of` (use it, not the bare `close_on`, which returns only the price and would leave the
+  required provenance fields unfilled).
 - **Graceful absence:** until a feed lands, `market_prices` is `unavailable()` and calibrate falls back
   to the review-time benchmark-relative return each review already computed — and says so. Nothing breaks.
 
