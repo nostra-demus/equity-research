@@ -104,13 +104,15 @@ def _is_iso(s):
 
 
 class MarketFeed:
-    """The parsed feed: per-symbol sorted (date, close) series + optional symbol metadata."""
+    """The parsed feed: per-symbol sorted (date, close) series + optional symbol metadata + per-close
+    provenance (which provider supplied each close), so a review's `tracking_price` can cite its source."""
 
-    def __init__(self, closes, meta, providers, files):
+    def __init__(self, closes, meta, providers, files, sources=None):
         self._closes = closes          # {symbol: [(date, close)] sorted by date}
         self._meta = meta              # {symbol: {kind, sector, benchmark, beta}}
         self.providers = providers     # [provider names present]
         self.files = files             # [relpaths read]
+        self._sources = sources or {}  # {(symbol, date): provider} — provenance for the tracking_price.source contract
 
     def available(self):
         return bool(self._closes)
@@ -126,15 +128,17 @@ class MarketFeed:
     MAX_CARRY_DAYS = 7  # a close may carry forward at most a week (long weekend + holidays); beyond that the
                         # symbol is stale for the requested date and must NOT anchor a price as if it were priced
 
-    def close_and_date_on(self, symbol, date, max_stale_days=MAX_CARRY_DAYS):
-        """(close, actual_close_date) for the last close ON OR BEFORE `date`, or (None, None). Carries
-        forward over non-trading days, but at most `max_stale_days` calendar days — a symbol that stopped
-        updating weeks ago must NOT anchor a price as if the requested date were priced (another symbol can
-        keep the feed-level as_of fresh, hiding the staleness). Returns the ACTUAL close date so a caller
-        can see how stale the anchor is. `max_stale_days=None` disables the limit."""
+    def close_dated_sourced_on(self, symbol, date, max_stale_days=MAX_CARRY_DAYS):
+        """(close, actual_close_date, source_provider) for the last close ON OR BEFORE `date`, or
+        (None, None, None). Carries forward over non-trading days, but at most `max_stale_days` calendar
+        days — a symbol that stopped updating weeks ago must NOT anchor a price as if the requested date
+        were priced (another symbol can keep the feed-level as_of fresh, hiding the staleness). Returns the
+        ACTUAL close date (how stale the anchor is) AND the provider that supplied it, so a review's
+        `tracking_price` can carry the required `source` + `as_of` (review-decisions contract, §5).
+        `max_stale_days=None` disables the limit."""
         series = self._closes.get(symbol)
         if not series:
-            return (None, None)
+            return (None, None, None)
         chosen = (None, None)
         for d, c in series:  # sorted ascending
             if d <= date:
@@ -143,16 +147,22 @@ class MarketFeed:
                 break
         c, d = chosen
         if c is None:
-            return (None, None)
+            return (None, None, None)
         if max_stale_days is not None and _days_between(d, date) > max_stale_days:
-            return (None, None)  # the nearest close is too stale to represent `date`
+            return (None, None, None)  # the nearest close is too stale to represent `date`
+        return (c, d, self._sources.get((symbol, d)))
+
+    def close_and_date_on(self, symbol, date, max_stale_days=MAX_CARRY_DAYS):
+        """(close, actual_close_date) — see close_dated_sourced_on; this drops the source for callers that
+        don't need to cite provenance."""
+        c, d, _ = self.close_dated_sourced_on(symbol, date, max_stale_days)
         return (c, d)
 
     def close_on(self, symbol, date, max_stale_days=MAX_CARRY_DAYS):
         """The last close on or before `date` (carry-forward for a non-trading day, up to `max_stale_days`),
         or None. Used to anchor an entry/review/tracking price (review-decisions backfill). A close older
         than the window is rejected, so a stale feed cannot silently anchor a weeks-old price."""
-        return self.close_and_date_on(symbol, date, max_stale_days)[0]
+        return self.close_dated_sourced_on(symbol, date, max_stale_days)[0]
 
     def total_return(self, symbol, d0, d1):
         """Total price return (%) of `symbol` from d0 to d1 using on-or-before closes (each within the
@@ -197,6 +207,7 @@ def load_feed(feed_root=FEED_ROOT):
     """Read every `data/_market/<provider>/*.csv` into a MarketFeed, plus any `_symbols.json` metadata.
     A missing feed root returns an empty (unavailable) feed — the normal state until the user drops one."""
     closes, meta, providers, files = {}, {}, [], []
+    sources = {}  # {(symbol, date): provider} — which provider supplied each close (for tracking_price.source)
     if not os.path.isdir(feed_root):
         return MarketFeed(closes, meta, providers, files)
     for provider in sorted(os.listdir(feed_root)):
@@ -219,12 +230,13 @@ def load_feed(feed_root=FEED_ROOT):
             found = False
             for sym, date, close in _read_csv_closes(path):
                 closes.setdefault(sym, {})[date] = close  # dedup: last write per (sym,date) wins
+                sources[(sym, date)] = provider           # …and record which provider it came from
                 found = True
             if found:
                 files.append(os.path.relpath(path, REPO))
     # freeze each symbol to a date-sorted list
     sorted_closes = {sym: sorted(byd.items()) for sym, byd in closes.items()}
-    return MarketFeed(sorted_closes, meta, providers, files)
+    return MarketFeed(sorted_closes, meta, providers, files, sources)
 
 
 # ── selftest + CLI ─────────────────────────────────────────────────────────────────────────────────
@@ -263,6 +275,9 @@ def selftest():
         check(feed.close_on("STK", "2026-06-15", max_stale_days=None) == 100.0, "…unless the staleness limit is disabled")
         c, d = feed.close_and_date_on("STK", "2026-06-03")
         check(c == 100.0 and d == "2026-06-01", "close_and_date_on returns the ACTUAL (stale-aware) close date")
+        c2, d2, src = feed.close_dated_sourced_on("STK", "2026-06-03")
+        check(c2 == 100.0 and d2 == "2026-06-01" and src == "SampleProvider",
+              "close_dated_sourced_on carries the provider provenance (for tracking_price.source)")
         check(feed.close_on("STK", "2026-05-01") is None, "close_on before the series → None")
         check(feed.total_return("STK", "2026-06-01", "2026-07-01") == 20.0, "stock total return +20%")
         check(feed.total_return("BENCH", "2026-06-01", "2026-07-01") == 10.0, "benchmark total return +10%")

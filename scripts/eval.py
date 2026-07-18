@@ -831,9 +831,11 @@ AO_DATE = "2026-07-18"
 # numeric bar or a named settleable document (not a bare "beats consensus"), triggers that actually
 # partition the outcome space (not identical text), and — at the record level — at least one near-term
 # (≤90-day) proof point so the whole call is not un-checkable until years out.
-_AO_NAMED_DOC = re.compile(r"\b(10-?k|10-?q|8-?k|20-?f|6-?k|annual report|annual results|"
-                           r"quarterly\s+(?:results?|report|filing|earnings|numbers)|results filing|"
-                           r"results|filing|filed|transcript|nse|bse|sec|sebi|def ?14a|proxy|press release|"
+_AO_NAMED_DOC = re.compile(r"\b(10-?k|10-?q|8-?k|20-?f|6-?k|annual report|"
+                           r"(?:quarterly|annual|interim|half-?year|full-?year|year-?end|first-quarter|"
+                           r"second-quarter|third-quarter|fourth-quarter|q[1-4]|h[12]|fy\s?\d{2,4})\s+"
+                           r"(?:results?|report|filing|earnings|numbers)|"
+                           r"filing|filed|transcript|nse|bse|sec|sebi|def ?14a|proxy|press release|"
                            r"guidance|rating|crisil|icra|care|circular|prospectus|"
                            r"investor\s+(?:presentation|day|deck|update|briefing))\b", re.I)
 _AO_CONSENSUS = re.compile(r"\b(consensus|estimate|estimates|expectation|expectations|street|analysts?)\b", re.I)
@@ -2013,6 +2015,8 @@ if scope=="selftest":
     _fc_nt={"confirmation_trigger":"margin above 12%","falsification_trigger":"margin below 12%","time_window":"August 2026"}
     _fc_conssplit={"confirmation_trigger":"FY27 EPS beats consensus","falsification_trigger":"revenue below 2026 cr","time_window":"August 2026"}
     _fc_onesided={"confirmation_trigger":"margin above 12%","falsification_trigger":"margin does not improve","time_window":"August 2026"}
+    _fc_bareresults={"confirmation_trigger":"operating results improve","falsification_trigger":"operating results worsen","time_window":"August 2026"}
+    _fc_q1results={"confirmation_trigger":"guidance raised in the Q1 results","falsification_trigger":"guidance cut in the Q1 results","time_window":"August 2026"}
     aocases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substrings]=fail-with)
         ("2026-07-17",[_fc_good],None),                                        # predates AO_DATE → N/A
         ("2026-07-18",[],None),                                                # empty ledger → N/A (§19)
@@ -2037,6 +2041,8 @@ if scope=="selftest":
         ("2026-07-18",[_fc_nt,_fc_far,_fc_far,_fc_far,_fc_far],["insufficient near-term"]), # 1 near / 4 long = 20% < 40% → FAIL (r3 #3)
         ("2026-07-18",[_fc_conssplit],["pins no number in the consensus trigger"]), # consensus in one trigger, unrelated number in the other → FAIL (r4 #1)
         ("2026-07-18",[_fc_onesided],["the falsification trigger"]),          # numbered confirmation, vague falsification → FAIL (r5 #6)
+        ("2026-07-18",[_fc_bareresults],["not mechanically resolvable"]),     # bare 'operating results' is not a specific document → FAIL (r6 #5)
+        ("2026-07-18",[_fc_q1results],[]),                                     # 'Q1 results' IS a period-qualified settleable document → pass (r6 #5)
         ("2026-07-18",5,None),                                                 # malformed (non-list) → N/A, never crash
         ("2026-07-18",None,None),                                              # None ledger → N/A
     ]

@@ -494,6 +494,46 @@ def test_all_scope_rerun_overwrites_base():
         C.PERF_DIR = saved
 
 
+def test_module_slice_gated_on_distinct_tickers():
+    # Codex r6 #2: 10 forecasts from ONE ticker must NOT publish an actionable module slice (Phase-6 would
+    # haircut a module across all future theses on one company's correlated cluster)
+    one = [{"prob": 0.8, "realized": 1, "owner_module": "earnings", "ticker": "aaa"} for _ in range(12)]
+    sl = C._slice(one, "owner_module")
+    check(isinstance(sl["earnings"], str) and "tickers=1" in sl["earnings"],
+          f"12 forecasts from 1 ticker → insufficient slice (got {sl['earnings']})")
+    many = [{"prob": 0.8, "realized": 1, "owner_module": "earnings", "ticker": f"t{i}"} for i in range(12)]
+    sl2 = C._slice(many, "owner_module")
+    check(isinstance(sl2["earnings"], dict) and sl2["earnings"]["n_tickers"] == 12,
+          "12 forecasts across 12 tickers → an actionable slice carrying n_tickers")
+
+
+def test_slice_key_stripped_and_str_safe():
+    # Codex r6 #6 + #3: module keys are stripped (Phase-6 exact lookup) and _norm is non-crash on non-strings
+    check(C._slice_key("earnings ") == "earnings" and C._slice_key(" valuation") == "valuation", "slice key is stripped")
+    check(C._norm(["x"]) == "" and C._norm({"a": 1}) == "" and C._norm(None) == "", "_norm is str-safe (non-str → '')")
+    check(C._window_rank(["30d"]) == C._window_rank("bogus"), "a non-string window ranks as unknown, never crashes")
+    # a malformed review_window in a run must not abort the build
+    rr = "analyses/MW_2026-06-01"
+    standing = [{"run_root": rr, "record": {"ticker": "MW", "decision": "Watchlist",
+                 "decision_date": "2026-06-01", "basket": "Watchlist", "forecast_ledger": []}}]
+    reviews = [{"review_window": ["30d"], "review_date": "2026-07-01", "error_taxonomy": ["timing error"]}]
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: reviews)  # must not raise
+    check(out["error_taxonomy_distribution"] == {"timing error": 1}, "a malformed review_window is tolerated, not fatal")
+
+
+def test_false_comfort_named_in_markdown():
+    # Codex r6 #1: the human summary (markdown) must NAME false-comfort cases, not just count them
+    rr = "analyses/FCM_2026-06-01"
+    standing = [{"run_root": rr, "record": {"ticker": "FCM", "decision": "Buy",
+                 "decision_date": "2026-06-01", "basket": "Selected", "forecast_ledger": []}}]
+    reviews = [{"review_window": "90d",
+                "pre_mortem_check": {"outcome_vs_verdict": "contradicted", "contradiction_kind": "false_comfort"}}]
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: reviews)
+    md = C.render_markdown(out)
+    check("FALSE COMFORT" in md and "FCM" in md and "90d" in md,
+          "the markdown summary names the false-comfort ticker/window, not just a count")
+
+
 def test_below_floor_withholds():
     standing = [{"run_root": "analyses/ONE_2026-06-01", "record": {
         "ticker": "ONE", "decision": "Buy", "decision_date": "2026-06-01", "basket": "Selected",
@@ -518,6 +558,8 @@ def main():
                test_flat_tallies_dedup_corrected_versions, test_output_json_is_strict_even_with_nan,
                test_non_finite_inputs_excluded, test_short_basket_cohort_inverted,
                test_malformed_error_tag_skipped, test_all_scope_rerun_overwrites_base,
+               test_module_slice_gated_on_distinct_tickers, test_slice_key_stripped_and_str_safe,
+               test_false_comfort_named_in_markdown,
                test_end_to_end_floor_met, test_probability_scale, test_below_floor_withholds):
         print(f"[{fn.__name__}]")
         fn()

@@ -66,6 +66,8 @@ PERF_DIR = os.path.join(REPO, "analyses", "performance")
 
 # ── Floors (CLAUDE.md §11). Below each, the corresponding metric is WITHHELD, never estimated. ──
 MIN_RESOLVED_FORECASTS = 10   # before any Brier / reliability curve
+MIN_SLICE_TICKERS = 5         # distinct tickers a module/type slice needs before it's an ACTIONABLE Phase-6
+                              # haircut (forecasts inside one ticker are correlated, not independent)
 MIN_REVIEWED_PER_BASKET = 5   # before any cohort basket return is quoted
 MIN_DIRECTIONAL_HITS = 10     # before a directional hit rate / e-process verdict
 MIN_PROJECT_N = 5             # before months-to-significance will project (a rate from <5 bets is noise)
@@ -325,7 +327,7 @@ def months_to_significance(hits, n, months_elapsed, p0=0.5, target_e=1.0 / E_ALP
 # ════════════════════════════════════════════════════════════════════════════════════════════════
 
 def _norm(s):
-    return (s or "").strip().lower()
+    return s.strip().lower() if isinstance(s, str) else ""  # str-safe: a non-string (list/dict) → "" not a crash
 
 
 def _finite_num(v):
@@ -395,7 +397,13 @@ def read_reviews(run_root):
                 out.append(d)
         except (OSError, json.JSONDecodeError, ValueError):
             continue
-    return sorted(out, key=lambda r: (r.get("review_date") or "", _window_rank(r.get("review_window")), r.get("_version", 1)))
+    # coerce every sort key to a comparable primitive — a malformed (list/dict) review_date/window on one
+    # agent-authored review must not raise mid-sort and abort the whole calibration write.
+    def _sort_key(r):
+        d = r.get("review_date")
+        v = r.get("_version")
+        return (d if isinstance(d, str) else "", _window_rank(r.get("review_window")), v if isinstance(v, int) else 1)
+    return sorted(out, key=_sort_key)
 
 
 def latest_review(reviews):
@@ -428,8 +436,9 @@ def standing_reviews(reviews):
 def _slice_key(v):
     """Coerce a forecast's owner_module / forecast_type to a hashable, non-empty STRING for use as a
     slice key. A malformed truthy value (a list/dict) would otherwise raise 'unhashable type' in _slice()
-    and abort the whole calibration write — fall back to 'untagged' instead of crashing on one bad row."""
-    return v if (isinstance(v, str) and v.strip()) else "untagged"
+    and abort the whole calibration write — fall back to 'untagged' instead of crashing on one bad row.
+    STRIPPED so Phase-6's exact lookup `calibration_by_module['earnings']` matches an 'earnings ' key."""
+    return v.strip() if (isinstance(v, str) and v.strip()) else "untagged"
 
 
 def match_resolved_forecasts(record, reviews):
@@ -492,6 +501,7 @@ def match_resolved_forecasts(record, reviews):
             "prob": prob / 100.0, "realized": int(y),
             "owner_module": _slice_key(src.get("owner_module")),   # always a hashable string (never crashes _slice)
             "forecast_type": _slice_key(src.get("forecast_type")),
+            "ticker": _norm(record.get("ticker")),                  # for the distinct-ticker slice gate (§ effective-N)
         })
     return out
 
@@ -786,17 +796,23 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
 
 
 def _slice(pairs, key):
-    """Brier per group value of `key`, each gated by its OWN resolved-forecast floor. Groups below
-    floor become 'insufficient (N=k)' strings — the exact shape Phase 6 (§18) reads and skips."""
+    """Brier per group value of `key`, each gated by BOTH a raw-forecast floor AND a distinct-TICKER floor.
+    A slice becomes an actionable Brier only when it has ≥MIN_RESOLVED_FORECASTS forecasts spread across
+    ≥MIN_SLICE_TICKERS distinct tickers — otherwise Phase 6 (§18) would apply an 8-point haircut to a
+    module across every future thesis on the strength of ONE company's correlated forecast cluster (the
+    §effective-N rule: forecasts inside a ticker are not independent observations). Below either floor the
+    slice is 'insufficient (N=k, tickers=t)', the shape Phase 6 reads and skips."""
     groups = {}
     for p in pairs:
-        groups.setdefault(p[key], []).append((p["prob"], p["realized"]))
+        groups.setdefault(p[key], []).append(p)
     out = {}
     for g, gp in sorted(groups.items()):
-        if len(gp) >= MIN_RESOLVED_FORECASTS:
-            out[g] = {"brier": brier(gp), "n": len(gp), "reliability_bands": reliability_bands(gp)}
+        tuples = [(p["prob"], p["realized"]) for p in gp]
+        n_tickers = len({p.get("ticker") for p in gp})
+        if len(gp) >= MIN_RESOLVED_FORECASTS and n_tickers >= MIN_SLICE_TICKERS:
+            out[g] = {"brier": brier(tuples), "n": len(gp), "n_tickers": n_tickers, "reliability_bands": reliability_bands(tuples)}
         else:
-            out[g] = f"insufficient (N={len(gp)})"
+            out[g] = f"insufficient (N={len(gp)}, tickers={n_tickers})"
     return out
 
 
@@ -910,6 +926,12 @@ def render_markdown(out):
     L.append("## Always-honest tallies (no floor — a count, not a rate)")
     L.append(f"- Error taxonomy (§20): {out['error_taxonomy_distribution'] or '{} (no reviewed call has gone wrong yet)'}")
     L.append(f"- Pre-mortem outcomes (§5): {out['pre_mortem_calibration']['outcome_distribution']}")
+    # Name every false-comfort case by ticker — the costliest audit miss (a red-team that gave comfort on a
+    # thesis that then broke). The reader must not have to open the JSON or grep the repo to find it (§9).
+    fcc = out["pre_mortem_calibration"].get("false_comfort_cases") or []
+    if fcc:
+        named = ", ".join(f"{c.get('ticker')} ({c.get('run')}, {c.get('window')})" for c in fcc)
+        L.append(f"- ⚠️ **Pre-mortem FALSE COMFORT** (red-team missed a real risk) — {len(fcc)} case(s): {named}")
     L.append("")
     L.append("## Inventory")
     L.append("| Ticker | Run | Decision | Basket | Conf | Resolved fc | Dir hit | Latest review |")
