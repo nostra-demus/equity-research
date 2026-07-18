@@ -411,11 +411,17 @@ def latest_review(reviews):
 
 
 def latest_priced_review(reviews):
-    """The most recent review (by the read_reviews ordering) that carries a computable BENCHMARK-relative
-    return — used for RETURN scoring (directional hit, cohort returns). A later ad-hoc / post-mortem review
-    often leaves the return fields null; using it for returns would erase an earlier 30d/90d review that
-    DID price the call. (Forecast RESOLUTION and thesis status still use the latest review of any kind.)"""
-    for rev in reversed(reviews or []):
+    """The most recent review that carries a computable BENCHMARK-relative return — used for RETURN
+    scoring (directional hit, cohort returns). A later ad-hoc / post-mortem review often leaves the return
+    fields null; using it for returns would erase an earlier 30d/90d review that DID price the call.
+    (Forecast RESOLUTION and thesis status still use the latest review of any kind.)
+
+    Superseded same-day/same-window correction versions are dropped FIRST (standing_reviews keeps the
+    highest version per (date, window)), so a `_v2` that deliberately nulled a bad return is not bypassed
+    to resurrect the stale `_v1`'s price outcome — the scan falls back across WINDOWS, never versions."""
+    standing = sorted(standing_reviews(reviews),
+                      key=lambda r: (_norm(r.get("review_date")), _window_rank(r.get("review_window"))))
+    for rev in reversed(standing):
         if _review_rel(rev) is not None:
             return rev
     return None

@@ -980,12 +980,16 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
                 parseable_long += 1
         else:
             undateable += 1      # no confidently-parseable date in the window
-    # Near-term quota (§19: ≥2 OR ≥40% of the dateable forecasts resolve within 90 days). Applied only when
-    # CONFIDENT — every forecast has a placeable future date (undateable == 0), so an unknown-timing forecast
-    # can never be assumed near-term to rescue the record. A 5-forecast ledger with 1 near-term / 4 long
-    # (20%) fails; 1-of-2 (50%) or a lone near-term passes.
+    # Near-term quota (§19: ≥2 OR ≥40% of the dateable forecasts resolve within 90 days), measured over the
+    # dateable set. An undateable (unknown-timing) forecast is given the benefit of the doubt — it MIGHT be
+    # near-term but the parser can't place it, so it must not FALSE-FAIL a record whose vague windows may all
+    # be soon. BUT that benefit is withdrawn once the record ALSO carries a demonstrably long-dated (>90d)
+    # forecast: a ledger with clearly-long forecasts and zero near-term ones cannot be rescued by leaving one
+    # forecast undated (the loophole). So apply the quota when there are no undateable forecasts OR at least
+    # one is provably long. A 5-forecast ledger with 1 near-term / 4 long (20%) fails; 1-of-2 (50%) or a lone
+    # near-term passes; an all-undateable ledger (no proof either way) is not failed.
     dateable = near_term + parseable_long
-    if undateable == 0 and dateable >= 1 and near_term < 2 and near_term < 0.4 * dateable:
+    if (undateable == 0 or parseable_long > 0) and dateable >= 1 and near_term < 2 and near_term < 0.4 * dateable:
         pct = round(100.0 * near_term / dateable)
         issues.append(f"insufficient near-term proof points — only {near_term} of {dateable} dateable forecasts "
                       f"({pct}%) resolve within 90 days of the decision; §19 wants ≥2 or ≥40%, else the call cannot "
@@ -2030,6 +2034,7 @@ if scope=="selftest":
     _fc_bareresults={"confirmation_trigger":"operating results improve","falsification_trigger":"operating results worsen","time_window":"August 2026"}
     _fc_q1results={"confirmation_trigger":"guidance raised in the Q1 results","falsification_trigger":"guidance cut in the Q1 results","time_window":"August 2026"}
     _fc_periodlbl={"confirmation_trigger":"Q1 EBITDA margin at or below 12.0%","falsification_trigger":"Q1 margin at or above 12.3%","time_window":"quarter ended June 2026; results August 2026"}
+    _fc_vague={"confirmation_trigger":"net cash eliminated below 0","falsification_trigger":"net cash still above 0","time_window":"over the next few years"}
     aocases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substrings]=fail-with)
         ("2026-07-17",[_fc_good],None),                                        # predates AO_DATE → N/A
         ("2026-07-18",[],None),                                                # empty ledger → N/A (§19)
@@ -2057,6 +2062,7 @@ if scope=="selftest":
         ("2026-07-18",[_fc_bareresults],["not mechanically resolvable"]),     # bare 'operating results' is not a specific document → FAIL (r6 #5)
         ("2026-07-18",[_fc_q1results],[]),                                     # 'Q1 results' IS a period-qualified settleable document → pass (r6 #5)
         ("2026-07-18",[_fc_periodlbl],[]),                                     # window names a pre-decision PERIOD label (June) AND a resolution date (Aug) → pick the on/after date → near-term pass, not misread as stale (r8)
+        ("2026-07-18",[_fc_vague,_fc_far,_fc_far,_fc_far,_fc_far],["insufficient near-term"]), # 1 undateable + 4 long, 0 near-term → the undateable one can't dodge the quota when a long forecast exists (r10)
         ("2026-07-18",5,None),                                                 # malformed (non-list) → N/A, never crash
         ("2026-07-18",None,None),                                              # None ledger → N/A
     ]

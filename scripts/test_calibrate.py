@@ -670,6 +670,25 @@ def test_arrival_span_malformed_date_no_crash():
     check(out["months_to_significance"] is not None, "arrival-rate span computed without crashing on the malformed date")
 
 
+def test_superseded_priced_review_not_resurrected():
+    # Codex r10: a _v2 correction that nulled a bad return must NOT be bypassed to resurrect the stale
+    # _v1's price outcome — latest_priced_review dedupes to the standing (highest) version first.
+    reviews = [
+        {"review_date": "2026-07-01", "review_window": "90d", "_version": 1, "benchmark_relative_return_pct": 12.0},
+        {"review_date": "2026-07-01", "review_window": "90d", "_version": 2, "benchmark_relative_return_pct": None},
+    ]
+    check(C.latest_priced_review(reviews) is None,
+          "the superseded _v1's return is not resurrected; the nulling _v2 supersedes it → no priced review")
+    reviews2 = [
+        {"review_date": "2026-06-15", "review_window": "30d", "_version": 1, "benchmark_relative_return_pct": 4.0},
+        {"review_date": "2026-07-01", "review_window": "90d", "_version": 1, "benchmark_relative_return_pct": 12.0},
+        {"review_date": "2026-07-01", "review_window": "90d", "_version": 2, "benchmark_relative_return_pct": None},
+    ]
+    lpr2 = C.latest_priced_review(reviews2)
+    check(lpr2 and lpr2["review_window"] == "30d",
+          "falls back to the earlier 30d priced review across WINDOWS, not the superseded 90d_v1")
+
+
 def main():
     print("test_calibrate.py")
     for fn in (test_incomplete_beta, test_clopper_pearson, test_brier_and_murphy, test_e_value,
@@ -689,6 +708,7 @@ def main():
                test_standing_reviews_malformed_date_no_crash, test_beta_of_rejects_non_finite,
                test_run_root_relative_in_inventory, test_pair_trade_basket_not_scored,
                test_false_comfort_derived_from_verdict, test_arrival_span_malformed_date_no_crash,
+               test_superseded_priced_review_not_resurrected,
                test_end_to_end_floor_met, test_probability_scale, test_below_floor_withholds):
         print(f"[{fn.__name__}]")
         fn()
