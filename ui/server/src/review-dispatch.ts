@@ -86,7 +86,11 @@ export function dueReviews(): { runRoot: string; window: string }[] {
   return out
 }
 
-function spawnReview(runRoot: string, window: string): boolean {
+// Read-only view of the persisted per-day dispatch state (exported for tests).
+export function readDispatchState(): { date: string; fired: number; keys: string[] } { return readState() }
+
+// Exported for tests (the rollback-on-async-error path); in normal operation only dispatchDueReviews() calls it.
+export function spawnReview(runRoot: string, window: string): boolean {
   const key = `${runRoot}|${window}`
   if (inflightRuns.has(key) || firedKeyToday(key)) return false // in-flight, or already fired today (restart-safe)
   if (inflightRuns.size >= MAX_CONCURRENT) return false

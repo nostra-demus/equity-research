@@ -243,6 +243,15 @@ def selftest():
                        {"schema": CORRECTIONS_SCHEMA, "errata": [{"field": "downside_risk_pct", "kind": "sign_fix"}]})
           ["downside_risk_pct"] == 31.1, "sign_fix negative→positive")
 
+    # bool is a subclass of int in Python, but the TS mirror uses `typeof v === 'number'` which excludes
+    # booleans. A boolean field must therefore be left UNTOUCHED by both transforms (TS-parity, gemini finding).
+    bp = apply_errata({"probability": True},
+                      {"schema": CORRECTIONS_SCHEMA, "errata": [{"field": "probability", "kind": "scale_fix"}]})
+    check(bp["probability"] is True, "scale_fix leaves a boolean untouched (not scaled to 100) — TS parity")
+    bs = apply_errata({"downside_risk_pct": True},
+                      {"schema": CORRECTIONS_SCHEMA, "errata": [{"field": "downside_risk_pct", "kind": "sign_fix"}]})
+    check(bs["downside_risk_pct"] is True, "sign_fix leaves a boolean untouched (not abs→1) — TS parity")
+
     # shape_fix: legacy shapes coerced
     sf = apply_errata(
         {"kill_criteria": ["a plain string criterion"], "module_scores": {"earnings": 67},
