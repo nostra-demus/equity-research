@@ -135,6 +135,19 @@ export interface OverflowProvider {
   headers?: Record<string, string> // provider-specific headers (e.g. OpenRouter ranking)
   budgetFile: string
   dayTz?: string // daily reset zone (undefined = UTC)
+  // Per-provider override for triageBatch's generic OpenAI-compatible call guards (groq.ts TriageOptions).
+  // Omitted => triageBatch's own defaults (30_000ms, 2 attempts) — byte-for-byte the prior behaviour for
+  // every existing cloud provider. Exists for a provider whose real answer time genuinely exceeds the
+  // generic default (e.g. a slow local box under a large output budget) so a VALID slow response isn't
+  // misread as a hang and doesn't arm the provider's cross-cycle cooldown for no reason.
+  timeoutMs?: number
+  maxAttempts?: number
+  // Exclude this provider from the user-facing on-demand article read (buildArticleReadProviders below).
+  // That path shares this provider's `id` (and so its cooldown marker) with the background triage/backlog
+  // loop, but runs a short user-facing deadline (~7s, 1 attempt) — a provider that is legitimately slow
+  // would time out there and arm the SAME cooldown the backlog drain relies on, sidelining it for both
+  // paths over one interactive read. Set true for a provider whose value is throughput, not latency.
+  skipArticleRead?: boolean
 }
 
 // Build the overflow chain from whatever keys are present. ONLY OpenAI-compatible providers belong here
@@ -233,11 +246,22 @@ export function buildOverflowProviders(): OverflowProvider[] {
   //   - MODEL: default qwen2.5:7b-instruct. On a 16GB Apple-Silicon box it fits in ~4.7GB at 4-bit and is the
   //     strongest small model at the two things triage leans on — reliable batched JSON and non-English
   //     headline translation (llama-3.1-8b, the Groq primary, is weaker at both). Override via NEWS_LOCAL_MODEL.
-  //   - KEY: a local server needs none, but article-read skips any provider with an empty apiKey, so we send a
-  //     harmless dummy ('local'); Ollama/llama.cpp ignore the Bearer header. Override if the server enforces one.
+  //   - KEY: a local server needs none, but the OpenAI-compatible call path skips any provider with an empty
+  //     apiKey, so we send a harmless dummy ('local'); Ollama/llama.cpp ignore the Bearer header. Override if
+  //     the server enforces one.
   //   - UNLIMITED: rpm 0 -> no per-minute spacing (RateLimiter treats 0 as "no gap"); no tpm/dailyTokenCap; a
   //     huge dailyReqCap so canSpend() never blocks. Placed LAST so the stronger capped clouds get first crack
   //     and local absorbs only the tail — and it still runs before Gemini + the paid tier, killing deferral/spend.
+  //   - TIMEOUT: a 7-8B model on a 16GB Mac at ~15-25 tok/s answering up to maxTokens (3500) output tokens can
+  //     legitimately run past triageBatch's generic 30s default — that's a valid slow answer, not a hang, and
+  //     misreading it as one would arm the cooldown and sideline a working tier. timeoutMs raises the ceiling;
+  //     maxAttempts 1 (not the generic 2) avoids doubling that wait on a genuine failure — a real outage is
+  //     caught by the NEXT cycle's cross-cycle cooldown probe, not by retrying the same slow call twice in one.
+  //   - ARTICLE READ: skipArticleRead keeps this tier OUT of buildArticleReadProviders. That path shares this
+  //     id's cooldown with the background triage/backlog-drain loop but runs on a short ~7s user-facing
+  //     deadline (article-read.ts perCallTimeoutMs) with 1 attempt — a slow-but-healthy local answer would
+  //     time out there and arm the SAME cooldown triage relies on, sidelining backlog-drain over one manual
+  //     article open. Local's documented value is throughput for the backlog, not interactive article reads.
   if (process.env.NEWS_LOCAL_ENABLED === '1') {
     out.push({
       id: 'local', label: 'Local', color: '--provider-local',
@@ -246,6 +270,9 @@ export function buildOverflowProviders(): OverflowProvider[] {
       model: process.env.NEWS_LOCAL_MODEL || 'qwen2.5:7b-instruct',
       dailyReqCap: capNum(process.env.NEWS_LOCAL_DAILY_REQ_CAP, 100_000_000), // effectively unlimited
       rpm: capNum(process.env.NEWS_LOCAL_RPM, 0), // 0 -> no per-minute spacing (a local model has no rate limit)
+      timeoutMs: capNum(process.env.NEWS_LOCAL_TIMEOUT_MS, 120_000), // 4-8x the generic default — see TIMEOUT note
+      maxAttempts: capNum(process.env.NEWS_LOCAL_MAX_ATTEMPTS, 1), // don't double the wait on a real failure — see TIMEOUT note
+      skipArticleRead: true, // see ARTICLE READ note above
       maxTokens: capNum(process.env.NEWS_LOCAL_MAX_TOKENS, 3_500),
       budgetFile: 'local-budget.json',
     })
@@ -684,6 +711,10 @@ export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadP
     out.push({ id: 'gemini', kind: 'gemini', apiKey: cfg.geminiApiKey, baseUrl: cfg.geminiBaseUrl, model: cfg.geminiModel, pool: cfg.geminiModels, maxTokens: cfg.geminiMaxTokens, rpm: cfg.geminiRpm, tpm: cfg.geminiTpm, dailyReqCap: cfg.geminiDailyReqCap, dailyTokenCap: cfg.geminiDailyTokenCap, budgetFile: 'gemini-budget-{model}.json', dayTz: cfg.geminiDayTz, limiter: 'gemini' })
   }
   for (const p of cfg.overflowProviders) {
+    // A provider whose real answer time doesn't fit this path's short user-facing deadline opts out via
+    // skipArticleRead (see the OverflowProvider field doc + the local-tier entry in buildOverflowProviders)
+    // rather than sharing its id's cooldown between a ~7s interactive read and the background backlog drain.
+    if (p.skipArticleRead) continue
     // OpenAI-compatible overflow: its own named limiter + daily budget file, exactly as runCycle uses it. A
     // TOKEN-gated provider (Cerebras) carries its own tpm + daily token cap, so the read paces on the SAME
     // binding limit as the ingester (they share the budget file + limiter); request-gated providers

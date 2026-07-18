@@ -67,14 +67,38 @@ lid open). For true 24/7 you'd want a never-sleeping Apple-Silicon box (e.g. a M
 # Install + pull the model
 brew install ollama            # or download the app from ollama.com
 ollama pull qwen2.5:7b-instruct
+```
 
-# Make Ollama reachable off-localhost (default binds 127.0.0.1 only). 0.0.0.0 works everywhere; step 2
-# shows how to tighten this to the Tailscale IP so a roaming laptop never exposes :11434 on public Wi-Fi.
-launchctl setenv OLLAMA_HOST "0.0.0.0:11434"
-# then (re)start the server:
-ollama serve                   # or restart the Ollama app
+Ollama needs TWO env vars beyond its defaults — get the Air's Tailscale IP from step 2 first (or start with
+`0.0.0.0` to get moving, then tighten to the Tailscale IP per the security note below):
 
-# Sanity check locally
+- `OLLAMA_HOST` — the default binds `127.0.0.1` only, unreachable from the primary.
+- `OLLAMA_CONTEXT_LENGTH` — Ollama defaults to a **4k context** on a box below ~24 GiB VRAM (the 16 GB Air),
+  but the engine sends `max_tokens` 3500 PLUS a batched triage/article prompt, which together overrun 4k —
+  the model then silently truncates the prompt and emits length-capped / non-JSON output, and the ingester
+  cools the local tier down instead of draining. Raise it (must exceed prompt + 3500; 8192 is a safe fit at
+  4-bit on 16 GB — larger costs RAM for no gain here).
+
+Both launch paths need BOTH vars, but they don't reach the server the same way:
+
+- **GUI app path**: `launchctl setenv` applies only to apps launchd spawns (the Ollama.app), NOT to your
+  current shell. It also does NOT affect an app that's already running — `open -a Ollama` on its own just
+  re-activates the existing process, which keeps its OLD env; if Ollama is already open you must quit it
+  first so the relaunch actually picks up the new vars:
+  ```sh
+  launchctl setenv OLLAMA_HOST "100.x.y.z:11434"        # Tailscale IP (preferred); or the LAN IP; or 0.0.0.0 to start
+  launchctl setenv OLLAMA_CONTEXT_LENGTH "8192"          # raise the default 4k window so the triage prompt isn't truncated
+  osascript -e 'quit app "Ollama"'                       # stop it if already running (menu-bar Quit works too)
+  open -a Ollama                                         # (re)start the app so it actually picks up both vars
+  ```
+
+- **CLI path**: `ollama serve` in a shell will NOT see the launchctl vars — set them INLINE on the command:
+  ```sh
+  OLLAMA_HOST="100.x.y.z:11434" OLLAMA_CONTEXT_LENGTH="8192" ollama serve
+  ```
+
+```sh
+# Sanity check locally (localhost still works regardless of the bind address)
 curl -s http://localhost:11434/v1/models | head
 ```
 
@@ -100,11 +124,8 @@ network — same IP, nothing to change. Configure it **once** and never touch it
 to you. It's also the exact mechanism Banks's and Noel's laptops use as future workers.
 
 **Security (matters — the Air roams).** The `/v1` endpoint has **no auth**, so never expose it publicly and never
-port-forward :11434. On a laptop that hops onto café/hotel Wi-Fi, prefer binding Ollama to the **Tailscale IP
-only** instead of `0.0.0.0`, so it's reachable *just* over the private mesh:
-```sh
-launchctl setenv OLLAMA_HOST "100.101.102.103:11434"   # the Air's own `tailscale ip -4`
-```
+port-forward :11434. On a laptop that hops onto café/hotel Wi-Fi, use the Air's own `tailscale ip -4` (not
+`0.0.0.0`) as the `OLLAMA_HOST` value in step 1's commands, so it's reachable *just* over the private mesh.
 (`0.0.0.0` is simpler but also listens on whatever local network you're on — fine at home behind a router with
 the macOS firewall on, riskier on public Wi-Fi.) A Tailscale ACL can further restrict :11434 to just the primary.
 
@@ -136,8 +157,10 @@ launchctl kickstart -k gui/$(id -u)/com.nostradamus.engine
 
 - The cockpit **EVENTS** panel should show a **Local** provider chip (azure) once it handles its first batch.
 - Watch the held/backlog count fall faster than before on a busy cycle.
-- If it never engages, confirm the primary can reach the URL:
-  `curl -s $NEWS_LOCAL_BASE_URL/models` from the **primary**.
+- If it never engages, confirm the primary can reach the URL — use the literal address (the
+  `NEWS_LOCAL_BASE_URL` from `providers.env` is loaded by the engine, not exported into your interactive
+  shell, so `curl -s $NEWS_LOCAL_BASE_URL/models` would hit an empty var):
+  `curl -s http://<air-tailscale-or-lan-ip>:11434/v1/models` from the **primary**.
 
 ---
 
@@ -152,9 +175,18 @@ launchctl kickstart -k gui/$(id -u)/com.nostradamus.engine
 | `NEWS_LOCAL_RPM` | `0` (no spacing) | raise only to throttle a shared/thermal-limited box |
 | `NEWS_LOCAL_DAILY_REQ_CAP` | `100000000` | effectively unlimited |
 | `NEWS_LOCAL_MAX_TOKENS` | `3500` | per-call output budget |
+| `NEWS_LOCAL_TIMEOUT_MS` | `120000` (2 min) | per-call wall-clock ceiling — well above triage's generic 30s default, because a 7-8B model at ~15-25 tok/s answering up to 3500 output tokens can legitimately take longer than 30s without anything being wrong |
+| `NEWS_LOCAL_MAX_ATTEMPTS` | `1` | in-call retry count — deliberately 1, not the generic 2: a genuine failure re-costs the full timeout on a retry, and a sustained outage is already caught by the cross-cycle cooldown on the NEXT cycle |
+
+**Not used for article reads.** The local tier is wired ONLY into the background triage / backlog-drain loop,
+not into the on-demand "open an article" reader — that path runs a short ~7s user-facing deadline, which a
+legitimately-slow local answer could trip, arming the same cooldown the backlog drain relies on. Local's job
+is throughput on the backlog, not answering a human waiting on one article; reads keep using Groq → cloud
+overflow → Gemini exactly as before.
 
 **Turn it off:** set `NEWS_LOCAL_ENABLED=0` (or remove the line) and restart the engine. The tier disappears and
 the chain reverts to Groq → cloud overflow → Gemini → paid → defer.
 
 The wiring is a single entry in `buildOverflowProviders()` (`ui/server/src/config.ts`); it auto-flows into
-triage, article-read, auto-heal, and the status/headroom paths with no other code.
+triage, auto-heal, and the status/headroom paths with no other code — it opts OUT of the on-demand
+article-read path specifically (`skipArticleRead: true`, see the "Not used for article reads" note above).
