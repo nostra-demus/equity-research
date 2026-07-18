@@ -10,7 +10,8 @@ import path from 'node:path'
 import { readFeed } from '../feed'
 import { deriveSourceTier } from '../scope'
 import type { FeedItem } from '../types'
-import type { Theme, ThemeSummary, ThemesIndex, ThemeMutation, ThemeTier, ThemeDetail, CompaniesByOrder, ThemeItemView } from './types'
+import type { Theme, ThemeSummary, ThemesIndex, ThemeMutation, ThemeTier, ThemeDetail, CompaniesByOrder, ThemeItemView, ThemeCompany } from './types'
+import { buildWhyIndex, buildCompanyWhy } from './why'
 
 const ledgerPath = (repoRoot: string) => path.join(repoRoot, 'screener', 'ledger', 'themes.ndjson')
 const indexPath = (repoRoot: string) => path.join(repoRoot, 'screener', 'board', 'themes_index.json')
@@ -223,8 +224,14 @@ export function buildThemeDetail(repoRoot: string, theme: Theme): ThemeDetail {
     })
     .sort((a, b) => (b.triage_score || 0) - (a.triage_score || 0) || (a.ts < b.ts ? 1 : -1))
 
+  // Attach the read-time "why" to each company: a plain-English reason for its order-tier placement plus
+  // the member stories that named it (§3 evidence). Built off theme.members — the SAME source the company
+  // list was aggregated from (rebuildThemeCompanies), so the name_key join lands exactly. Non-mutating: a
+  // fresh copy per company so the in-memory theme (and any later ledger write) never carries the why.
+  const whyIndex = buildWhyIndex(theme.members)
+  const withWhy = (c: ThemeCompany): ThemeCompany => ({ ...c, why: buildCompanyWhy(c, c.name_key, whyIndex) })
   const byOrder: CompaniesByOrder = { first: [], second: [], third: [] }
-  for (const c of theme.companies) (c.order === 1 ? byOrder.first : c.order === 2 ? byOrder.second : byOrder.third).push(c)
+  for (const c of theme.companies || []) (c.order === 1 ? byOrder.first : c.order === 2 ? byOrder.second : byOrder.third).push(withWhy(c))
 
   return {
     theme: buildSummary(theme),

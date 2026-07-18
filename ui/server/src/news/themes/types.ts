@@ -19,6 +19,22 @@ export interface Impact {
   composite: number // sum, 0–100
 }
 
+// One member story that named a company — the sourced evidence for why it sits in a theme's order tier
+// (§3: no source = no claim). Built at deep-dive read time from the theme's members, never persisted.
+export interface CompanyEvidence {
+  headline: string // the member headline (English translation preferred), verbatim
+  event_id: string // so the UI can open that story in the reader
+  score: number // the item's triage_score (0–100) — its materiality
+}
+
+// The plain-English "why is this company here" for the deep-dive: a reason read off the placement signals
+// plus the member stories that named it. Attached to a ThemeCompany at read time (buildThemeDetail); not
+// stored on the theme (keeps the ledger lean, §2), so it is optional on the type.
+export interface CompanyWhy {
+  reason: string // one plain sentence explaining the order-tier placement
+  evidence: CompanyEvidence[] // up to a few member stories that named the company (may be empty)
+}
+
 export interface ThemeCompany {
   name: string
   ticker: string | null
@@ -29,6 +45,7 @@ export interface ThemeCompany {
   impact: Impact
   mention_count: number // # member items naming this company (the realness anchor)
   last_seen: string // ISO
+  why?: CompanyWhy // read-time only (the deep-dive) — why this company sits in its order tier + the evidence
 }
 
 export interface ThemeSector {
