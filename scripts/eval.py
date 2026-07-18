@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deterministic eval harness for the equity-research engine.
 
-Checks invariants A-Z, AA-AL, and J (framework-source contracts) against every committed
+Checks invariants A-Z, AA-AN, and J (framework-source contracts) against every committed
 decision record in analyses/. Called by /research:eval and by CI.
 
 Usage:
@@ -754,6 +754,74 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
         if txt and _AK_DENIAL.search(txt) and not _AK_AFFIRM.search(txt):
             det.append(f"{label} denies a Critical red flag ({txt!r}) but {top_mod} declares {top_n}")
     return det
+
+# ── Check AN (§4a supersession-integrity) — module-level so `eval.py selftest` drives it fixture-free ──
+def _an_valid_sidecar(run_dir):
+    """A run's corrections sidecar, but ONLY if it passes the schema gate the resolver applies
+    (schema == 'corrections/v1'); else {} — so AN honors exactly the sidecars ledger_records honors."""
+    try:
+        with open(os.path.join(run_dir, "corrections.json")) as f:
+            c = json.load(f)
+        return c if (isinstance(c, dict) and c.get("schema") == "corrections/v1") else {}
+    except Exception:
+        return {}
+
+def eval_an_supersession_integrity(corrections):
+    """Check AN: an append-only corrections.json that declares `superseded_by` (DECISION_LEDGER §4a)
+    must point at a real, existing run folder carrying a decision record, AND the supersession CHAIN
+    from it must terminate on a LIVE (non-superseded) record — a dangling, circular (A→B→A), or
+    chain-ends-on-another-superseded-run supersession would silently drop every call in the chain
+    from the standing set with no live replacement. Returns None (no sidecar / no supersession → N/A)
+    or a list of violations (empty = valid)."""
+    if not isinstance(corrections, dict):
+        return None
+    sup = corrections.get("superseded_by")
+    if not isinstance(sup, dict):
+        return None
+    tgt = sup.get("run_root")
+    if not (isinstance(tgt, str) and tgt.strip()):
+        return ["superseded_by present but carries no run_root"]
+    tgt = tgt.strip()
+    if not os.path.isdir(tgt):
+        return [f"superseded_by.run_root {tgt!r} does not exist"]
+    if not os.path.exists(os.path.join(tgt, "decision_record.json")):
+        return [f"superseded_by target {tgt!r} has no decision_record.json"]
+    # walk the chain to its terminal live record, detecting cycles
+    seen, cur = set(), tgt
+    while True:
+        if cur in seen:
+            return [f"supersession chain is circular at {cur!r} — no live replacement record"]
+        seen.add(cur)
+        nxt_sup = _an_valid_sidecar(cur).get("superseded_by")
+        nxt = nxt_sup.get("run_root") if isinstance(nxt_sup, dict) else None
+        if not (isinstance(nxt, str) and nxt.strip()):
+            return []  # cur is a live, non-superseded record — the chain terminates validly
+        nxt = nxt.strip()
+        if not (os.path.isdir(nxt) and os.path.exists(os.path.join(nxt, "decision_record.json"))):
+            return [f"supersession chain: {cur!r} is superseded by {nxt!r} which does not exist"]
+        cur = nxt
+
+# ── Check AM (§8/§16 bear-case sanity) — a Selected/conviction long must have a real loss branch ──
+AM_DATE = "2026-07-17"
+def eval_am_bear_case_sanity(decision_date, decision, scenarios, entry_price):
+    """Check AM: a Selected/conviction long (Strong Buy / Buy / Starter Position Only) must carry a
+    genuine bear case — the bear-labelled scenario's price_target BELOW entry_price (a real downside
+    branch). A "bear" scenario that is itself a gain (the EMAAR_2026-07-03 defect: bear +63.9%, no
+    capital loss) fails §8's strongest-bear-case test and §16. Returns None (pre-gate / not a Selected
+    long / no usable bear price target) or a list of violations (empty = pass)."""
+    if not (isdate(decision_date) and decision_date >= AM_DATE):
+        return None
+    if decision not in {"Strong Buy", "Buy", "Starter Position Only"}:
+        return None
+    if not (isinstance(scenarios, list) and isinstance(entry_price, (int, float)) and not isinstance(entry_price, bool) and entry_price > 0):
+        return None
+    bear = next((s for s in scenarios if isinstance(s, dict) and "bear" in str(s.get("label", "")).lower()), None)
+    if not bear or not isinstance(bear.get("price_target"), (int, float)) or isinstance(bear.get("price_target"), bool):
+        return None  # no usable bear price target to test
+    if bear["price_target"] >= entry_price:
+        return [f"Selected/conviction long but the bear-case price target {bear['price_target']} is not below "
+                f"entry_price {entry_price} — no genuine downside branch (§8 strongest-bear-case; §16)"]
+    return []
 
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
@@ -1716,7 +1784,60 @@ if scope=="selftest":
         if not ok: akbad+=1
         print(f"  [{'ok' if ok else 'XX'}] AK({dt_!r},red_flags={d_.get('red_flags')!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
     bad+=akbad
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK cases")
+
+    # check AN — supersession-integrity (§4a). Fixture-free: build tmp target dirs to exercise the
+    # existence branches. A valid sidecar → []; a dangling/empty target → violation; no supersession → None.
+    import tempfile as _tf
+    anbad=0
+    with _tf.TemporaryDirectory() as _td:
+        _good=os.path.join(_td,"EMAAR_2026-07-10"); os.makedirs(_good)
+        open(os.path.join(_good,"decision_record.json"),"w").write("{}")
+        _empty=os.path.join(_td,"EMPTY_2026-01-01"); os.makedirs(_empty)  # exists but no decision_record.json
+        # circular pair: CYCA superseded_by CYCB, CYCB superseded_by CYCA — both dropped, no live record
+        _cyca=os.path.join(_td,"CYCA_2026-01-01"); os.makedirs(_cyca); open(os.path.join(_cyca,"decision_record.json"),"w").write("{}")
+        _cycb=os.path.join(_td,"CYCB_2026-01-01"); os.makedirs(_cycb); open(os.path.join(_cycb,"decision_record.json"),"w").write("{}")
+        open(os.path.join(_cyca,"corrections.json"),"w").write(json.dumps({"schema":"corrections/v1","superseded_by":{"run_root":_cycb}}))
+        open(os.path.join(_cycb,"corrections.json"),"w").write(json.dumps({"schema":"corrections/v1","superseded_by":{"run_root":_cyca}}))
+        ancases=[
+            ({}, None),                                                                     # no sidecar → N/A
+            ({"errata":[{"field":"x","kind":"scale_fix"}]}, None),                          # errata-only → N/A
+            ({"superseded_by":{"run_root":_good}}, []),                                     # valid live target → pass
+            ({"superseded_by":{"run_root":os.path.join(_td,"NOPE_2026-01-01")}}, ["does not exist"]),
+            ({"superseded_by":{"run_root":_empty}}, ["no decision_record.json"]),
+            ({"superseded_by":{"reason":"x"}}, ["no run_root"]),                            # missing run_root
+            ({"superseded_by":{"run_root":_cyca}}, ["circular"]),                           # A→B→A chain → caught
+        ]
+        for corr_,exp in ancases:
+            got=eval_an_supersession_integrity(corr_)
+            if exp is None: ok=(got is None)
+            elif not exp: ok=(isinstance(got,list) and len(got)==0)
+            else: ok=(isinstance(got,list) and len(got)>0 and all(any(s in v for v in got) for s in exp))
+            if not ok: anbad+=1
+            print(f"  [{'ok' if ok else 'XX'}] AN({corr_}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+    bad+=anbad
+
+    # check AM — bear-case sanity (§8/§16). A Selected long whose bear price target is at/above entry has no loss branch.
+    ambad=0
+    _SCEN_LOSS=[{"label":"Bear","price_target":8.0},{"label":"Base","price_target":15.0}]
+    _SCEN_GAIN=[{"label":"Bear case","price_target":20.0},{"label":"Base","price_target":27.0}]  # EMAAR 07-03 shape
+    amcases=[  # (decision_date, decision, scenarios, entry_price, expect)
+        ("2026-07-16","Starter Position Only",_SCEN_GAIN,12.2,None),                        # predates AM_DATE → N/A
+        ("2026-07-17","Watchlist",_SCEN_GAIN,12.2,None),                                    # not a Selected long → N/A
+        ("2026-07-17","Starter Position Only",_SCEN_LOSS,12.2,[]),                          # real loss branch → pass
+        ("2026-07-17","Starter Position Only",_SCEN_GAIN,12.2,["no genuine downside branch"]), # bear is a gain → FAIL
+        ("2026-07-17","Buy",[{"label":"Base","price_target":15.0}],12.2,None),              # no bear scenario → N/A
+        ("2026-07-17","Strong Buy",_SCEN_LOSS,None,None),                                   # no entry price → N/A
+    ]
+    for dt_,dec_,sc_,ep_,exp in amcases:
+        got=eval_am_bear_case_sanity(dt_,dec_,sc_,ep_)
+        if exp is None: ok=(got is None)
+        elif not exp: ok=(isinstance(got,list) and len(got)==0)
+        else: ok=(isinstance(got,list) and len(got)>0 and all(any(s in v for v in got) for s in exp))
+        if not ok: ambad+=1
+        print(f"  [{'ok' if ok else 'XX'}] AM({dt_!r},{dec_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+    bad+=ambad
+
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -2547,6 +2668,24 @@ for drp in runs:
         add("AK_red_flag_severity_reconciliation",True,
             "module-declared Critical red-flag counts reconcile with decision_record.json red_flags "
             "and the Headline Scorecard Rating-cap cell does not deny one")
+    # AN supersession-integrity (§4a): validate any append-only corrections.json's superseded_by chain.
+    # Schema-gated (only a corrections/v1 sidecar counts) so AN honors exactly what the resolver honors.
+    _corr=_an_valid_sidecar(run)
+    _anresult=eval_an_supersession_integrity(_corr)
+    if _anresult is None:
+        add("AN_supersession_integrity",True,"no supersession sidecar — N/A",na=True)
+    elif _anresult:
+        add("AN_supersession_integrity",False,"; ".join(_anresult))
+    else:
+        add("AN_supersession_integrity",True,f"superseded_by → {(_corr.get('superseded_by') or {}).get('run_root')} (exists, has a decision record)")
+    # AM bear-case sanity (§8/§16): a Selected/conviction long must have a bear price target below entry.
+    _amresult=eval_am_bear_case_sanity(ddte,d.get("decision"),d.get("scenarios"),d.get("entry_price"))
+    if _amresult is None:
+        add("AM_bear_case_sanity",True,"not a post-gate Selected long with a usable bear price target — N/A",na=True)
+    elif _amresult:
+        add("AM_bear_case_sanity",False,"; ".join(_amresult))
+    else:
+        add("AM_bear_case_sanity",True,"bear-case price target is below entry_price — a genuine downside branch")
     # Retrospective advisories (informational only — NEVER read by run_pass/gate_eligible/suite_pass below).
     # AI and AK reconcile fields that existed long before either check's own landing date (Headline
     # Scorecard prose vs decision_record.json numbers; module-declared red-flag severity vs the red_flags

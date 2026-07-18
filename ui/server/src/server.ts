@@ -54,6 +54,7 @@ import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, rea
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
+import { startReviewLoop } from './review-dispatch'
 import { runAutotuneOnce, startAutotuneLoop } from './news/rank-weights-autotune'
 import { getAutotuneState, readChanges, revertChange, setAutotunePaused, setAutotunePins } from './news/rank-weights-audit'
 import { routeReason } from './news/triage/reason-router'
@@ -2414,6 +2415,10 @@ app
     // conviction loop (Phase 3): auto-fire /screener:validate on due checkpoints + on matching wire
     // items. OFF unless CONVICTION_LOOP_ENABLED=1 — auto-spawning paid checks is opt-in.
     startConvictionLoop()
+    // research review dispatcher: fire due 30/90/180/365d decision reviews from the always-on server,
+    // so the outcome-measurement layer no longer depends on the single macOS hk-review timer. OFF unless
+    // REVIEW_DISPATCH_ENABLED=1 — auto-spawning paid review runs is opt-in.
+    startReviewLoop()
     // feedback auto-tune (screener): once a day, apply the tuner's guardrailed, backtest-passing rank-weight
     // nudges from human feedback — audited + revertible. OFF unless SCREENER_AUTOTUNE_ENABLED=1 (opt-in, the
     // prod engine env sets it); nothing is spent and no paid run is launched.

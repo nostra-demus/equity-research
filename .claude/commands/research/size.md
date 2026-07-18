@@ -12,7 +12,7 @@ You build the **model paper-portfolio** for the research ledger — the step the
 
 ## 1. Gather the ledger
 
-`$ARGUMENTS`: empty/`all` → every `decision_record.json`; a ticker → that name. For each, read the decision record + the **latest-version** audit reports (`expectations_gap*.json` → edge; `pre_mortem*.json` → confidence haircut & verdict; `verification_report*.json` → integrity verdict). Resolve "latest" by highest `_vN` (base = first).
+`$ARGUMENTS`: empty/`all` → the **standing, corrected** ledger; a ticker → that name. Discover records by running `python3 scripts/ledger_records.py --standing-json` (Bash) — authoritative per `frameworks/DECISION_LEDGER.md` §4a: it **drops superseded runs** (a corrected-away call must never receive a paper-portfolio weight) and **applies append-only errata on read**. Iterate its `[{run_root, record}]` entries; do NOT raw-glob `analyses/*/decision_record.json`. For each, also read the **latest-version** audit reports (`expectations_gap*.json` → edge; `pre_mortem*.json` → confidence haircut & verdict; `verification_report*.json` → integrity verdict). Resolve "latest" by highest `_vN` (base = first).
 
 ## 2. Eligibility (what may carry model weight)
 

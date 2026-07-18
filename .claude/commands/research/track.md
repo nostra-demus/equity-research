@@ -20,7 +20,12 @@ Run the embedded script below via Bash. It discovers every `analyses/*/decision_
 
 ```bash
 SCOPE="${ARGUMENTS:-all}" python3 - <<'PY'
-import json, glob, os, subprocess, re
+import json, glob, os, subprocess, re, sys
+sys.path.insert(0, "scripts")
+# The STANDING, corrected ledger (DECISION_LEDGER.md §4a): drops superseded runs and applies
+# append-only errata on read, so the tracker never double-counts a corrected-away call (e.g. an
+# EMAAR run replaced by a later correction) and never reads a defective legacy value verbatim.
+from ledger_records import load_standing_records
 SCOPE = (os.environ.get("SCOPE") or "all").strip() or "all"
 today = subprocess.check_output(["date", "+%F"]).decode().strip()
 
@@ -83,14 +88,14 @@ def build_timeline(schedule, reviews):
     return out
 
 calls = []
-for drp in sorted(glob.glob("analyses/*/decision_record.json")):
-    d = load(drp)
+for _e in load_standing_records():
+    d = _e["record"]
     if not isinstance(d, dict): continue
     if not (d.get("ticker") and d.get("decision") and d.get("decision_date")):
         continue
     if SCOPE not in ("all", "") and d.get("ticker") != SCOPE:
         continue
-    run_root = d.get("run_root") or os.path.dirname(drp)
+    run_root = d.get("run_root") or _e["run_root"]
     reviews = reviews_for(run_root)
     timeline = build_timeline(d.get("review_schedule") or {}, reviews)
     lat = winner(reviews)

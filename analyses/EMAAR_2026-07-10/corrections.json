@@ -1,0 +1,11 @@
+{
+  "schema": "corrections/v1",
+  "errata": [
+    {
+      "field": "notes",
+      "kind": "note_clear",
+      "reason": "The record's notes end with the stale line 'LOCAL pre-merge integration test - not committed.' — but this record WAS committed (PR #253) and is the live, standing EMAAR call. The self-description is obsolete. Documentation only; the frozen record is unchanged (the note misdescribes its own status, it does not affect any scored field).",
+      "evidence": "analyses/EMAAR_2026-07-10/decision_record.json notes contains 'LOCAL pre-merge integration test - not committed.'; git PR #253 committed this run"
+    }
+  ]
+}

@@ -16,7 +16,7 @@ It implements `frameworks/DECISION_LEDGER.md` **Phase 4** (cohort reporting) and
 
 `$ARGUMENTS` is an optional `SCOPE`: empty/`all` → every decision record; a ticker → that ticker's records; `YYYY..YYYY` or a thesis-type token → filter accordingly (best-effort; default to `all`).
 
-Discover with `Glob analyses/*/decision_record.json`. For each run, also gather (read-only): its review records `analyses/<run>/reviews/*_decision_review*.json`, and its audit reports if present — `verification_report.json`, `pre_mortem.json`, `expectations_gap.json`. Skip any decision record that fails to parse or lacks `ticker`/`decision`/`decision_date` (report why).
+Discover the **STANDING, corrected** ledger by running `python3 scripts/ledger_records.py --standing-json` (Bash) — this is authoritative (`frameworks/DECISION_LEDGER.md` §4a): it **drops superseded runs** (a corrected-away duplicate is not a live call, so it never poisons the Selected/Rejected basket spread or the Brier score) and **applies append-only errata on read** (e.g. a legacy decimal-fraction probability restored to the 0–100 scale before it enters a Brier computation). Iterate its `[{run_root, record}]` entries — do NOT raw-glob `analyses/*/decision_record.json` yourself. For each run, also gather (read-only): its review records `analyses/<run>/reviews/*_decision_review*.json`, and its audit reports if present — `verification_report.json`, `pre_mortem.json`, `expectations_gap.json`. Skip any record that lacks `ticker`/`decision`/`decision_date` (report why).
 
 ## 2. Build the ledger inventory
 
