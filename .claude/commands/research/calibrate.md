@@ -1,123 +1,53 @@
 ---
-description: Aggregate the decision ledger into a performance + calibration summary — selected-vs-rejected basket spread, hit rate, confidence/probability calibration (Brier), per-module accuracy, and process metrics. Refuses to fake metrics on insufficient resolved history. Writes a dated decision_performance summary + calibration JSON.
+description: Aggregate the decision ledger into a performance + calibration scoreboard — benchmark-adjusted hit rate (with an exact Clopper-Pearson interval), Brier + Murphy decomposition, Selected−Rejected basket spread, an anytime-valid sequential e-value, and months-to-significance. Refuses to quote any skill metric on insufficient resolved history. Writes a dated performance summary + calibration JSON.
 argument-hint: [SCOPE]
-allowed-tools: Read, Glob, Bash, Write
+allowed-tools: Read, Bash
 ---
 
-You are the **calibration engine** — the part of the system that makes it *learn*. The best forecasters are not the most accurate; they are the best **calibrated** and they **keep score** (Tetlock's superforecasters; Dalio's "pain + reflection = progress"). This command aggregates every decision record and its outcome reviews into a performance + calibration summary, so the engine can see whether its selected ideas beat its rejected ones and whether "70% confident" actually happens ~70% of the time.
+You are the **calibration engine** — the part of the system that makes it *learn*. The best forecasters are not the most accurate; they are the best **calibrated** and they **keep score** (Tetlock's superforecasters; Dalio's "pain + reflection = progress"). The math is owned by a deterministic script so the numbers are exact and reproducible every run — a scoreboard the user bets real money on must never be re-derived in prose (which drifts). Your job is to run it, commit its output, and read the result back in plain English. Argument: an optional `SCOPE` (`$ARGUMENTS`) — empty/`all`, or a ticker.
 
-It implements `frameworks/DECISION_LEDGER.md` **Phase 4** (cohort reporting) and the **§2 North Star metric** (Selected − Rejected basket return), plus the §9/§10 calibration discipline. It is the consumer end of the loop that `decision_record.json` (Phase 2) and `review-decisions` (Phase 3) feed — and it is itself feeder to **Phase 6**: the `<TODAY>_calibration_summary.json` this command writes is read back by the master synthesizer's Pre-Write Gate step 4C on every subsequent run (`frameworks/DECISION_LEDGER.md` §18) to apply a bounded confidence haircut where `calibration_by_module` shows a module used in that run is poorly calibrated. Keep `calibration_by_module` / `calibration_by_forecast_type` keyed exactly by module folder name / the closed `forecast_type` set (§9 below) — Phase 6 looks up those keys verbatim.
+This implements `frameworks/DECISION_LEDGER.md` **Phase 4** (cohort reporting) and the **§2 North Star** (Selected − Rejected basket return), plus the §9/§10 calibration discipline. It is the consumer end of the loop that `decision_record.json` (Phase 2) and `review-decisions` (Phase 3) feed — and it is itself feeder to **Phase 6**: the `<TODAY>_calibration_summary.json` it writes is read back by the master synthesizer's Pre-Write Gate step 4C on every subsequent run (`frameworks/DECISION_LEDGER.md` §18). The script preserves that contract exactly — `verdict` starts with `"Pre-data"` below floor (the gate keys on that prefix), and `calibration_by_module` / `calibration_by_forecast_type` are keyed by the exact `owner_module` / `forecast_type` value, each `"insufficient (N=k)"` below its own floor.
 
-**Hard discipline (CLAUDE.md §11):** calibration on a tiny sample is false precision. If there is insufficient **resolved** history, you must say so and **not** quote a Brier score or a basket spread — compute only what the data supports. You are READ-ONLY on all decision/review records; you write only a dated performance summary + calibration JSON (a *derived, regenerable* aggregate — not an immutable record). Arguments: `$ARGUMENTS`.
+Execute in order.
 
----
+## 1. Run the deterministic scoreboard
 
-## 1. Resolve scope & gather the ledger
-
-`$ARGUMENTS` is an optional `SCOPE`: empty/`all` → every decision record; a ticker → that ticker's records; `YYYY..YYYY` or a thesis-type token → filter accordingly (best-effort; default to `all`).
-
-Discover the **STANDING, corrected** ledger by running `python3 scripts/ledger_records.py --standing-json` (Bash) — this is authoritative (`frameworks/DECISION_LEDGER.md` §4a): it **drops superseded runs** (a corrected-away duplicate is not a live call, so it never poisons the Selected/Rejected basket spread or the Brier score) and **applies append-only errata on read** (e.g. a legacy decimal-fraction probability restored to the 0–100 scale before it enters a Brier computation). Iterate its `[{run_root, record}]` entries — do NOT raw-glob `analyses/*/decision_record.json` yourself. For each run, also gather (read-only): its review records `analyses/<run>/reviews/*_decision_review*.json`, and its audit reports if present — `verification_report.json`, `pre_mortem.json`, `expectations_gap.json`. Skip any record that lacks `ticker`/`decision`/`decision_date` (report why).
-
-## 2. Build the ledger inventory
-
-One row per decision: ticker, run_date, decision, basket (§3 mapping — **prefer `post_mortem_decision` / `post_mortem_basket` when present**, the §18-capped standing call: a terminal pre-mortem ("Thesis broken" / "Does not survive") caps a Selected/Strong-Buy run to Watchlist, and calibrating it under its pre-cap basket would credit a basket the engine no longer holds), confidence_score, data_sufficiency_score, thesis_type, plus the audit roll-up where present (verification verdict + integrity_score; pre-mortem verdict + confidence_haircut; expectations-gap direction + edge_score), and the count/status of its reviews. **For the confidence calibration (§4), prefer `post_review_confidence_score` over `confidence_score` when the former is present** — it is the post-red-team estimate the engine stands behind, and calibrating against the raw pre-red-team number would systematically overstate the engine's raw confidence (fix F28). Record which was used in the inventory row.
-
-## 3. Cohort performance (only where reviews with returns exist)
-
-Per `DECISION_LEDGER` §2/§11, group decisions by basket (Selected / Rejected / Watchlist / Short / Insufficient — using `post_mortem_basket` when present, per §2 above) and compute, from the **review records** that carry returns:
-- basket returns at each horizon (30/90/180/365d), benchmark- and sector-relative;
-- **Selected − Rejected spread** (the North Star), and Selected − Watchlist;
-- hit rate, false-positive rate (selected losers), false-negative rate (rejected winners).
-
-Slice by thesis type and horizon where N allows. **If a basket has too few reviewed names to be meaningful (set a floor, e.g. < 5 reviewed decisions), do NOT quote its return — mark it "insufficient (N=k)."**
-
-## 4. Calibration (only where resolved forecasts exist)
-
-A resolved `forecast_results` entry (in the review record) carries the outcome but not the probability, `owner_module`, or `forecast_type` — those live on the *originating* `forecast_ledger` entry in the source `decision_record.json`. Match each `forecast_results` entry back to its `forecast_ledger` entry (by index, or by the prediction text reference it carries) before scoring; a `forecast_results` entry that cannot be matched back is not Brier-scorable and is excluded, not guessed.
-
-From resolved `forecast_results` across all review records, joined back to their source `forecast_ledger` entries as above:
-- bucket each resolved forecast by its stated `CLAUDE.md` §10 probability band; compute the realized hit rate per band and a **reliability** read (is "Likely 60–75%" hitting ~60–75%?);
-- compute a **Brier score** over resolved binary forecasts;
-- **confidence calibration:** do higher-confidence *decisions* realize better outcomes than lower-confidence ones?
-
-**Floor:** a Brier score or reliability curve needs a real sample (e.g. ≥ 10 resolved forecasts). Below it, report "insufficient resolved forecasts (N=k) — calibration not computed" rather than a misleading number.
-
-**Slice, don't just aggregate.** A single flat Brier score across every resolved forecast hides *which kind* of call the engine is systematically wrong about — the diagnostic that actually lets the engine improve (`CLAUDE.md` §19: "the engine must be able to learn from being wrong"). Once the ≥10-resolved-forecast floor is met overall, also slice the same Brier score / hit rate / reliability computation two ways, independently, each against its OWN floor (≥10 resolved forecasts in that slice — do not lower the floor per-slice):
-- **by `owner_module`** (`frameworks/DECISION_LEDGER.md` §6 — already present on every forecast_ledger entry, no schema gap): is the engine's earnings module better calibrated than its valuation module, its balance-sheet-survival module, etc.?
-- **by `forecast_type`** (`DECISION_LEDGER.md` §6, additive from 2026-07-01 — `revenue`, `margin_or_cost`, `earnings_eps`, `cash_flow`, `valuation_or_price_return`, `balance_sheet_or_solvency`, `governance_or_accounting`, `catalyst_or_estimate_revision`, `other`): is the engine better at calling revenue than margin, better at catalyst timing than multiple re-rating? A module can produce more than one forecast_type, so this is a genuinely different cut from `owner_module`, not a duplicate of it.
-
-Forecasts missing `owner_module` or `forecast_type` (older records, or `forecast_type` predating 2026-07-01) go in an explicit `"untagged"` bucket per slice — never dropped silently and never guessed. Below a slice's own floor, report that slice as `"insufficient (N=k)"` exactly as in the flat case; do not let a well-populated flat total imply every slice is populated too.
-
-## 5. Process metrics (computable now, no outcomes needed)
-
-These need no realized returns and should always be computed when records exist:
-- decision count; basket distribution; thesis-type distribution;
-- average confidence and data-sufficiency scores;
-- average verification integrity score; count of verify verdicts (Clean/Minor/Material/Failed);
-- average pre-mortem confidence haircut; count of pre-mortem verdicts;
-- **pre-mortem calibration (audit-of-the-auditor)** — across every review record's `pre_mortem_check` (`DECISION_LEDGER.md` §8, additive from 2026-07-17), tally `outcome_vs_verdict` into `pre_mortem_calibration.outcome_distribution` (`{not_applicable, too_early, vindicated, contradicted, partial}` counts). This is a **flat count, not a rate** — same discipline as `error_taxonomy_distribution` (§5 below): always populated, never gated behind a resolved-history floor, honest at any N. Within `contradicted`, split further into `false_comfort` (a `Survives`/`Survives with haircut` verdict paired with a `broken`/`at-risk` outcome — the red-team missed the real risk) vs `excess_caution` (a `Does not survive`/`Thesis broken` verdict paired with a `confirmed` outcome — the red-team would have killed a call that played out fine); count both into `pre_mortem_calibration.contradicted_breakdown`. This is the one metric that tells the engine whether the pre-mortem layer is adding signal or just adding an unverified haircut — surface it in the human summary (Step 9) whenever `vindicated + contradicted ≥ 1`, even far below any Brier-score floor, because a single `contradicted (false_comfort)` case is itself the concrete "why the engine is wrong" finding `CLAUDE.md` §20 exists to produce;
-- edge-score distribution from expectations-gap;
-- unsupported-claim / Material/Failed-verification rate (a leading quality signal even before outcomes);
-- **error-taxonomy tally** — across every review record's `error_taxonomy` array (`CLAUDE.md` §20, `DECISION_LEDGER.md` §12: `missing data`, `stale data`, `bad source`, `bad extraction`, `bad math`, `bad base rate`, `bad causal inference`, `management deception`, `exogenous shock`, `timing error`, `valuation multiple error`, `ignored red flag`, plus the 5 feedback-loop tags `false positive`/`false negative`/`thesis drift`/`catalyst delay`/`beta confusion`), count occurrences of each tag into `error_taxonomy_distribution`. This is a **flat count, not a rate** — like the screener's `error_taxonomy_distribution` (`scripts/screener_calibrate.py`), it is honest at any N and is never gated behind the §3/§4 resolved-history floors; an empty distribution with `n_reviews > 0` truthfully means no reviewed call has gone wrong yet, not "not computed." Do not slice this by module or thesis type yet — with a handful of reviews any slice would be noise; revisit once volume supports it. Name the leading tag(s) (if any tag count ≥ 2) in the human summary (Step 9) — all tags tied for the highest count, not an arbitrary pick among them — this is the one concrete "why the engine is wrong" signal CLAUDE.md §20 exists to produce, and it must not go unread just because Brier is still pre-data.
-
-## 6. Per-module calibration roll-up (§13)
-
-Aggregate `module_calibration_notes` across review records → which module has been most predictive / most often missed the key variable, by sector / thesis type / horizon. If there are no reviews yet, state "pending first reviews."
-
-## 7. Data-sufficiency verdict (§11)
-
-State `n_decisions`, `n_reviews`, `n_resolved_forecasts`. Give an honest verdict:
-- **Pre-data** — records exist but no/*too few* resolved reviews; report inventory + process metrics only.
-- **Emerging** — some resolved history; report cohort/calibration with explicit small-N caveats.
-- **Calibrated** — enough resolved history for reliable cohort spreads and a Brier score.
-
-Never present cohort returns or calibration as reliable below the floors in §3/§4.
-
-## 8. Write the outputs
-
-Write a dated pair under `analyses/performance/` (create it): `<TODAY>_decision_performance_summary.md` (human-readable) and `<TODAY>_calibration_summary.json` (machine). `<TODAY>` = `date +%F`. These are derived/regenerable — a new date is a new snapshot; do not overwrite an existing dated file (use a `_v2` suffix if one already exists for today).
-
-`calibration_summary.json` schema:
+Run the aggregator. If `SCOPE` is empty or `all`, run it bare; if `SCOPE` is a ticker, append `--scope <TICKER>`:
 
 ```
-{
-  "schema_version": "1.0",
-  "generated_at": "",
-  "scope": "",
-  "n_decisions": null,
-  "n_reviews": null,
-  "n_resolved_forecasts": null,
-  "inventory": [],
-  "basket_distribution": {},
-  "cohort_returns": {},
-  "hit_rate": null,
-  "selected_minus_rejected_pct": null,
-  "calibration": {},
-  "calibration_by_module": {},
-  "calibration_by_forecast_type": {},
-  "confidence_calibration": {},
-  "process_metrics": {},
-  "error_taxonomy_distribution": {},
-  "pre_mortem_calibration": {},
-  "module_calibration": {},
-  "data_sufficiency_note": "",
-  "verdict": ""
-}
+python3 scripts/calibrate.py --print
 ```
 
-`calibration_by_module` / `calibration_by_forecast_type` are the §4 quantitative slices (Brier score + hit rate + reliability, keyed by `owner_module` value / `forecast_type` value, each `"insufficient (N=k)"` below its own floor) — distinct from `module_calibration`, which is the §6/§13 qualitative roll-up of `module_calibration_notes` from review records (which module a reviewer judged "most predictive," not a computed score). `error_taxonomy_distribution` is the §5 flat tally (`{tag: count}` across every review's `error_taxonomy` array) — always populated (`{}` if no review has tagged an error yet), never subject to the resolved-forecast floor, and never omitted from the JSON even when every other calibration field is `null`/`{}`. `pre_mortem_calibration` is the §5 audit-of-the-auditor tally: `{"outcome_distribution": {"not_applicable": n, "too_early": n, "vindicated": n, "contradicted": n, "partial": n}, "contradicted_breakdown": {"false_comfort": n, "excess_caution": n}}` — same discipline as `error_taxonomy_distribution` (always populated, never floor-gated).
+The script reads the **STANDING, corrected** ledger via `scripts/ledger_records.py` (drops superseded runs, applies append-only errata on read — `frameworks/DECISION_LEDGER.md` §4a) plus each run's review files. It writes the pair under `analyses/performance/` — `<TODAY>_calibration_summary.json` (machine) + `<TODAY>_decision_performance_summary.md` (human) — and prints the verdict. It is **read-only** on every decision/review record. It computes, each **withheld below its own floor** (CLAUDE.md §11 — a metric a tiny sample can't support is `null` / `"insufficient (N=k)"`, never estimated):
 
-Use `{}`/`null`/`"insufficient (N=k)"` for anything the data does not yet support. Validate: `python3 -m json.tool "<json_file>" >/tmp/calib_check.json`. Fix if invalid.
+- **benchmark-adjusted directional hit rate** with an **exact Clopper-Pearson** 95% interval — a call "hits" only when it beats its OWN benchmark in the bet's direction, never on a raw return;
+- **Brier + Murphy decomposition** (reliability / resolution / uncertainty) and a §10-band reliability read;
+- **Selected − Rejected basket spread** (the §2 North Star — scoring the rejections roughly doubles the effective sample);
+- an **anytime-valid sequential e-value** of the hit rate vs a coin flip (a monthly check carries no peeking penalty), plus the conservative **effective sample size** (distinct tickers, since forecasts inside one run are correlated) and **months-to-significance**;
+- the always-honest flat tallies — `error_taxonomy_distribution` (§20) and `pre_mortem_calibration` (§5 audit-of-the-auditor) — which are counts, not rates, and are populated at any N.
 
-## 9. Human summary + git
+Do **not** compute or estimate any metric yourself, and do not "fill in" a value the script left `null` — the script owns the math and the small-N refusal.
 
-Print: scope · N decisions / reviews / resolved forecasts · data-sufficiency verdict · the headline numbers that ARE supported (basket distribution, process metrics; cohort spread + Brier only if above the floor) · the leading error-taxonomy tag(s) from `error_taxonomy_distribution` if any tag count ≥ 2 (never gated by the floor — this can be the single useful read even in a Pre-data run) · `pre_mortem_calibration.outcome_distribution` whenever `vindicated + contradicted ≥ 1`, naming every `contradicted (false_comfort)` case explicitly by ticker (a red-team layer that gave false comfort on a broken thesis is the costliest possible miss in this metric and must never be buried in a count) · the single most useful read · output paths. Then commit straight to `main` (add only `analyses/performance/<TODAY>_*`), message `Calibrate ledger: <scope> — <verdict> (N=<n_decisions> decisions, <n_reviews> reviews)`, and push. Report the SHA.
+## 2. Commit the output (DATA → main, per CLAUDE.md §25)
 
----
+The performance summary is a derived, regenerable aggregate (not immutable), so it commits straight to `main` via the serialized helper — data-only pathspec (use the scope in the message, defaulting to `all`):
+
+```
+bash scripts/commit-run.sh "Calibrate ledger: all — $(date +%Y-%m-%d)" -- "analyses/performance/"
+```
+
+Report the commit SHA.
+
+## 3. Report in plain English (§21)
+
+Read the printed JSON and say:
+- the **verdict** line and the **honesty statement** (when a real skill verdict becomes possible), verbatim in spirit;
+- the counts — decisions, reviews, resolved forecasts, resolved directional calls — and the **effective** sample vs the raw one;
+- every skill metric that IS above its floor (hit rate + its CI, Brier, Selected−Rejected spread, whether the e-value has crossed the skill threshold); for anything still below floor, say so and give the N vs the floor — never present a withheld metric as if it were measured;
+- the leading `error_taxonomy_distribution` tag(s) if any count ≥ 2 (this is the one concrete "why the engine is wrong" read even in a Pre-data run — never gated by the floor), and every `pre_mortem_calibration` `contradicted (false_comfort)` case by ticker (a red-team that gave false comfort on a broken thesis is the costliest miss in that metric).
 
 ## Hard rules
 
-- **Never fake calibration.** Below the §3/§4 floors, report "insufficient (N=k)" — do not quote a Brier score or a basket spread that a tiny sample cannot support (§11).
-- **Read-only on all decision/review records.** Writes only the dated `analyses/performance/` summary + JSON (derived, not an immutable record).
-- **Process metrics are always honest to compute** (no outcomes needed) — surface them even pre-data, so the engine has a quality dashboard from day one.
-- Grounded in `DECISION_LEDGER.md` §2/§9/§10/§11/§13; spawns no subagents; creates no dashboard/export layer (that is Phase 5).
+- **The script owns the math and the small-N refusal.** An honest empty scoreboard is the correct output until the reviews resolve — never quote a Brier, a hit rate, or a basket spread the script left withheld (§11/§19).
+- **Read-only on all decision/review records.** The command writes only the dated `analyses/performance/` pair (via the script) — a derived aggregate, not an immutable record.
+- Grounded in `DECISION_LEDGER.md` §2/§9/§10/§11/§13/§18; spawns no subagents; creates no dashboard/export layer (that is Phase 5 / the tracker).

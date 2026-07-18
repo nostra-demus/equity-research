@@ -119,6 +119,27 @@ The one caveat: commodity names are common English words ("gold", "sugar"), so l
 
 A paid-API integration is a fetcher that WRITES FILES — it needs no engine wiring. Contract: drop the pull (CSV/JSON/PDF) into `EXTERNAL-INBOX/<Provider>/` (or directly into a ticker's `external/<provider>/` with a sidecar), one file per pull, the as-of IN the filename or body. Keys live in `~/.config/nostra-engine/providers.env` (never in the repo, §28). The router, extractor, triage, and staleness loop then treat it exactly like a manual drop. This is deliberately the same zero-touch shape as §26: adding a data source must never require engine-code edits.
 
+## 7A. The market price feed — `data/_market/` (cross-cutting reference series)
+
+Most external data is ticker-scoped (`data/<TICKER>/external/`). The **market price feed** is not: it is
+a shared reference series — index / sector / stock daily closes — that the calibration scoreboard reads
+to score calls on a **benchmark-adjusted** basis (a long that merely rode a rising market is not skill,
+CLAUDE.md §9) and to anchor a **review / tracking price** for a null-entry call. So it lives once, under
+`data/_market/<Provider>/`, on the same §7 file-drop contract (a fetcher WRITES FILES; no engine wiring,
+no live engine API call).
+
+- **Format:** long-format CSV, header `date,symbol,close` (ISO date; symbol = index/sector/stock; close
+  = float in the symbol's own currency), one row per `(symbol, date)`. An optional `_symbols.json` maps
+  a symbol to `{kind, benchmark, sector, beta}` to enable beta-adjusted excess (absent → beta 1.0). The
+  full contract, with examples, is in `data/_market/README.md`.
+- **The as-of is the latest date IN the data**, never a file mtime (§8 / fix F23).
+- **Readers:** `scripts/market_prices.py` (pure, read-only — `close_on`, `total_return`,
+  `beta_adjusted_excess` returning BOTH the raw and the beta-adjusted figure). `scripts/calibrate.py`
+  reports feed presence and the return basis; `/research:review-decisions` may use `close_on` to
+  establish an append-only `tracking_price` for a call whose pool had no price.
+- **Graceful absence:** until a feed lands, `market_prices` is `unavailable()` and calibrate falls back
+  to the review-time benchmark-relative return each review already computed — and says so. Nothing breaks.
+
 ## 8. Hard rules (recap)
 
 - No source = no claim (§3). An external figure cites provider + date + where in the document, like any other source.

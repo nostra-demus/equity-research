@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deterministic eval harness for the equity-research engine.
 
-Checks invariants A-Z, AA-AN, and J (framework-source contracts) against every committed
+Checks invariants A-Z, AA-AO, and J (framework-source contracts) against every committed
 decision record in analyses/. Called by /research:eval and by CI.
 
 Usage:
@@ -822,6 +822,89 @@ def eval_am_bear_case_sanity(decision_date, decision, scenarios, entry_price):
         return [f"Selected/conviction long but the bear-case price target {bear['price_target']} is not below "
                 f"entry_price {entry_price} — no genuine downside branch (§8 strongest-bear-case; §16)"]
     return []
+
+# ── Check AO (§19 / DECISION_LEDGER §6 forecast RESOLVABILITY) — a forecast the calibration loop can score ──
+AO_DATE = "2026-07-18"
+# The mechanically-verifiable subset of resolvability (the full semantic requirement — outcome-space
+# exhaustiveness + a ≤90-day quota — is enforced at AUTHORING time by the synthesizer prompt). Check T
+# already requires the trigger/window FIELDS to be non-empty; AO requires them to be RESOLVABLE: a pinned
+# numeric bar or a named settleable document (not a bare "beats consensus"), triggers that actually
+# partition the outcome space (not identical text), and — at the record level — at least one near-term
+# (≤90-day) proof point so the whole call is not un-checkable until years out.
+_AO_NAMED_DOC = re.compile(r"\b(10-?k|10-?q|8-?k|20-?f|6-?k|annual report|quarter|results|filing|filed|"
+                           r"transcript|nse|bse|sec|sebi|def ?14a|proxy|press release|guidance|rating|"
+                           r"crisil|icra|care|investor|circular|prospectus|order book|backlog)\b", re.I)
+_AO_CONSENSUS = re.compile(r"\b(consensus|estimate|estimates|expectation|expectations|street|analysts?)\b", re.I)
+_AO_MONTHS = {"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"oct":10,"nov":11,"dec":12}
+_AO_MONTH_RE = re.compile(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+(\d{4})\b", re.I)
+_AO_ISO_RE = re.compile(r"\b(\d{4})-(\d{2})-(\d{2})\b")
+
+def _ao_earliest_date(time_window):
+    """Best-effort EARLIEST confidently-parseable resolution date (YYYY-MM-DD) from a free-text
+    time_window — an ISO date, or a 'Month YYYY'. Biased to the earliest match so a genuinely near-term
+    window is never misread as long. Returns None when nothing is confidently parseable (ambiguity is
+    never failed) — fiscal-quarter-only text ('Q1 FY27' with no month) is deliberately treated as
+    unparseable, since Q1 spans different calendar months across jurisdictions."""
+    cands = []
+    for m in _AO_ISO_RE.finditer(time_window or ""):
+        y, mo, d = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        if 1 <= mo <= 12 and 1 <= d <= 31:
+            cands.append(f"{y:04d}-{mo:02d}-{d:02d}")
+    for m in _AO_MONTH_RE.finditer(time_window or ""):
+        mo = _AO_MONTHS[m.group(1)[:3].lower()]
+        cands.append(f"{int(m.group(2)):04d}-{mo:02d}-01")  # 1st of the month = earliest it could resolve
+    return min(cands) if cands else None
+
+def _ao_days_after(decision_date, target):
+    try:
+        d0 = datetime.datetime.strptime(decision_date[:10], "%Y-%m-%d").date()
+        d1 = datetime.datetime.strptime(target[:10], "%Y-%m-%d").date()
+        return (d1 - d0).days
+    except (ValueError, TypeError):
+        return None
+
+def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
+    """Check AO: every forecast must be mechanically RESOLVABLE (so it can enter the Brier score), and
+    the record must carry a near-term proof point. Per entry: triggers must (a) carry a pinned numeric
+    bar OR name a settleable document, (b) not reference consensus/estimates without a number, and (c)
+    not be identical confirmation==falsification text. Per record: at least one forecast must resolve
+    within 90 days of the decision (≥2 or ≥40% is the authoring-time target; the gate fails only the
+    clear case — every dateable forecast settles beyond a quarter). Returns None (pre-gate / empty
+    ledger) or a list of violations (empty = pass)."""
+    if not (isdate(decision_date) and decision_date >= AO_DATE):
+        return None
+    fl = forecast_ledger or []
+    if not fl:
+        return None  # empty forecast_ledger is allowed (§19)
+    issues = []
+    near_term = parseable_long = 0
+    for i, e in enumerate(fl):
+        if not isinstance(e, dict):
+            continue  # T flags non-object entries
+        ct = str(e.get("confirmation_trigger") or "").strip()
+        ft = str(e.get("falsification_trigger") or "").strip()
+        both = ct + " ⋮ " + ft
+        if ct and ft and ct.lower() == ft.lower():
+            issues.append(f"forecast_ledger[{i}] confirmation and falsification triggers are identical — the outcome space is not partitioned")
+        has_digit = bool(re.search(r"\d", both))
+        has_doc = bool(_AO_NAMED_DOC.search(both))
+        if _AO_CONSENSUS.search(both) and not has_digit:
+            # the more specific diagnosis wins even when a doc is named — the consensus NUMBER is still unpinned
+            issues.append(f"forecast_ledger[{i}] references consensus/estimates but pins no number — a bare 'beats consensus' cannot be settled (§5)")
+        elif not has_digit and not has_doc:
+            issues.append(f"forecast_ledger[{i}] triggers carry no pinned numeric bar and name no settleable document — not mechanically resolvable (§5/§19)")
+        tgt = _ao_earliest_date(str(e.get("time_window") or ""))
+        if tgt:
+            days = _ao_days_after(decision_date, tgt)
+            if days is not None and days >= 0:
+                if days <= 90:
+                    near_term += 1
+                else:
+                    parseable_long += 1
+    if near_term == 0 and parseable_long >= 2:
+        issues.append(f"no near-term (≤90-day) resolvable forecast — all {parseable_long} dateable forecasts settle beyond one "
+                      f"quarter from the decision date; the call cannot be checked for months (§19 wants ≥2 or ≥40% within 90 days)")
+    return issues
 
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
@@ -1837,7 +1920,33 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AM({dt_!r},{dec_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
     bad+=ambad
 
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM cases")
+    # check AO — forecast resolvability (§19). Pinned/settleable + partitioned triggers, and a ≤90-day proof point.
+    aobad=0
+    _fc_good={"confirmation_trigger":"Q1 EBITDA margin at or below 12.0%","falsification_trigger":"Q1 margin at or above 12.3%","time_window":"August 2026"}
+    _fc_bare={"confirmation_trigger":"beats consensus","falsification_trigger":"misses consensus","time_window":"August 2026"}
+    _fc_nonum={"confirmation_trigger":"the plan works","falsification_trigger":"the plan fails","time_window":"August 2026"}
+    _fc_ident={"confirmation_trigger":"margin above 12%","falsification_trigger":"margin above 12%","time_window":"August 2026"}
+    _fc_far={"confirmation_trigger":"net cash eliminated below 0","falsification_trigger":"net cash still above 0","time_window":"December 2028"}
+    aocases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substrings]=fail-with)
+        ("2026-07-17",[_fc_good],None),                                        # predates AO_DATE → N/A
+        ("2026-07-18",[],None),                                                # empty ledger → N/A (§19)
+        ("2026-07-18",[_fc_good],[]),                                          # pinned + near-term → pass
+        ("2026-07-18",[_fc_bare],["pins no number"]),                          # bare 'beats consensus' → FAIL
+        ("2026-07-18",[_fc_nonum],["no pinned numeric bar and name no settleable"]), # no number, no doc → FAIL
+        ("2026-07-18",[_fc_ident],["outcome space is not partitioned"]),       # identical triggers → FAIL
+        ("2026-07-18",[_fc_far,_fc_far],["no near-term"]),                     # every dateable fc >90d → record FAIL
+        ("2026-07-18",[_fc_good,_fc_far],[]),                                  # one near-term proof point → pass
+    ]
+    for dt_,fl_,exp in aocases:
+        got=eval_ao_forecast_resolvability(dt_,fl_)
+        if exp is None: ok=(got is None)
+        elif not exp: ok=(isinstance(got,list) and len(got)==0)
+        else: ok=(isinstance(got,list) and len(got)>0 and all(any(s in v for v in got) for s in exp))
+        if not ok: aobad+=1
+        print(f"  [{'ok' if ok else 'XX'}] AO({dt_!r},n={len(fl_)}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+    bad+=aobad
+
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(aocases)} check-AO cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -2686,6 +2795,16 @@ for drp in runs:
         add("AM_bear_case_sanity",False,"; ".join(_amresult))
     else:
         add("AM_bear_case_sanity",True,"bear-case price target is below entry_price — a genuine downside branch")
+    # AO forecast-resolvability (§19 / DECISION_LEDGER §6): every forecast must be mechanically scorable
+    # (pinned numeric bar or named settleable document, partitioned triggers) and the record must carry a
+    # near-term (≤90-day) proof point — so the calibration loop can actually resolve it.
+    _aoresult=eval_ao_forecast_resolvability(ddte,d.get("forecast_ledger"))
+    if _aoresult is None:
+        add("AO_forecast_resolvability",True,"run predates resolvability gate, or forecast_ledger is [] — N/A",na=True)
+    elif _aoresult:
+        add("AO_forecast_resolvability",False,"; ".join(_aoresult))
+    else:
+        add("AO_forecast_resolvability",True,"every forecast carries a pinned/settleable, partitioned trigger and the record has a ≤90-day proof point")
     # Retrospective advisories (informational only — NEVER read by run_pass/gate_eligible/suite_pass below).
     # AI and AK reconcile fields that existed long before either check's own landing date (Headline
     # Scorecard prose vs decision_record.json numbers; module-declared red-flag severity vs the red_flags
@@ -2784,8 +2903,13 @@ FRAMEWORK_CONTRACTS={
  "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method","forecast_type","Calibration Feedback Gate","calibration_feedback","calibration_by_module","error_taxonomy_distribution","pre_mortem_check","audit-of-the-auditor","outcome_vs_verdict","false comfort","excess caution"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta","pre_mortem_check","outcome_vs_verdict","7A. Pre-mortem calibration check"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- ".claude/commands/research/calibrate.md":["calibration_by_module","calibration_by_forecast_type","owner_module","forecast_type","Phase 6","error_taxonomy_distribution","flat count, not a rate","never subject to the resolved-forecast floor","pre_mortem_calibration","outcome_distribution","false_comfort","excess_caution"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES"],
+ ".claude/commands/research/calibrate.md":["calibration_by_module","calibration_by_forecast_type","owner_module","forecast_type","Phase 6","error_taxonomy_distribution","pre_mortem_calibration","scripts/calibrate.py","Pre-data","withheld","Clopper-Pearson","Selected − Rejected","commit-run.sh"],
+ "scripts/calibrate.py":["load_standing_records","clopper_pearson","murphy_decomposition","e_value_hit_rate","effective_n","months_to_significance","reliability_bands","MIN_RESOLVED_FORECASTS","calibration_by_module","calibration_by_forecast_type","error_taxonomy_distribution","pre_mortem_calibration","outcome_distribution","contradicted_breakdown","false_comfort","excess_caution","Pre-data","honesty_statement","benchmark-adjusted","load_feed","market_feed"],
+ "scripts/test_calibrate.py":["clopper_pearson","murphy_decomposition","e_value_hit_rate","Pre-data","hit rate","already_significant"],
+ "scripts/market_prices.py":["data/_market","close_on","total_return","beta_adjusted_excess","raw_excess_pct","beta_adjusted_excess_pct","available","as_of","date,symbol,close"],
+ "data/_market/README.md":["date,symbol,close","_symbols.json","beta_adjusted_excess","close_on","EXTERNAL_DATA"],
+ "frameworks/EXTERNAL_DATA.md":["data/_market","market_prices.py","beta-adjusted","tracking_price","date,symbol,close"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
