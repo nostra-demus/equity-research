@@ -99,10 +99,12 @@ export function maybeCompactThemesLedger(
   }
 }
 
-// Null-safe: loadThemes() parses raw ledger lines with no schema normalisation, so a legacy/partial
-// theme row can lack `companies` / `related_themes`. Guard here so every top() call site (buildSummary,
-// deep-dive) degrades gracefully instead of throwing on `.slice` of undefined.
-const top = <T>(arr: T[] | undefined | null, n: number): T[] => (arr || []).slice(0, n)
+// Array-safe: loadThemes() parses raw ledger lines with no schema normalisation, so a legacy/partial
+// theme row can lack `companies` / `related_themes`, or carry a corrupt non-array truthy value there.
+// Array.isArray() guards every top() call site (buildSummary, deep-dive) against BOTH — a missing array
+// AND a non-array (`{}`, `true`, …) — so neither throws on `.slice`. (The declared T[] is the happy-path
+// type; the runtime value is untrusted ledger data, hence the guard.)
+const top = <T>(arr: T[] | undefined | null, n: number): T[] => (Array.isArray(arr) ? arr.slice(0, n) : [])
 
 /** Compact projection: Theme → ThemeSummary (no member arrays) for the index + SSE bus. */
 export function buildSummary(t: Theme): ThemeSummary {
@@ -234,15 +236,20 @@ export function buildThemeDetail(repoRoot: string, theme: Theme): ThemeDetail {
   const whyIndex = buildWhyIndex(theme.members)
   const withWhy = (c: ThemeCompany): ThemeCompany => ({ ...c, why: buildCompanyWhy(c, c.name_key, whyIndex) })
   const byOrder: CompaniesByOrder = { first: [], second: [], third: [] }
-  for (const c of theme.companies || []) (c.order === 1 ? byOrder.first : c.order === 2 ? byOrder.second : byOrder.third).push(withWhy(c))
+  // Array.isArray (not `|| []`): a corrupt ledger row could parse `companies` as a non-array truthy value
+  // (`{}`, `true`), and `for…of {}` throws "object is not iterable" — the same class the top() guard covers.
+  for (const c of (Array.isArray(theme.companies) ? theme.companies : [])) (c.order === 1 ? byOrder.first : c.order === 2 ? byOrder.second : byOrder.third).push(withWhy(c))
 
+  // Default the array pass-throughs so a malformed theme degrades gracefully on the CLIENT too: the deep
+  // dive dereferences `detail.related_themes.length` (and maps sectors/keywords), so a missing/non-array
+  // field here would crash `ThemeDeepDive` even though the server got past buildSummary.
   return {
     theme: buildSummary(theme),
     scores: theme.scores,
     members,
     companies_by_order: byOrder,
-    sectors: theme.sectors,
-    related_themes: theme.related_themes,
-    keywords: theme.keywords,
+    sectors: Array.isArray(theme.sectors) ? theme.sectors : [],
+    related_themes: Array.isArray(theme.related_themes) ? theme.related_themes : [],
+    keywords: Array.isArray(theme.keywords) ? theme.keywords : [],
   }
 }

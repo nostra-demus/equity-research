@@ -184,4 +184,33 @@ await check('buildThemeDetail: a malformed theme with no companies array degrade
   assert.equal(detail!.companies_by_order.third.length, 0)
 })
 
+await check('buildThemeDetail: a corrupt theme whose companies/related_themes are non-array truthy values does not throw', () => {
+  // A corrupt ledger line could parse `companies`/`related_themes` as a truthy NON-array (`{}`, `true`).
+  // `(arr || [])` would still hand that value to `.slice` and throw — Array.isArray() is the robust guard.
+  const theme = {
+    theme_id: 'THM-corrupt', name: 'x', slug: 'x', description: '', keywords: [], company_keys: [], event_type_affinity: [],
+    members: [], member_count_total: 0, companies: {} as any, related_themes: true as any, sectors: [],
+    scores: { freshness: 0, magnitude: 0, breadth: 0, persistence: 0, composite: 0 },
+    tier: 'warm', fresh_flow: 0, flow_series: [], status: 'live', merged_into: null,
+    first_seen: '', last_flow: '', generation: 'deterministic', rev: 1,
+  } as unknown as Theme
+  assert.doesNotThrow(() => buildThemeDetail('/nonexistent-repo-xyz', theme), 'a non-array truthy companies/related_themes must not throw')
+})
+
+await check('buildThemeDetail: the detail payload defaults array fields so the client deep-dive never dereferences undefined', () => {
+  // The client does `detail.related_themes.length` and maps sectors/keywords, so the server must hand back
+  // arrays even for a theme whose fields are absent — else the deep-dive crashes on the client.
+  const theme = {
+    theme_id: 'THM-bare', name: 'x', slug: 'x', description: '', /* keywords absent */ company_keys: [], event_type_affinity: [],
+    members: [], member_count_total: 0, /* companies, related_themes, sectors absent */
+    scores: { freshness: 0, magnitude: 0, breadth: 0, persistence: 0, composite: 0 },
+    tier: 'warm', fresh_flow: 0, flow_series: [], status: 'live', merged_into: null,
+    first_seen: '', last_flow: '', generation: 'deterministic', rev: 1,
+  } as unknown as Theme
+  const detail = buildThemeDetail('/nonexistent-repo-xyz', theme)
+  assert.ok(Array.isArray(detail.related_themes) && detail.related_themes.length === 0, 'related_themes defaults to []')
+  assert.ok(Array.isArray(detail.sectors) && detail.sectors.length === 0, 'sectors defaults to []')
+  assert.ok(Array.isArray(detail.keywords) && detail.keywords.length === 0, 'keywords defaults to []')
+})
+
 console.log(`\nthemes-why: ${passed} checks passed`)
