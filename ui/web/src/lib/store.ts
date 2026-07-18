@@ -8,7 +8,7 @@ import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import { affectedModules, focusKeysFor } from './intake'
-import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
+import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
@@ -282,6 +282,8 @@ interface State {
   chatStyle: ChatStyle // narration style — sticky preference, default 'simple'
   chatMessages: ChatMessage[]
   chatStreaming: boolean
+  // What the in-flight turn is doing right now (real streamed stages — see ChatWork in types.ts). null ⇒ idle.
+  chatWork: ChatWork | null
   chatError?: string
   chatSource?: string // sourcePath from chat-meta — "answering from …"
   chatConversationId?: string // id of the persisted conversation this thread belongs to (from chat-meta)
@@ -699,7 +701,7 @@ function defaultChatTitle(scope: ChatScope, ticker: string, opts?: { module?: st
 
 // the chat-panel scope state cleared on every teardown (ticker switch, swarm switch) so a conversation
 // never bleeds across companies. Mirrors how openOutput is nulled alongside it.
-const CHAT_RESET = { chatOpen: false, chatStreaming: false, chatMessages: [] as ChatMessage[], chatError: undefined as string | undefined, chatSource: undefined as string | undefined, chatConversationId: undefined as string | undefined, chatAnswerRunRoot: undefined as string | undefined }
+const CHAT_RESET = { chatOpen: false, chatStreaming: false, chatWork: null as ChatWork | null, chatMessages: [] as ChatMessage[], chatError: undefined as string | undefined, chatSource: undefined as string | undefined, chatConversationId: undefined as string | undefined, chatAnswerRunRoot: undefined as string | undefined }
 
 export const useStore = create<State>((set, get) => ({
   connected: true,
@@ -765,6 +767,7 @@ export const useStore = create<State>((set, get) => ({
   chatStyle: loadChatStyle(),
   chatMessages: [],
   chatStreaming: false,
+  chatWork: null,
   chatError: undefined,
   chatSource: undefined,
   chatConversationId: undefined,
@@ -1893,24 +1896,24 @@ export const useStore = create<State>((set, get) => ({
       chatOpen: true, chatScope: scope,
       chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey, chatAnswerRunRoot: undefined,
       chatTitle: defaultChatTitle(scope, t, opts),
-      chatError: undefined, chatSource: undefined, chatStreaming: false,
+      chatError: undefined, chatSource: undefined, chatStreaming: false, chatWork: null,
       // a different scope starts a fresh thread AND a fresh saved conversation; reopening the same scope keeps both
       ...(sameScope ? {} : { chatMessages: [], chatConversationId: undefined }),
     })
   },
-  closeChat: () => { chatAbort?.abort(); chatAbort = null; set({ chatOpen: false, chatStreaming: false }) },
+  closeChat: () => { chatAbort?.abort(); chatAbort = null; set({ chatOpen: false, chatStreaming: false, chatWork: null }) },
   setChatScope: (scope, opts) => {
     chatAbort?.abort(); chatAbort = null
     set({
       chatScope: scope, chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey, chatAnswerRunRoot: undefined,
-      chatMessages: [], chatStreaming: false, chatError: undefined, chatSource: undefined, chatConversationId: undefined,
+      chatMessages: [], chatStreaming: false, chatWork: null, chatError: undefined, chatSource: undefined, chatConversationId: undefined,
       chatTitle: defaultChatTitle(scope, chatSubjectOf(get()) || '', opts),
     })
   },
   setChatModel: (m) => set({ chatModel: m }),
   setChatStyle: (s) => { try { localStorage.setItem(CHAT_STYLE_KEY, s) } catch { /* blocked storage */ } set({ chatStyle: s }) },
   // Clear starts a NEW conversation (fresh saved thread); the prior one stays in history — nothing is lost.
-  clearChat: () => { chatAbort?.abort(); chatAbort = null; set({ chatMessages: [], chatError: undefined, chatStreaming: false, chatSource: undefined, chatConversationId: undefined, chatAnswerRunRoot: undefined }) },
+  clearChat: () => { chatAbort?.abort(); chatAbort = null; set({ chatMessages: [], chatError: undefined, chatStreaming: false, chatWork: null, chatSource: undefined, chatConversationId: undefined, chatAnswerRunRoot: undefined }) },
 
   // ---- saved chat history (persisted Ask conversations) ----
   openChatHistory: () => set({ chatHistoryOpen: true }),
@@ -1980,11 +1983,12 @@ export const useStore = create<State>((set, get) => ({
       chatOrbKey: c.orbKey,
       chatAnswerRunRoot: answerRunRoot,
       chatTitle: c.title || defaultChatTitle(c.scope, c.subject, { module: c.module }),
-      chatMessages: c.messages.map((m) => ({ role: m.role, content: m.content })),
+      chatMessages: c.messages.map((m) => ({ role: m.role, content: m.content, thinking: m.thinking })),
       chatConversationId: c.id,
       chatModel: c.model || get().chatModel,
       chatStyle: (c.style as ChatStyle) || get().chatStyle,
       chatStreaming: false,
+      chatWork: null,
       chatError: undefined,
       chatSource: undefined,
     })
@@ -1999,7 +2003,7 @@ export const useStore = create<State>((set, get) => ({
       chatHistoryOpen: false, chatOpen: true, chatScope: 'run',
       chatModule: undefined, chatOrbPath: undefined, chatOrbKey: undefined, chatAnswerRunRoot: undefined,
       chatTitle: defaultChatTitle('run', t), chatMessages: [], chatConversationId: undefined,
-      chatError: undefined, chatSource: undefined, chatStreaming: false,
+      chatError: undefined, chatSource: undefined, chatStreaming: false, chatWork: null,
     })
   },
   deleteConversation: async (id) => {
@@ -2015,9 +2019,18 @@ export const useStore = create<State>((set, get) => ({
     const subject = chatSubjectOf(get())
     if (!subject) return
     const baseline = get().chatMessages
-    // optimistic: append the user turn + an empty assistant turn we grow token-by-token
-    set({ chatMessages: [...baseline, { role: 'user', content: q }, { role: 'assistant', content: '' }], chatStreaming: true, chatError: undefined, chatSource: undefined })
+    // optimistic: append the user turn + an empty assistant turn we grow token-by-token. chatWork starts
+    // at 'sending' NOW (the one stage the client itself knows to be true) and then follows the server's
+    // streamed real stages — never a guessed progress state.
+    const t0 = Date.now()
+    set({ chatMessages: [...baseline, { role: 'user', content: q }, { role: 'assistant', content: '' }], chatStreaming: true, chatWork: { stage: 'sending', startedAt: t0, stageAt: t0 }, chatError: undefined, chatSource: undefined })
     const idx = baseline.length + 1 // index of the assistant turn we mutate
+    // advance the live working state, preserving the turn's start time (the panel's stopwatch) + the model
+    // id once known. Positively matches known stages only (deploy skew — DESIGN.md §5).
+    const advance = (stage: ChatWork['stage'], model?: string) => {
+      const w = get().chatWork
+      set({ chatWork: { stage, model: model ?? w?.model, startedAt: w?.startedAt ?? t0, stageAt: Date.now() } })
+    }
     chatAbort?.abort()
     chatAbort = new AbortController()
     const sw = get().activeSwarm
@@ -2042,18 +2055,33 @@ export const useStore = create<State>((set, get) => ({
       },
       {
         signal: chatAbort.signal,
-        // capture the server-minted conversation id so later turns append to the same saved thread
-        onMeta: (m) => set({ chatSource: m.sourcePath, ...(m.conversationId ? { chatConversationId: m.conversationId } : {}) }),
-        onToken: (tok) => {
-          const msgs = get().chatMessages.slice()
-          if (msgs[idx]?.role === 'assistant') { msgs[idx] = { role: 'assistant', content: msgs[idx].content + tok }; set({ chatMessages: msgs }) }
+        // capture the server-minted conversation id so later turns append to the same saved thread.
+        // meta arriving = the server assembled the closed-book context — a real stage transition.
+        onMeta: (m) => { set({ chatSource: m.sourcePath, ...(m.conversationId ? { chatConversationId: m.conversationId } : {}) }); advance('context') },
+        // real lifecycle stages streamed by the server (starting → connected → thinking → writing);
+        // an unknown/future stage is ignored rather than mis-rendered.
+        onStatus: (st) => {
+          if (st.stage === 'starting' || st.stage === 'connected' || st.stage === 'thinking' || st.stage === 'writing') advance(st.stage, st.model)
         },
-        onDone: () => set({ chatStreaming: false }),
+        // the model's own reasoning, streamed verbatim — grows the assistant turn's thinking text live
+        onThinking: (tok) => {
+          const msgs = get().chatMessages.slice()
+          if (msgs[idx]?.role === 'assistant') { msgs[idx] = { ...msgs[idx], thinking: (msgs[idx].thinking || '') + tok }; set({ chatMessages: msgs }) }
+        },
+        onToken: (tok) => {
+          // first answer token also flips the stage to 'writing' — covers a stream whose text arrives
+          // without a preceding chat-status (an older engine during deploy skew).
+          if (get().chatWork?.stage !== 'writing') advance('writing')
+          const msgs = get().chatMessages.slice()
+          if (msgs[idx]?.role === 'assistant') { msgs[idx] = { ...msgs[idx], content: msgs[idx].content + tok }; set({ chatMessages: msgs }) }
+        },
+        onDone: () => set({ chatStreaming: false, chatWork: null }),
         onError: (msg) => {
-          // drop the empty assistant bubble if nothing streamed, then surface the error + retry
+          // drop the empty assistant bubble if nothing streamed (thinking alone doesn't save it), then
+          // surface the error + retry
           const msgs = get().chatMessages.slice()
           if (msgs[idx]?.role === 'assistant' && msgs[idx].content === '') msgs.splice(idx, 1)
-          set({ chatMessages: msgs, chatStreaming: false, chatError: msg })
+          set({ chatMessages: msgs, chatStreaming: false, chatWork: null, chatError: msg })
         },
       },
     )

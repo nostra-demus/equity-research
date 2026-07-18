@@ -76,6 +76,16 @@ await check('assistant turn appends + accrues cost; second question extends the 
   assert.ok(got.updatedAt >= got.createdAt)
 })
 
+await check('assistant thinking persists with the turn (and stays absent when not captured)', async () => {
+  const c = await recordUserMessage(meta(), 'Q with reasoning')
+  await recordAssistantMessage(c.id, 'A with reasoning', { thinking: 'step 1… step 2…' })
+  await recordUserMessage(meta(), 'Q plain', c.id)
+  await recordAssistantMessage(c.id, 'A plain')
+  const got = getConversation(c.id)!
+  assert.equal(got.messages[1].thinking, 'step 1… step 2…')
+  assert.equal(got.messages[3].thinking, undefined)
+})
+
 await check('a client-echoed id for a NON-existent conversation mints a fresh id (no ghost file)', async () => {
   const c = await recordUserMessage(meta(), 'orphan', 'chat_zzzzzz_deadbeef')
   assert.notEqual(c.id, 'chat_zzzzzz_deadbeef')
