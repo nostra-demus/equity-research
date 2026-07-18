@@ -494,6 +494,9 @@ def match_resolved_forecasts(record, reviews):
     if not rev:
         return []
     out = []
+    seen = set()  # ledger entries already scored THIS review — a review that repeats the same prediction
+                  # / forecast_index must not count one forecast twice toward the Brier N or overweight its
+                  # module/type slice (§ effective-N). Each ledger entry is a fixed object, so id() dedups.
     for r in rev.get("forecast_results", []) or []:
         if not isinstance(r, dict):
             continue
@@ -503,6 +506,9 @@ def match_resolved_forecasts(record, reviews):
         src = by_text.get(_norm(r.get("prediction"))) or _by_reference(r)
         if src is None:
             continue  # neither text nor an explicit reference matched → not Brier-scorable, never positional-guessed
+        if id(src) in seen:
+            continue  # this ledger entry was already resolved by an earlier result row → skip the duplicate
+        seen.add(id(src))
         prob = _finite_num(src.get("probability"))  # rejects NaN/inf/bool — a NaN prob would defeat the range check
         if prob is None:
             continue

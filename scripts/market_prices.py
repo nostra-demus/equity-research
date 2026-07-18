@@ -185,7 +185,11 @@ class MarketFeed:
         return 1.0
 
     def benchmark_of(self, symbol):
-        return (self._meta.get(symbol) or {}).get("benchmark")
+        b = (self._meta.get(symbol) or {}).get("benchmark")
+        # A benchmark must be a non-empty STRING symbol. A non-string container (list/dict) in a
+        # user-provided _symbols.json would otherwise reach total_return() → _closes.get(unhashable) and
+        # raise TypeError, crashing beta_adjusted_excess — treat it as missing (None) instead.
+        return b if (isinstance(b, str) and b.strip()) else None
 
     def beta_adjusted_excess(self, symbol, d0, d1, benchmark=None, beta=None):
         """Beta-adjusted excess return (%): stock_return − beta·benchmark_return over [d0, d1]. This is

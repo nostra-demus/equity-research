@@ -836,7 +836,12 @@ _AO_NAMED_DOC = re.compile(r"\b(10-?k|10-?q|8-?k|20-?f|6-?k|annual report|"
                            r"second-quarter|third-quarter|fourth-quarter|q[1-4]|h[12]|fy\s?\d{2,4})\s+"
                            r"(?:results?|report|filing|earnings|numbers)|"
                            r"filing|filed|transcript|nse|bse|sec|sebi|def ?14a|proxy|press release|"
-                           r"guidance|rating|crisil|icra|care|circular|prospectus|"
+                           # NOT bare 'guidance' / 'rating' — an event noun with no numeric bar and no
+                           # settlement source ('guidance improves', 'rating worsens') is calibration-dead.
+                           # A legitimate use carries its own context that already matches here: a period-
+                           # qualified 'guidance raised in the Q1 results', an 'investor day', or a named
+                           # rating agency (crisil/icra/care) — those settle it; the bare noun does not.
+                           r"crisil|icra|care|circular|prospectus|"
                            r"investor\s+(?:presentation|day|deck|update|briefing))\b", re.I)
 _AO_CONSENSUS = re.compile(r"\b(consensus|estimate|estimates|expectation|expectations|street|analysts?)\b", re.I)
 _AO_MONTHS = {"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"oct":10,"nov":11,"dec":12}
@@ -853,6 +858,11 @@ _AO_PERIOD_TOKENS = re.compile(
     # `fy26`, and also the Indian fiscal-YEAR-RANGE spelling `FY26-27` / `FY2026-27` / `FY26/27` — the
     # optional second-year group strips the trailing `-27` that would otherwise survive and be misread as
     # a pinned number (CLAUDE.md §27 makes an Indian company the default case, where `FY26-27` is routine).
+    # COMPACT quarter+fiscal-year with no boundary between them ('Q1FY27', 'Q1 FY27', 'H1FY2027') — the
+    # standalone `\bq[1-4]\b` / `\bfy…` alternatives can't strip these ('Q1FY27' has no boundary either
+    # side of the join), so a bare 'Q1FY27 EPS beats consensus' would keep '27' and read as a pinned
+    # number. Matched FIRST so the whole compact label is consumed.
+    r"\b(?:q[1-4]|[1-4]q|h[12])\s?fy\s?\d{2,4}(?:\s?[-/]\s?\d{2,4})?\b|"
     r"\bfy\s?\d{2,4}(?:\s?[-/]\s?\d{2,4})?\b|\bq[1-4]\b|\b[1-4]q\b|\bh[12]\b|\b\d{4}-\d{2}-\d{2}\b|"
     r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+\d{4}\b", re.I)
 
@@ -1023,13 +1033,22 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
     # forecast: a ledger with clearly-long forecasts and zero near-term ones cannot be rescued by leaving one
     # forecast undated (the loophole). So apply the quota when there are no undateable forecasts OR at least
     # one is provably long. A 5-forecast ledger with 1 near-term / 4 long (20%) fails; 1-of-2 (50%) or a lone
-    # near-term passes; an all-undateable ledger (no proof either way) is not failed.
+    # near-term passes; an all-undateable ledger is failed ONLY when it is also genuinely UNBOUNDED (below).
     dateable = near_term + parseable_long
     if (undateable == 0 or parseable_long > 0) and dateable >= 1 and near_term < 2 and near_term < 0.4 * dateable:
         pct = round(100.0 * near_term / dateable)
         issues.append(f"insufficient near-term proof points — only {near_term} of {dateable} dateable forecasts "
                       f"({pct}%) resolve within 90 days of the decision; §19 wants ≥2 or ≥40%, else the call cannot "
                       f"be checked for months")
+    elif dateable == 0 and undateable > 0 and not any(
+            _AO_PERIOD_TOKENS.search(str(e.get("time_window") or "")) for e in fl if isinstance(e, dict)):
+        # Every window is undateable AND none even names a bounded fiscal period (Q/H/FY), month, or date —
+        # the ledger is genuinely unbounded ('over the next few years'), so it carries NO checkable near-term
+        # proof point at all (§19). A fiscal-period label like 'Q1 FY27' is unpinnable to a calendar date but
+        # IS a bounded near-term-ish period, so it keeps the benefit of the doubt and does not trip this.
+        issues.append("no dateable near-term proof point — every forecast window is vague and unbounded "
+                      "(e.g. 'over the next few years') with no fiscal period (Q/H/FY), month, or date to settle "
+                      "on; §19 requires at least one checkable near-term proof point")
     return issues
 
 if scope=="selftest":
@@ -2073,6 +2092,9 @@ if scope=="selftest":
     _fc_vague={"confirmation_trigger":"net cash eliminated below 0","falsification_trigger":"net cash still above 0","time_window":"over the next few years"}
     _fc_samemonth={"confirmation_trigger":"Q1 EBITDA margin at or below 12.0%","falsification_trigger":"Q1 margin at or above 12.3%","time_window":"results July 2026"}
     _fc_conshalf={"confirmation_trigger":"FY27 EPS above 42 vs consensus 40","falsification_trigger":"FY27 EPS below consensus in Q1 results","time_window":"August 2026"}
+    _fc_compactcons={"confirmation_trigger":"Q1FY27 EPS beats consensus","falsification_trigger":"Q1FY27 EPS below consensus","time_window":"August 2026"}
+    _fc_bareguid={"confirmation_trigger":"guidance improves","falsification_trigger":"guidance worsens","time_window":"August 2026"}
+    _fc_qonly={"confirmation_trigger":"net cash eliminated below 0","falsification_trigger":"net cash still above 0","time_window":"Q1 FY27"}
     aocases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substrings]=fail-with)
         ("2026-07-17",[_fc_good],None),                                        # predates AO_DATE → N/A
         ("2026-07-18",[],None),                                                # empty ledger → N/A (§19)
@@ -2086,7 +2108,10 @@ if scope=="selftest":
         ("2026-07-18",[_fc_fyrangecons],["pins no number"]),                   # consensus + only a FISCAL-YEAR-RANGE (FY26-27) → FAIL (the '-27' must not read as a pinned number)
         ("2026-07-18",[_fc_realcons],[]),                                      # consensus WITH a real pinned number → pass
         ("2026-07-18",[_fc_far],["insufficient near-term"]),                   # a SINGLE long-dated forecast → FAIL
-        ("2026-07-18",[_fc_far_undate],[]),                                    # long trigger but UNDATEABLE window → no quota fail (lenient)
+        ("2026-07-18",[_fc_far_undate],["no dateable near-term proof point"]), # genuinely unbounded window ('the medium term'), no period ref → no near-term proof point → FAIL (r12)
+        ("2026-07-18",[_fc_qonly],[]),                                         # UNDATEABLE but a bounded fiscal period ('Q1 FY27') → benefit of the doubt, still passes (r12)
+        ("2026-07-18",[_fc_compactcons],["pins no number"]),                   # compact 'Q1FY27' stripped → bare 'beats consensus' with no pinned value → FAIL (r12)
+        ("2026-07-18",[_fc_bareguid],["not mechanically resolvable"]),         # bare 'guidance improves' is not a settleable document and pins no number → FAIL (r12)
         ("2026-07-18",[_fc_yearthresh],[]),                                    # a 2026 THRESHOLD (not a year) survives → pins a number → pass
         ("2026-07-18",[_fc_invbare],["not mechanically resolvable"]),          # bare 'investor confidence' is not a document → FAIL
         ("2026-07-18",[_fc_invdoc],[]),                                        # 'investor presentation' IS a settleable document → pass

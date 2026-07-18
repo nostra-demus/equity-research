@@ -738,6 +738,19 @@ def test_spread_matched_by_horizon():
           f"spread at the matched 30d window: 4.0 − (−3.0) = 7.0 (got {out2.get('selected_minus_rejected_pct')} @ {out2.get('selected_minus_rejected_window')})")
 
 
+def test_duplicate_forecast_result_not_double_counted():
+    # Codex r12: a review that resolves the SAME ledger entry more than once (repeated prediction text or a
+    # forecast_index pointing at an already-scored entry) must count it ONCE toward the Brier N / slices.
+    rec = {"forecast_ledger": [{"prediction": "EPS up", "probability": 70, "owner_module": "earnings",
+                               "forecast_type": "eps"}]}
+    reviews = [{"forecast_results": [
+        {"prediction": "EPS up", "status": "confirmed"},
+        {"prediction": "EPS up", "status": "confirmed"},          # duplicate text → same ledger entry
+        {"prediction": "see #1", "forecast_index": 1, "status": "confirmed"}]}]  # explicit ref → same entry
+    got = C.match_resolved_forecasts(rec, reviews)
+    check(len(got) == 1, f"the same ledger entry resolved 3× counts ONCE toward the Brier sample (got {len(got)})")
+
+
 def main():
     print("test_calibrate.py")
     for fn in (test_incomplete_beta, test_clopper_pearson, test_brier_and_murphy, test_e_value,
@@ -758,7 +771,7 @@ def main():
                test_run_root_relative_in_inventory, test_pair_trade_basket_not_scored,
                test_false_comfort_derived_from_verdict, test_arrival_span_malformed_date_no_crash,
                test_superseded_priced_review_not_resurrected, test_skill_declaration_needs_distinct_tickers,
-               test_spread_matched_by_horizon,
+               test_spread_matched_by_horizon, test_duplicate_forecast_result_not_double_counted,
                test_end_to_end_floor_met, test_probability_scale, test_below_floor_withholds):
         print(f"[{fn.__name__}]")
         fn()
