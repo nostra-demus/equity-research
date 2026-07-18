@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "ticker": "TMCV",
+  "run_root": "analyses/TMCV_2026-06-07",
+  "scan_date": "2026-07-18",
+  "watermark": "analyses/TMCV_2026-06-07/final_thesis.md",
+  "new_docs": [],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [],
+    "commands": [],
+    "note_only": []
+  },
+  "verdict": "note_only",
+  "summary": "No data/TMCV/ pool directory exists, so there are no documents newer than the run's final_thesis.md watermark. Nothing to re-run."
+}
