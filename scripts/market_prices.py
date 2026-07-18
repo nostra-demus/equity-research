@@ -41,6 +41,7 @@ import csv
 import datetime
 import glob
 import json
+import math
 import os
 import sys
 
@@ -67,7 +68,9 @@ def _read_csv_closes(path):
                     close = float(str(row[cols["close"]]).strip())
                 except (KeyError, ValueError, TypeError, AttributeError):
                     continue
-                if sym and _is_iso(date) and close == close:  # close==close rejects NaN
+                # a close must be a FINITE POSITIVE price: NaN/±inf produce nonsensical/infinite returns,
+                # and 0 or negative would divide-by-zero or sign-flip in total_return — skip the bad row.
+                if sym and _is_iso(date) and math.isfinite(close) and close > 0:
                     yield sym, date, close
     except OSError:
         return
@@ -246,6 +249,17 @@ def selftest():
             f.write("date,symbol,close\nnot-a-date,STK,oops\n2026-08-01,STK,130\n")
         feed2 = load_feed(td)
         check(feed2.close_on("STK", "2026-08-01") == 130.0, "good row read despite a sibling malformed row")
+
+        # non-finite / non-positive closes AND an impossible calendar date are all skipped, not ingested
+        with open(os.path.join(prov, "junk.csv"), "w", encoding="utf-8") as f:
+            f.write("date,symbol,close\n")
+            f.write("2026-09-01,JUNK,inf\n2026-09-02,JUNK,-5\n2026-09-03,JUNK,0\n")   # inf / negative / zero
+            f.write("2026-02-31,JUNK,50\n")                                            # impossible date
+            f.write("2026-09-05,JUNK,42\n")                                            # the one good row
+        feed3 = load_feed(td)
+        check(feed3.symbols().count("JUNK") == 1 and feed3.as_of() == "2026-09-05",
+              "inf/-5/0/impossible-date rows skipped; only the good JUNK row (42 @ 2026-09-05) survives")
+        check(feed3.close_on("JUNK", "2026-09-30") == 42.0, "close_on never returns a skipped bad price")
 
     print("[market_prices] selftest", "PASS" if ok else "FAIL")
     return ok

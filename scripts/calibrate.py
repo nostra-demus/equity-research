@@ -84,8 +84,12 @@ BANDS = [
 # Resolution status → realized outcome for a forecast (1 = predicted event happened, 0 = did not,
 # None = unresolved). Matched case-insensitively; anything not listed is treated as unresolved.
 _CONFIRM = {"confirmed", "correct", "hit", "true", "occurred", "played out", "vindicated", "yes"}
-_FALSIFY = {"falsified", "wrong", "missed", "false", "did not occur", "failed", "broken", "no"}
-# everything else ("still open", "open", "not assessable", "too early", "pending", "expired") → None
+# `expired`/`lapsed`/`elapsed` = the window passed and the predicted (confirmation) event did NOT happen —
+# that is a SETTLED MISS (realized 0), not unresolved. Dropping it would understate the sample and flatter
+# calibration by silently discarding the timed-out losses. ("expired unresolved"/"not assessable" stay None.)
+_FALSIFY = {"falsified", "wrong", "missed", "false", "did not occur", "failed", "broken", "no",
+            "expired", "lapsed", "elapsed"}
+# everything else ("still open", "open", "not assessable", "too early", "pending", "expired unresolved") → None
 
 
 # ════════════════════════════════════════════════════════════════════════════════════════════════
@@ -348,8 +352,20 @@ def confidence_of(record):
     return record.get("confidence_score"), "confidence_score"
 
 
+# Review windows ranked by DURATION (approx days), so `latest_review` orders by maturity, not text. A
+# lexicographic sort would put '90d' after '180d'/'365d' (since '9' > '1'/'3'), letting a same-day 90-day
+# review wrongly supersede a longer, more mature one. post-mortem is the final word; ad-hoc sits just below.
+_WINDOW_RANK = {"30d": 30, "90d": 90, "180d": 180, "365d": 365, "24m": 730, "36m": 1095,
+                "ad-hoc": 100000, "post-mortem": 200000}
+
+
+def _window_rank(w):
+    return _WINDOW_RANK.get(_norm(w), 50000)  # an unknown window sorts between the dated windows and ad-hoc
+
+
 def read_reviews(run_root):
-    """All review JSONs for a run, sorted by (review_date, window)."""
+    """All review JSONs for a run, sorted by (review_date, window DURATION) so the last element is the
+    most recent and, within a day, the most mature horizon."""
     out = []
     for fp in sorted(glob.glob(os.path.join(REPO, run_root, "reviews", "*_decision_review*.json"))):
         try:
@@ -360,7 +376,7 @@ def read_reviews(run_root):
                 out.append(d)
         except (OSError, json.JSONDecodeError, ValueError):
             continue
-    return sorted(out, key=lambda r: (r.get("review_date") or "", r.get("review_window") or ""))
+    return sorted(out, key=lambda r: (r.get("review_date") or "", _window_rank(r.get("review_window"))))
 
 
 def latest_review(reviews):
@@ -415,6 +431,27 @@ def match_resolved_forecasts(record, reviews):
     return out
 
 
+def _review_rel(review):
+    """The benchmark-relative return (%) for a review, or None. Recovers the TRACKING-PRICE (null-entry)
+    case — the whole point of the tracking_price flow (BG): a null-entry review leaves the entry-derived
+    `benchmark_relative_return_pct` null but still fills `absolute_return_pct` (from the tracking price)
+    and `benchmark_return_pct`, so the relative return is their difference. Preference order: the stated
+    benchmark-relative → absolute − benchmark (tracking-price recovery) → sector-relative."""
+    if not review:
+        return None
+    r = review.get("benchmark_relative_return_pct")
+    if isinstance(r, (int, float)) and not isinstance(r, bool):
+        return float(r)
+    a, b = review.get("absolute_return_pct"), review.get("benchmark_return_pct")
+    if (isinstance(a, (int, float)) and not isinstance(a, bool)
+            and isinstance(b, (int, float)) and not isinstance(b, bool)):
+        return round(a - b, 6)
+    s = review.get("sector_relative_return_pct")
+    if isinstance(s, (int, float)) and not isinstance(s, bool):
+        return float(s)
+    return None
+
+
 def directional_hit(record, review):
     """Did the call beat its OWN benchmark in the bet's direction? Returns 1 / 0 / None (no bet or no
     computable relative return). A long (Selected) hits on a POSITIVE benchmark-relative return; a
@@ -426,12 +463,8 @@ def directional_hit(record, review):
     so it is NOT a directional bet (returns None). The raw `decision` is only a FALLBACK when the basket
     does not classify (missing / unrecognised) — it is never re-capped, so it must not override the
     capped basket, and it must not let a Rejected-basket Buy be scored as a long."""
-    if not review:
-        return None
-    rel = review.get("benchmark_relative_return_pct")
+    rel = _review_rel(review)
     if rel is None:
-        rel = review.get("sector_relative_return_pct")
-    if not isinstance(rel, (int, float)):
         return None
     basket = _norm(basket_of(record))
     if basket == "selected":
@@ -498,13 +531,18 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         pairs = match_resolved_forecasts(rec, reviews)
         for p in pairs:
             all_pairs.append(p)
-        if pairs:
-            cluster_by_ticker[_norm(tkr)] = cluster_by_ticker.get(_norm(tkr), 0) + len(pairs)
         dh = directional_hit(rec, rev)
         if dh is not None:
             directional.append({"ticker": tkr, "hit": dh, "basket": basket})
+        # Effective-N clusters by ticker over EVERY scored bet this run contributes — resolved forecast
+        # pairs AND a directional call. Counting only forecast pairs let a run resolve a directional hit
+        # (returns settle before forecast outcomes, or a decision has no forecast ledger) while reporting
+        # effective_n = 0, so the advisory failed to flag a hit-rate CI/e-value built on correlated bets.
+        scored_here = len(pairs) + (1 if dh is not None else 0)
+        if scored_here:
+            cluster_by_ticker[_norm(tkr)] = cluster_by_ticker.get(_norm(tkr), 0) + scored_here
 
-        rel = rev.get("benchmark_relative_return_pct") if rev else None
+        rel = _review_rel(rev)  # tracking-price-aware (recovers a null-entry review's benchmark-relative)
         if isinstance(rel, (int, float)):
             basket_returns.setdefault(basket, []).append(rel)
 

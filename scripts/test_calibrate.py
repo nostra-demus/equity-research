@@ -280,6 +280,52 @@ def test_scoped_output_isolated():
         C.PERF_DIR = saved
 
 
+def test_expired_is_a_settled_miss():
+    # Codex #4: an expired forecast (window elapsed, event didn't happen) is realized 0, not unresolved
+    check(C._realized("expired") == 0, "'expired' → 0 (a settled timeout miss, not dropped)")
+    check(C._realized("lapsed") == 0, "'lapsed' → 0")
+    check(C._realized("expired unresolved") is None, "'expired unresolved' stays None (genuinely undetermined)")
+    check(C._realized("still open") is None and C._realized("confirmed") == 1, "open/confirmed unchanged")
+
+
+def test_tracking_price_return_recovered():
+    # Codex #2: a null-entry review fills absolute + benchmark but not the entry-derived relative;
+    # the tracking-price flow must still produce a benchmark-relative return (BG's whole point)
+    rev = {"benchmark_relative_return_pct": None, "absolute_return_pct": 8.0, "benchmark_return_pct": 3.0}
+    check(C._review_rel(rev) == 5.0, "tracking-price review → rel = absolute − benchmark = 5.0")
+    # and it drives a directional hit for a long that beat its benchmark
+    check(C.directional_hit({"basket": "Selected", "decision": "Buy"}, rev) == 1,
+          "null-entry Selected long that beat its benchmark → a scored HIT (not dropped)")
+    # a stated benchmark-relative still wins when present
+    check(C._review_rel({"benchmark_relative_return_pct": -2.0, "absolute_return_pct": 8.0, "benchmark_return_pct": 3.0}) == -2.0,
+          "an explicit benchmark_relative_return_pct takes precedence over the derived one")
+
+
+def test_effective_n_counts_directional_only_runs():
+    # Codex #3: a run that resolves a DIRECTIONAL hit but has no forecast pairs must still contribute to
+    # effective_sample — else the script could declare a hit rate while reporting effective_n = 0
+    rr = "analyses/DIRONLY_2026-06-01"
+    standing = [{"run_root": rr, "record": {
+        "ticker": "DIRONLY", "decision": "Buy", "decision_date": "2026-06-01", "basket": "Selected",
+        "forecast_ledger": []}}]  # NO forecasts → no Brier pairs
+    reviews = [{"benchmark_relative_return_pct": 4.0}]  # but a directional return resolves
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: reviews)
+    es = out["effective_sample"]
+    check(es["n_raw"] == 1 and es["n_clusters"] == 1,
+          f"a directional-only run contributes to effective_sample (got raw={es['n_raw']}, clusters={es['n_clusters']})")
+
+
+def test_reviews_sort_by_horizon_not_text():
+    # Codex #7: same-day windows must order by DURATION — a 90d review must not supersede a same-day 365d
+    check(C._window_rank("365d") > C._window_rank("180d") > C._window_rank("90d") > C._window_rank("30d"),
+          "window rank is monotone in duration, not lexicographic")
+    revs = [{"review_date": "2026-07-01", "review_window": "365d"},
+            {"review_date": "2026-07-01", "review_window": "90d"}]
+    ordered = sorted(revs, key=lambda r: (r["review_date"], C._window_rank(r["review_window"])))
+    check(C.latest_review(ordered)["review_window"] == "365d",
+          "the most mature same-day horizon (365d) is 'latest', not the lexicographically-largest '90d'")
+
+
 def test_below_floor_withholds():
     standing = [{"run_root": "analyses/ONE_2026-06-01", "record": {
         "ticker": "ONE", "decision": "Buy", "decision_date": "2026-06-01", "basket": "Selected",
@@ -296,6 +342,8 @@ def main():
                test_effective_n, test_months_to_significance_honesty, test_forecast_join_never_misscores,
                test_fraction_slip_excluded, test_effective_n_clusters_by_ticker, test_all_reviews_tallied,
                test_false_comfort_named, test_brier_ready_not_reported_withheld, test_scoped_output_isolated,
+               test_expired_is_a_settled_miss, test_tracking_price_return_recovered,
+               test_effective_n_counts_directional_only_runs, test_reviews_sort_by_horizon_not_text,
                test_end_to_end_floor_met, test_probability_scale, test_below_floor_withholds):
         print(f"[{fn.__name__}]")
         fn()

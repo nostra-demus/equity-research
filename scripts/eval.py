@@ -833,22 +833,27 @@ AO_DATE = "2026-07-18"
 # (≤90-day) proof point so the whole call is not un-checkable until years out.
 _AO_NAMED_DOC = re.compile(r"\b(10-?k|10-?q|8-?k|20-?f|6-?k|annual report|quarter|results|filing|filed|"
                            r"transcript|nse|bse|sec|sebi|def ?14a|proxy|press release|guidance|rating|"
-                           r"crisil|icra|care|investor|circular|prospectus|order book|backlog)\b", re.I)
+                           r"crisil|icra|care|circular|prospectus|investor\s+(?:presentation|day|deck|update|briefing))\b", re.I)
 _AO_CONSENSUS = re.compile(r"\b(consensus|estimate|estimates|expectation|expectations|street|analysts?)\b", re.I)
 _AO_MONTHS = {"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"oct":10,"nov":11,"dec":12}
 _AO_MONTH_RE = re.compile(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+(\d{4})\b", re.I)
 _AO_ISO_RE = re.compile(r"\b(\d{4})-(\d{2})-(\d{2})\b")
-# Period / date TOKENS (a fiscal year, quarter, half, calendar year/date) — digits that only LABEL a period,
+# Period / date TOKENS (a fiscal year, quarter, half, calendar date) — digits that only LABEL a period,
 # not a pinned threshold. Stripped before asking "is there a real number here?", so 'FY27 EPS beats
-# consensus' is correctly seen as pinning NO consensus value (its only digit is the fiscal year).
+# consensus' is correctly seen as pinning NO consensus value. Deliberately does NOT strip a bare
+# four-digit number ('revenue above ₹2,026 cr', 'price > 2026'): a standalone 2026 is ambiguous, and
+# wrongly reading a real threshold as a year would FALSELY fail a settleable ledger (a false-positive
+# eval gate blocks valid PRs — worse than letting a weak year-only reference pass). Years are stripped
+# only in an explicit date context (FY__, ISO date, Month YYYY).
 _AO_PERIOD_TOKENS = re.compile(
-    r"\bfy\s?\d{2,4}\b|\b[1-4]?q\s?[1-4]?\b|\bh[12]\b|\b(19|20)\d{2}\b|\b\d{4}-\d{2}-\d{2}\b|"
+    r"\bfy\s?\d{2,4}\b|\bq[1-4]\b|\b[1-4]q\b|\bh[12]\b|\b\d{4}-\d{2}-\d{2}\b|"
     r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+\d{4}\b", re.I)
 
 def _ao_pins_a_number(text):
     """True if `text` carries a numeric threshold that is NOT merely a period/date LABEL. Strips fiscal
     years, quarters, halves, and calendar dates first, then looks for a remaining digit. 'FY27 EPS beats
-    consensus' → False (only the year); 'FY27 EPS above ₹42' → True (42 survives the strip)."""
+    consensus' → False (only the fiscal year); 'FY27 EPS above ₹42' → True (42 survives); 'revenue above
+    2026 cr' → True (a bare four-digit threshold is kept, not mistaken for a year)."""
     return bool(re.search(r"\d", _AO_PERIOD_TOKENS.sub(" ", text or "")))
 
 def _ao_earliest_date(time_window):
@@ -912,13 +917,18 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
         tgt = _ao_earliest_date(str(e.get("time_window") or ""))
         if tgt:
             days = _ao_days_after(decision_date, tgt)
-            if days is not None and days >= 0:
-                if days <= 90:
-                    near_term += 1
-                else:
-                    parseable_long += 1
-            else:
+            if days is None:
                 undateable += 1  # a date we couldn't place relative to the decision → treat as undateable
+            elif days < 0:
+                # a window that resolves BEFORE the decision is already stale — it can never be a future
+                # proof point. Flag it (a defect), and do NOT count it as undateable (which would wrongly
+                # suppress the near-term-quota failure).
+                issues.append(f"forecast_ledger[{i}] time_window resolves on {tgt}, BEFORE the decision date "
+                              f"{decision_date} — already stale at decision, cannot provide a future proof point")
+            elif days <= 90:
+                near_term += 1
+            else:
+                parseable_long += 1
         else:
             undateable += 1      # no confidently-parseable date in the window
     # Fail the near-term quota only when CONFIDENT: zero near-term proof points AND every forecast we could
@@ -1954,6 +1964,10 @@ if scope=="selftest":
     _fc_fycons={"confirmation_trigger":"FY27 EPS beats consensus","falsification_trigger":"FY27 EPS below consensus","time_window":"August 2026"}
     _fc_realcons={"confirmation_trigger":"FY27 EPS above 42 vs consensus 40","falsification_trigger":"FY27 EPS below 40","time_window":"August 2026"}
     _fc_far_undate={"confirmation_trigger":"net cash below 0","falsification_trigger":"net cash above 0","time_window":"the medium term"}
+    _fc_yearthresh={"confirmation_trigger":"revenue above 2026 cr, beating consensus","falsification_trigger":"revenue below 2026 cr","time_window":"August 2026"}
+    _fc_invbare={"confirmation_trigger":"investor confidence improves","falsification_trigger":"investor confidence weakens","time_window":"August 2026"}
+    _fc_invdoc={"confirmation_trigger":"guidance raised at the investor presentation","falsification_trigger":"guidance cut at the investor presentation","time_window":"August 2026"}
+    _fc_stale={"confirmation_trigger":"margin above 12%","falsification_trigger":"margin below 12%","time_window":"January 2026"}
     aocases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substrings]=fail-with)
         ("2026-07-17",[_fc_good],None),                                        # predates AO_DATE → N/A
         ("2026-07-18",[],None),                                                # empty ledger → N/A (§19)
@@ -1967,6 +1981,10 @@ if scope=="selftest":
         ("2026-07-18",[_fc_realcons],[]),                                      # consensus WITH a real pinned number → pass (fix #2)
         ("2026-07-18",[_fc_far],["no near-term"]),                             # a SINGLE long-dated forecast → FAIL (fix #4)
         ("2026-07-18",[_fc_far_undate],[]),                                    # long trigger but UNDATEABLE window → no quota fail (lenient)
+        ("2026-07-18",[_fc_yearthresh],[]),                                    # a 2026 THRESHOLD (not a year) survives → consensus pins a number → pass (fix #1)
+        ("2026-07-18",[_fc_invbare],["no pinned numeric bar and name no settleable"]), # bare 'investor confidence' is not a document → FAIL (fix #6)
+        ("2026-07-18",[_fc_invdoc],[]),                                        # 'investor presentation' IS a settleable document → pass (fix #6)
+        ("2026-07-18",[_fc_stale],["BEFORE the decision date"]),              # window resolves before decision → stale → FAIL (fix #8)
         ("2026-07-18",5,None),                                                 # malformed (non-list) → N/A, never crash
         ("2026-07-18",None,None),                                              # None ledger → N/A
     ]
