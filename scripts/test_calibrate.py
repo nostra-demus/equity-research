@@ -91,6 +91,49 @@ def test_months_to_significance_honesty():
     now = C.months_to_significance(90, 100, 3.0)
     check(now["projectable"] and now.get("already_significant") and now["months_to_significance"] == 0.0,
           "strong edge already past 1/α → 0 months, flagged already_significant")
+    # a lopsided handful crosses the e-value but is BELOW the N=10 floor → NOT already-significant
+    below = C.months_to_significance(7, 7, 1.5)
+    check(below["projectable"] and not below.get("already_significant") and below["months_to_significance"] > 0,
+          "7/7 crosses e-value but < N floor → not 'already significant', projects more bets (honesty fix)")
+    # too short a review span → not projectable (an inflated arrival rate understates time-to-verdict)
+    check(C.months_to_significance(6, 8, 0.3)["projectable"] is False, "span < 1 month → not projectable")
+
+
+def test_forecast_join_never_misscores():
+    # Bug-1 guard: forecast_results is a re-ordered SUBSET; a text mismatch must EXCLUDE, never index-join
+    rec = {"forecast_ledger": [{"prediction": "EPS up", "probability": 90, "owner_module": "earnings"},
+                               {"prediction": "Margin down", "probability": 80, "owner_module": "earnings"},
+                               {"prediction": "Debt rises", "probability": 20, "owner_module": "balance-sheet"}]}
+    # a REWORDED debt call as forecast_results[0] — the old index fallback would score it at prob 0.90
+    reworded = [{"forecast_results": [{"prediction": "Debt will rise materially", "status": "confirmed"}]}]
+    check(C.match_resolved_forecasts(rec, reworded) == [], "reworded prediction → excluded, NOT index-joined to prob 0.90")
+    # an EXACT text match scores against the RIGHT probability (0.20), regardless of position
+    exact = [{"forecast_results": [{"prediction": "Debt rises", "status": "confirmed"}]}]
+    got = C.match_resolved_forecasts(rec, exact)
+    check(len(got) == 1 and got[0]["prob"] == 0.20 and got[0]["owner_module"] == "balance-sheet",
+          "exact match → scored against its own probability and module")
+
+
+def test_fraction_slip_excluded():
+    # Bug-3 guard: a decimal fraction that slipped the errata layer must be EXCLUDED, not read as 0.8%
+    rec = {"forecast_ledger": [{"prediction": "a", "probability": 0.8, "owner_module": "earnings"}]}
+    reviews = [{"forecast_results": [{"prediction": "a", "status": "confirmed"}]}]
+    check(C.match_resolved_forecasts(rec, reviews) == [], "probability 0.8 (mis-scaled fraction) → excluded, not scored as 0.008")
+
+
+def test_effective_n_clusters_by_ticker():
+    # Bug-5 guard: two RUNS of the same ticker are ONE correlated cluster, not two independent bets
+    standing, reviews_by_run = [], {}
+    for run in ("DUP_2026-05-01", "DUP_2026-06-01"):  # same ticker, two runs
+        rr = f"analyses/{run}"
+        standing.append({"run_root": rr, "record": {
+            "ticker": "DUP", "decision": "Buy", "decision_date": run[-10:], "basket": "Selected",
+            "forecast_ledger": [{"prediction": f"p-{run}", "probability": 80, "owner_module": "earnings"}]}})
+        reviews_by_run[rr] = [{"forecast_results": [{"prediction": f"p-{run}", "status": "confirmed"}]}]
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: reviews_by_run.get(r, []))
+    es = out["effective_sample"]
+    check(es["n_raw"] == 2 and es["n_clusters"] == 1 and es["effective_n"] == 1,
+          f"two runs of one ticker → n_raw 2 but effective_n 1 (got raw={es['n_raw']}, clusters={es['n_clusters']})")
 
 
 # ── 2. end-to-end assembly (in-memory review fixtures — no repo pollution) ────────────────────────
@@ -173,7 +216,8 @@ def test_below_floor_withholds():
 def main():
     print("test_calibrate.py")
     for fn in (test_incomplete_beta, test_clopper_pearson, test_brier_and_murphy, test_e_value,
-               test_effective_n, test_months_to_significance_honesty, test_end_to_end_floor_met,
+               test_effective_n, test_months_to_significance_honesty, test_forecast_join_never_misscores,
+               test_fraction_slip_excluded, test_effective_n_clusters_by_ticker, test_end_to_end_floor_met,
                test_probability_scale, test_below_floor_withholds):
         print(f"[{fn.__name__}]")
         fn()

@@ -261,41 +261,55 @@ def effective_n(cluster_sizes):
         "n_clusters": n_clusters,
         "effective_n": n_clusters,  # conservative: 1 independent bet per ticker
         "mean_cluster_size": round(n_raw / n_clusters, 3) if n_clusters else None,
-        "note": "effective_n = distinct tickers (conservative floor); forecasts within one run are correlated, not independent bets.",
+        "note": ("effective_n = distinct tickers (a ticker's forecasts across runs are one correlated "
+                 "cluster, not independent bets). ADVISORY: the hit-rate CI and e-value below use the raw "
+                 "N, so when a ticker recurs (n_raw > n_clusters) read their significance as slightly "
+                 "optimistic — the honest independent-bet count is effective_n."),
     }
 
 
-def months_to_significance(hits, n, months_elapsed, p0=0.5, target_e=1.0 / E_ALPHA):
-    """At the OBSERVED excess hit rate and the OBSERVED arrival rate of resolved bets, project how
-    many more months until the e-value would cross the skill threshold (1/α). Honest and explicitly
-    conditional: if the current point estimate is at/below p0 (no edge yet) OR nothing has resolved,
-    it is NOT projectable and says so — this is a planning aid, not a promise. Returns a dict."""
-    if n <= 0 or months_elapsed <= 0:
+def months_to_significance(hits, n, months_elapsed, p0=0.5, target_e=1.0 / E_ALPHA, min_n=MIN_DIRECTIONAL_HITS):
+    """At the OBSERVED excess hit rate and the OBSERVED arrival rate of resolved bets, project how many
+    more months until a real skill verdict is possible — which requires BOTH the e-value crossing 1/α
+    AND the sample reaching the engine's own directional floor (`min_n`). A verdict is never declared on
+    a lopsided handful (e-value(7,7) crosses 1/α, but 7 < the N=10 floor, so it is NOT significant). Honest
+    and explicitly conditional: at/below p0 (no edge) OR too few bets OR too short a review span to
+    estimate an arrival rate → NOT projectable, and it says why. A planning aid, not a promise."""
+    if n <= 0:
         return {"projectable": False, "reason": "no resolved bets yet — cannot estimate an arrival rate."}
     if n < MIN_PROJECT_N:
         return {"projectable": False, "n": n, "min_n_to_project": MIN_PROJECT_N,
                 "reason": f"only {n} resolved directional bet(s) — too few to estimate a reliable hit rate or arrival "
                           f"rate (a 100% or 0% rate on a handful of bets is noise, not a trend). Not projectable until N≥{MIN_PROJECT_N}."}
+    if months_elapsed < 1.0:
+        return {"projectable": False, "n": n, "months_elapsed": round(months_elapsed, 2),
+                "reason": "the resolved bets span under a month — too short to estimate a bets-per-month arrival rate; "
+                          "not projectable until the review history is longer."}
     rate_per_month = n / months_elapsed
     phat = hits / n
     if phat <= p0:
         return {"projectable": False, "phat": round(phat, 4), "rate_per_month": round(rate_per_month, 3),
                 "reason": f"observed hit rate {phat:.0%} is at/below the {p0:.0%} no-skill line — no edge to power yet."}
-    if e_value_hit_rate(hits, n, p0) >= target_e:
+
+    def _significant(k_, n_):
+        return n_ >= min_n and e_value_hit_rate(k_, n_, p0) >= target_e
+
+    if _significant(hits, n):
         return {"projectable": True, "already_significant": True, "phat": round(phat, 4),
                 "rate_per_month": round(rate_per_month, 3), "months_to_significance": 0.0,
-                "reason": f"the current {hits}/{n} already crosses the 1/α={target_e:.0f} skill threshold — significant now."}
-    # grow n at the observed rate, holding phat fixed, until the e-value crosses target
+                "reason": f"the current {hits}/{n} both crosses the 1/α={target_e:.0f} e-value AND meets the N≥{min_n} floor — significant now."}
+    # grow n at the observed rate, holding phat fixed, until BOTH conditions hold
     add = 0
     while add < 100000:
         add += 1
         n_future = n + add
         k_future = round(phat * n_future)
-        if e_value_hit_rate(k_future, n_future, p0) >= target_e:
+        if _significant(k_future, n_future):
             months = add / rate_per_month
             return {"projectable": True, "phat": round(phat, 4), "rate_per_month": round(rate_per_month, 3),
-                    "additional_bets_needed": add, "months_to_significance": round(months, 1),
-                    "assumes": f"the current {phat:.0%} hit rate and {rate_per_month:.2f} resolved bets/month both hold."}
+                    "additional_bets_needed": add, "months_to_significance": round(months, 1), "n_floor": min_n,
+                    "assumes": f"the current {phat:.0%} hit rate and {rate_per_month:.2f} resolved bets/month both hold, "
+                               f"and needs the N≥{min_n} floor as well as the e-value threshold."}
     return {"projectable": False, "reason": "beyond a 100k-bet horizon at the current rate — effectively not projectable."}
 
 
@@ -352,43 +366,45 @@ def latest_review(reviews):
 
 
 def match_resolved_forecasts(record, reviews):
-    """Join each review's resolved forecast_results back to its originating forecast_ledger entry (by
-    exact prediction text, else by index) to recover (probability, realized, owner_module, forecast_type).
-    Only the LATEST review per run is used for a forecast's resolution (a later review supersedes an
-    earlier read of the same prediction). Unmatched or unresolved entries are excluded, never guessed."""
+    """Join each review's resolved forecast_results back to its originating forecast_ledger entry — by
+    exact prediction TEXT only — to recover (probability, realized, owner_module, forecast_type). Only the
+    LATEST review per run is used (a later review supersedes an earlier read). An entry that cannot be
+    text-matched is EXCLUDED, never guessed: forecast_results is routinely a re-ordered subset of the
+    ledger, so an index-based fallback would score a probability against the WRONG prediction's outcome
+    (§24 — prefer omission to a mis-scored commission). Returns [] plus, on the record, sets nothing —
+    the caller counts exclusions separately if needed. Returns a list of matched pair dicts."""
     ledger = record.get("forecast_ledger", []) or []
     by_text = {}
-    for i, e in enumerate(ledger):
+    for e in ledger:
         if isinstance(e, dict):
-            by_text[_norm(e.get("prediction"))] = e
+            k = _norm(e.get("prediction"))
+            if k and k not in by_text:  # first ledger entry wins on a duplicate text (deterministic)
+                by_text[k] = e
     rev = latest_review(reviews)
     if not rev:
         return []
-    results = rev.get("forecast_results", []) or []
     out = []
-    for i, r in enumerate(results):
+    for r in rev.get("forecast_results", []) or []:
         if not isinstance(r, dict):
             continue
         y = _realized(r.get("status"))
         if y is None:
             continue  # unresolved — excluded
         src = by_text.get(_norm(r.get("prediction")))
-        if src is None and i < len(ledger) and isinstance(ledger[i], dict):
-            src = ledger[i]  # index fallback
         if src is None:
-            continue  # cannot match back → not Brier-scorable
+            continue  # cannot text-match back → not Brier-scorable, never index-guessed
         prob = src.get("probability")
         if not isinstance(prob, (int, float)) or isinstance(prob, bool):
             continue
-        # The ledger is ALWAYS on the 0-100 scale (§6/§10) — ledger_records.py already applied any
-        # scale_fix errata that would turn a legacy decimal fraction into 0-100 before we see it. So
-        # convert unconditionally; do NOT re-guess "is this a fraction?" here (that duplicates the errata
-        # layer and would misread a legitimate probability of 1 == 1% as 100%). Range-check the result.
-        p = prob / 100.0
-        if not (0.0 <= p <= 1.0):
-            continue
+        # The ledger is ALWAYS on the 0-100 scale (§6/§10); ledger_records.py applies any scale_fix
+        # erratum before we see it. A value strictly in (0,1) is a MIS-SCALED fraction that slipped the
+        # errata layer (0.8 meaning 80%, not 0.8%) — excluding it is correct: silently reading it as
+        # 0.8% would 100×-corrupt the Brier score, and guessing its scale duplicates the errata layer and
+        # would misread a legitimate probability of exactly 1 (==1%). So score only a proper 0-100 value.
+        if not (1 <= prob <= 100):
+            continue  # <1 (mis-scaled fraction) or >100 (out of range) → excluded, not mis-scored
         out.append({
-            "prob": p, "realized": int(y),
+            "prob": prob / 100.0, "realized": int(y),
             "owner_module": src.get("owner_module") or "untagged",
             "forecast_type": src.get("forecast_type") or "untagged",
         })
@@ -397,9 +413,15 @@ def match_resolved_forecasts(record, reviews):
 
 def directional_hit(record, review):
     """Did the call beat its OWN benchmark in the bet's direction? Returns 1 / 0 / None (no bet or no
-    computable relative return). Long baskets (Selected/Buy) hit on a POSITIVE benchmark-relative
-    return; Rejected/Avoid/Short baskets hit on a NEGATIVE one (the avoided/shorted name lagged).
-    Watchlist is not a directional bet → None. Never a raw return — riding a rising market is not skill."""
+    computable relative return). A long (Selected) hits on a POSITIVE benchmark-relative return; a
+    Rejected/Short hits on a NEGATIVE one (the avoided/shorted name lagged). Never a raw return — riding
+    a rising market is not skill.
+
+    Direction is read from the §18-CAPPED basket (`basket_of`, which prefers post_mortem_basket) FIRST —
+    a Selected run capped to Watchlist by a terminal pre-mortem is a basket the engine no longer holds,
+    so it is NOT a directional bet (returns None). The raw `decision` is only a FALLBACK when the basket
+    does not classify (missing / unrecognised) — it is never re-capped, so it must not override the
+    capped basket, and it must not let a Rejected-basket Buy be scored as a long."""
     if not review:
         return None
     rel = review.get("benchmark_relative_return_pct")
@@ -408,14 +430,20 @@ def directional_hit(record, review):
     if not isinstance(rel, (int, float)):
         return None
     basket = _norm(basket_of(record))
-    decision = _norm(record.get("decision"))
-    is_long = basket in ("selected",) or decision in ("strong buy", "buy", "starter position only")
-    is_short = basket in ("rejected", "short") or decision in ("avoid", "short candidate")
-    if is_long:
+    if basket == "selected":
         return 1 if rel > 0 else 0
-    if is_short:
+    if basket in ("rejected", "short"):
         return 1 if rel < 0 else 0
-    return None  # watchlist / undirected
+    if basket in ("watchlist", "insufficient"):
+        return None  # an EXPLICIT non-directional (or capped-away) basket — decision must NOT resurrect it
+    # basket absent ("unclassified" = the basket_of default for a missing field) or unrecognised → fall
+    # back to the raw decision; a genuinely non-directional basket above has already returned None
+    decision = _norm(record.get("decision"))
+    if decision in ("strong buy", "buy", "starter position only"):
+        return 1 if rel > 0 else 0
+    if decision in ("avoid", "short candidate"):
+        return 1 if rel < 0 else 0
+    return None
 
 
 # ════════════════════════════════════════════════════════════════════════════════════════════════
@@ -443,7 +471,8 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
     error_tax = {}               # §20 tag -> count
     premortem_outcomes = {"not_applicable": 0, "too_early": 0, "vindicated": 0, "contradicted": 0, "partial": 0}
     premortem_contra = {"false_comfort": 0, "excess_caution": 0}
-    cluster_sizes = []           # resolved-forecast count per run (for effective-N)
+    cluster_by_ticker = {}       # ticker -> total resolved-forecast count (for effective-N; a ticker's
+                                 # forecasts across runs are one correlated cluster, not independent bets)
     basket_dist, conf_scores, ds_scores = {}, [], []
 
     for entry in standing:
@@ -465,7 +494,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         for p in pairs:
             all_pairs.append(p)
         if pairs:
-            cluster_sizes.append(len(pairs))
+            cluster_by_ticker[_norm(tkr)] = cluster_by_ticker.get(_norm(tkr), 0) + len(pairs)
         dh = directional_hit(rec, rev)
         if dh is not None:
             directional.append({"ticker": tkr, "hit": dh, "basket": basket})
@@ -534,7 +563,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         "calibration_by_forecast_type": {},
         "reliability_bands": None,
         "sequential_test": {},
-        "effective_sample": effective_n(cluster_sizes),
+        "effective_sample": effective_n(list(cluster_by_ticker.values())),
         "market_feed": {
             "available": feed.available(),
             "providers": feed.providers if feed.available() else [],
@@ -589,10 +618,13 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         if n_directional >= MIN_DIRECTIONAL_HITS:
             out["hit_rate"] = round(k / n_directional, 4)
             out["hit_rate_ci95"] = list(clopper_pearson(k, n_directional, 0.05))
-        # months-to-significance uses the observed arrival rate over the review span
+        # months-to-significance uses the observed arrival rate over the review span. Pass the REAL span
+        # (no artificial floor): a span under a month is honestly "not projectable" (an inflated 0.5-month
+        # floor would fabricate a fast arrival rate and understate the time-to-verdict — the dangerous
+        # direction). Requires reaching BOTH the e-value threshold AND the N=MIN_DIRECTIONAL_HITS floor.
         dates = [row["latest_review_date"] for row in inventory if row["latest_review_date"]]
-        span_months = _month_span(min(dates), max(dates)) if len(dates) >= 2 else 0
-        out["months_to_significance"] = months_to_significance(k, n_directional, max(span_months, 0.5), 0.5)
+        span_months = _month_span(min(dates), max(dates)) if len(dates) >= 2 else 0.0
+        out["months_to_significance"] = months_to_significance(k, n_directional, span_months, 0.5)
 
     # ── Brier + Murphy + reliability (own floor, plus per-slice floors) ──
     if n_resolved >= MIN_RESOLVED_FORECASTS:
@@ -805,6 +837,18 @@ def selftest():
           "avoid underperforms → hit")
     check(directional_hit({"basket": "Watchlist", "decision": "Watchlist"}, {"benchmark_relative_return_pct": 9.0}) is None,
           "watchlist → no directional bet")
+    # post-mortem cap: a Buy capped to Watchlist is a basket the engine no longer holds → NOT a bet
+    check(directional_hit({"basket": "Selected", "decision": "Buy", "post_mortem_basket": "Watchlist"},
+                          {"benchmark_relative_return_pct": 3.0}) is None,
+          "post-mortem-capped Watchlist → not scored as a long (decision must not resurrect it)")
+    # long+short conflict: capped basket wins over the raw decision, never both
+    check(directional_hit({"basket": "Rejected", "decision": "Buy"}, {"benchmark_relative_return_pct": -5.0}) == 1,
+          "Rejected basket + Buy decision → basket wins (short hit), not double-classified long")
+    check(directional_hit({"basket": "Rejected", "decision": "Buy"}, {"benchmark_relative_return_pct": 5.0}) == 0,
+          "Rejected basket that outperformed → short miss")
+    # decision fallback only when the basket is absent/unrecognised
+    check(directional_hit({"decision": "Buy"}, {"benchmark_relative_return_pct": 3.0}) == 1,
+          "no basket → fall back to the decision (long)")
 
     # end-to-end build on a synthetic Pre-data ledger → verdict starts 'Pre-data', keys preserved
     synth = [{"run_root": "analyses/AAA_2026-06-01", "record": {
