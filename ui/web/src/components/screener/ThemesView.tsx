@@ -760,7 +760,7 @@ type WhyActive = { key: string; c: ThemeCompany; sticky: boolean; rect: DOMRect;
  *  can't hold it and above has more room, then clamped so it never runs off the top or bottom. The
  *  transform-origin sits under the chip (origin-aware, DESIGN.md §3 / emil). Absolute top (not bottom) so
  *  the clamp is exact regardless of which side it opened toward. */
-function placeWhy(rect: DOMRect, height: number, instant: boolean): WhyPos {
+function placeWhy(rect: DOMRect, height: number): WhyPos {
   const GAP = 8
   const vw = window.innerWidth
   const vh = window.innerHeight
@@ -892,7 +892,7 @@ function CompanyWhyCard({ c, rect, instant }: { c: ThemeCompany; rect: DOMRect; 
   const [pos, setPos] = useState<WhyPos | null>(null)
   useLayoutEffect(() => {
     const h = ref.current?.offsetHeight ?? 300
-    setPos(placeWhy(rect, h, instant))
+    setPos(placeWhy(rect, h))
   }, [rect])
   const style: CSSProperties = pos
     ? { left: pos.left, top: pos.top, width: pos.width, transformOrigin: `${pos.originX}px ${pos.originY}` }
@@ -924,10 +924,10 @@ function CompanyWhyCard({ c, rect, instant }: { c: ThemeCompany; rect: DOMRect; 
         <div className="themewhy__evempty">Named in this theme’s recent news.</div>
       )}
       <div className="themewhy__impact">
-        <span className="themewhy__impacttitle">Impact <b className="mono">{c.impact.composite}</b><span className="themewhy__impactmax">/100</span></span>
+        <span className="themewhy__impacttitle">Impact <b className="mono">{c.impact?.composite ?? 0}</b><span className="themewhy__impactmax">/100</span></span>
         <div className="themewhy__bars">
           {IMPACT_BARS.map((b) => {
-            const v = Math.max(0, Math.min(25, c.impact[b.key]))
+            const v = Math.max(0, Math.min(25, c.impact?.[b.key] ?? 0))
             return (
               <div key={b.key} className="themewhy__bar" title={`${b.long}: ${v}/25`} aria-label={`${b.short} ${v} of 25`}>
                 <span className="themewhy__barlabel" aria-hidden>{b.short}</span>

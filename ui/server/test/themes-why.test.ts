@@ -164,4 +164,22 @@ await check('buildThemeDetail: attaches a why to every company and does not muta
   assert.equal((theme.companies[0] as any).why, undefined, 'the source theme company was not mutated')
 })
 
+await check('buildThemeDetail: a malformed theme with no companies array degrades to empty tiers, not a crash', () => {
+  // loadThemes() parses raw ledger lines with no schema normalisation, so a legacy/partial theme row can
+  // arrive without `companies`. Before the guard, `for…of theme.companies` threw "is not iterable" and
+  // 500'd the deep-dive endpoint. Expected: no throw, all three order tiers empty.
+  const theme = {
+    theme_id: 'THM-nocompanies', name: 'x', slug: 'x', description: '', keywords: [], company_keys: [], event_type_affinity: [],
+    members: [], member_count_total: 0, /* companies intentionally absent */ sectors: [],
+    scores: { freshness: 0, magnitude: 0, breadth: 0, persistence: 0, composite: 0 },
+    tier: 'warm', fresh_flow: 0, flow_series: [], related_themes: [], status: 'live', merged_into: null,
+    first_seen: '', last_flow: '', generation: 'deterministic', rev: 1,
+  } as unknown as Theme
+  let detail: ReturnType<typeof buildThemeDetail> | undefined
+  assert.doesNotThrow(() => { detail = buildThemeDetail('/nonexistent-repo-xyz', theme) }, 'must not throw on a theme with no companies array')
+  assert.equal(detail!.companies_by_order.first.length, 0)
+  assert.equal(detail!.companies_by_order.second.length, 0)
+  assert.equal(detail!.companies_by_order.third.length, 0)
+})
+
 console.log(`\nthemes-why: ${passed} checks passed`)

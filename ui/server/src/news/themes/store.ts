@@ -99,7 +99,10 @@ export function maybeCompactThemesLedger(
   }
 }
 
-const top = <T>(arr: T[], n: number): T[] => arr.slice(0, n)
+// Null-safe: loadThemes() parses raw ledger lines with no schema normalisation, so a legacy/partial
+// theme row can lack `companies` / `related_themes`. Guard here so every top() call site (buildSummary,
+// deep-dive) degrades gracefully instead of throwing on `.slice` of undefined.
+const top = <T>(arr: T[] | undefined | null, n: number): T[] => (arr || []).slice(0, n)
 
 /** Compact projection: Theme → ThemeSummary (no member arrays) for the index + SSE bus. */
 export function buildSummary(t: Theme): ThemeSummary {
@@ -231,7 +234,10 @@ export function buildThemeDetail(repoRoot: string, theme: Theme): ThemeDetail {
   const whyIndex = buildWhyIndex(theme.members)
   const withWhy = (c: ThemeCompany): ThemeCompany => ({ ...c, why: buildCompanyWhy(c, c.name_key, whyIndex) })
   const byOrder: CompaniesByOrder = { first: [], second: [], third: [] }
-  for (const c of theme.companies) (c.order === 1 ? byOrder.first : c.order === 2 ? byOrder.second : byOrder.third).push(withWhy(c))
+  // `theme.companies` is typed required, but loadThemes() parses raw ledger lines with no schema
+  // normalisation — a legacy/partial theme row lacking the array would make this `for…of` throw and
+  // 500 the deep-dive endpoint. Guard so a malformed theme degrades to empty tiers, not a crash.
+  for (const c of theme.companies || []) (c.order === 1 ? byOrder.first : c.order === 2 ? byOrder.second : byOrder.third).push(withWhy(c))
 
   return {
     theme: buildSummary(theme),
