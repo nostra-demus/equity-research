@@ -8,6 +8,25 @@ It is **off by default**. Nothing changes until you set `NEWS_LOCAL_ENABLED=1` a
 
 ---
 
+## Cost — all of this is $0
+
+Nothing here charges a card or draws your Claude plan:
+
+- **Ollama** and **Qwen2.5-7B** are free and open-source; they run on Macs you already own (no API cost — just
+  electricity). The tier sends a **dummy** API key, so it needs no paid key.
+- **Tailscale**'s free Personal plan covers this scale (3 users / 100 devices) — enough for you + the Pro + the
+  Air + Banks + Noel. If it ever outgrew that, Headscale / raw WireGuard are free self-hosted alternatives.
+- The free cloud tiers above it (Groq, Gemini, Cerebras, Mistral, OpenRouter, NVIDIA) are already free.
+- The only spend-capable seam is the pre-existing **last-resort tier**, which by default uses your existing
+  Claude *subscription* (no card charge) and only fires when every free tier is exhausted — adding this local
+  worker makes it fire even less. For an ironclad zero-plan-draw guarantee, set
+  `NEWS_ANTHROPIC_FALLBACK_ENABLED=0`: the chain then ends at "defer to next cycle" instead of ever touching
+  your plan (items just wait longer on extreme-volume days).
+
+We are **not** buying hardware — this runs entirely on machines you already have.
+
+---
+
 ## Why it's shaped this way (read this first)
 
 - The ingester is **not** short on brains — the primary triage model is already an 8B (`llama-3.1-8b-instant`).
