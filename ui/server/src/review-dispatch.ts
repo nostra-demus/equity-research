@@ -52,6 +52,18 @@ function recordFired(key: string): void {
     fs.writeFileSync(BUDGET_FILE, JSON.stringify({ date: today(), fired: s.fired + 1, keys: s.keys }))
   } catch { /* best-effort */ }
 }
+// Reverts a recordFired() bump — used when a spawn that looked successful synchronously later turns out to
+// have failed (spawn() emits 'error' asynchronously, e.g. ENOENT on a misconfigured CLAUDE_BIN), so a review
+// that never actually ran does not permanently burn today's budget slot.
+function rollbackFired(key: string): void {
+  try {
+    const s = readState()
+    const idx = s.keys.indexOf(key)
+    if (idx === -1) return
+    s.keys.splice(idx, 1)
+    fs.writeFileSync(BUDGET_FILE, JSON.stringify({ date: today(), fired: Math.max(0, s.fired - 1), keys: s.keys }))
+  } catch { /* best-effort */ }
+}
 
 // Every standing call with a review checkpoint DUE or OVERDUE today, keyed on the RUN it belongs to (not
 // the bare ticker): listAllCalls() emits one row per run folder, and next_checkpoint is THAT run's earliest
@@ -87,7 +99,7 @@ function spawnReview(runRoot: string, window: string): boolean {
     recordFired(key) // only after a successful spawn — a failed launch must not burn the daily cap
     const clear = () => inflightRuns.delete(key)
     child.on('exit', (code) => { clear(); log(`review ${key} exited ${code}`) })
-    child.on('error', (e) => { clear(); log(`review ${key} spawn error: ${e.message}`) })
+    child.on('error', (e) => { clear(); rollbackFired(key); log(`review ${key} spawn error: ${e.message}`) })
     child.unref()
     log(`fired review ${key}`)
     return true

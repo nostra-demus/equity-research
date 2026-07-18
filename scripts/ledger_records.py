@@ -106,13 +106,13 @@ def _apply_scale_fix(record, field):
     # a probability in (0,1] was recorded as a decimal fraction; restore the 0-100 scale
     for container, key in _walk_probability_fields(field, record):
         v = container[key]
-        if isinstance(v, (int, float)) and 0 < v <= 1:
+        if isinstance(v, (int, float)) and not isinstance(v, bool) and 0 < v <= 1:
             container[key] = round(v * 100, 6)
 
 
 def _apply_sign_fix(record, field):
     # normalise a loss magnitude to the positive-means-loss convention
-    if field in record and isinstance(record[field], (int, float)):
+    if field in record and isinstance(record[field], (int, float)) and not isinstance(record[field], bool):
         record[field] = abs(record[field])
 
 
