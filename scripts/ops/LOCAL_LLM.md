@@ -49,7 +49,8 @@ lid open). For true 24/7 you'd want a never-sleeping Apple-Silicon box (e.g. a M
 brew install ollama            # or download the app from ollama.com
 ollama pull qwen2.5:7b-instruct
 
-# Make Ollama listen on the LAN, not just localhost (default is 127.0.0.1 only)
+# Make Ollama reachable off-localhost (default binds 127.0.0.1 only). 0.0.0.0 works everywhere; step 2
+# shows how to tighten this to the Tailscale IP so a roaming laptop never exposes :11434 on public Wi-Fi.
 launchctl setenv OLLAMA_HOST "0.0.0.0:11434"
 # then (re)start the server:
 ollama serve                   # or restart the Ollama app
@@ -58,23 +59,40 @@ ollama serve                   # or restart the Ollama app
 curl -s http://localhost:11434/v1/models | head
 ```
 
-### 2. Connectivity — how the engine reaches the model
+### 2. Connectivity — how the primary reaches the model (Tailscale)
 
-The engine runs on the **primary** (Intel Pro); the model runs on the **Air**. The engine calls
-`NEWS_LOCAL_BASE_URL`, so that URL must be reachable from the primary.
+The engine runs on the **primary** (remote — "PRIMARY-DELHI"); the model runs on the **Air**. The engine calls
+`NEWS_LOCAL_BASE_URL`, so that URL has to be reachable from the primary **across networks** — the everyday case
+here. Use **[Tailscale](https://tailscale.com)**, a free private mesh (encrypted, device-authenticated):
 
-- **Same LAN** (both machines on the same Wi-Fi/router): use the Air's LAN IP.
-  ```sh
-  ipconfig getifaddr en0        # on the Air → e.g. 192.168.1.42
-  ```
-  → `NEWS_LOCAL_BASE_URL=http://192.168.1.42:11434/v1`
+1. Install it on **both** the primary and the Air, signed into the **same** tailnet:
+   ```sh
+   brew install --cask tailscale   # or the App Store app; then sign in on both machines
+   ```
+2. Get the Air's stable mesh IP:
+   ```sh
+   tailscale ip -4                 # on the Air → e.g. 100.101.102.103
+   ```
+   → `NEWS_LOCAL_BASE_URL=http://100.101.102.103:11434/v1` (used in step 3)
 
-- **Different networks** (e.g. the primary is remote / "PRIMARY-DELHI"): put both machines on a free private
-  mesh with [Tailscale](https://tailscale.com) and use the Air's Tailscale IP (`100.x.y.z`).
-  → `NEWS_LOCAL_BASE_URL=http://100.x.y.z:11434/v1`
+**Why Tailscale even when you'll sometimes be co-located:** the `100.x` IP is **stable wherever the machines
+are**. When you visit the office and both sit on the same Wi-Fi, Tailscale silently routes over the local
+network — same IP, nothing to change. Configure it **once** and never touch it whether the Pro is remote or next
+to you. It's also the exact mechanism Banks's and Noel's laptops use as future workers.
 
-**Never expose Ollama to the public internet.** Bind it to the LAN or Tailscale only — the `/v1` endpoint has no
-auth. If your model runs on the *same* box as the engine, skip all of this and use the localhost default.
+**Security (matters — the Air roams).** The `/v1` endpoint has **no auth**, so never expose it publicly and never
+port-forward :11434. On a laptop that hops onto café/hotel Wi-Fi, prefer binding Ollama to the **Tailscale IP
+only** instead of `0.0.0.0`, so it's reachable *just* over the private mesh:
+```sh
+launchctl setenv OLLAMA_HOST "100.101.102.103:11434"   # the Air's own `tailscale ip -4`
+```
+(`0.0.0.0` is simpler but also listens on whatever local network you're on — fine at home behind a router with
+the macOS firewall on, riskier on public Wi-Fi.) A Tailscale ACL can further restrict :11434 to just the primary.
+
+*Co-located only?* If you're certain both machines always stay on one LAN, you can skip Tailscale and use the
+Air's LAN IP (`ipconfig getifaddr en0` → `http://192.168.x.y:11434/v1`) — but you'd re-point the URL every time
+the network changes, so Tailscale is the lower-maintenance default here. If the model ever runs on the *same*
+box as the engine, use the `http://localhost:11434/v1` default and ignore all of this.
 
 ### 3. On the primary (where the engine runs)
 
