@@ -190,12 +190,13 @@ def check_commodity_review_anchors(doc_path: str) -> list[str]:
     the frozen record's commodity/decision_date/action exactly (the record is never edited,
     so any mismatch means the review was built against a different or since-corrected run).
 
-    It also enforces the anchor/outcome integrity the learning loop depends on: reference_price
-    must equal the frozen current_price (never re-derived); one risk_result per original key_risk,
-    each copying its key_risk verbatim (not duplicated/fabricated); absolute_return_pct must equal
-    the recomputed price return; both dates must be real calendar dates; the filename window token
-    must match the review_window field; and a scheduled window must genuinely be that far out.
-    Malformed inputs (a non-object JSON, a null date) report a graceful error instead of crashing."""
+    It also enforces the anchor/outcome integrity the learning loop depends on: original_confidence
+    and reference_price must equal the frozen record's confidence and current_price (never
+    re-derived); one risk_result per original key_risk, each copying its key_risk verbatim (not
+    duplicated/fabricated); absolute_return_pct must equal the recomputed price return; both dates
+    must be real calendar dates; the filename window token must match the review_window field; and
+    a scheduled window must genuinely be that far out. Malformed inputs (a non-object JSON, a null
+    date) report a graceful error instead of crashing."""
     reviews_dir = os.path.dirname(doc_path)
     run_dir = os.path.dirname(reviews_dir)
     record_path = os.path.join(run_dir, "decision_record.json")
@@ -214,6 +215,15 @@ def check_commodity_review_anchors(doc_path: str) -> list[str]:
         errs.append(f"review original_decision_date {doc.get('original_decision_date')!r} != decision_record decision_date {record.get('decision_date')!r}")
     if doc.get("original_action") != record.get("action"):
         errs.append(f"review original_action {doc.get('original_action')!r} != decision_record action {record.get('action')!r}")
+    # original_confidence is copied verbatim from the frozen record's own confidence (required,
+    # always-numeric there) — a silently-drifted copy would corrupt calibration's read on whether
+    # high-confidence calls were actually calibrated. Number-only guard: the schema's own type check
+    # already rejects a non-number, so this only fires on a genuine value mismatch.
+    oc = doc.get("original_confidence")
+    rc = record.get("confidence")
+    if isinstance(oc, (int, float)) and not isinstance(oc, bool) \
+            and isinstance(rc, (int, float)) and not isinstance(rc, bool) and oc != rc:
+        errs.append(f"original_confidence {oc!r} != decision_record confidence {rc!r} (copied verbatim, never re-derived)")
     # review_date cannot predate the decision (None-safe: schema catches wrong/absent types)
     review_date = doc.get("review_date")
     original_date = doc.get("original_decision_date")

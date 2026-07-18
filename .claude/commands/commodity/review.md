@@ -64,7 +64,13 @@ for f in sorted(glob.glob("commodity/runs/*/decision_record.json")):
         print("SKIP wrong_swarm", f); continue
     run_dir = os.path.dirname(f)
     dec_date = d["decision_date"]
-    dec_d = datetime.date.fromisoformat(dec_date)
+    try:
+        dec_d = datetime.date.fromisoformat(dec_date)
+    except (ValueError, TypeError) as e:
+        # decision_record.schema.json only regex-checks decision_date's shape (YYYY-MM-DD), so a
+        # value like "2026-99-99" is schema-legal but not a real calendar date. Skip just THIS
+        # commodity and keep scanning — one bad record must never abort the whole due scan.
+        print("SKIP bad_decision_date", f, str(e)[:80]); continue
     for w, offset in WINDOWS.items():
         due_date = dec_d + datetime.timedelta(days=offset)
         due = due_date <= today_d
