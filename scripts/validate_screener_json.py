@@ -20,10 +20,17 @@ plus two structural cross-checks against the run's own upstream artifacts:
   Insufficient... never paper over a gap with false confidence") — the commodity-scoped
   twin of eval.py's Y_data_sufficiency_cap for the research swarm.
 
+Also validates every committed commodity/runs/<COMMODITY>/reviews/*_decision_review*.json
+against frameworks/commodity/decision_review.schema.json (auto-discovered, same convention),
+cross-checking each review's commodity/original_decision_date/original_action against the
+decision_record.json it reviews — the commodity-scoped twin of the anchor-consistency
+discipline frameworks/DECISION_LEDGER.md §8 already requires of the research swarm's reviews.
+
 Usage:
     python3 scripts/validate_screener_json.py <schema.json> <doc.json> [...more pairs]
     python3 scripts/validate_screener_json.py --fixture   # validate the committed fixture set
                                                            # + all commodity/runs/<COMMODITY>/
+                                                           # + all commodity/runs/*/reviews/
 
 Exit 0 = all valid; 1 = violations printed.
 """
@@ -151,6 +158,7 @@ FIXTURE_PAIRS = [
 ]
 
 COMMODITY_SCHEMA = "frameworks/commodity/decision_record.schema.json"
+COMMODITY_REVIEW_SCHEMA = "frameworks/commodity/decision_review.schema.json"
 COMMODITY_DOSSIER = "commodity-thesis/99_commodity-thesis-synthesis.md"
 COMMODITY_TRIAGE = "market-structure/00_commodity-triage.md"
 ROUTING_ACTION_RE = re.compile(r"##\s*Routing[\s\S]*?^Action:\s*(.+)$", re.MULTILINE)
@@ -163,6 +171,39 @@ def commodity_decision_records() -> list[str]:
         os.path.relpath(p, REPO)
         for p in glob.glob(os.path.join(REPO, "commodity", "runs", "*", "decision_record.json"))
     )
+
+
+def commodity_decision_reviews() -> list[str]:
+    """Every committed commodity/runs/<COMMODITY>/reviews/*_decision_review*.json (repo-relative)."""
+    return sorted(
+        os.path.relpath(p, REPO)
+        for p in glob.glob(os.path.join(REPO, "commodity", "runs", "*", "reviews", "*_decision_review*.json"))
+    )
+
+
+def check_commodity_review_anchors(doc_path: str) -> list[str]:
+    """A review must not silently drift from the decision_record.json it reviews — the
+    commodity-scoped twin of the anchor discipline frameworks/DECISION_LEDGER.md §8 already
+    requires: the review's own commodity/original_decision_date/original_action must match
+    the frozen record's commodity/decision_date/action exactly (the record is never edited,
+    so any mismatch means the review was built against a different or since-corrected run)."""
+    reviews_dir = os.path.dirname(doc_path)
+    run_dir = os.path.dirname(reviews_dir)
+    record_path = os.path.join(run_dir, "decision_record.json")
+    doc = json.load(open(doc_path, encoding="utf-8"))
+    if not os.path.exists(record_path):
+        return [f"decision_record.json not found at {os.path.relpath(record_path, REPO)} — cannot cross-check anchors"]
+    record = json.load(open(record_path, encoding="utf-8"))
+    errs = []
+    if doc.get("commodity") != record.get("commodity"):
+        errs.append(f"review commodity {doc.get('commodity')!r} != decision_record commodity {record.get('commodity')!r}")
+    if doc.get("original_decision_date") != record.get("decision_date"):
+        errs.append(f"review original_decision_date {doc.get('original_decision_date')!r} != decision_record decision_date {record.get('decision_date')!r}")
+    if doc.get("original_action") != record.get("action"):
+        errs.append(f"review original_action {doc.get('original_action')!r} != decision_record action {record.get('action')!r}")
+    if doc.get("review_date", "") < doc.get("original_decision_date", ""):
+        errs.append(f"review_date {doc.get('review_date')!r} predates original_decision_date {doc.get('original_decision_date')!r}")
+    return errs
 
 
 def check_commodity_routing(doc_path: str) -> list[str]:
@@ -213,6 +254,7 @@ def main(argv: list[str]) -> int:
     if len(argv) >= 2 and argv[1] == "--fixture":
         pairs = [(os.path.join(REPO, s), os.path.join(REPO, d)) for s, d in FIXTURE_PAIRS]
         pairs += [(os.path.join(REPO, COMMODITY_SCHEMA), os.path.join(REPO, d)) for d in commodity_decision_records()]
+        pairs += [(os.path.join(REPO, COMMODITY_REVIEW_SCHEMA), os.path.join(REPO, d)) for d in commodity_decision_reviews()]
     elif len(argv) >= 3 and len(argv) % 2 == 1:
         pairs = list(zip(argv[1::2], argv[2::2]))
     else:
@@ -224,6 +266,8 @@ def main(argv: list[str]) -> int:
         rel = os.path.relpath(doc_p, REPO)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_SCHEMA)):
             errs = errs + check_commodity_routing(doc_p) + check_commodity_data_sufficiency(doc_p)
+        if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_REVIEW_SCHEMA)):
+            errs = errs + check_commodity_review_anchors(doc_p)
         if errs:
             bad += 1
             print(f"FAIL {rel}")
