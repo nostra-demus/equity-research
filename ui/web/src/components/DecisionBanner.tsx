@@ -127,20 +127,17 @@ export function DecisionBanner() {
     // A static dock frames the animated card so its centring survives framer-motion (which rewrites the
     // card's own transform). The card is seated on the stage floor — a permanent bar, not a floating pill.
     <div className="decision-dock">
+      {/* The wrapper is deliberately NON-interactive (no role/tabIndex): it contains real child buttons
+          (the tier buttons + the what-changed chip), and nesting interactive controls inside a role="button"
+          produces an invalid, ambiguous a11y tree (DESIGN.md a11y). The whole-bar onClick stays as a mouse
+          convenience; the KEYBOARD/AT open path is the labeled tier buttons below ("Open the Thesis" /
+          "Open the Dossier"). Entrance stays ≤300ms and animates only opacity+transform (DESIGN.md §3). */}
       <motion.div
         className="decision"
         initial={reduce ? false : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: reduce ? 0 : 0.42, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: reduce ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
         onClick={openThesis}
-        onKeyDown={(e) => {
-          if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) {
-            e.preventDefault()
-            openThesis()
-          }
-        }}
-        tabIndex={0}
-        role="button"
         title={isResearch ? 'Open the Thesis — the deep-dive synthesized view' : 'Open the Dossier — the final synthesized view'}
       >
         <div className="decision__verdict">

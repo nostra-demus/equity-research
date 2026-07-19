@@ -1115,9 +1115,10 @@ a { color: inherit; }
   border-radius: var(--r-lg) var(--r-lg) 0 0;
   background: var(--surface-1); border: 1px solid var(--hairline-strong); border-bottom: none;
   box-shadow: var(--shadow-up);
-  transition: border-color var(--dur-fast) var(--ease);
 }
 @media (hover: hover) and (pointer: fine) {
+  /* Instant border-color change on hover — DESIGN.md §3 permits animating ONLY transform/opacity, so the
+     border feedback is applied statically rather than transitioned. */
   .decision:hover { border-color: var(--accent-deep); }
 }
 .decision__verdict { display: flex; flex-direction: column; gap: 2px; }
