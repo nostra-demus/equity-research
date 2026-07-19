@@ -103,12 +103,12 @@ Steps 1–5 are the must-do core that closes every doctrine hole; 6–10 make th
 ## 6. Status — what has landed
 
 **Steps 1–5 (the P0 core) are implemented in this change:**
-- NEW `commodity/commodity-thesis/02_commodity-cost-curve-fair-value.md` (`commodity-cost-curve`).
-- NEW `commodity/supply-demand/04_commodity-supply-security.md` (`commodity-supply-security`).
-- DEEPENED `commodity/market-structure/02_commodity-price-curve.md`,
-  `commodity/macro-positioning/02_commodity-positioning-flows.md`,
-  `commodity/commodity-thesis/99_commodity-thesis-synthesis.md`, and its consumer
-  `commodity/supply-demand/99_supply-demand-synthesis.md` (wires the policy killer risk forward).
+- NEW `.claude/agents/commodity/commodity-thesis/02_commodity-cost-curve-fair-value.md` (`commodity-cost-curve`).
+- NEW `.claude/agents/commodity/supply-demand/04_commodity-supply-security.md` (`commodity-supply-security`).
+- DEEPENED `.claude/agents/commodity/market-structure/02_commodity-price-curve.md`,
+  `.claude/agents/commodity/macro-positioning/02_commodity-positioning-flows.md`,
+  `.claude/agents/commodity/commodity-thesis/99_commodity-thesis-synthesis.md`, and its consumer
+  `.claude/agents/commodity/supply-demand/99_supply-demand-synthesis.md` (wires the policy killer risk forward).
 - `SWARM.md` module descriptions updated to match.
 
 Steps 6–10 (P1/P2) are **not yet built** — this doc is the standing spec for them. The decision_record JSON

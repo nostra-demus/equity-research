@@ -32,7 +32,7 @@ You must:
   - `commodity/runs/{COMMODITY}/supply-demand/99_supply-demand-synthesis.md` — REQUIRED (carries the supply-security policy killer risk forward)
   - `commodity/runs/{COMMODITY}/macro-positioning/99_macro-positioning-synthesis.md` — REQUIRED
   - `commodity/runs/{COMMODITY}/commodity-thesis/01_commodity-catalysts.md` — REQUIRED
-  - `commodity/runs/{COMMODITY}/commodity-thesis/02_commodity-cost-curve-fair-value.md` — REQUIRED (the fair-value band + margin of safety; if absent, say so and mark margin of safety "Not assessable", §11 — never improvise a floor)
+  - `commodity/runs/{COMMODITY}/commodity-thesis/02_commodity-cost-curve-fair-value.md` — OPTIONAL (present in a fresh full run, where this orb runs in the same module before the synthesis; on a legacy run predating this orb it may be absent — then say so and mark margin of safety "Not assessable", §11 — never improvise a floor. Not a hard upstream: its absence never blocks the synthesis, matching the graceful read above.)
 
 # WORKFLOW
 

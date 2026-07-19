@@ -21,7 +21,7 @@ You DO NOT issue the action verdict. Do NOT write a line beginning `Action:`.
   - `commodity/runs/{COMMODITY}/supply-demand/01_commodity-supply.md` — REQUIRED
   - `commodity/runs/{COMMODITY}/supply-demand/02_commodity-demand-inventory.md` — REQUIRED
   - `commodity/runs/{COMMODITY}/supply-demand/03_commodity-weather-seasonality.md` — REQUIRED
-  - `commodity/runs/{COMMODITY}/supply-demand/04_commodity-supply-security.md` — REQUIRED (the dated policy register + the policy killer risk)
+  - `commodity/runs/{COMMODITY}/supply-demand/04_commodity-supply-security.md` — OPTIONAL (the dated policy register + the policy killer risk; present in a fresh full run, where this orb runs in the same module before the synthesis. On a legacy run predating this orb it may be absent — then note "no policy register this run" and carry no policy killer risk forward. Not a hard upstream: its absence never blocks the synthesis.)
 
 # WORKFLOW
 

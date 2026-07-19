@@ -31,7 +31,7 @@ You DO NOT:
 4. **Carry in its own history:** place today's roll yield (carry) as a rough z-score / percentile vs the commodity's own ~1–3-year range, with the direction (steepening / flattening). A raw carry number is not a signal until it is placed — an extreme is what a systematic desk trades.
 5. **Storage vs convenience yield (does cash-and-carry pay?):** decompose the front–deferred spread into the cost of carry (financing at the risk-free rate + published storage/insurance) vs the implied convenience yield, and give an explicit verdict — "cash-and-carry storage pays / does not pay" — plus the commodity-specific near-dated basis where reachable (e.g. LME cash–3M). Label estimates; where storage cost is not public, say so.
 6. **Real (deflated) price value line:** compare the current price to its own ~5-year real (inflation-adjusted) range — is the commodity historically cheap, mid, or rich vs itself? Label it a value line (the only price-history value anchor the module carries), not a forecast.
-7. **Roll-adjusted expected-return contribution:** state, as a named number the terminal thesis can carry, the roll-adjusted return a rolled long earns = spot trend ± annualised roll yield (+ collateral yield where relevant). Reconcile it with `commodity-instruments`' roll-drag figure rather than duplicating it. This is the number that prevents a bullish spot call in contango from being booked as a win.
+7. **Roll-adjusted expected-return contribution:** state, as a named number over an explicit **annualised (~12-month)** horizon, the roll-adjusted return a rolled long earns = (a forward price view over that SAME 12-month horizon) ± annualised roll yield (+ collateral yield where relevant). Keep the horizons matched: do NOT add a trailing 1m/3m/6m spot move (a historical return) to an annual roll yield, and do NOT relabel a past spot move as expected return — if you have no forward price view, give the carry (roll ± collateral) alone over the annualised horizon and say the price leg is not forecast here. This is the number that prevents a bullish spot call in contango from being booked as a win. Do NOT reach into `commodity-instruments` here — it runs in the same layer, so its output is not guaranteed present on a fresh run; the market-structure synthesis (which reads both this orb and `commodity-instruments`) owns the reconciliation of this figure against the instruments roll-drag.
 8. Every number cited `[Source, date]` (§5); prefer the exchange/settlement data. Save to `OUTPUT_PATH` (Mode A); return the CHAT CONFIRMATION.
 
 # REPORT STRUCTURE
@@ -60,7 +60,7 @@ You DO NOT:
 
 ## 4. Value & Roll-Adjusted Return
 - Real (deflated) price vs own ~5y range: {cheap / mid / rich vs itself} — a value line, not a forecast.
-- Roll-adjusted expected-return contribution: spot trend {±x%} ± roll yield {±y%} (+ collateral) = {net}, reconciled with `commodity-instruments`' roll-drag figure.
+- Roll-adjusted expected-return contribution (~12-month, horizons matched): forward price view {±x%/yr} ± roll yield {±y%/yr} (+ collateral) = {net}/yr. (Reconciliation against `commodity-instruments`' roll-drag is done in the market-structure synthesis, not here.)
 ```
 
 # SELF-CHECK
