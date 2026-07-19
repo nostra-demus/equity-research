@@ -64,6 +64,28 @@ if [ -f "$LOG" ] && [ "$(wc -l < "$LOG" 2>/dev/null || echo 0)" -gt 4000 ]; then
   tail -n 800 "$LOG" > "$LOG.tmp" 2>/dev/null && mv "$LOG.tmp" "$LOG"
 fi
 
+# ---- data-pool symlink guard (defense-in-depth) ----
+# The research pool `data/` is a symlink into Google Drive (gitignored — scripts/ops/MIGRATION.md). A stray
+# TRACKED file under data/ once let a checkout/reset materialise data/ as a real dir, REPLACING the symlink
+# with an empty folder — the cockpit then read it as "0 companies" while Drive was perfectly healthy. The
+# root cause (a tracked data/_market/README.md) is now removed (relocated to frameworks/MARKET_FEED.md); this
+# re-asserts the invariant each cycle so a manual slip or a future stray tracked path SELF-HEALS. It is
+# deliberately timid: it only acts when data/ is NOT a symlink, only self-heals the known clobber shape
+# (empty, or just the legacy _market scaffold), NEVER deletes (backs up), and NEVER wedges the deploy.
+POOL="${NOSTRA_POOL:-$HOME/Library/CloudStorage/GoogleDrive-ceekay@muns.io/My Drive/equity-research-data}"
+ensure_data_symlink() {
+  local d="$PROD/data" extra
+  [ -L "$d" ] && return 0                              # already a symlink — nothing to do
+  [ -e "$POOL" ] || { log "WARN data-guard: pool '$POOL' absent (Drive signed out?) — leaving data/ as-is"; return 0; }
+  if [ -d "$d" ]; then
+    extra="$(ls -A "$d" 2>/dev/null | grep -vxE '_market|\.DS_Store' | head -1)"
+    [ -n "$extra" ] && { log "WARN data-guard: $d is a non-symlink dir with unexpected content ('$extra') — NOT touching (manual review)"; return 0; }
+    mv "$d" "$d.plain-bak-$(date +%Y%m%d-%H%M%S)" 2>/dev/null || { log "WARN data-guard: could not move stray $d aside — leaving as-is"; return 0; }
+    log "data-guard: moved clobbered empty data dir aside"
+  fi
+  ln -s "$POOL" "$d" 2>/dev/null && log "data-guard: restored data -> Drive pool symlink" || log "WARN data-guard: failed to create data symlink"
+}
+
 # ---- single-flight lock (macOS has no flock) ----
 if ! mkdir "$LOCKDIR" 2>/dev/null; then
   age=$(( $(date +%s) - $(stat -f %m "$LOCKDIR" 2>/dev/null || echo 0) ))
@@ -289,6 +311,8 @@ reconcile_build() {
 trap 'gitlock_release; rmdir "$LOCKDIR" 2>/dev/null' EXIT
 
 cd "$PROD" 2>/dev/null || { log "FATAL cannot cd $PROD"; exit 0; }
+
+ensure_data_symlink   # re-assert data/ -> Drive pool symlink before any git op / build (defense-in-depth)
 
 # ---- fetch (no working-tree mutation, no index lock) ----
 # route fetch stderr to a side file so git's gc/maintenance warnings never pollute the deploy log;

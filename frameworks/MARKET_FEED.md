@@ -1,4 +1,12 @@
-# `data/_market/` — the market price / benchmark feed
+# The market price / benchmark feed — `data/_market/`
+
+> **Why this doc lives in `frameworks/` and not in `data/_market/`.** The pool (`data/`) is a **symlink
+> into Google Drive**, gitignored on purpose (see `scripts/ops/MIGRATION.md`) — `git clone` must never
+> create it. A **tracked file under `data/`** silently breaks that: on any `git checkout`/`reset` the
+> checkout materialises `data/` as a real directory to place the tracked file, **replacing the symlink
+> with an empty folder** — and the cockpit reads that empty folder as *"0 companies"* while Google Drive
+> is perfectly healthy. So the canonical contract for the `data/_market/` lane is documented **here**,
+> and the `data/` tree carries **no tracked files**.
 
 This is the shared lane for the **market price feed** the calibration scoreboard reads to score calls
 on a **benchmark-adjusted** basis (a long that merely rode a rising market showed no skill — CLAUDE.md
@@ -65,4 +73,5 @@ and says so** — nothing breaks; the scoreboard just uses the less-adjusted num
 - The as-of comes from inside the data, never a file mtime.
 - A figure is cited with its provider + date, like any source.
 - Keys for a paid fetcher live in `~/.config/nostra-engine/providers.env`, never in the repo.
-- This folder is data; commits to it follow the §25 data stream (straight to `main`).
+- The `data/_market/` folder is a **data lane**: files dropped there follow the §25 data stream (straight
+  to `main`). This documentation lives in `frameworks/` (code stream, §28) so the pool stays symlink-safe.
