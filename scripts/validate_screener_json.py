@@ -187,6 +187,10 @@ def check_thesis_integrity_anchors(doc_path: str) -> list[str]:
         thesis = json.load(open(thesis_path, encoding="utf-8"))
     except Exception as e:
         return [f"could not parse for cross-check: {e}"]
+    # A valid-JSON document with the wrong root type (e.g. `[]`) must be reported as a FAIL, not crash
+    # the whole --fixture/CI run with an AttributeError on `.get()`. Mirrors check_commodity_review_anchors.
+    if not isinstance(review, dict) or not isinstance(thesis, dict):
+        return ["thesis_integrity_review / thesis_record is not a JSON object"]
     errs = []
     meta = thesis.get("meta", {})
     if review.get("thesis_id") != meta.get("thesis_id"):

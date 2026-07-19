@@ -334,6 +334,32 @@ def latest_integrity_routing(rec: dict) -> str | None:
     return routing if routing == "Proceed" else (routing or "unreadable_integrity_review")
 
 
+def archive_state(tid: str, reason: str) -> bool:
+    """A post-lock terminal integrity review (watchlist_integrity_*) rejects an ALREADY-seeded thesis:
+    mark its conviction_state snapshot `archived` so conviction-dispatch stops selecting its checkpoints
+    (dueCheckpoints/onWireItem key off `archived`). Without this, skipping re-emission alone leaves the
+    stale live book selectable → paid /screener:validate runs on a rejected thesis (CONVICTION_LOOP.md;
+    CLAUDE.md §24). Returns True if a live snapshot existed and was archived."""
+    sp = os.path.join(STATE_DIR, f"{tid}.json")
+    if not os.path.exists(sp):
+        return False
+    try:
+        with open(sp, encoding="utf-8") as f:
+            snap = json.load(f)
+    except Exception:  # noqa: BLE001
+        return False
+    if snap.get("archived"):
+        return False  # already archived — idempotent
+    snap["archived"] = True
+    snap["stale"] = True
+    snap["plain_note"] = f"Archived — {reason}. No live checkpoints; no paid validation."
+    snap["updated_at"] = now_z()
+    with open(sp, "w", encoding="utf-8") as f:
+        json.dump(snap, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+    return True
+
+
 def main(argv: list[str]) -> int:
     os.makedirs(CONV, exist_ok=True)
     if len(argv) >= 2:
@@ -356,9 +382,22 @@ def main(argv: list[str]) -> int:
         # signal.md step-6 guard here so the backfill path and /screener:validate's "seed if state
         # absent" path can't bypass it (CONVICTION_LOOP.md; CLAUDE.md §24).
         routing = latest_integrity_routing(rec)
+        tid0 = rec.get("meta", {}).get("thesis_id")
+        status = rec.get("meta", {}).get("status") or ""
+        # Fail-closed for an unchecked provisional/full_machine: those statuses MUST have passed the
+        # post-lock adversarial gate, so a MISSING review (routing is None) is not "no gate expected" —
+        # it means the gate hasn't run and the thesis cannot earn a live book yet. A missing review is
+        # only benign for statuses where the module must-not-run (watchlist_no_edge, …). (§24; mirrors
+        # the /screener:handoff quarantine so this backfill path can't re-open the hole handoff closes.)
+        if routing is None and status in ("provisional", "full_machine"):
+            print(f"skip {tid0}: locked {status} thesis has no thesis-integrity review — the post-lock "
+                  f"adversarial gate MUST run before a conviction calendar (fail-closed, §24)", file=sys.stderr)
+            continue
         if routing is not None and routing != "Proceed":
-            print(f"skip {rec.get('meta', {}).get('thesis_id')}: latest thesis-integrity review routed "
-                  f"{routing!r} (terminal) — no conviction calendar for a rejected thesis", file=sys.stderr)
+            archived = archive_state(tid0, f"latest thesis-integrity review routed {routing} (terminal)")
+            print(f"skip {tid0}: latest thesis-integrity review routed {routing!r} (terminal) — no "
+                  f"conviction calendar for a rejected thesis"
+                  + ("; archived its existing conviction_state" if archived else ""), file=sys.stderr)
             continue
         tid = emit_for(rec)
         if tid:
