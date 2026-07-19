@@ -219,7 +219,22 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
 {
   assert.equal(dataPoolNewest('STALE').files, 1)
   assert.equal(dataPoolNewest('STALE').newestDate, TODAY)
-  assert.deepEqual(dataPoolNewest('NOSUCH'), { files: 0, newestDate: null }, 'no pool → no staleness signal')
+  assert.ok(dataPoolNewest('STALE').newestMs > 0, 'a pooled file exposes its raw newest mtime')
+  assert.deepEqual(dataPoolNewest('NOSUCH'), { files: 0, newestDate: null, newestMs: 0 }, 'no pool → no staleness signal')
+
+  // newestMs must be the RECURSIVE max over max(mtime, ctime): a doc nested deep under external/<prov>/…
+  // (where the real delta usually lands, past the old depth-6 cap) must still register. A single-file pool
+  // can't catch a max-vs-assign or a depth-truncation bug. Timestamps come from real creation order, not
+  // fs.utimesSync — utimes sets ctime to NOW, so max(mtime, ctime) would ignore a backdated mtime anyway.
+  const deepRel = 'data/NESTED/external/a/b/c/d/e/f/g/deep.pdf' // deep.pdf sits at walk depth 9 (> the old cap 6)
+  write('data/NESTED/flat.txt', 'top level, created first')
+  write(deepRel, 'nested past the old depth-6 cap, created last')
+  const flatSt = fs.statSync(path.join(REPO, 'data/NESTED/flat.txt'))
+  const deepSt = fs.statSync(path.join(REPO, deepRel))
+  const expectedMax = Math.max(flatSt.mtimeMs, flatSt.ctimeMs, deepSt.mtimeMs, deepSt.ctimeMs)
+  const nested = dataPoolNewest('NESTED')
+  assert.equal(nested.files, 2, 'both files counted — INCLUDING the one nested past the old depth-6 cap (guards the 6→24 raise)')
+  assert.equal(nested.newestMs, expectedMax, 'newestMs is the recursive max over max(mtime, ctime) across the whole tree')
   // With no pool at all, a finished module must still be reusable (absence of evidence is not staleness).
   write(`analyses/NOPOOL_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# a\n')
   assert.equal(thesisPlan('NOPOOL').modules.find((m) => m.module === 'alpha')!.state, 'done')

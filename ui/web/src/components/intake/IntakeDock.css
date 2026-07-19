@@ -30,6 +30,9 @@
 .intake__chev { font-size: 9px; color: var(--accent-bright); transition: transform var(--dur-fast) var(--ease); }
 .intake__chev[data-open="true"] { transform: rotate(90deg); }
 .intake__title { font-weight: 600; color: var(--text); letter-spacing: 0.2px; }
+/* Collapsed-panel marker: a doc landed after the last check and the recheck nudge is tucked away. Calm,
+   warm (not alarming), static — a glow, not a pulse (this can sit for a while; motion would nag). */
+.intake__pending { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--conv-warn); box-shadow: 0 0 6px var(--conv-warn); }
 .intake__count { font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
 .intake__reanalyze {
   margin-left: auto; display: inline-flex; align-items: center; justify-content: center;
@@ -43,6 +46,35 @@
 .intake__head { flex: none; } /* the header stays put; only the body below it scrolls */
 .intake__body { padding: 4px 12px 12px; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
 .intake__reading { padding: 8px 2px; color: var(--text-muted); font-style: italic; }
+
+/* ---- the resolved verdict: the analysis finished and there is nothing to re-run ----
+   A calm, honest resting confirmation — the point of the panel when the pool hasn't changed. It replaces
+   the old behaviour of vanishing the whole panel (which left "did it even run?" unanswered). Enter-only
+   (opacity + a few px), matching the panel's live-tick / instant-close budget. */
+.intake__resolved {
+  display: flex; gap: 8px; align-items: flex-start;
+  margin-top: 6px; padding: 10px 11px;
+  background: var(--accent-wash-soft); border: 1px solid var(--accent-wash);
+  border-radius: var(--r-sm);
+  animation: intake-resolved-in 200ms var(--ease-out) both;
+}
+@keyframes intake-resolved-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+.intake__resolved-glyph { flex: none; margin-top: 1px; font-size: 13px; line-height: 1.15; color: var(--good); }
+.intake__resolved-copy { min-width: 0; flex: 1; }
+.intake__resolved-head { color: var(--text); font-weight: 600; }
+.intake__resolved-sub { margin-top: 3px; color: var(--text-muted); line-height: 1.45; }
+.intake__resolved-when { margin-top: 3px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+
+/* "a file landed after the check" — a gentle nudge to re-read, never an alarm */
+.intake__resolved--stale .intake__resolved-glyph { color: var(--conv-warn); }
+.intake__resolved-btn {
+  margin-top: 8px; padding: 6px 12px;
+  background: var(--accent); color: var(--accent-ink); font-weight: 600; font-size: 11.5px;
+  border: 0; border-radius: var(--r-sm); cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out), filter var(--dur-fast) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .intake__resolved-btn:hover { filter: brightness(1.06); } }
+.intake__resolved-btn:active { transform: scale(0.97); }
 
 /* ---- the live reading list (what the run is opening, right now) ---- */
 .ifeed { padding: 4px 0 0; }
@@ -195,9 +227,10 @@
 .swarm .swarm__svg { transition: opacity var(--dur) var(--ease-out); }
 
 @media (prefers-reduced-motion: reduce) {
-  .intake, .intake__docwrap, .ifeed__row { animation: none; }
+  .intake, .intake__docwrap, .ifeed__row, .intake__resolved { animation: none; }
   .intake__reanalyze:active { transform: none; }
   .iplan__run:active { transform: none; }
+  .intake__resolved-btn:active { transform: none; }
   .intake-beam--bright { animation: intake-beam-in 1ms both; }
   /* the live dot keeps its identity without motion — colour + glow already separate it from a done step */
   .ifeed__dot--live { animation: none; }

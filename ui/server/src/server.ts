@@ -2270,9 +2270,12 @@ async function fireAutoIntake(ticker: string, attempt = 0): Promise<void> {
     // namespace and use ITS terminal artifact (research: final_thesis.md; commodity: decision_record.json).
     const owner = resolveSwarmForSubject(ticker)
     if (!owner) return
-    // dedupe: skip if the pool has not gained a newer file since the last auto-analysis (a restart re-fires once).
-    const newest = dataPoolNewest(ticker).newestDate || ''
-    if (newest && autoIntakeLastNewest.get(ticker) === newest) return
+    // dedupe: skip if the pool has not gained a newer file since the last auto-analysis (a restart re-fires
+    // once). Keyed on the raw newest MTIME, not the calendar day — a day-granular key would swallow a second
+    // document that lands the same day as a prior auto-analysis, defeating the self-heal that a same-day
+    // landing is supposed to trigger (and that the pool_current re-analysis nudge relies on resolving).
+    const newest = String(dataPoolNewest(ticker).newestMs || 0)
+    if (newest !== '0' && autoIntakeLastNewest.get(ticker) === newest) return
     // never analyze while a run (a real run OR a prior intake) is already in flight on this subject.
     if (listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))) return
     autoIntakeLastNewest.set(ticker, newest)

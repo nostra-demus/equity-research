@@ -65,6 +65,7 @@ The server reads the latest `intake/*_intake_plan.json` under `findLatestRunRoot
   "ticker": "AMZN",
   "run_root": "analyses/AMZN_2026-07-04",
   "scan_date": "2026-07-12",
+  "scanned_at": "2026-07-12T09:14:02Z",
   "watermark": "analyses/AMZN_2026-07-04/final_thesis.md",
   "new_docs": [
     {
@@ -106,6 +107,13 @@ The server reads the latest `intake/*_intake_plan.json` under `findLatestRunRoot
 
 - `run_root` / `watermark` — the run this plan invalidates and the `-newer` basis (its
   `final_thesis.md`). Both are repo-relative.
+- `scan_date` / `scanned_at` — when the analysis read the pool. `scan_date` is the calendar day;
+  `scanned_at` is a precise UTC wall-clock captured **before** the document scan (`date -u +%FT%TZ`). These
+  are the plan's own **durable** freshness witnesses: the plan file lives under `analyses/` (git-tracked),
+  so its filesystem mtime is rewritten forward by any checkout/clone/worktree/rebase and cannot prove when
+  the analysis ran — but `scanned_at`, being JSON content, survives. The server uses it for `pool_current`
+  (§4). Required on every plan, **including the no-new-documents plan** — it is what lets the cockpit safely
+  affirm "no new data — everything read and considered" instead of staying silent.
 - `new_docs[]` — one row per document newer than the watermark. `provider` / `source_type` / `tier`
   / `as_of` come from the doc's `.source.json` sidecar or the extract manifest `provenance`
   (`frameworks/EXTERNAL_DATA.md`); a plain (non-external) filing has `external: false`-style nulls
@@ -138,6 +146,25 @@ The server reads the latest `intake/*_intake_plan.json` under `findLatestRunRoot
    bad command (fail-closed — the mapper cannot hallucinate a `/research:rerun badmodule …`).
 3. **Recomputes `cascade_modules`** for each surviving command from `downstreamCascade(module,
    agent)` — the same expansion `/research:rerun` and admission use.
+4. **Stamps `pool_current`** (derived, never trusted from the file): `true` iff the pool has gained nothing
+   since the analysis read it — i.e. this analysis provably accounts for the whole current pool. This is
+   the safety gate on the cockpit's affirmative *"no new data — everything's been read and considered"*
+   message: that line may only be shown when `new_docs` is empty **and** `pool_current` is `true`. When a
+   file lands after the analysis, `pool_current` is `false` and the cockpit prompts a re-analysis instead —
+   so a document dropped after the last check is **never** reported as "nothing new" (§1 fail-toward-blunt).
+   The freshness witness is **durable, never the plan file's mtime**: `analyses/` mtimes are rewritten
+   forward by any git checkout/clone/worktree/rebase (a fresh deploy tree, a standby-failover checkout) —
+   always toward a falsely-fresh verdict — while `data/` mtimes are durable. `pool_current` is `true` only
+   when **both** hold: (a) the plan's own recorded `scanned_at` (precise) — or `scan_date` (date-granular,
+   **strict** — a same-day file counts as unread) for older plans — proves nothing landed since the analysis
+   read the pool (over `dataPoolNewest`'s `max(mtime, ctime)`, so a doc dropped in with a preserved-older
+   mtime still counts via its local ctime); AND (b) the **durable staleness floor** agrees — no pool file is
+   dated after the run's own folder date. (b) is the belt-and-suspenders for the fact that the command's own
+   `find -newer final_thesis.md` discovery baseline is itself non-durable (the watermark's mtime is bumped
+   the same way), so the command falls back to the run-folder date when it detects a bumped watermark, and
+   the server never lets the dock's "all considered" contradict the stale badges the floor already shows.
+   Fail-safe by construction: any doubt (no witness, a future stamp, a floor disagreement) resolves to
+   `false` — a re-analysis nudge, never a false affirmative.
 
 The plan the server serves is therefore always roster-consistent, even if the command drifted.
 
