@@ -143,6 +143,61 @@ if [ -n "$TUN_ERR" ]; then row "tunnel query" "${Y}$TUN_ERR${X}"; else row "live
 say ""
 say "  $VERDICT"
 
+# ── external reachability: is it the SERVER, or is it MY machine's DNS/network? ─────────────────
+# The one question a browser error can't answer. We resolve the public host via DoH to 1.1.1.1 (an IP
+# literal — needs no working local resolver) and probe Cloudflare's edge with that IP PINNED, bypassing
+# this machine's DNS entirely. An unauthenticated probe can't see past Access to the engine (Access
+# answers first), so this proves DNS + edge REACHABILITY — exactly what tells a local-DNS blip apart
+# from a real outage. Engine health stays with the connector match above and the edge monitor below.
+hd "EXTERNAL REACHABILITY  ${DIM}(edge, local DNS bypassed)${X}"
+PUBHOST="${NOSTRA_PUBLIC_HOST:-$(awk -F'hostname: *' '/hostname:/{gsub(/[ \t]+$/,"",$2); print $2; exit}' "$CFG_DIR/config.yml" 2>/dev/null)}"
+[ -n "$PUBHOST" ] || PUBHOST="app.nostra-demus.com"
+row "public host" "$PUBHOST"
+
+EDGE_IPS=$(curl -s -m 8 -H 'accept: application/dns-json' "https://1.1.1.1/dns-query?name=${PUBHOST}&type=A" 2>/dev/null \
+  | grep -oE '"data":"[0-9.]+"' | grep -oE '[0-9.]+' | head -4)
+LOCAL_ANS=$(dscacheutil -q host -a name "$PUBHOST" 2>/dev/null | grep -c ip_address); [ -n "$LOCAL_ANS" ] || LOCAL_ANS=0
+
+EDGE_CODE=""; EDGE_IP_USED=""; EDGE_REACH=no; EDGE_HEALTHY=no
+if [ -n "$EDGE_IPS" ]; then
+  for ip in $EDGE_IPS; do
+    EDGE_CODE=$(curl -sS -m 12 --resolve "${PUBHOST}:443:${ip}" -o /dev/null -w '%{http_code}' "https://${PUBHOST}/" 2>/dev/null)
+    EDGE_IP_USED="$ip"
+    [ -n "$EDGE_CODE" ] && [ "$EDGE_CODE" != "000" ] && break
+  done
+fi
+
+# Scope each verdict to what was ACTUALLY probed. Access sits in front of the origin, so an
+# unauthenticated probe that gets a 2xx/3xx confirms only DNS+edge reachability — NOT that the engine
+# is up. EDGE_HEALTHY (edge answered, no origin error) is set ONLY on that clean branch, never on 5xx.
+if [ -z "$EDGE_IPS" ]; then
+  EDGE_VERDICT="${Y}couldn't resolve $PUBHOST via 1.1.1.1 DoH${X} — either DoH/1.1.1.1 is blocked here, or the DNS record itself is gone (NXDOMAIN). Can't tell those apart from here alone."
+else
+  case "$EDGE_CODE" in
+    000|"")               EDGE_VERDICT="${Y}resolved via 1.1.1.1, but the pinned edge IP ${EDGE_IP_USED} didn't answer${X} — this machine's path to Cloudflare's edge is failing (DoH itself worked)" ;;
+    50[0-9]|52[0-9]|530)  EDGE_VERDICT="${R}Cloudflare reached, but origin error (HTTP $EDGE_CODE)${X} — tunnel/engine likely DOWN"; EDGE_REACH=yes ;;
+    *)                    EDGE_VERDICT="${G}edge reachable${X} — DNS + Cloudflare answer (HTTP $EDGE_CODE via $EDGE_IP_USED); the name works from outside. ${DIM}(Access answers first, so this confirms DNS+edge, not the engine.)${X}"; EDGE_REACH=yes; EDGE_HEALTHY=yes ;;
+  esac
+fi
+row "edge probe" "$EDGE_VERDICT"
+row "local DNS" "$( [ "$LOCAL_ANS" -gt 0 ] 2>/dev/null && echo "${G}resolves ($LOCAL_ANS answers)${X}" || echo "${R}FAILS to resolve $PUBHOST from this machine${X}" )"
+
+# money verdict — server-vs-your-network. Only fire when the edge answered CLEANLY (not a 5xx origin
+# error) AND this machine can't resolve. Never claim "not an outage" — this probe can't see the engine.
+if [ "$EDGE_HEALTHY" = yes ] && [ "$LOCAL_ANS" -eq 0 ] 2>/dev/null; then
+  say ""
+  say "  ${Y}${B}⚠ The name + edge answer from outside, but YOUR machine can't resolve $PUBHOST → most likely local DNS.${X}"
+  say "  ${DIM}(unauthenticated probe can't see past Access — check the connector match / edge monitor above to fully rule out an outage.)${X}"
+  say "  ${DIM}fix here:${X} networksetup -setdnsservers Wi-Fi 1.1.1.1 1.0.0.1 ; sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
+  say "  ${DIM}  (if Tailscale MagicDNS is intercepting:${X} tailscale set --accept-dns=false${DIM})${X}"
+fi
+
+# optional: the edge uptime-monitor's authoritative external view (its /__status on workers.dev)
+if [ -n "${MONITOR_STATUS_URL:-}" ]; then
+  MON=$(curl -s -m 8 "$MONITOR_STATUS_URL" 2>/dev/null | tr -d '\n' | sed 's/  */ /g' | cut -c1-220)
+  row "edge monitor" "${MON:-(no answer from $MONITOR_STATUS_URL)}"
+fi
+
 # standby failover monitor (present only on a standby node)
 FO_STATUS="$HOME/.nostra-ops/failover.status"
 if launchctl list 2>/dev/null | grep -q com.nostradamus.failover; then
