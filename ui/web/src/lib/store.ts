@@ -2332,6 +2332,14 @@ export const useStore = create<State>((set, get) => ({
         closeRunSource(e.runId)
         const r = get().activeRuns[e.runId]
         if (r) patch.activeRuns = { ...get().activeRuns, [e.runId]: { ...r, status: 'done', costUsd: e.costUsd ?? r.costUsd } }
+        // Refresh the swarm's per-subject verdict pills whenever ANY of its runs FINISHES — even a run for a
+        // subject the user isn't currently viewing (start GOLD, switch to COPPER, GOLD finishes): the block
+        // below is gated on r.ticker === selected, so without this the picker keeps GOLD's stale pill until a
+        // swarm re-entry. loadSwarmSubjects self-guards on activeSwarm, so this is a no-op off the swarm.
+        if (r && r.swarmId && r.swarmId !== 'research') {
+          const bgFinal = !get().chainTickers.has(r.ticker) || r.module === 'master'
+          if (bgFinal) void get().loadSwarmSubjects(r.swarmId)
+        }
         if (r && r.ticker === selected) {
           // a chained full run finishes once PER STEP; only the master step (the last) is "complete".
           const chained = get().chainTickers.has(r.ticker)
@@ -2351,10 +2359,8 @@ export const useStore = create<State>((set, get) => ({
             if (bloomTimer) clearTimeout(bloomTimer)
             bloomTimer = setTimeout(() => set({ coreBloom: false }), 4500)
             api.decision(selected, rSw, r.runRoot ?? undefined).then((d) => set({ decision: d })).catch(() => {})
-            // a finished NON-research (constellation) run just wrote a fresh decision record — refresh the
-            // swarm's subject summaries so the picker's per-subject verdict pill updates without a swarm switch
-            // (loadSwarmSubjects self-guards on activeSwarm). Research's picker is refreshed via refreshTickers.
-            if (rSw) void get().loadSwarmSubjects(rSw)
+            // (the swarm's per-subject verdict pills are refreshed above, unconditionally on any finished
+            // non-research run, so a background completion for a non-selected subject also updates.)
             // A finished re-run is exactly when a new version of the record exists. Deliberately NOT on
             // the data-changed SSE: that watches data/, and a document landing does not change the diff —
             // only a re-run does. And because the reader treats the working tree as current, the delta is

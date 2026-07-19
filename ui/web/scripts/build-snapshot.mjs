@@ -217,7 +217,10 @@ function swarmSubjectSummariesFor(sw) {
   for (const subject of swarmSubjectsFor(sw)) {
     const runAbs = path.join(REPO, sw.runsRoot, subject)
     const hasRun = isDir(runAbs)
-    const summary = { subject, hasRun, runRoot: hasRun ? path.posix.join(sw.runsRoot, subject) : null, verdict: null, decisionDate: null, confidence: null, lastChangeAt: null }
+    // Normalise backslashes before the posix join: on Windows sw.runsRoot (derived via path.dirname) can
+    // carry `\`, and path.posix.join would then emit a mixed-separator path (commodity\runs/GOLD) the web
+    // client can't resolve. Forward slashes only for the served runRoot.
+    const summary = { subject, hasRun, runRoot: hasRun ? path.posix.join(sw.runsRoot.replace(/\\/g, '/'), subject) : null, verdict: null, decisionDate: null, confidence: null, lastChangeAt: null }
     if (hasRun) {
       try { summary.lastChangeAt = fs.statSync(runAbs).mtimeMs } catch { /* folder vanished */ }
       const drPath = path.join(runAbs, 'decision_record.json')

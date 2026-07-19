@@ -136,6 +136,11 @@ export function SubjectPicker() {
                   )}
                   {running ? (
                     <span className="coco__ago" style={{ color: 'var(--accent)' }}>running</span>
+                  ) : run?.decisionDate ? (
+                    // Anchor recency to the RECORDED decision date, not the folder mtime — in the static
+                    // snapshot mtimes are assigned at checkout/build, so a July-2 decision would otherwise
+                    // read "just now" after a deploy. The API carries decisionDate for exactly this.
+                    <span className="coco__ago" title={`Decided ${run.decisionDate}`}>{fmtAgo(Date.parse(run.decisionDate))}</span>
                   ) : run?.lastChangeAt ? (
                     <span className="coco__ago">{fmtAgo(run.lastChangeAt)}</span>
                   ) : null}
