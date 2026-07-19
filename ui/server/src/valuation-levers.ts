@@ -12,6 +12,11 @@ import { STATE_DIR } from './config'
 import { resolveInsideAnalyses } from './sandbox'
 
 export function readValuationSummary(runRoot: string, resolve: (p: string) => string = resolveInsideAnalyses): any | null {
+  // runRoot is caller-supplied. resolveInsideAnalyses realpath-confines the result to analyses/, but
+  // validate the raw string here too — reject traversal and any non-path character BEFORE it reaches the
+  // filesystem. Defense-in-depth, and an explicit barrier for the path-injection scanner (which cannot see
+  // through the resolver's realpath check).
+  if (typeof runRoot !== 'string' || runRoot.includes('..') || !/^[A-Za-z0-9._/-]+$/.test(runRoot)) return null
   try {
     const p = resolve(`${runRoot}/valuation/valuation_summary.json`)
     const j = JSON.parse(fs.readFileSync(p, 'utf8'))
@@ -46,7 +51,12 @@ function readAll(): ValuationOverride[] {
 
 function writeAll(list: ValuationOverride[]): void {
   fs.mkdirSync(path.dirname(FILE), { recursive: true })
-  fs.writeFileSync(FILE, JSON.stringify(list, null, 2) + '\n')
+  // Atomic write: a crash/ENOSPC mid-write must never truncate the append-only ledger (readAll would then
+  // silently return [] and the next save would replace the damaged file with only its own record, losing
+  // every prior judgment). Write to a temp file, then rename — rename is atomic on the same filesystem.
+  const tmp = `${FILE}.tmp-${process.pid}`
+  fs.writeFileSync(tmp, JSON.stringify(list, null, 2) + '\n')
+  fs.renameSync(tmp, FILE)
 }
 
 export function readOverrides(runRoot: string): ValuationOverride[] {

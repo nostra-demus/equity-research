@@ -76,8 +76,13 @@ def level_from_multiple(metric: float, multiple: float, basis: str = "equity",
     if b == "ev":
         if not (_isnum(shares) and shares > 0):
             raise ValueError("basis='ev' requires positive `shares` for the per-share bridge")
+        # An EV multiple gives enterprise value; the equity bridge REQUIRES net debt. Defaulting an unknown
+        # net debt to 0 would silently value the firm as debt-free and overstate every level (§15) — so an
+        # absent net debt makes the EV level Not assessable (raise; the caller renders it as unavailable).
+        if not _isnum(net_debt):
+            raise ValueError("basis='ev' requires a numeric `net_debt` for the equity bridge")
         ev = float(metric) * float(multiple)
-        equity = ev - _num(net_debt, 0.0)
+        equity = ev - float(net_debt)
         return equity / float(shares)
     raise ValueError(f"unknown basis {basis!r} — use 'equity' or 'ev'")
 
@@ -87,6 +92,8 @@ def blend(methods: dict, weights: dict) -> dict:
     e.g. 0.35·own_history + 0.25·peers + 0.40·dcf). Ignores methods whose value is None/non-numeric
     and RENORMALIZES the weights over the methods actually present, so a dropped method cannot
     silently zero-weight the blend. Returns the point plus the effective weights used."""
+    if not isinstance(methods, dict) or not isinstance(weights, dict):
+        return {"base_point": None, "effective_weights": {}, "note": "methods and weights must both be dicts"}
     used = {k: float(v) for k, v in methods.items() if _isnum(v) and _isnum(weights.get(k))}
     wsum = sum(weights[k] for k in used)
     if not used or wsum <= 0:
@@ -121,7 +128,11 @@ def scenario_math(scenarios: list, price: Optional[float]) -> dict:
       return_pct}], and warnings (probabilities not summing to 100; no bear below price; etc.).
     """
     warnings: list = []
-    clean = [s for s in scenarios if _isnum(s.get("probability")) and _isnum(s.get("price_target"))]
+    if not isinstance(scenarios, list):
+        scenarios = []
+        warnings.append("scenarios must be a list — treated as empty")
+    clean = [s for s in scenarios
+             if isinstance(s, dict) and _isnum(s.get("probability")) and _isnum(s.get("price_target"))]
     psum = sum(float(s["probability"]) for s in clean)
     if clean and abs(psum - 100.0) > 0.5:
         warnings.append(f"scenario probabilities sum to {round(psum, 2)}, not 100 (§10)")
@@ -230,9 +241,17 @@ def check_wacc(after_tax_kd, wacc, ke, rf=None, erp=None, is_mega_cap: bool = Fa
     must satisfy `after-tax k_d ≤ WACC < k_e`. A WACC at/above k_e is an assembly error. For a
     developed-market mega-cap, k_e above rf + 1.4·ERP (≈ β > 1.4) needs cited justification."""
     problems: list = []
-    if _isnum(wacc) and _isnum(ke) and wacc >= ke:
-        problems.append(f"WACC {round(wacc,4)} ≥ cost of equity {round(ke,4)} — a WACC cannot exceed k_e "
-                        f"for a firm with debt (assembly error, fix the blend)")
+    # A WACC can never EXCEED k_e. It may EQUAL k_e only for a debt-free firm (no debt weight); for a
+    # levered firm (a positive after-tax cost of debt is supplied) WACC must be strictly below k_e. Flag
+    # wacc > k_e always, but flag equality only when debt is present — otherwise a valid all-equity firm's
+    # WACC == k_e is wrongly reported as an assembly error.
+    if _isnum(wacc) and _isnum(ke):
+        if wacc > ke + 1e-9:
+            problems.append(f"WACC {round(wacc,4)} > cost of equity {round(ke,4)} — a WACC cannot exceed "
+                            f"k_e (assembly error, fix the blend)")
+        elif abs(wacc - ke) <= 1e-9 and _isnum(after_tax_kd):
+            problems.append(f"WACC {round(wacc,4)} = cost of equity {round(ke,4)} but a positive after-tax "
+                            f"cost of debt is given — a levered firm's WACC must be below k_e (assembly error)")
     if _isnum(after_tax_kd) and _isnum(wacc) and wacc < after_tax_kd:
         problems.append(f"WACC {round(wacc,4)} < after-tax cost of debt {round(after_tax_kd,4)} — below the band")
     if is_mega_cap and _isnum(ke) and _isnum(rf) and _isnum(erp):
@@ -266,8 +285,11 @@ def recompute(levers: ValuationLevers) -> dict:
         if _isnum(s.level_override):
             level = float(s.level_override)
         elif _isnum(s.forward_metric) and _isnum(s.multiple):
-            level = level_from_multiple(s.forward_metric, s.multiple, levers.basis,
-                                        levers.shares, levers.net_debt)
+            try:
+                level = level_from_multiple(s.forward_metric, s.multiple, levers.basis,
+                                            levers.shares, levers.net_debt)
+            except ValueError:
+                level = None  # EV basis without net debt / positive shares → level Not assessable (§15)
         else:
             level = None
         scen_out.append({"label": s.label, "probability": s.probability,
@@ -379,10 +401,30 @@ def _selftest() -> int:
     check("recompute_mult_ok", rc["checks"]["multiple_symmetry"]["ok"])            # 29.06 > 25 > 20 is valid expansion/compression
     check("recompute_wacc_in_warnings", any("WACC" in w for w in rc["warnings"]))
 
+    # --- 9. reviewer-flagged edge cases (pinned to §15 EV bridge + §16 WACC band) ---
+    # all-equity firm: WACC == k_e is correct (no debt weight) — must NOT be flagged (was, under wacc>=ke)
+    check("wacc_alleq_eq_ok", check_wacc(None, 0.09, 0.09)["ok"])
+    # levered firm (a positive after-tax k_d supplied): WACC == k_e IS an assembly error
+    check("wacc_levered_eq_flagged", not check_wacc(0.03, 0.09, 0.09)["ok"])
+    # EV basis without net debt: equity bridge is Not assessable — must raise (never silently treat as 0)
+    ev_raised = False
+    try:
+        level_from_multiple(100.0, 12.0, "ev", shares=10.0, net_debt=None)
+    except ValueError:
+        ev_raised = True
+    check("ev_no_netdebt_raises", ev_raised)
+    # …and recompute surfaces that as a None level rather than crashing
+    lev_ev = ValuationLevers(scenarios=[ScenarioLever("base", 100, forward_metric=100.0, multiple=12.0)],
+                             basis="ev", shares=10.0, net_debt=None, current_price=90.0)
+    check("recompute_ev_no_netdebt_none_level", recompute(lev_ev)["scenarios"][0]["price_target"] is None)
+    # defensive: malformed inputs return a clean result instead of throwing
+    check("blend_nondict_safe", blend(None, {})["base_point"] is None)
+    check("scenario_math_nonlist_safe", scenario_math(None, 100.0)["prob_weighted_target"] is None)
+
     if fails:
         print("VALUATION MATH SELFTEST FAIL:", ", ".join(fails))
         return 1
-    print(f"VALUATION MATH SELFTEST PASS — {8} groups, AMZN decision_record reproduced "
+    print(f"VALUATION MATH SELFTEST PASS — {9} groups, AMZN decision_record reproduced "
           f"(expected -16.1 / mos -13.5 / downside 38.7 / rr -0.41), re-anchor + WACC + symmetry checks green")
     return 0
 

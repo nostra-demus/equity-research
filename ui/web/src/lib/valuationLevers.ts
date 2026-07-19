@@ -66,13 +66,17 @@ const pct = (x: number, nd = 1) => round(x * 100, nd)
 function round(x: number, nd = 4): number { const p = 10 ** nd; return Math.round(x * p) / p }
 
 // ---- 1. fair-value LEVEL from a (forward metric × multiple) lever ----
-export function levelFromMultiple(metric: number, multiple: number, basis: Basis, shares?: number | null, netDebt = 0): number {
+export function levelFromMultiple(metric: number, multiple: number, basis: Basis, shares?: number | null, netDebt: number | null = 0): number {
   if (basis === 'ev') {
     if (!(isNum(shares) && shares > 0)) throw new Error("basis 'ev' needs positive shares")
+    // An EV multiple gives enterprise value; the equity bridge REQUIRES net debt. Treating an unknown
+    // net debt as 0 would silently value the firm as debt-free and overstate every level (§15). If net
+    // debt is not supplied, the EV level is Not assessable — throw so the caller renders null.
+    if (!isNum(netDebt)) throw new Error("basis 'ev' needs net debt for the equity bridge")
     const ev = metric * multiple
-    return (ev - (isNum(netDebt) ? netDebt : 0)) / shares
+    return (ev - netDebt) / shares
   }
-  return metric * multiple // equity: EPS × P/E
+  return metric * multiple // equity: EPS × P/E (net debt not used)
 }
 
 // ---- 2. scenario math — the §10 identities ----
@@ -95,7 +99,12 @@ const findByLabel = <T extends { label: string }>(rows: T[], name: string): T | 
 
 export function scenarioMath(scenarios: { label: string; probability?: number | null; price_target?: number | null }[], price: number | null | undefined): ScenarioMath {
   const warnings: string[] = []
-  const clean = scenarios.filter((s) => isNum(s.probability) && isNum(s.price_target)) as { label: string; probability: number; price_target: number }[]
+  if (!Array.isArray(scenarios)) {
+    return { probWeightedTarget: null, levels: {}, perScenario: [], price: null, priceRelativeAssessable: false,
+      expectedReturnPct: null, marginOfSafetyPct: null, downsideToBearPct: null, downsideRiskPct: null, riskReward: null,
+      warnings: ['scenarios must be an array'] }
+  }
+  const clean = scenarios.filter((s) => s && isNum(s.probability) && isNum(s.price_target)) as { label: string; probability: number; price_target: number }[]
   const psum = clean.reduce((a, s) => a + s.probability, 0)
   if (clean.length && Math.abs(psum - 100) > 0.5) warnings.push(`scenario probabilities sum to ${round(psum, 2)}, not 100 (§10)`)
   const pwt = clean.length ? clean.reduce((a, s) => a + (s.price_target * s.probability) / 100, 0) : null
@@ -142,7 +151,14 @@ export interface CheckResult { ok: boolean; problems: string[]; costOfEquity?: n
 
 export function checkWacc(afterTaxKd?: number | null, wacc?: number | null, ke?: number | null, rf?: number | null, erp?: number | null, isMega = false): CheckResult {
   const problems: string[] = []
-  if (isNum(wacc) && isNum(ke) && wacc >= ke) problems.push(`WACC ${round(wacc, 4)} ≥ cost of equity ${round(ke, 4)} — a WACC cannot exceed k_e for a firm with debt (assembly error)`)
+  // A WACC can never EXCEED k_e. It may EQUAL k_e only for a debt-free firm (no debt weight); for a levered
+  // firm (a positive after-tax cost of debt is given) WACC must be strictly below k_e. So flag wacc > k_e
+  // always, but flag equality only when debt is present — otherwise an all-equity firm's correct WACC == k_e
+  // is wrongly reported as an assembly error.
+  if (isNum(wacc) && isNum(ke)) {
+    if (wacc > ke + 1e-9) problems.push(`WACC ${round(wacc, 4)} > cost of equity ${round(ke, 4)} — a WACC cannot exceed k_e (assembly error)`)
+    else if (Math.abs(wacc - ke) <= 1e-9 && isNum(afterTaxKd)) problems.push(`WACC ${round(wacc, 4)} = cost of equity ${round(ke, 4)} but a positive after-tax cost of debt is given — a levered firm's WACC must be below k_e (assembly error)`)
+  }
   if (isNum(afterTaxKd) && isNum(wacc) && wacc < afterTaxKd) problems.push(`WACC ${round(wacc, 4)} < after-tax cost of debt ${round(afterTaxKd, 4)} — below the band`)
   if (isMega && isNum(ke) && isNum(rf) && isNum(erp)) {
     const ceiling = rf + 1.4 * erp
@@ -164,7 +180,7 @@ export interface DraftScenario { label: string; probability: number | null; forw
 export interface PlaygroundDraft {
   basis: Basis
   shares: number | null
-  netDebt: number
+  netDebt: number | null
   price: number | null
   rf: number | null; erp: number | null; beta: number | null; wacc: number | null; afterTaxKd: number | null
   isMega: boolean
@@ -202,13 +218,25 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
 // (metric × multiple editable); fall back to the frozen decision_record scenarios (only the LEVELS +
 // price editable) so the Playground still works on runs that predate the valuation_summary emission.
 export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft {
+  if (!res) {
+    return { basis: 'equity', shares: null, netDebt: 0, price: null,
+      rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false, scenarios: [] }
+  }
   const L = res.levers
-  const price = (L?.current_price ?? res.decision?.entry_price ?? null)
+  // Prefer the decision-record entry_price: when the master synthesizer re-anchors a stale module quote,
+  // decision.entry_price is the fresh decision-time anchor the frozen System Judgment uses, while
+  // valuation_summary.current_price can still be the older module value. Preferring the sidecar would make
+  // the untouched Playground recompute returns that disagree with the frozen judgment — the exact stale
+  // anchor this feature exists to prevent.
+  const price = (res.decision?.entry_price ?? L?.current_price ?? null)
+  const evBasis = L?.basis === 'ev'
   if (L && Array.isArray(L.scenarios) && L.scenarios.length) {
     return {
-      basis: L.basis === 'ev' ? 'ev' : 'equity',
+      basis: evBasis ? 'ev' : 'equity',
       shares: L.shares ?? null,
-      netDebt: isNum(L.net_debt) ? L.net_debt : 0,
+      // For an EV basis, an absent net debt is NOT zero — keep it null so EV levels read Not assessable
+      // until net debt is supplied (§15). For an equity basis net debt is unused, so 0 is harmless.
+      netDebt: isNum(L.net_debt) ? L.net_debt : (evBasis ? null : 0),
       price,
       rf: L.discount_rate?.rf ?? null, erp: L.discount_rate?.erp ?? null, beta: L.discount_rate?.beta ?? null,
       wacc: L.discount_rate?.wacc ?? null, afterTaxKd: L.discount_rate?.after_tax_kd ?? null,

@@ -27,7 +27,15 @@ const fmtN = (n: number | null | undefined, d = 2): string => (typeof n === 'num
 const fmtPct = (n: number | null | undefined): string => (typeof n === 'number' ? `${n > 0 ? '+' : ''}${n}%` : '—')
 const tone = (n: number | null | undefined): string => (typeof n !== 'number' ? 'var(--text-faint)' : n >= 0 ? 'var(--accent-bright)' : 'var(--bad)')
 
+// Numeric inputs keep a LOCAL string state synced to the prop. Binding the raw <input value> to the parsed
+// number swallows intermediate states ("0." parses to 0 and re-renders "0", so a decimal point can never be
+// typed). We hold the exact keystrokes locally and emit the parsed number upward; when the prop changes for
+// another reason we re-sync. `numToStr` avoids clobbering an in-progress "0." with the equal-valued "0".
+const numToStr = (n: number | null): string => (n === null ? '' : String(n))
+
 function Field({ label, value, onChange, step = 'any', title }: { label: string; value: number | null; onChange: (n: number | null) => void; step?: string; title?: string }) {
+  const [local, setLocal] = useState<string>(numToStr(value))
+  useEffect(() => { if (parseNum(local) !== value) setLocal(numToStr(value)) }, [value]) // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <label className="vpg__field" title={title}>
       <span className="vpg__fieldlabel">{label}</span>
@@ -35,10 +43,24 @@ function Field({ label, value, onChange, step = 'any', title }: { label: string;
         className="vpg__input mono"
         inputMode="decimal"
         step={step}
-        value={value ?? ''}
-        onChange={(e) => onChange(parseNum(e.target.value))}
+        value={local}
+        onChange={(e) => { setLocal(e.target.value); onChange(parseNum(e.target.value)) }}
       />
     </label>
+  )
+}
+
+function TableInput({ value, onChange, ariaLabel }: { value: number | null; onChange: (n: number | null) => void; ariaLabel?: string }) {
+  const [local, setLocal] = useState<string>(numToStr(value))
+  useEffect(() => { if (parseNum(local) !== value) setLocal(numToStr(value)) }, [value]) // eslint-disable-line react-hooks/exhaustive-deps
+  return (
+    <input
+      className="vpg__scennum mono"
+      inputMode="decimal"
+      value={local}
+      onChange={(e) => { setLocal(e.target.value); onChange(parseNum(e.target.value)) }}
+      aria-label={ariaLabel}
+    />
   )
 }
 
@@ -169,7 +191,7 @@ export function ValuationPlayground() {
             <div className="vpg__grid">
               <Field label={`Current price${res?.levers?.price_as_of ? ` (as of ${res.levers.price_as_of})` : dec?.entry_price_timestamp ? ` (frozen ${dec.entry_price_timestamp})` : ''}`} value={draft.price} onChange={(n) => setTop({ price: n })} title="Re-anchor every return to a fresh price — the levels don't move, only the returns do." />
               {draft.basis === 'ev' && <Field label="Shares (diluted)" value={draft.shares} onChange={(n) => setTop({ shares: n })} />}
-              {draft.basis === 'ev' && <Field label="Net debt (+debt / −cash)" value={draft.netDebt} onChange={(n) => setTop({ netDebt: n ?? 0 })} />}
+              {draft.basis === 'ev' && <Field label="Net debt (+debt / −cash)" value={draft.netDebt} onChange={(n) => setTop({ netDebt: n })} />}
             </div>
             <div className="vpg__note">Basis: <b>{draft.basis === 'ev' ? 'EV multiple (EBITDA × mult, bridged by net debt)' : 'equity multiple (EPS × P/E)'}</b>{res?.levers?.currency ? ` · ${res.levers.currency}` : ''}</div>
           </div>
@@ -201,14 +223,14 @@ export function ValuationPlayground() {
               return (
                 <div key={i} className="vpg__scenrow">
                   <span className="vpg__scenlabel">{s.label}</span>
-                  <input className="vpg__scennum mono" inputMode="decimal" value={s.probability ?? ''} onChange={(e) => setScen(i, { probability: parseNum(e.target.value) })} aria-label={`${s.label} probability`} />
+                  <TableInput value={s.probability} onChange={(n) => setScen(i, { probability: n })} ariaLabel={`${s.label} probability`} />
                   {hasLevers ? (
                     <>
-                      <input className="vpg__scennum mono" inputMode="decimal" value={s.forwardMetric ?? ''} onChange={(e) => setScen(i, { forwardMetric: parseNum(e.target.value) })} aria-label={`${s.label} forward metric`} />
-                      <input className="vpg__scennum mono" inputMode="decimal" value={s.multiple ?? ''} onChange={(e) => setScen(i, { multiple: parseNum(e.target.value) })} aria-label={`${s.label} multiple`} />
+                      <TableInput value={s.forwardMetric} onChange={(n) => setScen(i, { forwardMetric: n })} ariaLabel={`${s.label} forward metric`} />
+                      <TableInput value={s.multiple} onChange={(n) => setScen(i, { multiple: n })} ariaLabel={`${s.label} multiple`} />
                     </>
                   ) : (
-                    <input className="vpg__scennum mono" inputMode="decimal" value={s.levelOverride ?? ''} onChange={(e) => setScen(i, { levelOverride: parseNum(e.target.value) })} aria-label={`${s.label} fair value`} />
+                    <TableInput value={s.levelOverride} onChange={(n) => setScen(i, { levelOverride: n })} ariaLabel={`${s.label} fair value`} />
                   )}
                   <span className="vpg__scenlevel mono">{fmtN(row?.level, 2)}</span>
                   <span className="vpg__scenret mono" style={{ color: tone(ret) }}>{fmtPct(ret)}</span>
