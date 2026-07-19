@@ -1,4 +1,5 @@
 import { staticPromptPath } from './prompts'
+import type { PipelinesRead } from './types'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, RunHistoryEntry, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
@@ -702,6 +703,15 @@ export const api = {
     } catch {
       return null
     }
+  },
+
+  // The cross-swarm data-pipeline library read (connector registry + freshness + recommended-to-add).
+  // Static showcase returns a sensible absent read; live errors keep their `status` (the get()
+  // convention) so the store can tell a mid-deploy 404 (feature off, §5) from a real failure.
+  pipelines: async (): Promise<{ read: PipelinesRead }> => {
+    if ((await ensureMode()) === 'static')
+      return { read: { generatedAt: '', poolAvailable: false, pipelines: [], recommended: [], widened: [] } }
+    return get(`/api/pipelines`)
   },
 
   runStreamUrl: (runId: string) => `/api/runs/${runId}/stream`,

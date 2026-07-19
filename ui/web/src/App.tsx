@@ -23,6 +23,7 @@ import { ScoringPanel } from './components/screener/ScoringPanel'
 import { ReviewPanel } from './components/screener/ReviewPanel'
 import { FeedbackPanel } from './components/FeedbackPanel'
 import { CallsTracker } from './components/CallsTracker'
+import { DataLibrary } from './components/datalibrary/DataLibrary'
 import { LaunchConfirm } from './components/LaunchConfirm'
 import { ThesisPlanPanel } from './components/ThesisPlanPanel'
 import { WhatChangedPanel } from './components/WhatChangedPanel'
@@ -155,6 +156,7 @@ export function App() {
   const reviewOpen = useStore((s) => s.reviewOpen)
   const cockpitFeedbackOpen = useStore((s) => s.cockpitFeedbackOpen)
   const callsOpen = useStore((s) => s.callsOpen)
+  const dataLibraryOpen = useStore((s) => s.dataLibraryOpen)
   const pipelineOpen = useStore((s) => s.pipelineOpen)
   const chatOpen = useStore((s) => s.chatOpen)
   const chatHistoryOpen = useStore((s) => s.chatHistoryOpen)
@@ -198,6 +200,7 @@ export function App() {
       <AnimatePresence>{reviewOpen && <ReviewPanel />}</AnimatePresence>
       <AnimatePresence>{cockpitFeedbackOpen && <FeedbackPanel />}</AnimatePresence>
       <AnimatePresence>{callsOpen && <CallsTracker />}</AnimatePresence>
+      <AnimatePresence>{dataLibraryOpen && <DataLibrary />}</AnimatePresence>
       <AnimatePresence>{pipelineOpen && <PipelineBoard />}</AnimatePresence>
       {/* no exit animation by design: the wire re-renders on live news/status ticks, which can
           freeze a framer exit mid-slide — instant close is deterministic (and exits should be

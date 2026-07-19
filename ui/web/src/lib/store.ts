@@ -11,6 +11,8 @@ import { affectedModules, focusKeysFor } from './intake'
 import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
+import { emptyDlFilters, type DlFilterState } from '../components/datalibrary/DataLibraryFilters'
+import type { PipelinesRead } from './types'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
 
 // A company the user drilled into from an event (the COMPANIES NAMED chips) — the main stage then
@@ -328,6 +330,12 @@ interface State {
   scRouted: Record<string, { route: string; terminal: boolean }> // module -> latest routing (lights the switchyard)
   signalIntakeOpen: boolean
   pipelineOpen: boolean
+  // ---- Data Library (cross-swarm — deliberately NOT reset on a swarm switch) ----
+  dataLibraryOpen: boolean
+  dlSelectedId: string | null // THE list<->detail field: null = list, an id = that pipeline's detail
+  pipelines: PipelinesRead | null // null until /api/pipelines answers (the Data button gates on this, §5)
+  pipelinesError: string | null
+  dlFilters: DlFilterState
   // live-book (Recent-runs drawer) filter + sort + archived-tray state — held here, not in the panel,
   // because the panel unmounts on close (a glance-leave-return surface; filters should survive reopen)
   scBookFilters: BookFilterState
@@ -414,6 +422,11 @@ interface State {
   // refreshed on select + on data-changed — read by the read-only "Data needs" dock. Null = none / no run.
   dataNeeds: DataNeedsRead | null
   refreshDataNeeds: () => Promise<void>
+  refreshPipelines: () => Promise<void>
+  openDataLibrary: () => void
+  closeDataLibrary: () => void
+  setDlSelected: (id: string | null) => void
+  setDlFilters: (f: DlFilterState) => void
   // "What changed since the last version" — the server-computed git delta for the run on screen.
   whatChanged: WhatChangedRead | null
   whatChangedOpen: boolean
@@ -800,6 +813,11 @@ export const useStore = create<State>((set, get) => ({
   scRouted: {},
   signalIntakeOpen: false,
   pipelineOpen: false,
+  dataLibraryOpen: false,
+  dlSelectedId: null,
+  pipelines: null,
+  pipelinesError: null,
+  dlFilters: emptyDlFilters(),
   scBookFilters: emptyBookFilters(),
   scBookSort: 'rank',
   scBookArchivedOpen: false,
@@ -951,6 +969,7 @@ export const useStore = create<State>((set, get) => ({
     if (isResearch) await get().refreshData()
     if (isResearch) void get().refreshIntake() // the scoped rerun plan (if one exists) — non-blocking
     void get().refreshDataNeeds() // the surfaced data needs (research + commodity) — non-blocking, fail-closed
+    void get().refreshPipelines() // the cross-swarm pipeline library (the Data button gates on this, §5)
     if (get().selectToken !== token) return
     // seed prior-run results into the swarm
     try {
@@ -2067,6 +2086,26 @@ export const useStore = create<State>((set, get) => ({
   closeScoring: () => set({ scoringOpen: false }),
   openCalls: () => set({ callsOpen: true }),
   closeCalls: () => set({ callsOpen: false }),
+
+  // ---- Data Library (cross-swarm overlay; one overlay at a time, the openPipeline idiom) ----
+  openDataLibrary: () => {
+    set({ dataLibraryOpen: true, newsFeedOpen: false, pipelineOpen: false, callsOpen: false })
+    void get().refreshPipelines()
+  },
+  closeDataLibrary: () => set({ dataLibraryOpen: false, dlSelectedId: null }),
+  setDlSelected: (id) => set({ dlSelectedId: id }),
+  setDlFilters: (f) => set({ dlFilters: f }),
+  refreshPipelines: async () => {
+    if (get().staticMode) return // static showcase: no engine — the Data button stays hidden (§5)
+    try {
+      const { read } = await api.pipelines()
+      set({ pipelines: read, pipelinesError: null })
+    } catch (e: any) {
+      // old engine mid-deploy (no /api/pipelines yet): feature off, never an error surface (§5)
+      if (e?.status === 404) { set({ pipelines: null, pipelinesError: null }); return }
+      set({ pipelinesError: e?.message ? String(e.message) : 'could not load the pipelines read' }) // KEEP prior data
+    }
+  },
   // open any analyses/ file (review JSON / thesis md / dashboard md) in the OutputReader (renders text).
   openCallFile: (path, title) => set({ openOutput: { path, title } }),
 

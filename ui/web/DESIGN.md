@@ -117,6 +117,7 @@ merging.**
 | `src/lib/{dedup,scope,taxonomy,themes,wire}.ts` | wire data plumbing: dedup clusters, event scope, taxonomy, theme grouping, wire config | screener, commodity |
 | `src/components/LaunchConfirm.tsx` | the launch confirm dialog | all swarms |
 | `src/components/CommandBar.tsx` | top bar: swarm switcher, theme toggle, status | all swarms |
+| `src/components/datalibrary/*` — `DataLibrary`, `DataLibraryFilters` | the cross-swarm data-pipeline library: connector registry + pool freshness + recommended-to-add (guarded by `ui/server/test/datalibrary-purity.test.ts`) | all swarms |
 | `src/styles/tokens.css` + `src/styles/global.css` | the theming contract + every component class | all swarms |
 
 ## 7. Wire component contract
