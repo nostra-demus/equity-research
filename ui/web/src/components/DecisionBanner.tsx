@@ -83,6 +83,7 @@ export function DecisionBanner() {
   const decision = useStore((s) => s.decision)
   const openThesis = useStore((s) => s.openThesis)
   const openReport = useStore((s) => s.openReport)
+  const openValuationPlayground = useStore((s) => s.openValuationPlayground)
   const reports = useStore((s) => s.reports)
   const setToast = useStore((s) => s.setToast)
   const dataStatus = useStore((s) => s.dataStatus)
@@ -121,6 +122,17 @@ export function DecisionBanner() {
         <span className="decision__stat">exp ret <b style={{ color: er >= 0 ? 'var(--accent-bright)' : 'var(--bad)' }}>{er > 0 ? '+' : ''}{er}%</b></span>
       )}
       {decision.entry_price && <span className="decision__stat">@ <b>{decision.currency || ''} {decision.entry_price}</b></span>}
+      {isResearch && (
+        <button
+          type="button"
+          className="tierbtn"
+          style={{ marginLeft: 4 }}
+          title="Open the Valuation Playground — move the levers (WACC, multiples, forward EPS, current price) and watch bull/base/bear and the return recompute live, without re-running the swarm"
+          onClick={(e) => { e.stopPropagation(); openValuationPlayground() }}
+        >
+          ⚖ Playground
+        </button>
+      )}
       {/* Sits with the call it describes. The banner's own gate — a decided run, not mid-run — is exactly
           when a version comparison can exist, which is why this lives here and not in the "New data" dock
           (whose gate empties the moment a re-run consumes the documents: the answer would vanish at the

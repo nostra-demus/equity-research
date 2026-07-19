@@ -47,6 +47,7 @@ import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, terminalModuleName } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
+import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
 import { deleteConversation, getConversation, isValidConversationId, listConversations, recordAssistantMessage, recordUserMessage } from './chat-store'
@@ -1147,6 +1148,52 @@ app.get('/api/output/run', async (req, reply) => {
   } catch (e: any) {
     return reply.code(400).send({ error: 'cannot read run', detail: String(e?.message || e) })
   }
+})
+
+// ---------- valuation Playground (levers) ----------
+// GET the machine-readable valuation levers a run emitted (valuation_summary.json) + the frozen scenario
+// OUTPUTS from decision_record.json (probabilities + returns) + any saved what-if overrides. The recompute
+// is client-side (ui/web/src/lib/valuationLevers.ts, a mirror of scripts/valuation_math.py); this endpoint
+// only serves the baseline. Reuses resolveOutputRun so a bare ticker resolves to its standing run.
+app.get('/api/valuation-levers', async (req, reply) => {
+  const r = resolveOutputRun(req.query as any)
+  if (r.unknownSwarm) return reply.code(404).send({ error: 'unknown swarm' })
+  if (r.badSubject) return reply.code(400).send({ error: 'subject required' })
+  if (!r.runRoot) return reply.code(404).send({ error: 'no run found' })
+  const levers = readValuationSummary(r.runRoot, r.resolve)
+  let decision: any = null
+  try { decision = readDecision(r.runRoot, r.resolve) } catch { /* no decision_record yet */ }
+  const num = (v: any): number | null => (typeof v === 'number' && Number.isFinite(v) ? v : null)
+  const dec = decision
+    ? {
+        scenarios: Array.isArray(decision.scenarios) ? decision.scenarios : [],
+        entry_price: num(decision.entry_price),
+        entry_price_timestamp: decision.entry_price_timestamp ?? null,
+        currency: decision.currency ?? null,
+        expected_return_pct: num(decision.expected_return_pct),
+        margin_of_safety_pct: num(decision.margin_of_safety_pct),
+        downside_risk_pct: num(decision.downside_risk_pct),
+      }
+    : null
+  if (!levers && !dec) return reply.code(404).send({ error: 'no valuation levers or decision_record for this run' })
+  return { runRoot: r.runRoot, levers, decision: dec, overrides: readOverrides(r.runRoot) }
+})
+
+// Persist a what-if override + the reason (an append-only, gitignored judgment ledger — not a change to the
+// frozen run). runRoot is confined to analyses/ so a request can never steer a write elsewhere.
+const ValuationOverrideBody = z.object({
+  runRoot: z.string().min(1).max(300),
+  reason: z.string().max(4000).optional(),
+  overrides: z.record(z.any()).optional(),
+  levels: z.record(z.number()).optional(),
+}).strip()
+app.post('/api/valuation-levers/override', { config: { rateLimit: { max: 200, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const parsed = ValuationOverrideBody.safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const runRoot = parsed.data.runRoot.replace(/^\/+/, '')
+  if (!/^analyses\/[A-Za-z0-9._-]+$/.test(runRoot)) return reply.code(400).send({ error: 'runRoot must be a single analyses/<run> folder' })
+  const rec = appendOverride({ run_root: runRoot, reason: parsed.data.reason ?? '', overrides: parsed.data.overrides ?? {}, levels: parsed.data.levels ?? null })
+  return { ok: true, override: rec, overrides: readOverrides(runRoot) }
 })
 
 // ---------- chat with your data (closed-book Q&A over a run's synthesized output) ----------
