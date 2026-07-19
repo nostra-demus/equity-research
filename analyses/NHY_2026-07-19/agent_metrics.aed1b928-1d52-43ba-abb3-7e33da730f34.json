@@ -1,0 +1,165 @@
+{
+  "agents": [
+    {
+      "agent": "capital-allocation-scorecard",
+      "model": "claude-sonnet-5",
+      "calls": 25,
+      "usage": {
+        "input_tokens": 50,
+        "output_tokens": 42994,
+        "cache_read_input_tokens": 2411437,
+        "cache_creation_input_tokens": 155164,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 155164,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.9503561,
+      "runtime_ms": 0,
+      "module": "management-governance"
+    },
+    {
+      "agent": "governance-data-triage",
+      "model": "claude-sonnet-5",
+      "calls": 25,
+      "usage": {
+        "input_tokens": 50,
+        "output_tokens": 18643,
+        "cache_read_input_tokens": 1811001,
+        "cache_creation_input_tokens": 104707,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 104707,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.21574655,
+      "runtime_ms": 260232,
+      "module": "management-governance"
+    },
+    {
+      "agent": "candor-and-disclosure-quality",
+      "model": "claude-sonnet-5",
+      "calls": 10,
+      "usage": {
+        "input_tokens": 20,
+        "output_tokens": 19016,
+        "cache_read_input_tokens": 689242,
+        "cache_creation_input_tokens": 121720,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 121720,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.9485226,
+      "runtime_ms": 0,
+      "module": "management-governance"
+    },
+    {
+      "agent": "board-and-shareholder-rights",
+      "model": "claude-sonnet-5",
+      "calls": 16,
+      "usage": {
+        "input_tokens": 32,
+        "output_tokens": 31928,
+        "cache_read_input_tokens": 1478820,
+        "cache_creation_input_tokens": 169461,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 169461,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.55814075,
+      "runtime_ms": 0,
+      "module": "management-governance"
+    },
+    {
+      "agent": "incentives-and-compensation",
+      "model": "claude-sonnet-5",
+      "calls": 32,
+      "usage": {
+        "input_tokens": 1174,
+        "output_tokens": 40740,
+        "cache_read_input_tokens": 2635420,
+        "cache_creation_input_tokens": 194716,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 194716,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 2.135433,
+      "runtime_ms": 0,
+      "module": "management-governance"
+    },
+    {
+      "agent": "management-and-track-record",
+      "model": "claude-sonnet-5",
+      "calls": 24,
+      "usage": {
+        "input_tokens": 48,
+        "output_tokens": 23417,
+        "cache_read_input_tokens": 1954183,
+        "cache_creation_input_tokens": 122341,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 122341,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.39643265,
+      "runtime_ms": 287040,
+      "module": "management-governance"
+    },
+    {
+      "agent": "ownership-and-insider-behavior",
+      "model": "claude-sonnet-5",
+      "calls": 18,
+      "usage": {
+        "input_tokens": 1130,
+        "output_tokens": 22782,
+        "cache_read_input_tokens": 1198582,
+        "cache_creation_input_tokens": 102516,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 102516,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.0891296000000001,
+      "runtime_ms": 0,
+      "module": "management-governance"
+    },
+    {
+      "agent": "management-governance-synthesis",
+      "model": "claude-sonnet-5",
+      "calls": 15,
+      "usage": {
+        "input_tokens": 30,
+        "output_tokens": 14107,
+        "cache_read_input_tokens": 1991388,
+        "cache_creation_input_tokens": 200318,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 200318,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.5603038999999999,
+      "runtime_ms": 356066,
+      "module": "management-governance"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 45,
+    "usage": {
+      "input_tokens": 90,
+      "output_tokens": 22651,
+      "cache_read_input_tokens": 4406785,
+      "cache_creation_input_tokens": 99135,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 99135
+      }
+    },
+    "cost": 2.2568805,
+    "runtime_ms": 0
+  }
+}
