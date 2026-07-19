@@ -50,7 +50,7 @@
       "cap_lifted": "a current COTR print (next due 2026-07-21) confirms whether the position has unwound (supports upgrading toward Buy) or extended further (sharpens the case toward Avoid), directly resolving the single biggest gap in this dossier",
       "filing_required": false,
       "entry_modules": ["macro-positioning"],
-      "suggested_source": { "name": "London Metal Exchange (LME) COTR publication", "acquisition": "vendor_or_paid_feed", "licensing": "exchange-licensed" },
+      "suggested_source": { "name": "London Metal Exchange (LME) COTR publication", "acquisition": "paid_api", "licensing": "exchange-licensed" },
       "tier": 5,
       "cadence": "weekly",
       "next_release": "2026-07-21"
@@ -62,7 +62,7 @@
       "cap_lifted": "a current SHFE stock print would let the supply-demand module state a China exchange-side tightness verdict instead of 'not assessable', sharpening the overall balance read",
       "filing_required": false,
       "entry_modules": ["supply-demand"],
-      "suggested_source": { "name": "Shanghai Futures Exchange (SHFE) daily stock report", "acquisition": "free_public_data", "licensing": "public" },
+      "suggested_source": { "name": "Shanghai Futures Exchange (SHFE) daily stock report", "acquisition": "scrape", "licensing": "public" },
       "tier": 9,
       "cadence": "daily",
       "next_release": "2026-07-21"
