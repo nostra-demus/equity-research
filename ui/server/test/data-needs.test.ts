@@ -24,15 +24,21 @@ const here = path.dirname(fileURLToPath(import.meta.url))
 const tmpdirs: string[] = []
 const tmp = (prefix: string) => { const d = fs.mkdtempSync(path.join(os.tmpdir(), prefix)); tmpdirs.push(d); return d }
 
-// ---- the REAL repo record (the regression that motivated the fix) ----
-check("real repo: ALUMINIUM's two needs surface, each kept with acquisition 'unrecognized'", () => {
+// ---- the REAL repo record ----
+// #286 corrected the two suggested_source.acquisition values in the committed ALUMINIUM
+// decision_record.json to the schema enum (vendor_or_paid_feed -> paid_api, free_public_data ->
+// scrape) - both entries now pass through readDataNeeds untouched, with no widened keep-and-label
+// note. The off-enum keep-and-label path itself is still exercised by the tmpdir fixture below.
+check("real repo: ALUMINIUM's two needs surface with their schema-valid acquisition values", () => {
   const read = readDataNeeds('commodity', 'ALUMINIUM')
   assert.ok(read, 'no ALUMINIUM decision_record read')
   const ids = read!.needs.map((n) => n.need_id).sort()
   assert.deepEqual(ids, ['lme-cotr-fund-positioning', 'shfe-exchange-stock-current'])
-  for (const n of read!.needs) assert.equal(n.suggested_source.acquisition, 'unrecognized')
+  const by = (id: string) => read!.needs.find((n) => n.need_id === id)
+  assert.equal(by('lme-cotr-fund-positioning')?.suggested_source.acquisition, 'paid_api')
+  assert.equal(by('shfe-exchange-stock-current')?.suggested_source.acquisition, 'scrape')
   const kept = read!.widened.filter((w) => w.includes('kept, labelled unrecognized'))
-  assert.equal(kept.length, 2, `expected 2 keep-and-label notes, got: ${JSON.stringify(read!.widened)}`)
+  assert.equal(kept.length, 0, `expected no keep-and-label notes now both acquisitions are in-enum, got: ${JSON.stringify(read!.widened)}`)
 })
 
 // ---- enum semantics against a tmpdir fixture swarm ----
