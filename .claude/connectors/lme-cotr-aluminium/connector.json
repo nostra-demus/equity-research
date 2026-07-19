@@ -1,0 +1,35 @@
+{
+  "id": "lme-cotr-aluminium",
+  "series": "LME Commitments of Traders (COTR) — Aluminium (AH) investment-fund positioning",
+  "satisfies": ["lme-cotr-fund-positioning", "lme-cotr", "investment-fund-positioning"],
+  "subjects": ["ALUMINIUM"],
+  "provider": "LME",
+  "acquisition": "official_api",
+  "source_type": "vendor_export",
+  "tier": 5,
+  "license": "LME website publication — free COTR; cite with report date; do not redistribute tables",
+  "host_allowlist": ["www.lme.com"],
+  "cadence": "weekly",
+  "staleness_sla_days": 12,
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/lme/cotr_aluminium_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "contract": "string",
+    "notation": "string",
+    "investment_funds": {
+      "long": "float",
+      "short": "float",
+      "net": "float",
+      "stance": "enum:net_short|net_long|flat",
+      "net_change_wow": "float",
+      "pct_of_oi_long": "float",
+      "pct_of_oi_short": "float"
+    },
+    "categories_net": "object",
+    "acquired_via": "enum:direct_fetch|manual_file",
+    "source_url": "string"
+  }
+}
