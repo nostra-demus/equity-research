@@ -6,9 +6,10 @@ function check(name: string, cond: boolean, detail = '') {
   else { console.error(`FAIL  ${name}  ${detail}`); process.exitCode = 1 }
 }
 
-// dispatch NOT enabled → repair must be not_ready even for an admin
+// dispatch explicitly disabled → repair must be not_ready even for an admin with a token (the flag defaults
+// ON now, so "disabled" means the operator set it to '0').
 process.env.ENGINE_DISPATCH_ADMINS = 'boss@muns.io'
-delete process.env.ENGINE_CONNECTOR_DISPATCH_ENABLED
+process.env.ENGINE_CONNECTOR_DISPATCH_ENABLED = '0'
 process.env.GH_PR_TOKEN = 'ghp_test'
 
 const { buildRepairPrompt, startConnectorRepair } = await import('../src/connector-repair')

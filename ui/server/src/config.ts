@@ -86,10 +86,13 @@ export function feedbackDispatchReady(): boolean {
 //     bundle". Mirrors the feedback dispatch's isolation model EXACTLY (fresh worktree, fine-grained
 //     CODE_PR_TOKEN, untrusted-input boundary, its OWN caps/inflight/budget file) — never the §28 data
 //     identity. FAIL-CLOSED: needs the enable flag AND a PR token AND an admitted admin (checked at the route).
-// Both default OFF so a deploy without the flags behaves exactly as before (the panel still shows the
-// recommended data + runs read-only, but the scan/build buttons stay dark).
-export const PIPELINE_SCAN_ENABLED = process.env.ENGINE_PIPELINE_SCAN_ENABLED === '1'
-export const CONNECTOR_DISPATCH_ENABLED = process.env.ENGINE_CONNECTOR_DISPATCH_ENABLED === '1'
+// Default ON (set the flag to '0' to force off). The HARD safety gates are NOT these flags — they are (a) the
+// fine-grained PR token: nothing can open a PR without CODE_PR_TOKEN, and (b) the admin allowlist: nothing
+// that spawns a paid agent runs without an admitted email in ENGINE_DISPATCH_ADMINS. With neither configured,
+// a deploy behaves exactly as before (panel shows recommended data read-only; scan/build stay dark) — so
+// flipping the default to on is safe: the token + admin remain the real switches an operator must provide.
+export const PIPELINE_SCAN_ENABLED = process.env.ENGINE_PIPELINE_SCAN_ENABLED !== '0'
+export const CONNECTOR_DISPATCH_ENABLED = process.env.ENGINE_CONNECTOR_DISPATCH_ENABLED !== '0'
 /** The read-only relevance scan can run when it is enabled (it needs no PR token — keychain-authed like chat). */
 export function pipelineScanReady(): boolean {
   return PIPELINE_SCAN_ENABLED
@@ -100,13 +103,15 @@ export function connectorDispatchReady(): boolean {
 }
 
 // The always-on layer — the cadence runner that keeps every built connector fresh (connector-runner.ts) and
-// the auto-repair that opens a fix-it PR when a source breaks (connector-repair.ts). BOTH default OFF:
-//   • ENGINE_CONNECTOR_RUNNER_ENABLED=1 turns on the forever loop (fetch each connector on its cadence).
-//   • ENGINE_CONNECTOR_AUTO_REPAIR=1 additionally lets a broken feed auto-open a repair PR — a separate,
-//     more powerful opt-in (it needs a PR token too), so a shop can run the fresh-data loop without ever
-//     letting the engine open a repair PR on its own.
-export const CONNECTOR_RUNNER_ENABLED = process.env.ENGINE_CONNECTOR_RUNNER_ENABLED === '1'
-export const CONNECTOR_AUTO_REPAIR_ENABLED = process.env.ENGINE_CONNECTOR_AUTO_REPAIR === '1'
+// the auto-repair that opens a fix-it PR when a source breaks (connector-repair.ts). Default ON (set the flag
+// to '0' to force off):
+//   • The RUNNER only fetches PUBLIC data on a cadence — no secret, no git — so it is safe to have on by
+//     default; that is what keeps feeds fresh "forever" with zero setup.
+//   • AUTO-REPAIR opens a PR, so it still cannot fire without CODE_PR_TOKEN (connectorAutoRepairReady checks
+//     it). Default-on here just means "the moment a PR token exists, a broken feed heals itself" — set
+//     ENGINE_CONNECTOR_AUTO_REPAIR=0 to keep the fresh-data loop but never let it open a repair PR.
+export const CONNECTOR_RUNNER_ENABLED = process.env.ENGINE_CONNECTOR_RUNNER_ENABLED !== '0'
+export const CONNECTOR_AUTO_REPAIR_ENABLED = process.env.ENGINE_CONNECTOR_AUTO_REPAIR !== '0'
 /** The cadence runner runs when it is enabled. */
 export function connectorRunnerReady(): boolean {
   return CONNECTOR_RUNNER_ENABLED
