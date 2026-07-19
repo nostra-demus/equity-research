@@ -57,6 +57,8 @@ If a method is missing or was capped, exclude it from the triangulation weightin
 
 Weights sum to 100% across the methods that are **value-producing AND valid for this business type** per the Business-Type Method Map — for an operating company that is typically 02, 03, 04, 06; for a Financial the set is the DDM / residual-income value (not an EV-based DCF or SOTP); for a REIT it is NAV / P-FFO. Exclude (zero-weight) any method invalid for the type or flagged illustrative-only / collapsed / sanity-check by its own producer. Reverse-DCF is a cross-check, not a weighted input.
 
+**Multiples-first for operating companies with estimates (MODULE_RULES → Scenario Construction & Method-Weighting Policy §1).** For an **Operating** business that has a usable forward metric (consensus / evidenced NTM/FY+1 EPS or EBITDA) AND an own-history (`02`) or peer (`03`) multiple set, `02` and `03` together carry the **majority** weight; `04_intrinsic-dcf` and `06_sum-of-the-parts` are cross-checks whose **combined** weight is capped at ≈ ≤ ⅓ — UNLESS a stated reason elevates one (a genuine multi-segment conglomerate where SOTP is primary per the Method Map, or no usable forward multiple exists). If a low DCF/SOTP would drag the base well below the multiples methods, reconcile that gap explicitly in §2 (is it a high-WACC or trailing-metric artefact, or a real warning?) rather than letting it silently lower the base point. This does NOT apply where the Method Map makes a non-multiple method primary (Financials → DDM/residual-income; REITs → NAV; Holding companies → SOTP).
+
 ## 2. Triangulation & Reconciliation
 
 First show the **method football field** — the honest cross-method spread, one row per value-producing method, with its value (or its own range), confidence, and weight. Do NOT narrow or pre-blend it: the full high-to-low spread (e.g. DCF ₹142 vs peers ₹603) is the dispersion the base point must be reconciled FROM, and it must NOT be smeared into a fake mid-band wearing a scenario label.
@@ -70,11 +72,13 @@ Then derive the **base-case fair value as a single POINT** (a level, not a band)
 
 Each case is a **single derived fair-value LEVEL — a point, not a range** — off one coherent assumption set (state the driver assumptions and the multiple/metric that produce it). The bull-to-bear *spread* is the range; the cross-method dispersion is the §2 football field. Date each level (default 12-month convergence horizon unless you state otherwise), consistent with CLAUDE.md §16 ("bear, base, and bull fair-value levels").
 
-| Case | Fair Value / Share (point) | Implied Multiple | Horizon | What Must Be True (operating drivers) |
-|---|---:|---:|---|---|
-| Bull | | | | |
-| Base | | | | |
-| Bear | | | | |
+| Case | Fair Value / Share (point) | Forward Metric (EPS/EBITDA) | Multiple | Horizon | What Must Be True (operating drivers) |
+|---|---:|---:|---:|---|---|
+| Bull | | | | | |
+| Base | | | | | |
+| Bear | | | | | |
+
+**Build each case as (forward metric × multiple), symmetric (MODULE_RULES → Scenario Construction & Method-Weighting Policy §2).** State BOTH the forward metric AND the multiple for every case — both columns are mandatory, not optional. The **bull** multiple must be **≥** the base multiple (expanded toward the own-history high band from `02_multiples-own-history`), the **bear** multiple **≤** the base (compressed toward the low band); within each case the multiple and the metric move the **same** direction (both up in bull, both down in bear). A bull case that lifts the metric while **holding or cutting** the multiple is rejected unless you state a specific, cited reason the multiple cannot expand (e.g. the stock already sits at its historical ceiling multiple). Anchor the bull/bear multiples to `02`'s reported min/mean/median/max band — do not invent expansion/compression beyond that band without explicit mania/distress evidence (warranted-multiple check).
 
 Tie each case to specific operating drivers (from `earnings/07_earnings-sensitivity.md` where available) and the warranted multiple. **For a cyclical/commodity business — or where the earnings module flagged the latest period as a cycle peak or carrying a one-time policy tailwind — the BEAR case must reflect a true through-cycle trough: cite the company's actual prior-downturn volume and margin (the last recession year), not a mild dip off the recent peak. If the upstream `earnings/07` sensitivity range was built only on the last ~3 years and those years are all upcycle, widen the bear move to the documented prior-trough and say so. For a young entity with under one full standalone cycle, use the predecessor / segment / industry prior-downturn and name it. Evidence-based: name the prior-downturn period and its figures; do not invent a trough deeper than the history supports.** DO NOT assign probabilities — that is the master synthesizer's job.
 
@@ -113,6 +117,9 @@ Margin of safety (discount to base fair value) and downside-to-bear (loss to the
 - [ ] Reverse-DCF is used as a cross-check, not a weighted value.
 - [ ] Method disagreement >40% is flagged as the headline if present.
 - [ ] Bull/base/bear are each a single derived fair-value LEVEL (a point), tied to operating drivers and dated (default 12-month) — NOT a range; the §2 football field carries the cross-method dispersion at its true high-to-low spread (not a narrowed mid-band). NO probabilities assigned.
+- [ ] Each of bull/base/bear states BOTH a forward metric AND a multiple; bull multiple ≥ base multiple ≥ bear multiple (expansion in bull, compression in bear), anchored to `02`'s own-history band; any bull that holds/cuts the multiple carries a cited reason (Scenario Construction Policy §2).
+- [ ] For an operating company with estimates, the base point is anchored on the multiples methods (`02`/`03` majority weight) with `04`/`06` a capped cross-check unless a stated reason elevates one; any low DCF/SOTP drag on the base is reconciled explicitly, not silently averaged in (Method-Weighting Policy §1).
+- [ ] If `01` flagged the price as stale, margin of safety and downside-to-bear are shown at BOTH the stale pool anchor and the freshest quote (each labelled with price + as-of date), leading with the fresher read (MODULE_RULES → Price freshness).
 - [ ] Margin of safety = `(base FV − price)/base FV` AND downside-to-bear = `(price − bear FV)/price` are computed as two SEPARATE metrics (downside-to-bear flagged inverted), or both marked "Not assessable" if `01`'s price-state ≠ pool-verified. Margin of safety is NOT defined as distance-to-bear.
 - [ ] The warranted-multiple check flags value-trap risk where applicable.
 - [ ] The boundary is respected: no probabilities, no risk/reward, no rating, no position sizing.
