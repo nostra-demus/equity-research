@@ -119,6 +119,8 @@ The one caveat: commodity names are common English words ("gold", "sugar"), so l
 
 A paid-API integration is a fetcher that WRITES FILES — it needs no engine wiring. Contract: drop the pull (CSV/JSON/PDF) into `EXTERNAL-INBOX/<Provider>/` (or directly into a ticker's `external/<provider>/` with a sidecar), one file per pull, the as-of IN the filename or body. Keys live in `~/.config/nostra-engine/providers.env` (never in the repo, §28). The router, extractor, triage, and staleness loop then treat it exactly like a manual drop. This is deliberately the same zero-touch shape as §26: adding a data source must never require engine-code edits.
 
+A connector is the standing form of that fetcher. `.claude/connectors/<id>/` holds a `connector.json` manifest, a `fetch.py`, and its `test_*.py`, discovered generically by glob — adding one never edits engine code or CI (§26). The staleness runner (`.claude/tools/run_connectors.py`, run by the doer-only launchd job `com.nostradamus.connectors` every 6h) refetches a series only when it is past its manifest's `staleness_sla_days`, and appends every attempt to the ledger at `data/_connectors/run_ledger.ndjson`. The failure contract is fail-closed: a failed fetch writes NOTHING — the pool simply goes stale, and the cockpit's Data Library (`GET /api/pipelines`) shows it; staleness IS the alert, so there is no separate alerting path to break silently. And whatever a fetcher writes still passes the extract-time tier clamp (§4): a connector's self-reported tier is never trusted above the ceiling its `source_type` earns.
+
 ## 7A. The market price feed — `data/_market/` (cross-cutting reference series)
 
 Most external data is ticker-scoped (`data/<TICKER>/external/`). The **market price feed** is not: it is
