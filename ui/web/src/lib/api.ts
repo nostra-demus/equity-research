@@ -449,6 +449,11 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/feedback/${encodeURIComponent(feedbackId)}/dispatch`, {})
   },
+  // Send/retry the resolution email to a resolved item's reporter (the "Notify reporter" card action).
+  notifyFeedback: async (feedbackId: string): Promise<{ ok: boolean; reason?: string; recipient?: string; detail?: string }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/feedback/${encodeURIComponent(feedbackId)}/notify`, {})
+  },
   screenerCalibration: async (): Promise<any | null> => {
     if ((await ensureMode()) === 'static') return snap.screenerCalibration || null
     return get<any>(`/api/screener/calibration`)

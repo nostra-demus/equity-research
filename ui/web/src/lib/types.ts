@@ -1154,7 +1154,7 @@ export interface CallsResult {
 
 // ---- activity / audit log ----
 export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
-export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean }
+export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean; emailEnabled?: boolean }
 
 // ---- cockpit-wide product feedback (server: feedback-store.ts) ----
 export type CockpitFeedbackCategory = 'bug' | 'ui' | 'idea' | 'research_quality' | 'other'
@@ -1171,6 +1171,8 @@ export interface CockpitFeedbackView {
   pr_url: string | null
   note: string
   last_update_at: string
+  // Latest reporter-notification attempt for this item (resolution email), or null if none yet.
+  notified: { at: string; ok: boolean; recipient: string; channel: 'email' } | null
 }
 export interface ActivityRow {
   runId: string
