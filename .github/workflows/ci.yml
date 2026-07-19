@@ -100,6 +100,16 @@ jobs:
       - name: Screener feedback-tune selftest (recommend-only rank-weight nudges from the feedback ledger)
         run: python3 scripts/screener_feedback_tune.py --selftest
 
+      - name: Data pool is symlink-safe — no tracked files under data/ (prevents the symlink-clobber "0 companies" outage)
+        run: |
+          tracked="$(git ls-files -- data)"
+          if [ -n "$tracked" ]; then
+            echo "::error::data/ is the Google-Drive symlink lane and MUST stay empty of tracked files. A tracked file lets a checkout/reset materialise data/ as a real directory, replacing the symlink with an empty folder — the cockpit then serves '0 companies' while Drive is perfectly healthy (see frameworks/MARKET_FEED.md). Move the file out of data/ (e.g. to frameworks/) and 'git rm --cached' it. Offending tracked path(s):"
+            echo "$tracked"
+            exit 1
+          fi
+          echo "OK — data/ carries no tracked files (symlink-safe)"
+
   tools-tests:
     name: tools — deterministic extractor + CIQ facts tests
     runs-on: ubuntu-latest

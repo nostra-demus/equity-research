@@ -131,7 +131,8 @@ no live engine API call).
 - **Format:** long-format CSV, header `date,symbol,close` (ISO date; symbol = index/sector/stock; close
   = float in the symbol's own currency), one row per `(symbol, date)`. An optional `_symbols.json` maps
   a symbol to `{kind, benchmark, sector, beta}` to enable beta-adjusted excess (absent → beta 1.0). The
-  full contract, with examples, is in `data/_market/README.md`.
+  full contract, with examples, is in `frameworks/MARKET_FEED.md` (kept in `frameworks/`, not under the
+  gitignored `data/` pool, so the pool tree carries no tracked files — see that doc's header).
 - **The as-of is the latest date IN the data**, never a file mtime (§8 / fix F23).
 - **Readers:** `scripts/market_prices.py` (pure, read-only — `close_on`, `total_return`,
   `beta_adjusted_excess` returning BOTH the raw and the beta-adjusted figure). `scripts/calibrate.py`
