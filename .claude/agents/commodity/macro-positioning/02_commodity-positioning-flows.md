@@ -1,6 +1,6 @@
 ---
 name: commodity-positioning-flows
-description: Reads speculative positioning and investment flows — CFTC Commitments of Traders (managed-money net length) and ETF/ETC holdings flows — to judge whether the trade is crowded, and whether flows are confirming or fading the price. A contrarian/confirmation overlay, honestly labelled if data is thin.
+description: Reads speculative positioning and investment flows — CFTC Commitments of Traders across BOTH sides (managed-money speculators AND producer/merchant hedgers), the managed-money net placed as a percentile/z-score vs its own range, the futures-and-options combined read, and ETF/ETC holdings flows — to judge whether the trade is crowded, which way the hedgers lean, and whether flows are confirming or fading the price. A contrarian/confirmation overlay, honestly labelled if data is thin.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 1
 ---
@@ -23,38 +23,47 @@ if the data is not available, mark it "not available" rather than inventing a re
 # WORKFLOW
 
 1. Read `CLAUDE.md` and `.claude/agents/commodity/MODULE_RULES.md`; read the profile's positioning sources.
-2. **Positioning:** latest CFTC managed-money net length for the relevant contract (COMEX gold; ICE #11 sugar), its level vs the ~1–3-year range (crowded long / neutral / net short), and the recent change. Cite the COT report date.
-3. **Flows:** ETF/ETC holdings trend (e.g. total known gold-ETF tonnes; CANE/SGG shares outstanding for sugar) over recent weeks — inflow or outflow, confirming or fading the price.
-4. Read: is the trade crowded, and are flows confirming? Flag the contrarian risk (a crowded long is vulnerable to a shakeout). If a series is unavailable, write "not available" for it.
-5. Every figure `[Source, date]` (§5). Save to `OUTPUT_PATH` (Mode A); return CHAT CONFIRMATION.
+2. **Speculative positioning, placed in its own range:** latest CFTC managed-money net length for the relevant contract (COMEX gold; ICE #11 sugar). Report it NOT as a raw level but as a **percentile / z-score vs its own ~1–3-year range** (this is what turns a net-long number into a crowding signal — the 88th percentile is a mean-reversion warning), plus the recent change. Use the **futures-and-options COMBINED** report where the contract publishes it. Cite the COT report date.
+3. **The hedger side (the risk-premium leg):** from the CFTC **disaggregated** report, the producer/merchant (commercial hedger) net position and the swap/other-reportables legs. This matters because the commodity risk premium is compensation to speculators for absorbing hedgers' positions — a one-sided managed-money read misses which way the physical hedgers lean. State whether hedgers are heavily short (producers selling forward) or covering.
+4. **Flows:** ETF/ETC holdings trend (e.g. total known gold-ETF tonnes; CANE/SGG shares outstanding for sugar) over recent weeks — inflow or outflow, confirming or fading the price.
+5. Read: is the trade crowded (speculators at a positioning extreme), which way do hedgers lean, and are flows confirming? Flag the contrarian risk (a crowded long at a high percentile is vulnerable to a shakeout). If a series is unavailable, write "not available" for it — never invent it, and do NOT infer dealer gamma from bare option open interest (not free; out of scope, §3).
+6. Every figure `[Source, date]` (§5). Save to `OUTPUT_PATH` (Mode A); return CHAT CONFIRMATION.
 
 # REPORT STRUCTURE
 
 ```
 # Positioning & Flows — {COMMODITY}
 
-## 1. Speculative Positioning (CFTC COT)
-| Measure | Latest | vs 1–3y range | Change | Source, date |
+## 1. Speculative Positioning (CFTC COT — futures & options combined where published)
+| Measure | Latest | Percentile / z-score vs 1–3y | Change | Source, date |
 |---|---|---|---|---|
 | Managed-money net length | | | | |
 
-## 2. Investment Flows (ETF/ETC)
+## 2. Hedger Side (CFTC disaggregated)
+| Leg | Latest net | Lean (short/covering) | Source, date |
+|---|---|---|---|
+| Producer / merchant (commercial) | | | |
+| Swap / other-reportables | | | |
+
+## 3. Investment Flows (ETF/ETC)
 | Vehicle | Holdings/shares | Recent trend | Confirming/fading | Source, date |
 |---|---|---|---|---|
 
-## 3. Read
-- Crowded? Confirming? Contrarian risk? (or "positioning data not available")
+## 4. Read
+- Speculators crowded (which percentile)? Which way do hedgers lean? Flows confirming? Contrarian risk? (or "positioning data not available")
 ```
 
 # SELF-CHECK
-- [ ] Positioning is placed vs its own range, with the COT date.
-- [ ] Unavailable series are marked "not available", never invented.
+- [ ] Managed-money positioning is placed as a percentile/z-score vs its own range (not a raw level), with the COT date.
+- [ ] The producer/merchant hedger leg is reported (the risk-premium side), not just managed money.
+- [ ] Unavailable series are marked "not available", never invented; dealer gamma is NOT inferred from bare OI (§3).
 
 # CHAT CONFIRMATION
 
 ```
 Agent: commodity-positioning-flows
 Output: {OUTPUT_PATH}
-Positioning: {crowded long / neutral / net short / n.a.}
+Positioning: {crowded long / neutral / net short / n.a.} at {percentile}
+Hedgers: {producers heavily short / covering / n.a.}
 Biggest finding: {one line}
 ```
