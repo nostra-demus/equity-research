@@ -73,5 +73,8 @@ and says so** — nothing breaks; the scoreboard just uses the less-adjusted num
 - The as-of comes from inside the data, never a file mtime.
 - A figure is cited with its provider + date, like any source.
 - Keys for a paid fetcher live in `~/.config/nostra-engine/providers.env`, never in the repo.
-- The `data/_market/` folder is a **data lane**: files dropped there follow the §25 data stream (straight
-  to `main`). This documentation lives in `frameworks/` (code stream, §28) so the pool stays symlink-safe.
+- The `data/_market/` folder is part of the **Drive-backed pool**, not git. Like all of `data/`, it is the
+  gitignored symlink lane, so the feed files live in the shared Google Drive pool and are **never committed
+  to `main`** — a tracked file under `data/` is exactly the symlink-clobber "0 companies" outage this doc
+  exists to prevent (CI now rejects any tracked path under `data/`). This documentation lives in
+  `frameworks/` (code stream, §28) so the pool tree stays free of tracked files.

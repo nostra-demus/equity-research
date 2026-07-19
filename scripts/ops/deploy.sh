@@ -74,14 +74,19 @@ fi
 # (empty, or just the legacy _market scaffold), NEVER deletes (backs up), and NEVER wedges the deploy.
 POOL="${NOSTRA_POOL:-$HOME/Library/CloudStorage/GoogleDrive-ceekay@muns.io/My Drive/equity-research-data}"
 ensure_data_symlink() {
-  local d="$PROD/data" extra
+  local d="$PROD/data" extra bak
   [ -L "$d" ] && return 0                              # already a symlink — nothing to do
   [ -e "$POOL" ] || { log "WARN data-guard: pool '$POOL' absent (Drive signed out?) — leaving data/ as-is"; return 0; }
   if [ -d "$d" ]; then
-    extra="$(ls -A "$d" 2>/dev/null | grep -vxE '_market|\.DS_Store' | head -1)"
+    extra="$(ls -A "$d" 2>/dev/null | grep -vxE '_market|\.DS_Store' | head -n 1)"
     [ -n "$extra" ] && { log "WARN data-guard: $d is a non-symlink dir with unexpected content ('$extra') — NOT touching (manual review)"; return 0; }
-    mv "$d" "$d.plain-bak-$(date +%Y%m%d-%H%M%S)" 2>/dev/null || { log "WARN data-guard: could not move stray $d aside — leaving as-is"; return 0; }
-    log "data-guard: moved clobbered empty data dir aside"
+    # Back the clobbered dir up OUTSIDE the worktree (a sibling of $PROD, same filesystem → atomic rename).
+    # If we parked it inside $PROD (e.g. $PROD/data.plain-bak-*) the untracked backup would be seen by
+    # has_nondata_dirty (git status --porcelain sees untracked files, and it is not a §28 data path), which
+    # would then SKIP every subsequent deploy forever — the guard would fix the symlink but wedge releases.
+    bak="${PROD%/}-dataclobber-bak-$(date +%Y%m%d-%H%M%S)"
+    mv "$d" "$bak" 2>/dev/null || { log "WARN data-guard: could not move stray $d aside — leaving as-is"; return 0; }
+    log "data-guard: moved clobbered empty data dir aside to $bak (outside the worktree so the dirty-gate never wedges)"
   fi
   ln -s "$POOL" "$d" 2>/dev/null && log "data-guard: restored data -> Drive pool symlink" || log "WARN data-guard: failed to create data symlink"
 }
