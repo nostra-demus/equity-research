@@ -99,6 +99,38 @@ const BROKEN_AFTER_SURFACING = 'SIG-20260701-dddddddd'
   fs.writeFileSync(path.join(dir, 'candidates.json'), JSON.stringify({ candidates: [] }) + '\n')
 }
 
+// Case E: a PARK/LOG signal advanced past Gate 0 by an explicit human override (`override_promote`), which
+// then ran to completion. The gate's original terminal verdict stays on disk BY DESIGN, so a terminal test
+// that counts it would read this finished run as 'watchlist' and hide its shortlist. Must read 'complete'.
+const OVERRIDE_COMPLETE = 'SIG-20260701-eeeeeeee'
+{
+  const dir = path.join(runsDir, OVERRIDE_COMPLETE)
+  fs.mkdirSync(dir, { recursive: true })
+  fs.writeFileSync(path.join(dir, 'intake.json'), JSON.stringify({ signal_id: OVERRIDE_COMPLETE, headline: 'fixture headline long enough' }) + '\n')
+  fs.writeFileSync(path.join(dir, 'signal_payload.json'), JSON.stringify({ routing: 'PARK', materiality_score: 55 }) + '\n')
+  writeModule(dir, 'signal-gate', 'PARK') // the overridden gate call — preserved on disk
+  writeModule(dir, 'thesis-structure', 'Proceed')
+  writeModule(dir, 'edge-definition', 'provisional')
+  writeModule(dir, 'thesis-integrity', 'Proceed')
+  writeModule(dir, 'candidate-surfacing', 'provisional')
+  fs.writeFileSync(path.join(dir, 'thesis_record.json'), JSON.stringify(mkThesisRecord('provisional')) + '\n')
+  fs.writeFileSync(path.join(dir, 'candidates.json'), JSON.stringify({ candidates: [] }) + '\n')
+}
+
+// Case F: the same override, but interrupted before candidate-surfacing. Must stay 'partial' (resumable) —
+// the spent gate verdict must not strip its Continue action.
+const OVERRIDE_PARTIAL = 'SIG-20260701-ffffffff'
+{
+  const dir = path.join(runsDir, OVERRIDE_PARTIAL)
+  fs.mkdirSync(dir, { recursive: true })
+  fs.writeFileSync(path.join(dir, 'intake.json'), JSON.stringify({ signal_id: OVERRIDE_PARTIAL, headline: 'fixture headline long enough' }) + '\n')
+  fs.writeFileSync(path.join(dir, 'signal_payload.json'), JSON.stringify({ routing: 'LOG', materiality_score: 30 }) + '\n')
+  writeModule(dir, 'signal-gate', 'LOG') // the overridden gate call — preserved on disk
+  writeModule(dir, 'thesis-structure', 'Proceed')
+  writeModule(dir, 'edge-definition', 'provisional')
+  fs.writeFileSync(path.join(dir, 'thesis_record.json'), JSON.stringify(mkThesisRecord('provisional')) + '\n')
+}
+
 const { deriveSignalState } = await import('../src/screener')
 
 let passed = 0
@@ -125,6 +157,16 @@ check('a fully completed run still reads complete', () => {
 check('a completed run whose thesis was later broken by an integrity re-review reads watchlist, not complete', () => {
   const r = deriveSignalState(BROKEN_AFTER_SURFACING)
   assert.equal(r.state, 'watchlist', `expected 'watchlist', got '${r.state}'`)
+})
+
+check('an overridden PARK that ran to completion still reads complete (spent gate verdict is not terminal)', () => {
+  const r = deriveSignalState(OVERRIDE_COMPLETE)
+  assert.equal(r.state, 'complete', `expected 'complete', got '${r.state}'`)
+})
+
+check('an overridden LOG interrupted mid-run still reads partial (keeps its Continue)', () => {
+  const r = deriveSignalState(OVERRIDE_PARTIAL)
+  assert.equal(r.state, 'partial', `expected 'partial', got '${r.state}'`)
 })
 
 try { fs.rmSync(root, { recursive: true, force: true }) } catch { /* ignore */ }

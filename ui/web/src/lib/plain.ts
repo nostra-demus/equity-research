@@ -64,10 +64,14 @@ const STAGES: Record<string, string> = {
   'signal-gate': 'first checks',
   'thesis-structure': 'build the idea',
   'edge-definition': 'is it mispriced?',
-  'thesis-integrity': 'stress-test the idea',
   'candidate-surfacing': 'pick companies',
 }
-export const plainStage = (module?: string | null): string => (module ? STAGES[module] || human(module) : '')
+// Only the grandfathered founding modules are listed above — §26 forbids adding more module names to engine
+// code, so a NEW module (thesis-integrity, and anything after it) renders from its own slug with zero client
+// edits. Hyphens become spaces so the fallback reads as words ("thesis-integrity" → "thesis integrity"),
+// never a bare machine code.
+export const plainStage = (module?: string | null): string =>
+  (module ? STAGES[module] || human(module).replace(/-/g, ' ') : '')
 
 // The scanner's theme tags (the gauntlet's event-type vocabulary) → plain words.
 const THEMES: Record<string, string> = {

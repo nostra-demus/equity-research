@@ -13,6 +13,10 @@ You are the screener→research handoff orchestrator. Arguments: `$ARGUMENTS` (T
 - `<THESIS_ID>` = first token (shape `THS-SIG-YYYYMMDD-XXXXXXXX-vN`); `<TICKER>` = second token, uppercase, matching `^[A-Z0-9.\-]{1,15}$`. Anything else → STOP with usage.
 - Read `screener/ledger/theses/<THESIS_ID>.json` (fallback: the run folder's `thesis_record.json` via the signal id inside the thesis id). Missing → STOP: "No locked thesis <THESIS_ID>".
 - Require `meta.locked: true` and `meta.status` ∈ {provisional, full_machine}. A watchlist thesis is not handed off — STOP and say why.
+- **Require a cleared adversarial gate (`thesis-integrity`).** A locked status alone is the thesis arguing FOR itself; handing that to the research swarm spends a paid run on an idea nothing has attacked (`CLAUDE.md` §8 — disconfirmation is a required test, not a closing caveat). In the thesis's run folder, read the highest-versioned `thesis_integrity_review*.json` (base, then `_v2`/`_v3`… — highest wins, the same convention the module writes):
+  - `routing: "Proceed"` → continue.
+  - `routing` ∈ {`watchlist_integrity_downgrade`, `watchlist_integrity_broken`} → STOP: the thesis failed its own stress test; name the review's `verdict` and its file. Never hand off a rejected thesis.
+  - **No review file at all** (a legacy thesis locked before this module existed) → STOP: *"<THESIS_ID> predates the thesis-integrity gate and has never been adversarially checked. Run `/screener:agent thesis-integrity <SIG_ID>` first, then re-run this handoff."* Do NOT silently proceed — an unchecked legacy deck reaching research is the exact hole this gate closes.
 - Read `screener/ledger/candidates/<THESIS_ID>.json`; `<TICKER>` should appear in it. If it does not, WARN (the human may know better) and proceed — record `off_deck: true` in the handoff line.
 
 ## 2. Idempotency check
