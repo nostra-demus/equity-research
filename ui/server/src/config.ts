@@ -14,6 +14,7 @@ export const REPO_ROOT = process.env.ENGINE_REPO_ROOT
   : path.resolve(__dirname, '../../..')
 
 export const AGENTS_DIR = path.join(REPO_ROOT, '.claude', 'agents')
+export const CONNECTORS_DIR = path.join(REPO_ROOT, '.claude', 'connectors')
 export const COMMANDS_DIR = path.join(REPO_ROOT, '.claude', 'commands', 'research')
 export const DATA_DIR = path.join(REPO_ROOT, 'data')
 export const ANALYSES_DIR = path.join(REPO_ROOT, 'analyses')
