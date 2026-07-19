@@ -14,7 +14,7 @@ import { z } from 'zod'
 import { readActivity } from './activity-log'
 import { recordDataChange, syncingState, SYNC_WINDOW_MS } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
-import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, feedbackDispatchReady, isDispatchAdmin, isReservedDataFolder } from './config'
+import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
@@ -64,6 +64,9 @@ import { carryForwardModules, dataPoolNewest, prepareModuleResume, thesisPlan } 
 import { readIntakePlan } from './intake'
 import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-changed'
 import { readDataNeeds } from './data-needs'
+import { appendPipelineEvent, getPipelineSource, getPipelineView, isPipelineId, listPipelineForSubject, writePipelineSource, type PipelineSourceKind } from './pipeline-store'
+import { runRelevanceScan, type ScanSignal } from './pipeline-scan'
+import { startConnectorDispatch } from './connector-dispatch'
 import { SubjectBusyError, withSubjectLock } from './subject-lock'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
@@ -351,7 +354,14 @@ app.get('/api/whoami', async (req) => {
   const who = identify(req)
   // canDispatch drives the admin-only "Send to coding engine" button — reflects BOTH the allowlist and
   // whether dispatch is actually runnable (enabled + PR token), so the button never appears when it'd fail.
-  return { ...who, canDispatch: isDispatchAdmin(who.user) && feedbackDispatchReady() }
+  // canScanPipeline / canBuildConnector gate the Data Pipeline panel's scan + build buttons the same way.
+  const admin = isDispatchAdmin(who.user)
+  return {
+    ...who,
+    canDispatch: admin && feedbackDispatchReady(),
+    canScanPipeline: admin && pipelineScanReady(),
+    canBuildConnector: admin && connectorDispatchReady(),
+  }
 })
 
 // perpetual audit log of cockpit-initiated runs, with filters (time / ticker / kind / user / status / text)
@@ -815,6 +825,128 @@ app.get('/api/data-needs/:subject', { config: { rateLimit: { max: 600, timeWindo
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'could not read data needs' })
   }
+})
+
+// ---------- data pipeline: add a source → live relevance scan → build a connector → open a PR ----------
+// The interactive half of the data-needs loop, driven by the cockpit's "Data Pipeline" panel. Adding a source
+// is open to any authenticated teammate; the paid SCAN + BUILD actions are separately admin-gated
+// (canScanPipeline / canBuildConnector on /api/whoami), exactly like the feedback dispatch. Subject validated
+// with the same TICKER_RE zod barrier + isValidTicker guard as /api/data-needs; the swarm resolves through the
+// registry (swarmById), so an injected swarm id 400s rather than forming a path.
+const PipelineParams = z.object({ subject: z.string().regex(TICKER_RE) })
+
+// The folded pipeline ledger for a subject: the sources added, their scan verdicts, and build status.
+app.get('/api/pipeline/:subject', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const parsed = PipelineParams.safeParse(req.params)
+  if (!parsed.success) return reply.code(400).send({ error: 'bad subject' })
+  const { subject } = parsed.data
+  if (!isValidTicker(subject)) return reply.code(400).send({ error: 'bad subject' })
+  const swarmId = String((req.query as any)?.swarm ?? RESEARCH_SWARM_ID)
+  if (!swarmById(swarmId)) return reply.code(400).send({ error: 'unknown swarm' })
+  return { items: listPipelineForSubject(swarmId, subject) }
+})
+
+// Add a source (a website / API endpoint) to scan. Open to any authenticated teammate (like filing feedback).
+const AddSourceBody = z.object({
+  need_id: z.string().max(128).nullish(), // the panel sends null when no specific need is targeted (free-form)
+  source_url: z.string().min(1).max(2000),
+  source_kind: z.enum(['api', 'scrape', 'web', 'file']).optional(),
+  series_hint: z.string().max(400).optional(),
+  sample: z.string().max(4000).optional(),
+  note: z.string().max(2000).optional(),
+}).strip()
+app.post('/api/pipeline/:subject/source', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const parsed = PipelineParams.safeParse(req.params)
+  if (!parsed.success) return reply.code(400).send({ error: 'bad subject' })
+  const { subject } = parsed.data
+  if (!isValidTicker(subject)) return reply.code(400).send({ error: 'bad subject' })
+  const swarmId = String((req.query as any)?.swarm ?? RESEARCH_SWARM_ID)
+  if (!swarmById(swarmId)) return reply.code(400).send({ error: 'unknown swarm' })
+  const body = AddSourceBody.safeParse(req.body)
+  if (!body.success) return reply.code(400).send({ error: 'invalid body', detail: body.error.flatten() })
+  // A source must be an http(s) URL — the scan fetches it, and the build pins its host into an allowlist.
+  try { const u = new URL(body.data.source_url); if (!/^https?:$/.test(u.protocol) || !u.hostname) throw new Error('bad') } catch { return reply.code(400).send({ error: 'source_url must be an http(s) URL' }) }
+  const { user } = identify(req)
+  const item = await writePipelineSource({
+    subject, swarm: swarmId,
+    need_id: body.data.need_id ?? null,
+    series_hint: body.data.series_hint,
+    source_url: body.data.source_url,
+    source_kind: (body.data.source_kind ?? 'web') as PipelineSourceKind,
+    sample: body.data.sample,
+    note: body.data.note,
+  }, user)
+  return reply.code(201).send({ ok: true, item })
+})
+
+// Run the LIVE relevance scan over an added source, streaming what is being scanned/checked second by second.
+// Admin-gated (a paid spawn). SSE (POST → startSSE), aborts on client disconnect, and appends a `scanned`
+// event carrying the verdict on completion. The scan sees only the run's NON-filing (connector-eligible) needs.
+app.post('/api/pipeline/:subject/scan', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const parsed = PipelineParams.safeParse(req.params)
+  if (!parsed.success) return reply.code(400).send({ error: 'bad subject' })
+  const { subject } = parsed.data
+  if (!isValidTicker(subject)) return reply.code(400).send({ error: 'bad subject' })
+  const swarmId = String((req.query as any)?.swarm ?? RESEARCH_SWARM_ID)
+  if (!swarmById(swarmId)) return reply.code(400).send({ error: 'unknown swarm' })
+  const { user } = identify(req)
+  if (!isDispatchAdmin(user) || !pipelineScanReady()) return reply.code(403).send({ error: 'not authorized to scan (admin only, and scanning must be enabled)' })
+  const id = String((req.body as any)?.pipeline_id ?? '')
+  const source = getPipelineSource(id)
+  if (!source || source.subject !== subject.toUpperCase() || source.swarm !== swarmId) return reply.code(404).send({ error: 'no such source for this subject' })
+  const read = readDataNeeds(swarmId, subject)
+  const needs = (read?.needs ?? []).filter((n) => !n.filing_required)
+
+  const { res, send, ping } = startSSE(reply)
+  const ac = new AbortController()
+  let closed = false
+  res.on('close', () => { closed = true; clearInterval(ping); ac.abort() })
+  send({ type: 'scan-status', stage: 'starting', openNeeds: needs.length })
+  await appendPipelineEvent(id, 'scanning', { note: 'Scanning the source for relevance.', user }).catch(() => null)
+  try {
+    const out = await runRelevanceScan({
+      input: {
+        subject, swarm: swarmId, needs,
+        source: { source_url: source.source_url, source_kind: source.source_kind, sample: source.sample, note: source.note, need_id: source.need_id, series_hint: source.series_hint },
+      },
+      signal: ac.signal,
+      onSignal: (s: ScanSignal) => {
+        if (s.kind === 'ready') send({ type: 'scan-status', stage: 'scanning', model: s.model })
+        else if (s.kind === 'activity') send({ type: 'scan-activity', tool: s.tool, target: s.target })
+        else if (s.kind === 'thinking') send({ type: 'scan-thinking', content: s.text })
+      },
+    })
+    if (out.error && out.error !== 'aborted') {
+      send({ type: 'scan-error', message: out.error })
+      await appendPipelineEvent(id, 'scanned', { note: `Scan failed: ${out.error}`, user }).catch(() => null)
+    } else if (!out.error && out.verdict) {
+      send({ type: 'scan-verdict', verdict: out.verdict, costUsd: out.costUsd })
+      await appendPipelineEvent(id, 'scanned', { verdict: out.verdict, note: out.verdict.verdict_note, user }).catch(() => null)
+    }
+  } catch (e: any) {
+    if (!closed) send({ type: 'scan-error', message: String(e?.message || e) })
+  } finally {
+    clearInterval(ping)
+    try { res.end() } catch { /* already closed */ }
+  }
+})
+
+// Send a scanned source to the coding engine, which builds a connector and opens a PR (ready for review).
+// Admin-gated + fail-closed; requires a prior scan verdict on the source. 202 accepted / 409 busy-or-blocked.
+app.post('/api/pipeline/source/:id/build', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = (req.params as any).id as string
+  if (!isPipelineId(id)) return reply.code(400).send({ error: 'invalid source id' })
+  const { user } = identify(req)
+  if (!isDispatchAdmin(user)) return reply.code(403).send({ error: 'not authorized to build (admin only)' })
+  const source = getPipelineSource(id)
+  const view = getPipelineView(id)
+  if (!source || !view) return reply.code(404).send({ error: 'no such source' })
+  if (!view.verdict) return reply.code(409).send({ error: 'scan this source before building a connector for it' })
+  const outcome = startConnectorDispatch(source, view.verdict, user)
+  return reply.code(outcome.accepted ? 202 : 409).send({ ok: outcome.accepted, ...outcome })
 })
 
 // Analyze the documents that landed since the last run and (re)write the scoped rerun plan. This is

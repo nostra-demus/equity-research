@@ -76,6 +76,30 @@ export function feedbackDispatchReady(): boolean {
   return FEEDBACK_DISPATCH_ENABLED && CODE_PR_TOKEN.length > 0
 }
 
+// ---- data-pipeline: relevance scan + connector-build dispatch (pipeline-scan.ts, connector-dispatch.ts) ----
+// The "surface a data gap → add a source → scan its relevance → build a durable connector → open a PR" loop
+// that the commodity/research "Data Pipeline" panel drives. Two separately-gated actions:
+//   • SCAN — an internal, READ-ONLY web agent (WebFetch/WebSearch/Read only; no repo write, no git) that
+//     judges whether a user-added source feeds the run's open data_needs. Cheap; authed like the Ask chat
+//     (host keychain OAuth), so it needs no PR token — only the enable flag below.
+//   • BUILD — the paid one-click "send it to Claude, which opens a PR authoring a .claude/connectors/<id>/
+//     bundle". Mirrors the feedback dispatch's isolation model EXACTLY (fresh worktree, fine-grained
+//     CODE_PR_TOKEN, untrusted-input boundary, its OWN caps/inflight/budget file) — never the §28 data
+//     identity. FAIL-CLOSED: needs the enable flag AND a PR token AND an admitted admin (checked at the route).
+// Both default OFF so a deploy without the flags behaves exactly as before (the panel still shows the
+// recommended data + runs read-only, but the scan/build buttons stay dark).
+export const PIPELINE_SCAN_ENABLED = process.env.ENGINE_PIPELINE_SCAN_ENABLED === '1'
+export const CONNECTOR_DISPATCH_ENABLED = process.env.ENGINE_CONNECTOR_DISPATCH_ENABLED === '1'
+/** The read-only relevance scan can run when it is enabled (it needs no PR token — keychain-authed like chat). */
+export function pipelineScanReady(): boolean {
+  return PIPELINE_SCAN_ENABLED
+}
+/** The connector build → PR dispatch can run only when enabled AND a PR token is configured. */
+export function connectorDispatchReady(): boolean {
+  return CONNECTOR_DISPATCH_ENABLED && CODE_PR_TOKEN.length > 0
+}
+// (PIPELINE_SCAN + CONNECTOR_BUILD guard objects are defined below, after capNum is in scope.)
+
 // OPT-IN (off by default): orchestrate a full run as a CHAIN of separate per-module runs (each its own
 // budget), in dependency order, then the master synthesizer — instead of one monolithic /research:full
 // process. No single budget cap can then truncate the whole pipeline. Enable with ENGINE_FULL_PER_MODULE=1.
@@ -301,6 +325,24 @@ export const LAUNCH_GUARDS: Record<LaunchKind, { maxTurns: number; budgetUsd: nu
   'screener-agent': { maxTurns: capNum(process.env.ENGINE_SCREENER_AGENT_MAX_TURNS, 60), budgetUsd: capNum(process.env.ENGINE_SCREENER_AGENT_BUDGET_USD, 12) },
   // idempotent thesis->ticker handoff: read the locked record, write one data-pool memo + ledger line.
   handoff: { maxTurns: capNum(process.env.ENGINE_HANDOFF_MAX_TURNS, 60), budgetUsd: capNum(process.env.ENGINE_HANDOFF_BUDGET_USD, 10) },
+}
+
+// Guards for the read-only relevance-scan agent (pipeline-scan.ts) — a short, cheap, tool-limited web read,
+// kept well under the chat caps. Defined here (not in the dispatch block above) because capNum is in scope.
+export const PIPELINE_SCAN = {
+  model: process.env.ENGINE_PIPELINE_SCAN_MODEL || DEFAULT_MODEL,
+  maxTurns: capNum(process.env.ENGINE_PIPELINE_SCAN_MAX_TURNS, 20),
+  budgetUsd: capNum(process.env.ENGINE_PIPELINE_SCAN_BUDGET_USD, 3),
+  timeoutMs: capNum(process.env.ENGINE_PIPELINE_SCAN_TIMEOUT_MS, 180_000),
+  maxConcurrent: capNum(process.env.ENGINE_PIPELINE_SCAN_MAX_CONCURRENT, 2),
+}
+// Hard ceilings for the connector-build coding agent (connector-dispatch.ts) — its OWN caps, never shared
+// with feedback dispatch (a concurrent feedback + connector burst must not corrupt each other's counters).
+export const CONNECTOR_BUILD = {
+  maxConcurrent: capNum(process.env.ENGINE_CONNECTOR_MAX_CONCURRENT, 1),
+  dailyCap: capNum(process.env.ENGINE_CONNECTOR_DAILY_CAP, 8),
+  maxTurns: capNum(process.env.ENGINE_CONNECTOR_MAX_TURNS, 200),
+  budgetUsd: capNum(process.env.ENGINE_CONNECTOR_BUDGET_USD, 15),
 }
 
 // Rough cost/time estimates surfaced to the UI before launch (heuristic only; the hard cap is budgetUsd).

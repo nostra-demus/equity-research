@@ -61,8 +61,24 @@
 .dneed__cadence { color: var(--text-faint); font-variant-numeric: tabular-nums; }
 .dneed__buildable { margin-left: auto; color: var(--good); font-size: 10px; letter-spacing: 0.2px; white-space: nowrap; }
 .dneed__flag { margin-left: auto; color: var(--text-faint); font-size: 10px; letter-spacing: 0.2px; white-space: nowrap; }
+.dneed__built { margin-left: auto; color: var(--good); font-size: 10px; letter-spacing: 0.2px; white-space: nowrap; }
+/* "Build a feed →" — the per-need entry into the pipeline builder. A quiet accent link that lifts on hover. */
+.dneed__build {
+  margin-left: auto; font: inherit; font-size: 10px; letter-spacing: 0.2px; white-space: nowrap; cursor: pointer;
+  color: var(--accent-bright); background: transparent; border: 0; padding: 2px 4px; border-radius: var(--r-sm);
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+@media (hover: hover) and (pointer: fine) { .dneed__build:hover { background: var(--accent-wash); } }
+/* the dock's free-form "add a source" footer action */
+.dneeds__add {
+  margin-top: 2px; width: 100%; font: inherit; font-size: 11px; cursor: pointer; color: var(--accent-bright);
+  background: var(--accent-wash-soft); border: 1px dashed var(--accent-deep); border-radius: var(--r-sm); padding: 7px 10px;
+  transition: background var(--dur-fast) var(--ease);
+}
+@media (hover: hover) and (pointer: fine) { .dneeds__add:hover { background: var(--accent-wash); } }
 
 @media (prefers-reduced-motion: reduce) {
   .dneeds, .dneed { animation: none; }
   .dneed:hover { transform: none; }
+  .dneed__build, .dneeds__add { transition: none; }
 }

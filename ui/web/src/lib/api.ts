@@ -1,7 +1,7 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
-import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, RunHistoryEntry, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, PipelineView, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -701,6 +701,92 @@ export const api = {
       return r.read ?? null
     } catch {
       return null
+    }
+  },
+
+  // ---- data pipeline: recommended data → add a source → live relevance scan → build a connector → PR ----
+  // The folded pipeline ledger for a subject (added sources + scan verdicts + build status). Fail-closed to []
+  // so an old engine mid-deploy (no route) simply shows an empty panel rather than erroring.
+  pipeline: async (subject: string, swarm: string): Promise<PipelineView[]> => {
+    if ((await ensureMode()) === 'static') return []
+    try {
+      const r = await get<{ items: PipelineView[] }>(`/api/pipeline/${encodeURIComponent(subject)}?swarm=${encodeURIComponent(swarm)}`, 8_000)
+      return r.items ?? []
+    } catch {
+      return []
+    }
+  },
+  addPipelineSource: async (subject: string, swarm: string, input: AddPipelineSourceInput): Promise<{ ok: boolean; item: PipelineView }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/pipeline/${encodeURIComponent(subject)}/source?swarm=${encodeURIComponent(swarm)}`, input)
+  },
+  buildConnector: async (pipelineId: string): Promise<{ ok: boolean; status: string; message: string }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/pipeline/source/${encodeURIComponent(pipelineId)}/build`, {})
+  },
+  // POST one relevance scan and read the streamed SSE body (mirrors chatStream — EventSource is GET-only).
+  // Frames: scan-status → (scan-activity | scan-thinking)* → scan-verdict → (nothing more) | scan-error.
+  // onActivity is "what is being scanned/checked right now"; onVerdict carries the final structured decision.
+  pipelineScanStream: async (
+    subject: string,
+    swarm: string,
+    pipelineId: string,
+    cb: {
+      onStatus?: (s: { stage?: string; model?: string; openNeeds?: number }) => void
+      onActivity?: (a: { tool: string; target: string }) => void
+      onThinking?: (t: string) => void
+      onVerdict: (v: ScanVerdict, costUsd?: number) => void
+      onError: (msg: string) => void
+      onEnd?: () => void
+      signal: AbortSignal
+    },
+  ): Promise<void> => {
+    if ((await ensureMode()) === 'static') { cb.onError('static-deploy'); return }
+    let res: Response
+    try {
+      res = await fetch(`/api/pipeline/${encodeURIComponent(subject)}/scan?swarm=${encodeURIComponent(swarm)}`, {
+        method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ pipeline_id: pipelineId }), signal: cb.signal,
+      })
+    } catch (e: any) {
+      if (e?.name !== 'AbortError') cb.onError(e?.message || 'network error')
+      return
+    }
+    if (!res.ok || !res.body) {
+      let msg = `${res.status}`
+      try { const j = await res.json(); msg = (j as any)?.error || msg } catch {}
+      cb.onError(msg)
+      return
+    }
+    const reader = res.body.getReader()
+    const decoder = new TextDecoder()
+    let buf = ''
+    try {
+      for (;;) {
+        const { value, done } = await reader.read()
+        if (done) break
+        buf += decoder.decode(value, { stream: true })
+        const frames = buf.split('\n\n')
+        buf = frames.pop() ?? '' // keep the trailing partial frame
+        for (const frame of frames) {
+          let ev = 'message'
+          let data = ''
+          for (const line of frame.split('\n')) {
+            if (line.startsWith('event:')) ev = line.slice(6).trim()
+            else if (line.startsWith('data:')) data += line.slice(5).trim()
+          }
+          if (!data) continue
+          let parsed: any
+          try { parsed = JSON.parse(data) } catch { continue }
+          if (ev === 'scan-status') cb.onStatus?.(parsed)
+          else if (ev === 'scan-activity') cb.onActivity?.({ tool: parsed.tool ?? '', target: parsed.target ?? '' })
+          else if (ev === 'scan-thinking') cb.onThinking?.(parsed.content ?? '')
+          else if (ev === 'scan-verdict') cb.onVerdict(parsed.verdict, parsed.costUsd)
+          else if (ev === 'scan-error') { cb.onError(parsed.message || 'scan failed'); return }
+        }
+      }
+      cb.onEnd?.()
+    } catch (e: any) {
+      if (e?.name !== 'AbortError') cb.onError(e?.message || 'stream interrupted')
     }
   },
 
