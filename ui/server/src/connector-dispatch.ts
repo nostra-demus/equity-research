@@ -1,35 +1,23 @@
 // One-click "send this scanned source to a coding agent, which builds a durable data connector and opens a
-// PR" (the BUILD half of the Data Pipeline loop; the SCAN half is pipeline-scan.ts). It mirrors
-// feedback-dispatch.ts's governed spawn EXACTLY — same three hard isolation properties — because it is the
-// same shape of action (a CODE task run on untrusted user input that opens a PR):
+// PR" (the BUILD half of the Data Pipeline loop; the SCAN half is pipeline-scan.ts, the auto-repair is
+// connector-repair.ts). The isolation + PR plumbing lives in connector-agent.ts (shared with repair); this
+// module owns the build PROMPT, the fail-closed guards, and recording the result on the pipeline ledger.
 //
-//   1. Runs in a FRESH git worktree on a `connector/<id>` branch cut from origin/main — never the prod
-//      checkout, never main. The worktree lives outside the repo (tmp) and is removed after.
-//   2. Authors the PR with the fine-grained PAT (code-pr.env → GH_PR_TOKEN: Contents + PR write, this repo
-//      only) — NEVER the engine's §28 data-only App identity (dropped by the shared buildChildEnv).
-//   3. Treats the source URL + sample + note as UNTRUSTED input — a spec to evaluate, not instructions —
-//      and, the ONE deviation from feedback: the connector MUST fetch a live host to prove the endpoint, so
-//      the prompt carves a NARROW exception — it may reach ONLY the single host the scan named, pinned into
-//      connector.json host_allowlist, and must fail closed on any other host or action.
-//
-// The build authors a .claude/connectors/<slug>/ bundle (connector.json + fetch.py + test_fetch.py) whose
-// `satisfies` carries the surfaced need_id — so a later re-run's triage picks the fetched data up in the
-// right orb (data/<SUBJECT>/external/**). Per the user's choice the PR is opened READY for review (not a
-// draft), so the engine's §28 automated CI + multi-reviewer gate engages immediately; the agent never merges.
+// Three hard isolation properties (via connector-agent → buildChildEnv): a fresh worktree on connector/<id>
+// cut from origin/main; the fine-grained CODE_PR_TOKEN, never the §28 data identity; and the source treated
+// as UNTRUSTED input — with the one carved exception that the connector may fetch ONLY the scanned host.
+// The build authors a .claude/connectors/<slug>/ bundle whose `satisfies` carries the need_id, so a later
+// re-run's triage picks the data up in the right orb. The PR is opened READY for review (not a draft).
 //
 // OFF by default + FAIL-CLOSED: needs ENGINE_CONNECTOR_DISPATCH_ENABLED=1, a PAT, and an admitted admin
 // (checked at the route). Bounded by its OWN max-concurrent + per-day cap (never shared with feedback).
 
-import { spawn, execFile } from 'node:child_process'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { promisify } from 'node:util'
-import { CLAUDE_BIN, CODE_PR_TOKEN, CONNECTOR_BUILD, DEFAULT_MODEL, REPO_ROOT, STATE_DIR, connectorDispatchReady } from './config'
-import { buildChildEnv, isValidPrUrl } from './feedback-dispatch'
+import { CONNECTOR_BUILD, STATE_DIR, connectorDispatchReady } from './config'
+import { runWorktreeAgent } from './connector-agent'
 import { appendPipelineEvent, type PipelineSourceRecord, type ScanVerdict } from './pipeline-store'
-
-const execFileAsync = promisify(execFile)
 
 const WORKTREE_BASE = process.env.ENGINE_CONNECTOR_WORKTREE_DIR || path.join(os.tmpdir(), 'nostra-connector-worktrees')
 const BUDGET_FILE = path.join(STATE_DIR, 'connector-dispatch.json')
@@ -57,6 +45,10 @@ export interface DispatchAccept {
 
 const branchFor = (id: string) => `connector/${id.toLowerCase()}`
 const worktreeFor = (id: string) => path.join(WORKTREE_BASE, id)
+
+function safeHost(url: string): string {
+  try { return new URL(url).hostname } catch { return '' }
+}
 
 // The prompt. Source fields are DATA, not instructions — the boundary is stated explicitly, with the single
 // carved exception that the connector may fetch the ONE host the scan named. The agent must always write
@@ -123,95 +115,29 @@ export function buildPrompt(source: PipelineSourceRecord, verdict: ScanVerdict):
   ].filter(Boolean).join('\n')
 }
 
-function safeHost(url: string): string {
-  try { return new URL(url).hostname } catch { return '' }
-}
-
-async function git(args: string[], cwd: string, env?: NodeJS.ProcessEnv): Promise<void> {
-  await execFileAsync('git', args, { cwd, env: env || process.env, maxBuffer: 8_000_000 })
-}
-
-/** Remove a worktree + its branch, best-effort (idempotent — safe if they don't exist). */
-async function cleanupWorktree(id: string): Promise<void> {
-  const wt = worktreeFor(id)
-  try { await git(['worktree', 'remove', '--force', wt], REPO_ROOT) } catch { /* not registered */ }
-  try { fs.rmSync(wt, { recursive: true, force: true }) } catch { /* already gone */ }
-  try { await git(['worktree', 'prune'], REPO_ROOT) } catch { /* noop */ }
-  try { await git(['branch', '-D', branchFor(id)], REPO_ROOT) } catch { /* no local branch */ }
-}
-
-/** Create a fresh worktree on connector/<id> from origin/main. Returns the worktree path. */
-async function createWorktree(id: string): Promise<string> {
-  fs.mkdirSync(WORKTREE_BASE, { recursive: true })
-  await cleanupWorktree(id) // clear any stale attempt for this id
-  await git(['fetch', 'origin', 'main', '--quiet'], REPO_ROOT)
-  const wt = worktreeFor(id)
-  await git(['worktree', 'add', '-B', branchFor(id), wt, 'origin/main'], REPO_ROOT)
-  return wt
-}
-
-function childEnv(): NodeJS.ProcessEnv {
-  return buildChildEnv(process.env, CODE_PR_TOKEN)
-}
-
-interface Outcome { outcome: 'pr_open' | 'assessed'; pr_url?: string; note?: string; connector_id?: string }
-
-async function readOutcome(wt: string, id: string, env: NodeJS.ProcessEnv): Promise<Outcome> {
-  try {
-    const o = JSON.parse(fs.readFileSync(path.join(wt, OUTCOME_FILE), 'utf8'))
-    const cid = typeof o?.connector_id === 'string' ? o.connector_id.slice(0, 120) : ''
-    if (o && o.outcome === 'pr_open') {
-      if (isValidPrUrl(o.pr_url)) return { outcome: 'pr_open', pr_url: o.pr_url, note: typeof o.note === 'string' ? o.note : '', connector_id: cid }
-      return { outcome: 'assessed', note: 'Agent reported a PR but its URL was not a valid nostra-demus/equity-research pull request — recorded as assessed.', connector_id: cid }
-    }
-    if (o && o.outcome === 'assessed') return { outcome: 'assessed', note: typeof o.note === 'string' ? o.note : '', connector_id: cid }
-  } catch { /* no/invalid outcome file — fall back to detecting a PR */ }
-  try {
-    const { stdout } = await execFileAsync('gh', ['pr', 'list', '--head', branchFor(id), '--json', 'url', '--limit', '1'], { cwd: wt, env, maxBuffer: 4_000_000 })
-    const arr = JSON.parse(stdout || '[]')
-    if (Array.isArray(arr) && isValidPrUrl(arr[0]?.url)) return { outcome: 'pr_open', pr_url: arr[0].url, note: 'PR opened (outcome file missing).' }
-  } catch { /* gh unavailable or no PR */ }
-  return { outcome: 'assessed', note: 'The agent finished without opening a PR (no outcome file, no PR found).' }
-}
-
-/** The background run: worktree → spawn agent → record outcome → cleanup. Never throws to the caller. */
+/** The background run: shared worktree agent → record outcome on the pipeline ledger → free the slot. */
 async function runDispatch(source: PipelineSourceRecord, verdict: ScanVerdict, user: string): Promise<void> {
   const id = source.pipeline_id
-  const env = childEnv()
-  let wt = ''
   try {
-    wt = await createWorktree(id)
-    try { await execFileAsync('gh', ['auth', 'setup-git'], { cwd: wt, env }) } catch { /* gh may be absent; push then fails → assessed */ }
-    const prompt = buildPrompt(source, verdict)
-    const args = ['--print', prompt, '--output-format', 'stream-json', '--verbose',
-      '--permission-mode', 'bypassPermissions', '--model', DEFAULT_MODEL, '--max-turns', String(CONNECTOR_BUILD.maxTurns), '--max-budget-usd', String(CONNECTOR_BUILD.budgetUsd)]
-    const logPath = path.join(wt, '.connector-run.log')
-    const out = fs.openSync(logPath, 'a')
-    const code: number = await new Promise((resolve) => {
-      const child = spawn(CLAUDE_BIN, args, { cwd: wt, env, stdio: ['ignore', out, out] })
-      child.on('exit', (c) => resolve(c ?? -1))
-      child.on('error', (e) => { log(`spawn error ${id}: ${e.message}`); resolve(-1) })
+    const res = await runWorktreeAgent({
+      branch: branchFor(id), worktree: worktreeFor(id), prompt: buildPrompt(source, verdict),
+      outcomeFile: OUTCOME_FILE, logName: '.connector-run.log',
+      maxTurns: CONNECTOR_BUILD.maxTurns, budgetUsd: CONNECTOR_BUILD.budgetUsd, log,
     })
-    try { fs.closeSync(out) } catch { /* already closed */ }
-    log(`agent for ${id} exited ${code}`)
-    const outcome = await readOutcome(wt, id, env)
-    await appendPipelineEvent(id, outcome.outcome === 'pr_open' ? 'pr_open' : 'assessed', {
-      note: outcome.note || '', prUrl: outcome.pr_url || null, user,
-    })
-    log(`recorded ${outcome.outcome} for ${id}${outcome.pr_url ? ` → ${outcome.pr_url}` : ''}`)
+    await appendPipelineEvent(id, res.outcome === 'pr_open' ? 'pr_open' : 'assessed', { note: res.note || '', prUrl: res.pr_url || null, user })
+    log(`recorded ${res.outcome} for ${id}${res.pr_url ? ` → ${res.pr_url}` : ''}`)
   } catch (e: any) {
     log(`dispatch failed ${id}: ${e?.message || e}`)
     try { await appendPipelineEvent(id, 'assessed', { note: `Build failed: ${e?.message || 'error'}`, user }) } catch { /* ledger best-effort */ }
   } finally {
     inflight.delete(id)
-    await cleanupWorktree(id)
   }
 }
 
 /**
  * Kick off a connector build. Synchronous guards + immediate `building` status event, then the code run in
- * the background (the route returns 202 without blocking on a multi-minute agent run). The route has already
- * verified the caller is an admitted admin (fail-closed) before calling this.
+ * the background (the route returns 202 without blocking). The route has verified the caller is an admitted
+ * admin (fail-closed) before calling this.
  */
 export function startConnectorDispatch(source: PipelineSourceRecord, verdict: ScanVerdict, user: string): DispatchAccept {
   if (!connectorDispatchReady()) return { accepted: false, status: 'not_ready', message: 'Connector building is not enabled or no PR token is configured on this server.' }
@@ -221,7 +147,6 @@ export function startConnectorDispatch(source: PipelineSourceRecord, verdict: Sc
   if (firedToday() >= CONNECTOR_BUILD.dailyCap) return { accepted: false, status: 'daily_cap', message: `Daily build cap (${CONNECTOR_BUILD.dailyCap}) reached.` }
   inflight.add(source.pipeline_id)
   bumpFired()
-  // Persist `building` BEFORE starting the run (same tie-break reasoning as feedback-dispatch), then chain.
   void appendPipelineEvent(source.pipeline_id, 'building', { note: 'Sent to the build engine.', user })
     .catch(() => {})
     .then(() => { void runDispatch(source, verdict, user) })

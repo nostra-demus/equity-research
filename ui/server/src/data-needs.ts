@@ -11,7 +11,7 @@
 // so the dock stays hidden rather than showing a fabricated need.
 import fs from 'node:fs'
 import path from 'node:path'
-import { REPO_ROOT } from './config'
+import { builtBySatisfies } from './connector-registry'
 import { findRunRootForSubject, listModuleNames } from './roster'
 
 export interface DataNeedSource {
@@ -47,26 +47,6 @@ const ACQUISITION = new Set(['official_api', 'free_key_api', 'paid_api', 'scrape
 const TIERS = new Set([5, 9, 10])
 const CADENCE = new Set(['realtime', 'daily', 'weekly', 'monthly', 'event_driven'])
 const NEED_ID_RE = /^[a-z0-9][a-z0-9_-]*$/
-
-// Map each data_need slug a built connector already covers → that connector's id. Closes the loop visibly:
-// once a connector's `satisfies` array carries a surfaced need_id, the dock marks that need "feed built".
-// Cheap (a handful of connectors); fail-open to an empty map so a bad manifest never hides a need.
-export function builtBySatisfies(): Map<string, string> {
-  const out = new Map<string, string>()
-  const dir = path.join(REPO_ROOT, '.claude', 'connectors')
-  let entries: string[]
-  try { entries = fs.readdirSync(dir) } catch { return out }
-  for (const name of entries) {
-    const manifest = path.join(dir, name, 'connector.json')
-    try {
-      const m = JSON.parse(fs.readFileSync(manifest, 'utf8'))
-      const id = typeof m?.id === 'string' && m.id ? m.id : name
-      const sat = Array.isArray(m?.satisfies) ? m.satisfies : []
-      for (const s of sat) if (typeof s === 'string' && s && !out.has(s)) out.set(s, id)
-    } catch { /* skip an unreadable/partial manifest */ }
-  }
-  return out
-}
 
 export function readDataNeeds(swarmId: string, subject: string): DataNeedsRead | null {
   const runRootAbs = findRunRootForSubject(swarmId, subject)

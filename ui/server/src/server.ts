@@ -67,6 +67,10 @@ import { readDataNeeds } from './data-needs'
 import { appendPipelineEvent, getPipelineSource, getPipelineView, isPipelineId, listPipelineForSubject, writePipelineSource, type PipelineSourceKind } from './pipeline-store'
 import { runRelevanceScan, type ScanSignal } from './pipeline-scan'
 import { startConnectorDispatch } from './connector-dispatch'
+import { getConnector } from './connector-registry'
+import { feedHealthFor } from './connector-health'
+import { getRunnerStatus, listFeedStatuses, runConnectorNow, startConnectorRunner } from './connector-runner'
+import { startConnectorRepair } from './connector-repair'
 import { SubjectBusyError, withSubjectLock } from './subject-lock'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
@@ -361,6 +365,7 @@ app.get('/api/whoami', async (req) => {
     canDispatch: admin && feedbackDispatchReady(),
     canScanPipeline: admin && pipelineScanReady(),
     canBuildConnector: admin && connectorDispatchReady(),
+    canRunConnectors: admin, // a manual "fetch now" only spawns a public fetcher — admin is enough
   }
 })
 
@@ -946,6 +951,47 @@ app.post('/api/pipeline/source/:id/build', { config: { rateLimit: { max: 30, tim
   if (!source || !view) return reply.code(404).send({ error: 'no such source' })
   if (!view.verdict) return reply.code(409).send({ error: 'scan this source before building a connector for it' })
   const outcome = startConnectorDispatch(source, view.verdict, user)
+  return reply.code(outcome.accepted ? 202 : 409).send({ ok: outcome.accepted, ...outcome })
+})
+
+// ---------- connectors: the always-on layer (cadence runner + staleness watchdog + auto-repair) ----------
+// The live health of every built feed: runner status + one row per connector × subject with its derived
+// live / stale / broken / repairing status. Read-only. A connector id is matched against the discovered
+// manifests (never joined into a path), so an injected id simply 404s.
+const CONNECTOR_ID_RE = /^[a-z0-9][a-z0-9_-]{0,120}$/
+app.get('/api/connectors', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async () =>
+  ({ status: getRunnerStatus(), feeds: listFeedStatuses() }),
+)
+
+// Manual "fetch now" — run one connector's fetcher into the pool immediately. Admin-gated (spawns a fetcher);
+// no PR token needed (a fetch only reads a public source). Body: { subject? } to target one subject.
+app.post('/api/connectors/:id/run', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = (req.params as any).id as string
+  if (!CONNECTOR_ID_RE.test(id)) return reply.code(400).send({ error: 'invalid connector id' })
+  const { user } = identify(req)
+  if (!isDispatchAdmin(user)) return reply.code(403).send({ error: 'not authorized (admin only)' })
+  const m = getConnector(id)
+  if (!m) return reply.code(404).send({ error: 'no such connector' })
+  const subject = typeof (req.body as any)?.subject === 'string' ? (req.body as any).subject : undefined
+  const res = await runConnectorNow(id, subject)
+  return { ok: true, ...(res || { ran: [] }) }
+})
+
+// Manual auto-repair — send a broken connector to the coding agent to fix + open a PR. Admin + PR-token gated
+// (opens a PR). Body: { subject? } to name the failing subject (else the first broken/last-attempted one).
+app.post('/api/connectors/:id/repair', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = (req.params as any).id as string
+  if (!CONNECTOR_ID_RE.test(id)) return reply.code(400).send({ error: 'invalid connector id' })
+  const { user } = identify(req)
+  if (!isDispatchAdmin(user)) return reply.code(403).send({ error: 'not authorized (admin only)' })
+  const m = getConnector(id)
+  if (!m) return reply.code(404).send({ error: 'no such connector' })
+  const subject = typeof (req.body as any)?.subject === 'string' && m.subjects.includes((req.body as any).subject)
+    ? (req.body as any).subject : m.subjects[0]
+  const fh = feedHealthFor(id, subject)
+  const outcome = startConnectorRepair(m, subject, fh.last_error || '')
   return reply.code(outcome.accepted ? 202 : 409).send({ ok: outcome.accepted, ...outcome })
 })
 
@@ -2575,6 +2621,9 @@ app
     // plan-limit reset / dropped connection / reboot. OFF unless RESUME_SUPERVISOR_ENABLED=1 (the cloud
     // host sets it; a dev laptop stays dark). Never spends overage; waits for the plan limit to reset.
     startResumeSupervisor()
+    // forever-living connector cadence runner: keeps every built data feed fresh on its declared cadence and
+    // (when auto-repair is on) opens a fix-it PR for a broken source. OFF unless ENGINE_CONNECTOR_RUNNER_ENABLED=1.
+    startConnectorRunner()
   })
   .catch((err: any) => {
     // eslint-disable-next-line no-console

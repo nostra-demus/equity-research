@@ -98,7 +98,25 @@ export function pipelineScanReady(): boolean {
 export function connectorDispatchReady(): boolean {
   return CONNECTOR_DISPATCH_ENABLED && CODE_PR_TOKEN.length > 0
 }
-// (PIPELINE_SCAN + CONNECTOR_BUILD guard objects are defined below, after capNum is in scope.)
+
+// The always-on layer — the cadence runner that keeps every built connector fresh (connector-runner.ts) and
+// the auto-repair that opens a fix-it PR when a source breaks (connector-repair.ts). BOTH default OFF:
+//   • ENGINE_CONNECTOR_RUNNER_ENABLED=1 turns on the forever loop (fetch each connector on its cadence).
+//   • ENGINE_CONNECTOR_AUTO_REPAIR=1 additionally lets a broken feed auto-open a repair PR — a separate,
+//     more powerful opt-in (it needs a PR token too), so a shop can run the fresh-data loop without ever
+//     letting the engine open a repair PR on its own.
+export const CONNECTOR_RUNNER_ENABLED = process.env.ENGINE_CONNECTOR_RUNNER_ENABLED === '1'
+export const CONNECTOR_AUTO_REPAIR_ENABLED = process.env.ENGINE_CONNECTOR_AUTO_REPAIR === '1'
+/** The cadence runner runs when it is enabled. */
+export function connectorRunnerReady(): boolean {
+  return CONNECTOR_RUNNER_ENABLED
+}
+/** Auto-repair runs only when both the runner and auto-repair are on AND a PR token is configured. */
+export function connectorAutoRepairReady(): boolean {
+  return CONNECTOR_RUNNER_ENABLED && CONNECTOR_AUTO_REPAIR_ENABLED && CODE_PR_TOKEN.length > 0
+}
+// (PIPELINE_SCAN + CONNECTOR_BUILD + CONNECTOR_RUNNER + CONNECTOR_REPAIR guard objects are defined below,
+// after capNum is in scope.)
 
 // OPT-IN (off by default): orchestrate a full run as a CHAIN of separate per-module runs (each its own
 // budget), in dependency order, then the master synthesizer — instead of one monolithic /research:full
@@ -343,6 +361,21 @@ export const CONNECTOR_BUILD = {
   dailyCap: capNum(process.env.ENGINE_CONNECTOR_DAILY_CAP, 8),
   maxTurns: capNum(process.env.ENGINE_CONNECTOR_MAX_TURNS, 200),
   budgetUsd: capNum(process.env.ENGINE_CONNECTOR_BUDGET_USD, 15),
+}
+// The cadence runner (connector-runner.ts) — how often it wakes, and the ceilings on one fetch sweep.
+export const CONNECTOR_RUNNER = {
+  pollIntervalMin: capNum(process.env.ENGINE_CONNECTOR_POLL_MIN, 30),
+  fetchTimeoutMs: capNum(process.env.ENGINE_CONNECTOR_FETCH_TIMEOUT_MS, 60_000),
+  maxConcurrentFetch: capNum(process.env.ENGINE_CONNECTOR_MAX_CONCURRENT_FETCH, 2),
+  dailyFetchCap: capNum(process.env.ENGINE_CONNECTOR_DAILY_FETCH_CAP, 500),
+}
+// The auto-repair coding agent (connector-repair.ts) — its OWN caps + cooldown, never shared with build.
+export const CONNECTOR_REPAIR = {
+  maxConcurrent: capNum(process.env.ENGINE_CONNECTOR_REPAIR_MAX_CONCURRENT, 1),
+  dailyCap: capNum(process.env.ENGINE_CONNECTOR_REPAIR_DAILY_CAP, 4),
+  cooldownHours: capNum(process.env.ENGINE_CONNECTOR_REPAIR_COOLDOWN_HOURS, 12),
+  maxTurns: capNum(process.env.ENGINE_CONNECTOR_REPAIR_MAX_TURNS, 200),
+  budgetUsd: capNum(process.env.ENGINE_CONNECTOR_REPAIR_BUDGET_USD, 15),
 }
 
 // Rough cost/time estimates surfaced to the UI before launch (heuristic only; the hard cap is budgetUsd).

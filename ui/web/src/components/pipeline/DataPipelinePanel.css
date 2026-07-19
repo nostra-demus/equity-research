@@ -103,6 +103,10 @@
 .dpipe__status[data-tone="live"] { color: var(--live); border-color: color-mix(in srgb, var(--live) 45%, transparent); }
 .dpipe__status[data-tone="accent"] { color: var(--accent-bright); border-color: var(--accent-deep); }
 .dpipe__status[data-tone="triaged"] { color: var(--text-muted); border-color: var(--hairline-strong); }
+.dpipe__status[data-tone="bad"] { color: var(--bad, #d66); border-color: color-mix(in srgb, var(--bad, #d66) 45%, transparent); }
+.dpipe__status[data-tone="muted"] { color: var(--text-faint); border-color: var(--hairline); }
+/* the cadence-runner state chip in the "Live feeds" header (normal-case, muted — it is status, not a label) */
+.dpipe__runner { margin-left: auto; font-size: 10px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--text-faint); }
 .dpipe__cardmeta { margin-left: auto; font-size: 10.5px; color: var(--text-faint); white-space: nowrap; }
 .dpipe__cardverdict { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 7px; font-size: 11px; }
 .dpipe__cardseries { color: var(--text); }
