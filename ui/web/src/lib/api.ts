@@ -726,11 +726,15 @@ export const api = {
   },
   // POST one chat turn and read the streamed SSE body. Runs use EventSource (GET-only) elsewhere; chat is
   // a POST, so it needs the fetch + ReadableStream reader. AbortError-silent: the user's own close (signal
-  // abort) is not surfaced as an error. Frames: chat-meta -> chat-token* -> chat-done | chat-error.
+  // abort) is not surfaced as an error. Frames: chat-meta -> (chat-status | chat-thinking)* interleaved
+  // with chat-token* -> chat-done | chat-error. onStatus/onThinking are optional and simply absent from an
+  // older engine's stream (deploy skew §5) — the turn still works without them.
   chatStream: async (
     body: ChatRequest,
     cb: {
       onMeta?: (m: { conversationId?: string; scopeResolved: string; sourcePath?: string; degraded?: boolean; degradeNote?: string }) => void
+      onStatus?: (s: { stage?: string; model?: string }) => void
+      onThinking?: (t: string) => void
       onToken: (t: string) => void
       onDone: (d: { costUsd?: number }) => void
       onError: (msg: string) => void
@@ -772,6 +776,8 @@ export const api = {
           let parsed: any
           try { parsed = JSON.parse(data) } catch { continue }
           if (ev === 'chat-meta') cb.onMeta?.(parsed)
+          else if (ev === 'chat-status') cb.onStatus?.(parsed)
+          else if (ev === 'chat-thinking') cb.onThinking?.(parsed.content ?? '')
           else if (ev === 'chat-token') cb.onToken(parsed.content ?? '')
           else if (ev === 'chat-done') { cb.onDone(parsed); return }
           else if (ev === 'chat-error') { cb.onError(parsed.message || 'chat failed'); return }

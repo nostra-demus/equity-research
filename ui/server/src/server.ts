@@ -1190,8 +1190,10 @@ app.get('/api/chat/scopes', async (req, reply) => {
 })
 
 // One chat turn. Stateless: the client resends the whole conversation each turn (ephemeral by design).
-// Streams Server-Sent-Events in the POST response body: chat-meta (what we're answering from), then
-// chat-token per delta, then a terminal chat-done {costUsd} or chat-error {message}.
+// Streams Server-Sent-Events in the POST response body: chat-meta (what we're answering from), then live
+// progress — chat-status {stage: starting|connected|thinking|writing} at each REAL lifecycle event and
+// chat-thinking per reasoning delta (the model's own thought process) — then chat-token per answer delta,
+// then a terminal chat-done {costUsd} or chat-error {message}.
 const ChatBody = z.object({
   ticker: z.string().regex(TICKER_RE).optional(),
   runRoot: z.string().max(300).optional(),
@@ -1287,15 +1289,29 @@ app.post('/api/chat', async (req, reply) => {
   res.on('close', () => { closed = true; clearInterval(ping); ac.abort() })
   send({ type: 'chat-meta', conversationId, scopeResolved: assembled.label, sourcePath: assembled.sourcePath, degraded: assembled.degraded, degradeNote: assembled.degradeNote })
   const { system, user } = buildChatPrompts({ assembled, messages, subject, style: parsed.data.style })
+  // Live progress for the panel's working state. Every chat-status stage maps to a REAL event (spawn /
+  // CLI init / thinking block / first text block — see ChatTurnSignal in chat-llm.ts), and chat-thinking
+  // streams the model's own reasoning verbatim so the user can read the thought process while waiting.
+  send({ type: 'chat-status', stage: 'starting' })
   let answer = '' // accumulate the streamed answer so the completed turn can be saved to history
+  let thinking = '' // accumulate the reasoning so the saved turn keeps its thought process too
   try {
-    const out = await runChatTurn({ system, user, model, signal: ac.signal, onToken: (t) => { answer += t; send({ type: 'chat-token', content: t }) } })
+    const out = await runChatTurn({
+      system, user, model, signal: ac.signal,
+      onToken: (t) => { answer += t; send({ type: 'chat-token', content: t }) },
+      onSignal: (s) => {
+        if (s.kind === 'ready') send({ type: 'chat-status', stage: 'connected', model: s.model })
+        else if (s.kind === 'thinking-start') send({ type: 'chat-status', stage: 'thinking' })
+        else if (s.kind === 'thinking') { thinking += s.text; send({ type: 'chat-thinking', content: s.text }) }
+        else if (s.kind === 'answer-start') send({ type: 'chat-status', stage: 'writing' })
+      },
+    })
     if (out.error && out.error !== 'aborted') send({ type: 'chat-error', message: out.error })
     else if (!out.error) {
       send({ type: 'chat-done', costUsd: out.costUsd, model })
       // save the assistant answer only on a clean completion (an errored/aborted turn leaves the question
       // in history but no half-answer). Best-effort, off the response path.
-      if (conversationId && answer) void recordAssistantMessage(conversationId, answer, { sourcePath: assembled.sourcePath, costUsd: out.costUsd }).catch(() => {})
+      if (conversationId && answer) void recordAssistantMessage(conversationId, answer, { sourcePath: assembled.sourcePath, costUsd: out.costUsd, thinking: thinking || undefined }).catch(() => {})
     }
   } catch (e: any) {
     if (!closed) send({ type: 'chat-error', message: String(e?.message || e) })

@@ -336,6 +336,10 @@ export const CHAT = {
   // assembled-context cap (approx tokens). Above it, module/run scopes degrade to syntheses and SAY SO,
   // keeping the prompt within the model's window with room left for the answer.
   contextMaxTokens: capNum(process.env.ENGINE_CHAT_CONTEXT_MAX_TOKENS, 150_000),
+  // extended-thinking budget for a chat turn (MAX_THINKING_TOKENS on the child). The panel streams the
+  // model's reasoning live while the user waits — real thought process, not a fabricated status. 0 turns
+  // thinking off (capNum treats 0 as unset, so parse it directly); a host-set MAX_THINKING_TOKENS wins.
+  thinkingTokens: (() => { const n = Number(process.env.ENGINE_CHAT_THINKING_TOKENS); return Number.isFinite(n) && n >= 0 ? Math.floor(n) : 6_000 })(),
 }
 
 // ---- autonomous news ingester (screener swarm) ----

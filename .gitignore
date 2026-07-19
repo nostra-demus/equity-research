@@ -1,4 +1,7 @@
-data
+# Root-level data/ is a symlink to the Google Drive research pool (setup step 4).
+# Never track or clobber it — a plain dir here is the "0 companies" trap.
+/data
+/data.plain-bak-*
 .cache
 .DS_Store
 **/.DS_Store
