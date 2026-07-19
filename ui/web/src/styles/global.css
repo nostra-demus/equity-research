@@ -225,12 +225,9 @@ a { color: inherit; }
 @container (min-width: 1000px) {
   .stage > .stageview { left: var(--stage-reserve, 0px); }
 }
-/* NOT re-centred over the reserved field on purpose: .decision's `transform: translateX(-50%)` is dead —
-   DecisionBanner is a motion.div, and framer-motion writes `transform: none` inline once its entry
-   settles, clobbering it. The banner is therefore left-ANCHORED at 50%, not centred, so shifting it by
-   half the reserve walks its right edge into the stage edge. Left alone it lands close to the field's
-   centre anyway. (The dead transform is a real pre-existing bug — it wants `translate: -50% 0`, which
-   framer-motion does not touch — but it is nothing to do with the left rail.) */
+/* The decision bar centres over the reserved FIELD here (see .decision-dock below): the bar is a static
+   frame wrapping the animated card, so framer-motion never touches the frame's transform — the old
+   translateX(-50%)-on-the-motion.div bug (framer wrote `transform: none` and de-centred it) is gone. */
 
 /* ---------- swarm ---------- */
 .swarm { position: absolute; inset: 0; }
@@ -1084,19 +1081,57 @@ a { color: inherit; }
 .pulsedot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 var(--accent-glow); animation: pulse 1.8s var(--ease) infinite; }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 var(--accent-glow); } 70% { box-shadow: 0 0 0 9px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
 
-/* ---------- decision banner ---------- */
-.decision {
-  position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 20;
-  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
-  column-gap: 18px; row-gap: 8px;
-  max-width: min(1060px, calc(100vw - 40px));
-  padding: 14px 26px; border-radius: 20px;
-  background: var(--surface-1); border: 1px solid var(--hairline-strong); box-shadow: var(--shadow-2);
+/* ---------- decision bar — seated on the stage floor, not a floating pill ---------- */
+/* A static positioning FRAME spanning the stage width; only the bar inside is interactive. It centres
+   the bar over the FIELD, shifting past the left rail's reserved column exactly as .stageview does, so
+   the bar lines up under the constellation instead of drifting to one side. Being static (not the
+   animated card), framer-motion never rewrites its transform — which is what killed the old centring. */
+.decision-dock {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 20;
+  display: flex; justify-content: center; padding: 0 20px;
+  pointer-events: none;
 }
-.decision__call { font-size: 15px; font-weight: 700; letter-spacing: 0.3px; }
-.decision__divider { width: 1px; height: 20px; background: var(--hairline-strong); }
-.decision__stat { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); white-space: nowrap; }
-.decision__stat b { color: var(--text); font-weight: 600; }
+@container (min-width: 1000px) {
+  .decision-dock { padding-left: var(--stage-reserve, 20px); }
+}
+.decision {
+  pointer-events: auto; cursor: pointer;
+  display: flex; align-items: center; flex-wrap: wrap;
+  column-gap: 20px; row-gap: 10px;
+  max-width: min(1100px, 100%);
+  padding: 12px 24px 14px;
+  /* seated: flat bottom edge meets the floor, rounded shoulders, top hairline, lift rising upward */
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  background: var(--surface-1); border: 1px solid var(--hairline-strong); border-bottom: none;
+  box-shadow: var(--shadow-up);
+  transition: border-color var(--dur-fast) var(--ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .decision:hover { border-color: var(--accent-deep); }
+}
+.decision__verdict { display: flex; flex-direction: column; gap: 2px; }
+.decision__eyebrow {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.9px; text-transform: uppercase; color: var(--text-faint);
+}
+.decision__call { font-size: 16px; font-weight: 700; letter-spacing: 0.2px; line-height: 1.1; }
+.decision__divider { width: 1px; height: 28px; background: var(--hairline-strong); }
+/* the metric strip: each cell a small uppercase caption over a prominent, tabular-figure value */
+.decision__metrics { display: flex; align-items: center; flex-wrap: wrap; column-gap: 22px; row-gap: 8px; }
+.decision__metric { display: flex; flex-direction: column; gap: 3px; }
+.decision__mlabel {
+  font-size: 8.5px; font-weight: 600; letter-spacing: 0.7px; text-transform: uppercase;
+  color: var(--text-faint); white-space: nowrap;
+}
+.decision__mval {
+  font-size: 15px; font-weight: 600; line-height: 1; color: var(--text);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.decision__munit { font-size: 10px; font-weight: 500; color: var(--text-faint); margin-left: 1px; }
+/* the sizing action hint (→ trim / add) — a quiet accent pill, an action next to the numbers */
+.decision__hint {
+  align-self: center; font-size: 10.5px; font-weight: 500; color: var(--accent-bright);
+  white-space: nowrap; padding: 3px 10px; border-radius: var(--r-pill); background: var(--accent-wash);
+}
 /* the three run tiers (memo / thesis / full dossier), opened from below the orb */
 .decision__tiers { display: flex; align-items: center; gap: 6px; }
 .tierbtn {

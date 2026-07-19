@@ -169,6 +169,9 @@
   /* elevation */
   --shadow-1: 0 1px 0 rgba(255, 255, 255, 0.02) inset, 0 8px 24px rgba(0, 0, 0, 0.4);
   --shadow-2: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 18px 50px rgba(0, 0, 0, 0.55);
+  /* upward lift for a surface seated on the stage FLOOR (the decision bar): the shadow rises off the
+     floor instead of casting down past the viewport edge, where a downward shadow would be clipped */
+  --shadow-up: 0 -1px 0 rgba(255, 255, 255, 0.03) inset, 0 -16px 44px rgba(0, 0, 0, 0.5);
 
   /* swarm identities (the switcher + warp read both regardless of the active scope) */
   --swarm-research: #e0a33e;
@@ -299,6 +302,7 @@
   /* soft, diffuse, low-alpha grey shadows (light-mode depth is shadow, not a brighter face) */
   --shadow-1: 0 1px 2px rgba(28, 28, 33, 0.05), 0 6px 18px rgba(28, 28, 33, 0.07);
   --shadow-2: 0 6px 16px rgba(28, 28, 33, 0.10), 0 22px 52px rgba(28, 28, 33, 0.13);
+  --shadow-up: 0 -1px 0 rgba(255, 255, 255, 0.7) inset, 0 -14px 40px rgba(28, 28, 33, 0.12);
 
   --swarm-research: #c0851d;
   --swarm-screener: #1499ab;

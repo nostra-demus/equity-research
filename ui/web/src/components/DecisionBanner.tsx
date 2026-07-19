@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { decisionColor, resolveVerdict } from '../lib/format'
 import type { WhatChangedRead } from '../lib/types'
@@ -52,6 +52,25 @@ function chipCopy(wc: WhatChangedRead): { text: string; tone: string; title: str
   }
 }
 
+/** One labelled metric cell: a small uppercase caption over a prominent value, with an optional faint
+ *  unit (e.g. "/100"). Full words only — the bar is a read-out, not a place for cryptic abbreviations. */
+function Metric({ label, value, unit, valueColor, title }: {
+  label: string
+  value: string | number
+  unit?: string
+  valueColor?: string
+  title?: string
+}) {
+  return (
+    <div className="decision__metric" title={title}>
+      <span className="decision__mlabel">{label}</span>
+      <span className="decision__mval" style={valueColor ? { color: valueColor } : undefined}>
+        {value}{unit && <span className="decision__munit">{unit}</span>}
+      </span>
+    </div>
+  )
+}
+
 /** The glance layer: the whole answer in one line, or nothing. Opens the detail panel. */
 function WhatChangedChip() {
   const wc = useStore((s) => s.whatChanged)
@@ -89,6 +108,7 @@ export function DecisionBanner() {
   const hasActiveRun = useStore((s) => s.anyRunForTicker(s.selectedTicker))
   const isResearch = useStore((s) => s.constellationSwarm === 'research')
   const verdictField = useStore((s) => s.swarms.find((w) => w.id === s.constellationSwarm)?.verdictField)
+  const reduce = useReducedMotion()
   // research records carry `decision`; a swarm's record carries its SWARM.md verdict field
   const verdict = resolveVerdict(decision, verdictField)
   if (!verdict) return null
@@ -98,59 +118,81 @@ export function DecisionBanner() {
   // Two-number confidence (scripts/confidence.py): show understanding + conviction + sizing when
   // the synthesizer emitted them; fall back to the old single confidence_score otherwise.
   const d = decision as any
+  const twoNumber = typeof d.conviction === 'number' && typeof d.analysis_confidence === 'number'
+  const singleConf = decision.confidence_score ?? decision.confidence
   // the three memo/thesis/dossier tiers exist only for research runs — a swarm run has one final
   // dossier (the banner itself opens it), so an all-off tier row would just be noise
   const anyTier = TIERS.some(({ key }) => reports[key])
   return (
-    <motion.div className="decision" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }} onClick={openThesis} style={{ cursor: 'pointer' }} title={isResearch ? 'Open the Thesis — the deep-dive synthesized view' : 'Open the Dossier — the final synthesized view'}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-        <span style={{ fontSize: 9, letterSpacing: '0.8px', textTransform: 'uppercase', color: 'var(--text-faint)' }}>Decision</span>
-        <span className="decision__call" style={{ color: decisionColor(verdict) }}>{verdict}</span>
-      </div>
-      <div className="decision__divider" />
-      {typeof d.conviction === 'number' && typeof d.analysis_confidence === 'number' ? (
-        <>
-          <span className="decision__stat" title="How well the company is understood — evidence quality only (data completeness, module agreement, source quality). NOT a buy signal.">understanding <b>{d.analysis_confidence}</b></span>
-          <span className="decision__stat" title="How much to bet on the call — direction-aware conviction. This is the actionable number that drives sizing (it is what the old single 'confidence' became).">conviction <b>{d.conviction}</b></span>
-          {d.sizing_hint?.action && <span className="decision__stat" style={{ color: 'var(--text-faint)', fontStyle: 'italic' }}>→ {d.sizing_hint.action}</span>}
-        </>
-      ) : (
-        <span className="decision__stat">conf <b>{decision.confidence_score ?? decision.confidence ?? '—'}</b></span>
-      )}
-      {typeof er === 'number' && (
-        <span className="decision__stat">exp ret <b style={{ color: er >= 0 ? 'var(--accent-bright)' : 'var(--bad)' }}>{er > 0 ? '+' : ''}{er}%</b></span>
-      )}
-      {decision.entry_price && <span className="decision__stat">@ <b>{decision.currency || ''} {decision.entry_price}</b></span>}
-      {/* Sits with the call it describes. The banner's own gate — a decided run, not mid-run — is exactly
-          when a version comparison can exist, which is why this lives here and not in the "New data" dock
-          (whose gate empties the moment a re-run consumes the documents: the answer would vanish at the
-          moment the user asks the question). */}
-      {isResearch && <WhatChangedChip />}
-      {anyTier && (
-        <>
-          <div className="decision__divider" />
-          <div className="decision__tiers">
-            {TIERS.map(({ key, label }) => {
-              const on = reports[key]
-              return (
-                <button
-                  key={key}
-                  type="button"
-                  className={`tierbtn${on ? '' : ' tierbtn--off'}`}
-                  title={on ? `Open the ${label}` : `${label} not generated for this run`}
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    if (on) openReport(key)
-                    else setToast({ msg: `${label} not generated for this run`, tone: 'info' })
-                  }}
-                >
-                  {label}
-                </button>
-              )
-            })}
-          </div>
-        </>
-      )}
-    </motion.div>
+    // A static dock frames the animated card so its centring survives framer-motion (which rewrites the
+    // card's own transform). The card is seated on the stage floor — a permanent bar, not a floating pill.
+    <div className="decision-dock">
+      <motion.div
+        className="decision"
+        initial={reduce ? false : { opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: reduce ? 0 : 0.42, ease: [0.16, 1, 0.3, 1] }}
+        onClick={openThesis}
+        title={isResearch ? 'Open the Thesis — the deep-dive synthesized view' : 'Open the Dossier — the final synthesized view'}
+      >
+        <div className="decision__verdict">
+          <span className="decision__eyebrow">Decision</span>
+          <span className="decision__call" style={{ color: decisionColor(verdict) }}>{verdict}</span>
+        </div>
+        <div className="decision__divider" />
+        <div className="decision__metrics">
+          {twoNumber ? (
+            <>
+              <Metric label="Understanding" value={d.analysis_confidence} unit="/100" title="How well the company is understood — evidence quality only (data completeness, module agreement, source quality). NOT a buy signal." />
+              <Metric label="Conviction" value={d.conviction} unit="/100" title="How much to bet on the call — direction-aware conviction. This is the actionable number that drives sizing (it is what the old single 'confidence' became)." />
+              {d.sizing_hint?.action && <span className="decision__hint" title="Suggested sizing action">→ {d.sizing_hint.action}</span>}
+            </>
+          ) : (
+            <Metric
+              label="Confidence"
+              value={typeof singleConf === 'number' ? singleConf : '—'}
+              unit={typeof singleConf === 'number' ? '/100' : undefined}
+              title="Overall confidence in the call — evidence quality and conviction combined."
+            />
+          )}
+          {typeof er === 'number' && (
+            <Metric label="Expected return" value={`${er > 0 ? '+' : ''}${er}%`} valueColor={er >= 0 ? 'var(--accent-bright)' : 'var(--bad)'} />
+          )}
+          {decision.entry_price && (
+            <Metric label="Entry" value={`${decision.currency || ''} ${decision.entry_price}`.trim()} />
+          )}
+        </div>
+        {/* Sits with the call it describes. The banner's own gate — a decided run, not mid-run — is exactly
+            when a version comparison can exist, which is why this lives here and not in the "New data" dock
+            (whose gate empties the moment a re-run consumes the documents: the answer would vanish at the
+            moment the user asks the question). */}
+        {isResearch && <WhatChangedChip />}
+        {anyTier && (
+          <>
+            <div className="decision__divider" />
+            <div className="decision__tiers">
+              {TIERS.map(({ key, label }) => {
+                const on = reports[key]
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    className={`tierbtn${on ? '' : ' tierbtn--off'}`}
+                    title={on ? `Open the ${label}` : `${label} not generated for this run`}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      if (on) openReport(key)
+                      else setToast({ msg: `${label} not generated for this run`, tone: 'info' })
+                    }}
+                  >
+                    {label}
+                  </button>
+                )
+              })}
+            </div>
+          </>
+        )}
+      </motion.div>
+    </div>
   )
 }
