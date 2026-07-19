@@ -215,6 +215,25 @@ def check_thesis_integrity_anchors(doc_path: str) -> list[str]:
             f"falsification_attack.is_fireproof is true but verdict is {verdict!r}; MODULE_RULES.md's binding "
             f"table requires verdict 'Thesis broken' (routing 'watchlist_integrity_broken') for a fireproof kill switch"
         )
+    # The SAME binding table gives a SECOND independent trigger for "Thesis broken": "or the load-bearing
+    # claim fails the citation spot-check." citation_spot_check by construction holds only the 3-5 MOST
+    # load-bearing numeric claims (MODULE_RULES.md "Attack discipline > Citation spot-check"), so any item
+    # marked miscited/unsupported IS a load-bearing claim that failed — forcing verdict "Thesis broken"
+    # (routing "watchlist_integrity_broken"). Enforced independently of the verdict→routing pair above: a
+    # "Survives"/"Proceed" (or a mere "…downgrade") output with a failed citation satisfies the pair-check
+    # yet must NOT clear the gate to candidate-surfacing. `unverified`/`inference-labeled` are disclosed-but-
+    # -uncertain, not failed (the fixture carries both under "Survives with haircut"), so they never trip this.
+    spot = review.get("citation_spot_check")
+    failed = [c for c in spot if isinstance(c, dict) and c.get("status") in ("miscited", "unsupported")] \
+        if isinstance(spot, list) else []
+    if failed and verdict != "Thesis broken":
+        claims = "; ".join(str(c.get("claim")) for c in failed)
+        errs.append(
+            f"citation_spot_check has {len(failed)} load-bearing claim(s) with status miscited/unsupported "
+            f"({claims}) but verdict is {verdict!r}; MODULE_RULES.md's binding table requires verdict "
+            f"'Thesis broken' (routing 'watchlist_integrity_broken') when a load-bearing claim fails the "
+            f"citation spot-check"
+        )
     return errs
 
 COMMODITY_SCHEMA = "frameworks/commodity/decision_record.schema.json"

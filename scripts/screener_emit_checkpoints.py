@@ -29,6 +29,7 @@ from datetime import datetime, timedelta, timezone
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LEDGER = os.path.join(REPO, "screener", "ledger")
+RUNS = os.path.join(REPO, "screener", "runs")
 THESES = os.path.join(LEDGER, "theses")
 CONV = os.path.join(LEDGER, "conviction")
 STATE_DIR = os.path.join(CONV, "conviction_state")
@@ -276,6 +277,63 @@ def emit_for(rec: dict) -> str | None:
     return tid
 
 
+_INTEGRITY_VER = re.compile(r"thesis_integrity_review(?:_v(\d+))?\.json$")
+
+
+def _run_dir_for(rec: dict) -> str | None:
+    """Repo-absolute run folder holding a thesis's screener/runs/<SIG>/ artifacts.
+
+    Prefer the record's own run_root; else derive SIG from meta.signal_id, else from the
+    thesis_id (THS-<SIG>-vN -> <SIG>). Returns None if none resolves."""
+    rr = rec.get("run_root")
+    if isinstance(rr, str) and rr.strip():
+        return rr if os.path.isabs(rr) else os.path.join(REPO, rr)
+    meta = rec.get("meta", {})
+    sig = meta.get("signal_id")
+    if not sig:
+        m = re.match(r"^THS-(SIG-\d{8}-[a-f0-9]{8})-v\d+$", meta.get("thesis_id") or "")
+        sig = m.group(1) if m else None
+    return os.path.join(RUNS, sig) if sig else None
+
+
+def latest_integrity_routing(rec: dict) -> str | None:
+    """Routing of the LATEST thesis_integrity_review*.json in the thesis's run folder — the
+    adversarial post-lock gate's verdict (base file = v1; _v2/_v3 are append-only re-reviews,
+    highest version wins). The thesis-integrity module red-teams a locked provisional/full_machine
+    thesis before it earns a live book; `Proceed` is the ONLY continue value (schema enum in
+    frameworks/screener/thesis_integrity_review.schema.json), anything else is terminal (SWARM.md
+    routing.terminal: watchlist_integrity_downgrade / watchlist_integrity_broken).
+
+    Returns:
+      None  — no review on disk (the module never ran, e.g. a watchlist_no_edge thesis, or a run
+              predating this gate): NOT a rejection, seeding proceeds as before.
+      'Proceed' — the survivor: seeding proceeds.
+      any other string — terminal / unreadable: caller must SKIP seeding. A present-but-garbled
+              review is treated as terminal (fail-closed, CLAUDE.md §24) — a rejected or unreadable
+              adversarial verdict can never hand a thesis a conviction calendar or paid validation.
+    """
+    run_dir = _run_dir_for(rec)
+    if not run_dir or not os.path.isdir(run_dir):
+        return None
+    best_ver, best_path = -1, None
+    for p in glob.glob(os.path.join(run_dir, "thesis_integrity_review*.json")):
+        m = _INTEGRITY_VER.search(os.path.basename(p))
+        if not m:
+            continue
+        ver = int(m.group(1)) if m.group(1) else 1
+        if ver > best_ver:
+            best_ver, best_path = ver, p
+    if not best_path:
+        return None  # module never ran / no review on disk — not a rejection
+    try:
+        routing = json.load(open(best_path, encoding="utf-8")).get("routing")
+    except Exception:  # noqa: BLE001
+        routing = None
+    # A review IS on disk: only an explicit "Proceed" clears the gate. A missing/garbled routing
+    # is treated as terminal (fail-closed) so it can never be mistaken for the None "no review" case.
+    return routing if routing == "Proceed" else (routing or "unreadable_integrity_review")
+
+
 def main(argv: list[str]) -> int:
     os.makedirs(CONV, exist_ok=True)
     if len(argv) >= 2:
@@ -292,6 +350,16 @@ def main(argv: list[str]) -> int:
             continue
         if not rec.get("meta", {}).get("locked"):
             continue  # only locked theses have a stable thing to track
+        # The adversarial gate (thesis-integrity) runs AFTER lock and can reject a locked
+        # provisional/full_machine thesis without ever editing its (locked) meta.status. A rejected
+        # thesis must not get a live conviction calendar or paid /screener:validate runs — mirror the
+        # signal.md step-6 guard here so the backfill path and /screener:validate's "seed if state
+        # absent" path can't bypass it (CONVICTION_LOOP.md; CLAUDE.md §24).
+        routing = latest_integrity_routing(rec)
+        if routing is not None and routing != "Proceed":
+            print(f"skip {rec.get('meta', {}).get('thesis_id')}: latest thesis-integrity review routed "
+                  f"{routing!r} (terminal) — no conviction calendar for a rejected thesis", file=sys.stderr)
+            continue
         tid = emit_for(rec)
         if tid:
             done += 1
