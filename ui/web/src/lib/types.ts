@@ -948,7 +948,20 @@ export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outp
 // ---- chat with your data (closed-book Q&A over a run's synthesized output) ----
 export type ChatScope = 'run' | 'module' | 'orb'
 export type ChatStyle = 'simple' | 'analyst' | 'detailed' // narration style — HOW the answer is phrased
-export interface ChatMessage { role: 'user' | 'assistant'; content: string }
+// `thinking` (assistant turns) is the model's extended-thinking reasoning, streamed live while the answer
+// is being worked out and kept afterwards so the thought process stays readable.
+export interface ChatMessage { role: 'user' | 'assistant'; content: string; thinking?: string }
+
+// What an in-flight chat turn is doing RIGHT NOW — drives the panel's live working state. Every stage is
+// tied to a real event, never a fabricated progress guess:
+//   sending   -> the request left the browser
+//   context   -> the server confirmed the scope + assembled the closed-book context (chat-meta arrived)
+//   starting  -> the server is spawning the engine CLI (chat-status: starting)
+//   connected -> the CLI session initialized; the model is consuming the context (chat-status: connected)
+//   thinking  -> an extended-thinking block is streaming (chat-status: thinking + chat-thinking deltas)
+//   writing   -> the visible answer is streaming (chat-status: writing / first chat-token)
+export type ChatWorkStage = 'sending' | 'context' | 'starting' | 'connected' | 'thinking' | 'writing'
+export interface ChatWork { stage: ChatWorkStage; model?: string; startedAt: number; stageAt: number }
 export interface ChatRequest {
   ticker?: string
   runRoot?: string
