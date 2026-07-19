@@ -133,6 +133,14 @@ export function DecisionBanner() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: reduce ? 0 : 0.42, ease: [0.16, 1, 0.3, 1] }}
         onClick={openThesis}
+        onKeyDown={(e) => {
+          if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) {
+            e.preventDefault()
+            openThesis()
+          }
+        }}
+        tabIndex={0}
+        role="button"
         title={isResearch ? 'Open the Thesis — the deep-dive synthesized view' : 'Open the Dossier — the final synthesized view'}
       >
         <div className="decision__verdict">
