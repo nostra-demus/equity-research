@@ -1,5 +1,5 @@
 ---
-description: Run ONE signal through the screener gauntlet — Gate 0 + Phase 0.1 (signal-gate), then Phase 1 (thesis-structure, edge-definition) and candidate-surfacing, gated by the routing contract. Self-discovers modules from .claude/agents/screener/*/99_*-synthesis.md.
+description: Run ONE signal through the screener gauntlet — Gate 0 + Phase 0.1 (signal-gate), then Phase 1 (thesis-structure, edge-definition), the post-lock integrity review (thesis-integrity), and candidate-surfacing, gated by the routing contract. Self-discovers modules from .claude/agents/screener/*/99_*-synthesis.md.
 argument-hint: SIG_ID [TARGET_MODULE] — or a quoted headline/URL (an intake will be materialized). An optional module slug after the SIG_ID runs the gauntlet THROUGH that module, then stops (a deliberate, resumable partial run).
 allowed-tools: Read, Write, Glob, Grep, Bash, Task, WebSearch
 ---
@@ -34,7 +34,7 @@ Capture `<RUN_ROOT>` = `screener/runs/<SIG_ID>`.
 
 ## 3. Discover the screener modules and their order
 
-Glob `.claude/agents/screener/*/99_*-synthesis.md`. Parse each `depends_on` from frontmatter; topo-sort (alphabetical tiebreak) exactly as `/research:full` does. Do NOT hardcode module names — today this yields signal-gate → thesis-structure → edge-definition → candidate-surfacing, derived.
+Glob `.claude/agents/screener/*/99_*-synthesis.md`. Parse each `depends_on` from frontmatter; topo-sort (alphabetical tiebreak) exactly as `/research:full` does. Do NOT hardcode module names — today this yields signal-gate → thesis-structure → edge-definition → thesis-integrity → candidate-surfacing, derived.
 
 ## 4. Run each module via the screener pipeline, gated by the routing contract
 
@@ -54,7 +54,7 @@ After each module (whether just run or reused from disk), extract its routing (t
 - Routing in the manifest's `routing.terminal` list → STOP the pipeline here. This is a recorded, valid outcome.
 - **Target reached?** If `<TARGET_MODULE>` is set and the module just completed (run OR reused from disk) IS `<TARGET_MODULE>`, STOP the pipeline here even when its routing says continue — this is the deliberate partial run the human requested. Record it as `stopped-at-target` (NOT a terminal/declined outcome): a later "Continue" reruns the rest, reusing everything finished. Skip all remaining modules.
 - Routing in `routing.continue` → next module.
-- `candidate-surfacing` runs ONLY if edge-definition routed `provisional` or `full_machine`.
+- `thesis-integrity` runs ONLY if edge-definition routed `provisional` or `full_machine` (its own precondition — same as candidate-surfacing's), and its own routing (`Proceed` vs `watchlist_integrity_downgrade`/`watchlist_integrity_broken`) is what actually gates `candidate-surfacing` via the SAME generic terminal/continue check above — no special-casing needed. (In practice: `candidate-surfacing` runs only when edge-definition routed provisional/full_machine AND thesis-integrity then routed `Proceed`.)
 - Unknown routing → STOP, flag loudly in the report.
 
 ## 5. Write RUN_METADATA.md
@@ -65,6 +65,7 @@ At `<RUN_ROOT>/RUN_METADATA.md`: signal id, date, started/finished timestamps, r
 
 - `test -s <RUN_ROOT>/signal_payload.json` (whenever signal-gate completed its synthesis).
 - If edge-definition ran: `test -s <RUN_ROOT>/thesis_record.json` AND `python3 -c "import json;assert json.load(open('<RUN_ROOT>/thesis_record.json'))['meta']['locked']"` — a completed edge-definition MUST leave a locked record.
+- If thesis-integrity ran: `test -s <RUN_ROOT>/thesis_integrity_review.json` (or its latest `_vN`).
 - If candidate-surfacing ran: `test -s <RUN_ROOT>/candidates.json`.
 - If edge-definition locked a thesis: seed its conviction checkpoints (the post-lock live-book calendar). Read `<THESIS_ID>` = `meta.thesis_id` from `<RUN_ROOT>/thesis_record.json`, then run `python3 scripts/screener_emit_checkpoints.py <THESIS_ID>` — deterministic, no LLM, idempotent (safe on a resumed run). This places the idea on the Live Book; the conviction loop then runs separately, per checkpoint, via `/screener:validate` (never as part of this signal pipeline). See `frameworks/screener/CONVICTION_LOOP.md`.
 - Always: `python3 scripts/update_board_index.py` (idempotent — ensures the board reflects the final state even after an early stop).

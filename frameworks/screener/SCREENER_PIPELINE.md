@@ -48,7 +48,7 @@ grep -iE '^[*_[:space:]]*routing[*_:[:space:]]+' "<RUN_ROOT>/<MODULE>/<file>.md"
 
 ## Module order
 
-Derived from each module's `99_*-synthesis.md` `depends_on`, exactly like `/research:full` step 4 (topological sort, alphabetical tiebreak), discovered via Glob `.claude/agents/screener/*/99_*-synthesis.md`. Today that yields: `signal-gate` → `thesis-structure` → `edge-definition` → `candidate-surfacing`. Never hardcode this order — derive it.
+Derived from each module's `99_*-synthesis.md` `depends_on`, exactly like `/research:full` step 4 (topological sort, alphabetical tiebreak), discovered via Glob `.claude/agents/screener/*/99_*-synthesis.md`. Today that yields: `signal-gate` → `thesis-structure` → `edge-definition` → `thesis-integrity` → `candidate-surfacing`. Never hardcode this order — derive it.
 
 ---
 
@@ -56,6 +56,7 @@ Derived from each module's `99_*-synthesis.md` `depends_on`, exactly like `/rese
 
 - After `signal-gate`: append the event line to `screener/ledger/events.ndjson` if the agent has not already done so (idempotent on `signal_id`; use `scripts/append-ndjson.sh`).
 - After `edge-definition`: verify `<RUN_ROOT>/thesis_record.json` exists, is valid against the schema, has `locked: true`, and is copied to `screener/ledger/theses/<thesis_id>.json`.
+- After `thesis-integrity`: verify `<RUN_ROOT>/thesis_integrity_review.json` (or its latest `_vN`) exists and is valid against the schema. No ledger copy — it is a run-root audit artifact, like `pre_mortem.json` in the research swarm.
 - After `candidate-surfacing`: verify `<RUN_ROOT>/candidates.json` exists and is copied to `screener/ledger/candidates/<thesis_id>.json`.
 - After EVERY module (including a terminal stop): refresh the board index:
 

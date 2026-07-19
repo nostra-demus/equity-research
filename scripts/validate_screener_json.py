@@ -154,9 +154,48 @@ FIXTURE_PAIRS = [
     ("frameworks/screener/intake.schema.json", "screener/runs/SIG-20260610-a3f2c81d/intake.json"),
     ("frameworks/screener/signal_payload.schema.json", "screener/runs/SIG-20260610-a3f2c81d/signal_payload.json"),
     ("frameworks/screener/thesis_record.schema.json", "screener/runs/SIG-20260610-a3f2c81d/thesis_record.json"),
+    ("frameworks/screener/thesis_integrity_review.schema.json", "screener/runs/SIG-20260610-a3f2c81d/thesis_integrity_review.json"),
     ("frameworks/screener/candidates.schema.json", "screener/runs/SIG-20260610-a3f2c81d/candidates.json"),
     ("frameworks/screener/board_index.schema.json", "screener/board/index.json"),
 ]
+
+THESIS_INTEGRITY_SCHEMA = "frameworks/screener/thesis_integrity_review.schema.json"
+
+
+def check_thesis_integrity_anchors(doc_path: str) -> list[str]:
+    """Cross-check a thesis_integrity_review.json against the thesis_record.json it reviews — the
+    screener-scoped twin of check_commodity_review_anchors: thesis_id/signal_id must match, and the
+    restated original_routing_outcome/original_final_score must match the LOCKED M0_6_6 block (this
+    module never edits thesis_record.json, so a mismatch here is a transcription bug, not a real
+    disagreement)."""
+    run_dir = os.path.dirname(doc_path)
+    thesis_path = os.path.join(run_dir, "thesis_record.json")
+    if not os.path.exists(thesis_path):
+        return [f"no thesis_record.json alongside {os.path.relpath(doc_path, REPO)} to cross-check against"]
+    try:
+        review = json.load(open(doc_path))
+        thesis = json.load(open(thesis_path))
+    except Exception as e:
+        return [f"could not parse for cross-check: {e}"]
+    errs = []
+    meta = thesis.get("meta", {})
+    if review.get("thesis_id") != meta.get("thesis_id"):
+        errs.append(f"review thesis_id {review.get('thesis_id')!r} != thesis_record meta.thesis_id {meta.get('thesis_id')!r}")
+    if review.get("signal_id") != meta.get("signal_id"):
+        errs.append(f"review signal_id {review.get('signal_id')!r} != thesis_record meta.signal_id {meta.get('signal_id')!r}")
+    m066 = thesis.get("M0_6_6", {})
+    if review.get("original_routing_outcome") != m066.get("routing_outcome"):
+        errs.append(f"review original_routing_outcome {review.get('original_routing_outcome')!r} != thesis_record M0_6_6.routing_outcome {m066.get('routing_outcome')!r}")
+    if review.get("original_final_score") != m066.get("final_score"):
+        errs.append(f"review original_final_score {review.get('original_final_score')!r} != thesis_record M0_6_6.final_score {m066.get('final_score')!r}")
+    verdict = review.get("verdict")
+    routing = review.get("routing")
+    expected = {"Survives": "Proceed", "Survives with haircut": "Proceed",
+                "Does not survive — downgrade": "watchlist_integrity_downgrade",
+                "Thesis broken": "watchlist_integrity_broken"}.get(verdict)
+    if expected and routing != expected:
+        errs.append(f"verdict {verdict!r} requires routing {expected!r} per MODULE_RULES.md's binding table, got {routing!r}")
+    return errs
 
 COMMODITY_SCHEMA = "frameworks/commodity/decision_record.schema.json"
 COMMODITY_REVIEW_SCHEMA = "frameworks/commodity/decision_review.schema.json"
@@ -387,6 +426,8 @@ def main(argv: list[str]) -> int:
             errs = errs + check_commodity_routing(doc_p) + check_commodity_data_sufficiency(doc_p)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_REVIEW_SCHEMA)):
             errs = errs + check_commodity_review_anchors(doc_p)
+        if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, THESIS_INTEGRITY_SCHEMA)):
+            errs = errs + check_thesis_integrity_anchors(doc_p)
         if errs:
             bad += 1
             print(f"FAIL {rel}")

@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/screener/thesis_integrity_review.schema.json",
+  "title": "Thesis integrity review (post-lock adversarial red-team)",
+  "description": "The thesis-integrity module's structured output. Written to screener/runs/<SIG_ID>/thesis_integrity_review.json by screener-thesis-integrity-synthesis, once per thesis (re-runs append _v2, _v3, ... per the pre_mortem.json append-only convention, never overwrite). Applies CLAUDE.md §8 (disconfirmation standard) to a LOCKED thesis_record.json BEFORE candidate-surfacing spends real ticker-mapping work on it. Never edits thesis_record.json (locked fields cannot be overwritten) — this is a separate, read-only, append-only verdict that the orchestrator's generic routing-contract gate (frameworks/screener/SCREENER_PIPELINE.md) uses to decide whether candidate-surfacing runs.",
+  "type": "object",
+  "required": ["schema_version", "thesis_id", "signal_id", "run_root", "reviewed_at", "original_routing_outcome", "original_final_score", "adversarial_direction", "bear_case_steelman", "falsification_attack", "citation_spot_check", "verdict", "routing", "routing_reason"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "thesis_id": { "type": "string", "pattern": "^THS-SIG-[0-9]{8}-[a-f0-9]{8}-v[0-9]+$" },
+    "signal_id": { "type": "string", "pattern": "^SIG-[0-9]{8}-[a-f0-9]{8}$" },
+    "run_root": { "type": "string" },
+    "reviewed_at": { "type": "string" },
+    "reviewer": { "type": "string" },
+    "original_routing_outcome": { "type": "string", "enum": ["provisional", "full_machine"], "description": "M0_6_6.routing_outcome restated from the locked thesis_record.json — this module only ever runs on a provisional/full_machine thesis." },
+    "original_final_score": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "adversarial_direction": { "type": "string", "description": "Which side of the thesis is attacked — e.g. 'steelman the harmed-party / short case against the primary direct-beneficiary tier', mirroring research pre-mortem §2." },
+    "bear_case_steelman": { "type": "string" },
+    "world_change_attack": { "type": "string", "description": "Attacks M0_2's quantified magnitude/baseline — is the 'already occurred' change as significant as claimed, or is the baseline cherry-picked?" },
+    "variant_perception_attack": { "type": "string", "description": "Attacks M0_6_3 — is the claimed edge real and provable, or already priced in (Mauboussin/Marks second-level test)?" },
+    "mispricing_reason_attack": { "type": "string", "description": "Attacks M0_6_4 — are the three verifiable facts actually independent, or circular/weak?" },
+    "convergence_trigger_attack": { "type": "string", "description": "Attacks M0_6_5's causal_mechanism — does every step actually hold, or is one hand-wavy / already reflected in price?" },
+    "falsification_attack": {
+      "type": "object",
+      "required": ["is_fireproof", "rationale"],
+      "properties": {
+        "is_fireproof": { "type": "boolean", "description": "true = the kill switch (M0_5) is set so far from plausible outcomes it could never fire before the M0_4 horizon ends — an unfalsifiable thesis in practice, the single most important attack this module makes." },
+        "rationale": { "type": "string" }
+      }
+    },
+    "base_rate_check": { "type": "string", "description": "CLAUDE.md §9 — does the implied magnitude/timeline sit within a plausible base rate for this class of event?" },
+    "citation_spot_check": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["claim", "status"],
+        "properties": {
+          "claim": { "type": "string" },
+          "source_checked": { "type": "string" },
+          "status": { "type": "string", "enum": ["verified", "unverified", "miscited", "unsupported", "inference-labeled"] },
+          "evidence": { "type": "string" }
+        }
+      }
+    },
+    "overconfidence_flags": { "type": "array", "items": { "type": "string" } },
+    "verdict": { "type": "string", "enum": ["Survives", "Survives with haircut", "Does not survive — downgrade", "Thesis broken"] },
+    "edge_score_haircut_note": { "type": "string", "description": "Plain-English advisory only — the locked M0_6_6.final_score is never edited. E.g. 'edge score 79 would read closer to 65 if the fireproof kill-switch and coverage-gap weaknesses below were priced in'." },
+    "confidence_note": { "type": "string", "description": "One plain sell-side sentence, CLAUDE.md §21 — what the review found and what it means for the human deciding whether to shortlist candidates." },
+    "routing": { "type": "string", "enum": ["Proceed", "watchlist_integrity_downgrade", "watchlist_integrity_broken"] },
+    "routing_reason": { "type": "string" }
+  }
+}

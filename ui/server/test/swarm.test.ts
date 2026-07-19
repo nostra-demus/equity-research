@@ -50,7 +50,7 @@ check('screener modules topo-sort by depends_on and carry swarm provenance', () 
   const g = buildSwarmGraph('screener')
   assert.deepEqual(
     g.modules.map((m) => m.name),
-    ['signal-gate', 'thesis-structure', 'edge-definition', 'candidate-surfacing'],
+    ['signal-gate', 'thesis-structure', 'edge-definition', 'thesis-integrity', 'candidate-surfacing'],
   )
   assert.equal(g.swarm?.id, 'screener')
   for (const m of g.modules) assert.equal(m.swarmId, 'screener')

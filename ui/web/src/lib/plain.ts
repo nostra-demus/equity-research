@@ -40,6 +40,8 @@ const ROUTES: Record<string, string> = {
   watchlist_no_source: 'watching — source not on the trusted list',
   watchlist_no_world_change: 'watching — nothing has actually changed yet',
   watchlist_no_edge: 'watching — the market likely knows this already',
+  watchlist_integrity_downgrade: 'watching — the idea did not hold up under its own stress test',
+  watchlist_integrity_broken: 'watching — the idea broke under its own stress test',
   provisional: 'early idea',
   full_machine: 'strong idea',
   watchlist_manual: 'watching — you moved it here',
@@ -62,6 +64,7 @@ const STAGES: Record<string, string> = {
   'signal-gate': 'first checks',
   'thesis-structure': 'build the idea',
   'edge-definition': 'is it mispriced?',
+  'thesis-integrity': 'stress-test the idea',
   'candidate-surfacing': 'pick companies',
 }
 export const plainStage = (module?: string | null): string => (module ? STAGES[module] || human(module) : '')
