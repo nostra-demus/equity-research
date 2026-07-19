@@ -318,7 +318,16 @@ export function deriveSignalState(sigId: string): SignalStateResult {
   // gate — including a human override of a PARK/LOG (signal_payload.routing still records the original gate
   // verdict, so a gate-first test would wrongly show 'parked'/'logged' for a finished override run).
   let state: SignalRunState
-  if (locked && hasCandidates) state = 'complete' // ran to the end, candidates surfaced
+  // A terminal MODULE verdict wins first — even over candidate presence. thesis-integrity red-teams the
+  // record post-lock and can record its OWN terminal routing (watchlist_integrity_downgrade /
+  // watchlist_integrity_broken) WITHOUT ever touching thesis_record.json (meta stays locked at
+  // provisional/full_machine). That review is append-only and can be re-run AFTER candidate-surfacing already
+  // wrote candidates.json (the module writes _v2/_v3 on reruns); testing `locked && hasCandidates` first would
+  // then read a since-broken thesis as 'complete' and keep offering its now-stale shortlist. hitTerminal scans
+  // every recorded module verdict generically (no module names hardcoded — it reads SWARM.md's routing.terminal
+  // set); a healthy completed run carries no terminal module verdict, so this never swallows a real 'complete'.
+  if (locked && hitTerminal) state = 'watchlist'
+  else if (locked && hasCandidates) state = 'complete' // ran to the end, candidates surfaced, none rejected
   // A terminal THESIS status means the run progressed past Gate 0 and then dead-ended downstream — even when
   // signal_payload.routing still records the original PARK/LOG (a human override runs on past the gate, and a
   // thesis-structure terminal like watchlist_no_world_change / return_to_m0_2 is written with locked:false).
@@ -326,14 +335,6 @@ export function deriveSignalState(sigId: string): SignalStateResult {
   // override that just stops at the same thesis gate. (Gate-level PARK/LOG stay AFTER — they are themselves in
   // the terminal set, so testing routing0/hitTerminal here would swallow a genuine Gate-0 hold into watchlist.)
   else if (isTerminal(status0)) state = 'watchlist'
-  // A locked record whose OWN status field stays provisional/full_machine (never rewritten — meta is
-  // locked) can still dead-end downstream: thesis-integrity red-teams the record post-lock and can record
-  // its own terminal routing (watchlist_integrity_downgrade / watchlist_integrity_broken) without ever
-  // touching thesis_record.json. hitTerminal already scans every recorded module verdict generically (no
-  // module names hardcoded) — check it here, BEFORE assuming "locked with no candidates" means merely
-  // paused waiting on candidate-surfacing, or such a run reads 'partial — resumable' forever instead of
-  // the real, terminal 'watchlist' outcome it is.
-  else if (locked && hitTerminal) state = 'watchlist'
   else if (locked) state = 'partial' // locked provisional/full_machine, candidate-surfacing still pending — resumable
   else if (norm(routing0) === 'park') state = 'parked' // held AT Gate 0, no downstream thesis (materiality 40–69) — override to run
   else if (norm(routing0) === 'log') state = 'logged' // held AT Gate 0, no downstream thesis (<40) — override to run

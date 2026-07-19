@@ -80,6 +80,25 @@ const COMPLETE = 'SIG-20260701-cccccccc'
   fs.writeFileSync(path.join(dir, 'candidates.json'), JSON.stringify({ candidates: [] }) + '\n')
 }
 
+// Case D: candidate-surfacing already ran (candidates.json on disk), then an append-only integrity
+// re-review (the module writes _v2/_v3 on reruns) flipped the thesis to a terminal reject. `locked &&
+// hasCandidates` alone would read 'complete' and keep offering the now-stale shortlist; the terminal module
+// verdict must win. Must read 'watchlist'. (Pins the ordering: terminal module verdict BEFORE candidate
+// presence.)
+const BROKEN_AFTER_SURFACING = 'SIG-20260701-dddddddd'
+{
+  const dir = path.join(runsDir, BROKEN_AFTER_SURFACING)
+  fs.mkdirSync(dir, { recursive: true })
+  fs.writeFileSync(path.join(dir, 'intake.json'), JSON.stringify({ signal_id: BROKEN_AFTER_SURFACING, headline: 'fixture headline long enough' }) + '\n')
+  writeModule(dir, 'signal-gate', 'PROMOTE')
+  writeModule(dir, 'thesis-structure', 'Proceed')
+  writeModule(dir, 'edge-definition', 'full_machine')
+  writeModule(dir, 'candidate-surfacing', 'full_machine')
+  writeModule(dir, 'thesis-integrity', 'watchlist_integrity_broken')
+  fs.writeFileSync(path.join(dir, 'thesis_record.json'), JSON.stringify(mkThesisRecord('full_machine')) + '\n')
+  fs.writeFileSync(path.join(dir, 'candidates.json'), JSON.stringify({ candidates: [] }) + '\n')
+}
+
 const { deriveSignalState } = await import('../src/screener')
 
 let passed = 0
@@ -101,6 +120,11 @@ check('a locked thesis genuinely still pending candidate-surfacing still reads p
 check('a fully completed run still reads complete', () => {
   const r = deriveSignalState(COMPLETE)
   assert.equal(r.state, 'complete', `expected 'complete', got '${r.state}'`)
+})
+
+check('a completed run whose thesis was later broken by an integrity re-review reads watchlist, not complete', () => {
+  const r = deriveSignalState(BROKEN_AFTER_SURFACING)
+  assert.equal(r.state, 'watchlist', `expected 'watchlist', got '${r.state}'`)
 })
 
 try { fs.rmSync(root, { recursive: true, force: true }) } catch { /* ignore */ }

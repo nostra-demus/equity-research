@@ -31,7 +31,8 @@
     "base_rate_check": { "type": "string", "description": "CLAUDE.md §9 — does the implied magnitude/timeline sit within a plausible base rate for this class of event?" },
     "citation_spot_check": {
       "type": "array",
-      "minItems": 1,
+      "minItems": 3,
+      "maxItems": 5,
       "items": {
         "type": "object",
         "required": ["claim", "status"],

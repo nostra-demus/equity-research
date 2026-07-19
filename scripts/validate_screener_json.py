@@ -154,12 +154,22 @@ FIXTURE_PAIRS = [
     ("frameworks/screener/intake.schema.json", "screener/runs/SIG-20260610-a3f2c81d/intake.json"),
     ("frameworks/screener/signal_payload.schema.json", "screener/runs/SIG-20260610-a3f2c81d/signal_payload.json"),
     ("frameworks/screener/thesis_record.schema.json", "screener/runs/SIG-20260610-a3f2c81d/thesis_record.json"),
-    ("frameworks/screener/thesis_integrity_review.schema.json", "screener/runs/SIG-20260610-a3f2c81d/thesis_integrity_review.json"),
     ("frameworks/screener/candidates.schema.json", "screener/runs/SIG-20260610-a3f2c81d/candidates.json"),
     ("frameworks/screener/board_index.schema.json", "screener/board/index.json"),
 ]
 
 THESIS_INTEGRITY_SCHEMA = "frameworks/screener/thesis_integrity_review.schema.json"
+
+
+def screener_integrity_reviews() -> list[str]:
+    """Every committed screener/runs/<SIG>/thesis_integrity_review*.json (repo-relative) — the base file AND
+    every append-only _vN re-review the module writes on a rerun. Globbed like commodity_decision_reviews so a
+    malformed or anchor-inconsistent versioned review cannot land un-checked; a single hardcoded fixture row
+    only ever saw the base file."""
+    return sorted(
+        os.path.relpath(p, REPO)
+        for p in glob.glob(os.path.join(REPO, "screener", "runs", "*", "thesis_integrity_review*.json"))
+    )
 
 
 def check_thesis_integrity_anchors(doc_path: str) -> list[str]:
@@ -173,8 +183,8 @@ def check_thesis_integrity_anchors(doc_path: str) -> list[str]:
     if not os.path.exists(thesis_path):
         return [f"no thesis_record.json alongside {os.path.relpath(doc_path, REPO)} to cross-check against"]
     try:
-        review = json.load(open(doc_path))
-        thesis = json.load(open(thesis_path))
+        review = json.load(open(doc_path, encoding="utf-8"))
+        thesis = json.load(open(thesis_path, encoding="utf-8"))
     except Exception as e:
         return [f"could not parse for cross-check: {e}"]
     errs = []
@@ -195,6 +205,16 @@ def check_thesis_integrity_anchors(doc_path: str) -> list[str]:
                 "Thesis broken": "watchlist_integrity_broken"}.get(verdict)
     if expected and routing != expected:
         errs.append(f"verdict {verdict!r} requires routing {expected!r} per MODULE_RULES.md's binding table, got {routing!r}")
+    # Binding finding→verdict invariant (MODULE_RULES.md: a fireproof kill switch — is_fireproof:true = the
+    # M0_5 threshold could never fire before the M0_4 horizon, functionally unfalsifiable — is the module's
+    # single most important hard failure and forces verdict "Thesis broken"). Enforce it independently of the
+    # verdict→routing pair above: an internally inconsistent output (is_fireproof:true + verdict "Survives" +
+    # routing "Proceed") satisfies the pair-check yet must NOT clear the gate to candidate-surfacing.
+    if (review.get("falsification_attack") or {}).get("is_fireproof") is True and verdict != "Thesis broken":
+        errs.append(
+            f"falsification_attack.is_fireproof is true but verdict is {verdict!r}; MODULE_RULES.md's binding "
+            f"table requires verdict 'Thesis broken' (routing 'watchlist_integrity_broken') for a fireproof kill switch"
+        )
     return errs
 
 COMMODITY_SCHEMA = "frameworks/commodity/decision_record.schema.json"
@@ -411,6 +431,7 @@ def check_commodity_data_sufficiency(doc_path: str) -> list[str]:
 def main(argv: list[str]) -> int:
     if len(argv) >= 2 and argv[1] == "--fixture":
         pairs = [(os.path.join(REPO, s), os.path.join(REPO, d)) for s, d in FIXTURE_PAIRS]
+        pairs += [(os.path.join(REPO, THESIS_INTEGRITY_SCHEMA), os.path.join(REPO, d)) for d in screener_integrity_reviews()]
         pairs += [(os.path.join(REPO, COMMODITY_SCHEMA), os.path.join(REPO, d)) for d in commodity_decision_records()]
         pairs += [(os.path.join(REPO, COMMODITY_REVIEW_SCHEMA), os.path.join(REPO, d)) for d in commodity_decision_reviews()]
     elif len(argv) >= 3 and len(argv) % 2 == 1:
