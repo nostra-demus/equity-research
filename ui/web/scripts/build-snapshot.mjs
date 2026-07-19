@@ -154,13 +154,17 @@ function discoverSwarmManifests() {
   for (const d of fs.readdirSync(AGENTS).filter((d) => isDir(path.join(AGENTS, d)))) {
     const manifestPath = path.join(AGENTS, d, 'SWARM.md')
     if (!isFile(manifestPath)) continue
-    const { data } = parseFrontmatter(fs.readFileSync(manifestPath, 'utf8'))
+    const rawManifest = fs.readFileSync(manifestPath, 'utf8')
+    const { data } = parseFrontmatter(rawManifest)
     const id = unquote(data.id ?? d).trim()
     if (!id || id === RESEARCH_SWARM.id) continue // 'research' is reserved for the grandfathered default
     const runRootTemplate = unquote(data.run_root_template ?? '').trim()
     if (!runRootTemplate) continue // a swarm without a run-root template cannot host runs
     const str = (v, def) => (v != null && unquote(v).trim() ? unquote(v).trim() : def)
     const runsRootDefault = path.dirname(runRootTemplate.split('{')[0].replace(/\/+$/, ''))
+    // routing.verdict_field is a NESTED key the flat parseFrontmatter can't reach — pull it straight from
+    // the raw manifest so the static snapshot can resolve each subject's verdict the way the server does.
+    const vfMatch = rawManifest.match(/^\s*verdict_field:\s*["']?([A-Za-z_][\w-]*)["']?/m)
     out.push({
       dir: path.join(AGENTS, d),
       meta: {
@@ -173,6 +177,7 @@ function discoverSwarmManifests() {
       },
       runsRoot: str(data.runs_root, runsRootDefault),
       subjectsSource: str(data.subjects_source, ''),
+      verdictField: vfMatch ? vfMatch[1] : '',
     })
   }
   return out.sort((a, b) => a.meta.order - b.meta.order || a.meta.id.localeCompare(b.meta.id))
@@ -194,19 +199,59 @@ function swarmSubjectsFor(sw) {
   return [...out].sort()
 }
 
+// The verdict a decision record carries (mirrors server roster.resolveRecordVerdict / web format.resolveVerdict):
+// research records use `decision`; a non-research swarm self-declares its routing verdict key (commodity:
+// `Action` → record key `action`). Fail-closed without a verdict field.
+function resolveRecordVerdict(dr, verdictField) {
+  if (dr && typeof dr.decision === 'string' && dr.decision) return dr.decision
+  if (!verdictField) return null
+  const v = dr?.[verdictField] ?? dr?.[verdictField.toLowerCase()]
+  return typeof v === 'string' && v ? v : null
+}
+
+// Per-subject run summaries for a non-research swarm (mirrors roster.swarmSubjectSummaries): for each
+// subject, read its single run folder's decision_record.json (when present) and surface the routing
+// verdict/confidence/date so the static picker shows runs the way the live one does.
+function swarmSubjectSummariesFor(sw) {
+  const summaries = []
+  for (const subject of swarmSubjectsFor(sw)) {
+    const runAbs = path.join(REPO, sw.runsRoot, subject)
+    const hasRun = isDir(runAbs)
+    const summary = { subject, hasRun, runRoot: hasRun ? path.posix.join(sw.runsRoot, subject) : null, verdict: null, decisionDate: null, confidence: null, lastChangeAt: null }
+    if (hasRun) {
+      try { summary.lastChangeAt = fs.statSync(runAbs).mtimeMs } catch { /* folder vanished */ }
+      const drPath = path.join(runAbs, 'decision_record.json')
+      try {
+        const dr = JSON.parse(fs.readFileSync(drPath, 'utf8'))
+        if (dr && typeof dr === 'object' && !Array.isArray(dr)) {
+          summary.verdict = resolveRecordVerdict(dr, sw.verdictField)
+          summary.decisionDate = typeof dr.decision_date === 'string' ? dr.decision_date : null
+          summary.confidence = typeof dr.confidence_score === 'number' ? dr.confidence_score
+            : typeof dr.confidence === 'number' ? dr.confidence : null
+        }
+        try { summary.lastChangeAt = fs.statSync(drPath).mtimeMs } catch { /* keep the folder mtime */ }
+      } catch { /* no or malformed decision record — hasRun stays true, verdict null */ }
+    }
+    summaries.push(summary)
+  }
+  return summaries
+}
+
 // The full swarm surface for the snapshot: research (grandfathered default) first, then every
 // discovered non-research swarm's SwarmMeta + subject ids + built graph. What the static api.ts reads
-// as snap.swarms / snap.swarmSubjects / snap.swarmGraphs.
+// as snap.swarms / snap.swarmSubjects / snap.swarmSubjectSummaries / snap.swarmGraphs.
 function buildSwarms() {
   const swarms = [RESEARCH_SWARM]
   const swarmGraphs = {}
   const swarmSubjects = {}
+  const swarmSubjectSummaries = {}
   for (const sw of discoverSwarmManifests()) {
     swarms.push(sw.meta)
     swarmGraphs[sw.meta.id] = buildSwarmGraph(sw.dir, sw.meta)
     swarmSubjects[sw.meta.id] = swarmSubjectsFor(sw)
+    swarmSubjectSummaries[sw.meta.id] = swarmSubjectSummariesFor(sw)
   }
-  return { swarms, swarmGraphs, swarmSubjects }
+  return { swarms, swarmGraphs, swarmSubjects, swarmSubjectSummaries }
 }
 
 // ---- screener swarm (static showcase): board index + fixture run markdown ----
@@ -465,10 +510,10 @@ for (const t of tickerNames) {
 }
 
 const callsData = buildCalls()
-const { swarms, swarmGraphs, swarmSubjects } = buildSwarms()
+const { swarms, swarmGraphs, swarmSubjects, swarmSubjectSummaries } = buildSwarms()
 fs.rmSync(path.join(DEST, 'screener'), { recursive: true, force: true })
 const screenerStatic = buildScreenerStatic()
-const snapshot = { static: true, swarmGraph, swarms, swarmGraphs, swarmSubjects, tickers, emptyState: tickers.length === 0, dataDir: 'bundled snapshot (static deploy)', dataStatus, runs, decisions, finalThesis, calls: callsData.calls, dashboard: callsData.dashboard, ...(screenerStatic || {}), generatedAt: new Date().toISOString() }
+const snapshot = { static: true, swarmGraph, swarms, swarmGraphs, swarmSubjects, swarmSubjectSummaries, tickers, emptyState: tickers.length === 0, dataDir: 'bundled snapshot (static deploy)', dataStatus, runs, decisions, finalThesis, calls: callsData.calls, dashboard: callsData.dashboard, ...(screenerStatic || {}), generatedAt: new Date().toISOString() }
 fs.writeFileSync(path.join(DEST, 'snapshot.json'), JSON.stringify(snapshot))
 const swarmSummary = swarms.filter((s) => s.id !== 'research').map((s) => `${s.id} (${swarmGraphs[s.id]?.totals.modules ?? 0}m / ${(swarmSubjects[s.id] || []).length} subj)`).join(', ')
 console.log(`[build-snapshot] swarm: ${swarmGraph.totals.modules} modules / ${swarmGraph.totals.agents} agents · ${promptCount} prompts · ${callsData.calls.length} calls · tickers: ${tickers.map((t) => t.ticker).join(', ')}${swarmSummary ? ` · swarms: ${swarmSummary}` : ''}${screenerStatic ? ` · screener runs: ${Object.keys(screenerStatic.screenerRuns).length}` : ''} -> ui/web/public/data/`)

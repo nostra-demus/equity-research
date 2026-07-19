@@ -1,15 +1,19 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
+import { decisionColor, fmtAgo } from '../lib/format'
 
 // In-stage subject picker for a NON-research constellation swarm (e.g. commodity: GOLD/SUGAR). The
-// research empty state uses CompanyPicker (rich per-ticker data); a swarm's subjects are a plain list
-// of ids, so this is its lean sibling — same search-first, keyboard-driven .coco shell and idioms, but
-// no file counts / decision pills / sync states (inventing those would be fake data). Every label is
-// derived from the active swarm's manifest (unit/label), so a future swarm works with zero edits
-// (CLAUDE.md §26). Picking a subject calls the same selectTicker the top-right picker uses.
+// research empty state uses CompanyPicker (rich per-ticker data); a swarm's subjects are a leaner list
+// of ids, so this is its sibling — same search-first, keyboard-driven .coco shell and idioms. It shows
+// each subject's REAL run verdict/confidence/date (swarmSubjectRuns, from GET /api/swarm/subjects) so
+// runs surface the way research shows per-ticker decisions; it still omits file counts / sync states,
+// which a constellation swarm genuinely has no data pool for. Every label is derived from the active
+// swarm's manifest (unit/label), so a future swarm works with zero edits (CLAUDE.md §26). Picking a
+// subject calls the same selectTicker the top-right picker uses.
 export function SubjectPicker() {
   const subjects = useStore((s) => s.swarmSubjectList)
+  const subjectRuns = useStore((s) => s.swarmSubjectRuns)
   const loading = useStore((s) => s.swarmSubjectsLoading)
   const selectTicker = useStore((s) => s.selectTicker)
   const activeRuns = useStore((s) => s.activeRunsByTicker)
@@ -108,6 +112,8 @@ export function SubjectPicker() {
         ) : (
           filtered.map((s, i) => {
             const running = activeRuns.has(s)
+            const run = subjectRuns[s]
+            const c = run?.verdict ? decisionColor(run.verdict) : null
             return (
               <button
                 key={s}
@@ -122,7 +128,17 @@ export function SubjectPicker() {
                   {s}
                 </span>
                 <span className="coco__verdict">
-                  {running && <span className="coco__ago" style={{ color: 'var(--accent)' }}>running</span>}
+                  {c && run?.verdict && (
+                    <span className="coco__pill" style={{ color: c, borderColor: `color-mix(in srgb, ${c} 40%, transparent)`, background: `color-mix(in srgb, ${c} 12%, transparent)` }}>
+                      {run.verdict}
+                      {run.confidence != null && <span className="coco__pill-conf"> · {run.confidence}</span>}
+                    </span>
+                  )}
+                  {running ? (
+                    <span className="coco__ago" style={{ color: 'var(--accent)' }}>running</span>
+                  ) : run?.lastChangeAt ? (
+                    <span className="coco__ago">{fmtAgo(run.lastChangeAt)}</span>
+                  ) : null}
                 </span>
               </button>
             )

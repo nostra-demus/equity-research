@@ -8,7 +8,7 @@ import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import { affectedModules, focusKeysFor } from './intake'
-import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
+import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
@@ -311,6 +311,10 @@ interface State {
   // subjects of the active NON-research constellation swarm (e.g. commodity ids GOLD/SUGAR), for its
   // subject picker; research uses `tickers`.
   swarmSubjectList: string[]
+  // per-subject run summary (verdict/confidence/date), keyed by subject id — the constellation twin of
+  // the research `tickers` decision pill, so the commodity picker can show runs the way research does.
+  // Only subjects that have run carry a verdict; the rest come back hasRun:false.
+  swarmSubjectRuns: Record<string, SwarmSubjectSummary>
   // true while loadSwarmSubjects is in flight — lets the subject picker show a real loading state on
   // first entry instead of flashing "no subjects yet" before the list resolves.
   swarmSubjectsLoading: boolean
@@ -791,6 +795,7 @@ export const useStore = create<State>((set, get) => ({
   activeSwarm: typeof window !== 'undefined' && (window as any).__ENGINE_LIVE__ === true ? 'screener' : 'research',
   constellationSwarm: 'research',
   swarmSubjectList: [],
+  swarmSubjectRuns: {},
   swarmSubjectsLoading: false,
   researchView: loadView(),
   webglOK: true, // optimistic; init() probes and corrects + coerces the view if WebGL is missing
@@ -2346,6 +2351,10 @@ export const useStore = create<State>((set, get) => ({
             if (bloomTimer) clearTimeout(bloomTimer)
             bloomTimer = setTimeout(() => set({ coreBloom: false }), 4500)
             api.decision(selected, rSw, r.runRoot ?? undefined).then((d) => set({ decision: d })).catch(() => {})
+            // a finished NON-research (constellation) run just wrote a fresh decision record — refresh the
+            // swarm's subject summaries so the picker's per-subject verdict pill updates without a swarm switch
+            // (loadSwarmSubjects self-guards on activeSwarm). Research's picker is refreshed via refreshTickers.
+            if (rSw) void get().loadSwarmSubjects(rSw)
             // A finished re-run is exactly when a new version of the record exists. Deliberately NOT on
             // the data-changed SSE: that watches data/, and a document landing does not change the diff —
             // only a re-run does. And because the reader treats the working tree as current, the delta is
@@ -2493,8 +2502,12 @@ export const useStore = create<State>((set, get) => ({
   loadSwarmSubjects: async (swarmId) => {
     set({ swarmSubjectsLoading: true })
     try {
-      const subjects = await api.swarmSubjects(swarmId)
-      if (get().activeSwarm === swarmId) set({ swarmSubjectList: subjects })
+      const { subjects, summaries } = await api.swarmSubjects(swarmId)
+      // guard: a swarm switch mid-flight must not stamp this list onto the new owner (mirrors the activeSwarm
+      // check the fetch below relies on). Keep names and the per-subject run map in lockstep.
+      if (get().activeSwarm === swarmId) {
+        set({ swarmSubjectList: subjects, swarmSubjectRuns: Object.fromEntries(summaries.map((s) => [s.subject, s])) })
+      }
     } catch { /* keep the prior list on a transient failure */ }
     finally { if (get().activeSwarm === swarmId) set({ swarmSubjectsLoading: false }) }
   },
