@@ -7,8 +7,9 @@ matters is roughly Nov-Apr (Yunnan hydro dry season); an off-season not_detected
 A file-writing fetcher per EXTERNAL_DATA.md §7 — zero engine wiring; keyless; headline metadata + links only
 (articles are read at their publishers). Every hit is a LEAD to verify at the publisher, never a measurement,
 so it folds in at §4 tier 9 (external_other). Fails CLOSED: a non-200 or malformed feed on ANY of the three
-queries writes NOTHING (a partial scan would understate). `as_of` is the latest matched headline's pubDate
-when detected, else the scan date (the honest "data through" of a clean scan).
+queries writes NOTHING (a partial scan would understate). `as_of` is always the scan date — the honest
+"data through" of the scan (§7): it covers the wire up to now regardless of how old the newest match is, and
+each matched headline keeps its own pubDate in `matched[]`.
 
 Usage:
   python3 fetch.py --verify                # fetch + parse all three queries; print per-query counts + signal; write nothing
@@ -130,7 +131,11 @@ def build(feeds, window_days: int, now: datetime | None = None):
             })
     matched.sort(key=lambda m: m["published"], reverse=True)
     signal = "detected" if matched else "not_detected"
-    asof = matched[0]["published"] if matched else now.date().isoformat()
+    # as_of is the SCAN date — the honest "data through" of a clean scan (EXTERNAL_DATA.md §7), which
+    # covers the wire up to now regardless of how old the newest match is. Each headline's own pubDate
+    # lives in matched[]. (Fix: pinning as_of to an old matched pubDate made the filename-derived freshness
+    # permanently stale, so run_connectors refetched the same article every sweep, forever.)
+    asof = now.date().isoformat()
     note = (
         f"Signal {signal}: {len(matched)} matched headline(s) across {len(QUERIES)} queries in the last "
         f"{window_days} days. The dry-season power-rationing window that matters for Yunnan's hydro-powered "

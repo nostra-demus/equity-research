@@ -176,5 +176,37 @@ check("--force still respects the pool gate",
       and not os.path.exists(os.path.join(data, "BBB")))
 shutil.rmtree(root)
 
+# 8. run_fetch: a clean exit with empty/whitespace-only stdout must not IndexError (gemini finding)
+#    Truth table over the last-line extraction: whitespace-only stdout is truthy but splitlines() is [].
+class _FakeProc:
+    def __init__(self, rc, out): self.returncode, self.stdout, self.stderr = rc, out, ""
+_orig_run = m.subprocess.run
+try:
+    for label, out, want in [("whitespace-only stdout", "   \n\t ", ""),
+                             ("empty stdout", "", ""),
+                             ("normal multi-line stdout", "first line\nlast line", "last line")]:
+        m.subprocess.run = (lambda _o: (lambda *a, **k: _FakeProc(0, _o)))(out)
+        ok, attempts, code, msg = m.run_fetch("/nonexistent", {"entry": "fetch.py"}, "AAA", "/tmp")
+        check(f"run_fetch clean exit, {label} → ok, no crash, message {want!r}",
+              ok is True and code == 0 and msg == want, f"got msg {msg!r}")
+finally:
+    m.subprocess.run = _orig_run
+
+# 9. manual connectors ("manual": true) are never auto-invoked — skipped_manual, no failed-fetch spam
+#    (codex finding: a bot-walled direct path retried forever). STUB_FAIL proves the fetcher wasn't run.
+root, croot, data = make_repo()
+make_connector(croot, "stub-manual", stub=STUB_FAIL, manifest_extra={"manual": True})
+dated_file(data, "AAA", today - timedelta(days=30))    # stale → a normal connector would refetch here
+res = m.run(data, connectors_root=croot)
+r = rows_for(res, "stub-manual", "AAA")[0]
+check("manual connector stale → skipped_manual (not failed/refetched), fetcher untouched",
+      r["decision"] == "skipped_manual" and r["attempts"] == 0)
+ledger = [json.loads(l) for l in open(os.path.join(data, "_connectors", "run_ledger.ndjson"))]
+check("manual skip is ledgered", ledger[-1]["decision"] == "skipped_manual")
+res_f = m.run(data, force=True, connectors_root=croot)
+check("--force still cannot auto-run a manual connector",
+      rows_for(res_f, "stub-manual", "AAA")[0]["decision"] == "skipped_manual")
+shutil.rmtree(root)
+
 print(f"\n{'ALL PASS' if not failures else 'FAIL'}: run_connectors — {failures} failing case(s)")
 raise SystemExit(1 if failures else 0)

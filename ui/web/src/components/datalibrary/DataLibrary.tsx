@@ -47,7 +47,11 @@ function helpsLine(p: PipelineEntry): string {
 }
 
 function WiredRow({ p, poolAvailable, onOpen }: { p: PipelineEntry; poolAvailable: boolean; onOpen: () => void }) {
-  const latest = p.statuses.find((s) => s.latestAsOf)
+  // the MOST RECENT dated subject (ISO dates sort lexicographically), not the first one that happens to
+  // carry a date — a multi-subject pipeline would otherwise show a stale/wrong "latest as-of"
+  const latest = p.statuses
+    .filter((s) => s.latestAsOf)
+    .sort((a, b) => (b.latestAsOf ?? '').localeCompare(a.latestAsOf ?? ''))[0]
   return (
     <button className="datalib__row" onClick={onOpen}>
       <StatusDot status={worstStatus(p, poolAvailable)} />

@@ -25,6 +25,11 @@ CONTRACT
   Pool gate — a subject whose data/<SUBJECT>/ folder does not exist is skipped
     (skipped_no_pool), never created: pool folders are created by the engine's
     own ticker/commodity flows, not by a background timer.
+  Manual feeds — a connector whose manifest sets "manual": true is NEVER auto-invoked
+    (its direct path can only fail, e.g. a bot-walled endpoint): the sweep records
+    skipped_manual and leaves the series for a hand-staged refresh (fetch.py
+    --from-file). The stale filename IS the alert, exactly as a failed fetch is —
+    the runner does not hammer a path that cannot succeed.
   Ledger — every (connector × subject) decision appends one NDJSON row to
     <data-root>/_connectors/run_ledger.ndjson (the data/_market-style reserved
     lane). --dry-run writes nothing, ledger included.
@@ -150,7 +155,9 @@ def run_fetch(cdir: str, man: dict, subject: str, data_root: str):
             p = subprocess.run(cmd, cwd=cdir, capture_output=True, text=True, timeout=ATTEMPT_TIMEOUT_S)
             exit_code = p.returncode
             if p.returncode == 0:
-                return True, attempt, 0, (p.stdout or "").strip().splitlines()[-1] if p.stdout else ""
+                # whitespace-only stdout is truthy but splitlines() is [] — guard the [-1] (fix: no IndexError)
+                lines = (p.stdout or "").strip().splitlines()
+                return True, attempt, 0, lines[-1] if lines else ""
             message = (p.stderr or p.stdout or "").strip()[-400:]
         except subprocess.TimeoutExpired:
             exit_code, message = None, f"timeout after {ATTEMPT_TIMEOUT_S}s"
@@ -170,12 +177,15 @@ def acquire_lock():
     lock = os.path.join(tempfile.gettempdir(), "nostra-connectors.lock")
     try:
         fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
-        os.write(fd, str(os.getpid()).encode())
-        os.close(fd)
+        try:
+            os.write(fd, str(os.getpid()).encode())
+        finally:
+            os.close(fd)                      # never leak the fd if os.write raises
         return lock
     except FileExistsError:
         try:
-            pid = int(open(lock).read().strip() or "0")
+            with open(lock) as fh:            # context-managed so the read handle can't leak
+                pid = int(fh.read().strip() or "0")
             alive = pid > 0 and _pid_alive(pid)
             stale = time.time() - os.path.getmtime(lock) > 1800
             if not alive or stale:
@@ -219,6 +229,8 @@ def run(data_root: str, only: str | None = None, force: bool = False, dry_run: b
                 row["decision"] = "skipped_no_pool"
             elif latest and age <= sla and not force:
                 row["decision"] = "fresh"
+            elif man.get("manual") is True:
+                row["decision"] = "skipped_manual"   # auto-fetch disabled: a hand-staged --from-file refreshes it
             elif dry_run:
                 row["decision"] = "would_refetch"
             else:

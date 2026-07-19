@@ -54,7 +54,12 @@ signal, asof, payload, sidecar = mod.build(feeds, 30, now=NOW)
 titles = [m["title"] for m in payload["matched"]]
 
 check("signal detected on >=1 match", signal == "detected" and payload["signal"] == "detected")
-check("as_of (detected) = latest matched pubDate date part", asof == "2026-07-17" and sidecar["as_of"] == "2026-07-17")
+# as_of is the SCAN date even when detected — the honest "data through" of the scan (EXTERNAL_DATA.md §7);
+# pinning it to an old matched pubDate made the filename-derived freshness permanently stale (refetch loop).
+check("as_of (detected) = the scan date, not the matched pubDate",
+      asof == "2026-07-19" and payload["as_of"] == "2026-07-19" and sidecar["as_of"] == "2026-07-19")
+check("each matched headline keeps its own pubDate in matched[]",
+      payload["matched"][0]["published"] == "2026-07-17")
 check("near-miss excluded (yunnan+curtail but no aluminium term)", not any("tobacco" in t.lower() for t in titles))
 check("stale item outside the window excluded", "Yunnan aluminium production cut deepens" not in titles)
 check("dedupe on normalized title (two spellings → one row)",

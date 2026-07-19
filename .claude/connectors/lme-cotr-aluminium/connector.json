@@ -11,6 +11,7 @@
   "host_allowlist": ["www.lme.com"],
   "cadence": "weekly",
   "staleness_sla_days": 12,
+  "manual": true,
   "entry": "fetch.py",
   "verify": "fetch.py --verify",
   "output_path": "data/<SUBJECT>/external/lme/cotr_aluminium_<as_of>.json",
