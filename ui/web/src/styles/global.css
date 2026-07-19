@@ -1122,6 +1122,35 @@ a { color: inherit; }
   cursor: default; opacity: 0.55;
 }
 
+/* "a newer re-run exists, this call is your last complete one" — the plain-English strip that rides
+   ABOVE the decision inside the same card. flex-basis:100% + order:-1 makes it a full-width first row of
+   the wrapping .decision flex without touching the decision row's layout. A hairline separates the two so
+   it reads as a header on the call it qualifies; on the notice-only card (viewing the partial itself, no
+   call) the hairline drops away. */
+.decision__notice {
+  flex: 0 0 100%; order: -1;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--hairline);
+}
+.decision--notice-only .decision__notice { padding-bottom: 0; border-bottom: none; }
+.decision__notice-glyph { flex-shrink: 0; font-size: 13px; line-height: 1; color: var(--accent); }
+.decision__notice-text { flex: 1 1 320px; min-width: 0; margin: 0; font-size: 11.5px; line-height: 1.5; color: var(--text-muted); }
+.decision__notice-text b { color: var(--text); font-weight: 600; }
+.decision__notice-act {
+  flex-shrink: 0; white-space: nowrap;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.2px;
+  color: var(--accent-bright); background: var(--accent-wash);
+  border: 1px solid var(--accent-deep); border-radius: var(--r-pill);
+  padding: 5px 12px; cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.decision__notice-act:active { transform: scale(0.97); }
+.decision__notice-act:disabled { opacity: 0.5; cursor: default; }
+.decision__notice-act:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent-wash); }
+@media (hover: hover) and (pointer: fine) {
+  .decision__notice-act:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 20%, transparent); }
+}
+
 /* toast */
 .toast {
   position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%); z-index: 90;
