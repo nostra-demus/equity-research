@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "ticker": "WHEAT",
+  "run_root": "commodity/runs/WHEAT",
+  "scan_date": "2026-07-20",
+  "scanned_at": "2026-07-20T01:45:41Z",
+  "watermark": "commodity/runs/WHEAT/decision_record.json",
+  "new_docs": [
+    {
+      "path": "data/WHEAT/external/cftc/cot_wheat_srw_2026-07-14.json",
+      "sha256": "b0c6cb87e1c51cacbef5214a7fe25c43acd321b5a8c54193c36d9d2dd1588b2b",
+      "provider": "CFTC",
+      "source_type": "paid_api",
+      "tier": 5,
+      "as_of": "2026-07-14",
+      "claims_summary": "CBOT WHEAT-SRW managed-money net position moved to -34,887 contracts (76,020 long / 110,907 short), a net_change_wow of +25,545 contracts of short covering vs the prior week — the run's positioning-flows orb had the net short at -60,432 (futures+options combined, data as of 2026-07-01).",
+      "materiality_score": 78,
+      "impact_direction": "positive",
+      "entry_orbs": [
+        { "module": "macro-positioning", "agent": "commodity-positioning-flows",
+          "why": "This is a fresh CFTC COT reading for the exact contract (WHEAT-SRW) and metric (managed-money net length) this orb tables and interprets as the crowded-short / squeeze-risk read; the new print shows a sharp acceleration in short covering beyond what the orb's July 1 data captured.",
+          "confidence": 0.85 }
+      ]
+    },
+    {
+      "path": "data/WHEAT/external/noaa-cpc/oni_2026-06-01.json",
+      "sha256": "1a204bf38fc3831eb5756c38e115812e138a42a4b266d5f0c9907260f6858335",
+      "provider": "NOAA CPC",
+      "source_type": "paid_api",
+      "tier": 5,
+      "as_of": "2026-06-01",
+      "claims_summary": "NOAA CPC Oceanic Nino Index AMJ 2026 season anomaly +0.98 (el_nino state) - a monthly 3-month-average reading dated 2026-06-01.",
+      "materiality_score": 25,
+      "impact_direction": "neutral",
+      "entry_orbs": [
+        { "module": "supply-demand", "agent": "commodity-weather-seasonality",
+          "why": "The weather-seasonality orb already cites the NOAA/CPC ENSO Diagnostic Discussion dated 2026-07-09 (Nino-3.4 weekly reading +1.2C, 81% probability of a very strong El Nino Oct-Dec) - a more current and more granular read than this AMJ monthly-average ONI print (as_of 2026-06-01), so this document does not change the orb's already-captured El Nino read.",
+          "confidence": 0.7 }
+      ]
+    }
+  ],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [
+      { "module": "macro-positioning", "agent": "commodity-positioning-flows" }
+    ],
+    "commands": [
+      { "command": "/commodity:rerun macro-positioning commodity-positioning-flows WHEAT",
+        "module": "macro-positioning", "agent": "commodity-positioning-flows",
+        "cascade_modules": ["macro-positioning", "commodity-thesis"],
+        "triggered_by": ["data/WHEAT/external/cftc/cot_wheat_srw_2026-07-14.json"] }
+    ],
+    "note_only": [
+      { "path": "data/WHEAT/external/noaa-cpc/oni_2026-06-01.json", "reason": "materiality 25 < gate (60) - a lagging monthly ONI average that only confirms the El Nino read the weather-seasonality orb already captured from a more current weekly NOAA/CPC diagnostic (2026-07-09)" }
+    ]
+  },
+  "verdict": "scoped_rerun",
+  "summary": "Two tier-5 official/vendor feeds landed since the WHEAT run finished (2026-07-13). The CFTC COT print (data as of 2026-07-14) shows managed-money short covering accelerated sharply beyond what the positioning-flows orb captured (net short narrowed from -60,432 on 2026-07-01 to -34,887) - material to the squeeze-risk read that orb and the macro-positioning synthesis lean on, so it clears the gate and scopes to macro-positioning/commodity-positioning-flows, cascading to the macro-positioning synthesis and the terminal commodity-thesis. The NOAA CPC ONI update is a lagging monthly average that only restates the El Nino signal the weather-seasonality orb already has from a more current source, so it is noted but does not clear the gate."
+}
