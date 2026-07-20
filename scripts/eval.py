@@ -1636,6 +1636,49 @@ if scope=="selftest":
           "| Confidence /100 | 62 |\n| Data sufficiency /100 | 70 |\n"),
          ["legacy scorecard row 'Confidence /100' must not appear"]),
     ]
+    _SC_R = ("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
+             "| Rating | %s |\n| Conviction /100 | 68 |\n| Understanding /100 | 70 |\n")
+    # Internally CONSISTENT by construction (Codex r-review on the follow-up PR): the earlier fixture used
+    # confidence_inputs={}, which ConfidenceInputs() cannot build — so these Rating-row cases were passing
+    # only because the re-derivation error was swallowed. Real values, so each case tests the Rating row.
+    # scripts/confidence.py: ds=70 + Buy + edge 60 + proof -> conviction 68.0, understanding 70.0.
+    _D_R = {"decision":"Buy","conviction":68,"analysis_confidence":70,"confidence_score":68,
+            "data_sufficiency_score":70,"edge_score":60,
+            "confidence_inputs":{"data_sufficiency":70,"decision":"Buy","edge_score":60,
+                                 "edge_proof_present":True},
+            "confidence_breakdown":{"base":70,"final":68},"sizing_hint":{"band":"x","action":"y"}}
+    aicases += [
+        # Codex: the scorecard's Rating row was never reconciled — check I passes when a Decision: line
+        # elsewhere matches, so a contradictory reader-facing Rating slipped through.
+        ("2026-07-11", _D_R, _SC_R % "Avoid", ["Headline Scorecard 'Rating'"]),
+        ("2026-07-11", _D_R, _SC_R % "Buy", []),                     # matching -> clean
+        ("2026-07-11", _D_R, _SC_R % "**Buy**", []),                 # markdown emphasis is the same decision
+        ("2026-07-11", _D_R, _SC_R % "Buy — revisit after Q2", []),  # trailing qualifier is still the same decision
+        # Codex: conviction must be re-derivable from the recorded inputs, not merely well-typed.
+        ("2026-07-11", {**_D_R, "decision":"Strong Buy", "conviction":80, "analysis_confidence":80,
+                        "confidence_score":80,
+                        "confidence_inputs":{"data_sufficiency":20,"decision":"Strong Buy",
+                                             "edge_score":0,"edge_proof_present":False}},
+         _SC_R % "Strong Buy", ["cannot be re-derived"]),
+    ]
+    aicases += [
+        # r-review: a bare startswith let "Buyback candidate" satisfy decision "Buy".
+        ("2026-07-11", _D_R, _SC_R % "Buyback candidate", ["Headline Scorecard 'Rating'"]),
+        ("2026-07-11", _D_R, _SC_R % "Buy-and-hold", ["Headline Scorecard 'Rating'"]),
+        # r-review: unconstructable scorer inputs must FAIL CLOSED — ConfidenceInputs() raises without
+        # data_sufficiency, and swallowing that let a hand-written conviction ship with no basis.
+        ("2026-07-11", {**_D_R, "confidence_inputs":{}}, _SC_R % "Buy", ["cannot reconstruct"]),
+        # r-review: inputs that contradict the record's own authoritative values are circular.
+        ("2026-07-11", {**_D_R, "data_sufficiency_score":30,
+                        "confidence_inputs":{"data_sufficiency":100,"decision":"Buy"}},
+         _SC_R % "Buy", ["contradicts"]),
+        # r-review: a scorer WARNING (an ignored modules_absent key = an unapplied cap) must surface even
+        # when the arithmetic itself lands inside the tolerance.
+        ("2026-07-11", {**_D_R, "confidence_inputs":{"data_sufficiency":70,"decision":"Buy",
+                                                     "edge_score":60,"edge_proof_present":True,
+                                                     "modules_absent":["valuaton"]}},
+         _SC_R % "Buy", ["flagged the recorded inputs"]),
+    ]
     aibad=0
     for dt_,d_,th_,exp in aicases:
         got=AI(dt_,d_,th_)
@@ -1745,6 +1788,11 @@ if scope=="selftest":
     TH_AK_DENIAL = _hs_thesis(exp="-16.1%", dr="-38.7%", rr="-0.42x", conf="57", ds="65").replace(
         "| Data sufficiency /100 | 65 |\n",
         "| Data sufficiency /100 | 65 |\n| Rating cap, if any | Edge gate binding; no verdict-lock or Critical red flag |\n")
+    # Zero-count denial (Codex): a cap cell can deny a Critical with a COUNT ("Critical: 0"), not only
+    # with the word "no" — it reads identically to a reader and must fire the same way.
+    TH_AK_ZERO = _hs_thesis(exp="-16.1%", dr="-38.7%", rr="-0.42x", conf="57", ds="65").replace(
+        "| Data sufficiency /100 | 65 |\n",
+        "| Data sufficiency /100 | 65 |\n| Rating cap, if any | Critical: 0 — no verdict-lock applies |\n")
     TH_AK_CLEAN = _hs_thesis(exp="-16.1%", dr="-38.7%", rr="-0.42x", conf="57", ds="65").replace(
         "| Data sufficiency /100 | 65 |\n",
         "| Data sufficiency /100 | 65 |\n| Rating cap, if any | 2 Critical red flags cap the rating at Watchlist per §13/§18 |\n")
@@ -1782,6 +1830,37 @@ if scope=="selftest":
         # Codex #212 (scoped-denial false positive): a truthful cell that affirms the 2 Criticals AND scopes
         # the "no Critical" to a DIFFERENT module must PASS. RED on the pre-fix bare-denial regex (it fired).
         ("2026-07-11", {"red_flags":RF_TWO_CRITICAL}, TH_AK_SCOPED, {"earnings":MT_EARNINGS_2CRIT}, []),
+    ]
+    akcases += [
+        # Codex: a ZERO-COUNT cap cell denies the module's Critical just as "no Critical" does.
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Watchlist"}, TH_AK_ZERO,
+         {"earnings":MT_EARNINGS_2CRIT}, ["denies a Critical red flag"]),
+        # ...but a truthful NONZERO affirmation is not a denial (the affirm guard must survive).
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Watchlist"}, TH_AK_CLEAN,
+         {"earnings":MT_EARNINGS_2CRIT}, []),
+        # Codex: §13/§18 — a Critical flag caps the rating at Watchlist-or-lower. Recording it is not enough.
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Buy"}, TH_AK_CLEAN,
+         {"earnings":MT_EARNINGS_2CRIT}, ["exceeds the 'Watchlist' cap"]),
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Strong Buy"}, TH_AK_CLEAN,
+         {"earnings":MT_EARNINGS_2CRIT}, ["exceeds the 'Watchlist' cap"]),
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Avoid"}, TH_AK_CLEAN,
+         {"earnings":MT_EARNINGS_2CRIT}, []),   # at/below the ceiling -> compliant
+    ]
+    akcases += [
+        # r-review: a negated cap phrase must NOT affirm — "0 critical flags; no cap applies" would
+        # otherwise cancel the zero-count denial via the `critical ... cap` alternative.
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Watchlist",
+                        "rating_cap":"0 critical flags; no cap applies"}, TH_AK_CLEAN,
+         {"earnings":MT_EARNINGS_2CRIT}, ["denies a Critical red flag"]),
+        # r-review: §13's "unless explicitly resolved by primary evidence" exception must lift the cap.
+        # (both Criticals present so the COUNT test is satisfied — this case isolates the CAP exception)
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","description":"x","resolved":True},
+                                     {"id":"RF-ACC-002","severity":"Critical","description":"y","resolved":True}],
+                        "decision":"Buy"}, TH_AK_CLEAN,
+         {"earnings":MT_EARNINGS_2CRIT}, []),
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Buy",
+                        "rating_cap":"Critical finding resolved by the audited FY25 filing; cap lifted"},
+         TH_AK_CLEAN, {"earnings":MT_EARNINGS_2CRIT}, []),
     ]
     akbad=0
     for dt_,d_,th_,mt_,exp in akcases:
