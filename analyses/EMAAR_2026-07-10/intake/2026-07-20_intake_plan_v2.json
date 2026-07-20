@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "ticker": "EMAAR",
+  "run_root": "analyses/EMAAR_2026-07-10",
+  "scan_date": "2026-07-20",
+  "scanned_at": "2026-07-20T13:36:49Z",
+  "watermark": "analyses/EMAAR_2026-07-10/final_thesis.md",
+  "new_docs": [
+    {
+      "path": "data/EMAAR/screener_event_EVT-870c13fe70bd.md",
+      "sha256": "",
+      "provider": "Outlook Business (via screener wire, Anarock data cited within)",
+      "source_type": "screener_bridged_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-13",
+      "claims_summary": "Dubai H1 2026 residential transactions AED 225.7bn, +15% vs H1 2024 but -16% vs H1 2025; prices softened 4-7% Feb-Apr amid regional conflict then recovered; Anarock calls it sentiment-driven, not structural; full-year 2025 record AED 547bn / 206,166 transactions.",
+      "materiality_score": 55,
+      "impact_direction": "mixed",
+      "entry_orbs": [
+        {
+          "module": "earnings",
+          "agent": "revenue-drivers",
+          "why": "Dubai residential transaction volume and price-per-sq-ft are the market-level backdrop for EMAAR's development-sales revenue, which revenue-drivers models as volume x price x mix.",
+          "confidence": 0.5
+        },
+        {
+          "module": "business-model",
+          "agent": "external-dependency",
+          "why": "The article frames the move as geopolitical/macro-cycle risk to the Dubai residential market, which is the external variable external-dependency tracks for EMAAR's development exposure.",
+          "confidence": 0.45
+        }
+      ]
+    },
+    {
+      "path": "data/EMAAR/screener_event_EVT-e230085a2343.md",
+      "sha256": "",
+      "provider": "AGBI (www.agbi.com)",
+      "source_type": "screener_bridged_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-20",
+      "claims_summary": "UAE construction cost index +5.2% YoY in Q1 2026 (raw materials +8-9%, block works +25%); copper +12% YoY and crude oil +13% YoY cited as drivers; Abu Dhabi Chamber projects a further 4.5% construction-cost rise in 2026; example given is contractor Alec Holdings, whose energy-division margin fell to 2.9% from 8.7% — no EMAAR-specific figure is cited; developers described as shifting toward higher-margin luxury projects to protect returns.",
+      "materiality_score": 38,
+      "impact_direction": "negative",
+      "entry_orbs": [
+        {
+          "module": "earnings",
+          "agent": "margin-drivers",
+          "why": "Sector-wide input-cost inflation (materials, labour, block works) is exactly the input-cost / commodity-cost margin-driver category margin-drivers models, but the article names a contractor (Alec Holdings) as its evidence, not EMAAR, and gives no EMAAR-specific cost or margin figure.",
+          "confidence": 0.35
+        },
+        {
+          "module": "business-model",
+          "agent": "external-dependency",
+          "why": "The article names copper, oil, steel and aluminium price moves as the drivers of UAE construction-cost inflation, which is the commodity-exposure variable external-dependency tracks for a developer's build-cost base.",
+          "confidence": 0.35
+        }
+      ]
+    }
+  ],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [],
+    "commands": [],
+    "note_only": [
+      {
+        "path": "data/EMAAR/screener_event_EVT-870c13fe70bd.md",
+        "reason": "Same tier-10 screener-bridged wire event already surfaced and judged in the 2026-07-16 and 2026-07-20 (v1) intake plans (materiality 55 < gate 60, single origin: Outlook Business article citing one consultant, Anarock). No new document has landed to corroborate the claim, so the prior note-only judgment stands unchanged."
+      },
+      {
+        "path": "data/EMAAR/screener_event_EVT-e230085a2343.md",
+        "reason": "Tier-10 single-source wire note (AGBI, one origin/story cluster) on UAE-wide construction-cost inflation; materiality 38 < gate 60. Sector-level commentary that names a contractor (Alec Holdings) as its evidence, not EMAAR, and cites no EMAAR-specific cost or margin figure. Per INTAKE.md tier discipline, a single uncorroborated tier-10 wire claim defaults to note_only regardless of materiality unless a filing or a second independent-origin source in the pool backs the same fact; none has landed."
+      }
+    ]
+  },
+  "verdict": "note_only",
+  "summary": "One new document landed since the last (2026-07-20 v1) scan: a tier-10 AGBI wire note on UAE-wide construction-cost inflation (cost index +5.2% YoY, commodity-driven), evidenced via contractor Alec Holdings rather than EMAAR itself, with no EMAAR-specific figure. It is single-source and below the materiality gate, so it stays note-only, joining the already-tracked Dubai H1 2026 residential-transactions wire note. No filing has arrived and no claim has been independently corroborated, so the recommendation is unchanged: watch only, no rerun. Re-run earnings/margin-drivers and business-model/external-dependency if EMAAR's own filings or a second independent source corroborate margin compression from input-cost inflation; re-run earnings/revenue-drivers and business-model/external-dependency if a filing or second independent source corroborates a structural (not sentiment-driven) Dubai transaction slowdown."
+}
