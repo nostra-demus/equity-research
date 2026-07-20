@@ -136,6 +136,10 @@ cockpit surfaces so a durable feed can be built for it. Rules:
   `cadence`. Do **not** invent endpoints, schemas, or scraper code — the human authors the connector spec later.
 - `tier` is the §4 ceiling the series can earn: an API / vendor feed is `5`; a dated web scrape is `9` or `10`.
   **Never 1–4** — a live feed is not a filing.
+- **Enums are exact (fail-closed downstream):** `suggested_source.acquisition` MUST be one of
+  `official_api | free_key_api | paid_api | scrape | manual`, and `cadence` one of
+  `realtime | daily | weekly | monthly | event_driven` — any other string (e.g. 'vendor_or_paid_feed',
+  'free_public_data') fails the schema and the need never surfaces on the cockpit.
 - Set `filing_required: true` ONLY when the gap can be closed solely by a statutory filing (an audited figure,
   a formal disclosure). Such a need is advisory — no connector can satisfy it — so mark it and move on.
 - If nothing external is capping the call, omit the array or leave it empty. **Never manufacture needs** to
@@ -158,7 +162,7 @@ cockpit surfaces so a durable feed can be built for it. Rules:
 - [ ] `decision_record.json` was written and is valid JSON with the `action` matching the Routing line.
 - [ ] Risk summary names the killer risk and the flip condition; the relative read answers "are we in the right commodity?".
 - [ ] No forced Buy; conviction is capped as Commodity-conditional.
-- [ ] `data_needs[]` (if present) lists only EXTERNAL, connector-feedable gaps, each with a `why_it_caps`, an official-source-preferred `suggested_source`, and a §4 `tier` of 5/9/10; filing-only gaps are marked `filing_required: true`; no invented endpoints; nothing manufactured.
+- [ ] `data_needs[]` (if present) lists only EXTERNAL, connector-feedable gaps, each with a `why_it_caps`, an official-source-preferred `suggested_source` with `acquisition`/`cadence` exactly from the schema enums, and a §4 `tier` of 5/9/10; filing-only gaps are marked `filing_required: true`; no invented endpoints; nothing manufactured.
 
 # CHAT CONFIRMATION
 
