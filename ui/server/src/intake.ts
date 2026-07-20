@@ -53,14 +53,28 @@ export interface IntakePlan {
   ticker: string
   run_root: string
   scan_date: string
+  scanned_at?: string // ISO wall-clock the command stamps BEFORE it reads the pool — the durable "as-of"
   watermark?: string
   new_docs: IntakeNewDoc[]
   rerun_plan: IntakeRerunPlan
   verdict: 'scoped_rerun' | 'note_only' | 'insufficient'
   summary: string
   // stamped by the reader (never trusted from the file):
-  analyzed_at: string // the plan file's mtime, ISO
+  analyzed_at: string // the plan file's mtime, ISO — used only for "did the plan file change" detection
   widened: string[] // human-readable notes about dropped/widened entries (fail-closed audit trail)
+  // True iff this analysis provably accounts for the WHOLE current pool — no pool file arrived after the
+  // analysis read it. It is the safety gate on the cockpit's affirmative "no new data — everything's been
+  // read and considered" message: that claim may ONLY be shown when `new_docs` is empty AND `pool_current`
+  // is true, so a document dropped after the analysis can never be reported as "nothing new".
+  //
+  // The witness is DURABLE, never the plan file's mtime. Plan files live under analyses/ (git-tracked), and
+  // any checkout / clone / worktree / rebase / fresh-deploy tree rewrites their mtime FORWARD to the
+  // operation time — always toward a falsely-fresh verdict — while data/ mtimes are durable (gitignored).
+  // So `pool_current` compares the live pool against the plan's own recorded `scanned_at` (precise), or
+  // `scan_date` (date-granular, strict — a same-day file counts as unread) for older plans, and is false
+  // when neither witness is provable. Fail-safe by construction: any doubt → false → the cockpit prompts a
+  // re-analysis instead of claiming "nothing new".
+  pool_current: boolean
 }
 
 // The downstream module set a single-orb rerun re-runs, recomputed from the live DAG. Mirrors
@@ -108,14 +122,64 @@ export function readIntakePlan(ticker: string): IntakePlan | null {
   }
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null
 
-  // Expire a stale plan: if a pool file landed on a LATER calendar day than the plan itself was
-  // written, the plan's new_docs/entry_orbs are missing at least that document — showing it would
-  // under-scope a document the plan never saw. Same-day is deliberately NOT flagged (mirrors
-  // stalenessOf's own same-day-ambiguity convention) since we cannot tell landed-before-or-after.
-  // Fail toward blunt (INTAKE.md §1): null → the client falls back to the honest staleness floor.
-  const planDate = todayDate(new Date(mtime))
-  const poolNewest = dataPoolNewest(ticker).newestDate
-  if (poolNewest && poolNewest > planDate) return null
+  const pool = dataPoolNewest(ticker)
+
+  // ---- durable freshness witnesses (NEVER the plan file's mtime) ----
+  // Plan files live under analyses/ (git-tracked); any checkout / clone / worktree / rebase / fresh-deploy
+  // tree rewrites their mtime FORWARD to the operation time — always toward a falsely-fresh verdict — while
+  // data/ mtimes are durable (gitignored). So freshness is judged against the plan's OWN recorded values,
+  // which survive materialization: `scanned_at` (an ISO wall-clock the command stamps before it reads the
+  // pool — precise) preferred, else the date-only `scan_date`. A future `scanned_at` is a prompt bug, not a
+  // witness → discard it (fail closed).
+  const nowMs = Date.now()
+  const today = todayDate(new Date(nowMs))
+  const scannedAtMs = (() => {
+    const s = raw.scanned_at
+    if (typeof s !== 'string') return null
+    const ms = Date.parse(s)
+    if (!Number.isFinite(ms) || ms > nowMs) return null // a future stamp is a prompt/clock-skew bug → discard
+    return ms
+  })()
+  const scanDate = String(raw.scan_date ?? '')
+  const scanDateValid = /^\d{4}-\d{2}-\d{2}$/.test(scanDate) && scanDate <= today // a future scan_date is not a witness
+  // The run's DURABLE vintage — parsed from the run-folder NAME (analyses/<TICKER>_<DATE>), which git cannot
+  // rewrite, unlike the folder's file mtimes. This is the same basis the staleness floor uses.
+  const runDate = (() => { const m = path.basename(runRootAbs).match(/(\d{4}-\d{2}-\d{2})/); return m ? m[1] : null })()
+
+  // Expire a stale SCOPED plan (never an empty one — those are served so the cockpit can nudge a re-analysis
+  // rather than silently hiding): if the pool gained a file the analysis never saw, its scoping is missing
+  // that document, so don't trust it (null → the honest floor, INTAKE.md §1). Date-granular / same-day
+  // tolerant here (matching stalenessOf's convention) so a plan is not nulled the same day it was written;
+  // the stricter bar is reserved for the user-facing affirmative below. Falls back to the (legacy,
+  // non-durable) mtime date only when scan_date is somehow absent — never worse than the prior behaviour.
+  const rawScoped = (Array.isArray(raw.new_docs) && raw.new_docs.length > 0) ||
+    (Array.isArray(raw.rerun_plan?.commands) && raw.rerun_plan.commands.length > 0)
+  const freshnessDate = scanDateValid ? scanDate : todayDate(new Date(mtime))
+  if (rawScoped && pool.newestDate && pool.newestDate > freshnessDate) return null
+
+  // Pool-currency proof for the affirmative "no new data — everything read and considered". Held to a
+  // STRICTER, fail-safe bar than the scoped-trust decision above, because a false affirmative is the exact
+  // failure mode this feature exists to prevent. It layers two DURABLE checks, and both must pass:
+  //
+  //  (1) witnessCurrent — nothing landed since the analysis READ the pool. Precise when `scanned_at` is
+  //      present (a file whose newest timestamp is after the scan is unread); else date-granular and STRICT
+  //      on `scan_date` (a same-day file counts as unread); else false (never affirm on an unprovable
+  //      basis — old plans / deploy-skew). Uses dataPoolNewest's max(mtime, ctime) so a doc dropped with a
+  //      preserved-older mtime (Google-Drive / cp -p / rsync -t materialise files with their ORIGINAL
+  //      mtime) still trips it via its local ctime.
+  //  (2) NOT floorStale — the DURABLE staleness floor agrees the pool has gained nothing dated after the
+  //      RUN itself (pool.newestDate ≤ the run-folder date). This is the belt-and-suspenders the first fix
+  //      missed: the intake COMMAND discovers new docs with `find -newer final_thesis.md`, and that
+  //      watermark's mtime is rewritten forward by a git checkout exactly like the plan file's — so after
+  //      materialisation the command can MISS a real post-run document and write an empty plan. If the floor
+  //      disagrees, that empty plan cannot be trusted → withhold the affirmative, and never contradict the
+  //      stale badges the constellation already shows for the same document.
+  let witnessCurrent: boolean
+  if (scannedAtMs !== null) witnessCurrent = !pool.newestMs || pool.newestMs <= scannedAtMs
+  else if (scanDateValid) witnessCurrent = !pool.newestDate || pool.newestDate < scanDate
+  else witnessCurrent = false
+  const floorStale = !!runDate && !!pool.newestDate && pool.newestDate > runDate
+  const poolCurrent = witnessCurrent && !floorStale
 
   const moduleNames = new Set(listModuleNames(RESEARCH_SWARM_ID))
   const agentsByModule = new Map<string, Set<string>>()
@@ -207,6 +271,7 @@ export function readIntakePlan(ticker: string): IntakePlan | null {
     ticker: ticker.toUpperCase(),
     run_root: String(raw.run_root ?? path.relative(process.cwd(), runRootAbs)),
     scan_date: String(raw.scan_date ?? ''),
+    scanned_at: scannedAtMs !== null ? new Date(scannedAtMs).toISOString() : undefined,
     watermark: raw.watermark ? String(raw.watermark) : undefined,
     new_docs: newDocs,
     rerun_plan: rerunPlan,
@@ -214,5 +279,6 @@ export function readIntakePlan(ticker: string): IntakePlan | null {
     summary: String(raw.summary ?? ''),
     analyzed_at: mtime,
     widened,
+    pool_current: poolCurrent,
   }
 }

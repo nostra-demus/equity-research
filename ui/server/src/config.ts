@@ -124,6 +124,32 @@ export function connectorAutoRepairReady(): boolean {
 // (PIPELINE_SCAN + CONNECTOR_BUILD + CONNECTOR_RUNNER + CONNECTOR_REPAIR guard objects are defined below,
 // after capNum is in scope.)
 
+// ---- feedback → reporter email (feedback-email.ts) ----
+// When a teammate marks a feedback item "done", the person who filed it is emailed that it's resolved,
+// via the Munshot raw-email API. The token is a SECRET: it lives in the out-of-repo config dir
+// (providers.env → load-env.ts), so it is never committed AND is scrubbed from every research/screener
+// child run (launcher.childEnv drops providerEnvKeys). Follows the codebase idiom "on iff a secret is
+// present, with an explicit off switch": no token ⇒ the feature is silently dark (no send attempted), so
+// a deploy without the token behaves exactly as before. Endpoint + app URL + timeout are env-tunable.
+export const FEEDBACK_EMAIL = {
+  // The only secret. Absent → the resolution-email feature stays off (no send, no ledger record).
+  token: process.env.MUNSHOT_EMAIL_TOKEN || '',
+  // Raw-email endpoint. Accepts { email, subject, html } with a Bearer token (user OR team token).
+  endpoint: process.env.MUNSHOT_EMAIL_ENDPOINT || 'https://devde.muns.io/email/send/raw',
+  // Master switch: ON iff a token exists. MUNSHOT_EMAIL_ENABLED=0 forces off even with a token.
+  enabled: process.env.MUNSHOT_EMAIL_ENABLED === '0' ? false : Boolean(process.env.MUNSHOT_EMAIL_TOKEN),
+  // Public cockpit origin — the "Open the cockpit" button + the deep-link back to the filed-from page.
+  appUrl: (process.env.ENGINE_PUBLIC_APP_URL || 'https://app.nostra-demus.com').replace(/\/+$/, ''),
+  // Hard wall-clock cap on the outbound send so a hung email service can never delay the request path.
+  // Parsed inline (not via capNum) because this block is defined ABOVE capNum's declaration — using the
+  // const before its initializer runs would be a temporal-dead-zone crash at module load.
+  timeoutMs: (() => { const n = Number(process.env.MUNSHOT_EMAIL_TIMEOUT_MS); return Number.isFinite(n) && n > 0 ? n : 12_000 })(),
+}
+/** The resolution-email feature can send only when enabled AND a token is configured. */
+export function feedbackEmailReady(): boolean {
+  return FEEDBACK_EMAIL.enabled && FEEDBACK_EMAIL.token.length > 0
+}
+
 // OPT-IN (off by default): orchestrate a full run as a CHAIN of separate per-module runs (each its own
 // budget), in dependency order, then the master synthesizer — instead of one monolithic /research:full
 // process. No single budget cap can then truncate the whole pipeline. Enable with ENGINE_FULL_PER_MODULE=1.

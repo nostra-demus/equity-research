@@ -883,6 +883,11 @@ a { color: inherit; }
 .feedback__note { margin-top: 8px; font-size: 11.5px; color: var(--text-muted); line-height: 1.5; border-left: 2px solid var(--hairline-strong); padding-left: 9px; }
 .feedback__cardactions { display: flex; gap: 8px; margin-top: 11px; }
 .feedback__cardbtn { font-size: 11.5px; height: 28px; }
+/* resolved-card reporter-notification state */
+.feedback__notifyrow { display: flex; align-items: center; gap: 10px; margin-top: 11px; flex-wrap: wrap; }
+.feedback__notified { margin-top: 10px; font-size: 11px; letter-spacing: 0.2px; color: var(--text-faint); }
+.feedback__notified[data-ok="1"] { color: var(--good); }
+.feedback__notifyrow .feedback__notified { margin-top: 0; }
 @media (prefers-reduced-motion: reduce) { .feedback__segbtn, .feedback__drop, .feedback__thumbx, .feedback__cardthumb img, .feedback__tab { transition: none; } }
 
 .atable { width: 100%; border-collapse: collapse; font-size: 12.5px; }
@@ -1156,6 +1161,35 @@ a { color: inherit; }
 .tierbtn--off, .tierbtn--off:hover {
   color: var(--text-faint); background: transparent; border-color: var(--hairline);
   cursor: default; opacity: 0.55;
+}
+
+/* "a newer re-run exists, this call is your last complete one" — the plain-English strip that rides
+   ABOVE the decision inside the same card. flex-basis:100% + order:-1 makes it a full-width first row of
+   the wrapping .decision flex without touching the decision row's layout. A hairline separates the two so
+   it reads as a header on the call it qualifies; on the notice-only card (viewing the partial itself, no
+   call) the hairline drops away. */
+.decision__notice {
+  flex: 0 0 100%; order: -1;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--hairline);
+}
+.decision--notice-only .decision__notice { padding-bottom: 0; border-bottom: none; }
+.decision__notice-glyph { flex-shrink: 0; font-size: 13px; line-height: 1; color: var(--accent); }
+.decision__notice-text { flex: 1 1 320px; min-width: 0; margin: 0; font-size: 11.5px; line-height: 1.5; color: var(--text-muted); }
+.decision__notice-text b { color: var(--text); font-weight: 600; }
+.decision__notice-act {
+  flex-shrink: 0; white-space: nowrap;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.2px;
+  color: var(--accent-bright); background: var(--accent-wash);
+  border: 1px solid var(--accent-deep); border-radius: var(--r-pill);
+  padding: 5px 12px; cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.decision__notice-act:active { transform: scale(0.97); }
+.decision__notice-act:disabled { opacity: 0.5; cursor: default; }
+.decision__notice-act:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent-wash); }
+@media (hover: hover) and (pointer: fine) {
+  .decision__notice-act:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 20%, transparent); }
 }
 
 /* toast */

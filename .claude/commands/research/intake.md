@@ -30,7 +30,11 @@ The argument is `$ARGUMENTS` — a single `<TICKER>`. Execute the steps below in
 
 ## 1. Resolve the ticker and the latest run root
 
-`<TICKER>` = the first token of `$ARGUMENTS`, upper-cased. Resolve `<TODAY>` once: `date +%F`.
+`<TICKER>` = the first token of `$ARGUMENTS`, upper-cased. Resolve `<TODAY>` once: `date +%F`. Also
+capture `<SCANNED_AT>` once, **NOW — before you list any documents in Step 2**: `date -u +%FT%TZ`. This is
+the durable "as-of" watermark the cockpit uses to prove the analysis saw the whole pool (it survives the
+git checkout/rebase that rewrites the plan file's own mtime). It MUST be taken *before* the Step 2 `find`,
+never after writing the plan — a document that lands after this instant is correctly treated as unread.
 
 Find the **latest FINISHED run root** for the ticker — the newest run directory that actually carries
 a `final_thesis.md` or a `decision_record.json`. Skip over a newer but incomplete/failed run folder
@@ -68,16 +72,33 @@ whose OWN DIRECTORY contains that sentinel. Also skip a document's provenance si
 (`<file>.source.json`, `EXTERNAL_DATA.md` §3) — it is metadata about a document, not new evidence
 itself:
 
+The "arrived since the run" baseline must be DURABLE. `$WATERMARK` (`final_thesis.md`) lives under
+`analyses/` (git-tracked), so a checkout/clone/worktree/rebase rewrites its mtime FORWARD to the
+materialisation time — and `-newer` against a forward-bumped watermark would silently MISS every document
+that landed between the real run and the checkout, writing a falsely-empty plan. Detect that (the
+watermark's own mtime is dated later than the run FOLDER's date, which git cannot rewrite) and fall back
+to the durable run-folder date; otherwise use the precise watermark:
+
 ```bash
-find "data/${TICKER}/" -type f -newer "$WATERMARK" -not -name '*.source.json' 2>/dev/null | while read -r f; do
+RUN_DATE="$(basename "$RUN_ROOT" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}' | head -1)"
+# Is the watermark's mtime later than the run day (i.e. rewritten forward by a checkout)? `find -newermt`
+# is portable across BSD/macOS and GNU (avoid `date -r`, whose semantics differ between them).
+if [ -n "$RUN_DATE" ] && find "$WATERMARK" -newermt "$RUN_DATE 23:59:59" 2>/dev/null | grep -q .; then
+  SINCE=(-newermt "$RUN_DATE 00:00:00")   # watermark mtime looks rewritten-forward → durable run-folder floor
+else
+  SINCE=(-newer "$WATERMARK")             # trustworthy watermark → precise run-completion boundary
+fi
+find "data/${TICKER}/" -type f "${SINCE[@]}" -not -name '*.source.json' 2>/dev/null | while read -r f; do
   [ -e "$(dirname "$f")/.nostradamus_output" ] && continue
   echo "$f"
 done | sort
 ```
 
 - If **no** new documents: write a plan with `verdict: "note_only"`, empty `new_docs`, empty
-  `rerun_plan.commands`, and a one-line `summary` ("No new documents since the last run."). Still
-  write the file (so the cockpit can show "nothing to re-run"), then go to Step 6.
+  `rerun_plan.commands`, `scan_date: "<TODAY>"`, `scanned_at: "<SCANNED_AT>"`, and a one-line `summary`
+  ("No new documents since the last run."). Still write the file (so the cockpit can affirm "no new data —
+  everything read and considered"), then go to Step 6. **`scanned_at` is not optional on this path** — it
+  is exactly what lets the cockpit safely show that affirmative instead of staying silent.
 - Note: a routed COPY's file date is its routing date, so an old document can still be "new to the
   engine" — that is correct (staleness means "the engine has not read this yet").
 
@@ -164,7 +185,9 @@ echo "$out"     # the JSON path; the .md twin shares the basename with .json -> 
 
 Write the JSON to that path with the Write tool using the **exact** `intake_plan.json` schema from
 `INTAKE.md` §3 (valid JSON; no fences, comments, or trailing commas; `null` for unknown numbers,
-`""` for unknown strings, `[]`/`{}` for empties; never fabricate a value). Then validate:
+`""` for unknown strings, `[]`/`{}` for empties; never fabricate a value). Include `scan_date: "<TODAY>"`
+and `scanned_at: "<SCANNED_AT>"` (the durable as-of watermark captured in Step 1) — **both are required**,
+including on the no-new-documents path. Then validate:
 
 ```bash
 python3 -m json.tool "$out" >/dev/null && echo "OK valid JSON" || echo "FAIL invalid JSON"

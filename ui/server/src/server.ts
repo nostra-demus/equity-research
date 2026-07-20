@@ -14,7 +14,7 @@ import { z } from 'zod'
 import { readActivity } from './activity-log'
 import { recordDataChange, syncingState, SYNC_WINDOW_MS } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
-import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
+import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
@@ -43,10 +43,12 @@ import { auditInboxAction, hideSignal, moveThesis, MOVE_TARGETS, SIGNAL_ACTIONS 
 import { appendFeedbackRoute, FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
 import { FEEDBACK_MAX_IMAGES, type FeedbackCategory, type FeedbackItemRecord, appendFeedbackEvent, foldFeedback, isFeedbackId, itemDir, newFeedbackId, readAllFeedback as readAllCockpitFeedback, saveFeedbackImage, writeFeedbackItem } from './feedback-store'
 import { dryRunFeedbackDispatch, startFeedbackDispatch } from './feedback-dispatch'
+import { notifyFeedbackResolved } from './feedback-email'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
+import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
 import { deleteConversation, getConversation, isValidConversationId, listConversations, recordAssistantMessage, recordUserMessage } from './chat-store'
@@ -362,6 +364,8 @@ app.get('/api/whoami', async (req) => {
   // canDispatch drives the admin-only "Send to coding engine" button — reflects BOTH the allowlist and
   // whether dispatch is actually runnable (enabled + PR token), so the button never appears when it'd fail.
   // canScanPipeline / canBuildConnector gate the Data Pipeline panel's scan + build buttons the same way.
+  // emailEnabled drives the reporter-notification UI on resolved cards — hidden entirely when the engine
+  // has no email token, so the panel behaves exactly as before on a deploy without email configured.
   const admin = isDispatchAdmin(who.user)
   return {
     ...who,
@@ -369,6 +373,7 @@ app.get('/api/whoami', async (req) => {
     canScanPipeline: admin && pipelineScanReady(),
     canBuildConnector: admin && connectorDispatchReady(),
     canRunConnectors: admin, // a manual "fetch now" only spawns a public fetcher — admin is enough
+    emailEnabled: feedbackEmailReady(),
   }
 })
 
@@ -1339,6 +1344,52 @@ app.get('/api/output/run', async (req, reply) => {
   } catch (e: any) {
     return reply.code(400).send({ error: 'cannot read run', detail: String(e?.message || e) })
   }
+})
+
+// ---------- valuation Playground (levers) ----------
+// GET the machine-readable valuation levers a run emitted (valuation_summary.json) + the frozen scenario
+// OUTPUTS from decision_record.json (probabilities + returns) + any saved what-if overrides. The recompute
+// is client-side (ui/web/src/lib/valuationLevers.ts, a mirror of scripts/valuation_math.py); this endpoint
+// only serves the baseline. Reuses resolveOutputRun so a bare ticker resolves to its standing run.
+app.get('/api/valuation-levers', async (req, reply) => {
+  const r = resolveOutputRun(req.query as any)
+  if (r.unknownSwarm) return reply.code(404).send({ error: 'unknown swarm' })
+  if (r.badSubject) return reply.code(400).send({ error: 'subject required' })
+  if (!r.runRoot) return reply.code(404).send({ error: 'no run found' })
+  const levers = readValuationSummary(r.runRoot, r.resolve)
+  let decision: any = null
+  try { decision = readDecision(r.runRoot, r.resolve) } catch { /* no decision_record yet */ }
+  const num = (v: any): number | null => (typeof v === 'number' && Number.isFinite(v) ? v : null)
+  const dec = decision
+    ? {
+        scenarios: Array.isArray(decision.scenarios) ? decision.scenarios : [],
+        entry_price: num(decision.entry_price),
+        entry_price_timestamp: decision.entry_price_timestamp ?? null,
+        currency: decision.currency ?? null,
+        expected_return_pct: num(decision.expected_return_pct),
+        margin_of_safety_pct: num(decision.margin_of_safety_pct),
+        downside_risk_pct: num(decision.downside_risk_pct),
+      }
+    : null
+  if (!levers && !dec) return reply.code(404).send({ error: 'no valuation levers or decision_record for this run' })
+  return { runRoot: r.runRoot, levers, decision: dec, overrides: readOverrides(r.runRoot) }
+})
+
+// Persist a what-if override + the reason (an append-only, gitignored judgment ledger — not a change to the
+// frozen run). runRoot is confined to analyses/ so a request can never steer a write elsewhere.
+const ValuationOverrideBody = z.object({
+  runRoot: z.string().min(1).max(300),
+  reason: z.string().max(4000).optional(),
+  overrides: z.record(z.any()).optional(),
+  levels: z.record(z.number()).optional(),
+}).strip()
+app.post('/api/valuation-levers/override', { config: { rateLimit: { max: 200, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const parsed = ValuationOverrideBody.safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const runRoot = parsed.data.runRoot.replace(/^\/+/, '')
+  if (!/^analyses\/[A-Za-z0-9._-]+$/.test(runRoot)) return reply.code(400).send({ error: 'runRoot must be a single analyses/<run> folder' })
+  const rec = appendOverride({ run_root: runRoot, reason: parsed.data.reason ?? '', overrides: parsed.data.overrides ?? {}, levels: parsed.data.levels ?? null })
+  return { ok: true, override: rec, overrides: readOverrides(runRoot) }
 })
 
 // ---------- chat with your data (closed-book Q&A over a run's synthesized output) ----------
@@ -2318,9 +2369,42 @@ app.post('/api/feedback/:id/status', { config: { rateLimit: { max: 1000, timeWin
   const parsed = FeedbackStatusBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
   const { user } = identify(req)
+  // Snapshot BEFORE the append: the item carries the reporter (its user_id = their email), and the prior
+  // fold tells us whether they've already been successfully emailed — so a repeated "done" doesn't re-notify.
+  const records = readAllCockpitFeedback()
+  const item = records.find((r): r is FeedbackItemRecord => r.kind === 'feedback' && r.feedback_id === id)
+  const prev = foldFeedback(records).find((v) => v.feedback_id === id)
   const ev = await appendFeedbackEvent(id, parsed.data.status, { note: parsed.data.note, user })
   if (!ev) return reply.code(404).send({ error: 'no such feedback' })
+  // On resolve → email the reporter, once. FIRE-AND-FORGET: the status is already saved and the response
+  // returns now; the send + its ledger line run in the background and can never fail or block this request.
+  if (parsed.data.status === 'done' && item && !prev?.notified?.ok) {
+    void notifyFeedbackResolved(item, { note: parsed.data.note || '', prUrl: prev?.pr_url ?? null, user })
+      .then((r) => { if (r.attempted) console.log(`[feedback-email] ${id} -> ${r.recipient}: ${r.ok ? 'sent' : 'FAILED ' + r.detail}`) }) // eslint-disable-line no-console
+      .catch(() => {})
+  }
   return { ok: true, event: ev }
+})
+
+// Re-send the resolution email to a resolved item's reporter — the "Notify reporter" / "Retry email"
+// action the panel shows on a done card that hasn't been successfully emailed yet (auto-send failed, or a
+// reporter email only became notifiable later). Only valid for a resolved item; records its own attempt.
+app.post('/api/feedback/:id/notify', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = (req.params as any).id as string
+  if (!isFeedbackId(id)) return reply.code(400).send({ error: 'invalid feedback id' })
+  if (!feedbackEmailReady()) return reply.code(503).send({ ok: false, error: 'email is not configured on this server' })
+  const { user } = identify(req)
+  const records = readAllCockpitFeedback()
+  const item = records.find((r): r is FeedbackItemRecord => r.kind === 'feedback' && r.feedback_id === id)
+  if (!item) return reply.code(404).send({ error: 'no such feedback' })
+  const view = foldFeedback(records).find((v) => v.feedback_id === id)
+  if (view?.status !== 'done') return reply.code(409).send({ ok: false, error: 'feedback is not resolved' })
+  // Idempotent: if the reporter was already successfully emailed, don't send again (the panel hides the
+  // button after success, but this also blocks a direct-API re-send loop). Returns a clean already-sent ok.
+  if (view.notified?.ok) return { ok: true, reason: 'already_sent', recipient: view.notified.recipient, detail: '' }
+  const r = await notifyFeedbackResolved(item, { note: view?.note || '', prUrl: view?.pr_url ?? null, user })
+  return reply.code(r.ok ? 200 : 502).send({ ok: r.ok, reason: r.reason, recipient: r.recipient, detail: r.detail })
 })
 
 // One-click "send to coding engine" — the gated, paid action. FAIL-CLOSED: only an admitted admin
@@ -2450,9 +2534,12 @@ async function fireAutoIntake(ticker: string, attempt = 0): Promise<void> {
     // namespace and use ITS terminal artifact (research: final_thesis.md; commodity: decision_record.json).
     const owner = resolveSwarmForSubject(ticker)
     if (!owner) return
-    // dedupe: skip if the pool has not gained a newer file since the last auto-analysis (a restart re-fires once).
-    const newest = dataPoolNewest(ticker).newestDate || ''
-    if (newest && autoIntakeLastNewest.get(ticker) === newest) return
+    // dedupe: skip if the pool has not gained a newer file since the last auto-analysis (a restart re-fires
+    // once). Keyed on the raw newest MTIME, not the calendar day — a day-granular key would swallow a second
+    // document that lands the same day as a prior auto-analysis, defeating the self-heal that a same-day
+    // landing is supposed to trigger (and that the pool_current re-analysis nudge relies on resolving).
+    const newest = String(dataPoolNewest(ticker).newestMs || 0)
+    if (newest !== '0' && autoIntakeLastNewest.get(ticker) === newest) return
     // never analyze while a run (a real run OR a prior intake) is already in flight on this subject.
     if (listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))) return
     autoIntakeLastNewest.set(ticker, newest)

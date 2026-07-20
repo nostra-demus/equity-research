@@ -49,7 +49,8 @@ If any upstream output is missing, list which ones and proceed with what's avail
 4. Apply the score caps from `MODULE_RULES.md`.
 5. Compose the verdict block, the bull/base/bear fair-value levels (with dispersion), and the scores.
 6. Compose the Abstract LAST — after the verdict block is finalized.
-7. Write the file.
+7. Write the markdown file.
+8. Emit the machine-readable levers sidecar `valuation/valuation_summary.json` (see "Structured Emission" below) so the fair value is re-derivable and the cockpit Playground has inputs to move without re-running the module.
 
 # WHAT TO READ
 
@@ -185,9 +186,24 @@ Bullet list, no prose paragraphs. **Surface what the numbers MEAN — do not res
 - Whether this module is useful for the master synthesizer
 ```
 
+## Structured Emission — `valuation_summary.json` (Hard Rule)
+
+Alongside the markdown, write `analyses/{TICKER}_{DATE}/valuation/valuation_summary.json` — the machine-readable **levers** behind the fair value, conforming to `frameworks/valuation_summary.schema.json`. This is what makes the fair value re-derivable (`scripts/valuation_math.py`) and gives the cockpit valuation **Playground** inputs to move without re-running the module. It carries INPUTS; the master synthesizer's `decision_record.json` carries the scenario OUTPUTS (probabilities + returns) — do NOT write scenario probabilities here (that boundary is the master's).
+
+Populate from the upstream specialists:
+- `basis` — `equity` (a per-share metric × an equity multiple, e.g. P/E on EPS) or `ev` (a total metric × an EV multiple, bridged by `shares` and `net_debt`), matching the primary multiple `07` used.
+- `scenarios[]` — one per bull/base/bear from `07`, each with its `forward_metric` (EPS or EBITDA), `metric_basis` (NTM / FY+1 / trailing), `multiple`, and the derived `level` (the per-share fair-value point). The `level` MUST equal `forward_metric × multiple` (bridged for `ev`) so a reader can recompute it, and MUST match the bull/base/bear level in the verdict block.
+- `methods` / `method_weights` — the cross-method football field and the effective base-point weights from `07` (multiples-first policy).
+- `discount_rate` — `rf`, `erp`, `beta`, `cost_of_equity`, `wacc`, `after_tax_kd` from `04` (enables the Gate-4 WACC guard: `after-tax k_d ≤ WACC < k_e`).
+- `shares`, `net_debt` (+ `net_debt_basis`), `current_price`, `price_as_of`, `price_state` from `01`.
+- `is_developed_mega_cap` — true for a developed-market (USD/EUR/GBP) large/mega-cap (enables the mega-cap cost-of-equity ceiling).
+
+If a lever is genuinely unavailable, write `null` — never fabricate one to fill the schema. This file is optional-but-preferred: a run that cannot populate the core scenarios (no fair-value levels) may omit it, and the Playground falls back to the frozen `decision_record` scenarios.
+
 # SELF-CHECK
 
 - [ ] Every upstream specialist output was read and appears in Section 2.
+- [ ] `valuation_summary.json` was emitted conforming to `frameworks/valuation_summary.schema.json`; its scenario `level`s match the markdown bull/base/bear levels, each `level` equals `forward_metric × multiple` (bridged for `ev`), and no scenario probabilities are written (the master owns those).
 - [ ] Direction flags are correct: Downside risk is inverted (higher = worse); Valuation attractiveness and Margin of safety are NOT inverted (higher = better/cheaper).
 - [ ] The verdict is exactly one of the 6 defined categories.
 - [ ] The fair-value output is the bull/base/bear LEVELS (points) pulled from `07`, with the cross-method dispersion (football field) shown separately — the base case is a point, never a band — and the current price (or "not available", with price-state if `indicative`) shown.

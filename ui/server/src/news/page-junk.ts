@@ -48,6 +48,31 @@ const CHROME_RE: RegExp[] = [
   /\b(?:turn off|disable|pause) your ad ?blocker\b/i,
   /\bthank you for (?:reading|your support)\b.{0,60}\b(?:subscri|regist|sign)/i,
   /\bfor the best experience,? (?:use|download|open|upgrade|switch)\b/i,
+  // finance-portal QUOTE / SEARCH WIDGET shells — the empty-state and control text a market site (Nasdaq
+  // and Nasdaq-family portals) renders AROUND the article. Server-side these ticker/quote widgets often
+  // fail to load their data and ship a placeholder ("Data is currently not available"), and the site's
+  // symbol-search box ships its own empty-state ("We couldn't find any results matching your search").
+  // None of it is article prose, yet it is grammatical enough to clear the prose gate — and, rendered
+  // ABOVE the story in the served HTML, it LED "THE STORY" on the reported Chevron/Nasdaq read. Nasdaq
+  // ships no JSON-LD articleBody, so the structured-data rescue lane cannot route around it; this
+  // vocabulary is the fix. Each phrase is unmistakable widget/error chrome — never genuine article prose.
+  /\bdata is currently not available\b/i,
+  /\bwe (?:couldn'?t|could ?not|did ?n'?t|did not) find any results matching your search\b/i,
+  /\bplease try (?:using )?(?:other|different) (?:words|keywords|search terms) for your search\b/i,
+  /\bour team is working diligently to resolve (?:the|this) (?:issue|problem)\b/i,
+  /\bedit (?:my|your) (?:european )?(?:quotes|watchlist)\b/i,
+  /\badd up to \d+ (?:symbols|instruments)\b/i,
+  /\byour symbols have been updated\b/i,
+  /\badd a symbol to your watchlist\b/i,
+  // syndicated STOCK-PROMO insert — the Motley Fool "Stock Advisor" / "Double Down" advertisement injected
+  // into every Fool article and carried verbatim into the finance-portal syndication (Nasdaq runs many).
+  // It is advertising mid-article, not the story — unmistakable ad copy, safe to drop wherever it appears.
+  /\bthis rare signal is flashing again\b/i,
+  /\ba\s+"?double down"?\s+(?:stock\s+)?signal\b/i,
+  /\bthe motley fool stock advisor\b/i,
+  /\bstock advisor'?s (?:total )?average return\b/i,
+  /\b10 best stocks for investors to buy (?:right )?now\b/i,
+  /\bbefore you buy stock in .{1,60}?,\s*consider this\b/i,
 ]
 
 // paywall / registration-wall phrasing — its own set so the verdict can name the cause

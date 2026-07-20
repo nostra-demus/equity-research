@@ -259,14 +259,19 @@ function foldersWithModule(folders: { runRoot: string; date: string }[], module:
 /** Newest file in the subject's data pool. `data/` is untracked (gitignored), so unlike `analyses/` its
  *  mtimes are never rewritten by a checkout or a rebase — they are the one durable freshness signal we
  *  have. Returns the local calendar date, which is what run folders are named by. */
-export function dataPoolNewest(ticker: string, dataDir: string = DATA_DIR): { files: number; newestDate: string | null } {
+export function dataPoolNewest(ticker: string, dataDir: string = DATA_DIR): { files: number; newestDate: string | null; newestMs: number } {
   // `ticker` reaches here from a query string. Reduce it to a proven single path segment before it touches
   // the filesystem — otherwise `dataPoolNewest('..')` walks the whole repo on a blocking stat.
   const root = path.join(dataDir, safeSubjectSegment(ticker))
   let files = 0
-  let newestMs = 0
+  let newestMtimeMs = 0 // mtime-only → drives `newestDate`, the staleness floor's calendar-day basis (unchanged)
+  let newestMs = 0 // max(mtime, ctime) → the intake freshness witness (see below)
   const walk = (dir: string, depth: number): void => {
-    if (depth > 6) return
+    // Over-approximate the reader's scope: the intake command's `find` and the extractor's iter_pool_files
+    // walk the pool unbounded, so this freshness scan must too — else a document nested deeper than the cap
+    // (e.g. external/<provider>/<sub>/…) lands unseen and a stale run/plan reads as fresh. The walk never
+    // follows symlinks (a symlinked dir is not e.isDirectory()), so a generous cap is loop-safe.
+    if (depth > 24) return
     let entries: fs.Dirent[]
     try {
       entries = fs.readdirSync(dir, { withFileTypes: true })
@@ -283,15 +288,28 @@ export function dataPoolNewest(ticker: string, dataDir: string = DATA_DIR): { fi
       if (!e.isFile()) continue
       files++
       try {
-        const ms = fs.statSync(p).mtimeMs
-        if (ms > newestMs) newestMs = ms
+        const st = fs.statSync(p)
+        if (st.mtimeMs > newestMtimeMs) newestMtimeMs = st.mtimeMs
+        // newestMs = max(mtime, ctime): mtime is the document's own modification time, but data/ is a
+        // Google-Drive mount and Drive — like `cp -p` / `rsync -t` / `unzip` — materialises a file with its
+        // ORIGINAL (often older) mtime, so a doc dropped in late but authored earlier would look old. ctime
+        // is the local inode-change time (link/create) which those tools do NOT preserve, so it reflects
+        // true arrival. Only `newestMs` uses it (the intake witness, an over-approximation that never
+        // under-reports arrival); `newestDate` stays mtime-only so the staleness floor keeps its calendar-
+        // day meaning ("the pool gained a document DATED after this run").
+        const arrivalMs = Math.max(st.mtimeMs, st.ctimeMs)
+        if (arrivalMs > newestMs) newestMs = arrivalMs
       } catch {
         /* vanished mid-scan */
       }
     }
   }
   walk(root, 0)
-  return { files, newestDate: newestMs > 0 ? todayDate(new Date(newestMs)) : null }
+  // `newestDate` is the calendar-day signal the staleness floor uses (same-day ambiguity tolerated),
+  // mtime-only so it means "the pool gained a document DATED after this run". `newestMs` is the finer
+  // arrival signal (max mtime/ctime) for callers that must prove a plan saw the whole pool — the intake
+  // pool-currency check. Both are 0/null when the pool is empty.
+  return { files, newestDate: newestMtimeMs > 0 ? todayDate(new Date(newestMtimeMs)) : null, newestMs }
 }
 
 /** A module is stale when the data pool gained a file on a LATER calendar day than the run that produced

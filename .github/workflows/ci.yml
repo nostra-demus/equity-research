@@ -79,6 +79,9 @@ jobs:
           python3 scripts/calibrate.py --selftest
           python3 scripts/market_prices.py --selftest
 
+      - name: Valuation math selftest (deterministic fair-value / scenario / WACC engine — fixture-free)
+        run: python3 scripts/valuation_math.py --selftest
+
       - name: commit-run.sh push regression test (fast-forward push from a non-main branch)
         run: python3 scripts/test_commit_run.py
 
@@ -190,7 +193,7 @@ jobs:
             || { echo "::error::CLAUDE.md and AGENTS.md have drifted — patch both (they are twins, §28)"; exit 1; }
 
   ui-web:
-    name: ui/web — typecheck + build
+    name: ui/web — typecheck + tests + build
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -212,5 +215,26 @@ jobs:
       - name: Typecheck (tsc --noEmit)
         run: npm run typecheck
 
+      - name: Tests (pure-logic units — incl. the intake "no new data" safety gate)
+        run: npm test
+
       - name: Build (vite build)
         run: npm run build
+
+  edge:
+    name: edge — offline-gate uptime-monitor unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Pure decision + alert-formatting logic for the external uptime monitor (edge/offline-gate).
+      # node:test — no npm install, no network, deterministic. The Worker glue (probe/KV/status) is
+      # verified with `wrangler dev` per the offline-gate README, matching the repo's edge philosophy.
+      - name: Monitor + alert unit tests (node:test)
+        run: node --test edge/offline-gate/test/*.test.mjs

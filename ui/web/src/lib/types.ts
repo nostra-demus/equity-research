@@ -68,6 +68,7 @@ export interface IntakePlan {
   ticker: string
   run_root: string
   scan_date: string
+  scanned_at?: string
   watermark?: string
   new_docs: IntakeNewDoc[]
   rerun_plan: IntakeRerunPlan
@@ -75,6 +76,10 @@ export interface IntakePlan {
   summary: string
   analyzed_at: string
   widened: string[]
+  // Server-stamped (intake.ts): true iff the analysis provably accounts for the whole current pool.
+  // OPTIONAL on purpose — an older server omits it, and the affirmative "no new data" state must require
+  // `=== true` (a positive match), never treat an absent field as current (deploy-skew fail-closed).
+  pool_current?: boolean
 }
 // The scoping the intake plan applied to a "Complete the thesis" plan (client-only), so the panel can
 // explain "kept N the evidence doesn't touch; re-running the affected ones" and offer the escape hatch.
@@ -1241,7 +1246,7 @@ export interface CallsResult {
 
 // ---- activity / audit log ----
 export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
-export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean; canScanPipeline?: boolean; canBuildConnector?: boolean; canRunConnectors?: boolean }
+export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean; canScanPipeline?: boolean; canBuildConnector?: boolean; canRunConnectors?: boolean; emailEnabled?: boolean }
 
 // ---- cockpit-wide product feedback (server: feedback-store.ts) ----
 export type CockpitFeedbackCategory = 'bug' | 'ui' | 'idea' | 'research_quality' | 'other'
@@ -1258,6 +1263,8 @@ export interface CockpitFeedbackView {
   pr_url: string | null
   note: string
   last_update_at: string
+  // Latest reporter-notification attempt for this item (resolution email), or null if none yet.
+  notified: { at: string; ok: boolean; recipient: string; channel: 'email' } | null
 }
 export interface ActivityRow {
   runId: string

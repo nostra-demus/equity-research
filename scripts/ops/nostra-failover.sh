@@ -32,6 +32,7 @@ PROD="${ENGINE_REPO_ROOT:-$HOME/nostra-prod}"
 NEWS_ARCHIVE_DIR="${NEWS_ARCHIVE_DIR:-$HOME/Library/CloudStorage/GoogleDrive-ceekay@muns.io/My Drive/equity-research-data/news-archive}"
 LA="$HOME/Library/LaunchAgents"
 STATE="$HOME/.nostra-ops/failover.state"
+BLIND="$HOME/.nostra-ops/failover.blind"
 LOG="${NOSTRA_FAILOVER_LOG:-$HOME/Library/Logs/nostradamus-failover.log}"
 UIDN="$(id -u)"
 mkdir -p "$HOME/.nostra-ops" "$(dirname "$LOG")"
@@ -80,18 +81,35 @@ stand_down(){
 
 # ── one tick ──────────────────────────────────────────────────────────────────
 counter=$(cat "$STATE" 2>/dev/null || echo 0); case "$counter" in ''|*[!0-9]*) counter=0;; esac
+blind=$(cat "$BLIND" 2>/dev/null || echo 0); case "$blind" in ''|*[!0-9]*) blind=0;; esac
+
+# heartbeat writer — the log is quiet when steady, so this file is how you SEE the monitor is alive
+# and what it currently sees (nostra-status.sh surfaces it). Now ALSO written on the blind/no-cert
+# paths, so a standby that can't see anything looks different from a healthy dormant one.
+hb(){ printf '%s decision=%s active=%s connectors=%s counter=%s/%s blind=%s dryrun=%s\n' \
+  "$(date '+%Y-%m-%dT%H:%M:%S%z')" "$1" "${2:-?}" "${3:-?}" "${4:-$counter}" "$K" "$blind" "$DRYRUN" \
+  > "$HOME/.nostra-ops/failover.status" 2>/dev/null || true; }
 
 if [ ! -f "$HOME/.cloudflared/cert.pem" ]; then
   log "ERROR: ~/.cloudflared/cert.pem is missing — cannot query tunnel info (counter held at $counter)"
+  hb NOCERT
   exit 0
 fi
 info=$(cloudflared tunnel info "$TUNNEL" 2>/dev/null || true)
 # FAIL-SAFE: trust the reply ONLY if it provably reached Cloudflare (carries the tunnel ID line).
 # A network failure yields empty/partial stdout with no ID line → we do nothing.
 if ! printf '%s\n' "$info" | grep -qE '^ID:[[:space:]]'; then
-  log "tunnel query did not reach Cloudflare — NO ACTION (counter held at $counter)"
+  blind=$((blind + 1)); echo "$blind" > "$BLIND"
+  # A permanently-blind standby (its OWN network down) offers NO protection — it can neither see the
+  # primary nor take over. That silence is itself a fact worth surfacing: warn on the first blind tick
+  # and every ~10 after, and keep the heartbeat fresh so nostra-status.sh shows BLIND, not a stale tick.
+  if [ "$blind" -eq 1 ] || [ $((blind % 10)) -eq 0 ]; then
+    log "STANDBY BLIND for ${blind} tick(s) — can't reach Cloudflare (own network down); cannot see the primary or take over. NO ACTION (counter held at $counter)."
+  fi
+  hb BLIND
   exit 0
 fi
+[ "$blind" -ne 0 ] && { log "standby regained sight after ${blind} blind tick(s)"; echo 0 > "$BLIND"; blind=0; }
 conns=$(printf '%s\n' "$info" | grep -cE '^[0-9a-f]{8}-[0-9a-f]{4}-' || true)
 
 active=no; [ -f "$LA/com.nostradamus.tunnel.plist" ] && active=yes
@@ -100,11 +118,8 @@ result=$(decide "$active" "$conns" "$counter")
 action=${result%% *}; newcounter=${result##* }
 echo "$newcounter" > "$STATE"
 
-# always-fresh heartbeat — the log is quiet when steady, so this file is how you SEE the
-# monitor is alive and what it currently sees (read it, or nostra-status.sh surfaces it).
-printf '%s decision=%s active=%s connectors=%s counter=%s/%s dryrun=%s\n' \
-  "$(date '+%Y-%m-%dT%H:%M:%S%z')" "$action" "$active" "$conns" "$newcounter" "$K" "$DRYRUN" \
-  > "$HOME/.nostra-ops/failover.status" 2>/dev/null || true
+# always-fresh heartbeat (blind=0 here — we provably reached Cloudflare this tick).
+hb "$action" "$active" "$conns" "$newcounter"
 
 case "$action" in
   ACTIVATE)  log "decision ACTIVATE (active=$active conns=$conns counter=$newcounter)"; activate ;;

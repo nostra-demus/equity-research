@@ -246,7 +246,7 @@ export function CompanyPicker() {
                     </span>
                   )}
                   {t.hasNewerPartial && (
-                    <span className="rh-refresh" title="A newer partial re-run exists that has not produced a decision — the verdict shown is from the last completed run. Expand to see it.">⟳ newer run</span>
+                    <span className="rh-refresh" title="A newer re-run has looked at more recent data but hasn’t produced an updated call yet — so the verdict shown is from your last complete analysis. Open the ▸ history to see the re-run.">⟳ newer run</span>
                   )}
                   {running ? (
                     <span className="coco__ago" style={{ color: 'var(--accent)' }}>running</span>
