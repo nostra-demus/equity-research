@@ -158,6 +158,13 @@ jobs:
           else
             echo "skip: ingest_external.py not on this ref yet (lands with the external-data-ingestion PR)"
           fi
+          # Connector self-heal runner — tied to the tool. Once run_connectors.py reaches main, required.
+          if [ -f ".claude/tools/run_connectors.py" ]; then
+            echo "== test_run_connectors.py =="
+            python3 .claude/tools/test_run_connectors.py || rc=1
+          else
+            echo "skip: run_connectors.py not on this ref yet (lands with the connector-runner PR)"
+          fi
           exit $rc
 
       # Connector unit tests — zero-touch (§26): every .claude/connectors/*/test_*.py runs automatically, so
