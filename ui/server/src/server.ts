@@ -70,7 +70,7 @@ import { appendPipelineEvent, getPipelineSource, getPipelineView, isPipelineId, 
 import { runRelevanceScan, type ScanSignal } from './pipeline-scan'
 import { startConnectorDispatch } from './connector-dispatch'
 import { getConnector } from './connector-registry'
-import { startConnectorRunner } from './connector-runner'
+import { startConnectorRunner, lastLedgerError } from './connector-runner'
 import { startConnectorRepair } from './connector-repair'
 import { readPipelines } from './pipelines'
 import { SubjectBusyError, withSubjectLock } from './subject-lock'
@@ -979,7 +979,9 @@ app.post('/api/connectors/:id/repair', { config: { rateLimit: { max: 30, timeWin
   if (!m) return reply.code(404).send({ error: 'no such connector' })
   const subject = typeof (req.body as any)?.subject === 'string' && m.subjects.includes((req.body as any).subject)
     ? (req.body as any).subject : m.subjects[0]
-  const outcome = startConnectorRepair(m, subject, '')
+  // Hand the repair agent the last error #287's fetch ledger recorded for this feed — the same diagnostic
+  // the watchdog passes — instead of an empty string that renders as '(no error text captured)'.
+  const outcome = startConnectorRepair(m, subject, lastLedgerError(m.id, subject))
   return reply.code(outcome.accepted ? 202 : 409).send({ ok: outcome.accepted, ...outcome })
 })
 

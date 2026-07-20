@@ -7,7 +7,7 @@ function check(name: string, cond: boolean, detail = '') {
   else { console.error(`FAIL  ${name}  ${detail}`); process.exitCode = 1 }
 }
 
-const { brokenFromLedger } = await import('../src/connector-runner')
+const { brokenFromLedger, latestLedgerMessage } = await import('../src/connector-runner')
 
 // A mixed ledger, chronological (append order). One JSON row per connector × subject per sweep:
 //   - cot::WHEAT recovered: failed earlier, then refetched → NOT broken (latest wins).
@@ -47,5 +47,13 @@ check('all-garbage input → [] (no throw)', brokenFromLedger('nope\n{bad\n]also
 // message defaults to '' when the failed row has no message field
 const noMsg = brokenFromLedger(JSON.stringify({ connector: 'x', subject: 'Y', decision: 'failed' }))
 check('missing message on a failed row → empty string', noMsg.length === 1 && noMsg[0].message === '')
+
+// latestLedgerMessage — the last recorded message for a connector × subject across ANY decision, so the
+// manual repair trigger hands the coding agent the same last-error the watchdog does (Gemini #310 finding).
+check('latestLedgerMessage returns the LATEST failed row\'s message for a feed', latestLedgerMessage(ledger, 'cot', 'CORN') === 'schema drift: missing field')
+check('latestLedgerMessage returns the latest row across decisions (recovered feed → its last message)', latestLedgerMessage(ledger, 'cot', 'WHEAT') === 'ok')
+check('latestLedgerMessage → "" for a connector × subject not in the ledger', latestLedgerMessage(ledger, 'cot', 'SOYBEAN') === '')
+check('latestLedgerMessage → "" on empty / garbage ledger (no throw)', latestLedgerMessage('', 'cot', 'CORN') === '' && latestLedgerMessage('nope\n{bad', 'cot', 'CORN') === '')
+check('latestLedgerMessage skips a JSON array row without throwing', latestLedgerMessage('[1,2,3]\n' + JSON.stringify({ connector: 'cot', subject: 'CORN', decision: 'failed', message: 'real' }), 'cot', 'CORN') === 'real')
 
 console.log(`\n${passed} checks passed${process.exitCode ? ' (with failures)' : ''}`)

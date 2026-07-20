@@ -33,7 +33,7 @@ export function brokenFromLedger(ledgerText: string): { connector: string; subje
     if (!t) continue
     let row: any
     try { row = JSON.parse(t) } catch { continue }
-    if (!row || typeof row !== 'object') continue
+    if (!row || typeof row !== 'object' || Array.isArray(row)) continue
     if (typeof row.connector !== 'string' || typeof row.subject !== 'string' || row.decision == null) continue
     latest.set(`${row.connector}::${row.subject}`, {
       connector: row.connector, subject: row.subject, decision: String(row.decision), message: String(row.message || ''),
@@ -46,7 +46,35 @@ export function brokenFromLedger(ledgerText: string): { connector: string; subje
   return out
 }
 
+/**
+ * PURE: the `message` from the LATEST ledger row for a given connector × subject, across ANY decision (not
+ * just `failed`), or '' when there is no such row. Same parse discipline as brokenFromLedger (skip malformed
+ * lines; require string connector/subject; reject arrays). Chronological append order means the last match
+ * wins. Lets the MANUAL repair trigger hand the coding agent the same last-error the watchdog already passes
+ * from the ledger — otherwise the manual path ships '(no error text captured)' while the watchdog does not.
+ */
+export function latestLedgerMessage(ledgerText: string, connector: string, subject: string): string {
+  let message = ''
+  for (const line of (ledgerText || '').split('\n')) {
+    const t = line.trim()
+    if (!t) continue
+    let row: any
+    try { row = JSON.parse(t) } catch { continue }
+    if (!row || typeof row !== 'object' || Array.isArray(row)) continue
+    if (typeof row.connector !== 'string' || typeof row.subject !== 'string') continue
+    if (row.connector === connector && row.subject === subject) message = String(row.message || '')
+  }
+  return message
+}
+
 const ledgerPath = () => path.join(DATA_DIR, '_connectors', 'run_ledger.ndjson')
+
+/** The last recorded error for a connector × subject from #287's fetch ledger, or '' if unreadable/absent. */
+export function lastLedgerError(connector: string, subject: string): string {
+  let text = ''
+  try { text = fs.readFileSync(ledgerPath(), 'utf8') } catch { return '' }
+  return latestLedgerMessage(text, connector, subject)
+}
 
 /**
  * One sweep: read #287's fetch ledger and, when auto-repair is on, hand every currently-broken feed to
