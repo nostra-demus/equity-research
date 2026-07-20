@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "ticker": "EMAAR",
+  "run_root": "analyses/EMAAR_2026-07-10",
+  "scan_date": "2026-07-20",
+  "scanned_at": "2026-07-20T13:22:39Z",
+  "watermark": "analyses/EMAAR_2026-07-10/final_thesis.md",
+  "new_docs": [
+    {
+      "path": "data/EMAAR/screener_event_EVT-870c13fe70bd.md",
+      "sha256": "",
+      "provider": "Outlook Business (via screener wire, Anarock data cited within)",
+      "source_type": "screener_bridged_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-13",
+      "claims_summary": "Dubai H1 2026 residential transactions AED 225.7bn, +15% vs H1 2024 but -16% vs H1 2025; prices softened 4-7% Feb-Apr amid regional conflict then recovered; Anarock calls it sentiment-driven, not structural; full-year 2025 record AED 547bn / 206,166 transactions.",
+      "materiality_score": 55,
+      "impact_direction": "mixed",
+      "entry_orbs": [
+        {
+          "module": "earnings",
+          "agent": "revenue-drivers",
+          "why": "Dubai residential transaction volume and price-per-sq-ft are the market-level backdrop for EMAAR's development-sales revenue, which revenue-drivers models as volume x price x mix.",
+          "confidence": 0.5
+        },
+        {
+          "module": "business-model",
+          "agent": "external-dependency",
+          "why": "The article frames the move as geopolitical/macro-cycle risk to the Dubai residential market, which is the external variable external-dependency tracks for EMAAR's development exposure.",
+          "confidence": 0.45
+        }
+      ]
+    }
+  ],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [],
+    "commands": [],
+    "note_only": [
+      {
+        "path": "data/EMAAR/screener_event_EVT-870c13fe70bd.md",
+        "reason": "Same tier-10 screener-bridged wire event already surfaced and judged in the 2026-07-16 intake plan (materiality 55 < gate 60, single origin: Outlook Business article citing one consultant, Anarock). It reappears in this scan's find window because the watermark's mtime (bumped by the same-day 2026-07-16 business-model/external-dependency re-run) is later than the run folder's own 2026-07-10 date, so this scan falls back to the durable run-folder floor per INTAKE.md §4 §– the wider, blunter baseline. No new document has landed in data/EMAAR/ to corroborate the claim since 2026-07-16, and no filing (Q2/H1 2026 results) has arrived either, so the prior note-only judgment still stands unchanged."
+      }
+    ]
+  },
+  "verdict": "note_only",
+  "summary": "One document is in scope: the same tier-10 Dubai H1 2026 residential-sales wire note first surfaced by the 2026-07-16 intake plan (materiality 55, below the 60 gate, single uncorroborated source). No document has landed in data/EMAAR/ since then to corroborate a structural (vs. sentiment-driven) slowdown, and no new filing has arrived, so the recommendation is unchanged: watch only, no rerun. Re-run earnings/revenue-drivers and business-model/external-dependency if a filing or a second independent source corroborates the claim."
+}
