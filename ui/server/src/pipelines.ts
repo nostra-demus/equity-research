@@ -85,12 +85,12 @@ const CADENCE = new Set(['realtime', 'daily', 'weekly', 'monthly', 'event_driven
 const SLUG_RE = /^[a-z0-9][a-z0-9-]*$/
 const SATISFIES_RE = /^[a-z0-9][a-z0-9_-]*$/
 
-// EXTERNAL_DATA.md §4 tier ceilings by source_type — unknown/missing fails closed to 9.
+// EXTERNAL_DATA.md §4 tier ceilings by source_type — unknown/missing fails closed to 10 (least trust).
 const TIER_CEILING: Record<string, number> = {
   alt_data_panel: 5, vendor_export: 5, paid_api: 5,
   broker_research: 7,
   expert_call: 9, channel_check: 9, management_meeting: 9,
-  external_other: 9,
+  external_other: 10,
 }
 
 interface ParsedManifest {
@@ -154,7 +154,7 @@ function parseManifest(file: string, widened: string[]): ParsedManifest | null {
     return drop('satisfies must be a list of need-id slugs')
   }
   const sourceType = String(m.source_type ?? '')
-  const ceiling = TIER_CEILING[sourceType] ?? 9
+  const ceiling = TIER_CEILING[sourceType] ?? 10
   const declared = Number(m.tier)
   const tier = Number.isFinite(declared) ? Math.max(declared, ceiling) : ceiling
   const tierCorrected = Number.isFinite(declared) && declared < ceiling ? true : undefined

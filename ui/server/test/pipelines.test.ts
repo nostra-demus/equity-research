@@ -45,7 +45,7 @@ check('every discovered pipeline is structurally valid (slug id, enums, SLA, out
     assert.ok(p.stalenessSlaDays > 0)
     assert.ok(p.outputPath.startsWith('data/<SUBJECT>/external/'), `${p.id}: ${p.outputPath}`)
     assert.equal(path.posix.basename(p.outputPath).split('<as_of>').length, 2)
-    assert.ok([5, 7, 9].includes(p.tier), `${p.id}: served tier ${p.tier} outside the §4 ceilings`)
+    assert.ok([5, 7, 9, 10].includes(p.tier), `${p.id}: served tier ${p.tier} outside the §4 ceilings`)
     assert.ok(p.subjects.length > 0 && p.statuses.length === p.subjects.length)
   }
 })
@@ -119,12 +119,12 @@ check('fixture: malformed + id-mismatch manifests drop with widened notes; the v
   assert.ok(out.widened.some((w: string) => w.startsWith('dropped connector manifest mismatch')))
 })
 
-check('fixture: tier clamp — external_other declaring tier 5 serves 9 + tierCorrected', () => {
+check('fixture: tier clamp — external_other declaring tier 5 serves 10 + tierCorrected', () => {
   const repo = tmp('pipeclamp-')
   fs.mkdirSync(path.join(repo, 'data', 'AAA'), { recursive: true })
   writeConn(repo, 'clamp-conn', { source_type: 'external_other', tier: 5, acquisition: 'scrape' })
   const p = probeRead(repo).pipelines[0]
-  assert.equal(p.tier, 9)
+  assert.equal(p.tier, 10)
   assert.equal(p.tierCorrected, true)
 })
 
