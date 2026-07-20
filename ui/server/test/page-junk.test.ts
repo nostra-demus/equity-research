@@ -273,4 +273,70 @@ await check('a datePublished-only Article node (no articleBody) still feeds extr
   assert.equal(extractArticleText(html).verdict, 'ok') // and the empty-body node never disturbs the rendered lane
 })
 
+// ---- finance-portal quote/search WIDGET chrome + syndicated stock-promo insert ---------------------
+// The reported defect: opening the Nasdaq "Chevron Is Hungry for More Power Deals…" event showed THE
+// STORY leading with Nasdaq's failed quote/search-WIDGET placeholder — verbatim below — because the site
+// renders that widget ABOVE the article, it reads as grammatical prose (clears the prose gate), Nasdaq
+// ships NO JSON-LD articleBody (so the structured-data rescue lane can't route around it), and the text
+// matched no consent/paywall vocabulary. Plus the Motley Fool "Double Down" ad the syndication carries.
+const NASDAQ_WIDGET_1 =
+  "Data is currently not available We couldn't find any results matching your search. Please try using " +
+  'other words for your search or explore other sections of the website for relevant information.'
+const NASDAQ_WIDGET_2 =
+  'Our team is working diligently to resolve the issue. Thank you for your patience and understanding.'
+const NASDAQ_QUOTES_WIDGET =
+  'Data is currently not available Edit My Quotes Add up to 25 symbols To add symbols type and select from ' +
+  'the drop-down, or add a symbol to your watchlist to see it here on the My Quotes of Nasdaq.com.'
+const FOOL_PROMO =
+  'Missed Nvidia in 2009? This Rare Signal Is Flashing Again. In 2009, a "Double Down" signal flashed for a ' +
+  'little-known chipmaker called Nvidia, and the Motley Fool Stock Advisor team took notice.'
+const FOOL_CONSIDER =
+  'Before you buy stock in Chevron, consider this: the analyst team just revealed what they believe are the ' +
+  '10 best stocks for investors to buy now, and Chevron was not one of them.'
+const CVX_1 =
+  'Key Points Oil and gas giant Chevron is evolving how it sells and supplies one of its core products, ' +
+  'looking beyond the traditional oil and gas business for new growth opportunities.'
+const CVX_2 =
+  "Integrated energy outfit Chevron (NYSE: CVX) announced it was working with Microsoft to supply power to an " +
+  "AI data center in West Texas, a notable step outside the company's usual business model."
+const CVX_3 =
+  "It's not a complicated arrangement. Microsoft's data center needs reliable power, and rather than waiting on " +
+  'the grid, the operator is turning to on-site natural gas generation that Chevron is well placed to supply.'
+const CVX_4 =
+  'AI data-center demand for electricity is straining producers, so operators are increasingly taking matters ' +
+  'into their own hands with so-called behind-the-meter gas plants that sit next to the load they serve.'
+const CVX_5 =
+  'For now the agreement looks more like a test than a new business line, but that could change as Chevron ' +
+  'leans into new-energies projects and the underlying demand for dependable power keeps climbing each year.'
+
+await check('the Nasdaq quote/search-widget placeholders + the Fool ad are all recognised as boilerplate', () => {
+  for (const p of [NASDAQ_WIDGET_1, NASDAQ_WIDGET_2, NASDAQ_QUOTES_WIDGET, FOOL_PROMO, FOOL_CONSIDER]) {
+    assert.equal(isBoilerplateParagraph(p), true, `should be chrome: ${p.slice(0, 60)}…`)
+  }
+})
+
+await check('the real Chevron article prose is NOT flagged by the new widget/promo vocabulary', () => {
+  for (const p of [CVX_1, CVX_2]) assert.equal(isBoilerplateParagraph(p), false, `should be prose: ${p.slice(0, 60)}…`)
+})
+
+// the widget/ad chrome interleaved with the real article, in the document order Nasdaq serves (the
+// failed quote/search widget renders ABOVE the story; the Fool ad is injected mid-body).
+const WIDGET_LED_PAGE = [NASDAQ_WIDGET_1, NASDAQ_WIDGET_2, CVX_1, CVX_2, CVX_3, FOOL_PROMO, CVX_4, FOOL_CONSIDER, CVX_5]
+await check('a widget-led Nasdaq page classifies ok and THE STORY now leads with the article, not the widget', () => {
+  const r = classifyParagraphs(WIDGET_LED_PAGE)
+  assert.equal(r.verdict, 'ok')
+  assert.equal(r.kept[0], CVX_1, 'the real article leads, not the widget')
+  assert.ok(!r.kept.some((p) => /data is currently not available|matching your search/i.test(p)), 'no widget text survives')
+  assert.ok(!r.kept.some((p) => /double down|stock advisor/i.test(p)), 'no ad copy survives')
+})
+
+await check('extractArticleText on the widget-led page → ok, text leads with Chevron, no placeholder leaks', () => {
+  const html = `<html><body>${WIDGET_LED_PAGE.map(para).join('')}</body></html>`
+  const r = extractArticleText(html)
+  assert.equal(r.verdict, 'ok')
+  assert.ok(r.text.startsWith('Key Points'), 'THE STORY leads with the article body')
+  assert.ok(!/Data is currently not available/i.test(r.text), 'the Nasdaq widget placeholder never leaks')
+  assert.ok(!/Double Down/i.test(r.text), 'the Fool promo never leaks')
+})
+
 console.log(`\npage-junk: ${passed} checks passed${process.exitCode ? ' (WITH FAILURES)' : ''}`)
