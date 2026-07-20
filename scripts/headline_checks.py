@@ -145,6 +145,11 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
     Downside risk is compared by MAGNITUDE only (the documented §2 reader-friendly sign inversion)."""
     if not (isdate(decision_date) and decision_date >= AI_DATE):
         return None  # forward-looking; pre-gate runs N/A
+    # Defensive for the same reason as AK below: in the live 10B.1 gate a raise would kill the whole block,
+    # so a malformed record must surface as a violation, never as an exception.
+    if not isinstance(d, dict):
+        return [f"decision_record.json did not parse as a JSON object (got {type(d).__name__}) — "
+                f"cannot reconcile the Headline Scorecard"]
     section = _scorecard_section(thesis)
     if section is None:
         return ["'## 2. Headline Scorecard' section not found in final_thesis.md"]
@@ -284,6 +289,13 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
     (N/A — pre-gate) or a list of violation strings (empty = pass)."""
     if not (isdate(decision_date) and decision_date >= AK_DATE):
         return None  # forward-looking; pre-gate runs N/A
+    # These checks now run in the LIVE 10B.1 finish-gate, where an exception is worse than a violation: it
+    # kills the whole gate block, so nothing stamps final_thesis.md PROVISIONAL and the run ships clean —
+    # the exact false-confidence hole this check exists to close. Every read below is therefore defensive
+    # against a malformed record: report the malformation as a violation, never raise.
+    if not isinstance(d, dict):
+        return [f"decision_record.json did not parse as a JSON object (got {type(d).__name__}) — "
+                f"cannot reconcile red-flag severity"]
     declared = {}
     for mod, text in (module_texts or {}).items():
         c = _module_critical_count(text)
@@ -292,7 +304,9 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
     if not declared:
         return []  # no module declared a Critical flag — nothing to reconcile
     top_mod = max(declared, key=declared.get); top_n = declared[top_mod]
-    flags = d.get("red_flags") or []
+    flags = d.get("red_flags")
+    if not isinstance(flags, list):  # a truthy non-list (bool/dict/number) would raise or miscount
+        flags = []
     json_critical = sum(1 for rf in flags if isinstance(rf, dict) and str(rf.get("severity","")).strip().lower()=="critical")
     det = []
     if json_critical < top_n:
@@ -302,6 +316,14 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
     section = _scorecard_section(thesis)
     cap_cell = _hs_cell(section, "Rating cap") if section else None
     for label, txt in [("Headline Scorecard 'Rating cap' cell", cap_cell), ("decision_record.json rating_cap field", d.get("rating_cap"))]:
-        if txt and _AK_DENIAL.search(txt) and not _AK_AFFIRM.search(txt):
+        if not txt:
+            continue
+        if not isinstance(txt, str):
+            # A truthy non-string (list/dict/number) would raise TypeError inside re.search and take the
+            # whole live gate down with it. A rating cap that isn't text is itself malformed — report it.
+            det.append(f"{label} is not a string (got {type(txt).__name__}: {txt!r}) — a rating cap must be "
+                       f"readable text; cannot verify it does not deny {top_mod}'s {top_n} Critical flag(s)")
+            continue
+        if _AK_DENIAL.search(txt) and not _AK_AFFIRM.search(txt):
             det.append(f"{label} denies a Critical red flag ({txt!r}) but {top_mod} declares {top_n}")
     return det
