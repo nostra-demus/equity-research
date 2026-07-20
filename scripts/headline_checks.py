@@ -99,6 +99,14 @@ def _hs_cell(section, label):
     return m.group(1) if m else None
 
 
+def _hs_cell_exact(section, label):
+    """Like _hs_cell but the row label must be EXACTLY `label` (ignoring surrounding spaces/emphasis), so
+    'Rating' cannot be satisfied by a 'Rating cap' row."""
+    if not section: return None
+    m = re.search(r"(?im)^\|\s*\**\s*"+re.escape(label)+r"\s*\**\s*\|\s*(.*?)\s*\|\s*$", section)
+    return m.group(1) if m else None
+
+
 def _metric_numbers(text, kind):
     """The numbers in a scorecard cell that actually CARRY the row's metric, so an unrelated price/range
     value sharing the cell cannot satisfy the check. Unicode minus/en/em-dashes and the '×' sign are
@@ -215,7 +223,12 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
     # Scorecard that says "Avoid" while decision_record.json says "Buy". Compared case/space-insensitively
     # on the leading decision phrase, so a cell that appends a qualifier ("Watchlist — revisit after Q2")
     # still reconciles; only a genuinely DIFFERENT decision fails.
-    rating_cell = _hs_cell(section, "Rating")
+    # EXACT label: _hs_cell's `label + [^|]*` also matches "Rating cap", so a scorecard that omits the real
+    # Rating row would have had its cap text accepted as the rating (and reported nothing missing).
+    rating_cell = _hs_cell_exact(section, "Rating")
+    if section is not None and rating_cell is None:
+        det.append("Headline Scorecard row 'Rating' is required (the decision the reader sees) but absent "
+                   "from the scorecard — a 'Rating cap' row does not stand in for it")
     jdec = d.get("decision")
     if rating_cell is not None and isinstance(jdec, str) and jdec.strip():
         # Strip markdown emphasis first — real runs write "**Watchlist**", which is the SAME decision.
@@ -288,7 +301,10 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
         # violation — only a genuine, reproducible divergence is reported.
         if isinstance(ci, dict) and isnum(cv):
             try:
-                import confidence as _conf
+                import confidence as _conf   # ONLY an unavailable scorer is ignorable (see below)
+            except Exception:
+                _conf = None
+            if _conf is not None:
                 _fields = set(getattr(_conf.ConfidenceInputs, "__dataclass_fields__", {}))
                 _kw = {k: v for k, v in ci.items() if k in _fields}
                 # FAIL CLOSED when the inputs cannot even build a ConfidenceInputs. `data_sufficiency` is
@@ -326,8 +342,17 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
                     # the scorer then defaults — a few points of drift that is an input-completeness
                     # artifact, not a defect (the repo's own selftest pins such a Δ4 case as clean). This
                     # targets FABRICATION (Codex's 80-vs-20), not defaulting drift.
-                    _r = _conf.reconcile(cv, _inp, tol=AI_CONVICTION_TOL)
-                    if _r.get("delta") is not None and _r["delta"] > AI_CONVICTION_TOL:
+                    try:
+                        _r = _conf.reconcile(cv, _inp, tol=AI_CONVICTION_TOL)
+                    except Exception as _e:
+                        # Constructable but malformed (data_sufficiency: null, downgrades: "bad", …):
+                        # compute() raises inside reconcile(). Swallowing that reopened the missing-basis
+                        # path this gate exists to close — a scorer failure ON RECORDED INPUTS is a defect.
+                        det.append(f"post-split run: scripts/confidence.py could not score the recorded "
+                                   f"confidence_inputs ({type(_e).__name__}: {_e}) — conviction={cv} has no "
+                                   f"re-derivable basis (DECISION_LEDGER.md §5)")
+                        _r = None
+                    if _r is not None and _r.get("delta") is not None and _r["delta"] > AI_CONVICTION_TOL:
                         det.append(f"post-split run: conviction={cv} cannot be re-derived from the recorded "
                                    f"confidence_inputs — scripts/confidence.py recomputes {_r.get('computed')} "
                                    f"(Δ{_r.get('delta')} > {AI_CONVICTION_TOL}); an inflated conviction also "
@@ -336,11 +361,26 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
                     # ok=False on e.g. an unknown modules_absent key, meaning an intended cap was silently
                     # ignored. Widening the tolerance must not also discard those — a matching number with a
                     # missed cap is still an unearned conviction.
-                    for _w in (_r.get("warnings") or []):
+                    for _w in ((_r or {}).get("warnings") or []):
                         det.append(f"post-split run: scripts/confidence.py flagged the recorded inputs while "
                                    f"re-deriving conviction={cv} — {_w} (an ignored input is an unapplied cap)")
-            except Exception:
-                pass  # scorer unavailable / inputs not reconstructable — never invent a violation
+                    # The recorded sizing_hint is READER-FACING (it names the action on the scorecard), so a
+                    # structurally-valid but unsupported band ships a position size the scorer never derived.
+                    # Re-derive it from the same decision+conviction and require a match.
+                    if isinstance(sh, dict) and isinstance(jdec2 := d.get("decision"), str):
+                        try:
+                            _want = _conf.sizing_hint(jdec2, float(cv))
+                        except Exception:
+                            _want = None
+                        if isinstance(_want, dict):
+                            for _k in ("band", "action"):
+                                _got = str(sh.get(_k, "")).strip().lower()
+                                _exp = str(_want.get(_k, "")).strip().lower()
+                                if _exp and _got != _exp:
+                                    det.append(f"post-split run: sizing_hint.{_k}={sh.get(_k)!r} does not match "
+                                               f"the size scripts/confidence.py derives for "
+                                               f"decision={jdec2!r} + conviction={cv} ({_want.get(_k)!r}) — the "
+                                               f"reader is shown an unsupported position size")
     return det
 
 
@@ -377,7 +417,9 @@ _AK_DENIAL = re.compile(
 # a NONZERO "N Critical" count or an explicit "Critical ... cap"/"cap ... Critical" phrase. Nonzero on
 # purpose: "0 Critical" is a denial, never an affirmation, and a `\d+` affirm would cancel the zero-count
 # denial above and re-open exactly the hole it closes.
-_AK_AFFIRM = re.compile(r'[1-9]\d*\s+critical|critical[^.\n]{0,40}\bcaps?\b|\bcaps?\b[^.\n]{0,40}critical', re.I)
+# Clause-scoped: `[^.\n;]` (note the ';') so "Critical: 0; High flags cap the rating" cannot let a cap
+# phrase about a DIFFERENT severity, in a later clause, affirm the Critical the cell just denied.
+_AK_AFFIRM = re.compile(r'[1-9]\d*\s+critical|critical[^.\n;]{0,40}\bcaps?\b|\bcaps?\b[^.\n;]{0,40}critical', re.I)
 # ...but a "critical ... cap" phrase is NOT an affirmation when the sentence is actually saying the cap does
 # NOT apply: "0 critical flags; no cap applies" matches the `critical ... cap` alternative above and would
 # otherwise cancel the zero-count denial and re-open the hole it closes. A negated cap phrase is therefore
@@ -392,19 +434,22 @@ _AK_RESOLVED = re.compile(r'\bresolved\b|\bresolution\b|\bcap\s+lifted\b|\blift(
 
 
 def _ak_resolution_stated(d):
-    """True iff the record explicitly states a Critical red flag was resolved by primary evidence."""
-    for rf in (d.get("red_flags") or []):
-        if not isinstance(rf, dict):
-            continue
-        if str(rf.get("severity", "")).strip().lower() != "critical":
-            continue
+    """True iff EVERY recorded Critical red flag is explicitly resolved. §13's escape is per-finding
+    ("a critical ... red flag must cap the final rating unless IT is explicitly resolved"), so one
+    resolved flag cannot lift the ceiling while another Critical stands. A blanket `rating_cap` phrase is
+    deliberately NOT accepted on its own: with several Criticals it cannot be attributed to any of them.
+    No Critical entries at all -> nothing has been resolved, so the cap stands."""
+    crit = [rf for rf in (d.get("red_flags") or [])
+            if isinstance(rf, dict) and str(rf.get("severity", "")).strip().lower() == "critical"]
+    if not crit:
+        return False
+    for rf in crit:
         if rf.get("resolved") is True:
-            return True
-        for _f in ("resolution", "status", "description"):
-            if _AK_RESOLVED.search(str(rf.get(_f) or "")):
-                return True
-    cap = d.get("rating_cap")
-    return bool(isinstance(cap, str) and _AK_RESOLVED.search(cap))
+            continue
+        if any(_AK_RESOLVED.search(str(rf.get(_f) or "")) for _f in ("resolution", "status", "description")):
+            continue
+        return False   # this Critical is unresolved -> the cap stands
+    return True
 
 
 def _ak_affirms(txt):
@@ -450,14 +495,26 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
         c = _module_critical_count(text)
         if c:  # 0/None both mean "nothing to reconcile from this module"
             declared[mod] = c
-    if not declared:
-        return []  # no module declared a Critical flag — nothing to reconcile
-    top_mod = max(declared, key=declared.get); top_n = declared[top_mod]
     flags = d.get("red_flags")
     if not isinstance(flags, list):  # a truthy non-list (bool/dict/number) would raise or miscount
         flags = []
     json_critical = sum(1 for rf in flags if isinstance(rf, dict) and str(rf.get("severity","")).strip().lower()=="critical")
     det = []
+    # The §13/§18 ceiling attaches to the CRITICAL FLAG ITSELF, not to a module's declaration of it — so it
+    # must be tested before the "no module declared one" early return below. A record can carry a Critical
+    # entry with no recognised module count (a master-synthesis forensic roll-up, or wording outside
+    # _AK_CRITICAL_PATTERNS) and would otherwise publish a Buy unchecked.
+    decision = d.get("decision")
+    if json_critical and isinstance(decision, str) and decision.strip() in ABOVE_WATCHLIST_AK \
+            and not _ak_resolution_stated(d):
+        det.append(f"decision_record.json records {json_critical} Critical red flag(s) but "
+                   f"decision={decision.strip()!r} exceeds the 'Watchlist' cap, and not every Critical is "
+                   f"explicitly resolved (CLAUDE.md §13: a critical governance/solvency/accounting red flag "
+                   f"must cap the final rating unless explicitly resolved by primary evidence; §18: a "
+                   f"critical flag caps the headline at Watchlist or lower)")
+    if not declared:
+        return det  # no module declared a Critical flag — nothing further to reconcile
+    top_mod = max(declared, key=declared.get); top_n = declared[top_mod]
     if json_critical < top_n:
         det.append(f"{top_mod} declares {top_n} Critical red flag(s) but decision_record.json's red_flags "
                     f"array carries only {json_critical} entr{'y' if json_critical==1 else 'ies'} with "
@@ -485,13 +542,14 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
     # where the record STATES it: an explicit resolution note on the flag entry, or a rating_cap cell that
     # affirms the Critical was resolved/lifted rather than denying it existed. Silence is NOT resolution —
     # the cap still applies unless the record says, in so many words, that it was resolved.
-    if isinstance(decision, str) and decision.strip() in ABOVE_WATCHLIST_AK and not _ak_resolution_stated(d):
+    # The record-level cap above already covers every case where the Critical actually reached red_flags.
+    # This covers the remaining one: a module DECLARED a Critical that the record never recorded, so there
+    # is no entry for the cap test to see — the flag is both missing AND uncapped.
+    if not json_critical and isinstance(decision, str) and decision.strip() in ABOVE_WATCHLIST_AK:
         who = ", ".join(sorted(declared))
-        det.append(f"{who} declare(s) a Critical red flag but decision={decision.strip()!r} exceeds the "
-                   f"'Watchlist' cap, and no explicit primary-evidence resolution is recorded (CLAUDE.md §13: "
-                   f"a critical governance/solvency/accounting red flag must cap the final rating unless "
-                   f"explicitly resolved by primary evidence; §18: a critical flag caps the headline at "
-                   f"Watchlist or lower). State the resolution on the flag entry or in the rating cap to lift it.")
+        det.append(f"{who} declare(s) a Critical red flag that never reached decision_record.json's "
+                   f"red_flags array, and decision={decision.strip()!r} exceeds the 'Watchlist' cap "
+                   f"(CLAUDE.md §13/§18) — a Critical cannot be dropped AND left uncapped")
     section = _scorecard_section(thesis)
     cap_cell = _hs_cell(section, "Rating cap") if section else None
     for label, txt in [("Headline Scorecard 'Rating cap' cell", cap_cell), ("decision_record.json rating_cap field", d.get("rating_cap"))]:

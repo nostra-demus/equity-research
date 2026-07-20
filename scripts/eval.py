@@ -1646,7 +1646,10 @@ if scope=="selftest":
             "data_sufficiency_score":70,"edge_score":60,
             "confidence_inputs":{"data_sufficiency":70,"decision":"Buy","edge_score":60,
                                  "edge_proof_present":True},
-            "confidence_breakdown":{"base":70,"final":68},"sizing_hint":{"band":"x","action":"y"}}
+            "confidence_breakdown":{"base":70,"final":68},
+            # scorer-derived for Buy @ conviction 68 — the sizing_hint is reader-facing and is
+            # now reconciled against scripts/confidence.py, so a placeholder no longer passes.
+            "sizing_hint":{"band":"standard","action":"standard position"}}
     aicases += [
         # Codex: the scorecard's Rating row was never reconciled — check I passes when a Decision: line
         # elsewhere matches, so a contradictory reader-facing Rating slipped through.
@@ -1858,9 +1861,19 @@ if scope=="selftest":
                                      {"id":"RF-ACC-002","severity":"Critical","description":"y","resolved":True}],
                         "decision":"Buy"}, TH_AK_CLEAN,
          {"earnings":MT_EARNINGS_2CRIT}, []),
+        # r2: resolution is evaluated PER FINDING — a blanket rating_cap phrase cannot be attributed to a
+        # specific Critical, so it no longer lifts the ceiling on its own (Codex).
         ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Buy",
                         "rating_cap":"Critical finding resolved by the audited FY25 filing; cap lifted"},
-         TH_AK_CLEAN, {"earnings":MT_EARNINGS_2CRIT}, []),
+         TH_AK_CLEAN, {"earnings":MT_EARNINGS_2CRIT}, ["exceeds the 'Watchlist' cap"]),
+        # ...and one resolved Critical does not lift the cap while another stands.
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","description":"x","resolved":True},
+                                     {"id":"RF-ACC-002","severity":"Critical","description":"y"}],
+                        "decision":"Buy"}, TH_AK_CLEAN, {"earnings":MT_EARNINGS_2CRIT},
+         ["exceeds the 'Watchlist' cap"]),
+        # r2: the ceiling attaches to the FLAG, so it applies with no recognised module count at all.
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Strong Buy"}, TH_AK_CLEAN, {},
+         ["exceeds the 'Watchlist' cap"]),
     ]
     akbad=0
     for dt_,d_,th_,mt_,exp in akcases:
