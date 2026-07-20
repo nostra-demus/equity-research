@@ -64,6 +64,7 @@ import { carryForwardModules, dataPoolNewest, prepareModuleResume, thesisPlan } 
 import { readIntakePlan } from './intake'
 import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-changed'
 import { readDataNeeds } from './data-needs'
+import { readPipelines } from './pipelines'
 import { SubjectBusyError, withSubjectLock } from './subject-lock'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
@@ -817,6 +818,17 @@ app.get('/api/data-needs/:subject', { config: { rateLimit: { max: 600, timeWindo
   }
 })
 
+// Data-library read: discovered connector manifests (.claude/connectors/*/connector.json) x live pool
+// freshness x uncovered-need recommendations (data_needs join). Read-only; fail-closed manifest drops
+// are audited in `widened`; a pool-less host serves poolAvailable:false + 'unknown' statuses honestly.
+app.get('/api/pipelines', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (_req, reply) => {
+  try {
+    return { read: readPipelines() }
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'could not read pipelines' })
+  }
+})
+
 // Analyze the documents that landed since the last run and (re)write the scoped rerun plan. This is
 // the cheap, advisory 'doc-intake' launch (clone of 'review'): it reads + reasons + writes a plan and
 // launches NO rerun (reruns stay a human one-click, CLAUDE.md §24). Same CSRF + data-pool allow-list
@@ -1178,8 +1190,10 @@ app.get('/api/chat/scopes', async (req, reply) => {
 })
 
 // One chat turn. Stateless: the client resends the whole conversation each turn (ephemeral by design).
-// Streams Server-Sent-Events in the POST response body: chat-meta (what we're answering from), then
-// chat-token per delta, then a terminal chat-done {costUsd} or chat-error {message}.
+// Streams Server-Sent-Events in the POST response body: chat-meta (what we're answering from), then live
+// progress — chat-status {stage: starting|connected|thinking|writing} at each REAL lifecycle event and
+// chat-thinking per reasoning delta (the model's own thought process) — then chat-token per answer delta,
+// then a terminal chat-done {costUsd} or chat-error {message}.
 const ChatBody = z.object({
   ticker: z.string().regex(TICKER_RE).optional(),
   runRoot: z.string().max(300).optional(),
@@ -1275,15 +1289,29 @@ app.post('/api/chat', async (req, reply) => {
   res.on('close', () => { closed = true; clearInterval(ping); ac.abort() })
   send({ type: 'chat-meta', conversationId, scopeResolved: assembled.label, sourcePath: assembled.sourcePath, degraded: assembled.degraded, degradeNote: assembled.degradeNote })
   const { system, user } = buildChatPrompts({ assembled, messages, subject, style: parsed.data.style })
+  // Live progress for the panel's working state. Every chat-status stage maps to a REAL event (spawn /
+  // CLI init / thinking block / first text block — see ChatTurnSignal in chat-llm.ts), and chat-thinking
+  // streams the model's own reasoning verbatim so the user can read the thought process while waiting.
+  send({ type: 'chat-status', stage: 'starting' })
   let answer = '' // accumulate the streamed answer so the completed turn can be saved to history
+  let thinking = '' // accumulate the reasoning so the saved turn keeps its thought process too
   try {
-    const out = await runChatTurn({ system, user, model, signal: ac.signal, onToken: (t) => { answer += t; send({ type: 'chat-token', content: t }) } })
+    const out = await runChatTurn({
+      system, user, model, signal: ac.signal,
+      onToken: (t) => { answer += t; send({ type: 'chat-token', content: t }) },
+      onSignal: (s) => {
+        if (s.kind === 'ready') send({ type: 'chat-status', stage: 'connected', model: s.model })
+        else if (s.kind === 'thinking-start') send({ type: 'chat-status', stage: 'thinking' })
+        else if (s.kind === 'thinking') { thinking += s.text; send({ type: 'chat-thinking', content: s.text }) }
+        else if (s.kind === 'answer-start') send({ type: 'chat-status', stage: 'writing' })
+      },
+    })
     if (out.error && out.error !== 'aborted') send({ type: 'chat-error', message: out.error })
     else if (!out.error) {
       send({ type: 'chat-done', costUsd: out.costUsd, model })
       // save the assistant answer only on a clean completion (an errored/aborted turn leaves the question
       // in history but no half-answer). Best-effort, off the response path.
-      if (conversationId && answer) void recordAssistantMessage(conversationId, answer, { sourcePath: assembled.sourcePath, costUsd: out.costUsd }).catch(() => {})
+      if (conversationId && answer) void recordAssistantMessage(conversationId, answer, { sourcePath: assembled.sourcePath, costUsd: out.costUsd, thinking: thinking || undefined }).catch(() => {})
     }
   } catch (e: any) {
     if (!closed) send({ type: 'chat-error', message: String(e?.message || e) })

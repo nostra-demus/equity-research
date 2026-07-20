@@ -26,6 +26,7 @@ export interface StoredChatMessage {
   ts: number // epoch ms
   sourcePath?: string // assistant turns: the scope/source the answer drew from (from chat-meta)
   costUsd?: number // assistant turns: the metered cost of that turn, when known
+  thinking?: string // assistant turns: the model's extended-thinking reasoning for this answer, when captured
 }
 
 // The identity + scope of a conversation — everything needed to reopen it against the right run and to
@@ -217,13 +218,13 @@ export function recordUserMessage(meta: ConversationMeta, content: string, reque
 
 // Record the assistant's answer for a turn already opened by recordUserMessage. No-op if the conversation
 // vanished (deleted mid-turn) — the turn still streamed to the user; only its history line is lost.
-export function recordAssistantMessage(id: string, content: string, extra?: { sourcePath?: string; costUsd?: number }): Promise<void> {
+export function recordAssistantMessage(id: string, content: string, extra?: { sourcePath?: string; costUsd?: number; thinking?: string }): Promise<void> {
   if (!isValidConversationId(id)) return Promise.resolve()
   return withLock(id, () => {
     const convo = readConvoFile(fileFor(id))
     if (!convo) return
     const now = Date.now()
-    convo.messages.push({ role: 'assistant', content: clampContent(content), ts: now, sourcePath: extra?.sourcePath, costUsd: extra?.costUsd })
+    convo.messages.push({ role: 'assistant', content: clampContent(content), ts: now, sourcePath: extra?.sourcePath, costUsd: extra?.costUsd, thinking: extra?.thinking ? clampContent(extra.thinking) : undefined })
     if (convo.messages.length > MAX_MESSAGES_PER_CONVO) convo.messages = convo.messages.slice(-MAX_MESSAGES_PER_CONVO)
     convo.updatedAt = now
     if (typeof extra?.costUsd === 'number' && extra.costUsd > 0) convo.costUsd = +(convo.costUsd + extra.costUsd).toFixed(4)

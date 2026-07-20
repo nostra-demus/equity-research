@@ -45,12 +45,73 @@ export interface ChatTurnOutcome {
   error?: string // a friendly message when the turn failed (absent on success); 'aborted' on client close
 }
 
+// Live signals of what the turn is ACTUALLY doing right now, surfaced so the panel never sits on a blind
+// spinner. Every signal maps 1:1 to a real event in the CLI's stream-json output — none is invented:
+//   ready          -> the CLI session initialized (the model is now consuming the prompt)
+//   thinking-start -> an extended-thinking block opened
+//   thinking       -> one extended-thinking delta (the model's own visible reasoning, verbatim)
+//   answer-start   -> the first visible-text block opened (the answer is now being written)
+export type ChatTurnSignal =
+  | { kind: 'ready'; model?: string }
+  | { kind: 'thinking-start' }
+  | { kind: 'thinking'; text: string }
+  | { kind: 'answer-start' }
+
+// Everything classifyChatLine can extract from one stream-json line. Pure and stateless so it is unit-
+// testable; runChatTurn layers the stateful fallback rule (emit assembled text only if partials never
+// streamed) on top.
+export type ChatStreamEvent =
+  | ChatTurnSignal
+  | { kind: 'token'; text: string } // one incremental answer delta
+  | { kind: 'fallback-text'; text: string } // assembled answer text from the final assistant message
+  | { kind: 'result'; costUsd: number; error?: string }
+
+/** Classify one parsed stream-json line into semantic events (possibly none). */
+export function classifyChatLine(o: any): ChatStreamEvent[] {
+  if (!o || typeof o !== 'object') return []
+  // CLI session initialized — carries the resolved model id
+  if (o.type === 'system' && o.subtype === 'init') return [{ kind: 'ready', model: typeof o.model === 'string' ? o.model : undefined }]
+  // incremental frames (with --include-partial-messages): a stream_event wrapping an Anthropic SSE event
+  if (o.type === 'stream_event') {
+    const ev = o.event
+    if (ev?.type === 'content_block_start') {
+      const bt = ev.content_block?.type
+      if (bt === 'thinking' || bt === 'redacted_thinking') return [{ kind: 'thinking-start' }]
+      if (bt === 'text') return [{ kind: 'answer-start' }]
+      return []
+    }
+    if (ev?.type === 'content_block_delta') {
+      if (ev.delta?.type === 'thinking_delta' && typeof ev.delta.thinking === 'string') return [{ kind: 'thinking', text: ev.delta.thinking }]
+      if (ev.delta?.type === 'text_delta' && typeof ev.delta.text === 'string') return [{ kind: 'token', text: ev.delta.text }]
+      return []
+    }
+    return []
+  }
+  // the final assembled assistant message — fallback text if partials didn't stream (thinking blocks are
+  // deliberately NOT replayed here: replaying reasoning after the answer landed would read as new output)
+  if (o.type === 'assistant') {
+    if (o.error) return [] // synthetic auth/error message — the `result` event carries the real error
+    const content = o.message?.content
+    if (!Array.isArray(content)) return []
+    return content.filter((b: any) => b?.type === 'text' && typeof b.text === 'string').map((b: any) => ({ kind: 'fallback-text' as const, text: b.text }))
+  }
+  if (o.type === 'result') {
+    return [{
+      kind: 'result',
+      costUsd: typeof o.total_cost_usd === 'number' ? o.total_cost_usd : 0,
+      error: o.is_error || o.api_error_status ? friendlyResultError(o) : undefined,
+    }]
+  }
+  return []
+}
+
 export async function runChatTurn(opts: {
   system: string
   user: string
   model: string
   signal: AbortSignal
   onToken: (t: string) => void
+  onSignal?: (s: ChatTurnSignal) => void // live progress + thinking stream (optional — safe to omit)
 }): Promise<ChatTurnOutcome> {
   if (activeChatTurns >= CHAT.maxConcurrent) {
     return { costUsd: 0, error: 'Chat is busy right now — try again in a moment.' }
@@ -72,11 +133,19 @@ export async function runChatTurn(opts: {
     if (flags.has('--max-budget-usd')) args.push('--max-budget-usd', String(CHAT.budgetUsd))
     if (flags.has('--permission-mode')) args.push('--permission-mode', 'bypassPermissions')
 
+    // Extended thinking, ON REQUEST of the UI: with a thinking budget set, the CLI streams the model's
+    // own reasoning as thinking deltas, which we forward live (onSignal) so the user can READ the thought
+    // process while waiting instead of staring at a spinner. Real reasoning, not a fabricated status.
+    // A host-set MAX_THINKING_TOKENS wins; ENGINE_CHAT_THINKING_TOKENS=0 disables (turn degrades cleanly
+    // to status signals only).
+    const env = childEnv()
+    if (CHAT.thinkingTokens > 0 && env.MAX_THINKING_TOKENS === undefined) env.MAX_THINKING_TOKENS = String(CHAT.thinkingTokens)
+
     let child: ResultPromise
     try {
       child = execa(CLAUDE_BIN, args, {
         cwd: REPO_ROOT, // match the research spawn's auth context (host keychain OAuth)
-        env: childEnv(), // news-provider secrets scrubbed; ANTHROPIC_API_KEY (if any) + keychain OAuth kept
+        env, // news-provider secrets scrubbed; ANTHROPIC_API_KEY (if any) + keychain OAuth kept
         stdin: 'pipe',
         stdout: 'pipe',
         stderr: 'pipe',
@@ -110,30 +179,19 @@ export async function runChatTurn(opts: {
       if (!t) return
       let o: any
       try { o = JSON.parse(t) } catch { return }
-      // incremental tokens (with --include-partial-messages): a stream_event wrapping an Anthropic SSE event
-      if (o.type === 'stream_event') {
-        const ev = o.event
-        if (ev?.type === 'content_block_delta' && ev.delta?.type === 'text_delta' && typeof ev.delta.text === 'string') {
-          streamedText = true
-          opts.onToken(ev.delta.text)
-        }
-        return
+      const events = classifyChatLine(o)
+      // fallback rule (stateful, so it lives here and not in the classifier): the assembled assistant text
+      // is emitted only when no partial ever streamed — and one message's blocks all emit before the flag
+      // flips, so a multi-block answer isn't half-swallowed.
+      const fallback = events.filter((e) => e.kind === 'fallback-text')
+      if (fallback.length && !streamedText) {
+        for (const e of fallback) if (e.kind === 'fallback-text') opts.onToken(e.text)
+        streamedText = true
       }
-      // the final assembled assistant message — a fallback that fires only if partials didn't stream
-      if (o.type === 'assistant') {
-        if (o.error) return // synthetic auth/error message — the `result` event carries the real error
-        const content = o.message?.content
-        if (Array.isArray(content) && !streamedText) {
-          let emitted = false
-          for (const b of content) if (b?.type === 'text' && typeof b.text === 'string') { opts.onToken(b.text); emitted = true }
-          if (emitted) streamedText = true
-        }
-        return
-      }
-      if (o.type === 'result') {
-        if (typeof o.total_cost_usd === 'number') cost = o.total_cost_usd
-        if (o.is_error || o.api_error_status) resultError = friendlyResultError(o)
-        return
+      for (const e of events) {
+        if (e.kind === 'token') { streamedText = true; opts.onToken(e.text) }
+        else if (e.kind === 'result') { cost = e.costUsd; if (e.error) resultError = e.error }
+        else if (e.kind === 'ready' || e.kind === 'thinking-start' || e.kind === 'thinking' || e.kind === 'answer-start') opts.onSignal?.(e)
       }
     }
 
