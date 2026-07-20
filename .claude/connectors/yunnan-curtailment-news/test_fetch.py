@@ -72,8 +72,8 @@ check("publisher falls back to the link's registrable domain",
 check("window_days + queries + scanned_at recorded",
       payload["window_days"] == 30 and payload["queries"] == list(mod.QUERIES)
       and payload["scanned_at"] == "2026-07-19T12:00:00Z")
-check("sidecar tier 9 + external_other + connector_id + lead-not-measurement note",
-      sidecar["tier"] == 9 and sidecar["source_type"] == "external_other"
+check("sidecar tier 10 + external_other + connector_id + lead-not-measurement note",
+      sidecar["tier"] == 10 and sidecar["source_type"] == "external_other"
       and sidecar["connector_id"] == "yunnan-curtailment-news" and "LEAD" in sidecar["note"])
 
 signal_n, asof_n, payload_n, _ = mod.build([mod.parse_feed(_rss(NEAR_MISS, STALE)), [], []], 30, now=NOW)
@@ -113,7 +113,7 @@ check("any-query-fails → exits non-zero and writes NOTHING",
 
 man = json.load(open(os.path.join(_HERE, "connector.json"), encoding="utf-8"))
 check("connector.json tier/source_type agree with the sidecar the fetcher writes",
-      man["tier"] == sidecar["tier"] == 9 and man["source_type"] == sidecar["source_type"] == "external_other")
+      man["tier"] == sidecar["tier"] == 10 and man["source_type"] == sidecar["source_type"] == "external_other")
 check("connector.json declares an exact-host allowlist containing the fetch host",
       isinstance(man.get("host_allowlist"), list) and mod.HOST in man["host_allowlist"])
 check("payload keys match connector.json output_schema keys", set(payload.keys()) == set(man["output_schema"].keys()))

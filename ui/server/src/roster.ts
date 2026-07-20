@@ -4,7 +4,7 @@ import fg from 'fast-glob'
 import matter from 'gray-matter'
 import { AGENTS_DIR, ANALYSES_DIR, REPO_ROOT } from './config'
 import { RESEARCH_SWARM_ID, listSwarms, runRootForSubject, swarmById } from './swarms'
-import type { AgentNode, DataReadinessDecl, ModuleNode, SwarmGraph, SwarmManifest } from './types'
+import type { AgentNode, DataReadinessDecl, ModuleNode, SwarmGraph, SwarmManifest, SwarmSubjectSummary } from './types'
 
 function readFrontmatter(filePath: string) {
   const raw = fs.readFileSync(filePath, 'utf8')
@@ -242,6 +242,60 @@ export function swarmSubjects(swarmId: string): string[] {
     } catch { /* no subjects source on disk */ }
   }
   return [...out].sort()
+}
+
+// The verdict a decision record carries, across swarms (server twin of the web format.resolveVerdict):
+// research records use `decision`; a non-research swarm self-declares its routing verdict key in SWARM.md
+// (commodity: `Action` → record key `action`). Fail-closed: without a verdict field only the research
+// `decision` shape resolves. Never hardcodes a swarm/subject name (§26).
+function resolveRecordVerdict(dr: Record<string, any>, verdictField?: string | null): string | null {
+  if (dr && typeof dr.decision === 'string' && dr.decision) return dr.decision
+  if (!verdictField) return null
+  const v = dr?.[verdictField] ?? dr?.[verdictField.toLowerCase()]
+  return typeof v === 'string' && v ? v : null
+}
+
+// Per-subject run summaries for a NON-research swarm's subject picker: for each subject swarmSubjects()
+// lists, read its single run folder's decision_record.json (when present) and surface the routing verdict,
+// confidence, decision date, and last-changed time — the constellation twin of the research picker's
+// per-ticker decision pill. A subject with no run folder (declared in the profiles source but never run)
+// comes back hasRun:false with null run fields, so it still lists but shows no verdict. Generic — the
+// verdict field comes from the swarm's own routing contract, nothing is hardcoded (§26). Research returns
+// [] (it uses the richer TickerSummary via /api/tickers). Never throws: a missing/partial record degrades
+// to a null verdict, never an error.
+export function swarmSubjectSummaries(swarmId: string): SwarmSubjectSummary[] {
+  const swarm = swarmById(swarmId)
+  if (!swarm || swarm.id === RESEARCH_SWARM_ID) return []
+  const verdictField = swarm.routing?.verdictField
+  return swarmSubjects(swarmId).map((subject) => {
+    const abs = findRunRootForSubject(swarmId, subject) // absolute path, or null when never run
+    const summary: SwarmSubjectSummary = {
+      subject,
+      hasRun: !!abs,
+      runRoot: abs ? path.relative(REPO_ROOT, abs) : null,
+      verdict: null,
+      decisionDate: null,
+      confidence: null,
+      lastChangeAt: null,
+    }
+    if (!abs) return summary
+    // run folder mtime is the baseline "last touched"; the decision record's mtime (when present) is more precise
+    try { summary.lastChangeAt = fs.statSync(abs).mtimeMs } catch { /* folder vanished mid-scan */ }
+    const drPath = path.join(abs, 'decision_record.json')
+    try {
+      const dr = JSON.parse(fs.readFileSync(drPath, 'utf8'))
+      // only an OBJECT record is a usable "this run decided" signal (mirrors summarizeRuns' guard)
+      if (dr && typeof dr === 'object' && !Array.isArray(dr)) {
+        summary.verdict = resolveRecordVerdict(dr, verdictField)
+        summary.decisionDate = typeof dr.decision_date === 'string' ? dr.decision_date : null
+        // commodity records store `confidence`; research-style records store `confidence_score`
+        summary.confidence = typeof dr.confidence_score === 'number' ? dr.confidence_score
+          : typeof dr.confidence === 'number' ? dr.confidence : null
+      }
+      try { summary.lastChangeAt = fs.statSync(drPath).mtimeMs } catch { /* keep the folder mtime */ }
+    } catch { /* no or malformed decision record — hasRun stays true, verdict null */ }
+    return summary
+  })
 }
 
 // Latest dated folder that contains <module>/, mirroring the slash-command resolver

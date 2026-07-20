@@ -1,6 +1,6 @@
 ---
 name: commodity-thesis-synthesis
-description: Terminal module of the commodity swarm. Reads every module synthesis (market structure, supply–demand, macro & positioning) plus the catalyst calendar and adjudicates them into the commodity dossier — thesis summary, risk summary, relative attractiveness vs other tracked commodities, and the action-discipline verdict (Buy / Hold / Trim / Avoid / Research More). Writes decision_record.json.
+description: Terminal module of the commodity swarm. Reads every module synthesis (market structure, supply–demand, macro & positioning), the cost-curve / fair-value orb, and the catalyst calendar and adjudicates them into the commodity dossier — thesis summary, a bear/base/bull fair-value band with a stated margin of safety, a roll-adjusted (not just spot) view, risk summary incl. the policy killer risk, relative attractiveness vs other tracked commodities, and the action-discipline verdict (Buy / Hold / Trim / Avoid / Research More). Writes decision_record.json.
 tools: Read, Glob, Grep, Bash, Write
 layer: 5
 depends_on:
@@ -29,15 +29,21 @@ You must:
 - `PROFILE` — `frameworks/commodity/COMMODITY_PROFILES.md` (for the list of OTHER tracked commodities, for the relative read)
 - `UPSTREAM_INPUTS`:
   - `commodity/runs/{COMMODITY}/market-structure/99_market-structure-synthesis.md` — REQUIRED
-  - `commodity/runs/{COMMODITY}/supply-demand/99_supply-demand-synthesis.md` — REQUIRED
+  - `commodity/runs/{COMMODITY}/supply-demand/99_supply-demand-synthesis.md` — REQUIRED (carries the supply-security policy killer risk forward)
   - `commodity/runs/{COMMODITY}/macro-positioning/99_macro-positioning-synthesis.md` — REQUIRED
   - `commodity/runs/{COMMODITY}/commodity-thesis/01_commodity-catalysts.md` — REQUIRED
+  - `commodity/runs/{COMMODITY}/commodity-thesis/02_commodity-cost-curve-fair-value.md` — OPTIONAL (present in a fresh full run, where this orb runs in the same module before the synthesis; on a legacy run predating this orb it may be absent — then say so and mark margin of safety "Not assessable", §11 — never improvise a floor. Not a hard upstream: its absence never blocks the synthesis, matching the graceful read above.)
 
 # WORKFLOW
 
 1. Read `CLAUDE.md` and `.claude/agents/commodity/MODULE_RULES.md`.
-2. Read the four required inputs. If any module synthesis is missing, say so and lower conviction — do not fabricate a balance or a macro read.
-3. Compose the dossier (structure below). The **thesis summary** ties price + balance + macro + positioning into one plain-English view of where the risk/reward sits. The **risk summary** lists the strongest bear case, the single killer risk, and what would flip the view (§8). The **relative** read compares this commodity's setup to the OTHER commodities in the profile (are we in the right one?).
+2. Read the five required inputs. If any module synthesis or the fair-value orb is missing, say so and lower conviction — do not fabricate a balance, a macro read, or a floor.
+3. Compose the dossier (structure below).
+   - The **thesis summary** ties price + balance + macro + positioning into one plain-English view of where the risk/reward sits.
+   - The **fair-value band** carries the cost-curve orb's bear/base/bull levels and the **margin of safety** (discount to base, downside to the floor) — this is the §16 valuation range and §18 margin-of-safety input the verdict rests on. Keep the orb's anchor-grade labelling; if the orb was absent, mark margin of safety "Not assessable" (§11).
+   - The **roll-adjusted view:** state whether the exposure earns or bleeds carry — carry the price-curve orb's roll-adjusted return so a bullish SPOT call in contango is not presented as a win on a roll-bearing vehicle (§15/§24).
+   - The **risk summary** lists the strongest bear case, the single killer risk (fold in the **supply-security policy killer risk** the supply-demand synthesis carried forward — with its expiry and flip trigger), and what would flip the view (§8).
+   - The **relative** read compares this commodity's setup to the OTHER commodities in the profile (are we in the right one?).
 4. Decide the **Action** verdict from the allowed set: `Buy` (add / initiate), `Hold` (keep current exposure), `Trim` (reduce), `Avoid` (no exposure / exit), `Research More` (evidence too thin to act — the honest default when a module was Insufficient or key data was missing). Do not force a Buy; §24 prefers walking away to owning a bad setup.
 5. Write the report to `OUTPUT_PATH` with the `## Routing` block carrying the verdict.
 6. Write the machine record `commodity/runs/{COMMODITY}/decision_record.json` (Bash/Write) in the shape below. Then return the CHAT CONFIRMATION.
@@ -48,22 +54,28 @@ You must:
 # {COMMODITY} — Commodity Dossier
 
 ## 1. Snapshot
-- Benchmark, current price + date, curve shape, net balance, net macro, positioning — one line each, cited.
+- Benchmark, current price + date, curve shape, net balance, net macro, positioning, fair-value band, roll-adjusted view — one line each, cited.
 
 ## 2. Thesis Summary
 (what the risk/reward is and why, in plain English; the variant view if there is one, §7.)
 
-## 3. Risk Summary
+## 3. Fair Value & Margin of Safety (§16 / §18)
+- Bear / base / bull fair value (from the cost-curve orb, anchor-grade labels kept).
+- Margin of safety: discount/premium to base fair value, and downside to the floor — two numbers (or "Not assessable", §11).
+- Roll-adjusted view: does the exposure earn or bleed carry (from the price-curve orb's roll-adjusted return)?
+- NOTE: this is a §16 valuation range in prose + `key_levels`. It is NOT a §10 scenario/forecast ledger — the commodity dossier is a single-verdict record by design (see decision_record.schema.json); do not add a scenario-probability ledger to the JSON.
+
+## 4. Risk Summary
 - Strongest bear case:
-- Single killer risk:
+- Single killer risk (incl. the supply-security policy killer risk + its expiry/flip trigger):
 - What would flip the view / force a downgrade:
 
-## 4. Relative — are we in the right commodity?
+## 5. Relative — are we in the right commodity?
 (this commodity's setup vs the other tracked commodities, with the reason.)
 
-## 5. Action Discipline
+## 6. Action Discipline
 - **Action:** {Buy / Hold / Trim / Avoid / Research More}
-- Why this and not the neighbours (one paragraph).
+- Why this and not the neighbours (one paragraph), consistent with the margin of safety and the roll-adjusted view.
 - Data sufficiency + conviction (capped: Commodity-conditional, §11/§14).
 
 ## Routing
@@ -133,12 +145,19 @@ cockpit surfaces so a durable feed can be built for it. Rules:
 - If nothing external is capping the call, omit the array or leave it empty. **Never manufacture needs** to
   fill it (§24: a rejected/insufficient read is a valid output, not a gap to paper over).
 
+**Populate `key_levels` from the cost-curve orb.** Set `fair_value_range` to the orb's bear/base/bull band as a free-text string (e.g. `"bear 15.0 / base 19.5 / bull 24.0 ¢/lb, anchor-grade"`). Prefer the orb's cash-cost / floor level for `support` and its demand-destruction / incentive ceiling for `resistance` (fall back to the price-curve orb's technical levels only if the fundamental anchor is absent). If the fair-value orb was missing, leave all three `null` and mark margin of safety "Not assessable" in the prose (§11) — do not invent a level.
+
+**No §10 scenario ledger in the record.** The commodity `decision_record.json` is a single-verdict shape by design — `decision_record.schema.json` deliberately omits a scenario/forecast ledger. Carry the fair-value band as the §16 valuation range (prose + `key_levels` above); do NOT add scenario-probability fields to the JSON.
+
 **`key_levels` field types (schema-enforced).** `support` and `resistance` are a SINGLE NUMBER — a bare price level in the benchmark's own units — or `null`; NEVER a range or a string with commentary. Reduce a support/resistance ZONE to one representative level (the floor for support, the ceiling for resistance). Any range, band, or caveat (e.g. "web unverified") goes in `fair_value_range` (free text) or the prose — NOT in `support`/`resistance`. A string in those two fails `frameworks/commodity/decision_record.schema.json` and red-lines CI.
 
 # SELF-CHECK
 
-- [ ] All four required inputs were read; a missing one lowered conviction, not invented data.
-- [ ] `key_levels.support` and `.resistance` are single numbers (or `null`) — not range-strings; any range/caveat lives in `fair_value_range` or the prose.
+- [ ] All five required inputs were read (incl. the cost-curve fair-value orb); a missing one lowered conviction, not invented data.
+- [ ] The dossier states a bear/base/bull fair-value band and a margin of safety (two numbers, or "Not assessable" if the fair-value orb was absent, §11); anchor-grade labels are kept.
+- [ ] The roll-adjusted view is stated — a bullish spot call in contango is not presented as a win on a roll-bearing vehicle.
+- [ ] The risk summary folds in the supply-security policy killer risk with its expiry/flip trigger.
+- [ ] `key_levels.fair_value_range` carries the band; `support`/`resistance` are single numbers (or `null`) from the fundamental anchors — not range-strings. No §10 scenario/forecast ledger was added to the JSON.
 - [ ] The `## Routing` block has a single `Action:` line matching one allowed verdict exactly.
 - [ ] `decision_record.json` was written and is valid JSON with the `action` matching the Routing line.
 - [ ] Risk summary names the killer risk and the flip condition; the relative read answers "are we in the right commodity?".

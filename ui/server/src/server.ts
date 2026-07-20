@@ -45,7 +45,7 @@ import { FEEDBACK_MAX_IMAGES, type FeedbackCategory, type FeedbackItemRecord, ap
 import { dryRunFeedbackDispatch, startFeedbackDispatch } from './feedback-dispatch'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
-import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, terminalModuleName } from './roster'
+import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
@@ -255,7 +255,9 @@ app.get('/api/swarm/subjects', async (req, reply) => {
   const swarm = (req.query as any)?.swarm as string | undefined
   if (!swarm || swarm === 'research') return reply.code(400).send({ error: 'swarm required (research uses /api/tickers)' })
   if (!listSwarms().some((s) => s.id === swarm)) return reply.code(404).send({ error: `unknown swarm ${swarm}` })
-  return { swarm, subjects: swarmSubjects(swarm) }
+  // `subjects` (names) stays for back-compat + the wire's subject grouping; `summaries` adds each subject's
+  // run verdict/confidence/date so the picker can show runs the way research shows per-ticker decisions.
+  return { swarm, subjects: swarmSubjects(swarm), summaries: swarmSubjectSummaries(swarm) }
 })
 
 // ---------- tickers ----------

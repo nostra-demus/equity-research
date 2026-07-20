@@ -96,14 +96,19 @@ commodity (which lenses apply, which sources, which recurring reports) is declar
 ## Modules (discovered by the engine, topo-sorted by `depends_on`)
 
 1. `market-structure` — commodity identity, instruments/tickers (incl. CANE → raw sugar, GLD/futures
-   for gold), price trend & technicals, futures curve / term structure. (dossier points 1, 2, 3, 9)
-2. `supply-demand` — supply, demand, inventory, and weather/seasonality. (points 4, 5, 6)
+   for gold), price trend & technicals, futures curve / term structure — with carry placed in its own
+   history, a real (deflated) price value line, and the roll-adjusted return a long actually earns.
+   (dossier points 1, 2, 3, 9)
+2. `supply-demand` — supply, demand, inventory, weather/seasonality, and the supply-security / policy
+   register (OPEC+, export bans, sanctions, chokepoints, resource nationalism, reserves, carbon/biofuel —
+   the §24 policy killer risk). (points 4, 5, 6)
 3. `macro-positioning` — macro drivers (rates, USD, real yields, policy, geopolitics, central-bank
-   buying) and positioning/flows (CFTC COT, ETF flows). (points 7, 8)
-4. `commodity-thesis` — terminal module (`depends_on` the three above): upcoming reports/events,
-   thesis summary, risk summary, relative attractiveness vs other tracked commodities, and the
-   `Action:` verdict (Buy / Hold / Trim / Avoid / Research More). Writes `decision_record.json`.
-   (points 10, 11, 12, 13)
+   buying) and positioning/flows (CFTC COT both sides — speculators as a percentile + producer hedgers —
+   and ETF flows). (points 7, 8)
+4. `commodity-thesis` — terminal module (`depends_on` the three above): the cost-curve / fair-value
+   band + margin of safety (§16/§18), upcoming reports/events, thesis summary, risk summary, relative
+   attractiveness vs other tracked commodities, and the `Action:` verdict (Buy / Hold / Trim / Avoid /
+   Research More). Writes `decision_record.json`. (points 10, 11, 12, 13)
 
 There is no master synthesizer: the terminal `commodity-thesis` module IS the deliverable, and its
 `Action:` verdict is the run's routing outcome (per the `routing` contract above).
