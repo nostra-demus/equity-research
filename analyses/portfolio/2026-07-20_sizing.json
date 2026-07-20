@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-07-20",
+  "scope": "all",
+  "disclaimer": "Illustrative model paper-portfolio for research process-tracking — not investment advice, not real orders.",
+  "n_decisions": 6,
+  "positions": [],
+  "watch": [
+    {
+      "ticker": "AMZN",
+      "decision": "Watchlist",
+      "size_in_trigger": "Re-entry zone $190-200 (>12% margin of safety on base fair value $210). July 31, 2026 Q2 earnings is the first real test of the AWS D&A billing-lag hypothesis (edge_score 35 < 50 gate).",
+      "next_review": "2026-08-09"
+    },
+    {
+      "ticker": "BG",
+      "decision": "Watchlist",
+      "size_in_trigger": "Re-rate to Starter Position Only only on a pool-confirmed price below ~$100, or a clean post-Viterra FY2026 cash-conversion print (currently do not buy at indicative ~$123).",
+      "next_review": "2026-08-30"
+    },
+    {
+      "ticker": "EMAAR",
+      "decision": "Watchlist",
+      "size_in_trigger": "Revisit toward a starter long only if pre-sales hold >=+16% YoY and the discount begins to close, or on primary evidence the state owner/founder-MD treats minorities as value-owners (RF-OWN-004 Filter 6 caps at Watchlist regardless of price). No position at AED 12.20; watch Q2 2026 print (~Aug 10, 2026).",
+      "next_review": "2026-08-09"
+    },
+    {
+      "ticker": "HCG",
+      "decision": "Avoid",
+      "size_in_trigger": "Only re-underwrite at/below INR 520 (base-case low, where a margin of safety begins) or on two consecutive clean prints showing ROIC rising toward the cost of capital. Currently rejected — weak governance (7 High flags) plus no margin of safety.",
+      "next_review": "2026-08-30"
+    },
+    {
+      "ticker": "NHY",
+      "decision": "Watchlist",
+      "size_in_trigger": "Track the 22-Jul-2026 and 23-Oct-2026 prints; revisit only if price falls toward or below the NOK 70-82 weighted fair-value band, or if the Alumetal impairment / Brazil tax risk clears without damage. Edge score 30 < 50 gate; five High-severity flags (RF-OWN-004 unaligned Norwegian-state stake, RF-CAP-001 written-off battery bet, RF-CAP-003 dividend > FCF, RF-DISC-002 recurring 'non-recurring' charge, RF-SHR-001 AGM pay revolt).",
+      "next_review": "2026-08-18"
+    },
+    {
+      "ticker": "TMCV",
+      "decision": "Watchlist",
+      "size_in_trigger": "Re-rate when the Iveco financing structure is confirmed and the TMF Holdings AGM vote outcome is known (Filter 4 serial-acquirer/very-large-deal + Filter 6 unaligned-owner-borderline hold it at Watchlist until resolved).",
+      "next_review": "2026-09-05"
+    }
+  ],
+  "book": {
+    "gross_pct": 0,
+    "cash_pct": 100,
+    "max_name_pct": 0,
+    "concentration_note": "No positions. All 6 standing ledger records are Watchlist (5) or Rejected/Avoid (1) — none reached the Selected basket (Strong Buy/Buy/Starter). Book is 100% model cash by construction (CLAUDE.md §18: no forced Buy).",
+    "correlation_flags": "Not applicable — no positions to correlate. Note for future sizing: AMZN and EMAAR both carry a governance/owner-alignment cap (AMZN: edge-gate plus valuation-dispersion cap; EMAAR: Filter 6 unaligned Government-of-Dubai controller); NHY adds a third Filter 6 unaligned-owner case (Norwegian State, industrial-policy stake); BG/TMCV both carry a Filter 4 large-deal/serial-acquirer cap (BG: Viterra integration; TMCV: Iveco financing). If any of these later clear their caps and enter the book together, treat the owner-alignment trio (AMZN/EMAAR/NHY) and the large-deal pair (BG/TMCV) as correlated on their shared risk vector, not independent bets."
+  },
+  "notes": "Zero-position run: every standing decision-ledger record is Watchlist or Rejected, so no name meets the long-eligibility bar in Step 2 (basket=Selected, positive probability-weighted expected return, evidence-backed edge, no sub-Buy rating cap, clean verification/pre-mortem). New since 2026-07-19: NHY (Norsk Hydro) joined the standing ledger, decision date 2026-07-19, Watchlist, expected return -8.4%, edge score 30 (<50 exploitability gate), confidence 35, data sufficiency 78, five High-severity red flags. All six names lack a proven variant perception at minimum (edge scores 35/38/30 for AMZN/EMAAR/NHY, none computed for BG/HCG/TMCV) and four show negative probability-weighted expected return (AMZN -16.1%, BG -11.5%, HCG -13.4%, NHY -8.4%). All six are carried to the watch list with explicit size-in triggers and next review dates."
+}
