@@ -45,7 +45,12 @@ check('every discovered pipeline is structurally valid (slug id, enums, SLA, out
     assert.ok(p.stalenessSlaDays > 0)
     assert.ok(p.outputPath.startsWith('data/<SUBJECT>/external/'), `${p.id}: ${p.outputPath}`)
     assert.equal(path.posix.basename(p.outputPath).split('<as_of>').length, 2)
-    assert.ok([5, 7, 9].includes(p.tier), `${p.id}: served tier ${p.tier} outside the §4 ceilings`)
+    // 5/7/9 are the §4 ceilings themselves (EXTERNAL_DATA.md); 10 is a sidecar declaring a MORE
+    // conservative tier than its ceiling requires (allowed — e.g. a web-scrape connector under the
+    // external_other ceiling of 9 self-labelling as the even-more-conservative tier-10 "reputable web
+    // source, unverified" per CLAUDE.md §4). The clamp only ever pushes a tier DOWN to its ceiling; it
+    // never rejects a sidecar being more conservative than required.
+    assert.ok([5, 7, 9, 10].includes(p.tier), `${p.id}: served tier ${p.tier} outside the §4 ceilings`)
     assert.ok(p.subjects.length > 0 && p.statuses.length === p.subjects.length)
   }
 })
