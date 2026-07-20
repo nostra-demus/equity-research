@@ -328,7 +328,7 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 ### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
 
-Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), and the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — and the Headline Scorecard ↔ decision_record.json reconciliation plus red-flag severity reconciliation (checks AI/AK, via `scripts/headline_checks.py`). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
@@ -527,6 +527,31 @@ if rc.eval_ac_turnaround_cap(dec, ddte, _tt24) == "fail":
 viol.extend(rc.eval_ad_filter_4_6_cap(dec, ddte, _bm_txt, _mg_txt) or [])
 viol.extend(rc.eval_ae_filter5_cap(dec, ddte, _bm_txt, _es24, _bq_txt) or [])
 viol.extend(rc.eval_af_filter1_integrity_cap(dec, ddte, _mg_txt, _track_txt) or [])
+# checks AI/AK — Headline Scorecard reconciliation + red-flag severity reconciliation (live
+# pre-publish; mirrors eval.py checks AI/AK via scripts/headline_checks.py, the shared detection
+# module — same pattern as rating_caps.py above). Until this block existed, these two checks
+# existed ONLY as post-hoc eval.py checks nobody was required to run before commit, and both
+# defect classes have already shipped to `main` clean: TMCV_2026-06-07/final_thesis.md's Headline
+# Scorecard read "Expected return +4.3%" while its own decision_record.json carried
+# expected_return_pct=-4.4 (AI's defect class — the scenario-math block above only re-derives
+# decision_record.json's INTERNAL consistency, it never opens final_thesis.md to check the PROSE
+# a reader actually sees); AMZN_2026-07-10/final_thesis.md ships with its earnings module
+# declaring 2 Critical red flags while decision_record.json's red_flags array carries zero
+# Critical entries and the Headline Scorecard's 'Rating cap' cell explicitly denies one exists —
+# a direct CLAUDE.md §13 violation (AK's defect class). Both sat undetected until a later manual
+# `/research:eval` run. This block closes that hole for every future run, standalone rerun
+# included (rerun.md Step 8A runs this file verbatim), the same way the block above already
+# closes it for §24.
+import headline_checks as hc
+_thesis_text_ak = open(ft, encoding="utf-8").read()
+_module_texts_ak = {}
+for _sp in glob.glob(os.path.join(run, "*", "99_*-synthesis.md")):
+    _mod = os.path.basename(os.path.dirname(_sp))
+    try:
+        with open(_sp, encoding="utf-8") as _f: _module_texts_ak[_mod] = _f.read()
+    except Exception: pass
+viol.extend(hc.eval_ai_headline_reconciliation(ddte, d, _thesis_text_ak) or [])
+viol.extend(hc.eval_ak_red_flag_severity_reconciliation(ddte, d, _thesis_text_ak, _module_texts_ak) or [])
 # [PR#9 review fix] idempotent banner: ALWAYS strip any prior finish-gate banner first, then re-stamp
 # fresh if still failing, or write the clean thesis if it now passes. The old code only prepended-if-
 # absent, so a fixed re-run in the same folder kept a stale PROVISIONAL banner with outdated reasons.
@@ -539,12 +564,12 @@ if i < len(lines) and lines[i].startswith(">") and "PROVISIONAL — the automate
     body = "\n".join(lines[i:])
 if viol:
     banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
-              + "; ".join(viol) + "\n>\n> Resolve the flagged issue(s) before relying on these numbers — see each violation above for the required action. (CLAUDE.md §7/§10/§11/§14; finish-gate.)\n\n")
+              + "; ".join(viol) + "\n>\n> Resolve the flagged issue(s) before relying on these numbers — see each violation above for the required action. (CLAUDE.md §7/§10/§11/§13/§14/§21; finish-gate.)\n\n")
     open(ft, "w", encoding="utf-8").write(banner + body)
     print("GATE: PROVISIONAL — " + "; ".join(viol))
 else:
     open(ft, "w", encoding="utf-8").write(body)   # write back the cleaned thesis (strips any now-stale banner)
-    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, and §24 Filter 1/2/4/5/6 rejector-filter caps all satisfied")
+    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §24 Filter 1/2/4/5/6 rejector-filter caps, Headline Scorecard reconciliation (§10/§21), and red-flag severity reconciliation (§13) all satisfied")
 PY
 ```
 
