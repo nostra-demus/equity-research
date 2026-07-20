@@ -126,8 +126,8 @@ def _metric_numbers(text, kind):
         # let an unrelated amount satisfy a wrong JSON risk_reward — and the currency strip above can only
         # ever know a fixed whitelist, so an unlisted symbol (NOK, SEK, CHF, …) always leaked through.
         # Taking just the first number is whitelist-independent and matches how the row is actually written.
-        _lead = re.findall(r"[+-]?\d+(?:\.\d+)?(?!\s*%)", tt)
-        return [float(_lead[0])] if _lead else []
+        _lead = re.search(r"[+-]?\d+(?:\.\d+)?(?!\s*%)", tt)
+        return [float(_lead.group(0))] if _lead else []
     t = re.sub(r"/\s*100\b","",t)
     return [float(x) for x in re.findall(r"[+-]?\d+(?:\.\d+)?", t)]
 
@@ -222,7 +222,13 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
         _norm = lambda s: re.sub(r'\s+', ' ', re.sub(r'[*_`]', '', str(s))).strip().lower()
         cell_norm = _norm(rating_cell)
         want = _norm(jdec)
-        if not cell_norm.startswith(want):
+        # Boundary-anchored: a bare startswith lets 'Buyback candidate' satisfy decision 'Buy'.
+        # The documented qualifier forms all put a delimiter after the decision.
+        # No bare dash in the delimiter class: a real qualifier always puts WHITESPACE after the decision
+        # ("Buy — revisit after Q2"), whereas a hyphen tight against it forms a different word
+        # ("Buy-and-hold"), which must not satisfy decision "Buy".
+        _m = re.match(re.escape(want) + r'(?:$|[\s,;:.()])', cell_norm)
+        if not _m:
             det.append(f"Headline Scorecard 'Rating'={rating_cell!r} does not match decision={jdec!r} in "
                        f"decision_record.json — the rating the reader sees must be the decision of record "
                        f"(CLAUDE.md §18/§21)")
@@ -285,19 +291,54 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
                 import confidence as _conf
                 _fields = set(getattr(_conf.ConfidenceInputs, "__dataclass_fields__", {}))
                 _kw = {k: v for k, v in ci.items() if k in _fields}
-                # Deliberately a WIDE tolerance, not the scorer's own RECONCILE_TOL. `confidence_inputs`
-                # records the judgments the scorer consumed, but a record may legitimately omit optional
-                # ones (corroboration, evidence_tier, downgrades…), and the scorer then substitutes
-                # defaults — producing a few points of drift that is an input-completeness artifact, not a
-                # defect (the repo's own selftest pins such a Δ4 case as clean). This gate is looking for
-                # FABRICATION — a conviction that the recorded inputs cannot produce at all, e.g. Codex's
-                # 80-vs-20 example — so it fires only well beyond any plausible defaulting drift.
-                _r = _conf.reconcile(cv, _conf.ConfidenceInputs(**_kw), tol=AI_CONVICTION_TOL)
-                if not _r.get("ok") and _r.get("delta") is not None and _r["delta"] > AI_CONVICTION_TOL:
-                    det.append(f"post-split run: conviction={cv} cannot be re-derived from the recorded "
-                               f"confidence_inputs — scripts/confidence.py recomputes {_r.get('computed')} "
-                               f"(Δ{_r.get('delta')} > {AI_CONVICTION_TOL}); an inflated conviction also "
-                               f"inflates the position size (DECISION_LEDGER.md §5)")
+                # FAIL CLOSED when the inputs cannot even build a ConfidenceInputs. `data_sufficiency` is
+                # required, so `confidence_inputs: {}` raises — and swallowing that let a hand-written
+                # conviction (and its position size) ship with no recorded basis at all, which is the very
+                # thing this check exists to stop. An unconstructable input object IS the violation.
+                try:
+                    _inp = _conf.ConfidenceInputs(**_kw)
+                except Exception as _e:
+                    det.append(f"post-split run: confidence_inputs cannot reconstruct the scorer's inputs "
+                               f"({type(_e).__name__}: {_e}) — conviction={cv} therefore has no re-derivable "
+                               f"basis (DECISION_LEDGER.md §5)")
+                    _inp = None
+                if _inp is not None:
+                    # The recorded inputs DUPLICATE values that decision_record.json already holds
+                    # authoritatively. Re-deriving from unchecked duplicates is circular: an `Avoid` with
+                    # data_sufficiency_score=30 could record confidence_inputs.data_sufficiency=100 and any
+                    # conviction it likes, and the recomputation would agree with itself. Cross-check the
+                    # authoritative ones first.
+                    for _k, _src in (("data_sufficiency", "data_sufficiency_score"),
+                                     ("edge_score", "edge_score"),
+                                     ("decision", "decision")):
+                        _a, _b = ci.get(_k), d.get(_src)
+                        if _a is None or _b is None:
+                            continue
+                        _same = (abs(float(_a) - float(_b)) <= 0.5) if (isnum(_a) and isnum(_b)) \
+                            else (str(_a).strip().lower() == str(_b).strip().lower())
+                        if not _same:
+                            det.append(f"post-split run: confidence_inputs.{_k}={_a!r} contradicts "
+                                       f"decision_record.json {_src}={_b!r} — the scorer's inputs must be the "
+                                       f"record's own values, or conviction is re-derived from numbers the "
+                                       f"record does not support")
+                    # Deliberately a WIDE tolerance, not the scorer's own RECONCILE_TOL. A record may
+                    # legitimately omit OPTIONAL inputs (corroboration, evidence_tier, downgrades…), which
+                    # the scorer then defaults — a few points of drift that is an input-completeness
+                    # artifact, not a defect (the repo's own selftest pins such a Δ4 case as clean). This
+                    # targets FABRICATION (Codex's 80-vs-20), not defaulting drift.
+                    _r = _conf.reconcile(cv, _inp, tol=AI_CONVICTION_TOL)
+                    if _r.get("delta") is not None and _r["delta"] > AI_CONVICTION_TOL:
+                        det.append(f"post-split run: conviction={cv} cannot be re-derived from the recorded "
+                                   f"confidence_inputs — scripts/confidence.py recomputes {_r.get('computed')} "
+                                   f"(Δ{_r.get('delta')} > {AI_CONVICTION_TOL}); an inflated conviction also "
+                                   f"inflates the position size (DECISION_LEDGER.md §5)")
+                    # The scorer's WARNINGS are a separate signal from the arithmetic: reconcile() returns
+                    # ok=False on e.g. an unknown modules_absent key, meaning an intended cap was silently
+                    # ignored. Widening the tolerance must not also discard those — a matching number with a
+                    # missed cap is still an unearned conviction.
+                    for _w in (_r.get("warnings") or []):
+                        det.append(f"post-split run: scripts/confidence.py flagged the recorded inputs while "
+                                   f"re-deriving conviction={cv} — {_w} (an ignored input is an unapplied cap)")
             except Exception:
                 pass  # scorer unavailable / inputs not reconstructable — never invent a violation
     return det
@@ -337,6 +378,43 @@ _AK_DENIAL = re.compile(
 # purpose: "0 Critical" is a denial, never an affirmation, and a `\d+` affirm would cancel the zero-count
 # denial above and re-open exactly the hole it closes.
 _AK_AFFIRM = re.compile(r'[1-9]\d*\s+critical|critical[^.\n]{0,40}\bcaps?\b|\bcaps?\b[^.\n]{0,40}critical', re.I)
+# ...but a "critical ... cap" phrase is NOT an affirmation when the sentence is actually saying the cap does
+# NOT apply: "0 critical flags; no cap applies" matches the `critical ... cap` alternative above and would
+# otherwise cancel the zero-count denial and re-open the hole it closes. A negated cap phrase is therefore
+# disqualified before AFFIRM is consulted (a genuine affirmation states a count or an applied cap).
+_AK_AFFIRM_NEGATED = re.compile(r'\b(?:no|zero|0|none|not)\b[^.\n]{0,20}\bcaps?\b|\bcaps?\b[^.\n]{0,20}\b(?:not\s+appl|does\s+not|n/?a)\b', re.I)
+
+
+# §13's escape clause, as the record can actually express it. A resolution must be STATED — on the flag
+# entry (a `resolved`/`resolution` field, or resolution wording in its own text) or in the rating cap — so
+# an unresolved Critical still caps. Deliberately narrow: silence never counts as resolution.
+_AK_RESOLVED = re.compile(r'\bresolved\b|\bresolution\b|\bcap\s+lifted\b|\blift(?:s|ed)?\s+the\s+cap\b', re.I)
+
+
+def _ak_resolution_stated(d):
+    """True iff the record explicitly states a Critical red flag was resolved by primary evidence."""
+    for rf in (d.get("red_flags") or []):
+        if not isinstance(rf, dict):
+            continue
+        if str(rf.get("severity", "")).strip().lower() != "critical":
+            continue
+        if rf.get("resolved") is True:
+            return True
+        for _f in ("resolution", "status", "description"):
+            if _AK_RESOLVED.search(str(rf.get(_f) or "")):
+                return True
+    cap = d.get("rating_cap")
+    return bool(isinstance(cap, str) and _AK_RESOLVED.search(cap))
+
+
+def _ak_affirms(txt):
+    """True iff the cell genuinely AFFIRMS a Critical cap. A count affirmation ("2 Critical") always
+    counts; a "critical ... cap" phrase counts only when that phrase is not itself negated."""
+    if not txt:
+        return False
+    if re.search(r'[1-9]\d*\s+critical', txt, re.I):
+        return True
+    return bool(_AK_AFFIRM.search(txt)) and not _AK_AFFIRM_NEGATED.search(txt)
 # Decisions that exceed the §18 "Watchlist or lower" ceiling a Critical flag imposes. Same membership as
 # rating_caps.ABOVE_WATCHLIST_AF (§24 Filter 1's identical ceiling) — kept as its own constant so the two
 # checks stay independently readable rather than importing across modules.
@@ -401,12 +479,19 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
     # AB only business-model disqualifiers, so no existing check closes this for the other modules.
     # Mirrors check AF's shape (fired tag + decision above the ceiling → violation).
     decision = d.get("decision")
-    if isinstance(decision, str) and decision.strip() in ABOVE_WATCHLIST_AK:
+    # §13's cap is explicitly conditional — "unless it is explicitly RESOLVED by primary evidence" — and the
+    # synthesizer's Rating Cap Rules let a resolved Critical lift it. Flagging every above-Watchlist decision
+    # would therefore stamp a legitimately-resolved thesis PROVISIONAL in the live gate. Honour the exception
+    # where the record STATES it: an explicit resolution note on the flag entry, or a rating_cap cell that
+    # affirms the Critical was resolved/lifted rather than denying it existed. Silence is NOT resolution —
+    # the cap still applies unless the record says, in so many words, that it was resolved.
+    if isinstance(decision, str) and decision.strip() in ABOVE_WATCHLIST_AK and not _ak_resolution_stated(d):
         who = ", ".join(sorted(declared))
         det.append(f"{who} declare(s) a Critical red flag but decision={decision.strip()!r} exceeds the "
-                   f"'Watchlist' cap (CLAUDE.md §13: a critical governance/solvency/accounting red flag must "
-                   f"cap the final rating unless explicitly resolved by primary evidence; §18: a critical flag "
-                   f"caps the headline at Watchlist or lower)")
+                   f"'Watchlist' cap, and no explicit primary-evidence resolution is recorded (CLAUDE.md §13: "
+                   f"a critical governance/solvency/accounting red flag must cap the final rating unless "
+                   f"explicitly resolved by primary evidence; §18: a critical flag caps the headline at "
+                   f"Watchlist or lower). State the resolution on the flag entry or in the rating cap to lift it.")
     section = _scorecard_section(thesis)
     cap_cell = _hs_cell(section, "Rating cap") if section else None
     for label, txt in [("Headline Scorecard 'Rating cap' cell", cap_cell), ("decision_record.json rating_cap field", d.get("rating_cap"))]:
@@ -418,6 +503,6 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
             det.append(f"{label} is not a string (got {type(txt).__name__}: {txt!r}) — a rating cap must be "
                        f"readable text; cannot verify it does not deny {top_mod}'s {top_n} Critical flag(s)")
             continue
-        if _AK_DENIAL.search(txt) and not _AK_AFFIRM.search(txt):
+        if _AK_DENIAL.search(txt) and not _ak_affirms(txt):
             det.append(f"{label} denies a Critical red flag ({txt!r}) but {top_mod} declares {top_n}")
     return det
