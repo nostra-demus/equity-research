@@ -77,6 +77,53 @@ export function feedbackDispatchReady(): boolean {
   return FEEDBACK_DISPATCH_ENABLED && CODE_PR_TOKEN.length > 0
 }
 
+// ---- data-pipeline: relevance scan + connector-build dispatch (pipeline-scan.ts, connector-dispatch.ts) ----
+// The "surface a data gap → add a source → scan its relevance → build a durable connector → open a PR" loop
+// that the commodity/research "Data Pipeline" panel drives. Two separately-gated actions:
+//   • SCAN — an internal, READ-ONLY web agent (WebFetch/WebSearch/Read only; no repo write, no git) that
+//     judges whether a user-added source feeds the run's open data_needs. Cheap; authed like the Ask chat
+//     (host keychain OAuth), so it needs no PR token — only the enable flag below.
+//   • BUILD — the paid one-click "send it to Claude, which opens a PR authoring a .claude/connectors/<id>/
+//     bundle". Mirrors the feedback dispatch's isolation model EXACTLY (fresh worktree, fine-grained
+//     CODE_PR_TOKEN, untrusted-input boundary, its OWN caps/inflight/budget file) — never the §28 data
+//     identity. FAIL-CLOSED: needs the enable flag AND a PR token AND an admitted admin (checked at the route).
+// Default ON (set the flag to '0' to force off). The HARD safety gates are NOT these flags — they are (a) the
+// fine-grained PR token: nothing can open a PR without CODE_PR_TOKEN, and (b) the admin allowlist: nothing
+// that spawns a paid agent runs without an admitted email in ENGINE_DISPATCH_ADMINS. With neither configured,
+// a deploy behaves exactly as before (panel shows recommended data read-only; scan/build stay dark) — so
+// flipping the default to on is safe: the token + admin remain the real switches an operator must provide.
+export const PIPELINE_SCAN_ENABLED = process.env.ENGINE_PIPELINE_SCAN_ENABLED !== '0'
+export const CONNECTOR_DISPATCH_ENABLED = process.env.ENGINE_CONNECTOR_DISPATCH_ENABLED !== '0'
+/** The read-only relevance scan can run when it is enabled (it needs no PR token — keychain-authed like chat). */
+export function pipelineScanReady(): boolean {
+  return PIPELINE_SCAN_ENABLED
+}
+/** The connector build → PR dispatch can run only when enabled AND a PR token is configured. */
+export function connectorDispatchReady(): boolean {
+  return CONNECTOR_DISPATCH_ENABLED && CODE_PR_TOKEN.length > 0
+}
+
+// The always-on layer — the cadence runner that keeps every built connector fresh (connector-runner.ts) and
+// the auto-repair that opens a fix-it PR when a source breaks (connector-repair.ts). Default ON (set the flag
+// to '0' to force off):
+//   • The RUNNER only fetches PUBLIC data on a cadence — no secret, no git — so it is safe to have on by
+//     default; that is what keeps feeds fresh "forever" with zero setup.
+//   • AUTO-REPAIR opens a PR, so it still cannot fire without CODE_PR_TOKEN (connectorAutoRepairReady checks
+//     it). Default-on here just means "the moment a PR token exists, a broken feed heals itself" — set
+//     ENGINE_CONNECTOR_AUTO_REPAIR=0 to keep the fresh-data loop but never let it open a repair PR.
+export const CONNECTOR_RUNNER_ENABLED = process.env.ENGINE_CONNECTOR_RUNNER_ENABLED !== '0'
+export const CONNECTOR_AUTO_REPAIR_ENABLED = process.env.ENGINE_CONNECTOR_AUTO_REPAIR !== '0'
+/** The cadence runner runs when it is enabled. */
+export function connectorRunnerReady(): boolean {
+  return CONNECTOR_RUNNER_ENABLED
+}
+/** Auto-repair runs only when both the runner and auto-repair are on AND a PR token is configured. */
+export function connectorAutoRepairReady(): boolean {
+  return CONNECTOR_RUNNER_ENABLED && CONNECTOR_AUTO_REPAIR_ENABLED && CODE_PR_TOKEN.length > 0
+}
+// (PIPELINE_SCAN + CONNECTOR_BUILD + CONNECTOR_RUNNER + CONNECTOR_REPAIR guard objects are defined below,
+// after capNum is in scope.)
+
 // ---- feedback → reporter email (feedback-email.ts) ----
 // When a teammate marks a feedback item "done", the person who filed it is emailed that it's resolved,
 // via the Munshot raw-email API. The token is a SECRET: it lives in the out-of-repo config dir
@@ -328,6 +375,39 @@ export const LAUNCH_GUARDS: Record<LaunchKind, { maxTurns: number; budgetUsd: nu
   'screener-agent': { maxTurns: capNum(process.env.ENGINE_SCREENER_AGENT_MAX_TURNS, 60), budgetUsd: capNum(process.env.ENGINE_SCREENER_AGENT_BUDGET_USD, 12) },
   // idempotent thesis->ticker handoff: read the locked record, write one data-pool memo + ledger line.
   handoff: { maxTurns: capNum(process.env.ENGINE_HANDOFF_MAX_TURNS, 60), budgetUsd: capNum(process.env.ENGINE_HANDOFF_BUDGET_USD, 10) },
+}
+
+// Guards for the read-only relevance-scan agent (pipeline-scan.ts) — a short, cheap, tool-limited web read,
+// kept well under the chat caps. Defined here (not in the dispatch block above) because capNum is in scope.
+export const PIPELINE_SCAN = {
+  model: process.env.ENGINE_PIPELINE_SCAN_MODEL || DEFAULT_MODEL,
+  maxTurns: capNum(process.env.ENGINE_PIPELINE_SCAN_MAX_TURNS, 20),
+  budgetUsd: capNum(process.env.ENGINE_PIPELINE_SCAN_BUDGET_USD, 3),
+  timeoutMs: capNum(process.env.ENGINE_PIPELINE_SCAN_TIMEOUT_MS, 180_000),
+  maxConcurrent: capNum(process.env.ENGINE_PIPELINE_SCAN_MAX_CONCURRENT, 2),
+}
+// Hard ceilings for the connector-build coding agent (connector-dispatch.ts) — its OWN caps, never shared
+// with feedback dispatch (a concurrent feedback + connector burst must not corrupt each other's counters).
+export const CONNECTOR_BUILD = {
+  maxConcurrent: capNum(process.env.ENGINE_CONNECTOR_MAX_CONCURRENT, 1),
+  dailyCap: capNum(process.env.ENGINE_CONNECTOR_DAILY_CAP, 8),
+  maxTurns: capNum(process.env.ENGINE_CONNECTOR_MAX_TURNS, 200),
+  budgetUsd: capNum(process.env.ENGINE_CONNECTOR_BUDGET_USD, 15),
+}
+// The cadence runner (connector-runner.ts) — how often it wakes, and the ceilings on one fetch sweep.
+export const CONNECTOR_RUNNER = {
+  pollIntervalMin: capNum(process.env.ENGINE_CONNECTOR_POLL_MIN, 30),
+  fetchTimeoutMs: capNum(process.env.ENGINE_CONNECTOR_FETCH_TIMEOUT_MS, 60_000),
+  maxConcurrentFetch: capNum(process.env.ENGINE_CONNECTOR_MAX_CONCURRENT_FETCH, 2),
+  dailyFetchCap: capNum(process.env.ENGINE_CONNECTOR_DAILY_FETCH_CAP, 500),
+}
+// The auto-repair coding agent (connector-repair.ts) — its OWN caps + cooldown, never shared with build.
+export const CONNECTOR_REPAIR = {
+  maxConcurrent: capNum(process.env.ENGINE_CONNECTOR_REPAIR_MAX_CONCURRENT, 1),
+  dailyCap: capNum(process.env.ENGINE_CONNECTOR_REPAIR_DAILY_CAP, 4),
+  cooldownHours: capNum(process.env.ENGINE_CONNECTOR_REPAIR_COOLDOWN_HOURS, 12),
+  maxTurns: capNum(process.env.ENGINE_CONNECTOR_REPAIR_MAX_TURNS, 200),
+  budgetUsd: capNum(process.env.ENGINE_CONNECTOR_REPAIR_BUDGET_USD, 15),
 }
 
 // Rough cost/time estimates surfaced to the UI before launch (heuristic only; the hard cap is budgetUsd).

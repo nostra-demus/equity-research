@@ -34,6 +34,7 @@ import { DataUploadEmptyState } from './components/DataUploadEmptyState'
 import { DataFilesPanel } from './components/DataFilesPanel'
 import { IntakeDock } from './components/intake/IntakeDock'
 import { DataNeedsDock } from './components/dataneeds/DataNeedsDock'
+import { DataPipelinePanel } from './components/pipeline/DataPipelinePanel'
 import { DecisionBanner } from './components/DecisionBanner'
 import { OfflineBanner } from './components/EngineStatus'
 
@@ -160,6 +161,7 @@ export function App() {
   const callsOpen = useStore((s) => s.callsOpen)
   const dataLibraryOpen = useStore((s) => s.dataLibraryOpen)
   const pipelineOpen = useStore((s) => s.pipelineOpen)
+  const dataPipelineOpen = useStore((s) => s.dataPipelineOpen)
   const chatOpen = useStore((s) => s.chatOpen)
   const chatHistoryOpen = useStore((s) => s.chatHistoryOpen)
   const newsFeedOpen = useStore((s) => s.newsFeedOpen)
@@ -202,6 +204,7 @@ export function App() {
       <AnimatePresence>{valuationPlaygroundOpen && <ValuationPlayground />}</AnimatePresence>
       <AnimatePresence>{reviewOpen && <ReviewPanel />}</AnimatePresence>
       <AnimatePresence>{cockpitFeedbackOpen && <FeedbackPanel />}</AnimatePresence>
+      <AnimatePresence>{dataPipelineOpen && <DataPipelinePanel />}</AnimatePresence>
       <AnimatePresence>{callsOpen && <CallsTracker />}</AnimatePresence>
       <AnimatePresence>{dataLibraryOpen && <DataLibrary />}</AnimatePresence>
       <AnimatePresence>{pipelineOpen && <PipelineBoard />}</AnimatePresence>

@@ -99,6 +99,7 @@ export interface DataNeed {
   tier: number
   cadence: string
   next_release?: string
+  built_by?: string // a .claude/connectors/<id> whose `satisfies` covers this need_id — the loop is closed
 }
 export interface DataNeedsRead {
   subject: string
@@ -108,6 +109,78 @@ export interface DataNeedsRead {
   needs: DataNeed[]
   widened: string[]
 }
+
+// ---- data pipeline: add a source → live relevance scan → build a connector → open a PR ----
+// (server: pipeline-store.ts / pipeline-scan.ts / connector-dispatch.ts)
+export type PipelineSourceKind = 'api' | 'scrape' | 'web' | 'file'
+export type PipelineStatus = 'new' | 'scanning' | 'scanned' | 'building' | 'pr_open' | 'assessed' | 'done' | 'wontfix'
+export type ScanRelevance = 'exact' | 'partial' | 'none'
+export interface ScanVerdict {
+  relevance: ScanRelevance
+  confidence: number
+  series: string
+  matched_need_ids: string[]
+  entry_modules: string[]
+  acquisition: string
+  tier: number
+  cadence: string
+  host: string
+  endpoint_hint: string
+  verdict_note: string
+  buildable: boolean
+}
+export interface PipelineView {
+  pipeline_id: string
+  subject: string
+  swarm: string
+  need_id: string | null
+  series_hint: string
+  source_url: string
+  source_kind: PipelineSourceKind
+  sample: string
+  note: string
+  user_id: string
+  submitted_at: string
+  status: PipelineStatus
+  verdict: ScanVerdict | null
+  pr_url: string | null
+  last_note: string
+  last_update_at: string
+}
+export interface AddPipelineSourceInput {
+  need_id?: string | null
+  source_url: string
+  source_kind?: PipelineSourceKind
+  series_hint?: string
+  sample?: string
+  note?: string
+}
+
+// ---- the always-on layer: cadence runner + staleness watchdog + auto-repair (server: connector-*.ts) ----
+export type FeedStatus = 'unknown' | 'live' | 'stale' | 'broken' | 'repairing'
+export interface FeedStatusRow {
+  connector_id: string
+  subject: string
+  series: string
+  cadence: string
+  status: FeedStatus
+  last_ok_at: string | null
+  last_as_of: string | null
+  last_attempt_at: string | null
+  consecutive_failures: number
+  staleness_sla_days: number | null
+  entry_modules_hint: string[]
+  repair_pr_url: string | null
+  next_due_at: string | null
+}
+export interface ConnectorRunnerStatus {
+  enabled: boolean
+  autoRepair: boolean
+  pollIntervalMin: number
+  lastSweepAt: string | null
+  connectors: number
+}
+export interface ConnectorsRead { status: ConnectorRunnerStatus; feeds: FeedStatusRow[] }
 
 // ---- the Data Library read (server: pipelines.ts / GET /api/pipelines) ----
 // Mirrors the server reader exactly: snake_case fields are preserved from the data_needs contract,
@@ -1173,7 +1246,7 @@ export interface CallsResult {
 
 // ---- activity / audit log ----
 export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
-export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean; emailEnabled?: boolean }
+export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean; canScanPipeline?: boolean; canBuildConnector?: boolean; canRunConnectors?: boolean; emailEnabled?: boolean }
 
 // ---- cockpit-wide product feedback (server: feedback-store.ts) ----
 export type CockpitFeedbackCategory = 'bug' | 'ui' | 'idea' | 'research_quality' | 'other'

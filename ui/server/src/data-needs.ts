@@ -15,6 +15,7 @@
 // so the dock stays hidden rather than showing a fabricated need.
 import fs from 'node:fs'
 import path from 'node:path'
+import { builtBySatisfies } from './connector-registry'
 import { findRunRootForSubject, listModuleNames } from './roster'
 
 export interface DataNeedSource {
@@ -33,6 +34,7 @@ export interface DataNeed {
   tier: number
   cadence: string
   next_release?: string
+  built_by?: string // the id of a .claude/connectors/<id> whose `satisfies` covers this need_id (loop closed)
 }
 export interface DataNeedsRead {
   subject: string
@@ -66,6 +68,7 @@ export function readDataNeeds(swarmId: string, subject: string): DataNeedsRead |
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null
 
   const modules = new Set(listModuleNames(swarmId))
+  const built = builtBySatisfies() // need_id → connector id, for the "feed built" loop-close marker
   const widened: string[] = []
   const seen = new Set<string>()
   const arr: any[] = Array.isArray(raw.data_needs) ? raw.data_needs : []
@@ -116,6 +119,7 @@ export function readDataNeeds(swarmId: string, subject: string): DataNeedsRead |
       tier,
       cadence,
       next_release: n.next_release ? String(n.next_release) : undefined,
+      built_by: built.get(need_id),
     })
   }
 

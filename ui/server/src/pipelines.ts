@@ -10,11 +10,15 @@
 //     DOWN to the ceiling its source_type earns, exactly like extract_pool.py clamps the pool sidecars.
 //   - Honest degradation: a host without the Drive pool mount serves poolAvailable:false and status
 //     'unknown' — never a fabricated 'missing'.
-// Zero-touch (§26): no connector id and no swarm id appears here — manifests declare, this interprets.
+//   - Single directory scan (§2): the raw `.claude/connectors/*/connector.json` walk + JSON.parse lives in
+//     ONE place, connector-registry.ts's listConnectorDirs() — this reader consumes that same raw scan and
+//     layers its own stricter, UI-facing validation (tier ceiling, id/folder match, output_path shape) on
+//     top, rather than re-walking the directory. The cadence runner / health store / data-needs "feed built"
+//     marker read connector-registry.ts's OWN (more lenient, operational) parse of the same raw scan.
 import fs from 'node:fs'
 import path from 'node:path'
-import fg from 'fast-glob'
-import { CONNECTORS_DIR, DATA_DIR, REPO_ROOT } from './config'
+import { listConnectorDirs, type ConnectorDirEntry } from './connector-registry'
+import { DATA_DIR, REPO_ROOT } from './config'
 import { readDataNeeds } from './data-needs'
 import { listSwarms } from './swarms'
 import { swarmSubjects } from './roster'
@@ -116,18 +120,14 @@ interface ParsedManifest {
   satisfies: string[]
 }
 
-function parseManifest(file: string, widened: string[]): ParsedManifest | null {
-  const folder = path.basename(path.dirname(file))
+function parseManifest(entry: ConnectorDirEntry, widened: string[]): ParsedManifest | null {
+  const folder = entry.id
   const drop = (why: string) => {
     widened.push(`dropped connector manifest ${folder}: ${why}`)
     return null
   }
-  let m: any
-  try {
-    m = JSON.parse(fs.readFileSync(file, 'utf8'))
-  } catch (e: any) {
-    return drop(`does not parse (${e?.message || 'bad JSON'})`)
-  }
+  if (entry.parseError) return drop(`does not parse (${entry.parseError})`)
+  const m = entry.raw
   if (!m || typeof m !== 'object' || Array.isArray(m)) return drop('not an object')
   const id = String(m.id ?? '')
   if (!SLUG_RE.test(id) || id !== folder) return drop(`id ${JSON.stringify(m.id)} is not a slug matching its folder`)
@@ -227,8 +227,8 @@ export function readPipelines(force = false): PipelinesRead {
   }
 
   const pipelines: PipelineEntry[] = []
-  for (const file of fg.sync('*/connector.json', { cwd: CONNECTORS_DIR, absolute: true }).sort()) {
-    const p = parseManifest(file, widened)
+  for (const entry of listConnectorDirs()) {
+    const p = parseManifest(entry, widened)
     if (!p) continue
     pipelines.push({
       ...p,

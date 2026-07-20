@@ -564,6 +564,13 @@ interface State {
   cockpitFeedbackOpen: boolean
   openCockpitFeedback: () => void
   closeCockpitFeedback: () => void
+  // The "Data Pipeline" builder panel (recommended data + add a source + live relevance scan + build → PR).
+  // Distinct from the screener's `pipelineOpen`/PipelineBoard. focusNeed prefills the add-source form's
+  // target when opened from a data-need card's "Build a feed →".
+  dataPipelineOpen: boolean
+  dataPipelineFocusNeed: string | null
+  openDataPipeline: (needId?: string) => void
+  closeDataPipeline: () => void
   reviewSubmit: (feedbackType: FeedbackType, reason: string) => Promise<void>
   reviewSkip: () => void
   // on-demand enrichment for the opened event (the real story / SEC items / prior coverage / related)
@@ -842,6 +849,8 @@ export const useStore = create<State>((set, get) => ({
   ratedPolarity: loadRated(),
   reviewOpen: false,
   cockpitFeedbackOpen: false,
+  dataPipelineOpen: false,
+  dataPipelineFocusNeed: null,
   reviewFilters: emptyReviewFilters(),
   reviewQueue: [],
   reviewIndex: 0,
@@ -2119,6 +2128,8 @@ export const useStore = create<State>((set, get) => ({
   closeActivity: () => set({ activityOpen: false }),
   openCockpitFeedback: () => set({ cockpitFeedbackOpen: true }),
   closeCockpitFeedback: () => set({ cockpitFeedbackOpen: false }),
+  openDataPipeline: (needId?: string) => set({ dataPipelineOpen: true, dataPipelineFocusNeed: needId ?? null }),
+  closeDataPipeline: () => set({ dataPipelineOpen: false, dataPipelineFocusNeed: null }),
   openScoring: () => set({ scoringOpen: true }),
   closeScoring: () => set({ scoringOpen: false }),
   openValuationPlayground: () => set({ valuationPlaygroundOpen: true }),
