@@ -100,7 +100,9 @@ def _validate(dirname: str, cdir: str, man) -> str | None:
     # Each subject is later joined to data_root to build the fetch path, so a traversal component (`../`,
     # a `/` or `\` separator, a leading dot) in a malformed manifest could steer a write outside the pool.
     # Require a single safe pool identifier — the same shape the server registry admits.
-    unsafe = [s for s in subjects if not re.match(r"^[A-Za-z0-9][A-Za-z0-9._-]*$", s) or ".." in s]
+    # re.fullmatch (not re.match + `$`): in Python `$` also matches just before a trailing newline, so
+    # re.match would accept "ALUMINIUM\n" and let it through. fullmatch requires the WHOLE string to match.
+    unsafe = [s for s in subjects if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", s) or ".." in s]
     if unsafe:
         return f"subjects must be safe pool identifiers (no path separators or traversal): {unsafe!r}"
     sla = man.get("staleness_sla_days")
