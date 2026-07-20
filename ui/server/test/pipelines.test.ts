@@ -12,6 +12,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { readPipelines } from '../src/pipelines'
+import { DATA_DIR } from '../src/config'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -49,9 +50,17 @@ check('every discovered pipeline is structurally valid (slug id, enums, SLA, out
   }
 })
 
-check('real repo: pool root exists → poolAvailable true, statuses never unknown', () => {
-  assert.equal(real.poolAvailable, true)
-  for (const p of real.pipelines) for (const s of p.statuses) assert.notEqual(s.status, 'unknown')
+check('real repo: poolAvailable and status honestly reflect whether data/ is actually readable', () => {
+  // A bare checkout (CI, or any host without the Drive pool mounted at data/) has NO pool — that is
+  // the correct, documented "honest degradation" (pipelines.ts top-of-file comment), not a failure.
+  // Assert against the SAME probe readPipelines() uses, so this passes identically in CI (no data/)
+  // and on a doer host with the Drive symlink mounted, instead of assuming either state.
+  let dataReadable = true
+  try { fs.readdirSync(DATA_DIR) } catch { dataReadable = false }
+  assert.equal(real.poolAvailable, dataReadable)
+  for (const p of real.pipelines) for (const s of p.statuses) {
+    assert.equal(s.status === 'unknown', !dataReadable, `${p.id}/${s.subject}: status=${s.status}, dataReadable=${dataReadable}`)
+  }
 })
 
 check('real repo: any widened entries are keep-and-label audit notes, never drops', () => {
