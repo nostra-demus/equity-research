@@ -45,11 +45,6 @@ check('every discovered pipeline is structurally valid (slug id, enums, SLA, out
     assert.ok(p.stalenessSlaDays > 0)
     assert.ok(p.outputPath.startsWith('data/<SUBJECT>/external/'), `${p.id}: ${p.outputPath}`)
     assert.equal(path.posix.basename(p.outputPath).split('<as_of>').length, 2)
-    // 5/7/9 are the §4 ceilings themselves (EXTERNAL_DATA.md); 10 is a sidecar declaring a MORE
-    // conservative tier than its ceiling requires (allowed — e.g. a web-scrape connector under the
-    // external_other ceiling of 9 self-labelling as the even-more-conservative tier-10 "reputable web
-    // source, unverified" per CLAUDE.md §4). The clamp only ever pushes a tier DOWN to its ceiling; it
-    // never rejects a sidecar being more conservative than required.
     assert.ok([5, 7, 9, 10].includes(p.tier), `${p.id}: served tier ${p.tier} outside the §4 ceilings`)
     assert.ok(p.subjects.length > 0 && p.statuses.length === p.subjects.length)
   }
@@ -131,6 +126,15 @@ check('fixture: tier clamp — external_other declaring tier 5 serves 9 + tierCo
   const p = probeRead(repo).pipelines[0]
   assert.equal(p.tier, 9)
   assert.equal(p.tierCorrected, true)
+})
+
+check('fixture: external_other declaring tier 10 (more conservative than its ceiling) is NOT corrected', () => {
+  const repo = tmp('pipeclamp10-')
+  fs.mkdirSync(path.join(repo, 'data', 'AAA'), { recursive: true })
+  writeConn(repo, 'conservative-conn', { source_type: 'external_other', tier: 10, acquisition: 'scrape' })
+  const p = probeRead(repo).pipelines[0]
+  assert.equal(p.tier, 10)
+  assert.equal(p.tierCorrected, undefined)
 })
 
 check('fixture: SLA boundaries — age==SLA fresh, age==SLA+1 stale, no file missing; as_of from filename not mtime', () => {

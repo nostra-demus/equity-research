@@ -85,7 +85,10 @@ const CADENCE = new Set(['realtime', 'daily', 'weekly', 'monthly', 'event_driven
 const SLUG_RE = /^[a-z0-9][a-z0-9-]*$/
 const SATISFIES_RE = /^[a-z0-9][a-z0-9_-]*$/
 
-// EXTERNAL_DATA.md §4 tier ceilings by source_type — unknown/missing fails closed to 9.
+// EXTERNAL_DATA.md §4 tier ceilings by source_type — unknown/missing fails closed to 9. A sidecar may
+// still self-declare a MORE conservative tier than its ceiling (e.g. a web-scrape connector under the
+// external_other ceiling of 9 self-labelling as the even-more-conservative tier-10 "reputable web source,
+// unverified" per CLAUDE.md §4) — the clamp below only ever pushes a tier DOWN to its ceiling, never up.
 const TIER_CEILING: Record<string, number> = {
   alt_data_panel: 5, vendor_export: 5, paid_api: 5,
   broker_research: 7,
