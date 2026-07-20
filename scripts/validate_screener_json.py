@@ -158,6 +158,88 @@ FIXTURE_PAIRS = [
     ("frameworks/screener/board_index.schema.json", "screener/board/index.json"),
 ]
 
+THESIS_INTEGRITY_SCHEMA = "frameworks/screener/thesis_integrity_review.schema.json"
+
+
+def screener_integrity_reviews() -> list[str]:
+    """Every committed screener/runs/<SIG>/thesis_integrity_review*.json (repo-relative) — the base file AND
+    every append-only _vN re-review the module writes on a rerun. Globbed like commodity_decision_reviews so a
+    malformed or anchor-inconsistent versioned review cannot land un-checked; a single hardcoded fixture row
+    only ever saw the base file."""
+    return sorted(
+        os.path.relpath(p, REPO)
+        for p in glob.glob(os.path.join(REPO, "screener", "runs", "*", "thesis_integrity_review*.json"))
+    )
+
+
+def check_thesis_integrity_anchors(doc_path: str) -> list[str]:
+    """Cross-check a thesis_integrity_review.json against the thesis_record.json it reviews — the
+    screener-scoped twin of check_commodity_review_anchors: thesis_id/signal_id must match, and the
+    restated original_routing_outcome/original_final_score must match the LOCKED M0_6_6 block (this
+    module never edits thesis_record.json, so a mismatch here is a transcription bug, not a real
+    disagreement)."""
+    run_dir = os.path.dirname(doc_path)
+    thesis_path = os.path.join(run_dir, "thesis_record.json")
+    if not os.path.exists(thesis_path):
+        return [f"no thesis_record.json alongside {os.path.relpath(doc_path, REPO)} to cross-check against"]
+    try:
+        review = json.load(open(doc_path, encoding="utf-8"))
+        thesis = json.load(open(thesis_path, encoding="utf-8"))
+    except Exception as e:
+        return [f"could not parse for cross-check: {e}"]
+    # A valid-JSON document with the wrong root type (e.g. `[]`) must be reported as a FAIL, not crash
+    # the whole --fixture/CI run with an AttributeError on `.get()`. Mirrors check_commodity_review_anchors.
+    if not isinstance(review, dict) or not isinstance(thesis, dict):
+        return ["thesis_integrity_review / thesis_record is not a JSON object"]
+    errs = []
+    meta = thesis.get("meta", {})
+    if review.get("thesis_id") != meta.get("thesis_id"):
+        errs.append(f"review thesis_id {review.get('thesis_id')!r} != thesis_record meta.thesis_id {meta.get('thesis_id')!r}")
+    if review.get("signal_id") != meta.get("signal_id"):
+        errs.append(f"review signal_id {review.get('signal_id')!r} != thesis_record meta.signal_id {meta.get('signal_id')!r}")
+    m066 = thesis.get("M0_6_6", {})
+    if review.get("original_routing_outcome") != m066.get("routing_outcome"):
+        errs.append(f"review original_routing_outcome {review.get('original_routing_outcome')!r} != thesis_record M0_6_6.routing_outcome {m066.get('routing_outcome')!r}")
+    if review.get("original_final_score") != m066.get("final_score"):
+        errs.append(f"review original_final_score {review.get('original_final_score')!r} != thesis_record M0_6_6.final_score {m066.get('final_score')!r}")
+    verdict = review.get("verdict")
+    routing = review.get("routing")
+    expected = {"Survives": "Proceed", "Survives with haircut": "Proceed",
+                "Does not survive — downgrade": "watchlist_integrity_downgrade",
+                "Thesis broken": "watchlist_integrity_broken"}.get(verdict)
+    if expected and routing != expected:
+        errs.append(f"verdict {verdict!r} requires routing {expected!r} per MODULE_RULES.md's binding table, got {routing!r}")
+    # Binding finding→verdict invariant (MODULE_RULES.md: a fireproof kill switch — is_fireproof:true = the
+    # M0_5 threshold could never fire before the M0_4 horizon, functionally unfalsifiable — is the module's
+    # single most important hard failure and forces verdict "Thesis broken"). Enforce it independently of the
+    # verdict→routing pair above: an internally inconsistent output (is_fireproof:true + verdict "Survives" +
+    # routing "Proceed") satisfies the pair-check yet must NOT clear the gate to candidate-surfacing.
+    if (review.get("falsification_attack") or {}).get("is_fireproof") is True and verdict != "Thesis broken":
+        errs.append(
+            f"falsification_attack.is_fireproof is true but verdict is {verdict!r}; MODULE_RULES.md's binding "
+            f"table requires verdict 'Thesis broken' (routing 'watchlist_integrity_broken') for a fireproof kill switch"
+        )
+    # The SAME binding table gives a SECOND independent trigger for "Thesis broken": "or the load-bearing
+    # claim fails the citation spot-check." citation_spot_check by construction holds only the 3-5 MOST
+    # load-bearing numeric claims (MODULE_RULES.md "Attack discipline > Citation spot-check"), so any item
+    # marked miscited/unsupported IS a load-bearing claim that failed — forcing verdict "Thesis broken"
+    # (routing "watchlist_integrity_broken"). Enforced independently of the verdict→routing pair above: a
+    # "Survives"/"Proceed" (or a mere "…downgrade") output with a failed citation satisfies the pair-check
+    # yet must NOT clear the gate to candidate-surfacing. `unverified`/`inference-labeled` are disclosed-but-
+    # -uncertain, not failed (the fixture carries both under "Survives with haircut"), so they never trip this.
+    spot = review.get("citation_spot_check")
+    failed = [c for c in spot if isinstance(c, dict) and c.get("status") in ("miscited", "unsupported")] \
+        if isinstance(spot, list) else []
+    if failed and verdict != "Thesis broken":
+        claims = "; ".join(str(c.get("claim")) for c in failed)
+        errs.append(
+            f"citation_spot_check has {len(failed)} load-bearing claim(s) with status miscited/unsupported "
+            f"({claims}) but verdict is {verdict!r}; MODULE_RULES.md's binding table requires verdict "
+            f"'Thesis broken' (routing 'watchlist_integrity_broken') when a load-bearing claim fails the "
+            f"citation spot-check"
+        )
+    return errs
+
 COMMODITY_SCHEMA = "frameworks/commodity/decision_record.schema.json"
 COMMODITY_REVIEW_SCHEMA = "frameworks/commodity/decision_review.schema.json"
 REVIEW_WINDOW_DAYS = {"30d": 30, "90d": 90, "180d": 180, "365d": 365}
@@ -372,6 +454,7 @@ def check_commodity_data_sufficiency(doc_path: str) -> list[str]:
 def main(argv: list[str]) -> int:
     if len(argv) >= 2 and argv[1] == "--fixture":
         pairs = [(os.path.join(REPO, s), os.path.join(REPO, d)) for s, d in FIXTURE_PAIRS]
+        pairs += [(os.path.join(REPO, THESIS_INTEGRITY_SCHEMA), os.path.join(REPO, d)) for d in screener_integrity_reviews()]
         pairs += [(os.path.join(REPO, COMMODITY_SCHEMA), os.path.join(REPO, d)) for d in commodity_decision_records()]
         pairs += [(os.path.join(REPO, COMMODITY_REVIEW_SCHEMA), os.path.join(REPO, d)) for d in commodity_decision_reviews()]
     elif len(argv) >= 3 and len(argv) % 2 == 1:
@@ -387,6 +470,8 @@ def main(argv: list[str]) -> int:
             errs = errs + check_commodity_routing(doc_p) + check_commodity_data_sufficiency(doc_p)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_REVIEW_SCHEMA)):
             errs = errs + check_commodity_review_anchors(doc_p)
+        if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, THESIS_INTEGRITY_SCHEMA)):
+            errs = errs + check_thesis_integrity_anchors(doc_p)
         if errs:
             bad += 1
             print(f"FAIL {rel}")

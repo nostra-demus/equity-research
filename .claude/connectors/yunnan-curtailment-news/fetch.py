@@ -6,7 +6,7 @@ aluminium term — the dry-season power-rationing signal the aluminium supply th
 matters is roughly Nov-Apr (Yunnan hydro dry season); an off-season not_detected is the expected baseline.
 A file-writing fetcher per EXTERNAL_DATA.md §7 — zero engine wiring; keyless; headline metadata + links only
 (articles are read at their publishers). Every hit is a LEAD to verify at the publisher, never a measurement,
-so it folds in at §4 tier 9 (external_other). Fails CLOSED: a non-200 or malformed feed on ANY of the three
+so it folds in at §4 tier 10 (external_other — a dated, unverified web/news scan, not a user note). Fails CLOSED: a non-200 or malformed feed on ANY of the three
 queries writes NOTHING (a partial scan would understate). `as_of` is always the scan date — the honest
 "data through" of the scan (§7): it covers the wire up to now regardless of how old the newest match is, and
 each matched headline keeps its own pubDate in `matched[]`.
@@ -154,8 +154,8 @@ def build(feeds, window_days: int, now: datetime | None = None):
     }
     sidecar = {
         "provider": PROVIDER,
-        "source_type": "external_other",    # §4 tier-9 ceiling: an unverified third-party news scan, never a measurement
-        "tier": 9,
+        "source_type": "external_other",    # §4 tier-10 ceiling: a dated, unverified third-party web/news scan (a user note = tier 9; a web scan is tier 10), never a measurement
+        "tier": 10,
         "as_of": asof,
         "received": now.strftime("%Y-%m-%d"),
         "source_urls": [_url(q) for q in QUERIES],
@@ -212,7 +212,7 @@ def main() -> int:
     data_path = os.path.join(out_dir, f"yunnan_curtailment_scan_{asof}.json")
     _atomic_write_json(data_path, payload)
     _atomic_write_json(data_path + ".source.json", sidecar)
-    print(f"wrote {data_path} (signal {signal}, {len(payload['matched'])} match(es), as_of {asof}) + .source.json sidecar (tier 9)")
+    print(f"wrote {data_path} (signal {signal}, {len(payload['matched'])} match(es), as_of {asof}) + .source.json sidecar (tier 10)")
     return 0
 
 

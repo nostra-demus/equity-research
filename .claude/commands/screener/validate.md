@@ -14,6 +14,7 @@ You drive ONE checkpoint validation of the conviction loop (see `frameworks/scre
 - Verify the thesis: `test -s screener/ledger/theses/<THESIS_ID>.json`. If missing, STOP: "No locked thesis <THESIS_ID>."
 - Verify the checkpoint exists: `grep -F '"<CHECKPOINT_ID>"' screener/ledger/conviction/checkpoints.ndjson`. If missing, STOP: "No checkpoint <CHECKPOINT_ID> — run scripts/screener_emit_checkpoints.py <THESIS_ID> first."
 - If `screener/ledger/conviction/conviction_state/<THESIS_ID>.json` is missing, run `python3 scripts/screener_emit_checkpoints.py <THESIS_ID>` to seed it.
+  - **Integrity-gate guard.** That seeder refuses to seed a thesis whose latest `screener/runs/<SIG>/thesis_integrity_review*.json` routed a terminal verdict (`watchlist_integrity_downgrade` / `watchlist_integrity_broken`) — the post-lock adversarial gate rejected it, so it earns no conviction calendar or paid validation (SWARM.md §4, `frameworks/screener/CONVICTION_LOOP.md`). If it prints `skip … (terminal)` and emits nothing, the checkpoint stays absent and the grep above STOPs: report the rejection, do NOT hand-seed the thesis to force a validation.
 
 ## 2. Get the judgment (the validator agent)
 
