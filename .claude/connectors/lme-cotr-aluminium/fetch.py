@@ -7,9 +7,10 @@ subject's external pool as a typed, §4 tier-5 vendor export. A file-writing fet
 — zero engine wiring. Fails CLOSED: a non-200, a bot-wall challenge page, or a workbook that doesn't parse
 writes NOTHING. `as_of` is the position date read from inside the workbook, never a file mtime.
 
-The LME's static media store serves the workbook at a date-stamped URL, but current-date links sit behind a
-JS bot-wall for non-browser clients. So the network path is best-effort (candidate position-Friday URLs,
-then a page-scrape for the media link), and `--from-file` is a first-class fallback: download the free XLSX
+The LME's static media store serves the workbook at a date-stamped URL. The position date is a Friday, but
+the file is published the following Tuesday (occasionally Wednesday, when the preceding Monday is a UK
+bank holiday) — so the network path is best-effort (candidate publish-Tuesday/Wednesday URLs, then a
+page-scrape for the media link), and `--from-file` is a first-class fallback: download the free XLSX
 from the COTR page in a browser and feed it through the SAME parser to the SAME typed output.
 
 Usage:
@@ -37,9 +38,10 @@ CONTRACT = "AH"                          # LME two-letter code: Aluminium High G
 PROVIDER = "lme"
 CONNECTOR_ID = "lme-cotr-aluminium"
 PAGE_URL = f"https://{HOST}/en/market-data/reports-and-data/commitments-of-traders/aluminium"
-# Observed static-store pattern (position-date Friday), e.g. .../AH-aluminium/01-May-2020.xlsx
-MEDIA_URL = "https://" + HOST + "/-/media/Files/Data/COTRs/AH-aluminium/{d:02d}-{m}-{y}.xlsx"
-_MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+# Observed static-store pattern (publish-date Tue/Wed, DDMMYYYY), e.g.
+# .../AH-aluminium/MiFID-Weekly-COTR-Report--AH--14072026.xls (an OOXML/xlsx workbook despite the .xls name)
+MEDIA_URL = ("https://" + HOST + "/-/media/Files/Data/COTRs/AH-aluminium/"
+             "MiFID-Weekly-COTR-Report--{c}--{d:02d}{m:02d}{y}.xls")
 _HEADERS = {  # browser-like — the media store rejects bare urllib UAs outright
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) "
                   "Chrome/126.0.0.0 Safari/537.36",
@@ -51,10 +53,17 @@ with open(os.path.join(_HERE, "connector.json"), encoding="utf-8") as _f:
     MANIFEST = json.load(_f)  # series / license / output_path come from the manifest so they can't drift
 
 
-def _position_fridays(n: int = 3):
+def _candidate_publish_dates(n: int = 4):
+    """LME publishes the Friday position data the following Tuesday, or Wednesday when the preceding
+    Monday is a UK bank holiday — try both weekdays for the last n weeks."""
     today = datetime.now(timezone.utc).date()
-    friday = today - timedelta(days=(today.weekday() - 4) % 7)
-    return [friday - timedelta(days=7 * i) for i in range(n)]
+    tuesday = today - timedelta(days=(today.weekday() - 1) % 7)
+    dates = []
+    for i in range(n):
+        tue = tuesday - timedelta(days=7 * i)
+        dates.append(tue)
+        dates.append(tue + timedelta(days=1))
+    return dates
 
 
 def _get(url: str, timeout: int = 30) -> bytes:
@@ -66,11 +75,11 @@ def _get(url: str, timeout: int = 30) -> bytes:
 
 
 def fetch_workbook():
-    """Best-effort network path: candidate Friday URLs, then a page-scrape for the media link.
+    """Best-effort network path: candidate publish-Tuesday/Wednesday URLs, then a page-scrape for the media link.
     Accepts a body ONLY when it starts with ZIP magic b"PK" — an Imperva HTML challenge never parses."""
     tried = []
-    for d in _position_fridays():
-        url = MEDIA_URL.format(d=d.day, m=_MONTHS[d.month - 1], y=d.year)
+    for d in _candidate_publish_dates():
+        url = MEDIA_URL.format(c=CONTRACT, d=d.day, m=d.month, y=d.year)
         tried.append(url)
         try:
             body = _get(url)
@@ -80,7 +89,7 @@ def fetch_workbook():
             pass
     try:
         page = _get(PAGE_URL).decode("utf-8", "replace")
-        links = re.findall(r"/-/media/[^\"']*COTRs?[^\"']*\.xlsx", html.unescape(page), flags=re.I)
+        links = re.findall(r"/-/media/[^\"']*COTRs?[^\"']*\.xlsx?", html.unescape(page), flags=re.I)
         for link in list(dict.fromkeys(links))[:5]:
             url = f"https://{HOST}{link}" if link.startswith("/") else link
             tried.append(url)
@@ -114,12 +123,39 @@ def _si_text(si) -> str:
     return "".join(t.text or "" for t in si.iter() if _local(t.tag) == "t")
 
 
+def _worksheet_part(zf: zipfile.ZipFile) -> str:
+    """Resolve the first sheet's real archive path via workbook.xml + its rels — LME's own exporter
+    names the part xl/worksheets/sheet.xml (no digit), not Excel's usual xl/worksheets/sheet1.xml.
+    Falls back to the sheet1.xml convention for workbooks that don't carry rels (e.g. this test's
+    synthetic fixture, or a genuine Excel export)."""
+    try:
+        wb = ET.fromstring(zf.read("xl/workbook.xml"))
+        rels = ET.fromstring(zf.read("xl/_rels/workbook.xml.rels"))
+        targets = {rel.get("Id"): rel.get("Target") for rel in rels if _local(rel.tag) == "Relationship"}
+        for sheet_el in wb.iter():
+            if _local(sheet_el.tag) != "sheet":
+                continue
+            rid = next((v for k, v in sheet_el.attrib.items() if k.endswith("}id") or k == "id"), None)
+            # A <sheet> with no r:id, or a <Relationship> carrying an Id but no Target, yields None here —
+            # `None.lstrip` would raise AttributeError, which the old narrow except let ESCAPE, so the
+            # sheet1.xml fallback below never ran and a recoverable workbook failed outright.
+            target = targets.get(rid) if rid else None
+            if isinstance(target, str) and target.strip():
+                target = target.lstrip("/")
+                return target if target.startswith("xl/") else f"xl/{target}"
+    except Exception:
+        # This resolver's whole contract is "find the real part, else use the convention" — ANY malformed
+        # workbook/rels shape must reach that documented fallback rather than take the connector down.
+        pass
+    return "xl/worksheets/sheet1.xml"
+
+
 def grid_from_xlsx(data: bytes):
     """bytes → {(row, col): str}. Keyed by each cell's own r= reference, so the observed
     one-cell-per-<row> quirk and merged/sparse rows need no special handling."""
     try:
         zf = zipfile.ZipFile(io.BytesIO(data))
-        sheet = zf.read("xl/worksheets/sheet1.xml")
+        sheet = zf.read(_worksheet_part(zf))
     except (zipfile.BadZipFile, KeyError) as e:
         raise RuntimeError(f"not a readable COTR workbook (fail closed): {e}")
     shared = []
@@ -233,12 +269,16 @@ def build(grid, source_url: str, acquired_via: str = "direct_fetch", original_fi
         raise RuntimeError(f"section label(s) missing: {missing} (fail closed)")
 
     bounds = sorted(r for r, _ in section_rows.values())
+    max_row = max((r for r, _ in grid), default=0)
 
     def total_row(section: str) -> int:
-        srow, scol = section_rows[section]
-        nxt = min([b for b in bounds if b > srow], default=10 ** 9)
+        """The 'Total' sub-row label can sit in a different column than the section header itself
+        (observed: header in col A, sub-row labels — Risk Reducing / Other / Total — in col C), so
+        scan every column in the row range rather than assuming the header's own column."""
+        srow, _ = section_rows[section]
+        nxt = min([b for b in bounds if b > srow] + [max_row + 1], default=max_row + 1)
         for row in range(srow + 1, nxt):
-            if grid.get((row, scol), "").lower() == "total":
+            if any(v.lower() == "total" for (r, _), v in grid.items() if r == row):
                 return row
         raise RuntimeError(f"no Total row under section {section!r} (fail closed)")
 
@@ -262,8 +302,10 @@ def build(grid, source_url: str, acquired_via: str = "direct_fetch", original_fi
         "notation": "lots",
         "investment_funds": {
             "long": if_long, "short": if_short, "net": net, "stance": stance, "net_change_wow": net_chg,
-            "pct_of_oi_long": _num(grid, pct_row, if_col, "IF pct of OI long"),
-            "pct_of_oi_short": _num(grid, pct_row, if_col + 1, "IF pct of OI short"),
+            # the sheet stores this section as a raw fraction of 1 (the long-side fractions across all
+            # categories sum to 1.0) — scale to percentage points to match the field name and §15 hygiene
+            "pct_of_oi_long": round(_num(grid, pct_row, if_col, "IF pct of OI long") * 100, 4),
+            "pct_of_oi_short": round(_num(grid, pct_row, if_col + 1, "IF pct of OI short") * 100, 4),
         },
         "categories_net": categories_net,
         "acquired_via": acquired_via,
