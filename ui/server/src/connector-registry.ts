@@ -3,12 +3,16 @@
 // module discovers + fail-closed-validates every manifest so the cadence runner, the staleness watchdog, the
 // health store, and the data-needs "feed built ✓" marker all read ONE parsed view. It launches nothing and
 // writes nothing. A malformed manifest is dropped (never surfaced), never throws.
+//   - `listConnectorDirs()` is the ONE place that walks the directory and parses each connector.json's raw
+//     JSON — pipelines.ts (the cockpit's Data Library reader) consumes the same raw scan for its own,
+//     stricter §4-tier-ceiling validation, instead of re-implementing the directory walk. Two callers, one
+//     filesystem scan (CLAUDE.md §2 — no parallel discovery of the same manifests).
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { REPO_ROOT } from './config'
+import { CONNECTORS_DIR } from './config'
 
-export const CONNECTORS_DIR = path.join(REPO_ROOT, '.claude', 'connectors')
+export { CONNECTORS_DIR }
 
 // The cadence enum a connector may declare, and how often the runner re-fetches it. `event_driven` has no
 // fixed clock — it is fetched only manually or near a known release, so the runner treats it as manual-only.
@@ -71,18 +75,43 @@ export function parseManifest(dir: string, raw: any): ConnectorManifest | null {
   }
 }
 
-/** Every valid connector manifest on disk. [] when the dir is absent — never throws. */
-export function listConnectors(): ConnectorManifest[] {
+export interface ConnectorDirEntry {
+  id: string // the folder name under CONNECTORS_DIR
+  dir: string // absolute path to that folder
+  raw: any // JSON.parse of its connector.json, or null when the folder/file is unreadable / does not parse
+  parseError?: string // set only when raw is null because of a read/parse failure (vs. a missing file)
+}
+
+/**
+ * The ONE raw directory scan over `.claude/connectors/*<slash>*connector.json` — lists every subfolder,
+ * reads its manifest, and parses the JSON. Does NOT validate the parsed shape (that is `parseManifest`'s
+ * job, done differently by each caller's own strictness). Sorted by folder name for determinism. Never
+ * throws: an unreadable dir yields [], an unreadable/unparsable connector.json yields a `parseError` entry
+ * rather than being silently skipped, so a caller that wants to audit WHY a manifest was dropped can.
+ */
+export function listConnectorDirs(): ConnectorDirEntry[] {
   let names: string[]
   try { names = fs.readdirSync(CONNECTORS_DIR) } catch { return [] }
-  const out: ConnectorManifest[] = []
-  for (const name of names) {
+  const out: ConnectorDirEntry[] = []
+  for (const name of names.sort()) {
     const dir = path.join(CONNECTORS_DIR, name)
     let stat: fs.Stats
     try { stat = fs.statSync(dir) } catch { continue }
     if (!stat.isDirectory()) continue
-    let raw: any
-    try { raw = JSON.parse(fs.readFileSync(path.join(dir, 'connector.json'), 'utf8')) } catch { continue }
+    try {
+      out.push({ id: name, dir, raw: JSON.parse(fs.readFileSync(path.join(dir, 'connector.json'), 'utf8')) })
+    } catch (e: any) {
+      out.push({ id: name, dir, raw: null, parseError: e?.message || 'bad JSON' })
+    }
+  }
+  return out
+}
+
+/** Every valid connector manifest on disk. [] when the dir is absent — never throws. */
+export function listConnectors(): ConnectorManifest[] {
+  const out: ConnectorManifest[] = []
+  for (const { dir, raw } of listConnectorDirs()) {
+    if (raw == null) continue
     const m = parseManifest(dir, raw)
     // require the fetcher to actually exist on disk (a manifest pointing at a missing entry is dead)
     if (m && fs.existsSync(path.join(dir, m.entry))) out.push(m)

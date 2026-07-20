@@ -45,7 +45,7 @@ import { FEEDBACK_MAX_IMAGES, type FeedbackCategory, type FeedbackItemRecord, ap
 import { dryRunFeedbackDispatch, startFeedbackDispatch } from './feedback-dispatch'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
-import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, terminalModuleName } from './roster'
+import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
@@ -71,6 +71,7 @@ import { getConnector } from './connector-registry'
 import { feedHealthFor } from './connector-health'
 import { getRunnerStatus, listFeedStatuses, runConnectorNow, startConnectorRunner } from './connector-runner'
 import { startConnectorRepair } from './connector-repair'
+import { readPipelines } from './pipelines'
 import { SubjectBusyError, withSubjectLock } from './subject-lock'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
@@ -261,7 +262,9 @@ app.get('/api/swarm/subjects', async (req, reply) => {
   const swarm = (req.query as any)?.swarm as string | undefined
   if (!swarm || swarm === 'research') return reply.code(400).send({ error: 'swarm required (research uses /api/tickers)' })
   if (!listSwarms().some((s) => s.id === swarm)) return reply.code(404).send({ error: `unknown swarm ${swarm}` })
-  return { swarm, subjects: swarmSubjects(swarm) }
+  // `subjects` (names) stays for back-compat + the wire's subject grouping; `summaries` adds each subject's
+  // run verdict/confidence/date so the picker can show runs the way research shows per-ticker decisions.
+  return { swarm, subjects: swarmSubjects(swarm), summaries: swarmSubjectSummaries(swarm) }
 })
 
 // ---------- tickers ----------
@@ -993,6 +996,17 @@ app.post('/api/connectors/:id/repair', { config: { rateLimit: { max: 30, timeWin
   const fh = feedHealthFor(id, subject)
   const outcome = startConnectorRepair(m, subject, fh.last_error || '')
   return reply.code(outcome.accepted ? 202 : 409).send({ ok: outcome.accepted, ...outcome })
+})
+
+// Data-library read: discovered connector manifests (.claude/connectors/*/connector.json) x live pool
+// freshness x uncovered-need recommendations (data_needs join). Read-only; fail-closed manifest drops
+// are audited in `widened`; a pool-less host serves poolAvailable:false + 'unknown' statuses honestly.
+app.get('/api/pipelines', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (_req, reply) => {
+  try {
+    return { read: readPipelines() }
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'could not read pipelines' })
+  }
 })
 
 // Analyze the documents that landed since the last run and (re)write the scoped rerun plan. This is

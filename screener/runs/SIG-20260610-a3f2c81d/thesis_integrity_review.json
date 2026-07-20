@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "thesis_id": "THS-SIG-20260610-a3f2c81d-v1",
+  "signal_id": "SIG-20260610-a3f2c81d",
+  "run_root": "screener/runs/SIG-20260610-a3f2c81d",
+  "reviewed_at": "2026-06-10T07:20:00Z",
+  "reviewer": "screener-thesis-integrity-synthesis",
+  "fixture": true,
+  "original_routing_outcome": "provisional",
+  "original_final_score": 79,
+  "adversarial_direction": "Steelman the case AGAINST the DIR-001 (housing-finance, borrowing-funded) beneficiary tier: argue funding-cost transmission is slower or smaller than modeled, so the NIM-expansion mechanism disappoints relative to what is already priced.",
+  "bear_case_steelman": "System liquidity was already loose before the cut (M0_6_1 contrary view), so incremental CP/NCD repricing may lag the clean 2-quarter roll assumed in M0_6_3 — HFCs could see funding costs fall more slowly than the 50 bps headline implies, while NIFTY Financial Services already re-rated to the top third of its 5-year forward P/E band (M0_6_2 block 3) on day one. If the funding-cost transmission comes in materially slower than modelled, Q2 FY27 results could show only a partial NIM benefit against a valuation base that has already moved — a 'buy the rumor, mediocre on the print' outcome the thesis does not currently price.",
+  "world_change_attack": "The three WC-001/002/003 magnitudes hold up against their stated baselines (prior MPC level, prior-day close, prior-day weighted average) — all same-day, same-source, non-cherry-picked windows. No attack survives here.",
+  "variant_perception_attack": "The +15-20 bps NIM / +4-6% EPS departure (M0_6_3) is a real, mechanism-specific number, not a restatement of the +1% uniform consensus drift (M0_6_2 block 2) — the funding-mix asymmetry is a genuine, differentiated claim. Weakness: `sell_side_gap_evidence` describes a search over 'published-summary aggregators' on the SAME day as the event (2026-06-10) — a same-day search is a weak test of a sell-side coverage gap; the street has had less than 24 hours to publish a differentiated read. This should be re-checked closer to the M0_6_5 trigger window, not treated as settled.",
+  "mispricing_reason_attack": "The three verifiable facts (uniform day-one sub-index moves; undifferentiated 48h estimate revisions; the off-cycle date missing from the standard model-update calendar) are independent — they test three different things (price action, analyst output, analyst calendar) rather than one fact restated three ways. They hold up.",
+  "convergence_trigger_attack": "The 4-step causal_mechanism rests on Q2 FY27 results (2026-10-15 to 2026-11-15) being the moment NIM expansion becomes visible — a mandatory, scheduled disclosure (SEBI LODR Reg 33), not a discretionary event. No named-actor step is hand-wavy. Residual risk (not a break, a timing note): if funding costs reprice faster than the 1-2 quarter assumption, some of the NIM benefit could already show in Q1 FY27 commentary before the named trigger window, pulling convergence earlier than modelled — worth monitoring, not a disqualifying flaw.",
+  "falsification_attack": {
+    "is_fireproof": false,
+    "rationale": "Threshold: 3-month AAA HFC CP yield must decline >=25 bps from the 2026-06-09 baseline by 2026-08-15 (about 9 weeks after the cut) or the thesis is dead. Against a 50 bps repo cut and a 42 bps same-day call-money repricing (WC-003), a 25 bps CP move within 9 weeks is a realistic, readily observable bar — meaningfully short of the full 50 bps transmission, not set so far away it could never fire. The by-date (2026-08-15) sits comfortably inside the M0_4 horizon (expiry ~Oct-Nov 2026), leaving a real window to observe a breach before the thesis is judged on results anyway. This is a genuine, reachable test, not a fireproof one."
+  },
+  "base_rate_check": "A 25-45 bps funding-cost pass-through within one to two quarters of a 50 bps policy cut is within the historical range for India's money-market transmission (per M0_6_1's own contrary-view citation of a +35 bps CP-repo spread forecast vs a +15 bps historical spread) — the implied magnitude is not an outlier requiring exceptional evidence; it sits inside a plausible, previously-observed band.",
+  "citation_spot_check": [
+    { "claim": "Policy repo rate cut 50 bps to 5.00% (2026-06-10)", "source_checked": "RBI press release (sources[0])", "status": "verified", "evidence": "Cited source is the official RBI release; matches M0_1 event_statement and WC-001 verbatim." },
+    { "claim": "10-year G-sec yield -18 bps to 6.04% intraday (2026-06-10)", "source_checked": "Exchange data (NSE/CCIL), Reuters market wrap (sources[1]/[2])", "status": "verified", "evidence": "WC-002 cites exchange data + wire corroboration; consistent with the magnitude of a 50 bps surprise off-cycle cut." },
+    { "claim": "NIFTY Financial Services fwd P/E 16.8x vs 5yr band 13.5-17.5x", "source_checked": "M0_6_2 block 3 (aggregator data, 2026-06-10)", "status": "inference-labeled", "evidence": "Explicitly labelled 'aggregator' data in the record itself, not re-verified against a primary multiples export in this pass — carried through as-is, correctly labelled." },
+    { "claim": "Contrary view: +35 bps persistent CP-repo spread vs +15 bps historical", "source_checked": "M0_6_1 contrary_view.contrary_view_sources", "status": "unverified", "evidence": "The record names 'one macro-strategy house' without a retrievable public source URL — cannot independently confirm the figure; carried as an unverified but disclosed contrary data point, not treated as fact." }
+  ],
+  "overconfidence_flags": [
+    "M0_6_1's `entrenchment_note` and the day-one uniform re-rating both describe the SAME market reaction — the thesis should not read 'the market entrenched on a simple view' and 'the market already partly re-rated financials' as two separate pieces of confirming evidence; they are one fact."
+  ],
+  "verdict": "Survives with haircut",
+  "edge_score_haircut_note": "Final score 79 (provisional band) would read closer to the low-70s if the same-day sell-side-gap search (variant-perception attack) and the already-top-of-band sector multiple (bear case steelman) were weighted — the mechanism and trigger are real, but part of the re-rating may already be in the price.",
+  "confidence_note": "The idea holds up: the funding-cost story is real and the kill switch is a fair test, but the sector has already re-rated some of this in one day, so the safety margin is thinner than the score alone suggests.",
+  "routing": "Proceed",
+  "routing_reason": "No attack broke a load-bearing claim and the kill switch is a genuine, reachable test inside the horizon — candidate-surfacing may proceed, with the haircut note carried to the deck for the human's benefit."
+}

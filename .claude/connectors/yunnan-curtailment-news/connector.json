@@ -1,0 +1,27 @@
+{
+  "id": "yunnan-curtailment-news",
+  "series": "Yunnan smelter-curtailment news scan — dry-season power-rationing signal for Chinese aluminium supply",
+  "satisfies": ["yunnan-dry-season-curtailment"],
+  "subjects": ["ALUMINIUM"],
+  "provider": "Google News",
+  "acquisition": "scrape",
+  "source_type": "external_other",
+  "tier": 10,
+  "license": "headline metadata + links only; articles are read at their publishers",
+  "host_allowlist": ["news.google.com"],
+  "cadence": "weekly",
+  "staleness_sla_days": 10,
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/google-news/yunnan_curtailment_scan_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "signal": "enum:detected|not_detected",
+    "window_days": "int",
+    "matched": [{ "title": "string", "publisher": "string", "published": "date", "url": "string", "matched_terms": ["string"] }],
+    "queries": ["string"],
+    "scanned_at": "datetime",
+    "note": "string"
+  }
+}

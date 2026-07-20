@@ -1,15 +1,8 @@
 import { useState } from 'react'
 import { useStore } from '../../lib/store'
 import type { DataNeed } from '../../lib/types'
+import { ACQ_LABEL, CADENCE_LABEL } from '../../lib/labels'
 import './DataNeedsDock.css'
-
-// Plain-English labels for the machine enums the decision_record carries.
-const ACQ_LABEL: Record<string, string> = {
-  official_api: 'official API', free_key_api: 'free API', paid_api: 'paid API', scrape: 'web scrape', manual: 'manual',
-}
-const CADENCE_LABEL: Record<string, string> = {
-  realtime: 'realtime', daily: 'daily', weekly: 'weekly', monthly: 'monthly', event_driven: 'per release',
-}
 
 // The "Data needs" dock: the external data series the run's terminal synthesizer said were capping conviction,
 // surfaced so a durable connector can be built to feed them in. This is the ENTRY POINT to the Data Pipeline

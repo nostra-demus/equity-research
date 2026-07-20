@@ -168,6 +168,7 @@ function TickerPicker() {
   const openAddCompany = useStore((s) => s.openAddCompany)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const swarmSubjectList = useStore((s) => s.swarmSubjectList)
+  const swarmSubjectRuns = useStore((s) => s.swarmSubjectRuns)
   const [open, setOpen] = useState(false)
   // which company's run history is expanded inside the dropdown (research only; same shared surface as the
   // first-time picker). A company only offers it when it has >1 run.
@@ -189,16 +190,26 @@ function TickerPicker() {
           <>
             <div style={{ position: 'fixed', inset: 0, zIndex: 39 }} onClick={() => setOpen(false)} />
             <div className="tickerpick__menu">
-              {swarmSubjectList.map((s) => (
-                <button
-                  key={s}
-                  className={`tickerpick__item${s === selected ? ' tickerpick__item--active' : ''}`}
-                  onClick={() => { selectTicker(s); setOpen(false) }}
-                >
-                  <span className="tickerpick__sym">{s}</span>
-                  {activeRunsByTicker.has(s) && <span className="pulsedot" style={{ flexShrink: 0 }} title="Run in progress" />}
-                </button>
-              ))}
+              {swarmSubjectList.map((s) => {
+                const run = swarmSubjectRuns[s]
+                const running = activeRunsByTicker.has(s)
+                return (
+                  <button
+                    key={s}
+                    className={`tickerpick__item${s === selected ? ' tickerpick__item--active' : ''}`}
+                    onClick={() => { selectTicker(s); setOpen(false) }}
+                  >
+                    <span className="tickerpick__sym">{s}</span>
+                    {running && <span className="pulsedot" style={{ flexShrink: 0 }} title="Run in progress" />}
+                    {/* flex:1 spacer that also carries the confidence when this subject has a verdict — pushes
+                        the verdict to the right, matching the research branch's row layout */}
+                    <span className="tickerpick__meta">{run?.verdict && run.confidence != null ? `conf ${run.confidence}` : ''}</span>
+                    {run?.verdict && (
+                      <span style={{ color: decisionColor(run.verdict), fontSize: 11, fontWeight: 600 }}>{run.verdict}</span>
+                    )}
+                  </button>
+                )
+              })}
               {!swarmSubjectList.length && (
                 <div style={{ padding: '12px', color: 'var(--text-faint)', fontSize: 12, lineHeight: 1.55 }}>
                   No commodities yet. Add a <b style={{ color: 'var(--text-muted)' }}>## NAME</b> section to
@@ -465,6 +476,8 @@ export function CommandBar() {
   const openScoring = useStore((s) => s.openScoring)
   const openReview = useStore((s) => s.openReview)
   const openCalls = useStore((s) => s.openCalls)
+  const openDataLibrary = useStore((s) => s.openDataLibrary)
+  const pipelines = useStore((s) => s.pipelines)
   const openChat = useStore((s) => s.openChat)
   const openChatHistory = useStore((s) => s.openChatHistory)
   const scSelectedSignal = useStore((s) => s.scSelectedSignal) // the signal whose run is on the gauntlet — the screener Ask's subject
@@ -499,6 +512,11 @@ export function CommandBar() {
       <div className="topbar__spacer" />
       <ThemeToggle />
       <FeedbackButton />
+      {/* shared across BOTH modes; gated on the read having answered — an old engine 404s and the
+          button never renders (deploy-skew fail-closed, DESIGN.md §5) */}
+      {pipelines !== null && (
+        <button className="btn btn--ghost" onClick={openDataLibrary} title="Data library — the wired data pipelines feeding the pool, and the gaps worth wiring next">Data</button>
+      )}
       {screenerMode ? (
         <>
           <StopControl />

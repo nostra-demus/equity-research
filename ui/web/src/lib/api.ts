@@ -1,7 +1,8 @@
 import { staticPromptPath } from './prompts'
+import type { PipelinesRead } from './types'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, ConnectorsRead, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, PipelineView, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, ConnectorsRead, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, PipelineView, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -210,11 +211,15 @@ export const api = {
     }
   },
   // Subjects of a non-research constellation swarm (e.g. commodity) for its subject picker. Research
-  // uses tickers(). Static showcase: the bundled snapshot list (or empty).
-  swarmSubjects: async (swarmId: string): Promise<string[]> => {
-    if ((await ensureMode()) === 'static') return (snap.swarmSubjects?.[swarmId]) || []
-    const r = await get<{ swarm: string; subjects: string[] }>(`/api/swarm/subjects?swarm=${encodeURIComponent(swarmId)}`)
-    return r.subjects || []
+  // uses tickers(). Returns both the plain name list (used for the wire's subject grouping) AND the
+  // per-subject run summaries (verdict/confidence/date) so the picker can show runs like research does.
+  // Static showcase: the bundled snapshot lists (or empty); `summaries` may be absent on an older snapshot.
+  swarmSubjects: async (swarmId: string): Promise<{ subjects: string[]; summaries: SwarmSubjectSummary[] }> => {
+    if ((await ensureMode()) === 'static') {
+      return { subjects: snap.swarmSubjects?.[swarmId] || [], summaries: snap.swarmSubjectSummaries?.[swarmId] || [] }
+    }
+    const r = await get<{ swarm: string; subjects: string[]; summaries?: SwarmSubjectSummary[] }>(`/api/swarm/subjects?swarm=${encodeURIComponent(swarmId)}`)
+    return { subjects: r.subjects || [], summaries: r.summaries || [] }
   },
   screenerBoard: async (): Promise<ScreenerBoard> => {
     if ((await ensureMode()) === 'static') return snap.screenerBoard || EMPTY_BOARD
@@ -806,6 +811,15 @@ export const api = {
   repairConnector: async (id: string, subject?: string): Promise<{ ok: boolean; status: string; message: string }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/connectors/${encodeURIComponent(id)}/repair`, subject ? { subject } : {})
+  },
+
+  // The cross-swarm data-pipeline library read (connector registry + freshness + recommended-to-add).
+  // Static showcase returns a sensible absent read; live errors keep their `status` (the get()
+  // convention) so the store can tell a mid-deploy 404 (feature off, §5) from a real failure.
+  pipelines: async (): Promise<{ read: PipelinesRead }> => {
+    if ((await ensureMode()) === 'static')
+      return { read: { generatedAt: '', poolAvailable: false, pipelines: [], recommended: [], widened: [] } }
+    return get(`/api/pipelines`)
   },
 
   runStreamUrl: (runId: string) => `/api/runs/${runId}/stream`,

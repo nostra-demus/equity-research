@@ -177,6 +177,68 @@ export interface ConnectorRunnerStatus {
 }
 export interface ConnectorsRead { status: ConnectorRunnerStatus; feeds: FeedStatusRow[] }
 
+// ---- the Data Library read (server: pipelines.ts / GET /api/pipelines) ----
+// Mirrors the server reader exactly: snake_case fields are preserved from the data_needs contract,
+// camelCase for manifest-derived fields. The whole read is fail-closed server-side (malformed
+// manifests dropped + audited in `widened`); a pool-less host serves poolAvailable:false + 'unknown'.
+export interface PipelineSubjectStatus {
+  subject: string
+  status: 'fresh' | 'stale' | 'missing' | 'unknown'
+  latestAsOf?: string
+  ageDays?: number
+  latestFile?: string
+}
+export interface PipelineHelp {
+  swarm: string
+  subject: string
+  need_id: string
+  series: string
+  why_it_caps: string
+  entry_modules: string[]
+}
+export interface PipelineEntry {
+  id: string
+  series: string
+  provider: string
+  acquisition: string
+  sourceType: string
+  tier: number
+  tierCorrected?: boolean
+  license?: string
+  hostAllowlist: string[]
+  cadence: string
+  stalenessSlaDays: number
+  entry: string
+  verify: string
+  outputPath: string
+  outputSchema?: unknown
+  subjects: string[]
+  satisfies: string[]
+  helps: PipelineHelp[]
+  statuses: PipelineSubjectStatus[]
+}
+export interface RecommendedNeed {
+  key: string
+  swarm: string
+  subject: string
+  need_id: string
+  series: string
+  why_it_caps: string
+  cap_lifted?: string
+  suggested_source: { name: string; acquisition: string; licensing?: string }
+  tier: number
+  cadence: string
+  next_release?: string
+  entry_modules: string[]
+}
+export interface PipelinesRead {
+  generatedAt: string
+  poolAvailable: boolean
+  pipelines: PipelineEntry[]
+  recommended: RecommendedNeed[]
+  widened: string[]
+}
+
 // ---- "What changed since the last version" (server: what-changed.ts / run-diff.ts) ----
 // The diff is computed SERVER-side and arrives finished. Never re-derive it in a selector: a
 // constructing zustand selector returns a fresh reference on every store write (the getSnapshot loop),
@@ -909,6 +971,20 @@ export interface TickerSummary {
   // a run folder NEWER than latestRun has no decision record yet — the verdict shown is from the last
   // completed run; the picker flags that a partial re-run has landed since (see RunHistoryEntry)
   hasNewerPartial: boolean
+}
+
+// Per-subject run summary for a NON-research swarm's subject picker (commodity GOLD/SUGAR, …) — the lean
+// twin of TickerSummary. A constellation swarm has ONE run folder per subject, so there is no run history /
+// file count here; just whether it has run and the routing verdict (resolved server-side via the swarm's
+// self-declared verdict field). Served alongside the plain subject-name list by GET /api/swarm/subjects.
+export interface SwarmSubjectSummary {
+  subject: string
+  hasRun: boolean
+  runRoot: string | null
+  verdict: string | null
+  decisionDate: string | null
+  confidence: number | null
+  lastChangeAt: number | null
 }
 
 // One row of a ticker's run history (GET /api/runs?ticker=…). Newest-first; a run with no decision record
