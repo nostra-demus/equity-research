@@ -292,6 +292,7 @@ interface State {
   chatHistoryOpen: boolean // the saved-conversation browser is open
   activityOpen: boolean
   scoringOpen: boolean
+  valuationPlaygroundOpen: boolean
   callsOpen: boolean
   selectedNodeKey: string | null
   launchConfirm: { kind: 'full' | 'rerun'; preflight: LaunchPreflight; cascade?: CascadeNode[]; node?: { module: string; name: string; key: string } } | null
@@ -468,6 +469,8 @@ interface State {
   closeActivity: () => void
   openScoring: () => void
   closeScoring: () => void
+  openValuationPlayground: () => void
+  closeValuationPlayground: () => void
   openCalls: () => void
   closeCalls: () => void
   openCallFile: (path: string, title: string) => void
@@ -791,6 +794,7 @@ export const useStore = create<State>((set, get) => ({
   chatHistoryOpen: false,
   activityOpen: false,
   scoringOpen: false,
+  valuationPlaygroundOpen: false,
   callsOpen: false,
   selectedNodeKey: null,
   launchConfirm: null,
@@ -2117,6 +2121,8 @@ export const useStore = create<State>((set, get) => ({
   closeCockpitFeedback: () => set({ cockpitFeedbackOpen: false }),
   openScoring: () => set({ scoringOpen: true }),
   closeScoring: () => set({ scoringOpen: false }),
+  openValuationPlayground: () => set({ valuationPlaygroundOpen: true }),
+  closeValuationPlayground: () => set({ valuationPlaygroundOpen: false }),
   openCalls: () => set({ callsOpen: true }),
   closeCalls: () => set({ callsOpen: false }),
 
