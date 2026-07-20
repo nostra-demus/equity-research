@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "ticker": "ALUMINIUM",
+  "run_root": "commodity/runs/ALUMINIUM",
+  "scan_date": "2026-07-20",
+  "scanned_at": "2026-07-20T01:45:47Z",
+  "watermark": "commodity/runs/ALUMINIUM/decision_record.json",
+  "new_docs": [
+    {
+      "path": "data/ALUMINIUM/external/iai/primary_production_2026-05-31.json",
+      "sha256": "7ea8c76e6796a6f57407b70d77353e3483208e96e7ba9dbd6d37216894e0948d",
+      "provider": "IAI",
+      "source_type": "paid_api",
+      "tier": 5,
+      "as_of": "2026-05-31",
+      "claims_summary": "China primary aluminium production was 3,835 kt in May 2026 (world 6,159 kt) — an annualised run-rate of 45.15 Mt, 100.34% of the 45 Mt analyst-reference policy cap the decision record's deficit thesis leans on; the decision record's own IAI figure was routed via AlCircle and published 2026-01-26, so this is a fresher direct-from-IAI print (China YoY +2.24%).",
+      "materiality_score": 78,
+      "impact_direction": "positive",
+      "entry_orbs": [
+        {
+          "module": "supply-demand",
+          "agent": "commodity-supply",
+          "why": "commodity-supply maps production by region from primary bodies (IAI for aluminium) and tracks the direction of supply; this is a fresher, directly-sourced China production print that confirms the 45 Mt cap is still binding (run-rate at 100.3% of cap), the structural pillar the decision record's deficit thesis and China's binding 45 Mt cap risk both depend on.",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "path": "data/ALUMINIUM/external/google-news/yunnan_curtailment_scan_2026-07-20.json",
+      "sha256": "782d46ba174b6d2f00234d1f6f1b733d3a2f2a384b6e9bf1b4ffa2ff9692c31d",
+      "provider": "Google News",
+      "source_type": "external_other",
+      "tier": 10,
+      "as_of": "2026-07-20",
+      "claims_summary": "30-day headline scan (3 queries) for Yunnan smelter curtailment / hydropower-driven power rationing found 0 matched headlines; the connector's own note flags this as the expected off-season baseline (the dry-season window that matters is roughly Nov-Apr), not an all-clear.",
+      "materiality_score": 8,
+      "impact_direction": "neutral",
+      "entry_orbs": [
+        {
+          "module": "supply-demand",
+          "agent": "commodity-weather-seasonality",
+          "why": "commodity-weather-seasonality flags near-term weather/calendar risk to the balance, and a repeat Yunnan dry-season curtailment is already named as a forward risk in the decision record's key_risks; this scan is the monitoring feed for that risk, but a 0-match, explicitly-expected-baseline off-season result carries no new information.",
+          "confidence": 0.4
+        }
+      ]
+    }
+  ],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [
+      { "module": "supply-demand", "agent": "commodity-supply" }
+    ],
+    "commands": [
+      {
+        "command": "/commodity:rerun supply-demand commodity-supply ALUMINIUM",
+        "module": "supply-demand",
+        "agent": "commodity-supply",
+        "cascade_modules": ["supply-demand", "commodity-thesis"],
+        "triggered_by": ["data/ALUMINIUM/external/iai/primary_production_2026-05-31.json"]
+      }
+    ],
+    "note_only": [
+      {
+        "path": "data/ALUMINIUM/external/google-news/yunnan_curtailment_scan_2026-07-20.json",
+        "reason": "tier-10 single-source web scan with a null (0-match) result explicitly labelled the expected off-season baseline; materiality 8 < gate, and a not_detected news scan is not a second independent source corroborating anything — keep as a monitoring watch item for the Nov-2026 dry season, not a rerun trigger"
+      }
+    ]
+  },
+  "verdict": "scoped_rerun",
+  "summary": "One tier-5 IAI production print (May 2026, direct from the primary body) confirms China's primary-aluminium run-rate is at 100.3% of the 45 Mt policy cap the decision record's deficit thesis depends on — fresher than the AlCircle-routed figure the run cited, so it warrants re-running commodity-supply and its downstream supply-demand synthesis and commodity-thesis. One tier-10 Yunnan curtailment news scan came back with 0 matches, which the connector itself flags as the expected off-season baseline rather than new information, so it stays a monitoring watch item, not a rerun trigger."
+}
