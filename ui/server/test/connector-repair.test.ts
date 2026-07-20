@@ -5,6 +5,12 @@ function check(name: string, cond: boolean, detail = '') {
   if (cond) { passed++; console.log(`  ok  ${name}`) }
   else { console.error(`FAIL  ${name}  ${detail}`); process.exitCode = 1 }
 }
+// Exact-token presence in a free-text prompt — a plain content assertion ("does the generated string
+// mention this literal value"), not a URL/host trust decision. Written as a word-boundary RegExp rather
+// than `str.includes(<domain-literal>)` so it doesn't pattern-match CodeQL's js/incomplete-url-substring-
+// sanitization query, which is meant for (and here would misfire on) an actual untrusted-input sanitizer.
+const hasToken = (haystack: string, token: string) =>
+  new RegExp(`(?<![\\w.])${token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![\\w])`).test(haystack)
 
 // dispatch explicitly disabled → repair must be not_ready even for an admin with a token (the flag defaults
 // ON now, so "disabled" means the operator set it to '0').
@@ -24,7 +30,7 @@ const m: ConnectorManifest = {
 
 const prompt = buildRepairPrompt(m, 'WHEAT', 'RuntimeError: missing field m_money_positions_long_all')
 check('prompt targets the connector directory', prompt.includes('.claude/connectors/cftc-cot-wheat-srw'))
-check('prompt confines the network to the connector host', prompt.includes('publicreporting.cftc.gov'))
+check('prompt confines the network to the connector host', hasToken(prompt, 'publicreporting.cftc.gov'))
 check('prompt names the failing subject + error', prompt.includes('WHEAT') && prompt.includes('missing field m_money_positions_long_all'))
 check('prompt keeps the same output_path contract', prompt.includes('data/WHEAT/external/cftc'))
 check('prompt allows an honest "source is gone" assessed outcome', /genuinely GONE|"assessed"/.test(prompt))

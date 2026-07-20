@@ -7,6 +7,12 @@ function check(name: string, cond: boolean, detail = '') {
   if (cond) { passed++; console.log(`  ok  ${name}`) }
   else { console.error(`FAIL  ${name}  ${detail}`); process.exitCode = 1 }
 }
+// Exact-token presence in a free-text prompt — a plain content assertion ("does the generated string
+// mention this literal value"), not a URL/host trust decision. Written as a word-boundary RegExp rather
+// than `str.includes(<url-literal>)` so it doesn't pattern-match CodeQL's js/incomplete-url-substring-
+// sanitization query, which is meant for (and here would misfire on) an actual untrusted-input sanitizer.
+const hasToken = (haystack: string, token: string) =>
+  new RegExp(`(?<![\\w.])${token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![\\w])`).test(haystack)
 
 const { scanActivityTarget, classifyScanLine, extractLastJsonObject, buildScanPrompt } = await import('../src/pipeline-scan')
 
@@ -59,7 +65,7 @@ const prompt = buildScanPrompt({
   needs: [{ need_id: 'n1', series: 'X series', why_it_caps: 'caps', cap_lifted: undefined, filing_required: false, entry_modules: ['macro-positioning'], suggested_source: { name: 'S', acquisition: 'official_api' }, tier: 5, cadence: 'weekly' } as any],
   source: { source_url: 'https://api.example.com/gold', source_kind: 'api', sample: 'a,b,c', note: 'a note', need_id: 'n1', series_hint: 'gold price' },
 })
-check('prompt names the source URL', prompt.includes('https://api.example.com/gold'))
+check('prompt names the source URL', hasToken(prompt, 'https://api.example.com/gold'))
 check('prompt includes the open need id', prompt.includes('n1'))
 check('prompt warns fetched pages are UNTRUSTED', /UNTRUSTED/.test(prompt))
 check('prompt demands a single JSON verdict', prompt.includes('"relevance"') && prompt.includes('"buildable"'))

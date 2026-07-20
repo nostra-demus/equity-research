@@ -15,7 +15,10 @@ check('discovers the committed connectors (>= 2)', cons.length >= 2, `found ${co
 const cot = cons.find((c) => c.id === 'cftc-cot-wheat-srw')
 check('the CFTC connector is discovered', !!cot)
 check('its subjects + cadence + entry parsed', !!cot && cot.subjects.includes('WHEAT') && cot.cadence === 'weekly' && cot.entry === 'fetch.py')
-check('its host_allowlist parsed', !!cot && cot.host_allowlist.includes('publicreporting.cftc.gov'))
+// Exact array-element match (host_allowlist is a string[]) — .some(===) rather than .includes(), so this
+// reads unambiguously as membership-in-a-list, not a substring-of-a-URL check (CodeQL js/incomplete-url-
+// substring-sanitization pattern-matches any `.includes(<domain-literal>)` regardless of the receiver type).
+check('its host_allowlist parsed', !!cot && cot.host_allowlist.some((h) => h === 'publicreporting.cftc.gov'))
 
 // ---- cadence intervals ----
 check('daily interval = 24h', cadenceIntervalMs('daily') === 24 * 3600_000)
