@@ -103,7 +103,9 @@ def _hs_cell_exact(section, label):
     """Like _hs_cell but the row label must be EXACTLY `label` (ignoring surrounding spaces/emphasis), so
     'Rating' cannot be satisfied by a 'Rating cap' row."""
     if not section: return None
-    m = re.search(r"(?im)^\|\s*\**\s*"+re.escape(label)+r"\s*\**\s*\|\s*(.*?)\s*\|\s*$", section)
+    # Emphasis may be `*`/`**` OR `_`/`__` (Markdown allows both), so `| __Rating__ |` is the SAME row as
+    # `| Rating |` — matching only `*` would report a present underscore-emphasised row as absent.
+    m = re.search(r"(?im)^\|\s*[*_]*\s*"+re.escape(label)+r"\s*[*_]*\s*\|\s*(.*?)\s*\|\s*$", section)
     return m.group(1) if m else None
 
 
@@ -292,6 +294,22 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
         if not (isinstance(sh, dict) and isinstance(sh.get("band"), str) and isinstance(sh.get("action"), str)):
             det.append(f"post-split run (>= {CONF_SPLIT_DATE}): sizing_hint={sh!r} must be an object with "
                        f"string 'band' and 'action' fields (DECISION_LEDGER.md §5)")
+        # The reader-facing 'Suggested sizing' scorecard cell IS sizing_hint.action (synthesizer.md §2:
+        # "`Suggested sizing` = `sizing_hint.action`"). Reconcile it here, exactly as the Rating row is
+        # reconciled above — validating only the JSON sizing_hint (in the scorer block below) leaves the
+        # cell the reader actually sees unchecked, so a scorecard showing 'full position candidate' over a
+        # recorded 'standard position' would ship an unsupported size clean (Codex r2). Absent cell → skip.
+        if isinstance(sh, dict) and isinstance(sh.get("action"), str) and sh.get("action").strip():
+            _size_cell = _hs_cell(section, "Suggested sizing")
+            if _size_cell is not None:
+                _snorm = lambda s: re.sub(r'\s+', ' ', re.sub(r'[*_`]', '', str(s))).strip().lower()
+                _a, _b = _snorm(_size_cell), _snorm(sh.get("action"))
+                # Prefix-tolerant either way: the cell may carry a trailing gloss ("standard position (2-4%)")
+                # or the recorded action may ("monitor only — no position"). Only a genuinely DIFFERENT size fails.
+                if _a and _b and not (_a.startswith(_b) or _b.startswith(_a)):
+                    det.append(f"Headline Scorecard 'Suggested sizing'={_size_cell!r} does not match "
+                               f"sizing_hint.action={sh.get('action')!r} in decision_record.json — the "
+                               f"position size the reader sees must be the recorded one (synthesizer.md §2)")
         # Container types alone do not prove the SCORER ran — a record can carry a hand-written conviction
         # with inputs that recompute to something else entirely (conviction 80 recorded against inputs that
         # deterministically yield 20), and every check above still passes, letting an inflated conviction AND
@@ -304,15 +322,19 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
                 import confidence as _conf   # ONLY an unavailable scorer is ignorable (see below)
             except Exception:
                 _conf = None
-            if _conf is not None:
-                _fields = set(getattr(_conf.ConfidenceInputs, "__dataclass_fields__", {}))
+            # Resolve the class defensively: a confidence module that imports but exposes no
+            # ConfidenceInputs is an UNAVAILABLE scorer (its own contract above), not a record defect —
+            # skip re-derivation rather than crash the harness on the bare attribute access (Gemini).
+            _CI = getattr(_conf, "ConfidenceInputs", None) if _conf is not None else None
+            if _conf is not None and _CI is not None:
+                _fields = set(getattr(_CI, "__dataclass_fields__", {}))
                 _kw = {k: v for k, v in ci.items() if k in _fields}
                 # FAIL CLOSED when the inputs cannot even build a ConfidenceInputs. `data_sufficiency` is
                 # required, so `confidence_inputs: {}` raises — and swallowing that let a hand-written
                 # conviction (and its position size) ship with no recorded basis at all, which is the very
                 # thing this check exists to stop. An unconstructable input object IS the violation.
                 try:
-                    _inp = _conf.ConfidenceInputs(**_kw)
+                    _inp = _CI(**_kw)
                 except Exception as _e:
                     det.append(f"post-split run: confidence_inputs cannot reconstruct the scorer's inputs "
                                f"({type(_e).__name__}: {_e}) — conviction={cv} therefore has no re-derivable "
@@ -431,6 +453,16 @@ _AK_AFFIRM_NEGATED = re.compile(r'\b(?:no|zero|0|none|not)\b[^.\n]{0,20}\bcaps?\
 # entry (a `resolved`/`resolution` field, or resolution wording in its own text) or in the rating cap — so
 # an unresolved Critical still caps. Deliberately narrow: silence never counts as resolution.
 _AK_RESOLVED = re.compile(r'\bresolved\b|\bresolution\b|\bcap\s+lifted\b|\blift(?:s|ed)?\s+the\s+cap\b', re.I)
+# ...but a NEGATED resolution ("not resolved", "unresolved", "no resolution", "resolution pending",
+# "cap not lifted", "not yet resolved") must NOT count — otherwise a Critical whose status literally reads
+# "not resolved" lifts the §13 cap because the substring "resolved" appears inside it (Codex r2). Checked
+# on the SAME clause-scoped window (`[^.\n;]`) as the affirm-negation above, so a resolution in one clause
+# and a negation in a different one do not cross-cancel.
+_AK_RESOLVED_NEG = re.compile(
+    r'\bun-?resolved\b'
+    r'|\b(?:not|no|never|pending|awaiting|yet)\b[^.\n;]{0,20}\b(?:resolved|resolution|lifted)\b'
+    r'|\b(?:resolution|resolved|cap)\b[^.\n;]{0,20}\b(?:pending|outstanding|not\s+lifted)\b',
+    re.I)
 
 
 def _ak_resolution_stated(d):
@@ -446,7 +478,10 @@ def _ak_resolution_stated(d):
     for rf in crit:
         if rf.get("resolved") is True:
             continue
-        if any(_AK_RESOLVED.search(str(rf.get(_f) or "")) for _f in ("resolution", "status", "description")):
+        # A resolution counts only if resolution wording appears AND no negation appears in the flag's own
+        # fields — "status: not resolved" contains "resolved" but is the opposite of a resolution.
+        _txt = " ; ".join(str(rf.get(_f) or "") for _f in ("resolution", "status", "description"))
+        if _AK_RESOLVED.search(_txt) and not _AK_RESOLVED_NEG.search(_txt):
             continue
         return False   # this Critical is unresolved -> the cap stands
     return True

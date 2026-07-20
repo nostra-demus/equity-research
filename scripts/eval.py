@@ -1682,6 +1682,23 @@ if scope=="selftest":
                                                      "modules_absent":["valuaton"]}},
          _SC_R % "Buy", ["flagged the recorded inputs"]),
     ]
+    # Codex r2 (P1): the reader-facing 'Suggested sizing' scorecard cell must reconcile with
+    # sizing_hint.action (synthesizer.md §2). _SC_SZ carries a Suggested sizing row; _D_R records
+    # sizing_hint.action='standard position'. A mismatched cell must FAIL (RED on pre-fix, which only
+    # validated the JSON sizing_hint); a matching cell (incl. a trailing gloss) stays clean.
+    _SC_SZ = ("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
+              "| Rating | Buy |\n| Conviction /100 | 68 |\n| Understanding /100 | 70 |\n"
+              "| Suggested sizing | %s |\n")
+    # Codex r2 (P2): an underscore-emphasised Rating row (`| __Rating__ | Buy |`) is PRESENT and must be
+    # found — pre-fix _hs_cell_exact matched only `*`, so it wrongly reported the row absent.
+    _SC_UND = ("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
+               "| __Rating__ | Buy |\n| Conviction /100 | 68 |\n| Understanding /100 | 70 |\n")
+    aicases += [
+        ("2026-07-11", _D_R, _SC_SZ % "full position candidate", ["Suggested sizing"]),   # mismatch -> FAIL
+        ("2026-07-11", _D_R, _SC_SZ % "standard position", []),                           # match -> clean
+        ("2026-07-11", _D_R, _SC_SZ % "standard position (2-4% NAV)", []),                # trailing gloss -> clean
+        ("2026-07-11", _D_R, _SC_UND, []),                                                # underscore Rating found & matches
+    ]
     aibad=0
     for dt_,d_,th_,exp in aicases:
         got=AI(dt_,d_,th_)
@@ -1874,6 +1891,18 @@ if scope=="selftest":
         # r2: the ceiling attaches to the FLAG, so it applies with no recognised module count at all.
         ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Strong Buy"}, TH_AK_CLEAN, {},
          ["exceeds the 'Watchlist' cap"]),
+        # Codex r2 (P1): a Critical whose status literally reads "not resolved" is NOT resolved — the
+        # substring "resolved" must not lift the §13 cap (RED on pre-fix code, which matched it as resolved).
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","description":"x",
+                                      "status":"not resolved"}],"decision":"Buy"}, TH_AK_CLEAN, {},
+         ["exceeds the 'Watchlist' cap"]),
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","description":"x",
+                                      "resolution":"still unresolved pending the FY25 audit"}],"decision":"Buy"},
+         TH_AK_CLEAN, {}, ["exceeds the 'Watchlist' cap"]),
+        # ...but genuine resolution wording still lifts it (the negation guard must not over-reject).
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","description":"x",
+                                      "resolution":"resolved by the audited FY25 filing"}],"decision":"Buy"},
+         TH_AK_CLEAN, {}, []),
     ]
     akbad=0
     for dt_,d_,th_,mt_,exp in akcases:
