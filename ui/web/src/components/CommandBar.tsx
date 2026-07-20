@@ -168,6 +168,7 @@ function TickerPicker() {
   const openAddCompany = useStore((s) => s.openAddCompany)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const swarmSubjectList = useStore((s) => s.swarmSubjectList)
+  const swarmSubjectRuns = useStore((s) => s.swarmSubjectRuns)
   const [open, setOpen] = useState(false)
   // which company's run history is expanded inside the dropdown (research only; same shared surface as the
   // first-time picker). A company only offers it when it has >1 run.
@@ -189,16 +190,26 @@ function TickerPicker() {
           <>
             <div style={{ position: 'fixed', inset: 0, zIndex: 39 }} onClick={() => setOpen(false)} />
             <div className="tickerpick__menu">
-              {swarmSubjectList.map((s) => (
-                <button
-                  key={s}
-                  className={`tickerpick__item${s === selected ? ' tickerpick__item--active' : ''}`}
-                  onClick={() => { selectTicker(s); setOpen(false) }}
-                >
-                  <span className="tickerpick__sym">{s}</span>
-                  {activeRunsByTicker.has(s) && <span className="pulsedot" style={{ flexShrink: 0 }} title="Run in progress" />}
-                </button>
-              ))}
+              {swarmSubjectList.map((s) => {
+                const run = swarmSubjectRuns[s]
+                const running = activeRunsByTicker.has(s)
+                return (
+                  <button
+                    key={s}
+                    className={`tickerpick__item${s === selected ? ' tickerpick__item--active' : ''}`}
+                    onClick={() => { selectTicker(s); setOpen(false) }}
+                  >
+                    <span className="tickerpick__sym">{s}</span>
+                    {running && <span className="pulsedot" style={{ flexShrink: 0 }} title="Run in progress" />}
+                    {/* flex:1 spacer that also carries the confidence when this subject has a verdict — pushes
+                        the verdict to the right, matching the research branch's row layout */}
+                    <span className="tickerpick__meta">{run?.verdict && run.confidence != null ? `conf ${run.confidence}` : ''}</span>
+                    {run?.verdict && (
+                      <span style={{ color: decisionColor(run.verdict), fontSize: 11, fontWeight: 600 }}>{run.verdict}</span>
+                    )}
+                  </button>
+                )
+              })}
               {!swarmSubjectList.length && (
                 <div style={{ padding: '12px', color: 'var(--text-faint)', fontSize: 12, lineHeight: 1.55 }}>
                   No commodities yet. Add a <b style={{ color: 'var(--text-muted)' }}>## NAME</b> section to

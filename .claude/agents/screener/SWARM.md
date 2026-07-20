@@ -23,11 +23,16 @@ routing:
     - watchlist_no_world_change
     - return_to_m0_2
     - watchlist_no_edge
+    - watchlist_integrity_downgrade
+    - watchlist_integrity_broken
   continue:
     - PROMOTE
     - Proceed
     - provisional
     - full_machine
+  # thesis-integrity's own terminal codes (its Routing: Proceed reuses the shared "Proceed" value above —
+  # a locked thesis that survives its own red-team is exactly as continue-worthy as any other Proceed).
+  # See "Post-lock integrity review" below.
 sources:
   signal_gate:
     reject_if_unapproved: true
@@ -394,11 +399,12 @@ These bands are doctrine, not engine code. Changing them is a one-line edit here
 - **Locked booleans are locked.** `already_occurred=true`, `hypothetical_flag=false`, `ticker_check=true`, `expiry_condition_is_observable=true`, `expiry_condition_is_opinion=false`, `uncomfortable_check=true`, `causal_language_check=true`, `approved_source_check=true`. An agent that cannot truthfully set a locked boolean does not bend the field — it fails the gate and routes to the corresponding watchlist status.
 - **The kill switch locks.** Once `edge-definition` completes and the record is locked (`locked: true`, `version: 1`), the falsification criteria (M0.5) cannot be moved. Amendments append to `version_history` and increment `version`; they never overwrite.
 - **Edge routing bands (M0.6.6):** final edge score < 60 → `watchlist_no_edge`; 60–80 → `provisional`; > 80 → `full_machine`. The blended formula must be printed in the synthesis (visible math, §10-style).
+- **Post-lock integrity review (module `thesis-integrity`).** A locked `provisional`/`full_machine` thesis is built entirely by agents whose job was to make the case FOR it — including a self-graded "uncomfortable check" on its own kill switch (M0.5). Before `candidate-surfacing` spends real work naming companies against it, `thesis-integrity` red-teams the record: steelmans the opposing side, attacks the M0.5 kill switch for being *fireproof* (a threshold no plausible near-term path could cross before the M0.4 horizon closes — practically unfalsifiable even though technically falsifiable), re-derives the M0.6.3–M0.6.5 variant/mispricing/trigger claims, and spot-checks the load-bearing numbers. This operationalizes `CLAUDE.md` §8 (disconfirmation is a required test, not a closing caveat) — the screener-scoped twin of `research/pre-mortem.md` + a light `research/verify-evidence.md`. It never edits `thesis_record.json` (locked) and never raises the edge score or routing — it can only hold the pipeline back. Verdict `Survives`/`Survives with haircut` → `Routing: Proceed` (candidate-surfacing runs); `Does not survive — downgrade` / `Thesis broken` → `Routing: watchlist_integrity_downgrade` / `watchlist_integrity_broken` (both terminal — the thesis stays on the board at its original status, but the pipeline stops before naming any company against it). Full rubric: `.claude/agents/screener/thesis-integrity/MODULE_RULES.md`.
 
 ## 5. The no-ticker rule, and where tickers begin
 
 - M0.3 (beneficiary map) names industries and business models (with GICS), never companies or tickers. This is machine-checked (`ticker_check` object in the record: `performed`, `violations`, `repair_action`).
-- `candidate-surfacing` is the FIRST module allowed to name companies. It runs only when routing is `provisional` or `full_machine` — watchlist records keep their industry map visible on the board without spending on ticker mapping.
+- `candidate-surfacing` is the FIRST module allowed to name companies. It runs only when routing is `provisional` or `full_machine` AND `thesis-integrity` returned `Routing: Proceed` — watchlist records, and any thesis that failed its own integrity review, keep their industry map visible on the board without spending on ticker mapping.
 - Once tickers exist, `screener-news-impact-sizing` (layer 3) sizes the move the originating news *justifies on fundamentals* for the named candidates (`frameworks/screener/NEWS_IMPACT.md`): ΔValue → implied vs observed. It is a fundamentals floor, not a verdict — it never changes routing or the exposure/edge score, and issues no price target (CLAUDE.md §16).
 
 ## 6. Memory, ledger, and board state (canonical machine records)
