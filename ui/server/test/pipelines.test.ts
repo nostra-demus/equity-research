@@ -119,13 +119,22 @@ check('fixture: malformed + id-mismatch manifests drop with widened notes; the v
   assert.ok(out.widened.some((w: string) => w.startsWith('dropped connector manifest mismatch')))
 })
 
-check('fixture: tier clamp — external_other declaring tier 5 serves 10 + tierCorrected', () => {
+check('fixture: tier clamp — external_other declaring tier 5 serves 9 + tierCorrected', () => {
   const repo = tmp('pipeclamp-')
   fs.mkdirSync(path.join(repo, 'data', 'AAA'), { recursive: true })
   writeConn(repo, 'clamp-conn', { source_type: 'external_other', tier: 5, acquisition: 'scrape' })
   const p = probeRead(repo).pipelines[0]
-  assert.equal(p.tier, 10)
+  assert.equal(p.tier, 9)
   assert.equal(p.tierCorrected, true)
+})
+
+check('fixture: external_other declaring tier 10 (more conservative than its ceiling) is NOT corrected', () => {
+  const repo = tmp('pipeclamp10-')
+  fs.mkdirSync(path.join(repo, 'data', 'AAA'), { recursive: true })
+  writeConn(repo, 'conservative-conn', { source_type: 'external_other', tier: 10, acquisition: 'scrape' })
+  const p = probeRead(repo).pipelines[0]
+  assert.equal(p.tier, 10)
+  assert.equal(p.tierCorrected, undefined)
 })
 
 check('fixture: SLA boundaries — age==SLA fresh, age==SLA+1 stale, no file missing; as_of from filename not mtime', () => {
