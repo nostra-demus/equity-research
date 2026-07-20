@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { decisionColor, resolveVerdict } from '../lib/format'
@@ -98,6 +99,34 @@ function WhatChangedChip() {
   )
 }
 
+// The "a newer re-run exists" clarity strip. Plain English, one job: make it impossible to mistake the
+// standing decision for one that already folded in the newer re-run's data. The engine deliberately keeps
+// showing the last COMPLETE run so a half-finished re-run can't shadow the dossier (server: resolveRunRoot
+// preferComplete) — a good safety, but silent, so the user can't tell whether the call on screen is current.
+// This says it out loud, right on the decision, with one honest way forward. Sits as a full-width row inside
+// the decision card (flex-basis:100% + order:-1), so it reads as a header above the call it qualifies.
+function NewerRunStrip({ children, action }: {
+  children: ReactNode
+  action: { label: string; title: string; disabled?: boolean; onClick: () => void }
+}) {
+  return (
+    // stop the click bubbling to the card's openThesis — the strip is its own affordance, not the thesis
+    <div className="decision__notice" onClick={(e) => e.stopPropagation()}>
+      <span className="decision__notice-glyph" aria-hidden>⟳</span>
+      <p className="decision__notice-text">{children}</p>
+      <button
+        type="button"
+        className="decision__notice-act"
+        disabled={action.disabled}
+        title={action.title}
+        onClick={(e) => { e.stopPropagation(); action.onClick() }}
+      >
+        {action.label}<span aria-hidden> →</span>
+      </button>
+    </div>
+  )
+}
+
 export function DecisionBanner() {
   const decision = useStore((s) => s.decision)
   const openThesis = useStore((s) => s.openThesis)
@@ -109,12 +138,54 @@ export function DecisionBanner() {
   const hasActiveRun = useStore((s) => s.anyRunForTicker(s.selectedTicker))
   const isResearch = useStore((s) => s.constellationSwarm === 'research')
   const verdictField = useStore((s) => s.swarms.find((w) => w.id === s.constellationSwarm)?.verdictField)
+  // Newer-partial awareness (research only — only research keeps dated run folders). These are read
+  // unconditionally, before any early return, so the rules of hooks hold.
+  const selectedTicker = useStore((s) => s.selectedTicker)
+  const tickers = useStore((s) => s.tickers)
+  const runRoot = useStore((s) => s.runRoot)
+  const requestFull = useStore((s) => s.requestFull)
+  const selectTicker = useStore((s) => s.selectTicker)
+  const health = useStore((s) => s.health)
+  const staticMode = useStore((s) => s.staticMode)
+  const fullPending = useStore((s) => s.launchPending?.key === 'full:request')
   const reduce = useReducedMotion()
   // research records carry `decision`; a swarm's record carries its SWARM.md verdict field
   const verdict = resolveVerdict(decision, verdictField)
-  if (!verdict) return null
+
+  // Is a newer, decision-less re-run sitting on TOP of the run we're showing? `summary` is a stable
+  // reference from the tickers array (a plain find, not a fresh object), so this never churns renders.
+  const summary = isResearch && selectedTicker ? tickers.find((t) => t.ticker === selectedTicker) : undefined
+  const hasNewerPartial = !!summary?.hasNewerPartial
+  const standingRunRoot = summary?.latestRun?.runRoot ?? null
+  // On a default open the manifest resolves to the standing run, so runRoot === standingRunRoot; opening
+  // the partial from run history makes them differ.
+  const viewingStanding = !runRoot || runRoot === standingRunRoot
+  const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
+
   if (dataStatus && !dataStatus.hasAnyData) return null
   if (hasActiveRun) return null
+
+  // State B — the user opened the newer re-run itself (from run history). It has no call, so the banner
+  // would otherwise be blank: the emptiest, most confusing state. Name what this run is + how to get back.
+  if (!verdict) {
+    if (!(hasNewerPartial && runRoot && runRoot !== standingRunRoot)) return null
+    const standing = summary?.latestRun
+    return (
+      <div className="decision-dock">
+        <motion.div
+          className="decision decision--notice-only"
+          initial={reduce ? false : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduce ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <NewerRunStrip action={{ label: 'Back to the complete analysis', title: 'Show the last complete analysis and its decision', onClick: () => { if (selectedTicker) selectTicker(selectedTicker) } }}>
+            <b>This re-run has no call yet.</b> It looked at newer data but stopped before a decision.
+            {standing?.decision ? <> Your last complete call was <b style={{ color: decisionColor(standing.decision) }}>{standing.decision}</b>{standing.decisionDate ? ` (${shortDate(standing.decisionDate)})` : ''}.</> : null}
+          </NewerRunStrip>
+        </motion.div>
+      </div>
+    )
+  }
   const er = decision.expected_return_pct as number | undefined
   // Two-number confidence (scripts/confidence.py): show understanding + conviction + sizing when
   // the synthesizer emitted them; fall back to the old single confidence_score otherwise.
@@ -124,6 +195,11 @@ export function DecisionBanner() {
   // the three memo/thesis/dossier tiers exist only for research runs — a swarm run has one final
   // dossier (the banner itself opens it), so an all-off tier row would just be noise
   const anyTier = TIERS.some(({ key }) => reports[key])
+  // State A — the common case (the screenshot): we're showing the standing run, but a newer decision-less
+  // re-run has landed since. The call below is real, just not yet re-scored against the newer data.
+  const showNewerNotice = hasNewerPartial && viewingStanding
+  const runFullDisabled = engineDown || staticMode || fullPending
+  const decisionDate = (decision as any)?.decision_date as string | undefined
   return (
     // A static dock frames the animated card so its centring survives framer-motion (which rewrites the
     // card's own transform). The card is seated on the stage floor — a permanent bar, not a floating pill.
@@ -141,6 +217,11 @@ export function DecisionBanner() {
         onClick={openThesis}
         title={isResearch ? 'Open the Thesis — the deep-dive synthesized view' : 'Open the Dossier — the final synthesized view'}
       >
+        {showNewerNotice && (
+          <NewerRunStrip action={{ label: 'Run a full analysis', title: 'Produce a fresh decision that folds in the newer data', disabled: runFullDisabled, onClick: requestFull }}>
+            <b>Newer data isn’t in this call yet.</b> The <b style={{ color: decisionColor(verdict) }}>{verdict}</b> below is from your last complete analysis{decisionDate ? ` (${shortDate(decisionDate)})` : ''}. A re-run has looked at newer data since, but hasn’t produced an updated call.
+          </NewerRunStrip>
+        )}
         <div className="decision__verdict">
           <span className="decision__eyebrow">Decision</span>
           <span className="decision__call" style={{ color: decisionColor(verdict) }}>{verdict}</span>
