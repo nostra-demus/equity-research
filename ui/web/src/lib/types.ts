@@ -905,6 +905,20 @@ export interface TickerSummary {
   hasNewerPartial: boolean
 }
 
+// Per-subject run summary for a NON-research swarm's subject picker (commodity GOLD/SUGAR, …) — the lean
+// twin of TickerSummary. A constellation swarm has ONE run folder per subject, so there is no run history /
+// file count here; just whether it has run and the routing verdict (resolved server-side via the swarm's
+// self-declared verdict field). Served alongside the plain subject-name list by GET /api/swarm/subjects.
+export interface SwarmSubjectSummary {
+  subject: string
+  hasRun: boolean
+  runRoot: string | null
+  verdict: string | null
+  decisionDate: string | null
+  confidence: number | null
+  lastChangeAt: number | null
+}
+
 // One row of a ticker's run history (GET /api/runs?ticker=…). Newest-first; a run with no decision record
 // is a partial / single-module re-run that never became the standing verdict.
 export interface RunHistoryEntry {

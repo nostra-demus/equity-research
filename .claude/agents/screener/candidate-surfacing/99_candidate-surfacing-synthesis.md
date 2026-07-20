@@ -1,6 +1,6 @@
 ---
 name: screener-candidate-synthesis
-depends_on: [edge-definition]
+depends_on: [edge-definition, thesis-integrity]
 description: Composes the shortlist deck — the ranked candidates with exposure scores, prior coverage, and caveats — writes candidates.json, files it to the ledger, refreshes the board index, and states the handoff options. The thesis routing is restated, never changed.
 tools: Read, Glob, Grep, Bash, Write
 layer: 5

@@ -97,6 +97,12 @@ def _validate(dirname: str, cdir: str, man) -> str | None:
     subjects = man.get("subjects")
     if not (isinstance(subjects, list) and subjects and all(isinstance(s, str) and s for s in subjects)):
         return "subjects must be a non-empty list of strings"
+    # Each subject is later joined to data_root to build the fetch path, so a traversal component (`../`,
+    # a `/` or `\` separator, a leading dot) in a malformed manifest could steer a write outside the pool.
+    # Require a single safe pool identifier — the same shape the server registry admits.
+    unsafe = [s for s in subjects if not re.match(r"^[A-Za-z0-9][A-Za-z0-9._-]*$", s) or ".." in s]
+    if unsafe:
+        return f"subjects must be safe pool identifiers (no path separators or traversal): {unsafe!r}"
     sla = man.get("staleness_sla_days")
     if isinstance(sla, bool) or not isinstance(sla, (int, float)) or not (0 < float(sla) < float("inf")):
         return f"staleness_sla_days {sla!r} must be a finite number > 0"

@@ -216,6 +216,26 @@ export interface TickerSummary {
   hasNewerPartial: boolean
 }
 
+// Per-subject run summary for a NON-research swarm's subject picker (e.g. commodity GOLD/SUGAR). The
+// research swarm uses the richer TickerSummary (multiple dated runs, file counts, sync/validity); a
+// constellation swarm has ONE run folder per subject (its run root IS its identity), so this is its lean
+// twin: has-it-run, the resolved routing verdict, and when. Verdict is resolved generically via the
+// swarm's self-declared routing verdict field (SWARM.md), so no swarm/subject name is hardcoded (§26).
+export interface SwarmSubjectSummary {
+  subject: string
+  // a run folder exists on disk (the subject has been run at least once)
+  hasRun: boolean
+  // the subject's run root, repo-relative (e.g. "commodity/runs/GOLD"), or null when never run
+  runRoot: string | null
+  // the routing verdict from decision_record.json (e.g. "Hold"), resolved via the swarm's verdict field;
+  // null when there is no run, no decision record yet, or the record carries no verdict
+  verdict: string | null
+  decisionDate: string | null
+  confidence: number | null
+  // mtime of the decision record (or the run folder as a fallback) — drives the "N ago" readout
+  lastChangeAt: number | null
+}
+
 // ---- runs / events ----
 
 // 'review' files an append-only outcome review (/research:review-decisions); 'track' rebuilds the

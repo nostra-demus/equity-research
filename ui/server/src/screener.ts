@@ -313,12 +313,29 @@ export function deriveSignalState(sigId: string): SignalStateResult {
   // also scan every recorded module verdict (mirrors listResumableSignals' hitTerminal, off the parsed
   // manifest) — catches a terminal Gate-0 stop that short-circuited before signal_payload.json was written.
   const hitTerminal = Object.values(man.modules).some((agents) => agents.some((a) => isTerminal(a.routing)))
+  // The GATE's own terminal verdict (PARK/LOG) is preserved on disk by design even when a human explicitly
+  // overrode it and ran on — signal_payload.routing keeps the original gate call (see the override note
+  // below). So once a thesis is LOCKED (which only happens past the gate), that verdict is spent, not live:
+  // counting it would read a finished override run as 'watchlist' and strip its Continue. A terminal verdict
+  // whose value DIFFERS from the recorded gate call is therefore the only genuine post-lock rejection (e.g.
+  // thesis-integrity's watchlist_integrity_*). Compared by VALUE, not module name, so this stays §26-generic.
+  const hitTerminalPostGate = Object.values(man.modules).some((agents) =>
+    agents.some((a) => isTerminal(a.routing) && norm(a.routing) !== norm(routing0)))
 
   // Check COMPLETION/progress before the gate routing: a locked thesis means the run progressed past the
   // gate — including a human override of a PARK/LOG (signal_payload.routing still records the original gate
   // verdict, so a gate-first test would wrongly show 'parked'/'logged' for a finished override run).
   let state: SignalRunState
-  if (locked && hasCandidates) state = 'complete' // ran to the end, candidates surfaced
+  // A terminal MODULE verdict wins first — even over candidate presence. thesis-integrity red-teams the
+  // record post-lock and can record its OWN terminal routing (watchlist_integrity_downgrade /
+  // watchlist_integrity_broken) WITHOUT ever touching thesis_record.json (meta stays locked at
+  // provisional/full_machine). That review is append-only and can be re-run AFTER candidate-surfacing already
+  // wrote candidates.json (the module writes _v2/_v3 on reruns); testing `locked && hasCandidates` first would
+  // then read a since-broken thesis as 'complete' and keep offering its now-stale shortlist. hitTerminal scans
+  // every recorded module verdict generically (no module names hardcoded — it reads SWARM.md's routing.terminal
+  // set); a healthy completed run carries no terminal module verdict, so this never swallows a real 'complete'.
+  if (locked && hitTerminalPostGate) state = 'watchlist'
+  else if (locked && hasCandidates) state = 'complete' // ran to the end, candidates surfaced, none rejected
   // A terminal THESIS status means the run progressed past Gate 0 and then dead-ended downstream — even when
   // signal_payload.routing still records the original PARK/LOG (a human override runs on past the gate, and a
   // thesis-structure terminal like watchlist_no_world_change / return_to_m0_2 is written with locked:false).
