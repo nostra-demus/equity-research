@@ -57,6 +57,8 @@ export function FeedbackPanel() {
   const [items, setItems] = useState<CockpitFeedbackView[] | null>(null)
   const [listError, setListError] = useState(false)
   const [canDispatch, setCanDispatch] = useState(false)
+  const [emailEnabled, setEmailEnabled] = useState(false)
+  const [notifying, setNotifying] = useState<Record<string, boolean>>({})
   const fileInput = useRef<HTMLInputElement>(null)
   const dragging = useRef(false)
   const [isDrag, setIsDrag] = useState(false)
@@ -82,10 +84,11 @@ export function FeedbackPanel() {
   }, [close])
 
   // is this viewer allowed to trigger the paid "send to coding engine" dispatch? (server: admin allowlist
-  // AND dispatch enabled + PR token). The button is hidden otherwise.
+  // AND dispatch enabled + PR token). The button is hidden otherwise. emailEnabled gates the reporter-
+  // notification UI on resolved cards (hidden entirely when the engine has no email token configured).
   useEffect(() => {
     let alive = true
-    api.whoami().then((w) => { if (alive) setCanDispatch(!!w.canDispatch) }).catch(() => {})
+    api.whoami().then((w) => { if (alive) { setCanDispatch(!!w.canDispatch); setEmailEnabled(!!w.emailEnabled) } }).catch(() => {})
     return () => { alive = false }
   }, [])
 
@@ -156,6 +159,21 @@ export function FeedbackPanel() {
     } catch (e: any) {
       setToast({ msg: `Could not dispatch: ${e?.message || 'error'}`, tone: 'bad' })
       void loadList()
+    }
+  }
+
+  // Send (or retry) the resolution email to a resolved item's reporter. The auto-send already fires when a
+  // card is marked done; this is the manual recovery path shown when that send failed or hasn't happened.
+  async function notify(id: string) {
+    setNotifying((m) => ({ ...m, [id]: true }))
+    try {
+      const res = await api.notifyFeedback(id)
+      setToast({ msg: res.ok ? "Reporter emailed — they know it's resolved." : `Couldn't email the reporter: ${res.detail || res.reason || 'error'}`, tone: res.ok ? 'good' : 'bad' })
+      void loadList()
+    } catch (e: any) {
+      setToast({ msg: e?.message === 'static-deploy' ? 'Email needs the live engine.' : `Couldn't email the reporter: ${e?.message || 'error'}`, tone: 'bad' })
+    } finally {
+      setNotifying((m) => ({ ...m, [id]: false }))
     }
   }
 
@@ -263,6 +281,25 @@ export function FeedbackPanel() {
                     )}
                     {it.pr_url && <a className="feedback__pr" href={it.pr_url} target="_blank" rel="noreferrer">View pull request ↗</a>}
                     {it.note && <div className="feedback__note">{it.note}</div>}
+                    {/* resolved-card reporter notification: confirm the email went out, or offer a send/retry.
+                        Only when email is configured on the engine (emailEnabled) so cards look unchanged otherwise. */}
+                    {emailEnabled && it.status === 'done' && (() => {
+                      const hasEmail = !!it.user_id && it.user_id !== 'local' && it.user_id.includes('@')
+                      if (it.notified?.ok) {
+                        const who = it.notified.recipient ? it.notified.recipient.split('@')[0] : ''
+                        return <div className="feedback__notified" data-ok="1">✉ Reporter notified{who ? ` · ${who}` : ''}</div>
+                      }
+                      if (!hasEmail) return <div className="feedback__notified" data-ok="0">No reporter email on file — can't notify.</div>
+                      const failed = !!it.notified && !it.notified.ok
+                      return (
+                        <div className="feedback__notifyrow">
+                          {failed && <span className="feedback__notified" data-ok="0">✉ Couldn't email the reporter.</span>}
+                          <button className="btn btn--ghost feedback__cardbtn" disabled={!!notifying[it.feedback_id]} onClick={() => notify(it.feedback_id)}>
+                            {notifying[it.feedback_id] ? 'Sending…' : failed ? 'Retry email' : 'Notify reporter'}
+                          </button>
+                        </div>
+                      )
+                    })()}
                     {(it.status === 'new' || it.status === 'triaged' || it.status === 'assessed') && (
                       <div className="feedback__cardactions">
                         {canDispatch && (it.category === 'bug' || it.category === 'ui' || it.category === 'idea') && (

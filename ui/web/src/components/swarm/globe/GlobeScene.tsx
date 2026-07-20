@@ -408,7 +408,14 @@ export function GlobeScene({
     <>
       <fogExp2 attach="fog" args={[colors.bg.getHex(), 0.016]} />
       <ambientLight intensity={1} />
-      <OrbitControls ref={controlsRef} makeDefault enabled={false} enablePan={false} enableDamping dampingFactor={0.08} rotateSpeed={0.6} zoomSpeed={0.6} minDistance={16} maxDistance={44} />
+      {/* Drag feel — buttery spin. enableDamping gives the globe inertia: a drag leaves a residual angular
+          velocity that eases to a stop instead of halting dead. dampingFactor is the per-frame decay of that
+          velocity, so LOWER = a longer, silkier coast. 0.05 (three.js' own tuned default) ~doubles the glide
+          half-life vs the old 0.08 (~138ms → ~225ms at 60fps), so a flick reads as a smooth, weighty spin that
+          settles gently — buttery, not floaty. This needs the continuous render loop (Canvas frameloop defaults
+          to 'always', already on). rotateSpeed stays 0.6 so grab-to-turn gain is unchanged — only the motion
+          quality improves, not how far a drag rotates. */}
+      <OrbitControls ref={controlsRef} makeDefault enabled={false} enablePan={false} enableDamping dampingFactor={0.05} rotateSpeed={0.6} zoomSpeed={0.6} minDistance={16} maxDistance={44} />
 
       {/* sphere shell — only present near the globe state (scales/fades in as it wraps) */}
       <group ref={bodyRef}>

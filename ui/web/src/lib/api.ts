@@ -1,6 +1,7 @@
 import { staticPromptPath } from './prompts'
 import type { PipelinesRead } from './types'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
+import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, RunHistoryEntry, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
@@ -327,6 +328,19 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return put<AutotuneState>(`/api/news/rank-weights/autotune`, body)
   },
+  // Valuation Playground — the levers a run emitted (valuation_summary.json) + the frozen decision
+  // scenarios, and the append-only what-if override ledger. Recompute is client-side (valuationLevers.ts).
+  valuationLevers: async (ctx: { ticker?: string; runRoot?: string }): Promise<ValuationLeversResponse> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    const p = new URLSearchParams()
+    if (ctx.runRoot) p.set('runRoot', ctx.runRoot)
+    else if (ctx.ticker) p.set('ticker', ctx.ticker)
+    return get<ValuationLeversResponse>(`/api/valuation-levers?${p.toString()}`)
+  },
+  saveValuationOverride: async (body: { runRoot: string; reason?: string; overrides?: Record<string, unknown>; levels?: Record<string, number> }): Promise<{ ok: boolean; override: ValuationOverride; overrides: ValuationOverride[] }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/valuation-levers/override`, body)
+  },
   // the living themes the firehose is bucketed into (ranked index + one theme's deep-dive). An optional
   // geography (country ISO alpha-2 and/or continent) slices the SAME themes to that geography's news flow —
   // the server re-ranks + re-sizes them — so the "Where" picker narrows the Themes view like the Events list.
@@ -452,6 +466,11 @@ export const api = {
   dispatchFeedback: async (feedbackId: string): Promise<{ ok: boolean; status: string; message: string }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/feedback/${encodeURIComponent(feedbackId)}/dispatch`, {})
+  },
+  // Send/retry the resolution email to a resolved item's reporter (the "Notify reporter" card action).
+  notifyFeedback: async (feedbackId: string): Promise<{ ok: boolean; reason?: string; recipient?: string; detail?: string }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/feedback/${encodeURIComponent(feedbackId)}/notify`, {})
   },
   screenerCalibration: async (): Promise<any | null> => {
     if ((await ensureMode()) === 'static') return snap.screenerCalibration || null

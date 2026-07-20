@@ -7,7 +7,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { Readable } from 'node:stream'
 import {
-  appendFeedbackEvent, foldFeedback, isFeedbackId, newFeedbackId, readAllFeedback,
+  appendFeedbackEvent, appendFeedbackNotification, foldFeedback, isFeedbackId, newFeedbackId, readAllFeedback,
   resolveFeedbackImage, safeImageName, saveFeedbackImage, writeFeedbackItem, itemDir,
 } from '../src/feedback-store'
 
@@ -95,6 +95,33 @@ async function main() {
     const rows = readAllFeedback(state)
     assert.ok(rows.every((r) => r && typeof r === 'object' && !Array.isArray(r)))
     assert.ok(rows.some((r) => r.feedback_id === id1)) // the real records still read
+  })
+
+  await check('appendFeedbackNotification: fold surfaces notified, does not change status', async () => {
+    const id = newFeedbackId()
+    await writeFeedbackItem({ feedback_id: id, text: 'x', category: 'bug', images: [], url: '/x' }, 'reporter@e.com', state)
+    await appendFeedbackNotification(id, { channel: 'email', recipient: 'reporter@e.com', ok: true, detail: '', user: 'admin@e.com' }, state)
+    const v = foldFeedback(readAllFeedback(state)).find((r) => r.feedback_id === id)!
+    assert.equal(v.notified?.ok, true)
+    assert.equal(v.notified?.recipient, 'reporter@e.com')
+    assert.equal(v.notified?.channel, 'email')
+    assert.equal(v.status, 'new') // a notification line never touches the status fold
+  })
+
+  await check('latest notification wins (failed then succeeded)', async () => {
+    const id = newFeedbackId()
+    await writeFeedbackItem({ feedback_id: id, text: 'y', category: 'ui', images: [], url: '' }, 'r2@e.com', state)
+    await appendFeedbackNotification(id, { recipient: 'r2@e.com', ok: false, detail: 'HTTP 500', user: 'a' }, state)
+    await appendFeedbackNotification(id, { recipient: 'r2@e.com', ok: true, detail: '', user: 'a' }, state)
+    const v = foldFeedback(readAllFeedback(state)).find((r) => r.feedback_id === id)!
+    assert.equal(v.notified?.ok, true) // the later (successful) line wins the same-second tie via >=
+  })
+
+  await check('item with no notification folds to notified null', async () => {
+    const id = newFeedbackId()
+    await writeFeedbackItem({ feedback_id: id, text: 'z', category: 'bug', images: [], url: '' }, 'r3@e.com', state)
+    const v = foldFeedback(readAllFeedback(state)).find((r) => r.feedback_id === id)!
+    assert.equal(v.notified, null)
   })
 
   await check('resolveFeedbackImage confines to the item folder', () => {

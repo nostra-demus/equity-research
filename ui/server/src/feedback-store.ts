@@ -61,7 +61,24 @@ export interface FeedbackEventRecord {
   submitted_at: string
 }
 
-export type FeedbackRecord = FeedbackItemRecord | FeedbackEventRecord
+// One "we told the reporter" line. Appended when an item is marked done and the resolution email to the
+// reporter is attempted (feedback-email.ts). Purely informational — it does NOT participate in the status
+// fold (it isn't a FeedbackEventRecord), so it never changes what the status chip shows. It gives the panel
+// an honest per-item "reporter notified ✓ / couldn't email — retry" line, and is the idempotency source of
+// truth: a successful email means the auto-send won't fire again.
+export interface FeedbackNotificationRecord {
+  feedback_id: string // a FRESH unique id for THIS line (idempotency key)
+  kind: 'feedback_notification'
+  target_id: string // the FeedbackItemRecord.feedback_id this notified about
+  channel: 'email'
+  recipient: string // the address the email was sent (or attempted) to
+  ok: boolean // did the send succeed?
+  detail: string // '' on success, else a short reason
+  user_id: string // who triggered the resolve that sent this
+  submitted_at: string
+}
+
+export type FeedbackRecord = FeedbackItemRecord | FeedbackEventRecord | FeedbackNotificationRecord
 
 // One item folded with its latest event — what the list renders.
 export interface FeedbackView {
@@ -76,6 +93,9 @@ export interface FeedbackView {
   pr_url: string | null
   note: string
   last_update_at: string
+  // The item's latest reporter-notification attempt (feedback-email.ts), or null if none. Lets the panel
+  // show "reporter notified ✓" / "couldn't email — retry" on a resolved card without a second request.
+  notified: { at: string; ok: boolean; recipient: string; channel: 'email' } | null
 }
 
 const FEEDBACK_DIR = (stateDir: string) => path.join(stateDir, 'feedback')
@@ -150,6 +170,30 @@ export async function appendFeedbackEvent(
   return record
 }
 
+/** Append a reporter-notification line for an item (feedback-email.ts records every resolution-email
+ * attempt here). Best-effort audit — the caller already holds a valid item, so this does not re-verify
+ * existence; it never participates in the status fold. Returns the written record. */
+export async function appendFeedbackNotification(
+  targetId: string,
+  opts: { channel?: 'email'; recipient: string; ok: boolean; detail?: string; user: string },
+  stateDir: string = STATE_DIR,
+): Promise<FeedbackNotificationRecord> {
+  const at = nowIso()
+  const record: FeedbackNotificationRecord = {
+    feedback_id: newFeedbackId(at),
+    kind: 'feedback_notification',
+    target_id: targetId,
+    channel: opts.channel || 'email',
+    recipient: (opts.recipient || '').slice(0, URL_MAX),
+    ok: Boolean(opts.ok),
+    detail: (opts.detail || '').trim().slice(0, NOTE_MAX),
+    user_id: opts.user || 'local',
+    submitted_at: at,
+  }
+  await appendLedger(record, stateDir)
+  return record
+}
+
 /** Read every ledger line. [] on a missing file (a fresh install has no feedback yet) — never throws. */
 export function readAllFeedback(stateDir: string = STATE_DIR): FeedbackRecord[] {
   let raw: string
@@ -178,14 +222,21 @@ export function foldFeedback(records: FeedbackRecord[]): FeedbackView[] {
   const items = records.filter((r): r is FeedbackItemRecord => r.kind === 'feedback')
   // latest event per target, by submitted_at (ties: last line wins — append order is chronological)
   const latest = new Map<string, FeedbackEventRecord>()
+  // latest notification per target, folded the same way (ties: last line wins)
+  const latestNotif = new Map<string, FeedbackNotificationRecord>()
   for (const r of records) {
-    if (r.kind !== 'feedback_event') continue
-    const cur = latest.get(r.target_id)
-    if (!cur || r.submitted_at >= cur.submitted_at) latest.set(r.target_id, r)
+    if (r.kind === 'feedback_event') {
+      const cur = latest.get(r.target_id)
+      if (!cur || r.submitted_at >= cur.submitted_at) latest.set(r.target_id, r)
+    } else if (r.kind === 'feedback_notification') {
+      const cur = latestNotif.get(r.target_id)
+      if (!cur || r.submitted_at >= cur.submitted_at) latestNotif.set(r.target_id, r)
+    }
   }
   return items
     .map((it): FeedbackView => {
       const ev = latest.get(it.feedback_id)
+      const nt = latestNotif.get(it.feedback_id)
       return {
         feedback_id: it.feedback_id,
         text: it.text,
@@ -198,6 +249,7 @@ export function foldFeedback(records: FeedbackRecord[]): FeedbackView[] {
         pr_url: ev?.pr_url ?? null,
         note: ev?.note ?? '',
         last_update_at: ev?.submitted_at ?? it.submitted_at,
+        notified: nt ? { at: nt.submitted_at, ok: nt.ok, recipient: nt.recipient, channel: nt.channel } : null,
       }
     })
     .sort((a, b) => b.submitted_at.localeCompare(a.submitted_at))

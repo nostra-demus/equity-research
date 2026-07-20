@@ -1,0 +1,102 @@
+/* Valuation Playground — right-slide panel, same shell/motion as the Scoring panel and Output reader.
+   Tokens only (DESIGN.md §1): no hex/rgb literals, so light + dark come for free from tokens.css.
+   Motion budget (§3): transform/opacity only, <=300ms, --ease-out; the enter slide runs in the component. */
+
+.vpg {
+  position: absolute; top: 0; right: 0; bottom: 0; width: min(680px, 66%); z-index: 55;
+  background: var(--surface-1); border-left: 1px solid var(--hairline-strong); box-shadow: var(--shadow-2);
+  display: flex; flex-direction: column;
+}
+
+/* ---- head ---- */
+.vpg__head {
+  flex: none; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+  padding: 16px 18px 12px; border-bottom: 1px solid var(--hairline);
+}
+.vpg__title { font-size: 15px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.vpg__ticker {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.4px; color: var(--accent-bright);
+  background: var(--accent-wash); padding: 2px 7px; border-radius: var(--r-pill);
+}
+.vpg__sub { margin-top: 4px; font-size: 11.5px; line-height: 1.5; color: var(--text-faint); max-width: 62ch; }
+.vpg__headbtns { flex: none; display: flex; gap: 8px; }
+
+.vpg__loading, .vpg__empty { padding: 40px 20px; font-size: 12.5px; color: var(--text-faint); }
+
+.vpg__body { flex: 1; min-height: 0; overflow-y: auto; padding: 14px 18px 24px; display: flex; flex-direction: column; gap: 16px; }
+
+/* ---- headline comparison: system vs playground ---- */
+.vpg__compare {
+  border: 1px solid var(--hairline); border-radius: var(--r-md); padding: 10px 12px;
+  background: var(--surface-2);
+}
+.vpg__comparehead, .vpg__cmprow {
+  display: grid; grid-template-columns: minmax(0, 1fr) 92px 18px 92px; align-items: center; gap: 6px;
+}
+.vpg__comparehead { padding-bottom: 6px; margin-bottom: 4px; border-bottom: 1px solid var(--hairline); }
+.vpg__col { font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; text-align: right; }
+.vpg__col--sys { color: var(--text-muted); }
+.vpg__col--pg { color: var(--accent-bright); }
+.vpg__cmprow { padding: 3px 0; }
+.vpg__cmplabel { font-size: 12px; color: var(--text-muted); min-width: 0; }
+.vpg__cmpsys, .vpg__cmppg { font-size: 13px; text-align: right; }
+.vpg__cmpsys { color: var(--text-faint); }
+.vpg__cmparrow { color: var(--text-faint); text-align: center; font-size: 11px; }
+
+/* ---- warnings from the guards ---- */
+.vpg__warns { display: flex; flex-direction: column; gap: 5px; }
+.vpg__warn {
+  font-size: 11.5px; line-height: 1.45; color: var(--conv-warn);
+  background: var(--accent-wash-soft); border: 1px solid var(--accent-wash); border-radius: var(--r-sm);
+  padding: 7px 10px;
+}
+
+/* ---- lever sections ---- */
+.vpg__section { display: flex; flex-direction: column; gap: 8px; }
+.vpg__sectitle { font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); }
+.vpg__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px 10px; }
+.vpg__note { font-size: 11px; line-height: 1.45; color: var(--text-faint); }
+.vpg__note b { color: var(--text-muted); font-weight: 600; }
+.vpg__note--warn { color: var(--conv-warn); }
+
+.vpg__field { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.vpg__fieldlabel { font-size: 10.5px; color: var(--text-faint); }
+.vpg__input, .vpg__scennum {
+  background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-sm);
+  color: var(--text); font-size: 12.5px; padding: 6px 8px; width: 100%;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.vpg__input:focus, .vpg__scennum:focus { outline: none; border-color: var(--accent); }
+
+/* ---- scenarios grid ---- */
+.vpg__scenhead, .vpg__scenrow {
+  display: grid; align-items: center; gap: 8px;
+  grid-template-columns: 52px 60px 1fr 1fr 78px 66px;
+}
+.vpg__scenhead {
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint);
+  padding-bottom: 2px;
+}
+.vpg__scenhead > span:nth-child(n+5), .vpg__scenrow > .vpg__scenlevel, .vpg__scenrow > .vpg__scenret { text-align: right; }
+.vpg__scenrow { padding: 3px 0; }
+.vpg__scenlabel { font-size: 12px; font-weight: 600; color: var(--text); text-transform: capitalize; }
+.vpg__scenlevel { font-size: 12.5px; color: var(--text-muted); }
+.vpg__scenret { font-size: 12.5px; font-weight: 600; }
+
+/* ---- save ---- */
+.vpg__savesec { border-top: 1px solid var(--hairline); padding-top: 14px; }
+.vpg__reason {
+  background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-sm);
+  color: var(--text); font-size: 12.5px; line-height: 1.5; padding: 9px 10px; resize: vertical; width: 100%;
+  font-family: inherit;
+}
+.vpg__reason:focus { outline: none; border-color: var(--accent); }
+.vpg__savefoot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; }
+.vpg__savenote { font-size: 11px; line-height: 1.4; color: var(--text-faint); }
+.vpg__history { margin-top: 8px; font-size: 11px; color: var(--text-faint); }
+
+/* single column on a narrow viewport */
+@media (max-width: 560px) {
+  .vpg { width: 100%; }
+  .vpg__scenhead, .vpg__scenrow { grid-template-columns: 44px 52px 1fr 1fr 64px 58px; gap: 5px; }
+}
