@@ -61,7 +61,7 @@ check('commodity agent names are commodity-* prefixed and globally unique (no co
   const idx = agentNameIndexAllSwarms()
   const g = buildSwarmGraph('commodity')
   const names = g.modules.flatMap((m) => Object.values(m.layers).flat().map((a) => a.name))
-  assert.equal(names.length, 13)
+  assert.equal(names.length, 15)
   for (const n of names) {
     assert.ok(n.startsWith('commodity-'), `${n} is not commodity-prefixed`)
     assert.equal(idx.get(n)?.swarmId, 'commodity', `${n} did not resolve to the commodity swarm (name collision?)`)
