@@ -27,12 +27,13 @@ You DO NOT:
 
 - **Single-segment business** (>85% of EBIT from one segment): do NOT force a breakup. State *"Effectively single-segment — SOTP collapses to the consolidated read"* and provide only the dominant-segment multiple sanity check. **If a corporate / unallocable cost bucket exists, it may not be dropped by assertion even on a collapse: either apply the multiple to a metric that already nets the corporate drag (and say so explicitly) or capitalize and subtract it in the bridge — Reconciliation Gate 3 (no vanished bucket) holds on the collapse path too.**
 - **No segment-level revenue/EBIT, or no segment comparables:** state *"SOTP not possible — segment EBIT and/or segment comparables unavailable"* and stop. Do NOT fabricate segment multiples.
+- **No forward basis structurable** (a segment has no estimable forward metric AND no matching forward comparable): mark that segment — or the whole SOTP — *"not structurable on a forward basis — excluded"* and do NOT substitute a trailing-earnings breakup as a fair-value input. A trailing SOTP may appear only as a labelled sanity check, never as a weighted method feeding `07` (MODULE_RULES Calculation Standard 10).
 
 # WORKFLOW
 
 1. Read the repo root `CLAUDE.md`, then read `.claude/agents/valuation/MODULE_RULES.md`, and apply both.
 2. Build the segment inventory from `business-model/03_segment-map.md` (or the filings' segment note): each reportable segment, its revenue, and its EBIT/EBITDA.
-3. For each segment, choose a valuation metric (usually EBIT or EBITDA) and a defensible multiple — anchored to a NAMED comparable (a pure-play peer for that segment, from competitive-map or the web, labeled).
+3. For each segment, choose a **forward** valuation metric — NTM or FY+1 segment EBIT/EBITDA where a consensus or evidenced estimate exists (fall back to trailing ONLY where no forward metric is estimable, and label it) — and a defensible **forward** multiple, anchored to a NAMED comparable whose **business economics match the segment**. State the period basis (NTM / FY+1 / trailing) for every segment. **Match the comparable to the segment's economics, not its surface label** — a logistics-*services* arm on asset-light services comps, not asset-heavy trucking-fleet owners; a first-party cloud platform on hyperscaler comps, not generic IT-services — and say in one clause why it fits. Do NOT put a multiple on the last audited (trailing) year's segment earnings when a forward metric is estimable (it systematically misvalues a growing or shrinking segment). See MODULE_RULES Calculation Standard 10 (SOTP forward basis).
 4. Value each segment: segment metric × segment multiple = segment EV.
 5. Sum segment EVs to a gross enterprise value.
 6. Bridge to equity: − net debt (from `01`) − capitalized unallocated corporate costs − minority/preferred + equity-method investments.
@@ -104,6 +105,9 @@ State the conglomerate discount applied (if any) and the reason. If none applied
 - [ ] Segment inventory reconciles to consolidated revenue/EBIT (note any unallocated bucket).
 - [ ] If single-segment, SOTP correctly collapses rather than forcing a spurious breakup.
 - [ ] Every segment multiple cites a NAMED comparable — none are fabricated.
+- [ ] Every segment is valued on a FORWARD metric (NTM/FY+1) × a FORWARD comparable multiple where estimable; the period basis (NTM/FY+1/trailing) is stated per segment; a trailing base is used only where no forward metric exists and is labelled.
+- [ ] Each segment comparable is matched to the segment's business economics (not its surface label), with a one-clause reason.
+- [ ] If no forward basis is structurable, the segment/SOTP is marked "not structurable on a forward basis — excluded" and is NOT fed to `07` as a weighted method (a trailing SOTP is a labelled sanity check only).
 - [ ] Web-sourced comparable multiples are labeled unverified.
 - [ ] The equity bridge subtracts net debt and corporate costs and uses `01`'s share count. Net cash is added once with the correct sign (no deduction-plus-add-back double-count); any corporate / unallocable drag is capitalized-and-subtracted or shown to be already netted in the metric — never dropped by assertion (Gate 3), including on a single-segment collapse.
 - [ ] Any conglomerate discount is disclosed with a reason (or its absence justified).
