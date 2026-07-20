@@ -1,0 +1,34 @@
+{
+  "id": "iai-primary-aluminium-production",
+  "series": "IAI monthly primary aluminium production — world + China (Estimated), thousand tonnes",
+  "satisfies": ["iai-primary-production", "china-supply-cap-tracking"],
+  "subjects": ["ALUMINIUM"],
+  "provider": "IAI",
+  "acquisition": "official_api",
+  "source_type": "paid_api",
+  "tier": 5,
+  "license": "free with attribution — (c) International Aluminium Institute; data may be revised",
+  "host_allowlist": ["international-aluminium.org", "alvis.international-aluminium.org"],
+  "cadence": "monthly",
+  "staleness_sla_days": 45,
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/iai/primary_production_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "unit": "string",
+    "months": [{ "month": "YYYY-MM", "world_kt": "float", "china_kt": "float" }],
+    "latest": {
+      "month": "YYYY-MM",
+      "china_kt": "float",
+      "china_daily_avg_kt": "float",
+      "china_annualised_run_rate_mt": "float",
+      "china_yoy_pct": "float|null",
+      "world_kt": "float",
+      "china_share_pct": "float"
+    },
+    "cap_reference": { "cap_mt": 45.0, "run_rate_vs_cap_pct": "float", "note": "string" },
+    "source_url": "string"
+  }
+}

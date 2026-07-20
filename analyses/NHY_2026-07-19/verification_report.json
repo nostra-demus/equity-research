@@ -1,0 +1,348 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NHY",
+  "run_root": "analyses/NHY_2026-07-19",
+  "verified_at": "2026-07-19",
+  "verifier": "verify-evidence",
+  "final_thesis_path": "analyses/NHY_2026-07-19/final_thesis.md",
+  "decision_record_path": "analyses/NHY_2026-07-19/decision_record.json",
+  "claims_checked": 13,
+  "claim_checks": [
+    {
+      "claim": "Current / entry price NOK 84.96, 2026-07-17, Capital IQ",
+      "citation": "Capital IQ Public Company Capsule / Key Stats tab (Norsk Hydro ASA OB NHY Financials.xls), 2026-07-17",
+      "source_checked": "Norsk-Hydro-ASA-OB-NHY-Financials__Key-Stats.txt; NorskHydroASAOBNHY_PublicCompany.txt (extracted corpus)",
+      "status": "verified",
+      "evidence": "resolve_citations.py hit_count=6 for '84.96'; direct hits include 'Share Price as of Jul-17-2026 84.96' and 'Last (Delayed) 84.96 Market Cap (mm) 166,970.0'",
+      "severity": "info"
+    },
+    {
+      "claim": "Killer risk RF-OWN-004: Norwegian State holds 34.26-34.49% of Hydro; Board has not established takeover-bid-handling principles because of the State's stake",
+      "citation": "integrated-annual-report-2025.pdf, NUES Report §14, p.297; Note 9.1, p.198",
+      "source_checked": "integrated-annual-report-2025.txt (extracted corpus)",
+      "status": "verified",
+      "evidence": "resolve_citations.py hit_count=3 (34.49) and 12 (34.26); verbatim corpus text: 'The Board has not established general principles for handling takeover bids due to the Norwegian state, represented by the Ministry of Trade, Industry and Fisheries, ownership of 34.26 percent of the Hydro shares (as of 31.12.2025)' and a separate holder-table hit '677,855,665 ... 34.49'",
+      "severity": "info"
+    },
+    {
+      "claim": "FY2025 Adjusted EBITDA NOK 28,889m; FY2025 Adjusted EBITDA margin 13.9% (28,889 / revenue NOK 207,971m)",
+      "citation": "Integrated Annual Report 2025, Alternative Performance Measures note (company's own APM)",
+      "source_checked": "integrated-annual-report-2025.txt line 1531; first-quarter-report-2026.txt line 165 (comparator column)",
+      "status": "verified",
+      "evidence": "Verbatim corpus hit: 'Adjusted EBITDA for the full year of 2025 increased to NOK 28,889 million'. Revenue 207,971 verified (hit_count=18). Margin recomputed: 28889/207971=13.89% -> rounds to 13.9%, ties to reported figure. Correctly cited to the company's own APM, not the corrupted Capital IQ vendor EBITDA field (see miscitation finding on valuation/01 below) -- no EBITDA miscitation on this rating-driving figure.",
+      "severity": "info"
+    },
+    {
+      "claim": "Q1 2026 Adjusted EBITDA margin 17.2% (Adjusted EBITDA NOK 8,668m / revenue NOK 50,388m)",
+      "citation": "First Quarter Report 2026 (Board-approved interim)",
+      "source_checked": "first-quarter-report-2026.txt lines 155, 165, 773",
+      "status": "verified",
+      "evidence": "Both components verified verbatim in the corpus ('Adjusted EBITDA(1) 8,668 9,516 (9%) 5,587 55% 28,889'; 'Revenue 50,388 57,094 207,971'). Recomputed 8668/50388=17.20%, ties exactly to the reported 17.2%.",
+      "severity": "info"
+    },
+    {
+      "claim": "Net debt (strict basis, total debt minus cash & equivalents only) NOK 20,489m (FY2025) rising to NOK 22,503m (Q1 2026/TTM); net debt/EBITDA (strict) 0.80x (FY2025) rising to 1.02x (TTM)",
+      "citation": "capital-structure-and-leverage.md, derived from Capital IQ Balance Sheet tab total debt/cash + Integrated Annual Report / Q1 2026 report EBITDA",
+      "source_checked": "Norsk-Hydro-ASA-OB-NHY-Financials__Balance-Sheet.txt (Total Debt, Cash And Equivalents rows); integrated-annual-report-2025.txt (EBITDA 25,696)",
+      "status": "verified",
+      "evidence": "Total debt FY2025=36,574 and cash=16,085 both verified in corpus; 36,574-16,085=20,489 exact tie. Total debt Q1 2026=33,754 and cash=11,251 both verified; 33,754-11,251=22,503 exact tie. 20,489/25,696=0.797 rounds to 0.80x; 22,503/21,976=1.024 rounds to 1.02x -- both tie. This strict figure also independently reproduced in valuation/01_price-and-capital-structure.md's own 'Net debt -- strict' row (22,503 for Q1 2026), a clean cross-module tie.",
+      "severity": "info"
+    },
+    {
+      "claim": "Scenario outputs: expected_return_pct=-8.4, downside_risk_pct=46.89, margin_of_safety_pct=-3.83, risk_reward=-0.18 (decision_record.json numeric fields, driving the Watchlist rating)",
+      "citation": "final_thesis.md §14 Math Validation / decision_record.json (engine-computed from scenario probabilities and fair-value levels, not a filed figure)",
+      "source_checked": "N/A -- these are the engine's own arithmetic outputs, re-derived independently with Python rather than grepped in the pool",
+      "status": "verified",
+      "evidence": "Recomputed with Python: prob-sum=100.0%; expected return 0.20×26.8+0.55×(-3.7)+0.25×(-46.9)=-8.40 (reported -8.4); weighted target 0.20×107.70+0.55×81.83+0.25×45.12=77.83 (reported 77.83); implied return (77.83-84.96)/84.96=-8.40% (reported -8.4, ties to expected return); risk/reward (77.83-84.96)/(84.96-45.12)=-0.179 (reported -0.18); downside risk (84.96-45.12)/84.96=46.89% (reported 46.89); margin of safety (81.83-84.96)/81.83=-3.825% (reported -3.83, immaterial rounding). All scenario-math outputs reconcile exactly.",
+      "severity": "info"
+    },
+    {
+      "claim": "Bull/Base/Bear fair-value levels NOK 107.70 / 81.83 / 45.12; base case is the weighted blend of SOTP (40%, NOK 84.63), intrinsic DCF (35%, NOK 70.14), and peer relative (25%, NOK 93.70)",
+      "citation": "valuation/07_scenario-and-fair-value.md; valuation/99_valuation-synthesis.md §3",
+      "source_checked": "valuation/06_sum-of-the-parts.md, valuation/04_intrinsic-dcf.md, valuation/03_relative-valuation-peers.md",
+      "status": "verified",
+      "evidence": "Base case recomputed: 0.40×84.63 + 0.35×70.14 + 0.25×93.70 = 81.826, rounds to 81.83 -- ties exactly to the reported base fair value and to the identical figure used consistently in final_thesis.md, valuation/99, and decision_record.json. Bull/bear levels are the module's own scenario constructions (persistence vs structural-reset cases), not independently re-derivable from a single filed figure, but are used identically and without alteration across every module and the final thesis -- no drift found.",
+      "severity": "info"
+    },
+    {
+      "claim": "Sell-side consensus: mean target price NOK 99.35, 17 analysts, average recommendation Hold (2.94/5)",
+      "citation": "Capital IQ Consensus tab, 17 analysts, as of 2026-07-18 (Estimates Report)",
+      "source_checked": "NorskHydroASAOBNHYEstimatesReport__Consensus.txt",
+      "status": "verified",
+      "evidence": "resolve_citations.py hit_count=6 for '99.35'; verbatim corpus hit 'Target Price 99.35 98 137.00/59.00 17.7 17/17 ... 1 - Buy 2' and 'OB:NHY (NOK) Mean Median High/Low Std. Dev. No. of Estimates. OB:NHY - Recommendation: Hold (2.94)'.",
+      "severity": "info"
+    },
+    {
+      "claim": "Alumetal impairment headroom of ~18% over its NOK 2.7bn carrying value; management's own words flag a future impairment as 'likely'",
+      "citation": "Integrated Annual Report 2025, p.7418-7426 (impairment note)",
+      "source_checked": "integrated-annual-report-2025.txt lines 7415-7423",
+      "status": "verified",
+      "evidence": "Verbatim corpus hit: 'An impairment indicator was identified for Alumetal, a recycler group with a carrying value of NOK 2,7 billion... The impairment test concluded that the recoverable amount, measured as VIU, exceeds the carrying amount of the CGU by about 18%, and no impairment was required in 2025. As the coverage is limited, continued weak market conditions... is likely to result in impairment in a future period.' -- matches the thesis claim almost word for word.",
+      "severity": "info"
+    },
+    {
+      "claim": "Q1 2026 receivables spike: days sales outstanding (DSO) 33.0 days (FY2025) rising to 56.7 days (LTM through Mar-2026); accounts receivable NOK 17,212m -> NOK 31,384m",
+      "citation": "business-model/11_capital-allocation-governance.md, 'Working capital trend' row, sourced to Capital IQ Ratios tab (Accounts Receivable Turnover) and Balance Sheet tab",
+      "source_checked": "Norsk-Hydro-ASA-OB-NHY-Financials__Ratios.txt; Norsk-Hydro-ASA-OB-NHY-Financials__Balance-Sheet.txt",
+      "status": "verified",
+      "evidence": "Accounts Receivable Turnover row verified verbatim: '9.284898 11.991983 11.356619 11.073794 11.059934 6.437595' (FY2021-25, LTM). Recomputed DSO=365/turnover: 365/11.059934=33.0 days (FY2025, ties exactly); 365/6.437595=56.7 days (LTM, ties exactly). AR figures 17,212 and 31,384 both verified verbatim in the Balance Sheet tab ('Accounts Receivable 16962 17716 16382 20396 17212 31384').",
+      "severity": "info"
+    },
+    {
+      "claim": "valuation/01_price-and-capital-structure.md characterizes the company's own Q1 2026 'Adjusted net debt' APM figure as '(21,579) i.e. net cash'",
+      "citation": "Q1 2026 report, 'Adjusted net debt' note",
+      "source_checked": "first-quarter-report-2026.txt lines 174-178",
+      "status": "miscited",
+      "evidence": "The filing's own narrative text states plainly: 'Adjusted net debt increased from NOK 18.2 billion to NOK 21.6 billion, mainly driven by the increase in net debt' -- i.e. MORE debt, not a flip to a net-cash position. The parenthesized '(21,579)' in the filing's summary table is the standard financial-statement bracket convention for a deduction line, not a sign flip to net cash. This is a genuine misreading in the valuation sub-agent's own table (labeled 'i.e. net cash'), contradicting the filing's own text and contradicting balance-sheet-survival's correct, independently-sourced conclusion ('Not a net-cash company on any basis shown -- strict, broad, or either company APM'). Does NOT leak into final_thesis.md (which correctly states 'This is not a net-cash company on any basis shown'), valuation/99_valuation-synthesis.md, or decision_record.json -- contained to the one sub-agent file, non-rating-driving.",
+      "severity": "medium"
+    },
+    {
+      "claim": "valuation/01_price-and-capital-structure.md's leverage snapshot: 'Net debt (broad)/LTM EBITDA = 0.27x' and 'Net debt (cash-quality adjusted)/LTM EBITDA = 0.38x', both labeled basis 'GAAP/reported EBITDA' using LTM EBITDA NOK 47,604m",
+      "citation": "Capital IQ Key Stats tab, 'EBITDA,' LTM 12 months Mar-31-2026A, labeled in the sub-agent's own table as company-reported (unadjusted) EBITDA",
+      "source_checked": "valuation/02_multiples-own-history.md, valuation/03_relative-valuation-peers.md, valuation/06_sum-of-the-parts.md (all three explicitly flag this same figure as corrupted)",
+      "status": "miscited",
+      "evidence": "Three OTHER valuation sub-agents (02, 03, 06) independently document that Capital IQ's Key Stats 'EBITDA' field for NHY (NOK 47,604m / 47,585m / 51,454m across slightly different period pulls) does not reconcile to the audited EBITDA (FY2025 NOK 25,696-28,889m; TTM NOK 21,976m) -- a known Capital IQ IFRS 'nature of expense' reclassification error inflating the figure ~1.7x-2.2x -- and 03 explicitly states: 'The same corrupted EBITDA figure also feeds 01_price-and-capital-structure.md's LTM EBITDA of NOK 47,604mm ... that figure is NOT company-reported EBITDA despite its label there.' So 01's own leverage ratios (0.27x/0.38x) rest on a mislabeled, vendor-corrupted denominator, an EBITDA miscitation of the exact type CLAUDE.md §5 bans (a vendor figure carried under a company-reported label). Contained: does not appear in final_thesis.md or decision_record.json, which correctly use balance-sheet-survival's audited-basis leverage trajectory (0.49x->0.80x->1.02x) as the headline.",
+      "severity": "medium"
+    },
+    {
+      "claim": "final_thesis.md's process note: 'No RUN_METADATA.md found in this run root'",
+      "citation": "final_thesis.md, header line 5",
+      "source_checked": "analyses/NHY_2026-07-19/RUN_METADATA.md",
+      "status": "unsupported",
+      "evidence": "RUN_METADATA.md DOES exist in the run root (confirmed present, listing orchestrator=/research:full (per-module chain), all six modules completed, synthesizer status completed). The final thesis's claim that no RUN_METADATA.md was found is factually incorrect -- a stale process note, not a rating-driving figure. No impact on the decision, evidence, or math.",
+      "severity": "low"
+    }
+  ],
+  "math_checks": [
+    {
+      "quantity": "Scenario probabilities sum",
+      "reported": "100% (20+55+25)",
+      "recomputed": "100.0%",
+      "ties": true,
+      "detail": "20+55+25=100. Ties exactly."
+    },
+    {
+      "quantity": "Probability-weighted expected return",
+      "reported": "-8.4%",
+      "recomputed": "-8.40% (0.20×26.8 + 0.55×(-3.7) + 0.25×(-46.9))",
+      "ties": true,
+      "detail": "Recomputed with Python: exact match to one decimal."
+    },
+    {
+      "quantity": "Probability-weighted target price",
+      "reported": "NOK 77.83",
+      "recomputed": "NOK 77.8265 (0.20×107.70 + 0.55×81.83 + 0.25×45.12)",
+      "ties": true,
+      "detail": "Rounds to 77.83, ties exactly."
+    },
+    {
+      "quantity": "Implied return from weighted target vs entry price (84.96)",
+      "reported": "-8.4%",
+      "recomputed": "-8.3963% ((77.83-84.96)/84.96)",
+      "ties": true,
+      "detail": "Ties to the expected-return figure within rounding, as required."
+    },
+    {
+      "quantity": "Risk/reward",
+      "reported": "-0.18",
+      "recomputed": "-0.1791 ((77.83-84.96)/(84.96-45.12))",
+      "ties": true,
+      "detail": "Rounds to -0.18, ties exactly."
+    },
+    {
+      "quantity": "Downside risk (distance to bear case)",
+      "reported": "46.89%",
+      "recomputed": "46.8927% ((84.96-45.12)/84.96)",
+      "ties": true,
+      "detail": "Ties to two decimal places exactly."
+    },
+    {
+      "quantity": "Margin of safety vs base fair value",
+      "reported": "-3.83%",
+      "recomputed": "-3.825% ((81.83-84.96)/81.83)",
+      "ties": true,
+      "detail": "Ties within 0.005pp rounding, immaterial."
+    },
+    {
+      "quantity": "Net debt (strict), FY2025",
+      "reported": "NOK 20,489m",
+      "recomputed": "NOK 20,489m (total debt 36,574 minus cash & equivalents 16,085)",
+      "ties": true,
+      "detail": "Both components verified verbatim in the Capital IQ Balance Sheet extract; exact tie."
+    },
+    {
+      "quantity": "Net debt (strict), Q1 2026 / latest TTM",
+      "reported": "NOK 22,503m",
+      "recomputed": "NOK 22,503m (total debt 33,754 minus cash & equivalents 11,251)",
+      "ties": true,
+      "detail": "Both components verified verbatim; exact tie. Independently reproduced identically in valuation/01_price-and-capital-structure.md's own 'strict' row."
+    },
+    {
+      "quantity": "Net debt/EBITDA (strict), FY2025",
+      "reported": "0.80x",
+      "recomputed": "0.7974x (20,489 / 25,696 reported EBITDA)",
+      "ties": true,
+      "detail": "Rounds to 0.80x."
+    },
+    {
+      "quantity": "Net debt/EBITDA (strict), latest TTM",
+      "reported": "1.02x",
+      "recomputed": "1.0240x (22,503 / 21,976 TTM reported EBITDA)",
+      "ties": true,
+      "detail": "Rounds to 1.02x."
+    },
+    {
+      "quantity": "EV bridge, headline/vendor basis",
+      "reported": "NOK 187,555m",
+      "recomputed": "NOK 187,555m (166,970 mkt cap + 33,754 total debt + 7,495 minority - 20,664 cash & ST investments)",
+      "ties": true,
+      "detail": "Exact tie; matches Capital IQ's own precomputed TEV."
+    },
+    {
+      "quantity": "EV bridge, cash-quality-adjusted (canonical)",
+      "reported": "NOK 192,384m",
+      "recomputed": "NOK 192,384m (166,970 + 33,754 + 7,495 - 15,835 freely-available cash)",
+      "ties": true,
+      "detail": "Exact tie; consistent with the labeled adjustment (excludes NOK 1,390m captive-insurance cash and NOK 3,439m derivatives collateral)."
+    },
+    {
+      "quantity": "FY2025 Adjusted EBITDA margin",
+      "reported": "13.9%",
+      "recomputed": "13.89% (28,889 / 207,971)",
+      "ties": true,
+      "detail": "Rounds to 13.9%; both inputs verbatim in the company's own filings, not the corrupted CIQ vendor line."
+    },
+    {
+      "quantity": "Q1 2026 Adjusted EBITDA margin",
+      "reported": "17.2%",
+      "recomputed": "17.20% (8,668 / 50,388)",
+      "ties": true,
+      "detail": "Exact tie; both inputs verbatim in the Q1 2026 report."
+    },
+    {
+      "quantity": "Q1 2026 revenue YoY growth",
+      "reported": "-11.7%",
+      "recomputed": "-11.75% ((50,388-57,094)/57,094)",
+      "ties": true,
+      "detail": "Rounds to -11.7%."
+    },
+    {
+      "quantity": "TTM revenue (through Mar-2026) vs FY2025",
+      "reported": "-3.2%",
+      "recomputed": "-3.22% ((201,265-207,971)/207,971)",
+      "ties": true,
+      "detail": "Rounds to -3.2%; TTM figure (201,265) verified verbatim in the CIQ workbook revenue series."
+    },
+    {
+      "quantity": "TTM EBITDA (through Mar-2026) YoY vs FY2025",
+      "reported": "-14.5%",
+      "recomputed": "-14.48% ((21,976-25,696)/25,696)",
+      "ties": true,
+      "detail": "Rounds to -14.5%."
+    },
+    {
+      "quantity": "Base-case fair value, weighted blend",
+      "reported": "NOK 81.83",
+      "recomputed": "NOK 81.826 (0.40×84.63 SOTP + 0.35×70.14 DCF + 0.25×93.70 peer-relative)",
+      "ties": true,
+      "detail": "Rounds to 81.83; ties exactly to the figure used throughout the dossier and decision_record.json."
+    },
+    {
+      "quantity": "Days sales outstanding (DSO), FY2025 and latest TTM",
+      "reported": "33.0 days -> 56.7 days",
+      "recomputed": "33.0 days (365/11.059934 AR turnover) -> 56.7 days (365/6.437595 AR turnover)",
+      "ties": true,
+      "detail": "Both AR-turnover inputs verified verbatim in the Capital IQ Ratios tab; both derived DSO values tie exactly."
+    },
+    {
+      "quantity": "TTM free cash flow YoY decline",
+      "reported": "-50.5% (NOK 11,729m -> NOK 5,810m)",
+      "recomputed": "-50.46%",
+      "ties": true,
+      "detail": "FY2025 FCF of 11,729 verified verbatim in the CIQ Free Cash Flow row; the TTM figure (~5,810/5,810.5) is close-matched in a companion row -- ties within immaterial rounding."
+    }
+  ],
+  "anchor_checks": [
+    {
+      "anchor": "Current price (NOK, as-of date, source)",
+      "values_by_module": {
+        "valuation": "NOK 84.96, 2026-07-17, Capital IQ (pool-verified)",
+        "final_thesis": "NOK 84.96, 2026-07-17, Capital IQ",
+        "decision_record.json": "84.96, entry_price_timestamp 2026-07-17"
+      },
+      "consistent": true,
+      "detail": "Single, identical figure used everywhere with a consistent as-of date and source label."
+    },
+    {
+      "anchor": "Market capitalization",
+      "values_by_module": {
+        "valuation": "NOK 166,970m (1,965.28m shares x 84.96)"
+      },
+      "consistent": true,
+      "detail": "Single-sourced in valuation/01; no other module states a conflicting figure. Ties to Capital IQ's own precomputed 166,970.05mm."
+    },
+    {
+      "anchor": "Enterprise value (EV)",
+      "values_by_module": {
+        "valuation": "NOK 192,384m (cash-quality adjusted, canonical); NOK 187,555m (headline/vendor, shown alongside, always labeled)",
+        "final_thesis": "NOK 192,384mm (Appendix F, echoes valuation/01)"
+      },
+      "consistent": true,
+      "detail": "Two bases exist but both are correctly and consistently labeled every time they appear (per CLAUDE.md §15); no unlabeled figure found. Both bases tie via the EV bridge math check above."
+    },
+    {
+      "anchor": "Net debt (strict basis, total debt minus cash & equivalents only)",
+      "values_by_module": {
+        "balance-sheet-survival": "NOK 20,489m (FY2025, canonical), NOK 22,503m (Q1 2026/latest TTM, canonical)",
+        "valuation": "NOK 22,503m (Q1 2026, labeled 'strict', shown as a memo row alongside its own different canonical figure)"
+      },
+      "consistent": true,
+      "detail": "The one basis both modules independently state a value for (strict, Q1 2026) ties exactly (22,503 = 22,503). Valuation's OWN canonical net-debt figure for its EV bridge is a different, clearly-labeled basis (NOK 17,919m, 'cash-quality adjusted, broad, ex-trapped balances') -- a legitimate, labeled basis choice per module, not a silent conflict. See the separate miscitation finding (claim_checks) on valuation/01's mischaracterization of the company's own Q1 2026 'Adjusted net debt' APM figure as net cash."
+    },
+    {
+      "anchor": "Diluted / basic share count",
+      "values_by_module": {
+        "valuation": "1,965.28 million (basic used as fully-diluted proxy; company discloses no significant diluting elements)",
+        "business-model": "1,965m (2025), part of the 5-year buyback trend (2,051m in 2021)",
+        "management-governance": "1,965,278,330 shares outstanding, per Note 7.6"
+      },
+      "consistent": true,
+      "detail": "Identical figure (to the million) used across all three modules; each cites the same underlying source (Note 7.6 / Capital IQ Balance Sheet tab)."
+    },
+    {
+      "anchor": "EBITDA / segment-EBIT base",
+      "values_by_module": {
+        "business-model": "FY2025 Adjusted EBITDA NOK 28,889m (company APM)",
+        "balance-sheet-survival": "FY2025 reported EBITDA NOK 25,696m (canonical for leverage); Adjusted EBITDA NOK 28,889m (memo); TTM reported EBITDA NOK 21,976m",
+        "valuation (03, 06)": "FY2025 reported EBITDA NOK 25,696m / TTM NOK 21,976m used for restated multiples and SOTP; CIQ vendor LTM EBITDA (NOK 47,604m/47,585m/51,454m across different period pulls) explicitly flagged as corrupted and excluded",
+        "valuation (01)": "Uses the same corrupted CIQ LTM EBITDA (NOK 47,604m) for its own leverage snapshot, mislabeled 'GAAP/reported EBITDA' -- see miscitation finding"
+      },
+      "consistent": true,
+      "detail": "Every EBITDA figure that actually drives the rating (28,889 company-APM; 25,696 reported FY2025; 21,976 TTM) is used identically and correctly across all modules that touch it. The one inconsistency (valuation/01's mislabeled use of the corrupted CIQ vendor figure) is confined to that sub-agent's own internal leverage-snapshot table, is explicitly flagged as a cross-module divergence by three OTHER valuation sub-agents, and never reaches final_thesis.md or decision_record.json. Recorded as a claim-level miscitation (medium severity), not scored again here as a rating-affecting anchor conflict."
+    },
+    {
+      "anchor": "ROIC / cost of capital (Adjusted RoaCE vs ~10% cost-of-capital target)",
+      "values_by_module": {
+        "management-governance": "Group Adjusted RoaCE 10.2% (FY2025) vs 10% target",
+        "business-model": "Aluminium Metal segment ARoaCE 14.4% (FY2025); 5-year through-cycle group Adjusted RoaCE 13.3%; reported (not adjusted) RoaCE 7.2% (FY2025)"
+      },
+      "consistent": true,
+      "detail": "Different figures reflect clearly-labeled different scopes (group vs segment) and different windows (single-year vs 5-year average, adjusted vs reported) -- not a conflict. No two modules state a different value for the SAME scope/period/basis."
+    },
+    {
+      "anchor": "Norwegian State ownership stake (RF-OWN-004)",
+      "values_by_module": {
+        "management-governance": "34.26-34.49%",
+        "business-model": "34.5%",
+        "final_thesis": "34.26-34.49% (also rounded to 34.3-34.5% in the killer-risk one-liner)",
+        "decision_record.json": "34.3-34.5%"
+      },
+      "consistent": true,
+      "detail": "Both boundary figures (34.26% as of 31-Dec-2025 per the NUES governance report; 34.49% per the separate top-holders/Note 9.1 listing) are independently verified verbatim in the corpus. All modules cite the same underlying range; rounding to '34.3-34.5%' in the headline scorecard is a labeled approximation of the same verified range, not a new or conflicting figure."
+    }
+  ],
+  "integrity_score": 81,
+  "verdict": "Minor issues",
+  "blocking_findings": [],
+  "notes": "ciq_facts.json unavailable in this run's _pool_extracts (no deterministic CIQ facts layer was generated for this pool) -- the Step 1c deterministic cross-check was skipped per the task instructions; all figures in this report were instead resolved via resolve_citations.py against the rebuilt corpus (/tmp/nhy_corpus_verify.txt, 5,950,143 chars, 41,328 lines) plus direct file reads of the cited sub-agent and pool-extract files. No extraction failures in the manifest beyond two already-plain-text sources (annual2025.txt, fq2026.txt marked 'in-place', which is expected, not a failure). All headline rating-driving figures (scenario math, killer risk, leverage trajectory, both EBITDA-margin anchors, consensus target, Alumetal headroom, DSO) verified either verbatim in the extracted corpus or via exact Python recomputation. Two medium-severity miscitations were found, both confined to one valuation sub-agent file (valuation/01_price-and-capital-structure.md) and both explicitly caught/flagged as cross-module divergences by other valuation sub-agents (02, 03, 06) -- neither leaks into final_thesis.md, decision_record.json, or valuation/99_valuation-synthesis.md, so neither affects the rating. One low-severity, non-rating-driving format finding: final_thesis.md's header incorrectly states 'No RUN_METADATA.md found in this run root' when the file does in fact exist. No critical or high-severity findings, no anchor conflicts, and no math breaks were found -- the scenario model (probabilities, expected return, weighted target price, risk/reward, downside risk, margin of safety) reconciles exactly, and every anchor that actually drives the Watchlist rating (price, net debt, leverage trajectory, EBITDA bases, share count, ownership stake) is consistent across modules."
+}

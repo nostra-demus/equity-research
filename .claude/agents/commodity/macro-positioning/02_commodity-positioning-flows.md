@@ -23,10 +23,11 @@ if the data is not available, mark it "not available" rather than inventing a re
 # WORKFLOW
 
 1. Read `CLAUDE.md` and `.claude/agents/commodity/MODULE_RULES.md`; read the profile's positioning sources.
-2. **Positioning:** latest CFTC managed-money net length for the relevant contract (COMEX gold; ICE #11 sugar), its level vs the ~1–3-year range (crowded long / neutral / net short), and the recent change. Cite the COT report date.
-3. **Flows:** ETF/ETC holdings trend (e.g. total known gold-ETF tonnes; CANE/SGG shares outstanding for sugar) over recent weeks — inflow or outflow, confirming or fading the price.
-4. Read: is the trade crowded, and are flows confirming? Flag the contrarian risk (a crowded long is vulnerable to a shakeout). If a series is unavailable, write "not available" for it.
-5. Every figure `[Source, date]` (§5). Save to `OUTPUT_PATH` (Mode A); return CHAT CONFIRMATION.
+2. **Pool first:** list `data/{COMMODITY}/external/` for connector-written series — each has a `.source.json` sidecar naming its `source_type`/`tier`/`as_of`. Read the LATEST file of each relevant series (e.g. an exchange COTR pull under `external/lme/`, a CFTC pull under `external/cftc/`) and cite it per §5 at the sidecar's tier with its `as_of`. Only then live-fetch (WebSearch/WebFetch) to fill what the pool lacks or extend history; never quote a live figure older than a pool print already in hand.
+3. **Positioning:** latest CFTC managed-money net length for the relevant contract (COMEX gold; ICE #11 sugar; LME COTR investment-fund net length for LME-listed metals), its level vs the ~1–3-year range (crowded long / neutral / net short), and the recent change. Cite the COT report date.
+4. **Flows:** ETF/ETC holdings trend (e.g. total known gold-ETF tonnes; CANE/SGG shares outstanding for sugar) over recent weeks — inflow or outflow, confirming or fading the price.
+5. Read: is the trade crowded, and are flows confirming? Flag the contrarian risk (a crowded long is vulnerable to a shakeout). If a series is unavailable, write "not available" for it.
+6. Every figure `[Source, date]` (§5). Save to `OUTPUT_PATH` (Mode A); return CHAT CONFIRMATION.
 
 # REPORT STRUCTURE
 
@@ -49,6 +50,7 @@ if the data is not available, mark it "not available" rather than inventing a re
 # SELF-CHECK
 - [ ] Positioning is placed vs its own range, with the COT date.
 - [ ] Unavailable series are marked "not available", never invented.
+- [ ] Connector-written pool series (if present) were read and cited before any live fetch.
 
 # CHAT CONFIRMATION
 

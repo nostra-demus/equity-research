@@ -1,0 +1,340 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NHY",
+  "company_name": "Norsk Hydro ASA",
+  "exchange": "Oslo Børs (OB:NHY)",
+  "currency": "NOK",
+  "decision_date": "2026-07-19",
+  "run_root": "analyses/NHY_2026-07-19",
+  "final_thesis_path": "analyses/NHY_2026-07-19/final_thesis.md",
+  "decision": "Watchlist",
+  "suggested_action": "No new position. Track the 22-Jul-2026 and 23-Oct-2026 prints; revisit only if price falls toward or below the NOK 70-82 weighted fair-value band, or if the Alumetal impairment / Brazil tax risk clears without damage.",
+  "paper_treatment": "No trade, track opportunity cost",
+  "basket": "Watchlist",
+  "entry_price": 84.96,
+  "entry_price_source": "Capital IQ Public Company Capsule / Key Stats tab (Norsk Hydro ASA OB NHY Financials.xls)",
+  "entry_price_timestamp": "2026-07-17",
+  "benchmark": "Oslo Børs Benchmark Index (OSEBX) -- convention default, not pool-cited",
+  "sector_benchmark": "LME Aluminium / S&P Global Aluminum & Metals -- convention default, not pool-cited",
+  "time_horizon": "12 months",
+  "expected_return_pct": -8.4,
+  "downside_risk_pct": 46.89,
+  "margin_of_safety_pct": -3.83,
+  "risk_reward": -0.18,
+  "scenarios": [
+    {
+      "label": "bull",
+      "probability": 20,
+      "return_pct": 26.8,
+      "price_target": 107.7
+    },
+    {
+      "label": "base",
+      "probability": 55,
+      "return_pct": -3.7,
+      "price_target": 81.83
+    },
+    {
+      "label": "bear",
+      "probability": 25,
+      "return_pct": -46.9,
+      "price_target": 45.12
+    }
+  ],
+  "confidence_score": 35.0,
+  "data_sufficiency_score": 78,
+  "confidence_inputs": {
+    "data_sufficiency": 78,
+    "corroboration": 75,
+    "evidence_tier": 80,
+    "staleness_penalty": 0,
+    "edge_score": 30,
+    "edge_proof_present": true,
+    "decision": "Watchlist",
+    "expected_return_pct": -8.4,
+    "modules_absent": [
+      "options"
+    ],
+    "critical_governance_unresolved": false,
+    "catalyst_timing_weak": false,
+    "rating_cap_ceiling": null,
+    "downgrades": [
+      {
+        "type": "macro_conditional",
+        "points": 10,
+        "reason": "Aluminium price/USD-NOK dominate all three scenarios; commodity-conditional thesis"
+      },
+      {
+        "type": "single_variable",
+        "points": 8,
+        "reason": "Bull/base/bear scenarios all driven by the same LME aluminium price/margin assumption, not independent"
+      },
+      {
+        "type": "accounting_quality_compound",
+        "points": 5,
+        "reason": "Sec.4B forensic roll-up: three distinct sub-Critical signals (Q1 2026 receivables/cash-conversion spike, recurring growing non-GAAP restructuring add-back, unquantified Brazil tax/Alunorte contingent liabilities) compound into one High-level accounting-quality caution"
+      }
+    ],
+    "calibration_haircut": 0,
+    "exceptional_evidence": false
+  },
+  "analysis_confidence": 77.8,
+  "conviction": 35.0,
+  "sizing_hint": {
+    "band": "watch",
+    "action": "monitor only — no position (track opportunity cost)"
+  },
+  "confidence_breakdown": {
+    "analysis_confidence": 77.8,
+    "analysis_confidence_build": "0.5*dataSuff(78) + 0.25*corrob(75) + 0.25*tier(80) - stale(0) = 77.8",
+    "direction": "neutral",
+    "documented_ceiling": 80.0,
+    "documented_ceiling_sources": [
+      100.0,
+      80.0,
+      100.0
+    ],
+    "unknown_absent_keys": [],
+    "direction_ceiling": 58.0,
+    "direction_ceiling_reason": "neutral: min(documented 80, non-committal 58)",
+    "understanding_capped_to_ceiling": 58.0,
+    "downgrades": [
+      {
+        "type": "macro_conditional",
+        "points": 10,
+        "reason": "Aluminium price/USD-NOK dominate all three scenarios; commodity-conditional thesis"
+      },
+      {
+        "type": "single_variable",
+        "points": 8,
+        "reason": "Bull/base/bear scenarios all driven by the same LME aluminium price/margin assumption, not independent"
+      },
+      {
+        "type": "accounting_quality_compound",
+        "points": 5,
+        "reason": "Sec.4B forensic roll-up: three distinct sub-Critical signals (Q1 2026 receivables/cash-conversion spike, recurring growing non-GAAP restructuring add-back, unquantified Brazil tax/Alunorte contingent liabilities) compound into one High-level accounting-quality caution"
+      }
+    ],
+    "calibration_haircut": 0,
+    "downgrade_points_total": 23.0,
+    "conviction_hard_max": 85.0,
+    "conviction": 35.0,
+    "formula": "conviction = clamp( min( min(analysis_confidence, direction_ceiling) - sum(max(0,downgrades)) - max(0,calibration_haircut), direction_ceiling ), 0, hard_max )"
+  },
+  "rating_cap": "RF-OWN-004 (CLAUDE.md §24 Filter 6, unaligned controlling owner) caps the decision at Watchlist -- the binding, most restrictive cap, ahead of the separate commodity/macro-thesis-with-weak-edge cap that would otherwise limit this to Starter Position Only.",
+  "thesis_type": [
+    "Commodity-conditional",
+    "FX / rates",
+    "Company-specific"
+  ],
+  "variant_perception_summary": "The current price already requires Hydro's elevated FY2025 margin (13.9%) to hold rather than fade to the DCF's 13.0% mid-cycle anchor -- a real stretch per the reverse-DCF, which the company's own forward hedge book (67% of Q2 2026 volume booked below spot) already partly discounts. The sell-side's own mean target price (NOK 99.35) is more bullish than this run's own triangulated base case (NOK 81.83), a genuine disclosed divergence this synthesis does not resolve in the sell side's favor, given the SOTP anchor's tie to audited data.",
+  "what_everyone_knows": "Norsk Hydro is a state-linked, vertically integrated aluminium producer whose earnings are dominated by the LME aluminium price and USD/NOK, currently benefiting from a Middle East supply-shock price spike.",
+  "what_is_priced_in": "The current price requires Hydro's elevated FY2025 actual Adjusted EBITDA margin (13.9%) to hold roughly flat through 2030 rather than fade to the DCF's 13.0% mid-cycle anchor.",
+  "what_market_may_be_missing": "Two-thirds of Q2 2026 volume is already booked below the quarter-end spot price (partial reversion already locked in); FQ2 2026 EBITDA/EPS consensus was cut to track management's own guided cost bridge, not independent caution; Extrusions' EBIT margin is already negative with no delivered turnaround; the Q1 2026 receivables build is unexplained and untested by a second data point.",
+  "edge_score": 30,
+  "edge_proof": "If FQ2 2026 (22-Jul-2026, three days from this report) shows the Adjusted EBITDA margin falling back below ~15% (from the Q1 2026 peak of 17.2%) while receivables normalize and operating cash flow turns positive, the base-case reconciliation is directionally vindicated over the sell-side's higher target. If the margin instead holds near 17%+ with cash conversion resolving cleanly, the sell-side's more bullish read is confirmed and this synthesis's caution was too conservative.",
+  "killer_risk": "The Norwegian State's 34.3-34.5% stake is held for industrial-policy reasons (retaining HQ/technology jobs in Norway), not per-share value -- the Board has formally declined to draft takeover-bid principles because of it, so persistent undervaluation has no forcing mechanism to self-correct.",
+  "kill_criteria": [
+    "FQ2 2026 (22-Jul-2026) margin holds near 17%+ AND receivables keep building with CFO staying negative -- confirms the cash-quality flag while the bull persistence case gains evidence",
+    "Alumetal CGU impairment booked in the FY2026 annual report (~Feb-2027) -- confirms the 18%-headroom flag and the FY2025 impairment pattern continuing",
+    "Adverse ruling on the ~NOK 3.6bn Brazilian tax dispute or Alunorte litigation -- an unquantified contingent liability becomes a quantified cash/provision hit",
+    "Norwegian State visibly blocks or resists a value-accretive corporate action -- confirms RF-OWN-004 as an active, not theoretical, constraint",
+    "Extrusions EBIT margin still negative one year after the plant-closure announcements -- vindicates the §24 Filter 2 unproven-turnaround caution"
+  ],
+  "forecast_ledger": [
+    {
+      "prediction": "FQ2 2026 (30-Jun-2026 quarter) reported revenue beats the Capital IQ consensus of NOK 55,954.2m (as of 2026-07-15)",
+      "probability": 65,
+      "time_window": "By 2026-07-22",
+      "evidence_today": "4-for-4 quarterly revenue beat streak; ~67% of Q2 volume booked at USD 3,000/mt below the USD 3,467/mt quarter-end spot",
+      "confirmation_trigger": "Reported FQ2 2026 revenue > NOK 55,954.2m per the 22-Jul-2026 filing",
+      "falsification_trigger": "Reported FQ2 2026 revenue <= NOK 55,954.2m",
+      "owner_module": "earnings",
+      "confidence_score": 70,
+      "status": "open",
+      "forecast_type": "revenue"
+    },
+    {
+      "prediction": "FQ2 2026 Adjusted EBITDA does NOT clearly beat the Capital IQ consensus of NOK 8,581.8m (as of 2026-07-15)",
+      "probability": 50,
+      "time_window": "By 2026-07-22",
+      "evidence_today": "The estimate cut tracks management's own guided cost bridge, not independent Street caution",
+      "confirmation_trigger": "Reported FQ2 2026 Adjusted EBITDA <= NOK 8,581.8m",
+      "falsification_trigger": "Reported FQ2 2026 Adjusted EBITDA > NOK 8,581.8m (a genuine beat)",
+      "owner_module": "earnings",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "earnings_eps"
+    },
+    {
+      "prediction": "FQ2 2026's cash-flow statement shows receivables normalizing (DSO falling back toward FY2025's 33.0-day level) and operating cash flow returning positive",
+      "probability": 50,
+      "time_window": "By 2026-07-22",
+      "evidence_today": "Q1 2026 CFO was negative (NOK -1,891m) against positive Adjusted EBITDA (NOK 8,668m); DSO spiked to 56.7 days, unexplained",
+      "confirmation_trigger": "FQ2 2026 filing shows DSO declining and/or CFO positive",
+      "falsification_trigger": "DSO keeps rising and/or CFO stays negative in the FQ2 2026 filing",
+      "owner_module": "earnings",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "cash_flow"
+    },
+    {
+      "prediction": "NHY's strict-basis net debt/EBITDA continues rising past the latest 1.02x reading at the next reported balance sheet",
+      "probability": 60,
+      "time_window": "By 2026-07-22",
+      "evidence_today": "Ratio has risen every period disclosed since FY2023 (0.49x -> 1.02x), driven by softening EBITDA and continued distributions",
+      "confirmation_trigger": "Q2 2026 balance sheet shows net debt/EBITDA (strict) > 1.02x",
+      "falsification_trigger": "Ratio <= 1.02x (flat or improved)",
+      "owner_module": "balance-sheet-survival",
+      "confidence_score": 60,
+      "status": "open",
+      "forecast_type": "balance_sheet_or_solvency"
+    },
+    {
+      "prediction": "The 22-Jul-2026 and 23-Oct-2026 prints show the Adjusted EBITDA margin fading back toward the ~13.0% DCF mid-cycle anchor rather than holding near the price-implied ~13.9%-14.0% level",
+      "probability": 60,
+      "time_window": "By 2026-10-23",
+      "evidence_today": "Management calls the current spike non-repeatable; forward hedge book already shows partial reversion",
+      "confirmation_trigger": "Reported Adjusted EBITDA margin for Q2 and/or Q3 2026 declines materially from the Q1 2026 peak (17.2%) toward or below 15%",
+      "falsification_trigger": "Margin holds at or above 15% through both prints",
+      "owner_module": "valuation",
+      "confidence_score": 60,
+      "status": "open",
+      "forecast_type": "valuation_or_price_return"
+    },
+    {
+      "prediction": "An impairment charge is booked against the Alumetal (Poland/Hungary recycling) CGU in the FY2026 annual report (~Feb-2027)",
+      "probability": 60,
+      "time_window": "By ~Feb-2027",
+      "evidence_today": "Only 18% recoverable-value headroom; management's own words flag a future impairment as 'likely'",
+      "confirmation_trigger": "FY2026 Annual Report impairment note books a charge against the Alumetal CGU",
+      "falsification_trigger": "FY2026 Annual Report impairment note books no charge against the Alumetal CGU and recoverable-value headroom stays at or above 18%",
+      "owner_module": "management-governance",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "governance_or_accounting"
+    }
+  ],
+  "module_scores": {
+    "business-model": {
+      "verdict": "Cyclical business - worth deeper work only with a timing edge",
+      "overall_usefulness": 58,
+      "business_quality": 34,
+      "moat": 66
+    },
+    "earnings": {
+      "verdict": "Mixed earnings setup",
+      "overall_usefulness": 78,
+      "earnings_quality": 55,
+      "consensus_setup": 58
+    },
+    "catalyst": {
+      "verdict": "Dated, evidenced near-term catalysts",
+      "overall_usefulness": 70,
+      "catalyst_strength": 55,
+      "timing_visibility": 60
+    },
+    "balance-sheet-survival": {
+      "verdict": "Solid",
+      "overall_usefulness": 75,
+      "solvency_strength": 76,
+      "liquidity_runway": 92,
+      "covenant_headroom": "Not assessable"
+    },
+    "management-governance": {
+      "verdict": "Standard / mixed stewardship",
+      "overall_usefulness": 85,
+      "governance_score": 64.4,
+      "confidence_adjusted_score": 52.8,
+      "governance_rating": "Watchlist band"
+    },
+    "valuation": {
+      "verdict": "Fairly valued",
+      "overall_usefulness": 79,
+      "valuation_attractiveness": 38,
+      "margin_of_safety_score": 30,
+      "valuation_confidence": 56
+    }
+  },
+  "red_flags": [
+    {
+      "id": "RF-OWN-004",
+      "severity": "High",
+      "source": "management-governance",
+      "description": "Norwegian State's 34.26-34.49% stake held for industrial-policy reasons (retaining HQ/technology jobs in Norway), not per-share value; Board declined to adopt takeover-bid-handling principles because of it."
+    },
+    {
+      "id": "RF-CAP-001",
+      "severity": "High",
+      "source": "management-governance",
+      "description": "Battery-materials/green-hydrogen growth bet (Vianode et al.) committed to for ~3 years then abandoned Nov-2024; written to zero."
+    },
+    {
+      "id": "RF-CAP-003",
+      "severity": "High",
+      "source": "management-governance",
+      "description": "Cash dividend exceeded free cash flow in FY2023 (0.75x coverage) and FY2024 (0.36x coverage)."
+    },
+    {
+      "id": "RF-DISC-002",
+      "severity": "High",
+      "source": "management-governance / earnings",
+      "description": "Recurring 'rationalization and closure' charge labelled non-recurring every year for three straight years while growing each year (NOK 265m to 1,795m, FY2023-FY2025)."
+    },
+    {
+      "id": "RF-SHR-001",
+      "severity": "High",
+      "source": "management-governance",
+      "description": "26% of votes cast opposed the FY2024 remuneration report at the 2025 AGM."
+    },
+    {
+      "id": "BM-12-Alumetal",
+      "severity": "High",
+      "source": "business-model",
+      "description": "Alumetal (2023 acquisition) impairment headroom of only ~18% over its NOK 2.7bn carrying value; management's own words flag a future impairment as likely."
+    },
+    {
+      "id": "BM-11-Contingent",
+      "severity": "High",
+      "source": "business-model / balance-sheet-survival",
+      "description": "Off-balance-sheet contingent liabilities: Brazilian tax disputes (~NOK 3.6bn possible loss) and unquantifiable Alunorte/Cainquiama litigation."
+    },
+    {
+      "id": "EARN-08-Receivables",
+      "severity": "High",
+      "source": "earnings / business-model",
+      "description": "Q1 2026 receivable-days spike from 33.0 to 56.7 days, accounts receivable nearly doubling QoQ against only 6.7% revenue growth, unexplained in the pool."
+    }
+  ],
+  "missing_data": [
+    "FQ2 2026 results (due 2026-07-22, three days from this report) -- highest-value single next data item; resolves whether the Q1 2026 margin spike is fading or persisting",
+    "Numeric covenant threshold and EBITDA definition for the debt that actually carries covenants (part-owned-subsidiary loans)",
+    "Rate-type disclosure (fixed vs floating) for 75.6% of the debt stack (NOK 27,634m)",
+    "Oslo Børs AGM vote-tally / scrutinizer results for the May 2025 and May 2026 general meetings",
+    "VPS primary-insider (managers'-transactions) filings for the last 12 months",
+    "Bauxite/alumina reserve life and ore grade/strip ratio for the Paragominas mine and Alunorte refinery",
+    "IBKR options/positioning data (none in this pool) -- limits trade-construction precision"
+  ],
+  "review_schedule": {
+    "30d": "2026-08-18",
+    "90d": "2026-10-17",
+    "180d": "2027-01-15",
+    "365d": "2027-07-19"
+  },
+  "created_by": "synthesizer",
+  "notes": "No RUN_METADATA.md found in this run root (non-blocking gap; likely a module-by-module invocation). No prior dated NHY run exists to compare against. Entry price is pool-verified (Capital IQ, 2026-07-17, 2 calendar days old) -- a paper long/watch position is tracked per the Watchlist basket convention, though the decision itself calls for no new position.",
+  "business_type": "Commodity producer / miner",
+  "primary_valuation_method": "Sum-of-the-parts (SOTP, 40% weight, dominant), cross-checked against mid-cycle FCFF DCF (35%) and quality-adjusted NTM EV/EBITDA peer relative (25%)",
+  "calibration_feedback": {
+    "source_summary": "analyses/performance/2026-07-13_calibration_summary.json",
+    "status": "pre_data",
+    "haircut_points": 0,
+    "modules_flagged": [],
+    "rationale": "The latest as-of calibration summary (2026-07-13) carries a verdict beginning 'Pre-data' -- 5 decisions on the ledger, 3 with a first review filed, 0 resolved forecasts. Per the Phase 6 gate, a Pre-data verdict means no confidence adjustment is applied; this is the expected, honest state until real calibration signal accumulates."
+  },
+  "confidence_haircut": 10.0,
+  "pre_mortem_verdict": "Weakened — apply haircut",
+  "post_review_confidence_score": 25.0,
+  "post_mortem_decision": "Watchlist",
+  "post_mortem_basket": "Watchlist"
+}

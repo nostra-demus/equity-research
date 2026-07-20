@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useStore, isFlowActive } from '../lib/store'
-import type { ChatScope, ChatStyle } from '../lib/types'
+import type { ChatScope, ChatStyle, ChatWork } from '../lib/types'
 
 const titleize = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
@@ -38,6 +38,7 @@ export function ChatPanel() {
   const title = useStore((s) => s.chatTitle)
   const messages = useStore((s) => s.chatMessages)
   const streaming = useStore((s) => s.chatStreaming)
+  const work = useStore((s) => s.chatWork)
   const error = useStore((s) => s.chatError)
   const source = useStore((s) => s.chatSource)
   const model = useStore((s) => s.chatModel)
@@ -141,7 +142,6 @@ export function ChatPanel() {
 
   const enter = reduce ? { opacity: 1 } : { transform: 'translateX(0%)' }
   const from = reduce ? { opacity: 0 } : { transform: 'translateX(100%)' }
-  const lastAssistantEmpty = streaming && messages[messages.length - 1]?.role === 'assistant' && messages[messages.length - 1]?.content === ''
 
   return (
     <motion.div
@@ -264,27 +264,28 @@ export function ChatPanel() {
           </div>
         ) : (
           <div className="chatpanel__thread" ref={threadRef} onScroll={onThreadScroll}>
-            {messages.map((m, i) =>
-              m.role === 'user' ? (
-                <div key={i} className="chatmsg chatmsg--user">{m.content}</div>
-              ) : (
+            {messages.map((m, i) => {
+              if (m.role === 'user') return <div key={i} className="chatmsg chatmsg--user">{m.content}</div>
+              // The live turn shows exactly what is happening, as it happens: the model's own streamed
+              // reasoning (ThinkingBlock), the answer text growing token-by-token, and a working strip
+              // naming the current REAL stage with a running stopwatch — never a blind spinner.
+              const live = streaming && i === messages.length - 1
+              return (
                 <div key={i} className="chatmsg chatmsg--assistant">
-                  {i === messages.length - 1 && lastAssistantEmpty ? (
-                    <div className="chatpanel__typing" aria-label="Thinking"><i /><i /><i /></div>
-                  ) : (
-                    <>
-                      <div className="md">
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.content}</ReactMarkdown>
-                        {streaming && i === messages.length - 1 && <span className="chatpanel__caret" aria-hidden />}
-                      </div>
-                      {!streaming && m.content && (
-                        <button className="chatpanel__copy" onClick={() => copyAnswer(i, m.content)}>{copied === i ? 'Copied' : 'Copy'}</button>
-                      )}
-                    </>
+                  {m.thinking && <ThinkingBlock text={m.thinking} live={live && work?.stage === 'thinking'} />}
+                  {m.content !== '' && (
+                    <div className="md">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.content}</ReactMarkdown>
+                      {live && <span className="chatpanel__caret" aria-hidden />}
+                    </div>
+                  )}
+                  {live && work && <WorkStrip work={work} reduce={!!reduce} />}
+                  {!streaming && m.content && (
+                    <button className="chatpanel__copy" onClick={() => copyAnswer(i, m.content)}>{copied === i ? 'Copied' : 'Copy'}</button>
                   )}
                 </div>
-              ),
-            )}
+              )
+            })}
             {error && (
               <div className="chatpanel__error">
                 {error === 'static-deploy'
@@ -312,6 +313,58 @@ export function ChatPanel() {
         </button>
       </div>
     </motion.div>
+  )
+}
+
+// Live working strip for the in-flight turn. Every label maps 1:1 to a REAL streamed lifecycle event
+// (ChatWork in types.ts) and the stopwatch is true elapsed time — nothing here is simulated progress.
+const WORK_LABELS: Record<ChatWork['stage'], string> = {
+  sending: 'Sending your question…',
+  context: 'Context assembled — starting the engine…',
+  starting: 'Starting the engine…',
+  connected: 'Reading the context…',
+  thinking: 'Thinking…',
+  writing: 'Writing the answer…',
+}
+
+function WorkStrip({ work, reduce }: { work: ChatWork; reduce: boolean }) {
+  // 10Hz stopwatch so the panel visibly moves the whole time (whole seconds under reduced motion —
+  // the tick is a text update, but a calmer cadence honors the preference in spirit)
+  const [now, setNow] = useState(() => Date.now())
+  useEffect(() => {
+    const t = setInterval(() => setNow(Date.now()), reduce ? 1000 : 100)
+    return () => clearInterval(t)
+  }, [reduce])
+  const secs = Math.max(0, now - work.startedAt) / 1000
+  return (
+    <div className="chatpanel__work">
+      <span className="chatpanel__workdot" aria-hidden />
+      <span className="chatpanel__worklabel" role="status">{WORK_LABELS[work.stage]}</span>
+      {work.model && <span className="chatpanel__workmodel" title={work.model}>{work.model.replace(/^claude-/, '')}</span>}
+      <span className="chatpanel__worktimer" aria-hidden>{reduce ? `${Math.floor(secs)}s` : `${secs.toFixed(1)}s`}</span>
+    </div>
+  )
+}
+
+// The model's reasoning, verbatim as it streams. Open + following the newest thought while the model is
+// thinking; collapses to a one-line toggle once the answer starts, unless the user pins it open — so the
+// thought process stays readable during AND after the turn (including reopened saved conversations).
+function ThinkingBlock({ text, live }: { text: string; live: boolean }) {
+  const [pinned, setPinned] = useState<boolean | null>(null) // null = follow the live default
+  const open = pinned ?? live
+  const bodyRef = useRef<HTMLDivElement | null>(null)
+  useLayoutEffect(() => {
+    const el = bodyRef.current
+    if (el && live) el.scrollTop = el.scrollHeight // keep the newest thought in view while streaming
+  }, [text, live, open])
+  return (
+    <div className="chatpanel__think">
+      <button className="chatpanel__think-head" onClick={() => setPinned(!open)} aria-expanded={open}>
+        <span className="chatpanel__think-title">{live ? 'Thinking' : 'Thought process'}</span>
+        <span className="chatpanel__think-caret" aria-hidden>{open ? '▾' : '▸'}</span>
+      </button>
+      {open && <div className="chatpanel__think-body" ref={bodyRef}>{text}</div>}
+    </div>
   )
 }
 

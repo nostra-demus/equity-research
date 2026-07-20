@@ -5,8 +5,12 @@
 // NOT trust the file:
 //   1. VALIDATES every entry_module against the live roster (a hallucinated module name is dropped, noted
 //      in `widened`) — so the cockpit can never light a module that isn't there (fail-closed, §26).
-//   2. DROPS a structurally-invalid need (bad tier / acquisition / cadence / need_id) rather than surface a
-//      malformed card — the same defensive posture the dock reads with (deploy-skew fail-closed).
+//   2. DROPS a structurally-invalid need (bad tier / cadence / need_id / missing series or source name)
+//      rather than surface a malformed card — the same defensive posture the dock reads with (deploy-skew
+//      fail-closed). `suggested_source.acquisition` alone is tolerant-labelled instead: an off-enum value
+//      is display-only advisory metadata, and dropping the whole card for it silenced the very demand
+//      signal this reader exists to surface (the ALUMINIUM run's two needs). The schema stays strict for
+//      EMITTERS; the reader keeps the card with the closed sentinel 'unrecognized' + a widened note.
 // It launches nothing and writes nothing. Returns null when there is no run or the record is unreadable,
 // so the dock stays hidden rather than showing a fabricated need.
 import fs from 'node:fs'
@@ -75,13 +79,20 @@ export function readDataNeeds(swarmId: string, subject: string): DataNeedsRead |
       continue
     }
     const src = n.suggested_source && typeof n.suggested_source === 'object' ? n.suggested_source : {}
-    const acquisition = String(src.acquisition ?? '')
+    let acquisition = String(src.acquisition ?? '')
     const tier = typeof n.tier === 'number' ? n.tier : NaN
     const cadence = String(n.cadence ?? '')
-    // Fail closed: a need whose source/tier/cadence violate the schema enums is dropped, not shown malformed.
-    if (!n.series || !ACQUISITION.has(acquisition) || !TIERS.has(tier) || !CADENCE.has(cadence) || !String(src.name ?? '')) {
+    // Fail closed on STRUCTURAL defects: a need whose tier/cadence violate the schema enums (they carry
+    // the §4 ceiling and the connector-eligibility read) or that lacks a series/source name is dropped.
+    if (!n.series || !TIERS.has(tier) || !CADENCE.has(cadence) || !String(src.name ?? '')) {
       widened.push(`${need_id}: dropped (source, tier ${tier}, or cadence outside the allowed set)`)
       continue
+    }
+    // Tolerant-labelled on acquisition alone: keep the card, serve the closed sentinel (never the raw
+    // string — nothing unvetted leaks to the client), and audit the defect.
+    if (!ACQUISITION.has(acquisition)) {
+      widened.push(`${need_id}: acquisition '${acquisition}' outside the schema enum — kept, labelled unrecognized`)
+      acquisition = 'unrecognized'
     }
     // entry_modules validated against the live roster — a hallucinated module is dropped (never lit).
     const entry_modules = (Array.isArray(n.entry_modules) ? n.entry_modules.map(String) : []).filter((m: string) => {
