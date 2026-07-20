@@ -101,10 +101,12 @@ def _fixture_cells(contract_via_shared=True) -> dict:
         "A17": ("is", "Other"),
         "A18": ("is", "Total"),
         "D18": ("n", "1200.50"), "E18": ("n", "3400.25"),
-        # Percentage of the total open interest
+        # Percentage of the total open interest — the sheet stores this section as a raw fraction of 1,
+        # not a pre-scaled percentage (confirmed against a real LME export: the long-side fractions
+        # across all categories sum to 1.0)
         "A20": ("is", "Percentage of the total open interest"),
         "A21": ("is", "Total"),
-        "D21": ("n", "18.6"), "E21": ("n", "30.4"),
+        "D21": ("n", "0.186"), "E21": ("n", "0.304"),
     }
     return cells
 
@@ -119,7 +121,8 @@ check("stance net_short", stance == "net_short" and inv["stance"] == "net_short"
 check("net_change_wow from the change-block Total", inv["net_change_wow"] == round(1200.50 - 3400.25, 2) == -2199.75)
 check("as_of is the preamble position date, read from the data",
       asof == "2026-07-10" and payload["as_of"] == "2026-07-10" and sidecar["as_of"] == "2026-07-10")
-check("pct of OI pair", inv["pct_of_oi_long"] == 18.6 and inv["pct_of_oi_short"] == 30.4)
+check("pct of OI pair scaled from raw fraction to percentage points",
+      inv["pct_of_oi_long"] == 18.6 and inv["pct_of_oi_short"] == 30.4)
 check("contract AH in lots", payload["contract"] == "AH" and payload["notation"] == "lots")
 check("categories_net covers every category with a Long/Short pair",
       payload["categories_net"] == {
@@ -138,6 +141,39 @@ flip = _fixture_cells()
 flip["D13"], flip["E13"] = ("n", "90000"), ("n", "10000")
 _, net_l, stance_l, _, _ = mod.build(mod.grid_from_xlsx(_xlsx(flip)), "u")
 check("net_long when long > short", net_l == 80000.0 and stance_l == "net_long")
+
+# LME's real exporter names the sheet part "xl/worksheets/sheet.xml" (no digit) and provides workbook
+# rels pointing at it — grid_from_xlsx must resolve the part dynamically, not assume sheet1.xml
+lme_named = io.BytesIO()
+with zipfile.ZipFile(lme_named, "w", zipfile.ZIP_DEFLATED) as z:
+    z.writestr("[Content_Types].xml",
+               '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
+               '<Default Extension="xml" ContentType="application/xml"/></Types>')
+    z.writestr("_rels/.rels",
+               '<?xml version="1.0"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+               '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>')
+    z.writestr("xl/workbook.xml",
+               '<?xml version="1.0" encoding="utf-8"?><x:workbook xmlns:x="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
+               '<x:sheets><x:sheet name="AH" sheetId="1" r:id="Rabc123" '
+               'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" /></x:sheets></x:workbook>')
+    z.writestr("xl/_rels/workbook.xml.rels",
+               '<?xml version="1.0" encoding="utf-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+               '<Relationship Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" '
+               'Target="/xl/worksheets/sheet.xml" Id="Rabc123" /></Relationships>')
+    z.writestr("xl/worksheets/sheet.xml", _sheet_xml(_fixture_cells()))
+grid_lme_named = mod.grid_from_xlsx(lme_named.getvalue())
+check("resolves the worksheet part via workbook rels when it isn't named sheet1.xml",
+      grid_lme_named.get((1, 1)) == "LME Commitments of Traders Report")
+
+# real LME layout: the section header sits in col A but its "Risk Reducing / Other / Total" sub-rows
+# sit in a different column (col N here — clear of every category's Long/Short data columns) —
+# total_row must not assume the Total label shares the header's own column
+offset_col = _fixture_cells()
+for key in ("A11", "A12", "A13"):
+    offset_col[f"N{key[1:]}"] = offset_col.pop(key)
+_, net_o, stance_o, payload_o, _ = mod.build(mod.grid_from_xlsx(_xlsx(offset_col)), "u")
+check("Total row found when its label is offset from the section header's column",
+      net_o == -31788.08 and stance_o == "net_short" and payload_o["as_of"] == "2026-07-10")
 
 wrong = _fixture_cells()
 wrong["A6"] = ("is", "CA")
