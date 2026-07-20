@@ -3,7 +3,7 @@ import type { PipelinesRead } from './types'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, ConnectorsRead, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, PipelineView, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, PipelineView, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -812,24 +812,6 @@ export const api = {
     } catch (e: any) {
       if (e?.name !== 'AbortError') cb.onError(e?.message || 'stream interrupted')
     }
-  },
-
-  // ---- the always-on layer: live health of every built feed + manual fetch/repair ----
-  connectors: async (): Promise<ConnectorsRead | null> => {
-    if ((await ensureMode()) === 'static') return null
-    try {
-      return await get<ConnectorsRead>(`/api/connectors`, 8_000)
-    } catch {
-      return null
-    }
-  },
-  runConnector: async (id: string, subject?: string): Promise<{ ok: boolean; ran: { subject: string; ok: boolean; error: string | null }[] }> => {
-    if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post(`/api/connectors/${encodeURIComponent(id)}/run`, subject ? { subject } : {})
-  },
-  repairConnector: async (id: string, subject?: string): Promise<{ ok: boolean; status: string; message: string }> => {
-    if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post(`/api/connectors/${encodeURIComponent(id)}/repair`, subject ? { subject } : {})
   },
 
   // The cross-swarm data-pipeline library read (connector registry + freshness + recommended-to-add).

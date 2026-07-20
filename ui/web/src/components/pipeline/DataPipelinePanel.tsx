@@ -11,7 +11,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import { api } from '../../lib/api'
-import type { ConnectorsRead, DataNeed, FeedStatus, FeedStatusRow, PipelineSourceKind, PipelineStatus, PipelineView, ScanRelevance, ScanVerdict } from '../../lib/types'
+import type { DataNeed, PipelineSourceKind, PipelineStatus, PipelineView, ScanRelevance, ScanVerdict } from '../../lib/types'
 import './DataPipelinePanel.css'
 
 const KINDS: { id: PipelineSourceKind; label: string }[] = [
@@ -23,8 +23,6 @@ const KINDS: { id: PipelineSourceKind; label: string }[] = [
 const REL_LABEL: Record<ScanRelevance, string> = { exact: 'Exact match', partial: 'Partially helps', none: 'Not relevant' }
 const REL_TONE: Record<ScanRelevance, string> = { exact: 'good', partial: 'accent', none: 'muted' }
 const ACQ_LABEL: Record<string, string> = { official_api: 'official API', free_key_api: 'free API', paid_api: 'paid API', scrape: 'web scrape', manual: 'manual' }
-const FEED_LABEL: Record<FeedStatus, string> = { live: 'live', stale: 'stale', broken: 'broken', repairing: 'repairing…', unknown: 'not run yet' }
-const FEED_TONE: Record<FeedStatus, string> = { live: 'good', stale: 'accent', broken: 'bad', repairing: 'live', unknown: 'muted' }
 
 function statusChip(v: PipelineView): { label: string; tone: string } {
   switch (v.status) {
@@ -79,38 +77,11 @@ export function DataPipelinePanel() {
   // gating — mirrors FeedbackPanel: hide the paid scan/build affordances unless the server says they're runnable.
   const [canScan, setCanScan] = useState(false)
   const [canBuild, setCanBuild] = useState(false)
-  const [canRun, setCanRun] = useState(false)
   useEffect(() => {
     let alive = true
-    api.whoami().then((w) => { if (alive) { setCanScan(!!w.canScanPipeline); setCanBuild(!!w.canBuildConnector); setCanRun(!!w.canRunConnectors) } }).catch(() => {})
+    api.whoami().then((w) => { if (alive) { setCanScan(!!w.canScanPipeline); setCanBuild(!!w.canBuildConnector) } }).catch(() => {})
     return () => { alive = false }
   }, [])
-
-  // live feeds — the always-on layer's health for the connectors feeding THIS subject (panel-local poll).
-  const [conns, setConns] = useState<ConnectorsRead | null>(null)
-  const feedGen = useRef(0)
-  const loadFeeds = useCallback(async () => {
-    const gen = ++feedGen.current
-    try {
-      const r = await api.connectors()
-      if (gen === feedGen.current) setConns(r)
-    } catch { /* fail-closed: leave prior */ }
-  }, [])
-  useEffect(() => {
-    let mounted = true
-    void loadFeeds()
-    const t = setInterval(() => { if (mounted) void loadFeeds() }, 15_000)
-    return () => { mounted = false; clearInterval(t) }
-  }, [loadFeeds])
-  const subjectFeeds = (conns?.feeds ?? []).filter((f) => f.subject === (subject || '').toUpperCase())
-
-  async function fetchNow(id: string, subj: string) {
-    setToast({ msg: `Fetching ${id}…`, tone: 'good' })
-    try { await api.runConnector(id, subj); await loadFeeds() } catch (e: any) { setToast({ msg: `Fetch failed: ${e?.message || 'error'}`, tone: 'bad' }); void loadFeeds() }
-  }
-  async function repairFeed(id: string, subj: string) {
-    try { const r = await api.repairConnector(id, subj); setToast({ msg: r.message || 'Repair dispatched.', tone: r.ok ? 'good' : 'bad' }); void loadFeeds() } catch (e: any) { setToast({ msg: `Repair failed: ${e?.message || 'error'}`, tone: 'bad' }) }
-  }
 
   // add-source form (panel-local)
   const [url, setUrl] = useState('')
@@ -267,25 +238,6 @@ export function DataPipelinePanel() {
             )}
           </section>
 
-          {/* Live feeds — the always-on layer: every built connector feeding this subject, and its health. */}
-          <section className="dpipe__sec">
-            <div className="dpipe__sechead">
-              Live feeds <span className="dpipe__count">{subjectFeeds.length}</span>
-              {conns?.status && (
-                <span className="dpipe__runner" title={conns.status.lastSweepAt ? `last swept ${feedAgo(conns.status.lastSweepAt)}` : undefined}>
-                  {conns.status.enabled ? `runner on · every ${conns.status.pollIntervalMin}m${conns.status.autoRepair ? ' · auto-repair' : ''}` : 'runner off'}
-                </span>
-              )}
-            </div>
-            {subjectFeeds.length === 0 ? (
-              <div className="dpipe__hint">No live feeds for {subject} yet — build one below and it appears here, refreshing on its cadence.{conns && !conns.status.enabled ? ' (The cadence runner is off, so a built feed refreshes only when you fetch it or re-run analysis.)' : ''}</div>
-            ) : (
-              <div className="dpipe__list">
-                {subjectFeeds.map((f) => <FeedRow key={f.connector_id + f.subject} f={f} canRun={canRun} canBuild={canBuild} onFetch={() => fetchNow(f.connector_id, f.subject)} onRepair={() => repairFeed(f.connector_id, f.subject)} />)}
-              </div>
-            )}
-          </section>
-
           {/* Add a source. */}
           <section className="dpipe__sec">
             <div className="dpipe__sechead">Add a source</div>
@@ -382,33 +334,6 @@ export function DataPipelinePanel() {
         </div>
       )}
     </motion.div>
-  )
-}
-
-function feedAgo(iso: string | null): string {
-  if (!iso) return 'never'
-  return ago(iso)
-}
-
-function FeedRow({ f, canRun, canBuild, onFetch, onRepair }: { f: FeedStatusRow; canRun: boolean; canBuild: boolean; onFetch: () => void; onRepair: () => void }) {
-  const needsRepair = f.status === 'broken' || f.status === 'stale'
-  return (
-    <div className="dpipe__card">
-      <div className="dpipe__cardtop">
-        <span className="dpipe__cardurl" title={f.connector_id}>{f.series || f.connector_id}</span>
-        <span className="dpipe__status" data-tone={FEED_TONE[f.status]}>{FEED_LABEL[f.status]}</span>
-        <span className="dpipe__cardmeta">{f.cadence}</span>
-      </div>
-      <div className="dpipe__cardverdict">
-        <span className="dpipe__cardseries">updated {feedAgo(f.last_ok_at)}{f.last_as_of ? ` · data ${f.last_as_of}` : ''}</span>
-        {f.consecutive_failures > 0 && <span className="dpipe__cardconf">{f.consecutive_failures} fail{f.consecutive_failures === 1 ? '' : 's'} in a row</span>}
-      </div>
-      {f.repair_pr_url && <a className="dpipe__pr" href={f.repair_pr_url} target="_blank" rel="noreferrer">View repair PR ↗</a>}
-      <div className="dpipe__cardactions">
-        {canRun && <button className="btn btn--ghost dpipe__mini" onClick={onFetch}>Fetch now</button>}
-        {canBuild && needsRepair && f.status !== 'repairing' && <button className="btn btn--amber dpipe__mini" title="Send this broken feed to Claude to fix + open a PR" onClick={onRepair}>Repair ▸</button>}
-      </div>
-    </div>
   )
 }
 
