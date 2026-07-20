@@ -103,6 +103,8 @@ Label every cell as company-guided, peer-derived, or analyst assumption.
 
 **Formula (pin the assembly — do not eyeball the blend):** `WACC = w_e·k_e + w_d·k_d·(1 − t)`, plus `+ w_p·k_p` only if preferred equity exists. `w_e / w_d / w_p` are the **market-value** weights of equity / debt / preferred and must sum to 1; `k_e` = cost of equity (CAPM: `k_e = risk-free rate + beta × equity-risk premium`); `k_d` = pre-tax cost of debt; `t` = tax rate — the `(1 − t)` is the debt tax shield (interest is tax-deductible, so debt costs less after tax). Use the SAME normalized tax rate as NOPAT (step 3 / §1). The table's **WACC** row must equal this formula applied to the rows above it, produced by the executed snippet the self-check requires — not assembled by hand.
 
+**Sanity-bound the result before using it (MODULE_RULES Economic Consistency Gate 4).** A WACC is a weighted average of the after-tax cost of debt and the cost of equity, so it MUST satisfy `after-tax k_d ≤ WACC < k_e`. Print `k_e` (the CAPM cost of equity) next to the WACC and confirm the WACC is **strictly below** it — a WACC at or above `k_e` is an assembly error (fix the blend, do not ship it). For a developed-market (USD / EUR / GBP) large- or mega-cap, also confirm `k_e` is not implausibly high: a `k_e` materially above `rf + 1.4 × ERP` (≈ an equity beta > 1.4) needs the actual sourced beta or a stated capital-access reason. Do not apply a high discount rate to a low-risk, market-leading mega-cap by default — it silently understates fair value and is the recurring reverse-engineered-answer failure.
+
 ## 4. Free Cash Flow Forecast & Discounting
 
 | Year | Revenue | EBIT | NOPAT | Capex | ΔWC | FCF | Discount Factor | PV of FCF |
@@ -159,6 +161,7 @@ WACC across columns, terminal growth (or exit multiple) down rows:
 - [ ] FCF base year is stated and normalizations are itemized.
 - [ ] Every forecast assumption is labeled company-guided / peer-derived / analyst assumption.
 - [ ] WACC components are all shown with sources; web-sourced rates are labeled. Any analyst override of the computed WACC shows both figures, is justified, stays within ±1.5pp, and is cross-checked against the moat module's cost of capital (Gate 4).
+- [ ] The computed WACC satisfies `after-tax k_d ≤ WACC < k_e` (the CAPM cost of equity printed beside it); a WACC ≥ the cost of equity is fixed, not shipped. For a developed-market large/mega-cap, a `k_e` above `rf + 1.4 × ERP` (β > 1.4) carries a cited justification (MODULE_RULES Gate 4).
 - [ ] Terminal value is disclosed as a % of EV and flagged if >75%.
 - [ ] For a cyclical business, the terminal/normalized margin is benchmarked against peer-normal AND the company's own prior-trough — each cited — not merely set "below the recent peak" (Cyclicality Gate).
 - [ ] The working-capital change is forecast from a revenue-linked driver (% of revenue or days-of-sales), not a flat absolute held constant — unless the company discloses a different driver.
