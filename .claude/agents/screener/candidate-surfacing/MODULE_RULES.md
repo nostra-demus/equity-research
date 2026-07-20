@@ -9,6 +9,7 @@ The first place in the entire pipeline where tickers are allowed. Given a LOCKED
 ## Preconditions (binding)
 
 - `thesis_record.json` exists, `meta.locked: true`, and `M0_6_6.routing_outcome` ∈ {provisional, full_machine}. Any other state → this module must not run (the orchestrator enforces it; if invoked anyway, stop and report).
+- `thesis_integrity_review.json` (or its latest `_vN`) exists with `routing: "Proceed"`. `thesis-integrity` runs immediately after `edge-definition` and red-teams the locked record before any ticker is named against it (`CLAUDE.md` §8; `.claude/agents/screener/thesis-integrity/MODULE_RULES.md`). A `watchlist_integrity_downgrade` / `watchlist_integrity_broken` routing is terminal — the orchestrator's routing-contract gate stops the pipeline there and this module never runs. Do not re-derive that judgment here; if invoked directly against a thesis that failed integrity review, stop and report rather than proceeding.
 - Only parties with `carry_forward: true` (primary/secondary tiers) are mapped. Parked parties stay parked.
 
 ## Mapping discipline

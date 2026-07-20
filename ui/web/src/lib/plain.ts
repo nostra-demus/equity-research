@@ -40,6 +40,8 @@ const ROUTES: Record<string, string> = {
   watchlist_no_source: 'watching — source not on the trusted list',
   watchlist_no_world_change: 'watching — nothing has actually changed yet',
   watchlist_no_edge: 'watching — the market likely knows this already',
+  watchlist_integrity_downgrade: 'watching — the idea did not hold up under its own stress test',
+  watchlist_integrity_broken: 'watching — the idea broke under its own stress test',
   provisional: 'early idea',
   full_machine: 'strong idea',
   watchlist_manual: 'watching — you moved it here',
@@ -64,7 +66,12 @@ const STAGES: Record<string, string> = {
   'edge-definition': 'is it mispriced?',
   'candidate-surfacing': 'pick companies',
 }
-export const plainStage = (module?: string | null): string => (module ? STAGES[module] || human(module) : '')
+// Only the grandfathered founding modules are listed above — §26 forbids adding more module names to engine
+// code, so a NEW module (thesis-integrity, and anything after it) renders from its own slug with zero client
+// edits. Hyphens become spaces so the fallback reads as words ("thesis-integrity" → "thesis integrity"),
+// never a bare machine code.
+export const plainStage = (module?: string | null): string =>
+  (module ? STAGES[module] || human(module).replace(/-/g, ' ') : '')
 
 // The scanner's theme tags (the gauntlet's event-type vocabulary) → plain words.
 const THEMES: Record<string, string> = {

@@ -4044,7 +4044,7 @@ let warpTimer: any = null
 // Terminal routing values mirror the SWARM.md routing contract. Kept as a display heuristic only —
 // the server's module-routed events carry the authoritative `terminal` flag; this covers seeding
 // from saved run folders where only the routing string is known.
-const TERMINAL_ROUTES = new Set(['log', 'park', 'suppress', 'watchlist_no_source', 'watchlist_no_world_change', 'return_to_m0_2', 'watchlist_no_edge'])
+const TERMINAL_ROUTES = new Set(['log', 'park', 'suppress', 'watchlist_no_source', 'watchlist_no_world_change', 'return_to_m0_2', 'watchlist_no_edge', 'watchlist_integrity_downgrade', 'watchlist_integrity_broken'])
 function isTerminalRoute(route: string): boolean {
   return TERMINAL_ROUTES.has(String(route).toLowerCase())
 }
