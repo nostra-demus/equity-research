@@ -20,6 +20,7 @@ import { ChatPanel } from './components/ChatPanel'
 import { ChatHistory } from './components/ChatHistory'
 import { ActivityLog } from './components/ActivityLog'
 import { ScoringPanel } from './components/screener/ScoringPanel'
+import { ValuationPlayground } from './components/ValuationPlayground'
 import { ReviewPanel } from './components/screener/ReviewPanel'
 import { FeedbackPanel } from './components/FeedbackPanel'
 import { CallsTracker } from './components/CallsTracker'
@@ -153,6 +154,7 @@ export function App() {
   const openOutput = useStore((s) => s.openOutput)
   const activityOpen = useStore((s) => s.activityOpen)
   const scoringOpen = useStore((s) => s.scoringOpen)
+  const valuationPlaygroundOpen = useStore((s) => s.valuationPlaygroundOpen)
   const reviewOpen = useStore((s) => s.reviewOpen)
   const cockpitFeedbackOpen = useStore((s) => s.cockpitFeedbackOpen)
   const callsOpen = useStore((s) => s.callsOpen)
@@ -197,6 +199,7 @@ export function App() {
       <AnimatePresence>{chatHistoryOpen && <ChatHistory />}</AnimatePresence>
       <AnimatePresence>{activityOpen && <ActivityLog />}</AnimatePresence>
       <AnimatePresence>{scoringOpen && <ScoringPanel />}</AnimatePresence>
+      <AnimatePresence>{valuationPlaygroundOpen && <ValuationPlayground />}</AnimatePresence>
       <AnimatePresence>{reviewOpen && <ReviewPanel />}</AnimatePresence>
       <AnimatePresence>{cockpitFeedbackOpen && <FeedbackPanel />}</AnimatePresence>
       <AnimatePresence>{callsOpen && <CallsTracker />}</AnimatePresence>

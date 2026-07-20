@@ -75,6 +75,8 @@ State the reporting currency. Use the anchor EV and market cap from `01`. Use th
 
 If history is unavailable, state the partial-data note and skip the implied-value table below.
 
+Report the full **min / mean / median / max** band, not just the mean: these bands are the anchors `07_scenario-and-fair-value` uses to set the **bull** multiple (toward the upper band) and the **bear** multiple (toward the lower band), so the scenario multiples stay inside the company's own evidenced range.
+
 ## 3. Re-Rating / De-Rating Read
 
 For the 2–3 most reliable multiples: is the current level a premium or discount to the company's own mean and median, and by how many percent? In 2–4 sentences, state whether the stock has re-rated up, de-rated down, or sits mid-range versus its own history, and the most likely reason (cycle position, leverage change, mix shift) — cite evidence.
