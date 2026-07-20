@@ -136,10 +136,16 @@ def _worksheet_part(zf: zipfile.ZipFile) -> str:
             if _local(sheet_el.tag) != "sheet":
                 continue
             rid = next((v for k, v in sheet_el.attrib.items() if k.endswith("}id") or k == "id"), None)
-            if rid in targets:
-                target = targets[rid].lstrip("/")
+            # A <sheet> with no r:id, or a <Relationship> carrying an Id but no Target, yields None here —
+            # `None.lstrip` would raise AttributeError, which the old narrow except let ESCAPE, so the
+            # sheet1.xml fallback below never ran and a recoverable workbook failed outright.
+            target = targets.get(rid) if rid else None
+            if isinstance(target, str) and target.strip():
+                target = target.lstrip("/")
                 return target if target.startswith("xl/") else f"xl/{target}"
-    except (KeyError, ET.ParseError):
+    except Exception:
+        # This resolver's whole contract is "find the real part, else use the convention" — ANY malformed
+        # workbook/rels shape must reach that documented fallback rather than take the connector down.
         pass
     return "xl/worksheets/sheet1.xml"
 
