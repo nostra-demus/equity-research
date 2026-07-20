@@ -1636,6 +1636,24 @@ if scope=="selftest":
           "| Confidence /100 | 62 |\n| Data sufficiency /100 | 70 |\n"),
          ["legacy scorecard row 'Confidence /100' must not appear"]),
     ]
+    _SC_R = ("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
+             "| Rating | %s |\n| Conviction /100 | 57 |\n| Understanding /100 | 82 |\n")
+    _D_R = {"decision":"Buy","conviction":57,"analysis_confidence":82,"confidence_score":57,
+            "confidence_inputs":{},"confidence_breakdown":{},"sizing_hint":{"band":"x","action":"y"}}
+    aicases += [
+        # Codex: the scorecard's Rating row was never reconciled — check I passes when a Decision: line
+        # elsewhere matches, so a contradictory reader-facing Rating slipped through.
+        ("2026-07-11", _D_R, _SC_R % "Avoid", ["Headline Scorecard 'Rating'"]),
+        ("2026-07-11", _D_R, _SC_R % "Buy", []),                     # matching -> clean
+        ("2026-07-11", _D_R, _SC_R % "**Buy**", []),                 # markdown emphasis is the same decision
+        ("2026-07-11", _D_R, _SC_R % "Buy — revisit after Q2", []),  # trailing qualifier is still the same decision
+        # Codex: conviction must be re-derivable from the recorded inputs, not merely well-typed.
+        ("2026-07-11", {**_D_R, "decision":"Strong Buy", "conviction":80, "analysis_confidence":80,
+                        "confidence_score":80,
+                        "confidence_inputs":{"data_sufficiency":20,"decision":"Strong Buy",
+                                             "edge_score":0,"edge_proof_present":False}},
+         _SC_R % "Strong Buy", ["cannot be re-derived"]),
+    ]
     aibad=0
     for dt_,d_,th_,exp in aicases:
         got=AI(dt_,d_,th_)
@@ -1745,6 +1763,11 @@ if scope=="selftest":
     TH_AK_DENIAL = _hs_thesis(exp="-16.1%", dr="-38.7%", rr="-0.42x", conf="57", ds="65").replace(
         "| Data sufficiency /100 | 65 |\n",
         "| Data sufficiency /100 | 65 |\n| Rating cap, if any | Edge gate binding; no verdict-lock or Critical red flag |\n")
+    # Zero-count denial (Codex): a cap cell can deny a Critical with a COUNT ("Critical: 0"), not only
+    # with the word "no" — it reads identically to a reader and must fire the same way.
+    TH_AK_ZERO = _hs_thesis(exp="-16.1%", dr="-38.7%", rr="-0.42x", conf="57", ds="65").replace(
+        "| Data sufficiency /100 | 65 |\n",
+        "| Data sufficiency /100 | 65 |\n| Rating cap, if any | Critical: 0 — no verdict-lock applies |\n")
     TH_AK_CLEAN = _hs_thesis(exp="-16.1%", dr="-38.7%", rr="-0.42x", conf="57", ds="65").replace(
         "| Data sufficiency /100 | 65 |\n",
         "| Data sufficiency /100 | 65 |\n| Rating cap, if any | 2 Critical red flags cap the rating at Watchlist per §13/§18 |\n")
@@ -1782,6 +1805,21 @@ if scope=="selftest":
         # Codex #212 (scoped-denial false positive): a truthful cell that affirms the 2 Criticals AND scopes
         # the "no Critical" to a DIFFERENT module must PASS. RED on the pre-fix bare-denial regex (it fired).
         ("2026-07-11", {"red_flags":RF_TWO_CRITICAL}, TH_AK_SCOPED, {"earnings":MT_EARNINGS_2CRIT}, []),
+    ]
+    akcases += [
+        # Codex: a ZERO-COUNT cap cell denies the module's Critical just as "no Critical" does.
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Watchlist"}, TH_AK_ZERO,
+         {"earnings":MT_EARNINGS_2CRIT}, ["denies a Critical red flag"]),
+        # ...but a truthful NONZERO affirmation is not a denial (the affirm guard must survive).
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Watchlist"}, TH_AK_CLEAN,
+         {"earnings":MT_EARNINGS_2CRIT}, []),
+        # Codex: §13/§18 — a Critical flag caps the rating at Watchlist-or-lower. Recording it is not enough.
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Buy"}, TH_AK_CLEAN,
+         {"earnings":MT_EARNINGS_2CRIT}, ["exceeds the 'Watchlist' cap"]),
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Strong Buy"}, TH_AK_CLEAN,
+         {"earnings":MT_EARNINGS_2CRIT}, ["exceeds the 'Watchlist' cap"]),
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Avoid"}, TH_AK_CLEAN,
+         {"earnings":MT_EARNINGS_2CRIT}, []),   # at/below the ceiling -> compliant
     ]
     akbad=0
     for dt_,d_,th_,mt_,exp in akcases:
