@@ -14,7 +14,7 @@ import { z } from 'zod'
 import { readActivity } from './activity-log'
 import { recordDataChange, syncingState, SYNC_WINDOW_MS } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
-import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, feedbackDispatchReady, isDispatchAdmin, isReservedDataFolder } from './config'
+import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
@@ -43,6 +43,7 @@ import { auditInboxAction, hideSignal, moveThesis, MOVE_TARGETS, SIGNAL_ACTIONS 
 import { appendFeedbackRoute, FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
 import { FEEDBACK_MAX_IMAGES, type FeedbackCategory, type FeedbackItemRecord, appendFeedbackEvent, foldFeedback, isFeedbackId, itemDir, newFeedbackId, readAllFeedback as readAllCockpitFeedback, saveFeedbackImage, writeFeedbackItem } from './feedback-store'
 import { dryRunFeedbackDispatch, startFeedbackDispatch } from './feedback-dispatch'
+import { notifyFeedbackResolved } from './feedback-email'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName } from './roster'
@@ -355,7 +356,9 @@ app.get('/api/whoami', async (req) => {
   const who = identify(req)
   // canDispatch drives the admin-only "Send to coding engine" button — reflects BOTH the allowlist and
   // whether dispatch is actually runnable (enabled + PR token), so the button never appears when it'd fail.
-  return { ...who, canDispatch: isDispatchAdmin(who.user) && feedbackDispatchReady() }
+  // emailEnabled drives the reporter-notification UI on resolved cards — hidden entirely when the engine
+  // has no email token, so the panel behaves exactly as before on a deploy without email configured.
+  return { ...who, canDispatch: isDispatchAdmin(who.user) && feedbackDispatchReady(), emailEnabled: feedbackEmailReady() }
 })
 
 // perpetual audit log of cockpit-initiated runs, with filters (time / ticker / kind / user / status / text)
@@ -2187,9 +2190,42 @@ app.post('/api/feedback/:id/status', { config: { rateLimit: { max: 1000, timeWin
   const parsed = FeedbackStatusBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
   const { user } = identify(req)
+  // Snapshot BEFORE the append: the item carries the reporter (its user_id = their email), and the prior
+  // fold tells us whether they've already been successfully emailed — so a repeated "done" doesn't re-notify.
+  const records = readAllCockpitFeedback()
+  const item = records.find((r): r is FeedbackItemRecord => r.kind === 'feedback' && r.feedback_id === id)
+  const prev = foldFeedback(records).find((v) => v.feedback_id === id)
   const ev = await appendFeedbackEvent(id, parsed.data.status, { note: parsed.data.note, user })
   if (!ev) return reply.code(404).send({ error: 'no such feedback' })
+  // On resolve → email the reporter, once. FIRE-AND-FORGET: the status is already saved and the response
+  // returns now; the send + its ledger line run in the background and can never fail or block this request.
+  if (parsed.data.status === 'done' && item && !prev?.notified?.ok) {
+    void notifyFeedbackResolved(item, { note: parsed.data.note || '', prUrl: prev?.pr_url ?? null, user })
+      .then((r) => { if (r.attempted) console.log(`[feedback-email] ${id} -> ${r.recipient}: ${r.ok ? 'sent' : 'FAILED ' + r.detail}`) }) // eslint-disable-line no-console
+      .catch(() => {})
+  }
   return { ok: true, event: ev }
+})
+
+// Re-send the resolution email to a resolved item's reporter — the "Notify reporter" / "Retry email"
+// action the panel shows on a done card that hasn't been successfully emailed yet (auto-send failed, or a
+// reporter email only became notifiable later). Only valid for a resolved item; records its own attempt.
+app.post('/api/feedback/:id/notify', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = (req.params as any).id as string
+  if (!isFeedbackId(id)) return reply.code(400).send({ error: 'invalid feedback id' })
+  if (!feedbackEmailReady()) return reply.code(503).send({ ok: false, error: 'email is not configured on this server' })
+  const { user } = identify(req)
+  const records = readAllCockpitFeedback()
+  const item = records.find((r): r is FeedbackItemRecord => r.kind === 'feedback' && r.feedback_id === id)
+  if (!item) return reply.code(404).send({ error: 'no such feedback' })
+  const view = foldFeedback(records).find((v) => v.feedback_id === id)
+  if (view?.status !== 'done') return reply.code(409).send({ ok: false, error: 'feedback is not resolved' })
+  // Idempotent: if the reporter was already successfully emailed, don't send again (the panel hides the
+  // button after success, but this also blocks a direct-API re-send loop). Returns a clean already-sent ok.
+  if (view.notified?.ok) return { ok: true, reason: 'already_sent', recipient: view.notified.recipient, detail: '' }
+  const r = await notifyFeedbackResolved(item, { note: view?.note || '', prUrl: view?.pr_url ?? null, user })
+  return reply.code(r.ok ? 200 : 502).send({ ok: r.ok, reason: r.reason, recipient: r.recipient, detail: r.detail })
 })
 
 // One-click "send to coding engine" — the gated, paid action. FAIL-CLOSED: only an admitted admin
