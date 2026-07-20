@@ -46,7 +46,7 @@ write a line beginning `Action:`.
 (contradictions resolved; what data was missing)
 
 ## Note to the Commodity Thesis
-(2–4 bullets the terminal module must carry forward — e.g. "curve in contango, ~X% annual roll drag on a long CANE position")
+(2–4 bullets the terminal module must carry forward. MUST include the named **roll-adjusted expected-return contribution** (~12-month, horizons matched) from `02_commodity-price-curve`, reconciled HERE against `01_commodity-instruments`' roll-drag figure — the two inputs are both present at this layer, so this synthesis is where the reconciliation belongs. e.g. "curve in contango, ~X% annual roll drag; roll-adjusted expected return ≈ {net}%/yr on a long CANE position". The terminal thesis reads only this synthesis, so a figure not carried here is lost.)
 ```
 
 # SELF-CHECK
