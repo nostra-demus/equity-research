@@ -17,3 +17,30 @@ rules = [
 routes = [
   { pattern = "app.nostra-demus.com/*", zone_name = "nostra-demus.com" }
 ]
+
+# ── Uptime monitor: external heartbeat + push alerts (src/monitor.mjs, src/alert.mjs) ───────────
+# Non-secret defaults. Safe to ship as-is: while the KV + crons block below stays commented, the
+# Worker's scheduled() finds no MONITOR_STATE binding and no-ops — the offline-gate proxy behaves
+# EXACTLY as before. Enabling it is a one-time opt-in (see README "Uptime monitor + push alerts").
+[vars]
+MONITOR_ENABLED = "1"
+MONITOR_PROBE_URL = "https://app.nostra-demus.com/api/health"
+MONITOR_FAIL_THRESHOLD = "3"   # consecutive 1-min failures before a DOWN alert (~3 min; skips the redeploy blip)
+MONITOR_REMIND_MINUTES = "0"   # 0 = alert once per outage; >0 = repeat every N minutes while still down
+MONITOR_ALERT_FORMAT = "json"  # json | slack | discord | ntfy | telegram | pushover
+
+# ENABLE THE UPTIME MONITOR — one-time:
+#   1. wrangler kv namespace create MONITOR_STATE          # copy the printed id into the block below
+#   2. wrangler secret put MONITOR_ALERT_WEBHOOK_URL       # your push URL (per MONITOR_ALERT_FORMAT above)
+#   3. wrangler secret put MONITOR_ACCESS_CLIENT_ID        # Access service-token, so the probe clears Access
+#      wrangler secret put MONITOR_ACCESS_CLIENT_SECRET    #   (create one in Access → Service Auth)
+#   4. uncomment BOTH blocks below, then: wrangler deploy
+#
+# [triggers]
+# every minute. worker.ts COALESCES KV writes (only on a state change + a 30-min heartbeat), so a steady
+# site writes ~48/day — well under the Workers free plan's ~1,000/day KV cap. Widen to "*/2" for more headroom.
+# crons = ["*/1 * * * *"]
+#
+# [[kv_namespaces]]
+# binding = "MONITOR_STATE"
+# id = "PASTE_ID_FROM_STEP_1"

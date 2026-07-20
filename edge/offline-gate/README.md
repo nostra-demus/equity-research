@@ -64,6 +64,77 @@ disabled) — **no app redesign and no engine change.**
 
 Leaving `READONLY_URL = ''` (the default) keeps today's behaviour **exactly** — no redirect, nothing changes.
 
+## Uptime monitor + push alerts (external heartbeat)
+
+The gate above only **reacts** to visitors — if nobody loads the site while it's down, nobody knows.
+This Worker also runs a **cron heartbeat** (`scheduled`, every minute) that probes the origin from
+**Cloudflare's edge — independent of both Macs and of your laptop's network** — and **pushes you an
+alert** when the site goes down and again when it recovers. This is the "someone is watching from
+outside" layer the laptop failover monitor can't be (it's blind whenever the laptop's own network is
+down, and asleep when the lid is closed).
+
+**It is opt-in and non-breaking.** With the KV + `crons` block in `wrangler.toml` left commented, the
+`scheduled` handler finds no `MONITOR_STATE` binding and no-ops — so the **proxy** behaves exactly as
+before. (Two small things ship active regardless: `GET /__status` is answered by the Worker — returning
+`{monitor:"disabled"}` until enabled — and the `workers.dev` host returns `404` instead of proxying.)
+The pure decision/formatting logic lives in `src/monitor.mjs` + `src/alert.mjs` and is unit-tested by
+`node:test` (CI job `edge`); the Worker glue (`probeOrigin` / KV / `/__status`) is in `src/worker.ts`.
+
+### How it decides (hysteresis, so a redeploy never pages you)
+
+Each tick probes `MONITOR_PROBE_URL` (default `/api/health`) with `redirect: 'manual'` and classifies it:
+`up` (2xx) · `down` (our `x-engine-status: offline`, or `502/504/520+`) · `auth` (Access answered
+instead of the engine — `401`/`403`, or a `302` to `*.cloudflareaccess.com`; the probe couldn't
+authenticate) · `error` (threw / ambiguous). Then:
+- **down/error** increments a streak; only at **`MONITOR_FAIL_THRESHOLD`** consecutive failures (default
+  3 ≈ 3 min) does it flip to DOWN and send **one** alert — the grace window swallows the ~15-30s engine
+  redeploy blip the gate already handles.
+- **up** after an alerted outage sends **one** RECOVERY.
+- **auth** never invents an outage (we genuinely can't tell) — it warns **once** so you fix the token.
+- `MONITOR_REMIND_MINUTES > 0` repeats a reminder every N minutes while still down (default 0 = once).
+
+### Enable it (one-time, ~5 min)
+
+```bash
+cd edge/offline-gate
+# 1. state store (the monitor remembers up/down across ticks)
+wrangler kv namespace create MONITOR_STATE          # copy the printed id
+
+# 2. a push channel you already carry a phone app for — pick ONE, set MONITOR_ALERT_FORMAT to match.
+#    ntfy.sh is the zero-account option (install ntfy, subscribe to a random topic, use its URL):
+#      MONITOR_ALERT_FORMAT = "ntfy"     → wrangler secret put MONITOR_ALERT_WEBHOOK_URL   (https://ntfy.sh/<your-topic>)
+#    others: "slack"/"discord" (webhook URL) · "telegram" (MONITOR_TELEGRAM_TOKEN + _CHAT_ID)
+#            "pushover" (MONITOR_PUSHOVER_TOKEN + _USER) · "json" (generic {title,message,level} POST)
+wrangler secret put MONITOR_ALERT_WEBHOOK_URL
+
+# 3. an Access service token so the probe can pass Access and read the REAL engine state.
+#    Cloudflare dashboard → Access → Service Auth → create token; add it to the Access app's policy.
+wrangler secret put MONITOR_ACCESS_CLIENT_ID
+wrangler secret put MONITOR_ACCESS_CLIENT_SECRET
+
+# 4. uncomment the [triggers] + [[kv_namespaces]] blocks in wrangler.toml (paste the id), then:
+wrangler deploy
+```
+
+Without the service token (step 3) Access answers the probe with `401`/`403` (never the engine) → the
+monitor classifies every tick as `auth`, sends the one "can't authenticate" warning, and (correctly)
+refuses to report a false outage. Fix the token and it starts watching for real.
+
+### See its view / verify
+
+- `GET https://<worker>.workers.dev/__status` → the monitor's current JSON (up/down, `downSince`,
+  `lastUp`, last probe detail). The `workers.dev` host is **not** behind Access, so a status page or
+  `scripts/ops/nostra-status.sh` can poll it from anywhere. (`/__status` on the custom domain works too
+  but sits behind Access.)
+- Force a real check: stop the tunnel (`launchctl bootout gui/$(id -u)/com.nostradamus.tunnel`), wait
+  `threshold` minutes → you get the DOWN push; restart it → the RECOVERY push. Watch ticks live with
+  `wrangler tail` (`[monitor] probe=… status=… alerts=…`).
+
+**Runbook — "I can't reach the site":** run `bash scripts/ops/nostra-status.sh` first. Its EXTERNAL
+REACHABILITY check probes the edge with DNS bypassed — if it says the edge is serving but your machine
+can't resolve the name, it's **your** DNS/network, not the server (the exact false alarm this whole
+layer exists to tell apart).
+
 ## Deploy (needs Cloudflare auth: `wrangler login` or `CLOUDFLARE_API_TOKEN`)
 
 ```bash
