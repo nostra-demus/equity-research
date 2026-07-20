@@ -188,6 +188,7 @@ remove_one() {
 
 BASE=(com.nostradamus.engine com.nostradamus.deploy com.nostradamus.watchdog com.nostradamus.caffeinate)
 DOER_ONLY=(com.nostradamus.tunnel com.nostradamus.news-archive com.nostradamus.external-ingest \
+           com.nostradamus.connectors \
            com.nostradamus.hk-review com.nostradamus.hk-track com.nostradamus.hk-sweep \
            com.nostradamus.hk-size com.nostradamus.hk-calibrate)
 NEWS_INGESTER=com.nostradamus.news-ingester   # doer-only AND opt-in (needs a real GROQ key in its plist)

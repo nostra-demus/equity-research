@@ -64,6 +64,7 @@ import { carryForwardModules, dataPoolNewest, prepareModuleResume, thesisPlan } 
 import { readIntakePlan } from './intake'
 import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-changed'
 import { readDataNeeds } from './data-needs'
+import { readPipelines } from './pipelines'
 import { SubjectBusyError, withSubjectLock } from './subject-lock'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
@@ -816,6 +817,17 @@ app.get('/api/data-needs/:subject', { config: { rateLimit: { max: 600, timeWindo
     return { read: readDataNeeds(swarmId, subject) }
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'could not read data needs' })
+  }
+})
+
+// Data-library read: discovered connector manifests (.claude/connectors/*/connector.json) x live pool
+// freshness x uncovered-need recommendations (data_needs join). Read-only; fail-closed manifest drops
+// are audited in `widened`; a pool-less host serves poolAvailable:false + 'unknown' statuses honestly.
+app.get('/api/pipelines', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (_req, reply) => {
+  try {
+    return { read: readPipelines() }
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'could not read pipelines' })
   }
 })
 

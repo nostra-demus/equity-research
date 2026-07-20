@@ -476,6 +476,8 @@ export function CommandBar() {
   const openScoring = useStore((s) => s.openScoring)
   const openReview = useStore((s) => s.openReview)
   const openCalls = useStore((s) => s.openCalls)
+  const openDataLibrary = useStore((s) => s.openDataLibrary)
+  const pipelines = useStore((s) => s.pipelines)
   const openChat = useStore((s) => s.openChat)
   const openChatHistory = useStore((s) => s.openChatHistory)
   const scSelectedSignal = useStore((s) => s.scSelectedSignal) // the signal whose run is on the gauntlet — the screener Ask's subject
@@ -510,6 +512,11 @@ export function CommandBar() {
       <div className="topbar__spacer" />
       <ThemeToggle />
       <FeedbackButton />
+      {/* shared across BOTH modes; gated on the read having answered — an old engine 404s and the
+          button never renders (deploy-skew fail-closed, DESIGN.md §5) */}
+      {pipelines !== null && (
+        <button className="btn btn--ghost" onClick={openDataLibrary} title="Data library — the wired data pipelines feeding the pool, and the gaps worth wiring next">Data</button>
+      )}
       {screenerMode ? (
         <>
           <StopControl />

@@ -1,0 +1,93 @@
+{
+  "agents": [
+    {
+      "agent": "memo-writer",
+      "model": "claude-opus-4-8",
+      "calls": 5,
+      "usage": {
+        "input_tokens": 10,
+        "output_tokens": 9833,
+        "cache_read_input_tokens": 201612,
+        "cache_creation_input_tokens": 68561,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 68561,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.77518725,
+      "runtime_ms": 132307,
+      "module": "(top-level)"
+    },
+    {
+      "agent": "module-memo-writer",
+      "model": "claude-opus-4-8",
+      "calls": 23,
+      "usage": {
+        "input_tokens": 46,
+        "output_tokens": 24703,
+        "cache_read_input_tokens": 503368,
+        "cache_creation_input_tokens": 200740,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 200740,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 2.124114,
+      "runtime_ms": 0,
+      "module": "(top-level)"
+    },
+    {
+      "agent": "general-purpose",
+      "model": "claude-sonnet-5",
+      "calls": 57,
+      "usage": {
+        "input_tokens": 114,
+        "output_tokens": 68424,
+        "cache_read_input_tokens": 9312704,
+        "cache_creation_input_tokens": 491743,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 491743,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 5.664549450000001,
+      "runtime_ms": 0,
+      "module": "(unknown)"
+    },
+    {
+      "agent": "synthesizer",
+      "model": "claude-sonnet-5",
+      "calls": 35,
+      "usage": {
+        "input_tokens": 70,
+        "output_tokens": 34159,
+        "cache_read_input_tokens": 5994755,
+        "cache_creation_input_tokens": 262875,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 262875,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 3.29680275,
+      "runtime_ms": 704342,
+      "module": "(top-level)"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 58,
+    "usage": {
+      "input_tokens": 116,
+      "output_tokens": 35736,
+      "cache_read_input_tokens": 7992590,
+      "cache_creation_input_tokens": 322898,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 322898
+      }
+    },
+    "cost": 4.871553,
+    "runtime_ms": 0
+  }
+}
