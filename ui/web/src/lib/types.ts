@@ -68,6 +68,7 @@ export interface IntakePlan {
   ticker: string
   run_root: string
   scan_date: string
+  scanned_at?: string
   watermark?: string
   new_docs: IntakeNewDoc[]
   rerun_plan: IntakeRerunPlan
@@ -75,6 +76,10 @@ export interface IntakePlan {
   summary: string
   analyzed_at: string
   widened: string[]
+  // Server-stamped (intake.ts): true iff the analysis provably accounts for the whole current pool.
+  // OPTIONAL on purpose — an older server omits it, and the affirmative "no new data" state must require
+  // `=== true` (a positive match), never treat an absent field as current (deploy-skew fail-closed).
+  pool_current?: boolean
 }
 // The scoping the intake plan applied to a "Complete the thesis" plan (client-only), so the panel can
 // explain "kept N the evidence doesn't touch; re-running the affected ones" and offer the escape hatch.

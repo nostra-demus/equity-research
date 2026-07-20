@@ -28,7 +28,7 @@ export function RerunPlanList({
       <div className="iplan iplan--none">
         <div className="iplan__none-head">Nothing to re-run</div>
         <div className="iplan__none-note">
-          {plan.new_docs.length} new document{plan.new_docs.length === 1 ? '' : 's'} read — none change an orb’s inputs. The current thesis stands.
+          {plan.new_docs.length} new document{plan.new_docs.length === 1 ? '' : 's'} read and considered — none change an orb’s inputs. The current thesis stands.
         </div>
         {notes.length > 0 && (
           <ul className="iplan__notes">
