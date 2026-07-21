@@ -84,6 +84,25 @@ AI_CONVICTION_TOL = 15.0
 # NAME a second, different decision from this set, e.g. "Buy / Watchlist").
 _ALL_DECISIONS = ["strong buy", "buy", "starter position only", "watchlist", "avoid", "short candidate",
                   "pair trade / hedge required", "insufficient data — refuse to rate"]
+# The closed set of `action` strings scripts/confidence.py's sizing_hint() can ever produce (kept in sync
+# with that function by hand — there is no shared source, so update both if sizing_hint()'s wording changes).
+# Used the same way as _ALL_DECISIONS: a 'Suggested sizing' cell that leads with the recorded action must not
+# go on to name a DIFFERENT one of these in its trailing gloss (Codex r6).
+_ALL_SIZING_ACTIONS = [
+    "no position — refuse to rate (§11)",
+    "construct the pair/hedge — size to the spread, not directional",
+    "hedge thesis noted — wait for the spread/trigger before constructing",
+    "short candidate — initiate a (paper) short; size to borrow/risk",
+    "lean short — monitor for the trigger, no short on yet",
+    "clear avoid — do not own; exit if held",
+    "lean avoid — monitor, no position",
+    "starter position only (decision caps size)",
+    "tiny starter — mostly watchlist",
+    "full position candidate",
+    "standard position",
+    "starter position only",
+    "monitor only — no position (track opportunity cost)",
+]
 
 
 def _scorecard_section(thesis):
@@ -257,14 +276,24 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
             # Watchlist" all start with the recorded decision followed by a boundary, so the qualifier check
             # above passes them, but each also NAMES a second, different §18 decision in the trailing text —
             # a real contradiction a qualifier (which explains the SAME decision, not offers another one)
-            # must not be able to hide (Codex r4). Scanned as whole decision phrases (not bare substrings),
-            # so an unrelated qualifier mentioning "buyback" etc. cannot false-fire.
+            # must not be able to hide (Codex r4). Restricted to syntax that actually PRESENTS an alternative
+            # rating — slash-separated ("/ Watchlist"), parenthetical ("(Avoid)"), or an explicit cap/
+            # downgrade phrase ("capped at Watchlist", "downgraded to Avoid") — rather than a bare whole-word
+            # scan: "avoid" and "buy" are ordinary English words/verbs too, so a qualifier merely USING one
+            # ("Buy — avoid chasing after the rally") must not be mistaken for naming a second rating
+            # (Codex r5).
             _rest = cell_norm[_m.end():]
             _boundary_cls = r'[\s,;:./()\-–—]'
             for _dec in sorted(_ALL_DECISIONS, key=len, reverse=True):
                 if _dec == want:
                     continue
-                if re.search(r'(?:^|' + _boundary_cls + r')' + re.escape(_dec) + r'(?:$|' + _boundary_cls + r')', _rest):
+                _e = re.escape(_dec)
+                _second_rating_pat = (
+                    r'/\s*' + _e + r'(?:$|' + _boundary_cls + r')'                       # "Buy / Watchlist"
+                    r'|\(\s*' + _e + r'\s*\)'                                             # "Buy (Avoid)"
+                    r'|\b(?:capp?ed\s+at|cap\s+to|downgrade[d]?\s+to|revised?\s+to)\s+' + _e + r'\b'  # "capped at Watchlist"
+                )
+                if re.search(_second_rating_pat, _rest):
                     det.append(f"Headline Scorecard 'Rating'={rating_cell!r} also names {_dec!r} alongside "
                                f"decision={jdec!r} in decision_record.json — a qualifier may explain the "
                                f"recorded decision, not offer a second, different one (CLAUDE.md §18/§21)")
@@ -323,13 +352,14 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
         # recorded 'standard position' would ship an unsupported size clean (Codex r2).
         if isinstance(sh, dict) and isinstance(sh.get("action"), str) and sh.get("action").strip():
             _size_cell = _hs_cell(section, "Suggested sizing")
-            if _size_cell is None:
-                # An ABSENT row is a violation, exactly as for Rating and the two score rows: synthesizer.md
-                # §2 makes 'Suggested sizing' a required reader-facing row (= sizing_hint.action), so omitting
-                # it ships the run without ever showing the reader the scorer-derived position size (Codex r3).
+            # A wholly ABSENT row and a PRESENT-but-BLANK cell ("| Suggested sizing | |") are the same
+            # defect — synthesizer.md §2 makes this a required reader-facing row (= sizing_hint.action), and
+            # `_hs_cell` returns '' (not None) for a blank cell, so the earlier `is None` check alone let a
+            # blank cell skip reconciliation entirely (Codex r5).
+            if _size_cell is None or not _size_cell.strip():
                 det.append("Headline Scorecard row 'Suggested sizing' is required (the reader-facing "
-                           "position size) but absent from the scorecard — synthesizer.md §2 defines it as "
-                           "sizing_hint.action")
+                           "position size) but absent or blank in the scorecard — synthesizer.md §2 defines "
+                           "it as sizing_hint.action")
             else:
                 _snorm = lambda s: re.sub(r'\s+', ' ', re.sub(r'[*_`]', '', str(s))).strip().lower()
                 _a, _b = _snorm(_size_cell), _snorm(sh.get("action"))
@@ -339,11 +369,30 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
                 # must fail — the earlier reverse-prefix tolerance let exactly that pass (Codex r3). Boundary =
                 # end-of-string or a non-alphanumeric char after the action, so a gloss qualifies but a longer
                 # word ("standard positioning") does not.
-                if _a and _b and not re.match(re.escape(_b) + r'(?![0-9a-z])', _a):
+                _lead = re.match(re.escape(_b) + r'(?![0-9a-z])', _a) if (_a and _b) else None
+                if _a and _b and not _lead:
                     det.append(f"Headline Scorecard 'Suggested sizing'={_size_cell!r} does not match "
                                f"sizing_hint.action={sh.get('action')!r} in decision_record.json — the "
                                f"position size the reader sees must be the recorded one, in full "
                                f"(synthesizer.md §2)")
+                elif _lead:
+                    # A leading match of the FULL action is not enough — the permitted trailing gloss can
+                    # still name ANOTHER of the scorer's own possible sizing actions ("standard position /
+                    # full position candidate" over a recorded "standard position"), presenting an
+                    # unsupported alternative size right alongside the real one (Codex r6) — the sizing twin
+                    # of the Rating-qualifier contradiction fixed above.
+                    _rest2 = _a[_lead.end():]
+                    _boundary_cls2 = r'[\s,;:./()\-–—]'
+                    for _oa in sorted(_ALL_SIZING_ACTIONS, key=len, reverse=True):
+                        _oa_n = _snorm(_oa)
+                        if _oa_n == _b:
+                            continue
+                        if re.search(r'(?:^|' + _boundary_cls2 + r')' + re.escape(_oa_n) + r'(?:$|' + _boundary_cls2 + r')', _rest2):
+                            det.append(f"Headline Scorecard 'Suggested sizing'={_size_cell!r} also names "
+                                       f"{_oa!r} alongside sizing_hint.action={sh.get('action')!r} in "
+                                       f"decision_record.json — a gloss may explain the recorded size, not "
+                                       f"offer a second, different one (synthesizer.md §2)")
+                            break
         # Container types alone do not prove the SCORER ran — a record can carry a hand-written conviction
         # with inputs that recompute to something else entirely (conviction 80 recorded against inputs that
         # deterministically yield 20), and every check above still passes, letting an inflated conviction AND
@@ -481,6 +530,10 @@ _AK_AFFIRM = re.compile(r'[1-9]\d*\s+critical|critical[^.\n;]{0,40}\bcaps?\b|\bc
 # otherwise cancel the zero-count denial and re-open the hole it closes. A negated cap phrase is therefore
 # disqualified before AFFIRM is consulted (a genuine affirmation states a count or an applied cap).
 _AK_AFFIRM_NEGATED = re.compile(r'\b(?:no|zero|0|none|not)\b[^.\n]{0,20}\bcaps?\b|\bcaps?\b[^.\n]{0,20}\b(?:not\s+appl|does\s+not|n/?a)\b', re.I)
+# A cap phrase naming a DIFFERENT severity explicitly ("High flags cap the rating") is what the ';' exclusion
+# above must keep OUT of a Critical affirmation — this is that same check, reused below to let a genuine
+# affirmation's subject and predicate sit in ADJACENT clauses without also re-admitting that false-affirm.
+_AK_OTHER_SEVERITY_CAP = re.compile(r'\b(?:high|medium|low)\b[^.\n;]{0,40}\bcaps?\b', re.I)
 
 
 # §13's escape clause, as the record can actually express it. A resolution must be STATED — on the flag
@@ -512,18 +565,23 @@ def _ak_resolution_stated(d):
         return False
     # A blanket rating_cap resolution can lift the cap only with a SINGLE Critical, where "resolved ... cap
     # lifted" can only refer to that one flag; with several it is ambiguous and does not count (Codex r3).
+    # Split on '.'/';' into clauses first (see the per-field loop below for why): a single free-text
+    # rating_cap can equally carry historical negation and a later genuine resolution in the SAME field.
+    _clausify = lambda s: re.split(r'[;.]', s)
+    _resolved_in = lambda s: any(_AK_RESOLVED.search(_c) and not _AK_RESOLVED_NEG.search(_c) for _c in _clausify(s))
     _cap = d.get("rating_cap")
-    _cap_resolves = (len(crit) == 1 and isinstance(_cap, str)
-                     and bool(_AK_RESOLVED.search(_cap)) and not _AK_RESOLVED_NEG.search(_cap))
+    _cap_resolves = len(crit) == 1 and isinstance(_cap, str) and _resolved_in(_cap)
     for rf in crit:
         if rf.get("resolved") is True:
             continue
-        # A resolution counts only if resolution wording appears AND no negation appears in the SAME field
-        # (clause). Negation in a DIFFERENT field must not veto a genuine one — "status: not resolved" is
-        # not a resolution, but a "resolution: resolved by the FY25 audit" alongside a "description:
-        # formerly unresolved" (historical wording) still is (Codex r3). Evaluate each field independently.
-        if any(_AK_RESOLVED.search(_v) and not _AK_RESOLVED_NEG.search(_v)
-               for _v in (str(rf.get(_f) or "") for _f in ("resolution", "status", "description"))):
+        # A resolution counts only if resolution wording appears AND no negation appears in the SAME
+        # CLAUSE. Checking per-FIELD alone (resolution/status/description) fixed cross-FIELD cancellation
+        # (Codex r3: "resolution: resolved..." vs "description: formerly unresolved" no longer cross-veto),
+        # but a single free-text field can carry BOTH within itself — "formerly unresolved; resolved by the
+        # audited FY25 filing" — where `_AK_RESOLVED_NEG`'s unscoped `unresolved` alternative still vetoed
+        # the later, genuine resolution clause (Codex r6). Split each field into ';'/'.'-delimited clauses
+        # and require the resolution wording and its own negation-check to be in the SAME clause.
+        if any(_resolved_in(str(rf.get(_f) or "")) for _f in ("resolution", "status", "description")):
             continue
         if _cap_resolves:
             continue   # single-Critical + unambiguous rating_cap resolution
@@ -538,7 +596,21 @@ def _ak_affirms(txt):
         return False
     if re.search(r'[1-9]\d*\s+critical', txt, re.I):
         return True
-    return bool(_AK_AFFIRM.search(txt)) and not _AK_AFFIRM_NEGATED.search(txt)
+    if bool(_AK_AFFIRM.search(txt)) and not _AK_AFFIRM_NEGATED.search(txt):
+        return True
+    # A genuine affirmation's subject ("Critical earnings flags") and predicate ("cap the rating") can sit
+    # in ADJACENT clauses, separated by a semicolon that is only there for sentence rhythm ("Critical
+    # earnings flags; therefore cap the rating; no Critical governance red flag") — the ';' exclusion above
+    # (needed to stop "Critical: 0; High flags cap the rating" from false-affirming) also discards this
+    # genuine case (Codex r6). Accept a "cap" clause that immediately follows a clause mentioning "critical",
+    # UNLESS that cap clause itself names a DIFFERENT severity — the exact false-affirm the exclusion guards.
+    _clauses = re.split(r';', txt)
+    for i in range(len(_clauses) - 1):
+        _prev, _cur = _clauses[i], _clauses[i + 1]
+        if re.search(r'\bcritical\b', _prev, re.I) and re.search(r'\bcaps?\b', _cur, re.I) \
+                and not _AK_OTHER_SEVERITY_CAP.search(_cur) and not _AK_AFFIRM_NEGATED.search(_cur):
+            return True
+    return False
 # Decisions that exceed the §18 "Watchlist or lower" ceiling a Critical flag imposes. Same membership as
 # rating_caps.ABOVE_WATCHLIST_AF (§24 Filter 1's identical ceiling) — kept as its own constant so the two
 # checks stay independently readable rather than importing across modules.
@@ -596,7 +668,13 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
     # declared" early return below (Codex r3): a record-level Critical with no recognised module count would
     # otherwise let a cap cell/field saying "no Critical red flag" ship clean, directly contradicting the
     # recorded Critical entry.
-    if declared or json_critical:
+    # ...but NOT when the record's own red_flags Critical(s) are already explicitly resolved
+    # (_ak_resolution_stated) — a truthful cap like "No unresolved Critical flags; cap lifted after the
+    # audited FY25 filing" is then describing reality, not denying an outstanding flag, and must not be
+    # mistaken for the contradiction this check exists to catch (Codex r6). Only meaningful when
+    # json_critical > 0 — a module-declared-but-dropped Critical (json_critical == 0) has no red_flags
+    # entry for _ak_resolution_stated to find resolved, so it is never spuriously exempted here.
+    if (declared or json_critical) and not (json_critical and _ak_resolution_stated(d)):
         if declared:
             _tm = max(declared, key=declared.get)
             _who = f"{_tm} declares {declared[_tm]}"

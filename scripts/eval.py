@@ -1671,6 +1671,10 @@ if scope=="selftest":
         ("2026-07-11", _D_R, _SC_R % "Buy — capped at Watchlist", ["also names"]),
         # ...but a qualifier that merely EXPLAINS the same decision (no second decision word) still passes.
         ("2026-07-11", _D_R, _SC_R % "Buy — capped near-term", []),
+        # Codex r5 (P2): "avoid" (and "buy") are ordinary English verbs too, not only §18 decision NAMES —
+        # a qualifier that merely USES one in prose must not be mistaken for naming a second rating. RED on
+        # the r4 fix's own bare whole-word scan (it flagged "avoid" here as the Avoid decision).
+        ("2026-07-11", _D_R, _SC_R % "Buy — avoid chasing after the rally", []),
         # Codex: conviction must be re-derivable from the recorded inputs, not merely well-typed.
         ("2026-07-11", {**_D_R, "decision":"Strong Buy", "conviction":80, "analysis_confidence":80,
                         "confidence_score":80,
@@ -1722,6 +1726,16 @@ if scope=="selftest":
         # reverse-prefix `_b.startswith(_a)` accepted any prefix as clean.
         ("2026-07-11", _D_R, _SC_SZ % "standard", ["Suggested sizing"]),
         ("2026-07-11", _D_R, _SC_SZ % "s", ["Suggested sizing"]),
+        # Codex r5 (P1): a PRESENT but BLANK cell ("| Suggested sizing | |") must be a violation, same as an
+        # absent row — `_hs_cell` returns '' (not None) for a blank cell, so the earlier `is None`-only check
+        # let it skip reconciliation entirely. RED on the r3 fix (blank cell → no violation).
+        ("2026-07-11", _D_R, _SC_SZ % "", ["Suggested sizing"]),
+        # Codex r6 (P1): the cell leads with the FULL recorded action but the permitted trailing gloss goes
+        # on to name ANOTHER of the scorer's own possible sizing actions — a genuine contradiction, the
+        # sizing twin of the r4 Rating-qualifier fix. RED on the r3 fix (any boundary-delimited suffix passed).
+        ("2026-07-11", _D_R, _SC_SZ % "standard position / full position candidate", ["also names"]),
+        # ...but a genuine non-contradictory gloss following the full action still passes.
+        ("2026-07-11", _D_R, _SC_SZ % "standard position (sized per the model portfolio)", []),
     ]
     aibad=0
     for dt_,d_,th_,exp in aicases:
@@ -1953,6 +1967,33 @@ if scope=="selftest":
         ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Watchlist",
                         "rating_cap":"no Critical red flag"}, TH_AK_CLEAN, {},
          ["denies a Critical red flag"]),
+        # Codex r6 (P2): resolution negation must be scoped to its OWN CLAUSE, not merely its own field — a
+        # SINGLE free-text field can carry both historical negation and a later genuine resolution
+        # ("formerly unresolved; resolved by the audited FY25 filing"). RED on the r3 per-field fix (the
+        # unscoped 'unresolved' alternative still vetoed the whole field regardless of clause).
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical",
+                                      "resolution":"formerly unresolved; resolved by the audited FY25 filing"}],
+                        "decision":"Buy"}, TH_AK_CLEAN, {}, []),
+        # Codex r6 (P2): the record-level Rating-cap DENIAL check (added r3) must not fire when the record's
+        # own Critical is already explicitly resolved — a truthful cap describing that state is not a
+        # contradiction. RED on the r3 fix (denial check ran unconditionally, ignoring resolution).
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","resolved":True}],
+                        "decision":"Buy",
+                        "rating_cap":"No unresolved Critical flags; cap lifted after the audited FY25 filing"},
+         TH_AK_CLEAN, {}, []),
+        # Codex r6 (P2): a genuine affirmation's subject ("Critical earnings flags") and predicate ("cap the
+        # rating") can sit in ADJACENT clauses separated by a semicolon used only for sentence rhythm, with a
+        # correctly-scoped denial about a DIFFERENT module in a third clause. RED on the r2 clause-scoping
+        # fix (the ';' exclusion needed to stop "Critical: 0; High flags cap the rating" also discarded this
+        # genuine case, so the governance denial fired as if the earnings cap were never affirmed).
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Watchlist",
+                        "rating_cap":"Critical earnings flags; therefore cap the rating; no Critical governance red flag"},
+         TH_AK_CLEAN, {"earnings":MT_EARNINGS_2CRIT}, []),
+        # ...but the ORIGINAL false-affirm this scoping guards against must still be rejected: a cap phrase
+        # naming a DIFFERENT severity in the adjacent clause is not an affirmation of Critical.
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Watchlist",
+                        "rating_cap":"Critical: 0; High flags cap the rating"},
+         TH_AK_CLEAN, {"earnings":MT_EARNINGS_2CRIT}, ["denies a Critical red flag"]),
     ]
     akbad=0
     for dt_,d_,th_,mt_,exp in akcases:
