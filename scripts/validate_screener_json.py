@@ -247,6 +247,13 @@ COMMODITY_DOSSIER = "commodity-thesis/99_commodity-thesis-synthesis.md"
 COMMODITY_TRIAGE = "market-structure/00_commodity-triage.md"
 ROUTING_ACTION_RE = re.compile(r"##\s*Routing[\s\S]*?^Action:\s*(.+)$", re.MULTILINE)
 TRIAGE_VERDICT_RE = re.compile(r"\*\*Verdict:\*\*\s*(Sufficient|Partial|Insufficient)\b")
+# Rollout date for the commodity-scoped twin of eval.py check AG (frameworks/DECISION_LEDGER.md §18,
+# scripts/commodity_calibrate.py). Forward-looking, mirroring AG_DATE/AI_DATE/AK_DATE's own convention
+# (scripts/eval.py, scripts/headline_checks.py): every commodity decision_record.json dated on/after
+# this date must carry a well-formed calibration_feedback object; the four runs committed before this
+# date (ALUMINIUM/COPPER/GOLD/WHEAT, all dated 2026-07-02..07-18) genuinely predate the gate and are N/A.
+COMMODITY_CALIBRATION_GATE_DATE = "2026-07-21"
+CALIBRATION_STATUSES = {"not_available", "pre_data", "checked_no_action", "applied"}
 
 
 def commodity_decision_records() -> list[str]:
@@ -451,7 +458,191 @@ def check_commodity_data_sufficiency(doc_path: str) -> list[str]:
     return []
 
 
+def _commodity_calib_summary_asof(decision_date: str):
+    """Latest commodity/performance/<DATE>_calibration_summary.json dated on/before decision_date
+    (a synthesis run can only act on calibration history that existed when it ran), or None if none
+    qualifies. Ties broken by filename so a `_v2` correction wins — mirrors scripts/eval.py's own
+    _calib_summary_asof exactly, pointed at the commodity swarm's performance directory."""
+    if not isinstance(decision_date, str):
+        return None
+    try:
+        datetime.date.fromisoformat(decision_date)
+    except ValueError:
+        return None
+    best, best_date = None, None
+    for p in sorted(glob.glob(os.path.join(REPO, "commodity", "performance", "*_calibration_summary.json"))):
+        m = re.match(r"(\d{4}-\d{2}-\d{2})_calibration_summary", os.path.basename(p))
+        if not m:
+            continue
+        fdate = m.group(1)
+        if fdate > decision_date:
+            continue
+        if best_date is None or fdate > best_date or (fdate == best_date and os.path.basename(p) > os.path.basename(best)):
+            best, best_date = p, fdate
+    if best is None:
+        return None
+    try:
+        return json.load(open(best, encoding="utf-8"))
+    except Exception:
+        return None
+
+
+def check_commodity_calibration_gate(doc_path: str) -> list[str]:
+    """The commodity-scoped twin of eval.py's check AG (frameworks/DECISION_LEDGER.md §18): verifies
+    99_commodity-thesis-synthesis.md did not silently skip reading back scripts/commodity_calibrate.py's
+    own output — the exact same false-confidence hole check AG closed for the research swarm, now closed
+    here before it can ever ship (unlike AI/AK, which the research swarm discovered only after a defect
+    had already shipped). Forward-looking: N/A for any decision_date before COMMODITY_CALIBRATION_GATE_DATE.
+
+    This is a presence/consistency check, not a re-derivation of hit rates — it cannot judge WHICH
+    commodity slice should have been flagged, only that the gate ran and recorded a status consistent
+    with what the as-of summary's own verdict made possible."""
+    try:
+        doc = json.load(open(doc_path, encoding="utf-8"))
+    except Exception as e:
+        return [f"could not parse for cross-check: {e}"]
+    # A valid-JSON document with the wrong root type (e.g. `[]`) must be reported as a FAIL, not crash the
+    # whole --fixture/CI run with an AttributeError on `.get()`. Mirrors check_commodity_review_anchors /
+    # check_thesis_integrity_anchors, which already guard this. It matters here specifically: commodity
+    # decision records are §25 DATA commits that go straight to main WITHOUT passing CI, so a malformed one
+    # reaches this validator unscreened — and main() runs these cross-checks even when validate() already
+    # failed, so an unguarded .get() takes the entire run down instead of reporting the defect.
+    if not isinstance(doc, dict):
+        return ["commodity decision_record is not a JSON object"]
+    decision_date = doc.get("decision_date")
+    if not (isinstance(decision_date, str) and decision_date >= COMMODITY_CALIBRATION_GATE_DATE):
+        return []  # forward-looking; pre-gate runs N/A (never a violation)
+    summary = _commodity_calib_summary_asof(decision_date)
+    verdict = (summary or {}).get("verdict") or ""
+    if summary is None:
+        expected = "not_available"
+    elif verdict.startswith("Pre-data"):
+        expected = "pre_data"
+    else:
+        expected = "checked"  # covers checked_no_action / applied — this script can't judge which is correct
+    cf = doc.get("calibration_feedback")
+    if not isinstance(cf, dict):
+        return [f"decision_date {decision_date} >= gate date {COMMODITY_CALIBRATION_GATE_DATE} and as-of "
+                f"calibration_summary={'present (verdict=' + repr(verdict) + ')' if summary is not None else 'absent'} "
+                f"but decision_record.json has no calibration_feedback object — the Phase 6 calibration-"
+                f"feedback gate (DECISION_LEDGER.md §18, commodity twin) was silently skipped"]
+    errs = []
+    status = cf.get("status")
+    if status not in CALIBRATION_STATUSES:
+        errs.append(f"calibration_feedback.status={status!r} is not one of {sorted(CALIBRATION_STATUSES)}")
+    elif expected == "not_available" and status != "not_available":
+        errs.append(f"no as-of calibration_summary.json exists (decision_date={decision_date}) but status={status!r} (expected 'not_available')")
+    elif expected == "pre_data" and status != "pre_data":
+        errs.append(f"as-of calibration_summary verdict={verdict!r} is Pre-data but status={status!r} (expected 'pre_data')")
+    elif expected == "checked" and status not in ("checked_no_action", "applied"):
+        errs.append(f"as-of calibration_summary has real signal (verdict={verdict!r}) but status={status!r} (expected 'checked_no_action' or 'applied')")
+    if status == "applied":
+        hp, fs = cf.get("haircut_points"), cf.get("flagged_slices")
+        if not (isinstance(hp, (int, float)) and not isinstance(hp, bool) and hp > 0):
+            errs.append(f"status='applied' but haircut_points={hp!r} is not a positive number")
+        if not (isinstance(fs, list) and len(fs) > 0):
+            errs.append(f"status='applied' but flagged_slices={fs!r} is empty/not a list")
+    if status == "checked_no_action":
+        fs = cf.get("flagged_slices")
+        if isinstance(fs, list) and len(fs) > 0:
+            errs.append(f"status='checked_no_action' but flagged_slices={fs!r} is non-empty")
+    return errs
+
+
+def _selftest_calibration_gate() -> int:
+    """Fixture-free truth table for check_commodity_calibration_gate — mirrors
+    scripts/commodity_calibrate.py's own --selftest discipline. The --fixture run only exercises the
+    four committed pre-gate commodity runs (all N/A, decision_date < COMMODITY_CALIBRATION_GATE_DATE),
+    so the gate's *post-gate* branches — the entire reason the gate exists — ship untested by CI: a
+    future edit could break them while --fixture stays green (the exact "green proves nothing" trap
+    frameworks/DECISION_LEDGER.md §18's regression-protection clause exists to close). This pins every
+    branch. Expected values are pinned to the §18 status↔as-of-summary consistency contract and to
+    frameworks/commodity/decision_record.schema.json's calibration_feedback enum
+    (statuses {not_available, pre_data, checked_no_action, applied}; haircut_points>0 and non-empty
+    flagged_slices only when status=='applied') — NOT to the gate's current behaviour.
+    """
+    import tempfile
+
+    global REPO
+    old_repo = REPO
+    failures = []
+
+    def run(name, doc, want_accept, summaries=None):
+        # want_accept=True  -> §18 says this record is consistent, gate must return [] (accept)
+        # want_accept=False -> §18/schema says it's a violation, gate must return a non-empty error list
+        with tempfile.TemporaryDirectory() as d:
+            globals()["REPO"] = d
+            try:
+                if summaries:
+                    perf = os.path.join(d, "commodity", "performance")
+                    os.makedirs(perf, exist_ok=True)
+                    for fn, obj in summaries.items():
+                        json.dump(obj, open(os.path.join(perf, fn), "w"))
+                dp = os.path.join(d, "rec.json")
+                json.dump(doc, open(dp, "w"))
+                errs = check_commodity_calibration_gate(dp)
+            finally:
+                globals()["REPO"] = old_repo
+        if (len(errs) == 0) != want_accept:
+            failures.append(f"{name} (want_accept={want_accept}, errs={errs[:1]})")
+
+    GATE = COMMODITY_CALIBRATION_GATE_DATE
+    pre = (datetime.date.fromisoformat(GATE) - datetime.timedelta(days=1)).isoformat()   # < gate -> N/A
+    post = (datetime.date.fromisoformat(GATE) + datetime.timedelta(days=4)).isoformat()  # >= gate
+
+    def rec(**kw):
+        b = {"swarm": "commodity", "commodity": "GOLD", "decision_date": post, "action": "Hold", "confidence": 50}
+        b.update(kw)
+        return b
+
+    def cf(**kw):
+        b = {"source_summary": None, "status": "not_available", "haircut_points": 0, "flagged_slices": [], "rationale": "x"}
+        b.update(kw)
+        return b
+
+    real = {f"{pre}_calibration_summary.json": {"verdict": "12 decisive resolved calls · hit-rate 55%.",
+                                                "calibration_by_commodity": {"GOLD": {"hit_rate": 0.3, "n": 6}}}}
+    predata = {f"{pre}_calibration_summary.json": {"verdict": "Pre-data — 3 of 10 decisive resolved calls needed.",
+                                                   "calibration_by_commodity": {}}}
+
+    # forward-looking N/A + malformed-root guard (§18: pre-gate runs are never a violation; a §25 DATA
+    # record reaches this validator unscreened, so a wrong root type must FAIL, not crash the run)
+    run("pre-gate date, no cf -> N/A accept", rec(decision_date=pre), True)
+    run("non-dict root -> reject", [], False)
+    # post-gate presence: cf must exist and be an object (§18: the gate cannot be silently skipped)
+    run("post-gate, no cf -> reject", rec(), False)
+    run("post-gate, cf not a dict -> reject", rec(calibration_feedback="nope"), False, real)
+    # status must be one of the schema's four legal literals
+    run("post-gate, invalid status -> reject", rec(calibration_feedback=cf(status="bogus")), False, real)
+    # expected==not_available (no as-of summary exists)
+    run("no summary, not_available -> accept", rec(calibration_feedback=cf()), True)
+    run("no summary, applied -> reject", rec(calibration_feedback=cf(status="applied", haircut_points=8, flagged_slices=["GOLD"])), False)
+    # expected==pre_data (as-of summary verdict starts 'Pre-data')
+    run("Pre-data summary, pre_data -> accept", rec(calibration_feedback=cf(status="pre_data", source_summary="s")), True, predata)
+    run("Pre-data summary, checked_no_action -> reject", rec(calibration_feedback=cf(status="checked_no_action", source_summary="s")), False, predata)
+    # expected==checked (as-of summary has real signal) -> checked_no_action OR applied
+    run("real summary, checked_no_action -> accept", rec(calibration_feedback=cf(status="checked_no_action", source_summary="s")), True, real)
+    run("real summary, applied(8,[GOLD]) -> accept", rec(calibration_feedback=cf(status="applied", haircut_points=8, flagged_slices=["GOLD"], source_summary="s")), True, real)
+    run("real summary, not_available -> reject", rec(calibration_feedback=cf(status="not_available")), False, real)
+    # applied well-formedness (schema: haircut_points>0, flagged_slices non-empty; bool is not a number)
+    run("applied, haircut_points=0 -> reject", rec(calibration_feedback=cf(status="applied", haircut_points=0, flagged_slices=["GOLD"], source_summary="s")), False, real)
+    run("applied, flagged_slices=[] -> reject", rec(calibration_feedback=cf(status="applied", haircut_points=8, flagged_slices=[], source_summary="s")), False, real)
+    run("applied, haircut_points=True(bool) -> reject", rec(calibration_feedback=cf(status="applied", haircut_points=True, flagged_slices=["GOLD"], source_summary="s")), False, real)
+    # checked_no_action must carry no flagged slices (a flag implies a haircut => 'applied')
+    run("checked_no_action, flagged non-empty -> reject", rec(calibration_feedback=cf(status="checked_no_action", flagged_slices=["GOLD"], source_summary="s")), False, real)
+
+    if failures:
+        print("SELFTEST FAIL (calibration gate):")
+        for f in failures:
+            print(f"   - {f}")
+        return 1
+    print("SELFTEST OK — check_commodity_calibration_gate truth table (16 branches) matches the §18 contract")
+    return 0
+
+
 def main(argv: list[str]) -> int:
+    if len(argv) >= 2 and argv[1] == "--selftest":
+        return _selftest_calibration_gate()
     if len(argv) >= 2 and argv[1] == "--fixture":
         pairs = [(os.path.join(REPO, s), os.path.join(REPO, d)) for s, d in FIXTURE_PAIRS]
         pairs += [(os.path.join(REPO, THESIS_INTEGRITY_SCHEMA), os.path.join(REPO, d)) for d in screener_integrity_reviews()]
@@ -467,7 +658,7 @@ def main(argv: list[str]) -> int:
         errs = validate(schema_p, doc_p)
         rel = os.path.relpath(doc_p, REPO)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_SCHEMA)):
-            errs = errs + check_commodity_routing(doc_p) + check_commodity_data_sufficiency(doc_p)
+            errs = errs + check_commodity_routing(doc_p) + check_commodity_data_sufficiency(doc_p) + check_commodity_calibration_gate(doc_p)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_REVIEW_SCHEMA)):
             errs = errs + check_commodity_review_anchors(doc_p)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, THESIS_INTEGRITY_SCHEMA)):
