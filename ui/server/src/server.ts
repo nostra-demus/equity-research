@@ -54,7 +54,7 @@ import { chatTurnsInFlight, runChatTurn } from './chat-llm'
 import { deleteConversation, getConversation, isValidConversationId, listConversations, recordAssistantMessage, recordUserMessage } from './chat-store'
 import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
-import { getNewsStatus, startNewsIngester } from './news/scheduler'
+import { getNewsDiagnostics, getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
 import { startReviewLoop } from './review-dispatch'
 import { runAutotuneOnce, startAutotuneLoop } from './news/rank-weights-autotune'
@@ -1686,6 +1686,12 @@ app.post('/api/screener/handoff', async (req, reply) => {
 
 // Scanner status for the cockpit's auto-scan chip: on/off, last/next cycle, today's counts.
 app.get('/api/news/status', async () => getNewsStatus())
+
+// FULL pipeline diagnostics: every triage tier's budget + health + cooldown, the deferred backlog vs its
+// loss boundary, the last cycle's flow, and the honest defer reason (incl. the Haiku last-resort's state).
+// Read-only, fail-soft (never throws), rate-limited like the other fs-reading news reads. Backs the cockpit's
+// "Pipeline diagnostics" panel so a defer/cooldown/backlog state is never a surprise.
+app.get('/api/news/diagnostics', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async () => getNewsDiagnostics())
 
 // Time-windowed intake intensity for the screener ThemeMap. Returns small AGGREGATES only (per-tier
 // counts + totals + a ≤48-point hourly histogram) over the chosen window (last scan … full day … 7d),

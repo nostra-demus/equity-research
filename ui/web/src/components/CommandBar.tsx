@@ -79,6 +79,30 @@ function AutoScanChip() {
   )
 }
 
+// Full pipeline diagnostics — every scanner tier, the deferred backlog, and exactly why anything is waiting.
+// Surfaces the backlog count inline (the "no surprise" signal) and, on click, opens the diagnostics panel.
+// Reads the same 60s-polled newsStatus the auto-scan chip does, so it needs no second poller. The backlog +
+// readOnly fields are optional (deploy-skew): an older server omits them and the chip stays a plain entry point.
+function PipelineChip() {
+  const status = useStore((s) => s.newsStatus)
+  const openDiagnostics = useStore((s) => s.openDiagnostics)
+  const backlog = status?.backlog?.count ?? 0
+  const readOnly = !!status?.readOnly
+  const alert = backlog > 0 || readOnly
+  const label = readOnly ? 'Read-only' : backlog > 0 ? `${backlog.toLocaleString()} waiting` : 'Pipeline'
+  const title = readOnly
+    ? 'Another engine owns the scanner for this data dir — this one is read-only. Click for the full pipeline diagnostics.'
+    : backlog > 0
+      ? `${backlog.toLocaleString()} item${backlog === 1 ? '' : 's'} waiting to be scored. Click to see every tier, the backlog, and exactly why.`
+      : 'Pipeline diagnostics — every scanner tier, the backlog, and why anything is waiting. End to end, no surprises.'
+  return (
+    <button className={`diagpill${alert ? ' diagpill--alert' : ''}`} onClick={() => void openDiagnostics()} title={title}>
+      <span className="diagpill__icon" aria-hidden>▚</span>
+      {label}
+    </button>
+  )
+}
+
 // The kill switch — visible in BOTH swarms whenever anything is running. One click shows what's
 // running; each row can be stopped alone, or everything at once (two-click confirm).
 function StopControl() {
@@ -521,6 +545,7 @@ export function CommandBar() {
         <>
           <StopControl />
           <AutoScanChip />
+          <PipelineChip />
           <EngineStatusPill />
           <CreditBadge />
           <button className="btn btn--ghost" onClick={openScoring} title="Scoring weights — tune how every event is scored, for the whole wire">Scoring</button>

@@ -1,0 +1,100 @@
+/* Pipeline diagnostics — a right-side slide-in (same shell family as .dpipe / .feedback). Every colour comes
+   from tokens, so it resolves in light + dark and tints to any swarm's accent with no literal. Motion budget:
+   transform/opacity only, <300ms; the only looping animation is a single "looking now" pulse dot + the GPU
+   scaleX budget-bar fills, both stilled under reduced-motion. */
+.diag {
+  position: absolute; top: 0; right: 0; bottom: 0; width: min(560px, 94%); z-index: 58;
+  background: var(--surface-1); border-left: 1px solid var(--hairline-strong); box-shadow: var(--shadow-2);
+  display: flex; flex-direction: column;
+}
+.diag__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 14px 18px; border-bottom: 1px solid var(--hairline); }
+.diag__title { font-size: 14px; font-weight: 600; color: var(--text); }
+.diag__sub { font-size: 11px; color: var(--text-faint); margin-top: 3px; max-width: 52ch; line-height: 1.5; }
+.diag__tools { display: flex; gap: 6px; flex: none; }
+.diag__mini { height: 30px; font-size: 12px; }
+.diag__body { flex: 1; min-height: 0; overflow-y: auto; padding: 16px 18px; display: flex; flex-direction: column; gap: 18px; }
+.diag__body::-webkit-scrollbar { width: 8px; }
+.diag__body::-webkit-scrollbar-thumb { background: var(--hairline-strong); border-radius: var(--r-pill); border: 2px solid transparent; background-clip: padding-box; }
+
+.diag__sec { display: flex; flex-direction: column; gap: 9px; }
+.diag__sechead { font-size: 11px; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+.diag__count { font-size: 11px; color: var(--text-faint); font-variant-numeric: tabular-nums; background: var(--surface-3); border-radius: var(--r-pill); padding: 0 7px; text-transform: none; letter-spacing: 0; }
+.diag__hint { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+.diag__empty { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; display: flex; align-items: center; gap: 10px; }
+.diag__skel { height: 42px; border-radius: var(--r-md); background: var(--surface-2); position: relative; overflow: hidden; }
+.diag__skel::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--text) 6%, transparent), transparent); animation: diag-shim 1.2s var(--ease) infinite; }
+@keyframes diag-shim { to { transform: translateX(100%); } }
+
+/* status strip */
+.diag__strip { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; font-size: 12px; color: var(--text-muted); }
+.diag__pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--text-faint); flex: none; }
+.diag__pulse.is-on { background: var(--live); animation: diag-pulse 1.6s var(--ease) infinite; }
+@keyframes diag-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.diag__stripline { color: var(--text); font-weight: 500; }
+.diag__today { margin-left: auto; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+
+/* the "why is anything waiting" surface — the whole point (mirrors .scanstat__note, amber; red when near loss) */
+.diagwhy { border: 1px solid color-mix(in srgb, var(--conv-warn) 34%, var(--hairline)); background: color-mix(in srgb, var(--conv-warn) 9%, var(--surface-1)); border-radius: var(--r-md); padding: 11px 13px; display: flex; flex-direction: column; gap: 7px; }
+.diagwhy.is-alert { border-color: color-mix(in srgb, var(--bad) 42%, var(--hairline)); background: color-mix(in srgb, var(--bad) 10%, var(--surface-1)); }
+.diagwhy__head { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; color: var(--conv-warn); }
+.diagwhy.is-alert .diagwhy__head { color: var(--bad); }
+.diagwhy__list { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--text); line-height: 1.45; }
+.diagwhy__note { font-size: 11px; color: var(--text-muted); line-height: 1.5; border-left: 2px solid var(--hairline-strong); padding-left: 8px; }
+
+/* backlog gauge */
+.diagbacklog { border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-2); padding: 11px 13px; display: flex; flex-direction: column; gap: 8px; }
+.diagbacklog.is-near { border-color: color-mix(in srgb, var(--bad) 45%, var(--hairline)); }
+.diagbacklog__top { display: flex; align-items: baseline; gap: 8px; }
+.diagbacklog__count { font-size: 20px; font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; line-height: 1; }
+.diagbacklog.is-near .diagbacklog__count { color: var(--bad); }
+.diagbacklog__of { font-size: 11px; color: var(--text-muted); }
+.diagbacklog__trend { margin-left: auto; font-size: 10.5px; font-variant-numeric: tabular-nums; color: var(--text-faint); background: var(--surface-3); border-radius: var(--r-pill); padding: 1px 8px; }
+.diagbacklog__trend[data-dir="growing"] { color: var(--conv-warn); }
+.diagbacklog__trend[data-dir="shrinking"] { color: var(--live); }
+.diagbacklog__bar { display: block; height: 5px; border-radius: var(--r-pill); background: var(--surface-3); overflow: hidden; }
+.diagbacklog__fill { display: block; height: 100%; width: 100%; border-radius: var(--r-pill); background: var(--accent-bright); transform-origin: left center; transform: scaleX(0); transition: transform 360ms cubic-bezier(0.23, 1, 0.32, 1); }
+.diagbacklog.is-near .diagbacklog__fill { background: var(--bad); }
+.diagbacklog__note { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+
+/* tier rows — the fallback ladder */
+.diag__tiers { display: flex; flex-direction: column; gap: 7px; }
+.diagtier { border: 1px solid var(--hairline); border-left: 3px solid var(--hairline-strong); border-radius: var(--r-sm); background: var(--surface-2); padding: 8px 11px; display: flex; flex-direction: column; gap: 7px; }
+.diagtier[data-health="disabled"] { opacity: 0.62; }
+.diagtier__top { display: flex; align-items: center; gap: 8px; }
+.diagtier__dot { width: 7px; height: 7px; border-radius: 50%; flex: none; background: var(--text-faint); }
+.diagtier__dot[data-tone="live"] { background: var(--live); }
+.diagtier__dot[data-tone="warn"] { background: var(--conv-warn); }
+.diagtier__dot[data-tone="bad"] { background: var(--bad); }
+.diagtier__dot[data-tone="muted"] { background: var(--text-muted); }
+.diagtier__dot[data-tone="off"] { background: var(--text-faint); }
+.diagtier__label { font-size: 12.5px; font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.diagtier__role { font-size: 10px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; }
+.diagtier__health { margin-left: auto; font-size: 10.5px; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--text-muted); }
+.diagtier__health[data-tone="live"] { color: var(--live); }
+.diagtier__health[data-tone="warn"] { color: var(--conv-warn); }
+.diagtier__health[data-tone="bad"] { color: var(--bad); }
+.diagtier__health[data-tone="off"] { color: var(--text-faint); }
+.diagtier__meter { display: flex; align-items: center; gap: 8px; }
+.diagtier__bar { flex: 1; min-width: 40px; height: 4px; border-radius: var(--r-pill); background: var(--surface-3); overflow: hidden; }
+.diagtier__fill { display: block; height: 100%; width: 100%; border-radius: var(--r-pill); transform-origin: left center; transform: scaleX(0); transition: transform 360ms cubic-bezier(0.23, 1, 0.32, 1); }
+.diagtier__val { font-size: 10.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.diagtier__last { font-size: 10px; color: var(--text-faint); white-space: nowrap; }
+.diagtier__fails { font-size: 10px; color: var(--bad); white-space: nowrap; margin-left: 2px; }
+
+/* last-look flow */
+.diagflow { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 8px; font-size: 12px; color: var(--text-muted); background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-md); padding: 10px 12px; }
+.diagflow__step { color: var(--text-muted); }
+.diagflow__step b { color: var(--text); font-weight: 600; }
+.diagflow__kept { color: var(--accent-bright) !important; }
+.diagflow__deferred b { color: var(--conv-warn); }
+.diagflow__arrow { color: var(--text-faint); }
+.diagflow__split { color: var(--text-faint); font-size: 11px; }
+.diagflow__by { font-size: 11px; color: var(--text-faint); }
+.diagflow__by b { color: var(--text-muted); font-weight: 600; }
+.diagflow__cost { color: var(--provider-haiku); }
+
+@media (prefers-reduced-motion: reduce) {
+  .diag__pulse.is-on { animation: none; }
+  .diag__skel::after { animation: none; }
+  .diagbacklog__fill, .diagtier__fill { transition: none; }
+}

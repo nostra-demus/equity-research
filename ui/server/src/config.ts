@@ -725,7 +725,15 @@ export const NEWS = {
   anthropicFallbackEnabled: process.env.NEWS_ANTHROPIC_FALLBACK_ENABLED !== '0',
   anthropicFallbackMode: (process.env.NEWS_ANTHROPIC_FALLBACK_MODE || 'subscription') as 'subscription' | 'api',
   // The daily $ ceiling — the ONE bound the operator reasons in. Reached ⇒ items defer as before.
-  anthropicDailyUsd: capNum(process.env.NEWS_ANTHROPIC_FALLBACK_DAILY_USD, 5),
+  // Raised 5 → 50 (2026-07-21): $5 stopped the last-resort after ~a dozen Haiku batches on Groq-outage
+  // days (peaks of 2k-3k deferred), which is exactly when it is needed most. $50 lets it chew through the
+  // whole overload backlog before the daily governor stops it. On the SUBSCRIPTION path this $ figure is a
+  // PROXY for how much of the shared 5-hour/weekly plan pool this tier has drawn, so a higher ceiling means
+  // more potential contention with research runs — but three guardrails keep that bounded: it is still the
+  // LAST tier (fires only when every free provider is out), it still backs off the moment the plan itself
+  // reports a usage limit (cross-cycle cooldown until the plan resets), and it is priority-gated. Tune via
+  // NEWS_ANTHROPIC_FALLBACK_DAILY_USD; drop it back down if news triage ever starves a research run.
+  anthropicDailyUsd: capNum(process.env.NEWS_ANTHROPIC_FALLBACK_DAILY_USD, 50),
   // MODEL. On the `subscription` path this goes to the CLI's `--model`, which takes an ALIAS ('haiku' /
   // 'sonnet' / 'opus') or a FULL name ('claude-haiku-4-5-20251001') — NOT the Messages-API alias
   // 'claude-haiku-4-5'. An unresolvable name silently falls back to the CLI's DEFAULT (Sonnet-class): live

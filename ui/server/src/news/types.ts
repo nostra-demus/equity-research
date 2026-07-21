@@ -211,6 +211,25 @@ export interface FeedItem {
   caution?: boolean // caution_only social item (r/wallstreetbets): weighted lowest, capped to drop on the display re-rank too (feed.ts)
 }
 
+// The structured reason a cycle deferred items — mirrors the human `note` so the cockpit can reason about
+// WHY without parsing free text. Absent when nothing deferred. Ordered by the note's own precedence.
+export type DeferReason =
+  | 'aborted' // the wall-clock guard killed the cycle mid-way and dumped the remainder to the backlog
+  | 'free-budget-spent' // every free tier's DAILY cap reached (Groq hard cap + no overflow/Gemini room)
+  | 'groq-cooldown' // Groq in a cross-cycle failure cooldown and nothing else absorbed the batch
+  | 'paced' // under the daily cap but over the clock-prorated pacer ceiling — holding budget for later
+  | 'batch-failed' // a provider was reached but returned an error (an LLM hiccup, not a budget state)
+
+// The Haiku last-resort tier's state at the END of a cycle — the piece that was invisible when "Groq in
+// failure cooldown" printed with no hint the paid fallback had ALSO tapped out (the reported surprise).
+export type LastResortState =
+  | 'off' // tier disabled (NEWS_ANTHROPIC_FALLBACK_ENABLED=0, or api mode with no key)
+  | 'scored' // it fired and scored ≥1 batch this cycle, still under its ceiling
+  | 'usd-cap' // reached its daily $ ceiling (anthropicDailyUsd) — the rest deferred
+  | 'plan-quota' // the shared Claude plan's own usage limit hit → backing off until the plan resets
+  | 'cooling' // in its cross-cycle cooldown from an earlier error
+  | 'available' // on and under budget, but not needed this cycle (the free tiers absorbed everything)
+
 // One ingest cycle's outcome — returned to the caller and logged as a firehose summary line.
 export interface CycleSummary {
   ts: string
@@ -231,6 +250,17 @@ export interface CycleSummary {
   anthropic_tokens?: number
   anthropic_cost_usd?: number // metered USD spent on the Anthropic fallback this cycle (0 / absent when unused)
   note?: string // a human-readable reason when ok=false or a cap was hit
+  // --- end-to-end transparency (additive; every field optional so an older client degrades cleanly) ---
+  // candidates = fresh + carryover. Splitting them stops the "read balloon": a budget-deferred item is
+  // re-queued into `candidates` every cycle until it's finally scored, so candidates ≫ what was genuinely new.
+  fresh?: number // genuinely new on-list items this cycle
+  carryover?: number // re-queued deferred-backlog items included in `candidates`
+  deferred?: number // items pushed to the backlog this cycle (TRUE count, may exceed backlog_cap → tail lost)
+  backlog?: number // deferred backlog depth held on disk after this cycle (≤ backlog_cap)
+  backlog_cap?: number // the loss boundary (DEFERRED_CAP): backlog past this is silently dropped
+  aborted?: boolean // the wall-clock guard killed this cycle and dumped the untriaged remainder to the backlog
+  defer_reason?: DeferReason // structured twin of the defer `note`
+  last_resort?: LastResortState // the Haiku fallback's state at cycle end — makes "why nothing scored" honest
   // Raw articles pulled per source layer this cycle, keyed by each item's `via` provenance (gdelt, rss,
   // nse, asx, …). Absent on a drain cycle, which fetches nothing. Lets the cockpit show WHICH sources are
   // delivering right now instead of only the on-open /api/news/sources snapshot.

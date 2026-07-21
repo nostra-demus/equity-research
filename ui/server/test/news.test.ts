@@ -9,13 +9,14 @@ import { allApprovedDomains, approvedDomains, lookupSource, normalizeDomain } fr
 import { buildQueries, fetchGdelt, fetchGdeltDoc, GDELT_MAX_QUERY_CHARS, resetGdeltBackoff } from '../src/news/sources/gdelt'
 import { eventIdFor, loadLedgerEventIds, normalizeAndFilter, parseSeendate } from '../src/news/normalize'
 import { SeenCache } from '../src/news/seen-cache'
-import { Budget, RateLimiter, armCooldown, clearCooldown, readCooldownUntil, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
+import { Budget, RateLimiter, armCooldown, clearCooldown, pacedHasHeadroom, readCooldownUntil, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
 import { readArticleBrief } from '../src/news/triage/article-read'
 import { coerceTriage, estimateTokens, scoreToBand, triageBatch } from '../src/news/triage/groq'
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox } from '../src/news/write-inbox'
 import { runIngestCycle } from '../src/news/runCycle'
-import { buildOverflowProviders } from '../src/config'
+import { backlogTrend, getNewsDiagnostics, tierHealth } from '../src/news/scheduler'
+import { buildOverflowProviders, NEWS } from '../src/config'
 import type { FeedItem, RawArticle, TriagedItem } from '../src/news/types'
 
 let passed = 0
@@ -1015,6 +1016,142 @@ await check('plan usage limit → the batch defers AND a cross-cycle cooldown st
   nowMs += 30_000
   await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
   assert.equal(cliCalls, 1, 'still 1 — the cooldown suppressed the re-spawn while the plan is out')
+})
+
+// ---- end-to-end transparency: the defer note is honest about EVERY blocker, not just Groq ----
+
+await check('the cycle summary carries the transparency fields (fresh/carryover/backlog/backlog_cap/last_resort)', async () => {
+  resetSharedLimiters()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const groqBody = { usage: { total_tokens: 200 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A 50 bps cut lowers funding costs.' },
+  ] }) } }] }
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res(groqBody)
+    if (u.includes('gdelt')) return res({ articles: [{ url: 'https://reuters.com/ok', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
+    overflowProviders: [], anthropicFallbackEnabled: false } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s.ok, true)
+  assert.equal(s.fresh, 1, 'one genuinely new item this cycle')
+  assert.equal(s.carryover, 0, 'nothing re-queued on a clean run')
+  assert.equal(s.backlog, 0, 'everything scored → empty backlog')
+  assert.equal(s.backlog_cap, 5000, 'the loss boundary (DEFERRED_CAP) is surfaced every cycle')
+  assert.equal(s.last_resort, 'off', 'the Haiku fallback state is reported (off, since disabled here)')
+})
+
+await check('honest defer note: Groq cooling + Haiku last-resort OFF names BOTH blockers (the fixed surprise)', async () => {
+  resetSharedLimiters()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  let gdeltServed = false
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('upstream sad', 503) // Groq down all cycle
+    if (u.includes('gdelt') && !gdeltServed) { gdeltServed = true; return res({ articles: [{ url: 'https://reuters.com/cool', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] }) }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
+    overflowProviders: [], anthropicFallbackEnabled: false } as any
+  let nowMs = Date.parse('2026-06-12T09:30:00Z')
+  const now = () => new Date(nowMs)
+
+  // cycle 1 arms the Groq cross-cycle cooldown and defers the item
+  const s1 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s1.last_resort, 'off')
+  assert.ok(readCooldownUntil(state, 'groq') > nowMs, 'Groq cooldown armed')
+
+  // cycle 2: Groq is skipped (cooling), nothing else absorbs the batch → the note must name the cooldown AND the off fallback
+  nowMs += 30_000
+  const s2 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s2.defer_reason, 'groq-cooldown', 'structured reason is the Groq cooldown')
+  assert.equal(s2.last_resort, 'off')
+  assert.match(s2.note || '', /Groq in failure cooldown/i)
+  assert.match(s2.note || '', /Haiku last-resort is off/i, 'the note no longer hides that the fallback was unavailable — the whole point')
+})
+
+await check('honest defer note: Groq cooling + Haiku at its $50 ceiling names the ceiling', async () => {
+  resetSharedLimiters()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  fs.mkdirSync(state, { recursive: true })
+  const day = new Date('2026-06-12T09:30:00Z').toISOString().slice(0, 10)
+  // the Haiku $ ledger is already spent for today, and Groq is already in a fresh cooldown from a prior outage
+  fs.writeFileSync(path.join(state, 'anthropic-triage-budget.json'), JSON.stringify({ date: day, usd: 50, calls: 4000 }))
+  const nowMs = Date.parse('2026-06-12T09:30:00Z')
+  armCooldown(state, nowMs, 5 * 60_000, 'groq')
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('gdelt')) return res({ articles: [{ url: 'https://reuters.com/cap', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
+    overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 50 } as any
+  const now = () => new Date(nowMs)
+
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s.defer_reason, 'groq-cooldown')
+  assert.equal(s.last_resort, 'usd-cap', 'the fallback is correctly reported at its $ ceiling')
+  assert.match(s.note || '', /Groq in failure cooldown/i)
+  assert.match(s.note || '', /\$50\/day ceiling/i, 'the note surfaces the raised $50 Haiku ceiling as the second blocker')
+})
+
+// ---- the diagnostics builder: pure helpers + the full contract ----
+
+await check('pacedHasHeadroom: reqCap gates REQUESTS and tokenCap gates TOKENS (the arg-order the diagnostics read must pass)', async () => {
+  const pace = { targetTokens: 500_000, floorFrac: 0.06 }
+  const lateDay = Date.parse('2026-06-12T18:00:00Z') // the pacer ceiling is high late in the day
+  // signature is (tokens, requests, reqCap, tokenCap, pace, now): the REQUEST cap gates requests, the TOKEN
+  // cap gates tokens. A realistic Groq day (9k/13k req, 14k/500k tok) is well under BOTH hard caps, so it has
+  // headroom. The swapped-arg bug (passing tokenCap as reqCap) degraded the backstop to `tokens >= 13000`,
+  // which would wrongly return false here — this locks the correct order the scheduler read must use.
+  assert.equal(pacedHasHeadroom(14_000, 9_000, 13_000, 500_000, pace, lateDay), true, 'under both hard caps + the late-day ceiling → headroom')
+  assert.equal(pacedHasHeadroom(0, 13_000, 13_000, 500_000, pace, lateDay), false, 'requests AT the request cap → no headroom')
+  assert.equal(pacedHasHeadroom(500_000, 0, 13_000, 500_000, pace, lateDay), false, 'tokens AT the token cap → no headroom')
+})
+
+await check('tierHealth: disabled → cooling → budget-spent → paced precedence', async () => {
+  assert.equal(tierHealth(false, 999, true, true), 'disabled', 'disabled wins over everything')
+  assert.equal(tierHealth(true, 5000, true, true), 'cooling', 'a live cooldown beats spent/paced')
+  assert.equal(tierHealth(true, 0, true, true), 'budget-spent', 'spent beats paced')
+  assert.equal(tierHealth(true, 0, false, true), 'paced')
+  assert.equal(tierHealth(true, 0, false, false), 'healthy')
+})
+
+await check('backlogTrend: reads growing / shrinking / flat / null from recent cycles', async () => {
+  const mk = (ts: string, backlog: number) => ({ ts, backlog }) as any
+  assert.equal(backlogTrend([]), null, 'no data → null')
+  assert.equal(backlogTrend([mk('2026-06-12T09:00:00Z', 100)]), null, 'one point → null')
+  assert.equal(backlogTrend([mk('2026-06-12T09:00:00Z', 100), mk('2026-06-12T09:10:00Z', 400)]), 'growing')
+  assert.equal(backlogTrend([mk('2026-06-12T09:00:00Z', 400), mk('2026-06-12T09:10:00Z', 100)]), 'shrinking')
+  assert.equal(backlogTrend([mk('2026-06-12T09:00:00Z', 200), mk('2026-06-12T09:10:00Z', 205)]), 'flat', 'a small wiggle is flat, not growth')
+  // cycles that predate the backlog field (older lines) are ignored, not treated as 0
+  assert.equal(backlogTrend([mk('2026-06-12T09:00:00Z', 100), { ts: '2026-06-12T09:05:00Z' } as any, mk('2026-06-12T09:10:00Z', 400)]), 'growing')
+})
+
+await check('getNewsDiagnostics: enumerates every tier in routing order, with the backlog gauge + honest defer block', async () => {
+  const d = getNewsDiagnostics()
+  assert.ok(Array.isArray(d.tiers) && d.tiers.length >= 1, 'tiers are enumerated (at least Groq + the last resort)')
+  const groq = d.tiers.find((t) => t.id === 'groq')
+  assert.ok(groq && groq.role === 'primary' && groq.meter === 'requests', 'Groq is the primary, requests-metered tier')
+  const haiku = d.tiers.find((t) => t.id === 'anthropic-triage')
+  assert.ok(haiku && haiku.role === 'last-resort' && haiku.meter === 'usd', 'the Haiku last-resort tier is present and $-metered')
+  assert.equal(haiku!.usdCap, NEWS.anthropicDailyUsd, 'the daily $ ceiling flows through config → diagnostics')
+  assert.ok(d.tiers.every((t, i) => i === 0 || d.tiers[i - 1].order <= t.order), 'tiers are in fallback-routing order')
+  assert.equal(typeof d.backlog.count, 'number')
+  assert.ok(d.backlog.cap >= 1, 'the loss boundary is reported')
+  assert.equal(typeof d.backlog.nearLimit, 'boolean')
+  for (const k of ['active', 'reason', 'plainNote', 'lastResort', 'blockingTiers'] as const) assert.ok(k in d.defer, `defer.${k} present`)
+  assert.ok(Array.isArray(d.defer.blockingTiers))
 })
 
 console.log(`\n${passed} checks passed`)

@@ -182,6 +182,14 @@ export function isCoolingDown(stateDir: string, id = 'groq', now = Date.now()): 
   return readCooldownUntil(stateDir, id) > now
 }
 
+/** The live cooldown snapshot for a provider — its unhealthy-until epoch (0 = healthy) plus the consecutive
+ *  failure count driving the current backoff window. For status/diagnostics readers that need the fail count
+ *  `readCooldownUntil` doesn't expose. Never throws. */
+export function cooldownInfo(stateDir: string, id = 'groq'): { until: number; fails: number } {
+  const s = readCooldownState(stateDir, id)
+  return { until: s.unhealthyUntil, fails: s.fails }
+}
+
 /** Arm/extend the cooldown on a real failure, with exponential backoff: each consecutive failed probe
  *  doubles the window (baseMs, 2×, 4×, …) capped at maxMs. Persisted to disk AND the in-memory fallback. */
 export function armCooldown(stateDir: string, now: number, baseMs: number, id = 'groq', maxMs = 3_600_000): void {

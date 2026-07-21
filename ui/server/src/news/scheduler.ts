@@ -16,8 +16,9 @@ import { refreshBoard } from './write-inbox'
 import { runIngestCycle } from './runCycle'
 import { healEnrichCache } from './enrich-heal'
 import { runIdeaPass } from './ideas/run-idea-pass'
-import { pacedCeiling, pacedHasHeadroom } from './triage/budget'
-import type { CycleSummary } from './types'
+import { cooldownInfo, pacedCeiling, pacedHasHeadroom } from './triage/budget'
+import { DEFERRED_CAP } from './runCycle'
+import type { CycleSummary, DeferReason, LastResortState } from './types'
 
 // The PM-skim config, assembled once from NEWS (opt-in via IDEAS_ENABLED). Reuses the ingester's own Groq
 // budget / limiter / cooldown knobs so the two paths share one honest free-tier accounting.
@@ -86,6 +87,9 @@ let running = false
 let lastCycleAt: string | null = null
 let nextCycleAt: string | null = null
 let lastNote: string | null = null
+// True when another engine owns the ingester lock for this data dir, so THIS process serves the cockpit but
+// never fetches/scores (read-only). Surfaced in status/diagnostics so "why am I not scanning?" is answerable.
+let readOnlyMode = false
 
 // How often the drain tick works the deferred backlog (no fetch). Short, so the daily-budget pacer
 // releases its clock-prorated allowance in small frequent sub-bursts (an even all-day drip) rather than
@@ -170,7 +174,10 @@ function budgetHasHeadroom(): boolean {
   let groqOk = true
   try {
     const b = JSON.parse(fs.readFileSync(path.join(STATE_DIR, 'groq-budget.json'), 'utf8'))
-    if (b?.date === today) groqOk = pacedHasHeadroom(Number(b.tokens) || 0, Number(b.requests) || 0, NEWS.groqDailyTokenCap, NEWS.groqDailyReqCap, PACE)
+    // pacedHasHeadroom(tokens, requests, reqCap, tokenCap, …) — reqCap is the REQUEST cap, tokenCap the TOKEN
+    // cap (they were passed swapped here, which made the hard backstop degrade to `tokens >= 13000` and
+    // under-report Groq's drain headroom once daily tokens crossed the request cap).
+    if (b?.date === today) groqOk = pacedHasHeadroom(Number(b.tokens) || 0, Number(b.requests) || 0, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE)
   } catch {
     return true // unreadable budget → don't stall the drain
   }
@@ -186,6 +193,11 @@ export interface NewsStatus {
   lastCycleAt: string | null
   nextCycleAt: string | null
   lastNote: string | null
+  // true when another engine owns the ingester lock → this process is read-only (serves but never scans)
+  readOnly: boolean
+  // items waiting un-triaged in the deferred spillover, and the loss boundary they are counted against.
+  // A first-class field so the cockpit can show the backlog depth without the heavier diagnostics call.
+  backlog: { count: number; cap: number }
   today: { read: number; kept: number; dropped: number; cycles: number }
   // tokenTarget = the pacer's day goal; paceCeiling = tokens allowed spent BY NOW under the clock
   // schedule (tokens ≈ paceCeiling ⇒ the pacer is metering; tokens ≪ paceCeiling ⇒ free-flowing).
@@ -256,9 +268,295 @@ export function getNewsStatus(): NewsStatus {
     lastCycleAt,
     nextCycleAt: NEWS.enabled ? nextCycleAt : null,
     lastNote,
+    readOnly: readOnlyMode,
+    backlog: { count: backlogCount(), cap: DEFERRED_CAP },
     today,
     budget,
     overflow,
+  }
+}
+
+// ============================ end-to-end pipeline diagnostics ============================
+// The FULL, honest state of every triage tier + the deferred backlog, reconstructed entirely from state
+// already on disk (per-provider budget files, `<id>-health.json` cooldown markers, the Haiku $ ledger, the
+// deferred spillover, the firehose). This exists because the three highest-value facts — the backlog depth
+// vs its loss boundary, the Haiku last-resort's $ spend + plan-quota state, and every provider's cooldown —
+// were all persisted but surfaced NOWHERE, so "Groq in failure cooldown" could print while the paid fallback
+// had silently tapped out too. Zero-touch: tiers are enumerated from the SAME config arrays the run loop
+// uses (NEWS.overflowProviders / NEWS.geminiModels), so a newly-keyed provider appears with no edit here.
+
+export type TierHealth = 'healthy' | 'paced' | 'cooling' | 'budget-spent' | 'disabled'
+
+export interface TierDiagnostics {
+  id: string
+  label: string
+  color: string // a CSS var NAME (e.g. '--accent', '--provider-cb') — never a literal; the chip reads it
+  role: 'primary' | 'overflow' | 'gemini' | 'last-resort'
+  order: number // routing order in the fallback chain (0 = tried first)
+  enabled: boolean
+  meter: 'requests' | 'usd' // how this tier is bounded — Haiku is metered in $, the rest in requests/tokens
+  health: TierHealth
+  requestsToday?: number
+  reqCap?: number
+  tokensToday?: number
+  tokenCap?: number // set only for token-gated providers (Cerebras) — its binding limit
+  usdToday?: number // last-resort only
+  usdCap?: number // last-resort only
+  callsToday?: number // last-resort only
+  cooldownRemainingMs?: number // >0 while in a cross-cycle failure cooldown
+  fails?: number // consecutive failures driving the current backoff window
+  lastCycleRequests?: number // batches this tier scored in the most recent cycle (absent = not tracked per-tier)
+}
+
+export interface NewsDiagnostics {
+  ts: string
+  enabled: boolean
+  running: boolean
+  readOnly: boolean // another engine owns the ingester → this one serves but never scans
+  intervalMin: number
+  lastCycleAt: string | null
+  nextCycleAt: string | null
+  tiers: TierDiagnostics[] // ordered primary → overflow → gemini → last-resort
+  backlog: {
+    count: number // items waiting un-triaged
+    cap: number // DEFERRED_CAP — the loss boundary; backlog past this is silently dropped
+    pctOfCap: number // 0..100
+    nearLimit: boolean // ≥80% of the cap — approaching silent data loss
+    trend: 'growing' | 'shrinking' | 'flat' | null // over today's recent cycles (null = too few to tell)
+  }
+  today: { read: number; kept: number; dropped: number; cycles: number }
+  lastCycle: {
+    ts: string
+    phase: 'fetch' | 'drain' | null
+    fetched: number
+    candidates: number
+    fresh: number | null
+    carryover: number | null
+    picked: number
+    watched: number
+    dropped: number
+    deferred: number | null
+    aborted: boolean
+    note: string | null
+    deferReason: DeferReason | null
+    lastResort: LastResortState | null
+    anthropicCostUsd: number | null
+    scoredBy: { id: string; label: string; requests: number }[] // per-tier batches scored this cycle
+  } | null
+  defer: {
+    active: boolean // is there a live backlog being held right now?
+    reason: DeferReason | null // structured reason from the most recent deferring cycle
+    plainNote: string | null // the honest human sentence (the fixed, fallback-aware note)
+    lastResort: LastResortState | null // the Haiku fallback's state — the piece that used to be hidden
+    blockingTiers: string[] // ids of tiers that are enabled but currently unavailable (cooling/spent/paced)
+  }
+}
+
+/** Read a per-provider request/token Budget file, counting only if it is today's (in the given zone). */
+function readDailyBudget(file: string, dayKey: string): { requests: number; tokens: number } {
+  try {
+    const b = JSON.parse(fs.readFileSync(path.join(STATE_DIR, file), 'utf8'))
+    if (b?.date === dayKey) return { requests: Number(b.requests) || 0, tokens: Number(b.tokens) || 0 }
+  } catch {
+    // fresh / unreadable → 0
+  }
+  return { requests: 0, tokens: 0 }
+}
+
+/** Read the Haiku $ ledger (UsdBudget file), counting only if it is today's (UTC, matching UsdBudget). */
+function readDailyUsd(file: string, dayKey: string): { usd: number; calls: number } {
+  try {
+    const u = JSON.parse(fs.readFileSync(path.join(STATE_DIR, file), 'utf8'))
+    if (u?.date === dayKey) return { usd: Number(u.usd) || 0, calls: Number(u.calls) || 0 }
+  } catch {
+    // fresh / unreadable → 0
+  }
+  return { usd: 0, calls: 0 }
+}
+
+/** Compose a tier's health from its live signals (order matters: disabled → cooling → spent → paced). Exported for tests. */
+export function tierHealth(enabled: boolean, coolMs: number, budgetSpent: boolean, paced = false): TierHealth {
+  if (!enabled) return 'disabled'
+  if (coolMs > 0) return 'cooling'
+  if (budgetSpent) return 'budget-spent'
+  if (paced) return 'paced'
+  return 'healthy'
+}
+
+/** Direction of the deferred backlog over today's recent cycles (null when too few data points). Exported for tests. */
+export function backlogTrend(cycles: CycleSummary[]): 'growing' | 'shrinking' | 'flat' | null {
+  const series = cycles
+    .filter((c) => typeof c.backlog === 'number')
+    .sort((a, b) => String(a.ts).localeCompare(String(b.ts)))
+    .map((c) => c.backlog as number)
+  if (series.length < 2) return null
+  const latest = series[series.length - 1]
+  const prior = series[Math.max(0, series.length - 6)] // compare against ~5 cycles back (or the oldest we have)
+  const delta = latest - prior
+  const band = Math.max(5, prior * 0.1) // ignore small wiggles: >10% (min 5 items) is a real move
+  return delta > band ? 'growing' : delta < -band ? 'shrinking' : 'flat'
+}
+
+/** The FULL end-to-end pipeline diagnostics for the cockpit. Read-only, never throws — every branch degrades
+ *  to zeros/nulls so a partial/absent state file never fails the endpoint (matches getNewsStatus/sources). */
+export function getNewsDiagnostics(): NewsDiagnostics {
+  const now = Date.now()
+  const ts = new Date(now).toISOString().replace(/\.\d{3}Z$/, 'Z')
+  const status = getNewsStatus() // reuse the same today-counts + read-only + backlog computation
+  const todayUtc = new Date(now).toISOString().slice(0, 10)
+
+  // newest cycle by ts (today's firehose) → drives the last-cycle flow + per-tier scoredBy + defer read
+  let cyclesToday: CycleSummary[] = []
+  try { cyclesToday = (readFeed(REPO_ROOT, 1).cycles as CycleSummary[]) || [] } catch { cyclesToday = [] }
+  const last = cyclesToday.length
+    ? [...cyclesToday].sort((a, b) => String(a.ts).localeCompare(String(b.ts)))[cyclesToday.length - 1]
+    : null
+
+  const tiers: TierDiagnostics[] = []
+
+  // --- Groq (primary, order 0) ---
+  {
+    const enabled = !!NEWS.groqApiKey
+    const b = readDailyBudget('groq-budget.json', todayUtc)
+    const cd = cooldownInfo(STATE_DIR, 'groq')
+    const coolMs = Math.max(0, cd.until - now)
+    const spent = b.requests >= NEWS.groqDailyReqCap || b.tokens >= NEWS.groqDailyTokenCap
+    const paced = enabled && !spent && !pacedHasHeadroom(b.tokens, b.requests, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE)
+    tiers.push({
+      id: 'groq', label: 'Groq', color: '--accent', role: 'primary', order: 0, enabled, meter: 'requests',
+      health: tierHealth(enabled, coolMs, spent, paced),
+      requestsToday: b.requests, reqCap: NEWS.groqDailyReqCap, tokensToday: b.tokens, tokenCap: NEWS.groqDailyTokenCap,
+      cooldownRemainingMs: coolMs || undefined, fails: cd.fails || undefined, lastCycleRequests: last?.groq_requests,
+    })
+  }
+
+  // --- OpenAI-compatible overflow registry (order 1..N), enumerated from config (zero-touch) ---
+  let order = 1
+  for (const p of NEWS.overflowProviders) {
+    const u = overflowUsage(p)
+    const cd = cooldownInfo(STATE_DIR, p.id)
+    const coolMs = Math.max(0, cd.until - now)
+    const spent = u.used >= u.cap || (p.dailyTokenCap != null && u.tokens >= p.dailyTokenCap)
+    tiers.push({
+      id: p.id, label: p.label, color: p.color, role: 'overflow', order: order++, enabled: true, meter: 'requests',
+      health: tierHealth(true, coolMs, spent),
+      requestsToday: u.used, reqCap: u.cap, tokensToday: u.tokens, tokenCap: p.dailyTokenCap,
+      cooldownRemainingMs: coolMs || undefined, fails: cd.fails || undefined,
+    })
+  }
+
+  // --- Gemini pool (one aggregate tier; per-model cooldowns folded into a single pool-usable read) ---
+  const pool = geminiPoolUsage()
+  if (pool) {
+    const geminiDay = geminiToday()
+    let anyUsableNow = false
+    let soonestRecoverMs = Infinity
+    let maxFails = 0
+    for (const e of NEWS.geminiModels) {
+      const cd = cooldownInfo(STATE_DIR, `gemini:${e.model}`)
+      const coolMs = Math.max(0, cd.until - now)
+      maxFails = Math.max(maxFails, cd.fails)
+      // A model is usable NOW only if it is neither cooling NOR out of its daily request budget. A PerDay 429
+      // exhausts a model's budget WITHOUT arming a cooldown, so checking the cooldown alone would call an
+      // exhausted model "usable" when it can't score — mirror runCycle's gemPick = !cooling && budget.canSpend.
+      let modelUsed = 0
+      try {
+        const g = JSON.parse(fs.readFileSync(path.join(STATE_DIR, `gemini-budget-${e.model.replace(/[^a-z0-9]+/gi, '-')}.json`), 'utf8'))
+        if (g?.date === geminiDay) modelUsed = Number(g.requests) || 0
+      } catch { /* fresh / unreadable → 0 used */ }
+      if (coolMs > 0) soonestRecoverMs = Math.min(soonestRecoverMs, coolMs)
+      else if (modelUsed < e.dailyReqCap) anyUsableNow = true
+    }
+    const spent = pool.used >= pool.cap
+    // "cooling" only when NO model is usable right now (all in backoff) AND there's still budget — otherwise
+    // the honest state is budget-spent (day exhausted) or healthy (at least one model free).
+    const coolMs = !anyUsableNow && !spent && soonestRecoverMs !== Infinity ? soonestRecoverMs : 0
+    tiers.push({
+      id: 'gemini', label: 'Gemini pool', color: '--live', role: 'gemini', order: order++, enabled: true, meter: 'requests',
+      health: tierHealth(true, coolMs, spent),
+      requestsToday: pool.used, reqCap: pool.cap, tokensToday: pool.tokens,
+      cooldownRemainingMs: coolMs || undefined, fails: maxFails || undefined, lastCycleRequests: last?.gemini_requests,
+    })
+  }
+
+  // --- Haiku last-resort (order last), metered in $ ---
+  {
+    const enabled = NEWS.anthropicFallbackEnabled && (NEWS.anthropicFallbackMode === 'subscription' || !!NEWS.anthropicApiKey)
+    const u = readDailyUsd('anthropic-triage-budget.json', todayUtc)
+    const cd = cooldownInfo(STATE_DIR, 'anthropic-triage')
+    const coolMs = Math.max(0, cd.until - now)
+    const spent = u.usd >= NEWS.anthropicDailyUsd
+    tiers.push({
+      id: 'anthropic-triage', label: 'Haiku · last resort', color: '--provider-haiku', role: 'last-resort', order: order++,
+      enabled, meter: 'usd', health: tierHealth(enabled, coolMs, spent),
+      usdToday: Math.round(u.usd * 10_000) / 10_000, usdCap: NEWS.anthropicDailyUsd, callsToday: u.calls,
+      cooldownRemainingMs: coolMs || undefined, fails: cd.fails || undefined, lastCycleRequests: last?.anthropic_requests,
+    })
+  }
+
+  // backlog gauge (depth vs the loss boundary + short trend)
+  const count = status.backlog.count
+  const cap = status.backlog.cap
+  const pctOfCap = cap > 0 ? Math.round((count / cap) * 1000) / 10 : 0
+  const backlog = { count, cap, pctOfCap, nearLimit: pctOfCap >= 80, trend: backlogTrend(cyclesToday) }
+
+  // per-tier "who scored the last cycle" (overflow is summed across providers, so it shows as one row)
+  const scoredBy: { id: string; label: string; requests: number }[] = []
+  if (last) {
+    if (last.groq_requests) scoredBy.push({ id: 'groq', label: 'Groq', requests: last.groq_requests })
+    if (last.overflow_requests) scoredBy.push({ id: 'overflow', label: 'Overflow', requests: last.overflow_requests })
+    if (last.gemini_requests) scoredBy.push({ id: 'gemini', label: 'Gemini', requests: last.gemini_requests })
+    if (last.anthropic_requests) scoredBy.push({ id: 'anthropic-triage', label: 'Haiku', requests: last.anthropic_requests })
+  }
+
+  const lastCycle: NewsDiagnostics['lastCycle'] = last
+    ? {
+        ts: last.ts,
+        phase: last.phase || null,
+        fetched: last.fetched || 0,
+        candidates: last.candidates || 0,
+        fresh: typeof last.fresh === 'number' ? last.fresh : null,
+        carryover: typeof last.carryover === 'number' ? last.carryover : null,
+        picked: last.picked || 0,
+        watched: last.watched || 0,
+        dropped: last.dropped || 0,
+        deferred: typeof last.deferred === 'number' ? last.deferred : null,
+        aborted: !!last.aborted,
+        note: last.note || null,
+        deferReason: last.defer_reason || null,
+        lastResort: last.last_resort || null,
+        anthropicCostUsd: typeof last.anthropic_cost_usd === 'number' ? last.anthropic_cost_usd : null,
+        scoredBy,
+      }
+    : null
+
+  // Tiers that genuinely CANNOT take work right now (the UI renders these as "tapped out"). A `paced` tier is
+  // deliberately holding budget and will release it as the day advances — it is not tapped out, so it is
+  // excluded here (its state is explained by the `paced` defer reason instead), avoiding the contradiction of
+  // showing "tapped out: groq" next to "…not stuck — just paced".
+  const blockingTiers = tiers
+    .filter((t) => t.enabled && (t.health === 'cooling' || t.health === 'budget-spent'))
+    .map((t) => t.id)
+
+  return {
+    ts,
+    enabled: status.enabled,
+    running: status.running,
+    readOnly: status.readOnly,
+    intervalMin: status.intervalMin,
+    lastCycleAt: status.lastCycleAt,
+    nextCycleAt: status.nextCycleAt,
+    tiers,
+    backlog,
+    today: status.today,
+    lastCycle,
+    defer: {
+      active: count > 0,
+      reason: last?.defer_reason || null,
+      plainNote: last?.note || null,
+      lastResort: last?.last_resort || null,
+      blockingTiers,
+    },
   }
 }
 
@@ -290,6 +588,7 @@ export function startNewsIngester(): void {
   // One ingester per data dir. A second engine (stray manual start, wrong-port instance) still serves
   // HTTP but must NOT double-fetch/double-write against the same STATE_DIR.
   if (!acquireIngesterLock(STATE_DIR)) {
+    readOnlyMode = true // surfaced in status/diagnostics so the cockpit can say why this engine isn't scanning
     // eslint-disable-next-line no-console
     console.log('[news] another engine already owns the ingester for this data dir — staying read-only (no duplicate fetching). Stop the other instance, or point this one at a separate ENGINE_STATE_DIR.')
     return
