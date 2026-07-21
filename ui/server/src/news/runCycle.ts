@@ -215,7 +215,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
 
   if (!items.length) {
     saveDeferred(stateDir, []) // any stale spillover was consumed by the filters above
-    const summary: CycleSummary = { ...blank, ok: true, fetched: raws.length, note: 'no new on-list items', ...(sources ? { sources } : {}) }
+    const summary: CycleSummary = { ...blank, ok: true, fetched: raws.length, fresh: fresh.length, carryover: requeued.length, backlog: 0, backlog_cap: DEFERRED_CAP, note: 'no new on-list items', ...(sources ? { sources } : {}) }
     appendFirehoseSummary(repoRoot, date, summary)
     newsBus.emit({ type: 'news-cycle', summary })
     return summary
@@ -284,9 +284,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   let anthropicTokens = 0
   let anthropicCostUsd = 0
   let anthropicDownThisCycle = false // once the paid tier fails this cycle, stop poking it (save the cap)
+  let anthropicFailNote = '' // the Haiku tier's failure note this cycle → distinguishes plan-quota from a transient error
   let budgetHit = false
   let paceHit = false
   let batchFailed = false
+  let aborted = false // the wall-clock guard killed this cycle mid-way and dumped the remainder to the backlog
   // Once Groq fails this cycle (org 429 / network), STOP poking it for the rest of the cycle and go
   // straight to overflow — otherwise a sustained Groq outage burns the whole daily request cap on
   // failed calls (each 429 still counts as a request), locking Groq out even after the outage clears.
@@ -308,6 +310,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // doomed calls and holding the cycle lock past the abort). Requeue the untriaged remainder to the
     // deferred backlog FIRST (same as the budget-exhausted path below) so the abort loses nothing, then stop.
     if (deps.signal?.aborted) {
+      aborted = true
       deferred.push(...items.slice(i))
       log(`cycle aborted — deferring ${items.length - i} remaining item(s) to the next cycle`)
       break
@@ -419,6 +422,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         if (anthropicCooldownWasSet) clearCooldown(stateDir, 'anthropic-triage') // recovered → drop the marker
       } else {
         anthropicDownThisCycle = true // bad cycle → skip this tier for the rest of it (don't burn the budget)
+        anthropicFailNote = ar.note || '' // keep the reason so the cycle note can say plan-quota vs a transient error
         // A terminal 4xx (api mode: bad key / no credits) won't recover today → exhaust the day's ledger.
         // Everything else — including the SUBSCRIPTION's own "usage limit reached" (the plan's 5-hour/weekly
         // quota is spent) — arms the cross-cycle cooldown, so later cycles wait for the plan to reset instead
@@ -588,21 +592,84 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const overflowReq = overflow.reduce((s, o) => s + o.requests, 0)
   const overflowTok = overflow.reduce((s, o) => s + o.tokens, 0)
   const overflowLog = overflow.filter((o) => o.requests).map((o) => ` · ${o.p.id} ${o.requests} req / ${o.tokens} tok`).join('')
-  const note = budgetHit
-    ? `free-tier daily LLM budget reached — ${deferred.length} item${deferred.length === 1 ? '' : 's'} deferred; they clear when the daily quotas reset`
-    : groqCoolingDown && deferred.length
-      // A prior cycle failed and armed the cross-cycle cooldown; we skipped Groq this cycle and had no
-      // overflow room. Say so honestly — otherwise this reads as the "paced for the day" note below, which
-      // wrongly implies a healthy budget being spread rather than a Groq outage being ridden out.
-      ? `Groq in failure cooldown — ${deferred.length} item${deferred.length === 1 ? '' : 's'} deferred (protecting the daily request cap after a Groq outage)`
-      : paceHit
-        ? `paced for the day — ${deferred.length} item${deferred.length === 1 ? '' : 's'} held for the next drain (spreading the budget evenly)`
-        : batchFailed
-          ? `${deferred.length} item${deferred.length === 1 ? '' : 's'} not scored (LLM hiccup) — deferred to next cycle`
-          : undefined
+
+  // The Haiku last-resort tier's state at cycle end — the piece that was invisible when "Groq in failure
+  // cooldown" printed with no hint the paid fallback had ALSO tapped out (the reported surprise). `usd-cap`
+  // is checked before `scored` on purpose: a tier that scored a few batches and THEN hit its ceiling is
+  // exactly why the rest still deferred, so the ceiling is the honest reason to show.
+  // Only the plan's OWN quota being spent is 'plan-quota' (the subscription CLI canonicalises a 429 to
+  // "usage limit reached — plan quota spent", claude-cli.ts). A transient per-minute rate-limit or an
+  // api-mode billing/credit error is NOT the shared plan resetting — those fall through to 'cooling', so we
+  // don't tell the operator to "wait for the plan to reset" when there is no plan quota to reset.
+  const planQuotaHit = /usage limit|plan quota/i.test(anthropicFailNote)
+  const lastResort: CycleSummary['last_resort'] = !anthropicOn
+    ? 'off'
+    : anthropicCoolingDown || anthropicDownThisCycle
+      ? (planQuotaHit ? 'plan-quota' : 'cooling')
+      : !anthropicBudget!.canSpend()
+        ? 'usd-cap'
+        : anthropicRequests > 0
+          ? 'scored'
+          : 'available'
+  // When items deferred, name the LAST-RESORT tier's state too, so a defer note can't read as if Groq were
+  // the only blocker. Added only when the tier genuinely could NOT absorb the spillover (never for
+  // 'scored'/'available', which weren't the reason anything deferred).
+  const lastResortClause = !deferred.length
+    ? ''
+    : lastResort === 'off'
+      ? ' · Haiku last-resort is off'
+      : lastResort === 'usd-cap'
+        ? ` · Haiku last-resort at its $${cfg.anthropicDailyUsd}/day ceiling`
+        : lastResort === 'plan-quota'
+          ? ' · Haiku last-resort paused — Claude plan quota spent, waiting for it to reset'
+          : lastResort === 'cooling'
+            ? ' · Haiku last-resort backing off after an error'
+            : ''
+
+  const defCount = deferred.length
+  const defPlural = defCount === 1 ? '' : 's'
+  const note = aborted && defCount
+    ? `cycle hit its time guard — ${defCount} item${defPlural} dumped to the backlog for the next look${lastResortClause}`
+    : budgetHit
+      ? `free-tier daily LLM budget reached — ${defCount} item${defPlural} deferred; they clear when the daily quotas reset${lastResortClause}`
+      : groqCoolingDown && defCount
+        // A prior cycle failed and armed the cross-cycle cooldown; we skipped Groq this cycle and had no
+        // overflow room. Say so honestly (and name the fallback's state) — otherwise this reads as the
+        // "paced for the day" note below, wrongly implying a healthy budget being spread rather than a Groq
+        // outage being ridden out with the paid fallback also tapped.
+        ? `Groq in failure cooldown — ${defCount} item${defPlural} deferred (protecting the daily request cap after a Groq outage)${lastResortClause}`
+        : paceHit
+          ? `paced for the day — ${defCount} item${defPlural} held for the next drain (spreading the budget evenly)${lastResortClause}`
+          : batchFailed
+            ? `${defCount} item${defPlural} not scored (LLM hiccup) — deferred to next cycle${lastResortClause}`
+            : undefined
+  // Structured twin of the note, in the same precedence, so the cockpit can reason about the defer reason
+  // without parsing free text.
+  const deferReason: CycleSummary['defer_reason'] = !defCount
+    ? undefined
+    : aborted
+      ? 'aborted'
+      : budgetHit
+        ? 'free-budget-spent'
+        : groqCoolingDown
+          ? 'groq-cooldown'
+          : paceHit
+            ? 'paced'
+            : batchFailed
+              ? 'batch-failed'
+              : undefined
+
   const summary: CycleSummary = {
     ts, ok: true, fetched: raws.length, candidates: items.length,
     picked, watched, dropped, inboxed, groq_requests: groqRequests, groq_tokens: groqTokens,
+    // end-to-end transparency: split the read balloon (fresh vs re-queued backlog), and always carry the
+    // backlog depth + its loss boundary + the fallback's state so the cockpit never has to infer them.
+    fresh: fresh.length, carryover: requeued.length,
+    ...(defCount ? { deferred: defCount } : {}),
+    backlog: Math.min(defCount, DEFERRED_CAP), backlog_cap: DEFERRED_CAP,
+    ...(aborted ? { aborted: true } : {}),
+    ...(deferReason ? { defer_reason: deferReason } : {}),
+    last_resort: lastResort,
     ...(geminiRequests ? { gemini_requests: geminiRequests, gemini_tokens: geminiTokens } : {}),
     ...(overflowReq ? { overflow_requests: overflowReq, overflow_tokens: overflowTok } : {}),
     ...(anthropicRequests ? { anthropic_requests: anthropicRequests, anthropic_tokens: anthropicTokens, anthropic_cost_usd: Math.round(anthropicCostUsd * 10_000) / 10_000 } : {}),

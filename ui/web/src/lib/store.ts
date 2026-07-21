@@ -8,7 +8,7 @@ import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import { affectedModules, focusKeysFor } from './intake'
-import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
+import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyDlFilters, type DlFilterState } from '../components/datalibrary/DataLibraryFilters'
@@ -625,6 +625,12 @@ interface State {
   openSources: () => void
   closeSources: () => void
   refreshNewsStatus: () => Promise<void>
+  // ---- pipeline diagnostics (the full end-to-end triage/tier/backlog/defer view) ----
+  diagnosticsOpen: boolean
+  newsDiagnostics: NewsDiagnostics | null
+  openDiagnostics: () => Promise<void>
+  closeDiagnostics: () => void
+  refreshDiagnostics: () => Promise<void>
   revive: () => void // wake/focus/network-return: force a health re-check + status refresh + stream reconnect
   _setNewsStreamOnline: (v: boolean) => void // internal — flips the wire-reachable flag from SSE open/close
   _noteStreamLive: () => void // internal — any SSE event proves the engine is up → flip health online instantly
@@ -861,6 +867,8 @@ export const useStore = create<State>((set, get) => ({
   scSignalState: {},
   newsFeedOpen: false,
   sourcesOpen: false,
+  diagnosticsOpen: false,
+  newsDiagnostics: null,
   newsItems: [],
   freshEvents: new Set(),
   newsArrivedTotal: 0,
@@ -1972,7 +1980,7 @@ export const useStore = create<State>((set, get) => ({
     if (get().activeSwarm !== targetSwarm) {
       if (!get().swarms.some((s) => s.id === targetSwarm)) { get().setToast({ msg: `The ${targetSwarm} view isn’t available here`, tone: 'info' }); return }
       if (warpTimer) { clearTimeout(warpTimer); warpTimer = null }
-      set({ activeSwarm: targetSwarm, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, ...CHAT_RESET })
+      set({ activeSwarm: targetSwarm, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, diagnosticsOpen: false, ...CHAT_RESET })
       get()._enterSwarm(targetSwarm)
     }
     // select the subject if we're not already on it (loads its graph/manifest). A flow swarm (screener)
@@ -2139,7 +2147,7 @@ export const useStore = create<State>((set, get) => ({
 
   // ---- Data Library (cross-swarm overlay; one overlay at a time, the openPipeline idiom) ----
   openDataLibrary: () => {
-    set({ dataLibraryOpen: true, newsFeedOpen: false, pipelineOpen: false, callsOpen: false })
+    set({ dataLibraryOpen: true, newsFeedOpen: false, pipelineOpen: false, callsOpen: false, diagnosticsOpen: false })
     void get().refreshPipelines()
   },
   closeDataLibrary: () => set({ dataLibraryOpen: false, dlSelectedId: null }),
@@ -2509,12 +2517,12 @@ export const useStore = create<State>((set, get) => ({
     const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     chatAbort?.abort(); chatAbort = null // chat is research-only — leaving the swarm closes it
     if (reduced) {
-      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, ...CHAT_RESET })
+      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, diagnosticsOpen: false, ...CHAT_RESET })
       get()._enterSwarm(to)
       if (opts?.landTicker) void get().selectTicker(opts.landTicker)
       return
     }
-    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, ...CHAT_RESET })
+    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, diagnosticsOpen: false, ...CHAT_RESET })
     if (warpTimer) clearTimeout(warpTimer)
     warpTimer = setTimeout(() => get()._advanceWarp(), 420) // collapse -> traverse
   },
@@ -3270,7 +3278,7 @@ export const useStore = create<State>((set, get) => ({
   },
 
   openPipeline: () => {
-    set({ pipelineOpen: true, newsFeedOpen: false }) // one overlay at a time — the wire yields to the board
+    set({ pipelineOpen: true, newsFeedOpen: false, diagnosticsOpen: false }) // one overlay at a time — the wire yields to the board
     void get().scRefreshBoard()
   },
   closePipeline: () => set({ pipelineOpen: false, scThesisDetail: null }),
@@ -3417,7 +3425,7 @@ export const useStore = create<State>((set, get) => ({
 
   // ---- the news wire: watch the scanner live ----
   openNewsFeed: async () => {
-    set({ newsFeedOpen: true, pipelineOpen: false, scThesisDetail: null })
+    set({ newsFeedOpen: true, pipelineOpen: false, diagnosticsOpen: false, scThesisDetail: null })
     await loadNewsFeed(set, get, false)
   },
   refreshNewsFeed: async () => {
@@ -3492,8 +3500,21 @@ export const useStore = create<State>((set, get) => ({
       set({ scArchiveLoadingMore: false })
     }
   },
-  openSources: () => set({ sourcesOpen: true }),
+  openSources: () => set({ sourcesOpen: true, diagnosticsOpen: false }),
   closeSources: () => set({ sourcesOpen: false }),
+  // ---- pipeline diagnostics: the full end-to-end tier/backlog/defer view (one-overlay-at-a-time) ----
+  openDiagnostics: async () => {
+    set({ diagnosticsOpen: true, newsFeedOpen: false, pipelineOpen: false, sourcesOpen: false, dataLibraryOpen: false, dataPipelineOpen: false, callsOpen: false, scThesisDetail: null })
+    await get().refreshDiagnostics()
+  },
+  closeDiagnostics: () => set({ diagnosticsOpen: false }),
+  refreshDiagnostics: async () => {
+    try {
+      set({ newsDiagnostics: await api.newsDiagnostics() })
+    } catch {
+      // read-only view — never toast; keep the last-known snapshot on a transient failure (matches refreshNewsStatus)
+    }
+  },
   refreshNewsStatus: async () => {
     try {
       set({ newsStatus: await api.newsStatus() })
@@ -3556,6 +3577,7 @@ export const useStore = create<State>((set, get) => ({
       set({ scanningSince: { since: Date.now(), phase: (e as any).phase === 'drain' ? 'drain' : 'fetch' } })
     } else if (e?.type === 'news-cycle') {
       void get().refreshNewsStatus()
+      if (get().diagnosticsOpen) void get().refreshDiagnostics() // keep the open diagnostics panel live per cycle
       // the cycle's RAW fetch volume drives the live themes map's scanning flow — top it up each scan
       const sum = (e as any).summary as CycleSummary | undefined
       if (sum && typeof sum.fetched === 'number') set({ lastScan: { fetched: sum.fetched, candidates: sum.candidates || 0, seq: (get().lastScan?.seq || 0) + 1 } })

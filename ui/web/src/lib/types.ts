@@ -619,6 +619,12 @@ export interface NewsCycle {
   note?: string
 }
 
+// The structured reason a cycle deferred items + the Haiku fallback's state (mirrors the server enums in
+// ui/server/src/news/types.ts). Kept as string unions so an older server sending an unknown value degrades
+// to the raw note rather than crashing the panel.
+export type DeferReason = 'aborted' | 'free-budget-spent' | 'groq-cooldown' | 'paced' | 'batch-failed'
+export type LastResortState = 'off' | 'scored' | 'usd-cap' | 'plan-quota' | 'cooling' | 'available'
+
 // One ingest cycle's outcome, streamed live over /api/news/stream as `news-cycle`. Mirrors the server's
 // CycleSummary (ui/server/src/news/types.ts). Every field past `dropped` is optional so an OLDER engine
 // (the ~20-30s deploy-skew window where the new bundle is served by the old server) simply renders less,
@@ -635,6 +641,15 @@ export interface CycleSummary {
   groq_requests?: number
   groq_tokens?: number
   note?: string // why a cap was hit / why items were deferred — the warning the user must see
+  // end-to-end transparency (all optional — an older server simply omits them)
+  fresh?: number // genuinely new items this cycle (candidates = fresh + carryover)
+  carryover?: number // re-queued deferred-backlog items included in `candidates`
+  deferred?: number // items pushed to the backlog this cycle
+  backlog?: number // deferred backlog depth after this cycle
+  backlog_cap?: number // the loss boundary; backlog past this is silently dropped
+  aborted?: boolean // the wall-clock guard killed this cycle and dumped the remainder to the backlog
+  defer_reason?: DeferReason
+  last_resort?: LastResortState // the Haiku fallback's state — makes "why nothing scored" honest
   sources?: Record<string, number> // raw articles per source layer this cycle (absent on a drain)
   phase?: 'fetch' | 'drain'
 }
@@ -648,6 +663,8 @@ export interface NewsStatus {
   lastCycleAt: string | null
   nextCycleAt: string | null
   lastNote: string | null
+  readOnly?: boolean // another engine owns the ingester → this one serves but never scans (optional: deploy-skew)
+  backlog?: { count: number; cap: number } // deferred spillover depth + its loss boundary (optional: deploy-skew)
   today: { read: number; kept: number; dropped: number; cycles: number }
   budget: { requests: number; tokens: number; reqCap: number; tokenCap: number; tokenTarget?: number; paceCeiling?: number }
   // every free OVERFLOW pool (Gemini + each OpenAI-compatible provider) — one entry per provider; the
@@ -655,6 +672,68 @@ export interface NewsStatus {
   // tokenCap is present only for TOKEN-gated providers (Cerebras) — the chip then reads tokens (its
   // binding limit) instead of requests, so the number shown is ground truth.
   overflow?: { id: string; label: string; color: string; model: string; requests: number; reqCap: number; tokens: number; tokenCap?: number }[]
+}
+
+// ---- full pipeline diagnostics (GET /api/news/diagnostics) — mirrors server NewsDiagnostics ----
+export type TierHealth = 'healthy' | 'paced' | 'cooling' | 'budget-spent' | 'disabled'
+
+export interface TierDiagnostics {
+  id: string
+  label: string
+  color: string // a CSS var NAME (e.g. '--accent', '--provider-cb'); the chip reads it, never a literal
+  role: 'primary' | 'overflow' | 'gemini' | 'last-resort'
+  order: number // routing order in the fallback chain (0 = tried first)
+  enabled: boolean
+  meter: 'requests' | 'usd'
+  health: TierHealth
+  requestsToday?: number
+  reqCap?: number
+  tokensToday?: number
+  tokenCap?: number
+  usdToday?: number
+  usdCap?: number
+  callsToday?: number
+  cooldownRemainingMs?: number
+  fails?: number
+  lastCycleRequests?: number
+}
+
+export interface NewsDiagnostics {
+  ts: string
+  enabled: boolean
+  running: boolean
+  readOnly: boolean
+  intervalMin: number
+  lastCycleAt: string | null
+  nextCycleAt: string | null
+  tiers: TierDiagnostics[]
+  backlog: { count: number; cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null }
+  today: { read: number; kept: number; dropped: number; cycles: number }
+  lastCycle: {
+    ts: string
+    phase: 'fetch' | 'drain' | null
+    fetched: number
+    candidates: number
+    fresh: number | null
+    carryover: number | null
+    picked: number
+    watched: number
+    dropped: number
+    deferred: number | null
+    aborted: boolean
+    note: string | null
+    deferReason: DeferReason | null
+    lastResort: LastResortState | null
+    anthropicCostUsd: number | null
+    scoredBy: { id: string; label: string; requests: number }[]
+  } | null
+  defer: {
+    active: boolean
+    reason: DeferReason | null
+    plainNote: string | null
+    lastResort: LastResortState | null
+    blockingTiers: string[]
+  }
 }
 
 export interface ActiveRunLite {

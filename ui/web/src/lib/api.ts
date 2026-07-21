@@ -3,7 +3,7 @@ import type { PipelinesRead } from './types'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, PipelineView, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -268,6 +268,14 @@ export const api = {
     if ((await ensureMode()) === 'static')
       return { enabled: false, running: false, intervalMin: 15, model: '', rssEnabled: false, lastCycleAt: null, nextCycleAt: null, lastNote: null, today: { read: 0, kept: 0, dropped: 0, cycles: 0 }, budget: { requests: 0, tokens: 0, reqCap: 0, tokenCap: 0 } }
     return get(`/api/news/status`, 8_000) // small + polled every 60s — a short budget keeps the rail snappy
+  },
+  // The FULL pipeline diagnostics: every triage tier's budget + health + cooldown, the deferred backlog vs
+  // its loss boundary, the last cycle's flow, and the honest defer reason. Backs the Pipeline diagnostics
+  // panel. Read-only + fail-soft server-side; a short budget keeps the panel poll snappy.
+  newsDiagnostics: async (): Promise<NewsDiagnostics> => {
+    if ((await ensureMode()) === 'static')
+      return { ts: new Date().toISOString(), enabled: false, running: false, readOnly: false, intervalMin: 15, lastCycleAt: null, nextCycleAt: null, tiers: [], backlog: { count: 0, cap: 0, pctOfCap: 0, nearLimit: false, trend: null }, today: { read: 0, kept: 0, dropped: 0, cycles: 0 }, lastCycle: null, defer: { active: false, reason: null, plainNote: null, lastResort: null, blockingTiers: [] } }
+    return get(`/api/news/diagnostics`, 8_000)
   },
   newsSources: async (): Promise<SourcesReport> => {
     if ((await ensureMode()) === 'static') return { updated_at: new Date().toISOString(), counts: { total: 0, healthy: 0, quiet: 0, failing: 0, idle: 0 }, sources: [] }

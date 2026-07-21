@@ -11,6 +11,7 @@ import { FLOW_WIRE_CONFIG } from './components/wire/WireContext'
 import { deriveWireConfig } from './lib/wire'
 import { SignalIntake } from './components/screener/SignalIntake'
 import { LiveFeed } from './components/screener/LiveFeed'
+import { PipelineDiagnostics } from './components/screener/PipelineDiagnostics'
 import { SourcesPanel } from './components/screener/SourcesPanel'
 import { PipelineBoard } from './components/screener/PipelineBoard'
 import { SwarmWarp } from './components/SwarmWarp'
@@ -166,6 +167,7 @@ export function App() {
   const chatHistoryOpen = useStore((s) => s.chatHistoryOpen)
   const newsFeedOpen = useStore((s) => s.newsFeedOpen)
   const sourcesOpen = useStore((s) => s.sourcesOpen)
+  const diagnosticsOpen = useStore((s) => s.diagnosticsOpen)
   const toast = useStore((s) => s.toast)
   const setToast = useStore((s) => s.setToast)
   const activeSwarm = useStore((s) => s.activeSwarm)
@@ -212,6 +214,7 @@ export function App() {
           freeze a framer exit mid-slide — instant close is deterministic (and exits should be
           faster than enters anyway); the entry slide still runs via initial/animate */}
       {newsFeedOpen && <LiveFeed />}
+      {diagnosticsOpen && <PipelineDiagnostics />}
       {sourcesOpen && <SourcesPanel />}
       <SignalIntake />
       <LaunchConfirm />
