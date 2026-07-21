@@ -1675,6 +1675,11 @@ if scope=="selftest":
         # a qualifier that merely USES one in prose must not be mistaken for naming a second rating. RED on
         # the r4 fix's own bare whole-word scan (it flagged "avoid" here as the Avoid decision).
         ("2026-07-11", _D_R, _SC_R % "Buy — avoid chasing after the rally", []),
+        # Codex r7 (P2): explicit alternative-conjunctions ("or", "vs", "alternatively") present a second
+        # rating just as plainly as a slash — RED on the r5 fix (only slash/parens/cap-phrase were covered).
+        ("2026-07-11", _D_R, _SC_R % "Buy or Watchlist", ["also names"]),
+        ("2026-07-11", _D_R, _SC_R % "Buy vs Watchlist", ["also names"]),
+        ("2026-07-11", _D_R, _SC_R % "Buy, alternatively Watchlist", ["also names"]),
         # Codex: conviction must be re-derivable from the recorded inputs, not merely well-typed.
         ("2026-07-11", {**_D_R, "decision":"Strong Buy", "conviction":80, "analysis_confidence":80,
                         "confidence_score":80,
@@ -1736,6 +1741,10 @@ if scope=="selftest":
         ("2026-07-11", _D_R, _SC_SZ % "standard position / full position candidate", ["also names"]),
         # ...but a genuine non-contradictory gloss following the full action still passes.
         ("2026-07-11", _D_R, _SC_SZ % "standard position (sized per the model portfolio)", []),
+        # Codex r7 (P2): a NEGATED mention of another action ("standard position, not a full position
+        # candidate") reinforces the recorded size rather than contradicting it. RED on the r6 fix (any
+        # unnegated OR negated mention of another action was flagged the same way).
+        ("2026-07-11", _D_R, _SC_SZ % "standard position, not a full position candidate", []),
     ]
     aibad=0
     for dt_,d_,th_,exp in aicases:
@@ -1994,6 +2003,21 @@ if scope=="selftest":
         ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Watchlist",
                         "rating_cap":"Critical: 0; High flags cap the rating"},
          TH_AK_CLEAN, {"earnings":MT_EARNINGS_2CRIT}, ["denies a Critical red flag"]),
+        # Codex r7 (P1): the adjacent-clause affirm (r6) must not fire when the PRECEDING clause is ITSELF a
+        # zero-count denial — "Critical: 0; Watchlist cap applies for weak edge" must still be treated as
+        # denying the Critical. RED on the r6 fix (any clause containing the bare word "critical" — including
+        # one that denies it — qualified as the affirmation's subject).
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","description":"x"}],
+                        "decision":"Buy",
+                        "rating_cap":"Critical: 0; Watchlist cap applies for weak edge"},
+         TH_AK_CLEAN, {}, ["exceeds the 'Watchlist' cap"]),
+        # Codex r7 (P2): resolution excuses a cap that DESCRIBES the resolved state, but not an UNQUALIFIED
+        # denial with no resolution wording at all — that still erases the flag's historical existence, which
+        # resolving it does not do. RED on the r6 fix (the whole denial check was skipped whenever the
+        # record's Critical was resolved, regardless of what the cap text itself said).
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","resolved":True}],
+                        "decision":"Buy","rating_cap":"no Critical red flag"},
+         TH_AK_CLEAN, {}, ["denies a Critical red flag"]),
     ]
     akbad=0
     for dt_,d_,th_,mt_,exp in akcases:

@@ -292,6 +292,9 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
                     r'/\s*' + _e + r'(?:$|' + _boundary_cls + r')'                       # "Buy / Watchlist"
                     r'|\(\s*' + _e + r'\s*\)'                                             # "Buy (Avoid)"
                     r'|\b(?:capp?ed\s+at|cap\s+to|downgrade[d]?\s+to|revised?\s+to)\s+' + _e + r'\b'  # "capped at Watchlist"
+                    # explicit alternative-conjunctions ("Buy or Watchlist", "Buy vs Watchlist", "Buy,
+                    # alternatively Watchlist") present a second rating just as plainly as a slash (Codex r7).
+                    r'|\b(?:or|versus|vs\.?|alternatively)\b\s*' + _e + r'(?:$|' + _boundary_cls + r')'
                 )
                 if re.search(_second_rating_pat, _rest):
                     det.append(f"Headline Scorecard 'Rating'={rating_cell!r} also names {_dec!r} alongside "
@@ -383,11 +386,19 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
                     # of the Rating-qualifier contradiction fixed above.
                     _rest2 = _a[_lead.end():]
                     _boundary_cls2 = r'[\s,;:./()\-–—]'
+                    # A NEGATED mention of another action ("standard position, not a full position
+                    # candidate") REINFORCES the recorded size rather than contradicting it — only an
+                    # unnegated alternative is the real defect (Codex r7). Checked on a short trailing window
+                    # of the text right before the match (not the whole _rest2), so a negation of one
+                    # alternative doesn't blind the scan to a genuinely different, unnegated one appearing
+                    # later in the same gloss.
+                    _neg_word = re.compile(r'\b(?:not|never|no)\b', re.I)
                     for _oa in sorted(_ALL_SIZING_ACTIONS, key=len, reverse=True):
                         _oa_n = _snorm(_oa)
                         if _oa_n == _b:
                             continue
-                        if re.search(r'(?:^|' + _boundary_cls2 + r')' + re.escape(_oa_n) + r'(?:$|' + _boundary_cls2 + r')', _rest2):
+                        _m3 = re.search(r'(?:^|' + _boundary_cls2 + r')' + re.escape(_oa_n) + r'(?:$|' + _boundary_cls2 + r')', _rest2)
+                        if _m3 and not _neg_word.search(_rest2[max(0, _m3.start() - 15):_m3.start()]):
                             det.append(f"Headline Scorecard 'Suggested sizing'={_size_cell!r} also names "
                                        f"{_oa!r} alongside sizing_hint.action={sh.get('action')!r} in "
                                        f"decision_record.json — a gloss may explain the recorded size, not "
@@ -607,7 +618,12 @@ def _ak_affirms(txt):
     _clauses = re.split(r';', txt)
     for i in range(len(_clauses) - 1):
         _prev, _cur = _clauses[i], _clauses[i + 1]
-        if re.search(r'\bcritical\b', _prev, re.I) and re.search(r'\bcaps?\b', _cur, re.I) \
+        # `_prev` must itself AFFIRM a Critical, not merely CONTAIN the word — "Critical: 0" mentions
+        # "critical" too, and treating a following "cap" clause as its affirmation would let "Critical: 0;
+        # Watchlist cap applies for weak edge" pass as if the zero-count denial were retracted (Codex r7).
+        # Excluding any `_prev` that is itself an _AK_DENIAL match closes that without a separate allowlist.
+        if re.search(r'\bcritical\b', _prev, re.I) and not _AK_DENIAL.search(_prev) \
+                and re.search(r'\bcaps?\b', _cur, re.I) \
                 and not _AK_OTHER_SEVERITY_CAP.search(_cur) and not _AK_AFFIRM_NEGATED.search(_cur):
             return True
     return False
@@ -668,18 +684,19 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
     # declared" early return below (Codex r3): a record-level Critical with no recognised module count would
     # otherwise let a cap cell/field saying "no Critical red flag" ship clean, directly contradicting the
     # recorded Critical entry.
-    # ...but NOT when the record's own red_flags Critical(s) are already explicitly resolved
-    # (_ak_resolution_stated) — a truthful cap like "No unresolved Critical flags; cap lifted after the
-    # audited FY25 filing" is then describing reality, not denying an outstanding flag, and must not be
-    # mistaken for the contradiction this check exists to catch (Codex r6). Only meaningful when
-    # json_critical > 0 — a module-declared-but-dropped Critical (json_critical == 0) has no red_flags
-    # entry for _ak_resolution_stated to find resolved, so it is never spuriously exempted here.
-    if (declared or json_critical) and not (json_critical and _ak_resolution_stated(d)):
+    # ...but NOT when the record's own red_flags Critical(s) are already explicitly resolved AND the text
+    # ITSELF describes that resolved state ("No unresolved Critical flags; cap lifted after the audited FY25
+    # filing" — matches _AK_RESOLVED) — that is describing reality, not denying an outstanding flag (Codex
+    # r6). Resolution does NOT excuse an UNQUALIFIED denial with no resolution wording at all ("no Critical
+    # red flag") — that still erases the historical flag's existence, which resolving it does not do (Codex
+    # r7). So the exemption is checked PER TEXT below, not as a blanket skip of the whole check.
+    if declared or json_critical:
         if declared:
             _tm = max(declared, key=declared.get)
             _who = f"{_tm} declares {declared[_tm]}"
         else:
             _who = f"decision_record.json records {json_critical} Critical red flag(s)"
+        _record_resolved = bool(json_critical) and _ak_resolution_stated(d)
         _sec = _scorecard_section(thesis)
         _cap_cell = _hs_cell(_sec, "Rating cap") if _sec else None
         for label, txt in [("Headline Scorecard 'Rating cap' cell", _cap_cell),
@@ -692,6 +709,8 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
                 det.append(f"{label} is not a string (got {type(txt).__name__}: {txt!r}) — a rating cap must "
                            f"be readable text; cannot verify it does not deny the recorded Critical red flag(s)")
                 continue
+            if _record_resolved and _AK_RESOLVED.search(txt):
+                continue  # this text itself describes the resolved state — not a denial of history
             if _AK_DENIAL.search(txt) and not _ak_affirms(txt):
                 det.append(f"{label} denies a Critical red flag ({txt!r}) but {_who}")
     if not declared:
