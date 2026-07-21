@@ -606,7 +606,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ? 'off'
     : anthropicCoolingDown || anthropicDownThisCycle
       ? (planQuotaHit ? 'plan-quota' : 'cooling')
-      : !anthropicBudget!.canSpend()
+      : !anthropicBudget?.canSpend()
         ? 'usd-cap'
         : anthropicRequests > 0
           ? 'scored'

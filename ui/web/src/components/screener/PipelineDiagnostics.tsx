@@ -76,7 +76,7 @@ function tierMeter(t: TierDiagnostics): { label: string; frac: number } {
     const cap = t.usdCap ?? 0
     return { label: `$${used.toFixed(2)} / $${kfmt(cap)}`, frac: cap > 0 ? Math.min(1, used / cap) : 0 }
   }
-  const reqFrac = t.reqCap ? (t.requestsToday ?? 0) / t.reqCap : 0
+  const reqFrac = t.reqCap ? (t.requestsToday ?? 0) / t.reqCap : -1
   const tokFrac = t.tokenCap ? (t.tokensToday ?? 0) / t.tokenCap : -1
   if (tokFrac > reqFrac) return { label: `${kfmt(t.tokensToday ?? 0)}/${kfmt(t.tokenCap ?? 0)} tok`, frac: Math.min(1, tokFrac) }
   return { label: `${kfmt(t.requestsToday ?? 0)}/${kfmt(t.reqCap ?? 0)} req`, frac: Math.min(1, Math.max(0, reqFrac)) }
