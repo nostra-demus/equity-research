@@ -8,7 +8,12 @@
      the series is missing or past SLA — a fresh pool is a no-op sweep, so the 6h interval is safe for
      weekly/monthly cadences. A failed fetch writes nothing (the fetcher contract); the stale pool IS the
      alert, surfaced by the cockpit Data Library. MaterializeDatalessFiles is REQUIRED — the pool is a
-     Google Drive CloudStorage mount and a launchd job cannot read streamed (dataless) files without it. -->
+     Google Drive CloudStorage mount and a launchd job cannot read streamed (dataless) files without it.
+     KEYED CONNECTORS: a connector the interactive builder generates with acquisition `free_key_api` or
+     `paid_api` reads its own credential from a `CONNECTOR_*`-prefixed env var. Add it directly to the
+     INSTALLED copy of this plist (~/Library/LaunchAgents/com.nostradamus.connectors.plist), the same way an
+     LLM provider key is added to com.nostradamus.news-ingester.plist — install-services.sh carries any
+     `CONNECTOR_*` key already there forward on every reinstall, so it survives a routine re-render. -->
 <plist version="1.0">
 <dict>
 	<key>Label</key>
