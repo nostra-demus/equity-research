@@ -1522,17 +1522,20 @@ if scope=="selftest":
         return ("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
                 "| Rating | Watchlist |\n| Suggested action | Monitor |\n| Time horizon | 12-18 months |\n"
                 f"| Expected return | {exp} |\n| Downside risk | {dr} |\n| Risk/reward | {rr} |\n"
-                f"| Understanding /100 | {und} |\n| Conviction /100 | {conv} |\n| Suggested sizing | monitor only |\n")
+                # The cell renders the FULL sizing_hint.action verbatim, exactly as real runs do
+                # (analyses/NHY_2026-07-19), so a truncated cell is caught, not tolerated (Codex r3).
+                f"| Understanding /100 | {und} |\n| Conviction /100 | {conv} |\n"
+                "| Suggested sizing | monitor only — no position (track opportunity cost) |\n")
     D_TMCV={"expected_return_pct":-4.4,"downside_risk_pct":-81.0,"risk_reward":-0.23,"confidence_score":47,"data_sufficiency_score":68}
     TH_TMCV=_hs_thesis(exp="+4.3% (see §8 Scenario Model)", dr="−19% to −81% depending on Iveco scenario",
                         rr="0.72× upside/downside in base case; binary risk makes this ratio misleading",
                         conf="47", ds="68")
-    D_EMAR={"expected_return_pct":118.8,"downside_risk_pct":-63.9,"risk_reward":1.9,"confidence_score":52,"data_sufficiency_score":72}
+    D_EMAR={"decision":"Buy","expected_return_pct":118.8,"downside_risk_pct":-63.9,"risk_reward":1.9,"confidence_score":52,"data_sufficiency_score":72}
     TH_EMAR=_hs_thesis(exp="+118.8% (probability-weighted; computed — see §14)",
                         dr="+63.9% (bear case AED 20.0 is 64% ABOVE current price AED 12.20 — no loss in bear)",
                         rr="1.9x (reward/bear gap; bear case is above entry, so effective downside is nil)",
                         conf="52", ds="72")
-    D_CLEAN={"expected_return_pct":-11.5,"downside_risk_pct":-31.0,"risk_reward":-0.37,"confidence_score":46,"data_sufficiency_score":68}
+    D_CLEAN={"decision":"Buy","expected_return_pct":-11.5,"downside_risk_pct":-31.0,"risk_reward":-0.37,"confidence_score":46,"data_sufficiency_score":68}
     TH_CLEAN=_hs_thesis(exp="≈ −11.5% (probability-weighted, vs indicative ~$123.35; see §8/§14)",
                          dr="≈ −31% to the bear value", rr="≈ −0.37 (negative)", conf="**46**", ds="**68**")
     NO_SCORECARD="# Thesis\n\nno scorecard section here\n"
@@ -1556,8 +1559,8 @@ if scope=="selftest":
         ("2026-07-09", D_TMCV, TH_TMCV, ["Expected return","Risk/reward"]),        # the real, live TMCV bug
         ("2026-07-09", {"confidence_score":80}, _hs_thesis(conf="60"), ["Confidence /100"]),
         ("2026-07-09", {"data_sufficiency_score":70}, _hs_thesis(ds="40"), ["Data sufficiency /100"]),
-        ("2026-07-09", {"risk_reward":None,"confidence_score":50}, _hs_thesis(conf="50"), []),  # unset field skipped
-        ("2026-07-09", {"confidence_score":46.4}, _hs_thesis(conf="46"), []),                    # rounding within tolerance
+        ("2026-07-09", {"decision":"Buy","risk_reward":None,"confidence_score":50}, _hs_thesis(conf="50"), []),  # unset field skipped
+        ("2026-07-09", {"decision":"Buy","confidence_score":46.4}, _hs_thesis(conf="46"), []),                    # rounding within tolerance
         # r3548777238 — later-table leak: scorecard omits Expected return; §8 repeats it → row MISSING.
         ("2026-07-09", D_TMCV, TH_LATER_LEAK, ["Expected return"]),
         # r3548777240 — sign flip within the tolerance window on the sign-sensitive fields → FAIL.
@@ -1596,7 +1599,7 @@ if scope=="selftest":
          _hs_thesis_split(conv="N/A", und="N/A"), ["conviction=None must be a number", "analysis_confidence=None must be a number"]),
         # fully consistent post-split run → clean pass. Carries confidence_inputs/confidence_breakdown/
         # sizing_hint too — the clean-pass fixture must actually satisfy the scorer-artifact check below.
-        ("2026-07-11", {"conviction":62,"analysis_confidence":74,"confidence_score":62,
+        ("2026-07-11", {"decision":"Watchlist","conviction":62,"analysis_confidence":74,"confidence_score":62,
                         "expected_return_pct":-11.5,"downside_risk_pct":-31.0,"risk_reward":-0.37,
                         "confidence_inputs":{"data_sufficiency":70,"decision":"Watchlist"},
                         "confidence_breakdown":{"base":70,"final":62},
@@ -1637,7 +1640,10 @@ if scope=="selftest":
          ["legacy scorecard row 'Confidence /100' must not appear"]),
     ]
     _SC_R = ("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
-             "| Rating | %s |\n| Conviction /100 | 68 |\n| Understanding /100 | 70 |\n")
+             "| Rating | %s |\n| Conviction /100 | 68 |\n| Understanding /100 | 70 |\n"
+             # 'Suggested sizing' is a required reader-facing row (synthesizer.md §2), matching _D_R's
+             # recorded sizing_hint.action so the Rating-row cases stay isolated to what they test (Codex r3).
+             "| Suggested sizing | standard position |\n")
     # Internally CONSISTENT by construction (Codex r-review on the follow-up PR): the earlier fixture used
     # confidence_inputs={}, which ConfidenceInputs() cannot build — so these Rating-row cases were passing
     # only because the re-derivation error was swallowed. Real values, so each case tests the Rating row.
@@ -1646,7 +1652,10 @@ if scope=="selftest":
             "data_sufficiency_score":70,"edge_score":60,
             "confidence_inputs":{"data_sufficiency":70,"decision":"Buy","edge_score":60,
                                  "edge_proof_present":True},
-            "confidence_breakdown":{"base":70,"final":68},"sizing_hint":{"band":"x","action":"y"}}
+            "confidence_breakdown":{"base":70,"final":68},
+            # scorer-derived for Buy @ conviction 68 — the sizing_hint is reader-facing and is
+            # now reconciled against scripts/confidence.py, so a placeholder no longer passes.
+            "sizing_hint":{"band":"standard","action":"standard position"}}
     aicases += [
         # Codex: the scorecard's Rating row was never reconciled — check I passes when a Decision: line
         # elsewhere matches, so a contradictory reader-facing Rating slipped through.
@@ -1654,6 +1663,29 @@ if scope=="selftest":
         ("2026-07-11", _D_R, _SC_R % "Buy", []),                     # matching -> clean
         ("2026-07-11", _D_R, _SC_R % "**Buy**", []),                 # markdown emphasis is the same decision
         ("2026-07-11", _D_R, _SC_R % "Buy — revisit after Q2", []),  # trailing qualifier is still the same decision
+        # Codex r4 (P1): a cell that starts with the recorded decision but goes on to NAME a second,
+        # different §18 decision is a real contradiction a boundary-only prefix check cannot see — RED on
+        # pre-fix code (all three passed clean since each starts with "Buy" followed by a boundary char).
+        ("2026-07-11", _D_R, _SC_R % "Buy / Watchlist", ["also names"]),
+        ("2026-07-11", _D_R, _SC_R % "Buy (Avoid)", ["also names"]),
+        ("2026-07-11", _D_R, _SC_R % "Buy — capped at Watchlist", ["also names"]),
+        # ...but a qualifier that merely EXPLAINS the same decision (no second decision word) still passes.
+        ("2026-07-11", _D_R, _SC_R % "Buy — capped near-term", []),
+        # Codex r5 (P2): "avoid" (and "buy") are ordinary English verbs too, not only §18 decision NAMES —
+        # a qualifier that merely USES one in prose must not be mistaken for naming a second rating. RED on
+        # the r4 fix's own bare whole-word scan (it flagged "avoid" here as the Avoid decision).
+        ("2026-07-11", _D_R, _SC_R % "Buy — avoid chasing after the rally", []),
+        # Codex r7 (P2): explicit alternative-conjunctions ("or", "vs", "alternatively") present a second
+        # rating just as plainly as a slash — RED on the r5 fix (only slash/parens/cap-phrase were covered).
+        ("2026-07-11", _D_R, _SC_R % "Buy or Watchlist", ["also names"]),
+        ("2026-07-11", _D_R, _SC_R % "Buy vs Watchlist", ["also names"]),
+        ("2026-07-11", _D_R, _SC_R % "Buy, alternatively Watchlist", ["also names"]),
+        # Codex r8 (P1): a present Rating row with NO decision of record at all (missing/blank `decision`)
+        # was previously skipped entirely — RED on every prior round (the whole Rating block was gated on
+        # `isinstance(jdec, str) and jdec.strip()`, so a missing/blank decision just meant "nothing to
+        # check", silently passing a run with a reader-facing rating but no recorded decision behind it).
+        ("2026-07-11", {**_D_R, "decision":None}, _SC_R % "Buy", ["no decision of record"]),
+        ("2026-07-11", {k:v for k,v in _D_R.items() if k != "decision"}, _SC_R % "Buy", ["no decision of record"]),
         # Codex: conviction must be re-derivable from the recorded inputs, not merely well-typed.
         ("2026-07-11", {**_D_R, "decision":"Strong Buy", "conviction":80, "analysis_confidence":80,
                         "confidence_score":80,
@@ -1678,6 +1710,52 @@ if scope=="selftest":
                                                      "edge_score":60,"edge_proof_present":True,
                                                      "modules_absent":["valuaton"]}},
          _SC_R % "Buy", ["flagged the recorded inputs"]),
+    ]
+    # Codex r2 (P1): the reader-facing 'Suggested sizing' scorecard cell must reconcile with
+    # sizing_hint.action (synthesizer.md §2). _SC_SZ carries a Suggested sizing row; _D_R records
+    # sizing_hint.action='standard position'. A mismatched cell must FAIL (RED on pre-fix, which only
+    # validated the JSON sizing_hint); a matching cell (incl. a trailing gloss) stays clean.
+    _SC_SZ = ("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
+              "| Rating | Buy |\n| Conviction /100 | 68 |\n| Understanding /100 | 70 |\n"
+              "| Suggested sizing | %s |\n")
+    # Codex r2 (P2): an underscore-emphasised Rating row (`| __Rating__ | Buy |`) is PRESENT and must be
+    # found — pre-fix _hs_cell_exact matched only `*`, so it wrongly reported the row absent.
+    _SC_UND = ("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
+               "| __Rating__ | Buy |\n| Conviction /100 | 68 |\n| Understanding /100 | 70 |\n"
+               "| Suggested sizing | standard position |\n")
+    aicases += [
+        ("2026-07-11", _D_R, _SC_SZ % "full position candidate", ["Suggested sizing"]),   # mismatch -> FAIL
+        ("2026-07-11", _D_R, _SC_SZ % "standard position", []),                           # match -> clean
+        ("2026-07-11", _D_R, _SC_SZ % "standard position (2-4% NAV)", []),                # trailing gloss -> clean
+        ("2026-07-11", _D_R, _SC_UND, []),                                                # underscore Rating found & matches
+        # Codex r3 (P1): an ABSENT 'Suggested sizing' row is a violation — the row is required, so a valid
+        # sizing_hint with no reader-facing cell must FAIL (synthesizer.md §2). RED on pre-fix (absent → skip).
+        ("2026-07-11", _D_R, _SC_SZ.replace("| Suggested sizing | %s |\n", ""),
+         ["Suggested sizing", "required"]),
+        # Codex r3 (P1): a cell that is a mere PREFIX of the recorded action ("standard" for "standard
+        # position", or "s") is a truncated/materially-different size and must FAIL. RED on pre-fix, whose
+        # reverse-prefix `_b.startswith(_a)` accepted any prefix as clean.
+        ("2026-07-11", _D_R, _SC_SZ % "standard", ["Suggested sizing"]),
+        ("2026-07-11", _D_R, _SC_SZ % "s", ["Suggested sizing"]),
+        # Codex r5 (P1): a PRESENT but BLANK cell ("| Suggested sizing | |") must be a violation, same as an
+        # absent row — `_hs_cell` returns '' (not None) for a blank cell, so the earlier `is None`-only check
+        # let it skip reconciliation entirely. RED on the r3 fix (blank cell → no violation).
+        ("2026-07-11", _D_R, _SC_SZ % "", ["Suggested sizing"]),
+        # Codex r6 (P1): the cell leads with the FULL recorded action but the permitted trailing gloss goes
+        # on to name ANOTHER of the scorer's own possible sizing actions — a genuine contradiction, the
+        # sizing twin of the r4 Rating-qualifier fix. RED on the r3 fix (any boundary-delimited suffix passed).
+        ("2026-07-11", _D_R, _SC_SZ % "standard position / full position candidate", ["also names"]),
+        # ...but a genuine non-contradictory gloss following the full action still passes.
+        ("2026-07-11", _D_R, _SC_SZ % "standard position (sized per the model portfolio)", []),
+        # Codex r7 (P2): a NEGATED mention of another action ("standard position, not a full position
+        # candidate") reinforces the recorded size rather than contradicting it. RED on the r6 fix (any
+        # unnegated OR negated mention of another action was flagged the same way).
+        ("2026-07-11", _D_R, _SC_SZ % "standard position, not a full position candidate", []),
+        # Codex r8 (P1): the negation lookback must be scoped to the SAME clause as the alternative — "not"
+        # negates "capped" in the PRECEDING clause here, not the alternative action in the next one, so the
+        # full unnegated alternative must still be flagged. RED on the r7 fix (any nearby "not" within a raw
+        # character window silently cleared it, regardless of which clause it was actually negating).
+        ("2026-07-11", _D_R, _SC_SZ % "standard position, not capped; full position candidate", ["also names"]),
     ]
     aibad=0
     for dt_,d_,th_,exp in aicases:
@@ -1858,9 +1936,112 @@ if scope=="selftest":
                                      {"id":"RF-ACC-002","severity":"Critical","description":"y","resolved":True}],
                         "decision":"Buy"}, TH_AK_CLEAN,
          {"earnings":MT_EARNINGS_2CRIT}, []),
+        # r2: resolution is evaluated PER FINDING — a blanket rating_cap phrase cannot be attributed to a
+        # specific Critical, so it no longer lifts the ceiling on its own (Codex).
         ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Buy",
                         "rating_cap":"Critical finding resolved by the audited FY25 filing; cap lifted"},
+         TH_AK_CLEAN, {"earnings":MT_EARNINGS_2CRIT}, ["exceeds the 'Watchlist' cap"]),
+        # ...and one resolved Critical does not lift the cap while another stands.
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","description":"x","resolved":True},
+                                     {"id":"RF-ACC-002","severity":"Critical","description":"y"}],
+                        "decision":"Buy"}, TH_AK_CLEAN, {"earnings":MT_EARNINGS_2CRIT},
+         ["exceeds the 'Watchlist' cap"]),
+        # r2: the ceiling attaches to the FLAG, so it applies with no recognised module count at all.
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Strong Buy"}, TH_AK_CLEAN, {},
+         ["exceeds the 'Watchlist' cap"]),
+        # Codex r2 (P1): a Critical whose status literally reads "not resolved" is NOT resolved — the
+        # substring "resolved" must not lift the §13 cap (RED on pre-fix code, which matched it as resolved).
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","description":"x",
+                                      "status":"not resolved"}],"decision":"Buy"}, TH_AK_CLEAN, {},
+         ["exceeds the 'Watchlist' cap"]),
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","description":"x",
+                                      "resolution":"still unresolved pending the FY25 audit"}],"decision":"Buy"},
+         TH_AK_CLEAN, {}, ["exceeds the 'Watchlist' cap"]),
+        # ...but genuine resolution wording still lifts it (the negation guard must not over-reject).
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","description":"x",
+                                      "resolution":"resolved by the audited FY25 filing"}],"decision":"Buy"},
+         TH_AK_CLEAN, {}, []),
+    ]
+    akcases += [
+        # Codex r3 (P2): a blanket rating_cap resolution IS accepted when there is exactly ONE Critical —
+        # attribution is unambiguous, so "resolved ... cap lifted" names that one flag and lifts the §13
+        # cap. RED on pre-fix, which never consulted rating_cap at all → the single Critical stayed
+        # unresolved → false "exceeds the 'Watchlist' cap". Pinned to CLAUDE.md §13 (resolved by primary
+        # evidence). (The two-Critical version above stays a violation — ambiguous — proving it is scoped.)
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","description":"x"}],
+                        "decision":"Buy",
+                        "rating_cap":"Critical finding resolved by the audited FY25 filing; cap lifted"},
+         TH_AK_CLEAN, {}, []),
+        # Codex r3 (P2): resolution negation is scoped to its OWN field — a genuine
+        # resolution:"resolved by the audited FY25 filing" must NOT be vetoed by historical wording
+        # ("formerly unresolved") sitting in a DIFFERENT field (description). RED on pre-fix, which joined
+        # the fields and let the cross-field "unresolved" negate the resolution → false "exceeds ... cap".
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical",
+                                      "resolution":"resolved by the audited FY25 filing",
+                                      "description":"formerly unresolved; now closed"}],"decision":"Buy"},
+         TH_AK_CLEAN, {}, []),
+        # Codex r3 (P1): the rating-cap DENIAL check must run against a RECORD-LEVEL Critical even when NO
+        # module declared one, BEFORE the "no module declared" early return. A Watchlist with a recorded
+        # Critical and rating_cap="no Critical red flag" contradicts its own red_flags. RED on pre-fix,
+        # where the denial check sat AFTER `if not declared: return det` → skipped → clean. §13/§18.
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Watchlist",
+                        "rating_cap":"no Critical red flag"}, TH_AK_CLEAN, {},
+         ["denies a Critical red flag"]),
+        # Codex r6 (P2): resolution negation must be scoped to its OWN CLAUSE, not merely its own field — a
+        # SINGLE free-text field can carry both historical negation and a later genuine resolution
+        # ("formerly unresolved; resolved by the audited FY25 filing"). RED on the r3 per-field fix (the
+        # unscoped 'unresolved' alternative still vetoed the whole field regardless of clause).
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical",
+                                      "resolution":"formerly unresolved; resolved by the audited FY25 filing"}],
+                        "decision":"Buy"}, TH_AK_CLEAN, {}, []),
+        # Codex r6 (P2): the record-level Rating-cap DENIAL check (added r3) must not fire when the record's
+        # own Critical is already explicitly resolved — a truthful cap describing that state is not a
+        # contradiction. RED on the r3 fix (denial check ran unconditionally, ignoring resolution).
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","resolved":True}],
+                        "decision":"Buy",
+                        "rating_cap":"No unresolved Critical flags; cap lifted after the audited FY25 filing"},
+         TH_AK_CLEAN, {}, []),
+        # Codex r6 (P2): a genuine affirmation's subject ("Critical earnings flags") and predicate ("cap the
+        # rating") can sit in ADJACENT clauses separated by a semicolon used only for sentence rhythm, with a
+        # correctly-scoped denial about a DIFFERENT module in a third clause. RED on the r2 clause-scoping
+        # fix (the ';' exclusion needed to stop "Critical: 0; High flags cap the rating" also discarded this
+        # genuine case, so the governance denial fired as if the earnings cap were never affirmed).
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Watchlist",
+                        "rating_cap":"Critical earnings flags; therefore cap the rating; no Critical governance red flag"},
          TH_AK_CLEAN, {"earnings":MT_EARNINGS_2CRIT}, []),
+        # ...but the ORIGINAL false-affirm this scoping guards against must still be rejected: a cap phrase
+        # naming a DIFFERENT severity in the adjacent clause is not an affirmation of Critical.
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Watchlist",
+                        "rating_cap":"Critical: 0; High flags cap the rating"},
+         TH_AK_CLEAN, {"earnings":MT_EARNINGS_2CRIT}, ["denies a Critical red flag"]),
+        # Codex r7 (P1): the adjacent-clause affirm (r6) must not fire when the PRECEDING clause is ITSELF a
+        # zero-count denial — "Critical: 0; Watchlist cap applies for weak edge" must still be treated as
+        # denying the Critical. RED on the r6 fix (any clause containing the bare word "critical" — including
+        # one that denies it — qualified as the affirmation's subject).
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","description":"x"}],
+                        "decision":"Buy",
+                        "rating_cap":"Critical: 0; Watchlist cap applies for weak edge"},
+         TH_AK_CLEAN, {}, ["exceeds the 'Watchlist' cap"]),
+        # Codex r7 (P2): resolution excuses a cap that DESCRIBES the resolved state, but not an UNQUALIFIED
+        # denial with no resolution wording at all — that still erases the flag's historical existence, which
+        # resolving it does not do. RED on the r6 fix (the whole denial check was skipped whenever the
+        # record's Critical was resolved, regardless of what the cap text itself said).
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","resolved":True}],
+                        "decision":"Buy","rating_cap":"no Critical red flag"},
+         TH_AK_CLEAN, {}, ["denies a Critical red flag"]),
+        # Codex r8 (P2): the resolved-flag denial exemption (r7) used a bare unscoped `_AK_RESOLVED.search`,
+        # so "no Critical red flag; resolution pending" was wrongly exempted — "resolution" matched even
+        # though the SAME clause says "pending" (negated). Now uses the clause-scoped `_ak_resolved_in`
+        # (the same helper `_ak_resolution_stated` uses) so a negated resolution clause doesn't exempt it.
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","resolved":True}],
+                        "decision":"Buy","rating_cap":"no Critical red flag; resolution pending"},
+         TH_AK_CLEAN, {}, ["denies a Critical red flag"]),
+        # Codex r8 (P2): a falsy but non-string rating_cap (0, False, [], {}) was skipped by a bare `not txt`
+        # before the non-string check could run, silently accepting a malformed field. RED on every prior
+        # round (the falsy-skip predates round 3's record-level move).
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","description":"x"}],
+                        "decision":"Watchlist","rating_cap":0},
+         TH_AK_CLEAN, {}, ["is not a string"]),
     ]
     akbad=0
     for dt_,d_,th_,mt_,exp in akcases:
