@@ -497,7 +497,18 @@ def check_commodity_calibration_gate(doc_path: str) -> list[str]:
     This is a presence/consistency check, not a re-derivation of hit rates — it cannot judge WHICH
     commodity slice should have been flagged, only that the gate ran and recorded a status consistent
     with what the as-of summary's own verdict made possible."""
-    doc = json.load(open(doc_path, encoding="utf-8"))
+    try:
+        doc = json.load(open(doc_path, encoding="utf-8"))
+    except Exception as e:
+        return [f"could not parse for cross-check: {e}"]
+    # A valid-JSON document with the wrong root type (e.g. `[]`) must be reported as a FAIL, not crash the
+    # whole --fixture/CI run with an AttributeError on `.get()`. Mirrors check_commodity_review_anchors /
+    # check_thesis_integrity_anchors, which already guard this. It matters here specifically: commodity
+    # decision records are §25 DATA commits that go straight to main WITHOUT passing CI, so a malformed one
+    # reaches this validator unscreened — and main() runs these cross-checks even when validate() already
+    # failed, so an unguarded .get() takes the entire run down instead of reporting the defect.
+    if not isinstance(doc, dict):
+        return ["commodity decision_record is not a JSON object"]
     decision_date = doc.get("decision_date")
     if not (isinstance(decision_date, str) and decision_date >= COMMODITY_CALIBRATION_GATE_DATE):
         return []  # forward-looking; pre-gate runs N/A (never a violation)

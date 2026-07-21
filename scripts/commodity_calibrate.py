@@ -139,7 +139,10 @@ def build(today=None):
 
     # per-commodity slice — always computed so callers can see the raw N, but only "actionable"
     # (a real {hit_rate, n} dict rather than the honest "insufficient" string) at/above MIN_SLICE_N.
-    by_commodity_reviews = {}
+    # Seed EVERY tracked commodity first, so a commodity with no decisive reviews still has a key. The
+    # synthesis agent's Phase-6 step branches on this value being either the "insufficient …" string or a
+    # {hit_rate, n} object — a MISSING key is an undefined third case for it, so never emit one.
+    by_commodity_reviews = {d["commodity"]: [] for d in records}
     for c, r in decisive:
         by_commodity_reviews.setdefault(c, []).append(r)
     for c in sorted(by_commodity_reviews):
@@ -270,6 +273,20 @@ def _selftest():
             check("WHEAT slice actionable (N=5>=5, at the floor)",
                   isinstance(out["calibration_by_commodity"]["WHEAT"], dict))
             check("GOLD hit_rate value", out["calibration_by_commodity"]["GOLD"]["hit_rate"] == round(6 / 7, 3))
+            # A tracked commodity with NO decisive reviews must still carry a key: the synthesis agent's
+            # Phase-6 step branches on the "insufficient …" string vs a {hit_rate, n} object, so a missing
+            # key is an undefined third case for it (Gemini review).
+            no_rev_dir = os.path.join(tmp, "commodity", "runs", "COPPER")
+            os.makedirs(no_rev_dir, exist_ok=True)
+            json.dump(
+                {"swarm": "commodity", "commodity": "COPPER", "decision_date": "2026-01-01", "action": "Hold"},
+                open(os.path.join(no_rev_dir, "decision_record.json"), "w"),
+            )
+            out_seed = build(today="2026-03-01")
+            check("every tracked commodity has a slice key",
+                  set(out_seed["calibration_by_commodity"]) == {"GOLD", "WHEAT", "COPPER"})
+            check("zero-review commodity is honestly 'insufficient (N=0…)'",
+                  out_seed["calibration_by_commodity"]["COPPER"] == f"insufficient (N=0; floor {MIN_SLICE_N})")
             check("error taxonomy tallied", out["error_taxonomy_distribution"].get("timing error") == 3)
             check("decision quality tallied", out["decision_quality_distribution"].get("skill") == 9)
         finally:
