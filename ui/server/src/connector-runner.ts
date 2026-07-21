@@ -1,127 +1,128 @@
-// Connector cadence runner — the always-on loop that keeps every built feed fresh. On a poll interval it
-// asks, per connector × subject, "is this due?" (health.isDue against the manifest cadence), runs the
-// connector's fetch.py --subject into the pool, and records the outcome on the health ledger. When a feed
-// crosses the broken threshold and auto-repair is on, it hands the connector to connector-repair.ts. The
-// loop is unref'd (can't by itself keep the process alive) and OFF by default — mirrors news/scheduler.ts.
-// It runs the connectors that already exist in the repo; it never edits code and never pushes.
+// Connector repair watchdog — the always-on self-healing loop. #287's run_connectors.py (launchd) is the SOLE
+// fetcher: it fetches each connector when stale and APPENDS a decision row per connector × subject to its
+// ledger at <DATA_DIR>/_connectors/run_ledger.ndjson. This watchdog does NOT fetch. On a poll interval it
+// reads that ledger, finds every connector × subject whose LATEST fetch decision is `failed` (a fetch attempt
+// that failed — the source likely broke), and, when auto-repair is on, hands the broken connector to
+// connector-repair.ts to reproduce, fix fetch.py, and open a fix-it PR. It never fetches, never edits code
+// itself, and never pushes. The loop is unref'd (can't by itself keep the process alive) and OFF by default —
+// mirrors news/scheduler.ts.
 
-import { execFile } from 'node:child_process'
+import fs from 'node:fs'
 import path from 'node:path'
-import { promisify } from 'node:util'
-import { CONNECTOR_RUNNER, DATA_DIR, REPO_ROOT, connectorAutoRepairReady, connectorRunnerReady } from './config'
-import { listConnectors, cadenceIntervalMs, type ConnectorManifest } from './connector-registry'
-import { BROKEN_THRESHOLD, deriveStatus, feedHealthFor, foldHealth, isDue, readAll, recordAttempt, type FeedStatus } from './connector-health'
+import { CONNECTOR_RUNNER, DATA_DIR, connectorAutoRepairReady, connectorRunnerReady } from './config'
+import { listConnectors } from './connector-registry'
+import { latestRepairStatus } from './connector-health'
 import { startConnectorRepair } from './connector-repair'
 
-const execFileAsync = promisify(execFile)
 const log = (m: string) => console.log(`[connector-runner] ${m}`) // eslint-disable-line no-console
 
 let timer: ReturnType<typeof setInterval> | null = null
 let sweeping = false
 let lastSweepAt: string | null = null
-let fetchedToday = 0
-let fetchDay = ''
 
-// A minimal env for the fetcher: runtime + proxy/CA (a fetch needs the network) + any CONNECTOR_* key an
-// operator sets for a keyed feed. NO provider secrets, NO PR token — a fetcher only reads a public source.
-const FETCH_ALLOW_EXACT = new Set([
-  'PATH', 'HOME', 'USER', 'LOGNAME', 'SHELL', 'PWD', 'TMPDIR', 'TMP', 'TEMP', 'LANG', 'TERM', 'TZ', 'HOSTNAME',
-  'NODE_EXTRA_CA_CERTS', 'SSL_CERT_FILE', 'SSL_CERT_DIR', 'CURL_CA_BUNDLE', 'REQUESTS_CA_BUNDLE',
-  'HTTP_PROXY', 'HTTPS_PROXY', 'NO_PROXY', 'ALL_PROXY', 'http_proxy', 'https_proxy', 'no_proxy', 'all_proxy',
-])
-export function fetchEnv(base: NodeJS.ProcessEnv = process.env): NodeJS.ProcessEnv {
-  const env: NodeJS.ProcessEnv = {}
-  for (const [k, v] of Object.entries(base)) {
-    if (v === undefined) continue
-    if (FETCH_ALLOW_EXACT.has(k) || k.startsWith('LC_') || k.startsWith('CONNECTOR_')) env[k] = v
-  }
-  return env
-}
+// A feed is treated as broken only after this many CONSECUTIVE failed sweeps. run_connectors.py appends one
+// run_ledger row per connector × subject per sweep and already retries 0/60/300s WITHIN a single sweep, and
+// the launchd cadence is 6-hourly — so 3 consecutive `failed` rows is a sustained ~12–18h break, not a
+// transient blip that clears on the next sweep. This restores the protection the removed connector-health
+// BROKEN_THRESHOLD gave before this refactor: without it a single transient failure would immediately spend a
+// paid repair and potentially open an unnecessary fix-it PR (Codex #310).
+export const BROKEN_THRESHOLD = 3
 
-// Parse the data date a successful fetch reported (both reference connectors print "... as_of YYYY-MM-DD").
-export function parseAsOf(stdout: string): string | null {
-  const m = /as_of\s+(\d{4}-\d{2}-\d{2})/.exec(stdout || '')
-  return m ? m[1] : null
-}
-
-/** Run one connector's fetcher for one subject. Never throws — returns the outcome for the health ledger. */
-export async function runFetch(m: ConnectorManifest, subject: string): Promise<{ ok: boolean; as_of: string | null; error: string | null }> {
-  const entry = path.join(m.dir, m.entry)
-  try {
-    const { stdout } = await execFileAsync('python3', [entry, '--subject', subject, '--data-root', DATA_DIR], {
-      cwd: REPO_ROOT, env: fetchEnv(), timeout: CONNECTOR_RUNNER.fetchTimeoutMs, maxBuffer: 8_000_000,
-    })
-    return { ok: true, as_of: parseAsOf(stdout), error: null }
-  } catch (e: any) {
-    const tail = String(e?.stderr || e?.stdout || e?.message || 'fetch failed').slice(-400)
-    return { ok: false, as_of: null, error: e?.killed ? `timed out after ${Math.round(CONNECTOR_RUNNER.fetchTimeoutMs / 1000)}s` : tail }
-  }
-}
-
-function resetDailyCounterIfNeeded(): void {
-  const d = new Date().toISOString().slice(0, 10)
-  if (d !== fetchDay) { fetchDay = d; fetchedToday = 0 }
-}
-
-/** One sweep: fetch every DUE feed (bounded), record health, and hand any newly-broken feed to auto-repair. */
-export async function sweep(): Promise<{ due: number; fetched: number; ok: number; failed: number; repairs: number }> {
-  const connectors = listConnectors()
-  const health = foldHealth(readAll())
-  const now = Date.now()
-  resetDailyCounterIfNeeded()
-
-  // Build the due work-list (connector × subject).
-  const due: { m: ConnectorManifest; subject: string }[] = []
-  for (const m of connectors) {
-    for (const subject of m.subjects) {
-      const fh = health.get(`${m.id}::${subject}`) ?? feedHealthFor(m.id, subject)
-      if (isDue(fh, m.cadence, now)) due.push({ m, subject })
+/**
+ * PURE: given the raw text of #287's run_ledger.ndjson, return every connector × subject whose LATEST decision
+ * is `failed` AND whose trailing run of consecutive `failed` sweeps is at least `threshold`. Rows are one JSON
+ * object per connector × subject per sweep, in append (chronological) order, so the streak is counted from the
+ * tail and ANY non-`failed` decision (refetched / fresh / skipped_*) resets it. Malformed lines are skipped; a
+ * row counts only if it has a string `connector`, a string `subject`, and a `decision`.
+ */
+export function brokenFromLedger(
+  ledgerText: string,
+  threshold: number = BROKEN_THRESHOLD,
+): { connector: string; subject: string; message: string }[] {
+  const state = new Map<string, { connector: string; subject: string; streak: number; message: string }>()
+  for (const line of (ledgerText || '').split('\n')) {
+    const t = line.trim()
+    if (!t) continue
+    let row: any
+    try { row = JSON.parse(t) } catch { continue }
+    if (!row || typeof row !== 'object' || Array.isArray(row)) continue
+    if (typeof row.connector !== 'string' || typeof row.subject !== 'string' || row.decision == null) continue
+    const k = `${row.connector}::${row.subject}`
+    if (String(row.decision) === 'failed') {
+      const streak = (state.get(k)?.streak || 0) + 1
+      state.set(k, { connector: row.connector, subject: row.subject, streak, message: String(row.message || '') })
+    } else {
+      // any non-failed decision recovers/resets the feed — the consecutive-failure streak starts over
+      state.set(k, { connector: row.connector, subject: row.subject, streak: 0, message: '' })
     }
   }
-
-  let ok = 0, failed = 0, repairs = 0, fetched = 0
-  // Phase 1 — fetch every DUE feed (bounded concurrency + daily cap), record each outcome.
-  const queue = [...due]
-  const worker = async () => {
-    for (;;) {
-      resetDailyCounterIfNeeded()
-      if (fetchedToday >= CONNECTOR_RUNNER.dailyFetchCap) return
-      const item = queue.shift()
-      if (!item) return
-      fetchedToday++; fetched++
-      const res = await runFetch(item.m, item.subject)
-      await recordAttempt(item.m.id, item.subject, res.ok, { as_of: res.as_of, error: res.error }).catch(() => {})
-      if (res.ok) ok++; else failed++
-    }
+  const out: { connector: string; subject: string; message: string }[] = []
+  for (const v of state.values()) {
+    if (v.streak >= threshold) out.push({ connector: v.connector, subject: v.subject, message: v.message })
   }
-  const n = Math.max(1, Math.min(CONNECTOR_RUNNER.maxConcurrentFetch, queue.length))
-  await Promise.all(Array.from({ length: n }, () => worker()))
+  return out
+}
 
-  // Phase 2 — self-heal. Scan EVERY feed's CURRENT health (not just the ones fetched this sweep — a broken
-  // feed in its retry-floor cooldown is not re-fetched, but it still needs repairing). Any feed at/over the
-  // broken threshold with no repair already open is handed to the coding agent. startConnectorRepair's own
-  // caps + cooldown + inflight guard keep this from stacking or spamming.
+/**
+ * PURE: the `message` from the LATEST ledger row for a given connector × subject, across ANY decision (not
+ * just `failed`), or '' when there is no such row. Same parse discipline as brokenFromLedger (skip malformed
+ * lines; require string connector/subject; reject arrays). Chronological append order means the last match
+ * wins. Lets the MANUAL repair trigger hand the coding agent the same last-error the watchdog already passes
+ * from the ledger — otherwise the manual path ships '(no error text captured)' while the watchdog does not.
+ */
+export function latestLedgerMessage(ledgerText: string, connector: string, subject: string): string {
+  let message = ''
+  for (const line of (ledgerText || '').split('\n')) {
+    const t = line.trim()
+    if (!t) continue
+    let row: any
+    try { row = JSON.parse(t) } catch { continue }
+    if (!row || typeof row !== 'object' || Array.isArray(row)) continue
+    if (typeof row.connector !== 'string' || typeof row.subject !== 'string') continue
+    if (row.connector === connector && row.subject === subject) message = String(row.message || '')
+  }
+  return message
+}
+
+const ledgerPath = () => path.join(DATA_DIR, '_connectors', 'run_ledger.ndjson')
+
+/** The last recorded error for a connector × subject from #287's fetch ledger, or '' if unreadable/absent. */
+export function lastLedgerError(connector: string, subject: string): string {
+  let text = ''
+  try { text = fs.readFileSync(ledgerPath(), 'utf8') } catch { return '' }
+  return latestLedgerMessage(text, connector, subject)
+}
+
+/**
+ * One sweep: read #287's fetch ledger and, when auto-repair is on, hand every currently-broken feed to
+ * auto-repair. A broken feed is skipped when its connector isn't discovered, the subject isn't in the
+ * manifest, or a repair is already in flight (repairing / pr_open). Returns the broken count + repairs started.
+ */
+export function sweep(): { broken: number; repairs: number } {
+  let text = ''
+  try { text = fs.readFileSync(ledgerPath(), 'utf8') } catch { text = '' }
+  const broken = brokenFromLedger(text)
+  let repairs = 0
   if (connectorAutoRepairReady()) {
-    const health2 = foldHealth(readAll())
-    for (const m of connectors) {
-      for (const subject of m.subjects) {
-        const fh = health2.get(`${m.id}::${subject}`)
-        if (!fh || fh.consecutive_failures < BROKEN_THRESHOLD) continue
-        if (fh.repair_status === 'repairing' || fh.repair_status === 'pr_open') continue
-        if (startConnectorRepair(m, subject, fh.last_error || '').accepted) repairs++
-      }
+    const connectors = listConnectors()
+    for (const b of broken) {
+      const m = connectors.find((c) => c.id === b.connector)
+      if (!m || !m.subjects.includes(b.subject)) continue
+      const rep = latestRepairStatus(m.id)
+      if (rep.status === 'repairing' || rep.status === 'pr_open') continue
+      if (startConnectorRepair(m, b.subject, b.message).accepted) repairs++
     }
   }
-  return { due: due.length, fetched, ok, failed, repairs }
+  return { broken: broken.length, repairs }
 }
 
-async function tick(): Promise<void> {
+function tick(): void {
   if (sweeping) return
   sweeping = true
   lastSweepAt = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
   try {
-    const r = await sweep()
-    if (r.fetched || r.repairs) log(`sweep: ${r.fetched} fetched (${r.ok} ok, ${r.failed} failed), ${r.repairs} repair(s) started`)
+    const r = sweep()
+    if (r.repairs > 0) log(`watchdog: ${r.repairs} repair(s) started`)
   } catch (e: any) {
     log(`sweep error: ${e?.message || e}`)
   } finally {
@@ -133,67 +134,14 @@ async function tick(): Promise<void> {
 export function startConnectorRunner(): void {
   if (timer) return
   if (!connectorRunnerReady()) { log('runner off (set ENGINE_CONNECTOR_RUNNER_ENABLED=1 to keep feeds fresh)'); return }
-  setTimeout(() => void tick(), 8000) // let the server settle, then the first sweep
-  timer = setInterval(() => void tick(), CONNECTOR_RUNNER.pollIntervalMin * 60_000)
+  setTimeout(() => tick(), 8000) // let the server settle, then the first sweep
+  timer = setInterval(() => tick(), CONNECTOR_RUNNER.pollIntervalMin * 60_000)
   timer.unref?.()
-  log(`runner on — sweep every ${CONNECTOR_RUNNER.pollIntervalMin} min${connectorAutoRepairReady() ? ' · auto-repair on' : ''}`)
+  log(`repair watchdog on — every ${CONNECTOR_RUNNER.pollIntervalMin} min${connectorAutoRepairReady() ? ' · auto-repair on' : ''}`)
 }
 
 export function stopConnectorRunner(): void {
   if (timer) { clearInterval(timer); timer = null }
-}
-
-/** Run one connector now (a subject, or all its subjects) — the manual "fetch now" path. */
-export async function runConnectorNow(id: string, subject?: string): Promise<{ ran: { subject: string; ok: boolean; error: string | null }[] } | null> {
-  const m = listConnectors().find((c) => c.id === id)
-  if (!m) return null
-  const subjects = subject ? (m.subjects.includes(subject) ? [subject] : []) : m.subjects
-  const ran: { subject: string; ok: boolean; error: string | null }[] = []
-  for (const s of subjects) {
-    const res = await runFetch(m, s)
-    await recordAttempt(m.id, s, res.ok, { as_of: res.as_of, error: res.error }).catch(() => {})
-    ran.push({ subject: s, ok: res.ok, error: res.error })
-  }
-  return { ran }
-}
-
-export interface FeedStatusRow {
-  connector_id: string
-  subject: string
-  series: string
-  cadence: string
-  status: FeedStatus
-  last_ok_at: string | null
-  last_as_of: string | null
-  last_attempt_at: string | null
-  consecutive_failures: number
-  staleness_sla_days: number | null
-  entry_modules_hint: string[] // the satisfies slugs (best-effort orb hint)
-  repair_pr_url: string | null
-  next_due_at: string | null
-}
-
-/** The cockpit read: every connector × subject with its derived live/stale/broken status. */
-export function listFeedStatuses(): FeedStatusRow[] {
-  const connectors = listConnectors()
-  const health = foldHealth(readAll())
-  const now = Date.now()
-  const rows: FeedStatusRow[] = []
-  for (const m of connectors) {
-    for (const subject of m.subjects) {
-      const fh = health.get(`${m.id}::${subject}`) ?? feedHealthFor(m.id, subject)
-      const interval = cadenceIntervalMs(m.cadence)
-      const next = interval != null && fh.last_ok_at ? new Date(Date.parse(fh.last_ok_at) + interval).toISOString().replace(/\.\d{3}Z$/, 'Z') : null
-      rows.push({
-        connector_id: m.id, subject, series: m.series, cadence: m.cadence,
-        status: deriveStatus(fh, m.staleness_sla_days, now),
-        last_ok_at: fh.last_ok_at, last_as_of: fh.last_as_of, last_attempt_at: fh.last_attempt_at,
-        consecutive_failures: fh.consecutive_failures, staleness_sla_days: m.staleness_sla_days,
-        entry_modules_hint: m.satisfies, repair_pr_url: fh.repair_pr_url, next_due_at: next,
-      })
-    }
-  }
-  return rows.sort((a, b) => a.connector_id.localeCompare(b.connector_id) || a.subject.localeCompare(b.subject))
 }
 
 export function getRunnerStatus(): { enabled: boolean; autoRepair: boolean; pollIntervalMin: number; lastSweepAt: string | null; connectors: number } {

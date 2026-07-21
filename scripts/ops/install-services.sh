@@ -157,6 +157,22 @@ install_one() {
         /usr/libexec/PlistBuddy -c "Set :EnvironmentVariables:$sk $key" "$staged" 2>/dev/null || true
       fi
     done
+    # A connector the interactive builder (#298) generates with acquisition `free_key_api`/`paid_api` reads
+    # its own credential from a `CONNECTOR_*`-prefixed env var, hand-added to the INSTALLED
+    # com.nostradamus.connectors.plist the same way an LLM key is added above — but the key's exact NAME
+    # is open-ended (the builder names it per-connector), so it can't be a fixed list like the LLM keys.
+    # Sweep every EnvironmentVariables key already in the installed plist and carry forward any that starts
+    # with CONNECTOR_ and isn't already in the freshly-rendered copy — otherwise a routine reinstall silently
+    # drops it, and that connector fails (and can spuriously trip the repair watchdog) on every sweep after.
+    while IFS= read -r ck; do
+      [ -z "$ck" ] && continue
+      key="$(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables:$ck" "$dst" 2>/dev/null || true)"
+      [ -z "$key" ] && continue
+      cur="$(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables:$ck" "$staged" 2>/dev/null || true)"
+      [ -z "$cur" ] && { /usr/libexec/PlistBuddy -c "Add :EnvironmentVariables:$ck string $key" "$staged" 2>/dev/null || true; }
+    done < <(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables" "$dst" 2>/dev/null \
+               | grep -E '^[[:space:]]+CONNECTOR_[A-Za-z0-9_]+[[:space:]]*=' \
+               | sed -E 's/^[[:space:]]*([A-Za-z0-9_]+)[[:space:]]*=.*/\1/')
   fi
   if loaded "$label" && cmp -s "$staged" "$dst"; then
     rm -f "$staged"

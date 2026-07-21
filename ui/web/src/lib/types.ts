@@ -156,32 +156,6 @@ export interface AddPipelineSourceInput {
   note?: string
 }
 
-// ---- the always-on layer: cadence runner + staleness watchdog + auto-repair (server: connector-*.ts) ----
-export type FeedStatus = 'unknown' | 'live' | 'stale' | 'broken' | 'repairing'
-export interface FeedStatusRow {
-  connector_id: string
-  subject: string
-  series: string
-  cadence: string
-  status: FeedStatus
-  last_ok_at: string | null
-  last_as_of: string | null
-  last_attempt_at: string | null
-  consecutive_failures: number
-  staleness_sla_days: number | null
-  entry_modules_hint: string[]
-  repair_pr_url: string | null
-  next_due_at: string | null
-}
-export interface ConnectorRunnerStatus {
-  enabled: boolean
-  autoRepair: boolean
-  pollIntervalMin: number
-  lastSweepAt: string | null
-  connectors: number
-}
-export interface ConnectorsRead { status: ConnectorRunnerStatus; feeds: FeedStatusRow[] }
-
 // ---- the Data Library read (server: pipelines.ts / GET /api/pipelines) ----
 // Mirrors the server reader exactly: snake_case fields are preserved from the data_needs contract,
 // camelCase for manifest-derived fields. The whole read is fail-closed server-side (malformed
@@ -1246,7 +1220,7 @@ export interface CallsResult {
 
 // ---- activity / audit log ----
 export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
-export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean; canScanPipeline?: boolean; canBuildConnector?: boolean; canRunConnectors?: boolean; emailEnabled?: boolean }
+export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean; canScanPipeline?: boolean; canBuildConnector?: boolean; emailEnabled?: boolean }
 
 // ---- cockpit-wide product feedback (server: feedback-store.ts) ----
 export type CockpitFeedbackCategory = 'bug' | 'ui' | 'idea' | 'research_quality' | 'other'
