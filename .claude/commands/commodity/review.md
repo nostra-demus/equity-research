@@ -196,4 +196,4 @@ Report the commit SHA from `git rev-parse HEAD`. If no review files were created
 - Append-only: an existing review file is never overwritten; a re-review of the same window gets a `_vN` suffix.
 - No fabricated prices, returns, or evidence — unresolvable fields are `null`/empty with a caveat, never guessed.
 - `frameworks/commodity/decision_review.schema.json` and `DECISION_LEDGER.md` §7/§10/§12 are the only doctrine sources; this command does not redefine them.
-- This command spawns no subagents and builds no calibration/dashboard layer — that is the natural next phase, once enough reviews exist to aggregate (mirrors how `/research:calibrate` followed `/research:review-decisions` by a separate PR in the research swarm's own history).
+- This command spawns no subagents and builds no calibration/dashboard layer itself — `/commodity:calibrate` (`scripts/commodity_calibrate.py`) is that next phase, aggregating whatever reviews this command has filed into a hit-rate scoreboard that `99_commodity-thesis-synthesis.md` reads back on every subsequent run (`frameworks/DECISION_LEDGER.md` §18, commodity twin).

@@ -247,6 +247,13 @@ COMMODITY_DOSSIER = "commodity-thesis/99_commodity-thesis-synthesis.md"
 COMMODITY_TRIAGE = "market-structure/00_commodity-triage.md"
 ROUTING_ACTION_RE = re.compile(r"##\s*Routing[\s\S]*?^Action:\s*(.+)$", re.MULTILINE)
 TRIAGE_VERDICT_RE = re.compile(r"\*\*Verdict:\*\*\s*(Sufficient|Partial|Insufficient)\b")
+# Rollout date for the commodity-scoped twin of eval.py check AG (frameworks/DECISION_LEDGER.md §18,
+# scripts/commodity_calibrate.py). Forward-looking, mirroring AG_DATE/AI_DATE/AK_DATE's own convention
+# (scripts/eval.py, scripts/headline_checks.py): every commodity decision_record.json dated on/after
+# this date must carry a well-formed calibration_feedback object; the four runs committed before this
+# date (ALUMINIUM/COPPER/GOLD/WHEAT, all dated 2026-07-02..07-18) genuinely predate the gate and are N/A.
+COMMODITY_CALIBRATION_GATE_DATE = "2026-07-21"
+CALIBRATION_STATUSES = {"not_available", "pre_data", "checked_no_action", "applied"}
 
 
 def commodity_decision_records() -> list[str]:
@@ -451,6 +458,86 @@ def check_commodity_data_sufficiency(doc_path: str) -> list[str]:
     return []
 
 
+def _commodity_calib_summary_asof(decision_date: str):
+    """Latest commodity/performance/<DATE>_calibration_summary.json dated on/before decision_date
+    (a synthesis run can only act on calibration history that existed when it ran), or None if none
+    qualifies. Ties broken by filename so a `_v2` correction wins — mirrors scripts/eval.py's own
+    _calib_summary_asof exactly, pointed at the commodity swarm's performance directory."""
+    if not isinstance(decision_date, str):
+        return None
+    try:
+        datetime.date.fromisoformat(decision_date)
+    except ValueError:
+        return None
+    best, best_date = None, None
+    for p in sorted(glob.glob(os.path.join(REPO, "commodity", "performance", "*_calibration_summary.json"))):
+        m = re.match(r"(\d{4}-\d{2}-\d{2})_calibration_summary", os.path.basename(p))
+        if not m:
+            continue
+        fdate = m.group(1)
+        if fdate > decision_date:
+            continue
+        if best_date is None or fdate > best_date or (fdate == best_date and os.path.basename(p) > os.path.basename(best)):
+            best, best_date = p, fdate
+    if best is None:
+        return None
+    try:
+        return json.load(open(best, encoding="utf-8"))
+    except Exception:
+        return None
+
+
+def check_commodity_calibration_gate(doc_path: str) -> list[str]:
+    """The commodity-scoped twin of eval.py's check AG (frameworks/DECISION_LEDGER.md §18): verifies
+    99_commodity-thesis-synthesis.md did not silently skip reading back scripts/commodity_calibrate.py's
+    own output — the exact same false-confidence hole check AG closed for the research swarm, now closed
+    here before it can ever ship (unlike AI/AK, which the research swarm discovered only after a defect
+    had already shipped). Forward-looking: N/A for any decision_date before COMMODITY_CALIBRATION_GATE_DATE.
+
+    This is a presence/consistency check, not a re-derivation of hit rates — it cannot judge WHICH
+    commodity slice should have been flagged, only that the gate ran and recorded a status consistent
+    with what the as-of summary's own verdict made possible."""
+    doc = json.load(open(doc_path, encoding="utf-8"))
+    decision_date = doc.get("decision_date")
+    if not (isinstance(decision_date, str) and decision_date >= COMMODITY_CALIBRATION_GATE_DATE):
+        return []  # forward-looking; pre-gate runs N/A (never a violation)
+    summary = _commodity_calib_summary_asof(decision_date)
+    verdict = (summary or {}).get("verdict") or ""
+    if summary is None:
+        expected = "not_available"
+    elif verdict.startswith("Pre-data"):
+        expected = "pre_data"
+    else:
+        expected = "checked"  # covers checked_no_action / applied — this script can't judge which is correct
+    cf = doc.get("calibration_feedback")
+    if not isinstance(cf, dict):
+        return [f"decision_date {decision_date} >= gate date {COMMODITY_CALIBRATION_GATE_DATE} and as-of "
+                f"calibration_summary={'present (verdict=' + repr(verdict) + ')' if summary is not None else 'absent'} "
+                f"but decision_record.json has no calibration_feedback object — the Phase 6 calibration-"
+                f"feedback gate (DECISION_LEDGER.md §18, commodity twin) was silently skipped"]
+    errs = []
+    status = cf.get("status")
+    if status not in CALIBRATION_STATUSES:
+        errs.append(f"calibration_feedback.status={status!r} is not one of {sorted(CALIBRATION_STATUSES)}")
+    elif expected == "not_available" and status != "not_available":
+        errs.append(f"no as-of calibration_summary.json exists (decision_date={decision_date}) but status={status!r} (expected 'not_available')")
+    elif expected == "pre_data" and status != "pre_data":
+        errs.append(f"as-of calibration_summary verdict={verdict!r} is Pre-data but status={status!r} (expected 'pre_data')")
+    elif expected == "checked" and status not in ("checked_no_action", "applied"):
+        errs.append(f"as-of calibration_summary has real signal (verdict={verdict!r}) but status={status!r} (expected 'checked_no_action' or 'applied')")
+    if status == "applied":
+        hp, fs = cf.get("haircut_points"), cf.get("flagged_slices")
+        if not (isinstance(hp, (int, float)) and not isinstance(hp, bool) and hp > 0):
+            errs.append(f"status='applied' but haircut_points={hp!r} is not a positive number")
+        if not (isinstance(fs, list) and len(fs) > 0):
+            errs.append(f"status='applied' but flagged_slices={fs!r} is empty/not a list")
+    if status == "checked_no_action":
+        fs = cf.get("flagged_slices")
+        if isinstance(fs, list) and len(fs) > 0:
+            errs.append(f"status='checked_no_action' but flagged_slices={fs!r} is non-empty")
+    return errs
+
+
 def main(argv: list[str]) -> int:
     if len(argv) >= 2 and argv[1] == "--fixture":
         pairs = [(os.path.join(REPO, s), os.path.join(REPO, d)) for s, d in FIXTURE_PAIRS]
@@ -467,7 +554,7 @@ def main(argv: list[str]) -> int:
         errs = validate(schema_p, doc_p)
         rel = os.path.relpath(doc_p, REPO)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_SCHEMA)):
-            errs = errs + check_commodity_routing(doc_p) + check_commodity_data_sufficiency(doc_p)
+            errs = errs + check_commodity_routing(doc_p) + check_commodity_data_sufficiency(doc_p) + check_commodity_calibration_gate(doc_p)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_REVIEW_SCHEMA)):
             errs = errs + check_commodity_review_anchors(doc_p)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, THESIS_INTEGRITY_SCHEMA)):

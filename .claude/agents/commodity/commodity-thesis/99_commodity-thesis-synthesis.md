@@ -33,6 +33,7 @@ You must:
   - `commodity/runs/{COMMODITY}/macro-positioning/99_macro-positioning-synthesis.md` — REQUIRED
   - `commodity/runs/{COMMODITY}/commodity-thesis/01_commodity-catalysts.md` — REQUIRED
   - `commodity/runs/{COMMODITY}/commodity-thesis/02_commodity-cost-curve-fair-value.md` — OPTIONAL (present in a fresh full run, where this orb runs in the same module before the synthesis; on a legacy run predating this orb it may be absent — then say so and mark margin of safety "Not assessable", §11 — never improvise a floor. Not a hard upstream: its absence never blocks the synthesis, matching the graceful read above.)
+- **Latest calibration summary** — `Glob commodity/performance/*_calibration_summary.json`, filtered to files dated on or before `DATE`, latest wins (ties broken by filename, so a `_v2` correction wins over its base file for the same date). This is the Phase 6 calibration-feedback input (mirrors `frameworks/DECISION_LEDGER.md` §18 exactly, scoped to `scripts/commodity_calibrate.py`'s output), NOT one of the five required upstream module/orb inputs above — read it before WORKFLOW step 4, since that step needs it. If none exists yet, that is expected and non-blocking (the ledger has no resolved history yet); proceed and record that honestly.
 
 # WORKFLOW
 
@@ -44,9 +45,10 @@ You must:
    - The **roll-adjusted view:** state whether the exposure earns or bleeds carry — carry the price-curve orb's roll-adjusted return so a bullish SPOT call in contango is not presented as a win on a roll-bearing vehicle (§15/§24).
    - The **risk summary** lists the strongest bear case, the single killer risk (fold in the **supply-security policy killer risk** the supply-demand synthesis carried forward — with its expiry and flip trigger), and what would flip the view (§8).
    - The **relative** read compares this commodity's setup to the OTHER commodities in the profile (are we in the right one?).
-4. Decide the **Action** verdict from the allowed set: `Buy` (add / initiate), `Hold` (keep current exposure), `Trim` (reduce), `Avoid` (no exposure / exit), `Research More` (evidence too thin to act — the honest default when a module was Insufficient or key data was missing). Do not force a Buy; §24 prefers walking away to owning a bad setup.
-5. Write the report to `OUTPUT_PATH` with the `## Routing` block carrying the verdict.
-6. Write the machine record `commodity/runs/{COMMODITY}/decision_record.json` (Bash/Write) in the shape below. Then return the CHAT CONFIRMATION.
+4. **Calibration feedback check (the commodity-scoped twin of `frameworks/DECISION_LEDGER.md` §18 — Phase 6).** Take the latest calibration summary read in RUNTIME INPUTS. If none exists: `calibration_feedback.status = "not_available"`, no adjustment — state this plainly. If one exists but its `"verdict"` starts with `"Pre-data"`: `status = "pre_data"`, no adjustment. Otherwise, look up `calibration_by_commodity["{COMMODITY}"]` in that summary: if it is the string `"insufficient (N=k; floor …)"` (below its own floor), treat it exactly like `pre_data` for THIS commodity — `status = "checked_no_action"`, no adjustment (there is a real ledger, just not enough history on this one commodity yet). If it is a real `{hit_rate, n}` object, it **flags** this commodity when `hit_rate < 0.40` (materially worse than a coin flip) — if flagged, apply a single fixed **8-point confidence haircut** (never additive, never below 0) to the `confidence` you would otherwise have set, set `status = "applied"`, and name `{COMMODITY}` with its `hit_rate`/`n` in `flagged_slices`/`rationale`. If checked and not flagged, `status = "checked_no_action"`. Never let this step *raise* confidence — a clean track record on this commodity is not evidence for THIS thesis (§12 `CLAUDE.md`: high scores require specific, cited evidence for this call). Carry the full `calibration_feedback` object into `decision_record.json` (shape below).
+5. Decide the **Action** verdict from the allowed set: `Buy` (add / initiate), `Hold` (keep current exposure), `Trim` (reduce), `Avoid` (no exposure / exit), `Research More` (evidence too thin to act — the honest default when a module was Insufficient or key data was missing). Do not force a Buy; §24 prefers walking away to owning a bad setup.
+6. Write the report to `OUTPUT_PATH` with the `## Routing` block carrying the verdict.
+7. Write the machine record `commodity/runs/{COMMODITY}/decision_record.json` (Bash/Write) in the shape below, including `calibration_feedback` from step 4. Then return the CHAT CONFIRMATION.
 
 # REPORT STRUCTURE
 
@@ -77,6 +79,7 @@ You must:
 - **Action:** {Buy / Hold / Trim / Avoid / Research More}
 - Why this and not the neighbours (one paragraph), consistent with the margin of safety and the roll-adjusted view.
 - Data sufficiency + conviction (capped: Commodity-conditional, §11/§14).
+- Calibration feedback (§18 twin, step 4): `status` and, if `applied`, the 8-point haircut and this commodity's own hit-rate/N that triggered it.
 
 ## Routing
 
@@ -105,6 +108,13 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
   "key_levels": { "support": null, "resistance": null, "fair_value_range": null },
   "relative_view": "how it ranks vs the other tracked commodities",
   "confidence": 0,
+  "calibration_feedback": {
+    "source_summary": "commodity/performance/<DATE>_calibration_summary.json or null",
+    "status": "not_available | pre_data | checked_no_action | applied",
+    "haircut_points": 0,
+    "flagged_slices": [],
+    "rationale": "one or two sentences naming the as-of summary's verdict and, when checked, this commodity's hit-rate/N"
+  },
   "sources": ["…"],
   "data_needs": [
     {
@@ -162,6 +172,7 @@ cockpit surfaces so a durable feed can be built for it. Rules:
 - [ ] `decision_record.json` was written and is valid JSON with the `action` matching the Routing line.
 - [ ] Risk summary names the killer risk and the flip condition; the relative read answers "are we in the right commodity?".
 - [ ] No forced Buy; conviction is capped as Commodity-conditional.
+- [ ] `calibration_feedback` was computed per WORKFLOW step 4 and written into `decision_record.json` — never omitted, never used to *raise* confidence, `status` one of the four literal strings, `haircut_points`/`flagged_slices` populated only when `status=="applied"`.
 - [ ] `data_needs[]` (if present) lists only EXTERNAL, connector-feedable gaps, each with a `why_it_caps`, an official-source-preferred `suggested_source` with `acquisition`/`cadence` exactly from the schema enums, and a §4 `tier` of 5/9/10; filing-only gaps are marked `filing_required: true`; no invented endpoints; nothing manufactured.
 
 # CHAT CONFIRMATION

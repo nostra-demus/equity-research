@@ -100,6 +100,9 @@ jobs:
       - name: Commodity data_needs schema unit tests (optional field + tier/acquisition/slug guards)
         run: python3 scripts/test_commodity_data_needs.py
 
+      - name: Commodity calibration scoreboard selftest (Phase 4 twin — fixture-free)
+        run: python3 scripts/commodity_calibrate.py --selftest
+
       - name: Screener feedback-tune selftest (recommend-only rank-weight nudges from the feedback ledger)
         run: python3 scripts/screener_feedback_tune.py --selftest
 

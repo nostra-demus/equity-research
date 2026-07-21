@@ -51,6 +51,18 @@
       "minItems": 1,
       "items": { "type": "string", "minLength": 1 }
     },
+    "calibration_feedback": {
+      "type": "object",
+      "description": "Additive — the Phase 2 shape above is otherwise preserved unchanged. The commodity-scoped twin of the research swarm's Phase 6 calibration-feedback gate (frameworks/DECISION_LEDGER.md §18): 99_commodity-thesis-synthesis.md reads the latest commodity/performance/<DATE>_calibration_summary.json dated on/before decision_date and, where this commodity's own calibration_by_commodity slice shows poor calibration, applies a bounded confidence haircut and records the check here (whether or not it fired) — never omitted once a qualifying calibration summary exists. Required going forward by scripts/validate_screener_json.py's commodity-scoped twin of eval.py check AG, not by this schema (an older run genuinely predating the gate has nothing to report).",
+      "required": ["source_summary", "status", "haircut_points", "flagged_slices", "rationale"],
+      "properties": {
+        "source_summary": { "type": ["string", "null"], "description": "path to the as-of commodity/performance/<DATE>_calibration_summary.json used, or null if status is 'not_available'." },
+        "status": { "type": "string", "enum": ["not_available", "pre_data", "checked_no_action", "applied"] },
+        "haircut_points": { "type": "number", "minimum": 0, "description": "0 unless status=='applied', in which case the fixed constant (8), mirroring the research swarm's own bounded haircut." },
+        "flagged_slices": { "type": "array", "items": { "type": "string" }, "description": "commodity ids whose calibration_by_commodity slice triggered the haircut; [] unless status=='applied'." },
+        "rationale": { "type": "string", "description": "one or two sentences naming the as-of summary's verdict and, when checked, this commodity's hit-rate/N numbers — plain enough that a reviewer can verify the haircut without opening the calibration summary." }
+      }
+    },
     "data_needs": {
       "type": "array",
       "description": "Optional, forward-looking. External data series whose absence caps this run's conviction (§11) — surfaced on the cockpit 'Data needs' dock so a durable connector can be built to feed them in continuously. The synthesizer emits the NEED (what / why / where it plugs in / a suggested source); the connector's implementation spec (endpoint, output schema, host allowlist) is authored later by the human at the approval/dispatch step, never here. A `filing_required` need is advisory only — no connector can satisfy it. Omitted or empty when nothing external is capping the call.",
