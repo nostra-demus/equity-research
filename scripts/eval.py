@@ -1663,6 +1663,14 @@ if scope=="selftest":
         ("2026-07-11", _D_R, _SC_R % "Buy", []),                     # matching -> clean
         ("2026-07-11", _D_R, _SC_R % "**Buy**", []),                 # markdown emphasis is the same decision
         ("2026-07-11", _D_R, _SC_R % "Buy — revisit after Q2", []),  # trailing qualifier is still the same decision
+        # Codex r4 (P1): a cell that starts with the recorded decision but goes on to NAME a second,
+        # different §18 decision is a real contradiction a boundary-only prefix check cannot see — RED on
+        # pre-fix code (all three passed clean since each starts with "Buy" followed by a boundary char).
+        ("2026-07-11", _D_R, _SC_R % "Buy / Watchlist", ["also names"]),
+        ("2026-07-11", _D_R, _SC_R % "Buy (Avoid)", ["also names"]),
+        ("2026-07-11", _D_R, _SC_R % "Buy — capped at Watchlist", ["also names"]),
+        # ...but a qualifier that merely EXPLAINS the same decision (no second decision word) still passes.
+        ("2026-07-11", _D_R, _SC_R % "Buy — capped near-term", []),
         # Codex: conviction must be re-derivable from the recorded inputs, not merely well-typed.
         ("2026-07-11", {**_D_R, "decision":"Strong Buy", "conviction":80, "analysis_confidence":80,
                         "confidence_score":80,

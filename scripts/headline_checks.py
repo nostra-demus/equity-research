@@ -79,6 +79,11 @@ CONF_SPLIT_DATE = "2026-07-11"
 # re-derivation block in eval_ai_headline_reconciliation for why this is far wider than the scorer's own
 # RECONCILE_TOL.
 AI_CONVICTION_TOL = 15.0
+# CLAUDE.md §18's full allowed-decision set, lower-cased for the Rating-qualifier contradiction check
+# (a trailing qualifier may explain the recorded decision, e.g. "Buy — revisit after Q2", but must not
+# NAME a second, different decision from this set, e.g. "Buy / Watchlist").
+_ALL_DECISIONS = ["strong buy", "buy", "starter position only", "watchlist", "avoid", "short candidate",
+                  "pair trade / hedge required", "insufficient data — refuse to rate"]
 
 
 def _scorecard_section(thesis):
@@ -247,6 +252,23 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
             det.append(f"Headline Scorecard 'Rating'={rating_cell!r} does not match decision={jdec!r} in "
                        f"decision_record.json — the rating the reader sees must be the decision of record "
                        f"(CLAUDE.md §18/§21)")
+        else:
+            # A leading match is not enough — "Buy / Watchlist", "Buy (Avoid)", and "Buy — capped at
+            # Watchlist" all start with the recorded decision followed by a boundary, so the qualifier check
+            # above passes them, but each also NAMES a second, different §18 decision in the trailing text —
+            # a real contradiction a qualifier (which explains the SAME decision, not offers another one)
+            # must not be able to hide (Codex r4). Scanned as whole decision phrases (not bare substrings),
+            # so an unrelated qualifier mentioning "buyback" etc. cannot false-fire.
+            _rest = cell_norm[_m.end():]
+            _boundary_cls = r'[\s,;:./()\-–—]'
+            for _dec in sorted(_ALL_DECISIONS, key=len, reverse=True):
+                if _dec == want:
+                    continue
+                if re.search(r'(?:^|' + _boundary_cls + r')' + re.escape(_dec) + r'(?:$|' + _boundary_cls + r')', _rest):
+                    det.append(f"Headline Scorecard 'Rating'={rating_cell!r} also names {_dec!r} alongside "
+                               f"decision={jdec!r} in decision_record.json — a qualifier may explain the "
+                               f"recorded decision, not offer a second, different one (CLAUDE.md §18/§21)")
+                    break
     # Post-split (>= CONF_SPLIT_DATE): the scorer's two outputs are REQUIRED numbers, and confidence_score
     # MUST equal conviction. Without this, a run can present Conviction /100 = 80 in the headline while
     # leaving confidence_score = 50 (or null); the shipped §7 gates V_edge_gate and AH_expectations_gap_gate
