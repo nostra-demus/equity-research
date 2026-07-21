@@ -11,9 +11,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import type { DeferReason, LastResortState, NewsDiagnostics, TierDiagnostics, TierHealth } from '../../lib/types'
+import { tierMeter } from './pipelineMeter'
 import './PipelineDiagnostics.css'
-
-const kfmt = (n: number): string => (n >= 1000 ? `${(n / 1000).toFixed(n >= 10_000 ? 0 : 1)}k` : String(Math.round(n)))
 
 /** A short, human duration for a cooldown countdown. Minute granularity above 90s (calm, not frantic). */
 function fmtDur(ms: number): string {
@@ -66,20 +65,6 @@ const LAST_RESORT_WHY: Record<LastResortState, string> = {
   'plan-quota': 'the Haiku last-resort is paused — the Claude plan quota is spent, waiting for it to reset',
   cooling: 'the Haiku last-resort is backing off after an error',
   available: 'the Haiku last-resort is ready (it was not needed)',
-}
-
-/** Which of a tier's two budget dimensions to show — whichever is closer to its cap (the binding one), so the
- *  bar tells the truth (a flaky day can burn the request cap while tokens stay tiny). $-metered tiers show $. */
-function tierMeter(t: TierDiagnostics): { label: string; frac: number } {
-  if (t.meter === 'usd') {
-    const used = t.usdToday ?? 0
-    const cap = t.usdCap ?? 0
-    return { label: `$${used.toFixed(2)} / $${kfmt(cap)}`, frac: cap > 0 ? Math.min(1, used / cap) : 0 }
-  }
-  const reqFrac = t.reqCap ? (t.requestsToday ?? 0) / t.reqCap : 0
-  const tokFrac = t.tokenCap ? (t.tokensToday ?? 0) / t.tokenCap : -1
-  if (tokFrac > reqFrac) return { label: `${kfmt(t.tokensToday ?? 0)}/${kfmt(t.tokenCap ?? 0)} tok`, frac: Math.min(1, tokFrac) }
-  return { label: `${kfmt(t.requestsToday ?? 0)}/${kfmt(t.reqCap ?? 0)} req`, frac: Math.min(1, Math.max(0, reqFrac)) }
 }
 
 function TierRow({ tier, coolLeftMs }: { tier: TierDiagnostics; coolLeftMs: number }) {
