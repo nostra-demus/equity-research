@@ -1522,7 +1522,10 @@ if scope=="selftest":
         return ("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
                 "| Rating | Watchlist |\n| Suggested action | Monitor |\n| Time horizon | 12-18 months |\n"
                 f"| Expected return | {exp} |\n| Downside risk | {dr} |\n| Risk/reward | {rr} |\n"
-                f"| Understanding /100 | {und} |\n| Conviction /100 | {conv} |\n| Suggested sizing | monitor only |\n")
+                # The cell renders the FULL sizing_hint.action verbatim, exactly as real runs do
+                # (analyses/NHY_2026-07-19), so a truncated cell is caught, not tolerated (Codex r3).
+                f"| Understanding /100 | {und} |\n| Conviction /100 | {conv} |\n"
+                "| Suggested sizing | monitor only — no position (track opportunity cost) |\n")
     D_TMCV={"expected_return_pct":-4.4,"downside_risk_pct":-81.0,"risk_reward":-0.23,"confidence_score":47,"data_sufficiency_score":68}
     TH_TMCV=_hs_thesis(exp="+4.3% (see §8 Scenario Model)", dr="−19% to −81% depending on Iveco scenario",
                         rr="0.72× upside/downside in base case; binary risk makes this ratio misleading",
@@ -1637,7 +1640,10 @@ if scope=="selftest":
          ["legacy scorecard row 'Confidence /100' must not appear"]),
     ]
     _SC_R = ("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
-             "| Rating | %s |\n| Conviction /100 | 68 |\n| Understanding /100 | 70 |\n")
+             "| Rating | %s |\n| Conviction /100 | 68 |\n| Understanding /100 | 70 |\n"
+             # 'Suggested sizing' is a required reader-facing row (synthesizer.md §2), matching _D_R's
+             # recorded sizing_hint.action so the Rating-row cases stay isolated to what they test (Codex r3).
+             "| Suggested sizing | standard position |\n")
     # Internally CONSISTENT by construction (Codex r-review on the follow-up PR): the earlier fixture used
     # confidence_inputs={}, which ConfidenceInputs() cannot build — so these Rating-row cases were passing
     # only because the re-derivation error was swallowed. Real values, so each case tests the Rating row.
@@ -1692,12 +1698,22 @@ if scope=="selftest":
     # Codex r2 (P2): an underscore-emphasised Rating row (`| __Rating__ | Buy |`) is PRESENT and must be
     # found — pre-fix _hs_cell_exact matched only `*`, so it wrongly reported the row absent.
     _SC_UND = ("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
-               "| __Rating__ | Buy |\n| Conviction /100 | 68 |\n| Understanding /100 | 70 |\n")
+               "| __Rating__ | Buy |\n| Conviction /100 | 68 |\n| Understanding /100 | 70 |\n"
+               "| Suggested sizing | standard position |\n")
     aicases += [
         ("2026-07-11", _D_R, _SC_SZ % "full position candidate", ["Suggested sizing"]),   # mismatch -> FAIL
         ("2026-07-11", _D_R, _SC_SZ % "standard position", []),                           # match -> clean
         ("2026-07-11", _D_R, _SC_SZ % "standard position (2-4% NAV)", []),                # trailing gloss -> clean
         ("2026-07-11", _D_R, _SC_UND, []),                                                # underscore Rating found & matches
+        # Codex r3 (P1): an ABSENT 'Suggested sizing' row is a violation — the row is required, so a valid
+        # sizing_hint with no reader-facing cell must FAIL (synthesizer.md §2). RED on pre-fix (absent → skip).
+        ("2026-07-11", _D_R, _SC_SZ.replace("| Suggested sizing | %s |\n", ""),
+         ["Suggested sizing", "required"]),
+        # Codex r3 (P1): a cell that is a mere PREFIX of the recorded action ("standard" for "standard
+        # position", or "s") is a truncated/materially-different size and must FAIL. RED on pre-fix, whose
+        # reverse-prefix `_b.startswith(_a)` accepted any prefix as clean.
+        ("2026-07-11", _D_R, _SC_SZ % "standard", ["Suggested sizing"]),
+        ("2026-07-11", _D_R, _SC_SZ % "s", ["Suggested sizing"]),
     ]
     aibad=0
     for dt_,d_,th_,exp in aicases:
@@ -1903,6 +1919,32 @@ if scope=="selftest":
         ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","description":"x",
                                       "resolution":"resolved by the audited FY25 filing"}],"decision":"Buy"},
          TH_AK_CLEAN, {}, []),
+    ]
+    akcases += [
+        # Codex r3 (P2): a blanket rating_cap resolution IS accepted when there is exactly ONE Critical —
+        # attribution is unambiguous, so "resolved ... cap lifted" names that one flag and lifts the §13
+        # cap. RED on pre-fix, which never consulted rating_cap at all → the single Critical stayed
+        # unresolved → false "exceeds the 'Watchlist' cap". Pinned to CLAUDE.md §13 (resolved by primary
+        # evidence). (The two-Critical version above stays a violation — ambiguous — proving it is scoped.)
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","description":"x"}],
+                        "decision":"Buy",
+                        "rating_cap":"Critical finding resolved by the audited FY25 filing; cap lifted"},
+         TH_AK_CLEAN, {}, []),
+        # Codex r3 (P2): resolution negation is scoped to its OWN field — a genuine
+        # resolution:"resolved by the audited FY25 filing" must NOT be vetoed by historical wording
+        # ("formerly unresolved") sitting in a DIFFERENT field (description). RED on pre-fix, which joined
+        # the fields and let the cross-field "unresolved" negate the resolution → false "exceeds ... cap".
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical",
+                                      "resolution":"resolved by the audited FY25 filing",
+                                      "description":"formerly unresolved; now closed"}],"decision":"Buy"},
+         TH_AK_CLEAN, {}, []),
+        # Codex r3 (P1): the rating-cap DENIAL check must run against a RECORD-LEVEL Critical even when NO
+        # module declared one, BEFORE the "no module declared" early return. A Watchlist with a recorded
+        # Critical and rating_cap="no Critical red flag" contradicts its own red_flags. RED on pre-fix,
+        # where the denial check sat AFTER `if not declared: return det` → skipped → clean. §13/§18.
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL,"decision":"Watchlist",
+                        "rating_cap":"no Critical red flag"}, TH_AK_CLEAN, {},
+         ["denies a Critical red flag"]),
     ]
     akbad=0
     for dt_,d_,th_,mt_,exp in akcases:

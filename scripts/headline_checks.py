@@ -298,18 +298,30 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
         # "`Suggested sizing` = `sizing_hint.action`"). Reconcile it here, exactly as the Rating row is
         # reconciled above — validating only the JSON sizing_hint (in the scorer block below) leaves the
         # cell the reader actually sees unchecked, so a scorecard showing 'full position candidate' over a
-        # recorded 'standard position' would ship an unsupported size clean (Codex r2). Absent cell → skip.
+        # recorded 'standard position' would ship an unsupported size clean (Codex r2).
         if isinstance(sh, dict) and isinstance(sh.get("action"), str) and sh.get("action").strip():
             _size_cell = _hs_cell(section, "Suggested sizing")
-            if _size_cell is not None:
+            if _size_cell is None:
+                # An ABSENT row is a violation, exactly as for Rating and the two score rows: synthesizer.md
+                # §2 makes 'Suggested sizing' a required reader-facing row (= sizing_hint.action), so omitting
+                # it ships the run without ever showing the reader the scorer-derived position size (Codex r3).
+                det.append("Headline Scorecard row 'Suggested sizing' is required (the reader-facing "
+                           "position size) but absent from the scorecard — synthesizer.md §2 defines it as "
+                           "sizing_hint.action")
+            else:
                 _snorm = lambda s: re.sub(r'\s+', ' ', re.sub(r'[*_`]', '', str(s))).strip().lower()
                 _a, _b = _snorm(_size_cell), _snorm(sh.get("action"))
-                # Prefix-tolerant either way: the cell may carry a trailing gloss ("standard position (2-4%)")
-                # or the recorded action may ("monitor only — no position"). Only a genuinely DIFFERENT size fails.
-                if _a and _b and not (_a.startswith(_b) or _b.startswith(_a)):
+                # The cell must carry the FULL recorded action, optionally followed by a boundary-delimited
+                # trailing gloss ("standard position (2-4% NAV)"). A cell that is only a PREFIX of the action
+                # ("standard" for "standard position", or "s") is a materially different / truncated size and
+                # must fail — the earlier reverse-prefix tolerance let exactly that pass (Codex r3). Boundary =
+                # end-of-string or a non-alphanumeric char after the action, so a gloss qualifies but a longer
+                # word ("standard positioning") does not.
+                if _a and _b and not re.match(re.escape(_b) + r'(?![0-9a-z])', _a):
                     det.append(f"Headline Scorecard 'Suggested sizing'={_size_cell!r} does not match "
                                f"sizing_hint.action={sh.get('action')!r} in decision_record.json — the "
-                               f"position size the reader sees must be the recorded one (synthesizer.md §2)")
+                               f"position size the reader sees must be the recorded one, in full "
+                               f"(synthesizer.md §2)")
         # Container types alone do not prove the SCORER ran — a record can carry a hand-written conviction
         # with inputs that recompute to something else entirely (conviction 80 recorded against inputs that
         # deterministically yield 20), and every check above still passes, letting an inflated conviction AND
@@ -469,20 +481,30 @@ def _ak_resolution_stated(d):
     """True iff EVERY recorded Critical red flag is explicitly resolved. §13's escape is per-finding
     ("a critical ... red flag must cap the final rating unless IT is explicitly resolved"), so one
     resolved flag cannot lift the ceiling while another Critical stands. A blanket `rating_cap` phrase is
-    deliberately NOT accepted on its own: with several Criticals it cannot be attributed to any of them.
-    No Critical entries at all -> nothing has been resolved, so the cap stands."""
+    accepted ONLY when there is exactly ONE Critical, where attribution is unambiguous (Codex r3) — with
+    several Criticals it cannot be tied to any one of them. No Critical entries at all -> nothing has been
+    resolved, so the cap stands."""
     crit = [rf for rf in (d.get("red_flags") or [])
             if isinstance(rf, dict) and str(rf.get("severity", "")).strip().lower() == "critical"]
     if not crit:
         return False
+    # A blanket rating_cap resolution can lift the cap only with a SINGLE Critical, where "resolved ... cap
+    # lifted" can only refer to that one flag; with several it is ambiguous and does not count (Codex r3).
+    _cap = d.get("rating_cap")
+    _cap_resolves = (len(crit) == 1 and isinstance(_cap, str)
+                     and bool(_AK_RESOLVED.search(_cap)) and not _AK_RESOLVED_NEG.search(_cap))
     for rf in crit:
         if rf.get("resolved") is True:
             continue
-        # A resolution counts only if resolution wording appears AND no negation appears in the flag's own
-        # fields — "status: not resolved" contains "resolved" but is the opposite of a resolution.
-        _txt = " ; ".join(str(rf.get(_f) or "") for _f in ("resolution", "status", "description"))
-        if _AK_RESOLVED.search(_txt) and not _AK_RESOLVED_NEG.search(_txt):
+        # A resolution counts only if resolution wording appears AND no negation appears in the SAME field
+        # (clause). Negation in a DIFFERENT field must not veto a genuine one — "status: not resolved" is
+        # not a resolution, but a "resolution: resolved by the FY25 audit" alongside a "description:
+        # formerly unresolved" (historical wording) still is (Codex r3). Evaluate each field independently.
+        if any(_AK_RESOLVED.search(_v) and not _AK_RESOLVED_NEG.search(_v)
+               for _v in (str(rf.get(_f) or "") for _f in ("resolution", "status", "description"))):
             continue
+        if _cap_resolves:
+            continue   # single-Critical + unambiguous rating_cap resolution
         return False   # this Critical is unresolved -> the cap stands
     return True
 
@@ -547,8 +569,33 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
                    f"explicitly resolved (CLAUDE.md §13: a critical governance/solvency/accounting red flag "
                    f"must cap the final rating unless explicitly resolved by primary evidence; §18: a "
                    f"critical flag caps the headline at Watchlist or lower)")
+    # Rating-cap DENIAL check — a rating cap must not DENY a Critical that actually exists. It runs against
+    # a Critical from EITHER a module declaration OR the record's own red_flags, and BEFORE the "no module
+    # declared" early return below (Codex r3): a record-level Critical with no recognised module count would
+    # otherwise let a cap cell/field saying "no Critical red flag" ship clean, directly contradicting the
+    # recorded Critical entry.
+    if declared or json_critical:
+        if declared:
+            _tm = max(declared, key=declared.get)
+            _who = f"{_tm} declares {declared[_tm]}"
+        else:
+            _who = f"decision_record.json records {json_critical} Critical red flag(s)"
+        _sec = _scorecard_section(thesis)
+        _cap_cell = _hs_cell(_sec, "Rating cap") if _sec else None
+        for label, txt in [("Headline Scorecard 'Rating cap' cell", _cap_cell),
+                           ("decision_record.json rating_cap field", d.get("rating_cap"))]:
+            if not txt:
+                continue
+            if not isinstance(txt, str):
+                # A truthy non-string (list/dict/number) would raise TypeError inside re.search and take the
+                # whole live gate down with it. A rating cap that isn't text is itself malformed — report it.
+                det.append(f"{label} is not a string (got {type(txt).__name__}: {txt!r}) — a rating cap must "
+                           f"be readable text; cannot verify it does not deny the recorded Critical red flag(s)")
+                continue
+            if _AK_DENIAL.search(txt) and not _ak_affirms(txt):
+                det.append(f"{label} denies a Critical red flag ({txt!r}) but {_who}")
     if not declared:
-        return det  # no module declared a Critical flag — nothing further to reconcile
+        return det  # no module declared a Critical count — the count reconciliation below needs one
     top_mod = max(declared, key=declared.get); top_n = declared[top_mod]
     if json_critical < top_n:
         det.append(f"{top_mod} declares {top_n} Critical red flag(s) but decision_record.json's red_flags "
@@ -585,17 +632,6 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
         det.append(f"{who} declare(s) a Critical red flag that never reached decision_record.json's "
                    f"red_flags array, and decision={decision.strip()!r} exceeds the 'Watchlist' cap "
                    f"(CLAUDE.md §13/§18) — a Critical cannot be dropped AND left uncapped")
-    section = _scorecard_section(thesis)
-    cap_cell = _hs_cell(section, "Rating cap") if section else None
-    for label, txt in [("Headline Scorecard 'Rating cap' cell", cap_cell), ("decision_record.json rating_cap field", d.get("rating_cap"))]:
-        if not txt:
-            continue
-        if not isinstance(txt, str):
-            # A truthy non-string (list/dict/number) would raise TypeError inside re.search and take the
-            # whole live gate down with it. A rating cap that isn't text is itself malformed — report it.
-            det.append(f"{label} is not a string (got {type(txt).__name__}: {txt!r}) — a rating cap must be "
-                       f"readable text; cannot verify it does not deny {top_mod}'s {top_n} Critical flag(s)")
-            continue
-        if _AK_DENIAL.search(txt) and not _ak_affirms(txt):
-            det.append(f"{label} denies a Critical red flag ({txt!r}) but {top_mod} declares {top_n}")
+    # The rating-cap DENIAL check ran earlier (before the `if not declared` return) so it also covers
+    # record-level Criticals with no module declaration (Codex r3) — nothing further to add here.
     return det
