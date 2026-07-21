@@ -1530,12 +1530,12 @@ if scope=="selftest":
     TH_TMCV=_hs_thesis(exp="+4.3% (see §8 Scenario Model)", dr="−19% to −81% depending on Iveco scenario",
                         rr="0.72× upside/downside in base case; binary risk makes this ratio misleading",
                         conf="47", ds="68")
-    D_EMAR={"expected_return_pct":118.8,"downside_risk_pct":-63.9,"risk_reward":1.9,"confidence_score":52,"data_sufficiency_score":72}
+    D_EMAR={"decision":"Buy","expected_return_pct":118.8,"downside_risk_pct":-63.9,"risk_reward":1.9,"confidence_score":52,"data_sufficiency_score":72}
     TH_EMAR=_hs_thesis(exp="+118.8% (probability-weighted; computed — see §14)",
                         dr="+63.9% (bear case AED 20.0 is 64% ABOVE current price AED 12.20 — no loss in bear)",
                         rr="1.9x (reward/bear gap; bear case is above entry, so effective downside is nil)",
                         conf="52", ds="72")
-    D_CLEAN={"expected_return_pct":-11.5,"downside_risk_pct":-31.0,"risk_reward":-0.37,"confidence_score":46,"data_sufficiency_score":68}
+    D_CLEAN={"decision":"Buy","expected_return_pct":-11.5,"downside_risk_pct":-31.0,"risk_reward":-0.37,"confidence_score":46,"data_sufficiency_score":68}
     TH_CLEAN=_hs_thesis(exp="≈ −11.5% (probability-weighted, vs indicative ~$123.35; see §8/§14)",
                          dr="≈ −31% to the bear value", rr="≈ −0.37 (negative)", conf="**46**", ds="**68**")
     NO_SCORECARD="# Thesis\n\nno scorecard section here\n"
@@ -1559,8 +1559,8 @@ if scope=="selftest":
         ("2026-07-09", D_TMCV, TH_TMCV, ["Expected return","Risk/reward"]),        # the real, live TMCV bug
         ("2026-07-09", {"confidence_score":80}, _hs_thesis(conf="60"), ["Confidence /100"]),
         ("2026-07-09", {"data_sufficiency_score":70}, _hs_thesis(ds="40"), ["Data sufficiency /100"]),
-        ("2026-07-09", {"risk_reward":None,"confidence_score":50}, _hs_thesis(conf="50"), []),  # unset field skipped
-        ("2026-07-09", {"confidence_score":46.4}, _hs_thesis(conf="46"), []),                    # rounding within tolerance
+        ("2026-07-09", {"decision":"Buy","risk_reward":None,"confidence_score":50}, _hs_thesis(conf="50"), []),  # unset field skipped
+        ("2026-07-09", {"decision":"Buy","confidence_score":46.4}, _hs_thesis(conf="46"), []),                    # rounding within tolerance
         # r3548777238 — later-table leak: scorecard omits Expected return; §8 repeats it → row MISSING.
         ("2026-07-09", D_TMCV, TH_LATER_LEAK, ["Expected return"]),
         # r3548777240 — sign flip within the tolerance window on the sign-sensitive fields → FAIL.
@@ -1599,7 +1599,7 @@ if scope=="selftest":
          _hs_thesis_split(conv="N/A", und="N/A"), ["conviction=None must be a number", "analysis_confidence=None must be a number"]),
         # fully consistent post-split run → clean pass. Carries confidence_inputs/confidence_breakdown/
         # sizing_hint too — the clean-pass fixture must actually satisfy the scorer-artifact check below.
-        ("2026-07-11", {"conviction":62,"analysis_confidence":74,"confidence_score":62,
+        ("2026-07-11", {"decision":"Watchlist","conviction":62,"analysis_confidence":74,"confidence_score":62,
                         "expected_return_pct":-11.5,"downside_risk_pct":-31.0,"risk_reward":-0.37,
                         "confidence_inputs":{"data_sufficiency":70,"decision":"Watchlist"},
                         "confidence_breakdown":{"base":70,"final":62},
@@ -1680,6 +1680,12 @@ if scope=="selftest":
         ("2026-07-11", _D_R, _SC_R % "Buy or Watchlist", ["also names"]),
         ("2026-07-11", _D_R, _SC_R % "Buy vs Watchlist", ["also names"]),
         ("2026-07-11", _D_R, _SC_R % "Buy, alternatively Watchlist", ["also names"]),
+        # Codex r8 (P1): a present Rating row with NO decision of record at all (missing/blank `decision`)
+        # was previously skipped entirely — RED on every prior round (the whole Rating block was gated on
+        # `isinstance(jdec, str) and jdec.strip()`, so a missing/blank decision just meant "nothing to
+        # check", silently passing a run with a reader-facing rating but no recorded decision behind it).
+        ("2026-07-11", {**_D_R, "decision":None}, _SC_R % "Buy", ["no decision of record"]),
+        ("2026-07-11", {k:v for k,v in _D_R.items() if k != "decision"}, _SC_R % "Buy", ["no decision of record"]),
         # Codex: conviction must be re-derivable from the recorded inputs, not merely well-typed.
         ("2026-07-11", {**_D_R, "decision":"Strong Buy", "conviction":80, "analysis_confidence":80,
                         "confidence_score":80,
@@ -1745,6 +1751,11 @@ if scope=="selftest":
         # candidate") reinforces the recorded size rather than contradicting it. RED on the r6 fix (any
         # unnegated OR negated mention of another action was flagged the same way).
         ("2026-07-11", _D_R, _SC_SZ % "standard position, not a full position candidate", []),
+        # Codex r8 (P1): the negation lookback must be scoped to the SAME clause as the alternative — "not"
+        # negates "capped" in the PRECEDING clause here, not the alternative action in the next one, so the
+        # full unnegated alternative must still be flagged. RED on the r7 fix (any nearby "not" within a raw
+        # character window silently cleared it, regardless of which clause it was actually negating).
+        ("2026-07-11", _D_R, _SC_SZ % "standard position, not capped; full position candidate", ["also names"]),
     ]
     aibad=0
     for dt_,d_,th_,exp in aicases:
@@ -2018,6 +2029,19 @@ if scope=="selftest":
         ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","resolved":True}],
                         "decision":"Buy","rating_cap":"no Critical red flag"},
          TH_AK_CLEAN, {}, ["denies a Critical red flag"]),
+        # Codex r8 (P2): the resolved-flag denial exemption (r7) used a bare unscoped `_AK_RESOLVED.search`,
+        # so "no Critical red flag; resolution pending" was wrongly exempted — "resolution" matched even
+        # though the SAME clause says "pending" (negated). Now uses the clause-scoped `_ak_resolved_in`
+        # (the same helper `_ak_resolution_stated` uses) so a negated resolution clause doesn't exempt it.
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","resolved":True}],
+                        "decision":"Buy","rating_cap":"no Critical red flag; resolution pending"},
+         TH_AK_CLEAN, {}, ["denies a Critical red flag"]),
+        # Codex r8 (P2): a falsy but non-string rating_cap (0, False, [], {}) was skipped by a bare `not txt`
+        # before the non-string check could run, silently accepting a malformed field. RED on every prior
+        # round (the falsy-skip predates round 3's record-level move).
+        ("2026-07-11", {"red_flags":[{"id":"RF-ACC-001","severity":"Critical","description":"x"}],
+                        "decision":"Watchlist","rating_cap":0},
+         TH_AK_CLEAN, {}, ["is not a string"]),
     ]
     akbad=0
     for dt_,d_,th_,mt_,exp in akcases:

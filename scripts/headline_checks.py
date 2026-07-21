@@ -256,6 +256,14 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
         det.append("Headline Scorecard row 'Rating' is required (the decision the reader sees) but absent "
                    "from the scorecard — a 'Rating cap' row does not stand in for it")
     jdec = d.get("decision")
+    if rating_cell is not None and not (isinstance(jdec, str) and jdec.strip()):
+        # A present Rating row (whether it names a rating or is itself blank) with no decision of record to
+        # reconcile it against is not "nothing to check" — it is a run that can ship a reader-facing rating
+        # (or a blank one) with no recorded decision behind it at all. Previously this whole block was
+        # skipped whenever `decision` was missing/blank, silently passing both cases (Codex r8).
+        det.append(f"decision_record.json 'decision' field is missing or blank ({jdec!r}) but the Headline "
+                   f"Scorecard has a 'Rating' row ({rating_cell!r}) — there is no decision of record to "
+                   f"reconcile the reader-facing rating against (CLAUDE.md §18/§21)")
     if rating_cell is not None and isinstance(jdec, str) and jdec.strip():
         # Strip markdown emphasis first — real runs write "**Watchlist**", which is the SAME decision.
         _norm = lambda s: re.sub(r'\s+', ' ', re.sub(r'[*_`]', '', str(s))).strip().lower()
@@ -388,17 +396,23 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
                     _boundary_cls2 = r'[\s,;:./()\-–—]'
                     # A NEGATED mention of another action ("standard position, not a full position
                     # candidate") REINFORCES the recorded size rather than contradicting it — only an
-                    # unnegated alternative is the real defect (Codex r7). Checked on a short trailing window
-                    # of the text right before the match (not the whole _rest2), so a negation of one
-                    # alternative doesn't blind the scan to a genuinely different, unnegated one appearing
-                    # later in the same gloss.
+                    # unnegated alternative is the real defect (Codex r7). An arbitrary character lookback
+                    # (the r7 fix) can still cross into a DIFFERENT clause's negation ("standard position,
+                    # not capped; full position candidate" — the "not" negates "capped", not the alternative
+                    # action in the next clause) — scoped instead to the SAME ';'/'.'-delimited clause as the
+                    # matched alternative, checking only the text before the match WITHIN that clause (r8).
                     _neg_word = re.compile(r'\b(?:not|never|no)\b', re.I)
                     for _oa in sorted(_ALL_SIZING_ACTIONS, key=len, reverse=True):
                         _oa_n = _snorm(_oa)
                         if _oa_n == _b:
                             continue
-                        _m3 = re.search(r'(?:^|' + _boundary_cls2 + r')' + re.escape(_oa_n) + r'(?:$|' + _boundary_cls2 + r')', _rest2)
-                        if _m3 and not _neg_word.search(_rest2[max(0, _m3.start() - 15):_m3.start()]):
+                        _found_unnegated = False
+                        for _cl in re.split(r'[;.]', _rest2):
+                            _m3 = re.search(r'(?:^|' + _boundary_cls2 + r')' + re.escape(_oa_n) + r'(?:$|' + _boundary_cls2 + r')', _cl)
+                            if _m3 and not _neg_word.search(_cl[:_m3.start()]):
+                                _found_unnegated = True
+                                break
+                        if _found_unnegated:
                             det.append(f"Headline Scorecard 'Suggested sizing'={_size_cell!r} also names "
                                        f"{_oa!r} alongside sizing_hint.action={sh.get('action')!r} in "
                                        f"decision_record.json — a gloss may explain the recorded size, not "
@@ -561,6 +575,12 @@ _AK_RESOLVED_NEG = re.compile(
     r'|\b(?:not|no|never|pending|awaiting|yet)\b[^.\n;]{0,20}\b(?:resolved|resolution|lifted)\b'
     r'|\b(?:resolution|resolved|cap)\b[^.\n;]{0,20}\b(?:pending|outstanding|not\s+lifted)\b',
     re.I)
+# True iff SOME ';'/'.'-delimited clause of `s` affirms resolution wording with no negation in that SAME
+# clause — module-level (not a closure inside _ak_resolution_stated) so the record-level denial-exemption
+# check below can apply the identical clause-scoped test, instead of a bare unscoped `_AK_RESOLVED.search`
+# that would let "no Critical red flag; resolution pending" pass as if it were resolved (Codex r8).
+def _ak_resolved_in(s):
+    return any(_AK_RESOLVED.search(_c) and not _AK_RESOLVED_NEG.search(_c) for _c in re.split(r'[;.]', s))
 
 
 def _ak_resolution_stated(d):
@@ -578,10 +598,8 @@ def _ak_resolution_stated(d):
     # lifted" can only refer to that one flag; with several it is ambiguous and does not count (Codex r3).
     # Split on '.'/';' into clauses first (see the per-field loop below for why): a single free-text
     # rating_cap can equally carry historical negation and a later genuine resolution in the SAME field.
-    _clausify = lambda s: re.split(r'[;.]', s)
-    _resolved_in = lambda s: any(_AK_RESOLVED.search(_c) and not _AK_RESOLVED_NEG.search(_c) for _c in _clausify(s))
     _cap = d.get("rating_cap")
-    _cap_resolves = len(crit) == 1 and isinstance(_cap, str) and _resolved_in(_cap)
+    _cap_resolves = len(crit) == 1 and isinstance(_cap, str) and _ak_resolved_in(_cap)
     for rf in crit:
         if rf.get("resolved") is True:
             continue
@@ -592,7 +610,7 @@ def _ak_resolution_stated(d):
         # audited FY25 filing" — where `_AK_RESOLVED_NEG`'s unscoped `unresolved` alternative still vetoed
         # the later, genuine resolution clause (Codex r6). Split each field into ';'/'.'-delimited clauses
         # and require the resolution wording and its own negation-check to be in the SAME clause.
-        if any(_resolved_in(str(rf.get(_f) or "")) for _f in ("resolution", "status", "description")):
+        if any(_ak_resolved_in(str(rf.get(_f) or "")) for _f in ("resolution", "status", "description")):
             continue
         if _cap_resolves:
             continue   # single-Critical + unambiguous rating_cap resolution
@@ -701,7 +719,11 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
         _cap_cell = _hs_cell(_sec, "Rating cap") if _sec else None
         for label, txt in [("Headline Scorecard 'Rating cap' cell", _cap_cell),
                            ("decision_record.json rating_cap field", d.get("rating_cap"))]:
-            if not txt:
+            # Skip only a genuinely ABSENT cap (None) or an empty string (no cap given) — a bare `not txt`
+            # also skipped other falsy-but-present values (0, False, [], {}), so a malformed rating_cap of
+            # exactly one of those types shipped unreported (Codex r8): the non-string check right below
+            # exists precisely to catch this and must actually run for them.
+            if txt is None or txt == "":
                 continue
             if not isinstance(txt, str):
                 # A truthy non-string (list/dict/number) would raise TypeError inside re.search and take the
@@ -709,7 +731,7 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
                 det.append(f"{label} is not a string (got {type(txt).__name__}: {txt!r}) — a rating cap must "
                            f"be readable text; cannot verify it does not deny the recorded Critical red flag(s)")
                 continue
-            if _record_resolved and _AK_RESOLVED.search(txt):
+            if _record_resolved and _ak_resolved_in(txt):
                 continue  # this text itself describes the resolved state — not a denial of history
             if _AK_DENIAL.search(txt) and not _ak_affirms(txt):
                 det.append(f"{label} denies a Critical red flag ({txt!r}) but {_who}")
