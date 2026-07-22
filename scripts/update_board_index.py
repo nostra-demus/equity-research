@@ -65,18 +65,40 @@ MACHINE_PASS = {
 }
 
 
+def _to_instant(iso):
+    """Parse an ISO-8601 UTC timestamp to a comparable datetime, or None if blank/unparseable.
+
+    None means 'cannot be placed on the timeline' — callers fail closed on it rather than treating a
+    missing or garbage value as orderable (an empty string is NOT 'the beginning of time')."""
+    s = (iso or "").strip()
+    if not s:
+        return None
+    core = s[:19] if "T" in s else s[:10]
+    for fmt in ("%Y-%m-%dT%H:%M:%S", "%Y-%m-%d"):
+        try:
+            return datetime.strptime(core, fmt).replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+    return None
+
+
 def override_supersedes_review(ovr, ir) -> bool:
     """True iff a human override should still mask a TERMINAL thesis-integrity verdict.
 
     Only an override the human recorded AFTER the verdict counts: an override made BEFORE the gate ran was
     a decision about the pre-kill thesis, so letting it mask a later rejection would show a killed idea as
     provisional/full_machine with no warning. An override with no `moved_at` cannot be shown to post-date
-    the review, so it loses (fail toward surfacing the kill)."""
+    the review, so it loses (fail toward surfacing the kill). Symmetrically, a kill whose `reviewed_at` is
+    blank or non-parseable cannot be shown to PRE-date any override, so it too fails closed (§24): a naive
+    `moved_at > ""` string compare would let every stale override outrank a kill that carries no timestamp.
+    Both sides must parse to real instants and the override must be strictly later."""
     if not (isinstance(ovr, dict) and ovr.get("to_status")):
         return False
-    moved_at = ovr.get("moved_at") or ""
-    reviewed_at = (ir or {}).get("reviewed_at") or ""
-    return bool(moved_at) and moved_at > reviewed_at
+    moved = _to_instant(ovr.get("moved_at"))
+    reviewed = _to_instant((ir or {}).get("reviewed_at"))
+    if moved is None or reviewed is None:
+        return False
+    return moved > reviewed
 
 
 def machine_grade_status(sig_status_val, integrity_routing):
@@ -613,6 +635,18 @@ def _selftest() -> int:
     check("no override -> kill stands", override_supersedes_review(None, KILL) is False)
     check("override with no moved_at cannot outrank the kill",
           override_supersedes_review({"to_status": "full_machine"}, KILL) is False)
+    # Codex (#314): a kill whose reviewed_at is blank/unparseable must NOT be overruled by a stale
+    # override — an empty string is not the beginning of time (§24 fail closed). Red-on-old: the prior
+    # `moved_at > reviewed_at` string compare returned True for both an empty and a garbage reviewed_at
+    # (and for a garbage moved_at), silently masking the kill. Expected pinned to §24, not to old behaviour.
+    KILL_blank_ts = {"routing": "watchlist_integrity_broken", "reviewed_at": ""}
+    check("override cannot supersede a kill with a blank reviewed_at",
+          override_supersedes_review(older, KILL_blank_ts) is False)
+    KILL_bad_ts = {"routing": "watchlist_integrity_broken", "reviewed_at": "not-a-date"}
+    check("override cannot supersede a kill with an unparseable reviewed_at",
+          override_supersedes_review(older, KILL_bad_ts) is False)
+    check("override with an unparseable moved_at cannot outrank the kill",
+          override_supersedes_review({"to_status": "full_machine", "moved_at": "garbage"}, KILL) is False)
     # The two integrity kills are in PASS and NOT in CONFIRM.
     check("integrity kills are in MACHINE_PASS", TERMINAL_INTEGRITY <= MACHINE_PASS)
     check("integrity kills are NOT in MACHINE_CONFIRM", not (TERMINAL_INTEGRITY & MACHINE_CONFIRM))

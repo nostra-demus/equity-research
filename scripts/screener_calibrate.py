@@ -91,8 +91,10 @@ def integrity_gate_note(n_terminal, n_reviewed, dist):
         f"(watchlist_integrity_downgrade / _broken); the rest routed Proceed ({dist}). This is gate "
         "ACTIVITY, not accuracy — integrity_gate_hit_rate stays null because judging whether a terminal "
         "verdict was the right call needs a later outcome-check against the thesis's own claims, which no "
-        "review mechanism provides yet (a terminal verdict stops the pipeline before candidate-surfacing, "
-        "so unlike a live conviction discard there is no ticker-level checkpoint to ever resolve)."
+        "review mechanism provides yet (a first-pass terminal verdict stops the pipeline before "
+        "candidate-surfacing, and even a post-surfacing re-review has no mechanism tying the kill back to "
+        "what any already-surfaced candidates went on to do — so unlike a live conviction discard there is "
+        "no ticker-level checkpoint to resolve it against)."
     )
 
 
@@ -282,6 +284,11 @@ def _selftest():
           integrity_gate_note(0, 0, {}) == "No thesis-integrity reviews recorded yet.")
     note = integrity_gate_note(1, 3, {"Survives": 2, "Thesis broken": 1})
     check("note: never claims 'pre-surfacing' (unverifiable for re-reviews)", "pre-surfacing" not in note)
+    # Codex (#314): the parenthetical must not assert 'before candidate-surfacing' as universal — false
+    # for a Proceed->surfaced->terminal _vN re-review. It is now scoped to 'first-pass'. Red-on-old: the
+    # prior string had no 'first-pass' qualifier. Expected pinned to §5 (no unsupported claim), not to code.
+    check("note: scopes the pre-surfacing claim to first-pass reviews", "first-pass" in note)
+    check("note: acknowledges the post-surfacing re-review flow", "re-review" in note)
     check("note: states the terminal/reviewed counts", "1 of 3" in note)
     check("note: never presents a hit-rate as measured", "hit_rate stays null" in note)
 
