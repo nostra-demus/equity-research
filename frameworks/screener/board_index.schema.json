@@ -110,6 +110,17 @@
             }
           },
           "override_stale": { "type": "boolean", "description": "True when the engine re-ran and changed its status AFTER the human move — surfaced in the UI, never silently resolved." },
+          "integrity_review": {
+            "type": ["object", "null"],
+            "description": "thesis-integrity's verdict on this thesis, additively patched onto the ledger copy by scripts/screener_patch_integrity_review.py (frameworks/screener/SCREENER_PIPELINE.md). Null until the gate has reviewed this thesis. A terminal routing here (without a later human override) is why effective_status reads watchlist_integrity_downgrade/broken instead of the locked provisional/full_machine status.",
+            "properties": {
+              "verdict": { "type": "string", "enum": ["Survives", "Survives with haircut", "Does not survive — downgrade", "Thesis broken"] },
+              "routing": { "type": "string", "enum": ["Proceed", "watchlist_integrity_downgrade", "watchlist_integrity_broken"] },
+              "reviewed_at": { "type": "string" },
+              "review_file": { "type": "string" },
+              "edge_score_haircut_note": { "type": "string" }
+            }
+          },
           "candidate_count": { "type": "integer" },
           "candidates": {
             "type": "array",

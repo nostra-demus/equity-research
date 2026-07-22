@@ -42,7 +42,13 @@ IDEAS = os.path.join(LEDGER, "ideas")
 
 # Thesis statuses count as "watchlist" for the funnel header. watchlist_manual is a HUMAN move
 # (an overrides.ndjson record), distinct from the engine's three watchlist reasons.
-WATCHLIST_STATUSES = {"watchlist_no_source", "watchlist_no_world_change", "watchlist_no_edge", "watchlist_manual"}
+# watchlist_integrity_downgrade / watchlist_integrity_broken are thesis-integrity's own post-lock
+# terminal verdicts (folded into effective_status above from the additive integrity_review block) —
+# without them here a gate-killed thesis vanished from the funnel instead of counting as watchlist.
+WATCHLIST_STATUSES = {
+    "watchlist_no_source", "watchlist_no_world_change", "watchlist_no_edge", "watchlist_manual",
+    "watchlist_integrity_downgrade", "watchlist_integrity_broken",
+}
 
 
 def read_json(path: str):
@@ -273,6 +279,16 @@ def build() -> dict:
             entry["effective_status"] = engine_status
             entry["override"] = None
             entry["override_stale"] = False
+        # thesis-integrity's verdict, additively patched onto this ledger copy by
+        # scripts/screener_patch_integrity_review.py (meta/status/M0_x above stay frozen at lock time —
+        # see frameworks/screener/SCREENER_PIPELINE.md). None until the gate has reviewed this thesis.
+        ir = rec.get("integrity_review") if isinstance(rec.get("integrity_review"), dict) else None
+        entry["integrity_review"] = ir
+        if ir and ir.get("routing") in ("watchlist_integrity_downgrade", "watchlist_integrity_broken") and not (ovr and ovr.get("to_status")):
+            # The adversarial gate killed this thesis post-lock and no human has since overridden it —
+            # effective_status must say so, or an analyst reading "provisional"/"full_machine" here would
+            # never learn the engine's own red-team already rejected it. A human override (above) still wins.
+            entry["effective_status"] = ir["routing"]
         # Phase 3: fold in the engine-owned conviction snapshot (rung, live edge, momentum,
         # sparkline points) — the board reads it; the locked thesis JSON is never touched.
         cs = read_json(os.path.join(CONV_STATE, f"{thesis_id}.json"))
