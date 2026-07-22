@@ -34,11 +34,11 @@ Everything before this module builds the case FOR the thesis. This module is the
 | `Does not survive — downgrade` | The bear case dominates, or the edge is not actually real (a restated consensus dressed as a variant). | `watchlist_integrity_downgrade` |
 | `Thesis broken` | The kill-switch is effectively already triggered, is fireproof (`is_fireproof: true`) with no genuine test, or the load-bearing claim fails the citation spot-check. | `watchlist_integrity_broken` |
 
-`watchlist_integrity_downgrade` and `watchlist_integrity_broken` are both in `SWARM.md`'s `routing.terminal` set: either one stops the pipeline before `candidate-surfacing` runs. The thesis stays on the board at its original `provisional`/`full_machine` status (never rewritten — the field is locked) with this review attached as the reason nothing further ran; a human can always override and continue by hand.
+`watchlist_integrity_downgrade` and `watchlist_integrity_broken` are both in `SWARM.md`'s `routing.terminal` set: either one stops the pipeline before `candidate-surfacing` runs. The locked thesis fields (`meta`, every `M0_x` block) stay at their original `provisional`/`full_machine` state forever — this module never rewrites them — but the orchestrator (`.claude/commands/screener/signal.md` step 6) additively records this review's outcome on the ledger copy right after reading it (`scripts/screener_patch_integrity_review.py`), so the board and `screener_calibrate.py` can see the gate ran and what it found, without this module ever touching a locked field itself. A human can always override and continue by hand.
 
 ## Output discipline
 
-- `thesis_integrity_review.json` per `frameworks/screener/thesis_integrity_review.schema.json`, written to `screener/runs/{SIG_ID}/thesis_integrity_review.json`. If a review already exists (a re-run), do NOT overwrite — write `_v2`, `_v3`, … (mirrors `research/pre-mortem.md`'s append-only convention).
+- `thesis_integrity_review.json` per `frameworks/screener/thesis_integrity_review.schema.json`, written to `screener/runs/{SIG_ID}/thesis_integrity_review.json`. If a review already exists (a re-run), do NOT overwrite — write `_v2`, `_v3`, … (mirrors `research/pre-mortem.md`'s append-only convention). This module writes ONLY this file — never `screener/ledger/theses/<thesis_id>.json` (the orchestrator's job, per above).
 - The synthesis report ends with `## Machine Output` + `## Routing`, per every other module in this swarm.
 - §5 citations on every attack that rests on a checkable fact. Banned: asserting a claim is wrong without naming the source that shows it.
 

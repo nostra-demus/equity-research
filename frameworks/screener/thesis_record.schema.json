@@ -427,6 +427,18 @@
           "claim_supported": { "type": "string" }
         }
       }
+    },
+    "integrity_review": {
+      "type": "object",
+      "description": "Additive, orchestrator-written (scripts/screener_patch_integrity_review.py). Restates the LATEST thesis_integrity_review.json's verdict on THIS ledger copy only — meta/M0_x above stay frozen at lock time and are never edited by this field's existence. Absent on a thesis thesis-integrity has not reviewed yet (or on any record committed before this field existed).",
+      "required": ["verdict", "routing", "reviewed_at", "review_file"],
+      "properties": {
+        "verdict": { "type": "string", "enum": ["Survives", "Survives with haircut", "Does not survive — downgrade", "Thesis broken"] },
+        "routing": { "type": "string", "enum": ["Proceed", "watchlist_integrity_downgrade", "watchlist_integrity_broken"] },
+        "reviewed_at": { "type": "string" },
+        "review_file": { "type": "string", "description": "Repo-relative path to the thesis_integrity_review*.json this was copied from." },
+        "edge_score_haircut_note": { "type": "string" }
+      }
     }
   },
   "definitions": {

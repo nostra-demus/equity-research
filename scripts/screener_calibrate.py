@@ -15,6 +15,18 @@ Metrics (each null until the floor is met):
   selected_minus_discarded_edge mean live edge - mean archived edge        — edge realization proxy (labelled)
   error_taxonomy_distribution   §20 tags among misses/breaches
   false_discard_rate        discards later restored / total discards
+
+Process tallies (honest at ANY N — never floor-gated, mirrors error_taxonomy_distribution above):
+  integrity_gate_distribution   count of thesis-integrity verdicts (Survives / ... / Thesis broken) across
+                                 every reviewed thesis in screener/ledger/theses/ (integrity_review, additively
+                                 patched by scripts/screener_patch_integrity_review.py). Answers "is the gate
+                                 adding signal or just friction" at the ACTIVITY level (Proceed vs killed) —
+                                 the named remaining limitation from the PR that introduced thesis-integrity
+                                 (a5ce95a / #284). integrity_gate_hit_rate stays null: judging whether a KILL
+                                 was the right call needs a later outcome-check against the killed thesis's own
+                                 M0_2/M0_5 claims, which no review mechanism provides yet (a separate, larger
+                                 gap — a terminal verdict stops the pipeline before any ticker-level checkpoint
+                                 could ever be tracked, unlike a live conviction discard).
 """
 from __future__ import annotations
 
@@ -38,6 +50,50 @@ def read_ndjson(fp):
         return [json.loads(l) for l in open(fp, encoding="utf-8", errors="replace") if l.strip()]
     except Exception:
         return []
+
+
+def integrity_gate_distribution(theses_dir):
+    """Tally thesis-integrity verdicts across every ledger thesis carrying an `integrity_review` block
+    (additively patched by scripts/screener_patch_integrity_review.py). Takes an explicit directory so
+    it is testable against a fixture dir, not just the real ledger. Returns
+    (distribution_by_verdict, n_reviewed, n_terminal) — never raises on a malformed/missing file.
+    """
+    dist, n_reviewed, n_terminal = {}, 0, 0
+    for f in (os.listdir(theses_dir) if os.path.isdir(theses_dir) else []):
+        if not f.endswith(".json"):
+            continue
+        try:
+            rec = json.load(open(os.path.join(theses_dir, f), encoding="utf-8"))
+        except Exception:
+            continue
+        if not isinstance(rec, dict):
+            continue
+        ir = rec.get("integrity_review")
+        if not isinstance(ir, dict) or not ir.get("verdict"):
+            continue
+        n_reviewed += 1
+        dist[ir["verdict"]] = dist.get(ir["verdict"], 0) + 1
+        if ir.get("routing") in ("watchlist_integrity_downgrade", "watchlist_integrity_broken"):
+            n_terminal += 1
+    return dist, n_reviewed, n_terminal
+
+
+def integrity_gate_note(n_terminal, n_reviewed, dist):
+    """Human-readable summary of the thesis-integrity tally. Describes n_terminal only as 'a terminal
+    LATEST integrity verdict', never as 'killed pre-surfacing': a thesis first routed Proceed, surfaced
+    candidates, then re-reviewed into a terminal `_vN` verdict already HAS candidates, so 'pre-surfacing'
+    would be a claim the data does not support (§5 — no claim without support). Accuracy over a tidier
+    phrase. Never quotes an accuracy/hit-rate — this is gate ACTIVITY, not correctness."""
+    if n_reviewed == 0:
+        return "No thesis-integrity reviews recorded yet."
+    return (
+        f"{n_terminal} of {n_reviewed} reviewed theses have a terminal latest integrity verdict "
+        f"(watchlist_integrity_downgrade / _broken); the rest routed Proceed ({dist}). This is gate "
+        "ACTIVITY, not accuracy — integrity_gate_hit_rate stays null because judging whether a terminal "
+        "verdict was the right call needs a later outcome-check against the thesis's own claims, which no "
+        "review mechanism provides yet (a terminal verdict stops the pipeline before candidate-surfacing, "
+        "so unlike a live conviction discard there is no ticker-level checkpoint to ever resolve)."
+    )
 
 
 def to_day(iso):
@@ -86,6 +142,11 @@ def build():
         "error_taxonomy_distribution": {},
         "false_discard_rate": None,
         "by_edge_band": {},
+        "n_integrity_reviewed": 0,
+        "n_integrity_terminal": 0,
+        "integrity_gate_distribution": {},
+        "integrity_gate_hit_rate": None,
+        "integrity_gate_note": "",
         "verdict": "",
     }
 
@@ -100,6 +161,15 @@ def build():
     restores = sum(1 for e in events if e.get("kind") == "recover" and (e.get("from_state") in ("falsified_discarded", "expired_unproven")))
     out["n_discards"] = discards
     out["n_restored"] = restores
+
+    # thesis-integrity gate distribution — honest at any N, it's a process tally not a hit-rate (see module
+    # docstring). Closes the remaining limitation named when the gate shipped (a5ce95a / #284): this is the
+    # first thing that ever reads screener/ledger/theses/*.json's integrity_review block.
+    idist, n_ireviewed, n_iterminal = integrity_gate_distribution(THESES)
+    out["n_integrity_reviewed"] = n_ireviewed
+    out["n_integrity_terminal"] = n_iterminal
+    out["integrity_gate_distribution"] = idist
+    out["integrity_gate_note"] = integrity_gate_note(n_iterminal, n_ireviewed, idist)
 
     if not sufficient:
         out["verdict"] = (
@@ -169,5 +239,57 @@ def main(argv):
     return 0
 
 
+def _selftest():
+    """Fixture-free: pins integrity_gate_distribution() against a synthetic ledger dir — the one piece
+    of this module that had zero regression protection before it existed (build() itself is exercised
+    only against the real, mutable ledger at command-run time)."""
+    import tempfile
+
+    bad = 0
+
+    def check(label, cond):
+        nonlocal bad
+        print(f"  [{'ok' if cond else 'XX'}] {label}")
+        if not cond:
+            bad += 1
+
+    with tempfile.TemporaryDirectory() as td:
+        dist, n, t = integrity_gate_distribution(td)
+        check("empty dir -> (({}, 0, 0))", dist == {} and n == 0 and t == 0)
+
+        def write(name, doc):
+            json.dump(doc, open(os.path.join(td, name), "w", encoding="utf-8"))
+
+        write("a.json", {"meta": {"thesis_id": "A"}})  # no integrity_review at all -> ignored
+        write("b.json", {"meta": {"thesis_id": "B"}, "integrity_review": {"verdict": "Survives", "routing": "Proceed"}})
+        write("c.json", {"meta": {"thesis_id": "C"}, "integrity_review": {"verdict": "Thesis broken", "routing": "watchlist_integrity_broken"}})
+        write("d.json", {"meta": {"thesis_id": "D"}, "integrity_review": {"verdict": "Does not survive — downgrade", "routing": "watchlist_integrity_downgrade"}})
+        write("e.json", {"meta": {"thesis_id": "E"}, "integrity_review": {}})  # empty block, no verdict -> ignored
+        write("f.json", ["not", "an", "object"])  # malformed root -> ignored, never raises
+        write("g.txt", "not json at all")  # non-.json file -> ignored
+
+        dist, n, t = integrity_gate_distribution(td)
+        check("n_reviewed counts only records with a verdict", n == 3)
+        check("n_terminal counts only the two terminal routings", t == 2)
+        check("distribution tallies each verdict string", dist == {
+            "Survives": 1, "Thesis broken": 1, "Does not survive — downgrade": 1,
+        })
+
+    # integrity_gate_note must be accurate for the re-review flow: a thesis re-reviewed terminal after
+    # surfacing candidates is NOT 'killed pre-surfacing'. Expected phrasing pinned to §5 (no unsupported
+    # claim), NOT to the pre-fix string (which asserted 'killed pre-surfacing' — the bug this guards).
+    check("note: n=0 -> honest 'nothing recorded yet'",
+          integrity_gate_note(0, 0, {}) == "No thesis-integrity reviews recorded yet.")
+    note = integrity_gate_note(1, 3, {"Survives": 2, "Thesis broken": 1})
+    check("note: never claims 'pre-surfacing' (unverifiable for re-reviews)", "pre-surfacing" not in note)
+    check("note: states the terminal/reviewed counts", "1 of 3" in note)
+    check("note: never presents a hit-rate as measured", "hit_rate stays null" in note)
+
+    print(f"screener_calibrate selftest: {'ALL OK' if bad == 0 else f'{bad} FAILED'}")
+    return 1 if bad else 0
+
+
 if __name__ == "__main__":
+    if "--selftest" in sys.argv[1:]:
+        sys.exit(_selftest())
     sys.exit(main(sys.argv))

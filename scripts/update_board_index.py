@@ -42,7 +42,52 @@ IDEAS = os.path.join(LEDGER, "ideas")
 
 # Thesis statuses count as "watchlist" for the funnel header. watchlist_manual is a HUMAN move
 # (an overrides.ndjson record), distinct from the engine's three watchlist reasons.
-WATCHLIST_STATUSES = {"watchlist_no_source", "watchlist_no_world_change", "watchlist_no_edge", "watchlist_manual"}
+# watchlist_integrity_downgrade / watchlist_integrity_broken are thesis-integrity's own post-lock
+# terminal verdicts (folded into effective_status above from the additive integrity_review block) —
+# without them here a gate-killed thesis vanished from the funnel instead of counting as watchlist.
+WATCHLIST_STATUSES = {
+    "watchlist_no_source", "watchlist_no_world_change", "watchlist_no_edge", "watchlist_manual",
+    "watchlist_integrity_downgrade", "watchlist_integrity_broken",
+}
+
+# thesis-integrity's two post-lock TERMINAL routings (the adversarial gate rejected the thesis).
+TERMINAL_INTEGRITY = {"watchlist_integrity_downgrade", "watchlist_integrity_broken"}
+
+# ideas-scorecard buckets. A locked thesis at provisional/full_machine means the deep machine BACKED the
+# idea; the watchlist_* verdicts (incl. the two integrity kills) mean the machine reviewed it and did NOT
+# back it. The integrity kills sit in PASS, not CONFIRM: a thesis the engine's own final gate rejected
+# must never be scored as machine-confirmed.
+MACHINE_CONFIRM = {"provisional", "full_machine"}
+MACHINE_PASS = {
+    "watchlist_no_edge", "watchlist_no_world_change", "watchlist_no_source",
+    "watchlist_integrity_downgrade", "watchlist_integrity_broken",
+    "LOG", "PARK", "suppress",
+}
+
+
+def override_supersedes_review(ovr, ir) -> bool:
+    """True iff a human override should still mask a TERMINAL thesis-integrity verdict.
+
+    Only an override the human recorded AFTER the verdict counts: an override made BEFORE the gate ran was
+    a decision about the pre-kill thesis, so letting it mask a later rejection would show a killed idea as
+    provisional/full_machine with no warning. An override with no `moved_at` cannot be shown to post-date
+    the review, so it loses (fail toward surfacing the kill)."""
+    if not (isinstance(ovr, dict) and ovr.get("to_status")):
+        return False
+    moved_at = ovr.get("moved_at") or ""
+    reviewed_at = (ir or {}).get("reviewed_at") or ""
+    return bool(moved_at) and moved_at > reviewed_at
+
+
+def machine_grade_status(sig_status_val, integrity_routing):
+    """The status the ideas-scorecard should grade a promoted idea's thesis by. If the engine's own
+    adversarial gate returned a TERMINAL verdict, that verdict wins over the frozen locked status —
+    independently of any human display override — so a thesis the gate KILLED is scored machine_passed,
+    never machine_confirmed (the machine did not, in the end, back it). Otherwise the linked signal's
+    frozen status stands."""
+    if integrity_routing in TERMINAL_INTEGRITY:
+        return integrity_routing
+    return sig_status_val or ""
 
 
 def read_json(path: str):
@@ -273,6 +318,23 @@ def build() -> dict:
             entry["effective_status"] = engine_status
             entry["override"] = None
             entry["override_stale"] = False
+        # thesis-integrity's verdict, additively patched onto this ledger copy by
+        # scripts/screener_patch_integrity_review.py (meta/status/M0_x above stay frozen at lock time —
+        # see frameworks/screener/SCREENER_PIPELINE.md). None until the gate has reviewed this thesis.
+        ir = rec.get("integrity_review") if isinstance(rec.get("integrity_review"), dict) else None
+        entry["integrity_review"] = ir
+        if ir and ir.get("routing") in TERMINAL_INTEGRITY:
+            # The adversarial gate killed this thesis post-lock — effective_status must say so, or an analyst
+            # reading "provisional"/"full_machine" would never learn the engine's own red-team rejected it.
+            # A human override still wins, but ONLY if the human moved it AFTER seeing this verdict: an
+            # override recorded BEFORE the kill was a decision about the pre-kill thesis, so letting it mask
+            # a later rejection shows a killed idea as full_machine with no warning at all. Compare the
+            # timestamps; an older override loses AND is flagged stale so the human is told why.
+            if not override_supersedes_review(ovr, ir):
+                entry["effective_status"] = ir["routing"]
+                if ovr and ovr.get("to_status"):
+                    # a pre-existing override that the kill has now superseded
+                    entry["override_stale"] = True
         # Phase 3: fold in the engine-owned conviction snapshot (rung, live edge, momentum,
         # sparkline points) — the board reads it; the locked thesis JSON is never touched.
         cs = read_json(os.path.join(CONV_STATE, f"{thesis_id}.json"))
@@ -408,8 +470,6 @@ def build() -> dict:
             idea_fb[iid] = pol
     # a promoted idea links to its signal; the signal's status IS the deep machine's grade of the skim's call
     sig_status = {s["signal_id"]: (s.get("status") or "") for s in signals}
-    MACHINE_CONFIRM = {"provisional", "full_machine"}
-    MACHINE_PASS = {"watchlist_no_edge", "watchlist_no_world_change", "watchlist_no_source", "LOG", "PARK", "suppress"}
 
     ideas: list[dict] = []
     sc = {"surfaced_total": 0, "live_count": 0, "promoted_total": 0,
@@ -462,7 +522,16 @@ def build() -> dict:
             sc["down_votes"] += 1
         if status == "promoted":
             sc["promoted_total"] += 1
-            st = sig_status.get(rec.get("promoted_signal_id") or "", "")
+            psid = rec.get("promoted_signal_id") or ""
+            # A thesis-integrity kill wins over the frozen locked status: the linked thesis's own
+            # effective_status already reflects this on the board, but the scorecard reads sig_status
+            # (frozen), so without this an integrity-killed thesis would still count as machine_confirmed —
+            # the user-facing "it backed" track record would claim the machine agreed with an idea its own
+            # final adversarial gate rejected. Read the integrity routing directly (independent of any
+            # human display override) so the grade is the machine's, not the human's.
+            lt = thesis_by_signal.get(psid) or {}
+            ir_lt = lt.get("integrity_review") if isinstance(lt.get("integrity_review"), dict) else None
+            st = machine_grade_status(sig_status.get(psid, ""), (ir_lt or {}).get("routing"))
             if st in MACHINE_CONFIRM:
                 sc["machine_confirmed"] += 1
             elif st in MACHINE_PASS:
@@ -485,15 +554,71 @@ def build() -> dict:
     }
 
 
-USAGE = """usage: update_board_index.py [--check]
+USAGE = """usage: update_board_index.py [--check | --selftest]
 
   (no args)  rebuild screener/board/index.json from the canonical stores
   --check    build in memory and compare against the existing board (generated_at
              ignored); exit 0 if up to date, 1 if stale/missing. Writes NOTHING.
+  --selftest fixture-free unit test of the ideas-scorecard machine-grade classifier.
+             Writes NOTHING. Exit 1 on any assertion failure.
   --help     show this help. Writes NOTHING.
 
 Any other argument is rejected — this script mutates the board, so an accidental
 flag (e.g. a typo'd --help) must never trigger a rebuild."""
+
+
+def _selftest() -> int:
+    """Fixture-free: pins machine_grade_status() + the CONFIRM/PASS buckets — the ideas-scorecard
+    classification that had zero regression protection (build() runs only against the real, mutable
+    stores at command-run time). Expected values pinned to the rule that the deep machine's own terminal
+    adversarial verdict (a thesis-integrity kill) must never be scored as machine_confirmed."""
+    bad = 0
+
+    def check(label, cond):
+        nonlocal bad
+        print(f"  [{'ok' if cond else 'XX'}] {label}")
+        if not cond:
+            bad += 1
+
+    def bucket(st):
+        return ("confirmed" if st in MACHINE_CONFIRM else
+                "passed" if st in MACHINE_PASS else "pending")
+
+    # A thesis the gate KILLED (terminal integrity routing) must grade PASSED, not CONFIRMED — even though
+    # its frozen locked status is still provisional/full_machine.
+    for frozen in ("provisional", "full_machine"):
+        for kill in TERMINAL_INTEGRITY:
+            st = machine_grade_status(frozen, kill)
+            check(f"frozen={frozen} + gate kill {kill} -> not confirmed",
+                  bucket(st) == "passed" and st != frozen)
+    # No integrity verdict (Proceed or gate never ran) -> frozen status stands: a backed thesis confirms.
+    check("provisional + no integrity verdict -> confirmed",
+          bucket(machine_grade_status("provisional", None)) == "confirmed")
+    check("full_machine + Proceed -> confirmed",
+          bucket(machine_grade_status("full_machine", "Proceed")) == "confirmed")
+    # A non-terminal integrity routing (Proceed) never overrides the frozen status.
+    check("provisional + Proceed -> stays provisional (confirmed)",
+          machine_grade_status("provisional", "Proceed") == "provisional")
+    # Engine watchlist verdicts (no live idea) grade PASSED, not confirmed/pending.
+    check("watchlist_no_edge -> passed", bucket(machine_grade_status("watchlist_no_edge", None)) == "passed")
+    # Codex: an override recorded BEFORE a later terminal re-review must not mask the kill (it was a
+    # decision about the pre-kill thesis); one recorded AFTER it is an informed human call and still wins.
+    KILL = {"routing": "watchlist_integrity_broken", "reviewed_at": "2026-07-22T05:00:00Z"}
+    older = {"to_status": "full_machine", "from_status": "provisional", "moved_at": "2026-07-20T09:00:00Z"}
+    newer = {"to_status": "full_machine", "from_status": "provisional", "moved_at": "2026-07-23T09:00:00Z"}
+    check("override older than the kill does NOT supersede it",
+          override_supersedes_review(older, KILL) is False)
+    check("override newer than the kill DOES supersede it",
+          override_supersedes_review(newer, KILL) is True)
+    check("no override -> kill stands", override_supersedes_review(None, KILL) is False)
+    check("override with no moved_at cannot outrank the kill",
+          override_supersedes_review({"to_status": "full_machine"}, KILL) is False)
+    # The two integrity kills are in PASS and NOT in CONFIRM.
+    check("integrity kills are in MACHINE_PASS", TERMINAL_INTEGRITY <= MACHINE_PASS)
+    check("integrity kills are NOT in MACHINE_CONFIRM", not (TERMINAL_INTEGRITY & MACHINE_CONFIRM))
+
+    print(f"update_board_index selftest: {'ALL OK' if bad == 0 else f'{bad} FAILED'}")
+    return 1 if bad else 0
 
 
 def main(argv: list | None = None) -> int:
@@ -501,6 +626,8 @@ def main(argv: list | None = None) -> int:
     if any(a in ("-h", "--help") for a in args):
         print(USAGE)
         return 0
+    if "--selftest" in args:
+        return _selftest()
     unknown = [a for a in args if a != "--check"]
     if unknown:
         print(f"update_board_index.py: unknown argument(s): {' '.join(unknown)}", file=sys.stderr)
