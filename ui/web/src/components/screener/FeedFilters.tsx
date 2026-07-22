@@ -4,6 +4,10 @@
 
 import { ALL_THEMES, plainBand, plainLinkage, plainRegion, plainSize, plainTheme } from '../../lib/plain'
 import { GICS_SECTORS, gicsOf, gicsSubSectorsFor } from '../../lib/gics'
+import type { CompanyFacet } from '../../lib/api'
+import { CompanyFilter, type CompanyPick } from './CompanyFilter'
+
+export type { CompanyPick } from './CompanyFilter'
 
 export interface FeedFilterState {
   themes: Set<string>
@@ -16,20 +20,21 @@ export interface FeedFilterState {
   linkage: string // '' = all
   gicsSector: string // '' = all — a GICS sector (the 11 top-level industries)
   gicsSubSector: string // '' = all — a sub-sector within gicsSector (only meaningful when a sector is picked)
+  company: CompanyPick | null // null = all — a specific company picked by ticker (see CompanyFilter); matches by ticker OR name
   text: string
 }
 
-export const emptyFilters = (): FeedFilterState => ({ themes: new Set(), region: '', country: '', geoRegion: '', source: '', band: '', size: '', linkage: '', gicsSector: '', gicsSubSector: '', text: '' })
+export const emptyFilters = (): FeedFilterState => ({ themes: new Set(), region: '', country: '', geoRegion: '', source: '', band: '', size: '', linkage: '', gicsSector: '', gicsSubSector: '', company: null, text: '' })
 
 export const filtersActive = (f: FeedFilterState): boolean =>
-  f.themes.size > 0 || !!f.region || !!f.country || !!f.geoRegion || !!f.source || !!f.band || !!f.size || !!f.linkage || !!f.gicsSector || !!f.gicsSubSector || !!f.text.trim()
+  f.themes.size > 0 || !!f.region || !!f.country || !!f.geoRegion || !!f.source || !!f.band || !!f.size || !!f.linkage || !!f.gicsSector || !!f.gicsSubSector || !!f.company || !!f.text.trim()
 
 // The structured filter that triggers ARCHIVE search (the whole-history, server-side read) — everything
 // except the legacy `region` (which only narrows the live wire). When none of these is set, the rail
 // stays in LIVE mode (the 2-day SSE wire). Mirrors the server-side dimensions in news/feed-filter.ts
 // (hasAnyFilter) — including `band`, so a kept/dropped-only filter also searches the whole archive.
 export const archiveFiltersActive = (f: FeedFilterState): boolean =>
-  f.themes.size > 0 || !!f.country || !!f.geoRegion || !!f.source || !!f.band || !!f.size || !!f.linkage || !!f.gicsSector || !!f.gicsSubSector || !!f.text.trim()
+  f.themes.size > 0 || !!f.country || !!f.geoRegion || !!f.source || !!f.band || !!f.size || !!f.linkage || !!f.gicsSector || !!f.gicsSubSector || !!f.company || !!f.text.trim()
 
 // A tailored empty-wire line when a GICS filter is active and nothing shows. GICS tags are matched from
 // the headline, so a thinly-covered sector reads empty even on a busy wire — say so, instead of the
@@ -76,6 +81,18 @@ export function matchesFilters(it: Filterable, f: FeedFilterState): boolean {
     if (f.gicsSector && !g.sectors.has(f.gicsSector)) return false
     if (f.gicsSubSector && !g.subSectors.has(f.gicsSubSector)) return false
   }
+  // Pick-a-company (the ticker autofill): the item passes when it is tagged with the picked EXACT ticker
+  // OR its headline/company blob contains the picked name. Either alone qualifies, so a picked suggestion
+  // (which carries both) has strictly ≥ the recall of typing just the name — the ticker catches items the
+  // name misses (name-only headline vs a different tagged name) and vice-versa. Mirrors the server's
+  // matchesFeedFilters company clause exactly.
+  if (f.company) {
+    const t = (f.company.ticker || '').toUpperCase()
+    const n = (f.company.name || '').toLowerCase()
+    const tickerHit = !!t && (it.companies || []).some((c) => (c.ticker || '').toUpperCase() === t)
+    const nameHit = !!n && `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase().includes(n)
+    if (!tickerHit && !nameHit) return false
+  }
   if (f.text.trim()) {
     const q = f.text.trim().toLowerCase()
     const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
@@ -93,11 +110,13 @@ export function FeedFilters({
   value,
   onChange,
   sources,
+  companies = [],
   compact = false,
 }: {
   value: FeedFilterState
   onChange: (f: FeedFilterState) => void
   sources: string[] // distinct source names present in the data
+  companies?: CompanyFacet[] // distinct companies on the wire (archive facet) — the ticker autofill's suggestions
   compact?: boolean // the rail variant: themes + text + size (no band/source/linkage; region lives in the rail's own Geography dropdown)
 }) {
   const set = (patch: Partial<FeedFilterState>) => onChange({ ...value, ...patch })
@@ -117,7 +136,12 @@ export function FeedFilters({
         ))}
       </div>
       <div className="ffilters__row">
-        <input className="ffilters__text" value={value.text} placeholder="search headline or company…" onChange={(e) => set({ text: e.target.value })} />
+        {/* Pick a company by ticker (autofill) — the reliable "filter by company" path: type a ticker or
+            name, pick the suggestion, and every item tagged with that ticker OR named in the headline comes
+            back. Sits first so it's the obvious company filter; the free-text box beside it still searches
+            headlines. */}
+        <CompanyFilter value={value.company} onChange={(company) => set({ company })} options={companies} />
+        <input className="ffilters__text" value={value.text} placeholder="search headline…" onChange={(e) => set({ text: e.target.value })} />
         {!compact && (
           <select className="ffilters__sel" value={value.band} onChange={(e) => set({ band: e.target.value })} title="Kept or dropped">
             <option value="">kept + dropped</option>

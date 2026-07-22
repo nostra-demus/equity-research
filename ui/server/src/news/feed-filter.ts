@@ -38,6 +38,10 @@ export interface FeedFilterQuery {
   // story is GOLD-wire material even though its scope isn't 'commodity') — one clause, so the archive
   // search and the live rail's client-side projection (ui/web lib/wire.ts itemOnWire) agree exactly.
   wireScope?: string
+  // Pick-a-company filter (the ticker autofill): match an item tagged with this EXACT ticker OR whose
+  // headline/company blob contains this name. Sending both (the picked suggestion carries both) maximises
+  // recall — the ticker catches items the name misses and vice-versa. Either alone also matches.
+  company?: { ticker?: string; name?: string }
   text?: string // substring over headline / translation / company name+ticker
 }
 
@@ -47,8 +51,19 @@ export function hasAnyFilter(q: FeedFilterQuery): boolean {
     (q.themes?.length ?? 0) > 0 ||
     !!q.country || !!q.geoRegion || !!q.source || !!q.band || !!q.size || !!q.linkage ||
     !!q.gicsSector || !!q.gicsSubSector || !!q.scope || (q.commodities?.length ?? 0) > 0 ||
-    (q.topics?.length ?? 0) > 0 || (q.scheduledEvents?.length ?? 0) > 0 || !!q.wireScope || !!(q.text && q.text.trim())
+    (q.topics?.length ?? 0) > 0 || (q.scheduledEvents?.length ?? 0) > 0 || !!q.wireScope ||
+    !!(q.company && (q.company.ticker || q.company.name)) || !!(q.text && q.text.trim())
   )
+}
+
+/** Does the item satisfy the pick-a-company clause? Exact ticker OR name-substring over the headline/company
+ *  blob. Shared by matchesFeedFilters and the debug explainer so the two never drift. */
+function matchesCompany(it: FeedItem, company: { ticker?: string; name?: string }): boolean {
+  const t = (company.ticker || '').toUpperCase()
+  const n = (company.name || '').toLowerCase()
+  const tickerHit = !!t && (it.companies || []).some((c) => (c.ticker || '').toUpperCase() === t)
+  const nameHit = !!n && `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase().includes(n)
+  return tickerHit || nameHit
 }
 
 const bandOf = (it: FeedItem): string =>
@@ -75,6 +90,7 @@ export function matchesFeedFilters(it: FeedItem, q: FeedFilterQuery): boolean {
   if (q.topics && q.topics.length > 0 && !topicsOf(it).some((t) => q.topics!.includes(t))) return false
   if (q.scheduledEvents && q.scheduledEvents.length > 0 && !scheduledEventsOf(it).some((s) => q.scheduledEvents!.includes(s))) return false
   if (q.wireScope && (it.scope || '') !== q.wireScope && commoditiesOf(it).length === 0) return false
+  if (q.company && (q.company.ticker || q.company.name) && !matchesCompany(it, q.company)) return false
   if (q.text && q.text.trim()) {
     const needle = q.text.trim().toLowerCase()
     const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
@@ -110,6 +126,12 @@ export function parseFeedFilterQuery(raw: Record<string, unknown>): FeedFilterQu
     // scheduled-event kinds are lowercase ids (news/schedule.ts ScheduledEventKind)
     scheduledEvents: scheduledRaw ? scheduledRaw.split(',').map((s) => s.trim().toLowerCase()).filter(Boolean) : undefined,
     wireScope: str(raw.wireScope),
+    // pick-a-company: ticker is upcased (tags carry upper-case symbols); name stays verbatim for the substring
+    company: (() => {
+      const ticker = str(raw.companyTicker)?.toUpperCase()
+      const name = str(raw.companyName)
+      return ticker || name ? { ticker, name } : undefined
+    })(),
     text: str(raw.text),
   }
 }
@@ -192,6 +214,15 @@ export function explainFeedFilterMatch(it: FeedItem, q: FeedFilterQuery): FeedFi
     const have = commoditiesOf(it)
     const pass = (it.scope || '') === q.wireScope || have.length > 0
     checks.push({ clause: 'wireScope', passed: pass, detail: pass ? (have.length ? `on the wire via commodity tag(s): ${have.join(', ')}` : `on the wire via scope ${q.wireScope}`) : `item scope "${it.scope || 'unset'}" ≠ "${q.wireScope}" and it carries no commodity tag` })
+  }
+  if (q.company && (q.company.ticker || q.company.name)) {
+    const t = (q.company.ticker || '').toUpperCase()
+    const n = (q.company.name || '').toLowerCase()
+    const tickerHit = !!t && (it.companies || []).some((c) => (c.ticker || '').toUpperCase() === t)
+    const nameHit = !!n && `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase().includes(n)
+    const want = [t && `ticker ${t}`, n && `name “${q.company.name}”`].filter(Boolean).join(' OR ')
+    const via = tickerHit ? `exact ticker ${t}` : nameHit ? `name “${q.company.name}” in headline/company blob` : ''
+    checks.push({ clause: 'company', passed: tickerHit || nameHit, detail: tickerHit || nameHit ? `matched via ${via}` : `no company matched ${want}` })
   }
   if (q.text && q.text.trim()) {
     const needle = q.text.trim().toLowerCase()

@@ -13,7 +13,15 @@ import { gicsOf, GICS_SECTORS, gicsSubSectorsFor } from './gics'
 import { COUNTRIES, GEO_REGIONS, regionOfCountry } from './geography'
 import { topicLabel } from './topics'
 import { scheduledEventLabel } from './schedule'
+import { filterCompanies } from './entities'
 import type { FeedFilterQuery } from './feed-filter'
+
+// the most-mentioned companies to return for the ticker autofill — bounds the payload; a rarer symbol the
+// list omits still filters, because CompanyFilter falls back to applying a free-typed ticker directly.
+const MAX_COMPANY_FACETS = 1000
+
+const normCompany = (s: unknown): string =>
+  String(s ?? '').toLowerCase().replace(/\s+/g, ' ').replace(/[.,]/g, '').replace(/\(.*?\)/g, '').replace(/^the /, '').trim()
 
 // sub-sector label → its parent GICS sector, for the drill-down grouping (built once from the taxonomy)
 const SUBSECTOR_PARENT = new Map<string, string>(
@@ -34,9 +42,12 @@ interface FacetRow {
   commodities: string[]
   topics: string[]
   scheduledEvents: string[]
+  companies: { ticker: string | null; name: string }[] // scrubbed of country/agency guesses (entities.ts)
 }
 
 export interface FacetCount { key: string; label: string; count: number; parent?: string }
+// A distinct company on the wire + its archive mention count — the source for the ticker autofill.
+export interface CompanyFacet { ticker: string | null; name: string; count: number }
 export interface Facets {
   countries: FacetCount[] // key = ISO alpha-2, parent = continent
   regions: FacetCount[] // continents
@@ -48,6 +59,7 @@ export interface Facets {
   commodities: FacetCount[] // canonical commodity subjects (news/commodities.ts) — key = profile heading
   topics: FacetCount[] // CapIQ-style subject topics (news/topics.ts) — key = topic id, label = plain name
   scheduledEvents: FacetCount[] // forward/scheduled corporate events (news/schedule.ts) — the §17 catalyst axis
+  companies: CompanyFacet[] // distinct companies (deduped by ticker) with mention counts — the ticker autofill
   total: number // items matching the FULL active filter
   builtThroughDate: string | null // oldest day in the index — "searched all history back to <date>"
   builtAt: string
@@ -89,6 +101,8 @@ function buildRows(repoRoot: string, archiveDir: string, nowMs: number): { rows:
         commodities: it.commodities || [],
         topics: it.topics || [], // derived on read in hydrate (news/topics.ts) — always an array
         scheduledEvents: it.scheduled_events || [], // derived on read in hydrate (news/schedule.ts)
+        // scrubbed of country/agency/junk guesses (entities.ts) so the autofill only offers investable firms
+        companies: filterCompanies(it.companies).map((c) => ({ ticker: c.ticker || null, name: c.name })),
       })
     }
     if (lines >= MAX_LINES) break
@@ -123,7 +137,56 @@ function rowMatches(r: FacetRow, q: FeedFilterQuery): boolean {
   if (q.topics && q.topics.length > 0 && !r.topics.some((t) => q.topics!.includes(t))) return false
   if (q.scheduledEvents && q.scheduledEvents.length > 0 && !r.scheduledEvents.some((s) => q.scheduledEvents!.includes(s))) return false
   if (q.wireScope && r.scope !== q.wireScope && r.commodities.length === 0) return false
+  if (q.company && (q.company.ticker || q.company.name)) {
+    const t = (q.company.ticker || '').toUpperCase()
+    const n = (q.company.name || '').toLowerCase()
+    const tickerHit = !!t && r.companies.some((c) => (c.ticker || '').toUpperCase() === t)
+    // A facet row carries no headline, so the name clause is approximated over the company blob (name +
+    // ticker) only — enough for the counts shown next to OTHER facets while a company is picked. The
+    // authoritative name match (which also scans the headline) is matchesFeedFilters at the search site.
+    const nameHit = !!n && r.companies.some((c) => `${c.name} ${c.ticker || ''}`.toLowerCase().includes(n))
+    if (!tickerHit && !nameHit) return false
+  }
   return true
+}
+
+/** Dedup the archive's tagged companies into an autofill list. Keyed by ticker (upcased) when known — else
+ *  a normalized name — so a name-only guess collapses into its tickered sibling (learned across ALL rows).
+ *  `count` is the number of distinct rows mentioning the company; the display name is its most-used spelling. */
+function buildCompanyFacet(companyRows: FacetRow[], allRows: FacetRow[]): CompanyFacet[] {
+  const nameToTicker = new Map<string, string>()
+  for (const r of allRows) for (const c of r.companies) {
+    if (!c.ticker) continue
+    const nn = normCompany(c.name)
+    if (nn && !nameToTicker.has(nn)) nameToTicker.set(nn, c.ticker.toUpperCase())
+  }
+  const acc = new Map<string, { ticker: string | null; names: Map<string, number>; rows: number }>()
+  for (const r of companyRows) {
+    const seen = new Map<string, { ticker: string | null; name: string }>() // one credit per key per row
+    for (const c of r.companies) {
+      const nn = normCompany(c.name)
+      if (!nn) continue
+      const tk = (c.ticker && c.ticker.toUpperCase()) || nameToTicker.get(nn) || ''
+      const key = tk ? `T:${tk}` : `N:${nn}`
+      if (!seen.has(key)) seen.set(key, { ticker: tk || null, name: c.name })
+    }
+    for (const [key, meta] of seen) {
+      const a = acc.get(key) || { ticker: meta.ticker, names: new Map<string, number>(), rows: 0 }
+      a.rows += 1
+      a.names.set(meta.name, (a.names.get(meta.name) || 0) + 1)
+      if (!a.ticker && meta.ticker) a.ticker = meta.ticker
+      acc.set(key, a)
+    }
+  }
+  const out: CompanyFacet[] = []
+  for (const a of acc.values()) {
+    let name = ''
+    let best = -1
+    for (const [nm, n] of a.names) if (n > best || (n === best && nm.length > name.length)) { best = n; name = nm }
+    out.push({ ticker: a.ticker, name, count: a.rows })
+  }
+  out.sort((x, y) => y.count - x.count || x.name.localeCompare(y.name))
+  return out.slice(0, MAX_COMPANY_FACETS)
 }
 
 // a filter with some keys cleared — so a facet never constrains on its own dimension
@@ -154,6 +217,7 @@ export function computeFacets(repoRoot: string, q: FeedFilterQuery, opts: { arch
   const commodityRows = rows.filter((r) => rowMatches(r, without(q, 'commodities')))
   const topicRows = rows.filter((r) => rowMatches(r, without(q, 'topics')))
   const scheduledEventRows = rows.filter((r) => rowMatches(r, without(q, 'scheduledEvents')))
+  const companyRows = rows.filter((r) => rowMatches(r, without(q, 'company')))
 
   const countryCounts = tally(countryRows, (r) => (r.country ? [r.country] : []))
   const regionCounts = tally(regionRows, (r) => (r.geoRegion ? [r.geoRegion] : []))
@@ -176,7 +240,8 @@ export function computeFacets(repoRoot: string, q: FeedFilterQuery, opts: { arch
   const commodities: FacetCount[] = [...commodityCounts].map(([key, count]) => ({ key, label: key, count })).sort(sortCounts)
   const topics: FacetCount[] = [...topicCounts].map(([key, count]) => ({ key, label: topicLabel(key), count })).sort(sortCounts)
   const scheduledEvents: FacetCount[] = [...scheduledEventCounts].map(([key, count]) => ({ key, label: scheduledEventLabel(key), count })).sort(sortCounts)
+  const companies = buildCompanyFacet(companyRows, rows)
 
   const total = rows.filter((r) => rowMatches(r, q)).length
-  return { countries, regions, sectors, subSectors, sources, themes, scopes, commodities, topics, scheduledEvents, total, builtThroughDate, builtAt: now().toISOString() }
+  return { countries, regions, sectors, subSectors, sources, themes, scopes, commodities, topics, scheduledEvents, companies, total, builtThroughDate, builtAt: now().toISOString() }
 }
