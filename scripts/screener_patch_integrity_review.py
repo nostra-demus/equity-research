@@ -61,6 +61,16 @@ def _latest_review(run_root_abs: str) -> str | None:
     return sorted(revs, key=_ver)[-1]
 
 
+# MODULE_RULES.md's binding verdict -> routing table (same mapping validate_screener_json.py enforces on
+# the review artifact itself). A review whose pair disagrees is internally inconsistent and is not patched.
+VERDICT_ROUTING = {
+    "Survives": "Proceed",
+    "Survives with haircut": "Proceed",
+    "Does not survive — downgrade": "watchlist_integrity_downgrade",
+    "Thesis broken": "watchlist_integrity_broken",
+}
+
+
 def patch_one(ledger_path: str) -> str:
     """Patch one screener/ledger/theses/<id>.json in place. Returns a short status word."""
     try:
@@ -89,6 +99,18 @@ def patch_one(ledger_path: str) -> str:
         return f"review-unreadable ({e})"
     if not isinstance(review, dict):
         return "review-malformed (not an object)"
+    # A review that PARSES is not a review that is USABLE. `{"verdict": "Thesis broken"}` previously wrote a
+    # block with routing "" — which no TERMINAL_INTEGRITY test matches, so a thesis the gate declared broken
+    # kept displaying as provisional/full_machine on the board forever. That is the exact fail-open this
+    # whole feature exists to close, so validate the fields the downstream readers actually branch on, and
+    # fail closed (main() turns any status outside patched/unchanged/no-review-yet into rc=1).
+    verdict, routing = review.get("verdict"), review.get("routing")
+    expected = VERDICT_ROUTING.get(verdict)
+    if expected is None:
+        return f"review-invalid (verdict {verdict!r} not in {sorted(VERDICT_ROUTING)})"
+    if routing != expected:
+        return (f"review-invalid (verdict {verdict!r} requires routing {expected!r} per MODULE_RULES.md's "
+                f"binding table, got {routing!r})")
     new_block = {
         "verdict": review.get("verdict") or "",
         "routing": review.get("routing") or "",
@@ -205,6 +227,36 @@ def _selftest() -> int:
         json.dump({"meta": "not-a-dict"}, open(bad_meta_path, "w", encoding="utf-8"))
         check("non-dict meta -> 'no-run-root', never crashes",
               patch_one(bad_meta_path) == "no-run-root")
+
+    # Case 9 (Codex): a review that PARSES but is incomplete/inconsistent must NOT be patched. Previously
+    # `{"verdict": "Thesis broken"}` wrote routing "" — which no TERMINAL_INTEGRITY test matches, so the
+    # board kept showing a thesis the gate declared broken as provisional/full_machine, forever.
+    with tempfile.TemporaryDirectory() as td:
+        run_d = os.path.join(td, "screener", "runs", "SIG-V"); os.makedirs(run_d)
+        led = os.path.join(td, "screener", "ledger", "theses"); os.makedirs(led)
+        lp = os.path.join(led, "THS-SIG-V-v1.json")
+        old_repo, old_theses = REPO, THESES
+        globals()["REPO"], globals()["THESES"] = td, led
+        try:
+            for label, review, want_patch in (
+                ("verdict only (no routing)", {"verdict": "Thesis broken"}, False),
+                ("verdict/routing mismatch", {"verdict": "Thesis broken", "routing": "Proceed"}, False),
+                ("verdict not in the enum", {"verdict": "Looks fine", "routing": "Proceed"}, False),
+                ("consistent kill", {"verdict": "Thesis broken",
+                                     "routing": "watchlist_integrity_broken"}, True),
+                ("consistent proceed", {"verdict": "Survives", "routing": "Proceed"}, True),
+            ):
+                with open(os.path.join(run_d, "thesis_integrity_review.json"), "w") as f:
+                    json.dump(review, f)
+                with open(lp, "w") as f:
+                    json.dump({"meta": {"thesis_id": "THS-SIG-V-v1", "signal_id": "SIG-V",
+                                        "status": "provisional", "locked": True}}, f)
+                st = patch_one(lp)
+                got = (st == "patched")
+                check(f"review validation: {label} -> {'patched' if want_patch else 'refused'}",
+                      got == want_patch)
+        finally:
+            globals()["REPO"], globals()["THESES"] = old_repo, old_theses
 
     # Case 8: main() must FAIL CLOSED — a genuine failure (here an unreadable review) propagates a nonzero
     # exit so the pipeline never commits a board that still shows a gate-killed thesis as provisional.

@@ -65,6 +65,20 @@ MACHINE_PASS = {
 }
 
 
+def override_supersedes_review(ovr, ir) -> bool:
+    """True iff a human override should still mask a TERMINAL thesis-integrity verdict.
+
+    Only an override the human recorded AFTER the verdict counts: an override made BEFORE the gate ran was
+    a decision about the pre-kill thesis, so letting it mask a later rejection would show a killed idea as
+    provisional/full_machine with no warning. An override with no `moved_at` cannot be shown to post-date
+    the review, so it loses (fail toward surfacing the kill)."""
+    if not (isinstance(ovr, dict) and ovr.get("to_status")):
+        return False
+    moved_at = ovr.get("moved_at") or ""
+    reviewed_at = (ir or {}).get("reviewed_at") or ""
+    return bool(moved_at) and moved_at > reviewed_at
+
+
 def machine_grade_status(sig_status_val, integrity_routing):
     """The status the ideas-scorecard should grade a promoted idea's thesis by. If the engine's own
     adversarial gate returned a TERMINAL verdict, that verdict wins over the frozen locked status —
@@ -309,11 +323,18 @@ def build() -> dict:
         # see frameworks/screener/SCREENER_PIPELINE.md). None until the gate has reviewed this thesis.
         ir = rec.get("integrity_review") if isinstance(rec.get("integrity_review"), dict) else None
         entry["integrity_review"] = ir
-        if ir and ir.get("routing") in TERMINAL_INTEGRITY and not (ovr and ovr.get("to_status")):
-            # The adversarial gate killed this thesis post-lock and no human has since overridden it —
-            # effective_status must say so, or an analyst reading "provisional"/"full_machine" here would
-            # never learn the engine's own red-team already rejected it. A human override (above) still wins.
-            entry["effective_status"] = ir["routing"]
+        if ir and ir.get("routing") in TERMINAL_INTEGRITY:
+            # The adversarial gate killed this thesis post-lock — effective_status must say so, or an analyst
+            # reading "provisional"/"full_machine" would never learn the engine's own red-team rejected it.
+            # A human override still wins, but ONLY if the human moved it AFTER seeing this verdict: an
+            # override recorded BEFORE the kill was a decision about the pre-kill thesis, so letting it mask
+            # a later rejection shows a killed idea as full_machine with no warning at all. Compare the
+            # timestamps; an older override loses AND is flagged stale so the human is told why.
+            if not override_supersedes_review(ovr, ir):
+                entry["effective_status"] = ir["routing"]
+                if ovr and ovr.get("to_status"):
+                    # a pre-existing override that the kill has now superseded
+                    entry["override_stale"] = True
         # Phase 3: fold in the engine-owned conviction snapshot (rung, live edge, momentum,
         # sparkline points) — the board reads it; the locked thesis JSON is never touched.
         cs = read_json(os.path.join(CONV_STATE, f"{thesis_id}.json"))
@@ -580,6 +601,18 @@ def _selftest() -> int:
           machine_grade_status("provisional", "Proceed") == "provisional")
     # Engine watchlist verdicts (no live idea) grade PASSED, not confirmed/pending.
     check("watchlist_no_edge -> passed", bucket(machine_grade_status("watchlist_no_edge", None)) == "passed")
+    # Codex: an override recorded BEFORE a later terminal re-review must not mask the kill (it was a
+    # decision about the pre-kill thesis); one recorded AFTER it is an informed human call and still wins.
+    KILL = {"routing": "watchlist_integrity_broken", "reviewed_at": "2026-07-22T05:00:00Z"}
+    older = {"to_status": "full_machine", "from_status": "provisional", "moved_at": "2026-07-20T09:00:00Z"}
+    newer = {"to_status": "full_machine", "from_status": "provisional", "moved_at": "2026-07-23T09:00:00Z"}
+    check("override older than the kill does NOT supersede it",
+          override_supersedes_review(older, KILL) is False)
+    check("override newer than the kill DOES supersede it",
+          override_supersedes_review(newer, KILL) is True)
+    check("no override -> kill stands", override_supersedes_review(None, KILL) is False)
+    check("override with no moved_at cannot outrank the kill",
+          override_supersedes_review({"to_status": "full_machine"}, KILL) is False)
     # The two integrity kills are in PASS and NOT in CONFIRM.
     check("integrity kills are in MACHINE_PASS", TERMINAL_INTEGRITY <= MACHINE_PASS)
     check("integrity kills are NOT in MACHINE_CONFIRM", not (TERMINAL_INTEGRITY & MACHINE_CONFIRM))
