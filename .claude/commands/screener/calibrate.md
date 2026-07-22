@@ -27,8 +27,9 @@ record fills in as ideas hit their dates. Never present a metric the aggregator 
 were measured.
 
 Always ALSO report `integrity_gate_note` and, when `n_integrity_reviewed` > 0, the
-`integrity_gate_distribution` counts (how many theses the adversarial gate killed pre-surfacing vs let
-through) — this is honest at any N (a tally, not a rate) so it means something from the very first
+`integrity_gate_distribution` counts (how many reviewed theses have a terminal latest integrity verdict
+— the adversarial gate rejected them — vs routed Proceed) — this is honest at any N (a tally, not a
+rate) so it means something from the very first
 review, unlike the floor-gated metrics above. Never present `integrity_gate_hit_rate` as measured — it
 is null by design until a review mechanism exists that can check a KILLED thesis's own claims against
 what actually happened (no such mechanism exists yet; see `scripts/screener_calibrate.py`'s docstring).

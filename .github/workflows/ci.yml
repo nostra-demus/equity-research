@@ -115,6 +115,9 @@ jobs:
       - name: Screener calibration selftest (thesis-integrity gate distribution tally — fixture-free)
         run: python3 scripts/screener_calibrate.py --selftest
 
+      - name: Board-index scorecard selftest (integrity-kill never scored machine_confirmed — fixture-free)
+        run: python3 scripts/update_board_index.py --selftest
+
       - name: Data pool is symlink-safe — no tracked files under data/ (prevents the symlink-clobber "0 companies" outage)
         run: |
           tracked="$(git ls-files -- data)"

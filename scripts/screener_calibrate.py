@@ -78,6 +78,24 @@ def integrity_gate_distribution(theses_dir):
     return dist, n_reviewed, n_terminal
 
 
+def integrity_gate_note(n_terminal, n_reviewed, dist):
+    """Human-readable summary of the thesis-integrity tally. Describes n_terminal only as 'a terminal
+    LATEST integrity verdict', never as 'killed pre-surfacing': a thesis first routed Proceed, surfaced
+    candidates, then re-reviewed into a terminal `_vN` verdict already HAS candidates, so 'pre-surfacing'
+    would be a claim the data does not support (§5 — no claim without support). Accuracy over a tidier
+    phrase. Never quotes an accuracy/hit-rate — this is gate ACTIVITY, not correctness."""
+    if n_reviewed == 0:
+        return "No thesis-integrity reviews recorded yet."
+    return (
+        f"{n_terminal} of {n_reviewed} reviewed theses have a terminal latest integrity verdict "
+        f"(watchlist_integrity_downgrade / _broken); the rest routed Proceed ({dist}). This is gate "
+        "ACTIVITY, not accuracy — integrity_gate_hit_rate stays null because judging whether a terminal "
+        "verdict was the right call needs a later outcome-check against the thesis's own claims, which no "
+        "review mechanism provides yet (a terminal verdict stops the pipeline before candidate-surfacing, "
+        "so unlike a live conviction discard there is no ticker-level checkpoint to ever resolve)."
+    )
+
+
 def to_day(iso):
     if not iso:
         return None
@@ -151,14 +169,7 @@ def build():
     out["n_integrity_reviewed"] = n_ireviewed
     out["n_integrity_terminal"] = n_iterminal
     out["integrity_gate_distribution"] = idist
-    out["integrity_gate_note"] = (
-        "No thesis-integrity reviews recorded yet." if n_ireviewed == 0 else
-        f"{n_iterminal} of {n_ireviewed} reviewed theses were killed pre-surfacing ({idist}). This is gate "
-        "ACTIVITY, not accuracy — integrity_gate_hit_rate stays null because judging whether a kill was the "
-        "right call needs a later outcome-check against the killed thesis's own claims, which no review "
-        "mechanism provides yet (a terminal verdict stops the pipeline before candidate-surfacing, so unlike "
-        "a live conviction discard there is no ticker-level checkpoint to ever resolve)."
-    )
+    out["integrity_gate_note"] = integrity_gate_note(n_iterminal, n_ireviewed, idist)
 
     if not sufficient:
         out["verdict"] = (
@@ -263,6 +274,16 @@ def _selftest():
         check("distribution tallies each verdict string", dist == {
             "Survives": 1, "Thesis broken": 1, "Does not survive — downgrade": 1,
         })
+
+    # integrity_gate_note must be accurate for the re-review flow: a thesis re-reviewed terminal after
+    # surfacing candidates is NOT 'killed pre-surfacing'. Expected phrasing pinned to §5 (no unsupported
+    # claim), NOT to the pre-fix string (which asserted 'killed pre-surfacing' — the bug this guards).
+    check("note: n=0 -> honest 'nothing recorded yet'",
+          integrity_gate_note(0, 0, {}) == "No thesis-integrity reviews recorded yet.")
+    note = integrity_gate_note(1, 3, {"Survives": 2, "Thesis broken": 1})
+    check("note: never claims 'pre-surfacing' (unverifiable for re-reviews)", "pre-surfacing" not in note)
+    check("note: states the terminal/reviewed counts", "1 of 3" in note)
+    check("note: never presents a hit-rate as measured", "hit_rate stays null" in note)
 
     print(f"screener_calibrate selftest: {'ALL OK' if bad == 0 else f'{bad} FAILED'}")
     return 1 if bad else 0

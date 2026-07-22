@@ -50,6 +50,31 @@ WATCHLIST_STATUSES = {
     "watchlist_integrity_downgrade", "watchlist_integrity_broken",
 }
 
+# thesis-integrity's two post-lock TERMINAL routings (the adversarial gate rejected the thesis).
+TERMINAL_INTEGRITY = {"watchlist_integrity_downgrade", "watchlist_integrity_broken"}
+
+# ideas-scorecard buckets. A locked thesis at provisional/full_machine means the deep machine BACKED the
+# idea; the watchlist_* verdicts (incl. the two integrity kills) mean the machine reviewed it and did NOT
+# back it. The integrity kills sit in PASS, not CONFIRM: a thesis the engine's own final gate rejected
+# must never be scored as machine-confirmed.
+MACHINE_CONFIRM = {"provisional", "full_machine"}
+MACHINE_PASS = {
+    "watchlist_no_edge", "watchlist_no_world_change", "watchlist_no_source",
+    "watchlist_integrity_downgrade", "watchlist_integrity_broken",
+    "LOG", "PARK", "suppress",
+}
+
+
+def machine_grade_status(sig_status_val, integrity_routing):
+    """The status the ideas-scorecard should grade a promoted idea's thesis by. If the engine's own
+    adversarial gate returned a TERMINAL verdict, that verdict wins over the frozen locked status —
+    independently of any human display override — so a thesis the gate KILLED is scored machine_passed,
+    never machine_confirmed (the machine did not, in the end, back it). Otherwise the linked signal's
+    frozen status stands."""
+    if integrity_routing in TERMINAL_INTEGRITY:
+        return integrity_routing
+    return sig_status_val or ""
+
 
 def read_json(path: str):
     try:
@@ -284,7 +309,7 @@ def build() -> dict:
         # see frameworks/screener/SCREENER_PIPELINE.md). None until the gate has reviewed this thesis.
         ir = rec.get("integrity_review") if isinstance(rec.get("integrity_review"), dict) else None
         entry["integrity_review"] = ir
-        if ir and ir.get("routing") in ("watchlist_integrity_downgrade", "watchlist_integrity_broken") and not (ovr and ovr.get("to_status")):
+        if ir and ir.get("routing") in TERMINAL_INTEGRITY and not (ovr and ovr.get("to_status")):
             # The adversarial gate killed this thesis post-lock and no human has since overridden it —
             # effective_status must say so, or an analyst reading "provisional"/"full_machine" here would
             # never learn the engine's own red-team already rejected it. A human override (above) still wins.
@@ -424,8 +449,6 @@ def build() -> dict:
             idea_fb[iid] = pol
     # a promoted idea links to its signal; the signal's status IS the deep machine's grade of the skim's call
     sig_status = {s["signal_id"]: (s.get("status") or "") for s in signals}
-    MACHINE_CONFIRM = {"provisional", "full_machine"}
-    MACHINE_PASS = {"watchlist_no_edge", "watchlist_no_world_change", "watchlist_no_source", "LOG", "PARK", "suppress"}
 
     ideas: list[dict] = []
     sc = {"surfaced_total": 0, "live_count": 0, "promoted_total": 0,
@@ -478,7 +501,16 @@ def build() -> dict:
             sc["down_votes"] += 1
         if status == "promoted":
             sc["promoted_total"] += 1
-            st = sig_status.get(rec.get("promoted_signal_id") or "", "")
+            psid = rec.get("promoted_signal_id") or ""
+            # A thesis-integrity kill wins over the frozen locked status: the linked thesis's own
+            # effective_status already reflects this on the board, but the scorecard reads sig_status
+            # (frozen), so without this an integrity-killed thesis would still count as machine_confirmed —
+            # the user-facing "it backed" track record would claim the machine agreed with an idea its own
+            # final adversarial gate rejected. Read the integrity routing directly (independent of any
+            # human display override) so the grade is the machine's, not the human's.
+            lt = thesis_by_signal.get(psid) or {}
+            ir_lt = lt.get("integrity_review") if isinstance(lt.get("integrity_review"), dict) else None
+            st = machine_grade_status(sig_status.get(psid, ""), (ir_lt or {}).get("routing"))
             if st in MACHINE_CONFIRM:
                 sc["machine_confirmed"] += 1
             elif st in MACHINE_PASS:
@@ -501,15 +533,59 @@ def build() -> dict:
     }
 
 
-USAGE = """usage: update_board_index.py [--check]
+USAGE = """usage: update_board_index.py [--check | --selftest]
 
   (no args)  rebuild screener/board/index.json from the canonical stores
   --check    build in memory and compare against the existing board (generated_at
              ignored); exit 0 if up to date, 1 if stale/missing. Writes NOTHING.
+  --selftest fixture-free unit test of the ideas-scorecard machine-grade classifier.
+             Writes NOTHING. Exit 1 on any assertion failure.
   --help     show this help. Writes NOTHING.
 
 Any other argument is rejected — this script mutates the board, so an accidental
 flag (e.g. a typo'd --help) must never trigger a rebuild."""
+
+
+def _selftest() -> int:
+    """Fixture-free: pins machine_grade_status() + the CONFIRM/PASS buckets — the ideas-scorecard
+    classification that had zero regression protection (build() runs only against the real, mutable
+    stores at command-run time). Expected values pinned to the rule that the deep machine's own terminal
+    adversarial verdict (a thesis-integrity kill) must never be scored as machine_confirmed."""
+    bad = 0
+
+    def check(label, cond):
+        nonlocal bad
+        print(f"  [{'ok' if cond else 'XX'}] {label}")
+        if not cond:
+            bad += 1
+
+    def bucket(st):
+        return ("confirmed" if st in MACHINE_CONFIRM else
+                "passed" if st in MACHINE_PASS else "pending")
+
+    # A thesis the gate KILLED (terminal integrity routing) must grade PASSED, not CONFIRMED — even though
+    # its frozen locked status is still provisional/full_machine.
+    for frozen in ("provisional", "full_machine"):
+        for kill in TERMINAL_INTEGRITY:
+            st = machine_grade_status(frozen, kill)
+            check(f"frozen={frozen} + gate kill {kill} -> not confirmed",
+                  bucket(st) == "passed" and st != frozen)
+    # No integrity verdict (Proceed or gate never ran) -> frozen status stands: a backed thesis confirms.
+    check("provisional + no integrity verdict -> confirmed",
+          bucket(machine_grade_status("provisional", None)) == "confirmed")
+    check("full_machine + Proceed -> confirmed",
+          bucket(machine_grade_status("full_machine", "Proceed")) == "confirmed")
+    # A non-terminal integrity routing (Proceed) never overrides the frozen status.
+    check("provisional + Proceed -> stays provisional (confirmed)",
+          machine_grade_status("provisional", "Proceed") == "provisional")
+    # Engine watchlist verdicts (no live idea) grade PASSED, not confirmed/pending.
+    check("watchlist_no_edge -> passed", bucket(machine_grade_status("watchlist_no_edge", None)) == "passed")
+    # The two integrity kills are in PASS and NOT in CONFIRM.
+    check("integrity kills are in MACHINE_PASS", TERMINAL_INTEGRITY <= MACHINE_PASS)
+    check("integrity kills are NOT in MACHINE_CONFIRM", not (TERMINAL_INTEGRITY & MACHINE_CONFIRM))
+
+    print(f"update_board_index selftest: {'ALL OK' if bad == 0 else f'{bad} FAILED'}")
+    return 1 if bad else 0
 
 
 def main(argv: list | None = None) -> int:
@@ -517,6 +593,8 @@ def main(argv: list | None = None) -> int:
     if any(a in ("-h", "--help") for a in args):
         print(USAGE)
         return 0
+    if "--selftest" in args:
+        return _selftest()
     unknown = [a for a in args if a != "--check"]
     if unknown:
         print(f"update_board_index.py: unknown argument(s): {' '.join(unknown)}", file=sys.stderr)
