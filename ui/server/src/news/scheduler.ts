@@ -16,7 +16,7 @@ import { refreshBoard } from './write-inbox'
 import { runIngestCycle } from './runCycle'
 import { healEnrichCache } from './enrich-heal'
 import { runIdeaPass } from './ideas/run-idea-pass'
-import { cooldownInfo, pacedCeiling, pacedHasHeadroom } from './triage/budget'
+import { cooldownInfo, isCoolingDown, pacedCeiling, pacedHasHeadroom } from './triage/budget'
 import { DEFERRED_CAP } from './runCycle'
 import type { CycleSummary, DeferReason, LastResortState } from './types'
 
@@ -182,6 +182,38 @@ function budgetHasHeadroom(): boolean {
     return true // unreadable budget → don't stall the drain
   }
   return groqOk || geminiHasHeadroom() || overflowHasHeadroom()
+}
+
+/**
+ * Can the Haiku last-resort tier absorb backlog RIGHT NOW? Pure decision (no I/O) so it is unit-testable,
+ * in the style of tierHealth: enabled AND not in a cross-cycle failure cooldown AND still under its daily
+ * $ ceiling. The drain gate has to know this: the last-resort exists to soak up exactly this backlog, so
+ * on an overload day when every FREE tier is tapped out but Haiku still has budget, the drain must run for
+ * Haiku to clear it. Omitting it here was the real defect behind "N items deferred" climbing toward the
+ * loss cap — budgetHasHeadroom saw the free tiers spent, returned false, and the frequent drain never ran,
+ * so the backlog could only nibble down at the much slower fetch cadence while fresh items kept arriving.
+ */
+export function anthropicDrainReady(enabled: boolean, coolingDown: boolean, usdToday: number, usdCap: number): boolean {
+  return enabled && !coolingDown && usdToday < usdCap
+}
+
+/** Live read of anthropicDrainReady from disk (config flags + the $ ledger + the cooldown marker). */
+function anthropicHasHeadroom(now = Date.now()): boolean {
+  const enabled = NEWS.anthropicFallbackEnabled && (NEWS.anthropicFallbackMode === 'subscription' || !!NEWS.anthropicApiKey)
+  if (!enabled) return false
+  const cooling = isCoolingDown(STATE_DIR, 'anthropic-triage', now)
+  const u = readDailyUsd('anthropic-triage-budget.json', new Date(now).toISOString().slice(0, 10))
+  return anthropicDrainReady(true, cooling, u.usd, NEWS.anthropicDailyUsd)
+}
+
+/**
+ * The DRAIN gate: is there ANY tier that can score a batch right now? The free-tier budget check
+ * (budgetHasHeadroom) OR the Haiku last-resort still having room. Kept separate from budgetHasHeadroom
+ * because that predicate ALSO gates the Groq-bound heal + idea passes, which the paid last-resort must
+ * not turn on — only the backlog drain (which routes through every tier, Haiku included) may.
+ */
+function drainHasHeadroom(): boolean {
+  return budgetHasHeadroom() || anthropicHasHeadroom()
 }
 
 export interface NewsStatus {
@@ -633,7 +665,7 @@ export function startNewsIngester(): void {
   // the sustainable per-minute pace whenever there's a backlog + daily budget (true 24/7 throttle).
   // Skips entirely when caught up or out of budget; never overlaps a fetch cycle (shared `running`).
   const drain = async () => {
-    if (running || backlogCount() === 0 || !budgetHasHeadroom()) return
+    if (running || backlogCount() === 0 || !drainHasHeadroom()) return
     running = true
     try {
       const summary = await runAbortableCycle(

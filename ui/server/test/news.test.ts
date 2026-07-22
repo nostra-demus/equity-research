@@ -15,7 +15,7 @@ import { coerceTriage, estimateTokens, scoreToBand, triageBatch } from '../src/n
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox } from '../src/news/write-inbox'
 import { runIngestCycle } from '../src/news/runCycle'
-import { backlogTrend, getNewsDiagnostics, tierHealth } from '../src/news/scheduler'
+import { anthropicDrainReady, backlogTrend, getNewsDiagnostics, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS } from '../src/config'
 import type { FeedItem, RawArticle, TriagedItem } from '../src/news/types'
 
@@ -1125,6 +1125,17 @@ await check('tierHealth: disabled → cooling → budget-spent → paced precede
   assert.equal(tierHealth(true, 0, true, true), 'budget-spent', 'spent beats paced')
   assert.equal(tierHealth(true, 0, false, true), 'paced')
   assert.equal(tierHealth(true, 0, false, false), 'healthy')
+})
+
+await check('anthropicDrainReady: the drain gate counts the Haiku last-resort (enabled + not cooling + under the $ ceiling)', async () => {
+  // The reported stall: on an overload day the free tiers are budget-spent, so the OLD drain gate returned
+  // false and the frequent backlog drain never ran — even though the Haiku last-resort still had budget and
+  // could have chewed through the backlog. The drain must run whenever THIS is true.
+  assert.equal(anthropicDrainReady(true, false, 10, 50), true, 'enabled, healthy, under the ceiling → can drain the backlog')
+  assert.equal(anthropicDrainReady(false, false, 10, 50), false, 'the tier is disabled → not available')
+  assert.equal(anthropicDrainReady(true, true, 10, 50), false, 'in a cross-cycle failure cooldown → backing off, cannot take work')
+  assert.equal(anthropicDrainReady(true, false, 50, 50), false, 'at its daily $ ceiling → spent')
+  assert.equal(anthropicDrainReady(true, false, 60, 50), false, 'past the ceiling → spent')
 })
 
 await check('backlogTrend: reads growing / shrinking / flat / null from recent cycles', async () => {
