@@ -10,25 +10,24 @@
 // The match itself lives in FeedFilters.matchesFilters / the server's matchesFeedFilters (kept in lockstep);
 // this component only chooses the {ticker, name} pair.
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import type { CompanyFacet } from '../../lib/api'
 
 // The picked company. `ticker` is null for a name-only pick (a company the scanner never resolved a symbol
-// for, or a free-typed name); `name` is '' for a free-typed bare ticker we have no name for.
+// for, or a free-typed name that isn't symbol-shaped); `name` is '' only for a legacy/empty pick.
 export interface CompanyPick {
   ticker: string | null
   name: string
 }
 
 const MAX_SHOWN = 8
-// A clean symbol: letters/digits/dot/hyphen, no spaces — mirrors lib/ticker's TICKER_RE shape. Used only to
-// decide whether a free-typed value (one with no matching suggestion) should be applied as an exact-ticker
-// filter or as a name substring; it is NOT a hard gate (a name pick is always allowed).
+// A symbol-shaped token: letters/digits/dot/hyphen, no spaces, ≤15 chars — mirrors lib/ticker's TICKER_RE.
+// A free-typed value that looks like this ALSO gets an exact-ticker clause; it never REPLACES the name clause.
 const LOOKS_TICKER = /^[A-Za-z0-9.\-]{1,15}$/
 
 // rank a facet option against the lowercased query: exact ticker → ticker-prefix → name-prefix → contains.
-// Returns -1 for no match. Lower is better.
-function rankOption(o: CompanyFacet, ql: string): number {
+// Returns -1 for no match. Lower is better. Exported for unit tests.
+export function rankOption(o: CompanyFacet, ql: string): number {
   const sym = (o.ticker || '').toLowerCase()
   const nm = o.name.toLowerCase()
   if (sym && sym === ql) return 0
@@ -39,24 +38,39 @@ function rankOption(o: CompanyFacet, ql: string): number {
   return -1
 }
 
+// Turn a FREE-TYPED value (one with no picked suggestion) into a company pick. The typed string is ALWAYS
+// kept as the name — the recall floor — so a single-word company name ("Amazon", "Tesla", "Reliance") still
+// matches by name instead of being misread as a bare ticker that matches nothing. When the value is also
+// symbol-shaped, the exact ticker is added as an extra OR clause. Result: strictly ≥ the recall of a
+// name-only search, which is the whole point of "without fail". Returns null for an empty value.
+// Exported for unit tests.
+export function resolveTypedCompany(raw: string): CompanyPick | null {
+  const typed = raw.trim()
+  if (!typed) return null
+  return { ticker: LOOKS_TICKER.test(typed) ? typed.toUpperCase() : null, name: typed }
+}
+
 const chipLabel = (v: CompanyPick): string => (v.ticker ? (v.name ? `${v.ticker} · ${v.name}` : v.ticker) : v.name)
 
 export function CompanyFilter({
   value,
   onChange,
-  options,
+  options = [],
 }: {
   value: CompanyPick | null
   onChange: (v: CompanyPick | null) => void
-  options: CompanyFacet[] // the archive company facet (already sorted by mention count, desc)
+  options?: CompanyFacet[] // the archive company facet (already sorted by mention count, desc)
 }) {
   const [q, setQ] = useState('')
   const [open, setOpen] = useState(false)
   const [hi, setHi] = useState(0)
   const wrapRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const uid = useId()
+  const listId = `${uid}-list`
+  const optId = (i: number) => `${uid}-opt-${i}`
 
-  // close the dropdown on an outside click / Escape (same pattern as the rail's ScopeDropdown)
+  // close the dropdown on an outside click (same pattern as the rail's ScopeDropdown)
   useEffect(() => {
     if (!open) return
     const onDoc = (e: MouseEvent) => { if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false) }
@@ -84,14 +98,12 @@ export function CompanyFilter({
     setOpen(false)
   }
 
-  // Enter with nothing highlighted: apply the free-typed value so an un-suggested ticker still works. A
-  // clean symbol becomes an exact-ticker filter; anything else becomes a name substring (best recall for a
-  // string we can't resolve). This is the escape hatch — the suggestion list covers the common case.
+  // Enter with a query but no explicit pick applies the free-typed value (recall floor + optional ticker),
+  // so an un-suggested symbol still works. The suggestion list covers the common case.
   const applyTyped = () => {
-    const typed = q.trim()
-    if (!typed) return
-    if (LOOKS_TICKER.test(typed)) onChange({ ticker: typed.toUpperCase(), name: '' })
-    else onChange({ ticker: null, name: typed })
+    const v = resolveTypedCompany(q)
+    if (!v) return
+    onChange(v)
     setQ('')
     setOpen(false)
   }
@@ -125,6 +137,7 @@ export function CompanyFilter({
     )
   }
 
+  const dropdownOpen = open && suggestions.length > 0
   return (
     <span className="cfilter" ref={wrapRef}>
       <input
@@ -138,18 +151,21 @@ export function CompanyFilter({
         spellCheck={false}
         autoComplete="off"
         role="combobox"
-        aria-expanded={open}
+        aria-expanded={dropdownOpen}
         aria-autocomplete="list"
+        aria-controls={listId}
+        aria-activedescendant={dropdownOpen ? optId(hi) : undefined}
         aria-label="Filter by company — type a ticker or name and pick a suggestion"
         title="Filter by company — type a ticker (or the name) and pick a match, so every item about that company comes back"
       />
-      {open && suggestions.length > 0 && (
-        <div className="cfilter__menu" role="listbox">
+      {dropdownOpen && (
+        <div className="cfilter__menu" role="listbox" id={listId}>
           {suggestions.map((o, i) => (
             <button
               key={`${o.ticker || ''}|${o.name}`}
               type="button"
               role="option"
+              id={optId(i)}
               aria-selected={i === hi}
               className={`cfilter__opt${i === hi ? ' cfilter__opt--on' : ''}`}
               onMouseEnter={() => setHi(i)}

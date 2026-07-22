@@ -60,6 +60,25 @@ export interface Filterable {
   companies?: { name: string; ticker: string | null; listing_country?: string | null }[]
 }
 
+// Whole-word occurrence of `needle` in `hay` (both already lowercased). Word chars are ASCII [a-z0-9], so
+// "amazon" hits "amazon's results" / "amazon.com" but NOT "amazons" / "metadata" / "metal" — the precision
+// partner to the recall-first design: it keeps a company's OWN news while dropping items that merely embed
+// the name inside a longer word. ASCII-only word chars ⇒ it stays PERMISSIVE for CJK / space-less scripts
+// (every char reads as a boundary there), so a non-Latin headline never loses a match. MUST stay identical
+// to the server twin `nameOccurs` in ui/server/src/news/feed-filter.ts (the client/server lockstep).
+export function nameOccurs(hay: string, needle: string): boolean {
+  if (!needle) return false
+  const word = (ch: string) => (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')
+  const headWord = word(needle[0])
+  const tailWord = word(needle[needle.length - 1])
+  for (let i = hay.indexOf(needle); i >= 0; i = hay.indexOf(needle, i + 1)) {
+    const before = i === 0 ? '' : hay[i - 1]
+    const after = i + needle.length >= hay.length ? '' : hay[i + needle.length]
+    if ((!before || !word(before) || !headWord) && (!after || !word(after) || !tailWord)) return true
+  }
+  return false
+}
+
 // The LIVE-window twin of the server's matchesFeedFilters (ui/server/src/news/feed-filter.ts) — keep the
 // clauses in lockstep. The server's wire clauses (scope / commodities / wireScope) intentionally have no
 // twin HERE: on the live rail those are applied by lib/wire.ts (itemOnWire + the subject chips), and in
@@ -82,15 +101,16 @@ export function matchesFilters(it: Filterable, f: FeedFilterState): boolean {
     if (f.gicsSubSector && !g.subSectors.has(f.gicsSubSector)) return false
   }
   // Pick-a-company (the ticker autofill): the item passes when it is tagged with the picked EXACT ticker
-  // OR its headline/company blob contains the picked name. Either alone qualifies, so a picked suggestion
-  // (which carries both) has strictly ≥ the recall of typing just the name — the ticker catches items the
-  // name misses (name-only headline vs a different tagged name) and vice-versa. Mirrors the server's
-  // matchesFeedFilters company clause exactly.
-  if (f.company) {
+  // OR its headline/company blob NAMES the company as a whole word. Either alone qualifies, so a picked
+  // suggestion (which carries both) has strictly ≥ the recall of typing just the name — the ticker catches
+  // items the name misses (name-only headline vs a different tagged name) and vice-versa. The gate mirrors
+  // the server (an empty-both pick is vacuously true on both sides); the name test is whole-word so a
+  // common-word name doesn't drag in unrelated items. Mirrors the server's matchesFeedFilters company clause.
+  if (f.company && (f.company.ticker || f.company.name)) {
     const t = (f.company.ticker || '').toUpperCase()
     const n = (f.company.name || '').toLowerCase()
     const tickerHit = !!t && (it.companies || []).some((c) => (c.ticker || '').toUpperCase() === t)
-    const nameHit = !!n && `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase().includes(n)
+    const nameHit = !!n && nameOccurs(`${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase(), n)
     if (!tickerHit && !nameHit) return false
   }
   if (f.text.trim()) {
@@ -141,7 +161,7 @@ export function FeedFilters({
             back. Sits first so it's the obvious company filter; the free-text box beside it still searches
             headlines. */}
         <CompanyFilter value={value.company} onChange={(company) => set({ company })} options={companies} />
-        <input className="ffilters__text" value={value.text} placeholder="search headline…" onChange={(e) => set({ text: e.target.value })} />
+        <input className="ffilters__text" value={value.text} placeholder="search headline or company…" onChange={(e) => set({ text: e.target.value })} />
         {!compact && (
           <select className="ffilters__sel" value={value.band} onChange={(e) => set({ band: e.target.value })} title="Kept or dropped">
             <option value="">kept + dropped</option>

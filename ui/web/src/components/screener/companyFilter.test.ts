@@ -5,6 +5,7 @@
 // Run: npx tsx src/components/screener/companyFilter.test.ts
 import assert from 'node:assert/strict'
 import { archiveFiltersActive, emptyFilters, filtersActive, matchesFilters, type Filterable, type FeedFilterState } from './FeedFilters'
+import { rankOption, resolveTypedCompany } from './CompanyFilter'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -54,6 +55,42 @@ check('the company clause ANDs with the free-text clause', () => {
   const amzn = it({ headline: 'Amazon lifts guidance to 8%', companies: [{ name: 'Amazon', ticker: 'AMZN' }] })
   assert.equal(matchesFilters(amzn, { ...emptyFilters(), company: { ticker: 'AMZN', name: 'Amazon' }, text: '8%' }), true)
   assert.equal(matchesFilters(amzn, { ...emptyFilters(), company: { ticker: 'AMZN', name: 'Amazon' }, text: 'buyback' }), false)
+})
+
+// ---- ticker match is EXACT, never a sub/superstring (lockstep with the server) ----
+check('a ticker filter matches only the exact ticker, not a super/substring', () => {
+  const brkA = it({ headline: 'Berkshire class A moves', companies: [{ name: 'Berkshire Hathaway', ticker: 'BRK.A' }] })
+  assert.equal(matchesFilters(brkA, withCompany({ ticker: 'BRK', name: '' })), false)
+  assert.equal(matchesFilters(brkA, withCompany({ ticker: 'BRK.A', name: '' })), true)
+})
+
+// ---- name match is WHOLE-WORD (lockstep with the server) ----
+check('the name clause matches a whole word, not a buried substring', () => {
+  const hit = it({ headline: 'Meta beats on ad revenue', companies: [] })
+  const miss = it({ headline: 'New metadata rules for websites', companies: [] })
+  assert.equal(matchesFilters(hit, withCompany({ ticker: 'META', name: 'Meta' })), true)
+  assert.equal(matchesFilters(miss, withCompany({ ticker: 'META', name: 'Meta' })), false, '"metadata" must not match "Meta"')
+})
+
+// ---- THE FIXED BUG: a free-typed single-word NAME keeps its recall (not misread as a zero-match ticker) ----
+check('resolveTypedCompany keeps the typed value as the NAME so a single-word company still matches', () => {
+  // "Amazon" is symbol-shaped, but the name must be kept as the recall floor (ticker is only an EXTRA clause)
+  assert.deepEqual(resolveTypedCompany('Amazon'), { ticker: 'AMAZON', name: 'Amazon' })
+  const untagged = it({ headline: 'Amazon opens a new fulfilment centre', companies: [] })
+  assert.equal(matchesFilters(untagged, withCompany(resolveTypedCompany('Amazon'))), true, 'a free-typed "Amazon" still finds untagged Amazon news')
+  // a multi-word name is name-only (no ticker); empty is null
+  assert.deepEqual(resolveTypedCompany('Reliance Industries'), { ticker: null, name: 'Reliance Industries' })
+  assert.equal(resolveTypedCompany('   '), null)
+})
+
+// ---- rankOption ranks exact-ticker above prefix above substring ----
+check('rankOption ranks exact ticker < ticker-prefix < name-prefix < contains < no-match', () => {
+  const o = { ticker: 'AMZN', name: 'Amazon.com', count: 9 }
+  assert.equal(rankOption(o, 'amzn'), 0)
+  assert.equal(rankOption(o, 'amz'), 1)
+  assert.equal(rankOption(o, 'amazon'), 2)
+  assert.equal(rankOption({ ticker: 'MSFT', name: 'Microsoft', count: 3 }, 'soft'), 4)
+  assert.equal(rankOption(o, 'zzz'), -1)
 })
 
 // ---- a company pick trips archive mode + reads as active ----

@@ -143,4 +143,68 @@ check('explainFeedFilterMatch reports the company clause path', () => {
   assert.match(cM!.detail, /no company matched/i)
 })
 
+// ---- 11. ticker match is EXACT, never a substring (a ===→includes regression would mix companies) ----
+check('a ticker filter matches ONLY the exact ticker, never a super/substring of it', () => {
+  const brkA = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Berkshire class A moves', companies: [{ name: 'Berkshire Hathaway', ticker: 'BRK.A', listing_country: 'US' }] })
+  assert.equal(matchesFeedFilters(brkA, { company: { ticker: 'BRK' } }), false, '"BRK" must not match a "BRK.A" tag')
+  assert.equal(matchesFeedFilters(brkA, { company: { ticker: 'BRK.A' } }), true)
+  const amzn = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Retailer update', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] })
+  assert.equal(matchesFeedFilters(amzn, { company: { ticker: 'AMZNX' } }), false, 'a longer ticker must not match')
+})
+
+// ---- 12. name match is WHOLE-WORD (a common-word name must not drag in unrelated items) ----
+check('the name clause matches a whole word, not a substring buried in a longer word', () => {
+  const hit = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Meta beats on ad revenue', companies: [] })
+  const miss = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'New metadata rules for websites', companies: [] })
+  assert.equal(matchesFeedFilters(hit, { company: { ticker: 'META', name: 'Meta' } }), true, '"Meta" as a word matches')
+  assert.equal(matchesFeedFilters(miss, { company: { ticker: 'META', name: 'Meta' } }), false, '"metadata" must NOT match the name "Meta"')
+  // possessive / punctuation-adjacent still counts as a boundary
+  const poss = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: "Amazon's cloud unit grows", companies: [] })
+  assert.equal(matchesFeedFilters(poss, { company: { ticker: 'AMZN', name: 'Amazon' } }), true)
+})
+
+// ---- 13. the name clause scans the ENGLISH TRANSLATION too (lockstep with the web twin) ----
+check('matchesFeedFilters matches the name against a foreign headline’s English translation', () => {
+  const foreign = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'アマゾン、通期見通しを上方修正', headline_en: 'Amazon raises full-year outlook', companies: [] })
+  assert.equal(matchesFeedFilters(foreign, { company: { ticker: 'AMZN', name: 'Amazon' } }), true)
+})
+
+// ---- 14. computeFacets under an ACTIVE company filter: total + other-facet counts restrict to it ----
+check('computeFacets with a company filter restricts total + other facets to that company', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, headline: 'Amazon lifts guidance', country: 'US', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:01:00Z`, headline: 'Amazon opens a hub', country: 'US', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Microsoft ships an update', country: 'US', companies: [{ name: 'Microsoft', ticker: 'MSFT', listing_country: 'US' }] }),
+  ])
+  const facets = computeFacets(repo, { company: { ticker: 'AMZN', name: 'Amazon' } }, { now })
+  assert.equal(facets.total, 2, 'total counts only the AMZN rows')
+  // the country facet (a dimension OTHER than company) is restricted to the AMZN rows: US = 2, not 3
+  const us = facets.countries.find((c) => c.key === 'US')
+  assert.equal(us?.count, 2, 'other-facet counts respect the active company filter')
+})
+
+// ---- 15. facet dedup: the display name is the most-used spelling, and an ambiguous name is NOT folded ----
+check('the company facet picks the most-used display name and leaves an ambiguous name un-folded', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:05:00Z`, headline: 'Amazon a', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:04:00Z`, headline: 'Amazon b', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:03:00Z`, headline: 'Amazon c', companies: [{ name: 'Amazon.com', ticker: 'AMZN', listing_country: 'US' }] }),
+    // "Acme" is ambiguous — tagged under two different tickers, so a name-only "Acme" must NOT fold into either
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, headline: 'Acme x', companies: [{ name: 'Acme', ticker: 'ACM1', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:01:00Z`, headline: 'Acme y', companies: [{ name: 'Acme', ticker: 'ACM2', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Acme z', companies: [{ name: 'Acme', ticker: null, listing_country: 'US' }] }),
+  ])
+  const facets = computeFacets(repo, {}, { now })
+  const amzn = facets.companies.find((c) => c.ticker === 'AMZN')
+  assert.equal(amzn?.name, 'Amazon', 'the most-used spelling (2× "Amazon" vs 1× "Amazon.com") wins')
+  assert.equal(amzn?.count, 3)
+  // the ambiguous name-only "Acme" row is NOT credited to ACM1 or ACM2 (each keeps its own tagged count of 1)
+  assert.equal(facets.companies.find((c) => c.ticker === 'ACM1')?.count, 1)
+  assert.equal(facets.companies.find((c) => c.ticker === 'ACM2')?.count, 1)
+  const acmeNameOnly = facets.companies.find((c) => c.ticker === null && /acme/i.test(c.name))
+  assert.equal(acmeNameOnly?.count, 1, 'the ambiguous name-only mention stands on its own, un-folded')
+})
+
 console.log(`\ncompany-filter.test.ts: ${passed} passed`)

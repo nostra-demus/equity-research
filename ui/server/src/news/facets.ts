@@ -14,7 +14,7 @@ import { COUNTRIES, GEO_REGIONS, regionOfCountry } from './geography'
 import { topicLabel } from './topics'
 import { scheduledEventLabel } from './schedule'
 import { filterCompanies } from './entities'
-import type { FeedFilterQuery } from './feed-filter'
+import { nameOccurs, type FeedFilterQuery } from './feed-filter'
 
 // the most-mentioned companies to return for the ticker autofill — bounds the payload; a rarer symbol the
 // list omits still filters, because CompanyFilter falls back to applying a free-typed ticker directly.
@@ -144,7 +144,8 @@ function rowMatches(r: FacetRow, q: FeedFilterQuery): boolean {
     // A facet row carries no headline, so the name clause is approximated over the company blob (name +
     // ticker) only — enough for the counts shown next to OTHER facets while a company is picked. The
     // authoritative name match (which also scans the headline) is matchesFeedFilters at the search site.
-    const nameHit = !!n && r.companies.some((c) => `${c.name} ${c.ticker || ''}`.toLowerCase().includes(n))
+    // Same whole-word matcher as the search site, so the approximation differs only by the missing headline.
+    const nameHit = !!n && r.companies.some((c) => nameOccurs(`${c.name} ${c.ticker || ''}`.toLowerCase(), n))
     if (!tickerHit && !nameHit) return false
   }
   return true
@@ -154,12 +155,20 @@ function rowMatches(r: FacetRow, q: FeedFilterQuery): boolean {
  *  a normalized name — so a name-only guess collapses into its tickered sibling (learned across ALL rows).
  *  `count` is the number of distinct rows mentioning the company; the display name is its most-used spelling. */
 function buildCompanyFacet(companyRows: FacetRow[], allRows: FacetRow[]): CompanyFacet[] {
-  const nameToTicker = new Map<string, string>()
+  // Learn name→ticker, but only for names that map to exactly ONE ticker across the archive. A name seen
+  // under two different tickers is ambiguous — folding a name-only mention into either would credit it to
+  // the wrong company and inflate that company's count, so such names are left un-folded (their own N: key).
+  const nameTickers = new Map<string, Set<string>>()
   for (const r of allRows) for (const c of r.companies) {
     if (!c.ticker) continue
     const nn = normCompany(c.name)
-    if (nn && !nameToTicker.has(nn)) nameToTicker.set(nn, c.ticker.toUpperCase())
+    if (!nn) continue
+    let s = nameTickers.get(nn)
+    if (!s) { s = new Set<string>(); nameTickers.set(nn, s) }
+    s.add(c.ticker.toUpperCase())
   }
+  const nameToTicker = new Map<string, string>()
+  for (const [nn, tks] of nameTickers) if (tks.size === 1) nameToTicker.set(nn, [...tks][0])
   const acc = new Map<string, { ticker: string | null; names: Map<string, number>; rows: number }>()
   for (const r of companyRows) {
     const seen = new Map<string, { ticker: string | null; name: string }>() // one credit per key per row

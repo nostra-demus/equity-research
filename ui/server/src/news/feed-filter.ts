@@ -56,13 +56,32 @@ export function hasAnyFilter(q: FeedFilterQuery): boolean {
   )
 }
 
-/** Does the item satisfy the pick-a-company clause? Exact ticker OR name-substring over the headline/company
+/** Whole-word occurrence of `needle` in `hay` (both already lowercased). Word chars are ASCII [a-z0-9], so
+ *  "amazon" hits "amazon's results" / "amazon.com" but NOT "amazons" / "metadata" / "metal" — the precision
+ *  partner to the recall-first design. ASCII-only word chars ⇒ it stays PERMISSIVE for CJK / space-less
+ *  scripts (every char reads as a boundary there), so a non-Latin headline never loses a match. MUST stay
+ *  identical to the web twin `nameOccurs` in ui/web/src/components/screener/FeedFilters.tsx, and it is reused
+ *  by the facet index (ui/server/src/news/facets.ts) so all three sites match a company name the same way. */
+export function nameOccurs(hay: string, needle: string): boolean {
+  if (!needle) return false
+  const word = (ch: string) => (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')
+  const headWord = word(needle[0])
+  const tailWord = word(needle[needle.length - 1])
+  for (let i = hay.indexOf(needle); i >= 0; i = hay.indexOf(needle, i + 1)) {
+    const before = i === 0 ? '' : hay[i - 1]
+    const after = i + needle.length >= hay.length ? '' : hay[i + needle.length]
+    if ((!before || !word(before) || !headWord) && (!after || !word(after) || !tailWord)) return true
+  }
+  return false
+}
+
+/** Does the item satisfy the pick-a-company clause? Exact ticker OR whole-word name over the headline/company
  *  blob. Shared by matchesFeedFilters and the debug explainer so the two never drift. */
 function matchesCompany(it: FeedItem, company: { ticker?: string; name?: string }): boolean {
   const t = (company.ticker || '').toUpperCase()
   const n = (company.name || '').toLowerCase()
   const tickerHit = !!t && (it.companies || []).some((c) => (c.ticker || '').toUpperCase() === t)
-  const nameHit = !!n && `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase().includes(n)
+  const nameHit = !!n && nameOccurs(`${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase(), n)
   return tickerHit || nameHit
 }
 
@@ -219,7 +238,7 @@ export function explainFeedFilterMatch(it: FeedItem, q: FeedFilterQuery): FeedFi
     const t = (q.company.ticker || '').toUpperCase()
     const n = (q.company.name || '').toLowerCase()
     const tickerHit = !!t && (it.companies || []).some((c) => (c.ticker || '').toUpperCase() === t)
-    const nameHit = !!n && `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase().includes(n)
+    const nameHit = !!n && nameOccurs(`${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase(), n)
     const want = [t && `ticker ${t}`, n && `name “${q.company.name}”`].filter(Boolean).join(' OR ')
     const via = tickerHit ? `exact ticker ${t}` : nameHit ? `name “${q.company.name}” in headline/company blob` : ''
     checks.push({ clause: 'company', passed: tickerHit || nameHit, detail: tickerHit || nameHit ? `matched via ${via}` : `no company matched ${want}` })
