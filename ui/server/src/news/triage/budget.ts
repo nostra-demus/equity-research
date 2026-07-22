@@ -51,13 +51,17 @@ export function pacedCeiling(now: number, pace: PaceCfg): number {
 
 /**
  * Drain-gate mirror of Budget.pacedCanSpend for callers that only have the on-disk counters (scheduler).
- * True when there is room under BOTH the hard caps AND the pacer's clock-prorated ceiling.
+ * True when there is room under BOTH the hard caps AND the pacer's clock-prorated ceiling. Pass `est` (one
+ * batch's estimated tokens) to reserve room for at least that batch — then the answer matches what the
+ * triage loop's `Budget.pacedCanSpend(est)` will actually allow (tokens + est), instead of over-reporting
+ * headroom for a provider one batch short of its ceiling. `est=0` keeps the original at-cap semantics.
  */
 export function pacedHasHeadroom(
-  tokens: number, requests: number, reqCap: number, tokenCap: number, pace: PaceCfg, now = Date.now(),
+  tokens: number, requests: number, reqCap: number, tokenCap: number, pace: PaceCfg, now = Date.now(), est = 0,
 ): boolean {
-  if (requests >= reqCap || tokens >= tokenCap) return false // hard daily backstop
-  return tokens < pacedCeiling(now, pace)
+  const need = Math.max(0, est)
+  if (requests >= reqCap || tokens + need > tokenCap) return false // hard daily backstop (reserve one batch)
+  return tokens + need <= pacedCeiling(now, pace)
 }
 
 interface BudgetState { date: string; requests: number; tokens: number }

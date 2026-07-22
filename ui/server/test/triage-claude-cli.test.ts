@@ -10,7 +10,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { triageBatchClaudeCli, isUsageLimit, type ClaudeCliRunner } from '../src/news/triage/claude-cli'
+import { triageBatchClaudeCli, isUsageLimit, isPlanQuotaNote, type ClaudeCliRunner } from '../src/news/triage/claude-cli'
 import { UsdBudget } from '../src/news/triage/budget'
 import { NEWS } from '../src/config'
 import { DEFERRED_CAP } from '../src/news/runCycle'
@@ -81,6 +81,53 @@ await check('non-JSON reply → ok:false (defer), never a partial score', async 
   assert.equal(r.ok, false)
   assert.equal(r.byIndex.size, 0)
   assert.match(r.note || '', /non-JSON/)
+})
+
+// ---- RETRY (the last-line-of-defence resilience fix): a transient blip retries in-call instead of
+// deferring the whole batch and sidelining the paid tier. Parity with the free adapters' maxAttempts=2. ----
+await check('a transient failure (timeout) retries in-call and succeeds on attempt 2 — one logical batch scored', async () => {
+  let calls = 0
+  const run: ClaudeCliRunner = async () => {
+    calls++
+    if (calls === 1) return { text: '', costUsd: 0, error: 'claude cli: timed out' }
+    return { text: JSON.stringify([{ i: 0, materiality_pre_score: 77 }, { i: 1, materiality_pre_score: 3 }]), costUsd: 0.004 }
+  }
+  const r = await triageBatchClaudeCli(items, opts, run)
+  assert.equal(calls, 2, 'retried once after the transient timeout')
+  assert.equal(r.ok, true)
+  assert.equal(r.byIndex.get(0)!.materiality_pre_score, 77)
+  assert.equal(r.requests, 1, 'still ONE logical batch, not two')
+})
+
+await check('a billed non-JSON reply retries with a stricter JSON-only nudge, then parses — cost of BOTH attempts metered', async () => {
+  const seen: string[] = []
+  const run: ClaudeCliRunner = async (_sys, user) => {
+    seen.push(user)
+    if (seen.length === 1) return { text: 'Here you go: (thinking...)', costUsd: 0.002 } // billed, unparseable
+    return { text: '[{"i":0,"materiality_pre_score":88}]', costUsd: 0.003 }
+  }
+  const r = await triageBatchClaudeCli(items, opts, run)
+  assert.equal(r.ok, true)
+  assert.equal(r.byIndex.get(0)!.materiality_pre_score, 88)
+  assert.ok(/only the JSON array/i.test(seen[1]), 'the retry pushed harder toward a bare JSON array')
+  assert.ok(Math.abs(r.costUsd - 0.005) < 1e-9, `both attempts metered (got ${r.costUsd})`)
+})
+
+await check('plan quota is NOT retried — one call, deferred, so the caller arms the LONG cooldown', async () => {
+  let calls = 0
+  const run: ClaudeCliRunner = async () => { calls++; return { text: '', costUsd: 0, error: 'claude cli: usage limit reached — plan quota spent' } }
+  const r = await triageBatchClaudeCli(items, opts, run)
+  assert.equal(calls, 1, 're-asking a spent plan is waste — stop after one')
+  assert.equal(r.ok, false)
+  assert.ok(isPlanQuotaNote(r.note || ''), 'note is the plan-quota signal the caller matches')
+})
+
+await check('isPlanQuotaNote distinguishes a spent plan from a transient blip', () => {
+  assert.equal(isPlanQuotaNote('claude cli: usage limit reached — plan quota spent'), true)
+  assert.equal(isPlanQuotaNote('claude cli: timed out'), false)
+  assert.equal(isPlanQuotaNote('claude cli: no output'), false)
+  assert.equal(isPlanQuotaNote('claude cli: non-JSON content'), false)
+  assert.equal(isPlanQuotaNote(''), false)
 })
 
 // ---- a runner that throws must not kill the cycle ----

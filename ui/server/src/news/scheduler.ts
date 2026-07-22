@@ -17,6 +17,7 @@ import { runIngestCycle } from './runCycle'
 import { healEnrichCache } from './enrich-heal'
 import { runIdeaPass } from './ideas/run-idea-pass'
 import { cooldownInfo, isCoolingDown, pacedCeiling, pacedHasHeadroom } from './triage/budget'
+import { estimateTokens } from './triage/groq'
 import { DEFERRED_CAP } from './runCycle'
 import type { CycleSummary, DeferReason, LastResortState } from './types'
 
@@ -131,10 +132,46 @@ function geminiPoolUsage(): { used: number; cap: number; tokens: number } | null
   return { used, cap, tokens }
 }
 
-/** Any free room left across the whole Gemini pool today? */
-function geminiHasHeadroom(): boolean {
-  const u = geminiPoolUsage()
-  return !!u && u.used < u.cap
+/** One batch's estimated tokens — the reservation the drain gate + diagnostics use so a tier one batch
+ *  short of its token cap is not reported as usable (mirrors the triage loop's Budget.canSpend(est)). */
+function batchEst(): number { return estimateTokens(NEWS.triageBatch) }
+
+/** Pure: can a request/token-gated free provider (overflow provider OR one Gemini pool model) score a batch
+ *  RIGHT NOW? Not in a failure cooldown, under its request cap, and — when token-gated — with room for one
+ *  more batch (tokens + est), not merely strictly under the token cap. This mirrors the triage loop's real
+ *  pick `!ov.coolingDown && ov.budget.canSpend(est)` (runCycle); factored out (like anthropicDrainReady) so
+ *  the drain gate stops lying about a cooling or one-batch-short provider — and so it is unit-testable. */
+export function providerDrainUsable(cooling: boolean, used: number, reqCap: number, tokens: number, tokenCap: number | undefined, est: number): boolean {
+  if (cooling) return false // cooling → the loop skips it
+  if (used >= reqCap) return false // request cap reached
+  if (tokenCap != null && tokens + Math.max(0, est) > tokenCap) return false // can't fit one more batch
+  return true
+}
+
+/** Is ANY Gemini pool model usable RIGHT NOW — not in a failure cooldown AND under its own daily request
+ *  cap? Mirrors the triage loop's `gemPick` (runCycle) and the diagnostics pool read, so the drain gate
+ *  cannot call the pool "has headroom" when its only budgeted model is cooling. The pool-aggregate check it
+ *  replaces (used < cap across all models) hid exactly that case. */
+function geminiAnyUsableNow(now = Date.now()): boolean {
+  if (!(NEWS.geminiEnabled && NEWS.geminiApiKey && NEWS.geminiModels.length)) return false
+  const day = geminiToday()
+  for (const e of NEWS.geminiModels) {
+    let used = 0
+    try {
+      const g = JSON.parse(fs.readFileSync(path.join(STATE_DIR, `gemini-budget-${e.model.replace(/[^a-z0-9]+/gi, '-')}.json`), 'utf8'))
+      if (g?.date === day) used = Number(g.requests) || 0
+    } catch {
+      // fresh / unreadable model budget → 0 used
+    }
+    // Gemini is request-gated (its token cap is non-binding), so no est reservation — pass tokenCap undefined.
+    if (providerDrainUsable(isCoolingDown(STATE_DIR, `gemini:${e.model}`, now), used, e.dailyReqCap, 0, undefined, 0)) return true
+  }
+  return false
+}
+
+/** Any Gemini pool model usable right now (drain-gate wrapper over geminiAnyUsableNow). */
+function geminiHasHeadroom(now = Date.now()): boolean {
+  return geminiAnyUsableNow(now)
 }
 
 /** Today's usage for one OpenAI-compatible overflow provider (its own budget file, reset zone p.dayTz). */
@@ -151,16 +188,17 @@ function overflowUsage(p: (typeof NEWS.overflowProviders)[number]): { id: string
   return { id: p.id, label: p.label, color: p.color, used, cap: p.dailyReqCap, tokens }
 }
 
-/** Free room left on ANY OpenAI-compatible overflow provider today? */
-function overflowHasHeadroom(): boolean {
+/** Can ANY OpenAI-compatible overflow provider score a batch RIGHT NOW? Mirrors the triage loop's real pick
+ *  (`!ov.coolingDown && ov.budget.canSpend(est)`, runCycle): not in a failure cooldown, under its request
+ *  cap, and — for a token-gated provider (Cerebras) — with room for one more batch (tokens + est), not just
+ *  strictly under the cap. The old check was BOTH cooldown-blind (a cooling provider with request budget —
+ *  e.g. NVIDIA at 34/150 while cooling — read as headroom, so the drain ran and scored 0) and est-blind (a
+ *  token-gated Cerebras one batch short of its 900k cap read as headroom the loop then skipped). */
+function overflowHasHeadroom(now = Date.now()): boolean {
+  const est = batchEst()
   return NEWS.overflowProviders.some((p) => {
     const u = overflowUsage(p)
-    // A TOKEN-gated provider (Cerebras) binds on tokens, not requests: once it spends its daily token cap
-    // its request count can still be low, so a requests-only test would wrongly report headroom and the
-    // drain loop would busy-wait every tick running skipFetch cycles that can't actually score anything.
-    // Count it out of headroom when EITHER limit is reached (requests OR, where it has one, tokens).
-    if (p.dailyTokenCap != null && u.tokens >= p.dailyTokenCap) return false
-    return u.used < u.cap
+    return providerDrainUsable(isCoolingDown(STATE_DIR, p.id, now), u.used, u.cap, u.tokens, p.dailyTokenCap, est)
   })
 }
 
@@ -169,19 +207,24 @@ function overflowHasHeadroom(): boolean {
  * an OpenAI-compatible provider) has room. Gating Groq on the pacer spreads an overload day evenly; OR-ing
  * the overflow pools keeps the drain clearing the backlog on their separate free quotas once Groq is paced.
  */
-function budgetHasHeadroom(): boolean {
-  const today = new Date().toISOString().slice(0, 10)
+function budgetHasHeadroom(now = Date.now()): boolean {
+  const today = new Date(now).toISOString().slice(0, 10)
   let groqOk = true
   try {
     const b = JSON.parse(fs.readFileSync(path.join(STATE_DIR, 'groq-budget.json'), 'utf8'))
-    // pacedHasHeadroom(tokens, requests, reqCap, tokenCap, …) — reqCap is the REQUEST cap, tokenCap the TOKEN
-    // cap (they were passed swapped here, which made the hard backstop degrade to `tokens >= 13000` and
-    // under-report Groq's drain headroom once daily tokens crossed the request cap).
-    if (b?.date === today) groqOk = pacedHasHeadroom(Number(b.tokens) || 0, Number(b.requests) || 0, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE)
+    // Groq is drain-usable only if it is NOT in a failure cooldown AND has paced room for one more batch —
+    // exactly the triage loop's `!groqCoolingDown && budget.pacedCanSpend(est)`. The old check read only the
+    // budget file, so a Groq in a failure cooldown (but under its token ceiling — the reported snapshot:
+    // "Cooling, 273k/500k tok") reported headroom, the drain ran, and the loop skipped Groq anyway.
+    // pacedHasHeadroom(tokens, requests, reqCap, tokenCap, PACE, now, est) reserves one batch's est tokens.
+    if (b?.date === today) {
+      groqOk = !isCoolingDown(STATE_DIR, 'groq', now) &&
+        pacedHasHeadroom(Number(b.tokens) || 0, Number(b.requests) || 0, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE, now, batchEst())
+    }
   } catch {
     return true // unreadable budget → don't stall the drain
   }
-  return groqOk || geminiHasHeadroom() || overflowHasHeadroom()
+  return groqOk || geminiHasHeadroom(now) || overflowHasHeadroom(now)
 }
 
 /**
@@ -212,8 +255,8 @@ function anthropicHasHeadroom(now = Date.now()): boolean {
  * because that predicate ALSO gates the Groq-bound heal + idea passes, which the paid last-resort must
  * not turn on — only the backlog drain (which routes through every tier, Haiku included) may.
  */
-function drainHasHeadroom(): boolean {
-  return budgetHasHeadroom() || anthropicHasHeadroom()
+function drainHasHeadroom(now = Date.now()): boolean {
+  return budgetHasHeadroom(now) || anthropicHasHeadroom(now)
 }
 
 export interface NewsStatus {
@@ -355,6 +398,7 @@ export interface NewsDiagnostics {
     pctOfCap: number // 0..100
     nearLimit: boolean // ≥80% of the cap — approaching silent data loss
     trend: 'growing' | 'shrinking' | 'flat' | null // over today's recent cycles (null = too few to tell)
+    lostToday: number // items ACTUALLY dropped past the cap so far today (sum of cycle dropped_at_cap) — real, not projected, data loss
   }
   today: { read: number; kept: number; dropped: number; cycles: number }
   lastCycle: {
@@ -452,8 +496,9 @@ export function getNewsDiagnostics(): NewsDiagnostics {
     const b = readDailyBudget('groq-budget.json', todayUtc)
     const cd = cooldownInfo(STATE_DIR, 'groq')
     const coolMs = Math.max(0, cd.until - now)
-    const spent = b.requests >= NEWS.groqDailyReqCap || b.tokens >= NEWS.groqDailyTokenCap
-    const paced = enabled && !spent && !pacedHasHeadroom(b.tokens, b.requests, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE)
+    const est = batchEst()
+    const spent = b.requests >= NEWS.groqDailyReqCap || b.tokens + est > NEWS.groqDailyTokenCap
+    const paced = enabled && !spent && !pacedHasHeadroom(b.tokens, b.requests, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE, now, est)
     tiers.push({
       id: 'groq', label: 'Groq', color: '--accent', role: 'primary', order: 0, enabled, meter: 'requests',
       health: tierHealth(enabled, coolMs, spent, paced),
@@ -468,7 +513,10 @@ export function getNewsDiagnostics(): NewsDiagnostics {
     const u = overflowUsage(p)
     const cd = cooldownInfo(STATE_DIR, p.id)
     const coolMs = Math.max(0, cd.until - now)
-    const spent = u.used >= u.cap || (p.dailyTokenCap != null && u.tokens >= p.dailyTokenCap)
+    // est-aware, via the SAME predicate the drain gate uses (cooling handled separately by tierHealth, so
+    // pass false here): a token-gated provider one batch short of its cap CANNOT score, so it reads
+    // "budget-spent", not "Healthy" (the reported Cerebras 900k/900k case).
+    const spent = !providerDrainUsable(false, u.used, u.cap, u.tokens, p.dailyTokenCap, batchEst())
     tiers.push({
       id: p.id, label: p.label, color: p.color, role: 'overflow', order: order++, enabled: true, meter: 'requests',
       health: tierHealth(true, coolMs, spent),
@@ -530,7 +578,10 @@ export function getNewsDiagnostics(): NewsDiagnostics {
   const count = status.backlog.count
   const cap = status.backlog.cap
   const pctOfCap = cap > 0 ? Math.round((count / cap) * 1000) / 10 : 0
-  const backlog = { count, cap, pctOfCap, nearLimit: pctOfCap >= 80, trend: backlogTrend(cyclesToday) }
+  // real data loss so far today = sum of each cycle's dropped_at_cap (backlog overran the cap). Restart-safe
+  // (read from the firehose on disk), same today-window as the read/kept/dropped totals.
+  const lostToday = cyclesToday.reduce((s, c) => s + (typeof c.dropped_at_cap === 'number' ? c.dropped_at_cap : 0), 0)
+  const backlog = { count, cap, pctOfCap, nearLimit: pctOfCap >= 80, trend: backlogTrend(cyclesToday), lostToday }
 
   // per-tier "who scored the last cycle" (overflow is summed across providers, so it shows as one row)
   const scoredBy: { id: string; label: string; requests: number }[] = []

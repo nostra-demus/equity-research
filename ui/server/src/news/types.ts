@@ -258,6 +258,7 @@ export interface CycleSummary {
   deferred?: number // items pushed to the backlog this cycle (TRUE count, may exceed backlog_cap → tail lost)
   backlog?: number // deferred backlog depth held on disk after this cycle (≤ backlog_cap)
   backlog_cap?: number // the loss boundary (DEFERRED_CAP): backlog past this is silently dropped
+  dropped_at_cap?: number // items lost this cycle because the backlog overran backlog_cap (deferred = backlog + dropped_at_cap). Present only when >0 — the honest twin of "the tail is dropped, not deferred"
   aborted?: boolean // the wall-clock guard killed this cycle and dumped the untriaged remainder to the backlog
   defer_reason?: DeferReason // structured twin of the defer `note`
   last_resort?: LastResortState // the Haiku fallback's state at cycle end — makes "why nothing scored" honest

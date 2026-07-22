@@ -517,6 +517,16 @@ export const NEWS = {
   // NEWS_LLM_COOLDOWN_MAX_SEC.
   llmCooldownMs: capNum(process.env.NEWS_LLM_COOLDOWN_SEC, 300) * 1000,
   llmCooldownMaxMs: capNum(process.env.NEWS_LLM_COOLDOWN_MAX_SEC, 3600) * 1000,
+  // The exponential 5→60 min backoff above is calibrated to protect a small daily REQUEST cap during an
+  // outage. The Haiku last-resort has NO request cap — it is $-metered (a failed spawn records ~$0) and is
+  // the LAST line of defence against the deferred backlog overrunning its loss cap. Backing it off for up to
+  // an hour after a TRANSIENT blip (a per-minute rate-limit, a spawn timeout, a one-off non-JSON reply) is
+  // exactly wrong there: it leaves the backlog dropping data while $49 of budget sits unused. So a transient
+  // last-resort failure arms a SHORT, FLAT cooldown instead (passed as base==max, which flattens the
+  // exponential window to a constant) — it re-probes about once a drain (~60-90s) until the blip clears. A
+  // real plan-quota exhaustion still gets the long llmCooldown* backoff (wait for the plan to reset), and an
+  // api-mode terminal 4xx still exhausts the day's ledger. Only the transient path uses this.
+  anthropicTransientCooldownMs: capNum(process.env.NEWS_ANTHROPIC_TRANSIENT_COOLDOWN_SEC, 60) * 1000,
   // Daily-budget PACER. The caps above stop us BUSTING the day's limit; the pacer stops us SPENDING IT
   // ALL AT ONCE. It releases the day's token TARGET on a linear schedule across the UTC day, so a heavy
   // news morning can't drain the budget and leave the afternoon dark — and an explicit buffer is always
