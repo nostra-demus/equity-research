@@ -338,4 +338,47 @@ check('a company filter with ONLY aliases (no ticker, no name) still activates a
   assert.equal(exp.checks.find((c) => c.clause === 'company')?.passed, true, 'the explain trace records the alias-only clause too')
 })
 
+// ---- the primary NAME could itself be the bare ticker SYMBOL. The archive sometimes tags the ticker AS the
+// company name MORE often than any real spelling, so buildCompanyFacet used to pick name === the ticker
+// ("CAT"). The alias list already drops a ticker-equal spelling, but the primary name escaped that guard, so
+// the pick free-text matched an ordinary short word ("cat" for CAT). buildCompanyFacet now prefers a real
+// (non-symbol) spelling as the primary name, case-SENSITIVELY (so it drops the symbol form "CAT" yet keeps a
+// real mixed-case name like "Meta" that merely shares the ticker letters) (Codex re-review, PR #319). ----
+check('computeFacets: a MAJORITY bare-ticker name is NOT chosen as the primary name, so the pick does not false-match ordinary words', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:03:00Z`, headline: 'CAT wins a contract', companies: [{ name: 'CAT', ticker: 'CAT', listing_country: 'AU' }] }),
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, headline: 'CAT renews a deal', companies: [{ name: 'CAT', ticker: 'CAT', listing_country: 'AU' }] }),
+    item({ ts: `${dayAgo(0)}T10:01:00Z`, headline: 'CAT lands a client', companies: [{ name: 'CAT', ticker: 'CAT', listing_country: 'AU' }] }),
+    item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Catapult Group International signs a deal', companies: [{ name: 'Catapult Group International', ticker: 'CAT', listing_country: 'AU' }] }),
+  ])
+  const facets = computeFacets(repo, {}, { now })
+  const cat = facets.companies.find((c) => c.ticker === 'CAT')
+  assert.ok(cat, 'the CAT facet exists')
+  assert.equal(cat!.name, 'Catapult Group International', 'the bare ticker "CAT" (the majority tag) must NOT be the display/free-text name — the real spelling is chosen instead')
+  assert.ok(!cat!.aliases.includes('CAT'), 'the bare ticker symbol is not offered as a free-text alias either')
+  // the actual harm: a pick built from this facet must not free-text match "cat" the ordinary word
+  const petStory = item({ ts: `${dayAgo(0)}T09:00:00Z`, headline: 'Family loses cat during a house fire', companies: [] })
+  assert.equal(matchesFeedFilters(petStory, { company: { ticker: cat!.ticker, name: cat!.name, aliases: cat!.aliases, listingCountry: cat!.listingCountry } }), false, 'a pick from a majority-bare-ticker archive must not false-match the ordinary word "cat"')
+  // and it still matches its own tagged items (exact ticker) and an untagged real-name mention
+  const tagged = item({ ts: `${dayAgo(0)}T08:00:00Z`, headline: 'A generic update', companies: [{ name: 'CAT', ticker: 'CAT', listing_country: 'AU' }] })
+  assert.equal(matchesFeedFilters(tagged, { company: { ticker: cat!.ticker, name: cat!.name, aliases: cat!.aliases, listingCountry: cat!.listingCountry } }), true, 'exact-ticker still matches a CAT-tagged item — no recall lost')
+})
+
+check('computeFacets: an all-caps name that is the ONLY spelling (its ticker) is still kept, so a real short-symbol company keeps free-text recall (no over-correction)', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:03:00Z`, headline: 'IBM lifts its outlook', companies: [{ name: 'IBM', ticker: 'IBM', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, headline: 'IBM ships a new mainframe', companies: [{ name: 'IBM', ticker: 'IBM', listing_country: 'US' }] }),
+  ])
+  const facets = computeFacets(repo, {}, { now })
+  const ibm = facets.companies.find((c) => c.ticker === 'IBM')
+  assert.ok(ibm, 'the IBM facet exists')
+  assert.equal(ibm!.name, 'IBM', 'when the only spelling IS the ticker, it is kept as the display name (fallback) — the exact-ticker clause still carries matching')
+  // an untagged headline that merely NAMES IBM still matches — dropping "ibm" would lose real recall and it is
+  // not a common English word, so keeping it costs nothing (the fix targets symbol names, not all all-caps names)
+  const untagged = item({ ts: `${dayAgo(0)}T09:00:00Z`, headline: 'IBM raises guidance', companies: [] })
+  assert.equal(matchesFeedFilters(untagged, { company: { ticker: ibm!.ticker, name: ibm!.name, aliases: ibm!.aliases, listingCountry: ibm!.listingCountry } }), true, 'an untagged real-name mention still matches — recall preserved for a legitimate short symbol name')
+})
+
 console.log(`\ncompany-filter.test.ts: ${passed} passed`)

@@ -252,10 +252,23 @@ function buildCompanyFacet(companyRows: FacetRow[], allRows: FacetRow[]): Compan
   for (const clusters of clustersByBase.values()) {
     for (const cluster of clusters) {
       if (cluster.rows === 0) continue // no mention survives the active filter context — omit, as before
+      const tickerUpper = (cluster.ticker || '').toUpperCase()
+      // Pick the primary display/free-text name from the most-tagged spelling — but SKIP a spelling that is
+      // just the bare ticker SYMBOL (the archive sometimes tags the ticker AS the name more often than any
+      // real spelling — "CAT" for Catapult). That symbol is matched precisely by the exact-ticker clause; if
+      // it became the primary `name` it would ALSO free-text match an ordinary short word ("cat", "all") in
+      // unrelated headlines — the same harm the alias list below already guards against, but the primary name
+      // used to escape it (Codex re-review, PR #319). The skip is case-SENSITIVE against the uppercase ticker,
+      // so it drops the symbol form ("CAT") yet keeps a real mixed-case name that merely shares the letters
+      // ("Meta" for ticker META). Fall back to the ticker spelling only when NO real-name spelling exists, so
+      // a company only ever tagged by its symbol still gets a display name (exact-ticker still carries its matching).
       let name = ''
       let best = -1
-      for (const [nm, v] of cluster.names) if (v.count > best || (v.count === best && nm.length > name.length)) { best = v.count; name = nm }
-      const tickerUpper = (cluster.ticker || '').toUpperCase()
+      for (const [nm, v] of cluster.names) {
+        if (nm === tickerUpper) continue
+        if (v.count > best || (v.count === best && nm.length > name.length)) { best = v.count; name = nm }
+      }
+      if (!name) for (const [nm, v] of cluster.names) if (v.count > best) { best = v.count; name = nm }
       // every OTHER spelling in this (already listing-consistent) cluster, most-mentioned first, capped —
       // EXCLUDING a spelling that is just the ticker symbol itself (the archive sometimes records a ticker
       // as an alternate "name": e.g. "CAT" for Catapult, "ALL" for Allstate). Exact-ticker matching already
