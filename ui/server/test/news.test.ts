@@ -9,13 +9,13 @@ import { allApprovedDomains, approvedDomains, lookupSource, normalizeDomain } fr
 import { buildQueries, fetchGdelt, fetchGdeltDoc, GDELT_MAX_QUERY_CHARS, resetGdeltBackoff } from '../src/news/sources/gdelt'
 import { eventIdFor, loadLedgerEventIds, normalizeAndFilter, parseSeendate } from '../src/news/normalize'
 import { SeenCache } from '../src/news/seen-cache'
-import { Budget, RateLimiter, armCooldown, clearCooldown, pacedHasHeadroom, readCooldownUntil, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
+import { Budget, RateLimiter, armCooldown, clearCooldown, cooldownInfo, pacedHasHeadroom, readCooldownUntil, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
 import { readArticleBrief } from '../src/news/triage/article-read'
 import { coerceTriage, estimateTokens, scoreToBand, triageBatch } from '../src/news/triage/groq'
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox } from '../src/news/write-inbox'
 import { runIngestCycle } from '../src/news/runCycle'
-import { backlogTrend, getNewsDiagnostics, tierHealth } from '../src/news/scheduler'
+import { anthropicDrainReady, backlogTrend, drainBatchEst, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS } from '../src/config'
 import type { FeedItem, RawArticle, TriagedItem } from '../src/news/types'
 
@@ -1105,6 +1105,48 @@ await check('honest defer note: Groq cooling + Haiku at its $50 ceiling names th
   assert.match(s.note || '', /\$50\/day ceiling/i, 'the note surfaces the raised $50 Haiku ceiling as the second blocker')
 })
 
+// A shared setup for the Haiku-classification cases: Groq is down all cycle so triage falls to the last
+// resort; overflow/gemini are off; a fake claudeCliRunner supplies the failure class under test.
+async function runToHaikuFailure(cliError: string, state: string, root: string, nowMs: number) {
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('upstream sad', 503) // Groq down → the batch falls to Haiku
+    if (u.includes('gdelt')) return res({ articles: [{ url: 'https://reuters.com/hk', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
+    overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 50,
+    anthropicTransientCooldownMs: 60_000, llmCooldownMs: 300_000, llmCooldownMaxMs: 3_600_000, anthropicMinPriority: 0 } as any
+  const claudeCliRunner = async () => ({ text: '', costUsd: 0, error: cliError })
+  return runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date(nowMs), claudeCliRunner })
+}
+
+await check('Haiku classification: a TRANSIENT failure arms the SHORT flat cooldown, not the 60-min exponential one', async () => {
+  resetSharedLimiters()
+  resetCooldownMemory()
+  const state = tmp()
+  const root = tmp()
+  const nowMs = Date.parse('2026-06-12T09:30:00Z')
+  const s = await runToHaikuFailure('claude cli: timed out', state, root, nowMs)
+  assert.equal(s.last_resort, 'cooling', 'a transient error reads as cooling, not plan-quota')
+  const window = readCooldownUntil(state, 'anthropic-triage') - nowMs
+  assert.equal(window, 60_000, 'transient → the short flat 60s cooldown (re-probes ~once a drain), NOT 5–60 min')
+  assert.match(s.note || '', /Haiku last-resort backing off after an error/i)
+})
+
+await check('Haiku classification: a real PLAN-QUOTA exhaustion arms the LONG backoff (wait for the plan to reset)', async () => {
+  resetSharedLimiters()
+  resetCooldownMemory()
+  const state = tmp()
+  const root = tmp()
+  const nowMs = Date.parse('2026-06-12T09:30:00Z')
+  const s = await runToHaikuFailure('claude cli: usage limit reached — plan quota spent', state, root, nowMs)
+  assert.equal(s.last_resort, 'plan-quota', 'a spent plan is reported as plan-quota, not a transient error')
+  const window = readCooldownUntil(state, 'anthropic-triage') - nowMs
+  assert.equal(window, 300_000, 'plan-quota → the LONG llmCooldown base (300s), so later cycles wait for the plan reset')
+  assert.match(s.note || '', /plan quota spent/i)
+})
+
 // ---- the diagnostics builder: pure helpers + the full contract ----
 
 await check('pacedHasHeadroom: reqCap gates REQUESTS and tokenCap gates TOKENS (the arg-order the diagnostics read must pass)', async () => {
@@ -1119,12 +1161,97 @@ await check('pacedHasHeadroom: reqCap gates REQUESTS and tokenCap gates TOKENS (
   assert.equal(pacedHasHeadroom(500_000, 0, 13_000, 500_000, pace, lateDay), false, 'tokens AT the token cap → no headroom')
 })
 
+await check('pacedHasHeadroom: the optional est reserves one batch, matching Budget.pacedCanSpend(est) so the drain gate cannot over-report by a batch', async () => {
+  const openPace = { targetTokens: 10_000_000, floorFrac: 0 } // pacer set wide so the TOKEN cap is the binding constraint
+  const anyTime = Date.parse('2026-06-12T12:00:00Z')
+  const est = 1_640 // estimateTokens(12) = 500 + 12*95 — one triage batch
+  // exactly one est below the token cap → the loop's canSpend(est) is true, so the gate must say true too
+  assert.equal(pacedHasHeadroom(500_000 - est, 0, 13_000, 500_000, openPace, anyTime, est), true, 'room for exactly one more batch → headroom')
+  // one token past that → the loop would skip it (tokens + est > cap), so the gate must NOT report headroom
+  assert.equal(pacedHasHeadroom(500_000 - est + 1, 0, 13_000, 500_000, openPace, anyTime, est), false, 'one batch short of the token cap → no headroom (the est-blind bug)')
+  // est defaults to 0 → the original at-cap semantics are unchanged (no reservation)
+  assert.equal(pacedHasHeadroom(499_999, 0, 13_000, 500_000, openPace, anyTime), true, 'est=0 → prior behaviour just under the cap')
+})
+
+await check('providerDrainUsable: mirrors the triage loop pick — cooling / req-cap / one-batch-short token cap all block, matching the drain gate to reality', async () => {
+  const est = 1_640
+  // NVIDIA snapshot: 34/150 req, request-gated (no token cap), but COOLING ~56m → the loop skips it, so the
+  // gate must NOT count it as headroom (the busy-spin-scoring-0 bug).
+  assert.equal(providerDrainUsable(true, 34, 150, 0, undefined, est), false, 'cooling → not usable even with request budget')
+  assert.equal(providerDrainUsable(false, 34, 150, 0, undefined, est), true, 'healthy request-gated provider with budget → usable')
+  assert.equal(providerDrainUsable(false, 150, 150, 0, undefined, est), false, 'request cap reached → not usable')
+  // Cerebras snapshot: token-gated, cap 900k. One batch short of the cap can't score → not usable (the
+  // "Healthy at 900k/900k" bug), but two batches of room → usable.
+  assert.equal(providerDrainUsable(false, 500, 2_300, 900_000 - est + 1, 900_000, est), false, 'token-gated, one batch short of the token cap → not usable')
+  assert.equal(providerDrainUsable(false, 500, 2_300, 900_000 - est, 900_000, est), true, 'token-gated, room for exactly one batch → usable')
+})
+
+await check('drainBatchEst: reserves for the batch the drain would ACTUALLY submit — min(backlog, NEWS.triageBatch), not a fixed full-batch estimate', async () => {
+  // The reported gap (Codex, PR #316): 1 queued item needs estimateTokens(1) = 595 tokens, but the drain
+  // gate reserved estimateTokens(NEWS.triageBatch) = 1,640 for the default 12-item batch — a provider with
+  // 600 tokens of room (enough for the real, 1-item submission) still read as spent and the drain skipped it.
+  assert.equal(drainBatchEst(1), estimateTokens(1), 'a 1-item backlog reserves for a 1-item batch, not a full batch')
+  assert.equal(drainBatchEst(1), 595, 'pinned to the reported gap\'s own numbers')
+  // a backlog at or above the batch size reserves the full batch — unchanged from the old fixed estimate
+  assert.equal(drainBatchEst(NEWS.triageBatch), estimateTokens(NEWS.triageBatch))
+  assert.equal(drainBatchEst(NEWS.triageBatch + 50), estimateTokens(NEWS.triageBatch), 'never reserves MORE than one batch, however deep the backlog')
+  // an empty backlog still reserves the fixed per-call overhead (estimateTokens(0) = 500), not a literal 0
+  assert.equal(drainBatchEst(0), estimateTokens(0))
+})
+
+await check('armCooldown with base==max is FLAT (the Haiku transient path) — no exponential 60-min pin however many fails', async () => {
+  resetCooldownMemory()
+  const state = tmp()
+  const t0 = Date.parse('2026-06-12T09:00:00Z')
+  const FLAT = 60_000
+  // the LAST line of defence: a transient blip must re-probe ~once a drain, not back off to an hour. Arm it
+  // seven consecutive times; the window must stay a flat 60s even as the fail counter climbs.
+  for (let n = 1; n <= 7; n++) {
+    armCooldown(state, t0, FLAT, 'anthropic-triage', FLAT)
+    assert.equal(readCooldownUntil(state, 'anthropic-triage') - t0, FLAT, `arm #${n}: window stays flat at 60s`)
+    assert.equal(cooldownInfo(state, 'anthropic-triage').fails, n, 'the fail counter still advances (for display) even though the window is flat')
+  }
+  // contrast: the EXPONENTIAL path (base 300s, max 60m) balloons — this is what the paid tier used to inherit
+  clearCooldown(state, 'groq')
+  for (let i = 0; i < 7; i++) armCooldown(state, t0, 300_000, 'groq', 3_600_000)
+  assert.equal(readCooldownUntil(state, 'groq') - t0, 3_600_000, 'exponential path pins at the 60-min cap after enough fails — wrong for the last resort')
+})
+
 await check('tierHealth: disabled → cooling → budget-spent → paced precedence', async () => {
   assert.equal(tierHealth(false, 999, true, true), 'disabled', 'disabled wins over everything')
   assert.equal(tierHealth(true, 5000, true, true), 'cooling', 'a live cooldown beats spent/paced')
   assert.equal(tierHealth(true, 0, true, true), 'budget-spent', 'spent beats paced')
   assert.equal(tierHealth(true, 0, false, true), 'paced')
   assert.equal(tierHealth(true, 0, false, false), 'healthy')
+})
+
+await check('anthropicDrainReady: the drain gate counts the Haiku last-resort (enabled + not cooling + under the $ ceiling)', async () => {
+  // The reported stall: on an overload day the free tiers are budget-spent, so the OLD drain gate returned
+  // false and the frequent backlog drain never ran — even though the Haiku last-resort still had budget and
+  // could have chewed through the backlog. The drain must run whenever THIS is true.
+  assert.equal(anthropicDrainReady(true, false, 10, 50), true, 'enabled, healthy, under the ceiling → can drain the backlog')
+  assert.equal(anthropicDrainReady(false, false, 10, 50), false, 'the tier is disabled → not available')
+  assert.equal(anthropicDrainReady(true, true, 10, 50), false, 'in a cross-cycle failure cooldown → backing off, cannot take work')
+  assert.equal(anthropicDrainReady(true, false, 50, 50), false, 'at its daily $ ceiling → spent')
+  assert.equal(anthropicDrainReady(true, false, 60, 50), false, 'past the ceiling → spent')
+})
+
+await check('anthropicDrainReady: respects the priority floor — Haiku-only headroom is false when the WHOLE backlog is sub-floor (no-progress-loop fix, PR #316 Codex P2)', async () => {
+  // runCycle scores a batch on Haiku only when its lead item clears anthropicMinPriority
+  // (runCycle.ts: `preTriagePriority(batch[0]) >= cfg.anthropicMinPriority`); the queue is priority-sorted,
+  // so the whole-backlog MAX is the first batch's lead. If even that is below the floor, Haiku refuses every
+  // batch. A drain gated on Haiku alone would then re-defer the identical backlog every DRAIN_INTERVAL — a
+  // busy loop churning the firehose + deferred file with zero progress. The gate must report NO headroom
+  // then. Expected values are pinned to that runCycle floor rule + the Codex P2 finding, not to code output.
+  // top backlog priority (10) BELOW the floor (40) → Haiku can't take the batch → NOT drain-ready.
+  assert.equal(anthropicDrainReady(true, false, 10, 50, 10, 40), false, 'whole backlog sub-floor → Haiku refuses every batch → no headroom')
+  // top backlog priority (55) AT/ABOVE the floor (40) → the first batch clears → drain-ready.
+  assert.equal(anthropicDrainReady(true, false, 10, 50, 55, 40), true, 'the best backlog item clears the floor → the first batch scores → headroom')
+  assert.equal(anthropicDrainReady(true, false, 10, 50, 40, 40), true, 'exactly at the floor clears it (>=, matching runCycle)')
+  // floor of 0 (the default) is a no-op — any non-negative backlog priority passes, exactly the old behaviour.
+  assert.equal(anthropicDrainReady(true, false, 10, 50, 0, 0), true, 'default floor 0 → never blocks')
+  // backward-compat: the 4-arg call (no floor args) defaults topPriority=Infinity, minPriority=0 → unchanged.
+  assert.equal(anthropicDrainReady(true, false, 10, 50), true, '4-arg legacy call → floor check is a no-op (Infinity >= 0)')
 })
 
 await check('backlogTrend: reads growing / shrinking / flat / null from recent cycles', async () => {

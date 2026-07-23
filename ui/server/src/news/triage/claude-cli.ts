@@ -25,6 +25,9 @@ export interface ClaudeCliTriageOptions {
   model: string
   timeoutMs?: number
   budgetUsd?: number // per-call --max-budget-usd guard (belt-and-braces; the daily ledger is the real bound)
+  maxAttempts?: number // in-call retries on a TRANSIENT failure (default 2) — parity with the free adapters
+  signal?: AbortSignal // the cycle's wall-clock abort — checked before each (re)try so an aborted cycle stops billing/holding the lock
+  budgetRemainingUsd?: number // $ left under the daily ceiling at call start; once this call's cumulative cost reaches it, stop retrying
 }
 
 /** One CLI completion. Returns the assistant text + the cost the CLI reported for it. Injectable for tests
@@ -96,9 +99,18 @@ export const defaultClaudeCliRunner: ClaudeCliRunner = async (system, user, opts
     if (o.type === 'result') {
       if (typeof o.total_cost_usd === 'number') costUsd = o.total_cost_usd
       if (o.is_error || o.api_error_status) {
+        const resultText = (typeof o.result === 'string' ? o.result : 'error').slice(0, 120)
+        // Preserve a terminal HTTP status (bad/revoked key, no credits, …) IN the note text as "HTTP nnn" —
+        // the caller (runCycle.ts) pattern-matches that exact shape to tell a terminal auth failure apart
+        // from a transient blip and exhaust the day's budget instead of arming the short transient cooldown.
+        // Without this, api_error_status (a numeric field) never reached the note, so a 401 read as an
+        // ordinary transient error: retried in-call immediately, then re-probed every drain (Codex review,
+        // PR #316).
         error = isUsageLimit(o)
           ? 'claude cli: usage limit reached — plan quota spent'
-          : `claude cli: ${(typeof o.result === 'string' ? o.result : 'error').slice(0, 120)}`
+          : o.api_error_status
+            ? `claude cli: HTTP ${o.api_error_status} — ${resultText}`
+            : `claude cli: ${resultText}`
       }
     }
   }
@@ -148,6 +160,15 @@ function braceSlice(text: string): any {
  * Triage one batch on the subscription CLI. Returns the same TriageResult shape as the free providers,
  * plus costUsd (what the CLI reported for this call — the figure the caller's daily $ ledger meters on).
  * On ok:false the caller treats the batch as UNSCORED (defer it), never scored-zero.
+ *
+ * RETRY (parity with the free adapters, which retry a transient with maxAttempts=2): the subscription path
+ * used to call the CLI exactly once, so a single spawn timeout / empty output / one-off non-JSON reply
+ * failed the whole batch and — as the LAST line of defence — sidelined the paid tier via a cooldown while
+ * the backlog dropped data. We now retry a TRANSIENT failure up to `maxAttempts` times. We do NOT retry a
+ * real plan-quota exhaustion (re-asking a spent plan is waste — the caller wants that surfaced so it arms
+ * the long backoff). A billed-but-unparseable reply (cost recorded, prose wrapping the JSON) is proof the
+ * plan is alive, so the retry re-asks with a stricter "return only the JSON array" nudge. Every attempt's
+ * cost is metered; `requests` stays 1 (one logical batch), matching the other adapters.
  */
 export async function triageBatchClaudeCli(
   items: NewsItem[],
@@ -158,22 +179,73 @@ export async function triageBatchClaudeCli(
   if (!items.length) return { byIndex, requests: 0, tokens: 0, ok: true, costUsd: 0 }
 
   const est = estimateTokens(items.length)
-  let out: { text: string; costUsd: number; error?: string }
-  try {
-    out = await run(SYSTEM, buildUserMessage(items), opts)
-  } catch (e: any) {
-    // the runner is fail-soft by contract, but never let an unexpected throw kill the cycle
-    return { byIndex, requests: 1, tokens: est, ok: false, note: `claude cli: ${e?.message || e}`, costUsd: 0 }
-  }
-  if (out.error) return { byIndex, requests: 1, tokens: est, ok: false, note: out.error, costUsd: out.costUsd }
+  const baseUser = buildUserMessage(items)
+  const maxAttempts = Math.max(1, opts.maxAttempts ?? 2)
+  let costUsd = 0
+  let note = 'claude cli: no output'
 
-  let parsed: any
-  try { parsed = JSON.parse(out.text) } catch { parsed = braceSlice(out.text) }
-  if (!parsed) return { byIndex, requests: 1, tokens: est, ok: false, note: 'claude cli: non-JSON content', costUsd: out.costUsd }
-  const arr: any[] = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.items) ? parsed.items : []
-  for (const row of arr) {
-    const i = Number(row?.i)
-    if (Number.isInteger(i) && i >= 0 && i < items.length && !byIndex.has(i)) byIndex.set(i, coerceTriage(row))
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    // Stop before a (re)try that must not run — both gates the caller's single pre-batch check cannot see
+    // once we are already inside the loop (Codex review, PR #316):
+    //   • the cycle was aborted (runAbortableCycle's wall-clock guard) — don't spawn another billed CLI and
+    //     hold the shared `running` lock for another anthropicTimeoutMs after the cycle was told to stop.
+    //   • this call's cumulative cost, PLUS the retry's own max possible cost (opts.budgetUsd, the
+    //     --max-budget-usd guard passed to every call), already consumed the day's remaining allowance —
+    //     the caller gates the batch once with `canSpend()` (est-less, one-call soft overshoot by design),
+    //     but never re-checks between the adapter's own retries. Checking only `costUsd >= budgetRemainingUsd`
+    //     (the actual spend so far) still let a retry start whenever the remaining allowance was merely
+    //     LESS than double the per-call cap — e.g. $0.15 left, a billed $0.10 first attempt passes that
+    //     check, and a second ~$0.10 attempt adds a SECOND overshoot past the operator's daily $ governor.
+    //     Reserving the retry's max cost up front closes that gap (Codex review, PR #316).
+    if (opts.signal?.aborted) { note = 'claude cli: cycle aborted before attempt'; break }
+    if (attempt > 1 && opts.budgetRemainingUsd != null && costUsd + (opts.budgetUsd ?? 0) > opts.budgetRemainingUsd) {
+      note = 'claude cli: daily budget consumed — retry skipped'
+      break
+    }
+    // after a billed-but-unparseable reply, push harder toward a bare JSON array on the retry
+    const user = attempt === 1 ? baseUser : `${baseUser}\n\nReturn ONLY the JSON array — no prose, no markdown, no code fences.`
+    let out: { text: string; costUsd: number; error?: string }
+    try {
+      out = await run(SYSTEM, user, opts)
+    } catch (e: any) {
+      // the runner is fail-soft by contract, but never let an unexpected throw kill the cycle
+      note = `claude cli: ${e?.message || e}`
+      continue // transient (unexpected throw) → retry within the attempt budget
+    }
+    costUsd += out.costUsd
+    if (out.error) {
+      note = out.error
+      // a spent plan won't recover on retry — return now so the caller arms the LONG cooldown (wait for reset).
+      // A terminal API error (bad/revoked key, no credits, …) is the same shape of "won't recover on retry":
+      // re-asking an unauthenticated call bills nothing new but still spawns a second CLI process and holds
+      // the lock for another timeout, only to fail again the same way (Codex review, PR #316).
+      if (isPlanQuotaNote(out.error) || isTerminalApiNote(out.error)) return { byIndex, requests: 1, tokens: est, ok: false, note, costUsd }
+      continue // transient (timeout / no output / generic) → retry
+    }
+    let parsed: any
+    try { parsed = JSON.parse(out.text) } catch { parsed = braceSlice(out.text) }
+    if (!parsed) { note = 'claude cli: non-JSON content'; continue } // formatting hiccup → retry with the stricter nudge
+    const arr: any[] = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.items) ? parsed.items : []
+    for (const row of arr) {
+      const i = Number(row?.i)
+      if (Number.isInteger(i) && i >= 0 && i < items.length && !byIndex.has(i)) byIndex.set(i, coerceTriage(row))
+    }
+    return { byIndex, requests: 1, tokens: est, ok: true, costUsd }
   }
-  return { byIndex, requests: 1, tokens: est, ok: true, costUsd: out.costUsd }
+  return { byIndex, requests: 1, tokens: est, ok: false, note, costUsd }
+}
+
+/** A last-resort failure that is the PLAN's own quota being spent (not a transient blip) — the caller then
+ *  arms the long backoff to wait for the plan reset, and the retry loop above stops rather than re-asking a
+ *  spent plan. Mirrors the "usage limit reached — plan quota spent" note claude-cli canonicalises a 429 to. */
+export function isPlanQuotaNote(note: string): boolean {
+  return /usage limit|plan quota/i.test(note || '')
+}
+
+/** A last-resort failure that is a TERMINAL API error (bad/revoked key, no credits, blocked, …) — same
+ *  regex runCycle.ts matches on `ar.note` to skip the day rather than arm the short transient cooldown.
+ *  Exported so the retry loop above (and its tests) can name the same condition it stops retrying on,
+ *  instead of duplicating the pattern (Codex review, PR #316). */
+export function isTerminalApiNote(note: string): boolean {
+  return /HTTP (400|401|402|403|404|413)/.test(note || '')
 }

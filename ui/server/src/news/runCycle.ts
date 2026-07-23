@@ -25,7 +25,7 @@ import { SeenCache } from './seen-cache'
 import { Budget, UsdBudget, armCooldown, clearCooldown, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, readCooldownUntil } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
 import { triageBatchAnthropic } from './triage/anthropic'
-import { triageBatchClaudeCli, type ClaudeCliRunner } from './triage/claude-cli'
+import { isPlanQuotaNote, isTerminalApiNote, triageBatchClaudeCli, type ClaudeCliRunner } from './triage/claude-cli'
 import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
@@ -51,7 +51,7 @@ const DEFERRED_FILE = 'news-deferred.json'
 // rewritten each cycle), which is why it stays bounded and env-tunable rather than unlimited.
 export const DEFERRED_CAP = (() => { const n = Number(process.env.NEWS_DEFERRED_CAP); return Number.isFinite(n) && n > 0 ? n : 5000 })()
 
-function loadDeferred(stateDir: string): NewsItem[] {
+export function loadDeferred(stateDir: string): NewsItem[] {
   try {
     const arr = JSON.parse(fs.readFileSync(path.join(stateDir, DEFERRED_FILE), 'utf8'))
     return Array.isArray(arr) ? arr : []
@@ -60,12 +60,27 @@ function loadDeferred(stateDir: string): NewsItem[] {
   }
 }
 
-function saveDeferred(stateDir: string, items: NewsItem[]): void {
+// ATOMIC write: this file OWNS the loss boundary — the whole backlog lives here. A plain truncating write
+// that fails mid-way (e.g. ENOSPC during a long outage, exactly when the backlog is largest) would leave a
+// truncated/corrupt file that next loadDeferred parses as [] — silently dropping up to DEFERRED_CAP held
+// items with no trace. So write a temp file in the same dir and rename it over the target (atomic on one
+// filesystem): a failed temp write leaves the last-good backlog intact, and the error is LOGGED, not swallowed.
+// Returns true when the backlog was persisted this cycle, false when the write failed and the last-good file
+// was kept instead. The caller surfaces a false as `deferred_write_failed` on the cycle summary, so the
+// backlog/deferred counts are not reported as safely-on-disk when the new list never reached the file — an
+// ENOSPC mid-outage could otherwise show items "waiting" that were actually only in memory (Codex review, PR #316).
+export function saveDeferred(stateDir: string, items: NewsItem[], log: (m: string) => void = () => {}): boolean {
+  const target = path.join(stateDir, DEFERRED_FILE)
+  const tmp = `${target}.tmp`
   try {
     fs.mkdirSync(stateDir, { recursive: true })
-    fs.writeFileSync(path.join(stateDir, DEFERRED_FILE), JSON.stringify(items.slice(0, DEFERRED_CAP)) + '\n')
-  } catch {
-    // losing the spillover only costs a re-fetch chance — never the cycle
+    fs.writeFileSync(tmp, JSON.stringify(items.slice(0, DEFERRED_CAP)) + '\n')
+    fs.renameSync(tmp, target)
+    return true
+  } catch (e: any) {
+    log(`saveDeferred failed (${e?.message || e}) — kept the last-good backlog; ${items.length} item(s) not re-persisted this cycle`)
+    try { fs.rmSync(tmp, { force: true }) } catch { /* best-effort temp cleanup */ }
+    return false
   }
 }
 
@@ -214,7 +229,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const items = [...requeued, ...fresh].sort((a, b) => preTriagePriority(b, nowDate) - preTriagePriority(a, nowDate))
 
   if (!items.length) {
-    saveDeferred(stateDir, []) // any stale spillover was consumed by the filters above
+    saveDeferred(stateDir, [], log) // any stale spillover was consumed by the filters above
     const summary: CycleSummary = { ...blank, ok: true, fetched: raws.length, fresh: fresh.length, carryover: requeued.length, backlog: 0, backlog_cap: DEFERRED_CAP, note: 'no new on-list items', ...(sources ? { sources } : {}) }
     appendFirehoseSummary(repoRoot, date, summary)
     newsBus.emit({ type: 'news-cycle', summary })
@@ -405,7 +420,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ) {
       await anthropicLimiter!.acquire(est, sleep, () => now().getTime())
       const ar = cfg.anthropicFallbackMode === 'subscription'
-        ? await triageBatchClaudeCli(batch, { model: cfg.anthropicModel, timeoutMs: cfg.anthropicTimeoutMs, budgetUsd: cfg.anthropicPerCallUsd }, deps.claudeCliRunner)
+        ? await triageBatchClaudeCli(batch, { model: cfg.anthropicModel, timeoutMs: cfg.anthropicTimeoutMs, budgetUsd: cfg.anthropicPerCallUsd, budgetRemainingUsd: anthropicBudget!.remaining(), signal: deps.signal }, deps.claudeCliRunner)
         : await triageBatchAnthropic(
             batch,
             { model: cfg.anthropicApiModel, baseUrl: cfg.anthropicBaseUrl, apiKey: cfg.anthropicApiKey, maxTokens: cfg.anthropicMaxTokens, inPricePerMTok: cfg.anthropicInPricePerMTok, outPricePerMTok: cfg.anthropicOutPricePerMTok },
@@ -423,13 +438,19 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       } else {
         anthropicDownThisCycle = true // bad cycle → skip this tier for the rest of it (don't burn the budget)
         anthropicFailNote = ar.note || '' // keep the reason so the cycle note can say plan-quota vs a transient error
-        // A terminal 4xx (api mode: bad key / no credits) won't recover today → exhaust the day's ledger.
-        // Everything else — including the SUBSCRIPTION's own "usage limit reached" (the plan's 5-hour/weekly
-        // quota is spent) — arms the cross-cycle cooldown, so later cycles wait for the plan to reset instead
-        // of re-spawning the CLI every minute. That is the "defer intelligently until the limit resets" path:
-        // the backlog is kept, and the drain picks it up the moment quota returns.
-        if (/HTTP (400|401|402|403|404|413)/.test(ar.note || '')) anthropicBudget!.exhaust()
-        else armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'anthropic-triage', cfg.llmCooldownMaxMs)
+        // THREE failure classes, three responses — because this is the LAST line of defence and its cooldown
+        // must fit the actual cause (all keep the same 'anthropic-triage' marker id, so the diagnostics + the
+        // drain's anthropicHasHeadroom read it unchanged):
+        //   1. terminal 4xx (api mode: bad key / no credits) — won't recover today → exhaust the day's ledger.
+        //   2. real plan-quota ("usage limit reached" — the plan's 5-hour/weekly pool is spent) → the LONG
+        //      exponential backoff, so later cycles wait for the plan to reset instead of re-spawning the CLI.
+        //   3. a TRANSIENT blip (timeout / rate-limit / one-off non-JSON, after the adapter's own in-call
+        //      retry already failed) → a SHORT, FLAT cooldown (base==max flattens the exponential to a
+        //      constant), so the paid tier re-probes ~once a drain and keeps draining the backlog rather than
+        //      going dark for up to an hour while data drops past the cap.
+        if (isTerminalApiNote(ar.note || '')) anthropicBudget!.exhaust()
+        else if (isPlanQuotaNote(ar.note || '')) armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'anthropic-triage', cfg.llmCooldownMaxMs)
+        else armCooldown(stateDir, now().getTime(), cfg.anthropicTransientCooldownMs, 'anthropic-triage', cfg.anthropicTransientCooldownMs)
       }
     }
     if (!res) {
@@ -508,7 +529,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   for (const o of overflow) o.budget.save()
   if (anthropicBudget) anthropicBudget.save()
   seen.save()
-  saveDeferred(stateDir, deferred)
+  const deferredPersisted = saveDeferred(stateDir, deferred, log)
 
   // 3b. DEDUP — micro-cluster this cycle's items against the recent firehose into STORIES (finer than
   // themes), so the firehose line + the SSE event each carry a stable story-cluster id and the wire
@@ -601,7 +622,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // "usage limit reached — plan quota spent", claude-cli.ts). A transient per-minute rate-limit or an
   // api-mode billing/credit error is NOT the shared plan resetting — those fall through to 'cooling', so we
   // don't tell the operator to "wait for the plan to reset" when there is no plan quota to reset.
-  const planQuotaHit = /usage limit|plan quota/i.test(anthropicFailNote)
+  const planQuotaHit = isPlanQuotaNote(anthropicFailNote)
   const lastResort: CycleSummary['last_resort'] = !anthropicOn
     ? 'off'
     : anthropicCoolingDown || anthropicDownThisCycle
@@ -628,7 +649,16 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
 
   const defCount = deferred.length
   const defPlural = defCount === 1 ? '' : 's'
-  const note = aborted && defCount
+  // Items past the loss boundary. saveDeferred keeps only the first DEFERRED_CAP of the priority-sorted
+  // backlog, so anything beyond the cap is DROPPED — never scored, and not re-fetchable once its source
+  // window ages out (GDELT's lookback expires; an unchanged RSS feed answers 304). It was derivable as
+  // `deferred − backlog` but never named, logged, or counted, so the loss was invisible while the panel's
+  // trend read "steady". Surface it: `deferred = backlog + dropped_at_cap` is now an explicit invariant.
+  const droppedAtCap = Math.max(0, defCount - DEFERRED_CAP)
+  if (droppedAtCap > 0) {
+    log(`LOSS: ${droppedAtCap} lowest-priority item${droppedAtCap === 1 ? '' : 's'} dropped past the ${DEFERRED_CAP}-item backlog cap — not deferred; gone once their source window ages out`)
+  }
+  const baseNote = aborted && defCount
     ? `cycle hit its time guard — ${defCount} item${defPlural} dumped to the backlog for the next look${lastResortClause}`
     : budgetHit
       ? `free-tier daily LLM budget reached — ${defCount} item${defPlural} deferred; they clear when the daily quotas reset${lastResortClause}`
@@ -643,6 +673,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
           : batchFailed
             ? `${defCount} item${defPlural} not scored (LLM hiccup) — deferred to next cycle${lastResortClause}`
             : undefined
+  // Append the honest loss clause so a defer note never reads as if everything was merely postponed when part
+  // of it was actually dropped (the reported "clears when quotas reset" is false for the lost tail).
+  const note = droppedAtCap > 0
+    ? `${baseNote ? `${baseNote} · ` : ''}${droppedAtCap} item${droppedAtCap === 1 ? '' : 's'} DROPPED past the ${DEFERRED_CAP}-item cap (not deferred — lost)`
+    : baseNote
   // Structured twin of the note, in the same precedence, so the cockpit can reason about the defer reason
   // without parsing free text.
   const deferReason: CycleSummary['defer_reason'] = !defCount
@@ -667,6 +702,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     fresh: fresh.length, carryover: requeued.length,
     ...(defCount ? { deferred: defCount } : {}),
     backlog: Math.min(defCount, DEFERRED_CAP), backlog_cap: DEFERRED_CAP,
+    ...(droppedAtCap ? { dropped_at_cap: droppedAtCap } : {}),
+    ...(deferredPersisted ? {} : { deferred_write_failed: true }),
     ...(aborted ? { aborted: true } : {}),
     ...(deferReason ? { defer_reason: deferReason } : {}),
     last_resort: lastResort,
