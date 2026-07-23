@@ -96,7 +96,10 @@ export function coreCompanyName(name: unknown): string {
   for (;;) {
     const i = s.lastIndexOf(' ')
     if (i <= 0) break
-    const last = s.slice(i + 1).replace(/\.+$/, '')
+    // Strip ALL dots from the candidate token (not just trailing) so dotted legal forms — "S.A.",
+    // "N.V.", "S.p.A." — normalise to "sa" / "nv" / "spa" and match LEGAL_SUFFIXES; otherwise the same
+    // issuer spelled dotted vs undotted would fold into two different groups and never share aliases.
+    const last = s.slice(i + 1).replace(/\./g, '')
     if (!LEGAL_SUFFIXES.has(last)) break
     s = s.slice(0, i)
   }
@@ -189,8 +192,15 @@ async function cachedSearch(q: string, fetchImpl: FetchLike): Promise<SymbolGrou
   const now = Date.now()
   if (hit && now - hit.at < CACHE_TTL_MS) return hit.groups
   const groups = await searchSymbols(q, fetchImpl)
-  if (symCache.size >= CACHE_MAX) symCache.delete(symCache.keys().next().value as string)
-  symCache.set(key, { at: now, groups })
+  // Cache only a NON-EMPTY result. searchSymbols() collapses a transient upstream failure (a non-OK
+  // response — 429 / 5xx) to [] the same as a legitimately-empty search; caching that [] for the full
+  // 6 h TTL would lock every later lookup of this query out of the directory even after the endpoint
+  // recovers. An empty result is cheap to recompute (queries are debounced client-side) — retry it next
+  // time instead of pinning a transient failure for hours.
+  if (groups.length > 0) {
+    if (symCache.size >= CACHE_MAX) symCache.delete(symCache.keys().next().value as string)
+    symCache.set(key, { at: now, groups })
+  }
   return groups
 }
 
@@ -198,21 +208,27 @@ async function cachedSearch(q: string, fetchImpl: FetchLike): Promise<SymbolGrou
  *  symbol usually does, e.g. "NHYDY") — ONE follow-up search by the company's core name to pull in its
  *  sibling listings (NHY.OL, NHYKF, …) so the pick carries the full alias set. Fail-closed to []. */
 export async function searchSymbolsEnriched(q: string, fetchImpl: FetchLike = fetch): Promise<SymbolGroup[]> {
+  let groups: SymbolGroup[]
   try {
-    const groups = (await cachedSearch(q, fetchImpl)).map((g) => ({ ...g, aliases: [...g.aliases] }))
-    const top = groups[0]
-    if (top && top.aliases.length < 2) {
-      const core = coreCompanyName(top.name)
-      if (core && core !== q.trim().toLowerCase()) {
+    groups = (await cachedSearch(q, fetchImpl)).map((g) => ({ ...g, aliases: [...g.aliases] }))
+  } catch {
+    return [] // primary search offline / blocked / slow — the filter degrades to archive-facet + free-typed matching
+  }
+  const top = groups[0]
+  if (top && top.aliases.length < 2) {
+    const core = coreCompanyName(top.name)
+    if (core && core !== q.trim().toLowerCase()) {
+      try {
         const byName = await cachedSearch(core, fetchImpl)
         const sib = byName.find((g) => coreCompanyName(g.name) === core)
         for (const a of sib?.aliases || []) if (!top.aliases.includes(a)) top.aliases.push(a)
+      } catch {
+        // Sibling-enrichment failed (transient) — keep the successfully-fetched primary groups rather
+        // than discarding them; the pick just carries fewer cross-listing aliases this time.
       }
     }
-    return groups
-  } catch {
-    return [] // offline / blocked / slow — the filter degrades to archive-facet + free-typed matching
   }
+  return groups
 }
 
 /** Test/ops hook — drop the directory cache. */

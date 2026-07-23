@@ -46,9 +46,9 @@ function hydrate(it: FeedItem): FeedItem {
   // CIK numbers ("0000200245") into company-guess tickers. Scrubbing on read — like the derives above —
   // heals the WHOLE backlog with no backfill, so the facet/autofill and the company filter never see a
   // fake symbol. Rides BOTH return paths. Idempotent; names are untouched (entities.ts owns name junk).
-  const companies = (it.companies || []).map((c) => { const t = cleanTicker(c.ticker); return t === (c.ticker ?? null) ? c : { ...c, ticker: t } })
+  const companies = (Array.isArray(it.companies) ? it.companies : []).map((c) => { const t = cleanTicker(c.ticker); return t === (c.ticker ?? null) ? c : { ...c, ticker: t } })
   if (it.scope && it.source_tier && !needsClean && !needsGeo && !needsClassifier && !needsCommodity) return { ...it, companies, topics, scheduled_events }
-  const scope = it.scope || deriveScope({ ...it, headline })
+  const scope = it.scope || deriveScope({ ...it, headline, companies }) // pass the normalised (always-array) companies so a legacy non-array field can't crash deriveScope's filter
   const commodities = needsCommodity ? deriveCommodities({ ...it, headline: headline || it.headline }) : undefined
   return {
     ...it,
@@ -58,7 +58,7 @@ function hydrate(it: FeedItem): FeedItem {
     companies,
     topics,
     scheduled_events,
-    ...(needsGeo ? { country: resolveCountry(headline || it.headline, it.headline_en, it.companies, it.region, it.issuer_linkage) } : {}),
+    ...(needsGeo ? { country: resolveCountry(headline || it.headline, it.headline_en, companies, it.region, it.issuer_linkage) } : {}),
     // free, zero-cost backfill — event_scope derives from scope (already resolved above);
     // event_materiality_label re-derives from the persisted triage_score so it's never stale;
     // event_direction has no deterministic source, so an older line honestly defaults to 'unknown'.

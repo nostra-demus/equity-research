@@ -483,7 +483,7 @@ async function classifyFile(dir: string, filename: string): Promise<ClassifiedFi
   // name, and the source + wire/published timestamp become the hover line — so the Data pool reads as
   // "what news is in here", not as opaque ids. Parsed from the sniff (the header sits in the first lines);
   // a note that somehow lacks the header simply keeps the filename (fail-open to the old display).
-  const wireEvent = /^screener_event_EVT-[0-9a-f]{6,}\.md$/.test(filename) ? parseWireEventNote(sniff, filename) : null
+  const wireEvent = /^screener_event_EVT-[0-9a-f]{6,}\.md$/.test(filename) ? parseWireEventNote(readNoteText(full), filename) : null
 
   return {
     filename,
@@ -500,6 +500,14 @@ async function classifyFile(dir: string, filename: string): Promise<ClassifiedFi
   }
 }
 
+/** Read a routed wire-event note's markdown directly. sniffText() intentionally skips `.md` (reading
+ *  every user note by content would re-classify them by body text), so the header parse reads the small
+ *  note itself. First 8 KB covers the header; '' on any error → parseWireEventNote returns null (fail-open
+ *  to the filename display). */
+function readNoteText(filePath: string): string {
+  try { return fs.readFileSync(filePath, 'utf8').slice(0, 8000) } catch { return '' }
+}
+
 /** Extract the human identity of a routed wire-event note from its own header (research-bridge.ts
  *  renderEventNote writes `# Wire event: <headline>` + `- Source: …` + `- Wire timestamp …: <ts>`).
  *  Returns null when the header isn't there (a foreign file that merely matches the name pattern). */
@@ -509,7 +517,12 @@ export function parseWireEventNote(text: string, filename: string): { displayNam
   const source = /^- Source: (.+)$/m.exec(text)?.[1]?.trim() || ''
   const tsLine = /^- Wire timestamp[^:]*: (.+)$/m.exec(text)?.[1]?.trim() || ''
   const eventId = /^screener_event_(EVT-[0-9a-f]+)\.md$/.exec(filename)?.[1] || ''
-  const tsIso = /\d{4}-\d{2}-\d{2}/.exec(tsLine)?.[0] || null
+  // Date the evidence by the article's PUBLICATION date when the note carries one — renderEventNote
+  // writes "<wire read time> · published <published>", so the first date on the line is the scanner-read
+  // time, not publication. An older article routed today would otherwise read as fresh and overstate the
+  // pool's recency. Prefer the `published` segment's date; fall back to the wire/scan timestamp.
+  const publishedSeg = tsLine.split(/·\s*published\s+/i)[1] || ''
+  const tsIso = (/\d{4}-\d{2}-\d{2}/.exec(publishedSeg)?.[0]) || (/\d{4}-\d{2}-\d{2}/.exec(tsLine)?.[0]) || null
   const ageMonths = tsIso ? Math.max(0, Math.round((Date.now() - Date.parse(`${tsIso}T00:00:00Z`)) / (1000 * 60 * 60 * 24 * 30.4))) : null
   const note = [
     'News event routed from the screener wire',

@@ -206,4 +206,43 @@ check('an unknown company appends as a global-only row; junk facet tickers are s
   assert.deepEqual(rio?.tickerAliases, ['RIO'], 'the primary symbol is not repeated in its own aliases')
 })
 
+// ---- mergeCompanyOptions: a shared exchange-stripped ticker base across DIFFERENT issuers must NOT merge
+//      them (Codex P1 r3635672840). Expected behaviour pinned to the ticker-base fallback's own rule:
+//      it fires only when the archive entry has no distinguishing company name of its own; two real,
+//      differently-named issuers that happen to share a base (ASX CAT = Catapult, NYSE CAT = Caterpillar)
+//      stay separate options so typing CAT can't offer/filter the wrong company.
+check('a shared ticker base on two DIFFERENT issuers stays two options (CAT: Catapult vs Caterpillar)', () => {
+  const merged = mergeCompanyOptions(
+    [{ ticker: 'CAT', name: 'Catapult Group International Ltd', count: 3, listingCountry: 'AU' }],
+    [{ name: 'Caterpillar Inc', symbol: 'CAT', exchange: 'NYSE', aliases: ['CAT'] }],
+  )
+  assert.equal(merged.length, 2, 'Caterpillar is a separate option, not absorbed into Catapult on the shared base')
+  const catapult = merged.find((o) => /catapult/i.test(o.name))
+  const caterpillar = merged.find((o) => /caterpillar/i.test(o.name))
+  assert.ok(catapult && caterpillar, 'both distinct issuers remain present as their own rows')
+  assert.deepEqual(catapult?.tickerAliases ?? [], [], 'the ASX Catapult row gains no alias from the NYSE Caterpillar group')
+})
+// A name-less/opaque archive entry that shares the base still gains the directory identity — the fallback's
+// legitimate purpose (so the tightening above does not disable it).
+check('a name-less archive entry sharing the base still merges with the directory group', () => {
+  const merged = mergeCompanyOptions(
+    [{ ticker: 'CAT', name: '', count: 1 }],
+    [{ name: 'Caterpillar Inc', symbol: 'CAT', exchange: 'NYSE', aliases: ['CAT', 'CAT.DE'] }],
+  )
+  assert.equal(merged.length, 1, 'the opaque CAT entry is enriched by the directory group, not duplicated')
+  assert.deepEqual([...(merged[0].tickerAliases || [])].sort(), ['CAT.DE'], 'gains the sibling listing; its own ticker is not repeated')
+})
+// ---- mergeCompanyOptions: tolerate a directory group missing its aliases field (Gemini medium
+//      r3635665856 — deploy skew / an older server response). Must not crash on g.aliases.map. ----
+check('mergeCompanyOptions does not crash on a directory group with no aliases field', () => {
+  const merged = mergeCompanyOptions(
+    [{ ticker: 'NHY', name: 'Norsk Hydro', count: 5, listingCountry: 'NO' }],
+    [{ name: 'Some New Co', symbol: 'SNC', exchange: 'NYSE' } as any], // legacy/partial response: no aliases
+  )
+  assert.ok(Array.isArray(merged), 'returns a list rather than throwing on the missing array')
+  const snc = merged.find((o) => o.ticker === 'SNC')
+  assert.ok(snc, 'the group still surfaces as an option')
+  assert.deepEqual(snc?.tickerAliases ?? [], [], 'no aliases → empty tickerAliases, not a TypeError')
+})
+
 console.log(`\ncompanyFilter.test.ts: ${passed} passed`)

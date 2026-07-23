@@ -76,7 +76,10 @@ export function coreCompanyName(name: unknown): string {
   for (;;) {
     const i = s.lastIndexOf(' ')
     if (i <= 0) break
-    const last = s.slice(i + 1).replace(/\.+$/, '')
+    // Strip ALL dots from the candidate token (not just trailing) so dotted legal forms — "S.A.",
+    // "N.V.", "S.p.A." — normalise to "sa" / "nv" / "spa" and match LEGAL_SUFFIXES; otherwise the same
+    // issuer spelled dotted vs undotted would fold into two different groups and never share aliases.
+    const last = s.slice(i + 1).replace(/\./g, '')
     if (!LEGAL_SUFFIXES.has(last)) break
     s = s.slice(0, i)
   }

@@ -81,18 +81,25 @@ export function mergeCompanyOptions(facet: CompanyFacet[], groups: SymbolGroup[]
   const out: CompanySuggestion[] = facet.map((f) => ({ ...f, ticker: cleanTicker(f.ticker) }))
   for (const g of groups) {
     const gCore = coreCompanyName(g.name)
-    const gBases = g.aliases.map((a) => baseTicker(a))
+    const gAliases = Array.isArray(g.aliases) ? g.aliases : [] // network-sourced (deploy skew): tolerate a missing/legacy aliases field
+    const gBases = gAliases.map((a) => baseTicker(a))
     const hit =
       out.find((o) => !!gCore && (coreCompanyName(o.name) === gCore || (o.aliases || []).some((a) => coreCompanyName(a) === gCore))) ||
-      out.find((o) => !!o.ticker && gBases.includes(baseTicker(o.ticker)))
+      // Ticker-base fallback — ONLY when the archive entry has no distinguishing company name of its own.
+      // A shared exchange-stripped base across two DIFFERENT issuers (ASX `CAT` = Catapult vs NYSE `CAT`
+      // = Caterpillar) must NOT merge them; leave the directory group as its own option. When the archive
+      // entry HAS a real core name it either matched on name above (same company) or is a genuinely
+      // different issuer, so this fallback fires only for name-less / opaque archive entries sharing the
+      // symbol (e.g. a ticker-only facet row gaining the directory's identity).
+      out.find((o) => !!o.ticker && !coreCompanyName(o.name) && gBases.includes(baseTicker(o.ticker)))
     if (hit) {
-      const merged = new Set([...(hit.tickerAliases || []), ...g.aliases.map(normTicker)])
+      const merged = new Set([...(hit.tickerAliases || []), ...gAliases.map(normTicker)])
       if (hit.ticker) merged.delete(normTicker(hit.ticker)) // the entry's own ticker needn't repeat
       hit.tickerAliases = [...merged]
       if (!hit.exchange) hit.exchange = g.exchange
       if (!hit.ticker) hit.ticker = g.symbol // a name-only archive entry gains the directory's symbol
     } else {
-      out.push({ ticker: g.symbol, name: g.name, exchange: g.exchange, tickerAliases: g.aliases.map(normTicker).filter((a) => a !== normTicker(g.symbol)) })
+      out.push({ ticker: g.symbol, name: g.name, exchange: g.exchange, tickerAliases: gAliases.map(normTicker).filter((a) => a !== normTicker(g.symbol)) })
     }
   }
   return out
