@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0",
+  "ticker": "AMZN",
+  "run_root": "analyses/AMZN_2026-07-10",
+  "scan_date": "2026-07-23",
+  "scanned_at": "2026-07-23T04:38:09Z",
+  "watermark": "analyses/AMZN_2026-07-10/final_thesis.md",
+  "new_docs": [
+    {
+      "path": "data/AMZN/external/yipitdata/Cloud (AWS, Azure, GCP) _ Mar-26 Update.pdf",
+      "sha256": "6e2cc3d8e78c7d839b51ee942666363bf4640ba8aab4d2ca6bb0bd7d1215f103",
+      "provider": "YipitData",
+      "source_type": "alt_data_panel",
+      "tier": 5,
+      "as_of": "2026-03",
+      "claims_summary": "YipitData's licensed spend panel estimates 1Q26 AWS revenue growth of 29.3% y/y (above Visible Alpha consensus of 25.4%, incl. Trainium/OpenAI and Bedrock-scaling adjustments), Azure F3Q26 growth of 38.6% (slightly below its 40% consensus, EMEA weakest), and Google Cloud 1Q26 growth of 53.1% (above its 50.2% consensus). It also shows AWS's share of combined AI tokens rising to 51% in Mar-26 from 16% a year earlier, while Azure's fell from 53% to 27%, and flags very-early (low-confidence) Q2-to-date reads for AWS/Azure through early April.",
+      "materiality_score": 68,
+      "impact_direction": "positive",
+      "entry_orbs": [
+        { "module": "earnings", "agent": "revenue-drivers",
+          "why": "revenue-drivers' own WHAT-TO-READ list names 'a measured panel's read on a driver (segment growth...)' as a source; this panel is exactly that for AWS/cloud revenue growth and the AI-workload driver, at a materiality the module's Q1 2026 read (28% YoY from the 10-Q) does not yet capture at this granularity (AI token share, GPU/Graviton mix).",
+          "confidence": 0.85 },
+        { "module": "earnings", "agent": "guidance-consensus",
+          "why": "guidance-consensus' WHAT-TO-READ explicitly names 'External alt-data panels... a measured panel's estimate of the same metric, with its vendor error margin; cross-check only, never the consensus source' — this panel gives an independent VA-consensus comparison (AWS/Azure/GCP estimate vs consensus, with stated 2.3/4/6pp margins of error) that the current run's consensus read does not carry.",
+          "confidence": 0.8 },
+        { "module": "business-model", "agent": "moat",
+          "why": "The AI-token-share swing (AWS 51% vs Azure 27%, from 16%/53% a year prior) is competitive-economics evidence bearing directly on the moat verdict's AWS-vs-Azure-vs-GCP competitive-position read, though the agent's own WHAT-TO-READ list does not name alt-data panels explicitly, hence the lower confidence.",
+          "confidence": 0.55 }
+      ]
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-14cd12418d3f.md",
+      "sha256": "eba445c0beea2dcd06eb1f1e0eec54542f9a5ba97219560dbf118065d9c0dd85",
+      "provider": "Nasdaq (via screener wire)",
+      "source_type": "screener_bridged_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-17",
+      "claims_summary": "CEO Andy Jassy reportedly said Amazon's custom-chip business already has $225B in commitments and has topped a $20B annual revenue run rate, growing at triple-digit rates y/y.",
+      "materiality_score": 55,
+      "impact_direction": "positive",
+      "entry_orbs": [
+        { "module": "earnings", "agent": "revenue-drivers",
+          "why": "If true, a disclosed $225B chip-commitment figure and $20B run-rate would be a new, material revenue driver beyond AWS cloud consumption; but this is a single tier-10 wire report of a CEO quote with no filing or second independent source in the pool confirming the figures, so per INTAKE.md §5 it defaults to note_only rather than driving a rerun.",
+          "confidence": 0.4 }
+      ]
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-37c9b5f64b76.md",
+      "sha256": "d7f727e90d1d8fb1467c86441b3a3dd26a4e7a55dd67c95d9d759b8814c249e8",
+      "provider": "Yahoo Finance (via screener wire)",
+      "source_type": "screener_bridged_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-19",
+      "claims_summary": "Generic comparison piece contrasting Amazon's capex scale against Shopify's lean-profitability strategy; no new quantified Amazon-specific fact in the captured text.",
+      "materiality_score": 22,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-bd42f71c12ab.md",
+      "sha256": "d20f8c9c1010e93fdf2bd02d69bef8fd900bc9af04c8b8f82a06d91da7630206",
+      "provider": "TheStreet (via screener wire)",
+      "source_type": "screener_bridged_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-19",
+      "claims_summary": "WARN notice: Amazon is closing its Port St. Lucie, FL fulfillment facility (~494 jobs), following an earlier Homestead, FL closure (~616 jobs) — combined ~1,110 Florida employees affected.",
+      "materiality_score": 15,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-d91208d97714.md",
+      "sha256": "6cf6fc8b21e3227aa7d1bfdc9e50949a4128a3dc0afec6f0f5bc57a9f286e3cd",
+      "provider": "Nasdaq (via screener wire)",
+      "source_type": "screener_bridged_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-13",
+      "claims_summary": "Speculative piece suggesting Amazon may be exploring external sales of Trainium/Inferentia chips to challenge Nvidia; no verified figures, framed as 'reportedly'.",
+      "materiality_score": 28,
+      "impact_direction": "positive",
+      "entry_orbs": []
+    }
+  ],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [
+      { "module": "earnings", "agent": "revenue-drivers" },
+      { "module": "earnings", "agent": "guidance-consensus" },
+      { "module": "business-model", "agent": "moat" }
+    ],
+    "commands": [
+      { "command": "/research:rerun earnings guidance-consensus AMZN",
+        "module": "earnings", "agent": "guidance-consensus",
+        "cascade_modules": ["earnings", "balance-sheet-survival", "management-governance", "valuation", "catalyst"],
+        "triggered_by": ["data/AMZN/external/yipitdata/Cloud (AWS, Azure, GCP) _ Mar-26 Update.pdf"] },
+      { "command": "/research:rerun earnings revenue-drivers AMZN",
+        "module": "earnings", "agent": "revenue-drivers",
+        "cascade_modules": ["earnings", "balance-sheet-survival", "management-governance", "valuation", "catalyst"],
+        "triggered_by": ["data/AMZN/external/yipitdata/Cloud (AWS, Azure, GCP) _ Mar-26 Update.pdf"] },
+      { "command": "/research:rerun business-model moat AMZN",
+        "module": "business-model", "agent": "moat",
+        "cascade_modules": ["business-model", "balance-sheet-survival", "management-governance", "valuation", "catalyst"],
+        "triggered_by": ["data/AMZN/external/yipitdata/Cloud (AWS, Azure, GCP) _ Mar-26 Update.pdf"] }
+    ],
+    "note_only": [
+      { "path": "data/AMZN/screener_event_EVT-14cd12418d3f.md",
+        "reason": "Tier-10 single wire source (Nasdaq) quoting CEO Andy Jassy on $225B chip commitments / $20B run-rate; no filing or second independent source in the pool corroborates the figures, so per INTAKE.md §5 it defaults to note_only despite a plausibly high materiality if confirmed." },
+      { "path": "data/AMZN/screener_event_EVT-37c9b5f64b76.md",
+        "reason": "Generic capex-comparison commentary, relevance 'relevant_non_material' per the screener read, no new quantified fact — materiality 22 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-bd42f71c12ab.md",
+        "reason": "Routine facility-closure WARN notice affecting ~494 of Amazon's >1.5M employees — immaterial at this scale; single tier-10 source in any case — materiality 15 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-d91208d97714.md",
+        "reason": "Speculative single-source piece ('reportedly exploring') with no verified figures on external chip sales — materiality 28 < gate." }
+    ]
+  },
+  "verdict": "scoped_rerun",
+  "summary": "Five documents landed since the 2026-07-10 run finished: one tier-5 YipitData cloud-spend panel (Mar-26 update) and four tier-10 screener wire events. The YipitData panel clears the materiality gate (68) — it gives an independent VA-consensus cross-check on AWS/Azure/GCP 1Q26 growth and shows AWS's AI-token share extending its lead over Azure, bearing on earnings/revenue-drivers, earnings/guidance-consensus, and business-model/moat. Scope the rerun to those three orbs and their cascade. All four wire events (chip-commitment quote, a generic capex-comparison piece, a routine Florida facility closure, and a speculative external-chip-sales story) are single tier-10 sources with no filing or second independent source backing them, so per INTAKE.md §5 they stay note_only — most notably the $225B chip-commitment claim, which would be material if corroborated but is not yet."
+}
