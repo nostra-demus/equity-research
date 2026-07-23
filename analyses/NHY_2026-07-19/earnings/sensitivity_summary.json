@@ -7,41 +7,45 @@
   "base_value": 28889,
   "base_period": "FY2025",
   "revenue_base": 207971,
+  "base_value_note": "base_value (Adjusted EBITDA) and revenue_base are FY2025 [01_historical-financials.md §4; Integrated Annual Report 2025, p.37] — the period the coefficients' deltas apply to. Each sensitivities[].base_value below is that variable's own CURRENT level (Q1 2026 — see base_value_period), carried for context only; it is not used by the linear scale (delta × coefficient applies directly to the FY2025 base above). This mixes two periods by design, per CLAUDE.md §15, so both periods are labelled explicitly rather than left implicit.",
   "sensitivities": [
     {
       "variable": "lme_aluminium_price",
       "label": "LME aluminium price",
       "unit": "USD/mt",
       "base_value": 3192,
+      "base_value_period": "Q1 2026",
       "coefficient": 15.0,
       "confidence": "high",
       "basis": "company-disclosed",
       "valid_range": { "low": -400, "high": 300 },
       "non_linearity": "1.5-2mo pricing realization lag; disclosed per-unit rate anchored near base, may not hold far from it",
-      "source": "FY2025 Annual Report, p.38"
+      "source": "FY2025 Annual Report, p.38 (per-unit coefficient); Q1 FY2026 results (First Quarter Report 2026), p.12, p.19 (Q1 2026 base value of USD 3,192/mt)"
     },
     {
       "variable": "usd_nok",
       "label": "USD/NOK exchange rate",
       "unit": "NOK",
-      "base_value": 9.72,
+      "base_value": 9.73,
+      "base_value_period": "Q1 2026",
       "coefficient": 4900.0,
       "confidence": "high",
       "basis": "company-disclosed",
       "valid_range": { "low": -1, "high": 1 },
       "non_linearity": "sustainable operating effect only; a same-size move also carries a separate disclosed one-off revaluation of -NOK 680m on financial items, NOT included here",
-      "source": "FY2025 Annual Report, p.38"
+      "source": "FY2025 Annual Report, p.38 (per-unit coefficient); Q1 FY2026 results (First Quarter Report 2026), p.19 (Q1 2026 base value of 9.73)"
     },
     {
       "variable": "alumina_price",
-      "label": "Alumina price (Platts PAX)",
+      "label": "Alumina price (realized, Bauxite & Alumina segment)",
       "unit": "USD/mt",
       "base_value": 345,
+      "base_value_period": "Q1 2026",
       "coefficient": 72.0,
       "confidence": "low",
       "basis": "inferred",
       "valid_range": { "low": -50, "high": 65 },
-      "non_linearity": "inferred per-unit (no disclosed alumina EBITDA-per-USD/mt); blends the period cost cushion and may not hold at other price levels",
+      "non_linearity": "inferred per-unit (no disclosed alumina EBITDA-per-USD/mt); blends the period cost cushion and may not hold at other price levels. base_value and coefficient are calibrated to the REALIZED alumina price (Q1'26: USD 345/mt), not the Platts PAX index (Q1'26: USD 307/mt per 02_revenue-drivers.md §4) — do not apply this coefficient to a PAX-quoted move.",
       "source": "nhy-presentation-q1-2026.pdf, p.15; Integrated Annual Report 2025, p.37"
     },
     {
@@ -49,6 +53,7 @@
       "label": "Extrusions external sales volume",
       "unit": "kmt",
       "base_value": 1004,
+      "base_value_period": "Q1 2026 (annualized)",
       "coefficient": 19.1,
       "confidence": "medium",
       "basis": "inferred",
