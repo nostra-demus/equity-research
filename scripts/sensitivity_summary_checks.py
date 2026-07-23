@@ -44,6 +44,12 @@ def check_sensitivity_summary(sidecar):
     rb = sidecar.get("revenue_base")
     if "revenue_base" in sidecar and rb is not None and not _isnum(rb):
         det.append("revenue_base must be numeric or null")
+    # when a margin will be computed (revenue present), the revenue period must match the base period —
+    # mixing e.g. FY25 profit with FY24 revenue is a §15 defect. Fires only when BOTH periods are recorded,
+    # so it never invalidates an older sidecar that omits revenue_period.
+    bp, rp = sidecar.get("base_period"), sidecar.get("revenue_period")
+    if rb is not None and bp and rp and str(bp) != str(rp):
+        det.append(f"revenue_period {rp!r} does not match base_period {bp!r} — margin would mix periods (§15)")
 
     sens = sidecar.get("sensitivities")
     if not isinstance(sens, list) or not sens:
@@ -64,11 +70,17 @@ def check_sensitivity_summary(sidecar):
             seen.add(var)
         if not _isnum(s.get("coefficient")):
             det.append(f"sensitivity {var!r} coefficient {s.get('coefficient')!r} is not numeric")
+        # the coefficient IS the material input behind every what-if number, so it must carry a citation
+        # (CLAUDE.md §5) — a nullable-but-present source in the schema is not enough to publish/compute on.
+        if not (isinstance(s.get("source"), str) and s.get("source").strip()):
+            det.append(f"sensitivity {var!r} is missing a non-empty 'source' citation")
         if s.get("confidence") not in _CONFIDENCE:
             det.append(f"sensitivity {var!r} confidence {s.get('confidence')!r} not in {_CONFIDENCE}")
         vr = s.get("valid_range")
-        if vr is not None and not (isinstance(vr, dict) and _isnum(vr.get("low")) and _isnum(vr.get("high"))):
-            det.append(f"sensitivity {var!r} valid_range must be null or an object with numeric low/high")
+        # a one-sided band (only low, or only high) is valid — the engine enforces the side it discloses;
+        # reject only a present-but-empty/garbled range object.
+        if vr is not None and not (isinstance(vr, dict) and (_isnum(vr.get("low")) or _isnum(vr.get("high")))):
+            det.append(f"sensitivity {var!r} valid_range must be null or an object with a numeric low and/or high")
 
     # THE load-bearing check: every recorded variable must actually compute through the engine the chat
     # will call — a sidecar that lists a variable sensitivity_math cannot model is worse than none.
@@ -111,12 +123,18 @@ def _selftest() -> int:
         "base_value": 28889, "revenue_base": 207971,
         "sensitivities": [
             {"variable": "lme_aluminium_price", "coefficient": 15.0, "confidence": "high",
-             "valid_range": {"low": -400, "high": 300}},
-            {"variable": "usd_nok", "coefficient": 4900.0, "confidence": "high"},
+             "valid_range": {"low": -400, "high": 300}, "source": "FY2025 AR p.38"},
+            {"variable": "usd_nok", "coefficient": 4900.0, "confidence": "high", "source": "FY2025 AR p.38"},
         ],
     }
     check("absent → None (soft presence)", check_sensitivity_summary(None) is None)
     check("valid → [] pass", check_sensitivity_summary(ok) == [])
+    nosrc = dict(ok, sensitivities=[dict(ok["sensitivities"][0], source=None)])
+    check("missing source caught", any("source" in v for v in check_sensitivity_summary(nosrc)))
+    onesided = dict(ok, sensitivities=[dict(ok["sensitivities"][0], valid_range={"low": -400})])
+    check("one-sided valid_range OK", check_sensitivity_summary(onesided) == [])
+    check("non-finite base_value caught", any("base_value" in v for v in check_sensitivity_summary(dict(ok, base_value=float("inf")))))
+    check("period mismatch caught", any("mix periods" in v for v in check_sensitivity_summary(dict(ok, base_period="FY2025", revenue_period="FY2024"))))
     check("non-object → violation", check_sensitivity_summary([1]) == ["sensitivity_summary.json is not a JSON object"])
     miss = dict(ok); del miss["base_value"]
     check("missing base_value caught", any("base_value" in v for v in check_sensitivity_summary(miss)))
