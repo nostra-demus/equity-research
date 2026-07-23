@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NHY",
+  "as_of": "2026-07-19",
+  "currency": "NOK",
+  "business_type": "Commodity",
+  "basis": "equity",
+  "shares": 1965.28,
+  "net_debt": 13090,
+  "net_debt_basis": "broad",
+  "net_debt_note": "net_debt carries the genuinely-broad / headline figure NOK 13,090mm (total debt 33,754 - cash & ST investments 20,664) so net_debt_basis:'broad' is truthful [01_price-and-capital-structure.md, Section 5 table, 'Net debt - broad / headline']. The report's CANONICAL net debt for its EV bridge and fair values is the cash-quality-adjusted figure NOK 17,919mm = 13,090 + NOK 1,390mm trapped captive-insurance cash (Industriforsikring AS) + NOK 3,439mm derivatives collateral, both disclosed by Hydro as unavailable to repay debt (labeled 'broad, ex-trapped balances', Section 5). Strict (debt - cash & equivalents only, excl. ST investments) is NOK 22,503mm. The schema net_debt_basis enum (strict/broad/gross-liquidity) cannot encode the ex-trapped adjustment, so 13,090mm is emitted under 'broad'; basis='equity' here means scenario levels are precomputed and this anchor is contextual, not used in a per-share bridge.",
+  "current_price": 84.96,
+  "price_as_of": "2026-07-17",
+  "price_state": "pool-verified",
+  "is_developed_mega_cap": false,
+  "scenarios": [
+    {
+      "label": "bull",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 107.70,
+      "drivers": "Middle East supply-shock LME price spike persists and elevated FY2025 13.9% margin holds; 12-month price-convergence window"
+    },
+    {
+      "label": "base",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 81.83,
+      "drivers": "Weighted blend 0.25x93.70 (peers, quality-adj NTM EV/EBITDA) + 0.35x70.14 (DCF, 13.0% mid-cycle margin) + 0.40x84.63 (SOTP, audited segment EBITDA) = 81.83"
+    },
+    {
+      "label": "bear",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 45.12,
+      "drivers": "Structural reset: aluminium price reverts to 2023-2025 realized band and Extrusions decline continues; multi-year impairment path priced today"
+    }
+  ],
+  "methods": {
+    "own_history": 64.33,
+    "peers": 93.70,
+    "dcf": 70.14,
+    "sotp": 84.63
+  },
+  "method_weights": {
+    "own_history": 0.0,
+    "peers": 0.25,
+    "dcf": 0.35,
+    "sotp": 0.40
+  },
+  "discount_rate": {
+    "rf": 0.0438,
+    "erp": 0.045,
+    "beta": 0.70,
+    "cost_of_equity": 0.0753,
+    "wacc": 0.075,
+    "after_tax_kd": 0.0385
+  }
+}

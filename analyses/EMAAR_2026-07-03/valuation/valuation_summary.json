@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "ticker": "EMAAR",
+  "as_of": "2026-07-03",
+  "currency": "AED",
+  "business_type": "Operating",
+  "business_type_note": "Operating real estate developer with recurring income streams (Real Estate development ~80% of FY2025 revenue, Leasing/Retail ~16%, Hospitality ~5%); primary methods per Business-Type Method Map are FCFF DCF, reverse-DCF, EV/EBITDA, EV/EBIT, P/E, with NAV + SOTP as real-estate cross-checks. NOT a holding company. See 00_valuation-data-triage.md, 'Business type track' rows.",
+  "basis": "equity",
+  "shares": 8838.79,
+  "net_debt": -24969.2,
+  "net_debt_basis": "broad",
+  "current_price": 12.20,
+  "price_as_of": "2026-06-28",
+  "price_state": "pool-verified",
+  "is_developed_mega_cap": false,
+  "scenarios": [
+    {
+      "label": "bull",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 34.2,
+      "drivers": "Dubai property cycle holds; masked Emaar Malls annuity re-rates; DCF grid high / SOTP bull"
+    },
+    {
+      "label": "base",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 27.7,
+      "drivers": "Mechanical 4-method blend is AED 30.08 (0.20x19.08 + 0.20x25.97 + 0.35x38.47 + 0.25x30.43); published AED 2.38 lower at 27.7 as a disclosed 8% government-owner (RF-OWN-004) discount"
+    },
+    {
+      "label": "bear",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 20.0,
+      "drivers": "Through-cycle trough on FY2021 margins + demand slowdown; still above the AED 12.20 price (backlog absorbs 3-4 years of revenue)"
+    }
+  ],
+  "methods": {
+    "own_history": 19.08,
+    "peers": 25.97,
+    "dcf": 38.47,
+    "sotp": 30.43
+  },
+  "method_weights": {
+    "own_history": 0.20,
+    "peers": 0.20,
+    "dcf": 0.35,
+    "sotp": 0.25
+  },
+  "discount_rate": {
+    "rf": 0.0448,
+    "erp": 0.0487,
+    "beta": 1.0,
+    "cost_of_equity": 0.0935,
+    "wacc": 0.0883,
+    "after_tax_kd": 0.0327
+  }
+}
