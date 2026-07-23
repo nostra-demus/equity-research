@@ -8,9 +8,11 @@
 //
 // Reuses the existing sandboxed readers (readMarkdown / readDecision / runManifest) and the discovered
 // roster (buildSwarmGraph) — no module name is ever hardcoded (CLAUDE.md §26).
-import { CHAT } from './config'
+import path from 'node:path'
+import { CHAT, REPO_ROOT } from './config'
 import { readDecision, readMarkdown, runManifest } from './outputs'
-import { buildSwarmGraph } from './roster'
+import { buildSwarmGraph, findRunRootForSubject, swarmSubjects } from './roster'
+import { listSwarms } from './swarms'
 import { resolveInsideRuns } from './sandbox'
 
 export type ChatScope = 'run' | 'module' | 'orb'
@@ -60,6 +62,7 @@ export interface AssembledContext {
   degradeNote?: string
   missingHint?: string // set when !present — what the user must run first
   hasChangeBlock?: boolean // a "What changed since the last version" piece is in the context
+  linkedRuns?: LinkedRun[] // cross-swarm dossiers folded into the context because this run references them
 }
 
 function tryRead(relPath: string): string | null {
@@ -122,12 +125,113 @@ function render(pieces: ContextPiece[]): string {
     .join('\n\n———\n\n')
 }
 
+// ---- cross-swarm linked dossiers (C-1) ----
+// A run's chat can pull in the SYNTHESES of ANOTHER swarm's committed run that this run's own text
+// references — e.g. an NHY research thesis discussing "LME aluminium" links the ALUMINIUM commodity run's
+// dossier, so a question about the aluminium price is answerable from the engine's OWN output instead of
+// refused. Stays closed-book (still engine-authored markdown, cited by source) and §26-generic: candidate
+// subjects come from the swarm manifests + the run's content, never a hardcoded pairing.
+export interface LinkedRun { swarmId: string; subject: string; runRoot: string; mentions: number }
+
+// PURE: normalize an OS path to forward slashes. `path.relative` yields backslashes on Windows, which would
+// break the run-root equality check (`rr === primaryRunRoot`, forward-slash) and the `startsWith(runRoot +
+// '/')` survivor filter — both compare forward-slash paths. Normalizing both sides keeps them right on any
+// platform. Unit-tested.
+export function toPosixPath(p: string): string {
+  return p.replace(/\\/g, '/')
+}
+
+// PURE: the candidate subjects, by swarm, that a run in `sourceSwarmId` may link — every OTHER swarm's
+// subjects, never the source swarm's own. Self/peer exclusion keys on the SWARM, not the subject string:
+// a research GOLD run may link the commodity GOLD dossier (different swarm, same name — the wanted cross-
+// swarm case), while a commodity GOLD run never pulls in its OWN swarm's COPPER/WHEAT comparison names.
+// Skips the active swarm, not just research. Unit-tested.
+export function linkCandidatesBySwarm(sourceSwarmId: string, subjectsBySwarm: Record<string, string[]>): Record<string, string[]> {
+  const out: Record<string, string[]> = {}
+  for (const [swarmId, subs] of Object.entries(subjectsBySwarm)) {
+    if (swarmId === sourceSwarmId) continue
+    if (subs.length) out[swarmId] = subs
+  }
+  return out
+}
+
+// PURE: a run is linkable only once it has reached its terminal, committed deliverable. The primary,
+// §26-GENERIC signal is the manifest's `finalReport` — final_thesis.md for research, else the terminal
+// MODULE's synthesis, DERIVED from the discovered swarm graph (not a hardcoded artifact list), so a future
+// swarm that ends on some other synthesis is honoured with no engine edit. decision_record.json is kept as a
+// belt-and-suspenders terminal marker. A run FOLDER is created BEFORE its modules run, so a bare/partial
+// folder has no finalReport and is not linked (committed-dossier contract).
+// KNOWN LIMITATION: a rerun overwrites a completed folder in place while its terminal marker persists, so a
+// chat during an ACTIVE rerun can still read a mixed-generation dossier. The full fix is a committed-snapshot
+// transaction in the rerun flow (rename/guard the marker across the mutation) — not observable from here.
+export function isLinkableRun(man: { finalReport?: unknown | null; decisionRecord?: boolean; finalThesis?: boolean }): boolean {
+  return !!(man.finalReport || man.decisionRecord || man.finalThesis)
+}
+
+// PURE: the subjects (by swarm) `text` references as a whole word (case-insensitive). Ranked by mention
+// count, capped. Self/peer exclusion is NOT done here — the caller passes only cross-swarm candidates (via
+// linkCandidatesBySwarm), so a candidate that shares the primary run's subject name is a genuine cross-swarm
+// link and is kept. Only too-short names (whole-word false-match risk) are skipped. Unit-tested fixture-free.
+export function matchLinkedSubjects(text: string, candidatesBySwarm: Record<string, string[]>, cap = 3): { swarmId: string; subject: string; mentions: number }[] {
+  // Slug separators (- _) become spaces on BOTH sides, so a subject like CRUDE-OIL matches the prose spelling
+  // "crude oil" (and "crude-oil"); the subject's words are then matched with flexible whitespace.
+  const hay = (text || '').toLowerCase().replace(/[-_]+/g, ' ')
+  if (!hay.trim()) return []
+  const out: { swarmId: string; subject: string; mentions: number }[] = []
+  for (const [swarmId, subjects] of Object.entries(candidatesBySwarm)) {
+    for (const subj of subjects) {
+      const norm = (subj || '').toLowerCase().replace(/[-_]+/g, ' ').trim()
+      if (norm.replace(/\s+/g, '').length < 3) continue // too-short → whole-word false-match risk
+      const pat = norm.split(/\s+/).map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('\\s+')
+      const re = new RegExp(`\\b${pat}\\b`, 'g')
+      const mentions = (hay.match(re) || []).length
+      if (mentions > 0) out.push({ swarmId, subject: subj, mentions })
+    }
+  }
+  return out.sort((a, b) => b.mentions - a.mentions || a.subject.localeCompare(b.subject)).slice(0, cap)
+}
+
+// Discover the committed runs of OTHER swarms that `text` references and that EXIST on disk. Self/peer
+// exclusion keys on (swarm, run identity): the SOURCE swarm's own subjects are never candidates (so a run
+// never pulls its own swarm's peers), and the primary run's own root is skipped — while a genuine cross-
+// swarm link that shares a subject name (research GOLD ↔ commodity GOLD) IS kept. Only a COMPLETED run
+// (terminal marker present — isLinkableRun) is linked, never a mid-pipeline/partial folder. Returns run-
+// root-relative (POSIX) paths, confined to committed runs. §26-generic: candidates come from the swarm
+// manifests + the run's content, never a hardcoded pairing.
+export function discoverLinkedRuns(text: string, primaryRunRoot: string, sourceSwarmId: string): LinkedRun[] {
+  const subjectsBySwarm: Record<string, string[]> = {}
+  for (const swarm of listSwarms()) {
+    const subs = swarmSubjects(swarm.id)
+    if (subs.length) subjectsBySwarm[swarm.id] = subs
+  }
+  const candidatesBySwarm = linkCandidatesBySwarm(sourceSwarmId, subjectsBySwarm)
+  const primary = toPosixPath(primaryRunRoot)
+  const out: LinkedRun[] = []
+  const LINK_CAP = 3
+  // Rank ALL mentioned candidates, then keep the top LINK_CAP that actually resolve to a linkable, committed
+  // run — so subjects that are declared but never run (swarmSubjects includes them) can't consume the cap
+  // ahead of a lower-ranked dossier that IS available. Cap the survivors, not the raw mentions.
+  for (const m of matchLinkedSubjects(text, candidatesBySwarm, Number.MAX_SAFE_INTEGER)) {
+    if (out.length >= LINK_CAP) break
+    const abs = findRunRootForSubject(m.swarmId, m.subject)
+    if (!abs) continue
+    const rr = toPosixPath(path.relative(REPO_ROOT, abs))
+    if (rr === primary) continue
+    let linkable = false
+    try { linkable = isLinkableRun(runManifest(rr, resolveInsideRuns)) } catch { linkable = false }
+    if (!linkable) continue
+    out.push({ swarmId: m.swarmId, subject: m.subject, runRoot: rr, mentions: m.mentions })
+  }
+  return out
+}
+
 export function assembleContext(opts: {
   scope: ChatScope
   runRoot: string
   module?: string
   orbPath?: string
   swarmId?: string // which swarm's module graph to walk for the run scope (default research)
+  linked?: boolean // include cross-swarm dossiers the run references (default on; run scope only)
   // The git-history delta, pre-computed by the caller. It arrives ALREADY RENDERED because reading git
   // is async and this assembler is sync with one caller (an already-async route handler). Keeping it that
   // way is deliberate: making this async would cascade, and the only sync alternative — execFileSync —
@@ -251,10 +355,35 @@ export function assembleContext(opts: {
       degraded: false, missingHint: 'No module syntheses or final thesis are on disk yet — run the modules (or the full pipeline) first.',
     }
   }
+  // ---- C-1: fold in cross-swarm dossiers this run's own text references (closed book — still engine
+  // markdown, cited by source; lower priority than every primary piece, so trimmed first under budget) ----
+  let linkedRuns: LinkedRun[] = []
+  if (opts.linked !== false) {
+    const primaryText = pieces.map((p) => p.markdown).join('\n')
+    linkedRuns = discoverLinkedRuns(primaryText, runRoot, swarmId)
+    for (const lr of linkedRuns) {
+      let lman
+      try { lman = runManifest(lr.runRoot, resolveInsideRuns) } catch { continue }
+      for (const [mod, rep] of Object.entries(lman.moduleReports)) {
+        const synthRel = rep?.synthesis
+        if (!synthRel) continue
+        const md = tryRead(synthRel)
+        if (md == null) continue
+        pieces.push({
+          heading: `Linked dossier · ${lr.subject} (${lr.swarmId}) — ${moduleLabel(mod)} synthesis`,
+          relPath: synthRel, markdown: md, priority: 2,
+        })
+      }
+    }
+  }
   const { kept, dropped } = trimToBudget(pieces)
   const degraded = dropped.length > 0
+  // Only report a linked run whose content actually SURVIVED the trim — never promise the model a dossier
+  // that got dropped on the way out (same rule the change-block honours below).
+  const survivingLinks = linkedRuns.filter((lr) => kept.some((p) => p.relPath.startsWith(lr.runRoot + '/')))
   return {
     present: true, scope, runRoot, label: 'Whole run', sourcePath,
+    linkedRuns: survivingLinks.length ? survivingLinks : undefined,
     // derived from what SURVIVED the trim, never from what we pushed — the rule must not promise the
     // model a section that got dropped on the way out.
     hasChangeBlock: kept.some((p) => p.heading === 'What changed since the last version'),
@@ -338,6 +467,9 @@ export function buildChatPrompts(args: {
       ? ['A COMPUTED SCENARIO block is in the CONTEXT. It was produced by the engine\'s deterministic calculator, NOT by you. Lead with its result, state the numbers exactly as given (never recompute or re-round them), cite the source it shows, and carry its confidence and any caution/non-linearity note into the answer.']
       : []),
     ...(assembled.hasChangeBlock ? [CHANGE_RULE] : []),
+    ...(assembled.linkedRuns?.length
+      ? [`The CONTEXT includes one or more "Linked dossier · …" sections — the engine's OWN output for ANOTHER run that ${subject} references (${assembled.linkedRuns.map((l) => `${l.subject}`).join(', ')}). Answer from them when the question needs them (e.g. a commodity price this ${subject} thesis depends on), and cite them by their "Linked dossier · …" heading so it is clear the fact came from a different run, not from ${subject} itself. They inform ${subject}'s thesis; they do not change its verdict.`]
+      : []),
     ...(assembled.degraded
       ? ['NOTE: the CONTEXT was trimmed to fit, so some orb-level detail may be missing. If a question needs more depth than the CONTEXT holds, tell the user to narrow the chat to that single module or orb.']
       : []),
