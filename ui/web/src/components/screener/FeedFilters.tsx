@@ -73,6 +73,14 @@ export function companyClauseSet(company: CompanyPick | null | undefined): boole
   return !!(company && (company.ticker || company.name || company.aliases?.length))
 }
 
+// Do a picked company's definite listing_country and an item's OWN definite listing_country for its ticker
+// tag DISAGREE? Only a genuine, evidenced conflict counts (both sides non-null and different) — unknown on
+// either side is never a mismatch. Lockstep with the server's listingConflicts (feed-filter.ts). Tells apart
+// two different issuers reusing the same ticker letters on different exchanges (Codex review, PR #319).
+export function listingConflicts(picked: string | null | undefined, itemCountry: string | null | undefined): boolean {
+  return !!picked && !!itemCountry && picked !== itemCountry
+}
+
 export function nameOccurs(hay: string, needle: string): boolean {
   if (!needle) return false
   const word = (ch: string) => (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')
@@ -118,7 +126,7 @@ export function matchesFilters(it: Filterable, f: FeedFilterState): boolean {
   if (companyClauseSet(f.company)) {
     const t = (f.company!.ticker || '').toUpperCase()
     const names = [f.company!.name, ...(f.company!.aliases || [])].filter((s): s is string => !!s).map((s) => s.toLowerCase())
-    const tickerHit = !!t && (it.companies || []).some((c) => (c.ticker || '').toUpperCase() === t)
+    const tickerHit = !!t && (it.companies || []).some((c) => (c.ticker || '').toUpperCase() === t && !listingConflicts(f.company!.listingCountry, c.listing_country))
     const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
     const nameHit = names.some((n) => nameOccurs(hay, n))
     if (!tickerHit && !nameHit) return false

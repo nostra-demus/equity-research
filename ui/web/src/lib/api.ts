@@ -125,6 +125,11 @@ export interface ArchiveQuery {
   companyTicker?: string
   companyName?: string
   companyAliases?: string[]
+  // when the picked facet has a definite listing_country, an item's own definite listing_country for that
+  // ticker must not disagree — tells apart two different issuers reusing the same ticker letters on
+  // different exchanges (e.g. NYSE:CAT Caterpillar vs ASX:CAT Catapult Group International). Unknown on
+  // either side is never a conflict (Codex review, PR #319).
+  companyListingCountry?: string
   text?: string
 }
 export interface SearchCursor { ts: string; id: string }
@@ -141,7 +146,11 @@ export interface FacetCount { key: string; label: string; count: number; parent?
 // carried through the pick so an item using a less-common spelling still matches (server news/facets.ts).
 // Optional (not just possibly-empty) so an older server response — or a test fixture — that omits it still
 // type-checks; callers treat a missing `aliases` the same as an empty one.
-export interface CompanyFacet { ticker: string | null; name: string; count: number; aliases?: string[] }
+// `listingCountry`: the definite listing_country the archive agrees on for this identity, or null/absent
+// when unknown or mixed. Two mentions sharing ticker LETTERS but proven to be different issuers (disagreeing
+// definite countries) arrive as SEPARATE CompanyFacet rows — this is what lets a pick (and the ticker match)
+// tell them apart (Codex review, PR #319).
+export interface CompanyFacet { ticker: string | null; name: string; count: number; aliases?: string[]; listingCountry?: string | null }
 export interface FeedFacets {
   countries: FacetCount[] // parent = continent
   regions: FacetCount[] // continents
@@ -199,6 +208,7 @@ function archiveQueryParams(q: ArchiveQuery): URLSearchParams {
   if (q.companyName?.trim()) p.set('companyName', q.companyName.trim())
   // '|' not ',' — some tagged company names contain a comma; see the matching split in feed-filter.ts
   if (q.companyAliases?.length) p.set('companyAliases', q.companyAliases.join('|'))
+  if (q.companyListingCountry) p.set('companyListingCountry', q.companyListingCountry)
   if (q.text?.trim()) p.set('text', q.text.trim())
   return p
 }

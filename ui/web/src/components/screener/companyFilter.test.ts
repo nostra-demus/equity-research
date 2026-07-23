@@ -93,6 +93,28 @@ check('rankOption ranks exact ticker < ticker-prefix < name-prefix < contains < 
   assert.equal(rankOption(o, 'zzz'), -1)
 })
 
+// ---- listingCountry disambiguates two issuers sharing a ticker on different exchanges (client lockstep
+// with the server's listingConflicts fix, #319) ----
+check('a picked listingCountry excludes a bare-ticker match from a proven-different issuer', () => {
+  const catapultTagged = it({ headline: 'Catapult wins a new client contract', companies: [{ name: 'Catapult Group International', ticker: 'CAT', listing_country: 'AU' }] })
+  assert.equal(matchesFilters(catapultTagged, withCompany({ ticker: 'CAT', name: 'Caterpillar', listingCountry: 'US' })), false, 'a CAT-tagged AU item must not match a US Caterpillar pick via the bare ticker')
+  assert.equal(matchesFilters(catapultTagged, withCompany({ ticker: 'CAT', name: 'Catapult Group International', listingCountry: 'AU' })), true, 'the correct (AU) issuer pick still matches')
+  const untaggedCountry = it({ headline: 'A generic corporate update', companies: [{ name: 'Caterpillar', ticker: 'CAT', listing_country: null }] })
+  assert.equal(matchesFilters(untaggedCountry, withCompany({ ticker: 'CAT', name: 'Caterpillar', listingCountry: 'US' })), true, 'unknown listing_country on the item is never a conflict')
+})
+
+// ---- rankOption must ALSO search aliases, not just the primary name (Codex review, #319): a facet whose
+// primary name is "Alphabet" but has an observed alias "Google" must surface when the user types "Google" ----
+check('rankOption ranks a query matching only an ALIAS the same as matching the primary name', () => {
+  // "Facebook" as an alias, ticker "META" — chosen so the alias prefix never coincidentally also prefixes
+  // the ticker string itself, cleanly isolating the alias tiers from the ticker tiers.
+  const meta = { ticker: 'META', name: 'Meta Platforms', count: 5, aliases: ['Facebook'] }
+  assert.equal(rankOption(meta, 'facebook'), 2, 'an exact alias match ranks at the name-prefix tier')
+  assert.equal(rankOption(meta, 'faceb'), 2, 'an alias PREFIX also ranks at the name-prefix tier')
+  assert.equal(rankOption(meta, 'cebook'), 4, 'an alias substring ranks at the name-contains tier')
+  assert.equal(rankOption({ ticker: 'META', name: 'Meta Platforms', count: 5 }, 'facebook'), -1, 'with no aliases carried, "facebook" still cannot match "Meta Platforms"')
+})
+
 // ---- THE REPORTED GAP: a picked LONG-form name alone misses an UNTAGGED short-form headline; its
 // aliases (carried on the pick from the facet) recover it — client lockstep with the server fix (#317) ----
 check('a picked long-form name alone misses a short-form untagged headline; its aliases recover it', () => {

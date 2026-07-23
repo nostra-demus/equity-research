@@ -187,6 +187,7 @@ export function LiveFeed() {
     companyTicker: filters.company?.ticker || undefined,
     companyName: filters.company?.name || undefined,
     companyAliases: filters.company?.aliases?.length ? filters.company.aliases : undefined,
+    companyListingCountry: filters.company?.listingCountry || undefined,
     text: filters.text.trim() || undefined,
   }), [filters])
   const archiveKey = JSON.stringify(archiveQuery)
