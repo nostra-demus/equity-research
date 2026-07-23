@@ -345,6 +345,8 @@ export function EventRail() {
     gicsSubSector: filters.gicsSubSector || undefined,
     companyTicker: filters.company?.ticker || undefined,
     companyName: filters.company?.name || undefined,
+    companyAliases: filters.company?.aliases?.length ? filters.company.aliases : undefined,
+    companyListingCountry: filters.company?.listingCountry || undefined,
     commodities: subjectMode && subjectPicks.length && !subjectSel.has(WIRE_OTHER) ? subjectPicks : undefined,
     text: filters.text.trim() || undefined,
   }), [filters, subjectMode, subjectPicks, subjectSel])

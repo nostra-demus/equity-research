@@ -14,10 +14,17 @@ import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import type { CompanyFacet } from '../../lib/api'
 
 // The picked company. `ticker` is null for a name-only pick (a company the scanner never resolved a symbol
-// for, or a free-typed name that isn't symbol-shaped); `name` is '' only for a legacy/empty pick.
+// for, or a free-typed name that isn't symbol-shaped); `name` is '' only for a legacy/empty pick. `aliases`
+// carries the OTHER spellings the archive has tagged for this company identity (from the picked facet), so
+// an item using a less-common spelling still matches — undefined for a free-typed pick (nothing to look up).
+// `listingCountry`: the picked facet's definite listing_country, when the archive agrees on one — carried so
+// the match can tell apart two different issuers that reuse the same ticker letters on different exchanges
+// (Codex review, PR #319).
 export interface CompanyPick {
   ticker: string | null
   name: string
+  aliases?: string[]
+  listingCountry?: string | null
 }
 
 const MAX_SHOWN = 8
@@ -25,16 +32,20 @@ const MAX_SHOWN = 8
 // A free-typed value that looks like this ALSO gets an exact-ticker clause; it never REPLACES the name clause.
 const LOOKS_TICKER = /^[A-Za-z0-9.\-]{1,15}$/
 
-// rank a facet option against the lowercased query: exact ticker → ticker-prefix → name-prefix → contains.
-// Returns -1 for no match. Lower is better. Exported for unit tests.
+// rank a facet option against the lowercased query: exact ticker → ticker-prefix → name/alias-prefix →
+// ticker-contains → name/alias-contains. Returns -1 for no match. Lower is better. Exported for unit tests.
+// Aliases are folded into the same name-prefix/name-contains tiers as the primary name — a facet whose
+// archive-observed alias is what the user typed (e.g. "Google" for a facet primarily named "Alphabet") must
+// still surface as a suggestion, not require the user to already know the primary spelling (Codex review,
+// PR #319 — aliases existed on the payload but the picker never searched them).
 export function rankOption(o: CompanyFacet, ql: string): number {
   const sym = (o.ticker || '').toLowerCase()
-  const nm = o.name.toLowerCase()
+  const names = [o.name, ...(o.aliases || [])].map((n) => n.toLowerCase())
   if (sym && sym === ql) return 0
   if (sym && sym.startsWith(ql)) return 1
-  if (nm.startsWith(ql)) return 2
+  if (names.some((nm) => nm.startsWith(ql))) return 2
   if (sym && sym.includes(ql)) return 3
-  if (nm.includes(ql)) return 4
+  if (names.some((nm) => nm.includes(ql))) return 4
   return -1
 }
 
@@ -93,7 +104,7 @@ export function CompanyFilter({
   useEffect(() => { setHi(0) }, [q])
 
   const pick = (o: CompanyFacet) => {
-    onChange({ ticker: o.ticker, name: o.name })
+    onChange({ ticker: o.ticker, name: o.name, aliases: o.aliases, listingCountry: o.listingCountry })
     setQ('')
     setOpen(false)
   }

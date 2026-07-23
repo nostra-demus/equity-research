@@ -95,6 +95,23 @@ check('parseFeedFilterQuery maps companyTicker/companyName and upcases the ticke
   assert.equal(parseFeedFilterQuery({}).company, undefined, 'no company params → undefined')
 })
 
+// THE REPORTED GAP (Codex review, PR #319): a raw HTTP request sending ONLY `companyAliases` (no ticker,
+// no name — a shape ArchiveQuery/CompanyPick can produce) used to be parsed away to `undefined` here, before
+// companyClauseSet ever saw it, so /api/news/search silently returned the unfiltered archive.
+check('parseFeedFilterQuery retains an alias-only query (?companyAliases=Amazon, no ticker/name)', () => {
+  const q = parseFeedFilterQuery({ companyAliases: 'Amazon' })
+  assert.deepEqual(q.company, { aliases: ['Amazon'] }, 'aliases alone must survive parsing, not collapse to undefined')
+  assert.equal(hasAnyFilter(q), true, 'the parsed alias-only query must activate archive-search mode')
+  const q2 = parseFeedFilterQuery({ companyAliases: 'Amazon|Amazon.com' })
+  assert.deepEqual(q2.company?.aliases, ['Amazon', 'Amazon.com'], "'|'-joined aliases split correctly")
+})
+
+check('parseFeedFilterQuery maps companyListingCountry, upcased', () => {
+  const q = parseFeedFilterQuery({ companyTicker: 'CAT', companyName: 'Caterpillar', companyListingCountry: 'us' })
+  assert.equal(q.company?.listingCountry, 'US')
+  assert.equal(parseFeedFilterQuery({ companyTicker: 'CAT' }).company?.listingCountry, undefined, 'omitted when not sent')
+})
+
 // ---- 8. archive search finds a company match buried days deep (the "without fail" reach) ----
 check('searchFeed finds an AMZN-tagged item buried behind a full page of fillers', () => {
   const repo = tmp()
@@ -188,9 +205,13 @@ check('computeFacets with a company filter restricts total + other facets to tha
 check('the company facet picks the most-used display name and leaves an ambiguous name un-folded', () => {
   const repo = tmp()
   writeDay(repo, dayAgo(0), [
-    item({ ts: `${dayAgo(0)}T10:05:00Z`, headline: 'Amazon a', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] }),
-    item({ ts: `${dayAgo(0)}T10:04:00Z`, headline: 'Amazon b', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] }),
-    item({ ts: `${dayAgo(0)}T10:03:00Z`, headline: 'Amazon c', companies: [{ name: 'Amazon.com', ticker: 'AMZN', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:06:00Z`, headline: 'Amazon a', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:05:00Z`, headline: 'Amazon b', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:04:30Z`, headline: 'Amazon d', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:04:00Z`, headline: 'Amazon c', companies: [{ name: 'Amazon.com', ticker: 'AMZN', listing_country: 'US' }] }),
+    // a SECOND "Amazon.com" mention — an alias needs 2+ corroborating archive-wide mentions to qualify
+    // (below), so a single occurrence alone would no longer be enough
+    item({ ts: `${dayAgo(0)}T10:03:30Z`, headline: 'Amazon.com e', companies: [{ name: 'Amazon.com', ticker: 'AMZN', listing_country: 'US' }] }),
     // "Acme" is ambiguous — tagged under two different tickers, so a name-only "Acme" must NOT fold into either
     item({ ts: `${dayAgo(0)}T10:02:00Z`, headline: 'Acme x', companies: [{ name: 'Acme', ticker: 'ACM1', listing_country: 'US' }] }),
     item({ ts: `${dayAgo(0)}T10:01:00Z`, headline: 'Acme y', companies: [{ name: 'Acme', ticker: 'ACM2', listing_country: 'US' }] }),
@@ -198,13 +219,226 @@ check('the company facet picks the most-used display name and leaves an ambiguou
   ])
   const facets = computeFacets(repo, {}, { now })
   const amzn = facets.companies.find((c) => c.ticker === 'AMZN')
-  assert.equal(amzn?.name, 'Amazon', 'the most-used spelling (2× "Amazon" vs 1× "Amazon.com") wins')
-  assert.equal(amzn?.count, 3)
+  assert.equal(amzn?.name, 'Amazon', 'the most-used spelling (3× "Amazon" vs 2× "Amazon.com") wins')
+  assert.equal(amzn?.count, 5)
+  assert.deepEqual(amzn?.aliases, ['Amazon.com'], 'the less-used but corroborated (2×) spelling is carried as an alias, not dropped')
   // the ambiguous name-only "Acme" row is NOT credited to ACM1 or ACM2 (each keeps its own tagged count of 1)
   assert.equal(facets.companies.find((c) => c.ticker === 'ACM1')?.count, 1)
   assert.equal(facets.companies.find((c) => c.ticker === 'ACM2')?.count, 1)
   const acmeNameOnly = facets.companies.find((c) => c.ticker === null && /acme/i.test(c.name))
   assert.equal(acmeNameOnly?.count, 1, 'the ambiguous name-only mention stands on its own, un-folded')
+})
+
+// ---- 16. THE REPORTED GAP: a picked LONG-form name misses an UNTAGGED item using the SHORT form — the
+// alias set (built from every spelling the archive has tagged for that ticker) closes it (Codex review, #317).
+check('a picked long-form name alone misses a short-form untagged headline; its aliases recover it', () => {
+  const it = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Amazon raises full-year outlook', companies: [] }) // untagged, short form only
+  // without the alias, the picked "Amazon.com Inc." is not a substring of the headline at all
+  assert.equal(matchesFeedFilters(it, { company: { ticker: 'AMZN', name: 'Amazon.com Inc.' } }), false, 'the long form alone does not reach a short-form untagged headline')
+  // carrying the archive-observed short form as an alias recovers the match
+  assert.equal(matchesFeedFilters(it, { company: { ticker: 'AMZN', name: 'Amazon.com Inc.', aliases: ['Amazon'] } }), true, 'an alias recovers the untagged short-form headline')
+})
+
+// ---- 17. end-to-end: the company FACET actually carries the alias a caller needs for #16 ----
+check('computeFacets carries the archive-observed short form as an alias on the AMZN facet', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:03:00Z`, headline: 'Amazon.com Inc. lifts guidance', companies: [{ name: 'Amazon.com Inc.', ticker: 'AMZN', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, headline: 'Amazon.com Inc. opens a hub', companies: [{ name: 'Amazon.com Inc.', ticker: 'AMZN', listing_country: 'US' }] }),
+    // the rarer, shorter tagged spelling — TWICE, so it clears the 2-mention alias corroboration floor
+    item({ ts: `${dayAgo(0)}T10:01:00Z`, headline: 'Amazon adds staff', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:00:30Z`, headline: 'Amazon opens a second hub', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] }),
+  ])
+  const facets = computeFacets(repo, {}, { now })
+  const amzn = facets.companies.find((c) => c.ticker === 'AMZN')
+  assert.equal(amzn?.name, 'Amazon.com Inc.', 'the more-common long form is still the primary display name')
+  assert.ok(amzn?.aliases.includes('Amazon'), 'the rarer but corroborated short form is carried as an alias, ready to feed a pick')
+})
+
+// ---- 18. CROSS-EXCHANGE TICKER COLLISION: two unrelated issuers sharing ticker letters on different
+// exchanges must NOT contaminate each other's alias list (Codex review, PR #319 — CAT: Caterpillar/NYSE vs
+// Catapult Group International/ASX; ALK: Alaska Air vs Alkane Resources are the archive's real examples).
+check('two different issuers sharing a ticker on different exchanges get SEPARATE facets, never alias or ticker-match each other', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:03:00Z`, headline: 'Caterpillar lifts guidance', companies: [{ name: 'Caterpillar', ticker: 'CAT', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, headline: 'Caterpillar ships more excavators', companies: [{ name: 'Caterpillar', ticker: 'CAT', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:01:00Z`, headline: 'Catapult Group International signs a deal', companies: [{ name: 'Catapult Group International', ticker: 'CAT', listing_country: 'AU' }] }),
+  ])
+  const facets = computeFacets(repo, {}, { now })
+  const catRows = facets.companies.filter((c) => c.ticker === 'CAT')
+  assert.equal(catRows.length, 2, 'two proven-distinct issuers sharing "CAT" become two facet rows, not one merged/ambiguous one')
+  const caterpillar = catRows.find((c) => c.name === 'Caterpillar')
+  const catapult = catRows.find((c) => c.name === 'Catapult Group International')
+  assert.equal(caterpillar?.count, 2)
+  assert.equal(caterpillar?.listingCountry, 'US')
+  assert.equal(catapult?.count, 1)
+  assert.equal(catapult?.listingCountry, 'AU')
+  assert.ok(!caterpillar?.aliases.includes('Catapult Group International'), 'the unrelated AU issuer must NOT be offered as an alias of Caterpillar')
+
+  // THE ACTUAL HARM: an item TAGGED with ticker CAT for the AU issuer must not match a pick for the US
+  // issuer via the bare-ticker path, even though the ticker string itself is identical
+  const catapultTagged = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Catapult wins a new client contract', companies: [{ name: 'Catapult Group International', ticker: 'CAT', listing_country: 'AU' }] })
+  assert.equal(matchesFeedFilters(catapultTagged, { company: { ticker: 'CAT', name: 'Caterpillar', aliases: caterpillar?.aliases, listingCountry: caterpillar?.listingCountry } }), false, 'a CAT-tagged AU item must not match a US Caterpillar pick via the bare ticker')
+  // ...but it DOES match a pick for the correct (AU) issuer
+  assert.equal(matchesFeedFilters(catapultTagged, { company: { ticker: 'CAT', name: 'Catapult Group International', listingCountry: catapult?.listingCountry } }), true, 'the AU issuer pick still matches its own tagged item')
+  // and an UNTAGGED item (no listing evidence at all) still matches via the ticker — the fix costs no
+  // recall on missing data, it only excludes a PROVEN conflict
+  const untaggedCat = item({ ts: `${dayAgo(0)}T09:00:00Z`, headline: 'A generic corporate update', companies: [{ name: 'Caterpillar', ticker: 'CAT', listing_country: null }] })
+  assert.equal(matchesFeedFilters(untaggedCat, { company: { ticker: 'CAT', name: 'Caterpillar', listingCountry: caterpillar?.listingCountry } }), true, 'an item with unknown listing_country still matches — unknown is never a conflict')
+})
+
+check('aliases are learned from the WHOLE archive, not just rows surviving an unrelated active filter', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, country: 'US', headline: 'Amazon.com Inc. lifts guidance', companies: [{ name: 'Amazon.com Inc.', ticker: 'AMZN', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:01:00Z`, country: 'US', headline: 'Amazon.com Inc. opens a hub', companies: [{ name: 'Amazon.com Inc.', ticker: 'AMZN', listing_country: 'US' }] }),
+    // the ONLY two places the short form "Amazon" is tagged (2×, clearing the alias corroboration floor),
+    // both sitting under a DIFFERENT country filter dimension than the two long-form rows above
+    item({ ts: `${dayAgo(0)}T10:00:30Z`, country: 'IN', headline: 'Amazon India adds staff', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:00:00Z`, country: 'IN', headline: 'Amazon India opens a hub', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] }),
+  ])
+  // narrow to country=US BEFORE picking a company — the "Amazon" row (country=IN) is excluded from the
+  // filtered companyRows subset, but must still contribute its spelling to the alias set (Codex review, #319)
+  const facets = computeFacets(repo, { country: 'US' }, { now })
+  const amzn = facets.companies.find((c) => c.ticker === 'AMZN')
+  assert.equal(amzn?.count, 2, 'the exposed COUNT still respects the active country filter (2, not 3)')
+  assert.ok(amzn?.aliases.includes('Amazon'), 'the alias itself is NOT scoped to the active filter — it is learned from the whole archive')
+})
+
+check('a ticker recorded as an alternate NAME is not offered as a loose free-text alias', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, headline: 'Catapult Group International signs a client', companies: [{ name: 'Catapult Group International', ticker: 'CAT', listing_country: 'AU' }] }),
+    // the archive recorded the bare ticker itself as an alternate "name" for the same issuer TWICE — enough
+    // to clear the alias corroboration floor, isolating that it's specifically the ticker-symbol exclusion
+    // (not the corroboration count) that keeps it out of the alias list
+    item({ ts: `${dayAgo(0)}T10:01:00Z`, headline: 'CAT wins a contract renewal', companies: [{ name: 'CAT', ticker: 'CAT', listing_country: 'AU' }] }),
+    item({ ts: `${dayAgo(0)}T10:00:30Z`, headline: 'CAT lands a new deal', companies: [{ name: 'CAT', ticker: 'CAT', listing_country: 'AU' }] }),
+  ])
+  const facets = computeFacets(repo, {}, { now })
+  const catapult = facets.companies.find((c) => c.ticker === 'CAT' && c.name === 'Catapult Group International')
+  assert.ok(!catapult?.aliases.includes('CAT'), 'the ticker symbol itself must not be offered as a loose name alias')
+  // the actual harm this prevents: an unrelated headline using "cat" as an ordinary word must not false-match
+  const unrelated = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Family loses cat during house fire', companies: [] })
+  assert.equal(matchesFeedFilters(unrelated, { company: { ticker: 'CAT', name: 'Catapult Group International', aliases: catapult?.aliases } }), false, 'a common word matching the ticker symbol must not false-match via the alias path')
+})
+
+check('an alternate spelling with NO listing_country evidence is still a valid alias (unknown never conflicts)', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, headline: 'Amazon.com Inc. lifts guidance', companies: [{ name: 'Amazon.com Inc.', ticker: 'AMZN', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:01:00Z`, headline: 'Amazon.com Inc. opens a hub', companies: [{ name: 'Amazon.com Inc.', ticker: 'AMZN', listing_country: 'US' }] }),
+    // the same ticker, a shorter spelling (2×, clearing the corroboration floor), but the extractor didn't
+    // resolve a listing_country either time
+    item({ ts: `${dayAgo(0)}T10:00:30Z`, headline: 'Amazon adds staff', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: null }] }),
+    item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Amazon opens a hub', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: null }] }),
+  ])
+  const facets = computeFacets(repo, {}, { now })
+  const amzn = facets.companies.find((c) => c.ticker === 'AMZN')
+  assert.ok(amzn?.aliases.includes('Amazon'), 'an unknown (null) listing_country never proves a conflict, so the alias still qualifies')
+})
+
+// ---- 19. ALIAS-ONLY QUERY: a caller sending companyAliases with no ticker/name must still activate the
+// company clause, not silently no-op to "everything matches" (Codex review, PR #319) ----
+check('a company filter with ONLY aliases (no ticker, no name) still activates and filters correctly', () => {
+  const hit = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Amazon raises full-year outlook', companies: [] })
+  const miss = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Microsoft ships an update', companies: [] })
+  assert.equal(hasAnyFilter({ company: { aliases: ['Amazon'] } }), true, 'an alias-only company object must trip archive mode')
+  assert.equal(matchesFeedFilters(hit, { company: { aliases: ['Amazon'] } }), true, 'the alias alone matches the headline it names')
+  assert.equal(matchesFeedFilters(miss, { company: { aliases: ['Amazon'] } }), false, 'an alias-only filter must still EXCLUDE non-matching items, not pass everything')
+  const exp = explainFeedFilterMatch(hit, { company: { aliases: ['Amazon'] } })
+  assert.equal(exp.checks.find((c) => c.clause === 'company')?.passed, true, 'the explain trace records the alias-only clause too')
+})
+
+// ---- the primary NAME could itself be the bare ticker SYMBOL. The archive sometimes tags the ticker AS the
+// company name MORE often than any real spelling, so buildCompanyFacet used to pick name === the ticker
+// ("CAT"). The alias list already drops a ticker-equal spelling, but the primary name escaped that guard, so
+// the pick free-text matched an ordinary short word ("cat" for CAT). buildCompanyFacet now prefers a real
+// (non-symbol) spelling as the primary name, case-SENSITIVELY (so it drops the symbol form "CAT" yet keeps a
+// real mixed-case name like "Meta" that merely shares the ticker letters) (Codex re-review, PR #319). ----
+check('computeFacets: a MAJORITY bare-ticker name is NOT chosen as the primary name, so the pick does not false-match ordinary words', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:03:00Z`, headline: 'CAT wins a contract', companies: [{ name: 'CAT', ticker: 'CAT', listing_country: 'AU' }] }),
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, headline: 'CAT renews a deal', companies: [{ name: 'CAT', ticker: 'CAT', listing_country: 'AU' }] }),
+    item({ ts: `${dayAgo(0)}T10:01:00Z`, headline: 'CAT lands a client', companies: [{ name: 'CAT', ticker: 'CAT', listing_country: 'AU' }] }),
+    item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Catapult Group International signs a deal', companies: [{ name: 'Catapult Group International', ticker: 'CAT', listing_country: 'AU' }] }),
+  ])
+  const facets = computeFacets(repo, {}, { now })
+  const cat = facets.companies.find((c) => c.ticker === 'CAT')
+  assert.ok(cat, 'the CAT facet exists')
+  assert.equal(cat!.name, 'Catapult Group International', 'the bare ticker "CAT" (the majority tag) must NOT be the display/free-text name — the real spelling is chosen instead')
+  assert.ok(!cat!.aliases.includes('CAT'), 'the bare ticker symbol is not offered as a free-text alias either')
+  // the actual harm: a pick built from this facet must not free-text match "cat" the ordinary word
+  const petStory = item({ ts: `${dayAgo(0)}T09:00:00Z`, headline: 'Family loses cat during a house fire', companies: [] })
+  assert.equal(matchesFeedFilters(petStory, { company: { ticker: cat!.ticker, name: cat!.name, aliases: cat!.aliases, listingCountry: cat!.listingCountry } }), false, 'a pick from a majority-bare-ticker archive must not false-match the ordinary word "cat"')
+  // and it still matches its own tagged items (exact ticker) and an untagged real-name mention
+  const tagged = item({ ts: `${dayAgo(0)}T08:00:00Z`, headline: 'A generic update', companies: [{ name: 'CAT', ticker: 'CAT', listing_country: 'AU' }] })
+  assert.equal(matchesFeedFilters(tagged, { company: { ticker: cat!.ticker, name: cat!.name, aliases: cat!.aliases, listingCountry: cat!.listingCountry } }), true, 'exact-ticker still matches a CAT-tagged item — no recall lost')
+})
+
+check('computeFacets: an all-caps name that is the ONLY spelling (its ticker) is still kept, so a real short-symbol company keeps free-text recall (no over-correction)', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:03:00Z`, headline: 'IBM lifts its outlook', companies: [{ name: 'IBM', ticker: 'IBM', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, headline: 'IBM ships a new mainframe', companies: [{ name: 'IBM', ticker: 'IBM', listing_country: 'US' }] }),
+  ])
+  const facets = computeFacets(repo, {}, { now })
+  const ibm = facets.companies.find((c) => c.ticker === 'IBM')
+  assert.ok(ibm, 'the IBM facet exists')
+  assert.equal(ibm!.name, 'IBM', 'when the only spelling IS the ticker, it is kept as the display name (fallback) — the exact-ticker clause still carries matching')
+  // an untagged headline that merely NAMES IBM still matches — dropping "ibm" would lose real recall and it is
+  // not a common English word, so keeping it costs nothing (the fix targets symbol names, not all all-caps names)
+  const untagged = item({ ts: `${dayAgo(0)}T09:00:00Z`, headline: 'IBM raises guidance', companies: [] })
+  assert.equal(matchesFeedFilters(untagged, { company: { ticker: ibm!.ticker, name: ibm!.name, aliases: ibm!.aliases, listingCountry: ibm!.listingCountry } }), true, 'an untagged real-name mention still matches — recall preserved for a legitimate short symbol name')
+})
+
+// ---- the ticker-symbol alias exclusion must be CASE-SENSITIVE: "Meta" (mixed case) is a real, legitimate
+// company short name that happens to share letters with ticker "META" — it must NOT be excluded the way the
+// literal, all-caps "CAT"-as-ticker case is (Codex review, PR #319: the alias filter still upcased before
+// comparing, silently dropping a real name whenever it happened to match a ticker case-insensitively) ----
+check('a mixed-case name that merely shares LETTERS with the ticker is kept as an alias (case-sensitive exclusion)', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:03:00Z`, headline: 'Meta Platforms lifts guidance', companies: [{ name: 'Meta Platforms', ticker: 'META', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, headline: 'Meta Platforms ships an update', companies: [{ name: 'Meta Platforms', ticker: 'META', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:01:00Z`, headline: 'Meta unveils a new headset', companies: [{ name: 'Meta', ticker: 'META', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Meta hires a new exec', companies: [{ name: 'Meta', ticker: 'META', listing_country: 'US' }] }),
+  ])
+  const facets = computeFacets(repo, {}, { now })
+  const meta = facets.companies.find((c) => c.ticker === 'META')
+  assert.equal(meta?.name, 'Meta Platforms', 'the more-common long form is still the primary display name')
+  assert.ok(meta?.aliases.includes('Meta'), 'a real mixed-case short name is NOT excluded just because it upcases to the ticker string')
+  // the actual recall this protects: an untagged headline saying only "Meta" must still match
+  const untagged = item({ ts: `${dayAgo(0)}T09:00:00Z`, headline: 'Meta raises its outlook', companies: [] })
+  assert.equal(matchesFeedFilters(untagged, { company: { ticker: 'META', name: 'Meta Platforms', aliases: meta?.aliases } }), true, 'the untagged "Meta" headline must still be found via the alias')
+})
+
+// ---- ALIAS CORROBORATION: a spelling seen only ONCE archive-wide is too weak evidence to trust as a
+// free-text alias — it is far more likely a one-off extraction slip than a genuine alternate name. Verified
+// against LIVE archive data: ticker "506295" is tagged once each to two UNRELATED Indian companies (Indo
+// Count Industries, Shekhawati Industries, both country IN — so the listing-country split from the earlier
+// fix does NOT separate them), and "HLT" is tagged once each to Halliburton and Hilton (both country US).
+// Corroboration (2+ mentions) does not fully solve identity resolution — it cannot, since a real rename-style
+// alias like Alphabet→Google ALSO has zero lexical overlap with its primary name, so no lexical rule can
+// tell the two patterns apart — but it does stop a SINGLE stray mis-tag from ever reaching the alias list,
+// which is exactly the reported failure mode (Codex review, PR #319) ----
+check('a spelling seen only ONCE archive-wide does not qualify as a free-text alias (corroboration floor)', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:03:00Z`, country: 'IN', headline: 'Indo Count Industries wins an export order', companies: [{ name: 'Indo Count Industries Limited', ticker: '506295', listing_country: 'IN' }] }),
+    // an UNRELATED company, tagged ONCE with the SAME (ticker, country) pair — a real extraction ambiguity
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, country: 'IN', headline: 'Shekhawati Industries announces a new plant', companies: [{ name: 'Shekhawati Industries Limited', ticker: '506295', listing_country: 'IN' }] }),
+  ])
+  const facets = computeFacets(repo, {}, { now })
+  const rows = facets.companies.filter((c) => c.ticker === '506295')
+  assert.equal(rows.length, 1, 'same ticker + same country still merge into one facet row (listing-country alone cannot separate them)')
+  assert.ok(!rows[0].aliases.includes('Shekhawati Industries Limited'), 'a single, uncorroborated mention of an unrelated name must not become an alias of the other')
+  assert.ok(!rows[0].aliases.includes('Indo Count Industries Limited'), 'symmetric: whichever name lost the primary-name tie-break also stays out of the alias list at count 1')
+  // the actual harm this prevents: an untagged headline naming the OTHER company must not match this pick
+  const shekhawatiHeadline = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Shekhawati Industries Limited reports results', companies: [] })
+  assert.equal(matchesFeedFilters(shekhawatiHeadline, { company: { ticker: rows[0].ticker, name: rows[0].name, aliases: rows[0].aliases, listingCountry: rows[0].listingCountry } }), false, 'an unrelated company headline must not match via a one-off alias')
 })
 
 console.log(`\ncompany-filter.test.ts: ${passed} passed`)
