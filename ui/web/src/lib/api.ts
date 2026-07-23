@@ -3,7 +3,7 @@ import type { PipelinesRead } from './types'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -752,6 +752,25 @@ export const api = {
       const qs = runRoot ? `?runRoot=${encodeURIComponent(runRoot)}` : ''
       const r = await get<{ read: WhatChangedRead | null }>(`/api/what-changed/${encodeURIComponent(ticker)}${qs}`, 8_000)
       return r.read ?? null
+    } catch {
+      return null
+    }
+  },
+
+  // ---- live market price for the run on screen ----
+  // Where the price is NOW, plus the call re-based onto it. runRoot targets the EXACT run the banner is
+  // showing, for the same reason whatChanged does: a ticker-only fetch could describe a different run's
+  // entry price. A static snapshot has no live feed by definition, and an older engine mid-deploy 404s —
+  // both return null, and the banner then renders exactly as it did before this feature existed.
+  quote: async (ticker: string, runRoot?: string): Promise<QuoteRead | null> => {
+    if ((await ensureMode()) === 'static') return null
+    try {
+      const qs = runRoot ? `?ticker=${encodeURIComponent(ticker)}&runRoot=${encodeURIComponent(runRoot)}` : `?ticker=${encodeURIComponent(ticker)}`
+      const r = await get<QuoteRead>(`/api/quote${qs}`, 8_000)
+      // Positive match only: a body without a real quote object is treated as no quote at all.
+      return r && typeof r === 'object'
+        ? { ticker: r.ticker ?? null, quote: r.quote ?? null, call: r.call ?? null, reason: r.reason ?? null }
+        : null
     } catch {
       return null
     }

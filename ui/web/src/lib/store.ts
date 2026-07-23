@@ -8,7 +8,7 @@ import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import { affectedModules, focusKeysFor } from './intake'
-import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
+import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyDlFilters, type DlFilterState } from '../components/datalibrary/DataLibraryFilters'
@@ -438,6 +438,12 @@ interface State {
   whatChanged: WhatChangedRead | null
   whatChangedOpen: boolean
   refreshWhatChanged: () => Promise<void>
+  // Where the price is NOW for the run on screen, plus that run's call re-based onto it. Null until it
+  // loads, and null forever when the listing can't be priced honestly — the banner's live cells gate on
+  // a positive match, so null simply means those cells don't render.
+  liveQuote: QuoteRead | null
+  liveQuoteAt: number | null
+  refreshLiveQuote: (force?: boolean) => Promise<void>
   openWhatChanged: () => void
   closeWhatChanged: () => void
   openThesisPlan: () => Promise<void>
@@ -783,6 +789,8 @@ export const useStore = create<State>((set, get) => ({
   dataNeeds: null,
   whatChanged: null,
   whatChangedOpen: false,
+  liveQuote: null,
+  liveQuoteAt: null,
   intakeFocusKeys: new Set(),
   intakePlanKeys: new Set(),
   intakeAnalyzing: false,
@@ -990,7 +998,7 @@ export const useStore = create<State>((set, get) => ({
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
     chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
     // the completion plan is per-subject disk truth — never let a previous subject's plan survive a switch
-    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], runPanelDismissed: false, activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, ...CHAT_RESET })
+    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], runPanelDismissed: false, activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, liveQuote: null, liveQuoteAt: null, ...CHAT_RESET })
     const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
@@ -1023,6 +1031,9 @@ export const useStore = create<State>((set, get) => ({
     } catch {
       if (get().selectToken === token) set({ decision: null })
     }
+    // AFTER the decision: the live price is only meaningful next to the call it re-bases, and forcing
+    // past the TTL is right here because the ticker just changed (the cached price is another company's).
+    if (isResearch) void get().refreshLiveQuote(true)
     // reconnect to EVERY run in flight for this company (concurrent runs are supported)
     try {
       const { active } = await api.activeRuns()
@@ -1636,6 +1647,30 @@ export const useStore = create<State>((set, get) => ({
       if (get().selectToken === token) set({ whatChanged: null }) // fail to null, never fabricate
     }
   },
+  // The live price for the run on screen. Combines the two established idioms: refreshWhatChanged's
+  // select-token guard + fail-to-null, and refreshWirePulse's TTL gate so callers can fire it freely.
+  // There is deliberately NO timer — the price refreshes when the user's own actions say it should
+  // (selecting a company, a run finishing, re-opening the tab), which is also why the server keeps its
+  // own TTL cache: repeated calls inside the window cost nothing.
+  refreshLiveQuote: async (force = false) => {
+    const t = get().selectedTicker
+    // research-only, matched POSITIVELY (never `!== 'screener'`): an engine older than the bundle 404s
+    // /api/quote and api.quote returns null, so the cells hide rather than defaulting permissive.
+    if (!t || get().staticMode || get().activeSwarm !== 'research') return
+    const at = get().liveQuoteAt
+    if (!force && at && Date.now() - at < 60_000) return
+    const token = get().selectToken
+    try {
+      // the SAME runRoot the banner's decision came from — a ticker-only fetch could re-base against a
+      // different run's entry price than the one displayed beside it
+      const read = await api.quote(t, get().runRoot ?? undefined)
+      if (get().selectToken !== token) return // a newer selection superseded this fetch
+      set({ liveQuote: read, liveQuoteAt: Date.now() })
+    } catch {
+      if (get().selectToken === token) set({ liveQuote: null }) // fail to null, never fabricate
+    }
+  },
+
   openWhatChanged: () => set({ whatChangedOpen: true }),
   closeWhatChanged: () => set({ whatChangedOpen: false }),
 
@@ -2423,6 +2458,9 @@ export const useStore = create<State>((set, get) => ({
             if (bloomTimer) clearTimeout(bloomTimer)
             bloomTimer = setTimeout(() => set({ coreBloom: false }), 4500)
             api.decision(selected, rSw, r.runRoot ?? undefined).then((d) => set({ decision: d })).catch(() => {})
+            // A finished run means a NEW entry price and expected return, so the re-based numbers beside
+            // them must be recomputed against it — forced past the TTL for exactly that reason.
+            void get().refreshLiveQuote(true)
             // (the swarm's per-subject verdict pills are refreshed above, unconditionally on any finished
             // non-research run, so a background completion for a non-selected subject also updates.)
             // A finished re-run is exactly when a new version of the record exists. Deliberately NOT on

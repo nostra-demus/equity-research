@@ -1,8 +1,8 @@
-import type { ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { decisionColor, resolveVerdict } from '../lib/format'
-import type { WhatChangedRead } from '../lib/types'
+import type { QuoteAbsentReason, WhatChangedRead } from '../lib/types'
 
 // the three shareable tiers of a finished run, opened from below the Memo orb
 const TIERS = [
@@ -11,12 +11,54 @@ const TIERS = [
   { key: 'dossier' as const, label: 'Full dossier' },
 ]
 
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
 /** "2026-07-13" → "13 Jul". */
 function shortDate(iso?: string | null): string {
   if (!iso) return ''
   const [y, m, d] = iso.split('-').map(Number)
   if (!y || !m || !d || m < 1 || m > 12) return iso
-  return `${d} ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][m - 1]}`
+  return `${d} ${MONTHS[m - 1]}`
+}
+
+/** An ISO instant → "22 Jul 2026, 14:12" in the reader's own timezone. Empty when unparseable. */
+function stamp(iso?: string | null): string {
+  if (!iso) return ''
+  const t = Date.parse(iso)
+  if (!Number.isFinite(t)) return ''
+  const d = new Date(t)
+  const hh = String(d.getHours()).padStart(2, '0')
+  const mm = String(d.getMinutes()).padStart(2, '0')
+  return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}, ${hh}:${mm}`
+}
+
+/** An ISO instant → "22 Jul 2026" (no clock — for a settled session, where a time would be a fiction). */
+function stampDay(iso?: string | null): string {
+  const s = stamp(iso)
+  return s ? s.split(',')[0] : ''
+}
+
+/** A price with its currency, always 2dp so Entry and Price now line up digit-for-digit. */
+function money(currency: string | null | undefined, v: number): string {
+  return `${(currency || '').trim()} ${v.toFixed(2)}`.trim()
+}
+
+/** A signed percent, matching the bar's existing "+3.2%" / "-16.1%" shape. */
+function pct(v: number): string {
+  return `${v > 0 ? '+' : ''}${v}%`
+}
+
+// Why there is no live price, in plain English (CLAUDE.md §21). Absence is explained rather than left
+// as a silent gap, so a reader never has to wonder whether the feature is broken or the data is simply
+// not available for this listing (DESIGN.md §4: an empty state names what was looked for).
+const ABSENT_COPY: Record<QuoteAbsentReason, string> = {
+  no_currency: 'This run does not record which currency it was priced in, so a market price cannot be matched to it safely.',
+  unknown_symbol: 'The market-data source does not carry this listing, so there is no price to show. The entry price above is unaffected.',
+  currency_mismatch: 'The only match found trades in a different currency, so it is a different security. Showing it would be showing the wrong company.',
+  name_mismatch: 'A price came back in the right currency but under a different company name, so it was refused rather than shown.',
+  stale_feed: 'The newest price on offer is too old to call current, so it was refused rather than shown as if it were live.',
+  implausible_price: 'The price that came back is wildly out of scale with the entry price — usually a different listing or different units — so it was refused.',
+  feed_unavailable: 'The market-data source could not be reached just now. This is temporary; the price returns on the next refresh.',
 }
 
 /** The chip copy. Verdict-first — never a bare change count, which answers a question nobody asked. */
@@ -148,7 +190,24 @@ export function DecisionBanner() {
   const health = useStore((s) => s.health)
   const staticMode = useStore((s) => s.staticMode)
   const fullPending = useStore((s) => s.launchPending?.key === 'full:request')
+  const liveQuote = useStore((s) => s.liveQuote)
+  const refreshLiveQuote = useStore((s) => s.refreshLiveQuote)
   const reduce = useReducedMotion()
+
+  // Keep the price honest without a timer. The store's own 60s TTL makes both of these free inside the
+  // window, so this is "refresh when the reader actually comes back to look", not a poll: a background
+  // tab must never show a price that quietly aged all afternoon, and a ticking interval on an
+  // always-visible bar is exactly the kind of constant motion the design rules rule out.
+  useEffect(() => {
+    void refreshLiveQuote()
+    const onVisible = () => { if (document.visibilityState === 'visible') void refreshLiveQuote() }
+    document.addEventListener('visibilitychange', onVisible)
+    window.addEventListener('focus', onVisible)
+    return () => {
+      document.removeEventListener('visibilitychange', onVisible)
+      window.removeEventListener('focus', onVisible)
+    }
+  }, [refreshLiveQuote])
   // research records carry `decision`; a swarm's record carries its SWARM.md verdict field
   const verdict = resolveVerdict(decision, verdictField)
 
@@ -200,6 +259,17 @@ export function DecisionBanner() {
   const showNewerNotice = hasNewerPartial && viewingStanding
   const runFullDisabled = engineDown || staticMode || fullPending
   const decisionDate = (decision as any)?.decision_date as string | undefined
+  // Positive match on BOTH the payload and the subject: a quote is only ever shown against the company
+  // it was fetched for. Without the ticker check a slow response landing after a company switch could
+  // paint one company's price onto another's call — the exact defect the server's currency gate exists
+  // to prevent, reintroduced client-side.
+  const quote = liveQuote && liveQuote.quote && liveQuote.ticker === selectedTicker ? liveQuote.quote : null
+  const call = quote && liveQuote?.call ? liveQuote.call : null
+  // Only explain an absence the server actually diagnosed for THIS company. A null reason means the
+  // read hasn't landed yet (or an older engine has no such route) — nothing to say, so say nothing.
+  const absentReason = liveQuote && liveQuote.ticker === selectedTicker && liveQuote.reason
+    ? (liveQuote.reason as QuoteAbsentReason)
+    : null
   return (
     // A static dock frames the animated card so its centring survives framer-motion (which rewrites the
     // card's own transform). The card is seated on the stage floor — a permanent bar, not a floating pill.
@@ -243,10 +313,71 @@ export function DecisionBanner() {
             />
           )}
           {typeof er === 'number' && (
-            <Metric label="Expected return" value={`${er > 0 ? '+' : ''}${er}%`} valueColor={er >= 0 ? 'var(--accent-bright)' : 'var(--bad)'} />
+            <Metric
+              label="Expected return"
+              value={`${er > 0 ? '+' : ''}${er}%`}
+              valueColor={er >= 0 ? 'var(--accent-bright)' : 'var(--bad)'}
+              title={call
+                ? `Measured from the ${money(call.currency, call.entry_price)} this call was priced at${call.entry_price_timestamp ? ` on ${shortDate(call.entry_price_timestamp)}` : ''}. The cell to the right measures the same target from today's price.`
+                : 'The return the engine expects, measured from the entry price beside it.'}
+            />
+          )}
+          {/* The re-based return sits immediately after the frozen one, because the ONLY difference
+              between them is which price you start from. It never replaces the engine's call — that
+              number is a finished judgment and stays exactly as the run wrote it. */}
+          {call && (
+            <Metric
+              label="From today's price"
+              value={pct(call.live_expected_return_pct)}
+              valueColor={call.live_expected_return_pct >= 0 ? 'var(--accent-bright)' : 'var(--bad)'}
+              title={`The engine's target has not moved — only the starting price has. This call's target is ${money(call.currency, call.implied_target)}. From today's ${money(call.currency, call.live_price)} that is ${pct(call.live_expected_return_pct)}; from the ${money(call.currency, call.entry_price)} it was priced at, it was ${pct(call.expected_return_pct)} — a difference of ${pct(call.expected_return_delta_pp)} points. This is arithmetic on the existing target, not a fresh valuation: the engine has not re-examined the company since ${shortDate(decisionDate) || 'the call'}.`}
+            />
           )}
           {decision.entry_price && (
-            <Metric label="Entry" value={`${decision.currency || ''} ${decision.entry_price}`.trim()} />
+            <Metric
+              label="Entry"
+              value={`${decision.currency || ''} ${decision.entry_price}`.trim()}
+              title={`The price the call was priced at${decision.entry_price_timestamp ? ` on ${shortDate(decision.entry_price_timestamp as string)}` : ''}${decision.entry_price_source ? ` (${decision.entry_price_source})` : ''}. Fixed — it is what the thesis was written against.`}
+            />
+          )}
+          {/* Live price. Gated on a POSITIVE match (DESIGN.md §5): an engine older than this bundle
+              404s /api/quote, so `quote` is absent and these cells simply do not render — the bar falls
+              back to exactly what it showed before. Deliberately NOT animated: a value that refreshes on
+              a market tick is the "seen constantly" class, where motion reads as noise (DESIGN.md §3). */}
+          {quote && (
+            <Metric
+              label={quote.as_of_is_close ? 'Last close' : 'Price now'}
+              value={money(quote.currency, quote.price)}
+              /* The unit slot is the faint qualifier next to a value (as "/100" is for a score). It hugs
+                 by design, so a word carries its own separator rather than changing the shared rule. */
+              unit={quote.stale ? ' · not current' : undefined}
+              title={[
+                `${quote.name || quote.ticker}${quote.exchange ? ` · ${quote.exchange}` : ''} (${quote.symbol}).`,
+                quote.as_of
+                  ? quote.as_of_is_close
+                    ? `Last close, ${stampDay(quote.as_of)}.`
+                    : `As of ${stamp(quote.as_of)} your time.`
+                  : '',
+                quote.delayed ? 'The exchange feed is delayed, so this is not a real-time tick.' : '',
+                quote.stale ? 'The last refresh failed — this price is the last one that came through, not the current one.' : '',
+                'An indicative quote from a public market-data source. It is not from a filing and has not been checked against one.',
+              ].filter(Boolean).join(' ')}
+            />
+          )}
+          {/* Honest absence: the run has an entry price but no quote cleared the identity checks. One
+              quiet cell that explains itself beats a silent gap the reader has to interpret. */}
+          {!quote && absentReason && decision.entry_price && (
+            <Metric label="Price now" value="—" title={ABSENT_COPY[absentReason]} />
+          )}
+          {call && (
+            <Metric
+              label="Since entry"
+              value={pct(call.move_since_call_pct)}
+              /* Neutral ink on purpose: a price move is context, not good or bad. On a Watchlist or
+                 Avoid call a rise is the opposite of good, so colouring it green would assert a
+                 judgment the engine never made. */
+              title={`Today's ${money(call.currency, call.live_price)} against the ${money(call.currency, call.entry_price)} this call was priced at${call.entry_price_timestamp ? ` on ${shortDate(call.entry_price_timestamp)}` : ''}. How far the market has moved since — not a gain or loss, unless you actually bought.`}
+            />
           )}
         </div>
         {isResearch && (

@@ -22,6 +22,7 @@ import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimat
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
+import { callVsLive, getQuotes } from './news/equity-quote'
 import { getCalendar } from './news/events-calendar'
 import type { FeedItem } from './news/types'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, hasAnyFilter, type FeedFilterQuery } from './news/feed-filter'
@@ -1314,6 +1315,48 @@ app.get('/api/output/decision', async (req, reply) => {
   } catch {
     return reply.code(404).send({ error: 'no decision_record.json' })
   }
+})
+
+// ---------- live market price for a decided run ----------
+// The decision banner shows a call priced on its decision date. This serves the other half: where the
+// price is NOW, and what the engine's own target implies from there. `quote`/`call` are null whenever
+// the price cannot be established honestly (unquotable listing, currency mismatch, no entry price on
+// the record, feed down) — the client renders the live cells ONLY on a positive match, so an older
+// engine that 404s this route degrades to exactly the banner that shipped before it.
+//
+// Reuses resolveOutputRun, so a bare ticker resolves to its STANDING run — the live price is compared
+// against the call the banner is actually showing, never against a partial re-run's stale anchor.
+app.get('/api/quote', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const r = resolveOutputRun(req.query as any)
+  if (r.unknownSwarm) return reply.code(404).send({ error: 'unknown swarm' })
+  if (r.badSubject) return reply.code(400).send({ error: 'subject required' })
+  if (!r.runRoot) return reply.code(404).send({ error: 'no run found' })
+  let d: any = null
+  try { d = readDecision(r.runRoot, r.resolve) } catch { /* no decision_record yet */ }
+  if (!d) return { ticker: null, quote: null, call: null, reason: null }
+  const ticker = typeof d.ticker === 'string' && TICKER_RE.test(d.ticker) ? d.ticker : null
+  const currency = typeof d.currency === 'string' ? d.currency : null
+  if (!ticker) return { ticker: null, quote: null, call: null, reason: null }
+  if (!currency) return { ticker, quote: null, call: null, reason: 'no_currency' }
+  const entryPrice = typeof d.entry_price === 'number' ? d.entry_price : null
+  const outcomes = await getQuotes([{
+    ticker,
+    currency,
+    exchange: typeof d.exchange === 'string' ? d.exchange : null,
+    companyName: typeof d.company_name === 'string' ? d.company_name : null,
+    entryPrice,
+  }])
+  const o = outcomes.get(ticker) ?? { quote: null, reason: null }
+  const call = o.quote
+    ? callVsLive({
+        entryPrice,
+        expectedReturnPct: typeof d.expected_return_pct === 'number' ? d.expected_return_pct : null,
+        livePrice: o.quote.price,
+        currency: o.quote.currency,
+        entryPriceTimestamp: typeof d.entry_price_timestamp === 'string' ? d.entry_price_timestamp : null,
+      })
+    : null
+  return { ticker, quote: o.quote, call, reason: o.reason }
 })
 
 app.get('/api/output/run', async (req, reply) => {

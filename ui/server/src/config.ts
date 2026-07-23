@@ -680,6 +680,16 @@ export const NEWS = {
   pulsePriceTtlMin: capNum(process.env.NEWS_PULSE_PRICE_TTL_MIN, 15),
   pulseCotTtlHours: capNum(process.env.NEWS_PULSE_COT_TTL_HOURS, 6),
   pulseTimeoutMs: capNum(process.env.NEWS_PULSE_TIMEOUT_MS, 10_000),
+  // EQUITY QUOTE (news/equity-quote.ts) — the live price behind /api/quote and the re-basing of a
+  // frozen call onto it. Shares the pulse's CNBC transport but has its OWN switch: turning the
+  // commodity wire off must not silently take the decision banner's price with it.
+  quoteEnabled: process.env.NEWS_QUOTE_ENABLED !== '0',
+  quoteTtlMin: capNum(process.env.NEWS_QUOTE_TTL_MIN, 15),
+  quoteTimeoutMs: capNum(process.env.NEWS_QUOTE_TIMEOUT_MS, 10_000),
+  // How old a quote may be before it is refused outright. Verified hazard: a DELISTED ticker keeps
+  // answering with a healthy-looking row — REG_MKT, realTime:"true", a fresh-looking percent change —
+  // carrying a price from years earlier. Nothing on the row admits it; only the timestamp does.
+  quoteMaxAgeDays: capNum(process.env.NEWS_QUOTE_MAX_AGE_DAYS, 7),
   // EVENTS CALENDAR (news/events-calendar.ts) — the date-sorted forward calendar behind /api/calendar:
   // earnings (Nasdaq US + NSE India, official JSON APIs) + macro (investing.com econ-calendar). Keyless,
   // lazy on request, cached under STATE_DIR; each source fails independently (keeps last-good + flags
