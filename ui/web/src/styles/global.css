@@ -558,6 +558,15 @@ a { color: inherit; }
 .chatpanel__computed-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 9px; }
 .chatpanel__computed-chip { font-family: var(--font-mono); font-size: 11px; color: var(--accent-bright); background: var(--accent-wash-soft); border: 1px solid var(--hairline-strong); padding: 2px 8px; border-radius: var(--r-pill); }
 .chatpanel__source-modeled { color: var(--accent-deep); }
+/* what-if card — level mode shows a base→level ask; reverse mode leads with the solved input */
+.chatpanel__computed-conf--solve { color: var(--accent-bright); background: var(--accent-wash); }
+.chatpanel__computed-note { padding: 7px 12px; font-size: 11px; color: var(--text-muted); border-bottom: 1px solid var(--hairline); background: var(--accent-wash-soft); }
+.chatpanel__computed-ask .val { font-family: var(--font-mono); color: var(--text); font-variant-numeric: tabular-nums; }
+.chatpanel__computed-ask .val .ar { color: var(--text-faint); margin: 0 5px; }
+.chatpanel__computed-solve { display: flex; align-items: center; gap: 9px; padding: 10px 12px; border-bottom: 1px solid var(--hairline); background: var(--accent-wash-soft); font-family: var(--font-mono); font-size: 14px; color: var(--text); }
+.chatpanel__computed-solve .k { font-family: var(--font-sans); font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); }
+.chatpanel__computed-solve b { color: var(--accent-bright); font-weight: 700; }
+.chatpanel__computed-solve .sub { color: var(--text-faint); }
 
 /* streaming caret on the growing answer */
 .chatpanel__caret { display: inline-block; width: 2px; height: 1em; vertical-align: -2px; margin-left: 2px; background: var(--accent-bright); animation: chatcaret 1s steps(1) infinite; }

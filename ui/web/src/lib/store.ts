@@ -2113,11 +2113,11 @@ export const useStore = create<State>((set, get) => ({
           const msgs = get().chatMessages.slice()
           if (msgs[idx]?.role === 'assistant') { msgs[idx] = { ...msgs[idx], thinking: (msgs[idx].thinking || '') + tok }; set({ chatMessages: msgs }) }
         },
-        // a deterministic what-if the engine computed for this turn — attached to the assistant turn so the
-        // panel renders the card (the numbers are the engine's; the streamed text narrates around it)
+        // deterministic what-if card(s) the engine computed for this turn — APPENDED (a joint ask streams one
+        // card per variable). The numbers are the engine's; the streamed text narrates around them.
         onComputed: (c) => {
           const msgs = get().chatMessages.slice()
-          if (msgs[idx]?.role === 'assistant') { msgs[idx] = { ...msgs[idx], computed: c }; set({ chatMessages: msgs }) }
+          if (msgs[idx]?.role === 'assistant') { msgs[idx] = { ...msgs[idx], computed: [...(msgs[idx].computed || []), c] }; set({ chatMessages: msgs }) }
         },
         onToken: (tok) => {
           // first answer token also flips the stage to 'writing' — covers a stream whose text arrives

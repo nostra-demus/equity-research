@@ -1177,15 +1177,26 @@ export interface ComputedScenario {
   basis?: string | null
   source?: string | null
   nonLinearity?: string | null
+  // how the move was derived: 'delta' (a move), 'level' (from a target level), 'reverse' (solved for the input)
+  mode?: 'delta' | 'level' | 'reverse' | null
+  resolvedDelta?: number | null   // the move the engine resolved (== delta for 'delta' mode)
+  targetLevel?: number | null     // level mode: the variable level the user gave
+  variableBase?: number | null    // level mode: the variable's recorded current level
+  solvedVariableLevel?: number | null // reverse mode: the variable level the target implies
+  targetValue?: number | null     // reverse mode: the base-metric value targeted
+  targetMarginPct?: number | null // reverse mode: the margin % targeted
+  neededImpact?: number | null    // reverse mode: the base-metric change required
+  note?: string | null            // set on the first card of a multi-variable answer
 }
 export type ChatComputed =
   | { kind: 'scenario'; asked: string; scenario: ComputedScenario }
-  | { kind: 'unsupported'; asked: string; recorded: { variable: string; label?: string | null; unit?: string | null }[] }
+  | { kind: 'unsupported'; asked: string; recorded: { variable: string; label?: string | null; unit?: string | null }[]; reason?: string }
 
 // `thinking` (assistant turns) is the model's extended-thinking reasoning, streamed live while the answer
 // is being worked out and kept afterwards so the thought process stays readable. `computed` (assistant
-// turns) is the engine-computed what-if card for this turn, when the question was a modelable what-if.
-export interface ChatMessage { role: 'user' | 'assistant'; content: string; thinking?: string; computed?: ChatComputed }
+// turns) holds the engine-computed what-if card(s) for this turn — an ARRAY because a joint ask ("aluminium
+// AND USD/NOK") returns one card per variable, computed separately.
+export interface ChatMessage { role: 'user' | 'assistant'; content: string; thinking?: string; computed?: ChatComputed[] }
 
 // What an in-flight chat turn is doing RIGHT NOW — drives the panel's live working state. Every stage is
 // tied to a real event, never a fabricated progress guess:

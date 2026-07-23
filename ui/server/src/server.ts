@@ -51,7 +51,7 @@ import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
-import { computeScenario, computedContextBlock, detectWhatIf, loadSidecar, parseWhatIf } from './chat-whatif'
+import { classifyWhatIf, computePlan, computedContextBlock, detectWhatIf, loadSidecar } from './chat-whatif'
 import { deleteConversation, getConversation, isValidConversationId, listConversations, recordAssistantMessage, recordUserMessage } from './chat-store'
 import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
@@ -1511,19 +1511,26 @@ app.post('/api/chat', async (req, reply) => {
   try {
     if (detectWhatIf(last.content)) {
       const loaded = loadSidecar(runRoot)
-      const wif = loaded ? parseWhatIf(last.content, loaded.sidecar) : null
-      if (wif?.kind === 'unsupported') {
-        const payload = { kind: 'unsupported' as const, asked: last.content, recorded: wif.recorded }
+      const plan = loaded ? classifyWhatIf(last.content, loaded.sidecar) : null
+      if (plan?.kind === 'unsupported') {
+        // an honest refusal card (unrecorded variable, a joint ask, or a target the sidecar can't support)
+        const payload = { kind: 'unsupported' as const, asked: last.content, recorded: plan.recorded, reason: plan.reason }
         send({ type: 'chat-computed', payload }); computedBlock = computedContextBlock(payload)
-      } else if (wif?.kind === 'compute' && loaded) {
-        // 'modeling' shows ONLY once we know a recorded variable matched — never a flicker on a run without
-        // a sidecar. The compute is the deterministic engine; a failure just leaves computedBlock unset.
+      } else if (plan && loaded) {
+        // 'modeling' shows ONLY once a recorded variable matched — never a flicker on a run without a sidecar.
+        // A joint ask computes each leg SEPARATELY (they don't simply add) — one card per variable.
         send({ type: 'chat-status', stage: 'modeling' })
-        const scenario = await computeScenario(loaded.sidecar, wif.variable, wif.delta)
-        if (scenario) {
+        const plans = plan.kind === 'multi' ? plan.plans : [plan]
+        const blocks: string[] = []
+        for (const pl of plans) {
+          const scenario = await computePlan(loaded.sidecar, pl)
+          if (!scenario) continue
+          if (plan.kind === 'multi' && blocks.length === 0) scenario.note = `${plans.length} variables — shown separately; they don't simply add (FX also carries a separate one-off).`
           const payload = { kind: 'scenario' as const, asked: last.content, scenario }
-          send({ type: 'chat-computed', payload }); computedBlock = computedContextBlock(payload)
+          send({ type: 'chat-computed', payload })
+          blocks.push(computedContextBlock(payload))
         }
+        if (blocks.length) computedBlock = blocks.join('\n\n───\n\n')
       }
     }
   } catch { /* any what-if failure degrades to a normal closed-book answer, never a 500 */ }

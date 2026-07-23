@@ -119,6 +119,82 @@ def list_variables(sidecar: dict) -> list:
              "confidence": s.get("confidence")} for s in sidecar["sensitivities"] if isinstance(s, dict)]
 
 
+def resolve_scenario(sidecar: dict, variable: str, req: dict) -> dict:
+    """Resolve a request to a delta, then run the forward scenario() — the single entry the chat uses so ALL
+    the arithmetic (including level→delta and the reverse solve) stays in this one deterministic engine.
+
+    `req` carries exactly ONE intent:
+      {"delta": d}            forward move (v1) — the variable moves by d of its own unit.
+      {"target_level": L}     the variable is AT level L → delta = L − (its recorded base_value).
+      {"target": T}           reverse: solve for the move that makes the base metric equal T.
+      {"target_margin": M}    reverse: solve for the move that makes the operating margin equal M% .
+
+    Returns scenario()'s dict plus `mode` ('delta'|'level'|'reverse') and the resolved inputs, or {"error"}.
+    Never fabricates: a request the sidecar can't support (no variable base for a level, no revenue base for a
+    margin target, zero coefficient) is an explicit error, not a guessed number.
+    """
+    if not isinstance(sidecar, dict):
+        return {"error": "sensitivity_summary is not an object"}
+    sens = sidecar.get("sensitivities")
+    if not isinstance(sens, list) or not sens:
+        return {"error": "no sensitivities recorded for this run"}
+    s = _find(sens, variable)
+    if s is None:
+        have = ", ".join(sorted(str(x.get("variable")) for x in sens if isinstance(x, dict) and x.get("variable")))
+        return {"error": f"no recorded sensitivity for {variable!r} — recorded variables: {have}"}
+
+    coeff = _num(s.get("coefficient"))
+    base = _num(sidecar.get("base_value"))       # base level of the base metric (e.g. FY25 Adj EBITDA)
+    var_base = _num(s.get("base_value"))          # current level of the variable itself (e.g. 3192 USD/mt)
+    rev = _num(sidecar.get("revenue_base"))
+
+    mode, delta, extra = None, None, {}
+    if req.get("delta") is not None:
+        mode, delta = "delta", _num(req.get("delta"))
+    elif req.get("target_level") is not None:
+        mode = "level"
+        tl = _num(req.get("target_level"))
+        if tl is None or var_base is None:
+            return {"error": f"cannot use a target level for {variable!r}: no recorded current level to measure from"}
+        delta = tl - var_base
+        extra = {"target_level": tl, "variable_base": var_base}
+    elif req.get("target") is not None or req.get("target_margin") is not None:
+        mode = "reverse"
+        if coeff is None or coeff == 0:
+            return {"error": "cannot solve: the recorded coefficient is zero or missing"}
+        if base is None:
+            return {"error": "cannot solve: the base-metric value is missing"}
+        if req.get("target_margin") is not None:
+            tm = _num(req.get("target_margin"))
+            if tm is None or rev is None or rev <= 0:
+                return {"error": "cannot solve for a margin: this run recorded no revenue base"}
+            target_value = tm / 100.0 * rev
+            extra["target_margin_pct"] = tm
+        else:
+            target_value = _num(req.get("target"))
+            if target_value is None:
+                return {"error": "cannot solve: the target value is not numeric"}
+        needed = target_value - base
+        delta = needed / coeff
+        extra.update({
+            "target_value": round(target_value, 4),
+            "needed_impact": round(needed, 4),
+            "solved_variable_level": round(var_base + delta, 4) if var_base is not None else None,
+        })
+    else:
+        return {"error": "request carries no delta, target_level, target, or target_margin"}
+
+    if delta is None:
+        return {"error": "could not resolve a numeric move from the request"}
+    out = scenario(sidecar, variable, delta)   # one code path — the same linear scale the guard checks
+    if "error" in out:
+        return out
+    out["mode"] = mode
+    out["resolved_delta"] = round(delta, 4)
+    out.update(extra)
+    return out
+
+
 # ---------------------------------------------------------------------------
 # selftest — fixture-free CI gate, grounded in NHY_2026-07-19's real recorded coefficients
 # ---------------------------------------------------------------------------
@@ -142,7 +218,7 @@ def _selftest() -> int:
         "base_value": 28889, "base_period": "FY2025", "revenue_base": 207226,
         "sensitivities": [
             {"variable": "lme_aluminium_price", "label": "LME aluminium price", "unit": "USD/mt",
-             "coefficient": 15.0, "confidence": "high", "basis": "company-disclosed",
+             "base_value": 3192, "coefficient": 15.0, "confidence": "high", "basis": "company-disclosed",
              "valid_range": {"low": -400, "high": 300}, "source": "FY2025 Annual Report, p.38",
              "non_linearity": "1.5-2mo pricing lag; may not hold far from base"},
             {"variable": "usd_nok", "label": "USD/NOK exchange rate", "unit": "NOK",
@@ -187,6 +263,30 @@ def _selftest() -> int:
     check("norev_impact_ok", _approx(r2["impact"], 675))
     check("norev_no_margin", "margin_change_bps" not in r2)
 
+    # 7. resolve_scenario — LEVEL: aluminium AT 3000 (base 3192) → delta -192 → impact -2880
+    lvl = resolve_scenario(nhy, "lme_aluminium_price", {"target_level": 3000})
+    check("level_mode", lvl.get("mode") == "level")
+    check("level_delta=-192", _approx(lvl["resolved_delta"], -192))
+    check("level_impact=-2880", _approx(lvl["impact"], -2880))
+    check("level_target_echoed", _approx(lvl["target_level"], 3000))
+
+    # 8. resolve_scenario — REVERSE: what move takes the margin to 16%? (rev base 207,226 → target EBITDA
+    #    33,156 → needed +4,267 → +284.5/mt → solved level ≈ 3,476.5). All from the recorded coefficient.
+    rev = resolve_scenario(nhy, "lme_aluminium_price", {"target_margin": 16})
+    check("reverse_mode", rev.get("mode") == "reverse")
+    check("reverse_target_value≈33156", _approx(rev["target_value"], 33156.16, 0.5))
+    check("reverse_delta≈284.5", _approx(rev["resolved_delta"], 284.5, 0.5))
+    check("reverse_new_margin=16", _approx(rev["new_margin_pct"], 16.0, 0.05))
+    check("reverse_solved_level≈3476.5", _approx(rev["solved_variable_level"], 3476.5, 0.6))
+
+    # 9. reverse REFUSES (no number) when the sidecar can't support it — no revenue base for a margin target
+    rev_norev = resolve_scenario(norev, "lme_aluminium_price", {"target_margin": 16})
+    check("reverse_refuses_without_revenue", "error" in rev_norev and "impact" not in rev_norev)
+
+    # 10. resolve_scenario forward delta stays identical to scenario() (backward compatible)
+    fwd = resolve_scenario(nhy, "lme_aluminium_price", {"delta": 45})
+    check("resolve_forward_matches", fwd.get("mode") == "delta" and _approx(fwd["impact"], 675))
+
     if fails:
         print("SENSITIVITY MATH SELFTEST FAIL:", ", ".join(fails))
         return 1
@@ -214,7 +314,9 @@ if __name__ == "__main__":
         if not isinstance(req, dict):
             print(json.dumps({"error": "scenario request must be a JSON object"}))
             raise SystemExit(0)
-        print(json.dumps(scenario(req.get("sidecar") or {}, req.get("variable"), req.get("delta"))))
+        # resolve_scenario handles all intents (delta / target_level / target / target_margin) through the
+        # one forward code path, so level and reverse arithmetic live here, not in the TS caller.
+        print(json.dumps(resolve_scenario(req.get("sidecar") or {}, req.get("variable"), req)))
         raise SystemExit(0)
     print("usage: sensitivity_math.py [--selftest | --scenario (JSON request on stdin)]")
     raise SystemExit(2)
