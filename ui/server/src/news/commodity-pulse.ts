@@ -31,6 +31,7 @@ import path from 'node:path'
 import { NEWS, STATE_DIR, REPO_ROOT } from '../config'
 import { swarmById, runRootForSubject } from '../swarms'
 import type { SwarmManifest } from '../types'
+import { BROWSER_UA, buildCnbcQuoteUrl, parseCnbcRows } from './cnbc-quote'
 
 // ---- public snapshot shapes (the /api/swarm/pulse contract) ----
 
@@ -99,14 +100,10 @@ export function loadPulseConfig(file: string): PulseSourcesConfig | null {
 
 export interface CnbcQuote { symbol: string; last: number; prevClose: number | null; asOf: string | null; name: string | null }
 
-/**
- * CNBC quote REST service: ONE batch call for every configured symbol, pipe-joined then URL-encoded
- * (verified live 2026-07-11 from Node — keyless, no TLS fingerprinting, plain UA fine). The host is
- * hardcoded — never config-driven.
- */
-export function buildCnbcQuoteUrl(symbols: string[]): string {
-  return `https://quote.cnbc.com/quote-html-webservice/restQuote/symbolType/symbol?symbols=${encodeURIComponent(symbols.join('|'))}&requestMethod=itv&noform=1&partnerId=2&fund=1&output=json`
-}
+// The CNBC transport (URL shape, browser UA, comma-thousands parsing) is shared with the equity quote
+// lane and lives in ONE place — news/cnbc-quote.ts. Re-exported here so this module's own public surface
+// (and its tests, and scripts/verify-pulse.ts) is unchanged.
+export { buildCnbcQuoteUrl } from './cnbc-quote'
 
 /** CFTC Socrata pull: last-N-days disaggregated futures rows, four columns, one call for all subjects. */
 export function buildCotUrl(sinceIsoDate: string, resourcePath: string = DEFAULT_COT_RESOURCE): string {
@@ -127,30 +124,16 @@ export function buildCotUrl(sinceIsoDate: string, resourcePath: string = DEFAULT
  * `last_time` (ISO with offset, e.g. "…-0400") normalized to ISO UTC; `previous_day_closing` → prev;
  * `name` carries the front-month contract label. change_pct is deliberately NOT read from CNBC — the
  * caller recomputes it from last/prev so the math is always internally consistent (§15).
+ *
+ * The parsing itself is the shared one (cnbc-quote.parseCnbcRows); this narrows it to the five fields a
+ * commodity subject uses. The narrowing is deliberate and load-bearing: the pulse snapshot shape is a
+ * published contract, so the extra equity fields (currency, exchange, market status) must NOT leak into
+ * it just because the shared parser now reads them.
  */
 export function parseCnbcQuotes(json: unknown): Map<string, CnbcQuote> {
   const out = new Map<string, CnbcQuote>()
-  const raw = (json as any)?.FormattedQuoteResult?.FormattedQuote
-  const rows: any[] = Array.isArray(raw) ? raw : raw && typeof raw === 'object' ? [raw] : []
-  const num = (v: unknown): number | null => {
-    if (v == null) return null
-    const s = String(v).replace(/,/g, '').trim()
-    if (!s) return null
-    const n = parseFloat(s)
-    return Number.isFinite(n) ? n : null
-  }
-  for (const r of rows) {
-    const symbol = typeof r?.symbol === 'string' ? r.symbol.trim().toUpperCase() : ''
-    const last = num(r?.last)
-    if (!symbol || last === null) continue
-    const t = typeof r?.last_time === 'string' ? Date.parse(r.last_time) : NaN
-    out.set(symbol, {
-      symbol,
-      last,
-      prevClose: num(r?.previous_day_closing),
-      asOf: Number.isFinite(t) ? new Date(t).toISOString() : null,
-      name: typeof r?.name === 'string' && r.name.trim() ? r.name.trim() : null,
-    })
+  for (const [symbol, r] of parseCnbcRows(json)) {
+    out.set(symbol, { symbol: r.symbol, last: r.last, prevClose: r.prevClose, asOf: r.asOf, name: r.name })
   }
   return out
 }
@@ -295,12 +278,10 @@ function splitProfileSections(md: string): Map<string, string> {
 
 // ---- fetch hygiene (mirrors sources/gov-data.ts: abort timeout, one retry, never throws) ----
 
-// Per-host UAs: the .gov endpoint wants a descriptive UA with a contact (their API etiquette); CNBC's
-// WAF INTERMITTENTLY 403s non-browser UAs (verified live 2026-07-11: the same batch URL answered 200
-// with a Mozilla UA and 403 with a plain/descriptive one minutes apart) — so the CNBC call presents a
-// browser-ish UA and the CFTC call stays descriptive.
+// Per-host UAs: the .gov endpoint wants a descriptive UA with a contact (their API etiquette); the CNBC
+// call presents a browser-ish UA (BROWSER_UA, imported from the shared transport — CNBC's WAF
+// intermittently 403s non-browser UAs) and the CFTC call stays descriptive.
 const PULSE_UA = 'nostra-demus-screener/1.0 (ceekay@muns.io)'
-const BROWSER_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
 
 async function fetchText(fetchFn: typeof fetch, url: string, timeoutMs: number, ua: string = PULSE_UA): Promise<string | null> {
   for (let attempt = 1; attempt <= 2; attempt++) {
