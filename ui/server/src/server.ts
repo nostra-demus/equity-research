@@ -11,7 +11,7 @@ import multipart from '@fastify/multipart'
 import { execa } from 'execa'
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import { z } from 'zod'
-import { readActivity } from './activity-log'
+import { readActivity, ACTIVITY_FILTER_KINDS } from './activity-log'
 import { recordDataChange, syncingState, SYNC_WINDOW_MS } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
 import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
@@ -383,7 +383,7 @@ app.get('/api/activity', async (req) => {
     const n = Number(v)
     return Number.isFinite(n) ? n : undefined
   }
-  const kinds = ['full', 'module', 'agent', 'rerun', 'review', 'track', 'signal', 'sweep', 'screener-agent', 'handoff']
+  const kinds = ACTIVITY_FILTER_KINDS as readonly string[]
   const statuses = ['starting', 'running', 'done', 'error', 'cancelled', 'incomplete']
   // Swarm runs are keyed by an opaque subject id (a SIG-… signal id); resolve each to the company /
   // headline it concerns so the Company column reads as a name, not an id. Falls back to the raw id.

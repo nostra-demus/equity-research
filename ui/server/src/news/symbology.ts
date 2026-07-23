@@ -47,7 +47,7 @@ export function cleanTicker(t: unknown): string | null {
   const n = String(t ?? '').trim().toUpperCase()
   if (!n || n.length > 15) return null
   if (JUNK_TICKERS.has(n)) return null
-  if (!/^[A-Z0-9][A-Z0-9.\-]*$/.test(n)) return null
+  if (!/^[A-Z0-9][A-Z0-9.\-&]*$/.test(n)) return null // '&' admits NSE-style symbols (M&M.NS); first char stays alphanumeric
   if (/^\d{7,}$/.test(n.replace(/[.\-]/g, ''))) return null // CIK-like long digit run — not a listing symbol
   return n
 }
@@ -92,7 +92,10 @@ const LEGAL_SUFFIXES = new Set([
  *  "Norsk Hydro ASA" → "norsk hydro", "JPMORGAN CHASE & CO" → "jpmorgan chase", "CITIGROUP INC" →
  *  "citigroup". '' when nothing meaningful remains (guards against over-stripping short names). */
 export function coreCompanyName(name: unknown): string {
-  let s = String(name ?? '').toLowerCase().replace(/[,']/g, '').replace(/\s+/g, ' ').trim().replace(/^the /, '')
+  let s = String(name ?? '').toLowerCase()
+    .replace(/\([^)]*\)/g, ' ') // drop parenthetical annotations so "Acme Inc. (NYSE: ACME)" folds with "Acme Inc."
+    .replace(/\b(?:[a-z]\.)+/g, (m) => m.replace(/\./g, '')) // collapse dotted initialisms ("J.P." → "jp"); keeps "amazon.com" (its dot is not after a single letter)
+    .replace(/[,']/g, '').replace(/\s+/g, ' ').trim().replace(/^the /, '')
   for (;;) {
     const i = s.lastIndexOf(' ')
     if (i <= 0) break
@@ -107,13 +110,30 @@ export function coreCompanyName(name: unknown): string {
   return s.length >= 3 ? s : ''
 }
 
+// Ordinary English words that are also single-word company cores. A one-word core equal to one of these is
+// NOT distinctive enough to claim an untagged mention in free headline prose: a pick of "Target Corporation"
+// reduces to core "target" and would whole-word-match "price target"; "Orange S.A." → "orange" would match
+// "orange juice". So the core-name fallback declines a common single word against the free blob. This does
+// NOT touch a DISTINCTIVE single word (tesla / nvidia / netflix — absent from this set, so they still match)
+// nor any MULTI-word core ("norsk hydro" — inherently distinctive). A common-word company is still reachable
+// by its exact ticker and by a tagged company-name match; only the free-prose core rescue is withheld.
+// MUST stay identical to the web twin in ui/web/src/lib/symbology.ts.
+const COMMON_NAME_WORDS = new Set([
+  'target', 'orange', 'match', 'peak', 'core', 'edge', 'wave', 'pulse', 'sound', 'boot',
+])
+
 /** Does the (lowercased) haystack name this company? Whole-word on the full name OR on its core —
- *  so a pick of "Norsk Hydro ASA" still hits the headline "Norsk Hydro trims output". */
+ *  so a pick of "Norsk Hydro ASA" still hits the headline "Norsk Hydro trims output". A single-word core
+ *  that is an ordinary English word (COMMON_NAME_WORDS) is not used as a free-prose fallback — it would
+ *  false-match unrelated headlines ("price target", "orange juice") — while a distinctive single word and
+ *  every multi-word core still match. */
 export function companyNameMatches(hay: string, name: unknown): boolean {
   const n = String(name ?? '').toLowerCase().replace(/\s+/g, ' ').trim()
   if (n && nameOccurs(hay, n)) return true
   const core = coreCompanyName(name)
-  return !!core && core !== n && nameOccurs(hay, core)
+  if (!core || core === n) return false
+  if (!core.includes(' ') && COMMON_NAME_WORDS.has(core)) return false
+  return nameOccurs(hay, core)
 }
 
 // ---- the pick's ticker set + the tag-vs-pick ticker test ----

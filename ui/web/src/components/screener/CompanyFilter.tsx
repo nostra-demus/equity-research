@@ -19,7 +19,7 @@
 
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import type { CompanyFacet, SymbolGroup } from '../../lib/api'
-import { baseTicker, cleanTicker, coreCompanyName, normTicker } from '../../lib/symbology'
+import { baseTicker, cleanTicker, coreCompanyName, groupListingCountry, normTicker } from '../../lib/symbology'
 
 // The picked company. `ticker` is null for a name-only pick (a company the scanner never resolved a symbol
 // for, or a free-typed name that isn't symbol-shaped); `name` is '' only for a legacy/empty pick. `aliases`
@@ -98,8 +98,16 @@ export function mergeCompanyOptions(facet: CompanyFacet[], groups: SymbolGroup[]
       hit.tickerAliases = [...merged]
       if (!hit.exchange) hit.exchange = g.exchange
       if (!hit.ticker) hit.ticker = g.symbol // a name-only archive entry gains the directory's symbol
+      // a name-only archive entry (no observed listing country) inherits the directory group's derived one,
+      // so its pick can also engage the listing-country conflict guard
+      if (hit.listingCountry == null) hit.listingCountry = groupListingCountry(g.symbol, hit.tickerAliases, g.exchange)
     } else {
-      out.push({ ticker: g.symbol, name: g.name, exchange: g.exchange, tickerAliases: gAliases.map(normTicker).filter((a) => a !== normTicker(g.symbol)) })
+      const tAliases = gAliases.map(normTicker).filter((a) => a !== normTicker(g.symbol))
+      // Stamp the directory pick with a definite listing country (derived from its exchange/symbols) so the
+      // existing conflict guard can tell a US-only issuer apart from a foreign same-ticker one — but only when
+      // the group is unambiguously single-country, so a genuine cross-listing (NHYDY + NHY.OL) stays undefined
+      // and keeps its alias recall. See groupListingCountry (lib/symbology).
+      out.push({ ticker: g.symbol, name: g.name, exchange: g.exchange, tickerAliases: tAliases, listingCountry: groupListingCountry(g.symbol, tAliases, g.exchange) })
     }
   }
   return out

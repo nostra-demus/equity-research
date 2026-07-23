@@ -512,6 +512,7 @@ export function ActivityLog() {
               <option value="rerun">Re-run</option>
               <option value="review">Update</option>
               <option value="track">Dashboard</option>
+              <option value="doc-intake">New-data read</option>
             </select>
             {(data?.users.length ?? 0) > 1 && (
               <select className="fld" value={user} onChange={(e) => setUser(e.target.value)} aria-label="User">

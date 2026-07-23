@@ -11,6 +11,14 @@ import type { RunKind, RunStatus } from './types'
 
 export type ActivityEventType = 'launched' | 'finished'
 
+// The run kinds the /api/activity `kind` filter accepts — EVERY RunKind that can land in the log. Kept here
+// (not inline in the route) so it is unit-testable and cannot silently omit a newly-added kind: `doc-intake`
+// was missing, so a ?kind=doc-intake filter was quietly dropped and returned an unfiltered list. Must list
+// every value of the RunKind union (types.ts).
+export const ACTIVITY_FILTER_KINDS: RunKind[] = [
+  'full', 'module', 'agent', 'rerun', 'review', 'track', 'doc-intake', 'signal', 'sweep', 'screener-agent', 'handoff',
+]
+
 export interface ActivityEvent {
   v: 1
   ts: number // epoch ms

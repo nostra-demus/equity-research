@@ -31,7 +31,7 @@ export function cleanTicker(t: unknown): string | null {
   const n = String(t ?? '').trim().toUpperCase()
   if (!n || n.length > 15) return null
   if (JUNK_TICKERS.has(n)) return null
-  if (!/^[A-Z0-9][A-Z0-9.\-]*$/.test(n)) return null
+  if (!/^[A-Z0-9][A-Z0-9.\-&]*$/.test(n)) return null // '&' admits NSE-style symbols (M&M.NS); first char stays alphanumeric
   if (/^\d{7,}$/.test(n.replace(/[.\-]/g, ''))) return null // CIK-like long digit run — not a listing symbol
   return n
 }
@@ -72,7 +72,10 @@ const LEGAL_SUFFIXES = new Set([
  *  "Norsk Hydro ASA" → "norsk hydro", "JPMORGAN CHASE & CO" → "jpmorgan chase", "CITIGROUP INC" →
  *  "citigroup". '' when nothing meaningful remains (guards against over-stripping short names). */
 export function coreCompanyName(name: unknown): string {
-  let s = String(name ?? '').toLowerCase().replace(/[,']/g, '').replace(/\s+/g, ' ').trim().replace(/^the /, '')
+  let s = String(name ?? '').toLowerCase()
+    .replace(/\([^)]*\)/g, ' ') // drop parenthetical annotations so "Acme Inc. (NYSE: ACME)" folds with "Acme Inc."
+    .replace(/\b(?:[a-z]\.)+/g, (m) => m.replace(/\./g, '')) // collapse dotted initialisms ("J.P." → "jp"); keeps "amazon.com" (its dot is not after a single letter)
+    .replace(/[,']/g, '').replace(/\s+/g, ' ').trim().replace(/^the /, '')
   for (;;) {
     const i = s.lastIndexOf(' ')
     if (i <= 0) break
@@ -87,13 +90,30 @@ export function coreCompanyName(name: unknown): string {
   return s.length >= 3 ? s : ''
 }
 
+// Ordinary English words that are also single-word company cores. A one-word core equal to one of these is
+// NOT distinctive enough to claim an untagged mention in free headline prose: a pick of "Target Corporation"
+// reduces to core "target" and would whole-word-match "price target"; "Orange S.A." → "orange" would match
+// "orange juice". So the core-name fallback declines a common single word against the free blob. This does
+// NOT touch a DISTINCTIVE single word (tesla / nvidia / netflix — absent from this set, so they still match)
+// nor any MULTI-word core ("norsk hydro" — inherently distinctive). A common-word company is still reachable
+// by its exact ticker and by a tagged company-name match; only the free-prose core rescue is withheld.
+// MUST stay identical to the server twin in ui/server/src/news/symbology.ts.
+const COMMON_NAME_WORDS = new Set([
+  'target', 'orange', 'match', 'peak', 'core', 'edge', 'wave', 'pulse', 'sound', 'boot',
+])
+
 /** Does the (lowercased) haystack name this company? Whole-word on the full name OR on its core —
- *  so a pick of "Norsk Hydro ASA" still hits the headline "Norsk Hydro trims output". */
+ *  so a pick of "Norsk Hydro ASA" still hits the headline "Norsk Hydro trims output". A single-word core
+ *  that is an ordinary English word (COMMON_NAME_WORDS) is not used as a free-prose fallback — it would
+ *  false-match unrelated headlines ("price target", "orange juice") — while a distinctive single word and
+ *  every multi-word core still match. */
 export function companyNameMatches(hay: string, name: unknown): boolean {
   const n = String(name ?? '').toLowerCase().replace(/\s+/g, ' ').trim()
   if (n && nameOccurs(hay, n)) return true
   const core = coreCompanyName(name)
-  return !!core && core !== n && nameOccurs(hay, core)
+  if (!core || core === n) return false
+  if (!core.includes(' ') && COMMON_NAME_WORDS.has(core)) return false
+  return nameOccurs(hay, core)
 }
 
 // ---- the pick's ticker set + the tag-vs-pick ticker test ----
@@ -116,4 +136,53 @@ export function tickerHitAny(tagTicker: unknown, picks: string[]): boolean {
   if (!tag) return false
   const tagBase = baseTicker(tag)
   return picks.some((p) => p === tag || (baseTicker(p).length >= 2 && baseTicker(p) === tagBase))
+}
+
+// ---- directory-pick listing country (WEB-ONLY population helper, NOT a shared matching primitive) ----
+// A company picked ONLY from the global symbol directory carries no listing country (SymbolGroup exposes an
+// `exchange`, not a country), so the feed-filter listing-country conflict guard could never engage — letting
+// an NYSE `CAT` (Caterpillar) directory pick ticker-match an ASX `CAT` (Catapult) tagged item. These map a
+// symbol/exchange to its ISO 3166-1 alpha-2 country so mergeCompanyOptions can stamp a definite country on a
+// directory pick and re-arm the existing guard. Lives here (not in the server twin) because the pick is
+// assembled in the browser from a SymbolGroup; the server guard already consumes company.listingCountry.
+
+// Yahoo exchange-suffix (the part after the last dot) → country. Covers the same suffix set baseTicker knows.
+const SUFFIX_COUNTRY: Record<string, string> = {
+  OL: 'NO', ST: 'SE', CO: 'DK', HE: 'FI', IC: 'IS',
+  L: 'GB', IL: 'GB', PA: 'FR', AS: 'NL', BR: 'BE', LS: 'PT', MI: 'IT', MC: 'ES',
+  DE: 'DE', BE: 'DE', DU: 'DE', HM: 'DE', HA: 'DE', MU: 'DE', SG: 'DE', F: 'DE',
+  SW: 'CH', VI: 'AT', AT: 'GR', WA: 'PL', PR: 'CZ', BD: 'HU', IS: 'TR',
+  NS: 'IN', BO: 'IN',
+  HK: 'HK', T: 'JP', SS: 'CN', SZ: 'CN', TW: 'TW', TWO: 'TW', KS: 'KR', KQ: 'KR', SI: 'SG', KL: 'MY', JK: 'ID', BK: 'TH',
+  AX: 'AU', NZ: 'NZ',
+  TO: 'CA', V: 'CA', CN: 'CA', NE: 'CA',
+  MX: 'MX', SA: 'BR', BA: 'AR', SN: 'CL',
+  JO: 'ZA', TA: 'IL', QA: 'QA', SR: 'SA', CA: 'EG', ME: 'RU',
+}
+// Yahoo exchDisp display name → country, for a suffix-LESS symbol (a Yahoo US listing carries no suffix, so
+// its country can only come from the exchange label). Deliberately narrow: unmapped → unknown, so an
+// unrecognised exchange NEVER produces a false conflict (it just leaves the pick country-undefined).
+const EXCHANGE_COUNTRY: Record<string, string> = {
+  NYSE: 'US', NASDAQ: 'US', NASDAQGS: 'US', NASDAQCM: 'US', NASDAQGM: 'US', 'NYSE AMERICAN': 'US', NYSEAMERICAN: 'US',
+  NYSEARCA: 'US', 'NYSE ARCA': 'US', AMEX: 'US', BATS: 'US', CBOE: 'US', OTC: 'US', OTCMKTS: 'US', 'OTC MARKETS': 'US', PNK: 'US',
+}
+// One symbol's country: its exchange suffix if known, else (suffix-less) the exchange display label. null when neither resolves.
+const symbolCountry = (sym: string, exchange?: string): string | null => {
+  const norm = normTicker(sym)
+  const i = norm.lastIndexOf('.')
+  if (i > 0 && baseTicker(norm) !== norm) { const c = SUFFIX_COUNTRY[norm.slice(i + 1)]; if (c) return c }
+  if (exchange) { const c = EXCHANGE_COUNTRY[exchange.trim().toUpperCase()]; if (c) return c }
+  return null
+}
+/** A directory group's DEFINITE listing country — assigned only when every symbol we can place AGREES on
+ *  one. A genuinely cross-country group (a US ADR + its foreign home line, e.g. NHYDY + NHY.OL) resolves to
+ *  two countries → returns undefined, so its alias matches keep full recall; a clean single-market group
+ *  (US-only CAT) returns its country, so a foreign same-ticker issuer is excluded by the conflict guard. The
+ *  primary symbol is placed by its exchange label; aliases are placed by suffix only (no exchange context). */
+export function groupListingCountry(primary: string, aliases: string[], exchange?: string): string | undefined {
+  const seen = new Set<string>()
+  const c0 = symbolCountry(primary, exchange)
+  if (c0) seen.add(c0)
+  for (const a of aliases) { const c = symbolCountry(a); if (c) seen.add(c) }
+  return seen.size === 1 ? [...seen][0] : undefined
 }
