@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NHY",
+  "as_of": "2026-07-19",
+  "currency": "NOK",
+  "business_type": "Commodity",
+  "basis": "equity",
+  "shares": 1965.28,
+  "net_debt": 17919,
+  "net_debt_basis": "broad",
+  "current_price": 84.96,
+  "price_as_of": "2026-07-17",
+  "price_state": "pool-verified",
+  "is_developed_mega_cap": false,
+  "scenarios": [
+    {
+      "label": "bull",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 107.70,
+      "drivers": "Middle East supply-shock LME price spike persists and elevated FY2025 13.9% margin holds; 12-month price-convergence window"
+    },
+    {
+      "label": "base",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 81.83,
+      "drivers": "Weighted blend 0.25x93.70 (peers, quality-adj NTM EV/EBITDA) + 0.35x70.14 (DCF, 13.0% mid-cycle margin) + 0.40x84.63 (SOTP, audited segment EBITDA) = 81.83"
+    },
+    {
+      "label": "bear",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 45.12,
+      "drivers": "Structural reset: aluminium price reverts to 2023-2025 realized band and Extrusions decline continues; multi-year impairment path priced today"
+    }
+  ],
+  "methods": {
+    "own_history": 64.33,
+    "peers": 93.70,
+    "dcf": 70.14,
+    "sotp": 84.63
+  },
+  "method_weights": {
+    "own_history": 0.0,
+    "peers": 0.25,
+    "dcf": 0.35,
+    "sotp": 0.40
+  },
+  "discount_rate": {
+    "rf": 0.0438,
+    "erp": 0.045,
+    "beta": 0.70,
+    "cost_of_equity": 0.0753,
+    "wacc": 0.075,
+    "after_tax_kd": 0.0385
+  }
+}

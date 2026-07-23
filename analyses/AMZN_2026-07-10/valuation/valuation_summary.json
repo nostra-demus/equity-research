@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "ticker": "AMZN",
+  "as_of": "2026-07-10",
+  "currency": "USD",
+  "business_type": "Operating",
+  "basis": "equity",
+  "shares": 10874,
+  "net_debt": 92451,
+  "net_debt_basis": "broad",
+  "current_price": 238.34,
+  "price_as_of": "2026-07-01",
+  "price_state": "pool-verified",
+  "is_developed_mega_cap": true,
+  "scenarios": [
+    {
+      "label": "bull",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 247.0,
+      "drivers": "AWS accelerates to 35%+ revenue growth; NTM EV/EBITDA expands to 14x; blend of peers 14x ($278), DCF exit 12x ($246), SOTP bull ($221)"
+    },
+    {
+      "label": "base",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 210.0,
+      "drivers": "AWS maintains 28% growth; NTM EV/EBITDA holds ~13x; weighted blend 0.35x258 (peers) + 0.25x207 (DCF exit-10x) + 0.40x170 (SOTP FY2025 EBIT) = 210.05"
+    },
+    {
+      "label": "bear",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 146.0,
+      "drivers": "AWS decelerates to 20%; NTM EV/EBITDA compresses to 10.5x; blend of peers 10.5x ($206), DCF g=2% ($87), SOTP bear ($129)"
+    }
+  ],
+  "methods": {
+    "own_history": null,
+    "peers": 258.0,
+    "dcf": 207.0,
+    "sotp": 170.0
+  },
+  "method_weights": {
+    "own_history": 0.0,
+    "peers": 0.35,
+    "dcf": 0.25,
+    "sotp": 0.40
+  },
+  "discount_rate": {
+    "rf": 0.0454,
+    "erp": 0.0445,
+    "beta": 1.46,
+    "cost_of_equity": 0.1104,
+    "wacc": 0.1037,
+    "after_tax_kd": 0.0309
+  }
+}
