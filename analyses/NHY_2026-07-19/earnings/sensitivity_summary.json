@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NHY",
+  "as_of": "2026-07-19",
+  "currency": "NOK",
+  "base_metric": "adjusted_ebitda_nok_m",
+  "base_value": 28889,
+  "base_period": "FY2025",
+  "revenue_base": 207971,
+  "sensitivities": [
+    {
+      "variable": "lme_aluminium_price",
+      "label": "LME aluminium price",
+      "unit": "USD/mt",
+      "base_value": 3192,
+      "coefficient": 15.0,
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": { "low": -400, "high": 300 },
+      "non_linearity": "1.5-2mo pricing realization lag; disclosed per-unit rate anchored near base, may not hold far from it",
+      "source": "FY2025 Annual Report, p.38"
+    },
+    {
+      "variable": "usd_nok",
+      "label": "USD/NOK exchange rate",
+      "unit": "NOK",
+      "base_value": 9.72,
+      "coefficient": 4900.0,
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": { "low": -1, "high": 1 },
+      "non_linearity": "sustainable operating effect only; a same-size move also carries a separate disclosed one-off revaluation of -NOK 680m on financial items, NOT included here",
+      "source": "FY2025 Annual Report, p.38"
+    },
+    {
+      "variable": "alumina_price",
+      "label": "Alumina price (Platts PAX)",
+      "unit": "USD/mt",
+      "base_value": 345,
+      "coefficient": 72.0,
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": { "low": -50, "high": 65 },
+      "non_linearity": "inferred per-unit (no disclosed alumina EBITDA-per-USD/mt); blends the period cost cushion and may not hold at other price levels",
+      "source": "nhy-presentation-q1-2026.pdf, p.15; Integrated Annual Report 2025, p.37"
+    },
+    {
+      "variable": "extrusions_volume",
+      "label": "Extrusions external sales volume",
+      "unit": "kmt",
+      "base_value": 1004,
+      "coefficient": 19.1,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": { "low": -40, "high": 50 },
+      "non_linearity": "per-kmt rate is company-disclosed for one quarter, extrapolated to a full-year swing; operating deleverage means a small volume decline can produce an outsized margin move",
+      "source": "first-quarter-report-2026.pdf, p.16-17"
+    }
+  ]
+}
