@@ -1,5 +1,6 @@
 // pipelines.ts (readPipelines) — the connector-registry read behind /api/pipelines. Real-repo
-// assertions stay GENERIC (no connector id is ever named — the registry is zero-touch, §26); the
+// assertions stay GENERIC — no connector id, SUBJECT, or need_id is ever named, because those live in
+// research DATA the data lane pushes straight to main with no CI, and the registry is zero-touch (§26); the
 // fail-closed validation, tier clamp, SLA freshness boundaries, filename-not-mtime as_of, pool-less
 // degradation, and the data_needs recommendations join run in SUBPROCESSES against tmpdir repos,
 // because REPO_ROOT/CONNECTORS_DIR/DATA_DIR freeze from ENGINE_REPO_ROOT at config import (same
@@ -67,12 +68,29 @@ check('real repo: any widened entries are keep-and-label audit notes, never drop
   for (const w of real.widened) assert.ok(w.includes('kept, labelled unrecognized'), w)
 })
 
-check('real repo join: the ALUMINIUM COTR need is covered (helps), the SHFE need is recommended', () => {
-  const helped = real.pipelines.flatMap((p) => p.helps)
-  assert.ok(helped.some((h) => h.need_id === 'lme-cotr-fund-positioning' && h.subject === 'ALUMINIUM'),
-    `no pipeline helps lme-cotr-fund-positioning; helps=${JSON.stringify(helped)}`)
-  assert.ok(real.recommended.some((r) => r.key === 'commodity/ALUMINIUM/shfe-exchange-stock-current'),
-    `recommended=${JSON.stringify(real.recommended.map((r) => r.key))}`)
+check('real repo join: helps/recommended stay consistent with the registry (generic — names no subject or need)', () => {
+  // NEVER pin a subject / need_id / connector id here. Those live in research DATA
+  // (commodity/runs/**, analyses/**) which the data lane (§25) pushes straight to main with NO CI, and
+  // a zero-touch connector ADD (§26) legitimately MOVES a need from recommended[] into helps[]. Pinning
+  // them lets a routine data run — or the very extension path §26 mandates — turn the code lane red with
+  // no review gate (the #286 failure mode). The join MECHANICS are pinned deterministically by the
+  // 'recommendations join' tmpdir fixture below; this check asserts only the invariants that must hold
+  // over WHATEVER the pool currently contains.
+  const covers = (needId: string, subject: string) =>
+    real.pipelines.some((p) => p.satisfies.includes(needId) && p.subjects.includes(subject))
+  const helpKeys = new Set<string>()
+  for (const p of real.pipelines) for (const h of p.helps) {
+    assert.ok(p.satisfies.includes(h.need_id), `${p.id}: helps '${h.need_id}' it does not satisfy`)
+    assert.ok(p.subjects.includes(h.subject), `${p.id}: helps subject '${h.subject}' it does not serve`)
+    assert.ok(h.swarm && h.series, `${p.id}: help '${h.need_id}' missing swarm/series`)
+    assert.ok(Array.isArray(h.entry_modules), `${p.id}: help '${h.need_id}' entry_modules must be a list`)
+    helpKeys.add(`${h.swarm}/${h.subject}/${h.need_id}`)
+  }
+  for (const r of real.recommended) {
+    assert.equal(r.key, `${r.swarm}/${r.subject}/${r.need_id}`, 'recommended key must be swarm/subject/need_id')
+    assert.ok(!helpKeys.has(r.key), `${r.key} is BOTH covered and recommended — the join must be exclusive`)
+    assert.ok(!covers(r.need_id, r.subject), `${r.key} recommended although a discovered connector covers it`)
+  }
 })
 
 // ---- tmpdir fixtures via subprocess probes ----
