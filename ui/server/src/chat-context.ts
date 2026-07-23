@@ -155,13 +155,17 @@ export function linkCandidatesBySwarm(sourceSwarmId: string, subjectsBySwarm: Re
   return out
 }
 
-// PURE: a run is linkable only once it has reached its terminal, committed deliverable — decision_record.json
-// (every swarm writes it at the terminal step) or, for research, final_thesis.md. A commodity run FOLDER is
-// created BEFORE its modules run and a rerun overwrites it in place, so a bare/partial folder can hold a
-// half-written or mixed-generation dossier and must NOT be linked (committed-dossier contract). This is the
-// completion-marker file proxy for "committed" (git-tracked is not observable here). Unit-tested.
-export function isLinkableRun(man: { decisionRecord?: boolean; finalThesis?: boolean }): boolean {
-  return !!(man.decisionRecord || man.finalThesis)
+// PURE: a run is linkable only once it has reached its terminal, committed deliverable. The primary,
+// §26-GENERIC signal is the manifest's `finalReport` — final_thesis.md for research, else the terminal
+// MODULE's synthesis, DERIVED from the discovered swarm graph (not a hardcoded artifact list), so a future
+// swarm that ends on some other synthesis is honoured with no engine edit. decision_record.json is kept as a
+// belt-and-suspenders terminal marker. A run FOLDER is created BEFORE its modules run, so a bare/partial
+// folder has no finalReport and is not linked (committed-dossier contract).
+// KNOWN LIMITATION: a rerun overwrites a completed folder in place while its terminal marker persists, so a
+// chat during an ACTIVE rerun can still read a mixed-generation dossier. The full fix is a committed-snapshot
+// transaction in the rerun flow (rename/guard the marker across the mutation) — not observable from here.
+export function isLinkableRun(man: { finalReport?: unknown | null; decisionRecord?: boolean; finalThesis?: boolean }): boolean {
+  return !!(man.finalReport || man.decisionRecord || man.finalThesis)
 }
 
 // PURE: the subjects (by swarm) `text` references as a whole word (case-insensitive). Ranked by mention
@@ -169,14 +173,17 @@ export function isLinkableRun(man: { decisionRecord?: boolean; finalThesis?: boo
 // linkCandidatesBySwarm), so a candidate that shares the primary run's subject name is a genuine cross-swarm
 // link and is kept. Only too-short names (whole-word false-match risk) are skipped. Unit-tested fixture-free.
 export function matchLinkedSubjects(text: string, candidatesBySwarm: Record<string, string[]>, cap = 3): { swarmId: string; subject: string; mentions: number }[] {
-  const hay = (text || '').toLowerCase()
-  if (!hay) return []
+  // Slug separators (- _) become spaces on BOTH sides, so a subject like CRUDE-OIL matches the prose spelling
+  // "crude oil" (and "crude-oil"); the subject's words are then matched with flexible whitespace.
+  const hay = (text || '').toLowerCase().replace(/[-_]+/g, ' ')
+  if (!hay.trim()) return []
   const out: { swarmId: string; subject: string; mentions: number }[] = []
   for (const [swarmId, subjects] of Object.entries(candidatesBySwarm)) {
     for (const subj of subjects) {
-      const s = (subj || '').toLowerCase()
-      if (s.length < 3) continue // too-short → whole-word false-match risk
-      const re = new RegExp(`\\b${s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g')
+      const norm = (subj || '').toLowerCase().replace(/[-_]+/g, ' ').trim()
+      if (norm.replace(/\s+/g, '').length < 3) continue // too-short → whole-word false-match risk
+      const pat = norm.split(/\s+/).map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('\\s+')
+      const re = new RegExp(`\\b${pat}\\b`, 'g')
       const mentions = (hay.match(re) || []).length
       if (mentions > 0) out.push({ swarmId, subject: subj, mentions })
     }
@@ -200,7 +207,12 @@ export function discoverLinkedRuns(text: string, primaryRunRoot: string, sourceS
   const candidatesBySwarm = linkCandidatesBySwarm(sourceSwarmId, subjectsBySwarm)
   const primary = toPosixPath(primaryRunRoot)
   const out: LinkedRun[] = []
-  for (const m of matchLinkedSubjects(text, candidatesBySwarm)) {
+  const LINK_CAP = 3
+  // Rank ALL mentioned candidates, then keep the top LINK_CAP that actually resolve to a linkable, committed
+  // run — so subjects that are declared but never run (swarmSubjects includes them) can't consume the cap
+  // ahead of a lower-ranked dossier that IS available. Cap the survivors, not the raw mentions.
+  for (const m of matchLinkedSubjects(text, candidatesBySwarm, Number.MAX_SAFE_INTEGER)) {
+    if (out.length >= LINK_CAP) break
     const abs = findRunRootForSubject(m.swarmId, m.subject)
     if (!abs) continue
     const rr = toPosixPath(path.relative(REPO_ROOT, abs))

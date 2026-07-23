@@ -111,4 +111,22 @@ check('finding 4 — normalized paths make the equality + prefix logic hold acro
   assert.equal(synthRel.startsWith(toPosixPath(winRr) + '/'), true) // survivor filter now matches
 })
 
+// ---- PR #329 review fixes ----
+check('finding: slug-separated subject matches its prose spelling (CRUDE-OIL ↔ "crude oil")', () => {
+  const cands = { commodity: ['CRUDE-OIL', 'NATURAL-GAS'] }
+  assert.equal(matchLinkedSubjects('the crude oil supply glut hits margins', cands)[0]?.subject, 'CRUDE-OIL')
+  assert.equal(matchLinkedSubjects('a natural-gas price spike', cands)[0]?.subject, 'NATURAL-GAS')
+})
+check('finding: matchLinkedSubjects can return ALL ranked matches (caller caps AFTER filtering)', () => {
+  const cands = { commodity: ['COPPER', 'WHEAT', 'GOLD', 'SUGAR'] }
+  const text = 'copper wheat gold sugar all mentioned'
+  assert.equal(matchLinkedSubjects(text, cands, Number.MAX_SAFE_INTEGER).length, 4) // uncapped for the caller
+  assert.equal(matchLinkedSubjects(text, cands, 2).length, 2)                       // still caps when asked
+})
+check('finding: §26-generic completion — finalReport (terminal synthesis) makes a run linkable', () => {
+  assert.equal(isLinkableRun({ finalReport: { path: 'x/99_thesis-synthesis.md', module: 'thesis' } }), true)
+  assert.equal(isLinkableRun({ finalReport: null }), false)
+  assert.equal(isLinkableRun({ finalReport: null, decisionRecord: true }), true) // belt-and-suspenders marker
+})
+
 console.log(`chat-context.test.ts: ${passed} assertions passed`)
