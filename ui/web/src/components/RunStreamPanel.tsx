@@ -13,7 +13,7 @@ const dotColor: Record<string, string> = {
 }
 
 const runLabel = (r: { kind: string; module?: string; agent?: string }) =>
-  r.kind === 'full' ? 'Full run' : r.kind === 'sweep' ? 'News scan' : r.kind === 'module' ? `${r.module} module` : r.kind === 'rerun' ? `Re-run · ${r.agent}` : r.agent || 'Agent'
+  r.kind === 'full' ? 'Full run' : r.kind === 'sweep' ? 'News scan' : r.kind === 'module' ? `${r.module} module` : r.kind === 'rerun' ? `Re-run · ${r.agent}` : r.kind === 'doc-intake' ? 'New-data read' : r.agent || 'Agent'
 
 // every in-flight server status (incl. the pre-spawn gate phases the early-acked launch surfaces)
 const LIVEISH = new Set(['starting', 'readiness-checking', 'awaiting-readiness-decision', 'running'])

@@ -478,18 +478,46 @@ async function classifyFile(dir: string, filename: string): Promise<ClassifiedFi
       ? (callDateMonths(filename) ?? ageMonths ?? mtimeAge)
       : (ageMonths ?? mtimeAge)
 
+  // A routed wire-event note (research-bridge.ts) has a machine filename (screener_event_EVT-….md) that
+  // tells a human nothing. Read the note's own header instead: the news HEADLINE becomes the display
+  // name, and the source + wire/published timestamp become the hover line — so the Data pool reads as
+  // "what news is in here", not as opaque ids. Parsed from the sniff (the header sits in the first lines);
+  // a note that somehow lacks the header simply keeps the filename (fail-open to the old display).
+  const wireEvent = /^screener_event_EVT-[0-9a-f]{6,}\.md$/.test(filename) ? parseWireEventNote(sniff, filename) : null
+
   return {
     filename,
     ext,
     sizeBytes: st.size,
     mtime: new Date(st.mtimeMs).toISOString(),
     type,
-    periodHint: hint,
-    ageMonths: ageMonthsFinal,
+    periodHint: wireEvent?.periodHint ?? hint,
+    ageMonths: wireEvent?.ageMonths ?? ageMonthsFinal,
     confidence,
     basis,
     ...(sheets && sheets.length ? { sheets } : {}),
+    ...(wireEvent ? { displayName: wireEvent.displayName, note: wireEvent.note } : {}),
   }
+}
+
+/** Extract the human identity of a routed wire-event note from its own header (research-bridge.ts
+ *  renderEventNote writes `# Wire event: <headline>` + `- Source: …` + `- Wire timestamp …: <ts>`).
+ *  Returns null when the header isn't there (a foreign file that merely matches the name pattern). */
+export function parseWireEventNote(text: string, filename: string): { displayName: string; note: string; periodHint: string | null; ageMonths: number | null } | null {
+  const headline = /^# Wire event: (.+)$/m.exec(text)?.[1]?.trim()
+  if (!headline) return null
+  const source = /^- Source: (.+)$/m.exec(text)?.[1]?.trim() || ''
+  const tsLine = /^- Wire timestamp[^:]*: (.+)$/m.exec(text)?.[1]?.trim() || ''
+  const eventId = /^screener_event_(EVT-[0-9a-f]+)\.md$/.exec(filename)?.[1] || ''
+  const tsIso = /\d{4}-\d{2}-\d{2}/.exec(tsLine)?.[0] || null
+  const ageMonths = tsIso ? Math.max(0, Math.round((Date.now() - Date.parse(`${tsIso}T00:00:00Z`)) / (1000 * 60 * 60 * 24 * 30.4))) : null
+  const note = [
+    'News event routed from the screener wire',
+    source && `Source: ${source}`,
+    tsLine && `When: ${tsLine}`,
+    eventId && `Event: ${eventId}`,
+  ].filter(Boolean).join('\n')
+  return { displayName: headline, note, periodHint: tsIso, ageMonths }
 }
 
 // ---- external data (data/<TICKER>/external/**) — frameworks/EXTERNAL_DATA.md ----

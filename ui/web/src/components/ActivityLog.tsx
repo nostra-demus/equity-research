@@ -16,8 +16,11 @@ const RANGES: { key: RangeKey; label: string }[] = [
 ]
 const DAY = 86_400_000
 
-const KIND_LABEL: Record<RunKind, string> = { full: 'Full run', module: 'Module', agent: 'Orb', rerun: 'Re-run', review: 'Update', track: 'Dashboard', signal: 'Event check', sweep: 'News scan', 'screener-agent': 'Screener orb', handoff: 'Send to research' }
+const KIND_LABEL: Record<RunKind, string> = { full: 'Full run', module: 'Module', agent: 'Orb', rerun: 'Re-run', review: 'Update', track: 'Dashboard', 'doc-intake': 'New-data read', signal: 'Event check', sweep: 'News scan', 'screener-agent': 'Screener orb', handoff: 'Send to research' }
 function targetOf(r: ActivityRow): string {
+  // the cheap advisory read over newly-landed documents — it writes the scoped re-run plan the
+  // "New data" panel shows; it re-runs nothing itself
+  if (r.kind === 'doc-intake') return 'scoped re-run plan'
   if (r.kind === 'full') return 'whole pipeline'
   if (r.kind === 'module') return moduleLabel(r.module || '—')
   if (r.kind === 'rerun') return `${r.agent || r.module || '?'} + downstream`

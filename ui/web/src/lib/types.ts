@@ -1007,6 +1007,10 @@ export interface DataStatus {
     sheets?: { name: string; rows: number; cols: number; cells: number }[]
     // present for externally ingested docs under data/<T>/external/ (frameworks/EXTERNAL_DATA.md)
     external?: { provider?: string; sourceType?: string; tier?: number; asOf?: string; license?: string }
+    // present for a routed wire-event note (screener_event_<EVT>.md): the news HEADLINE to display
+    // instead of the machine filename, plus a hover line (source · when · event id)
+    displayName?: string
+    note?: string
   }[]
   recentByType: Record<string, { filename: string; ageMonths: number | null } | undefined>
   modules: Record<string, ModuleReadiness>
@@ -1298,7 +1302,7 @@ export interface CallsResult {
 }
 
 // ---- activity / audit log ----
-export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
+export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
 export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean; canScanPipeline?: boolean; canBuildConnector?: boolean; emailEnabled?: boolean }
 
 // ---- cockpit-wide product feedback (server: feedback-store.ts) ----

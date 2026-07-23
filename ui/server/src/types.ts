@@ -143,6 +143,10 @@ export interface ClassifiedFile {
     asOf?: string
     license?: string
   }
+  // present for a routed wire-event note (data/<T>/screener_event_<EVT>.md, research-bridge.ts): the
+  // news HEADLINE to show instead of the opaque machine filename, plus a hover line (source · when).
+  displayName?: string
+  note?: string
 }
 
 export interface ModuleReadiness {
