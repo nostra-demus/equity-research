@@ -345,7 +345,7 @@ AG_FTYPE_DATE = "2026-07-23"  # forecast-type extension: scripts/calibrate.py ha
     # could never trigger the haircut. Gated by its own date so runs before the fix are not held to
     # a schema field (flagged_forecast_types) that did not exist when they shipped.
 AG_STATUSES = {"not_available","pre_data","checked_no_action","applied"}
-def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibration_feedback):
+def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibration_feedback, confidence_inputs=None):
     """Check AG: Phase 6 calibration-feedback gate (DECISION_LEDGER.md §18). Verifies the synthesizer
     did not silently skip reading back its own prior calibration data — the loop Phase 4 (/research:
     calibrate) opened but nothing consumed until now. Returns None (N/A — pre-gate) or a list of
@@ -388,8 +388,9 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
     if status=="applied":
         hp=calibration_feedback.get("haircut_points"); mf=calibration_feedback.get("modules_flagged")
         fft=calibration_feedback.get("flagged_forecast_types")
-        if not (isnum(hp) and hp>0):
-            violations.append(f"status='applied' but haircut_points={hp!r} is not a positive number")
+        if not (isnum(hp) and hp==8):
+            violations.append(f"status='applied' but haircut_points={hp!r} is not the fixed 8-point constant "
+                              f"(DECISION_LEDGER.md §18: 'the fixed constant (8)' — a single, bounded, non-additive haircut)")
         if ftype_gate:
             mf_ok=isinstance(mf,list) and len(mf)>0
             fft_ok=isinstance(fft,list) and len(fft)>0
@@ -406,6 +407,25 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
             violations.append(f"status='checked_no_action' but modules_flagged={mf!r} is non-empty")
         if ftype_gate and isinstance(fft,list) and len(fft)>0:
             violations.append(f"status='checked_no_action' but flagged_forecast_types={fft!r} is non-empty")
+    # Cross-record consistency (Codex r3635961178): the §18 haircut recorded in calibration_feedback must
+    # equal the value the confidence scorer actually consumed (confidence_inputs.calibration_haircut) —
+    # else an "applied" haircut is cosmetic (recorded but never subtracted from conviction by
+    # scripts/confidence.py), the exact "measured but never acted on" dead-end §18 exists to close. This is
+    # mechanical numeric equality against a doctrinal constant (applied ⇒ 8, else ⇒ 0; DECISION_LEDGER.md
+    # §18 line 699 + confidence.py ConfidenceInputs.calibration_haircut "8.0 if status=='applied', else 0"),
+    # NOT a re-derivation of which slice is flagged, so it stays inside this gate's stated remit. Only fires
+    # when confidence_inputs carries a numeric calibration_haircut (present for runs >= 2026-07-11 per §18);
+    # runs that omit confidence_inputs are left untouched (backward-compatible, forward-looking).
+    ci = confidence_inputs if isinstance(confidence_inputs, dict) else {}
+    ch = ci.get("calibration_haircut")
+    if isnum(ch):
+        if status == "applied" and ch != 8:
+            violations.append(f"status='applied' (haircut_points={calibration_feedback.get('haircut_points')!r}) but "
+                              f"confidence_inputs.calibration_haircut={ch!r} != 8 — the recorded §18 haircut was not "
+                              f"fed to the confidence scorer, so conviction was never actually cut")
+        elif status in ("checked_no_action","pre_data","not_available") and ch != 0:
+            violations.append(f"status={status!r} applies no §18 haircut but confidence_inputs.calibration_haircut="
+                              f"{ch!r} != 0 — the scorer cut conviction for a haircut the gate did not record")
     return violations  # empty list = pass
 
 # ── Check AH (expectations-gap ship-time audit: existence + independent §7 edge consistency) ──
@@ -1480,7 +1500,12 @@ if scope=="selftest":
         ("2026-07-06",CS_REAL,CF_NA,["expected 'checked_no_action' or 'applied'"]),
         # real signal, module flagged → applied, with a positive haircut and non-empty modules_flagged
         ("2026-07-06",CS_REAL,CF_APPLIED,[]),
-        ("2026-07-06",CS_REAL,{"status":"applied","haircut_points":0,"modules_flagged":["valuation"],"rationale":"x"},["not a positive number"]),
+        ("2026-07-06",CS_REAL,{"status":"applied","haircut_points":0,"modules_flagged":["valuation"],"rationale":"x"},["fixed 8-point constant"]),
+        # Regression (Codex r3635961174): 'applied' must carry EXACTLY the fixed 8-point haircut, not any
+        # positive value — DECISION_LEDGER.md §18 line 699 ("the fixed constant (8)") + line 679 ("a single,
+        # fixed 8-point confidence haircut ... one bounded, auditable constant"). A record with hp=1 records a
+        # smaller penalty than the doctrine mandates and must fail the gate.
+        ("2026-07-06",CS_REAL,{"status":"applied","haircut_points":1,"modules_flagged":["valuation"],"rationale":"x"},["fixed 8-point constant"]),
         ("2026-07-06",CS_REAL,{"status":"applied","haircut_points":8,"modules_flagged":[],"rationale":"x"},["empty/not a list"]),
         ("2026-07-06",CS_REAL,{"status":"checked_no_action","haircut_points":0,"modules_flagged":["valuation"],"rationale":"x"},["non-empty"]),
         # malformed status
@@ -1510,6 +1535,37 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AG({dt_!r},cs_verdict={(cs_ or {}).get('verdict')!r},cf_status={(cf_ or {}).get('status')!r}) -> {got}"
               +("" if ok else f"  EXPECTED exp={exp}"))
     bad+=agbad
+    # Cross-record consistency (Codex r3635961178): calibration_feedback.haircut_points must match the
+    # confidence_inputs.calibration_haircut the scorer consumed. Driven with an explicit 4th arg so the
+    # cases above keep exercising the confidence_inputs-absent path (older runs → no cross-check). Expected
+    # values pinned to DECISION_LEDGER.md §18 (applied ⇒ 8, else ⇒ 0) + confidence.py ConfidenceInputs.
+    agci_cases=[  # (decision_date, calibration_summary, calibration_feedback, confidence_inputs, expect)
+        # applied, but the scorer got 0 → the recorded §18 haircut never cut conviction (the reported bug)
+        ("2026-07-06",CS_REAL,CF_APPLIED,{"calibration_haircut":0},["was not fed to the confidence scorer"]),
+        # applied and the scorer got 8 → consistent, no violation
+        ("2026-07-06",CS_REAL,CF_APPLIED,{"calibration_haircut":8},[]),
+        # no-action status but the scorer cut 8 anyway → the inverse inconsistency
+        ("2026-07-06",CS_REAL,CF_CHECKED,{"calibration_haircut":8},["did not record"]),
+        # no-action status with a 0 scorer input → consistent
+        ("2026-07-06",CS_REAL,CF_CHECKED,{"calibration_haircut":0},[]),
+        # pre_data with a 0 scorer input → consistent (mirrors the committed NHY_2026-07-19 fixture)
+        ("2026-07-06",CS_PREDATA,CF_PD,{"calibration_haircut":0},[]),
+        # backward-compat: an older run that omits confidence_inputs entirely → cross-check must NOT fire
+        ("2026-07-06",CS_REAL,CF_APPLIED,None,[]),
+        # non-numeric calibration_haircut is ignored (not a false failure)
+        ("2026-07-06",CS_REAL,CF_APPLIED,{"calibration_haircut":None},[]),
+    ]
+    agcibad=0
+    for dt_,cs_,cf_,ci_,exp in agci_cases:
+        got=AG(dt_,cs_,cf_,ci_)
+        if not exp:
+            ok=(isinstance(got,list) and len(got)==0)
+        else:
+            ok=(isinstance(got,list) and len(got)>0 and all(any(s in v for v in got) for s in exp))
+        if not ok: agcibad+=1
+        print(f"  [{'ok' if ok else 'XX'}] AGci({dt_!r},cf_status={(cf_ or {}).get('status')!r},ci_haircut={(ci_ or {}).get('calibration_haircut') if isinstance(ci_,dict) else ci_!r}) -> {got}"
+              +("" if ok else f"  EXPECTED exp={exp}"))
+    bad+=agcibad
     # AH — expectations-gap ship-time audit. The golden suite can't reach it (every committed fixture
     # predates AH_DATE), so drive every branch here: pre-gate, below-conviction confidence, missing
     # report, no-edge contradiction (each of variant_perception_quality/is_exploitable), and a clean pass.
@@ -2214,7 +2270,7 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AO({dt_!r},fl={_n}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
     bad+=aobad
 
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(aocases)} check-AO cases")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(aocases)} check-AO cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -2974,7 +3030,7 @@ for drp in runs:
     #   the gate cannot be silently dropped once real calibration data exists.
     if isdate(ddte) and ddte>=AG_DATE:
         calib_asof_ag=_calib_summary_asof(ddte)
-        agresult=eval_ag_calibration_feedback_gate(ddte,calib_asof_ag,d.get("calibration_feedback"))
+        agresult=eval_ag_calibration_feedback_gate(ddte,calib_asof_ag,d.get("calibration_feedback"),d.get("confidence_inputs"))
         if agresult:
             add("AG_calibration_feedback_gate",False,"; ".join(agresult))
         else:
