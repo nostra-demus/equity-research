@@ -441,4 +441,80 @@ check('a spelling seen only ONCE archive-wide does not qualify as a free-text al
   assert.equal(matchesFeedFilters(shekhawatiHeadline, { company: { ticker: rows[0].ticker, name: rows[0].name, aliases: rows[0].aliases, listingCountry: rows[0].listingCountry } }), false, 'an unrelated company headline must not match via a one-off alias')
 })
 
+// ---- THE NHYDY CASE: a pick made by a foreign listing still catches the archive's tags ----
+check('a pick of the US ADR (NHYDY + tickerAliases) matches items tagged with the Oslo symbol NHY', () => {
+  const tagged = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Hydro reports quarterly results', companies: [{ name: 'Norsk Hydro', ticker: 'NHY', listing_country: 'NO' }] })
+  const pick = { ticker: 'NHYDY', name: 'Norsk Hydro ASA', tickerAliases: ['NHY.OL', 'NHYKF'] }
+  assert.equal(matchesFeedFilters(tagged, { company: pick }), true, 'the NHY.OL alias base-matches the bare NHY tag')
+  // and the untagged headline path via the CORE name (the pick name carries the ASA legal suffix)
+  const untagged = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Norsk Hydro to curtail aluminium output', companies: [] })
+  assert.equal(matchesFeedFilters(untagged, { company: pick }), true, 'core name "norsk hydro" hits the headline')
+  const other = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Alcoa lifts guidance', companies: [{ name: 'Alcoa', ticker: 'AA', listing_country: 'US' }] })
+  assert.equal(matchesFeedFilters(other, { company: pick }), false)
+})
+
+// ---- a tickerAlias hit still respects the listing-country conflict guard ----
+check('a tickerAlias match is still excluded by a proven-different listing country', () => {
+  const catapult = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Catapult wins a contract', companies: [{ name: 'Catapult Group International', ticker: 'CAT', listing_country: 'AU' }] })
+  assert.equal(matchesFeedFilters(catapult, { company: { ticker: 'CAT.X', name: 'Caterpillar', tickerAliases: ['CAT'], listingCountry: 'US' } }), false)
+})
+
+// ---- junk tag tickers can never be matched INTO (a NULL/CIK pick is scrubbed out of the pick set) ----
+check('a pick polluted with junk spellings scrubs them and still matches only real symbols', () => {
+  const manGroup = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Man Group posts inflows', companies: [{ name: 'Man Group PLC', ticker: null, listing_country: 'GB' }] })
+  // "NULL" in the tickerAliases is scrubbed; the match comes from the name clause, not a fake NULL≡NULL hit
+  assert.equal(matchesFeedFilters(manGroup, { company: { ticker: 'EMG.L', name: 'Man Group PLC', tickerAliases: ['NULL'] } }), true)
+  const nullTagged = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Quarterly update from a fund manager', companies: [{ name: 'Some Fund', ticker: 'NULL', listing_country: 'GB' }] })
+  assert.equal(matchesFeedFilters(nullTagged, { company: { ticker: 'NULL', name: '' } }), false, 'a junk-only pick has an empty ticker set and an empty name → no match, never a NULL≡NULL bridge')
+})
+
+// ---- parseFeedFilterQuery reads companyTickerAliases (csv, upcased) ----
+check('parseFeedFilterQuery maps companyTickerAliases and upcases each', () => {
+  const q = parseFeedFilterQuery({ companyTicker: 'nhydy', companyName: 'Norsk Hydro ASA', companyTickerAliases: 'nhy.ol, nhykf' })
+  assert.deepEqual(q.company, { ticker: 'NHYDY', name: 'Norsk Hydro ASA', tickerAliases: ['NHY.OL', 'NHYKF'] })
+  assert.equal(hasAnyFilter({ company: { tickerAliases: ['NHY.OL'] } }), true, 'ticker aliases alone still activate the clause')
+})
+
+// ---- the facet scrubs junk tickers and folds spelling variants into ONE entry (the dirty-dropdown bug) ----
+check('computeFacets never surfaces NULL/CIK tickers and folds ALL-CAPS/name-only variants into the tickered entry', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:05:00Z`, headline: 'Citi a', companies: [{ name: 'Citigroup', ticker: 'C', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:04:00Z`, headline: 'Citi b', companies: [{ name: 'CITIGROUP INC', ticker: null, listing_country: 'US' }] }), // filing-style ALL-CAPS, name-only
+    item({ ts: `${dayAgo(0)}T10:03:00Z`, headline: 'Citi c', companies: [{ name: 'Citigroup Inc.', ticker: 'C', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, headline: 'Man d', companies: [{ name: 'Man Group PLC', ticker: 'NULL', listing_country: 'GB' }] }), // junk ticker
+    item({ ts: `${dayAgo(0)}T10:01:00Z`, headline: 'CGMH e', companies: [{ name: 'Citigroup Global Markets Holdings Inc', ticker: '0000200245', listing_country: 'US' }] }), // CIK as ticker
+  ])
+  const facets = computeFacets(repo, {}, { now })
+  assert.ok(!facets.companies.some((c) => c.ticker === 'NULL' || c.ticker === '0000200245'), 'junk tickers never surface')
+  const citi = facets.companies.find((c) => c.ticker === 'C')
+  assert.equal(citi?.count, 3, 'ALL-CAPS + name-only + "Inc." variants fold into the one C entry (core-name fold)')
+  assert.notEqual(citi?.name, 'CITIGROUP INC', 'an ALL-CAPS filing spelling never wins display while a mixed-case one exists')
+  assert.ok(citi && citi.name !== citi.name.toUpperCase(), 'the displayed spelling is mixed-case')
+  const man = facets.companies.find((c) => /man group/i.test(c.name))
+  assert.equal(man?.ticker, null, 'the junk NULL ticker degrades to an honest name-only entry')
+  const cgmh = facets.companies.find((c) => /global markets holdings/i.test(c.name))
+  assert.ok(cgmh && cgmh.ticker === null, 'the CIK-tagged entity keeps its own name-only entry (a different legal entity than Citigroup Inc)')
+})
+
+// ---- searchFeed end-to-end with an aliased pick: the buried Oslo-tagged item is found ----
+check('searchFeed finds an NHY-tagged item via an NHYDY pick carrying the Oslo tickerAlias', () => {
+  const repo = tmp()
+  for (let d = 0; d <= 4; d++) writeDay(repo, dayAgo(d), Array.from({ length: 12 }, () => item({ ts: `${dayAgo(d)}T10:00:00Z`, headline: 'Retailer posts quarterly sales' })))
+  const target = item({ ts: `${dayAgo(5)}T09:00:00Z`, headline: 'Hydro flags smelter curtailment', companies: [{ name: 'Norsk Hydro', ticker: 'NHY', listing_country: 'NO' }] })
+  writeDay(repo, dayAgo(5), [target])
+  const snap = searchFeed(repo, { now, predicate: (it) => matchesFeedFilters(it, { company: { ticker: 'NHYDY', name: 'Norsk Hydro ASA', tickerAliases: ['NHY.OL'] } }), limit: 60 })
+  assert.equal(snap.items.length, 1)
+  assert.equal(snap.items[0].event_id, target.event_id)
+})
+
+// ---- explain names the alias path ----
+check('explainFeedFilterMatch reports a ticker-alias hit distinctly from an exact hit', () => {
+  const tagged = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Hydro reports', companies: [{ name: 'Norsk Hydro', ticker: 'NHY', listing_country: 'NO' }] })
+  const ex = explainFeedFilterMatch(tagged, { company: { ticker: 'NHYDY', name: 'Norsk Hydro ASA', tickerAliases: ['NHY.OL'] } })
+  assert.equal(ex.matched, true)
+  const c = ex.checks.find((x) => x.clause === 'company')
+  assert.match(c!.detail, /ticker alias NHY/i, 'the alias path is named, not passed off as an exact hit')
+})
+
 console.log(`\ncompany-filter.test.ts: ${passed} passed`)

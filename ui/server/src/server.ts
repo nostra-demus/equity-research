@@ -11,7 +11,7 @@ import multipart from '@fastify/multipart'
 import { execa } from 'execa'
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import { z } from 'zod'
-import { readActivity } from './activity-log'
+import { readActivity, ACTIVITY_FILTER_KINDS } from './activity-log'
 import { recordDataChange, syncingState, SYNC_WINDOW_MS } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
 import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
@@ -22,10 +22,12 @@ import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimat
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
+import { callVsLive, getQuotes } from './news/equity-quote'
 import { getCalendar } from './news/events-calendar'
 import type { FeedItem } from './news/types'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, hasAnyFilter, type FeedFilterQuery } from './news/feed-filter'
 import { computeFacets } from './news/facets'
+import { searchSymbolsEnriched } from './news/symbology'
 import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
@@ -384,7 +386,7 @@ app.get('/api/activity', async (req) => {
     const n = Number(v)
     return Number.isFinite(n) ? n : undefined
   }
-  const kinds = ['full', 'module', 'agent', 'rerun', 'review', 'track', 'signal', 'sweep', 'screener-agent', 'handoff']
+  const kinds = ACTIVITY_FILTER_KINDS as readonly string[]
   const statuses = ['starting', 'running', 'done', 'error', 'cancelled', 'incomplete']
   // Swarm runs are keyed by an opaque subject id (a SIG-… signal id); resolve each to the company /
   // headline it concerns so the Company column reads as a name, not an id. Falls back to the raw id.
@@ -1439,6 +1441,48 @@ app.get('/api/output/decision', async (req, reply) => {
   }
 })
 
+// ---------- live market price for a decided run ----------
+// The decision banner shows a call priced on its decision date. This serves the other half: where the
+// price is NOW, and what the engine's own target implies from there. `quote`/`call` are null whenever
+// the price cannot be established honestly (unquotable listing, currency mismatch, no entry price on
+// the record, feed down) — the client renders the live cells ONLY on a positive match, so an older
+// engine that 404s this route degrades to exactly the banner that shipped before it.
+//
+// Reuses resolveOutputRun, so a bare ticker resolves to its STANDING run — the live price is compared
+// against the call the banner is actually showing, never against a partial re-run's stale anchor.
+app.get('/api/quote', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const r = resolveOutputRun(req.query as any)
+  if (r.unknownSwarm) return reply.code(404).send({ error: 'unknown swarm' })
+  if (r.badSubject) return reply.code(400).send({ error: 'subject required' })
+  if (!r.runRoot) return reply.code(404).send({ error: 'no run found' })
+  let d: any = null
+  try { d = readDecision(r.runRoot, r.resolve) } catch { /* no decision_record yet */ }
+  if (!d) return { ticker: null, quote: null, call: null, reason: null }
+  const ticker = typeof d.ticker === 'string' && TICKER_RE.test(d.ticker) ? d.ticker : null
+  const currency = typeof d.currency === 'string' ? d.currency : null
+  if (!ticker) return { ticker: null, quote: null, call: null, reason: null }
+  if (!currency) return { ticker, quote: null, call: null, reason: 'no_currency' }
+  const entryPrice = typeof d.entry_price === 'number' ? d.entry_price : null
+  const outcomes = await getQuotes([{
+    ticker,
+    currency,
+    exchange: typeof d.exchange === 'string' ? d.exchange : null,
+    companyName: typeof d.company_name === 'string' ? d.company_name : null,
+    entryPrice,
+  }])
+  const o = outcomes.get(ticker) ?? { quote: null, reason: null }
+  const call = o.quote
+    ? callVsLive({
+        entryPrice,
+        expectedReturnPct: typeof d.expected_return_pct === 'number' ? d.expected_return_pct : null,
+        livePrice: o.quote.price,
+        currency: o.quote.currency,
+        entryPriceTimestamp: typeof d.entry_price_timestamp === 'string' ? d.entry_price_timestamp : null,
+      })
+    : null
+  return { ticker, quote: o.quote, call, reason: o.reason }
+})
+
 app.get('/api/output/run', async (req, reply) => {
   const r = resolveOutputRun(req.query as any)
   if (r.unknownSwarm) return reply.code(404).send({ error: 'unknown swarm' })
@@ -1907,6 +1951,18 @@ app.get('/api/news/search', { config: { rateLimit: { max: 600, timeWindow: '1 mi
 app.get('/api/news/facets', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
   const filters = parseFeedFilterQuery((req.query as any) || {})
   return computeFacets(REPO_ROOT, filters, { archiveDir: NEWS.newsArchiveDir })
+})
+
+// GLOBAL SYMBOL SEARCH — the "any ticker, any country" directory behind the company autofill. Resolves a
+// typed symbol or name through a free, keyless global symbol search, grouped per company with every
+// sibling listing as an alias (e.g. the US OTC ADR NHYDY → Norsk Hydro ASA with Oslo's NHY.OL) — so a
+// company is findable by ANY of its tickers even when the archive has never tagged that spelling.
+// TTL-cached server-side; fail-closed to an empty list, so offline the filter degrades to the archive
+// facet + free-typed matching instead of erroring.
+app.get('/api/news/symbols', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
+  const q = String((req.query as any)?.q ?? '').trim()
+  if (q.length < 2 || q.length > 48) return { groups: [] }
+  return { groups: await searchSymbolsEnriched(q) }
 })
 
 // DEBUG — "why did/didn't this item match this filter". Accepts as much or as little of an item's fields

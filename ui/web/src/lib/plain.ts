@@ -179,6 +179,7 @@ const KINDS: Record<string, string> = {
   module: 'one research module',
   agent: 'one research orb',
   rerun: 're-run + downstream',
+  'doc-intake': 'new-data read (scoped plan)',
   signal: 'event check',
   sweep: 'manual news scan',
   'screener-agent': 'one screener orb',

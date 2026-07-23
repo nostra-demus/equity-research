@@ -137,6 +137,18 @@ export function IntakeDock() {
             </div>
           )}
 
+          {/* THE VERDICT, first and in plain words — what the read concluded and what to do about it.
+              The doc cards + plan rows below are the detail; this line is the answer to "so, do I need
+              to re-run anything?" the moment the analysis lands. intake.summary rides the hover. */}
+          {!busy && intake && docCards.length > 0 && (
+            <div className="intake__verdictline" data-verdict={intake.verdict} title={intake.summary || undefined} role="status">
+              {intake.verdict === 'scoped_rerun' && cmds.length > 0
+                ? `New data affects ${cmds.length} check${cmds.length === 1 ? '' : 's'} — re-run below, or run the full analysis`
+                : intake.verdict === 'insufficient'
+                  ? 'Not enough evidence to scope a re-run — the documents are filed; consider a full analysis'
+                  : 'Noted in the pool — nothing needs re-running'}
+            </div>
+          )}
           {docCards.length > 0 && (
             <div className="intake__docs">
               {docCards.map((d, i) => (

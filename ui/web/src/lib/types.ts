@@ -339,6 +339,55 @@ export interface WhatChangedNone {
 }
 export type WhatChangedRead = WhatChangedCompared | WhatChangedNone
 
+// ---- live market price (/api/quote) ----
+// The decision banner's call is priced on its decision date; this is where the price is NOW. Every
+// field mirrors ui/server/src/news/equity-quote.ts exactly. The whole read is nullable and every
+// consumer must gate on a POSITIVE match (DESIGN.md §5 deploy skew): an engine 15-30s older than the
+// bundle 404s /api/quote, so `quote` arrives absent and the live cells simply do not render.
+
+export interface LiveQuote {
+  ticker: string
+  /** The quote-service symbol that matched — shown in the tooltip so the identity is verifiable. */
+  symbol: string
+  name: string | null
+  exchange: string | null
+  currency: string
+  price: number
+  as_of: string | null
+  /** The timestamp is a settled session, i.e. the last close rather than a live tick. */
+  as_of_is_close: boolean
+  /** The feed is exchange-delayed — so nothing on screen may claim to be real-time. */
+  delayed: boolean
+  source: 'cnbc'
+  /** A real price, but not a fresh one: the last refresh failed. */
+  stale: boolean
+}
+
+/** Why there is no price. Mirrors the server's AbsentReason so absence can be explained, not left blank. */
+export type QuoteAbsentReason =
+  | 'no_currency' | 'unknown_symbol' | 'currency_mismatch'
+  | 'name_mismatch' | 'stale_feed' | 'implausible_price' | 'feed_unavailable'
+
+/** The frozen call re-based onto the live price. The engine's own numbers are returned unchanged. */
+export interface CallVsLive {
+  entry_price: number
+  entry_price_timestamp: string | null
+  live_price: number
+  currency: string
+  move_since_call_pct: number
+  implied_target: number
+  expected_return_pct: number
+  live_expected_return_pct: number
+  expected_return_delta_pp: number
+}
+
+export interface QuoteRead {
+  ticker: string | null
+  quote: LiveQuote | null
+  call: CallVsLive | null
+  reason: QuoteAbsentReason | null
+}
+
 export interface ModuleNode {
   name: string
   order: number
@@ -1046,6 +1095,10 @@ export interface DataStatus {
     sheets?: { name: string; rows: number; cols: number; cells: number }[]
     // present for externally ingested docs under data/<T>/external/ (frameworks/EXTERNAL_DATA.md)
     external?: { provider?: string; sourceType?: string; tier?: number; asOf?: string; license?: string }
+    // present for a routed wire-event note (screener_event_<EVT>.md): the news HEADLINE to display
+    // instead of the machine filename, plus a hover line (source · when · event id)
+    displayName?: string
+    note?: string
   }[]
   recentByType: Record<string, { filename: string; ageMonths: number | null } | undefined>
   modules: Record<string, ModuleReadiness>
@@ -1379,7 +1432,7 @@ export interface CallsResult {
 }
 
 // ---- activity / audit log ----
-export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
+export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
 export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean; canScanPipeline?: boolean; canBuildConnector?: boolean; emailEnabled?: boolean }
 
 // ---- cockpit-wide product feedback (server: feedback-store.ts) ----

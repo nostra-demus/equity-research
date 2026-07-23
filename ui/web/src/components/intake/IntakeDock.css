@@ -46,6 +46,14 @@
 .intake__head { flex: none; } /* the header stays put; only the body below it scrolls */
 .intake__body { padding: 4px 12px 12px; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
 .intake__reading { padding: 8px 2px; color: var(--text-muted); font-style: italic; }
+/* the read's one-line VERDICT — the "so what do I do?" answer above the doc cards */
+.intake__verdictline {
+  margin: 6px 0 8px; padding: 7px 10px; font-size: 12px; line-height: 1.45; color: var(--text);
+  border: 1px solid var(--hairline-strong); border-left: 2px solid var(--accent); border-radius: var(--r-md);
+  background: var(--accent-wash-soft);
+}
+.intake__verdictline[data-verdict='note_only'] { border-left-color: var(--hairline-strong); background: var(--surface-2); color: var(--text-muted); }
+.intake__verdictline[data-verdict='insufficient'] { border-left-color: var(--warn, var(--accent)); }
 
 /* ---- the resolved verdict: the analysis finished and there is nothing to re-run ----
    A calm, honest resting confirmation — the point of the panel when the pool hasn't changed. It replaces
