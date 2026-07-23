@@ -48,6 +48,12 @@ function pct(v: number): string {
   return `${v > 0 ? '+' : ''}${v}%`
 }
 
+/** A signed number with NO unit — for a gap between two percentages, which is measured in percentage
+ *  points, not percent. Writing "-2.2% points" would name two different units for one quantity. */
+function signed(v: number): string {
+  return `${v > 0 ? '+' : ''}${v}`
+}
+
 // Why there is no live price, in plain English (CLAUDE.md §21). Absence is explained rather than left
 // as a silent gap, so a reader never has to wonder whether the feature is broken or the data is simply
 // not available for this listing (DESIGN.md §4: an empty state names what was looked for).
@@ -327,10 +333,10 @@ export function DecisionBanner() {
               number is a finished judgment and stays exactly as the run wrote it. */}
           {call && (
             <Metric
-              label="From today's price"
+              label="From today"
               value={pct(call.live_expected_return_pct)}
               valueColor={call.live_expected_return_pct >= 0 ? 'var(--accent-bright)' : 'var(--bad)'}
-              title={`The engine's target has not moved — only the starting price has. This call's target is ${money(call.currency, call.implied_target)}. From today's ${money(call.currency, call.live_price)} that is ${pct(call.live_expected_return_pct)}; from the ${money(call.currency, call.entry_price)} it was priced at, it was ${pct(call.expected_return_pct)} — a difference of ${pct(call.expected_return_delta_pp)} points. This is arithmetic on the existing target, not a fresh valuation: the engine has not re-examined the company since ${shortDate(decisionDate) || 'the call'}.`}
+              title={`The engine's target has not moved — only the starting price has. This call's target is ${money(call.currency, call.implied_target)}. From today's ${money(call.currency, call.live_price)} that is ${pct(call.live_expected_return_pct)}; from the ${money(call.currency, call.entry_price)} it was priced at, it was ${pct(call.expected_return_pct)} — a difference of ${signed(call.expected_return_delta_pp)} percentage points. This is arithmetic on the existing target, not a fresh valuation: the engine has not re-examined the company since ${shortDate(decisionDate) || 'the call'}.`}
             />
           )}
           {decision.entry_price && (
@@ -348,15 +354,20 @@ export function DecisionBanner() {
             <Metric
               label={quote.as_of_is_close ? 'Last close' : 'Price now'}
               value={money(quote.currency, quote.price)}
-              /* The unit slot is the faint qualifier next to a value (as "/100" is for a score). It hugs
-                 by design, so a word carries its own separator rather than changing the shared rule. */
-              unit={quote.stale ? ' · not current' : undefined}
+              /* The distance from entry rides in the faint qualifier slot (the one "/100" uses) rather
+                 than taking a whole column of its own. They are one thought — where the price is, and
+                 how far that is from what the call was priced at — and this is the right hierarchy
+                 between them: the price is the fact, the gap is the context. */
+              unit={call ? ` ${pct(call.move_since_call_pct)} vs entry` : quote.stale ? ' · not current' : undefined}
               title={[
                 `${quote.name || quote.ticker}${quote.exchange ? ` · ${quote.exchange}` : ''} (${quote.symbol}).`,
                 quote.as_of
                   ? quote.as_of_is_close
                     ? `Last close, ${stampDay(quote.as_of)}.`
                     : `As of ${stamp(quote.as_of)} your time.`
+                  : '',
+                call
+                  ? `That is ${pct(call.move_since_call_pct)} against the ${money(call.currency, call.entry_price)} this call was priced at${call.entry_price_timestamp ? ` on ${shortDate(call.entry_price_timestamp)}` : ''} — how far the market has moved since, not a gain or loss unless you actually bought.`
                   : '',
                 quote.delayed ? 'The exchange feed is delayed, so this is not a real-time tick.' : '',
                 quote.stale ? 'The last refresh failed — this price is the last one that came through, not the current one.' : '',
@@ -368,16 +379,6 @@ export function DecisionBanner() {
               quiet cell that explains itself beats a silent gap the reader has to interpret. */}
           {!quote && absentReason && decision.entry_price && (
             <Metric label="Price now" value="—" title={ABSENT_COPY[absentReason]} />
-          )}
-          {call && (
-            <Metric
-              label="Since entry"
-              value={pct(call.move_since_call_pct)}
-              /* Neutral ink on purpose: a price move is context, not good or bad. On a Watchlist or
-                 Avoid call a rise is the opposite of good, so colouring it green would assert a
-                 judgment the engine never made. */
-              title={`Today's ${money(call.currency, call.live_price)} against the ${money(call.currency, call.entry_price)} this call was priced at${call.entry_price_timestamp ? ` on ${shortDate(call.entry_price_timestamp)}` : ''}. How far the market has moved since — not a gain or loss, unless you actually bought.`}
-            />
           )}
         </div>
         {isResearch && (
