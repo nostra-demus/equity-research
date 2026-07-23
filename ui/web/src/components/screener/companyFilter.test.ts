@@ -288,6 +288,7 @@ check('F2: groupListingCountry — single-market → its country; cross-market �
   assert.equal(groupListingCountry('CAT', [], 'NYSE'), 'US', 'a suffix-less US symbol on NYSE resolves to US')
   assert.equal(groupListingCountry('RELIANCE.NS', [], 'NSE'), 'IN', 'an NSE suffix resolves to India')
   assert.equal(groupListingCountry('NHYDY', ['NHY.OL', 'NHYKF'], 'OTC'), undefined, 'US ADR + Oslo suffix disagree → undefined')
+  assert.equal(groupListingCountry('NHY.OL', ['NHYDY', 'NHYKF'], 'Oslo'), undefined, 'Oslo primary + UNPLACEABLE US OTC aliases → undefined, not a definite NO (regardless of which market started the lookup)')
   assert.equal(groupListingCountry('CAT', [], 'SomeUnknownExch'), undefined, 'an unrecognised exchange never forces a (possibly wrong) country')
 })
 

@@ -183,6 +183,14 @@ export function groupListingCountry(primary: string, aliases: string[], exchange
   const seen = new Set<string>()
   const c0 = symbolCountry(primary, exchange)
   if (c0) seen.add(c0)
-  for (const a of aliases) { const c = symbolCountry(a); if (c) seen.add(c) }
+  for (const a of aliases) {
+    const c = symbolCountry(a)
+    // An alias we cannot place (a suffix-less US OTC line like NHYDY, with no exchange context) could belong
+    // to a DIFFERENT country. Placing NHY.OL as 'NO' while silently skipping such aliases asserts a DEFINITE
+    // single country the group does not have, which then makes the conflict guard reject the very US archive
+    // tags carried as aliases. So an unplaceable alias makes the country indefinite → undefined (full recall).
+    if (!c) return undefined
+    seen.add(c)
+  }
   return seen.size === 1 ? [...seen][0] : undefined
 }

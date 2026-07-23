@@ -2410,7 +2410,13 @@ export const useStore = create<State>((set, get) => ({
           // the "New data" panel for an auto-launched read. Refresh it HERE and tell the user the
           // OUTCOME (what the read found and what to do next) instead of a generic "Run complete".
           if (r.kind === 'doc-intake') {
+            const tok = get().selectToken // the selection identity at read time
             void get().refreshIntake().then(() => {
+              // The user may have switched tickers while the read refreshed; refreshIntake discards the stale
+              // response, but this continuation would otherwise announce THIS run's outcome against whatever
+              // ticker is now selected. Suppress it when the selection changed (selectToken is bumped on every
+              // ticker switch), so a completed A run never toasts a result while B is viewed.
+              if (get().selectToken !== tok) return
               const plan = get().intake
               const n = plan?.rerun_plan?.commands?.length ?? 0
               const msg = !plan

@@ -230,7 +230,7 @@ export function DecisionBanner() {
               <> The new-data read scoped it: <b>{intakeCmds} check{intakeCmds === 1 ? '' : 's'} affected</b> — the New data panel (left) has the cheaper scoped re-run.</>
             )}
             {intakeVerdict === 'note_only' && (
-              <> The new-data read found nothing that changes the call’s inputs — a full run is optional.</>
+              <> The new-data read filed the newer evidence as note-only — below the materiality/tier bar to scope a re-run, not proof the inputs are unchanged — so a full run is optional but may still be worth it.</>
             )}
           </NewerRunStrip>
         )}
