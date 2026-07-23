@@ -8,9 +8,11 @@
 //
 // Reuses the existing sandboxed readers (readMarkdown / readDecision / runManifest) and the discovered
 // roster (buildSwarmGraph) — no module name is ever hardcoded (CLAUDE.md §26).
-import { CHAT } from './config'
+import path from 'node:path'
+import { CHAT, REPO_ROOT } from './config'
 import { readDecision, readMarkdown, runManifest } from './outputs'
-import { buildSwarmGraph } from './roster'
+import { buildSwarmGraph, findRunRootForSubject, swarmSubjects } from './roster'
+import { listSwarms, RESEARCH_SWARM_ID } from './swarms'
 import { resolveInsideRuns } from './sandbox'
 
 export type ChatScope = 'run' | 'module' | 'orb'
@@ -60,6 +62,7 @@ export interface AssembledContext {
   degradeNote?: string
   missingHint?: string // set when !present — what the user must run first
   hasChangeBlock?: boolean // a "What changed since the last version" piece is in the context
+  linkedRuns?: LinkedRun[] // cross-swarm dossiers folded into the context because this run references them
 }
 
 function tryRead(relPath: string): string | null {
@@ -122,12 +125,63 @@ function render(pieces: ContextPiece[]): string {
     .join('\n\n———\n\n')
 }
 
+// ---- cross-swarm linked dossiers (C-1) ----
+// A run's chat can pull in the SYNTHESES of ANOTHER swarm's committed run that this run's own text
+// references — e.g. an NHY research thesis discussing "LME aluminium" links the ALUMINIUM commodity run's
+// dossier, so a question about the aluminium price is answerable from the engine's OWN output instead of
+// refused. Stays closed-book (still engine-authored markdown, cited by source) and §26-generic: candidate
+// subjects come from the swarm manifests + the run's content, never a hardcoded pairing.
+export interface LinkedRun { swarmId: string; subject: string; runRoot: string; mentions: number }
+
+// PURE: the subjects (by swarm) `text` references as a whole word (case-insensitive), minus the primary
+// subject and anything too short to match safely. Ranked by mention count, capped. Unit-tested fixture-free.
+export function matchLinkedSubjects(text: string, primarySubject: string, candidatesBySwarm: Record<string, string[]>, cap = 3): { swarmId: string; subject: string; mentions: number }[] {
+  const hay = (text || '').toLowerCase()
+  if (!hay) return []
+  const primary = (primarySubject || '').toLowerCase()
+  const out: { swarmId: string; subject: string; mentions: number }[] = []
+  for (const [swarmId, subjects] of Object.entries(candidatesBySwarm)) {
+    for (const subj of subjects) {
+      const s = (subj || '').toLowerCase()
+      if (s.length < 3 || s === primary) continue // skip self + too-short (whole-word false-match risk)
+      const re = new RegExp(`\\b${s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g')
+      const mentions = (hay.match(re) || []).length
+      if (mentions > 0) out.push({ swarmId, subject: subj, mentions })
+    }
+  }
+  return out.sort((a, b) => b.mentions - a.mentions || a.subject.localeCompare(b.subject)).slice(0, cap)
+}
+
+// Discover the NON-research swarm runs (commodity, screener, …) `text` references that EXIST on disk.
+// Research runs are not link targets — a thesis mentioning another ticker should not silently pull that
+// ticker's whole dossier; the cross-swarm case (research ↔ commodity) is the value. Returns run-root-
+// relative paths, confined to committed runs.
+export function discoverLinkedRuns(text: string, primarySubject: string, primaryRunRoot: string): LinkedRun[] {
+  const candidatesBySwarm: Record<string, string[]> = {}
+  for (const swarm of listSwarms()) {
+    if (swarm.id === RESEARCH_SWARM_ID) continue
+    const subs = swarmSubjects(swarm.id)
+    if (subs.length) candidatesBySwarm[swarm.id] = subs
+  }
+  const out: LinkedRun[] = []
+  for (const m of matchLinkedSubjects(text, primarySubject, candidatesBySwarm)) {
+    const abs = findRunRootForSubject(m.swarmId, m.subject)
+    if (!abs) continue
+    const rr = path.relative(REPO_ROOT, abs)
+    if (rr === primaryRunRoot) continue
+    out.push({ swarmId: m.swarmId, subject: m.subject, runRoot: rr, mentions: m.mentions })
+  }
+  return out
+}
+
 export function assembleContext(opts: {
   scope: ChatScope
   runRoot: string
   module?: string
   orbPath?: string
   swarmId?: string // which swarm's module graph to walk for the run scope (default research)
+  subject?: string // the run's subject (ticker / commodity), for cross-swarm linked-dossier discovery
+  linked?: boolean // include cross-swarm dossiers the run references (default on; run scope only)
   // The git-history delta, pre-computed by the caller. It arrives ALREADY RENDERED because reading git
   // is async and this assembler is sync with one caller (an already-async route handler). Keeping it that
   // way is deliberate: making this async would cascade, and the only sync alternative — execFileSync —
@@ -251,10 +305,35 @@ export function assembleContext(opts: {
       degraded: false, missingHint: 'No module syntheses or final thesis are on disk yet — run the modules (or the full pipeline) first.',
     }
   }
+  // ---- C-1: fold in cross-swarm dossiers this run's own text references (closed book — still engine
+  // markdown, cited by source; lower priority than every primary piece, so trimmed first under budget) ----
+  let linkedRuns: LinkedRun[] = []
+  if (opts.linked !== false) {
+    const primaryText = pieces.map((p) => p.markdown).join('\n')
+    linkedRuns = discoverLinkedRuns(primaryText, opts.subject || '', runRoot)
+    for (const lr of linkedRuns) {
+      let lman
+      try { lman = runManifest(lr.runRoot, resolveInsideRuns) } catch { continue }
+      for (const [mod, rep] of Object.entries(lman.moduleReports)) {
+        const synthRel = rep?.synthesis
+        if (!synthRel) continue
+        const md = tryRead(synthRel)
+        if (md == null) continue
+        pieces.push({
+          heading: `Linked dossier · ${lr.subject} (${lr.swarmId}) — ${moduleLabel(mod)} synthesis`,
+          relPath: synthRel, markdown: md, priority: 2,
+        })
+      }
+    }
+  }
   const { kept, dropped } = trimToBudget(pieces)
   const degraded = dropped.length > 0
+  // Only report a linked run whose content actually SURVIVED the trim — never promise the model a dossier
+  // that got dropped on the way out (same rule the change-block honours below).
+  const survivingLinks = linkedRuns.filter((lr) => kept.some((p) => p.relPath.startsWith(lr.runRoot + '/')))
   return {
     present: true, scope, runRoot, label: 'Whole run', sourcePath,
+    linkedRuns: survivingLinks.length ? survivingLinks : undefined,
     // derived from what SURVIVED the trim, never from what we pushed — the rule must not promise the
     // model a section that got dropped on the way out.
     hasChangeBlock: kept.some((p) => p.heading === 'What changed since the last version'),
@@ -332,6 +411,9 @@ export function buildChatPrompts(args: {
     'Plain English, short sentences (doctrine §21). Keep technical terms (EBITDA, FCF, net debt, ROIC, …) but add a short plain meaning the first time one appears. Lead with the answer; be concise and specific.',
     "Numbers must match the CONTEXT exactly — do not recompute or round away precision, and keep the company's own currency and units.",
     ...(assembled.hasChangeBlock ? [CHANGE_RULE] : []),
+    ...(assembled.linkedRuns?.length
+      ? [`The CONTEXT includes one or more "Linked dossier · …" sections — the engine's OWN output for ANOTHER run that ${subject} references (${assembled.linkedRuns.map((l) => `${l.subject}`).join(', ')}). Answer from them when the question needs them (e.g. a commodity price this ${subject} thesis depends on), and cite them by their "Linked dossier · …" heading so it is clear the fact came from a different run, not from ${subject} itself. They inform ${subject}'s thesis; they do not change its verdict.`]
+      : []),
     ...(assembled.degraded
       ? ['NOTE: the CONTEXT was trimmed to fit, so some orb-level detail may be missing. If a question needs more depth than the CONTEXT holds, tell the user to narrow the chat to that single module or orb.']
       : []),
