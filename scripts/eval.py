@@ -418,14 +418,19 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
     # runs that omit confidence_inputs are left untouched (backward-compatible, forward-looking).
     ci = confidence_inputs if isinstance(confidence_inputs, dict) else {}
     ch = ci.get("calibration_haircut")
-    if isnum(ch):
-        if status == "applied" and ch != 8:
+    if status == "applied" and ci:
+        # An applied §18 haircut MUST be the numeric 8 the scorer consumes. Omitting the key or setting it
+        # null does NOT get a pass here: confidence.py then defaults it to 0, so conviction is scored UNCUT
+        # and the recorded haircut is never actually subtracted — the exact "measured but never acted on"
+        # dead-end §18 exists to close. Only enforced when a confidence_inputs object is present (runs that
+        # omit it entirely stay backward-compatible).
+        if not (isnum(ch) and ch == 8):
             violations.append(f"status='applied' (haircut_points={calibration_feedback.get('haircut_points')!r}) but "
-                              f"confidence_inputs.calibration_haircut={ch!r} != 8 — the recorded §18 haircut was not "
-                              f"fed to the confidence scorer, so conviction was never actually cut")
-        elif status in ("checked_no_action","pre_data","not_available") and ch != 0:
-            violations.append(f"status={status!r} applies no §18 haircut but confidence_inputs.calibration_haircut="
-                              f"{ch!r} != 0 — the scorer cut conviction for a haircut the gate did not record")
+                              f"confidence_inputs.calibration_haircut={ch!r} is not the numeric 8 the scorer must consume "
+                              f"— an omitted/null value leaves conviction uncut, so the recorded §18 haircut was never applied")
+    elif status in ("checked_no_action","pre_data","not_available") and isnum(ch) and ch != 0:
+        violations.append(f"status={status!r} applies no §18 haircut but confidence_inputs.calibration_haircut="
+                          f"{ch!r} != 0 — the scorer cut conviction for a haircut the gate did not record")
     return violations  # empty list = pass
 
 # ── Check AH (expectations-gap ship-time audit: existence + independent §7 edge consistency) ──
@@ -1541,7 +1546,7 @@ if scope=="selftest":
     # values pinned to DECISION_LEDGER.md §18 (applied ⇒ 8, else ⇒ 0) + confidence.py ConfidenceInputs.
     agci_cases=[  # (decision_date, calibration_summary, calibration_feedback, confidence_inputs, expect)
         # applied, but the scorer got 0 → the recorded §18 haircut never cut conviction (the reported bug)
-        ("2026-07-06",CS_REAL,CF_APPLIED,{"calibration_haircut":0},["was not fed to the confidence scorer"]),
+        ("2026-07-06",CS_REAL,CF_APPLIED,{"calibration_haircut":0},["is not the numeric 8"]),
         # applied and the scorer got 8 → consistent, no violation
         ("2026-07-06",CS_REAL,CF_APPLIED,{"calibration_haircut":8},[]),
         # no-action status but the scorer cut 8 anyway → the inverse inconsistency
@@ -1550,10 +1555,13 @@ if scope=="selftest":
         ("2026-07-06",CS_REAL,CF_CHECKED,{"calibration_haircut":0},[]),
         # pre_data with a 0 scorer input → consistent (mirrors the committed NHY_2026-07-19 fixture)
         ("2026-07-06",CS_PREDATA,CF_PD,{"calibration_haircut":0},[]),
-        # backward-compat: an older run that omits confidence_inputs entirely → cross-check must NOT fire
+        # backward-compat: an older run that omits confidence_inputs ENTIRELY → cross-check must NOT fire
         ("2026-07-06",CS_REAL,CF_APPLIED,None,[]),
-        # non-numeric calibration_haircut is ignored (not a false failure)
-        ("2026-07-06",CS_REAL,CF_APPLIED,{"calibration_haircut":None},[]),
+        # applied + a PRESENT confidence_inputs whose calibration_haircut is null → REJECTED (the scorer
+        # would default to 0, leaving conviction uncut; an omitted/null value must not pass — Codex r…)
+        ("2026-07-06",CS_REAL,CF_APPLIED,{"calibration_haircut":None},["is not the numeric 8"]),
+        # applied + confidence_inputs present but the calibration_haircut key omitted → likewise rejected
+        ("2026-07-06",CS_REAL,CF_APPLIED,{"other_input":1},["is not the numeric 8"]),
     ]
     agcibad=0
     for dt_,cs_,cf_,ci_,exp in agci_cases:
