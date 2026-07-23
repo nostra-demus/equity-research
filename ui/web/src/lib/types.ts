@@ -1155,9 +1155,37 @@ export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outp
 // ---- chat with your data (closed-book Q&A over a run's synthesized output) ----
 export type ChatScope = 'run' | 'module' | 'orb'
 export type ChatStyle = 'simple' | 'analyst' | 'detailed' // narration style — HOW the answer is phrased
+// A deterministic what-if result the engine computed for this turn (scripts/sensitivity_math.py, via the
+// server's chat-whatif). It is DISPLAYED verbatim as a card — the numbers are the engine's, never the
+// model's — while the assistant text narrates around it. `scenario` mirrors the engine's output shape.
+export interface ComputedScenario {
+  variable: string
+  label?: string | null
+  unit?: string | null
+  delta: number
+  coefficient: number
+  impactMetric?: string | null
+  impact: number
+  baseValue?: number | null
+  newValue?: number | null
+  baseMarginPct?: number | null
+  newMarginPct?: number | null
+  marginChangeBps?: number | null
+  withinDisclosedRange?: boolean | null
+  rangeNote?: string | null
+  confidence?: string | null
+  basis?: string | null
+  source?: string | null
+  nonLinearity?: string | null
+}
+export type ChatComputed =
+  | { kind: 'scenario'; asked: string; scenario: ComputedScenario }
+  | { kind: 'unsupported'; asked: string; recorded: { variable: string; label?: string | null; unit?: string | null }[] }
+
 // `thinking` (assistant turns) is the model's extended-thinking reasoning, streamed live while the answer
-// is being worked out and kept afterwards so the thought process stays readable.
-export interface ChatMessage { role: 'user' | 'assistant'; content: string; thinking?: string }
+// is being worked out and kept afterwards so the thought process stays readable. `computed` (assistant
+// turns) is the engine-computed what-if card for this turn, when the question was a modelable what-if.
+export interface ChatMessage { role: 'user' | 'assistant'; content: string; thinking?: string; computed?: ChatComputed }
 
 // What an in-flight chat turn is doing RIGHT NOW — drives the panel's live working state. Every stage is
 // tied to a real event, never a fabricated progress guess:
@@ -1165,9 +1193,10 @@ export interface ChatMessage { role: 'user' | 'assistant'; content: string; thin
 //   context   -> the server confirmed the scope + assembled the closed-book context (chat-meta arrived)
 //   starting  -> the server is spawning the engine CLI (chat-status: starting)
 //   connected -> the CLI session initialized; the model is consuming the context (chat-status: connected)
+//   modeling  -> a quantified what-if is being computed by the engine (chat-status: modeling)
 //   thinking  -> an extended-thinking block is streaming (chat-status: thinking + chat-thinking deltas)
 //   writing   -> the visible answer is streaming (chat-status: writing / first chat-token)
-export type ChatWorkStage = 'sending' | 'context' | 'starting' | 'connected' | 'thinking' | 'writing'
+export type ChatWorkStage = 'sending' | 'context' | 'modeling' | 'starting' | 'connected' | 'thinking' | 'writing'
 export interface ChatWork { stage: ChatWorkStage; model?: string; startedAt: number; stageAt: number }
 export interface ChatRequest {
   ticker?: string

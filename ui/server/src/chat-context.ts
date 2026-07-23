@@ -320,8 +320,11 @@ export function buildChatPrompts(args: {
   messages: ChatMessage[]
   subject: string
   style?: ChatStyle
+  // An authoritative COMPUTED SCENARIO block (from chat-whatif.ts) when this turn is a modelable what-if.
+  // The engine already did the arithmetic; the model narrates it and must not recompute. See §15/§20.
+  computedBlock?: string
 }): { system: string; user: string } {
-  const { assembled, messages, subject } = args
+  const { assembled, messages, subject, computedBlock } = args
   const styleInstruction = CHAT_STYLE_INSTRUCTIONS[args.style ?? DEFAULT_CHAT_STYLE]
   // Rules are numbered from their INDEX, never hand-numbered: the conditional rules below used to append
   // a hardcoded "6.", so adding a second optional rule would have printed two 6s.
@@ -331,6 +334,9 @@ export function buildChatPrompts(args: {
     'Cite as you go. After a fact, name the heading it came from, e.g. "(Valuation — module synthesis)" or "(Earnings · 03_margin-drivers)", so every number is traceable.',
     'Plain English, short sentences (doctrine §21). Keep technical terms (EBITDA, FCF, net debt, ROIC, …) but add a short plain meaning the first time one appears. Lead with the answer; be concise and specific.',
     "Numbers must match the CONTEXT exactly — do not recompute or round away precision, and keep the company's own currency and units.",
+    ...(computedBlock
+      ? ['A COMPUTED SCENARIO block is in the CONTEXT. It was produced by the engine\'s deterministic calculator, NOT by you. Lead with its result, state the numbers exactly as given (never recompute or re-round them), cite the source it shows, and carry its confidence and any caution/non-linearity note into the answer.']
+      : []),
     ...(assembled.hasChangeBlock ? [CHANGE_RULE] : []),
     ...(assembled.degraded
       ? ['NOTE: the CONTEXT was trimmed to fit, so some orb-level detail may be missing. If a question needs more depth than the CONTEXT holds, tell the user to narrow the chat to that single module or orb.']
@@ -354,6 +360,9 @@ export function buildChatPrompts(args: {
     `CONTEXT — the engine's output for ${subject} (scope: ${assembled.label}). Each section is headed by the file it came from:`,
     '',
     assembled.context,
+    // The computed what-if sits AFTER the synthesized context and before the question, framed as its own
+    // authoritative block so the model narrates it rather than the prose figures around it.
+    ...(computedBlock ? ['', '═══════════════════════', '', computedBlock] : []),
     '',
     '═══════════════════════',
     '',

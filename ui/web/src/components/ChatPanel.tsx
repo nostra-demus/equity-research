@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useStore, isFlowActive } from '../lib/store'
-import type { ChatScope, ChatStyle, ChatWork } from '../lib/types'
+import type { ChatComputed, ChatScope, ChatStyle, ChatWork } from '../lib/types'
 
 const titleize = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
@@ -161,6 +161,7 @@ export function ChatPanel() {
           </div>
           <div className="chatpanel__source" title={source || undefined}>
             {source ? `Answering from ${source}` : 'Answers come only from this run’s synthesized output.'}
+            {messages.some((m) => m.role === 'assistant' && m.computed?.kind === 'scenario') && <span className="chatpanel__source-modeled"> · modeled with the sensitivity engine</span>}
           </div>
         </div>
         <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
@@ -273,6 +274,7 @@ export function ChatPanel() {
               return (
                 <div key={i} className="chatmsg chatmsg--assistant">
                   {m.thinking && <ThinkingBlock text={m.thinking} live={live && work?.stage === 'thinking'} />}
+                  {m.computed && <ComputedCard c={m.computed} />}
                   {m.content !== '' && (
                     <div className="md">
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.content}</ReactMarkdown>
@@ -321,6 +323,7 @@ export function ChatPanel() {
 const WORK_LABELS: Record<ChatWork['stage'], string> = {
   sending: 'Sending your question…',
   context: 'Context assembled — starting the engine…',
+  modeling: 'Modeling the scenario…',
   starting: 'Starting the engine…',
   connected: 'Reading the context…',
   thinking: 'Thinking…',
@@ -374,5 +377,81 @@ function ScopeRow({ label, sub, present, active, onPick }: { label: string; sub:
       <span><b>{label}</b><span>{sub}</span></span>
       {present ? <span className="chatpanel__present" title="Ready">●</span> : <span className="chatpanel__runpill">run first</span>}
     </button>
+  )
+}
+
+// number helpers for the computed card — the figures are the ENGINE's; these only format, never recompute.
+const nfmt = (n: number | null | undefined, d = 0) =>
+  typeof n === 'number' ? n.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }) : '—'
+const nsigned = (n: number | null | undefined, d = 0, suffix = '') =>
+  typeof n === 'number' ? `${n >= 0 ? '+' : ''}${nfmt(n, d)}${suffix}` : '—'
+// humanize the base-metric key (e.g. adjusted_ebitda_nok_m -> "Adjusted EBITDA"): drop currency/scale
+// tokens and uppercase the finance acronyms. Cosmetic only.
+const METRIC_UNIT_TOKENS = new Set(['nok', 'usd', 'inr', 'eur', 'gbp', 'jpy', 'cny', 'm', 'mn', 'bn', 'cr', 'k'])
+function metricLabel(k?: string | null): string {
+  if (!k) return 'Base metric'
+  const s = k.split('_').filter((p) => !METRIC_UNIT_TOKENS.has(p.toLowerCase())).join(' ')
+  return s.replace(/\b(ebitda|ebit|eps|fcf|roic|roce|nav|ddm)\b/gi, (m) => m.toUpperCase()).replace(/^\w/, (c) => c.toUpperCase())
+}
+
+// The deterministic what-if card. Its numbers come straight from the engine (scripts/sensitivity_math.py via
+// the server) — this component only formats them. Two shapes: a computed scenario (with an out-of-range flag
+// when the move left the orb's disclosed band), or an "unsupported" refusal listing what IS modelable.
+function ComputedCard({ c }: { c: ChatComputed }) {
+  if (c.kind === 'unsupported') {
+    return (
+      <div className="chatpanel__computed chatpanel__computed--refuse">
+        <div className="chatpanel__computed-head">
+          <span className="chatpanel__computed-glyph" aria-hidden>∑</span>
+          <span className="chatpanel__computed-kicker">Cannot model</span>
+          <span className="chatpanel__computed-conf chatpanel__computed-conf--na">No coefficient</span>
+        </div>
+        <div className="chatpanel__computed-refuse">
+          That variable isn’t a recorded sensitivity for this company, so the engine won’t put a number on it. It can model:
+          {c.recorded.length > 0 && (
+            <div className="chatpanel__computed-chips">
+              {c.recorded.map((r) => <span key={r.variable} className="chatpanel__computed-chip">{r.label || r.variable}{r.unit ? ` (${r.unit})` : ''}</span>)}
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  }
+  const s = c.scenario
+  const oor = s.withinDisclosedRange === false
+  const confClass = oor ? 'low' : s.confidence === 'high' ? 'high' : 'low'
+  return (
+    <div className={`chatpanel__computed${oor ? ' chatpanel__computed--oor' : ''}`}>
+      <div className="chatpanel__computed-head">
+        <span className="chatpanel__computed-glyph" aria-hidden>∑</span>
+        <span className="chatpanel__computed-kicker">Computed · sensitivity engine</span>
+        <span className={`chatpanel__computed-conf chatpanel__computed-conf--${confClass}`}>
+          {oor ? 'Extrapolated' : s.confidence ? `Confidence · ${s.confidence}` : 'Computed'}
+        </span>
+      </div>
+      <div className="chatpanel__computed-ask">
+        <span className="lab">{s.label || s.variable}</span>
+        <span className="delta">{nsigned(s.delta)}{s.unit ? ` ${s.unit}` : ''}</span>
+      </div>
+      <div className="chatpanel__computed-rows">
+        <div className="chatpanel__computed-row">
+          <span className="rl">{metricLabel(s.impactMetric)}</span>
+          <span className="rv">{nfmt(s.baseValue)}<span className="ar" aria-hidden>→</span><b>{nfmt(s.newValue)}</b></span>
+          <span className="rd">{nsigned(s.impact)}</span>
+        </div>
+        {s.marginChangeBps != null && (
+          <div className="chatpanel__computed-row">
+            <span className="rl">Operating margin</span>
+            <span className="rv">{s.baseMarginPct}%<span className="ar" aria-hidden>→</span><b>{s.newMarginPct}%</b></span>
+            <span className="rd">{nsigned(s.marginChangeBps, 1, ' bps')}</span>
+          </div>
+        )}
+      </div>
+      <div className="chatpanel__computed-prov">
+        coefficient {s.coefficient} per unit{s.source ? <> · <span className="src">{s.source}</span></> : null}
+      </div>
+      {oor && s.rangeNote && <div className="chatpanel__computed-warn"><span aria-hidden>▲ </span>{s.rangeNote}</div>}
+      <div className="chatpanel__computed-foot">Computed by the engine from the orb’s recorded coefficient — not generated by the model.</div>
+    </div>
   )
 }

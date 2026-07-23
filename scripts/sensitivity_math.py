@@ -199,5 +199,22 @@ if __name__ == "__main__":
     import sys
     if "--selftest" in sys.argv:
         raise SystemExit(_selftest())
-    print("usage: sensitivity_math.py --selftest")
+    # --scenario: the callable entry the cockpit chat server shells out to (ui/server/src/chat-whatif.ts).
+    # Reads ONE request as JSON on stdin — {"sidecar": <parsed sensitivity_summary.json>, "variable": str,
+    # "delta": number} — and writes scenario()'s result (or {"error": ...}) as JSON on stdout. The Node side
+    # owns path-sandboxing (it reads the sidecar from inside the run tree and passes the parsed object), so
+    # this entry never touches the filesystem: same deterministic engine the guard checks, one source of truth.
+    if "--scenario" in sys.argv:
+        import json
+        try:
+            req = json.load(sys.stdin)
+        except Exception as e:  # malformed request → an error result, never a crash the server must parse
+            print(json.dumps({"error": f"could not parse scenario request: {e}"}))
+            raise SystemExit(0)
+        if not isinstance(req, dict):
+            print(json.dumps({"error": "scenario request must be a JSON object"}))
+            raise SystemExit(0)
+        print(json.dumps(scenario(req.get("sidecar") or {}, req.get("variable"), req.get("delta"))))
+        raise SystemExit(0)
+    print("usage: sensitivity_math.py [--selftest | --scenario (JSON request on stdin)]")
     raise SystemExit(2)
