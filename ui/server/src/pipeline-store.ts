@@ -76,6 +76,11 @@ export interface PipelineEventRecord {
   verdict: ScanVerdict | null // set on status === 'scanned'
   note: string
   pr_url: string | null // set on status === 'pr_open'
+  // The connector slug the build actually authored, when it authored one. This is the JOIN that lets the
+  // cockpit follow a build past its PR: once the PR merges and the feed appears in the registry, the id links
+  // the ledger row to that connector's live fetch health — which is what turns "PR open" into a truthful
+  // "built, live, feeding the pool" instead of a claim nobody checked. Optional: older lines predate it.
+  connector_id?: string | null
   user_id: string
   submitted_at: string
 }
@@ -98,6 +103,7 @@ export interface PipelineView {
   status: PipelineStatus
   verdict: ScanVerdict | null
   pr_url: string | null
+  connector_id: string | null
   last_note: string
   last_update_at: string
 }
@@ -115,6 +121,8 @@ export function newPipelineId(at: string = nowIso()): string {
 
 // PIPE-YYYYMMDD-<8hex>. Anchored, so a route param can't smuggle a path segment anywhere it is used.
 const PIPELINE_ID_RE = /^PIPE-\d{8}-[0-9a-f]{8}$/
+// A connector folder slug (mirrors the registry's own id rule) — anchored for the same reason.
+const CONNECTOR_SLUG_RE = /^[a-z0-9][a-z0-9_-]{0,120}$/
 export function isPipelineId(s: string): boolean {
   return PIPELINE_ID_RE.test(s)
 }
@@ -166,7 +174,7 @@ export async function writePipelineSource(
 export async function appendPipelineEvent(
   targetId: string,
   status: PipelineStatus,
-  opts: { verdict?: ScanVerdict | null; note?: string; prUrl?: string | null; user: string },
+  opts: { verdict?: ScanVerdict | null; note?: string; prUrl?: string | null; connectorId?: string | null; user: string },
   stateDir: string = STATE_DIR,
 ): Promise<PipelineEventRecord | null> {
   const sources = readAllPipeline(stateDir).filter((r): r is PipelineSourceRecord => r.kind === 'pipeline_source')
@@ -180,6 +188,9 @@ export async function appendPipelineEvent(
     verdict: opts.verdict ? sanitizeVerdict(opts.verdict) : null,
     note: (opts.note || '').trim().slice(0, NOTE_MAX),
     pr_url: opts.prUrl ? String(opts.prUrl).slice(0, URL_MAX) : null,
+    // clamped to the connector-folder slug shape — it is agent output, and it is later matched against the
+    // discovered manifests, so anything that is not a plain slug is dropped rather than stored
+    connector_id: typeof opts.connectorId === 'string' && CONNECTOR_SLUG_RE.test(opts.connectorId) ? opts.connectorId : null,
     user_id: opts.user || 'local',
     submitted_at: at,
   }
@@ -242,13 +253,16 @@ export function foldPipeline(records: PipelineRecord[]): PipelineView[] {
     if (!cur || r.submitted_at >= cur.submitted_at) latest.set(r.target_id, r)
   }
   // the verdict may have landed on the `scanned` event even if a later `building`/`pr_open` event supersedes
-  // the status — so carry the most recent NON-null verdict forward, not only the latest event's.
+  // the status — so carry the most recent NON-null verdict forward, not only the latest event's. Same for the
+  // PR url and the connector slug: they land on `pr_open` and must survive any later `done`/`wontfix` line.
   const latestVerdict = new Map<string, ScanVerdict>()
+  const latestPrUrl = new Map<string, string>()
+  const latestConnector = new Map<string, string>()
   for (const r of records) {
-    if (r.kind !== 'pipeline_event' || !r.verdict) continue
-    const cur = latest.get(r.target_id)
-    void cur
-    latestVerdict.set(r.target_id, r.verdict) // records are chronological → last write wins
+    if (r.kind !== 'pipeline_event') continue
+    if (r.verdict) latestVerdict.set(r.target_id, r.verdict) // records are chronological → last write wins
+    if (r.pr_url) latestPrUrl.set(r.target_id, r.pr_url)
+    if (r.connector_id) latestConnector.set(r.target_id, r.connector_id)
   }
   return sources
     .map((s): PipelineView => {
@@ -267,12 +281,24 @@ export function foldPipeline(records: PipelineRecord[]): PipelineView[] {
         submitted_at: s.submitted_at,
         status: ev?.status ?? 'new',
         verdict: latestVerdict.get(s.pipeline_id) ?? ev?.verdict ?? null,
-        pr_url: ev?.pr_url ?? null,
+        pr_url: latestPrUrl.get(s.pipeline_id) ?? ev?.pr_url ?? null,
+        connector_id: latestConnector.get(s.pipeline_id) ?? null,
         last_note: ev?.note ?? '',
         last_update_at: ev?.submitted_at ?? s.submitted_at,
       }
     })
     .sort((a, b) => b.submitted_at.localeCompare(a.submitted_at))
+}
+
+/**
+ * The folded pipeline view ACROSS every subject, most recently updated first — what the cross-swarm Data
+ * Library shows as "feeds being built". Ordered by last activity (not submission) so an old source that just
+ * opened a PR rises to the top, which is what a reader watching a build actually wants to see.
+ */
+export function listRecentPipeline(limit = 40, stateDir: string = STATE_DIR): PipelineView[] {
+  return foldPipeline(readAllPipeline(stateDir))
+    .sort((a, b) => b.last_update_at.localeCompare(a.last_update_at))
+    .slice(0, Math.max(1, Math.min(200, limit)))
 }
 
 /** The folded pipeline view for ONE subject+swarm, newest first. */

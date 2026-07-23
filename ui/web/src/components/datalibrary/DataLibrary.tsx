@@ -1,39 +1,70 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
-import type { PipelineEntry, RecommendedNeed } from '../../lib/types'
+import { api } from '../../lib/api'
+import type { PipelineEntry, PipelineSubjectStatus, PipelineVerdict, RecommendedNeed, RunnerStatus } from '../../lib/types'
 import { ACQ_LABEL, CADENCE_LABEL } from '../../lib/labels'
 import { DataLibraryFilters, dlFiltersActive, emptyDlFilters, matchesDlPipeline, matchesDlRecommended } from './DataLibraryFilters'
+import { DataLibraryBuild } from './DataLibraryBuild'
 import './DataLibrary.css'
 
 // The Data Library — the cockpit's cross-swarm view over the connector registry: every wired data
-// pipeline (what it feeds, how fresh its pool series is, at what §4 tier it folds in) plus the
-// recommended-to-add gaps (the runs' unmet data_needs). Full-screen slide-in; list ↔ detail on ONE
-// store field with a ← back. Everything renders from the /api/pipelines payload — no swarm id and no
-// pipeline id is hardcoded anywhere in this tree (§26; enforced by datalibrary-purity.test.ts).
+// pipeline (what it feeds, whether it is actually WORKING, how fresh its pool series is, at what §4 tier it
+// folds in), the recommended-to-add gaps (the runs' unmet data_needs), and the find → build → live loop that
+// closes them. Full-screen slide-in; list ↔ detail on ONE store field with a ← back. Everything renders from
+// the /api/pipelines payload — no swarm id and no pipeline id is hardcoded anywhere in this tree (§26;
+// enforced by datalibrary-purity.test.ts).
+//
+// The headline question this surface answers is "is my data actually arriving?", so the server's rolled-up
+// verdict (live / needs attention / broken) leads every row and the header, and each one carries the sentence
+// behind it. Freshness alone was never the answer: a feed whose source started failing yesterday still has a
+// fresh file today, and that is exactly the case worth catching.
 
+const VERDICT_LABEL: Record<PipelineVerdict, string> = {
+  live: 'Live', attention: 'Needs attention', broken: 'Broken', unknown: 'Not visible here',
+}
 const STATUS_TONE: Record<string, string> = {
   fresh: 'var(--live)', stale: 'var(--conv-warn)', missing: 'var(--bad)', unknown: 'var(--text-faint)',
 }
-const STATUS_RANK: Record<string, number> = { missing: 3, stale: 2, unknown: 1, fresh: 0 }
+const VERDICT_TONE: Record<PipelineVerdict, string> = {
+  live: 'var(--live)', attention: 'var(--conv-warn)', broken: 'var(--bad)', unknown: 'var(--text-faint)',
+}
 const STATUS_HINT: Record<string, string> = {
-  fresh: 'inside its own staleness SLA',
-  stale: 'past its staleness SLA — the self-heal runner retries; a failed fetch writes nothing, so stale IS the alert',
-  missing: 'no pool series yet for this subject',
+  fresh: 'a file inside its own freshness window',
+  stale: 'the newest file is past its freshness window',
+  missing: 'no file in the pool for this subject yet',
   unknown: 'the data pool is not mounted on this host',
 }
-
-function StatusDot({ status }: { status: string }) {
-  return (
-    <span className="datalib__dot" title={`${status} — ${STATUS_HINT[status] || ''}`}
-      style={{ background: STATUS_TONE[status] || 'var(--text-faint)' }} aria-label={status} />
-  )
+const HEALTH_HINT: Record<string, string> = {
+  ok: 'the last fetch of this source succeeded',
+  failing: 'the last fetch failed — it retries on the next sweep',
+  broken: 'the fetch has failed repeatedly; the source has likely changed or died',
+  no_pool: 'there is no data folder for this subject on the fetching host',
+  manual: 'auto-fetch is off for this feed by its own manifest — a human stages the file',
+  pending: 'a sweep decided it needs refetching; no attempt recorded yet',
+  never_run: 'the fetcher has never swept this feed',
 }
 
-// a multi-subject row surfaces its neediest subject (missing > stale > unknown > fresh)
-function worstStatus(p: PipelineEntry, poolAvailable: boolean): string {
-  if (!poolAvailable || !p.statuses.length) return 'unknown'
-  return p.statuses.reduce((w, s) => ((STATUS_RANK[s.status] ?? 1) > (STATUS_RANK[w] ?? 0) ? s.status : w), 'fresh')
+function ago(iso: string | null): string {
+  const t = iso ? Date.parse(iso) : NaN
+  if (!t) return ''
+  const m = Math.max(0, Math.round((Date.now() - t) / 60_000))
+  if (m < 60) return `${m}m ago`
+  const h = Math.round(m / 60)
+  return h < 24 ? `${h}h ago` : `${Math.round(h / 24)}d ago`
+}
+
+function VerdictBadge({ verdict, title }: { verdict: PipelineVerdict; title?: string }) {
+  return <span className="datalib__verdict" data-v={verdict} title={title}>{VERDICT_LABEL[verdict]}</span>
+}
+
+function StatusDot({ status, health }: { status: string; health?: string }) {
+  const hint = [`${status} — ${STATUS_HINT[status] || ''}`, health ? `fetch: ${health} — ${HEALTH_HINT[health] || ''}` : '']
+    .filter(Boolean).join('\n')
+  return (
+    <span className="datalib__dot" title={hint}
+      style={{ background: STATUS_TONE[status] || 'var(--text-faint)' }} aria-label={status} />
+  )
 }
 
 function helpsLine(p: PipelineEntry): string {
@@ -46,15 +77,19 @@ function helpsLine(p: PipelineEntry): string {
   return `feeds ${p.subjects.join(', ')}`
 }
 
-function WiredRow({ p, poolAvailable, onOpen }: { p: PipelineEntry; poolAvailable: boolean; onOpen: () => void }) {
-  // the MOST RECENT dated subject (ISO dates sort lexicographically), not the first one that happens to
-  // carry a date — a multi-subject pipeline would otherwise show a stale/wrong "latest as-of"
-  const latest = p.statuses
-    .filter((s) => s.latestAsOf)
-    .sort((a, b) => (b.latestAsOf ?? '').localeCompare(a.latestAsOf ?? ''))[0]
+/** The most recent dated subject (ISO dates sort lexicographically) — never the first one that has a date. */
+function latestStatus(p: PipelineEntry): PipelineSubjectStatus | undefined {
+  return p.statuses.filter((s) => s.latestAsOf).sort((a, b) => (b.latestAsOf ?? '').localeCompare(a.latestAsOf ?? ''))[0]
+}
+
+function WiredRow({ p, onOpen }: { p: PipelineEntry; onOpen: () => void }) {
+  const latest = latestStatus(p)
+  const worst = p.statuses.reduce<PipelineSubjectStatus | undefined>(
+    (w, s) => (!w || (s.health !== 'ok' && w.health === 'ok') ? s : w), undefined)
   return (
-    <button className="datalib__row" onClick={onOpen}>
-      <StatusDot status={worstStatus(p, poolAvailable)} />
+    <button className={`datalib__row datalib__row--${p.verdict}`} onClick={onOpen}>
+      <span className={`datalib__dot${p.verdict === 'live' ? ' datalib__dot--live' : ''}`}
+        style={{ background: VERDICT_TONE[p.verdict] }} aria-label={VERDICT_LABEL[p.verdict]} />
       <div className="datalib__rowbody">
         <div className="datalib__series">{p.series}</div>
         <div className="datalib__chips">
@@ -63,17 +98,25 @@ function WiredRow({ p, poolAvailable, onOpen }: { p: PipelineEntry; poolAvailabl
           <span className="chip">{CADENCE_LABEL[p.cadence] ?? p.cadence}</span>
           {p.subjects.map((s) => <span key={s} className="chip datalib__chip--subj">{s}</span>)}
         </div>
-        <div className="datalib__helps">{helpsLine(p)}</div>
+        <div className="datalib__helps">{p.verdictNote}</div>
+        <div className="datalib__fine">{helpsLine(p)}</div>
       </div>
       <div className="datalib__rowmeta">
-        {latest?.latestAsOf ? <span title="latest as-of in the pool (from the filename, never mtime)">{latest.latestAsOf}{typeof latest.ageDays === 'number' ? ` · ${latest.ageDays}d` : ''}</span> : <span>no pool file yet</span>}
+        <VerdictBadge verdict={p.verdict} title={worst?.health ? HEALTH_HINT[worst.health] : undefined} />
+        <span className="datalib__asof" title="latest as-of in the pool (from the filename, never mtime)">
+          {latest?.latestAsOf ? `${latest.latestAsOf}${typeof latest.ageDays === 'number' ? ` · ${latest.ageDays}d` : ''}` : 'no file yet'}
+        </span>
+        {p.repair.status === 'repairing' && <span>auto-repair running</span>}
+        {p.repair.status === 'pr_open' && p.repair.prUrl && (
+          <a className="datalib__prlink" href={p.repair.prUrl} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>repair PR ↗</a>
+        )}
         <span className="datalib__chev" aria-hidden>›</span>
       </div>
     </button>
   )
 }
 
-function RecommendedRow({ r }: { r: RecommendedNeed }) {
+function RecommendedRow({ r, canScan, onBuild }: { r: RecommendedNeed; canScan: boolean; onBuild: () => void }) {
   const src = r.suggested_source
   return (
     <div className="datalib__row datalib__row--rec">
@@ -84,15 +127,22 @@ function RecommendedRow({ r }: { r: RecommendedNeed }) {
           <span className="chip datalib__chip--subj">{r.swarm} · {r.subject}</span>
           <span className="chip" title="the §4 tier the series would fold in at">tier {r.tier}</span>
           <span className="chip">{CADENCE_LABEL[r.cadence] ?? r.cadence}</span>
-          <span className="chip datalib__chip--rec" title="Connector-eligible — a durable feed can be built for this.">connector-eligible</span>
+          {r.entry_modules.length > 0 && <span className="chip">feeds {r.entry_modules.join(', ')}</span>}
         </div>
-        <div className="datalib__helps">{r.why_it_caps}</div>
+        <div className="datalib__why">{r.why_it_caps}</div>
+        {r.cap_lifted && <div className="datalib__fine">wiring it lifts: {r.cap_lifted}</div>}
       </div>
       <div className="datalib__rowmeta">
         <span title={src.licensing ? `licensing: ${src.licensing}` : undefined}>
           {src.name || 'source t.b.d.'} · {ACQ_LABEL[src.acquisition] ?? src.acquisition}
         </span>
         {r.next_release && <span title="next scheduled release">next: {r.next_release}</span>}
+        {canScan && (
+          <button className="btn btn--amber datalib__mini" onClick={onBuild}
+            title="Find the source for this and send it to Claude to build — you watch every step below">
+            Find &amp; build ▸
+          </button>
+        )}
       </div>
     </div>
   )
@@ -102,78 +152,99 @@ function PipelineDetail({ p, poolAvailable }: { p: PipelineEntry; poolAvailable:
   const back = useStore((s) => s.setDlSelected)
   return (
     <div className="datalib__detail">
-      <div className="datalib__detailtop">
-        <button className="btn btn--ghost" onClick={() => back(null)}>← back</button>
-        <StatusDot status={worstStatus(p, poolAvailable)} />
-        <span className="datalib__detailid">{p.id}</span>
-      </div>
-      <div className="datalib__series datalib__series--lg">{p.series}</div>
-      {!poolAvailable && (
-        <div className="datalib__banner">the data pool isn’t mounted on this host — freshness is computed on the always-on machine</div>
-      )}
-
-      <section>
-        <h4>Manifest</h4>
-        <div className="datalib__scroll">
-          <table className="atable">
-            <tbody>
-              <tr><td>provider</td><td>{p.provider}</td></tr>
-              <tr><td>acquisition</td><td>{ACQ_LABEL[p.acquisition] ?? p.acquisition}</td></tr>
-              <tr>
-                <td>source type · tier</td>
-                <td>
-                  {p.sourceType} · tier {p.tier} {p.tierCorrected && <span className="chip datalib__chip--corr" title="the manifest declared a more-trusted tier than its source_type earns — served clamped">tier corrected</span>}
-                  <div className="datalib__fine">every file this pipeline writes carries a .source.json sidecar; the pool gate clamps any self-declared tier to the ceiling its source_type earns</div>
-                </td>
-              </tr>
-              {p.license && <tr><td>license</td><td>{p.license}</td></tr>}
-              <tr><td>hosts</td><td>{p.hostAllowlist.join(', ') || '—'}</td></tr>
-              <tr><td>cadence · SLA</td><td>{CADENCE_LABEL[p.cadence] ?? p.cadence} · {p.stalenessSlaDays} days</td></tr>
-              <tr><td>run</td><td><code>{p.entry}</code> · verify: <code>{p.verify || '—'}</code></td></tr>
-              <tr><td>writes</td><td><code>{p.outputPath}</code></td></tr>
-            </tbody>
-          </table>
+      <div className="datalib__col">
+        <div className="datalib__detailtop">
+          <button className="btn btn--ghost" onClick={() => back(null)}>← back</button>
+          <span className="datalib__detailid">{p.id}</span>
         </div>
-      </section>
+        <div className="datalib__series datalib__series--lg">{p.series}</div>
+        <div className="datalib__verdictline">
+          <VerdictBadge verdict={p.verdict} />
+          <span className="datalib__why">{p.verdictNote}</span>
+        </div>
+        {!poolAvailable && (
+          <div className="datalib__banner">the data pool isn’t mounted on this host — freshness and fetch health are computed on the always-on machine</div>
+        )}
+        {p.repair.status !== 'none' && (
+          <div className="datalib__banner">
+            auto-repair {p.repair.status === 'repairing' ? 'is running on this feed' : p.repair.status === 'pr_open' ? 'has opened a fix' : 'looked at this feed and made no change'}
+            {p.repair.prUrl && <> — <a className="datalib__prlink" href={p.repair.prUrl} target="_blank" rel="noreferrer">see the pull request ↗</a></>}
+          </div>
+        )}
 
-      <section>
-        <h4>Freshness by subject</h4>
-        <div className="datalib__scroll">
-          <table className="atable">
-            <thead><tr><th></th><th>subject</th><th>latest as-of</th><th>age</th><th>file</th></tr></thead>
-            <tbody>
-              {p.statuses.map((s) => (
-                <tr key={s.subject}>
-                  <td><StatusDot status={poolAvailable ? s.status : 'unknown'} /></td>
-                  <td>{s.subject}</td>
-                  <td>{s.latestAsOf || '—'}</td>
-                  <td>{typeof s.ageDays === 'number' ? `${s.ageDays}d` : '—'}</td>
-                  <td className="datalib__file">{s.latestFile || '—'}</td>
+        <section>
+          <h4>Manifest</h4>
+          <div className="datalib__scroll">
+            <table className="atable">
+              <tbody>
+                <tr><td>provider</td><td>{p.provider}</td></tr>
+                <tr><td>acquisition</td><td>{ACQ_LABEL[p.acquisition] ?? p.acquisition}</td></tr>
+                <tr>
+                  <td>source type · tier</td>
+                  <td>
+                    {p.sourceType} · tier {p.tier} {p.tierCorrected && <span className="chip datalib__chip--corr" title="the manifest declared a more-trusted tier than its source_type earns — served clamped">tier corrected</span>}
+                    <div className="datalib__fine">every file this pipeline writes carries a .source.json sidecar; the pool gate clamps any self-declared tier to the ceiling its source_type earns</div>
+                  </td>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+                {p.license && <tr><td>license</td><td>{p.license}</td></tr>}
+                <tr><td>hosts</td><td>{p.hostAllowlist.join(', ') || '—'}</td></tr>
+                <tr><td>cadence · SLA</td><td>{CADENCE_LABEL[p.cadence] ?? p.cadence} · {p.stalenessSlaDays} days</td></tr>
+                <tr><td>run</td><td><code>{p.entry}</code> · verify: <code>{p.verify || '—'}</code></td></tr>
+                <tr><td>writes</td><td><code>{p.outputPath}</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-      {p.helps.length > 0 && (
         <section>
-          <h4>What it helps</h4>
-          {p.helps.map((h) => (
-            <div key={`${h.swarm}/${h.subject}/${h.need_id}`} className="datalib__help">
-              <div className="datalib__helphead">feeds {h.subject} · {h.entry_modules.join(', ') || h.swarm} — {h.series}</div>
-              <div className="datalib__fine">{h.why_it_caps}</div>
+          <h4>Per subject — the file, and the fetch</h4>
+          <div className="datalib__scroll">
+            <table className="atable">
+              <thead><tr><th></th><th>subject</th><th>latest as-of</th><th>age</th><th>last fetch</th><th>file</th></tr></thead>
+              <tbody>
+                {p.statuses.map((s) => (
+                  <tr key={s.subject}>
+                    <td><StatusDot status={poolAvailable ? s.status : 'unknown'} health={s.health} /></td>
+                    <td>{s.subject}</td>
+                    <td>{s.latestAsOf || '—'}</td>
+                    <td>{typeof s.ageDays === 'number' ? `${s.ageDays}d` : '—'}</td>
+                    <td title={s.lastError || HEALTH_HINT[s.health] || ''}>
+                      {s.health === 'never_run' ? 'never swept' : s.health}
+                      {s.failStreak > 1 ? ` ×${s.failStreak}` : ''}
+                      {s.lastSweepAt ? <div className="datalib__fine">{ago(s.lastSweepAt)}</div> : null}
+                    </td>
+                    <td className="datalib__file">{s.latestFile || '—'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {p.statuses.some((s) => s.lastError) && (
+            <div className="datalib__err" style={{ marginTop: 8 }}>
+              last fetch error: {p.statuses.find((s) => s.lastError)?.lastError}
             </div>
-          ))}
+          )}
         </section>
-      )}
 
-      {p.outputSchema != null && (
-        <section>
-          <h4>Output schema</h4>
-          <pre className="datalib__schema">{JSON.stringify(p.outputSchema, null, 2)}</pre>
-        </section>
-      )}
+        {p.helps.length > 0 && (
+          <section>
+            <h4>What it helps</h4>
+            {p.helps.map((h) => (
+              <div key={`${h.swarm}/${h.subject}/${h.need_id}`} className="datalib__help">
+                <div className="datalib__helphead">feeds {h.subject} · {h.entry_modules.join(', ') || h.swarm} — {h.series}</div>
+                <div className="datalib__fine">{h.why_it_caps}</div>
+              </div>
+            ))}
+          </section>
+        )}
+
+        {p.outputSchema != null && (
+          <section>
+            <h4>Output schema</h4>
+            <pre className="datalib__schema">{JSON.stringify(p.outputSchema, null, 2)}</pre>
+          </section>
+        )}
+      </div>
     </div>
   )
 }
@@ -194,6 +265,56 @@ function Skeletons() {
   )
 }
 
+/** The header strip: how many feeds are working, how many are not, and when the fetcher last ran. */
+function HealthStrip({ pipelines, poolAvailable, runner }: {
+  pipelines: PipelineEntry[]
+  poolAvailable: boolean
+  runner?: RunnerStatus
+}) {
+  const live = pipelines.filter((p) => p.verdict === 'live').length
+  const attention = pipelines.filter((p) => p.verdict === 'attention').length
+  const broken = pipelines.filter((p) => p.verdict === 'broken').length
+  if (!poolAvailable) {
+    return (
+      <div className="datalib__health">
+        <div className="datalib__tally">
+          <span className="datalib__tallynum">{pipelines.length}</span>
+          <span>feeds wired · health is computed on the machine that holds the pool, not here</span>
+        </div>
+      </div>
+    )
+  }
+  return (
+    <div className="datalib__health">
+      <div className={`datalib__tally${live && !broken && !attention ? ' datalib__tally--good' : ''}`}>
+        <span className="datalib__tallynum">{live}</span><span>live</span>
+      </div>
+      {attention > 0 && (
+        <div className="datalib__tally datalib__tally--warn">
+          <span className="datalib__tallynum">{attention}</span><span>need attention</span>
+        </div>
+      )}
+      {broken > 0 && (
+        <div className="datalib__tally datalib__tally--bad">
+          <span className="datalib__tallynum">{broken}</span><span>broken</span>
+        </div>
+      )}
+      {!attention && !broken && pipelines.length > 0 && (
+        <div className="datalib__fine">every wired feed is fetching cleanly and inside its freshness window</div>
+      )}
+      {/* §5: an older engine sends no runner block — say nothing rather than guess */}
+      {runner && (
+        <div className="datalib__sweep" title={runner.autoRepairOn
+          ? `a feed that fails repeatedly is sent to a coding agent automatically; the watchdog wakes every ${runner.pollIntervalMin} min`
+          : 'auto-repair is off on this server — a broken feed is reported here but not fixed on its own'}>
+          {runner.lastFetchSweepAt ? `last fetch sweep ${ago(runner.lastFetchSweepAt)}` : 'the fetcher has not run on this host yet'}
+          {runner.autoRepairOn ? ' · auto-repair on' : ''}
+        </div>
+      )}
+    </div>
+  )
+}
+
 export function DataLibrary() {
   const read = useStore((s) => s.pipelines)
   const error = useStore((s) => s.pipelinesError)
@@ -204,6 +325,9 @@ export function DataLibrary() {
   const filters = useStore((s) => s.dlFilters)
   const setFilters = useStore((s) => s.setDlFilters)
   const [spin, setSpin] = useState(false)
+  const [canScan, setCanScan] = useState(false)
+  const [canBuild, setCanBuild] = useState(false)
+  const [focusNeed, setFocusNeed] = useState<RecommendedNeed | null>(null)
 
   useEffect(() => {
     void refresh()
@@ -211,13 +335,20 @@ export function DataLibrary() {
     return () => clearInterval(id)
   }, [refresh])
   useEffect(() => {
+    // §5 deploy skew: a positive match only — an older engine that omits the flags leaves the paid
+    // affordances hidden rather than showing buttons that 403.
+    let alive = true
+    api.whoami().then((w) => { if (alive) { setCanScan(w.canScanPipeline === true); setCanBuild(w.canBuildConnector === true) } }).catch(() => {})
+    return () => { alive = false }
+  }, [])
+  useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close()
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [close])
 
-  const pipelines = read?.pipelines ?? []
-  const recommended = read?.recommended ?? []
+  const pipelines = useMemo(() => read?.pipelines ?? [], [read])
+  const recommended = useMemo(() => read?.recommended ?? [], [read])
   const poolAvailable = read?.poolAvailable === true // deploy-skew fail-closed (§5): absent field → not mounted
   const wired = useMemo(() => pipelines.filter((p) => matchesDlPipeline(p, filters)), [pipelines, filters])
   const recs = useMemo(() => recommended.filter((r) => matchesDlRecommended(r, filters)), [recommended, filters])
@@ -231,85 +362,108 @@ export function DataLibrary() {
     () => [...new Set([...pipelines.map((p) => String(p.tier)), ...recommended.map((r) => String(r.tier))])].sort(),
     [pipelines, recommended])
   const selected = selectedId ? pipelines.find((p) => p.id === selectedId) : undefined
+  const problems = useMemo(() => pipelines.filter((p) => p.verdict === 'attention' || p.verdict === 'broken').length, [pipelines])
 
-  const doRefresh = () => { setSpin(true); void refresh().finally(() => setTimeout(() => setSpin(false), 600)) }
-  const setKind = (kind: string) => setFilters({ ...filters, kind: filters.kind === kind ? '' : kind })
+  const doRefresh = useCallback(() => {
+    setSpin(true)
+    void refresh().finally(() => setTimeout(() => setSpin(false), 600))
+  }, [refresh])
+  // the funnel is one axis: picking a bucket clears the other, so the counts always match what is listed
+  const setBucket = (patch: Partial<typeof filters>) => setFilters({ ...filters, kind: '', verdict: '', ...patch })
+  const bucket = filters.kind === 'recommended' ? 'recommended' : filters.verdict || (filters.kind === 'wired' ? 'wired' : '')
 
   return (
     <motion.div className="pipeline datalib" initial={{ opacity: 0, x: '100%' }} animate={{ opacity: 1, x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
       <div className="pipeline__head">
         <div className="pipeline__titlewrap">
           <div className="pipeline__title">Data library</div>
-          <div className="pipeline__sub">the wired pipelines feeding the pool — and the gaps worth wiring next</div>
+          <div className="pipeline__sub">every feed pouring primary data into the pool — whether it is working, and what is still missing</div>
         </div>
         <div className="pipeline__tools">
-          <button className={`btn btn--ghost${spin ? ' is-spinning' : ''}`} onClick={doRefresh} title="Re-read the connector registry and pool freshness">↻</button>
+          <button className={`btn btn--ghost pipeline__refresh${spin ? ' is-spinning' : ''}`} onClick={doRefresh} title="Re-read the connector registry, pool freshness and fetch health">↻</button>
           <button className="btn btn--ghost" onClick={close} title="Close">✕</button>
         </div>
       </div>
+
+      {read !== null && !selected && <HealthStrip pipelines={pipelines} poolAvailable={poolAvailable} runner={read.runner} />}
 
       {selected ? (
         <PipelineDetail p={selected} poolAvailable={poolAvailable} />
       ) : (
         <div className="datalib__body">
-          {read === null && !error && <Skeletons />}
-          {read === null && error && (
-            <div className="bookempty">
-              <div className="bookempty__title">Couldn’t load the pipeline library</div>
-              <div className="bookempty__body">{error}</div>
-              <button className="btn" onClick={doRefresh}>retry</button>
-            </div>
-          )}
-          {read !== null && (
-            <>
-              {error && (
-                <div className="datalib__degraded">
-                  latest refresh failed ({error}) — showing the last good read
-                  <button className="btn btn--ghost" onClick={doRefresh}>retry</button>
-                </div>
-              )}
-              <div className="datalib__controls">
-                <div className="seg" role="radiogroup" aria-label="Wired or recommended">
-                  <button className={`seg__btn${!filters.kind ? ' seg__btn--on' : ''}`} role="radio" aria-checked={!filters.kind} onClick={() => setKind('')}>All {pipelines.length + recommended.length}</button>
-                  <button className={`seg__btn${filters.kind === 'wired' ? ' seg__btn--on' : ''}`} role="radio" aria-checked={filters.kind === 'wired'} disabled={!pipelines.length} onClick={() => setKind('wired')}>Wired {pipelines.length}</button>
-                  <button className={`seg__btn${filters.kind === 'recommended' ? ' seg__btn--on' : ''}`} role="radio" aria-checked={filters.kind === 'recommended'} disabled={!recommended.length} onClick={() => setKind('recommended')}>Recommended {recommended.length}</button>
-                </div>
-                <DataLibraryFilters value={filters} onChange={setFilters} subjects={subjects} cadences={cadences} tiers={tiers} />
+          <div className="datalib__col">
+            {read === null && !error && <Skeletons />}
+            {read === null && error && (
+              <div className="bookempty">
+                <div className="bookempty__title">Couldn’t load the pipeline library</div>
+                <div className="bookempty__body">{error}</div>
+                <button className="btn" onClick={doRefresh}>retry</button>
               </div>
-
-              {wired.length > 0 && filters.kind !== 'recommended' && (
-                <div className="datalib__list">
-                  {wired.map((p) => <WiredRow key={p.id} p={p} poolAvailable={poolAvailable} onOpen={() => setSelected(p.id)} />)}
+            )}
+            {read !== null && (
+              <>
+                {error && (
+                  <div className="datalib__degraded">
+                    latest refresh failed ({error}) — showing the last good read
+                    <button className="btn btn--ghost" onClick={doRefresh}>retry</button>
+                  </div>
+                )}
+                <div className="datalib__controls">
+                  <div className="seg" role="radiogroup" aria-label="Which feeds to show">
+                    <button className={`seg__btn${!bucket ? ' seg__btn--on' : ''}`} role="radio" aria-checked={!bucket} onClick={() => setBucket({})}>All {pipelines.length + recommended.length}</button>
+                    <button className={`seg__btn${bucket === 'live' ? ' seg__btn--on' : ''}`} role="radio" aria-checked={bucket === 'live'} disabled={!pipelines.some((p) => p.verdict === 'live')} onClick={() => setBucket({ verdict: bucket === 'live' ? '' : 'live' })}>Live {pipelines.filter((p) => p.verdict === 'live').length}</button>
+                    <button className={`seg__btn${bucket === 'problem' ? ' seg__btn--on' : ''}`} role="radio" aria-checked={bucket === 'problem'} disabled={!problems} onClick={() => setBucket({ verdict: bucket === 'problem' ? '' : 'problem' })}>Needs fixing {problems}</button>
+                    <button className={`seg__btn${bucket === 'recommended' ? ' seg__btn--on' : ''}`} role="radio" aria-checked={bucket === 'recommended'} disabled={!recommended.length} onClick={() => setBucket({ kind: bucket === 'recommended' ? '' : 'recommended' })}>Missing {recommended.length}</button>
+                  </div>
+                  <DataLibraryFilters value={filters} onChange={setFilters} subjects={subjects} cadences={cadences} tiers={tiers} />
                 </div>
-              )}
-              {filters.kind !== 'recommended' && !wired.length && !pipelines.length && (
-                <div className="bookempty">
-                  <div className="bookempty__title">No pipelines discovered</div>
-                  <div className="bookempty__body">nothing under .claude/connectors/ on this engine — a pipeline is a connector folder with a connector.json manifest and a fetch.py</div>
-                </div>
-              )}
 
-              {filters.kind !== 'wired' && (
-                <>
-                  <div className="datalib__sechead">Recommended to add <span className="datalib__fine">— data the runs said would sharpen a call, not wired yet</span></div>
-                  {recs.length > 0 ? (
-                    <div className="datalib__list">{recs.map((r) => <RecommendedRow key={r.key} r={r} />)}</div>
-                  ) : recommended.length === 0 ? (
-                    <div className="bookempty bookempty--slim">
-                      <div className="bookempty__body">No unmet data needs — every surfaced need is wired or filing-bound.</div>
+                {wired.length > 0 && filters.kind !== 'recommended' && (
+                  <div className="datalib__list">
+                    {wired.map((p) => <WiredRow key={p.id} p={p} onOpen={() => setSelected(p.id)} />)}
+                  </div>
+                )}
+                {filters.kind !== 'recommended' && !wired.length && !pipelines.length && (
+                  <div className="bookempty">
+                    <div className="bookempty__title">No feeds wired yet</div>
+                    <div className="bookempty__body">nothing under .claude/connectors/ on this engine — a feed is a connector folder with a connector.json manifest and a fetch.py. Find one below and it gets built for you.</div>
+                  </div>
+                )}
+
+                {filters.kind !== 'wired' && !filters.verdict && (
+                  <>
+                    <div className="datalib__sechead">
+                      Missing data
+                      <span className="datalib__fine">— the runs said these would sharpen a call, and nothing feeds them yet</span>
                     </div>
-                  ) : null}
-                </>
-              )}
+                    {recs.length > 0 ? (
+                      <div className="datalib__list">
+                        {recs.map((r) => <RecommendedRow key={r.key} r={r} canScan={canScan} onBuild={() => setFocusNeed(r)} />)}
+                      </div>
+                    ) : recommended.length === 0 ? (
+                      <div className="bookempty bookempty--slim">
+                        <div className="bookempty__body">No unmet data needs — every gap a run surfaced is either wired or can only be closed by a filing.</div>
+                      </div>
+                    ) : null}
+                  </>
+                )}
 
-              {dlFiltersActive(filters) && !wired.length && !recs.length && (pipelines.length + recommended.length > 0) && (
-                <div className="bookempty bookempty--filtered">
-                  <div className="bookempty__title">Nothing matches these filters</div>
-                  <button className="btn" onClick={() => setFilters(emptyDlFilters())}>clear filters</button>
-                </div>
-              )}
-            </>
-          )}
+                {dlFiltersActive(filters) && !wired.length && !recs.length && (pipelines.length + recommended.length > 0) && (
+                  <div className="bookempty bookempty--filtered">
+                    <div className="bookempty__title">Nothing matches these filters</div>
+                    <button className="btn" onClick={() => setFilters(emptyDlFilters())}>clear filters</button>
+                  </div>
+                )}
+
+                <DataLibraryBuild
+                  pipelines={pipelines} recommended={recommended}
+                  canScan={canScan} canBuild={canBuild}
+                  focusNeed={focusNeed} onFocusHandled={() => setFocusNeed(null)}
+                  onRefresh={doRefresh}
+                />
+              </>
+            )}
+          </div>
         </div>
       )}
     </motion.div>

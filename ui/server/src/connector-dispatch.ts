@@ -16,7 +16,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { CONNECTOR_BUILD, STATE_DIR, connectorDispatchReady } from './config'
-import { runWorktreeAgent } from './connector-agent'
+import { runWorktreeAgent, type AgentStep } from './connector-agent'
 import { appendPipelineEvent, type PipelineSourceRecord, type ScanVerdict } from './pipeline-store'
 
 const WORKTREE_BASE = process.env.ENGINE_CONNECTOR_WORKTREE_DIR || path.join(os.tmpdir(), 'nostra-connector-worktrees')
@@ -41,6 +41,58 @@ export interface DispatchAccept {
   accepted: boolean
   status: 'dispatched' | 'busy' | 'daily_cap' | 'not_ready' | 'already_running' | 'not_buildable'
   message: string
+}
+
+// ---------- live build progress ----------
+// The build is a long background job (a coding agent in a worktree, minutes not seconds), so "sent to the
+// build engine" alone is not visibility. Each run keeps a bounded, in-memory transcript of what the agent is
+// doing right now, which the cockpit replays-then-streams. Deliberately NOT persisted: the durable record of
+// a build is its ledger events + its PR (both already written); this is the live view, and losing it on a
+// restart costs nothing that the ledger does not still carry.
+export interface BuildProgress {
+  pipelineId: string
+  running: boolean
+  startedAt: string
+  finishedAt: string | null
+  steps: AgentStep[]
+  outcome: 'pr_open' | 'assessed' | null
+  prUrl: string | null
+  connectorId: string | null
+  note: string
+}
+
+const MAX_STEPS = 200 // ~the last few minutes of tool calls; older steps scroll out of the buffer
+const MAX_TRACKED = 24 // finished builds kept for replay before the oldest is dropped
+const progress = new Map<string, BuildProgress>()
+const watchers = new Map<string, Set<(p: BuildProgress) => void>>()
+
+function emit(p: BuildProgress): void {
+  for (const cb of watchers.get(p.pipelineId) ?? []) { try { cb(p) } catch { /* a bad subscriber never breaks a build */ } }
+}
+
+function prune(): void {
+  const finished = [...progress.values()].filter((p) => !p.running).sort((a, b) => (a.finishedAt ?? '').localeCompare(b.finishedAt ?? ''))
+  for (const p of finished.slice(0, Math.max(0, finished.length - MAX_TRACKED))) {
+    if (!watchers.has(p.pipelineId)) progress.delete(p.pipelineId)
+  }
+}
+
+/** The live (or last) transcript of a build, or null when this server has never run one for that id. */
+export function getBuildProgress(id: string): BuildProgress | null {
+  return progress.get(id) ?? null
+}
+
+/** Watch one build. Fires on every step and on completion; returns the unsubscribe. */
+export function subscribeBuild(id: string, cb: (p: BuildProgress) => void): () => void {
+  let set = watchers.get(id)
+  if (!set) { set = new Set(); watchers.set(id, set) }
+  set.add(cb)
+  return () => {
+    const s = watchers.get(id)
+    if (!s) return
+    s.delete(cb)
+    if (!s.size) { watchers.delete(id); prune() }
+  }
 }
 
 const branchFor = (id: string) => `connector/${id.toLowerCase()}`
@@ -118,16 +170,40 @@ export function buildPrompt(source: PipelineSourceRecord, verdict: ScanVerdict):
 /** The background run: shared worktree agent → record outcome on the pipeline ledger → free the slot. */
 async function runDispatch(source: PipelineSourceRecord, verdict: ScanVerdict, user: string): Promise<void> {
   const id = source.pipeline_id
+  const live: BuildProgress = {
+    pipelineId: id, running: true, startedAt: new Date().toISOString().replace(/\.\d{3}Z$/, 'Z'), finishedAt: null,
+    steps: [], outcome: null, prUrl: null, connectorId: null, note: '',
+  }
+  progress.set(id, live)
+  emit(live)
+  const finish = (note: string) => {
+    live.running = false
+    live.finishedAt = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
+    live.note = note
+    emit(live)
+    prune()
+  }
   try {
     const res = await runWorktreeAgent({
       branch: branchFor(id), worktree: worktreeFor(id), prompt: buildPrompt(source, verdict),
       outcomeFile: OUTCOME_FILE, logName: '.connector-run.log',
       maxTurns: CONNECTOR_BUILD.maxTurns, budgetUsd: CONNECTOR_BUILD.budgetUsd, log,
+      onStep: (s) => {
+        live.steps.push(s)
+        if (live.steps.length > MAX_STEPS) live.steps.splice(0, live.steps.length - MAX_STEPS)
+        emit(live)
+      },
     })
-    await appendPipelineEvent(id, res.outcome === 'pr_open' ? 'pr_open' : 'assessed', { note: res.note || '', prUrl: res.pr_url || null, user })
+    live.outcome = res.outcome
+    live.prUrl = res.pr_url || null
+    live.connectorId = res.connector_id || null
+    await appendPipelineEvent(id, res.outcome === 'pr_open' ? 'pr_open' : 'assessed', { note: res.note || '', prUrl: res.pr_url || null, connectorId: res.connector_id || null, user })
+    finish(res.note || '')
     log(`recorded ${res.outcome} for ${id}${res.pr_url ? ` → ${res.pr_url}` : ''}`)
   } catch (e: any) {
     log(`dispatch failed ${id}: ${e?.message || e}`)
+    live.outcome = 'assessed'
+    finish(`Build failed: ${e?.message || 'error'}`)
     try { await appendPipelineEvent(id, 'assessed', { note: `Build failed: ${e?.message || 'error'}`, user }) } catch { /* ledger best-effort */ }
   } finally {
     inflight.delete(id)

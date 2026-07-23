@@ -217,14 +217,30 @@ export function buildScanPrompt(input: ScanInput): string {
   ].filter(Boolean).join('\n')
 }
 
-/** Run one relevance scan, streaming live signals via onSignal; resolves with the parsed verdict. */
-export async function runRelevanceScan(opts: {
-  input: ScanInput
+export interface ReadOnlyAgentOutcome {
+  text: string // everything the agent said, for the caller to parse its final JSON out of
+  costUsd: number
+  error?: string // a friendly message when the run failed (absent on success); 'aborted' on client close
+}
+
+/**
+ * Run ONE read-only Claude with the hard-locked WebFetch/WebSearch/Read toolset, streaming live signals via
+ * onSignal, and resolve with everything it said. This is the shared spawn behind BOTH paid read-only steps of
+ * the data-pipeline loop — the relevance SCAN of a source the user pasted, and the DISCOVERY sweep that goes
+ * looking for sources (pipeline-discover.ts). Only the prompt and the parse of the final JSON differ, so the
+ * security-critical part (no Bash/Write/Edit, keychain env, budget + turn + time caps, abort on disconnect)
+ * lives here exactly once (CLAUDE.md §2).
+ */
+export async function runReadOnlyAgent(opts: {
+  prompt: string
   signal: AbortSignal
   onSignal: (s: ScanSignal) => void
-}): Promise<ScanOutcome> {
+  maxTurns?: number
+  budgetUsd?: number
+  timeoutMs?: number
+}): Promise<ReadOnlyAgentOutcome> {
   if (activeScans >= PIPELINE_SCAN.maxConcurrent) {
-    return { verdict: null, costUsd: 0, error: 'The scanner is busy right now — try again in a moment.' }
+    return { text: '', costUsd: 0, error: 'The scanner is busy right now — try again in a moment.' }
   }
   activeScans++
   try {
@@ -240,8 +256,8 @@ export async function runRelevanceScan(opts: {
       if (flags.has('--disallowed-tools')) args.push('--disallowed-tools', 'Bash Edit Write NotebookEdit Task MultiEdit')
     }
     if (flags.has('--model')) args.push('--model', PIPELINE_SCAN.model)
-    if (flags.has('--max-turns')) args.push('--max-turns', String(PIPELINE_SCAN.maxTurns))
-    if (flags.has('--max-budget-usd')) args.push('--max-budget-usd', String(PIPELINE_SCAN.budgetUsd))
+    if (flags.has('--max-turns')) args.push('--max-turns', String(opts.maxTurns ?? PIPELINE_SCAN.maxTurns))
+    if (flags.has('--max-budget-usd')) args.push('--max-budget-usd', String(opts.budgetUsd ?? PIPELINE_SCAN.budgetUsd))
     if (flags.has('--permission-mode')) args.push('--permission-mode', 'bypassPermissions')
 
     const env = childEnv() // keychain-authed like chat; news-provider secrets scrubbed. No PR token (read-only).
@@ -250,19 +266,19 @@ export async function runRelevanceScan(opts: {
     try {
       child = execa(CLAUDE_BIN, args, {
         cwd: REPO_ROOT, stdin: 'pipe', stdout: 'pipe', stderr: 'pipe',
-        buffer: false, reject: false, timeout: PIPELINE_SCAN.timeoutMs, env,
+        buffer: false, reject: false, timeout: opts.timeoutMs ?? PIPELINE_SCAN.timeoutMs, env,
       })
     } catch (e: any) {
-      return { verdict: null, costUsd: 0, error: `Could not start the scanner: ${e?.message || e}` }
+      return { text: '', costUsd: 0, error: `Could not start the scanner: ${e?.message || e}` }
     }
     child.stdin?.on('error', () => { /* EPIPE — child exited before reading the prompt */ })
-    try { child.stdin?.write(buildScanPrompt(opts.input)); child.stdin?.end() } catch { /* child may have died */ }
+    try { child.stdin?.write(opts.prompt); child.stdin?.end() } catch { /* child may have died */ }
 
     const kill = () => {
       try { child.kill('SIGTERM') } catch { /* already gone */ }
       setTimeout(() => { try { child.kill('SIGKILL') } catch { /* gone */ } }, 1500)
     }
-    if (opts.signal.aborted) { kill(); return { verdict: null, costUsd: 0, error: 'aborted' } }
+    if (opts.signal.aborted) { kill(); return { text: '', costUsd: 0, error: 'aborted' } }
     const onAbort = () => kill()
     opts.signal.addEventListener('abort', onAbort)
 
@@ -303,17 +319,28 @@ export async function runRelevanceScan(opts: {
     opts.signal.removeEventListener('abort', onAbort)
     if (buf.trim()) handle(buf)
 
-    if (opts.signal.aborted) return { verdict: null, costUsd: cost, error: 'aborted' }
-    if (resultError) return { verdict: null, costUsd: cost, error: resultError }
-    if (res?.timedOut) return { verdict: null, costUsd: cost, error: 'The scan took too long and was stopped. Try a more specific source URL.' }
-
-    const raw = extractLastJsonObject(answerText)
-    if (!raw) {
+    if (opts.signal.aborted) return { text: answerText, costUsd: cost, error: 'aborted' }
+    if (resultError) return { text: answerText, costUsd: cost, error: resultError }
+    if (res?.timedOut) return { text: answerText, costUsd: cost, error: 'The scan took too long and was stopped. Try a more specific source URL.' }
+    if (!answerText.trim()) {
       const tail = (stderr || '').trim().slice(-200)
-      return { verdict: null, costUsd: cost, error: tail ? `The scan produced no verdict: ${tail}` : 'The scan produced no verdict.' }
+      return { text: '', costUsd: cost, error: tail ? `The scan said nothing: ${tail}` : 'The scan said nothing.' }
     }
-    return { verdict: sanitizeVerdict(raw), costUsd: cost }
+    return { text: answerText, costUsd: cost }
   } finally {
     activeScans--
   }
+}
+
+/** Run one relevance scan over a user-added source; resolves with the parsed, sanitized verdict. */
+export async function runRelevanceScan(opts: {
+  input: ScanInput
+  signal: AbortSignal
+  onSignal: (s: ScanSignal) => void
+}): Promise<ScanOutcome> {
+  const out = await runReadOnlyAgent({ prompt: buildScanPrompt(opts.input), signal: opts.signal, onSignal: opts.onSignal })
+  if (out.error) return { verdict: null, costUsd: out.costUsd, error: out.error }
+  const raw = extractLastJsonObject(out.text)
+  if (!raw) return { verdict: null, costUsd: out.costUsd, error: 'The scan produced no verdict.' }
+  return { verdict: sanitizeVerdict(raw), costUsd: out.costUsd }
 }

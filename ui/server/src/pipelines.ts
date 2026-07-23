@@ -18,8 +18,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { listConnectorDirs, type ConnectorDirEntry } from './connector-registry'
-import { DATA_DIR, REPO_ROOT } from './config'
+import { CONNECTOR_RUNNER, DATA_DIR, REPO_ROOT, connectorAutoRepairReady, connectorRunnerReady } from './config'
 import { readDataNeeds } from './data-needs'
+import { latestRepairStatus, type RepairStatus } from './connector-health'
+import { feedHealthOf, readFeedHealth, type FeedHealth, type FeedHealthState } from './feed-health'
 import { listSwarms } from './swarms'
 import { swarmSubjects } from './roster'
 import { TICKER_RE, isValidTicker } from './sandbox'
@@ -30,6 +32,12 @@ export interface PipelineSubjectStatus {
   latestAsOf?: string
   ageDays?: number
   latestFile?: string
+  // The FETCH side of the same feed, from #287's run ledger — a different fact from the file freshness above
+  // (a feed can be fresh-but-broken, or stale-but-healthy because the source published nothing new).
+  health: FeedHealthState
+  lastSweepAt?: string
+  lastError?: string
+  failStreak: number
 }
 export interface PipelineHelp {
   swarm: string
@@ -59,7 +67,13 @@ export interface PipelineEntry {
   satisfies: string[]
   helps: PipelineHelp[]
   statuses: PipelineSubjectStatus[]
+  // The one-word answer to "is this feed working?", rolled up across its subjects, and the plain-English
+  // sentence behind it. `unknown` is served honestly on a host with no pool mount — never a fake 'live'.
+  verdict: PipelineVerdict
+  verdictNote: string
+  repair: { status: RepairStatus; prUrl: string | null }
 }
+export type PipelineVerdict = 'live' | 'attention' | 'broken' | 'unknown'
 export interface RecommendedNeed {
   key: string
   swarm: string
@@ -80,6 +94,16 @@ export interface PipelinesRead {
   pipelines: PipelineEntry[]
   recommended: RecommendedNeed[]
   widened: string[]
+  runner: RunnerStatus
+}
+// What is (and is not) keeping the feeds alive on this host. `lastFetchSweepAt` is EMPIRICAL — the newest row
+// in the fetch ledger — so it stays truthful whether or not the launchd fetcher is installed here; the two
+// booleans are the server's own repair loop, which is a different process from the fetcher.
+export interface RunnerStatus {
+  watchdogOn: boolean
+  autoRepairOn: boolean
+  pollIntervalMin: number
+  lastFetchSweepAt: string | null
 }
 
 // Enums mirrored from the decision_record schema / connector convention — a manifest outside them is
@@ -174,13 +198,21 @@ function parseManifest(entry: ConnectorDirEntry, widened: string[]): ParsedManif
   }
 }
 
-function subjectStatus(p: ParsedManifest, subject: string, poolAvailable: boolean, widened: string[]): PipelineSubjectStatus {
-  if (!poolAvailable) return { subject, status: 'unknown' }
+function subjectStatus(
+  p: ParsedManifest, subject: string, poolAvailable: boolean, widened: string[], feed: FeedHealth,
+): PipelineSubjectStatus {
+  const fetchSide = {
+    health: feed.state,
+    lastSweepAt: feed.lastSweepAt || undefined,
+    lastError: feed.state === 'failing' || feed.state === 'broken' ? (feed.message || undefined) : undefined,
+    failStreak: feed.failStreak,
+  }
+  if (!poolAvailable) return { subject, status: 'unknown', ...fetchSide }
   const rel = p.outputPath.replaceAll('<SUBJECT>', subject)
   const dirAbs = path.resolve(REPO_ROOT, path.dirname(rel))
   if (dirAbs !== DATA_DIR && !dirAbs.startsWith(DATA_DIR + path.sep)) {
     widened.push(`${p.id}: output dir for ${subject} escapes the pool — status unknown`)
-    return { subject, status: 'unknown' }
+    return { subject, status: 'unknown', ...fetchSide }
   }
   const [pre, post] = path.posix.basename(rel).split('<as_of>')
   const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -189,7 +221,7 @@ function subjectStatus(p: ParsedManifest, subject: string, poolAvailable: boolea
   try {
     names = fs.readdirSync(dirAbs)
   } catch {
-    return { subject, status: 'missing' }
+    return { subject, status: 'missing', ...fetchSide }
   }
   let latest: string | undefined
   let latestFile: string | undefined
@@ -201,7 +233,7 @@ function subjectStatus(p: ParsedManifest, subject: string, poolAvailable: boolea
       latestFile = path.relative(REPO_ROOT, path.join(dirAbs, n))
     }
   }
-  if (!latest) return { subject, status: 'missing' }
+  if (!latest) return { subject, status: 'missing', ...fetchSide }
   const ageDays = Math.floor((Date.now() - Date.parse(latest)) / 86_400_000)
   return {
     subject,
@@ -209,6 +241,46 @@ function subjectStatus(p: ParsedManifest, subject: string, poolAvailable: boolea
     latestAsOf: latest,
     ageDays,
     latestFile,
+    ...fetchSide,
+  }
+}
+
+// The row's headline, in the order a reader cares about: a dead fetcher outranks a stale file, and a stale
+// file outranks a clean one. Every branch names the SPECIFIC evidence (the error, the age, the SLA) — a
+// coloured dot with no sentence behind it is what made the old surface unreadable.
+export function rollUpVerdict(
+  statuses: PipelineSubjectStatus[], slaDays: number, poolAvailable: boolean,
+): { verdict: PipelineVerdict; note: string } {
+  if (!poolAvailable) return { verdict: 'unknown', note: 'the data pool is not mounted on this host — freshness and fetch health are computed on the always-on machine' }
+  if (!statuses.length) return { verdict: 'unknown', note: 'the manifest names no subject to check' }
+
+  const broken = statuses.find((s) => s.health === 'broken')
+  if (broken) {
+    return { verdict: 'broken', note: `the last ${broken.failStreak} fetches of ${broken.subject} failed${broken.lastError ? ` — ${broken.lastError}` : ''}` }
+  }
+  const failing = statuses.find((s) => s.health === 'failing')
+  if (failing) {
+    return { verdict: 'attention', note: `the last fetch of ${failing.subject} failed${failing.lastError ? ` — ${failing.lastError}` : ''}; it retries on the next sweep` }
+  }
+  const noPool = statuses.find((s) => s.health === 'no_pool')
+  if (noPool) return { verdict: 'attention', note: `there is no data folder for ${noPool.subject} on the fetching host, so nothing can be written` }
+
+  const missing = statuses.find((s) => s.status === 'missing')
+  if (missing) {
+    return missing.health === 'never_run'
+      ? { verdict: 'attention', note: `no file yet for ${missing.subject} — the fetcher has not swept this feed` }
+      : { verdict: 'attention', note: `no file yet for ${missing.subject}` }
+  }
+  const stale = statuses.find((s) => s.status === 'stale')
+  if (stale) return { verdict: 'attention', note: `${stale.subject} is ${stale.ageDays} days old, past its ${slaDays}-day freshness window` }
+
+  const oldest = statuses.reduce((w, s) => ((s.ageDays ?? 0) > (w.ageDays ?? 0) ? s : w), statuses[0])
+  const manual = statuses.every((s) => s.health === 'manual')
+  return {
+    verdict: 'live',
+    note: manual
+      ? `hand-staged by its own manifest; newest file is ${oldest.ageDays ?? 0} days old, inside its ${slaDays}-day window`
+      : `fetching cleanly; newest file is ${oldest.ageDays ?? 0} days old, inside its ${slaDays}-day window`,
   }
 }
 
@@ -226,14 +298,27 @@ export function readPipelines(force = false): PipelinesRead {
     poolAvailable = false
   }
 
+  // ONE ledger fold for the whole read (§2) — every pipeline × subject looks its fetch health up in this map.
+  const feedHealth = readFeedHealth()
+  let lastFetchSweepAt: string | null = null
+  for (const h of feedHealth.values()) {
+    if (h.lastSweepAt && (!lastFetchSweepAt || h.lastSweepAt > lastFetchSweepAt)) lastFetchSweepAt = h.lastSweepAt
+  }
+
   const pipelines: PipelineEntry[] = []
   for (const entry of listConnectorDirs()) {
     const p = parseManifest(entry, widened)
     if (!p) continue
+    const statuses = p.subjects.map((s) => subjectStatus(p, s, poolAvailable, widened, feedHealthOf(feedHealth, p.id, s)))
+    const { verdict, note } = rollUpVerdict(statuses, p.stalenessSlaDays, poolAvailable)
+    const repair = latestRepairStatus(p.id)
     pipelines.push({
       ...p,
       helps: [],
-      statuses: p.subjects.map((s) => subjectStatus(p, s, poolAvailable, widened)),
+      statuses,
+      verdict,
+      verdictNote: note,
+      repair: { status: repair.status, prUrl: repair.pr_url },
     })
   }
 
@@ -285,6 +370,12 @@ export function readPipelines(force = false): PipelinesRead {
     pipelines,
     recommended,
     widened,
+    runner: {
+      watchdogOn: connectorRunnerReady(),
+      autoRepairOn: connectorAutoRepairReady(),
+      pollIntervalMin: CONNECTOR_RUNNER.pollIntervalMin,
+      lastFetchSweepAt,
+    },
   }
   cache = { at: Date.now(), read }
   return read

@@ -67,9 +67,10 @@ import { carryForwardModules, dataPoolNewest, prepareModuleResume, thesisPlan } 
 import { readIntakePlan } from './intake'
 import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-changed'
 import { readDataNeeds } from './data-needs'
-import { appendPipelineEvent, getPipelineSource, getPipelineView, isPipelineId, listPipelineForSubject, writePipelineSource, type PipelineSourceKind } from './pipeline-store'
+import { appendPipelineEvent, getPipelineSource, getPipelineView, isPipelineId, listPipelineForSubject, listRecentPipeline, writePipelineSource, type PipelineSourceKind } from './pipeline-store'
 import { runRelevanceScan, type ScanSignal } from './pipeline-scan'
-import { startConnectorDispatch } from './connector-dispatch'
+import { runFeedDiscovery } from './pipeline-discover'
+import { getBuildProgress, startConnectorDispatch, subscribeBuild } from './connector-dispatch'
 import { getConnector } from './connector-registry'
 import { startConnectorRunner, lastLedgerError } from './connector-runner'
 import { startConnectorRepair } from './connector-repair'
@@ -959,6 +960,127 @@ app.post('/api/pipeline/source/:id/build', { config: { rateLimit: { max: 30, tim
   if (!view.verdict) return reply.code(409).send({ error: 'scan this source before building a connector for it' })
   const outcome = startConnectorDispatch(source, view.verdict, user)
   return reply.code(outcome.accepted ? 202 : 409).send({ ok: outcome.accepted, ...outcome })
+})
+
+// ---------- data library: find feeds → build them → watch it happen ----------
+// The Data Library's own half of the loop. /api/pipeline/* above starts from a source the user already has;
+// these start from a SUBJECT and go looking. Same gates as the scan/build they reuse (admin + the paid-spawn
+// flags, both fail-closed), same swarm/subject barriers, and the SAME ledger — a discovered feed is written
+// as an ordinary pipeline source with its scan verdict attached, so the existing build route drives it and
+// nothing here is a parallel pipeline.
+
+// Deep-search the open web for feeds worth wiring for one subject, streaming what it is doing second by
+// second. Each keeper is persisted (source + `scanned` verdict) and streamed back with its pipeline_id, so
+// the client can hand it straight to the build route. `autoBuild` builds the single strongest candidate — the
+// one-click path from the Recommended row — and is ignored unless the caller may build.
+const DiscoverBody = z.object({
+  subject: z.string().regex(TICKER_RE),
+  need_id: z.string().max(128).nullish(),
+  want: z.string().max(500).optional(),
+  autoBuild: z.boolean().optional(),
+}).strip()
+app.post('/api/pipelines/discover', { config: { rateLimit: { max: 20, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const body = DiscoverBody.safeParse(req.body)
+  if (!body.success) return reply.code(400).send({ error: 'invalid body', detail: body.error.flatten() })
+  const subject = body.data.subject
+  if (!isValidTicker(subject)) return reply.code(400).send({ error: 'bad subject' })
+  const swarmId = String((req.query as any)?.swarm ?? RESEARCH_SWARM_ID)
+  if (!swarmById(swarmId)) return reply.code(400).send({ error: 'unknown swarm' })
+  const { user } = identify(req)
+  if (!isDispatchAdmin(user) || !pipelineScanReady()) return reply.code(403).send({ error: 'not authorized to search for feeds (admin only, and scanning must be enabled)' })
+  const mayBuild = isDispatchAdmin(user) && connectorDispatchReady()
+
+  // relevance inputs: what the runs said is missing, and what is already wired (so nothing is proposed twice)
+  const needsRead = readDataNeeds(swarmId, subject)
+  const allNeeds = (needsRead?.needs ?? []).filter((n) => !n.filing_required)
+  const needs = body.data.need_id ? allNeeds.filter((n) => n.need_id === body.data.need_id) : allNeeds
+  const wired = readPipelines().pipelines.map((p) => ({ series: p.series, provider: p.provider, subjects: p.subjects }))
+
+  const { res, send, ping } = startSSE(reply)
+  const ac = new AbortController()
+  let closed = false
+  res.on('close', () => { closed = true; clearInterval(ping); ac.abort() })
+  send({ type: 'discover-status', stage: 'starting', openNeeds: needs.length, wired: wired.length })
+  try {
+    const out = await runFeedDiscovery({
+      input: { subject, swarm: swarmId, want: (body.data.want || '').trim(), needs, wired },
+      signal: ac.signal,
+      onSignal: (s: ScanSignal) => {
+        if (s.kind === 'ready') send({ type: 'discover-status', stage: 'searching', model: s.model })
+        else if (s.kind === 'activity') send({ type: 'discover-activity', tool: s.tool, target: s.target })
+        else if (s.kind === 'thinking') send({ type: 'discover-thinking', content: s.text })
+      },
+    })
+    if (closed) return
+    if (out.error && out.error !== 'aborted') { send({ type: 'discover-error', message: out.error }); return }
+
+    let built = 0
+    for (const feed of out.feeds) {
+      // persist as an ordinary source + its verdict, so it is indistinguishable downstream from a hand-added
+      // source that was scanned — one ledger, one build path (§2)
+      const item = await writePipelineSource({
+        subject, swarm: swarmId,
+        need_id: feed.verdict.matched_need_ids[0] ?? body.data.need_id ?? null,
+        series_hint: feed.verdict.series,
+        source_url: feed.source_url,
+        source_kind: feed.verdict.acquisition === 'scrape' ? 'scrape' : feed.verdict.acquisition === 'manual' ? 'web' : 'api',
+        note: feed.why,
+      }, user).catch(() => null)
+      if (!item) continue
+      await appendPipelineEvent(item.pipeline_id, 'scanned', { verdict: feed.verdict, note: feed.why || feed.verdict.verdict_note, user }).catch(() => null)
+      let building = false
+      // one-click: build the strongest buildable candidate straight away, and say so in the stream
+      if (body.data.autoBuild && mayBuild && built === 0 && feed.verdict.buildable && feed.verdict.relevance !== 'none') {
+        building = startConnectorDispatch(item, feed.verdict, user).accepted
+        if (building) built++
+      }
+      send({ type: 'discover-found', pipeline_id: item.pipeline_id, source_url: feed.source_url, why: feed.why, verdict: feed.verdict, building })
+    }
+    send({ type: 'discover-done', found: out.feeds.length, costUsd: out.costUsd, autoBuilt: built })
+  } catch (e: any) {
+    if (!closed) send({ type: 'discover-error', message: String(e?.message || e) })
+  } finally {
+    clearInterval(ping)
+    try { res.end() } catch { /* already closed */ }
+  }
+})
+
+// Every build the ledger knows about, newest activity first — what the Data Library shows under "being built"
+// after a reload (the in-memory step transcript below does not survive a restart; this does).
+app.get('/api/pipelines/builds', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async () => {
+  return { items: listRecentPipeline(40).filter((v) => v.status !== 'new') }
+})
+
+// Watch ONE build happen: replays the steps so far, then streams each new one, and ends on the outcome. GET +
+// EventSource (the client reconnects for free). Read-only — starting a build stays the POST route above.
+app.get('/api/pipelines/build/:id/stream', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const id = (req.params as any).id as string
+  if (!isPipelineId(id)) return reply.code(400).send({ error: 'invalid build id' })
+  const { res, send, ping } = startSSE(reply)
+  let sent = 0
+  const push = (p: { running: boolean; steps: { tool: string; target: string }[]; outcome: string | null; prUrl: string | null; connectorId: string | null; note: string; finishedAt: string | null }) => {
+    for (const step of p.steps.slice(sent)) send({ type: 'build-step', tool: step.tool, target: step.target })
+    sent = p.steps.length
+    if (!p.running) send({ type: 'build-done', outcome: p.outcome, prUrl: p.prUrl, connectorId: p.connectorId, note: p.note, finishedAt: p.finishedAt })
+  }
+  const current = getBuildProgress(id)
+  if (!current) {
+    // no live transcript on THIS server (a restart, or another host ran it) — say so instead of hanging
+    const view = getPipelineView(id)
+    send({ type: 'build-absent', status: view?.status ?? null, prUrl: view?.pr_url ?? null, connectorId: view?.connector_id ?? null, note: view?.last_note ?? '' })
+    clearInterval(ping)
+    try { res.end() } catch { /* already closed */ }
+    return
+  }
+  send({ type: 'build-status', running: current.running, startedAt: current.startedAt })
+  const unsubscribe = subscribeBuild(id, (p) => {
+    push(p)
+    if (!p.running) { clearInterval(ping); unsubscribe(); try { res.end() } catch { /* already closed */ } }
+  })
+  res.on('close', () => { clearInterval(ping); unsubscribe() })
+  push(current)
+  if (!current.running) { clearInterval(ping); unsubscribe(); try { res.end() } catch { /* already closed */ } }
 })
 
 // ---------- connectors: the auto-repair watchdog ----------
