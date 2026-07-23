@@ -1469,7 +1469,7 @@ app.post('/api/chat', async (req, reply) => {
   let assembled
   try {
     assembled = assembleContext({
-      scope, runRoot, module, orbPath, swarmId, subject,
+      scope, runRoot, module, orbPath, swarmId,
       whatChanged: wc ? { markdown: whatChangedMarkdown(wc) } : null,
     })
   } catch (e: any) {

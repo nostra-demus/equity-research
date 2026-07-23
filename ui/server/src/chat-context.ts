@@ -12,7 +12,7 @@ import path from 'node:path'
 import { CHAT, REPO_ROOT } from './config'
 import { readDecision, readMarkdown, runManifest } from './outputs'
 import { buildSwarmGraph, findRunRootForSubject, swarmSubjects } from './roster'
-import { listSwarms, RESEARCH_SWARM_ID } from './swarms'
+import { listSwarms } from './swarms'
 import { resolveInsideRuns } from './sandbox'
 
 export type ChatScope = 'run' | 'module' | 'orb'
@@ -133,17 +133,49 @@ function render(pieces: ContextPiece[]): string {
 // subjects come from the swarm manifests + the run's content, never a hardcoded pairing.
 export interface LinkedRun { swarmId: string; subject: string; runRoot: string; mentions: number }
 
-// PURE: the subjects (by swarm) `text` references as a whole word (case-insensitive), minus the primary
-// subject and anything too short to match safely. Ranked by mention count, capped. Unit-tested fixture-free.
-export function matchLinkedSubjects(text: string, primarySubject: string, candidatesBySwarm: Record<string, string[]>, cap = 3): { swarmId: string; subject: string; mentions: number }[] {
+// PURE: normalize an OS path to forward slashes. `path.relative` yields backslashes on Windows, which would
+// break the run-root equality check (`rr === primaryRunRoot`, forward-slash) and the `startsWith(runRoot +
+// '/')` survivor filter — both compare forward-slash paths. Normalizing both sides keeps them right on any
+// platform. Unit-tested.
+export function toPosixPath(p: string): string {
+  return p.replace(/\\/g, '/')
+}
+
+// PURE: the candidate subjects, by swarm, that a run in `sourceSwarmId` may link — every OTHER swarm's
+// subjects, never the source swarm's own. Self/peer exclusion keys on the SWARM, not the subject string:
+// a research GOLD run may link the commodity GOLD dossier (different swarm, same name — the wanted cross-
+// swarm case), while a commodity GOLD run never pulls in its OWN swarm's COPPER/WHEAT comparison names.
+// Skips the active swarm, not just research. Unit-tested.
+export function linkCandidatesBySwarm(sourceSwarmId: string, subjectsBySwarm: Record<string, string[]>): Record<string, string[]> {
+  const out: Record<string, string[]> = {}
+  for (const [swarmId, subs] of Object.entries(subjectsBySwarm)) {
+    if (swarmId === sourceSwarmId) continue
+    if (subs.length) out[swarmId] = subs
+  }
+  return out
+}
+
+// PURE: a run is linkable only once it has reached its terminal, committed deliverable — decision_record.json
+// (every swarm writes it at the terminal step) or, for research, final_thesis.md. A commodity run FOLDER is
+// created BEFORE its modules run and a rerun overwrites it in place, so a bare/partial folder can hold a
+// half-written or mixed-generation dossier and must NOT be linked (committed-dossier contract). This is the
+// completion-marker file proxy for "committed" (git-tracked is not observable here). Unit-tested.
+export function isLinkableRun(man: { decisionRecord?: boolean; finalThesis?: boolean }): boolean {
+  return !!(man.decisionRecord || man.finalThesis)
+}
+
+// PURE: the subjects (by swarm) `text` references as a whole word (case-insensitive). Ranked by mention
+// count, capped. Self/peer exclusion is NOT done here — the caller passes only cross-swarm candidates (via
+// linkCandidatesBySwarm), so a candidate that shares the primary run's subject name is a genuine cross-swarm
+// link and is kept. Only too-short names (whole-word false-match risk) are skipped. Unit-tested fixture-free.
+export function matchLinkedSubjects(text: string, candidatesBySwarm: Record<string, string[]>, cap = 3): { swarmId: string; subject: string; mentions: number }[] {
   const hay = (text || '').toLowerCase()
   if (!hay) return []
-  const primary = (primarySubject || '').toLowerCase()
   const out: { swarmId: string; subject: string; mentions: number }[] = []
   for (const [swarmId, subjects] of Object.entries(candidatesBySwarm)) {
     for (const subj of subjects) {
       const s = (subj || '').toLowerCase()
-      if (s.length < 3 || s === primary) continue // skip self + too-short (whole-word false-match risk)
+      if (s.length < 3) continue // too-short → whole-word false-match risk
       const re = new RegExp(`\\b${s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g')
       const mentions = (hay.match(re) || []).length
       if (mentions > 0) out.push({ swarmId, subject: subj, mentions })
@@ -152,23 +184,30 @@ export function matchLinkedSubjects(text: string, primarySubject: string, candid
   return out.sort((a, b) => b.mentions - a.mentions || a.subject.localeCompare(b.subject)).slice(0, cap)
 }
 
-// Discover the NON-research swarm runs (commodity, screener, …) `text` references that EXIST on disk.
-// Research runs are not link targets — a thesis mentioning another ticker should not silently pull that
-// ticker's whole dossier; the cross-swarm case (research ↔ commodity) is the value. Returns run-root-
-// relative paths, confined to committed runs.
-export function discoverLinkedRuns(text: string, primarySubject: string, primaryRunRoot: string): LinkedRun[] {
-  const candidatesBySwarm: Record<string, string[]> = {}
+// Discover the committed runs of OTHER swarms that `text` references and that EXIST on disk. Self/peer
+// exclusion keys on (swarm, run identity): the SOURCE swarm's own subjects are never candidates (so a run
+// never pulls its own swarm's peers), and the primary run's own root is skipped — while a genuine cross-
+// swarm link that shares a subject name (research GOLD ↔ commodity GOLD) IS kept. Only a COMPLETED run
+// (terminal marker present — isLinkableRun) is linked, never a mid-pipeline/partial folder. Returns run-
+// root-relative (POSIX) paths, confined to committed runs. §26-generic: candidates come from the swarm
+// manifests + the run's content, never a hardcoded pairing.
+export function discoverLinkedRuns(text: string, primaryRunRoot: string, sourceSwarmId: string): LinkedRun[] {
+  const subjectsBySwarm: Record<string, string[]> = {}
   for (const swarm of listSwarms()) {
-    if (swarm.id === RESEARCH_SWARM_ID) continue
     const subs = swarmSubjects(swarm.id)
-    if (subs.length) candidatesBySwarm[swarm.id] = subs
+    if (subs.length) subjectsBySwarm[swarm.id] = subs
   }
+  const candidatesBySwarm = linkCandidatesBySwarm(sourceSwarmId, subjectsBySwarm)
+  const primary = toPosixPath(primaryRunRoot)
   const out: LinkedRun[] = []
-  for (const m of matchLinkedSubjects(text, primarySubject, candidatesBySwarm)) {
+  for (const m of matchLinkedSubjects(text, candidatesBySwarm)) {
     const abs = findRunRootForSubject(m.swarmId, m.subject)
     if (!abs) continue
-    const rr = path.relative(REPO_ROOT, abs)
-    if (rr === primaryRunRoot) continue
+    const rr = toPosixPath(path.relative(REPO_ROOT, abs))
+    if (rr === primary) continue
+    let linkable = false
+    try { linkable = isLinkableRun(runManifest(rr, resolveInsideRuns)) } catch { linkable = false }
+    if (!linkable) continue
     out.push({ swarmId: m.swarmId, subject: m.subject, runRoot: rr, mentions: m.mentions })
   }
   return out
@@ -180,7 +219,6 @@ export function assembleContext(opts: {
   module?: string
   orbPath?: string
   swarmId?: string // which swarm's module graph to walk for the run scope (default research)
-  subject?: string // the run's subject (ticker / commodity), for cross-swarm linked-dossier discovery
   linked?: boolean // include cross-swarm dossiers the run references (default on; run scope only)
   // The git-history delta, pre-computed by the caller. It arrives ALREADY RENDERED because reading git
   // is async and this assembler is sync with one caller (an already-async route handler). Keeping it that
@@ -310,7 +348,7 @@ export function assembleContext(opts: {
   let linkedRuns: LinkedRun[] = []
   if (opts.linked !== false) {
     const primaryText = pieces.map((p) => p.markdown).join('\n')
-    linkedRuns = discoverLinkedRuns(primaryText, opts.subject || '', runRoot)
+    linkedRuns = discoverLinkedRuns(primaryText, runRoot, swarmId)
     for (const lr of linkedRuns) {
       let lman
       try { lman = runManifest(lr.runRoot, resolveInsideRuns) } catch { continue }
