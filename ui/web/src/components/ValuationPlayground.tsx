@@ -33,6 +33,10 @@ const tone = (n: number | null | undefined): string => (typeof n !== 'number' ? 
 // another reason we re-sync. `numToStr` avoids clobbering an in-progress "0." with the equal-valued "0".
 const numToStr = (n: number | null): string => (n === null ? '' : String(n))
 
+// Plain-English labels for the value-producing methods (the football-field keys). Unknown keys fall through
+// to the raw key so a future method still shows a row.
+const METHOD_LABELS: Record<string, string> = { own_history: 'Own-history', peers: 'Peers', dcf: 'DCF', sotp: 'SOTP' }
+
 function Field({ label, value, onChange, step = 'any', title }: { label: string; value: number | null; onChange: (n: number | null) => void; step?: string; title?: string }) {
   const [local, setLocal] = useState<string>(numToStr(value))
   useEffect(() => { if (parseNum(local) !== value) setLocal(numToStr(value)) }, [value]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -101,6 +105,8 @@ export function ValuationPlayground() {
   const setScen = (idx: number, patch: Partial<DraftScenario>) =>
     setDraft((d) => (d ? { ...d, scenarios: d.scenarios.map((s, i) => (i === idx ? { ...s, ...patch } : s)) } : d))
   const setTop = (patch: Partial<PlaygroundDraft>) => setDraft((d) => (d ? { ...d, ...patch } : d))
+  const setMethod = (idx: number, patch: Partial<{ value: number | null; weight: number | null }>) =>
+    setDraft((d) => (d ? { ...d, methods: d.methods.map((m, i) => (i === idx ? { ...m, ...patch } : m)) } : d))
 
   const reset = () => { if (res) setDraft(draftFromResponse(res)) }
 
@@ -211,6 +217,49 @@ export function ValuationPlayground() {
               )}
             </div>
           )}
+
+          {/* ---- method mix: the base-case football field + weights (the real lever for blend-based runs) ---- */}
+          {draft.methods.length > 0 && (() => {
+            const pubBase = sysLevel('base')
+            const bp = out.blend.basePoint
+            const delta = typeof bp === 'number' && typeof pubBase === 'number' ? bp - pubBase : null
+            return (
+              <div className="vpg__section">
+                <div className="vpg__sectitle vpg__sectitle--row">
+                  <span>Method mix — base case</span>
+                  <label className="vpg__toggle" title="Use the live blended base point as the base scenario's fair value, so a moved weight flows into the base return and the expected return.">
+                    <input type="checkbox" checked={draft.driveBaseFromMix} onChange={(e) => setTop({ driveBaseFromMix: e.target.checked })} />
+                    <span>Drive base from mix</span>
+                  </label>
+                </div>
+                <div className="vpg__mixhead">
+                  <span>Method</span><span>Value</span><span>Weight</span><span>Effective</span>
+                </div>
+                {draft.methods.map((m, i) => {
+                  const eff = out.blend.effectiveWeights[m.key]
+                  return (
+                    <div key={m.key} className="vpg__mixrow">
+                      <span className="vpg__scenlabel">{METHOD_LABELS[m.key] ?? m.key}</span>
+                      <TableInput value={m.value} onChange={(n) => setMethod(i, { value: n })} ariaLabel={`${m.key} value`} />
+                      <TableInput value={m.weight} onChange={(n) => setMethod(i, { weight: n })} ariaLabel={`${m.key} weight`} />
+                      <span className="vpg__mixeff mono">{typeof eff === 'number' ? `${Math.round(eff * 100)}%` : '—'}</span>
+                    </div>
+                  )
+                })}
+                <div className="vpg__note vpg__mixsum">
+                  Blended base point <b className="mono">{fmtN(bp, 2)}</b>
+                  {typeof pubBase === 'number' && (
+                    <> vs published base <b className="mono">{fmtN(pubBase, 2)}</b>
+                      {delta !== null && Math.abs(delta) >= 0.005 && (
+                        <> (Δ <span className="mono">{delta > 0 ? '+' : ''}{fmtN(delta, 2)}</span>) — the published base applies a disclosed judgment discount; weights renormalize over the methods present, so the effective column can differ from what you type.</>
+                      )}
+                    </>
+                  )}
+                  {draft.driveBaseFromMix && <span className="vpg__note--warn"> Driving the base case — the returns above use this blend, not the frozen base.</span>}
+                </div>
+              </div>
+            )
+          })()}
 
           <div className="vpg__section">
             <div className="vpg__sectitle">Scenarios — {hasLevers ? 'forward metric × multiple' : 'levels (this run predates the levers emission)'}</div>
