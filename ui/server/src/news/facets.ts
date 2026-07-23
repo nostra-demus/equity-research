@@ -22,6 +22,9 @@ const MAX_COMPANY_FACETS = 1000
 // other spellings kept per company (beyond the primary `name`) — bounds the payload; a spelling this cuts
 // is still a rare tail (the "best" name already covers the most-mentioned form).
 const MAX_ALIASES = 5
+// a spelling needs at least this many mentions ARCHIVE-WIDE to qualify as a free-text alias — see the
+// corroboration rationale where this is used (buildCompanyFacet's alias filter, Codex review, PR #319).
+const MIN_ALIAS_MENTIONS = 2
 
 const normCompany = (s: unknown): string =>
   String(s ?? '').toLowerCase().replace(/\s+/g, ' ').replace(/[.,]/g, '').replace(/\(.*?\)/g, '').replace(/^the /, '').trim()
@@ -270,12 +273,23 @@ function buildCompanyFacet(companyRows: FacetRow[], allRows: FacetRow[]): Compan
       }
       if (!name) for (const [nm, v] of cluster.names) if (v.count > best) { best = v.count; name = nm }
       // every OTHER spelling in this (already listing-consistent) cluster, most-mentioned first, capped —
-      // EXCLUDING a spelling that is just the ticker symbol itself (the archive sometimes records a ticker
-      // as an alternate "name": e.g. "CAT" for Catapult, "ALL" for Allstate). Exact-ticker matching already
-      // covers that spelling precisely; offering it ALSO as a free-text name alias would let ordinary short
-      // English words ("the cat", "all week") false-match an unrelated headline (Codex review, PR #319).
+      // EXCLUDING (a) a spelling that is just the ticker symbol itself, CASE-SENSITIVELY (the archive
+      // sometimes records the bare ticker as an alternate "name": e.g. "CAT" for Catapult, "ALL" for
+      // Allstate — exact-ticker matching already covers that spelling precisely, so offering it ALSO as a
+      // free-text alias would let ordinary short English words false-match; case-sensitive so it drops the
+      // symbol form "CAT" but keeps a real mixed-case name like "Meta" that merely SHARES the ticker letters
+      // — Codex re-review, PR #319 caught the alias list still using a case-INSENSITIVE compare here after
+      // the primary-name selection above was fixed to be case-sensitive), and (b) a spelling seen only ONCE
+      // across the whole archive. A single mention is far more likely to be a one-off extraction slip (the
+      // archive genuinely has ticker "506295" tagged once each to two UNRELATED Indian companies — Indo
+      // Count Industries and Shekhawati Industries — and "HLT" tagged once each to Halliburton and Hilton;
+      // in both cases requiring 2+ corroborating mentions keeps neither from aliasing the other) than a
+      // real, repeatable alternate name — a genuine alias (Amazon/Amazon.com, Meta/Meta Platforms,
+      // Alphabet/Google, Ford Motor Company/Ford) recurs across the archive by construction. This also
+      // closes the "Ford"/"Willis" ambiguous-common-word cases (Codex review, PR #319) without touching the
+      // matcher: a rare, risky spelling simply never reaches the aliases array in the first place.
       const aliases = [...cluster.names.entries()]
-        .filter(([nm]) => nm !== name && nm.toUpperCase() !== tickerUpper)
+        .filter(([nm, v]) => nm !== name && nm !== tickerUpper && v.count >= MIN_ALIAS_MENTIONS)
         .sort((x, y) => y[1].count - x[1].count || x[0].localeCompare(y[0]))
         .slice(0, MAX_ALIASES)
         .map(([nm]) => nm)
