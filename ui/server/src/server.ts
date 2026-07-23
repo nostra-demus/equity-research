@@ -11,7 +11,7 @@ import multipart from '@fastify/multipart'
 import { execa } from 'execa'
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import { z } from 'zod'
-import { readActivity } from './activity-log'
+import { readActivity, ACTIVITY_FILTER_KINDS } from './activity-log'
 import { recordDataChange, syncingState, SYNC_WINDOW_MS } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
 import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
@@ -27,6 +27,7 @@ import { getCalendar } from './news/events-calendar'
 import type { FeedItem } from './news/types'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, hasAnyFilter, type FeedFilterQuery } from './news/feed-filter'
 import { computeFacets } from './news/facets'
+import { searchSymbolsEnriched } from './news/symbology'
 import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
@@ -52,6 +53,7 @@ import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
+import { classifyWhatIf, computePlan, computedContextBlock, detectWhatIf, loadSidecar } from './chat-whatif'
 import { deleteConversation, getConversation, isValidConversationId, listConversations, recordAssistantMessage, recordUserMessage } from './chat-store'
 import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
@@ -383,7 +385,7 @@ app.get('/api/activity', async (req) => {
     const n = Number(v)
     return Number.isFinite(n) ? n : undefined
   }
-  const kinds = ['full', 'module', 'agent', 'rerun', 'review', 'track', 'signal', 'sweep', 'screener-agent', 'handoff']
+  const kinds = ACTIVITY_FILTER_KINDS as readonly string[]
   const statuses = ['starting', 'running', 'done', 'error', 'cancelled', 'incomplete']
   // Swarm runs are keyed by an opaque subject id (a SIG-… signal id); resolve each to the company /
   // headline it concerns so the Company column reads as a name, not an id. Falls back to the raw id.
@@ -1544,7 +1546,39 @@ app.post('/api/chat', async (req, reply) => {
   // res.end()), which is the correct cancel signal for streamed POST output.
   res.on('close', () => { closed = true; clearInterval(ping); ac.abort() })
   send({ type: 'chat-meta', conversationId, scopeResolved: assembled.label, sourcePath: assembled.sourcePath, degraded: assembled.degraded, degradeNote: assembled.degradeNote })
-  const { system, user } = buildChatPrompts({ assembled, messages, subject, style: parsed.data.style })
+  // Deterministic what-if modeling: when the question is a quantified what-if AND this run recorded the
+  // sensitivity coefficients, compute the scenario with the engine (scripts/sensitivity_math.py) and both
+  // (a) stream it as a chat-computed card and (b) inject it as an authoritative COMPUTED SCENARIO block so
+  // the model narrates a number it did not calculate (CLAUDE.md §15/§20). Best-effort: any failure — no
+  // sidecar, an unparseable move, no python3 — degrades to a normal closed-book answer, never a 500.
+  let computedBlock: string | undefined
+  try {
+    if (detectWhatIf(last.content)) {
+      const loaded = loadSidecar(runRoot)
+      const plan = loaded ? classifyWhatIf(last.content, loaded.sidecar) : null
+      if (plan?.kind === 'unsupported') {
+        // an honest refusal card (unrecorded variable, a joint ask, or a target the sidecar can't support)
+        const payload = { kind: 'unsupported' as const, asked: last.content, recorded: plan.recorded, reason: plan.reason }
+        send({ type: 'chat-computed', payload }); computedBlock = computedContextBlock(payload)
+      } else if (plan && loaded) {
+        // 'modeling' shows ONLY once a recorded variable matched — never a flicker on a run without a sidecar.
+        // A joint ask computes each leg SEPARATELY (they don't simply add) — one card per variable.
+        send({ type: 'chat-status', stage: 'modeling' })
+        const plans = plan.kind === 'multi' ? plan.plans : [plan]
+        const blocks: string[] = []
+        for (const pl of plans) {
+          const scenario = await computePlan(loaded.sidecar, pl)
+          if (!scenario) continue
+          if (plan.kind === 'multi' && blocks.length === 0) scenario.note = `${plans.length} variables — shown separately; they don't simply add (FX also carries a separate one-off).`
+          const payload = { kind: 'scenario' as const, asked: last.content, scenario }
+          send({ type: 'chat-computed', payload })
+          blocks.push(computedContextBlock(payload))
+        }
+        if (blocks.length) computedBlock = blocks.join('\n\n───\n\n')
+      }
+    }
+  } catch { /* any what-if failure degrades to a normal closed-book answer, never a 500 */ }
+  const { system, user } = buildChatPrompts({ assembled, messages, subject, style: parsed.data.style, computedBlock })
   // Live progress for the panel's working state. Every chat-status stage maps to a REAL event (spawn /
   // CLI init / thinking block / first text block — see ChatTurnSignal in chat-llm.ts), and chat-thinking
   // streams the model's own reasoning verbatim so the user can read the thought process while waiting.
@@ -1795,6 +1829,18 @@ app.get('/api/news/search', { config: { rateLimit: { max: 600, timeWindow: '1 mi
 app.get('/api/news/facets', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
   const filters = parseFeedFilterQuery((req.query as any) || {})
   return computeFacets(REPO_ROOT, filters, { archiveDir: NEWS.newsArchiveDir })
+})
+
+// GLOBAL SYMBOL SEARCH — the "any ticker, any country" directory behind the company autofill. Resolves a
+// typed symbol or name through a free, keyless global symbol search, grouped per company with every
+// sibling listing as an alias (e.g. the US OTC ADR NHYDY → Norsk Hydro ASA with Oslo's NHY.OL) — so a
+// company is findable by ANY of its tickers even when the archive has never tagged that spelling.
+// TTL-cached server-side; fail-closed to an empty list, so offline the filter degrades to the archive
+// facet + free-typed matching instead of erroring.
+app.get('/api/news/symbols', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
+  const q = String((req.query as any)?.q ?? '').trim()
+  if (q.length < 2 || q.length > 48) return { groups: [] }
+  return { groups: await searchSymbolsEnriched(q) }
 })
 
 // DEBUG — "why did/didn't this item match this filter". Accepts as much or as little of an item's fields

@@ -83,6 +83,25 @@
 .vpg__scenlevel { font-size: 12.5px; color: var(--text-muted); }
 .vpg__scenret { font-size: 12.5px; font-weight: 600; }
 
+/* ---- method mix (base-case football field) ---- */
+.vpg__sectitle--row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.vpg__toggle {
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--text-muted);
+}
+.vpg__toggle input { accent-color: var(--accent); cursor: pointer; }
+.vpg__mixhead, .vpg__mixrow {
+  display: grid; align-items: center; gap: 8px; grid-template-columns: 1fr 78px 78px 60px;
+}
+.vpg__mixhead {
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint);
+  padding-bottom: 2px;
+}
+.vpg__mixhead > span:last-child, .vpg__mixrow > .vpg__mixeff { text-align: right; }
+.vpg__mixrow { padding: 3px 0; }
+.vpg__mixeff { font-size: 12.5px; color: var(--text-muted); }
+.vpg__mixsum { border-top: 1px dashed var(--hairline); margin-top: 4px; padding-top: 8px; }
+
 /* ---- save ---- */
 .vpg__savesec { border-top: 1px solid var(--hairline); padding-top: 14px; }
 .vpg__reason {
@@ -99,4 +118,5 @@
 @media (max-width: 560px) {
   .vpg { width: 100%; }
   .vpg__scenhead, .vpg__scenrow { grid-template-columns: 44px 52px 1fr 1fr 64px 58px; gap: 5px; }
+  .vpg__mixhead, .vpg__mixrow { grid-template-columns: 1fr 60px 60px 50px; gap: 5px; }
 }

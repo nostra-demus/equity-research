@@ -83,9 +83,13 @@ export function DataFilesPanel() {
               const hasTabs = tabs.length > 0
               const isOpen = !!expanded[f.filename]
               // external rows (data/<T>/external/**): show the document's own name (the full
-              // pool-relative path stays in the tooltip) + a compact provider · §4-tier chip
+              // pool-relative path stays in the tooltip) + a compact provider · §4-tier chip.
+              // A routed wire-event note shows its news HEADLINE (server-parsed `displayName`) instead of
+              // the machine filename, and its hover carries the source + timestamp (`note`), so a routed
+              // event is identifiable at a glance.
               const ext = f.external
-              const displayName = ext ? f.filename.split('/').pop() || f.filename : f.filename
+              const displayName = f.displayName || (ext ? f.filename.split('/').pop() || f.filename : f.filename)
+              const rowTitle = f.note ? `${f.note}\n${f.filename}` : f.filename
               const extChip = ext ? [ext.provider, ext.tier ? `T${ext.tier}` : null].filter(Boolean).join(' · ') : ''
               const extTitle = ext
                 ? [ext.provider, ext.sourceType, ext.tier ? `§4 tier ${ext.tier}` : null, ext.asOf ? `as-of ${ext.asOf}` : null]
@@ -97,8 +101,9 @@ export function DataFilesPanel() {
                     className={`datafiles__row${hasTabs ? ' datafiles__row--btn' : ''}`}
                     onClick={hasTabs ? () => setExpanded((e) => ({ ...e, [f.filename]: !e[f.filename] })) : undefined}
                   >
-                    <span className="datafiles__badge" data-conf={f.confidence}>{TYPE_LABEL[f.type] || f.type}</span>
-                    <span className="datafiles__name" title={f.filename}>{displayName}</span>
+                    {/* a routed wire-event note is NEWS, not an opaque "other" file */}
+                    <span className="datafiles__badge" data-conf={f.confidence}>{f.displayName ? 'NEWS' : TYPE_LABEL[f.type] || f.type}</span>
+                    <span className="datafiles__name" title={rowTitle}>{displayName}</span>
                     {extChip && <span className="datafiles__ext" title={extTitle}>{extChip}</span>}
                     {hasTabs ? (
                       <span className="datafiles__tabsn">{tabs.length} tabs {isOpen ? '▾' : '▸'}</span>

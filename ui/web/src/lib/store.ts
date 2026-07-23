@@ -2143,12 +2143,18 @@ export const useStore = create<State>((set, get) => ({
         // real lifecycle stages streamed by the server (starting → connected → thinking → writing);
         // an unknown/future stage is ignored rather than mis-rendered.
         onStatus: (st) => {
-          if (st.stage === 'starting' || st.stage === 'connected' || st.stage === 'thinking' || st.stage === 'writing') advance(st.stage, st.model)
+          if (st.stage === 'modeling' || st.stage === 'starting' || st.stage === 'connected' || st.stage === 'thinking' || st.stage === 'writing') advance(st.stage, st.model)
         },
         // the model's own reasoning, streamed verbatim — grows the assistant turn's thinking text live
         onThinking: (tok) => {
           const msgs = get().chatMessages.slice()
           if (msgs[idx]?.role === 'assistant') { msgs[idx] = { ...msgs[idx], thinking: (msgs[idx].thinking || '') + tok }; set({ chatMessages: msgs }) }
+        },
+        // deterministic what-if card(s) the engine computed for this turn — APPENDED (a joint ask streams one
+        // card per variable). The numbers are the engine's; the streamed text narrates around them.
+        onComputed: (c) => {
+          const msgs = get().chatMessages.slice()
+          if (msgs[idx]?.role === 'assistant') { msgs[idx] = { ...msgs[idx], computed: [...(msgs[idx].computed || []), c] }; set({ chatMessages: msgs }) }
         },
         onToken: (tok) => {
           // first answer token also flips the stage to 'writing' — covers a stream whose text arrives
@@ -2442,6 +2448,31 @@ export const useStore = create<State>((set, get) => ({
           if (bgFinal) void get().loadSwarmSubjects(r.swarmId)
         }
         if (r && r.ticker === selected) {
+          // A finished DOC-INTAKE (the "Analyze new data" advisory read) wrote/refreshed the scoped
+          // re-run plan under analyses/ — which the data/ watcher can't see, so nothing else refreshes
+          // the "New data" panel for an auto-launched read. Refresh it HERE and tell the user the
+          // OUTCOME (what the read found and what to do next) instead of a generic "Run complete".
+          if (r.kind === 'doc-intake') {
+            const tok = get().selectToken // the selection identity at read time
+            void get().refreshIntake().then(() => {
+              // The user may have switched tickers while the read refreshed; refreshIntake discards the stale
+              // response, but this continuation would otherwise announce THIS run's outcome against whatever
+              // ticker is now selected. Suppress it when the selection changed (selectToken is bumped on every
+              // ticker switch), so a completed A run never toasts a result while B is viewed.
+              if (get().selectToken !== tok) return
+              const plan = get().intake
+              const n = plan?.rerun_plan?.commands?.length ?? 0
+              const msg = !plan
+                ? 'New-data read complete — open the New data panel'
+                : plan.verdict === 'scoped_rerun' && n > 0
+                  ? `New data affects ${n} check${n === 1 ? '' : 's'} — the New data panel has the scoped re-run`
+                  : plan.verdict === 'insufficient'
+                    ? 'New-data read: not enough evidence to scope a re-run — see the New data panel'
+                    : 'New data read: filed to the pool — nothing needs re-running'
+              get().setToast({ msg, tone: 'good' })
+            })
+            break
+          }
           // a chained full run finishes once PER STEP; only the master step (the last) is "complete".
           const chained = get().chainTickers.has(r.ticker)
           const isFinal = !chained || r.module === 'master'
@@ -3491,7 +3522,7 @@ export const useStore = create<State>((set, get) => ({
   // of filtering the 2-day wire. An empty query returns the rail to LIVE mode (the SSE wire). A monotonic
   // token guards against a stale slow response overwriting a newer search (last-write-wins by query).
   scRunArchiveSearch: async (q: ArchiveQuery) => {
-    const active = !!(q.themes?.length || q.country || q.geoRegion || q.source || q.band || q.size || q.linkage || q.gicsSector || q.gicsSubSector || q.companyTicker || q.companyName || q.companyAliases?.length || q.commodities?.length || (q.text && q.text.trim()))
+    const active = !!(q.themes?.length || q.country || q.geoRegion || q.source || q.band || q.size || q.linkage || q.gicsSector || q.gicsSubSector || q.companyTicker || q.companyName || q.companyAliases?.length || q.companyTickerAliases?.length || q.commodities?.length || (q.text && q.text.trim()))
     if (!active) { // back to LIVE mode — drop the archive snapshot, keep the live wire
       archiveToken++
       set({ scArchiveQuery: {}, scArchiveResults: [], scArchiveCursor: null, scArchiveLoading: false, scArchiveLoadingMore: false, scArchiveScannedThrough: null, scArchiveExhausted: false })

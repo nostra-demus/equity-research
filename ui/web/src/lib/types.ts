@@ -1056,6 +1056,10 @@ export interface DataStatus {
     sheets?: { name: string; rows: number; cols: number; cells: number }[]
     // present for externally ingested docs under data/<T>/external/ (frameworks/EXTERNAL_DATA.md)
     external?: { provider?: string; sourceType?: string; tier?: number; asOf?: string; license?: string }
+    // present for a routed wire-event note (screener_event_<EVT>.md): the news HEADLINE to display
+    // instead of the machine filename, plus a hover line (source · when · event id)
+    displayName?: string
+    note?: string
   }[]
   recentByType: Record<string, { filename: string; ageMonths: number | null } | undefined>
   modules: Record<string, ModuleReadiness>
@@ -1204,9 +1208,50 @@ export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outp
 // ---- chat with your data (closed-book Q&A over a run's synthesized output) ----
 export type ChatScope = 'run' | 'module' | 'orb'
 export type ChatStyle = 'simple' | 'analyst' | 'detailed' // narration style — HOW the answer is phrased
+// A deterministic what-if result the engine computed for this turn (scripts/sensitivity_math.py, via the
+// server's chat-whatif). It is DISPLAYED verbatim as a card — the numbers are the engine's, never the
+// model's — while the assistant text narrates around it. `scenario` mirrors the engine's output shape.
+export interface ComputedScenario {
+  variable: string
+  label?: string | null
+  unit?: string | null
+  delta: number
+  coefficient: number
+  impactMetric?: string | null
+  impact: number
+  baseValue?: number | null
+  newValue?: number | null
+  baseMarginPct?: number | null
+  newMarginPct?: number | null
+  marginChangeBps?: number | null
+  withinDisclosedRange?: boolean | null
+  rangeNote?: string | null
+  confidence?: string | null
+  basis?: string | null
+  source?: string | null
+  nonLinearity?: string | null
+  // how the move was derived: 'delta' (a move), 'level' (from a target level), 'reverse' (solved for the input)
+  mode?: 'delta' | 'level' | 'reverse' | null
+  resolvedDelta?: number | null   // the move the engine resolved (== delta for 'delta' mode)
+  targetLevel?: number | null     // level mode: the variable level the user gave
+  variableBase?: number | null    // level mode: the variable's recorded current level
+  solvedVariableLevel?: number | null // reverse mode: the variable level the target implies
+  targetValue?: number | null     // reverse mode: the base-metric value targeted
+  targetMarginPct?: number | null // reverse mode: the margin % targeted
+  neededImpact?: number | null    // reverse mode: the base-metric change required
+  marginBasis?: string | null     // 'revenue_constant' → margin computed at unchanged revenue
+  metricNote?: string | null      // coefficient on a metric ≠ base metric (level/margin withheld)
+  note?: string | null            // set on the first card of a multi-variable answer
+}
+export type ChatComputed =
+  | { kind: 'scenario'; asked: string; scenario: ComputedScenario }
+  | { kind: 'unsupported'; asked: string; recorded: { variable: string; label?: string | null; unit?: string | null }[]; reason?: string }
+
 // `thinking` (assistant turns) is the model's extended-thinking reasoning, streamed live while the answer
-// is being worked out and kept afterwards so the thought process stays readable.
-export interface ChatMessage { role: 'user' | 'assistant'; content: string; thinking?: string }
+// is being worked out and kept afterwards so the thought process stays readable. `computed` (assistant
+// turns) holds the engine-computed what-if card(s) for this turn — an ARRAY because a joint ask ("aluminium
+// AND USD/NOK") returns one card per variable, computed separately.
+export interface ChatMessage { role: 'user' | 'assistant'; content: string; thinking?: string; computed?: ChatComputed[] }
 
 // What an in-flight chat turn is doing RIGHT NOW — drives the panel's live working state. Every stage is
 // tied to a real event, never a fabricated progress guess:
@@ -1214,9 +1259,10 @@ export interface ChatMessage { role: 'user' | 'assistant'; content: string; thin
 //   context   -> the server confirmed the scope + assembled the closed-book context (chat-meta arrived)
 //   starting  -> the server is spawning the engine CLI (chat-status: starting)
 //   connected -> the CLI session initialized; the model is consuming the context (chat-status: connected)
+//   modeling  -> a quantified what-if is being computed by the engine (chat-status: modeling)
 //   thinking  -> an extended-thinking block is streaming (chat-status: thinking + chat-thinking deltas)
 //   writing   -> the visible answer is streaming (chat-status: writing / first chat-token)
-export type ChatWorkStage = 'sending' | 'context' | 'starting' | 'connected' | 'thinking' | 'writing'
+export type ChatWorkStage = 'sending' | 'context' | 'modeling' | 'starting' | 'connected' | 'thinking' | 'writing'
 export interface ChatWork { stage: ChatWorkStage; model?: string; startedAt: number; stageAt: number }
 export interface ChatRequest {
   ticker?: string
@@ -1347,7 +1393,7 @@ export interface CallsResult {
 }
 
 // ---- activity / audit log ----
-export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
+export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
 export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean; canScanPipeline?: boolean; canBuildConnector?: boolean; emailEnabled?: boolean }
 
 // ---- cockpit-wide product feedback (server: feedback-store.ts) ----

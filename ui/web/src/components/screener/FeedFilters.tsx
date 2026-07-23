@@ -4,10 +4,13 @@
 
 import { ALL_THEMES, plainBand, plainLinkage, plainRegion, plainSize, plainTheme } from '../../lib/plain'
 import { GICS_SECTORS, gicsOf, gicsSubSectorsFor } from '../../lib/gics'
-import type { CompanyFacet } from '../../lib/api'
+import type { CompanyFacet, SymbolGroup } from '../../lib/api'
+import { companyNameMatches, nameOccurs, pickTickerSet, tickerHitAny } from '../../lib/symbology'
 import { CompanyFilter, type CompanyPick } from './CompanyFilter'
 
 export type { CompanyPick } from './CompanyFilter'
+// nameOccurs moved to lib/symbology (shared with the company clause helpers); re-exported for compat.
+export { nameOccurs }
 
 export interface FeedFilterState {
   themes: Set<string>
@@ -60,17 +63,11 @@ export interface Filterable {
   companies?: { name: string; ticker: string | null; listing_country?: string | null }[]
 }
 
-// Whole-word occurrence of `needle` in `hay` (both already lowercased). Word chars are ASCII [a-z0-9], so
-// "amazon" hits "amazon's results" / "amazon.com" but NOT "amazons" / "metadata" / "metal" — the precision
-// partner to the recall-first design: it keeps a company's OWN news while dropping items that merely embed
-// the name inside a longer word. ASCII-only word chars ⇒ it stays PERMISSIVE for CJK / space-less scripts
-// (every char reads as a boundary there), so a non-Latin headline never loses a match. MUST stay identical
-// to the server twin `nameOccurs` in ui/server/src/news/feed-filter.ts (the client/server lockstep).
-// Is the pick-a-company clause actually ON? Ticker OR name OR a non-empty alias list — an alias-only pick
-// must still activate the clause rather than silently no-op (lockstep with the server's companyClauseSet,
-// ui/server/src/news/feed-filter.ts — Codex review, PR #319).
+// Is the pick-a-company clause actually ON? Ticker OR name OR a non-empty alias list (name OR ticker
+// aliases) — an alias-only pick must still activate the clause rather than silently no-op (lockstep with
+// the server's companyClauseSet, ui/server/src/news/feed-filter.ts — Codex review, PR #319).
 export function companyClauseSet(company: CompanyPick | null | undefined): boolean {
-  return !!(company && (company.ticker || company.name || company.aliases?.length))
+  return !!(company && (company.ticker || company.name || company.aliases?.length || company.tickerAliases?.length))
 }
 
 // Do a picked company's definite listing_country and an item's OWN definite listing_country for its ticker
@@ -79,19 +76,6 @@ export function companyClauseSet(company: CompanyPick | null | undefined): boole
 // two different issuers reusing the same ticker letters on different exchanges (Codex review, PR #319).
 export function listingConflicts(picked: string | null | undefined, itemCountry: string | null | undefined): boolean {
   return !!picked && !!itemCountry && picked !== itemCountry
-}
-
-export function nameOccurs(hay: string, needle: string): boolean {
-  if (!needle) return false
-  const word = (ch: string) => (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')
-  const headWord = word(needle[0])
-  const tailWord = word(needle[needle.length - 1])
-  for (let i = hay.indexOf(needle); i >= 0; i = hay.indexOf(needle, i + 1)) {
-    const before = i === 0 ? '' : hay[i - 1]
-    const after = i + needle.length >= hay.length ? '' : hay[i + needle.length]
-    if ((!before || !word(before) || !headWord) && (!after || !word(after) || !tailWord)) return true
-  }
-  return false
 }
 
 // The LIVE-window twin of the server's matchesFeedFilters (ui/server/src/news/feed-filter.ts) — keep the
@@ -115,20 +99,19 @@ export function matchesFilters(it: Filterable, f: FeedFilterState): boolean {
     if (f.gicsSector && !g.sectors.has(f.gicsSector)) return false
     if (f.gicsSubSector && !g.subSectors.has(f.gicsSubSector)) return false
   }
-  // Pick-a-company (the ticker autofill): the item passes when it is tagged with the picked EXACT ticker
-  // OR its headline/company blob NAMES the company (as a whole word) under its picked name OR any known
-  // alias. Either alone qualifies, so a picked suggestion (which carries ticker + name + aliases) has
-  // strictly ≥ the recall of typing just the name — the ticker catches items the name misses (name-only
-  // headline vs a different tagged name), and the alias set catches an untagged item using a less-common
-  // spelling (e.g. "Amazon" vs the picked "Amazon.com Inc.") that the single best name would miss. The gate
-  // mirrors the server (an empty-both pick is vacuously true on both sides); the name test is whole-word so
-  // a common-word name doesn't drag in unrelated items. Mirrors the server's matchesFeedFilters company clause.
+  // Pick-a-company (the ticker autofill): the item passes when it is tagged with ANY of the pick's ticker
+  // spellings — the picked symbol + its cross-listing tickerAliases, exact or exchange-suffix-equivalent
+  // (a pick of the ADR NHYDY carries Oslo's NHY.OL, so the tag NHY still hits), each hit still subject to
+  // the listing-country conflict guard — OR its headline/company blob NAMES the company (whole-word,
+  // legal-suffix-tolerant) under its picked name or any known name alias. Any clause alone qualifies, so a
+  // picked suggestion has strictly ≥ the recall of typing just the name. The gate + helpers (lib/symbology)
+  // mirror the server's matchesFeedFilters company clause exactly.
   if (companyClauseSet(f.company)) {
-    const t = (f.company!.ticker || '').toUpperCase()
-    const names = [f.company!.name, ...(f.company!.aliases || [])].filter((s): s is string => !!s).map((s) => s.toLowerCase())
-    const tickerHit = !!t && (it.companies || []).some((c) => (c.ticker || '').toUpperCase() === t && !listingConflicts(f.company!.listingCountry, c.listing_country))
+    const picks = pickTickerSet({ ticker: f.company!.ticker, aliases: f.company!.tickerAliases })
+    const tickerHit = picks.length > 0 && (it.companies || []).some((c) => tickerHitAny(c.ticker, picks) && !listingConflicts(f.company!.listingCountry, c.listing_country))
     const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
-    const nameHit = names.some((n) => nameOccurs(hay, n))
+    const names = [f.company!.name, ...(f.company!.aliases || [])].filter((s): s is string => !!s)
+    const nameHit = names.some((n) => companyNameMatches(hay, n))
     if (!tickerHit && !nameHit) return false
   }
   if (f.text.trim()) {
@@ -149,12 +132,14 @@ export function FeedFilters({
   onChange,
   sources,
   companies = [],
+  searchSymbols,
   compact = false,
 }: {
   value: FeedFilterState
   onChange: (f: FeedFilterState) => void
   sources: string[] // distinct source names present in the data
   companies?: CompanyFacet[] // distinct companies on the wire (archive facet) — the ticker autofill's suggestions
+  searchSymbols?: (q: string) => Promise<SymbolGroup[]> // the global "any ticker, any country" directory (api.symbolSearch) — injected by the live surfaces
   compact?: boolean // the rail variant: themes + text + size (no band/source/linkage; region lives in the rail's own Geography dropdown)
 }) {
   const set = (patch: Partial<FeedFilterState>) => onChange({ ...value, ...patch })
@@ -178,7 +163,7 @@ export function FeedFilters({
             name, pick the suggestion, and every item tagged with that ticker OR named in the headline comes
             back. Sits first so it's the obvious company filter; the free-text box beside it still searches
             headlines. */}
-        <CompanyFilter value={value.company} onChange={(company) => set({ company })} options={companies} />
+        <CompanyFilter value={value.company} onChange={(company) => set({ company })} options={companies} searchSymbols={searchSymbols} />
         <input className="ffilters__text" value={value.text} placeholder="search headline or company…" onChange={(e) => set({ text: e.target.value })} />
         {!compact && (
           <select className="ffilters__sel" value={value.band} onChange={(e) => set({ band: e.target.value })} title="Kept or dropped">

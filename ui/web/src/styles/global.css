@@ -526,6 +526,48 @@ a { color: inherit; }
 .chatpanel__think-caret { font-size: 10px; color: var(--text-faint); }
 .chatpanel__think-body { max-height: 190px; overflow-y: auto; padding: 2px 12px 10px; font-size: 12px; line-height: 1.55; color: var(--text-muted); white-space: pre-wrap; word-break: break-word; }
 
+/* the deterministic what-if card — the numbers are the ENGINE's (scripts/sensitivity_math.py), rendered
+   verbatim; the assistant text narrates around it. Distinct from the prose so an engine number never reads
+   as model prose. */
+.chatpanel__computed { width: 100%; box-sizing: border-box; margin: 2px 0 4px; border: 1px solid var(--hairline-strong); border-radius: var(--r-md); background: var(--surface-2); overflow: hidden; }
+.chatpanel__computed--oor { border-color: color-mix(in srgb, var(--accent) 40%, var(--hairline-strong)); }
+.chatpanel__computed--refuse { border-style: dashed; }
+.chatpanel__computed-head { display: flex; align-items: center; gap: 8px; padding: 7px 12px; background: var(--accent-wash-soft); border-bottom: 1px solid var(--hairline); }
+.chatpanel__computed-glyph { font-family: var(--font-mono); font-size: 13px; color: var(--accent-bright); }
+.chatpanel__computed-kicker { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-faint); }
+.chatpanel__computed-conf { margin-left: auto; font-size: 9.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; padding: 2px 8px; border-radius: var(--r-pill); }
+.chatpanel__computed-conf--high { color: var(--live); background: var(--live-wash); }
+.chatpanel__computed-conf--low { color: var(--accent-bright); background: var(--accent-wash); }
+.chatpanel__computed-conf--na { color: var(--bad); background: var(--bad-wash); }
+.chatpanel__computed-ask { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 12px; border-bottom: 1px solid var(--hairline); font-family: var(--font-mono); font-size: 12px; }
+.chatpanel__computed-ask .lab { color: var(--text-muted); }
+.chatpanel__computed-ask .delta { color: var(--accent-bright); font-weight: 600; }
+.chatpanel__computed-rows { padding: 2px 12px 4px; }
+.chatpanel__computed-row { display: grid; grid-template-columns: 1.15fr 1.5fr auto; gap: 10px; align-items: baseline; padding: 7px 0; border-bottom: 1px solid var(--hairline); }
+.chatpanel__computed-row:last-child { border-bottom: none; }
+.chatpanel__computed-row .rl { font-size: 12px; color: var(--text-muted); }
+.chatpanel__computed-row .rv { font-family: var(--font-mono); font-size: 13px; color: var(--text); font-variant-numeric: tabular-nums; }
+.chatpanel__computed-row .rv .ar { color: var(--text-faint); margin: 0 5px; }
+.chatpanel__computed-row .rv b { color: var(--text); font-weight: 600; }
+.chatpanel__computed-row .rd { font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; color: var(--accent-bright); }
+.chatpanel__computed-prov { padding: 8px 12px; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint); line-height: 1.55; border-top: 1px solid var(--hairline); background: var(--bg-2); }
+.chatpanel__computed-prov .src { color: var(--text-muted); }
+.chatpanel__computed-warn { padding: 8px 12px; font-size: 11.5px; color: var(--accent-bright); background: var(--accent-wash-soft); border-top: 1px solid var(--hairline); line-height: 1.5; }
+.chatpanel__computed-foot { padding: 7px 12px; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--hairline); line-height: 1.5; }
+.chatpanel__computed-refuse { padding: 11px 12px; font-size: 12.5px; color: var(--text-muted); line-height: 1.55; }
+.chatpanel__computed-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 9px; }
+.chatpanel__computed-chip { font-family: var(--font-mono); font-size: 11px; color: var(--accent-bright); background: var(--accent-wash-soft); border: 1px solid var(--hairline-strong); padding: 2px 8px; border-radius: var(--r-pill); }
+.chatpanel__source-modeled { color: var(--accent-deep); }
+/* what-if card — level mode shows a base→level ask; reverse mode leads with the solved input */
+.chatpanel__computed-conf--solve { color: var(--accent-bright); background: var(--accent-wash); }
+.chatpanel__computed-note { padding: 7px 12px; font-size: 11px; color: var(--text-muted); border-bottom: 1px solid var(--hairline); background: var(--accent-wash-soft); }
+.chatpanel__computed-ask .val { font-family: var(--font-mono); color: var(--text); font-variant-numeric: tabular-nums; }
+.chatpanel__computed-ask .val .ar { color: var(--text-faint); margin: 0 5px; }
+.chatpanel__computed-solve { display: flex; align-items: center; gap: 9px; padding: 10px 12px; border-bottom: 1px solid var(--hairline); background: var(--accent-wash-soft); font-family: var(--font-mono); font-size: 14px; color: var(--text); }
+.chatpanel__computed-solve .k { font-family: var(--font-sans); font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); }
+.chatpanel__computed-solve b { color: var(--accent-bright); font-weight: 700; }
+.chatpanel__computed-solve .sub { color: var(--text-faint); }
+
 /* streaming caret on the growing answer */
 .chatpanel__caret { display: inline-block; width: 2px; height: 1em; vertical-align: -2px; margin-left: 2px; background: var(--accent-bright); animation: chatcaret 1s steps(1) infinite; }
 @keyframes chatcaret { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
@@ -1902,6 +1944,8 @@ a { color: inherit; }
 .cfilter__optsym { flex: none; min-width: 46px; font-size: 11px; font-weight: 700; color: var(--accent-bright); }
 .cfilter__optname { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cfilter__optn { flex: none; font-size: 9.5px; color: var(--text-faint); font-weight: 700; }
+/* global-directory suggestion (no archive count yet) — the exchange label marks it as resolvable worldwide */
+.cfilter__optex { flex: none; font-size: 9px; color: var(--text-faint); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 1px 6px; white-space: nowrap; max-width: 90px; overflow: hidden; text-overflow: ellipsis; }
 @media (prefers-reduced-motion: reduce) { .cfilter__menu { animation: none; } }
 /* on the narrow rail (compact) let both inputs shrink so the company picker + free-text share one line
    before wrapping past the sector/size selects */

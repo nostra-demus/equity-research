@@ -65,6 +65,26 @@ const isNum = (v: unknown): v is number => typeof v === 'number' && Number.isFin
 const pct = (x: number, nd = 1) => round(x * 100, nd)
 function round(x: number, nd = 4): number { const p = 10 ** nd; return Math.round(x * p) / p }
 
+// ---- method-mix football field: the cross-method blend, a mirror of scripts/valuation_math.py blend() ----
+// Each value-producing method (own_history / peers / dcf / sotp) carries a per-share value and a weight. The
+// blended base point RENORMALIZES the weights over the methods actually present (numeric value AND a
+// NON-NEGATIVE weight), so a dropped or zero-weighted method cannot silently zero the blend. Matches the
+// Python engine on committed data (which never carries a negative weight); the client additionally DROPS a
+// negative user-entered weight rather than producing a base point outside every method value (e.g. values
+// 100/200 at weights −1/2 would otherwise blend to 300). This is the real primary lever for the committed
+// runs, which are all method-blends, not a single metric×multiple.
+export interface MethodLever { key: string; value: number | null; weight: number | null }
+export interface BlendResult { basePoint: number | null; effectiveWeights: Record<string, number>; note?: string }
+export function blend(methods: MethodLever[]): BlendResult {
+  const used = (methods || []).filter((m) => isNum(m.value) && isNum(m.weight) && (m.weight as number) >= 0)
+  const wsum = used.reduce((a, m) => a + (m.weight as number), 0)
+  if (!used.length || wsum <= 0) return { basePoint: null, effectiveWeights: {}, note: 'no value-producing method with a weight' }
+  const eff: Record<string, number> = {}
+  used.forEach((m) => { eff[m.key] = (m.weight as number) / wsum })
+  const point = used.reduce((a, m) => a + (m.value as number) * eff[m.key], 0)
+  return { basePoint: round(point, 4), effectiveWeights: Object.fromEntries(Object.entries(eff).map(([k, v]) => [k, round(v, 4)])) }
+}
+
 // ---- 1. fair-value LEVEL from a (forward metric × multiple) lever ----
 export function levelFromMultiple(metric: number, multiple: number, basis: Basis, shares?: number | null, netDebt: number | null = 0): number {
   if (basis === 'ev') {
@@ -185,12 +205,20 @@ export interface PlaygroundDraft {
   rf: number | null; erp: number | null; beta: number | null; wacc: number | null; afterTaxKd: number | null
   isMega: boolean
   scenarios: DraftScenario[]
+  methods: MethodLever[]
+  driveBaseFromMix: boolean
 }
 
 export interface RecomputeResult {
   scenarios: { label: string; probability: number | null; level: number | null; forwardMetric: number | null; multiple: number | null }[]
   math: ScenarioMath
   checks: { wacc?: CheckResult; symmetry?: CheckResult }
+  blend: BlendResult
+  // Is the mix ACTUALLY driving the base scenario? Only when the toggle is on AND the blend produced a numeric
+  // base point. With all-zero (or all-dropped) weights blend() returns no base point, so the base level stays
+  // published — the UI must gate its "returns use the blend" claim on THIS, not on the toggle alone, or the
+  // shown rationale contradicts the actual calculation (Codex #327 P2 r3636960240).
+  blendActive: boolean
   warnings: string[]
 }
 
@@ -203,7 +231,18 @@ export function levelForScenario(s: DraftScenario, d: PlaygroundDraft): number |
 }
 
 export function recompute(d: PlaygroundDraft): RecomputeResult {
-  const scenarios = d.scenarios.map((s) => ({ label: s.label, probability: s.probability, level: levelForScenario(s, d), forwardMetric: s.forwardMetric, multiple: s.multiple }))
+  const blendRes = blend(d.methods || [])
+  // When "drive base from mix" is on, the blended base point BECOMES the base scenario's level, so a moved
+  // weight flows live into the base return, the margin of safety, and the probability-weighted expected
+  // return. Off by default: the published base level is the frozen judgment (which may sit below the raw
+  // blend by a disclosed discount, e.g. EMAAR AED 15.00 vs 16.52), and it must not be silently averaged
+  // away (§16) — the analyst opts in to overwrite it.
+  const driveBase = d.driveBaseFromMix && isNum(blendRes.basePoint)
+  const scenarios = d.scenarios.map((s) => {
+    const isBase = (s.label || '').toLowerCase().includes('base')
+    const level = driveBase && isBase ? (blendRes.basePoint as number) : levelForScenario(s, d)
+    return { label: s.label, probability: s.probability, level, forwardMetric: s.forwardMetric, multiple: s.multiple }
+  })
   const math = scenarioMath(scenarios.map((s) => ({ label: s.label, probability: s.probability, price_target: s.level })), d.price)
   const ke = capmCostOfEquity(d.rf, d.beta, d.erp)
   const checks: { wacc?: CheckResult; symmetry?: CheckResult } = {}
@@ -211,7 +250,7 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
   const mult = (name: string) => d.scenarios.find((s) => (s.label || '').toLowerCase().includes(name))?.multiple
   if (isNum(mult('bull')) || isNum(mult('base')) || isNum(mult('bear'))) checks.symmetry = checkMultipleSymmetry(mult('bull'), mult('base'), mult('bear'))
   const warnings = [...math.warnings, ...(checks.wacc?.problems ?? []), ...(checks.symmetry?.problems ?? [])]
-  return { scenarios, math, checks, warnings }
+  return { scenarios, math, checks, blend: blendRes, blendActive: driveBase, warnings }
 }
 
 // Build the initial editable draft from the server response: prefer the valuation_summary.json levers
@@ -220,7 +259,7 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
 export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft {
   if (!res) {
     return { basis: 'equity', shares: null, netDebt: 0, price: null,
-      rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false, scenarios: [] }
+      rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false, scenarios: [], methods: [], driveBaseFromMix: false }
   }
   const L = res.levers
   // Prefer the decision-record entry_price: when the master synthesizer re-anchors a stale module quote,
@@ -241,6 +280,8 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
       rf: L.discount_rate?.rf ?? null, erp: L.discount_rate?.erp ?? null, beta: L.discount_rate?.beta ?? null,
       wacc: L.discount_rate?.wacc ?? null, afterTaxKd: L.discount_rate?.after_tax_kd ?? null,
       isMega: !!L.is_developed_mega_cap,
+      methods: buildMethods(L.methods, L.method_weights),
+      driveBaseFromMix: false,
       scenarios: L.scenarios.map((s, i) => ({
         label: s.label,
         probability: probabilityFor(s.label, s.probability, res.decision?.scenarios, i),
@@ -255,8 +296,26 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
   return {
     basis: 'equity', shares: null, netDebt: 0, price,
     rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false,
+    methods: [], driveBaseFromMix: false,
     scenarios: ds.map((s) => ({ label: s.label || '', probability: s.probability ?? null, forwardMetric: null, multiple: null, levelOverride: s.price_target ?? null })),
   }
+}
+
+const METHOD_ORDER = ['own_history', 'peers', 'dcf', 'sotp']
+// Build the ordered, editable method-mix levers from the sidecar's football field. Canonical methods first
+// (own_history, peers, dcf, sotp), then any others; a key present in EITHER map is included, so a method with
+// a weight but no value (or the reverse) still shows as an editable row instead of vanishing.
+export function buildMethods(methods?: Record<string, number | null>, weights?: Record<string, number | null>): MethodLever[] {
+  const keys = [...new Set([...Object.keys(methods ?? {}), ...Object.keys(weights ?? {})])]
+  keys.sort((a, b) => {
+    const ia = METHOD_ORDER.indexOf(a), ib = METHOD_ORDER.indexOf(b)
+    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b)
+  })
+  return keys.map((k) => ({
+    key: k,
+    value: isNum(methods?.[k]) ? (methods![k] as number) : null,
+    weight: isNum(weights?.[k]) ? (weights![k] as number) : null,
+  }))
 }
 
 // probability comes from the master synthesizer (decision_record), not the module — pull it by matching label.

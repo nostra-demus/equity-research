@@ -46,6 +46,7 @@ If any upstream is missing, note at the top:
 4. For each, estimate a realistic bull and bear move size using the move-size hierarchy in the report structure: company-disclosed sensitivity first, then historical observed range, then cited industry/commodity range, then clearly labeled inference.
 5. Estimate the directional EPS or EBITDA impact. Use evidence from disclosures (sensitivity tables, management commentary) where possible. Label inferences clearly.
 6. Rank by absolute impact.
+7. Emit the machine-readable sidecar `earnings/sensitivity_summary.json` (see "Structured Emission" below) so the cockpit chat can model what-ifs on the coefficients DETERMINISTICALLY (via `scripts/sensitivity_math.py`) without re-deriving anything.
 
 # WHAT TO READ (priority for this agent)
 
@@ -122,6 +123,22 @@ Bands:
 State the score and the one-line reason.
 ```
 
+# STRUCTURED EMISSION — `sensitivity_summary.json` (Hard Rule)
+
+Alongside the markdown, write `analyses/{TICKER}_{DATE}/earnings/sensitivity_summary.json`, conforming to `frameworks/sensitivity_summary.schema.json` — the machine-readable **coefficients** behind §2's Sensitivity Table. This is what lets the cockpit chat answer "Adjusted EBITDA / operating margin if the aluminium price moves +$45/mt?" DETERMINISTICALLY: `scripts/sensitivity_math.py` scales the recorded per-unit coefficient linearly, and the language model NEVER computes the number.
+
+Top level:
+- `base_metric` — the exact metric the coefficients move (e.g. `adjusted_ebitda_nok_m`); state the basis and never mix reported vs adjusted (§15).
+- `base_value` — the base level of `base_metric` the deltas apply to (e.g. FY2025 Adjusted EBITDA); `base_period` is the period it is for. `base_value_source` — the §5 citation for that starting level (every modelled `new_value` builds on it, so it needs its own source, distinct from any coefficient's source).
+- `revenue_base` — the same-period, same-currency revenue for the margin scenario, with `revenue_period` = `base_period`; `null` if not cleanly available (margin then reads Not assessable). The engine holds revenue CONSTANT (there is no revenue coefficient), so it reports an **EBITDA / profit margin at unchanged revenue** (`margin_basis: revenue_constant`), never a fully-modelled operating margin — do not describe it as one. The engine emits margin ONLY for a profit-level `base_metric` (EBITDA/EBIT/operating profit); a per-share metric (EPS) gets no margin.
+
+For EACH §2 variable that carries a **clean per-unit coefficient** (a company-disclosed per-unit rate, or a per-unit rate you derived and labelled) emit one `sensitivities[]` entry:
+- `variable` (stable snake_case key, e.g. `lme_aluminium_price`) — must be UNIQUE across the array (a duplicate makes the lookup ambiguous and the engine refuses it); `label`, `unit` (the variable's own unit the delta is expressed in, e.g. `USD/mt`), `base_value` (current level).
+- `coefficient` — the change in `base_metric` per **ONE unit** of the variable (a disclosed "NOK 150m per USD 10/mt" is recorded as `15`). This is the ONLY field the math uses; it MUST reproduce §2's bull/bear impacts when multiplied by §2's bull/bear deltas. If the rate is on a DIFFERENT metric than `base_metric`, set this row's `impact_metric` — the engine then reports the impact but withholds a base level and margin (it will not add a different metric's change to the base level).
+- `confidence` (`high`/`medium`/`low`), `basis` (`company-disclosed` / `inferred`), `valid_range` (`{low, high}`, or a one-sided `{low}` / `{high}` — the band the linear scale is trusted within; the engine flags a move past whichever side is disclosed), `non_linearity` (any disclosed lag / operating deleverage / asymmetry), `source` (§5 citation — REQUIRED and non-empty; the coefficient is the material input, so an uncited one is not publishable).
+
+OMIT a variable that has only a guidance range or a scenario impact with **no** clean per-unit rate — it is not linearly modelable, and inventing a coefficient is forbidden. A run whose §2 has zero clean-coefficient variables emits **no** sidecar (the chat then falls back to the prose, exactly as today).
+
 # SELF-CHECK
 
 - [ ] 3–7 variables are selected and ranked. No fewer than 3, no more than 7.
@@ -132,6 +149,7 @@ State the score and the one-line reason.
 - [ ] Impact is in the correct unit (EPS in currency, EBITDA in currency).
 - [ ] The ranking table is sorted by absolute impact.
 - [ ] Earnings volatility score direction is flagged (higher = worse).
+- [ ] `sensitivity_summary.json` was emitted (conforming to `frameworks/sensitivity_summary.schema.json`) for every §2 variable with a clean per-unit coefficient — each `coefficient` reproduces §2's bull/bear impacts when scaled by §2's bull/bear deltas, `base_metric`/`base_value` state the exact basis (reported vs adjusted, §15), and no variable lacking a clean per-unit rate was given an invented coefficient. Zero clean-coefficient variables → no sidecar.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

@@ -177,6 +177,7 @@ export function DecisionBanner() {
   const reports = useStore((s) => s.reports)
   const setToast = useStore((s) => s.setToast)
   const dataStatus = useStore((s) => s.dataStatus)
+  const intake = useStore((s) => s.intake)
   const hasActiveRun = useStore((s) => s.anyRunForTicker(s.selectedTicker))
   const isResearch = useStore((s) => s.constellationSwarm === 'research')
   const verdictField = useStore((s) => s.swarms.find((w) => w.id === s.constellationSwarm)?.verdictField)
@@ -258,6 +259,9 @@ export function DecisionBanner() {
   // re-run has landed since. The call below is real, just not yet re-scored against the newer data.
   const showNewerNotice = hasNewerPartial && viewingStanding
   const runFullDisabled = engineDown || staticMode || fullPending
+  // the new-data read's conclusion (the scoped plan), read-only — drives the notice's "what next" line
+  const intakeVerdict = intake?.verdict
+  const intakeCmds = intakeVerdict === 'scoped_rerun' ? intake?.rerun_plan?.commands?.length ?? 0 : 0
   const decisionDate = (decision as any)?.decision_date as string | undefined
   // Positive match on BOTH the payload and the subject: a quote is only ever shown against the company
   // it was fetched for. Without the ticker check a slow response landing after a company switch could
@@ -290,6 +294,14 @@ export function DecisionBanner() {
         {showNewerNotice && (
           <NewerRunStrip action={{ label: 'Run a full analysis', title: 'Produce a fresh decision that folds in the newer data', disabled: runFullDisabled, onClick: requestFull }}>
             <b>Newer data isn’t in this call yet.</b> The <b style={{ color: decisionColor(verdict) }}>{verdict}</b> below is from your last complete analysis{decisionDate ? ` (${shortDate(decisionDate)})` : ''}. A re-run has looked at newer data since, but hasn’t produced an updated call.
+            {/* Close the loop with the new-data read (the scoped plan): tell the reader what it concluded
+                and the cheaper path when one exists, instead of leaving "so what do I do?" open. */}
+            {intakeCmds > 0 && (
+              <> The new-data read scoped it: <b>{intakeCmds} check{intakeCmds === 1 ? '' : 's'} affected</b> — the New data panel (left) has the cheaper scoped re-run.</>
+            )}
+            {intakeVerdict === 'note_only' && (
+              <> The new-data read filed the newer evidence as note-only — below the materiality/tier bar to scope a re-run, not proof the inputs are unchanged — so a full run is optional but may still be worth it.</>
+            )}
           </NewerRunStrip>
         )}
         <div className="decision__verdict">

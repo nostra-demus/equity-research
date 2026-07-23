@@ -184,3 +184,8 @@ export function fmtEtaLeft(ms: number | null): string {
   const m = Math.round(ms / 60_000)
   return `~${m} min left`
 }
+
+// A run with NO planned orbs — a market `sweep`, or a `doc-intake` "new-data read" — has nothing to show a
+// "0/0 orbs" line or a synthetic orb ETA for. The RunStreamPanel renders a plain reading/elapsed status for
+// these instead. Kept here (the panel already imports from eta) so it is a pure, unit-testable predicate.
+export const isOrblessRun = (kind: string): boolean => kind === 'sweep' || kind === 'doc-intake'
