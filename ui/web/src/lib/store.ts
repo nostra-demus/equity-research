@@ -2106,12 +2106,18 @@ export const useStore = create<State>((set, get) => ({
         // real lifecycle stages streamed by the server (starting → connected → thinking → writing);
         // an unknown/future stage is ignored rather than mis-rendered.
         onStatus: (st) => {
-          if (st.stage === 'starting' || st.stage === 'connected' || st.stage === 'thinking' || st.stage === 'writing') advance(st.stage, st.model)
+          if (st.stage === 'modeling' || st.stage === 'starting' || st.stage === 'connected' || st.stage === 'thinking' || st.stage === 'writing') advance(st.stage, st.model)
         },
         // the model's own reasoning, streamed verbatim — grows the assistant turn's thinking text live
         onThinking: (tok) => {
           const msgs = get().chatMessages.slice()
           if (msgs[idx]?.role === 'assistant') { msgs[idx] = { ...msgs[idx], thinking: (msgs[idx].thinking || '') + tok }; set({ chatMessages: msgs }) }
+        },
+        // deterministic what-if card(s) the engine computed for this turn — APPENDED (a joint ask streams one
+        // card per variable). The numbers are the engine's; the streamed text narrates around them.
+        onComputed: (c) => {
+          const msgs = get().chatMessages.slice()
+          if (msgs[idx]?.role === 'assistant') { msgs[idx] = { ...msgs[idx], computed: [...(msgs[idx].computed || []), c] }; set({ chatMessages: msgs }) }
         },
         onToken: (tok) => {
           // first answer token also flips the stage to 'writing' — covers a stream whose text arrives

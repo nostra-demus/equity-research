@@ -3,7 +3,7 @@ import type { PipelinesRead } from './types'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -883,6 +883,7 @@ export const api = {
       onMeta?: (m: { conversationId?: string; scopeResolved: string; sourcePath?: string; degraded?: boolean; degradeNote?: string }) => void
       onStatus?: (s: { stage?: string; model?: string }) => void
       onThinking?: (t: string) => void
+      onComputed?: (c: ChatComputed) => void
       onToken: (t: string) => void
       onDone: (d: { costUsd?: number }) => void
       onError: (msg: string) => void
@@ -926,6 +927,7 @@ export const api = {
           if (ev === 'chat-meta') cb.onMeta?.(parsed)
           else if (ev === 'chat-status') cb.onStatus?.(parsed)
           else if (ev === 'chat-thinking') cb.onThinking?.(parsed.content ?? '')
+          else if (ev === 'chat-computed') { if (parsed.payload) cb.onComputed?.(parsed.payload) }
           else if (ev === 'chat-token') cb.onToken(parsed.content ?? '')
           else if (ev === 'chat-done') { cb.onDone(parsed); return }
           else if (ev === 'chat-error') { cb.onError(parsed.message || 'chat failed'); return }

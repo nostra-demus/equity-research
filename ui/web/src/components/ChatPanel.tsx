@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useStore, isFlowActive } from '../lib/store'
-import type { ChatScope, ChatStyle, ChatWork } from '../lib/types'
+import type { ChatComputed, ChatScope, ChatStyle, ChatWork } from '../lib/types'
 
 const titleize = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
@@ -161,6 +161,7 @@ export function ChatPanel() {
           </div>
           <div className="chatpanel__source" title={source || undefined}>
             {source ? `Answering from ${source}` : 'Answers come only from this run’s synthesized output.'}
+            {messages.some((m) => m.role === 'assistant' && m.computed?.some((c) => c.kind === 'scenario')) && <span className="chatpanel__source-modeled"> · modeled with the sensitivity engine</span>}
           </div>
         </div>
         <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
@@ -273,6 +274,7 @@ export function ChatPanel() {
               return (
                 <div key={i} className="chatmsg chatmsg--assistant">
                   {m.thinking && <ThinkingBlock text={m.thinking} live={live && work?.stage === 'thinking'} />}
+                  {m.computed?.map((c, ci) => <ComputedCard key={ci} c={c} />)}
                   {m.content !== '' && (
                     <div className="md">
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.content}</ReactMarkdown>
@@ -321,6 +323,7 @@ export function ChatPanel() {
 const WORK_LABELS: Record<ChatWork['stage'], string> = {
   sending: 'Sending your question…',
   context: 'Context assembled — starting the engine…',
+  modeling: 'Modeling the scenario…',
   starting: 'Starting the engine…',
   connected: 'Reading the context…',
   thinking: 'Thinking…',
@@ -374,5 +377,131 @@ function ScopeRow({ label, sub, present, active, onPick }: { label: string; sub:
       <span><b>{label}</b><span>{sub}</span></span>
       {present ? <span className="chatpanel__present" title="Ready">●</span> : <span className="chatpanel__runpill">run first</span>}
     </button>
+  )
+}
+
+// number helpers for the computed card — the figures are the ENGINE's; these only format, never recompute.
+const nfmt = (n: number | null | undefined, d = 0) =>
+  typeof n === 'number' ? n.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }) : '—'
+const nsigned = (n: number | null | undefined, d = 0, suffix = '') =>
+  typeof n === 'number' ? `${n >= 0 ? '+' : ''}${nfmt(n, d)}${suffix}` : '—'
+// humanize the base-metric key (e.g. adjusted_ebitda_nok_m -> "Adjusted EBITDA"): drop currency/scale
+// tokens and uppercase the finance acronyms. Cosmetic only.
+const METRIC_UNIT_TOKENS = new Set(['nok', 'usd', 'inr', 'eur', 'gbp', 'jpy', 'cny', 'm', 'mn', 'bn', 'cr', 'k'])
+function metricLabel(k?: string | null): string {
+  if (!k) return 'Base metric'
+  const s = k.split('_').filter((p) => !METRIC_UNIT_TOKENS.has(p.toLowerCase())).join(' ')
+  return s.replace(/\b(ebitda|ebit|eps|fcf|roic|roce|nav|ddm)\b/gi, (m) => m.toUpperCase()).replace(/^\w/, (c) => c.toUpperCase())
+}
+// the margin's honest name, from the base metric — an EBITDA base is an EBITDA margin, never "operating margin"
+function marginName(metric?: string | null): string {
+  const m = String(metric || '').toLowerCase()
+  if (m.includes('ebitda')) return 'EBITDA margin'
+  if (m.includes('ebit') || m.includes('operating')) return 'operating margin'
+  if (m.includes('net') && m.includes('income')) return 'net margin'
+  return 'margin'
+}
+
+// The deterministic what-if card. Its numbers come straight from the engine (scripts/sensitivity_math.py via
+// the server) — this component only formats them. A computed scenario renders in one of three modes
+// (forward move / from a target level / reverse solve-for), or an "unsupported" refusal that says WHY and
+// lists what IS modelable.
+function ComputedCard({ c }: { c: ChatComputed }) {
+  if (c.kind === 'unsupported') {
+    const multi = c.reason === 'multi' || c.reason === 'ambiguous'
+    const norev = c.reason === 'no_revenue_base'
+    return (
+      <div className="chatpanel__computed chatpanel__computed--refuse">
+        <div className="chatpanel__computed-head">
+          <span className="chatpanel__computed-glyph" aria-hidden>∑</span>
+          <span className="chatpanel__computed-kicker">{multi ? 'One at a time' : 'Cannot model'}</span>
+          <span className="chatpanel__computed-conf chatpanel__computed-conf--na">Not modeled</span>
+        </div>
+        <div className="chatpanel__computed-refuse">
+          {multi
+            ? <>The engine models <b>one variable at a time</b> — a joint move mixes effects that don’t simply add. Ask about each and I’ll compute both:</>
+            : norev
+              ? <>This run recorded no revenue base, so the engine can’t solve for a <b>margin</b> target. It can still model these directly:</>
+              : <>That isn’t a recorded sensitivity for this company, so the engine won’t put a number on it. It can model:</>}
+          {c.recorded.length > 0 && (
+            <div className="chatpanel__computed-chips">
+              {c.recorded.map((r) => <span key={r.variable} className="chatpanel__computed-chip">{r.label || r.variable}{r.unit ? ` (${r.unit})` : ''}</span>)}
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  }
+  const s = c.scenario
+  const oor = s.withinDisclosedRange === false
+  const reverse = s.mode === 'reverse'
+  const level = s.mode === 'level'
+  const confClass = reverse ? 'solve' : oor ? 'low' : s.confidence === 'high' ? 'high' : 'low'
+  const confLabel = reverse ? 'Solve · linear' : oor ? 'Extrapolated' : s.confidence ? `Confidence · ${s.confidence}` : 'Computed'
+  const kicker = reverse ? 'Computed · solved for the input' : level ? 'Computed · from a target level' : 'Computed · sensitivity engine'
+  return (
+    <div className={`chatpanel__computed${oor ? ' chatpanel__computed--oor' : ''}`}>
+      <div className="chatpanel__computed-head">
+        <span className="chatpanel__computed-glyph" aria-hidden>∑</span>
+        <span className="chatpanel__computed-kicker">{kicker}</span>
+        <span className={`chatpanel__computed-conf chatpanel__computed-conf--${confClass}`}>{confLabel}</span>
+      </div>
+      {s.note && <div className="chatpanel__computed-note">{s.note}</div>}
+      {s.basis === 'inferred' && <div className="chatpanel__computed-note">Inferred coefficient — not disclosed in filings.</div>}
+
+      {reverse ? (
+        <>
+          <div className="chatpanel__computed-solve">
+            <span className="k">Answer</span>
+            <span>{s.label || s.variable} <b>{s.solvedVariableLevel != null ? `≈ ${nfmt(s.solvedVariableLevel)}${s.unit ? ` ${s.unit}` : ''}` : `${nsigned(s.resolvedDelta)}`}</b>{s.solvedVariableLevel != null && <span className="sub"> ({nsigned(s.resolvedDelta)})</span>}</span>
+          </div>
+          <div className="chatpanel__computed-rows">
+            <div className="chatpanel__computed-row">
+              <span className="rl">Target — {s.targetMarginPct != null ? marginName(s.impactMetric) : metricLabel(s.impactMetric)}</span>
+              <span className="rv"><b>{s.targetMarginPct != null ? `${nfmt(s.targetMarginPct, 2)}%` : nfmt(s.targetValue)}</b></span>
+              <span className="rd">{s.targetMarginPct != null && s.baseMarginPct != null ? `from ${nfmt(s.baseMarginPct, 2)}%` : ''}</span>
+            </div>
+            <div className="chatpanel__computed-row">
+              <span className="rl">Implies {metricLabel(s.impactMetric)}</span>
+              <span className="rv">{nfmt(s.baseValue)}<span className="ar" aria-hidden>→</span><b>{nfmt(s.newValue)}</b></span>
+              <span className="rd">{nsigned(s.impact)}</span>
+            </div>
+          </div>
+          <div className="chatpanel__computed-prov">
+            need {nsigned(s.neededImpact)} ÷ coefficient {s.coefficient} = {nsigned(s.resolvedDelta)}{s.unit ? ` ${s.unit}` : ''}{s.source ? <> · <span className="src">{s.source}</span></> : null}
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="chatpanel__computed-ask">
+            {level
+              ? <><span className="lab">{s.label || s.variable}</span><span className="val">{nfmt(s.variableBase)}<span className="ar" aria-hidden>→</span><b>{nfmt(s.targetLevel)}</b></span><span className="delta">{nsigned(s.resolvedDelta)}{s.unit ? ` ${s.unit}` : ''}</span></>
+              : <><span className="lab">{s.label || s.variable}</span><span className="delta">{nsigned(s.delta)}{s.unit ? ` ${s.unit}` : ''}</span></>}
+          </div>
+          <div className="chatpanel__computed-rows">
+            <div className="chatpanel__computed-row">
+              <span className="rl">{metricLabel(s.impactMetric)}</span>
+              <span className="rv">{nfmt(s.baseValue)}<span className="ar" aria-hidden>→</span><b>{nfmt(s.newValue)}</b></span>
+              <span className="rd">{nsigned(s.impact)}</span>
+            </div>
+            {s.marginChangeBps != null && (
+              <div className="chatpanel__computed-row">
+                <span className="rl" title={s.marginBasis === 'revenue_constant' ? 'at unchanged revenue' : undefined}>{marginName(s.impactMetric)}</span>
+                <span className="rv">{s.baseMarginPct != null ? `${nfmt(s.baseMarginPct, 2)}%` : '—'}<span className="ar" aria-hidden>→</span><b>{s.newMarginPct != null ? `${nfmt(s.newMarginPct, 2)}%` : '—'}</b></span>
+                <span className="rd">{nsigned(s.marginChangeBps, 1, ' bps')}</span>
+              </div>
+            )}
+          </div>
+          <div className="chatpanel__computed-prov">
+            {level ? `level ${nfmt(s.targetLevel)} − base ${nfmt(s.variableBase)} = ${nsigned(s.resolvedDelta)} · ` : ''}coefficient {s.coefficient} per unit{s.source ? <> · <span className="src">{s.source}</span></> : null}
+          </div>
+        </>
+      )}
+
+      {oor && s.rangeNote && <div className="chatpanel__computed-warn"><span aria-hidden>▲ </span>{s.rangeNote}</div>}
+      {s.marginBasis === 'revenue_constant' && s.marginChangeBps != null && <div className="chatpanel__computed-foot">Margin shown at unchanged revenue (no revenue coefficient recorded) — an implied margin, not a fully-modeled one.</div>}
+      {s.metricNote && <div className="chatpanel__computed-foot">{s.metricNote}</div>}
+      <div className="chatpanel__computed-foot">Computed by the engine from the orb’s recorded coefficient — not generated by the model.</div>
+    </div>
   )
 }
