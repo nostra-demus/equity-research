@@ -306,7 +306,7 @@ export function EventRail() {
   // collapse toggle for the secondary filters — COLLAPSED by default; opens only if you've opened it before (per browser)
   const [filtersOpen, setFiltersOpen] = useState<boolean>(() => { try { return localStorage.getItem('nsw.filtersOpen') === '1' } catch { return false } })
   const toggleFilters = () => setFiltersOpen((v) => { const n = !v; try { localStorage.setItem('nsw.filtersOpen', n ? '1' : '0') } catch {} return n })
-  const refineCount = filters.themes.size + (filters.country || filters.geoRegion ? 1 : 0) + (filters.size ? 1 : 0) + (filters.gicsSector ? 1 : 0) + (filters.gicsSubSector ? 1 : 0) + (filters.text.trim() ? 1 : 0)
+  const refineCount = filters.themes.size + (filters.country || filters.geoRegion ? 1 : 0) + (filters.size ? 1 : 0) + (filters.gicsSector ? 1 : 0) + (filters.gicsSubSector ? 1 : 0) + (filters.company ? 1 : 0) + (filters.text.trim() ? 1 : 0)
   // Sector & Commodity drill into specific sub-values (dynamic multi-select); openDrop = which menu is open
   const [sectorSel, setSectorSel] = useState<SubSel>({ all: false, picks: new Set() })
   const [commSel, setCommSel] = useState<SubSel>({ all: false, picks: new Set() })
@@ -343,6 +343,10 @@ export function EventRail() {
     size: filters.size || undefined,
     gicsSector: filters.gicsSector || undefined,
     gicsSubSector: filters.gicsSubSector || undefined,
+    companyTicker: filters.company?.ticker || undefined,
+    companyName: filters.company?.name || undefined,
+    companyAliases: filters.company?.aliases?.length ? filters.company.aliases : undefined,
+    companyListingCountry: filters.company?.listingCountry || undefined,
     commodities: subjectMode && subjectPicks.length && !subjectSel.has(WIRE_OTHER) ? subjectPicks : undefined,
     text: filters.text.trim() || undefined,
   }), [filters, subjectMode, subjectPicks, subjectSel])
@@ -450,7 +454,8 @@ export function EventRail() {
   const setGeo = (patch: Partial<Pick<FeedFilterState, 'country' | 'geoRegion'>>) => setFilters({ ...filters, country: '', geoRegion: '', ...patch })
   const countryLabel = filters.country ? facets?.countries.find((c) => c.key === filters.country)?.label || filters.country : ''
   // a plain-English summary of the active filter, for the honest "nothing matches X" archive line
-  const filterSummary = [filters.gicsSubSector || filters.gicsSector, countryLabel || filters.geoRegion, filters.text.trim() ? `“${filters.text.trim()}”` : ''].filter(Boolean).join(' · ')
+  const companyLabel = filters.company ? (filters.company.ticker ? `${filters.company.ticker}${filters.company.name ? ` (${filters.company.name})` : ''}` : filters.company.name) : ''
+  const filterSummary = [companyLabel, filters.gicsSubSector || filters.gicsSector, countryLabel || filters.geoRegion, filters.text.trim() ? `“${filters.text.trim()}”` : ''].filter(Boolean).join(' · ')
 
   // mirror the geography picker into the store so the Themes map/board slice to the same country/continent
   // (the picker lives here, but the Themes view is a sibling in the main pane — it can only read the store).
@@ -700,7 +705,7 @@ export function EventRail() {
         </div>
         {filtersOpen && (
           <div className="evrail__filters">
-            <FeedFilters value={filters} onChange={setFilters} sources={[]} compact />
+            <FeedFilters value={filters} onChange={setFilters} sources={[]} companies={facets?.companies || []} compact />
           </div>
         )}
       </header>

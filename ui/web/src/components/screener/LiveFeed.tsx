@@ -10,7 +10,7 @@ import { displayHeadline, originalHeadline, plainBand, plainSize, plainTheme } f
 import { dayDividerLabel, dayKeyLocal, hhmmLocal } from '../../lib/format'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
-import { api, type ArchiveQuery, type SearchCursor } from '../../lib/api'
+import { api, type ArchiveQuery, type CompanyFacet, type SearchCursor } from '../../lib/api'
 import { archiveFiltersActive, emptyFilters, FeedFilters, gicsEmptyMessage, matchesFilters, type FeedFilterState } from './FeedFilters'
 import { PulseMap } from './PulseMap'
 import { ScanStatus } from './ScanStatus'
@@ -153,6 +153,14 @@ export function LiveFeed() {
   const selectEvent = useStore((s) => s.scSelectEvent)
   // a slow clock for the map's recency decay — refreshed each minute so old blooms fade without thrashing render.
   const [nowTick, setNowTick] = useState(() => Date.now())
+  // Company autofill options — the whole-archive company facet (every tagged company + mention count), so the
+  // ticker picker spans all history, not just the loaded window. Fetched once; [] on an old server (facet absent).
+  const [companyFacets, setCompanyFacets] = useState<CompanyFacet[]>([])
+  useEffect(() => {
+    let alive = true
+    api.newsFacets({}).then((f) => { if (alive) setCompanyFacets(f.companies || []) }).catch(() => {})
+    return () => { alive = false }
+  }, [])
 
   // keep the "last look Xm ago" line honest while the panel is open
   useEffect(() => {
@@ -176,6 +184,10 @@ export function LiveFeed() {
     linkage: filters.linkage || undefined,
     gicsSector: filters.gicsSector || undefined,
     gicsSubSector: filters.gicsSubSector || undefined,
+    companyTicker: filters.company?.ticker || undefined,
+    companyName: filters.company?.name || undefined,
+    companyAliases: filters.company?.aliases?.length ? filters.company.aliases : undefined,
+    companyListingCountry: filters.company?.listingCountry || undefined,
     text: filters.text.trim() || undefined,
   }), [filters])
   const archiveKey = JSON.stringify(archiveQuery)
@@ -390,7 +402,7 @@ export function LiveFeed() {
         </div>
       )}
 
-      <FeedFilters value={filters} onChange={setFilters} sources={sources} />
+      <FeedFilters value={filters} onChange={setFilters} sources={sources} companies={companyFacets} />
 
       <div className="wirewindow" role="group" aria-label="Wire view">
         <span className="wirewindow__label">View</span>

@@ -38,7 +38,37 @@ export interface FeedFilterQuery {
   // story is GOLD-wire material even though its scope isn't 'commodity') — one clause, so the archive
   // search and the live rail's client-side projection (ui/web lib/wire.ts itemOnWire) agree exactly.
   wireScope?: string
+  // Pick-a-company filter (the ticker autofill): match an item tagged with this EXACT ticker OR whose
+  // headline/company blob contains this name OR any of its known aliases. Sending both ticker and name (the
+  // picked suggestion carries both) maximises recall — the ticker catches items the name misses and
+  // vice-versa. `aliases` are OTHER spellings the archive has tagged for the same company identity (e.g. a
+  // short form like "Amazon" alongside "Amazon.com Inc.") — carried so an untagged older item using a
+  // less-common spelling still matches, not just the one "best" name (Codex review, PR #317). Any of
+  // ticker/name/an alias alone still matches. `listingCountry`: when the picked facet has a definite
+  // listing_country, an item's OWN definite (non-null) listing_country for that ticker must not DISAGREE —
+  // this is what stops two different issuers that happen to reuse the same ticker letters on different
+  // exchanges (the archive has both NYSE:CAT Caterpillar and ASX:CAT Catapult Group International) from
+  // matching each other's tagged items via a bare ticker match (Codex review, PR #319). Unknown on either
+  // side is never a conflict — this narrows a proven mismatch, it never costs recall on missing data.
+  company?: { ticker?: string; name?: string; aliases?: string[]; listingCountry?: string | null }
   text?: string // substring over headline / translation / company name+ticker
+}
+
+/** Is the pick-a-company clause actually ON? Ticker OR name OR a non-empty alias list — an alias-only query
+ *  (no ticker/name, e.g. a raw API caller that only sends `companyAliases`) must still activate the clause,
+ *  not silently no-op and fall through to "everything matches" (Codex review, PR #319). Shared by every site
+ *  that gates on "is a company picked" so none of them can drift out of sync with matchesCompany itself. */
+export function companyClauseSet(company: { ticker?: string; name?: string; aliases?: string[]; listingCountry?: string | null } | undefined): boolean {
+  return !!(company && (company.ticker || company.name || company.aliases?.length))
+}
+
+/** Do a picked company's definite listing_country and an item's OWN definite listing_country for its
+ *  ticker tag DISAGREE? Only a genuine, evidenced conflict (both sides non-null and different) counts —
+ *  unknown on either side is never treated as a mismatch, so missing extraction never costs recall. Shared
+ *  by matchesCompany/explainFeedFilterMatch (server) and their client twin so the exact-ticker match can
+ *  tell apart two different issuers reusing the same ticker letters on different exchanges. */
+export function listingConflicts(picked: string | null | undefined, itemCountry: string | null | undefined): boolean {
+  return !!picked && !!itemCountry && picked !== itemCountry
 }
 
 /** True when at least one structured (server-side) filter is set — the cockpit switches to archive search. */
@@ -47,8 +77,40 @@ export function hasAnyFilter(q: FeedFilterQuery): boolean {
     (q.themes?.length ?? 0) > 0 ||
     !!q.country || !!q.geoRegion || !!q.source || !!q.band || !!q.size || !!q.linkage ||
     !!q.gicsSector || !!q.gicsSubSector || !!q.scope || (q.commodities?.length ?? 0) > 0 ||
-    (q.topics?.length ?? 0) > 0 || (q.scheduledEvents?.length ?? 0) > 0 || !!q.wireScope || !!(q.text && q.text.trim())
+    (q.topics?.length ?? 0) > 0 || (q.scheduledEvents?.length ?? 0) > 0 || !!q.wireScope ||
+    companyClauseSet(q.company) || !!(q.text && q.text.trim())
   )
+}
+
+/** Whole-word occurrence of `needle` in `hay` (both already lowercased). Word chars are ASCII [a-z0-9], so
+ *  "amazon" hits "amazon's results" / "amazon.com" but NOT "amazons" / "metadata" / "metal" — the precision
+ *  partner to the recall-first design. ASCII-only word chars ⇒ it stays PERMISSIVE for CJK / space-less
+ *  scripts (every char reads as a boundary there), so a non-Latin headline never loses a match. MUST stay
+ *  identical to the web twin `nameOccurs` in ui/web/src/components/screener/FeedFilters.tsx, and it is reused
+ *  by the facet index (ui/server/src/news/facets.ts) so all three sites match a company name the same way. */
+export function nameOccurs(hay: string, needle: string): boolean {
+  if (!needle) return false
+  const word = (ch: string) => (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')
+  const headWord = word(needle[0])
+  const tailWord = word(needle[needle.length - 1])
+  for (let i = hay.indexOf(needle); i >= 0; i = hay.indexOf(needle, i + 1)) {
+    const before = i === 0 ? '' : hay[i - 1]
+    const after = i + needle.length >= hay.length ? '' : hay[i + needle.length]
+    if ((!before || !word(before) || !headWord) && (!after || !word(after) || !tailWord)) return true
+  }
+  return false
+}
+
+/** Does the item satisfy the pick-a-company clause? Exact ticker (not disagreeing on listing_country) OR
+ *  whole-word name (or any alias) over the headline/company blob. Shared by matchesFeedFilters and the
+ *  debug explainer so the two never drift. */
+function matchesCompany(it: FeedItem, company: { ticker?: string; name?: string; aliases?: string[]; listingCountry?: string | null }): boolean {
+  const t = (company.ticker || '').toUpperCase()
+  const names = [company.name, ...(company.aliases || [])].filter((s): s is string => !!s).map((s) => s.toLowerCase())
+  const tickerHit = !!t && (it.companies || []).some((c) => (c.ticker || '').toUpperCase() === t && !listingConflicts(company.listingCountry, c.listing_country))
+  const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
+  const nameHit = names.some((n) => nameOccurs(hay, n))
+  return tickerHit || nameHit
 }
 
 const bandOf = (it: FeedItem): string =>
@@ -75,6 +137,7 @@ export function matchesFeedFilters(it: FeedItem, q: FeedFilterQuery): boolean {
   if (q.topics && q.topics.length > 0 && !topicsOf(it).some((t) => q.topics!.includes(t))) return false
   if (q.scheduledEvents && q.scheduledEvents.length > 0 && !scheduledEventsOf(it).some((s) => q.scheduledEvents!.includes(s))) return false
   if (q.wireScope && (it.scope || '') !== q.wireScope && commoditiesOf(it).length === 0) return false
+  if (companyClauseSet(q.company) && !matchesCompany(it, q.company!)) return false
   if (q.text && q.text.trim()) {
     const needle = q.text.trim().toLowerCase()
     const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
@@ -110,6 +173,23 @@ export function parseFeedFilterQuery(raw: Record<string, unknown>): FeedFilterQu
     // scheduled-event kinds are lowercase ids (news/schedule.ts ScheduledEventKind)
     scheduledEvents: scheduledRaw ? scheduledRaw.split(',').map((s) => s.trim().toLowerCase()).filter(Boolean) : undefined,
     wireScope: str(raw.wireScope),
+    // pick-a-company: ticker is upcased (tags carry upper-case symbols); name/aliases stay verbatim for the substring
+    company: (() => {
+      const ticker = str(raw.companyTicker)?.toUpperCase()
+      const name = str(raw.companyName)
+      // '|' not ',' — some tagged company names contain a comma (e.g. "Foo Corp, Inc."), which a comma-split
+      // would wrongly break into two aliases; '|' never appears in a company name.
+      const aliasesRaw = str(raw.companyAliases)
+      const aliases = aliasesRaw ? aliasesRaw.split('|').map((a) => a.trim()).filter(Boolean) : undefined
+      const listingCountry = str(raw.companyListingCountry)?.toUpperCase()
+      // aliases ALONE (no ticker/name) is a valid, real query shape (companyClauseSet honours it) — a raw
+      // API caller sending only `companyAliases` must not be dropped here before it even reaches that gate
+      // (Codex review, PR #319). Each field is spread in only when present, not just filtered to `undefined`
+      // — so e.g. an alias-only query returns `{ aliases: [...] }`, never `{ ticker: undefined, name:
+      // undefined, aliases: [...] }` (the latter breaks a plain deepEqual against the intended shape).
+      if (!ticker && !name && !aliases?.length) return undefined
+      return { ...(ticker ? { ticker } : {}), ...(name ? { name } : {}), ...(aliases?.length ? { aliases } : {}), ...(listingCountry ? { listingCountry } : {}) }
+    })(),
     text: str(raw.text),
   }
 }
@@ -192,6 +272,21 @@ export function explainFeedFilterMatch(it: FeedItem, q: FeedFilterQuery): FeedFi
     const have = commoditiesOf(it)
     const pass = (it.scope || '') === q.wireScope || have.length > 0
     checks.push({ clause: 'wireScope', passed: pass, detail: pass ? (have.length ? `on the wire via commodity tag(s): ${have.join(', ')}` : `on the wire via scope ${q.wireScope}`) : `item scope "${it.scope || 'unset'}" ≠ "${q.wireScope}" and it carries no commodity tag` })
+  }
+  if (companyClauseSet(q.company)) {
+    const t = (q.company!.ticker || '').toUpperCase()
+    const names = [q.company!.name, ...(q.company!.aliases || [])].filter((s): s is string => !!s)
+    const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
+    const tickerTag = t ? (it.companies || []).find((c) => (c.ticker || '').toUpperCase() === t) : undefined
+    const tickerConflicted = !!tickerTag && listingConflicts(q.company!.listingCountry, tickerTag.listing_country)
+    const tickerHit = !!tickerTag && !tickerConflicted
+    const nameMatch = names.find((n) => nameOccurs(hay, n.toLowerCase()))
+    const want = [t && `ticker ${t}`, names.length && `name/alias ${names.map((n) => `“${n}”`).join(' / ')}`].filter(Boolean).join(' OR ')
+    const via = tickerHit ? `exact ticker ${t}` : nameMatch ? `name “${nameMatch}” in headline/company blob` : ''
+    const missDetail = tickerConflicted
+      ? `ticker ${t} is tagged, but its listing_country "${tickerTag!.listing_country}" disagrees with the picked "${q.company!.listingCountry}" — a different issuer sharing the same ticker letters`
+      : `no company matched ${want}`
+    checks.push({ clause: 'company', passed: tickerHit || !!nameMatch, detail: tickerHit || nameMatch ? `matched via ${via}` : missDetail })
   }
   if (q.text && q.text.trim()) {
     const needle = q.text.trim().toLowerCase()

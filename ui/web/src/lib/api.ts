@@ -116,6 +116,20 @@ export interface ArchiveQuery {
   topics?: string[] // CapIQ-style subject topics (server news/topics.ts) — OR within the set
   scheduledEvents?: string[] // forward/scheduled corporate events (server news/schedule.ts) — OR within the set
   wireScope?: string // wire-membership disjunction: scope equals this OR the item carries a commodity tag
+  // Pick-a-company filter (the ticker autofill): match items tagged with this exact ticker OR whose
+  // headline/company blob contains this name OR any of its known aliases. Sending BOTH (the picked
+  // suggestion carries both) is the reliable path — the ticker catches items the name misses and
+  // vice-versa. `companyAliases` carries other spellings the archive has tagged for the same ticker (e.g. a
+  // short form like "Amazon" alongside "Amazon.com Inc."), so an untagged item using a less-common spelling
+  // still matches (Codex review, PR #317). Any of ticker/name/an alias alone still matches.
+  companyTicker?: string
+  companyName?: string
+  companyAliases?: string[]
+  // when the picked facet has a definite listing_country, an item's own definite listing_country for that
+  // ticker must not disagree — tells apart two different issuers reusing the same ticker letters on
+  // different exchanges (e.g. NYSE:CAT Caterpillar vs ASX:CAT Catapult Group International). Unknown on
+  // either side is never a conflict (Codex review, PR #319).
+  companyListingCountry?: string
   text?: string
 }
 export interface SearchCursor { ts: string; id: string }
@@ -126,6 +140,17 @@ export interface FeedSearchResponse {
   exhausted: boolean // true = reached the archive floor (genuinely nothing older)
 }
 export interface FacetCount { key: string; label: string; count: number; parent?: string }
+// A distinct company observed on the wire, with how many archived items mention it — the source for the
+// company/ticker autofill. `ticker` is null for a name-only guess the scanner never resolved a symbol for.
+// `aliases`: other spellings the archive has tagged for the same ticker (most-mentioned first, capped),
+// carried through the pick so an item using a less-common spelling still matches (server news/facets.ts).
+// Optional (not just possibly-empty) so an older server response — or a test fixture — that omits it still
+// type-checks; callers treat a missing `aliases` the same as an empty one.
+// `listingCountry`: the definite listing_country the archive agrees on for this identity, or null/absent
+// when unknown or mixed. Two mentions sharing ticker LETTERS but proven to be different issuers (disagreeing
+// definite countries) arrive as SEPARATE CompanyFacet rows — this is what lets a pick (and the ticker match)
+// tell them apart (Codex review, PR #319).
+export interface CompanyFacet { ticker: string | null; name: string; count: number; aliases?: string[]; listingCountry?: string | null }
 export interface FeedFacets {
   countries: FacetCount[] // parent = continent
   regions: FacetCount[] // continents
@@ -135,6 +160,7 @@ export interface FeedFacets {
   themes: FacetCount[]
   topics?: FacetCount[] // CapIQ-style subject topics (server news/topics.ts) — optional: absent on old servers
   scheduledEvents?: FacetCount[] // forward/scheduled corporate events (server news/schedule.ts) — optional
+  companies?: CompanyFacet[] // distinct companies on the wire, for the ticker autofill — optional: absent on old servers
   total: number
   builtThroughDate: string | null
   builtAt: string
@@ -178,6 +204,11 @@ function archiveQueryParams(q: ArchiveQuery): URLSearchParams {
   if (q.topics?.length) p.set('topics', q.topics.join(','))
   if (q.scheduledEvents?.length) p.set('scheduledEvents', q.scheduledEvents.join(','))
   if (q.wireScope) p.set('wireScope', q.wireScope)
+  if (q.companyTicker?.trim()) p.set('companyTicker', q.companyTicker.trim())
+  if (q.companyName?.trim()) p.set('companyName', q.companyName.trim())
+  // '|' not ',' — some tagged company names contain a comma; see the matching split in feed-filter.ts
+  if (q.companyAliases?.length) p.set('companyAliases', q.companyAliases.join('|'))
+  if (q.companyListingCountry) p.set('companyListingCountry', q.companyListingCountry)
   if (q.text?.trim()) p.set('text', q.text.trim())
   return p
 }
@@ -302,7 +333,7 @@ export const api = {
   // The available geographies (country + continent) / sectors / sub-sectors / sources / themes WITH COUNTS
   // over the whole archive, honouring the active filter — what populates the dropdowns with archive truth.
   newsFacets: async (q: ArchiveQuery = {}): Promise<FeedFacets> => {
-    if ((await ensureMode()) === 'static') return { countries: [], regions: [], sectors: [], subSectors: [], sources: [], themes: [], total: 0, builtThroughDate: null, builtAt: '' }
+    if ((await ensureMode()) === 'static') return { countries: [], regions: [], sectors: [], subSectors: [], sources: [], themes: [], companies: [], total: 0, builtThroughDate: null, builtAt: '' }
     return get(`/api/news/facets?${archiveQueryParams(q).toString()}`)
   },
   newsStreamUrl: () => `/api/news/stream`,

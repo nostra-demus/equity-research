@@ -1869,6 +1869,46 @@ a { color: inherit; }
 .ffilters__sel:disabled { opacity: 0.4; cursor: not-allowed; }
 .ffilters__clear { height: 28px; padding: 0 10px; font-size: 11px; }
 
+/* ---- company / ticker autofill (CompanyFilter) ---- */
+.cfilter { position: relative; display: inline-flex; flex: 1 1 150px; min-width: 130px; }
+.cfilter--chip { flex: 0 1 auto; min-width: 0; }
+.cfilter__input { flex: 1; min-width: 0; }
+/* the picked-company chip that replaces the input */
+.cfilter__chip {
+  display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 4px 0 10px;
+  font-size: 11.5px; color: var(--accent-bright); background: var(--accent-wash);
+  border: 1px solid var(--accent-deep); border-radius: var(--r-md); max-width: 100%;
+}
+.cfilter__chiptxt { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; }
+.cfilter__chipx {
+  display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; flex-shrink: 0;
+  border: 0; background: transparent; color: var(--accent-bright); font-size: 10px; cursor: pointer;
+  border-radius: var(--r-sm); transition: background var(--dur-fast), color var(--dur-fast);
+}
+@media (hover: hover) and (pointer: fine) { .cfilter__chipx:hover { background: var(--accent-wash-soft); color: var(--text); } }
+/* the suggestions dropdown (modelled on .evscope__menu) */
+.cfilter__menu {
+  position: absolute; top: calc(100% + 6px); left: 0; z-index: 20; min-width: 100%; max-width: 320px; max-height: 300px; overflow-y: auto;
+  display: flex; flex-direction: column; padding: 5px; border-radius: var(--r-md);
+  background: var(--surface-2); border: 1px solid var(--hairline-strong); box-shadow: var(--shadow-2);
+  transform-origin: top left; animation: evdropin 150ms var(--ease-out) both;
+}
+.cfilter__opt {
+  display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; appearance: none; background: transparent; border: 0;
+  padding: 6px 8px; border-radius: var(--r-md); cursor: pointer; color: var(--text-muted); font-size: 11.5px;
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+.cfilter__opt--on { background: var(--accent-wash-soft); color: var(--text); }
+.cfilter__optsym { flex: none; min-width: 46px; font-size: 11px; font-weight: 700; color: var(--accent-bright); }
+.cfilter__optname { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cfilter__optn { flex: none; font-size: 9.5px; color: var(--text-faint); font-weight: 700; }
+@media (prefers-reduced-motion: reduce) { .cfilter__menu { animation: none; } }
+/* on the narrow rail (compact) let both inputs shrink so the company picker + free-text share one line
+   before wrapping past the sector/size selects */
+.ffilters--compact .cfilter { flex: 1 1 110px; min-width: 96px; }
+.ffilters--compact .cfilter__input { min-width: 0; }
+.ffilters--compact .ffilters__text { flex: 1 1 110px; min-width: 96px; }
+
 /* ---- the News wire (live scanner view) ---- */
 .wire__list { flex: 1; overflow-y: auto; padding: 8px 20px 20px; }
 .wire__row {

@@ -3448,7 +3448,7 @@ export const useStore = create<State>((set, get) => ({
   // of filtering the 2-day wire. An empty query returns the rail to LIVE mode (the SSE wire). A monotonic
   // token guards against a stale slow response overwriting a newer search (last-write-wins by query).
   scRunArchiveSearch: async (q: ArchiveQuery) => {
-    const active = !!(q.themes?.length || q.country || q.geoRegion || q.source || q.band || q.size || q.linkage || q.gicsSector || q.gicsSubSector || q.commodities?.length || (q.text && q.text.trim()))
+    const active = !!(q.themes?.length || q.country || q.geoRegion || q.source || q.band || q.size || q.linkage || q.gicsSector || q.gicsSubSector || q.companyTicker || q.companyName || q.companyAliases?.length || q.commodities?.length || (q.text && q.text.trim()))
     if (!active) { // back to LIVE mode — drop the archive snapshot, keep the live wire
       archiveToken++
       set({ scArchiveQuery: {}, scArchiveResults: [], scArchiveCursor: null, scArchiveLoading: false, scArchiveLoadingMore: false, scArchiveScannedThrough: null, scArchiveExhausted: false })
