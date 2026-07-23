@@ -254,11 +254,18 @@ const LEGAL_SUFFIXES = new Set([
   'pjsc', 'psc', 'jsc', 'pcl', 'bhd', 'berhad', 'tbk', 'adr', 'ads', 'the', 'and',
 ])
 
-/** A company name → its identity-bearing lowercase tokens. Splits on ANY non-alphanumeric run, so a
- *  dotted name yields its parts and a short record name can still match a longer feed name. */
+/** A company name → its identity-bearing lowercase tokens. Splits on ANY run of non-letter/digit, so a
+ *  dotted name yields its parts and a short record name can still match a longer feed name.
+ *
+ *  Diacritics are folded (NFD + strip combining marks) BEFORE splitting, so a filing's "Société Générale"
+ *  matches the feed's ASCII "Societe Generale" instead of shattering into unrelated fragments. Tokens are
+ *  Unicode letters/digits (\p{L}\p{N}), not ASCII [a-z0-9], so a wholly non-Latin name still yields real
+ *  tokens rather than an EMPTY set — an empty set would make namesMatch vacuously bypass the gate for any
+ *  non-Latin company, the wrong-company hazard the gate exists to catch. */
 export function nameTokens(name: string | null | undefined): Set<string> {
   const out = new Set<string>()
-  for (const tok of String(name ?? '').toLowerCase().split(/[^a-z0-9]+/)) {
+  const folded = String(name ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+  for (const tok of folded.split(/[^\p{L}\p{N}]+/u)) {
     if (!tok || tok.length < 2) continue // single letters carry no identity
     if (LEGAL_SUFFIXES.has(tok)) continue
     out.add(tok)
@@ -412,7 +419,11 @@ export function callVsLive(args: {
 // as it says so.
 
 interface CachedQuote { row: CnbcRow; at: number }
-interface QuoteCache { bySymbol: Map<string, CachedQuote>; inflight: Map<string, Promise<void>> }
+// inflight resolves to the batch's SUCCESS boolean (true = rows landed, false = the fetch failed), so
+// every waiter — the creator AND anyone who joins the same in-flight promise — reads the same outcome.
+// A per-call `batchFailed` set only inside the creator's closure would leave a joiner falsely believing
+// the batch succeeded (see getQuotes).
+interface QuoteCache { bySymbol: Map<string, CachedQuote>; inflight: Map<string, Promise<boolean>> }
 
 const memCache = new Map<string, QuoteCache>()
 const persistFile = (stateDir: string) => path.join(stateDir, 'equity-quotes.json')
@@ -502,7 +513,7 @@ export async function getQuotes(subjects: QuoteSubject[], deps: QuoteDeps = {}):
       if (!flight) {
         flight = (async () => {
           const rows = await fetchCnbcRows(fetchFn, needed, NEWS.quoteTimeoutMs)
-          if (!rows) { batchFailed = true; return } // keep previous entries; they will read as stale
+          if (!rows) return false // the fetch failed — keep previous entries; they will read as stale
           for (const sym of needed) {
             const row = rows.get(sym)
             // A symbol absent from a GOOD batch is a real "this service does not price it" answer, so
@@ -511,12 +522,16 @@ export async function getQuotes(subjects: QuoteSubject[], deps: QuoteDeps = {}):
             cache.bySymbol.set(sym, { row: row ?? ({ symbol: sym, last: NaN } as CnbcRow), at: nowMs })
           }
           persist(stateDir, cache)
+          return true
         })()
-          .catch(() => { batchFailed = true })
+          .catch(() => false)
           .finally(() => { cache.inflight.delete(key) })
         cache.inflight.set(key, flight)
       }
-      await flight
+      // Every waiter reads the SHARED result and sets its OWN batchFailed. A joiner that inherited the
+      // creator's closure `batchFailed` would stay false on a failed batch and wrongly report
+      // `unknown_symbol` (the provider does not carry this listing) during a transient outage.
+      if (!(await flight)) batchFailed = true
     }
 
     for (const { subject, candidates } of plans) {

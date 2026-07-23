@@ -1,6 +1,7 @@
 import { staticPromptPath } from './prompts'
 import type { PipelinesRead } from './types'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
+import { QUOTE_CLIENT_TIMEOUT_MS } from './quoteTimeout'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
@@ -766,7 +767,9 @@ export const api = {
     if ((await ensureMode()) === 'static') return null
     try {
       const qs = runRoot ? `?ticker=${encodeURIComponent(ticker)}&runRoot=${encodeURIComponent(runRoot)}` : `?ticker=${encodeURIComponent(ticker)}`
-      const r = await get<QuoteRead>(`/api/quote${qs}`, 8_000)
+      // Client budget must outlast the server's worst-case CNBC window, or a slow-but-succeeding fetch
+      // aborts here and refreshLiveQuote suppresses the next attempt for 60s (see quoteTimeout.ts).
+      const r = await get<QuoteRead>(`/api/quote${qs}`, QUOTE_CLIENT_TIMEOUT_MS)
       // Positive match only: a body without a real quote object is treated as no quote at all.
       return r && typeof r === 'object'
         ? { ticker: r.ticker ?? null, quote: r.quote ?? null, call: r.call ?? null, reason: r.reason ?? null }

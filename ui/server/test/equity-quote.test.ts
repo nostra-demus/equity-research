@@ -458,5 +458,38 @@ await check('getQuotes never throws — a hostile fetch is absence, not a crash'
   assert.equal(m.get('AMZN')?.quote ?? null, null)
 })
 
+await check('getQuotes single-flight: a JOINER of a FAILED batch also sees feed_unavailable, not unknown_symbol', async () => {
+  // Regression for the closure-scope batchFailed bug (Gemini/Codex). Two callers share ONE in-flight
+  // fetch that FAILS with no cached row. The creator sets its own batchFailed; a joiner that inherited
+  // the creator's per-call flag would stay false and wrongly report `unknown_symbol` (asserting the
+  // provider does not carry this listing) for what is really a transient outage. Both must read the
+  // shared outcome and report `feed_unavailable`.
+  let calls = 0
+  const fn = (async () => { calls++; return { ok: false, status: 503, text: async () => '' } as any }) as unknown as typeof fetch
+  const deps = baseDeps({ fetchFn: fn })
+  // Both are launched before either awaits, so the second joins the first's in-flight promise.
+  const both = Promise.all([getQuotes([AMZN_SUBJ], deps), getQuotes([AMZN_SUBJ], deps)])
+  const [a, b] = await both
+  assert.equal(calls, 2, 'ONE shared flight (fetchCnbcRows retries once = 2 fn calls), not one flight per caller')
+  assert.equal(a.get('AMZN')!.reason, 'feed_unavailable', 'the flight CREATOR reports the outage')
+  assert.equal(b.get('AMZN')!.reason, 'feed_unavailable', 'the flight JOINER must report the SAME outage, not unknown_symbol')
+})
+
+// ---- gate 2, finding 6: diacritics + non-Latin identity ----
+
+await check('nameTokens folds diacritics so an accented filing name matches its ASCII feed spelling', () => {
+  // "Société Générale" must not shatter into {soci, rale}; NFD-fold + Unicode-letter split yields the
+  // same tokens as the feed's "Societe Generale", so the correct company is NOT refused (name_mismatch).
+  assert.deepEqual([...nameTokens('Société Générale')].sort(), ['generale', 'societe'])
+  assert.equal(namesMatch('Société Générale', 'Societe Generale SA'), true, 'accents must not split a matching name')
+})
+
+await check('nameTokens keeps non-Latin letters, so a non-Latin name does NOT vacuously bypass the gate', () => {
+  // A wholly non-Latin name used to tokenize to the EMPTY set, which made namesMatch return true for it
+  // against ANYTHING (the wrong-company hazard). It must now produce real tokens and be judgeable.
+  assert.ok(nameTokens('腾讯控股').size > 0, 'a wholly non-Latin name still produces identity tokens')
+  assert.equal(namesMatch('腾讯控股', '阿里巴巴集团'), false, 'two different non-Latin names are refused, not waved through')
+})
+
 for (const d of tmpdirs) { try { fs.rmSync(d, { recursive: true, force: true }) } catch { /* best effort */ } }
 console.log(`\nequity-quote.test.ts: ${passed} passed`)

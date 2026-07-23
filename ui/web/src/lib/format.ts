@@ -1,4 +1,4 @@
-import type { Sufficiency } from './types'
+import type { CallVsLive, LiveQuote, Sufficiency } from './types'
 
 export function sufficiencyColor(s: Sufficiency): string {
   if (s === 'Sufficient') return 'var(--accent-bright)' // used as the module status TEXT too — needs AA on light
@@ -163,4 +163,63 @@ export function nodeStatusColor(status: string): string {
     default:
       return 'var(--ring-dormant)' // theme-flipping dormant-orb ring color
   }
+}
+
+// ---- live-price (decision-bar) display helpers ----
+// Kept here, in the pure format module, so the DecisionBanner's number-to-string logic is unit-testable
+// without importing the component (which transitively pulls in the store / import.meta.env).
+
+const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+/**
+ * An ISO instant → "22 Jul 2026" — a calendar date with NO clock, for a settled market session where a
+ * time would be a fiction. Formatted in UTC ON PURPOSE: a bare exchange close date ("2026-07-22") arrives
+ * as UTC midnight, so reading its fields in LOCAL time would show the previous calendar day for any viewer
+ * west of UTC (e.g. 21 Jul across the Americas). Empty string when the input won't parse.
+ */
+export function stampDayUTC(iso?: string | null): string {
+  if (!iso) return ''
+  const t = Date.parse(iso)
+  if (!Number.isFinite(t)) return ''
+  const d = new Date(t)
+  return `${d.getUTCDate()} ${MONTHS_SHORT[d.getUTCMonth()]} ${d.getUTCFullYear()}`
+}
+
+/** A signed percent like the decision bar's "+3.2%" / "-16.1%". */
+function pctLabel(v: number): string {
+  return `${v > 0 ? '+' : ''}${v}%`
+}
+
+/**
+ * The faint qualifier shown beside the live price. A failed refresh (`stale`) MUST be visible on screen,
+ * not only in the hover title — otherwise a cached value reads as current. So the stale flag wins the
+ * slot even when a re-based "vs entry" move is also available; only a FRESH price shows the move.
+ */
+export function priceQualifier(
+  quote: Pick<LiveQuote, 'stale'>,
+  call: Pick<CallVsLive, 'move_since_call_pct'> | null,
+): string | undefined {
+  if (quote.stale) return ' · not current'
+  if (call) return ` ${pctLabel(call.move_since_call_pct)} vs entry`
+  return undefined
+}
+
+/**
+ * The provenance line for the live-price tooltip. Names the feed that actually answered — CLAUDE.md §5:
+ * a web-sourced number carries its source and is labelled indicative/unverified — instead of a generic
+ * "public market-data source", since the payload records which feed it was.
+ */
+export function priceProvenance(source: LiveQuote['source']): string {
+  const name = source === 'cnbc' ? 'CNBC' : 'a public market-data source'
+  return `An indicative, unverified quote from ${name} — not from a filing, and not checked against one.`
+}
+
+/**
+ * Which run root a live-quote refresh should re-base against. An explicitly supplied root (e.g. the run
+ * that JUST finished, handed in by the run-done handler) wins over the store's current `runRoot`, which a
+ * concurrent manifest callback may not have updated yet — so the banner never re-bases the new run's call
+ * against the previous run's entry price. Falls back to the store's current, then undefined.
+ */
+export function preferRunRoot(explicit?: string | null, current?: string | null): string | undefined {
+  return explicit ?? current ?? undefined
 }

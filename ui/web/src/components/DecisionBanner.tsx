@@ -1,7 +1,7 @@
 import { useEffect, type ReactNode } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useStore } from '../lib/store'
-import { decisionColor, resolveVerdict } from '../lib/format'
+import { decisionColor, priceProvenance, priceQualifier, resolveVerdict, stampDayUTC } from '../lib/format'
 import type { QuoteAbsentReason, WhatChangedRead } from '../lib/types'
 
 // the three shareable tiers of a finished run, opened from below the Memo orb
@@ -30,12 +30,6 @@ function stamp(iso?: string | null): string {
   const hh = String(d.getHours()).padStart(2, '0')
   const mm = String(d.getMinutes()).padStart(2, '0')
   return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}, ${hh}:${mm}`
-}
-
-/** An ISO instant → "22 Jul 2026" (no clock — for a settled session, where a time would be a fiction). */
-function stampDay(iso?: string | null): string {
-  const s = stamp(iso)
-  return s ? s.split(',')[0] : ''
 }
 
 /** A price with its currency, always 2dp so Entry and Price now line up digit-for-digit. */
@@ -335,6 +329,9 @@ export function DecisionBanner() {
             <Metric
               label="From today"
               value={pct(call.live_expected_return_pct)}
+              /* A stale quote makes this re-based return a value computed from a price that is no longer
+                 current — say so on screen, not only in the hover title (do not present it as current). */
+              unit={quote?.stale ? ' · not current' : undefined}
               valueColor={call.live_expected_return_pct >= 0 ? 'var(--accent-bright)' : 'var(--bad)'}
               title={`The engine's target has not moved — only the starting price has. This call's target is ${money(call.currency, call.implied_target)}. From today's ${money(call.currency, call.live_price)} that is ${pct(call.live_expected_return_pct)}; from the ${money(call.currency, call.entry_price)} it was priced at, it was ${pct(call.expected_return_pct)} — a difference of ${signed(call.expected_return_delta_pp)} percentage points. This is arithmetic on the existing target, not a fresh valuation: the engine has not re-examined the company since ${shortDate(decisionDate) || 'the call'}.`}
             />
@@ -358,12 +355,12 @@ export function DecisionBanner() {
                  than taking a whole column of its own. They are one thought — where the price is, and
                  how far that is from what the call was priced at — and this is the right hierarchy
                  between them: the price is the fact, the gap is the context. */
-              unit={call ? ` ${pct(call.move_since_call_pct)} vs entry` : quote.stale ? ' · not current' : undefined}
+              unit={priceQualifier(quote, call)}
               title={[
                 `${quote.name || quote.ticker}${quote.exchange ? ` · ${quote.exchange}` : ''} (${quote.symbol}).`,
                 quote.as_of
                   ? quote.as_of_is_close
-                    ? `Last close, ${stampDay(quote.as_of)}.`
+                    ? `Last close, ${stampDayUTC(quote.as_of)}.`
                     : `As of ${stamp(quote.as_of)} your time.`
                   : '',
                 call
@@ -371,7 +368,7 @@ export function DecisionBanner() {
                   : '',
                 quote.delayed ? 'The exchange feed is delayed, so this is not a real-time tick.' : '',
                 quote.stale ? 'The last refresh failed — this price is the last one that came through, not the current one.' : '',
-                'An indicative quote from a public market-data source. It is not from a filing and has not been checked against one.',
+                priceProvenance(quote.source),
               ].filter(Boolean).join(' ')}
             />
           )}

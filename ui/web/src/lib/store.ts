@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { api, ensureMode, isStatic, snapshotGeneratedAt } from './api'
 import type { ArchiveQuery, FeedFacets, SearchCursor } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
-import { moduleLabel, resolveVerdict } from './format'
+import { moduleLabel, preferRunRoot, resolveVerdict } from './format'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
@@ -443,7 +443,7 @@ interface State {
   // a positive match, so null simply means those cells don't render.
   liveQuote: QuoteRead | null
   liveQuoteAt: number | null
-  refreshLiveQuote: (force?: boolean) => Promise<void>
+  refreshLiveQuote: (force?: boolean, runRoot?: string) => Promise<void>
   openWhatChanged: () => void
   closeWhatChanged: () => void
   openThesisPlan: () => Promise<void>
@@ -1652,7 +1652,7 @@ export const useStore = create<State>((set, get) => ({
   // There is deliberately NO timer — the price refreshes when the user's own actions say it should
   // (selecting a company, a run finishing, re-opening the tab), which is also why the server keeps its
   // own TTL cache: repeated calls inside the window cost nothing.
-  refreshLiveQuote: async (force = false) => {
+  refreshLiveQuote: async (force = false, runRoot) => {
     const t = get().selectedTicker
     // research-only, matched POSITIVELY (never `!== 'screener'`): an engine older than the bundle 404s
     // /api/quote and api.quote returns null, so the cells hide rather than defaulting permissive.
@@ -1662,8 +1662,10 @@ export const useStore = create<State>((set, get) => ({
     const token = get().selectToken
     try {
       // the SAME runRoot the banner's decision came from — a ticker-only fetch could re-base against a
-      // different run's entry price than the one displayed beside it
-      const read = await api.quote(t, get().runRoot ?? undefined)
+      // different run's entry price than the one displayed beside it. An EXPLICIT root (e.g. a run that
+      // just finished) wins over the store's `runRoot`, which a concurrent manifest callback may not have
+      // updated yet — otherwise the new run's call re-bases against the previous run's entry price.
+      const read = await api.quote(t, preferRunRoot(runRoot, get().runRoot))
       if (get().selectToken !== token) return // a newer selection superseded this fetch
       set({ liveQuote: read, liveQuoteAt: Date.now() })
     } catch {
@@ -2459,8 +2461,11 @@ export const useStore = create<State>((set, get) => ({
             bloomTimer = setTimeout(() => set({ coreBloom: false }), 4500)
             api.decision(selected, rSw, r.runRoot ?? undefined).then((d) => set({ decision: d })).catch(() => {})
             // A finished run means a NEW entry price and expected return, so the re-based numbers beside
-            // them must be recomputed against it — forced past the TTL for exactly that reason.
-            void get().refreshLiveQuote(true)
+            // them must be recomputed against it — forced past the TTL for exactly that reason. Pass the
+            // finished run's OWN root (the same one the decision above was fetched with): the manifest
+            // callback that updates the store's `runRoot` runs concurrently and may not have landed yet,
+            // so reading get().runRoot here could re-base the new call against the previous run's price.
+            void get().refreshLiveQuote(true, r.runRoot ?? undefined)
             // (the swarm's per-subject verdict pills are refreshed above, unconditionally on any finished
             // non-research run, so a background completion for a non-selected subject also updates.)
             // A finished re-run is exactly when a new version of the record exists. Deliberately NOT on
