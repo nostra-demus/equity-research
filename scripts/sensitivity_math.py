@@ -20,11 +20,14 @@ WHY THIS EXISTS
 """
 from __future__ import annotations
 
+import math
 from typing import Optional
 
 
 def _isnum(v) -> bool:
-    return isinstance(v, (int, float)) and not isinstance(v, bool)
+    # bool is a subclass of int; NaN/inf are floats — reject both, or a malformed sidecar (JSON allows NaN)
+    # would produce a nan impact/new_value that the guard would still report as "valid".
+    return isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v)
 
 
 def _num(v, default=None):
@@ -33,16 +36,21 @@ def _num(v, default=None):
 
 def _find(sensitivities: list, variable: str) -> Optional[dict]:
     """Match a variable by its `variable` key OR its human `label` (case-insensitive), so the caller can
-    pass either the machine key ('lme_aluminium_price') or the label ('LME aluminium price')."""
+    pass either the machine key ('lme_aluminium_price') or the label ('LME aluminium price').
+
+    None-safe (a null label never becomes the string "None"), and it REFUSES an ambiguous request: if two
+    entries match the key (duplicate variable, or a label colliding with another variable), it returns None
+    rather than silently picking the first by array order — the answer must not depend on ordering."""
     key = str(variable or "").strip().lower()
     if not key:
         return None
-    for s in sensitivities:
-        if not isinstance(s, dict):
-            continue
-        if str(s.get("variable", "")).strip().lower() == key or str(s.get("label", "")).strip().lower() == key:
-            return s
-    return None
+    matches = [
+        s for s in sensitivities
+        if isinstance(s, dict)
+        and ((s.get("variable") and str(s.get("variable")).strip().lower() == key)
+             or (s.get("label") and str(s.get("label")).strip().lower() == key))
+    ]
+    return matches[0] if len(matches) == 1 else None
 
 
 def scenario(sidecar: dict, variable: str, delta) -> dict:
@@ -73,38 +81,62 @@ def scenario(sidecar: dict, variable: str, delta) -> dict:
         return {"error": f"non-numeric coefficient ({s.get('coefficient')!r}) or delta ({delta!r})"}
 
     impact = round(d * coeff, 4)  # change in the base metric (deterministic: delta × recorded coefficient)
+
+    # Which metric does this coefficient actually move? The schema lets a row carry its own impact_metric.
+    # If it differs from the sidecar's base metric, `impact` is in a DIFFERENT metric — adding it to base_value
+    # (an adjusted-EBITDA level, say) would fabricate a level, so we report the impact but withhold the level
+    # and margin rather than compute a wrong number.
+    base_metric = sidecar.get("base_metric")
+    row_metric = s.get("impact_metric") or base_metric
+    same_metric = row_metric == base_metric
+
     out = {
         "variable": s.get("variable"),
         "label": s.get("label"),
         "unit": s.get("unit"),
         "delta": d,
         "coefficient": coeff,
-        "impact_metric": sidecar.get("base_metric") or s.get("impact_metric"),
+        "impact_metric": row_metric,
         "impact": impact,
-        "base_value": base,
-        "new_value": round(base + impact, 4) if base is not None else None,
+        "base_value": base if same_metric else None,
+        "new_value": round(base + impact, 4) if (base is not None and same_metric) else None,
         "confidence": s.get("confidence"),
         "basis": s.get("basis"),
         "source": s.get("source"),
         "non_linearity": s.get("non_linearity"),
     }
+    if not same_metric:
+        out["metric_note"] = (f"coefficient is on {row_metric}, not the sidecar base metric {base_metric} — "
+                              f"the base level and margin are not applied")
 
-    # Margin scenario — only when the run recorded a revenue base to divide by (else Not assessable).
+    # Margin scenario — ONLY for a profit-level base metric (EBITDA/EBIT/operating profit) with a revenue
+    # denominator, and only when the coefficient is on that same metric. A per-share metric (EPS) over revenue
+    # is nonsensical, so it is skipped. IMPORTANT basis: we hold revenue CONSTANT (the sidecar records a
+    # revenue base, not a revenue sensitivity), so this is the margin implied by the profit move at unchanged
+    # revenue — flagged `margin_basis: revenue_constant` and never presented as a fully-modeled margin.
     rev = _num(sidecar.get("revenue_base"))
-    if rev and rev > 0 and base is not None:
+    bm = str(base_metric or "").lower()
+    is_profit_metric = any(k in bm for k in ("ebitda", "ebit", "operating", "profit", "income"))
+    per_share = any(k in bm for k in ("eps", "per_share", "per-share"))
+    if rev and rev > 0 and base is not None and same_metric and is_profit_metric and not per_share:
         base_margin = base / rev * 100.0
         new_margin = (base + impact) / rev * 100.0
         out["base_margin_pct"] = round(base_margin, 3)
         out["new_margin_pct"] = round(new_margin, 3)
         out["margin_change_bps"] = round((new_margin - base_margin) * 100.0, 1)
+        out["margin_basis"] = "revenue_constant"
 
-    # Range flag — a linear scale is only trustworthy within the orb's own disclosed scenario band.
+    # Range flag — a linear scale is only trustworthy within the orb's disclosed band. A ONE-SIDED band
+    # (only low, or only high) is still enforced on the side it discloses; None means no band was recorded.
     vr = s.get("valid_range") if isinstance(s.get("valid_range"), dict) else None
-    lo, hi = (_num(vr.get("low")), _num(vr.get("high"))) if vr else (None, None)
-    if lo is not None and hi is not None:
-        out["within_disclosed_range"] = bool(lo <= d <= hi)
-        if not out["within_disclosed_range"]:
-            out["range_note"] = (f"delta {d} is outside the orb's disclosed scenario range [{lo}, {hi}] — "
+    lo = _num(vr.get("low")) if vr else None
+    hi = _num(vr.get("high")) if vr else None
+    if lo is not None or hi is not None:
+        outside = (lo is not None and d < lo) or (hi is not None and d > hi)
+        out["within_disclosed_range"] = not outside
+        if outside:
+            band = f"[{lo if lo is not None else '−inf'}, {hi if hi is not None else '+inf'}]"
+            out["range_note"] = (f"delta {d} is outside the orb's disclosed scenario range {band} — "
                                  f"the linear coefficient is not validated this far from base")
     else:
         out["within_disclosed_range"] = None
@@ -186,6 +218,31 @@ def _selftest() -> int:
     r2 = scenario(norev, "lme_aluminium_price", 45)
     check("norev_impact_ok", _approx(r2["impact"], 675))
     check("norev_no_margin", "margin_change_bps" not in r2)
+
+    # 7. non-finite inputs are rejected, never returned as nan (JSON allows NaN/Infinity)
+    check("nan_coeff_refused", "error" in scenario(dict(nhy, sensitivities=[dict(nhy["sensitivities"][0], coefficient=float("nan"))]), "lme_aluminium_price", 45))
+    check("inf_delta_refused", "error" in scenario(nhy, "lme_aluminium_price", float("inf")))
+
+    # 8. an EPS-style base metric gets NO margin (EPS ÷ revenue is nonsensical); the impact still computes
+    eps = dict(nhy, base_metric="diluted_eps_nok", base_value=10.0)
+    r3 = scenario(eps, "lme_aluminium_price", 45)
+    check("eps_impact_ok", _approx(r3["impact"], 675))
+    check("eps_no_margin", "margin_change_bps" not in r3)
+
+    # 9. a coefficient on a DIFFERENT metric than the base: impact reported, but level/margin withheld
+    diff = dict(nhy, sensitivities=[dict(nhy["sensitivities"][0], impact_metric="revenue_nok_m")])
+    r4 = scenario(diff, "lme_aluminium_price", 45)
+    check("diff_metric_impact_ok", _approx(r4["impact"], 675))
+    check("diff_metric_no_newvalue", r4.get("new_value") is None and "margin_change_bps" not in r4)
+
+    # 10. a ONE-SIDED disclosed band is enforced on the side it discloses
+    onelow = dict(nhy, sensitivities=[dict(nhy["sensitivities"][0], valid_range={"low": -400})])
+    check("onesided_within", scenario(onelow, "lme_aluminium_price", 50)["within_disclosed_range"] is True)
+    check("onesided_below_flagged", scenario(onelow, "lme_aluminium_price", -500)["within_disclosed_range"] is False)
+
+    # 11. duplicate variable → refuse (answer must not depend on array order)
+    dup = dict(nhy, sensitivities=[nhy["sensitivities"][0], dict(nhy["sensitivities"][0], coefficient=99.0)])
+    check("duplicate_refused", "error" in scenario(dup, "lme_aluminium_price", 45))
 
     if fails:
         print("SENSITIVITY MATH SELFTEST FAIL:", ", ".join(fails))

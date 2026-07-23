@@ -13,8 +13,10 @@
     "currency": {"type": "string"},
     "base_metric": {"type": "string", "description": "the metric the coefficients move (e.g. adjusted_ebitda_nok_m) — cite the exact basis; a coefficient on Adjusted EBITDA is not interchangeable with one on reported EBITDA (CLAUDE.md §15)"},
     "base_value": {"type": "number", "description": "the base level of base_metric the deltas apply to (e.g. FY2025 Adjusted EBITDA)"},
+    "base_value_source": {"type": ["string", "null"], "description": "citation for base_value itself (the starting level every new_value builds on), CLAUDE.md §5 — distinct from a coefficient's source, which cites the per-unit rate, not the base. A modeled new_value cannot be attributed without it."},
     "base_period": {"type": ["string", "null"], "description": "the period base_value is for (e.g. FY2025)"},
-    "revenue_base": {"type": ["number", "null"], "description": "revenue base for the operating-margin scenario, same period/currency as base_value; null = margin is Not assessable (only the base_metric scenario is returned)"},
+    "revenue_base": {"type": ["number", "null"], "description": "revenue base for the margin scenario, same period/currency as base_value; null = margin is Not assessable (only the base_metric scenario is returned). Revenue is held CONSTANT (there is no revenue coefficient), so the engine reports margin_basis: revenue_constant — an implied margin at unchanged revenue, never a fully-modeled margin."},
+    "revenue_period": {"type": ["string", "null"], "description": "the period revenue_base is for; MUST equal base_period when a margin is computed (mixing e.g. FY25 profit with FY24 revenue is a §15 defect the guard rejects)"},
     "sensitivities": {
       "type": "array",
       "minItems": 1,
