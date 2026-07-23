@@ -26,6 +26,7 @@ import { getCalendar } from './news/events-calendar'
 import type { FeedItem } from './news/types'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, hasAnyFilter, type FeedFilterQuery } from './news/feed-filter'
 import { computeFacets } from './news/facets'
+import { searchSymbolsEnriched } from './news/symbology'
 import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
@@ -1752,6 +1753,18 @@ app.get('/api/news/search', { config: { rateLimit: { max: 600, timeWindow: '1 mi
 app.get('/api/news/facets', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
   const filters = parseFeedFilterQuery((req.query as any) || {})
   return computeFacets(REPO_ROOT, filters, { archiveDir: NEWS.newsArchiveDir })
+})
+
+// GLOBAL SYMBOL SEARCH — the "any ticker, any country" directory behind the company autofill. Resolves a
+// typed symbol or name through a free, keyless global symbol search, grouped per company with every
+// sibling listing as an alias (e.g. the US OTC ADR NHYDY → Norsk Hydro ASA with Oslo's NHY.OL) — so a
+// company is findable by ANY of its tickers even when the archive has never tagged that spelling.
+// TTL-cached server-side; fail-closed to an empty list, so offline the filter degrades to the archive
+// facet + free-typed matching instead of erroring.
+app.get('/api/news/symbols', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
+  const q = String((req.query as any)?.q ?? '').trim()
+  if (q.length < 2 || q.length > 48) return { groups: [] }
+  return { groups: await searchSymbolsEnriched(q) }
 })
 
 // DEBUG — "why did/didn't this item match this filter". Accepts as much or as little of an item's fields

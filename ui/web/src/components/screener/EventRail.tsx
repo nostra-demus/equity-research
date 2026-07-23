@@ -22,7 +22,7 @@ import { extractCommodities, extractSectors } from '../../lib/taxonomy'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
 import { archiveFiltersActive, emptyFilters, FeedFilters, filtersActive, gicsEmptyMessage, matchesFilters, type FeedFilterState } from './FeedFilters'
-import type { ArchiveQuery } from '../../lib/api'
+import { api, type ArchiveQuery } from '../../lib/api'
 import { FeedbackMenu } from './FeedbackMenu'
 import { ScanStatus } from './ScanStatus'
 import type { ReportMenuAnchor } from '../ActivityReportMenu'
@@ -346,6 +346,7 @@ export function EventRail() {
     companyTicker: filters.company?.ticker || undefined,
     companyName: filters.company?.name || undefined,
     companyAliases: filters.company?.aliases?.length ? filters.company.aliases : undefined,
+    companyTickerAliases: filters.company?.tickerAliases?.length ? filters.company.tickerAliases : undefined,
     companyListingCountry: filters.company?.listingCountry || undefined,
     commodities: subjectMode && subjectPicks.length && !subjectSel.has(WIRE_OTHER) ? subjectPicks : undefined,
     text: filters.text.trim() || undefined,
@@ -705,7 +706,7 @@ export function EventRail() {
         </div>
         {filtersOpen && (
           <div className="evrail__filters">
-            <FeedFilters value={filters} onChange={setFilters} sources={[]} companies={facets?.companies || []} compact />
+            <FeedFilters value={filters} onChange={setFilters} sources={[]} companies={facets?.companies || []} searchSymbols={api.symbolSearch} compact />
           </div>
         )}
       </header>

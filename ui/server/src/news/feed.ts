@@ -19,6 +19,7 @@ import { reRankFromFactors, capSocialBand, capSocialScore, deriveMaterialityLabe
 import { getRankWeights } from './rank-weights'
 import { scoreToBand } from './triage/groq'
 import { resolveCountry } from './geography'
+import { cleanTicker } from './symbology'
 import { NEWS } from '../config'
 
 /** Hydrate a feed item on read: clean any HTML/markup left in the headline (older firehose lines were
@@ -41,7 +42,12 @@ function hydrate(it: FeedItem): FeedItem {
   // scheduled/forward corporate events (news/schedule.ts) — same read-time derivation as topics (never
   // persisted, cheap, always an array), so the whole backlog gets the §17 forward-catalyst flag for free.
   const scheduled_events = deriveScheduledEvents({ headline: headline || it.headline, headline_en: it.headline_en })
-  if (it.scope && it.source_tier && !needsClean && !needsGeo && !needsClassifier && !needsCommodity) return { ...it, topics, scheduled_events }
+  // Junk-ticker scrub (symbology.ts cleanTicker): the cheap triage writes placeholders ("NULL") and SEC
+  // CIK numbers ("0000200245") into company-guess tickers. Scrubbing on read — like the derives above —
+  // heals the WHOLE backlog with no backfill, so the facet/autofill and the company filter never see a
+  // fake symbol. Rides BOTH return paths. Idempotent; names are untouched (entities.ts owns name junk).
+  const companies = (it.companies || []).map((c) => { const t = cleanTicker(c.ticker); return t === (c.ticker ?? null) ? c : { ...c, ticker: t } })
+  if (it.scope && it.source_tier && !needsClean && !needsGeo && !needsClassifier && !needsCommodity) return { ...it, companies, topics, scheduled_events }
   const scope = it.scope || deriveScope({ ...it, headline })
   const commodities = needsCommodity ? deriveCommodities({ ...it, headline: headline || it.headline }) : undefined
   return {
@@ -49,6 +55,7 @@ function hydrate(it: FeedItem): FeedItem {
     headline: headline || it.headline,
     scope,
     source_tier: it.source_tier || deriveSourceTier(it),
+    companies,
     topics,
     scheduled_events,
     ...(needsGeo ? { country: resolveCountry(headline || it.headline, it.headline_en, it.companies, it.region, it.issuer_linkage) } : {}),

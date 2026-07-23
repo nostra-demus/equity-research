@@ -187,6 +187,7 @@ export function LiveFeed() {
     companyTicker: filters.company?.ticker || undefined,
     companyName: filters.company?.name || undefined,
     companyAliases: filters.company?.aliases?.length ? filters.company.aliases : undefined,
+    companyTickerAliases: filters.company?.tickerAliases?.length ? filters.company.tickerAliases : undefined,
     companyListingCountry: filters.company?.listingCountry || undefined,
     text: filters.text.trim() || undefined,
   }), [filters])
@@ -402,7 +403,7 @@ export function LiveFeed() {
         </div>
       )}
 
-      <FeedFilters value={filters} onChange={setFilters} sources={sources} companies={companyFacets} />
+      <FeedFilters value={filters} onChange={setFilters} sources={sources} companies={companyFacets} searchSymbols={api.symbolSearch} />
 
       <div className="wirewindow" role="group" aria-label="Wire view">
         <span className="wirewindow__label">View</span>

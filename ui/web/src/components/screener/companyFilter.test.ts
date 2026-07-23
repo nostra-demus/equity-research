@@ -5,7 +5,8 @@
 // Run: npx tsx src/components/screener/companyFilter.test.ts
 import assert from 'node:assert/strict'
 import { archiveFiltersActive, emptyFilters, filtersActive, matchesFilters, type Filterable, type FeedFilterState } from './FeedFilters'
-import { rankOption, resolveTypedCompany } from './CompanyFilter'
+import { mergeCompanyOptions, rankOption, resolveTypedCompany } from './CompanyFilter'
+import { baseTicker, cleanTicker, coreCompanyName } from '../../lib/symbology'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -83,16 +84,15 @@ check('resolveTypedCompany keeps the typed value as the NAME so a single-word co
   assert.equal(resolveTypedCompany('   '), null)
 })
 
-// ---- rankOption ranks exact-ticker above prefix above substring ----
+// ---- rankOption ranks exact-ticker above prefix above substring, and scans ALIASES too ----
 check('rankOption ranks exact ticker < ticker-prefix < name-prefix < contains < no-match', () => {
-  const o = { ticker: 'AMZN', name: 'Amazon.com', count: 9 }
+  const o = { ticker: 'AMZN', name: 'Amazon.com' }
   assert.equal(rankOption(o, 'amzn'), 0)
   assert.equal(rankOption(o, 'amz'), 1)
   assert.equal(rankOption(o, 'amazon'), 2)
-  assert.equal(rankOption({ ticker: 'MSFT', name: 'Microsoft', count: 3 }, 'soft'), 4)
+  assert.equal(rankOption({ ticker: 'MSFT', name: 'Microsoft' }, 'soft'), 4)
   assert.equal(rankOption(o, 'zzz'), -1)
 })
-
 // ---- listingCountry disambiguates two issuers sharing a ticker on different exchanges (client lockstep
 // with the server's listingConflicts fix, #319) ----
 check('a picked listingCountry excludes a bare-ticker match from a proven-different issuer', () => {
@@ -141,6 +141,69 @@ check('a company pick makes filtersActive + archiveFiltersActive true', () => {
   assert.equal(archiveFiltersActive(f), true)
   assert.equal(filtersActive(emptyFilters()), false)
   assert.equal(archiveFiltersActive(emptyFilters()), false)
+})
+
+// ---- imports for the global-symbology twins (appended with the NHYDY/global-directory feature) ----
+
+// ---- THE NHYDY LOCKSTEP TWINS: a cross-listing tickerAlias + the core-name matcher ----
+check('an ADR pick with the Oslo tickerAlias matches an item tagged with the bare Oslo symbol', () => {
+  const tagged = it({ headline: 'Hydro reports quarterly results', companies: [{ name: 'Norsk Hydro', ticker: 'NHY' }] })
+  const pick = { ticker: 'NHYDY', name: 'Norsk Hydro ASA', tickerAliases: ['NHY.OL', 'NHYKF'] }
+  assert.equal(matchesFilters(tagged, withCompany(pick)), true, 'the NHY.OL alias base-matches the bare NHY tag')
+  const untagged = it({ headline: 'Norsk Hydro to curtail aluminium output', companies: [] })
+  assert.equal(matchesFilters(untagged, withCompany(pick)), true, 'core name "norsk hydro" hits despite the ASA suffix on the pick')
+  const other = it({ headline: 'Alcoa lifts guidance', companies: [{ name: 'Alcoa', ticker: 'AA' }] })
+  assert.equal(matchesFilters(other, withCompany(pick)), false)
+})
+
+// ---- a tickerAlias hit still respects the listing-country conflict guard ----
+check('a tickerAlias match is still excluded by a proven-different listing country', () => {
+  const catapult = it({ headline: 'Catapult wins a contract', companies: [{ name: 'Catapult Group International', ticker: 'CAT', listing_country: 'AU' }] })
+  assert.equal(matchesFilters(catapult, withCompany({ ticker: 'CAT.X', name: 'Caterpillar', tickerAliases: ['CAT'], listingCountry: 'US' })), false)
+})
+
+// ---- junk scrub twins (deploy-skew: an old server can still serve dirty facet tickers) ----
+check('cleanTicker/baseTicker/coreCompanyName twins behave like the server', () => {
+  assert.equal(cleanTicker('NULL'), null)
+  assert.equal(cleanTicker('0000200245'), null)
+  assert.equal(cleanTicker('500325'), '500325')
+  assert.equal(baseTicker('NHY.OL'), 'NHY')
+  assert.equal(baseTicker('BRK.A'), 'BRK.A')
+  assert.equal(coreCompanyName('CITIGROUP INC'), 'citigroup')
+  assert.equal(coreCompanyName('JPMORGAN CHASE & CO'), 'jpmorgan chase')
+})
+
+// ---- rankOption searches the TICKER aliases too — typing NHYDY ranks the enriched NHY entry first ----
+check('rankOption matches through the tickerAlias set at the symbol tiers', () => {
+  const enriched = { ticker: 'NHY', name: 'Norsk Hydro', count: 12, tickerAliases: ['NHYDY', 'NHY.OL'] }
+  assert.equal(rankOption(enriched, 'nhydy'), 0, 'an exact ticker-alias hit ranks like an exact ticker hit')
+  assert.equal(rankOption(enriched, 'nhyd'), 1, 'a ticker-alias prefix ranks like a ticker prefix')
+})
+
+// ---- mergeCompanyOptions: directory groups enrich (not duplicate) archive entries ----
+check('a directory group for an archive company attaches its ticker aliases to that entry', () => {
+  const merged = mergeCompanyOptions(
+    [{ ticker: 'NHY', name: 'Norsk Hydro', count: 12, aliases: ['Hydro'], listingCountry: 'NO' }],
+    [{ name: 'Norsk Hydro ASA', symbol: 'NHYDY', exchange: 'OTC Markets', aliases: ['NHYDY', 'NHY.OL', 'NHYKF'] }],
+  )
+  assert.equal(merged.length, 1, 'one row — the archive entry enriched, not a duplicate')
+  assert.equal(merged[0].ticker, 'NHY')
+  assert.equal(merged[0].count, 12, 'the archive mention count is kept')
+  assert.deepEqual(merged[0].aliases, ['Hydro'], 'the archive NAME aliases are kept untouched')
+  assert.equal(merged[0].listingCountry, 'NO', 'the listing country is kept')
+  assert.deepEqual([...(merged[0].tickerAliases || [])].sort(), ['NHY.OL', 'NHYDY', 'NHYKF'])
+})
+check('an unknown company appends as a global-only row; junk facet tickers are scrubbed', () => {
+  const merged = mergeCompanyOptions(
+    [{ ticker: 'NULL', name: 'Man Group PLC', count: 95 }],
+    [{ name: 'Rio Tinto PLC', symbol: 'RIO.L', exchange: 'LSE', aliases: ['RIO.L', 'RIO'] }],
+  )
+  const man = merged.find((o) => /man group/i.test(o.name))
+  assert.equal(man?.ticker, null, 'the junk "NULL" facet ticker is scrubbed to a name-only entry')
+  const rio = merged.find((o) => /rio tinto/i.test(o.name))
+  assert.equal(rio?.ticker, 'RIO.L')
+  assert.equal(rio?.exchange, 'LSE')
+  assert.deepEqual(rio?.tickerAliases, ['RIO'], 'the primary symbol is not repeated in its own aliases')
 })
 
 console.log(`\ncompanyFilter.test.ts: ${passed} passed`)
