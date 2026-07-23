@@ -13,11 +13,12 @@ import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
 import { acquireSingletonLock, releaseSingletonLock } from '../singleton-lock'
 import { readFeed } from './feed'
 import { refreshBoard } from './write-inbox'
-import { runIngestCycle } from './runCycle'
+import { runIngestCycle, loadDeferred } from './runCycle'
 import { healEnrichCache } from './enrich-heal'
 import { runIdeaPass } from './ideas/run-idea-pass'
 import { cooldownInfo, isCoolingDown, pacedCeiling, pacedHasHeadroom } from './triage/budget'
 import { estimateTokens } from './triage/groq'
+import { preTriagePriority } from './rank'
 import { DEFERRED_CAP } from './runCycle'
 import type { CycleSummary, DeferReason, LastResortState } from './types'
 
@@ -240,13 +241,34 @@ export function anthropicDrainReady(enabled: boolean, coolingDown: boolean, usdT
   return enabled && !coolingDown && usdToday < usdCap
 }
 
-/** Live read of anthropicDrainReady from disk (config flags + the $ ledger + the cooldown marker). */
+/** Pure: does ANY item in the backlog clear the Haiku last-resort's priority floor RIGHT NOW? Mirrors
+ *  runCycle.ts's real gate (`preTriagePriority(batch[0]) >= cfg.anthropicMinPriority`) — items are queued
+ *  highest-priority-first (runCycle.ts's `items.sort((a, b) => preTriagePriority(b) - preTriagePriority(a))`),
+ *  so checking every item's priority against the floor is equivalent to checking every batch's `batch[0]`
+ *  the triage loop would actually present to that gate. `minPriority <= 0` short-circuits true (no floor
+ *  configured → every item already clears it) without walking the list. Exported + pure so it is
+ *  unit-testable without a filesystem backlog fixture (Codex review, PR #316). */
+export function backlogClearsFloor(items: Array<{ input_nature?: string | null; headline?: string | null; found_at?: string | null }>, minPriority: number, now: Date = new Date()): boolean {
+  if (minPriority <= 0) return true
+  return items.some((it) => preTriagePriority(it, now) >= minPriority)
+}
+
+/** Live read of anthropicDrainReady from disk (config flags + the $ ledger + the cooldown marker), PLUS
+ *  the backlog's own eligibility against the priority floor. Without the floor check, a backlog stuck
+ *  entirely below NEWS_ANTHROPIC_FALLBACK_MIN_PRIORITY reads as "headroom" (Haiku is enabled, healthy, and
+ *  under its $ cap) even though `runIngestCycle` will refuse every item in it (runCycle.ts:~413) — so the
+ *  drain gate fires a cycle every DRAIN_INTERVAL_MS that scores nothing and re-defers the identical backlog,
+ *  a no-progress churn loop that only stops when a free tier recovers or the backlog gets a higher-priority
+ *  item from the next fetch cycle. Checking the backlog's own eligibility here means the drain simply
+ *  doesn't fire in that state, instead of firing and discovering it can't help (Codex review, PR #316).
+ */
 function anthropicHasHeadroom(now = Date.now()): boolean {
   const enabled = NEWS.anthropicFallbackEnabled && (NEWS.anthropicFallbackMode === 'subscription' || !!NEWS.anthropicApiKey)
   if (!enabled) return false
   const cooling = isCoolingDown(STATE_DIR, 'anthropic-triage', now)
   const u = readDailyUsd('anthropic-triage-budget.json', new Date(now).toISOString().slice(0, 10))
-  return anthropicDrainReady(true, cooling, u.usd, NEWS.anthropicDailyUsd)
+  if (!anthropicDrainReady(true, cooling, u.usd, NEWS.anthropicDailyUsd)) return false
+  return backlogClearsFloor(loadDeferred(STATE_DIR), NEWS.anthropicMinPriority, new Date(now))
 }
 
 /**

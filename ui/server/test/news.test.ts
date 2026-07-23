@@ -15,7 +15,7 @@ import { coerceTriage, estimateTokens, scoreToBand, triageBatch } from '../src/n
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox } from '../src/news/write-inbox'
 import { runIngestCycle } from '../src/news/runCycle'
-import { anthropicDrainReady, backlogTrend, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
+import { anthropicDrainReady, backlogClearsFloor, backlogTrend, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS } from '../src/config'
 import type { FeedItem, RawArticle, TriagedItem } from '../src/news/types'
 
@@ -1221,6 +1221,22 @@ await check('anthropicDrainReady: the drain gate counts the Haiku last-resort (e
   assert.equal(anthropicDrainReady(true, true, 10, 50), false, 'in a cross-cycle failure cooldown → backing off, cannot take work')
   assert.equal(anthropicDrainReady(true, false, 50, 50), false, 'at its daily $ ceiling → spent')
   assert.equal(anthropicDrainReady(true, false, 60, 50), false, 'past the ceiling → spent')
+})
+
+await check('backlogClearsFloor: the drain gate must not report Haiku headroom when the WHOLE backlog sits below the priority floor', async () => {
+  // The reported churn: NEWS_ANTHROPIC_FALLBACK_MIN_PRIORITY set above every deferred item's priority made
+  // the drain gate fire every DRAIN_INTERVAL_MS anyway (Haiku enabled/healthy/under its $ cap), only for
+  // runIngestCycle's own `preTriagePriority(batch[0]) >= cfg.anthropicMinPriority` gate to refuse the whole
+  // batch and re-defer it unchanged — a no-progress cycle every drain tick (Codex review, PR #316).
+  const now = new Date('2026-07-22T12:00:00Z')
+  const plain = { headline: 'quarterly update from a mid-cap' } // default tier 'news' (rank 2) → 2*3 + 0 material + 0 recency (no found_at) = 6
+  const material = { headline: 'Acme to acquire rival for $2bn' } // same tier + the material-keyword lift (+12) = 18
+  assert.equal(backlogClearsFloor([], 1, now), false, 'an empty backlog clears nothing above a positive floor')
+  assert.equal(backlogClearsFloor([], 0, now), true, 'no floor configured (0) → vacuously true even with nothing queued')
+  assert.equal(backlogClearsFloor([plain], 0, now), true, 'no floor configured → every item clears it')
+  assert.equal(backlogClearsFloor([plain], 6, now), true, 'exactly at the floor clears it')
+  assert.equal(backlogClearsFloor([plain], 7, now), false, 'the WHOLE backlog sits one point below the floor → no headroom to report')
+  assert.equal(backlogClearsFloor([plain, material], 18, now), true, 'one item ABOVE the floor is enough even if others sit below it')
 })
 
 await check('backlogTrend: reads growing / shrinking / flat / null from recent cycles', async () => {
