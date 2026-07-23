@@ -4,7 +4,7 @@ import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from '.
 import { QUOTE_CLIENT_TIMEOUT_MS } from './quoteTimeout'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 
 const BASE = import.meta.env.BASE_URL
@@ -97,6 +97,63 @@ async function put<T>(url: string, body?: any): Promise<T> {
 }
 
 const STATIC_ERR = () => Object.assign(new Error('static-deploy'), { static: true })
+
+/**
+ * Read an SSE body off a fetch (the browser's EventSource is GET-only, and several of these streams are
+ * POSTs). One reader for every pipeline stream — frame splitting, the trailing partial frame, multi-line
+ * `data:`, and AbortError-silence are the kind of details that go subtly wrong when copied per call site.
+ * `onFrame` returns 'stop' to end the read early (a terminal frame); onError is never called for the
+ * caller's own abort.
+ */
+async function readSse(
+  url: string,
+  init: RequestInit,
+  signal: AbortSignal,
+  onFrame: (event: string, data: any) => 'stop' | void,
+  onError: (msg: string) => void,
+  onEnd?: () => void,
+): Promise<void> {
+  let res: Response
+  try {
+    res = await fetch(url, init)
+  } catch (e: any) {
+    if (e?.name !== 'AbortError') onError(e?.message || 'network error')
+    return
+  }
+  if (!res.ok || !res.body) {
+    let msg = `${res.status}`
+    try { const j = await res.json(); msg = (j as any)?.error || msg } catch { /* keep the status */ }
+    onError(msg)
+    return
+  }
+  const reader = res.body.getReader()
+  const decoder = new TextDecoder()
+  let buf = ''
+  try {
+    for (;;) {
+      const { value, done } = await reader.read()
+      if (done) break
+      buf += decoder.decode(value, { stream: true })
+      const frames = buf.split('\n\n')
+      buf = frames.pop() ?? '' // keep the trailing partial frame
+      for (const frame of frames) {
+        let ev = 'message'
+        let data = ''
+        for (const line of frame.split('\n')) {
+          if (line.startsWith('event:')) ev = line.slice(6).trim()
+          else if (line.startsWith('data:')) data += line.slice(5).trim()
+        }
+        if (!data) continue
+        let parsed: any
+        try { parsed = JSON.parse(data) } catch { continue }
+        if (onFrame(ev, parsed) === 'stop') return
+      }
+    }
+    onEnd?.()
+  } catch (e: any) {
+    if (e?.name !== 'AbortError' && !signal.aborted) onError(e?.message || 'stream interrupted')
+  }
+}
 
 const EMPTY_BOARD: ScreenerBoard = { generated_at: null, inbox: [], signals: [], theses: [], handoffs: [], counts: {}, live: [] }
 const EMPTY_FEEDBACK_SUMMARY: FeedbackSummary = { total: 0, active_total: 0, by_type: {} as Record<FeedbackType, number>, top_reasons: [], clustered_reasons: [], generated_at: '' }
@@ -812,7 +869,7 @@ export const api = {
     }
   },
 
-  // ---- data pipeline: recommended data → add a source → live relevance scan → build a connector → PR ----
+  // ---- data pipeline: find/add a source → live relevance scan → build a connector → PR → live feed ----
   // The folded pipeline ledger for a subject (added sources + scan verdicts + build status). Fail-closed to []
   // so an old engine mid-deploy (no route) simply shows an empty panel rather than erroring.
   pipeline: async (subject: string, swarm: string): Promise<PipelineView[]> => {
@@ -850,52 +907,20 @@ export const api = {
     },
   ): Promise<void> => {
     if ((await ensureMode()) === 'static') { cb.onError('static-deploy'); return }
-    let res: Response
-    try {
-      res = await fetch(`/api/pipeline/${encodeURIComponent(subject)}/scan?swarm=${encodeURIComponent(swarm)}`, {
-        method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ pipeline_id: pipelineId }), signal: cb.signal,
-      })
-    } catch (e: any) {
-      if (e?.name !== 'AbortError') cb.onError(e?.message || 'network error')
-      return
-    }
-    if (!res.ok || !res.body) {
-      let msg = `${res.status}`
-      try { const j = await res.json(); msg = (j as any)?.error || msg } catch {}
-      cb.onError(msg)
-      return
-    }
-    const reader = res.body.getReader()
-    const decoder = new TextDecoder()
-    let buf = ''
-    try {
-      for (;;) {
-        const { value, done } = await reader.read()
-        if (done) break
-        buf += decoder.decode(value, { stream: true })
-        const frames = buf.split('\n\n')
-        buf = frames.pop() ?? '' // keep the trailing partial frame
-        for (const frame of frames) {
-          let ev = 'message'
-          let data = ''
-          for (const line of frame.split('\n')) {
-            if (line.startsWith('event:')) ev = line.slice(6).trim()
-            else if (line.startsWith('data:')) data += line.slice(5).trim()
-          }
-          if (!data) continue
-          let parsed: any
-          try { parsed = JSON.parse(data) } catch { continue }
-          if (ev === 'scan-status') cb.onStatus?.(parsed)
-          else if (ev === 'scan-activity') cb.onActivity?.({ tool: parsed.tool ?? '', target: parsed.target ?? '' })
-          else if (ev === 'scan-thinking') cb.onThinking?.(parsed.content ?? '')
-          else if (ev === 'scan-verdict') cb.onVerdict(parsed.verdict, parsed.costUsd)
-          else if (ev === 'scan-error') { cb.onError(parsed.message || 'scan failed'); return }
-        }
-      }
-      cb.onEnd?.()
-    } catch (e: any) {
-      if (e?.name !== 'AbortError') cb.onError(e?.message || 'stream interrupted')
-    }
+    await readSse(
+      `/api/pipeline/${encodeURIComponent(subject)}/scan?swarm=${encodeURIComponent(swarm)}`,
+      { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ pipeline_id: pipelineId }), signal: cb.signal },
+      cb.signal,
+      (ev, parsed) => {
+        if (ev === 'scan-status') cb.onStatus?.(parsed)
+        else if (ev === 'scan-activity') cb.onActivity?.({ tool: parsed.tool ?? '', target: parsed.target ?? '' })
+        else if (ev === 'scan-thinking') cb.onThinking?.(parsed.content ?? '')
+        else if (ev === 'scan-verdict') cb.onVerdict(parsed.verdict, parsed.costUsd)
+        else if (ev === 'scan-error') { cb.onError(parsed.message || 'scan failed'); return 'stop' }
+      },
+      cb.onError,
+      cb.onEnd,
+    )
   },
 
   // The cross-swarm data-pipeline library read (connector registry + freshness + recommended-to-add).
@@ -905,6 +930,80 @@ export const api = {
     if ((await ensureMode()) === 'static')
       return { read: { generatedAt: '', poolAvailable: false, pipelines: [], recommended: [], widened: [] } }
     return get(`/api/pipelines`)
+  },
+
+  // Every build the ledger knows about (cross-subject), newest activity first. Fail-closed to [] so an older
+  // engine mid-deploy simply shows no builds rather than an error (§5).
+  pipelineBuilds: async (): Promise<PipelineView[]> => {
+    if ((await ensureMode()) === 'static') return []
+    try {
+      const r = await get<{ items: PipelineView[] }>(`/api/pipelines/builds`, 8_000)
+      return r.items ?? []
+    } catch {
+      return []
+    }
+  },
+
+  // POST one deep search for feeds and read the streamed SSE body (same shape as pipelineScanStream — the
+  // browser's EventSource is GET-only). Frames: discover-status → (discover-activity | discover-thinking)* →
+  // discover-found* → discover-done | discover-error. Each `found` is already persisted and buildable by id.
+  pipelineDiscoverStream: async (
+    subject: string,
+    swarm: string,
+    opts: { need_id?: string | null; want?: string; autoBuild?: boolean },
+    cb: {
+      onStatus?: (s: { stage?: string; model?: string; openNeeds?: number; wired?: number }) => void
+      onActivity?: (a: { tool: string; target: string }) => void
+      onFound: (f: DiscoveredFeed) => void
+      onDone: (d: { found: number; autoBuilt: number }) => void
+      onError: (msg: string) => void
+      signal: AbortSignal
+    },
+  ): Promise<void> => {
+    if ((await ensureMode()) === 'static') { cb.onError('static-deploy'); return }
+    await readSse(
+      `/api/pipelines/discover?swarm=${encodeURIComponent(swarm)}`,
+      { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ subject, ...opts }), signal: cb.signal },
+      cb.signal,
+      (ev, parsed) => {
+        if (ev === 'discover-status') cb.onStatus?.(parsed)
+        else if (ev === 'discover-activity') cb.onActivity?.({ tool: parsed.tool ?? '', target: parsed.target ?? '' })
+        else if (ev === 'discover-found') {
+          cb.onFound({
+            pipeline_id: parsed.pipeline_id, source_url: parsed.source_url, why: parsed.why ?? '',
+            verdict: parsed.verdict, building: parsed.building === true,
+          })
+        } else if (ev === 'discover-done') { cb.onDone({ found: parsed.found ?? 0, autoBuilt: parsed.autoBuilt ?? 0 }); return 'stop' }
+        else if (ev === 'discover-error') { cb.onError(parsed.message || 'the search failed'); return 'stop' }
+      },
+      cb.onError,
+    )
+  },
+
+  // Watch ONE build: replays the steps so far, then streams each new one. `build-absent` means this server has
+  // no live transcript (a restart, or another host ran it) — the caller falls back to the ledger status.
+  pipelineBuildStream: async (
+    pipelineId: string,
+    cb: {
+      onStep: (s: BuildStep) => void
+      onDone: (d: { outcome: string | null; prUrl: string | null; connectorId: string | null; note: string }) => void
+      onAbsent: (d: { status: string | null; prUrl: string | null; connectorId: string | null; note: string }) => void
+      onError: (msg: string) => void
+      signal: AbortSignal
+    },
+  ): Promise<void> => {
+    if ((await ensureMode()) === 'static') { cb.onError('static-deploy'); return }
+    await readSse(
+      `/api/pipelines/build/${encodeURIComponent(pipelineId)}/stream`,
+      { signal: cb.signal },
+      cb.signal,
+      (ev, parsed) => {
+        if (ev === 'build-step') cb.onStep({ tool: parsed.tool ?? '', target: parsed.target ?? '' })
+        else if (ev === 'build-done') { cb.onDone({ outcome: parsed.outcome ?? null, prUrl: parsed.prUrl ?? null, connectorId: parsed.connectorId ?? null, note: parsed.note ?? '' }); return 'stop' }
+        else if (ev === 'build-absent') { cb.onAbsent({ status: parsed.status ?? null, prUrl: parsed.prUrl ?? null, connectorId: parsed.connectorId ?? null, note: parsed.note ?? '' }); return 'stop' }
+      },
+      cb.onError,
+    )
   },
 
   runStreamUrl: (runId: string) => `/api/runs/${runId}/stream`,

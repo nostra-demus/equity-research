@@ -386,6 +386,14 @@ export const PIPELINE_SCAN = {
   timeoutMs: capNum(process.env.ENGINE_PIPELINE_SCAN_TIMEOUT_MS, 180_000),
   maxConcurrent: capNum(process.env.ENGINE_PIPELINE_SCAN_MAX_CONCURRENT, 2),
 }
+// Guards for the read-only feed-DISCOVERY agent (pipeline-discover.ts). Same locked toolset and same
+// concurrency pool as the scan, but a wider job (search the open web, fetch several candidates, compare them),
+// so it gets its own, larger turn/budget/time ceilings rather than silently borrowing the scan's.
+export const PIPELINE_DISCOVER = {
+  maxTurns: capNum(process.env.ENGINE_PIPELINE_DISCOVER_MAX_TURNS, 40),
+  budgetUsd: capNum(process.env.ENGINE_PIPELINE_DISCOVER_BUDGET_USD, 6),
+  timeoutMs: capNum(process.env.ENGINE_PIPELINE_DISCOVER_TIMEOUT_MS, 420_000),
+}
 // Hard ceilings for the connector-build coding agent (connector-dispatch.ts) — its OWN caps, never shared
 // with feedback dispatch (a concurrent feedback + connector burst must not corrupt each other's counters).
 export const CONNECTOR_BUILD = {

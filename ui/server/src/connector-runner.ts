@@ -13,6 +13,7 @@ import { CONNECTOR_RUNNER, DATA_DIR, connectorAutoRepairReady, connectorRunnerRe
 import { listConnectors } from './connector-registry'
 import { latestRepairStatus } from './connector-health'
 import { startConnectorRepair } from './connector-repair'
+import { BROKEN_THRESHOLD, feedHealthFromLedger } from './feed-health'
 
 const log = (m: string) => console.log(`[connector-runner] ${m}`) // eslint-disable-line no-console
 
@@ -20,45 +21,24 @@ let timer: ReturnType<typeof setInterval> | null = null
 let sweeping = false
 let lastSweepAt: string | null = null
 
-// A feed is treated as broken only after this many CONSECUTIVE failed sweeps. run_connectors.py appends one
-// run_ledger row per connector × subject per sweep and already retries 0/60/300s WITHIN a single sweep, and
-// the launchd cadence is 6-hourly — so 3 consecutive `failed` rows is a sustained ~12–18h break, not a
-// transient blip that clears on the next sweep. This restores the protection the removed connector-health
-// BROKEN_THRESHOLD gave before this refactor: without it a single transient failure would immediately spend a
-// paid repair and potentially open an unnecessary fix-it PR (Codex #310).
-export const BROKEN_THRESHOLD = 3
+// A feed is treated as broken only after this many CONSECUTIVE failed sweeps — the definition (and the reason
+// for it) lives with the ledger parse in feed-health.ts, which the Data Library reads too. Re-exported here
+// because the watchdog IS the historical owner of the threshold and its callers/tests import it from here.
+export { BROKEN_THRESHOLD }
 
 /**
  * PURE: given the raw text of #287's run_ledger.ndjson, return every connector × subject whose LATEST decision
- * is `failed` AND whose trailing run of consecutive `failed` sweeps is at least `threshold`. Rows are one JSON
- * object per connector × subject per sweep, in append (chronological) order, so the streak is counted from the
- * tail and ANY non-`failed` decision (refetched / fresh / skipped_*) resets it. Malformed lines are skipped; a
- * row counts only if it has a string `connector`, a string `subject`, and a `decision`.
+ * is `failed` AND whose trailing run of consecutive `failed` sweeps is at least `threshold` — the watchdog's
+ * cut of feed-health.ts's one ledger fold (§2: the cockpit's health read and this repair trigger parse the
+ * same rows exactly once, in one place).
  */
 export function brokenFromLedger(
   ledgerText: string,
   threshold: number = BROKEN_THRESHOLD,
 ): { connector: string; subject: string; message: string }[] {
-  const state = new Map<string, { connector: string; subject: string; streak: number; message: string }>()
-  for (const line of (ledgerText || '').split('\n')) {
-    const t = line.trim()
-    if (!t) continue
-    let row: any
-    try { row = JSON.parse(t) } catch { continue }
-    if (!row || typeof row !== 'object' || Array.isArray(row)) continue
-    if (typeof row.connector !== 'string' || typeof row.subject !== 'string' || row.decision == null) continue
-    const k = `${row.connector}::${row.subject}`
-    if (String(row.decision) === 'failed') {
-      const streak = (state.get(k)?.streak || 0) + 1
-      state.set(k, { connector: row.connector, subject: row.subject, streak, message: String(row.message || '') })
-    } else {
-      // any non-failed decision recovers/resets the feed — the consecutive-failure streak starts over
-      state.set(k, { connector: row.connector, subject: row.subject, streak: 0, message: '' })
-    }
-  }
   const out: { connector: string; subject: string; message: string }[] = []
-  for (const v of state.values()) {
-    if (v.streak >= threshold) out.push({ connector: v.connector, subject: v.subject, message: v.message })
+  for (const v of feedHealthFromLedger(ledgerText, threshold).values()) {
+    if (v.failStreak >= threshold) out.push({ connector: v.connector, subject: v.subject, message: v.message })
   }
   return out
 }

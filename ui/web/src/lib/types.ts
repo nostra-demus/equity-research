@@ -144,6 +144,7 @@ export interface PipelineView {
   status: PipelineStatus
   verdict: ScanVerdict | null
   pr_url: string | null
+  connector_id: string | null // the connector the build authored — the join to its live feed health
   last_note: string
   last_update_at: string
 }
@@ -160,12 +161,20 @@ export interface AddPipelineSourceInput {
 // Mirrors the server reader exactly: snake_case fields are preserved from the data_needs contract,
 // camelCase for manifest-derived fields. The whole read is fail-closed server-side (malformed
 // manifests dropped + audited in `widened`); a pool-less host serves poolAvailable:false + 'unknown'.
+// Two independent facts about the same feed, deliberately kept apart: `status` is the FILE side (is there a
+// recent file in the pool), `health` is the FETCH side (did the last sweep of the source succeed). A feed can
+// be fresh-but-broken or stale-but-healthy, and collapsing them would hide exactly the case worth seeing.
+export type FeedHealthState = 'ok' | 'failing' | 'broken' | 'no_pool' | 'manual' | 'pending' | 'never_run'
 export interface PipelineSubjectStatus {
   subject: string
   status: 'fresh' | 'stale' | 'missing' | 'unknown'
   latestAsOf?: string
   ageDays?: number
   latestFile?: string
+  health: FeedHealthState
+  lastSweepAt?: string
+  lastError?: string
+  failStreak: number
 }
 export interface PipelineHelp {
   swarm: string
@@ -195,7 +204,12 @@ export interface PipelineEntry {
   satisfies: string[]
   helps: PipelineHelp[]
   statuses: PipelineSubjectStatus[]
+  verdict: PipelineVerdict
+  verdictNote: string
+  repair: { status: 'none' | 'repairing' | 'pr_open' | 'assessed'; prUrl: string | null }
 }
+// The one-word answer to "is this feed working?" — rolled up across its subjects, server-side.
+export type PipelineVerdict = 'live' | 'attention' | 'broken' | 'unknown'
 export interface RecommendedNeed {
   key: string
   swarm: string
@@ -216,6 +230,31 @@ export interface PipelinesRead {
   pipelines: PipelineEntry[]
   recommended: RecommendedNeed[]
   widened: string[]
+  runner?: RunnerStatus // absent from an older engine mid-deploy (§5) — the header falls back to silence
+}
+// What is keeping the feeds alive on this host. `lastFetchSweepAt` is empirical (the newest row in the fetch
+// ledger), so it stays truthful whether or not the scheduled fetcher is installed here.
+export interface RunnerStatus {
+  watchdogOn: boolean
+  autoRepairOn: boolean
+  pollIntervalMin: number
+  lastFetchSweepAt: string | null
+}
+
+// ---- find feeds → build them → watch it happen (server: pipeline-discover.ts + the build stream) ----
+// A candidate the deep search found. It is already persisted as an ordinary pipeline source carrying this
+// verdict, so `pipeline_id` can be handed straight to the build route.
+export interface DiscoveredFeed {
+  pipeline_id: string
+  source_url: string
+  why: string
+  verdict: ScanVerdict
+  building: boolean // the one-click path already sent this one to the build engine
+}
+// One thing the coding agent did, as it happens.
+export interface BuildStep {
+  tool: string // a tool name, or 'say' for a line of the agent's own prose
+  target: string
 }
 
 // ---- "What changed since the last version" (server: what-changed.ts / run-diff.ts) ----

@@ -15,7 +15,11 @@ const mkPipeline = (over: Partial<PipelineEntry> = {}): PipelineEntry => ({
   sourceType: 'paid_api', tier: 5, hostAllowlist: ['x.test'], cadence: 'weekly', stalenessSlaDays: 10,
   entry: 'fetch.py', verify: 'fetch.py --verify', outputPath: 'data/<SUBJECT>/external/acme/a_<as_of>.json',
   subjects: ['AAA', 'BBB'], satisfies: [], helps: [],
-  statuses: [{ subject: 'AAA', status: 'fresh' }, { subject: 'BBB', status: 'stale' }],
+  statuses: [
+    { subject: 'AAA', status: 'fresh', health: 'ok', failStreak: 0 },
+    { subject: 'BBB', status: 'stale', health: 'ok', failStreak: 0 },
+  ],
+  verdict: 'attention', verdictNote: 'BBB is past its freshness window', repair: { status: 'none', prUrl: null },
   ...over,
 })
 const mkRecommended = (over: Partial<RecommendedNeed> = {}): RecommendedNeed => ({
@@ -34,10 +38,28 @@ check('empty filters match both kinds and read inactive', () => {
 })
 
 check('dlFiltersActive flips per axis', () => {
-  for (const patch of [{ kind: 'wired' }, { subject: 'AAA' }, { status: 'fresh' }, { cadence: 'weekly' }, { tier: '5' }, { text: 'x' }]) {
+  for (const patch of [{ kind: 'wired' }, { verdict: 'live' }, { subject: 'AAA' }, { status: 'fresh' }, { cadence: 'weekly' }, { tier: '5' }, { text: 'x' }]) {
     assert.equal(dlFiltersActive({ ...emptyDlFilters(), ...patch }), true, JSON.stringify(patch))
   }
   assert.equal(dlFiltersActive({ ...emptyDlFilters(), text: '   ' }), false, 'whitespace text is inactive')
+})
+
+check("verdict: 'live' keeps only live feeds; 'problem' keeps attention AND broken", () => {
+  const live = mkPipeline({ verdict: 'live' })
+  const attention = mkPipeline({ verdict: 'attention' })
+  const broken = mkPipeline({ verdict: 'broken' })
+  const unknown = mkPipeline({ verdict: 'unknown' })
+  assert.equal(matchesDlPipeline(live, { ...emptyDlFilters(), verdict: 'live' }), true)
+  assert.equal(matchesDlPipeline(attention, { ...emptyDlFilters(), verdict: 'live' }), false)
+  assert.equal(matchesDlPipeline(attention, { ...emptyDlFilters(), verdict: 'problem' }), true)
+  assert.equal(matchesDlPipeline(broken, { ...emptyDlFilters(), verdict: 'problem' }), true)
+  assert.equal(matchesDlPipeline(live, { ...emptyDlFilters(), verdict: 'problem' }), false)
+  assert.equal(matchesDlPipeline(unknown, { ...emptyDlFilters(), verdict: 'problem' }), false, 'an unreadable pool is not a broken feed')
+})
+
+check('a set verdict filter always excludes recommended (an unwired need has no feed health)', () => {
+  assert.equal(matchesDlRecommended(mkRecommended(), { ...emptyDlFilters(), verdict: 'live' }), false)
+  assert.equal(matchesDlRecommended(mkRecommended(), { ...emptyDlFilters(), verdict: 'problem' }), false)
 })
 
 check("kind: 'wired' excludes recommended, 'recommended' excludes wired, '' passes both", () => {
