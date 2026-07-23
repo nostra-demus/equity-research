@@ -87,7 +87,12 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
         if not isinstance(s, dict) or "label" not in s:
             det.append(f"scenario[{i}] missing 'label'")
             continue
-        labels.append(str(s.get("label", "")).strip().lower())
+        if not isinstance(s.get("label"), str):
+            # the schema types label as a string and the Playground calls .toLowerCase() on it — a numeric or
+            # other non-string label would throw there, so reject it rather than coercing it to a string here.
+            det.append(f"scenario[{i}] label {s.get('label')!r} is not a string")
+            continue
+        labels.append(s.get("label").strip().lower())
         if s.get("probability") is not None:
             # the master synthesizer owns probabilities (decision_record.json); the levers sidecar must not.
             det.append(f"scenario[{i}] ({s.get('label')!r}) carries a probability — the master owns those")
@@ -136,16 +141,30 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
         for lab in sorted(dr_set - sc_set):
             det.append(f"decision_record scenario {lab!r} is missing from the sidecar — the Playground could not derive its return")
         for s in scen:
-            if not isinstance(s, dict):
+            if not isinstance(s, dict) or not isinstance(s.get("label"), str):
                 continue
-            lab = str(s.get("label", "")).strip().lower()
+            lab = s.get("label").strip().lower()
             drs = dr_by.get(lab)
             if drs is None:
                 continue
-            lvl, pt = s.get("level"), drs.get("price_target")
-            if _isnum(lvl) and _isnum(pt) and abs(float(lvl) - float(pt)) > _tol(pt):
-                det.append(f"scenario {lab!r} level {lvl} contradicts decision_record price_target {pt} "
-                           f"(the Playground would show a lever that disagrees with the frozen thesis)")
+            pt = drs.get("price_target")
+            if not _isnum(pt):
+                continue
+            # Compare the level the Playground actually SHOWS to the frozen target. When both editable levers
+            # are present it derives forward_metric×multiple and IGNORES the supplied `level` — so a null or
+            # wrong `level` cannot hide a contradiction (the previous check only compared a numeric `level`).
+            fm, mult, lvl = s.get("forward_metric"), s.get("multiple"), s.get("level")
+            shown = None
+            if _isnum(fm) and _isnum(mult):
+                try:
+                    shown = _level_from_multiple(float(fm), float(mult), basis, sidecar.get("shares"), sidecar.get("net_debt"))
+                except Exception:
+                    shown = float(lvl) if _isnum(lvl) else None
+            elif _isnum(lvl):
+                shown = float(lvl)
+            if shown is not None and abs(shown - float(pt)) > _tol(pt):
+                det.append(f"scenario {lab!r} shows level {round(shown, 4)} but decision_record price_target is {pt} "
+                           f"(the Playground derives this from the recorded levers, disagreeing with the frozen thesis)")
     return det
 
 
@@ -232,7 +251,18 @@ def _selftest() -> int:
 
     # THE contradiction check (material gap, not rounding)
     dr_conflict = {"scenarios": [{"label": "bull", "price_target": 20}, {"label": "base", "price_target": 99}, {"label": "bear", "price_target": 10}]}
-    check("level contradicting DR caught", any("contradicts" in v and "base" in v for v in eval_ap_valuation_summary_integrity(ok_sidecar, dr_conflict)))
+    check("level contradicting DR caught", any("base" in v and "price_target" in v for v in eval_ap_valuation_summary_integrity(ok_sidecar, dr_conflict)))
+    # a NULL supplied level with both levers present must not hide a contradiction — the Playground derives
+    # forward_metric×multiple (=90) and ignores the null level; that 90 vs a frozen target of 150 is caught
+    null_lever = dict(ok_sidecar, scenarios=[{"label": "base", "forward_metric": 10, "multiple": 9, "level": None}])
+    dr_150 = {"scenarios": [{"label": "base", "price_target": 150}]}
+    check("null level + levers contradicting DR caught", any("base" in v and "derives" in v for v in eval_ap_valuation_summary_integrity(null_lever, dr_150)))
+    # and the same derived level AGREEING with the target does not false-fire (90 vs 90)
+    dr_90 = {"scenarios": [{"label": "base", "price_target": 90}]}
+    check("null level + levers agreeing → no fire", eval_ap_valuation_summary_integrity(null_lever, dr_90) == [])
+    # a non-string scenario label is rejected (the Playground would call .toLowerCase() on it)
+    numlabel = dict(ok_sidecar, scenarios=[{"label": 1, "forward_metric": 6, "multiple": 25}])
+    check("non-string label caught", any("not a string" in v for v in eval_ap_valuation_summary_integrity(numlabel, None)))
     # a sub-tolerance rounding difference does NOT false-fire
     dr_round = {"scenarios": [{"label": "bull", "price_target": 20.002}, {"label": "base", "price_target": 15.001}, {"label": "bear", "price_target": 10.0}]}
     check("rounding difference does not fire", eval_ap_valuation_summary_integrity(ok_sidecar, dr_round) == [])
