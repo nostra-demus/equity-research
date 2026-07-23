@@ -66,6 +66,13 @@ export interface Filterable {
 // the name inside a longer word. ASCII-only word chars ⇒ it stays PERMISSIVE for CJK / space-less scripts
 // (every char reads as a boundary there), so a non-Latin headline never loses a match. MUST stay identical
 // to the server twin `nameOccurs` in ui/server/src/news/feed-filter.ts (the client/server lockstep).
+// Is the pick-a-company clause actually ON? Ticker OR name OR a non-empty alias list — an alias-only pick
+// must still activate the clause rather than silently no-op (lockstep with the server's companyClauseSet,
+// ui/server/src/news/feed-filter.ts — Codex review, PR #319).
+export function companyClauseSet(company: CompanyPick | null | undefined): boolean {
+  return !!(company && (company.ticker || company.name || company.aliases?.length))
+}
+
 export function nameOccurs(hay: string, needle: string): boolean {
   if (!needle) return false
   const word = (ch: string) => (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')
@@ -108,9 +115,9 @@ export function matchesFilters(it: Filterable, f: FeedFilterState): boolean {
   // spelling (e.g. "Amazon" vs the picked "Amazon.com Inc.") that the single best name would miss. The gate
   // mirrors the server (an empty-both pick is vacuously true on both sides); the name test is whole-word so
   // a common-word name doesn't drag in unrelated items. Mirrors the server's matchesFeedFilters company clause.
-  if (f.company && (f.company.ticker || f.company.name)) {
-    const t = (f.company.ticker || '').toUpperCase()
-    const names = [f.company.name, ...(f.company.aliases || [])].filter((s): s is string => !!s).map((s) => s.toLowerCase())
+  if (companyClauseSet(f.company)) {
+    const t = (f.company!.ticker || '').toUpperCase()
+    const names = [f.company!.name, ...(f.company!.aliases || [])].filter((s): s is string => !!s).map((s) => s.toLowerCase())
     const tickerHit = !!t && (it.companies || []).some((c) => (c.ticker || '').toUpperCase() === t)
     const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
     const nameHit = names.some((n) => nameOccurs(hay, n))

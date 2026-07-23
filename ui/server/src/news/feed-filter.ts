@@ -49,6 +49,14 @@ export interface FeedFilterQuery {
   text?: string // substring over headline / translation / company name+ticker
 }
 
+/** Is the pick-a-company clause actually ON? Ticker OR name OR a non-empty alias list — an alias-only query
+ *  (no ticker/name, e.g. a raw API caller that only sends `companyAliases`) must still activate the clause,
+ *  not silently no-op and fall through to "everything matches" (Codex review, PR #319). Shared by every site
+ *  that gates on "is a company picked" so none of them can drift out of sync with matchesCompany itself. */
+export function companyClauseSet(company: { ticker?: string; name?: string; aliases?: string[] } | undefined): boolean {
+  return !!(company && (company.ticker || company.name || company.aliases?.length))
+}
+
 /** True when at least one structured (server-side) filter is set — the cockpit switches to archive search. */
 export function hasAnyFilter(q: FeedFilterQuery): boolean {
   return (
@@ -56,7 +64,7 @@ export function hasAnyFilter(q: FeedFilterQuery): boolean {
     !!q.country || !!q.geoRegion || !!q.source || !!q.band || !!q.size || !!q.linkage ||
     !!q.gicsSector || !!q.gicsSubSector || !!q.scope || (q.commodities?.length ?? 0) > 0 ||
     (q.topics?.length ?? 0) > 0 || (q.scheduledEvents?.length ?? 0) > 0 || !!q.wireScope ||
-    !!(q.company && (q.company.ticker || q.company.name)) || !!(q.text && q.text.trim())
+    companyClauseSet(q.company) || !!(q.text && q.text.trim())
   )
 }
 
@@ -114,7 +122,7 @@ export function matchesFeedFilters(it: FeedItem, q: FeedFilterQuery): boolean {
   if (q.topics && q.topics.length > 0 && !topicsOf(it).some((t) => q.topics!.includes(t))) return false
   if (q.scheduledEvents && q.scheduledEvents.length > 0 && !scheduledEventsOf(it).some((s) => q.scheduledEvents!.includes(s))) return false
   if (q.wireScope && (it.scope || '') !== q.wireScope && commoditiesOf(it).length === 0) return false
-  if (q.company && (q.company.ticker || q.company.name) && !matchesCompany(it, q.company)) return false
+  if (companyClauseSet(q.company) && !matchesCompany(it, q.company!)) return false
   if (q.text && q.text.trim()) {
     const needle = q.text.trim().toLowerCase()
     const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
@@ -243,9 +251,9 @@ export function explainFeedFilterMatch(it: FeedItem, q: FeedFilterQuery): FeedFi
     const pass = (it.scope || '') === q.wireScope || have.length > 0
     checks.push({ clause: 'wireScope', passed: pass, detail: pass ? (have.length ? `on the wire via commodity tag(s): ${have.join(', ')}` : `on the wire via scope ${q.wireScope}`) : `item scope "${it.scope || 'unset'}" ≠ "${q.wireScope}" and it carries no commodity tag` })
   }
-  if (q.company && (q.company.ticker || q.company.name)) {
-    const t = (q.company.ticker || '').toUpperCase()
-    const names = [q.company.name, ...(q.company.aliases || [])].filter((s): s is string => !!s)
+  if (companyClauseSet(q.company)) {
+    const t = (q.company!.ticker || '').toUpperCase()
+    const names = [q.company!.name, ...(q.company!.aliases || [])].filter((s): s is string => !!s)
     const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
     const tickerHit = !!t && (it.companies || []).some((c) => (c.ticker || '').toUpperCase() === t)
     const nameMatch = names.find((n) => nameOccurs(hay, n.toLowerCase()))

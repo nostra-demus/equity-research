@@ -232,4 +232,50 @@ check('computeFacets carries the archive-observed short form as an alias on the 
   assert.ok(amzn?.aliases.includes('Amazon'), 'the rarer short form is carried as an alias, ready to feed a pick')
 })
 
+// ---- 18. CROSS-EXCHANGE TICKER COLLISION: two unrelated issuers sharing ticker letters on different
+// exchanges must NOT contaminate each other's alias list (Codex review, PR #319 — CAT: Caterpillar/NYSE vs
+// Catapult Group International/ASX; ALK: Alaska Air vs Alkane Resources are the archive's real examples).
+check('two different issuers sharing a ticker on different exchanges do not alias each other', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:03:00Z`, headline: 'Caterpillar lifts guidance', companies: [{ name: 'Caterpillar', ticker: 'CAT', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, headline: 'Caterpillar ships more excavators', companies: [{ name: 'Caterpillar', ticker: 'CAT', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:01:00Z`, headline: 'Catapult Group International signs a deal', companies: [{ name: 'Catapult Group International', ticker: 'CAT', listing_country: 'AU' }] }),
+  ])
+  const facets = computeFacets(repo, {}, { now })
+  const cat = facets.companies.find((c) => c.ticker === 'CAT')
+  assert.equal(cat?.name, 'Caterpillar', 'the more-mentioned US issuer is still the primary display name')
+  assert.ok(!cat?.aliases.includes('Catapult Group International'), 'the unrelated AU issuer must NOT be offered as an alias of Caterpillar')
+
+  // end-to-end: picking "Caterpillar" (even if some future facet payload wrongly carried the AU name as an
+  // alias) must not resolve an ASX-only headline — this is the actual harm the finding described
+  const asxOnly = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Catapult wins a new client contract', companies: [] })
+  assert.equal(matchesFeedFilters(asxOnly, { company: { ticker: 'CAT', name: 'Caterpillar', aliases: cat?.aliases } }), false, 'an unrelated ASX company headline must not match a Caterpillar pick')
+})
+
+check('an alternate spelling with NO listing_country evidence is still a valid alias (unknown never conflicts)', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, headline: 'Amazon.com Inc. lifts guidance', companies: [{ name: 'Amazon.com Inc.', ticker: 'AMZN', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:01:00Z`, headline: 'Amazon.com Inc. opens a hub', companies: [{ name: 'Amazon.com Inc.', ticker: 'AMZN', listing_country: 'US' }] }),
+    // the same ticker, a shorter spelling, but the extractor didn't resolve a listing_country this time
+    item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Amazon adds staff', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: null }] }),
+  ])
+  const facets = computeFacets(repo, {}, { now })
+  const amzn = facets.companies.find((c) => c.ticker === 'AMZN')
+  assert.ok(amzn?.aliases.includes('Amazon'), 'an unknown (null) listing_country never proves a conflict, so the alias still qualifies')
+})
+
+// ---- 19. ALIAS-ONLY QUERY: a caller sending companyAliases with no ticker/name must still activate the
+// company clause, not silently no-op to "everything matches" (Codex review, PR #319) ----
+check('a company filter with ONLY aliases (no ticker, no name) still activates and filters correctly', () => {
+  const hit = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Amazon raises full-year outlook', companies: [] })
+  const miss = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Microsoft ships an update', companies: [] })
+  assert.equal(hasAnyFilter({ company: { aliases: ['Amazon'] } }), true, 'an alias-only company object must trip archive mode')
+  assert.equal(matchesFeedFilters(hit, { company: { aliases: ['Amazon'] } }), true, 'the alias alone matches the headline it names')
+  assert.equal(matchesFeedFilters(miss, { company: { aliases: ['Amazon'] } }), false, 'an alias-only filter must still EXCLUDE non-matching items, not pass everything')
+  const exp = explainFeedFilterMatch(hit, { company: { aliases: ['Amazon'] } })
+  assert.equal(exp.checks.find((c) => c.clause === 'company')?.passed, true, 'the explain trace records the alias-only clause too')
+})
+
 console.log(`\ncompany-filter.test.ts: ${passed} passed`)

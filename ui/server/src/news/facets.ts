@@ -14,7 +14,7 @@ import { COUNTRIES, GEO_REGIONS, regionOfCountry } from './geography'
 import { topicLabel } from './topics'
 import { scheduledEventLabel } from './schedule'
 import { filterCompanies } from './entities'
-import { nameOccurs, type FeedFilterQuery } from './feed-filter'
+import { companyClauseSet, nameOccurs, type FeedFilterQuery } from './feed-filter'
 
 // the most-mentioned companies to return for the ticker autofill — bounds the payload; a rarer symbol the
 // list omits still filters, because CompanyFilter falls back to applying a free-typed ticker directly.
@@ -45,7 +45,11 @@ interface FacetRow {
   commodities: string[]
   topics: string[]
   scheduledEvents: string[]
-  companies: { ticker: string | null; name: string }[] // scrubbed of country/agency guesses (entities.ts)
+  // scrubbed of country/agency guesses (entities.ts). listing_country carried through so alias aggregation
+  // can tell two DIFFERENT companies that happen to share a ticker letters-for-letters on different
+  // exchanges (e.g. CAT: Caterpillar on NYSE vs Catapult Group International on ASX) apart — see
+  // buildCompanyFacet's `compatibleCountries` (Codex review, PR #319).
+  companies: { ticker: string | null; name: string; listingCountry: string | null }[]
 }
 
 export interface FacetCount { key: string; label: string; count: number; parent?: string }
@@ -110,7 +114,7 @@ function buildRows(repoRoot: string, archiveDir: string, nowMs: number): { rows:
         topics: it.topics || [], // derived on read in hydrate (news/topics.ts) — always an array
         scheduledEvents: it.scheduled_events || [], // derived on read in hydrate (news/schedule.ts)
         // scrubbed of country/agency/junk guesses (entities.ts) so the autofill only offers investable firms
-        companies: filterCompanies(it.companies).map((c) => ({ ticker: c.ticker || null, name: c.name })),
+        companies: filterCompanies(it.companies).map((c) => ({ ticker: c.ticker || null, name: c.name, listingCountry: c.listing_country || null })),
       })
     }
     if (lines >= MAX_LINES) break
@@ -145,9 +149,9 @@ function rowMatches(r: FacetRow, q: FeedFilterQuery): boolean {
   if (q.topics && q.topics.length > 0 && !r.topics.some((t) => q.topics!.includes(t))) return false
   if (q.scheduledEvents && q.scheduledEvents.length > 0 && !r.scheduledEvents.some((s) => q.scheduledEvents!.includes(s))) return false
   if (q.wireScope && r.scope !== q.wireScope && r.commodities.length === 0) return false
-  if (q.company && (q.company.ticker || q.company.name)) {
-    const t = (q.company.ticker || '').toUpperCase()
-    const names = [q.company.name, ...(q.company.aliases || [])].filter((s): s is string => !!s).map((s) => s.toLowerCase())
+  if (companyClauseSet(q.company)) {
+    const t = (q.company!.ticker || '').toUpperCase()
+    const names = [q.company!.name, ...(q.company!.aliases || [])].filter((s): s is string => !!s).map((s) => s.toLowerCase())
     const tickerHit = !!t && r.companies.some((c) => (c.ticker || '').toUpperCase() === t)
     // A facet row carries no headline, so the name clause is approximated over the company blob (name +
     // ticker) only — enough for the counts shown next to OTHER facets while a company is picked. The
@@ -179,35 +183,57 @@ function buildCompanyFacet(companyRows: FacetRow[], allRows: FacetRow[]): Compan
   }
   const nameToTicker = new Map<string, string>()
   for (const [nn, tks] of nameTickers) if (tks.size === 1) nameToTicker.set(nn, [...tks][0])
-  const acc = new Map<string, { ticker: string | null; names: Map<string, number>; rows: number }>()
+  // Per-name stats: mention count PLUS every listing_country seen tagged alongside that spelling. The
+  // primary `acc` key stays bare-ticker (unchanged dedup/count behaviour — different exchanges reusing the
+  // same ticker letters still fold into one row for the count/name-selection UX), but alias ELIGIBILITY
+  // below is gated on listing identity so two distinct issuers sharing a ticker (e.g. NYSE:CAT Caterpillar
+  // vs ASX:CAT Catapult Group International) never contaminate each other's alias list.
+  const acc = new Map<string, { ticker: string | null; names: Map<string, { count: number; countries: Set<string | null> }>; rows: number }>()
   for (const r of companyRows) {
-    const seen = new Map<string, { ticker: string | null; name: string }>() // one credit per key per row
+    const seen = new Map<string, { ticker: string | null; name: string; country: string | null }>() // one credit per key per row
     for (const c of r.companies) {
       const nn = normCompany(c.name)
       if (!nn) continue
       const tk = (c.ticker && c.ticker.toUpperCase()) || nameToTicker.get(nn) || ''
       const key = tk ? `T:${tk}` : `N:${nn}`
-      if (!seen.has(key)) seen.set(key, { ticker: tk || null, name: c.name })
+      if (!seen.has(key)) seen.set(key, { ticker: tk || null, name: c.name, country: c.listingCountry })
     }
     for (const [key, meta] of seen) {
-      const a = acc.get(key) || { ticker: meta.ticker, names: new Map<string, number>(), rows: 0 }
+      const a = acc.get(key) || { ticker: meta.ticker, names: new Map<string, { count: number; countries: Set<string | null> }>(), rows: 0 }
       a.rows += 1
-      a.names.set(meta.name, (a.names.get(meta.name) || 0) + 1)
+      const nm = a.names.get(meta.name) || { count: 0, countries: new Set<string | null>() }
+      nm.count += 1
+      nm.countries.add(meta.country)
+      a.names.set(meta.name, nm)
       if (!a.ticker && meta.ticker) a.ticker = meta.ticker
       acc.set(key, a)
     }
+  }
+  // Two country-sets are compatible (not PROVEN to be different issuers) unless BOTH carry at least one
+  // definite (non-null) listing_country AND those definite sets share nothing — an unknown/missing country
+  // on either side is never treated as a conflict, so imperfect extraction doesn't needlessly fragment a
+  // single company's own aliases.
+  const compatibleCountries = (a: Set<string | null>, b: Set<string | null>): boolean => {
+    const aKnown = [...a].filter((c): c is string => c != null)
+    const bKnown = [...b].filter((c): c is string => c != null)
+    if (!aKnown.length || !bKnown.length) return true
+    return aKnown.some((c) => bKnown.includes(c))
   }
   const out: CompanyFacet[] = []
   for (const a of acc.values()) {
     let name = ''
     let best = -1
-    for (const [nm, n] of a.names) if (n > best || (n === best && nm.length > name.length)) { best = n; name = nm }
-    // every OTHER spelling seen for this ticker, most-mentioned first, capped — the alias set that lets a
-    // headline using a less-common spelling (e.g. a short form an older/untagged item used) still match.
-    const aliases = [...a.names.keys()]
-      .filter((nm) => nm !== name)
-      .sort((x, y) => (a.names.get(y) || 0) - (a.names.get(x) || 0) || x.localeCompare(y))
+    for (const [nm, v] of a.names) if (v.count > best || (v.count === best && nm.length > name.length)) { best = v.count; name = nm }
+    const primaryCountries = a.names.get(name)!.countries
+    // every OTHER spelling seen for this ticker, most-mentioned first, capped, EXCLUDING any spelling whose
+    // listing_country evidence conflicts with the primary name's — the alias set that lets a headline using
+    // a less-common spelling (e.g. a short form an older/untagged item used) still match, without pulling in
+    // an unrelated same-ticker-different-exchange company's name (Codex review, PR #319).
+    const aliases = [...a.names.entries()]
+      .filter(([nm, v]) => nm !== name && compatibleCountries(primaryCountries, v.countries))
+      .sort((x, y) => y[1].count - x[1].count || x[0].localeCompare(y[0]))
       .slice(0, MAX_ALIASES)
+      .map(([nm]) => nm)
     out.push({ ticker: a.ticker, name, count: a.rows, aliases })
   }
   out.sort((x, y) => y.count - x.count || x.name.localeCompare(y.name))

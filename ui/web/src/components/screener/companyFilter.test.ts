@@ -101,6 +101,17 @@ check('a picked long-form name alone misses a short-form untagged headline; its 
   assert.equal(matchesFilters(shortForm, withCompany({ ticker: 'AMZN', name: 'Amazon.com Inc.', aliases: ['Amazon'] })), true, 'an alias recovers the untagged short-form headline')
 })
 
+// ---- ALIAS-ONLY QUERY: no ticker/name, only aliases — matchesFilters must still activate the company
+// clause and filter correctly, not silently no-op to "everything matches" (client lockstep with the
+// server's companyClauseSet fix, #319) ----
+check('a company filter with ONLY aliases (no ticker, no name) still activates and filters correctly', () => {
+  const hit = it({ headline: 'Amazon raises full-year outlook', companies: [] })
+  const miss = it({ headline: 'Microsoft ships an update', companies: [] })
+  const aliasOnly = withCompany({ ticker: null, name: '', aliases: ['Amazon'] })
+  assert.equal(matchesFilters(hit, aliasOnly), true)
+  assert.equal(matchesFilters(miss, aliasOnly), false, 'an alias-only filter must still exclude non-matching items, not pass everything')
+})
+
 // ---- a company pick trips archive mode + reads as active ----
 check('a company pick makes filtersActive + archiveFiltersActive true', () => {
   const f = withCompany({ ticker: 'AMZN', name: 'Amazon' })
