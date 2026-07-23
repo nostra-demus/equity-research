@@ -552,6 +552,15 @@ for _sp in glob.glob(os.path.join(run, "*", "99_*-synthesis.md")):
     except Exception: pass
 viol.extend(hc.eval_ai_headline_reconciliation(ddte, d, _thesis_text_ak) or [])
 viol.extend(hc.eval_ak_red_flag_severity_reconciliation(ddte, d, _thesis_text_ak, _module_texts_ak) or [])
+# AP valuation-summary lever-sidecar integrity (pre-publish; SAME pure core as eval.py check AP, via
+# scripts/valuation_summary_checks.py). valuation_summary.json is §25 DATA that reaches main WITHOUT CI, so
+# a malformed or decision_record-contradicting sidecar would drive the cockpit Playground with levers that
+# disagree with the committed thesis before the retrospective eval ever runs — stamp PROVISIONAL now.
+# Soft-presence: a run that emits no sidecar is N/A, never a violation.
+import valuation_summary_checks as vsc
+try: _vs_sidecar = json.load(open(os.path.join(run, "valuation", "valuation_summary.json"), encoding="utf-8"))
+except Exception: _vs_sidecar = None
+viol.extend(vsc.eval_ap_valuation_summary_integrity(_vs_sidecar, d) or [])
 # [PR#9 review fix] idempotent banner: ALWAYS strip any prior finish-gate banner first, then re-stamp
 # fresh if still failing, or write the clean thesis if it now passes. The old code only prepended-if-
 # absent, so a fixed re-run in the same folder kept a stale PROVISIONAL banner with outdated reasons.
