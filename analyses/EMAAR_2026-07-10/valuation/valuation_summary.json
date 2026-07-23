@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "ticker": "EMAAR",
+  "as_of": "2026-07-10",
+  "currency": "AED",
+  "business_type": "Operating",
+  "business_type_note": "Real estate developer treated as 'Operating with a real-estate/NAV overlay' (not a pure REIT): Real Estate development ~80% of revenue, Leasing/Retail malls ~15%, Hospitality ~5%, plus a listed development subsidiary (Emaar Development PJSC) and a disclosed third-party NAV ~AED 247bn. Primary methods are EV/EBITDA, P/E, FCFF DCF, with NAV + SOTP as the real-estate/holding-company cross-checks. NOT a holding company on the Method Map. See 00_valuation-data-triage.md, 'Business-type note'.",
+  "basis": "equity",
+  "shares": 8838.789849,
+  "net_debt": -24969,
+  "net_debt_basis": "broad",
+  "current_price": 12.20,
+  "price_as_of": "2026-06-28",
+  "price_state": "pool-verified",
+  "is_developed_mega_cap": false,
+  "scenarios": [
+    {
+      "label": "bull",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 21.00,
+      "drivers": "Asset value crystallises: masked wholly-owned Emaar Malls annuity re-rated + backlog delivered; DCF grid high / SOTP bull"
+    },
+    {
+      "label": "base",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 15.00,
+      "drivers": "Mechanical 4-method blend is AED 16.52 (0.15x12.5 + 0.20x16.9 + 0.30x18.0 + 0.35x16.77); published AED 1.52 lower at 15.00 as a disclosed RF-OWN-004 government-owner / peak-earnings conservative discount"
+    },
+    {
+      "label": "bear",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 9.75,
+      "drivers": "Through-cycle normalized earnings at a warranted multiple / SOTP bear; Dubai cyclical trough, floored by net cash + mall annuity"
+    }
+  ],
+  "methods": {
+    "own_history": 12.5,
+    "peers": 16.9,
+    "dcf": 18.0,
+    "sotp": 16.77
+  },
+  "method_weights": {
+    "own_history": 0.15,
+    "peers": 0.20,
+    "dcf": 0.30,
+    "sotp": 0.35
+  },
+  "discount_rate": {
+    "rf": 0.045,
+    "erp": 0.0487,
+    "beta": 1.15,
+    "cost_of_equity": 0.101,
+    "wacc": 0.105,
+    "wacc_computed": 0.096,
+    "wacc_note": "0.105 (10.5%) is the WACC actually USED in the base DCF, the sensitivity grid, and the reverse-DCF (04_intrinsic-dcf.md §3) — a disclosed +0.9pp override above the CAPM-computed 0.096 (9.60%), justified because the 8.5% debt weight understates the net-cash balance sheet and a single-city Dubai cycle warrants a premium. wacc_computed carries the pre-override CAPM/cost-of-debt blend for reference; all published fair values (methods.dcf=18.0, scenario levels) were generated with 0.105, not 0.096.",
+    "after_tax_kd": 0.0425
+  }
+}
