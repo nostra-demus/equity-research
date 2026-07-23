@@ -33,9 +33,11 @@ const tone = (n: number | null | undefined): string => (typeof n !== 'number' ? 
 // another reason we re-sync. `numToStr` avoids clobbering an in-progress "0." with the equal-valued "0".
 const numToStr = (n: number | null): string => (n === null ? '' : String(n))
 
-// Plain-English labels for the value-producing methods (the football-field keys). Unknown keys fall through
-// to the raw key so a future method still shows a row.
-const METHOD_LABELS: Record<string, string> = { own_history: 'Own-history', peers: 'Peers', dcf: 'DCF', sotp: 'SOTP' }
+// Plain-English labels for the value-producing methods (the football-field keys). Covers the operating-co
+// set plus the business-type-specific intrinsic methods (RI for financials, DDM, NAV for REITs). Unknown
+// keys fall through to a de-underscored key so a future method still shows a readable row.
+const METHOD_LABELS: Record<string, string> = { own_history: 'Own-history', peers: 'Peers', dcf: 'DCF', sotp: 'SOTP', ri_model: 'RI model', ddm: 'DDM', nav: 'NAV' }
+const methodLabel = (key: string): string => METHOD_LABELS[key] ?? key.replace(/_/g, ' ')
 
 function Field({ label, value, onChange, step = 'any', title }: { label: string; value: number | null; onChange: (n: number | null) => void; step?: string; title?: string }) {
   const [local, setLocal] = useState<string>(numToStr(value))
@@ -239,7 +241,7 @@ export function ValuationPlayground() {
                   const eff = out.blend.effectiveWeights[m.key]
                   return (
                     <div key={m.key} className="vpg__mixrow">
-                      <span className="vpg__scenlabel">{METHOD_LABELS[m.key] ?? m.key}</span>
+                      <span className="vpg__scenlabel">{methodLabel(m.key)}</span>
                       <TableInput value={m.value} onChange={(n) => setMethod(i, { value: n })} ariaLabel={`${m.key} value`} />
                       <TableInput value={m.weight} onChange={(n) => setMethod(i, { weight: n })} ariaLabel={`${m.key} weight`} />
                       <span className="vpg__mixeff mono">{typeof eff === 'number' ? `${Math.round(eff * 100)}%` : '—'}</span>
