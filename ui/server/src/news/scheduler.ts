@@ -133,9 +133,17 @@ function geminiPoolUsage(): { used: number; cap: number; tokens: number } | null
   return { used, cap, tokens }
 }
 
-/** One batch's estimated tokens — the reservation the drain gate + diagnostics use so a tier one batch
- *  short of its token cap is not reported as usable (mirrors the triage loop's Budget.canSpend(est)). */
-function batchEst(): number { return estimateTokens(NEWS.triageBatch) }
+/** Pure: the token reservation for the NEXT batch the drain loop would actually submit, given how many
+ *  items are waiting — min(backlogItems, NEWS.triageBatch), not a fixed full-batch estimate. When fewer
+ *  than a full batch remain (e.g. 1 queued item, ~595 tokens), reserving the default 12-item batch's
+ *  ~1,640 tokens made a provider with room for the real, smaller submission read as "spent" and the drain
+ *  skip it (Codex review, PR #316). An empty backlog reserves estimateTokens(0) — the fixed per-call
+ *  overhead, not zero. Exported + pure so it is unit-testable without a filesystem backlog fixture. */
+export function drainBatchEst(backlogItems: number): number { return estimateTokens(Math.min(Math.max(0, backlogItems), NEWS.triageBatch)) }
+
+/** Live read of drainBatchEst from disk — the reservation the drain gate + diagnostics use so a tier one
+ *  batch short of its token cap is not reported as usable (mirrors the triage loop's Budget.canSpend(est)). */
+function batchEst(): number { return drainBatchEst(backlogCount()) }
 
 /** Pure: can a request/token-gated free provider (overflow provider OR one Gemini pool model) score a batch
  *  RIGHT NOW? Not in a failure cooldown, under its request cap, and — when token-gated — with room for one

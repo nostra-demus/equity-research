@@ -10,7 +10,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { triageBatchClaudeCli, isUsageLimit, isPlanQuotaNote, type ClaudeCliRunner } from '../src/news/triage/claude-cli'
+import { triageBatchClaudeCli, isUsageLimit, isPlanQuotaNote, isTerminalApiNote, type ClaudeCliRunner } from '../src/news/triage/claude-cli'
 import { UsdBudget } from '../src/news/triage/budget'
 import { NEWS } from '../src/config'
 import { DEFERRED_CAP } from '../src/news/runCycle'
@@ -130,6 +130,30 @@ await check('isPlanQuotaNote distinguishes a spent plan from a transient blip', 
   assert.equal(isPlanQuotaNote(''), false)
 })
 
+// ---- finding 3 (Codex, PR #316): a TERMINAL API error (bad/revoked key, no credits — api_error_status,
+// not a usage-limit 429) must be classified apart from an ordinary transient blip in BOTH places that read
+// the note: runCycle.ts's `/HTTP (400|401|402|403|404|413)/` match (exhaust the day, don't arm the short
+// cooldown) and this adapter's own retry loop (don't re-ask an unauthenticated call). Before this fix
+// defaultClaudeCliRunner's `handle()` dropped `o.api_error_status` on the floor — the note never carried
+// "HTTP nnn" — so a 401 read as an ordinary transient error everywhere downstream. ----
+await check('isTerminalApiNote recognises the "HTTP nnn" shape a terminal API failure is now reported as', () => {
+  assert.equal(isTerminalApiNote('claude cli: HTTP 401 — invalid api key'), true)
+  assert.equal(isTerminalApiNote('claude cli: HTTP 403 — permission denied'), true)
+  assert.equal(isTerminalApiNote('claude cli: usage limit reached — plan quota spent'), false, 'a 429 plan-quota note is not a terminal API note')
+  assert.equal(isTerminalApiNote('claude cli: timed out'), false)
+  assert.equal(isTerminalApiNote('claude cli: no output'), false)
+  assert.equal(isTerminalApiNote(''), false)
+})
+
+await check('a terminal API note (HTTP 401) is NOT retried — one call, deferred, so the caller exhausts the day instead of a short cooldown', async () => {
+  let calls = 0
+  const run: ClaudeCliRunner = async () => { calls++; return { text: '', costUsd: 0, error: 'claude cli: HTTP 401 — invalid api key' } }
+  const r = await triageBatchClaudeCli(items, opts, run)
+  assert.equal(calls, 1, 're-asking a revoked/expired key is waste and holds the lock for nothing — stop after one')
+  assert.equal(r.ok, false)
+  assert.ok(isTerminalApiNote(r.note || ''), 'note is the terminal-API signal runCycle.ts matches to exhaust the day')
+})
+
 // ---- a runner that throws must not kill the cycle ----
 await check('an unexpected throw in the runner degrades to ok:false, never propagates', async () => {
   const run: ClaudeCliRunner = async () => { throw new Error('spawn EACCES') }
@@ -226,6 +250,37 @@ await check('finding 1 control: with ample remaining budget the transient retry 
   assert.equal(calls, 2, 'plenty of budget left → the retry proceeds exactly as before the guard')
   assert.equal(r.ok, true)
   assert.equal(r.byIndex.get(0)!.materiality_pre_score, 80)
+})
+
+// ---- Codex P2 follow-up finding on the finding-1 fix (PR #316): the guard must reserve the RETRY's own
+// max possible cost (opts.budgetUsd — the --max-budget-usd cap passed to every call), not just compare the
+// spend SO FAR to the remaining allowance. $0.15 left, a billed $0.10 first attempt passes `costUsd (0.10)
+// >= budgetRemainingUsd (0.15)` (old guard), so a second ~$0.10 attempt could still add a SECOND overshoot.
+// Authority: claude-cli.ts's own contract ("the daily ledger is the real bound") — the retry must never be
+// STARTED unless its worst case still fits. ----
+await check('finding 1 follow-up: a retry is skipped when its OWN max cost (budgetUsd) would blow the remaining allowance, even though spend-so-far has not', async () => {
+  let calls = 0
+  const run: ClaudeCliRunner = async () => { calls++; return { text: 'thinking…', costUsd: 0.10, error: undefined } } // billed, unparseable → transient
+  // remaining allowance 0.15; spend-so-far after attempt 1 is 0.10 (< 0.15, old guard would retry) but
+  // 0.10 + the 0.10 per-call cap = 0.20 > 0.15 → the retry's own worst case does not fit → skip
+  const r = await triageBatchClaudeCli(items, { ...opts, budgetRemainingUsd: 0.15, budgetUsd: 0.10 }, run)
+  assert.equal(calls, 1, 'red-on-old: the pre-fix guard (costUsd >= budgetRemainingUsd) would have let attempt 2 run')
+  assert.equal(r.ok, false)
+  assert.match(r.note || '', /budget/i, 'the note names the budget stop')
+})
+
+await check('finding 1 follow-up control: a retry proceeds when its own max cost still fits the remaining allowance', async () => {
+  let calls = 0
+  const run: ClaudeCliRunner = async () => {
+    calls++
+    if (calls === 1) return { text: 'thinking…', costUsd: 0.01 } // billed, unparseable → transient
+    return { text: '[{"i":0,"materiality_pre_score":42}]', costUsd: 0.01 }
+  }
+  // remaining allowance 1.00; spend-so-far 0.01 + the 0.10 per-call cap = 0.11 <= 1.00 → fits, retry proceeds
+  const r = await triageBatchClaudeCli(items, { ...opts, budgetRemainingUsd: 1.0, budgetUsd: 0.10 }, run)
+  assert.equal(calls, 2, 'the reservation only blocks a retry whose own worst case would not fit')
+  assert.equal(r.ok, true)
+  assert.equal(r.byIndex.get(0)!.materiality_pre_score, 42)
 })
 
 // ---- finding 2 (Codex, PR #316): the retry must stop when the CYCLE is aborted. runAbortableCycle's
