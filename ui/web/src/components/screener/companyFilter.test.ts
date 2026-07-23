@@ -93,6 +93,14 @@ check('rankOption ranks exact ticker < ticker-prefix < name-prefix < contains < 
   assert.equal(rankOption(o, 'zzz'), -1)
 })
 
+// ---- THE REPORTED GAP: a picked LONG-form name alone misses an UNTAGGED short-form headline; its
+// aliases (carried on the pick from the facet) recover it — client lockstep with the server fix (#317) ----
+check('a picked long-form name alone misses a short-form untagged headline; its aliases recover it', () => {
+  const shortForm = it({ headline: 'Amazon raises full-year outlook', companies: [] })
+  assert.equal(matchesFilters(shortForm, withCompany({ ticker: 'AMZN', name: 'Amazon.com Inc.' })), false, 'the long form alone does not reach a short-form untagged headline')
+  assert.equal(matchesFilters(shortForm, withCompany({ ticker: 'AMZN', name: 'Amazon.com Inc.', aliases: ['Amazon'] })), true, 'an alias recovers the untagged short-form headline')
+})
+
 // ---- a company pick trips archive mode + reads as active ----
 check('a company pick makes filtersActive + archiveFiltersActive true', () => {
   const f = withCompany({ ticker: 'AMZN', name: 'Amazon' })

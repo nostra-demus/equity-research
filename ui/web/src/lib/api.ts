@@ -117,10 +117,14 @@ export interface ArchiveQuery {
   scheduledEvents?: string[] // forward/scheduled corporate events (server news/schedule.ts) — OR within the set
   wireScope?: string // wire-membership disjunction: scope equals this OR the item carries a commodity tag
   // Pick-a-company filter (the ticker autofill): match items tagged with this exact ticker OR whose
-  // headline/company blob contains this name. Sending BOTH (the picked suggestion carries both) is the
-  // reliable path — the ticker catches items the name misses and vice-versa. Either alone also works.
+  // headline/company blob contains this name OR any of its known aliases. Sending BOTH (the picked
+  // suggestion carries both) is the reliable path — the ticker catches items the name misses and
+  // vice-versa. `companyAliases` carries other spellings the archive has tagged for the same ticker (e.g. a
+  // short form like "Amazon" alongside "Amazon.com Inc."), so an untagged item using a less-common spelling
+  // still matches (Codex review, PR #317). Any of ticker/name/an alias alone still matches.
   companyTicker?: string
   companyName?: string
+  companyAliases?: string[]
   text?: string
 }
 export interface SearchCursor { ts: string; id: string }
@@ -133,7 +137,11 @@ export interface FeedSearchResponse {
 export interface FacetCount { key: string; label: string; count: number; parent?: string }
 // A distinct company observed on the wire, with how many archived items mention it — the source for the
 // company/ticker autofill. `ticker` is null for a name-only guess the scanner never resolved a symbol for.
-export interface CompanyFacet { ticker: string | null; name: string; count: number }
+// `aliases`: other spellings the archive has tagged for the same ticker (most-mentioned first, capped),
+// carried through the pick so an item using a less-common spelling still matches (server news/facets.ts).
+// Optional (not just possibly-empty) so an older server response — or a test fixture — that omits it still
+// type-checks; callers treat a missing `aliases` the same as an empty one.
+export interface CompanyFacet { ticker: string | null; name: string; count: number; aliases?: string[] }
 export interface FeedFacets {
   countries: FacetCount[] // parent = continent
   regions: FacetCount[] // continents
@@ -189,6 +197,8 @@ function archiveQueryParams(q: ArchiveQuery): URLSearchParams {
   if (q.wireScope) p.set('wireScope', q.wireScope)
   if (q.companyTicker?.trim()) p.set('companyTicker', q.companyTicker.trim())
   if (q.companyName?.trim()) p.set('companyName', q.companyName.trim())
+  // '|' not ',' — some tagged company names contain a comma; see the matching split in feed-filter.ts
+  if (q.companyAliases?.length) p.set('companyAliases', q.companyAliases.join('|'))
   if (q.text?.trim()) p.set('text', q.text.trim())
   return p
 }

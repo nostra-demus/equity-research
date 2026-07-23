@@ -200,11 +200,36 @@ check('the company facet picks the most-used display name and leaves an ambiguou
   const amzn = facets.companies.find((c) => c.ticker === 'AMZN')
   assert.equal(amzn?.name, 'Amazon', 'the most-used spelling (2× "Amazon" vs 1× "Amazon.com") wins')
   assert.equal(amzn?.count, 3)
+  assert.deepEqual(amzn?.aliases, ['Amazon.com'], 'the less-used spelling is carried as an alias, not dropped')
   // the ambiguous name-only "Acme" row is NOT credited to ACM1 or ACM2 (each keeps its own tagged count of 1)
   assert.equal(facets.companies.find((c) => c.ticker === 'ACM1')?.count, 1)
   assert.equal(facets.companies.find((c) => c.ticker === 'ACM2')?.count, 1)
   const acmeNameOnly = facets.companies.find((c) => c.ticker === null && /acme/i.test(c.name))
   assert.equal(acmeNameOnly?.count, 1, 'the ambiguous name-only mention stands on its own, un-folded')
+})
+
+// ---- 16. THE REPORTED GAP: a picked LONG-form name misses an UNTAGGED item using the SHORT form — the
+// alias set (built from every spelling the archive has tagged for that ticker) closes it (Codex review, #317).
+check('a picked long-form name alone misses a short-form untagged headline; its aliases recover it', () => {
+  const it = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Amazon raises full-year outlook', companies: [] }) // untagged, short form only
+  // without the alias, the picked "Amazon.com Inc." is not a substring of the headline at all
+  assert.equal(matchesFeedFilters(it, { company: { ticker: 'AMZN', name: 'Amazon.com Inc.' } }), false, 'the long form alone does not reach a short-form untagged headline')
+  // carrying the archive-observed short form as an alias recovers the match
+  assert.equal(matchesFeedFilters(it, { company: { ticker: 'AMZN', name: 'Amazon.com Inc.', aliases: ['Amazon'] } }), true, 'an alias recovers the untagged short-form headline')
+})
+
+// ---- 17. end-to-end: the company FACET actually carries the alias a caller needs for #16 ----
+check('computeFacets carries the archive-observed short form as an alias on the AMZN facet', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [
+    item({ ts: `${dayAgo(0)}T10:03:00Z`, headline: 'Amazon.com Inc. lifts guidance', companies: [{ name: 'Amazon.com Inc.', ticker: 'AMZN', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:02:00Z`, headline: 'Amazon.com Inc. opens a hub', companies: [{ name: 'Amazon.com Inc.', ticker: 'AMZN', listing_country: 'US' }] }),
+    item({ ts: `${dayAgo(0)}T10:01:00Z`, headline: 'Amazon adds staff', companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] }), // a rarer, shorter tagged spelling
+  ])
+  const facets = computeFacets(repo, {}, { now })
+  const amzn = facets.companies.find((c) => c.ticker === 'AMZN')
+  assert.equal(amzn?.name, 'Amazon.com Inc.', 'the more-common long form is still the primary display name')
+  assert.ok(amzn?.aliases.includes('Amazon'), 'the rarer short form is carried as an alias, ready to feed a pick')
 })
 
 console.log(`\ncompany-filter.test.ts: ${passed} passed`)

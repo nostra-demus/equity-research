@@ -101,16 +101,19 @@ export function matchesFilters(it: Filterable, f: FeedFilterState): boolean {
     if (f.gicsSubSector && !g.subSectors.has(f.gicsSubSector)) return false
   }
   // Pick-a-company (the ticker autofill): the item passes when it is tagged with the picked EXACT ticker
-  // OR its headline/company blob NAMES the company as a whole word. Either alone qualifies, so a picked
-  // suggestion (which carries both) has strictly ≥ the recall of typing just the name — the ticker catches
-  // items the name misses (name-only headline vs a different tagged name) and vice-versa. The gate mirrors
-  // the server (an empty-both pick is vacuously true on both sides); the name test is whole-word so a
-  // common-word name doesn't drag in unrelated items. Mirrors the server's matchesFeedFilters company clause.
+  // OR its headline/company blob NAMES the company (as a whole word) under its picked name OR any known
+  // alias. Either alone qualifies, so a picked suggestion (which carries ticker + name + aliases) has
+  // strictly ≥ the recall of typing just the name — the ticker catches items the name misses (name-only
+  // headline vs a different tagged name), and the alias set catches an untagged item using a less-common
+  // spelling (e.g. "Amazon" vs the picked "Amazon.com Inc.") that the single best name would miss. The gate
+  // mirrors the server (an empty-both pick is vacuously true on both sides); the name test is whole-word so
+  // a common-word name doesn't drag in unrelated items. Mirrors the server's matchesFeedFilters company clause.
   if (f.company && (f.company.ticker || f.company.name)) {
     const t = (f.company.ticker || '').toUpperCase()
-    const n = (f.company.name || '').toLowerCase()
+    const names = [f.company.name, ...(f.company.aliases || [])].filter((s): s is string => !!s).map((s) => s.toLowerCase())
     const tickerHit = !!t && (it.companies || []).some((c) => (c.ticker || '').toUpperCase() === t)
-    const nameHit = !!n && nameOccurs(`${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase(), n)
+    const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
+    const nameHit = names.some((n) => nameOccurs(hay, n))
     if (!tickerHit && !nameHit) return false
   }
   if (f.text.trim()) {

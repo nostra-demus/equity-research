@@ -19,6 +19,9 @@ import { nameOccurs, type FeedFilterQuery } from './feed-filter'
 // the most-mentioned companies to return for the ticker autofill — bounds the payload; a rarer symbol the
 // list omits still filters, because CompanyFilter falls back to applying a free-typed ticker directly.
 const MAX_COMPANY_FACETS = 1000
+// other spellings kept per company (beyond the primary `name`) — bounds the payload; a spelling this cuts
+// is still a rare tail (the "best" name already covers the most-mentioned form).
+const MAX_ALIASES = 5
 
 const normCompany = (s: unknown): string =>
   String(s ?? '').toLowerCase().replace(/\s+/g, ' ').replace(/[.,]/g, '').replace(/\(.*?\)/g, '').replace(/^the /, '').trim()
@@ -47,7 +50,12 @@ interface FacetRow {
 
 export interface FacetCount { key: string; label: string; count: number; parent?: string }
 // A distinct company on the wire + its archive mention count — the source for the ticker autofill.
-export interface CompanyFacet { ticker: string | null; name: string; count: number }
+// `aliases`: other spellings the archive has tagged for the SAME ticker (e.g. a short form like "Amazon"
+// alongside the more-common "Amazon.com Inc.") — capped, most-mentioned first, excludes `name` itself. An
+// UNTAGGED item using one of these spellings would otherwise be invisible to a pick that only tested the
+// single "best" name (Codex review, PR #317): the picked suggestion now carries every observed spelling so
+// the headline/company-blob match tests each one, not just the most common.
+export interface CompanyFacet { ticker: string | null; name: string; count: number; aliases: string[] }
 export interface Facets {
   countries: FacetCount[] // key = ISO alpha-2, parent = continent
   regions: FacetCount[] // continents
@@ -139,13 +147,15 @@ function rowMatches(r: FacetRow, q: FeedFilterQuery): boolean {
   if (q.wireScope && r.scope !== q.wireScope && r.commodities.length === 0) return false
   if (q.company && (q.company.ticker || q.company.name)) {
     const t = (q.company.ticker || '').toUpperCase()
-    const n = (q.company.name || '').toLowerCase()
+    const names = [q.company.name, ...(q.company.aliases || [])].filter((s): s is string => !!s).map((s) => s.toLowerCase())
     const tickerHit = !!t && r.companies.some((c) => (c.ticker || '').toUpperCase() === t)
     // A facet row carries no headline, so the name clause is approximated over the company blob (name +
     // ticker) only — enough for the counts shown next to OTHER facets while a company is picked. The
     // authoritative name match (which also scans the headline) is matchesFeedFilters at the search site.
     // Same whole-word matcher as the search site, so the approximation differs only by the missing headline.
-    const nameHit = !!n && r.companies.some((c) => nameOccurs(`${c.name} ${c.ticker || ''}`.toLowerCase(), n))
+    // Tests every alias too (not just the picked "best" spelling), so the count stays consistent with the
+    // search results it's shown alongside.
+    const nameHit = names.length > 0 && r.companies.some((c) => names.some((n) => nameOccurs(`${c.name} ${c.ticker || ''}`.toLowerCase(), n)))
     if (!tickerHit && !nameHit) return false
   }
   return true
@@ -192,7 +202,13 @@ function buildCompanyFacet(companyRows: FacetRow[], allRows: FacetRow[]): Compan
     let name = ''
     let best = -1
     for (const [nm, n] of a.names) if (n > best || (n === best && nm.length > name.length)) { best = n; name = nm }
-    out.push({ ticker: a.ticker, name, count: a.rows })
+    // every OTHER spelling seen for this ticker, most-mentioned first, capped — the alias set that lets a
+    // headline using a less-common spelling (e.g. a short form an older/untagged item used) still match.
+    const aliases = [...a.names.keys()]
+      .filter((nm) => nm !== name)
+      .sort((x, y) => (a.names.get(y) || 0) - (a.names.get(x) || 0) || x.localeCompare(y))
+      .slice(0, MAX_ALIASES)
+    out.push({ ticker: a.ticker, name, count: a.rows, aliases })
   }
   out.sort((x, y) => y.count - x.count || x.name.localeCompare(y.name))
   return out.slice(0, MAX_COMPANY_FACETS)

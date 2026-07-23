@@ -14,10 +14,13 @@ import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import type { CompanyFacet } from '../../lib/api'
 
 // The picked company. `ticker` is null for a name-only pick (a company the scanner never resolved a symbol
-// for, or a free-typed name that isn't symbol-shaped); `name` is '' only for a legacy/empty pick.
+// for, or a free-typed name that isn't symbol-shaped); `name` is '' only for a legacy/empty pick. `aliases`
+// carries the OTHER spellings the archive has tagged for this ticker (from the picked facet), so an item
+// using a less-common spelling still matches — undefined for a free-typed pick (nothing to look up).
 export interface CompanyPick {
   ticker: string | null
   name: string
+  aliases?: string[]
 }
 
 const MAX_SHOWN = 8
@@ -93,7 +96,7 @@ export function CompanyFilter({
   useEffect(() => { setHi(0) }, [q])
 
   const pick = (o: CompanyFacet) => {
-    onChange({ ticker: o.ticker, name: o.name })
+    onChange({ ticker: o.ticker, name: o.name, aliases: o.aliases })
     setQ('')
     setOpen(false)
   }
