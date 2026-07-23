@@ -6,7 +6,7 @@
 // Run: npx tsx test/chat-whatif.test.ts
 import assert from 'node:assert/strict'
 import {
-  detectWhatIf, matchVariable, parseDelta, parseLevel, parseReverseTarget, classifyWhatIf,
+  detectWhatIf, matchVariable, parseDelta, parseNum, parseLevel, parseReverseTarget, classifyWhatIf,
   computeScenario, computePlan, computedContextBlock, type SensitivitySidecar, type Plan,
 } from '../src/chat-whatif'
 
@@ -22,9 +22,9 @@ const NHY: SensitivitySidecar = {
   base_metric: 'adjusted_ebitda_nok_m', base_value: 28889, base_period: 'FY2025', revenue_base: 207971,
   sensitivities: [
     { variable: 'lme_aluminium_price', label: 'LME aluminium price', unit: 'USD/mt', base_value: 3192, coefficient: 15.0, confidence: 'high', basis: 'company-disclosed', valid_range: { low: -400, high: 300 }, source: 'FY2025 Annual Report, p.38' },
-    { variable: 'usd_nok', label: 'USD/NOK exchange rate', unit: 'NOK', base_value: 9.72, coefficient: 4900.0, confidence: 'high', basis: 'company-disclosed', valid_range: { low: -1, high: 1 } },
-    { variable: 'alumina_price', label: 'Alumina price (Platts PAX)', unit: 'USD/mt', base_value: 345, coefficient: 72.0, confidence: 'low', basis: 'inferred', valid_range: { low: -50, high: 65 } },
-    { variable: 'extrusions_volume', label: 'Extrusions external sales volume', unit: 'kmt', base_value: 1004, coefficient: 19.1, confidence: 'medium', basis: 'inferred', valid_range: { low: -40, high: 50 } },
+    { variable: 'usd_nok', label: 'USD/NOK exchange rate', unit: 'NOK', base_value: 9.72, coefficient: 4900.0, confidence: 'high', basis: 'company-disclosed', valid_range: { low: -1, high: 1 }, source: 'FY2025 AR p.38' },
+    { variable: 'alumina_price', label: 'Alumina price (Platts PAX)', unit: 'USD/mt', base_value: 345, coefficient: 72.0, confidence: 'low', basis: 'inferred', valid_range: { low: -50, high: 65 }, source: 'Q1 2026 deck p.15' },
+    { variable: 'extrusions_volume', label: 'Extrusions external sales volume', unit: 'kmt', base_value: 1004, coefficient: 19.1, confidence: 'medium', basis: 'inferred', valid_range: { low: -40, high: 50 }, source: 'Q1 2026 report p.16' },
   ],
 }
 const near = (a: number | null | undefined, b: number, tol = 0.5) => typeof a === 'number' && Math.abs(a - b) <= tol
@@ -59,8 +59,8 @@ await (async () => {
     assert.equal(parseLevel('aluminium rises $45/mt'), null)
   })
   await check('parseReverseTarget: a margin target', () => {
-    assert.deepEqual(parseReverseTarget('what price gets the margin to 16%?', NHY), { targetMargin: 16 })
-    assert.deepEqual(parseReverseTarget('16% operating margin', NHY), { targetMargin: 16 })
+    assert.deepEqual(parseReverseTarget('what price gets the margin to 16%?'), { targetMargin: 16 })
+    assert.deepEqual(parseReverseTarget('16% operating margin'), { targetMargin: 16 })
   })
 
   // ---- classification: the four intents + refusals ----
@@ -98,6 +98,50 @@ await (async () => {
   })
   await check('classify → null for a non-what-if', () => {
     assert.equal(classifyWhatIf('what is the single biggest risk?', NHY), null)
+  })
+
+  // ---- PR #332 review fixes: robustness against stray numbers + citation/metric integrity ----
+  await check('parseNum: comma-thousands vs decimal', () => {
+    assert.equal(parseNum('1,000'), 1000)
+    assert.equal(parseNum('1,000,000'), 1000000)
+    assert.equal(parseNum('3,484.5'), 3484.5)
+    assert.equal(parseNum('0.5'), 0.5)
+    assert.equal(parseNum('45'), 45)
+  })
+  await check('parseDelta ignores a fiscal YEAR and takes the real move', () => {
+    // "FY2026 EBITDA if aluminium rises $45/mt" → +45, NOT +2026
+    assert.equal((parseDelta('what is FY2026 EBITDA if aluminium rises $45/mt', NHY.sensitivities![0]) as any).delta, 45)
+  })
+  await check('parseDelta reads comma-grouped thousands as thousands', () => {
+    assert.equal((parseDelta('what if aluminium rises by $1,000/mt', NHY.sensitivities![0]) as any).delta, 1000)
+  })
+  await check('LEVEL wins over an output-metric target ("EBITDA if aluminium rises to $3,000")', () => {
+    const p = classifyWhatIf('what would EBITDA be if aluminium rises to $3,000/mt?', NHY) as any
+    assert.equal(p.kind, 'level'); assert.equal(p.targetLevel, 3000)
+  })
+  await check('an ordinary dated question is NOT refused as a what-if', () => {
+    assert.equal(classifyWhatIf('what was EBITDA in FY2025?', NHY), null)
+  })
+  await check('a coefficient with no source is refused (no_source), not modelled', () => {
+    const nosrc = { ...NHY, sensitivities: [{ ...NHY.sensitivities![0], source: null }] }
+    const p = classifyWhatIf('margin if aluminium rises $45/mt', nosrc) as any
+    assert.equal(p.kind, 'unsupported'); assert.equal(p.reason, 'no_source')
+  })
+  await check('a coefficient on a different metric is refused (metric_mismatch)', () => {
+    const diff = { ...NHY, sensitivities: [{ ...NHY.sensitivities![0], impact_metric: 'revenue_nok_m' }] }
+    const p = classifyWhatIf('margin if aluminium rises $45/mt', diff) as any
+    assert.equal(p.kind, 'unsupported'); assert.equal(p.reason, 'metric_mismatch')
+  })
+  await check('margin is labelled by its base metric (EBITDA margin), at unchanged revenue', async () => {
+    const s = await computeScenario(NHY, 'lme_aluminium_price', { delta: 45 })
+    assert.equal(s!.marginBasis, 'revenue_constant')
+    const block = computedContextBlock({ kind: 'scenario', asked: 'q', scenario: s! })
+    assert.ok(/EBITDA margin/i.test(block) && /unchanged revenue/i.test(block) && !/operating margin/i.test(block))
+  })
+  await check('an inferred coefficient carries the "Inference, not from filings" instruction', async () => {
+    const s = await computeScenario(NHY, 'alumina_price', { delta: 20 })
+    const block = computedContextBlock({ kind: 'scenario', asked: 'q', scenario: s! })
+    assert.ok(/INFERRED/i.test(block) && /Inference, not from filings/i.test(block))
   })
 
   // ---- engine reconciliation: what the card shows == sensitivity_math.py ----

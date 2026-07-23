@@ -1186,6 +1186,8 @@ export interface ComputedScenario {
   targetValue?: number | null     // reverse mode: the base-metric value targeted
   targetMarginPct?: number | null // reverse mode: the margin % targeted
   neededImpact?: number | null    // reverse mode: the base-metric change required
+  marginBasis?: string | null     // 'revenue_constant' → margin computed at unchanged revenue
+  metricNote?: string | null      // coefficient on a metric ≠ base metric (level/margin withheld)
   note?: string | null            // set on the first card of a multi-variable answer
 }
 export type ChatComputed =

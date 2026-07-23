@@ -363,17 +363,17 @@ if __name__ == "__main__":
     # this entry never touches the filesystem: same deterministic engine the guard checks, one source of truth.
     if "--scenario" in sys.argv:
         import json
+        # ANY failure — malformed stdin, a bad request, or a serialization error — must return a structured
+        # error the server can parse, never crash the child (which the server would read as "no answer").
         try:
             req = json.load(sys.stdin)
-        except Exception as e:  # malformed request → an error result, never a crash the server must parse
-            print(json.dumps({"error": f"could not parse scenario request: {e}"}))
-            raise SystemExit(0)
-        if not isinstance(req, dict):
-            print(json.dumps({"error": "scenario request must be a JSON object"}))
-            raise SystemExit(0)
-        # resolve_scenario handles all intents (delta / target_level / target / target_margin) through the
-        # one forward code path, so level and reverse arithmetic live here, not in the TS caller.
-        print(json.dumps(resolve_scenario(req.get("sidecar") or {}, req.get("variable"), req)))
+            if not isinstance(req, dict):
+                raise ValueError("scenario request must be a JSON object")
+            # resolve_scenario handles all intents (delta / target_level / target / target_margin) through the
+            # one forward code path, so level and reverse arithmetic live here, not in the TS caller.
+            print(json.dumps(resolve_scenario(req.get("sidecar") or {}, req.get("variable"), req)))
+        except Exception as e:
+            print(json.dumps({"error": f"scenario request failed: {e}"}))
         raise SystemExit(0)
     print("usage: sensitivity_math.py [--selftest | --scenario (JSON request on stdin)]")
     raise SystemExit(2)

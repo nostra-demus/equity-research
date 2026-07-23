@@ -35,6 +35,7 @@ export interface SensitivityRow {
   unit?: string | null
   base_value?: number | null
   coefficient?: number | null
+  impact_metric?: string | null
   confidence?: string | null
   basis?: string | null
   valid_range?: { low?: number; high?: number } | null
@@ -63,8 +64,11 @@ export function loadSidecar(runRoot: string): { path: string; sidecar: Sensitivi
   } catch { return null }
 }
 
+// sidecar JSON is external — a malformed `sensitivities` (a non-array truthy value) must not crash iteration.
+const sensRows = (sidecar: SensitivitySidecar): SensitivityRow[] => (Array.isArray(sidecar.sensitivities) ? sidecar.sensitivities : [])
+
 function recordedList(sidecar: SensitivitySidecar) {
-  return (sidecar.sensitivities || []).filter((r) => r?.variable).map((r) => ({ variable: r.variable, label: r.label, unit: r.unit }))
+  return sensRows(sidecar).filter((r) => r?.variable).map((r) => ({ variable: r.variable, label: r.label, unit: r.unit }))
 }
 
 // ---- 1. detection ------------------------------------------------------------------------------------
@@ -95,7 +99,10 @@ export function variableKeywords(row: SensitivityRow): string[] {
   for (const t of toks) {
     if (t === 'aluminium') out.add('aluminum')
     if (t === 'aluminum') out.add('aluminium')
-    for (const a of CURRENCY_ALIAS[t] || []) out.add(a)
+    // own-property + Array.isArray: a token like 'constructor'/'toString' would otherwise resolve to a
+    // Prototype function and crash the for-of (prototype-pollution-shaped bug).
+    const aliases = Object.prototype.hasOwnProperty.call(CURRENCY_ALIAS, t) ? CURRENCY_ALIAS[t] : null
+    if (Array.isArray(aliases)) for (const a of aliases) out.add(a)
   }
   return [...out]
 }
@@ -118,7 +125,7 @@ export function matchVariable(question: string, sidecar: SensitivitySidecar): Se
   const qlc = ` ${(question || '').toLowerCase()} `
   const stems = questionStems(question)
   let best: { row: SensitivityRow; score: number } | null = null
-  for (const row of sidecar.sensitivities || []) {
+  for (const row of sensRows(sidecar)) {
     if (!row?.variable) continue
     const score = scoreRow(row, qlc, stems)
     if (score > 0 && (!best || score > best.score)) best = { row, score }
@@ -130,7 +137,7 @@ export function matchVariable(question: string, sidecar: SensitivitySidecar): Se
 export function matchAllVariables(question: string, sidecar: SensitivitySidecar): SensitivityRow[] {
   const qlc = ` ${(question || '').toLowerCase()} `
   const stems = questionStems(question)
-  return (sidecar.sensitivities || [])
+  return sensRows(sidecar)
     .filter((r) => r?.variable)
     .map((r) => ({ r, s: scoreRow(r, qlc, stems) }))
     .filter((x) => x.s > 0)
@@ -140,79 +147,124 @@ export function matchAllVariables(question: string, sidecar: SensitivitySidecar)
 
 // ---- 3. move / level / reverse extraction (pure regex) -----------------------------------------------
 const NEG_CUE = /\b(fall|falls|falling|fell|fallen|drop|drops|dropped|decrease|decreases|decreasing|decline|declines|lower|down|weaken|weakens|cut|cuts|loses|lose|minus)\b/i
-const MAG = /(?:by\s+)?([+\-−]?)\s*(?:usd|us\$|\$|nok|kr|₹|€|£|rs\.?)?\s*(\d+(?:[.,]\d+)?)\s*(%|percent|pct|pp|bps?|usd\/mt|\/mt|mt|kmt|usd|nok)?/i
+// a numeric token: comma-grouped thousands and/or a decimal ($1,000 / 3,484.5 / 0.5 / 45)
+const NUM = '(\\d[\\d,]*(?:\\.\\d+)?)'
+const MAG_SRC = `(?:by\\s+)?([+\\-−]?)\\s*(usd|us\\$|\\$|nok|kr|₹|€|£|rs\\.?)?\\s*${NUM}\\s*(%|percent|pct|pp|bps?|usd\\/mt|\\/mt|mt|kmt|usd|nok)?`
+const MAG = new RegExp(MAG_SRC, 'i')
 // a LEVEL marker ("at / hits / reaches / to") immediately before a number → an absolute level, not a move
-const LEVEL_AT = /\b(?:at|hits?|reach(?:es|ing)?|to)\s+(?:USD|US\$|\$|NOK|kr|₹|€|£)?\s*([\d,]+(?:\.\d+)?)\s*(?:usd\/mt|\/mt|mt|kmt|usd|nok)?\b/i
+const LEVEL_AT = /\b(?:at|hits?|reach(?:es|ing)?|to)\s+(?:USD|US\$|\$|NOK|kr|₹|€|£)?\s*([\d,]+(?:\.\d+)?)\s*(usd\/mt|\/mt|mt|kmt|usd|nok)?\b/i
+
+/** Parse a numeric token, treating a comma as a THOUSANDS separator ($1,000 → 1000), and a lone trailing
+ *  comma+1-2 digits as a decimal (European "1,5" → 1.5). Never silently turns 1,000 into 1. */
+export function parseNum(raw: string): number {
+  const s0 = String(raw).trim()
+  let s: string
+  if (/^\d{1,3}(,\d{3})+(\.\d+)?$/.test(s0)) s = s0.replace(/,/g, '') // 1,000 / 1,000,000(.5) → thousands
+  else s = s0.replace(/,(\d{1,2})$/, '.$1').replace(/,/g, '')          // trailing comma-decimal, else drop
+  const n = parseFloat(s)
+  return Number.isFinite(n) ? n : NaN
+}
+
+interface Mag { sign: string; num: number; unit: string; index: number; hasCur: boolean }
+function magnitudes(q: string): Mag[] {
+  const re = new RegExp(MAG_SRC, 'gi')
+  const out: Mag[] = []
+  let m: RegExpExecArray | null
+  while ((m = re.exec(q))) {
+    if (m.index === re.lastIndex) re.lastIndex++
+    const num = parseNum(m[3])
+    if (!Number.isFinite(num)) continue
+    out.push({ sign: m[1] || '', num, unit: (m[4] || '').toLowerCase(), index: m.index, hasCur: !!m[2] })
+  }
+  return out
+}
+/** Score a candidate magnitude so a fiscal YEAR ("FY2026 EBITDA if aluminium rises $45") never beats the
+ *  real move: a signed/united/currency/verb-adjacent number scores high; a bare 4-digit year is penalised. */
+function scoreMag(m: Mag, q: string): number {
+  let s = 0
+  if (m.sign) s += 12
+  if (m.unit) s += 12
+  if (m.hasCur) s += 8
+  const before = q.slice(Math.max(0, m.index - 16), m.index).toLowerCase()
+  if (CHANGE_CUE.test(before) || /\bby\b/.test(before)) s += 8
+  if (!m.sign && !m.unit && !m.hasCur && /^(19|20)\d\d$/.test(String(m.num))) s -= 40 // bare year
+  return s
+}
 
 export type DeltaParse = { delta: number; percent: boolean } | { error: string } | null
 
 /** A signed move in the variable's own unit. A "%" is sized off the row's recorded base_value. Returns null
- *  when no magnitude is present, or the phrasing is an ambiguous absolute level ("from X to Y"). */
+ *  when no magnitude is present, or the phrasing is an ambiguous absolute level ("from X to Y"). Picks the
+ *  best-scoring magnitude (not blindly the first), so a year or other stray number is not taken as the move. */
 export function parseDelta(question: string, row: SensitivityRow): DeltaParse {
   const q = question || ''
   if (/\bfrom\s+[+\-−]?[\d.,]+\s+to\s+[+\-−]?[\d.,]+/i.test(q)) return null // absolute range, not a delta
-  const m = MAG.exec(q)
-  if (!m) return null
-  const num = parseFloat(m[2].replace(',', '.'))
-  if (!Number.isFinite(num)) return null
-  const unit = (m[3] || '').toLowerCase()
+  const mags = magnitudes(q)
+  if (!mags.length) return null
+  const m = mags.reduce((a, b) => (scoreMag(b, q) > scoreMag(a, q) ? b : a))
+  const unit = m.unit
   const percent = unit === '%' || unit === 'percent' || unit === 'pct'
   let sign = 1
-  if (m[1] === '-' || m[1] === '−') sign = -1
-  else if (m[1] === '+') sign = 1
+  if (m.sign === '-' || m.sign === '−') sign = -1
+  else if (m.sign === '+') sign = 1
   else if (NEG_CUE.test(q)) sign = -1
   if (percent) {
     const base = typeof row.base_value === 'number' ? row.base_value : null
     if (base == null) return { error: `a percentage move needs a base value for ${row.variable}, which isn't recorded` }
-    return { delta: sign * base * (num / 100), percent: true }
+    return { delta: sign * base * (m.num / 100), percent: true }
   }
-  return { delta: sign * num, percent: false }
+  return { delta: sign * m.num, percent: false }
 }
 
-/** An absolute target LEVEL for the variable ("at $3,000", "hits 3500", "rises to 3484"), or null. Never a %. */
+/** An absolute target LEVEL for the variable ("at $3,000", "hits 3500", "rises to 3484"), or null. A number
+ *  written as a percentage is a rate/target, not a level, so it is ignored here. */
 export function parseLevel(question: string): number | null {
   const q = question || ''
-  if (/\d\s*%/.test(q.replace(/\s/g, ' '))) { /* a % nearby is a move/target, not a level */ }
   const m = LEVEL_AT.exec(q)
   if (!m) return null
-  const n = parseFloat(m[1].replace(/,/g, ''))
+  const after = q.slice(m.index + m[0].length)
+  if (/^\s*%/.test(after) || /\d\s*%/.test(m[0])) return null // "... to 16%" is a rate, not a level
+  const n = parseNum(m[1])
   return Number.isFinite(n) ? n : null
 }
 
-export type ReverseTarget = { targetMargin: number } | { target: number } | null
+export type ReverseTarget = { targetMargin: number } | null
 
-/** A target on the OUTPUT for a reverse solve: a margin ("margin to 16%", "16% margin") or an absolute base-
- *  metric value ("EBITDA to 33000"). Null when there is no output target. */
-export function parseReverseTarget(question: string, sidecar: SensitivitySidecar): ReverseTarget {
+/** A target on the OUTPUT for a reverse solve — a MARGIN ("margin to 16%", "16% margin"), or null. We solve
+ *  only for a margin target: it is an unambiguous output signal, so it can be prioritised over a variable-
+ *  level clause without clashing. (An absolute base-metric target like "EBITDA to 33,000" is deliberately NOT
+ *  treated as a reverse solve — it collides with a variable-level clause and would mis-solve; that phrasing
+ *  falls through to a level or forward reading instead.) */
+export function parseReverseTarget(question: string): ReverseTarget {
   const q = question || ''
   const mm = /margin[^%\d]{0,16}?(\d+(?:\.\d+)?)\s*%/i.exec(q) || /(\d+(?:\.\d+)?)\s*%[^%]{0,16}?margin/i.exec(q)
-  if (mm) return { targetMargin: parseFloat(mm[1]) }
-  // absolute base-metric target, e.g. "EBITDA to 33000" (plain number in the base metric's own scale)
-  const metricWord = /ebitda|ebit|profit|earnings|eps|fcf/i
-  if (metricWord.test(q)) {
-    const t = /\b(?:to|of|reach(?:es)?|hits?|equals?)\s+(?:USD|US\$|\$|NOK|kr|₹|€|£)?\s*([\d,]+(?:\.\d+)?)\b/i.exec(q)
-    if (t) { const n = parseFloat(t[1].replace(/,/g, '')); if (Number.isFinite(n)) return { target: n } }
-  }
-  return null
+  return mm ? { targetMargin: parseFloat(mm[1]) } : null
 }
 
 // ---- 4. classification -------------------------------------------------------------------------------
 export type Plan =
   | { kind: 'forward'; variable: string; delta: number; row: SensitivityRow }
   | { kind: 'level'; variable: string; targetLevel: number; row: SensitivityRow }
-  | { kind: 'reverse'; variable: string; targetMargin?: number; target?: number; row: SensitivityRow }
+  | { kind: 'reverse'; variable: string; targetMargin: number; row: SensitivityRow }
+export type UnsupportedReason = 'unrecorded' | 'multi' | 'no_revenue_base' | 'ambiguous' | 'no_source' | 'metric_mismatch'
 export type WhatIfPlan =
   | Plan
   | { kind: 'multi'; plans: Plan[] }
-  | { kind: 'unsupported'; recorded: { variable: string; label?: string | null; unit?: string | null }[]; reason: 'unrecorded' | 'multi' | 'no_revenue_base' | 'ambiguous' }
+  | { kind: 'unsupported'; recorded: { variable: string; label?: string | null; unit?: string | null }[]; reason: UnsupportedReason }
   | null
 
-/** Classify ONE single-variable clause against a known row: reverse → level → forward, else null. */
-function classifyClause(question: string, sidecar: SensitivitySidecar, row: SensitivityRow): Plan | { unsupportedReason: 'no_revenue_base' } | null {
-  const rev = parseReverseTarget(question, sidecar)
+/** Classify ONE single-variable clause against a known row. Order matters: a MARGIN reverse (unambiguous
+ *  output) → a variable LEVEL ("at/to $X") → a forward move. Refuses up front when the coefficient can't be
+ *  cited (§3) or is on a different metric than the base (adding it to the base level would fabricate one). */
+function classifyClause(question: string, sidecar: SensitivitySidecar, row: SensitivityRow): Plan | { unsupportedReason: UnsupportedReason } | null {
+  // the coefficient is the material input; an uncited one cannot be modelled and cited (§3)
+  if (!(typeof row.source === 'string' && row.source.trim())) return { unsupportedReason: 'no_source' }
+  // a coefficient on a different metric than the base can't be added to the base level → refuse honestly
+  if (row.impact_metric && sidecar.base_metric && row.impact_metric !== sidecar.base_metric) return { unsupportedReason: 'metric_mismatch' }
+  const rev = parseReverseTarget(question)
   if (rev && SOLVE_CUE.test(question)) {
-    if ('targetMargin' in rev && !(typeof sidecar.revenue_base === 'number' && sidecar.revenue_base > 0)) return { unsupportedReason: 'no_revenue_base' }
-    return { kind: 'reverse', variable: row.variable, ...rev, row }
+    if (!(typeof sidecar.revenue_base === 'number' && sidecar.revenue_base > 0)) return { unsupportedReason: 'no_revenue_base' }
+    return { kind: 'reverse', variable: row.variable, targetMargin: rev.targetMargin, row }
   }
   const level = parseLevel(question)
   if (level != null) return { kind: 'level', variable: row.variable, targetLevel: level, row }
@@ -249,9 +301,11 @@ export function classifyWhatIf(question: string, sidecar: SensitivitySidecar): W
 
   const row = all[0] || matchVariable(question, sidecar)
   if (!row) {
-    // a what-if that names nothing recorded — refuse only when there's a real magnitude or a solve ask,
-    // so a vague question doesn't trigger the refusal card
-    if (MAG.test(question) || SOLVE_CUE.test(question)) return { kind: 'unsupported', recorded: recordedList(sidecar), reason: 'unrecorded' }
+    // a what-if that names nothing recorded → refuse ONLY on genuine what-if intent: a real sized move
+    // (conditional/change/sign AND a magnitude) or a margin solve. A bare year in a historical question
+    // ("What was EBITDA in FY2025?") is not a what-if and must fall through to a normal answer.
+    const realMove = MAG.test(question) && (COND_CUE.test(question) || CHANGE_CUE.test(question) || SIGNED_NUM.test(question))
+    if (realMove || parseReverseTarget(question)) return { kind: 'unsupported', recorded: recordedList(sidecar), reason: 'unrecorded' }
     return null
   }
   const p = classifyClause(question, sidecar, row)
@@ -289,6 +343,8 @@ export interface ComputedScenario {
   targetValue?: number | null
   targetMarginPct?: number | null
   neededImpact?: number | null
+  marginBasis?: string | null   // 'revenue_constant' → margin computed at unchanged revenue (no rev coefficient)
+  metricNote?: string | null    // set when the coefficient is on a metric ≠ base metric (level/margin withheld)
   // set on the first card of a multi-variable answer
   note?: string | null
 }
@@ -307,6 +363,7 @@ function shapeScenario(r: any): ComputedScenario | null {
     targetLevel: r.target_level ?? null, variableBase: r.variable_base ?? null,
     solvedVariableLevel: r.solved_variable_level ?? null, targetValue: r.target_value ?? null,
     targetMarginPct: r.target_margin_pct ?? null, neededImpact: r.needed_impact ?? null,
+    marginBasis: r.margin_basis ?? null, metricNote: r.metric_note ?? null,
   }
 }
 
@@ -333,9 +390,17 @@ export async function computeScenario(sidecar: SensitivitySidecar, variable: str
 export async function computePlan(sidecar: SensitivitySidecar, plan: Plan): Promise<ComputedScenario | null> {
   if (plan.kind === 'forward') return computeScenario(sidecar, plan.variable, { delta: plan.delta })
   if (plan.kind === 'level') return computeScenario(sidecar, plan.variable, { targetLevel: plan.targetLevel })
-  if (plan.targetMargin != null) return computeScenario(sidecar, plan.variable, { targetMargin: plan.targetMargin })
-  if (plan.target != null) return computeScenario(sidecar, plan.variable, { target: plan.target })
-  return null
+  return computeScenario(sidecar, plan.variable, { targetMargin: plan.targetMargin })
+}
+
+// the margin's honest name, derived from the base metric — an EBITDA base yields an EBITDA margin, never an
+// "operating margin" (which uses EBIT). Revenue is held constant, so it is always the "…at unchanged revenue".
+export function marginName(metric?: string | null): string {
+  const m = String(metric || '').toLowerCase()
+  if (m.includes('ebitda')) return 'EBITDA margin'
+  if (m.includes('ebit') || m.includes('operating')) return 'operating margin'
+  if (m.includes('net') && m.includes('income')) return 'net margin'
+  return 'margin'
 }
 
 // ---- 6. the payload streamed to the panel + the prompt block -----------------------------------------
@@ -354,7 +419,11 @@ export function computedContextBlock(payload: ComputedPayload): string {
       ? 'The engine models ONE variable at a time; the user asked about more than one at once.'
       : payload.reason === 'no_revenue_base'
         ? 'The engine cannot solve for a margin target here — this run recorded no revenue base.'
-        : 'The variable the user asked about is not one the sensitivity orb recorded for this company.'
+        : payload.reason === 'no_source'
+          ? 'The matched sensitivity has no citation, so its number cannot be sourced (§3).'
+          : payload.reason === 'metric_mismatch'
+            ? 'The matched coefficient is on a different metric than the run\'s base metric, so it cannot be applied to the base level.'
+            : 'The variable the user asked about is not one the sensitivity orb recorded for this company.'
     return [
       `COMPUTED SCENARIO — the engine could NOT model this what-if. ${why}`,
       `Tell the user plainly, and that the engine CAN model: ${list || '(none recorded)'}.`,
@@ -365,8 +434,10 @@ export function computedContextBlock(payload: ComputedPayload): string {
   const lines: string[] = []
   lines.push('COMPUTED SCENARIO (authoritative — produced by the engine\'s deterministic calculator scripts/sensitivity_math.py, NOT by you):')
   if (s.note) lines.push(`(${s.note})`)
+  const mName = marginName(s.impactMetric)
+  const marginTail = s.marginBasis === 'revenue_constant' ? ' (at unchanged revenue — there is no revenue coefficient, so this is NOT a fully-modelled margin)' : ''
   if (s.mode === 'reverse') {
-    const tgt = s.targetMarginPct != null ? `operating margin ${s.targetMarginPct}%` : `${s.impactMetric || 'the base metric'} ${fmt(s.targetValue)}`
+    const tgt = s.targetMarginPct != null ? `${mName} ${s.targetMarginPct}%${marginTail}` : `${s.impactMetric || 'the base metric'} ${fmt(s.targetValue)}`
     lines.push(`- The user asked what move REACHES a target (${tgt}). The engine inverted the recorded coefficient:`)
     lines.push(`- Required move: ${s.label || s.variable} ${s.resolvedDelta != null && s.resolvedDelta >= 0 ? '+' : ''}${s.resolvedDelta}${s.unit ? ` ${s.unit}` : ''}${s.solvedVariableLevel != null ? ` → a level of ${fmt(s.solvedVariableLevel)}${s.unit ? ` ${s.unit}` : ''}` : ''}`)
     lines.push(`- That implies ${s.impactMetric || 'the base metric'}: ${fmt(s.baseValue)} → ${fmt(s.newValue)} (${s.impact >= 0 ? '+' : ''}${fmt(s.impact)})`)
@@ -374,11 +445,12 @@ export function computedContextBlock(payload: ComputedPayload): string {
     if (s.mode === 'level' && s.targetLevel != null) lines.push(`- The user gave a target LEVEL (${s.label || s.variable} at ${fmt(s.targetLevel)}${s.unit ? ` ${s.unit}` : ''}); from the recorded base of ${fmt(s.variableBase)}, that is a move of ${s.resolvedDelta != null && s.resolvedDelta >= 0 ? '+' : ''}${s.resolvedDelta}${s.unit ? ` ${s.unit}` : ''}.`)
     else lines.push(`- Variable moved: ${s.label || s.variable} ${s.delta >= 0 ? '+' : ''}${s.delta}${s.unit ? ` ${s.unit}` : ''}`)
     lines.push(`- ${s.impactMetric || 'base metric'}: ${fmt(s.baseValue)} → ${fmt(s.newValue)} (change ${s.impact >= 0 ? '+' : ''}${fmt(s.impact)})`)
-    if (s.marginChangeBps != null) lines.push(`- Operating margin: ${s.baseMarginPct}% → ${s.newMarginPct}% (${s.marginChangeBps >= 0 ? '+' : ''}${s.marginChangeBps} bps)`)
+    if (s.marginChangeBps != null) lines.push(`- ${mName}: ${s.baseMarginPct}% → ${s.newMarginPct}% (${s.marginChangeBps >= 0 ? '+' : ''}${s.marginChangeBps} bps)${marginTail}`)
   }
   lines.push(`- Coefficient: ${s.coefficient} per unit; confidence: ${s.confidence || 'n/a'}; source: ${s.source || 'n/a'}`)
+  if (s.basis === 'inferred') lines.push('- Basis: INFERRED (derived by the orb, not disclosed in filings) — say "Inference, not from filings" and lower confidence accordingly (§3).')
   if (s.withinDisclosedRange === false) lines.push(`- CAUTION: ${s.rangeNote || 'the move is beyond the orb\'s disclosed range — a rough extrapolation'}.`)
   if (s.nonLinearity) lines.push(`- Non-linearity to mention: ${s.nonLinearity}`)
-  lines.push('Narrate THIS result in plain English. Use these numbers verbatim; do NOT recompute or change them. Cite the source shown, and carry the confidence and any caution/non-linearity note into your answer.')
+  lines.push('Narrate THIS result in plain English. Use these numbers verbatim; do NOT recompute or change them. Cite the source shown, and carry the confidence, basis, and any caution/non-linearity note into your answer.')
   return lines.join('\n')
 }
