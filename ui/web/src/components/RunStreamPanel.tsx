@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { fmtCost } from '../lib/format'
-import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, fmtSpan, orbClass, orbProgress, scopeTiming, type ScopeOrb } from '../lib/eta'
+import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, fmtSpan, isOrblessRun, orbClass, orbProgress, scopeTiming, type ScopeOrb } from '../lib/eta'
 import { Spin } from './Spin'
 
 const dotColor: Record<string, string> = {
@@ -13,7 +13,7 @@ const dotColor: Record<string, string> = {
 }
 
 const runLabel = (r: { kind: string; module?: string; agent?: string }) =>
-  r.kind === 'full' ? 'Full run' : r.kind === 'sweep' ? 'News scan' : r.kind === 'module' ? `${r.module} module` : r.kind === 'rerun' ? `Re-run · ${r.agent}` : r.agent || 'Agent'
+  r.kind === 'full' ? 'Full run' : r.kind === 'sweep' ? 'News scan' : r.kind === 'module' ? `${r.module} module` : r.kind === 'rerun' ? `Re-run · ${r.agent}` : r.kind === 'doc-intake' ? 'New-data read' : r.agent || 'Agent'
 
 // every in-flight server status (incl. the pre-spawn gate phases the early-acked launch surfaces)
 const LIVEISH = new Set(['starting', 'readiness-checking', 'awaiting-readiness-decision', 'running'])
@@ -133,10 +133,11 @@ export function RunStreamPanel() {
                   <div className="sidepanel__meta">
                     {PHASE_LABEL[run.status]
                       ? PHASE_LABEL[run.status] + (running ? ` · ${fmtClock(elapsedMs)}` : '')
-                      : run.kind === 'sweep'
-                        // a sweep has no orbs — a "0/0 orbs" line would read as broken. Show the clock (and,
-                        // once done, the plain status) instead; the heartbeat line below carries the live detail.
-                        ? (running ? `scanning · ${fmtClock(elapsedMs)}` : run.status)
+                      : isOrblessRun(run.kind)
+                        // an orbless run (a sweep, or a doc-intake new-data read) has no orbs — a "0/0 orbs"
+                        // line would read as broken. Show the clock (and, once done, the plain status) instead;
+                        // the heartbeat line below carries the live detail.
+                        ? (running ? `${run.kind === 'doc-intake' ? 'reading' : 'scanning'} · ${fmtClock(elapsedMs)}` : run.status)
                         : `${done}/${total} orbs · ${running ? `${fmtClock(elapsedMs)} · ${etaText}` : run.status}`}
                   </div>
                 </div>

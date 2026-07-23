@@ -125,6 +125,10 @@ export interface ArchiveQuery {
   companyTicker?: string
   companyName?: string
   companyAliases?: string[]
+  // the company's OTHER listing symbols from the global directory (a pick of the ADR NHYDY carries Oslo's
+  // NHY.OL), matched exactly or on the exchange-suffix-stripped base — distinct from companyAliases, which
+  // are NAME spellings
+  companyTickerAliases?: string[]
   // when the picked facet has a definite listing_country, an item's own definite listing_country for that
   // ticker must not disagree — tells apart two different issuers reusing the same ticker letters on
   // different exchanges (e.g. NYSE:CAT Caterpillar vs ASX:CAT Catapult Group International). Unknown on
@@ -139,6 +143,11 @@ export interface FeedSearchResponse {
   scannedThroughDate: string | null // oldest day scanned — "searched all history back to <date>"
   exhausted: boolean // true = reached the archive floor (genuinely nothing older)
 }
+// One company resolved by the GLOBAL symbol directory (GET /api/news/symbols — server news/symbology.ts):
+// the primary symbol for what was typed plus every sibling listing as an alias, so ANY country's ticker
+// finds the company. Empty on an old server or offline — the autofill degrades to the archive facet.
+export interface SymbolGroup { name: string; symbol: string; exchange: string; aliases: string[] }
+
 export interface FacetCount { key: string; label: string; count: number; parent?: string }
 // A distinct company observed on the wire, with how many archived items mention it — the source for the
 // company/ticker autofill. `ticker` is null for a name-only guess the scanner never resolved a symbol for.
@@ -208,6 +217,7 @@ function archiveQueryParams(q: ArchiveQuery): URLSearchParams {
   if (q.companyName?.trim()) p.set('companyName', q.companyName.trim())
   // '|' not ',' — some tagged company names contain a comma; see the matching split in feed-filter.ts
   if (q.companyAliases?.length) p.set('companyAliases', q.companyAliases.join('|'))
+  if (q.companyTickerAliases?.length) p.set('companyTickerAliases', q.companyTickerAliases.join(',')) // ',' fine — symbols never contain commas
   if (q.companyListingCountry) p.set('companyListingCountry', q.companyListingCountry)
   if (q.text?.trim()) p.set('text', q.text.trim())
   return p
@@ -335,6 +345,18 @@ export const api = {
   newsFacets: async (q: ArchiveQuery = {}): Promise<FeedFacets> => {
     if ((await ensureMode()) === 'static') return { countries: [], regions: [], sectors: [], subSectors: [], sources: [], themes: [], companies: [], total: 0, builtThroughDate: null, builtAt: '' }
     return get(`/api/news/facets?${archiveQueryParams(q).toString()}`)
+  },
+  // The GLOBAL symbol directory behind the company autofill — resolves ANY country's ticker (or a name)
+  // to its company with the full cross-listing alias set. Fail-closed to [] on a 404 (old server), static
+  // mode, or any transient failure, so the autofill degrades to the archive facet + free-typed matching.
+  symbolSearch: async (q: string): Promise<SymbolGroup[]> => {
+    if ((await ensureMode()) === 'static') return []
+    try {
+      const r = await get<{ groups: SymbolGroup[] }>(`/api/news/symbols?q=${encodeURIComponent(q)}`, 8_000)
+      return Array.isArray(r.groups) ? r.groups : []
+    } catch {
+      return []
+    }
   },
   newsStreamUrl: () => `/api/news/stream`,
   // The forward EVENTS CALENDAR (server news/events-calendar.ts): upcoming earnings (Nasdaq US + NSE India)

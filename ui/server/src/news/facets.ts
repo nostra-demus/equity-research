@@ -14,7 +14,8 @@ import { COUNTRIES, GEO_REGIONS, regionOfCountry } from './geography'
 import { topicLabel } from './topics'
 import { scheduledEventLabel } from './schedule'
 import { filterCompanies } from './entities'
-import { companyClauseSet, listingConflicts, nameOccurs, type FeedFilterQuery } from './feed-filter'
+import { companyClauseSet, listingConflicts, type FeedFilterQuery } from './feed-filter'
+import { cleanTicker, companyNameMatches, coreCompanyName, pickTickerSet, tickerHitAny } from './symbology'
 
 // the most-mentioned companies to return for the ticker autofill — bounds the payload; a rarer symbol the
 // list omits still filters, because CompanyFilter falls back to applying a free-typed ticker directly.
@@ -26,8 +27,11 @@ const MAX_ALIASES = 5
 // corroboration rationale where this is used (buildCompanyFacet's alias filter, Codex review, PR #319).
 const MIN_ALIAS_MENTIONS = 2
 
+// The FOLD KEY for a company spelling: its legal-suffix-stripped core (symbology.ts) — so "CITIGROUP INC",
+// "Citigroup" and "Citigroup Inc." are one identity however a source spelled it — falling back to the bare
+// lowercased name when the core is empty (very short names, guarded against over-stripping).
 const normCompany = (s: unknown): string =>
-  String(s ?? '').toLowerCase().replace(/\s+/g, ' ').replace(/[.,]/g, '').replace(/\(.*?\)/g, '').replace(/^the /, '').trim()
+  coreCompanyName(s) || String(s ?? '').toLowerCase().replace(/\s+/g, ' ').replace(/[.,]/g, '').replace(/\(.*?\)/g, '').replace(/^the /, '').trim()
 
 // sub-sector label → its parent GICS sector, for the drill-down grouping (built once from the taxonomy)
 const SUBSECTOR_PARENT = new Map<string, string>(
@@ -121,8 +125,10 @@ function buildRows(repoRoot: string, archiveDir: string, nowMs: number): { rows:
         commodities: it.commodities || [],
         topics: it.topics || [], // derived on read in hydrate (news/topics.ts) — always an array
         scheduledEvents: it.scheduled_events || [], // derived on read in hydrate (news/schedule.ts)
-        // scrubbed of country/agency/junk guesses (entities.ts) so the autofill only offers investable firms
-        companies: filterCompanies(it.companies).map((c) => ({ ticker: c.ticker || null, name: c.name, listingCountry: c.listing_country || null })),
+        // scrubbed of country/agency/junk guesses (entities.ts) AND junk tickers ("NULL", CIK numbers —
+        // symbology.ts cleanTicker; hydrate already scrubs on read, this is the defensive twin) so the
+        // autofill only offers investable firms under real symbols
+        companies: filterCompanies(it.companies).map((c) => ({ ticker: cleanTicker(c.ticker), name: c.name, listingCountry: c.listing_country || null })),
       })
     }
     if (lines >= MAX_LINES) break
@@ -158,16 +164,16 @@ function rowMatches(r: FacetRow, q: FeedFilterQuery): boolean {
   if (q.scheduledEvents && q.scheduledEvents.length > 0 && !r.scheduledEvents.some((s) => q.scheduledEvents!.includes(s))) return false
   if (q.wireScope && r.scope !== q.wireScope && r.commodities.length === 0) return false
   if (companyClauseSet(q.company)) {
-    const t = (q.company!.ticker || '').toUpperCase()
-    const names = [q.company!.name, ...(q.company!.aliases || [])].filter((s): s is string => !!s).map((s) => s.toLowerCase())
-    const tickerHit = !!t && r.companies.some((c) => (c.ticker || '').toUpperCase() === t && !listingConflicts(q.company!.listingCountry, c.listingCountry))
+    const picks = pickTickerSet({ ticker: q.company!.ticker, aliases: q.company!.tickerAliases })
+    const tickerHit = picks.length > 0 && r.companies.some((c) => tickerHitAny(c.ticker, picks) && !listingConflicts(q.company!.listingCountry, c.listingCountry))
     // A facet row carries no headline, so the name clause is approximated over the company blob (name +
     // ticker) only — enough for the counts shown next to OTHER facets while a company is picked. The
     // authoritative name match (which also scans the headline) is matchesFeedFilters at the search site.
-    // Same whole-word matcher as the search site, so the approximation differs only by the missing headline.
+    // Same whole-word + core-name matcher as the search site, so it differs only by the missing headline.
     // Tests every alias too (not just the picked "best" spelling), so the count stays consistent with the
     // search results it's shown alongside.
-    const nameHit = names.length > 0 && r.companies.some((c) => names.some((n) => nameOccurs(`${c.name} ${c.ticker || ''}`.toLowerCase(), n)))
+    const names = [q.company!.name, ...(q.company!.aliases || [])].filter((s): s is string => !!s)
+    const nameHit = names.length > 0 && r.companies.some((c) => names.some((n) => companyNameMatches(`${c.name} ${c.ticker || ''}`.toLowerCase(), n)))
     if (!tickerHit && !nameHit) return false
   }
   return true
@@ -265,11 +271,18 @@ function buildCompanyFacet(companyRows: FacetRow[], allRows: FacetRow[]): Compan
       // so it drops the symbol form ("CAT") yet keeps a real mixed-case name that merely shares the letters
       // ("Meta" for ticker META). Fall back to the ticker spelling only when NO real-name spelling exists, so
       // a company only ever tagged by its symbol still gets a display name (exact-ticker still carries its matching).
+      // Among the real-name spellings, a MIXED-CASE spelling always beats an ALL-CAPS filing-style one
+      // ("JPMORGAN CHASE & CO" reads like shouting in the dropdown) — we never invent casing (no fake
+      // title-casing "Jpmorgan"); if every spelling is ALL-CAPS, the most-used ALL-CAPS one stands.
+      const isShouting = (s: string) => s === s.toUpperCase() && /[A-Z]/.test(s)
       let name = ''
       let best = -1
+      let shouting = true
       for (const [nm, v] of cluster.names) {
         if (nm === tickerUpper) continue
-        if (v.count > best || (v.count === best && nm.length > name.length)) { best = v.count; name = nm }
+        const sh = isShouting(nm)
+        const better = (!sh && shouting) || (sh === shouting && (v.count > best || (v.count === best && nm.length > name.length)))
+        if (better) { best = v.count; name = nm; shouting = sh }
       }
       if (!name) for (const [nm, v] of cluster.names) if (v.count > best) { best = v.count; name = nm }
       // every OTHER spelling in this (already listing-consistent) cluster, most-mentioned first, capped —

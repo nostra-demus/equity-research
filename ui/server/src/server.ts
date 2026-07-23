@@ -11,7 +11,7 @@ import multipart from '@fastify/multipart'
 import { execa } from 'execa'
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import { z } from 'zod'
-import { readActivity } from './activity-log'
+import { readActivity, ACTIVITY_FILTER_KINDS } from './activity-log'
 import { recordDataChange, syncingState, SYNC_WINDOW_MS } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
 import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
@@ -26,6 +26,7 @@ import { getCalendar } from './news/events-calendar'
 import type { FeedItem } from './news/types'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, hasAnyFilter, type FeedFilterQuery } from './news/feed-filter'
 import { computeFacets } from './news/facets'
+import { searchSymbolsEnriched } from './news/symbology'
 import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
@@ -383,7 +384,7 @@ app.get('/api/activity', async (req) => {
     const n = Number(v)
     return Number.isFinite(n) ? n : undefined
   }
-  const kinds = ['full', 'module', 'agent', 'rerun', 'review', 'track', 'signal', 'sweep', 'screener-agent', 'handoff']
+  const kinds = ACTIVITY_FILTER_KINDS as readonly string[]
   const statuses = ['starting', 'running', 'done', 'error', 'cancelled', 'incomplete']
   // Swarm runs are keyed by an opaque subject id (a SIG-… signal id); resolve each to the company /
   // headline it concerns so the Company column reads as a name, not an id. Falls back to the raw id.
@@ -1785,6 +1786,18 @@ app.get('/api/news/search', { config: { rateLimit: { max: 600, timeWindow: '1 mi
 app.get('/api/news/facets', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
   const filters = parseFeedFilterQuery((req.query as any) || {})
   return computeFacets(REPO_ROOT, filters, { archiveDir: NEWS.newsArchiveDir })
+})
+
+// GLOBAL SYMBOL SEARCH — the "any ticker, any country" directory behind the company autofill. Resolves a
+// typed symbol or name through a free, keyless global symbol search, grouped per company with every
+// sibling listing as an alias (e.g. the US OTC ADR NHYDY → Norsk Hydro ASA with Oslo's NHY.OL) — so a
+// company is findable by ANY of its tickers even when the archive has never tagged that spelling.
+// TTL-cached server-side; fail-closed to an empty list, so offline the filter degrades to the archive
+// facet + free-typed matching instead of erroring.
+app.get('/api/news/symbols', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
+  const q = String((req.query as any)?.q ?? '').trim()
+  if (q.length < 2 || q.length > 48) return { groups: [] }
+  return { groups: await searchSymbolsEnriched(q) }
 })
 
 // DEBUG — "why did/didn't this item match this filter". Accepts as much or as little of an item's fields
