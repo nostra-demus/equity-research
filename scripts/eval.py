@@ -538,6 +538,16 @@ from headline_checks import (
     eval_ak_red_flag_severity_reconciliation,
 )
 
+# ── Check AP (valuation-summary lever-sidecar integrity, §25/§28) ──
+# Detection logic in scripts/valuation_summary_checks.py — importable + pure (mirrors headline_checks.py),
+# so the SAME core is finish-gate-ready. valuation_summary.json is §25 DATA that reaches main WITHOUT CI;
+# a malformed sidecar, or one whose scenario levels contradict its own frozen decision_record, would make
+# the cockpit Playground show levers that disagree with the committed thesis. Run GLOBALLY below (every
+# committed sidecar, including partial no-decision-record runs the per-run loop skips).
+from valuation_summary_checks import (
+    eval_ap_valuation_summary_integrity, scan_committed, _selftest as _vs_selftest,
+)
+
 # ── Check AN (§4a supersession-integrity) — module-level so `eval.py selftest` drives it fixture-free ──
 def _an_valid_sidecar(run_dir):
     """A run's corrections sidecar, but ONLY if it passes the schema gate the resolver applies
@@ -2184,7 +2194,10 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AO({dt_!r},fl={_n}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
     bad+=aobad
 
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(aocases)} check-AO cases")
+    # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
+    # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
+    if _vs_selftest() != 0: bad += 1
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(aocases)} check-AO cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -3133,6 +3146,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation"],
  "scripts/rating_caps.py":["AC_DATE","AD_DATE","AE_DATE","AF_DATE","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","_tag_fired_standalone","HIGH_CONVICTION_DECISIONS"],
  "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM"],
+ "scripts/valuation_summary_checks.py":["eval_ap_valuation_summary_integrity","scan_committed","_selftest","SOFT PRESENCE","contradicts decision_record"],
  ".claude/agents/module-memo-writer.md":["_memo.md","module synthesis","condenser"],
  "frameworks/MODULE_PIPELINE.md":["Step 4.9","module-memo-writer","_memo.md","_dossier.md"],
  ".claude/commands/research/rerun.md":["module-memo-writer","_dossier.md","10B.3"],
@@ -3148,7 +3162,7 @@ FRAMEWORK_CONTRACTS={
  "scripts/market_prices.py":["data/_market","close_on","total_return","beta_adjusted_excess","raw_excess_pct","beta_adjusted_excess_pct","available","as_of","date,symbol,close"],
  "frameworks/MARKET_FEED.md":["date,symbol,close","_symbols.json","beta_adjusted_excess","close_on","EXTERNAL_DATA"],
  "frameworks/EXTERNAL_DATA.md":["data/_market","market_prices.py","beta-adjusted","tracking_price","date,symbol,close"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date","eval_ap_valuation_summary_integrity","scan_committed"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
@@ -3166,8 +3180,16 @@ for jf,subs in FRAMEWORK_CONTRACTS.items():
     if jmiss: suite_pass=False
     jchecks.append({"file":jf,"status":("PASS" if not jmiss else "FAIL"),"missing":jmiss})
 
+# AP — valuation-summary lever-sidecar integrity (GLOBAL scan of every committed sidecar, including partial
+# no-decision-record runs the per-run loop skips). Soft-presence + strict-validity; a sidecar whose scenario
+# levels contradict its own frozen decision_record HARD-FAILs the suite, because the cockpit Playground
+# would then show levers that disagree with the committed thesis.
+apchecked, apfailures = scan_committed(".")
+if apfailures: suite_pass=False
+
 out={"schema_version":"1.0","generated_at":today,"scope":scope,"n_runs":len(results),
-     "suite_pass":suite_pass,"runs":results,"source_contracts_s24":jchecks}
+     "suite_pass":suite_pass,"runs":results,"source_contracts_s24":jchecks,
+     "valuation_summary_integrity":{"checked":apchecked,"failures":[{"run":r,"violations":v} for r,v in apfailures]}}
 os.makedirs("analyses/eval",exist_ok=True)
 of=f"analyses/eval/{today}_eval_report.json"; k=2
 while os.path.exists(of): of=f"analyses/eval/{today}_eval_report_v{k}.json"; k+=1
@@ -3182,6 +3204,9 @@ jfails=[j["file"] for j in jchecks if j["status"]=="FAIL"]
 print("  framework source contracts (J: §24 + catalyst + tiers):", "PASS" if not jfails else "FAIL "+";".join(jfails))
 for j in jchecks:
     if j["status"]=="FAIL": print(f"     FAIL {j['file']} missing={j['missing']}")
+print("  valuation summary integrity (AP: lever sidecar ↔ decision_record):", f"PASS ({apchecked} committed sidecar(s))" if not apfailures else "FAIL "+";".join(r for r,_ in apfailures))
+for r,v in apfailures:
+    print(f"     FAIL {r}: {'; '.join(v)}")
 retro_runs={nm:r["retrospective_advisories"] for nm,r in results.items() if r.get("retrospective_advisories")}
 if retro_runs:
     n=sum(len(v) for v in retro_runs.values())
