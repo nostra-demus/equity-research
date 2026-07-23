@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NIVABUPA",
+  "as_of": "2026-06-22",
+  "currency": "INR",
+  "business_type": "Financial",
+  "basis": "equity",
+  "shares": 1847.757,
+  "net_debt": 1954.1,
+  "net_debt_basis": "strict",
+  "current_price": 84.03,
+  "price_as_of": "2026-05-21",
+  "price_state": "pool-verified",
+  "is_developed_mega_cap": false,
+  "scenarios": [
+    {
+      "label": "bull",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 43.98,
+      "drivers": "RI: Ke -1pp, ROE reaches 15.5%; peer re-rates to full SAHI median (no quality discount); GWP growth >=25%"
+    },
+    {
+      "label": "base",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 36.70,
+      "drivers": "Mechanical blend, adopted with NO discount: 0.70x19.94 (RI/excess-return, primary for a Financial issuer) + 0.30x75.80 (quality-adjusted P/E peers) = 36.70"
+    },
+    {
+      "label": "bear",
+      "forward_metric": null,
+      "multiple": null,
+      "level": 16.51,
+      "drivers": "RI: Ke +1pp, ROE peaks 12% (never exceeds Ke); peer at 1.0x P/TBV; encompasses the INR 16.12 structural-reset avoid-ruin floor"
+    }
+  ],
+  "methods": {
+    "peers": 75.80,
+    "ri_model": 19.94
+  },
+  "method_weights": {
+    "peers": 0.30,
+    "ri_model": 0.70
+  }
+}
