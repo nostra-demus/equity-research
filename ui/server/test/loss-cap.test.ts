@@ -86,21 +86,56 @@ await check('no loss when the backlog fits under the cap → dropped_at_cap is a
 await check('saveDeferred is ATOMIC: a write failure keeps the last-good backlog (never truncates to empty) and logs it', () => {
   const state = tmp()
   const good = [{ event_id: 'a', headline: 'x' }, { event_id: 'b', headline: 'y' }] as unknown as NewsItem[]
-  saveDeferred(state, good)
+  // finding 4 (Codex, PR #316): saveDeferred now RETURNS whether it persisted, so a caller can tell the
+  // summary the backlog counts describe intent, not disk. Contract: true on a clean persist.
+  assert.equal(saveDeferred(state, good), true, 'a clean persist returns true')
   assert.equal(loadDeferred(state).length, 2, 'round-trip: persisted then read back')
 
   // force the temp write to fail; the good file must survive intact, the error must be logged, no orphan .tmp
   const origWrite = fs.writeFileSync
   const logs: string[] = []
   ;(fs as any).writeFileSync = () => { throw new Error('ENOSPC: no space left on device') }
+  let ret: boolean | undefined
   try {
-    saveDeferred(state, [{ event_id: 'c', headline: 'z' }] as unknown as NewsItem[], (m) => logs.push(m))
+    ret = saveDeferred(state, [{ event_id: 'c', headline: 'z' }] as unknown as NewsItem[], (m) => logs.push(m))
   } finally {
     ;(fs as any).writeFileSync = origWrite
   }
+  assert.equal(ret, false, 'a failed write returns false (the signal the cycle summary surfaces as deferred_write_failed)')
   assert.equal(loadDeferred(state).length, 2, 'the last-good backlog is INTACT — not truncated to [] by the failed write')
   assert.ok(logs.some((m) => /saveDeferred failed/.test(m)), 'the write failure is logged, not swallowed')
   assert.ok(!fs.existsSync(path.join(state, 'news-deferred.json.tmp')), 'no orphan temp file left behind')
+})
+
+await check('finding 4: a cycle whose deferred write FAILS surfaces deferred_write_failed on the summary (counts describe intent, not disk)', async () => {
+  resetSharedLimiters()
+  resetCooldownMemory()
+  const state = tmp()
+  const root = tmp()
+  // same overload shape as the cap test: Groq down, no fallback → the batch defers, so saveDeferred runs
+  // with a non-empty list. We fail ONLY the deferred-file rename (surgical: the inbox rename still lands),
+  // so the cycle completes but the backlog never reached disk — the summary must SAY so.
+  const arts = Array.from({ length: 4 }, (_, i) => ({ url: `https://reuters.com/w${i}`, title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }))
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('down', 503)
+    if (u.includes('gdelt')) return res({ articles: arts })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false, overflowProviders: [], anthropicFallbackEnabled: false } as any
+  const origRename = fs.renameSync
+  ;(fs as any).renameSync = (from: string, to: string) => {
+    if (String(to).includes('news-deferred.json')) throw new Error('ENOSPC: no space left on device')
+    return (origRename as any)(from, to)
+  }
+  let s: any
+  try {
+    s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-06-12T09:30:00Z'), log: () => {} })
+  } finally {
+    ;(fs as any).renameSync = origRename
+  }
+  assert.equal(s.deferred_write_failed, true, 'the failed backlog write is surfaced on the summary, not hidden behind a "waiting" count')
+  assert.ok((s.deferred || 0) > 0, 'the cycle really did try to defer items (so the write mattered)')
 })
 
 console.log(`\n${passed} checks passed`)

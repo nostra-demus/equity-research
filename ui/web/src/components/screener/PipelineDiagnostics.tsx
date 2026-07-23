@@ -131,6 +131,14 @@ function BacklogGauge({ b }: { b: NewsDiagnostics['backlog'] }) {
             ? 'Caught up — nothing waiting to be scored.'
             : `Held safely for the next look (${b.pctOfCap}% of the ${b.cap.toLocaleString()} loss boundary). Deferred, not dropped.`}
       </div>
+      {/* PERSISTENT loss alert: real items dropped past the cap SO FAR TODAY. Keyed on the cumulative daily
+          count, not this cycle's backlog — so a later caught-up cycle can't erase the fact that data was lost
+          earlier today (the server sums it across cycles; this stops it vanishing when lastCycle rolls over). */}
+      {b.lostToday > 0 && (
+        <div className="diagbacklog__lost" role="alert">
+          {b.lostToday.toLocaleString()} item{b.lostToday === 1 ? '' : 's'} lost today — dropped past the {b.cap.toLocaleString()} cap, not deferred; gone once the source window ages out.
+        </div>
+      )}
     </div>
   )
 }

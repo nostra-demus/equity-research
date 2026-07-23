@@ -26,6 +26,8 @@ export interface ClaudeCliTriageOptions {
   timeoutMs?: number
   budgetUsd?: number // per-call --max-budget-usd guard (belt-and-braces; the daily ledger is the real bound)
   maxAttempts?: number // in-call retries on a TRANSIENT failure (default 2) — parity with the free adapters
+  signal?: AbortSignal // the cycle's wall-clock abort — checked before each (re)try so an aborted cycle stops billing/holding the lock
+  budgetRemainingUsd?: number // $ left under the daily ceiling at call start; once this call's cumulative cost reaches it, stop retrying
 }
 
 /** One CLI completion. Returns the assistant text + the cost the CLI reported for it. Injectable for tests
@@ -174,6 +176,20 @@ export async function triageBatchClaudeCli(
   let note = 'claude cli: no output'
 
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    // Stop before a (re)try that must not run — both gates the caller's single pre-batch check cannot see
+    // once we are already inside the loop (Codex review, PR #316):
+    //   • the cycle was aborted (runAbortableCycle's wall-clock guard) — don't spawn another billed CLI and
+    //     hold the shared `running` lock for another anthropicTimeoutMs after the cycle was told to stop.
+    //   • this call's cumulative cost already consumed the day's remaining allowance — the caller gates the
+    //     batch once with `canSpend()` (est-less, one-call soft overshoot by design), but never re-checks
+    //     between the adapter's own retries, so a billed retry could add a SECOND overshoot past the
+    //     operator's daily $ governor. Once the first attempt has met/passed the remaining allowance, don't
+    //     bill a second one.
+    if (opts.signal?.aborted) { note = 'claude cli: cycle aborted before attempt'; break }
+    if (attempt > 1 && opts.budgetRemainingUsd != null && costUsd >= opts.budgetRemainingUsd) {
+      note = 'claude cli: daily budget consumed — retry skipped'
+      break
+    }
     // after a billed-but-unparseable reply, push harder toward a bare JSON array on the retry
     const user = attempt === 1 ? baseUser : `${baseUser}\n\nReturn ONLY the JSON array — no prose, no markdown, no code fences.`
     let out: { text: string; costUsd: number; error?: string }

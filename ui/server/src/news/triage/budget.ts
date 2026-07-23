@@ -264,6 +264,12 @@ export class UsdBudget {
   /** Mark the day's ceiling as reached — e.g. a terminal auth/quota error that won't recover today. */
   exhaust(): void { this.state.usd = Math.max(this.state.usd, this.capUsd) }
 
+  /** Dollars left before today's ceiling (0 once spent). The single pre-batch `canSpend()` gate lets one
+   *  call through near the ceiling by design; passing this into an adapter that self-retries lets it stop
+   *  billing a SECOND attempt once the first already consumed the remaining allowance, so the retry can't
+   *  add a second soft-cap overshoot past the operator's daily governor (Codex review, PR #316). */
+  remaining(): number { return Math.max(0, this.capUsd - this.state.usd) }
+
   record(usd: number): void {
     this.state.usd += Math.max(0, Number(usd) || 0)
     this.state.calls += 1

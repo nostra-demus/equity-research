@@ -200,4 +200,60 @@ await check('deferred backlog cap clears the observed real-world peaks (deferrin
   assert.ok(DEFERRED_CAP >= 2383, `cap ${DEFERRED_CAP} must exceed the 2,383 peak seen on 2026-07-07`)
 })
 
+// ---- finding 1 (Codex, PR #316): the in-call RETRY must respect the daily $ ceiling. The caller gates a
+// batch once with an est-less canSpend() (one soft-cap overshoot by design), but never re-checks between the
+// adapter's own retries — so a billed retry near the ceiling could add a SECOND overshoot past the operator's
+// daily governor. Authority for the expected value: claude-cli.ts's own contract ("the daily ledger is the
+// real bound") + the retry must not out-spend the remaining allowance. ----
+await check('finding 1: a billed transient retry is SKIPPED once the first attempt consumed the remaining daily budget (no second overshoot)', async () => {
+  let calls = 0
+  const run: ClaudeCliRunner = async () => { calls++; return { text: 'thinking…', costUsd: 0.30, error: undefined } } // billed, unparseable → transient (would retry)
+  // remaining allowance is 0.25; the first (billed 0.30) attempt has already met/passed it → attempt 2 must NOT run
+  const r = await triageBatchClaudeCli(items, { ...opts, budgetRemainingUsd: 0.25 }, run)
+  assert.equal(calls, 1, 'the retry that would push cumulative spend past the remaining daily allowance is skipped (red-on-old: 2 calls)')
+  assert.equal(r.ok, false, 'nothing parsed → defer, never scored zero')
+  assert.match(r.note || '', /budget/i, 'the note names the budget stop')
+})
+
+await check('finding 1 control: with ample remaining budget the transient retry still runs (the guard only fires near the ceiling)', async () => {
+  let calls = 0
+  const run: ClaudeCliRunner = async () => {
+    calls++
+    if (calls === 1) return { text: 'thinking…', costUsd: 0.01 } // billed, unparseable → transient
+    return { text: '[{"i":0,"materiality_pre_score":80}]', costUsd: 0.01 }
+  }
+  const r = await triageBatchClaudeCli(items, { ...opts, budgetRemainingUsd: 5 }, run)
+  assert.equal(calls, 2, 'plenty of budget left → the retry proceeds exactly as before the guard')
+  assert.equal(r.ok, true)
+  assert.equal(r.byIndex.get(0)!.materiality_pre_score, 80)
+})
+
+// ---- finding 2 (Codex, PR #316): the retry must stop when the CYCLE is aborted. runAbortableCycle's
+// wall-clock guard can fire while an attempt is in flight; the adapter took no signal, so it could spawn
+// another billed CLI and hold the shared `running` lock for another timeout after the cycle was told to stop.
+// Authority: runCycle's abort guard intent — defer the remainder and STOP, don't hold the lock past abort. ----
+await check('finding 2: a pre-aborted signal makes the adapter bill NOTHING and defer (red-on-old: it would spawn once)', async () => {
+  let calls = 0
+  const run: ClaudeCliRunner = async () => { calls++; return { text: '[{"i":0,"materiality_pre_score":9}]', costUsd: 0.01 } }
+  const ac = new AbortController()
+  ac.abort()
+  const r = await triageBatchClaudeCli(items, { ...opts, signal: ac.signal }, run)
+  assert.equal(calls, 0, 'already aborted → never spawn a billed CLI')
+  assert.equal(r.ok, false, 'aborted before any score → defer the batch')
+  assert.match(r.note || '', /abort/i, 'the note names the abort')
+})
+
+await check('finding 2: an abort DURING attempt 1 stops the retry (one call, not two)', async () => {
+  let calls = 0
+  const ac = new AbortController()
+  const run: ClaudeCliRunner = async () => {
+    calls++
+    ac.abort() // the wall-clock guard fires while this attempt is in flight
+    return { text: 'thinking…', costUsd: 0.01 } // billed, unparseable → would normally retry
+  }
+  const r = await triageBatchClaudeCli(items, { ...opts, signal: ac.signal }, run)
+  assert.equal(calls, 1, 'the second attempt is skipped because the cycle was aborted mid-flight (red-on-old: 2 calls)')
+  assert.equal(r.ok, false)
+})
+
 console.log(`\n${passed} checks passed`)

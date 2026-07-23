@@ -65,16 +65,22 @@ export function loadDeferred(stateDir: string): NewsItem[] {
 // truncated/corrupt file that next loadDeferred parses as [] — silently dropping up to DEFERRED_CAP held
 // items with no trace. So write a temp file in the same dir and rename it over the target (atomic on one
 // filesystem): a failed temp write leaves the last-good backlog intact, and the error is LOGGED, not swallowed.
-export function saveDeferred(stateDir: string, items: NewsItem[], log: (m: string) => void = () => {}): void {
+// Returns true when the backlog was persisted this cycle, false when the write failed and the last-good file
+// was kept instead. The caller surfaces a false as `deferred_write_failed` on the cycle summary, so the
+// backlog/deferred counts are not reported as safely-on-disk when the new list never reached the file — an
+// ENOSPC mid-outage could otherwise show items "waiting" that were actually only in memory (Codex review, PR #316).
+export function saveDeferred(stateDir: string, items: NewsItem[], log: (m: string) => void = () => {}): boolean {
   const target = path.join(stateDir, DEFERRED_FILE)
   const tmp = `${target}.tmp`
   try {
     fs.mkdirSync(stateDir, { recursive: true })
     fs.writeFileSync(tmp, JSON.stringify(items.slice(0, DEFERRED_CAP)) + '\n')
     fs.renameSync(tmp, target)
+    return true
   } catch (e: any) {
     log(`saveDeferred failed (${e?.message || e}) — kept the last-good backlog; ${items.length} item(s) not re-persisted this cycle`)
     try { fs.rmSync(tmp, { force: true }) } catch { /* best-effort temp cleanup */ }
+    return false
   }
 }
 
@@ -414,7 +420,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ) {
       await anthropicLimiter!.acquire(est, sleep, () => now().getTime())
       const ar = cfg.anthropicFallbackMode === 'subscription'
-        ? await triageBatchClaudeCli(batch, { model: cfg.anthropicModel, timeoutMs: cfg.anthropicTimeoutMs, budgetUsd: cfg.anthropicPerCallUsd }, deps.claudeCliRunner)
+        ? await triageBatchClaudeCli(batch, { model: cfg.anthropicModel, timeoutMs: cfg.anthropicTimeoutMs, budgetUsd: cfg.anthropicPerCallUsd, budgetRemainingUsd: anthropicBudget!.remaining(), signal: deps.signal }, deps.claudeCliRunner)
         : await triageBatchAnthropic(
             batch,
             { model: cfg.anthropicApiModel, baseUrl: cfg.anthropicBaseUrl, apiKey: cfg.anthropicApiKey, maxTokens: cfg.anthropicMaxTokens, inPricePerMTok: cfg.anthropicInPricePerMTok, outPricePerMTok: cfg.anthropicOutPricePerMTok },
@@ -523,7 +529,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   for (const o of overflow) o.budget.save()
   if (anthropicBudget) anthropicBudget.save()
   seen.save()
-  saveDeferred(stateDir, deferred, log)
+  const deferredPersisted = saveDeferred(stateDir, deferred, log)
 
   // 3b. DEDUP — micro-cluster this cycle's items against the recent firehose into STORIES (finer than
   // themes), so the firehose line + the SSE event each carry a stable story-cluster id and the wire
@@ -697,6 +703,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ...(defCount ? { deferred: defCount } : {}),
     backlog: Math.min(defCount, DEFERRED_CAP), backlog_cap: DEFERRED_CAP,
     ...(droppedAtCap ? { dropped_at_cap: droppedAtCap } : {}),
+    ...(deferredPersisted ? {} : { deferred_write_failed: true }),
     ...(aborted ? { aborted: true } : {}),
     ...(deferReason ? { defer_reason: deferReason } : {}),
     last_resort: lastResort,

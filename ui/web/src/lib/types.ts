@@ -707,7 +707,7 @@ export interface NewsDiagnostics {
   lastCycleAt: string | null
   nextCycleAt: string | null
   tiers: TierDiagnostics[]
-  backlog: { count: number; cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null }
+  backlog: { count: number; cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null; lostToday: number }
   today: { read: number; kept: number; dropped: number; cycles: number }
   lastCycle: {
     ts: string
