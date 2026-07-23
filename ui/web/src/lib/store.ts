@@ -2405,6 +2405,25 @@ export const useStore = create<State>((set, get) => ({
           if (bgFinal) void get().loadSwarmSubjects(r.swarmId)
         }
         if (r && r.ticker === selected) {
+          // A finished DOC-INTAKE (the "Analyze new data" advisory read) wrote/refreshed the scoped
+          // re-run plan under analyses/ — which the data/ watcher can't see, so nothing else refreshes
+          // the "New data" panel for an auto-launched read. Refresh it HERE and tell the user the
+          // OUTCOME (what the read found and what to do next) instead of a generic "Run complete".
+          if (r.kind === 'doc-intake') {
+            void get().refreshIntake().then(() => {
+              const plan = get().intake
+              const n = plan?.rerun_plan?.commands?.length ?? 0
+              const msg = !plan
+                ? 'New-data read complete — open the New data panel'
+                : plan.verdict === 'scoped_rerun' && n > 0
+                  ? `New data affects ${n} check${n === 1 ? '' : 's'} — the New data panel has the scoped re-run`
+                  : plan.verdict === 'insufficient'
+                    ? 'New-data read: not enough evidence to scope a re-run — see the New data panel'
+                    : 'New data read: filed to the pool — nothing needs re-running'
+              get().setToast({ msg, tone: 'good' })
+            })
+            break
+          }
           // a chained full run finishes once PER STEP; only the master step (the last) is "complete".
           const chained = get().chainTickers.has(r.ticker)
           const isFinal = !chained || r.module === 'master'
