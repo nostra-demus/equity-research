@@ -14,6 +14,9 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { readPipelines } from '../src/pipelines'
 import { DATA_DIR } from '../src/config'
+import { listSwarms } from '../src/swarms'
+import { swarmSubjects } from '../src/roster'
+import { readDataNeeds } from '../src/data-needs'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -68,6 +71,30 @@ check('real repo: any widened entries are keep-and-label audit notes, never drop
   for (const w of real.widened) assert.ok(w.includes('kept, labelled unrecognized'), w)
 })
 
+// Independently re-derive the SET of eligible (non-filing) needs the join is obliged to place, from the
+// SAME discovery functions readPipelines() joins against (listSwarms → swarmSubjects → readDataNeeds). It
+// names no subject / need_id — it enumerates whatever the pool holds — but it lets the check below assert
+// the join placed EVERY demanded need somewhere, so the real-repo block can no longer pass by iterating
+// zero times over empty helps[]/recommended[]. The skip/continue posture mirrors the reader exactly, so
+// the two derivations agree on the same tree with no pinned literal.
+function eligibleNeedKeys(): Set<string> {
+  const keys = new Set<string>()
+  for (const swarm of listSwarms()) {
+    let subjects: string[] = []
+    try { subjects = swarmSubjects(swarm.id) } catch { continue }
+    for (const subject of subjects) {
+      let read
+      try { read = readDataNeeds(swarm.id, subject) } catch { continue }
+      if (!read) continue
+      for (const need of read.needs) {
+        if (need.filing_required) continue // reader skips statutory-filing needs — no connector satisfies them
+        keys.add(`${swarm.id}/${read.subject}/${need.need_id}`)
+      }
+    }
+  }
+  return keys
+}
+
 check('real repo join: helps/recommended stay consistent with the registry (generic — names no subject or need)', () => {
   // NEVER pin a subject / need_id / connector id here. Those live in research DATA
   // (commodity/runs/**, analyses/**) which the data lane (§25) pushes straight to main with NO CI, and
@@ -79,17 +106,43 @@ check('real repo join: helps/recommended stay consistent with the registry (gene
   const covers = (needId: string, subject: string) =>
     real.pipelines.some((p) => p.satisfies.includes(needId) && p.subjects.includes(subject))
   const helpKeys = new Set<string>()
-  for (const p of real.pipelines) for (const h of p.helps) {
-    assert.ok(p.satisfies.includes(h.need_id), `${p.id}: helps '${h.need_id}' it does not satisfy`)
-    assert.ok(p.subjects.includes(h.subject), `${p.id}: helps subject '${h.subject}' it does not serve`)
-    assert.ok(h.swarm && h.series, `${p.id}: help '${h.need_id}' missing swarm/series`)
-    assert.ok(Array.isArray(h.entry_modules), `${p.id}: help '${h.need_id}' entry_modules must be a list`)
-    helpKeys.add(`${h.swarm}/${h.subject}/${h.need_id}`)
+  for (const p of real.pipelines) {
+    for (const h of p.helps) {
+      assert.ok(p.satisfies.includes(h.need_id), `${p.id}: helps '${h.need_id}' it does not satisfy`)
+      assert.ok(p.subjects.includes(h.subject), `${p.id}: helps subject '${h.subject}' it does not serve`)
+      assert.ok(h.swarm && h.series, `${p.id}: help '${h.need_id}' missing swarm/series`)
+      assert.ok(Array.isArray(h.entry_modules), `${p.id}: help '${h.need_id}' entry_modules must be a list`)
+      helpKeys.add(`${h.swarm}/${h.subject}/${h.need_id}`)
+    }
   }
+  const recKeys = new Set<string>()
   for (const r of real.recommended) {
     assert.equal(r.key, `${r.swarm}/${r.subject}/${r.need_id}`, 'recommended key must be swarm/subject/need_id')
     assert.ok(!helpKeys.has(r.key), `${r.key} is BOTH covered and recommended — the join must be exclusive`)
     assert.ok(!covers(r.need_id, r.subject), `${r.key} recommended although a discovered connector covers it`)
+    recKeys.add(r.key)
+  }
+  // Completeness + non-vacuity. The two loops above validate only the entries that ARE present, so an
+  // empty pool (no runs discovered) passes them WITHOUT exercising the join at all. Guard against that:
+  // independently enumerate the eligible needs and require the join to place EACH exactly once across
+  // helps[] ∪ recommended[] (exclusivity is already asserted above), with no phantom key demanded by no
+  // run. A mutation that drops an eligible need (emits it NOWHERE) now fails 'placed'; one that emits a
+  // key no run demands fails 'eligible'. When the tree holds no data_needs the check cannot run against
+  // real demand — it then asserts the honest empty precondition (the join placed nothing) and logs the
+  // skip, rather than masquerading as a passed join check. The deterministic mechanics stay pinned by the
+  // tmpdir 'recommendations join' fixture below, which is the real guarantor.
+  const eligible = eligibleNeedKeys()
+  const placed = new Set<string>([...helpKeys, ...recKeys])
+  if (eligible.size === 0) {
+    assert.equal(placed.size, 0, `no run demands a need, yet the join placed: ${[...placed].join(', ')}`)
+    console.log('      (real-repo join completeness not exercised — no data_needs in this tree; tmpdir fixture is the guarantor)')
+  } else {
+    for (const key of eligible) {
+      assert.ok(placed.has(key), `eligible need ${key} was emitted in NEITHER helps[] nor recommended[] — the join dropped it`)
+    }
+    for (const key of placed) {
+      assert.ok(eligible.has(key), `${key} is placed in helps[]/recommended[] but no discovered run demands it — phantom join output`)
+    }
   }
 })
 
