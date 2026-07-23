@@ -15,7 +15,7 @@ import { coerceTriage, estimateTokens, scoreToBand, triageBatch } from '../src/n
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox } from '../src/news/write-inbox'
 import { runIngestCycle } from '../src/news/runCycle'
-import { anthropicDrainReady, backlogTrend, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
+import { anthropicDrainReady, backlogTrend, drainBatchEst, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS } from '../src/config'
 import type { FeedItem, RawArticle, TriagedItem } from '../src/news/types'
 
@@ -1184,6 +1184,19 @@ await check('providerDrainUsable: mirrors the triage loop pick — cooling / req
   // "Healthy at 900k/900k" bug), but two batches of room → usable.
   assert.equal(providerDrainUsable(false, 500, 2_300, 900_000 - est + 1, 900_000, est), false, 'token-gated, one batch short of the token cap → not usable')
   assert.equal(providerDrainUsable(false, 500, 2_300, 900_000 - est, 900_000, est), true, 'token-gated, room for exactly one batch → usable')
+})
+
+await check('drainBatchEst: reserves for the batch the drain would ACTUALLY submit — min(backlog, NEWS.triageBatch), not a fixed full-batch estimate', async () => {
+  // The reported gap (Codex, PR #316): 1 queued item needs estimateTokens(1) = 595 tokens, but the drain
+  // gate reserved estimateTokens(NEWS.triageBatch) = 1,640 for the default 12-item batch — a provider with
+  // 600 tokens of room (enough for the real, 1-item submission) still read as spent and the drain skipped it.
+  assert.equal(drainBatchEst(1), estimateTokens(1), 'a 1-item backlog reserves for a 1-item batch, not a full batch')
+  assert.equal(drainBatchEst(1), 595, 'pinned to the reported gap\'s own numbers')
+  // a backlog at or above the batch size reserves the full batch — unchanged from the old fixed estimate
+  assert.equal(drainBatchEst(NEWS.triageBatch), estimateTokens(NEWS.triageBatch))
+  assert.equal(drainBatchEst(NEWS.triageBatch + 50), estimateTokens(NEWS.triageBatch), 'never reserves MORE than one batch, however deep the backlog')
+  // an empty backlog still reserves the fixed per-call overhead (estimateTokens(0) = 500), not a literal 0
+  assert.equal(drainBatchEst(0), estimateTokens(0))
 })
 
 await check('armCooldown with base==max is FLAT (the Haiku transient path) — no exponential 60-min pin however many fails', async () => {

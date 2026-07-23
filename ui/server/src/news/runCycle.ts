@@ -25,7 +25,7 @@ import { SeenCache } from './seen-cache'
 import { Budget, UsdBudget, armCooldown, clearCooldown, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, readCooldownUntil } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
 import { triageBatchAnthropic } from './triage/anthropic'
-import { isPlanQuotaNote, triageBatchClaudeCli, type ClaudeCliRunner } from './triage/claude-cli'
+import { isPlanQuotaNote, isTerminalApiNote, triageBatchClaudeCli, type ClaudeCliRunner } from './triage/claude-cli'
 import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
@@ -448,7 +448,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         //      retry already failed) → a SHORT, FLAT cooldown (base==max flattens the exponential to a
         //      constant), so the paid tier re-probes ~once a drain and keeps draining the backlog rather than
         //      going dark for up to an hour while data drops past the cap.
-        if (/HTTP (400|401|402|403|404|413)/.test(ar.note || '')) anthropicBudget!.exhaust()
+        if (isTerminalApiNote(ar.note || '')) anthropicBudget!.exhaust()
         else if (isPlanQuotaNote(ar.note || '')) armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'anthropic-triage', cfg.llmCooldownMaxMs)
         else armCooldown(stateDir, now().getTime(), cfg.anthropicTransientCooldownMs, 'anthropic-triage', cfg.anthropicTransientCooldownMs)
       }
