@@ -18,6 +18,7 @@ import { healEnrichCache } from './enrich-heal'
 import { runIdeaPass } from './ideas/run-idea-pass'
 import { cooldownInfo, isCoolingDown, pacedCeiling, pacedHasHeadroom } from './triage/budget'
 import { estimateTokens } from './triage/groq'
+import { preTriagePriority } from './rank'
 import { DEFERRED_CAP } from './runCycle'
 import type { CycleSummary, DeferReason, LastResortState } from './types'
 
@@ -236,8 +237,35 @@ function budgetHasHeadroom(now = Date.now()): boolean {
  * loss cap — budgetHasHeadroom saw the free tiers spent, returned false, and the frequent drain never ran,
  * so the backlog could only nibble down at the much slower fetch cadence while fresh items kept arriving.
  */
-export function anthropicDrainReady(enabled: boolean, coolingDown: boolean, usdToday: number, usdCap: number): boolean {
-  return enabled && !coolingDown && usdToday < usdCap
+export function anthropicDrainReady(
+  enabled: boolean, coolingDown: boolean, usdToday: number, usdCap: number,
+  topPriority = Infinity, minPriority = 0,
+): boolean {
+  if (!(enabled && !coolingDown && usdToday < usdCap)) return false
+  // Respect the priority floor. runCycle scores a batch on Haiku only when its LEAD item clears
+  // anthropicMinPriority (runCycle: `preTriagePriority(batch[0]) >= cfg.anthropicMinPriority`), and the queue
+  // is priority-sorted, so the whole-backlog max IS the first batch's lead. If even that is below the floor,
+  // Haiku refuses EVERY batch — a drain gated on Haiku alone would then make zero progress and re-defer the
+  // identical backlog every DRAIN_INTERVAL, churning the firehose + the deferred file each minute. So when
+  // Haiku is the only usable tier and the backlog's best item is sub-floor, report NO headroom.
+  // (Default minPriority 0 → topPriority defaults to Infinity → the check is a no-op for the common case.)
+  return topPriority >= minPriority
+}
+
+/** Highest pre-triage priority in the deferred backlog RIGHT NOW (recency-decayed). Decides whether a
+ *  Haiku-only drain can make ANY progress against the anthropicMinPriority floor. Read-only; 0 on an
+ *  empty/unreadable backlog. Only consulted when a floor is configured (minPriority > 0). */
+function maxBacklogPriority(now = Date.now()): number {
+  try {
+    const arr = JSON.parse(fs.readFileSync(path.join(STATE_DIR, 'news-deferred.json'), 'utf8'))
+    if (!Array.isArray(arr) || !arr.length) return 0
+    const d = new Date(now)
+    let max = -Infinity
+    for (const it of arr) { const p = preTriagePriority(it, d); if (p > max) max = p }
+    return Number.isFinite(max) ? max : 0
+  } catch {
+    return 0
+  }
 }
 
 /** Live read of anthropicDrainReady from disk (config flags + the $ ledger + the cooldown marker). */
@@ -246,7 +274,9 @@ function anthropicHasHeadroom(now = Date.now()): boolean {
   if (!enabled) return false
   const cooling = isCoolingDown(STATE_DIR, 'anthropic-triage', now)
   const u = readDailyUsd('anthropic-triage-budget.json', new Date(now).toISOString().slice(0, 10))
-  return anthropicDrainReady(true, cooling, u.usd, NEWS.anthropicDailyUsd)
+  // Only pay for the backlog scan when a floor is actually set (default 0 → skip, topPriority stays Infinity).
+  const topPriority = NEWS.anthropicMinPriority > 0 ? maxBacklogPriority(now) : Infinity
+  return anthropicDrainReady(true, cooling, u.usd, NEWS.anthropicDailyUsd, topPriority, NEWS.anthropicMinPriority)
 }
 
 /**

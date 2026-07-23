@@ -1223,6 +1223,24 @@ await check('anthropicDrainReady: the drain gate counts the Haiku last-resort (e
   assert.equal(anthropicDrainReady(true, false, 60, 50), false, 'past the ceiling → spent')
 })
 
+await check('anthropicDrainReady: respects the priority floor — Haiku-only headroom is false when the WHOLE backlog is sub-floor (no-progress-loop fix, PR #316 Codex P2)', async () => {
+  // runCycle scores a batch on Haiku only when its lead item clears anthropicMinPriority
+  // (runCycle.ts: `preTriagePriority(batch[0]) >= cfg.anthropicMinPriority`); the queue is priority-sorted,
+  // so the whole-backlog MAX is the first batch's lead. If even that is below the floor, Haiku refuses every
+  // batch. A drain gated on Haiku alone would then re-defer the identical backlog every DRAIN_INTERVAL — a
+  // busy loop churning the firehose + deferred file with zero progress. The gate must report NO headroom
+  // then. Expected values are pinned to that runCycle floor rule + the Codex P2 finding, not to code output.
+  // top backlog priority (10) BELOW the floor (40) → Haiku can't take the batch → NOT drain-ready.
+  assert.equal(anthropicDrainReady(true, false, 10, 50, 10, 40), false, 'whole backlog sub-floor → Haiku refuses every batch → no headroom')
+  // top backlog priority (55) AT/ABOVE the floor (40) → the first batch clears → drain-ready.
+  assert.equal(anthropicDrainReady(true, false, 10, 50, 55, 40), true, 'the best backlog item clears the floor → the first batch scores → headroom')
+  assert.equal(anthropicDrainReady(true, false, 10, 50, 40, 40), true, 'exactly at the floor clears it (>=, matching runCycle)')
+  // floor of 0 (the default) is a no-op — any non-negative backlog priority passes, exactly the old behaviour.
+  assert.equal(anthropicDrainReady(true, false, 10, 50, 0, 0), true, 'default floor 0 → never blocks')
+  // backward-compat: the 4-arg call (no floor args) defaults topPriority=Infinity, minPriority=0 → unchanged.
+  assert.equal(anthropicDrainReady(true, false, 10, 50), true, '4-arg legacy call → floor check is a no-op (Infinity >= 0)')
+})
+
 await check('backlogTrend: reads growing / shrinking / flat / null from recent cycles', async () => {
   const mk = (ts: string, backlog: number) => ({ ts, backlog }) as any
   assert.equal(backlogTrend([]), null, 'no data → null')
