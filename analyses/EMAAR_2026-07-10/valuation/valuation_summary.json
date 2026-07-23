@@ -52,7 +52,9 @@
     "erp": 0.0487,
     "beta": 1.15,
     "cost_of_equity": 0.101,
-    "wacc": 0.096,
+    "wacc": 0.105,
+    "wacc_computed": 0.096,
+    "wacc_note": "0.105 (10.5%) is the WACC actually USED in the base DCF, the sensitivity grid, and the reverse-DCF (04_intrinsic-dcf.md §3) — a disclosed +0.9pp override above the CAPM-computed 0.096 (9.60%), justified because the 8.5% debt weight understates the net-cash balance sheet and a single-city Dubai cycle warrants a premium. wacc_computed carries the pre-override CAPM/cost-of-debt blend for reference; all published fair values (methods.dcf=18.0, scenario levels) were generated with 0.105, not 0.096.",
     "after_tax_kd": 0.0425
   }
 }

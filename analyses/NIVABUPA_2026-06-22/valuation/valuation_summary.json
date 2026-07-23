@@ -42,5 +42,14 @@
   "method_weights": {
     "peers": 0.30,
     "ri_model": 0.70
+  },
+  "discount_rate": {
+    "rf": 0.0685,
+    "erp": 0.0708,
+    "beta": 0.85,
+    "cost_of_equity": 0.1287,
+    "wacc": null,
+    "after_tax_kd": null,
+    "wacc_note": "Financial issuer (IRDAI-regulated health insurer) — no WACC / EV bridge; the residual-income model discounts at cost of equity (Ke) only. Ke = rf + beta x erp = 0.0685 + 0.85 x 0.0708 = 0.1287 (12.87%), no override applied. See 04_intrinsic-dcf.md §3."
   }
 }
