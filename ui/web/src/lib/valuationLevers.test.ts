@@ -122,4 +122,22 @@ check('recompute with NO methods (fallback run): null blend, toggle is inert, ba
   assert.ok(Math.abs((baseLevel(out) as number) - 100) < 1e-9, 'base must stay at the published level when there is no blend')
 })
 
+// ---- blendActive: the toggle only DRIVES the base when the blend produced a base point (Codex #327 P2) ----
+check('blendActive: toggle OFF → false (base stays published, no blend claim)', () => {
+  const out = recompute(draftFromResponse(emaarRes))
+  assert.equal(out.blendActive, false)
+})
+check('blendActive: toggle ON with weighted methods → true (blend really drives the base)', () => {
+  const out = recompute({ ...draftFromResponse(emaarRes), driveBaseFromMix: true })
+  assert.equal(out.blendActive, true)
+})
+check('blendActive: toggle ON but ALL weights cleared to 0 → false, base stays published (no false blend claim)', () => {
+  const d = draftFromResponse(emaarRes)
+  const zeroed = { ...d, driveBaseFromMix: true, methods: d.methods.map((x) => ({ ...x, weight: 0 })) }
+  const out = recompute(zeroed)
+  assert.equal(out.blend.basePoint, null) // all-zero weights → no base point
+  assert.equal(out.blendActive, false)    // so the toggle is inert: the UI must NOT claim the returns use the blend
+  assert.ok(Math.abs((baseLevel(out) as number) - 15.0) < 1e-9, `base must stay at the published 15.00, got ${baseLevel(out)}`)
+})
+
 console.log(`valuationLevers.test.ts: ${passed} assertions passed`)

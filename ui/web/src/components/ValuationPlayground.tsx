@@ -261,7 +261,9 @@ export function ValuationPlayground() {
                       )}
                     </>
                   )}
-                  {draft.driveBaseFromMix && <span className="vpg__note--warn"> Driving the base case — the returns above use this blend, not the frozen base.</span>}
+                  {out.blendActive
+                    ? <span className="vpg__note--warn"> Driving the base case — the returns above use this blend, not the frozen base.</span>
+                    : draft.driveBaseFromMix && <span className="vpg__note--warn"> No weighted method to blend — the base case keeps the published level; the returns above do NOT use the mix.</span>}
                 </div>
               </div>
             )

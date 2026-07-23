@@ -214,6 +214,11 @@ export interface RecomputeResult {
   math: ScenarioMath
   checks: { wacc?: CheckResult; symmetry?: CheckResult }
   blend: BlendResult
+  // Is the mix ACTUALLY driving the base scenario? Only when the toggle is on AND the blend produced a numeric
+  // base point. With all-zero (or all-dropped) weights blend() returns no base point, so the base level stays
+  // published — the UI must gate its "returns use the blend" claim on THIS, not on the toggle alone, or the
+  // shown rationale contradicts the actual calculation (Codex #327 P2 r3636960240).
+  blendActive: boolean
   warnings: string[]
 }
 
@@ -245,7 +250,7 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
   const mult = (name: string) => d.scenarios.find((s) => (s.label || '').toLowerCase().includes(name))?.multiple
   if (isNum(mult('bull')) || isNum(mult('base')) || isNum(mult('bear'))) checks.symmetry = checkMultipleSymmetry(mult('bull'), mult('base'), mult('bear'))
   const warnings = [...math.warnings, ...(checks.wacc?.problems ?? []), ...(checks.symmetry?.problems ?? [])]
-  return { scenarios, math, checks, blend: blendRes, warnings }
+  return { scenarios, math, checks, blend: blendRes, blendActive: driveBase, warnings }
 }
 
 // Build the initial editable draft from the server response: prefer the valuation_summary.json levers
