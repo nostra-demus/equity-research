@@ -103,6 +103,10 @@ export function ValuationPlayground() {
   const out = useMemo(() => (draft ? recompute(draft) : null), [draft])
   const dec = res?.decision ?? null
   const hasLevers = !!(res?.levers && res.levers.scenarios?.length)
+  // A run whose scenarios carry NO forward-metric/multiple (a method-blend — every committed run) has no
+  // single metric×multiple to edit, so show the editable fair-value LEVEL column instead of dead, empty
+  // metric/multiple inputs (Codex #326 P1). A hypothetical single-multiple run keeps the metric×multiple UI.
+  const hasEditableMultiples = !!draft && draft.scenarios.some((s) => Number.isFinite(s.forwardMetric) || Number.isFinite(s.multiple))
 
   const setScen = (idx: number, patch: Partial<DraftScenario>) =>
     setDraft((d) => (d ? { ...d, scenarios: d.scenarios.map((s, i) => (i === idx ? { ...s, ...patch } : s)) } : d))
@@ -253,7 +257,7 @@ export function ValuationPlayground() {
                   {typeof pubBase === 'number' && (
                     <> vs published base <b className="mono">{fmtN(pubBase, 2)}</b>
                       {delta !== null && Math.abs(delta) >= 0.005 && (
-                        <> (Δ <span className="mono">{delta > 0 ? '+' : ''}{fmtN(delta, 2)}</span>) — the published base applies a disclosed judgment discount; weights renormalize over the methods present, so the effective column can differ from what you type.</>
+                        <> (Δ <span className="mono">{delta > 0 ? '+' : ''}{fmtN(delta, 2)}</span>). Weights renormalize over the methods present, so the effective column can differ from what you type.</>
                       )}
                     </>
                   )}
@@ -264,9 +268,9 @@ export function ValuationPlayground() {
           })()}
 
           <div className="vpg__section">
-            <div className="vpg__sectitle">Scenarios — {hasLevers ? 'forward metric × multiple' : 'levels (this run predates the levers emission)'}</div>
+            <div className="vpg__sectitle">Scenarios — {hasEditableMultiples ? 'forward metric × multiple' : hasLevers ? 'levels — method-blend (edit a level directly, or reweight the method mix above)' : 'levels (this run predates the levers emission)'}</div>
             <div className="vpg__scenhead">
-              <span>Case</span><span>Prob %</span>{hasLevers ? (<><span>Fwd metric</span><span>Multiple</span></>) : <span>Fair value</span>}<span>Level</span><span>Return</span>
+              <span>Case</span><span>Prob %</span>{hasEditableMultiples ? (<><span>Fwd metric</span><span>Multiple</span></>) : <span>Fair value</span>}<span>Level</span><span>Return</span>
             </div>
             {draft.scenarios.map((s, i) => {
               const row = out.scenarios[i]
@@ -275,7 +279,7 @@ export function ValuationPlayground() {
                 <div key={i} className="vpg__scenrow">
                   <span className="vpg__scenlabel">{s.label}</span>
                   <TableInput value={s.probability} onChange={(n) => setScen(i, { probability: n })} ariaLabel={`${s.label} probability`} />
-                  {hasLevers ? (
+                  {hasEditableMultiples ? (
                     <>
                       <TableInput value={s.forwardMetric} onChange={(n) => setScen(i, { forwardMetric: n })} ariaLabel={`${s.label} forward metric`} />
                       <TableInput value={s.multiple} onChange={(n) => setScen(i, { multiple: n })} ariaLabel={`${s.label} multiple`} />

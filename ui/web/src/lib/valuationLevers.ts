@@ -67,13 +67,16 @@ function round(x: number, nd = 4): number { const p = 10 ** nd; return Math.roun
 
 // ---- method-mix football field: the cross-method blend, a mirror of scripts/valuation_math.py blend() ----
 // Each value-producing method (own_history / peers / dcf / sotp) carries a per-share value and a weight. The
-// blended base point RENORMALIZES the weights over the methods actually present (numeric value AND weight),
-// so a dropped or zero-weighted method cannot silently zero the blend — identical to the Python engine. This
-// is the real primary lever for the committed runs, which are all method-blends, not a single metric×multiple.
+// blended base point RENORMALIZES the weights over the methods actually present (numeric value AND a
+// NON-NEGATIVE weight), so a dropped or zero-weighted method cannot silently zero the blend. Matches the
+// Python engine on committed data (which never carries a negative weight); the client additionally DROPS a
+// negative user-entered weight rather than producing a base point outside every method value (e.g. values
+// 100/200 at weights −1/2 would otherwise blend to 300). This is the real primary lever for the committed
+// runs, which are all method-blends, not a single metric×multiple.
 export interface MethodLever { key: string; value: number | null; weight: number | null }
 export interface BlendResult { basePoint: number | null; effectiveWeights: Record<string, number>; note?: string }
 export function blend(methods: MethodLever[]): BlendResult {
-  const used = (methods || []).filter((m) => isNum(m.value) && isNum(m.weight))
+  const used = (methods || []).filter((m) => isNum(m.value) && isNum(m.weight) && (m.weight as number) >= 0)
   const wsum = used.reduce((a, m) => a + (m.weight as number), 0)
   if (!used.length || wsum <= 0) return { basePoint: null, effectiveWeights: {}, note: 'no value-producing method with a weight' }
   const eff: Record<string, number> = {}

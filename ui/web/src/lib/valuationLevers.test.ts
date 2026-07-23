@@ -34,6 +34,13 @@ check('blend RENORMALIZES over present methods (a dropped value cannot zero the 
   assert.ok(Math.abs((dropped.basePoint as number) - 100) < 1e-9, `renorm got ${dropped.basePoint}`)
   assert.ok(Math.abs(dropped.effectiveWeights.a - 1.0) < 1e-9)
 })
+check('blend REJECTS a negative weight (drops it, never a base point outside every method value)', () => {
+  // Codex #327 P2: values 100/200 at weights -1/2 must NOT blend to 300. The negative weight is dropped;
+  // only b remains → base point is b's value (200), inside the method range. Zero weight still counts.
+  const r = blend([m('a', 100, -1), m('b', 200, 2)])
+  assert.ok(r.basePoint != null && Math.abs(r.basePoint - 200) < 1e-9, `got ${r.basePoint}`)
+  assert.ok(!('a' in r.effectiveWeights), 'negative-weight method must be excluded from the blend')
+})
 check('blend empty / no numeric weight → null base point (never crashes, never fabricates)', () => {
   assert.equal(blend([]).basePoint, null)
   assert.equal(blend([m('dcf', 100, null)]).basePoint, null)
