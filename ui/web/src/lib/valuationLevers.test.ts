@@ -460,6 +460,64 @@ check('typed EV detaches the runoff model (evOverride wins); clearing it re-atta
   assert.ok(Math.abs((chainLevel(detached, null) as number) - 48.1285) < 1e-3, 'typed EV drives the bridge')
   assert.ok(Math.abs((chainLevel({ ...detached, evOverride: null }, null) as number) - 45.1241) < 1e-3, 're-attached replay')
 })
+// ---- review round (Codex/Gemini on #336/#338/#339): honesty + robustness fixes ----
+check('ACTIVE sub-lever deriving nothing → method value NULL in the blend (no stale reuse)', () => {
+  const draft = {
+    basis: 'equity' as const, shares: null, netDebt: 0, price: null,
+    rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false,
+    scenarios: [], methods: [m('dcf', 70.14, 0.5), m('sotp', 84.63, 0.5)], driveBaseFromMix: false,
+    internals: { dcf: { grid: NHY_GRID, wacc: null, growth: 0.025, active: true } }, // cleared WACC field
+  }
+  const out = recompute(draft)
+  const dcf = out.blend.effectiveWeights
+  assert.ok(!('dcf' in dcf), 'a non-deriving ACTIVE dcf must drop from the blend, not reuse 70.14')
+  assert.ok(out.blend.basePoint !== null && Math.abs(out.blend.basePoint - 84.63) < 1e-9, `blend ${out.blend.basePoint}`)
+})
+check('peers piecewise honors a third recorded anchor exactly; goal seek scans its segments', () => {
+  const tri: PeersInternals = { ...NHY_PEERS, anchors: [...NHY_PEERS.anchors, { multiple: 7.0, value: 118.0 }] }
+  assert.equal(peersFromMultiple(tri, 7.0).value, 118) // the third row reproduces exactly
+  assert.equal(peersFromMultiple(tri, 6.25).value, 105.8)
+  const between = peersFromMultiple(tri, 6.6).value // on the SECOND segment (6.25→7.0), not the first line
+  assert.ok(between !== null && Math.abs(between - (105.8 + (118 - 105.8) * (0.35 / 0.75))) < 1e-3, `got ${between}`)
+  assert.equal(peersFromMultiple(tri, 7.0).outOfAnchors, false)
+})
+check('buildInternals refuses a malformed grid matrix (no crash-bait for the grid table)', () => {
+  const badDims = buildInternals({ basis: 'equity', scenarios: [], dcf_grid: { ...NHY_GRID, values: [[1, 2], [3, 4]] } as DcfGrid })
+  assert.equal(badDims?.dcf, undefined)
+})
+check('goal seek refuses when the FIXED dcf axis sits outside the recorded grid', () => {
+  const d = nhyGsDraft()
+  d.internals.dcf.growth = 0.05 // beyond the recorded growth span
+  const r = goalSeekBlend(d, 'dcf_wacc', 84.96)
+  assert.equal(r.solution, null)
+  assert.ok(r.note && r.note.includes('outside the recorded grid'), String(r.note))
+})
+check('cellState: drive-base outranks a chain on the base row (mirrors recompute precedence)', () => {
+  const s = { label: 'base', probability: null, forwardMetric: null, multiple: null, levelOverride: 45.12, chain: buildChain(NHY_BEAR_DERIV) }
+  const cvv = chainLevel(s.chain, null)
+  assert.equal(scenarioCellState(s, true, 81.83, 17.2, true, cvv).kind, 'live_blend')
+  assert.equal(scenarioCellState(s, true, 81.83, null, false, cvv).kind, 'derived_chain')
+})
+check('chainLevel refuses a cleared net debt — unknown net debt is never silently 0 (§15)', () => {
+  const c = buildChain(NHY_BEAR_DERIV)!
+  assert.equal(chainLevel({ ...c, netDebt: null }, null), null)
+  assert.equal(buildChain({ ...NHY_BEAR_DERIV, net_debt: null }), null)
+})
+check('wedge trace says "documented" only when drivers text exists; downside trace names the worst row', () => {
+  const d = draftFromResponse(emaarRes) // fixture has NO drivers text on base
+  const base = d.scenarios.find((s) => s.label === 'base')!
+  const cs = scenarioCellState(base, true, d.published!.blend.basePoint, null, false)
+  const t = traceScenarioCell(base, cs, d.published)
+  assert.ok(t.note && t.note.includes('NO reason'), String(t.note))
+  const math = scenarioMath([
+    { label: 'bull', probability: 20, price_target: 21 },
+    { label: 'base', probability: 45, price_target: 15 },
+    { label: 'bear', probability: 35, price_target: 9.75 },
+  ], 12.2)
+  const dt = traceOutput('downside', math)!
+  assert.ok(dt.formula.includes('bear') && dt.note && dt.note.includes('equals the loss-to-bear'), dt.formula)
+})
+
 check('runoff trace: formula carries margin % + revenue base; recompute flows the lever end-to-end', () => {
   const s = { label: 'bear', probability: null, forwardMetric: null, multiple: null, levelOverride: 45.12, chain: buildChain(NHY_RUNOFF_DERIV) }
   const t = traceScenarioCell(s, { kind: 'derived_chain', chainValue: 45.1241 }, null)

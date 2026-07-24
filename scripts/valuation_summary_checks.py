@@ -124,7 +124,18 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
             else:
                 chain_ev = float(deriv["ev"])
                 ok = True
-                if deriv.get("model") == "margin_runoff_dcf":
+                _cited_d = (lambda x: isinstance(x, str) and bool(x.strip()))
+                if not _isnum(lvl):
+                    # a chain with no recorded level has nothing to reproduce — unverifiable, so rejected
+                    det.append(f"scenario {s.get('label')!r} derivation requires a numeric scenario level to reproduce (REPRODUCE-or-omit)")
+                    ok = False
+                if not _isnum(deriv.get("net_debt")):
+                    det.append(f"scenario {s.get('label')!r} derivation net_debt must be explicit and numeric (0 when debt-free) — unknown net debt is never silently 0 (§15)")
+                    ok = False
+                if not _cited_d(deriv.get("source")):
+                    det.append(f"scenario {s.get('label')!r} derivation needs a §5 source citation — editable levers cannot ship uncited")
+                    ok = False
+                if ok and deriv.get("model") == "margin_runoff_dcf":
                     # Replay the recorded runoff: revenue_base × margin → −da → ×(1−tax) → +da −capex −dnwc
                     # → TV = FCFF×(1+g)/(wacc−g) → EV = pv_explicit + TV×pv_factor. The replayed EV must
                     # reproduce the RECORDED ev (the orb's own number) — that is the proof the transcribed
@@ -188,6 +199,7 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
     # line at applied_multiple == methods.peers. A block that disagrees with its own method value would make
     # the Playground derive a number contradicting the committed football field — worse than no block.
     m_of = (lambda k: methods.get(k) if isinstance(methods, dict) else None)
+    _cited = (lambda x: isinstance(x, str) and bool(x.strip()))
     grid = sidecar.get("dcf_grid")
     if grid is not None:
         if not isinstance(grid, dict):
@@ -196,6 +208,8 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
             w, g, vals = grid.get("wacc"), grid.get("growth"), grid.get("values")
             ok_axes = (isinstance(w, list) and len(w) >= 2 and all(_isnum(x) for x in w) and all(w[i] < w[i+1] for i in range(len(w)-1))
                        and isinstance(g, list) and len(g) >= 2 and all(_isnum(x) for x in g) and all(g[i] < g[i+1] for i in range(len(g)-1)))
+            if not _cited(grid.get("source")):
+                det.append("dcf_grid needs a §5 source citation — an uncited lever cannot ship")
             if not ok_axes:
                 det.append("dcf_grid wacc/growth must be ascending numeric arrays (>= 2 points each)")
             elif not (isinstance(vals, list) and len(vals) == len(g)
@@ -203,23 +217,39 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
                 det.append(f"dcf_grid values must be a {len(g)}x{len(w)} numeric matrix (values[growthIdx][waccIdx])")
             else:
                 base = grid.get("base")
-                if isinstance(base, dict) and _isnum(base.get("wacc")) and _isnum(base.get("growth")):
+                if not (isinstance(base, dict) and _isnum(base.get("wacc")) and _isnum(base.get("growth"))):
+                    # without the recorded base pair there is NO anchor proving the grid reproduces
+                    # methods.dcf — the block is unverifiable, so it is rejected, not accepted silently
+                    det.append("dcf_grid must record its base {wacc, growth} pair — the reproduce anchor")
+                elif not _isnum(m_of("dcf")):
+                    det.append("dcf_grid present but methods.dcf is not numeric — internals need the method value they reproduce")
+                else:
                     wi = next((i for i, x in enumerate(w) if abs(x - base["wacc"]) < 1e-9), None)
                     gi = next((i for i, x in enumerate(g) if abs(x - base["growth"]) < 1e-9), None)
                     if wi is None or gi is None:
                         det.append(f"dcf_grid base ({base.get('wacc')}, {base.get('growth')}) is not a recorded grid point")
-                    elif _isnum(m_of("dcf")) and abs(vals[gi][wi] - float(m_of("dcf"))) > _tol(m_of("dcf")):
+                    elif abs(vals[gi][wi] - float(m_of("dcf"))) > _tol(m_of("dcf")):
                         det.append(f"dcf_grid base cell {vals[gi][wi]} != methods.dcf {m_of('dcf')} — the grid must reproduce the recorded method value")
     segs = sidecar.get("sotp_segments")
     if segs is not None:
         if not (isinstance(segs, list) and segs and all(isinstance(s, dict) and _isnum(s.get("metric")) and _isnum(s.get("multiple")) for s in segs)):
             det.append("sotp_segments must be a non-empty array of {segment, metric, multiple} with numeric metric/multiple")
         else:
-            br = sidecar.get("sotp_bridge") if isinstance(sidecar.get("sotp_bridge"), dict) else {}
+            br = sidecar.get("sotp_bridge")
             shares = sidecar.get("shares")
-            if _isnum(shares) and shares > 0 and _isnum(m_of("sotp")):
+            if not (isinstance(br, dict) and _isnum(br.get("net_debt"))):
+                # a re-sum with no recorded bridge silently values the firm as debt-free (§15) — a truly
+                # debt-free firm records an explicit 0, never an absent term
+                det.append("sotp_segments need a sotp_bridge with a numeric net_debt (explicit 0 when debt-free, §15)")
+            elif not _cited(br.get("source")):
+                det.append("sotp_bridge needs a §5 source citation — an uncited lever cannot ship")
+            elif not (_isnum(shares) and shares > 0):
+                det.append("sotp_segments need positive top-level shares for the per-share step")
+            elif not _isnum(m_of("sotp")):
+                det.append("sotp_segments present but methods.sotp is not numeric — internals need the method value they reproduce")
+            else:
                 total_ev = sum(float(s["metric"]) * float(s["multiple"]) for s in segs)
-                equity = total_ev - (float(br.get("net_debt")) if _isnum(br.get("net_debt")) else 0.0) \
+                equity = total_ev - float(br.get("net_debt")) \
                                   - (float(br.get("minority")) if _isnum(br.get("minority")) else 0.0) \
                                   + (float(br.get("other")) if _isnum(br.get("other")) else 0.0)
                 per_share = equity / float(shares)
@@ -227,17 +257,36 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
                     det.append(f"sotp_segments re-sum {round(per_share, 4)} != methods.sotp {m_of('sotp')} — segments+bridge must reproduce the recorded method value")
     pi = sidecar.get("peers_internals")
     if pi is not None:
-        anchors = pi.get("anchors") if isinstance(pi, dict) else None
-        if not (isinstance(anchors, list) and len(anchors) >= 2
-                and all(isinstance(a, dict) and _isnum(a.get("multiple")) and _isnum(a.get("value")) for a in anchors)
-                and abs(float(anchors[0]["multiple"]) - float(anchors[1]["multiple"])) > 1e-9):
-            det.append("peers_internals.anchors must hold >= 2 numeric {multiple, value} rows with distinct multiples")
-        elif _isnum(pi.get("applied_multiple")) and _isnum(m_of("peers")):
-            a0, a1 = anchors[0], anchors[1]
-            slope = (float(a1["value"]) - float(a0["value"])) / (float(a1["multiple"]) - float(a0["multiple"]))
-            at_applied = float(a0["value"]) + slope * (float(pi["applied_multiple"]) - float(a0["multiple"]))
-            if abs(at_applied - float(m_of("peers"))) > _tol(m_of("peers")):
-                det.append(f"peers_internals line at applied_multiple gives {round(at_applied, 4)} != methods.peers {m_of('peers')} — the anchors must reproduce the recorded method value")
+        if not isinstance(pi, dict):
+            det.append("peers_internals must be an object or null")
+        else:
+            anchors = pi.get("anchors")
+            rows_ok = (isinstance(anchors, list) and len(anchors) >= 2
+                       and all(isinstance(a, dict) and _isnum(a.get("multiple")) and _isnum(a.get("value")) for a in anchors))
+            srt = sorted(anchors, key=lambda a: float(a["multiple"])) if rows_ok else []
+            if rows_ok and any(abs(float(srt[i + 1]["multiple"]) - float(srt[i]["multiple"])) < 1e-9 for i in range(len(srt) - 1)):
+                rows_ok = False
+            if not _cited(pi.get("source")):
+                det.append("peers_internals needs a §5 source citation — an uncited lever cannot ship")
+            if not rows_ok:
+                det.append("peers_internals.anchors must hold >= 2 numeric {multiple, value} rows with distinct multiples")
+            elif not _isnum(pi.get("applied_multiple")):
+                det.append("peers_internals must record applied_multiple — the reproduce anchor")
+            elif not _isnum(m_of("peers")):
+                det.append("peers_internals present but methods.peers is not numeric — internals need the method value they reproduce")
+            else:
+                # piecewise through ALL recorded rows (the client honors every anchor, not just the first
+                # two) — evaluate the bracketing segment at applied_multiple, edge segments beyond the span
+                ap = float(pi["applied_multiple"])
+                seg_i = 0
+                for i in range(len(srt) - 1):
+                    if ap >= float(srt[i]["multiple"]):
+                        seg_i = i
+                a0, a1 = srt[seg_i], srt[seg_i + 1]
+                slope = (float(a1["value"]) - float(a0["value"])) / (float(a1["multiple"]) - float(a0["multiple"]))
+                at_applied = float(a0["value"]) + slope * (ap - float(a0["multiple"]))
+                if abs(at_applied - float(m_of("peers"))) > _tol(m_of("peers")):
+                    det.append(f"peers_internals line at applied_multiple gives {round(at_applied, 4)} != methods.peers {m_of('peers')} — the anchors must reproduce the recorded method value")
 
     # Match the sidecar's scenario label set to the frozen decision_record, and check each shared level for
     # contradiction. A sidecar label with no decision-record counterpart (or a missing one) means the
@@ -387,8 +436,8 @@ def _selftest() -> int:
         dcf_grid={"wacc": [0.07, 0.08], "growth": [0.02, 0.025], "values": [[72, 60], [70, 58]],
                   "base": {"wacc": 0.07, "growth": 0.025}, "source": "04 §7"},
         sotp_segments=[{"segment": "A", "metric": 100, "multiple": 5}, {"segment": "B", "metric": 90, "multiple": 5}],
-        sotp_bridge={"net_debt": 100, "minority": 50},  # (500+450) − 150 = 800 → /10 shares = 80 == methods.sotp
-        peers_internals={"median_multiple": 6.25, "applied_multiple": 5.6, "discount_pct": 10,
+        sotp_bridge={"net_debt": 100, "minority": 50, "source": "06 §4"},  # (500+450) − 150 = 800 → /10 shares = 80 == methods.sotp
+        peers_internals={"median_multiple": 6.25, "applied_multiple": 5.6, "discount_pct": 10, "source": "03 §5",
                          "anchors": [{"multiple": 5.6, "value": 90}, {"multiple": 6.25, "value": 100}]})
     check("v1.1 internals that reproduce their method values → pass", eval_ap_valuation_summary_integrity(internals, None) == [])
     bad_cell = dict(internals, dcf_grid=dict(internals["dcf_grid"], values=[[72, 60], [99, 58]]))
@@ -401,6 +450,25 @@ def _selftest() -> int:
     check("single peers anchor caught", any("anchors" in v for v in eval_ap_valuation_summary_integrity(one_anchor, None)))
     bad_peers = dict(internals, peers_internals=dict(internals["peers_internals"], anchors=[{"multiple": 5.6, "value": 50}, {"multiple": 6.25, "value": 60}]))
     check("peers line != methods.peers caught", any("methods.peers" in v for v in eval_ap_valuation_summary_integrity(bad_peers, None)))
+
+    # ---- review round: reproduce anchors, bridges, and citations are REQUIRED, not optional ----
+    no_base = dict(internals, dcf_grid={k: v for k, v in internals["dcf_grid"].items() if k != "base"})
+    check("grid without its base pair caught", any("reproduce anchor" in v for v in eval_ap_valuation_summary_integrity(no_base, None)))
+    no_src = dict(internals, dcf_grid={k: v for k, v in internals["dcf_grid"].items() if k != "source"})
+    check("uncited grid caught", any("source citation" in v for v in eval_ap_valuation_summary_integrity(no_src, None)))
+    no_dcf_val = dict(internals, methods={"dcf": None, "sotp": 80, "peers": 90})
+    check("grid with null methods.dcf caught (no reproduce target)", any("methods.dcf is not numeric" in v for v in eval_ap_valuation_summary_integrity(no_dcf_val, None)))
+    no_bridge = {k: v for k, v in internals.items() if k != "sotp_bridge"}
+    check("segments without a bridge caught (silent debt-free, §15)", any("numeric net_debt" in v for v in eval_ap_valuation_summary_integrity(no_bridge, None)))
+    nondict_peers = dict(internals, peers_internals=[1, 2])
+    check("non-object peers_internals named plainly", any("must be an object" in v for v in eval_ap_valuation_summary_integrity(nondict_peers, None)))
+    no_applied = dict(internals, peers_internals={k: v for k, v in internals["peers_internals"].items() if k != "applied_multiple"})
+    check("peers without applied_multiple caught", any("applied_multiple" in v for v in eval_ap_valuation_summary_integrity(no_applied, None)))
+    # three anchors, applied at the THIRD row — the piecewise line must honor every recorded row
+    tri = dict(internals, methods={"dcf": 70, "sotp": 80, "peers": 110}, peers_internals=dict(
+        internals["peers_internals"], applied_multiple=7.0,
+        anchors=[{"multiple": 5.6, "value": 90}, {"multiple": 6.25, "value": 100}, {"multiple": 7.0, "value": 110}]))
+    check("piecewise honors a third anchor (applied at it → its recorded value)", eval_ap_valuation_summary_integrity(tri, None) == [])
 
     # ---- v1.2 scenario derivation chains: REPRODUCE-or-omit, same rule as the method internals ----
     # the NHY bear chain verbatim: (114095 − 17919 − 7495) / 1965.28 = 45.1238 → level 45.12 (within tol)
@@ -419,6 +487,12 @@ def _selftest() -> int:
     # top-level shares as the fallback: same chain, shares moved to the sidecar root → still reproduces
     chain_top = dict(chain_ok, shares=1965.28, scenarios=[{"label": "bear", "level": 45.12, "derivation": dict(nhy_chain, shares=None)}])
     check("chain falls back to top-level shares → pass", eval_ap_valuation_summary_integrity(chain_top, None) == [])
+    d_no_lvl = dict(ok_sidecar, scenarios=[{"label": "bear", "level": None, "derivation": nhy_chain}])
+    check("derivation with a null level caught", any("numeric scenario level" in v for v in eval_ap_valuation_summary_integrity(d_no_lvl, None)))
+    d_no_nd = dict(ok_sidecar, scenarios=[{"label": "bear", "level": 45.12, "derivation": {k: v for k, v in nhy_chain.items() if k != "net_debt"}}])
+    check("derivation without explicit net_debt caught (§15)", any("never silently 0" in v for v in eval_ap_valuation_summary_integrity(d_no_nd, None)))
+    d_no_src = dict(ok_sidecar, scenarios=[{"label": "bear", "level": 45.12, "derivation": {k: v for k, v in nhy_chain.items() if k != "source"}}])
+    check("uncited derivation caught", any("cannot ship uncited" in v for v in eval_ap_valuation_summary_integrity(d_no_src, None)))
 
     # margin_runoff_dcf: the NHY bear replay verbatim — 228071×0.09 → −11500 → ×0.70 → +11500 −8500
     # → TV ×0.99/0.085 → ×0.72221 + 35712 = 114,095.9 ≈ recorded ev 114095 → level 45.12
