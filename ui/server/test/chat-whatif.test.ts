@@ -221,5 +221,44 @@ await (async () => {
     assert.ok(!/single-period scenario/.test(computedContextBlock({ kind: 'scenario', asked: 'q', scenario: s })))
   })
 
+  // ---- review round 2 (Codex r3643707261/266/271): unit-collision, honest cap, mode sanity ----
+  await check('a commodity price quoted in USD does not "mention" the FX row (unit, not subject)', () => {
+    const fx = NHY.sensitivities[1], alu = NHY.sensitivities[0]
+    const q = 'what is EBITDA if aluminium is at 3000 USD/mt?'
+    assert.equal(questionMentionsRow(q, fx), false, 'usd inside a price unit must not match usd_nok')
+    assert.equal(questionMentionsRow(q, alu), true)
+    // the FX pair named AS a pair (or by alias) still matches
+    assert.equal(questionMentionsRow('if usd/nok hits 11 next year', fx), true)
+    assert.equal(questionMentionsRow('if the dollar strengthens 0.5', fx), true)
+    // and the red-team combination: a mis-parse returning usd_nok for the aluminium question is dropped
+    const v = validateIntents({ intents: [{ variable: 'usd_nok', mode: 'level', value: 3000 }] }, q, NHY)
+    assert.equal(v.plans.length, 0)
+  })
+  await check('a margin-target intent from a question that never says margin/% is dropped (mode sanity)', () => {
+    const q = 'aluminium rises $45/mt'
+    const bad = validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'target_margin', value: 45 }] }, q, NHY)
+    assert.equal(bad.plans.length, 0, 'a 45% margin solve for a $45 move question must not pass')
+    const ok = validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'target_margin', value: 16 }] }, 'what price for a 16% margin?', NHY)
+    assert.equal(ok.plans.length, 1)
+    assert.deepEqual(ok.plans[0].req, { targetMargin: 16 })
+  })
+  await check('valid asks beyond the cap are COUNTED as omitted, and junk intents do not eat slots', () => {
+    const five: SensitivitySidecar = { ...NHY, sensitivities: [...NHY.sensitivities,
+      { variable: 'energy_price', label: 'Nordic power price', unit: 'EUR/MWh', base_value: 55, coefficient: 30, confidence: 'medium', basis: 'inferred', valid_range: { low: -20, high: 20 }, source: 'Q1 2026 deck p.9' }] }
+    const q = 'aluminium +45, usd/nok +0.5, alumina +20, extrusions volume +10, power price +5'
+    const intents = [
+      { variable: 'not_recorded_junk', mode: 'move' as const, value: 45 }, // junk: must not consume a slot
+      { variable: 'lme_aluminium_price', mode: 'move' as const, value: 45 },
+      { variable: 'usd_nok', mode: 'move' as const, value: 0.5 },
+      { variable: 'alumina_price', mode: 'move' as const, value: 20 },
+      { variable: 'extrusions_volume', mode: 'move' as const, value: 10 },
+      { variable: 'energy_price', mode: 'move' as const, value: 5 },
+    ]
+    const v = validateIntents({ intents }, q, five)
+    assert.equal(v.plans.length, 4, `cap holds: got ${v.plans.length}`)
+    assert.equal(v.omitted, 1, 'the fifth VALID ask is counted, not silently dropped')
+    assert.equal(v.plans[0].variable, 'lme_aluminium_price', 'junk intent did not eat the first slot')
+  })
+
   console.log(`\n${passed} chat-whatif checks passed`)
 })()

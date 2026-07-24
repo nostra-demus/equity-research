@@ -1703,7 +1703,14 @@ app.post('/api/chat', async (req, reply) => {
           for (const pl of v.plans) {
             const scenario = await computePlan(loaded.sidecar, pl)
             if (!scenario) continue
-            if (v.plans.length > 1 && blocks.length === 0) scenario.note = `${v.plans.length} variables — shown separately; they don't simply add (FX also carries a separate one-off).`
+            if (blocks.length === 0) {
+              // honest coverage notes ride the FIRST card: joint asks are computed per-leg, and any valid
+              // ask beyond the per-turn cap is SAID, never silently dropped (Codex #335 r3643707266)
+              const noteParts: string[] = []
+              if (v.plans.length > 1) noteParts.push(`${v.plans.length} variables — shown separately; they don't simply add (FX also carries a separate one-off).`)
+              if (v.omitted > 0) noteParts.push(`${v.omitted} more asked variable${v.omitted === 1 ? '' : 's'} beyond the ${v.plans.length} computed here — ask ${v.omitted === 1 ? 'it' : 'them'} separately.`)
+              if (noteParts.length) scenario.note = noteParts.join(' ')
+            }
             if (pr!.periodNote) scenario.periodBase = loaded.sidecar.base_period ?? null
             const payload = { kind: 'scenario' as const, asked: last.content, scenario }
             send({ type: 'chat-computed', payload })

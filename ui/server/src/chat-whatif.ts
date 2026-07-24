@@ -215,8 +215,18 @@ const CURRENCY_ALIAS: Record<string, string[]> = {
  *  own pick + the value gate. What it must stop: a parse that returns a recorded variable for a question
  *  about something else entirely ("what if freight falls 10%?" → lme_aluminium_price), which would stream
  *  an authoritative card for a variable the user never asked about. */
+// physical unit suffixes for the currency-phrase stripper below (a currency-per-PHYSICAL-unit phrase is a
+// price unit, not a mention of the currency row; a currency-per-CURRENCY pair IS the FX row's own name)
+const PHYS_UNITS = 'mt|t|ton|tonne|tonnes|kg|lb|lbs|oz|bbl|mwh|mmbtu|share|shares|unit|units'
+const CUR_UNIT_PHRASE = new RegExp(`(\\d[\\d,.]*\\s*)?(usd|nok|eur|gbp|inr|jpy|cny)\\s*\\/\\s*(${PHYS_UNITS})\\b`, 'g')
+
 export function questionMentionsRow(question: string, row: SensitivityRow): boolean {
   const q = ` ${(question || '').toLowerCase()} `
+  // Currency-CODE tokens match against a copy with amount-unit phrases removed ("3000 usd/mt", "usd/mt"),
+  // so a commodity price quoted in USD cannot make the FX row look mentioned (its "usd" there is a unit,
+  // not a subject). "usd/nok" survives the strip — that IS the FX pair being named. Aliases ("dollar")
+  // and every non-currency token still match the full question.
+  const qCur = ` ${q.replace(CUR_UNIT_PHRASE, ' ')} `
   const toks = `${row.variable || ''} ${row.label || ''}`.toLowerCase().split(/[^a-z0-9]+/).filter((t) => t.length >= 3)
   const cand = new Set<string>(toks)
   for (const t of toks) {
@@ -228,7 +238,8 @@ export function questionMentionsRow(question: string, row: SensitivityRow): bool
   }
   for (const t of cand) {
     const s = t.length > 4 && t.endsWith('s') ? t.slice(0, -1) : t // "extrusions" also matches "extrusion"
-    if (q.includes(s)) return true
+    const hay = Object.prototype.hasOwnProperty.call(CURRENCY_ALIAS, t) ? qCur : q
+    if (hay.includes(s)) return true
   }
   return false
 }
@@ -246,16 +257,24 @@ const MAX_INTENTS = 4
  *  coefficient cannot be modelled and cited (§3), and a coefficient on a different metric than the base
  *  cannot be applied to the base level. Returns the computable plans plus (when nothing is computable) the
  *  honest refusal reason, if any. */
-export function validateIntents(pr: ParseResult, question: string, sidecar: SensitivitySidecar): { plans: Plan[]; refusal: UnsupportedReason | null } {
+export function validateIntents(pr: ParseResult, question: string, sidecar: SensitivitySidecar): { plans: Plan[]; refusal: UnsupportedReason | null; omitted: number } {
   const rows = new Map(sensRows(sidecar).filter((r) => r?.variable).map((r) => [r.variable.toLowerCase(), r] as const))
   const seen = new Set<string>()
   const plans: Plan[] = []
   let refusal: UnsupportedReason | null = null
-  for (const it of (pr.intents || []).slice(0, MAX_INTENTS)) {
+  let omitted = 0
+  // validate EVERY intent, cap only the VALID ones — a junk intent must not silently eat a slot, and a
+  // valid ask beyond the cap is COUNTED so the answer can say so instead of presenting a subset as the
+  // whole (Codex #335 P2 r3643707266)
+  for (const it of pr.intents || []) {
     const row = rows.get(it.variable.toLowerCase())
     if (!row || seen.has(row.variable)) continue
     if (!questionMentionsRow(question, row)) continue         // the variable must be the one the user asked about
     if (!valueAppearsInQuestion(it.value, question)) continue // the anti-invention gate
+    // mode sanity: a margin-target intent from a question that never talks about a margin/percentage is a
+    // mis-read ("aluminium rises $45/mt" must not solve for an absurd 45% margin with full authority) —
+    // drop it, never repair it (Codex #335 P2 r3643707271)
+    if (it.mode !== 'move' && it.mode !== 'level' && !/margin|%|percent/i.test(question)) continue
     if (!(typeof row.source === 'string' && row.source.trim())) { refusal = refusal ?? 'no_source'; continue }
     if (row.impact_metric && sidecar.base_metric && row.impact_metric !== sidecar.base_metric) { refusal = refusal ?? 'metric_mismatch'; continue }
     let req: ScenarioRequest | null = null
@@ -273,11 +292,12 @@ export function validateIntents(pr: ParseResult, question: string, sidecar: Sens
       if (!(typeof sidecar.revenue_base === 'number' && sidecar.revenue_base > 0)) { refusal = refusal ?? 'no_revenue_base'; continue }
       req = { targetMargin: Math.abs(it.value) }
     }
+    if (plans.length >= MAX_INTENTS) { omitted++; continue }
     plans.push({ variable: row.variable, row, req })
     seen.add(row.variable)
   }
   if (!plans.length && !refusal && pr.asksUnrecorded) refusal = 'unrecorded'
-  return { plans, refusal }
+  return { plans, refusal, omitted }
 }
 
 // ---- 4. compute: shell out to the deterministic engine -----------------------------------------------
