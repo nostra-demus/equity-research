@@ -1450,6 +1450,18 @@ a { color: inherit; }
 .poolchip__unit { opacity: 0.65; }
 @media (prefers-reduced-motion: reduce) { .poolchip__fill { transition: none; } }
 
+/* LOCAL primary brain chip — rendered first, given more presence than the small fallback budget chips: a
+   stronger azure border + wash, a live health dot, and a prominent live token count. There is no cap bar
+   because the tier is unlimited — the numbers ARE the readout (tokens + requests processed today). */
+.poolchip--local { padding: 4px 11px; border-color: color-mix(in srgb, var(--provider-local) 55%, var(--hairline)); background: color-mix(in srgb, var(--provider-local) 10%, var(--surface-2)); }
+.poolchip--local.is-down { border-color: color-mix(in srgb, var(--bad) 55%, var(--hairline)); background: var(--bad-wash); }
+.poolchip__dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; background: var(--text-faint); }
+.poolchip__dot[data-tone="live"] { background: var(--live); box-shadow: 0 0 0 3px var(--live-wash); }
+.poolchip__dot[data-tone="bad"] { background: var(--bad); box-shadow: 0 0 0 3px var(--bad-wash); }
+.poolchip__big { font-weight: 700; font-size: 12px; }
+.poolchip__inf { margin-left: 4px; opacity: 0.55; font-weight: 700; }
+.poolchip__val--down { color: var(--bad); font-weight: 600; }
+
 /* time-travel window selector — surface news over 14d / 1mo / 6mo / all, from the on-disk archive */
 .wirewindow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 10px 20px; border-bottom: 1px solid var(--hairline); }
 .wirewindow__label { font-size: 10px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); margin-right: 4px; }
@@ -2679,6 +2691,17 @@ a { color: inherit; }
 .scanstat__last { color: var(--text-faint); }
 .scanstat__last b { color: var(--text-muted); font-weight: 600; }
 .scanstat__last .scanstat__kept { color: var(--accent-bright); }
+/* LOCAL primary brain readout in the EVENTS strip / watch-live — the live token throughput of the unlimited $0
+   model. Azure to match its provider token; flips to the warning colour when the box is offline. */
+.scanstat__local { display: flex; align-items: center; gap: 6px; color: var(--provider-local); }
+.scanstat__local b { color: var(--provider-local); font-weight: 700; }
+.scanstat__local--down, .scanstat__local--down b { color: var(--bad); }
+.scanstat__localdot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; background: var(--text-faint); }
+.scanstat__localdot[data-tone="live"] { background: var(--provider-local); box-shadow: 0 0 6px color-mix(in srgb, var(--provider-local) 60%, transparent); }
+.scanstat__localdot[data-tone="bad"] { background: var(--bad); box-shadow: 0 0 6px color-mix(in srgb, var(--bad) 55%, transparent); }
+.scanstat__localinf { opacity: 0.6; }
+.scanstat__loglocal { color: var(--provider-local); }
+.scanstat__loglocal--down { color: var(--bad); }
 /* the warning row — the "988 items not scored (LLM hiccup)" note the cockpit used to hide entirely */
 .scanstat__note {
   display: flex; align-items: baseline; gap: 5px;

@@ -16,6 +16,12 @@ export function tierMeter(t: TierDiagnostics): { label: string; frac: number } {
     const cap = t.usdCap ?? 0
     return { label: `$${used.toFixed(2)} / $${kfmt(cap)}`, frac: cap > 0 ? Math.min(1, used / cap) : 0 }
   }
+  // Unlimited tier (the LOCAL primary brain): no reqCap AND no tokenCap → there is nothing to meter against.
+  // Show the raw live counts (tokens + requests processed today) and signal "no bar" with frac -1, so the panel
+  // renders an "∞ no cap" affordance instead of a misleading "/0 req" bar.
+  if (!t.reqCap && !t.tokenCap) {
+    return { label: `${kfmt(t.tokensToday ?? 0)} tok · ${kfmt(t.requestsToday ?? 0)} req`, frac: -1 }
+  }
   const reqFrac = t.reqCap ? (t.requestsToday ?? 0) / t.reqCap : -1
   const tokFrac = t.tokenCap ? (t.tokensToday ?? 0) / t.tokenCap : -1
   if (tokFrac > reqFrac) return { label: `${kfmt(t.tokensToday ?? 0)}/${kfmt(t.tokenCap ?? 0)} tok`, frac: Math.min(1, tokFrac) }

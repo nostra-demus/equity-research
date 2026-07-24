@@ -728,6 +728,9 @@ export interface CycleSummary {
   inboxed?: number
   groq_requests?: number
   groq_tokens?: number
+  local_requests?: number // batches scored by the LOCAL primary brain (unlimited / $0) — present only when it ran
+  local_tokens?: number
+  local_down?: boolean // the LOCAL primary brain was unreachable/failed this cycle → the scan ran on the cloud fallback
   note?: string // why a cap was hit / why items were deferred — the warning the user must see
   // end-to-end transparency (all optional — an older server simply omits them)
   fresh?: number // genuinely new items this cycle (candidates = fresh + carryover)
@@ -760,6 +763,10 @@ export interface NewsStatus {
   // tokenCap is present only for TOKEN-gated providers (Cerebras) — the chip then reads tokens (its
   // binding limit) instead of requests, so the number shown is ground truth.
   overflow?: { id: string; label: string; color: string; model: string; requests: number; reqCap: number; tokens: number; tokenCap?: number }[]
+  // the LOCAL primary brain — the unlimited $0 tier tried FIRST for every batch when enabled AND primary.
+  // Absent when local is off OR demoted to a fallback (it then appears in `overflow`). The cockpit renders this
+  // FIRST and prominently, showing live tokens/requests processed today — there is no cap to show.
+  local?: { id: string; label: string; color: string; model: string; requests: number; tokens: number; health: TierHealth; cooldownRemainingMs?: number }
 }
 
 // ---- full pipeline diagnostics (GET /api/news/diagnostics) — mirrors server NewsDiagnostics ----

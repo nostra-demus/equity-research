@@ -289,6 +289,20 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const anthropicLimiter = anthropicOn ? getNamedLimiter('anthropic-triage', cfg.anthropicRpm, 0) : null
   const anthropicCooldownWasSet = anthropicOn ? readCooldownUntil(stateDir, 'anthropic-triage') : 0
   const anthropicCoolingDown = anthropicOn && isCoolingDown(stateDir, 'anthropic-triage', now().getTime())
+  // LOCAL PRIMARY BRAIN. cfg.localProvider is non-null ONLY when local is enabled AND primary (the default once
+  // enabled) — it is then tried FIRST for every batch below, ahead of Groq, with NO daily cap and no per-minute
+  // spacing. Its budget file (local-budget.json) is still recorded so the cockpit can show live tokens/requests
+  // processed today. When null (local off, or demoted to a fallback via NEWS_LOCAL_PRIMARY=0 → it rejoins the
+  // overflow chain), this whole path is inert and the Groq-first chain is byte-for-byte unchanged.
+  const localProvider = cfg.localProvider
+  const localOn = !!localProvider
+  const localLimiter = localOn ? getNamedLimiter('local', localProvider!.rpm, localProvider!.tpm ?? 0) : null
+  const localBudget = localOn ? Budget.load(stateDir, localProvider!.dailyReqCap, localProvider!.dailyTokenCap ?? 50_000_000, now().getTime(), localProvider!.budgetFile, localProvider!.dayTz) : null
+  const localCoolingDown = localOn && isCoolingDown(stateDir, 'local', now().getTime())
+  const localCooldownWasSet = localOn ? readCooldownUntil(stateDir, 'local') : 0
+  let localRequests = 0
+  let localTokens = 0
+  let localDownThisCycle = false // once the local box fails this cycle, stop poking it and use the cloud fallback
   const triaged: TriagedItem[] = []
   const deferred: NewsItem[] = [] // unscored this cycle (budget hit / batch failed) — re-queued next cycle
   let groqRequests = 0
@@ -344,7 +358,31 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // never stall triage: the batch flows to whoever is up. `res` stays undefined only when NOTHING
     // was even attempted (all daily budgets out) → that's the genuine "defer the rest" case.
     let res
-    if (groqOk && !groqDownThisCycle && !groqCoolingDown) {
+    // LOCAL PRIMARY BRAIN, tried FIRST: unlimited, $0, no cap. When the local box is up it scores the WHOLE
+    // scan and the Groq → overflow → Gemini → Haiku chain below never fires — no ceiling, no daily-cap loss.
+    // When it is down this cycle (box asleep / unreachable / error), we arm a SHORT cooldown and fall straight
+    // through to that chain, exactly as before. Inert when local is off or demoted (localProvider is null),
+    // so the Groq-first path is unchanged: `res` stays undefined and the gate below runs Groq first.
+    if (localProvider && !localDownThisCycle && !localCoolingDown) {
+      await localLimiter!.acquire(est, sleep, () => now().getTime()) // rpm 0 → returns immediately (no spacing)
+      res = await triageBatch(batch, { model: localProvider.model, models: localProvider.models, baseUrl: localProvider.baseUrl, apiKey: localProvider.apiKey, maxTokens: localProvider.maxTokens, headers: localProvider.headers, extraBody: localProvider.extraBody, timeoutMs: localProvider.timeoutMs, maxAttempts: localProvider.maxAttempts }, fetchFn, sleep)
+      localRequests += res.requests
+      localTokens += res.tokens
+      localBudget!.record(res.requests, res.tokens) // record to local-budget.json so the cockpit shows live throughput
+      localLimiter!.learn(res.rate, () => now().getTime())
+      if (res.ok) {
+        if (localCooldownWasSet) clearCooldown(stateDir, 'local') // box recovered after a prior failure → drop the marker
+      } else {
+        localDownThisCycle = true // box is down this cycle → stop poking it, fall through to the cloud fallback chain
+        // SHORT, FLAT cooldown (base == max flattens the exponential) so the NEXT cycle re-probes quickly when the
+        // box wakes — local has no daily cap to protect from failed-probe burn, so fast recovery beats sparing a probe.
+        armCooldown(stateDir, now().getTime(), cfg.localCooldownMs, 'local', cfg.localCooldownMs)
+      }
+    }
+    // Groq (now the FIRST FALLBACK when local is primary; the primary when local is off/demoted). Gated on
+    // `!res || !res.ok` so it runs only when local didn't already score the batch — when local is off, `res` is
+    // undefined here and this is byte-for-byte the old Groq-first behaviour.
+    if ((!res || !res.ok) && groqOk && !groqDownThisCycle && !groqCoolingDown) {
       await limiter.acquire(est, sleep, () => now().getTime())
       res = await triageBatch(batch, { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens }, fetchFn, sleep)
       groqRequests += res.requests
@@ -525,6 +563,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     }
   }
   budget.save()
+  if (localBudget) localBudget.save() // persist local's daily tokens/requests so the cockpit reads live throughput
   for (const g of geminiPool) g.budget.save()
   for (const o of overflow) o.budget.save()
   if (anthropicBudget) anthropicBudget.save()
@@ -675,9 +714,15 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
             : undefined
   // Append the honest loss clause so a defer note never reads as if everything was merely postponed when part
   // of it was actually dropped (the reported "clears when quotas reset" is false for the lost tail).
-  const note = droppedAtCap > 0
+  const coreNote = droppedAtCap > 0
     ? `${baseNote ? `${baseNote} · ` : ''}${droppedAtCap} item${droppedAtCap === 1 ? '' : 's'} DROPPED past the ${DEFERRED_CAP}-item cap (not deferred — lost)`
     : baseNote
+  // Surface a down PRIMARY brain even when the fallback coped and nothing deferred: the operator wants to know the
+  // local box is asleep/unreachable, because the scan is then spending capped cloud/paid budget and risks a ceiling.
+  const localDownNote = localOn && localDownThisCycle
+    ? 'LOCAL primary brain unreachable this look — running on the capped cloud fallback; check the box'
+    : ''
+  const note = [localDownNote, coreNote].filter(Boolean).join(' · ') || undefined
   // Structured twin of the note, in the same precedence, so the cockpit can reason about the defer reason
   // without parsing free text.
   const deferReason: CycleSummary['defer_reason'] = !defCount
@@ -707,6 +752,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ...(aborted ? { aborted: true } : {}),
     ...(deferReason ? { defer_reason: deferReason } : {}),
     last_resort: lastResort,
+    ...(localRequests ? { local_requests: localRequests, local_tokens: localTokens } : {}),
+    ...(localOn && localDownThisCycle ? { local_down: true } : {}),
     ...(geminiRequests ? { gemini_requests: geminiRequests, gemini_tokens: geminiTokens } : {}),
     ...(overflowReq ? { overflow_requests: overflowReq, overflow_tokens: overflowTok } : {}),
     ...(anthropicRequests ? { anthropic_requests: anthropicRequests, anthropic_tokens: anthropicTokens, anthropic_cost_usd: Math.round(anthropicCostUsd * 10_000) / 10_000 } : {}),
@@ -716,7 +763,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   }
   appendFirehoseSummary(repoRoot, date, summary)
   newsBus.emit({ type: 'news-cycle', summary })
-  log(`news cycle: fetched ${raws.length}, ${items.length} new, picked ${picked}, watched ${watched}, dropped ${dropped}; groq ${groqRequests} req / ${groqTokens} tok${geminiRequests ? ` · gemini ${geminiRequests} req / ${geminiTokens} tok` : ''}${overflowLog}${anthropicRequests ? ` · haiku ${anthropicRequests} req / $${anthropicCostUsd.toFixed(3)}` : ''}`)
+  log(`news cycle: fetched ${raws.length}, ${items.length} new, picked ${picked}, watched ${watched}, dropped ${dropped}; ${localRequests ? `local ${localRequests} req / ${localTokens} tok · ` : ''}groq ${groqRequests} req / ${groqTokens} tok${geminiRequests ? ` · gemini ${geminiRequests} req / ${geminiTokens} tok` : ''}${overflowLog}${anthropicRequests ? ` · haiku ${anthropicRequests} req / $${anthropicCostUsd.toFixed(3)}` : ''}`)
 
   // 5. THEMES — bucket the material items into living, ranked investment themes (assign every cycle,
   // discover periodically, decay automatically). Runs AFTER the write and is fully guarded, so a themes

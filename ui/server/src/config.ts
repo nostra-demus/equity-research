@@ -308,50 +308,61 @@ export function buildOverflowProviders(): OverflowProvider[] {
       budgetFile: 'nvidia-budget.json',
     })
   }
-  // Local model (Ollama / llama.cpp / LM Studio) — the ONLY tier here that is unlimited, never rate-limited,
-  // and $0. It exists to drain the paced backlog the metered free clouds above can't reach, and to keep the
-  // paid last-resort (Anthropic) from ever firing. OpenAI-compatible (/v1/chat/completions) so it reuses the
-  // exact same call path — no new provider code. It runs on a separate always-available box: here the M3
-  // MacBook Air, which the engine (on the primary) reaches over the LAN via NEWS_LOCAL_BASE_URL (a localhost
-  // default when the model runs on the same box). When that box sleeps or is unreachable, the loop's
-  // 429/network handling arms a cooldown and falls straight through to Gemini -> paid -> defer, exactly as for
-  // any other provider — so a part-time local box degrades gracefully, it never stalls the pipeline. OFF by
-  // default: enable only once the local server is actually up, with NEWS_LOCAL_ENABLED=1.
-  //   - MODEL: default qwen2.5:7b-instruct. On a 16GB Apple-Silicon box it fits in ~4.7GB at 4-bit and is the
-  //     strongest small model at the two things triage leans on — reliable batched JSON and non-English
-  //     headline translation (llama-3.1-8b, the Groq primary, is weaker at both). Override via NEWS_LOCAL_MODEL.
-  //   - KEY: a local server needs none, but the OpenAI-compatible call path skips any provider with an empty
-  //     apiKey, so we send a harmless dummy ('local'); Ollama/llama.cpp ignore the Bearer header. Override if
-  //     the server enforces one.
-  //   - UNLIMITED: rpm 0 -> no per-minute spacing (RateLimiter treats 0 as "no gap"); no tpm/dailyTokenCap; a
-  //     huge dailyReqCap so canSpend() never blocks. Placed LAST so the stronger capped clouds get first crack
-  //     and local absorbs only the tail — and it still runs before Gemini + the paid tier, killing deferral/spend.
-  //   - TIMEOUT: a 7-8B model on a 16GB Mac at ~15-25 tok/s answering up to maxTokens (3500) output tokens can
-  //     legitimately run past triageBatch's generic 30s default — that's a valid slow answer, not a hang, and
-  //     misreading it as one would arm the cooldown and sideline a working tier. timeoutMs raises the ceiling;
-  //     maxAttempts 1 (not the generic 2) avoids doubling that wait on a genuine failure — a real outage is
-  //     caught by the NEXT cycle's cross-cycle cooldown probe, not by retrying the same slow call twice in one.
-  //   - ARTICLE READ: skipArticleRead keeps this tier OUT of buildArticleReadProviders. That path shares this
-  //     id's cooldown with the background triage/backlog-drain loop but runs on a short ~7s user-facing
-  //     deadline (article-read.ts perCallTimeoutMs) with 1 attempt — a slow-but-healthy local answer would
-  //     time out there and arm the SAME cooldown triage relies on, sidelining backlog-drain over one manual
-  //     article open. Local's documented value is throughput for the backlog, not interactive article reads.
-  if (process.env.NEWS_LOCAL_ENABLED === '1') {
-    out.push({
-      id: 'local', label: 'Local', color: '--provider-local',
-      apiKey: process.env.NEWS_LOCAL_API_KEY || 'local', // dummy non-empty — see KEY note above
-      baseUrl: process.env.NEWS_LOCAL_BASE_URL || 'http://localhost:11434/v1',
-      model: process.env.NEWS_LOCAL_MODEL || 'qwen2.5:7b-instruct',
-      dailyReqCap: capNum(process.env.NEWS_LOCAL_DAILY_REQ_CAP, 100_000_000), // effectively unlimited
-      rpm: capNum(process.env.NEWS_LOCAL_RPM, 0), // 0 -> no per-minute spacing (a local model has no rate limit)
-      timeoutMs: capNum(process.env.NEWS_LOCAL_TIMEOUT_MS, 120_000), // 4-8x the generic default — see TIMEOUT note
-      maxAttempts: capNum(process.env.NEWS_LOCAL_MAX_ATTEMPTS, 1), // don't double the wait on a real failure — see TIMEOUT note
-      skipArticleRead: true, // see ARTICLE READ note above
-      maxTokens: capNum(process.env.NEWS_LOCAL_MAX_TOKENS, 3_500),
-      budgetFile: 'local-budget.json',
-    })
-  }
+  // Local model: by default (once NEWS_LOCAL_ENABLED=1) it is the PRIMARY brain — tried FIRST in runCycle and
+  // exposed via NEWS.localProvider, NOT part of this overflow chain. It stays here as the LAST free fallback
+  // ONLY when the operator opts out of primary with NEWS_LOCAL_PRIMARY=0 (the prior "local absorbs the tail"
+  // placement). See buildLocalProvider() below for the full rationale.
+  if (!localIsPrimary()) { const local = buildLocalProvider(); if (local) out.push(local) }
   return out
+}
+
+// The LOCAL model tier (Ollama / llama.cpp / LM Studio) — the ONLY tier that is unlimited, never rate-limited,
+// and $0. OpenAI-compatible (/v1/chat/completions), so it reuses the exact same call path — no new provider
+// code. It runs on a separate always-available box (a Mac mini / M-series Air on the LAN), reached over
+// NEWS_LOCAL_BASE_URL. When that box sleeps or is unreachable, the loop's 429/network handling arms a SHORT
+// cooldown (NEWS.localCooldownMs) and falls straight through to the cloud fallback chain — so a part-time box
+// degrades gracefully and never stalls the pipeline. OFF by default: enable with NEWS_LOCAL_ENABLED=1.
+//
+// PRIMARY BY DEFAULT (NEWS_LOCAL_PRIMARY, default on once enabled). Because it is unlimited and $0, once a local
+// box is up it should carry the WHOLE scan and everything else is fallback — so runCycle tries it FIRST, ahead
+// of Groq, for every batch. This is the deliberate owner choice to trade the marginal quality of a cloud
+// 70B/120B pre-read for NEVER hitting a ceiling and NEVER losing an item to a daily cap. Set NEWS_LOCAL_PRIMARY=0
+// to revert to the old "local is the LAST free fallback" placement (it then rejoins buildOverflowProviders).
+//   - MODEL: default qwen2.5:7b-instruct. On a 16GB Apple-Silicon box it fits in ~4.7GB at 4-bit and is the
+//     strongest small model at the two things triage leans on — reliable batched JSON and non-English
+//     headline translation (llama-3.1-8b, the Groq fallback, is weaker at both). Override via NEWS_LOCAL_MODEL.
+//   - KEY: a local server needs none, but the OpenAI-compatible call path skips any provider with an empty
+//     apiKey, so we send a harmless dummy ('local'); Ollama/llama.cpp ignore the Bearer header.
+//   - UNLIMITED: rpm 0 -> no per-minute spacing (RateLimiter treats 0 as "no gap"); no tpm/dailyTokenCap; a
+//     huge dailyReqCap so canSpend() never blocks. There is deliberately NO ceiling here — it processes 24x7.
+//   - TIMEOUT: a 7-8B model at ~15-25 tok/s answering up to maxTokens (3500) output tokens can legitimately run
+//     past triageBatch's generic 30s default — a valid slow answer, not a hang. timeoutMs raises the ceiling;
+//     maxAttempts 1 avoids doubling that wait on a genuine failure (a real outage is caught by the SHORT
+//     cross-cycle cooldown probe on the next cycle, which recovers fast because local has no cap to protect).
+//   - ARTICLE READ: skipArticleRead keeps this tier OUT of buildArticleReadProviders — the interactive read runs
+//     a short ~7s deadline a legitimately-slow local answer would trip, arming the shared cooldown. Local's
+//     value is background-scan throughput, not one interactive article; reads keep using the cloud chain.
+export function buildLocalProvider(): OverflowProvider | null {
+  if (process.env.NEWS_LOCAL_ENABLED !== '1') return null
+  return {
+    id: 'local', label: 'Local', color: '--provider-local',
+    apiKey: process.env.NEWS_LOCAL_API_KEY || 'local', // dummy non-empty — see KEY note above
+    baseUrl: process.env.NEWS_LOCAL_BASE_URL || 'http://localhost:11434/v1',
+    model: process.env.NEWS_LOCAL_MODEL || 'qwen2.5:7b-instruct',
+    dailyReqCap: capNum(process.env.NEWS_LOCAL_DAILY_REQ_CAP, 100_000_000), // effectively unlimited — no ceiling
+    rpm: capNum(process.env.NEWS_LOCAL_RPM, 0), // 0 -> no per-minute spacing (a local model has no rate limit)
+    timeoutMs: capNum(process.env.NEWS_LOCAL_TIMEOUT_MS, 120_000), // 4-8x the generic default — see TIMEOUT note
+    maxAttempts: capNum(process.env.NEWS_LOCAL_MAX_ATTEMPTS, 1), // don't double the wait on a real failure
+    skipArticleRead: true, // see ARTICLE READ note above
+    maxTokens: capNum(process.env.NEWS_LOCAL_MAX_TOKENS, 3_500),
+    budgetFile: 'local-budget.json',
+  }
+}
+
+/** Is the local tier the PRIMARY brain (tried first for every batch, everything else fallback)? On by default
+ *  once local is enabled; NEWS_LOCAL_PRIMARY=0 reverts to the old "local is the last free fallback" placement. */
+export function localIsPrimary(): boolean {
+  return process.env.NEWS_LOCAL_ENABLED === '1' && process.env.NEWS_LOCAL_PRIMARY !== '0'
 }
 export const LAUNCH_GUARDS: Record<LaunchKind, { maxTurns: number; budgetUsd: number }> = {
   full: { maxTurns: capNum(process.env.ENGINE_FULL_MAX_TURNS, 2500), budgetUsd: capNum(process.env.ENGINE_FULL_BUDGET_USD, 300) },
@@ -612,6 +623,15 @@ export const NEWS = {
   // than Groq's 8B. Adding another OpenAI-compatible free key = one entry in buildOverflowProviders() — it
   // then auto-appears in routing, the drain gate, status, and as a cockpit chip (§26, zero other edits).
   overflowProviders: buildOverflowProviders(),
+  // LOCAL primary brain — the unlimited $0 tier tried FIRST for every batch when enabled (NEWS_LOCAL_PRIMARY,
+  // default on). null when local is off OR demoted to a fallback (NEWS_LOCAL_PRIMARY=0 → it lives in
+  // overflowProviders instead). runCycle routes to it ahead of Groq; getNewsStatus/diagnostics surface it first.
+  localProvider: localIsPrimary() ? buildLocalProvider() : null,
+  localPrimary: localIsPrimary(),
+  // Local's cross-cycle cooldown after a failed probe: SHORT + flat (re-probe a sleeping box fast), unlike the
+  // cloud tiers' exponential backoff — local has no daily cap to protect from failed-probe burn, so recovering
+  // fast when the box wakes matters more than sparing a failed call.
+  localCooldownMs: capNum(process.env.NEWS_LOCAL_COOLDOWN_SEC, 45) * 1000,
   triageBatch: capNum(process.env.NEWS_TRIAGE_BATCH, 12),
   // GDELT look-back per cycle (minutes; > pollInterval gives overlap so nothing slips the gap).
   gdeltLookbackMin: capNum(process.env.NEWS_GDELT_LOOKBACK_MIN, 40),

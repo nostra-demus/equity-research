@@ -35,6 +35,13 @@ check('token-only tier, mid-usage → reports tokens with correct frac', () => {
   assert.equal(m.frac, 0.5)
 })
 
+// --- the LOCAL primary brain is UNLIMITED (no reqCap, no tokenCap): show raw live counts, no cap bar (frac -1) ---
+check('unlimited tier (local primary brain) → raw tokens+requests, frac -1 (renders "∞ no cap")', () => {
+  const m = tierMeter(base({ id: 'local', role: 'primary', requestsToday: 480, tokensToday: 899_000 }))
+  assert.equal(m.label, '899k tok · 480 req')
+  assert.equal(m.frac, -1)
+})
+
 // --- existing tier shapes must be UNCHANGED by the fix ---
 check('request-only tier (Gemini shape), idle → reports requests', () => {
   const m = tierMeter(base({ role: 'gemini', reqCap: 1500, requestsToday: 0 }))

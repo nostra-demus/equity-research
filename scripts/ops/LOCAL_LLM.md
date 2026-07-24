@@ -1,10 +1,13 @@
 # Local LLM tier for the news ingester
 
 A **local model** (Ollama / llama.cpp / LM Studio) plugged into the ingester as a **$0, never-rate-limited,
-unlimited** bottom tier. It drains the paced backlog the free cloud providers can't reach, and keeps the paid
-last-resort (Anthropic Haiku) from firing on heavy news days.
+unlimited** brain. Once enabled it is the **PRIMARY** tier — tried FIRST for every batch, ahead of Groq and
+every cloud/paid pool — so on a box that runs 24×7 it carries the **whole** scan, nothing hits a daily ceiling,
+and no material item is lost to a cap. Groq + the free/paid clouds become the **fallback**, used only when the
+local box is asleep or unreachable.
 
 It is **off by default**. Nothing changes until you set `NEWS_LOCAL_ENABLED=1` and actually stand up a server.
+When enabled it is **primary by default**; set `NEWS_LOCAL_PRIMARY=0` to keep it as the old last-in-line fallback.
 
 ---
 
@@ -29,18 +32,22 @@ We are **not** buying hardware — this runs entirely on machines you already ha
 
 ## Why it's shaped this way (read this first)
 
-- The ingester is **not** short on brains — the primary triage model is already an 8B (`llama-3.1-8b-instant`).
-  Items are "held / dropped" because the free tiers are **paced to spread a daily token budget evenly across
-  the clock**, not because a smarter model is needed. So a local model's job is **throughput, not quality**:
-  be an unlimited extra worker.
-- A local model can't out-think the cloud 70B/120B overflow tiers. It's placed **last** among the free tiers,
-  so the stronger capped clouds (Cerebras/OpenRouter/NVIDIA, all `gpt-oss-120b` / `llama-3.3-70b`) get first
-  crack and the local box absorbs only the tail — but it runs **before** Gemini and the paid tier, so it kills
-  deferral and paid spend.
-- When the local box **sleeps or goes unreachable**, the ingester's normal 429/network handling arms a cooldown
-  and falls straight through to Gemini → paid → defer. A part-time local box degrades gracefully; it never
-  stalls the pipeline. That's why running it on the **M3 Air** (which sleeps lid-closed) is fine as a
-  "when-I'm-working" booster.
+- **Local is the PRIMARY brain (default when enabled).** Because it is unlimited and $0, the throughput ceiling
+  that makes the free clouds "hold / drop" items simply does not apply to it — so it carries the whole scan, not
+  just the tail. It is tried FIRST for every batch, ahead of Groq and every cloud/paid pool. On a 24×7 box this
+  is what makes "nothing is ever deferred to a ceiling" actually true: there is no daily cap to hit.
+- **The quality trade is deliberate and owned.** A local 7-8B is a weaker pre-read than a cloud 70B/120B, but the
+  triage score is only a cheap PRE-read that decides inbox membership and ranking — the real materiality work is
+  the Claude gauntlet on promotion. Trading a little pre-read quality for never losing an item to a cap is the
+  intended call. To restore the old "quality-first, local-last" placement set `NEWS_LOCAL_PRIMARY=0`: local then
+  rejoins the free overflow chain as its LAST tier (Cerebras/OpenRouter/NVIDIA get first crack, local absorbs the
+  tail), still ahead of Gemini + the paid tier.
+- When the local box **sleeps or goes unreachable**, the ingester arms a SHORT cooldown (`NEWS_LOCAL_COOLDOWN_SEC`,
+  default 45s — flat, so it re-probes fast when the box wakes) and falls straight through to Groq → cloud overflow
+  → Gemini → paid → defer. A part-time box degrades gracefully; it never stalls the pipeline, and the cockpit
+  flags "Local primary brain unreachable" so you know to wake it. Running it on the **M3 Air** (which sleeps
+  lid-closed) works as a booster — but for the 24×7 "no ceiling, ever" goal you want an always-on Apple-Silicon
+  box (e.g. a Mac mini).
 
 ---
 
@@ -169,6 +176,8 @@ launchctl kickstart -k gui/$(id -u)/com.nostradamus.engine
 | Env var | Default | Purpose |
 | --- | --- | --- |
 | `NEWS_LOCAL_ENABLED` | *(unset → off)* | `1` to enable the tier |
+| `NEWS_LOCAL_PRIMARY` | `1` (on when enabled) | local is the PRIMARY brain, tried first for every batch; `0` = the old last-in-line free fallback |
+| `NEWS_LOCAL_COOLDOWN_SEC` | `45` | short, flat cooldown after a failed probe so a woken box re-engages fast (local has no cap to protect) |
 | `NEWS_LOCAL_BASE_URL` | `http://localhost:11434/v1` | OpenAI-compatible base URL of the local server |
 | `NEWS_LOCAL_MODEL` | `qwen2.5:7b-instruct` | model tag the server serves |
 | `NEWS_LOCAL_API_KEY` | `local` (dummy) | only set if the server enforces a key |
@@ -187,6 +196,9 @@ overflow → Gemini exactly as before.
 **Turn it off:** set `NEWS_LOCAL_ENABLED=0` (or remove the line) and restart the engine. The tier disappears and
 the chain reverts to Groq → cloud overflow → Gemini → paid → defer.
 
-The wiring is a single entry in `buildOverflowProviders()` (`ui/server/src/config.ts`); it auto-flows into
-triage, auto-heal, and the status/headroom paths with no other code — it opts OUT of the on-demand
-article-read path specifically (`skipArticleRead: true`, see the "Not used for article reads" note above).
+The wiring is `buildLocalProvider()` + `localIsPrimary()` (`ui/server/src/config.ts`): when primary, local is
+exposed as `NEWS.localProvider` and `runCycle` tries it FIRST (ahead of Groq), while `getNewsStatus` /
+`getNewsDiagnostics` surface it first and prominently in the cockpit (its own azure chip with live tokens/requests,
+no cap bar). When demoted (`NEWS_LOCAL_PRIMARY=0`) it rejoins `buildOverflowProviders()` as the last free tier.
+Either way it opts OUT of the on-demand article-read path (`skipArticleRead: true`, see the "Not used for article
+reads" note above).

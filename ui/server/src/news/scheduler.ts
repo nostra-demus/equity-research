@@ -320,6 +320,11 @@ export interface NewsStatus {
   // tokenCap is set ONLY for TOKEN-gated providers (e.g. Cerebras) — the cockpit then shows the chip in
   // tokens (its BINDING limit) instead of requests, so the readout is ground truth, not a non-binding proxy.
   overflow: { id: string; label: string; color: string; model: string; requests: number; reqCap: number; tokens: number; tokenCap?: number }[]
+  // the LOCAL primary brain — the unlimited $0 tier tried FIRST for every batch when enabled AND primary
+  // (NEWS_LOCAL_PRIMARY, default on once enabled). Absent when local is off OR demoted to a fallback (it then
+  // appears in `overflow` instead). The cockpit renders this FIRST and prominently, showing live tokens/requests
+  // processed today — there is deliberately NO cap to show, so it reads "N tok · M req today", not a used/cap bar.
+  local?: { id: string; label: string; color: string; model: string; requests: number; tokens: number; health: TierHealth; cooldownRemainingMs?: number }
 }
 
 /** Status for the cockpit. Daily counts come from today's firehose ON DISK (restart-proof). */
@@ -372,6 +377,17 @@ export function getNewsStatus(): NewsStatus {
     // request-gated provider (OpenRouter/NVIDIA) leaves it undefined → the chip stays on requests, as before.
     overflow.push({ id: p.id, label: p.label, color: p.color, model: lead, requests: u.used, reqCap: u.cap, tokens: u.tokens, tokenCap: p.dailyTokenCap })
   }
+  // LOCAL primary brain live readout — its daily tokens/requests (from local-budget.json, the file runCycle
+  // records each cycle) plus cooldown/health, so the cockpit can show it FIRST and prominently. Absent unless
+  // local is primary (NEWS.localProvider set); when demoted it stays a normal overflow chip above.
+  let local: NewsStatus['local']
+  if (NEWS.localProvider) {
+    const lp = NEWS.localProvider
+    const lb = readDailyBudget(lp.budgetFile, todayDate)
+    const cd = cooldownInfo(STATE_DIR, 'local')
+    const coolMs = Math.max(0, cd.until - Date.now())
+    local = { id: lp.id, label: lp.label, color: lp.color, model: lp.model.split('/').pop() || lp.id, requests: lb.requests, tokens: lb.tokens, health: tierHealth(true, coolMs, false), cooldownRemainingMs: coolMs || undefined }
+  }
   return {
     enabled: NEWS.enabled,
     running,
@@ -386,6 +402,7 @@ export function getNewsStatus(): NewsStatus {
     today,
     budget,
     overflow,
+    local,
   }
 }
 
@@ -527,8 +544,25 @@ export function getNewsDiagnostics(): NewsDiagnostics {
     : null
 
   const tiers: TierDiagnostics[] = []
+  // local is the PRIMARY brain (unlimited, $0, tried first) → it leads the ladder and Groq becomes a fallback.
+  const localPrimary = !!NEWS.localProvider
+  let order = 0
 
-  // --- Groq (primary, order 0) ---
+  // --- Local primary brain (order 0) — unlimited, $0, tried FIRST for every batch ---
+  if (NEWS.localProvider) {
+    const lp = NEWS.localProvider
+    const b = readDailyBudget(lp.budgetFile, todayUtc)
+    const cd = cooldownInfo(STATE_DIR, 'local')
+    const coolMs = Math.max(0, cd.until - now)
+    tiers.push({
+      id: lp.id, label: lp.label, color: lp.color, role: 'primary', order: order++, enabled: true, meter: 'requests',
+      health: tierHealth(true, coolMs, false), // no daily cap → never "budget-spent"; healthy unless cooling
+      requestsToday: b.requests, tokensToday: b.tokens, // no reqCap / tokenCap on purpose — it is unlimited
+      cooldownRemainingMs: coolMs || undefined, fails: cd.fails || undefined, lastCycleRequests: last?.local_requests,
+    })
+  }
+
+  // --- Groq (the PRIMARY when local is off; the FIRST FALLBACK when local is primary) ---
   {
     const enabled = !!NEWS.groqApiKey
     const b = readDailyBudget('groq-budget.json', todayUtc)
@@ -538,15 +572,14 @@ export function getNewsDiagnostics(): NewsDiagnostics {
     const spent = b.requests >= NEWS.groqDailyReqCap || b.tokens + est > NEWS.groqDailyTokenCap
     const paced = enabled && !spent && !pacedHasHeadroom(b.tokens, b.requests, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE, now, est)
     tiers.push({
-      id: 'groq', label: 'Groq', color: '--accent', role: 'primary', order: 0, enabled, meter: 'requests',
+      id: 'groq', label: 'Groq', color: '--accent', role: localPrimary ? 'overflow' : 'primary', order: order++, enabled, meter: 'requests',
       health: tierHealth(enabled, coolMs, spent, paced),
       requestsToday: b.requests, reqCap: NEWS.groqDailyReqCap, tokensToday: b.tokens, tokenCap: NEWS.groqDailyTokenCap,
       cooldownRemainingMs: coolMs || undefined, fails: cd.fails || undefined, lastCycleRequests: last?.groq_requests,
     })
   }
 
-  // --- OpenAI-compatible overflow registry (order 1..N), enumerated from config (zero-touch) ---
-  let order = 1
+  // --- OpenAI-compatible overflow registry, enumerated from config (zero-touch) ---
   for (const p of NEWS.overflowProviders) {
     const u = overflowUsage(p)
     const cd = cooldownInfo(STATE_DIR, p.id)
@@ -624,6 +657,7 @@ export function getNewsDiagnostics(): NewsDiagnostics {
   // per-tier "who scored the last cycle" (overflow is summed across providers, so it shows as one row)
   const scoredBy: { id: string; label: string; requests: number }[] = []
   if (last) {
+    if (last.local_requests) scoredBy.push({ id: 'local', label: 'Local', requests: last.local_requests })
     if (last.groq_requests) scoredBy.push({ id: 'groq', label: 'Groq', requests: last.groq_requests })
     if (last.overflow_requests) scoredBy.push({ id: 'overflow', label: 'Overflow', requests: last.overflow_requests })
     if (last.gemini_requests) scoredBy.push({ id: 'gemini', label: 'Gemini', requests: last.gemini_requests })
