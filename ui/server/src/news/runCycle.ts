@@ -276,6 +276,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     coolingDown: isCoolingDown(stateDir, p.id, now().getTime()),
     cooldownWasSet: readCooldownUntil(stateDir, p.id), // >0 → a marker existed at start; clear it if we recover
   }))
+  // Split the chain by the provider's own `tail` flag: MAIN runs where the overflow chain always has (right
+  // after Groq, before Gemini); TAIL runs after the Gemini pool instead. Nothing sets `tail` except the
+  // demoted local tier, so for every existing cloud provider overflowMain === overflow and the order is
+  // byte-for-byte unchanged. See the tail block below the Gemini pick for why the split exists.
+  const overflowMain = overflow.filter((o) => !o.p.tail)
+  const overflowTail = overflow.filter((o) => o.p.tail)
   // LAST-RESORT tier (Claude Haiku). Default backend = the host's flat-fee SUBSCRIPTION via the local
   // `claude` CLI, which needs NO key — so it is ON by default; `api` mode instead needs a dedicated metered
   // key. Bounded by a daily $ LEDGER (restart-safe) rather than request counts, because that is the unit the
@@ -332,6 +338,18 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const groqCooldownUntil = readCooldownUntil(stateDir, 'groq')
   const groqCoolingDown = groqCooldownUntil > now().getTime()
   const pace = { targetTokens: cfg.groqDailyTokenTarget, floorFrac: cfg.groqPaceFloorFrac }
+  // NEVER arm a cross-cycle cooldown for a failure the WALL-CLOCK GUARD caused. runAbortableCycle merges the
+  // cycle's AbortSignal into EVERY provider fetch (scheduler.withCycleSignal), so when the guard fires the
+  // in-flight call throws and triageBatch returns ok:false with requests++ — byte-identical to a real provider
+  // failure. Arming on that is a SELF-INFLICTED outage: the tier was healthy, the clock merely ran out on it,
+  // and the exponential backoff (llmCooldownMs → llmCooldownMaxMs) then sidelines it for the NEXT cycles too.
+  // Each aborted cycle therefore leaves fewer usable tiers, which makes the next cycle likelier to abort — the
+  // ratchet that pinned the backlog at DEFERRED_CAP with every tier reading "cooling" while none had truly
+  // failed. A terminal 4xx / PerDay exhaust is NOT gated: those come from a real HTTP response, not the abort.
+  const armCooldownUnlessAborted = (baseMs: number, id: string, maxMs: number): void => {
+    if (deps.signal?.aborted) return
+    armCooldown(stateDir, now().getTime(), baseMs, id, maxMs)
+  }
 
   for (let i = 0; i < items.length; i += cfg.triageBatch) {
     // The wall-clock guard fired: stop starting new batches. The wrapped fetchFn already fails fast, but
@@ -376,7 +394,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         localDownThisCycle = true // box is down this cycle → stop poking it, fall through to the cloud fallback chain
         // SHORT, FLAT cooldown (base == max flattens the exponential) so the NEXT cycle re-probes quickly when the
         // box wakes — local has no daily cap to protect from failed-probe burn, so fast recovery beats sparing a probe.
-        armCooldown(stateDir, now().getTime(), cfg.localCooldownMs, 'local', cfg.localCooldownMs)
+        armCooldownUnlessAborted(cfg.localCooldownMs, 'local', cfg.localCooldownMs)
       }
     }
     // Groq (now the FIRST FALLBACK when local is primary; the primary when local is off/demoted). Gated on
@@ -391,41 +409,49 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       limiter.learn(res.rate, () => now().getTime()) // track the live per-minute ceiling + back off on 429
       if (!res.ok) {
         groqDownThisCycle = true // Groq is having a bad cycle → skip it for the rest of THIS cycle, save the cap
-        armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'groq', cfg.llmCooldownMaxMs) // …and across cycles until the window lapses
+        armCooldownUnlessAborted(cfg.llmCooldownMs, 'groq', cfg.llmCooldownMaxMs) // …and across cycles until the window lapses
       } else if (groqCooldownUntil) {
         clearCooldown(stateDir, 'groq') // a probe after the window lapsed SUCCEEDED → Groq recovered, drop the stale marker
       }
     }
-    if (!res || !res.ok) {
-      // Walk the overflow chain for THIS SAME batch: a failing/exhausted provider advances to the NEXT one
-      // in order, rather than stopping at the first pick. Without this, a one-batch backlog could trap on a
-      // dead first provider — its in-cycle `failed` flag resets on the next drain, so the rebuilt chain
-      // picks the same dead provider again and never reaches Mistral/OpenRouter (the drain just re-cycles
-      // news-deferred.json). The 4xx-exhaust below persists the skip across drains; this loop covers the
-      // non-terminal failures (429 / 5xx / network) that don't exhaust, by trying the rest in the same batch.
-      for (const ov of overflow) {
+    // Walk a chain of overflow providers for THIS SAME batch: a failing/exhausted provider advances to the
+    // NEXT one in order, rather than stopping at the first pick. Without this, a one-batch backlog could trap
+    // on a dead first provider — its in-cycle `failed` flag resets on the next drain, so the rebuilt chain
+    // picks the same dead provider again and never reaches Mistral/OpenRouter (the drain just re-cycles
+    // news-deferred.json). The 4xx-exhaust below persists the skip across drains; this covers the
+    // non-terminal failures (429 / 5xx / network) that don't exhaust, by trying the rest in the same batch.
+    // Returns the first OK result, else the LAST failure, else undefined when nothing was even attempted —
+    // so the caller keeps its own `res` (the "genuine defer" signal) untouched in that case.
+    const walkOverflow = async (chain: typeof overflow) => {
+      let r: Awaited<ReturnType<typeof triageBatch>> | undefined
+      for (const ov of chain) {
         // skip already-failed (this cycle), cross-cycle cooling-down, or out-of-budget providers
         if (ov.failed || ov.coolingDown || !ov.budget.canSpend(est)) continue
         await ov.limiter.acquire(est, sleep, () => now().getTime())
         // timeoutMs/maxAttempts: undefined for every provider except one that opts into a longer-than-generic
         // call guard (e.g. the local tier — see its OverflowProvider entry) — triageBatch's own defaults
         // (30_000ms, 2 attempts) apply exactly as before when omitted.
-        res = await triageBatch(batch, { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: ov.p.maxAttempts }, fetchFn, sleep)
-        ov.requests += res.requests
-        ov.tokens += res.tokens
-        ov.budget.record(res.requests, res.tokens)
-        if (res.ok) {
+        r = await triageBatch(batch, { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: ov.p.maxAttempts }, fetchFn, sleep)
+        ov.requests += r.requests
+        ov.tokens += r.tokens
+        ov.budget.record(r.requests, r.tokens)
+        if (r.ok) {
           if (ov.cooldownWasSet) clearCooldown(stateDir, ov.p.id) // recovered after a prior cycle's failure → drop the marker
           break // scored — stop walking the chain
         }
         ov.failed = true // skip this provider for the rest of the cycle so the batch can flow to the next
         // a terminal 4xx (auth / out-of-credits / quota) won't recover today — exhaust its daily budget so it's
         // skipped across cycles too (e.g. NVIDIA's finite credit pool running dry), until the daily reset.
-        if (/HTTP (400|401|402|403|404|413)/.test(res.note || '')) ov.budget.exhaust()
+        if (/HTTP (400|401|402|403|404|413)/.test(r.note || '')) ov.budget.exhaust()
         // not terminal (429 / 5xx / network): arm the CROSS-CYCLE cooldown so later cycles stop re-probing this
         // provider (draining its small daily cap on failures), then fall through to the NEXT provider this batch.
-        else armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, ov.p.id, cfg.llmCooldownMaxMs)
+        else armCooldownUnlessAborted(cfg.llmCooldownMs, ov.p.id, cfg.llmCooldownMaxMs)
       }
+      return r
+    }
+    if (!res || !res.ok) {
+      const r = await walkOverflow(overflowMain)
+      if (r) res = r
     }
     if ((!res || !res.ok) && geminiOn) {
       // first pool model with daily room that isn't failed-this-cycle or cross-cycle cooling down
@@ -442,9 +468,19 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         } else {
           gemPick.failed = true // don't re-pick this model for the rest of THIS cycle (the intra-cycle burn fix)
           if (/PerDay/i.test(res.note || '')) gemPick.budget.exhaust() // model's free day is spent → rotation skips it until midnight PT
-          else armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, `gemini:${gemPick.model}`, cfg.llmCooldownMaxMs) // transient → cross-cycle backoff
+          else armCooldownUnlessAborted(cfg.llmCooldownMs, `gemini:${gemPick.model}`, cfg.llmCooldownMaxMs) // transient → cross-cycle backoff
         }
       }
+    }
+    // TAIL overflow tier(s) — tried only AFTER the Gemini pool has passed on the batch. A tail provider's value
+    // is being UNLIMITED, not fast (the demoted local box: minutes per batch, no cap). In the main chain above
+    // it runs BEFORE Gemini, so at minutes-per-call it burns the cycle's wall-clock guard and the far larger
+    // Gemini pool never gets a turn — a slow free tier starving a fast one, which is what kept the backlog
+    // pinned while Gemini sat unused. Here it does its real job: soaking up what every CAPPED free tier
+    // couldn't take, ahead of the paid last resort. Empty unless a provider sets `tail` (config.ts).
+    if ((!res || !res.ok) && overflowTail.length) {
+      const r = await walkOverflow(overflowTail)
+      if (r) res = r
     }
     // LAST-RESORT: every free brain is paced/capped/cooling/failed for this batch → score it on Claude Haiku
     // (the host's subscription by default) rather than deferring and risking the 1,000-cap drop under
@@ -487,8 +523,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         //      constant), so the paid tier re-probes ~once a drain and keeps draining the backlog rather than
         //      going dark for up to an hour while data drops past the cap.
         if (isTerminalApiNote(ar.note || '')) anthropicBudget!.exhaust()
-        else if (isPlanQuotaNote(ar.note || '')) armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'anthropic-triage', cfg.llmCooldownMaxMs)
-        else armCooldown(stateDir, now().getTime(), cfg.anthropicTransientCooldownMs, 'anthropic-triage', cfg.anthropicTransientCooldownMs)
+        else if (isPlanQuotaNote(ar.note || '')) armCooldownUnlessAborted(cfg.llmCooldownMs, 'anthropic-triage', cfg.llmCooldownMaxMs)
+        else armCooldownUnlessAborted(cfg.anthropicTransientCooldownMs, 'anthropic-triage', cfg.anthropicTransientCooldownMs)
       }
     }
     if (!res) {

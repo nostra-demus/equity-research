@@ -216,6 +216,14 @@ export interface OverflowProvider {
   // misread as a hang and doesn't arm the provider's cross-cycle cooldown for no reason.
   timeoutMs?: number
   maxAttempts?: number
+  // Run this provider AFTER the Gemini pool instead of with the rest of the overflow chain (runCycle splits
+  // the chain on this flag). For a tier whose value is being UNLIMITED rather than fast — the demoted local
+  // box, minutes per batch with no daily cap. The overflow chain runs BEFORE Gemini, so a minutes-per-call
+  // provider sitting there burns the cycle's wall-clock guard and the far larger Gemini pool never gets a
+  // turn: a slow free tier starves a fast one, and the backlog stays pinned while Gemini sits unused. As a
+  // tail it is tried only once every CAPPED free tier has passed on the batch, ahead of the paid last resort
+  // — the actual "unlimited soak" role. Omitted by every cloud provider ⇒ chain order unchanged.
+  tail?: boolean
   // Exclude this provider from the user-facing on-demand article read (buildArticleReadProviders below).
   // That path shares this provider's `id` (and so its cooldown marker) with the background triage/backlog
   // loop, but runs a short user-facing deadline (~7s, 1 attempt) — a provider that is legitimately slow
@@ -312,7 +320,10 @@ export function buildOverflowProviders(): OverflowProvider[] {
   // exposed via NEWS.localProvider, NOT part of this overflow chain. It stays here as the LAST free fallback
   // ONLY when the operator opts out of primary with NEWS_LOCAL_PRIMARY=0 (the prior "local absorbs the tail"
   // placement). See buildLocalProvider() below for the full rationale.
-  if (!localIsPrimary()) { const local = buildLocalProvider(); if (local) out.push(local) }
+  // …as a TAIL tier: after the Gemini pool, not before it. Local is unlimited but SLOW (a 3-8B box answers a
+  // batch in minutes, vs Gemini's seconds), and the overflow chain runs ahead of Gemini — so placing it inline
+  // let it eat the cycle's wall-clock guard while the much larger Gemini pool never got a turn. See `tail`.
+  if (!localIsPrimary()) { const local = buildLocalProvider(); if (local) out.push({ ...local, tail: true }) }
   return out
 }
 

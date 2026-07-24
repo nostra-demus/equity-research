@@ -1337,4 +1337,122 @@ await check('getNewsDiagnostics: enumerates every tier in routing order, with th
   assert.ok(Array.isArray(d.defer.blockingTiers))
 })
 
+// ---- the WALL-CLOCK ABORT must not arm a provider cooldown (the self-inflicted-outage ratchet) ----
+// runAbortableCycle merges the cycle's AbortSignal into every provider fetch (withCycleSignal), so when the
+// guard fires the in-flight call throws and triageBatch returns ok:false — byte-identical to a real failure.
+// Arming the CROSS-CYCLE cooldown on that sidelined a HEALTHY tier for up to an hour (exponential backoff),
+// so each aborted cycle left fewer usable tiers and aborted again — the ratchet that pinned the backlog at
+// DEFERRED_CAP with every tier reading "cooling" while none had actually failed.
+await check('a cycle ABORT does not arm a cross-cycle cooldown for the tiers it interrupted', async () => {
+  const root = tmp()
+  const state = tmp()
+  resetCooldownMemory()
+  const ac = new AbortController()
+  let gdeltServed = false
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [
+        { url: 'https://reuters.com/a', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' },
+        { url: 'https://reuters.com/b', title: 'Fed signals one more hike as inflation proves sticky', domain: 'reuters.com', seendate: '20260612T090100Z' },
+      ] })
+    }
+    if (u.includes('groq') || u.includes('cerebras.test')) {
+      ac.abort() // the wall-clock guard fires mid-call, exactly as in production
+      const e: any = new Error('This operation was aborted')
+      e.name = 'AbortError'
+      throw e
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, triageBatch: 1,
+    anthropicFallbackEnabled: false,
+    overflowProviders: [
+      { id: 'cerebras', label: 'Cerebras', color: '--provider-cb', kind: 'openai', apiKey: 'k', baseUrl: 'https://cerebras.test/v1', model: 'm', maxTokens: 900, rpm: 6000, dailyReqCap: 2000, budgetFile: 'cerebras-budget.json', limiter: 'cerebras' },
+    ] } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, signal: ac.signal })
+  assert.equal(readCooldownUntil(state, 'groq'), 0, 'Groq was NOT put in a cooldown by the cycle abort')
+  assert.equal(readCooldownUntil(state, 'cerebras'), 0, 'the overflow provider was NOT put in a cooldown by the cycle abort')
+  // the abort still loses nothing: the untriaged remainder is deferred for the next cycle
+  assert.ok((s.deferred ?? 0) > 0, 'the interrupted batch(es) were deferred, not dropped')
+})
+
+// ---- a genuine (non-abort) failure MUST still arm the cooldown — the guard above must not disable it ----
+await check('a real provider failure still arms the cross-cycle cooldown when the cycle was NOT aborted', async () => {
+  const root = tmp()
+  const state = tmp()
+  resetCooldownMemory()
+  let gdeltServed = false
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{ url: 'https://reuters.com/a', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    if (u.includes('groq')) return res('upstream sad', 503) // a real transient failure, no abort in play
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, triageBatch: 1,
+    anthropicFallbackEnabled: false, overflowProviders: [] } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.ok(readCooldownUntil(state, 'groq') > 0, 'a genuine 503 still arms the cooldown (the abort guard is not a blanket off-switch)')
+})
+
+// ---- a TAIL overflow provider runs AFTER the Gemini pool, not before it ----
+// The demoted local box is unlimited but SLOW (minutes/batch). The overflow chain runs ahead of Gemini, so
+// inline it burned the cycle's wall-clock guard and the far larger Gemini pool never got a turn — a slow free
+// tier starving a fast one. `tail` moves it behind Gemini, where its "unlimited soak" role belongs.
+await check('a TAIL overflow provider is tried only AFTER the Gemini pool has passed on the batch', async () => {
+  const root = tmp()
+  const state = tmp()
+  resetCooldownMemory()
+  const order: string[] = []
+  const goodGemini = { usageMetadata: { totalTokenCount: 200 }, candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A rate move shifts funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) }] } }] }
+  let gdeltServed = false
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{ url: 'https://reuters.com/a', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    if (u.includes('groq')) return res('upstream sad', 503) // primary down → the chain is exercised
+    if (u.includes('local.test')) { order.push('local'); return res({ usage: { total_tokens: 200 }, choices: [{ message: { content: JSON.stringify({ items: [] }) } }] }) }
+    if (u.includes('gemini.test')) { order.push('gemini'); return res(goodGemini) }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, triageBatch: 1,
+    anthropicFallbackEnabled: false,
+    geminiEnabled: true, geminiApiKey: 'k', geminiBaseUrl: 'https://gemini.test/v1beta', geminiRpm: 6000, geminiModels: [{ model: 'gemini-3-1-flash-lite', dailyReqCap: 500 }],
+    overflowProviders: [
+      // the ONLY overflow provider is the tail one — so if the split were broken it would answer first
+      { id: 'local', label: 'Local', color: '--provider-local', kind: 'openai', apiKey: 'local', baseUrl: 'https://local.test/v1', model: 'm', maxTokens: 900, rpm: 0, dailyReqCap: 100_000_000, budgetFile: 'local-budget.json', limiter: 'local', tail: true },
+    ] } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(order[0], 'gemini', 'Gemini was tried BEFORE the tail provider (a slow tail tier cannot starve the big fast pool)')
+  assert.ok(!order.includes('local'), 'the tail provider was never reached — Gemini scored the batch, exactly as intended')
+})
+
+// ---- buildOverflowProviders marks a DEMOTED local tier as `tail` ----
+await check('a demoted local tier joins the overflow chain flagged `tail` (so it runs after Gemini)', () => {
+  const saved = { en: process.env.NEWS_LOCAL_ENABLED, pri: process.env.NEWS_LOCAL_PRIMARY }
+  try {
+    process.env.NEWS_LOCAL_ENABLED = '1'
+    process.env.NEWS_LOCAL_PRIMARY = '0' // demoted → it belongs in the overflow chain
+    const local = buildOverflowProviders().find((p) => p.id === 'local')
+    assert.ok(local, 'a demoted local tier is present in the overflow chain')
+    assert.equal(local!.tail, true, 'and it is flagged `tail`, so runCycle runs it after the Gemini pool')
+    process.env.NEWS_LOCAL_PRIMARY = '1' // primary → it is exposed separately, never in the overflow chain
+    assert.equal(buildOverflowProviders().find((p) => p.id === 'local'), undefined, 'a PRIMARY local tier stays out of the overflow chain')
+  } finally {
+    if (saved.en === undefined) delete process.env.NEWS_LOCAL_ENABLED; else process.env.NEWS_LOCAL_ENABLED = saved.en
+    if (saved.pri === undefined) delete process.env.NEWS_LOCAL_PRIMARY; else process.env.NEWS_LOCAL_PRIMARY = saved.pri
+  }
+})
+
 console.log(`\n${passed} checks passed`)

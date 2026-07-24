@@ -294,7 +294,20 @@ function anthropicHasHeadroom(now = Date.now()): boolean {
  * not turn on — only the backlog drain (which routes through every tier, Haiku included) may.
  */
 function drainHasHeadroom(now = Date.now()): boolean {
-  return budgetHasHeadroom(now) || anthropicHasHeadroom(now)
+  return localHasHeadroom(now) || budgetHasHeadroom(now) || anthropicHasHeadroom(now)
+}
+
+/** Can the LOCAL PRIMARY brain absorb backlog RIGHT NOW? It is unlimited and $0 — no daily request or token
+ *  cap — so the only thing that can stop it is a live failure cooldown. This has to be its own predicate
+ *  because a PRIMARY local tier is deliberately kept OUT of NEWS.overflowProviders (config.buildOverflowProviders),
+ *  and overflowHasHeadroom only iterates that list — so without this the every-60s drain reported "no capacity"
+ *  and returned on its first line while the one uncapped tier sat idle, leaving the backlog to nibble down at
+ *  the much slower fetch cadence. That is exactly the state that pins it at DEFERRED_CAP and starts losing the
+ *  tail. Demoted (NEWS_LOCAL_PRIMARY=0) → localProvider is null here and overflowHasHeadroom covers local as an
+ *  ordinary (tail) pool, so this correctly returns false. */
+function localHasHeadroom(now = Date.now()): boolean {
+  const lp = NEWS.localProvider
+  return !!lp && !isCoolingDown(STATE_DIR, lp.id, now)
 }
 
 export interface NewsStatus {
