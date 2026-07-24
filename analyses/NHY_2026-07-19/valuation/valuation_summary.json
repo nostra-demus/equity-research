@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "ticker": "NHY",
   "as_of": "2026-07-19",
   "currency": "NOK",
@@ -18,7 +18,7 @@
       "label": "bull",
       "forward_metric": null,
       "multiple": null,
-      "level": 107.70,
+      "level": 107.7,
       "drivers": "Middle East supply-shock LME price spike persists and elevated FY2025 13.9% margin holds; 12-month price-convergence window"
     },
     {
@@ -38,7 +38,7 @@
   ],
   "methods": {
     "own_history": 64.33,
-    "peers": 93.70,
+    "peers": 93.7,
     "dcf": 70.14,
     "sotp": 84.63
   },
@@ -46,14 +46,123 @@
     "own_history": 0.0,
     "peers": 0.25,
     "dcf": 0.35,
-    "sotp": 0.40
+    "sotp": 0.4
   },
   "discount_rate": {
     "rf": 0.0438,
     "erp": 0.045,
-    "beta": 0.70,
+    "beta": 0.7,
     "cost_of_equity": 0.0753,
     "wacc": 0.075,
     "after_tax_kd": 0.0385
+  },
+  "dcf_grid": {
+    "wacc": [
+      0.065,
+      0.075,
+      0.085
+    ],
+    "growth": [
+      0.02,
+      0.025,
+      0.03
+    ],
+    "values": [
+      [
+        80.48,
+        63.95,
+        52.51
+      ],
+      [
+        90.25,
+        70.14,
+        56.74
+      ],
+      [
+        102.81,
+        77.7,
+        61.73
+      ]
+    ],
+    "base": {
+      "wacc": 0.075,
+      "growth": 0.025
+    },
+    "source": "04_intrinsic-dcf.md §7 (WACC × terminal-growth sensitivity grid, base-case Gordon terminal; cells verbatim)"
+  },
+  "sotp_segments": [
+    {
+      "segment": "Hydro Bauxite & Alumina",
+      "metric_name": "LTM Adj. EBITDA (NOK m)",
+      "metric": 4951,
+      "multiple": 4.6,
+      "comp": "Chalco (SEHK:2600)",
+      "source": "06_sum-of-the-parts.md §3"
+    },
+    {
+      "segment": "Hydro Energy",
+      "metric_name": "LTM Adj. EBITDA (NOK m)",
+      "metric": 3759,
+      "multiple": 7.5,
+      "comp": "VERBUND AG (WBAG:VER)",
+      "source": "06_sum-of-the-parts.md §3"
+    },
+    {
+      "segment": "Hydro Aluminium Metal",
+      "metric_name": "LTM Adj. EBITDA (NOK m)",
+      "metric": 13897,
+      "multiple": 8.1,
+      "comp": "United Company RUSAL (SEHK:486)",
+      "source": "06_sum-of-the-parts.md §3"
+    },
+    {
+      "segment": "Hydro Metal Markets",
+      "metric_name": "LTM Adj. EBITDA (NOK m)",
+      "metric": 915,
+      "multiple": 3.3,
+      "comp": "ProfilGruppen AB (OM:PROF B)",
+      "source": "06_sum-of-the-parts.md §3"
+    },
+    {
+      "segment": "Hydro Extrusions",
+      "metric_name": "LTM Adj. EBITDA (NOK m)",
+      "metric": 3604,
+      "multiple": 6.0,
+      "comp": "Constellium SE (NYSE:CSTM)",
+      "source": "06_sum-of-the-parts.md §3"
+    },
+    {
+      "segment": "Other and Eliminations",
+      "metric_name": "LTM Adj. EBITDA (NOK m)",
+      "metric": 916,
+      "multiple": 3.9,
+      "comp": "Norsk Hydro consolidated LTM EV/EBITDA (conservative default)",
+      "source": "06_sum-of-the-parts.md §3"
+    }
+  ],
+  "sotp_bridge": {
+    "net_debt": 17919,
+    "minority": 7495,
+    "other": 0,
+    "source": "06_sum-of-the-parts.md §4 (net debt = cash-quality-adjusted canonical per 01, NOT the top-level broad 13,090; minority per 01; no preferred, no holdco discount)"
+  },
+  "peers_internals": {
+    "metric_name": "NTM EV/EBITDA",
+    "median_multiple": 6.25,
+    "applied_multiple": 5.6,
+    "discount_pct": 10,
+    "anchors": [
+      {
+        "multiple": 5.6,
+        "value": 93.7,
+        "label": "quality-adjusted (BASE CASE) — 10% below peer median"
+      },
+      {
+        "multiple": 6.25,
+        "value": 105.8,
+        "label": "raw peer median (unadjusted)"
+      }
+    ],
+    "source": "03_relative-valuation-peers.md §5 (implied-value table rows, verbatim; NOK per share via USD 9.72 × FX 9.63)"
   }
 }
