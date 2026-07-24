@@ -14,6 +14,7 @@ import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import {
   draftFromResponse, recompute, type PlaygroundDraft, type ValuationLeversResponse, type DraftScenario,
+  type DraftInternals, type GridReadout, type PeersReadout,
 } from '../lib/valuationLevers'
 import './ValuationPlayground.css'
 
@@ -111,8 +112,25 @@ export function ValuationPlayground() {
   const setScen = (idx: number, patch: Partial<DraftScenario>) =>
     setDraft((d) => (d ? { ...d, scenarios: d.scenarios.map((s, i) => (i === idx ? { ...s, ...patch } : s)) } : d))
   const setTop = (patch: Partial<PlaygroundDraft>) => setDraft((d) => (d ? { ...d, ...patch } : d))
+  // Typing a method's Value cell DIRECTLY detaches its sub-levers (the typed value wins) — mirrors how a
+  // typed level override sits below metric×multiple. Editing a sub-lever re-activates the derivation.
   const setMethod = (idx: number, patch: Partial<{ value: number | null; weight: number | null }>) =>
-    setDraft((d) => (d ? { ...d, methods: d.methods.map((m, i) => (i === idx ? { ...m, ...patch } : m)) } : d))
+    setDraft((d) => {
+      if (!d) return d
+      const key = d.methods[idx]?.key
+      const internals = 'value' in patch && d.internals && key && (d.internals as Record<string, { active?: boolean } | null | undefined>)[key]
+        ? { ...d.internals, [key]: { ...(d.internals as any)[key], active: false } }
+        : d.internals
+      return { ...d, internals, methods: d.methods.map((m, i) => (i === idx ? { ...m, ...patch } : m)) }
+    })
+  // v1.1 sub-levers: any sub-field edit activates the derivation for that method.
+  const setDcfInternal = (patch: Partial<{ wacc: number | null; growth: number | null }>) =>
+    setDraft((d) => (d?.internals?.dcf ? { ...d, internals: { ...d.internals, dcf: { ...d.internals.dcf, ...patch, active: true } } } : d))
+  const setSotpMultiple = (idx: number, multiple: number | null) =>
+    setDraft((d) => (d?.internals?.sotp ? { ...d, internals: { ...d.internals, sotp: { ...d.internals.sotp, active: true, segments: d.internals.sotp.segments.map((s, i) => (i === idx ? { ...s, multiple } : s)) } } } : d))
+  const setPeersMultiple = (multiple: number | null) =>
+    setDraft((d) => (d?.internals?.peers ? { ...d, internals: { ...d.internals, peers: { ...d.internals.peers, multiple, active: true } } } : d))
+  const [openMethod, setOpenMethod] = useState<string | null>(null)
 
   const reset = () => { if (res) setDraft(draftFromResponse(res)) }
 
@@ -243,12 +261,39 @@ export function ValuationPlayground() {
                 </div>
                 {draft.methods.map((m, i) => {
                   const eff = out.blend.effectiveWeights[m.key]
+                  // v1.1 sub-levers: only a method whose run RECORDED internals gets a ▸ (nothing invented)
+                  const int = draft.internals as Record<string, { active?: boolean } | null | undefined> | undefined
+                  const hasInternals = !!(int && int[m.key])
+                  const active = !!(int && int[m.key]?.active)
+                  const derived: number | null =
+                    m.key === 'dcf' ? out.methodInternals.dcf?.value ?? null
+                    : m.key === 'sotp' ? out.methodInternals.sotp?.value ?? null
+                    : m.key === 'peers' ? out.methodInternals.peers?.value ?? null : null
+                  const open = openMethod === m.key
                   return (
-                    <div key={m.key} className="vpg__mixrow">
-                      <span className="vpg__scenlabel">{methodLabel(m.key)}</span>
-                      <TableInput value={m.value} onChange={(n) => setMethod(i, { value: n })} ariaLabel={`${m.key} value`} />
-                      <TableInput value={m.weight} onChange={(n) => setMethod(i, { weight: n })} ariaLabel={`${m.key} weight`} />
-                      <span className="vpg__mixeff mono">{typeof eff === 'number' ? `${Math.round(eff * 100)}%` : '—'}</span>
+                    <div key={m.key}>
+                      <div className="vpg__mixrow">
+                        <span className="vpg__scenlabel vpg__mixlabel">
+                          {hasInternals
+                            ? <button className={`vpg__disc${open ? ' vpg__disc--open' : ''}`} onClick={() => setOpenMethod(open ? null : m.key)} title="Open this method's recorded assumptions" aria-expanded={open}>{open ? '▾' : '▸'}</button>
+                            : <span className="vpg__disc vpg__disc--none" aria-hidden />}
+                          {methodLabel(m.key)}
+                        </span>
+                        {active && derived !== null
+                          ? <span className="vpg__scennum mono vpg__mixderived" title="Derived from the recorded assumptions below — edit them there; typing a value here detaches them.">{fmtN(derived, 2)}</span>
+                          : <TableInput value={m.value} onChange={(n) => setMethod(i, { value: n })} ariaLabel={`${m.key} value`} />}
+                        <TableInput value={m.weight} onChange={(n) => setMethod(i, { weight: n })} ariaLabel={`${m.key} weight`} />
+                        <span className="vpg__mixeff mono">{typeof eff === 'number' ? `${Math.round(eff * 100)}%` : '—'}</span>
+                      </div>
+                      {open && m.key === 'dcf' && draft.internals?.dcf && (
+                        <DcfPanel d={draft.internals.dcf} readout={out.methodInternals.dcf} onWacc={(n) => setDcfInternal({ wacc: n })} onGrowth={(n) => setDcfInternal({ growth: n })} />
+                      )}
+                      {open && m.key === 'sotp' && draft.internals?.sotp && (
+                        <SotpPanel s={draft.internals.sotp} derived={out.methodInternals.sotp?.value ?? null} onMultiple={setSotpMultiple} />
+                      )}
+                      {open && m.key === 'peers' && draft.internals?.peers && (
+                        <PeersPanel p={draft.internals.peers} readout={out.methodInternals.peers} onMultiple={setPeersMultiple} />
+                      )}
                     </div>
                   )
                 })}
@@ -312,5 +357,101 @@ export function ValuationPlayground() {
         </div>
       )}
     </motion.div>
+  )
+}
+
+// ---- v1.1 per-method sub-panels (P-C) — typed fields over each orb's OWN recorded data ----
+// Grid axes are decimals in the sidecar (0.075); the fields type percent (7.5). Exact for the recorded
+// points (7.5/100 === 0.075 in doubles), so a typed grid point reads the verbatim cell, never a blend.
+const toPct = (x: number | null | undefined): number | null => (typeof x === 'number' ? +(x * 100).toFixed(4) : null)
+const fromPct = (x: number | null): number | null => (typeof x === 'number' ? x / 100 : null)
+
+function DcfPanel({ d, readout, onWacc, onGrowth }: {
+  d: NonNullable<DraftInternals['dcf']>
+  readout?: GridReadout
+  onWacc: (n: number | null) => void
+  onGrowth: (n: number | null) => void
+}) {
+  const g = d.grid
+  const lo = Math.min(...g.values.flat()), hi = Math.max(...g.values.flat())
+  return (
+    <div className="vpg__subpanel">
+      <div className="vpg__subfields">
+        <Field label="WACC %" value={toPct(d.wacc)} onChange={(n) => onWacc(fromPct(n))} title="The discount rate — reads the orb's recorded sensitivity grid" />
+        <Field label="Terminal growth %" value={toPct(d.growth)} onChange={(n) => onGrowth(fromPct(n))} title="Gordon terminal growth — reads the orb's recorded sensitivity grid" />
+        <div className="vpg__subderived">
+          <span className="vpg__fieldlabel">DCF / share</span>
+          <span className="vpg__subval mono">{d.active && readout && readout.value !== null ? fmtN(readout.value, 2) : 'edit to derive'}</span>
+        </div>
+      </div>
+      <div className="vpg__gridmeta">
+        recorded grid: WACC {g.wacc.map((x) => toPct(x)).join(' / ')}% × g {g.growth.map((x) => toPct(x)).join(' / ')}% → {fmtN(lo, 2)}–{fmtN(hi, 2)}
+        {d.grid.base && <> · orb base {toPct(d.grid.base.wacc)}% × {toPct(d.grid.base.growth)}%</>}
+        {g.source && <> · {g.source}</>}
+      </div>
+      {d.active && readout?.outOfGrid
+        ? <div className="vpg__subnote vpg__note--warn">▲ beyond the recorded grid — extrapolated, not validated</div>
+        : d.active && readout?.interpolated
+          ? <div className="vpg__subnote">between recorded points — a linear blend of the orb's own grid cells (interpolated)</div>
+          : null}
+    </div>
+  )
+}
+
+function SotpPanel({ s, derived, onMultiple }: {
+  s: NonNullable<DraftInternals['sotp']>
+  derived: number | null
+  onMultiple: (idx: number, n: number | null) => void
+}) {
+  const br = s.bridge
+  return (
+    <div className="vpg__subpanel">
+      <div className="vpg__segrow vpg__segrow--head"><span>Segment</span><span>{s.segments[0]?.metric_name || 'Metric'}</span><span>×</span><span>Comp</span></div>
+      {s.segments.map((seg, i) => (
+        <div key={seg.segment} className="vpg__segrow">
+          <span className="vpg__seglabel">{seg.segment}</span>
+          <span className="mono vpg__segmetric">{fmtN(seg.metric, 0)}</span>
+          <TableInput value={seg.multiple} onChange={(n) => onMultiple(i, n)} ariaLabel={`${seg.segment} multiple`} />
+          <span className="vpg__segcomp">{seg.comp || '—'}</span>
+        </div>
+      ))}
+      <div className="vpg__gridmeta">
+        bridge: {typeof br?.net_debt === 'number' && <>− net debt {fmtN(br.net_debt, 0)} </>}
+        {typeof br?.minority === 'number' && <>− minority {fmtN(br.minority, 0)} </>}
+        {typeof br?.other === 'number' && br.other !== 0 && <>+ other {fmtN(br.other, 0)} </>}
+        → SOTP / share <span className="vpg__subval mono">{s.active && derived !== null ? fmtN(derived, 2) : 'edit a multiple to derive'}</span>
+        {br?.source && <> · {br.source}</>}
+      </div>
+    </div>
+  )
+}
+
+function PeersPanel({ p, readout, onMultiple }: {
+  p: NonNullable<DraftInternals['peers']>
+  readout?: PeersReadout
+  onMultiple: (n: number | null) => void
+}) {
+  const pi = p.pi
+  return (
+    <div className="vpg__subpanel">
+      <div className="vpg__subfields">
+        <Field label={pi.metric_name ? `${pi.metric_name} ×` : 'Applied multiple ×'} value={p.multiple} onChange={onMultiple} title="The multiple applied to the peer-implied line — the orb's own anchor rows define the mapping" />
+        <div className="vpg__subderived">
+          <span className="vpg__fieldlabel">Peers / share</span>
+          <span className="vpg__subval mono">{p.active && readout && readout.value !== null ? fmtN(readout.value, 2) : 'edit to derive'}</span>
+        </div>
+        {p.active && readout?.discountPct !== null && readout?.discountPct !== undefined && typeof pi.median_multiple === 'number' && (
+          <div className="vpg__subderived">
+            <span className="vpg__fieldlabel">vs {pi.median_multiple}x median</span>
+            <span className="vpg__subval mono">{readout.discountPct > 0 ? `−${fmtN(readout.discountPct, 1)}%` : `+${fmtN(-readout.discountPct, 1)}%`}</span>
+          </div>
+        )}
+      </div>
+      <div className="vpg__gridmeta">
+        recorded rows: {pi.anchors.map((a) => `${a.multiple}x → ${fmtN(a.value, 1)}`).join(' · ')}
+        {pi.source && <> · {pi.source}</>}
+      </div>
+      {p.active && readout?.outOfAnchors && <div className="vpg__subnote vpg__note--warn">▲ outside the orb's recorded implied-value rows — extrapolated, not validated</div>}
+    </div>
   )
 }

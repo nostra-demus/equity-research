@@ -5,7 +5,7 @@
 // that produced the fair value, the Playground silently disagrees with the recorded thesis — this file fails
 // first. Parity targets are the exact valuation_math.py outputs: AMZN 210.05, NHY 81.826, EMAAR 16.5245.
 import assert from 'node:assert'
-import { blend, buildMethods, draftFromResponse, recompute, type MethodLever, type ValuationLeversResponse } from './valuationLevers'
+import { blend, buildMethods, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
 
 let passed = 0
 const check = (name: string, fn: () => void) => { fn(); passed++ }
@@ -139,5 +139,92 @@ check('blendActive: toggle ON but ALL weights cleared to 0 → false, base stays
   assert.equal(out.blendActive, false)    // so the toggle is inert: the UI must NOT claim the returns use the blend
   assert.ok(Math.abs((baseLevel(out) as number) - 15.0) < 1e-9, `base must stay at the published 15.00, got ${baseLevel(out)}`)
 })
+
+// ---- v1.1 method internals (P-C sub-levers) — pinned to NHY_2026-07-19's OWN recorded tables ----
+// 04_intrinsic-dcf §7 grid, verbatim cells (growth ascending rows × wacc ascending cols):
+const NHY_GRID: DcfGrid = {
+  wacc: [0.065, 0.075, 0.085], growth: [0.02, 0.025, 0.03],
+  values: [[80.48, 63.95, 52.51], [90.25, 70.14, 56.74], [102.81, 77.70, 61.73]],
+  base: { wacc: 0.075, growth: 0.025 }, source: '04_intrinsic-dcf.md §7',
+}
+check('dcfFromGrid: a recorded point reads the verbatim cell (base 7.5×2.5 → 70.14; 8.5×2.5 → 56.74)', () => {
+  const base = dcfFromGrid(NHY_GRID, 0.075, 0.025)
+  assert.ok(base.value === 70.14 && !base.interpolated && !base.outOfGrid, JSON.stringify(base))
+  const hi = dcfFromGrid(NHY_GRID, 0.085, 0.025)
+  assert.ok(hi.value === 56.74 && !hi.interpolated && !hi.outOfGrid, JSON.stringify(hi))
+})
+check('dcfFromGrid: between recorded points → labelled linear blend (8.0×2.5 → 63.44)', () => {
+  const r = dcfFromGrid(NHY_GRID, 0.08, 0.025)
+  assert.ok(r.value != null && Math.abs(r.value - 63.44) < 1e-9 && r.interpolated && !r.outOfGrid, JSON.stringify(r))
+})
+check('dcfFromGrid: beyond the grid → flagged outOfGrid (computed by edge-segment extrapolation)', () => {
+  const r = dcfFromGrid(NHY_GRID, 0.095, 0.025)
+  assert.ok(r.outOfGrid && r.value != null, JSON.stringify(r))
+  assert.ok(dcfFromGrid(NHY_GRID, 0.075, 0.04).outOfGrid, 'growth beyond grid must flag')
+})
+check('dcfFromGrid: malformed grid / null inputs → null value, never a guess', () => {
+  assert.equal(dcfFromGrid(null, 0.075, 0.025).value, null)
+  assert.equal(dcfFromGrid(NHY_GRID, null, 0.025).value, null)
+  assert.equal(dcfFromGrid({ ...NHY_GRID, values: [[1, 2]] } as DcfGrid, 0.075, 0.025).value, null)
+})
+// 06_sum-of-the-parts §3+§4, verbatim rows: Σ(metric×multiple) −17,919 −7,495 over 1,965.28 shares → 84.63
+const NHY_SEGS = [
+  { metric: 4951, multiple: 4.6 }, { metric: 3759, multiple: 7.5 }, { metric: 13897, multiple: 8.1 },
+  { metric: 915, multiple: 3.3 }, { metric: 3604, multiple: 6.0 }, { metric: 916, multiple: 3.9 },
+]
+check('sotpFromSegments reproduces the orb per-share (84.63 within rounding)', () => {
+  const v = sotpFromSegments(NHY_SEGS, { net_debt: 17919, minority: 7495 }, 1965.28)
+  assert.ok(v != null && Math.abs(v - 84.63) < 0.01, `got ${v}`)
+})
+check('sotpFromSegments: a null lever or missing shares → null (Not assessable)', () => {
+  assert.equal(sotpFromSegments([{ metric: null, multiple: 5 }], null, 10), null)
+  assert.equal(sotpFromSegments(NHY_SEGS, null, null), null)
+})
+// 03_relative-valuation-peers §5, verbatim anchor rows: 5.6x → 93.7 (base), 6.25x → 105.8 (raw median)
+const NHY_PEERS: PeersInternals = {
+  metric_name: 'NTM EV/EBITDA', median_multiple: 6.25, applied_multiple: 5.6, discount_pct: 10,
+  anchors: [{ multiple: 5.6, value: 93.7 }, { multiple: 6.25, value: 105.8 }], source: '03 §5',
+}
+check('peersFromMultiple: the applied multiple reproduces methods.peers (5.6 → 93.7); the median row too', () => {
+  assert.equal(peersFromMultiple(NHY_PEERS, 5.6).value, 93.7)
+  assert.equal(peersFromMultiple(NHY_PEERS, 6.25).value, 105.8)
+})
+check('peersFromMultiple: outside the recorded rows → flagged (5.0 → 82.53 extrapolated)', () => {
+  const r = peersFromMultiple(NHY_PEERS, 5.0)
+  assert.ok(r.value != null && Math.abs(r.value - 82.5308) < 1e-3 && r.outOfAnchors, JSON.stringify(r))
+})
+check('recompute: ACTIVE dcf sub-levers derive the method value → the blend moves (81.83 → 77.14)', () => {
+  const draft = {
+    basis: 'equity' as const, shares: 1965.28, netDebt: 13090, price: 84.96,
+    rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false,
+    scenarios: [{ label: 'base', probability: null, forwardMetric: null, multiple: null, levelOverride: 81.83 }],
+    methods: [m('own_history', 64.33, 0), m('peers', 93.7, 0.25), m('dcf', 70.14, 0.35), m('sotp', 84.63, 0.4)],
+    driveBaseFromMix: false,
+    internals: { dcf: { grid: NHY_GRID, wacc: 0.085, growth: 0.025, active: true } },
+  }
+  const out = recompute(draft)
+  assert.equal(out.methodInternals.dcf?.value, 56.74)
+  assert.ok(out.blend.basePoint != null && Math.abs(out.blend.basePoint - 77.136) < 1e-3, `blend ${out.blend.basePoint}`)
+  // inactive internals leave the typed value untouched
+  const out2 = recompute({ ...draft, internals: { dcf: { ...draft.internals.dcf, active: false } } })
+  assert.ok(out2.blend.basePoint != null && Math.abs(out2.blend.basePoint - 81.8265) < 1e-3, `blend ${out2.blend.basePoint}`)
+})
+check('recompute: out-of-grid sub-levers surface a warning', () => {
+  const draft = {
+    basis: 'equity' as const, shares: null, netDebt: 0, price: null,
+    rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false,
+    scenarios: [], methods: [m('dcf', 70.14, 1)], driveBaseFromMix: false,
+    internals: { dcf: { grid: NHY_GRID, wacc: 0.095, growth: 0.025, active: true } },
+  }
+  const out = recompute(draft)
+  assert.ok(out.warnings.some((w) => w.includes('outside the orb')), out.warnings.join('; '))
+})
+check('buildInternals: sidecar blocks → inactive draft state at the orb base; absent blocks → undefined', () => {
+  const withAll = buildInternals({ basis: 'equity', scenarios: [], dcf_grid: NHY_GRID, sotp_segments: [{ segment: 'A', metric: 1, multiple: 2 }], sotp_bridge: { net_debt: 0 }, peers_internals: NHY_PEERS })
+  assert.ok(withAll?.dcf && withAll.dcf.wacc === 0.075 && withAll.dcf.active === false)
+  assert.ok(withAll?.peers && withAll.peers.multiple === 5.6)
+  assert.equal(buildInternals({ basis: 'equity', scenarios: [] }), undefined)
+})
+
 
 console.log(`valuationLevers.test.ts: ${passed} assertions passed`)

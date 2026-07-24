@@ -41,7 +41,20 @@ export interface ValuationSummary {
     cost_of_equity?: number | null; wacc?: number | null; after_tax_kd?: number | null
   }
   is_developed_mega_cap?: boolean | null
+  // ---- v1.1 method internals (P-C sub-levers) — each orb's OWN recorded table, verbatim ----
+  dcf_grid?: DcfGrid | null
+  sotp_segments?: SotpSegment[] | null
+  sotp_bridge?: SotpBridge | null
+  peers_internals?: PeersInternals | null
 }
+
+// The DCF orb's recorded WACC × terminal-growth sensitivity grid (04 §7): axes as ascending decimals
+// (0.075 = 7.5%), values[growthIdx][waccIdx] per-share cells. The Playground derives the DCF method value
+// from typed WACC/growth by reading THIS grid — never by re-running a DCF.
+export interface DcfGrid { wacc: number[]; growth: number[]; values: number[][]; base?: { wacc: number; growth: number } | null; source?: string | null }
+export interface SotpSegment { segment: string; metric_name?: string | null; metric: number; multiple: number; comp?: string | null; source?: string | null }
+export interface SotpBridge { net_debt?: number | null; minority?: number | null; other?: number | null; source?: string | null }
+export interface PeersInternals { metric_name?: string | null; median_multiple?: number | null; applied_multiple?: number | null; discount_pct?: number | null; anchors: { multiple: number; value: number; label?: string | null }[]; source?: string | null }
 
 // what GET /api/valuation-levers returns
 export interface DecisionScenario { label?: string; probability?: number | null; return_pct?: number | null; price_target?: number | null }
@@ -83,6 +96,73 @@ export function blend(methods: MethodLever[]): BlendResult {
   used.forEach((m) => { eff[m.key] = (m.weight as number) / wsum })
   const point = used.reduce((a, m) => a + (m.value as number) * eff[m.key], 0)
   return { basePoint: round(point, 4), effectiveWeights: Object.fromEntries(Object.entries(eff).map(([k, v]) => [k, round(v, 4)])) }
+}
+
+// ---- 1b. v1.1 method internals (P-C sub-levers) — pure reads of each orb's OWN recorded table ----
+// One axis position for the grid read: the bracketing segment + the interpolation fraction. t may leave
+// [0,1] beyond the axis ends (linear extrapolation off the edge segment) — the caller flags that.
+function axisPos(axis: number[], x: number): { i0: number; i1: number; t: number; on: boolean; out: boolean } {
+  const n = axis.length
+  let i0 = 0
+  for (let i = 0; i < n - 1; i++) if (x >= axis[i]) i0 = i
+  const i1 = Math.min(i0 + 1, n - 1)
+  const t = i1 === i0 ? 0 : (x - axis[i0]) / (axis[i1] - axis[i0])
+  const eps = 1e-9
+  return { i0, i1, t, on: axis.some((a) => Math.abs(a - x) < eps), out: x < axis[0] - eps || x > axis[n - 1] + eps }
+}
+
+export interface GridReadout { value: number | null; interpolated: boolean; outOfGrid: boolean }
+/** The DCF method value at (wacc, growth), read from the orb's recorded grid — bilinear between recorded
+ *  cells, linear extrapolation beyond the edges (flagged outOfGrid). Inputs are DECIMALS (0.085 = 8.5%).
+ *  This is a lookup of already-computed research, never a new DCF. */
+export function dcfFromGrid(grid: DcfGrid | null | undefined, wacc: number | null, growth: number | null): GridReadout {
+  const bad = { value: null, interpolated: false, outOfGrid: false }
+  if (!grid || !isNum(wacc) || !isNum(growth)) return bad
+  const { wacc: W, growth: G, values: V } = grid
+  if (!Array.isArray(W) || W.length < 2 || !Array.isArray(G) || G.length < 2 || !Array.isArray(V) || V.length !== G.length) return bad
+  if (!V.every((r) => Array.isArray(r) && r.length === W.length && r.every(isNum))) return bad
+  const w = axisPos(W, wacc)
+  const g = axisPos(G, growth)
+  const row = (gi: number) => V[gi][w.i0] + (V[gi][w.i1] - V[gi][w.i0]) * w.t
+  const val = row(g.i0) + (row(g.i1) - row(g.i0)) * g.t
+  if (!isNum(val)) return bad
+  return { value: round(val, 4), interpolated: !(w.on && g.on), outOfGrid: w.out || g.out }
+}
+
+/** The SOTP method value from the orb's recorded segments + EV→equity bridge:
+ *  per-share = (Σ metric×multiple − net_debt − minority + other) / shares. Null when any lever is unusable. */
+export function sotpFromSegments(
+  segments: { metric: number | null; multiple: number | null }[] | null | undefined,
+  bridge: SotpBridge | null | undefined,
+  shares: number | null | undefined,
+): number | null {
+  if (!Array.isArray(segments) || !segments.length || !isNum(shares) || shares <= 0) return null
+  let ev = 0
+  for (const s of segments) {
+    if (!isNum(s.metric) || !isNum(s.multiple)) return null
+    ev += s.metric * s.multiple
+  }
+  const nd = isNum(bridge?.net_debt) ? (bridge!.net_debt as number) : 0
+  const mi = isNum(bridge?.minority) ? (bridge!.minority as number) : 0
+  const ot = isNum(bridge?.other) ? (bridge!.other as number) : 0
+  return round((ev - nd - mi + ot) / shares, 4)
+}
+
+export interface PeersReadout { value: number | null; outOfAnchors: boolean; discountPct: number | null }
+/** The peers method value at a typed multiple — the affine line through the orb's OWN ≥2 recorded anchor
+ *  rows (implied-value table). discountPct is the derived % below the recorded peer median (informational).
+ *  Outside the anchor span → flagged (the orb published no row that far out). */
+export function peersFromMultiple(pi: PeersInternals | null | undefined, multiple: number | null): PeersReadout {
+  const bad = { value: null, outOfAnchors: false, discountPct: null }
+  if (!pi || !isNum(multiple) || !Array.isArray(pi.anchors) || pi.anchors.length < 2) return bad
+  const a0 = pi.anchors[0], a1 = pi.anchors[1]
+  if (!a0 || !a1 || !isNum(a0.multiple) || !isNum(a0.value) || !isNum(a1.multiple) || !isNum(a1.value) || Math.abs(a1.multiple - a0.multiple) < 1e-9) return bad
+  const slope = (a1.value - a0.value) / (a1.multiple - a0.multiple)
+  const value = round(a0.value + slope * (multiple - a0.multiple), 4)
+  const ms = pi.anchors.filter((a) => isNum(a?.multiple)).map((a) => a.multiple)
+  const lo = Math.min(...ms), hi = Math.max(...ms)
+  const discountPct = isNum(pi.median_multiple) && pi.median_multiple !== 0 ? round((1 - multiple / (pi.median_multiple as number)) * 100, 1) : null
+  return { value, outOfAnchors: multiple < lo - 1e-9 || multiple > hi + 1e-9, discountPct }
 }
 
 // ---- 1. fair-value LEVEL from a (forward metric × multiple) lever ----
@@ -197,6 +277,16 @@ export function checkMultipleSymmetry(bull?: number | null, base?: number | null
 
 // ---- 4. the editable draft the Playground holds, and its recompute ----
 export interface DraftScenario { label: string; probability: number | null; forwardMetric: number | null; multiple: number | null; levelOverride: number | null }
+// v1.1 per-method sub-lever state. `active` = the typed sub-levers are DRIVING that method's value (turns
+// on when a sub-field is edited; typing the method Value cell directly detaches — mirrors how a typed
+// metric×multiple outranks a supplied level). The recorded data (grid/segments/anchors) is immutable here;
+// only the typed positions move.
+export interface DraftInternals {
+  dcf?: { grid: DcfGrid; wacc: number | null; growth: number | null; active: boolean } | null
+  sotp?: { segments: { segment: string; metric: number | null; multiple: number | null; comp?: string | null; metric_name?: string | null }[]; bridge: SotpBridge | null; active: boolean } | null
+  peers?: { pi: PeersInternals; multiple: number | null; active: boolean } | null
+}
+
 export interface PlaygroundDraft {
   basis: Basis
   shares: number | null
@@ -207,6 +297,7 @@ export interface PlaygroundDraft {
   scenarios: DraftScenario[]
   methods: MethodLever[]
   driveBaseFromMix: boolean
+  internals?: DraftInternals
 }
 
 export interface RecomputeResult {
@@ -219,6 +310,9 @@ export interface RecomputeResult {
   // published — the UI must gate its "returns use the blend" claim on THIS, not on the toggle alone, or the
   // shown rationale contradicts the actual calculation (Codex #327 P2 r3636960240).
   blendActive: boolean
+  // v1.1: the per-method sub-lever readouts (present only for ACTIVE internals) — the derived method value
+  // plus its honesty flags, so the UI can render interpolated/out-of-grid states without recomputing.
+  methodInternals: { dcf?: GridReadout; sotp?: { value: number | null }; peers?: PeersReadout }
   warnings: string[]
 }
 
@@ -231,7 +325,30 @@ export function levelForScenario(s: DraftScenario, d: PlaygroundDraft): number |
 }
 
 export function recompute(d: PlaygroundDraft): RecomputeResult {
-  const blendRes = blend(d.methods || [])
+  // v1.1: ACTIVE sub-levers derive their method's value from the orb's recorded data BEFORE the blend —
+  // grid read for DCF, segment re-sum for SOTP, anchor line for peers. Inactive/absent internals leave the
+  // typed method value untouched, so runs without recorded internals behave exactly as before.
+  const methodInternals: RecomputeResult['methodInternals'] = {}
+  const methods = (d.methods || []).map((m) => {
+    const int = d.internals
+    if (m.key === 'dcf' && int?.dcf?.active) {
+      const r = dcfFromGrid(int.dcf.grid, int.dcf.wacc, int.dcf.growth)
+      methodInternals.dcf = r
+      if (isNum(r.value)) return { ...m, value: r.value }
+    }
+    if (m.key === 'sotp' && int?.sotp?.active) {
+      const v = sotpFromSegments(int.sotp.segments, int.sotp.bridge, d.shares)
+      methodInternals.sotp = { value: v }
+      if (isNum(v)) return { ...m, value: v }
+    }
+    if (m.key === 'peers' && int?.peers?.active) {
+      const r = peersFromMultiple(int.peers.pi, int.peers.multiple)
+      methodInternals.peers = r
+      if (isNum(r.value)) return { ...m, value: r.value }
+    }
+    return m
+  })
+  const blendRes = blend(methods)
   // When "drive base from mix" is on, the blended base point BECOMES the base scenario's level, so a moved
   // weight flows live into the base return, the margin of safety, and the probability-weighted expected
   // return. Off by default: the published base level is the frozen judgment (which may sit below the raw
@@ -250,7 +367,9 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
   const mult = (name: string) => d.scenarios.find((s) => (s.label || '').toLowerCase().includes(name))?.multiple
   if (isNum(mult('bull')) || isNum(mult('base')) || isNum(mult('bear'))) checks.symmetry = checkMultipleSymmetry(mult('bull'), mult('base'), mult('bear'))
   const warnings = [...math.warnings, ...(checks.wacc?.problems ?? []), ...(checks.symmetry?.problems ?? [])]
-  return { scenarios, math, checks, blend: blendRes, blendActive: driveBase, warnings }
+  if (methodInternals.dcf?.outOfGrid) warnings.push("DCF WACC/growth is outside the orb's recorded grid — extrapolated, not validated")
+  if (methodInternals.peers?.outOfAnchors) warnings.push("peers multiple is outside the orb's recorded implied-value rows — extrapolated, not validated")
+  return { scenarios, math, checks, blend: blendRes, blendActive: driveBase, methodInternals, warnings }
 }
 
 // Build the initial editable draft from the server response: prefer the valuation_summary.json levers
@@ -282,6 +401,7 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
       isMega: !!L.is_developed_mega_cap,
       methods: buildMethods(L.methods, L.method_weights),
       driveBaseFromMix: false,
+      internals: buildInternals(L),
       scenarios: L.scenarios.map((s, i) => ({
         label: s.label,
         probability: probabilityFor(s.label, s.probability, res.decision?.scenarios, i),
@@ -299,6 +419,29 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
     methods: [], driveBaseFromMix: false,
     scenarios: ds.map((s) => ({ label: s.label || '', probability: s.probability ?? null, forwardMetric: null, multiple: null, levelOverride: s.price_target ?? null })),
   }
+}
+
+// v1.1: the initial (inactive) sub-lever state from the sidecar's recorded internals. Positions start at
+// each orb's own base (grid base pair / recorded multiples / applied multiple), so opening a panel shows
+// the published numbers; nothing derives until the user edits a sub-field (active flips in the component).
+export function buildInternals(L: ValuationSummary): DraftInternals | undefined {
+  const out: DraftInternals = {}
+  const g = L.dcf_grid
+  if (g && Array.isArray(g.wacc) && Array.isArray(g.growth) && Array.isArray(g.values)) {
+    out.dcf = { grid: g, wacc: g.base?.wacc ?? null, growth: g.base?.growth ?? null, active: false }
+  }
+  if (Array.isArray(L.sotp_segments) && L.sotp_segments.length) {
+    out.sotp = {
+      segments: L.sotp_segments.map((s) => ({ segment: s.segment, metric: s.metric ?? null, multiple: s.multiple ?? null, comp: s.comp ?? null, metric_name: s.metric_name ?? null })),
+      bridge: L.sotp_bridge ?? null,
+      active: false,
+    }
+  }
+  const pi = L.peers_internals
+  if (pi && Array.isArray(pi.anchors) && pi.anchors.length >= 2) {
+    out.peers = { pi, multiple: pi.applied_multiple ?? pi.anchors[0]?.multiple ?? null, active: false }
+  }
+  return Object.keys(out).length ? out : undefined
 }
 
 const METHOD_ORDER = ['own_history', 'peers', 'dcf', 'sotp']
