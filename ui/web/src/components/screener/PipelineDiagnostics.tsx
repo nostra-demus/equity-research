@@ -77,7 +77,9 @@ function TierRow({ tier, coolLeftMs }: { tier: TierDiagnostics; coolLeftMs: numb
       <div className="diagtier__top">
         <span className="diagtier__dot" data-tone={health.tone} aria-hidden />
         <span className="diagtier__label" style={{ color: tier.enabled ? c : 'var(--text-faint)' }}>{tier.label}</span>
-        <span className="diagtier__role">{tier.id === 'local' ? 'primary brain · unlimited' : ROLE_LABEL[tier.role]}</span>
+        {/* local is unlimited in EITHER role — keep "· unlimited" but take the role text from tier.role, so a
+            demoted (NEWS_LOCAL_PRIMARY=0) local reads "free overflow · unlimited", never a contradictory "primary". */}
+        <span className="diagtier__role">{tier.id === 'local' ? (tier.role === 'primary' ? 'primary brain · unlimited' : `${ROLE_LABEL[tier.role]} · unlimited`) : ROLE_LABEL[tier.role]}</span>
         <span className="diagtier__health" data-tone={health.tone}>
           {cooling ? `Cooling · back in ~${fmtDur(coolLeftMs)}` : health.label}
         </span>
