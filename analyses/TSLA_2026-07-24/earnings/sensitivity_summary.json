@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "ticker": "TSLA",
+  "as_of": "2026-07-24",
+  "currency": "USD",
+  "base_metric": "ebitda_usd_m",
+  "base_value": 10849,
+  "base_value_source": "TTM (Q3'25+Q4'25+Q1'26+Q2'26) GAAP EBITDA (Operating Income + D&A); analyses/TSLA_2026-07-24/earnings/01_historical-financials.md §2",
+  "base_period": "TTM Jun-30-2026",
+  "revenue_base": 103619,
+  "revenue_period": "TTM Jun-30-2026",
+  "base_value_note": "base_value is REPORTED GAAP EBITDA (Operating Income + D&A), NOT Adjusted EBITDA (Adjusted EBITDA TTM would be higher; see 01_historical-financials.md §4 for FY2025 reported-vs-adjusted reconciliation). Every sensitivities[] coefficient below moves this same GAAP-EBITDA basis unless impact_metric overrides it. Dollar impacts in 07_earnings-sensitivity.md §2 are ANNUALIZED (a single quarter's estimated dollar swing ×4, assuming the move is sustained across four quarters) — an explicit assumption, not a disclosed annual figure.",
+  "sensitivities": [
+    {
+      "variable": "vehicle_delivery_volume",
+      "label": "Vehicle delivery volume (quarterly, sustained annualized)",
+      "unit": "vehicles/quarter",
+      "base_value": 480126,
+      "coefficient": 0.0272,
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": { "low": -48013, "high": 48013 },
+      "non_linearity": "Assumes automotive gross margin ex-credits (16.3%, Q2 FY2026) applies symmetrically to both an increase and a decrease in deliveries; ignores fixed R&D/SG&A operating leverage, so a delivery decline likely hits EBITDA harder than a same-size increase helps it (see §6 of the markdown).",
+      "source": "TSLA-Q2-2026-Update.pdf, p.5 (480,126 deliveries); 02_revenue-drivers.md §7 ($20,006M automotive sales / 480,126 units = $41,665/unit); 03_margin-drivers.md §7 (16.3% automotive gross margin ex-credits, Q2 FY2026)"
+    },
+    {
+      "variable": "automotive_regulatory_credit_revenue",
+      "label": "Automotive regulatory-credit revenue (annualized run-rate)",
+      "unit": "USD millions/year",
+      "base_value": 584,
+      "coefficient": 1.0,
+      "confidence": "medium",
+      "basis": "company-disclosed",
+      "valid_range": { "low": -584, "high": 0 },
+      "non_linearity": "Near-100%-margin revenue per company disclosure, so the $-for-$ pass-through to EBITDA is direct; the range is one-sided because the program is being phased out by enacted law (non-reversing), so there is no realistic upside beyond the current run-rate holding flat.",
+      "source": "FY26 Q2 10-Q, Item 2 MD&A (\"Recent governmental and regulatory actions have restricted certain regulatory credit programs\"; $146M Q2 FY2026 vs $439M Q2 FY2025, -67% YoY); 03_margin-drivers.md §6"
+    },
+    {
+      "variable": "sbc_new_tranche_probable",
+      "label": "Stock-based compensation — new milestone tranche becoming probable",
+      "unit": "USD billions of newly-probable unrecognized SBC",
+      "base_value": 0,
+      "coefficient": -108.7,
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": { "low": 0, "high": 15 },
+      "non_linearity": "Assumes straight-line recognition over ~9.2 years, matching the disclosed 2025 CEO Performance Award tranche ($9.82bn unrecognized / ~9.2 yrs remaining). A nearer-term milestone among the $105.82bn–$120.37bn not-yet-probable pool could recognize faster than 9.2 years, making the true annual drag larger than this linear estimate for the same dollar size. Tranche size (illustrative $15bn) is an assumption, not disclosed.",
+      "source": "FY26 Q2 10-Q, Note 9 (Stock-Based Compensation: $9.82bn unrecognized expense / ~9.2 years for the probable 2025 CEO Performance Award tranche; $105.82bn-$120.37bn unrecognized for tranches tied to milestones not yet deemed probable); 03_margin-drivers.md §9"
+    },
+    {
+      "variable": "fx_usd_trade_weighted_move",
+      "label": "FX — USD trade-weighted move vs. Tesla's revenue-currency basket",
+      "unit": "% move",
+      "base_value": 0,
+      "coefficient": -164,
+      "impact_metric": "pretax_income_usd_m",
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": { "low": -10, "high": 10 },
+      "non_linearity": "Disclosed as a static 10% simultaneous shock test applied to period-end monetary assets/liabilities in non-USD currencies, assuming no hedging (Tesla does not typically hedge FX); does not capture dynamic pricing responses or hedging beyond that static assumption.",
+      "source": "FY26 Q2 10-Q, Item 3 (Quantitative and Qualitative Disclosures About Market Risk: 10% adverse move swings pre-tax income $1.64bn as of Jun-30-2026); business-model/10_external-dependency.md §1-2"
+    },
+    {
+      "variable": "rd_sga_ex_sbc_ratio_bps",
+      "label": "R&D + SG&A (ex-SBC) as % of revenue",
+      "unit": "bps",
+      "base_value": 1134,
+      "coefficient": -10.36,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": { "low": -103, "high": 103 },
+      "non_linearity": "Coefficient is a direct ratio-to-revenue calculation (TTM revenue $103,619M / 10,000 = $10.36M per bp), not a company-disclosed per-bp rate; assumes TTM revenue stays constant when the ratio moves. Move-size range (±103bps) is the historical one-year (Q2'25→Q2'26) swing observed, per company MD&A.",
+      "source": "FY26 Q2 10-Q, Item 2 MD&A (R&D +49% YoY, SG&A +45% YoY vs +25.5% revenue growth); 03_margin-drivers.md §8 (opex-ex-SBC ratio 10.31%→11.34% YoY, $2,320M→$3,202M); 01_historical-financials.md §2 (TTM revenue $103,619M)"
+    },
+    {
+      "variable": "energy_segment_gross_margin_bps",
+      "label": "Energy Generation & Storage segment gross margin",
+      "unit": "bps",
+      "base_value": 2040,
+      "coefficient": 1.277,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": { "low": -240, "high": 460 },
+      "non_linearity": "Coefficient uses FY2025 Energy segment revenue ($12,771M) as the annualized base ($12,771M/10,000 = $1.277M per bp); Tesla does not allocate opex by segment, so the pass-through to consolidated EBITDA is assumed 1:1 (inference). Range is anchored to management's own disclosed 'mid- to low 20%' long-term normalized guide vs. the current 20.4% print, not a company per-bp rate.",
+      "source": "Q2 FY2026 transcript, prepared remarks (Vaibhav Taneja: \"$240 million\" warranty true-up, \">$200 million\" Q1 tariff benefit that did not repeat in Q2, \"mid- to low 20% range\" normalized guide); 03_margin-drivers.md §6-7; business-model/10_external-dependency.md §1 (Energy revenue $12,771mn FY2025)"
+    }
+  ]
+}
