@@ -335,6 +335,7 @@ from rating_caps import (
     _tag_fired_standalone,
     AE_DATE, CAP5_TAG, ABOVE_STARTER_AE, eval_ae_filter5_cap,
     AF_DATE, CAP1_TAG, ABOVE_WATCHLIST_AF, eval_af_filter1_integrity_cap,
+    AQ_DATE, FORENSIC_TAGS, ABOVE_STARTER_AQ, eval_aq_forensic_mosaic_cap,
 )
 
 AG_DATE = "2026-07-06"
@@ -1487,6 +1488,86 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AF({dec_!r},{dt_!r},mg={mg_r!r},track={track_r!r}) -> {got}"
               +("" if ok else f"  EXPECTED exp={exp}"))
     bad+=afbad
+    # check AQ — §13 cross-module forensic-mosaic conviction cap. No committed run reaches AQ_DATE,
+    # so drive every branch here: N/A (pre-gate / nothing ran), below-threshold (tags<3 or modules<2),
+    # fired (>=3 distinct tags across >=2 modules) at every decision, negation/table-row non-fires, and
+    # source-only propagation (specialist fired, synthesis clean).
+    AQ=eval_aq_forensic_mosaic_cap
+    EQ_SYNTH_1 = "Earnings synthesis.\nRF-EQ-001 (rising accruals divergent from cash earnings)\nCFO has lagged net income for 3 straight years."
+    EQ_SYNTH_BOTH = "Earnings synthesis.\nRF-EQ-001 (rising accruals divergent from cash earnings)\nRF-EQ-002 (cash-conversion breakdown)\nCFO/EBITDA at 38%, below the 50% threshold for 2 consecutive years."
+    EQ_SYNTH_NEG = "RF-EQ-001 not triggered — accruals track cash earnings closely."
+    EQ_SPEC_BOTH = "Earnings-quality specialist.\nRF-EQ-001 (rising accruals divergent from cash earnings)\nRF-EQ-002 (cash-conversion breakdown)"
+    OBS_SYNTH_1 = "Balance-sheet-survival synthesis.\nRF-OBS-001 (contingent-liability spike)\nMax litigation exposure 4.2x recognized liability, active."
+    OBS_SYNTH_TABLEROW = "| Contingent-liability spike (RF-OBS-001) | N | Solvency strength | max 70 | | | |"
+    OBS_SPEC_1 = "Off-balance-sheet specialist.\nRF-OBS-001 (contingent-liability spike)"
+    MG_SYNTH_ALL3 = "Management-governance synthesis.\nRF-DISC-001 (commentary contradicting the numbers)\nRF-DISC-002 (recurring \"one-off\" / aggressive non-GAAP add-backs)\nRF-REG-002 (delayed results / material-disclosure timeliness)"
+    MG_SYNTH_DISC1 = "RF-DISC-001 (commentary contradicting the numbers)"
+    MG_SYNTH_CLEAN = "Management-governance synthesis: clean, no forensic flags."
+    EQ_SYNTH_CLEAN = "Earnings synthesis: clean, no forensic flags."
+    OBS_SYNTH_CLEAN = "Balance-sheet-survival synthesis: clean, no forensic flags."
+    aqcases=[  # (decision, decision_date, module_synth_txt, module_specialist_txt, expect: None|[]|[tags])
+        # pre-gate: always None (N/A), regardless of how many tags would otherwise fire
+        ("Strong Buy","2026-07-23",{"earnings":EQ_SYNTH_BOTH,"balance-sheet-survival":OBS_SYNTH_1},{},None),
+        ("Strong Buy","not-a-date",{"earnings":EQ_SYNTH_BOTH,"balance-sheet-survival":OBS_SYNTH_1},{},None),
+        # all three modules absent (empty dicts, or dicts of Nones): N/A
+        ("Strong Buy","2026-07-24",{},{},None),
+        ("Strong Buy","2026-07-24",
+         {"earnings":None,"balance-sheet-survival":None,"management-governance":None},
+         {"earnings":None,"balance-sheet-survival":None,"management-governance":None},None),
+        # below tag threshold: only 2 distinct tags (both from earnings) → pass regardless of conviction
+        ("Strong Buy","2026-07-24",{"earnings":EQ_SYNTH_BOTH},{},[]),
+        # below module threshold: 3 distinct tags but all from ONE module (management-governance) → pass
+        ("Strong Buy","2026-07-24",{"management-governance":MG_SYNTH_ALL3},{},[]),
+        # negation must not count toward the tag total: earnings negated (0), bss fired (1), mg fired (1
+        # distinct) → only 2 distinct fired tags across 2 modules, still below the tag threshold → pass
+        ("Strong Buy","2026-07-24",
+         {"earnings":EQ_SYNTH_NEG,"balance-sheet-survival":OBS_SYNTH_1,"management-governance":MG_SYNTH_DISC1},
+         {},[]),
+        # table-row mention must not count as fired: earnings 2 tags + bss table-row-only (not counted)
+        # → still only 2 distinct fired tags, 1 module → pass
+        ("Strong Buy","2026-07-24",{"earnings":EQ_SYNTH_BOTH,"balance-sheet-survival":OBS_SYNTH_TABLEROW},{},[]),
+        # THRESHOLD MET: 3 distinct tags (RF-EQ-001, RF-EQ-002, RF-OBS-001) across 2 modules + conviction → fire
+        ("Strong Buy","2026-07-24",{"earnings":EQ_SYNTH_BOTH,"balance-sheet-survival":OBS_SYNTH_1},{},
+         ["RF-EQ-001","RF-EQ-002","RF-OBS-001"]),
+        ("Buy","2026-07-24",{"earnings":EQ_SYNTH_BOTH,"balance-sheet-survival":OBS_SYNTH_1},{},
+         ["RF-EQ-001","RF-EQ-002","RF-OBS-001"]),
+        # at/below the "Starter Position Only" ceiling → pass even with the mosaic fired
+        ("Starter Position Only","2026-07-24",{"earnings":EQ_SYNTH_BOTH,"balance-sheet-survival":OBS_SYNTH_1},{},[]),
+        ("Watchlist","2026-07-24",{"earnings":EQ_SYNTH_BOTH,"balance-sheet-survival":OBS_SYNTH_1},{},[]),
+        ("Avoid","2026-07-24",{"earnings":EQ_SYNTH_BOTH,"balance-sheet-survival":OBS_SYNTH_1},{},[]),
+        ("Insufficient Data — Refuse To Rate","2026-07-24",{"earnings":EQ_SYNTH_BOTH,"balance-sheet-survival":OBS_SYNTH_1},{},[]),
+        # Short Candidate intentionally not capped (a forensic short on a credible accounting mosaic is valid)
+        ("Short Candidate","2026-07-24",{"earnings":EQ_SYNTH_BOTH,"balance-sheet-survival":OBS_SYNTH_1},{},[]),
+        # all 3 modules distinct (5 distinct tags across earnings/bss/mg) + conviction → fire
+        ("Strong Buy","2026-07-24",
+         {"earnings":EQ_SYNTH_1,"balance-sheet-survival":OBS_SYNTH_1,"management-governance":MG_SYNTH_ALL3},
+         {},["RF-EQ-001","RF-OBS-001","RF-DISC-001"]),
+        # source-only propagation: all three syntheses clean, but all three specialists fired → still fires
+        ("Strong Buy","2026-07-24",
+         {"earnings":EQ_SYNTH_CLEAN,"balance-sheet-survival":OBS_SYNTH_CLEAN,"management-governance":MG_SYNTH_CLEAN},
+         {"earnings":EQ_SPEC_BOTH,"balance-sheet-survival":OBS_SPEC_1},
+         ["RF-EQ-001","RF-EQ-002","RF-OBS-001"]),
+        # clean everywhere + conviction → pass
+        ("Strong Buy","2026-07-24",
+         {"earnings":EQ_SYNTH_CLEAN,"balance-sheet-survival":OBS_SYNTH_CLEAN,"management-governance":MG_SYNTH_CLEAN},
+         {},[]),
+    ]
+    aqbad=0
+    for dec_,dt_,synth_,spec_,exp in aqcases:
+        got=AQ(dec_,dt_,synth_,spec_)
+        if exp is None:
+            ok=(got is None)
+        elif isinstance(exp,list) and not exp:
+            ok=(isinstance(got,list) and len(got)==0)
+        else:
+            # AQ returns ONE combined violation string naming every fired tag (unlike AD's per-filter
+            # violations) — every expected tag must appear SOMEWHERE among got's string(s), not one
+            # violation per tag.
+            ok=(isinstance(got,list) and len(got)>=1 and all(any(tag in v for v in got) for tag in exp))
+        if not ok: aqbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] AQ({dec_!r},{dt_!r},synth_keys={sorted(synth_.keys())!r},spec_keys={sorted(spec_.keys())!r}) -> {got}"
+              +("" if ok else f"  EXPECTED exp={exp}"))
+    bad+=aqbad
     # check AG — Phase 6 calibration-feedback gate (DECISION_LEDGER.md §18). No committed run reaches
     # AG_DATE, so drive every branch here: no-summary / pre-data / checked / applied, each matched or
     # mismatched against calibration_feedback, plus the malformed-status and applied/checked_no_action
@@ -2291,7 +2372,7 @@ if scope=="selftest":
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(aocases)} check-AO cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(aocases)} check-AO cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -3044,6 +3125,39 @@ for drp in runs:
                 f"decision={dec!r} — §24 Filter 1 cap satisfied")
     else:
         add("AF_filter1_integrity_cap",True,f"run predates §24 Filter 1 gate ({ddte}) — N/A",na=True)
+    # AQ §13 cross-module forensic-mosaic conviction cap (forward-looking; landing AQ_DATE) —
+    #   synthesizer.md Pre-Write Gate step 4B. Mechanizes the "3+ independent sub-threshold forensic
+    #   signals → compound High accounting-integrity flag" mosaic check, which — unlike its five §24
+    #   sibling caps (AC/AD/AE/AF above) — had zero mechanical enforcement until now (flagged as the
+    #   next-highest-leverage gap when AG shipped, PR #321). Detection: six standalone-line tags across
+    #   three modules (RF-EQ-001/002 earnings, RF-OBS-001 balance-sheet-survival, RF-DISC-001/002 +
+    #   RF-REG-002 management-governance); see scripts/rating_caps.py for the full detection rationale.
+    #   _read_synth_text / _read_specialist_text are defined in the AD/AE blocks above; AQ_DATE > AF_DATE
+    #   > AE_DATE > AD_DATE so both are always available here.
+    if isdate(ddte) and ddte>=AQ_DATE:
+        _aq_synth={
+            "earnings":_read_synth_text("earnings"),
+            "balance-sheet-survival":_read_synth_text("balance-sheet-survival"),
+            "management-governance":mg_txt_af,  # already read above; same file, avoid a duplicate glob/read
+        }
+        _aq_spec={
+            "earnings":_read_specialist_text("earnings","06_"),
+            "balance-sheet-survival":_read_specialist_text("balance-sheet-survival","05_"),
+            "management-governance":_read_specialist_text("management-governance","06_"),
+        }
+        aqresult=eval_aq_forensic_mosaic_cap(dec,ddte,_aq_synth,_aq_spec)
+        if aqresult is None:
+            add("AQ_forensic_mosaic_cap",True,"none of the three owning modules (earnings, balance-sheet-survival, management-governance) ran — N/A",na=True)
+        elif aqresult:
+            add("AQ_forensic_mosaic_cap",False,"; ".join(aqresult))
+        else:
+            _aq_fired=sorted({tag for tag in FORENSIC_TAGS
+                               if _tag_fired_standalone(_aq_synth.get(FORENSIC_TAGS[tag][0]),tag)
+                               or _tag_fired_standalone(_aq_spec.get(FORENSIC_TAGS[tag][0]),tag)})
+            add("AQ_forensic_mosaic_cap",True,
+                f"forensic tags fired: {_aq_fired or 'none'}; decision={dec!r} — §13 forensic-mosaic cap satisfied")
+    else:
+        add("AQ_forensic_mosaic_cap",True,f"run predates §13 forensic-mosaic gate ({ddte}) — N/A",na=True)
     # AG Phase 6 calibration-feedback gate (forward-looking; landing AG_DATE) — DECISION_LEDGER.md §18.
     #   Closes the loop Phase 4 (/research:calibrate) opened but nothing consumed: verifies the
     #   synthesizer's decision_record.json carries a calibration_feedback object whose status is
@@ -3218,7 +3332,11 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/earnings/03_margin-drivers.md":["SECTOR_OVERLAYS.md","sector overlay","No sector overlay"],
  ".claude/agents/business-model/09_moat.md":["Use a through-cycle return"],
  ".claude/agents/earnings/MODULE_RULES.md":["Cycle-Position Rule"],
- ".claude/agents/earnings/06_earnings-quality.md":["Lead with normalised operating FCF"],
+ ".claude/agents/earnings/06_earnings-quality.md":["Lead with normalised operating FCF","RF-EQ-001","RF-EQ-002"],
+ ".claude/agents/earnings/99_earnings-synthesis.md":["RF-EQ-001","RF-EQ-002","FORENSIC TAG PROPAGATION"],
+ ".claude/agents/balance-sheet-survival/05_off-balance-sheet-and-contingencies.md":["RF-OBS-001"],
+ ".claude/agents/balance-sheet-survival/99_balance-sheet-survival-synthesis.md":["RF-OBS-001"],
+ ".claude/agents/management-governance/06_candor-and-disclosure-quality.md":["RF-DISC-001","RF-DISC-002","RF-REG-002","Standalone tag emission"],
  ".claude/agents/valuation/07_scenario-and-fair-value.md":["true through-cycle trough"],
  ".claude/agents/business-model/08_competitive-map.md":["Profitability / return on capital"],
  ".claude/agents/balance-sheet-survival/06_downside-stress-test.md":["Pending acquisition (pro-forma) check"],
@@ -3228,22 +3346,22 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/business-model/11_capital-allocation-governance.md":["Filter 4","opportunity cost"],
  ".claude/agents/management-governance/MODULE_RULES.md":["RF-CAP-004","RF-OWN-004","RF-MGT-004","RF-MGT-005","§24"],
  ".claude/agents/management-governance/01_management-and-track-record.md":["Turnaround","Filter 2","RF-MGT-005"],
- ".claude/agents/management-governance/99_management-governance-synthesis.md":["RF-MGT-005"],
+ ".claude/agents/management-governance/99_management-governance-synthesis.md":["RF-MGT-005","RF-DISC-001","RF-DISC-002","RF-REG-002","Forensic tag propagation"],
  ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
  ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3","Label the cycle position of the EBITDA","the **strict** basis (CLAUDE.md §15)"],
  ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap","benchmarked against BOTH a peer-normal margin"],
- ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types"],
+ ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types","eval_aq_forensic_mosaic_cap","Cross-module forensic mosaic"],
  ".claude/agents/catalyst/MODULE_RULES.md":["§17 Catalyst Discipline","Catalyst Category Checklist","No proven catalyst yet"],
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
  ".claude/agents/memo-writer.md":["memo.md","colleague","~10"],
- ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","valuation_summary_checks","eval_ap_valuation_summary_integrity"],
- "scripts/rating_caps.py":["AC_DATE","AD_DATE","AE_DATE","AF_DATE","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","_tag_fired_standalone","HIGH_CONVICTION_DECISIONS"],
+ ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","valuation_summary_checks","eval_ap_valuation_summary_integrity"],
+ "scripts/rating_caps.py":["AC_DATE","AD_DATE","AE_DATE","AF_DATE","AQ_DATE","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_aq_forensic_mosaic_cap","_tag_fired_standalone","HIGH_CONVICTION_DECISIONS","FORENSIC_TAGS","MOSAIC_MIN_DISTINCT_TAGS","MOSAIC_MIN_DISTINCT_MODULES"],
  "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM"],
  "scripts/valuation_summary_checks.py":["eval_ap_valuation_summary_integrity","scan_committed","_selftest","_REQUIRED","level_from_multiple"],
  ".claude/agents/module-memo-writer.md":["_memo.md","module synthesis","condenser"],
  "frameworks/MODULE_PIPELINE.md":["Step 4.9","module-memo-writer","_memo.md","_dossier.md"],
- ".claude/commands/research/rerun.md":["module-memo-writer","_dossier.md","10B.3"],
+ ".claude/commands/research/rerun.md":["module-memo-writer","_dossier.md","10B.3","forensic-mosaic"],
  ".claude/commands/research/track.md":["analyses/tracking","_calls_tracker","review_schedule","ad-hoc","memo_delta_file"],
  ".claude/settings.json":["SessionStart","review_due.py"],
  ".claude/hooks/review_due.py":["review_schedule","research:review-decisions due"],

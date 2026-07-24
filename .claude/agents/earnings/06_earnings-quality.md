@@ -87,6 +87,8 @@ Trend column: Improving / Stable / Deteriorating
 
 In 2–3 sentences: is CFO tracking EBITDA? Is CFO/EBITDA above 70% consistently (healthy) or below 50% (red flag)? What's the trajectory?
 
+If CFO/EBITDA has been below 50% for 2 or more of the last 3 years (a cash-conversion breakdown, CLAUDE.md §13), emit the literal tag string `RF-EQ-002 (cash-conversion breakdown)` as a standalone line so the earnings synthesis and eval harness detect it mechanically (eval check AQ — the §13 cross-module forensic-mosaic cap). This is a source emission regardless of whether it alone crosses the Earnings Quality Score band cap in Section 9 — the synthesizer's cross-module roll-up (synthesizer.md step 4B) may need it even when this module's own score absorbs it.
+
 ## 3. Working Capital Trends
 
 | Metric | FY{-2} | FY{-1} | FY{0} | Direction | Risk |
@@ -130,6 +132,8 @@ Flag adjustments that:
 | Deferred revenue declining (if subscription/contract business) | | |
 | Capitalized costs growing as % of revenue | | |
 | Frequent accounting policy changes | | |
+
+If 2 or more rows above are triggered Y (rising accruals divergent from cash earnings, CLAUDE.md §13), emit the literal tag string `RF-EQ-001 (rising accruals divergent from cash earnings)` as a standalone line so the earnings synthesis and eval harness detect it mechanically (eval check AQ — the §13 cross-module forensic-mosaic cap), even if no single row alone would move the Earnings Quality Score band in Section 9.
 
 ## 7. Reported vs Adjusted Reconciliation
 
@@ -189,6 +193,8 @@ One paragraph: what is the single biggest risk that reported earnings overstate 
 - [ ] Cash conversion is not judged only from one year.
 - [ ] Any major accounting judgment is flagged for the master synthesizer.
 - [ ] Where FCF is inflated by a one-off cash item or a company-defined add-back, the normalised operating FCF is the lead figure with the reported/company-defined figure labelled beside it (§15).
+- [ ] If CFO/EBITDA was below 50% for 2+ of the last 3 years, Section 2 emits `RF-EQ-002 (cash-conversion breakdown)` as a standalone line.
+- [ ] If 2+ Accrual Quality Flags rows are triggered Y, Section 6 emits `RF-EQ-001 (rising accruals divergent from cash earnings)` as a standalone line.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

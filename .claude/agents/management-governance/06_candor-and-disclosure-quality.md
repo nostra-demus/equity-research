@@ -88,6 +88,8 @@ In 2–3 sentences: in the worst recent quarter/period, was the tone candid or p
 
 Every material claim in the narrative above appears here as a row (MODULE_RULES Universal Findings Table rules). Treat disclosure as structured tests: KPI consistency period-over-period, delayed results / material disclosure (RF-REG-002), recurring "one-off" adjustments (RF-DISC-002), and commentary contradicting the numbers (RF-DISC-001).
 
+**Standalone tag emission (CLAUDE.md §13; eval check AQ).** Populating a Red Flag ID cell above is not enough for mechanical detection — for EACH of the three tags above that is actually triggered, ALSO emit it as a standalone literal line in Section 5 (Candor Read): `RF-REG-002 (delayed results / material-disclosure timeliness)`, `RF-DISC-002 (recurring "one-off" / aggressive non-GAAP add-backs)`, and/or `RF-DISC-001 (commentary contradicting the numbers)`. This lets the management-governance synthesis and eval harness detect the finding mechanically (the §13 cross-module forensic-mosaic cap), even when this module's own Disclosure Candor Score already absorbs it and none of these three alone would move the candor verdict.
+
 ## Disclosure Candor Score
 | Component | Score | Max Score | Evidence |
 |---|---:|---:|---|
@@ -115,6 +117,7 @@ Emit a machine-readable JSON code block per the Machine-Readable Outputs schema 
 - [ ] Disclosure transparency over time is assessed (any reduction flagged).
 - [ ] Tone in the worst recent period is judged, not just the good quarters.
 - [ ] The verdict is grounded in specific communications, not impressions.
+- [ ] Every triggered RF-REG-002 / RF-DISC-002 / RF-DISC-001 is ALSO emitted as a standalone line in Section 5, not just a Universal Findings Table cell.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

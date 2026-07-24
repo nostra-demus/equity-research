@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""§24 rejector-filter conviction-cap detectors (Filters 1, 2, 4, 5, 6 — CLAUDE.md §24).
+"""Conviction-cap detectors: the §24 rejector filters (Filters 1, 2, 4, 5, 6 — CLAUDE.md §24) plus
+the §13 cross-module forensic-mosaic cap (CLAUDE.md §13 / synthesizer.md Pre-Write Gate step 4B).
 
 Side-effect-free, importable, doctrine logic — extracted from `scripts/eval.py` (checks
-AC/AD/AE/AF) so the SAME detection functions can run in TWO places instead of one:
+AC/AD/AE/AF, and now AQ) so the SAME detection functions can run in TWO places instead of one:
 
 1. **Retrospective** — `scripts/eval.py` imports these to grade already-committed runs
    (checks AC/AD/AE/AF), as it always has.
@@ -321,3 +322,101 @@ def eval_af_filter1_integrity_cap(decision, decision_date, mg_txt, track_txt=Non
             f"not yet proven → maximum Watchlist; CLAUDE.md §24 Filter 1; no edge-score bypass — a "
             f"proven business edge does not cure an unresolved integrity concern)")
     return violations  # empty list = pass
+
+# ── Check AQ (§13 cross-module forensic-mosaic conviction cap) ────────────────────────────────────
+# CLAUDE.md §13: "a critical governance, solvency, accounting, fraud, or going-concern red flag must
+# cap the final rating ... Red flags are captured through a standardized trigger mechanism (auditor
+# or CFO resignation, promoter pledge, related-party transactions above threshold, cash-conversion
+# breakdown, contingent-liability spikes, regulatory action, insider selling ahead of bad results, and
+# similar). When a governance red flag surfaces in any module, it is escalated, not absorbed."
+# synthesizer.md Pre-Write Gate step 4B operationalizes this as the "cross-module forensic roll-up":
+# tabulate every forensic/accounting-integrity finding across ALL modules — INCLUDING the Medium/Low
+# ones each module's own synthesis is otherwise allowed to summarise or omit — and if three or more
+# INDEPENDENT, distinctly-sourced signals point the same way, treat the compound as a single High
+# accounting-integrity flag. Until now that step was pure prose ("a look, not a mechanical auto-cap")
+# with zero mechanical enforcement, unlike its five §24 sibling caps (AC/AD/AE/AF above) — flagged as
+# the next-highest-leverage gap when AG shipped (PR #321): "Mechanizing it requires first giving the
+# upstream agents that feed it a stable finding-ID tagging convention ... before eval.py can count
+# distinct fired tags." This check is that mechanization's first slice.
+#
+# Detection: six standalone-line tags, each the SOURCE emitter for one distinct §13 trigger, spanning
+# three modules (mirrors the AD/AE/AF pattern of scanning both the specialist source AND the module
+# synthesis so a missed propagation still fires the cap):
+#   RF-EQ-001   — rising accruals divergent from cash earnings     (earnings/06_earnings-quality.md)
+#   RF-EQ-002   — cash-conversion breakdown                        (earnings/06_earnings-quality.md)
+#   RF-OBS-001  — contingent-liability spike                       (balance-sheet-survival/05_off-balance-sheet-and-contingencies.md)
+#   RF-DISC-001 — commentary contradicting the numbers              (management-governance/06_candor-and-disclosure-quality.md)
+#   RF-DISC-002 — recurring "one-off" / aggressive non-GAAP add-backs (management-governance/06_candor-and-disclosure-quality.md)
+#   RF-REG-002  — delayed results / material-disclosure timeliness (management-governance/06_candor-and-disclosure-quality.md)
+# Each module synthesis (earnings/99, balance-sheet-survival/99, management-governance/99) propagates
+# whatever its specialists fired.
+#
+# Threshold (deliberately narrower than a bare "3 tags anywhere"): fires only when BOTH (a) three or
+# more DISTINCT tags are fired, AND (b) those tags span two or more DISTINCT modules. A single module
+# firing several of its own tags is that module's own known weakness — its own score already reflects
+# it (e.g. candor's Disclosure Candor Score is built from these same components) — not the cross-
+# module "mosaic" §13/4B describes ("rising accruals AND a contingent-liability spike AND recurring
+# non-GAAP add-backs", each from a DIFFERENT source). Requiring both conditions keeps this check a
+# genuine cross-module compounder, not a duplicate of a cap the owning module's synthesis already
+# applies.
+#
+# Ceiling and bypass: the compound is explicitly a "High" (not Critical) flag per 4B's own text, so it
+# does not reach the Critical-flag hard lock ("Avoid"/"Watchlist") — it caps conviction at "Starter
+# Position Only," the same ceiling as the other non-hard-lock §24 "High"-tier caps (AC turnaround, AE
+# fast-changing industry). No edge-score bypass: unlike AE (where a proven durable winner genuinely
+# mitigates disruption risk), a business edge does not cure numbers that look cooked — this mirrors
+# AC/AD/AF's conservative default (CLAUDE.md §4), not AE's exception. "Short Candidate" is intentionally
+# excluded from the ceiling: a forensic short built on a credible accounting mosaic is exactly the
+# Chanos-style short thesis this cap protects, not the risk it guards against (same rationale as
+# AC/AE/AF excluding Short Candidate).
+#
+# Landing date: 2026-07-24 (forward-looking; every committed golden fixture predates it → N/A → suite green).
+AQ_DATE = "2026-07-24"
+FORENSIC_TAGS = {
+    # tag: (owning module dir, source specialist filename prefix, one-line description)
+    "RF-EQ-001":   ("earnings", "06_", "rising accruals divergent from cash earnings"),
+    "RF-EQ-002":   ("earnings", "06_", "cash-conversion breakdown"),
+    "RF-OBS-001":  ("balance-sheet-survival", "05_", "contingent-liability spike"),
+    "RF-DISC-001": ("management-governance", "06_", "commentary contradicting the numbers"),
+    "RF-DISC-002": ("management-governance", "06_", "recurring \"one-off\" / aggressive non-GAAP add-backs"),
+    "RF-REG-002":  ("management-governance", "06_", "delayed results / material-disclosure timeliness"),
+}
+ABOVE_STARTER_AQ = {"Strong Buy", "Buy"}  # decisions that exceed the "Starter Position Only" cap
+MOSAIC_MIN_DISTINCT_TAGS = 3     # CLAUDE.md §13 / synthesizer.md 4B: "three or more independent ... signals"
+MOSAIC_MIN_DISTINCT_MODULES = 2  # a cross-MODULE mosaic, not one module's own several weaknesses
+
+def eval_aq_forensic_mosaic_cap(decision, decision_date, module_synth_txt, module_specialist_txt):
+    """Check AQ: §13 cross-module forensic-mosaic conviction cap (synthesizer.md Pre-Write Gate 4B).
+    Returns None (N/A — pre-gate, or none of the six source modules/specialists are present), or a
+    list of violation strings (empty list = pass). Side-effect-free + module-level so eval.py selftest
+    can drive it.
+    module_synth_txt / module_specialist_txt: dicts keyed by the three owning module dirs
+    ('earnings', 'balance-sheet-survival', 'management-governance') mapping to that module's
+    99_*-synthesis.md text / the relevant NN_*.md specialist text (each value may be None if that
+    module or specialist did not run). Every FORENSIC_TAGS tag is scanned in BOTH its synthesis and
+    its specialist source (see module docstring) so a synthesis that forgets to propagate a fired tag
+    still counts toward the mosaic — mirrors how AD/AE/AF read their tags from the specialist source,
+    not the roll-up alone (CLAUDE.md §11: caps are applied, never silently overridden)."""
+    if not (isdate(decision_date) and decision_date >= AQ_DATE):
+        return None  # forward-looking; pre-gate runs N/A
+    if not any((module_synth_txt or {}).values()) and not any((module_specialist_txt or {}).values()):
+        return None  # none of the three owning modules ran at all — N/A
+    fired_by_module = {}
+    for tag, (mod, _prefix, _desc) in FORENSIC_TAGS.items():
+        synth = (module_synth_txt or {}).get(mod)
+        spec = (module_specialist_txt or {}).get(mod)
+        if _tag_fired_standalone(synth, tag) or _tag_fired_standalone(spec, tag):
+            fired_by_module.setdefault(mod, set()).add(tag)
+    distinct_tags = sorted({t for tags in fired_by_module.values() for t in tags})
+    distinct_modules = len(fired_by_module)
+    if len(distinct_tags) < MOSAIC_MIN_DISTINCT_TAGS or distinct_modules < MOSAIC_MIN_DISTINCT_MODULES:
+        return []  # mosaic threshold not met — no compound flag, nothing to cap
+    if decision in ABOVE_STARTER_AQ:
+        return [
+            f"§13 cross-module forensic mosaic: {len(distinct_tags)} distinct forensic tags fired "
+            f"across {distinct_modules} modules ({', '.join(distinct_tags)}) but decision={decision!r} "
+            f"exceeds the 'Starter Position Only' cap (synthesizer.md Pre-Write Gate step 4B: three or "
+            f"more independent, distinctly-sourced forensic signals compound into a single High "
+            f"accounting-integrity flag; CLAUDE.md §13 — do not average a red flag away; no edge-score "
+            f"bypass)"]
+    return []  # empty list = pass (mosaic fired but decision is at/below the ceiling, or Short Candidate)
