@@ -113,9 +113,11 @@ export async function runChatTurn(opts: {
   onToken: (t: string) => void
   onSignal?: (s: ChatTurnSignal) => void // live progress + thinking stream (optional — safe to omit)
   // Small-call overrides, used by the what-if PARSER (chat-whatif.ts): a tight wall-clock so a hung parse
-  // can't stall the turn, and thinkingTokens: 0 to disable extended thinking (a parse needs none).
+  // can't stall the turn, thinkingTokens: 0 to disable extended thinking (a parse needs none), and a small
+  // separate $ ceiling so a what-if turn can never consume two full CHAT.budgetUsd budgets.
   timeoutMs?: number
   thinkingTokens?: number
+  budgetUsd?: number
 }): Promise<ChatTurnOutcome> {
   if (activeChatTurns >= CHAT.maxConcurrent) {
     return { costUsd: 0, error: 'Chat is busy right now — try again in a moment.' }
@@ -134,7 +136,7 @@ export async function runChatTurn(opts: {
     else if (flags.has('--disallowed-tools')) args.push('--disallowed-tools', 'Bash Edit Write Read WebSearch WebFetch Task Glob Grep NotebookEdit')
     if (flags.has('--model')) args.push('--model', opts.model)
     if (flags.has('--max-turns')) args.push('--max-turns', '1')
-    if (flags.has('--max-budget-usd')) args.push('--max-budget-usd', String(CHAT.budgetUsd))
+    if (flags.has('--max-budget-usd')) args.push('--max-budget-usd', String(opts.budgetUsd ?? CHAT.budgetUsd))
     if (flags.has('--permission-mode')) args.push('--permission-mode', 'bypassPermissions')
 
     // Extended thinking, ON REQUEST of the UI: with a thinking budget set, the CLI streams the model's

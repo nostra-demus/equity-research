@@ -1674,6 +1674,7 @@ app.post('/api/chat', async (req, reply) => {
   // the model narrates a number it did not calculate (CLAUDE.md §15/§20). Best-effort: any failure — no
   // sidecar, an unparseable move, no python3 — degrades to a normal closed-book answer, never a 500.
   let computedBlock: string | undefined
+  let parserCostUsd = 0 // the what-if parse's cost — folded into the turn's reported/persisted cost
   try {
     if (detectWhatIf(last.content)) {
       const loaded = loadSidecar(runRoot)
@@ -1681,15 +1682,17 @@ app.post('/api/chat', async (req, reply) => {
         // 'modeling' covers the whole parse→compute span; runs without a sidecar never reach here (no flicker).
         send({ type: 'chat-status', stage: 'modeling' })
         // The PARSE: a small constrained call on the SAME model the panel picked for this turn — thinking
-        // off + a tight timeout, so it stays a ~1-2s interpretation step, never a second full turn. The
-        // model only interprets; validateIntents rejects anything it invents; the engine computes.
+        // off, a tight timeout, and its OWN small $ ceiling (never a second full turn budget). The model
+        // only interprets; validateIntents rejects anything it invents; the engine computes. Its cost is
+        // captured and folded into the turn's reported/persisted cost below.
         const parserCall = async (system: string, user: string) => {
           let out = ''
           const r = await runChatTurn({
             system, user, model, signal: ac.signal,
-            timeoutMs: CHAT.parserTimeoutMs, thinkingTokens: 0,
+            timeoutMs: CHAT.parserTimeoutMs, thinkingTokens: 0, budgetUsd: CHAT.parserBudgetUsd,
             onToken: (t) => { out += t },
           })
+          parserCostUsd += r.costUsd || 0
           return r.error ? null : out
         }
         const pr = await parseWhatIf(last.content, loaded.sidecar, parserCall)
@@ -1736,10 +1739,10 @@ app.post('/api/chat', async (req, reply) => {
     })
     if (out.error && out.error !== 'aborted') send({ type: 'chat-error', message: out.error })
     else if (!out.error) {
-      send({ type: 'chat-done', costUsd: out.costUsd, model })
+      send({ type: 'chat-done', costUsd: out.costUsd + parserCostUsd, model })
       // save the assistant answer only on a clean completion (an errored/aborted turn leaves the question
       // in history but no half-answer). Best-effort, off the response path.
-      if (conversationId && answer) void recordAssistantMessage(conversationId, answer, { sourcePath: assembled.sourcePath, costUsd: out.costUsd, thinking: thinking || undefined }).catch(() => {})
+      if (conversationId && answer) void recordAssistantMessage(conversationId, answer, { sourcePath: assembled.sourcePath, costUsd: out.costUsd + parserCostUsd, thinking: thinking || undefined }).catch(() => {})
     }
   } catch (e: any) {
     if (!closed) send({ type: 'chat-error', message: String(e?.message || e) })

@@ -187,16 +187,48 @@ export async function parseWhatIf(question: string, sidecar: SensitivitySidecar,
 }
 
 // ---- 3. validation (pure code — the anti-invention gate) ----------------------------------------------
-/** TRUE when `value` was literally written in the question (digit-grouping commas stripped; boundary-checked
- *  so 45 does not match inside 450 or 3.45). This is the structural guarantee that the parse model can only
+/** TRUE when `value` was literally written in the question. Implemented by extracting every numeric TOKEN
+ *  (digit-grouping commas stripped) and comparing NUMERICALLY — so "3.40" matches 3.4, "10.0" matches 10,
+ *  ".5" matches 0.5, while 45 can never match inside "450" or "3.45" (those extract as the tokens 450 /
+ *  3.45, which are numerically different). This is the structural guarantee that the parse model can only
  *  SELECT a number the user typed, never produce one. */
 export function valueAppearsInQuestion(value: number, question: string): boolean {
   if (!Number.isFinite(value)) return false
   const q = (question || '').replace(/(\d),(?=\d)/g, '$1') // "3,467" → "3467"
-  const forms = new Set<string>([String(value), String(Math.abs(value))])
-  for (const f of forms) {
-    const esc = f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    if (new RegExp(`(?<![\\d.])${esc}(?![\\d.])`).test(q)) return true
+  const target = Math.abs(value)
+  for (const tok of q.match(/\d*\.?\d+/g) || []) {
+    const n = parseFloat(tok)
+    if (Number.isFinite(n) && n === target) return true
+  }
+  return false
+}
+
+// jurisdiction-generic currency aliases, so "the dollar" mentions a usd_* variable and "the krone" a *_nok one
+const CURRENCY_ALIAS: Record<string, string[]> = {
+  usd: ['dollar', 'dollars'], nok: ['krone', 'kroner'], eur: ['euro', 'euros'],
+  gbp: ['pound', 'pounds', 'sterling'], inr: ['rupee', 'rupees'], jpy: ['yen'], cny: ['yuan', 'renminbi'],
+}
+
+/** TRUE when the question plausibly NAMES this row. A GATE, not a chooser — deliberately generous (any
+ *  ≥3-char token of the variable key or label, singular/plural-stemmed, plus spelling/currency aliases),
+ *  because a false negative would drop a correct parse, while a false positive merely defers to the model's
+ *  own pick + the value gate. What it must stop: a parse that returns a recorded variable for a question
+ *  about something else entirely ("what if freight falls 10%?" → lme_aluminium_price), which would stream
+ *  an authoritative card for a variable the user never asked about. */
+export function questionMentionsRow(question: string, row: SensitivityRow): boolean {
+  const q = ` ${(question || '').toLowerCase()} `
+  const toks = `${row.variable || ''} ${row.label || ''}`.toLowerCase().split(/[^a-z0-9]+/).filter((t) => t.length >= 3)
+  const cand = new Set<string>(toks)
+  for (const t of toks) {
+    if (t === 'aluminium') cand.add('aluminum')
+    if (t === 'aluminum') cand.add('aluminium')
+    // own-property + Array.isArray: a token like 'constructor' must not resolve to a prototype function
+    const aliases = Object.prototype.hasOwnProperty.call(CURRENCY_ALIAS, t) ? CURRENCY_ALIAS[t] : null
+    if (Array.isArray(aliases)) for (const a of aliases) cand.add(a)
+  }
+  for (const t of cand) {
+    const s = t.length > 4 && t.endsWith('s') ? t.slice(0, -1) : t // "extrusions" also matches "extrusion"
+    if (q.includes(s)) return true
   }
   return false
 }
@@ -209,10 +241,11 @@ export interface Plan { variable: string; row: SensitivityRow; req: ScenarioRequ
 const MAX_INTENTS = 4
 
 /** Validate the parse against the question + sidecar. Drops (never repairs) anything suspect: an unrecorded
- *  variable key, a value not present in the question, a % move without a recorded base level, a duplicate
- *  variable. Sidecar-side integrity is enforced here too — an uncited coefficient cannot be modelled and
- *  cited (§3), and a coefficient on a different metric than the base cannot be applied to the base level.
- *  Returns the computable plans plus (when nothing is computable) the honest refusal reason, if any. */
+ *  variable key, a variable the question never names, a value not present in the question, a % move without
+ *  a recorded base level, a duplicate variable. Sidecar-side integrity is enforced here too — an uncited
+ *  coefficient cannot be modelled and cited (§3), and a coefficient on a different metric than the base
+ *  cannot be applied to the base level. Returns the computable plans plus (when nothing is computable) the
+ *  honest refusal reason, if any. */
 export function validateIntents(pr: ParseResult, question: string, sidecar: SensitivitySidecar): { plans: Plan[]; refusal: UnsupportedReason | null } {
   const rows = new Map(sensRows(sidecar).filter((r) => r?.variable).map((r) => [r.variable.toLowerCase(), r] as const))
   const seen = new Set<string>()
@@ -221,6 +254,7 @@ export function validateIntents(pr: ParseResult, question: string, sidecar: Sens
   for (const it of (pr.intents || []).slice(0, MAX_INTENTS)) {
     const row = rows.get(it.variable.toLowerCase())
     if (!row || seen.has(row.variable)) continue
+    if (!questionMentionsRow(question, row)) continue         // the variable must be the one the user asked about
     if (!valueAppearsInQuestion(it.value, question)) continue // the anti-invention gate
     if (!(typeof row.source === 'string' && row.source.trim())) { refusal = refusal ?? 'no_source'; continue }
     if (row.impact_metric && sidecar.base_metric && row.impact_metric !== sidecar.base_metric) { refusal = refusal ?? 'metric_mismatch'; continue }

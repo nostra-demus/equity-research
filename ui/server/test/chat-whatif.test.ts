@@ -9,7 +9,7 @@
 import assert from 'node:assert/strict'
 import {
   detectWhatIf, recordedList, buildParserPrompt, parseModelOutput, parseWhatIf, valueAppearsInQuestion,
-  validateIntents, computePlan, computedContextBlock,
+  questionMentionsRow, validateIntents, computePlan, computedContextBlock,
   type SensitivitySidecar, type ParseResult, type ParserCall,
 } from '../src/chat-whatif'
 
@@ -79,25 +79,47 @@ await (async () => {
     assert.equal(valueAppearsInQuestion(45, 'multiple of 3.45x'), false) // …or inside 3.45
     assert.equal(valueAppearsInQuestion(999, 'rises $45/mt'), false)  // an invented number is rejected
     assert.equal(valueAppearsInQuestion(-45, 'falls by 45'), true)    // model returned a signed copy
+    // formatting variants (review fix): numeric token comparison, not string matching
+    assert.equal(valueAppearsInQuestion(3.4, 'rises 3.40 this year'), true)
+    assert.equal(valueAppearsInQuestion(10, 'a 10.0 move'), true)
+    assert.equal(valueAppearsInQuestion(0.5, 'falls .5'), true)
+  })
+
+  // ---- questionMentionsRow: the wrong-variable gate ----
+  await check('questionMentionsRow: generous on real mentions, hard NO when the variable is never named', () => {
+    const [alu, fx, , vol] = NHY.sensitivities!
+    assert.equal(questionMentionsRow('if LME is 3,467/mt then what', alu), true)      // key token "lme"
+    assert.equal(questionMentionsRow('aluminum rises $45', alu), true)                // spelling alias
+    assert.equal(questionMentionsRow('if the dollar strengthens 0.5', fx), true)      // currency alias
+    assert.equal(questionMentionsRow('extrusion volume drops 10%', vol), true)        // singular stem
+    assert.equal(questionMentionsRow('what if freight falls 10%?', alu), false)       // never named → gate
+    assert.equal(questionMentionsRow('what if freight falls 10%?', fx), false)
+  })
+  await check('RED TEAM: a parse naming a recorded variable for an UNRELATED question is dropped', () => {
+    // "what if freight falls 10%?" but the parse (wrongly) returns lme_aluminium_price / 10 — without the
+    // mention gate this would stream an authoritative aluminium card for a question about freight
+    const v = validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 10, direction: 'down' }], asksUnrecorded: 'freight' }, 'what if freight falls 10%?', NHY)
+    assert.equal(v.plans.length, 0)
+    assert.equal(v.refusal, 'unrecorded')
   })
 
   // ---- validateIntents: red-teamed ----
   await check('valid single move → one plan with the right signed delta', () => {
-    const v = validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 45, direction: 'up' }] }, 'rises $45/mt', NHY)
+    const v = validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 45, direction: 'up' }] }, 'aluminium rises $45/mt', NHY)
     assert.equal(v.plans.length, 1)
     assert.deepEqual(v.plans[0].req, { delta: 45 })
   })
   await check('direction down / signed value → negative delta', () => {
     const q = 'USD/NOK falls 0.5'
     assert.deepEqual(validateIntents({ intents: [{ variable: 'usd_nok', mode: 'move', value: 0.5, direction: 'down' }] }, q, NHY).plans[0].req, { delta: -0.5 })
-    assert.deepEqual(validateIntents({ intents: [{ variable: 'usd_nok', mode: 'move', value: -0.5 }] }, 'moves -0.5', NHY).plans[0].req, { delta: -0.5 })
+    assert.deepEqual(validateIntents({ intents: [{ variable: 'usd_nok', mode: 'move', value: -0.5 }] }, 'the dollar moves -0.5', NHY).plans[0].req, { delta: -0.5 })
   })
   await check('percent move sizes off the row base level (extrusions −10% of 1004)', () => {
     const v = validateIntents({ intents: [{ variable: 'extrusions_volume', mode: 'move', value: 10, direction: 'down', percent: true }] }, 'extrusion volume drops 10%', NHY)
     assert.ok(near((v.plans[0].req as any).delta, -100.4, 1e-9))
   })
   await check('RED TEAM: an invented value (not in the question) is dropped', () => {
-    const v = validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 999 }] }, 'rises $45/mt', NHY)
+    const v = validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 999 }] }, 'aluminium rises $45/mt', NHY)
     assert.equal(v.plans.length, 0)
   })
   await check('RED TEAM: an unrecorded variable key from the parse is dropped; asks_unrecorded → refusal', () => {
@@ -107,14 +129,14 @@ await (async () => {
   })
   await check('margin target without a revenue base → no_revenue_base refusal', () => {
     const norev = { ...NHY, revenue_base: null }
-    const v = validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'target_margin', value: 16 }] }, 'margin to 16%', norev)
+    const v = validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'target_margin', value: 16 }] }, 'what aluminium price gets margin to 16%', norev)
     assert.equal(v.refusal, 'no_revenue_base')
   })
   await check('an uncited coefficient → no_source; a different impact metric → metric_mismatch', () => {
     const nosrc = { ...NHY, sensitivities: [{ ...NHY.sensitivities![0], source: null }] }
-    assert.equal(validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 45 }] }, 'rises 45', nosrc).refusal, 'no_source')
+    assert.equal(validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 45 }] }, 'aluminium rises 45', nosrc).refusal, 'no_source')
     const diff = { ...NHY, sensitivities: [{ ...NHY.sensitivities![0], impact_metric: 'revenue_nok_m' }] }
-    assert.equal(validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 45 }] }, 'rises 45', diff).refusal, 'metric_mismatch')
+    assert.equal(validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 45 }] }, 'aluminium rises 45', diff).refusal, 'metric_mismatch')
   })
   await check('multi: two distinct variables → two plans; duplicates deduped', () => {
     const q = 'aluminium rises 45 and USD/NOK falls 0.5'
