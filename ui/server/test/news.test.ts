@@ -507,6 +507,62 @@ await check('triage falls back to OVERFLOW when Groq fails — the batch is scor
   assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0, 'nothing deferred — overflow handled it')
 })
 
+// ---- LOCAL primary brain: unlimited, $0, tried FIRST — Groq + every cloud/paid tier is fallback ----
+const localCfg = () => ({ id: 'local', label: 'Local', color: '--provider-local', apiKey: 'local', baseUrl: 'https://local.test/v1', model: 'qwen2.5:7b-instruct', dailyReqCap: 100_000_000, rpm: 0, timeoutMs: 120_000, maxAttempts: 1, skipArticleRead: true, maxTokens: 3500, budgetFile: 'local-budget.json' })
+
+await check('LOCAL primary brain scores the batch FIRST — Groq never fires while the local box is up', async () => {
+  const root = tmp()
+  const state = tmp()
+  const goodTriage = { usage: { total_tokens: 512 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A 50 bps cut lowers funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let localHits = 0, groqCalls = 0, gdeltServed = false
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('local.test')) { localHits++; return res(goodTriage) }
+    if (u.includes('groq')) { groqCalls++; return res(goodTriage) } // MUST NOT be called while local is up
+    if (u.includes('gdelt') && !gdeltServed) { gdeltServed = true; return res({ articles: [{ url: 'https://reuters.com/x', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] }) }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, anthropicFallbackEnabled: false, localProvider: localCfg() } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(localHits, 1, 'the local primary brain scored the batch')
+  assert.equal(groqCalls, 0, 'Groq (now a fallback) was NOT called while local was up — no ceiling burned')
+  assert.equal(s.picked, 1, 'the item was scored by local')
+  assert.equal(s.local_requests, 1, 'the cycle attributes the request to local')
+  assert.equal(s.local_tokens, 512, 'and the tokens the cockpit shows as live throughput')
+  assert.equal(s.groq_requests, 0, 'no Groq spend at all')
+  // local-budget.json is the file getNewsStatus reads to show the live token/request throughput
+  const lb = JSON.parse(fs.readFileSync(path.join(state, 'local-budget.json'), 'utf8'))
+  assert.equal(lb.requests, 1)
+  assert.equal(lb.tokens, 512)
+})
+
+await check('LOCAL primary down (box unreachable) → the batch falls through to Groq, nothing lost', async () => {
+  const root = tmp()
+  const state = tmp()
+  const goodTriage = { usage: { total_tokens: 200 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A 50 bps cut lowers funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let localHits = 0, groqHits = 0, gdeltServed = false
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('local.test')) { localHits++; return res('connection refused', 503) } // box asleep / unreachable
+    if (u.includes('groq')) { groqHits++; return res(goodTriage) } // fallback picks the batch up the SAME cycle
+    if (u.includes('gdelt') && !gdeltServed) { gdeltServed = true; return res({ articles: [{ url: 'https://reuters.com/x', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] }) }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, anthropicFallbackEnabled: false, localProvider: localCfg() } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.ok(localHits >= 1, 'the local primary brain was tried first')
+  assert.ok(groqHits >= 1, 'the batch fell through to Groq when local was down — graceful degradation')
+  assert.equal(s.picked, 1, 'the item was scored by the fallback, not lost')
+  assert.equal(s.local_down, true, 'the cycle summary flags the primary brain as down (so the cockpit warns)')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0, 'nothing deferred — the fallback handled it')
+})
+
 // ---- a token-gated overflow provider (Cerebras) paces on its daily TOKEN cap, not just requests ----
 await check('overflow paces on the daily TOKEN cap, not just requests (token-gated free tier like Cerebras)', async () => {
   const root = tmp()

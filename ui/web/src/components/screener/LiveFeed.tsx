@@ -9,7 +9,7 @@ import { groupByDedup, type StoryGroup } from '../../lib/dedup'
 import { displayHeadline, originalHeadline, plainBand, plainSize, plainTheme } from '../../lib/plain'
 import { dayDividerLabel, dayKeyLocal, hhmmLocal } from '../../lib/format'
 import { useStore } from '../../lib/store'
-import type { FeedItem } from '../../lib/types'
+import type { FeedItem, NewsStatus } from '../../lib/types'
 import { api, type ArchiveQuery, type CompanyFacet, type SearchCursor } from '../../lib/api'
 import { archiveFiltersActive, emptyFilters, FeedFilters, gicsEmptyMessage, matchesFilters, type FeedFilterState } from './FeedFilters'
 import { PulseMap } from './PulseMap'
@@ -49,6 +49,35 @@ function BudgetChip({ label, used, cap, unit, color, active, title }: { label: s
       <span className="poolchip__label" style={{ color: c }}>{label}</span>
       <span className="poolchip__bar" aria-hidden><span className="poolchip__fill" style={{ transform: `scaleX(${frac})`, background: c }} /></span>
       <span className="poolchip__val mono">{kfmt(used)}<span className="poolchip__sep">/</span>{kfmt(cap)}<span className="poolchip__unit"> {unit}</span></span>
+    </span>
+  )
+}
+
+// The LOCAL primary brain — rendered FIRST and prominently. It is the unlimited, $0 tier that scores the WHOLE
+// scan ahead of every cloud/paid tier, so there is no cap to meter: we show the live tokens + requests it has
+// processed today (updates every cycle over SSE). When the box is unreachable it flips to a clear "offline"
+// warning — the scan is then burning capped cloud/paid budget and the operator needs to bring the box back.
+function LocalPrimaryChip({ local }: { local: NonNullable<NewsStatus['local']> }) {
+  const c = `var(${local.color})`
+  const down = local.health === 'cooling' || (local.cooldownRemainingMs ?? 0) > 0
+  return (
+    <span
+      className={`poolchip poolchip--local${down ? ' is-down' : ''}`}
+      title={down
+        ? `Local primary brain (${local.model}) is UNREACHABLE right now — the box is asleep or offline, so the scan is running on the capped cloud fallback. Bring it back and it resumes carrying the whole scan, unlimited and $0.`
+        : `Local primary brain (${local.model}) — the unlimited, $0 model that scores the WHOLE scan first, ahead of every cloud and paid tier. No daily cap, no ceiling. Today: ${local.tokens.toLocaleString()} tokens over ${local.requests.toLocaleString()} requests.`}
+    >
+      <span className="poolchip__dot" data-tone={down ? 'bad' : 'live'} aria-hidden />
+      <span className="poolchip__label" style={{ color: c }}>Local · primary brain</span>
+      {down ? (
+        <span className="poolchip__val poolchip__val--down mono">offline — check the box</span>
+      ) : (
+        <span className="poolchip__val mono">
+          <b className="poolchip__big" style={{ color: c }}>{kfmt(local.tokens)}</b><span className="poolchip__unit"> tok</span>
+          <span className="poolchip__sep">·</span>{kfmt(local.requests)}<span className="poolchip__unit"> req today</span>
+          <span className="poolchip__inf" title="no daily cap — unlimited, 24×7">∞</span>
+        </span>
+      )}
     </span>
   )
 }
@@ -324,18 +353,21 @@ export function LiveFeed() {
           <ScanStatus variant="panel" />
           {status?.enabled && status.budget && (
             <div className="pipeline__pools">
+              {/* LOCAL primary brain FIRST and prominent — the unlimited $0 tier that carries the whole scan.
+                  When present, Groq + every overflow pool below are relabelled as its FALLBACK. */}
+              {status.local && <LocalPrimaryChip local={status.local} />}
               {(() => {
                 // show whichever limit is actually biting (requests OR tokens) — Groq has both a daily request
                 // cap and a paced token budget, and either can max out first.
                 const g = bindingDim(status.budget)
                 return (
                   <BudgetChip
-                    label="Groq"
+                    label={status.local ? 'Groq · fallback' : 'Groq'}
                     used={g.used}
                     cap={g.cap}
                     unit={g.unit}
                     color="--accent"
-                    title={`Groq free-tier daily budget. Requests: ${status.budget.requests}/${status.budget.reqCap}. Tokens: ${kfmt(status.budget.tokens)}/${kfmt(status.budget.tokenCap)}${status.budget.tokenTarget ? ` (paced target ${kfmt(status.budget.tokenTarget)})` : ''}. The bar shows whichever is closer to its cap — when either is reached, triage flows to the free pools or defers to the next cycle.`}
+                    title={`${status.local ? 'FALLBACK — used only when the local primary brain is down. ' : ''}Groq free-tier daily budget. Requests: ${status.budget.requests}/${status.budget.reqCap}. Tokens: ${kfmt(status.budget.tokens)}/${kfmt(status.budget.tokenCap)}${status.budget.tokenTarget ? ` (paced target ${kfmt(status.budget.tokenTarget)})` : ''}. The bar shows whichever is closer to its cap — when either is reached, triage flows to the free pools or defers to the next cycle.`}
                   />
                 )
               })()}
@@ -347,13 +379,13 @@ export function LiveFeed() {
                 return (
                   <BudgetChip
                     key={o.id}
-                    label={`${o.label} overflow`}
+                    label={`${o.label} ${status.local ? 'fallback' : 'overflow'}`}
                     used={d.used}
                     cap={d.cap}
                     unit={d.unit}
                     color={o.color}
                     active={o.requests > 0 || o.tokens > 0}
-                    title={`Free-tier overflow (${o.model}) — picks up triage when Groq is paced or capped, so the day's throughput is Groq + every free pool. Requests: ${o.requests}/${o.reqCap}${o.tokenCap ? ` · Tokens: ${kfmt(o.tokens)}/${kfmt(o.tokenCap)}` : ''}. The bar shows whichever is closer to its cap.`}
+                    title={`${status.local ? 'FALLBACK — used only when the local primary brain is down. ' : ''}Free-tier overflow (${o.model}) — picks up triage when the tier above is paced or capped, so the day's throughput is every free pool combined. Requests: ${o.requests}/${o.reqCap}${o.tokenCap ? ` · Tokens: ${kfmt(o.tokens)}/${kfmt(o.tokenCap)}` : ''}. The bar shows whichever is closer to its cap.`}
                   />
                 )
               })}

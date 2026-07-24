@@ -77,15 +77,22 @@ function TierRow({ tier, coolLeftMs }: { tier: TierDiagnostics; coolLeftMs: numb
       <div className="diagtier__top">
         <span className="diagtier__dot" data-tone={health.tone} aria-hidden />
         <span className="diagtier__label" style={{ color: tier.enabled ? c : 'var(--text-faint)' }}>{tier.label}</span>
-        <span className="diagtier__role">{ROLE_LABEL[tier.role]}</span>
+        {/* local is unlimited in EITHER role — keep "· unlimited" but take the role text from tier.role, so a
+            demoted (NEWS_LOCAL_PRIMARY=0) local reads "free overflow · unlimited", never a contradictory "primary". */}
+        <span className="diagtier__role">{tier.id === 'local' ? (tier.role === 'primary' ? 'primary brain · unlimited' : `${ROLE_LABEL[tier.role]} · unlimited`) : ROLE_LABEL[tier.role]}</span>
         <span className="diagtier__health" data-tone={health.tone}>
           {cooling ? `Cooling · back in ~${fmtDur(coolLeftMs)}` : health.label}
         </span>
       </div>
       <div className="diagtier__meter">
-        <span className="diagtier__bar" aria-hidden>
-          <span className="diagtier__fill" style={{ transform: `scaleX(${meter.frac})`, background: c }} />
-        </span>
+        {/* an unlimited tier (local primary brain) has no cap to meter — show "∞ no cap" instead of a bar */}
+        {meter.frac < 0 ? (
+          <span className="diagtier__unlimited" style={{ color: c }} title="unlimited — no daily cap, processes 24×7">∞ no cap</span>
+        ) : (
+          <span className="diagtier__bar" aria-hidden>
+            <span className="diagtier__fill" style={{ transform: `scaleX(${meter.frac})`, background: c }} />
+          </span>
+        )}
         <span className="diagtier__val mono">{tier.enabled ? meter.label : 'disabled'}</span>
         {typeof tier.lastCycleRequests === 'number' && tier.lastCycleRequests > 0 && (
           <span className="diagtier__last" title="batches this tier scored in the most recent look">· {tier.lastCycleRequests} this look</span>

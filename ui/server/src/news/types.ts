@@ -242,6 +242,9 @@ export interface CycleSummary {
   inboxed: number // total rows the inbox now holds after the merge
   groq_requests: number
   groq_tokens: number
+  local_requests?: number // batches scored by the LOCAL primary brain (unlimited / $0) — present only when it ran
+  local_tokens?: number
+  local_down?: boolean // the LOCAL primary brain was unreachable/failed this cycle → the scan ran on the cloud fallback. Present only when true
   gemini_requests?: number // batches that overflowed to the Gemini free-tier provider (0 / absent when unused)
   gemini_tokens?: number
   overflow_requests?: number // batches that overflowed to the OpenAI-compatible registry (OpenRouter, NVIDIA, …)

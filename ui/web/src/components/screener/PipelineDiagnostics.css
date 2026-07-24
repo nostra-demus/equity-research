@@ -81,6 +81,8 @@
 .diagtier__bar { flex: 1; min-width: 40px; height: 4px; border-radius: var(--r-pill); background: var(--surface-3); overflow: hidden; }
 .diagtier__fill { display: block; height: 100%; width: 100%; border-radius: var(--r-pill); transform-origin: left center; transform: scaleX(0); transition: transform 360ms cubic-bezier(0.23, 1, 0.32, 1); }
 .diagtier__val { font-size: 10.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* the LOCAL primary brain is unlimited — it takes the bar's slot but shows "∞ no cap" instead of a fill meter */
+.diagtier__unlimited { flex: 1; min-width: 40px; font-size: 10px; font-weight: 700; letter-spacing: 0.3px; opacity: 0.8; }
 .diagtier__last { font-size: 10px; color: var(--text-faint); white-space: nowrap; }
 .diagtier__fails { font-size: 10px; color: var(--bad); white-space: nowrap; margin-left: 2px; }
 
