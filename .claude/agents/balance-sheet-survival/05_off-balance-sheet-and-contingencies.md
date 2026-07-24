@@ -91,6 +91,8 @@ Use the company's own probability language (probable / reasonably possible / rem
 ## 5. Contingency Read
 
 2–3 blunt sentences: the largest off-balance-sheet or contingent exposure, whether it is live, and what it would mean for solvency if it crystallized.
+
+If the total maximum/gross exposure is materially larger than the recognized liability (as a rule of thumb, max exposure ÷ recognized > 3x, or max exposure ÷ total equity > 15%) AND the underlying matter is live/active (not remote or dormant per the company's own probability language) — a contingent-liability spike, CLAUDE.md §13 — emit the literal tag string `RF-OBS-001 (contingent-liability spike)` as a standalone line so the balance-sheet-survival synthesis and eval harness detect it mechanically (eval check AQ — the §13 cross-module forensic-mosaic cap), even if this alone does not move the module's own solvency scores.
 ```
 
 # SELF-CHECK
@@ -100,6 +102,7 @@ Use the company's own probability language (probable / reasonably possible / rem
 - [ ] Live litigation is distinguished from remote/dormant claims using the company's language.
 - [ ] The max-to-recognized and max-to-equity ratios are computed.
 - [ ] No exposures are invented; thin disclosure is flagged, not filled in.
+- [ ] If max exposure ÷ recognized > 3x (or ÷ equity > 15%) AND the matter is live, Section 5 emits `RF-OBS-001 (contingent-liability spike)` as a standalone line.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

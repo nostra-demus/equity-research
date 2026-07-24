@@ -182,7 +182,7 @@ Bullet list, no prose paragraphs. **Surface what the numbers MEAN — do not res
 - The maturity wall timing and whether refinancing is secured or exposed
 - The liquidity runway and what it depends on
 - The tightest covenant and its headroom (or that covenants are undisclosed)
-- The largest live off-balance-sheet / contingent exposure
+- The largest live off-balance-sheet / contingent exposure. If `05_off-balance-sheet-and-contingencies.md` emitted `RF-OBS-001 (contingent-liability spike)` as a standalone line, propagate it here as a standalone line too — even if this module's own solvency scores already absorbed it, the master synthesizer's cross-module forensic roll-up (synthesizer.md Pre-Write Gate step 4B; CLAUDE.md §13; eval check AQ) reads this tag to detect a compounding accounting-integrity mosaic that no single module's own cap would catch. Dropping a fired tag lets that cross-module check silently miss it (CLAUDE.md §11).
 - The stress break point — what fails first and at what EBITDA decline
 - If net cash / very low leverage: the strategic-flexibility read (counter-cyclical optionality, no refinancing dependence) as a positive, per §24 Filter 3 — not flagged as "lazy" capital
 - Whether any partial-data cap applied and what it limits

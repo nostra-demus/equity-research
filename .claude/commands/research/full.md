@@ -328,7 +328,7 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 ### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
 
-Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — and the Headline Scorecard ↔ decision_record.json reconciliation plus red-flag severity reconciliation (checks AI/AK, via `scripts/headline_checks.py`). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — and the Headline Scorecard ↔ decision_record.json reconciliation plus red-flag severity reconciliation (checks AI/AK, via `scripts/headline_checks.py`). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
@@ -527,6 +527,22 @@ if rc.eval_ac_turnaround_cap(dec, ddte, _tt24) == "fail":
 viol.extend(rc.eval_ad_filter_4_6_cap(dec, ddte, _bm_txt, _mg_txt) or [])
 viol.extend(rc.eval_ae_filter5_cap(dec, ddte, _bm_txt, _es24, _bq_txt) or [])
 viol.extend(rc.eval_af_filter1_integrity_cap(dec, ddte, _mg_txt, _track_txt) or [])
+# check AQ — §13 cross-module forensic-mosaic conviction cap (live pre-publish; mirrors eval.py check
+# AQ via scripts/rating_caps.py, same shared detection module as AC/AD/AE/AF above). Mechanizes
+# synthesizer.md Pre-Write Gate step 4B's "3+ distinct forensic tags across 2+ modules compound into
+# a single High accounting-integrity flag" mosaic check for the earnings, balance-sheet-survival, and
+# management-governance modules (RF-EQ-001/002, RF-OBS-001, RF-DISC-001/002, RF-REG-002).
+_aq_synth = {
+    "earnings": _read_orb("earnings", "99_*-synthesis.md"),
+    "balance-sheet-survival": _read_orb("balance-sheet-survival", "99_*-synthesis.md"),
+    "management-governance": _mg_txt,  # already read above; same file, avoid a duplicate glob/read
+}
+_aq_spec = {
+    "earnings": _read_orb("earnings", "06_*.md"),
+    "balance-sheet-survival": _read_orb("balance-sheet-survival", "05_*.md"),
+    "management-governance": _read_orb("management-governance", "06_*.md"),
+}
+viol.extend(rc.eval_aq_forensic_mosaic_cap(dec, ddte, _aq_synth, _aq_spec) or [])
 # checks AI/AK — Headline Scorecard reconciliation + red-flag severity reconciliation (live
 # pre-publish; mirrors eval.py checks AI/AK via scripts/headline_checks.py, the shared detection
 # module — same pattern as rating_caps.py above). Until this block existed, these two checks
@@ -582,7 +598,7 @@ if viol:
     print("GATE: PROVISIONAL — " + "; ".join(viol))
 else:
     open(ft, "w", encoding="utf-8").write(body)   # write back the cleaned thesis (strips any now-stale banner)
-    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §24 Filter 1/2/4/5/6 rejector-filter caps, Headline Scorecard reconciliation (§10/§21), and red-flag severity reconciliation (§13) all satisfied")
+    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), and red-flag severity reconciliation (§13) all satisfied")
 PY
 ```
 
