@@ -5,7 +5,7 @@
 // that produced the fair value, the Playground silently disagrees with the recorded thesis — this file fails
 // first. Parity targets are the exact valuation_math.py outputs: AMZN 210.05, NHY 81.826, EMAAR 16.5245.
 import assert from 'node:assert'
-import { blend, buildMethods, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
+import { blend, buildMethods, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
 
 let passed = 0
 const check = (name: string, fn: () => void) => { fn(); passed++ }
@@ -226,5 +226,141 @@ check('buildInternals: sidecar blocks → inactive draft state at the orb base; 
   assert.equal(buildInternals({ basis: 'equity', scenarios: [] }), undefined)
 })
 
+
+// ---- v2 Phase-1: cell semantics — outcomes are computed/judgment cells, never silently typed ----
+check('cellState EMAAR: base = frozen_wedge (blend 16.5245, wedge −1.5245 = the disclosed RF-OWN-004 discount)', () => {
+  const d = draftFromResponse(emaarRes)
+  assert.ok(d.published && Math.abs((d.published.blend.basePoint as number) - 16.5245) < 1e-4, `published blend ${d.published?.blend.basePoint}`)
+  const base = d.scenarios.find((s) => s.label === 'base')!
+  const cs = scenarioCellState(base, true, d.published!.blend.basePoint, null, false)
+  assert.equal(cs.kind, 'frozen_wedge')
+  assert.ok(Math.abs((cs.wedge as number) - -1.5245) < 1e-4, `wedge ${cs.wedge}`)
+  assert.equal(base.frozenLevel, 15.0)
+})
+check('cellState EMAAR: bull/bear = judgment (no recorded chain yet)', () => {
+  const d = draftFromResponse(emaarRes)
+  for (const label of ['bull', 'bear']) {
+    const s = d.scenarios.find((x) => x.label === label)!
+    assert.equal(scenarioCellState(s, false, d.published!.blend.basePoint, null, false).kind, 'judgment', label)
+  }
+})
+check('cellState: base ≈ blend within rounding → frozen_formula — incl. a NIVABUPA-shaped ri_model run (no dcf/sotp)', () => {
+  const nivaRes: ValuationLeversResponse = {
+    runRoot: 'analyses/NIVABUPA_2026-06-22',
+    levers: {
+      basis: 'equity',
+      methods: { peers: 75.8, ri_model: 19.94 }, method_weights: { peers: 0.3, ri_model: 0.7 },
+      scenarios: [{ label: 'base', forward_metric: null, multiple: null, level: 36.7 }],
+    },
+    decision: null, overrides: [],
+  }
+  const d = draftFromResponse(nivaRes)
+  assert.ok(Math.abs((d.published!.blend.basePoint as number) - 36.698) < 1e-3, `blend ${d.published?.blend.basePoint}`)
+  const cs = scenarioCellState(d.scenarios[0], true, d.published!.blend.basePoint, null, false)
+  assert.equal(cs.kind, 'frozen_formula') // 36.70 vs 36.698 is rounding, not a wedge
+})
+check('cellState: unlock → overridden; drive-base → live_blend; metric×multiple → derived_multiple', () => {
+  const d = draftFromResponse(emaarRes)
+  const base = d.scenarios.find((s) => s.label === 'base')!
+  assert.equal(scenarioCellState({ ...base, overrideUnlocked: true }, true, 16.5245, null, false).kind, 'overridden')
+  assert.equal(scenarioCellState(base, true, 16.5245, 17.2, true).kind, 'live_blend')
+  assert.equal(scenarioCellState({ ...base, forwardMetric: 2.1, multiple: 7.1 }, true, 16.5245, null, false).kind, 'derived_multiple')
+})
+check('cellState: manual draft without a published blend → judgment (locked, honest fallback)', () => {
+  const s = { label: 'base', probability: null, forwardMetric: null, multiple: null, levelOverride: 81.83 }
+  assert.equal(scenarioCellState(s, true, null, null, false).kind, 'judgment')
+})
+
+// ---- v2 Phase-1: traces ----
+check('traceBlend EMAAR: four terms, weight × value arithmetic shown', () => {
+  const d = draftFromResponse(emaarRes)
+  const t = traceBlend(d.published!.methods, d.published!.blend)
+  assert.equal(t.terms.length, 4)
+  assert.ok(t.formula.includes('16.52'), t.formula)
+  const oh = t.terms.find((x) => x.label === 'own_history')!
+  assert.ok(oh.calc.includes('0.15') && oh.calc.includes('12.5') && oh.calc.includes('1.875'), oh.calc)
+})
+check('traceScenarioCell: wedge trace shows blend + wedge = frozen, and carries the run drivers as source', () => {
+  const d = draftFromResponse(emaarRes)
+  const base = { ...d.scenarios.find((s) => s.label === 'base')!, drivers: 'published AED 1.52 lower as a disclosed RF-OWN-004 discount' }
+  const cs = scenarioCellState(base, true, d.published!.blend.basePoint, null, false)
+  const t = traceScenarioCell(base, cs, d.published)
+  assert.ok(t.formula.includes('16.52') && t.formula.includes('1.52') && t.formula.includes('15'), t.formula)
+  assert.ok(t.source && t.source.includes('RF-OWN-004'), String(t.source))
+})
+check('traceScenarioCell: judgment trace says no recorded chain', () => {
+  const d = draftFromResponse(emaarRes)
+  const bull = d.scenarios.find((s) => s.label === 'bull')!
+  const t = traceScenarioCell(bull, { kind: 'judgment' }, d.published)
+  assert.ok(t.formula.includes('no machine-recorded derivation'), t.formula)
+})
+check('traceOutput NHY: pwt terms per scenario; expected/mos/downside/rr formulas carry the real numbers', () => {
+  const math = scenarioMath([
+    { label: 'bull', probability: 20, price_target: 107.7 },
+    { label: 'base', probability: 55, price_target: 81.83 },
+    { label: 'bear', probability: 25, price_target: 45.12 },
+  ], 84.96)
+  const pwt = traceOutput('pwt', math)!
+  assert.equal(pwt.terms.length, 3)
+  assert.ok(traceOutput('expected', math)!.formula.includes('84.96'))
+  assert.ok(traceOutput('mos', math)!.formula.includes('81.83'))
+  assert.ok(traceOutput('downside', math)!.formula.includes('45.12'))
+  assert.ok(traceOutput('rr', math)!.formula.includes('45.12'))
+  // no price → price-relative traces refuse instead of fabricating
+  const noPrice = scenarioMath([{ label: 'base', probability: 100, price_target: 10 }], null)
+  assert.equal(traceOutput('expected', noPrice), null)
+})
+
+// ---- v2 Phase-1: goal seek — exact piecewise-linear solve on the recorded ranges ----
+const nhyGsDraft = () => ({
+  basis: 'equity' as const, shares: 1965.28, netDebt: 13090, price: 84.96,
+  rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false,
+  scenarios: [{ label: 'base', probability: null, forwardMetric: null, multiple: null, levelOverride: 81.83 }],
+  methods: [m('own_history', 64.33, 0), m('peers', 93.7, 0.25), m('dcf', 70.14, 0.35), m('sotp', 84.63, 0.4)],
+  driveBaseFromMix: false,
+  internals: {
+    dcf: { grid: NHY_GRID, wacc: 0.075, growth: 0.025, active: false },
+    peers: { pi: NHY_PEERS, multiple: 5.6, active: false },
+  },
+})
+check('goalSeek NHY: blend base = price 84.96 via DCF WACC → 7.0548% exactly (the mock number, solved)', () => {
+  const r = goalSeekBlend(nhyGsDraft(), 'dcf_wacc', 84.96)
+  assert.ok(r.solution !== null && Math.abs(r.solution - 0.070548) < 2e-5, `sol ${r.solution}`)
+  assert.ok(r.achieved !== null && Math.abs(r.achieved - 84.96) < 1e-3, `achieved ${r.achieved}`)
+})
+check('goalSeek NHY: target above the recorded span → honest refusal with the reachable span', () => {
+  const r = goalSeekBlend(nhyGsDraft(), 'dcf_wacc', 95)
+  assert.equal(r.solution, null)
+  assert.ok(r.note && r.note.includes('recorded range'), String(r.note))
+  assert.ok(r.span && Math.abs(r.span[0] - 77.136) < 1e-3 && Math.abs(r.span[1] - 88.8645) < 1e-3, JSON.stringify(r.span))
+})
+check('goalSeek NHY: peers multiple solves inside the anchors (84.0 → 6.067×), refuses beyond them (84.96)', () => {
+  const ok = goalSeekBlend(nhyGsDraft(), 'peers_multiple', 84.0)
+  assert.ok(ok.solution !== null && Math.abs(ok.solution - 6.0671) < 1e-3, `sol ${ok.solution}`)
+  assert.ok(ok.achieved !== null && Math.abs(ok.achieved - 84.0) < 1e-3)
+  const beyond = goalSeekBlend(nhyGsDraft(), 'peers_multiple', 84.96)
+  assert.equal(beyond.solution, null) // the anchor span tops out at 84.851 — extrapolation refused
+})
+check('goalSeek: a zero-weight method cannot reach any target (constant blend → named refusal)', () => {
+  const d = {
+    ...nhyGsDraft(),
+    methods: [m('dcf', 70.14, 0), m('sotp', 84.63, 1)],
+  }
+  const r = goalSeekBlend(d, 'dcf_wacc', 80)
+  assert.equal(r.solution, null)
+  assert.ok(r.note && r.note.includes('no weight'), String(r.note))
+})
+check('goalSeek guards: no target / no recorded range → named refusals, never a guess', () => {
+  assert.ok(goalSeekBlend(nhyGsDraft(), 'dcf_wacc', null).note!.includes('target'))
+  const noInternals = { ...nhyGsDraft(), internals: undefined }
+  assert.ok(goalSeekBlend(noInternals, 'dcf_wacc', 80).note!.includes('no range to search'))
+})
+check('draftFromResponse carries frozenLevel + overrideUnlocked=false; reset data survives an unlock round-trip', () => {
+  const d = draftFromResponse(emaarRes)
+  for (const s of d.scenarios) {
+    assert.equal(s.overrideUnlocked, false)
+    assert.equal(s.frozenLevel, s.levelOverride) // blend runs: the frozen level seeds the override slot
+  }
+})
 
 console.log(`valuationLevers.test.ts: ${passed} assertions passed`)
