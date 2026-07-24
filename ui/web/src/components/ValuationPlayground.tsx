@@ -13,7 +13,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import {
-  draftFromResponse, recompute, deriveMethods, scenarioCellState, chainLevel, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend,
+  draftFromResponse, recompute, deriveMethods, scenarioCellState, chainLevel, chainEv, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend,
   type PlaygroundDraft, type ValuationLeversResponse, type DraftScenario, type DraftChain,
   type DraftInternals, type GridReadout, type PeersReadout, type Trace, type GoalSeekParam, type GoalSeekResult,
 } from '../lib/valuationLevers'
@@ -501,11 +501,41 @@ function ChainStrip({ s, chain, level, fallbackShares, onEdit, onOverride }: {
   onEdit: (patch: Partial<DraftChain>) => void
   onOverride: () => void
 }) {
+  const isRunoff = chain.model === 'margin_runoff_dcf'
+  const detached = isRunoff && typeof chain.evOverride === 'number'
+  const ev = chainEv(chain)
+  // editing a runoff lever RE-ATTACHES the model (clears a typed-EV detach) — same rule as the ▸ panels
+  const lever = (patch: Partial<DraftChain>) => onEdit({ ...patch, evOverride: null })
   return (
     <div className="vpg__tracestrip">
       <div className="vpg__tracetitle">{s.label} — computed from the recorded chain{chain.source ? ` · ${chain.source}` : ''}</div>
+      {isRunoff && (
+        <>
+          <div className="vpg__subfields" style={{ marginTop: 7 }}>
+            <Field label={`${chain.metricLabel ?? 'Terminal margin'} %`} value={toPct(chain.margin)} onChange={(n) => lever({ margin: fromPct(n) })} title="The assumption: how profitable the shrunken business stays — replays the orb's own written chain" />
+            <Field label="Decline rate g %" value={toPct(chain.growth)} onChange={(n) => lever({ growth: fromPct(n) })} title="Perpetuity growth (negative = the business shrinks each year); WACC − g must stay positive" />
+            <Field label="D&A" value={chain.da ?? null} onChange={(n) => lever({ da: n })} />
+            <Field label="Capex" value={chain.capex ?? null} onChange={(n) => lever({ capex: n })} />
+            <Field label="Tax %" value={toPct(chain.tax)} onChange={(n) => lever({ tax: fromPct(n) })} />
+          </div>
+          <div className="vpg__gridmeta">
+            recorded constants: revenue base {fmtN(chain.revenueBase, 0)} · WACC {fmtN(toPct(chain.wacc), 2)}% · PV factor {fmtN(chain.pvFactor, 5)} · near-years PV {fmtN(chain.pvExplicit, 0)}.
+            WACC is locked here — it also sits inside the PV factor and the near-years value, whose WACC-sensitivity the orb did not record; the honest WACC lever is <b>Method mix → DCF ▸</b>.
+          </div>
+        </>
+      )}
       <div className="vpg__subfields" style={{ marginTop: 7 }}>
-        <Field label="EV" value={chain.ev} onChange={(n) => onEdit({ ev: n })} title="Enterprise value under this scenario (filing millions)" />
+        {isRunoff ? (
+          <span className="vpg__cellov">
+            <label className="vpg__field" title={detached ? 'Typed EV — the margin model is detached; edit a lever above (or ↺) to re-attach' : 'Computed from the levers above — typing here detaches the margin model'}>
+              <span className="vpg__fieldlabel">EV {detached ? '(typed — model detached)' : '(computed ƒ)'}</span>
+              <input className="vpg__input mono" inputMode="decimal" value={ev ?? ''} onChange={(e) => { const t = e.target.value.trim(); const n = t === '' ? null : Number(t); onEdit({ evOverride: Number.isFinite(n as number) ? (n as number) : null }) }} aria-label={`${s.label} EV`} />
+            </label>
+            {detached && <button className="vpg__relock" title="Re-attach the margin model (discard the typed EV)" onClick={() => onEdit({ evOverride: null })}>↺</button>}
+          </span>
+        ) : (
+          <Field label="EV" value={chain.ev} onChange={(n) => onEdit({ ev: n })} title="Enterprise value under this scenario (filing millions)" />
+        )}
         <Field label="− Net debt" value={chain.netDebt} onChange={(n) => onEdit({ netDebt: n })} title="This scenario's own bridge term — may differ from the top-level basis; the source cites the orb" />
         <Field label="− Minority" value={chain.minority} onChange={(n) => onEdit({ minority: n })} />
         <Field label="+ Other" value={chain.other} onChange={(n) => onEdit({ other: n })} />

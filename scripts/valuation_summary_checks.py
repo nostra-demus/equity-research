@@ -117,23 +117,54 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
         if deriv is not None:
             if not isinstance(deriv, dict):
                 det.append(f"scenario {s.get('label')!r} derivation must be an object")
-            elif deriv.get("model") != "ev_bridge":
-                det.append(f"scenario {s.get('label')!r} derivation model {deriv.get('model')!r} is not a known model (ev_bridge)")
+            elif deriv.get("model") not in ("ev_bridge", "margin_runoff_dcf"):
+                det.append(f"scenario {s.get('label')!r} derivation model {deriv.get('model')!r} is not a known model (ev_bridge, margin_runoff_dcf)")
             elif not _isnum(deriv.get("ev")):
                 det.append(f"scenario {s.get('label')!r} derivation needs a numeric ev")
             else:
-                d_shares = deriv.get("shares") if _isnum(deriv.get("shares")) else sidecar.get("shares")
-                if not (_isnum(d_shares) and float(d_shares) > 0):
-                    det.append(f"scenario {s.get('label')!r} derivation has no positive shares (own or top-level) — the per-share step is not computable")
-                else:
-                    equity = float(deriv["ev"]) \
-                        - (float(deriv.get("net_debt")) if _isnum(deriv.get("net_debt")) else 0.0) \
-                        - (float(deriv.get("minority")) if _isnum(deriv.get("minority")) else 0.0) \
-                        + (float(deriv.get("other")) if _isnum(deriv.get("other")) else 0.0)
-                    chain_ps = equity / float(d_shares)
-                    if _isnum(lvl) and abs(chain_ps - float(lvl)) > _tol(lvl):
-                        det.append(f"scenario {s.get('label')!r} derivation chain gives {round(chain_ps, 4)} != level {lvl} "
-                                   f"— the chain must reproduce the recorded level (REPRODUCE-or-omit)")
+                chain_ev = float(deriv["ev"])
+                ok = True
+                if deriv.get("model") == "margin_runoff_dcf":
+                    # Replay the recorded runoff: revenue_base × margin → −da → ×(1−tax) → +da −capex −dnwc
+                    # → TV = FCFF×(1+g)/(wacc−g) → EV = pv_explicit + TV×pv_factor. The replayed EV must
+                    # reproduce the RECORDED ev (the orb's own number) — that is the proof the transcribed
+                    # constants are the ones the orb actually used, not a rebuilt model.
+                    need = [k for k in ("margin", "revenue_base", "wacc", "pv_factor", "pv_explicit") if not _isnum(deriv.get(k))]
+                    if need:
+                        det.append(f"scenario {s.get('label')!r} margin_runoff_dcf needs numeric {', '.join(need)}")
+                        ok = False
+                    else:
+                        g = float(deriv.get("growth")) if _isnum(deriv.get("growth")) else 0.0
+                        wacc = float(deriv["wacc"])
+                        if wacc - g <= 0:
+                            det.append(f"scenario {s.get('label')!r} margin_runoff_dcf has wacc − growth <= 0 — the perpetuity is undefined")
+                            ok = False
+                        else:
+                            da = float(deriv.get("da")) if _isnum(deriv.get("da")) else 0.0
+                            capex = float(deriv.get("capex")) if _isnum(deriv.get("capex")) else 0.0
+                            tax = float(deriv.get("tax")) if _isnum(deriv.get("tax")) else 0.0
+                            dnwc = float(deriv.get("dnwc")) if _isnum(deriv.get("dnwc")) else 0.0
+                            fcff = (float(deriv["revenue_base"]) * float(deriv["margin"]) - da) * (1.0 - tax) + da - capex - dnwc
+                            replay_ev = float(deriv["pv_explicit"]) + (fcff * (1.0 + g) / (wacc - g)) * float(deriv["pv_factor"])
+                            if abs(replay_ev - chain_ev) > _tol(chain_ev):
+                                det.append(f"scenario {s.get('label')!r} margin_runoff_dcf replay gives EV {round(replay_ev, 1)} != recorded ev {chain_ev} "
+                                           f"— the replayed chain must reproduce the orb's own EV (REPRODUCE-or-omit)")
+                                ok = False
+                            else:
+                                chain_ev = replay_ev  # the client drives from the replay — check the level against it
+                if ok:
+                    d_shares = deriv.get("shares") if _isnum(deriv.get("shares")) else sidecar.get("shares")
+                    if not (_isnum(d_shares) and float(d_shares) > 0):
+                        det.append(f"scenario {s.get('label')!r} derivation has no positive shares (own or top-level) — the per-share step is not computable")
+                    else:
+                        equity = chain_ev \
+                            - (float(deriv.get("net_debt")) if _isnum(deriv.get("net_debt")) else 0.0) \
+                            - (float(deriv.get("minority")) if _isnum(deriv.get("minority")) else 0.0) \
+                            + (float(deriv.get("other")) if _isnum(deriv.get("other")) else 0.0)
+                        chain_ps = equity / float(d_shares)
+                        if _isnum(lvl) and abs(chain_ps - float(lvl)) > _tol(lvl):
+                            det.append(f"scenario {s.get('label')!r} derivation chain gives {round(chain_ps, 4)} != level {lvl} "
+                                       f"— the chain must reproduce the recorded level (REPRODUCE-or-omit)")
 
     # Distinct labels (a duplicate scenario label is malformed — the Playground keys scenarios by label).
     for lab in sorted({l for l in labels if labels.count(l) > 1}):
@@ -388,6 +419,23 @@ def _selftest() -> int:
     # top-level shares as the fallback: same chain, shares moved to the sidecar root → still reproduces
     chain_top = dict(chain_ok, shares=1965.28, scenarios=[{"label": "bear", "level": 45.12, "derivation": dict(nhy_chain, shares=None)}])
     check("chain falls back to top-level shares → pass", eval_ap_valuation_summary_integrity(chain_top, None) == [])
+
+    # margin_runoff_dcf: the NHY bear replay verbatim — 228071×0.09 → −11500 → ×0.70 → +11500 −8500
+    # → TV ×0.99/0.085 → ×0.72221 + 35712 = 114,095.9 ≈ recorded ev 114095 → level 45.12
+    runoff = {"model": "margin_runoff_dcf", "ev": 114095, "margin": 0.09, "growth": -0.01,
+              "da": 11500, "capex": 8500, "tax": 0.30, "dnwc": 0,
+              "revenue_base": 228071, "wacc": 0.075, "pv_factor": 0.72221, "pv_explicit": 35712,
+              "net_debt": 17919, "minority": 7495, "shares": 1965.28, "source": "07 §3"}
+    runoff_ok = dict(ok_sidecar, scenarios=[{"label": "bear", "level": 45.12, "derivation": runoff}])
+    check("margin_runoff_dcf replay reproduces ev + level → pass", eval_ap_valuation_summary_integrity(runoff_ok, None) == [])
+    r_bad_const = dict(runoff_ok, scenarios=[{"label": "bear", "level": 45.12, "derivation": dict(runoff, revenue_base=250000)}])
+    check("runoff replay != recorded ev caught (wrong constant)", any("reproduce the orb's own EV" in v for v in eval_ap_valuation_summary_integrity(r_bad_const, None)))
+    r_bad_m = dict(runoff_ok, scenarios=[{"label": "bear", "level": 45.12, "derivation": dict(runoff, margin=0.10)}])
+    check("runoff with a drifted margin caught", any("reproduce the orb's own EV" in v for v in eval_ap_valuation_summary_integrity(r_bad_m, None)))
+    r_miss = dict(runoff_ok, scenarios=[{"label": "bear", "level": 45.12, "derivation": {k: v for k, v in runoff.items() if k != "wacc"}}])
+    check("runoff missing a required constant → named", any("needs numeric" in v and "wacc" in v for v in eval_ap_valuation_summary_integrity(r_miss, None)))
+    r_denom = dict(runoff_ok, scenarios=[{"label": "bear", "level": 45.12, "derivation": dict(runoff, growth=0.08)}])
+    check("runoff wacc − growth <= 0 → named", any("perpetuity is undefined" in v for v in eval_ap_valuation_summary_integrity(r_denom, None)))
 
     if fails:
         print("VALUATION SUMMARY CHECKS SELFTEST FAIL:", ", ".join(fails))

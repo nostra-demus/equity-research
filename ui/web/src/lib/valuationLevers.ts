@@ -23,6 +23,18 @@ export interface ScenarioDerivation {
   shares?: number | null
   stated_drivers?: StatedDriver[] | null
   source?: string | null
+  // margin_runoff_dcf: levers (margin, growth, da, capex, tax, dnwc) + recorded constants
+  margin?: number | null
+  growth?: number | null
+  da?: number | null
+  capex?: number | null
+  tax?: number | null
+  dnwc?: number | null
+  revenue_base?: number | null
+  wacc?: number | null
+  pv_factor?: number | null
+  pv_explicit?: number | null
+  metric_label?: string | null
 }
 
 export interface SummaryScenario {
@@ -307,33 +319,83 @@ export interface DraftScenario {
 }
 
 export interface DraftChain {
-  model: 'ev_bridge'
+  model: 'ev_bridge' | 'margin_runoff_dcf'
   ev: number | null; netDebt: number | null; minority: number | null; other: number | null; shares: number | null
   statedDrivers: StatedDriver[]
   source: string | null
+  // margin_runoff_dcf levers (decimals) + recorded constants. evOverride: typing EV directly DETACHES the
+  // runoff model (the typed EV wins, mirroring how a typed method Value detaches its ▸ sub-levers);
+  // editing a runoff lever clears it (re-attach).
+  margin?: number | null
+  growth?: number | null
+  da?: number | null
+  capex?: number | null
+  tax?: number | null
+  dnwc?: number | null
+  revenueBase?: number | null
+  wacc?: number | null
+  pvFactor?: number | null
+  pvExplicit?: number | null
+  metricLabel?: string | null
+  evOverride?: number | null
 }
 
-/** The per-share level from an editable ev_bridge chain: (ev − net debt − minority + other) / shares.
+/** The replayed runoff EV: revenue_base × margin → − D&A → × (1 − tax) → + D&A − capex − ΔNWC
+ *  → TV = FCFF × (1+g) / (wacc − g) → EV = pv_explicit + TV × pv_factor. Every constant is the orb's own
+ *  recorded number — this REPLAYS the written chain, it never re-runs a DCF. Null when not computable. */
+export function runoffEv(c: DraftChain): number | null {
+  if (!isNum(c.margin) || !isNum(c.revenueBase) || !isNum(c.wacc) || !isNum(c.pvFactor) || !isNum(c.pvExplicit)) return null
+  const g = isNum(c.growth) ? c.growth : 0
+  if (c.wacc - g <= 0) return null // undefined perpetuity — refuse, never a guess
+  const da = isNum(c.da) ? c.da : 0
+  const capex = isNum(c.capex) ? c.capex : 0
+  const tax = isNum(c.tax) ? c.tax : 0
+  const dnwc = isNum(c.dnwc) ? c.dnwc : 0
+  const fcff = (c.revenueBase * c.margin - da) * (1 - tax) + da - capex - dnwc
+  return round(c.pvExplicit + (fcff * (1 + g) / (c.wacc - g)) * c.pvFactor, 4)
+}
+
+/** The chain's effective EV: a typed override wins (detached); a runoff model replays; ev_bridge reads ev. */
+export function chainEv(chain: DraftChain | null | undefined): number | null {
+  if (!chain) return null
+  if (isNum(chain.evOverride)) return chain.evOverride
+  if (chain.model === 'margin_runoff_dcf') return runoffEv(chain)
+  return isNum(chain.ev) ? chain.ev : null
+}
+
+/** The per-share level from an editable chain: (effective EV − net debt − minority + other) / shares.
  *  Falls back to the top-level share count when the chain records none. Null when not computable. */
 export function chainLevel(chain: DraftChain | null | undefined, fallbackShares: number | null | undefined): number | null {
-  if (!chain || chain.model !== 'ev_bridge' || !isNum(chain.ev)) return null
+  const ev = chainEv(chain)
+  if (!isNum(ev) || !chain) return null
   const sh = isNum(chain.shares) ? chain.shares : (isNum(fallbackShares) ? fallbackShares : null)
   if (!isNum(sh) || sh <= 0) return null
-  const equity = chain.ev - (isNum(chain.netDebt) ? chain.netDebt : 0) - (isNum(chain.minority) ? chain.minority : 0) + (isNum(chain.other) ? chain.other : 0)
+  const equity = ev - (isNum(chain.netDebt) ? chain.netDebt : 0) - (isNum(chain.minority) ? chain.minority : 0) + (isNum(chain.other) ? chain.other : 0)
   return round(equity / sh, 4)
 }
 
 // The sidecar derivation → the editable draft chain. Unknown models return null (treated as not
 // recorded — the cell stays a judgment cell rather than pretending).
 export function buildChain(deriv: ScenarioDerivation | null | undefined): DraftChain | null {
-  if (!deriv || deriv.model !== 'ev_bridge' || !isNum(deriv.ev)) return null
-  return {
-    model: 'ev_bridge',
+  if (!deriv || !isNum(deriv.ev)) return null
+  const base = {
     ev: deriv.ev, netDebt: deriv.net_debt ?? null, minority: deriv.minority ?? null,
     other: deriv.other ?? null, shares: deriv.shares ?? null,
     statedDrivers: Array.isArray(deriv.stated_drivers) ? deriv.stated_drivers.filter((x) => x && typeof x.label === 'string') : [],
     source: deriv.source ?? null,
   }
+  if (deriv.model === 'ev_bridge') return { model: 'ev_bridge', ...base }
+  if (deriv.model === 'margin_runoff_dcf') {
+    if (!isNum(deriv.margin) || !isNum(deriv.revenue_base) || !isNum(deriv.wacc) || !isNum(deriv.pv_factor) || !isNum(deriv.pv_explicit)) return null
+    return {
+      model: 'margin_runoff_dcf', ...base,
+      margin: deriv.margin, growth: deriv.growth ?? null, da: deriv.da ?? null, capex: deriv.capex ?? null,
+      tax: deriv.tax ?? null, dnwc: deriv.dnwc ?? null, revenueBase: deriv.revenue_base,
+      wacc: deriv.wacc, pvFactor: deriv.pv_factor, pvExplicit: deriv.pv_explicit,
+      metricLabel: deriv.metric_label ?? null, evOverride: null,
+    }
+  }
+  return null
 }
 // v1.1 per-method sub-lever state. `active` = the typed sub-levers are DRIVING that method's value (turns
 // on when a sub-field is edited; typing the method Value cell directly detaches — mirrors how a typed
@@ -610,15 +672,22 @@ export function traceScenarioCell(s: DraftScenario, cs: ScenarioCellState, publi
   const src = s.drivers ? `run-recorded drivers: ${s.drivers}` : null
   if (cs.kind === 'derived_chain' && s.chain) {
     const c = s.chain
-    const parts = [`EV ${fmt(c.ev, 0)}`]
+    const ev = chainEv(c)
+    const parts = [`EV ${fmt(ev, 0)}`]
     if (isNum(c.netDebt)) parts.push(`− net debt ${fmt(c.netDebt, 0)}`)
     if (isNum(c.minority)) parts.push(`− minority ${fmt(c.minority, 0)}`)
     if (isNum(c.other) && c.other !== 0) parts.push(`+ other ${fmt(c.other, 0)}`)
+    const bridge = `(${parts.join(' ')}) ÷ shares ${fmt(c.shares, 2)} = ${fmt(cs.chainValue)}`
+    const isRunoff = c.model === 'margin_runoff_dcf' && !isNum(c.evOverride)
     return {
       title: `${s.label} — computed from the recorded chain`,
-      formula: `(${parts.join(' ')}) ÷ shares ${fmt(c.shares, 2)} = ${fmt(cs.chainValue)}`,
+      formula: isRunoff
+        ? `${c.metricLabel ?? 'margin'} ${fmt((c.margin ?? 0) * 100, 2)}% × revenue base ${fmt(c.revenueBase, 0)} → FCFF → TV at (${fmt((c.wacc ?? 0) * 100, 2)}% − g ${fmt((c.growth ?? 0) * 100, 2)}%) → ${bridge}`
+        : bridge,
       terms: c.statedDrivers.map((sd) => ({ label: sd.label, calc: `${sd.value ?? '—'}${sd.note ? ` · ${sd.note}` : ''}` })),
-      note: c.statedDrivers.length ? 'stated drivers are the assumptions behind the recorded figures — shown for provenance; their mapping was not recorded, so the editable levers are the chain figures themselves' : 'edit the chain figures — the fair value recomputes from them',
+      note: isRunoff
+        ? 'replays the orb\'s own written chain — edit the margin or growth and everything downstream recomputes; typing EV directly detaches the model'
+        : c.statedDrivers.length ? 'stated drivers are the assumptions behind the recorded figures — shown for provenance; their mapping was not recorded, so the editable levers are the chain figures themselves' : 'edit the chain figures — the fair value recomputes from them',
       source: c.source ?? src,
     }
   }

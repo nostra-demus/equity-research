@@ -5,7 +5,7 @@
 // that produced the fair value, the Playground silently disagrees with the recorded thesis — this file fails
 // first. Parity targets are the exact valuation_math.py outputs: AMZN 210.05, NHY 81.826, EMAAR 16.5245.
 import assert from 'node:assert'
-import { blend, buildMethods, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, buildChain, levelForScenario, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
+import { blend, buildMethods, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, chainEv, buildChain, levelForScenario, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
 
 let passed = 0
 const check = (name: string, fn: () => void) => { fn(); passed++ }
@@ -424,6 +424,62 @@ check('traceScenarioCell derived_chain: bridge formula + stated drivers as displ
   assert.equal(t.terms.length, 1)
   assert.ok(t.terms[0].label.includes('margin') && t.terms[0].calc.includes('9.0%'), JSON.stringify(t.terms))
   assert.ok(t.source && t.source.includes('07 §3'), String(t.source))
+})
+
+// ---- v1.2 slice 2: margin_runoff_dcf — the margin itself is the lever, replaying the orb's chain ----
+const NHY_RUNOFF_DERIV = {
+  model: 'margin_runoff_dcf', ev: 114095, margin: 0.09, growth: -0.01,
+  da: 11500, capex: 8500, tax: 0.30, dnwc: 0,
+  revenue_base: 228071, wacc: 0.075, pv_factor: 0.72221, pv_explicit: 35712,
+  net_debt: 17919, minority: 7495, shares: 1965.28,
+  metric_label: 'terminal Adj. EBITDA margin', source: '07 §3 structural-reset snippet',
+}
+check('runoff replay at the recorded margin reproduces the orb: 9.0% → EV 114,095.9 → 45.1241', () => {
+  const c = buildChain(NHY_RUNOFF_DERIV)!
+  assert.equal(c.model, 'margin_runoff_dcf')
+  const ev = chainEv(c)
+  assert.ok(ev !== null && Math.abs(ev - 114095.9) < 1, `EV ${ev}`)
+  const v = chainLevel(c, null)
+  assert.ok(v !== null && Math.abs(v - 45.1241) < 1e-3, `level ${v}`)
+})
+check('runoff what-ifs match the precomputed mock table: 10% → 51.957, 8% → 38.291, g=0 → 50.899', () => {
+  const c = buildChain(NHY_RUNOFF_DERIV)!
+  assert.ok(Math.abs((chainLevel({ ...c, margin: 0.10 }, null) as number) - 51.9573) < 1e-3)
+  assert.ok(Math.abs((chainLevel({ ...c, margin: 0.08 }, null) as number) - 38.2909) < 1e-3)
+  assert.ok(Math.abs((chainLevel({ ...c, growth: 0 }, null) as number) - 50.8986) < 1e-3)
+})
+check('runoff refusals: wacc − g <= 0 → null; missing constant → buildChain null (stays judgment)', () => {
+  const c = buildChain(NHY_RUNOFF_DERIV)!
+  assert.equal(chainLevel({ ...c, growth: 0.08 }, null), null)
+  assert.equal(buildChain({ ...NHY_RUNOFF_DERIV, pv_factor: null }), null)
+  assert.equal(buildChain({ ...NHY_RUNOFF_DERIV, revenue_base: null }), null)
+})
+check('typed EV detaches the runoff model (evOverride wins); clearing it re-attaches', () => {
+  const c = buildChain(NHY_RUNOFF_DERIV)!
+  const detached = { ...c, evOverride: 120000 }
+  assert.ok(Math.abs((chainLevel(detached, null) as number) - 48.1285) < 1e-3, 'typed EV drives the bridge')
+  assert.ok(Math.abs((chainLevel({ ...detached, evOverride: null }, null) as number) - 45.1241) < 1e-3, 're-attached replay')
+})
+check('runoff trace: formula carries margin % + revenue base; recompute flows the lever end-to-end', () => {
+  const s = { label: 'bear', probability: null, forwardMetric: null, multiple: null, levelOverride: 45.12, chain: buildChain(NHY_RUNOFF_DERIV) }
+  const t = traceScenarioCell(s, { kind: 'derived_chain', chainValue: 45.1241 }, null)
+  assert.ok(t.formula.includes('9%') || t.formula.includes('9.00%') || t.formula.includes('9 %'), t.formula)
+  assert.ok(t.formula.includes('228071'), t.formula)
+  // end-to-end: a draft whose bear carries the runoff chain — margin 10% moves the bear level in recompute
+  const draft = {
+    basis: 'equity' as const, shares: 1965.28, netDebt: 13090, price: 84.96,
+    rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false,
+    scenarios: [
+      { label: 'base', probability: 55, forwardMetric: null, multiple: null, levelOverride: 81.83 },
+      { label: 'bull', probability: 20, forwardMetric: null, multiple: null, levelOverride: 107.7 },
+      { label: 'bear', probability: 25, forwardMetric: null, multiple: null, levelOverride: 45.12, chain: { ...buildChain(NHY_RUNOFF_DERIV)!, margin: 0.10 } },
+    ],
+    methods: [], driveBaseFromMix: false,
+  }
+  const out = recompute(draft)
+  const bear = out.scenarios.find((x) => x.label === 'bear')!
+  assert.ok(bear.level !== null && Math.abs(bear.level - 51.9573) < 1e-3, `bear ${bear.level}`)
+  assert.ok(out.math.expectedReturnPct !== null && Math.abs(out.math.expectedReturnPct - -6.4) < 0.15, `E[r] ${out.math.expectedReturnPct}`)
 })
 
 console.log(`valuationLevers.test.ts: ${passed} assertions passed`)
