@@ -128,6 +128,62 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
         except Exception as e:  # a pure resolver should never raise; if it does, the football field is bad
             det.append(f"blend() raised on methods/method_weights: {e}")
 
+    # ---- v1.1 method internals (P-C sub-levers) — each block, when present, must REPRODUCE its recorded
+    # method value: the grid cell at `base` == methods.dcf, the segment re-sum == methods.sotp, the anchor
+    # line at applied_multiple == methods.peers. A block that disagrees with its own method value would make
+    # the Playground derive a number contradicting the committed football field — worse than no block.
+    m_of = (lambda k: methods.get(k) if isinstance(methods, dict) else None)
+    grid = sidecar.get("dcf_grid")
+    if grid is not None:
+        if not isinstance(grid, dict):
+            det.append("dcf_grid must be an object or null")
+        else:
+            w, g, vals = grid.get("wacc"), grid.get("growth"), grid.get("values")
+            ok_axes = (isinstance(w, list) and len(w) >= 2 and all(_isnum(x) for x in w) and all(w[i] < w[i+1] for i in range(len(w)-1))
+                       and isinstance(g, list) and len(g) >= 2 and all(_isnum(x) for x in g) and all(g[i] < g[i+1] for i in range(len(g)-1)))
+            if not ok_axes:
+                det.append("dcf_grid wacc/growth must be ascending numeric arrays (>= 2 points each)")
+            elif not (isinstance(vals, list) and len(vals) == len(g)
+                      and all(isinstance(r, list) and len(r) == len(w) and all(_isnum(x) for x in r) for r in vals)):
+                det.append(f"dcf_grid values must be a {len(g)}x{len(w)} numeric matrix (values[growthIdx][waccIdx])")
+            else:
+                base = grid.get("base")
+                if isinstance(base, dict) and _isnum(base.get("wacc")) and _isnum(base.get("growth")):
+                    wi = next((i for i, x in enumerate(w) if abs(x - base["wacc"]) < 1e-9), None)
+                    gi = next((i for i, x in enumerate(g) if abs(x - base["growth"]) < 1e-9), None)
+                    if wi is None or gi is None:
+                        det.append(f"dcf_grid base ({base.get('wacc')}, {base.get('growth')}) is not a recorded grid point")
+                    elif _isnum(m_of("dcf")) and abs(vals[gi][wi] - float(m_of("dcf"))) > _tol(m_of("dcf")):
+                        det.append(f"dcf_grid base cell {vals[gi][wi]} != methods.dcf {m_of('dcf')} — the grid must reproduce the recorded method value")
+    segs = sidecar.get("sotp_segments")
+    if segs is not None:
+        if not (isinstance(segs, list) and segs and all(isinstance(s, dict) and _isnum(s.get("metric")) and _isnum(s.get("multiple")) for s in segs)):
+            det.append("sotp_segments must be a non-empty array of {segment, metric, multiple} with numeric metric/multiple")
+        else:
+            br = sidecar.get("sotp_bridge") if isinstance(sidecar.get("sotp_bridge"), dict) else {}
+            shares = sidecar.get("shares")
+            if _isnum(shares) and shares > 0 and _isnum(m_of("sotp")):
+                total_ev = sum(float(s["metric"]) * float(s["multiple"]) for s in segs)
+                equity = total_ev - (float(br.get("net_debt")) if _isnum(br.get("net_debt")) else 0.0) \
+                                  - (float(br.get("minority")) if _isnum(br.get("minority")) else 0.0) \
+                                  + (float(br.get("other")) if _isnum(br.get("other")) else 0.0)
+                per_share = equity / float(shares)
+                if abs(per_share - float(m_of("sotp"))) > _tol(m_of("sotp")):
+                    det.append(f"sotp_segments re-sum {round(per_share, 4)} != methods.sotp {m_of('sotp')} — segments+bridge must reproduce the recorded method value")
+    pi = sidecar.get("peers_internals")
+    if pi is not None:
+        anchors = pi.get("anchors") if isinstance(pi, dict) else None
+        if not (isinstance(anchors, list) and len(anchors) >= 2
+                and all(isinstance(a, dict) and _isnum(a.get("multiple")) and _isnum(a.get("value")) for a in anchors)
+                and abs(float(anchors[0]["multiple"]) - float(anchors[1]["multiple"])) > 1e-9):
+            det.append("peers_internals.anchors must hold >= 2 numeric {multiple, value} rows with distinct multiples")
+        elif _isnum(pi.get("applied_multiple")) and _isnum(m_of("peers")):
+            a0, a1 = anchors[0], anchors[1]
+            slope = (float(a1["value"]) - float(a0["value"])) / (float(a1["multiple"]) - float(a0["multiple"]))
+            at_applied = float(a0["value"]) + slope * (float(pi["applied_multiple"]) - float(a0["multiple"]))
+            if abs(at_applied - float(m_of("peers"))) > _tol(m_of("peers")):
+                det.append(f"peers_internals line at applied_multiple gives {round(at_applied, 4)} != methods.peers {m_of('peers')} — the anchors must reproduce the recorded method value")
+
     # Match the sidecar's scenario label set to the frozen decision_record, and check each shared level for
     # contradiction. A sidecar label with no decision-record counterpart (or a missing one) means the
     # Playground — which uses the non-empty sidecar over the decision-record fallback — cannot derive the
@@ -268,6 +324,28 @@ def _selftest() -> int:
     check("rounding difference does not fire", eval_ap_valuation_summary_integrity(ok_sidecar, dr_round) == [])
     # null DR scenarios (BG/HCG/TMCV shape) must NOT trip any DR-dependent check
     check("null DR scenarios → no fire", eval_ap_valuation_summary_integrity(ok_sidecar, {"scenarios": None}) == [])
+
+    # ---- v1.1 method internals (P-C sub-levers): each block must reproduce its recorded method value ----
+    internals = dict(ok_sidecar,
+        methods={"dcf": 70, "sotp": 80, "peers": 90}, method_weights={"dcf": 0.4, "sotp": 0.4, "peers": 0.2},
+        shares=10, basis="equity",
+        dcf_grid={"wacc": [0.07, 0.08], "growth": [0.02, 0.025], "values": [[72, 60], [70, 58]],
+                  "base": {"wacc": 0.07, "growth": 0.025}, "source": "04 §7"},
+        sotp_segments=[{"segment": "A", "metric": 100, "multiple": 5}, {"segment": "B", "metric": 90, "multiple": 5}],
+        sotp_bridge={"net_debt": 100, "minority": 50},  # (500+450) − 150 = 800 → /10 shares = 80 == methods.sotp
+        peers_internals={"median_multiple": 6.25, "applied_multiple": 5.6, "discount_pct": 10,
+                         "anchors": [{"multiple": 5.6, "value": 90}, {"multiple": 6.25, "value": 100}]})
+    check("v1.1 internals that reproduce their method values → pass", eval_ap_valuation_summary_integrity(internals, None) == [])
+    bad_cell = dict(internals, dcf_grid=dict(internals["dcf_grid"], values=[[72, 60], [99, 58]]))
+    check("grid base cell != methods.dcf caught", any("reproduce the recorded method value" in v and "dcf" in v for v in eval_ap_valuation_summary_integrity(bad_cell, None)))
+    bad_axes = dict(internals, dcf_grid=dict(internals["dcf_grid"], wacc=[0.08, 0.07]))
+    check("non-ascending wacc axis caught", any("ascending" in v for v in eval_ap_valuation_summary_integrity(bad_axes, None)))
+    bad_sum = dict(internals, sotp_segments=[{"segment": "A", "metric": 100, "multiple": 9}])
+    check("sotp re-sum != methods.sotp caught", any("re-sum" in v for v in eval_ap_valuation_summary_integrity(bad_sum, None)))
+    one_anchor = dict(internals, peers_internals={"applied_multiple": 5.6, "anchors": [{"multiple": 5.6, "value": 90}]})
+    check("single peers anchor caught", any("anchors" in v for v in eval_ap_valuation_summary_integrity(one_anchor, None)))
+    bad_peers = dict(internals, peers_internals=dict(internals["peers_internals"], anchors=[{"multiple": 5.6, "value": 50}, {"multiple": 6.25, "value": 60}]))
+    check("peers line != methods.peers caught", any("methods.peers" in v for v in eval_ap_valuation_summary_integrity(bad_peers, None)))
 
     if fails:
         print("VALUATION SUMMARY CHECKS SELFTEST FAIL:", ", ".join(fails))

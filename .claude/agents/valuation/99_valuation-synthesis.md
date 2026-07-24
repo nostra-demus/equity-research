@@ -198,12 +198,19 @@ Populate from the upstream specialists:
 - `shares`, `net_debt` (+ `net_debt_basis`), `current_price`, `price_as_of`, `price_state` from `01`.
 - `is_developed_mega_cap` — true for a developed-market (USD/EUR/GBP) large/mega-cap (enables the mega-cap cost-of-equity ceiling).
 
+**Method internals (schema v1.1 — the Playground's per-method sub-levers).** Each block is emitted ONLY when the upstream orb recorded the data as a clean table; each must REPRODUCE its recorded method value (the integrity guard rejects a block that contradicts its own `methods` entry):
+- `dcf_grid` — `04`'s WACC × terminal-growth sensitivity grid, cells transcribed **verbatim** (§5): ascending `wacc`/`growth` arrays as decimals, `values[growthIdx][waccIdx]`, `base` = the used WACC/growth pair (its cell MUST equal `methods.dcf`), `source` = the §7 citation. Omit when `04` recorded no grid.
+- `sotp_segments` + `sotp_bridge` — `06`'s per-segment metric × multiple rows (metric value, applied multiple, named comp) and the EV→equity bridge (`net_debt`, `minority`, `other`); `Σ(metric × multiple) − net_debt − minority + other` over `shares` MUST reproduce `methods.sotp`. Omit for a single-segment/collapsed SOTP.
+- `peers_internals` — `03`'s implied-value line: `median_multiple`, `applied_multiple`, `discount_pct`, and ≥2 **verbatim** `anchors` rows (multiple → implied per-share value) from its own table; the anchor line at `applied_multiple` MUST reproduce `methods.peers`. Omit when `03` published no multi-row implied-value table.
+Set `schema_version` to `"1.1"` when any internals block is emitted.
+
 If a lever is genuinely unavailable, write `null` — never fabricate one to fill the schema. This file is optional-but-preferred: a run that cannot populate the core scenarios (no fair-value levels) may omit it, and the Playground falls back to the frozen `decision_record` scenarios.
 
 # SELF-CHECK
 
 - [ ] Every upstream specialist output was read and appears in Section 2.
 - [ ] `valuation_summary.json` was emitted conforming to `frameworks/valuation_summary.schema.json`; its scenario `level`s match the markdown bull/base/bear levels, each `level` equals `forward_metric × multiple` (bridged for `ev`), and no scenario probabilities are written (the master owns those).
+- [ ] Any emitted method-internals block (`dcf_grid` / `sotp_segments`+`sotp_bridge` / `peers_internals`) is transcribed verbatim from its orb's own table and REPRODUCES the matching `methods` value (grid base cell = `methods.dcf`; segment re-sum = `methods.sotp`; anchor line at `applied_multiple` = `methods.peers`); a block whose orb recorded no clean table is omitted, never invented.
 - [ ] Direction flags are correct: Downside risk is inverted (higher = worse); Valuation attractiveness and Margin of safety are NOT inverted (higher = better/cheaper).
 - [ ] The verdict is exactly one of the 6 defined categories.
 - [ ] The fair-value output is the bull/base/bear LEVELS (points) pulled from `07`, with the cross-method dispersion (football field) shown separately — the base case is a point, never a band — and the current price (or "not available", with price-state if `indicative`) shown.

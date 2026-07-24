@@ -51,6 +51,58 @@
         "after_tax_kd": {"type": ["number", "null"]}
       }
     },
-    "is_developed_mega_cap": {"type": ["boolean", "null"], "description": "enables the Gate-4 developed-market mega-cap cost-of-equity ceiling"}
+    "is_developed_mega_cap": {"type": ["boolean", "null"], "description": "enables the Gate-4 developed-market mega-cap cost-of-equity ceiling"},
+
+    "dcf_grid": {
+      "type": ["object", "null"],
+      "description": "v1.1 (P-C sub-levers) — the DCF orb's OWN recorded WACC × terminal-growth sensitivity grid (04_intrinsic-dcf §7), transcribed verbatim so the Playground can derive the DCF method value from typed WACC/growth fields. Values between recorded points are linear blends of these cells (labelled interpolated); outside the grid is flagged extrapolated. The cell at `base` MUST equal methods.dcf — the grid reproduces the recorded method value, never a new model.",
+      "required": ["wacc", "growth", "values"],
+      "properties": {
+        "wacc": {"type": "array", "items": {"type": "number"}, "description": "ascending WACC column points, as decimals (0.075 = 7.5%)"},
+        "growth": {"type": "array", "items": {"type": "number"}, "description": "ascending terminal-growth row points, as decimals"},
+        "values": {"type": "array", "items": {"type": "array", "items": {"type": "number"}}, "description": "per-share values: values[growthIdx][waccIdx], matching the orb's own table cells"},
+        "base": {"type": ["object", "null"], "properties": {"wacc": {"type": "number"}, "growth": {"type": "number"}}, "description": "the orb's used WACC/growth pair — its grid cell equals methods.dcf"},
+        "source": {"type": ["string", "null"], "description": "§5 citation, e.g. '04_intrinsic-dcf.md §7'"}
+      }
+    },
+    "sotp_segments": {
+      "type": ["array", "null"],
+      "description": "v1.1 (P-C sub-levers) — the SOTP orb's OWN per-segment metric × multiple rows (06_sum-of-the-parts), transcribed verbatim so each segment multiple is a typed lever. Σ(metric × multiple) + sotp_bridge must reproduce methods.sotp through the shares bridge.",
+      "items": {
+        "type": "object",
+        "required": ["segment", "metric", "multiple"],
+        "properties": {
+          "segment": {"type": "string"},
+          "metric_name": {"type": ["string", "null"], "description": "e.g. 'LTM Adj. EBITDA' — the basis the multiple applies to"},
+          "metric": {"type": "number", "description": "the segment metric value (company currency, millions)"},
+          "multiple": {"type": "number", "description": "the applied EV multiple"},
+          "comp": {"type": ["string", "null"], "description": "the named comparable behind the multiple"},
+          "source": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "sotp_bridge": {
+      "type": ["object", "null"],
+      "description": "v1.1 — the recorded EV→equity bridge for the SOTP re-sum: per-share = (Σ segment EVs − net_debt − minority + other) / shares (top-level `shares`). Amounts in company currency, millions; positive values are subtracted for net_debt/minority, added for `other`.",
+      "properties": {
+        "net_debt": {"type": ["number", "null"]},
+        "minority": {"type": ["number", "null"]},
+        "other": {"type": ["number", "null"], "description": "net other bridge items (+ additions, − subtractions), 0/null when none"},
+        "source": {"type": ["string", "null"]}
+      }
+    },
+    "peers_internals": {
+      "type": ["object", "null"],
+      "description": "v1.1 (P-C sub-levers) — the peers orb's OWN implied-value line (03_relative-valuation-peers §5): two verbatim anchor rows (multiple → per-share value) define the affine map the Playground moves along; the lever is the discount % off the peer median. anchors[0] at applied_multiple must equal methods.peers.",
+      "required": ["anchors"],
+      "properties": {
+        "metric_name": {"type": ["string", "null"], "description": "e.g. 'NTM EV/EBITDA'"},
+        "median_multiple": {"type": ["number", "null"], "description": "the recorded peer median"},
+        "applied_multiple": {"type": ["number", "null"], "description": "the multiple the base case used (median × (1 − discount))"},
+        "discount_pct": {"type": ["number", "null"], "description": "the recorded quality discount off the median, in percent (10 = 10%)"},
+        "anchors": {"type": "array", "minItems": 2, "items": {"type": "object", "required": ["multiple", "value"], "properties": {"multiple": {"type": "number"}, "value": {"type": "number"}, "label": {"type": ["string", "null"]}}}, "description": "verbatim rows from the orb's implied-value table; the client interpolates linearly through them"},
+        "source": {"type": ["string", "null"]}
+      }
+    }
   }
 }
