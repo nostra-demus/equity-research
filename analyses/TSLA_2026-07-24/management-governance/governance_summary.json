@@ -1,0 +1,36 @@
+{
+  "ticker": "TSLA",
+  "date": "2026-07-24",
+  "module": "management-governance",
+  "stewardship_verdict": "Serious governance concerns",
+  "hard_disqualifier_flagged": false,
+  "hard_disqualifier_detail": "business-model/01_disqualifier-scan.md: No disqualifier triggered",
+  "scores": {
+    "management_quality": 46,
+    "capital_allocation": 39,
+    "incentive_alignment": 53,
+    "shareholder_friendliness": 42,
+    "disclosure_candor": 45,
+    "governance_risk_inverted_higher_worse": 68,
+    "data_quality": 85,
+    "overall_usefulness": 90
+  },
+  "governance_score": 43.3,
+  "confidence_score": 78,
+  "confidence_adjusted_governance_score": 33.8,
+  "governance_rating": "Weak",
+  "red_flag_count": 10,
+  "critical_red_flag_count": 2,
+  "insider_ownership_ceo_pct_range": [20.3, 29.9],
+  "section_24_filters_tripped": ["Filter 1 - integrity (RF-MGT-005)"],
+  "section_24_filters_not_tripped": ["Filter 2 - turnaround", "Filter 4 - serial acquirer", "Filter 6 - unaligned owner"],
+  "supersedes": "business-model/11_capital-allocation-governance.md",
+  "specialist_scores": {
+    "01_management_and_track_record": 46,
+    "02_capital_allocation_scorecard": 39,
+    "03_incentives_and_compensation": 53,
+    "04_ownership_and_insider_behavior": 73,
+    "05_board_and_shareholder_rights": 42,
+    "06_candor_and_disclosure_quality": 45
+  }
+}

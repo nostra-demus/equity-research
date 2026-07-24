@@ -1,0 +1,19 @@
+section,Governance Need,Best Available Source,Period,Confidence 1–5,Missing?,Replacement Source
+Source Coverage Matrix,Board composition,"10-K/A, Item 10 (Directors) + Director Independence section",As of Apr-30-2026,5,N,—
+Source Coverage Matrix,Compensation,"10-K/A, Item 11 (CDA, CEO Performance Award tranches, Outstanding Equity Awards)",FY2025,5,N,—
+Source Coverage Matrix,Ownership,10-K/A Item 12; Public Ownership Summary.rtf; Public Ownership History.xls,FY2025 / current CIQ pull,5 (filing) / 4 (CIQ),N,—
+Source Coverage Matrix,Insider trades,Public Ownership Insider Trading.xls,Trailing 12 months to 2026-06-17,4,N,—
+Source Coverage Matrix,Related-party transactions,"10-K/A, Item 13 (RPT Policy, Related Person Transactions)",FY2025,5,N,—
+Source Coverage Matrix,Auditor report,"Not separately in pool — 10-K/A is Part III only, no auditor's report reproduced","FY2025 (auditor opinion resides in the original 10-K, not extracted to this pool)",2,Partial,Original FY2025 10-K (not in pool); disqualifier-scan already checked audit-qualification status and found none
+Source Coverage Matrix,Secretarial / compliance report,N/A (US regime — no secretarial-audit equivalent),—,n/a,N/A (jurisdiction),—
+Source Coverage Matrix,AGM voting,"Not directly in pool — 10-K/A references the ""say on frequency"" / advisory vote on comp but does not tabulate a specific AGM vote-count outcome for FY2025","Referenced, not tabulated",3,Partial,8-K reporting AGM voting results (not in pool)
+Source Coverage Matrix,Capital-allocation history,"Financials_Annual.xls (Cash Flow, Capital Structure Summary/Details tabs)",Multi-year annual,4,N,—
+Source Coverage Matrix,Legal / regulatory cases,10-Q Commitments & Contingencies (Benavides v. Tesla); Key Developments.xls,Current,4,N,—
+
+section,Source,Period,As-of Date,Age,Stale?,Impact
+Data Freshness,10-K/A (Part III),FY2025 comp/ownership,Filed 2026-04-30,~3 months,No,"Current basis for comp, board, RPT read"
+Data Freshness,10-Q,Q2 2026,Filed 2026-07-23,<1 month,No,Freshest financial/legal-contingency source
+Data Freshness,Insider Trading export,Trailing 12 months,"Latest trade 2026-06-16, filed 2026-06-17",~1 month,No,Current insider-conviction read
+Data Freshness,Q2 2026 earnings call,Q2 2026,2026-07-22,~1 day,No,Freshest candor/tone source
+Data Freshness,Annual_Report_TSLA-Q4-2024.pdf,FY2024,Feb 2025 (implied),~18 months,"Yes, for standalone use","Used only for promise-vs-delivery comparison against FY2025/2026 outcomes, not as current-period source"
+Data Freshness,Estimates Report (Guidance/Trends tabs),Rolling consensus,Recent (CIQ pull),<3 months (typical),No,Supports guidance-vs-delivery cross-check with earnings/04
