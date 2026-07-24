@@ -1,24 +1,27 @@
-// Server-side what-if modeling for the cockpit "Ask" chat.
+// Server-side what-if modeling for the cockpit "Ask" chat — v3: an intelligent parser, a deterministic engine.
 //
 // A quantified modeling question — "how does margin change if the aluminium price rises $45/mt?", "what's
-// EBITDA if aluminium is at $3,000?", "what price gets the margin to 16%?" — is answered DETERMINISTICALLY,
-// with no arithmetic done by the language model. The parser is a strict CLASSIFIER; all the math lives in
-// scripts/sensitivity_math.py (the same engine the guard checks).
+// EBITDA if aluminium IS 3,467/mt?", "what price gets the margin to 16%?" — is answered with numbers the
+// ENGINE computed. v3 separates the two jobs the previous regex classifier conflated (and kept leaking on:
+// stems, years-as-deltas, comma thousands, "USD/mt" token collisions, and finally "is 3,467" read as a
+// +3,467 move):
 //
-//   detectWhatIf   — a cheap, strict gate: is this a quantified what-if at all?
-//   classifyWhatIf — pure: map the question to ONE of
-//                      forward  ("aluminium +$45/mt")        → delta on the recorded coefficient
-//                      level    ("aluminium at $3,000")      → target_level (engine does level − base)
-//                      reverse  ("what price gets margin 16%")→ target_margin/target (engine inverts the coeff)
-//                      multi    ("aluminium +$45 and FX −0.5")→ one plan per variable (computed separately)
-//                      unsupported ("if freight …")          → an honest refusal listing what IS modelable
-//                    or null (not modelable → the turn answers normally).
-//   computeScenario— shell out to sensitivity_math.py --scenario (JSON in / JSON out).
+//   INTERPRETATION (language) — a small constrained model call maps the question to strict JSON intents
+//     {variable, mode, value}. It runs on the SAME model the panel's selector picked for the turn (one
+//     selector, one model — no separate parser knob), but as a deliberately small call: thinking off and a
+//     tight timeout (CHAT.parserTimeoutMs). The model SELECTS; it can never invent — a code validator
+//     rejects any variable the orb didn't record and any value that does not literally appear in the
+//     question.
+//   COMPUTATION (arithmetic) — unchanged: scripts/sensitivity_math.py resolves level→delta, scales the
+//     recorded coefficient, computes margins, flags the disclosed range. The language model never computes.
 //
-// The result streams as a chat-computed card AND is injected as an authoritative COMPUTED SCENARIO block, so
-// the model only narrates. The whole compute path is regex + Python — no model in it. Conservative by design:
-// anything that isn't a clean, single-variable, sized ask is REFUSED, never guessed (a wrong-but-authoritative
-// number would be worse than a refusal). CLAUDE.md §15/§20/§26.
+// Flow: detectWhatIf (cheap regex gate — non-what-if questions never pay for a parse) → buildParserPrompt →
+// the injected ParserCall (server-side: the chat's own claude-CLI spawn; stubbed in tests so the suite stays
+// deterministic) → parseModelOutput → validateIntents (pure, red-teamable) → computePlan per intent → the
+// chat-computed card(s) + an authoritative COMPUTED SCENARIO block. The card echoes the interpretation
+// ("Read as …"), so a misread is visible and correctable — never silent. Every failure path (bad JSON,
+// timeout, CLI absent, invented value) degrades to a normal closed-book answer — never a number.
+// CLAUDE.md §3/§15/§20/§26.
 import { execa } from 'execa'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -67,254 +70,237 @@ export function loadSidecar(runRoot: string): { path: string; sidecar: Sensitivi
 // sidecar JSON is external — a malformed `sensitivities` (a non-array truthy value) must not crash iteration.
 const sensRows = (sidecar: SensitivitySidecar): SensitivityRow[] => (Array.isArray(sidecar.sensitivities) ? sidecar.sensitivities : [])
 
-function recordedList(sidecar: SensitivitySidecar) {
+/** The variables a run CAN be asked about — drives the refusal card and the parser prompt. */
+export function recordedList(sidecar: SensitivitySidecar) {
   return sensRows(sidecar).filter((r) => r?.variable).map((r) => ({ variable: r.variable, label: r.label, unit: r.unit }))
 }
 
-// ---- 1. detection ------------------------------------------------------------------------------------
+// ---- 1. detection (the free gate) --------------------------------------------------------------------
 const COND_CUE = /\b(what\s+if|if|were\s+to|assuming|suppose|imagine|scenario|hypothetical)\b/i
 const CHANGE_CUE = /\b(rise|rises|rising|rose|risen|fall|falls|falling|fell|fallen|increase|increases|increasing|decrease|decreases|decreasing|drop|drops|dropped|jump|jumps|gain|gains|climb|climbs|decline|declines|move|moves|moved|weaken|weakens|strengthen|strengthens|higher|lower|up|down|hits?|reach(?:es)?|at)\b/i
 const SOLVE_CUE = /\b(what|which|how\s+much|how\s+high|how\s+far|how\s+low|how\s+big)\b/i
 const SIGNED_NUM = /[+\-−]\s*\d/
 const ANY_NUM = /\d/
 
+/** Cheap, strict gate: is this plausibly a quantified what-if? Since v3 every detection pays a model parse,
+ *  a bare question word ("What was EBITDA in FY2025?") is NOT enough — the solve path additionally needs a
+ *  %/margin signal (the reverse-solve shape). False positives cost one small parse that returns no intents;
+ *  false negatives cost a modelable question — so the gate stays permissive on conditional/change cues. */
 export function detectWhatIf(question: string): boolean {
   const q = question || ''
   if (!ANY_NUM.test(q)) return false
-  return COND_CUE.test(q) || CHANGE_CUE.test(q) || SIGNED_NUM.test(q) || SOLVE_CUE.test(q)
+  return COND_CUE.test(q) || CHANGE_CUE.test(q) || SIGNED_NUM.test(q) || (SOLVE_CUE.test(q) && /%|margin/i.test(q))
 }
 
-// ---- 2. variable matching (generic; stem-aware so plural/singular match) -----------------------------
-const STOP = new Set(['price', 'rate', 'index', 'exchange', 'external', 'the', 'and', 'of', 'to', 'per'])
+// ---- 2. the parser contract (model interprets; code verifies) -----------------------------------------
+export type IntentMode = 'move' | 'level' | 'target_margin'
+export interface ParsedIntent {
+  variable: string
+  mode: IntentMode
+  value: number
+  direction?: 'up' | 'down' | null
+  percent?: boolean | null
+}
+export interface ParseResult {
+  intents: ParsedIntent[]
+  asksUnrecorded?: string | null
+  periodNote?: boolean
+}
+/** The injected model call: (system, user) → the model's raw text, or null on any failure. The server wires
+ *  this to the chat's own claude-CLI spawn on the TURN's selected model; tests inject a stub. */
+export type ParserCall = (system: string, user: string) => Promise<string | null>
+
+/** The parse prompt: the question + the orb's recorded variables, and a strict JSON-only contract. Pure, so
+ *  the test suite can pin exactly what the parser model is told. */
+export function buildParserPrompt(question: string, sidecar: SensitivitySidecar): { system: string; user: string } {
+  const vars = sensRows(sidecar)
+    .filter((r) => r?.variable)
+    .map((r) => `- ${r.variable} — "${r.label || r.variable}"${r.unit ? ` (${r.unit})` : ''}${typeof r.base_value === 'number' ? `, current level ${r.base_value}` : ''}`)
+    .join('\n')
+  const system = [
+    'You translate ONE research question into a strict JSON intent for a deterministic calculator.',
+    'You NEVER calculate anything, and you NEVER invent a number: every "value" must be a number written in the question (commas/currency stripped).',
+    'Output ONLY a single JSON object — no prose, no markdown fences, no explanation.',
+  ].join('\n')
+  const user = [
+    'RECORDED SENSITIVITY VARIABLES (the only "variable" keys you may use):',
+    vars || '(none recorded)',
+    '',
+    'QUESTION:',
+    question,
+    '',
+    'Return exactly this JSON shape:',
+    '{"intents":[{"variable":"<recorded key>","mode":"move"|"level"|"target_margin","value":<number from the question>,"direction":"up"|"down","percent":true|false}],"asks_unrecorded":<string or null>,"period_note":true|false}',
+    '',
+    'Rules:',
+    '- mode "move": the variable CHANGES BY value ("rises $45", "falls by 0.5", "drops 5%" with percent:true).',
+    '- mode "level": the variable IS AT value ("is 3,467/mt", "at $3,000", "hits 3500", "reaches 3,484").',
+    '- mode "target_margin": the question asks what input reaches a MARGIN of value percent ("what price gets the margin to 16%").',
+    '- value: the number exactly as written in the question with commas/currency stripped — never converted, scaled, or invented.',
+    '- direction: "down" only for a downward move ("falls", "drops", "-0.5"); otherwise "up". Levels and margin targets ignore it.',
+    '- percent: true only when the value is a percentage move OF THE VARIABLE ITSELF ("volume drops 10%").',
+    '- One intent per distinct recorded variable the question moves. intents: [] when the question is not a modelable what-if.',
+    '- asks_unrecorded: when the question IS a what-if but about something not in the recorded list, name that thing; else null.',
+    '- period_note: true when the question asks about a future period/year this single-period scenario cannot forecast (e.g. "for 2026/27").',
+  ].join('\n')
+  return { system, user }
+}
+
+/** Parse the model's raw text into a ParseResult — tolerant of fences/prose around the JSON, strict on the
+ *  shape inside it. Anything malformed → null (→ normal answer, no card). Pure. */
+export function parseModelOutput(text: string | null | undefined): ParseResult | null {
+  if (!text) return null
+  const t = String(text).trim()
+  const a = t.indexOf('{')
+  const b = t.lastIndexOf('}')
+  if (a < 0 || b <= a) return null
+  let o: any
+  try { o = JSON.parse(t.slice(a, b + 1)) } catch { return null }
+  if (!o || typeof o !== 'object' || Array.isArray(o)) return null
+  const intents: ParsedIntent[] = []
+  for (const it of Array.isArray(o.intents) ? o.intents : []) {
+    if (!it || typeof it !== 'object') continue
+    if (it.mode !== 'move' && it.mode !== 'level' && it.mode !== 'target_margin') continue
+    if (typeof it.variable !== 'string' || !it.variable.trim()) continue
+    if (typeof it.value !== 'number' || !Number.isFinite(it.value)) continue
+    intents.push({
+      variable: it.variable.trim(),
+      mode: it.mode,
+      value: it.value,
+      direction: it.direction === 'down' ? 'down' : it.direction === 'up' ? 'up' : null,
+      percent: it.percent === true,
+    })
+  }
+  return {
+    intents,
+    asksUnrecorded: typeof o.asks_unrecorded === 'string' && o.asks_unrecorded.trim() ? o.asks_unrecorded.trim() : null,
+    periodNote: o.period_note === true,
+  }
+}
+
+/** One parse: prompt → model → ParseResult. Null on ANY failure (timeout, CLI absent, garbage output). */
+export async function parseWhatIf(question: string, sidecar: SensitivitySidecar, call: ParserCall): Promise<ParseResult | null> {
+  const { system, user } = buildParserPrompt(question, sidecar)
+  let text: string | null = null
+  try { text = await call(system, user) } catch { return null }
+  return parseModelOutput(text)
+}
+
+// ---- 3. validation (pure code — the anti-invention gate) ----------------------------------------------
+/** TRUE when `value` was literally written in the question. Implemented by extracting every numeric TOKEN
+ *  (digit-grouping commas stripped) and comparing NUMERICALLY — so "3.40" matches 3.4, "10.0" matches 10,
+ *  ".5" matches 0.5, while 45 can never match inside "450" or "3.45" (those extract as the tokens 450 /
+ *  3.45, which are numerically different). This is the structural guarantee that the parse model can only
+ *  SELECT a number the user typed, never produce one. */
+export function valueAppearsInQuestion(value: number, question: string): boolean {
+  if (!Number.isFinite(value)) return false
+  const q = (question || '').replace(/(\d),(?=\d)/g, '$1') // "3,467" → "3467"
+  const target = Math.abs(value)
+  for (const tok of q.match(/\d*\.?\d+/g) || []) {
+    const n = parseFloat(tok)
+    if (Number.isFinite(n) && n === target) return true
+  }
+  return false
+}
+
+// jurisdiction-generic currency aliases, so "the dollar" mentions a usd_* variable and "the krone" a *_nok one
 const CURRENCY_ALIAS: Record<string, string[]> = {
   usd: ['dollar', 'dollars'], nok: ['krone', 'kroner'], eur: ['euro', 'euros'],
   gbp: ['pound', 'pounds', 'sterling'], inr: ['rupee', 'rupees'], jpy: ['yen'], cny: ['yuan', 'renminbi'],
 }
-const stem = (w: string): string => (w.length > 4 && w.endsWith('s') ? w.slice(0, -1) : w)
 
-export function variableKeywords(row: SensitivityRow): string[] {
-  const src = `${row.label || ''} ${row.variable || ''}`.toLowerCase()
-  const toks = src.split(/[^a-z0-9]+/).filter((t) => t.length >= 3 && !STOP.has(t))
-  const out = new Set<string>(toks)
+/** TRUE when the question plausibly NAMES this row. A GATE, not a chooser — deliberately generous (any
+ *  ≥3-char token of the variable key or label, singular/plural-stemmed, plus spelling/currency aliases),
+ *  because a false negative would drop a correct parse, while a false positive merely defers to the model's
+ *  own pick + the value gate. What it must stop: a parse that returns a recorded variable for a question
+ *  about something else entirely ("what if freight falls 10%?" → lme_aluminium_price), which would stream
+ *  an authoritative card for a variable the user never asked about. */
+// physical unit suffixes for the currency-phrase stripper below (a currency-per-PHYSICAL-unit phrase is a
+// price unit, not a mention of the currency row; a currency-per-CURRENCY pair IS the FX row's own name)
+const PHYS_UNITS = 'mt|t|ton|tonne|tonnes|kg|lb|lbs|oz|bbl|mwh|mmbtu|share|shares|unit|units'
+const CUR_UNIT_PHRASE = new RegExp(`(\\d[\\d,.]*\\s*)?(usd|nok|eur|gbp|inr|jpy|cny)\\s*\\/\\s*(${PHYS_UNITS})\\b`, 'g')
+
+export function questionMentionsRow(question: string, row: SensitivityRow): boolean {
+  const q = ` ${(question || '').toLowerCase()} `
+  // Currency-CODE tokens match against a copy with amount-unit phrases removed ("3000 usd/mt", "usd/mt"),
+  // so a commodity price quoted in USD cannot make the FX row look mentioned (its "usd" there is a unit,
+  // not a subject). "usd/nok" survives the strip — that IS the FX pair being named. Aliases ("dollar")
+  // and every non-currency token still match the full question.
+  const qCur = ` ${q.replace(CUR_UNIT_PHRASE, ' ')} `
+  const toks = `${row.variable || ''} ${row.label || ''}`.toLowerCase().split(/[^a-z0-9]+/).filter((t) => t.length >= 3)
+  const cand = new Set<string>(toks)
   for (const t of toks) {
-    if (t === 'aluminium') out.add('aluminum')
-    if (t === 'aluminum') out.add('aluminium')
-    // own-property + Array.isArray: a token like 'constructor'/'toString' would otherwise resolve to a
-    // Prototype function and crash the for-of (prototype-pollution-shaped bug).
+    if (t === 'aluminium') cand.add('aluminum')
+    if (t === 'aluminum') cand.add('aluminium')
+    // own-property + Array.isArray: a token like 'constructor' must not resolve to a prototype function
     const aliases = Object.prototype.hasOwnProperty.call(CURRENCY_ALIAS, t) ? CURRENCY_ALIAS[t] : null
-    if (Array.isArray(aliases)) for (const a of aliases) out.add(a)
+    if (Array.isArray(aliases)) for (const a of aliases) cand.add(a)
   }
-  return [...out]
-}
-
-function questionStems(q: string): Set<string> {
-  return new Set((q || '').toLowerCase().split(/[^a-z0-9]+/).filter(Boolean).map(stem))
-}
-
-/** Score how strongly the question names one recorded variable (0 = not mentioned). Full label present is
- *  strongest; otherwise stem-matched keywords. */
-function scoreRow(row: SensitivityRow, qlc: string, stems: Set<string>): number {
-  const label = (row.label || '').toLowerCase().trim()
-  let score = 0
-  if (label && label.length >= 4 && qlc.includes(label)) score += 100 + label.length
-  for (const kw of variableKeywords(row)) if (stems.has(stem(kw))) score += 10 + kw.length
-  return score
-}
-
-export function matchVariable(question: string, sidecar: SensitivitySidecar): SensitivityRow | null {
-  const qlc = ` ${(question || '').toLowerCase()} `
-  const stems = questionStems(question)
-  let best: { row: SensitivityRow; score: number } | null = null
-  for (const row of sensRows(sidecar)) {
-    if (!row?.variable) continue
-    const score = scoreRow(row, qlc, stems)
-    if (score > 0 && (!best || score > best.score)) best = { row, score }
+  for (const t of cand) {
+    const s = t.length > 4 && t.endsWith('s') ? t.slice(0, -1) : t // "extrusions" also matches "extrusion"
+    const hay = Object.prototype.hasOwnProperty.call(CURRENCY_ALIAS, t) ? qCur : q
+    if (hay.includes(s)) return true
   }
-  return best ? best.row : null
+  return false
 }
 
-/** All recorded variables the question names (distinct, most-specific first) — used to detect a joint ask. */
-export function matchAllVariables(question: string, sidecar: SensitivitySidecar): SensitivityRow[] {
-  const qlc = ` ${(question || '').toLowerCase()} `
-  const stems = questionStems(question)
-  return sensRows(sidecar)
-    .filter((r) => r?.variable)
-    .map((r) => ({ r, s: scoreRow(r, qlc, stems) }))
-    .filter((x) => x.s > 0)
-    .sort((a, b) => b.s - a.s)
-    .map((x) => x.r)
-}
+export type UnsupportedReason = 'unrecorded' | 'no_revenue_base' | 'no_source' | 'metric_mismatch'
+/** A validated, computable intent: the row it resolved to + the exact engine request. */
+export interface Plan { variable: string; row: SensitivityRow; req: ScenarioRequest }
 
-// ---- 3. move / level / reverse extraction (pure regex) -----------------------------------------------
-const NEG_CUE = /\b(fall|falls|falling|fell|fallen|drop|drops|dropped|decrease|decreases|decreasing|decline|declines|lower|down|weaken|weakens|cut|cuts|loses|lose|minus)\b/i
-// a numeric token: comma-grouped thousands and/or a decimal ($1,000 / 3,484.5 / 0.5 / 45)
-const NUM = '(\\d[\\d,]*(?:\\.\\d+)?)'
-const MAG_SRC = `(?:by\\s+)?([+\\-−]?)\\s*(usd|us\\$|\\$|nok|kr|₹|€|£|rs\\.?)?\\s*${NUM}\\s*(%|percent|pct|pp|bps?|usd\\/mt|\\/mt|mt|kmt|usd|nok)?`
-const MAG = new RegExp(MAG_SRC, 'i')
-// a LEVEL marker ("at / hits / reaches / to") immediately before a number → an absolute level, not a move
-const LEVEL_AT = /\b(?:at|hits?|reach(?:es|ing)?|to)\s+(?:USD|US\$|\$|NOK|kr|₹|€|£)?\s*([\d,]+(?:\.\d+)?)\s*(usd\/mt|\/mt|mt|kmt|usd|nok)?\b/i
+// bound how many cards one question can fan out to (a joint ask computes each leg separately)
+const MAX_INTENTS = 4
 
-/** Parse a numeric token, treating a comma as a THOUSANDS separator ($1,000 → 1000), and a lone trailing
- *  comma+1-2 digits as a decimal (European "1,5" → 1.5). Never silently turns 1,000 into 1. */
-export function parseNum(raw: string): number {
-  const s0 = String(raw).trim()
-  let s: string
-  if (/^\d{1,3}(,\d{3})+(\.\d+)?$/.test(s0)) s = s0.replace(/,/g, '') // 1,000 / 1,000,000(.5) → thousands
-  else s = s0.replace(/,(\d{1,2})$/, '.$1').replace(/,/g, '')          // trailing comma-decimal, else drop
-  const n = parseFloat(s)
-  return Number.isFinite(n) ? n : NaN
-}
-
-interface Mag { sign: string; num: number; unit: string; index: number; hasCur: boolean }
-function magnitudes(q: string): Mag[] {
-  const re = new RegExp(MAG_SRC, 'gi')
-  const out: Mag[] = []
-  let m: RegExpExecArray | null
-  while ((m = re.exec(q))) {
-    if (m.index === re.lastIndex) re.lastIndex++
-    const num = parseNum(m[3])
-    if (!Number.isFinite(num)) continue
-    out.push({ sign: m[1] || '', num, unit: (m[4] || '').toLowerCase(), index: m.index, hasCur: !!m[2] })
-  }
-  return out
-}
-/** Score a candidate magnitude so a fiscal YEAR ("FY2026 EBITDA if aluminium rises $45") never beats the
- *  real move: a signed/united/currency/verb-adjacent number scores high; a bare 4-digit year is penalised. */
-function scoreMag(m: Mag, q: string): number {
-  let s = 0
-  if (m.sign) s += 12
-  if (m.unit) s += 12
-  if (m.hasCur) s += 8
-  const before = q.slice(Math.max(0, m.index - 16), m.index).toLowerCase()
-  if (CHANGE_CUE.test(before) || /\bby\b/.test(before)) s += 8
-  if (!m.sign && !m.unit && !m.hasCur && /^(19|20)\d\d$/.test(String(m.num))) s -= 40 // bare year
-  return s
-}
-
-export type DeltaParse = { delta: number; percent: boolean } | { error: string } | null
-
-/** A signed move in the variable's own unit. A "%" is sized off the row's recorded base_value. Returns null
- *  when no magnitude is present, or the phrasing is an ambiguous absolute level ("from X to Y"). Picks the
- *  best-scoring magnitude (not blindly the first), so a year or other stray number is not taken as the move. */
-export function parseDelta(question: string, row: SensitivityRow): DeltaParse {
-  const q = question || ''
-  if (/\bfrom\s+[+\-−]?[\d.,]+\s+to\s+[+\-−]?[\d.,]+/i.test(q)) return null // absolute range, not a delta
-  const mags = magnitudes(q)
-  if (!mags.length) return null
-  const m = mags.reduce((a, b) => (scoreMag(b, q) > scoreMag(a, q) ? b : a))
-  const unit = m.unit
-  const percent = unit === '%' || unit === 'percent' || unit === 'pct'
-  let sign = 1
-  if (m.sign === '-' || m.sign === '−') sign = -1
-  else if (m.sign === '+') sign = 1
-  else if (NEG_CUE.test(q)) sign = -1
-  if (percent) {
-    const base = typeof row.base_value === 'number' ? row.base_value : null
-    if (base == null) return { error: `a percentage move needs a base value for ${row.variable}, which isn't recorded` }
-    return { delta: sign * base * (m.num / 100), percent: true }
-  }
-  return { delta: sign * m.num, percent: false }
-}
-
-/** An absolute target LEVEL for the variable ("at $3,000", "hits 3500", "rises to 3484"), or null. A number
- *  written as a percentage is a rate/target, not a level, so it is ignored here. */
-export function parseLevel(question: string): number | null {
-  const q = question || ''
-  const m = LEVEL_AT.exec(q)
-  if (!m) return null
-  const after = q.slice(m.index + m[0].length)
-  if (/^\s*%/.test(after) || /\d\s*%/.test(m[0])) return null // "... to 16%" is a rate, not a level
-  const n = parseNum(m[1])
-  return Number.isFinite(n) ? n : null
-}
-
-export type ReverseTarget = { targetMargin: number } | null
-
-/** A target on the OUTPUT for a reverse solve — a MARGIN ("margin to 16%", "16% margin"), or null. We solve
- *  only for a margin target: it is an unambiguous output signal, so it can be prioritised over a variable-
- *  level clause without clashing. (An absolute base-metric target like "EBITDA to 33,000" is deliberately NOT
- *  treated as a reverse solve — it collides with a variable-level clause and would mis-solve; that phrasing
- *  falls through to a level or forward reading instead.) */
-export function parseReverseTarget(question: string): ReverseTarget {
-  const q = question || ''
-  const mm = /margin[^%\d]{0,16}?(\d+(?:\.\d+)?)\s*%/i.exec(q) || /(\d+(?:\.\d+)?)\s*%[^%]{0,16}?margin/i.exec(q)
-  return mm ? { targetMargin: parseFloat(mm[1]) } : null
-}
-
-// ---- 4. classification -------------------------------------------------------------------------------
-export type Plan =
-  | { kind: 'forward'; variable: string; delta: number; row: SensitivityRow }
-  | { kind: 'level'; variable: string; targetLevel: number; row: SensitivityRow }
-  | { kind: 'reverse'; variable: string; targetMargin: number; row: SensitivityRow }
-export type UnsupportedReason = 'unrecorded' | 'multi' | 'no_revenue_base' | 'ambiguous' | 'no_source' | 'metric_mismatch'
-export type WhatIfPlan =
-  | Plan
-  | { kind: 'multi'; plans: Plan[] }
-  | { kind: 'unsupported'; recorded: { variable: string; label?: string | null; unit?: string | null }[]; reason: UnsupportedReason }
-  | null
-
-/** Classify ONE single-variable clause against a known row. Order matters: a MARGIN reverse (unambiguous
- *  output) → a variable LEVEL ("at/to $X") → a forward move. Refuses up front when the coefficient can't be
- *  cited (§3) or is on a different metric than the base (adding it to the base level would fabricate one). */
-function classifyClause(question: string, sidecar: SensitivitySidecar, row: SensitivityRow): Plan | { unsupportedReason: UnsupportedReason } | null {
-  // the coefficient is the material input; an uncited one cannot be modelled and cited (§3)
-  if (!(typeof row.source === 'string' && row.source.trim())) return { unsupportedReason: 'no_source' }
-  // a coefficient on a different metric than the base can't be added to the base level → refuse honestly
-  if (row.impact_metric && sidecar.base_metric && row.impact_metric !== sidecar.base_metric) return { unsupportedReason: 'metric_mismatch' }
-  const rev = parseReverseTarget(question)
-  if (rev && SOLVE_CUE.test(question)) {
-    if (!(typeof sidecar.revenue_base === 'number' && sidecar.revenue_base > 0)) return { unsupportedReason: 'no_revenue_base' }
-    return { kind: 'reverse', variable: row.variable, targetMargin: rev.targetMargin, row }
-  }
-  const level = parseLevel(question)
-  if (level != null) return { kind: 'level', variable: row.variable, targetLevel: level, row }
-  const d = parseDelta(question, row)
-  if (d == null || 'error' in d) return null
-  return { kind: 'forward', variable: row.variable, delta: d.delta, row }
-}
-
-/** Split a joint question into per-variable clauses and plan each. Returns one plan per DISTINCT variable. */
-function splitAndPlan(question: string, sidecar: SensitivitySidecar): Plan[] {
-  const clauses = (question || '').split(/\s+and\s+|\s+plus\s+|\s*[,;&]\s*/i).map((c) => c.trim()).filter(Boolean)
+/** Validate the parse against the question + sidecar. Drops (never repairs) anything suspect: an unrecorded
+ *  variable key, a variable the question never names, a value not present in the question, a % move without
+ *  a recorded base level, a duplicate variable. Sidecar-side integrity is enforced here too — an uncited
+ *  coefficient cannot be modelled and cited (§3), and a coefficient on a different metric than the base
+ *  cannot be applied to the base level. Returns the computable plans plus (when nothing is computable) the
+ *  honest refusal reason, if any. */
+export function validateIntents(pr: ParseResult, question: string, sidecar: SensitivitySidecar): { plans: Plan[]; refusal: UnsupportedReason | null; omitted: number } {
+  const rows = new Map(sensRows(sidecar).filter((r) => r?.variable).map((r) => [r.variable.toLowerCase(), r] as const))
   const seen = new Set<string>()
   const plans: Plan[] = []
-  for (const clause of clauses) {
-    const row = matchVariable(clause, sidecar)
+  let refusal: UnsupportedReason | null = null
+  let omitted = 0
+  // validate EVERY intent, cap only the VALID ones — a junk intent must not silently eat a slot, and a
+  // valid ask beyond the cap is COUNTED so the answer can say so instead of presenting a subset as the
+  // whole (Codex #335 P2 r3643707266)
+  for (const it of pr.intents || []) {
+    const row = rows.get(it.variable.toLowerCase())
     if (!row || seen.has(row.variable)) continue
-    const p = classifyClause(clause, sidecar, row)
-    if (p && 'kind' in p) { plans.push(p); seen.add(row.variable) }
+    if (!questionMentionsRow(question, row)) continue         // the variable must be the one the user asked about
+    if (!valueAppearsInQuestion(it.value, question)) continue // the anti-invention gate
+    // mode sanity: a margin-target intent from a question that never talks about a margin/percentage is a
+    // mis-read ("aluminium rises $45/mt" must not solve for an absurd 45% margin with full authority) —
+    // drop it, never repair it (Codex #335 P2 r3643707271)
+    if (it.mode !== 'move' && it.mode !== 'level' && !/margin|%|percent/i.test(question)) continue
+    if (!(typeof row.source === 'string' && row.source.trim())) { refusal = refusal ?? 'no_source'; continue }
+    if (row.impact_metric && sidecar.base_metric && row.impact_metric !== sidecar.base_metric) { refusal = refusal ?? 'metric_mismatch'; continue }
+    let req: ScenarioRequest | null = null
+    if (it.mode === 'move') {
+      const sign = it.direction === 'down' || it.value < 0 ? -1 : 1
+      if (it.percent) {
+        if (typeof row.base_value !== 'number') continue // a % move needs the variable's recorded level to size
+        req = { delta: sign * row.base_value * (Math.abs(it.value) / 100) }
+      } else {
+        req = { delta: sign * Math.abs(it.value) }
+      }
+    } else if (it.mode === 'level') {
+      req = { targetLevel: Math.abs(it.value) }
+    } else {
+      if (!(typeof sidecar.revenue_base === 'number' && sidecar.revenue_base > 0)) { refusal = refusal ?? 'no_revenue_base'; continue }
+      req = { targetMargin: Math.abs(it.value) }
+    }
+    if (plans.length >= MAX_INTENTS) { omitted++; continue }
+    plans.push({ variable: row.variable, row, req })
+    seen.add(row.variable)
   }
-  return plans
+  if (!plans.length && !refusal && pr.asksUnrecorded) refusal = 'unrecorded'
+  return { plans, refusal, omitted }
 }
 
-export function classifyWhatIf(question: string, sidecar: SensitivitySidecar): WhatIfPlan {
-  if (!detectWhatIf(question)) return null
-  const all = matchAllVariables(question, sidecar)
-
-  // joint ask: 2+ distinct variables named → compute each leg separately (they don't simply add)
-  if (all.length >= 2) {
-    const plans = splitAndPlan(question, sidecar)
-    if (plans.length >= 2) return { kind: 'multi', plans }
-    // named 2+ variables but couldn't cleanly split them into sized moves → refuse, don't guess
-    return { kind: 'unsupported', recorded: recordedList(sidecar), reason: 'ambiguous' }
-  }
-
-  const row = all[0] || matchVariable(question, sidecar)
-  if (!row) {
-    // a what-if that names nothing recorded → refuse ONLY on genuine what-if intent: a real sized move
-    // (conditional/change/sign AND a magnitude) or a margin solve. A bare year in a historical question
-    // ("What was EBITDA in FY2025?") is not a what-if and must fall through to a normal answer.
-    const realMove = MAG.test(question) && (COND_CUE.test(question) || CHANGE_CUE.test(question) || SIGNED_NUM.test(question))
-    if (realMove || parseReverseTarget(question)) return { kind: 'unsupported', recorded: recordedList(sidecar), reason: 'unrecorded' }
-    return null
-  }
-  const p = classifyClause(question, sidecar, row)
-  if (p == null) return null
-  if ('unsupportedReason' in p) return { kind: 'unsupported', recorded: recordedList(sidecar), reason: p.unsupportedReason }
-  return p
-}
-
-// ---- 5. compute: shell out to the deterministic engine -----------------------------------------------
+// ---- 4. compute: shell out to the deterministic engine -----------------------------------------------
 export interface ComputedScenario {
   variable: string
   label?: string | null
@@ -345,6 +331,13 @@ export interface ComputedScenario {
   neededImpact?: number | null
   marginBasis?: string | null   // 'revenue_constant' → margin computed at unchanged revenue (no rev coefficient)
   metricNote?: string | null    // set when the coefficient is on a metric ≠ base metric (level/margin withheld)
+  // set by the route, not the engine: TRUE when the question asked about a period this single-period
+  // scenario cannot forecast (the parse's period_note flag). The warning is gated on THIS flag, not on
+  // periodBase — a future-period question must carry the "not a forecast" disclaimer even when the
+  // sidecar records no base_period (Codex #335 r3644942615).
+  periodNote?: boolean | null
+  // the sidecar's base period when known (decorates the note); may be null while periodNote is true
+  periodBase?: string | null
   // set on the first card of a multi-variable answer
   note?: string | null
 }
@@ -386,11 +379,9 @@ export async function computeScenario(sidecar: SensitivitySidecar, variable: str
   try { return shapeScenario(JSON.parse(out.stdout)) } catch { return null }
 }
 
-/** Compute one Plan (forward/level/reverse) → a ComputedScenario, or null. */
+/** Compute one validated Plan → a ComputedScenario, or null. */
 export async function computePlan(sidecar: SensitivitySidecar, plan: Plan): Promise<ComputedScenario | null> {
-  if (plan.kind === 'forward') return computeScenario(sidecar, plan.variable, { delta: plan.delta })
-  if (plan.kind === 'level') return computeScenario(sidecar, plan.variable, { targetLevel: plan.targetLevel })
-  return computeScenario(sidecar, plan.variable, { targetMargin: plan.targetMargin })
+  return computeScenario(sidecar, plan.variable, plan.req)
 }
 
 // the margin's honest name, derived from the base metric — an EBITDA base yields an EBITDA margin, never an
@@ -403,7 +394,7 @@ export function marginName(metric?: string | null): string {
   return 'margin'
 }
 
-// ---- 6. the payload streamed to the panel + the prompt block -----------------------------------------
+// ---- 5. the payload streamed to the panel + the prompt block -----------------------------------------
 export type ComputedPayload =
   | { kind: 'scenario'; asked: string; scenario: ComputedScenario }
   | { kind: 'unsupported'; asked: string; recorded: { variable: string; label?: string | null; unit?: string | null }[]; reason: string }
@@ -415,7 +406,7 @@ const fmt = (n: number | null | undefined, d = 0) => (typeof n === 'number' ? n.
 export function computedContextBlock(payload: ComputedPayload): string {
   if (payload.kind === 'unsupported') {
     const list = payload.recorded.map((r) => `${r.label || r.variable}${r.unit ? ` (${r.unit})` : ''}`).join(', ')
-    const why = payload.reason === 'multi' || payload.reason === 'ambiguous'
+    const why = payload.reason === 'multi' || payload.reason === 'ambiguous' // legacy reasons kept for deploy skew
       ? 'The engine models ONE variable at a time; the user asked about more than one at once.'
       : payload.reason === 'no_revenue_base'
         ? 'The engine cannot solve for a margin target here — this run recorded no revenue base.'
@@ -451,6 +442,7 @@ export function computedContextBlock(payload: ComputedPayload): string {
   if (s.basis === 'inferred') lines.push('- Basis: INFERRED (derived by the orb, not disclosed in filings) — say "Inference, not from filings" and lower confidence accordingly (§3).')
   if (s.withinDisclosedRange === false) lines.push(`- CAUTION: ${s.rangeNote || 'the move is beyond the orb\'s disclosed range — a rough extrapolation'}.`)
   if (s.nonLinearity) lines.push(`- Non-linearity to mention: ${s.nonLinearity}`)
+  if (s.periodNote) lines.push(`- NOTE: the question asks about a period this scenario does not forecast — these numbers are a single-period scenario${s.periodBase ? ` on the ${s.periodBase} base` : ' on an unstated base period'}, not a multi-year forecast. Say so.`)
   lines.push('Narrate THIS result in plain English. Use these numbers verbatim; do NOT recompute or change them. Cite the source shown, and carry the confidence, basis, and any caution/non-linearity note into your answer.')
   return lines.join('\n')
 }

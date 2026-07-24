@@ -53,7 +53,7 @@ import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
-import { classifyWhatIf, computePlan, computedContextBlock, detectWhatIf, loadSidecar } from './chat-whatif'
+import { computePlan, computedContextBlock, detectWhatIf, loadSidecar, parseWhatIf, recordedList, validateIntents } from './chat-whatif'
 import { deleteConversation, getConversation, isValidConversationId, listConversations, recordAssistantMessage, recordUserMessage } from './chat-store'
 import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
@@ -1674,29 +1674,55 @@ app.post('/api/chat', async (req, reply) => {
   // the model narrates a number it did not calculate (CLAUDE.md §15/§20). Best-effort: any failure — no
   // sidecar, an unparseable move, no python3 — degrades to a normal closed-book answer, never a 500.
   let computedBlock: string | undefined
+  let parserCostUsd = 0 // the what-if parse's cost — folded into the turn's reported/persisted cost
   try {
     if (detectWhatIf(last.content)) {
       const loaded = loadSidecar(runRoot)
-      const plan = loaded ? classifyWhatIf(last.content, loaded.sidecar) : null
-      if (plan?.kind === 'unsupported') {
-        // an honest refusal card (unrecorded variable, a joint ask, or a target the sidecar can't support)
-        const payload = { kind: 'unsupported' as const, asked: last.content, recorded: plan.recorded, reason: plan.reason }
-        send({ type: 'chat-computed', payload }); computedBlock = computedContextBlock(payload)
-      } else if (plan && loaded) {
-        // 'modeling' shows ONLY once a recorded variable matched — never a flicker on a run without a sidecar.
-        // A joint ask computes each leg SEPARATELY (they don't simply add) — one card per variable.
+      if (loaded) {
+        // 'modeling' covers the whole parse→compute span; runs without a sidecar never reach here (no flicker).
         send({ type: 'chat-status', stage: 'modeling' })
-        const plans = plan.kind === 'multi' ? plan.plans : [plan]
-        const blocks: string[] = []
-        for (const pl of plans) {
-          const scenario = await computePlan(loaded.sidecar, pl)
-          if (!scenario) continue
-          if (plan.kind === 'multi' && blocks.length === 0) scenario.note = `${plans.length} variables — shown separately; they don't simply add (FX also carries a separate one-off).`
-          const payload = { kind: 'scenario' as const, asked: last.content, scenario }
-          send({ type: 'chat-computed', payload })
-          blocks.push(computedContextBlock(payload))
+        // The PARSE: a small constrained call on the SAME model the panel picked for this turn — thinking
+        // off, a tight timeout, and its OWN small $ ceiling (never a second full turn budget). The model
+        // only interprets; validateIntents rejects anything it invents; the engine computes. Its cost is
+        // captured and folded into the turn's reported/persisted cost below.
+        const parserCall = async (system: string, user: string) => {
+          let out = ''
+          const r = await runChatTurn({
+            system, user, model, signal: ac.signal,
+            timeoutMs: CHAT.parserTimeoutMs, thinkingTokens: 0, budgetUsd: CHAT.parserBudgetUsd,
+            onToken: (t) => { out += t },
+          })
+          parserCostUsd += r.costUsd || 0
+          return r.error ? null : out
         }
-        if (blocks.length) computedBlock = blocks.join('\n\n───\n\n')
+        const pr = await parseWhatIf(last.content, loaded.sidecar, parserCall)
+        const v = pr ? validateIntents(pr, last.content, loaded.sidecar) : null
+        if (v?.plans.length) {
+          // a joint ask computes each leg SEPARATELY (they don't simply add) — one card per variable
+          const blocks: string[] = []
+          for (const pl of v.plans) {
+            const scenario = await computePlan(loaded.sidecar, pl)
+            if (!scenario) continue
+            if (blocks.length === 0) {
+              // honest coverage notes ride the FIRST card: joint asks are computed per-leg, and any valid
+              // ask beyond the per-turn cap is SAID, never silently dropped (Codex #335 r3643707266)
+              const noteParts: string[] = []
+              if (v.plans.length > 1) noteParts.push(`${v.plans.length} variables — shown separately; they don't simply add (FX also carries a separate one-off).`)
+              if (v.omitted > 0) noteParts.push(`${v.omitted} more asked variable${v.omitted === 1 ? '' : 's'} beyond the ${v.plans.length} computed here — ask ${v.omitted === 1 ? 'it' : 'them'} separately.`)
+              if (noteParts.length) scenario.note = noteParts.join(' ')
+            }
+            if (pr!.periodNote) { scenario.periodNote = true; scenario.periodBase = loaded.sidecar.base_period ?? null }
+            const payload = { kind: 'scenario' as const, asked: last.content, scenario }
+            send({ type: 'chat-computed', payload })
+            blocks.push(computedContextBlock(payload))
+          }
+          if (blocks.length) computedBlock = blocks.join('\n\n───\n\n')
+        } else if (v?.refusal) {
+          // an honest refusal card (unrecorded variable, or a target the sidecar can't support) — never a number
+          const payload = { kind: 'unsupported' as const, asked: last.content, recorded: recordedList(loaded.sidecar), reason: v.refusal }
+          send({ type: 'chat-computed', payload }); computedBlock = computedContextBlock(payload)
+        }
+        // pr null (parse failed/CLI absent) or no plans+no refusal → normal closed-book answer, no card
       }
     }
   } catch { /* any what-if failure degrades to a normal closed-book answer, never a 500 */ }
@@ -1720,10 +1746,10 @@ app.post('/api/chat', async (req, reply) => {
     })
     if (out.error && out.error !== 'aborted') send({ type: 'chat-error', message: out.error })
     else if (!out.error) {
-      send({ type: 'chat-done', costUsd: out.costUsd, model })
+      send({ type: 'chat-done', costUsd: out.costUsd + parserCostUsd, model })
       // save the assistant answer only on a clean completion (an errored/aborted turn leaves the question
       // in history but no half-answer). Best-effort, off the response path.
-      if (conversationId && answer) void recordAssistantMessage(conversationId, answer, { sourcePath: assembled.sourcePath, costUsd: out.costUsd, thinking: thinking || undefined }).catch(() => {})
+      if (conversationId && answer) void recordAssistantMessage(conversationId, answer, { sourcePath: assembled.sourcePath, costUsd: out.costUsd + parserCostUsd, thinking: thinking || undefined }).catch(() => {})
     }
   } catch (e: any) {
     if (!closed) send({ type: 'chat-error', message: String(e?.message || e) })

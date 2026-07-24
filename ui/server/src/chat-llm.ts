@@ -112,6 +112,12 @@ export async function runChatTurn(opts: {
   signal: AbortSignal
   onToken: (t: string) => void
   onSignal?: (s: ChatTurnSignal) => void // live progress + thinking stream (optional — safe to omit)
+  // Small-call overrides, used by the what-if PARSER (chat-whatif.ts): a tight wall-clock so a hung parse
+  // can't stall the turn, thinkingTokens: 0 to disable extended thinking (a parse needs none), and a small
+  // separate $ ceiling so a what-if turn can never consume two full CHAT.budgetUsd budgets.
+  timeoutMs?: number
+  thinkingTokens?: number
+  budgetUsd?: number
 }): Promise<ChatTurnOutcome> {
   if (activeChatTurns >= CHAT.maxConcurrent) {
     return { costUsd: 0, error: 'Chat is busy right now — try again in a moment.' }
@@ -130,7 +136,7 @@ export async function runChatTurn(opts: {
     else if (flags.has('--disallowed-tools')) args.push('--disallowed-tools', 'Bash Edit Write Read WebSearch WebFetch Task Glob Grep NotebookEdit')
     if (flags.has('--model')) args.push('--model', opts.model)
     if (flags.has('--max-turns')) args.push('--max-turns', '1')
-    if (flags.has('--max-budget-usd')) args.push('--max-budget-usd', String(CHAT.budgetUsd))
+    if (flags.has('--max-budget-usd')) args.push('--max-budget-usd', String(opts.budgetUsd ?? CHAT.budgetUsd))
     if (flags.has('--permission-mode')) args.push('--permission-mode', 'bypassPermissions')
 
     // Extended thinking, ON REQUEST of the UI: with a thinking budget set, the CLI streams the model's
@@ -139,7 +145,10 @@ export async function runChatTurn(opts: {
     // A host-set MAX_THINKING_TOKENS wins; ENGINE_CHAT_THINKING_TOKENS=0 disables (turn degrades cleanly
     // to status signals only).
     const env = childEnv()
-    if (CHAT.thinkingTokens > 0 && env.MAX_THINKING_TOKENS === undefined) env.MAX_THINKING_TOKENS = String(CHAT.thinkingTokens)
+    // An explicit per-call thinkingTokens (the parser passes 0) wins over the session default; otherwise
+    // the existing rule holds (host-set MAX_THINKING_TOKENS wins, else the CHAT default when > 0).
+    if (opts.thinkingTokens !== undefined) env.MAX_THINKING_TOKENS = String(Math.max(0, Math.floor(opts.thinkingTokens)))
+    else if (CHAT.thinkingTokens > 0 && env.MAX_THINKING_TOKENS === undefined) env.MAX_THINKING_TOKENS = String(CHAT.thinkingTokens)
 
     let child: ResultPromise
     try {
@@ -151,7 +160,7 @@ export async function runChatTurn(opts: {
         stderr: 'pipe',
         buffer: false,
         reject: false,
-        timeout: CHAT.timeoutMs,
+        timeout: opts.timeoutMs ?? CHAT.timeoutMs,
       })
     } catch (e: any) {
       return { costUsd: 0, error: `Could not start the chat engine: ${e?.message || e}` }
