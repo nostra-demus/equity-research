@@ -230,3 +230,7 @@
 .vpg__gslabel { font-size: 11.5px; color: var(--text-muted); white-space: nowrap; }
 .vpg__gsrow .vpg__scennum { width: 86px; flex: none; }
 .vpg__gssel { width: auto; padding: 5px 8px; cursor: pointer; }
+
+/* review round: a DERIVED method Value cell stays an input (typing detaches the ▸ sub-levers) — amber
+   marks the derivation driving it. Replaces the read-only vpg__mixderived span. */
+.vpg__scennum--derived { color: var(--accent-bright); background: var(--accent-wash-soft); border-color: var(--accent-deep); }

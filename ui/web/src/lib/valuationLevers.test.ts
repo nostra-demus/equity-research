@@ -5,7 +5,7 @@
 // that produced the fair value, the Playground silently disagrees with the recorded thesis — this file fails
 // first. Parity targets are the exact valuation_math.py outputs: AMZN 210.05, NHY 81.826, EMAAR 16.5245.
 import assert from 'node:assert'
-import { blend, buildMethods, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
+import { blend, buildMethods, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, chainEv, buildChain, levelForScenario, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
 
 let passed = 0
 const check = (name: string, fn: () => void) => { fn(); passed++ }
@@ -361,6 +361,183 @@ check('draftFromResponse carries frozenLevel + overrideUnlocked=false; reset dat
     assert.equal(s.overrideUnlocked, false)
     assert.equal(s.frozenLevel, s.levelOverride) // blend runs: the frozen level seeds the override slot
   }
+})
+
+// ---- v1.2 scenario derivation chains: the figures behind the level become the levers ----
+const NHY_BEAR_DERIV = {
+  model: 'ev_bridge', ev: 114095, net_debt: 17919, minority: 7495, shares: 1965.28,
+  stated_drivers: [{ label: 'terminal Adj. EBITDA margin', value: '9.0%', note: 'impaired-FCFF input — its mapping to EV is not recorded' }],
+  source: '07 §3 (executed snippet)',
+}
+check('chainLevel reproduces the orb bear: (114095−17919−7495)/1965.28 = 45.1238 → 45.12', () => {
+  const c = buildChain(NHY_BEAR_DERIV)!
+  const v = chainLevel(c, null)
+  assert.ok(v !== null && Math.abs(v - 45.1238) < 1e-3, `got ${v}`)
+})
+check('chainLevel: shares fall back to the top level; no shares anywhere → null, never a guess', () => {
+  const c = buildChain({ ...NHY_BEAR_DERIV, shares: null })!
+  assert.ok(Math.abs((chainLevel(c, 1965.28) as number) - 45.1238) < 1e-3)
+  assert.equal(chainLevel(c, null), null)
+})
+check('buildChain: unknown model → null (treated as not recorded, cell stays judgment)', () => {
+  assert.equal(buildChain({ model: 'dcf_rerun', ev: 100 }), null)
+  assert.equal(buildChain({ model: 'ev_bridge', ev: null }), null)
+  assert.equal(buildChain(null), null)
+})
+check('levelForScenario precedence: chain beats the frozen level; explicit unlock beats the chain', () => {
+  const d = draftFromResponse(emaarRes) // any draft for basis/shares context
+  const s = { label: 'bear', probability: null, forwardMetric: null, multiple: null, levelOverride: 45.12, frozenLevel: 45.12, chain: buildChain(NHY_BEAR_DERIV) }
+  assert.ok(Math.abs((levelForScenario(s, d) as number) - 45.1238) < 1e-3, 'chain wins over the frozen level it reproduces')
+  const edited = { ...s, chain: { ...s.chain!, ev: 120000 } }
+  assert.ok(Math.abs((levelForScenario(edited, d) as number) - 48.1285) < 1e-3, 'editing a chain figure recomputes the level')
+  const unlocked = { ...s, overrideUnlocked: true, levelOverride: 40 }
+  assert.equal(levelForScenario(unlocked, d), 40, 'an explicit unlock-override outranks the chain')
+})
+check('cellState: a computing chain → derived_chain (computed cell); response plumbing carries the chain', () => {
+  const res: ValuationLeversResponse = {
+    runRoot: 'analyses/NHY_2026-07-19',
+    levers: {
+      basis: 'ev', shares: 1965.28, net_debt: 13090,
+      methods: { peers: 93.7, dcf: 70.14, sotp: 84.63 }, method_weights: { peers: 0.25, dcf: 0.35, sotp: 0.4 },
+      scenarios: [
+        { label: 'base', forward_metric: null, multiple: null, level: 81.83 },
+        { label: 'bear', forward_metric: null, multiple: null, level: 45.12, derivation: NHY_BEAR_DERIV },
+      ],
+    },
+    decision: null, overrides: [],
+  }
+  const d = draftFromResponse(res)
+  const bear = d.scenarios.find((s) => s.label === 'bear')!
+  assert.ok(bear.chain && bear.chain.ev === 114095)
+  const cv = chainLevel(bear.chain, d.shares)
+  const cs = scenarioCellState(bear, false, d.published!.blend.basePoint, null, false, cv)
+  assert.equal(cs.kind, 'derived_chain')
+  // recompute uses the chain for the level (45.1238 ≈ the frozen 45.12 it reproduces)
+  const out = recompute(d)
+  const lvl = out.scenarios.find((s) => s.label === 'bear')!.level
+  assert.ok(lvl !== null && Math.abs(lvl - 45.1238) < 1e-3, `recomputed ${lvl}`)
+})
+check('traceScenarioCell derived_chain: bridge formula + stated drivers as display-only provenance', () => {
+  const s = { label: 'bear', probability: null, forwardMetric: null, multiple: null, levelOverride: 45.12, chain: buildChain(NHY_BEAR_DERIV) }
+  const t = traceScenarioCell(s, { kind: 'derived_chain', chainValue: 45.1238 }, null)
+  assert.ok(t.formula.includes('114095') && t.formula.includes('1965.28') && t.formula.includes('45.12'), t.formula)
+  assert.equal(t.terms.length, 1)
+  assert.ok(t.terms[0].label.includes('margin') && t.terms[0].calc.includes('9.0%'), JSON.stringify(t.terms))
+  assert.ok(t.source && t.source.includes('07 §3'), String(t.source))
+})
+
+// ---- v1.2 slice 2: margin_runoff_dcf — the margin itself is the lever, replaying the orb's chain ----
+const NHY_RUNOFF_DERIV = {
+  model: 'margin_runoff_dcf', ev: 114095, margin: 0.09, growth: -0.01,
+  da: 11500, capex: 8500, tax: 0.30, dnwc: 0,
+  revenue_base: 228071, wacc: 0.075, pv_factor: 0.72221, pv_explicit: 35712,
+  net_debt: 17919, minority: 7495, shares: 1965.28,
+  metric_label: 'terminal Adj. EBITDA margin', source: '07 §3 structural-reset snippet',
+}
+check('runoff replay at the recorded margin reproduces the orb: 9.0% → EV 114,095.9 → 45.1241', () => {
+  const c = buildChain(NHY_RUNOFF_DERIV)!
+  assert.equal(c.model, 'margin_runoff_dcf')
+  const ev = chainEv(c)
+  assert.ok(ev !== null && Math.abs(ev - 114095.9) < 1, `EV ${ev}`)
+  const v = chainLevel(c, null)
+  assert.ok(v !== null && Math.abs(v - 45.1241) < 1e-3, `level ${v}`)
+})
+check('runoff what-ifs match the precomputed mock table: 10% → 51.957, 8% → 38.291, g=0 → 50.899', () => {
+  const c = buildChain(NHY_RUNOFF_DERIV)!
+  assert.ok(Math.abs((chainLevel({ ...c, margin: 0.10 }, null) as number) - 51.9573) < 1e-3)
+  assert.ok(Math.abs((chainLevel({ ...c, margin: 0.08 }, null) as number) - 38.2909) < 1e-3)
+  assert.ok(Math.abs((chainLevel({ ...c, growth: 0 }, null) as number) - 50.8986) < 1e-3)
+})
+check('runoff refusals: wacc − g <= 0 → null; missing constant → buildChain null (stays judgment)', () => {
+  const c = buildChain(NHY_RUNOFF_DERIV)!
+  assert.equal(chainLevel({ ...c, growth: 0.08 }, null), null)
+  assert.equal(buildChain({ ...NHY_RUNOFF_DERIV, pv_factor: null }), null)
+  assert.equal(buildChain({ ...NHY_RUNOFF_DERIV, revenue_base: null }), null)
+})
+check('typed EV detaches the runoff model (evOverride wins); clearing it re-attaches', () => {
+  const c = buildChain(NHY_RUNOFF_DERIV)!
+  const detached = { ...c, evOverride: 120000 }
+  assert.ok(Math.abs((chainLevel(detached, null) as number) - 48.1285) < 1e-3, 'typed EV drives the bridge')
+  assert.ok(Math.abs((chainLevel({ ...detached, evOverride: null }, null) as number) - 45.1241) < 1e-3, 're-attached replay')
+})
+// ---- review round (Codex/Gemini on #336/#338/#339): honesty + robustness fixes ----
+check('ACTIVE sub-lever deriving nothing → method value NULL in the blend (no stale reuse)', () => {
+  const draft = {
+    basis: 'equity' as const, shares: null, netDebt: 0, price: null,
+    rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false,
+    scenarios: [], methods: [m('dcf', 70.14, 0.5), m('sotp', 84.63, 0.5)], driveBaseFromMix: false,
+    internals: { dcf: { grid: NHY_GRID, wacc: null, growth: 0.025, active: true } }, // cleared WACC field
+  }
+  const out = recompute(draft)
+  const dcf = out.blend.effectiveWeights
+  assert.ok(!('dcf' in dcf), 'a non-deriving ACTIVE dcf must drop from the blend, not reuse 70.14')
+  assert.ok(out.blend.basePoint !== null && Math.abs(out.blend.basePoint - 84.63) < 1e-9, `blend ${out.blend.basePoint}`)
+})
+check('peers piecewise honors a third recorded anchor exactly; goal seek scans its segments', () => {
+  const tri: PeersInternals = { ...NHY_PEERS, anchors: [...NHY_PEERS.anchors, { multiple: 7.0, value: 118.0 }] }
+  assert.equal(peersFromMultiple(tri, 7.0).value, 118) // the third row reproduces exactly
+  assert.equal(peersFromMultiple(tri, 6.25).value, 105.8)
+  const between = peersFromMultiple(tri, 6.6).value // on the SECOND segment (6.25→7.0), not the first line
+  assert.ok(between !== null && Math.abs(between - (105.8 + (118 - 105.8) * (0.35 / 0.75))) < 1e-3, `got ${between}`)
+  assert.equal(peersFromMultiple(tri, 7.0).outOfAnchors, false)
+})
+check('buildInternals refuses a malformed grid matrix (no crash-bait for the grid table)', () => {
+  const badDims = buildInternals({ basis: 'equity', scenarios: [], dcf_grid: { ...NHY_GRID, values: [[1, 2], [3, 4]] } as DcfGrid })
+  assert.equal(badDims?.dcf, undefined)
+})
+check('goal seek refuses when the FIXED dcf axis sits outside the recorded grid', () => {
+  const d = nhyGsDraft()
+  d.internals.dcf.growth = 0.05 // beyond the recorded growth span
+  const r = goalSeekBlend(d, 'dcf_wacc', 84.96)
+  assert.equal(r.solution, null)
+  assert.ok(r.note && r.note.includes('outside the recorded grid'), String(r.note))
+})
+check('cellState: drive-base outranks a chain on the base row (mirrors recompute precedence)', () => {
+  const s = { label: 'base', probability: null, forwardMetric: null, multiple: null, levelOverride: 45.12, chain: buildChain(NHY_BEAR_DERIV) }
+  const cvv = chainLevel(s.chain, null)
+  assert.equal(scenarioCellState(s, true, 81.83, 17.2, true, cvv).kind, 'live_blend')
+  assert.equal(scenarioCellState(s, true, 81.83, null, false, cvv).kind, 'derived_chain')
+})
+check('chainLevel refuses a cleared net debt — unknown net debt is never silently 0 (§15)', () => {
+  const c = buildChain(NHY_BEAR_DERIV)!
+  assert.equal(chainLevel({ ...c, netDebt: null }, null), null)
+  assert.equal(buildChain({ ...NHY_BEAR_DERIV, net_debt: null }), null)
+})
+check('wedge trace says "documented" only when drivers text exists; downside trace names the worst row', () => {
+  const d = draftFromResponse(emaarRes) // fixture has NO drivers text on base
+  const base = d.scenarios.find((s) => s.label === 'base')!
+  const cs = scenarioCellState(base, true, d.published!.blend.basePoint, null, false)
+  const t = traceScenarioCell(base, cs, d.published)
+  assert.ok(t.note && t.note.includes('NO reason'), String(t.note))
+  const math = scenarioMath([
+    { label: 'bull', probability: 20, price_target: 21 },
+    { label: 'base', probability: 45, price_target: 15 },
+    { label: 'bear', probability: 35, price_target: 9.75 },
+  ], 12.2)
+  const dt = traceOutput('downside', math)!
+  assert.ok(dt.formula.includes('bear') && dt.note && dt.note.includes('equals the loss-to-bear'), dt.formula)
+})
+
+check('runoff trace: formula carries margin % + revenue base; recompute flows the lever end-to-end', () => {
+  const s = { label: 'bear', probability: null, forwardMetric: null, multiple: null, levelOverride: 45.12, chain: buildChain(NHY_RUNOFF_DERIV) }
+  const t = traceScenarioCell(s, { kind: 'derived_chain', chainValue: 45.1241 }, null)
+  assert.ok(t.formula.includes('9%') || t.formula.includes('9.00%') || t.formula.includes('9 %'), t.formula)
+  assert.ok(t.formula.includes('228071'), t.formula)
+  // end-to-end: a draft whose bear carries the runoff chain — margin 10% moves the bear level in recompute
+  const draft = {
+    basis: 'equity' as const, shares: 1965.28, netDebt: 13090, price: 84.96,
+    rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false,
+    scenarios: [
+      { label: 'base', probability: 55, forwardMetric: null, multiple: null, levelOverride: 81.83 },
+      { label: 'bull', probability: 20, forwardMetric: null, multiple: null, levelOverride: 107.7 },
+      { label: 'bear', probability: 25, forwardMetric: null, multiple: null, levelOverride: 45.12, chain: { ...buildChain(NHY_RUNOFF_DERIV)!, margin: 0.10 } },
+    ],
+    methods: [], driveBaseFromMix: false,
+  }
+  const out = recompute(draft)
+  const bear = out.scenarios.find((x) => x.label === 'bear')!
+  assert.ok(bear.level !== null && Math.abs(bear.level - 51.9573) < 1e-3, `bear ${bear.level}`)
+  assert.ok(out.math.expectedReturnPct !== null && Math.abs(out.math.expectedReturnPct - -6.4) < 0.15, `E[r] ${out.math.expectedReturnPct}`)
 })
 
 console.log(`valuationLevers.test.ts: ${passed} assertions passed`)

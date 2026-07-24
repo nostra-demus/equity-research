@@ -13,8 +13,8 @@ import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import {
-  draftFromResponse, recompute, deriveMethods, scenarioCellState, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend,
-  type PlaygroundDraft, type ValuationLeversResponse, type DraftScenario,
+  draftFromResponse, recompute, deriveMethods, scenarioCellState, chainLevel, chainEv, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend,
+  type PlaygroundDraft, type ValuationLeversResponse, type DraftScenario, type DraftChain,
   type DraftInternals, type GridReadout, type PeersReadout, type Trace, type GoalSeekParam, type GoalSeekResult,
 } from '../lib/valuationLevers'
 import './ValuationPlayground.css'
@@ -58,16 +58,17 @@ function Field({ label, value, onChange, step = 'any', title }: { label: string;
   )
 }
 
-function TableInput({ value, onChange, ariaLabel }: { value: number | null; onChange: (n: number | null) => void; ariaLabel?: string }) {
+function TableInput({ value, onChange, ariaLabel, className, title }: { value: number | null; onChange: (n: number | null) => void; ariaLabel?: string; className?: string; title?: string }) {
   const [local, setLocal] = useState<string>(numToStr(value))
   useEffect(() => { if (parseNum(local) !== value) setLocal(numToStr(value)) }, [value]) // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <input
-      className="vpg__scennum mono"
+      className={`vpg__scennum mono${className ? ` ${className}` : ''}`}
       inputMode="decimal"
       value={local}
       onChange={(e) => { setLocal(e.target.value); onChange(parseNum(e.target.value)) }}
       aria-label={ariaLabel}
+      title={title}
     />
   )
 }
@@ -135,10 +136,16 @@ export function ValuationPlayground() {
   // v2 Phase-1: one open trace strip at a time (Excel's "trace precedents" — click a computed cell)
   const [openTrace, setOpenTrace] = useState<string | null>(null)
   const toggleTrace = (id: string) => setOpenTrace((t) => (t === id ? null : id))
-  // v2 Phase-1: goal seek — solve a recorded lever for a target blend
+  // v2 Phase-1: goal seek — solve a recorded lever for a target blend. The target SEEDS from the price
+  // once, then belongs to the input alone — a live `?? draft.price` fallback would snap the field back to
+  // the price mid-edit whenever it parses null ('-', '.', cleared) (Gemini #338 r3644470643/48).
   const [gsParam, setGsParam] = useState<GoalSeekParam>('dcf_wacc')
   const [gsTarget, setGsTarget] = useState<number | null>(null)
+  const [gsSeeded, setGsSeeded] = useState(false)
   const [gsResult, setGsResult] = useState<GoalSeekResult | null>(null)
+  useEffect(() => {
+    if (!gsSeeded && draft && typeof draft.price === 'number') { setGsTarget(draft.price); setGsSeeded(true) }
+  }, [draft, gsSeeded])
 
   const reset = () => { if (res) { setDraft(draftFromResponse(res)); setOpenTrace(null); setGsResult(null) } }
 
@@ -305,9 +312,17 @@ export function ValuationPlayground() {
                             : <span className="vpg__disc vpg__disc--none" aria-hidden />}
                           {methodLabel(m.key)}
                         </span>
-                        {active && derived !== null
-                          ? <span className="vpg__scennum mono vpg__mixderived" title="Derived from the recorded assumptions below — edit them there; typing a value here detaches them.">{fmtN(derived, 2)}</span>
-                          : <TableInput value={m.value} onChange={(n) => setMethod(i, { value: n })} ariaLabel={`${m.key} value`} />}
+                        {/* Editable even while DERIVED — typing IS the detach path (Codex #336 r3644218907:
+                            a read-only span made setMethod unreachable, locking the analyst into the ▸
+                            derivation). While active with nothing derivable, the cell blanks — matching the
+                            blend, which drops the method rather than reusing a stale value. */}
+                        <TableInput
+                          value={active ? derived : m.value}
+                          onChange={(n) => setMethod(i, { value: n })}
+                          ariaLabel={`${m.key} value`}
+                          className={active ? 'vpg__scennum--derived' : undefined}
+                          title={active ? 'Derived from the ▸ assumptions below — typing a value here detaches them.' : undefined}
+                        />
                         <TableInput value={m.weight} onChange={(n) => setMethod(i, { weight: n })} ariaLabel={`${m.key} weight`} />
                         <span className="vpg__mixeff mono">{typeof eff === 'number' ? `${Math.round(eff * 100)}%` : '—'}</span>
                       </div>
@@ -365,12 +380,12 @@ export function ValuationPlayground() {
                 <div className="vpg__sectitle">Goal seek — what does it take?</div>
                 <div className="vpg__gsrow">
                   <span className="vpg__gslabel">Set blend base =</span>
-                  <TableInput value={gsTarget ?? draft.price} onChange={(n) => { setGsTarget(n); setGsResult(null) }} ariaLabel="goal-seek target level" />
+                  <TableInput value={gsTarget} onChange={(n) => { setGsTarget(n); setGsResult(null) }} ariaLabel="goal-seek target level" />
                   <span className="vpg__gslabel">by changing</span>
                   <select className="vpg__input vpg__gssel" value={param} onChange={(e) => { setGsParam(e.target.value as GoalSeekParam); setGsResult(null) }} aria-label="goal-seek lever">
                     {gsOptions.map((o) => <option key={o.v} value={o.v}>{o.label}</option>)}
                   </select>
-                  <button className="btn btn--ghost" style={{ height: 26 }} onClick={() => setGsResult(goalSeekBlend(draft, param, gsTarget ?? draft.price))}>Solve</button>
+                  <button className="btn btn--ghost" style={{ height: 26 }} onClick={() => setGsResult(goalSeekBlend(draft, param, gsTarget))}>Solve</button>
                 </div>
                 {gsResult && (gsResult.solution !== null ? (
                   <div className="vpg__note">→ <b className="mono">{fmtSol(gsResult)}</b> gives blend <b className="mono">{fmtN(gsResult.achieved, 2)}</b>{' '}
@@ -398,26 +413,33 @@ export function ValuationPlayground() {
               const row = out.scenarios[i]
               const ret = out.math.perScenario.find((x) => x.label === s.label)?.return_pct ?? null
               const isBase = (s.label || '').toLowerCase().includes('base')
-              const cs = scenarioCellState(s, isBase, draft.published?.blend.basePoint ?? null, out.blend.basePoint, out.blendActive)
+              const cv = chainLevel(s.chain, draft.shares)
+              const cs = scenarioCellState(s, isBase, draft.published?.blend.basePoint ?? null, out.blend.basePoint, out.blendActive, cv)
               const traceId = `scen:${i}`
+              // per-ROW lever choice: metric×multiple inputs only where the row records them — a chain or
+              // judgment row in the same run keeps its locked cell (spanning both columns) instead of dead
+              // empty inputs (Codex #339 r3644833914)
+              const rowHasMult = Number.isFinite(s.forwardMetric as number) || Number.isFinite(s.multiple as number)
+              const span2 = hasEditableMultiples && !rowHasMult ? { gridColumn: 'span 2' } : undefined
               return (
                 <div key={i}>
                   <div className="vpg__scenrow">
                     <span className="vpg__scenlabel">{s.label}</span>
                     <TableInput value={s.probability} onChange={(n) => setScen(i, { probability: n })} ariaLabel={`${s.label} probability`} />
-                    {hasEditableMultiples ? (
+                    {rowHasMult ? (
                       <>
                         <TableInput value={s.forwardMetric} onChange={(n) => setScen(i, { forwardMetric: n })} ariaLabel={`${s.label} forward metric`} />
                         <TableInput value={s.multiple} onChange={(n) => setScen(i, { multiple: n })} ariaLabel={`${s.label} multiple`} />
                       </>
                     ) : cs.kind === 'overridden' ? (
-                      <span className="vpg__cellov">
+                      <span className="vpg__cellov" style={span2}>
                         <TableInput value={s.levelOverride} onChange={(n) => setScen(i, { levelOverride: n })} ariaLabel={`${s.label} fair value override`} />
                         <button className="vpg__relock" title={`Re-lock to the frozen level ${fmtN(s.frozenLevel ?? null, 2)}`} onClick={() => setScen(i, { overrideUnlocked: false, levelOverride: s.frozenLevel ?? s.levelOverride })}>↺</button>
                       </span>
                     ) : (
                       <button
                         className={`vpg__cell ${cs.kind === 'judgment' ? 'vpg__cell--judg' : cs.kind === 'frozen_wedge' ? 'vpg__cell--wedge' : 'vpg__cell--fx'}`}
+                        style={span2}
                         onClick={() => toggleTrace(traceId)}
                         aria-expanded={openTrace === traceId}
                         title={cs.kind === 'judgment' ? 'Analyst call — no recorded chain. Click for the run\'s reasoning; unlock there to override.' : cs.kind === 'frozen_wedge' ? 'Blend + a disclosed judgment wedge — click for the trace.' : 'Computed cell — click for the trace.'}
@@ -429,11 +451,19 @@ export function ValuationPlayground() {
                     <span className="vpg__scenlevel mono">{fmtN(row?.level, 2)}</span>
                     <span className="vpg__scenret mono" style={{ color: tone(ret) }}>{fmtPct(ret)}</span>
                   </div>
-                  {openTrace === traceId && !hasEditableMultiples && cs.kind !== 'overridden' && (
-                    <TraceStrip
-                      t={traceScenarioCell(s, cs, draft.published ?? null, methodLabel)}
-                      onOverride={cs.kind !== 'live_blend' && cs.kind !== 'derived_multiple' ? () => { setScen(i, { overrideUnlocked: true }); setOpenTrace(null) } : undefined}
-                    />
+                  {openTrace === traceId && !rowHasMult && cs.kind !== 'overridden' && (
+                    cs.kind === 'derived_chain' && s.chain ? (
+                      <ChainStrip
+                        s={s} chain={s.chain} level={cv} fallbackShares={draft.shares}
+                        onEdit={(patch) => setScen(i, { chain: { ...s.chain!, ...patch } })}
+                        onOverride={() => { setScen(i, { overrideUnlocked: true }); setOpenTrace(null) }}
+                      />
+                    ) : (
+                      <TraceStrip
+                        t={traceScenarioCell(s, cs, draft.published ?? null, methodLabel)}
+                        onOverride={cs.kind !== 'live_blend' && cs.kind !== 'derived_multiple' ? () => { setScen(i, { overrideUnlocked: true }); setOpenTrace(null) } : undefined}
+                      />
+                    )
                   )}
                 </div>
               )
@@ -475,6 +505,78 @@ function TraceStrip({ t, onOverride }: { t: Trace; onOverride?: () => void }) {
       {onOverride && (
         <button className="btn btn--ghost vpg__overridebtn" onClick={onOverride}>Unlock &amp; override this cell…</button>
       )}
+    </div>
+  )
+}
+
+// ---- v1.2: the scenario chain strip — the recorded figures behind a fair value, as EDITABLE inputs ----
+// This is the answer to "let me enter the figures that were used to calculate the fair value": the chain's
+// EV / net debt / minority / shares are typed cells; the level is computed and never typed. stated drivers
+// (e.g. "terminal margin 9.0%") render as display-only provenance — their mapping to EV was not recorded,
+// and inventing it would be fake math (§20), so the honest lever is the recorded figure itself.
+function ChainStrip({ s, chain, level, fallbackShares, onEdit, onOverride }: {
+  s: DraftScenario
+  chain: DraftChain
+  level: number | null
+  fallbackShares: number | null
+  onEdit: (patch: Partial<DraftChain>) => void
+  onOverride: () => void
+}) {
+  const isRunoff = chain.model === 'margin_runoff_dcf'
+  const detached = isRunoff && typeof chain.evOverride === 'number'
+  const ev = chainEv(chain)
+  // editing a runoff lever RE-ATTACHES the model (clears a typed-EV detach) — same rule as the ▸ panels
+  const lever = (patch: Partial<DraftChain>) => onEdit({ ...patch, evOverride: null })
+  return (
+    <div className="vpg__tracestrip">
+      <div className="vpg__tracetitle">{s.label} — computed from the recorded chain{chain.source ? ` · ${chain.source}` : ''}</div>
+      {isRunoff && (
+        <>
+          <div className="vpg__subfields" style={{ marginTop: 7 }}>
+            <Field label={`${chain.metricLabel ?? 'Terminal margin'} %`} value={toPct(chain.margin)} onChange={(n) => lever({ margin: fromPct(n) })} title="The assumption: how profitable the shrunken business stays — replays the orb's own written chain" />
+            <Field label="Decline rate g %" value={toPct(chain.growth)} onChange={(n) => lever({ growth: fromPct(n) })} title="Perpetuity growth (negative = the business shrinks each year); WACC − g must stay positive" />
+            <Field label="D&A" value={chain.da ?? null} onChange={(n) => lever({ da: n })} />
+            <Field label="Capex" value={chain.capex ?? null} onChange={(n) => lever({ capex: n })} />
+            <Field label="Tax %" value={toPct(chain.tax)} onChange={(n) => lever({ tax: fromPct(n) })} />
+            <Field label="ΔNWC" value={chain.dnwc ?? null} onChange={(n) => lever({ dnwc: n })} title="Working-capital change in the runoff year (subtracts from the free cash flow)" />
+          </div>
+          <div className="vpg__gridmeta">
+            recorded constants: revenue base {fmtN(chain.revenueBase, 0)} · WACC {fmtN(toPct(chain.wacc), 2)}% · PV factor {fmtN(chain.pvFactor, 5)} · near-years PV {fmtN(chain.pvExplicit, 0)}.
+            WACC is locked here — it also sits inside the PV factor and the near-years value, whose WACC-sensitivity the orb did not record; the honest WACC lever is <b>Method mix → DCF ▸</b>.
+          </div>
+        </>
+      )}
+      <div className="vpg__subfields" style={{ marginTop: 7 }}>
+        {isRunoff ? (
+          <span className="vpg__cellov">
+            <label className="vpg__field" title={detached ? 'Typed EV — the margin model is detached; edit a lever above (or ↺) to re-attach' : 'Computed from the levers above — typing here detaches the margin model'}>
+              <span className="vpg__fieldlabel">EV {detached ? '(typed — model detached)' : '(computed ƒ)'}</span>
+              <input className="vpg__input mono" inputMode="decimal" value={ev ?? ''} onChange={(e) => { const t = e.target.value.trim(); const n = t === '' ? null : Number(t); onEdit({ evOverride: Number.isFinite(n as number) ? (n as number) : null }) }} aria-label={`${s.label} EV`} />
+            </label>
+            {detached && <button className="vpg__relock" title="Re-attach the margin model (discard the typed EV)" onClick={() => onEdit({ evOverride: null })}>↺</button>}
+          </span>
+        ) : (
+          <Field label="EV" value={chain.ev} onChange={(n) => onEdit({ ev: n })} title="Enterprise value under this scenario (filing millions)" />
+        )}
+        <Field label="− Net debt" value={chain.netDebt} onChange={(n) => onEdit({ netDebt: n })} title={chain.netDebtBasis ? `Basis: ${chain.netDebtBasis} (§15) — this scenario's own bridge term` : 'This scenario\'s own bridge term — may differ from the top-level basis; the source cites the orb'} />
+        <Field label="− Minority" value={chain.minority} onChange={(n) => onEdit({ minority: n })} />
+        <Field label="+ Other" value={chain.other} onChange={(n) => onEdit({ other: n })} />
+        <Field label="÷ Shares" value={chain.shares ?? fallbackShares} onChange={(n) => onEdit({ shares: n })} />
+        <div className="vpg__subderived">
+          <span className="vpg__fieldlabel">{s.label} / share</span>
+          <span className="vpg__subval mono">{fmtN(level, 2)}</span>
+        </div>
+      </div>
+      {chain.netDebtBasis && (
+        <div className="vpg__gridmeta">net-debt basis: {chain.netDebtBasis} (§15 — labeled because it departs from the top-level basis)</div>
+      )}
+      {chain.statedDrivers.length > 0 && (
+        <div className="vpg__gridmeta">
+          stated drivers (provenance, not levers): {chain.statedDrivers.map((sd) => `${sd.label}: ${sd.value ?? '—'}${sd.note ? ` (${sd.note})` : ''}`).join(' · ')}
+        </div>
+      )}
+      <div className="vpg__subnote">These are the figures the run actually used — edit them and the fair value, its return, and the expected return recompute. The level itself stays computed.</div>
+      <button className="btn btn--ghost vpg__overridebtn" onClick={onOverride}>Unlock &amp; type the level directly instead…</button>
     </div>
   )
 }

@@ -10,6 +10,34 @@
 
 export type Basis = 'equity' | 'ev'
 
+// v1.2: a scenario's OWN recorded derivation chain — the figures the orb actually used to compute the
+// level (REPRODUCE-or-omit, guarded server-side). stated_drivers are the narrative assumptions BEHIND a
+// recorded figure whose mapping the orb did not record — display-only provenance, never a lever.
+export interface StatedDriver { label: string; value?: number | string | null; note?: string | null }
+export interface ScenarioDerivation {
+  model: string
+  ev?: number | null
+  net_debt?: number | null
+  net_debt_basis?: string | null
+  minority?: number | null
+  other?: number | null
+  shares?: number | null
+  stated_drivers?: StatedDriver[] | null
+  source?: string | null
+  // margin_runoff_dcf: levers (margin, growth, da, capex, tax, dnwc) + recorded constants
+  margin?: number | null
+  growth?: number | null
+  da?: number | null
+  capex?: number | null
+  tax?: number | null
+  dnwc?: number | null
+  revenue_base?: number | null
+  wacc?: number | null
+  pv_factor?: number | null
+  pv_explicit?: number | null
+  metric_label?: string | null
+}
+
 export interface SummaryScenario {
   label: string
   probability?: number | null
@@ -18,6 +46,7 @@ export interface SummaryScenario {
   multiple?: number | null
   level?: number | null
   drivers?: string | null
+  derivation?: ScenarioDerivation | null
 }
 
 export interface ValuationSummary {
@@ -149,18 +178,29 @@ export function sotpFromSegments(
 }
 
 export interface PeersReadout { value: number | null; outOfAnchors: boolean; discountPct: number | null }
-/** The peers method value at a typed multiple — the affine line through the orb's OWN ≥2 recorded anchor
- *  rows (implied-value table). discountPct is the derived % below the recorded peer median (informational).
- *  Outside the anchor span → flagged (the orb published no row that far out). */
+// every valid recorded anchor row, sorted by multiple — the piecewise line honors ALL of them, not just
+// the first two (Codex #336 r3644141587: a third recorded row must reproduce exactly when selected)
+export function sortedAnchors(pi: PeersInternals | null | undefined): { multiple: number; value: number }[] {
+  const rows = (pi?.anchors ?? []).filter((a) => a && isNum(a.multiple) && isNum(a.value)).map((a) => ({ multiple: a.multiple, value: a.value }))
+  rows.sort((x, y) => x.multiple - y.multiple)
+  for (let i = 0; i < rows.length - 1; i++) if (Math.abs(rows[i + 1].multiple - rows[i].multiple) < 1e-9) return []
+  return rows.length >= 2 ? rows : []
+}
+/** The peers method value at a typed multiple — the PIECEWISE line through every one of the orb's OWN
+ *  recorded anchor rows (implied-value table), so each recorded row reproduces exactly. discountPct is the
+ *  derived % below the recorded peer median (informational). Outside the anchor span → flagged (the orb
+ *  published no row that far out; edge-segment extrapolation). */
 export function peersFromMultiple(pi: PeersInternals | null | undefined, multiple: number | null): PeersReadout {
   const bad = { value: null, outOfAnchors: false, discountPct: null }
-  if (!pi || !isNum(multiple) || !Array.isArray(pi.anchors) || pi.anchors.length < 2) return bad
-  const a0 = pi.anchors[0], a1 = pi.anchors[1]
-  if (!a0 || !a1 || !isNum(a0.multiple) || !isNum(a0.value) || !isNum(a1.multiple) || !isNum(a1.value) || Math.abs(a1.multiple - a0.multiple) < 1e-9) return bad
+  if (!pi || !isNum(multiple)) return bad
+  const rows = sortedAnchors(pi)
+  if (!rows.length) return bad
+  let i0 = 0
+  for (let i = 0; i < rows.length - 1; i++) if (multiple >= rows[i].multiple) i0 = i
+  const a0 = rows[i0], a1 = rows[i0 + 1]
   const slope = (a1.value - a0.value) / (a1.multiple - a0.multiple)
   const value = round(a0.value + slope * (multiple - a0.multiple), 4)
-  const ms = pi.anchors.filter((a) => isNum(a?.multiple)).map((a) => a.multiple)
-  const lo = Math.min(...ms), hi = Math.max(...ms)
+  const lo = rows[0].multiple, hi = rows[rows.length - 1].multiple
   const discountPct = isNum(pi.median_multiple) && pi.median_multiple !== 0 ? round((1 - multiple / (pi.median_multiple as number)) * 100, 1) : null
   return { value, outOfAnchors: multiple < lo - 1e-9 || multiple > hi + 1e-9, discountPct }
 }
@@ -285,6 +325,94 @@ export function checkMultipleSymmetry(bull?: number | null, base?: number | null
 export interface DraftScenario {
   label: string; probability: number | null; forwardMetric: number | null; multiple: number | null; levelOverride: number | null
   frozenLevel?: number | null; drivers?: string | null; overrideUnlocked?: boolean
+  // v1.2: the editable copy of the recorded derivation chain — when present, the LEVEL is computed from
+  // these figures (the Excel contract: the chain's inputs are typed, the fair value never is).
+  chain?: DraftChain | null
+}
+
+export interface DraftChain {
+  model: 'ev_bridge' | 'margin_runoff_dcf'
+  ev: number | null; netDebt: number | null; minority: number | null; other: number | null; shares: number | null
+  netDebtBasis: string | null
+  statedDrivers: StatedDriver[]
+  source: string | null
+  // margin_runoff_dcf levers (decimals) + recorded constants. evOverride: typing EV directly DETACHES the
+  // runoff model (the typed EV wins, mirroring how a typed method Value detaches its ▸ sub-levers);
+  // editing a runoff lever clears it (re-attach).
+  margin?: number | null
+  growth?: number | null
+  da?: number | null
+  capex?: number | null
+  tax?: number | null
+  dnwc?: number | null
+  revenueBase?: number | null
+  wacc?: number | null
+  pvFactor?: number | null
+  pvExplicit?: number | null
+  metricLabel?: string | null
+  evOverride?: number | null
+}
+
+/** The replayed runoff EV: revenue_base × margin → − D&A → × (1 − tax) → + D&A − capex − ΔNWC
+ *  → TV = FCFF × (1+g) / (wacc − g) → EV = pv_explicit + TV × pv_factor. Every constant is the orb's own
+ *  recorded number — this REPLAYS the written chain, it never re-runs a DCF. Null when not computable. */
+export function runoffEv(c: DraftChain): number | null {
+  if (!isNum(c.margin) || !isNum(c.revenueBase) || !isNum(c.wacc) || !isNum(c.pvFactor) || !isNum(c.pvExplicit)) return null
+  const g = isNum(c.growth) ? c.growth : 0
+  if (c.wacc - g <= 0) return null // undefined perpetuity — refuse, never a guess
+  const da = isNum(c.da) ? c.da : 0
+  const capex = isNum(c.capex) ? c.capex : 0
+  const tax = isNum(c.tax) ? c.tax : 0
+  const dnwc = isNum(c.dnwc) ? c.dnwc : 0
+  const fcff = (c.revenueBase * c.margin - da) * (1 - tax) + da - capex - dnwc
+  return round(c.pvExplicit + (fcff * (1 + g) / (c.wacc - g)) * c.pvFactor, 4)
+}
+
+/** The chain's effective EV: a typed override wins (detached); a runoff model replays; ev_bridge reads ev. */
+export function chainEv(chain: DraftChain | null | undefined): number | null {
+  if (!chain) return null
+  if (isNum(chain.evOverride)) return chain.evOverride
+  if (chain.model === 'margin_runoff_dcf') return runoffEv(chain)
+  return isNum(chain.ev) ? chain.ev : null
+}
+
+/** The per-share level from an editable chain: (effective EV − net debt − minority + other) / shares.
+ *  Falls back to the top-level share count when the chain records none. Net debt must be an explicit
+ *  number — an unknown net debt is never silently 0 (§15; Codex #339 P1 r3644687625): a cleared field
+ *  blanks the level instead of valuing the firm as debt-free. Null when not computable. */
+export function chainLevel(chain: DraftChain | null | undefined, fallbackShares: number | null | undefined): number | null {
+  const ev = chainEv(chain)
+  if (!isNum(ev) || !chain || !isNum(chain.netDebt)) return null
+  const sh = isNum(chain.shares) ? chain.shares : (isNum(fallbackShares) ? fallbackShares : null)
+  if (!isNum(sh) || sh <= 0) return null
+  const equity = ev - chain.netDebt - (isNum(chain.minority) ? chain.minority : 0) + (isNum(chain.other) ? chain.other : 0)
+  return round(equity / sh, 4)
+}
+
+// The sidecar derivation → the editable draft chain. Unknown models return null (treated as not
+// recorded — the cell stays a judgment cell rather than pretending).
+export function buildChain(deriv: ScenarioDerivation | null | undefined): DraftChain | null {
+  // net_debt must be recorded explicitly (0 when debt-free) — a chain without it is not usable (§15)
+  if (!deriv || !isNum(deriv.ev) || !isNum(deriv.net_debt)) return null
+  const base = {
+    ev: deriv.ev, netDebt: deriv.net_debt, minority: deriv.minority ?? null,
+    other: deriv.other ?? null, shares: deriv.shares ?? null,
+    netDebtBasis: deriv.net_debt_basis ?? null,
+    statedDrivers: Array.isArray(deriv.stated_drivers) ? deriv.stated_drivers.filter((x) => x && typeof x.label === 'string') : [],
+    source: deriv.source ?? null,
+  }
+  if (deriv.model === 'ev_bridge') return { model: 'ev_bridge', ...base }
+  if (deriv.model === 'margin_runoff_dcf') {
+    if (!isNum(deriv.margin) || !isNum(deriv.revenue_base) || !isNum(deriv.wacc) || !isNum(deriv.pv_factor) || !isNum(deriv.pv_explicit)) return null
+    return {
+      model: 'margin_runoff_dcf', ...base,
+      margin: deriv.margin, growth: deriv.growth ?? null, da: deriv.da ?? null, capex: deriv.capex ?? null,
+      tax: deriv.tax ?? null, dnwc: deriv.dnwc ?? null, revenueBase: deriv.revenue_base,
+      wacc: deriv.wacc, pvFactor: deriv.pv_factor, pvExplicit: deriv.pv_explicit,
+      metricLabel: deriv.metric_label ?? null, evOverride: null,
+    }
+  }
+  return null
 }
 // v1.1 per-method sub-lever state. `active` = the typed sub-levers are DRIVING that method's value (turns
 // on when a sub-field is edited; typing the method Value cell directly detaches — mirrors how a typed
@@ -330,6 +458,12 @@ export interface RecomputeResult {
 }
 
 export function levelForScenario(s: DraftScenario, d: PlaygroundDraft): number | null {
+  // Precedence: an EXPLICIT unlock-override wins; then the recorded chain (v1.2 — it reproduces the frozen
+  // level and makes its figures the levers); then the frozen/typed level; then metric×multiple. A chain-less
+  // scenario behaves exactly as before (levelOverride first), so older drafts and runs are unchanged.
+  if (s.overrideUnlocked && isNum(s.levelOverride)) return s.levelOverride
+  const c = chainLevel(s.chain, d.shares)
+  if (c !== null) return c
   if (isNum(s.levelOverride)) return s.levelOverride
   if (isNum(s.forwardMetric) && isNum(s.multiple)) {
     try { return round(levelFromMultiple(s.forwardMetric, s.multiple, d.basis, d.shares, d.netDebt), 4) } catch { return null }
@@ -345,20 +479,24 @@ export function deriveMethods(d: PlaygroundDraft): { methods: MethodLever[]; met
   const methodInternals: RecomputeResult['methodInternals'] = {}
   const methods = (d.methods || []).map((m) => {
     const int = d.internals
+    // An ACTIVE sub-lever OWNS its method's value — including when the typed position derives nothing
+    // (a cleared/incomplete field): the value becomes null and the blend renormalizes without it, instead
+    // of silently reusing the stale typed value while the panel says "edit to derive" (Codex #336
+    // r3644141583). Detaching (typing the Value cell) restores the typed value.
     if (m.key === 'dcf' && int?.dcf?.active) {
       const r = dcfFromGrid(int.dcf.grid, int.dcf.wacc, int.dcf.growth)
       methodInternals.dcf = r
-      if (isNum(r.value)) return { ...m, value: r.value }
+      return { ...m, value: isNum(r.value) ? r.value : null }
     }
     if (m.key === 'sotp' && int?.sotp?.active) {
       const v = sotpFromSegments(int.sotp.segments, int.sotp.bridge, d.shares)
       methodInternals.sotp = { value: v }
-      if (isNum(v)) return { ...m, value: v }
+      return { ...m, value: isNum(v) ? v : null }
     }
     if (m.key === 'peers' && int?.peers?.active) {
       const r = peersFromMultiple(int.peers.pi, int.peers.multiple)
       methodInternals.peers = r
-      if (isNum(r.value)) return { ...m, value: r.value }
+      return { ...m, value: isNum(r.value) ? r.value : null }
     }
     return m
   })
@@ -432,6 +570,7 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
         frozenLevel: s.level ?? null,
         drivers: s.drivers ?? null,
         overrideUnlocked: false,
+        chain: buildChain(s.derivation),
       })),
     }
   }
@@ -451,7 +590,13 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
 export function buildInternals(L: ValuationSummary): DraftInternals | undefined {
   const out: DraftInternals = {}
   const g = L.dcf_grid
-  if (g && Array.isArray(g.wacc) && Array.isArray(g.growth) && Array.isArray(g.values)) {
+  // full dimension validation before exposing the grid — a malformed matrix must degrade to "no ▸ panel",
+  // not crash the grid-table renderer on values[gi][wi] (Codex #338 r3644483982; the guard rejects such a
+  // sidecar too, but the client must not trust that it ran)
+  if (g && Array.isArray(g.wacc) && g.wacc.length >= 2 && g.wacc.every(isNum)
+      && Array.isArray(g.growth) && g.growth.length >= 2 && g.growth.every(isNum)
+      && Array.isArray(g.values) && g.values.length === g.growth.length
+      && g.values.every((r) => Array.isArray(r) && r.length === g.wacc.length && r.every(isNum))) {
     out.dcf = { grid: g, wacc: g.base?.wacc ?? null, growth: g.base?.growth ?? null, active: false }
   }
   if (Array.isArray(L.sotp_segments) && L.sotp_segments.length) {
@@ -502,20 +647,25 @@ export type ScenarioCellKind =
   | 'live_blend'       // drive-base is on: the base cell IS the live blend (computed, moves with the mix)
   | 'frozen_formula'   // frozen base ≈ the published blend (within rounding) — a computed cell
   | 'frozen_wedge'     // frozen base = published blend + a disclosed judgment wedge (§16, e.g. EMAAR RF-OWN-004)
+  | 'derived_chain'    // v1.2: level computes from the scenario's recorded chain — its figures are the levers
   | 'derived_multiple' // level derives from typed forward metric × multiple — those inputs are the levers
   | 'judgment'         // no recorded derivation for this level (bull/bear before the v1.2 emission)
   | 'overridden'       // explicitly unlocked and typed — an override, recorded with a reason on save
 
-export interface ScenarioCellState { kind: ScenarioCellKind; blend?: number | null; wedge?: number | null }
+export interface ScenarioCellState { kind: ScenarioCellKind; blend?: number | null; wedge?: number | null; chainValue?: number | null }
 
 // Rounding tolerance vs a real wedge: AMZN's base 210 vs blend 210.05 (0.02%) is rounding; EMAAR's
 // 15.00 vs 16.52 (9%) is the disclosed owner-discount judgment. 0.5% relative splits them cleanly.
 const WEDGE_REL_EPS = 0.005
 
-export function scenarioCellState(s: DraftScenario, isBase: boolean, publishedBlend: number | null | undefined, liveBlend: number | null, driveBase: boolean): ScenarioCellState {
+export function scenarioCellState(s: DraftScenario, isBase: boolean, publishedBlend: number | null | undefined, liveBlend: number | null, driveBase: boolean, chainValue?: number | null): ScenarioCellState {
   if (s.overrideUnlocked) return { kind: 'overridden' }
-  if (isNum(s.forwardMetric) && isNum(s.multiple)) return { kind: 'derived_multiple' }
+  // drive-base FIRST: recompute gives the live blend precedence over everything else for the base row, so
+  // the cell must say so too — a chain/multiple base under drive-base would otherwise display a different
+  // derivation than the one actually computing (Gemini #339 r3644675825)
   if (isBase && driveBase && isNum(liveBlend)) return { kind: 'live_blend', blend: liveBlend }
+  if (isNum(chainValue)) return { kind: 'derived_chain', chainValue }
+  if (isNum(s.forwardMetric) && isNum(s.multiple)) return { kind: 'derived_multiple' }
   const frozen = isNum(s.frozenLevel) ? s.frozenLevel : (isNum(s.levelOverride) ? s.levelOverride : null)
   if (isBase && isNum(publishedBlend) && isNum(frozen)) {
     const rel = Math.abs(frozen - publishedBlend) / Math.max(Math.abs(frozen), 1e-9)
@@ -550,6 +700,27 @@ export function traceBlend(methods: MethodLever[], b: BlendResult, labelFor: (k:
 
 export function traceScenarioCell(s: DraftScenario, cs: ScenarioCellState, published: PlaygroundDraft['published'], labelFor: (k: string) => string = (k) => k): Trace {
   const src = s.drivers ? `run-recorded drivers: ${s.drivers}` : null
+  if (cs.kind === 'derived_chain' && s.chain) {
+    const c = s.chain
+    const ev = chainEv(c)
+    const parts = [`EV ${fmt(ev, 0)}`]
+    if (isNum(c.netDebt)) parts.push(`− net debt ${fmt(c.netDebt, 0)}`)
+    if (isNum(c.minority)) parts.push(`− minority ${fmt(c.minority, 0)}`)
+    if (isNum(c.other) && c.other !== 0) parts.push(`+ other ${fmt(c.other, 0)}`)
+    const bridge = `(${parts.join(' ')}) ÷ shares ${fmt(c.shares, 2)} = ${fmt(cs.chainValue)}`
+    const isRunoff = c.model === 'margin_runoff_dcf' && !isNum(c.evOverride)
+    return {
+      title: `${s.label} — computed from the recorded chain`,
+      formula: isRunoff
+        ? `${c.metricLabel ?? 'margin'} ${fmt((c.margin ?? 0) * 100, 2)}% × revenue base ${fmt(c.revenueBase, 0)} → FCFF → TV at (${fmt((c.wacc ?? 0) * 100, 2)}% − g ${fmt((c.growth ?? 0) * 100, 2)}%) → ${bridge}`
+        : bridge,
+      terms: c.statedDrivers.map((sd) => ({ label: sd.label, calc: `${sd.value ?? '—'}${sd.note ? ` · ${sd.note}` : ''}` })),
+      note: isRunoff
+        ? 'replays the orb\'s own written chain — edit the margin or growth and everything downstream recomputes; typing EV directly detaches the model'
+        : c.statedDrivers.length ? 'stated drivers are the assumptions behind the recorded figures — shown for provenance; their mapping was not recorded, so the editable levers are the chain figures themselves' : 'edit the chain figures — the fair value recomputes from them',
+      source: c.source ?? src,
+    }
+  }
   if (cs.kind === 'derived_multiple') {
     return { title: `${s.label} — computed from your inputs`, formula: `forward metric ${fmt(s.forwardMetric)} × multiple ${fmt(s.multiple)}`, terms: [], source: src }
   }
@@ -569,11 +740,16 @@ export function traceScenarioCell(s: DraftScenario, cs: ScenarioCellState, publi
   }
   if (cs.kind === 'frozen_wedge') {
     const t = published ? traceBlend(published.methods, published.blend, labelFor) : null
+    // "documented" only when the run actually documents it — the classification is structural (level ≠
+    // blend), so an absent drivers text means an UNEXPLAINED gap, said plainly (Codex #338 r3644483978)
+    const documented = typeof s.drivers === 'string' && s.drivers.trim().length > 0
     return {
-      title: `${s.label} — blend + a disclosed judgment wedge`,
+      title: `${s.label} — blend + a judgment wedge`,
       formula: `${fmt(cs.blend)} (published blend) ${isNum(cs.wedge) && cs.wedge < 0 ? '−' : '+'} ${fmt(Math.abs(cs.wedge ?? 0))} (⚑ wedge) = ${fmt(s.frozenLevel)}`,
       terms: t?.terms ?? [],
-      note: 'the wedge is the analyst\'s documented adjustment below/above the mechanical blend (§16) — it stays visible, never averaged away',
+      note: documented
+        ? 'the wedge is the analyst\'s documented adjustment below/above the mechanical blend (§16) — it stays visible, never averaged away'
+        : 'the run states NO reason for this gap between the published level and its own blend — an undocumented wedge; treat it as unexplained judgment (§16)',
       source: src,
     }
   }
@@ -608,8 +784,21 @@ export function traceOutput(metric: 'expected' | 'mos' | 'downside' | 'rr' | 'pw
   if (metric === 'mos' && isNum(base)) {
     return { title: 'Margin of safety', formula: `(base ${fmt(base)} − price ${fmt(p)}) / base ${fmt(base)} = ${fmt(math.marginOfSafetyPct, 1)}%`, terms: [], note: 'the cushion between price and base fair value, as a share of fair value (§16)' }
   }
-  if (metric === 'downside' && isNum(bear)) {
-    return { title: 'Downside to bear', formula: `(price ${fmt(p)} − bear ${fmt(bear)}) / price ${fmt(p)} = ${fmt(math.downsideToBearPct, 1)}%`, terms: [], note: 'inverted — higher is worse: the loss if the bear case plays out' }
+  if (metric === 'downside') {
+    // trace the number the row actually shows: downsideRiskPct = the WORST scenario's return, inverted —
+    // which equals the loss-to-bear only while the bear row is the worst (Codex #338 r3644483985)
+    const rows = math.perScenario.filter((r) => isNum(r.return_pct))
+    if (!rows.length || !isNum(math.downsideRiskPct)) return null
+    const worst = rows.reduce((a, b) => ((a.return_pct as number) <= (b.return_pct as number) ? a : b))
+    const isBear = worst.label.toLowerCase().includes('bear')
+    return {
+      title: 'Downside risk (worst case)',
+      formula: `−(worst scenario return) = −(${fmt(worst.return_pct, 1)}%) = ${fmt(math.downsideRiskPct, 1)}% — worst case: ${worst.label} at ${fmt(worst.price_target)}`,
+      terms: [],
+      note: isBear
+        ? 'inverted — higher is worse. The worst case is the bear row here, so this equals the loss-to-bear.'
+        : `inverted — higher is worse. The worst case is currently ${worst.label}, NOT the bear row — this is not the loss-to-bear.`,
+    }
   }
   if (metric === 'rr' && isNum(pwt) && isNum(bear)) {
     return { title: 'Risk / reward', formula: `(prob-weighted target ${fmt(pwt)} − price ${fmt(p)}) / (price ${fmt(p)} − bear ${fmt(bear)}) = ${fmt(math.riskReward)}`, terms: [], note: 'expected gain per unit of loss-to-bear' }
@@ -653,11 +842,23 @@ export function goalSeekBlend(d: PlaygroundDraft, param: GoalSeekParam, target: 
   const out: GoalSeekResult = { param, target: target ?? NaN, solution: null, achieved: null, span: null, note: null }
   if (!isNum(target)) return { ...out, note: 'enter a target value first' }
   let nodes: number[] = []
-  if (param === 'dcf_wacc') nodes = d.internals?.dcf?.grid.wacc ?? []
-  else if (param === 'dcf_growth') nodes = d.internals?.dcf?.grid.growth ?? []
-  else {
-    const ms = (d.internals?.peers?.pi.anchors ?? []).map((a) => a.multiple).filter(isNum)
-    if (ms.length >= 2) nodes = [Math.min(...ms), Math.max(...ms)]
+  if (param === 'dcf_wacc' || param === 'dcf_growth') {
+    const dcf = d.internals?.dcf
+    nodes = (param === 'dcf_wacc' ? dcf?.grid.wacc : dcf?.grid.growth) ?? []
+    // a solve is validated research only while the FIXED axis sits inside its recorded span — with it
+    // extrapolated, every probed cell rests on unvalidated values, yet the result would present as solved
+    // (Codex #338 r3644483993). Refuse with the remedy instead.
+    if (dcf && nodes.length >= 2) {
+      const fixedAxis = param === 'dcf_wacc' ? dcf.grid.growth : dcf.grid.wacc
+      const fixedVal = param === 'dcf_wacc' ? (dcf.growth ?? dcf.grid.base?.growth ?? null) : (dcf.wacc ?? dcf.grid.base?.wacc ?? null)
+      if (!isNum(fixedVal) || fixedVal < fixedAxis[0] - 1e-9 || fixedVal > fixedAxis[fixedAxis.length - 1] + 1e-9) {
+        return { ...out, note: `the ${param === 'dcf_wacc' ? 'terminal-growth' : 'WACC'} field is outside the recorded grid — snap it back first (a solve resting on extrapolated cells is not validated research)` }
+      }
+    }
+  } else {
+    // every recorded anchor is a node, so the scan's segments coincide with the piecewise line the
+    // evaluation uses — a 3-anchor kink cannot hide a crossing (Codex #338 r3644483987)
+    nodes = sortedAnchors(d.internals?.peers?.pi ?? null).map((r) => r.multiple)
   }
   if (nodes.length < 2) return { ...out, note: 'this run recorded no range to search for that lever' }
   const f = nodes.map((x) => blendWithParam(d, param, x))

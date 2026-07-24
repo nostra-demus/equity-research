@@ -7,3 +7,6 @@ dist/
 *.log
 .DS_Store
 **/.DS_Store
+
+# also match a node_modules SYMLINK (a worktree convenience) — the trailing-slash pattern above only matches directories
+**/node_modules
