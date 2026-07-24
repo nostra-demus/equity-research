@@ -276,7 +276,16 @@ export function checkMultipleSymmetry(bull?: number | null, base?: number | null
 }
 
 // ---- 4. the editable draft the Playground holds, and its recompute ----
-export interface DraftScenario { label: string; probability: number | null; forwardMetric: number | null; multiple: number | null; levelOverride: number | null }
+// v2 Phase-1 additions (all optional — older callers/tests construct the literal without them):
+//   frozenLevel — the run's published level, immutable; the re-lock target and the wedge comparand.
+//   drivers     — the sidecar's own stated derivation/provenance text for the scenario, shown in traces.
+//   overrideUnlocked — the user EXPLICITLY unlocked this outcome cell to type over it (an override the
+//                      save ledger captures with a reason). Locked is the default: outcomes are computed
+//                      or judgment cells, never silently typable (the Excel contract).
+export interface DraftScenario {
+  label: string; probability: number | null; forwardMetric: number | null; multiple: number | null; levelOverride: number | null
+  frozenLevel?: number | null; drivers?: string | null; overrideUnlocked?: boolean
+}
 // v1.1 per-method sub-lever state. `active` = the typed sub-levers are DRIVING that method's value (turns
 // on when a sub-field is edited; typing the method Value cell directly detaches — mirrors how a typed
 // metric×multiple outranks a supplied level). The recorded data (grid/segments/anchors) is immutable here;
@@ -298,6 +307,10 @@ export interface PlaygroundDraft {
   methods: MethodLever[]
   driveBaseFromMix: boolean
   internals?: DraftInternals
+  // v2 Phase-1: the PUBLISHED mix, snapshotted at draft build and never edited — the frozen base is
+  // classified (formula vs wedge) against THIS blend, not the live one, so the disclosed wedge (e.g.
+  // EMAAR 15.00 = 16.52 − 1.52, RF-OWN-004) does not drift as the user moves the live mix.
+  published?: { methods: MethodLever[]; blend: BlendResult } | null
 }
 
 export interface RecomputeResult {
@@ -324,10 +337,11 @@ export function levelForScenario(s: DraftScenario, d: PlaygroundDraft): number |
   return null
 }
 
-export function recompute(d: PlaygroundDraft): RecomputeResult {
-  // v1.1: ACTIVE sub-levers derive their method's value from the orb's recorded data BEFORE the blend —
-  // grid read for DCF, segment re-sum for SOTP, anchor line for peers. Inactive/absent internals leave the
-  // typed method value untouched, so runs without recorded internals behave exactly as before.
+// v1.1: ACTIVE sub-levers derive their method's value from the orb's recorded data BEFORE the blend —
+// grid read for DCF, segment re-sum for SOTP, anchor line for peers. Inactive/absent internals leave the
+// typed method value untouched, so runs without recorded internals behave exactly as before. Extracted
+// from recompute so goal seek can evaluate the same derivation at a probed lever position.
+export function deriveMethods(d: PlaygroundDraft): { methods: MethodLever[]; methodInternals: RecomputeResult['methodInternals'] } {
   const methodInternals: RecomputeResult['methodInternals'] = {}
   const methods = (d.methods || []).map((m) => {
     const int = d.internals
@@ -348,6 +362,11 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
     }
     return m
   })
+  return { methods, methodInternals }
+}
+
+export function recompute(d: PlaygroundDraft): RecomputeResult {
+  const { methods, methodInternals } = deriveMethods(d)
   const blendRes = blend(methods)
   // When "drive base from mix" is on, the blended base point BECOMES the base scenario's level, so a moved
   // weight flows live into the base return, the margin of safety, and the probability-weighted expected
@@ -389,6 +408,7 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
   const price = (res.decision?.entry_price ?? L?.current_price ?? null)
   const evBasis = L?.basis === 'ev'
   if (L && Array.isArray(L.scenarios) && L.scenarios.length) {
+    const pubMethods = buildMethods(L.methods, L.method_weights)
     return {
       basis: evBasis ? 'ev' : 'equity',
       shares: L.shares ?? null,
@@ -399,15 +419,19 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
       rf: L.discount_rate?.rf ?? null, erp: L.discount_rate?.erp ?? null, beta: L.discount_rate?.beta ?? null,
       wacc: L.discount_rate?.wacc ?? null, afterTaxKd: L.discount_rate?.after_tax_kd ?? null,
       isMega: !!L.is_developed_mega_cap,
-      methods: buildMethods(L.methods, L.method_weights),
+      methods: pubMethods,
       driveBaseFromMix: false,
       internals: buildInternals(L),
+      published: { methods: pubMethods, blend: blend(pubMethods) },
       scenarios: L.scenarios.map((s, i) => ({
         label: s.label,
         probability: probabilityFor(s.label, s.probability, res.decision?.scenarios, i),
         forwardMetric: s.forward_metric ?? null,
         multiple: s.multiple ?? null,
         levelOverride: (isNum(s.forward_metric) && isNum(s.multiple)) ? null : (s.level ?? null),
+        frozenLevel: s.level ?? null,
+        drivers: s.drivers ?? null,
+        overrideUnlocked: false,
       })),
     }
   }
@@ -416,8 +440,8 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
   return {
     basis: 'equity', shares: null, netDebt: 0, price,
     rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false,
-    methods: [], driveBaseFromMix: false,
-    scenarios: ds.map((s) => ({ label: s.label || '', probability: s.probability ?? null, forwardMetric: null, multiple: null, levelOverride: s.price_target ?? null })),
+    methods: [], driveBaseFromMix: false, published: null,
+    scenarios: ds.map((s) => ({ label: s.label || '', probability: s.probability ?? null, forwardMetric: null, multiple: null, levelOverride: s.price_target ?? null, frozenLevel: s.price_target ?? null, drivers: null, overrideUnlocked: false })),
   }
 }
 
@@ -468,4 +492,187 @@ function probabilityFor(label: string, own: number | null | undefined, decScen: 
   if (match && isNum(match.probability)) return match.probability
   const byIdx = decScen?.[idx]
   return byIdx && isNum(byIdx.probability) ? byIdx.probability : null
+}
+
+// ---- 5. v2 Phase-1: cell semantics — outcomes are computed or judgment, never silently typed ----
+// The Excel contract, enforced: an ASSUMPTION is typed; a COMPUTED cell is locked and traceable; a
+// JUDGMENT cell (a value whose derivation the run did not record) is locked, labeled, and overridable
+// only through an explicit unlock that the save ledger captures with a reason.
+export type ScenarioCellKind =
+  | 'live_blend'       // drive-base is on: the base cell IS the live blend (computed, moves with the mix)
+  | 'frozen_formula'   // frozen base ≈ the published blend (within rounding) — a computed cell
+  | 'frozen_wedge'     // frozen base = published blend + a disclosed judgment wedge (§16, e.g. EMAAR RF-OWN-004)
+  | 'derived_multiple' // level derives from typed forward metric × multiple — those inputs are the levers
+  | 'judgment'         // no recorded derivation for this level (bull/bear before the v1.2 emission)
+  | 'overridden'       // explicitly unlocked and typed — an override, recorded with a reason on save
+
+export interface ScenarioCellState { kind: ScenarioCellKind; blend?: number | null; wedge?: number | null }
+
+// Rounding tolerance vs a real wedge: AMZN's base 210 vs blend 210.05 (0.02%) is rounding; EMAAR's
+// 15.00 vs 16.52 (9%) is the disclosed owner-discount judgment. 0.5% relative splits them cleanly.
+const WEDGE_REL_EPS = 0.005
+
+export function scenarioCellState(s: DraftScenario, isBase: boolean, publishedBlend: number | null | undefined, liveBlend: number | null, driveBase: boolean): ScenarioCellState {
+  if (s.overrideUnlocked) return { kind: 'overridden' }
+  if (isNum(s.forwardMetric) && isNum(s.multiple)) return { kind: 'derived_multiple' }
+  if (isBase && driveBase && isNum(liveBlend)) return { kind: 'live_blend', blend: liveBlend }
+  const frozen = isNum(s.frozenLevel) ? s.frozenLevel : (isNum(s.levelOverride) ? s.levelOverride : null)
+  if (isBase && isNum(publishedBlend) && isNum(frozen)) {
+    const rel = Math.abs(frozen - publishedBlend) / Math.max(Math.abs(frozen), 1e-9)
+    if (rel <= WEDGE_REL_EPS) return { kind: 'frozen_formula', blend: publishedBlend }
+    return { kind: 'frozen_wedge', blend: publishedBlend, wedge: round(frozen - publishedBlend, 4) }
+  }
+  return { kind: 'judgment' }
+}
+
+// ---- 6. v2 Phase-1: traces — Excel's "trace precedents" for every computed cell ----
+export interface TraceTerm { label: string; calc: string }
+export interface Trace { title: string; formula: string; terms: TraceTerm[]; note?: string | null; source?: string | null }
+
+const fmt = (n: number | null | undefined, nd = 2): string => (isNum(n) ? String(round(n, nd)) : '—')
+
+export function traceBlend(methods: MethodLever[], b: BlendResult, labelFor: (k: string) => string = (k) => k): Trace {
+  const terms: TraceTerm[] = []
+  for (const m of methods) {
+    const eff = b.effectiveWeights[m.key]
+    // 4dp on the term products so the terms VISIBLY sum to the total — a trace that only almost adds up
+    // defeats its purpose (0.15 × 12.5 = 1.875, not 1.88).
+    if (isNum(eff) && isNum(m.value)) terms.push({ label: labelFor(m.key), calc: `${fmt(eff, 4)} × ${fmt(m.value)} = ${fmt(eff * (m.value as number), 4)}` })
+  }
+  const renormed = methods.some((m) => isNum(m.weight) && isNum(b.effectiveWeights[m.key]) && Math.abs((m.weight as number) - b.effectiveWeights[m.key]) > 1e-6)
+  return {
+    title: 'Blended base point',
+    formula: `Σ weight × method value = ${fmt(b.basePoint, 4)}`,
+    terms,
+    note: renormed ? 'weights renormalize over the methods actually present, so the effective weight can differ from the typed one' : null,
+  }
+}
+
+export function traceScenarioCell(s: DraftScenario, cs: ScenarioCellState, published: PlaygroundDraft['published'], labelFor: (k: string) => string = (k) => k): Trace {
+  const src = s.drivers ? `run-recorded drivers: ${s.drivers}` : null
+  if (cs.kind === 'derived_multiple') {
+    return { title: `${s.label} — computed from your inputs`, formula: `forward metric ${fmt(s.forwardMetric)} × multiple ${fmt(s.multiple)}`, terms: [], source: src }
+  }
+  if (cs.kind === 'live_blend') {
+    const base = published ? traceBlend(published.methods, published.blend, labelFor) : null
+    return { title: `${s.label} — driven by the live mix`, formula: `= the live blended base point ${fmt(cs.blend)}`, terms: [], note: 'moves with the Method-mix values and weights above', source: base ? null : src }
+  }
+  if (cs.kind === 'frozen_formula') {
+    const t = published ? traceBlend(published.methods, published.blend, labelFor) : null
+    return {
+      title: `${s.label} — the recorded method blend`,
+      formula: t ? t.formula : `= the published blend ${fmt(cs.blend)}`,
+      terms: t?.terms ?? [],
+      note: 'the frozen level matches the published blend within rounding — a computed cell',
+      source: src,
+    }
+  }
+  if (cs.kind === 'frozen_wedge') {
+    const t = published ? traceBlend(published.methods, published.blend, labelFor) : null
+    return {
+      title: `${s.label} — blend + a disclosed judgment wedge`,
+      formula: `${fmt(cs.blend)} (published blend) ${isNum(cs.wedge) && cs.wedge < 0 ? '−' : '+'} ${fmt(Math.abs(cs.wedge ?? 0))} (⚑ wedge) = ${fmt(s.frozenLevel)}`,
+      terms: t?.terms ?? [],
+      note: 'the wedge is the analyst\'s documented adjustment below/above the mechanical blend (§16) — it stays visible, never averaged away',
+      source: src,
+    }
+  }
+  if (cs.kind === 'overridden') {
+    return { title: `${s.label} — your override`, formula: 'a typed value replacing the frozen level — saved to the ledger with your reason', terms: [], note: `frozen level was ${fmt(s.frozenLevel)}`, source: src }
+  }
+  return {
+    title: `${s.label} — analyst call (no recorded chain)`,
+    formula: '⚑ this level has no machine-recorded derivation yet — the run states its reasoning below',
+    terms: [],
+    note: 'a future emission records each scenario\'s assumption chain, turning this into a computed cell',
+    source: src,
+  }
+}
+
+export function traceOutput(metric: 'expected' | 'mos' | 'downside' | 'rr' | 'pwt', math: ScenarioMath): Trace | null {
+  const p = math.price
+  const pwt = math.probWeightedTarget
+  const base = math.levels['base'] ?? null
+  const bear = math.levels['bear'] ?? null
+  if (metric === 'pwt') {
+    return {
+      title: 'Probability-weighted target',
+      formula: `Σ probability × level = ${fmt(pwt)}`,
+      terms: math.perScenario.map((s) => ({ label: s.label, calc: `${fmt(s.probability, 1)}% × ${fmt(s.price_target)} = ${fmt((s.probability / 100) * s.price_target)}` })),
+    }
+  }
+  if (!isNum(p)) return null
+  if (metric === 'expected' && isNum(pwt)) {
+    return { title: 'Expected return', formula: `(prob-weighted target ${fmt(pwt)} − price ${fmt(p)}) / ${fmt(p)} = ${fmt(math.expectedReturnPct, 1)}%`, terms: [], note: 'the probability-weighted gain or loss across the scenarios (§10)' }
+  }
+  if (metric === 'mos' && isNum(base)) {
+    return { title: 'Margin of safety', formula: `(base ${fmt(base)} − price ${fmt(p)}) / base ${fmt(base)} = ${fmt(math.marginOfSafetyPct, 1)}%`, terms: [], note: 'the cushion between price and base fair value, as a share of fair value (§16)' }
+  }
+  if (metric === 'downside' && isNum(bear)) {
+    return { title: 'Downside to bear', formula: `(price ${fmt(p)} − bear ${fmt(bear)}) / price ${fmt(p)} = ${fmt(math.downsideToBearPct, 1)}%`, terms: [], note: 'inverted — higher is worse: the loss if the bear case plays out' }
+  }
+  if (metric === 'rr' && isNum(pwt) && isNum(bear)) {
+    return { title: 'Risk / reward', formula: `(prob-weighted target ${fmt(pwt)} − price ${fmt(p)}) / (price ${fmt(p)} − bear ${fmt(bear)}) = ${fmt(math.riskReward)}`, terms: [], note: 'expected gain per unit of loss-to-bear' }
+  }
+  return null
+}
+
+// ---- 7. v2 Phase-1: goal seek — solve one recorded lever for a target blend (Excel's Goal Seek) ----
+// The blend is piecewise LINEAR in each recorded lever (bilinear grid with the other axis fixed; affine
+// anchor line; blend affine in a method value with weights fixed), so the solve is exact per segment —
+// no iteration, no tolerance. It refuses outside the recorded range: beyond the orb's own grid/anchors
+// there is no validated research to stand on (the same honesty rule as the ▸ panels' extrapolation flag).
+export type GoalSeekParam = 'dcf_wacc' | 'dcf_growth' | 'peers_multiple'
+export interface GoalSeekResult {
+  param: GoalSeekParam
+  target: number
+  solution: number | null
+  achieved: number | null
+  span: [number, number] | null      // the blend values reachable across the recorded range
+  note: string | null
+}
+
+function blendWithParam(d: PlaygroundDraft, param: GoalSeekParam, x: number): number | null {
+  const internals: DraftInternals = { ...(d.internals ?? {}) }
+  if (param === 'dcf_wacc' || param === 'dcf_growth') {
+    if (!internals.dcf) return null
+    const cur = internals.dcf
+    internals.dcf = {
+      ...cur, active: true,
+      wacc: param === 'dcf_wacc' ? x : (cur.wacc ?? cur.grid.base?.wacc ?? null),
+      growth: param === 'dcf_growth' ? x : (cur.growth ?? cur.grid.base?.growth ?? null),
+    }
+  } else {
+    if (!internals.peers) return null
+    internals.peers = { ...internals.peers, active: true, multiple: x }
+  }
+  return blend(deriveMethods({ ...d, internals }).methods).basePoint
+}
+
+export function goalSeekBlend(d: PlaygroundDraft, param: GoalSeekParam, target: number | null): GoalSeekResult {
+  const out: GoalSeekResult = { param, target: target ?? NaN, solution: null, achieved: null, span: null, note: null }
+  if (!isNum(target)) return { ...out, note: 'enter a target value first' }
+  let nodes: number[] = []
+  if (param === 'dcf_wacc') nodes = d.internals?.dcf?.grid.wacc ?? []
+  else if (param === 'dcf_growth') nodes = d.internals?.dcf?.grid.growth ?? []
+  else {
+    const ms = (d.internals?.peers?.pi.anchors ?? []).map((a) => a.multiple).filter(isNum)
+    if (ms.length >= 2) nodes = [Math.min(...ms), Math.max(...ms)]
+  }
+  if (nodes.length < 2) return { ...out, note: 'this run recorded no range to search for that lever' }
+  const f = nodes.map((x) => blendWithParam(d, param, x))
+  if (!f.every(isNum)) return { ...out, note: 'the blend is not computable across the recorded range' }
+  const fv = f as number[]
+  const lo = Math.min(...fv), hi = Math.max(...fv)
+  out.span = [round(lo, 4), round(hi, 4)]
+  if (Math.abs(hi - lo) < 1e-9) return { ...out, note: 'moving this lever does not change the blend — the method carries no weight in the mix' }
+  for (let i = 0; i < nodes.length - 1; i++) {
+    const f0 = fv[i], f1 = fv[i + 1]
+    if ((target - f0) * (target - f1) <= 0 && Math.abs(f1 - f0) > 1e-12) {
+      const x = nodes[i] + ((target - f0) / (f1 - f0)) * (nodes[i + 1] - nodes[i])
+      const achieved = blendWithParam(d, param, x)
+      return { ...out, solution: round(x, 6), achieved: isNum(achieved) ? round(achieved, 4) : null }
+    }
+  }
+  return { ...out, note: `not reachable inside the recorded range — the blend only spans ${round(lo, 2)}–${round(hi, 2)} on this lever` }
 }

@@ -156,3 +156,77 @@
 .vpg__segrow .vpg__scennum { height: 24px; }
 .vpg__segcomp { color: var(--text-faint); font-size: 10.5px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 @media (max-width: 560px) { .vpg__segrow { grid-template-columns: 1.4fr 0.8fr 56px; } .vpg__segcomp { display: none; } }
+
+/* ---- v2 Phase-1: cell semantics — computed (ƒ) / judgment (⚑) cells, trace strips, grid table, goal seek.
+   The Excel contract: assumptions are typed, outcomes are locked cells with a visible derivation; a
+   judgment cell unlocks only explicitly (the override ledger records it with a reason). Tokens only. */
+
+/* locked outcome cell — sits in the same grid slot as the old typable input */
+.vpg__cell {
+  display: inline-flex; align-items: center; gap: 5px; box-sizing: border-box; width: 100%; height: 28px;
+  padding: 3px 8px; font-size: 12.5px; font-family: var(--font-mono);
+  border-radius: var(--r-sm); cursor: pointer; text-align: left;
+  transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+.vpg__cell--fx { color: var(--text); background: var(--surface-2); border: 1px solid var(--hairline); }
+.vpg__cell--fx:hover { border-color: var(--hairline-strong); }
+.vpg__cell--judg, .vpg__cell--wedge { color: var(--accent-bright); background: var(--accent-wash-soft); border: 1px solid var(--accent-deep); }
+.vpg__cell--judg:hover, .vpg__cell--wedge:hover { background: var(--accent-wash); }
+.vpg__cellicon { font-size: 10px; opacity: 0.85; flex-shrink: 0; }
+.vpg__cell--fx .vpg__cellicon { color: var(--live); font-style: italic; }
+
+/* an explicitly unlocked (overridden) cell: the input plus a re-lock */
+.vpg__cellov { display: flex; align-items: center; gap: 4px; min-width: 0; }
+.vpg__cellov .vpg__scennum { min-width: 0; }
+.vpg__relock {
+  width: 20px; height: 20px; flex-shrink: 0; display: grid; place-items: center; font-size: 12px;
+  color: var(--text-muted); border: 1px solid var(--hairline); border-radius: 4px; cursor: pointer;
+  background: transparent;
+}
+.vpg__relock:hover { color: var(--accent-bright); background: var(--accent-wash); }
+
+/* trace strip — same visual family as the ▸ sub-panels */
+.vpg__tracestrip {
+  margin: 2px 0 6px; padding: 9px 12px;
+  border: 1px solid var(--hairline); border-left: 2px solid var(--accent-deep);
+  border-radius: var(--r-sm); background: var(--surface-2);
+}
+.vpg__tracetitle { font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); }
+.vpg__traceformula {
+  margin: 6px 0 4px; padding: 6px 9px; font-size: 11.5px; line-height: 1.55; color: var(--text);
+  background: var(--bg-2, var(--surface-1)); border: 1px solid var(--hairline); border-radius: var(--r-sm);
+  word-break: break-word;
+}
+.vpg__traceterm { display: flex; justify-content: space-between; gap: 12px; padding: 2px 0; font-size: 11.5px; color: var(--text-muted); }
+.vpg__traceterm .mono { color: var(--text); }
+.vpg__overridebtn { height: 24px; font-size: 10.5px; margin-top: 7px; }
+
+/* clickable numbers that open a trace (compare block, blended base point) */
+.vpg__cmpbtn, .vpg__fxbtn {
+  background: transparent; border: none; padding: 0; font: inherit; cursor: pointer;
+  border-bottom: 1px dotted var(--hairline-strong); color: inherit;
+}
+.vpg__cmpbtn:hover, .vpg__fxbtn:hover { border-bottom-color: var(--accent-bright); }
+.vpg__fxbtn { color: var(--text); }
+
+/* the recorded WACC × growth grid as a two-way data table */
+.vpg__gridtable { border-collapse: collapse; margin-top: 8px; font-family: var(--font-mono); font-size: 11px; }
+.vpg__gridtable th {
+  border: 1px solid var(--hairline); padding: 3px 9px; background: var(--surface-1);
+  color: var(--text-faint); font-weight: 600; font-size: 10px; text-align: right; white-space: nowrap;
+}
+.vpg__gridtable td { border: 1px solid var(--hairline); padding: 0; }
+.vpg__gridcell {
+  display: block; width: 100%; box-sizing: border-box; padding: 4px 9px; text-align: right;
+  background: transparent; border: none; cursor: pointer; font: inherit; color: var(--text-muted);
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.vpg__gridcell:hover { background: var(--accent-wash-soft); color: var(--text); }
+.vpg__gridcell--on { background: var(--accent-wash); color: var(--accent-bright); font-weight: 700; }
+.vpg__gridcell--base { box-shadow: inset 0 0 0 1px var(--accent-deep); }
+
+/* goal seek row */
+.vpg__gsrow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.vpg__gslabel { font-size: 11.5px; color: var(--text-muted); white-space: nowrap; }
+.vpg__gsrow .vpg__scennum { width: 86px; flex: none; }
+.vpg__gssel { width: auto; padding: 5px 8px; cursor: pointer; }

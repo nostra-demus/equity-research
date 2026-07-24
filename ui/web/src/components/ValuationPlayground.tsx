@@ -13,8 +13,9 @@ import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import {
-  draftFromResponse, recompute, type PlaygroundDraft, type ValuationLeversResponse, type DraftScenario,
-  type DraftInternals, type GridReadout, type PeersReadout,
+  draftFromResponse, recompute, deriveMethods, scenarioCellState, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend,
+  type PlaygroundDraft, type ValuationLeversResponse, type DraftScenario,
+  type DraftInternals, type GridReadout, type PeersReadout, type Trace, type GoalSeekParam, type GoalSeekResult,
 } from '../lib/valuationLevers'
 import './ValuationPlayground.css'
 
@@ -131,8 +132,15 @@ export function ValuationPlayground() {
   const setPeersMultiple = (multiple: number | null) =>
     setDraft((d) => (d?.internals?.peers ? { ...d, internals: { ...d.internals, peers: { ...d.internals.peers, multiple, active: true } } } : d))
   const [openMethod, setOpenMethod] = useState<string | null>(null)
+  // v2 Phase-1: one open trace strip at a time (Excel's "trace precedents" — click a computed cell)
+  const [openTrace, setOpenTrace] = useState<string | null>(null)
+  const toggleTrace = (id: string) => setOpenTrace((t) => (t === id ? null : id))
+  // v2 Phase-1: goal seek — solve a recorded lever for a target blend
+  const [gsParam, setGsParam] = useState<GoalSeekParam>('dcf_wacc')
+  const [gsTarget, setGsTarget] = useState<number | null>(null)
+  const [gsResult, setGsResult] = useState<GoalSeekResult | null>(null)
 
-  const reset = () => { if (res) setDraft(draftFromResponse(res)) }
+  const reset = () => { if (res) { setDraft(draftFromResponse(res)); setOpenTrace(null); setGsResult(null) } }
 
   const save = async () => {
     if (!draft || !res || saving) return
@@ -163,12 +171,19 @@ export function ValuationPlayground() {
     return s && typeof s.level === 'number' ? s.level : null
   }
 
-  const CmpRow = ({ label, sys, pg, isPct = true }: { label: string; sys: number | null; pg: number | null; isPct?: boolean }) => (
+  // t = a trace id: the Playground value becomes a clickable ƒ cell whose derivation opens as a strip below
+  const CmpRow = ({ label, sys, pg, isPct = true, t }: { label: string; sys: number | null; pg: number | null; isPct?: boolean; t?: string }) => (
     <div className="vpg__cmprow">
       <span className="vpg__cmplabel">{label}</span>
       <span className="vpg__cmpsys mono" style={{ color: isPct ? tone(sys) : undefined }}>{isPct ? fmtPct(sys) : fmtN(sys)}</span>
       <span className="vpg__cmparrow" aria-hidden>→</span>
-      <span className="vpg__cmppg mono" style={{ color: isPct ? tone(pg) : undefined }}>{isPct ? fmtPct(pg) : fmtN(pg)}</span>
+      {t ? (
+        <button className="vpg__cmppg vpg__cmpbtn mono" style={{ color: isPct ? tone(pg) : undefined }} onClick={() => toggleTrace(t)} aria-expanded={openTrace === t} title="Show how this number is computed">
+          {isPct ? fmtPct(pg) : fmtN(pg)}
+        </button>
+      ) : (
+        <span className="vpg__cmppg mono" style={{ color: isPct ? tone(pg) : undefined }}>{isPct ? fmtPct(pg) : fmtN(pg)}</span>
+      )}
     </div>
   )
 
@@ -199,13 +214,20 @@ export function ValuationPlayground() {
               <span />
               <span className="vpg__col vpg__col--pg">Playground</span>
             </div>
-            <CmpRow label="Expected return" sys={dec?.expected_return_pct ?? null} pg={out.math.expectedReturnPct} />
-            <CmpRow label="Margin of safety" sys={dec?.margin_of_safety_pct ?? null} pg={out.math.marginOfSafetyPct} />
-            <CmpRow label="Downside risk (to bear)" sys={dec?.downside_risk_pct ?? null} pg={out.math.downsideRiskPct} />
+            <CmpRow label="Expected return" sys={dec?.expected_return_pct ?? null} pg={out.math.expectedReturnPct} t="exp" />
+            <CmpRow label="Margin of safety" sys={dec?.margin_of_safety_pct ?? null} pg={out.math.marginOfSafetyPct} t="mos" />
+            <CmpRow label="Downside risk (to bear)" sys={dec?.downside_risk_pct ?? null} pg={out.math.downsideRiskPct} t="down" />
+            <CmpRow label="Risk / reward" sys={null} pg={out.math.riskReward} isPct={false} t="rr" />
             <CmpRow label="Bull fair value" sys={sysLevel('bull')} pg={pgLevel('bull')} isPct={false} />
             <CmpRow label="Base fair value" sys={sysLevel('base')} pg={pgLevel('base')} isPct={false} />
             <CmpRow label="Bear fair value" sys={sysLevel('bear')} pg={pgLevel('bear')} isPct={false} />
-            <CmpRow label="Prob-weighted target" sys={null} pg={out.math.probWeightedTarget} isPct={false} />
+            <CmpRow label="Prob-weighted target" sys={null} pg={out.math.probWeightedTarget} isPct={false} t="pwt" />
+            {(['exp', 'mos', 'down', 'rr', 'pwt'] as const).map((id) => {
+              if (openTrace !== id) return null
+              const metric = id === 'exp' ? 'expected' : id === 'down' ? 'downside' : id
+              const tr = traceOutput(metric, out.math)
+              return tr ? <TraceStrip key={id} t={tr} /> : null
+            })}
           </div>
 
           {/* ---- warnings from the guards (WACC band, multiple symmetry, stale/no bear) ---- */}
@@ -302,7 +324,7 @@ export function ValuationPlayground() {
                   )
                 })}
                 <div className="vpg__note vpg__mixsum">
-                  Blended base point <b className="mono">{fmtN(bp, 2)}</b>
+                  Blended base point <button className="vpg__fxbtn mono" onClick={() => toggleTrace('blend')} aria-expanded={openTrace === 'blend'} title="Show the blend's terms — weight × value per method"><b>{fmtN(bp, 2)}</b></button>
                   {typeof pubBase === 'number' && (
                     <> vs published base <b className="mono">{fmtN(pubBase, 2)}</b>
                       {delta !== null && Math.abs(delta) >= 0.005 && (
@@ -318,36 +340,101 @@ export function ValuationPlayground() {
                         ? <span> The returns above still use the frozen base — tick <b>Drive base from mix</b> to flow this blend into them.</span>
                         : null}
                 </div>
+                {openTrace === 'blend' && <TraceStrip t={traceBlend(deriveMethods(draft).methods, out.blend, methodLabel)} />}
+              </div>
+            )
+          })()}
+
+          {/* ---- v2 Phase-1: goal seek — Excel's Goal Seek over the recorded levers ---- */}
+          {draft.methods.length > 0 && (draft.internals?.dcf || draft.internals?.peers) && (() => {
+            const gsOptions: { v: GoalSeekParam; label: string }[] = [
+              ...(draft.internals?.dcf ? [{ v: 'dcf_wacc' as const, label: 'DCF WACC' }, { v: 'dcf_growth' as const, label: 'DCF terminal growth' }] : []),
+              ...(draft.internals?.peers ? [{ v: 'peers_multiple' as const, label: 'Peers multiple' }] : []),
+            ]
+            const param = gsOptions.some((o) => o.v === gsParam) ? gsParam : gsOptions[0].v
+            const isPctParam = (p: GoalSeekParam) => p !== 'peers_multiple'
+            const fmtSol = (r: GoalSeekResult) => (r.solution === null ? '—' : isPctParam(r.param) ? `${fmtN(toPct(r.solution), 3)}%` : `${fmtN(r.solution, 3)}×`)
+            const apply = (r: GoalSeekResult) => {
+              if (r.solution === null) return
+              if (r.param === 'dcf_wacc') setDcfInternal({ wacc: r.solution })
+              else if (r.param === 'dcf_growth') setDcfInternal({ growth: r.solution })
+              else setPeersMultiple(r.solution)
+            }
+            return (
+              <div className="vpg__section">
+                <div className="vpg__sectitle">Goal seek — what does it take?</div>
+                <div className="vpg__gsrow">
+                  <span className="vpg__gslabel">Set blend base =</span>
+                  <TableInput value={gsTarget ?? draft.price} onChange={(n) => { setGsTarget(n); setGsResult(null) }} ariaLabel="goal-seek target level" />
+                  <span className="vpg__gslabel">by changing</span>
+                  <select className="vpg__input vpg__gssel" value={param} onChange={(e) => { setGsParam(e.target.value as GoalSeekParam); setGsResult(null) }} aria-label="goal-seek lever">
+                    {gsOptions.map((o) => <option key={o.v} value={o.v}>{o.label}</option>)}
+                  </select>
+                  <button className="btn btn--ghost" style={{ height: 26 }} onClick={() => setGsResult(goalSeekBlend(draft, param, gsTarget ?? draft.price))}>Solve</button>
+                </div>
+                {gsResult && (gsResult.solution !== null ? (
+                  <div className="vpg__note">→ <b className="mono">{fmtSol(gsResult)}</b> gives blend <b className="mono">{fmtN(gsResult.achieved, 2)}</b>{' '}
+                    <button className="btn btn--ghost" style={{ height: 22, fontSize: 10.5 }} onClick={() => apply(gsResult)}>Apply to the ▸ lever</button>
+                  </div>
+                ) : (
+                  <div className="vpg__note vpg__note--warn">{gsResult.note}{gsResult.span ? ` (reachable: ${fmtN(gsResult.span[0], 2)}–${fmtN(gsResult.span[1], 2)})` : ''}</div>
+                ))}
+                <div className="vpg__note">Target defaults to the current price — "what does it take to justify the price?". Solves only inside the orb's recorded grid/anchor range; beyond it there is no validated research to stand on. After Apply, tick <b>Drive base from mix</b> to flow the blend into the returns.</div>
               </div>
             )
           })()}
 
           <div className="vpg__section">
-            <div className="vpg__sectitle">Scenarios — {hasEditableMultiples ? 'forward metric × multiple' : hasLevers ? 'levels — method-blend (edit a level directly, reweight the mix above, or open a method’s ▸ assumptions)' : 'levels (this run predates the levers emission)'}</div>
-            {/* A blend run (like NHY) records NO per-scenario metric×multiple — its bull/base/bear came from
-                the method blend, so there is no P/E or EV/EBITDA pair to edit per scenario (AMZN's run has
-                one and shows those columns). The multiples that DO exist for a blend run live in the ▸
-                panels above: the peers NTM EV/EBITDA and the SOTP segment multiples. */}
+            <div className="vpg__sectitle">Scenarios — {hasEditableMultiples ? 'forward metric × multiple' : hasLevers ? 'probabilities are typed; fair values are computed (ƒ) or analyst-call (⚑) cells — click one for its trace, unlock to override' : 'levels (this run predates the levers emission)'}</div>
+            {/* The Excel contract (v2 Phase-1): an outcome is never a silently typable box. A blend run's base
+                is a COMPUTED cell (the recorded blend, or blend + the disclosed wedge, e.g. EMAAR RF-OWN-004);
+                bull/bear carry no machine-recorded chain yet, so they are locked JUDGMENT cells with the run's
+                own drivers as provenance — overriding one is an explicit unlock the save ledger records with a
+                reason. The levers that MOVE these cells live in the ▸ panels and the mix above. */}
             <div className="vpg__scenhead">
               <span>Case</span><span>Prob %</span>{hasEditableMultiples ? (<><span>Fwd metric</span><span>Multiple</span></>) : <span>Fair value</span>}<span>Level</span><span>Return</span>
             </div>
             {draft.scenarios.map((s, i) => {
               const row = out.scenarios[i]
               const ret = out.math.perScenario.find((x) => x.label === s.label)?.return_pct ?? null
+              const isBase = (s.label || '').toLowerCase().includes('base')
+              const cs = scenarioCellState(s, isBase, draft.published?.blend.basePoint ?? null, out.blend.basePoint, out.blendActive)
+              const traceId = `scen:${i}`
               return (
-                <div key={i} className="vpg__scenrow">
-                  <span className="vpg__scenlabel">{s.label}</span>
-                  <TableInput value={s.probability} onChange={(n) => setScen(i, { probability: n })} ariaLabel={`${s.label} probability`} />
-                  {hasEditableMultiples ? (
-                    <>
-                      <TableInput value={s.forwardMetric} onChange={(n) => setScen(i, { forwardMetric: n })} ariaLabel={`${s.label} forward metric`} />
-                      <TableInput value={s.multiple} onChange={(n) => setScen(i, { multiple: n })} ariaLabel={`${s.label} multiple`} />
-                    </>
-                  ) : (
-                    <TableInput value={s.levelOverride} onChange={(n) => setScen(i, { levelOverride: n })} ariaLabel={`${s.label} fair value`} />
+                <div key={i}>
+                  <div className="vpg__scenrow">
+                    <span className="vpg__scenlabel">{s.label}</span>
+                    <TableInput value={s.probability} onChange={(n) => setScen(i, { probability: n })} ariaLabel={`${s.label} probability`} />
+                    {hasEditableMultiples ? (
+                      <>
+                        <TableInput value={s.forwardMetric} onChange={(n) => setScen(i, { forwardMetric: n })} ariaLabel={`${s.label} forward metric`} />
+                        <TableInput value={s.multiple} onChange={(n) => setScen(i, { multiple: n })} ariaLabel={`${s.label} multiple`} />
+                      </>
+                    ) : cs.kind === 'overridden' ? (
+                      <span className="vpg__cellov">
+                        <TableInput value={s.levelOverride} onChange={(n) => setScen(i, { levelOverride: n })} ariaLabel={`${s.label} fair value override`} />
+                        <button className="vpg__relock" title={`Re-lock to the frozen level ${fmtN(s.frozenLevel ?? null, 2)}`} onClick={() => setScen(i, { overrideUnlocked: false, levelOverride: s.frozenLevel ?? s.levelOverride })}>↺</button>
+                      </span>
+                    ) : (
+                      <button
+                        className={`vpg__cell ${cs.kind === 'judgment' ? 'vpg__cell--judg' : cs.kind === 'frozen_wedge' ? 'vpg__cell--wedge' : 'vpg__cell--fx'}`}
+                        onClick={() => toggleTrace(traceId)}
+                        aria-expanded={openTrace === traceId}
+                        title={cs.kind === 'judgment' ? 'Analyst call — no recorded chain. Click for the run\'s reasoning; unlock there to override.' : cs.kind === 'frozen_wedge' ? 'Blend + a disclosed judgment wedge — click for the trace.' : 'Computed cell — click for the trace.'}
+                      >
+                        <span className="vpg__cellicon" aria-hidden>{cs.kind === 'judgment' ? '⚑' : cs.kind === 'frozen_wedge' ? 'ƒ⚑' : 'ƒ'}</span>
+                        {fmtN(row?.level, 2)}
+                      </button>
+                    )}
+                    <span className="vpg__scenlevel mono">{fmtN(row?.level, 2)}</span>
+                    <span className="vpg__scenret mono" style={{ color: tone(ret) }}>{fmtPct(ret)}</span>
+                  </div>
+                  {openTrace === traceId && !hasEditableMultiples && cs.kind !== 'overridden' && (
+                    <TraceStrip
+                      t={traceScenarioCell(s, cs, draft.published ?? null, methodLabel)}
+                      onOverride={cs.kind !== 'live_blend' && cs.kind !== 'derived_multiple' ? () => { setScen(i, { overrideUnlocked: true }); setOpenTrace(null) } : undefined}
+                    />
                   )}
-                  <span className="vpg__scenlevel mono">{fmtN(row?.level, 2)}</span>
-                  <span className="vpg__scenret mono" style={{ color: tone(ret) }}>{fmtPct(ret)}</span>
                 </div>
               )
             })}
@@ -372,6 +459,26 @@ export function ValuationPlayground() {
   )
 }
 
+// ---- v2 Phase-1: the trace strip — Excel's "trace precedents", rendered in the ▸-panel idiom ----
+// One strip open at a time; a judgment/frozen cell's strip carries the explicit unlock (the only path to
+// typing over an outcome — captured by the save ledger with a reason).
+function TraceStrip({ t, onOverride }: { t: Trace; onOverride?: () => void }) {
+  return (
+    <div className="vpg__tracestrip">
+      <div className="vpg__tracetitle">{t.title}</div>
+      <div className="vpg__traceformula mono">{t.formula}</div>
+      {t.terms.map((term, i) => (
+        <div key={i} className="vpg__traceterm"><span>{term.label}</span><span className="mono">{term.calc}</span></div>
+      ))}
+      {t.note && <div className="vpg__subnote">{t.note}</div>}
+      {t.source && <div className="vpg__gridmeta">{t.source}</div>}
+      {onOverride && (
+        <button className="btn btn--ghost vpg__overridebtn" onClick={onOverride}>Unlock &amp; override this cell…</button>
+      )}
+    </div>
+  )
+}
+
 // ---- v1.1 per-method sub-panels (P-C) — typed fields over each orb's OWN recorded data ----
 // Grid axes are decimals in the sidecar (0.075); the fields type percent (7.5). Exact for the recorded
 // points (7.5/100 === 0.075 in doubles), so a typed grid point reads the verbatim cell, never a blend.
@@ -385,7 +492,7 @@ function DcfPanel({ d, readout, onWacc, onGrowth }: {
   onGrowth: (n: number | null) => void
 }) {
   const g = d.grid
-  const lo = Math.min(...g.values.flat()), hi = Math.max(...g.values.flat())
+  const near = (a: number | null, b: number) => a !== null && Math.abs(a - b) < 1e-9
   return (
     <div className="vpg__subpanel">
       <div className="vpg__subfields">
@@ -396,9 +503,37 @@ function DcfPanel({ d, readout, onWacc, onGrowth }: {
           <span className="vpg__subval mono">{d.active && readout && readout.value !== null ? fmtN(readout.value, 2) : 'edit to derive'}</span>
         </div>
       </div>
+      {/* v2 Phase-1: the recorded grid AS Excel's two-way data table — clicking a cell snaps the typed
+          fields to that recorded point (the table and the fields are the same lever, two views). Growth
+          rows render highest-first, the finance convention for a WACC × g matrix. */}
+      <table className="vpg__gridtable">
+        <thead>
+          <tr><th>g \ WACC</th>{g.wacc.map((w, wi) => <th key={wi}>{toPct(w)}%</th>)}</tr>
+        </thead>
+        <tbody>
+          {g.growth.map((gr, gi) => ({ gr, gi })).reverse().map(({ gr, gi }) => (
+            <tr key={gi}>
+              <th>{toPct(gr)}%</th>
+              {g.wacc.map((w, wi) => {
+                const on = d.active && near(d.wacc, w) && near(d.growth, gr)
+                const isOrbBase = !!g.base && Math.abs(g.base.wacc - w) < 1e-9 && Math.abs(g.base.growth - gr) < 1e-9
+                return (
+                  <td key={wi}>
+                    <button
+                      className={`vpg__gridcell${on ? ' vpg__gridcell--on' : ''}${isOrbBase ? ' vpg__gridcell--base' : ''}`}
+                      onClick={() => { onWacc(w); onGrowth(gr) }}
+                      title={`WACC ${toPct(w)}% × g ${toPct(gr)}%${isOrbBase ? ' — the orb\'s base cell' : ''}`}
+                    >{fmtN(g.values[gi][wi], 2)}</button>
+                  </td>
+                )
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
       <div className="vpg__gridmeta">
-        recorded grid: WACC {g.wacc.map((x) => toPct(x)).join(' / ')}% × g {g.growth.map((x) => toPct(x)).join(' / ')}% → {fmtN(lo, 2)}–{fmtN(hi, 2)}
-        {d.grid.base && <> · orb base {toPct(d.grid.base.wacc)}% × {toPct(d.grid.base.growth)}%</>}
+        click a cell to snap the fields to that recorded point
+        {d.grid.base && <> · orb base {toPct(d.grid.base.wacc)}% × {toPct(d.grid.base.growth)}% (outlined)</>}
         {g.source && <> · {g.source}</>}
       </div>
       {d.active && readout?.outOfGrid
