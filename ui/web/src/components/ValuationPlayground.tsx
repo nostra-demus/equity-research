@@ -13,8 +13,8 @@ import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import {
-  draftFromResponse, recompute, deriveMethods, scenarioCellState, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend,
-  type PlaygroundDraft, type ValuationLeversResponse, type DraftScenario,
+  draftFromResponse, recompute, deriveMethods, scenarioCellState, chainLevel, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend,
+  type PlaygroundDraft, type ValuationLeversResponse, type DraftScenario, type DraftChain,
   type DraftInternals, type GridReadout, type PeersReadout, type Trace, type GoalSeekParam, type GoalSeekResult,
 } from '../lib/valuationLevers'
 import './ValuationPlayground.css'
@@ -398,7 +398,8 @@ export function ValuationPlayground() {
               const row = out.scenarios[i]
               const ret = out.math.perScenario.find((x) => x.label === s.label)?.return_pct ?? null
               const isBase = (s.label || '').toLowerCase().includes('base')
-              const cs = scenarioCellState(s, isBase, draft.published?.blend.basePoint ?? null, out.blend.basePoint, out.blendActive)
+              const cv = chainLevel(s.chain, draft.shares)
+              const cs = scenarioCellState(s, isBase, draft.published?.blend.basePoint ?? null, out.blend.basePoint, out.blendActive, cv)
               const traceId = `scen:${i}`
               return (
                 <div key={i}>
@@ -430,10 +431,18 @@ export function ValuationPlayground() {
                     <span className="vpg__scenret mono" style={{ color: tone(ret) }}>{fmtPct(ret)}</span>
                   </div>
                   {openTrace === traceId && !hasEditableMultiples && cs.kind !== 'overridden' && (
-                    <TraceStrip
-                      t={traceScenarioCell(s, cs, draft.published ?? null, methodLabel)}
-                      onOverride={cs.kind !== 'live_blend' && cs.kind !== 'derived_multiple' ? () => { setScen(i, { overrideUnlocked: true }); setOpenTrace(null) } : undefined}
-                    />
+                    cs.kind === 'derived_chain' && s.chain ? (
+                      <ChainStrip
+                        s={s} chain={s.chain} level={cv} fallbackShares={draft.shares}
+                        onEdit={(patch) => setScen(i, { chain: { ...s.chain!, ...patch } })}
+                        onOverride={() => { setScen(i, { overrideUnlocked: true }); setOpenTrace(null) }}
+                      />
+                    ) : (
+                      <TraceStrip
+                        t={traceScenarioCell(s, cs, draft.published ?? null, methodLabel)}
+                        onOverride={cs.kind !== 'live_blend' && cs.kind !== 'derived_multiple' ? () => { setScen(i, { overrideUnlocked: true }); setOpenTrace(null) } : undefined}
+                      />
+                    )
                   )}
                 </div>
               )
@@ -475,6 +484,44 @@ function TraceStrip({ t, onOverride }: { t: Trace; onOverride?: () => void }) {
       {onOverride && (
         <button className="btn btn--ghost vpg__overridebtn" onClick={onOverride}>Unlock &amp; override this cell…</button>
       )}
+    </div>
+  )
+}
+
+// ---- v1.2: the scenario chain strip — the recorded figures behind a fair value, as EDITABLE inputs ----
+// This is the answer to "let me enter the figures that were used to calculate the fair value": the chain's
+// EV / net debt / minority / shares are typed cells; the level is computed and never typed. stated drivers
+// (e.g. "terminal margin 9.0%") render as display-only provenance — their mapping to EV was not recorded,
+// and inventing it would be fake math (§20), so the honest lever is the recorded figure itself.
+function ChainStrip({ s, chain, level, fallbackShares, onEdit, onOverride }: {
+  s: DraftScenario
+  chain: DraftChain
+  level: number | null
+  fallbackShares: number | null
+  onEdit: (patch: Partial<DraftChain>) => void
+  onOverride: () => void
+}) {
+  return (
+    <div className="vpg__tracestrip">
+      <div className="vpg__tracetitle">{s.label} — computed from the recorded chain{chain.source ? ` · ${chain.source}` : ''}</div>
+      <div className="vpg__subfields" style={{ marginTop: 7 }}>
+        <Field label="EV" value={chain.ev} onChange={(n) => onEdit({ ev: n })} title="Enterprise value under this scenario (filing millions)" />
+        <Field label="− Net debt" value={chain.netDebt} onChange={(n) => onEdit({ netDebt: n })} title="This scenario's own bridge term — may differ from the top-level basis; the source cites the orb" />
+        <Field label="− Minority" value={chain.minority} onChange={(n) => onEdit({ minority: n })} />
+        <Field label="+ Other" value={chain.other} onChange={(n) => onEdit({ other: n })} />
+        <Field label="÷ Shares" value={chain.shares ?? fallbackShares} onChange={(n) => onEdit({ shares: n })} />
+        <div className="vpg__subderived">
+          <span className="vpg__fieldlabel">{s.label} / share</span>
+          <span className="vpg__subval mono">{fmtN(level, 2)}</span>
+        </div>
+      </div>
+      {chain.statedDrivers.length > 0 && (
+        <div className="vpg__gridmeta">
+          stated drivers (provenance, not levers): {chain.statedDrivers.map((sd) => `${sd.label}: ${sd.value ?? '—'}${sd.note ? ` (${sd.note})` : ''}`).join(' · ')}
+        </div>
+      )}
+      <div className="vpg__subnote">These are the figures the run actually used — edit them and the fair value, its return, and the expected return recompute. The level itself stays computed.</div>
+      <button className="btn btn--ghost vpg__overridebtn" onClick={onOverride}>Unlock &amp; type the level directly instead…</button>
     </div>
   )
 }

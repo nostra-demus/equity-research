@@ -33,7 +33,27 @@
           "metric_basis": {"type": ["string", "null"], "description": "NTM / FY+1 / trailing (label the period)"},
           "multiple": {"type": ["number", "null"]},
           "level": {"type": ["number", "null"], "description": "the derived per-share fair-value LEVEL (= metric x multiple, bridged for basis='ev'); price-independent"},
-          "drivers": {"type": ["string", "null"], "description": "one line: the operating drivers behind this case"}
+          "drivers": {"type": ["string", "null"], "description": "one line: the operating drivers behind this case"},
+          "derivation": {
+            "type": ["object", "null"],
+            "description": "v1.2 OPTIONAL — the scenario's OWN recorded derivation chain, transcribed from the orb's executed snippet (REPRODUCE-or-omit: the chain must reproduce `level` within tolerance, or be omitted). Records the figures actually used, so the Playground makes them the editable inputs and computes the level. First model: ev_bridge = (ev − net_debt − minority + other) / shares. stated_drivers carries the narrative assumptions BEHIND a recorded figure (e.g. 'terminal Adj. EBITDA margin 9.0%') whose mapping to that figure the orb did NOT record — display-only provenance, never an invented lever.",
+            "required": ["model", "ev"],
+            "additionalProperties": true,
+            "properties": {
+              "model": {"type": "string", "enum": ["ev_bridge"], "description": "the chain's shape; future models extend this enum (a reader treats an unknown model as not-recorded)"},
+              "ev": {"type": "number", "description": "enterprise value under this scenario, in the filing's own millions"},
+              "net_debt": {"type": ["number", "null"], "description": "the bridge's own net-debt term for THIS scenario (may differ from the top-level net_debt basis — follow the orb, label via source)"},
+              "minority": {"type": ["number", "null"]},
+              "other": {"type": ["number", "null"], "description": "any further bridge term the orb recorded (+ adds to equity)"},
+              "shares": {"type": ["number", "null"], "description": "diluted shares; falls back to the top-level shares when null"},
+              "stated_drivers": {"type": ["array", "null"], "description": "narrative assumptions behind the recorded figures — provenance chips, not levers", "items": {"type": "object", "required": ["label"], "additionalProperties": true, "properties": {
+                "label": {"type": "string"},
+                "value": {"type": ["number", "string", "null"]},
+                "note": {"type": ["string", "null"], "description": "why this is display-only (e.g. 'impaired-FCFF DCF input — its mapping to EV is not recorded')"}
+              }}},
+              "source": {"type": ["string", "null"], "description": "§5 citation of the orb section / executed snippet the chain is transcribed from"}
+            }
+          }
         }
       }
     },

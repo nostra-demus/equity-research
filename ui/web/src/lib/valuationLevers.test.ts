@@ -5,7 +5,7 @@
 // that produced the fair value, the Playground silently disagrees with the recorded thesis — this file fails
 // first. Parity targets are the exact valuation_math.py outputs: AMZN 210.05, NHY 81.826, EMAAR 16.5245.
 import assert from 'node:assert'
-import { blend, buildMethods, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
+import { blend, buildMethods, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, buildChain, levelForScenario, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
 
 let passed = 0
 const check = (name: string, fn: () => void) => { fn(); passed++ }
@@ -361,6 +361,69 @@ check('draftFromResponse carries frozenLevel + overrideUnlocked=false; reset dat
     assert.equal(s.overrideUnlocked, false)
     assert.equal(s.frozenLevel, s.levelOverride) // blend runs: the frozen level seeds the override slot
   }
+})
+
+// ---- v1.2 scenario derivation chains: the figures behind the level become the levers ----
+const NHY_BEAR_DERIV = {
+  model: 'ev_bridge', ev: 114095, net_debt: 17919, minority: 7495, shares: 1965.28,
+  stated_drivers: [{ label: 'terminal Adj. EBITDA margin', value: '9.0%', note: 'impaired-FCFF input — its mapping to EV is not recorded' }],
+  source: '07 §3 (executed snippet)',
+}
+check('chainLevel reproduces the orb bear: (114095−17919−7495)/1965.28 = 45.1238 → 45.12', () => {
+  const c = buildChain(NHY_BEAR_DERIV)!
+  const v = chainLevel(c, null)
+  assert.ok(v !== null && Math.abs(v - 45.1238) < 1e-3, `got ${v}`)
+})
+check('chainLevel: shares fall back to the top level; no shares anywhere → null, never a guess', () => {
+  const c = buildChain({ ...NHY_BEAR_DERIV, shares: null })!
+  assert.ok(Math.abs((chainLevel(c, 1965.28) as number) - 45.1238) < 1e-3)
+  assert.equal(chainLevel(c, null), null)
+})
+check('buildChain: unknown model → null (treated as not recorded, cell stays judgment)', () => {
+  assert.equal(buildChain({ model: 'dcf_rerun', ev: 100 }), null)
+  assert.equal(buildChain({ model: 'ev_bridge', ev: null }), null)
+  assert.equal(buildChain(null), null)
+})
+check('levelForScenario precedence: chain beats the frozen level; explicit unlock beats the chain', () => {
+  const d = draftFromResponse(emaarRes) // any draft for basis/shares context
+  const s = { label: 'bear', probability: null, forwardMetric: null, multiple: null, levelOverride: 45.12, frozenLevel: 45.12, chain: buildChain(NHY_BEAR_DERIV) }
+  assert.ok(Math.abs((levelForScenario(s, d) as number) - 45.1238) < 1e-3, 'chain wins over the frozen level it reproduces')
+  const edited = { ...s, chain: { ...s.chain!, ev: 120000 } }
+  assert.ok(Math.abs((levelForScenario(edited, d) as number) - 48.1285) < 1e-3, 'editing a chain figure recomputes the level')
+  const unlocked = { ...s, overrideUnlocked: true, levelOverride: 40 }
+  assert.equal(levelForScenario(unlocked, d), 40, 'an explicit unlock-override outranks the chain')
+})
+check('cellState: a computing chain → derived_chain (computed cell); response plumbing carries the chain', () => {
+  const res: ValuationLeversResponse = {
+    runRoot: 'analyses/NHY_2026-07-19',
+    levers: {
+      basis: 'ev', shares: 1965.28, net_debt: 13090,
+      methods: { peers: 93.7, dcf: 70.14, sotp: 84.63 }, method_weights: { peers: 0.25, dcf: 0.35, sotp: 0.4 },
+      scenarios: [
+        { label: 'base', forward_metric: null, multiple: null, level: 81.83 },
+        { label: 'bear', forward_metric: null, multiple: null, level: 45.12, derivation: NHY_BEAR_DERIV },
+      ],
+    },
+    decision: null, overrides: [],
+  }
+  const d = draftFromResponse(res)
+  const bear = d.scenarios.find((s) => s.label === 'bear')!
+  assert.ok(bear.chain && bear.chain.ev === 114095)
+  const cv = chainLevel(bear.chain, d.shares)
+  const cs = scenarioCellState(bear, false, d.published!.blend.basePoint, null, false, cv)
+  assert.equal(cs.kind, 'derived_chain')
+  // recompute uses the chain for the level (45.1238 ≈ the frozen 45.12 it reproduces)
+  const out = recompute(d)
+  const lvl = out.scenarios.find((s) => s.label === 'bear')!.level
+  assert.ok(lvl !== null && Math.abs(lvl - 45.1238) < 1e-3, `recomputed ${lvl}`)
+})
+check('traceScenarioCell derived_chain: bridge formula + stated drivers as display-only provenance', () => {
+  const s = { label: 'bear', probability: null, forwardMetric: null, multiple: null, levelOverride: 45.12, chain: buildChain(NHY_BEAR_DERIV) }
+  const t = traceScenarioCell(s, { kind: 'derived_chain', chainValue: 45.1238 }, null)
+  assert.ok(t.formula.includes('114095') && t.formula.includes('1965.28') && t.formula.includes('45.12'), t.formula)
+  assert.equal(t.terms.length, 1)
+  assert.ok(t.terms[0].label.includes('margin') && t.terms[0].calc.includes('9.0%'), JSON.stringify(t.terms))
+  assert.ok(t.source && t.source.includes('07 §3'), String(t.source))
 })
 
 console.log(`valuationLevers.test.ts: ${passed} assertions passed`)

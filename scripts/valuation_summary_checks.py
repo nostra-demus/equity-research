@@ -110,6 +110,30 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
                 if _isnum(lvl) and abs(float(lvl) - derived) > _tol(derived):
                     det.append(f"scenario {s.get('label')!r} level {lvl} != forward_metric×multiple {round(derived, 4)} "
                                f"— the Playground recomputes the latter and would disagree with the recorded level")
+        # v1.2: a recorded derivation chain must REPRODUCE the level (REPRODUCE-or-omit — same rule as the
+        # v1.1 method internals). The Playground makes the chain's figures the editable inputs and computes
+        # the level from them, so a chain that disagrees ships a baseline the panel would silently contradict.
+        deriv = s.get("derivation")
+        if deriv is not None:
+            if not isinstance(deriv, dict):
+                det.append(f"scenario {s.get('label')!r} derivation must be an object")
+            elif deriv.get("model") != "ev_bridge":
+                det.append(f"scenario {s.get('label')!r} derivation model {deriv.get('model')!r} is not a known model (ev_bridge)")
+            elif not _isnum(deriv.get("ev")):
+                det.append(f"scenario {s.get('label')!r} derivation needs a numeric ev")
+            else:
+                d_shares = deriv.get("shares") if _isnum(deriv.get("shares")) else sidecar.get("shares")
+                if not (_isnum(d_shares) and float(d_shares) > 0):
+                    det.append(f"scenario {s.get('label')!r} derivation has no positive shares (own or top-level) — the per-share step is not computable")
+                else:
+                    equity = float(deriv["ev"]) \
+                        - (float(deriv.get("net_debt")) if _isnum(deriv.get("net_debt")) else 0.0) \
+                        - (float(deriv.get("minority")) if _isnum(deriv.get("minority")) else 0.0) \
+                        + (float(deriv.get("other")) if _isnum(deriv.get("other")) else 0.0)
+                    chain_ps = equity / float(d_shares)
+                    if _isnum(lvl) and abs(chain_ps - float(lvl)) > _tol(lvl):
+                        det.append(f"scenario {s.get('label')!r} derivation chain gives {round(chain_ps, 4)} != level {lvl} "
+                                   f"— the chain must reproduce the recorded level (REPRODUCE-or-omit)")
 
     # Distinct labels (a duplicate scenario label is malformed — the Playground keys scenarios by label).
     for lab in sorted({l for l in labels if labels.count(l) > 1}):
@@ -346,6 +370,24 @@ def _selftest() -> int:
     check("single peers anchor caught", any("anchors" in v for v in eval_ap_valuation_summary_integrity(one_anchor, None)))
     bad_peers = dict(internals, peers_internals=dict(internals["peers_internals"], anchors=[{"multiple": 5.6, "value": 50}, {"multiple": 6.25, "value": 60}]))
     check("peers line != methods.peers caught", any("methods.peers" in v for v in eval_ap_valuation_summary_integrity(bad_peers, None)))
+
+    # ---- v1.2 scenario derivation chains: REPRODUCE-or-omit, same rule as the method internals ----
+    # the NHY bear chain verbatim: (114095 − 17919 − 7495) / 1965.28 = 45.1238 → level 45.12 (within tol)
+    nhy_chain = {"model": "ev_bridge", "ev": 114095, "net_debt": 17919, "minority": 7495, "shares": 1965.28,
+                 "stated_drivers": [{"label": "terminal Adj. EBITDA margin", "value": 0.09}], "source": "07 §3"}
+    chain_ok = dict(ok_sidecar, scenarios=[{"label": "bull", "level": 20}, {"label": "base", "level": 15},
+                                           {"label": "bear", "level": 45.12, "derivation": nhy_chain}])
+    dr_chain = {"scenarios": [{"label": "bull", "price_target": 20}, {"label": "base", "price_target": 15}, {"label": "bear", "price_target": 45.12}]}
+    check("derivation chain that reproduces its level → pass", eval_ap_valuation_summary_integrity(chain_ok, dr_chain) == [])
+    chain_off = dict(chain_ok, scenarios=[{"label": "bear", "level": 45.12, "derivation": dict(nhy_chain, ev=120000)}])
+    check("chain not reproducing the level caught", any("REPRODUCE-or-omit" in v for v in eval_ap_valuation_summary_integrity(chain_off, None)))
+    chain_model = dict(chain_ok, scenarios=[{"label": "bear", "level": 45.12, "derivation": dict(nhy_chain, model="dcf_rerun")}])
+    check("unknown derivation model caught", any("not a known model" in v for v in eval_ap_valuation_summary_integrity(chain_model, None)))
+    chain_noshares = dict(chain_ok, scenarios=[{"label": "bear", "level": 45.12, "derivation": dict(nhy_chain, shares=None)}])
+    check("chain with no shares (own or top-level) caught", any("per-share step" in v for v in eval_ap_valuation_summary_integrity(chain_noshares, None)))
+    # top-level shares as the fallback: same chain, shares moved to the sidecar root → still reproduces
+    chain_top = dict(chain_ok, shares=1965.28, scenarios=[{"label": "bear", "level": 45.12, "derivation": dict(nhy_chain, shares=None)}])
+    check("chain falls back to top-level shares → pass", eval_ap_valuation_summary_integrity(chain_top, None) == [])
 
     if fails:
         print("VALUATION SUMMARY CHECKS SELFTEST FAIL:", ", ".join(fails))

@@ -10,6 +10,21 @@
 
 export type Basis = 'equity' | 'ev'
 
+// v1.2: a scenario's OWN recorded derivation chain — the figures the orb actually used to compute the
+// level (REPRODUCE-or-omit, guarded server-side). stated_drivers are the narrative assumptions BEHIND a
+// recorded figure whose mapping the orb did not record — display-only provenance, never a lever.
+export interface StatedDriver { label: string; value?: number | string | null; note?: string | null }
+export interface ScenarioDerivation {
+  model: string
+  ev?: number | null
+  net_debt?: number | null
+  minority?: number | null
+  other?: number | null
+  shares?: number | null
+  stated_drivers?: StatedDriver[] | null
+  source?: string | null
+}
+
 export interface SummaryScenario {
   label: string
   probability?: number | null
@@ -18,6 +33,7 @@ export interface SummaryScenario {
   multiple?: number | null
   level?: number | null
   drivers?: string | null
+  derivation?: ScenarioDerivation | null
 }
 
 export interface ValuationSummary {
@@ -285,6 +301,39 @@ export function checkMultipleSymmetry(bull?: number | null, base?: number | null
 export interface DraftScenario {
   label: string; probability: number | null; forwardMetric: number | null; multiple: number | null; levelOverride: number | null
   frozenLevel?: number | null; drivers?: string | null; overrideUnlocked?: boolean
+  // v1.2: the editable copy of the recorded derivation chain — when present, the LEVEL is computed from
+  // these figures (the Excel contract: the chain's inputs are typed, the fair value never is).
+  chain?: DraftChain | null
+}
+
+export interface DraftChain {
+  model: 'ev_bridge'
+  ev: number | null; netDebt: number | null; minority: number | null; other: number | null; shares: number | null
+  statedDrivers: StatedDriver[]
+  source: string | null
+}
+
+/** The per-share level from an editable ev_bridge chain: (ev − net debt − minority + other) / shares.
+ *  Falls back to the top-level share count when the chain records none. Null when not computable. */
+export function chainLevel(chain: DraftChain | null | undefined, fallbackShares: number | null | undefined): number | null {
+  if (!chain || chain.model !== 'ev_bridge' || !isNum(chain.ev)) return null
+  const sh = isNum(chain.shares) ? chain.shares : (isNum(fallbackShares) ? fallbackShares : null)
+  if (!isNum(sh) || sh <= 0) return null
+  const equity = chain.ev - (isNum(chain.netDebt) ? chain.netDebt : 0) - (isNum(chain.minority) ? chain.minority : 0) + (isNum(chain.other) ? chain.other : 0)
+  return round(equity / sh, 4)
+}
+
+// The sidecar derivation → the editable draft chain. Unknown models return null (treated as not
+// recorded — the cell stays a judgment cell rather than pretending).
+export function buildChain(deriv: ScenarioDerivation | null | undefined): DraftChain | null {
+  if (!deriv || deriv.model !== 'ev_bridge' || !isNum(deriv.ev)) return null
+  return {
+    model: 'ev_bridge',
+    ev: deriv.ev, netDebt: deriv.net_debt ?? null, minority: deriv.minority ?? null,
+    other: deriv.other ?? null, shares: deriv.shares ?? null,
+    statedDrivers: Array.isArray(deriv.stated_drivers) ? deriv.stated_drivers.filter((x) => x && typeof x.label === 'string') : [],
+    source: deriv.source ?? null,
+  }
 }
 // v1.1 per-method sub-lever state. `active` = the typed sub-levers are DRIVING that method's value (turns
 // on when a sub-field is edited; typing the method Value cell directly detaches — mirrors how a typed
@@ -330,6 +379,12 @@ export interface RecomputeResult {
 }
 
 export function levelForScenario(s: DraftScenario, d: PlaygroundDraft): number | null {
+  // Precedence: an EXPLICIT unlock-override wins; then the recorded chain (v1.2 — it reproduces the frozen
+  // level and makes its figures the levers); then the frozen/typed level; then metric×multiple. A chain-less
+  // scenario behaves exactly as before (levelOverride first), so older drafts and runs are unchanged.
+  if (s.overrideUnlocked && isNum(s.levelOverride)) return s.levelOverride
+  const c = chainLevel(s.chain, d.shares)
+  if (c !== null) return c
   if (isNum(s.levelOverride)) return s.levelOverride
   if (isNum(s.forwardMetric) && isNum(s.multiple)) {
     try { return round(levelFromMultiple(s.forwardMetric, s.multiple, d.basis, d.shares, d.netDebt), 4) } catch { return null }
@@ -432,6 +487,7 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
         frozenLevel: s.level ?? null,
         drivers: s.drivers ?? null,
         overrideUnlocked: false,
+        chain: buildChain(s.derivation),
       })),
     }
   }
@@ -502,18 +558,20 @@ export type ScenarioCellKind =
   | 'live_blend'       // drive-base is on: the base cell IS the live blend (computed, moves with the mix)
   | 'frozen_formula'   // frozen base ≈ the published blend (within rounding) — a computed cell
   | 'frozen_wedge'     // frozen base = published blend + a disclosed judgment wedge (§16, e.g. EMAAR RF-OWN-004)
+  | 'derived_chain'    // v1.2: level computes from the scenario's recorded chain — its figures are the levers
   | 'derived_multiple' // level derives from typed forward metric × multiple — those inputs are the levers
   | 'judgment'         // no recorded derivation for this level (bull/bear before the v1.2 emission)
   | 'overridden'       // explicitly unlocked and typed — an override, recorded with a reason on save
 
-export interface ScenarioCellState { kind: ScenarioCellKind; blend?: number | null; wedge?: number | null }
+export interface ScenarioCellState { kind: ScenarioCellKind; blend?: number | null; wedge?: number | null; chainValue?: number | null }
 
 // Rounding tolerance vs a real wedge: AMZN's base 210 vs blend 210.05 (0.02%) is rounding; EMAAR's
 // 15.00 vs 16.52 (9%) is the disclosed owner-discount judgment. 0.5% relative splits them cleanly.
 const WEDGE_REL_EPS = 0.005
 
-export function scenarioCellState(s: DraftScenario, isBase: boolean, publishedBlend: number | null | undefined, liveBlend: number | null, driveBase: boolean): ScenarioCellState {
+export function scenarioCellState(s: DraftScenario, isBase: boolean, publishedBlend: number | null | undefined, liveBlend: number | null, driveBase: boolean, chainValue?: number | null): ScenarioCellState {
   if (s.overrideUnlocked) return { kind: 'overridden' }
+  if (isNum(chainValue)) return { kind: 'derived_chain', chainValue }
   if (isNum(s.forwardMetric) && isNum(s.multiple)) return { kind: 'derived_multiple' }
   if (isBase && driveBase && isNum(liveBlend)) return { kind: 'live_blend', blend: liveBlend }
   const frozen = isNum(s.frozenLevel) ? s.frozenLevel : (isNum(s.levelOverride) ? s.levelOverride : null)
@@ -550,6 +608,20 @@ export function traceBlend(methods: MethodLever[], b: BlendResult, labelFor: (k:
 
 export function traceScenarioCell(s: DraftScenario, cs: ScenarioCellState, published: PlaygroundDraft['published'], labelFor: (k: string) => string = (k) => k): Trace {
   const src = s.drivers ? `run-recorded drivers: ${s.drivers}` : null
+  if (cs.kind === 'derived_chain' && s.chain) {
+    const c = s.chain
+    const parts = [`EV ${fmt(c.ev, 0)}`]
+    if (isNum(c.netDebt)) parts.push(`− net debt ${fmt(c.netDebt, 0)}`)
+    if (isNum(c.minority)) parts.push(`− minority ${fmt(c.minority, 0)}`)
+    if (isNum(c.other) && c.other !== 0) parts.push(`+ other ${fmt(c.other, 0)}`)
+    return {
+      title: `${s.label} — computed from the recorded chain`,
+      formula: `(${parts.join(' ')}) ÷ shares ${fmt(c.shares, 2)} = ${fmt(cs.chainValue)}`,
+      terms: c.statedDrivers.map((sd) => ({ label: sd.label, calc: `${sd.value ?? '—'}${sd.note ? ` · ${sd.note}` : ''}` })),
+      note: c.statedDrivers.length ? 'stated drivers are the assumptions behind the recorded figures — shown for provenance; their mapping was not recorded, so the editable levers are the chain figures themselves' : 'edit the chain figures — the fair value recomputes from them',
+      source: c.source ?? src,
+    }
+  }
   if (cs.kind === 'derived_multiple') {
     return { title: `${s.label} — computed from your inputs`, formula: `forward metric ${fmt(s.forwardMetric)} × multiple ${fmt(s.multiple)}`, terms: [], source: src }
   }
