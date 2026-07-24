@@ -331,8 +331,12 @@ export interface ComputedScenario {
   neededImpact?: number | null
   marginBasis?: string | null   // 'revenue_constant' → margin computed at unchanged revenue (no rev coefficient)
   metricNote?: string | null    // set when the coefficient is on a metric ≠ base metric (level/margin withheld)
-  // set by the route, not the engine: the sidecar's base period, when the question asked about a period this
-  // single-period scenario cannot forecast (the parse's period_note flag → a canned card/context line)
+  // set by the route, not the engine: TRUE when the question asked about a period this single-period
+  // scenario cannot forecast (the parse's period_note flag). The warning is gated on THIS flag, not on
+  // periodBase — a future-period question must carry the "not a forecast" disclaimer even when the
+  // sidecar records no base_period (Codex #335 r3644942615).
+  periodNote?: boolean | null
+  // the sidecar's base period when known (decorates the note); may be null while periodNote is true
   periodBase?: string | null
   // set on the first card of a multi-variable answer
   note?: string | null
@@ -438,7 +442,7 @@ export function computedContextBlock(payload: ComputedPayload): string {
   if (s.basis === 'inferred') lines.push('- Basis: INFERRED (derived by the orb, not disclosed in filings) — say "Inference, not from filings" and lower confidence accordingly (§3).')
   if (s.withinDisclosedRange === false) lines.push(`- CAUTION: ${s.rangeNote || 'the move is beyond the orb\'s disclosed range — a rough extrapolation'}.`)
   if (s.nonLinearity) lines.push(`- Non-linearity to mention: ${s.nonLinearity}`)
-  if (s.periodBase) lines.push(`- NOTE: the question asks about a period this scenario does not forecast — these numbers are a single-period scenario on the ${s.periodBase} base, not a multi-year forecast. Say so.`)
+  if (s.periodNote) lines.push(`- NOTE: the question asks about a period this scenario does not forecast — these numbers are a single-period scenario${s.periodBase ? ` on the ${s.periodBase} base` : ' on an unstated base period'}, not a multi-year forecast. Say so.`)
   lines.push('Narrate THIS result in plain English. Use these numbers verbatim; do NOT recompute or change them. Cite the source shown, and carry the confidence, basis, and any caution/non-linearity note into your answer.')
   return lines.join('\n')
 }

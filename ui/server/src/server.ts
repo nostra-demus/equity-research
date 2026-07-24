@@ -1711,7 +1711,7 @@ app.post('/api/chat', async (req, reply) => {
               if (v.omitted > 0) noteParts.push(`${v.omitted} more asked variable${v.omitted === 1 ? '' : 's'} beyond the ${v.plans.length} computed here — ask ${v.omitted === 1 ? 'it' : 'them'} separately.`)
               if (noteParts.length) scenario.note = noteParts.join(' ')
             }
-            if (pr!.periodNote) scenario.periodBase = loaded.sidecar.base_period ?? null
+            if (pr!.periodNote) { scenario.periodNote = true; scenario.periodBase = loaded.sidecar.base_period ?? null }
             const payload = { kind: 'scenario' as const, asked: last.content, scenario }
             send({ type: 'chat-computed', payload })
             blocks.push(computedContextBlock(payload))

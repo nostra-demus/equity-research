@@ -177,11 +177,24 @@ await (async () => {
     assert.equal(s!.newValue, 33014)
     assert.ok(near(s!.newMarginPct, 15.874, 0.01))
     assert.equal(s!.withinDisclosedRange, true)
-    // the period flag flows into the context block as a canned line
-    s!.periodBase = NHY.base_period ?? null
+    // the period flag flows into the context block as a canned line (mirrors the server route: periodNote
+    // gates the disclaimer; periodBase decorates it)
+    s!.periodNote = true; s!.periodBase = NHY.base_period ?? null
     const block = computedContextBlock({ kind: 'scenario', asked: q, scenario: s! })
     assert.ok(/single-period scenario on the FY2025 base/.test(block))
     assert.ok(/do NOT recompute/i.test(block))
+  })
+  // Codex #335 r3644942615: a future-period question must carry the "not a forecast" disclaimer even when
+  // the sidecar records NO base_period. The warning is gated on periodNote, NOT on periodBase being truthy
+  // (§ anti-false-confidence: a single-period number may never be presented as a multi-year forecast
+  // without the disclaimer). RED on the old code (gated on periodBase → null → no line); GREEN on the new.
+  await check('period disclaimer survives an absent base_period (periodNote gates it, not periodBase)', () => {
+    const s = { variable: 'v', delta: 1, coefficient: 1, impact: 1, periodNote: true, periodBase: null } as any
+    const block = computedContextBlock({ kind: 'scenario', asked: 'ebitda in 2027?', scenario: s })
+    assert.ok(/single-period scenario on an unstated base period/.test(block), 'disclaimer must appear even with null base_period')
+    assert.ok(/not a multi-year forecast/.test(block))
+    // and it must NOT fabricate a base period name
+    assert.ok(!/on the null base/.test(block))
   })
   await check('regression (comma thousands): "rises by $1,000/mt" → +1000 → +15,000', async () => {
     const v = validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 1000 }] }, 'what if aluminium rises by $1,000/mt', NHY)
