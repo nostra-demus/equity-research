@@ -552,8 +552,19 @@ a { color: inherit; }
 .chatpanel__computed-row .rd { font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; color: var(--accent-bright); }
 .chatpanel__computed-prov { padding: 8px 12px; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint); line-height: 1.55; border-top: 1px solid var(--hairline); background: var(--bg-2); }
 .chatpanel__computed-prov .src { color: var(--text-muted); }
-.chatpanel__computed-warn { padding: 8px 12px; font-size: 11.5px; color: var(--accent-bright); background: var(--accent-wash-soft); border-top: 1px solid var(--hairline); line-height: 1.5; }
-.chatpanel__computed-foot { padding: 7px 12px; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--hairline); line-height: 1.5; }
+.chatpanel__computed-prov summary { cursor: pointer; list-style: none; }
+.chatpanel__computed-prov summary::-webkit-details-marker { display: none; }
+.chatpanel__computed-prov .more { margin-left: 6px; color: var(--accent-deep); border: 1px solid var(--hairline-strong); border-radius: var(--r-pill); padding: 0 6px; font-size: 9.5px; white-space: nowrap; }
+.chatpanel__computed-prov[open] .more { color: var(--accent-bright); }
+.chatpanel__computed-prov .full { margin-top: 6px; color: var(--text-muted); }
+/* the one line that must never be missed — promoted (amber wash + accent border), no longer competing
+   with boilerplate footers */
+.chatpanel__computed-warn { display: flex; gap: 8px; padding: 9px 12px; font-size: 12px; font-weight: 500; color: var(--accent-bright); background: var(--accent-wash); border-top: 1px solid var(--accent-deep); line-height: 1.5; }
+/* the parse's interpretation, printed back ("Read as …") — the visible contract that a misread is never silent */
+.chatpanel__computed-echo { display: flex; gap: 8px; align-items: flex-start; padding: 8px 12px; border-bottom: 1px solid var(--hairline); background: var(--bg-2); font-size: 11.5px; color: var(--text-muted); line-height: 1.5; }
+.chatpanel__computed-echo .k { flex-shrink: 0; font-size: 9.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--accent-deep); padding-top: 1px; }
+.chatpanel__computed-echo b { color: var(--text); font-weight: 600; }
+.chatpanel__computed-echo .fixit { color: var(--text-faint); }
 .chatpanel__computed-refuse { padding: 11px 12px; font-size: 12.5px; color: var(--text-muted); line-height: 1.55; }
 .chatpanel__computed-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 9px; }
 .chatpanel__computed-chip { font-family: var(--font-mono); font-size: 11px; color: var(--accent-bright); background: var(--accent-wash-soft); border: 1px solid var(--hairline-strong); padding: 2px 8px; border-radius: var(--r-pill); }

@@ -2165,10 +2165,11 @@ export const useStore = create<State>((set, get) => ({
         },
         onDone: () => set({ chatStreaming: false, chatWork: null }),
         onError: (msg) => {
-          // drop the empty assistant bubble if nothing streamed (thinking alone doesn't save it), then
-          // surface the error + retry
+          // drop the empty assistant bubble if nothing streamed (thinking alone doesn't save it) — but a
+          // bubble carrying engine-computed what-if cards SURVIVES: those numbers came from the calculator,
+          // not the model, so a failed narration turn must not erase them. Then surface the error + retry.
           const msgs = get().chatMessages.slice()
-          if (msgs[idx]?.role === 'assistant' && msgs[idx].content === '') msgs.splice(idx, 1)
+          if (msgs[idx]?.role === 'assistant' && msgs[idx].content === '' && !msgs[idx].computed?.length) msgs.splice(idx, 1)
           set({ chatMessages: msgs, chatStreaming: false, chatWork: null, chatError: msg })
         },
       },

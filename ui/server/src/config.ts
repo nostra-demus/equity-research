@@ -454,6 +454,11 @@ export const CHAT = {
   // model's reasoning live while the user waits — real thought process, not a fabricated status. 0 turns
   // thinking off (capNum treats 0 as unset, so parse it directly); a host-set MAX_THINKING_TOKENS wins.
   thinkingTokens: (() => { const n = Number(process.env.ENGINE_CHAT_THINKING_TOKENS); return Number.isFinite(n) && n >= 0 ? Math.floor(n) : 6_000 })(),
+  // Wall-clock cap on one what-if PARSE call (chat-whatif.ts): the parse runs on the SAME model the
+  // panel's selector picked for the turn (one selector, one model — no separate parser knob), but as a
+  // deliberately small call — this tight timeout plus thinking disabled. Past it → no card, the turn
+  // proceeds as a normal closed-book answer.
+  parserTimeoutMs: capNum(process.env.ENGINE_CHAT_PARSER_TIMEOUT_MS, 25_000),
 }
 
 // ---- autonomous news ingester (screener swarm) ----

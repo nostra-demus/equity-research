@@ -53,7 +53,7 @@ import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
-import { classifyWhatIf, computePlan, computedContextBlock, detectWhatIf, loadSidecar } from './chat-whatif'
+import { computePlan, computedContextBlock, detectWhatIf, loadSidecar, parseWhatIf, recordedList, validateIntents } from './chat-whatif'
 import { deleteConversation, getConversation, isValidConversationId, listConversations, recordAssistantMessage, recordUserMessage } from './chat-store'
 import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
@@ -1677,26 +1677,42 @@ app.post('/api/chat', async (req, reply) => {
   try {
     if (detectWhatIf(last.content)) {
       const loaded = loadSidecar(runRoot)
-      const plan = loaded ? classifyWhatIf(last.content, loaded.sidecar) : null
-      if (plan?.kind === 'unsupported') {
-        // an honest refusal card (unrecorded variable, a joint ask, or a target the sidecar can't support)
-        const payload = { kind: 'unsupported' as const, asked: last.content, recorded: plan.recorded, reason: plan.reason }
-        send({ type: 'chat-computed', payload }); computedBlock = computedContextBlock(payload)
-      } else if (plan && loaded) {
-        // 'modeling' shows ONLY once a recorded variable matched — never a flicker on a run without a sidecar.
-        // A joint ask computes each leg SEPARATELY (they don't simply add) — one card per variable.
+      if (loaded) {
+        // 'modeling' covers the whole parse→compute span; runs without a sidecar never reach here (no flicker).
         send({ type: 'chat-status', stage: 'modeling' })
-        const plans = plan.kind === 'multi' ? plan.plans : [plan]
-        const blocks: string[] = []
-        for (const pl of plans) {
-          const scenario = await computePlan(loaded.sidecar, pl)
-          if (!scenario) continue
-          if (plan.kind === 'multi' && blocks.length === 0) scenario.note = `${plans.length} variables — shown separately; they don't simply add (FX also carries a separate one-off).`
-          const payload = { kind: 'scenario' as const, asked: last.content, scenario }
-          send({ type: 'chat-computed', payload })
-          blocks.push(computedContextBlock(payload))
+        // The PARSE: a small constrained call on the SAME model the panel picked for this turn — thinking
+        // off + a tight timeout, so it stays a ~1-2s interpretation step, never a second full turn. The
+        // model only interprets; validateIntents rejects anything it invents; the engine computes.
+        const parserCall = async (system: string, user: string) => {
+          let out = ''
+          const r = await runChatTurn({
+            system, user, model, signal: ac.signal,
+            timeoutMs: CHAT.parserTimeoutMs, thinkingTokens: 0,
+            onToken: (t) => { out += t },
+          })
+          return r.error ? null : out
         }
-        if (blocks.length) computedBlock = blocks.join('\n\n───\n\n')
+        const pr = await parseWhatIf(last.content, loaded.sidecar, parserCall)
+        const v = pr ? validateIntents(pr, last.content, loaded.sidecar) : null
+        if (v?.plans.length) {
+          // a joint ask computes each leg SEPARATELY (they don't simply add) — one card per variable
+          const blocks: string[] = []
+          for (const pl of v.plans) {
+            const scenario = await computePlan(loaded.sidecar, pl)
+            if (!scenario) continue
+            if (v.plans.length > 1 && blocks.length === 0) scenario.note = `${v.plans.length} variables — shown separately; they don't simply add (FX also carries a separate one-off).`
+            if (pr!.periodNote) scenario.periodBase = loaded.sidecar.base_period ?? null
+            const payload = { kind: 'scenario' as const, asked: last.content, scenario }
+            send({ type: 'chat-computed', payload })
+            blocks.push(computedContextBlock(payload))
+          }
+          if (blocks.length) computedBlock = blocks.join('\n\n───\n\n')
+        } else if (v?.refusal) {
+          // an honest refusal card (unrecorded variable, or a target the sidecar can't support) — never a number
+          const payload = { kind: 'unsupported' as const, asked: last.content, recorded: recordedList(loaded.sidecar), reason: v.refusal }
+          send({ type: 'chat-computed', payload }); computedBlock = computedContextBlock(payload)
+        }
+        // pr null (parse failed/CLI absent) or no plans+no refusal → normal closed-book answer, no card
       }
     }
   } catch { /* any what-if failure degrades to a normal closed-book answer, never a 500 */ }

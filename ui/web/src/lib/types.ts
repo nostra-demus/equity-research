@@ -1280,6 +1280,7 @@ export interface ComputedScenario {
   neededImpact?: number | null    // reverse mode: the base-metric change required
   marginBasis?: string | null     // 'revenue_constant' → margin computed at unchanged revenue
   metricNote?: string | null      // coefficient on a metric ≠ base metric (level/margin withheld)
+  periodBase?: string | null      // set when the question asked about a period this single-period scenario can't forecast — the sidecar's base period (canned card note)
   note?: string | null            // set on the first card of a multi-variable answer
 }
 export type ChatComputed =
