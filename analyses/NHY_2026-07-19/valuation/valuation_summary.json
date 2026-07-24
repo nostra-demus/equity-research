@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "ticker": "NHY",
   "as_of": "2026-07-19",
   "currency": "NOK",
@@ -33,7 +33,28 @@
       "forward_metric": null,
       "multiple": null,
       "level": 45.12,
-      "drivers": "Structural reset: aluminium price reverts to 2023-2025 realized band and Extrusions decline continues; multi-year impairment path priced today"
+      "drivers": "Structural reset: aluminium price reverts to 2023-2025 realized band and Extrusions decline continues; multi-year impairment path priced today",
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 114095,
+        "net_debt": 17919,
+        "minority": 7495,
+        "other": null,
+        "shares": 1965.28,
+        "stated_drivers": [
+          {
+            "label": "terminal Adj. EBITDA margin",
+            "value": "9.0%",
+            "note": "impaired-FCFF runoff input — its mapping to EV is shown in 07 §3's snippet but not yet a recorded lever model"
+          },
+          {
+            "label": "declining perpetuity growth",
+            "value": "-1.0%",
+            "note": "runoff TV assumption (WACC 7.5%)"
+          }
+        ],
+        "source": "07 §3 structural-reset snippet: Runoff EV 35,712 + 78,383 = 114,095; − net debt 17,919 (01 canonical, cash-quality adjusted) − minority 7,495 = equity 88,681; ÷ shares 1,965.28 = 45.12"
+      }
     }
   ],
   "methods": {
