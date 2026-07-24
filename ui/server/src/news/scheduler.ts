@@ -288,13 +288,29 @@ function anthropicHasHeadroom(now = Date.now()): boolean {
 }
 
 /**
+ * Can the LOCAL tier absorb backlog RIGHT NOW? Only meaningful when local is PRIMARY: NEWS.localProvider is
+ * set exactly then, and in that mode local is deliberately NOT in overflowProviders (config.buildOverflow-
+ * Providers), so overflowHasHeadroom cannot see it. A DEMOTED local rejoins that array and is already
+ * covered there — hence the localProvider guard rather than a flat "is local enabled".
+ * Local is unlimited and $0 (no request/token/usd ceiling), so the only gate is a failure cooldown.
+ * Omitting it was a real drain-gate hole: with local primary and every cloud tier spent, budgetHasHeadroom
+ * and anthropicHasHeadroom both returned false, so the 60s drain never ran — even though the one tier with
+ * NO ceiling could have cleared the entire backlog.
+ */
+function localHasHeadroom(now = Date.now()): boolean {
+  if (!NEWS.localProvider) return false
+  return !isCoolingDown(STATE_DIR, 'local', now)
+}
+
+/**
  * The DRAIN gate: is there ANY tier that can score a batch right now? The free-tier budget check
- * (budgetHasHeadroom) OR the Haiku last-resort still having room. Kept separate from budgetHasHeadroom
- * because that predicate ALSO gates the Groq-bound heal + idea passes, which the paid last-resort must
- * not turn on — only the backlog drain (which routes through every tier, Haiku included) may.
+ * (budgetHasHeadroom), the unlimited LOCAL tier when it is primary, OR the Haiku last-resort still having
+ * room. Kept separate from budgetHasHeadroom because that predicate ALSO gates the Groq-bound heal + idea
+ * passes, which the paid last-resort must not turn on — only the backlog drain (which routes through every
+ * tier, local and Haiku included) may.
  */
 function drainHasHeadroom(now = Date.now()): boolean {
-  return budgetHasHeadroom(now) || anthropicHasHeadroom(now)
+  return budgetHasHeadroom(now) || localHasHeadroom(now) || anthropicHasHeadroom(now)
 }
 
 export interface NewsStatus {
