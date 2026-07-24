@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "ticker": "NHY",
   "as_of": "2026-07-19",
   "currency": "NOK",
@@ -33,7 +33,34 @@
       "forward_metric": null,
       "multiple": null,
       "level": 45.12,
-      "drivers": "Structural reset: aluminium price reverts to 2023-2025 realized band and Extrusions decline continues; multi-year impairment path priced today"
+      "drivers": "Structural reset: aluminium price reverts to 2023-2025 realized band and Extrusions decline continues; multi-year impairment path priced today",
+      "derivation": {
+        "model": "margin_runoff_dcf",
+        "ev": 114095,
+        "margin": 0.09,
+        "growth": -0.01,
+        "da": 11500,
+        "capex": 8500,
+        "tax": 0.3,
+        "dnwc": 0,
+        "revenue_base": 228071,
+        "wacc": 0.075,
+        "pv_factor": 0.72221,
+        "pv_explicit": 35712,
+        "metric_label": "terminal Adj. EBITDA margin",
+        "net_debt": 17919,
+        "net_debt_basis": "cash-quality adjusted (01 canonical — not the top-level broad 13,090)",
+        "minority": 7495,
+        "shares": 1965.28,
+        "stated_drivers": [
+          {
+            "label": "cyclical-trough alternative",
+            "value": "11.5% margin → 46.43",
+            "note": "a separate recorded model in 07 §3, not a point on this runoff curve"
+          }
+        ],
+        "source": "07 §3 structural-reset snippet: 228,071 × 9.0% = 20,526 EBITDA → EBIT 9,026 → NOPAT 6,318 → FCFF 9,318 → TV 9,318×0.99/0.085 = 108,533 → PV ×0.72221 = 78,383 → EV 35,712 + 78,383 = 114,095; − net debt 17,919 − minority 7,495 = 88,681; ÷ 1,965.28 = 45.12"
+      }
     }
   ],
   "methods": {
