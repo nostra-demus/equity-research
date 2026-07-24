@@ -228,7 +228,11 @@ export function ValuationPlayground() {
 
           {(draft.wacc !== null || draft.rf !== null || draft.beta !== null) && (
             <div className="vpg__section">
-              <div className="vpg__sectitle">Discount rate (WACC)</div>
+              <div className="vpg__sectitle">Discount rate (WACC) — sanity check</div>
+              {/* These fields VALIDATE (the k_d ≤ WACC < k_e band below); they never recompute a value. The
+                  WACC that moves a number is the DCF's own lever: Method mix → DCF ▸. Said in-UI because two
+                  WACC fields with different jobs is otherwise a guaranteed confusion (user feedback). */}
+              <div className="vpg__note">Checks only — these power the validity band below and never move a valuation. To see WACC move the fair value, open <b>Method mix → DCF ▸</b>.</div>
               <div className="vpg__grid">
                 <Field label="Risk-free" value={draft.rf} onChange={(n) => setTop({ rf: n })} title="e.g. 0.042 for 4.2%" />
                 <Field label="ERP" value={draft.erp} onChange={(n) => setTop({ erp: n })} />
@@ -308,14 +312,22 @@ export function ValuationPlayground() {
                   )}
                   {out.blendActive
                     ? <span className="vpg__note--warn"> Driving the base case — the returns above use this blend, not the frozen base.</span>
-                    : draft.driveBaseFromMix && <span className="vpg__note--warn"> No weighted method to blend — the base case keeps the published level; the returns above do NOT use the mix.</span>}
+                    : draft.driveBaseFromMix
+                      ? <span className="vpg__note--warn"> No weighted method to blend — the base case keeps the published level; the returns above do NOT use the mix.</span>
+                      : delta !== null && Math.abs(delta) >= 0.005
+                        ? <span> The returns above still use the frozen base — tick <b>Drive base from mix</b> to flow this blend into them.</span>
+                        : null}
                 </div>
               </div>
             )
           })()}
 
           <div className="vpg__section">
-            <div className="vpg__sectitle">Scenarios — {hasEditableMultiples ? 'forward metric × multiple' : hasLevers ? 'levels — method-blend (edit a level directly, or reweight the method mix above)' : 'levels (this run predates the levers emission)'}</div>
+            <div className="vpg__sectitle">Scenarios — {hasEditableMultiples ? 'forward metric × multiple' : hasLevers ? 'levels — method-blend (edit a level directly, reweight the mix above, or open a method’s ▸ assumptions)' : 'levels (this run predates the levers emission)'}</div>
+            {/* A blend run (like NHY) records NO per-scenario metric×multiple — its bull/base/bear came from
+                the method blend, so there is no P/E or EV/EBITDA pair to edit per scenario (AMZN's run has
+                one and shows those columns). The multiples that DO exist for a blend run live in the ▸
+                panels above: the peers NTM EV/EBITDA and the SOTP segment multiples. */}
             <div className="vpg__scenhead">
               <span>Case</span><span>Prob %</span>{hasEditableMultiples ? (<><span>Fwd metric</span><span>Multiple</span></>) : <span>Fair value</span>}<span>Level</span><span>Return</span>
             </div>

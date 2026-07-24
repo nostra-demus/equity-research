@@ -124,9 +124,10 @@
 /* ---- v1.1 per-method sub-levers (P-C): the ▸ disclosure + typed-field sub-panels ---- */
 .vpg__mixlabel { display: inline-flex; align-items: center; gap: 5px; min-width: 0; }
 .vpg__disc {
-  width: 15px; height: 15px; flex-shrink: 0; display: grid; place-items: center;
-  font-size: 9px; color: var(--text-faint); border-radius: 3px; cursor: pointer;
-  transition: color var(--dur-fast), background var(--dur-fast);
+  width: 20px; height: 20px; flex-shrink: 0; display: grid; place-items: center;
+  font-size: 13px; color: var(--text-muted); border: 1px solid var(--hairline);
+  border-radius: 4px; cursor: pointer;
+  transition: color var(--dur-fast), background var(--dur-fast), border-color var(--dur-fast);
 }
 .vpg__disc:hover { color: var(--accent-bright); background: var(--accent-wash); }
 .vpg__disc--open { color: var(--accent-bright); }
