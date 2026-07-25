@@ -20,7 +20,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { lookupSource } from './sources/approved-domains'
-import { readFeed } from './feed'
+import { findFeedItemById, readFeed } from './feed'
 import { cleanText } from './clean'
 import { storyFloor, isFilingEvent, type StoryFloorInput } from './story-floor'
 import { SEC_FORM_TOKENS, lookupSecForm, parseEdgarFilingHeadline, tidyFilerName } from './sec-forms'
@@ -909,10 +909,18 @@ export interface EnrichInput {
   companies?: CompanyGuess[]
   event_types?: string[]
   scope?: string
+  // The wire row's own `ts`, passed through by the client. A LOOKUP HINT ONLY — it picks which day-file
+  // to open when the recent-window scan misses; the event_id match still decides what counts as the
+  // record, so a wrong hint can only fail to find it (never point enrichment at a different event).
+  ts?: string
 }
 export interface EnrichDeps {
   repoRoot: string
   stateDir: string
+  // Google Drive archive mount (config NEWS.newsArchiveDir). The wire searches it, so the reader must
+  // too: without it, an event whose day has been pruned from the local inbox loses its stored record —
+  // its RSS lede, its story cluster, its filing nature — and degrades to a bare-headline read.
+  archiveDir?: string
   fetchFn?: typeof fetch
   now?: () => Date
   sleep?: (ms: number) => Promise<void>
@@ -1162,8 +1170,21 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   let dedupGroup = '' // the story-cluster id — other outlets carrying the SAME story (alternate-outlet read)
   let feedItems: ReturnType<typeof readFeed>['items'] = []
   try {
-    feedItems = readFeed(deps.repoRoot, 2, { now, maxItems: 2000 }).items
-    const stored = feedItems.find((it) => it.event_id === input.event_id)
+    // The recent wire — the pool the alternate-outlet and related-events lanes draw their SIBLINGS from.
+    // Archive-aware so a pruned day still contributes.
+    feedItems = readFeed(deps.repoRoot, 2, { now, maxItems: 2000, archiveDir: deps.archiveDir }).items
+    // The event's OWN record. Looking for it inside that capped recent window was the bug: the wire shows
+    // matches from the whole archive, but this window holds only the newest 2,000 items of the last two
+    // days — so a busy day's own mid-list events, and anything older, were never found. Everything the
+    // record carries was then silently lost: the RSS lede (`snippet`) that IS the article body for the
+    // large share of the wire whose publisher blocks server fetches, the dedup_group that finds another
+    // outlet running the same story, and the input_nature/source_tier that tell a filing from an article.
+    // The reader then had nothing but the headline to restate — for an item whose full text was on disk.
+    // So: use the window when it has the record (free), and fall back to a targeted, budgeted, archive-
+    // aware lookup when it doesn't.
+    const stored =
+      feedItems.find((it) => it.event_id === input.event_id) ||
+      findFeedItemById(deps.repoRoot, input.event_id, { now, archiveDir: deps.archiveDir, tsHint: input.ts })
     if (stored) {
       dedupGroup = (stored as any).dedup_group || ''
       url = (stored.url || '').trim()
