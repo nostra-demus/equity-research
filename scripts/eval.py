@@ -662,6 +662,33 @@ def eval_am_bear_case_sanity(decision_date, decision, scenarios, entry_price):
                 f"entry_price {entry_price} — no genuine downside branch (§8 strongest-bear-case; §16)"]
     return []
 
+# ── Check AR (§8 mirror of AM) — a Short Candidate must have a real loss branch for the short ──
+AR_DATE = "2026-07-25"
+def eval_ar_short_bull_case_sanity(decision_date, decision, scenarios, entry_price):
+    """Check AR: the short-side mirror of check AM. A "Short Candidate" decision must carry a genuine
+    bull case — the bull-labelled scenario's price_target ABOVE entry_price (a real squeeze/upside branch
+    that is a genuine LOSS to the short position). A "bull" scenario that is itself at or below entry (no
+    loss to the short) fails §8's strongest-bull-case test applied to the short's own disconfirming
+    direction — the exact mirror of the EMAAR_2026-07-03 bear-case defect check AM guards against on the
+    long side. Without this, a Short Candidate could ship with an all-downside scenario set that never
+    prices the risk of being wrong, silently violating §8's symmetric-disconfirmation requirement for the
+    one decision type check AM does not cover. Returns None (pre-gate / not a Short Candidate / no usable
+    bull price target) or a list of violations (empty = pass)."""
+    if not (isdate(decision_date) and decision_date >= AR_DATE):
+        return None
+    if decision != "Short Candidate":
+        return None
+    if not (isinstance(scenarios, list) and isinstance(entry_price, (int, float)) and not isinstance(entry_price, bool) and entry_price > 0):
+        return None
+    bull = next((s for s in scenarios if isinstance(s, dict) and "bull" in str(s.get("label", "")).lower()), None)
+    if not bull or not isinstance(bull.get("price_target"), (int, float)) or isinstance(bull.get("price_target"), bool):
+        return None  # no usable bull price target to test
+    if bull["price_target"] <= entry_price:
+        return [f"Short Candidate but the bull-case price target {bull['price_target']} is not above "
+                f"entry_price {entry_price} — no genuine upside/squeeze branch, i.e. no real loss to the "
+                f"short (§8 strongest-bull-case; mirror of check AM)"]
+    return []
+
 # ── Check AO (§19 / DECISION_LEDGER §6 forecast RESOLVABILITY) — a forecast the calibration loop can score ──
 AO_DATE = "2026-07-18"
 # The mechanically-verifiable subset of resolvability (the full semantic requirement — outcome-space
@@ -2293,6 +2320,27 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AM({dt_!r},{dec_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
     bad+=ambad
 
+    # check AR — bull-case sanity (§8, mirror of AM). A Short Candidate whose bull price target is at/below entry has no loss branch for the short.
+    arbad=0
+    _SCEN_SHORT_LOSS=[{"label":"Bull","price_target":22.0},{"label":"Base","price_target":15.0}]      # bull above entry -> real squeeze/loss-to-short
+    _SCEN_SHORT_NOLOSS=[{"label":"Bull case","price_target":11.0},{"label":"Base","price_target":9.0}] # bull at/below entry -> no real upside branch
+    arcases=[  # (decision_date, decision, scenarios, entry_price, expect)
+        ("2026-07-24","Short Candidate",_SCEN_SHORT_NOLOSS,12.2,None),                        # predates AR_DATE → N/A
+        ("2026-07-25","Watchlist",_SCEN_SHORT_NOLOSS,12.2,None),                              # not a Short Candidate → N/A
+        ("2026-07-25","Short Candidate",_SCEN_SHORT_LOSS,12.2,[]),                            # real upside/squeeze branch → pass
+        ("2026-07-25","Short Candidate",_SCEN_SHORT_NOLOSS,12.2,["no genuine upside/squeeze branch"]), # bull not above entry → FAIL
+        ("2026-07-25","Short Candidate",[{"label":"Base","price_target":9.0}],12.2,None),     # no bull scenario → N/A
+        ("2026-07-25","Short Candidate",_SCEN_SHORT_LOSS,None,None),                          # no entry price → N/A
+    ]
+    for dt_,dec_,sc_,ep_,exp in arcases:
+        got=eval_ar_short_bull_case_sanity(dt_,dec_,sc_,ep_)
+        if exp is None: ok=(got is None)
+        elif not exp: ok=(isinstance(got,list) and len(got)==0)
+        else: ok=(isinstance(got,list) and len(got)>0 and all(any(s in v for v in got) for s in exp))
+        if not ok: arbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] AR({dt_!r},{dec_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+    bad+=arbad
+
     # check AO — forecast resolvability (§19). Pinned/settleable + partitioned triggers, and a ≤90-day proof point.
     aobad=0
     _fc_good={"confirmation_trigger":"Q1 EBITDA margin at or below 12.0%","falsification_trigger":"Q1 margin at or above 12.3%","time_window":"August 2026"}
@@ -2372,7 +2420,7 @@ if scope=="selftest":
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(aocases)} check-AO cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -3254,6 +3302,16 @@ for drp in runs:
         add("AM_bear_case_sanity",False,"; ".join(_amresult))
     else:
         add("AM_bear_case_sanity",True,"bear-case price target is below entry_price — a genuine downside branch")
+    # AR bull-case sanity (§8, mirror of AM): a Short Candidate must have a bull price target above entry
+    # — a genuine loss branch for the short, so a short thesis cannot ship all-downside and skip §8's
+    # symmetric-disconfirmation requirement the way check AM already forbids on the long side.
+    _arresult=eval_ar_short_bull_case_sanity(ddte,d.get("decision"),d.get("scenarios"),d.get("entry_price"))
+    if _arresult is None:
+        add("AR_bull_case_sanity",True,"not a post-gate Short Candidate with a usable bull price target — N/A",na=True)
+    elif _arresult:
+        add("AR_bull_case_sanity",False,"; ".join(_arresult))
+    else:
+        add("AR_bull_case_sanity",True,"bull-case price target is above entry_price — a genuine upside/squeeze branch (a real loss to the short)")
     # AO forecast-resolvability (§19 / DECISION_LEDGER §6): every forecast must be mechanically scorable
     # (pinned numeric bar or named settleable document, partitioned triggers) and the record must carry a
     # near-term (≤90-day) proof point — so the calibration loop can actually resolve it.
@@ -3350,7 +3408,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
  ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3","Label the cycle position of the EBITDA","the **strict** basis (CLAUDE.md §15)"],
  ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap","benchmarked against BOTH a peer-normal margin"],
- ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types","eval_aq_forensic_mosaic_cap","Cross-module forensic mosaic"],
+ ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types","eval_aq_forensic_mosaic_cap","Cross-module forensic mosaic","eval_ar_short_bull_case_sanity","genuine loss to the short"],
  ".claude/agents/catalyst/MODULE_RULES.md":["§17 Catalyst Discipline","Catalyst Category Checklist","No proven catalyst yet"],
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
@@ -3374,7 +3432,7 @@ FRAMEWORK_CONTRACTS={
  "scripts/market_prices.py":["data/_market","close_on","total_return","beta_adjusted_excess","raw_excess_pct","beta_adjusted_excess_pct","available","as_of","date,symbol,close"],
  "frameworks/MARKET_FEED.md":["date,symbol,close","_symbols.json","beta_adjusted_excess","close_on","EXTERNAL_DATA"],
  "frameworks/EXTERNAL_DATA.md":["data/_market","market_prices.py","beta-adjusted","tracking_price","date,symbol,close"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_FTYPE_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date","eval_ap_valuation_summary_integrity","scan_committed"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_FTYPE_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","eval_ar_short_bull_case_sanity","AR_DATE","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date","eval_ap_valuation_summary_integrity","scan_committed"],
 
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
