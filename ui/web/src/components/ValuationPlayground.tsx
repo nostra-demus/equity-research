@@ -250,20 +250,24 @@ export function ValuationPlayground() {
   }
 
   // t = a trace id: the Playground value becomes a clickable ƒ cell whose derivation opens as a strip below
-  const CmpRow = ({ label, gloss, sys, pg, isPct = true, t }: { label: string; gloss?: string; sys: number | null; pg: number | null; isPct?: boolean; t?: string }) => (
-    <div className="vpg__cmprow">
-      <span className="vpg__cmplabel">{label}{gloss && <span className="vpg__cmpgloss"> {gloss}</span>}</span>
-      <span className="vpg__cmpsys mono" style={{ color: isPct ? tone(sys) : undefined }}>{isPct ? fmtPct(sys) : fmtN(sys)}</span>
-      <span className="vpg__cmparrow" aria-hidden>→</span>
-      {t ? (
-        <button className="vpg__cmppg vpg__cmpbtn mono" style={{ color: isPct ? tone(pg) : undefined }} onClick={() => toggleTrace(t)} aria-expanded={openTrace === t} title="Show how this number is worked out">
-          {isPct ? fmtPct(pg) : fmtN(pg)}
-        </button>
-      ) : (
-        <span className="vpg__cmppg mono" style={{ color: isPct ? tone(pg) : undefined }}>{isPct ? fmtPct(pg) : fmtN(pg)}</span>
-      )}
-    </div>
-  )
+  // invertTone: for a metric where HIGHER is worse (e.g. downside risk), flip which sign reads as bad/good.
+  const CmpRow = ({ label, gloss, sys, pg, isPct = true, t, invertTone = false }: { label: string; gloss?: string; sys: number | null; pg: number | null; isPct?: boolean; t?: string; invertTone?: boolean }) => {
+    const toneOf = invertTone ? (n: number | null | undefined) => (typeof n !== 'number' ? 'var(--text-faint)' : n <= 0 ? 'var(--accent-bright)' : 'var(--bad)') : tone
+    return (
+      <div className="vpg__cmprow">
+        <span className="vpg__cmplabel">{label}{gloss && <span className="vpg__cmpgloss"> {gloss}</span>}</span>
+        <span className="vpg__cmpsys mono" style={{ color: isPct ? toneOf(sys) : undefined }}>{isPct ? fmtPct(sys) : fmtN(sys)}</span>
+        <span className="vpg__cmparrow" aria-hidden>→</span>
+        {t ? (
+          <button className="vpg__cmppg vpg__cmpbtn mono" style={{ color: isPct ? toneOf(pg) : undefined }} onClick={() => toggleTrace(t)} aria-expanded={openTrace === t} title="Show how this number is worked out">
+            {isPct ? fmtPct(pg) : fmtN(pg)}
+          </button>
+        ) : (
+          <span className="vpg__cmppg mono" style={{ color: isPct ? toneOf(pg) : undefined }}>{isPct ? fmtPct(pg) : fmtN(pg)}</span>
+        )}
+      </div>
+    )
+  }
 
   return (
     <motion.div className="vpg" initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
@@ -343,7 +347,7 @@ export function ValuationPlayground() {
                 </div>
                 <CmpRow label="What you'd make" gloss="expected return" sys={sysExp} pg={pgExp} t="exp" />
                 <CmpRow label="Price below fair value by" gloss="margin of safety" sys={dec?.margin_of_safety_pct ?? null} pg={out.math.marginOfSafetyPct} t="mos" />
-                <CmpRow label="How far it could fall" gloss="downside risk — higher is worse" sys={dec?.downside_risk_pct ?? null} pg={out.math.downsideRiskPct} t="down" />
+                <CmpRow label="How far it could fall" gloss="downside risk — higher is worse" sys={dec?.downside_risk_pct ?? null} pg={out.math.downsideRiskPct} t="down" invertTone />
                 <CmpRow label="Reward per unit of risk" gloss="risk / reward" sys={null} pg={out.math.riskReward} isPct={false} t="rr" />
                 <CmpRow label="Worth if things go well" gloss="bull" sys={sysLevel('bull')} pg={pgLevel('bull')} isPct={false} />
                 <CmpRow label="Worth, most likely" gloss="base" sys={sysLevel('base')} pg={pgLevel('base')} isPct={false} />
@@ -693,6 +697,11 @@ function ChainStrip({ s, chain, level, fallbackShares, onEdit, onOverride }: {
   const isRunoff = chain.model === 'margin_runoff_dcf'
   const detached = isRunoff && typeof chain.evOverride === 'number'
   const ev = chainEv(chain)
+  // Local text state (same pattern as Field/TableInput, see the comment by numToStr): binding the input
+  // straight to `ev` swallowed intermediate keystrokes ("-", ".", a decimal in progress) because those parse
+  // to null, evOverride resets, and the input snaps to the computed value mid-edit.
+  const [evLocal, setEvLocal] = useState<string>(numToStr(ev))
+  useEffect(() => { if (parseNum(evLocal) !== ev) setEvLocal(numToStr(ev)) }, [ev]) // eslint-disable-line react-hooks/exhaustive-deps
   // editing a runoff lever RE-ATTACHES the model (clears a typed-EV detach) — same rule as the ▸ panels
   const lever = (patch: Partial<DraftChain>) => onEdit({ ...patch, evOverride: null })
   return (
@@ -719,7 +728,7 @@ function ChainStrip({ s, chain, level, fallbackShares, onEdit, onOverride }: {
           <span className="vpg__cellov">
             <label className="vpg__field" title={detached ? 'Your own figure — the model above is switched off; edit a field above (or ↺) to switch it back on' : 'Worked out from the fields above — typing here switches the model off'}>
               <span className="vpg__fieldlabel">Whole company {detached ? '(yours)' : '(worked out ƒ)'}</span>
-              <input className="vpg__input mono" inputMode="decimal" value={ev ?? ''} onChange={(e) => { const t = e.target.value.trim(); const n = t === '' ? null : Number(t); onEdit({ evOverride: Number.isFinite(n as number) ? (n as number) : null }) }} aria-label={`${s.label} enterprise value`} />
+              <input className="vpg__input mono" inputMode="decimal" value={evLocal} onChange={(e) => { setEvLocal(e.target.value); onEdit({ evOverride: parseNum(e.target.value) }) }} aria-label={`${s.label} enterprise value`} />
             </label>
             {detached && <button className="vpg__relock" title="Switch the model back on (drop your figure)" onClick={() => onEdit({ evOverride: null })}>↺</button>}
           </span>
