@@ -582,4 +582,17 @@ check('the explain trace says the keyword was read as a company, rather than cla
   assert.match(miss.checks.find((c) => c.clause === 'text')!.detail, /not about Amazon/i, 'the miss names what the symbol was read as')
 })
 
+// An alias-only reading (no ticker, no name) is a valid query shape — companyClauseSet honours a non-empty
+// alias list (see feed-filter.ts, the `aliases ALONE` note), so it reaches the explain trace's hit branch.
+// The trace must NAME what it read the keyword as, never render the literal string "undefined": the sibling
+// miss branch already falls back with `|| '?'`, and the hit branch must do the same (fall back to the alias).
+check('the explain trace never prints "the company undefined" for an alias-only reading', () => {
+  const named = item({ ts: NOW.toISOString(), headline: 'Foobar Corp prices a bond', companies: [] })
+  const r = explainFeedFilterMatch(named, { text: 'zzz', textAs: [{ aliases: ['Foobar Corp'] }] })
+  const c = r.checks.find((c) => c.clause === 'text')
+  assert.equal(r.matched, true, 'the alias reading still matches the item')
+  assert.doesNotMatch(c!.detail, /the company undefined/i, 'an alias-only reading must not print "undefined"')
+  assert.match(c!.detail, /read as the company Foobar Corp/i, 'it falls back to the alias spelling')
+})
+
 console.log(`\ncompany-filter.test.ts: ${passed} passed`)
