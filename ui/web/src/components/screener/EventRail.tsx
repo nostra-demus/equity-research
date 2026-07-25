@@ -22,7 +22,8 @@ import { extractCommodities, extractSectors } from '../../lib/taxonomy'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
 import { archiveFiltersActive, emptyFilters, FeedFilters, filtersActive, gicsEmptyMessage, keywordReadAsNote, matchesFilters, resolveKeywordCompanies, type FeedFilterState } from './FeedFilters'
-import { api, type ArchiveQuery } from '../../lib/api'
+import { api, type ArchiveQuery, type CompanyFacet } from '../../lib/api'
+import { archiveErrorSentence } from '../../lib/archiveError'
 import { FeedbackMenu } from './FeedbackMenu'
 import { ScanStatus } from './ScanStatus'
 import type { ReportMenuAnchor } from '../ActivityReportMenu'
@@ -280,6 +281,8 @@ export function EventRail() {
   const archiveCursor = useStore((s) => s.scArchiveCursor)
   const archiveScannedThrough = useStore((s) => s.scArchiveScannedThrough)
   const archiveExhausted = useStore((s) => s.scArchiveExhausted)
+  const archiveError = useStore((s) => s.scArchiveError)
+  const activeArchiveQuery = useStore((s) => s.scArchiveQuery)
   const facets = useStore((s) => s.scFacets)
   const runArchiveSearch = useStore((s) => s.scRunArchiveSearch)
   const loadMoreArchive = useStore((s) => s.scLoadMoreArchive)
@@ -340,7 +343,21 @@ export function EventRail() {
   // however each headline spells it, instead of only the minority of items whose tag carries the symbol.
   // Derived from filters.text (never user state), and lives HERE rather than inside FeedFilters because that
   // panel is collapsed by default: a derivation inside it would go stale the moment the filters are hidden.
-  const textAs = useMemo(() => resolveKeywordCompanies(filters.text, facets?.companies || []), [filters.text, facets?.companies])
+  //
+  // Keyed on the facet's CONTENT, not the array identity. `scFacets` is replaced by every facets response,
+  // so an identity dep made this recompute on each one — a new `textAs` array, a new `archiveQuery` object,
+  // and (because the search effect below depended on that object) another search+facets round, whose
+  // response replaced `scFacets` again. That closed a loop: 19 archive-facet calls in 50 seconds of an
+  // IDLE rail, each a full-archive scan, which is what kept the engine saturated enough for the 15s request
+  // budget to lapse. The content signature is stable across identical responses, so the cycle cannot start.
+  const companyFacetKey = useMemo(
+    () => (facets?.companies || []).map((c) => `${c.ticker || ''}|${c.name}`).join('\n'),
+    [facets?.companies],
+  )
+  const companyFacetsRef = useRef<CompanyFacet[]>([])
+  companyFacetsRef.current = facets?.companies || []
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- companyFacetKey IS the content of the ref's value
+  const textAs = useMemo(() => resolveKeywordCompanies(filters.text, companyFacetsRef.current), [filters.text, companyFacetKey])
   const readAsNote = keywordReadAsNote(filters.text, textAs)
   const archiveQuery = useMemo<ArchiveQuery>(() => ({
     themes: filters.themes.size ? [...filters.themes] : undefined,
@@ -361,10 +378,23 @@ export function EventRail() {
   const archiveKey = JSON.stringify(archiveQuery)
   // fire the search when the filter changes (debounced so typing in the search box doesn't spam the server);
   // an empty filter returns the rail to LIVE mode. The store guards against a stale slow response winning.
+  //
+  // Depends on `archiveKey` — the query's CONTENT — never on the `archiveQuery` object identity. A memo
+  // upstream of it re-runs whenever the facets response lands, so an identity dep re-fired this effect on
+  // the store write its own request caused: a self-sustaining search loop (see companyFacetKey above). The
+  // query itself rides in a ref, so the fetch always sends the current filter without the identity dep.
+  const archiveQueryRef = useRef(archiveQuery)
+  archiveQueryRef.current = archiveQuery
+  // Is what's on screen the answer to the filter that's on screen? During the debounce (and while the
+  // request is in flight) the results still belong to the PREVIOUS filter — usually an empty list, which
+  // the empty-state would otherwise present as a settled "genuinely nothing matches <the new filter>"
+  // before a single byte had been searched. The store stamps scArchiveQuery when a search starts, so this
+  // is true only once the current filter's own search has begun.
+  const archivePending = archiveMode && (archiveLoading || JSON.stringify(activeArchiveQuery) !== archiveKey)
   useEffect(() => {
-    const id = setTimeout(() => { void runArchiveSearch(archiveMode ? archiveQuery : {}) }, 220)
+    const id = setTimeout(() => { void runArchiveSearch(archiveMode ? archiveQueryRef.current : {}) }, 220)
     return () => clearTimeout(id)
-  }, [archiveKey, archiveMode, archiveQuery, runArchiveSearch])
+  }, [archiveKey, archiveMode, runArchiveSearch])
   // populate the Geography dropdown from the ARCHIVE (every country that has any archived match), not the
   // loaded window — so "United Arab Emirates" appears even when nothing is in the last two days.
   useEffect(() => { void loadFacets({}) }, [loadFacets])
@@ -683,14 +713,17 @@ export function EventRail() {
             ))}
           </select>
         </div>
-        {/* honest scope line: in archive mode say plainly that we are reading ALL history, and how far back */}
+        {/* honest scope line: in archive mode say plainly that we are reading ALL history, and how far back.
+            A search that FAILED says so here first — it never gets to claim a horizon it never reached. */}
         {archiveMode && (
-          <div className="evscope__meaning evrail__archline" aria-live="polite">
-            {archiveLoading
+          <div className={`evscope__meaning evrail__archline${archiveError ? ' evrail__archline--bad' : ''}`} aria-live="polite">
+            {archivePending
               ? 'Searching all history…'
-              : archiveScannedThrough
-                ? `Searched all history back to ${dateLabel(archiveScannedThrough)}${archiveExhausted ? '' : ' (more loads as you scroll)'}`
-                : 'Searching the whole archive — not just the last two days.'}
+              : archiveError
+                ? `The search didn’t finish — ${archiveError}.`
+                : archiveScannedThrough
+                  ? `Searched all history back to ${dateLabel(archiveScannedThrough)}${archiveExhausted ? '' : ' (more loads as you scroll)'}`
+                  : 'Searching the whole archive — not just the last two days.'}
           </div>
         )}
         {/* say plainly when a typed keyword was read as a ticker, so the wider set is never unexplained */}
@@ -749,9 +782,23 @@ export function EventRail() {
         {!visibleGroups.length && !(archiveMode && archiveCursor) && (
           <div className="evrail__empty">
             {archiveMode
-              ? archiveLoading
+              ? archivePending
                 ? 'Searching all history…'
-                : `Searched all history${archiveScannedThrough ? ` back to ${dateLabel(archiveScannedThrough)}` : ''} — genuinely nothing matches ${filterSummary || 'these filters'}. This is the WHOLE archive, not just the last two days.`
+                : archiveError
+                  ? (
+                    // A failed search is NOT an empty archive. Saying "genuinely nothing matches AMZN" when the
+                    // request never completed is a false claim of absence — and the one the reader acts on.
+                    <>
+                      <span className="evrail__emptybad">Couldn’t finish the search — so we don’t know what’s there.</span>
+                      <br />
+                      {archiveErrorSentence(archiveError)} Nothing has been ruled out for {filterSummary || 'these filters'}.
+                      <br />
+                      <button type="button" className="evrail__retry" onClick={() => void runArchiveSearch(archiveQueryRef.current)}>
+                        Try again
+                      </button>
+                    </>
+                  )
+                  : `Searched all history${archiveScannedThrough ? ` back to ${dateLabel(archiveScannedThrough)}` : ''} — genuinely nothing matches ${filterSummary || 'these filters'}. This is the WHOLE archive, not just the last two days.`
               : gicsEmptyLine
               ? gicsEmptyLine
               : broadActive || filtersActive(filters) || (subjectMode && subjectSel.size > 0)

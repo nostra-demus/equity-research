@@ -111,6 +111,27 @@ function firehosePath(repoRoot: string, date: string): string {
   return path.join(repoRoot, 'screener', 'inbox', `${date}_firehose.ndjson`)
 }
 
+/** A cheap identity for one day's firehose FILE: which copy answered (local inbox or the cloud archive),
+ *  its size, and its mtime. Two calls returning the same stamp are guaranteed to read the same bytes, so a
+ *  caller can cache the PARSED form of a day and re-derive it only when the file actually changes. Null
+ *  when the day is on neither disk (a real gap). Never throws — a stat failure just means "no stamp", and
+ *  a caller that can't stamp a day simply re-parses it (correct, only slower).
+ *
+ *  Why this exists: every archive-spanning read (searchFeed, the facets index) walks the SAME hundreds of
+ *  day files and re-parses each one from scratch. Only TODAY's file is still being appended to; every older
+ *  day is immutable. Stamping lets the expensive consumer (news/facets.ts) skip the immutable 99%. */
+export function firehoseStamp(repoRoot: string, date: string, archiveDir = ''): string | null {
+  const candidates = [firehosePath(repoRoot, date)]
+  if (archiveDir) candidates.push(path.join(archiveDir, `${date}_firehose.ndjson`))
+  for (const fp of candidates) {
+    try {
+      const st = fs.statSync(fp)
+      return `${fp}|${st.size}|${st.mtimeMs}`
+    } catch { /* not this copy — try the archive */ }
+  }
+  return null
+}
+
 /** Read one day's firehose text — local inbox first, then the cloud archive (Drive mount) after a local
  *  prune. Returns null when the day is on neither (a real gap, or never ingested). Never throws. */
 function readFirehoseText(repoRoot: string, date: string, archiveDir: string): string | null {

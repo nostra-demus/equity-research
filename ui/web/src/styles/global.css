@@ -2618,6 +2618,23 @@ a { color: inherit; }
 @media (prefers-reduced-motion: no-preference) {
   .evrail__readas, .wirewindow--readas { animation: readas-in 180ms cubic-bezier(0.23, 1, 0.32, 1) both; }
 }
+/* A search that did NOT complete. It reads as a fault, not as a result — the whole point is that the reader
+   can tell "we couldn't look" apart from "we looked and there is nothing". Same line, inverted meaning, so
+   it takes the alert colour and drops the accent dot that says "reading all history". */
+.evrail__archline--bad { color: var(--bad); }
+.evrail__archline--bad::before { background: var(--bad); }
+.evrail__emptybad { color: var(--bad); font-weight: 600; }
+.evrail__retry {
+  margin-top: 10px; padding: 5px 11px; border-radius: 7px; font: inherit; font-size: 11px; font-weight: 600;
+  color: var(--accent-bright); background: transparent; border: 1px solid color-mix(in srgb, var(--accent-bright) 34%, transparent);
+  cursor: pointer; transition: background-color 140ms cubic-bezier(0.23, 1, 0.32, 1), transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .evrail__retry:hover { background: color-mix(in srgb, var(--accent-bright) 12%, transparent); }
+}
+.evrail__retry:active { transform: scale(0.97); }
+@media (prefers-reduced-motion: reduce) { .evrail__retry { transition: none; } }
+
 /* bottom paging sentinel for the whole-history scroll */
 .evrail__more { padding: 14px 18px 18px; text-align: center; font-size: 10px; color: var(--text-faint); letter-spacing: 0.2px; }
 

@@ -8,7 +8,7 @@
 // each facet excludes its OWN dimension (so "if I pick this country, N results"). The free-text filter is
 // not a facet dimension and is ignored here. Build is bounded (days + lines) so it can't run away.
 
-import { listFirehoseDates, readDayItems } from './feed'
+import { firehoseStamp, listFirehoseDates, readDayItems } from './feed'
 import { gicsOf, GICS_SECTORS, gicsSubSectorsFor } from './gics'
 import { COUNTRIES, GEO_REGIONS, regionOfCountry } from './geography'
 import { topicLabel } from './topics'
@@ -96,43 +96,84 @@ const MAX_LINES = 1_500_000
 // keyed by repoRoot|archiveDir so distinct repos (and tests) never share an index
 const cache = new Map<string, { rows: FacetRow[]; builtThroughDate: string | null; builtAt: number }>()
 
+// PER-DAY parse cache, keyed by repoRoot|archiveDir|date and validated against the file's own identity
+// (path + size + mtime — news/feed.ts firehoseStamp). Every rebuild used to re-read and re-parse the WHOLE
+// archive: measured at 15.8s over a 29-day / 80k-item archive, which blew the cockpit's 15s request budget
+// and made a perfectly good search look like "genuinely nothing matches". Only TODAY's firehose file is
+// still being appended to; every older day is immutable, so a rebuild re-parses just the day(s) that
+// actually changed. The stamp is what makes this safe rather than merely fast: a changed file changes its
+// size/mtime, so a stale day can never survive — and a day we cannot stamp is simply re-parsed.
+const dayCache = new Map<string, { stamp: string; rows: FacetRow[] }>()
+
 const bandOf = (it: { band?: string; triage_score?: number }): string =>
   it.band || (typeof it.triage_score === 'number' ? (it.triage_score >= 70 ? 'pick' : it.triage_score >= 40 ? 'watch' : 'drop') : '')
+
+/** One day's items reduced to compact facet rows. Pure — the expensive part (read + JSON.parse + hydrate +
+ *  the gics/geo pass per item) that the per-day cache exists to skip. */
+function rowsForDay(repoRoot: string, date: string, archiveDir: string): { rows: FacetRow[]; lines: number } {
+  const { items, lines } = readDayItems(repoRoot, date, archiveDir)
+  const rows = items.map((it) => {
+    const g = gicsOf(it)
+    const country = it.country || null
+    return {
+      country,
+      geoRegion: regionOfCountry(country),
+      sectors: [...g.sectors],
+      subSectors: [...g.subSectors],
+      source: it.source_name || '',
+      themes: it.event_types || [],
+      size: it.size_bucket || 'unknown',
+      band: bandOf(it),
+      linkage: it.issuer_linkage || '',
+      scope: it.scope || '', // hydrate already ran in readDayItems, so these are always filled
+      commodities: it.commodities || [],
+      topics: it.topics || [], // derived on read in hydrate (news/topics.ts) — always an array
+      scheduledEvents: it.scheduled_events || [], // derived on read in hydrate (news/schedule.ts)
+      // scrubbed of country/agency/junk guesses (entities.ts) AND junk tickers ("NULL", CIK numbers —
+      // symbology.ts cleanTicker; hydrate already scrubs on read, this is the defensive twin) so the
+      // autofill only offers investable firms under real symbols
+      companies: filterCompanies(it.companies).map((c) => ({ ticker: cleanTicker(c.ticker), name: c.name, listingCountry: c.listing_country || null })),
+    }
+  })
+  return { rows, lines }
+}
 
 function buildRows(repoRoot: string, archiveDir: string, nowMs: number): { rows: FacetRow[]; builtThroughDate: string | null } {
   const dates = listFirehoseDates(repoRoot, archiveDir).slice(0, MAX_DAYS)
   const rows: FacetRow[] = []
   let lines = 0
   let builtThroughDate: string | null = null
+  const live = new Set<string>()
   for (const date of dates) {
-    const { items, lines: n } = readDayItems(repoRoot, date, archiveDir)
-    lines += n
-    if (items.length) builtThroughDate = date // dates are newest-first, so the last with data is the oldest
-    for (const it of items) {
-      const g = gicsOf(it)
-      const country = it.country || null
-      rows.push({
-        country,
-        geoRegion: regionOfCountry(country),
-        sectors: [...g.sectors],
-        subSectors: [...g.subSectors],
-        source: it.source_name || '',
-        themes: it.event_types || [],
-        size: it.size_bucket || 'unknown',
-        band: bandOf(it),
-        linkage: it.issuer_linkage || '',
-        scope: it.scope || '', // hydrate already ran in readDayItems, so these are always filled
-        commodities: it.commodities || [],
-        topics: it.topics || [], // derived on read in hydrate (news/topics.ts) — always an array
-        scheduledEvents: it.scheduled_events || [], // derived on read in hydrate (news/schedule.ts)
-        // scrubbed of country/agency/junk guesses (entities.ts) AND junk tickers ("NULL", CIK numbers —
-        // symbology.ts cleanTicker; hydrate already scrubs on read, this is the defensive twin) so the
-        // autofill only offers investable firms under real symbols
-        companies: filterCompanies(it.companies).map((c) => ({ ticker: cleanTicker(c.ticker), name: c.name, listingCountry: c.listing_country || null })),
-      })
+    const key = `${repoRoot}|${archiveDir}|${date}`
+    live.add(key)
+    // Reuse the parsed rows only when the file is byte-for-byte the one we parsed (same path, size and
+    // mtime). No stamp (the day vanished mid-walk, or stat failed) → parse it, and don't cache what we
+    // can't validate later.
+    const stamp = firehoseStamp(repoRoot, date, archiveDir)
+    const hit = stamp ? dayCache.get(key) : undefined
+    let dayRows: FacetRow[]
+    if (hit && hit.stamp === stamp) {
+      dayRows = hit.rows
+      lines += hit.rows.length // cached days count their ITEMS toward the budget (see below)
+    } else {
+      const built = rowsForDay(repoRoot, date, archiveDir)
+      dayRows = built.rows
+      lines += built.lines
+      if (stamp) dayCache.set(key, { stamp, rows: built.rows })
     }
+    if (dayRows.length) builtThroughDate = date // dates are newest-first, so the last with data is the oldest
+    for (const r of dayRows) rows.push(r)
+    // MAX_LINES is a runaway guard on how much archive one index build absorbs. A cached day contributes
+    // its row count rather than its raw line count (we no longer read the file to learn that); rows ≤ lines,
+    // so the guard stays conservative in the only direction that matters — it can bound a build slightly
+    // later, never let one run away.
     if (lines >= MAX_LINES) break
   }
+  // Bound the day cache: drop any day of THIS repo/archive that is no longer in the walked window (pruned,
+  // or past MAX_DAYS). Other repos' entries (tests, a second checkout) are left alone.
+  const prefix = `${repoRoot}|${archiveDir}|`
+  for (const k of dayCache.keys()) if (k.startsWith(prefix) && !live.has(k)) dayCache.delete(k)
   cache.set(`${repoRoot}|${archiveDir}`, { rows, builtThroughDate, builtAt: nowMs })
   return { rows, builtThroughDate }
 }
@@ -144,7 +185,11 @@ function getRows(repoRoot: string, archiveDir: string, now: () => Date): { rows:
   return buildRows(repoRoot, archiveDir, nowMs)
 }
 
-/** Drop the cached index — call from an ingest-cycle hook so a new day shows up before the TTL lapses. */
+/** Drop the cached index — call from an ingest-cycle hook so a new day shows up before the TTL lapses.
+ *  The PER-DAY parse cache is deliberately kept: it is keyed by each file's own identity, so it cannot go
+ *  stale (a cycle that appended to today's firehose changed that file's size/mtime, and only that day is
+ *  re-parsed). Keeping it is the whole point — an ingest cycle fires this every few minutes, and clearing
+ *  it would put every rebuild back on the full-archive re-parse this cache exists to avoid. */
 export function invalidateFacets(): void { cache.clear() }
 
 // row matches a filter (structured dims only; free text is not a facet dimension)
