@@ -1,0 +1,254 @@
+{
+  "schema_version": "1.0",
+  "ticker": "TSLA",
+  "run_root": "analyses/TSLA_2026-07-25",
+  "verified_at": "2026-07-25",
+  "verifier": "verify-evidence",
+  "final_thesis_path": "analyses/TSLA_2026-07-25/final_thesis.md",
+  "decision_record_path": "analyses/TSLA_2026-07-25/decision_record.json",
+  "claims_checked": 11,
+  "claim_checks": [
+    {
+      "claim": "Current price $319.69 (2026-07-23, pool-verified, last close)",
+      "citation": "valuation/01_price-and-capital-structure.md; Company Comparable Analysis Tesla Inc .xls, Financial Data tab",
+      "source_checked": "/tmp/corpus.txt (Company-Comparable-Analysis-Tesla-Inc__Financial-Data / __Trading-Multiples / __Implied-Valuation extracts)",
+      "status": "verified",
+      "evidence": "resolve_citations.py hit_count=8; direct row match: 'Tesla, Inc. (NasdaqGS:TSLA)\\t319.69\\t3949.5\\t1262630.8\\t-27444\\t-\\t661\\t1235847.8...' and repeated 'Share Price\\t319.69' rows",
+      "severity": "info"
+    },
+    {
+      "claim": "TTM GAAP EBITDA (Op. Income + D&A) = $10,849M, Jun-30-2026",
+      "citation": "balance-sheet-survival/01_capital-structure-and-leverage.md §2, referencing earnings/01_historical-financials.md §2 (company Update letters' operating income + CIQ Financials_Quarterly.xls D&A)",
+      "source_checked": "earnings/01_historical-financials.md computation + underlying inputs (Cash $15,219M, Total Debt $16,080M) verified in corpus",
+      "status": "verified",
+      "evidence": "$10,849M itself is a computed sum (not a single filed line item, correctly not literally present in the corpus, hit_count=0 as expected for a derived figure); both raw inputs it is built from are corpus-confirmed (Cash And Equivalents ...15219 at corpus lines 4330/34926/41367/42747; Total Debt ...16080 at corpus line 1996). The module explicitly discloses and reconciles a ~1% variance against CIQ's own vendor LTM EBITDA field ($10,755M) rather than silently using either figure alone -- correct EBITDA-provenance hygiene per CLAUDE.md §6/§15.",
+      "severity": "info"
+    },
+    {
+      "claim": "Net debt (canonical, broad-debt/strict-cash basis) = $861M = Total debt $16,080M − Cash $15,219M",
+      "citation": "balance-sheet-survival/01_capital-structure-and-leverage.md §6-7; Q2 FY26 10-Q balance sheet; CIQ Capital Structure Summary tab",
+      "source_checked": "/tmp/corpus.txt -- 'Total Debt\\t...\\t16080' (line 1996, 4392, 4494) and 'Cash And Equivalents\\t...\\t15219' (line 4330, 34926, 41367, 42747)",
+      "status": "verified",
+      "evidence": "Both raw inputs corpus-confirmed; 16,080 - 15,219 = 861, ties exactly. Correctly labeled 'strict' (cash-only netting) per CLAUDE.md §15, with the broad-cash net-cash figures ($27,444M / $34,182M, netting in short-term investments) shown alongside and separately labeled 'broad' -- proper §15 basis-label hygiene.",
+      "severity": "info"
+    },
+    {
+      "claim": "Net debt / EBITDA = 0.08x (canonical: $861M net debt / $10,849M TTM GAAP EBITDA)",
+      "citation": "balance-sheet-survival/01_capital-structure-and-leverage.md §7",
+      "source_checked": "Arithmetic recomputation",
+      "status": "verified",
+      "evidence": "861 / 10,849 = 0.0794, rounds to 0.08x. Ties.",
+      "severity": "info"
+    },
+    {
+      "claim": "China Working Capital Facility = $5,888M, fully drawn Jun-30-2026, ~63.0% of narrow gross debt ($9,342M)",
+      "citation": "balance-sheet-survival/01_capital-structure-and-leverage.md; CIQ Capital Structure Details tab; Q2 FY26 10-Q, Note 8",
+      "source_checked": "/tmp/corpus.txt -- 'China Working Capital Facility\\tRevolving Credit\\t...' rows and 'Total Revolving Credit ... 5888' progression",
+      "status": "verified",
+      "evidence": "resolve_citations.py hit_count=9 with matching context rows showing the drawn-amount progression 2740→4288→5888; 5,888 / 9,342 = 63.01%, ties to the cited 63.0%.",
+      "severity": "info"
+    },
+    {
+      "claim": "SBC unrecognized-expense pool for not-yet-probable CEO Performance Award tranches = $105.8bn–$120.4bn (precisely $105.82bn–$120.37bn), plus $9.82bn unrecognized for the now-probable tranche",
+      "citation": "earnings/03_margin-drivers.md §9; earnings/99_earnings-synthesis.md; management-governance chapters -- cited to 'FY26 Q2 10-Q, Note 9'",
+      "source_checked": "/tmp/corpus.txt (Tesla_Inc_-_Form_10-Q-Jul-23-2026.txt extract), lines ~45800-45825",
+      "status": "verified",
+      "evidence": "Found verbatim in the 10-Q Note 9 extract: '...we had unrecognized stock-based compensation expense of $9.82 billion for the operational milestone that was considered probable... As of June 30, 2026, we had unrecognized stock-based compensation expense of $105.82 billion to $120.37 billion for the operational milestones that were considered not probable of achievement.' Exact match, correctly rounded in every downstream module.",
+      "severity": "info"
+    },
+    {
+      "claim": "Short interest ~2.1% of shares outstanding, 'as of 2026-07-23'",
+      "citation": "final_thesis.md §9 Risk Register and §15 Evidence Used, citing '_pool_extracts/Short_Interest_12m_TSLA'",
+      "source_checked": "_pool_extracts/Short_Interest_12m_TSLA__Chart-1-with-Data.txt",
+      "status": "miscited",
+      "evidence": "The extract's actual value for 2026-07-23 is 0.0200299551083194 (= 2.00%), not 2.1%. The 2.1% figure (0.0210636510343175) belongs to 2026-07-20/21/22 (three prior trading days), not to the 2026-07-23 date the thesis attaches it to. A real figure, wrong date/value pairing.",
+      "severity": "low"
+    },
+    {
+      "claim": "Q2 FY2026 deliveries = 480,126 (+25% YoY, a fourth straight revenue/delivery beat)",
+      "citation": "earnings module; final_thesis.md §2, §6 Decision Audit Trail",
+      "source_checked": "/tmp/corpus.txt -- TSLA-Q2-2026-Update extract and CIQ Key Developments extract",
+      "status": "verified",
+      "evidence": "Corpus line 3352: 'Total deliveries ... 480,126 25%'; corpus line 7337 (CIQ Key Developments, 2026-07-02): 'Tesla, Inc. announced sales results for second quarter ended on June 30, 2026. For the quarter the company delivered 480,126 vehicles.' Exact match, two independent sources.",
+      "severity": "info"
+    },
+    {
+      "claim": "Sell-side consensus: mean target $409.81, median $440, range $125.00-$600.00, 39-40 analysts, Outperform (2.35/5)",
+      "citation": "final_thesis.md §4, §17; CIQ Estimates Report, Consensus tab, 2026-07-24",
+      "source_checked": "/tmp/corpus.txt (Tesla-IncNasdaqGSTSLAEstimatesReport extract)",
+      "status": "verified",
+      "evidence": "resolve_citations.py + direct read: 'Target Price\\t409.81\\t440\\t600.00/125.00\\t109.61\\t39/40\\t\\t1 - Buy\\t17...' -- mean, median, range, and analyst count all confirmed in one row.",
+      "severity": "info"
+    },
+    {
+      "claim": "TSLA LTM EV/EBITDA reconciled at 114.9x (vs CIQ's own internally inconsistent Trading Multiples tab showing 97.7x for the identical date/company)",
+      "citation": "valuation/03_relative-valuation-peers.md §4; Company Comparable Analysis Tesla Inc .xls (two tabs) + Tesla Inc NasdaqGS TSLA Financials_Annual.xls, Multiples tab",
+      "source_checked": "_pool_extracts/Company-Comparable-Analysis-Tesla-Inc__Trading-Multiples.txt and _pool_extracts/Tesla-Inc-NasdaqGS-TSLA-Financials_Annual__Multiples.txt",
+      "status": "verified",
+      "evidence": "97.7x found verbatim: 'Tesla, Inc. (NasdaqGS:TSLA)\\t11.9\\t97.7\\t288.9\\t296.1\\t14.5\\t11.15\\t71.31\\t167.6' (Trading Multiples tab). 114.9x found verbatim in a SECOND, independent CIQ export: 'TEV/LTM EBITDA -- Close' row ends '...120.024017\\t114.90914' (Financials_Annual Multiples tab, latest/2026-07-23 column). This is a genuine, disclosed vendor internal inconsistency correctly flagged per CLAUDE.md §20, not a silent pick of one figure -- both source figures independently confirmed.",
+      "severity": "info"
+    },
+    {
+      "claim": "Kill Criterion (final_thesis.md §10): 'Return on capital rises sustainably above the ~12.4% cost of capital' -- Module Source cited as 'business-model'",
+      "citation": "final_thesis.md §10, row citing `business-model/09_moat.md` ROIC tracking",
+      "source_checked": "business-model/09_moat.md §3",
+      "status": "miscited",
+      "evidence": "business-model/09_moat.md's own computed WACC is ~11.5% ('cost of equity ... WACC ≈ 11.5%. Inference, not from filings'), used throughout that module's ROIC-vs-WACC gap analysis. The 12.4% figure (12.38%, precisely) is the VALUATION module's separately-built DCF WACC (valuation/04_intrinsic-dcf.md §3), which is explicitly cross-checked and reconciled against business-model's 11.5% elsewhere in the dossier (a disclosed, in-tolerance ~0.9pp gap, per valuation/04 §3). The Kill Criteria table's 'Module Source' column attributes the 12.4% figure to business-model when that module's own stated number is 11.5% -- a genuine, if minor, citation/attribution mismatch layered on top of an otherwise-correctly-reconciled dual-WACC situation.",
+      "severity": "medium"
+    }
+  ],
+  "math_checks": [
+    {
+      "quantity": "Scenario probabilities sum",
+      "reported": "100%",
+      "recomputed": "25+20+25+20+10 = 100%",
+      "ties": true,
+      "detail": "Bull 25%, base 20%, bear_cyclical 25%, bear_structural 20%, tail_squeeze 10%. Ties."
+    },
+    {
+      "quantity": "Position-signed SHORT scenario returns",
+      "reported": "bull -5.13%, base +89.87%, bear_cyclical +93.46%, bear_structural +97.85%, tail_squeeze -30.56%",
+      "recomputed": "(319.69-336.08)/319.69=-5.13%; (319.69-32.37)/319.69=+89.88%; (319.69-20.90)/319.69=+93.46%; (319.69-6.86)/319.69=+97.85%; (319.69-417.40)/319.69=-30.56%",
+      "ties": true,
+      "detail": "All five recompute to the reported figures within rounding (base recomputes 89.88% vs reported 89.87%, a 0.01pp rounding difference)."
+    },
+    {
+      "quantity": "Probability-weighted expected return (SHORT)",
+      "reported": "+56.57%",
+      "recomputed": "0.25*(-5.13)+0.20*(89.87)+0.25*(93.46)+0.20*(97.85)+0.10*(-30.56) = 56.57%",
+      "ties": true,
+      "detail": "Direct-sum method ties exactly."
+    },
+    {
+      "quantity": "Probability-weighted target price",
+      "reported": "$138.83",
+      "recomputed": "0.25*336.08+0.20*32.37+0.25*20.90+0.20*6.86+0.10*417.40 = $138.83",
+      "ties": true,
+      "detail": "Ties exactly."
+    },
+    {
+      "quantity": "Expected-return reconciliation (two methods must tie, CLAUDE.md §10)",
+      "reported": "+56.57% (direct sum) = +56.57% (via weighted target)",
+      "recomputed": "(319.69-138.83)/319.69 = 56.57%",
+      "ties": true,
+      "detail": "Direct-sum expected return and weighted-target-price-derived expected return tie exactly, as CLAUDE.md §10 requires."
+    },
+    {
+      "quantity": "Risk/Reward (stress-tested, tail-squeeze as adverse ceiling)",
+      "reported": "1.85",
+      "recomputed": "56.57 / 30.56 = 1.852",
+      "ties": true,
+      "detail": "Ties (rounds to 1.85)."
+    },
+    {
+      "quantity": "Naive Risk/Reward (fundamentals-bull-case-only, disclosed as understating tail risk)",
+      "reported": "11.03",
+      "recomputed": "56.57 / 5.13 = 11.03",
+      "ties": true,
+      "detail": "Ties; correctly disclosed as NOT the headline number."
+    },
+    {
+      "quantity": "Margin of safety (base-case fair value basis)",
+      "reported": "-887.7%",
+      "recomputed": "(32.37-319.69)/32.37 = -887.7%",
+      "ties": true,
+      "detail": "Ties exactly."
+    },
+    {
+      "quantity": "EV bridge",
+      "reported": "EV $1,235,847.8mm",
+      "recomputed": "Market cap $1,262,630.8mm + net debt(-27,444, i.e. net cash, broad basis) + minority interest $661mm = $1,235,847.8mm",
+      "ties": true,
+      "detail": "Ties exactly to the CIQ Comparable-Analysis Financial-Data row. Market cap itself ties: 3,949,547,394 basic shares x $319.69 = $1,262,630.8mm."
+    },
+    {
+      "quantity": "Base-case fair value blend (peer 45% / SOTP 30% / DCF 25%)",
+      "reported": "$32.37",
+      "recomputed": "0.45*40.19 + 0.30*41.09 + 0.25*8.02 = $32.42",
+      "ties": true,
+      "detail": "Recomputed $32.42 vs reported $32.37 -- a 0.15% variance, within rounding tolerance given the underlying peer/SOTP/DCF inputs are themselves shown to 2 decimal places (likely built from unrounded intermediate values)."
+    },
+    {
+      "quantity": "Governance Score (raw, weighted composite)",
+      "reported": "43.3 -> 43",
+      "recomputed": "0.20*39+0.18*53+0.18*42+0.16*45+0.16*46+0.12*(100-68) = 7.80+9.54+7.56+7.20+7.36+3.84 = 43.30",
+      "ties": true,
+      "detail": "Weights sum to 1.00; ties exactly."
+    },
+    {
+      "quantity": "Confidence-Adjusted Governance Score",
+      "reported": "34",
+      "recomputed": "43 x 0.78 = 33.54, rounds to 34",
+      "ties": true,
+      "detail": "Ties (rounds)."
+    },
+    {
+      "quantity": "Headline Scorecard 'Suggested sizing' text vs decision_record.json sizing_hint.action (verbatim-match requirement, synthesizer.md §2, flagged by the run's own PROVISIONAL warning banner)",
+      "reported": "final_thesis.md §2: 'Small (paper) short; size to borrow/risk, not to the modeled reward -- see §11'",
+      "recomputed": "decision_record.json sizing_hint.action: 'short candidate -- initiate a (paper) short; size to borrow/risk'",
+      "ties": false,
+      "detail": "Confirmed: the two strings are NOT verbatim-identical (same substance -- small, defined-risk short, sized to risk not reward -- but different wording). The run's own finish-gate flagged this at commit time via the WARNING banner at the top of final_thesis.md, and the thesis was committed PROVISIONAL/UNVERIFIED rather than resolved. This is a real, reproducible process-integrity defect (self-disclosed, not hidden), not a fabrication -- the underlying investment stance is consistent between the two texts."
+    },
+    {
+      "quantity": "Warning banner's scenario-label claim ('bear' scenario / bear_cyclical / bear_structural / tail_squeeze 'missing from the sidecar')",
+      "reported": "final_thesis.md line 2 warning: decision_record scenarios bear_cyclical/bear_structural/tail_squeeze 'missing from the sidecar'; scenario 'bear' has no decision_record counterpart",
+      "recomputed": "decision_record.json 'scenarios' array actually contains all five: bull, base, bear_cyclical, bear_structural, tail_squeeze -- matching final_thesis.md §8's scenario table exactly by label and value; no scenario literally labeled 'bear' exists in the current final_thesis.md table",
+      "ties": false,
+      "detail": "This specific banner claim does not reconcile against the artifacts actually present in the run root: decision_record.json is NOT missing any of the three named scenarios, and no bare 'bear' label exists in the current thesis to be unmatched. 'The sidecar' the banner references is not present anywhere in analyses/TSLA_2026-07-25/ or data/TSLA/ -- likely an external Playground/UI artifact this auditor cannot inspect. Not assessable as a real defect from the run-root artifacts alone; flagged as a probably-stale warning-banner claim rather than confirmed against current content."
+    }
+  ],
+  "anchor_checks": [
+    {
+      "anchor": "Current price",
+      "values_by_module": {"final_thesis": "$319.69 (2026-07-23)", "decision_record": "$319.69 (entry_price_timestamp 2026-07-23)", "valuation/01": "$319.69, pool-verified, fresh", "valuation/99": "$319.69"},
+      "consistent": true,
+      "detail": "Identical across every module and the decision record."
+    },
+    {
+      "anchor": "Net debt (canonical, strict basis: broad-debt lease-inclusive minus cash & equivalents only)",
+      "values_by_module": {"balance-sheet-survival/01": "$861M net debt (strict)", "balance-sheet-survival/99": "$861M net debt", "final_thesis Chapter C": "$861M net debt, broad-debt/strict-cash basis", "valuation/01": "$0.22/share net debt (strict) = $861M / 3,949.5mm shares"},
+      "consistent": true,
+      "detail": "Identical everywhere it appears, and correctly labeled per CLAUDE.md §15 as the strict (cash-only netting) basis on broad (lease-inclusive) debt; the broad-cash net-CASH figures ($5,877M excl. leases; $27,444M/$34,182M incl. short-term investments) are separately, consistently labeled 'broad' each time they appear -- no mislabeling found."
+    },
+    {
+      "anchor": "TTM EBITDA basis",
+      "values_by_module": {"balance-sheet-survival/01": "GAAP $10,849M (canonical); Adjusted (non-GAAP) $15,322M shown alongside", "earnings/01": "GAAP $10,849M; CIQ vendor field $10,755M noted and reconciled (~1% gap explained)", "final_thesis": "$10,849M TTM EBITDA"},
+      "consistent": true,
+      "detail": "Same GAAP figure used consistently as the canonical EBITDA across modules; the Adjusted (non-GAAP) figure and the CIQ vendor variance are both shown alongside and explicitly reconciled, not silently substituted -- correct EBITDA-provenance hygiene (the single most commonly mis-sourced figure per CLAUDE.md §6)."
+    },
+    {
+      "anchor": "ROIC / WACC (cost of capital)",
+      "values_by_module": {"business-model/09_moat": "ROIC 2.75%-3.7% LTM vs WACC ~11.5% (CAPM estimate, labeled inference)", "valuation/04_intrinsic-dcf": "WACC 12.38% (CAPM estimate, labeled inference), explicitly cross-checked against business-model's 11.5% and found within the ~2pp tolerance (~0.9pp gap)", "final_thesis §4/§6": "ROIC 2.75%-3.7% vs cost of capital variously stated as ~11.5% (Chapter A) and ~12.4% (§3, §10 Kill Criteria)"},
+      "consistent": true,
+      "detail": "The two WACC estimates (11.5% business-model, 12.38% valuation) are a legitimate, disclosed dual-estimate situation, explicitly cross-checked and reconciled within tolerance in valuation/04 §3 -- not a silent conflict. However, final_thesis's own Kill Criteria table (§10) attributes the 12.4% figure to the business-model module by name, when that module's own text states 11.5% -- see claim_checks entry (miscited, medium severity). Marked consistent at the anchor level because the underlying dual-WACC methodology is reconciled; the citation-attribution slip is captured separately as a claim-level finding."
+    },
+    {
+      "anchor": "Enterprise value (EV)",
+      "values_by_module": {"valuation/01": "$1,235,847.8mm", "valuation/99": "$1,235,847.8mm", "final_thesis §6": "EV $1,235,847.8mm"},
+      "consistent": true,
+      "detail": "Identical everywhere; ties to the EV bridge (see math_checks)."
+    },
+    {
+      "anchor": "Share count basis",
+      "values_by_module": {"valuation/01 (market-cap / EV basis)": "3,949,547,394 (basic, cover-page/balance-sheet 'as of' count)", "valuation/01 (per-share fair-value basis)": "≈4,252.5mm (approximate fully diluted, TSM-proxy, labeled Inference not from filings)", "decision_record/final_thesis per-share figures": "consistent with the ≈4,252.5mm approximate-diluted basis"},
+      "consistent": true,
+      "detail": "Two different share-count bases are used, but for clearly different, correctly-labeled purposes (EV/market-cap uses the primary-source basic count per the module's stated 'Fully Diluted Equity Rule 1'; per-share fair values use the approximate-diluted TSM-proxy count, explicitly flagged as inference pending an options/RSU schedule). Not a conflict."
+    },
+    {
+      "anchor": "Governance score",
+      "values_by_module": {"management-governance/99": "43.3 raw (→43) / 34 confidence-adjusted", "decision_record.json": "governance_score 43.3 / confidence_adjusted_governance_score 34", "final_thesis §9b": "Governance Score 43.3/100 (raw) → Confidence-Adjusted Score 34/100"},
+      "consistent": true,
+      "detail": "Identical across all three; ties to the weighted-component recomputation (see math_checks)."
+    },
+    {
+      "anchor": "Critical red flags (RF-MGT-005, RF-SHR-002) and their cap treatment",
+      "values_by_module": {"management-governance/99": "2 Critical flags; governance rating capped at 'Weak'", "final_thesis §9b/§2": "Same 2 Critical flags; explicit doctrine reasoning for why they do not cap the Short-Candidate headline (would cap a LONG at Watchlist)", "decision_record.json": "red_flags array lists both as Critical; rating_cap field states 'None binding on Short Candidate' with the same reasoning"},
+      "consistent": true,
+      "detail": "Consistent flag IDs, severities, and cap reasoning across every artifact."
+    }
+  ],
+  "integrity_score": 78,
+  "verdict": "Minor issues",
+  "blocking_findings": [],
+  "notes": "This is a Short Candidate thesis, and the numbers most responsible for that call verify cleanly and with unusual rigor: the current price, the EV bridge, the canonical net-debt and TTM-EBITDA computations (with their underlying raw inputs), the reconciled dual CIQ EV/EBITDA figures (97.7x vs 114.9x), the SBC unrecognized-expense pool ($105.82bn-$120.37bn, found verbatim in the 10-Q extract), Q2 2026 deliveries, consensus targets, and all scenario/expected-return/risk-reward/margin-of-safety math all tie out exactly or within normal rounding tolerance. Two medium-severity findings and two low-severity findings keep this from a clean 'Clean' verdict: (1) final_thesis's Kill Criteria table misattributes the 12.4% cost-of-capital figure (which is the valuation module's DCF WACC) to the business-model module (whose own WACC is 11.5%) -- a citation-attribution slip layered on an otherwise well-reconciled dual-WACC methodology; (2) the run's own finish-gate flagged, and this audit confirms, that final_thesis.md's Headline Scorecard 'Suggested sizing' text is not verbatim-identical to decision_record.json's sizing_hint.action string (same substance, different wording) -- the thesis was committed PROVISIONAL/UNVERIFIED with this warning still attached rather than resolved before commit; (3) a secondary short-interest figure (2.1%) is dated to 2026-07-23 in the thesis but the pool's actual 2026-07-23 value is 2.00% (2.1% belongs to the three prior trading days) -- low severity, does not feed the rating; (4) the warning banner's separate claim about scenario labels missing from an external 'sidecar' does not reconcile against decision_record.json as it actually exists in this run root (which contains all five scenarios matching the thesis table) -- likely a stale claim about an artifact (a Playground/UI sidecar) not present in analyses/TSLA_2026-07-25/ or data/TSLA/ and therefore not independently checkable by this audit. None of these findings are high or critical, none involve a fabricated or unsupported rating-driving number, and none break the core scenario math -- hence Minor issues rather than Material issues. The single most important finding is #2 above: a self-flagged PROVISIONAL/UNVERIFIED banner remains live at the top of a committed final_thesis.md, and the specific mismatch it names (sizing text) is real, though non-substantive."
+}

@@ -1,0 +1,137 @@
+{
+  "schema_version": "1.2",
+  "ticker": "TSLA",
+  "as_of": "2026-07-24",
+  "currency": "USD",
+  "business_type": "Operating",
+  "basis": "ev",
+  "shares": 4252.5,
+  "net_debt": -27444,
+  "net_debt_basis": "broad",
+  "current_price": 319.69,
+  "price_as_of": "2026-07-23",
+  "price_state": "pool-verified",
+  "is_developed_mega_cap": true,
+  "scenarios": [
+    {
+      "label": "bull",
+      "forward_metric": 121946,
+      "metric_basis": "NTM Revenue",
+      "multiple": 11.50,
+      "level": 336.08,
+      "drivers": "Delivery beat of ~10% (within observed single-quarter swing range) AND the market continues to pay Tesla's own 5-year median NTM EV/Sales multiple (11.50x) — a persistence, not an expansion, of history [02_multiples-own-history.md §2; 07_scenario-and-fair-value.md §3]",
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 1402378,
+        "net_debt": -27444,
+        "net_debt_basis": "broad — total debt $16,080mm minus cash & ST investments $43,524mm [01_price-and-capital-structure.md §4]",
+        "minority": 661,
+        "other": 0,
+        "shares": 4252.5,
+        "source": "07_scenario-and-fair-value.md §3, executed calculation block (tsla_scenario.py)"
+      }
+    },
+    {
+      "label": "base",
+      "forward_metric": 110860,
+      "metric_basis": "NTM Revenue (consensus)",
+      "multiple": 1.00,
+      "level": 32.37,
+      "drivers": "Consensus NTM revenue is delivered; the market re-prices Tesla toward what its disclosed economics (peer-comparable margin/growth/leverage edge, no proven moat) warrant, rather than continuing to price unmonetized robotaxi/Optimus/FSD optionality [07_scenario-and-fair-value.md §3]",
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 110860,
+        "net_debt": -27444,
+        "net_debt_basis": "broad — total debt $16,080mm minus cash & ST investments $43,524mm [01_price-and-capital-structure.md §4]",
+        "minority": 661,
+        "other": 0,
+        "shares": 4252.5,
+        "source": "07_scenario-and-fair-value.md §3, executed calculation block (tsla_scenario.py)"
+      }
+    },
+    {
+      "label": "bear",
+      "forward_metric": null,
+      "metric_basis": null,
+      "multiple": null,
+      "level": 6.86,
+      "drivers": "Structural reset (headline bear, worse of two bear inputs): business-model/09_moat.md finds 'No moat proven' AND an explicitly 'eroding' trajectory (ROIC fell every year for 3 straight years), tripping the CLAUDE.md §24 Filter-5 structural-reset requirement. Uses 04_intrinsic-dcf.md's own declining/runoff terminal: terminal EBIT margin fades to 5.0% (below the 8.5% base-case terminal margin), D&A 8.0% of revenue, capex 6.5% of revenue, g=1.0% [04_intrinsic-dcf.md §5]. A secondary, less severe cyclical-trough bear ($20.90/share: NTM revenue $88,688mm x 0.70x NTM EV/Sales) is shown in the markdown as the nearer-term 12-month marker but is not the headline.",
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 30675,
+        "net_debt": 861,
+        "net_debt_basis": "strict — 07_scenario-and-fair-value.md §3 bear-case bridge note (departs from the broad top-level basis; this scenario is bridged per 01's canonical strict net-debt anchor since it is an EV-based structural reset, not an already-equity multiple)",
+        "minority": 661,
+        "other": 0,
+        "shares": 4252.5,
+        "source": "07_scenario-and-fair-value.md §3, executed calculation block; reproduces 04_intrinsic-dcf.md §5 declining/runoff terminal EV ($30,675mm)"
+      }
+    }
+  ],
+  "methods": {
+    "own_history": 286.5,
+    "peers": 40.19,
+    "dcf": 8.02,
+    "sotp": 41.09
+  },
+  "method_weights": {
+    "own_history": 0.0,
+    "peers": 0.45,
+    "dcf": 0.25,
+    "sotp": 0.30
+  },
+  "discount_rate": {
+    "rf": 0.047,
+    "erp": 0.043,
+    "beta": 1.80,
+    "cost_of_equity": 0.1244,
+    "wacc": 0.1238,
+    "after_tax_kd": 0.0444
+  },
+  "dcf_grid": {
+    "wacc": [0.1138, 0.1238, 0.1338],
+    "growth": [0.005, 0.010, 0.015],
+    "values": [
+      [9.23, 7.53, 6.12],
+      [9.84, 8.02, 6.51],
+      [10.52, 8.55, 6.94]
+    ],
+    "base": { "wacc": 0.1238, "growth": 0.010 },
+    "source": "04_intrinsic-dcf.md §7 (Sensitivity Grid)"
+  },
+  "sotp_segments": [
+    {
+      "segment": "Automotive",
+      "metric_name": "FY2026E segment revenue",
+      "metric": 91218,
+      "multiple": 1.2,
+      "comp": "Ford Motor Co. (NYSE:F) / General Motors Co. (NYSE:GM)",
+      "source": "06_sum-of-the-parts.md §2-3"
+    },
+    {
+      "segment": "Energy Generation and Storage",
+      "metric_name": "FY2026E segment revenue",
+      "metric": 14197,
+      "multiple": 2.5,
+      "comp": "Fluence Energy, Inc. (NasdaqGS:FLNC)",
+      "source": "06_sum-of-the-parts.md §2-3"
+    }
+  ],
+  "sotp_bridge": {
+    "net_debt": -27444,
+    "minority": 661,
+    "other": 3007,
+    "source": "06_sum-of-the-parts.md §4 (net cash broad basis +27,444; minority -661; SpaceX equity-stake add-back +3,007)"
+  },
+  "peers_internals": {
+    "metric_name": "NTM EV/Sales",
+    "median_multiple": 0.93,
+    "applied_multiple": 1.3,
+    "discount_pct": -40,
+    "anchors": [
+      { "multiple": 0.93, "value": 30.54, "label": "raw peer median (no premium)" },
+      { "multiple": 1.3, "value": 40.19, "label": "quality-adjusted base case (40% premium to median)" }
+    ],
+    "source": "03_relative-valuation-peers.md §5"
+  }
+}

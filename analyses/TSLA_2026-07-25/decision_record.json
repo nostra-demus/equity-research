@@ -1,0 +1,347 @@
+{
+  "schema_version": "1.0",
+  "ticker": "TSLA",
+  "company_name": "Tesla, Inc.",
+  "exchange": "NasdaqGS",
+  "currency": "USD",
+  "decision_date": "2026-07-25",
+  "run_root": "analyses/TSLA_2026-07-25",
+  "final_thesis_path": "analyses/TSLA_2026-07-25/final_thesis.md",
+  "decision": "Short Candidate",
+  "suggested_action": "Small, defined-risk short (long-dated puts / put spreads preferred over naked short stock); do not size as if the modeled downside ceiling were the true tail risk",
+  "paper_treatment": "Paper short",
+  "basket": "Short",
+  "entry_price": 319.69,
+  "entry_price_source": "valuation/01_price-and-capital-structure.md, CIQ last-close export (pool-verified)",
+  "entry_price_timestamp": "2026-07-23",
+  "benchmark": "S&P 500 (SPX)",
+  "sector_benchmark": "Global auto/EV peer basket (Ford, GM, BYD proxy)",
+  "time_horizon": "12 months (bull/base/bear-cyclical/tail-squeeze scenarios); headline structural-reset bear is a 24-36 month path",
+  "expected_return_pct": 56.57,
+  "downside_risk_pct": 30.56,
+  "margin_of_safety_pct": -887.7,
+  "risk_reward": 1.85,
+  "scenarios": [
+    {
+      "label": "bull",
+      "probability": 25,
+      "return_pct": -5.13,
+      "price_target": 336.08
+    },
+    {
+      "label": "base",
+      "probability": 20,
+      "return_pct": 89.87,
+      "price_target": 32.37
+    },
+    {
+      "label": "bear_cyclical",
+      "probability": 25,
+      "return_pct": 93.46,
+      "price_target": 20.9
+    },
+    {
+      "label": "bear_structural",
+      "probability": 20,
+      "return_pct": 97.85,
+      "price_target": 6.86
+    },
+    {
+      "label": "tail_squeeze",
+      "probability": 10,
+      "return_pct": -30.56,
+      "price_target": 417.4
+    }
+  ],
+  "confidence_score": 60.0,
+  "data_sufficiency_score": 76,
+  "confidence_inputs": {
+    "data_sufficiency": 76,
+    "corroboration": 75,
+    "evidence_tier": 70,
+    "staleness_penalty": 2,
+    "edge_score": 40,
+    "edge_proof_present": true,
+    "decision": "Short Candidate",
+    "expected_return_pct": 56.57,
+    "modules_absent": [],
+    "critical_governance_unresolved": false,
+    "catalyst_timing_weak": true,
+    "rating_cap_ceiling": null,
+    "downgrades": [
+      {
+        "type": "single_variable_dependency",
+        "points": 5,
+        "reason": "Bear case hinges almost entirely on the market re-pricing the autonomy narrative -- one dominant sentiment variable, undated"
+      },
+      {
+        "type": "valuation_model_risk",
+        "points": 5,
+        "reason": "DCF terminal value 125% of EV (valuation module confidence capped at 60); reverse-DCF and structural-reset bear are model-dependent, not directly observed"
+      }
+    ],
+    "calibration_haircut": 0
+  },
+  "analysis_confidence": 72.2,
+  "conviction": 60.0,
+  "sizing_hint": {
+    "band": "short-on",
+    "action": "short candidate — initiate a (paper) short; size to borrow/risk"
+  },
+  "confidence_breakdown": {
+    "analysis_confidence": 72.2,
+    "analysis_confidence_build": "0.5*dataSuff(76) + 0.25*corrob(75) + 0.25*tier(70) - stale(2) = 72.2",
+    "direction": "downside",
+    "documented_ceiling": 70.0,
+    "documented_ceiling_sources": [
+      100.0,
+      70.0,
+      100.0
+    ],
+    "unknown_absent_keys": [],
+    "direction_ceiling": 70.0,
+    "direction_ceiling_reason": "downside: min(documented 70, analysis_conf 72) — NOT edge-gated",
+    "understanding_capped_to_ceiling": 70.0,
+    "downgrades": [
+      {
+        "type": "single_variable_dependency",
+        "points": 5,
+        "reason": "Bear case hinges almost entirely on the market re-pricing the autonomy narrative -- one dominant sentiment variable, undated"
+      },
+      {
+        "type": "valuation_model_risk",
+        "points": 5,
+        "reason": "DCF terminal value 125% of EV (valuation module confidence capped at 60); reverse-DCF and structural-reset bear are model-dependent, not directly observed"
+      }
+    ],
+    "calibration_haircut": 0,
+    "downgrade_points_total": 10.0,
+    "conviction_hard_max": 85.0,
+    "conviction": 60.0,
+    "formula": "conviction = clamp( min( min(analysis_confidence, direction_ceiling) - sum(max(0,downgrades)) - max(0,calibration_haircut), direction_ceiling ), 0, hard_max )"
+  },
+  "rating_cap": "None binding on Short Candidate. RF-MGT-005 (Critical) and RF-SHR-002 (Critical) would cap a long-side rating at Watchlist per CLAUDE.md SS13/SS24 Filter 1; the doctrine's explicit Short Candidate carve-out for RF-MGT-005 is extended by analogy to RF-SHR-002, since both flags are evidence supporting this short, not the risk the cap exists to prevent.",
+  "thesis_type": [
+    "Company-specific",
+    "Sector-cycle"
+  ],
+  "variant_perception_summary": "Sell-side consensus and Tesla's own decade-long trading multiple already price a continuation of the autonomy/robotics optionality premium (mean target $409.81, +28.2% implied upside, FY2027-28 EPS consensus assuming 69-89% YoY growth with no disclosed segment economics). Three independently-built valuation methods (peer comps, sum-of-the-parts, DCF) converge near $32-41/share against a $319.69 price. The moat is not merely unproven but confirmed eroding (ROIC down every year for 3 years, 210-885bps below cost of capital), and an unresolved federal securities-fraud class action names the CEO personally on the exact autonomy claims the premium depends on, compounded by a board-enacted entrenchment sequence narrowing the legal tool that could hold him accountable. The catalyst that would force repricing is undated, which is why this is expressed as a small, defined-risk position rather than full conviction.",
+  "what_everyone_knows": "Tesla trades at an 800-2,300% premium to named auto peers across every headline multiple; bulls call it an AI/robotics platform, not a car company; sell-side consensus is itself bullish (Outperform, mean target $409.81, 39-40 analysts).",
+  "what_is_priced_in": "Consensus EPS estimates already assume 69% (FY2027) and 89% (FY2028) YoY growth acceleration; the price implies a 68.9% seven-year free-cash-flow CAGR, or capturing 75-100%+ of the entire global automotive industry by FY2032, with no historical precedent for any automaker.",
+  "what_market_may_be_missing": "The precise, quantified magnitude of the growth requirement (reverse-DCF market-ceiling test); that the moat is confirmed eroding, not merely absent (ROIC falling every year for 3 straight years); and the specific overlap between the unresolved securities-fraud litigation and the exact autonomy claims (Autopilot/FSD/Robotaxi) the valuation premium depends on, compounded by a governance entrenchment sequence that narrows the tool that could hold the CEO accountable on those same claims.",
+  "edge_score": 40,
+  "edge_proof": "If the motion to dismiss in the federal securities-fraud class action is denied and the case proceeds to discovery within 12 months, watch for TSLA's NTM EV/Sales multiple to compress from ~11.15x toward the peer/SOTP-implied range (~1.0-1.4x) over the following two to three quarters -- confirming the litigation overhang is doing real work against the optionality premium. If the motion is granted and the suit is dismissed with prejudice, or if Tesla discloses standalone, monetized robotaxi/FSD segment revenue with a credible profitability path, this thesis is falsified and the short should be closed.",
+  "killer_risk": "An uncapped, momentum-driven repricing higher (short squeeze), especially if expressed as naked short stock rather than defined-risk options -- the fundamentals-derived bull case ($336.08) is NOT the true tail-risk ceiling; Tesla's own 5-year trading-multiple range implies levels up to $417.40.",
+  "kill_criteria": [
+    "Disclosed robotaxi/Optimus/FSD segment revenue with a credible profitability path, closing the gap between the ~1.4x segment-level multiple SOTP implies and the ~11x consolidated multiple the market pays (valuation)",
+    "Return on capital rises sustainably above the ~12.4% cost of capital, reversing the confirmed 3-year eroding moat trajectory (business-model)",
+    "Federal securities-fraud class action dismissed with prejudice, removing the litigation overhang under the autonomy narrative's credibility (management-governance)",
+    "China Working Capital Facility successfully refinanced with a signed agreement well ahead of Sep-2026 (balance-sheet-survival)",
+    "Two consecutive quarters of EBIT margin stabilizing/improving without a one-off, plus revision breadth turning net-positive on profit lines (earnings)"
+  ],
+  "forecast_ledger": [
+    {
+      "prediction": "Q3 FY2026 revenue breaks the 4-quarter beat streak (misses the $27,420.6mm consensus / falls below the $28,095mm Q3 2025 actual)",
+      "probability": 55,
+      "time_window": "By 2026-10-21 (~88 days)",
+      "evidence_today": "Consensus revenue base already sits below the Q3 2025 actual print; revision breadth mixed",
+      "confirmation_trigger": "Q3 FY2026 reported revenue < $27,420.6mm consensus OR < $28,095mm YoY",
+      "falsification_trigger": "Q3 FY2026 revenue >= $28,095mm (5th straight beat, YoY growth)",
+      "owner_module": "earnings",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "revenue"
+    },
+    {
+      "prediction": "China Working Capital Facility successfully refinanced with a signed replacement/extension before its Sep-2026 contractual window",
+      "probability": 70,
+      "time_window": "By 2026-09-30 (~67 days)",
+      "evidence_today": "Facility successfully re-drawn 3x in 18 months ($2,740M to $4,288M to $5,888M)",
+      "confirmation_trigger": "Signed replacement/extension disclosed in an 8-K or 10-Q by 2026-09-30",
+      "falsification_trigger": "No such disclosure by 2026-09-30",
+      "owner_module": "balance-sheet-survival",
+      "confidence_score": 65,
+      "status": "open",
+      "forecast_type": "balance_sheet_or_solvency"
+    },
+    {
+      "prediction": "Q3 FY2026 GAAP EBIT margin improves sequentially above the Q2 2026 level (1.41%)",
+      "probability": 45,
+      "time_window": "By 2026-10-21 (~88 days)",
+      "evidence_today": "SBC ramp and R&D/SG&A growth are structurally one-directional per earnings/07",
+      "confirmation_trigger": "Q3 FY2026 GAAP EBIT margin > 1.41%",
+      "falsification_trigger": "Q3 FY2026 GAAP EBIT margin <= 1.41%",
+      "owner_module": "earnings",
+      "confidence_score": 50,
+      "status": "open",
+      "forecast_type": "margin_or_cost"
+    },
+    {
+      "prediction": "Motion to dismiss in the federal securities-fraud class action is DENIED (case proceeds toward discovery)",
+      "probability": 35,
+      "time_window": "By 2027-07-25 (365 days)",
+      "evidence_today": "Complaint alleges specific, dated factual misrepresentations (Autopilot/FSD/Robotaxi claims)",
+      "confirmation_trigger": "Court denies the motion, in whole or material part, per the docket",
+      "falsification_trigger": "Court grants the motion (dismissal, with or without prejudice), OR no ruling issued within the window",
+      "owner_module": "management-governance",
+      "confidence_score": 45,
+      "status": "open",
+      "forecast_type": "governance_or_accounting"
+    },
+    {
+      "prediction": "A new CEO Performance Award tranche is newly certified probable, triggering fresh SBC expense recognition",
+      "probability": 40,
+      "time_window": "By 2027-07-25 (365 days)",
+      "evidence_today": "$105.8-120.4bn unrecognized pool; the current $9.82bn tranche already crossed this threshold once",
+      "confirmation_trigger": "8-K or 10-Q discloses a newly probable tranche and associated SBC step-up",
+      "falsification_trigger": "No new tranche becomes probable within the window",
+      "owner_module": "earnings",
+      "confidence_score": 50,
+      "status": "open",
+      "forecast_type": "earnings_eps"
+    },
+    {
+      "prediction": "TSLA's NTM EV/Sales multiple compresses below 8.0x at any point in the next 12 months (from ~11.15x today)",
+      "probability": 45,
+      "time_window": "By 2027-07-25 (365 days)",
+      "evidence_today": "No dated catalyst identified by the catalyst module to force this within 12 months",
+      "confirmation_trigger": "NTM EV/Sales trades below 8.0x on any date within the window, per CIQ",
+      "falsification_trigger": "NTM EV/Sales stays at or above 8.0x throughout the window",
+      "owner_module": "valuation",
+      "confidence_score": 50,
+      "status": "open",
+      "forecast_type": "valuation_or_price_return"
+    },
+    {
+      "prediction": "Tesla discloses a dated, quantified robotaxi fleet-size or market-count milestone (replacing throughout-the-year language)",
+      "probability": 30,
+      "time_window": "By 2026-10-23 (~90 days)",
+      "evidence_today": "Historical pattern of hedge-word, undated operational language (soon, probably)",
+      "confirmation_trigger": "A specific numeric target with a date is disclosed in an earnings call/8-K/press release by 2026-10-23",
+      "falsification_trigger": "No such quantified, dated disclosure by 2026-10-23",
+      "owner_module": "catalyst",
+      "confidence_score": 45,
+      "status": "open",
+      "forecast_type": "catalyst_or_estimate_revision"
+    }
+  ],
+  "module_scores": {
+    "business-model": {
+      "verdict": "Cyclical business - worth deeper work only with a strong timing edge",
+      "overall_usefulness": 40,
+      "business_quality": 33,
+      "moat": 50
+    },
+    "earnings": {
+      "verdict": "Mixed earnings setup",
+      "earnings_quality": 58,
+      "consensus_setup": 50,
+      "earnings_volatility_inverted": 68
+    },
+    "balance-sheet-survival": {
+      "verdict": "Solid",
+      "solvency_strength": 74,
+      "liquidity_runway": 85,
+      "overall_usefulness": 73
+    },
+    "catalyst": {
+      "verdict": "Dated, evidenced near-term catalysts (mixed-to-bearish)",
+      "catalyst_strength": 45,
+      "timing_visibility": 35,
+      "overall_usefulness": 70
+    },
+    "management-governance": {
+      "verdict": "Serious governance concerns",
+      "governance_score": 43.3,
+      "confidence_adjusted_governance_score": 34,
+      "governance_rating": "Weak"
+    },
+    "valuation": {
+      "verdict": "Materially overvalued",
+      "valuation_attractiveness": 5,
+      "margin_of_safety_score": 2,
+      "valuation_confidence": 58,
+      "overall_usefulness": 88
+    }
+  },
+  "red_flags": [
+    {
+      "id": "RF-MGT-005",
+      "module": "management-governance",
+      "severity": "Critical",
+      "description": "Unresolved federal securities-fraud class action naming Tesla and Musk personally over Autopilot/FSD/Robotaxi claims, motion to dismiss pending"
+    },
+    {
+      "id": "RF-SHR-002",
+      "module": "management-governance",
+      "severity": "Critical",
+      "description": "Sequential entrenchment: classified board + 66 2/3% supermajority bylaw + Delaware-to-Texas reincorporation + 3%-of-shares derivative-suit threshold, blocking a majority-backed 2024 declassification vote"
+    },
+    {
+      "id": "RF-CAP-002",
+      "module": "management-governance",
+      "severity": "High",
+      "description": "Zero share buybacks FY2017-LTM despite positive FCF every year; share count +27.4% FY2021-LTM"
+    },
+    {
+      "id": "RF-RPT-002",
+      "module": "management-governance",
+      "severity": "High",
+      "description": "CEO-linked related-party network (SpaceX/xAI/X/TBC) plus $2.0bn SpaceX equity investment, three unresolved derivative suits on appeal"
+    },
+    {
+      "id": "RF-DISC-001",
+      "module": "management-governance",
+      "severity": "High",
+      "description": "Zero of six analyst questions addressed the Q2 2026 miss; CEO called the worst recent quarter great with no reference to the miss"
+    },
+    {
+      "id": "RF-DISC-002",
+      "module": "management-governance",
+      "severity": "High",
+      "description": "39% GAAP-to-Adjusted-EBITDA gap (2.6x flag threshold), driven by excluding SBC (65% of GAAP operating income); zero of three highest-narrative-weight segments disclose operating income"
+    },
+    {
+      "id": "RF-BQ-005",
+      "module": "business-model",
+      "severity": "Medium",
+      "description": "Fast-changing industry (rate-of-change score 30, <=40 threshold) -- classified as a sector/technology-cycle bet, not a durable compounder"
+    },
+    {
+      "id": "n/a",
+      "module": "balance-sheet-survival",
+      "severity": "Medium",
+      "description": "78.2% of debt matures within 12 months on a contractual basis, 63% concentrated in one unhedged China facility booked long-term on an unevidenced refinancing assertion"
+    }
+  ],
+  "missing_data": [
+    "Standalone FY2025 Form 10-K (Item 8 audited financial statements, Item 1A risk factors, Item 7 MD&A) -- only a Part III-only 10-K/A and CIQ vendor exports stand in for it across every module in this pool",
+    "Options/RSU strike schedule to replace the TSM-proxy approximate fully-diluted share count (~4,252.5mm) used in every per-share valuation output",
+    "Current Tesla bylaws exhibit, to independently verify the 66 2/3% supermajority bylaw and 3%-of-shares derivative-suit threshold specifics (currently confidence-2, web-sourced findings)",
+    "Credit agreement/indenture behind Tesla's debt, to supply actual covenant thresholds behind the binary 'in material compliance' statement",
+    "A company-confirmed Q3 FY2026 results date (currently only a CIQ vendor pattern-projection) and a bounded completion date for the China facility's refinancing"
+  ],
+  "review_schedule": {
+    "30d": "2026-08-24",
+    "90d": "2026-10-23",
+    "180d": "2027-01-21",
+    "365d": "2027-07-25"
+  },
+  "created_by": "synthesizer",
+  "notes": "All five core modules (business-model, earnings, balance-sheet-survival, management-governance, valuation) were carried forward verbatim from analyses/TSLA_2026-07-24 (one calendar day old, no new pool filing since); only the catalyst module was freshly run 2026-07-25. Decision is a Short Candidate expressed only via small, defined-risk instruments (long-dated puts / put spreads) -- the naive risk/reward (11.03, using only the fundamentals-derived bull case as the risk boundary) materially understates true short-squeeze tail risk; the headline risk_reward (1.85) uses the top of Tesla's own 5-year trading-multiple range ($417.40) as the stress-tested adverse case instead. No RUN_METADATA.md and no _pool_extracts/ciq_facts.json exist in this run root.",
+  "business_type": "Operating company (vertically-integrated EV manufacturer + energy storage)",
+  "primary_valuation_method": "Blended peer relative valuation (45%) + segment sum-of-the-parts (30%) + capped-weight intrinsic DCF cross-check (25%); Tesla's own trading-history multiple excluded (0% weight) as a circular anchor",
+  "calibration_feedback": {
+    "source_summary": "analyses/performance/2026-07-13_calibration_summary.json",
+    "status": "pre_data",
+    "haircut_points": 0,
+    "modules_flagged": [],
+    "flagged_forecast_types": [],
+    "rationale": "Latest calibration summary (2026-07-13) verdict begins 'Pre-data' -- 5 decisions on the ledger, 0 resolved forecasts. Neither the module slice nor the forecast-type slice carries real (non-insufficient) signal yet; no adjustment applied."
+  },
+  "confidence_haircut": 10.0,
+  "pre_mortem_verdict": "Survives with haircut",
+  "post_review_confidence_score": 50.0,
+  "post_mortem_decision": "Short Candidate",
+  "post_mortem_basket": "Short"
+}
