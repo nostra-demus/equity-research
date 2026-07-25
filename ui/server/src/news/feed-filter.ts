@@ -344,7 +344,7 @@ export function explainFeedFilterMatch(it: FeedItem, q: FeedFilterQuery): FeedFi
     const detail = literal
       ? `text "${needle}" found in headline/company blob`
       : readAs
-        ? `text "${needle}" read as the company ${readAs.name || readAs.ticker} — matched as that company, not as a literal word`
+        ? `text "${needle}" read as the company ${readAs.name || readAs.ticker || (Array.isArray(readAs.aliases) && readAs.aliases[0]) || '?'} — matched as that company, not as a literal word`
         : `text "${needle}" not found in headline, translation, or company name/ticker${named ? `, and it is not about ${named} (the company/companies that symbol names)` : ''}`
     checks.push({ clause: 'text', passed: literal || !!readAs, detail })
   }
