@@ -857,6 +857,12 @@ export const NEWS = {
   // story fixes itself even if no human reopens it. Capped + budget-gated so it never starves the title
   // triage. 0 disables the pass (the short degraded TTL still self-heals on the next manual open).
   enrichHealMaxPerCycle: capNum(process.env.NEWS_ENRICH_HEAL_MAX_PER_CYCLE, 6),
+  // NEVER-read items given a first body read per cycle — the under-rated tail (news/enrich-heal.ts
+  // coldReadCandidates). Small on purpose: the triage queue, not the reader, is the scarce resource, and
+  // this shares the reader's budget gate. 0 switches discovery off and leaves repair untouched.
+  enrichColdMaxPerCycle: capNum(process.env.NEWS_ENRICH_COLD_MAX_PER_CYCLE, 4),
+  // the junk floor for a cold read — below this the wire's bottom decile is noise a body read won't rescue
+  enrichColdMinScore: capNum(process.env.NEWS_ENRICH_COLD_MIN_SCORE, 10),
   // Stop the BACKGROUND heal from re-fetching an entry that has stayed degraded this long (default 6h). By
   // then it's had many heal cycles; a still-degraded item is a structural read failure, not a transient one,
   // so keep re-trying it on demand (a human reopen) but free the capped heal slots for fresher stories.

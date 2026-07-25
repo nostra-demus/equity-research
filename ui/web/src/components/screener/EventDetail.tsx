@@ -292,6 +292,10 @@ function ScoreWhy({ it, anchorRef, open, onToggle }: { it: FeedItem; anchorRef: 
   // (CLAUDE.md §12: every point is explainable from an evidence row). Only shown when they actually move
   // the score (older records predating the fields carry 0 → no clutter), but always summed.
   const labelFloor = Number(rf.materiality_label_floor) || 0
+  // Present only once the engine has actually READ the article body (news/impact-floor.ts). It changes what
+  // the floor row MEANS — a verdict on the whole article, not a guess from the title — and it is what tells
+  // the reader whether the score below is settled evidence or a first impression.
+  const bodyLabel = typeof rf.body_label === 'string' ? rf.body_label : ''
   const quantified = Number(rf.quantified) || 0
   const adjRows = [
     { k: 'Source', v: tier?.label ?? rf.source_tier_id, why: tier?.meaning, pts: rf.source_tier },
@@ -300,7 +304,14 @@ function ScoreWhy({ it, anchorRef, open, onToggle }: { it: FeedItem; anchorRef: 
     { k: 'Size', v: plainSize(it.size_bucket), why: undefined as string | undefined, pts: rf.size },
     { k: 'Freshness', v: freshnessLabel(it.ts), why: 'Newer news counts for a little more.', pts: rf.recency },
     ...(labelFloor !== 0
-      ? [{ k: 'Severity floor', v: 'lifted to its severity tier', why: "The AI's own severity call (high / critical) sets a floor the score can't sit below.", pts: labelFloor }]
+      ? [{
+          k: bodyLabel ? 'Read the article' : 'Severity floor',
+          v: bodyLabel ? `the full article reads ${bodyLabel} impact` : 'lifted to its severity tier',
+          why: bodyLabel
+            ? 'The engine read the whole article, not just the headline — its verdict on the body sets a floor the score can’t sit below.'
+            : "The AI's own severity call (high / critical) sets a floor the score can't sit below.",
+          pts: labelFloor,
+        }]
       : []),
     ...(quantified !== 0
       ? [{ k: 'Quantified impact', v: 'a number + an impact word', why: 'The headline pairs a figure (a sum, %, or bps) with an impact word (guidance, fine, deal…).', pts: quantified }]
@@ -372,7 +383,11 @@ function ScoreWhy({ it, anchorRef, open, onToggle }: { it: FeedItem; anchorRef: 
             </div>
           </div>
 
-          <div className="scorewhy__foot">A first read of the headline only — running the checks re-scores it with the full evidence.</div>
+          <div className="scorewhy__foot">
+            {bodyLabel
+              ? `Scored on the full article, not just the headline — the body reads ${bodyLabel} impact.`
+              : 'A first read of the headline only — running the checks re-scores it with the full evidence.'}
+          </div>
         </div>
       )}
     </div>
@@ -672,9 +687,13 @@ export function EventDetail({ it }: { it: FeedItem }) {
         {enrichment && (
           <div className="evdetail__block">
             <div className="evdetail__label">Related recent events</div>
-            {enrichment.related.length ? (
+            {/* `?.` not `.`: a cache entry written by an older enrichment shape (or a partial write) has no
+                `related` array, and an unguarded read there throws INSIDE render — which unmounts the whole
+                detail pane to a blank page rather than degrading one block. Every sibling block below
+                already reads its array optionally; this one did not. */}
+            {enrichment.related?.length ? (
               <ul className="evdetail__related">
-                {enrichment.related.map((r) => (
+                {(enrichment.related || []).map((r) => (
                   <li key={`${r.event_id}-${r.ts}`}>
                     <button type="button" className="evdetail__rel evdetail__rel--btn" onClick={() => openRelated(r)} title={originalHeadline(r) ? `original: ${originalHeadline(r)}` : 'Open this event to check it'}>
                       <span className="evdetail__rel-score mono">{r.triage_score}</span>

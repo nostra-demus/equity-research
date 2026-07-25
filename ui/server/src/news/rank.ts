@@ -59,6 +59,12 @@ export interface RankFactors {
   // closing the "points snapshotted but not their label" gap. null event_id = no positive event winner.
   event_id: string | null
   size_bucket: string
+  // The ARTICLE BODY's own materiality verdict (news/impact-floor.ts), when the engine has actually read
+  // the article — low | medium | high | critical, the same scale as the headline label. Absent while an
+  // item is still headline-only, which is the honest distinction between "we read it and it is noise" and
+  // "we never got behind the headline". Set on the READ path only (reRankFromFactors), never at ingest:
+  // the body read happens long after the item is written.
+  body_label?: string
 }
 
 // Fixed severity-tier floors (aligned with the existing pickThreshold=70/watchThreshold=40 bands, plus
@@ -217,6 +223,7 @@ export function reRankFromFactors(
   rf: RankFactors,
   item: { event_types?: (string | null)[] | null; size_bucket?: string | null },
   weights: RankWeights = getRankWeights(),
+  bodyLabel?: string | null,
 ): Ranked {
   const materiality = clamp(Math.round(Number(rf.materiality) || 0), 0, 100)
   const source_tier = weights.source_tier[rf.source_tier_id] ?? 0
@@ -226,7 +233,22 @@ export function reRankFromFactors(
   const recency = Number(rf.recency) || 0 // freshness as captured at ingest — clock-independent
   // same treatment as recency: fixed at ingest (not a function of the tunable weight set), carried
   // through unchanged. 0 for an older record that predates these fields.
-  const materiality_label_floor = Number(rf.materiality_label_floor) || 0
+  const headlineFloor = Number(rf.materiality_label_floor) || 0
+  // THE BODY READ'S VERDICT (news/impact-floor.ts). The ingest-time floor above is derived from a read of
+  // the HEADLINE; once the engine has read the whole article, the article's own verdict is the better
+  // evidence and floors the item too. Same mechanism (materialityLabelBoost), better input — so a
+  // substantive story behind a weak headline stops being ranked on what its headline promised.
+  //
+  // max(), never replace: strictly a LIFT. A body read can raise an item to the floor its own verdict
+  // implies, but can never talk one down — the engine's failure to avoid is burying what matters
+  // (CLAUDE.md §24), and a model read that could LOWER a score would be a new way to hide things.
+  // Only a label the floor table actually knows counts. An unrecognised value contributes no points
+  // (materialityLabelBoost already returns 0) and must not be stamped into the factors either, or the
+  // cockpit's explainer would report "the full article reads <junk> impact" on a verdict we cannot read.
+  const bodyLabelNorm = String(bodyLabel ?? '').toLowerCase()
+  const body_label = MATERIALITY_LABEL_FLOOR[bodyLabelNorm] != null ? bodyLabelNorm : ''
+  const bodyFloor = materialityLabelBoost(body_label, materiality)
+  const materiality_label_floor = Math.max(headlineFloor, bodyFloor)
   const quantified = Number(rf.quantified) || 0
 
   const w = clamp(weights.boost_weight, 0, 2)
@@ -235,7 +257,15 @@ export function reRankFromFactors(
 
   return {
     rank_score,
-    rank_factors: { materiality, source_tier, scope, event, size, recency, materiality_label_floor, quantified, boost_weight: w, scope_id: rf.scope_id, source_tier_id: rf.source_tier_id, event_id: winningEventType(item.event_types, weights.event), size_bucket: String(item.size_bucket || 'unknown').toLowerCase() },
+    rank_factors: {
+      materiality, source_tier, scope, event, size, recency, materiality_label_floor, quantified,
+      boost_weight: w, scope_id: rf.scope_id, source_tier_id: rf.source_tier_id,
+      event_id: winningEventType(item.event_types, weights.event),
+      size_bucket: String(item.size_bucket || 'unknown').toLowerCase(),
+      // carried so the cockpit's score explainer can say the article was actually read, and which way the
+      // body read fell — the difference between a settled verdict and a headline-only guess
+      ...(body_label ? { body_label } : {}),
+    },
   }
 }
 

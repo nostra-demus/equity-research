@@ -467,6 +467,11 @@ export interface RankFactors {
   size: number // company-size bonus
   recency: number // freshness bonus
   materiality_label_floor: number // floor-correction when event_materiality_label outranks the raw score (absent on pre-field items)
+  // The ARTICLE BODY's own materiality verdict (low | medium | high | critical), set on the READ path once
+  // the engine has actually read the article (server news/impact-floor.ts). Absent while an item is still
+  // headline-only — which is the honest difference between "read, and it is noise" and "never got behind
+  // the headline". Optional: absent on every item the engine has not read, and on an older server.
+  body_label?: string
   quantified: number // bonus when the headline pairs a quantified figure with an impact keyword (absent on pre-field items)
   boost_weight?: number // global multiplier applied to the summed adjustments for THIS score (1 = none); absent on pre-field items
   scope_id: string // which scope won (single_name / sector / macro …)

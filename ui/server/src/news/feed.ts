@@ -20,7 +20,8 @@ import { getRankWeights } from './rank-weights'
 import { scoreToBand } from './triage/groq'
 import { resolveCountry } from './geography'
 import { cleanTicker } from './symbology'
-import { NEWS } from '../config'
+import { NEWS, STATE_DIR } from '../config'
+import { bodyVerdicts } from './impact-floor'
 
 /** Hydrate a feed item on read: clean any HTML/markup left in the headline (older firehose lines were
  *  stored before ingest-time cleaning — e.g. "<a href=…>Title</a>"), fill scope/source_tier, and derive
@@ -70,9 +71,12 @@ function hydrate(it: FeedItem): FeedItem {
 /** Re-score ONE item in place under the given weights (the per-item core of withActiveWeights). Idempotent:
  *  reRankFromFactors is a pure function of the ingest-captured breakdown + the weights, so applying it twice
  *  yields the same score/band. Returns early (no-op) for an older line with no breakdown. */
-function applyActiveWeightsTo(it: FeedItem, w: ReturnType<typeof getRankWeights>): void {
+function applyActiveWeightsTo(it: FeedItem, w: ReturnType<typeof getRankWeights>, bodies?: Map<string, { label: string }>): void {
   if (!it.rank_factors) return // older line with no breakdown — leave its persisted score as-is
-  const r = reRankFromFactors(it.rank_factors, it, w)
+  // When the engine has READ this article's body, the body's own materiality verdict floors the score
+  // (news/impact-floor.ts). Read-time like every other derivation here, so the whole existing backlog
+  // benefits with no backfill and the firehose keeps its ingest-time audit trail.
+  const r = reRankFromFactors(it.rank_factors, it, w, bodies?.get(it.event_id)?.label)
   // §4/§24 doctrine cap on the DISPLAY path too — same rule the ingest path applies in runCycle.ts: a
   // weight edit that re-ranks a Reddit/`social` item above the pick threshold must never show it as a
   // top pick, and capSocialScore keeps its priority below the picks so the wire ordering honors the cap.
@@ -94,7 +98,9 @@ function applyActiveWeightsTo(it: FeedItem, w: ReturnType<typeof getRankWeights>
  *  clock); at default weights every score is unchanged. Skips any pre-breakdown line. Mutates in place. */
 function withActiveWeights(items: FeedItem[]): void {
   const w = getRankWeights()
-  for (const it of items) applyActiveWeightsTo(it, w)
+  // one TTL-cached read of the body verdicts for the whole window, not one per item
+  const bodies = bodyVerdicts(STATE_DIR)
+  for (const it of items) applyActiveWeightsTo(it, w, bodies)
 }
 
 /** Recompute story-cluster ids over the whole returned window, so the wire de-dupes the EXISTING
