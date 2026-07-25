@@ -4,8 +4,8 @@
 // matches an item tagged with that exact ticker OR named in its headline/company blob.
 // Run: npx tsx src/components/screener/companyFilter.test.ts
 import assert from 'node:assert/strict'
-import { archiveFiltersActive, emptyFilters, filtersActive, matchesFilters, type Filterable, type FeedFilterState } from './FeedFilters'
-import { mergeCompanyOptions, rankOption, resolveTypedCompany } from './CompanyFilter'
+import { archiveFiltersActive, emptyFilters, filtersActive, keywordReadAsNote, matchesFilters, type Filterable, type FeedFilterState } from './FeedFilters'
+import { mergeCompanyOptions, rankOption, resolveKeywordCompanies, resolveTypedCompany } from './CompanyFilter'
 import { baseTicker, cleanTicker, companyNameMatches, coreCompanyName, groupListingCountry } from '../../lib/symbology'
 
 let passed = 0
@@ -308,6 +308,79 @@ check('F4: dotted/undotted initialisms and parenthetical annotations reduce to o
   assert.equal(coreCompanyName('Acme Inc. (NYSE: ACME)'), coreCompanyName('Acme Inc.'))
   assert.equal(coreCompanyName('Man Group PLC'), 'man group', 'no regression: "group" is identity, not collapsed to "man"')
   assert.equal(coreCompanyName('Amazon.com, Inc.'), 'amazon.com', 'no regression: a word.word dot is kept')
+})
+
+// ---- a typed KEYWORD that is really a ticker (the "amzn finds nothing, amazon finds everything" defect) ----
+// The scanner tags most Amazon stories {name:"Amazon", ticker:null}, so the literal keyword "amzn" reached
+// only the minority of items whose tag carried the symbol (44 of the archive's 198 Amazon items) while
+// "amazon" reached all of them. The archive company facet already knows AMZN ↔ Amazon, so the keyword box
+// reads the symbol as that company — additively, on top of the literal substring.
+const AMZN_FACET = [
+  { ticker: 'AMZN', name: 'Amazon', count: 197, aliases: ['Amazon.com, Inc.'], listingCountry: 'US' },
+  { ticker: 'MSFT', name: 'Microsoft', count: 88, aliases: [], listingCountry: 'US' },
+]
+
+check('a typed ticker keyword resolves to the company the archive tags under that symbol', () => {
+  assert.deepEqual(resolveKeywordCompanies('amzn', AMZN_FACET), [
+    { ticker: 'AMZN', name: 'Amazon', aliases: ['Amazon.com, Inc.'], listingCountry: 'US' },
+  ])
+  assert.deepEqual(resolveKeywordCompanies('AMZN', AMZN_FACET), resolveKeywordCompanies('amzn', AMZN_FACET), 'case-insensitive')
+})
+
+check('the reading is narrow: 1 char, a phrase, and an unknown symbol all resolve to nothing', () => {
+  assert.deepEqual(resolveKeywordCompanies('a', AMZN_FACET), [], 'a single letter is a symbol somewhere — never read as a company')
+  assert.deepEqual(resolveKeywordCompanies('data centre', AMZN_FACET), [], 'a phrase is not symbol-shaped')
+  assert.deepEqual(resolveKeywordCompanies('zzzz', AMZN_FACET), [], 'a symbol the archive never tagged stays a literal word')
+  assert.deepEqual(resolveKeywordCompanies('', AMZN_FACET), [])
+})
+
+check('an identity whose only name IS the bare symbol is not read as a company (the literal already has it)', () => {
+  assert.deepEqual(resolveKeywordCompanies('cat', [{ ticker: 'CAT', name: 'CAT', count: 9, aliases: [], listingCountry: null }]), [])
+})
+
+check('a ticker keyword now reaches the same company news the NAME keyword reaches', () => {
+  const textAs = resolveKeywordCompanies('amzn', AMZN_FACET)
+  const untagged = it({ headline: 'Amazon opens a new fulfilment centre', companies: [{ name: 'Amazon', ticker: null }] })
+  const byName = { ...emptyFilters(), text: 'amazon' }
+  const byTicker = { ...emptyFilters(), text: 'amzn' }
+  assert.equal(matchesFilters(untagged, byName), true, 'the name keyword always worked')
+  assert.equal(matchesFilters(untagged, byTicker), false, 'the literal ticker keyword alone still cannot see it')
+  assert.equal(matchesFilters(untagged, byTicker, textAs), true, 'read as the company, the ticker keyword now finds it')
+})
+
+check('the reading is ADDITIVE — a literal hit still matches, and an unrelated item still does not', () => {
+  const textAs = resolveKeywordCompanies('amzn', AMZN_FACET)
+  const tagged = it({ headline: 'The online retailer beats on cloud growth', companies: [{ name: 'Amazon', ticker: 'AMZN' }] })
+  const other = it({ headline: 'Microsoft raises its dividend', companies: [{ name: 'Microsoft', ticker: 'MSFT' }] })
+  assert.equal(matchesFilters(tagged, { ...emptyFilters(), text: 'amzn' }, textAs), true, 'the literal tag hit is untouched')
+  assert.equal(matchesFilters(other, { ...emptyFilters(), text: 'amzn' }, textAs), false, 'a different company must not be swept in')
+  assert.equal(matchesFilters(tagged, { ...emptyFilters(), text: 'amzn' }, []), true, 'no reading available → pre-existing behaviour')
+})
+
+check('a name alias the archive observed is reached, but the reading stays whole-word', () => {
+  const textAs = resolveKeywordCompanies('amzn', AMZN_FACET)
+  const longForm = it({ headline: 'Amazon.com, Inc. prices a bond', companies: [] })
+  assert.equal(matchesFilters(longForm, { ...emptyFilters(), text: 'amzn' }, textAs), true, 'an observed alias spelling counts')
+  // The reading matches the company by NAME, whole-word — it is not a second substring pass. "amazons"
+  // contains "amazon" but is not the company, and the literal "amzn" is nowhere in this headline, so this
+  // isolates the reading's own precision.
+  const river = it({ headline: 'The amazons of the ancient world, revisited', companies: [] })
+  assert.equal(matchesFilters(river, { ...emptyFilters(), text: 'amzn' }, textAs), false, 'whole-word: "amazons" is not Amazon')
+})
+
+check('the reading ANDs with the other filters, it does not bypass them', () => {
+  const textAs = resolveKeywordCompanies('amzn', AMZN_FACET)
+  const untagged = it({ headline: 'Amazon opens a new fulfilment centre', companies: [], size_bucket: 'mega' })
+  assert.equal(matchesFilters(untagged, { ...emptyFilters(), text: 'amzn', size: 'mega' }, textAs), true)
+  assert.equal(matchesFilters(untagged, { ...emptyFilters(), text: 'amzn', size: 'small' }, textAs), false)
+})
+
+check('the surface says plainly what it read the keyword as', () => {
+  const textAs = resolveKeywordCompanies('amzn', AMZN_FACET)
+  const note = keywordReadAsNote('amzn', textAs)
+  assert.ok(note && note.includes('amzn') && note.includes('Amazon (AMZN)'), `expected an explanatory note, got ${note}`)
+  assert.equal(keywordReadAsNote('amzn', []), null, 'nothing read → no note')
+  assert.equal(keywordReadAsNote('', textAs), null)
 })
 
 console.log(`\ncompanyFilter.test.ts: ${passed} passed`)

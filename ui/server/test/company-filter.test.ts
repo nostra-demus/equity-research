@@ -517,4 +517,69 @@ check('explainFeedFilterMatch reports a ticker-alias hit distinctly from an exac
   assert.match(c!.detail, /ticker alias NHY/i, 'the alias path is named, not passed off as an exact hit')
 })
 
+// ---- the keyword read as a ticker (twin of the browser's companyFilter.test.ts) ----
+// The scanner tags most Amazon stories {name:"Amazon", ticker:null}, so a literal keyword "amzn" reached
+// only the minority of items whose tag carried the symbol (44 of the archive's 198 Amazon items) while
+// "amazon" reached all of them. `textAs` carries the cockpit's ticker→company reading of the keyword, and
+// each entry is matched with the SAME clause a picked company uses.
+const AMZN_AS = [{ ticker: 'AMZN', name: 'Amazon', aliases: ['Amazon.com, Inc.'], listingCountry: 'US' }]
+
+check('a ticker keyword read as its company reaches items the literal keyword cannot', () => {
+  const untagged = item({ ts: NOW.toISOString(), headline: 'Amazon opens a new fulfilment centre', companies: [] })
+  assert.equal(matchesFeedFilters(untagged, { text: 'amzn' }), false, 'the literal keyword alone cannot see it')
+  assert.equal(matchesFeedFilters(untagged, { text: 'amzn', textAs: AMZN_AS }), true, 'read as the company, it matches')
+  assert.equal(matchesFeedFilters(untagged, { text: 'amazon' }), true, 'the name keyword always worked')
+})
+
+check('the reading is additive and does not sweep in another company', () => {
+  const tagged = item({ ts: NOW.toISOString(), headline: 'The online retailer beats on cloud growth', companies: [{ name: 'Amazon', ticker: 'AMZN' }] })
+  const other = item({ ts: NOW.toISOString(), headline: 'Microsoft raises its dividend', companies: [{ name: 'Microsoft', ticker: 'MSFT' }] })
+  assert.equal(matchesFeedFilters(tagged, { text: 'amzn', textAs: AMZN_AS }), true)
+  assert.equal(matchesFeedFilters(other, { text: 'amzn', textAs: AMZN_AS }), false)
+})
+
+check('textAs is inert without text, and never widens another clause', () => {
+  const msft = item({ ts: NOW.toISOString(), headline: 'Microsoft raises its dividend', companies: [{ name: 'Microsoft', ticker: 'MSFT' }] })
+  assert.equal(hasAnyFilter({ textAs: AMZN_AS }), false, 'a reading is not a filter of its own')
+  assert.equal(matchesFeedFilters(msft, { textAs: AMZN_AS }), true, 'no text → the reading is ignored entirely')
+  assert.equal(matchesFeedFilters(msft, { company: { ticker: 'MSFT' }, text: 'amzn', textAs: AMZN_AS }), false, 'a picked company still ANDs')
+})
+
+// An item TAGGED with the symbol already carries it in its company blob, so the LITERAL clause covers that
+// case unaided — and so does any prose containing the symbol's letters ("cat" inside "cattery"). What a
+// reading genuinely adds is the NAME branch: reach over the far more numerous items the scanner never
+// resolved a symbol for. That branch is the company-name matcher, so it stays whole-word and
+// legal-suffix-tolerant rather than becoming a second substring pass. Twin of the browser's test.
+check('a reading reaches UNTAGGED mentions by name and alias, and stays whole-word', () => {
+  const alias = item({ ts: NOW.toISOString(), headline: 'Amazon.com, Inc. prices a bond', companies: [] })
+  const plural = item({ ts: NOW.toISOString(), headline: 'The amazons of the ancient world, revisited', companies: [] })
+  assert.equal(matchesFeedFilters(alias, { text: 'amzn', textAs: AMZN_AS }), true, 'an observed alias spelling counts')
+  assert.equal(matchesFeedFilters(plural, { text: 'amzn', textAs: AMZN_AS }), false, 'whole-word: "amazons" is not Amazon')
+})
+
+check('the textAs param round-trips through the query parser, and malformed input degrades to literal', () => {
+  const q = parseFeedFilterQuery({ text: 'amzn', textAs: JSON.stringify(AMZN_AS) })
+  assert.deepEqual(q.textAs, AMZN_AS)
+  assert.equal(parseFeedFilterQuery({ text: 'amzn', textAs: '{oops' }).textAs, undefined, 'unparseable → no reading')
+  assert.equal(parseFeedFilterQuery({ text: 'amzn', textAs: '"x"' }).textAs, undefined, 'not an array → no reading')
+  assert.equal(parseFeedFilterQuery({ text: 'amzn', textAs: '[{}]' }).textAs, undefined, 'an empty company is dropped')
+  assert.equal(parseFeedFilterQuery({ text: 'amzn' }).textAs, undefined)
+  // hard-bounded on every axis, so an untrusted caller cannot make this expensive
+  const many = parseFeedFilterQuery({ text: 'x', textAs: JSON.stringify(Array.from({ length: 40 }, (_, i) => ({ ticker: `T${i}`, name: `N${i}`, aliases: Array.from({ length: 40 }, (_, j) => `a${j}`) }))) })
+  assert.equal(many.textAs!.length, 4, 'entries capped')
+  assert.equal(many.textAs![0].aliases!.length, 8, 'aliases capped')
+  const longName = parseFeedFilterQuery({ text: 'x', textAs: JSON.stringify([{ name: 'z'.repeat(500) }]) })
+  assert.equal(longName.textAs![0].name!.length, 120, 'string length capped')
+})
+
+check('the explain trace says the keyword was read as a company, rather than claiming a literal hit', () => {
+  const untagged = item({ ts: NOW.toISOString(), headline: 'Amazon opens a new fulfilment centre', companies: [] })
+  const hit = explainFeedFilterMatch(untagged, { text: 'amzn', textAs: AMZN_AS })
+  assert.equal(hit.matched, true)
+  assert.match(hit.checks.find((c) => c.clause === 'text')!.detail, /read as the company Amazon/i)
+  const miss = explainFeedFilterMatch(item({ ts: NOW.toISOString(), headline: 'Microsoft raises its dividend', companies: [] }), { text: 'amzn', textAs: AMZN_AS })
+  assert.equal(miss.matched, false)
+  assert.match(miss.checks.find((c) => c.clause === 'text')!.detail, /not about Amazon/i, 'the miss names what the symbol was read as')
+})
+
 console.log(`\ncompany-filter.test.ts: ${passed} passed`)

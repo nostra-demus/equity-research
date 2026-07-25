@@ -21,7 +21,7 @@ import { fmtStampLocal } from '../../lib/format'
 import { extractCommodities, extractSectors } from '../../lib/taxonomy'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
-import { archiveFiltersActive, emptyFilters, FeedFilters, filtersActive, gicsEmptyMessage, matchesFilters, type FeedFilterState } from './FeedFilters'
+import { archiveFiltersActive, emptyFilters, FeedFilters, filtersActive, gicsEmptyMessage, keywordReadAsNote, matchesFilters, resolveKeywordCompanies, type FeedFilterState } from './FeedFilters'
 import { api, type ArchiveQuery } from '../../lib/api'
 import { FeedbackMenu } from './FeedbackMenu'
 import { ScanStatus } from './ScanStatus'
@@ -336,6 +336,12 @@ export function EventRail() {
   // server key — with it picked the search falls back to the whole wire (the wireScope clause the store
   // merges), which over-includes rather than silently hiding matches.
   const subjectPicks = useMemo(() => [...subjectSel].filter((s) => s !== WIRE_OTHER), [subjectSel])
+  // A typed keyword that is really a TICKER, read as the company it names — so "amzn" reaches Amazon's news
+  // however each headline spells it, instead of only the minority of items whose tag carries the symbol.
+  // Derived from filters.text (never user state), and lives HERE rather than inside FeedFilters because that
+  // panel is collapsed by default: a derivation inside it would go stale the moment the filters are hidden.
+  const textAs = useMemo(() => resolveKeywordCompanies(filters.text, facets?.companies || []), [filters.text, facets?.companies])
+  const readAsNote = keywordReadAsNote(filters.text, textAs)
   const archiveQuery = useMemo<ArchiveQuery>(() => ({
     themes: filters.themes.size ? [...filters.themes] : undefined,
     country: filters.country || undefined,
@@ -350,7 +356,8 @@ export function EventRail() {
     companyListingCountry: filters.company?.listingCountry || undefined,
     commodities: subjectMode && subjectPicks.length && !subjectSel.has(WIRE_OTHER) ? subjectPicks : undefined,
     text: filters.text.trim() || undefined,
-  }), [filters, subjectMode, subjectPicks, subjectSel])
+    textAs: textAs.length ? textAs : undefined,
+  }), [filters, subjectMode, subjectPicks, subjectSel, textAs])
   const archiveKey = JSON.stringify(archiveQuery)
   // fire the search when the filter changes (debounced so typing in the search box doesn't spam the server);
   // an empty filter returns the rail to LIVE mode. The store guards against a stale slow response winning.
@@ -410,7 +417,7 @@ export function EventRail() {
   // the Refine layer applied: theme / region / size / text, ON TOP of the (scope-independent) base.
   // Counts and the company/broad split below run on this refined set, so the scope chips always show
   // what is actually available under the current refine.
-  const refined = useMemo(() => baseGroups.filter((g) => matchesFilters(g.rep, filters)), [baseGroups, filters])
+  const refined = useMemo(() => baseGroups.filter((g) => matchesFilters(g.rep, filters, textAs)), [baseGroups, filters, textAs])
 
   // per-scope counts over the refined set — drive the filter chips + the at-a-glance split
   const counts = useMemo(() => {
@@ -685,6 +692,10 @@ export function EventRail() {
                 ? `Searched all history back to ${dateLabel(archiveScannedThrough)}${archiveExhausted ? '' : ' (more loads as you scroll)'}`
                 : 'Searching the whole archive — not just the last two days.'}
           </div>
+        )}
+        {/* say plainly when a typed keyword was read as a ticker, so the wider set is never unexplained */}
+        {readAsNote && (
+          <div className="evscope__meaning evrail__archline evrail__readas" aria-live="polite">{readAsNote}</div>
         )}
 
         {/* secondary filters — collapsible (remembers your choice); badge shows the active count when hidden */}

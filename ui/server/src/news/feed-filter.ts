@@ -61,6 +61,17 @@ export interface FeedFilterQuery {
   // are NAME spellings.
   company?: { ticker?: string; name?: string; aliases?: string[]; tickerAliases?: string[]; listingCountry?: string | null }
   text?: string // substring over headline / translation / company name+ticker
+  // The companies the free-text KEYWORD turns out to name — the ticker→company reading of `text`. The
+  // keyword box is a literal substring search, so a typed SYMBOL only ever found the minority of items whose
+  // tag actually carries that symbol: the wire tags most Amazon stories `{name:"Amazon", ticker:null}`, so
+  // "amzn" returned 44 of the archive's 198 Amazon items while "amazon" returned all 198 — the same company,
+  // two wildly different answers. The caller (the cockpit's company facet, news/facets.ts, which already
+  // folds a name-only mention into its tickered sibling) resolves the typed symbol to its company identities
+  // and sends them here; each is matched with the EXACT same clause a picked company uses (matchesCompany),
+  // so there is no second set of matching semantics to keep honest. Strictly ADDITIVE — OR'd with the literal
+  // substring, never replacing it, so this can only ever widen a keyword search, never lose a hit. Ignored
+  // unless `text` itself is set (it is a reading OF the text, not a filter of its own).
+  textAs?: { ticker?: string; name?: string; aliases?: string[]; listingCountry?: string | null }[]
 }
 
 /** Is the pick-a-company clause actually ON? Ticker OR name OR a non-empty alias list (name OR ticker
@@ -135,7 +146,8 @@ export function matchesFeedFilters(it: FeedItem, q: FeedFilterQuery): boolean {
   if (q.text && q.text.trim()) {
     const needle = q.text.trim().toLowerCase()
     const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
-    if (!hay.includes(needle)) return false
+    // literal substring OR — when the keyword is really a ticker — the company that symbol names (see textAs)
+    if (!hay.includes(needle) && !(q.textAs || []).some((c) => companyClauseSet(c) && matchesCompany(it, c))) return false
   }
   return true
 }
@@ -189,7 +201,41 @@ export function parseFeedFilterQuery(raw: Record<string, unknown>): FeedFilterQu
       return { ...(ticker ? { ticker } : {}), ...(name ? { name } : {}), ...(aliases?.length ? { aliases } : {}), ...(tickerAliases?.length ? { tickerAliases } : {}), ...(listingCountry ? { listingCountry } : {}) }
     })(),
     text: str(raw.text),
+    textAs: parseTextAs(raw.textAs),
   }
+}
+
+// `textAs` arrives as ONE json param (not the '|'/',' splits the flat company fields use) because it is a
+// LIST of company objects — a delimiter scheme would need a second, nested separator and would break on the
+// first company name containing it. Untrusted input, so it is hard-bounded on every axis (entries, aliases,
+// string length) and any malformed value degrades to "no reading" — i.e. plain literal keyword search, which
+// is exactly the pre-existing behaviour, never an error and never a wider match than asked for.
+const MAX_TEXT_AS = 4 // distinct companies one symbol may name (e.g. NYSE:CAT Caterpillar + ASX:CAT Catapult)
+const MAX_TEXT_AS_ALIASES = 8
+const MAX_TEXT_AS_LEN = 120
+function parseTextAs(raw: unknown): FeedFilterQuery['textAs'] {
+  if (typeof raw !== 'string' || !raw.trim()) return undefined
+  let parsed: unknown
+  try { parsed = JSON.parse(raw) } catch { return undefined }
+  if (!Array.isArray(parsed)) return undefined
+  const clip = (v: unknown): string | undefined => {
+    const s = typeof v === 'string' ? v.trim().slice(0, MAX_TEXT_AS_LEN) : ''
+    return s || undefined
+  }
+  const out: NonNullable<FeedFilterQuery['textAs']> = []
+  for (const e of parsed.slice(0, MAX_TEXT_AS)) {
+    if (!e || typeof e !== 'object') continue
+    const o = e as Record<string, unknown>
+    const ticker = clip(o.ticker)?.toUpperCase()
+    const name = clip(o.name)
+    const aliases = Array.isArray(o.aliases)
+      ? o.aliases.slice(0, MAX_TEXT_AS_ALIASES).map(clip).filter((s): s is string => !!s)
+      : undefined
+    const listingCountry = clip(o.listingCountry)?.toUpperCase()
+    const entry = { ...(ticker ? { ticker } : {}), ...(name ? { name } : {}), ...(aliases?.length ? { aliases } : {}), ...(listingCountry ? { listingCountry } : {}) }
+    if (companyClauseSet(entry)) out.push(entry)
+  }
+  return out.length ? out : undefined
 }
 
 export interface FeedFilterCheck { clause: string; passed: boolean; detail: string }
@@ -292,8 +338,15 @@ export function explainFeedFilterMatch(it: FeedItem, q: FeedFilterQuery): FeedFi
   if (q.text && q.text.trim()) {
     const needle = q.text.trim().toLowerCase()
     const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
-    const hit = hay.includes(needle)
-    checks.push({ clause: 'text', passed: hit, detail: hit ? `text "${needle}" found in headline/company blob` : `text "${needle}" not found in headline, translation, or company name/ticker` })
+    const literal = hay.includes(needle)
+    const readAs = literal ? undefined : (q.textAs || []).find((c) => companyClauseSet(c) && matchesCompany(it, c))
+    const named = (q.textAs || []).map((c) => c.name || c.ticker || '?').join(' / ')
+    const detail = literal
+      ? `text "${needle}" found in headline/company blob`
+      : readAs
+        ? `text "${needle}" read as the company ${readAs.name || readAs.ticker} — matched as that company, not as a literal word`
+        : `text "${needle}" not found in headline, translation, or company name/ticker${named ? `, and it is not about ${named} (the company/companies that symbol names)` : ''}`
+    checks.push({ clause: 'text', passed: literal || !!readAs, detail })
   }
 
   return { matched: checks.every((c) => c.passed), checks }

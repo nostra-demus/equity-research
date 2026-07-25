@@ -19,7 +19,7 @@
 
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import type { CompanyFacet, SymbolGroup } from '../../lib/api'
-import { baseTicker, cleanTicker, coreCompanyName, groupListingCountry, normTicker } from '../../lib/symbology'
+import { baseTicker, cleanTicker, coreCompanyName, groupListingCountry, normTicker, tickerHitAny } from '../../lib/symbology'
 
 // The picked company. `ticker` is null for a name-only pick (a company the scanner never resolved a symbol
 // for, or a free-typed name that isn't symbol-shaped); `name` is '' only for a legacy/empty pick. `aliases`
@@ -123,6 +123,48 @@ export function resolveTypedCompany(raw: string): CompanyPick | null {
   const typed = raw.trim()
   if (!typed) return null
   return { ticker: LOOKS_TICKER.test(typed) ? typed.toUpperCase() : null, name: typed }
+}
+
+// How many company identities one typed symbol may be read as. A symbol is not always unique across the
+// world's exchanges (the archive holds both NYSE:CAT Caterpillar and ASX:CAT Catapult Group International),
+// so a small handful is right — the facet is count-sorted, so these are the most-covered ones.
+const MAX_KEYWORD_COMPANIES = 4
+
+/** Read a typed KEYWORD as a ticker, and return the company (or companies) that symbol names.
+ *
+ *  The free-text box beside this one is a literal substring search over the headline + the tagged company
+ *  blob. That makes a typed SYMBOL a near-dead end: the scanner tags most Amazon stories `{name: "Amazon",
+ *  ticker: null}`, so "amzn" reached only the 44 archive items whose tag happened to carry the symbol while
+ *  "amazon" reached all 198 — the same company, two wildly different answers, with nothing on screen to
+ *  explain the gap. The archive company facet already knows AMZN ↔ Amazon (news/facets.ts learns name→ticker
+ *  across the whole archive and folds a name-only mention into its tickered sibling), which is exactly why
+ *  PICKING "AMZN · Amazon" from the autofill already worked. This lends the keyword box the same knowledge.
+ *
+ *  Deliberately narrow, so an ordinary word is not silently re-read as a company: ≥2 characters (a single
+ *  letter is a listed symbol somewhere and would read half the wire as a company), symbol-SHAPED, and an
+ *  actual ticker match against a company the archive has really tagged — exact or exchange-suffix-equivalent,
+ *  so "nhy" also reads a facet tickered NHY.OL. An identity whose only known name IS the bare symbol is
+ *  skipped: the literal search already covers that spelling, so reading it as a company adds nothing.
+ *
+ *  The result is OR'd with the literal substring (never replaces it), so a keyword search can only widen. */
+export function resolveKeywordCompanies(text: string, options: CompanyFacet[]): CompanyPick[] {
+  const typed = text.trim()
+  if (typed.length < 2 || !LOOKS_TICKER.test(typed)) return []
+  const want = [normTicker(typed)]
+  const out: CompanyPick[] = []
+  for (const o of options) {
+    if (out.length >= MAX_KEYWORD_COMPANIES) break
+    const sym = cleanTicker(o.ticker)
+    if (!sym || !tickerHitAny(sym, want)) continue
+    if (!o.name || o.name.toUpperCase() === sym) continue // name IS the symbol → the literal search already has it
+    out.push({
+      ticker: sym,
+      name: o.name,
+      aliases: o.aliases?.length ? o.aliases : undefined,
+      listingCountry: o.listingCountry ?? undefined,
+    })
+  }
+  return out
 }
 
 const chipLabel = (v: CompanyPick): string => (v.ticker ? (v.name ? `${v.ticker} · ${v.name}` : v.ticker) : v.name)

@@ -6,9 +6,12 @@ import { ALL_THEMES, plainBand, plainLinkage, plainRegion, plainSize, plainTheme
 import { GICS_SECTORS, gicsOf, gicsSubSectorsFor } from '../../lib/gics'
 import type { CompanyFacet, SymbolGroup } from '../../lib/api'
 import { companyNameMatches, nameOccurs, pickTickerSet, tickerHitAny } from '../../lib/symbology'
-import { CompanyFilter, type CompanyPick } from './CompanyFilter'
+import { CompanyFilter, resolveKeywordCompanies, type CompanyPick } from './CompanyFilter'
 
 export type { CompanyPick } from './CompanyFilter'
+// re-exported so a surface gets the whole filter vocabulary (predicate + the keyword's ticker reading) from
+// one module, the way it already gets matchesFilters/archiveFiltersActive
+export { resolveKeywordCompanies }
 // nameOccurs moved to lib/symbology (shared with the company clause helpers); re-exported for compat.
 export { nameOccurs }
 
@@ -78,11 +81,34 @@ export function listingConflicts(picked: string | null | undefined, itemCountry:
   return !!picked && !!itemCountry && picked !== itemCountry
 }
 
+// The item's searchable blob: headline + its English translation + every tagged company's name and ticker.
+// One definition, so the company clause and the free-text clause can never drift apart on what they read.
+const blobOf = (it: Filterable): string =>
+  `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
+
+// Does the item satisfy a company clause? Any of the pick's ticker spellings (the picked symbol + its
+// cross-listing tickerAliases; exact or exchange-suffix-equivalent), each hit still subject to the
+// listing-country conflict guard — OR the company named whole-word (legal-suffix-tolerant) under its picked
+// name or any name alias. Twin of the server's matchesCompany (feed-filter.ts); shared here by the
+// pick-a-company clause and the keyword-read-as-a-ticker clause so both mean exactly the same thing.
+export function companyMatches(it: Filterable, company: CompanyPick): boolean {
+  const picks = pickTickerSet({ ticker: company.ticker, aliases: company.tickerAliases })
+  const tickerHit = picks.length > 0 && (it.companies || []).some((c) => tickerHitAny(c.ticker, picks) && !listingConflicts(company.listingCountry, c.listing_country))
+  const names = [company.name, ...(company.aliases || [])].filter((s): s is string => !!s)
+  return tickerHit || names.some((n) => companyNameMatches(blobOf(it), n))
+}
+
 // The LIVE-window twin of the server's matchesFeedFilters (ui/server/src/news/feed-filter.ts) — keep the
 // clauses in lockstep. The server's wire clauses (scope / commodities / wireScope) intentionally have no
 // twin HERE: on the live rail those are applied by lib/wire.ts (itemOnWire + the subject chips), and in
 // archive mode the server applies them — one owner per surface, no double-filtering.
-export function matchesFilters(it: Filterable, f: FeedFilterState): boolean {
+//
+// `textAs` is the ticker→company reading of the typed keyword (CompanyFilter.resolveKeywordCompanies),
+// derived by the surface that owns the company facet and passed in rather than stored on the filter state,
+// because it is DERIVED from `f.text` — never something the user set. It rides into the archive query as the
+// `textAs` param, so this predicate and the server's agree on the same widened text clause. Absent (an older
+// caller, or the facet not loaded yet) simply means the pre-existing literal-substring behaviour.
+export function matchesFilters(it: Filterable, f: FeedFilterState, textAs: CompanyPick[] = []): boolean {
   if (f.themes.size > 0 && !(it.event_types || []).some((t) => f.themes.has(t))) return false
   if (f.region && (it.region || '') !== f.region) return false
   if (f.source && (it.source_name || '') !== f.source) return false
@@ -106,20 +132,23 @@ export function matchesFilters(it: Filterable, f: FeedFilterState): boolean {
   // legal-suffix-tolerant) under its picked name or any known name alias. Any clause alone qualifies, so a
   // picked suggestion has strictly ≥ the recall of typing just the name. The gate + helpers (lib/symbology)
   // mirror the server's matchesFeedFilters company clause exactly.
-  if (companyClauseSet(f.company)) {
-    const picks = pickTickerSet({ ticker: f.company!.ticker, aliases: f.company!.tickerAliases })
-    const tickerHit = picks.length > 0 && (it.companies || []).some((c) => tickerHitAny(c.ticker, picks) && !listingConflicts(f.company!.listingCountry, c.listing_country))
-    const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
-    const names = [f.company!.name, ...(f.company!.aliases || [])].filter((s): s is string => !!s)
-    const nameHit = names.some((n) => companyNameMatches(hay, n))
-    if (!tickerHit && !nameHit) return false
-  }
+  if (companyClauseSet(f.company) && !companyMatches(it, f.company!)) return false
   if (f.text.trim()) {
     const q = f.text.trim().toLowerCase()
-    const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
-    if (!hay.includes(q)) return false
+    // literal substring OR — when the keyword is really a ticker — the company that symbol names
+    if (!blobOf(it).includes(q) && !textAs.some((c) => companyClauseSet(c) && companyMatches(it, c))) return false
   }
   return true
+}
+
+/** The one-line, plain-English note a surface shows when a typed keyword was read as a ticker — so the extra
+ *  results are never unexplained magic ("why is Prime Day news showing for AMZN?"). Null when nothing was
+ *  read that way. */
+export function keywordReadAsNote(text: string, textAs: CompanyPick[]): string | null {
+  const typed = text.trim()
+  if (!typed || !textAs.length) return null
+  const names = textAs.map((c) => (c.ticker && c.name ? `${c.name} (${c.ticker})` : c.name || c.ticker || '')).filter(Boolean)
+  return `Read “${typed}” as a ticker — also showing news about ${names.join(' and ')}, however it is spelled.`
 }
 
 const REGIONS = ['US', 'IN', 'JP', 'GB', 'CN', 'KR', 'GLOBAL', 'OTHER']
@@ -164,7 +193,13 @@ export function FeedFilters({
             back. Sits first so it's the obvious company filter; the free-text box beside it still searches
             headlines. */}
         <CompanyFilter value={value.company} onChange={(company) => set({ company })} options={companies} searchSymbols={searchSymbols} />
-        <input className="ffilters__text" value={value.text} placeholder="search headline or company…" onChange={(e) => set({ text: e.target.value })} />
+        <input
+          className="ffilters__text"
+          value={value.text}
+          placeholder="search headline, company or ticker…"
+          title="Search the words in a headline. Type a ticker (AMZN) and it is read as that company, so you get its news however the headline spells it."
+          onChange={(e) => set({ text: e.target.value })}
+        />
         {!compact && (
           <select className="ffilters__sel" value={value.band} onChange={(e) => set({ band: e.target.value })} title="Kept or dropped">
             <option value="">kept + dropped</option>
