@@ -194,6 +194,13 @@ export interface ArchiveQuery {
   // either side is never a conflict (Codex review, PR #319).
   companyListingCountry?: string
   text?: string
+  // The companies the free-text keyword turns out to NAME — the ticker→company reading of `text`, resolved
+  // from the archive company facet (components/screener/CompanyFilter.resolveKeywordCompanies). The keyword
+  // box is a literal substring search, so a typed symbol only ever reached the minority of items whose tag
+  // carried that symbol ("amzn" → 44 of the archive's 198 Amazon items; "amazon" → all 198). Sent so the
+  // server widens the text clause the same way the browser does — OR'd with the literal match, never
+  // replacing it. Structurally a CompanyPick; typed inline so lib/ never imports from components/.
+  textAs?: { ticker: string | null; name: string; aliases?: string[]; listingCountry?: string | null }[]
 }
 export interface SearchCursor { ts: string; id: string }
 export interface FeedSearchResponse {
@@ -279,6 +286,10 @@ function archiveQueryParams(q: ArchiveQuery): URLSearchParams {
   if (q.companyTickerAliases?.length) p.set('companyTickerAliases', q.companyTickerAliases.join(',')) // ',' fine — symbols never contain commas
   if (q.companyListingCountry) p.set('companyListingCountry', q.companyListingCountry)
   if (q.text?.trim()) p.set('text', q.text.trim())
+  // one json param, not a delimiter split: this is a LIST of company objects, and any separator scheme would
+  // need a nested one and would break on the first company name containing it (the server bounds + validates
+  // it, and falls back to plain literal text on anything malformed)
+  if (q.textAs?.length) p.set('textAs', JSON.stringify(q.textAs))
   return p
 }
 

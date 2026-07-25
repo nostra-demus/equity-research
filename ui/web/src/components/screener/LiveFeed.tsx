@@ -11,7 +11,7 @@ import { dayDividerLabel, dayKeyLocal, hhmmLocal } from '../../lib/format'
 import { useStore } from '../../lib/store'
 import type { FeedItem, NewsStatus } from '../../lib/types'
 import { api, type ArchiveQuery, type CompanyFacet, type SearchCursor } from '../../lib/api'
-import { archiveFiltersActive, emptyFilters, FeedFilters, gicsEmptyMessage, matchesFilters, type FeedFilterState } from './FeedFilters'
+import { archiveFiltersActive, emptyFilters, FeedFilters, gicsEmptyMessage, keywordReadAsNote, matchesFilters, resolveKeywordCompanies, type FeedFilterState } from './FeedFilters'
 import { PulseMap } from './PulseMap'
 import { ScanStatus } from './ScanStatus'
 
@@ -203,6 +203,11 @@ export function LiveFeed() {
   // (rather than the shared store's sc* archive fields) because EventRail stays mounted underneath this
   // overlay and would otherwise clobber/be clobbered by a concurrently-active filter on the other view.
   const archiveMode = archiveFiltersActive(filters)
+  // A typed keyword that is really a TICKER, read as the company it names (see EventRail for the same
+  // derivation) — so "amzn" reaches Amazon's news however each headline spells it. Derived from
+  // filters.text, never user state.
+  const textAs = useMemo(() => resolveKeywordCompanies(filters.text, companyFacets), [filters.text, companyFacets])
+  const readAsNote = keywordReadAsNote(filters.text, textAs)
   const archiveQuery = useMemo<ArchiveQuery>(() => ({
     themes: filters.themes.size ? [...filters.themes] : undefined,
     country: filters.country || undefined,
@@ -219,7 +224,8 @@ export function LiveFeed() {
     companyTickerAliases: filters.company?.tickerAliases?.length ? filters.company.tickerAliases : undefined,
     companyListingCountry: filters.company?.listingCountry || undefined,
     text: filters.text.trim() || undefined,
-  }), [filters])
+    textAs: textAs.length ? textAs : undefined,
+  }), [filters, textAs])
   const archiveKey = JSON.stringify(archiveQuery)
   const [archive, setArchive] = useState<ArchiveState>(EMPTY_ARCHIVE)
   // A monotonic token: every new page-1 search bumps it; a page load captures it and, after its await,
@@ -299,14 +305,14 @@ export function LiveFeed() {
   // filter first, then collapse near-duplicate stories so the wire shows one row per story (newest-first).
   // Re-applying matchesFilters on top of already server-filtered archive results is redundant but harmless
   // (defense in depth, same pattern EventRail uses) — keeps one code path instead of special-casing.
-  const visibleGroups = useMemo(() => groupByDedup(items.filter((i) => matchesFilters(i, filters))), [items, filters])
+  const visibleGroups = useMemo(() => groupByDedup(items.filter((i) => matchesFilters(i, filters, textAs))), [items, filters, textAs])
   // priority ordering, opt-in: reorder the deduped stories by the representative item's quick score (same length,
   // so paging/sentinel logic below is unaffected). 'newest' returns the untouched chronological order.
   const orderedGroups = useMemo(() => (
     sortMode === 'score' ? [...visibleGroups].sort((a, b) => (b.rep.triage_score ?? 0) - (a.rep.triage_score ?? 0)) : visibleGroups
   ), [visibleGroups, sortMode])
   // flat filtered items for the pulse map — it counts individual events, not deduped stories
-  const mapItems = useMemo(() => items.filter((i) => matchesFilters(i, filters)), [items, filters])
+  const mapItems = useMemo(() => items.filter((i) => matchesFilters(i, filters, textAs)), [items, filters, textAs])
 
   // Incremental render: show the first `shownCount` stories, grow as a bottom sentinel scrolls into
   // view, and snap back to the top + first page whenever the filtered set changes (a filter toggle or a
@@ -436,6 +442,13 @@ export function LiveFeed() {
       )}
 
       <FeedFilters value={filters} onChange={setFilters} sources={sources} companies={companyFacets} searchSymbols={api.symbolSearch} />
+
+      {/* say plainly when a typed keyword was read as a ticker, so the wider set is never unexplained */}
+      {readAsNote && (
+        <div className="wirewindow wirewindow--readas" role="status">
+          <span className="wirewindow__note" aria-live="polite">{readAsNote}</span>
+        </div>
+      )}
 
       <div className="wirewindow" role="group" aria-label="Wire view">
         <span className="wirewindow__label">View</span>
