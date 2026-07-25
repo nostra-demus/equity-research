@@ -276,6 +276,14 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     coolingDown: isCoolingDown(stateDir, p.id, now().getTime()),
     cooldownWasSet: readCooldownUntil(stateDir, p.id), // >0 → a marker existed at start; clear it if we recover
   }))
+  // The overflow chain runs in TWO segments around Gemini. A DEMOTED local tier (NEWS_LOCAL_PRIMARY=0) joins
+  // this chain as its last entry (config.buildOverflowProviders), but "last in the array" was still ahead of
+  // Gemini, because the whole loop below runs BEFORE the Gemini block. Local is unlimited-but-slow while
+  // Gemini is fast and free — putting the slow tier first starved the fast one, so a batch that Gemini could
+  // have scored in seconds sat behind a minutes-long local call. Split the walk: cloud providers first, the
+  // local tier only after Gemini has had its turn. Order within each segment is unchanged.
+  const overflowCloud = overflow.filter((o) => o.p.id !== 'local')
+  const overflowLocal = overflow.filter((o) => o.p.id === 'local')
   // LAST-RESORT tier (Claude Haiku). Default backend = the host's flat-fee SUBSCRIPTION via the local
   // `claude` CLI, which needs NO key — so it is ON by default; `api` mode instead needs a dedicated metered
   // key. Bounded by a daily $ LEDGER (restart-safe) rather than request counts, because that is the unit the
@@ -391,19 +399,21 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       limiter.learn(res.rate, () => now().getTime()) // track the live per-minute ceiling + back off on 429
       if (!res.ok) {
         groqDownThisCycle = true // Groq is having a bad cycle → skip it for the rest of THIS cycle, save the cap
-        armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'groq', cfg.llmCooldownMaxMs) // …and across cycles until the window lapses
+        // …and across cycles until the window lapses — EXCEPT on a cycle abort, where the wall-clock guard
+        // cancelled an in-flight call. That is not a Groq failure, and cooling on it strands the primary tier.
+        if (!deps.signal?.aborted) armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'groq', cfg.llmCooldownMaxMs)
       } else if (groqCooldownUntil) {
         clearCooldown(stateDir, 'groq') // a probe after the window lapsed SUCCEEDED → Groq recovered, drop the stale marker
       }
     }
-    if (!res || !res.ok) {
-      // Walk the overflow chain for THIS SAME batch: a failing/exhausted provider advances to the NEXT one
-      // in order, rather than stopping at the first pick. Without this, a one-batch backlog could trap on a
-      // dead first provider — its in-cycle `failed` flag resets on the next drain, so the rebuilt chain
-      // picks the same dead provider again and never reaches Mistral/OpenRouter (the drain just re-cycles
-      // news-deferred.json). The 4xx-exhaust below persists the skip across drains; this loop covers the
-      // non-terminal failures (429 / 5xx / network) that don't exhaust, by trying the rest in the same batch.
-      for (const ov of overflow) {
+    // Walk a SEGMENT of the overflow chain for THIS SAME batch: a failing/exhausted provider advances to the
+    // NEXT one in order, rather than stopping at the first pick. Without this, a one-batch backlog could trap
+    // on a dead first provider — its in-cycle `failed` flag resets on the next drain, so the rebuilt chain
+    // picks the same dead provider again and never reaches Mistral/OpenRouter (the drain just re-cycles
+    // news-deferred.json). The 4xx-exhaust below persists the skip across drains; this loop covers the
+    // non-terminal failures (429 / 5xx / network) that don't exhaust, by trying the rest in the same batch.
+    const walkOverflow = async (segment: typeof overflow) => {
+      for (const ov of segment) {
         // skip already-failed (this cycle), cross-cycle cooling-down, or out-of-budget providers
         if (ov.failed || ov.coolingDown || !ov.budget.canSpend(est)) continue
         await ov.limiter.acquire(est, sleep, () => now().getTime())
@@ -424,9 +434,14 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         if (/HTTP (400|401|402|403|404|413)/.test(res.note || '')) ov.budget.exhaust()
         // not terminal (429 / 5xx / network): arm the CROSS-CYCLE cooldown so later cycles stop re-probing this
         // provider (draining its small daily cap on failures), then fall through to the NEXT provider this batch.
-        else armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, ov.p.id, cfg.llmCooldownMaxMs)
+        // NOT when the cycle was ABORTED: the wall-clock guard cancels an in-flight call, which surfaces here as
+        // a generic failure even though the provider is perfectly healthy. Cooling it then strands a good tier in
+        // "cooling" for the whole window — the tier never actually failed, the cycle just ran out of time.
+        else if (!deps.signal?.aborted) armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, ov.p.id, cfg.llmCooldownMaxMs)
       }
     }
+    // Cloud overflow FIRST — everything except the local tier.
+    if (!res || !res.ok) await walkOverflow(overflowCloud)
     if ((!res || !res.ok) && geminiOn) {
       // first pool model with daily room that isn't failed-this-cycle or cross-cycle cooling down
       const gemPick = geminiPool.find((g) => !g.failed && !g.coolingDown && g.budget.canSpend(est))
@@ -442,10 +457,14 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         } else {
           gemPick.failed = true // don't re-pick this model for the rest of THIS cycle (the intra-cycle burn fix)
           if (/PerDay/i.test(res.note || '')) gemPick.budget.exhaust() // model's free day is spent → rotation skips it until midnight PT
-          else armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, `gemini:${gemPick.model}`, cfg.llmCooldownMaxMs) // transient → cross-cycle backoff
+          // transient → cross-cycle backoff, but NOT on a cycle abort (see the overflow loop above: an aborted
+          // in-flight call is not a provider failure, and cooling on it strands a healthy Gemini model).
+          else if (!deps.signal?.aborted) armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, `gemini:${gemPick.model}`, cfg.llmCooldownMaxMs)
         }
       }
     }
+    // LOCAL LAST: a demoted local tier is unlimited but slow, so it only gets the batch once Gemini has passed.
+    if (!res || !res.ok) await walkOverflow(overflowLocal)
     // LAST-RESORT: every free brain is paced/capped/cooling/failed for this batch → score it on Claude Haiku
     // (the host's subscription by default) rather than deferring and risking the 1,000-cap drop under
     // sustained overload. This is what keeps RECENCY: the item is scored now, not next reset. Gated: enabled
