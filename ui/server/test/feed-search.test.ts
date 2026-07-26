@@ -418,4 +418,18 @@ check('findFeedItemById: the no-hint walk is bounded — it does not reach past 
   assert.ok(findFeedItemById(repo, target.event_id, { now, tsHint: target.ts }), 'a hint reaches it directly, at one day-file of cost')
 })
 
+check('findFeedItemById: a record whose day-file is one day AHEAD of its ts hint is still found (UTC-boundary skew)', () => {
+  // An item ingested just after midnight lands in the NEW day's firehose file while its `ts` still reads
+  // the OLD day (the two are stamped independently). The hint is that older `ts`, but the record lives in
+  // the day-file after it. The lookup must open hintDay+1, not only hintDay and hintDay-1 — otherwise the
+  // record the wire happily shows degrades to a bare-headline read. Deterministic (fixed `now`): red
+  // before the hintDay+1 coverage, green after. Contract: found wherever the wire can show it (§3).
+  const repo = tmp()
+  const target = item({ ts: `${dayAgo(1)}T23:59:50Z`, snippet: 'the stored lede, on disk the whole time' } as any)
+  writeDay(repo, dayAgo(0), [target]) // written to TODAY's file though its ts reads YESTERDAY
+  const hit = findFeedItemById(repo, target.event_id, { now, tsHint: target.ts })
+  assert.equal(hit?.event_id, target.event_id, 'opening hintDay+1 recovers the record the older window missed')
+  assert.equal((hit as any).snippet, 'the stored lede, on disk the whole time', 'the persisted body comes back, not a headline floor')
+})
+
 console.log(`\nfeed-search.test.ts: ${passed} passed`)

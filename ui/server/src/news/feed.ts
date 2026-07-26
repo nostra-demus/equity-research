@@ -454,12 +454,16 @@ export function findFeedItemById(repoRoot: string, eventId: string, opts: FindFe
   const now = opts.now || (() => new Date())
   const today = dayKey(now)
   const hintDay = opts.tsHint && !Number.isNaN(Date.parse(opts.tsHint)) ? new Date(opts.tsHint).toISOString().slice(0, 10) : ''
-  // A hint from the FUTURE (a skewed client clock, or a hostile caller) must not start the walk after
-  // today and read forward into days that cannot exist — clamp it to today.
-  const anchor = hintDay ? (hintDay <= today ? hintDay : today) : today
-  // hint → the item's own day, then the day before it (a UTC-boundary / clock-skew guard, since `ts` and
-  // the day-file are stamped independently). No hint → today walking back `daysBack` days.
-  const span = hintDay ? 1 : Math.max(0, opts.daysBack ?? FIND_DAYS_BACK)
+  // `ts` and the day-file are stamped independently, so the record can sit one calendar day off its hint
+  // in EITHER direction: an item ingested just after midnight lands in the new day's file while its `ts`
+  // still reads the old day, and clock skew can do the reverse. Anchor the walk one day AFTER the hint
+  // (never past today — a future/hostile hint clamps to today) and step back, so a single hint always
+  // covers {hintDay+1, hintDay, hintDay-1}. No hint → today walking back `daysBack` days.
+  const pastHint = hintDay && hintDay < today
+  const anchor = pastHint
+    ? new Date(new Date(`${hintDay}T00:00:00Z`).getTime() + 86_400_000).toISOString().slice(0, 10)
+    : today
+  const span = hintDay ? (pastHint ? 2 : 1) : Math.max(0, opts.daysBack ?? FIND_DAYS_BACK)
 
   // ONE day per searchFeed call so we can stop at the first hit. searchFeed's own multi-day walk cannot:
   // it only breaks early once matches EXCEED the limit, and an event_id matches at most once, so a single
