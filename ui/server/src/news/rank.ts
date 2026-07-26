@@ -51,7 +51,7 @@ export interface RankFactors {
   // for "quantified estimate/guidance/valuation impact", independent of the LLM's own number. Same
   // persisted/pass-through treatment as materiality_label_floor.
   quantified: number
-  boost_weight?: number // global multiplier applied to (source_tier+scope+event+size+recency+materiality_label_floor+quantified) for THIS score (1 = none); always set on output, optional on input (records predating the field)
+  boost_weight?: number // global multiplier applied to (source_tier+scope+event+size+recency+materiality_label_floor+quantified) for THIS score (1 = none); always set on output, optional on input (records predating the field). NOT applied to body_floor below — see reRankFromFactors.
   scope_id: ScopeId
   source_tier_id: SourceTierId
   // the winning event type / size bucket LABELS behind the event & size points — captured so the feedback
@@ -59,6 +59,18 @@ export interface RankFactors {
   // closing the "points snapshotted but not their label" gap. null event_id = no positive event winner.
   event_id: string | null
   size_bucket: string
+  // The ARTICLE BODY's own materiality verdict (news/impact-floor.ts), when the engine has actually read
+  // the article — low | medium | high | critical, the same scale as the headline label. Absent while an
+  // item is still headline-only, which is the honest distinction between "we read it and it is noise" and
+  // "we never got behind the headline". Set on the READ path only (reRankFromFactors), never at ingest:
+  // the body read happens long after the item is written.
+  body_label?: string
+  // The body verdict's OWN raw floor-lift (materialityLabelBoost against materiality) — independent of
+  // materiality_label_floor above, which stays the HEADLINE-only floor. Set only alongside body_label.
+  // Kept separate so a consumer (the cockpit's score ledger) can apply it at full strength: unlike the
+  // headline floor, it must not be silenced or diluted by the tunable Overall-boost (Codex review, PR
+  // #350) — the body read is independently-gathered evidence, not a preference weight.
+  body_floor?: number
 }
 
 // Fixed severity-tier floors (aligned with the existing pickThreshold=70/watchThreshold=40 bands, plus
@@ -217,6 +229,7 @@ export function reRankFromFactors(
   rf: RankFactors,
   item: { event_types?: (string | null)[] | null; size_bucket?: string | null },
   weights: RankWeights = getRankWeights(),
+  bodyLabel?: string | null,
 ): Ranked {
   const materiality = clamp(Math.round(Number(rf.materiality) || 0), 0, 100)
   const source_tier = weights.source_tier[rf.source_tier_id] ?? 0
@@ -226,16 +239,54 @@ export function reRankFromFactors(
   const recency = Number(rf.recency) || 0 // freshness as captured at ingest — clock-independent
   // same treatment as recency: fixed at ingest (not a function of the tunable weight set), carried
   // through unchanged. 0 for an older record that predates these fields.
-  const materiality_label_floor = Number(rf.materiality_label_floor) || 0
+  const materiality_label_floor = Number(rf.materiality_label_floor) || 0 // headline floor, unchanged pass-through
+  // THE BODY READ'S VERDICT (news/impact-floor.ts). The headline floor above is derived from a read of
+  // the HEADLINE; once the engine has read the whole article, the article's own verdict is the better
+  // evidence and floors the item too. Same mechanism (materialityLabelBoost), better input — so a
+  // substantive story behind a weak headline stops being ranked on what its headline promised.
+  //
+  // Only a label the floor table actually knows counts. An unrecognised value contributes no points
+  // (materialityLabelBoost already returns 0) and must not be stamped into the factors either, or the
+  // cockpit's explainer would report "the full article reads <junk> impact" on a verdict we cannot read.
+  const bodyLabelNorm = String(bodyLabel ?? '').toLowerCase()
+  const bodyRecognized = MATERIALITY_LABEL_FLOOR[bodyLabelNorm] != null ? bodyLabelNorm : ''
+  // Used for the SCORE math below regardless of attribution — the body floor must compete against the
+  // (tuned) headline floor even when it turns out not to be the winning/displayed evidence.
+  const bodyFloorRaw = bodyRecognized ? materialityLabelBoost(bodyRecognized, materiality) : 0
   const quantified = Number(rf.quantified) || 0
 
   const w = clamp(weights.boost_weight, 0, 2)
-  const boost = (source_tier + scope + event + size + recency + materiality_label_floor + quantified) * w
-  const rank_score = clamp(Math.round(materiality + boost), 0, 100)
+  // Every headline-derived adjustment — including the headline's OWN severity floor — is tunable by the
+  // panel's Overall boost, exactly as at ingest (rankScore). The BODY read's floor is independent,
+  // LATER-gathered evidence (the article itself, read long after ingest) and must survive at full
+  // strength regardless of that tunable: diluting or silencing it at low boost would defeat the whole
+  // point of having read the article (Codex review, PR #350). So it is added UNSCALED and MAX()-ed
+  // against the (tuned) headline floor — never summed, so an item the ingest read already floored is
+  // never double-counted just because the body read agrees.
+  const otherBoost = (source_tier + scope + event + size + recency + quantified) * w
+  const headlineFloorTuned = materiality_label_floor * w
+  const floorBoost = Math.max(headlineFloorTuned, bodyFloorRaw)
+  const rank_score = clamp(Math.round(materiality + otherBoost + floorBoost), 0, 100)
+  // Carry body_label/body_floor — the "Read the article — reads X impact" attribution the cockpit shows —
+  // ONLY when the body verdict is the floor actually BINDING (winning against the tuned headline floor).
+  // If the headline's own severity call already dominates, those points are the headline's, not the
+  // body's; tagging that row as a body read would attribute the headline's lift to evidence the body did
+  // not supply — a "high" headline with a "low" body read must never render as "the full article reads
+  // low impact +60" (Codex review, PR #350: "Attribute retained headline floors correctly").
+  const bodyIsBinding = !!bodyRecognized && bodyFloorRaw >= headlineFloorTuned
+  const body_label = bodyIsBinding ? bodyRecognized : ''
 
   return {
     rank_score,
-    rank_factors: { materiality, source_tier, scope, event, size, recency, materiality_label_floor, quantified, boost_weight: w, scope_id: rf.scope_id, source_tier_id: rf.source_tier_id, event_id: winningEventType(item.event_types, weights.event), size_bucket: String(item.size_bucket || 'unknown').toLowerCase() },
+    rank_factors: {
+      materiality, source_tier, scope, event, size, recency, materiality_label_floor, quantified,
+      boost_weight: w, scope_id: rf.scope_id, source_tier_id: rf.source_tier_id,
+      event_id: winningEventType(item.event_types, weights.event),
+      size_bucket: String(item.size_bucket || 'unknown').toLowerCase(),
+      // carried so the cockpit's score explainer can say the article was actually read, and which way the
+      // body read fell — the difference between a settled verdict and a headline-only guess
+      ...(body_label ? { body_label, body_floor: bodyFloorRaw } : {}),
+    },
   }
 }
 

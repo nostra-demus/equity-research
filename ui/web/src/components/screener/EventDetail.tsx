@@ -291,33 +291,58 @@ function ScoreWhy({ it, anchorRef, open, onToggle }: { it: FeedItem; anchorRef: 
   // ledger too — otherwise the rows don't add up to the shown score and the moving factor is hidden
   // (CLAUDE.md §12: every point is explainable from an evidence row). Only shown when they actually move
   // the score (older records predating the fields carry 0 → no clutter), but always summed.
-  const labelFloor = Number(rf.materiality_label_floor) || 0
+  const labelFloor = Number(rf.materiality_label_floor) || 0 // headline-derived floor — tunable, like every row below
+  // Present only once the engine has actually READ the article body (news/impact-floor.ts). It changes what
+  // the floor row MEANS — a verdict on the whole article, not a guess from the title — and it is what tells
+  // the reader whether the score below is settled evidence or a first impression.
+  const bodyLabel = typeof rf.body_label === 'string' ? rf.body_label : ''
+  const bodyFloorRaw = Number(rf.body_floor) || 0 // NOT tunable — see rank.ts reRankFromFactors
   const quantified = Number(rf.quantified) || 0
-  const adjRows = [
+  const w = typeof rf.boost_weight === 'number' ? rf.boost_weight : 1
+
+  const coreRows = [
     { k: 'Source', v: tier?.label ?? rf.source_tier_id, why: tier?.meaning, pts: rf.source_tier },
     { k: 'Focus', v: scopeDef?.label ?? rf.scope_id, why: scopeDef?.meaning, pts: rf.scope },
     { k: 'Event', v: it.event_types?.length ? it.event_types.map(plainTheme).join(', ') : '—', why: 'The biggest event named in the headline counts.', pts: rf.event },
     { k: 'Size', v: plainSize(it.size_bucket), why: undefined as string | undefined, pts: rf.size },
     { k: 'Freshness', v: freshnessLabel(it.ts), why: 'Newer news counts for a little more.', pts: rf.recency },
-    ...(labelFloor !== 0
-      ? [{ k: 'Severity floor', v: 'lifted to its severity tier', why: "The AI's own severity call (high / critical) sets a floor the score can't sit below.", pts: labelFloor }]
-      : []),
-    ...(quantified !== 0
-      ? [{ k: 'Quantified impact', v: 'a number + an impact word', why: 'The headline pairs a figure (a sum, %, or bps) with an impact word (guidance, fine, deal…).', pts: quantified }]
-      : []),
   ]
-  // The adjustments are summed, then scaled by the GLOBAL boost — the Scoring panel's own formula
-  // ("the AI's headline read + these adjustments × overall boost"); see rank.ts:
-  // boost = (source_tier+scope+event+size+recency+materiality_label_floor+quantified) × boost_weight.
-  // The boost_weight that produced THIS score travels with it in rank_factors, so the ledger reconciles
-  // exactly even after a panel edit.
-  // Show the boost as its own row only when it actually moves the total (weight ≠ 1).
-  const w = typeof rf.boost_weight === 'number' ? rf.boost_weight : 1
-  const adjSum = adjRows.reduce((s, r) => s + r.pts, 0)
+  const quantifiedRow = quantified !== 0
+    ? [{ k: 'Quantified impact', v: 'a number + an impact word', why: 'The headline pairs a figure (a sum, %, or bps) with an impact word (guidance, fine, deal…).', pts: quantified }]
+    : []
+  // The adjustments above are summed, then scaled by the GLOBAL boost — the Scoring panel's own formula
+  // ("the AI's headline read + these adjustments × overall boost"); see rank.ts. The floor row below is
+  // deliberately EXCLUDED from this group — show the boost as its own row only when it actually moves the
+  // (non-floor) total (weight ≠ 1).
+  const tunableRows = [...coreRows, ...quantifiedRow]
+  const adjSum = tunableRows.reduce((s, r) => s + r.pts, 0)
   const boostDelta = Math.round(adjSum * w) - adjSum
-  const baseRows = boostDelta !== 0
-    ? [...adjRows, { k: 'Overall boost', v: `×${w.toFixed(2)} on the adjustments above`, why: undefined as string | undefined, pts: boostDelta }]
-    : adjRows
+  const boostRow = boostDelta !== 0
+    ? [{ k: 'Overall boost', v: `×${w.toFixed(2)} on the adjustments above`, why: undefined as string | undefined, pts: boostDelta }]
+    : []
+  // THE FLOOR — computed and applied SEPARATELY from the tunable group above (server rank.ts
+  // reRankFromFactors, Codex review PR #350): the headline floor is tunable by boost_weight like every
+  // other adjustment, but the BODY read's floor is independent, later-gathered evidence and must survive
+  // at full strength regardless of the Overall-boost setting — so it is applied UNSCALED and MAX()-ed
+  // against the (tuned) headline floor, never summed. Attribute the row to whichever evidence is actually
+  // WINNING: a retained headline floor must never be captioned as "the article says X" just because a
+  // (non-binding) body verdict happens to be present too.
+  const headlineFloorTuned = labelFloor * w
+  const floorPts = Math.round(Math.max(headlineFloorTuned, bodyFloorRaw))
+  const floorIsBodyDriven = !!bodyLabel && bodyFloorRaw > headlineFloorTuned
+  const floorRow = floorPts !== 0
+    ? [{
+        k: floorIsBodyDriven ? 'Read the article' : 'Severity floor',
+        v: floorIsBodyDriven ? `the full article reads ${bodyLabel} impact` : 'lifted to its severity tier',
+        why: floorIsBodyDriven
+          ? 'The engine read the whole article, not just the headline — its verdict on the body sets a floor the score can’t sit below, at full strength regardless of the Overall-boost setting.'
+          : "The AI's own severity call (high / critical) sets a floor the score can't sit below.",
+        pts: floorPts,
+      }]
+    : []
+  // Visual order: source/focus/event/size/freshness, then the floor (the most decision-relevant row),
+  // then the quantified bonus, then the boost delta that reconciles the tunable group above to what's shown.
+  const baseRows = [...coreRows, ...floorRow, ...quantifiedRow, ...boostRow]
   // A `social` (Reddit/discovery) item carries its UNcapped factors, but the server holds its displayed
   // score below the pick/watch line (capSocialScore, §4/§24). Surface that hold-down as an explicit cut so
   // the ledger reconciles to the shown score (CLAUDE.md §12) instead of the rows silently overshooting it.
@@ -372,7 +397,11 @@ function ScoreWhy({ it, anchorRef, open, onToggle }: { it: FeedItem; anchorRef: 
             </div>
           </div>
 
-          <div className="scorewhy__foot">A first read of the headline only — running the checks re-scores it with the full evidence.</div>
+          <div className="scorewhy__foot">
+            {bodyLabel
+              ? `Scored on the full article, not just the headline — the body reads ${bodyLabel} impact.`
+              : 'A first read of the headline only — running the checks re-scores it with the full evidence.'}
+          </div>
         </div>
       )}
     </div>
@@ -672,7 +701,12 @@ export function EventDetail({ it }: { it: FeedItem }) {
         {enrichment && (
           <div className="evdetail__block">
             <div className="evdetail__label">Related recent events</div>
-            {enrichment.related.length ? (
+            {/* Array.isArray, not `?.length`: a cache entry written by an older enrichment shape (or a
+                partial write) can carry `related` as a non-array truthy value (e.g. `{}`), and `.length`
+                on that is undefined rather than a throw — but `.map` on it WOULD throw inside render,
+                unmounting the whole detail pane to a blank page rather than degrading one block. Every
+                sibling block below already reads its array optionally; this one did not. */}
+            {Array.isArray(enrichment.related) && enrichment.related.length ? (
               <ul className="evdetail__related">
                 {enrichment.related.map((r) => (
                   <li key={`${r.event_id}-${r.ts}`}>

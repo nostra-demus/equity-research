@@ -3056,6 +3056,19 @@ export const useStore = create<State>((set, get) => ({
     try {
       const enrichment = await api.enrichEvent(it)
       set({ enrichCache: { ...get().enrichCache, [it.event_id]: enrichment } })
+      // A body read can floor this item's rank the moment it lands (news/impact-floor.ts) — patch the wire
+      // row the reader is already looking at immediately, instead of leaving it showing its stale
+      // headline-only score until a later full feed refetch (Codex review, PR #350).
+      const rescored = enrichment.rescored
+      if (rescored) {
+        set({
+          newsItems: get().newsItems.map((row) =>
+            row.event_id === it.event_id
+              ? { ...row, triage_score: rescored.rank_score, band: rescored.band, rank_factors: rescored.rank_factors }
+              : row,
+          ),
+        })
+      }
     } catch (e: any) {
       // The server always returns SOMETHING within its budget, so a throw here means the request itself
       // failed (timeout / network / tunnel blip). DON'T drop the entry back to undefined — that re-renders

@@ -20,7 +20,7 @@ import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
 import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, finalDeliverablesPresent, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
-import { readFeed, searchFeed } from './news/feed'
+import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
 import { callVsLive, getQuotes } from './news/equity-quote'
 import { getCalendar } from './news/events-calendar'
@@ -37,6 +37,7 @@ import { buildCommodityThemesIndex } from './news/themes/commodity-index'
 import type { ThemesIndex } from './news/themes/types'
 import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers, peekCachedEnrichment } from './news/enrich'
+import { verdictOf } from './news/impact-floor'
 import { autoBridgeItem, bridgeEventToSubject, findWireItem, listBridgedSubjects } from './research-bridge'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
@@ -2190,6 +2191,19 @@ app.get('/api/news/enrich', async (req, reply) => {
         corroborate: { enabled: NEWS.enrichCorroborate, baseUrl: NEWS.gdeltBaseUrl, timeoutMs: NEWS.enrichCorroborateTimeoutMs },
       },
     )
+    // A body read that just landed a firm materiality verdict floors this item's rank (news/impact-floor.ts)
+    // — but that floor otherwise only reaches the wire on its NEXT full load. Re-score the item right here,
+    // the same way the wire would, and hand the client the fresh score/band so it can patch the row it's
+    // already looking at immediately, instead of showing a stale headline-only score until a later refetch
+    // (Codex review, PR #350). Additive-only: an older client that ignores `rescored` sees no change.
+    const verdict = verdictOf(enrichment)
+    if (verdict) {
+      const item = findWireItem(REPO_ROOT, q.event_id, { archiveDir: NEWS.newsArchiveDir })
+      if (item?.rank_factors) {
+        applyActiveWeightsTo(item, getRankWeights(), new Map([[item.event_id, verdict]]))
+        return { ...enrichment, rescored: { rank_score: item.triage_score, band: item.band, rank_factors: item.rank_factors } }
+      }
+    }
     return enrichment
   } catch (e: any) {
     // enrichEvent never throws, but keep the route honest if something upstream does

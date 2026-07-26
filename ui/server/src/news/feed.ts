@@ -20,7 +20,8 @@ import { getRankWeights } from './rank-weights'
 import { scoreToBand } from './triage/groq'
 import { resolveCountry } from './geography'
 import { cleanTicker } from './symbology'
-import { NEWS } from '../config'
+import { NEWS, STATE_DIR } from '../config'
+import { bodyVerdicts } from './impact-floor'
 
 /** Hydrate a feed item on read: clean any HTML/markup left in the headline (older firehose lines were
  *  stored before ingest-time cleaning — e.g. "<a href=…>Title</a>"), fill scope/source_tier, and derive
@@ -69,10 +70,15 @@ function hydrate(it: FeedItem): FeedItem {
 
 /** Re-score ONE item in place under the given weights (the per-item core of withActiveWeights). Idempotent:
  *  reRankFromFactors is a pure function of the ingest-captured breakdown + the weights, so applying it twice
- *  yields the same score/band. Returns early (no-op) for an older line with no breakdown. */
-function applyActiveWeightsTo(it: FeedItem, w: ReturnType<typeof getRankWeights>): void {
+ *  yields the same score/band. Returns early (no-op) for an older line with no breakdown. Exported so a
+ *  caller with a single fresh item + a just-landed body verdict (the enrich route, server.ts) can re-score
+ *  it immediately, the same way the wire would on its next load. */
+export function applyActiveWeightsTo(it: FeedItem, w: ReturnType<typeof getRankWeights>, bodies?: Map<string, { label: string }>): void {
   if (!it.rank_factors) return // older line with no breakdown — leave its persisted score as-is
-  const r = reRankFromFactors(it.rank_factors, it, w)
+  // When the engine has READ this article's body, the body's own materiality verdict floors the score
+  // (news/impact-floor.ts). Read-time like every other derivation here, so the whole existing backlog
+  // benefits with no backfill and the firehose keeps its ingest-time audit trail.
+  const r = reRankFromFactors(it.rank_factors, it, w, bodies?.get(it.event_id)?.label)
   // §4/§24 doctrine cap on the DISPLAY path too — same rule the ingest path applies in runCycle.ts: a
   // weight edit that re-ranks a Reddit/`social` item above the pick threshold must never show it as a
   // top pick, and capSocialScore keeps its priority below the picks so the wire ordering honors the cap.
@@ -94,7 +100,9 @@ function applyActiveWeightsTo(it: FeedItem, w: ReturnType<typeof getRankWeights>
  *  clock); at default weights every score is unchanged. Skips any pre-breakdown line. Mutates in place. */
 function withActiveWeights(items: FeedItem[]): void {
   const w = getRankWeights()
-  for (const it of items) applyActiveWeightsTo(it, w)
+  // one TTL-cached read of the body verdicts for the whole window, not one per item
+  const bodies = bodyVerdicts(STATE_DIR)
+  for (const it of items) applyActiveWeightsTo(it, w, bodies)
 }
 
 /** Recompute story-cluster ids over the whole returned window, so the wire de-dupes the EXISTING
@@ -262,6 +270,11 @@ export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; m
   // stale persisted band would disagree with what the wire displays after a Scoring-panel edit.
   // Idempotent, so the display re-apply on the capped page below is a no-op.
   const weightsForPredicate = opts.predicate && opts.applyActiveWeights !== false ? getRankWeights() : null
+  // Must include the BODY floor too (news/impact-floor.ts), or a band filter (e.g. band=pick) tests an
+  // item against its stale headline-only score and can drop exactly the item this feature exists to
+  // rescue — before the later withActiveWeights() pass on the capped page ever gets a chance to correct
+  // it (Codex review, PR #350).
+  const bodiesForPredicate = weightsForPredicate ? bodyVerdicts(STATE_DIR) : undefined
   const items: FeedItem[] = []
   const cycles: CycleSummary[] = []
   for (let d = 0; d < Math.max(1, days); d++) {
@@ -277,7 +290,7 @@ export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; m
           // filter at the push site (post-hydrate), so the early-stop below counts MATCHES — a sparse
           // filter (e.g. one commodity) still fills its window instead of stopping at maxItems raw lines
           const h = hydrate(o as FeedItem)
-          if (weightsForPredicate) applyActiveWeightsTo(h, weightsForPredicate)
+          if (weightsForPredicate) applyActiveWeightsTo(h, weightsForPredicate, bodiesForPredicate)
           if (!opts.predicate || opts.predicate(h)) items.push(h)
         } else if (o?.kind === 'cycle_summary') cycles.push(o as CycleSummary)
       } catch {
@@ -379,6 +392,8 @@ export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
   // opts out of active weights (applyActiveWeights === false) — then the predicate sees the persisted band,
   // consistent with a non-re-scored view. The final page re-apply below is then a no-op (idempotent).
   const weightsForPredicate = opts.applyActiveWeights !== false ? getRankWeights() : null
+  // Must include the BODY floor too — see the matching comment in readFeed (Codex review, PR #350).
+  const bodiesForPredicate = weightsForPredicate ? bodyVerdicts(STATE_DIR) : undefined
 
   for (let d = 0; d < maxDaysScan; d++) {
     const date = new Date(new Date(`${startDate}T00:00:00Z`).getTime() - d * 86_400_000).toISOString().slice(0, 10)
@@ -387,7 +402,7 @@ export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
     linesScanned += lines
     if (lines > 0) scannedThroughDate = date // the oldest day we actually parsed
     for (const it of items) {
-      if (weightsForPredicate) applyActiveWeightsTo(it, weightsForPredicate)
+      if (weightsForPredicate) applyActiveWeightsTo(it, weightsForPredicate, bodiesForPredicate)
       if (afterCursor(it, opts.cursor) && opts.predicate(it)) matches.push(it)
     }
     // Stop AFTER fully parsing a day (never mid-file) so newest-first ordering is exact: older days can

@@ -32,6 +32,7 @@ import { fetchGdeltDoc } from './sources/gdelt'
 import { classifyParagraphs, type PageTextVerdict } from './page-junk'
 import { fetchFilingDocText, resolveFilingDocUrl } from './filing-doc'
 import type { CompanyGuess, RawArticle } from './types'
+import { invalidateBodyVerdicts } from './impact-floor'
 
 const CACHE_FILE = 'news-enrich-cache.json'
 const CACHE_BACKUP_FILE = 'news-enrich-cache.bak.json' // last-known-good copy, written before each overwrite
@@ -50,10 +51,25 @@ const USER_AGENT = process.env.NEWS_ENRICH_USER_AGENT || process.env.NEWS_RSS_US
 // SEC.gov mandates a descriptive contact UA; everywhere else a realistic browser header set so public
 // article pages don't reject us as a bot (the cause of the low body-read rate).
 const SEC_HEADERS: Record<string, string> = { 'user-agent': USER_AGENT, accept: 'text/html,application/xhtml+xml,application/xml' }
+// A real Chrome navigation sends more than a UA + accept pair, and Cloudflare's bot check (which fronts a
+// large share of the news web) scores the COMPLETENESS of the set: the Fetch Metadata headers
+// (sec-fetch-*), the client hints (sec-ch-ua*) and upgrade-insecure-requests. Sending only three of them
+// was reading as automation and returning 403 on ordinary PUBLIC article pages — measured against the
+// wire's 45 busiest domains, completing the set turned 2 of them (businesswire, ft.com) from a hard 403
+// into a readable fetch with 0 regressions. Still no paywall circumvention: a hard paywall serves its stub
+// and the reader degrades on it exactly as before.
 const BROWSER_HEADERS: Record<string, string> = {
   'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-  accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
   'accept-language': 'en-US,en;q=0.9',
+  'upgrade-insecure-requests': '1',
+  'sec-fetch-dest': 'document',
+  'sec-fetch-mode': 'navigate',
+  'sec-fetch-site': 'none',
+  'sec-fetch-user': '?1',
+  'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
+  'sec-ch-ua-mobile': '?0',
+  'sec-ch-ua-platform': '"macOS"',
 }
 const secHost = (u: string): boolean => { try { return /(^|\.)sec\.gov$/i.test(new URL(u).hostname) } catch { return false } }
 
@@ -647,6 +663,9 @@ function saveCache(stateDir: string, cache: Record<string, EventEnrichment>): vo
     const tmp = `${main}.${process.pid}.tmp`
     fs.writeFileSync(tmp, json)
     fs.renameSync(tmp, main)
+    // a body read just landed — drop the read-path's TTL copy so its materiality verdict floors the item's
+    // rank on the very next wire load, not up to a minute later (news/impact-floor.ts)
+    invalidateBodyVerdicts()
   } catch {}
 }
 

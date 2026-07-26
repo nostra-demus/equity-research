@@ -1,4 +1,4 @@
-// Background self-heal for THE STORY — the "auto fix" half of the anti-poisoning layer.
+// Background body-read pass — REPAIR the reads that went wrong, and DISCOVER the ones nobody ever asked for.
 //
 // The on-demand read (enrich.ts) is best-effort: when a HUMAN opens an event we read the article body with a
 // free LLM, but a momentary miss (the ingester saturating Groq's per-minute window, an empty parse, the time
@@ -11,13 +11,25 @@
 // can never destroy a good brief, and its attempt bookkeeping accepts the floor as final after MAX attempts —
 // so a genuinely unreadable article (hard paywall, JS shell) is tried a few times, then left alone.
 //
-// Cheap and bounded by design: capped at maxPerCycle, gated on free-tier budget headroom, paced between
-// re-reads, and it NEVER throws (a heal failure must never wedge a cycle).
+// It also does the other half, which is what stops good stories staying buried. A body read used to happen
+// ONLY when a human opened an event — and a human only opens what already surfaced — so an item whose
+// headline undersold it was never read, and its headline-only score was the only score it would ever get.
+// coldReadCandidates below breaks that circle: each cycle the pass also gives a first read to the handful of
+// never-read items most likely to be mis-ranked by their headline, and news/impact-floor.ts turns the
+// resulting verdict into a floor on their rank.
+//
+// Cheap and bounded by design: capped at maxPerCycle (repair) + coldMaxPerCycle (discovery), gated on
+// free-tier budget headroom, paced between reads, hard-stopped by a wall clock, and it NEVER throws (a
+// failure here must never wedge a cycle).
 
 import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
 import { ARTICLE_READ_PROVIDERS, FILING_READ_PROVIDERS } from '../config'
 import { readFeed } from './feed'
 import { enrichEvent, isEnrichmentComplete, type EventEnrichment } from './enrich'
+import { isFilingEvent } from './story-floor'
+import { sourceTierRank } from './rank'
+import { deriveSourceTier } from './scope'
+import { bodyVerdicts } from './impact-floor'
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -31,6 +43,7 @@ export interface HealDeps {
   now?: () => Date
   sleep?: (ms: number) => Promise<void>
   maxPerCycle?: number // how many degraded reads to re-attempt per call (default NEWS.enrichHealMaxPerCycle)
+  coldMaxPerCycle?: number // how many NEVER-read items to give a first read per call (default NEWS.enrichColdMaxPerCycle; 0 disables discovery, leaving repair untouched)
   maxAgeMs?: number // skip entries degraded longer than this — structural failures, not transient (default NEWS.enrichHealMaxAgeMs)
   totalBudgetMs?: number // hard wall-clock cap for the WHOLE pass — it runs under the cycle lock, so this bounds how much it can extend a cycle (default 120s)
   gapMs?: number // pause between re-reads, so a heal burst doesn't spike the source hosts (default 400)
@@ -43,7 +56,71 @@ export interface HealSummary {
   degraded: number // degraded entries still on the live wire (heal candidates)
   attempted: number // how many we re-read this call
   healed: number // re-reads that became complete (a rich brief, or the floor accepted as final)
+  cold: number // NEVER-read items picked for a first read (the under-rated tail — see coldReadCandidates)
   note?: string
+}
+
+/**
+ * THE UNDER-RATED TAIL — items whose HEADLINE told the engine nothing, so nobody ever opened them, so their
+ * body was never read, so the headline-only score is all they will ever have. That circle is exactly how a
+ * substantive story behind a weak headline stays buried: the wire ranks on a title read (rank.ts), a body
+ * read only ever happened when a HUMAN opened an item, and a human only opens what already surfaced.
+ *
+ * So this pass no longer only REPAIRS reads that went wrong — it also spends its leftover, budget-gated
+ * slots reading the items most likely to be mis-ranked by their headline, whose verdict then floors their
+ * score on the next wire load (news/impact-floor.ts). The selection is deliberately narrow, and every
+ * clause is a free, already-computed signal:
+ *   • no event type was detected in the headline — the discriminator. The headline named nothing the
+ *     taxonomy recognises, which is precisely the "the title is not the story" case.
+ *   • a named company and a real source tier — actionable, and never a Reddit post (CLAUDE.md §4/§24).
+ *   • not a filing — a filing's body IS its headline (story-floor.ts), so a read adds nothing.
+ *   • already below the pick line — an item that is surfacing does not need rescuing.
+ *   • above a junk floor — the wire's bottom decile is noise; a read would not change that.
+ * Ordered by how much a read could plausibly move it: source tier first (§4), then company size, then
+ * score, then freshness.
+ */
+export function coldReadCandidates(
+  items: any[],
+  opts: { pickThreshold: number; minScore: number; enriched: Set<string> },
+): string[] {
+  const eligible = items.filter((it) => {
+    if (!it?.event_id || opts.enriched.has(it.event_id)) return false
+    if (!it.url) return false // nothing to read
+    if (!it.rank_factors) return false // no ingest breakdown → the display re-rank (feed.ts applyActiveWeightsTo) no-ops, so a body verdict could never reach its score. Reading it would spend a slot for nothing AND cache-key it out of a future attempt.
+    if (isFilingEvent(it)) return false // the disclosure IS the headline — a body read adds nothing
+    if (String(it.source_tier || '') === 'social') return false // §4/§24 — never spend a read on chatter
+    if (Array.isArray(it.event_types) && it.event_types.length > 0) return false // the headline already named an event
+    if (!Array.isArray(it.companies) || !it.companies.length) return false // no named issuer → not actionable
+    const s = Number(it.triage_score) || 0
+    return s >= opts.minScore && s < opts.pickThreshold
+  })
+  eligible.sort((a, b) =>
+    sourceTierRank(deriveSourceTier(b)) - sourceTierRank(deriveSourceTier(a)) ||
+    SIZE_ORDER.indexOf(String(b.size_bucket || 'unknown')) - SIZE_ORDER.indexOf(String(a.size_bucket || 'unknown')) ||
+    (Number(b.triage_score) || 0) - (Number(a.triage_score) || 0) ||
+    String(b.ts || '').localeCompare(String(a.ts || '')),
+  )
+  return eligible.map((it) => it.event_id)
+}
+
+// ascending investability — index position is the sort key, so `mega` ranks highest
+const SIZE_ORDER = ['unknown', 'small', 'mid', 'large', 'mega']
+
+/** Which enrich-cache keys COLD DISCOVERY should not touch. A cache key existing is not the same as
+ *  "this event is done": a DEGRADED entry is repair's job, and a COMPLETE entry with no usable body
+ *  verdict (a legacy line from before news_impact existed, or a read whose brief happened to omit it)
+ *  must NOT be treated as already-covered — otherwise it sits forever excluded from both the repair queue
+ *  (not degraded) and cold discovery (already "enriched"), never getting the read that would let it earn
+ *  a floor (Codex review, PR #350). Exclude only what discovery genuinely cannot improve: a real body
+ *  verdict already on file (`verdicts` — news/impact-floor.ts's own definition, so a corroborated-only
+ *  entry does NOT count), or a still-degraded entry (repair already owns it this cycle). Exported for the
+ *  test suite. */
+export function coldExclusionSet(cache: Record<string, EventEnrichment>, verdicts: Map<string, { label: string }>): Set<string> {
+  return new Set(
+    Object.entries(cache)
+      .filter(([id, e]) => verdicts.has(id) || !isEnrichmentComplete(e))
+      .map(([id]) => id),
+  )
 }
 
 /** Read the enrich cache directly (the live file, then the backup). Never throws. */
@@ -72,22 +149,29 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
   const gapMs = deps.gapMs ?? 400
   const log = deps.log ?? (() => {})
 
-  if (maxPerCycle <= 0 || !ARTICLE_READ_PROVIDERS.length) return { scanned: 0, degraded: 0, attempted: 0, healed: 0, note: 'heal disabled / no LLM provider' }
-  if (deps.hasBudget && !deps.hasBudget()) return { scanned: 0, degraded: 0, attempted: 0, healed: 0, note: 'no free-tier budget — heal deferred' }
+  const coldMax = deps.coldMaxPerCycle ?? NEWS.enrichColdMaxPerCycle
+  // Repair (maxPerCycle) and discovery (coldMax) are independent, separately-tunable controls
+  // (NEWS_ENRICH_HEAL_MAX_PER_CYCLE / NEWS_ENRICH_COLD_MAX_PER_CYCLE) — an operator disabling one must
+  // not silently disable the other (Codex review, PR #350). Only skip the whole pass when BOTH are off,
+  // or when there is no provider to read with at all (neither can run without one).
+  if (!ARTICLE_READ_PROVIDERS.length || (maxPerCycle <= 0 && coldMax <= 0)) return { scanned: 0, degraded: 0, attempted: 0, healed: 0, cold: 0, note: 'heal disabled / no LLM provider' }
+  if (deps.hasBudget && !deps.hasBudget()) return { scanned: 0, degraded: 0, attempted: 0, healed: 0, cold: 0, note: 'no free-tier budget — heal deferred' }
 
   const cache = loadCache(stateDir)
   const scanned = Object.keys(cache).length
-  if (!scanned) return { scanned: 0, degraded: 0, attempted: 0, healed: 0 }
 
   // Only heal events still in the 2-day firehose window. This is a deliberate bound on BACKGROUND work,
   // not a capability limit: enrichEvent can now find an event's record anywhere in the archive, so an
   // aged-out story is still fully re-readable — it just waits for a human to open it (the on-demand path)
   // rather than occupying one of this pass's capped slots. Archive-aware so a locally-pruned day still
-  // yields candidates. Map event_id → triage_score to heal the strongest first.
+  // yields candidates. Map event_id → triage_score to heal the strongest first. The items themselves are
+  // kept: they are also the pool the never-read (cold) candidates come from.
   let scoreById = new Map<string, number>()
+  let wire: any[] = []
   try {
     const feed = readFeed(repoRoot, 2, { now, maxItems: 2000, archiveDir: NEWS.newsArchiveDir })
-    for (const it of feed.items as any[]) scoreById.set(it.event_id, Number(it.triage_score) || 0)
+    wire = feed.items as any[]
+    for (const it of wire) scoreById.set(it.event_id, Number(it.triage_score) || 0)
   } catch {}
 
   const nowMs = now().getTime()
@@ -98,11 +182,20 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
     .sort((a, b) => (scoreById.get(b[0]) || 0) - (scoreById.get(a[0]) || 0) || String(b[1].fetched_at).localeCompare(String(a[1].fetched_at)))
 
   const degraded = candidates.length
-  const batch = candidates.slice(0, maxPerCycle)
+  // REPAIR FIRST, DISCOVER SECOND: a story whose read is known-broken is a surer win than a speculative
+  // first read, so the degraded queue fills the slots and cold reads take what is left (capped separately,
+  // so an operator can tune or switch off discovery — NEWS_ENRICH_COLD_MAX_PER_CYCLE=0 — without touching
+  // repair). Both share the one budget gate and the one wall clock already guarding this pass.
+  const repairBatch = candidates.slice(0, maxPerCycle).map(([id]) => id)
+  const verdicts = bodyVerdicts(stateDir, () => nowMs)
+  const coldBatch = coldMax > 0
+    ? coldReadCandidates(wire, { pickThreshold: NEWS.pickThreshold, minScore: NEWS.enrichColdMinScore, enriched: coldExclusionSet(cache, verdicts) }).slice(0, coldMax)
+    : []
+  const batch = [...repairBatch, ...coldBatch]
   const deadline = now().getTime() + totalBudgetMs
   let attempted = 0
   let healed = 0
-  for (const [id] of batch) {
+  for (const id of batch) {
     if (now().getTime() >= deadline) break // hard wall-clock cap so the pass can't extend the cycle lock
     attempted++
     try {
@@ -137,6 +230,6 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
     if (gapMs > 0 && attempted < batch.length) await sleep(gapMs)
   }
 
-  if (attempted) log(`enrich heal — ${healed}/${attempted} reads recovered (${degraded} degraded on the wire)`)
-  return { scanned, degraded, attempted, healed }
+  if (attempted) log(`enrich heal — ${healed}/${attempted} reads recovered (${degraded} degraded on the wire, ${coldBatch.length} never-read picked up)`)
+  return { scanned, degraded, attempted, healed, cold: coldBatch.length }
 }
