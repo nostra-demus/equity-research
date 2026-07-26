@@ -46,13 +46,28 @@ function loadRaw(stateDir: string): Record<string, any> {
   for (const file of [CACHE_FILE, CACHE_BACKUP_FILE]) {
     try {
       const o = JSON.parse(fs.readFileSync(path.join(stateDir, file), 'utf8'))
-      if (o && typeof o === 'object') return o as Record<string, any>
+      if (o && typeof o === 'object' && !Array.isArray(o)) return o as Record<string, any>
     } catch { /* try the backup, then give up */ }
   }
   return {}
 }
 
 const LABELS = new Set(['low', 'medium', 'high', 'critical'])
+
+/** The verdict ONE cache entry carries, or null when it isn't firm enough to move a ranking — the single
+ *  definition both the archive-wide index below AND a caller with a single fresh entry in hand (the
+ *  enrich route, right after a read completes) must share, so they can never drift apart. A corroborated
+ *  verdict is synthesised from OTHER outlets' headlines (GDELT), not a read of THIS article's own body —
+ *  CLAUDE.md §3/§5: cite the source the claim actually came from — so it does not count. */
+export function verdictOf(entry: { news_impact?: any; corroborated?: any } | null | undefined): BodyVerdict | null {
+  const ni = entry?.news_impact
+  if (!ni || typeof ni !== 'object' || entry?.corroborated) return null
+  const label = String(ni.impact_magnitude ?? '').toLowerCase()
+  if (!LABELS.has(label)) return null
+  const confidence = Number(ni.confidence)
+  if (!Number.isFinite(confidence) || confidence < MIN_CONFIDENCE) return null
+  return { label, confidence }
+}
 
 /** Every event whose ARTICLE BODY has been read into a firm materiality verdict. TTL-cached; never throws
  *  (a missing/corrupt cache simply means "no body verdicts", i.e. today's headline-only behaviour). */
@@ -62,18 +77,8 @@ export function bodyVerdicts(stateDir: string, now: () => number = Date.now): Ma
   if (hit && t - hit.at < TTL_MS) return hit.map
   const map = new Map<string, BodyVerdict>()
   for (const [eventId, entry] of Object.entries(loadRaw(stateDir))) {
-    const ni = (entry as any)?.news_impact
-    if (!ni || typeof ni !== 'object') continue
-    // A verdict enrich.ts synthesised from SECONDARY-WIRE headlines (the publisher blocked the direct read,
-    // so the story was corroborated from other outlets) is NOT a read of the article body — enrich.ts flags
-    // it as such and CLAUDE.md §3 forbids passing it off as one. It must not floor the rank under the wire's
-    // "Read the article — the full article reads X impact" banner. Only a genuine body read floors the score.
-    if ((entry as any)?.corroborated) continue
-    const label = String(ni.impact_magnitude ?? '').toLowerCase()
-    if (!LABELS.has(label)) continue
-    const confidence = Number(ni.confidence)
-    if (!Number.isFinite(confidence) || confidence < MIN_CONFIDENCE) continue
-    map.set(eventId, { label, confidence })
+    const v = verdictOf(entry)
+    if (v) map.set(eventId, v)
   }
   cache.set(stateDir, { at: t, map })
   return map

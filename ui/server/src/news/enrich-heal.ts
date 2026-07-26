@@ -29,6 +29,7 @@ import { enrichEvent, isEnrichmentComplete, type EventEnrichment } from './enric
 import { isFilingEvent } from './story-floor'
 import { sourceTierRank } from './rank'
 import { deriveSourceTier } from './scope'
+import { bodyVerdicts } from './impact-floor'
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -88,8 +89,8 @@ export function coldReadCandidates(
     if (!it.rank_factors) return false // no ingest breakdown → the display re-rank (feed.ts applyActiveWeightsTo) no-ops, so a body verdict could never reach its score. Reading it would spend a slot for nothing AND cache-key it out of a future attempt.
     if (isFilingEvent(it)) return false // the disclosure IS the headline — a body read adds nothing
     if (String(it.source_tier || '') === 'social') return false // §4/§24 — never spend a read on chatter
-    if ((it.event_types || []).length > 0) return false // the headline already named an event
-    if (!(it.companies || []).length) return false // no named issuer → not actionable
+    if (Array.isArray(it.event_types) && it.event_types.length > 0) return false // the headline already named an event
+    if (!Array.isArray(it.companies) || !it.companies.length) return false // no named issuer → not actionable
     const s = Number(it.triage_score) || 0
     return s >= opts.minScore && s < opts.pickThreshold
   })
@@ -104,6 +105,23 @@ export function coldReadCandidates(
 
 // ascending investability — index position is the sort key, so `mega` ranks highest
 const SIZE_ORDER = ['unknown', 'small', 'mid', 'large', 'mega']
+
+/** Which enrich-cache keys COLD DISCOVERY should not touch. A cache key existing is not the same as
+ *  "this event is done": a DEGRADED entry is repair's job, and a COMPLETE entry with no usable body
+ *  verdict (a legacy line from before news_impact existed, or a read whose brief happened to omit it)
+ *  must NOT be treated as already-covered — otherwise it sits forever excluded from both the repair queue
+ *  (not degraded) and cold discovery (already "enriched"), never getting the read that would let it earn
+ *  a floor (Codex review, PR #350). Exclude only what discovery genuinely cannot improve: a real body
+ *  verdict already on file (`verdicts` — news/impact-floor.ts's own definition, so a corroborated-only
+ *  entry does NOT count), or a still-degraded entry (repair already owns it this cycle). Exported for the
+ *  test suite. */
+export function coldExclusionSet(cache: Record<string, EventEnrichment>, verdicts: Map<string, { label: string }>): Set<string> {
+  return new Set(
+    Object.entries(cache)
+      .filter(([id, e]) => verdicts.has(id) || !isEnrichmentComplete(e))
+      .map(([id]) => id),
+  )
+}
 
 /** Read the enrich cache directly (the live file, then the backup). Never throws. */
 function loadCache(stateDir: string): Record<string, EventEnrichment> {
@@ -132,22 +150,22 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
   const log = deps.log ?? (() => {})
 
   const coldMax = deps.coldMaxPerCycle ?? NEWS.enrichColdMaxPerCycle
-  // Repair and discovery are INDEPENDENT caps (this pass's whole design): NEWS_ENRICH_HEAL_MAX_PER_CYCLE=0
-  // turns off repair, NEWS_ENRICH_COLD_MAX_PER_CYCLE=0 turns off discovery. Disable the whole pass only when
-  // BOTH are off (or there's no reader at all). repairBatch is slice(0, maxPerCycle) → empty when maxPerCycle
-  // is 0, so an operator can run discovery-only without repair re-reading anything.
-  if ((maxPerCycle <= 0 && coldMax <= 0) || !ARTICLE_READ_PROVIDERS.length) return { scanned: 0, degraded: 0, attempted: 0, healed: 0, cold: 0, note: 'heal disabled / no LLM provider' }
+  // Repair (maxPerCycle) and discovery (coldMax) are independent, separately-tunable controls
+  // (NEWS_ENRICH_HEAL_MAX_PER_CYCLE / NEWS_ENRICH_COLD_MAX_PER_CYCLE) — an operator disabling one must
+  // not silently disable the other (Codex review, PR #350). Only skip the whole pass when BOTH are off,
+  // or when there is no provider to read with at all (neither can run without one).
+  if (!ARTICLE_READ_PROVIDERS.length || (maxPerCycle <= 0 && coldMax <= 0)) return { scanned: 0, degraded: 0, attempted: 0, healed: 0, cold: 0, note: 'heal disabled / no LLM provider' }
   if (deps.hasBudget && !deps.hasBudget()) return { scanned: 0, degraded: 0, attempted: 0, healed: 0, cold: 0, note: 'no free-tier budget — heal deferred' }
 
   const cache = loadCache(stateDir)
   const scanned = Object.keys(cache).length
 
-  // Only heal events still in the 2-day firehose window. A deliberate bound on BACKGROUND work, not a
-  // capability limit: enrichEvent can now find an event's record anywhere in the archive, so an aged-out
-  // story is still fully re-readable — it just waits for a human to open it (the on-demand path) rather than
-  // occupying one of this pass's capped slots. Archive-aware so a locally-pruned day still yields candidates.
-  // Map event_id → triage_score to heal the strongest first. The wire items themselves are kept: they are
-  // also the pool the never-read (cold) candidates come from.
+  // Only heal events still in the 2-day firehose window. This is a deliberate bound on BACKGROUND work,
+  // not a capability limit: enrichEvent can now find an event's record anywhere in the archive, so an
+  // aged-out story is still fully re-readable — it just waits for a human to open it (the on-demand path)
+  // rather than occupying one of this pass's capped slots. Archive-aware so a locally-pruned day still
+  // yields candidates. Map event_id → triage_score to heal the strongest first. The items themselves are
+  // kept: they are also the pool the never-read (cold) candidates come from.
   let scoreById = new Map<string, number>()
   let wire: any[] = []
   try {
@@ -169,8 +187,9 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
   // so an operator can tune or switch off discovery — NEWS_ENRICH_COLD_MAX_PER_CYCLE=0 — without touching
   // repair). Both share the one budget gate and the one wall clock already guarding this pass.
   const repairBatch = candidates.slice(0, maxPerCycle).map(([id]) => id)
+  const verdicts = bodyVerdicts(stateDir, () => nowMs)
   const coldBatch = coldMax > 0
-    ? coldReadCandidates(wire, { pickThreshold: NEWS.pickThreshold, minScore: NEWS.enrichColdMinScore, enriched: new Set(Object.keys(cache)) }).slice(0, coldMax)
+    ? coldReadCandidates(wire, { pickThreshold: NEWS.pickThreshold, minScore: NEWS.enrichColdMinScore, enriched: coldExclusionSet(cache, verdicts) }).slice(0, coldMax)
     : []
   const batch = [...repairBatch, ...coldBatch]
   const deadline = now().getTime() + totalBudgetMs

@@ -14,8 +14,10 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { reRankFromFactors, MATERIALITY_LABEL_FLOOR, type RankFactors } from '../src/news/rank'
+import { DEFAULT_RANK_WEIGHTS } from '../src/news/rank-weights'
 import { bodyVerdicts, invalidateBodyVerdicts, MIN_CONFIDENCE } from '../src/news/impact-floor'
-import { coldReadCandidates } from '../src/news/enrich-heal'
+import { coldReadCandidates, coldExclusionSet } from '../src/news/enrich-heal'
+import type { EventEnrichment } from '../src/news/enrich'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -72,6 +74,25 @@ check('it never DOUBLE-counts against the headline floor already captured at ing
   assert.equal(a, b, 'the two floors are max()-ed, not summed')
 })
 
+// ---- the body floor survives the Scoring panel's Overall-boost tunable (Codex review, PR #350) ----
+// Regression: the body floor used to be summed into the SAME adjustment total the panel's Overall boost
+// multiplies, so a boost under 1 diluted it and a boost of 0 erased it — silencing the exact evidence a
+// body read exists to surface. It must floor at (materiality + the label's lift) regardless of boost.
+check('a "high" body verdict still floors the score at boost_weight 0 (the floor must not be silenced)', () => {
+  const r = reRankFromFactors(factors(), item, { ...DEFAULT_RANK_WEIGHTS, boost_weight: 0 }, 'high')
+  assert.equal(r.rank_score, MATERIALITY_LABEL_FLOOR.high, 'boost=0 zeroes every OTHER adjustment, so the score lands exactly on the floor')
+  assert.ok(r.rank_score >= MATERIALITY_LABEL_FLOOR.high, `must still clear the high floor, got ${r.rank_score}`)
+})
+check('a "high" body verdict still floors the score at boost_weight 0.5 (the floor must not be diluted)', () => {
+  const r = reRankFromFactors(factors(), item, { ...DEFAULT_RANK_WEIGHTS, boost_weight: 0.5 }, 'high')
+  assert.ok(r.rank_score >= MATERIALITY_LABEL_FLOOR.high, `a half-strength boost must not water down the floor, got ${r.rank_score}`)
+})
+check('the HEADLINE floor, unlike the body floor, still scales with boost_weight (unchanged ingest behaviour)', () => {
+  const headlineFloored = factors({ materiality_label_floor: 60 }) // no body verdict at all
+  const r = reRankFromFactors(headlineFloored, item, { ...DEFAULT_RANK_WEIGHTS, boost_weight: 0 })
+  assert.equal(r.rank_score, headlineFloored.materiality, 'boost=0 zeroes every tunable adjustment, headline floor included')
+})
+
 check('an item with no body read is byte-identical to today', () => {
   const a = JSON.stringify(reRankFromFactors(factors(), item))
   for (const v of [undefined, null, '', 'nonsense']) {
@@ -88,10 +109,13 @@ check('only firm verdicts are read out of the enrich cache', () => {
     'EVT-noconf': { news_impact: { impact_magnitude: 'high' } },
     'EVT-junklabel': { news_impact: { impact_magnitude: 'enormous', confidence: 99 } },
     'EVT-nobody': { gist: ['read, but no impact verdict'] },
+    // secondary-headline synthesis (GDELT corroboration), not a read of THIS article's own body —
+    // CLAUDE.md §3/§5: must not be presented as "the engine read the whole article" (Codex review, PR #350)
+    'EVT-corroborated': { news_impact: { impact_magnitude: 'critical', confidence: 95 }, corroborated: { count: 3, domains: ['a.com', 'b.com'] } },
   })
   invalidateBodyVerdicts()
   const m = bodyVerdicts(dir, () => 1)
-  assert.deepEqual([...m.keys()], ['EVT-firm'], 'a hedged, unlabelled, junk-labelled or unread entry must not move a ranking')
+  assert.deepEqual([...m.keys()], ['EVT-firm'], 'a hedged, unlabelled, junk-labelled, corroborated-only, or unread entry must not move a ranking')
   assert.equal(m.get('EVT-firm')!.label, 'high')
 })
 
@@ -120,7 +144,8 @@ const wireItem = (over: any = {}) => ({
   event_id: `EVT-${Math.random().toString(16).slice(2, 10)}`, url: 'https://ex.com/a', headline: 'Something happened',
   source_tier: 'news', event_types: [], companies: [{ name: 'Acme', ticker: 'ACME' }], triage_score: 20,
   size_bucket: 'large', ts: '2026-07-25T10:00:00Z', input_nature: 'news_headline',
-  rank_factors: { materiality: 20, source_tier: 0, scope: 6, event: 0, size: 2, recency: 2, materiality_label_floor: 0, quantified: 0 }, // real wire items always carry the ingest breakdown
+  // real wire items always carry the ingest breakdown
+  rank_factors: { materiality: 20, source_tier: 0, scope: 6, event: 0, size: 2, recency: 2, materiality_label_floor: 0, quantified: 0, boost_weight: 1, scope_id: 'company', source_tier_id: 'news', event_id: null, size_bucket: 'large' },
   ...over,
 })
 const pick = (items: any[], enriched: string[] = []) =>
@@ -140,6 +165,7 @@ check('it declines everything a body read could not help', () => {
     ['below the junk floor', { triage_score: 3 }],
     ['nothing to fetch', { url: '' }],
     ['a filing — the disclosure IS the headline', { input_nature: 'regulatory_filing' }],
+    ['no rank_factors — a body read could never move its score', { rank_factors: undefined }],
   ]
   for (const [why, over] of cases) assert.deepEqual(pick([wireItem(over)]), [], `must decline: ${why}`)
 })
@@ -164,28 +190,28 @@ check('an empty wire is not an error', () => {
   assert.deepEqual(pick([null as any, {} as any]), [])
 })
 
-// a wire item with no ingest breakdown: applyActiveWeightsTo (feed.ts) returns early on a missing
-// rank_factors, so a body verdict could never reach the score — reading it spends a slot for nothing AND
-// cache-keys it out of a retry. It must be declined.
-check('a cold candidate with no rank_factors is declined (its verdict could never reach the score)', () => {
-  assert.deepEqual(pick([wireItem({ rank_factors: undefined })]), [], 'no breakdown → the display re-rank no-ops → a read would be wasted')
+// ---- coldExclusionSet: a cache KEY existing is not the same as "this event is done" (Codex review, PR #350) ----
+const enrichEntry = (over: Partial<EventEnrichment> = {}): EventEnrichment =>
+  ({ event_id: 'x', ok: true, fetched_at: '2026-07-25T00:00:00Z', prior_coverage: [], related: [], ...over }) as EventEnrichment
+
+check('coldExclusionSet excludes a genuine body verdict — no read could improve it', () => {
+  const cache = { 'EVT-a': enrichEntry({ complete: true }) }
+  const verdicts = new Map([['EVT-a', { label: 'high' }]])
+  assert.deepEqual([...coldExclusionSet(cache, verdicts)], ['EVT-a'])
+})
+
+check('coldExclusionSet excludes a still-DEGRADED entry — repair owns it this cycle', () => {
+  const cache = { 'EVT-a': enrichEntry({ summary: 'a thin dek' }) } // degraded: no gist/sec/companies/etc.
+  assert.deepEqual([...coldExclusionSet(cache, new Map())], ['EVT-a'])
+})
+
+check('coldExclusionSet does NOT exclude a COMPLETE entry with no usable verdict — it can still earn a floor', () => {
+  // e.g. a legacy line from before news_impact existed, or a brief that happened to omit it
+  const cache = { 'EVT-a': enrichEntry({ gist: ['read, but no impact verdict'] }) }
+  assert.deepEqual([...coldExclusionSet(cache, new Map())], [], 'must stay eligible for a fresh, potentially verdict-bearing read')
 })
 
 // ---- the body read's verdict must be attributed HONESTLY (CLAUDE.md §3/§12) ----
-// A verdict SYNTHESISED from secondary-wire headlines (enrich.ts corroboration, when the publisher blocks a
-// direct read) is not a read of the article body. It must not floor the score under the wire's
-// "Read the article — the full article reads X impact" banner.
-check('a secondary-wire corroborated verdict does NOT floor the score (it was not a body read)', () => {
-  const dir = tmp()
-  writeCache(dir, {
-    'EVT-body': { news_impact: { impact_magnitude: 'high', confidence: 90 } },
-    'EVT-corrob': { news_impact: { impact_magnitude: 'critical', confidence: 95 }, corroborated: { count: 3, domains: ['a.com', 'b.com'] } },
-  })
-  invalidateBodyVerdicts()
-  const m = bodyVerdicts(dir, () => 1)
-  assert.deepEqual([...m.keys()], ['EVT-body'], 'only the genuine body read floors the rank; the corroboration-only verdict is excluded (§3)')
-})
-
 // When the HEADLINE's severity call already set a higher floor than the body read, the displayed floor is
 // the headline's — labelling it "the full article reads <low> impact" would attribute the headline's lift to
 // a body read that supplied none. body_label is carried only when the body verdict is the floor being shown.

@@ -110,9 +110,16 @@ export function scoreUnderWeights(item: FeedItem, w: RankWeights): number {
   // fixed at ingest, not a function of the weight set (mirrors server rank.ts reRankFromFactors) — 0
   // for an older record that predates these fields
   const materialityLabelFloor = Number(rf.materiality_label_floor) || 0
+  const bodyFloor = Number(rf.body_floor) || 0
   const quantified = Number(rf.quantified) || 0
-  const boost = (source_tier + scope + event + size + recency + materialityLabelFloor + quantified) * clamp(w.boost_weight, 0, 2)
-  return clamp(Math.round(rf.materiality + boost), 0, 100)
+  const boostWeight = clamp(w.boost_weight, 0, 2)
+  // Mirrors the server's split exactly (rank.ts reRankFromFactors, Codex review PR #350): every
+  // headline-derived adjustment (incl. its own floor) scales with the panel's Overall boost; the BODY
+  // read's floor is independent, later-gathered evidence and is added UNSCALED, MAX()-ed against the
+  // (tuned) headline floor so it is never silenced or diluted by this preview.
+  const otherBoost = (source_tier + scope + event + size + recency + quantified) * boostWeight
+  const floorBoost = Math.max(materialityLabelFloor * boostWeight, bodyFloor)
+  return clamp(Math.round(rf.materiality + otherBoost + floorBoost), 0, 100)
 }
 
 export const rankWeightsEqual = (a: RankWeights, b: RankWeights): boolean => JSON.stringify(a) === JSON.stringify(b)

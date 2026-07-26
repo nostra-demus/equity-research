@@ -472,6 +472,11 @@ export interface RankFactors {
   // headline-only — which is the honest difference between "read, and it is noise" and "never got behind
   // the headline". Optional: absent on every item the engine has not read, and on an older server.
   body_label?: string
+  // The body verdict's OWN raw floor-lift — independent of materiality_label_floor above, which stays the
+  // HEADLINE-only floor. Set only alongside body_label. Unlike the headline floor, this is NOT scaled by
+  // boost_weight (server rank.ts reRankFromFactors) — it is independently-gathered evidence, not a
+  // preference weight, and must survive at full strength regardless of the Overall-boost tunable.
+  body_floor?: number
   quantified: number // bonus when the headline pairs a quantified figure with an impact keyword (absent on pre-field items)
   boost_weight?: number // global multiplier applied to the summed adjustments for THIS score (1 = none); absent on pre-field items
   scope_id: string // which scope won (single_name / sector / macro …)
@@ -619,6 +624,12 @@ export interface EventEnrichment {
   // exchange PDF the event announces — a better source than the page), or another approved outlet
   // carrying the same story (used when the original blocked the read). Labelled honestly in the reader.
   read_from?: { kind: 'filing_doc' | 'alternate'; url?: string; domain?: string; source_name?: string }
+  // Set when this read produced a firm body-materiality verdict that changed the item's rank (server
+  // news/impact-floor.ts + rank.ts) — the re-scored triage_score/band/rank_factors for THIS event_id,
+  // computed the moment the read completed rather than waiting for the wire's next full load. Absent
+  // when no verdict fired (nothing to rescore) or on an older server. See ui/server/src/server.ts
+  // /api/news/enrich (Codex review, PR #350).
+  rescored?: { rank_score: number; band: FeedItem['band']; rank_factors: RankFactors }
 }
 
 // ---- screener wire → research data bridge (ui/server/src/research-bridge.ts) ----
