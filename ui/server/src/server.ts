@@ -2152,6 +2152,10 @@ const EnrichQuery = z.object({
   companies: z.string().max(2000).optional(),
   event_types: z.string().max(500).optional(),
   scope: z.string().max(32).optional(),
+  // the wire row's timestamp — a lookup hint that tells enrichment which archive day to open for this
+  // event's stored record. Length-capped only; enrich.ts date-parses it and ignores anything unusable,
+  // and the event_id (never this) is what decides which record matches.
+  ts: z.string().max(40).optional(),
   force: z.string().optional(),
 })
 app.get('/api/news/enrich', async (req, reply) => {
@@ -2163,9 +2167,12 @@ app.get('/api/news/enrich', async (req, reply) => {
   const event_types = Array.isArray(safeJson(q.event_types)) ? safeJson(q.event_types) : []
   try {
     const enrichment = await enrichEvent(
-      { event_id: q.event_id, url: q.url, headline: q.headline, companies, event_types, scope: q.scope },
+      { event_id: q.event_id, url: q.url, headline: q.headline, companies, event_types, scope: q.scope, ts: q.ts },
       {
         repoRoot: REPO_ROOT, stateDir: STATE_DIR, force: q.force === '1',
+        // the wire's own archive mount — so the reader finds an event's stored record (its RSS lede, its
+        // story cluster) on a day already pruned from the local inbox, exactly like the wire does
+        archiveDir: NEWS.newsArchiveDir,
         // the article-body read runs the multi-provider fallback chain (Groq → OpenRouter/NVIDIA → Gemini),
         // each sharing the ingester's daily budget + per-minute limiter so an opened event never blows the
         // per-minute ceiling alongside the scanner — under HARD time budgets so it can never hang the reader.

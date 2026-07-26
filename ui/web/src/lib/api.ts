@@ -501,11 +501,14 @@ export const api = {
   // On-demand enrichment for ONE opened event: the real story (read from the article body by one free
   // Groq pass), parsed SEC filing items, prior coverage of the named companies, and related events.
   // No CLAUDE spend (the body-read uses the free Groq key, paced + budgeted alongside the scanner).
-  enrichEvent: async (it: Pick<FeedItem, 'event_id' | 'url' | 'headline' | 'companies' | 'event_types' | 'scope'>): Promise<EventEnrichment> => {
+  enrichEvent: async (it: Pick<FeedItem, 'event_id' | 'url' | 'headline' | 'companies' | 'event_types' | 'scope' | 'ts'>): Promise<EventEnrichment> => {
     if ((await ensureMode()) === 'static') return { event_id: it.event_id, ok: false, fetched_at: new Date().toISOString(), prior_coverage: [], related: [], note: 'Read-only showcase — enrichment runs on your machine.' }
     const qs = new URLSearchParams({ event_id: it.event_id })
     if (it.url) qs.set('url', it.url)
     if (it.headline) qs.set('headline', it.headline)
+    // the row's timestamp, so the server opens THIS event's archive day directly instead of hoping the
+    // record is inside its recent-wire window. An older server ignores the unknown param (zod strips it).
+    if (it.ts) qs.set('ts', it.ts)
     if (it.companies?.length) qs.set('companies', JSON.stringify(it.companies))
     if (it.event_types?.length) qs.set('event_types', JSON.stringify(it.event_types))
     if (it.scope) qs.set('scope', it.scope)

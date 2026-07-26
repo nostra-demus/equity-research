@@ -407,3 +407,83 @@ export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
   const nextCursor = !hasMore ? null : fullPage && last ? { ts: last.ts, id: idKey(last) } : budgetCursor
   return { items: page, nextCursor, scannedThroughDate, exhausted: reachedFloor && matches.length <= limit }
 }
+
+// ---- targeted single-item lookup -------------------------------------------------------------------
+// readFeed answers "the newest N items in the last D days" — the right shape for the WIRE, and the wrong
+// shape for "give me THIS event's stored record". A reader that opens an event needs the item's own
+// persisted fields (its RSS lede, its story-cluster id, its filing nature), and readFeed's window loses
+// them twice over: the maxItems cap slices out anything past the newest N even on the SAME day (a busy
+// day ingests thousands), and the day window forgets anything older than it — while the wire itself
+// happily displays matches from the whole archive (searchFeed). The result was a reader that fell back to
+// the bare headline for an item whose full body was sitting on disk. This is the lookup that closes that
+// gap: archive-aware, budgeted, and exact.
+
+export interface FindFeedItemOpts {
+  now?: () => Date
+  archiveDir?: string // Google Drive mount — read days already pruned from the local inbox
+  // The item's own `ts`, straight from the wire row the caller is displaying. A HINT ONLY: it decides
+  // WHICH day-file to open, never WHETHER a record matches (the event_id comparison is the sole
+  // authority), so a wrong or hostile hint can only fail to find the record — exactly like today.
+  tsHint?: string
+  daysBack?: number // no-hint fallback: how many days back to walk (default FIND_DAYS_BACK)
+  maxLinesScan?: number // hard ceiling on lines parsed (default FIND_MAX_LINES)
+}
+
+// No-hint bounds. A caller without a `ts` (a direct API hit, an older client) gets a walk that is wide
+// enough to cover the recent wire but can never stall a request behind the whole archive. A caller WITH
+// a hint reads at most two day-files and is unaffected by these.
+const FIND_DAYS_BACK = 14
+const FIND_MAX_LINES = 150_000
+
+/**
+ * The stored firehose record for ONE event_id, or null. Reuses searchFeed (same hydrate, same archive
+ * fallback, same corrupt-line tolerance) rather than re-walking the inbox by hand.
+ *
+ * With `tsHint` the walk is pinned to that calendar day plus the day before (a UTC-boundary / clock-skew
+ * guard), so the cost is one or two day-files no matter how deep the archive goes. Without one it walks
+ * back `daysBack` days under a line budget.
+ *
+ * `applyActiveWeights: false` on purpose — the caller wants the item's PERSISTED fields, not a re-scored
+ * display row, and skipping the re-score keeps the lookup cheap. Because searchFeed's withDedup no-ops on
+ * a single-item page, the record's stored `dedup_group` is returned exactly as the ingester wrote it —
+ * which is what lets a caller find the other outlets carrying the same story.
+ */
+export function findFeedItemById(repoRoot: string, eventId: string, opts: FindFeedItemOpts = {}): FeedItem | null {
+  const id = String(eventId || '').trim()
+  if (!id) return null
+  const now = opts.now || (() => new Date())
+  const today = dayKey(now)
+  const hintDay = opts.tsHint && !Number.isNaN(Date.parse(opts.tsHint)) ? new Date(opts.tsHint).toISOString().slice(0, 10) : ''
+  // A hint from the FUTURE (a skewed client clock, or a hostile caller) must not start the walk after
+  // today and read forward into days that cannot exist — clamp it to today.
+  const clampedHintDay = hintDay ? (hintDay <= today ? hintDay : today) : ''
+  // An event near midnight can be written to the NEXT day's file — the item's `ts` and the ingester's
+  // write time are stamped independently — so when the hint is strictly before today, also check the
+  // day after it, not just the day itself and the day before.
+  const hasNextDay = clampedHintDay !== '' && clampedHintDay < today
+  const anchor = clampedHintDay
+    ? (hasNextDay ? new Date(new Date(`${clampedHintDay}T00:00:00Z`).getTime() + 86_400_000).toISOString().slice(0, 10) : clampedHintDay)
+    : today
+  // hint → the day after (if the hint isn't today), the item's own day, then the day before it (a
+  // UTC-boundary / clock-skew guard). No hint → today walking back `daysBack` days.
+  const span = hintDay ? (hasNextDay ? 2 : 1) : Math.max(0, opts.daysBack ?? FIND_DAYS_BACK)
+
+  // ONE day per searchFeed call so we can stop at the first hit. searchFeed's own multi-day walk cannot:
+  // it only breaks early once matches EXCEED the limit, and an event_id matches at most once, so a single
+  // wide call would always pay for the full window even when the record is on the first day it opens.
+  for (let d = 0; d <= span; d++) {
+    const date = new Date(new Date(`${anchor}T00:00:00Z`).getTime() - d * 86_400_000).toISOString().slice(0, 10)
+    const r = searchFeed(repoRoot, {
+      predicate: (it) => it.event_id === id,
+      now,
+      archiveDir: opts.archiveDir || '',
+      limit: 1,
+      toDate: date,
+      fromDate: date,
+      maxLinesScan: opts.maxLinesScan ?? FIND_MAX_LINES,
+      applyActiveWeights: false,
+    })
+    if (r.items[0]) return r.items[0]
+  }
+  return null
+}
