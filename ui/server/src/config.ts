@@ -168,6 +168,14 @@ const capNum = (v: string | undefined, d: number) => {
   const n = Number(v)
   return Number.isFinite(n) && n > 0 ? n : d
 }
+// Like capNum, but 0 is a valid, meaningful value rather than "unset" — for switches documented as "0
+// disables" (the enrich-heal repair/cold-discovery caps below). capNum's n>0 guard silently substituted
+// the default for an explicit "0", making that documented disable switch unreachable via env var at all
+// (Codex review, PR #350).
+const capNumOrZero = (v: string | undefined, d: number) => {
+  const n = Number(v)
+  return Number.isFinite(n) && n >= 0 ? n : d
+}
 
 // Parse the Gemini rotation pool from a comma-separated "model:rpd" list (rpd optional). Each model is a
 // SEPARATE per-project-per-model free daily bucket, and the live console shows the RPD limit varies WILDLY
@@ -856,11 +864,11 @@ export const NEWS = {
   // readable article whose on-demand LLM read momentarily missed) that are still on the live wire, so a
   // story fixes itself even if no human reopens it. Capped + budget-gated so it never starves the title
   // triage. 0 disables the pass (the short degraded TTL still self-heals on the next manual open).
-  enrichHealMaxPerCycle: capNum(process.env.NEWS_ENRICH_HEAL_MAX_PER_CYCLE, 6),
+  enrichHealMaxPerCycle: capNumOrZero(process.env.NEWS_ENRICH_HEAL_MAX_PER_CYCLE, 6),
   // NEVER-read items given a first body read per cycle — the under-rated tail (news/enrich-heal.ts
   // coldReadCandidates). Small on purpose: the triage queue, not the reader, is the scarce resource, and
   // this shares the reader's budget gate. 0 switches discovery off and leaves repair untouched.
-  enrichColdMaxPerCycle: capNum(process.env.NEWS_ENRICH_COLD_MAX_PER_CYCLE, 4),
+  enrichColdMaxPerCycle: capNumOrZero(process.env.NEWS_ENRICH_COLD_MAX_PER_CYCLE, 4),
   // the junk floor for a cold read — below this the wire's bottom decile is noise a body read won't rescue
   enrichColdMinScore: capNum(process.env.NEWS_ENRICH_COLD_MIN_SCORE, 10),
   // Stop the BACKGROUND heal from re-fetching an entry that has stayed degraded this long (default 6h). By
