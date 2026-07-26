@@ -268,6 +268,11 @@ export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; m
   // stale persisted band would disagree with what the wire displays after a Scoring-panel edit.
   // Idempotent, so the display re-apply on the capped page below is a no-op.
   const weightsForPredicate = opts.predicate && opts.applyActiveWeights !== false ? getRankWeights() : null
+  // The predicate can filter on BAND (matchesFeedFilters), and a body verdict FLOORS an item's band — so the
+  // pre-filter score must see the body verdicts too. Without them a Pick filter drops the very items the body
+  // read rescued: they'd be matched on their stale headline-only band and excluded here, before the display
+  // re-rank (which does pass bodies) ever runs. Same map the display path loads; idempotent to apply twice.
+  const bodiesForPredicate = weightsForPredicate ? bodyVerdicts(STATE_DIR) : null
   const items: FeedItem[] = []
   const cycles: CycleSummary[] = []
   for (let d = 0; d < Math.max(1, days); d++) {
@@ -283,7 +288,7 @@ export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; m
           // filter at the push site (post-hydrate), so the early-stop below counts MATCHES — a sparse
           // filter (e.g. one commodity) still fills its window instead of stopping at maxItems raw lines
           const h = hydrate(o as FeedItem)
-          if (weightsForPredicate) applyActiveWeightsTo(h, weightsForPredicate)
+          if (weightsForPredicate) applyActiveWeightsTo(h, weightsForPredicate, bodiesForPredicate ?? undefined)
           if (!opts.predicate || opts.predicate(h)) items.push(h)
         } else if (o?.kind === 'cycle_summary') cycles.push(o as CycleSummary)
       } catch {
@@ -385,6 +390,10 @@ export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
   // opts out of active weights (applyActiveWeights === false) — then the predicate sees the persisted band,
   // consistent with a non-re-scored view. The final page re-apply below is then a no-op (idempotent).
   const weightsForPredicate = opts.applyActiveWeights !== false ? getRankWeights() : null
+  // Body verdicts floor the band, so the pre-filter must see them too — else a Pick/band filter drops the
+  // items the body read rescued (matched on their stale headline-only band). Same map the display re-rank
+  // below loads; idempotent. (See the twin in readFeed.)
+  const bodiesForPredicate = weightsForPredicate ? bodyVerdicts(STATE_DIR) : null
 
   for (let d = 0; d < maxDaysScan; d++) {
     const date = new Date(new Date(`${startDate}T00:00:00Z`).getTime() - d * 86_400_000).toISOString().slice(0, 10)
@@ -393,7 +402,7 @@ export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
     linesScanned += lines
     if (lines > 0) scannedThroughDate = date // the oldest day we actually parsed
     for (const it of items) {
-      if (weightsForPredicate) applyActiveWeightsTo(it, weightsForPredicate)
+      if (weightsForPredicate) applyActiveWeightsTo(it, weightsForPredicate, bodiesForPredicate ?? undefined)
       if (afterCursor(it, opts.cursor) && opts.predicate(it)) matches.push(it)
     }
     // Stop AFTER fully parsing a day (never mid-file) so newest-first ordering is exact: older days can

@@ -64,6 +64,11 @@ export function bodyVerdicts(stateDir: string, now: () => number = Date.now): Ma
   for (const [eventId, entry] of Object.entries(loadRaw(stateDir))) {
     const ni = (entry as any)?.news_impact
     if (!ni || typeof ni !== 'object') continue
+    // A verdict enrich.ts synthesised from SECONDARY-WIRE headlines (the publisher blocked the direct read,
+    // so the story was corroborated from other outlets) is NOT a read of the article body — enrich.ts flags
+    // it as such and CLAUDE.md §3 forbids passing it off as one. It must not floor the rank under the wire's
+    // "Read the article — the full article reads X impact" banner. Only a genuine body read floors the score.
+    if ((entry as any)?.corroborated) continue
     const label = String(ni.impact_magnitude ?? '').toLowerCase()
     if (!LABELS.has(label)) continue
     const confidence = Number(ni.confidence)

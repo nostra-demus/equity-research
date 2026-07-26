@@ -246,9 +246,16 @@ export function reRankFromFactors(
   // (materialityLabelBoost already returns 0) and must not be stamped into the factors either, or the
   // cockpit's explainer would report "the full article reads <junk> impact" on a verdict we cannot read.
   const bodyLabelNorm = String(bodyLabel ?? '').toLowerCase()
-  const body_label = MATERIALITY_LABEL_FLOOR[bodyLabelNorm] != null ? bodyLabelNorm : ''
-  const bodyFloor = materialityLabelBoost(body_label, materiality)
+  const bodyRecognized = MATERIALITY_LABEL_FLOOR[bodyLabelNorm] != null ? bodyLabelNorm : ''
+  const bodyFloor = materialityLabelBoost(bodyRecognized, materiality)
   const materiality_label_floor = Math.max(headlineFloor, bodyFloor)
+  // Carry body_label — the "Read the article — reads X impact" attribution the cockpit shows — ONLY when the
+  // body verdict is the floor actually being displayed. If the HEADLINE's own severity call already set a
+  // higher floor, the labelFloor row's points are the headline's, not the body's; tagging that row as the
+  // body read would attribute the headline's lift to evidence the body did not supply — a "high" headline
+  // with a "low" body read must never render as "the full article reads low impact +60" (§3/§12). When the
+  // body floor wins (or ties) it IS the displayed floor, so the attribution is exact.
+  const body_label = bodyRecognized && bodyFloor >= headlineFloor ? bodyRecognized : ''
   const quantified = Number(rf.quantified) || 0
 
   const w = clamp(weights.boost_weight, 0, 2)

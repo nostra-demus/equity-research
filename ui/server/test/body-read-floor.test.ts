@@ -119,7 +119,9 @@ check('the index is TTL-cached, and an enrichment write drops it immediately', (
 const wireItem = (over: any = {}) => ({
   event_id: `EVT-${Math.random().toString(16).slice(2, 10)}`, url: 'https://ex.com/a', headline: 'Something happened',
   source_tier: 'news', event_types: [], companies: [{ name: 'Acme', ticker: 'ACME' }], triage_score: 20,
-  size_bucket: 'large', ts: '2026-07-25T10:00:00Z', input_nature: 'news_headline', ...over,
+  size_bucket: 'large', ts: '2026-07-25T10:00:00Z', input_nature: 'news_headline',
+  rank_factors: { materiality: 20, source_tier: 0, scope: 6, event: 0, size: 2, recency: 2, materiality_label_floor: 0, quantified: 0 }, // real wire items always carry the ingest breakdown
+  ...over,
 })
 const pick = (items: any[], enriched: string[] = []) =>
   coldReadCandidates(items, { pickThreshold: 70, minScore: 10, enriched: new Set(enriched) })
@@ -160,6 +162,44 @@ check('it reads the most investable first — source tier, then size, then score
 check('an empty wire is not an error', () => {
   assert.deepEqual(pick([]), [])
   assert.deepEqual(pick([null as any, {} as any]), [])
+})
+
+// a wire item with no ingest breakdown: applyActiveWeightsTo (feed.ts) returns early on a missing
+// rank_factors, so a body verdict could never reach the score — reading it spends a slot for nothing AND
+// cache-keys it out of a retry. It must be declined.
+check('a cold candidate with no rank_factors is declined (its verdict could never reach the score)', () => {
+  assert.deepEqual(pick([wireItem({ rank_factors: undefined })]), [], 'no breakdown → the display re-rank no-ops → a read would be wasted')
+})
+
+// ---- the body read's verdict must be attributed HONESTLY (CLAUDE.md §3/§12) ----
+// A verdict SYNTHESISED from secondary-wire headlines (enrich.ts corroboration, when the publisher blocks a
+// direct read) is not a read of the article body. It must not floor the score under the wire's
+// "Read the article — the full article reads X impact" banner.
+check('a secondary-wire corroborated verdict does NOT floor the score (it was not a body read)', () => {
+  const dir = tmp()
+  writeCache(dir, {
+    'EVT-body': { news_impact: { impact_magnitude: 'high', confidence: 90 } },
+    'EVT-corrob': { news_impact: { impact_magnitude: 'critical', confidence: 95 }, corroborated: { count: 3, domains: ['a.com', 'b.com'] } },
+  })
+  invalidateBodyVerdicts()
+  const m = bodyVerdicts(dir, () => 1)
+  assert.deepEqual([...m.keys()], ['EVT-body'], 'only the genuine body read floors the rank; the corroboration-only verdict is excluded (§3)')
+})
+
+// When the HEADLINE's severity call already set a higher floor than the body read, the displayed floor is
+// the headline's — labelling it "the full article reads <low> impact" would attribute the headline's lift to
+// a body read that supplied none. body_label is carried only when the body verdict is the floor being shown.
+check('a body read WEAKER than the headline floor is not mis-attributed as setting the score', () => {
+  // ingest already floored this to HIGH from the headline (70 - 10 = 60 pts); a later body read of "low" is
+  // lift-only, so it changes nothing — and must NOT relabel the headline's floor as the body read's.
+  const r = reRankFromFactors(factors({ materiality_label_floor: 60 }), item, undefined, 'low')
+  assert.equal(r.rank_factors.materiality_label_floor, 60, 'the headline floor stands (lift-only)')
+  assert.equal(r.rank_factors.body_label, undefined, 'body_label is NOT stamped — the headline set the floor, not the body read')
+})
+
+check('a body read that WINS (or ties) the floor still carries its label for the explainer', () => {
+  assert.equal(reRankFromFactors(factors(), item, undefined, 'high').rank_factors.body_label, 'high', 'body high beats a 0 headline floor → attributed')
+  assert.equal(reRankFromFactors(factors({ materiality_label_floor: 60 }), item, undefined, 'high').rank_factors.body_label, 'high', 'a tie (body high == headline high) is the body confirming the floor → still attributed')
 })
 
 console.log(`\nbody-read-floor.test.ts: ${passed} passed`)

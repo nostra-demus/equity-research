@@ -85,6 +85,7 @@ export function coldReadCandidates(
   const eligible = items.filter((it) => {
     if (!it?.event_id || opts.enriched.has(it.event_id)) return false
     if (!it.url) return false // nothing to read
+    if (!it.rank_factors) return false // no ingest breakdown → the display re-rank (feed.ts applyActiveWeightsTo) no-ops, so a body verdict could never reach its score. Reading it would spend a slot for nothing AND cache-key it out of a future attempt.
     if (isFilingEvent(it)) return false // the disclosure IS the headline — a body read adds nothing
     if (String(it.source_tier || '') === 'social') return false // §4/§24 — never spend a read on chatter
     if ((it.event_types || []).length > 0) return false // the headline already named an event
@@ -131,7 +132,11 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
   const log = deps.log ?? (() => {})
 
   const coldMax = deps.coldMaxPerCycle ?? NEWS.enrichColdMaxPerCycle
-  if (maxPerCycle <= 0 || !ARTICLE_READ_PROVIDERS.length) return { scanned: 0, degraded: 0, attempted: 0, healed: 0, cold: 0, note: 'heal disabled / no LLM provider' }
+  // Repair and discovery are INDEPENDENT caps (this pass's whole design): NEWS_ENRICH_HEAL_MAX_PER_CYCLE=0
+  // turns off repair, NEWS_ENRICH_COLD_MAX_PER_CYCLE=0 turns off discovery. Disable the whole pass only when
+  // BOTH are off (or there's no reader at all). repairBatch is slice(0, maxPerCycle) → empty when maxPerCycle
+  // is 0, so an operator can run discovery-only without repair re-reading anything.
+  if ((maxPerCycle <= 0 && coldMax <= 0) || !ARTICLE_READ_PROVIDERS.length) return { scanned: 0, degraded: 0, attempted: 0, healed: 0, cold: 0, note: 'heal disabled / no LLM provider' }
   if (deps.hasBudget && !deps.hasBudget()) return { scanned: 0, degraded: 0, attempted: 0, healed: 0, cold: 0, note: 'no free-tier budget — heal deferred' }
 
   const cache = loadCache(stateDir)
