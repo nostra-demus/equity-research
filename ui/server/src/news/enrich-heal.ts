@@ -79,11 +79,14 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
   const scanned = Object.keys(cache).length
   if (!scanned) return { scanned: 0, degraded: 0, attempted: 0, healed: 0 }
 
-  // only heal events still in the 2-day firehose window — enrichEvent reconstructs the url/body from there,
-  // so an aged-out event can't be re-read anyway. Map event_id → triage_score to heal the strongest first.
+  // Only heal events still in the 2-day firehose window. This is a deliberate bound on BACKGROUND work,
+  // not a capability limit: enrichEvent can now find an event's record anywhere in the archive, so an
+  // aged-out story is still fully re-readable — it just waits for a human to open it (the on-demand path)
+  // rather than occupying one of this pass's capped slots. Archive-aware so a locally-pruned day still
+  // yields candidates. Map event_id → triage_score to heal the strongest first.
   let scoreById = new Map<string, number>()
   try {
-    const feed = readFeed(repoRoot, 2, { now, maxItems: 2000 })
+    const feed = readFeed(repoRoot, 2, { now, maxItems: 2000, archiveDir: NEWS.newsArchiveDir })
     for (const it of feed.items as any[]) scoreById.set(it.event_id, Number(it.triage_score) || 0)
   } catch {}
 
@@ -108,6 +111,7 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
         {
           repoRoot,
           stateDir,
+          archiveDir: NEWS.newsArchiveDir, // same archive the candidate scan above reads
           fetchFn: deps.fetchFn,
           now,
           sleep,

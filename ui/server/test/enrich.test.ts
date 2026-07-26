@@ -1055,4 +1055,104 @@ await check('filing read escalation: an ARTICLE never touches the filing provide
   assert.ok(r.gist && r.gist.some((g) => g.includes('Tilray')), 'the article used the normal chain')
 })
 
+// ---- regression: the reader must find an event's STORED RECORD wherever the wire can show it ----------
+// The reported defect. The wire searches the whole archive, but enrichEvent looked the event's own record
+// up inside readFeed's recent window — the newest 2,000 items of the last 2 days. Two ways that misses:
+// the event is OLDER than the window, or it is on a busy day but past the 2,000-item cap. Either way the
+// record's `snippet` — which for a large share of the wire IS the article body, because the publisher
+// blocks server fetches — was silently dropped, and a reader opening a 403'd page got nothing but its own
+// headline restated ("We couldn't open the article body — from the headline: …"), frozen for 12h by the
+// no-body `complete` rule. Both fixtures below 403 the page, so the ONLY way to a real story is the
+// stored snippet: if the lookup regresses, these fail.
+
+const AGED_ID = 'EVT-test-aged'
+const AGED_SNIPPET =
+  'As a longtime Prime member I expect orders to arrive quickly, and lately price has started to matter more than speed. ' +
+  'Shoppers comparing carts across retailers are finding the gap has narrowed, which is the real competitive question.'
+const AGED_BRIEF: ArticleBrief = {
+  gist: ['Read from the stored RSS lede: price is displacing delivery speed as the deciding factor.'],
+  companies: [{ name: 'Amazon', ticker: 'AMZN', role: 'subject', listing_status: 'public', listing_country: 'United States', exchange: 'NASDAQ' }],
+  beneficiaries: [], exposed: [], theme: 'competition',
+}
+const agedItem = (id: string, ts: string, snippet: string) => ({
+  kind: 'item', event_id: id, ts,
+  headline: 'Amazon may be losing its biggest competitive edge',
+  url: 'https://www.thestreet.com/retail/amazon-losing-competitive-edge', source_name: 'TheStreet',
+  region: 'US', input_nature: 'news_headline', snippet,
+  companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }], event_types: ['competition'], triage_score: 31,
+})
+const dayAgoIso = (d: number) => new Date(Date.now() - d * 86_400_000).toISOString()
+
+/** The event sits on a day OLDER than readFeed's 2-day window (the TheStreet case: opened 5 days later). */
+function tmpAgedRepo(): { repoRoot: string; stateDir: string; ts: string } {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'enrich-aged-'))
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  const ts = dayAgoIso(5)
+  fs.writeFileSync(path.join(inbox, `${ts.slice(0, 10)}_firehose.ndjson`), JSON.stringify(agedItem(AGED_ID, ts, AGED_SNIPPET)) + '\n')
+  // a busy "today" so the recent window is non-empty but genuinely lacks the record
+  fs.writeFileSync(path.join(inbox, `${TODAY}_firehose.ndjson`),
+    Array.from({ length: 50 }, (_, i) => JSON.stringify(agedItem(`EVT-noise-${i}`, NOW_ISO, 'unrelated'))).join('\n') + '\n')
+  return { repoRoot: root, stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'enrich-aged-state-')), ts }
+}
+
+/** The event is on TODAY but buried past readFeed's maxItems cap — the half of the bug that bites on a
+ *  busy day, when the wire ingests several thousand items and the record is simply sliced off. */
+function tmpBuriedRepo(): { repoRoot: string; stateDir: string; ts: string } {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'enrich-buried-'))
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  // 2,400 NEWER items ahead of it: readFeed sorts newest-first and slices to 2,000, so ours never survives
+  const ts = new Date(Date.now() - 6 * 3_600_000).toISOString()
+  const lines = Array.from({ length: 2400 }, (_, i) => JSON.stringify(agedItem(`EVT-bulk-${i}`, NOW_ISO, 'unrelated')))
+  lines.push(JSON.stringify(agedItem(AGED_ID, ts, AGED_SNIPPET)))
+  fs.writeFileSync(path.join(inbox, `${TODAY}_firehose.ndjson`), lines.join('\n') + '\n')
+  return { repoRoot: root, stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'enrich-buried-state-')), ts }
+}
+
+await check('aged-out event: a 403 page still reads its story from the STORED snippet (not the headline floor)', async () => {
+  const { repoRoot, stateDir, ts } = tmpAgedRepo()
+  const r = await enrichEvent(
+    { event_id: AGED_ID, ts },
+    { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn: makeRoutedFetch(AGED_BRIEF, AGED_BRIEF, new Set()) },
+  )
+  assert.ok(r.gist && r.gist.some((g) => g.includes('stored RSS lede')), `read the stored snippet, got: ${JSON.stringify(r.gist)}`)
+  assert.ok(!String(r.summary || '').includes("couldn't open the article body"), 'never the bare-headline floor')
+})
+
+await check('aged-out event: the record is found WITHOUT a ts hint too (older client / direct API)', async () => {
+  const { repoRoot, stateDir } = tmpAgedRepo()
+  const r = await enrichEvent(
+    { event_id: AGED_ID }, // no ts → the bounded day-by-day walk
+    { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn: makeRoutedFetch(AGED_BRIEF, AGED_BRIEF, new Set()) },
+  )
+  assert.ok(r.gist && r.gist.some((g) => g.includes('stored RSS lede')), 'the no-hint walk found the same record')
+})
+
+await check('buried past the wire cap: an event beyond readFeed maxItems still reads from its stored snippet', async () => {
+  const { repoRoot, stateDir, ts } = tmpBuriedRepo()
+  const r = await enrichEvent(
+    { event_id: AGED_ID, ts },
+    { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn: makeRoutedFetch(AGED_BRIEF, AGED_BRIEF, new Set()) },
+  )
+  assert.ok(r.gist && r.gist.some((g) => g.includes('stored RSS lede')), `same-day-but-capped record was found, got: ${JSON.stringify(r.gist)}`)
+})
+
+await check('aged-out event with a blocked page and NO reader: falls back to the real lede, and stays retryable', async () => {
+  const { repoRoot, stateDir, ts } = tmpAgedRepo()
+  // no providers at all — proves the fix works below the LLM layer, on the deterministic fallback
+  const r = await enrichEvent({ event_id: AGED_ID, ts }, { repoRoot, stateDir, force: true, fetchFn: fetchPage403 })
+  assert.ok(String(r.summary || '').startsWith('As a longtime Prime member'), `led with the stored lede, got: ${JSON.stringify(r.summary)}`)
+  assert.ok(!r.complete, 'a readable body stays degraded (short TTL) so the next open runs the real read — never frozen 12h on the floor')
+})
+
+await check('unknown event_id still degrades honestly (the lookup invents nothing)', async () => {
+  const { repoRoot, stateDir } = tmpAgedRepo()
+  const r = await enrichEvent(
+    { event_id: 'EVT-does-not-exist', headline: 'Amazon may be losing its biggest competitive edge', url: 'https://www.thestreet.com/retail/x', ts: dayAgoIso(5) },
+    { repoRoot, stateDir, force: true, fetchFn: fetchPage403 },
+  )
+  assert.ok(String(r.summary || '').includes("couldn't open the article body"), 'no record + no body → the honest floor, not a borrowed story')
+})
+
 console.log(`\n${passed} checks passed`)

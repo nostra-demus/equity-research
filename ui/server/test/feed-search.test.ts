@@ -8,7 +8,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { searchFeed } from '../src/news/feed'
+import { findFeedItemById, readFeed, searchFeed } from '../src/news/feed'
 import { explainFeedFilterMatch, matchesFeedFilters, parseFeedFilterQuery } from '../src/news/feed-filter'
 import { computeFacets, invalidateFacets } from '../src/news/facets'
 import type { FeedItem } from '../src/news/types'
@@ -380,6 +380,94 @@ check('a rebuilt facet index reuses untouched days and re-reads the one that cha
   fs.rmSync(path.join(dir, `${older}_firehose.ndjson`))
   invalidateFacets()
   assert.equal(computeFacets(repo, {}, { now }).total, 2, 'a pruned day drops out of the index')
+})
+
+// ---- findFeedItemById: the targeted, archive-aware single-record lookup -----------------------------
+// readFeed answers "the newest N items in the last D days" — so an event OLDER than that window, or one
+// on a busy day past the maxItems cap, is invisible to it even though the wire happily shows it. The
+// reader needs the record itself (its RSS lede, its story cluster), so it needs a lookup with neither
+// bound. These pin the contract: found wherever the wire can show it, exact, bounded, and never guessing.
+
+check('findFeedItemById: finds a record readFeed cannot see — older than the window AND past the item cap', () => {
+  const repo = tmp()
+  // day 0: more items than readFeed's cap would keep, so the recent window is full of noise
+  writeDay(repo, dayAgo(0), Array.from({ length: 40 }, () => item({ ts: `${dayAgo(0)}T10:00:00Z` })))
+  const target = item({ ts: `${dayAgo(9)}T08:15:00Z`, headline: 'Amazon may be losing its biggest competitive edge', snippet: 'The stored lede that IS the article body.' } as any)
+  writeDay(repo, dayAgo(9), [target])
+
+  assert.equal(readFeed(repo, 2, { now, maxItems: 2000 }).items.some((i) => i.event_id === target.event_id), false, 'precondition: readFeed cannot see it')
+
+  const hit = findFeedItemById(repo, target.event_id, { now, tsHint: target.ts })
+  assert.ok(hit, 'the targeted lookup finds it')
+  assert.equal(hit!.event_id, target.event_id)
+  assert.equal((hit as any).snippet, 'The stored lede that IS the article body.', 'the PERSISTED snippet comes back intact — this is what the reader was losing')
+})
+
+check('findFeedItemById: a single-item result keeps its stored dedup_group (withDedup must not re-cluster it)', () => {
+  const repo = tmp()
+  const target = { ...item({ ts: `${dayAgo(4)}T08:15:00Z` }), dedup_group: 'EVT-cluster-anchor' } as FeedItem
+  writeDay(repo, dayAgo(4), [target])
+  const hit = findFeedItemById(repo, target.event_id, { now, tsHint: target.ts })
+  assert.equal(hit?.dedup_group, 'EVT-cluster-anchor', 'the story-cluster id survives — it is how the reader finds another outlet running the same story')
+})
+
+check('findFeedItemById: an unknown id returns null (no nearest-match, no borrowed record)', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(1), [item({ ts: `${dayAgo(1)}T10:00:00Z` })])
+  assert.equal(findFeedItemById(repo, 'EVT-nope', { now, tsHint: `${dayAgo(1)}T10:00:00Z` }), null)
+  assert.equal(findFeedItemById(repo, '', { now }), null, 'an empty id short-circuits')
+})
+
+check('findFeedItemById: the ts hint only picks WHICH day to open — a wrong hint never matches a different event', () => {
+  const repo = tmp()
+  const decoy = item({ ts: `${dayAgo(1)}T10:00:00Z`, headline: 'A different story entirely' })
+  const target = item({ ts: `${dayAgo(6)}T10:00:00Z` })
+  writeDay(repo, dayAgo(1), [decoy])
+  writeDay(repo, dayAgo(6), [target])
+  // hint points at the decoy's day: we must get NOTHING for the target, never the decoy standing in for it
+  assert.equal(findFeedItemById(repo, target.event_id, { now, tsHint: `${dayAgo(1)}T10:00:00Z` }), null)
+  // a future-dated hint (a skewed or hostile clock) is clamped to today — it reads today/yesterday like a
+  // hintless open would, never forward into days that cannot exist, and still never matches another event
+  assert.equal(findFeedItemById(repo, target.event_id, { now, tsHint: '2099-01-01T00:00:00Z' }), null, 'clamped, and still no wrong match')
+  assert.equal(findFeedItemById(repo, decoy.event_id, { now, tsHint: '2099-01-01T00:00:00Z' })?.event_id, decoy.event_id, 'clamped to today → still reads the real recent days')
+  // a garbage hint degrades to the bounded no-hint walk, which still finds it
+  assert.ok(findFeedItemById(repo, target.event_id, { now, tsHint: 'not-a-date' }), 'unparseable hint falls back to the walk')
+})
+
+check('findFeedItemById: an event stamped near midnight, written to the NEXT day\'s file, is still found', () => {
+  const repo = tmp()
+  // ts says day 5 at 23:59:50Z, but the ingester's own clock rolled over first and wrote it into day 4's
+  // file — the hint must check the day AFTER the hint too, not just the hint day and the day before it.
+  const target = item({ ts: `${dayAgo(5)}T23:59:50Z` })
+  writeDay(repo, dayAgo(4), [target])
+  const hit = findFeedItemById(repo, target.event_id, { now, tsHint: target.ts })
+  assert.equal(hit?.event_id, target.event_id, 'checks hintDay+1 when the hint is not today')
+})
+
+check('findFeedItemById: a hint of TODAY never reads into tomorrow (no file can exist there)', () => {
+  const repo = tmp()
+  const target = item({ ts: `${dayAgo(0)}T09:00:00Z` })
+  writeDay(repo, dayAgo(0), [target])
+  const hit = findFeedItemById(repo, target.event_id, { now, tsHint: target.ts })
+  assert.equal(hit?.event_id, target.event_id, 'still finds it via today/yesterday, unaffected by the new +1 branch')
+})
+
+check('findFeedItemById: reads the cloud ARCHIVE when the day is gone from the local inbox', () => {
+  const repo = tmp()
+  const archive = tmp()
+  const target = item({ ts: `${dayAgo(3)}T08:15:00Z`, snippet: 'archived lede' } as any)
+  fs.writeFileSync(path.join(archive, `${dayAgo(3)}_firehose.ndjson`), JSON.stringify({ kind: 'item', ...target }) + '\n')
+  assert.equal(findFeedItemById(repo, target.event_id, { now, tsHint: target.ts }), null, 'not on local disk')
+  const hit = findFeedItemById(repo, target.event_id, { now, tsHint: target.ts, archiveDir: archive })
+  assert.equal(hit?.event_id, target.event_id, 'found in the archive — the same mount the wire searches')
+})
+
+check('findFeedItemById: the no-hint walk is bounded — it does not reach past its day window', () => {
+  const repo = tmp()
+  const target = item({ ts: `${dayAgo(30)}T08:15:00Z` })
+  writeDay(repo, dayAgo(30), [target])
+  assert.equal(findFeedItemById(repo, target.event_id, { now, daysBack: 3 }), null, 'outside the walk window → null, not an unbounded archive scan')
+  assert.ok(findFeedItemById(repo, target.event_id, { now, tsHint: target.ts }), 'a hint reaches it directly, at one day-file of cost')
 })
 
 console.log(`\nfeed-search.test.ts: ${passed} passed`)
