@@ -7,6 +7,7 @@ import { displayHeadline, originalHeadline, plainRoute, plainStage } from './pla
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
+import { archiveErrorNote } from './archiveError'
 import { affectedModules, focusKeysFor } from './intake'
 import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
@@ -616,6 +617,12 @@ interface State {
   scArchiveLoadingMore: boolean // a follow-up page is in flight
   scArchiveScannedThrough: string | null // oldest day searched — "searched all history back to <date>"
   scArchiveExhausted: boolean // reached the archive floor (genuinely nothing older)
+  // The search did not COMPLETE (timed out / the engine errored) — as opposed to completing with no matches.
+  // An empty result list means those two opposite things, and only this tells them apart. Without it the
+  // rail rendered a failed request as the authoritative "genuinely nothing matches AMZN (Amazon) — this is
+  // the WHOLE archive", for a company the wire had 160 items about. An unproven absence must never be
+  // reported as a proven one (CLAUDE.md §3).
+  scArchiveError: string | null
   scFacets: FeedFacets | null // archive-wide facet counts that populate the dropdowns
   scFacetsLoading: boolean
   scRunArchiveSearch: (q: ArchiveQuery) => Promise<void> // set the filter + fetch page 1 (+ facets); empty q → LIVE mode
@@ -895,6 +902,7 @@ export const useStore = create<State>((set, get) => ({
   scArchiveLoadingMore: false,
   scArchiveScannedThrough: null,
   scArchiveExhausted: false,
+  scArchiveError: null,
   scFacets: null,
   scFacetsLoading: false,
   newsStatus: null,
@@ -2635,7 +2643,7 @@ export const useStore = create<State>((set, get) => ({
     set({
       wireSwarm: to,
       scArchiveQuery: {}, scArchiveResults: [], scArchiveCursor: null, scArchiveLoading: false,
-      scArchiveLoadingMore: false, scArchiveScannedThrough: null, scArchiveExhausted: false,
+      scArchiveLoadingMore: false, scArchiveScannedThrough: null, scArchiveExhausted: false, scArchiveError: null,
       scFacets: null, scFacetsLoading: false,
       themes: [], themesStatus: 'idle', themesView: null, themesWindow: null,
       themesGeo: { country: '', geoRegion: '', label: '' }, themesSubject: null,
@@ -3522,11 +3530,20 @@ export const useStore = create<State>((set, get) => ({
   // ARCHIVE SEARCH — when the rail has a structured filter set, read the WHOLE archive server-side instead
   // of filtering the 2-day wire. An empty query returns the rail to LIVE mode (the SSE wire). A monotonic
   // token guards against a stale slow response overwriting a newer search (last-write-wins by query).
+  //
+  // The search and the facets are fired together but SETTLED SEPARATELY, and that separation is the fix for
+  // a real, reproduced failure: they used to share one `Promise.all`, so when the (much heavier) facets call
+  // exceeded the client's request budget, its rejection threw away a search that had already succeeded — and
+  // the catch then wrote `results: [], exhausted: true`, which the rail renders as "genuinely nothing matches
+  // <filter> — this is the WHOLE archive". Measured on a 29-day archive: search 5.2s (fine), facets 15.8s
+  // (over the 15s budget) → a wire full of Amazon news reported as an empty archive. They answer two
+  // different questions (what matched vs what the dropdowns should offer); a failure of one must never be
+  // able to erase or contradict the other.
   scRunArchiveSearch: async (q: ArchiveQuery) => {
     const active = !!(q.themes?.length || q.country || q.geoRegion || q.source || q.band || q.size || q.linkage || q.gicsSector || q.gicsSubSector || q.companyTicker || q.companyName || q.companyAliases?.length || q.companyTickerAliases?.length || q.commodities?.length || (q.text && q.text.trim()))
     if (!active) { // back to LIVE mode — drop the archive snapshot, keep the live wire
       archiveToken++
-      set({ scArchiveQuery: {}, scArchiveResults: [], scArchiveCursor: null, scArchiveLoading: false, scArchiveLoadingMore: false, scArchiveScannedThrough: null, scArchiveExhausted: false })
+      set({ scArchiveQuery: {}, scArchiveResults: [], scArchiveCursor: null, scArchiveLoading: false, scArchiveLoadingMore: false, scArchiveScannedThrough: null, scArchiveExhausted: false, scArchiveError: null })
       // Restore the FULL-archive facets so the Geography (and other) dropdowns show every option again.
       // A prior active search overwrote scFacets with filter-narrowed facets; without this reload, clearing
       // a non-geo filter (e.g. a sector) would leave the country dropdown stuck on that sector's subset.
@@ -3538,15 +3555,27 @@ export const useStore = create<State>((set, get) => ({
     // a non-flow wire pre-scopes every archive read to its own wire (wireScope clause) — the stored
     // scArchiveQuery stays the USER's filter; the clause is merged at the request edge only
     const wq = withWireClause(get(), q)
-    set({ scArchiveQuery: q, scArchiveLoading: true, scFacetsLoading: true })
-    try {
-      const [res, facets] = await Promise.all([api.newsSearch(wq, { limit: 60 }), api.newsFacets(wq)])
-      if (token !== archiveToken) return // a newer search superseded this one
-      set({ scArchiveResults: res.items, scArchiveCursor: res.nextCursor, scArchiveScannedThrough: res.scannedThroughDate, scArchiveExhausted: res.exhausted, scArchiveLoading: false, scFacets: facets, scFacetsLoading: false })
-    } catch {
-      if (token !== archiveToken) return
-      set({ scArchiveResults: [], scArchiveCursor: null, scArchiveExhausted: true, scArchiveLoading: false, scFacetsLoading: false })
-    }
+    set({ scArchiveQuery: q, scArchiveLoading: true, scArchiveError: null, scFacetsLoading: true })
+    // THE RESULTS — the only call whose outcome may write the result list.
+    const search = api.newsSearch(wq, { limit: 60 }).then(
+      (res) => {
+        if (token !== archiveToken) return // a newer search superseded this one
+        set({ scArchiveResults: res.items, scArchiveCursor: res.nextCursor, scArchiveScannedThrough: res.scannedThroughDate, scArchiveExhausted: res.exhausted, scArchiveLoading: false, scArchiveError: null })
+      },
+      (e: any) => {
+        if (token !== archiveToken) return
+        // Clear scannedThrough too: a date left over from the PREVIOUS query would otherwise lend a failed
+        // search the false authority of a specific horizon ("searched all history back to 17 Jul").
+        set({ scArchiveResults: [], scArchiveCursor: null, scArchiveScannedThrough: null, scArchiveExhausted: false, scArchiveLoading: false, scArchiveError: archiveErrorNote(e) })
+      },
+    )
+    // THE DROPDOWNS — never touches the result list. On failure the previous facets stand (stale counts in a
+    // dropdown are a cosmetic loss; an erased result list is a false answer).
+    const facets = api.newsFacets(wq).then(
+      (f) => { if (token === archiveToken) set({ scFacets: f, scFacetsLoading: false }) },
+      () => { if (token === archiveToken) set({ scFacetsLoading: false }) },
+    )
+    await Promise.all([search, facets]) // both already handle their own outcome — this only awaits quiescence
   },
   scLoadFacets: async (q: ArchiveQuery) => {
     const token = ++facetsToken
@@ -3571,8 +3600,11 @@ export const useStore = create<State>((set, get) => ({
       const seen = new Set(get().scArchiveResults.map((i) => i.event_id))
       const fresh = res.items.filter((i) => !seen.has(i.event_id))
       set({ scArchiveResults: [...get().scArchiveResults, ...fresh], scArchiveCursor: res.nextCursor, scArchiveScannedThrough: res.scannedThroughDate, scArchiveExhausted: res.exhausted, scArchiveLoadingMore: false })
-    } catch {
-      set({ scArchiveLoadingMore: false })
+    } catch (e: any) {
+      if (token !== archiveToken) { set({ scArchiveLoadingMore: false }); return }
+      // Keep the pages already loaded AND the cursor, so the failure is recoverable (scrolling retries) —
+      // but say so, rather than letting the list quietly stop deeper than it actually reached.
+      set({ scArchiveLoadingMore: false, scArchiveError: archiveErrorNote(e) })
     }
   },
   openSources: () => set({ sourcesOpen: true, diagnosticsOpen: false }),

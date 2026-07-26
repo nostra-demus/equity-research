@@ -348,6 +348,40 @@ check("explainFeedFilterMatch reports 'scope' / 'commodities' / 'wireScope' clau
   }
 })
 
+// ---- 8. the facet index re-parses only the day that CHANGED ----------------------------------------
+// Every ingest cycle calls invalidateFacets(), so this rebuild is the recurring case, not a rare one. It
+// used to re-read and re-parse the WHOLE archive each time (measured 14.5s over a 29-day / 80k-item one),
+// which blew the cockpit's request budget and made a search that had actually succeeded render as
+// "genuinely nothing matches". The per-day cache is keyed by the file's own identity, so this test pins
+// BOTH halves: an untouched day is reused, and a day whose file changed is re-read.
+check('a rebuilt facet index reuses untouched days and re-reads the one that changed', () => {
+  invalidateFacets()
+  const repo = tmp()
+  const older = dayAgo(3)
+  const today = dayAgo(0)
+  writeDay(repo, older, [item({ ts: `${older}T10:00:00Z`, country: 'US', headline: 'Older day item' })])
+  writeDay(repo, today, [item({ ts: `${today}T10:00:00Z`, country: 'US', headline: 'Todays item' })])
+  assert.equal(computeFacets(repo, {}, { now }).total, 2, 'both days are indexed on the first build')
+
+  // An untouched archive: the rebuild must produce exactly the same answer from cached day rows.
+  invalidateFacets()
+  assert.equal(computeFacets(repo, {}, { now }).total, 2, 'a rebuild over an unchanged archive is unchanged')
+
+  // Append to TODAY only. Its file identity (size/mtime) changes, so that day — and only that day — is
+  // re-parsed. If the cache ignored the change, the new item would be invisible; if it ignored the cache
+  // key, the older day would be re-read too (correct, just slow — which the count below cannot see, so the
+  // deleted-day assertion after it is what pins reuse to real file identity rather than to "always reuse").
+  const dir = path.join(repo, 'screener', 'inbox')
+  fs.appendFileSync(path.join(dir, `${today}_firehose.ndjson`), JSON.stringify(item({ ts: `${today}T11:00:00Z`, country: 'US', headline: 'Appended after the first build' })) + '\n')
+  invalidateFacets()
+  assert.equal(computeFacets(repo, {}, { now }).total, 3, 'the appended item is seen — a changed file is re-read')
+
+  // And a day that DISAPPEARS must leave with its rows: a stale cache entry would keep counting it.
+  fs.rmSync(path.join(dir, `${older}_firehose.ndjson`))
+  invalidateFacets()
+  assert.equal(computeFacets(repo, {}, { now }).total, 2, 'a pruned day drops out of the index')
+})
+
 // ---- findFeedItemById: the targeted, archive-aware single-record lookup -----------------------------
 // readFeed answers "the newest N items in the last D days" — so an event OLDER than that window, or one
 // on a busy day past the maxItems cap, is invisible to it even though the wire happily shows it. The
