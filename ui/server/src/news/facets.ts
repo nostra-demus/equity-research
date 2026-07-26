@@ -144,8 +144,12 @@ function buildRows(repoRoot: string, archiveDir: string, nowMs: number): { rows:
   let lines = 0
   let builtThroughDate: string | null = null
   const live = new Set<string>()
+  // POSIX-normalized for the cache-key text only — the real repoRoot/archiveDir (native separators) still
+  // goes to every actual fs call below (listFirehoseDates, firehoseStamp, rowsForDay).
+  const normRepoRoot = repoRoot.replace(/\\/g, '/')
+  const normArchiveDir = archiveDir.replace(/\\/g, '/')
   for (const date of dates) {
-    const key = `${repoRoot}|${archiveDir}|${date}`
+    const key = `${normRepoRoot}|${normArchiveDir}|${date}`
     live.add(key)
     // Reuse the parsed rows only when the file is byte-for-byte the one we parsed (same path, size and
     // mtime). No stamp (the day vanished mid-walk, or stat failed) → parse it, and don't cache what we
@@ -172,7 +176,7 @@ function buildRows(repoRoot: string, archiveDir: string, nowMs: number): { rows:
   }
   // Bound the day cache: drop any day of THIS repo/archive that is no longer in the walked window (pruned,
   // or past MAX_DAYS). Other repos' entries (tests, a second checkout) are left alone.
-  const prefix = `${repoRoot}|${archiveDir}|`
+  const prefix = `${normRepoRoot}|${normArchiveDir}|`
   for (const k of dayCache.keys()) if (k.startsWith(prefix) && !live.has(k)) dayCache.delete(k)
   cache.set(`${repoRoot}|${archiveDir}`, { rows, builtThroughDate, builtAt: nowMs })
   return { rows, builtThroughDate }

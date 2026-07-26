@@ -126,7 +126,9 @@ export function firehoseStamp(repoRoot: string, date: string, archiveDir = ''): 
   for (const fp of candidates) {
     try {
       const st = fs.statSync(fp)
-      return `${fp}|${st.size}|${st.mtimeMs}`
+      // POSIX-normalize before it goes into a cache-key string (news/facets.ts) — path.join emits `\` on
+      // Windows, and a stamp is compared/prefix-matched as text, not re-resolved as a path.
+      return `${fp.replace(/\\/g, '/')}|${st.size}|${st.mtimeMs}`
     } catch { /* not this copy — try the archive */ }
   }
   return null
