@@ -3599,7 +3599,9 @@ export const useStore = create<State>((set, get) => ({
       if (token !== archiveToken) return // the filter changed mid-page — discard this page
       const seen = new Set(get().scArchiveResults.map((i) => i.event_id))
       const fresh = res.items.filter((i) => !seen.has(i.event_id))
-      set({ scArchiveResults: [...get().scArchiveResults, ...fresh], scArchiveCursor: res.nextCursor, scArchiveScannedThrough: res.scannedThroughDate, scArchiveExhausted: res.exhausted, scArchiveLoadingMore: false })
+      // Clear any prior failure note: a page that SUCCEEDED must not leave the scope line still claiming
+      // "the search didn't finish" over freshly-loaded results (§3 — the mirror of a false absence).
+      set({ scArchiveResults: [...get().scArchiveResults, ...fresh], scArchiveCursor: res.nextCursor, scArchiveScannedThrough: res.scannedThroughDate, scArchiveExhausted: res.exhausted, scArchiveLoadingMore: false, scArchiveError: null })
     } catch (e: any) {
       if (token !== archiveToken) { set({ scArchiveLoadingMore: false }); return }
       // Keep the pages already loaded AND the cursor, so the failure is recoverable (scrolling retries) —
@@ -3921,7 +3923,7 @@ export const useStore = create<State>((set, get) => ({
 
 // DEV-only: expose the store so live timer/ETA visuals can be exercised locally without paying for a real
 // run (simulate running orbs via __store.setState). Tree-shaken out of the production build.
-if (import.meta.env.DEV && typeof window !== 'undefined') (window as any).__store = useStore
+if (import.meta.env?.DEV && typeof window !== 'undefined') (window as any).__store = useStore
 
 function beginRun(set: any, get: () => State, runId: string, info: { kind: string; module?: string; agent?: string; willCommitToMain?: boolean }, plannedKeys: string[], doneKeys: string[] = []) {
   const ticker = get().selectedTicker || ''
