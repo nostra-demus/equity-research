@@ -400,6 +400,24 @@ check('findFeedItemById: the ts hint only picks WHICH day to open — a wrong hi
   assert.ok(findFeedItemById(repo, target.event_id, { now, tsHint: 'not-a-date' }), 'unparseable hint falls back to the walk')
 })
 
+check('findFeedItemById: an event stamped near midnight, written to the NEXT day\'s file, is still found', () => {
+  const repo = tmp()
+  // ts says day 5 at 23:59:50Z, but the ingester's own clock rolled over first and wrote it into day 4's
+  // file — the hint must check the day AFTER the hint too, not just the hint day and the day before it.
+  const target = item({ ts: `${dayAgo(5)}T23:59:50Z` })
+  writeDay(repo, dayAgo(4), [target])
+  const hit = findFeedItemById(repo, target.event_id, { now, tsHint: target.ts })
+  assert.equal(hit?.event_id, target.event_id, 'checks hintDay+1 when the hint is not today')
+})
+
+check('findFeedItemById: a hint of TODAY never reads into tomorrow (no file can exist there)', () => {
+  const repo = tmp()
+  const target = item({ ts: `${dayAgo(0)}T09:00:00Z` })
+  writeDay(repo, dayAgo(0), [target])
+  const hit = findFeedItemById(repo, target.event_id, { now, tsHint: target.ts })
+  assert.equal(hit?.event_id, target.event_id, 'still finds it via today/yesterday, unaffected by the new +1 branch')
+})
+
 check('findFeedItemById: reads the cloud ARCHIVE when the day is gone from the local inbox', () => {
   const repo = tmp()
   const archive = tmp()
