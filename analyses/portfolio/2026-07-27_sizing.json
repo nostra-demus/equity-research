@@ -1,0 +1,62 @@
+{
+    "schema_version": "1.0",
+    "generated_at": "2026-07-27",
+    "scope": "all",
+    "disclaimer": "Illustrative model paper-portfolio for research process-tracking — not investment advice, not real orders.",
+    "n_decisions": 7,
+    "positions": [
+        {
+            "ticker": "TSLA",
+            "decision": "Short Candidate",
+            "model_weight_pct": -1.5,
+            "rationale": "Basket=Short, positive probability-weighted expected return on the SHORT (+56.57%, verified: 5-scenario math ties exactly — expectations_gap.json is_exploitable=true, edge_score 46 (decision_record's own edge_score field shows 40; expectations_gap's is_exploitable=true is what clears the Step-2 edge bar regardless of the exact number)). verification_report.json verdict 'Minor issues' (not Failed/Material) and pre_mortem.json verdict 'Survives with haircut' (not Does-not-survive/Thesis-broken) both clear the Step-2 eligibility gates. Sizing: scenario-implied Kelly fraction (p_win 65% at ~93.7% avg win vs p_loss 35% at ~12.4% avg loss) computes to a raw full-Kelly of ~60% — hard-capped at the standard ~8% per-name ceiling per command Step 3 (never full Kelly, cap the implied odds). Scaled by conviction = (pre-mortem recommended_confidence 50/100) x (data_sufficiency 76/100) = 0.38 -> 8% x 0.38 = ~3.0%. Halved again to 1.5% because the pre-mortem's own recommended_rating_cap explicitly instructs 'no new or larger short exposure ... treat the position as functionally Watchlist-strength' and separately flags an un-quantified, historically-relevant squeeze/base-rate risk (TSLA's documented history of >10% single-session moves, 2.1% short interest, 1.80 beta) that the run's own 10%-probability tail_squeeze scenario does not independently stress-test. Sign is negative to denote a short (a paper long-dated-put / put-spread expression, not naked short stock, per the thesis's own suggested_action). Unchanged from the 2026-07-26 run — no new run since TSLA_2026-07-25.",
+            "capped_by": "Per-name Kelly-implied-odds ceiling (~8% standard cap, raw Kelly far above it) -> conviction scaling (haircut confidence 50 x data sufficiency 76 = 0.38) -> further halved per pre-mortem's explicit 'functionally Watchlist-strength / no license to size up' guidance and the unquantified squeeze-tail base rate it flagged."
+        }
+    ],
+    "watch": [
+        {
+            "ticker": "AMZN",
+            "decision": "Watchlist",
+            "size_in_trigger": "Re-entry zone $190-200 (>12% margin of safety on base fair value $210). July 31, 2026 Q2 earnings is the first real test of the AWS D&A billing-lag hypothesis (edge_score 35 < 50 gate).",
+            "next_review": "2026-08-09"
+        },
+        {
+            "ticker": "BG",
+            "decision": "Watchlist",
+            "size_in_trigger": "Re-rate to Starter Position Only only on a pool-confirmed price below ~$100, or a clean post-Viterra FY2026 cash-conversion print (currently do not buy at indicative ~$123).",
+            "next_review": "2026-08-30"
+        },
+        {
+            "ticker": "EMAAR",
+            "decision": "Watchlist",
+            "size_in_trigger": "Revisit toward a starter long only if pre-sales hold >=+16% YoY and the discount begins to close, or on primary evidence the state owner/founder-MD treats minorities as value-owners (RF-OWN-004 Filter 6 caps at Watchlist regardless of price). No position at AED 12.20; watch Q2 2026 print (~Aug 10, 2026).",
+            "next_review": "2026-08-09"
+        },
+        {
+            "ticker": "HCG",
+            "decision": "Avoid",
+            "size_in_trigger": "Only re-underwrite at/below INR 520 (base-case low, where a margin of safety begins) or on two consecutive clean prints showing ROIC rising toward the cost of capital. Currently rejected — weak governance (7 High flags) plus no margin of safety.",
+            "next_review": "2026-08-30"
+        },
+        {
+            "ticker": "NHY",
+            "decision": "Watchlist",
+            "size_in_trigger": "Track the 22-Jul-2026 and 23-Oct-2026 prints; revisit only if price falls toward or below the NOK 70-82 weighted fair-value band, or if the Alumetal impairment / Brazil tax risk clears without damage. Edge score 30 < 50 gate; five High-severity flags (RF-OWN-004 unaligned Norwegian-state stake, RF-CAP-001 written-off battery bet, RF-CAP-003 dividend > FCF, RF-DISC-002 recurring 'non-recurring' charge, RF-SHR-001 AGM pay revolt).",
+            "next_review": "2026-08-18"
+        },
+        {
+            "ticker": "TMCV",
+            "decision": "Watchlist",
+            "size_in_trigger": "Re-rate when the Iveco financing structure is confirmed and the TMF Holdings AGM vote outcome is known (Filter 4 serial-acquirer/very-large-deal + Filter 6 unaligned-owner-borderline hold it at Watchlist until resolved).",
+            "next_review": "2026-09-05"
+        }
+    ],
+    "book": {
+        "gross_pct": 1.5,
+        "cash_pct": 98.5,
+        "max_name_pct": 1.5,
+        "concentration_note": "Single position (TSLA short, 1.5% of model book) — no concentration issue by construction. All six other standing records remain Watchlist/Avoid with zero weight.",
+        "correlation_flags": "No second position to correlate against. Note for future sizing: TSLA's thesis_type includes 'Sector-cycle' alongside AMZN, EMAAR, TMCV and NHY, all of which also carry a 'Sector-cycle' or cyclicality tag — if any of these later enter the book alongside TSLA, check for shared macro/consumer-cycle exposure before treating them as independent bets. Separately, AMZN/EMAAR/NHY each carry an unaligned-owner (CLAUDE.md §24 Filter 6) cap, and BG/TMCV each carry a Filter 4 large-deal/serial-acquirer cap — unrelated to TSLA's short thesis but relevant if the book expands."
+    },
+    "notes": "No change since the 2026-07-26 run: the standing, corrected decision ledger still holds the same 7 decisions from the same run roots (no new research run landed 2026-07-26 -> 2026-07-27). TSLA (Short Candidate, basket=Short) remains the sole sized position at 1.5% via the fractional-Kelly-with-cap method, heavily conviction-scaled down (confidence haircut to 50, data sufficiency 76) and further reduced per the pre-mortem's explicit 'functionally Watchlist-strength' caution and its own flagged squeeze/base-rate tail risk. All 6 other standing records (AMZN, BG, EMAAR, HCG, NHY, TMCV) remain Watchlist (5) or Rejected/Avoid (1), none reaching the Selected basket, none sized. Book is 1.5% gross / 98.5% model cash."
+}
