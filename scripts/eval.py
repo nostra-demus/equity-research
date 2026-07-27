@@ -422,8 +422,22 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
             violations.append(f"status='checked_no_action' but modules_flagged={mf!r} is non-empty")
         if ftype_gate and isinstance(fft,list) and len(fft)>0:
             violations.append(f"status='checked_no_action' but flagged_forecast_types={fft!r} is non-empty")
-        if ttype_gate and isinstance(ftt,list) and len(ftt)>0:
-            violations.append(f"status='checked_no_action' but flagged_thesis_types={ftt!r} is non-empty")
+        if ttype_gate:
+            # PRESENCE, not just emptiness (Codex r3644... on this PR): DECISION_LEDGER.md §18's own
+            # regression paragraph promises that on/after AG_TTYPE_DATE a "checked_no_action" record
+            # "must carry an empty flagged_thesis_types" — an ABSENT field would otherwise pass
+            # identically to a present-and-empty one, so a synthesizer that never ran the thesis-type
+            # slice would be indistinguishable from one that ran it and found nothing. That is exactly
+            # the silent-skip this gate exists to prevent (the same reason status itself distinguishes
+            # 'checked_no_action' from a missing object). The synthesizer already emits the key
+            # unconditionally (`"flagged_thesis_types": []` in both schema blocks), so requiring it is
+            # the spec, not a new burden — and the date gate keeps every historical record untouched.
+            if not isinstance(ftt, list):
+                violations.append(f"status='checked_no_action' but flagged_thesis_types={ftt!r} is missing/not a list "
+                                  f"— on/after {AG_TTYPE_DATE} the thesis-type slice must prove it ran by recording an "
+                                  f"empty list (§18: a clean check must be distinguishable from a silently skipped one)")
+            elif len(ftt)>0:
+                violations.append(f"status='checked_no_action' but flagged_thesis_types={ftt!r} is non-empty")
     # Cross-record consistency (Codex r3635961178): the §18 haircut recorded in calibration_feedback must
     # equal the value the confidence scorer actually consumed (confidence_inputs.calibration_haircut) —
     # else an "applied" haircut is cosmetic (recorded but never subtracted from conviction by
@@ -1666,6 +1680,15 @@ if scope=="selftest":
         ("2026-07-27",CS_REAL,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":["Governance turnaround"],"rationale":"Governance turnaround brier=0.30"},[]),
         ("2026-07-27",CS_REAL,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],"rationale":"x"},["none of","flagged_thesis_types","traceable"]),
         ("2026-07-27",CS_REAL,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":["Governance turnaround"],"rationale":"x"},["flagged_thesis_types","non-empty"]),
+        # 'checked_no_action' must PROVE the thesis-type slice ran: a present-and-empty list passes, an
+        # ABSENT field fails on/after AG_TTYPE_DATE (DECISION_LEDGER.md §18 "must carry an empty
+        # flagged_thesis_types"). Without this, a synthesizer that never ran the slice is indistinguishable
+        # from one that ran it clean — the silent skip the whole gate exists to prevent.
+        ("2026-07-27",CS_REAL,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],"rationale":"clean on all three slices"},[]),
+        ("2026-07-27",CS_REAL,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"rationale":"x"},["flagged_thesis_types","missing/not a list"]),
+        ("2026-07-27",CS_REAL,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":None,"rationale":"x"},["flagged_thesis_types","missing/not a list"]),
+        # backward-compatible: BEFORE the gate date the absent field is still fine (historical records)
+        ("2026-07-26",CS_REAL,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"rationale":"x"},[]),
         # pre-ttype-fix date: a non-empty flagged_thesis_types cannot substitute for modules_flagged /
         # flagged_forecast_types before AG_TTYPE_DATE — the field is simply not consulted yet.
         ("2026-07-23",CS_REAL,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":["Governance turnaround"],"rationale":"x"},["none of","modules_flagged","flagged_forecast_types","traceable"]),
