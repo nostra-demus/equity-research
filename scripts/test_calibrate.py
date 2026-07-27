@@ -137,13 +137,17 @@ def test_effective_n_clusters_by_ticker():
 
 
 # ── 2. end-to-end assembly (in-memory review fixtures — no repo pollution) ────────────────────────
-def _selected(i, prob, realized_status, rel_return):
-    """A Selected decision i with one resolved forecast and a review carrying a benchmark-relative return."""
+def _selected(i, prob, realized_status, rel_return, thesis_type=None):
+    """A Selected decision i with one resolved forecast and a review carrying a benchmark-relative return.
+    thesis_type (optional): the record's CLAUDE.md §14 thesis_type[] list; omitted → record carries no
+    thesis_type field at all (the untagged case)."""
     rec = {"run_root": f"analyses/SEL{i}_2026-06-01", "record": {
         "ticker": f"SEL{i}", "decision": "Buy", "decision_date": "2026-06-01", "basket": "Selected",
         "confidence_score": 70, "data_sufficiency_score": 75,
         "forecast_ledger": [{"prediction": f"pred-{i}", "probability": prob, "owner_module": "earnings",
                              "forecast_type": "earnings_eps"}]}}
+    if thesis_type is not None:
+        rec["record"]["thesis_type"] = thesis_type
     review = {"schema_version": "1.0", "ticker": f"SEL{i}", "review_date": "2026-07-01", "review_window": "30d",
               "basket": "Selected", "benchmark_relative_return_pct": rel_return,
               "forecast_results": [{"prediction": f"pred-{i}", "status": realized_status}]}
@@ -507,6 +511,53 @@ def test_module_slice_gated_on_distinct_tickers():
           "12 forecasts across 12 tickers → an actionable slice carrying n_tickers")
 
 
+def test_thesis_type_multi_label_slice():
+    # A record tagged with TWO thesis types must count toward BOTH slices, not exactly one — a
+    # "Governance turnaround" call is also "Company-specific", and the engine's own hit rate on each
+    # label must be independently calibratable (CLAUDE.md §14/§24 Filter 2).
+    pairs = ([{"prob": 0.8, "realized": 1, "ticker": f"t{i}",
+               "thesis_type": ["Company-specific", "Governance turnaround"]} for i in range(12)]
+             + [{"prob": 0.7, "realized": 0, "ticker": f"u{i}", "thesis_type": ["Company-specific"]} for i in range(12)])
+    sl = C._slice_multi(pairs, "thesis_type")
+    check(isinstance(sl["Governance turnaround"], dict) and sl["Governance turnaround"]["n"] == 12,
+          f"the 12 dual-tagged pairs count toward 'Governance turnaround' (got {sl['Governance turnaround']})")
+    check(isinstance(sl["Company-specific"], dict) and sl["Company-specific"]["n"] == 24,
+          f"'Company-specific' sees ALL 24 pairs (both cohorts carry the tag) (got {sl['Company-specific']})")
+
+
+def test_thesis_type_untagged_fallback_and_ticker_floor():
+    # A record with no thesis_type field (or an empty/non-list value) buckets under 'untagged', mirroring
+    # _slice_key's fallback for owner_module/forecast_type — never a crash, never silently dropped.
+    check(C._thesis_type_keys({}) == ["untagged"], "missing thesis_type -> untagged")
+    check(C._thesis_type_keys({"thesis_type": []}) == ["untagged"], "empty thesis_type list -> untagged")
+    check(C._thesis_type_keys({"thesis_type": "Buy"}) == ["untagged"], "non-list thesis_type -> untagged, never crashes")
+    check(C._thesis_type_keys({"thesis_type": [" Buy ", "Buy", 7, None]}) == ["Buy"],
+          "stripped, deduped, non-string entries dropped")
+    # the same distinct-ticker floor as _slice() applies per thesis-type slice (Phase-6 must not haircut
+    # a whole thesis type off one company's correlated forecast cluster)
+    one_ticker = [{"prob": 0.8, "realized": 1, "ticker": "aaa", "thesis_type": ["Balance-sheet survival"]} for _ in range(12)]
+    sl = C._slice_multi(one_ticker, "thesis_type")
+    check(isinstance(sl["Balance-sheet survival"], str) and "tickers=1" in sl["Balance-sheet survival"],
+          f"12 forecasts from 1 ticker -> insufficient slice (got {sl['Balance-sheet survival']})")
+
+
+def test_thesis_type_slice_end_to_end():
+    # End-to-end via C.build(): 12 Selected records tagged "Governance turnaround" (10 confirmed at 80%,
+    # well past both floors across 12 distinct tickers) must surface an actionable
+    # calibration_by_thesis_type["Governance turnaround"] slice, exactly like calibration_by_module does
+    # for owner_module today.
+    standing, reviews_by_run = [], {}
+    for i in range(12):
+        status = "confirmed" if i < 10 else "falsified"
+        rec, rev = _selected(i, 80, status, 4.0 if i < 9 else -2.0, thesis_type=["Governance turnaround"])
+        standing.append(rec)
+        reviews_by_run[rec["run_root"]] = [rev]
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda rr: reviews_by_run.get(rr, []))
+    check("Governance turnaround" in out["calibration_by_thesis_type"], "thesis_type slice keyed by the exact §14 value")
+    check(isinstance(out["calibration_by_thesis_type"]["Governance turnaround"], dict),
+          "12 forecasts across 12 tickers clears both floors -> an actionable slice, not 'insufficient'")
+
+
 def test_slice_key_stripped_and_str_safe():
     # Codex r6 #6 + #3: module keys are stripped (Phase-6 exact lookup) and _norm is non-crash on non-strings
     check(C._slice_key("earnings ") == "earnings" and C._slice_key(" valuation") == "valuation", "slice key is stripped")
@@ -765,7 +816,9 @@ def main():
                test_flat_tallies_dedup_corrected_versions, test_output_json_is_strict_even_with_nan,
                test_non_finite_inputs_excluded, test_short_basket_cohort_inverted,
                test_malformed_error_tag_skipped, test_all_scope_rerun_overwrites_base,
-               test_module_slice_gated_on_distinct_tickers, test_slice_key_stripped_and_str_safe,
+               test_module_slice_gated_on_distinct_tickers, test_thesis_type_multi_label_slice,
+               test_thesis_type_untagged_fallback_and_ticker_floor, test_thesis_type_slice_end_to_end,
+               test_slice_key_stripped_and_str_safe,
                test_false_comfort_named_in_markdown, test_duplicate_forecast_text_ambiguous,
                test_standing_reviews_malformed_date_no_crash, test_beta_of_rejects_non_finite,
                test_run_root_relative_in_inventory, test_pair_trade_basket_not_scored,

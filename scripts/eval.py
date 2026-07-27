@@ -345,6 +345,13 @@ AG_FTYPE_DATE = "2026-07-23"  # forecast-type extension: scripts/calibrate.py ha
     # miscalibration (e.g. every module's "catalyst_or_estimate_revision" calls are overconfident)
     # could never trigger the haircut. Gated by its own date so runs before the fix are not held to
     # a schema field (flagged_forecast_types) that did not exist when they shipped.
+AG_TTYPE_DATE = "2026-07-27"  # thesis-type extension: scripts/calibrate.py now computes
+    # calibration_by_thesis_type (multi-label, per CLAUDE.md §14/§24 Filter 2), but until now nothing
+    # read it back — a thesis-type-level miscalibration (e.g. every "Governance turnaround" call the
+    # engine has made is overconfident) could never trigger the haircut, so §24 Filter 2's "turnaround
+    # base-rate penalty" only ever drew on a generic external base rate, never the engine's own record.
+    # Gated by its own date so runs before the fix are not held to a schema field
+    # (flagged_thesis_types) that did not exist when they shipped.
 AG_STATUSES = {"not_available","pre_data","checked_no_action","applied"}
 def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibration_feedback, confidence_inputs=None):
     """Check AG: Phase 6 calibration-feedback gate (DECISION_LEDGER.md §18). Verifies the synthesizer
@@ -358,10 +365,11 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
     calibration_feedback: decision_record.json's "calibration_feedback" value, or None/missing.
     This is a presence/consistency check, not a re-derivation of Brier scores or hit rates — eval.py
     cannot re-run the synthesizer's judgment call on which module (or forecast type, on/after
-    AG_FTYPE_DATE) is "flagged"; it can only verify the gate ran, recorded a valid status, and that
-    status matches what the as-of summary's own verdict implies was possible (not_available /
-    pre_data / checked-or-applied), and — once AG_FTYPE_DATE applies — that an "applied" haircut is
-    traceable to at least one flagged module OR flagged forecast type, not left unexplained."""
+    AG_FTYPE_DATE; or thesis type, on/after AG_TTYPE_DATE) is "flagged"; it can only verify the gate
+    ran, recorded a valid status, and that status matches what the as-of summary's own verdict implies
+    was possible (not_available / pre_data / checked-or-applied), and — once AG_FTYPE_DATE and/or
+    AG_TTYPE_DATE apply — that an "applied" haircut is traceable to at least one flagged module,
+    flagged forecast type, or flagged thesis type, not left unexplained."""
     if not (isdate(decision_date) and decision_date >= AG_DATE):
         return None  # forward-looking; pre-gate runs N/A
     verdict = (calibration_summary or {}).get("verdict") or ""
@@ -386,28 +394,36 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
     elif expected=="checked" and status not in ("checked_no_action","applied"):
         violations.append(f"as-of calibration_summary has real signal (verdict={verdict!r}) but status={status!r} (expected 'checked_no_action' or 'applied')")
     ftype_gate = isdate(decision_date) and decision_date >= AG_FTYPE_DATE
+    ttype_gate = isdate(decision_date) and decision_date >= AG_TTYPE_DATE
     if status=="applied":
         hp=calibration_feedback.get("haircut_points"); mf=calibration_feedback.get("modules_flagged")
         fft=calibration_feedback.get("flagged_forecast_types")
+        ftt=calibration_feedback.get("flagged_thesis_types")
         if not (isnum(hp) and hp==8):
             violations.append(f"status='applied' but haircut_points={hp!r} is not the fixed 8-point constant "
                               f"(DECISION_LEDGER.md §18: 'the fixed constant (8)' — a single, bounded, non-additive haircut)")
-        if ftype_gate:
+        if ftype_gate or ttype_gate:
             mf_ok=isinstance(mf,list) and len(mf)>0
             fft_ok=isinstance(fft,list) and len(fft)>0
-            if not (mf_ok or fft_ok):
-                violations.append(f"status='applied' but neither modules_flagged={mf!r} nor "
-                                   f"flagged_forecast_types={fft!r} is a non-empty list — the haircut "
-                                   f"must be traceable to at least one flagged module or forecast type")
+            ftt_ok=ttype_gate and isinstance(ftt,list) and len(ftt)>0
+            if not (mf_ok or fft_ok or ftt_ok):
+                violations.append(f"status='applied' but none of modules_flagged={mf!r}, "
+                                   f"flagged_forecast_types={fft!r}"
+                                   + (f", flagged_thesis_types={ftt!r}" if ttype_gate else "")
+                                   + " is a non-empty list — the haircut must be traceable to at least "
+                                   "one flagged module, forecast type, or thesis type")
         elif not (isinstance(mf,list) and len(mf)>0):
             violations.append(f"status='applied' but modules_flagged={mf!r} is empty/not a list")
     if status=="checked_no_action":
         mf=calibration_feedback.get("modules_flagged")
         fft=calibration_feedback.get("flagged_forecast_types")
+        ftt=calibration_feedback.get("flagged_thesis_types")
         if isinstance(mf,list) and len(mf)>0:
             violations.append(f"status='checked_no_action' but modules_flagged={mf!r} is non-empty")
         if ftype_gate and isinstance(fft,list) and len(fft)>0:
             violations.append(f"status='checked_no_action' but flagged_forecast_types={fft!r} is non-empty")
+        if ttype_gate and isinstance(ftt,list) and len(ftt)>0:
+            violations.append(f"status='checked_no_action' but flagged_thesis_types={ftt!r} is non-empty")
     # Cross-record consistency (Codex r3635961178): the §18 haircut recorded in calibration_feedback must
     # equal the value the confidence scorer actually consumed (confidence_inputs.calibration_haircut) —
     # else an "applied" haircut is cosmetic (recorded but never subtracted from conviction by
@@ -1639,11 +1655,20 @@ if scope=="selftest":
         # fix closes (calibrate.py computed this slice since Phase 4; nothing consumed it until now).
         ("2026-07-23",CS_REAL,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":["catalyst_or_estimate_revision"],"rationale":"catalyst_or_estimate_revision brier=0.29"},[]),
         ("2026-07-23",CS_REAL,{"status":"applied","haircut_points":8,"modules_flagged":["valuation"],"flagged_forecast_types":[],"rationale":"valuation brier=0.31"},[]),
-        ("2026-07-23",CS_REAL,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":[],"rationale":"x"},["neither modules_flagged","nor","flagged_forecast_types"]),
+        ("2026-07-23",CS_REAL,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":[],"rationale":"x"},["none of","modules_flagged","flagged_forecast_types","traceable"]),
         ("2026-07-23",CS_REAL,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":["revenue"],"rationale":"x"},["flagged_forecast_types","non-empty"]),
         # pre-fix date: old rule still applies verbatim — a non-empty flagged_forecast_types cannot
         # substitute for modules_flagged before the extension's own rollout date.
         ("2026-07-06",CS_REAL,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":["revenue"],"rationale":"x"},["empty/not a list"]),
+        # thesis-type extension (AG_TTYPE_DATE=2026-07-27): calibration_by_thesis_type must now be able
+        # to trigger "applied" on its own, independent of modules_flagged/flagged_forecast_types — the
+        # twin gap this fix closes (calibrate.py never computed this slice at all until now).
+        ("2026-07-27",CS_REAL,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":["Governance turnaround"],"rationale":"Governance turnaround brier=0.30"},[]),
+        ("2026-07-27",CS_REAL,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],"rationale":"x"},["none of","flagged_thesis_types","traceable"]),
+        ("2026-07-27",CS_REAL,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":["Governance turnaround"],"rationale":"x"},["flagged_thesis_types","non-empty"]),
+        # pre-ttype-fix date: a non-empty flagged_thesis_types cannot substitute for modules_flagged /
+        # flagged_forecast_types before AG_TTYPE_DATE — the field is simply not consulted yet.
+        ("2026-07-23",CS_REAL,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":["Governance turnaround"],"rationale":"x"},["none of","modules_flagged","flagged_forecast_types","traceable"]),
     ]
     agbad=0
     for dt_,cs_,cf_,exp in agcases:
@@ -3408,7 +3433,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
  ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3","Label the cycle position of the EBITDA","the **strict** basis (CLAUDE.md §15)"],
  ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap","benchmarked against BOTH a peer-normal margin"],
- ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types","eval_aq_forensic_mosaic_cap","Cross-module forensic mosaic","eval_ar_short_bull_case_sanity","genuine loss to the short"],
+ ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","eval_aq_forensic_mosaic_cap","Cross-module forensic mosaic","eval_ar_short_bull_case_sanity","genuine loss to the short"],
  ".claude/agents/catalyst/MODULE_RULES.md":["§17 Catalyst Discipline","Catalyst Category Checklist","No proven catalyst yet"],
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
@@ -3423,16 +3448,16 @@ FRAMEWORK_CONTRACTS={
  ".claude/commands/research/track.md":["analyses/tracking","_calls_tracker","review_schedule","ad-hoc","memo_delta_file"],
  ".claude/settings.json":["SessionStart","review_due.py"],
  ".claude/hooks/review_due.py":["review_schedule","research:review-decisions due"],
- "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method","forecast_type","Calibration Feedback Gate","calibration_feedback","calibration_by_module","calibration_by_forecast_type","flagged_forecast_types","error_taxonomy_distribution","pre_mortem_check","audit-of-the-auditor","outcome_vs_verdict","false comfort","excess caution"],
+ "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method","forecast_type","Calibration Feedback Gate","calibration_feedback","calibration_by_module","calibration_by_forecast_type","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","error_taxonomy_distribution","pre_mortem_check","audit-of-the-auditor","outcome_vs_verdict","false comfort","excess caution"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta","pre_mortem_check","outcome_vs_verdict","7A. Pre-mortem calibration check"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
  ".claude/commands/research/calibrate.md":["calibration_by_module","calibration_by_forecast_type","owner_module","forecast_type","Phase 6","error_taxonomy_distribution","pre_mortem_calibration","scripts/calibrate.py","Pre-data","withheld","Clopper-Pearson","Selected − Rejected","commit-run.sh"],
- "scripts/calibrate.py":["load_standing_records","clopper_pearson","murphy_decomposition","e_value_hit_rate","effective_n","months_to_significance","reliability_bands","MIN_RESOLVED_FORECASTS","calibration_by_module","calibration_by_forecast_type","error_taxonomy_distribution","pre_mortem_calibration","outcome_distribution","contradicted_breakdown","false_comfort","excess_caution","Pre-data","honesty_statement","benchmark-adjusted","load_feed","market_feed"],
- "scripts/test_calibrate.py":["clopper_pearson","murphy_decomposition","e_value_hit_rate","Pre-data","hit rate","already_significant"],
+ "scripts/calibrate.py":["load_standing_records","clopper_pearson","murphy_decomposition","e_value_hit_rate","effective_n","months_to_significance","reliability_bands","MIN_RESOLVED_FORECASTS","calibration_by_module","calibration_by_forecast_type","calibration_by_thesis_type","_slice_multi","_thesis_type_keys","error_taxonomy_distribution","pre_mortem_calibration","outcome_distribution","contradicted_breakdown","false_comfort","excess_caution","Pre-data","honesty_statement","benchmark-adjusted","load_feed","market_feed"],
+ "scripts/test_calibrate.py":["clopper_pearson","murphy_decomposition","e_value_hit_rate","Pre-data","hit rate","already_significant","test_thesis_type_multi_label_slice","test_thesis_type_untagged_fallback_and_ticker_floor"],
  "scripts/market_prices.py":["data/_market","close_on","total_return","beta_adjusted_excess","raw_excess_pct","beta_adjusted_excess_pct","available","as_of","date,symbol,close"],
  "frameworks/MARKET_FEED.md":["date,symbol,close","_symbols.json","beta_adjusted_excess","close_on","EXTERNAL_DATA"],
  "frameworks/EXTERNAL_DATA.md":["data/_market","market_prices.py","beta-adjusted","tracking_price","date,symbol,close"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_FTYPE_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","eval_ar_short_bull_case_sanity","AR_DATE","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date","eval_ap_valuation_summary_integrity","scan_committed"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_FTYPE_DATE","AG_TTYPE_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","eval_ar_short_bull_case_sanity","AR_DATE","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date","eval_ap_valuation_summary_integrity","scan_committed"],
 
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
