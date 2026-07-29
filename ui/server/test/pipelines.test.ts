@@ -30,7 +30,11 @@ const tmp = (prefix: string) => { const d = fs.mkdtempSync(path.join(os.tmpdir()
 const isoDaysAgo = (n: number) => new Date(Date.now() - n * 86_400_000).toISOString().slice(0, 10)
 
 const ACQ = new Set(['official_api', 'free_key_api', 'paid_api', 'scrape', 'manual'])
-const CAD = new Set(['realtime', 'daily', 'weekly', 'monthly', 'event_driven'])
+// Mirror of the runtime cadence vocabulary (pipelines.ts CADENCE + connector-registry.ts CADENCE_MS).
+// `twelve_hourly` was added to BOTH runtime readers for the company-news bridge but was missing here, so a
+// connector declaring it would pass readPipelines yet fail this parity assertion — CI would block the very
+// cadence the runtime authorizes (Codex #359 r3673683056). Kept in lockstep with both runtime sets.
+const CAD = new Set(['realtime', 'twelve_hourly', 'daily', 'weekly', 'monthly', 'event_driven'])
 
 // ---- the REAL repo tree (generic assertions only — never a connector id) ----
 const real = readPipelines(true)
@@ -188,6 +192,21 @@ check('fixture: malformed + id-mismatch manifests drop with widened notes; the v
   assert.deepEqual(out.pipelines.map((p: any) => p.id), ['good-conn'])
   assert.ok(out.widened.some((w: string) => w.startsWith('dropped connector manifest badjson')))
   assert.ok(out.widened.some((w: string) => w.startsWith('dropped connector manifest mismatch')))
+})
+
+check('fixture: a connector declaring the twelve_hourly cadence validates (runtime ↔ parity-test agree)', () => {
+  // Parity guard: pipelines.ts CADENCE and connector-registry.ts CADENCE_MS both authorize `twelve_hourly`
+  // (the company-news bridge's cadence). If this test's CAD set omitted it, readPipelines would ACCEPT such a
+  // manifest while the structural-validity assertion (line 48) rejected it — the cadence could never be
+  // adopted with green CI (Codex #359 r3673683056). This pins the runtime-accepts + parity-set-accepts pair.
+  assert.ok(CAD.has('twelve_hourly'), 'the parity CAD set must mirror the runtime cadence vocabulary')
+  const repo = tmp('pipe12h-')
+  fs.mkdirSync(path.join(repo, 'data', 'AAA'), { recursive: true })
+  writeConn(repo, 'twelve-h-conn', { cadence: 'twelve_hourly' })
+  const out = probeRead(repo)
+  assert.deepEqual(out.pipelines.map((p: any) => p.id), ['twelve-h-conn'], 'runtime accepts twelve_hourly (not dropped)')
+  assert.equal(out.pipelines[0].cadence, 'twelve_hourly')
+  assert.ok(CAD.has(out.pipelines[0].cadence), 'and the parity test accepts the same value the runtime served')
 })
 
 check('fixture: tier clamp — external_other declaring tier 5 serves 9 + tierCorrected', () => {

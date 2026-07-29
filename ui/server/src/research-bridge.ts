@@ -33,7 +33,7 @@ import type { EventEnrichment } from './news/enrich'
 import type { FeedItem } from './news/types'
 import { findFeedItemByEventId } from './news/feed'
 import { EVENT_ID_RE, isValidTicker, safeSubjectSegment } from './sandbox'
-import { isReservedDataFolder } from './config'
+import { BRIDGE_MODE, isReservedDataFolder } from './config'
 
 export interface BridgeOpts {
   dataDir: string
@@ -333,7 +333,15 @@ export function listBridgedSubjects(eventId: string, dataDir: string): BridgedLi
  *  When enabled, still conservative: the pool is evidence, not a news feed. Floor tunable via
  *  SCREENER_RESEARCH_BRIDGE_MIN_SCORE (default 60). */
 export function shouldAutoBridge(item: FeedItem): boolean {
-  if (process.env.SCREENER_RESEARCH_BRIDGE !== '1') return false
+  // BRIDGE_MODE is authoritative, and the two routing paths NEVER run together (config.ts contract):
+  //  - 'batch' → the 12-hourly sweep owns routing, so this per-item path is OFF, even if a stale
+  //    SCREENER_RESEARCH_BRIDGE=1 is still set (that combination used to double-route every item and defeat
+  //    the two-windows-a-day analysis cap — Codex #359 r3673683041).
+  //  - 'stream' → this per-item path is ON (the mode alone enables it; the legacy flag no longer has to be
+  //    set too, which is what made 'stream' silently inert before — Codex #359 r3673607345).
+  //  - 'off'/unset → back-compat: the path is governed by the legacy SCREENER_RESEARCH_BRIDGE=1 flag alone.
+  if (BRIDGE_MODE === 'batch') return false
+  if (BRIDGE_MODE !== 'stream' && process.env.SCREENER_RESEARCH_BRIDGE !== '1') return false
   if (item.caution) return false // caution-only social chatter never seeds an evidence pool
   if (item.source_tier === 'social') return false
   if (item.relevance !== 'material') return false

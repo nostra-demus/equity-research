@@ -61,7 +61,14 @@ export function readBatchConfig(filePath: string): BridgeBatchConfig {
     const rawBy = raw.min_score_by_subject
     if (rawBy && typeof rawBy === 'object' && !Array.isArray(rawBy)) {
       for (const [k, v] of Object.entries(rawBy)) {
-        if (isValidTicker(k) && !isReservedDataFolder(k)) bySubject[k] = num(v, DEFAULT_BATCH_CONFIG.minScore, 0, 100)
+        // A malformed override must NOT install a valid-looking floor. Defaulting to a hardcoded 60 here
+        // silently WIDENED ingestion whenever the global floor was >60 (e.g. min_score:75 + a "bad" override
+        // → floor 60 for that name — Codex #359 r3673607337). Fail-closed: keep ONLY a valid in-range number;
+        // a dropped key falls back to the parsed global floor at lookup time (eligibleFor), never below it.
+        if (isValidTicker(k) && !isReservedDataFolder(k) &&
+            typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= 100) {
+          bySubject[k] = v
+        }
       }
     }
     return {
@@ -192,6 +199,9 @@ export interface SweepOpts {
   /** how many days of wire the sweep reads (the window is bounded by the cursor anyway; this only caps
    *  how far the reader looks back on a first/backfilled sweep) */
   lookbackDays?: number
+  /** seam over research-bridge's bridgeEventToSubject — defaults to the real writer. Exists so a test can
+   *  simulate a transient pool-write failure and assert the cursor does not step past the unpersisted event. */
+  writeNote?: (args: Parameters<typeof bridgeEventToSubject>[0]) => { already: boolean; path: string }
 }
 
 /**
@@ -207,6 +217,7 @@ export interface SweepOpts {
 export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: SweepOpts): BatchSweepResult {
   const now = opts.now ?? (() => new Date())
   const nowMs = now().getTime()
+  const writeNote = opts.writeNote ?? bridgeEventToSubject
   const cursors = readCursors(opts.stateDir)
 
   // Per-subject window start, computed BEFORE the read: a subject with no cursor gets the capped backfill,
@@ -264,24 +275,34 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
     let newestMs = since
     let newestIso = had ? cursors[subject] : new Date(since).toISOString()
     const written: string[] = []
+    // The cursor may only cross a CONTIGUOUS PREFIX of fully-accounted items. The first eligible item whose
+    // note write throws (a transient pool/FUSE failure) FREEZES the watermark, so the next window re-reads
+    // from just before it and retries — otherwise the cursor would step past an event that has no note, and
+    // the on-disk dedup could never save it because it never got written (Codex #359 r3673607317). chrono is
+    // ascending, so a single freeze flag is enough; later items are still written (their notes dedup on retry).
+    let blocked = false
 
     for (const it of chrono) {
       const ts = Date.parse(String(it?.ts || ''))
       if (!Number.isFinite(ts) || ts <= since) continue
       if (!matchesFor(it).includes(subject)) continue
       considered++
-      if (ts > newestMs) { newestMs = ts; newestIso = String(it.ts) }
-      if (!eligibleFor(it, subject, cfg)) continue
-      try {
-        const res = bridgeEventToSubject({
-          item: it, ticker: subject, mode: 'auto', user: 'auto', userVia: 'local',
-          opts: { dataDir: opts.dataDir, stateDir: opts.stateDir, now },
-        })
-        if (res.already) duplicates++
-        else written.push(res.path)
-      } catch {
-        /* per-item best-effort: one bad item never aborts a subject's window */
+      let persisted = true
+      if (eligibleFor(it, subject, cfg)) {
+        try {
+          const res = writeNote({
+            item: it, ticker: subject, mode: 'auto', user: 'auto', userVia: 'local',
+            opts: { dataDir: opts.dataDir, stateDir: opts.stateDir, now },
+          })
+          if (res.already) duplicates++
+          else written.push(res.path)
+        } catch {
+          // per-item best-effort: one bad item never aborts a subject's window, but it must not be skipped —
+          persisted = false
+        }
       }
+      if (!persisted) blocked = true
+      if (!blocked && ts > newestMs) { newestMs = ts; newestIso = String(it.ts) }
     }
 
     nextCursors[subject] = newestIso
@@ -289,6 +310,15 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
     sweeps.push({ subject, written, duplicates, considered, backfilled: !had, cursor: newestIso })
   }
 
-  writeCursors(opts.stateDir, nextCursors)
+  // Persist cursors LAST. If this throws (state disk full, rename fails), the window simply repeats next
+  // sweep — the on-disk note dedup makes that a no-op. What must NOT happen is losing this cycle's fresh-note
+  // report: if we let the throw propagate, the scheduler launches no follow-up analysis, and next sweep those
+  // same notes are duplicates (never "fresh"), so the advertised advisory analysis is skipped forever with
+  // INTAKE_AUTO_ANALYZE=0 (Codex #359 r3673881630). Report the result regardless of cursor-persist success.
+  try {
+    writeCursors(opts.stateDir, nextCursors)
+  } catch {
+    /* cursor persist failed — window repeats, dedup absorbs it; fresh-note result below still stands */
+  }
   return { sweeps, subjectsWithFreshNotes: fresh, scannedItems: items.length }
 }

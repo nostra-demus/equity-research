@@ -215,6 +215,14 @@ check('readBatchConfig falls back to the defaults on anything malformed (never w
   const ok = readBatchConfig(fp)
   assert.equal(ok.minScore, 70); assert.equal(ok.backfillHours, 12)
   assert.deepEqual(ok.minScoreBySubject, { TSLA: 80 }, 'an unsafe subject key is dropped')
+  // A MALFORMED override value must be DROPPED, never coerced to a hardcoded 60 — coercing it below a
+  // stricter global floor (min_score 75) silently WIDENED that name's ingestion (Codex #359 r3673607337).
+  // Fail-closed contract: a dropped key inherits the parsed global floor at lookup time, never below it.
+  fs.writeFileSync(fp, JSON.stringify({ min_score: 75, min_score_by_subject: { TSLA: 'bad', AMZN: 200, NHY: 90 } }))
+  const strict = readBatchConfig(fp)
+  assert.equal(strict.minScore, 75)
+  assert.deepEqual(strict.minScoreBySubject, { NHY: 90 }, 'only the valid in-range override survives; "bad" and out-of-range 200 are dropped')
+  assert.equal(eligibleFor(item({ triage_score: 70 }), 'TSLA', strict), false, 'a dropped TSLA override falls back to the global 75, not a lower 60')
   fs.writeFileSync(fp, '{ not json')
   assert.deepEqual(readBatchConfig(fp), DEFAULT_BATCH_CONFIG)
   fs.writeFileSync(fp, JSON.stringify({ min_score: -5, backfill_hours: 99999 }))
@@ -273,6 +281,42 @@ check('accumulatedFor counts routed notes on disk and reports the newest', () =>
   fs.writeFileSync(path.join(dataDir, 'NHY', 'annual_report.pdf'), 'x')
   assert.equal(accumulatedFor(dataDir, 'NHY').notes, 2, 'only screener_event_* notes are counted')
   assert.deepEqual(accumulatedFor(dataDir, 'NOSUCH'), { notes: 0, newestAt: null }, 'a missing pool is zero, not a throw')
+})
+
+// ---- 16. review round: a failed note write FREEZES the cursor — the event is retried, never skipped ----
+check('a transient write failure does not advance the cursor past the unpersisted event', () => {
+  // three ascending NHY stories; the MIDDLE one's write throws (a transient pool/FUSE failure). The cursor
+  // must stop just before it, so the next window re-reads and retries it. Pre-fix, the watermark advanced to
+  // the newest CONSIDERED item regardless of write success, so the failed event was skipped forever
+  // (Codex #359 r3673607317). Expected value pinned to bridge-batch.ts's own ordering contract:
+  // "the cursor advances ... only after its notes are written" / "Losing a window is impossible".
+  const t1 = item({ ticker: 'NHY', ts: iso(6 * HOUR), headline: 'NHY story one' })
+  const t2 = item({ ticker: 'NHY', ts: iso(4 * HOUR), headline: 'NHY story two (write fails)' })
+  const t3 = item({ ticker: 'NHY', ts: iso(2 * HOUR), headline: 'NHY story three' })
+  const { stateDir, opts } = makeRepo(['NHY'], [t1, t2, t3])
+  const writeNote = (a: { item: FeedItem }) => {
+    if (a.item.event_id === t2.event_id) throw new Error('simulated pool write failure')
+    return { already: false, path: `/fake/${a.item.event_id}.md` }
+  }
+  const r = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, { ...opts, writeNote })
+  const c = readCursors(stateDir)
+  assert.equal(c.NHY, t1.ts, 'cursor frozen at the last item before the failure, NOT advanced to t3')
+  assert.ok(Date.parse(c.NHY) < Date.parse(t2.ts), 'cursor is strictly before the unpersisted event')
+})
+
+// ---- 17. review round: a cursor-persist failure must NOT erase this cycle's fresh-note report ----
+check('writeCursors failure still reports fresh notes so the follow-up analysis is not lost forever', () => {
+  // notes all write fine (seam), but the cursor file cannot be persisted (state path sits under a regular
+  // file → mkdir ENOTDIR, which even root cannot write through). Pre-fix, sweepOnce threw before returning,
+  // so the scheduler launched no analysis and the next sweep saw only duplicates — the advisory analysis was
+  // skipped forever with INTAKE_AUTO_ANALYZE=0 (Codex #359 r3673881630).
+  const e = item({ ticker: 'NHY' })
+  const { repo, opts } = makeRepo(['NHY'], [e])
+  const wall = path.join(repo, 'not-a-dir'); fs.writeFileSync(wall, 'x')
+  const deadState = path.join(wall, 'state') // any write under here throws ENOTDIR
+  const writeNote = (a: { item: FeedItem }) => ({ already: false, path: `/fake/${a.item.event_id}.md` })
+  const r = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, { ...opts, stateDir: deadState, writeNote })
+  assert.deepEqual(r.subjectsWithFreshNotes, ['NHY'], 'the fresh-note result survives the cursor-persist failure')
 })
 
 console.log(`\n${passed} bridge-batch checks passed`)
