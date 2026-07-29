@@ -365,10 +365,34 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
     // ascending, so a single freeze flag is enough; later items are still written (their notes dedup on retry).
     let blocked = false
 
+    // A single instant can carry MULTIPLE items — news/runCycle.ts stamps every item from one cycle with
+    // the same timestamp, so ties are routine, not exceptional. Advancing the watermark to T as soon as the
+    // FIRST item at T succeeds — before a LATER item also at T fails — would still set `blocked`, but the
+    // cursor is already sitting at T; the next sweep's `ts <= since` filter then excludes the failed item at
+    // that exact T forever. So the watermark only ever commits to a timestamp once every item sharing it has
+    // been accounted for: buffer the current instant's outcome and commit it only once a STRICTLY LATER
+    // timestamp is seen (or the loop ends) (Codex #359 r3674305109).
+    let groupMs: number | null = null
+    let groupIso: string | null = null
+    let groupFailed = false
+    const commitGroup = () => {
+      if (!blocked && !groupFailed && groupMs !== null && groupMs > newestMs) {
+        newestMs = groupMs
+        newestIso = groupIso as string
+      }
+      if (groupFailed) blocked = true
+      groupMs = null
+      groupIso = null
+      groupFailed = false
+    }
+
     for (const it of chrono) {
       const ts = Date.parse(String(it?.ts || ''))
       if (!Number.isFinite(ts) || ts <= since) continue
       if (!matchesFor(it).includes(subject)) continue
+      if (groupMs !== null && ts !== groupMs) commitGroup()
+      groupMs = ts
+      groupIso = String(it.ts)
       considered++
       let persisted = true
       if (eligibleFor(it, subject, cfg)) {
@@ -384,9 +408,9 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
           persisted = false
         }
       }
-      if (!persisted) blocked = true
-      if (!blocked && ts > newestMs) { newestMs = ts; newestIso = String(it.ts) }
+      if (!persisted) groupFailed = true
     }
+    commitGroup()
 
     nextCursors[subject] = newestIso
     if (written.length) fresh.push(subject)

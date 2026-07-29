@@ -48,9 +48,10 @@ check("batch + legacy unset → SKIP", 'SKIP', probeCell('batch', undefined))
 // mode='stream' → the per-item path is ON from the mode alone (no longer silently inert)
 check("stream + legacy unset → ROUTE (mode enables the stream path)", 'ROUTE', probeCell('stream', undefined))
 check("stream + legacy=1 → ROUTE", 'ROUTE', probeCell('stream', '1'))
-// mode off/unset → back-compat: governed by the legacy flag alone
-check("off + legacy=1 → ROUTE (legacy back-compat)", 'ROUTE', probeCell('off', '1'))
-check("off + legacy unset → SKIP", 'SKIP', probeCell('off', undefined))
+// mode EXPLICITLY 'off' → a hard kill switch: disables the legacy flag too (Codex #359 r3674305117)
+check("explicit off + legacy=1 → SKIP (explicit kill switch beats legacy back-compat)", 'SKIP', probeCell('off', '1'))
+check("explicit off + legacy unset → SKIP", 'SKIP', probeCell('off', undefined))
+// mode UNSET → back-compat: governed by the legacy flag alone
 check("unset mode + legacy=1 → ROUTE (legacy back-compat)", 'ROUTE', probeCell(undefined, '1'))
 check("unset mode + legacy unset → SKIP (ships off)", 'SKIP', probeCell(undefined, undefined))
 

@@ -367,4 +367,33 @@ check('disabling a subject then re-enabling it resets its cursor to a bounded ba
   )
 })
 
+// ---- 20. review round: a same-instant write failure must not let an earlier tie advance past it ----
+check('two items sharing one timestamp: an earlier success does not advance the cursor past a later failure at the SAME instant', () => {
+  // news/runCycle.ts stamps every item from one cycle with the same ts, so ties are routine. Pre-fix, the
+  // watermark advanced to T as soon as the FIRST same-T item succeeded — before the SECOND same-T item's
+  // write failed — so the cursor persisted at T even though the failed item was never written. The next
+  // sweep's `ts <= since` filter then excluded that failed item FOREVER, since its own ts equals the cursor
+  // (Codex #359 r3674305109).
+  const tiedTs = iso(4 * HOUR)
+  const ok = item({ ticker: 'NHY', ts: tiedTs, headline: 'NHY story A (succeeds)' })
+  const fails = item({ ticker: 'NHY', ts: tiedTs, headline: 'NHY story B (write fails, SAME instant)' })
+  const later = item({ ticker: 'NHY', ts: iso(2 * HOUR), headline: 'NHY story C (later, must not be skipped either)' })
+  const { stateDir, opts } = makeRepo(['NHY'], [ok, fails, later])
+  const writeNote = (a: { item: FeedItem }) => {
+    if (a.item.event_id === fails.event_id) throw new Error('simulated pool write failure')
+    return { already: false, path: `/fake/${a.item.event_id}.md` }
+  }
+  const r = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, { ...opts, writeNote })
+  const c = readCursors(stateDir)
+  assert.ok(Date.parse(c.NHY) < Date.parse(tiedTs), 'cursor must stay strictly BEFORE the tied instant, not land ON it')
+  // a second sweep must still ATTEMPT the failed item — proving it was not silently excluded by a cursor
+  // that had already advanced to sit exactly on its timestamp (the `ts <= since` filter would otherwise
+  // drop anything AT that instant, not just before it). Records attempts rather than asserting on real
+  // dedup/disk state, since sweep 1's writeNote stub never touched disk in the first place.
+  const attempted: string[] = []
+  const writeNote2 = (a: { item: FeedItem }) => { attempted.push(a.item.event_id); return { already: false, path: `/fake/${a.item.event_id}.md` } }
+  sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, { ...opts, writeNote: writeNote2 })
+  assert.ok(attempted.includes(fails.event_id), 'the previously-failed same-instant item is retried, not silently excluded')
+})
+
 console.log(`\n${passed} bridge-batch checks passed`)

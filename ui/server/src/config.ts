@@ -26,6 +26,11 @@ export const BRIDGE_MODE = (() => {
   const raw = String(process.env.BRIDGE_MODE || '').trim().toLowerCase()
   return raw === 'batch' || raw === 'stream' ? raw : 'off'
 })()
+// True only when the operator EXPLICITLY wrote BRIDGE_MODE=off — as opposed to leaving it unset. Both
+// collapse into BRIDGE_MODE === 'off' above (the batch scheduler stays idle either way), but an explicit
+// kill switch must also disable the legacy SCREENER_RESEARCH_BRIDGE=1 per-item path, while an UNSET
+// BRIDGE_MODE preserves back-compat and defers to that flag alone (Codex #359 r3674305117).
+export const BRIDGE_MODE_EXPLICIT_OFF = String(process.env.BRIDGE_MODE || '').trim().toLowerCase() === 'off'
 // The sweep interval. 12h by default (two windows a day caps the follow-up analysis spend); overridable for
 // tests/ops, clamped to a sane band so a typo can neither hammer the pool nor silently disable the loop.
 export const BRIDGE_INTERVAL_MIN = (() => {

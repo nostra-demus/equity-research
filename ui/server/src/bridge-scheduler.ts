@@ -31,6 +31,11 @@ export interface BridgeSweepSummary { subjects: number; written: number; duplica
 let lastSummary: BridgeSweepSummary | null = null
 // why the loop is dark, in the loop's own words — so the status never reports a bare `running:false`
 let idleReason: string | null = 'not started'
+// Subjects whose follow-up analysis did not actually start on a PRIOR sweep — a busy run, exhausted
+// capacity, or a missing CLI. `sweepOnce` only reports a subject as "fresh" for the window that wrote its
+// note; the next sweep sees that same note as a duplicate (it's already on disk), so a dropped launch would
+// otherwise never be retried and the advisory analysis is silently skipped forever (Codex #359 r3674305113).
+let pendingAnalysisSubjects = new Set<string>()
 
 export interface BridgeSubjectStatus {
   subject: string
@@ -121,12 +126,22 @@ export async function runBridgeSweep(launchAnalysis: (ticker: string) => Promise
   const written = res.sweeps.reduce((a, s) => a + s.written.length, 0)
   const duplicates = res.sweeps.reduce((a, s) => a + s.duplicates, 0)
 
-  // ONE analysis per subject that gained a FRESH note. A subject whose window produced only duplicates
-  // (the manual-send-then-batch case) earns nothing — the pool did not change.
+  // ONE analysis per subject that gained a FRESH note THIS window, plus any subject still owed one from a
+  // prior window whose launch didn't start (busy / capacity / CLI). A subject whose window produced only
+  // duplicates (the manual-send-then-batch case) earns nothing NEW — but a still-pending retry from before
+  // is not a new note, so it must not be dropped just because this window was quiet.
+  const candidates = new Set<string>([...res.subjectsWithFreshNotes, ...pendingAnalysisSubjects])
+  const stillPending = new Set<string>()
   let analyses = 0
-  for (const subject of res.subjectsWithFreshNotes) {
-    try { if (await launchAnalysis(subject)) analyses++ } catch { /* busy / capacity — the notes still landed */ }
+  for (const subject of candidates) {
+    try {
+      if (await launchAnalysis(subject)) analyses++
+      else stillPending.add(subject) // busy right now — retry next sweep
+    } catch {
+      stillPending.add(subject) // capacity / CLI unavailable — the note still landed; retry next sweep
+    }
   }
+  pendingAnalysisSubjects = stillPending
 
   // A note landed this sweep → the cached status counts are now stale.
   if (written > 0) subjectCountsCache = null
