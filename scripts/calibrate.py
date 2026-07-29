@@ -36,7 +36,13 @@ CONTRACT
   • Preserves the Phase-6 feedback contract (frameworks/DECISION_LEDGER.md §18): `verdict` starts with
     "Pre-data" when below floor (the synthesizer keys on that prefix), and `calibration_by_module` /
     `calibration_by_forecast_type` are keyed by the exact owner_module / forecast_type value, each
-    "insufficient (N=k)" below its own floor.
+    "insufficient (N=k)" below its own floor. `calibration_by_thesis_type` (added 2026-07-27, CLAUDE.md
+    §14/§24 Filter 2) is keyed the same way, but each resolved forecast is tagged with EVERY
+    `thesis_type[]` value its own decision record carries (a record is routinely multi-labelled, e.g.
+    ["Company-specific", "Governance turnaround"]) — so one pair can count toward several slices, never
+    exactly one. This is what lets the engine's own historical hit rate on, say, "Governance turnaround"
+    calls feed the base-rate penalty §24 Filter 2 already demands in prose, instead of that penalty
+    staying generic and un-calibrated against the engine's own record.
   • Pure + importable; the CLI runs only under __main__. Deterministic: identical inputs → identical
     output (modulo the generated_at timestamp).
 
@@ -448,6 +454,44 @@ def _slice_key(v):
     return v.strip() if (isinstance(v, str) and v.strip()) else "untagged"
 
 
+# CLAUDE.md §14 closed set of thesis-type labels, in the canonical casing that DECISION_LEDGER.md §5 and
+# eval.py's THESIS_TYPE_ENUM enforce case-exact for decisions on/after eval.py's THESIS_Z_DATE
+# (2026-06-21). calibrate.py keeps its own copy because eval.py cannot be imported — it globs the ledger
+# and sys.exit()s at module scope. test_calibrate.py pins this tuple to §14 so the two copies can't drift.
+_THESIS_TYPE_CANON = (
+    "Company-specific", "Sector-cycle", "Macro-conditional", "Policy-conditional",
+    "Commodity-conditional", "FX / rates", "Liquidity / positioning",
+    "Governance turnaround", "Balance-sheet survival", "Pair trade / hedge", "Insufficient data",
+)
+_THESIS_TYPE_BY_CASEFOLD = {t.casefold(): t for t in _THESIS_TYPE_CANON}
+
+
+def _canon_thesis_type(tag):
+    """Map an already-stripped thesis_type tag to its §14 canonical casing. A record created before
+    eval.py Check Z's 2026-06-21 date gate is grandfathered past the case-exact enforcement, so a legacy
+    record can carry a lower-case label (e.g. 'sector-cycle' — see analyses/TMCV_2026-06-07). Without
+    canonicalization that legacy label buckets under its own key instead of joining the canonical
+    'Sector-cycle' cohort; below the MIN_SLICE_TICKERS floor the split marks a genuinely poor category
+    'insufficient', silently skipping its Phase-6 haircut — exactly the calibration break eval.py Check Z
+    was written to prevent (CLAUDE.md §19/§24). An unrecognized tag passes through unchanged."""
+    return _THESIS_TYPE_BY_CASEFOLD.get(tag.casefold(), tag)
+
+
+def _thesis_type_keys(record):
+    """The DISTINCT, cleaned thesis_type[] tags a decision record carries, for use as MULTI-LABEL slice
+    keys (CLAUDE.md §14). Unlike owner_module/forecast_type (one value per forecast row), thesis_type is
+    a property of the whole record and is routinely a list of more than one value — a record with no
+    usable tag (missing field, empty list, or a list of non-strings) buckets under 'untagged', mirroring
+    _slice_key's fallback, so a null/blank thesis_type still matches the exact lookup key Gate 4C uses.
+    Each tag is canonicalized to its §14 casing (_canon_thesis_type) so a grandfathered legacy record's
+    lower-case label does not split off from the canonical cohort."""
+    raw = record.get("thesis_type")
+    if not isinstance(raw, list):
+        return ["untagged"]
+    keys = sorted({_canon_thesis_type(t.strip()) for t in raw if isinstance(t, str) and t.strip()})
+    return keys or ["untagged"]
+
+
 def match_resolved_forecasts(record, reviews):
     """Join each review's resolved forecast_results back to its originating forecast_ledger entry to
     recover (probability, realized, owner_module, forecast_type). Match order: exact prediction TEXT, then
@@ -525,6 +569,7 @@ def match_resolved_forecasts(record, reviews):
             "prob": prob / 100.0, "realized": int(y),
             "owner_module": _slice_key(src.get("owner_module")),   # always a hashable string (never crashes _slice)
             "forecast_type": _slice_key(src.get("forecast_type")),
+            "thesis_type": _thesis_type_keys(record),               # multi-label — see _thesis_type_keys
             "ticker": _norm(record.get("ticker")),                  # for the distinct-ticker slice gate (§ effective-N)
         })
     return out
@@ -744,6 +789,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         "calibration": None,
         "calibration_by_module": {},
         "calibration_by_forecast_type": {},
+        "calibration_by_thesis_type": {},
         "reliability_bands": None,
         "sequential_test": {},
         "effective_sample": effective_n(list(cluster_by_ticker.values())),
@@ -854,6 +900,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         out["reliability_bands"] = reliability_bands(pair_tuples)
         out["calibration_by_module"] = _slice(all_pairs, "owner_module")
         out["calibration_by_forecast_type"] = _slice(all_pairs, "forecast_type")
+        out["calibration_by_thesis_type"] = _slice_multi(all_pairs, "thesis_type")
     else:
         out["calibration"] = f"insufficient resolved forecasts (N={n_resolved}; floor {MIN_RESOLVED_FORECASTS}) — Brier/reliability withheld"
 
@@ -878,6 +925,27 @@ def _slice(pairs, key):
     groups = {}
     for p in pairs:
         groups.setdefault(p[key], []).append(p)
+    out = {}
+    for g, gp in sorted(groups.items()):
+        tuples = [(p["prob"], p["realized"]) for p in gp]
+        n_tickers = len({p.get("ticker") for p in gp})
+        if len(gp) >= MIN_RESOLVED_FORECASTS and n_tickers >= MIN_SLICE_TICKERS:
+            out[g] = {"brier": brier(tuples), "n": len(gp), "n_tickers": n_tickers, "reliability_bands": reliability_bands(tuples)}
+        else:
+            out[g] = f"insufficient (N={len(gp)}, tickers={n_tickers})"
+    return out
+
+
+def _slice_multi(pairs, key):
+    """The MULTI-LABEL twin of _slice(): `p[key]` is a LIST of tags (thesis_type[] — CLAUDE.md §14), and
+    a pair counts toward EVERY tag it carries, not exactly one. Same per-group floors (MIN_RESOLVED_
+    FORECASTS raw forecasts AND MIN_SLICE_TICKERS distinct tickers) and the same 'insufficient (N=k,
+    tickers=t)' shape Gate 4C already knows how to skip — a caller that does not know this slice is
+    multi-label can treat it identically to _slice()'s output."""
+    groups = {}
+    for p in pairs:
+        for tag in (p.get(key) or []):
+            groups.setdefault(tag, []).append(p)
     out = {}
     for g, gp in sorted(groups.items()):
         tuples = [(p["prob"], p["realized"]) for p in gp]
@@ -1129,7 +1197,8 @@ def selftest():
         "confidence_score": 60, "data_sufficiency_score": 70, "forecast_ledger": []}}]
     b = build(standing=synth, today="2026-07-18")
     check(b["verdict"].startswith("Pre-data"), "synthetic young ledger → Pre-data verdict (Phase-6 prefix)")
-    check(b["calibration_by_module"] == {} and isinstance(b["error_taxonomy_distribution"], dict),
+    check(b["calibration_by_module"] == {} and b["calibration_by_thesis_type"] == {}
+          and isinstance(b["error_taxonomy_distribution"], dict),
           "Phase-6 keys present and correctly shaped at N=0")
     check(b["hit_rate"] is None and b["selected_minus_rejected_pct"] is None, "skill metrics withheld at N=0")
     # (the floor-MET end-to-end path — real Brier/hit-rate/e-value with on-disk review fixtures — is
