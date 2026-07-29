@@ -109,7 +109,11 @@ export interface RunnerStatus {
 // Enums mirrored from the decision_record schema / connector convention — a manifest outside them is
 // dropped at read time, never surfaced malformed.
 const ACQUISITION = new Set(['official_api', 'free_key_api', 'paid_api', 'scrape', 'manual'])
-const CADENCE = new Set(['realtime', 'daily', 'weekly', 'monthly', 'event_driven'])
+// Kept in step with connector-registry.ts's CADENCE_MS keys — two readers, one vocabulary. (Deliberately a
+// separate literal: this validator is the STRICTER §4-tier-ceiling gate and must not import its schema from
+// the permissive reader. pipelines.test.ts fails the moment a committed manifest names a cadence either
+// side does not know, which is exactly how the twelve_hourly addition was caught.)
+const CADENCE = new Set(['realtime', 'twelve_hourly', 'daily', 'weekly', 'monthly', 'event_driven'])
 const SLUG_RE = /^[a-z0-9][a-z0-9-]*$/
 const SATISFIES_RE = /^[a-z0-9][a-z0-9_-]*$/
 
