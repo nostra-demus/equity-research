@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NHY",
+  "run_root": "analyses/NHY_2026-07-19",
+  "scan_date": "2026-07-29",
+  "scanned_at": "2026-07-29T07:27:21Z",
+  "watermark": "analyses/NHY_2026-07-19/final_thesis.md",
+  "new_docs": [],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [],
+    "commands": [],
+    "note_only": []
+  },
+  "verdict": "note_only",
+  "summary": "No new documents have landed in data/NHY/ since the last finished run's watermark (final_thesis.md, 2026-07-19 22:48). The only pool activity newer than the watermark is the engine's own routed output (data/NHY/Memos 2026-07-19 22-52-20/), correctly excluded via its .nostradamus_output sentinel. Nothing to scope; the current thesis stands unchallenged by new evidence."
+}
