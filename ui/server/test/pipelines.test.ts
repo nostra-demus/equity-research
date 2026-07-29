@@ -30,7 +30,7 @@ const tmp = (prefix: string) => { const d = fs.mkdtempSync(path.join(os.tmpdir()
 const isoDaysAgo = (n: number) => new Date(Date.now() - n * 86_400_000).toISOString().slice(0, 10)
 
 const ACQ = new Set(['official_api', 'free_key_api', 'paid_api', 'scrape', 'manual'])
-const CAD = new Set(['realtime', 'daily', 'weekly', 'monthly', 'event_driven'])
+const CAD = new Set(['realtime', 'twelve_hourly', 'daily', 'weekly', 'monthly', 'event_driven'])
 
 // ---- the REAL repo tree (generic assertions only — never a connector id) ----
 const real = readPipelines(true)

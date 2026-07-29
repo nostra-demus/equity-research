@@ -275,4 +275,56 @@ check('accumulatedFor counts routed notes on disk and reports the newest', () =>
   assert.deepEqual(accumulatedFor(dataDir, 'NOSUCH'), { notes: 0, newestAt: null }, 'a missing pool is zero, not a throw')
 })
 
+// ---- 16. round-2 review: a failed write HOLDS the cursor so the next window retries ----
+check('a note-write failure holds the cursor below it (the note is never lost)', () => {
+  const a = item({ ticker: 'NHY', ts: iso(3 * HOUR), headline: 'NHY lifts Q3 alumina output guidance' })
+  const { dataDir, stateDir, opts } = makeRepo(['NHY'], [a])
+  // Make the pool unwritable so bridgeEventToSubject's tmp-write throws (EACCES). A directory at the note
+  // path would NOT do it — the existence check reads that as 'already routed' and returns cleanly.
+  const pool = path.join(dataDir, 'NHY')
+  fs.chmodSync(pool, 0o500)
+  try {
+    const r = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, opts)
+    const s0 = r.sweeps[0]
+    assert.equal(s0.retryPending, true, 'the failure is reported, not swallowed')
+    assert.deepEqual(s0.written, [], 'nothing was written')
+    assert.ok(Date.parse(s0.cursor) < Date.parse(a.ts), 'the cursor is held BELOW the failed item')
+    assert.deepEqual(r.subjectsWithFreshNotes, [], 'a failed window earns no analysis')
+    const cur = readCursors(stateDir)
+    assert.ok(Date.parse(cur.NHY) < Date.parse(a.ts), 'the persisted cursor is held back too')
+  } finally {
+    fs.chmodSync(pool, 0o700) // restore so the temp-dir cleanup can remove it
+  }
+  // and the RETRY works: with the pool writable again, the next window routes the held-back item
+  const r2 = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, opts)
+  assert.equal(r2.sweeps[0].written.length, 1, 'the next window picks up exactly the unwritten note')
+  assert.ok(fs.existsSync(noteFor(dataDir, 'NHY', a.event_id)))
+})
+
+// ---- 17. round-2 review: a re-enabled subject does not resume a stale cursor ----
+check('a cursor for a subject no longer covered is dropped (re-enabling backfills)', () => {
+  const e = item({ ticker: 'NHY' })
+  const { stateDir, opts } = makeRepo(['NHY'], [e])
+  fs.writeFileSync(path.join(stateDir, 'research-bridge-cursor.json'), JSON.stringify({ NHY: iso(HOUR), AMZN: iso(30 * 24 * HOUR) }))
+  sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, opts)
+  const cur = readCursors(stateDir)
+  assert.ok(!('AMZN' in cur), 'the uncovered subject’s stale cursor is gone')
+  assert.ok('NHY' in cur)
+})
+
+// ---- 18. round-2 review: a malformed per-subject floor is ignored, never lowered ----
+check('a malformed subject override cannot LOWER a stricter global floor', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-cfg2-'))
+  tempDirs.push(dir)
+  const fp = path.join(dir, 'cfg.json')
+  fs.writeFileSync(fp, JSON.stringify({ min_score: 80, min_score_by_subject: { NHY: 'oops', AMZN: 90 } }))
+  const cfg = readBatchConfig(fp)
+  assert.equal(cfg.minScore, 80)
+  assert.equal(cfg.minScoreBySubject.AMZN, 90, 'a valid override survives')
+  assert.ok(!('NHY' in cfg.minScoreBySubject), 'the malformed one is dropped, not coerced to 60')
+  // and the effective floor for NHY is therefore the strict global, not the default
+  const low = item({ ticker: 'NHY', triage_score: 65 })
+  assert.equal(eligibleFor(low, 'NHY', cfg), false, 'a 65 does not clear the 80 global floor')
+})
+
 console.log(`\n${passed} bridge-batch checks passed`)

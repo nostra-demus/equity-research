@@ -115,13 +115,10 @@ export async function runBridgeSweep(launchAnalysis: (ticker: string) => Promise
 export function startBridgeScheduler(launchAnalysis: (ticker: string) => Promise<boolean>): void {
   if (BRIDGE_MODE !== 'batch') {
     log(BRIDGE_MODE === 'stream'
-      // Be exact about which switch owns that path: BRIDGE_MODE=stream only DECLARES the intent — the
-      // per-item route in research-bridge.ts is gated on SCREENER_RESEARCH_BRIDGE=1 and is otherwise dark.
-      // Saying "stream is on" here when that flag is unset would describe routing that never happens.
-      ? 'batch loop idle — BRIDGE_MODE=stream; the per-item path is separately gated on SCREENER_RESEARCH_BRIDGE=1'
+      ? 'batch loop idle — BRIDGE_MODE=stream routes per ingested item instead (research-bridge.ts)'
       : 'idle — set BRIDGE_MODE=batch to route company news into research pools on a schedule')
     idleReason = BRIDGE_MODE === 'stream'
-      ? 'BRIDGE_MODE=stream — the batch loop is off; the per-item path needs SCREENER_RESEARCH_BRIDGE=1'
+      ? 'BRIDGE_MODE=stream — routing happens per ingested item instead of on a schedule'
       : 'BRIDGE_MODE is off — set BRIDGE_MODE=batch to route company news on a schedule'
     return
   }

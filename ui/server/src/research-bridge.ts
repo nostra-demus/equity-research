@@ -333,7 +333,13 @@ export function listBridgedSubjects(eventId: string, dataDir: string): BridgedLi
  *  When enabled, still conservative: the pool is evidence, not a news feed. Floor tunable via
  *  SCREENER_RESEARCH_BRIDGE_MIN_SCORE (default 60). */
 export function shouldAutoBridge(item: FeedItem): boolean {
-  if (process.env.SCREENER_RESEARCH_BRIDGE !== '1') return false
+  // BRIDGE_MODE is authoritative over the per-item path, so the two routing modes can never both be live:
+  // `batch` OWNS routing (the sweep writes the notes) and mutes this path even if the legacy flag is set;
+  // `stream` enables it without needing the legacy flag. Anything else falls back to the legacy flag alone
+  // (Codex #359 r3673607345 + r3673683041).
+  const mode = String(process.env.BRIDGE_MODE || '').trim().toLowerCase()
+  if (mode === 'batch') return false
+  if (mode !== 'stream' && process.env.SCREENER_RESEARCH_BRIDGE !== '1') return false
   if (item.caution) return false // caution-only social chatter never seeds an evidence pool
   if (item.source_tier === 'social') return false
   if (item.relevance !== 'material') return false

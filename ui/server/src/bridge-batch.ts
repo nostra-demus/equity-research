@@ -35,6 +35,13 @@ import { isValidTicker } from './sandbox'
 
 export const CURSOR_FILE = 'research-bridge-cursor.json'
 
+/** Reader cap for one sweep. Generous (a busy day is ~1.5k items), and a sweep that HITS it refuses to
+ *  advance any cursor — see sweepOnce. */
+export const MAX_SCAN_ITEMS = 20_000
+/** How far back one sweep may reach. A cursor older than this leaves a gap the sweep cannot read; the gap
+ *  is REPORTED per subject (gapSkipped) instead of being silently stepped over. */
+export const MAX_LOOKBACK_DAYS = 30
+
 /** Per-subject knobs. The ENABLED SET is not here — it is the connector manifest's `subjects` array (one
  *  source of truth); this file only tunes how selective the sweep is for a name that is already enabled. */
 export interface BridgeBatchConfig {
@@ -61,7 +68,11 @@ export function readBatchConfig(filePath: string): BridgeBatchConfig {
     const rawBy = raw.min_score_by_subject
     if (rawBy && typeof rawBy === 'object' && !Array.isArray(rawBy)) {
       for (const [k, v] of Object.entries(rawBy)) {
-        if (isValidTicker(k) && !isReservedDataFolder(k)) bySubject[k] = num(v, DEFAULT_BATCH_CONFIG.minScore, 0, 100)
+        // A malformed override is DROPPED, never coerced to the default: with a stricter global floor
+        // (say 75) coercing a bad entry to 60 would LOWER the bar for that subject, so a broken config
+        // would WIDEN routing — the one direction a config error must never move it (Codex r3673607337).
+        if (!isValidTicker(k) || isReservedDataFolder(k)) continue
+        if (typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= 100) bySubject[k] = v
       }
     }
     return {
@@ -174,6 +185,10 @@ export interface SubjectSweep {
   backfilled: boolean
   /** the new cursor (unchanged when nothing was considered) */
   cursor: string
+  /** a note write FAILED — the cursor is held at the failure so the next window retries it */
+  retryPending?: boolean
+  /** this cursor predates the reader's window: events in the gap were never seen (surfaced, never silent) */
+  gapSkipped?: boolean
 }
 
 export interface BatchSweepResult {
@@ -181,6 +196,8 @@ export interface BatchSweepResult {
   /** subjects that gained at least one FRESH note — the only ones an analysis should be launched for */
   subjectsWithFreshNotes: string[]
   scannedItems: number
+  /** the reader hit its item cap — OLDER events exist that this sweep never saw, so NO cursor advanced */
+  truncated: boolean
 }
 
 export interface SweepOpts {
@@ -222,12 +239,15 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
   // Derived, not fixed; clamped so a very old cursor cannot make one sweep walk the entire archive.
   const oldestSinceMs = subjects.length ? Math.min(...subjects.map((s) => sinceMsFor.get(s) as number)) : nowMs
   const neededDays = Math.ceil(Math.max(0, nowMs - oldestSinceMs) / 86_400_000) + 1
-  const lookbackDays = opts.lookbackDays ?? Math.min(14, Math.max(2, neededDays))
+  const lookbackDays = opts.lookbackDays ?? Math.min(MAX_LOOKBACK_DAYS, Math.max(2, neededDays))
 
   const snap = readFeed(opts.repoRoot, lookbackDays, {
     now,
     archiveDir: opts.archiveDir ?? '',
-    maxItems: 5000,
+    // Raised well above a busy 12h window, and truncation is DETECTED below rather than assumed away:
+    // if the reader still hits this cap, older matching events exist that this sweep never saw
+    // (Codex r3673607324 / r3673683068).
+    maxItems: MAX_SCAN_ITEMS,
   })
   const items: FeedItem[] = Array.isArray((snap as any)?.items) ? (snap as any).items : []
   // oldest → newest, so a cursor is always the NEWEST thing we have seen for that subject
@@ -236,6 +256,10 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
   const sweeps: SubjectSweep[] = []
   const fresh: string[] = []
   const nextCursors: Cursors = { ...cursors }
+  // Facts about what the reader could actually see this sweep — the basis for refusing to advance a
+  // cursor over events we never read.
+  const truncated = items.length >= MAX_SCAN_ITEMS
+  const oldestReturnedMs = chrono.length ? Date.parse(String(chrono[0]?.ts || '')) || 0 : 0
 
   // EXACT symbol match only, same rule as the unattended per-item path: a bare-symbol collision across
   // exchanges must never route company A's news into company B's evidence pool. Resolved ONCE per item and
@@ -263,6 +287,7 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
     // dedup absorbs it) or slightly late (an event silently skipped). Numbers cannot be ambiguous.
     let newestMs = since
     let newestIso = had ? cursors[subject] : new Date(since).toISOString()
+    let firstFailMs: number | null = null
     const written: string[] = []
 
     for (const it of chrono) {
@@ -280,15 +305,35 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
         if (res.already) duplicates++
         else written.push(res.path)
       } catch {
-        /* per-item best-effort: one bad item never aborts a subject's window */
+        // A transient write failure (a Drive/FUSE hiccup) must not be swallowed with the cursor moving
+        // past it — that would lose the note forever. Remember the EARLIEST failure and hold the cursor
+        // just below it, so the next window retries exactly the unwritten tail (Codex r3673607317).
+        if (firstFailMs === null || ts < firstFailMs) firstFailMs = ts
       }
     }
 
-    nextCursors[subject] = newestIso
+    // Never advance past an item this sweep failed to write, and never past the window when the reader
+    // truncated (older matching events exist that were not returned).
+    const retryPending = firstFailMs !== null
+    if (retryPending) {
+      const holdMs = (firstFailMs as number) - 1
+      if (holdMs < newestMs) { newestMs = holdMs; newestIso = new Date(holdMs).toISOString() }
+    }
+    nextCursors[subject] = truncated ? (had ? cursors[subject] : newestIso) : newestIso
     if (written.length) fresh.push(subject)
-    sweeps.push({ subject, written, duplicates, considered, backfilled: !had, cursor: newestIso })
+    const gapSkipped = had && sinceMsFor.get(subject)! < oldestReturnedMs
+    sweeps.push({
+      subject, written, duplicates, considered, backfilled: !had, cursor: nextCursors[subject],
+      ...(retryPending ? { retryPending } : {}),
+      ...(gapSkipped ? { gapSkipped } : {}),
+    })
   }
 
-  writeCursors(opts.stateDir, nextCursors)
-  return { sweeps, subjectsWithFreshNotes: fresh, scannedItems: items.length }
+  // Cursors for subjects no longer covered are DROPPED, so re-enabling a name later gets the capped
+  // backfill rather than resuming a cursor from an era when nobody was watching (Codex r3673881636).
+  for (const k of Object.keys(nextCursors)) if (!subjects.includes(k)) delete nextCursors[k]
+  // The notes are already on disk; a cursor-write failure must not abort the sweep and strand the
+  // follow-up analyses (worst case the next window re-considers, and dedup absorbs it — Codex r3673881630).
+  try { writeCursors(opts.stateDir, nextCursors) } catch { /* re-consideration is harmless; losing the analyses is not */ }
+  return { sweeps, subjectsWithFreshNotes: fresh, scannedItems: items.length, truncated }
 }

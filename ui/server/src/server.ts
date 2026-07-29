@@ -2969,15 +2969,13 @@ app
     // BRIDGE_MODE=batch. Paid re-runs stay behind the research tab's own click. The launcher is injected
     // so the loop reuses this file's admission stack (subject lock + busy check) — the same gates the
     // manual "Send to research" route applies, in one place.
+    // The follow-up analysis rides the EXISTING debounced/deduped/finished-run-gated auto-intake path —
+    // the same one the data-pool watcher fires when any file lands (server.ts scheduleAutoIntake). Launching
+    // a second one here would race the watcher's for the very notes this sweep just wrote, and would ignore
+    // the operator's INTAKE_AUTO_ANALYZE setting (Codex #359 r3673607349). One scheduler, one policy.
     startBridgeScheduler(async (ticker: string) => {
-      const owner = resolveSwarmForSubject(ticker)
-      if (!owner) return false
-      return withSubjectLock(`intake:${ticker}`, async () => {
-        const busy = listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
-        if (busy) return false
-        await launch({ kind: 'doc-intake', ticker, ...(owner.swarm !== RESEARCH_SWARM_ID ? { swarm: owner.swarm } : {}), user: 'auto', userVia: 'local' })
-        return true
-      })
+      scheduleAutoIntake(ticker)
+      return AUTO_INTAKE_ON
     })
     // feedback auto-tune (screener): once a day, apply the tuner's guardrailed, backtest-passing rank-weight
     // nudges from human feedback — audited + revertible. OFF unless SCREENER_AUTOTUNE_ENABLED=1 (opt-in, the
