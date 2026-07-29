@@ -352,7 +352,28 @@ AG_TTYPE_DATE = "2026-07-27"  # thesis-type extension: scripts/calibrate.py now 
     # base-rate penalty" only ever drew on a generic external base rate, never the engine's own record.
     # Gated by its own date so runs before the fix are not held to a schema field
     # (flagged_thesis_types) that did not exist when they shipped.
+AG_ERRTAX_DATE = "2026-07-29"  # error-taxonomy extension: scripts/calibrate.py has computed
+    # error_taxonomy_distribution (CLAUDE.md §20 flat tally of why past calls went wrong) since Phase 4,
+    # but it was read back only in the human-facing /research:calibrate narration (calibrate.md step 3:
+    # "the leading tag(s) if any count >= 2") — never by a gate that changes behavior on a LIVE run. This
+    # is a different shape of gap than the module/forecast-type/thesis-type slices above: those match a
+    # SLICE VALUE that appears in the current run; error taxonomy has no such per-run dimension — it is a
+    # standing "the engine's own #1 historical mistake is X" fact. The fix: for every leading category
+    # (count >= 2, the same threshold calibrate.md's own narration already uses), the synthesizer must
+    # name concrete evidence THIS run produced to guard against that exact failure mode recurring, or
+    # admit it has none — either way, proof the check ran, never a silent skip. Reuses the identical
+    # fixed 8-point non-additive haircut as a 4th trigger (no new magnitude invented — DECISION_LEDGER.md
+    # §18 already warns against a second, uncontrolled rating-cap mechanism). Gated by its own date so
+    # runs before the fix are not held to schema fields (leading_error_categories_flagged,
+    # error_defense_evidence) that did not exist when they shipped.
 AG_STATUSES = {"not_available","pre_data","checked_no_action","applied"}
+def _ag_leading_error_categories(calibration_summary):
+    """Categories in the as-of summary's error_taxonomy_distribution with count >= 2 — the same
+    threshold calibrate.md's own human-facing narration already uses ("leading tag(s) if any count >= 2").
+    Sorted for a deterministic violation message. Non-dict/non-numeric entries are ignored, never crash."""
+    dist = (calibration_summary or {}).get("error_taxonomy_distribution")
+    if not isinstance(dist, dict): return []
+    return sorted(cat for cat, n in dist.items() if isinstance(cat, str) and isnum(n) and n >= 2)
 def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibration_feedback, confidence_inputs=None):
     """Check AG: Phase 6 calibration-feedback gate (DECISION_LEDGER.md §18). Verifies the synthesizer
     did not silently skip reading back its own prior calibration data — the loop Phase 4 (/research:
@@ -365,11 +386,14 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
     calibration_feedback: decision_record.json's "calibration_feedback" value, or None/missing.
     This is a presence/consistency check, not a re-derivation of Brier scores or hit rates — eval.py
     cannot re-run the synthesizer's judgment call on which module (or forecast type, on/after
-    AG_FTYPE_DATE; or thesis type, on/after AG_TTYPE_DATE) is "flagged"; it can only verify the gate
-    ran, recorded a valid status, and that status matches what the as-of summary's own verdict implies
-    was possible (not_available / pre_data / checked-or-applied), and — once AG_FTYPE_DATE and/or
-    AG_TTYPE_DATE apply — that an "applied" haircut is traceable to at least one flagged module,
-    flagged forecast type, or flagged thesis type, not left unexplained."""
+    AG_FTYPE_DATE; thesis type, on/after AG_TTYPE_DATE; or leading error-taxonomy category, on/after
+    AG_ERRTAX_DATE) is "flagged"; it can only verify the gate ran, recorded a valid status, and that
+    status matches what the as-of summary's own verdict implies was possible (not_available / pre_data /
+    checked-or-applied), and — once AG_FTYPE_DATE / AG_TTYPE_DATE / AG_ERRTAX_DATE apply — that an
+    "applied" haircut is traceable to at least one flagged module, forecast type, thesis type, or leading
+    error-taxonomy category, not left unexplained. For the error-taxonomy trigger it additionally checks
+    that every leading category (count >= 2) has a recorded, non-trivial defense statement in
+    error_defense_evidence — it cannot judge whether that statement is TRUE, only that one was written."""
     if not (isdate(decision_date) and decision_date >= AG_DATE):
         return None  # forward-looking; pre-gate runs N/A
     verdict = (calibration_summary or {}).get("verdict") or ""
@@ -395,29 +419,35 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
         violations.append(f"as-of calibration_summary has real signal (verdict={verdict!r}) but status={status!r} (expected 'checked_no_action' or 'applied')")
     ftype_gate = isdate(decision_date) and decision_date >= AG_FTYPE_DATE
     ttype_gate = isdate(decision_date) and decision_date >= AG_TTYPE_DATE
+    errtax_gate = isdate(decision_date) and decision_date >= AG_ERRTAX_DATE
+    lec = _ag_leading_error_categories(calibration_summary) if errtax_gate else []
     if status=="applied":
         hp=calibration_feedback.get("haircut_points"); mf=calibration_feedback.get("modules_flagged")
         fft=calibration_feedback.get("flagged_forecast_types")
         ftt=calibration_feedback.get("flagged_thesis_types")
+        lecf=calibration_feedback.get("leading_error_categories_flagged")
         if not (isnum(hp) and hp==8):
             violations.append(f"status='applied' but haircut_points={hp!r} is not the fixed 8-point constant "
                               f"(DECISION_LEDGER.md §18: 'the fixed constant (8)' — a single, bounded, non-additive haircut)")
-        if ftype_gate or ttype_gate:
+        if ftype_gate or ttype_gate or errtax_gate:
             mf_ok=isinstance(mf,list) and len(mf)>0
             fft_ok=isinstance(fft,list) and len(fft)>0
             ftt_ok=ttype_gate and isinstance(ftt,list) and len(ftt)>0
-            if not (mf_ok or fft_ok or ftt_ok):
+            lecf_ok=errtax_gate and isinstance(lecf,list) and len(lecf)>0
+            if not (mf_ok or fft_ok or ftt_ok or lecf_ok):
                 violations.append(f"status='applied' but none of modules_flagged={mf!r}, "
                                    f"flagged_forecast_types={fft!r}"
                                    + (f", flagged_thesis_types={ftt!r}" if ttype_gate else "")
+                                   + (f", leading_error_categories_flagged={lecf!r}" if errtax_gate else "")
                                    + " is a non-empty list — the haircut must be traceable to at least "
-                                   "one flagged module, forecast type, or thesis type")
+                                   "one flagged module, forecast type, thesis type, or leading error-taxonomy category")
         elif not (isinstance(mf,list) and len(mf)>0):
             violations.append(f"status='applied' but modules_flagged={mf!r} is empty/not a list")
     if status=="checked_no_action":
         mf=calibration_feedback.get("modules_flagged")
         fft=calibration_feedback.get("flagged_forecast_types")
         ftt=calibration_feedback.get("flagged_thesis_types")
+        lecf=calibration_feedback.get("leading_error_categories_flagged")
         if isinstance(mf,list) and len(mf)>0:
             violations.append(f"status='checked_no_action' but modules_flagged={mf!r} is non-empty")
         if ftype_gate and isinstance(fft,list) and len(fft)>0:
@@ -438,6 +468,55 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
                                   f"empty list (§18: a clean check must be distinguishable from a silently skipped one)")
             elif len(ftt)>0:
                 violations.append(f"status='checked_no_action' but flagged_thesis_types={ftt!r} is non-empty")
+        if errtax_gate:
+            # Same PRESENCE reasoning as the thesis-type block above, applied to the 4th trigger.
+            if not isinstance(lecf, list):
+                violations.append(f"status='checked_no_action' but leading_error_categories_flagged={lecf!r} is missing/not a list "
+                                  f"— on/after {AG_ERRTAX_DATE} the error-taxonomy slice must prove it ran by recording an "
+                                  f"empty list (§18: a clean check must be distinguishable from a silently skipped one)")
+            elif len(lecf)>0:
+                violations.append(f"status='checked_no_action' but leading_error_categories_flagged={lecf!r} is non-empty")
+    if errtax_gate and status in ("checked_no_action","applied") and lec:
+        # For every category the as-of summary's OWN error_taxonomy_distribution flags as leading (count
+        # >= 2), the synthesizer must have recorded a concrete, non-trivial defense — or the literal
+        # admission it has none, which is exactly what should have put that category in
+        # leading_error_categories_flagged. This cannot verify the defense is TRUE (that is a semantic
+        # judgment eval.py does not make, same limit as every other slice above); it can only verify one
+        # was written at all, and that a "flagged" category isn't simultaneously claiming a real defense
+        # (or vice versa) — the same "prove the check ran, don't let a claim contradict its own record"
+        # reasoning as the thesis-type PRESENCE check above.
+        ede = calibration_feedback.get("error_defense_evidence")
+        lecf = calibration_feedback.get("leading_error_categories_flagged")
+        flagged_set = set(lecf) if isinstance(lecf, list) else set()
+        if not isinstance(ede, dict):
+            violations.append(f"as-of calibration_summary has leading error-taxonomy categor{'y' if len(lec)==1 else 'ies'} "
+                              f"{lec!r} (count >= 2) but calibration_feedback.error_defense_evidence={ede!r} is missing/not "
+                              f"an object — on/after {AG_ERRTAX_DATE} every leading category needs a recorded defense "
+                              f"statement or an explicit admission of none (§18)")
+        else:
+            for cat in lec:
+                val = ede.get(cat)
+                val_s = val.strip().lower() if isinstance(val, str) else None
+                admits_none = (val_s == "no defense evidence found")
+                if cat in flagged_set:
+                    if not admits_none:
+                        violations.append(f"leading_error_categories_flagged includes {cat!r} but "
+                                          f"error_defense_evidence[{cat!r}]={val!r} is not the literal "
+                                          f"'no defense evidence found' — a flagged category must admit it has "
+                                          f"no defense, not carry a contradicting claim of one")
+                else:
+                    if val is None:
+                        violations.append(f"leading error-taxonomy category {cat!r} (count >= 2) has no entry in "
+                                          f"error_defense_evidence and is not in leading_error_categories_flagged — "
+                                          f"the check must be provably run on every leading category")
+                    elif admits_none:
+                        violations.append(f"error_defense_evidence[{cat!r}]='no defense evidence found' but {cat!r} "
+                                          f"is not in leading_error_categories_flagged — an admitted-no-defense "
+                                          f"category must be flagged, not silently passed")
+                    elif not (isinstance(val, str) and len(val.strip()) >= 20):
+                        violations.append(f"error_defense_evidence[{cat!r}]={val!r} is not a concrete, non-trivial "
+                                          f"defense statement (>= 20 chars) — a vague or empty entry is "
+                                          f"indistinguishable from no defense and must be flagged instead")
     # Cross-record consistency (Codex r3635961178): the §18 haircut recorded in calibration_feedback must
     # equal the value the confidence scorer actually consumed (confidence_inputs.calibration_haircut) —
     # else an "applied" haircut is cosmetic (recorded but never subtracted from conviction by
@@ -1632,10 +1711,13 @@ if scope=="selftest":
     AG=eval_ag_calibration_feedback_gate
     CS_PREDATA={"verdict":"Pre-data — awaits resolved reviews."}
     CS_REAL={"verdict":"Emerging — 12 resolved forecasts."}
+    CS_REAL_ERRTAX={"verdict":"Emerging — 12 resolved forecasts.","error_taxonomy_distribution":{"bad extraction":6,"timing error":2,"missing data":1}}
     CF_NA={"status":"not_available","haircut_points":0,"modules_flagged":[],"rationale":"no calibration summary exists yet"}
     CF_PD={"status":"pre_data","haircut_points":0,"modules_flagged":[],"rationale":"calibration summary is pre-data"}
     CF_CHECKED={"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"rationale":"checked; no module flagged"}
     CF_APPLIED={"status":"applied","haircut_points":8,"modules_flagged":["valuation"],"rationale":"valuation brier=0.31"}
+    DEF_EXTRACT="verify-evidence audit (analyses/T_D/verify_evidence/verification_report.json) found 0 unverified Level 4-5 citations across 41 checked claims"
+    DEF_TIMING="catalyst-calendar cross-check confirmed every forecast_ledger date falls inside the confirmed 12-month catalyst window"
     agcases=[  # (decision_date, calibration_summary, calibration_feedback, expect: None|[]|["substr"])
         # pre-gate: always None (N/A), regardless of how malformed the other args are
         ("2026-07-05",CS_REAL,None,None),
@@ -1692,6 +1774,60 @@ if scope=="selftest":
         # pre-ttype-fix date: a non-empty flagged_thesis_types cannot substitute for modules_flagged /
         # flagged_forecast_types before AG_TTYPE_DATE — the field is simply not consulted yet.
         ("2026-07-23",CS_REAL,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":["Governance turnaround"],"rationale":"x"},["none of","modules_flagged","flagged_forecast_types","traceable"]),
+        # error-taxonomy extension (AG_ERRTAX_DATE=2026-07-29): calibration_by_thesis_type's twin gap, one
+        # tier down the stack — error_taxonomy_distribution is a flat, standing tally (no per-run value to
+        # match), so the trigger is "every leading category (count >= 2) got a concrete defense or an
+        # admitted absence", not a slice lookup. CS_REAL_ERRTAX carries two leading categories.
+        ("2026-07-29",CS_REAL_ERRTAX,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],
+          "leading_error_categories_flagged":["bad extraction"],
+          "error_defense_evidence":{"bad extraction":"no defense evidence found","timing error":DEF_TIMING},"rationale":"bad extraction: no defense evidence found"},[]),
+        # applied but none of the four lists is non-empty (including the new 4th) — still not traceable,
+        # even though error_defense_evidence itself is fully consistent (both categories genuinely defended).
+        ("2026-07-29",CS_REAL_ERRTAX,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],
+          "leading_error_categories_flagged":[],
+          "error_defense_evidence":{"bad extraction":DEF_EXTRACT,"timing error":DEF_TIMING},"rationale":"x"},
+          ["none of","leading_error_categories_flagged","traceable"]),
+        ("2026-07-29",CS_REAL_ERRTAX,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],
+          "leading_error_categories_flagged":["bad extraction"],
+          "error_defense_evidence":{"bad extraction":"no defense evidence found","timing error":DEF_TIMING},"rationale":"x"},
+          ["leading_error_categories_flagged","non-empty"]),
+        # 'checked_no_action' must PROVE the error-taxonomy slice ran, same PRESENCE reasoning as thesis-type.
+        ("2026-07-29",CS_REAL_ERRTAX,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],
+          "error_defense_evidence":{"bad extraction":DEF_EXTRACT,"timing error":DEF_TIMING},"rationale":"x"},
+          ["leading_error_categories_flagged","missing/not a list"]),
+        # error_defense_evidence missing entirely while leading categories exist
+        ("2026-07-29",CS_REAL_ERRTAX,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],
+          "leading_error_categories_flagged":[],"rationale":"x"},
+          ["error_defense_evidence","missing/not an object"]),
+        # a vague, uncited defense (< 20 chars) is indistinguishable from having none and must be flagged
+        ("2026-07-29",CS_REAL_ERRTAX,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],
+          "leading_error_categories_flagged":[],
+          "error_defense_evidence":{"bad extraction":"n/a","timing error":DEF_TIMING},"rationale":"x"},
+          ["not a concrete, non-trivial defense statement"]),
+        # an admitted 'no defense evidence found' MUST be flagged — an honest admission left off the flag
+        # list would let the haircut trigger be silently dodged.
+        ("2026-07-29",CS_REAL_ERRTAX,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],
+          "leading_error_categories_flagged":[],
+          "error_defense_evidence":{"bad extraction":"no defense evidence found","timing error":DEF_TIMING},"rationale":"x"},
+          ["is not in leading_error_categories_flagged","must be flagged"]),
+        # the inverse contradiction — flagged as no-defense while the record also claims a real one
+        ("2026-07-29",CS_REAL_ERRTAX,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],
+          "leading_error_categories_flagged":["bad extraction"],
+          "error_defense_evidence":{"bad extraction":DEF_EXTRACT,"timing error":DEF_TIMING},"rationale":"x"},
+          ["is not the literal","no defense evidence found"]),
+        # the fully clean, correctly-completed case: both leading categories genuinely defended, nothing
+        # flagged — proves the gate does not false-positive on a properly done check.
+        ("2026-07-29",CS_REAL_ERRTAX,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],
+          "leading_error_categories_flagged":[],
+          "error_defense_evidence":{"bad extraction":DEF_EXTRACT,"timing error":DEF_TIMING},"rationale":"clean on all four checks"},[]),
+        # backward-compatible: BEFORE AG_ERRTAX_DATE, the two new fields may be absent even though the
+        # as-of summary already carries leading categories (historical records predate the gate).
+        ("2026-07-28",CS_REAL_ERRTAX,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[]},[]),
+        # pre-errtax-fix date: a non-empty leading_error_categories_flagged cannot substitute for the other
+        # three lists before AG_ERRTAX_DATE — the field is simply not consulted yet.
+        ("2026-07-27",CS_REAL_ERRTAX,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],
+          "leading_error_categories_flagged":["bad extraction"],"rationale":"x"},
+          ["none of","traceable"]),
     ]
     agbad=0
     for dt_,cs_,cf_,exp in agcases:
@@ -3456,7 +3592,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
  ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3","Label the cycle position of the EBITDA","the **strict** basis (CLAUDE.md §15)"],
  ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap","benchmarked against BOTH a peer-normal margin"],
- ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","eval_aq_forensic_mosaic_cap","Cross-module forensic mosaic","eval_ar_short_bull_case_sanity","genuine loss to the short"],
+ ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","leading_error_categories_flagged","error_defense_evidence","no defense evidence found","eval_aq_forensic_mosaic_cap","Cross-module forensic mosaic","eval_ar_short_bull_case_sanity","genuine loss to the short"],
  ".claude/agents/catalyst/MODULE_RULES.md":["§17 Catalyst Discipline","Catalyst Category Checklist","No proven catalyst yet"],
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
@@ -3471,7 +3607,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/commands/research/track.md":["analyses/tracking","_calls_tracker","review_schedule","ad-hoc","memo_delta_file"],
  ".claude/settings.json":["SessionStart","review_due.py"],
  ".claude/hooks/review_due.py":["review_schedule","research:review-decisions due"],
- "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method","forecast_type","Calibration Feedback Gate","calibration_feedback","calibration_by_module","calibration_by_forecast_type","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","error_taxonomy_distribution","pre_mortem_check","audit-of-the-auditor","outcome_vs_verdict","false comfort","excess caution"],
+ "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method","forecast_type","Calibration Feedback Gate","calibration_feedback","calibration_by_module","calibration_by_forecast_type","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","error_taxonomy_distribution","leading_error_categories_flagged","error_defense_evidence","AG_ERRTAX_DATE","no defense evidence found","pre_mortem_check","audit-of-the-auditor","outcome_vs_verdict","false comfort","excess caution"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta","pre_mortem_check","outcome_vs_verdict","7A. Pre-mortem calibration check"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
  ".claude/commands/research/calibrate.md":["calibration_by_module","calibration_by_forecast_type","owner_module","forecast_type","Phase 6","error_taxonomy_distribution","pre_mortem_calibration","scripts/calibrate.py","Pre-data","withheld","Clopper-Pearson","Selected − Rejected","commit-run.sh"],
@@ -3480,7 +3616,7 @@ FRAMEWORK_CONTRACTS={
  "scripts/market_prices.py":["data/_market","close_on","total_return","beta_adjusted_excess","raw_excess_pct","beta_adjusted_excess_pct","available","as_of","date,symbol,close"],
  "frameworks/MARKET_FEED.md":["date,symbol,close","_symbols.json","beta_adjusted_excess","close_on","EXTERNAL_DATA"],
  "frameworks/EXTERNAL_DATA.md":["data/_market","market_prices.py","beta-adjusted","tracking_price","date,symbol,close"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_FTYPE_DATE","AG_TTYPE_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","eval_ar_short_bull_case_sanity","AR_DATE","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date","eval_ap_valuation_summary_integrity","scan_committed"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_FTYPE_DATE","AG_TTYPE_DATE","AG_ERRTAX_DATE","AG_STATUSES","_ag_leading_error_categories","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","eval_ar_short_bull_case_sanity","AR_DATE","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date","eval_ap_valuation_summary_integrity","scan_committed"],
 
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }

@@ -44,7 +44,7 @@ Read the printed JSON and say:
 - the **verdict** line and the **honesty statement** (when a real skill verdict becomes possible), verbatim in spirit;
 - the counts — decisions, reviews, resolved forecasts, resolved directional calls — and the **effective** sample vs the raw one;
 - every skill metric that IS above its floor (hit rate + its CI, Brier, Selected−Rejected spread, whether the e-value has crossed the skill threshold); for anything still below floor, say so and give the N vs the floor — never present a withheld metric as if it were measured;
-- the leading `error_taxonomy_distribution` tag(s) if any count ≥ 2 (this is the one concrete "why the engine is wrong" read even in a Pre-data run — never gated by the floor), and every `pre_mortem_calibration.false_comfort_cases` entry by ticker (the script lists them — a red-team that gave false comfort on a broken thesis is the costliest miss in that metric);
+- the leading `error_taxonomy_distribution` tag(s) if any count ≥ 2 (this is the one concrete "why the engine is wrong" read even in a Pre-data run — never gated by the floor; this is also now the exact threshold the Phase 6 gate uses — `frameworks/DECISION_LEDGER.md` §18 step 6 — to require the NEXT run to name a concrete defense against each leading category or admit it has none), and every `pre_mortem_calibration.false_comfort_cases` entry by ticker (the script lists them — a red-team that gave false comfort on a broken thesis is the costliest miss in that metric);
 - when the `hit_rate` is still withheld but `calibration` (Brier) IS computed, report the Brier — the `honesty_statement` already says so; do not repeat the flat "everything withheld" line, which is only true when both are below floor.
 
 ## Hard rules
