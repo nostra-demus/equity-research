@@ -1868,6 +1868,8 @@ a { color: inherit; }
 .autoscan__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-faint); }
 .autoscan__dot--on { background: var(--live); box-shadow: 0 0 6px var(--live); }
 .autoscan__dot--busy { animation: autoscan-pulse 1.2s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+/* a malformed/unreadable manifest — a real config error, not "off" (Codex #359) */
+.autoscan__dot--error { background: var(--bad); box-shadow: 0 0 6px var(--bad); }
 @keyframes autoscan-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 @media (prefers-reduced-motion: reduce) { .autoscan__dot--busy { animation: none; } }
 /* the routed-note count inside a status chip (news bridge) — tabular so the number doesn't jitter as it

@@ -275,29 +275,27 @@ export function bridgeEventToSubject(o: {
   if (dup) return dup
 
   const md = renderEventNote({ item: o.item, ticker: seg, mode: o.mode, user: o.user, enrichment: o.enrichment, now: o.opts.now })
-  // The temp file lives in the SAME directory (data/ is a Drive/FUSE mount — a cross-device rename
-  // would EXDEV) and starts with a dot so the pool scanners (which skip dot-files) never count it.
-  // random suffix (not just pid) — two concurrent sends for the SAME event+ticker in the same process
-  // would otherwise share one tmp name and race on write/rename.
-  //
-  // The move onto `fp` is a HARD LINK, not a rename: a plain rename always succeeds and would silently
-  // CLOBBER a note another writer created between our existence/dedup checks above and this line — the
-  // exact race a manual "Send to research" click, a stream-mode delivery, and this batch sweep can all
-  // hit against the SAME pool. fs.linkSync is atomic AND exclusive: it throws EEXIST if `fp` now exists,
-  // so the loser here reports `already: true` instead of overwriting the winner's note (Codex review,
-  // PR #359). The temp file is written in full first, so the eventual link still hands the pool a
-  // complete file, never a partial one.
-  const tmp = path.join(dir, `.${noteName}.tmp.${process.pid}.${Math.random().toString(36).slice(2)}`)
+  // Claim `fp` itself with an exclusive create: a plain rename always succeeds and would silently CLOBBER
+  // a note another writer created between our existence/dedup checks above and this line — the exact race
+  // a manual "Send to research" click, a stream-mode delivery, and this batch sweep can all hit against
+  // the SAME pool. A prior fix used fs.linkSync (atomic AND exclusive on a normal filesystem), but the
+  // deployed pool is a Google Drive Stream mount (scripts/ops/MIGRATION.md) whose FUSE layer does not
+  // support POSIX hard links — every note would fail with EPERM/ENOTSUP in production, silently disabling
+  // routing entirely (Codex #359 P1). 'wx' (O_CREAT|O_EXCL) is the same portable exclusive-create the
+  // repo's own singleton-lock.ts already relies on: it throws EEXIST if `fp` now exists, so the loser here
+  // reports `already: true` instead of overwriting the winner's note, and it works the same on a
+  // Drive/FUSE mount as on local disk — no hard link, no temp file, no cross-device rename involved.
+  let fd: number
   try {
-    fs.writeFileSync(tmp, md)
-    try {
-      fs.linkSync(tmp, fp)
-    } catch (e: any) {
-      if (e?.code === 'EEXIST') return { path: rel, already: true }
-      throw e
-    }
+    fd = fs.openSync(fp, 'wx')
+  } catch (e: any) {
+    if (e?.code === 'EEXIST') return { path: rel, already: true }
+    throw e
+  }
+  try {
+    fs.writeSync(fd, md)
   } finally {
-    try { fs.unlinkSync(tmp) } catch { /* best-effort cleanup either way (linked-away or still there) */ }
+    fs.closeSync(fd)
   }
   audit(o.opts.stateDir, {
     v: 1,
@@ -344,7 +342,14 @@ export function listBridgedSubjects(eventId: string, dataDir: string): BridgedLi
  *  recorded in the bridge ledger — are the training data that earns auto-routing its trust first.
  *  When enabled, still conservative: the pool is evidence, not a news feed. Floor tunable via
  *  SCREENER_RESEARCH_BRIDGE_MIN_SCORE (default 60). */
-export function shouldAutoBridge(item: FeedItem): boolean {
+/** Is the per-item auto-route path enabled AT ALL, independent of any single item's own eligibility?
+ *  Same authoritative BRIDGE_MODE contract shouldAutoBridge enforces below — split out and exported so a
+ *  status surface (the bridge scheduler's getBridgeStatus) can report whether unattended per-item routing
+ *  is actually live, instead of only knowing about the batch loop's own timer. Before this, the status
+ *  endpoint reported `running: false` (and the cockpit chip said "News bridge off") even while
+ *  BRIDGE_MODE=stream was actively routing every material item, since 'running' only ever looked at the
+ *  batch scheduler (Codex #359, "Report stream mode as active without the legacy flag"). */
+export function isPerItemBridgeActive(): boolean {
   // BRIDGE_MODE is authoritative, and the two routing paths NEVER run together (config.ts contract):
   //  - 'batch' → the 12-hourly sweep owns routing, so this per-item path is OFF, even if a stale
   //    SCREENER_RESEARCH_BRIDGE=1 is still set (that combination used to double-route every item and defeat
@@ -357,7 +362,11 @@ export function shouldAutoBridge(item: FeedItem): boolean {
   //  - unset → back-compat: the path is governed by the legacy SCREENER_RESEARCH_BRIDGE=1 flag alone.
   if (BRIDGE_MODE === 'batch') return false
   if (BRIDGE_MODE_EXPLICIT_OFF) return false
-  if (BRIDGE_MODE !== 'stream' && process.env.SCREENER_RESEARCH_BRIDGE !== '1') return false
+  return BRIDGE_MODE === 'stream' || process.env.SCREENER_RESEARCH_BRIDGE === '1'
+}
+
+export function shouldAutoBridge(item: FeedItem): boolean {
+  if (!isPerItemBridgeActive()) return false
   if (item.caution) return false // caution-only social chatter never seeds an evidence pool
   if (item.source_tier === 'social') return false
   if (item.relevance !== 'material') return false

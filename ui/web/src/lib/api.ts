@@ -380,7 +380,7 @@ export const api = {
   // the static showcase reports an honest "off" rather than failing the chip.
   bridgeStatus: async (): Promise<BridgeStatus> => {
     if ((await ensureMode()) === 'static')
-      return { mode: 'off', running: false, sweeping: false, intervalMin: 720, subjects: [], totalNotes: 0, lastSweepAt: null, nextSweepAt: null, last: null, idleReason: 'read-only showcase' }
+      return { mode: 'off', running: false, sweeping: false, intervalMin: 720, subjects: [], totalNotes: 0, lastSweepAt: null, nextSweepAt: null, last: null, idleReason: 'read-only showcase', manifestError: null }
     return get(`/api/bridge/status`, 8_000) // small + polled every 60s, same budget as the news status
   },
   newsStatus: async (): Promise<NewsStatus> => {

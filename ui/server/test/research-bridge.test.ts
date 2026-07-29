@@ -103,22 +103,26 @@ async function main() {
     // Simulate the exact race the fix targets: another process (a stream-mode delivery, a second engine
     // sharing this pool) creates the destination note AFTER our own existence/dedup checks pass but
     // BEFORE our own write lands — a window a single synchronous test cannot literally race into, so
-    // fs.linkSync (the real primitive the fix uses for its atomic + exclusive create) is forced to
-    // throw EEXIST exactly as it would if that race happened, and we assert we treat that as "someone
-    // else already wrote it", never as a throw and never by falling through to clobber the path anyway.
+    // fs.openSync (the real primitive the fix uses for its exclusive 'wx' create — portable to a
+    // Drive/FUSE mount, unlike a hard link) is forced to throw EEXIST exactly as it would if that race
+    // happened, and we assert we treat that as "someone else already wrote it", never as a throw and
+    // never by falling through to clobber the path anyway.
     const item = fixtureItem({ event_id: 'EVT-aaaaaaaaaaaa' })
     const abs = path.join(dataDir, 'AMZN', 'screener_event_EVT-aaaaaaaaaaaa.md')
     assert.ok(!fs.existsSync(abs), 'precondition: nothing there yet — this is not the pre-existing-file short-circuit')
-    const origLink = fs.linkSync
-    ;(fs as any).linkSync = () => { throw Object.assign(new Error('EEXIST'), { code: 'EEXIST' }) }
+    const origOpen = fs.openSync
+    ;(fs as any).openSync = (p: string, flags: string) => {
+      if (flags === 'wx' && p === abs) throw Object.assign(new Error('EEXIST'), { code: 'EEXIST' })
+      return origOpen(p, flags as any)
+    }
     try {
       const r = bridgeEventToSubject({ item, ticker: 'AMZN', mode: 'auto', user: 'auto', userVia: 'local', opts })
       assert.equal(r.already, true, 'the loser of the race reports already:true, never a throw')
     } finally {
-      fs.linkSync = origLink
+      fs.openSync = origOpen
     }
     assert.ok(!fs.existsSync(abs), 'the loser never wrote the destination via some other path either')
-    // no stray temp files left behind by the aborted attempt
+    // no stray temp files left behind by the aborted attempt (the exclusive-create rewrite has no temp file at all)
     assert.deepEqual(fs.readdirSync(path.join(dataDir, 'AMZN')).filter((f) => f.includes('.tmp.')), [])
   })
 

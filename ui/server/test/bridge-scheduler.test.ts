@@ -140,4 +140,67 @@ check('a follow-up analysis that fails to launch (busy/capacity) is retried on t
   assert.equal(out.launched3, 0, 'a subject with nothing pending and nothing fresh does not launch again')
 })
 
+check('a malformed manifest surfaces as manifestError, not a silent healthy zero-subject sweep', () => {
+  // Codex #359, "Surface an unreadable bridge manifest as a configuration error"
+  const repo = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-sched-manifest-repo-'))
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-sched-manifest-state-'))
+  const bridgeDir = path.join(repo, '.claude', 'bridge')
+  fs.mkdirSync(bridgeDir, { recursive: true })
+  fs.mkdirSync(path.join(repo, 'data'), { recursive: true })
+  fs.writeFileSync(path.join(bridgeDir, 'company-news-bridge.json'), '{ this is not valid json')
+
+  const probe = path.join(repo, 'probe3.ts')
+  const src = path.resolve(here, '..', 'src', 'bridge-scheduler')
+  fs.writeFileSync(probe, [
+    `import { getBridgeStatus, runBridgeSweep } from ${JSON.stringify(src)}`,
+    `async function main() {`,
+    `  await runBridgeSweep(async () => true)`,
+    `  console.log(JSON.stringify({ manifestError: getBridgeStatus().manifestError }))`,
+    `}`,
+    `void main()`,
+    '',
+  ].join('\n'))
+
+  const tsx = path.join(here, '..', 'node_modules', '.bin', process.platform === 'win32' ? 'tsx.cmd' : 'tsx')
+  const r = spawnSync(tsx, [probe], {
+    encoding: 'utf8',
+    env: { ...process.env, ENGINE_REPO_ROOT: repo, ENGINE_STATE_DIR: stateDir, ENGINE_ACTIVITY_LOG_DISABLED: '1' },
+  })
+  assert.equal(r.status, 0, `probe subprocess failed: ${r.stderr || r.error}`)
+  const lines = r.stdout.trim().split('\n')
+  const out = JSON.parse(lines[lines.length - 1])
+  assert.ok(out.manifestError, 'a malformed manifest is reported as a real config error, not swallowed into an empty enabled set')
+})
+
+check('getBridgeStatus reports running:true when BRIDGE_MODE=stream, even with the batch timer never started', () => {
+  // Codex #359, "Report stream mode as active without the legacy flag": running used to mean ONLY "is the
+  // batch scheduler's own timer ticking", so a pure stream-mode deployment (per-item routing, no schedule)
+  // always reported running:false / the chip said "off" while notes were actively being routed.
+  const repo = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-sched-stream-repo-'))
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-sched-stream-state-'))
+  fs.mkdirSync(path.join(repo, 'data'), { recursive: true })
+
+  const probe = path.join(repo, 'probe4.ts')
+  const src = path.resolve(here, '..', 'src', 'bridge-scheduler')
+  fs.writeFileSync(probe, [
+    `import { getBridgeStatus } from ${JSON.stringify(src)}`,
+    `console.log(JSON.stringify({ running: getBridgeStatus().running, mode: getBridgeStatus().mode }))`,
+    '',
+  ].join('\n'))
+
+  const tsx = path.join(here, '..', 'node_modules', '.bin', process.platform === 'win32' ? 'tsx.cmd' : 'tsx')
+  const r = spawnSync(tsx, [probe], {
+    encoding: 'utf8',
+    env: {
+      ...process.env, ENGINE_REPO_ROOT: repo, ENGINE_STATE_DIR: stateDir, ENGINE_ACTIVITY_LOG_DISABLED: '1',
+      BRIDGE_MODE: 'stream',
+    },
+  })
+  assert.equal(r.status, 0, `probe subprocess failed: ${r.stderr || r.error}`)
+  const lines = r.stdout.trim().split('\n')
+  const out = JSON.parse(lines[lines.length - 1])
+  assert.equal(out.mode, 'stream')
+  assert.equal(out.running, true, 'stream mode alone must report running:true — the batch timer was never even started')
+})
+
 console.log(`\n${passed} bridge-scheduler checks passed`)

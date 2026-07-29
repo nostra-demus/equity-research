@@ -16,7 +16,8 @@ import {
   BRIDGE_DIR, BRIDGE_INTERVAL_MIN, BRIDGE_MODE, DATA_DIR, NEWS, REPO_ROOT, STATE_DIR,
 } from './config'
 import { acquireSingletonLock, releaseSingletonLock } from './singleton-lock'
-import { accumulatedFor, enabledSubjects, readBatchConfig, sweepOnce } from './bridge-batch'
+import { accumulatedFor, bridgeManifestError, enabledSubjects, readBatchConfig, sweepOnce } from './bridge-batch'
+import { isPerItemBridgeActive } from './research-bridge'
 
 const LOCK_FILE = 'bridge-batch.lock'
 const log = (m: string) => console.log(`[bridge] ${m}`) // eslint-disable-line no-console
@@ -36,6 +37,11 @@ let idleReason: string | null = 'not started'
 // note; the next sweep sees that same note as a duplicate (it's already on disk), so a dropped launch would
 // otherwise never be retried and the advisory analysis is silently skipped forever (Codex #359 r3674305113).
 let pendingAnalysisSubjects = new Set<string>()
+// The manifest EXISTS but fails to parse, or has no subjects[] array — a real config error, distinct from
+// "not configured yet" (no manifest) and from "configured with zero subjects". Surfaced separately from
+// `running`/`idleReason` so a transient/malformed edit is never reported as a quiet, successful zero-subject
+// sweep (Codex #359, "Surface an unreadable bridge manifest as a configuration error").
+let manifestError: string | null = null
 
 export interface BridgeSubjectStatus {
   subject: string
@@ -60,6 +66,9 @@ export interface BridgeStatus {
   last: BridgeSweepSummary | null
   /** why the loop is not running, when it is not — never a silent false */
   idleReason: string | null
+  /** the manifest exists but is unreadable/malformed right now — a real config error, reported even while
+   *  `running` is otherwise true, so a bad edit never reads as a quiet, valid zero-subject sweep */
+  manifestError: string | null
 }
 
 // ---- routed-note count cache --------------------------------------------------------------------------
@@ -87,11 +96,18 @@ function subjectCounts(subjects: string[]): BridgeSubjectStatus[] {
 
 export function getBridgeStatus(): BridgeStatus {
   const subjects = subjectCounts(currentSubjects())
-  const running = BRIDGE_MODE === 'batch' && timer !== null
+  // 'running' must mean "is SOME automatic routing live", not just "is the batch timer ticking" — a
+  // BRIDGE_MODE=stream deployment routes every material item through research-bridge.ts's per-item path,
+  // with no timer of its own, and previously reported as fully idle here (Codex #359, "Report stream mode
+  // as active without the legacy flag"). `sweeping`/`nextSweepAt` stay scoped to the batch loop
+  // specifically — the stream path has no sweep concept to report.
+  const batchRunning = BRIDGE_MODE === 'batch' && timer !== null
+  const streamActive = isPerItemBridgeActive()
+  const running = batchRunning || streamActive
   return {
     mode: BRIDGE_MODE,
     running,
-    sweeping: running && sweeping,
+    sweeping: batchRunning && sweeping,
     intervalMin: BRIDGE_INTERVAL_MIN,
     subjects,
     totalNotes: subjects.reduce((a, s) => a + s.notes, 0),
@@ -99,17 +115,29 @@ export function getBridgeStatus(): BridgeStatus {
     nextSweepAt,
     last: lastSummary,
     idleReason: running ? null : idleReason,
+    manifestError,
   }
+}
+
+function manifestPath(): string {
+  return path.join(BRIDGE_DIR, 'company-news-bridge.json')
 }
 
 /** The enabled set, re-read every tick: adding a name is a manifest edit, never a redeploy. */
 function currentSubjects(): string[] {
-  return enabledSubjects(path.join(BRIDGE_DIR, 'company-news-bridge.json'), DATA_DIR)
+  return enabledSubjects(manifestPath(), DATA_DIR)
 }
 
 /** One sweep + its follow-up analyses. `launchAnalysis` is injected so this stays testable without the
  *  CLI and without server.ts's admission stack; it returns true when an analysis actually started. */
 export async function runBridgeSweep(launchAnalysis: (ticker: string) => Promise<boolean>): Promise<void> {
+  // Checked every tick, BEFORE deciding subjects.length===0 means "nothing configured" — a manifest that
+  // exists but fails to parse must read as broken, not as valid empty coverage (Codex #359, "Surface an
+  // unreadable bridge manifest as a configuration error").
+  const newManifestError = bridgeManifestError(manifestPath())
+  if (newManifestError && newManifestError !== manifestError) log(`manifest error: ${newManifestError}`)
+  manifestError = newManifestError
+
   const subjects = currentSubjects()
   if (!subjects.length) {
     lastSweepAt = new Date().toISOString()
@@ -169,19 +197,22 @@ export async function runBridgeSweep(launchAnalysis: (ticker: string) => Promise
 
 export function startBridgeScheduler(launchAnalysis: (ticker: string) => Promise<boolean>): void {
   if (BRIDGE_MODE !== 'batch') {
+    // BRIDGE_MODE=stream is authoritative on its own now (research-bridge.ts's shouldAutoBridge no longer
+    // needs the legacy SCREENER_RESEARCH_BRIDGE=1 flag too) — say so accurately, don't describe routing as
+    // dark when it is actually live. This message only affects the BATCH loop's own log/idleReason;
+    // getBridgeStatus's `running` is computed independently via isPerItemBridgeActive() and reports the
+    // stream path as active regardless of what's logged here (Codex #359, "Report stream mode as active
+    // without the legacy flag").
     log(BRIDGE_MODE === 'stream'
-      // Be exact about which switch owns that path: BRIDGE_MODE=stream only DECLARES the intent — the
-      // per-item route in research-bridge.ts is gated on SCREENER_RESEARCH_BRIDGE=1 and is otherwise dark.
-      // Saying "stream is on" here when that flag is unset would describe routing that never happens.
-      ? 'batch loop idle — BRIDGE_MODE=stream; the per-item path is separately gated on SCREENER_RESEARCH_BRIDGE=1'
+      ? 'batch loop idle — BRIDGE_MODE=stream owns routing instead (per-item, no schedule; the mode alone enables it)'
       : 'idle — set BRIDGE_MODE=batch to route company news into research pools on a schedule')
     idleReason = BRIDGE_MODE === 'stream'
-      ? 'BRIDGE_MODE=stream — the batch loop is off; the per-item path needs SCREENER_RESEARCH_BRIDGE=1'
+      ? 'BRIDGE_MODE=stream — the batch loop is off; per-item routing is active via the stream path instead'
       : 'BRIDGE_MODE is off — set BRIDGE_MODE=batch to route company news on a schedule'
     return
   }
   if (timer) return
-  if (!fs.existsSync(path.join(BRIDGE_DIR, 'company-news-bridge.json'))) {
+  if (!fs.existsSync(manifestPath())) {
     log(`idle — no bridge manifest at ${BRIDGE_DIR}/company-news-bridge.json (nothing declares which subjects are covered)`)
     idleReason = 'no bridge manifest — nothing declares which subjects are covered'
     return

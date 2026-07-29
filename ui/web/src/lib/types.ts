@@ -780,6 +780,9 @@ export interface BridgeStatus {
   nextSweepAt: string | null
   last: { subjects: number; written: number; duplicates: number; analyses: number } | null
   idleReason: string | null
+  /** the manifest exists but is unreadable/malformed right now — a real config error, reported even while
+   *  `running` is otherwise true, so a bad edit never reads as a quiet, valid zero-subject sweep */
+  manifestError: string | null
 }
 
 export interface NewsStatus {

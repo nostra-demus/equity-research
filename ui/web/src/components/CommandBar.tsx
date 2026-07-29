@@ -96,21 +96,27 @@ function BridgeChip() {
   if (!status) return null // pre-first-read: show nothing rather than a wrong state
   const sweeping = status.sweeping // the server's in-flight flag — not inferred from the schedule
   const hrsTo = status.nextSweepAt ? Math.max(0, Math.round((new Date(status.nextSweepAt).getTime() - Date.now()) / 3_600_000)) : null
-  const label = !status.running
-    ? 'News bridge off'
-    : sweeping
-      ? 'News bridge sweeping now…'
-      : `News bridge on · ${status.totalNotes} routed${hrsTo != null ? ` · next ${hrsTo}h` : ''}`
+  // a malformed manifest is a real config error, distinct from off/idle — surface it even while `running`
+  // is otherwise true, instead of it reading as a quiet, valid zero-subject sweep (Codex #359)
+  const label = status.manifestError
+    ? 'News bridge — config error'
+    : !status.running
+      ? 'News bridge off'
+      : sweeping
+        ? 'News bridge sweeping now…'
+        : `News bridge on · ${status.totalNotes} routed${hrsTo != null ? ` · next ${hrsTo}h` : ''}`
   const perSubject = status.subjects.length
     ? status.subjects.map((s) => `  ${s.subject}: ${s.notes} note${s.notes === 1 ? '' : 's'}${s.newestAt ? ` · newest ${new Date(s.newestAt).toLocaleDateString()}` : ''}`).join('\n')
     : '  (no subjects covered yet)'
-  const title = status.running
-    ? `News bridge — on, sweeping every ${Math.round(status.intervalMin / 60)}h.\nRouted into research pools so far:\n${perSubject}\nEach note lands in that company's data pool and the cheap analysis scopes which orbs it affects — the paid re-run stays your click.`
-    : `News bridge — off.\n${status.idleReason || 'No reason reported by the engine.'}\nRouted so far: ${status.totalNotes}. Click to see the data pools.`
+  const title = status.manifestError
+    ? `News bridge — configuration error.\n${status.manifestError}\nUnattended routing is not reading a valid subject list right now. Fix the manifest, then click to see the data pools.`
+    : status.running
+      ? `News bridge — on, sweeping every ${Math.round(status.intervalMin / 60)}h.\nRouted into research pools so far:\n${perSubject}\nEach note lands in that company's data pool and the cheap analysis scopes which orbs it affects — the paid re-run stays your click.`
+      : `News bridge — off.\n${status.idleReason || 'No reason reported by the engine.'}\nRouted so far: ${status.totalNotes}. Click to see the data pools.`
   return (
     <button className="autoscan" onClick={openDataLibrary} title={title}>
-      <span className={`autoscan__dot${status.running ? ' autoscan__dot--on' : ''}${sweeping ? ' autoscan__dot--busy' : ''}`} />
-      {status.running && status.totalNotes > 0
+      <span className={`autoscan__dot${status.running ? ' autoscan__dot--on' : ''}${sweeping ? ' autoscan__dot--busy' : ''}${status.manifestError ? ' autoscan__dot--error' : ''}`} />
+      {!status.manifestError && status.running && status.totalNotes > 0
         ? <>News bridge on · <span className="autoscan__count">{status.totalNotes} routed</span>{hrsTo != null ? ` · next ${hrsTo}h` : ''}</>
         : label}
     </button>
@@ -605,8 +611,11 @@ export function CommandBar() {
           <StopControl />
           {/* a constellation swarm with a declared wire watches the same scanner — show its status chip */}
           {swarms.find((s) => s.id === activeSwarm)?.wire && <AutoScanChip />}
-          {/* the news→pool bridge feeds THIS swarm's data pools, so its status belongs on this bar */}
-          <BridgeChip />
+          {/* the news→pool bridge only covers the research swarm's subjects (.claude/bridge/company-news-
+              bridge.json) — showing it on e.g. the commodity bar would present a global research-pool note
+              count as if it fed the current (unrelated) dossier (Codex #359, "Show the research bridge
+              only in the research swarm") */}
+          {activeSwarm === 'research' && <BridgeChip />}
           <EngineStatusPill />
           <CreditBadge />
           <button className="btn btn--ghost" onClick={openCalls} title="Calls tracker — every call the engine made and what's happened since">Calls</button>

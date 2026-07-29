@@ -99,6 +99,24 @@ export function enabledSubjects(manifestPath: string, dataDir: string): string[]
   return [...new Set(out)].sort()
 }
 
+/** Null when the manifest is genuinely ABSENT (nothing declared yet — not a config error) or well-formed.
+ *  Otherwise names what's wrong. A missing file and a malformed one both made `enabledSubjects` return the
+ *  same empty array, so a transient/malformed edit to the manifest silently read as "valid empty coverage"
+ *  — the scheduler kept reporting `running: true`, a successful zero-subject sweep, and a null idleReason,
+ *  with no signal anywhere that unattended routing had actually stopped (Codex #359, "Surface an unreadable
+ *  bridge manifest as a configuration error"). Callers should surface this distinctly from "idle". */
+export function bridgeManifestError(manifestPath: string): string | null {
+  if (!fs.existsSync(manifestPath)) return null
+  let raw: any
+  try {
+    raw = JSON.parse(fs.readFileSync(manifestPath, 'utf8'))
+  } catch (e: any) {
+    return `${manifestPath} is not valid JSON (${e?.message || e})`
+  }
+  if (!Array.isArray(raw?.subjects)) return `${manifestPath} has no "subjects" array`
+  return null
+}
+
 // ---- cursors ----------------------------------------------------------------------------------------
 // PER SUBJECT, never global: enabling a new name in wave 2 must not replay every other subject's window,
 // and must not silently inherit a cursor that makes its own first sweep see nothing.

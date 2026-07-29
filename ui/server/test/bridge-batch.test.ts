@@ -8,7 +8,8 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import {
-  accumulatedFor, DEFAULT_BATCH_CONFIG, eligibleFor, enabledSubjects, readBatchConfig, readCursors, sweepOnce,
+  accumulatedFor, bridgeManifestError, DEFAULT_BATCH_CONFIG, eligibleFor, enabledSubjects, readBatchConfig,
+  readCursors, sweepOnce,
 } from '../src/bridge-batch'
 import { bridgeEventToSubject } from '../src/research-bridge'
 import type { FeedItem } from '../src/news/types'
@@ -204,6 +205,24 @@ check('enabledSubjects reads the manifest’s subjects[] and drops names with no
   assert.deepEqual(enabledSubjects(mf, dataDir), ['NHY'], 'only the subject with a real pool survives')
   fs.writeFileSync(mf, '{ broken')
   assert.deepEqual(enabledSubjects(mf, dataDir), [], 'a malformed manifest enables nothing (fail-closed)')
+})
+
+// ---- 10b. review round: a malformed manifest is a reportable CONFIG ERROR, not valid empty coverage ----
+check('bridgeManifestError distinguishes "no manifest yet" (null) from "manifest exists but is broken" (named)', () => {
+  // Codex #359, "Surface an unreadable bridge manifest as a configuration error": enabledSubjects returning
+  // [] cannot tell a caller whether nothing is configured yet or a transient/malformed edit just broke
+  // routing — the scheduler kept reporting a healthy, empty sweep either way. bridgeManifestError is the
+  // dedicated signal for the second case.
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-manifest-err-'))
+  tempDirs.push(dir)
+  const mf = path.join(dir, 'company-news-bridge.json')
+  assert.equal(bridgeManifestError(mf), null, 'no manifest at all is NOT a config error — nothing declared yet')
+  fs.writeFileSync(mf, JSON.stringify({ subjects: ['NHY'] }))
+  assert.equal(bridgeManifestError(mf), null, 'a well-formed manifest reports no error')
+  fs.writeFileSync(mf, '{ this is not valid json')
+  assert.ok(bridgeManifestError(mf), 'invalid JSON is a reportable config error')
+  fs.writeFileSync(mf, JSON.stringify({ notSubjects: ['NHY'] }))
+  assert.ok(bridgeManifestError(mf), 'valid JSON with no subjects[] array is still a reportable config error')
 })
 
 // ---- 11. config sidecar: malformed input can never WIDEN routing ----
