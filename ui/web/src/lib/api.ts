@@ -4,6 +4,7 @@ import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from '.
 import { QUOTE_CLIENT_TIMEOUT_MS } from './quoteTimeout'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
+import type { BridgeStatus } from './types'
 import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 
@@ -375,6 +376,13 @@ export const api = {
     return post(`/api/screener/ideas/${encodeURIComponent(ideaId)}/feedback`, { polarity, ...(reason ? { reason } : {}) })
   },
   // ---- the news wire (auto-scanner visibility + human actions) ----
+  // The company-news bridge's status (running / routed-note counts / next sweep). Read-only decoration:
+  // the static showcase reports an honest "off" rather than failing the chip.
+  bridgeStatus: async (): Promise<BridgeStatus> => {
+    if ((await ensureMode()) === 'static')
+      return { mode: 'off', running: false, sweeping: false, intervalMin: 720, subjects: [], totalNotes: 0, lastSweepAt: null, nextSweepAt: null, last: null, idleReason: 'read-only showcase' }
+    return get(`/api/bridge/status`, 8_000) // small + polled every 60s, same budget as the news status
+  },
   newsStatus: async (): Promise<NewsStatus> => {
     if ((await ensureMode()) === 'static')
       return { enabled: false, running: false, intervalMin: 15, model: '', rssEnabled: false, lastCycleAt: null, nextCycleAt: null, lastNote: null, today: { read: 0, kept: 0, dropped: 0, cycles: 0 }, budget: { requests: 0, tokens: 0, reqCap: 0, tokenCap: 0 } }

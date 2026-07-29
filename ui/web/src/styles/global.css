@@ -1870,6 +1870,9 @@ a { color: inherit; }
 .autoscan__dot--busy { animation: autoscan-pulse 1.2s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
 @keyframes autoscan-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 @media (prefers-reduced-motion: reduce) { .autoscan__dot--busy { animation: none; } }
+/* the routed-note count inside a status chip (news bridge) — tabular so the number doesn't jitter as it
+   grows, amber because it is the one value the reader is actually tracking */
+.autoscan__count { color: var(--accent-bright); font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
 /* Pipeline-diagnostics chip — sits beside .autoscan; surfaces the deferred backlog inline (the "no surprise"
    signal) and opens the full diagnostics panel. Alert (amber) when items are waiting or the engine is read-only. */
