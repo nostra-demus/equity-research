@@ -32,6 +32,10 @@ export function RerunPlanList({
 }) {
   const cmds = plan.rerun_plan?.commands ?? []
   const notes = plan.rerun_plan?.note_only ?? []
+  // Hook BEFORE any conditional return: a mounted panel can move between zero and some commands (a
+  // re-analyze while open), and a hook that appears only on one side of that boundary breaks React's hook
+  // order exactly when scoped work appears (Codex #358 r3672400200 P1).
+  const [confirming, setConfirming] = useState(false)
 
   if (cmds.length === 0) {
     return (
@@ -67,7 +71,6 @@ export function RerunPlanList({
   for (const c of cmds) { stale.add(c.module); for (const m of c.cascade_modules ?? []) stale.add(m) }
   const specialists = [...nodesByKey.values()].filter((n) => !n.isSynthesis).length
   const carriedOrbs = Math.max(0, specialists - cmds.length)
-  const [confirming, setConfirming] = useState(false)
 
   if (confirming) {
     return (
@@ -105,7 +108,10 @@ export function RerunPlanList({
         <button className="iplan__run iplan__run--ghost" onClick={onRun} disabled={running || scopedPending}>
           Re-run whole modules instead…
         </button>
-        <div className="iplan__foot">One run, one commit — no intermediate thesis. Independent branches run in parallel.</div>
+        {/* honest to BOTH launcher modes (monolithic and per-module chained): the invariant is that only
+            the final master writes the thesis — commit cadence and parallelism vary by engine config, so
+            neither is promised here (Codex #358 r3672400217) */}
+        <div className="iplan__foot">One pass, one final thesis — no intermediate decision ever ships.</div>
       </div>
     )
   }

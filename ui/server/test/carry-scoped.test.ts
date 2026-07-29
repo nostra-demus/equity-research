@@ -70,7 +70,11 @@ const yat = (ticker: string, rel: string) => path.join(REPO, `analyses/${ticker}
 {
   finishedRun('ONE', YESTERDAY)
   poolFile('ONE', 'filing.pdf', -3)
-  const r = carryForwardScoped('ONE', [{ module: 'alpha', agent: 'alpha-one' }])
+  // the plan file rides into the target root so a retry / the audit trail can still find it (the staging
+  // makes TODAY the latest root, and readIntakePlan searches only the latest root)
+  write(`analyses/ONE_${YESTERDAY}/intake/${YESTERDAY}_intake_plan.json`, '{"ticker":"ONE"}')
+  const planAbs = path.join(REPO, `analyses/ONE_${YESTERDAY}/intake/${YESTERDAY}_intake_plan.json`)
+  const r = carryForwardScoped('ONE', [{ module: 'alpha', agent: 'alpha-one' }], undefined, undefined, planAbs)
   assert.deepEqual(r.staleModules, ['alpha', 'beta'], 'stale = entry module + its transitive downstream, topo order')
   assert.deepEqual(r.droppedEntries, [])
   assert.deepEqual(r.carried.map((c) => c.module), ['gamma'], 'the untouched module carries whole')
@@ -107,7 +111,9 @@ const yat = (ticker: string, rel: string) => path.join(REPO, `analyses/${ticker}
   for (const f of ['alpha/01_alpha-one.md', 'alpha/99_alpha-synthesis.md', 'alpha/alpha_memo.md', 'beta/99_beta-synthesis.md']) {
     assert.ok(fs.existsSync(yat('ONE', f)), `source run intact: ${f}`)
   }
-  console.log('✅ one entry orb: holed entry module, synthesis-only downstream, whole-carry for the rest')
+  // the plan file was carried into the target root (retry + audit reachability)
+  assert.ok(fs.existsSync(at('ONE', `intake/${YESTERDAY}_intake_plan.json`)), 'plan file rides into the target root')
+  console.log('✅ one entry orb: holed entry module, synthesis-only downstream, whole-carry for the rest, plan carried')
 }
 
 // ---- 2. TWO orbs in ONE module: one staged copy, one cascade (the dedup that motivates the feature) ----
@@ -142,6 +148,10 @@ const yat = (ticker: string, rel: string) => path.join(REPO, `analyses/${ticker}
 // ---- 4. mustReuse (finished in TODAY's root): holes punched IN PLACE, prior folders untouched ----
 {
   finishedModule('INPL', TODAY, 'alpha', ['01_alpha-one.md', '02_alpha-two.md']) // finished TODAY → mustReuse
+  // simulate that alpha got here via an earlier completion carry: its stale CARRIED_FORWARD.md must NOT
+  // survive the hole-punch — the refreshed module would otherwise keep its old source-run vintage AND
+  // carry two contradictory provenance stories (Codex r3672206131)
+  write(`analyses/INPL_${TODAY}/alpha/CARRIED_FORWARD.md`, '# Carried forward — alpha\ncarried verbatim from an earlier run\n')
   finishedModule('INPL', YESTERDAY, 'beta', ['01_beta-thing.md'])
   finishedModule('INPL', YESTERDAY, 'gamma', ['01_gamma-thing.md'])
   poolFile('INPL', 'filing.pdf', -3)
@@ -152,6 +162,7 @@ const yat = (ticker: string, rel: string) => path.join(REPO, `analyses/${ticker}
   assert.ok(fs.existsSync(at('INPL', 'alpha/02_alpha-two.md')), 'sibling orb kept in place')
   assert.ok(!fs.existsSync(at('INPL', 'alpha/99_alpha-synthesis.md')), 'synthesis removed → module re-admits')
   assert.ok(fs.existsSync(at('INPL', 'alpha/RESUMED_FROM.md')))
+  assert.ok(!fs.existsSync(at('INPL', 'alpha/CARRIED_FORWARD.md')), 'stale whole-carry marker removed — one provenance story per folder')
   assert.ok(!fs.existsSync(at('INPL', 'beta/99_beta-synthesis.md')), 'downstream still synthesis-only')
   assert.ok(fs.existsSync(at('INPL', 'beta/01_beta-thing.md')))
   console.log('✅ mustReuse module: holes punched in place, cascade still staged')

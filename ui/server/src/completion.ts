@@ -829,9 +829,11 @@ function scopedNote(module: string, fromRunRoot: string, fromDate: string | null
 - Copied into: \`${intoRunRoot}\`
 - The carried orbs keep the vintage of the run that produced them, not this run's date.
 
-**How to read this.** The intake plan (\`intake/*_intake_plan.json\` in the source run) names the documents
-that landed and the exact orbs they invalidate; this module re-ran exactly those plus its synthesis, and
-every module downstream of it re-ran its synthesis. The rest of the run is carried, priced and stamped.
+**How to read this.** The intake plan that scoped these holes rides in THIS run root
+(\`intake/*_intake_plan.json\`, copied verbatim from the run whose analysis produced it); it names the
+documents that landed and the exact orbs they invalidate. This module re-ran exactly those plus its
+synthesis, and every module downstream of it re-ran its synthesis. The rest of the run is carried,
+priced and stamped.
 `
 }
 
@@ -862,6 +864,7 @@ export function carryForwardScoped(
   entryOrbs: { module: string; agent: string }[],
   swarmId: string = RESEARCH_SWARM_ID,
   precomputed?: ThesisPlan,
+  planFileAbs?: string | null,
 ): ScopedCarryResult {
   const safe = safeSubjectSegment(subject)
   const graph = buildSwarmGraph(swarmId)
@@ -920,6 +923,11 @@ export function carryForwardScoped(
       // finished in TODAY's root — both full-run paths skip on its 99 presence, so punch the holes in place
       const dstAbs = path.join(targetAbs, module)
       for (const f of holesFor(module, dstAbs)) fs.rmSync(path.join(dstAbs, f), { force: true })
+      // one provenance story per folder: a whole-carry marker from an EARLIER completion carry must not
+      // survive the hole-punch — thesisPlan's carriedVintage would keep dating the refreshed module by its
+      // old source run, and the dossier would claim it was both carried verbatim AND rerun scoped
+      // (Codex #358 r3672206131)
+      fs.rmSync(path.join(dstAbs, CARRY_MARKER), { force: true })
       fs.writeFileSync(path.join(dstAbs, RESUME_MARKER), scopedNote(module, base.targetRunRoot, null, base.targetRunRoot, omittedOrbs, synthesisOnly), 'utf8')
       scoped.push({ module, from: base.targetRunRoot, omittedOrbs, synthesisOnly, inPlace: true })
       continue
@@ -948,6 +956,20 @@ export function carryForwardScoped(
       fs.rmSync(tmpAbs, { recursive: true, force: true })
     }
     scoped.push({ module, from: c.from, omittedOrbs, synthesisOnly, inPlace: false })
+  }
+
+  // Carry the plan itself into the target root: staging just made TODAY the ticker's latest dated root,
+  // so without this a retry after a failed launch (or the audit trail after a finished one) would look for
+  // the plan under the new root and find nothing — `readIntakePlan` searches only the latest root
+  // (Codex #358 r3672400212). Verbatim copy: the plan's own scanned_at/scan_date witnesses travel with it,
+  // so the route's freshness gate keeps working against the copied file on a retry. Best-effort — a copy
+  // failure must not undo an otherwise-correct staging.
+  if (planFileAbs && (carried.length || scoped.length)) {
+    try {
+      const intakeDir = path.join(targetAbs, 'intake')
+      fs.mkdirSync(intakeDir, { recursive: true })
+      fs.copyFileSync(planFileAbs, path.join(intakeDir, path.basename(planFileAbs)))
+    } catch { /* provenance convenience, never a staging failure */ }
   }
 
   return { carried, scoped, staleModules, droppedEntries }

@@ -18,7 +18,7 @@ import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, 
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
-import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, finalDeliverablesPresent, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
+import { assertClaudeCli, cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, finalDeliverablesPresent, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
@@ -67,7 +67,7 @@ import { routeReason } from './news/triage/reason-router'
 import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
 import { carryForwardModules, carryForwardScoped, dataPoolNewest, prepareModuleResume, thesisPlan } from './completion'
-import { readIntakePlan } from './intake'
+import { latestPlanFileFor, readIntakePlan } from './intake'
 import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-changed'
 import { readDataNeeds } from './data-needs'
 import { appendPipelineEvent, getPipelineSource, getPipelineView, isPipelineId, listPipelineForSubject, listRecentPipeline, writePipelineSource, type PipelineSourceKind } from './pipeline-store'
@@ -1382,6 +1382,20 @@ app.post('/api/intake-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
   if (!intake || commands.length === 0) {
     return reply.code(409).send({ error: 'No scoped rerun plan exists for this ticker — run the new-data analysis first.', code: 'no_plan' })
   }
+  // Freshness, at the PRECISE witness — not the reader's date-granular expiry. A document that landed
+  // later the same day (after scanned_at) is one the plan never read: executing the plan would leave the
+  // orb that document invalidates un-punched and carry its module as if current. pool_current is the
+  // reader's own fail-safe derivation (scanned_at witness + durable floor; any doubt → false), which is
+  // exactly the execution bar too (INTAKE.md §1 fail-toward-blunt; Codex #358 r3672206139).
+  if (intake.pool_current !== true) {
+    return reply.code(409).send({ error: 'A document landed after this plan was scoped (or freshness cannot be proven) — re-run the new-data analysis first.', code: 'plan_stale' })
+  }
+  // Fail-toward-blunt on DROPPED mappings: a widened note means some document's orb mapping did not survive
+  // roster validation, so its impact is UNSCOPED. Executing only the surviving commands would carry the
+  // very module that document may invalidate (INTAKE.md §1; Codex #358 r3672206145 P1).
+  if ((intake.widened?.length ?? 0) > 0) {
+    return reply.code(409).send({ error: 'Part of the plan no longer maps to the current roster — its documents are unscoped. Re-run the new-data analysis (fail-toward-blunt).', code: 'plan_widened', widened: intake.widened })
+  }
   try {
     // Same lock KEY as the sibling thesis-plan routes, so a scoped rerun and a completion can never carry
     // into the same target root concurrently.
@@ -1396,11 +1410,29 @@ app.post('/api/intake-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
       if (first.complete) {
         return reply.code(409).send({ error: 'Today\'s run root already has a final thesis — a scoped rerun would overwrite the decision of record. Use the single-orb Re-run for a same-day refresh.', code: 'already_complete', path: first.finalReportPath })
       }
+      // The confirm strip prices "the named orbs + syntheses"; a module that is NEITHER reusable (never
+      // finished anywhere) NOR in the plan's stale set would be run WHOLE by the launched full run — unpriced
+      // work with none of the full-run path's typed-ticker confirmation (Codex #358 r3672400188 P1). Set
+      // arithmetic on the plan's own server-recomputed cascades, so it runs BEFORE any disk write.
+      const staleSet = new Set<string>()
+      for (const c of commands) { staleSet.add(c.module); for (const m of c.cascade_modules ?? []) staleSet.add(m) }
+      const reusableSet = new Set(first.reusable)
+      const unpriced = listModuleNames(RESEARCH_SWARM_ID).filter((m) => !reusableSet.has(m) && !staleSet.has(m))
+      if (unpriced.length) {
+        return reply.code(409).send({ error: `This run is incomplete beyond the plan's scope (${unpriced.join(', ')} never finished) — a scoped rerun would silently run ${unpriced.length === 1 ? 'it' : 'them'} whole. Complete the thesis first.`, code: 'run_incomplete', unpriced })
+      }
+      // CLI presence BEFORE staging: the staging below punches holes in today's root; failing on a missing
+      // engine binary after that would leave a finished-today module partial for nothing (Codex #358
+      // r3672400207 — the remaining pre-spawn failures are admission races, which the resume machinery
+      // absorbs: the holes ARE the work a retry re-runs).
+      try { await assertClaudeCli() } catch (e: any) {
+        return reply.code(e?.statusCode || 503).send({ error: e?.message || 'engine CLI unavailable', code: e?.code })
+      }
       const snap = thesisPlan(ticker, undefined, first.reusable)
 
       let staged: ReturnType<typeof carryForwardScoped>
       try {
-        staged = carryForwardScoped(ticker, commands.map((c) => ({ module: c.module, agent: c.agent })), RESEARCH_SWARM_ID, snap)
+        staged = carryForwardScoped(ticker, commands.map((c) => ({ module: c.module, agent: c.agent })), RESEARCH_SWARM_ID, snap, latestPlanFileFor(ticker))
       } catch (e: any) {
         return reply.code(500).send({ error: `could not stage the scoped rerun: ${e?.message || e}` })
       }

@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import { api, isStatic } from '../../lib/api'
 import { intakeResting } from '../../lib/intake'
 import { useStore } from '../../lib/store'
 import type { AgentNode } from '../../lib/types'
@@ -45,24 +44,10 @@ export function IntakeDock() {
   const globalActive = useStore((s) => s.globalActive)
   const runActivity = useStore((s) => s.runActivity)
   const [open, setOpen] = useState(true)
-  const setToast = useStore((s) => s.setToast)
-  // The one-pass scoped rerun (POST /api/intake-plan/run): the server re-reads + re-validates the plan
-  // itself, so this sends only {ticker, swarm}. Errors surface the route's own honest codes (no_plan /
-  // already_complete / plan_stale / subject_busy) verbatim — never a silent fallback to a bigger run.
-  const [scopedPending, setScopedPending] = useState(false)
-  const runScoped = async () => {
-    if (!ticker || scopedPending) return
-    if (isStatic()) { setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' }); return }
-    setScopedPending(true)
-    try {
-      await api.runIntakePlan(ticker, 'research')
-      setToast({ msg: 'Scoped re-run started — one pass, one commit.', tone: 'good' })
-    } catch (e: any) {
-      setToast({ msg: e?.body?.error || e?.message || 'Could not start the scoped re-run.', tone: 'bad' })
-    } finally {
-      setScopedPending(false)
-    }
-  }
+  // The one-pass scoped rerun lives in the STORE (runScopedRerun) so the returned run is attached via
+  // beginRun immediately — readiness/progress/cancel on screen at once, same as every other launch path.
+  const runScoped = useStore((s) => s.runScopedRerun)
+  const scopedPending = useStore((s) => s.scopedRerunPending)
 
   // The live document-intake run for this company — this click, an auto-analysis on landing, or one
   // started in another tab. Its steps ARE the reading list. Positive `kind` match, never a fallback:

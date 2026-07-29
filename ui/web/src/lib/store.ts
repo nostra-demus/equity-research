@@ -453,6 +453,9 @@ interface State {
   resetThesisReuse: () => void // the "re-run everything" escape hatch — drop the intake scoping, re-run all stale
   completeThesis: () => Promise<void>
   resumeThesisModule: (module: string) => Promise<void> // the RUN pill — launch one module, resuming its orbs
+  // the New-data dock's one-pass scoped rerun (POST /api/intake-plan/run) — attaches to the run immediately
+  scopedRerunPending: boolean
+  runScopedRerun: () => Promise<void>
 
   openReport: (tier: 'memo' | 'thesis' | 'dossier') => Promise<void>
   openModuleReport: (module: string, tier: 'synthesis' | 'memo' | 'dossier') => void
@@ -827,6 +830,7 @@ export const useStore = create<State>((set, get) => ({
   selectedNodeKey: null,
   launchConfirm: null,
   launchPending: null,
+  scopedRerunPending: false,
   stoppingRuns: {},
   readinessGate: null,
   toast: null,
@@ -1793,6 +1797,38 @@ export const useStore = create<State>((set, get) => ({
         get().setToast({ msg: e?.message || 'Couldn’t re-price that change — nothing was changed.', tone: 'bad' })
       }
     })()
+  },
+
+  // One-pass scoped rerun (the New-data dock's confirm strip). Attaches to the returned run IMMEDIATELY
+  // via beginRun — the same treatment every other launch path gets — so readiness decisions, progress and
+  // cancel are on screen at once instead of waiting ~20s for the background active-run poll (Codex #358
+  // r3672400227). Orb lighting is honest at module level: stale modules light as running (their holes are
+  // what executes; Step 4A skips the carried rest), carried-whole modules show done.
+  runScopedRerun: async () => {
+    const t = get().selectedTicker
+    if (!t || get().scopedRerunPending) return
+    if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' }); return }
+    set({ scopedRerunPending: true })
+    try {
+      const { runId, staleModules, carried } = await api.runIntakePlan(t, 'research')
+      const nodes = [...get().nodesByKey.values()]
+      const staleSet = new Set(staleModules ?? [])
+      const carriedSet = new Set((carried ?? []).map((c) => c.module))
+      const plannedKeys = nodes.filter((n) => staleSet.has(n.module)).map((n) => n.key)
+      const doneKeys = nodes.filter((n) => carriedSet.has(n.module)).map((n) => n.key)
+      if (runId) {
+        beginRun(set, get, runId, { kind: 'full', willCommitToMain: true }, plannedKeys, doneKeys)
+      } else {
+        void get().refreshActiveRuns()
+      }
+      get().setToast({ msg: 'Scoped re-run started — one pass, one final thesis.', tone: 'good' })
+    } catch (e: any) {
+      // the route's honest codes (no_plan / plan_stale / plan_widened / run_incomplete / already_complete /
+      // subject_busy / CLAUDE_CLI_MISSING) surface verbatim — never a silent fallback to a bigger run
+      get().setToast({ msg: e?.body?.error || e?.message || 'Could not start the scoped re-run.', tone: 'bad' })
+    } finally {
+      set({ scopedRerunPending: false })
+    }
   },
 
   completeThesis: async () => {

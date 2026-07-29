@@ -90,6 +90,14 @@ function cascadeModulesFor(module: string, agent: string): string[] {
 // Find the latest intake_plan.json under a run root. Naming: <DATE>_intake_plan[_vN].json — a plain
 // lexical max picks the newest date and, within a date, the highest single-digit _vN (same
 // convention as reviews/; a same-day _v10 is not handled, and does not happen in practice).
+/** ABSOLUTE path of the ticker's current intake plan file, or null. Exported for the scoped-rerun route,
+ *  which copies the plan into the target run root it stages — so after staging creates a newer dated root,
+ *  a retry (and the audit trail) still finds the plan under the LATEST root (Codex #358 r3672400212). */
+export function latestPlanFileFor(ticker: string): string | null {
+  const root = findLatestRunRoot(ticker)
+  return root ? latestPlanFile(root) : null
+}
+
 function latestPlanFile(runRootAbs: string): string | null {
   const dir = path.join(runRootAbs, 'intake')
   let names: string[]
