@@ -16,7 +16,7 @@ import {
   BRIDGE_DIR, BRIDGE_INTERVAL_MIN, BRIDGE_MODE, DATA_DIR, NEWS, REPO_ROOT, STATE_DIR,
 } from './config'
 import { acquireSingletonLock, releaseSingletonLock } from './singleton-lock'
-import { enabledSubjects, readBatchConfig, sweepOnce } from './bridge-batch'
+import { accumulatedFor, enabledSubjects, readBatchConfig, sweepOnce } from './bridge-batch'
 
 const LOCK_FILE = 'bridge-batch.lock'
 const log = (m: string) => console.log(`[bridge] ${m}`) // eslint-disable-line no-console
@@ -27,26 +27,45 @@ let lastSweepAt: string | null = null
 let nextSweepAt: string | null = null
 export interface BridgeSweepSummary { subjects: number; written: number; duplicates: number; analyses: number }
 let lastSummary: BridgeSweepSummary | null = null
+// why the loop is dark, in the loop's own words — so the status never reports a bare `running:false`
+let idleReason: string | null = 'not started'
+
+export interface BridgeSubjectStatus {
+  subject: string
+  /** routed event notes currently in this subject's pool (counted on disk, so it survives restarts) */
+  notes: number
+  /** when the newest routed note landed, or null when none has */
+  newestAt: string | null
+}
 
 export interface BridgeStatus {
   mode: string
-  enabled: boolean
+  /** the loop is genuinely ticking (batch mode AND this engine won the singleton lock) */
+  running: boolean
   intervalMin: number
-  subjects: string[]
+  subjects: BridgeSubjectStatus[]
+  /** total routed notes across every covered subject — the "how much has accumulated" number */
+  totalNotes: number
   lastSweepAt: string | null
   nextSweepAt: string | null
   last: BridgeSweepSummary | null
+  /** why the loop is not running, when it is not — never a silent false */
+  idleReason: string | null
 }
 
 export function getBridgeStatus(): BridgeStatus {
+  const subjects = currentSubjects().map((subject) => ({ subject, ...accumulatedFor(DATA_DIR, subject) }))
+  const running = BRIDGE_MODE === 'batch' && timer !== null
   return {
     mode: BRIDGE_MODE,
-    enabled: BRIDGE_MODE === 'batch' && timer !== null,
+    running,
     intervalMin: BRIDGE_INTERVAL_MIN,
-    subjects: currentSubjects(),
+    subjects,
+    totalNotes: subjects.reduce((a, s) => a + s.notes, 0),
     lastSweepAt,
     nextSweepAt,
     last: lastSummary,
+    idleReason: running ? null : idleReason,
   }
 }
 
@@ -91,18 +110,26 @@ export async function runBridgeSweep(launchAnalysis: (ticker: string) => Promise
 export function startBridgeScheduler(launchAnalysis: (ticker: string) => Promise<boolean>): void {
   if (BRIDGE_MODE !== 'batch') {
     log(BRIDGE_MODE === 'stream'
-      ? 'batch loop idle — BRIDGE_MODE=stream (research-bridge routes per ingested item instead)'
+      // Be exact about which switch owns that path: BRIDGE_MODE=stream only DECLARES the intent — the
+      // per-item route in research-bridge.ts is gated on SCREENER_RESEARCH_BRIDGE=1 and is otherwise dark.
+      // Saying "stream is on" here when that flag is unset would describe routing that never happens.
+      ? 'batch loop idle — BRIDGE_MODE=stream; the per-item path is separately gated on SCREENER_RESEARCH_BRIDGE=1'
       : 'idle — set BRIDGE_MODE=batch to route company news into research pools on a schedule')
+    idleReason = BRIDGE_MODE === 'stream'
+      ? 'BRIDGE_MODE=stream — the batch loop is off; the per-item path needs SCREENER_RESEARCH_BRIDGE=1'
+      : 'BRIDGE_MODE is off — set BRIDGE_MODE=batch to route company news on a schedule'
     return
   }
   if (timer) return
   if (!fs.existsSync(path.join(BRIDGE_DIR, 'company-news-bridge.json'))) {
     log(`idle — no bridge manifest at ${BRIDGE_DIR}/company-news-bridge.json (nothing declares which subjects are covered)`)
+    idleReason = 'no bridge manifest — nothing declares which subjects are covered'
     return
   }
   // One sweeper per state dir: a second engine must not double-route into the same pools.
   if (!acquireSingletonLock(STATE_DIR, LOCK_FILE)) {
     log('another engine already owns the bridge sweep for this data dir — staying read-only')
+    idleReason = 'another engine owns the sweep for this data dir (staying read-only)'
     return
   }
   process.once('exit', () => releaseSingletonLock(STATE_DIR, LOCK_FILE))
@@ -114,6 +141,7 @@ export function startBridgeScheduler(launchAnalysis: (ticker: string) => Promise
     running = true
     try { await runBridgeSweep(launchAnalysis) } catch (e: any) { log(`sweep failed: ${e?.message || e}`) } finally { running = false }
   }
+  idleReason = null
   timer = setInterval(tick, BRIDGE_INTERVAL_MIN * 60_000)
   timer.unref?.()
   log(`batch mode on — sweeping every ${BRIDGE_INTERVAL_MIN} min over: ${currentSubjects().join(', ') || '(no subjects yet)'}`)
@@ -122,5 +150,6 @@ export function startBridgeScheduler(launchAnalysis: (ticker: string) => Promise
 
 export function stopBridgeScheduler(): void {
   if (timer) { clearInterval(timer); timer = null }
+  idleReason = 'stopped'
   releaseSingletonLock(STATE_DIR, LOCK_FILE)
 }

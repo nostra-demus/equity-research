@@ -8,10 +8,14 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import {
-  DEFAULT_BATCH_CONFIG, eligibleFor, enabledSubjects, readBatchConfig, readCursors, sweepOnce,
+  accumulatedFor, DEFAULT_BATCH_CONFIG, eligibleFor, enabledSubjects, readBatchConfig, readCursors, sweepOnce,
 } from '../src/bridge-batch'
 import { bridgeEventToSubject } from '../src/research-bridge'
 import type { FeedItem } from '../src/news/types'
+
+// every temp dir this file makes, removed on exit — a test run must not leave /tmp litter behind
+const tempDirs: string[] = []
+process.on('exit', () => { for (const d of tempDirs) { try { fs.rmSync(d, { recursive: true, force: true }) } catch { /* best-effort */ } } })
 
 let passed = 0
 function check(name: string, fn: () => void): void {
@@ -44,6 +48,7 @@ function item(over: Partial<FeedItem> & { ticker?: string } = {}): FeedItem {
 /** A temp repo with a data pool + a firehose day file the reader can see. */
 function makeRepo(subjects: string[], items: FeedItem[]) {
   const repo = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-batch-'))
+  tempDirs.push(repo)
   const dataDir = path.join(repo, 'data')
   const stateDir = path.join(repo, '.state')
   for (const s of subjects) fs.mkdirSync(path.join(dataDir, s), { recursive: true })
@@ -204,6 +209,7 @@ check('enabledSubjects reads the manifest’s subjects[] and drops names with no
 // ---- 11. config sidecar: malformed input can never WIDEN routing ----
 check('readBatchConfig falls back to the defaults on anything malformed (never wider)', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-cfg-'))
+  tempDirs.push(dir)
   const fp = path.join(dir, 'bridge_config.json')
   fs.writeFileSync(fp, JSON.stringify({ min_score: 70, backfill_hours: 12, min_score_by_subject: { TSLA: 80, '../x': 1 } }))
   const ok = readBatchConfig(fp)
@@ -226,6 +232,47 @@ check('the cursor advances to the newest considered item — the next window see
   assert.equal(c.NHY, first.ts, 'cursor is the newest considered item’s timestamp')
   const r2 = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, opts)
   assert.equal(r2.sweeps[0].considered, 0, 'the same window is not re-considered')
+})
+
+// ---- 13. review round: the reader window must COVER the oldest cursor (outage safety) ----
+check('an outage longer than the default window does not drop the gap: lookback follows the cursor', () => {
+  // an event from 5 days ago, and a cursor 6 days old (the cockpit was down). With a fixed 2-3 day
+  // reader window the event would never be returned and the cursor would advance past it forever.
+  const old = item({ ticker: 'NHY', ts: iso(5 * 24 * HOUR) })
+  const { dataDir, stateDir, opts } = makeRepo(['NHY'], [old])
+  fs.writeFileSync(path.join(stateDir, 'research-bridge-cursor.json'), JSON.stringify({ NHY: iso(6 * 24 * HOUR) }))
+  const r = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, { ...opts, lookbackDays: undefined })
+  assert.equal(r.sweeps[0].written.length, 1, 'the event inside the outage gap is still routed')
+  assert.ok(fs.existsSync(noteFor(dataDir, 'NHY', old.event_id)))
+})
+
+// ---- 14. review round: mixed ISO precision must not misorder the cursor ----
+check('cursor tracking is numeric: a ms-precision timestamp cannot park the cursor early', () => {
+  const withMs = item({ ticker: 'NHY', ts: '2026-07-29T09:00:00.500Z', headline: 'NHY ms-precision story' })
+  const bare = item({ ticker: 'NHY', ts: '2026-07-29T09:00:00Z', headline: 'NHY bare-second story' })
+  const { stateDir, opts } = makeRepo(['NHY'], [withMs, bare])
+  sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, opts)
+  const c = readCursors(stateDir)
+  // lexically ".500Z" < "Z", so a string compare would have parked the cursor on the BARE one and
+  // re-considered the ms item forever; numerically the ms item is the newer, and wins.
+  assert.equal(Date.parse(c.NHY), Date.parse(withMs.ts), 'the numerically newest item owns the cursor')
+})
+
+// ---- 15. review round: the accumulated-notes read (powers the status indicator) ----
+check('accumulatedFor counts routed notes on disk and reports the newest', () => {
+  const a = item({ ticker: 'NHY', headline: 'NHY lifts Q3 alumina output guidance' })
+  const b = item({ ticker: 'NHY', headline: 'NHY names a new CFO effective October' })
+  const { dataDir, opts } = makeRepo(['NHY', 'AMZN'], [a, b])
+  assert.deepEqual(accumulatedFor(dataDir, 'NHY'), { notes: 0, newestAt: null }, 'empty pool reads zero')
+  sweepOnce(['NHY', 'AMZN'], DEFAULT_BATCH_CONFIG, opts)
+  const acc = accumulatedFor(dataDir, 'NHY')
+  assert.equal(acc.notes, 2)
+  assert.ok(acc.newestAt && !Number.isNaN(Date.parse(acc.newestAt)))
+  assert.equal(accumulatedFor(dataDir, 'AMZN').notes, 0, 'a subject with no routed news reads zero')
+  // an unrelated pool file is never counted as routed news
+  fs.writeFileSync(path.join(dataDir, 'NHY', 'annual_report.pdf'), 'x')
+  assert.equal(accumulatedFor(dataDir, 'NHY').notes, 2, 'only screener_event_* notes are counted')
+  assert.deepEqual(accumulatedFor(dataDir, 'NOSUCH'), { notes: 0, newestAt: null }, 'a missing pool is zero, not a throw')
 })
 
 console.log(`\n${passed} bridge-batch checks passed`)

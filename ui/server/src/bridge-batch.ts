@@ -83,7 +83,10 @@ export function enabledSubjects(manifestPath: string, dataDir: string): string[]
   const list = Array.isArray(raw?.subjects) ? raw.subjects : []
   const out: string[] = []
   for (const s of list) {
-    if (typeof s !== 'string' || !isValidTicker(s) || isReservedDataFolder(s)) continue
+    // dataDir is passed through: the reservation check resolves the archive folder against the pool it is
+    // actually reading, so a test (or a custom ENGINE_DATA_DIR) is judged against ITS pool, not the global
+    // one (Gemini #359 r3673576795).
+    if (typeof s !== 'string' || !isValidTicker(s) || isReservedDataFolder(s, dataDir)) continue
     try { if (fs.statSync(path.join(dataDir, s)).isDirectory()) out.push(s) } catch { /* no pool → not covered */ }
   }
   return [...new Set(out)].sort()
@@ -135,6 +138,28 @@ export function eligibleFor(item: FeedItem, subject: string, cfg: BridgeBatchCon
   return (item.triage_score ?? 0) >= floor
 }
 
+// ---- accumulated notes (the "how much has landed" read) ---------------------------------------------
+
+/** How many routed event notes a subject's pool currently holds, and when the newest one landed. Counts
+ *  the notes on DISK (the durable truth) rather than a running tally, so it survives restarts and stays
+ *  right if a note is deleted by hand. Powers GET /api/bridge/status — and the cockpit indicator. */
+export function accumulatedFor(dataDir: string, subject: string): { notes: number; newestAt: string | null } {
+  const dir = path.join(dataDir, subject)
+  let names: string[] = []
+  try { names = fs.readdirSync(dir) } catch { return { notes: 0, newestAt: null } }
+  let notes = 0
+  let newestMs = 0
+  for (const n of names) {
+    if (!/^screener_event_EVT-[0-9a-f]{12}\.md$/.test(n)) continue
+    notes++
+    try {
+      const ms = fs.statSync(path.join(dir, n)).mtimeMs
+      if (ms > newestMs) newestMs = ms
+    } catch { /* vanished mid-scan */ }
+  }
+  return { notes, newestAt: newestMs ? new Date(newestMs).toISOString() : null }
+}
+
 // ---- the sweep --------------------------------------------------------------------------------------
 
 export interface SubjectSweep {
@@ -183,7 +208,21 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
   const now = opts.now ?? (() => new Date())
   const nowMs = now().getTime()
   const cursors = readCursors(opts.stateDir)
-  const lookbackDays = opts.lookbackDays ?? Math.max(2, Math.ceil(cfg.backfillHours / 24) + 1)
+
+  // Per-subject window start, computed BEFORE the read: a subject with no cursor gets the capped backfill,
+  // one with a cursor resumes exactly where it stopped.
+  const sinceMsFor = new Map<string, number>()
+  for (const s of subjects) {
+    const c = cursors[s]
+    const parsed = typeof c === 'string' ? Date.parse(c) : NaN
+    sinceMsFor.set(s, Number.isFinite(parsed) ? parsed : nowMs - cfg.backfillHours * 3600_000)
+  }
+  // The reader window must COVER the oldest subject's cursor, or an outage longer than the window would
+  // silently drop every event in the gap — the cursor would resume past days the reader never returned.
+  // Derived, not fixed; clamped so a very old cursor cannot make one sweep walk the entire archive.
+  const oldestSinceMs = subjects.length ? Math.min(...subjects.map((s) => sinceMsFor.get(s) as number)) : nowMs
+  const neededDays = Math.ceil(Math.max(0, nowMs - oldestSinceMs) / 86_400_000) + 1
+  const lookbackDays = opts.lookbackDays ?? Math.min(14, Math.max(2, neededDays))
 
   const snap = readFeed(opts.repoRoot, lookbackDays, {
     now,
@@ -198,26 +237,40 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
   const fresh: string[] = []
   const nextCursors: Cursors = { ...cursors }
 
+  // EXACT symbol match only, same rule as the unattended per-item path: a bare-symbol collision across
+  // exchanges must never route company A's news into company B's evidence pool. Resolved ONCE per item and
+  // shared across subjects — the matcher hits the filesystem, so re-deriving it per (item × subject) would
+  // multiply the sweep's syscalls for an answer that cannot differ.
+  const matchCache = new Map<string, string[]>()
+  const matchesFor = (it: FeedItem): string[] => {
+    const key = String(it?.event_id || '')
+    const hit = matchCache.get(key)
+    if (hit) return hit
+    let matched: string[] = []
+    try { matched = matchTrackedSubjects(it, opts.dataDir) } catch { matched = [] }
+    matchCache.set(key, matched)
+    return matched
+  }
+
   for (const subject of subjects) {
-    const had = typeof cursors[subject] === 'string'
-    const since = had
-      ? Date.parse(cursors[subject])
-      : nowMs - cfg.backfillHours * 3600_000 // first sweep for this name → capped backfill, never "everything"
+    const had = typeof cursors[subject] === 'string' && Number.isFinite(Date.parse(cursors[subject]))
+    const since = sinceMsFor.get(subject) as number
     let considered = 0
     let duplicates = 0
-    let newest = had ? cursors[subject] : new Date(since).toISOString()
+    // Tracked as EPOCH MS, not by string compare: ISO strings only order correctly when their precision
+    // matches, and the wire mixes `...:00Z` with `...:00.000Z` — a lexical compare puts the millisecond
+    // form BEFORE the bare one at the same instant, which could park a cursor slightly early (harmless,
+    // dedup absorbs it) or slightly late (an event silently skipped). Numbers cannot be ambiguous.
+    let newestMs = since
+    let newestIso = had ? cursors[subject] : new Date(since).toISOString()
     const written: string[] = []
 
     for (const it of chrono) {
       const ts = Date.parse(String(it?.ts || ''))
       if (!Number.isFinite(ts) || ts <= since) continue
-      // EXACT symbol match only, same rule as the unattended per-item path: a bare-symbol collision
-      // across exchanges must never route company A's news into company B's evidence pool.
-      let matched: string[] = []
-      try { matched = matchTrackedSubjects(it, opts.dataDir) } catch { matched = [] }
-      if (!matched.includes(subject)) continue
+      if (!matchesFor(it).includes(subject)) continue
       considered++
-      if (String(it.ts) > newest) newest = String(it.ts)
+      if (ts > newestMs) { newestMs = ts; newestIso = String(it.ts) }
       if (!eligibleFor(it, subject, cfg)) continue
       try {
         const res = bridgeEventToSubject({
@@ -231,9 +284,9 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
       }
     }
 
-    nextCursors[subject] = newest
+    nextCursors[subject] = newestIso
     if (written.length) fresh.push(subject)
-    sweeps.push({ subject, written, duplicates, considered, backfilled: !had, cursor: newest })
+    sweeps.push({ subject, written, duplicates, considered, backfilled: !had, cursor: newestIso })
   }
 
   writeCursors(opts.stateDir, nextCursors)
