@@ -111,9 +111,22 @@ const yat = (ticker: string, rel: string) => path.join(REPO, `analyses/${ticker}
   for (const f of ['alpha/01_alpha-one.md', 'alpha/99_alpha-synthesis.md', 'alpha/alpha_memo.md', 'beta/99_beta-synthesis.md']) {
     assert.ok(fs.existsSync(yat('ONE', f)), `source run intact: ${f}`)
   }
-  // the plan file was carried into the target root (retry + audit reachability)
-  assert.ok(fs.existsSync(at('ONE', `intake/${YESTERDAY}_intake_plan.json`)), 'plan file rides into the target root')
-  console.log('✅ one entry orb: holed entry module, synthesis-only downstream, whole-carry for the rest, plan carried')
+  // the plan file was carried into the target root (retry + audit reachability), and STAMPED so a later
+  // read can tell this copy's own commands were executed against THIS root (Codex #358 r3673980745) —
+  // never destructive: the plan's own scanned_at/scan_date witnesses survive the stamp untouched.
+  const carriedPlanAbs = at('ONE', `intake/${YESTERDAY}_intake_plan.json`)
+  assert.ok(fs.existsSync(carriedPlanAbs), 'plan file rides into the target root')
+  const carriedPlan = JSON.parse(fs.readFileSync(carriedPlanAbs, 'utf8'))
+  assert.equal(carriedPlan.staged_for_scoped_rerun, true, 'the copy is stamped so readIntakePlan can retire it once this root finishes')
+  assert.equal(carriedPlan.ticker, 'ONE', 'the stamp is additive — the rest of the plan travels verbatim')
+
+  // the staged note is deliberately PROSPECTIVE — it must never assert the omitted work already reran,
+  // since this is written at staging time, before launch admission or a single agent has executed
+  // (Codex #358 r3673980767).
+  assert.match(alphaNote, /staged for a scoped rerun/i, 'prospective wording, not a completion claim')
+  assert.match(alphaNote, /written at staging time/i, 'the note discloses it predates execution')
+  assert.doesNotMatch(alphaNote, /was\s+re-run\b/i, 'must never assert the rerun already happened')
+  console.log('✅ one entry orb: holed entry module, synthesis-only downstream, whole-carry for the rest, plan carried + stamped')
 }
 
 // ---- 2. TWO orbs in ONE module: one staged copy, one cascade (the dedup that motivates the feature) ----

@@ -812,7 +812,14 @@ export interface ScopedCarryResult {
 /** The provenance stamp for a SCOPED module — written under the same RESUMED_FROM.md filename the single-
  *  module resume uses, because structurally this IS a resume (finished orbs carried verbatim, the omitted
  *  ones re-run here) and the cockpit/roster already read that marker's provenance comment. No `Agent:`
- *  line (eval check H). */
+ *  line (eval check H).
+ *
+ *  Deliberately PROSPECTIVE, not retrospective: this is written at STAGING time — before launch admission,
+ *  the readiness gate, or a single agent has actually executed. Earlier wording asserted the omitted work
+ *  "was re-run", which is false the instant admission fails or this module's agent aborts; the partial run
+ *  would then keep an audit marker claiming evidence was refreshed that never was (Codex #358 r3673980767).
+ *  So the prose only ever claims what is TRUE at write time — what was carried and what is scoped to run —
+ *  and points the reader at the one thing that can't lie: whether `99_*-synthesis.md` actually exists. */
 function scopedNote(module: string, fromRunRoot: string, fromDate: string | null, intoRunRoot: string, omittedOrbs: string[], synthesisOnly: boolean): string {
   const vintage = fromDate ? ` (run dated ${fromDate})` : ''
   const provenance = fromDate ? `<!-- resumed-from: ${fromRunRoot} | run-date: ${fromDate} -->\n\n` : ''
@@ -821,9 +828,14 @@ function scopedNote(module: string, fromRunRoot: string, fromDate: string | null
     : `the orb${omittedOrbs.length === 1 ? '' : 's'} ${omittedOrbs.map((o) => `\`${o}\``).join(', ')} and this module's synthesis`
   return `${provenance}# Scoped re-run — ${module}
 
-> New data invalidated part of this module, so it was **re-run scoped, not from scratch**. The finished
-> specialist orbs were carried verbatim from the run below; ${what}
-> ${synthesisOnly ? 'was' : 'were'} re-run against the refreshed pool for THIS run.
+> New data invalidated part of this module, so it is **staged for a scoped rerun, not a rebuild from
+> scratch**. The finished specialist orbs were carried verbatim from the run below; ${what}
+> ${synthesisOnly ? 'is' : 'are'} scoped to re-run against the refreshed pool for THIS run.
+>
+> **This note is written at staging time, before the rerun executes.** It records what was carried and
+> what is scoped to run — it is not a claim that the rerun has finished. If the launch never starts, or
+> this module's agent aborts, the work above was never actually refreshed; this module's own
+> \`99_*-synthesis.md\` (present or not) is the ground truth for whether it completed.
 
 - Carried from: \`${fromRunRoot}\`${vintage}
 - Copied into: \`${intoRunRoot}\`
@@ -831,9 +843,9 @@ function scopedNote(module: string, fromRunRoot: string, fromDate: string | null
 
 **How to read this.** The intake plan that scoped these holes rides in THIS run root
 (\`intake/*_intake_plan.json\`, copied verbatim from the run whose analysis produced it); it names the
-documents that landed and the exact orbs they invalidate. This module re-ran exactly those plus its
-synthesis, and every module downstream of it re-ran its synthesis. The rest of the run is carried,
-priced and stamped.
+documents that landed and the exact orbs they invalidate. This module is scoped to re-run exactly those
+plus its synthesis, and every module downstream of it is scoped to re-run its synthesis. The rest of the
+run is carried, priced and stamped.
 `
 }
 
@@ -961,15 +973,28 @@ export function carryForwardScoped(
   // Carry the plan itself into the target root: staging just made TODAY the ticker's latest dated root,
   // so without this a retry after a failed launch (or the audit trail after a finished one) would look for
   // the plan under the new root and find nothing — `readIntakePlan` searches only the latest root
-  // (Codex #358 r3672400212). Verbatim copy: the plan's own scanned_at/scan_date witnesses travel with it,
-  // so the route's freshness gate keeps working against the copied file on a retry. Best-effort — a copy
+  // (Codex #358 r3672400212). Almost-verbatim: the plan's own scanned_at/scan_date witnesses travel with it
+  // unchanged, so the route's freshness gate keeps working against the copied file on a retry — but it is
+  // stamped `staged_for_scoped_rerun: true` first, so `readIntakePlan` can tell "this copy exists because
+  // its own commands were just staged against THIS root" apart from an original, not-yet-executed plan that
+  // simply happens to sit in a finished run (the common, intended case: INTAKE.md's plan deliberately lives
+  // under the older run it invalidates). Once this root's own final deliverables land, that stamp is what
+  // lets the reader retire it — serving a plan whose work is already done would tell the cockpit
+  // already-incorporated data still needs a rerun (Codex #358 r3673980745). Best-effort — a copy/stamp
   // failure must not undo an otherwise-correct staging.
   if (planFileAbs && (carried.length || scoped.length)) {
+    const intakeDir = path.join(targetAbs, 'intake')
+    const destAbs = path.join(intakeDir, path.basename(planFileAbs))
     try {
-      const intakeDir = path.join(targetAbs, 'intake')
       fs.mkdirSync(intakeDir, { recursive: true })
-      fs.copyFileSync(planFileAbs, path.join(intakeDir, path.basename(planFileAbs)))
-    } catch { /* provenance convenience, never a staging failure */ }
+      const planRaw = JSON.parse(fs.readFileSync(planFileAbs, 'utf8'))
+      if (planRaw && typeof planRaw === 'object' && !Array.isArray(planRaw)) planRaw.staged_for_scoped_rerun = true
+      fs.writeFileSync(destAbs, JSON.stringify(planRaw, null, 2), 'utf8')
+    } catch {
+      // fall back to a plain verbatim copy — provenance convenience must never fail the staging itself,
+      // and an un-stamped copy is exactly today's (pre-fix) behaviour, never worse.
+      try { fs.copyFileSync(planFileAbs, destAbs) } catch { /* still provenance-only */ }
+    }
   }
 
   return { carried, scoped, staleModules, droppedEntries }

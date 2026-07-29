@@ -42,7 +42,9 @@ export function RerunPlanList({
       <div className="iplan iplan--none">
         <div className="iplan__none-head">Nothing to re-run</div>
         <div className="iplan__none-note">
-          {plan.new_docs.length} new document{plan.new_docs.length === 1 ? '' : 's'} read and considered — none change an orb’s inputs. The current thesis stands.
+          {plan.consumed
+            ? `${plan.new_docs.length} new document${plan.new_docs.length === 1 ? '' : 's'} already re-run — this plan's scoped work already landed in the current thesis.`
+            : `${plan.new_docs.length} new document${plan.new_docs.length === 1 ? '' : 's'} read and considered — none change an orb’s inputs. The current thesis stands.`}
         </div>
         {notes.length > 0 && (
           <ul className="iplan__notes">
@@ -70,10 +72,13 @@ export function RerunPlanList({
   const stale = new Set<string>()
   for (const c of cmds) { stale.add(c.module); for (const m of c.cascade_modules ?? []) stale.add(m) }
   // Only SPECIALIST commands re-run an orb; a command targeting a module's synthesis re-runs no
-  // specialist at all (carryForwardScoped stages that module synthesis-only), so counting it here would
-  // understate what is carried by one (Codex #358 r3672541975).
+  // specialist at all (carryForwardScoped stages that module synthesis-only), so counting it — or a
+  // duplicate command for the same orb — would misstate both the carried count AND the "Re-run N orbs"
+  // labels below, which used to read raw `cmds.length` (Codex #358 r3672541975 / r3673980738-class:
+  // "count only specialist commands, deduped"). Derive the deduplicated set of specialist orb keys instead.
   const synthKeys = new Set([...nodesByKey.values()].filter((n) => n.isSynthesis).flatMap((n) => [`${n.module}::${n.name}`, `${n.module}::${n.slug}`]))
-  const specialistCmds = cmds.filter((c) => !synthKeys.has(`${c.module}::${c.agent}`)).length
+  const specialistOrbKeys = new Set(cmds.filter((c) => !synthKeys.has(`${c.module}::${c.agent}`)).map((c) => `${c.module}::${c.agent}`))
+  const specialistCmds = specialistOrbKeys.size
   const specialists = [...nodesByKey.values()].filter((n) => !n.isSynthesis).length
   const carriedOrbs = Math.max(0, specialists - specialistCmds)
 
@@ -107,7 +112,7 @@ export function RerunPlanList({
           </div>
         </div>
         <button className="iplan__run" onClick={onRunScoped} disabled={running || scopedPending}>
-          {scopedPending ? 'Starting…' : `Re-run scoped — ${cmds.length} orb${cmds.length === 1 ? '' : 's'} + ${stale.size} synthes${stale.size === 1 ? 'is' : 'es'} + master ▸`}
+          {scopedPending ? 'Starting…' : `Re-run scoped — ${specialistCmds} orb${specialistCmds === 1 ? '' : 's'} + ${stale.size} synthes${stale.size === 1 ? 'is' : 'es'} + master ▸`}
         </button>
         {/* the old module-granularity path stays one click away, honestly labeled */}
         <button className="iplan__run iplan__run--ghost" onClick={onRun} disabled={running || scopedPending}>
@@ -140,7 +145,7 @@ export function RerunPlanList({
         ))}
       </div>
       <button className="iplan__run" onClick={() => setConfirming(true)} disabled={running || scopedPending}>
-        Re-run {cmds.length} orb{cmds.length === 1 ? '' : 's'} + downstream — keep the rest
+        Re-run {specialistCmds} orb{specialistCmds === 1 ? '' : 's'} + downstream — keep the rest
       </button>
       <div className="iplan__foot">Opens the scoped plan (priced, one confirm) — reruns never auto-spend.</div>
     </div>

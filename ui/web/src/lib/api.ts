@@ -478,7 +478,7 @@ export const api = {
   },
   // One-pass scoped rerun of the intake plan (the New-data dock's confirm strip). The server re-reads and
   // re-validates the plan itself — the client sends only the subject, never orb lists.
-  runIntakePlan: async (ticker: string, swarm: string): Promise<{ runId: string; carried: { module: string; from: string }[]; scoped: { module: string; omittedOrbs: string[]; synthesisOnly: boolean }[]; staleModules: string[] }> => {
+  runIntakePlan: async (ticker: string, swarm: string): Promise<{ runId: string; carried: { module: string; from: string }[]; scoped: { module: string; omittedOrbs: string[]; synthesisOnly: boolean }[]; staleModules: string[]; chained?: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/intake-plan/run`, { ticker, swarm })
   },
