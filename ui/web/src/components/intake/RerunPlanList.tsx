@@ -69,8 +69,13 @@ export function RerunPlanList({
   // stale module; every other specialist orb in the graph is carried, stamped, and skipped.
   const stale = new Set<string>()
   for (const c of cmds) { stale.add(c.module); for (const m of c.cascade_modules ?? []) stale.add(m) }
+  // Only SPECIALIST commands re-run an orb; a command targeting a module's synthesis re-runs no
+  // specialist at all (carryForwardScoped stages that module synthesis-only), so counting it here would
+  // understate what is carried by one (Codex #358 r3672541975).
+  const synthKeys = new Set([...nodesByKey.values()].filter((n) => n.isSynthesis).flatMap((n) => [`${n.module}::${n.name}`, `${n.module}::${n.slug}`]))
+  const specialistCmds = cmds.filter((c) => !synthKeys.has(`${c.module}::${c.agent}`)).length
   const specialists = [...nodesByKey.values()].filter((n) => !n.isSynthesis).length
-  const carriedOrbs = Math.max(0, specialists - cmds.length)
+  const carriedOrbs = Math.max(0, specialists - specialistCmds)
 
   if (confirming) {
     return (

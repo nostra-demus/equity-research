@@ -1382,13 +1382,23 @@ app.post('/api/intake-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
   if (!intake || commands.length === 0) {
     return reply.code(409).send({ error: 'No scoped rerun plan exists for this ticker — run the new-data analysis first.', code: 'no_plan' })
   }
-  // Freshness, at the PRECISE witness — not the reader's date-granular expiry. A document that landed
-  // later the same day (after scanned_at) is one the plan never read: executing the plan would leave the
-  // orb that document invalidates un-punched and carry its module as if current. pool_current is the
-  // reader's own fail-safe derivation (scanned_at witness + durable floor; any doubt → false), which is
-  // exactly the execution bar too (INTAKE.md §1 fail-toward-blunt; Codex #358 r3672206139).
-  if (intake.pool_current !== true) {
-    return reply.code(409).send({ error: 'A document landed after this plan was scoped (or freshness cannot be proven) — re-run the new-data analysis first.', code: 'plan_stale' })
+  // Freshness for EXECUTION is the WITNESS half only: has anything landed since the analysis read the pool?
+  // NOT `pool_current`, which also ANDs the durable run-date floor (pool newer than the run folder). That
+  // floor is exactly TRUE in the normal case this feature exists for — a document arriving after an older
+  // finished run — so gating on pool_current would refuse every legitimate scoped rerun (Codex #358
+  // r3672541957). The floor's job is guarding the "nothing new" affirmative, not blocking execution.
+  // Fail-closed when the witness is unprovable (an old plan with no scanned_at): fall back to pool_current.
+  const freshnessProblem = (): string | null => {
+    const stamp = intake.scanned_at ? Date.parse(intake.scanned_at) : NaN
+    if (!Number.isFinite(stamp)) {
+      return intake.pool_current === true ? null : 'this plan predates the precise freshness stamp and the pool has changed since'
+    }
+    const newest = dataPoolNewest(ticker).newestMs
+    return !newest || newest <= stamp ? null : 'a document landed after this plan was scoped'
+  }
+  const staleWhy = freshnessProblem()
+  if (staleWhy) {
+    return reply.code(409).send({ error: `${staleWhy} — re-run the new-data analysis first.`, code: 'plan_stale' })
   }
   // Fail-toward-blunt on DROPPED mappings: a widened note means some document's orb mapping did not survive
   // roster validation, so its impact is UNSCOPED. Executing only the surviving commands would carry the
@@ -1414,10 +1424,12 @@ app.post('/api/intake-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
       // finished anywhere) NOR in the plan's stale set would be run WHOLE by the launched full run — unpriced
       // work with none of the full-run path's typed-ticker confirmation (Codex #358 r3672400188 P1). Set
       // arithmetic on the plan's own server-recomputed cascades, so it runs BEFORE any disk write.
-      const staleSet = new Set<string>()
-      for (const c of commands) { staleSet.add(c.module); for (const m of c.cascade_modules ?? []) staleSet.add(m) }
+      // EVERY module must have a finished synthesis somewhere on disk. A module inside the plan's cascade
+      // that never finished cannot be staged with holes (there is nothing to carry), so the launched full
+      // run would build it WHOLE — unpriced work the confirm strip never showed, without the full-run
+      // path's typed-ticker gate. Being in the cascade does not make it priced (Codex #358 r3672541961).
       const reusableSet = new Set(first.reusable)
-      const unpriced = listModuleNames(RESEARCH_SWARM_ID).filter((m) => !reusableSet.has(m) && !staleSet.has(m))
+      const unpriced = listModuleNames(RESEARCH_SWARM_ID).filter((m) => !reusableSet.has(m))
       if (unpriced.length) {
         return reply.code(409).send({ error: `This run is incomplete beyond the plan's scope (${unpriced.join(', ')} never finished) — a scoped rerun would silently run ${unpriced.length === 1 ? 'it' : 'them'} whole. Complete the thesis first.`, code: 'run_incomplete', unpriced })
       }
@@ -1427,6 +1439,13 @@ app.post('/api/intake-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
       // absorbs: the holes ARE the work a retry re-runs).
       try { await assertClaudeCli() } catch (e: any) {
         return reply.code(e?.statusCode || 503).send({ error: e?.message || 'engine CLI unavailable', code: e?.code })
+      }
+      // Re-check freshness HERE, after the subject lock and the CLI probe: both can take time, and a
+      // document that lands in that window would otherwise be scoped-out of a run we already approved
+      // (Codex #358 r3672541968). Cheap — one stat of the pool's newest file.
+      const lateWhy = freshnessProblem()
+      if (lateWhy) {
+        return reply.code(409).send({ error: `${lateWhy} while this run was being prepared — re-run the new-data analysis first.`, code: 'plan_stale' })
       }
       const snap = thesisPlan(ticker, undefined, first.reusable)
 
