@@ -1,23 +1,33 @@
-import type { IntakePlan } from '../../lib/types'
+import { useState } from 'react'
+import type { AgentNode, IntakePlan } from '../../lib/types'
 
 const human = (s: string) => s.replace(/-/g, ' ')
 
 // The scoped rerun plan: the specific orbs the new evidence justifies re-running, each with its reason and
-// confidence. The primary action routes to the intake-scoped "Complete the thesis" panel (which keeps the
-// unaffected modules and re-runs only these + their cascade) — one confirmed, priced, main-committing run.
+// confidence. The primary action opens a CONFIRM strip in place (priced from the server-validated plan +
+// the discovered graph — the client never assembles orb lists) and then launches the one-pass scoped
+// rerun (/api/intake-plan/run): the invalidated orbs, each affected synthesis once, one master, one
+// commit. The ghost fallback keeps the old module-granularity path ("Complete the thesis") for a user who
+// wants whole modules re-run.
 export function RerunPlanList({
   plan,
   keysFor,
+  nodesByKey,
   onRowEnter,
   onLeave,
   onRun,
+  onRunScoped,
+  scopedPending,
   running,
 }: {
   plan: IntakePlan
   keysFor: (module: string, agent: string) => Set<string>
+  nodesByKey: Map<string, AgentNode>
   onRowEnter: (keys: Set<string>) => void
   onLeave: () => void
   onRun: () => void
+  onRunScoped: () => void
+  scopedPending: boolean
   running: boolean
 }) {
   const cmds = plan.rerun_plan?.commands ?? []
@@ -49,6 +59,57 @@ export function RerunPlanList({
     )
   }
 
+  // ---- the scoped price, derived from server-validated data only ----
+  // stale set = each command's module ∪ its server-recomputed cascade (cascade_modules INCLUDES the own
+  // module; 'master' never appears in it — see intake.ts cascadeModulesFor). One synthesis re-runs per
+  // stale module; every other specialist orb in the graph is carried, stamped, and skipped.
+  const stale = new Set<string>()
+  for (const c of cmds) { stale.add(c.module); for (const m of c.cascade_modules ?? []) stale.add(m) }
+  const specialists = [...nodesByKey.values()].filter((n) => !n.isSynthesis).length
+  const carriedOrbs = Math.max(0, specialists - cmds.length)
+  const [confirming, setConfirming] = useState(false)
+
+  if (confirming) {
+    return (
+      <div className="iplan">
+        <div className="iplan__rows">
+          {cmds.map((c) => (
+            <div
+              key={c.command}
+              className="iplan__row"
+              onMouseEnter={() => onRowEnter(keysFor(c.module, c.agent))}
+              onMouseLeave={onLeave}
+            >
+              <span className="iplan__orb">{human(c.module)} · {human(c.agent)}</span>
+              <span className="iplan__conf" aria-hidden />
+              <span className="iplan__verb">re-runs</span>
+            </div>
+          ))}
+          <div className="iplan__row iplan__row--synth">
+            <span className="iplan__orb iplan__orb--synth">{stale.size} module synthes{stale.size === 1 ? 'is' : 'es'} re-read the refreshed orbs</span>
+            <span className="iplan__verb iplan__verb--once">once each</span>
+          </div>
+          <div className="iplan__row iplan__row--synth">
+            <span className="iplan__orb iplan__orb--synth">master + finish-gate + memo + audit</span>
+            <span className="iplan__verb iplan__verb--once">once</span>
+          </div>
+          <div className="iplan__row iplan__row--synth">
+            <span className="iplan__orb iplan__orb--synth">every other orb ({carriedOrbs}) carried, stamped</span>
+            <span className="iplan__verb iplan__verb--once">not re-run</span>
+          </div>
+        </div>
+        <button className="iplan__run" onClick={onRunScoped} disabled={running || scopedPending}>
+          {scopedPending ? 'Starting…' : `Re-run scoped — ${cmds.length} orb${cmds.length === 1 ? '' : 's'} + ${stale.size} synthes${stale.size === 1 ? 'is' : 'es'} + master ▸`}
+        </button>
+        {/* the old module-granularity path stays one click away, honestly labeled */}
+        <button className="iplan__run iplan__run--ghost" onClick={onRun} disabled={running || scopedPending}>
+          Re-run whole modules instead…
+        </button>
+        <div className="iplan__foot">One run, one commit — no intermediate thesis. Independent branches run in parallel.</div>
+      </div>
+    )
+  }
+
   return (
     <div className="iplan">
       <div className="iplan__rows">
@@ -67,7 +128,7 @@ export function RerunPlanList({
           </div>
         ))}
       </div>
-      <button className="iplan__run" onClick={onRun} disabled={running}>
+      <button className="iplan__run" onClick={() => setConfirming(true)} disabled={running || scopedPending}>
         Re-run {cmds.length} orb{cmds.length === 1 ? '' : 's'} + downstream — keep the rest
       </button>
       <div className="iplan__foot">Opens the scoped plan (priced, one confirm) — reruns never auto-spend.</div>

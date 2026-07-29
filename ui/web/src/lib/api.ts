@@ -476,6 +476,12 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/valuation-levers/override`, body)
   },
+  // One-pass scoped rerun of the intake plan (the New-data dock's confirm strip). The server re-reads and
+  // re-validates the plan itself — the client sends only the subject, never orb lists.
+  runIntakePlan: async (ticker: string, swarm: string): Promise<{ runId: string; carried: { module: string; from: string }[]; scoped: { module: string; omittedOrbs: string[]; synthesisOnly: boolean }[]; staleModules: string[] }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/intake-plan/run`, { ticker, swarm })
+  },
   // the living themes the firehose is bucketed into (ranked index + one theme's deep-dive). An optional
   // geography (country ISO alpha-2 and/or continent) slices the SAME themes to that geography's news flow —
   // the server re-ranks + re-sizes them — so the "Where" picker narrows the Themes view like the Events list.

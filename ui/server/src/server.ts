@@ -1409,6 +1409,12 @@ app.post('/api/intake-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
       if (staged.scoped.length === 0 && staged.staleModules.length === 0) {
         return reply.code(409).send({ error: 'The plan\'s entry orbs no longer match the roster — re-run the new-data analysis.', code: 'plan_stale', dropped: staged.droppedEntries })
       }
+      // Nothing on disk to scope AGAINST (no finished module was carried whole or with holes): the launch
+      // below would be a bare full run wearing a "scoped" label — a hidden $55-130 spend with none of the
+      // full-run path's typed-ticker confirmation. Refuse and point at the honest button for that.
+      if (staged.scoped.length === 0 && staged.carried.length === 0) {
+        return reply.code(409).send({ error: 'No finished run to scope against — this would be a plain full run. Use "Complete the thesis" for that.', code: 'nothing_to_scope' })
+      }
 
       try {
         const out = await launch({ kind: 'full', ticker, user, userVia })

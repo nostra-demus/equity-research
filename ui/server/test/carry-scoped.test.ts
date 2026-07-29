@@ -171,5 +171,18 @@ const yat = (ticker: string, rel: string) => path.join(REPO, `analyses/${ticker}
   console.log('✅ synthesis entry: specialists carried, synthesis re-runs, cascade follows')
 }
 
+// ---- 6. no finished run anywhere: nothing carried, nothing scoped — the route's nothing_to_scope 409 ----
+// (a scoped rerun needs an existing run to scope against; launching here would be a bare full run wearing
+// a "scoped" label, dodging the full-run path's typed-ticker confirmation)
+{
+  poolFile('EMPTY', 'filing.pdf', -3)
+  const r = carryForwardScoped('EMPTY', [{ module: 'alpha', agent: 'alpha-one' }])
+  assert.deepEqual(r.carried, [])
+  assert.deepEqual(r.scoped, [])
+  assert.deepEqual(r.staleModules, ['alpha', 'beta'], 'the stale set is still reported (the route uses carried+scoped, not this)')
+  assert.ok(!fs.existsSync(path.join(REPO, `analyses/EMPTY_${TODAY}`)), 'nothing staged, no folder created')
+  console.log('✅ no finished run: nothing staged — the route refuses instead of hiding a full run')
+}
+
 fs.rmSync(REPO, { recursive: true, force: true })
 console.log('\nall carry-scoped tests passed')
