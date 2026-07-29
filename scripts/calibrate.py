@@ -454,16 +454,41 @@ def _slice_key(v):
     return v.strip() if (isinstance(v, str) and v.strip()) else "untagged"
 
 
+# CLAUDE.md §14 closed set of thesis-type labels, in the canonical casing that DECISION_LEDGER.md §5 and
+# eval.py's THESIS_TYPE_ENUM enforce case-exact for decisions on/after eval.py's THESIS_Z_DATE
+# (2026-06-21). calibrate.py keeps its own copy because eval.py cannot be imported — it globs the ledger
+# and sys.exit()s at module scope. test_calibrate.py pins this tuple to §14 so the two copies can't drift.
+_THESIS_TYPE_CANON = (
+    "Company-specific", "Sector-cycle", "Macro-conditional", "Policy-conditional",
+    "Commodity-conditional", "FX / rates", "Liquidity / positioning",
+    "Governance turnaround", "Balance-sheet survival", "Pair trade / hedge", "Insufficient data",
+)
+_THESIS_TYPE_BY_CASEFOLD = {t.casefold(): t for t in _THESIS_TYPE_CANON}
+
+
+def _canon_thesis_type(tag):
+    """Map an already-stripped thesis_type tag to its §14 canonical casing. A record created before
+    eval.py Check Z's 2026-06-21 date gate is grandfathered past the case-exact enforcement, so a legacy
+    record can carry a lower-case label (e.g. 'sector-cycle' — see analyses/TMCV_2026-06-07). Without
+    canonicalization that legacy label buckets under its own key instead of joining the canonical
+    'Sector-cycle' cohort; below the MIN_SLICE_TICKERS floor the split marks a genuinely poor category
+    'insufficient', silently skipping its Phase-6 haircut — exactly the calibration break eval.py Check Z
+    was written to prevent (CLAUDE.md §19/§24). An unrecognized tag passes through unchanged."""
+    return _THESIS_TYPE_BY_CASEFOLD.get(tag.casefold(), tag)
+
+
 def _thesis_type_keys(record):
     """The DISTINCT, cleaned thesis_type[] tags a decision record carries, for use as MULTI-LABEL slice
     keys (CLAUDE.md §14). Unlike owner_module/forecast_type (one value per forecast row), thesis_type is
     a property of the whole record and is routinely a list of more than one value — a record with no
     usable tag (missing field, empty list, or a list of non-strings) buckets under 'untagged', mirroring
-    _slice_key's fallback, so a null/blank thesis_type still matches the exact lookup key Gate 4C uses."""
+    _slice_key's fallback, so a null/blank thesis_type still matches the exact lookup key Gate 4C uses.
+    Each tag is canonicalized to its §14 casing (_canon_thesis_type) so a grandfathered legacy record's
+    lower-case label does not split off from the canonical cohort."""
     raw = record.get("thesis_type")
     if not isinstance(raw, list):
         return ["untagged"]
-    keys = sorted({t.strip() for t in raw if isinstance(t, str) and t.strip()})
+    keys = sorted({_canon_thesis_type(t.strip()) for t in raw if isinstance(t, str) and t.strip()})
     return keys or ["untagged"]
 
 

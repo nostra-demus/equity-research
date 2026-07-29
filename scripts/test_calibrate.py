@@ -558,6 +558,46 @@ def test_thesis_type_slice_end_to_end():
           "12 forecasts across 12 tickers clears both floors -> an actionable slice, not 'insufficient'")
 
 
+def test_thesis_type_legacy_casing_canonicalized():
+    # Codex (#356): a legacy record grandfathered past eval.py Check Z's 2026-06-21 date gate can carry a
+    # lower-case thesis_type (analyses/TMCV_2026-06-07 has ["sector-cycle","company-specific"]). If the
+    # slicer keys on the raw string, that record splits off from the canonical "Sector-cycle" cohort;
+    # below MIN_SLICE_TICKERS the canonical bucket is starved under its floor and its Phase-6 haircut
+    # never fires — the calibration break eval.py Check Z documents (CLAUDE.md §14/§19/§24).
+
+    # (1) calibrate.py's own canonical set MUST equal CLAUDE.md §14 verbatim — the drift tripwire (eval.py
+    #     can't be imported). Expected pinned to §14, NOT read back from the code under test.
+    S14 = {"Company-specific", "Sector-cycle", "Macro-conditional", "Policy-conditional",
+           "Commodity-conditional", "FX / rates", "Liquidity / positioning", "Governance turnaround",
+           "Balance-sheet survival", "Pair trade / hedge", "Insufficient data"}
+    check(set(C._THESIS_TYPE_CANON) == S14, "calibrate._THESIS_TYPE_CANON must match CLAUDE.md §14 exactly")
+
+    # (2) Unit: legacy lower-case maps to §14 casing; an unrecognized tag passes through unchanged.
+    check(C._canon_thesis_type("sector-cycle") == "Sector-cycle", "legacy 'sector-cycle' -> 'Sector-cycle'")
+    check(C._canon_thesis_type("company-specific") == "Company-specific", "legacy lower-case -> §14 casing")
+    check(C._canon_thesis_type("FX / RATES") == "FX / rates", "case-insensitive match preserves §14 spelling")
+    check(C._canon_thesis_type("some-unknown-type") == "some-unknown-type", "unknown tag passes through unchanged")
+    check(C._thesis_type_keys({"thesis_type": ["sector-cycle", "company-specific"]})
+          == ["Company-specific", "Sector-cycle"], "record tags canonicalized + sorted")
+
+    # (3) End-to-end via C.build(): 10 Selected records tagged Sector-cycle across 10 distinct tickers,
+    #     but ONE (SEL0) carries the legacy lower-case spelling. Canonicalized, they form ONE cohort of
+    #     10/10 that clears both floors (MIN_RESOLVED_FORECASTS=10, MIN_SLICE_TICKERS=5) -> an actionable
+    #     slice. Raw (the bug): SEL0 splits off, "Sector-cycle" starves at 9 (< the 10 floor) -> insufficient.
+    standing, reviews_by_run = [], {}
+    for i in range(10):
+        label = "sector-cycle" if i == 0 else "Sector-cycle"   # SEL0 = grandfathered legacy casing
+        rec, rev = _selected(i, 80, "confirmed", 4.0, thesis_type=[label])
+        standing.append(rec)
+        reviews_by_run[rec["run_root"]] = [rev]
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda rr: reviews_by_run.get(rr, []))
+    tt = out["calibration_by_thesis_type"]
+    check(isinstance(tt.get("Sector-cycle"), dict) and tt["Sector-cycle"]["n"] == 10
+          and tt["Sector-cycle"]["n_tickers"] == 10,
+          f"legacy-cased record merges into the canonical 'Sector-cycle' cohort (10/10, actionable) (got {tt.get('Sector-cycle')})")
+    check("sector-cycle" not in tt, "the legacy lower-case key must NOT survive as an orphan bucket")
+
+
 def test_slice_key_stripped_and_str_safe():
     # Codex r6 #6 + #3: module keys are stripped (Phase-6 exact lookup) and _norm is non-crash on non-strings
     check(C._slice_key("earnings ") == "earnings" and C._slice_key(" valuation") == "valuation", "slice key is stripped")
@@ -818,6 +858,7 @@ def main():
                test_malformed_error_tag_skipped, test_all_scope_rerun_overwrites_base,
                test_module_slice_gated_on_distinct_tickers, test_thesis_type_multi_label_slice,
                test_thesis_type_untagged_fallback_and_ticker_floor, test_thesis_type_slice_end_to_end,
+               test_thesis_type_legacy_casing_canonicalized,
                test_slice_key_stripped_and_str_safe,
                test_false_comfort_named_in_markdown, test_duplicate_forecast_text_ambiguous,
                test_standing_reviews_malformed_date_no_crash, test_beta_of_rejects_non_finite,
