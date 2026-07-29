@@ -68,6 +68,7 @@ import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
 import { carryForwardModules, dataPoolNewest, prepareModuleResume, thesisPlan } from './completion'
 import { readIntakePlan } from './intake'
+import { getBridgeStatus, startBridgeScheduler } from './bridge-scheduler'
 import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-changed'
 import { readDataNeeds } from './data-needs'
 import { appendPipelineEvent, getPipelineSource, getPipelineView, isPipelineId, listPipelineForSubject, listRecentPipeline, writePipelineSource, type PipelineSourceKind } from './pipeline-store'
@@ -1912,6 +1913,9 @@ app.post('/api/screener/handoff', async (req, reply) => {
 
 // Scanner status for the cockpit's auto-scan chip: on/off, last/next cycle, today's counts.
 app.get('/api/news/status', async () => getNewsStatus())
+// Company-news bridge status: which subjects are covered, when the last/next 12h sweep runs, and what the
+// last one did. Read-only — the cockpit can surface it (or `curl` can) without a UI change landing first.
+app.get('/api/bridge/status', async () => getBridgeStatus())
 
 // FULL pipeline diagnostics: every triage tier's budget + health + cooldown, the deferred backlog vs its
 // loss boundary, the last cycle's flow, and the honest defer reason (incl. the Haiku last-resort's state).
@@ -2960,6 +2964,21 @@ app
     // so the outcome-measurement layer no longer depends on the single macOS hk-review timer. OFF unless
     // REVIEW_DISPATCH_ENABLED=1 — auto-spawning paid review runs is opt-in.
     startReviewLoop()
+    // company-news bridge (batch): route material wire events into covered subjects' pools every 12h and
+    // run the CHEAP advisory analysis for any subject that gained a fresh note. OFF unless
+    // BRIDGE_MODE=batch. Paid re-runs stay behind the research tab's own click. The launcher is injected
+    // so the loop reuses this file's admission stack (subject lock + busy check) — the same gates the
+    // manual "Send to research" route applies, in one place.
+    startBridgeScheduler(async (ticker: string) => {
+      const owner = resolveSwarmForSubject(ticker)
+      if (!owner) return false
+      return withSubjectLock(`intake:${ticker}`, async () => {
+        const busy = listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
+        if (busy) return false
+        await launch({ kind: 'doc-intake', ticker, ...(owner.swarm !== RESEARCH_SWARM_ID ? { swarm: owner.swarm } : {}), user: 'auto', userVia: 'local' })
+        return true
+      })
+    })
     // feedback auto-tune (screener): once a day, apply the tuner's guardrailed, backtest-passing rank-weight
     // nudges from human feedback — audited + revertible. OFF unless SCREENER_AUTOTUNE_ENABLED=1 (opt-in, the
     // prod engine env sets it); nothing is spent and no paid run is launched.

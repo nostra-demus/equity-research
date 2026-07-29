@@ -1,0 +1,14 @@
+{
+  "id": "company-news-bridge",
+  "series": "Company-news bridge \u2014 material wire events routed into covered subjects' research pools",
+  "subjects": [
+    "NHY",
+    "AMZN"
+  ],
+  "provider": "engine news wire (scored + deduped)",
+  "source_type": "external_other",
+  "tier": 10,
+  "cadence_hours": 12,
+  "output_path": "data/<SUBJECT>/screener_event_<EVENT_ID>.md",
+  "notes": "THE SUBJECTS ARRAY IS THE ENABLED SET \u2014 the sweep re-reads it every tick, so covering another name is a one-line edit here (no redeploy). Per-subject score floors live in bridge_config.json beside this file. Deliberately NOT under .claude/connectors/: that namespace belongs to feeds scripts/run_connectors.py fetches, and this sweep runs inside the cockpit (ui/server/src/bridge-scheduler.ts, BRIDGE_MODE=batch). Registering it there would put a row in the Data Library that the connector runner never runs \u2014 permanently 'needs attention', polluting the feed-health counts and pointing the auto-repair PR loop at a fetcher that is fine. Observability lives at GET /api/bridge/status instead."
+}
