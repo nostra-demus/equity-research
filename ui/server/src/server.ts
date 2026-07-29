@@ -66,7 +66,7 @@ import { getAutotuneState, readChanges, revertChange, setAutotunePaused, setAuto
 import { routeReason } from './news/triage/reason-router'
 import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
-import { carryForwardModules, dataPoolNewest, prepareModuleResume, thesisPlan } from './completion'
+import { carryForwardModules, carryForwardScoped, dataPoolNewest, prepareModuleResume, thesisPlan } from './completion'
 import { readIntakePlan } from './intake'
 import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-changed'
 import { readDataNeeds } from './data-needs'
@@ -1339,6 +1339,85 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
         // run root now exists so the subject reads as resumable.
         const body = e?.body && typeof e.body === 'object' ? e.body : null
         return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', carried: prep.carriedAncestors, ...(body || {}) })
+      }
+    })
+  } catch (e: any) {
+    if (e instanceof SubjectBusyError) {
+      return reply.code(409).send({ error: `Another completion request for ${ticker} is already in progress. Wait for it to finish before retrying.`, code: 'subject_busy' })
+    }
+    throw e
+  }
+})
+
+// Execute the intake plan's SCOPED rerun in ONE pass — the batch answer to running its `/research:rerun`
+// commands one by one (which repeats every downstream synthesis + master + commit per orb, and publishes
+// an intermediate thesis between them). Stages the target root via carryForwardScoped — untouched modules
+// carried whole, entry modules carried minus the invalidated orbs + synthesis, downstream modules carried
+// minus synthesis only — then launches the ORDINARY full run: its existing module/orb skip machinery
+// re-runs exactly the gaps, DAG-parallel, ending in one master + finish-gate + commit. The plan itself is
+// read server-side (readIntakePlan: roster-validated, cascades recomputed) — the client never supplies
+// orb names, so a stale/spoofed body cannot widen the rerun (INTAKE.md §4 fail-closed).
+const IntakePlanRunBody = z.object({
+  ticker: z.string().regex(TICKER_RE),
+  // REQUIRED for the same reason as ThesisPlanRunBody — an omitted swarm must never default to research.
+  swarm: z.string().regex(MODULE_RE),
+})
+app.post('/api/intake-plan/run', { config: { rateLimit: { max: 20, timeWindow: '1 minute' } } }, async (req, reply) => {
+  // Same CSRF class as /api/thesis-plan/run: a paid, disk-writing plain POST.
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const parsed = IntakePlanRunBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const { ticker, swarm } = parsed.data
+  const { user, userVia } = identify(req)
+  if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  if (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
+    return reply.code(400).send({ error: `unknown ticker ${ticker}` })
+  }
+  if (swarm !== RESEARCH_SWARM_ID) {
+    return reply.code(400).send({ error: 'Scoped reruns are research-only for now.', code: 'swarm_unsupported' })
+  }
+  // The plan is the SERVER's read of the latest intake analysis — roster-validated commands only.
+  const intake = readIntakePlan(ticker)
+  const commands = intake?.rerun_plan?.commands ?? []
+  if (!intake || commands.length === 0) {
+    return reply.code(409).send({ error: 'No scoped rerun plan exists for this ticker — run the new-data analysis first.', code: 'no_plan' })
+  }
+  try {
+    // Same lock KEY as the sibling thesis-plan routes, so a scoped rerun and a completion can never carry
+    // into the same target root concurrently.
+    return await withSubjectLock(`thesis-plan:${ticker}`, async () => {
+      const busy = listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
+      if (busy) return reply.code(409).send({ error: `A run is already in flight on ${ticker}. Let it finish (or stop it) before re-running.`, code: 'subject_busy' })
+
+      // ONE plan snapshot for the completeness check AND the carry (no time-of-check/time-of-use gap).
+      // Reuse override = every reusable module: stale ones included — the scoped carry stages their
+      // finished copy and punches holes in it.
+      const first = thesisPlan(ticker)
+      if (first.complete) {
+        return reply.code(409).send({ error: 'Today\'s run root already has a final thesis — a scoped rerun would overwrite the decision of record. Use the single-orb Re-run for a same-day refresh.', code: 'already_complete', path: first.finalReportPath })
+      }
+      const snap = thesisPlan(ticker, undefined, first.reusable)
+
+      let staged: ReturnType<typeof carryForwardScoped>
+      try {
+        staged = carryForwardScoped(ticker, commands.map((c) => ({ module: c.module, agent: c.agent })), RESEARCH_SWARM_ID, snap)
+      } catch (e: any) {
+        return reply.code(500).send({ error: `could not stage the scoped rerun: ${e?.message || e}` })
+      }
+      // Fail-closed end to end: if EVERY plan command was dropped by roster validation, nothing scoped was
+      // staged — launching now would silently run a plain full run the user never asked for.
+      if (staged.scoped.length === 0 && staged.staleModules.length === 0) {
+        return reply.code(409).send({ error: 'The plan\'s entry orbs no longer match the roster — re-run the new-data analysis.', code: 'plan_stale', dropped: staged.droppedEntries })
+      }
+
+      try {
+        const out = await launch({ kind: 'full', ticker, user, userVia })
+        return { ...out, carried: staged.carried, scoped: staged.scoped, staleModules: staged.staleModules, dropped: staged.droppedEntries }
+      } catch (e: any) {
+        // The carry already landed on disk; sources are untouched and a retry reuses the staging — the run
+        // root now exists, so the cockpit will offer this subject as resumable. Honest, nothing lost.
+        const body = e?.body && typeof e.body === 'object' ? e.body : null
+        return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', carried: staged.carried, scoped: staged.scoped, ...(body || {}) })
       }
     })
   } catch (e: any) {
