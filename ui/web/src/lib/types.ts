@@ -765,6 +765,26 @@ export interface CycleSummary {
   phase?: 'fetch' | 'drain'
 }
 
+// GET /api/bridge/status — the company-news bridge's own state. `running` means the 12h loop is really
+// ticking (batch mode AND this engine won the singleton lock); when it is not, `idleReason` says why, so
+// the chip never shows a bare "off" with no explanation.
+export interface BridgeSubjectStatus { subject: string; notes: number; newestAt: string | null }
+export interface BridgeStatus {
+  mode: string
+  running: boolean
+  sweeping: boolean
+  intervalMin: number
+  subjects: BridgeSubjectStatus[]
+  totalNotes: number
+  lastSweepAt: string | null
+  nextSweepAt: string | null
+  last: { subjects: number; written: number; duplicates: number; analyses: number } | null
+  idleReason: string | null
+  /** the manifest exists but is unreadable/malformed right now — a real config error, reported even while
+   *  `running` is otherwise true, so a bad edit never reads as a quiet, valid zero-subject sweep */
+  manifestError: string | null
+}
+
 export interface NewsStatus {
   enabled: boolean
   running: boolean

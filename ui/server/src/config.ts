@@ -15,6 +15,32 @@ export const REPO_ROOT = process.env.ENGINE_REPO_ROOT
 
 export const AGENTS_DIR = path.join(REPO_ROOT, '.claude', 'agents')
 export const CONNECTORS_DIR = path.join(REPO_ROOT, '.claude', 'connectors')
+
+// ---- company-news bridge (batch mode) ----------------------------------------------------------------
+// The 12-hourly sweep that routes material wire events into a covered subject's data pool (bridge-batch.ts).
+// MODE IS AUTHORITATIVE and ships OFF: 'batch' runs the sweep; 'stream' is research-bridge.ts's existing
+// per-item path (SCREENER_RESEARCH_BRIDGE=1); they never run together. Even a misconfiguration is harmless —
+// the notes are keyed by event id on disk, so a double route is a no-op — but one owner keeps the ledger and
+// the follow-up analyses honest.
+export const BRIDGE_MODE = (() => {
+  const raw = String(process.env.BRIDGE_MODE || '').trim().toLowerCase()
+  return raw === 'batch' || raw === 'stream' ? raw : 'off'
+})()
+// True only when the operator EXPLICITLY wrote BRIDGE_MODE=off — as opposed to leaving it unset. Both
+// collapse into BRIDGE_MODE === 'off' above (the batch scheduler stays idle either way), but an explicit
+// kill switch must also disable the legacy SCREENER_RESEARCH_BRIDGE=1 per-item path, while an UNSET
+// BRIDGE_MODE preserves back-compat and defers to that flag alone (Codex #359 r3674305117).
+export const BRIDGE_MODE_EXPLICIT_OFF = String(process.env.BRIDGE_MODE || '').trim().toLowerCase() === 'off'
+// The sweep interval. 12h by default (two windows a day caps the follow-up analysis spend); overridable for
+// tests/ops, clamped to a sane band so a typo can neither hammer the pool nor silently disable the loop.
+export const BRIDGE_INTERVAL_MIN = (() => {
+  const raw = Number(process.env.BRIDGE_INTERVAL_MIN)
+  return Number.isFinite(raw) && raw >= 15 && raw <= 7 * 24 * 60 ? raw : 12 * 60
+})()
+// Where the bridge's own manifest + knobs live. NOT under .claude/connectors/: that namespace is for
+// feeds scripts/run_connectors.py fetches, and a row there for an in-cockpit sweep would read as a
+// permanently un-run feed (see the manifest's `notes`). Observability is GET /api/bridge/status.
+export const BRIDGE_DIR = path.join(REPO_ROOT, '.claude', 'bridge')
 export const COMMANDS_DIR = path.join(REPO_ROOT, '.claude', 'commands', 'research')
 export const DATA_DIR = path.join(REPO_ROOT, 'data')
 export const ANALYSES_DIR = path.join(REPO_ROOT, 'analyses')

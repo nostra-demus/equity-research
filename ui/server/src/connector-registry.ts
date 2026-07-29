@@ -18,6 +18,7 @@ export { CONNECTORS_DIR }
 // fixed clock — it is fetched only manually or near a known release, so the runner treats it as manual-only.
 export const CADENCE_MS: Record<string, number | null> = {
   realtime: 15 * 60_000, // a "realtime" feed is polled every 15 min (the runner is not a tick-by-tick streamer)
+  twelve_hourly: 12 * 3600_000, // two windows a day — the company-news bridge's cadence
   daily: 24 * 3600_000,
   weekly: 7 * 24 * 3600_000,
   monthly: 30 * 24 * 3600_000,
