@@ -1,0 +1,171 @@
+{
+  "schema_version": "1.0",
+  "ticker": "AMZN",
+  "run_root": "analyses/AMZN_2026-07-10",
+  "scan_date": "2026-07-29",
+  "scanned_at": "2026-07-29T18:08:11Z",
+  "watermark": "analyses/AMZN_2026-07-10/final_thesis.md",
+  "new_docs": [
+    {
+      "path": "data/AMZN/external/yipitdata/Cloud (AWS, Azure, GCP) _ Mar-26 Update.pdf",
+      "sha256": "6e2cc3d8e78c7d839b51ee942666363bf4640ba8aab4d2ca6bb0bd7d1215f103",
+      "provider": "YipitData",
+      "source_type": "alt_data_panel",
+      "tier": 5,
+      "as_of": "2026-03",
+      "claims_summary": "Panel-based 1Q26 AWS revenue growth estimate of 29.3% y/y, above Visible Alpha consensus (25.4%, ~2.3pp margin of error at 80% backtest); AWS AI-token share rose to 51% in Mar-26 from 16% a year ago while Azure's fell 53%->27%.",
+      "materiality_score": 68,
+      "impact_direction": "positive",
+      "entry_orbs": [
+        { "module": "earnings", "agent": "guidance-consensus",
+          "why": "The panel gives an independent Visible Alpha-consensus cross-check (with a stated vendor error margin) on AWS/Azure/GCP 1Q26 growth that the current guidance-consensus read does not carry.",
+          "confidence": 0.75 },
+        { "module": "earnings", "agent": "revenue-drivers",
+          "why": "The panel's AWS/cloud growth estimate and AI-token-share detail sit below the granularity of the run's current Q1 2026 10-Q-based revenue-driver read and directly speak to revenue-drivers' WHAT-TO-READ (alt-data panels, cloud growth decomposition).",
+          "confidence": 0.8 },
+        { "module": "business-model", "agent": "moat",
+          "why": "The AI-token-share swing (AWS 16%->51%, Azure 53%->27% y/y) is competitive-economics evidence bearing on moat's AWS-vs-Azure-vs-GCP competitive-position read.",
+          "confidence": 0.55 }
+      ]
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-14cd12418d3f.md",
+      "sha256": "eba445c0beea2dcd06eb1f1e0eec54542f9a5ba97219560dbf118065d9c0dd85",
+      "provider": "Nasdaq (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-17",
+      "claims_summary": "CEO Andy Jassy: Amazon's chip business (Trainium) has $225B in commitments and has topped a $20B annualized revenue run rate, growing triple digits y/y.",
+      "materiality_score": 20,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-37c9b5f64b76.md",
+      "sha256": "d7f727e90d1d8fb1467c86441b3a3dd26a4e7a55dd67c95d9d759b8814c249e8",
+      "provider": "Yahoo Finance (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-19",
+      "claims_summary": "Headline-only comparison piece contrasting Amazon's capex spending with Shopify's profitability strategy; no quantified Amazon-specific fact captured beyond the headline.",
+      "materiality_score": 15,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-7d9dc3fd4f31.md",
+      "sha256": "b33c0fb711bf0ef32f72ddac4bc99668c552654814e6af131f9d6e16e71360c5",
+      "provider": "TheStreet (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-21",
+      "claims_summary": "Cites an ICSC industry survey: 90% of consumers would accept slower shipping to save money, 61% say price matters more than convenience — framed as a risk to Amazon's speed-based moat. Third-party industry survey, not Amazon-specific data.",
+      "materiality_score": 25,
+      "impact_direction": "negative",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-98028fc2bd68.md",
+      "sha256": "602eb46acd209bcb98468f9472e4a16d1db41e607e43e51a4e87ee92efb1f5f5",
+      "provider": "24/7 Wall St. (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-21",
+      "claims_summary": "Opinion/bull-case piece repeating Q1 2026 earnings-call figures already in the pool: AWS backlog $364B, Trainium $225B commitments, $20B+ chip run rate, AWS Q1 growth 28%, 13.1% operating margin.",
+      "materiality_score": 12,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-bd42f71c12ab.md",
+      "sha256": "d20f8c9c1010e93fdf2bd02d69bef8fd900bc9af04c8b8f82a06d91da7630206",
+      "provider": "TheStreet (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-19",
+      "claims_summary": "WARN notice: Amazon closing its Port St. Lucie, FL fulfillment facility (PBI3), ~494 jobs, effective Sept 17 2026 — the second Florida closure after the Homestead, FL facility (~616 jobs), combined ~1,110 employees.",
+      "materiality_score": 30,
+      "impact_direction": "negative",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-d70fc1fc7894.md",
+      "sha256": "3d90e6fad1a4f397a0d94c4c0d6b93e7a66dc9cc2ec49356391072c05074cc5f",
+      "provider": "The Motley Fool (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-19",
+      "claims_summary": "Repeats Jassy's Q1 2026 call remarks: $200B 2026 capex is not 'on a hunch', Trainium chip business at $20B annual run rate, $225B in future revenue commitments.",
+      "materiality_score": 12,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-d91208d97714.md",
+      "sha256": "6cf6fc8b21e3227aa7d1bfdc9e50949a4128a3dc0afec6f0f5bc57a9f286e3cd",
+      "provider": "Nasdaq (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-13",
+      "claims_summary": "Amazon is 'reportedly' exploring external (third-party) sales of its custom Trainium/Inferentia AI chips, which would be a new revenue stream beyond internal AWS use and a direct challenge to Nvidia's pricing power.",
+      "materiality_score": 40,
+      "impact_direction": "positive",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-f9b6b15b50ff.md",
+      "sha256": "fb8f617c308078622c1e8fc7403e46528536c6d0210fa5d61804818263afba34",
+      "provider": "The Motley Fool (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-25",
+      "claims_summary": "Generic bull-case listicle ('3 reasons Amazon stock is a no-brainer buy') citing Amazon's 3-year stock return and growth in cloud/AI/chips; no new quantified fact.",
+      "materiality_score": 10,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    }
+  ],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [
+      { "module": "earnings", "agent": "guidance-consensus" },
+      { "module": "earnings", "agent": "revenue-drivers" },
+      { "module": "business-model", "agent": "moat" }
+    ],
+    "commands": [
+      {
+        "command": "/research:rerun earnings guidance-consensus AMZN",
+        "module": "earnings",
+        "agent": "guidance-consensus",
+        "cascade_modules": ["earnings", "balance-sheet-survival", "management-governance", "valuation", "catalyst"],
+        "triggered_by": ["data/AMZN/external/yipitdata/Cloud (AWS, Azure, GCP) _ Mar-26 Update.pdf"]
+      },
+      {
+        "command": "/research:rerun earnings revenue-drivers AMZN",
+        "module": "earnings",
+        "agent": "revenue-drivers",
+        "cascade_modules": ["earnings", "balance-sheet-survival", "management-governance", "valuation", "catalyst"],
+        "triggered_by": ["data/AMZN/external/yipitdata/Cloud (AWS, Azure, GCP) _ Mar-26 Update.pdf"]
+      },
+      {
+        "command": "/research:rerun business-model moat AMZN",
+        "module": "business-model",
+        "agent": "moat",
+        "cascade_modules": ["business-model", "earnings", "balance-sheet-survival", "management-governance", "valuation", "catalyst"],
+        "triggered_by": ["data/AMZN/external/yipitdata/Cloud (AWS, Azure, GCP) _ Mar-26 Update.pdf"]
+      }
+    ],
+    "note_only": [
+      { "path": "data/AMZN/screener_event_EVT-14cd12418d3f.md", "reason": "Tier-10 single wire source quoting Jassy's $225B Trainium-commitment figure — but that exact figure ('Trainium $225B+') is already cited in the current thesis (business-model/02_business-identity.md, business-model_dossier.md), sourced from the Q1 2026 earnings call transcript already in the pool. No incremental information." },
+      { "path": "data/AMZN/screener_event_EVT-37c9b5f64b76.md", "reason": "No quantified Amazon-specific claim beyond the headline; materiality 15 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-7d9dc3fd4f31.md", "reason": "Single tier-10 source paraphrasing a third-party (ICSC) industry survey, not Amazon-specific data; screener itself scored it irrelevant (31, drop band); materiality 25 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-98028fc2bd68.md", "reason": "Opinion piece; every figure it cites ($364B AWS backlog, $225B Trainium commitments, 28% AWS growth, 13.1% operating margin) is already in the current thesis via the Q1 2026 earnings-call transcript. No incremental information." },
+      { "path": "data/AMZN/screener_event_EVT-bd42f71c12ab.md", "reason": "Real, dated fact (WARN-notice facility closures) but immaterial at Amazon's scale (~1,110 employees vs >1.5M global headcount) — routine fulfillment-network optimization, not a change to segment economics; materiality 30 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-d70fc1fc7894.md", "reason": "Repeats the same Q1 2026 earnings-call figures ($200B capex, $20B Trainium run rate, $225B commitments) already reflected in the current thesis. No incremental information." },
+      { "path": "data/AMZN/screener_event_EVT-d91208d97714.md", "reason": "Single tier-10 source, 'reportedly', no verbatim quote or figures beyond the headline, and no filing or second independent source in the pool corroborates an external Trainium/Inferentia chip-sales plan — per INTAKE.md §5 a single uncorroborated wire claim defaults to note_only regardless of materiality score (40). Would be a real new angle for business-model/moat and the catalyst calendar if a second independent source or a filing confirms it." },
+      { "path": "data/AMZN/screener_event_EVT-f9b6b15b50ff.md", "reason": "Generic bull-case listicle with no new quantified fact; materiality 10 < gate." }
+    ]
+  },
+  "verdict": "scoped_rerun",
+  "summary": "Nine documents landed since the 2026-07-10 run's watermark: one tier-5 YipitData cloud-spend panel (unchanged and still unactioned since the 2026-07-23/07-24 intake scans) and eight tier-10 screener wire events, four of which are new since the last scan. The YipitData panel still clears the materiality gate (68) with an independent Visible Alpha-consensus cross-check and AI-token-share detail, so the scoped rerun (earnings/guidance-consensus, earnings/revenue-drivers, business-model/moat, and cascade) stands unchanged. Of the eight wire events, none clears the gate: three merely re-report Q1 2026 earnings-call figures ($225B Trainium commitments, $364B AWS backlog, $200B capex) already cited in the current thesis; one reports a real but scale-immaterial Florida facility closure; one cites a third-party industry survey; one is a headline-only piece; one is a generic bull listicle; and one reports an unconfirmed, single-sourced claim about external Trainium chip sales worth watching but not yet actionable."
+}
