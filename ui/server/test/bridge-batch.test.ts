@@ -317,6 +317,54 @@ check('writeCursors failure still reports fresh notes so the follow-up analysis 
   const writeNote = (a: { item: FeedItem }) => ({ already: false, path: `/fake/${a.item.event_id}.md` })
   const r = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, { ...opts, stateDir: deadState, writeNote })
   assert.deepEqual(r.subjectsWithFreshNotes, ['NHY'], 'the fresh-note result survives the cursor-persist failure')
+  // the failure is surfaced, not silently swallowed — an operator can see the cursor did not advance
+  // instead of the sweep quietly reporting as if it were clean (Codex review, PR #359).
+  assert.ok(r.cursorWriteError, 'cursorWriteError names the failure')
+})
+
+// ---- 18. review round: retention boundary disclosure (not a silent skip) ----
+check('a subject whose cursor predates the retention boundary is disclosed via retentionGapDays, not silently truncated with no record', () => {
+  const withinWindow = item({ ticker: 'NHY', ts: iso(10 * 24 * HOUR) }) // 10 days ago — inside the 14-day boundary
+  const { dataDir, stateDir, opts } = makeRepo(['NHY'], [withinWindow])
+  // the cursor is 20 days old — beyond RETENTION_BOUNDARY_DAYS (14)
+  fs.writeFileSync(path.join(stateDir, 'research-bridge-cursor.json'), JSON.stringify({ NHY: iso(20 * 24 * HOUR) }))
+  const r = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, { ...opts, lookbackDays: undefined })
+  const nhy = r.sweeps.find((s) => s.subject === 'NHY')!
+  assert.ok(nhy.retentionGapDays && nhy.retentionGapDays > 0, 'the truncated gap is disclosed, not silently absorbed')
+  assert.equal(nhy.written.length, 1, 'the item still inside the (clamped) window is still routed')
+  assert.ok(fs.existsSync(noteFor(dataDir, 'NHY', withinWindow.event_id)))
+})
+
+check('a fully-covered cursor (within the boundary) reports no retention gap', () => {
+  const e = item({ ticker: 'NHY', ts: iso(2 * HOUR) })
+  const { opts } = makeRepo(['NHY'], [e])
+  const r = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, opts) // fresh subject, well inside backfillHours
+  assert.equal(r.sweeps[0].retentionGapDays, null)
+})
+
+// ---- 19. review round: a disabled → re-enabled subject does not inherit its stale cursor ----
+check('disabling a subject then re-enabling it resets its cursor to a bounded backfill, not the whole disabled interval', () => {
+  const recentBeforeDisable = item({ ticker: 'AMZN', ts: iso(6 * HOUR) }) // read during wave 1
+  const duringDisable = item({ ticker: 'AMZN', ts: iso(-3.5 * 24 * HOUR) }) // NOW + 3.5 days — while "disabled"
+  const freshAfterReenable = item({ ticker: 'AMZN', ts: iso(-6 * 24 * HOUR) }) // NOW + 6 days — within 48h of wave 3
+  const { dataDir, opts } = makeRepo(['AMZN'], [recentBeforeDisable, duringDisable, freshAfterReenable])
+
+  // wave 1: AMZN enabled, at NOW — picks up the recent item, cursor advances
+  const w1 = sweepOnce(['AMZN'], DEFAULT_BATCH_CONFIG, opts)
+  assert.equal(w1.sweeps[0].written.length, 1)
+
+  // wave 2: AMZN removed from the enabled set (simulates it being disabled), 3 days later
+  sweepOnce([], DEFAULT_BATCH_CONFIG, { ...opts, now: () => new Date(NOW.getTime() + 3 * 24 * HOUR) })
+
+  // wave 3: AMZN re-enabled, 7 days after NOW (well past the boundary, and past `duringDisable`'s date)
+  const w3 = sweepOnce(['AMZN'], DEFAULT_BATCH_CONFIG, { ...opts, now: () => new Date(NOW.getTime() + 7 * 24 * HOUR) })
+  const amzn = w3.sweeps.find((s) => s.subject === 'AMZN')!
+  assert.equal(amzn.backfilled, true, 'the stale cursor was reset — treated as a fresh subject again')
+  assert.ok(fs.existsSync(noteFor(dataDir, 'AMZN', freshAfterReenable.event_id)), 'the item inside the bounded backfill lands')
+  assert.ok(
+    !fs.existsSync(noteFor(dataDir, 'AMZN', duringDisable.event_id)),
+    'the item from mid-way through the disabled interval is NOT dumped in — the whole gap is not replayed',
+  )
 })
 
 console.log(`\n${passed} bridge-batch checks passed`)

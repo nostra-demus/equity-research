@@ -169,6 +169,64 @@ export function accumulatedFor(dataDir: string, subject: string): { notes: numbe
 
 // ---- the sweep --------------------------------------------------------------------------------------
 
+// The most items one sweep's reader will return. Also passed as the dedup-clustering scan width (see
+// readFeed's dedupMaxScan) so a full 5,000-item catch-up page gets clustered in full — the wire-UI
+// default (NEWS.dedupMaxScan, 1,500) would otherwise leave the older ~3,500 rows un-reclustered and
+// overwrite their persisted `dedup_group`, un-clustering syndicated pairs the ingest-time pass had
+// already grouped (Codex review, PR #359: "Preserve dedup groups beyond the scan cap").
+const SWEEP_MAX_ITEMS = 5000
+
+// The explicit, documented catch-up retention boundary: a subject whose cursor is older than this many
+// days is NOT walked further back than this many days on this sweep. This is a DELIBERATE, disclosed
+// limit (mirrors the bounded `backfillHours` a brand-new subject already gets), not silent data loss —
+// when a subject's true gap exceeds it, the sweep still runs (routing whatever falls inside the
+// boundary) but reports `retentionGapDays` on that subject's result so the caller can log/surface it
+// instead of the cursor quietly advancing past an unread gap with no record it happened (Codex review,
+// PR #359: "Remove the 14-day catch-up truncation").
+const RETENTION_BOUNDARY_DAYS = 14
+
+const ENABLED_STATE_FILE = 'research-bridge-enabled.json'
+
+/** The subjects the LAST sweep considered enabled — used only to detect a disabled→re-enabled
+ *  transition (see the cursor-reset loop in sweepOnce below).
+ *
+ *  When the state file itself is missing or unreadable — a brand-new state dir, OR (more importantly)
+ *  an EXISTING deployment upgrading to this check for the first time, which already has real cursors
+ *  but has never written this file — fall back to `Object.keys(cursors)`: grandfather in every subject
+ *  that already has a cursor as "previously enabled", so the upgrade never wipes a live cursor out from
+ *  under it. A subject with no cursor either way still gets the same bounded backfill a brand-new
+ *  subject always got, so this is equally safe on a genuinely fresh install. */
+function readPreviouslyEnabled(stateDir: string, cursors: Cursors): Set<string> {
+  try {
+    const raw = JSON.parse(fs.readFileSync(path.join(stateDir, ENABLED_STATE_FILE), 'utf8'))
+    if (Array.isArray(raw?.subjects)) return new Set(raw.subjects.filter((s: unknown) => typeof s === 'string'))
+  } catch {
+    /* fall through to the cursor-grandfathering default below */
+  }
+  return new Set(Object.keys(cursors))
+}
+
+// Best-effort, like writeCursors: this is an auxiliary marker for the re-enable check above, not the
+// sweep's core job (routing notes). A write failure here (state disk full, an ENOTDIR state path) must
+// NEVER abort the whole sweep before any note gets written — that would be a far worse regression than
+// the stale-cursor bug this file exists to fix. Losing an update just means the NEXT sweep falls back to
+// the cursor-grandfathering default in readPreviouslyEnabled, which is always safe (see its own comment).
+function writeEnabledState(stateDir: string, subjects: string[]): void {
+  try {
+    fs.mkdirSync(stateDir, { recursive: true })
+    const fp = path.join(stateDir, ENABLED_STATE_FILE)
+    const tmp = `${fp}.tmp.${process.pid}.${Math.random().toString(36).slice(2)}`
+    try {
+      fs.writeFileSync(tmp, JSON.stringify({ subjects }, null, 2))
+      fs.renameSync(tmp, fp)
+    } finally {
+      try { fs.unlinkSync(tmp) } catch { /* renamed away — the normal case */ }
+    }
+  } catch {
+    /* best-effort — see the doc comment above */
+  }
+}
+
 export interface SubjectSweep {
   subject: string
   /** notes written THIS sweep (fresh only — a duplicate is not counted) */
@@ -177,10 +235,16 @@ export interface SubjectSweep {
   duplicates: number
   /** items considered for this subject after the ticker match */
   considered: number
-  /** true when this subject had no cursor and the sweep used the capped backfill window instead */
+  /** true when this subject had no cursor and the sweep used the capped backfill window instead
+   *  (a brand-new subject, OR one just reset by a disabled→re-enabled transition — see
+   *  RETENTION_BOUNDARY_DAYS / readPreviouslyEnabled above) */
   backfilled: boolean
   /** the new cursor (unchanged when nothing was considered) */
   cursor: string
+  /** set (to the approximate number of days) when this subject's cursor was older than
+   *  RETENTION_BOUNDARY_DAYS — the sweep did NOT walk back far enough to fully cover it, by explicit,
+   *  documented design; null when the cursor was fully covered by this sweep's reader window */
+  retentionGapDays: number | null
 }
 
 export interface BatchSweepResult {
@@ -188,6 +252,11 @@ export interface BatchSweepResult {
   /** subjects that gained at least one FRESH note — the only ones an analysis should be launched for */
   subjectsWithFreshNotes: string[]
   scannedItems: number
+  /** set when writeCursors() threw AFTER notes were already written this sweep — subjectsWithFreshNotes
+   *  above is still valid (a persistence failure never erases it, see the writeCursors call below), but
+   *  the cursors did NOT advance, so the next sweep re-reads this same window (safe: bridgeEventToSubject's
+   *  on-disk dedup makes the replay a no-op). */
+  cursorWriteError?: string
 }
 
 export interface SweepOpts {
@@ -220,6 +289,16 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
   const writeNote = opts.writeNote ?? bridgeEventToSubject
   const cursors = readCursors(opts.stateDir)
 
+  // A subject transitioning from disabled/absent → enabled must not inherit a stale cursor left over from
+  // BEFORE it was disabled: without this, re-enabling a name after (say) a week off silently dumps the
+  // whole disabled interval into its pool instead of going through the same bounded `backfillHours` catch-up
+  // a brand-new subject gets (Codex review, PR #359: "Reset stale cursors when subjects are re-enabled").
+  const previouslyEnabled = readPreviouslyEnabled(opts.stateDir, cursors)
+  for (const s of subjects) {
+    if (!previouslyEnabled.has(s)) delete cursors[s]
+  }
+  writeEnabledState(opts.stateDir, subjects)
+
   // Per-subject window start, computed BEFORE the read: a subject with no cursor gets the capped backfill,
   // one with a cursor resumes exactly where it stopped.
   const sinceMsFor = new Map<string, number>()
@@ -230,15 +309,19 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
   }
   // The reader window must COVER the oldest subject's cursor, or an outage longer than the window would
   // silently drop every event in the gap — the cursor would resume past days the reader never returned.
-  // Derived, not fixed; clamped so a very old cursor cannot make one sweep walk the entire archive.
+  // Derived, not fixed; clamped to the explicit RETENTION_BOUNDARY_DAYS so a very old cursor cannot make
+  // one sweep walk the entire archive. A subject whose true gap exceeds the boundary is NOT silently
+  // covered by this clamp — see the `retentionGapDays` disclosure per-subject below.
   const oldestSinceMs = subjects.length ? Math.min(...subjects.map((s) => sinceMsFor.get(s) as number)) : nowMs
   const neededDays = Math.ceil(Math.max(0, nowMs - oldestSinceMs) / 86_400_000) + 1
-  const lookbackDays = opts.lookbackDays ?? Math.min(14, Math.max(2, neededDays))
+  const lookbackDays = opts.lookbackDays ?? Math.min(RETENTION_BOUNDARY_DAYS, Math.max(2, neededDays))
+  const windowStartMs = nowMs - lookbackDays * 86_400_000
 
   const snap = readFeed(opts.repoRoot, lookbackDays, {
     now,
     archiveDir: opts.archiveDir ?? '',
-    maxItems: 5000,
+    maxItems: SWEEP_MAX_ITEMS,
+    dedupMaxScan: SWEEP_MAX_ITEMS,
   })
   const items: FeedItem[] = Array.isArray((snap as any)?.items) ? (snap as any).items : []
   // oldest → newest, so a cursor is always the NEWEST thing we have seen for that subject
@@ -307,7 +390,11 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
 
     nextCursors[subject] = newestIso
     if (written.length) fresh.push(subject)
-    sweeps.push({ subject, written, duplicates, considered, backfilled: !had, cursor: newestIso })
+    // The gap the reader's window did NOT reach for this subject — >0 only when its own cursor predates
+    // this sweep's actual window start (i.e. the retention boundary clamped how far back we looked).
+    const uncoveredMs = Math.max(0, windowStartMs - since)
+    const retentionGapDays = uncoveredMs > 0 ? Math.ceil(uncoveredMs / 86_400_000) : null
+    sweeps.push({ subject, written, duplicates, considered, backfilled: !had, cursor: newestIso, retentionGapDays })
   }
 
   // Persist cursors LAST. If this throws (state disk full, rename fails), the window simply repeats next
@@ -315,10 +402,13 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
   // report: if we let the throw propagate, the scheduler launches no follow-up analysis, and next sweep those
   // same notes are duplicates (never "fresh"), so the advertised advisory analysis is skipped forever with
   // INTAKE_AUTO_ANALYZE=0 (Codex #359 r3673881630). Report the result regardless of cursor-persist success.
+  const result: BatchSweepResult = { sweeps, subjectsWithFreshNotes: fresh, scannedItems: items.length }
   try {
     writeCursors(opts.stateDir, nextCursors)
-  } catch {
-    /* cursor persist failed — window repeats, dedup absorbs it; fresh-note result below still stands */
+  } catch (e: any) {
+    // Surfaced, not swallowed: the notes/analyses above are safe either way, but an operator should be able
+    // to see that the cursor didn't advance instead of the sweep silently reporting as if it were clean.
+    result.cursorWriteError = String(e?.message || e)
   }
-  return { sweeps, subjectsWithFreshNotes: fresh, scannedItems: items.length }
+  return result
 }

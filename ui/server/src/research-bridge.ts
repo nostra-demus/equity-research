@@ -277,15 +277,27 @@ export function bridgeEventToSubject(o: {
   const md = renderEventNote({ item: o.item, ticker: seg, mode: o.mode, user: o.user, enrichment: o.enrichment, now: o.opts.now })
   // The temp file lives in the SAME directory (data/ is a Drive/FUSE mount — a cross-device rename
   // would EXDEV) and starts with a dot so the pool scanners (which skip dot-files) never count it.
-  // The finally-unlink clears it if the rename fails (a Drive flake must not leave litter behind).
   // random suffix (not just pid) — two concurrent sends for the SAME event+ticker in the same process
-  // would otherwise share one tmp name and race on write/rename
+  // would otherwise share one tmp name and race on write/rename.
+  //
+  // The move onto `fp` is a HARD LINK, not a rename: a plain rename always succeeds and would silently
+  // CLOBBER a note another writer created between our existence/dedup checks above and this line — the
+  // exact race a manual "Send to research" click, a stream-mode delivery, and this batch sweep can all
+  // hit against the SAME pool. fs.linkSync is atomic AND exclusive: it throws EEXIST if `fp` now exists,
+  // so the loser here reports `already: true` instead of overwriting the winner's note (Codex review,
+  // PR #359). The temp file is written in full first, so the eventual link still hands the pool a
+  // complete file, never a partial one.
   const tmp = path.join(dir, `.${noteName}.tmp.${process.pid}.${Math.random().toString(36).slice(2)}`)
   try {
     fs.writeFileSync(tmp, md)
-    fs.renameSync(tmp, fp)
+    try {
+      fs.linkSync(tmp, fp)
+    } catch (e: any) {
+      if (e?.code === 'EEXIST') return { path: rel, already: true }
+      throw e
+    }
   } finally {
-    try { fs.unlinkSync(tmp) } catch { /* already renamed away — the normal case */ }
+    try { fs.unlinkSync(tmp) } catch { /* best-effort cleanup either way (linked-away or still there) */ }
   }
   audit(o.opts.stateDir, {
     v: 1,

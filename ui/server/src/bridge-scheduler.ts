@@ -57,8 +57,31 @@ export interface BridgeStatus {
   idleReason: string | null
 }
 
+// ---- routed-note count cache --------------------------------------------------------------------------
+// GET /api/bridge/status is polled every ~60s by every open cockpit tab (the news-bridge chip). Each call
+// used to `statSync` every routed note in every covered subject's pool (accumulatedFor) on every single
+// request — on a Drive/FUSE mount that blocks Fastify's one event loop, and the cost grows with total note
+// history AND with how many tabs are polling. A short TTL cache means at most one full rescan per window
+// regardless of how many tabs ask; it's invalidated right after every sweep (below) so a poll immediately
+// after a sweep still sees the fresh counts, never a stale pre-sweep number (Codex review, PR #359:
+// "Cache routed-note counts outside the status request").
+const SUBJECT_COUNTS_TTL_MS = 20_000
+let subjectCountsCache: { at: number; subjects: string[]; counts: BridgeSubjectStatus[] } | null = null
+
+function subjectCounts(subjects: string[]): BridgeSubjectStatus[] {
+  const cache = subjectCountsCache
+  const fresh = cache
+    && Date.now() - cache.at < SUBJECT_COUNTS_TTL_MS
+    && cache.subjects.length === subjects.length
+    && cache.subjects.every((s, i) => s === subjects[i])
+  if (fresh) return cache!.counts
+  const counts = subjects.map((subject) => ({ subject, ...accumulatedFor(DATA_DIR, subject) }))
+  subjectCountsCache = { at: Date.now(), subjects, counts }
+  return counts
+}
+
 export function getBridgeStatus(): BridgeStatus {
-  const subjects = currentSubjects().map((subject) => ({ subject, ...accumulatedFor(DATA_DIR, subject) }))
+  const subjects = subjectCounts(currentSubjects())
   const running = BRIDGE_MODE === 'batch' && timer !== null
   return {
     mode: BRIDGE_MODE,
@@ -103,6 +126,23 @@ export async function runBridgeSweep(launchAnalysis: (ticker: string) => Promise
   let analyses = 0
   for (const subject of res.subjectsWithFreshNotes) {
     try { if (await launchAnalysis(subject)) analyses++ } catch { /* busy / capacity — the notes still landed */ }
+  }
+
+  // A note landed this sweep → the cached status counts are now stale.
+  if (written > 0) subjectCountsCache = null
+
+  // Honest disclosure, not a silent skip: a subject whose cursor predates the retention boundary had its
+  // catch-up window intentionally clamped (bridge-batch.ts's RETENTION_BOUNDARY_DAYS) — surface it so an
+  // operator can see it instead of the gap just vanishing (Codex review, PR #359).
+  const gapped = res.sweeps.filter((s) => s.retentionGapDays)
+  if (gapped.length) {
+    log(`retention boundary hit for ${gapped.map((s) => `${s.subject} (~${s.retentionGapDays}d uncovered)`).join(', ')} — cursor older than the catch-up window; that gap is an intentional, disclosed limit, not routed`)
+  }
+  // A cursor-persistence failure never erases the notes/analyses already landed above (sweepOnce always
+  // returns subjectsWithFreshNotes even when writeCursors throws) — but it DOES mean the cursor didn't
+  // advance, so say so instead of pretending the sweep was clean (Codex review, PR #359).
+  if (res.cursorWriteError) {
+    log(`cursor persistence failed after this sweep (${res.cursorWriteError}) — the next sweep re-reads this same window (safe: on-disk note dedup makes the replay a no-op)`)
   }
 
   lastSweepAt = new Date().toISOString()

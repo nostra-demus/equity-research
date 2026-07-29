@@ -107,12 +107,23 @@ function withActiveWeights(items: FeedItem[]): void {
 
 /** Recompute story-cluster ids over the whole returned window, so the wire de-dupes the EXISTING
  *  backlog on load (the firehose lines were stamped against a narrower per-cycle window, or predate
- *  dedup entirely). Idempotent + fail-soft (assignDedupGroups never throws). Mutates in place. */
-function withDedup(items: FeedItem[]): void {
+ *  dedup entirely). Idempotent + fail-soft (assignDedupGroups never throws). Mutates in place.
+ *
+ *  `maxScanOverride` lets a caller reading a PAGE LARGER than the wire-UI default (bridge-batch.ts asks
+ *  for up to 5,000 items in one catch-up sweep) widen the clustering scan to cover its whole page.
+ *  Without it, assignDedupGroups only re-clusters the newest `NEWS.dedupMaxScan` (1,500) of a 5,000-item
+ *  page — items outside that cut fall back to `groups.get(...) || it.event_id`, which used to OVERWRITE
+ *  each of those rows' already-persisted `dedup_group` with its own event id, silently un-clustering any
+ *  older syndicated pair that the ingest-time (per-cycle) clustering had already correctly grouped
+ *  (Codex review, PR #359: "Preserve dedup groups beyond the scan cap"). Falling back to the item's OWN
+ *  existing `dedup_group` first (instead of its event id) means a row outside the recomputation window
+ *  keeps whatever cluster it already carried. */
+function withDedup(items: FeedItem[], maxScanOverride?: number): void {
   if (!NEWS.dedupEnabled || items.length < 2) return
-  const cfg: DedupConfig = { windowHours: NEWS.dedupWindowHours, jaccard: NEWS.dedupJaccard, verbatimJaccard: NEWS.dedupVerbatimJaccard, maxScan: NEWS.dedupMaxScan }
+  const maxScan = maxScanOverride && maxScanOverride > 0 ? maxScanOverride : NEWS.dedupMaxScan
+  const cfg: DedupConfig = { windowHours: NEWS.dedupWindowHours, jaccard: NEWS.dedupJaccard, verbatimJaccard: NEWS.dedupVerbatimJaccard, maxScan }
   const groups = assignDedupGroups(items.map((it) => ({ event_id: it.event_id, headline: it.headline, ts: it.ts, companies: it.companies, source_name: it.source_name })), cfg)
-  for (const it of items) it.dedup_group = groups.get(it.event_id) || it.event_id
+  for (const it of items) it.dedup_group = groups.get(it.event_id) || it.dedup_group || it.event_id
 }
 
 function firehosePath(repoRoot: string, date: string): string {
@@ -262,7 +273,7 @@ export interface FeedSnapshot {
  * Read the last `days` firehose files (today first) and split records by kind. Items come back
  * newest-first, capped, corrupt lines skipped — same tolerance discipline as the ledger readers.
  */
-export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; maxItems?: number; archiveDir?: string; applyActiveWeights?: boolean; predicate?: (it: FeedItem) => boolean } = {}): FeedSnapshot {
+export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; maxItems?: number; archiveDir?: string; applyActiveWeights?: boolean; predicate?: (it: FeedItem) => boolean; dedupMaxScan?: number } = {}): FeedSnapshot {
   const now = opts.now || (() => new Date())
   const maxItems = opts.maxItems && opts.maxItems > 0 ? opts.maxItems : 1000
   const archiveDir = opts.archiveDir || '' // Google Drive mount folder — read older days from here after local prune
@@ -310,7 +321,7 @@ export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; m
   // items qualify for clustering: it uses the persisted ingest-time scores (which already reflect the
   // weights in force when each item was ingested). Default on, so every display consumer is unaffected.
   if (opts.applyActiveWeights !== false) withActiveWeights(capped)
-  withDedup(capped) // story-cluster the served window so the wire shows one row per story
+  withDedup(capped, opts.dedupMaxScan) // story-cluster the served window so the wire shows one row per story
   return { items: capped, cycles }
 }
 
