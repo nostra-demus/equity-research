@@ -106,7 +106,7 @@ function BridgeChip() {
     : '  (no subjects covered yet)'
   const title = status.running
     ? `News bridge — on, sweeping every ${Math.round(status.intervalMin / 60)}h.\nRouted into research pools so far:\n${perSubject}\nEach note lands in that company's data pool and the cheap analysis scopes which orbs it affects — the paid re-run stays your click.`
-    : `News bridge is off — ${status.idleReason || 'no reason reported'}.\nRouted so far: ${status.totalNotes}. Click to see the data pools.`
+    : `News bridge — off.\n${status.idleReason || 'No reason reported by the engine.'}\nRouted so far: ${status.totalNotes}. Click to see the data pools.`
   return (
     <button className="autoscan" onClick={openDataLibrary} title={title}>
       <span className={`autoscan__dot${status.running ? ' autoscan__dot--on' : ''}${sweeping ? ' autoscan__dot--busy' : ''}`} />
