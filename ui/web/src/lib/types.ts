@@ -80,6 +80,10 @@ export interface IntakePlan {
   // OPTIONAL on purpose — an older server omits it, and the affirmative "no new data" state must require
   // `=== true` (a positive match), never treat an absent field as current (deploy-skew fail-closed).
   pool_current?: boolean
+  // True iff this plan's own commands already ran (a copy `carryForwardScoped` staged, whose root has since
+  // finished) — the server already empties `rerun_plan.commands` in that case, so an older client with no
+  // knowledge of this field still renders the correct "nothing to re-run" state; this is metadata only.
+  consumed?: boolean
 }
 // The scoping the intake plan applied to a "Complete the thesis" plan (client-only), so the panel can
 // explain "kept N the evidence doesn't touch; re-running the affected ones" and offer the escape hatch.

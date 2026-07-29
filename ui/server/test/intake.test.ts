@@ -228,5 +228,42 @@ const planNoWit = readIntakePlan('NOWIT')
 assert.ok(planNoWit, 'the empty plan is served')
 assert.equal(planNoWit!.pool_current, false, 'no scanned_at and an invalid scan_date → fail closed (pool_current false), never affirm without a durable witness')
 
+// ---- 14. `consumed`: a plan copy STAMPED staged_for_scoped_rerun, in a root whose final deliverables have
+//          actually landed, is retired — commands emptied, `consumed: true`, so the cockpit never claims
+//          already-incorporated data still needs a rerun (Codex #358 r3673980745). ----------------------
+const consumedRun = `analyses/CONSUMED_${TODAY}`
+write(`${consumedRun}/final_thesis.md`, '# thesis\n')
+write(`${consumedRun}/decision_record.json`, '{}')
+const consumedFixture = { ...planFixture, ticker: 'CONSUMED', run_root: consumedRun, scan_date: TODAY, staged_for_scoped_rerun: true }
+write(`${consumedRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify(consumedFixture, null, 2))
+const planConsumed = readIntakePlan('CONSUMED')
+assert.ok(planConsumed, 'a consumed plan is still SERVED (kept for the audit trail), never nulled')
+assert.equal(planConsumed!.consumed, true, 'stamped + root finished → consumed')
+assert.equal(planConsumed!.rerun_plan.commands.length, 0, 'a consumed plan reports nothing actionable — its commands already ran')
+assert.notEqual(planConsumed!.verdict, 'scoped_rerun', 'a consumed plan must never claim a live scoped rerun')
+
+// ---- 15. the SAME stamp, but the root has not actually finished yet (still in flight / launch never
+//          admitted) → NOT consumed: a retry after a failed launch must still find the plan's commands. --
+const pendingRun = `analyses/PENDING_${TODAY}`
+const pendingFixture = { ...planFixture, ticker: 'PENDING', run_root: pendingRun, scan_date: TODAY, staged_for_scoped_rerun: true }
+write(`${pendingRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify(pendingFixture, null, 2))
+const planPending = readIntakePlan('PENDING')
+assert.ok(planPending, 'plan still served while the run is in flight (no final deliverables yet)')
+assert.equal(planPending!.consumed, false, 'staged but not yet finished → not consumed, commands must survive for a retry')
+assert.equal(planPending!.rerun_plan.commands.length, 1)
+
+// ---- 16. an ORDINARY (un-stamped) plan sitting in the finished run it targets — the common, intended case
+//          (INTAKE.md: the plan deliberately lives under the OLDER run it invalidates) — must NEVER be
+//          treated as consumed just because that run happens to be finished. -----------------------------
+const ordinaryRun = `analyses/ORDINARY_${YESTERDAY}`
+write(`${ordinaryRun}/final_thesis.md`, '# thesis\n')
+write(`${ordinaryRun}/decision_record.json`, '{}')
+const ordinaryFixture = { ...planFixture, ticker: 'ORDINARY', run_root: ordinaryRun, scan_date: TODAY }
+write(`${ordinaryRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify(ordinaryFixture, null, 2))
+const planOrdinary = readIntakePlan('ORDINARY')
+assert.ok(planOrdinary)
+assert.equal(planOrdinary!.consumed, false, 'no stamp → never consumed, even though the run it sits in is finished (the ordinary, intended case)')
+assert.equal(planOrdinary!.rerun_plan.commands.length, 1, 'the ordinary, not-yet-executed case must keep executing normally')
+
 console.log('intake.test.ts: all assertions passed')
 fs.rmSync(REPO, { recursive: true, force: true })

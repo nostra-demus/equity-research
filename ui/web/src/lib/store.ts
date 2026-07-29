@@ -453,6 +453,9 @@ interface State {
   resetThesisReuse: () => void // the "re-run everything" escape hatch — drop the intake scoping, re-run all stale
   completeThesis: () => Promise<void>
   resumeThesisModule: (module: string) => Promise<void> // the RUN pill — launch one module, resuming its orbs
+  // the New-data dock's one-pass scoped rerun (POST /api/intake-plan/run) — attaches to the run immediately
+  scopedRerunPending: boolean
+  runScopedRerun: () => Promise<void>
 
   openReport: (tier: 'memo' | 'thesis' | 'dossier') => Promise<void>
   openModuleReport: (module: string, tier: 'synthesis' | 'memo' | 'dossier') => void
@@ -827,6 +830,7 @@ export const useStore = create<State>((set, get) => ({
   selectedNodeKey: null,
   launchConfirm: null,
   launchPending: null,
+  scopedRerunPending: false,
   stoppingRuns: {},
   readinessGate: null,
   toast: null,
@@ -1793,6 +1797,76 @@ export const useStore = create<State>((set, get) => ({
         get().setToast({ msg: e?.message || 'Couldn’t re-price that change — nothing was changed.', tone: 'bad' })
       }
     })()
+  },
+
+  // One-pass scoped rerun (the New-data dock's confirm strip). Attaches to the returned run IMMEDIATELY
+  // via beginRun — the same treatment every other launch path gets — so readiness decisions, progress and
+  // cancel are on screen at once instead of waiting ~20s for the background active-run poll (Codex #358
+  // r3672400227). Orb lighting is honest at ORB level (not just module level): only each stale module's
+  // named omitted specialists + its synthesis are queued — staging carries every sibling/downstream
+  // specialist forward untouched, so queuing the whole module would leave those carried orbs looking stuck
+  // "queued" forever with no agent events ever arriving for them (Codex #358 r3673980749).
+  runScopedRerun: async () => {
+    const t = get().selectedTicker
+    if (!t || get().scopedRerunPending) return
+    if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' }); return }
+    // Captured BEFORE the request: if the user switches tickers while this is in flight, `nodesByKey` and
+    // `beginRun` (which reads `selectedTicker` itself) would both resolve against the NEW ticker — silently
+    // registering and rendering ticker A's scoped run as ticker B's (Codex #358 r3673980759).
+    const token = get().selectToken
+    set({ scopedRerunPending: true })
+    try {
+      const { runId, staleModules, carried, scoped, chained } = await api.runIntakePlan(t, 'research')
+      if (chained) set({ chainTickers: new Set(get().chainTickers).add(t) })
+      if (get().selectToken !== token) {
+        // Selection moved on — attach the run in the background (mirrors resumeRun's "not onScreen" path)
+        // instead of mutating whatever ticker is now selected with A's run info.
+        if (runId) { connectRun(get, runId); void get().refreshActiveRuns() }
+        get().setToast({ msg: `Scoped re-run started on ${t} — running in the background.`, tone: 'good' })
+        return
+      }
+      const nodes = [...get().nodesByKey.values()]
+      const staleSet = new Set(staleModules ?? [])
+      const carriedSet = new Set((carried ?? []).map((c) => c.module))
+      // Map each specialist orb's output filename (`${nn}_${slug}.md`, roster.ts's outputRel convention) to
+      // its node key, scoped by module, so `scoped[].omittedOrbs` (server-side filenames) can be translated
+      // into the exact keys to queue.
+      const fileToKey = new Map<string, string>()
+      for (const n of nodes) if (!n.isSynthesis) fileToKey.set(`${n.module}::${n.nn}_${n.slug}.md`, n.key)
+      const scopedByModule = new Map((scoped ?? []).map((s) => [s.module, s]))
+      const plannedKeys: string[] = []
+      for (const m of staleSet) {
+        const s = scopedByModule.get(m)
+        if (s) {
+          for (const f of s.omittedOrbs ?? []) {
+            const k = fileToKey.get(`${m}::${f}`)
+            if (k) plannedKeys.push(k)
+          }
+        } else {
+          // Defensive fallback only: a stale module the server could not stage with holes (never finished
+          // anywhere) runs WHOLE — queue every one of its orbs rather than silently under-report it.
+          for (const n of nodes) if (n.module === m && !n.isSynthesis) plannedKeys.push(n.key)
+        }
+        const synth = nodes.find((n) => n.isSynthesis && n.module === m)
+        if (synth) plannedKeys.push(synth.key)
+      }
+      const plannedSet = new Set(plannedKeys)
+      // Everything else in a stale module (the carried specialists) — or a wholly-carried module — is
+      // already done, not "queued": it never runs again, so it must not sit on screen looking stuck.
+      const doneKeys = nodes.filter((n) => carriedSet.has(n.module) || (staleSet.has(n.module) && !plannedSet.has(n.key))).map((n) => n.key)
+      if (runId) {
+        beginRun(set, get, runId, { kind: 'full', willCommitToMain: true }, plannedKeys, doneKeys)
+      } else {
+        void get().refreshActiveRuns()
+      }
+      get().setToast({ msg: 'Scoped re-run started — one pass, one final thesis.', tone: 'good' })
+    } catch (e: any) {
+      // the route's honest codes (no_plan / plan_stale / plan_widened / run_incomplete / already_complete /
+      // subject_busy / CLAUDE_CLI_MISSING) surface verbatim — never a silent fallback to a bigger run
+      get().setToast({ msg: e?.body?.error || e?.message || 'Could not start the scoped re-run.', tone: 'bad' })
+    } finally {
+      set({ scopedRerunPending: false })
+    }
   },
 
   completeThesis: async () => {

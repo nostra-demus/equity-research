@@ -795,3 +795,207 @@ export function prepareModuleResume(subject: string, module: string, swarmId: st
   // Missing module → runs whole. Nothing to carry for the module itself.
   return { carriedAncestors, resumedFrom: null, doneOrbKeys: [], willRunAgents: entry.totalAgents, discardedStaleOrbs: false }
 }
+
+// ---- scoped batch rerun (executes an intake plan in ONE pass) --------------------------------------
+
+export interface ScopedCarryResult {
+  /** untouched modules carried whole (CARRIED_FORWARD provenance) */
+  carried: { module: string; from: string }[]
+  /** stale modules staged with HOLES so the full-run resume machinery re-runs exactly the gaps */
+  scoped: { module: string; from: string | null; omittedOrbs: string[]; synthesisOnly: boolean; inPlace: boolean }[]
+  /** modules the launched full run will (re)build — entry modules + their transitive downstream */
+  staleModules: string[]
+  /** entry orbs that failed roster validation and were dropped (fail-closed, INTAKE.md §4) */
+  droppedEntries: { module: string; agent: string }[]
+}
+
+/** The provenance stamp for a SCOPED module — written under the same RESUMED_FROM.md filename the single-
+ *  module resume uses, because structurally this IS a resume (finished orbs carried verbatim, the omitted
+ *  ones re-run here) and the cockpit/roster already read that marker's provenance comment. No `Agent:`
+ *  line (eval check H).
+ *
+ *  Deliberately PROSPECTIVE, not retrospective: this is written at STAGING time — before launch admission,
+ *  the readiness gate, or a single agent has actually executed. Earlier wording asserted the omitted work
+ *  "was re-run", which is false the instant admission fails or this module's agent aborts; the partial run
+ *  would then keep an audit marker claiming evidence was refreshed that never was (Codex #358 r3673980767).
+ *  So the prose only ever claims what is TRUE at write time — what was carried and what is scoped to run —
+ *  and points the reader at the one thing that can't lie: whether `99_*-synthesis.md` actually exists. */
+function scopedNote(module: string, fromRunRoot: string, fromDate: string | null, intoRunRoot: string, omittedOrbs: string[], synthesisOnly: boolean): string {
+  const vintage = fromDate ? ` (run dated ${fromDate})` : ''
+  const provenance = fromDate ? `<!-- resumed-from: ${fromRunRoot} | run-date: ${fromDate} -->\n\n` : ''
+  const what = synthesisOnly
+    ? 'only this module\'s synthesis (its upstream evidence changed — the specialists\' own inputs did not)'
+    : `the orb${omittedOrbs.length === 1 ? '' : 's'} ${omittedOrbs.map((o) => `\`${o}\``).join(', ')} and this module's synthesis`
+  return `${provenance}# Scoped re-run — ${module}
+
+> New data invalidated part of this module, so it is **staged for a scoped rerun, not a rebuild from
+> scratch**. The finished specialist orbs were carried verbatim from the run below; ${what}
+> ${synthesisOnly ? 'is' : 'are'} scoped to re-run against the refreshed pool for THIS run.
+>
+> **This note is written at staging time, before the rerun executes.** It records what was carried and
+> what is scoped to run — it is not a claim that the rerun has finished. If the launch never starts, or
+> this module's agent aborts, the work above was never actually refreshed; this module's own
+> \`99_*-synthesis.md\` (present or not) is the ground truth for whether it completed.
+
+- Carried from: \`${fromRunRoot}\`${vintage}
+- Copied into: \`${intoRunRoot}\`
+- The carried orbs keep the vintage of the run that produced them, not this run's date.
+
+**How to read this.** The intake plan that scoped these holes rides in THIS run root
+(\`intake/*_intake_plan.json\`, copied verbatim from the run whose analysis produced it); it names the
+documents that landed and the exact orbs they invalidate. This module is scoped to re-run exactly those
+plus its synthesis, and every module downstream of it is scoped to re-run its synthesis. The rest of the
+run is carried, priced and stamped.
+`
+}
+
+/**
+ * Stage the target run root so the EXISTING full-run machinery executes an intake plan's scoped rerun in
+ * ONE pass — the batch twin of `prepareModuleResume`, built from the same three primitives:
+ *
+ *   - untouched modules → carried whole (`carryForwardModules`), so both full-run paths skip them;
+ *   - an ENTRY module (an orb the new data invalidated) → carried with HOLES: the affected orb outputs and
+ *     its `99_*` synthesis (+ memo/dossier, regenerated) are omitted, so MODULE_PIPELINE Step 4A re-runs
+ *     exactly the missing orbs and then the synthesis;
+ *   - a DOWNSTREAM module (transitively depends on an entry module) → carried with only its synthesis
+ *     (+ memo/dossier) omitted: all orbs on disk → zero specialists dispatched, the `99` re-reads the
+ *     refreshed upstream — precisely `/research:rerun`'s synthesis-only cascade, deduplicated across all
+ *     entry orbs and finished by ONE master + finish-gate + commit.
+ *
+ * A stale module already FINISHED in the target root (`mustReuse` — both full-run paths skip on its `99`
+ * presence, so no copy can force a re-run) is hole-punched IN PLACE: same deletion set, applied to today's
+ * root directly. Prior-dated folders are never modified (synthesizer.md standing rule) — today's root is
+ * the workspace.
+ *
+ * Validation is fail-closed like `readIntakePlan`: an entry orb naming an unknown module/agent is DROPPED
+ * and reported, never guessed. Caller holds the subject lock and has proven the target root is not
+ * complete; this function trusts that.
+ */
+export function carryForwardScoped(
+  subject: string,
+  entryOrbs: { module: string; agent: string }[],
+  swarmId: string = RESEARCH_SWARM_ID,
+  precomputed?: ThesisPlan,
+  planFileAbs?: string | null,
+): ScopedCarryResult {
+  const safe = safeSubjectSegment(subject)
+  const graph = buildSwarmGraph(swarmId)
+  const byModule = new Map(graph.modules.map((m) => [m.name, m]))
+
+  // resolve + validate the entry orbs against the discovered roster (fail-closed)
+  const droppedEntries: { module: string; agent: string }[] = []
+  const entryFilesByModule = new Map<string, Set<string>>() // module → orb output filenames to omit
+  const synthesisEntry = new Set<string>() // modules whose ENTRY is the synthesis itself
+  for (const e of entryOrbs || []) {
+    const mod = byModule.get(e?.module)
+    const agents = mod ? Object.values(mod.layers).flat() : []
+    const hit = agents.find((a) => a.name === e?.agent || a.slug === e?.agent)
+    if (!mod || !hit) { droppedEntries.push({ module: String(e?.module), agent: String(e?.agent) }); continue }
+    if (hit.isSynthesis) { synthesisEntry.add(mod.name); continue } // synthesis-only entry: no specialist hole
+    const set = entryFilesByModule.get(mod.name) ?? new Set<string>()
+    set.add(`${hit.key.split('/')[1]}.md`)
+    entryFilesByModule.set(mod.name, set)
+  }
+  const entryModules = new Set<string>([...entryFilesByModule.keys(), ...synthesisEntry])
+  // Every entry invalid → nothing to scope. Return WITHOUT carrying anything: a bad plan must not create
+  // today's run folder (or a full whole-run carry) as a side effect of merely asking (fail-closed).
+  if (entryModules.size === 0) return { carried: [], scoped: [], staleModules: [], droppedEntries }
+
+  // stale set = entry modules ∪ their transitive downstream (the deduplicated cascade)
+  const stale = new Set<string>(entryModules)
+  for (const m of entryModules) for (const d of transitiveDownstreamModules(graph, m)) stale.add(d)
+  const staleModules = graph.modules.map((m) => m.name).filter((m) => stale.has(m)) // topo order
+
+  // ONE plan snapshot decides everything (same discipline as carryForwardModules). Reuse override = every
+  // reusable module: stale ones included, because we carry their FINISHED copy and then punch holes in it.
+  const base = precomputed ?? thesisPlan(safe, swarmId, thesisPlan(safe, swarmId).reusable)
+  const carriable = new Map(base.carry.map((c) => [c.module, c]))
+  const mustReuse = new Set(base.mustReuse)
+
+  // 1) untouched modules → carried whole
+  const keepWhole = base.reuse.filter((m) => !stale.has(m))
+  const { carried } = keepWhole.length ? carryForwardModules(safe, keepWhole, swarmId, base) : { carried: [] as { module: string; from: string }[] }
+
+  const targetAbs = path.join(REPO_ROOT, base.targetRunRoot)
+  const scoped: ScopedCarryResult['scoped'] = []
+
+  // the hole set for a stale module: entry orb files (if any) + its 99 synthesis + memo/dossier (both
+  // regenerated — the dossier by the module pipeline's own Step 4.9B, the memo by the master step's batch)
+  const holesFor = (module: string, dirAbs: string): string[] => {
+    const files = fs.existsSync(dirAbs) ? fs.readdirSync(dirAbs) : []
+    const orbHoles = entryFilesByModule.get(module) ?? new Set<string>()
+    return files.filter((f) =>
+      orbHoles.has(f) || /^99_.*\.md$/.test(f) || f === `${module}_memo.md` || f === `${module}_dossier.md`)
+  }
+
+  for (const module of staleModules) {
+    const omittedOrbs = [...(entryFilesByModule.get(module) ?? [])].sort()
+    const synthesisOnly = omittedOrbs.length === 0
+    if (mustReuse.has(module)) {
+      // finished in TODAY's root — both full-run paths skip on its 99 presence, so punch the holes in place
+      const dstAbs = path.join(targetAbs, module)
+      for (const f of holesFor(module, dstAbs)) fs.rmSync(path.join(dstAbs, f), { force: true })
+      // one provenance story per folder: a whole-carry marker from an EARLIER completion carry must not
+      // survive the hole-punch — thesisPlan's carriedVintage would keep dating the refreshed module by its
+      // old source run, and the dossier would claim it was both carried verbatim AND rerun scoped
+      // (Codex #358 r3672206131)
+      fs.rmSync(path.join(dstAbs, CARRY_MARKER), { force: true })
+      fs.writeFileSync(path.join(dstAbs, RESUME_MARKER), scopedNote(module, base.targetRunRoot, null, base.targetRunRoot, omittedOrbs, synthesisOnly), 'utf8')
+      scoped.push({ module, from: base.targetRunRoot, omittedOrbs, synthesisOnly, inPlace: true })
+      continue
+    }
+    const c = carriable.get(module)
+    if (!c) continue // never finished anywhere → the full run builds it whole; nothing to stage
+    const srcAbs = path.join(REPO_ROOT, c.copyFrom, module)
+    const dstAbs = path.join(targetAbs, module)
+    fs.mkdirSync(targetAbs, { recursive: true })
+    resolveInsideAnalyses(base.targetRunRoot)
+    // stage OUTSIDE the run root, then rename in — same reasons as carryForwardModules (phantom-module
+    // manifest rows and wholesale commit staging)
+    const tmpAbs = path.join(ANALYSES_DIR, `.scoped-${safe}-${module}-${process.pid}-${carrySeq++}`)
+    const replacedPartial = fs.existsSync(dstAbs)
+    try {
+      fs.rmSync(tmpAbs, { recursive: true, force: true })
+      copyDir(srcAbs, tmpAbs)
+      for (const f of holesFor(module, tmpAbs)) fs.rmSync(path.join(tmpAbs, f), { force: true })
+      // a whole-carry marker from the source copy must not survive into a scoped stage — one provenance
+      // story per folder, and this one is "resumed with holes", not "carried verbatim"
+      fs.rmSync(path.join(tmpAbs, CARRY_MARKER), { force: true })
+      fs.writeFileSync(path.join(tmpAbs, RESUME_MARKER), scopedNote(module, c.from, c.date, base.targetRunRoot, omittedOrbs, synthesisOnly), 'utf8')
+      if (replacedPartial) fs.rmSync(dstAbs, { recursive: true, force: true })
+      fs.renameSync(tmpAbs, dstAbs)
+    } finally {
+      fs.rmSync(tmpAbs, { recursive: true, force: true })
+    }
+    scoped.push({ module, from: c.from, omittedOrbs, synthesisOnly, inPlace: false })
+  }
+
+  // Carry the plan itself into the target root: staging just made TODAY the ticker's latest dated root,
+  // so without this a retry after a failed launch (or the audit trail after a finished one) would look for
+  // the plan under the new root and find nothing — `readIntakePlan` searches only the latest root
+  // (Codex #358 r3672400212). Almost-verbatim: the plan's own scanned_at/scan_date witnesses travel with it
+  // unchanged, so the route's freshness gate keeps working against the copied file on a retry — but it is
+  // stamped `staged_for_scoped_rerun: true` first, so `readIntakePlan` can tell "this copy exists because
+  // its own commands were just staged against THIS root" apart from an original, not-yet-executed plan that
+  // simply happens to sit in a finished run (the common, intended case: INTAKE.md's plan deliberately lives
+  // under the older run it invalidates). Once this root's own final deliverables land, that stamp is what
+  // lets the reader retire it — serving a plan whose work is already done would tell the cockpit
+  // already-incorporated data still needs a rerun (Codex #358 r3673980745). Best-effort — a copy/stamp
+  // failure must not undo an otherwise-correct staging.
+  if (planFileAbs && (carried.length || scoped.length)) {
+    const intakeDir = path.join(targetAbs, 'intake')
+    const destAbs = path.join(intakeDir, path.basename(planFileAbs))
+    try {
+      fs.mkdirSync(intakeDir, { recursive: true })
+      const planRaw = JSON.parse(fs.readFileSync(planFileAbs, 'utf8'))
+      if (planRaw && typeof planRaw === 'object' && !Array.isArray(planRaw)) planRaw.staged_for_scoped_rerun = true
+      fs.writeFileSync(destAbs, JSON.stringify(planRaw, null, 2), 'utf8')
+    } catch {
+      // fall back to a plain verbatim copy — provenance convenience must never fail the staging itself,
+      // and an un-stamped copy is exactly today's (pre-fix) behaviour, never worse.
+      try { fs.copyFileSync(planFileAbs, destAbs) } catch { /* still provenance-only */ }
+    }
+  }
+
+  return { carried, scoped, staleModules, droppedEntries }
+}

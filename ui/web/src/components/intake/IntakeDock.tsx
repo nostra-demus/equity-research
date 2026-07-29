@@ -44,6 +44,10 @@ export function IntakeDock() {
   const globalActive = useStore((s) => s.globalActive)
   const runActivity = useStore((s) => s.runActivity)
   const [open, setOpen] = useState(true)
+  // The one-pass scoped rerun lives in the STORE (runScopedRerun) so the returned run is attached via
+  // beginRun immediately — readiness/progress/cancel on screen at once, same as every other launch path.
+  const runScoped = useStore((s) => s.runScopedRerun)
+  const scopedPending = useStore((s) => s.scopedRerunPending)
 
   // The live document-intake run for this company — this click, an auto-analysis on landing, or one
   // started in another tab. Its steps ARE the reading list. Positive `kind` match, never a fallback:
@@ -162,9 +166,12 @@ export function IntakeDock() {
             <RerunPlanList
               plan={intake}
               keysFor={keysFor}
+              nodesByKey={nodesByKey}
               onRowEnter={setFocus}
               onLeave={clear}
               onRun={() => void openPlan()}
+              onRunScoped={() => void runScoped()}
+              scopedPending={scopedPending}
               running={false}
             />
           )}

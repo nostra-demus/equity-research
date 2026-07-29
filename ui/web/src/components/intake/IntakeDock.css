@@ -243,3 +243,12 @@
   /* the live dot keeps its identity without motion — colour + glow already separate it from a done step */
   .ifeed__dot--live { animation: none; }
 }
+
+/* Scoped-confirm strip (the second click state of the plan's Re-run button): the same .iplan rows, with a
+   verb column instead of the cascade chip, plus muted synthesis-summary rows. Only two modifiers — the
+   strip must read as the SAME plan, priced as it will actually run. */
+.iplan__row--synth { background: var(--surface-2); border-color: var(--hairline); }
+.iplan__orb--synth { font-weight: 500; color: var(--text-muted); }
+.iplan__verb { margin-left: auto; font-size: 10.5px; white-space: nowrap; color: var(--accent-bright); font-weight: 600; }
+.iplan__verb--once { color: var(--text-muted); font-weight: 500; }
+.iplan__run--ghost + .iplan__run--ghost, .iplan__run + .iplan__run--ghost { margin-top: 6px; }

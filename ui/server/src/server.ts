@@ -18,7 +18,7 @@ import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, 
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
-import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, finalDeliverablesPresent, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
+import { assertClaudeCli, cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, finalDeliverablesPresent, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
@@ -66,8 +66,8 @@ import { getAutotuneState, readChanges, revertChange, setAutotunePaused, setAuto
 import { routeReason } from './news/triage/reason-router'
 import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
-import { carryForwardModules, dataPoolNewest, prepareModuleResume, thesisPlan } from './completion'
-import { readIntakePlan } from './intake'
+import { carryForwardModules, carryForwardScoped, dataPoolNewest, prepareModuleResume, thesisPlan } from './completion'
+import { latestPlanFileFor, readIntakePlan } from './intake'
 import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-changed'
 import { readDataNeeds } from './data-needs'
 import { appendPipelineEvent, getPipelineSource, getPipelineView, isPipelineId, listPipelineForSubject, listRecentPipeline, writePipelineSource, type PipelineSourceKind } from './pipeline-store'
@@ -1339,6 +1339,142 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
         // run root now exists so the subject reads as resumable.
         const body = e?.body && typeof e.body === 'object' ? e.body : null
         return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', carried: prep.carriedAncestors, ...(body || {}) })
+      }
+    })
+  } catch (e: any) {
+    if (e instanceof SubjectBusyError) {
+      return reply.code(409).send({ error: `Another completion request for ${ticker} is already in progress. Wait for it to finish before retrying.`, code: 'subject_busy' })
+    }
+    throw e
+  }
+})
+
+// Execute the intake plan's SCOPED rerun in ONE pass — the batch answer to running its `/research:rerun`
+// commands one by one (which repeats every downstream synthesis + master + commit per orb, and publishes
+// an intermediate thesis between them). Stages the target root via carryForwardScoped — untouched modules
+// carried whole, entry modules carried minus the invalidated orbs + synthesis, downstream modules carried
+// minus synthesis only — then launches the ORDINARY full run: its existing module/orb skip machinery
+// re-runs exactly the gaps, DAG-parallel, ending in one master + finish-gate + commit. The plan itself is
+// read server-side (readIntakePlan: roster-validated, cascades recomputed) — the client never supplies
+// orb names, so a stale/spoofed body cannot widen the rerun (INTAKE.md §4 fail-closed).
+const IntakePlanRunBody = z.object({
+  ticker: z.string().regex(TICKER_RE),
+  // REQUIRED for the same reason as ThesisPlanRunBody — an omitted swarm must never default to research.
+  swarm: z.string().regex(MODULE_RE),
+})
+app.post('/api/intake-plan/run', { config: { rateLimit: { max: 20, timeWindow: '1 minute' } } }, async (req, reply) => {
+  // Same CSRF class as /api/thesis-plan/run: a paid, disk-writing plain POST.
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const parsed = IntakePlanRunBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const { ticker, swarm } = parsed.data
+  const { user, userVia } = identify(req)
+  if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  if (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
+    return reply.code(400).send({ error: `unknown ticker ${ticker}` })
+  }
+  if (swarm !== RESEARCH_SWARM_ID) {
+    return reply.code(400).send({ error: 'Scoped reruns are research-only for now.', code: 'swarm_unsupported' })
+  }
+  // The plan is the SERVER's read of the latest intake analysis — roster-validated commands only.
+  const intake = readIntakePlan(ticker)
+  const commands = intake?.rerun_plan?.commands ?? []
+  if (!intake || commands.length === 0) {
+    return reply.code(409).send({ error: 'No scoped rerun plan exists for this ticker — run the new-data analysis first.', code: 'no_plan' })
+  }
+  // Freshness for EXECUTION is the WITNESS half only: has anything landed since the analysis read the pool?
+  // NOT `pool_current`, which also ANDs the durable run-date floor (pool newer than the run folder). That
+  // floor is exactly TRUE in the normal case this feature exists for — a document arriving after an older
+  // finished run — so gating on pool_current would refuse every legitimate scoped rerun (Codex #358
+  // r3672541957). The floor's job is guarding the "nothing new" affirmative, not blocking execution.
+  // Fail-closed when the witness is unprovable (an old plan with no scanned_at): fall back to pool_current.
+  const freshnessProblem = (): string | null => {
+    const stamp = intake.scanned_at ? Date.parse(intake.scanned_at) : NaN
+    if (!Number.isFinite(stamp)) {
+      return intake.pool_current === true ? null : 'this plan predates the precise freshness stamp and the pool has changed since'
+    }
+    const newest = dataPoolNewest(ticker).newestMs
+    return !newest || newest <= stamp ? null : 'a document landed after this plan was scoped'
+  }
+  const staleWhy = freshnessProblem()
+  if (staleWhy) {
+    return reply.code(409).send({ error: `${staleWhy} — re-run the new-data analysis first.`, code: 'plan_stale' })
+  }
+  // Fail-toward-blunt on DROPPED mappings: a widened note means some document's orb mapping did not survive
+  // roster validation, so its impact is UNSCOPED. Executing only the surviving commands would carry the
+  // very module that document may invalidate (INTAKE.md §1; Codex #358 r3672206145 P1).
+  if ((intake.widened?.length ?? 0) > 0) {
+    return reply.code(409).send({ error: 'Part of the plan no longer maps to the current roster — its documents are unscoped. Re-run the new-data analysis (fail-toward-blunt).', code: 'plan_widened', widened: intake.widened })
+  }
+  try {
+    // Same lock KEY as the sibling thesis-plan routes, so a scoped rerun and a completion can never carry
+    // into the same target root concurrently.
+    return await withSubjectLock(`thesis-plan:${ticker}`, async () => {
+      const busy = listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
+      if (busy) return reply.code(409).send({ error: `A run is already in flight on ${ticker}. Let it finish (or stop it) before re-running.`, code: 'subject_busy' })
+
+      // ONE plan snapshot for the completeness check AND the carry (no time-of-check/time-of-use gap).
+      // Reuse override = every reusable module: stale ones included — the scoped carry stages their
+      // finished copy and punches holes in it.
+      const first = thesisPlan(ticker)
+      if (first.complete) {
+        return reply.code(409).send({ error: 'Today\'s run root already has a final thesis — a scoped rerun would overwrite the decision of record. Use the single-orb Re-run for a same-day refresh.', code: 'already_complete', path: first.finalReportPath })
+      }
+      // The confirm strip prices "the named orbs + syntheses"; a module that is NEITHER reusable (never
+      // finished anywhere) NOR in the plan's stale set would be run WHOLE by the launched full run — unpriced
+      // work with none of the full-run path's typed-ticker confirmation (Codex #358 r3672400188 P1). Set
+      // arithmetic on the plan's own server-recomputed cascades, so it runs BEFORE any disk write.
+      // EVERY module must have a finished synthesis somewhere on disk. A module inside the plan's cascade
+      // that never finished cannot be staged with holes (there is nothing to carry), so the launched full
+      // run would build it WHOLE — unpriced work the confirm strip never showed, without the full-run
+      // path's typed-ticker gate. Being in the cascade does not make it priced (Codex #358 r3672541961).
+      const reusableSet = new Set(first.reusable)
+      const unpriced = listModuleNames(RESEARCH_SWARM_ID).filter((m) => !reusableSet.has(m))
+      if (unpriced.length) {
+        return reply.code(409).send({ error: `This run is incomplete beyond the plan's scope (${unpriced.join(', ')} never finished) — a scoped rerun would silently run ${unpriced.length === 1 ? 'it' : 'them'} whole. Complete the thesis first.`, code: 'run_incomplete', unpriced })
+      }
+      // CLI presence BEFORE staging: the staging below punches holes in today's root; failing on a missing
+      // engine binary after that would leave a finished-today module partial for nothing (Codex #358
+      // r3672400207 — the remaining pre-spawn failures are admission races, which the resume machinery
+      // absorbs: the holes ARE the work a retry re-runs).
+      try { await assertClaudeCli() } catch (e: any) {
+        return reply.code(e?.statusCode || 503).send({ error: e?.message || 'engine CLI unavailable', code: e?.code })
+      }
+      // Re-check freshness HERE, after the subject lock and the CLI probe: both can take time, and a
+      // document that lands in that window would otherwise be scoped-out of a run we already approved
+      // (Codex #358 r3672541968). Cheap — one stat of the pool's newest file.
+      const lateWhy = freshnessProblem()
+      if (lateWhy) {
+        return reply.code(409).send({ error: `${lateWhy} while this run was being prepared — re-run the new-data analysis first.`, code: 'plan_stale' })
+      }
+      const snap = thesisPlan(ticker, undefined, first.reusable)
+
+      let staged: ReturnType<typeof carryForwardScoped>
+      try {
+        staged = carryForwardScoped(ticker, commands.map((c) => ({ module: c.module, agent: c.agent })), RESEARCH_SWARM_ID, snap, latestPlanFileFor(ticker))
+      } catch (e: any) {
+        return reply.code(500).send({ error: `could not stage the scoped rerun: ${e?.message || e}` })
+      }
+      // Fail-closed end to end: if EVERY plan command was dropped by roster validation, nothing scoped was
+      // staged — launching now would silently run a plain full run the user never asked for.
+      if (staged.scoped.length === 0 && staged.staleModules.length === 0) {
+        return reply.code(409).send({ error: 'The plan\'s entry orbs no longer match the roster — re-run the new-data analysis.', code: 'plan_stale', dropped: staged.droppedEntries })
+      }
+      // Nothing on disk to scope AGAINST (no finished module was carried whole or with holes): the launch
+      // below would be a bare full run wearing a "scoped" label — a hidden $55-130 spend with none of the
+      // full-run path's typed-ticker confirmation. Refuse and point at the honest button for that.
+      if (staged.scoped.length === 0 && staged.carried.length === 0) {
+        return reply.code(409).send({ error: 'No finished run to scope against — this would be a plain full run. Use "Complete the thesis" for that.', code: 'nothing_to_scope' })
+      }
+
+      try {
+        const out = await launch({ kind: 'full', ticker, user, userVia })
+        return { ...out, carried: staged.carried, scoped: staged.scoped, staleModules: staged.staleModules, dropped: staged.droppedEntries }
+      } catch (e: any) {
+        // The carry already landed on disk; sources are untouched and a retry reuses the staging — the run
+        // root now exists, so the cockpit will offer this subject as resumable. Honest, nothing lost.
+        const body = e?.body && typeof e.body === 'object' ? e.body : null
+        return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', carried: staged.carried, scoped: staged.scoped, ...(body || {}) })
       }
     })
   } catch (e: any) {

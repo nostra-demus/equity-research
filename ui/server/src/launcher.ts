@@ -125,6 +125,19 @@ export async function detectFlags(): Promise<Set<string>> {
 // reject:false, a missing binary fails ASYNC (ENOENT) and surfaced only as a bare "error" with no
 // detail. Probe once up front so a launch fails fast with an actionable message instead.
 let claudeOk: boolean | null = null
+/** Throw the launcher's canonical 503 when the engine CLI is missing. Exported so a route that STAGES
+ *  disk state before launching (the scoped rerun) can fail on this BEFORE touching any files — the same
+ *  message, one source of truth (Codex #358 r3672400207). */
+export async function assertClaudeCli(): Promise<void> {
+  if (await claudeAvailable()) return
+  const err: any = new Error(
+    `Claude CLI ('${CLAUDE_BIN}') not found on PATH — the cockpit can read the data pool but spawns the CLI to run the engine. ` +
+    `Install it with \`npm i -g @anthropic-ai/claude-code\` (or set CLAUDE_BIN to its full path), then restart the cockpit server.`)
+  err.statusCode = 503
+  err.code = 'CLAUDE_CLI_MISSING'
+  throw err
+}
+
 async function claudeAvailable(): Promise<boolean> {
   if (claudeOk !== null) return claudeOk
   try {
@@ -1121,14 +1134,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   }
 
   // Fail fast with an actionable message if the engine CLI isn't installed (the #1 silent "error"):
-  if (!(await claudeAvailable())) {
-    const err: any = new Error(
-      `Claude CLI ('${CLAUDE_BIN}') not found on PATH — the cockpit can read the data pool but spawns the CLI to run the engine. ` +
-      `Install it with \`npm i -g @anthropic-ai/claude-code\` (or set CLAUDE_BIN to its full path), then restart the cockpit server.`)
-    err.statusCode = 503
-    err.code = 'CLAUDE_CLI_MISSING'
-    throw err
-  }
+  await assertClaudeCli()
 
   // ---- resolve the SUBJECT and a CONCRETE run root (never null) so admission can compute absolute
   // write targets and the fs-watcher can bind strictly ----

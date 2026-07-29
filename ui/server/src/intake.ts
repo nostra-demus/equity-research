@@ -14,6 +14,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { dataPoolNewest, todayDate } from './completion'
+import { finalDeliverablesPresent } from './launcher'
 import { findLatestRunRoot, listModuleNames, agentNamesForModule, downstreamCascade } from './roster'
 import { RESEARCH_SWARM_ID } from './swarms'
 
@@ -75,6 +76,13 @@ export interface IntakePlan {
   // when neither witness is provable. Fail-safe by construction: any doubt → false → the cockpit prompts a
   // re-analysis instead of claiming "nothing new".
   pool_current: boolean
+  // True iff this plan is a copy `carryForwardScoped` staged into THIS run root, and that root's scoped
+  // rerun has since actually finished (final_thesis.md + decision_record.json on disk) — its commands were
+  // already carried out here. Serving them again would tell the cockpit that already-incorporated data
+  // still needs a rerun (Codex #358 r3673980745). The file is never deleted (kept for the audit trail);
+  // `rerun_plan.commands`/`entry_orbs` are emptied instead, so the client's existing "nothing to re-run"
+  // state covers it with no UI change needed.
+  consumed: boolean
 }
 
 // The downstream module set a single-orb rerun re-runs, recomputed from the live DAG. Mirrors
@@ -90,6 +98,14 @@ function cascadeModulesFor(module: string, agent: string): string[] {
 // Find the latest intake_plan.json under a run root. Naming: <DATE>_intake_plan[_vN].json — a plain
 // lexical max picks the newest date and, within a date, the highest single-digit _vN (same
 // convention as reviews/; a same-day _v10 is not handled, and does not happen in practice).
+/** ABSOLUTE path of the ticker's current intake plan file, or null. Exported for the scoped-rerun route,
+ *  which copies the plan into the target run root it stages — so after staging creates a newer dated root,
+ *  a retry (and the audit trail) still finds the plan under the LATEST root (Codex #358 r3672400212). */
+export function latestPlanFileFor(ticker: string): string | null {
+  const root = findLatestRunRoot(ticker)
+  return root ? latestPlanFile(root) : null
+}
+
 function latestPlanFile(runRootAbs: string): string | null {
   const dir = path.join(runRootAbs, 'intake')
   let names: string[]
@@ -181,6 +197,13 @@ export function readIntakePlan(ticker: string): IntakePlan | null {
   const floorStale = !!runDate && !!pool.newestDate && pool.newestDate > runDate
   const poolCurrent = witnessCurrent && !floorStale
 
+  // Consumed: this file is a copy `carryForwardScoped` staged into THIS root (stamped when it copied the
+  // plan — see completion.ts), and the root has since actually finished. `finalDeliverablesPresent` proves
+  // real completion, not merely presence-after-relaunch, which is exactly the distinction the copied plan
+  // needs: a plan staged for a run still IN FLIGHT (root exists, deliverables don't yet) must stay live so
+  // a retry after a failed launch can still find it (Codex #358 r3672400212's whole point).
+  const consumed = raw.staged_for_scoped_rerun === true && finalDeliverablesPresent(runRootAbs)
+
   const moduleNames = new Set(listModuleNames(RESEARCH_SWARM_ID))
   const agentsByModule = new Map<string, Set<string>>()
   const orbValid = (module: string, agent: string): boolean => {
@@ -245,10 +268,16 @@ export function readIntakePlan(ticker: string): IntakePlan | null {
     ? rawPlan.entry_orbs.filter((o: any) => orbValid(String(o?.module), String(o?.agent))).map((o: any) => ({ module: String(o.module), agent: String(o.agent) }))
     : []
 
+  // A CONSUMED plan's own commands were already carried out against this very root — report nothing
+  // actionable (the client's existing zero-commands "nothing to re-run" state covers it), while every
+  // other field (new_docs, summary, widened) stays intact for the audit trail.
+  const effectiveCommands = consumed ? [] : commands
+  const effectiveEntryOrbs = consumed ? [] : planEntryOrbs
+
   const rerunPlan: IntakeRerunPlan = {
     materiality_gate: typeof rawPlan.materiality_gate === 'number' ? rawPlan.materiality_gate : 60,
-    entry_orbs: planEntryOrbs,
-    commands,
+    entry_orbs: effectiveEntryOrbs,
+    commands: effectiveCommands,
     note_only: Array.isArray(rawPlan.note_only) ? rawPlan.note_only.map((n: any) => ({ path: String(n?.path ?? ''), reason: String(n?.reason ?? '') })) : [],
   }
 
@@ -260,9 +289,11 @@ export function readIntakePlan(ticker: string): IntakePlan | null {
   //     dropped document actually cleared the materiality gate, this is NOT a quiet "nothing to
   //     re-run" — a material recommendation was lost to a hallucinated name, so treat it the same as
   //     `insufficient` rather than silently reporting note_only.
-  const droppedMaterialCommand = commands.length === 0 && widened.length > 0 &&
+  //   - A CONSUMED plan never falls into `insufficient` on this ground — its commands were withheld
+  //     because they already ran, not because roster validation dropped anything material.
+  const droppedMaterialCommand = !consumed && effectiveCommands.length === 0 && widened.length > 0 &&
     newDocs.some((d) => d.materiality_score >= rerunPlan.materiality_gate)
-  const verdict: IntakePlan['verdict'] = commands.length > 0
+  const verdict: IntakePlan['verdict'] = effectiveCommands.length > 0
     ? 'scoped_rerun'
     : (raw.verdict === 'insufficient' || droppedMaterialCommand ? 'insufficient' : 'note_only')
 
@@ -280,5 +311,6 @@ export function readIntakePlan(ticker: string): IntakePlan | null {
     analyzed_at: mtime,
     widened,
     pool_current: poolCurrent,
+    consumed,
   }
 }
