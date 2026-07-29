@@ -1,0 +1,35 @@
+{
+  "id": "courtlistener-ftc-amazon-docket",
+  "series": "CourtListener federal docket entries — FTC v. Amazon.com, Inc. (2:23-cv-01495, W.D. Wash.)",
+  "satisfies": ["ftc-v-amazon-antitrust-docket"],
+  "subjects": ["AMZN"],
+  "provider": "CourtListener",
+  "acquisition": "free_key_api",
+  "source_type": "paid_api",
+  "tier": 9,
+  "license": "public_domain (US federal court record); accessed via CourtListener API under its Terms of Use",
+  "host_allowlist": ["www.courtlistener.com"],
+  "cadence": "event_driven",
+  "staleness_sla_days": 3,
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/courtlistener/ftc_v_amazon_docket_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "docket_id": "int",
+    "case_name": "string",
+    "docket_number": "string",
+    "court": "string",
+    "entries_count": "int",
+    "latest_entries": [
+      {
+        "entry_number": "int|null",
+        "date_filed": "date",
+        "description": "string",
+        "recap_documents_count": "int"
+      }
+    ],
+    "source_url": "string"
+  }
+}
