@@ -397,9 +397,20 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
     if not (isdate(decision_date) and decision_date >= AG_DATE):
         return None  # forward-looking; pre-gate runs N/A
     verdict = (calibration_summary or {}).get("verdict") or ""
+    ftype_gate = isdate(decision_date) and decision_date >= AG_FTYPE_DATE
+    ttype_gate = isdate(decision_date) and decision_date >= AG_TTYPE_DATE
+    errtax_gate = isdate(decision_date) and decision_date >= AG_ERRTAX_DATE
+    # error_taxonomy_distribution is a flat, always-honest tally computed at ANY N (calibrate.md §3's own
+    # narration: "never gated by the floor") — unlike the module/forecast-type/thesis-type slices, a
+    # Pre-data verdict (the SLICE sample below its own floor) does not excuse skipping the error-taxonomy
+    # check. lec is computed here, before `expected`, so a Pre-data run that already has an actionable
+    # leading category is still required to run (and can still apply) the error-taxonomy check instead of
+    # being waved through as status='pre_data' (Codex r3671892072 — P1: the gate must not stay inactive
+    # during the exact early-data period calibrate.md designed this trigger to cover).
+    lec = _ag_leading_error_categories(calibration_summary) if errtax_gate else []
     if calibration_summary is None:
         expected = "not_available"
-    elif verdict.startswith("Pre-data"):
+    elif verdict.startswith("Pre-data") and not lec:
         expected = "pre_data"
     else:
         expected = "checked"  # covers checked_no_action / applied — eval.py can't judge which is correct
@@ -417,10 +428,6 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
         violations.append(f"as-of calibration_summary verdict={verdict!r} is Pre-data but status={status!r} (expected 'pre_data')")
     elif expected=="checked" and status not in ("checked_no_action","applied"):
         violations.append(f"as-of calibration_summary has real signal (verdict={verdict!r}) but status={status!r} (expected 'checked_no_action' or 'applied')")
-    ftype_gate = isdate(decision_date) and decision_date >= AG_FTYPE_DATE
-    ttype_gate = isdate(decision_date) and decision_date >= AG_TTYPE_DATE
-    errtax_gate = isdate(decision_date) and decision_date >= AG_ERRTAX_DATE
-    lec = _ag_leading_error_categories(calibration_summary) if errtax_gate else []
     if status=="applied":
         hp=calibration_feedback.get("haircut_points"); mf=calibration_feedback.get("modules_flagged")
         fft=calibration_feedback.get("flagged_forecast_types")
@@ -433,7 +440,13 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
             mf_ok=isinstance(mf,list) and len(mf)>0
             fft_ok=isinstance(fft,list) and len(fft)>0
             ftt_ok=ttype_gate and isinstance(ftt,list) and len(ftt)>0
-            lecf_ok=errtax_gate and isinstance(lecf,list) and len(lecf)>0
+            # A flagged category is only a traceable trigger if it names one the as-of summary's OWN
+            # error_taxonomy_distribution is actually leading (count >= 2) right now — flagging an
+            # unrelated or stale category must not grant a free pass (Codex r3671892091 — P2). Filtering
+            # to str entries first also means a malformed (non-string/unhashable) entry can never satisfy
+            # traceability, rather than crashing the gate (see the set()-crash fix below).
+            lecf_str=[x for x in lecf if isinstance(x,str)] if isinstance(lecf,list) else []
+            lecf_ok=errtax_gate and any(x in lec for x in lecf_str)
             if not (mf_ok or fft_ok or ftt_ok or lecf_ok):
                 violations.append(f"status='applied' but none of modules_flagged={mf!r}, "
                                    f"flagged_forecast_types={fft!r}"
@@ -476,24 +489,49 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
                                   f"empty list (§18: a clean check must be distinguishable from a silently skipped one)")
             elif len(lecf)>0:
                 violations.append(f"status='checked_no_action' but leading_error_categories_flagged={lecf!r} is non-empty")
-    if errtax_gate and status in ("checked_no_action","applied") and lec:
-        # For every category the as-of summary's OWN error_taxonomy_distribution flags as leading (count
-        # >= 2), the synthesizer must have recorded a concrete, non-trivial defense — or the literal
-        # admission it has none, which is exactly what should have put that category in
-        # leading_error_categories_flagged. This cannot verify the defense is TRUE (that is a semantic
-        # judgment eval.py does not make, same limit as every other slice above); it can only verify one
-        # was written at all, and that a "flagged" category isn't simultaneously claiming a real defense
-        # (or vice versa) — the same "prove the check ran, don't let a claim contradict its own record"
-        # reasoning as the thesis-type PRESENCE check above.
+    if errtax_gate:
+        # Standalone structural validation of leading_error_categories_flagged, independent of status —
+        # runs whenever the field is present as a list at all, so it also catches malformed values inside
+        # 'applied' (checked_no_action already forces it empty above, so these are effectively no-ops there).
+        lecf_all = calibration_feedback.get("leading_error_categories_flagged")
+        if isinstance(lecf_all, list):
+            non_str = [x for x in lecf_all if not isinstance(x, str)]
+            if non_str:
+                # A malformed (non-string/unhashable) entry — e.g. a nested dict — must be reported, never
+                # crash the gate (Codex r3671892083 — P2: set(lecf) on an unhashable entry raised
+                # TypeError and aborted the ENTIRE eval run across every committed record).
+                violations.append(f"leading_error_categories_flagged contains non-string entr{'y' if len(non_str)==1 else 'ies'} "
+                                  f"{non_str!r} — every flagged category must be a string naming an "
+                                  f"error_taxonomy_distribution key")
+            bogus = [x for x in lecf_all if isinstance(x, str) and x not in lec]
+            if bogus:
+                # A flagged category that is not (or no longer) among the as-of summary's OWN leading
+                # categories must not be accepted as a real trigger (Codex r3671892091 — P2).
+                violations.append(f"leading_error_categories_flagged includes {bogus!r} which "
+                                  f"{'is' if len(bogus)==1 else 'are'} not among the as-of summary's actual "
+                                  f"leading categories {lec!r} (count >= 2) — a flagged category must be one "
+                                  f"currently leading, not an unrelated or stale one")
+    if errtax_gate and status in ("checked_no_action","applied"):
+        # The defense-evidence object is REQUIRED whenever the error-taxonomy gate applies — even when no
+        # category is currently leading (lec empty) — not only when `lec` is truthy (Gemini r3671874640 /
+        # Codex r3671892095 — P2: the old `and lec` guard let a missing/malformed object slip through
+        # undetected on a clean run, indistinguishable from a synthesizer that never wired the check at
+        # all — the same PRESENCE reasoning as the thesis-type/error-taxonomy list checks above). For
+        # every category the as-of summary's OWN error_taxonomy_distribution flags as leading (count >= 2),
+        # the synthesizer must have recorded a concrete, non-trivial defense — or the literal admission it
+        # has none, which is exactly what should have put that category in leading_error_categories_flagged.
+        # This cannot verify the defense is TRUE (that is a semantic judgment eval.py does not make, same
+        # limit as every other slice above); it can only verify one was written at all, and that a
+        # "flagged" category isn't simultaneously claiming a real defense (or vice versa).
         ede = calibration_feedback.get("error_defense_evidence")
         lecf = calibration_feedback.get("leading_error_categories_flagged")
-        flagged_set = set(lecf) if isinstance(lecf, list) else set()
+        flagged_set = set(x for x in lecf if isinstance(x, str)) if isinstance(lecf, list) else set()
         if not isinstance(ede, dict):
-            violations.append(f"as-of calibration_summary has leading error-taxonomy categor{'y' if len(lec)==1 else 'ies'} "
-                              f"{lec!r} (count >= 2) but calibration_feedback.error_defense_evidence={ede!r} is missing/not "
-                              f"an object — on/after {AG_ERRTAX_DATE} every leading category needs a recorded defense "
-                              f"statement or an explicit admission of none (§18)")
-        else:
+            violations.append(f"on/after {AG_ERRTAX_DATE} calibration_feedback.error_defense_evidence={ede!r} is "
+                              f"missing/not an object — every run must record a defense-evidence object (empty "
+                              f"'{{}}' when no category is currently leading) to prove the error-taxonomy slice "
+                              f"ran (§18)")
+        elif lec:
             for cat in lec:
                 val = ede.get(cat)
                 val_s = val.strip().lower() if isinstance(val, str) else None
@@ -1712,6 +1750,17 @@ if scope=="selftest":
     CS_PREDATA={"verdict":"Pre-data — awaits resolved reviews."}
     CS_REAL={"verdict":"Emerging — 12 resolved forecasts."}
     CS_REAL_ERRTAX={"verdict":"Emerging — 12 resolved forecasts.","error_taxonomy_distribution":{"bad extraction":6,"timing error":2,"missing data":1}}
+    # Pre-data OVERALL verdict (module/forecast-type/thesis-type slices below their own floor) but the
+    # error-taxonomy tally already has a leading category — the exact early-data scenario Codex flagged
+    # (r3671892072 / P1): calibrate.md's own narration says this tally is "never gated by the floor."
+    CS_PREDATA_ERRTAX={"verdict":"Pre-data — awaits resolved reviews.","error_taxonomy_distribution":{"bad extraction":5}}
+    # A single leading category (only "bad extraction"), used to test that a flagged category NOT among
+    # the summary's actual leading categories ("timing error", count 1, below the >=2 floor) is rejected
+    # as a traceable trigger rather than accepted at face value.
+    CS_REAL_ERRTAX2={"verdict":"Emerging — 12 resolved forecasts.","error_taxonomy_distribution":{"bad extraction":5,"timing error":1}}
+    # errtax_gate applies but NO category is currently leading (both counts < 2) — used to test that
+    # error_defense_evidence is still required present (as {}), not skipped just because lec is empty.
+    CS_REAL_ERRTAX_CLEAN={"verdict":"Emerging — 12 resolved forecasts.","error_taxonomy_distribution":{"bad extraction":1,"timing error":1}}
     CF_NA={"status":"not_available","haircut_points":0,"modules_flagged":[],"rationale":"no calibration summary exists yet"}
     CF_PD={"status":"pre_data","haircut_points":0,"modules_flagged":[],"rationale":"calibration summary is pre-data"}
     CF_CHECKED={"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"rationale":"checked; no module flagged"}
@@ -1828,6 +1877,42 @@ if scope=="selftest":
         ("2026-07-27",CS_REAL_ERRTAX,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],
           "leading_error_categories_flagged":["bad extraction"],"rationale":"x"},
           ["none of","traceable"]),
+        # ── P1 regression (Codex r3671892072): a Pre-data OVERALL verdict must NOT excuse skipping an
+        # already-leading error-taxonomy category — calibrate.md's own narration says the tally is "never
+        # gated by the floor." Recording status='pre_data' here (the OLD behavior) must now fail.
+        ("2026-07-29",CS_PREDATA_ERRTAX,CF_PD,["expected 'checked_no_action' or 'applied'"]),
+        # ...but the run can still resolve cleanly: steps 3-5 stay inapplicable (empty, present), while
+        # step 6 independently ran and found the one leading category ("bad extraction") defended.
+        ("2026-07-29",CS_PREDATA_ERRTAX,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],
+          "leading_error_categories_flagged":[],
+          "error_defense_evidence":{"bad extraction":DEF_EXTRACT},"rationale":"Pre-data overall, but 'bad extraction' independently defended per step 6"},[]),
+        # ...or it can apply the haircut on the errtax trigger alone, even though the overall summary is
+        # Pre-data and every other list is empty.
+        ("2026-07-29",CS_PREDATA_ERRTAX,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],
+          "leading_error_categories_flagged":["bad extraction"],
+          "error_defense_evidence":{"bad extraction":"no defense evidence found"},"rationale":"Pre-data overall; 'bad extraction' admits no defense"},[]),
+        # ── P2 (Gemini r3671874640 / Codex r3671892095): error_defense_evidence is required present (an
+        # object, {} at minimum) whenever the errtax gate applies at all — not only when lec is non-empty.
+        # Omitting it entirely on a clean run (no leading category) must now fail...
+        ("2026-07-29",CS_REAL_ERRTAX_CLEAN,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],"rationale":"x"},
+          ["error_defense_evidence","missing/not an object"]),
+        # ...but an explicit empty object proves the check ran and passes clean.
+        ("2026-07-29",CS_REAL_ERRTAX_CLEAN,{"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],
+          "leading_error_categories_flagged":[],
+          "error_defense_evidence":{},"rationale":"clean — no leading error-taxonomy category yet"},[]),
+        # ── P2 (Codex r3671892083): a non-string entry in leading_error_categories_flagged must be
+        # reported as a violation, never crash the whole eval run with a set()-on-unhashable TypeError.
+        ("2026-07-29",CS_REAL_ERRTAX,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],
+          "leading_error_categories_flagged":[{"category":"bad extraction"}],
+          "error_defense_evidence":{"bad extraction":DEF_EXTRACT,"timing error":DEF_TIMING},"rationale":"x"},
+          ["non-string"]),
+        # ── P2 (Codex r3671892091): a flagged category that is not among the as-of summary's actual
+        # leading categories must be rejected — both as its own violation, and as a non-traceable trigger
+        # (it must not substitute for defending, or admitting no defense against, a real leading category).
+        ("2026-07-29",CS_REAL_ERRTAX2,{"status":"applied","haircut_points":8,"modules_flagged":[],"flagged_forecast_types":[],"flagged_thesis_types":[],
+          "leading_error_categories_flagged":["timing error"],
+          "error_defense_evidence":{"bad extraction":DEF_EXTRACT},"rationale":"x"},
+          ["not among the as-of summary's actual leading categories","none of","traceable"]),
     ]
     agbad=0
     for dt_,cs_,cf_,exp in agcases:
