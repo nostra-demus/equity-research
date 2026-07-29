@@ -22,7 +22,9 @@ const LOCK_FILE = 'bridge-batch.lock'
 const log = (m: string) => console.log(`[bridge] ${m}`) // eslint-disable-line no-console
 
 let timer: ReturnType<typeof setInterval> | null = null
-let running = false
+// the overlap guard doubles as the honest "a sweep is in flight RIGHT NOW" signal the chip pulses on —
+// distinct from `running` (the loop is live), which stays true between windows
+let sweeping = false
 let lastSweepAt: string | null = null
 let nextSweepAt: string | null = null
 export interface BridgeSweepSummary { subjects: number; written: number; duplicates: number; analyses: number }
@@ -42,6 +44,8 @@ export interface BridgeStatus {
   mode: string
   /** the loop is genuinely ticking (batch mode AND this engine won the singleton lock) */
   running: boolean
+  /** a sweep is executing at this moment — the chip's pulse, and never merely "between windows" */
+  sweeping: boolean
   intervalMin: number
   subjects: BridgeSubjectStatus[]
   /** total routed notes across every covered subject — the "how much has accumulated" number */
@@ -59,6 +63,7 @@ export function getBridgeStatus(): BridgeStatus {
   return {
     mode: BRIDGE_MODE,
     running,
+    sweeping: running && sweeping,
     intervalMin: BRIDGE_INTERVAL_MIN,
     subjects,
     totalNotes: subjects.reduce((a, s) => a + s.notes, 0),
@@ -137,9 +142,9 @@ export function startBridgeScheduler(launchAnalysis: (ticker: string) => Promise
   const tick = async () => {
     // advance BEFORE the overlap guard, so a skipped tick still reports an honest next-due time
     nextSweepAt = new Date(Date.now() + BRIDGE_INTERVAL_MIN * 60_000).toISOString().replace(/\.\d{3}Z$/, 'Z')
-    if (running) return
-    running = true
-    try { await runBridgeSweep(launchAnalysis) } catch (e: any) { log(`sweep failed: ${e?.message || e}`) } finally { running = false }
+    if (sweeping) return
+    sweeping = true
+    try { await runBridgeSweep(launchAnalysis) } catch (e: any) { log(`sweep failed: ${e?.message || e}`) } finally { sweeping = false }
   }
   idleReason = null
   timer = setInterval(tick, BRIDGE_INTERVAL_MIN * 60_000)

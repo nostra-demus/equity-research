@@ -9,6 +9,7 @@ import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import { archiveErrorNote } from './archiveError'
 import { affectedModules, focusKeysFor } from './intake'
+import type { BridgeStatus } from './types'
 import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
@@ -605,6 +606,7 @@ interface State {
   scIntensityWindow: IntensityWindow // derived from the "When" ribbon (themesWindow) — drives the map readout + lane mix; 'scan' = the live per-cycle path
   setIntensityWindow: (w: IntensityWindow) => Promise<void> // internal — driven by setThemesWindow; not a separate user control
   newsStatus: NewsStatus | null
+  bridgeStatus: BridgeStatus | null
   newsStreamOnline: boolean // the live news SSE is open — proves the wire is reachable even if the status fetch failed
   feedWindowDays: number // the time-travel window the wire is showing (2 = live; 14/30/90/180/370 = history)
   feedWindowLoading: boolean
@@ -638,6 +640,7 @@ interface State {
   openSources: () => void
   closeSources: () => void
   refreshNewsStatus: () => Promise<void>
+  refreshBridgeStatus: () => Promise<void>
   // ---- pipeline diagnostics (the full end-to-end triage/tier/backlog/defer view) ----
   diagnosticsOpen: boolean
   newsDiagnostics: NewsDiagnostics | null
@@ -906,6 +909,7 @@ export const useStore = create<State>((set, get) => ({
   scFacets: null,
   scFacetsLoading: false,
   newsStatus: null,
+  bridgeStatus: null,
   newsStreamOnline: false,
   themes: [],
   themesView: null,
@@ -3633,6 +3637,15 @@ export const useStore = create<State>((set, get) => ({
       set({ newsDiagnostics: await api.newsDiagnostics() })
     } catch {
       // read-only view — never toast; keep the last-known snapshot on a transient failure (matches refreshNewsStatus)
+    }
+  },
+  // Same shape + same "decoration, never toast" rule as refreshNewsStatus: a transient failure keeps the
+  // last-known snapshot rather than blanking the chip.
+  refreshBridgeStatus: async () => {
+    try {
+      set({ bridgeStatus: await api.bridgeStatus() })
+    } catch {
+      /* status is decoration — keep the last-known value */
     }
   },
   refreshNewsStatus: async () => {
