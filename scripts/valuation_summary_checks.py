@@ -190,6 +190,7 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
             # that would let the case be priced from the run-level terms while the client's draftFromResponse
             # treats the same array as truthy and caseLevelFromMultiple returns null (net_debt missing), so
             # CI and the Playground would disagree (Codex #365 P2, scripts/valuation_summary_checks.py:159).
+            # #364 made this same fix independently (Codex #364 P2) — one gate, not two.
             det.append(f"scenario {s.get('label')!r} bridge {raw_bridge!r} is not an object — a present bridge "
                        f"must be a {{net_debt, ...}} object, never treated as absent")
         br = raw_bridge if isinstance(raw_bridge, dict) else None
@@ -847,6 +848,15 @@ def _selftest() -> int:
         out3 = eval_ap_valuation_summary_integrity(nonnum_bad, None)
         check(f"bridge {bad_key} nonnumeric caught, not silently treated as 0",
               any(f"{bad_key} must be numeric" in v for v in out3))
+
+    # a present, non-null bridge that is NOT an object (a string/array typo) must be reported — it used
+    # to be silently treated as absent, with no violation, and the client/Python arithmetic both fell back
+    # to run-level terms with no sign anything was wrong (Codex #364 P2)
+    for bad_bridge in ("net_debt: 17919", [17919, 7495]):
+        non_obj = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge=bad_bridge), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+        out4 = eval_ap_valuation_summary_integrity(non_obj, None)
+        check(f"a non-object bridge ({type(bad_bridge).__name__}) is reported, not silently absent",
+              any("not an object" in v for v in out4))
 
     # ---- the v1.3 labelling rules key off PRESENCE, not off a complete pair (a half tuple used to skip
     # every check below it and ship an unlabelled, uncited, underivable lever).
