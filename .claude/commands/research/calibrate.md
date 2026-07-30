@@ -26,6 +26,8 @@ The script reads the **STANDING, corrected** ledger via `scripts/ledger_records.
 - an **anytime-valid sequential e-value** of the hit rate vs a coin flip (a monthly check carries no peeking penalty), plus the conservative **effective sample size** (distinct tickers, since forecasts inside one run are correlated) and **months-to-significance**;
 - the always-honest flat tallies — `error_taxonomy_distribution` (§20) and `pre_mortem_calibration` (§5 audit-of-the-auditor) — which are counts, not rates, and are populated at any N.
 
+**Truth-integrity gate (added 2026-07-30).** Every standing run carries a truth-integrity status resolved by `scripts/ledger_records.py` (`resolve_integrity_status` — reads the run's `verification_report*.json` verdict and any `/research:full` finish-gate PROVISIONAL banner, the same two signals the finish-gate itself checks). A run flagged **provisional** — verify-evidence found the citations/math/anchors not Clean/Minor, or the finish-gate stamped `final_thesis.md` PROVISIONAL for any reason — is **excluded from every skill-scoring number above** (Brier, hit rate, cohort returns, e-value, months-to-significance): the run is one the engine itself flagged as possibly wrong, and its realized outcome would tell the scoreboard nothing about whether the engine is calibrated. It still counts in `inventory` and the process metrics (never hidden, CLAUDE.md §11) and is named in the new `excluded_provisional` field. An **unaudited** run (verify-evidence never ran — most runs before 2026-07-24) is scored normally: absence of an audit is not evidence of a defect.
+
 Do **not** compute or estimate any metric yourself, and do not "fill in" a value the script left `null` — the script owns the math and the small-N refusal.
 
 ## 2. Commit the output (DATA → main, per CLAUDE.md §25)
@@ -45,6 +47,7 @@ Read the printed JSON and say:
 - the counts — decisions, reviews, resolved forecasts, resolved directional calls — and the **effective** sample vs the raw one;
 - every skill metric that IS above its floor (hit rate + its CI, Brier, Selected−Rejected spread, whether the e-value has crossed the skill threshold); for anything still below floor, say so and give the N vs the floor — never present a withheld metric as if it were measured;
 - the leading `error_taxonomy_distribution` tag(s) if any count ≥ 2 (this is the one concrete "why the engine is wrong" read even in a Pre-data run — never gated by the floor; this is also now the exact threshold the Phase 6 gate uses — `frameworks/DECISION_LEDGER.md` §18 step 6 — to require the NEXT run to name a concrete defense against each leading category or admit it has none), and every `pre_mortem_calibration.false_comfort_cases` entry by ticker (the script lists them — a red-team that gave false comfort on a broken thesis is the costliest miss in that metric);
+- if `excluded_provisional.n > 0`, name every excluded run (ticker + verify-evidence verdict) and say plainly that the skill metrics above are computed WITHOUT them — do not let a reader assume the hit rate/Brier covers every standing call;
 - when the `hit_rate` is still withheld but `calibration` (Brier) IS computed, report the Brier — the `honesty_statement` already says so; do not repeat the flat "everything withheld" line, which is only true when both are below floor.
 
 ## Hard rules
