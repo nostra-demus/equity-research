@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2",
+  "schema_version": "1.3",
   "ticker": "NHY",
   "as_of": "2026-07-19",
   "currency": "NOK",
@@ -16,22 +16,49 @@
   "scenarios": [
     {
       "label": "bull",
-      "forward_metric": null,
-      "multiple": null,
+      "forward_metric": 28889.0,
+      "multiple": 8.21,
       "level": 107.7,
-      "drivers": "Middle East supply-shock LME price spike persists and elevated FY2025 13.9% margin holds; 12-month price-convergence window"
+      "drivers": "Middle East supply-shock LME price spike persists and elevated FY2025 13.9% margin holds; 12-month price-convergence window",
+      "metric_basis": "FY2025 Adj. EBITDA",
+      "basis": "ev",
+      "multiple_basis": "EV/FY2025 Adj. EBITDA",
+      "multiple_kind": "implied",
+      "bridge": {
+        "net_debt": 17919,
+        "net_debt_basis": "cash-quality adjusted (01 canonical)",
+        "minority": 7495,
+        "shares": 1965.28
+      },
+      "secondary_multiples": [
+        {
+          "value": 7.17,
+          "basis": "EV/FY2026E EBITDA",
+          "note": "the orb states this alongside 8.21x"
+        }
+      ]
     },
     {
       "label": "base",
-      "forward_metric": null,
-      "multiple": null,
+      "forward_metric": 28889.0,
+      "multiple": 6.45,
       "level": 81.83,
-      "drivers": "Weighted blend 0.25x93.70 (peers, quality-adj NTM EV/EBITDA) + 0.35x70.14 (DCF, 13.0% mid-cycle margin) + 0.40x84.63 (SOTP, audited segment EBITDA) = 81.83"
+      "drivers": "Weighted blend 0.25x93.70 (peers, quality-adj NTM EV/EBITDA) + 0.35x70.14 (DCF, 13.0% mid-cycle margin) + 0.40x84.63 (SOTP, audited segment EBITDA) = 81.83",
+      "metric_basis": "FY2025 Adj. EBITDA",
+      "basis": "ev",
+      "multiple_basis": "EV/FY2025 Adj. EBITDA",
+      "multiple_kind": "implied",
+      "bridge": {
+        "net_debt": 17919,
+        "net_debt_basis": "cash-quality adjusted (01 canonical)",
+        "minority": 7495,
+        "shares": 1965.28
+      }
     },
     {
       "label": "bear",
-      "forward_metric": null,
-      "multiple": null,
+      "forward_metric": 28889.0,
+      "multiple": 3.95,
       "level": 45.12,
       "drivers": "Structural reset: aluminium price reverts to 2023-2025 realized band and Extrusions decline continues; multi-year impairment path priced today",
       "derivation": {
@@ -60,6 +87,16 @@
           }
         ],
         "source": "07 §3 structural-reset snippet: 228,071 × 9.0% = 20,526 EBITDA → EBIT 9,026 → NOPAT 6,318 → FCFF 9,318 → TV 9,318×0.99/0.085 = 108,533 → PV ×0.72221 = 78,383 → EV 35,712 + 78,383 = 114,095; − net debt 17,919 − minority 7,495 = 88,681; ÷ 1,965.28 = 45.12"
+      },
+      "metric_basis": "FY2025 Adj. EBITDA",
+      "basis": "ev",
+      "multiple_basis": "EV/FY2025 Adj. EBITDA",
+      "multiple_kind": "implied",
+      "bridge": {
+        "net_debt": 17919,
+        "net_debt_basis": "cash-quality adjusted (01 canonical)",
+        "minority": 7495,
+        "shares": 1965.28
       }
     }
   ],
