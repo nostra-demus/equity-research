@@ -92,14 +92,14 @@ def _case_level(s, run_basis, sidecar):
         nd = br.get("net_debt")
         if not _isnum(nd):
             return None, "bridge net_debt must be explicit and numeric (0 when debt-free) — unknown net debt is never silently 0 (§15)"
-        for key in ("minority", "other"):
-            v = br.get(key)
-            if v is not None and not _isnum(v):
-                # a present-but-nonnumeric optional deduction must not be silently read as 0 — that
-                # would price the equity wrong (e.g. minority "7495" as a string) with no violation
-                # raised, because the finish gate calls this evaluator directly, not the JSON Schema
-                # (Codex #362 P2, fresh evidence beyond the earlier net_debt-only fix).
-                return None, f"bridge {key} must be numeric when present (got {v!r}) — a nonnumeric deduction cannot be silently treated as zero"
+        # A PRESENT optional term must be numeric or null. Silently treating a malformed one as 0 (or falling
+        # back from a malformed `shares` to the top-level count) values the case on terms nobody wrote —
+        # `"minority": "50"` used to pass and price the case as if minority were zero, and a string `shares`
+        # used to fall back to the top-level count instead of being flagged (Codex #362 P2 caught
+        # minority/other; Codex #366 P2 found the same gap in `shares`).
+        for k in ("minority", "other", "shares"):
+            if k in br and br[k] is not None and not _isnum(br[k]):
+                return None, f"bridge {k} {br[k]!r} is not a number — a malformed term is never silently dropped from the EV bridge"
         sh = br.get("shares") if _isnum(br.get("shares")) else sidecar.get("shares")
         if not (_isnum(sh) and float(sh) > 0):
             return None, "bridge has no positive shares (own or top-level)"
@@ -821,6 +821,19 @@ def _selftest() -> int:
         out2 = eval_ap_valuation_summary_integrity(nonobj, None)
         check(f"non-object bridge {bad_bridge!r} caught, not silently treated as absent",
               any("is not an object" in v for v in out2))
+    # a PRESENT-but-malformed optional bridge term is a violation, not a silent zero (this now also covers
+    # `shares`, not just minority/other — Codex #366 P2)
+    for bad_k, bad_v in (("minority", "50"), ("other", "0"), ("shares", "1965.28")):
+        br = {"net_debt": 17919, "net_debt_basis": "adj", "minority": 7495, "shares": 1965.28}
+        br[bad_k] = bad_v
+        out = eval_ap_valuation_summary_integrity(
+            dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge=br), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)]), None)
+        check(f"bridge {bad_k} as a string caught", any(f"bridge {bad_k}" in v and "not a number" in v for v in out))
+    check("an explicit NULL optional term is fine (the schema allows number-or-null)",
+          eval_ap_valuation_summary_integrity(dict(v13, scenarios=[
+              _nhy("bull", 8.21, 107.7, bridge={"net_debt": 17919, "net_debt_basis": "adj", "minority": 7495, "other": None, "shares": 1965.28}),
+              _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)]), None) == [])
+
     # §15: a per-case debt figure must name its basis wherever it appears
     no_ndb = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge={"net_debt": 17919, "minority": 7495, "shares": 1965.28}),
                   _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
@@ -841,13 +854,9 @@ def _selftest() -> int:
           eval_ap_valuation_summary_integrity(v13, None) == [])
     # a present-but-nonnumeric optional deduction (minority/other) must be REPORTED, not silently read
     # as 0 — a generated bridge with "minority": "7495" (a string) used to pass with the deduction
-    # dropped from the arithmetic (Codex #362 P2, fresh evidence beyond the net_debt-only fix)
-    for bad_key in ("minority", "other"):
-        br = {"net_debt": 17919, "net_debt_basis": "cash-quality adjusted", "shares": 1965.28, bad_key: "7495"}
-        nonnum_bad = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge=br), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
-        out3 = eval_ap_valuation_summary_integrity(nonnum_bad, None)
-        check(f"bridge {bad_key} nonnumeric caught, not silently treated as 0",
-              any(f"{bad_key} must be numeric" in v for v in out3))
+    # dropped from the arithmetic (Codex #362 P2, fresh evidence beyond the net_debt-only fix). Superseded
+    # by the fuller minority/other/shares group above (Codex #366 P2) — same guard, one wording, checked
+    # there instead of duplicating it here with the pre-#366 message text.
 
     # a present, non-null bridge that is NOT an object (a string/array typo) must be reported — it used
     # to be silently treated as absent, with no violation, and the client/Python arithmetic both fell back

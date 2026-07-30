@@ -5,7 +5,7 @@
 // that produced the fair value, the Playground silently disagrees with the recorded thesis — this file fails
 // first. Parity targets are the exact valuation_math.py outputs: AMZN 210.05, NHY 81.826, EMAAR 16.5245.
 import assert from 'node:assert'
-import { blend, buildMethods, impliedMultiple, caseLevelFromMultiple, levelSourceFor, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, chainEv, buildChain, levelForScenario, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
+import { blend, buildMethods, impliedMultiple, caseLevelFromMultiple, levelSourceFor, reanchor, mosRead, scenarioMath as sm, buildScenarios, caseTitle, caseSubtitle, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, chainEv, buildChain, levelForScenario, multipleOutranksChain, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
 import type { PlaygroundDraft } from './valuationLevers'
 
 let passed = 0
@@ -306,7 +306,11 @@ check('traceOutput NHY: pwt terms per scenario; expected/mos/downside/rr formula
   assert.ok(traceOutput('expected', math)!.formula.includes('84.96'))
   assert.ok(traceOutput('mos', math)!.formula.includes('81.83'))
   assert.ok(traceOutput('downside', math)!.formula.includes('45.12'))
-  assert.ok(traceOutput('rr', math)!.formula.includes('45.12'))
+  // the rr formula now states the ratio actually computed (expected return / downside risk) rather than the
+  // long-only bear-price form — the bear is still named, in the note, so nothing is lost
+  const rr = traceOutput('rr', math)!
+  assert.ok(/expected return .* \/ downside risk/.test(rr.formula), rr.formula)
+  assert.ok((rr.note ?? '').includes('45.12') && /bear/.test(rr.note ?? ''), rr.note ?? '')
   // no price → price-relative traces refuse instead of fabricating
   const noPrice = scenarioMath([{ label: 'base', probability: 100, price_target: 10 }], null)
   assert.equal(traceOutput('expected', noPrice), null)
@@ -683,12 +687,12 @@ check('v1.3: trace resolves the EFFECTIVE basis (run-level fallback), not just t
   assert.equal(d.basis, 'ev', 'the run supplies the fallback')
   // levelForScenario already used the effective basis and derives the correct bridged level
   assert.ok(Math.abs((levelForScenario(s, d) as number) - 107.75) < 0.02)
-  const t = traceScenarioCell(s, scenarioCellState(s, false, null, null, false), d.published ?? null, (k) => k, d.basis)
+  const t = traceScenarioCell(s, scenarioCellState(s, false, null, null, false), d.published ?? null, (k) => k, { basis: d.basis, shares: d.shares, netDebt: d.netDebt })
   assert.ok(t.formula.includes('net debt 17919') && t.formula.includes('minority 7495'),
     `trace must show the bridge that the calculation actually used: ${t.formula}`)
   assert.ok(t.formula.includes('÷ shares 1965.28'), t.formula)
 })
-check('v1.3: without the runBasis argument, the trace defaults to "equity" and drops the bridge (documents the old bug\'s shape)', () => {
+check('v1.3: without the ctx argument, the trace defaults to no run-level basis and drops the bridge (documents the old bug\'s shape)', () => {
   const noOwnBasisRes: ValuationLeversResponse = {
     ...NHY13,
     levers: { ...NHY13.levers!, basis: 'ev', scenarios: NHY13.levers!.scenarios.map((sc) => ({ ...sc, basis: undefined })) },
@@ -696,7 +700,7 @@ check('v1.3: without the runBasis argument, the trace defaults to "equity" and d
   const d = draftFromResponse(noOwnBasisRes)
   const s = d.scenarios[0]
   const t = traceScenarioCell(s, scenarioCellState(s, false, null, null, false), d.published ?? null)
-  assert.ok(!t.formula.includes('net debt'), 'default runBasis is equity, so no bridge is shown — the caller MUST pass draft.basis')
+  assert.ok(!t.formula.includes('net debt'), 'with no ctx, the effective basis cannot be resolved, so no bridge is shown — the caller MUST pass draft.basis/shares/netDebt as ctx')
 })
 
 // ---- checkMultipleSymmetry must be gated by comparable basis in recompute() (Codex #362 P2) ----
@@ -751,6 +755,26 @@ check('impliedMultiple refuses rather than guesses (no metric, zero metric, no n
   assert.equal(impliedMultiple(100, null, 'equity', null), null)
   assert.equal(impliedMultiple(100, 0, 'equity', null), null)
   assert.equal(impliedMultiple(100, 50, 'ev', null, 10, null), null) // §15: unknown net debt
+})
+check('exported EV helpers called WITHOUT netDebt refuse — no default-0 fabricated debt-free bridge (Codex #366 P2)', () => {
+  // These are PUBLIC exports; an external caller of the EV path who forgets the final argument must get
+  // "not derivable", never a silently debt-free valuation. Before this fix both defaulted netDebt to 0,
+  // so an EV case would price as if the company held zero debt.
+  // caseLevelFromMultiple: run-level EV case, no bridge, netDebt genuinely omitted (not even `undefined`
+  // passed explicitly — the argument is left off entirely, exercising the default itself)
+  assert.equal(caseLevelFromMultiple(28889, 3.95, 'ev', null, 1965.28), null, 'omitted netDebt must refuse, not price as debt-free')
+  // sanity: the SAME call with an explicit net debt derives a real (non-null, non-zero-debt) level
+  const withNetDebt = caseLevelFromMultiple(28889, 3.95, 'ev', null, 1965.28, 13090)
+  assert.ok(isFinite(withNetDebt as number) && (withNetDebt as number) > 0, `got ${withNetDebt}`)
+  // and it must NOT equal what omitting net debt would have silently produced under the old default-0
+  // behaviour (EV ÷ shares with nothing subtracted)
+  const fabricatedDebtFree = (28889 * 3.95) / 1965.28
+  assert.ok(Math.abs((withNetDebt as number) - fabricatedDebtFree) > 1, 'the real bridge must differ from a debt-free fabrication')
+  // impliedMultiple: same omission on the inverse helper
+  assert.equal(impliedMultiple(107.75, 28889, 'ev', null, 1965.28), null, 'omitted netDebt must refuse the inversion too')
+  assert.ok(isFinite(impliedMultiple(107.75, 28889, 'ev', null, 1965.28, 13090) as number), 'an explicit net debt still derives')
+  // equity basis is unaffected — it never touches net debt, omitted or not
+  assert.ok(Math.abs((caseLevelFromMultiple(10.16, 0.96, 'equity', null, 1965.28) as number) - 10.16 * 0.96) < 1e-6)
 })
 check('the shown multiple MOVES when the machinery moves (implied, not frozen)', () => {
   const d = draftFromResponse(NHY13)
@@ -836,6 +860,35 @@ check('an `applied` multiple outranks a recorded chain (the v1.3 contract: appli
   assert.equal(levelSourceFor(withChain.scenarios[0], withChain), 'multiple') // bull has no chain here, unaffected
 })
 
+check('multipleOutranksChain: the UI cell-state classifier must agree with levelSourceFor (Codex #366 P2)', () => {
+  // levelSourceFor/levelForScenario already give an `applied` multiple precedence over a recorded chain
+  // (the check above). But the Playground's own trace/disclosure toggle picks WHICH panel to show
+  // (ChainStrip vs TraceStrip) from `scenarioCellState`, fed a `chainValue` the CALL SITE computes
+  // separately — and that call site only nulled it out for an explicit `multipleAsserted`, not for a
+  // run-recorded `applied` multiple. So a fresh-loaded (never-edited) applied+chain case opened the chain
+  // as if it drove the level, while recompute had already used the multiple. multipleOutranksChain is the
+  // single precedence check both the math (levelSourceFor) and the UI classifier must consult.
+  const d = draftFromResponse(NHY13)
+  const withChain = { ...d, scenarios: d.scenarios.map((s, i) => (i === 2 ? { ...s, chain: buildChain(NHY_BEAR_DERIV), multipleKind: 'applied' as const } : s)) }
+  const s = withChain.scenarios[2]
+  assert.equal(multipleOutranksChain(s), true, 'a recorded applied multiple + forwardMetric/multiple outranks the chain')
+  // the exact bug: computing chainValue WITHOUT the applied guard (the pre-fix call site) would feed a
+  // non-null chainValue into scenarioCellState and misclassify the cell as derived_chain
+  const cvUnguarded = chainLevel(s.chain, withChain.shares)
+  assert.ok(cvUnguarded !== null, 'sanity: the chain itself really does compute a level here')
+  assert.equal(scenarioCellState(s, false, null, null, false, cvUnguarded).kind, 'derived_chain', 'pre-fix call site misclassifies')
+  // the FIXED call site: chainValue is null'd out whenever multipleOutranksChain(s) is true, so the cell
+  // state agrees with what recompute actually used to produce the level
+  const cvGuarded = multipleOutranksChain(s) ? null : chainLevel(s.chain, withChain.shares)
+  assert.equal(cvGuarded, null)
+  assert.equal(scenarioCellState(s, false, null, null, false, cvGuarded).kind, 'derived_multiple', 'fixed call site matches levelSourceFor\'s "multiple"')
+  assert.equal(levelSourceFor(s, withChain), 'multiple')
+  // and a plain `multipleAsserted` (no `applied` kind) must still outrank the chain the same way
+  const typed = { ...s, multipleKind: null, multipleAsserted: true }
+  assert.equal(multipleOutranksChain(typed), true)
+  assert.equal(scenarioCellState(typed, false, null, null, false, multipleOutranksChain(typed) ? null : chainLevel(typed.chain, withChain.shares)).kind, 'derived_multiple')
+})
+
 check('an explicit base-row edit outranks the live blend, even with driveBaseFromMix on', () => {
   const d = draftFromResponse(NHY13)
   const withMix = { ...d, methods: buildMethods({ dcf: 70.14, peers: 93.7 }, { dcf: 0.5, peers: 0.5 }), driveBaseFromMix: true }
@@ -852,6 +905,33 @@ check('an explicit base-row edit outranks the live blend, even with driveBaseFro
   const out2 = recompute(asserted).scenarios[1]
   assert.equal(out2.levelSource, 'asserted_multiple')
   assert.ok(out2.level !== blended.level, 'the explicit assertion must win over the live blend')
+})
+
+check('an explicit CHAIN edit outranks the live blend on the base row, without disabling the toggle (Codex #366 P2)', () => {
+  // Before this fix: the base row's chain panel stayed editable while "use this blend as the most-likely
+  // value" was on, but recompute gave the blend UNCONDITIONAL precedence — an edit updated draft.scenarios
+  // but the displayed level and returns kept reading the blend, exactly like the override/multiple bug
+  // #364 fixed, just for the chain input instead.
+  const d = draftFromResponse(NHY13)
+  const withMix = {
+    ...d, methods: buildMethods({ dcf: 70.14, peers: 93.7 }, { dcf: 0.5, peers: 0.5 }), driveBaseFromMix: true,
+    scenarios: d.scenarios.map((s, i) => (i === 1 ? { ...s, chain: buildChain(NHY_BEAR_DERIV) } : s)),
+  }
+  // sanity: the mere PRESENCE of a chain must not by itself outrank the opted-in blend
+  const blended = recompute(withMix).scenarios[1]
+  assert.equal(blended.levelSource, 'live_blend', 'a recorded (untouched) chain must not silently outrank the blend')
+  // mutating the chain's fields WITHOUT the chainEdited flag must not itself flip precedence — regression
+  // guard that it is the explicit-edit FLAG gating this, not `chain`'s mere presence
+  const mutatedNoFlag = { ...withMix, scenarios: withMix.scenarios.map((s, i) => (i === 1 ? { ...s, chain: { ...s.chain!, ev: 999999 } } : s)) }
+  assert.equal(recompute(mutatedNoFlag).scenarios[1].levelSource, 'live_blend', 'a mutated-but-unflagged chain still must not silently outrank the blend')
+  // the fix: ChainStrip's onEdit always sets chainEdited:true — once it does, the edit wins over the blend,
+  // the same as an unlock-override or a typed multiple already do (Codex #364 P2), and the checkbox itself
+  // is untouched (driveBaseFromMix stays true — it still drives every OTHER opted-in row)
+  const edited = { ...withMix, scenarios: withMix.scenarios.map((s, i) => (i === 1 ? { ...s, chain: { ...s.chain!, ev: 999999 }, chainEdited: true } : s)) }
+  assert.equal(edited.driveBaseFromMix, true)
+  const out = recompute(edited).scenarios[1]
+  assert.equal(out.levelSource, 'chain', 'an explicit chain edit must win over the live blend')
+  assert.ok(out.level !== blended.level, 'the edited chain value must actually show, not the stale blend number')
 })
 
 check('levelSourceFor names what actually drives, and levelForScenario never disagrees with it', () => {
@@ -942,4 +1022,351 @@ check('an unlock seeded from the shown level actually takes over (the button is 
   assert.equal(recompute(typed).scenarios[0].level, 150)
 })
 
+// ---- position-signed returns: the client must match scripts/valuation_math.py on a SHORT ----
+// The fixture is the committed TSLA_2026-07-25 decision_record, reproduced from its own five levels and
+// probabilities. Parity targets are the exact published fields: +56.57 / +30.56 / 1.85.
+const TSLA_SHORT = [
+  { label: 'bull', probability: 25, price_target: 336.08 },
+  { label: 'base', probability: 20, price_target: 32.37 },
+  { label: 'bear_cyclical', probability: 25, price_target: 20.90 },
+  { label: 'bear_structural', probability: 20, price_target: 6.86 },
+  { label: 'tail_squeeze', probability: 10, price_target: 417.40 },
+]
+check('short: reproduces the published TSLA decision_record (+56.57 / +30.56 / 1.85)', () => {
+  const m = scenarioMath(TSLA_SHORT, 319.69, 'short')
+  assert.ok(Math.abs((m.expectedReturnPct as number) - 56.57) < 0.05, `E[r] ${m.expectedReturnPct}`)
+  assert.ok(Math.abs((m.downsideRiskPct as number) - 30.56) < 0.05, `downside ${m.downsideRiskPct}`)
+  assert.ok(Math.abs((m.riskReward as number) - 1.85) < 0.02, `rr ${m.riskReward}`)
+})
+check('short: a price RISE is a loss and a FALL is a gain', () => {
+  const m = scenarioMath(TSLA_SHORT, 319.69, 'short')
+  const r = Object.fromEntries(m.perScenario.map((x) => [x.label, x.return_pct]))
+  assert.ok(Math.abs((r.bull as number) + 5.1) < 0.15, `bull ${r.bull}`)
+  assert.ok(Math.abs((r.base as number) - 89.9) < 0.15, `base ${r.base}`)
+  assert.equal(Math.min(...m.perScenario.map((x) => x.return_pct as number)), r.tail_squeeze)
+})
+check('short: margin of safety stays DIRECTION-UNIFORM (negative, not flipped)', () => {
+  const m = scenarioMath(TSLA_SHORT, 319.69, 'short')
+  assert.ok((m.marginOfSafetyPct as number) < 0, `mos ${m.marginOfSafetyPct}`)
+  assert.equal(m.marginOfSafetyPct, scenarioMath(TSLA_SHORT, 319.69, 'long').marginOfSafetyPct)
+})
+check('the long formula on a short flips every sign — the bug this pins', () => {
+  const lg = scenarioMath(TSLA_SHORT, 319.69, 'long')
+  assert.ok(Math.abs((lg.expectedReturnPct as number) + 56.57) < 0.05, `${lg.expectedReturnPct}`)
+  assert.ok(Math.abs((lg.downsideRiskPct as number) - 97.9) < 0.2, `${lg.downsideRiskPct}`)
+})
+check('the adverse-branch warning follows the direction (AM for a long, AR for a short)', () => {
+  const sh = scenarioMath(TSLA_SHORT, 319.69, 'short')
+  assert.ok(!sh.warnings.some((w) => /downside branch for a long/.test(w)), JSON.stringify(sh.warnings))
+  const noSqueeze = scenarioMath([{ label: 'bull', probability: 50, price_target: 200 },
+                                  { label: 'bear', probability: 50, price_target: 50 }], 300, 'short')
+  assert.ok(noSqueeze.warnings.some((w) => /squeeze\/upside branch for a short/.test(w)), JSON.stringify(noSqueeze.warnings))
+})
+check('a short with NO bull case at all is warned too, not silently accepted (Codex #366 P2)', () => {
+  const noBull = scenarioMath([{ label: 'base', probability: 50, price_target: 100 },
+                                { label: 'tail_squeeze', probability: 50, price_target: 50 }], 120, 'short')
+  assert.ok(noBull.warnings.some((w) => /no bull scenario/.test(w)), JSON.stringify(noBull.warnings))
+})
+check('direction defaults to long, and reanchor carries it', () => {
+  assert.equal(scenarioMath(TSLA_SHORT, 319.69).expectedReturnPct, scenarioMath(TSLA_SHORT, 319.69, 'long').expectedReturnPct)
+  assert.equal(reanchor(TSLA_SHORT, 319.69, 'short').expectedReturnPct, scenarioMath(TSLA_SHORT, 319.69, 'short').expectedReturnPct)
+})
+check('draftFromResponse reads the direction from the decision basket', () => {
+  const shortRes: ValuationLeversResponse = { ...NHY13, decision: { ...NHY13.decision!, basket: 'Short' } }
+  assert.equal(draftFromResponse(shortRes).direction, 'short')
+  assert.equal(draftFromResponse(NHY13).direction, 'long')
+  assert.equal(draftFromResponse({ ...NHY13, decision: { ...NHY13.decision!, basket: 'Watchlist' } }).direction, 'long')
+  const a = recompute(draftFromResponse(NHY13)).math.expectedReturnPct as number
+  const b = recompute(draftFromResponse(shortRes)).math.expectedReturnPct as number
+  assert.ok(Math.abs(a + b) < 0.15, `long ${a} vs short ${b} — must be equal and opposite`)
+})
+check('mosRead: the sentence follows the sign, so it can never state the opposite of the truth', () => {
+  const above = mosRead(-887.7, 'short')
+  assert.equal(above.label, 'Price above that by')
+  assert.equal(above.magnitude, 887.7)
+  assert.equal(above.good, true)                      // for a SHORT, expensive is the thesis working
+  assert.equal(mosRead(-887.7, 'long').good, false)   // for a LONG, the same fact is bad news
+  assert.equal(mosRead(-3.83, 'long').label, 'Price above that by')
+  const below = mosRead(18.7, 'long')
+  assert.equal(below.label, 'Price below that by')
+  assert.equal(below.magnitude, 18.7)
+  assert.equal(below.good, true)
+  assert.equal(mosRead(18.7, 'short').good, false)     // a cheap stock is bad news for a short
+  assert.equal(mosRead(null).magnitude, null)
+  assert.equal(mosRead(null).good, null)
+})
+
+check('two down-legs: "downside to bear" takes the WORST bear, not the first listed', () => {
+  const m = scenarioMath(TSLA_SHORT, 319.69, 'short')
+  // structural 6.86 -> 97.9% fall; cyclical 20.90 -> 93.5%. The first listed is the cyclical.
+  assert.ok(Math.abs((m.downsideToBearPct as number) - 97.9) < 0.2, `picked the wrong bear: ${m.downsideToBearPct}`)
+  // and a single-bear set is unchanged by that rule
+  const one = scenarioMath([{ label: 'base', probability: 50, price_target: 100 }, { label: 'bear', probability: 50, price_target: 60 }], 120)
+  assert.ok(Math.abs((one.downsideToBearPct as number) - 50) < 0.1, `${one.downsideToBearPct}`)
+})
+check('risk/reward stays tied to the two published fields it is built from', () => {
+  // er/dr is the documented long formula written direction-generally; assert the identity holds both ways
+  for (const dir of ['long', 'short'] as const) {
+    const m = scenarioMath(TSLA_SHORT, 319.69, dir)
+    assert.ok(Math.abs((m.riskReward as number) - (m.expectedReturnPct as number) / (m.downsideRiskPct as number)) < 0.02, dir)
+  }
+})
+
+// ---- #366 review fixes ----
+check('risk/reward is built from UNROUNDED values, so it reproduces the published figure exactly', () => {
+  // AMZN's published -0.41. Dividing the two ROUNDED percentages gives -0.42 — a real change to a
+  // committed long run that a ±0.02 test tolerance hid.
+  const amzn = scenarioMath([
+    { label: 'bull', probability: 25, price_target: 247 },
+    { label: 'base', probability: 45, price_target: 210 },
+    { label: 'bear', probability: 30, price_target: 146 },
+  ], 237.53)
+  assert.equal(amzn.riskReward, -0.41, `rr ${amzn.riskReward} (rounded-input version gives -0.42)`)
+  // and a sub-0.05% adverse case still yields a ratio instead of null
+  const tiny = scenarioMath([{ label: 'base', probability: 50, price_target: 101 },
+                             { label: 'bear', probability: 50, price_target: 99.98 }], 100)
+  assert.ok(isFinite(tiny.riskReward as number), `tiny ${tiny.riskReward}`)
+  assert.ok(Math.abs((tiny.riskReward as number) - 24.5) < 0.05, `tiny ${tiny.riskReward}`)
+})
+check('traceOutput states the arithmetic that produced the number beside it, on a short', () => {
+  const m = scenarioMath(TSLA_SHORT, 319.69, 'short')
+  const t = traceOutput('expected', m, 'short')!
+  // the long formula printed beside a +56.57% would be an equation of the opposite sign
+  assert.ok(/price 319.69 − prob-weighted target/.test(t.formula), t.formula)
+  assert.ok(/SHORT/.test(t.note ?? ''), t.note ?? '')
+  const long = traceOutput('expected', scenarioMath(TSLA_SHORT, 319.69, 'long'), 'long')!
+  assert.ok(/prob-weighted target .* − price/.test(long.formula), long.formula)
+})
+check('the risk/reward trace states the ratio actually computed, and never goes silent', () => {
+  const m = scenarioMath(TSLA_SHORT, 319.69, 'short')
+  const t = traceOutput('rr', m, 'short')!
+  assert.ok(/expected return .* \/ downside risk/.test(t.formula), t.formula)
+  assert.ok(/tail_squeeze/.test(t.note ?? ''), t.note ?? '')     // names the real worst case
+  assert.ok(/NOT the bear row/.test(t.note ?? ''), t.note ?? '')
+  // a set whose worst row is not bear-labelled used to return null here
+  const noBearWorst = scenarioMath([{ label: 'bull', probability: 50, price_target: 50 },
+                                    { label: 'base', probability: 50, price_target: 120 }], 100)
+  assert.ok(traceOutput('rr', noBearWorst) !== null, 'rr trace must not go silent')
+})
+check('the margin-of-safety trace says which side of fair value the price is on', () => {
+  const t = traceOutput('mos', scenarioMath(TSLA_SHORT, 319.69, 'short'), 'short')!
+  assert.ok(/ABOVE base fair value/.test(t.note ?? ''), t.note ?? '')
+})
+
+// Codex #366 P2 (r3683131069): scenarioMath computes riskReward from UNROUNDED fractions, but traceOutput's
+// 'rr' branch reconstructed the equation from the already-1dp-rounded expectedReturnPct/downsideRiskPct — on
+// the real committed AMZN inputs (238.34) that shows "-16.1% / 38.7% = -0.41" even though -16.1/38.7 rounds
+// to -0.42, not -0.41. The trace must read from the same unrounded fractions the ratio was actually divided
+// from, so the equation as printed always reconciles with the ratio beside it.
+check('the risk/reward trace reconciles EXACTLY with the displayed ratio (committed AMZN inputs)', () => {
+  const amzn = scenarioMath([
+    { label: 'bull', probability: 25, price_target: 247.0 },
+    { label: 'base', probability: 45, price_target: 210.0 },
+    { label: 'bear', probability: 30, price_target: 146.0 },
+  ], 238.34)
+  assert.equal(amzn.riskReward, -0.41, `published rr ${amzn.riskReward}`)
+  const t = traceOutput('rr', amzn)!
+  const m = /expected return (-?\d+(?:\.\d+)?)% \/ downside risk (-?\d+(?:\.\d+)?)% = (-?\d+(?:\.\d+)?)/.exec(t.formula)
+  assert.ok(m, t.formula)
+  const [, er, dr, rr] = m!
+  // the rounded 1dp fields would show -16.1 / 38.7, whose division rounds to -0.42, not the published -0.41
+  assert.ok(!(er === '-16.1' && dr === '38.7'), `trace regressed to the rounded 1dp fields: ${t.formula}`)
+  assert.equal(round2(parseFloat(er) / parseFloat(dr)), parseFloat(rr), `equation shown does not reconcile: ${t.formula}`)
+  assert.equal(parseFloat(rr), amzn.riskReward, t.formula)
+})
+check('the case trace resolves an INHERITED ev basis and the shares fallback', () => {
+  // a case with NO per-case basis, on an ev RUN — exactly TSLA's committed shape
+  const s = { label: 'bull', probability: 25, forwardMetric: 121946, multiple: 11.5, levelOverride: null,
+              basis: null, bridge: { net_debt: -27444, net_debt_basis: 'broad', minority: 661, shares: null },
+              metricBasis: 'NTM revenue', multipleBasis: 'NTM EV/Sales' }
+  const withCtx = traceScenarioCell(s as any, { kind: 'derived_multiple' }, null, (k) => k, { basis: 'ev', shares: 4252.5 })
+  assert.ok(/net debt -27444/.test(withCtx.formula), withCtx.formula)   // the bridge IS shown
+  assert.ok(/minority 661/.test(withCtx.formula), withCtx.formula)
+  assert.ok(/÷ shares 4252.5/.test(withCtx.formula), withCtx.formula)   // the top-level fallback, not '—'
+  // without the context it would print bare metric × multiple beside a bridged level
+  const noCtx = traceScenarioCell(s as any, { kind: 'derived_multiple' }, null)
+  assert.ok(!/net debt/.test(noCtx.formula), noCtx.formula)
+})
+
+// Codex #366 P2 (r3683131060): the SYNTHETIC bridge built when a case has NO per-case bridge but the run is
+// EV-basis carried netDebt but dropped its basis label — TSLA's -27,444 "broad net cash" would then render
+// as a bare, unlabelled "net debt -27444", contradicting §15 (a non-strict net-debt figure must always show
+// its basis inline).
+check('the SYNTHETIC run-level bridge (no per-case bridge) still labels a non-strict net-debt basis', () => {
+  const s = { label: 'bull', probability: 25, forwardMetric: 121946, multiple: 11.5, levelOverride: null,
+              basis: null, bridge: null, // no per-case bridge — TSLA's real shape
+              metricBasis: 'NTM revenue', multipleBasis: 'NTM EV/Sales' }
+  const t = traceScenarioCell(s as any, { kind: 'derived_multiple' }, null, (k) => k,
+    { basis: 'ev', shares: 4252.5, netDebt: -27444, netDebtBasis: 'broad' })
+  assert.ok(/net debt -27444 \(broad\)/.test(t.formula), t.formula)   // basis labelled, not bare
+  // and a strict/unlabelled run-level net debt still renders (no basis parenthetical, nothing fabricated)
+  const noBasis = traceScenarioCell(s as any, { kind: 'derived_multiple' }, null, (k) => k,
+    { basis: 'ev', shares: 4252.5, netDebt: -27444 })
+  assert.ok(/net debt -27444/.test(noBasis.formula) && !/\(broad\)/.test(noBasis.formula), noBasis.formula)
+})
+
+check('all-upside: risk/reward is Not assessable rather than a negative ratio', () => {
+  // EMAAR_2026-07-03's real shape — every scenario ABOVE the entry price, bear included. Its thesis
+  // publishes the disclosed magnitude 1.9x (reward 14.49 / bear gap 7.80) and eval.py skips its own
+  // re-derivation here, so a signed -1.86 would contradict a correct number.
+  const up = scenarioMath([{ label: 'bull', probability: 20, price_target: 34.2 },
+                           { label: 'base', probability: 50, price_target: 27.7 },
+                           { label: 'bear', probability: 30, price_target: 20.0 }], 12.2)
+  assert.ok(Math.abs((up.expectedReturnPct as number) - 118.8) < 0.1, `E[r] ${up.expectedReturnPct}`)
+  assert.ok(Math.abs((up.downsideRiskPct as number) + 63.9) < 0.1, `downside ${up.downsideRiskPct}`)
+  assert.equal(up.riskReward, null)
+  assert.ok(up.warnings.some((w) => /no scenario is adverse/.test(w)), JSON.stringify(up.warnings))
+  // a normal long is untouched
+  assert.equal(scenarioMath([{ label: 'bull', probability: 25, price_target: 247 },
+                             { label: 'base', probability: 45, price_target: 210 },
+                             { label: 'bear', probability: 30, price_target: 146 }], 237.53).riskReward, -0.41)
+})
+
+// ---- the case set comes from the FROZEN THESIS, not from the levers sidecar ----
+// TSLA's committed shape: the thesis holds five cases, the sidecar three, and one of the three is the
+// STRUCTURAL bear recorded under the bare label `bear`.
+const TSLA_THESIS = [
+  { label: 'bull', probability: 25, return_pct: -5.13, price_target: 336.08 },
+  { label: 'base', probability: 20, return_pct: 89.87, price_target: 32.37 },
+  { label: 'bear_cyclical', probability: 25, return_pct: 93.46, price_target: 20.90 },
+  { label: 'bear_structural', probability: 20, return_pct: 97.85, price_target: 6.86 },
+  { label: 'tail_squeeze', probability: 10, return_pct: -30.56, price_target: 417.40 },
+]
+// The sidecar at v1.3 — each EV case carrying its own bridge. Why the bridge matters here, stated exactly:
+// TSLA's committed v1.2 cases each carry a `derivation` ev_bridge that DOES include the 661 minority, and
+// that chain takes precedence, so today's levels reproduce (336.0755 / 32.3675 vs a frozen 336.08 / 32.37).
+// But the metric × multiple pair on its own, against the run-level net_debt of −27,444, gives 336.2312 —
+// the minority is missing from the run level. So the moment an analyst types a multiple (an explicit
+// reverse assertion, which outranks the chain) the case would re-price on a bridge that is short 661.
+// The per-case bridge is what closes that.
+const TSLA_BRIDGE = { net_debt: -27444, net_debt_basis: 'broad (net cash)', minority: 661, shares: 4252.5 }
+const TSLA_LEVERS = [
+  { label: 'bull', forward_metric: 121946, multiple: 11.5, level: 336.08, basis: 'ev', bridge: TSLA_BRIDGE },
+  { label: 'base', forward_metric: 110860, multiple: 1.0, level: 32.37, basis: 'ev', bridge: TSLA_BRIDGE },
+  { label: 'bear_structural', forward_metric: null, multiple: null, level: 6.86 },
+]
+check('the grid follows the THESIS order, not the sidecar order', () => {
+  const rows = buildScenarios(TSLA_LEVERS as any, TSLA_THESIS as any)
+  assert.deepEqual(rows.map((r) => r.label), ['bull', 'base', 'bear_cyclical', 'bear_structural', 'tail_squeeze'])
+  // sidecar-first-then-append would have put bear_structural third — the order this test exists to pin
+  assert.notEqual(rows[2].label, 'bear_structural')
+})
+check('every thesis case is present, so the probabilities add to 100', () => {
+  const rows = buildScenarios(TSLA_LEVERS as any, TSLA_THESIS as any)
+  assert.equal(rows.reduce((a, r) => a + (r.probability ?? 0), 0), 100)
+  assert.deepEqual(rows.map((r) => r.probability), [25, 20, 25, 20, 10])
+})
+check('a thesis case with no levers is marked masterOnly and priced off its frozen level', () => {
+  const rows = buildScenarios(TSLA_LEVERS as any, TSLA_THESIS as any)
+  const cyc = rows.find((r) => r.label === 'bear_cyclical')!
+  const tail = rows.find((r) => r.label === 'tail_squeeze')!
+  for (const r of [cyc, tail]) {
+    assert.equal(r.masterOnly, true, r.label)
+    assert.equal(r.forwardMetric, null)
+    assert.equal(r.multiple, null)
+  }
+  assert.equal(cyc.levelOverride, 20.90)
+  assert.equal(tail.levelOverride, 417.40)
+  // and a case WITH levers is not marked
+  assert.ok(!rows.find((r) => r.label === 'base')!.masterOnly)
+})
+check('levers are matched EXACTLY — no substring cross-pairing', () => {
+  // the bug: the sidecar's bare `bear` (the structural level 6.86) took bear_cyclical's 25% by .includes()
+  const stale = [{ label: 'bull', forward_metric: 121946, multiple: 11.5, level: 336.08 },
+                 { label: 'base', forward_metric: 110860, multiple: 1.0, level: 32.37 },
+                 { label: 'bear', forward_metric: null, multiple: null, level: 6.8555 }]
+  const rows = buildScenarios(stale as any, TSLA_THESIS as any)
+  // `bear` matches NO thesis label exactly, so it is an orphan — never fused onto bear_cyclical
+  const orphan = rows.find((r) => r.orphan)!
+  assert.equal(orphan.label, 'bear')
+  assert.equal(orphan.probability, null)          // it carries no thesis weight
+  assert.equal(rows.filter((r) => r.orphan).length, 1)
+  // both real bears still come from the thesis, each with its own level and weight
+  assert.equal(rows.find((r) => r.label === 'bear_cyclical')!.probability, 25)
+  assert.equal(rows.find((r) => r.label === 'bear_structural')!.probability, 20)
+  assert.equal(rows.find((r) => r.label === 'bear_structural')!.levelOverride, 6.86)
+  // nothing is silently dropped: 5 thesis cases + the orphan
+  assert.equal(rows.length, 6)
+})
+check('label match is trimmed and case-insensitive', () => {
+  const rows = buildScenarios([{ label: '  BULL ', forward_metric: 10, multiple: 2, level: 20 }] as any,
+                              [{ label: 'bull', probability: 100, price_target: 20 }] as any)
+  assert.equal(rows.length, 1)
+  assert.equal(rows[0].label, 'bull')             // the THESIS's spelling wins — one name per case
+  assert.equal(rows[0].forwardMetric, 10)
+  assert.ok(!rows[0].orphan && !rows[0].masterOnly)
+})
+check('no thesis scenarios (a partial run) → the sidecar order stands, unchanged', () => {
+  const rows = buildScenarios(TSLA_LEVERS as any, undefined)
+  assert.deepEqual(rows.map((r) => r.label), ['bull', 'base', 'bear_structural'])
+  assert.ok(rows.every((r) => !r.masterOnly && !r.orphan))
+})
+check('recompute over the thesis-built set reproduces the published TSLA fields', () => {
+  const res: ValuationLeversResponse = {
+    runRoot: 'analyses/TSLA_2026-07-25',
+    levers: { schema_version: '1.3', basis: 'ev', shares: 4252.5, net_debt: -27444, current_price: 319.69,
+              scenarios: TSLA_LEVERS as any },
+    decision: { scenarios: TSLA_THESIS as any, basket: 'Short', entry_price: 319.69,
+                entry_price_timestamp: null, currency: 'USD',
+                expected_return_pct: 56.57, margin_of_safety_pct: -887.7, downside_risk_pct: 30.56 },
+    overrides: [],
+  }
+  const out = recompute(draftFromResponse(res))
+  assert.ok(Math.abs((out.math.expectedReturnPct as number) - 56.57) < 0.1, `E[r] ${out.math.expectedReturnPct}`)
+  assert.ok(Math.abs((out.math.downsideRiskPct as number) - 30.56) < 0.1, `downside ${out.math.downsideRiskPct}`)
+  assert.ok(Math.abs((out.math.riskReward as number) - 1.85) < 0.02, `rr ${out.math.riskReward}`)
+  assert.deepEqual(out.math.warnings, [])         // no "probabilities sum to 70" — every case is present
+  // and each case's per-case bridge reproduces the frozen level (the minority term the run-level net_debt lacks)
+  const lv = Object.fromEntries(out.scenarios.map((x) => [x.label, x.level]))
+  assert.ok(Math.abs((lv.bull as number) - 336.08) < 0.02, `bull ${lv.bull}`)
+  assert.ok(Math.abs((lv.base as number) - 32.37) < 0.02, `base ${lv.base}`)
+  assert.equal(lv.bear_cyclical, 20.90)           // master-added, straight from the frozen level
+  assert.equal(lv.tail_squeeze, 417.40)
+})
+
+// ---- the label an analyst reads ----
+check('caseTitle reads the family first and the qualifier second, for ANY label string', () => {
+  assert.equal(caseTitle('bull'), 'Bull')
+  assert.equal(caseTitle('bear_cyclical'), 'Bear · cyclical')
+  assert.equal(caseTitle('bear_structural'), 'Bear · structural')
+  assert.equal(caseTitle('tail_squeeze'), 'Tail · squeeze')
+  assert.equal(caseTitle('leg_long'), 'Leg · long')                 // a future pair trade, no code change
+  assert.equal(caseTitle('tail_policy'), 'Tail · policy')           // a future commodity case
+  // free text in the schema, so it must degrade gracefully rather than mangle
+  assert.equal(caseTitle('Bear (cyclical trough)'), 'Bear (cyclical trough)')
+  assert.equal(caseTitle('  base  '), 'Base')
+  assert.equal(caseTitle(''), '')
+  assert.equal(caseTitle(null), '')
+})
+check('caseSubtitle has three states and never invents a phrase per label', () => {
+  const bare = (l: string) => caseSubtitle({ label: l, probability: null, forwardMetric: null, multiple: null, levelOverride: null })
+  assert.equal(bare('bull'), 'things go well')
+  assert.equal(bare('base'), 'most likely')
+  assert.equal(bare('bear'), 'things go badly')
+  // a QUALIFIED label gets nothing — "cyclical"/"structural" already carry the meaning
+  assert.equal(bare('bear_cyclical'), '')
+  assert.equal(bare('bear_structural'), '')
+  assert.equal(bare('leg_long'), '')
+  // the two states that are derived from what is absent, not from a new field
+  assert.equal(caseSubtitle({ label: 'tail_squeeze', probability: 10, forwardMetric: null, multiple: null, levelOverride: 417.4, masterOnly: true }), "the thesis's own case — no module levers")
+  assert.equal(caseSubtitle({ label: 'bear', probability: null, forwardMetric: null, multiple: null, levelOverride: 6.86, orphan: true }), 'not in the thesis — levers with no case')
+})
+check('a master-added case gets its OWN cell state and honest copy', () => {
+  const s = { label: 'tail_squeeze', probability: 10, forwardMetric: null, multiple: null,
+              levelOverride: 417.40, frozenLevel: 417.40, masterOnly: true }
+  const cs = scenarioCellState(s as any, false, null, null, false)
+  assert.equal(cs.kind, 'master_case')            // NOT 'judgment'
+  const t = traceScenarioCell(s as any, cs, null)
+  assert.ok(/thesis's own case/.test(t.title), t.title)
+  // the judgment copy promises a future emission that will never come for this case
+  assert.ok(!/future emission records/.test(t.note ?? ''), t.note ?? '')
+  assert.ok(/no later emission will add any/.test(t.note ?? ''), t.note ?? '')
+})
+
+// Same truncation guard as the Python suite: a `process.exit` or an early throw above a block would run
+// fewer checks while still exiting 0. Asserting the count is the only way to catch that from inside — the
+// Python side had an entire group go dead this way (Codex #366 review).
+const EXPECTED_CHECKS = 105
+assert.ok(passed >= EXPECTED_CHECKS,
+  `only ${passed} checks ran, expected at least ${EXPECTED_CHECKS} — something above here is short-circuiting`)
 console.log(`valuationLevers.test.ts: ${passed} assertions passed`)

@@ -21,7 +21,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import {
-  draftFromResponse, recompute, deriveMethods, scenarioCellState, chainLevel, chainEv, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend,
+  draftFromResponse, recompute, deriveMethods, mosRead, caseTitle, caseSubtitle, scenarioCellState, chainLevel, chainEv, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, multipleOutranksChain,
   type PlaygroundDraft, type ValuationLeversResponse, type DraftScenario, type DraftChain,
   type DraftInternals, type GridReadout, type PeersReadout, type Trace, type GoalSeekParam, type GoalSeekResult,
 } from '../lib/valuationLevers'
@@ -71,13 +71,6 @@ const methodLabel = (key: string): string => METHOD_LABELS[key] ?? key.replace(/
 
 // bull / base / bear are the run's OWN labels (never renamed — they are data). A one-line gloss makes them
 // legible to someone who has never read a broker note.
-const caseGloss = (label: string): string => {
-  const l = (label || '').toLowerCase()
-  if (l.includes('bull')) return 'things go well'
-  if (l.includes('bear')) return 'things go badly'
-  if (l.includes('base')) return 'most likely'
-  return ''
-}
 
 // The guard warnings are written for the audit trail — precise, and heavy going. Lead each one with a plain
 // sentence and keep the exact text beneath it, so nothing is softened or lost (§5/§21). An unrecognized
@@ -422,6 +415,11 @@ export function ValuationPlayground() {
         // so this only fires once every case that matters is shadowed.
         const evCasesWithLever = draft.scenarios.filter((s) => (s.basis ?? draft.basis) === 'ev' && Number.isFinite(s.forwardMetric as number) && Number.isFinite(s.multiple as number))
         const allEvBridged = evCasesWithLever.length > 0 && evCasesWithLever.every((s) => !!s.bridge)
+        // Margin of safety is direction-uniform by doctrine, so its LABEL has to follow the sign or the
+        // sentence is false: TSLA's MoS is −887.7%, and "Price below that by −887.7%" states the opposite
+        // of the truth. mosRead() gives the magnitude to print and the label to print it under.
+        const mosR = mosRead(out.math.marginOfSafetyPct, draft.direction ?? 'long')
+        const mosTone = mosR.good === null ? 'var(--text-faint)' : mosR.good ? 'var(--accent-bright)' : 'var(--bad)'
         return (
         <div className="vpg__body">
           {/* ---- THE ANSWER — pinned, so it never scrolls away from the lever you are moving ---- */}
@@ -444,8 +442,8 @@ export function ValuationPlayground() {
                 <span className="vpg__chipval mono">{fmtN(pgLevel('base'))}</span>
               </div>
               <div className="vpg__chip">
-                <span className="vpg__chiplabel">Price below that by</span>
-                <span className="vpg__chipval mono" style={{ color: tone(out.math.marginOfSafetyPct) }}>{fmtPct(out.math.marginOfSafetyPct)}</span>
+                <span className="vpg__chiplabel">{mosR.label}</span>
+                <span className="vpg__chipval mono" style={{ color: mosTone }}>{mosR.magnitude === null ? '—' : `${mosR.magnitude}%`}</span>
               </div>
               <div className="vpg__chip">
                 <span className="vpg__chiplabel">Worst case</span>
@@ -465,8 +463,18 @@ export function ValuationPlayground() {
                   <span className="vpg__col vpg__col--pg">Yours</span>
                 </div>
                 <CmpRow label="What you'd make" gloss="expected return" sys={sysExp} pg={pgExp} t="exp" />
-                <CmpRow label="Price below fair value by" gloss="margin of safety" sys={dec?.margin_of_safety_pct ?? null} pg={out.math.marginOfSafetyPct} t="mos" />
-                <CmpRow label="How far it could fall" gloss="downside risk — higher is worse" sys={dec?.downside_risk_pct ?? null} pg={out.math.downsideRiskPct} t="down" invertTone />
+                {/* This row shows BOTH the frozen Engine number and the editable Yours number side by side.
+                    They can disagree in SIGN — the user can move price or fair value across the boundary —
+                    so a single "above"/"below" label picked from one side's sign would misstate the other
+                    side's. mosR (below) still drives the single-value hero chip, where that risk doesn't
+                    exist; here the row label stays direction-neutral and each column's own signed number
+                    (+ its own tone colour, already computed independently per column) carries which side of
+                    fair value THAT column's price sits on (Codex #366 P2). */}
+                <CmpRow label="Price vs. fair value" gloss="margin of safety — a positive number means the price sits below fair value (a cushion); negative means it is trading above fair value" sys={dec?.margin_of_safety_pct ?? null} pg={out.math.marginOfSafetyPct} t="mos" invertTone={draft.direction === 'short'} />
+                {/* downsideRiskPct is the worst POSITION return, inverted. For a long that worst case is a
+                    price fall; for a short (e.g. TSLA's squeeze scenario) it is a price RISE — "how far it
+                    could fall" tells a short holder the opposite of their real risk (Codex #366 P2). */}
+                <CmpRow label={draft.direction === 'short' ? 'How far it could move against you' : 'How far it could fall'} gloss="downside risk — higher is worse" sys={dec?.downside_risk_pct ?? null} pg={out.math.downsideRiskPct} t="down" invertTone />
                 <CmpRow label="Reward per unit of risk" gloss="risk / reward" sys={null} pg={out.math.riskReward} isPct={false} t="rr" />
                 <CmpRow label="Worth if things go well" gloss="bull" sys={sysLevel('bull')} pg={pgLevel('bull')} isPct={false} />
                 <CmpRow label="Worth, most likely" gloss="base" sys={sysLevel('base')} pg={pgLevel('base')} isPct={false} />
@@ -475,7 +483,7 @@ export function ValuationPlayground() {
                 {(['exp', 'mos', 'down', 'rr', 'pwt'] as const).map((id) => {
                   if (openTrace !== id) return null
                   const metric = id === 'exp' ? 'expected' : id === 'down' ? 'downside' : id
-                  const tr = traceOutput(metric, out.math)
+                  const tr = traceOutput(metric, out.math, draft.direction ?? 'long')
                   return tr ? <TraceStrip key={id} t={tr} /> : null
                 })}
               </div>
@@ -553,10 +561,13 @@ export function ValuationPlayground() {
                 const row = out.scenarios[i]
                 const ret = out.math.perScenario.find((x) => x.label === s.label)?.return_pct ?? null
                 const isBase = (s.label || '').toLowerCase().includes('base')
-                // An asserted (typed) multiple outranks the chain (levelSourceFor's precedence) — once
-                // asserted, the chain no longer drives this cell's classification either, or the trace
-                // strip below would keep showing the stale chain as if it were still the answer.
-                const cv = s.multipleAsserted ? null : chainLevel(s.chain, draft.shares)
+                // An asserted (typed) multiple, OR a run-recorded `applied` multiple, outranks the chain
+                // (levelSourceFor's precedence, Codex #364 P2) — once either drives, the chain must not
+                // drive this cell's CLASSIFICATION either, or the trace strip below opens ChainStrip and
+                // shows the chain's arithmetic as if it were the answer, while recompute actually used the
+                // multiple (Codex #366 P2 — the two disagreed for an applied+chain case that was never
+                // asserted, e.g. a fresh load of TSLA's cases before any edit).
+                const cv = multipleOutranksChain(s) ? null : chainLevel(s.chain, draft.shares)
                 const cs = scenarioCellState(s, isBase, draft.published?.blend.basePoint ?? null, out.blend.basePoint, out.blendActive, cv)
                 const traceId = `scen:${i}`
                 // per-ROW lever choice: metric×multiple inputs only where the row records them — a chain or
@@ -564,7 +575,11 @@ export function ValuationPlayground() {
                 // empty inputs (Codex #339 r3644833914)
                 const rowHasMult = Number.isFinite(s.forwardMetric as number) || Number.isFinite(s.multiple as number)
                 const span2 = hasEditableMultiples && !rowHasMult ? { gridColumn: 'span 2' } : undefined
-                const gloss = caseGloss(s.label)
+                // The label an analyst reads, and the line under it — both from lib/valuationLevers, which
+                // derives them from the recorded label plus what is (or is not) present. The gloss element
+                // always renders so a row with nothing to add keeps the same height as one that does.
+                const title = caseTitle(s.label)
+                const gloss = caseSubtitle(s)
                 // v1.3: a case's MACHINERY — everything recorded that explains its level, opened INSIDE the
                 // case. A LIST, not a choice: TSLA's base carries an ev_bridge derivation AND four blended
                 // methods, and picking one would have made the mix, its sub-levers and the drive-base toggle
@@ -588,15 +603,15 @@ export function ValuationPlayground() {
                 const unlock = () => setScen(i, { overrideUnlocked: true, levelOverride: row?.level ?? s.frozenLevel ?? null })
                 return (
                   <div key={i}>
-                    <div className="vpg__scenrow">
+                    <div className={`vpg__scenrow${s.masterOnly ? ' vpg__scenrow--master' : ''}${s.orphan ? ' vpg__scenrow--orphan' : ''}`}>
                       <span className="vpg__scenlabel">
                         <span className="vpg__scenname">
                           {machinery.length > 0
                             ? <button className={`vpg__disc${caseOpen ? ' vpg__disc--open' : ''}`} onClick={() => toggleCase(traceId)} aria-expanded={caseOpen} title={discTitle}>▸</button>
                             : <span className="vpg__disc vpg__disc--none" aria-hidden />}
-                          {s.label}
+                          {title}
                         </span>
-                        {gloss && <span className="vpg__scengloss">{gloss}</span>}
+                        <span className={`vpg__scengloss${gloss ? '' : ' vpg__scengloss--empty'}`}>{gloss}</span>
                       </span>
                       <TableInput value={s.probability} onChange={(n) => setScen(i, { probability: n })} ariaLabel={`${s.label} chance`} title="How likely you think this case is, in %" />
                       {/* An explicit unlock outranks every other render branch. Checked BEFORE rowHasMult:
@@ -647,13 +662,13 @@ export function ValuationPlayground() {
                         </>
                       ) : (
                         <button
-                          className={`vpg__cell ${cs.kind === 'judgment' ? 'vpg__cell--judg' : cs.kind === 'frozen_wedge' ? 'vpg__cell--wedge' : 'vpg__cell--fx'}`}
+                          className={`vpg__cell ${cs.kind === 'master_case' ? 'vpg__cell--master' : cs.kind === 'judgment' ? 'vpg__cell--judg' : cs.kind === 'frozen_wedge' ? 'vpg__cell--wedge' : 'vpg__cell--fx'}`}
                           style={span2}
                           onClick={() => toggleTrace(traceId)}
                           aria-expanded={openTrace === traceId}
-                          title={cs.kind === 'judgment' ? "The analyst's call — no worked-out chain behind it. Click to see the reasoning, and to unlock it if you want to type your own." : cs.kind === 'frozen_wedge' ? 'The method mix, plus a judgment adjustment the run states. Click to see it.' : 'Worked out from the numbers below. Click to see how.'}
+                          title={cs.kind === 'master_case' ? "The thesis's own case — the valuation module recorded no levers for it and will not. Click to see who owns it, and to unlock it if you want to type your own." : cs.kind === 'judgment' ? "The analyst's call — no worked-out chain behind it. Click to see the reasoning, and to unlock it if you want to type your own." : cs.kind === 'frozen_wedge' ? 'The method mix, plus a judgment adjustment the run states. Click to see it.' : 'Worked out from the numbers below. Click to see how.'}
                         >
-                          <span className="vpg__cellicon" aria-hidden>{cs.kind === 'judgment' ? '⚑' : cs.kind === 'frozen_wedge' ? 'ƒ⚑' : 'ƒ'}</span>
+                          <span className="vpg__cellicon" aria-hidden>{cs.kind === 'judgment' || cs.kind === 'master_case' ? '⚑' : cs.kind === 'frozen_wedge' ? 'ƒ⚑' : 'ƒ'}</span>
                           {fmtN(row?.level, 2)}
                         </button>
                       )}
@@ -675,12 +690,12 @@ export function ValuationPlayground() {
                       cs.kind === 'derived_chain' && s.chain ? (
                         <ChainStrip
                           s={s} chain={s.chain} level={cv} fallbackShares={draft.shares}
-                          onEdit={(patch) => setScen(i, { chain: { ...s.chain!, ...patch } })}
+                          onEdit={(patch) => setScen(i, { chain: { ...s.chain!, ...patch }, chainEdited: true })}
                           onOverride={() => { unlock(); setOpenTrace(null) }}
                         />
                       ) : (
                         <TraceStrip
-                          t={traceScenarioCell(s, cs, draft.published ?? null, methodLabel, draft.basis)}
+                          t={traceScenarioCell(s, cs, draft.published ?? null, methodLabel, { basis: draft.basis, shares: draft.shares, netDebt: draft.netDebt, netDebtBasis: draft.netDebtBasis })}
                           onOverride={cs.kind !== 'live_blend' && cs.kind !== 'derived_multiple' ? () => { unlock(); setOpenTrace(null) } : undefined}
                         />
                       )
@@ -691,7 +706,7 @@ export function ValuationPlayground() {
                     {caseOpen && machinery.includes('trace') && (
                       <div className="vpg__casepanel">
                         <div className="vpg__casetitle">{whereFrom(row?.shownMultiple)} — this case's own arithmetic</div>
-                        <TraceStrip t={traceScenarioCell(s, { kind: 'derived_multiple' }, draft.published ?? null, methodLabel, draft.basis)} onOverride={unlock} />
+                        <TraceStrip t={traceScenarioCell(s, { kind: 'derived_multiple' }, draft.published ?? null, methodLabel, { basis: draft.basis, shares: draft.shares, netDebt: draft.netDebt, netDebtBasis: draft.netDebtBasis })} onOverride={unlock} />
                       </div>
                     )}
                     {caseOpen && machinery.includes('chain') && s.chain && (
@@ -699,12 +714,21 @@ export function ValuationPlayground() {
                         <div className="vpg__casetitle">{whereFrom(row?.shownMultiple)} — {s.chain.model === 'margin_runoff_dcf' ? 'the impaired-cash-flow runoff' : 'the recorded chain'}</div>
                         <ChainStrip
                           s={s} chain={s.chain} level={cv} fallbackShares={draft.shares}
-                          onEdit={(patch) => setScen(i, { chain: { ...s.chain!, ...patch }, multipleAsserted: false })}
+                          onEdit={(patch) => setScen(i, { chain: { ...s.chain!, ...patch }, multipleAsserted: false, chainEdited: true })}
                           onOverride={() => { unlock(); toggleCase(traceId) }}
                         />
                         {row?.levelSource === 'asserted_multiple' && (
                           <div className="vpg__note vpg__note--warn">
                             Your typed <b className="mono">{fmtN(s.multiple, 2)}×</b> is driving this case, so these figures are no longer what sets the value. Press ↺ on the multiple to hand it back to them.
+                          </div>
+                        )}
+                        {/* Editing these figures is an explicit action, so it must outrank "use this blend as
+                            the most-likely value" for THIS row — same rule as an unlock-override or a typed
+                            multiple already get (Codex #366 P2). The checkbox above stays checked (it still
+                            drives every OTHER row/opt-in); only this case's own edit takes it out of the mix. */}
+                        {isBase && draft.driveBaseFromMix && s.chainEdited && row?.levelSource !== 'live_blend' && (
+                          <div className="vpg__note vpg__note--warn">
+                            Your edits above are driving this case now, not the method blend — even though "Use this blend as the most-likely value" is still on. It still drives every other opt-in; this case just took itself out.
                           </div>
                         )}
                       </div>

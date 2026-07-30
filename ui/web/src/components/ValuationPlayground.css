@@ -220,6 +220,20 @@
 }
 .vpg__casetitle { font-size: 10.5px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
 .vpg__casepanel .vpg__tracestrip, .vpg__casepanel .vpg__subpanel { margin-left: 0; margin-right: 0; }
+/* A case the MASTER added on top of the valuation module's work (a squeeze tail, a policy tail, a
+   pair-trade leg). Dashed, and separated by a hairline, so it never reads as one of the module's own —
+   it has no levers and none is coming. */
+.vpg__scenrow--master { border-top: 1px dashed var(--hairline); margin-top: 4px; padding-top: 7px; }
+.vpg__cell--master {
+  color: var(--text-muted); background: var(--surface-2); border: 1px dashed var(--hairline);
+}
+/* A lever set with no case in the frozen thesis — the guard rejects it, so this should never render; it
+   exists so that if one ever reaches the client it is visible rather than silently dropped. */
+.vpg__scenrow--orphan { opacity: 0.75; }
+.vpg__scenrow--orphan .vpg__scengloss { color: var(--bad); }
+/* The gloss element always renders, empty when the label already says everything, so rows keep one height. */
+.vpg__scengloss--empty { min-height: 12px; }
+
 /* §16: methods disagreeing is a finding. Stated once, under the grid, not averaged into silence. */
 .vpg__dispersion {
   margin-top: 6px; padding: 5px 8px; border-radius: var(--r-sm);
