@@ -5,7 +5,7 @@
 // that produced the fair value, the Playground silently disagrees with the recorded thesis — this file fails
 // first. Parity targets are the exact valuation_math.py outputs: AMZN 210.05, NHY 81.826, EMAAR 16.5245.
 import assert from 'node:assert'
-import { blend, buildMethods, impliedMultiple, caseLevelFromMultiple, levelSourceFor, reanchor, mosRead, scenarioMath as sm, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, chainEv, buildChain, levelForScenario, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
+import { blend, buildMethods, impliedMultiple, caseLevelFromMultiple, levelSourceFor, reanchor, mosRead, scenarioMath as sm, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, chainEv, buildChain, levelForScenario, multipleOutranksChain, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
 import type { PlaygroundDraft } from './valuationLevers'
 
 let passed = 0
@@ -756,6 +756,26 @@ check('impliedMultiple refuses rather than guesses (no metric, zero metric, no n
   assert.equal(impliedMultiple(100, 0, 'equity', null), null)
   assert.equal(impliedMultiple(100, 50, 'ev', null, 10, null), null) // §15: unknown net debt
 })
+check('exported EV helpers called WITHOUT netDebt refuse — no default-0 fabricated debt-free bridge (Codex #366 P2)', () => {
+  // These are PUBLIC exports; an external caller of the EV path who forgets the final argument must get
+  // "not derivable", never a silently debt-free valuation. Before this fix both defaulted netDebt to 0,
+  // so an EV case would price as if the company held zero debt.
+  // caseLevelFromMultiple: run-level EV case, no bridge, netDebt genuinely omitted (not even `undefined`
+  // passed explicitly — the argument is left off entirely, exercising the default itself)
+  assert.equal(caseLevelFromMultiple(28889, 3.95, 'ev', null, 1965.28), null, 'omitted netDebt must refuse, not price as debt-free')
+  // sanity: the SAME call with an explicit net debt derives a real (non-null, non-zero-debt) level
+  const withNetDebt = caseLevelFromMultiple(28889, 3.95, 'ev', null, 1965.28, 13090)
+  assert.ok(isFinite(withNetDebt as number) && (withNetDebt as number) > 0, `got ${withNetDebt}`)
+  // and it must NOT equal what omitting net debt would have silently produced under the old default-0
+  // behaviour (EV ÷ shares with nothing subtracted)
+  const fabricatedDebtFree = (28889 * 3.95) / 1965.28
+  assert.ok(Math.abs((withNetDebt as number) - fabricatedDebtFree) > 1, 'the real bridge must differ from a debt-free fabrication')
+  // impliedMultiple: same omission on the inverse helper
+  assert.equal(impliedMultiple(107.75, 28889, 'ev', null, 1965.28), null, 'omitted netDebt must refuse the inversion too')
+  assert.ok(isFinite(impliedMultiple(107.75, 28889, 'ev', null, 1965.28, 13090) as number), 'an explicit net debt still derives')
+  // equity basis is unaffected — it never touches net debt, omitted or not
+  assert.ok(Math.abs((caseLevelFromMultiple(10.16, 0.96, 'equity', null, 1965.28) as number) - 10.16 * 0.96) < 1e-6)
+})
 check('the shown multiple MOVES when the machinery moves (implied, not frozen)', () => {
   const d = draftFromResponse(NHY13)
   // give the bear the recorded runoff chain, then push its terminal margin 9.0% → 11.0%
@@ -840,6 +860,35 @@ check('an `applied` multiple outranks a recorded chain (the v1.3 contract: appli
   assert.equal(levelSourceFor(withChain.scenarios[0], withChain), 'multiple') // bull has no chain here, unaffected
 })
 
+check('multipleOutranksChain: the UI cell-state classifier must agree with levelSourceFor (Codex #366 P2)', () => {
+  // levelSourceFor/levelForScenario already give an `applied` multiple precedence over a recorded chain
+  // (the check above). But the Playground's own trace/disclosure toggle picks WHICH panel to show
+  // (ChainStrip vs TraceStrip) from `scenarioCellState`, fed a `chainValue` the CALL SITE computes
+  // separately — and that call site only nulled it out for an explicit `multipleAsserted`, not for a
+  // run-recorded `applied` multiple. So a fresh-loaded (never-edited) applied+chain case opened the chain
+  // as if it drove the level, while recompute had already used the multiple. multipleOutranksChain is the
+  // single precedence check both the math (levelSourceFor) and the UI classifier must consult.
+  const d = draftFromResponse(NHY13)
+  const withChain = { ...d, scenarios: d.scenarios.map((s, i) => (i === 2 ? { ...s, chain: buildChain(NHY_BEAR_DERIV), multipleKind: 'applied' as const } : s)) }
+  const s = withChain.scenarios[2]
+  assert.equal(multipleOutranksChain(s), true, 'a recorded applied multiple + forwardMetric/multiple outranks the chain')
+  // the exact bug: computing chainValue WITHOUT the applied guard (the pre-fix call site) would feed a
+  // non-null chainValue into scenarioCellState and misclassify the cell as derived_chain
+  const cvUnguarded = chainLevel(s.chain, withChain.shares)
+  assert.ok(cvUnguarded !== null, 'sanity: the chain itself really does compute a level here')
+  assert.equal(scenarioCellState(s, false, null, null, false, cvUnguarded).kind, 'derived_chain', 'pre-fix call site misclassifies')
+  // the FIXED call site: chainValue is null'd out whenever multipleOutranksChain(s) is true, so the cell
+  // state agrees with what recompute actually used to produce the level
+  const cvGuarded = multipleOutranksChain(s) ? null : chainLevel(s.chain, withChain.shares)
+  assert.equal(cvGuarded, null)
+  assert.equal(scenarioCellState(s, false, null, null, false, cvGuarded).kind, 'derived_multiple', 'fixed call site matches levelSourceFor\'s "multiple"')
+  assert.equal(levelSourceFor(s, withChain), 'multiple')
+  // and a plain `multipleAsserted` (no `applied` kind) must still outrank the chain the same way
+  const typed = { ...s, multipleKind: null, multipleAsserted: true }
+  assert.equal(multipleOutranksChain(typed), true)
+  assert.equal(scenarioCellState(typed, false, null, null, false, multipleOutranksChain(typed) ? null : chainLevel(typed.chain, withChain.shares)).kind, 'derived_multiple')
+})
+
 check('an explicit base-row edit outranks the live blend, even with driveBaseFromMix on', () => {
   const d = draftFromResponse(NHY13)
   const withMix = { ...d, methods: buildMethods({ dcf: 70.14, peers: 93.7 }, { dcf: 0.5, peers: 0.5 }), driveBaseFromMix: true }
@@ -856,6 +905,33 @@ check('an explicit base-row edit outranks the live blend, even with driveBaseFro
   const out2 = recompute(asserted).scenarios[1]
   assert.equal(out2.levelSource, 'asserted_multiple')
   assert.ok(out2.level !== blended.level, 'the explicit assertion must win over the live blend')
+})
+
+check('an explicit CHAIN edit outranks the live blend on the base row, without disabling the toggle (Codex #366 P2)', () => {
+  // Before this fix: the base row's chain panel stayed editable while "use this blend as the most-likely
+  // value" was on, but recompute gave the blend UNCONDITIONAL precedence — an edit updated draft.scenarios
+  // but the displayed level and returns kept reading the blend, exactly like the override/multiple bug
+  // #364 fixed, just for the chain input instead.
+  const d = draftFromResponse(NHY13)
+  const withMix = {
+    ...d, methods: buildMethods({ dcf: 70.14, peers: 93.7 }, { dcf: 0.5, peers: 0.5 }), driveBaseFromMix: true,
+    scenarios: d.scenarios.map((s, i) => (i === 1 ? { ...s, chain: buildChain(NHY_BEAR_DERIV) } : s)),
+  }
+  // sanity: the mere PRESENCE of a chain must not by itself outrank the opted-in blend
+  const blended = recompute(withMix).scenarios[1]
+  assert.equal(blended.levelSource, 'live_blend', 'a recorded (untouched) chain must not silently outrank the blend')
+  // mutating the chain's fields WITHOUT the chainEdited flag must not itself flip precedence — regression
+  // guard that it is the explicit-edit FLAG gating this, not `chain`'s mere presence
+  const mutatedNoFlag = { ...withMix, scenarios: withMix.scenarios.map((s, i) => (i === 1 ? { ...s, chain: { ...s.chain!, ev: 999999 } } : s)) }
+  assert.equal(recompute(mutatedNoFlag).scenarios[1].levelSource, 'live_blend', 'a mutated-but-unflagged chain still must not silently outrank the blend')
+  // the fix: ChainStrip's onEdit always sets chainEdited:true — once it does, the edit wins over the blend,
+  // the same as an unlock-override or a typed multiple already do (Codex #364 P2), and the checkbox itself
+  // is untouched (driveBaseFromMix stays true — it still drives every OTHER opted-in row)
+  const edited = { ...withMix, scenarios: withMix.scenarios.map((s, i) => (i === 1 ? { ...s, chain: { ...s.chain!, ev: 999999 }, chainEdited: true } : s)) }
+  assert.equal(edited.driveBaseFromMix, true)
+  const out = recompute(edited).scenarios[1]
+  assert.equal(out.levelSource, 'chain', 'an explicit chain edit must win over the live blend')
+  assert.ok(out.level !== blended.level, 'the edited chain value must actually show, not the stale blend number')
 })
 
 check('levelSourceFor names what actually drives, and levelForScenario never disagrees with it', () => {

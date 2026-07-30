@@ -237,7 +237,7 @@ export function peersFromMultiple(pi: PeersInternals | null | undefined, multipl
 }
 
 // ---- 1. fair-value LEVEL from a (forward metric × multiple) lever ----
-export function levelFromMultiple(metric: number, multiple: number, basis: Basis, shares?: number | null, netDebt: number | null = 0): number {
+export function levelFromMultiple(metric: number, multiple: number, basis: Basis, shares?: number | null, netDebt: number | null = null): number {
   if (basis === 'ev') {
     if (!(isNum(shares) && shares > 0)) throw new Error("basis 'ev' needs positive shares")
     // An EV multiple gives enterprise value; the equity bridge REQUIRES net debt. Treating an unknown
@@ -262,7 +262,11 @@ export function levelFromMultiple(metric: number, multiple: number, basis: Basis
  *  debt. Mirrors levelFromMultiple's contract, but reports rather than throws. */
 export function caseLevelFromMultiple(
   metric: number, multiple: number, basis: Basis,
-  bridge: CaseBridge | null | undefined, shares?: number | null, netDebt: number | null = 0,
+  // §15: no default of 0 — a caller (this run's own callers always pass the run-level net debt
+  // explicitly; an EXPORTED helper called without it must not silently price an unknown-capital-
+  // structure company as debt-free) that omits netDebt gets `null`, which the branches below already
+  // treat as "not derivable", exactly like an explicit null (Codex #366 P2).
+  bridge: CaseBridge | null | undefined, shares?: number | null, netDebt: number | null = null,
 ): number | null {
   // A bridge is meaningful only on an EV case — an equity multiple already gives equity value.
   const br = basis === 'ev' && bridge ? bridge : null
@@ -288,7 +292,10 @@ export function caseLevelFromMultiple(
  *  Exactly inverts caseLevelFromMultiple. Null when not derivable (no metric, zero metric, no shares). */
 export function impliedMultiple(
   level: number | null | undefined, metric: number | null | undefined, basis: Basis,
-  bridge: CaseBridge | null | undefined, shares?: number | null, netDebt: number | null = 0,
+  // §15: same rule as caseLevelFromMultiple above — no fabricating default. A caller of this EXPORTED
+  // helper that omits netDebt gets `null`, and the EV branch below already refuses to invert an
+  // unknown net debt (Codex #366 P2).
+  bridge: CaseBridge | null | undefined, shares?: number | null, netDebt: number | null = null,
 ): number | null {
   if (!isNum(level) || !isNum(metric) || metric === 0) return null
   if (basis !== 'ev') return round(level / metric, 4) // equity: level = metric × multiple
@@ -490,6 +497,14 @@ export interface DraftScenario {
    *  now DRIVES the level, outranking the machinery that originally produced it. Until then the machinery
    *  drives and the multiple is derived from it — the two-way binding. */
   multipleAsserted?: boolean
+  /** the user EDITED a chain figure (EV, net debt, a runoff lever, …) through the ChainStrip panel — as
+   *  opposed to `chain` simply EXISTING because the run recorded one. Needed because on the base row, with
+   *  "use this blend as the most-likely value" on, the live blend otherwise outranks the chain unconditionally
+   *  (recompute's `driveBase && isBase` check does not by itself know the chain was just typed into) — so an
+   *  edit here would silently update draft state while the displayed level and returns kept using the blend
+   *  (Codex #366 P2). An explicit chain edit must win over the blend on that one row, exactly the way an
+   *  unlock-override or a typed multiple already does — the checkbox itself stays on. */
+  chainEdited?: boolean
 }
 
 export interface DraftChain {
@@ -645,6 +660,18 @@ export interface RecomputeResult {
  */
 export type LevelSource = 'override' | 'asserted_multiple' | 'chain' | 'frozen' | 'multiple' | null
 
+/** True when the recorded/typed metric×multiple relationship OUTRANKS a recorded chain for this case —
+ *  either an explicit reverse assertion (`multipleAsserted`, the analyst typed a multiple) or the v1.3
+ *  `applied` contract (the run itself built the case AS metric × multiple; the multiple is a genuine
+ *  input, not something read off an already-computed level — Codex #364 P2). `levelSourceFor` (what
+ *  actually computes the level) and every UI classifier that decides which panel to SHOW as the driver
+ *  (the Playground's own chain-vs-multiple cell state) must agree on this precedence, or the trace strip
+ *  can render the chain as if it drives while the number beside it was actually computed from the
+ *  multiple — the same class of defect as styling a driving multiple as merely derived (Codex #366 P2). */
+export function multipleOutranksChain(s: DraftScenario): boolean {
+  return (s.multipleAsserted === true || s.multipleKind === 'applied') && isNum(s.forwardMetric) && isNum(s.multiple)
+}
+
 export function levelSourceFor(s: DraftScenario, d: PlaygroundDraft): LevelSource {
   // Precedence: an EXPLICIT unlock-override wins; then a TYPED multiple (a reverse assertion outranks the
   // machinery that originally produced the level); then an `applied` multiple (the v1.3 contract's own
@@ -726,10 +753,13 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
     const isBase = (s.label || '').toLowerCase().includes('base')
     const explicitSource = levelSourceFor(s, d)
     // The live blend outranks the recorded chain/multiple/frozen level once the analyst opts in — but NOT
-    // an EXPLICIT edit on that same base row: an unlocked override or a just-typed multiple is the analyst
-    // overriding the mix, not the other way round. Applying live_blend unconditionally made the toggle
-    // silently win over an edit the UI promised would take over (Codex #364 P2).
+    // an EXPLICIT edit on that same base row: an unlocked override, a just-typed multiple, OR a typed chain
+    // figure (EV, net debt, a runoff lever, …) is the analyst overriding the mix, not the other way round.
+    // Applying live_blend unconditionally made the toggle silently win over an edit the UI promised would
+    // take over (Codex #364 P2 for override/multiple; Codex #366 P2 for the chain — its panel stayed
+    // editable and appeared to do something while the blend kept driving the displayed level and returns).
     const explicitEdit = explicitSource === 'override' || explicitSource === 'asserted_multiple'
+      || (explicitSource === 'chain' && !!s.chainEdited)
     const source: LevelSource | 'live_blend' = driveBase && isBase && !explicitEdit ? 'live_blend' : explicitSource
     const level = source === 'live_blend' ? (blendRes.basePoint as number) : levelForScenario(s, d)
     // The multiple the grid SHOWS, and whether it reads as computed.

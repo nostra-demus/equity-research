@@ -21,7 +21,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import {
-  draftFromResponse, recompute, deriveMethods, mosRead, scenarioCellState, chainLevel, chainEv, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend,
+  draftFromResponse, recompute, deriveMethods, mosRead, scenarioCellState, chainLevel, chainEv, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, multipleOutranksChain,
   type PlaygroundDraft, type ValuationLeversResponse, type DraftScenario, type DraftChain,
   type DraftInternals, type GridReadout, type PeersReadout, type Trace, type GoalSeekParam, type GoalSeekResult,
 } from '../lib/valuationLevers'
@@ -470,7 +470,14 @@ export function ValuationPlayground() {
                   <span className="vpg__col vpg__col--pg">Yours</span>
                 </div>
                 <CmpRow label="What you'd make" gloss="expected return" sys={sysExp} pg={pgExp} t="exp" />
-                <CmpRow label={mosR.above ? 'Price above fair value by' : 'Price below fair value by'} gloss="margin of safety — the sign says which side of fair value the price sits on" sys={dec?.margin_of_safety_pct ?? null} pg={out.math.marginOfSafetyPct} t="mos" invertTone={draft.direction === 'short'} />
+                {/* This row shows BOTH the frozen Engine number and the editable Yours number side by side.
+                    They can disagree in SIGN — the user can move price or fair value across the boundary —
+                    so a single "above"/"below" label picked from one side's sign would misstate the other
+                    side's. mosR (below) still drives the single-value hero chip, where that risk doesn't
+                    exist; here the row label stays direction-neutral and each column's own signed number
+                    (+ its own tone colour, already computed independently per column) carries which side of
+                    fair value THAT column's price sits on (Codex #366 P2). */}
+                <CmpRow label="Price vs. fair value" gloss="margin of safety — a positive number means the price sits below fair value (a cushion); negative means it is trading above fair value" sys={dec?.margin_of_safety_pct ?? null} pg={out.math.marginOfSafetyPct} t="mos" invertTone={draft.direction === 'short'} />
                 {/* downsideRiskPct is the worst POSITION return, inverted. For a long that worst case is a
                     price fall; for a short (e.g. TSLA's squeeze scenario) it is a price RISE — "how far it
                     could fall" tells a short holder the opposite of their real risk (Codex #366 P2). */}
@@ -561,10 +568,13 @@ export function ValuationPlayground() {
                 const row = out.scenarios[i]
                 const ret = out.math.perScenario.find((x) => x.label === s.label)?.return_pct ?? null
                 const isBase = (s.label || '').toLowerCase().includes('base')
-                // An asserted (typed) multiple outranks the chain (levelSourceFor's precedence) — once
-                // asserted, the chain no longer drives this cell's classification either, or the trace
-                // strip below would keep showing the stale chain as if it were still the answer.
-                const cv = s.multipleAsserted ? null : chainLevel(s.chain, draft.shares)
+                // An asserted (typed) multiple, OR a run-recorded `applied` multiple, outranks the chain
+                // (levelSourceFor's precedence, Codex #364 P2) — once either drives, the chain must not
+                // drive this cell's CLASSIFICATION either, or the trace strip below opens ChainStrip and
+                // shows the chain's arithmetic as if it were the answer, while recompute actually used the
+                // multiple (Codex #366 P2 — the two disagreed for an applied+chain case that was never
+                // asserted, e.g. a fresh load of TSLA's cases before any edit).
+                const cv = multipleOutranksChain(s) ? null : chainLevel(s.chain, draft.shares)
                 const cs = scenarioCellState(s, isBase, draft.published?.blend.basePoint ?? null, out.blend.basePoint, out.blendActive, cv)
                 const traceId = `scen:${i}`
                 // per-ROW lever choice: metric×multiple inputs only where the row records them — a chain or
@@ -683,7 +693,7 @@ export function ValuationPlayground() {
                       cs.kind === 'derived_chain' && s.chain ? (
                         <ChainStrip
                           s={s} chain={s.chain} level={cv} fallbackShares={draft.shares}
-                          onEdit={(patch) => setScen(i, { chain: { ...s.chain!, ...patch } })}
+                          onEdit={(patch) => setScen(i, { chain: { ...s.chain!, ...patch }, chainEdited: true })}
                           onOverride={() => { unlock(); setOpenTrace(null) }}
                         />
                       ) : (
@@ -707,12 +717,21 @@ export function ValuationPlayground() {
                         <div className="vpg__casetitle">{whereFrom(row?.shownMultiple)} — {s.chain.model === 'margin_runoff_dcf' ? 'the impaired-cash-flow runoff' : 'the recorded chain'}</div>
                         <ChainStrip
                           s={s} chain={s.chain} level={cv} fallbackShares={draft.shares}
-                          onEdit={(patch) => setScen(i, { chain: { ...s.chain!, ...patch }, multipleAsserted: false })}
+                          onEdit={(patch) => setScen(i, { chain: { ...s.chain!, ...patch }, multipleAsserted: false, chainEdited: true })}
                           onOverride={() => { unlock(); toggleCase(traceId) }}
                         />
                         {row?.levelSource === 'asserted_multiple' && (
                           <div className="vpg__note vpg__note--warn">
                             Your typed <b className="mono">{fmtN(s.multiple, 2)}×</b> is driving this case, so these figures are no longer what sets the value. Press ↺ on the multiple to hand it back to them.
+                          </div>
+                        )}
+                        {/* Editing these figures is an explicit action, so it must outrank "use this blend as
+                            the most-likely value" for THIS row — same rule as an unlock-override or a typed
+                            multiple already get (Codex #366 P2). The checkbox above stays checked (it still
+                            drives every OTHER row/opt-in); only this case's own edit takes it out of the mix. */}
+                        {isBase && draft.driveBaseFromMix && s.chainEdited && row?.levelSource !== 'live_blend' && (
+                          <div className="vpg__note vpg__note--warn">
+                            Your edits above are driving this case now, not the method blend — even though "Use this blend as the most-likely value" is still on. It still drives every other opt-in; this case just took itself out.
                           </div>
                         )}
                       </div>
