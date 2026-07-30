@@ -470,7 +470,7 @@ export function ValuationPlayground() {
                   <span className="vpg__col vpg__col--pg">Yours</span>
                 </div>
                 <CmpRow label="What you'd make" gloss="expected return" sys={sysExp} pg={pgExp} t="exp" />
-                <CmpRow label={mosR.above ? 'Price above fair value by' : 'Price below fair value by'} gloss="margin of safety — the sign says which side of fair value the price sits on" sys={dec?.margin_of_safety_pct ?? null} pg={out.math.marginOfSafetyPct} t="mos" />
+                <CmpRow label={mosR.above ? 'Price above fair value by' : 'Price below fair value by'} gloss="margin of safety — the sign says which side of fair value the price sits on" sys={dec?.margin_of_safety_pct ?? null} pg={out.math.marginOfSafetyPct} t="mos" invertTone={draft.direction === 'short'} />
                 <CmpRow label="How far it could fall" gloss="downside risk — higher is worse" sys={dec?.downside_risk_pct ?? null} pg={out.math.downsideRiskPct} t="down" invertTone />
                 <CmpRow label="Reward per unit of risk" gloss="risk / reward" sys={null} pg={out.math.riskReward} isPct={false} t="rr" />
                 <CmpRow label="Worth if things go well" gloss="bull" sys={sysLevel('bull')} pg={pgLevel('bull')} isPct={false} />

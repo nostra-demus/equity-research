@@ -341,12 +341,10 @@ export function scenarioMath(
   if (clean.length && Math.abs(psum - 100) > 0.5) warnings.push(`scenario probabilities sum to ${round(psum, 2)}, not 100 (§10)`)
   const pwt = clean.length ? clean.reduce((a, s) => a + (s.price_target * s.probability) / 100, 0) : null
   const base = findByLabel(clean, 'base')
-  // The WORST bear, not the first one listed — a run may derive two down-legs (e.g. bear_cyclical and
-  // bear_structural), and the eval harness's own risk/reward denominator uses the worst (lowest) target
-  // across every case, not array order. Picking the first bear-labelled row would silently disagree with
-  // the frozen thesis whenever the second bear is lower (Codex #365 P1, synthesizer.md:591). With a single
-  // bear case this is identical to picking the first. Direction-signed (short-side) selection is PR #366's
-  // job — this stays long-side, matching the rest of this function.
+  // The WORST bear, not the first one listed — a run may derive two down-legs (TSLA: a cyclical trough at
+  // 20.90 and a structural reset at 6.86), and the eval harness's own risk/reward denominator uses the
+  // worst (lowest) target across every case, not array order (Codex #365 P1, synthesizer.md:591). With a
+  // single bear this is identical to picking the first.
   const bears = clean.filter((s) => (s.label || '').toLowerCase().includes('bear'))
   const bear = bears.length ? bears.reduce((w, s) => (s.price_target < w.price_target ? s : w)) : undefined
   const havePrice = isNum(price) && price > 0

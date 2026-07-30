@@ -192,7 +192,11 @@ def scenario_math(scenarios: list, price: Optional[float], direction: str = "lon
                             if clean else None)
 
     base = _find(clean, "base")
-    bear = _find(clean, "bear")
+    # The WORST bear, not the first one listed. A run may derive two down-legs (TSLA: a cyclical trough at
+    # 20.90 and a structural reset at 6.86) and the orb's own graduated rule takes the worse of them as the
+    # headline. With a single bear this is identical to picking the first.
+    _bears = [s for s in clean if "bear" in str(s.get("label", "")).strip().lower()]
+    bear = min(_bears, key=lambda s: float(s["price_target"])) if _bears else None
 
     per = []
     have_price = _isnum(price) and price > 0

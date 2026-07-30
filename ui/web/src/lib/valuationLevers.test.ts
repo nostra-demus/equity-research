@@ -1011,4 +1011,20 @@ check('mosRead: the sentence follows the sign, so it can never state the opposit
   assert.equal(mosRead(null).good, null)
 })
 
+check('two down-legs: "downside to bear" takes the WORST bear, not the first listed', () => {
+  const m = scenarioMath(TSLA_SHORT, 319.69, 'short')
+  // structural 6.86 -> 97.9% fall; cyclical 20.90 -> 93.5%. The first listed is the cyclical.
+  assert.ok(Math.abs((m.downsideToBearPct as number) - 97.9) < 0.2, `picked the wrong bear: ${m.downsideToBearPct}`)
+  // and a single-bear set is unchanged by that rule
+  const one = scenarioMath([{ label: 'base', probability: 50, price_target: 100 }, { label: 'bear', probability: 50, price_target: 60 }], 120)
+  assert.ok(Math.abs((one.downsideToBearPct as number) - 50) < 0.1, `${one.downsideToBearPct}`)
+})
+check('risk/reward stays tied to the two published fields it is built from', () => {
+  // er/dr is the documented long formula written direction-generally; assert the identity holds both ways
+  for (const dir of ['long', 'short'] as const) {
+    const m = scenarioMath(TSLA_SHORT, 319.69, dir)
+    assert.ok(Math.abs((m.riskReward as number) - (m.expectedReturnPct as number) / (m.downsideRiskPct as number)) < 0.02, dir)
+  }
+})
+
 console.log(`valuationLevers.test.ts: ${passed} assertions passed`)
