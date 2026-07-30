@@ -321,6 +321,14 @@ export interface ScenarioMath {
   downsideToBearPct: number | null
   downsideRiskPct: number | null
   riskReward: number | null
+  /** the UNROUNDED fractions (not *100) `riskReward` is actually divided from. `expectedReturnPct` and
+   *  `downsideRiskPct` are already rounded to 1dp for display, so reconstructing the ratio's equation from
+   *  THOSE fields can show operands whose division does not reconcile to the displayed (2dp) `riskReward` —
+   *  AMZN's committed run displays -16.1% / 38.7% = -0.42 that way, while the published ratio (built from
+   *  these unrounded fractions) is -0.41 (Codex #366 P2). Traces must read from here, not from the rounded
+   *  Pct fields, to keep the shown equation reconciling with the shown result. */
+  expectedReturnFrac: number | null
+  downsideRiskFrac: number | null
   warnings: string[]
 }
 
@@ -341,6 +349,7 @@ export function scenarioMath(
   if (!Array.isArray(scenarios)) {
     return { probWeightedTarget: null, levels: {}, perScenario: [], price: null, priceRelativeAssessable: false,
       expectedReturnPct: null, marginOfSafetyPct: null, downsideToBearPct: null, downsideRiskPct: null, riskReward: null,
+      expectedReturnFrac: null, downsideRiskFrac: null,
       warnings: ['scenarios must be an array'] }
   }
   const clean = scenarios.filter((s) => s && isNum(s.probability) && isNum(s.price_target)) as { label: string; probability: number; price_target: number }[]
@@ -373,6 +382,7 @@ export function scenarioMath(
     probWeightedTarget: pwt !== null ? round(pwt, 4) : null,
     levels, perScenario, price: havePrice ? (price as number) : null, priceRelativeAssessable: !!havePrice,
     expectedReturnPct: null, marginOfSafetyPct: null, downsideToBearPct: null, downsideRiskPct: null, riskReward: null,
+    expectedReturnFrac: null, downsideRiskFrac: null,
     warnings,
   }
   if (!havePrice) return out
@@ -394,6 +404,10 @@ export function scenarioMath(
   // a derivable ratio into null (Codex #366 P2). The percentage scaling cancels, so it is the same ratio.
   const erFrac = pwt !== null ? (short ? p - pwt : pwt - p) / p : null
   const drFrac = rawReturns.length ? -Math.min(...rawReturns) : null
+  // exposed on the result so a trace can reconstruct the SAME division `riskReward` came from, instead of
+  // rebuilding it from the already-rounded Pct fields below.
+  out.expectedReturnFrac = erFrac
+  out.downsideRiskFrac = drFrac
   // NOT DERIVABLE WITHOUT A REAL ADVERSE CASE — mirrors scripts/valuation_math.py and eval.py's own guard.
   // When every scenario favours the position (an all-upside setup, e.g. EMAAR_2026-07-03 whose bear sits
   // ABOVE the entry price) the signed ratio reads negative for what is a good setup. Publishing -1.86 here
@@ -607,6 +621,13 @@ export interface PlaygroundDraft {
   direction?: PositionDirection
   shares: number | null
   netDebt: number | null
+  /** the RUN-LEVEL net-debt basis label (§15 — 'strict' / 'broad' / 'gross-liquidity'), when the run states
+   *  one. Optional so every pre-existing draft literal and test fixture is unchanged (absent -> null, same
+   *  as an unlabelled/strict figure). Carried alongside `netDebt` so a synthetic run-level bridge (built when
+   *  a case has no per-case bridge but the run is EV-basis) can still label a non-strict figure inline
+   *  instead of rendering it bare (Codex #366 P2 — TSLA's -27,444 "broad net cash" must not print as an
+   *  unlabelled "net debt -27444"). */
+  netDebtBasis?: string | null
   price: number | null
   rf: number | null; erp: number | null; beta: number | null; wacc: number | null; afterTaxKd: number | null
   isMega: boolean
@@ -823,7 +844,7 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
 // price editable) so the Playground still works on runs that predate the valuation_summary emission.
 export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft {
   if (!res) {
-    return { basis: 'equity', shares: null, netDebt: 0, price: null,
+    return { basis: 'equity', shares: null, netDebt: 0, netDebtBasis: null, price: null,
       rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false, scenarios: [], methods: [], driveBaseFromMix: false }
   }
   const L = res.levers
@@ -847,6 +868,7 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
       // For an EV basis, an absent net debt is NOT zero — keep it null so EV levels read Not assessable
       // until net debt is supplied (§15). For an equity basis net debt is unused, so 0 is harmless.
       netDebt: isNum(L.net_debt) ? L.net_debt : (evBasis ? null : 0),
+      netDebtBasis: L.net_debt_basis ?? null,
       price,
       rf: L.discount_rate?.rf ?? null, erp: L.discount_rate?.erp ?? null, beta: L.discount_rate?.beta ?? null,
       wacc: L.discount_rate?.wacc ?? null, afterTaxKd: L.discount_rate?.after_tax_kd ?? null,
@@ -907,7 +929,7 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
   // fallback: frozen decision scenarios (levels only)
   const ds = res.decision?.scenarios ?? []
   return {
-    basis: 'equity', direction, shares: null, netDebt: 0, price,
+    basis: 'equity', direction, shares: null, netDebt: 0, netDebtBasis: null, price,
     rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false,
     methods: [], driveBaseFromMix: false, published: null,
     scenarios: ds.map((s) => ({ label: s.label || '', probability: s.probability ?? null, forwardMetric: null, multiple: null, levelOverride: s.price_target ?? null, frozenLevel: s.price_target ?? null, drivers: null, overrideUnlocked: false })),
@@ -1035,8 +1057,11 @@ export function traceScenarioCell(
    *  per-case `basis` inherited an 'ev' run basis (Codex #365 P2, ui/web/src/lib/valuationLevers.ts:805) —
    *  and would print bare metric × multiple beside a level that was bridged — nor that a bridge with no
    *  `shares` falls back to the top-level count, nor that a case with NO bridge at all still bridges off
-   *  the run-level net debt (Codex #366). */
-  ctx?: { basis?: Basis | null; shares?: number | null; netDebt?: number | null },
+   *  the run-level net debt (Codex #366). `netDebtBasis` labels that fallback net debt (§15 — 'broad' /
+   *  'gross-liquidity' departs from strict) — without it the synthetic bridge built below prints a bare,
+   *  unlabelled net-debt figure even when the run-level number is explicitly non-strict (Codex #366 P2,
+   *  TSLA's -27,444 "broad net cash"). */
+  ctx?: { basis?: Basis | null; shares?: number | null; netDebt?: number | null; netDebtBasis?: string | null },
 ): Trace {
   const src = s.drivers ? `run-recorded drivers: ${s.drivers}` : null
   if (cs.kind === 'derived_chain' && s.chain) {
@@ -1073,7 +1098,9 @@ export function traceScenarioCell(
     // record their own bridge. Showing bare "metric × multiple" here would contradict the level beside it,
     // which DOES subtract the run-level net debt (Codex #366 P2, item 6).
     const br = effBasis === 'ev'
-      ? (s.bridge ?? (isNum(ctx?.netDebt) ? ({ net_debt: ctx!.netDebt as number } as CaseBridge) : null))
+      ? (s.bridge ?? (isNum(ctx?.netDebt)
+          ? ({ net_debt: ctx!.netDebt as number, net_debt_basis: ctx?.netDebtBasis ?? null } as CaseBridge)
+          : null))
       : null
     if (br) {
       const parts = [`− net debt ${fmt(br.net_debt, 0)}${br.net_debt_basis ? ` (${br.net_debt_basis})` : ''}`]
@@ -1207,9 +1234,16 @@ export function traceOutput(metric: 'expected' | 'mos' | 'downside' | 'rr' | 'pw
     // when the worst row is not bear-labelled (Codex #366 P2).
     const rows = math.perScenario.filter((r) => isNum(r.return_pct))
     const worst = rows.length ? rows.reduce((a, b) => ((a.return_pct as number) <= (b.return_pct as number) ? a : b)) : null
+    // Read from the UNROUNDED fractions `riskReward` was actually divided from, not the already-1dp-rounded
+    // expectedReturnPct/downsideRiskPct — dividing THOSE can show operands that don't reconcile to the
+    // displayed ratio (AMZN: -16.1% / 38.7% = -0.42, but the published -0.41 comes from the unrounded
+    // fractions). 2dp is enough precision here for the shown division to reconcile with the shown (2dp)
+    // ratio (Codex #366 P2).
+    const erPct = isNum(math.expectedReturnFrac) ? round((math.expectedReturnFrac as number) * 100, 2) : math.expectedReturnPct
+    const drPct = isNum(math.downsideRiskFrac) ? round((math.downsideRiskFrac as number) * 100, 2) : math.downsideRiskPct
     return {
       title: 'Risk / reward',
-      formula: `expected return ${fmt(math.expectedReturnPct, 1)}% / downside risk ${fmt(math.downsideRiskPct, 1)}% = ${fmt(math.riskReward)}`,
+      formula: `expected return ${fmt(erPct, 2)}% / downside risk ${fmt(drPct, 2)}% = ${fmt(math.riskReward)}`,
       terms: [],
       note: worst
         ? `expected gain per unit of loss in the worst case — ${worst.label} at ${fmt(worst.price_target)}${isNum(bear) && worst.label.toLowerCase().includes('bear') ? ' (the bear row, so this is the classic loss-to-bear ratio)' : ' (NOT the bear row)'}`

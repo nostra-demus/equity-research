@@ -1147,6 +1147,28 @@ check('the margin-of-safety trace says which side of fair value the price is on'
   const t = traceOutput('mos', scenarioMath(TSLA_SHORT, 319.69, 'short'), 'short')!
   assert.ok(/ABOVE base fair value/.test(t.note ?? ''), t.note ?? '')
 })
+
+// Codex #366 P2 (r3683131069): scenarioMath computes riskReward from UNROUNDED fractions, but traceOutput's
+// 'rr' branch reconstructed the equation from the already-1dp-rounded expectedReturnPct/downsideRiskPct — on
+// the real committed AMZN inputs (238.34) that shows "-16.1% / 38.7% = -0.41" even though -16.1/38.7 rounds
+// to -0.42, not -0.41. The trace must read from the same unrounded fractions the ratio was actually divided
+// from, so the equation as printed always reconciles with the ratio beside it.
+check('the risk/reward trace reconciles EXACTLY with the displayed ratio (committed AMZN inputs)', () => {
+  const amzn = scenarioMath([
+    { label: 'bull', probability: 25, price_target: 247.0 },
+    { label: 'base', probability: 45, price_target: 210.0 },
+    { label: 'bear', probability: 30, price_target: 146.0 },
+  ], 238.34)
+  assert.equal(amzn.riskReward, -0.41, `published rr ${amzn.riskReward}`)
+  const t = traceOutput('rr', amzn)!
+  const m = /expected return (-?\d+(?:\.\d+)?)% \/ downside risk (-?\d+(?:\.\d+)?)% = (-?\d+(?:\.\d+)?)/.exec(t.formula)
+  assert.ok(m, t.formula)
+  const [, er, dr, rr] = m!
+  // the rounded 1dp fields would show -16.1 / 38.7, whose division rounds to -0.42, not the published -0.41
+  assert.ok(!(er === '-16.1' && dr === '38.7'), `trace regressed to the rounded 1dp fields: ${t.formula}`)
+  assert.equal(round2(parseFloat(er) / parseFloat(dr)), parseFloat(rr), `equation shown does not reconcile: ${t.formula}`)
+  assert.equal(parseFloat(rr), amzn.riskReward, t.formula)
+})
 check('the case trace resolves an INHERITED ev basis and the shares fallback', () => {
   // a case with NO per-case basis, on an ev RUN — exactly TSLA's committed shape
   const s = { label: 'bull', probability: 25, forwardMetric: 121946, multiple: 11.5, levelOverride: null,
@@ -1159,6 +1181,23 @@ check('the case trace resolves an INHERITED ev basis and the shares fallback', (
   // without the context it would print bare metric × multiple beside a bridged level
   const noCtx = traceScenarioCell(s as any, { kind: 'derived_multiple' }, null)
   assert.ok(!/net debt/.test(noCtx.formula), noCtx.formula)
+})
+
+// Codex #366 P2 (r3683131060): the SYNTHETIC bridge built when a case has NO per-case bridge but the run is
+// EV-basis carried netDebt but dropped its basis label — TSLA's -27,444 "broad net cash" would then render
+// as a bare, unlabelled "net debt -27444", contradicting §15 (a non-strict net-debt figure must always show
+// its basis inline).
+check('the SYNTHETIC run-level bridge (no per-case bridge) still labels a non-strict net-debt basis', () => {
+  const s = { label: 'bull', probability: 25, forwardMetric: 121946, multiple: 11.5, levelOverride: null,
+              basis: null, bridge: null, // no per-case bridge — TSLA's real shape
+              metricBasis: 'NTM revenue', multipleBasis: 'NTM EV/Sales' }
+  const t = traceScenarioCell(s as any, { kind: 'derived_multiple' }, null, (k) => k,
+    { basis: 'ev', shares: 4252.5, netDebt: -27444, netDebtBasis: 'broad' })
+  assert.ok(/net debt -27444 \(broad\)/.test(t.formula), t.formula)   // basis labelled, not bare
+  // and a strict/unlabelled run-level net debt still renders (no basis parenthetical, nothing fabricated)
+  const noBasis = traceScenarioCell(s as any, { kind: 'derived_multiple' }, null, (k) => k,
+    { basis: 'ev', shares: 4252.5, netDebt: -27444 })
+  assert.ok(/net debt -27444/.test(noBasis.formula) && !/\(broad\)/.test(noBasis.formula), noBasis.formula)
 })
 
 check('all-upside: risk/reward is Not assessable rather than a negative ratio', () => {
