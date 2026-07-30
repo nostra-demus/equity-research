@@ -387,7 +387,16 @@ export function scenarioMath(
   // a derivable ratio into null (Codex #366 P2). The percentage scaling cancels, so it is the same ratio.
   const erFrac = pwt !== null ? (short ? p - pwt : pwt - p) / p : null
   const drFrac = rawReturns.length ? -Math.min(...rawReturns) : null
-  out.riskReward = (erFrac !== null && drFrac !== null && Math.abs(drFrac) > 1e-12) ? round(erFrac / drFrac, 2) : null
+  // NOT DERIVABLE WITHOUT A REAL ADVERSE CASE — mirrors scripts/valuation_math.py and eval.py's own guard.
+  // When every scenario favours the position (an all-upside setup, e.g. EMAAR_2026-07-03 whose bear sits
+  // ABOVE the entry price) the signed ratio reads negative for what is a good setup. Publishing -1.86 here
+  // would contradict that run's correct, disclosed 1.9x (reward 14.49 / bear gap 7.80).
+  if (erFrac !== null && drFrac !== null && drFrac <= 0) {
+    out.riskReward = null
+    warnings.push('risk/reward Not assessable — no scenario is adverse to the position (the worst case is still a gain), so the signed ratio is meaningless')
+  } else {
+    out.riskReward = (erFrac !== null && drFrac !== null && Math.abs(drFrac) > 1e-12) ? round(erFrac / drFrac, 2) : null
+  }
   // the "is there a genuine adverse branch" check is direction-dependent (eval checks AM / AR)
   if (short) {
     const bull = findByLabel(clean, 'bull')

@@ -251,8 +251,20 @@ def scenario_math(scenarios: list, price: Optional[float], direction: str = "lon
     # a derivable ratio into None (Codex #366 P2). The percentage scaling cancels, so this is the same ratio.
     er_frac = ((p - prob_weighted_target) if short else (prob_weighted_target - p)) / p if prob_weighted_target is not None else None
     dr_frac = -min(raw_returns) if raw_returns else None
-    out["risk_reward"] = (round(er_frac / dr_frac, 2)
-                          if er_frac is not None and dr_frac is not None and abs(dr_frac) > 1e-12 else None)
+    # NOT DERIVABLE WITHOUT A REAL ADVERSE CASE. When every scenario is in the position's favour (dr <= 0 —
+    # an all-upside setup, e.g. EMAAR_2026-07-03 whose bear sits ABOVE the entry price) the signed ratio is
+    # meaningless: it comes out negative for what is a good setup. eval.py takes the same view and skips its
+    # risk/reward re-derivation in exactly this case ("a real adverse case exists -> risk/reward is
+    # derivable"), and that run publishes the disclosed magnitude instead (reward 14.49 / bear gap 7.80 =
+    # 1.9x, stated three times in its thesis). Returning a signed -1.86 here would contradict a correct
+    # published number, so return None and say why.
+    if er_frac is not None and dr_frac is not None and dr_frac <= 0:
+        out["risk_reward"] = None
+        warnings.append("risk/reward Not assessable — no scenario is adverse to the position (the worst case "
+                        "is still a gain), so the signed ratio is meaningless; state the reward/gap magnitude instead")
+    else:
+        out["risk_reward"] = (round(er_frac / dr_frac, 2)
+                              if er_frac is not None and dr_frac is not None and abs(dr_frac) > 1e-12 else None)
     # "Is there a genuine adverse branch" is direction-dependent: a long needs a bear BELOW the price, a
     # short needs a bull ABOVE it (the squeeze). Firing the long check on a short is backwards — a short's
     # bear sitting below the price is the thesis working, not a defect (eval checks AM / AR).
@@ -644,6 +656,19 @@ def _selftest() -> int:
     check("direction defaults to long", scenario_math(TSLA, 319.69)["expected_return_pct"] == lg["expected_return_pct"])
     check("an unrecognised direction is treated as long",
           scenario_math(TSLA, 319.69, direction="hedge")["expected_return_pct"] == lg["expected_return_pct"])
+
+    # ALL-UPSIDE setup: every scenario favours the position, so there is no adverse case and the signed
+    # ratio is meaningless. EMAAR_2026-07-03's real shape — bear 20.0 ABOVE entry 12.2 — where the run
+    # publishes the disclosed magnitude (reward 14.49 / bear gap 7.80 = 1.9x) and eval.py skips its own
+    # re-derivation. Returning -1.86 here would contradict a correct published number.
+    _up = scenario_math([{"label": "bull", "probability": 20, "price_target": 34.2},
+                         {"label": "base", "probability": 50, "price_target": 27.7},
+                         {"label": "bear", "probability": 30, "price_target": 20.0}], 12.2)
+    check("all-upside: expected return still reproduces EMAAR's published 118.8", abs(_up["expected_return_pct"] - 118.8) < 0.1)
+    check("all-upside: downside risk still reproduces the published -63.9", abs(_up["downside_risk_pct"] + 63.9) < 0.1)
+    check("all-upside: risk/reward is None, not a negative ratio", _up["risk_reward"] is None)
+    check("all-upside: and it says why", any("no scenario is adverse" in w for w in _up["warnings"]))
+    check("a normal long still derives it (AMZN -0.41)", m["risk_reward"] == -0.41)
 
     # risk/reward is built from UNROUNDED fractions, rounded once
     _tiny = scenario_math([{"label": "base", "probability": 50, "price_target": 101},

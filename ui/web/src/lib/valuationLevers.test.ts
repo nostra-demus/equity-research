@@ -1085,10 +1085,27 @@ check('the case trace resolves an INHERITED ev basis and the shares fallback', (
   assert.ok(!/net debt/.test(noCtx.formula), noCtx.formula)
 })
 
+check('all-upside: risk/reward is Not assessable rather than a negative ratio', () => {
+  // EMAAR_2026-07-03's real shape — every scenario ABOVE the entry price, bear included. Its thesis
+  // publishes the disclosed magnitude 1.9x (reward 14.49 / bear gap 7.80) and eval.py skips its own
+  // re-derivation here, so a signed -1.86 would contradict a correct number.
+  const up = scenarioMath([{ label: 'bull', probability: 20, price_target: 34.2 },
+                           { label: 'base', probability: 50, price_target: 27.7 },
+                           { label: 'bear', probability: 30, price_target: 20.0 }], 12.2)
+  assert.ok(Math.abs((up.expectedReturnPct as number) - 118.8) < 0.1, `E[r] ${up.expectedReturnPct}`)
+  assert.ok(Math.abs((up.downsideRiskPct as number) + 63.9) < 0.1, `downside ${up.downsideRiskPct}`)
+  assert.equal(up.riskReward, null)
+  assert.ok(up.warnings.some((w) => /no scenario is adverse/.test(w)), JSON.stringify(up.warnings))
+  // a normal long is untouched
+  assert.equal(scenarioMath([{ label: 'bull', probability: 25, price_target: 247 },
+                             { label: 'base', probability: 45, price_target: 210 },
+                             { label: 'bear', probability: 30, price_target: 146 }], 237.53).riskReward, -0.41)
+})
+
 // Same truncation guard as the Python suite: a `process.exit` or an early throw above a block would run
 // fewer checks while still exiting 0. Asserting the count is the only way to catch that from inside — the
 // Python side had an entire group go dead this way (Codex #366 review).
-const EXPECTED_CHECKS = 94
+const EXPECTED_CHECKS = 95
 assert.ok(passed >= EXPECTED_CHECKS,
   `only ${passed} checks ran, expected at least ${EXPECTED_CHECKS} — something above here is short-circuiting`)
 console.log(`valuationLevers.test.ts: ${passed} assertions passed`)
