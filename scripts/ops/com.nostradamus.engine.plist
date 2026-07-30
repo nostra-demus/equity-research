@@ -24,7 +24,17 @@
          turns on the platform-independent research-review tick (review-dispatch.ts) so 30/90/180/365d
          decision reviews fire from the always-on server, not only the macOS hk-review launchd timer. -->
     <key>CONVICTION_LOOP_ENABLED</key><string>1</string>
-    <key>REVIEW_DISPATCH_ENABLED</key><string>1</string></dict>
+    <key>REVIEW_DISPATCH_ENABLED</key><string>1</string>
+    <!-- The company-news bridge (#359). BRIDGE_MODE is authoritative and the code ships OFF: an UNSET
+         variable reads as 'off', so the installed service never ran the 12-hourly sweep even after the
+         feature merged — the API reported "off" while the manifest listed covered subjects, and the only
+         way to see it work was to start a server by hand with the variable set. Turn it on where the
+         service is actually defined, beside the other loops this file enables.
+         'batch' = the in-cockpit sweep (bridge-scheduler.ts). Cadence is left at its 12h default;
+         BRIDGE_INTERVAL_MIN overrides it (clamped 15m-7d) and is for testing, not for this file.
+         Cost note (§24): a routed note triggers only the CHEAP, read-only intake analysis that scopes
+         which orbs are affected. The paid re-run stays behind a click. -->
+    <key>BRIDGE_MODE</key><string>batch</string></dict>
   <!-- The data pool lives in Google Drive (Stream mode): ticker files are dataless placeholders that
        download on read. A launchd job inherits the materialize-dataless policy OFF by default, so the
        engine's reads of streamed filings would fail (0 bytes + EDEADLK). This opts the engine in so it
