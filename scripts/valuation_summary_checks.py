@@ -50,9 +50,25 @@ def _tol(target) -> float:
     return max(_LEVEL_ABS_FLOOR, _LEVEL_REL_TOL * abs(float(target)))
 
 
+# CLAUDE.md §5's own banned-citation list: a bare form of these carries no document/period/section and
+# cannot be traced back to the pool, so it is rejected exactly as a missing citation would be — not
+# merely as a non-empty string (Codex #362 P2, fresh evidence: "source", "annual report", "company
+# filings" and "management said" alone all previously passed as valid §5 citations). Matched only as a
+# WHOLE (normalized, trailing-period-stripped, case-insensitive) string, never as a substring — a real
+# citation like "FY24 Annual Report (Ind AS), Note 18" is unaffected; only the bare phrase alone is banned.
+_BANNED_CITATIONS = frozenset({
+    "source", "sources", "annual report", "the annual report", "company filings", "the company filings",
+    "filings", "management said", "mgmt said", "industry data", "n/a", "na", "unknown", "tbd", "various",
+})
+
+
 def _cited(x) -> bool:
-    """A §5 citation is a non-empty string. Used by every internals block — an uncited lever cannot ship."""
-    return isinstance(x, str) and bool(x.strip())
+    """A §5 citation is a non-empty string that is not one of CLAUDE.md's own banned bare phrases —
+    used by every internals block, including the scenario metric/multiple tuples: an uncited (or
+    vaguely-cited, e.g. just 'source') lever cannot ship."""
+    if not (isinstance(x, str) and x.strip()):
+        return False
+    return x.strip().rstrip(".").lower() not in _BANNED_CITATIONS
 
 
 def _case_level(s, run_basis, sidecar):
@@ -76,6 +92,14 @@ def _case_level(s, run_basis, sidecar):
         nd = br.get("net_debt")
         if not _isnum(nd):
             return None, "bridge net_debt must be explicit and numeric (0 when debt-free) — unknown net debt is never silently 0 (§15)"
+        for key in ("minority", "other"):
+            v = br.get(key)
+            if v is not None and not _isnum(v):
+                # a present-but-nonnumeric optional deduction must not be silently read as 0 — that
+                # would price the equity wrong (e.g. minority "7495" as a string) with no violation
+                # raised, because the finish gate calls this evaluator directly, not the JSON Schema
+                # (Codex #362 P2, fresh evidence beyond the earlier net_debt-only fix).
+                return None, f"bridge {key} must be numeric when present (got {v!r}) — a nonnumeric deduction cannot be silently treated as zero"
         sh = br.get("shares") if _isnum(br.get("shares")) else sidecar.get("shares")
         if not (_isnum(sh) and float(sh) > 0):
             return None, "bridge has no positive shares (own or top-level)"
@@ -198,7 +222,16 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
             det.append(f"scenario {s.get('label')!r} records forward_metric/multiple with no §5 source citation "
                        f"— an editable lever cannot ship uncited")
         mk = s.get("multiple_kind")
-        if mk is not None and mk not in ("implied", "applied"):
+        if v13 and (has_fm or has_mult):
+            # REQUIRED, not merely valid-when-present: the schema contract relies on this field to
+            # distinguish an applied input from an implied cross-check and drives the Playground's
+            # two-way behaviour (whether editing the multiple is a reverse assertion or the case's
+            # own genuine input) — a tuple with the kind omitted/null passed the finish gate before
+            # this fix (Codex #362 P2, fresh evidence beyond the earlier invalid-value-only check).
+            if mk not in ("implied", "applied"):
+                det.append(f"scenario {s.get('label')!r} multiple_kind {mk!r} is required ('implied' or "
+                           f"'applied') whenever forward_metric/multiple is present (v1.3)")
+        elif mk is not None and mk not in ("implied", "applied"):
             det.append(f"scenario {s.get('label')!r} multiple_kind {mk!r} is not 'implied' or 'applied'")
         if _isnum(fm) and _isnum(mult):
             derived, err = _case_level(s, basis, sidecar)
@@ -238,6 +271,11 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
                 if not _cited(deriv.get("source")):
                     det.append(f"scenario {s.get('label')!r} derivation needs a §5 source citation — editable levers cannot ship uncited")
                     ok = False
+                for _key in ("minority", "other"):
+                    _v = deriv.get(_key)
+                    if _v is not None and not _isnum(_v):
+                        det.append(f"scenario {s.get('label')!r} derivation {_key} must be numeric when present (got {_v!r})")
+                        ok = False
                 if ok and deriv.get("model") == "margin_runoff_dcf":
                     # Replay the recorded runoff: revenue_base × margin → −da → ×(1−tax) → +da −capex −dnwc
                     # → TV = FCFF×(1+g)/(wacc−g) → EV = pv_explicit + TV×pv_factor. The replayed EV must
@@ -358,6 +396,9 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
                 det.append("sotp_segments need positive top-level shares for the per-share step")
             elif not _isnum(m_of("sotp")):
                 det.append("sotp_segments present but methods.sotp is not numeric — internals need the method value they reproduce")
+            elif any(br.get(k) is not None and not _isnum(br.get(k)) for k in ("minority", "other")):
+                _bad = [k for k in ("minority", "other") if br.get(k) is not None and not _isnum(br.get(k))]
+                det.append(f"sotp_bridge {', '.join(_bad)} must be numeric when present — a nonnumeric deduction cannot be silently treated as zero")
             else:
                 total_ev = sum(float(s["metric"]) * float(s["multiple"]) for s in segs)
                 equity = total_ev - float(br.get("net_debt")) \
@@ -558,6 +599,9 @@ def _selftest() -> int:
     check("non-ascending wacc axis caught", any("ascending" in v for v in eval_ap_valuation_summary_integrity(bad_axes, None)))
     bad_sum = dict(internals, sotp_segments=[{"segment": "A", "metric": 100, "multiple": 9}])
     check("sotp re-sum != methods.sotp caught", any("re-sum" in v for v in eval_ap_valuation_summary_integrity(bad_sum, None)))
+    bad_sotp_minority = dict(internals, sotp_bridge=dict(internals["sotp_bridge"], minority="50"))
+    check("sotp_bridge nonnumeric minority caught, not silently treated as zero",
+          any("minority" in v and "must be numeric" in v for v in eval_ap_valuation_summary_integrity(bad_sotp_minority, None)))
     one_anchor = dict(internals, peers_internals={"applied_multiple": 5.6, "anchors": [{"multiple": 5.6, "value": 90}]})
     check("single peers anchor caught", any("anchors" in v for v in eval_ap_valuation_summary_integrity(one_anchor, None)))
     bad_peers = dict(internals, peers_internals=dict(internals["peers_internals"], anchors=[{"multiple": 5.6, "value": 50}, {"multiple": 6.25, "value": 60}]))
@@ -603,6 +647,9 @@ def _selftest() -> int:
     check("derivation with a null level caught", any("numeric scenario level" in v for v in eval_ap_valuation_summary_integrity(d_no_lvl, None)))
     d_no_nd = dict(ok_sidecar, scenarios=[{"label": "bear", "level": 45.12, "derivation": {k: v for k, v in nhy_chain.items() if k != "net_debt"}}])
     check("derivation without explicit net_debt caught (§15)", any("never silently 0" in v for v in eval_ap_valuation_summary_integrity(d_no_nd, None)))
+    d_bad_minority = dict(ok_sidecar, scenarios=[{"label": "bear", "level": 45.12, "derivation": dict(nhy_chain, minority="7495")}])
+    check("derivation nonnumeric minority caught, not silently treated as zero",
+          any("minority must be numeric" in v for v in eval_ap_valuation_summary_integrity(d_bad_minority, None)))
     d_no_src = dict(ok_sidecar, scenarios=[{"label": "bear", "level": 45.12, "derivation": {k: v for k, v in nhy_chain.items() if k != "source"}}])
     check("uncited derivation caught", any("cannot ship uncited" in v for v in eval_ap_valuation_summary_integrity(d_no_src, None)))
 
@@ -650,6 +697,12 @@ def _selftest() -> int:
     bad_kind = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, multiple_kind="guessed"), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
     check("v1.3 unknown multiple_kind caught",
           any("multiple_kind" in v for v in eval_ap_valuation_summary_integrity(bad_kind, None)))
+    # multiple_kind is REQUIRED whenever the v1.3 tuple is present, not merely valid-when-supplied — an
+    # omitted/null kind used to pass the finish gate even though the schema relies on it to drive the
+    # Playground's two-way behaviour (Codex #362 P2, fresh evidence)
+    no_kind = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, multiple_kind=None), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+    check("v1.3 tuple with multiple_kind omitted is caught, not silently passed",
+          any("multiple_kind" in v and "required" in v for v in eval_ap_valuation_summary_integrity(no_kind, None)))
     # EMAAR-style secondaries: recorded, shape-validated, never computed with
     sec_ok = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7), _nhy("base", 6.45, 81.83,
                   secondary_multiples=[{"value": 7.0, "basis": "P/E"}, {"value": 1.5, "basis": "P/BV (book)"}]),
@@ -695,6 +748,15 @@ def _selftest() -> int:
                   _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
     check("v1.3 per-case bridge without a net_debt_basis caught (§15)",
           any("no net_debt_basis" in v for v in eval_ap_valuation_summary_integrity(no_ndb, None)))
+    # a present-but-nonnumeric optional deduction (minority/other) must be REPORTED, not silently read
+    # as 0 — a generated bridge with "minority": "7495" (a string) used to pass with the deduction
+    # dropped from the arithmetic (Codex #362 P2, fresh evidence beyond the net_debt-only fix)
+    for bad_key in ("minority", "other"):
+        br = {"net_debt": 17919, "net_debt_basis": "cash-quality adjusted", "shares": 1965.28, bad_key: "7495"}
+        nonnum_bad = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge=br), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+        out3 = eval_ap_valuation_summary_integrity(nonnum_bad, None)
+        check(f"bridge {bad_key} nonnumeric caught, not silently treated as 0",
+              any(f"{bad_key} must be numeric" in v for v in out3))
 
     # ---- the v1.3 labelling rules key off PRESENCE, not off a complete pair (a half tuple used to skip
     # every check below it and ship an unlabelled, uncited, underivable lever).
@@ -711,6 +773,19 @@ def _selftest() -> int:
     no_src = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, source="  "), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
     check("v1.3 scenario levers without a §5 citation caught",
           any("no §5 source" in v for v in eval_ap_valuation_summary_integrity(no_src, None)))
+    # CLAUDE.md §5's banned bare citations must be REJECTED, not accepted as "any non-empty string"
+    # (Codex #362 P2, fresh evidence) — checked against the scenario source AND the other §5-cited
+    # internals blocks (dcf_grid/sotp_bridge/peers_internals), since they all share the one _cited() gate
+    for bare in ("source", "Source.", "annual report", "company filings", "management said", "Industry Data"):
+        vague_src = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, source=bare), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+        check(f"v1.3 scenario source {bare!r} rejected as a banned bare citation",
+              any("no §5 source" in v for v in eval_ap_valuation_summary_integrity(vague_src, None)))
+    # a real citation (document + section/date) must NOT be caught by the banned-phrase gate
+    check("a real citation is not falsely rejected",
+          eval_ap_valuation_summary_integrity(v13, None) == [])
+    vague_grid = dict(internals, dcf_grid=dict(internals["dcf_grid"], source="source"))
+    check("dcf_grid banned bare source rejected (shared _cited gate)",
+          any("source citation" in v for v in eval_ap_valuation_summary_integrity(vague_grid, None)))
     check("pre-1.3 half pairs stay grandfathered",
           eval_ap_valuation_summary_integrity(dict(old, scenarios=[{"label": "bull", "multiple": 8.21, "level": 107.7}]), None) == [])
 
