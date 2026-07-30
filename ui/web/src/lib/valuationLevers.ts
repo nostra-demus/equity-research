@@ -585,10 +585,14 @@ export type LevelSource = 'override' | 'asserted_multiple' | 'chain' | 'frozen' 
 
 export function levelSourceFor(s: DraftScenario, d: PlaygroundDraft): LevelSource {
   // Precedence: an EXPLICIT unlock-override wins; then a TYPED multiple (a reverse assertion outranks the
-  // machinery that originally produced the level); then the recorded chain (v1.2 — it reproduces the frozen
-  // level and makes its figures the levers); then the frozen level; then metric × multiple.
+  // machinery that originally produced the level); then an `applied` multiple (the v1.3 contract's own
+  // definition: the multiple IS a real input here, not something read off an already-computed level — so
+  // it drives even when a chain is ALSO recorded (the chain stays visible as disclosure/cross-check, not
+  // as the driver; Codex #364 P2)); then the recorded chain (v1.2 — it reproduces the frozen level and
+  // makes its figures the levers); then the frozen level; then metric × multiple.
   if (s.overrideUnlocked && isNum(s.levelOverride)) return 'override'
   if (s.multipleAsserted && isNum(s.forwardMetric) && isNum(s.multiple)) return 'asserted_multiple'
+  if (s.multipleKind === 'applied' && isNum(s.forwardMetric) && isNum(s.multiple)) return 'multiple'
   if (chainLevel(s.chain, d.shares) !== null) return 'chain'
   if (isNum(s.levelOverride)) return 'frozen'
   if (isNum(s.forwardMetric) && isNum(s.multiple)) return 'multiple'
@@ -658,8 +662,13 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
   const driveBase = d.driveBaseFromMix && isNum(blendRes.basePoint)
   const scenarios = d.scenarios.map((s) => {
     const isBase = (s.label || '').toLowerCase().includes('base')
-    // the live blend OUTRANKS everything on the base row once the analyst has opted into it
-    const source: LevelSource | 'live_blend' = driveBase && isBase ? 'live_blend' : levelSourceFor(s, d)
+    const explicitSource = levelSourceFor(s, d)
+    // The live blend outranks the recorded chain/multiple/frozen level once the analyst opts in — but NOT
+    // an EXPLICIT edit on that same base row: an unlocked override or a just-typed multiple is the analyst
+    // overriding the mix, not the other way round. Applying live_blend unconditionally made the toggle
+    // silently win over an edit the UI promised would take over (Codex #364 P2).
+    const explicitEdit = explicitSource === 'override' || explicitSource === 'asserted_multiple'
+    const source: LevelSource | 'live_blend' = driveBase && isBase && !explicitEdit ? 'live_blend' : explicitSource
     const level = source === 'live_blend' ? (blendRes.basePoint as number) : levelForScenario(s, d)
     // The multiple the grid SHOWS, and whether it reads as computed.
     //
@@ -749,16 +758,33 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
       driveBaseFromMix: false,
       internals: buildInternals(L),
       published: { methods: pubMethods, blend: blend(pubMethods) },
-      scenarios: L.scenarios.map((s, i) => ({
+      scenarios: L.scenarios.map((s, i) => {
+        const chain = buildChain(s.derivation)
+        // v1.3: `implied` records the multiple AS A CROSS-CHECK on a level something ELSE already produced
+        // (Codex #364 P1). Where a chain is recorded, the chain IS that something-else and already outranks
+        // the tuple pre-assertion. Where the row is the BASE case and the run ALSO records a method mix,
+        // the mix is that something-else (opt-in via driveBaseFromMix, or simply the frozen judgment on
+        // top of it) — a same-row `implied` tuple with no chain must not silently bypass it either. Only
+        // in THAT shape does clearing levelOverride leave nothing for levelSourceFor to fall back to, so
+        // an untouched, unasserted tuple reads as the driver anyway. Keep the frozen level as the fallback
+        // until the analyst actually asserts.
+        // A pure tuple case with NO other recorded machinery at all (no chain, no mix — e.g. NHY's
+        // bull/bear, or a base with no methods) has nothing else the level COULD be: the tuple + its own
+        // bridge is the only relationship on record, `implied` or not, and stays the default driver exactly
+        // as the v1.3 per-case-bridge feature tests it (§4 — the tuple IS the source here, not a guess).
+        const isBaseRow = (s.label || '').toLowerCase().includes('base')
+        const hasMixMachinery = isBaseRow && pubMethods.length > 0
+        const preserveFrozenUntilAsserted = s.multiple_kind === 'implied' && !chain && hasMixMachinery
+        return {
         label: s.label,
         probability: probabilityFor(s.label, s.probability, res.decision?.scenarios, i),
         forwardMetric: s.forward_metric ?? null,
         multiple: s.multiple ?? null,
-        levelOverride: (isNum(s.forward_metric) && isNum(s.multiple)) ? null : (s.level ?? null),
+        levelOverride: (isNum(s.forward_metric) && isNum(s.multiple) && !preserveFrozenUntilAsserted) ? null : (s.level ?? null),
         frozenLevel: s.level ?? null,
         drivers: s.drivers ?? null,
         overrideUnlocked: false,
-        chain: buildChain(s.derivation),
+        chain,
         // v1.3 — carried verbatim: the case's basis and bridge DRIVE its level, the labels are displayed.
         // A bridge is carried EVEN when malformed. Dropping it would fall back to the run-level terms and
         // quietly re-price the case on a different convention (NHY's bull would read 114.02 against the
@@ -778,7 +804,7 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
         source: s.source ?? null,
         recordedMultiple: s.multiple ?? null,
         multipleAsserted: false, // nothing is asserted until the analyst types
-      })),
+      }}),
     }
   }
   // fallback: frozen decision scenarios (levels only)

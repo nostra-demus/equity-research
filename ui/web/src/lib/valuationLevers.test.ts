@@ -794,6 +794,66 @@ check('an untouched draft asserts nothing (the run drives until the analyst type
 
 // ---- #364 review fixes ----
 
+// A base row with BOTH a run-level method mix AND its own `implied` tuple (no chain) — the mix, not the
+// bare tuple, is the "something else" an `implied` cross-check is supposed to be read off. Before this
+// fix, draftFromResponse cleared levelOverride for ANY tuple regardless of the mix, so an untouched,
+// unasserted tuple silently became the driver and editing the forward metric repriced the case with no
+// assertion (Codex #364 P1 — distinct from NHY's bull/bear, which have NO other machinery at all and so
+// correctly stay tuple-driven by default, per the per-case-bridge tests above).
+const NHY13_WITH_MIX: ValuationLeversResponse = {
+  ...NHY13,
+  levers: {
+    ...NHY13.levers!,
+    methods: { dcf: 70.14, peers: 93.7 }, method_weights: { dcf: 0.5, peers: 0.5 },
+  } as any,
+}
+check('an implied tuple on a base row WITH a method mix (no chain) preserves the frozen level until asserted', () => {
+  const d = draftFromResponse(NHY13_WITH_MIX)
+  const base = d.scenarios[1]
+  assert.equal(levelSourceFor(base, d), 'frozen', 'the mix is the real machinery here, not the bare tuple')
+  assert.equal(levelForScenario(base, d), 81.83, 'holds the run\'s own frozen base level')
+  // editing the forward metric alone must NOT reprice it — only an explicit assertion does
+  const editedMetric = { ...d, scenarios: d.scenarios.map((s, i) => (i === 1 ? { ...s, forwardMetric: 30000 } : s)) }
+  assert.equal(levelForScenario(editedMetric.scenarios[1], editedMetric), 81.83, 'a metric edit alone must not silently reprice')
+  // asserting the multiple DOES take over
+  const asserted = { ...d, scenarios: d.scenarios.map((s, i) => (i === 1 ? { ...s, multiple: 7.0, multipleAsserted: true } : s)) }
+  assert.equal(levelSourceFor(asserted.scenarios[1], asserted), 'asserted_multiple')
+  assert.ok(levelForScenario(asserted.scenarios[1], asserted) !== 81.83, 'an explicit assertion must take over')
+})
+check('NHY\'s own bull/bear (implied, no chain, no mix) still default to the tuple — unchanged (per-case-bridge feature)', () => {
+  const d = draftFromResponse(NHY13)
+  assert.equal(levelSourceFor(d.scenarios[0], d), 'multiple')
+  assert.equal(levelSourceFor(d.scenarios[2], d), 'multiple')
+})
+
+check('an `applied` multiple outranks a recorded chain (the v1.3 contract: applied IS the input)', () => {
+  const d = draftFromResponse(NHY13)
+  const withChain = { ...d, scenarios: d.scenarios.map((s, i) => (i === 2 ? { ...s, chain: buildChain(NHY_BEAR_DERIV), multipleKind: 'applied' as const } : s)) }
+  assert.equal(levelSourceFor(withChain.scenarios[2], withChain), 'multiple', 'applied wins over the chain')
+  const want = caseLevelFromMultiple(28889, 3.95, 'ev', withChain.scenarios[2].bridge, 1965.28, 13090)
+  assert.ok(Math.abs((levelForScenario(withChain.scenarios[2], withChain) as number) - (want as number)) < 1e-6)
+  // an untouched `implied` sibling with the same chain still reads the chain — only `applied` changes precedence
+  assert.equal(levelSourceFor(withChain.scenarios[0], withChain), 'multiple') // bull has no chain here, unaffected
+})
+
+check('an explicit base-row edit outranks the live blend, even with driveBaseFromMix on', () => {
+  const d = draftFromResponse(NHY13)
+  const withMix = { ...d, methods: buildMethods({ dcf: 70.14, peers: 93.7 }, { dcf: 0.5, peers: 0.5 }), driveBaseFromMix: true }
+  // sanity: with no explicit edit, the blend really does drive the base row
+  const blended = recompute(withMix).scenarios[1]
+  assert.equal(blended.levelSource, 'live_blend')
+  // an unlocked override on the base row must win over the blend
+  const overridden = { ...withMix, scenarios: withMix.scenarios.map((s, i) => (i === 1 ? { ...s, overrideUnlocked: true, levelOverride: 150 } : s)) }
+  const out1 = recompute(overridden).scenarios[1]
+  assert.equal(out1.levelSource, 'override')
+  assert.equal(out1.level, 150, 'the explicit override must win over the live blend')
+  // a typed (asserted) base multiple must also win over the blend
+  const asserted = { ...withMix, scenarios: withMix.scenarios.map((s, i) => (i === 1 ? { ...s, multiple: 7.0, multipleAsserted: true } : s)) }
+  const out2 = recompute(asserted).scenarios[1]
+  assert.equal(out2.levelSource, 'asserted_multiple')
+  assert.ok(out2.level !== blended.level, 'the explicit assertion must win over the live blend')
+})
+
 check('levelSourceFor names what actually drives, and levelForScenario never disagrees with it', () => {
   const d = draftFromResponse(NHY13)
   const withChain = { ...d, scenarios: d.scenarios.map((x, i) => (i === 2 ? { ...x, chain: buildChain(NHY_RUNOFF_DERIV) } : x)) }
