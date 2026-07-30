@@ -7,7 +7,7 @@
   "required": ["schema_version", "ticker", "basis", "scenarios"],
   "additionalProperties": true,
   "properties": {
-    "schema_version": {"type": "string"},
+    "schema_version": {"type": "string", "pattern": "^[0-9]+(\\.[0-9]+){0,3}$", "description": "dotted numeric version ('1.3'). Versioned rules gate on it, so an unparseable value is REJECTED rather than grandfathered as pre-1.3"},
     "ticker": {"type": "string"},
     "as_of": {"type": "string", "description": "run date (YYYY-MM-DD)"},
     "currency": {"type": "string"},
@@ -31,7 +31,13 @@
           "probability": {"type": ["number", "null"], "description": "OPTIONAL — the master synthesizer owns probabilities (decision_record.json); omit or null here"},
           "forward_metric": {"type": ["number", "null"], "description": "forward EPS (basis=equity) or forward EBITDA/EBIT total (basis=ev)"},
           "metric_basis": {"type": ["string", "null"], "description": "NTM / FY+1 / trailing (label the period)"},
-          "multiple": {"type": ["number", "null"]},
+          "multiple": {"type": ["number", "null"], "description": "the multiple this case is quoted at. Usually IMPLIED (what `level` corresponds to on the stated metric) rather than an input — see multiple_kind"},
+          "basis": {"type": ["string", "null"], "enum": ["equity", "ev", null], "description": "v1.3 — this CASE's basis, overriding the run-level one. Genuinely varies inside a run: EMAAR's base reads on EV/EBITDA while its bear reads 0.96x on BOOK (an equity multiple). 'equity' -> level = metric x multiple; 'ev' -> level = (metric x multiple - net_debt - minority + other) / shares. A `bridge` is meaningful only on an 'ev' case."},
+          "multiple_basis": {"type": ["string", "null"], "description": "v1.3 REQUIRED whenever `multiple` is present: what the multiple IS — 'EV/FY2025 Adj. EBITDA', 'NTM P/E', 'P/BV (book)'. A bare number is an incomplete citation (§5): EMAAR's bear reads 0.96x on BOOK, not EV/EBITDA"},
+          "multiple_kind": {"type": ["string", "null"], "enum": ["implied", "applied", null], "description": "v1.3 — 'implied': the value came from this case's own machinery (a margin path, a method blend, a runoff chain) and the multiple is what that value CORRESPONDS to, stated as a cross-check; 'applied': the case was genuinely built AS metric x multiple. Drives the Playground's two-way behaviour: editing the machinery updates an implied multiple, while typing a multiple is an explicit reverse assertion"},
+          "secondary_multiples": {"type": ["array", "null"], "description": "v1.3 — further yardsticks the orb quoted for the SAME value (EMAAR's base states ~4.8x LTM EV/EBITDA, ~7.0x P/E, 1.5x P/BV alongside its primary ~6.7x normalized). Recorded so real analyst content is not discarded; they are cross-checks and are NEVER used in any computation", "items": {"type": "object", "required": ["value", "basis"], "additionalProperties": true, "properties": {"value": {"type": "number"}, "basis": {"type": "string"}, "note": {"type": ["string", "null"]}}}},
+          "bridge": {"type": ["object", "null"], "description": "v1.3 — the EV->equity terms THIS case used, when they differ from the run level. Recorded per case because conventions genuinely differ within one run (NHY's cases deduct net debt 17,919 + minority 7,495 separately). A bridge on one case must appear on all — mixing an all-in run-level deduction with per-case split terms double-counts minority.", "required": ["net_debt", "net_debt_basis"], "additionalProperties": true, "properties": {"net_debt": {"type": "number"}, "net_debt_basis": {"type": "string", "description": "§15 basis label, REQUIRED: name what this per-case debt figure IS wherever it appears (e.g. 'cash-quality adjusted (01 canonical)' — not the run-level broad figure)"}, "minority": {"type": ["number", "null"]}, "other": {"type": ["number", "null"]}, "shares": {"type": ["number", "null"], "description": "falls back to the top-level shares when null"}}},
+          "source": {"type": ["string", "null"], "description": "v1.3 REQUIRED whenever forward_metric/multiple is present: the §5 citation the metric and multiple came from (e.g. '07_scenario-and-fair-value.md §2 scenario table'). The scenario levers are the Playground's most-edited inputs and are held to the same citation bar as dcf_grid / sotp_bridge / peers_internals / derivation"},
           "level": {"type": ["number", "null"], "description": "the derived per-share fair-value LEVEL (= metric x multiple, bridged for basis='ev'); price-independent"},
           "drivers": {"type": ["string", "null"], "description": "one line: the operating drivers behind this case"},
           "derivation": {

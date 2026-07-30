@@ -6,6 +6,7 @@
 // first. Parity targets are the exact valuation_math.py outputs: AMZN 210.05, NHY 81.826, EMAAR 16.5245.
 import assert from 'node:assert'
 import { blend, buildMethods, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, chainEv, buildChain, levelForScenario, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
+import type { DraftScenario, PlaygroundDraft } from './valuationLevers'
 
 let passed = 0
 const check = (name: string, fn: () => void) => { fn(); passed++ }
@@ -538,6 +539,141 @@ check('runoff trace: formula carries margin % + revenue base; recompute flows th
   const bear = out.scenarios.find((x) => x.label === 'bear')!
   assert.ok(bear.level !== null && Math.abs(bear.level - 51.9573) < 1e-3, `bear ${bear.level}`)
   assert.ok(out.math.expectedReturnPct !== null && Math.abs(out.math.expectedReturnPct - -6.4) < 0.15, `E[r] ${out.math.expectedReturnPct}`)
+})
+
+
+// ---- v1.3: the case's OWN basis and bridge drive its level (Codex #362 P1) ----
+// NHY's real, committed shape: the RUN declares basis 'equity' with net_debt 13,090 (broad), while every
+// scenario reads on 'ev' and deducts the cash-quality-adjusted 17,919 AND minority 7,495. A client that
+// read the run-level fields would show 28,889 × 3.95 = 114,114 per share on an equity basis — the number
+// that made this contract necessary.
+const NHY13: ValuationLeversResponse = {
+  runRoot: 'analyses/NHY_2026-07-19',
+  levers: {
+    schema_version: '1.3', basis: 'equity', shares: 1965.28, net_debt: 13090, net_debt_basis: 'broad',
+    current_price: 84.96,
+    scenarios: (['bull', 'base', 'bear'] as const).map((label, i) => ({
+      label,
+      forward_metric: 28889, metric_basis: 'FY2025 Adj. EBITDA',
+      multiple: [8.21, 6.45, 3.95][i], multiple_basis: 'EV/FY2025 Adj. EBITDA',
+      multiple_kind: 'implied' as const, basis: 'ev' as const,
+      source: '07_scenario-and-fair-value.md §2',
+      bridge: { net_debt: 17919, net_debt_basis: 'cash-quality adjusted (01 canonical)', minority: 7495, shares: 1965.28 },
+      level: [107.7, 81.83, 45.12][i],
+      secondary_multiples: i === 0 ? [{ value: 7.17, basis: 'EV/FY2026E EBITDA' }] : null,
+    })),
+  },
+  decision: {
+    scenarios: [
+      { label: 'bull', probability: 20, return_pct: 26.8, price_target: 107.7 },
+      { label: 'base', probability: 55, return_pct: -3.7, price_target: 81.83 },
+      { label: 'bear', probability: 25, return_pct: -46.9, price_target: 45.12 },
+    ],
+    entry_price: 84.96, entry_price_timestamp: '2026-07-17', currency: 'NOK',
+    expected_return_pct: -6.4, margin_of_safety_pct: 3.7, downside_risk_pct: 46.9,
+  },
+  overrides: [],
+}
+
+check('v1.3: a per-case ev bridge drives the level (NHY 8.21/6.45/3.95 → 107.75/81.88/45.13)', () => {
+  const out = recompute(draftFromResponse(NHY13))
+  for (const [label, want] of [['bull', 107.75], ['base', 81.88], ['bear', 45.13]] as const) {
+    const got = out.scenarios.find((s) => s.label === label)!.level
+    assert.ok(got !== null && Math.abs(got - want) < 0.02, `${label}: got ${got}, want ~${want}`)
+  }
+})
+check('v1.3: the run-level basis/net-debt are NOT used when the case declares its own', () => {
+  const d = draftFromResponse(NHY13)
+  assert.equal(d.basis, 'equity')        // the run's own declaration is preserved…
+  assert.equal(d.netDebt, 13090)
+  assert.equal(d.scenarios[0].basis, 'ev')  // …and the case's overrides it
+  assert.equal(d.scenarios[0].bridge!.net_debt, 17919)
+  // the failure this exists to prevent: equity basis would give 28,889 × 3.95 = 114,113.55/share
+  const bear = levelForScenario(d.scenarios[2], d)
+  assert.ok(bear !== null && bear < 100, `bear ${bear} — the run-level equity basis leaked into the case`)
+})
+check('v1.3: an equity-basis case is never bridged (EMAAR 10.16 × 0.96 = 9.75, not −2.82)', () => {
+  const d = draftFromResponse(emaarRes)
+  const s = { label: 'bear', probability: 35, forwardMetric: 10.16, multiple: 0.96, levelOverride: null,
+              basis: 'equity' as const, bridge: { net_debt: -24969, minority: 13808, shares: 8838.8 } }
+  assert.ok(Math.abs(levelForScenario(s, { ...d, basis: 'ev', netDebt: -24969 })! - 9.7536) < 1e-3)
+})
+check('v1.3: a bridge with no explicit net_debt reads Not assessable, never the run-level fallback (§15)', () => {
+  const broken = JSON.parse(JSON.stringify(NHY13))
+  delete broken.levers.scenarios[0].bridge.net_debt
+  const d = draftFromResponse(broken)
+  // the case DECLARED its own terms — silently re-pricing it on the run-level ones would show 114.02
+  // against the committed 107.70, which is the disagreement the per-case bridge exists to prevent
+  assert.equal(levelForScenario(d.scenarios[0], d), null)
+  assert.equal(levelForScenario(d.scenarios[1], d), 81.8815) // the other cases are unaffected
+})
+check('v1.3: the trace shows the WHOLE arithmetic, bridge included', () => {
+  const d = draftFromResponse(NHY13)
+  const s = d.scenarios[0]
+  const t = traceScenarioCell(s, scenarioCellState(s, false, null, null, false), d.published ?? null)
+  assert.ok(t.formula.includes('× multiple 8.21'), t.formula)
+  assert.ok(t.formula.includes('net debt 17919') && t.formula.includes('minority 7495'), t.formula)
+  assert.ok(t.formula.includes('÷ shares 1965.28'), t.formula)
+  assert.ok((t.note ?? '').includes('IMPLIED'), t.note ?? '(no note)')
+  assert.equal(t.source, '07_scenario-and-fair-value.md §2')
+  assert.equal(t.terms[0].label, 'EV/FY2026E EBITDA')
+})
+
+// ---- v1.3: an explicit multiple/metric edit DETACHES a v1.2 derivation chain (Codex #362 P1) ----
+// A scenario can carry BOTH a chain and a metric×multiple tuple at once (the emission instructions keep
+// the chain, recording its multiple as multiple_kind: 'implied'). Before the fix, levelForScenario always
+// returned the chain value FIRST, so typing over the multiple/metric was a silent no-op.
+check('levelForScenario: an unedited tuple+chain scenario reads the CHAIN (unchanged behaviour)', () => {
+  const d = draftFromResponse(emaarRes)
+  const s: DraftScenario = { label: 'bear', probability: 35, forwardMetric: 28889, multiple: 3.95, levelOverride: null, chain: buildChain(NHY_BEAR_DERIV) }
+  assert.ok(Math.abs((levelForScenario(s, d) as number) - 45.1238) < 1e-3, 'chain still wins while untouched')
+})
+check('levelForScenario: multipleEdited DETACHES the chain — the typed metric×multiple now drives the level', () => {
+  const d = draftFromResponse(emaarRes)
+  const base: DraftScenario = { label: 'bear', probability: 35, forwardMetric: 28889, multiple: 3.95, levelOverride: null, chain: buildChain(NHY_BEAR_DERIV), basis: 'equity' }
+  const edited: DraftScenario = { ...base, multiple: 5.0, multipleEdited: true }
+  // equity basis (no bridge on this literal): 28889 × 5.0 = 144,445 — nowhere near the chain's 45.12,
+  // proving the chain was actually bypassed, not coincidentally close to it
+  const got = levelForScenario(edited, d)
+  assert.ok(got !== null && Math.abs(got - 28889 * 5.0) < 1e-6, `edited level should be metric×multiple, got ${got}`)
+  // and the UNEDITED sibling with the same chain is untouched — the detach is per-scenario
+  assert.ok(Math.abs((levelForScenario(base, d) as number) - 45.1238) < 1e-3, 'an unedited scenario is unaffected by a sibling being edited')
+})
+
+// ---- checkMultipleSymmetry must be gated by comparable basis in recompute() (Codex #362 P2) ----
+// A mixed-method set (an equity P/E bear beside EV/EBITDA bull/base) makes the raw multiples
+// incomparable — comparing 0.96 to 6.45 numerically is meaningless, so the check must not even run.
+const mixedBasisDraft: PlaygroundDraft = {
+  basis: 'ev', shares: null, netDebt: null, price: 100,
+  rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false,
+  methods: [], driveBaseFromMix: false,
+  scenarios: [
+    { label: 'bull', probability: 20, forwardMetric: 28889, multiple: 8.21, levelOverride: null, basis: 'ev', multipleBasis: 'EV/FY2025 Adj. EBITDA' },
+    { label: 'base', probability: 55, forwardMetric: 28889, multiple: 6.45, levelOverride: null, basis: 'ev', multipleBasis: 'EV/FY2025 Adj. EBITDA' },
+    { label: 'bear', probability: 25, forwardMetric: 10.16, multiple: 0.96, levelOverride: null, basis: 'equity', multipleBasis: 'P/BV (book)' },
+  ],
+}
+check('recompute: a mixed-basis scenario set SKIPS the symmetry check (no false "bear must compress")', () => {
+  const out = recompute(mixedBasisDraft)
+  assert.equal(out.checks.symmetry, undefined, 'symmetry check must not run across incomparable bases')
+  assert.ok(!out.warnings.some((w) => w.includes('compress')), out.warnings.join(' | '))
+})
+check('recompute: a SAME-basis set still runs the check and still catches a real violation', () => {
+  const sameBasis: PlaygroundDraft = {
+    ...mixedBasisDraft,
+    scenarios: mixedBasisDraft.scenarios.map((s) => ({ ...s, basis: 'equity' as const, multipleBasis: 'P/E', multiple: s.label === 'bear' ? 25 : 20 })),
+  }
+  const out = recompute(sameBasis)
+  assert.ok(out.checks.symmetry !== undefined, 'symmetry check must still run when the bases match')
+  assert.equal(out.checks.symmetry!.ok, false, 'bear (25) expanding past base (20) must still be caught')
+})
+
+// ---- secondary_multiples must degrade to [] when malformed, never throw (Codex #362 P2) ----
+check('draftFromResponse: a non-array secondary_multiples degrades to [] instead of throwing', () => {
+  const malformed: ValuationLeversResponse = JSON.parse(JSON.stringify(NHY13))
+  ;(malformed.levers!.scenarios[0] as any).secondary_multiples = { value: 7.0, basis: 'P/E' } // an object, not an array
+  const d = draftFromResponse(malformed)
+  assert.deepEqual(d.scenarios[0].secondaryMultiples, [], 'a malformed sidecar value must degrade to an empty list, not throw')
 })
 
 console.log(`valuationLevers.test.ts: ${passed} assertions passed`)

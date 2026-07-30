@@ -147,6 +147,8 @@
   transition: border-color var(--dur-fast) var(--ease-out);
 }
 .vpg__input:focus, .vpg__scennum:focus { outline: none; border-color: var(--accent); }
+/* shadowed by a per-case bridge (v1.3) — shown for reference only, editing it does nothing (Codex #362 P2) */
+.vpg__input:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* ---- the three cases ----
    4 columns by default (case / chance / worth / return). A run whose scenarios record a forward metric
@@ -175,7 +177,21 @@
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .vpg__scenlevel { font-size: 12.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+/* a tuple row's Worth figure doubles as its trace toggle — same look, now clickable */
+.vpg__scenlevel--btn {
+  background: none; border: none; padding: 0; font-family: inherit; cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.vpg__scenlevel--btn:hover { color: var(--accent-bright); }
 .vpg__scenret { font-size: 12.5px; font-weight: 600; font-variant-numeric: tabular-nums; }
+/* v1.3: the named metric/multiple basis, shown right under its input — "28,889" alone reads as a
+   per-share figure even when it is total EBITDA; the caption says which. */
+.vpg__scenmetricwrap { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.vpg__scenmetricrow { display: flex; align-items: center; gap: 4px; min-width: 0; }
+.vpg__scenmetricrow .vpg__scennum { min-width: 0; }
+.vpg__scenbasis {
+  font-size: 9px; color: var(--text-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
 
 /* ---- "more" accordion rows: the mix, goal seek, the discount-rate check ----
    Closed by default. Content mounts at full height and fades in — height is never animated (§3). */
