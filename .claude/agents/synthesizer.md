@@ -587,6 +587,11 @@ Then calculate:
 
 **Record these scenario rows verbatim into `decision_record.json` `scenarios[]`** — one object per case (`label`, `probability`, `return_pct`, `price_target`) — so the eval harness can re-derive the math deterministically. *(fix F08 — the scenario block used to live only in prose, invisible to every automated gate.)*
 
+**Labels: ADOPT the valuation module's, ADD your own only for cases it did not derive.** You own the case set and the probabilities (CLAUDE.md §10) — the valuation module owns the levels. So:
+- A case the valuation module derived keeps **its** label, character-for-character. If `valuation/99` emitted `bear_cyclical` and `bear_structural`, those are the labels here; do not rename them to `bear`, do not merge them, and do not split one of them into two. The module also writes a machine sidecar (`valuation/valuation_summary.json`) keyed on those labels BEFORE you run, so a rename leaves two names for one case — which the integrity guard rejects and no reader can reconcile.
+- You MAY add a case the module never produced, and should when the thesis needs one — a short-squeeze tail on a short candidate, a policy tail, a pair-trade leg. Give it a self-describing label (`tail_squeeze`, not `bear2`), and say in §8 that it is yours and why the valuation module could not produce it. Such a case legitimately has no levers in the sidecar; the Playground shows it as a frozen judgment cell.
+- If the module shipped ONE `bear` while its own report derives two distinct down-legs, that is a module defect. Say so in the Data Gaps section and keep the module's single label — inventing the split here re-creates the mismatch instead of recording it.
+
 If exact price targets cannot be calculated from data, give ranges and say why.
 
 If the math does not reconcile, fix it before publishing.

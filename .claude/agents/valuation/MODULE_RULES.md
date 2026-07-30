@@ -14,7 +14,7 @@ This module answers one question:
 
 > "What is this company worth, what is priced in at today's price, and how much margin of safety exists?"
 
-It produces **bull / base / bear fair-value levels** (points) triangulated across multiple methods — with the cross-method dispersion shown separately — an explicit read of **what the current price implies**, the **margin of safety** (discount to base fair value), and the **downside to bear**.
+It produces **bull / base / bear fair-value levels** (points) triangulated across multiple methods — with the cross-method dispersion shown separately — an explicit read of **what the current price implies**, the **margin of safety** (discount to base fair value), and the **downside to bear**. Bull / base / bear is the default SHAPE, not a cap: where the evidence derives two distinct down-legs (a cyclical trough and a structural reset), each is its own labelled case — see the Scenario Construction policy §2.
 
 This module DOES:
 - establish the current price, diluted share count, and the market-cap → enterprise-value bridge
@@ -206,6 +206,15 @@ Every case is a single derived LEVEL built from an explicit **forward metric AND
 - **Bear** = a **lower** forward metric (the miss case) × a **compressed** multiple — toward the lower end of the own-history band. **The bear multiple must be ≤ the base multiple.**
 
 The multiple move and the metric move must point the **same** direction within a case (both up in bull, both down in bear): a beat is normally rewarded with a higher multiple, a miss punished with a lower one. Guard against fake asymmetry — a bull that quietly uses peak metric AND peak multiple against a bear that uses only a mild haircut. Persistent expansion/compression **beyond** the own-history band is assumed only with explicit mania / distress evidence; never build a base or bull on a multiple the company has never sustained (warranted-multiple check, Core Principle 3).
+
+**Name each case for what it IS, and never collapse two derived cases into one label.** `bull / base / bear` are the DEFAULT shape, not a fixed set of three. When this module derives two genuinely different down-legs — a cyclical trough on one assumption set and a structural / permanent-impairment reset on another — those are **two cases with two labels** (`bear_cyclical`, `bear_structural`), each with its own metric, multiple, bridge and horizon. Choosing a headline among them (the graduated worse-of rule) decides which one leads the narrative; it does **not** merge them, and it does not licence recording only the winner under the bare label `bear`.
+
+Why this is a hard rule and not a preference:
+- The two cases mean different things to a reader — TSLA's cyclical trough is a 12-month marker, its structural reset a 24–36 month permanent-impairment path. One label called "bear" for both destroys the distinction the analysis just made.
+- The master synthesizer owns the case SET and the probabilities (CLAUDE.md §10, §22) and will weight each down-leg separately. If this module ships one merged `bear`, the master must invent labels for cases it did not derive — and the sidecar (written here, before the master runs) then carries a **second name for the same case**, which the integrity guard rejects and no reader can reconcile.
+- Labels are matched machine-side. A case this module derives must reach `decision_record.json` under the SAME label it was given here; the master adopts these labels rather than renaming them, and may add cases of its own (a squeeze tail, a pair-trade leg) that this module never produced.
+
+Every case still carries its own `metric × multiple` and its own EV→equity bridge — **do not reuse one case's bridge convention on another without saying so.** Two down-legs built on different bases (a multiple-based trough bridged one way, a DCF-based reset bridged another) must each state their own net-debt basis inline (§15); a per-share figure that silently switches convention between cases is a hygiene defect, not a rounding difference.
 
 ---
 

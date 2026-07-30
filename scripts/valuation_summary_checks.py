@@ -440,18 +440,41 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
                 if abs(at_applied - float(m_of("peers"))) > _tol(m_of("peers")):
                     det.append(f"peers_internals line at applied_multiple gives {round(at_applied, 4)} != methods.peers {m_of('peers')} — the anchors must reproduce the recorded method value")
 
-    # Match the sidecar's scenario label set to the frozen decision_record, and check each shared level for
-    # contradiction. A sidecar label with no decision-record counterpart (or a missing one) means the
-    # Playground — which uses the non-empty sidecar over the decision-record fallback — cannot derive the
-    # base-case margin of safety / bear-case downside.
+    # Reconcile the sidecar's cases against the frozen decision_record. The rule is DIRECTIONAL, not a set
+    # equality, because the two layers legitimately hold different case sets:
+    #
+    #   the valuation module owns the fair-value LEVELS (MODULE_RULES §2); the master synthesizer owns the
+    #   CASE SET and the probabilities (§10, §22) and may add a case the module never produced — TSLA's
+    #   `tail_squeeze` is a short-specific risk the valuation module says outright it cannot resolve, only
+    #   frame. The sidecar is written by 99_valuation-synthesis BEFORE the master runs, so it can never
+    #   know such a case exists. Demanding identical label sets asks for the structurally impossible.
+    #
+    # So:
+    #   ORPHAN LEVERS are a violation. A sidecar case with no counterpart in the thesis lets the analyst
+    #   move levers for a case the run does not hold — including the RENAME failure this rule exists to
+    #   catch (a sidecar 'bear' against a thesis that says 'bear_structural' is two names for one case, and
+    #   the reader cannot tell they are the same).
+    #   A THESIS CASE WITH NO LEVERS is not a violation. Nothing is wrong or missing in the sidecar; the
+    #   Playground renders it from the frozen level as a judgment cell. It MUST still render it — dropping
+    #   it would compute the expected return over probabilities that no longer sum to 100 — but that is the
+    #   client's contract (valuationLevers.draftFromResponse), not a data defect.
+    #
+    # The one completeness floor: the BASE case must carry levers if any case does. The base level anchors
+    # the margin of safety and the expected-return centre; a sidecar that omits it gives the analyst levers
+    # on the wings while the middle stays frozen.
     dr_scen = decision.get("scenarios") if isinstance(decision, dict) else None
     if isinstance(dr_scen, list) and dr_scen:
         dr_by = {str(s.get("label", "")).strip().lower(): s for s in dr_scen if isinstance(s, dict)}
         sc_set, dr_set = set(labels), set(dr_by)
         for lab in sorted(sc_set - dr_set):
-            det.append(f"scenario {lab!r} has no decision_record counterpart — the sidecar's label set must match the frozen thesis")
-        for lab in sorted(dr_set - sc_set):
-            det.append(f"decision_record scenario {lab!r} is missing from the sidecar — the Playground could not derive its return")
+            near = sorted(d for d in dr_set - sc_set if d.startswith(lab) or lab.startswith(d))
+            hint = (f" — the thesis calls it {' / '.join(repr(n) for n in near)}; use the thesis's own label, "
+                    f"never a second name for the same case") if near else \
+                   " — a lever set for a case the thesis does not hold"
+            det.append(f"scenario {lab!r} has no decision_record counterpart{hint}")
+        if dr_set and not any(l for l in sc_set if "base" in l) and any("base" in l for l in dr_set):
+            det.append("no base-labelled scenario carries levers — the base level anchors the margin of safety "
+                       "and the expected-return centre, so it cannot be the one case left frozen")
         for s in scen:
             if not isinstance(s, dict) or not isinstance(s.get("label"), str):
                 continue
@@ -556,11 +579,39 @@ def _selftest() -> int:
                         scenarios=[{"label": "base", "forward_metric": 100, "multiple": 12, "level": 100}])
     check("ev metric×multiple without bridge caught", any("derivable level" in v for v in eval_ap_valuation_summary_integrity(ev_no_bridge, None)))
 
-    # label-set matching against the frozen decision_record
+    # ---- case reconciliation against the frozen thesis: DIRECTIONAL, not a set equality ----
+    # an ORPHAN lever set (a case the thesis does not hold) is a violation
     upside_only = dict(ok_sidecar, scenarios=[{"label": "upside", "level": 150}])
     r = eval_ap_valuation_summary_integrity(upside_only, dr_match)
-    check("sidecar label absent from DR caught", any("no decision_record counterpart" in v for v in r))
-    check("DR label missing from sidecar caught", any("missing from the sidecar" in v for v in r))
+    check("orphan lever set caught", any("no decision_record counterpart" in v for v in r))
+    check("an orphan with no near-name says so plainly",
+          any("a lever set for a case the thesis does not hold" in v for v in r))
+    # THE case this rule exists for: a RENAME. The sidecar says 'bear', the thesis says 'bear_structural' —
+    # two names for one case, which the reader cannot reconcile. Named, with the thesis's own label quoted.
+    dr_split = {"scenarios": [
+        {"label": "bull", "price_target": 20}, {"label": "base", "price_target": 15},
+        {"label": "bear_cyclical", "price_target": 12}, {"label": "bear_structural", "price_target": 10},
+        {"label": "tail_squeeze", "price_target": 40},
+    ]}
+    rn = eval_ap_valuation_summary_integrity(ok_sidecar, dr_split)
+    check("a renamed case is caught as an orphan", any("'bear' has no decision_record counterpart" in v for v in rn))
+    check("and the message quotes the thesis's own label",
+          any("bear_cyclical" in v and "bear_structural" in v and "never a second name" in v for v in rn))
+    # a thesis case the module never derived is NOT a defect (the master owns the case set, §10/§22): the
+    # sidecar here holds bull/base/bear_structural and the thesis adds bear_cyclical + tail_squeeze
+    partial = dict(ok_sidecar, scenarios=[
+        {"label": "bull", "level": 20}, {"label": "base", "level": 15}, {"label": "bear_structural", "level": 10}])
+    pr = eval_ap_valuation_summary_integrity(partial, dr_split)
+    check("a thesis case with no levers is NOT a violation (the master may add cases)", pr == [])
+    check("and nothing claims the sidecar is 'missing' it", not any("missing from the sidecar" in v for v in pr))
+    # the one completeness floor: the base case cannot be the frozen one
+    no_base = dict(ok_sidecar, scenarios=[{"label": "bull", "level": 20}, {"label": "bear", "level": 10}])
+    check("a sidecar that leaves the BASE case frozen is caught",
+          any("no base-labelled scenario carries levers" in v for v in eval_ap_valuation_summary_integrity(no_base, dr_match)))
+    check("no base in the THESIS either → no floor to enforce",
+          eval_ap_valuation_summary_integrity(
+              dict(ok_sidecar, scenarios=[{"label": "leg_long", "level": 20}, {"label": "leg_short", "level": 10}]),
+              {"scenarios": [{"label": "leg_long", "price_target": 20}, {"label": "leg_short", "price_target": 10}]}) == [])
 
     # THE contradiction check (material gap, not rounding)
     dr_conflict = {"scenarios": [{"label": "bull", "price_target": 20}, {"label": "base", "price_target": 99}, {"label": "bear", "price_target": 10}]}
