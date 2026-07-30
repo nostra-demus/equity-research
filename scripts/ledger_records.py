@@ -235,7 +235,14 @@ def resolve_integrity_status(run_dir):
             with open(report_file, "r", encoding="utf-8") as f:
                 v = json.load(f)
             if isinstance(v, dict):
-                verdict = v.get("verdict") or None
+                # Strip a string verdict before it is classified against _CLEAN_VERDICTS below. The finish
+                # gate (research/full.md) strips the verdict before its own clean/not-clean test, so an
+                # incidental "Minor issues " (trailing space) is cleared there; without the same strip here
+                # this shared resolver would call the SAME run provisional — the banner gets cleared while
+                # calibrate/track/size still exclude it. Mirror the gate we claim to mirror.
+                raw_verdict = v.get("verdict")
+                verdict = raw_verdict.strip() if isinstance(raw_verdict, str) else raw_verdict
+                verdict = verdict or None
                 score = v.get("integrity_score")
         except (OSError, json.JSONDecodeError, ValueError):
             verdict = None  # unreadable report — fail closed below, exactly like the finish-gate
@@ -391,6 +398,19 @@ def selftest():
                   open(os.path.join(td, "verification_report.json"), "w"))
         r = resolve_integrity_status(td)
         check(r["status"] == "verified" and r["integrity_score"] == 96, f"Clean report → verified, got {r}")
+
+    # resolve_integrity_status: a verdict with incidental surrounding whitespace ("Minor issues ") must be
+    # STRIPPED before the clean/not-clean test — the finish gate (research/full.md) strips before its own
+    # test and would clear the banner, so an unstripped compare here would call the SAME run provisional and
+    # calibrate/track/size would exclude a run the gate treats as clean. Expected value pinned to that
+    # finish-gate behaviour, not to code output. (red-on-old: unstripped "  Minor issues  " → provisional.)
+    with tempfile.TemporaryDirectory() as td:
+        open(os.path.join(td, "final_thesis.md"), "w").write("# TICKER — Investment Dossier\n\nbody\n")
+        json.dump({"verdict": "  Minor issues  ", "integrity_score": 88},
+                  open(os.path.join(td, "verification_report.json"), "w"))
+        r = resolve_integrity_status(td)
+        check(r["status"] == "verified" and r["verdict"] == "Minor issues",
+              f"a whitespace-padded clean verdict is stripped → verified, matching the finish gate, got {r}")
 
     # resolve_integrity_status: Material issues verdict, no banner (defensive path) → "provisional"
     with tempfile.TemporaryDirectory() as td:
