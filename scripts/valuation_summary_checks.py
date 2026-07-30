@@ -854,13 +854,9 @@ def _selftest() -> int:
           eval_ap_valuation_summary_integrity(v13, None) == [])
     # a present-but-nonnumeric optional deduction (minority/other) must be REPORTED, not silently read
     # as 0 — a generated bridge with "minority": "7495" (a string) used to pass with the deduction
-    # dropped from the arithmetic (Codex #362 P2, fresh evidence beyond the net_debt-only fix)
-    for bad_key in ("minority", "other"):
-        br = {"net_debt": 17919, "net_debt_basis": "cash-quality adjusted", "shares": 1965.28, bad_key: "7495"}
-        nonnum_bad = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge=br), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
-        out3 = eval_ap_valuation_summary_integrity(nonnum_bad, None)
-        check(f"bridge {bad_key} nonnumeric caught, not silently treated as 0",
-              any(f"{bad_key} must be numeric" in v for v in out3))
+    # dropped from the arithmetic (Codex #362 P2, fresh evidence beyond the net_debt-only fix). Superseded
+    # by the fuller minority/other/shares group above (Codex #366 P2) — same guard, one wording, checked
+    # there instead of duplicating it here with the pre-#366 message text.
 
     # a present, non-null bridge that is NOT an object (a string/array typo) must be reported — it used
     # to be silently treated as absent, with no violation, and the client/Python arithmetic both fell back

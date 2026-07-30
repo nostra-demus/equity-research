@@ -687,12 +687,12 @@ check('v1.3: trace resolves the EFFECTIVE basis (run-level fallback), not just t
   assert.equal(d.basis, 'ev', 'the run supplies the fallback')
   // levelForScenario already used the effective basis and derives the correct bridged level
   assert.ok(Math.abs((levelForScenario(s, d) as number) - 107.75) < 0.02)
-  const t = traceScenarioCell(s, scenarioCellState(s, false, null, null, false), d.published ?? null, (k) => k, d.basis)
+  const t = traceScenarioCell(s, scenarioCellState(s, false, null, null, false), d.published ?? null, (k) => k, { basis: d.basis, shares: d.shares, netDebt: d.netDebt })
   assert.ok(t.formula.includes('net debt 17919') && t.formula.includes('minority 7495'),
     `trace must show the bridge that the calculation actually used: ${t.formula}`)
   assert.ok(t.formula.includes('÷ shares 1965.28'), t.formula)
 })
-check('v1.3: without the runBasis argument, the trace defaults to "equity" and drops the bridge (documents the old bug\'s shape)', () => {
+check('v1.3: without the ctx argument, the trace defaults to no run-level basis and drops the bridge (documents the old bug\'s shape)', () => {
   const noOwnBasisRes: ValuationLeversResponse = {
     ...NHY13,
     levers: { ...NHY13.levers!, basis: 'ev', scenarios: NHY13.levers!.scenarios.map((sc) => ({ ...sc, basis: undefined })) },
@@ -700,7 +700,7 @@ check('v1.3: without the runBasis argument, the trace defaults to "equity" and d
   const d = draftFromResponse(noOwnBasisRes)
   const s = d.scenarios[0]
   const t = traceScenarioCell(s, scenarioCellState(s, false, null, null, false), d.published ?? null)
-  assert.ok(!t.formula.includes('net debt'), 'default runBasis is equity, so no bridge is shown — the caller MUST pass draft.basis')
+  assert.ok(!t.formula.includes('net debt'), 'with no ctx, the effective basis cannot be resolved, so no bridge is shown — the caller MUST pass draft.basis/shares/netDebt as ctx')
 })
 
 // ---- checkMultipleSymmetry must be gated by comparable basis in recompute() (Codex #362 P2) ----

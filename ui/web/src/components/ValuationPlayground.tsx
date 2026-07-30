@@ -471,7 +471,10 @@ export function ValuationPlayground() {
                 </div>
                 <CmpRow label="What you'd make" gloss="expected return" sys={sysExp} pg={pgExp} t="exp" />
                 <CmpRow label={mosR.above ? 'Price above fair value by' : 'Price below fair value by'} gloss="margin of safety — the sign says which side of fair value the price sits on" sys={dec?.margin_of_safety_pct ?? null} pg={out.math.marginOfSafetyPct} t="mos" invertTone={draft.direction === 'short'} />
-                <CmpRow label="How far it could fall" gloss="downside risk — higher is worse" sys={dec?.downside_risk_pct ?? null} pg={out.math.downsideRiskPct} t="down" invertTone />
+                {/* downsideRiskPct is the worst POSITION return, inverted. For a long that worst case is a
+                    price fall; for a short (e.g. TSLA's squeeze scenario) it is a price RISE — "how far it
+                    could fall" tells a short holder the opposite of their real risk (Codex #366 P2). */}
+                <CmpRow label={draft.direction === 'short' ? 'How far it could move against you' : 'How far it could fall'} gloss="downside risk — higher is worse" sys={dec?.downside_risk_pct ?? null} pg={out.math.downsideRiskPct} t="down" invertTone />
                 <CmpRow label="Reward per unit of risk" gloss="risk / reward" sys={null} pg={out.math.riskReward} isPct={false} t="rr" />
                 <CmpRow label="Worth if things go well" gloss="bull" sys={sysLevel('bull')} pg={pgLevel('bull')} isPct={false} />
                 <CmpRow label="Worth, most likely" gloss="base" sys={sysLevel('base')} pg={pgLevel('base')} isPct={false} />
