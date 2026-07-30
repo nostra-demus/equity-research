@@ -151,8 +151,12 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
     ver = None
     if isinstance(raw_ver, str):
         parts = raw_ver.strip().split(".")
+        # Keep EVERY parsed component, not just major.minor — "1.3.1" must compare as (1, 3, 1), not
+        # truncate to (1, 3), or a future versioned rule keyed on the patch digit would silently misread
+        # it (Gemini #365, scripts/valuation_summary_checks.py:131). Tuple comparison in Python already
+        # handles the differing lengths against the (1, 3) gate below correctly (e.g. (1, 2, 9) < (1, 3)).
         if 1 <= len(parts) <= 4 and all(p.isdigit() for p in parts):
-            ver = (int(parts[0]), int(parts[1]) if len(parts) > 1 else 0)
+            ver = tuple(int(p) for p in parts)
     if raw_ver is not None and ver is None:
         det.append(f"schema_version {raw_ver!r} is not a dotted numeric version (e.g. '1.3') — an unparseable "
                    f"version would silently grandfather every versioned rule")
@@ -180,7 +184,15 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
         # (bridged for ev) and IGNORES the supplied `level` — so a level that disagrees with that product
         # ships a baseline the Playground would silently override. Verify the identity here.
         fm, mult, lvl = s.get("forward_metric"), s.get("multiple"), s.get("level")
-        br = s.get("bridge") if isinstance(s.get("bridge"), dict) else None
+        raw_bridge = s.get("bridge")
+        if raw_bridge is not None and not isinstance(raw_bridge, dict):
+            # A present-but-non-object bridge (e.g. `"bridge": []`) must not be silently read as absent —
+            # that would let the case be priced from the run-level terms while the client's draftFromResponse
+            # treats the same array as truthy and caseLevelFromMultiple returns null (net_debt missing), so
+            # CI and the Playground would disagree (Codex #365 P2, scripts/valuation_summary_checks.py:159).
+            det.append(f"scenario {s.get('label')!r} bridge {raw_bridge!r} is not an object — a present bridge "
+                       f"must be a {{net_debt, ...}} object, never treated as absent")
+        br = raw_bridge if isinstance(raw_bridge, dict) else None
         # A case may declare its OWN basis: EMAAR's base reads on EV/EBITDA while its bear reads 0.96x on
         # BOOK. Treating an equity multiple as an EV one and bridging it is not a rounding error — it turns
         # 9.75 into −2.82. Falls back to the run basis.
@@ -201,6 +213,14 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
         if br is not None and not _cited(br.get("net_debt_basis")):
             det.append(f"scenario {s.get('label')!r} bridge records a net_debt with no net_debt_basis — a "
                        f"per-case debt figure must name its basis wherever it appears (§15)")
+        # v1.3: the bridge's OWN §5 citation (optional — falls back to the scenario source when the bridge
+        # terms come from the same document). A supplied-but-banned bare phrase ("source", "management
+        # said", ...) is rejected exactly like every other §5-cited field; absence is fine (Codex #365 P1,
+        # frameworks/valuation_summary.schema.json:39).
+        if br is not None and br.get("source") is not None and not _cited(br.get("source")):
+            det.append(f"scenario {s.get('label')!r} bridge records a source that is not a usable §5 citation "
+                       f"({br.get('source')!r}) — bridge figures from a different document/module cannot ship "
+                       f"under a vague or banned bare citation")
         # The v1.3 labelling rules key off the PRESENCE of each lever, not off a complete pair: a scenario
         # carrying a multiple with no forward_metric would otherwise skip every check below and ship an
         # unlabelled, uncited, underivable lever (Gemini + Codex #362).
@@ -440,18 +460,41 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
                 if abs(at_applied - float(m_of("peers"))) > _tol(m_of("peers")):
                     det.append(f"peers_internals line at applied_multiple gives {round(at_applied, 4)} != methods.peers {m_of('peers')} — the anchors must reproduce the recorded method value")
 
-    # Match the sidecar's scenario label set to the frozen decision_record, and check each shared level for
-    # contradiction. A sidecar label with no decision-record counterpart (or a missing one) means the
-    # Playground — which uses the non-empty sidecar over the decision-record fallback — cannot derive the
-    # base-case margin of safety / bear-case downside.
+    # Reconcile the sidecar's cases against the frozen decision_record. The rule is DIRECTIONAL, not a set
+    # equality, because the two layers legitimately hold different case sets:
+    #
+    #   the valuation module owns the fair-value LEVELS (MODULE_RULES §2); the master synthesizer owns the
+    #   CASE SET and the probabilities (§10, §22) and may add a case the module never produced — TSLA's
+    #   `tail_squeeze` is a short-specific risk the valuation module says outright it cannot resolve, only
+    #   frame. The sidecar is written by 99_valuation-synthesis BEFORE the master runs, so it can never
+    #   know such a case exists. Demanding identical label sets asks for the structurally impossible.
+    #
+    # So:
+    #   ORPHAN LEVERS are a violation. A sidecar case with no counterpart in the thesis lets the analyst
+    #   move levers for a case the run does not hold — including the RENAME failure this rule exists to
+    #   catch (a sidecar 'bear' against a thesis that says 'bear_structural' is two names for one case, and
+    #   the reader cannot tell they are the same).
+    #   A THESIS CASE WITH NO LEVERS is not a violation. Nothing is wrong or missing in the sidecar; the
+    #   Playground renders it from the frozen level as a judgment cell. It MUST still render it — dropping
+    #   it would compute the expected return over probabilities that no longer sum to 100 — but that is the
+    #   client's contract (valuationLevers.draftFromResponse), not a data defect.
+    #
+    # The one completeness floor: the BASE case must carry levers if any case does. The base level anchors
+    # the margin of safety and the expected-return centre; a sidecar that omits it gives the analyst levers
+    # on the wings while the middle stays frozen.
     dr_scen = decision.get("scenarios") if isinstance(decision, dict) else None
     if isinstance(dr_scen, list) and dr_scen:
         dr_by = {str(s.get("label", "")).strip().lower(): s for s in dr_scen if isinstance(s, dict)}
         sc_set, dr_set = set(labels), set(dr_by)
         for lab in sorted(sc_set - dr_set):
-            det.append(f"scenario {lab!r} has no decision_record counterpart — the sidecar's label set must match the frozen thesis")
-        for lab in sorted(dr_set - sc_set):
-            det.append(f"decision_record scenario {lab!r} is missing from the sidecar — the Playground could not derive its return")
+            near = sorted(d for d in dr_set - sc_set if d.startswith(lab) or lab.startswith(d))
+            hint = (f" — the thesis calls it {' / '.join(repr(n) for n in near)}; use the thesis's own label, "
+                    f"never a second name for the same case") if near else \
+                   " — a lever set for a case the thesis does not hold"
+            det.append(f"scenario {lab!r} has no decision_record counterpart{hint}")
+        if dr_set and not any(l for l in sc_set if "base" in l) and any("base" in l for l in dr_set):
+            det.append("no base-labelled scenario carries levers — the base level anchors the margin of safety "
+                       "and the expected-return centre, so it cannot be the one case left frozen")
         for s in scen:
             if not isinstance(s, dict) or not isinstance(s.get("label"), str):
                 continue
@@ -556,11 +599,39 @@ def _selftest() -> int:
                         scenarios=[{"label": "base", "forward_metric": 100, "multiple": 12, "level": 100}])
     check("ev metric×multiple without bridge caught", any("derivable level" in v for v in eval_ap_valuation_summary_integrity(ev_no_bridge, None)))
 
-    # label-set matching against the frozen decision_record
+    # ---- case reconciliation against the frozen thesis: DIRECTIONAL, not a set equality ----
+    # an ORPHAN lever set (a case the thesis does not hold) is a violation
     upside_only = dict(ok_sidecar, scenarios=[{"label": "upside", "level": 150}])
     r = eval_ap_valuation_summary_integrity(upside_only, dr_match)
-    check("sidecar label absent from DR caught", any("no decision_record counterpart" in v for v in r))
-    check("DR label missing from sidecar caught", any("missing from the sidecar" in v for v in r))
+    check("orphan lever set caught", any("no decision_record counterpart" in v for v in r))
+    check("an orphan with no near-name says so plainly",
+          any("a lever set for a case the thesis does not hold" in v for v in r))
+    # THE case this rule exists for: a RENAME. The sidecar says 'bear', the thesis says 'bear_structural' —
+    # two names for one case, which the reader cannot reconcile. Named, with the thesis's own label quoted.
+    dr_split = {"scenarios": [
+        {"label": "bull", "price_target": 20}, {"label": "base", "price_target": 15},
+        {"label": "bear_cyclical", "price_target": 12}, {"label": "bear_structural", "price_target": 10},
+        {"label": "tail_squeeze", "price_target": 40},
+    ]}
+    rn = eval_ap_valuation_summary_integrity(ok_sidecar, dr_split)
+    check("a renamed case is caught as an orphan", any("'bear' has no decision_record counterpart" in v for v in rn))
+    check("and the message quotes the thesis's own label",
+          any("bear_cyclical" in v and "bear_structural" in v and "never a second name" in v for v in rn))
+    # a thesis case the module never derived is NOT a defect (the master owns the case set, §10/§22): the
+    # sidecar here holds bull/base/bear_structural and the thesis adds bear_cyclical + tail_squeeze
+    partial = dict(ok_sidecar, scenarios=[
+        {"label": "bull", "level": 20}, {"label": "base", "level": 15}, {"label": "bear_structural", "level": 10}])
+    pr = eval_ap_valuation_summary_integrity(partial, dr_split)
+    check("a thesis case with no levers is NOT a violation (the master may add cases)", pr == [])
+    check("and nothing claims the sidecar is 'missing' it", not any("missing from the sidecar" in v for v in pr))
+    # the one completeness floor: the base case cannot be the frozen one
+    no_base = dict(ok_sidecar, scenarios=[{"label": "bull", "level": 20}, {"label": "bear", "level": 10}])
+    check("a sidecar that leaves the BASE case frozen is caught",
+          any("no base-labelled scenario carries levers" in v for v in eval_ap_valuation_summary_integrity(no_base, dr_match)))
+    check("no base in the THESIS either → no floor to enforce",
+          eval_ap_valuation_summary_integrity(
+              dict(ok_sidecar, scenarios=[{"label": "leg_long", "level": 20}, {"label": "leg_short", "level": 10}]),
+              {"scenarios": [{"label": "leg_long", "price_target": 20}, {"label": "leg_short", "price_target": 10}]}) == [])
 
     # THE contradiction check (material gap, not rounding)
     dr_conflict = {"scenarios": [{"label": "bull", "price_target": 20}, {"label": "base", "price_target": 99}, {"label": "bear", "price_target": 10}]}
@@ -743,11 +814,30 @@ def _selftest() -> int:
                          _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
     check("bridge with zero shares → violation, no ZeroDivisionError",
           any("no positive shares" in v for v in eval_ap_valuation_summary_integrity(br_str_shares, None)))
+    # a non-object bridge (e.g. an array) must be REPORTED, never silently read as absent (Codex #365 P2)
+    for bad_bridge in ([17919], "17919", 42, True):
+        nonobj = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge=bad_bridge), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+        out2 = eval_ap_valuation_summary_integrity(nonobj, None)
+        check(f"non-object bridge {bad_bridge!r} caught, not silently treated as absent",
+              any("is not an object" in v for v in out2))
     # §15: a per-case debt figure must name its basis wherever it appears
     no_ndb = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge={"net_debt": 17919, "minority": 7495, "shares": 1965.28}),
                   _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
     check("v1.3 per-case bridge without a net_debt_basis caught (§15)",
           any("no net_debt_basis" in v for v in eval_ap_valuation_summary_integrity(no_ndb, None)))
+    # bridge.source: OPTIONAL, but when present must be a usable §5 citation — a banned bare phrase is
+    # rejected exactly like every other cited field (Codex #365 P1)
+    ok_bridge_src = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge={
+        "net_debt": 17919, "net_debt_basis": "cash-quality adjusted", "minority": 7495, "shares": 1965.28,
+        "source": "balance-sheet-survival/03 §2 (debt note)"}), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+    check("v1.3 bridge with a real §5 source citation passes", eval_ap_valuation_summary_integrity(ok_bridge_src, None) == [])
+    bad_bridge_src = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge={
+        "net_debt": 17919, "net_debt_basis": "cash-quality adjusted", "minority": 7495, "shares": 1965.28,
+        "source": "management said"}), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+    check("v1.3 bridge with a banned bare source caught",
+          any("not a usable §5 citation" in v for v in eval_ap_valuation_summary_integrity(bad_bridge_src, None)))
+    check("v1.3 bridge with NO source at all is fine (falls back to the scenario source)",
+          eval_ap_valuation_summary_integrity(v13, None) == [])
     # a present-but-nonnumeric optional deduction (minority/other) must be REPORTED, not silently read
     # as 0 — a generated bridge with "minority": "7495" (a string) used to pass with the deduction
     # dropped from the arithmetic (Codex #362 P2, fresh evidence beyond the net_debt-only fix)
@@ -808,6 +898,16 @@ def _selftest() -> int:
           eval_ap_valuation_summary_integrity(dict(old, schema_version="1"), None) == [])
     check("schema_version '1.3.0' parses as 1.3 (rules apply)",
           eval_ap_valuation_summary_integrity(dict(v13, schema_version="1.3.0"), None) == [])
+    # a THIRD version component must not be dropped (Gemini #365: "1.3.1" was truncated to (1, 3), which
+    # happens to still compare correctly against the (1, 3) gate today — but only because the truncation
+    # and the full parse agree on THIS gate; assert the full tuple is what is actually compared)
+    check("schema_version '1.3.1' parses as (1, 3, 1), still >= the v1.3 gate",
+          eval_ap_valuation_summary_integrity(dict(v13, schema_version="1.3.1"), None) == [])
+    # v13's own body already satisfies the v1.3 rules too, so this isolates the VERSION comparison: a
+    # truncating parse would read "1.2.9" as (1, 2) < (1, 3) — same verdict as the full (1, 2, 9) — so this
+    # alone would not have caught the truncation bug; it is included for completeness alongside 1.3.1 above.
+    check("schema_version '1.2.9' still parses below the v1.3 gate (grandfathered, no false demand)",
+          eval_ap_valuation_summary_integrity(dict(v13, schema_version="1.2.9"), None) == [])
 
     # ---- v1.3 mixed bases in ONE run — EMAAR's real SHAPE (EV/EBITDA base + P/BV bear). The bear is
     # EMAAR's actual arithmetic (10.16 book/share x 0.96 = 9.75); the base metric is synthetic-but-

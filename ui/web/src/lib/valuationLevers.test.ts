@@ -311,6 +311,30 @@ check('traceOutput NHY: pwt terms per scenario; expected/mos/downside/rr formula
   const noPrice = scenarioMath([{ label: 'base', probability: 100, price_target: 10 }], null)
   assert.equal(traceOutput('expected', noPrice), null)
 })
+// Codex #365 P1 (synthesizer.md:591): a run with TWO bear-labelled cases (bear_cyclical + bear_structural)
+// must select the WORST (lowest target, for a long) for downsideToBearPct and the risk/reward denominator
+// — the same selection scripts/eval.py's `worst = min(tgts)` makes — not the first bear-labelled row in
+// array order. TSLA's real shape: bear_cyclical 20.90 listed BEFORE the lower bear_structural 6.86.
+check('scenarioMath: multi-bear picks the WORST bear (lowest target), not array order', () => {
+  const math = scenarioMath([
+    { label: 'bull', probability: 20, price_target: 336.08 },
+    { label: 'base', probability: 30, price_target: 32.37 },
+    { label: 'bear_cyclical', probability: 25, price_target: 20.90 },
+    { label: 'bear_structural', probability: 20, price_target: 6.86 },
+    { label: 'tail_squeeze', probability: 5, price_target: 417.40 },
+  ], 30.0)
+  // downsideToBearPct is inverted (higher = worse): (price − worst-bear) / price. Rounded to 1dp by pct(),
+  // so the tolerance is against that rounding, not exact equality.
+  assert.ok(Math.abs(math.downsideToBearPct! - ((30.0 - 6.86) / 30.0) * 100) < 0.06,
+    `downsideToBearPct should key off the structural bear (6.86), got ${math.downsideToBearPct}`)
+  // and NOT off the first-listed bear_cyclical (20.90) — the bug this test exists to catch
+  assert.ok(Math.abs(math.downsideToBearPct! - ((30.0 - 20.90) / 30.0) * 100) > 1,
+    'must not silently key off the first bear-labelled row in array order')
+  const denom = 30.0 - 6.86
+  const expectedRR = round2((math.probWeightedTarget! - 30.0) / denom)
+  assert.equal(math.riskReward, expectedRR)
+})
+function round2(x: number): number { return Math.round(x * 100) / 100 }
 
 // ---- v2 Phase-1: goal seek — exact piecewise-linear solve on the recorded ranges ----
 const nhyGsDraft = () => ({
@@ -617,6 +641,62 @@ check('v1.3: the trace shows the WHOLE arithmetic, bridge included', () => {
   assert.ok((t.note ?? '').includes('IMPLIED'), t.note ?? '(no note)')
   assert.equal(t.source, '07_scenario-and-fair-value.md §2')
   assert.equal(t.terms[0].label, 'EV/FY2026E EBITDA')
+})
+// Codex #365 P1 (frameworks/valuation_summary.schema.json:39): a bridge whose figures came from a
+// DIFFERENT document/module than the scenario's own metric/multiple source must show ITS OWN citation,
+// not silently inherit the scenario `source` (which the schema defines as citing the metric/multiple only).
+check('v1.3: a bridge with its own distinct source shows it as a separate trace term, not folded into `source`', () => {
+  const res: ValuationLeversResponse = {
+    ...NHY13,
+    levers: {
+      ...NHY13.levers!,
+      scenarios: NHY13.levers!.scenarios.map((sc, i) => i === 2 ? {
+        ...sc, bridge: { ...sc.bridge!, source: 'balance-sheet-survival/03 §2 (debt note)' },
+      } : sc),
+    },
+  }
+  const d = draftFromResponse(res)
+  const s = d.scenarios[2] // bear
+  const t = traceScenarioCell(s, scenarioCellState(s, false, null, null, false), d.published ?? null)
+  assert.equal(t.source, '07_scenario-and-fair-value.md §2', 'the metric/multiple source is unchanged')
+  assert.ok(t.terms.some((x) => x.label === 'bridge source' && x.calc === 'balance-sheet-survival/03 §2 (debt note)'),
+    `bridge source must appear as its own term: ${JSON.stringify(t.terms)}`)
+})
+check('v1.3: a bridge with NO distinct source adds no extra term (falls back to the scenario source)', () => {
+  const d = draftFromResponse(NHY13)
+  const s = d.scenarios[2] // bear — bridge has no `source` field of its own
+  const t = traceScenarioCell(s, scenarioCellState(s, false, null, null, false), d.published ?? null)
+  assert.ok(!t.terms.some((x) => x.label === 'bridge source'), `no bridge.source recorded → no extra term: ${JSON.stringify(t.terms)}`)
+})
+// Codex #365 P2: a case that OMITS its own `basis` but supplies a bridge must still show the bridge in
+// the trace when the RUN basis is 'ev' (the fallback `s.basis ?? d.basis` the actual level computation
+// uses) — before the fix the trace checked `s.basis === null` directly and dropped the bridge, so the
+// formula shown ("28,889 × 8.21" = 237,178/share) did not produce the Worth ("107.7") displayed beside it.
+check('v1.3: trace resolves the EFFECTIVE basis (run-level fallback), not just the case\'s own basis field', () => {
+  const noOwnBasisRes: ValuationLeversResponse = {
+    ...NHY13,
+    levers: { ...NHY13.levers!, basis: 'ev', scenarios: NHY13.levers!.scenarios.map((sc) => ({ ...sc, basis: undefined })) },
+  }
+  const d = draftFromResponse(noOwnBasisRes)
+  const s = d.scenarios[0]
+  assert.equal(s.basis, null, 'the case itself declares no basis')
+  assert.equal(d.basis, 'ev', 'the run supplies the fallback')
+  // levelForScenario already used the effective basis and derives the correct bridged level
+  assert.ok(Math.abs((levelForScenario(s, d) as number) - 107.75) < 0.02)
+  const t = traceScenarioCell(s, scenarioCellState(s, false, null, null, false), d.published ?? null, (k) => k, d.basis)
+  assert.ok(t.formula.includes('net debt 17919') && t.formula.includes('minority 7495'),
+    `trace must show the bridge that the calculation actually used: ${t.formula}`)
+  assert.ok(t.formula.includes('÷ shares 1965.28'), t.formula)
+})
+check('v1.3: without the runBasis argument, the trace defaults to "equity" and drops the bridge (documents the old bug\'s shape)', () => {
+  const noOwnBasisRes: ValuationLeversResponse = {
+    ...NHY13,
+    levers: { ...NHY13.levers!, basis: 'ev', scenarios: NHY13.levers!.scenarios.map((sc) => ({ ...sc, basis: undefined })) },
+  }
+  const d = draftFromResponse(noOwnBasisRes)
+  const s = d.scenarios[0]
+  const t = traceScenarioCell(s, scenarioCellState(s, false, null, null, false), d.published ?? null)
+  assert.ok(!t.formula.includes('net debt'), 'default runBasis is equity, so no bridge is shown — the caller MUST pass draft.basis')
 })
 
 // ---- v1.3: an explicit multiple/metric edit DETACHES a v1.2 derivation chain (Codex #362 P1) ----
