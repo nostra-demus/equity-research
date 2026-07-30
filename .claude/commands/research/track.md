@@ -117,6 +117,7 @@ for _e in load_standing_records():
         # "unaudited" (verify-evidence never ran; not itself a defect). A human scanning the dashboard must
         # be able to see a PROVISIONAL call is not the same as a verified one (CLAUDE.md §1 — no false confidence).
         "integrity_status": integrity.get("status"), "integrity_verdict": integrity.get("verdict"),
+        "integrity_banner": integrity.get("banner"),  # True → finish-gate PROVISIONAL banner (verify-evidence alone can't clear it)
         # the standing call the engine actually holds: a terminal pre-mortem caps a Selected/Strong-Buy run
         # to Watchlist (full.md fix F28b), recorded additively as post_mortem_*. Show the capped call so the
         # tracker can't display "Strong Buy" next to a broken thesis; flag it when it differs from the original.
@@ -171,9 +172,23 @@ parts = ["\n".join(H)]
 for c in calls:
     cur = (c.get("currency") or "").strip()
     tgt = "—" if c["implied_target"] is None else f'{cur} {c["implied_target"]}'
+    # Remediation depends on WHY the run is provisional. A finish-gate PROVISIONAL banner is written into
+    # final_thesis.md by /research:full; /research:verify-evidence is read-only on final_thesis.md and so
+    # CANNOT clear a banner — only re-running the finish-gate (/research:rerun or /research:full) regenerates
+    # the thesis and re-stamps/clears it. verify-evidence alone is the right fix ONLY for a report-only
+    # provisional (a Material/Failed audit verdict with no banner). Don't tell the reader to run a command
+    # that can't clear their state.
+    if c.get("integrity_banner"):
+        integrity_fix = (f'Resolve by fixing the flagged scenario/edge/citation issue and re-running the '
+                         f'finish-gate (`/research:rerun {c["ticker"]}` or `/research:full {c["ticker"]}`), '
+                         f'which regenerates `final_thesis.md` and re-stamps or clears the banner; '
+                         f'`/research:verify-evidence` alone is read-only on the thesis and will NOT clear it')
+    else:
+        integrity_fix = (f'Resolve by fixing the flagged citations/math and re-running '
+                         f'`/research:verify-evidence {c["ticker"]}`')
     integrity_line = (f'- ⚠ **UNVERIFIED** — truth-integrity status: provisional'
                        f'{" (verify-evidence verdict: " + cell(c["integrity_verdict"]) + ")" if c.get("integrity_verdict") else ""}. '
-                       f'Resolve via `/research:verify-evidence {c["ticker"]}` before trusting this call.\n'
+                       f'{integrity_fix} before trusting this call.\n'
                        if c.get("integrity_status") == "provisional" else '')
     parts.append(
         f'\n\n---\n\n## {cell(c["company"])} ({c["ticker"]}) — {cell(c["decision"])}\n\n'

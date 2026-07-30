@@ -879,6 +879,52 @@ def test_provisional_run_excluded_from_skill_scoring():
           and statuses.get("SEL0") == "verified",
           f"inventory rows carry their own integrity_status (got {statuses})")
 
+    # Integrity-BLIND shadow (look-ahead / survivorship guard, fix-run 2026-07-30): the all-published-calls
+    # hit rate INCLUDES the provisional run. Expected value pinned to the definition of that cohort (every
+    # published directional call, provisional included), NOT to code output: 12 published directional calls,
+    # of which only the provisional -50% call is a miss → 11/12 hits. The gated number is 10/10 = 1.0, so the
+    # gate flatters the record by +8.3pp of survivorship — which is exactly what the shadow must expose so a
+    # reader can confirm the exclusion was established pre-outcome (CLAUDE.md §1, no false confidence).
+    ib = out["integrity_blind_hit_rate"]
+    check(ib["n_directional_calls_resolved"] == 12,
+          f"the integrity-blind cohort keeps the provisional call — 12, not 11 (got {ib['n_directional_calls_resolved']})")
+    check(ib["n_provisional_excluded_from_gated"] == 1,
+          f"exactly the 1 provisional directional call is what the gate drops (got {ib['n_provisional_excluded_from_gated']})")
+    check(ib["hit_rate"] == round(11 / 12, 4),
+          f"all-published hit rate is 11/12, provisional miss included (got {ib['hit_rate']})")
+    check(ib["divergence_pp"] == round((11 / 12 - 1.0) * 100, 1),
+          f"divergence_pp exposes the survivorship the gate introduced (got {ib['divergence_pp']})")
+
+
+def test_markdown_names_excluded_and_shadow():
+    # The persisted human report (*_decision_performance_summary.md) must NAME every excluded run and show
+    # the integrity-blind shadow — not leave them JSON-only (the /research:calibrate command requires it,
+    # CLAUDE.md §11 bans hiding a gap). Reuse the same 10-verified + 1-provisional + 1-unaudited fixture.
+    standing, reviews_by_run = [], {}
+    for i in range(10):
+        rec, rev = _selected(i, 80, "confirmed", 4.0)
+        rec["integrity"] = {"status": "verified", "verdict": "Clean", "integrity_score": 95}
+        standing.append(rec)
+        reviews_by_run[rec["run_root"]] = [rev]
+    prov_rec, prov_rev = _selected(99, 80, "falsified", -50.0)
+    prov_rec["integrity"] = {"status": "provisional", "verdict": "Material issues", "integrity_score": 40}
+    standing.append(prov_rec)
+    reviews_by_run[prov_rec["run_root"]] = [prov_rev]
+    unaud_rec, unaud_rev = _selected(50, 80, "confirmed", 4.0)
+    unaud_rec["integrity"] = {"status": "unaudited", "verdict": None, "integrity_score": None}
+    standing.append(unaud_rec)
+    reviews_by_run[unaud_rec["run_root"]] = [unaud_rev]
+
+    out = C.build(standing=standing, today="2026-07-30", reviews_provider=lambda rr: reviews_by_run.get(rr, []))
+    md = C.render_markdown(out)
+
+    check("analyses/SEL99_2026-06-01" in md,
+          "the excluded provisional run is NAMED in the Markdown, not only in the JSON")
+    check("Excluded from skill metrics" in md, "the Markdown carries an excluded-runs section header")
+    check("All-published-calls hit rate" in md, "the Markdown surfaces the integrity-blind shadow hit rate")
+    check("Integrity" in md and "⚠ provisional" in md,
+          "the Inventory table carries an integrity column that flags the provisional row")
+
 
 def test_no_integrity_field_behaves_as_before():
     # Backward compatibility: a standing entry with NO "integrity" key (every pre-existing fixture in this
@@ -915,7 +961,8 @@ def main():
                test_superseded_priced_review_not_resurrected, test_skill_declaration_needs_distinct_tickers,
                test_spread_matched_by_horizon, test_duplicate_forecast_result_not_double_counted,
                test_end_to_end_floor_met, test_probability_scale, test_below_floor_withholds,
-               test_provisional_run_excluded_from_skill_scoring, test_no_integrity_field_behaves_as_before):
+               test_provisional_run_excluded_from_skill_scoring, test_markdown_names_excluded_and_shadow,
+               test_no_integrity_field_behaves_as_before):
         print(f"[{fn.__name__}]")
         fn()
     print()

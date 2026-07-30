@@ -212,7 +212,12 @@ def resolve_integrity_status(run_dir):
     final_thesis.md or verification_report never raises; each just resolves to its honest default."""
     banner = False
     try:
-        with open(os.path.join(run_dir, "final_thesis.md"), "r", encoding="utf-8") as f:
+        # errors="replace" — the banner check only tests for an ASCII substring, so a non-UTF-8 byte
+        # anywhere in the file (a mis-encoded translated filing, a stray control byte) must NOT raise.
+        # UnicodeDecodeError is a ValueError, NOT an OSError, so a strict decode here would escape the
+        # `except OSError` and abort load_standing_records() for the WHOLE ledger — breaking calibrate,
+        # track, and size — in flat contradiction of this function's "never raises" contract.
+        with open(os.path.join(run_dir, "final_thesis.md"), "r", encoding="utf-8", errors="replace") as f:
             head = f.read(2000)
         banner = _PROVISIONAL_MARK in head
     except OSError:
@@ -420,6 +425,37 @@ def selftest():
         standing = load_standing_records(td)
         check(len(standing) == 1 and standing[0]["integrity"]["status"] == "verified",
               f"load_standing_records wires integrity onto each entry, got {standing}")
+
+    # resolve_integrity_status: a non-UTF-8 byte in final_thesis.md must NOT raise (UnicodeDecodeError is a
+    # ValueError, not an OSError — a strict decode would escape `except OSError` and abort the WHOLE ledger
+    # read, breaking calibrate/track/size, contradicting the "never raises" contract). Expected value pinned
+    # to this module's CONTRACT ("Tolerant: ... never raises") + the resolve_integrity_status docstring.
+    with tempfile.TemporaryDirectory() as td:
+        with open(os.path.join(td, "final_thesis.md"), "wb") as f:
+            f.write(b"# TICKER \xff\xfe Dossier\nbody\n")
+        r = resolve_integrity_status(td)  # must not raise
+        check(r["status"] == "unaudited" and r["banner"] is False,
+              f"non-UTF-8 final_thesis.md resolves without raising, got {r}")
+
+    # …and the PROVISIONAL banner is still detected even when surrounded by non-UTF-8 bytes.
+    with tempfile.TemporaryDirectory() as td:
+        with open(os.path.join(td, "final_thesis.md"), "wb") as f:
+            f.write(b"\xff> PROVISIONAL \xe2\x80\x94 the automated finish-gate found an integrity issue\xfe\n")
+        r = resolve_integrity_status(td)
+        check(r["status"] == "provisional" and r["banner"] is True,
+              f"banner still detected under non-UTF-8 noise, got {r}")
+
+    # …and load_standing_records survives a run whose final_thesis.md is non-UTF-8 (whole-ledger contract).
+    with tempfile.TemporaryDirectory() as td:
+        run = os.path.join(td, "TICK_2026-07-30")
+        os.makedirs(run)
+        json.dump({"ticker": "TICK", "decision": "Buy", "decision_date": "2026-07-30"},
+                  open(os.path.join(run, "decision_record.json"), "w"))
+        with open(os.path.join(run, "final_thesis.md"), "wb") as f:
+            f.write(b"\xff\xfe bad bytes\n")
+        standing = load_standing_records(td)  # must not raise
+        check(len(standing) == 1 and standing[0]["integrity"]["status"] == "unaudited",
+              f"load_standing_records tolerates non-UTF-8 final_thesis.md, got {standing}")
 
     print("[ledger_records] selftest", "PASS" if ok else "FAIL")
     return ok
