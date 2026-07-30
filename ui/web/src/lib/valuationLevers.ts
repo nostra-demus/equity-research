@@ -506,6 +506,13 @@ export interface DraftScenario {
   multipleKind?: 'implied' | 'applied' | null
   secondaryMultiples?: { value: number; basis: string; note?: string | null }[]
   source?: string | null
+  /** the thesis holds this case but the valuation module recorded NO levers for it — a case the master
+   *  synthesizer added on top of the module's work (a squeeze tail, a policy tail, a pair-trade leg). It is
+   *  not a gap to be filled later: the module may have said outright it cannot produce one. */
+  masterOnly?: boolean
+  /** a lever set with NO counterpart in the frozen thesis. The guard rejects these (#365), but the client
+   *  must not trust that the guard ran — so it is shown, flagged, rather than silently dropped. */
+  orphan?: boolean
   /** the run's own multiple, frozen — the comparand for "you have changed this" and the ↺ target */
   recordedMultiple?: number | null
   /** the user TYPED a multiple. On an `implied` case this is an explicit reverse assertion: the multiple
@@ -843,6 +850,107 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
 // Build the initial editable draft from the server response: prefer the valuation_summary.json levers
 // (metric × multiple editable); fall back to the frozen decision_record scenarios (only the LEVELS +
 // price editable) so the Playground still works on runs that predate the valuation_summary emission.
+/** Exact label identity: trimmed, case-insensitive. NOT a substring match — substring is what let the
+ *  sidecar's `bear` pick up `bear_cyclical`'s probability and pin it to the structural bear's level. */
+const sameCase = (a: string | null | undefined, b: string | null | undefined): boolean =>
+  (a || '').trim().toLowerCase() === (b || '').trim().toLowerCase()
+
+/** One editable scenario from the sidecar's recorded levers. `pubMethods` is the run's published
+ *  method mix (used only to detect the base row's own mix machinery — see `preserveFrozenUntilAsserted`
+ *  below); pass `[]` when there is none (a non-base-row call, or a run with no method mix at all). */
+function leverScenario(s: SummaryScenario, probability: number | null, pubMethods: MethodLever[]): DraftScenario {
+  const chain = buildChain(s.derivation)
+  // v1.3: `implied` records the multiple AS A CROSS-CHECK on a level something ELSE already produced
+  // (Codex #364 P1). Where a chain is recorded, the chain IS that something-else and already outranks
+  // the tuple pre-assertion. Where the row is the BASE case and the run ALSO records a method mix,
+  // the mix is that something-else (opt-in via driveBaseFromMix, or simply the frozen judgment on
+  // top of it) — a same-row `implied` tuple with no chain must not silently bypass it either. Only
+  // in THAT shape does clearing levelOverride leave nothing for levelSourceFor to fall back to, so
+  // an untouched, unasserted tuple reads as the driver anyway. Keep the frozen level as the fallback
+  // until the analyst actually asserts.
+  // A pure tuple case with NO other recorded machinery at all (no chain, no mix — e.g. NHY's
+  // bull/bear, or a base with no methods) has nothing else the level COULD be: the tuple + its own
+  // bridge is the only relationship on record, `implied` or not, and stays the default driver exactly
+  // as the v1.3 per-case-bridge feature tests it (§4 — the tuple IS the source here, not a guess).
+  const isBaseRow = (s.label || '').toLowerCase().includes('base')
+  const hasMixMachinery = isBaseRow && pubMethods.length > 0
+  const preserveFrozenUntilAsserted = s.multiple_kind === 'implied' && !chain && hasMixMachinery
+  return {
+    label: s.label,
+    probability,
+    forwardMetric: s.forward_metric ?? null,
+    multiple: s.multiple ?? null,
+    levelOverride: (isNum(s.forward_metric) && isNum(s.multiple) && !preserveFrozenUntilAsserted) ? null : (s.level ?? null),
+    frozenLevel: s.level ?? null,
+    drivers: s.drivers ?? null,
+    overrideUnlocked: false,
+    chain,
+    // v1.3 — carried verbatim: the case's basis and bridge DRIVE its level, the labels are displayed.
+    // A bridge is carried EVEN when malformed. Dropping it would fall back to the run-level terms and
+    // quietly re-price the case on a different convention (NHY's bull would read 114.02 against the
+    // committed 107.70); caseLevelFromMultiple returns null instead, so the cell reads Not assessable.
+    basis: s.basis === 'ev' || s.basis === 'equity' ? s.basis : null,
+    bridge: s.bridge && typeof s.bridge === 'object' ? s.bridge : null,
+    metricBasis: s.metric_basis ?? null,
+    multipleBasis: s.multiple_basis ?? null,
+    multipleKind: s.multiple_kind === 'implied' || s.multiple_kind === 'applied' ? s.multiple_kind : null,
+    // The server returns the parsed sidecar WITHOUT applying the JSON Schema, so an unvalidated or
+    // partially-generated sidecar can carry a non-array secondary_multiples (e.g. an object) — `?? []`
+    // does not catch that (a truthy non-null object passes through), and `.filter()` on it throws when
+    // the Playground opens. Guard with Array.isArray and degrade malformed cross-checks to [] (Codex
+    // #362 P2).
+    secondaryMultiples: (Array.isArray(s.secondary_multiples) ? s.secondary_multiples : [])
+      .filter((x) => x && isNum(x.value) && typeof x.basis === 'string'),
+    source: s.source ?? null,
+    recordedMultiple: s.multiple ?? null,
+    multipleAsserted: false, // nothing is asserted until the analyst types
+  }
+}
+
+/** THE CASE SET COMES FROM THE FROZEN THESIS, not from the levers sidecar.
+ *
+ *  The master synthesizer owns the case set and the probabilities (CLAUDE.md §10, §22); the valuation module
+ *  owns the fair-value levels. So the grid iterates the thesis and attaches the sidecar's levers to it by
+ *  EXACT label. Driving it the other way round — the sidecar's cases, probabilities looked up by substring —
+ *  is what made TSLA's panel show 3 of 5 cases summing to 70% of the probability, report a +71.2% expected
+ *  return against a published +56.57%, and a risk/reward of 13.96 against a published 1.85, because the only
+ *  adverse case it could see was the bull. It also cross-paired: the sidecar's `bear` (the STRUCTURAL bear's
+ *  level) took `bear_cyclical`'s probability.
+ *
+ *  A thesis case with no levers is NOT a gap to fill — the module may have said outright it cannot produce
+ *  one — so it is marked `masterOnly` and rendered from its frozen level. A lever set with no thesis case is
+ *  an orphan: the guard rejects it (#365), but the client never assumes the guard ran, so it is appended and
+ *  flagged rather than silently dropped.
+ *
+ *  With no thesis scenarios at all (a partial run), the sidecar's own order stands. */
+export function buildScenarios(
+  levers: SummaryScenario[],
+  thesis: DecisionScenario[] | undefined,
+  pubMethods: MethodLever[] = [],
+): DraftScenario[] {
+  const rows = (levers || []).filter((s) => s && typeof s.label === 'string')
+  if (!thesis || !thesis.length) {
+    return rows.map((s, i) => leverScenario(s, probabilityFor(s.label, s.probability, thesis, i), pubMethods))
+  }
+  const used = new Set<number>()
+  const out: DraftScenario[] = thesis.map((t) => {
+    const i = rows.findIndex((s, idx) => !used.has(idx) && sameCase(s.label, t.label))
+    if (i >= 0) {
+      used.add(i)
+      // the THESIS's label and probability win — one name per case, and the frozen weights
+      return { ...leverScenario(rows[i], t.probability ?? null, pubMethods), label: t.label || rows[i].label }
+    }
+    return {
+      label: t.label || '', probability: t.probability ?? null,
+      forwardMetric: null, multiple: null,
+      levelOverride: t.price_target ?? null, frozenLevel: t.price_target ?? null,
+      drivers: null, overrideUnlocked: false, masterOnly: true,
+    }
+  })
+  rows.forEach((s, i) => { if (!used.has(i)) out.push({ ...leverScenario(s, null, pubMethods), orphan: true }) })
+  return out
+}
+
 export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft {
   if (!res) {
     return { basis: 'equity', shares: null, netDebt: 0, netDebtBasis: null, price: null,
@@ -878,53 +986,12 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
       driveBaseFromMix: false,
       internals: buildInternals(L),
       published: { methods: pubMethods, blend: blend(pubMethods) },
-      scenarios: L.scenarios.map((s, i) => {
-        const chain = buildChain(s.derivation)
-        // v1.3: `implied` records the multiple AS A CROSS-CHECK on a level something ELSE already produced
-        // (Codex #364 P1). Where a chain is recorded, the chain IS that something-else and already outranks
-        // the tuple pre-assertion. Where the row is the BASE case and the run ALSO records a method mix,
-        // the mix is that something-else (opt-in via driveBaseFromMix, or simply the frozen judgment on
-        // top of it) — a same-row `implied` tuple with no chain must not silently bypass it either. Only
-        // in THAT shape does clearing levelOverride leave nothing for levelSourceFor to fall back to, so
-        // an untouched, unasserted tuple reads as the driver anyway. Keep the frozen level as the fallback
-        // until the analyst actually asserts.
-        // A pure tuple case with NO other recorded machinery at all (no chain, no mix — e.g. NHY's
-        // bull/bear, or a base with no methods) has nothing else the level COULD be: the tuple + its own
-        // bridge is the only relationship on record, `implied` or not, and stays the default driver exactly
-        // as the v1.3 per-case-bridge feature tests it (§4 — the tuple IS the source here, not a guess).
-        const isBaseRow = (s.label || '').toLowerCase().includes('base')
-        const hasMixMachinery = isBaseRow && pubMethods.length > 0
-        const preserveFrozenUntilAsserted = s.multiple_kind === 'implied' && !chain && hasMixMachinery
-        return {
-        label: s.label,
-        probability: probabilityFor(s.label, s.probability, res.decision?.scenarios, i),
-        forwardMetric: s.forward_metric ?? null,
-        multiple: s.multiple ?? null,
-        levelOverride: (isNum(s.forward_metric) && isNum(s.multiple) && !preserveFrozenUntilAsserted) ? null : (s.level ?? null),
-        frozenLevel: s.level ?? null,
-        drivers: s.drivers ?? null,
-        overrideUnlocked: false,
-        chain,
-        // v1.3 — carried verbatim: the case's basis and bridge DRIVE its level, the labels are displayed.
-        // A bridge is carried EVEN when malformed. Dropping it would fall back to the run-level terms and
-        // quietly re-price the case on a different convention (NHY's bull would read 114.02 against the
-        // committed 107.70); caseLevelFromMultiple returns null instead, so the cell reads Not assessable.
-        basis: s.basis === 'ev' || s.basis === 'equity' ? s.basis : null,
-        bridge: s.bridge && typeof s.bridge === 'object' ? s.bridge : null,
-        metricBasis: s.metric_basis ?? null,
-        multipleBasis: s.multiple_basis ?? null,
-        multipleKind: s.multiple_kind === 'implied' || s.multiple_kind === 'applied' ? s.multiple_kind : null,
-        // The server returns the parsed sidecar WITHOUT applying the JSON Schema, so an unvalidated or
-        // partially-generated sidecar can carry a non-array secondary_multiples (e.g. an object) — `?? []`
-        // does not catch that (a truthy non-null object passes through), and `.filter()` on it throws when
-        // the Playground opens. Guard with Array.isArray and degrade malformed cross-checks to [] (Codex
-        // #362 P2).
-        secondaryMultiples: (Array.isArray(s.secondary_multiples) ? s.secondary_multiples : [])
-          .filter((x) => x && isNum(x.value) && typeof x.basis === 'string'),
-        source: s.source ?? null,
-        recordedMultiple: s.multiple ?? null,
-        multipleAsserted: false, // nothing is asserted until the analyst types
-      }}),
+      // THE CASE SET COMES FROM THE FROZEN THESIS (buildScenarios), not from the sidecar's own order —
+      // see buildScenarios' own doc comment for why (Codex #367 P1: TSLA's tail_squeeze, decision-only,
+      // used to be silently dropped, understating downside and overstating expected return/risk-reward).
+      // pubMethods is threaded through so a base row's own `implied`+mix-machinery precedence (Codex #364
+      // P1, preserveFrozenUntilAsserted above) is still detected per case.
+      scenarios: buildScenarios(L.scenarios, res.decision?.scenarios, pubMethods),
     }
   }
   // fallback: frozen decision scenarios (levels only)
@@ -1000,6 +1067,7 @@ export type ScenarioCellKind =
   | 'live_blend'       // drive-base is on: the base cell IS the live blend (computed, moves with the mix)
   | 'frozen_formula'   // frozen base ≈ the published blend (within rounding) — a computed cell
   | 'frozen_wedge'     // frozen base = published blend + a disclosed judgment wedge (§16, e.g. EMAAR RF-OWN-004)
+  | 'master_case'      // the thesis holds it, the valuation module produced no levers and will not
   | 'derived_chain'    // v1.2: level computes from the scenario's recorded chain — its figures are the levers
   | 'derived_multiple' // level derives from typed forward metric × multiple — those inputs are the levers
   | 'judgment'         // no recorded derivation for this level (bull/bear before the v1.2 emission)
@@ -1013,6 +1081,8 @@ const WEDGE_REL_EPS = 0.005
 
 export function scenarioCellState(s: DraftScenario, isBase: boolean, publishedBlend: number | null | undefined, liveBlend: number | null, driveBase: boolean, chainValue?: number | null): ScenarioCellState {
   if (s.overrideUnlocked) return { kind: 'overridden' }
+  // BEFORE the judgment fallback: a master-added case is not an unrecorded chain waiting to be filled in.
+  if (s.masterOnly) return { kind: 'master_case' }
   // drive-base FIRST: recompute gives the live blend precedence over everything else for the base row, so
   // the cell must say so too — a chain/multiple base under drive-base would otherwise display a different
   // derivation than the one actually computing (Gemini #339 r3644675825)
@@ -1026,6 +1096,34 @@ export function scenarioCellState(s: DraftScenario, isBase: boolean, publishedBl
     return { kind: 'frozen_wedge', blend: publishedBlend, wedge: round(frozen - publishedBlend, 4) }
   }
   return { kind: 'judgment' }
+}
+
+/** The label an analyst READS, from the label the run recorded. `label` is free text in the schema, not an
+ *  enforced key, so this must degrade gracefully for any string: turn `_` into ` · ` when present (so the
+ *  family reads first and the qualifier second — "Bear · cyclical"), upper-case the leading letter, and
+ *  otherwise leave it alone. No per-name table, so a case shape never seen before still reads correctly. */
+export function caseTitle(label: string | null | undefined): string {
+  const raw = (label || '').trim()
+  if (!raw) return ''
+  const parts = raw.split('_').map((x) => x.trim()).filter(Boolean)
+  const joined = parts.length > 1 ? parts.join(' · ') : raw
+  return joined.charAt(0).toUpperCase() + joined.slice(1)
+}
+
+/** The line under the label. Three states, every one derived from data already present — no new field:
+ *   - a case the master added: say so, because its empty lever cells are otherwise unexplained
+ *   - a BARE bull / base / bear: the universal plain-English phrase (those three are universal)
+ *   - anything else: nothing. "cyclical" and "structural" are standard terms that already carry the
+ *     meaning, and inventing a second English phrase per label is exactly what cannot scale (§26).
+ *  An orphan is called out too — a lever set the frozen thesis does not hold. */
+export function caseSubtitle(s: DraftScenario): string {
+  if (s.orphan) return 'not in the thesis — levers with no case'
+  if (s.masterOnly) return "the thesis's own case — no module levers"
+  const l = (s.label || '').trim().toLowerCase()
+  if (l === 'bull') return 'things go well'
+  if (l === 'base') return 'most likely'
+  if (l === 'bear') return 'things go badly'
+  return ''
 }
 
 // ---- 6. v2 Phase-1: traces — Excel's "trace precedents" for every computed cell ----
@@ -1084,6 +1182,19 @@ export function traceScenarioCell(
         ? 'replays the orb\'s own written chain — edit the margin or growth and everything downstream recomputes; typing EV directly detaches the model'
         : c.statedDrivers.length ? 'stated drivers are the assumptions behind the recorded figures — shown for provenance; their mapping was not recorded, so the editable levers are the chain figures themselves' : 'edit the chain figures — the fair value recomputes from them',
       source: c.source ?? src,
+    }
+  }
+  if (cs.kind === 'master_case') {
+    return {
+      title: `${caseTitle(s.label)} — the thesis's own case`,
+      formula: `the frozen level ${fmt(s.frozenLevel ?? s.levelOverride)}, weighted by the thesis`,
+      terms: [],
+      // NOT the judgment-cell copy: that one promises "a future emission records each scenario's assumption
+      // chain, turning this into a computed cell". For a case the master added on top of the module's work
+      // that is a promise nothing will keep — the valuation module may have said outright it cannot produce
+      // one. Say who owns it instead.
+      note: 'the valuation module recorded no levers for this case — it is the master synthesizer\'s own. You can unlock and type over it, but there is nothing underneath to move, and no later emission will add any.',
+      source: s.drivers ? `run-recorded drivers: ${s.drivers}` : null,
     }
   }
   if (cs.kind === 'derived_multiple') {
