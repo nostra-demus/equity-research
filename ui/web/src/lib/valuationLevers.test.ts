@@ -1366,7 +1366,7 @@ check('a master-added case gets its OWN cell state and honest copy', () => {
 // Same truncation guard as the Python suite: a `process.exit` or an early throw above a block would run
 // fewer checks while still exiting 0. Asserting the count is the only way to catch that from inside — the
 // Python side had an entire group go dead this way (Codex #366 review).
-const EXPECTED_CHECKS = 105
+const EXPECTED_CHECKS = 123
 assert.ok(passed >= EXPECTED_CHECKS,
   `only ${passed} checks ran, expected at least ${EXPECTED_CHECKS} — something above here is short-circuiting`)
 console.log(`valuationLevers.test.ts: ${passed} assertions passed`)

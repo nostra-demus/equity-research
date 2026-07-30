@@ -446,7 +446,7 @@ export function ValuationPlayground() {
                 <span className="vpg__chipval mono" style={{ color: mosTone }}>{mosR.magnitude === null ? '—' : `${mosR.magnitude}%`}</span>
               </div>
               <div className="vpg__chip">
-                <span className="vpg__chiplabel">Worst case</span>
+                <span className="vpg__chiplabel">{draft.direction === 'short' ? 'Worst case (a squeeze)' : 'Worst case'}</span>
                 <span className="vpg__chipval mono" style={{ color: tone(worstReturn) }}>{fmtPct(worstReturn)}</span>
               </div>
             </div>
@@ -711,9 +711,25 @@ export function ValuationPlayground() {
                     )}
                     {caseOpen && machinery.includes('chain') && s.chain && (
                       <div className="vpg__casepanel">
+                        {/* When "use this blend as the most-likely value" is on, recompute gives the live
+                            blend UNCONDITIONAL precedence for the base row — so these chain fields would
+                            accept edits, and offer an unlock, while the level and returns kept coming from
+                            the blend. A panel that promises to recompute the answer and does not is worse
+                            than a disabled one (Codex #366). Say so, and turn the blend off in one click. */}
+                        {row?.levelSource === 'live_blend' && (
+                          <div className="vpg__note vpg__note--warn">
+                            The live method mix is driving this case, so editing these figures changes nothing.{' '}
+                            <button className="vpg__fxbtn" onClick={() => setTop({ driveBaseFromMix: false })}>Hand it back to the chain</button>
+                          </div>
+                        )}
                         <div className="vpg__casetitle">{whereFrom(row?.shownMultiple)} — {s.chain.model === 'margin_runoff_dcf' ? 'the impaired-cash-flow runoff' : 'the recorded chain'}</div>
+                        {/* While the live blend owns the base level, the chain below is a READ-ONLY record of
+                            how the run derived it: editing it would let two mechanisms claim the same level
+                            with no way to tell which produced the number on screen. The warning above already
+                            says the edits change nothing — `readOnly` makes that true rather than just stated. */}
                         <ChainStrip
                           s={s} chain={s.chain} level={cv} fallbackShares={draft.shares}
+                          readOnly={row?.levelSource === 'live_blend'}
                           onEdit={(patch) => setScen(i, { chain: { ...s.chain!, ...patch }, multipleAsserted: false, chainEdited: true })}
                           onOverride={() => { unlock(); toggleCase(traceId) }}
                         />
@@ -882,14 +898,18 @@ function TraceStrip({ t, onOverride }: { t: Trace; onOverride?: () => void }) {
 // EV / net debt / minority / shares are typed cells; the level is computed and never typed. stated drivers
 // (e.g. "terminal margin 9.0%") render as display-only provenance — their mapping to EV was not recorded,
 // and inventing it would be fake math (§20), so the honest lever is the recorded figure itself.
-function ChainStrip({ s, chain, level, fallbackShares, onEdit, onOverride }: {
+function ChainStrip({ s, chain, level, fallbackShares, onEdit, onOverride, readOnly = false }: {
   s: DraftScenario
   chain: DraftChain
   level: number | null
   fallbackShares: number | null
   onEdit: (patch: Partial<DraftChain>) => void
   onOverride: () => void
+  /** the live blend owns this row, so these figures drive nothing — swallow edits and hide the unlock
+   *  rather than accepting input that changes no displayed number (Codex #366). */
+  readOnly?: boolean
 }) {
+  const edit = readOnly ? () => {} : onEdit
   const isRunoff = chain.model === 'margin_runoff_dcf'
   const detached = isRunoff && typeof chain.evOverride === 'number'
   const ev = chainEv(chain)
@@ -899,7 +919,7 @@ function ChainStrip({ s, chain, level, fallbackShares, onEdit, onOverride }: {
   const [evLocal, setEvLocal] = useState<string>(numToStr(ev))
   useEffect(() => { if (parseNum(evLocal) !== ev) setEvLocal(numToStr(ev)) }, [ev]) // eslint-disable-line react-hooks/exhaustive-deps
   // editing a runoff lever RE-ATTACHES the model (clears a typed-EV detach) — same rule as the ▸ panels
-  const lever = (patch: Partial<DraftChain>) => onEdit({ ...patch, evOverride: null })
+  const lever = (patch: Partial<DraftChain>) => edit({ ...patch, evOverride: null })
   return (
     <div className="vpg__tracestrip">
       <div className="vpg__tracetitle">{s.label} — worked out from the run's own figures{chain.source ? ` · ${chain.source}` : ''}</div>
@@ -924,17 +944,17 @@ function ChainStrip({ s, chain, level, fallbackShares, onEdit, onOverride }: {
           <span className="vpg__cellov">
             <label className="vpg__field" title={detached ? 'Your own figure — the model above is switched off; edit a field above (or ↺) to switch it back on' : 'Worked out from the fields above — typing here switches the model off'}>
               <span className="vpg__fieldlabel">Whole company {detached ? '(yours)' : '(worked out ƒ)'}</span>
-              <input className="vpg__input mono" inputMode="decimal" value={evLocal} onChange={(e) => { setEvLocal(e.target.value); onEdit({ evOverride: parseNum(e.target.value) }) }} aria-label={`${s.label} enterprise value`} />
+              <input className="vpg__input mono" inputMode="decimal" value={evLocal} onChange={(e) => { setEvLocal(e.target.value); edit({ evOverride: parseNum(e.target.value) }) }} aria-label={`${s.label} enterprise value`} />
             </label>
-            {detached && <button className="vpg__relock" title="Switch the model back on (drop your figure)" onClick={() => onEdit({ evOverride: null })}>↺</button>}
+            {detached && <button className="vpg__relock" title="Switch the model back on (drop your figure)" onClick={() => edit({ evOverride: null })}>↺</button>}
           </span>
         ) : (
-          <Field label="Whole company" hint="EV" value={chain.ev} onChange={(n) => onEdit({ ev: n })} title="What the whole business is worth in this case, before debt (filing millions)" />
+          <Field label="Whole company" hint="EV" value={chain.ev} onChange={(n) => edit({ ev: n })} title="What the whole business is worth in this case, before debt (filing millions)" />
         )}
-        <Field label="− Debt, net of cash" value={chain.netDebt} onChange={(n) => onEdit({ netDebt: n })} title={chain.netDebtBasis ? `Basis: ${chain.netDebtBasis} (§15) — this case's own figure` : "This case's own figure — it may differ from the top-level one; the source names the orb"} />
-        <Field label="− Other owners' share" hint="minority" value={chain.minority} onChange={(n) => onEdit({ minority: n })} />
-        <Field label="+ Other" value={chain.other} onChange={(n) => onEdit({ other: n })} />
-        <Field label="÷ Shares" value={chain.shares ?? fallbackShares} onChange={(n) => onEdit({ shares: n })} />
+        <Field label="− Debt, net of cash" value={chain.netDebt} onChange={(n) => edit({ netDebt: n })} title={chain.netDebtBasis ? `Basis: ${chain.netDebtBasis} (§15) — this case's own figure` : "This case's own figure — it may differ from the top-level one; the source names the orb"} />
+        <Field label="− Other owners' share" hint="minority" value={chain.minority} onChange={(n) => edit({ minority: n })} />
+        <Field label="+ Other" value={chain.other} onChange={(n) => edit({ other: n })} />
+        <Field label="÷ Shares" value={chain.shares ?? fallbackShares} onChange={(n) => edit({ shares: n })} />
         <div className="vpg__subderived">
           <span className="vpg__fieldlabel">{s.label} / share</span>
           <span className="vpg__subval mono">{fmtN(level, 2)}</span>
@@ -948,8 +968,11 @@ function ChainStrip({ s, chain, level, fallbackShares, onEdit, onOverride }: {
           what the run said sat behind these (shown for the record, not editable): {chain.statedDrivers.map((sd) => `${sd.label}: ${sd.value ?? '—'}${sd.note ? ` (${sd.note})` : ''}`).join(' · ')}
         </div>
       )}
-      <div className="vpg__subnote">These are the figures the run actually used — edit them and the value, its return, and the answer at the top all recompute. The value itself is always worked out, never typed.</div>
-      <button className="btn btn--ghost vpg__overridebtn" onClick={onOverride}>Unlock and type the value directly instead…</button>
+      <div className="vpg__subnote">{readOnly
+        ? 'These are the figures the run actually used. The live method mix is driving this case right now, so they are shown read-only — turn the mix off above to edit them.'
+        : 'These are the figures the run actually used — edit them and the value, its return, and the answer at the top all recompute. The value itself is always worked out, never typed.'}</div>
+      {/* an unlock that changes nothing is the same defect as an editable field that changes nothing */}
+      {!readOnly && <button className="btn btn--ghost vpg__overridebtn" onClick={onOverride}>Unlock and type the value directly instead…</button>}
     </div>
   )
 }
