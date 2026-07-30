@@ -50,22 +50,36 @@ def _tol(target) -> float:
     return max(_LEVEL_ABS_FLOOR, _LEVEL_REL_TOL * abs(float(target)))
 
 
+def _cited(x) -> bool:
+    """A §5 citation is a non-empty string. Used by every internals block — an uncited lever cannot ship."""
+    return isinstance(x, str) and bool(x.strip())
+
 
 def _case_level(s, run_basis, sidecar):
     """The per-share level a scenario's own levers derive, honouring the CASE's basis and bridge.
     Returns (value, error) — value None when it is not derivable. One helper for both call sites: the
     reproduce check and the decision-record contradiction check MUST agree, or the guard contradicts
-    itself (an equity multiple bridged as an EV one turns 9.75 into -2.82)."""
+    itself (an equity multiple bridged as an EV one turns 9.75 into -2.82).
+
+    This is a VALIDATOR: it must return a violation for malformed input, never raise. `scan_committed`
+    does not catch exceptions, so one bad sidecar would abort the whole CI sweep instead of failing its
+    own row (Gemini #362 r3672...; Codex #362 P2)."""
     fm, mult = s.get("forward_metric"), s.get("multiple")
     if not (_isnum(fm) and _isnum(mult)):
         return None, None
     basis = s.get("basis") if s.get("basis") in ("equity", "ev") else run_basis
     br = s.get("bridge") if isinstance(s.get("bridge"), dict) and basis == "ev" else None
     if br is not None:
+        # net debt must be EXPLICIT and numeric (0 when debt-free) — the same §15 rule the derivation
+        # chain enforces. A missing/typed-as-string net_debt is a violation, never a silent 0 and never
+        # a KeyError/ValueError out of a validator.
+        nd = br.get("net_debt")
+        if not _isnum(nd):
+            return None, "bridge net_debt must be explicit and numeric (0 when debt-free) — unknown net debt is never silently 0 (§15)"
         sh = br.get("shares") if _isnum(br.get("shares")) else sidecar.get("shares")
         if not (_isnum(sh) and float(sh) > 0):
             return None, "bridge has no positive shares (own or top-level)"
-        equity = float(fm) * float(mult) - float(br["net_debt"]) \
+        equity = float(fm) * float(mult) - float(nd) \
             - (float(br.get("minority")) if _isnum(br.get("minority")) else 0.0) \
             + (float(br.get("other")) if _isnum(br.get("other")) else 0.0)
         return equity / float(sh), None
@@ -105,15 +119,20 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
     # v1.3 additions (multiple_basis / metric_basis / multiple_kind / secondary_multiples / per-case
     # bridge) are required only of sidecars that DECLARE 1.3 — older runs are grandfathered, exactly like
     # the dated forward-gates in eval.py. A run opts in by emitting the version.
-    def _ver_at_least(v: str) -> bool:
-        raw = sidecar.get("schema_version")
-        if not isinstance(raw, str):
-            return False
-        try:
-            return tuple(int(x) for x in raw.split(".")[:2]) >= tuple(int(x) for x in v.split(".")[:2])
-        except ValueError:
-            return False
-    v13 = _ver_at_least("1.3")
+    #
+    # A version that does NOT parse is REJECTED, never grandfathered: "v1.3", "1.3-beta" or "garbage"
+    # would otherwise read as pre-1.3 and silently bypass every versioned rule — a typo in one field
+    # turning off the whole gate (Codex #362 P2). Absence is caught by _REQUIRED above.
+    raw_ver = sidecar.get("schema_version")
+    ver = None
+    if isinstance(raw_ver, str):
+        parts = raw_ver.strip().split(".")
+        if 1 <= len(parts) <= 4 and all(p.isdigit() for p in parts):
+            ver = (int(parts[0]), int(parts[1]) if len(parts) > 1 else 0)
+    if raw_ver is not None and ver is None:
+        det.append(f"schema_version {raw_ver!r} is not a dotted numeric version (e.g. '1.3') — an unparseable "
+                   f"version would silently grandfather every versioned rule")
+    v13 = ver is not None and ver >= (1, 3)
     scen = sidecar.get("scenarios")
     if not isinstance(scen, list) or not scen:
         det.append("scenarios must be a non-empty array")
@@ -146,6 +165,35 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
             det.append(f"scenario {s.get('label')!r} records a `bridge` on an equity-basis case — an equity "
                        f"multiple already gives equity value; there is no EV→equity bridge to apply")
             br = None
+        # §15: a per-case net debt that departs from the run-level basis (NHY's cases deduct the
+        # cash-quality-adjusted 17,919 while the run declares the broad 13,090) must SAY so wherever it
+        # appears. The bridge is a v1.3-only field, so there is nothing to grandfather (Codex #362 P2).
+        if br is not None and not _cited(br.get("net_debt_basis")):
+            det.append(f"scenario {s.get('label')!r} bridge records a net_debt with no net_debt_basis — a "
+                       f"per-case debt figure must name its basis wherever it appears (§15)")
+        # The v1.3 labelling rules key off the PRESENCE of each lever, not off a complete pair: a scenario
+        # carrying a multiple with no forward_metric would otherwise skip every check below and ship an
+        # unlabelled, uncited, underivable lever (Gemini + Codex #362).
+        has_fm, has_mult = fm is not None, mult is not None
+        if v13 and (has_fm or has_mult) and not (_isnum(fm) and _isnum(mult)):
+            # MODULE_RULES §2: every case is a LEVEL built from an explicit forward metric AND an explicit
+            # multiple. Half a tuple derives nothing — the Playground could not recompute the case.
+            det.append(f"scenario {s.get('label')!r} records only half of the metric×multiple pair "
+                       f"(forward_metric={fm!r}, multiple={mult!r}) — a case level needs both (MODULE_RULES §2)")
+        # A multiple without its basis is an incomplete citation (§5): "0.96x" means nothing until you
+        # know EMAAR's bear reads it on BOOK rather than EV/EBITDA.
+        if v13 and has_mult and not _cited(s.get("multiple_basis")):
+            det.append(f"scenario {s.get('label')!r} records a multiple but no multiple_basis — a bare multiple is an incomplete citation (§5)")
+        if v13 and has_fm and not _cited(s.get("metric_basis")):
+            det.append(f"scenario {s.get('label')!r} records forward_metric but no metric_basis (which metric, which period)")
+        # The scenario multiple/metric are the Playground's most prominent EDITABLE levers — held to the
+        # same §5 bar as dcf_grid, sotp_bridge, peers_internals and derivation (Codex #362 P2).
+        if v13 and (has_fm or has_mult) and not _cited(s.get("source")):
+            det.append(f"scenario {s.get('label')!r} records forward_metric/multiple with no §5 source citation "
+                       f"— an editable lever cannot ship uncited")
+        mk = s.get("multiple_kind")
+        if mk is not None and mk not in ("implied", "applied"):
+            det.append(f"scenario {s.get('label')!r} multiple_kind {mk!r} is not 'implied' or 'applied'")
         if _isnum(fm) and _isnum(mult):
             derived, err = _case_level(s, basis, sidecar)
             if err:
@@ -153,15 +201,6 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
             if derived is not None and _isnum(lvl) and abs(float(lvl) - derived) > _tol(derived):
                 det.append(f"scenario {s.get('label')!r} level {lvl} != forward_metric×multiple {round(derived, 4)} "
                            f"— the Playground recomputes the latter and would disagree with the recorded level")
-            # A multiple without its basis is an incomplete citation (§5): "0.96x" means nothing until you
-            # know EMAAR's bear reads it on BOOK rather than EV/EBITDA.
-            if v13 and not (isinstance(s.get("multiple_basis"), str) and s["multiple_basis"].strip()):
-                det.append(f"scenario {s.get('label')!r} records a multiple but no multiple_basis — a bare multiple is an incomplete citation (§5)")
-            if v13 and not (isinstance(s.get("metric_basis"), str) and s["metric_basis"].strip()):
-                det.append(f"scenario {s.get('label')!r} records forward_metric but no metric_basis (which metric, which period)")
-            mk = s.get("multiple_kind")
-            if mk is not None and mk not in ("implied", "applied"):
-                det.append(f"scenario {s.get('label')!r} multiple_kind {mk!r} is not 'implied' or 'applied'")
         # Secondary multiples are cross-checks the orb quoted for the SAME value — recorded so real analyst
         # content is not discarded, never used in a computation. Validate shape only.
         sec = s.get("secondary_multiples")
@@ -183,7 +222,6 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
             else:
                 chain_ev = float(deriv["ev"])
                 ok = True
-                _cited_d = (lambda x: isinstance(x, str) and bool(x.strip()))
                 if not _isnum(lvl):
                     # a chain with no recorded level has nothing to reproduce — unverifiable, so rejected
                     det.append(f"scenario {s.get('label')!r} derivation requires a numeric scenario level to reproduce (REPRODUCE-or-omit)")
@@ -191,7 +229,7 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
                 if not _isnum(deriv.get("net_debt")):
                     det.append(f"scenario {s.get('label')!r} derivation net_debt must be explicit and numeric (0 when debt-free) — unknown net debt is never silently 0 (§15)")
                     ok = False
-                if not _cited_d(deriv.get("source")):
+                if not _cited(deriv.get("source")):
                     det.append(f"scenario {s.get('label')!r} derivation needs a §5 source citation — editable levers cannot ship uncited")
                     ok = False
                 if ok and deriv.get("model") == "margin_runoff_dcf":
@@ -267,7 +305,6 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
     # line at applied_multiple == methods.peers. A block that disagrees with its own method value would make
     # the Playground derive a number contradicting the committed football field — worse than no block.
     m_of = (lambda k: methods.get(k) if isinstance(methods, dict) else None)
-    _cited = (lambda x: isinstance(x, str) and bool(x.strip()))
     grid = sidecar.get("dcf_grid")
     if grid is not None:
         if not isinstance(grid, dict):
@@ -585,7 +622,9 @@ def _selftest() -> int:
     def _nhy(label, mult, level, **over):
         d = {"label": label, "forward_metric": 28889, "metric_basis": "FY2025 Adj. EBITDA",
              "multiple": mult, "multiple_basis": "EV/FY2025 Adj. EBITDA", "multiple_kind": "implied",
-             "bridge": {"net_debt": 17919, "minority": 7495, "shares": 1965.28}, "level": level}
+             "source": "07_scenario-and-fair-value.md §2",
+             "bridge": {"net_debt": 17919, "net_debt_basis": "cash-quality adjusted (01 canonical)",
+                        "minority": 7495, "shares": 1965.28}, "level": level}
         d.update(over); return d
     v13 = {"schema_version": "1.3", "ticker": "NHY", "basis": "ev", "shares": 1965.28,
            "scenarios": [_nhy("bull", 8.21, 107.7), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)]}
@@ -618,15 +657,65 @@ def _selftest() -> int:
     # mixing a per-case bridge with the run-level deduction is the double-counting trap
     mixed = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7), _nhy("base", 6.45, 81.83),
                  {"label": "bear", "forward_metric": 28889, "metric_basis": "FY2025 Adj. EBITDA",
-                  "multiple": 3.95, "multiple_basis": "EV/FY2025 Adj. EBITDA", "level": 45.12}])
+                  "multiple": 3.95, "multiple_basis": "EV/FY2025 Adj. EBITDA", "level": 45.12,
+                  "source": "07_scenario-and-fair-value.md §2"}])
     check("v1.3 some-cases-only bridge caught (convention mixing double-counts minority)",
           any("must not mix per-case bridge" in v for v in eval_ap_valuation_summary_integrity(mixed, None)))
     # grandfathering: the SAME shape without a 1.3 declaration is not held to the naming rules
-    old = dict(v13, schema_version="1.2", scenarios=[_nhy("bull", 8.21, 107.7, multiple_basis=None, metric_basis=None),
-               _nhy("base", 6.45, 81.83, multiple_basis=None, metric_basis=None),
-               _nhy("bear", 3.95, 45.12, multiple_basis=None, metric_basis=None)])
+    old = dict(v13, schema_version="1.2", scenarios=[_nhy("bull", 8.21, 107.7, multiple_basis=None, metric_basis=None, source=None),
+               _nhy("base", 6.45, 81.83, multiple_basis=None, metric_basis=None, source=None),
+               _nhy("bear", 3.95, 45.12, multiple_basis=None, metric_basis=None, source=None)])
     check("pre-1.3 sidecars are grandfathered (naming rules apply only on opt-in)",
           eval_ap_valuation_summary_integrity(old, None) == [])
+
+    # ---- the guard is a VALIDATOR: malformed input becomes a violation, never an exception. scan_committed
+    # does not catch, so a raise here would abort the whole CI sweep instead of failing one row.
+    for bad_nd, why in ((None, "absent"), ("17,919", "a string"), (True, "a bool")):
+        br = {"net_debt_basis": "cash-quality adjusted", "minority": 7495, "shares": 1965.28}
+        if bad_nd is not None:
+            br["net_debt"] = bad_nd
+        nd_bad = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge=br), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+        try:
+            out = eval_ap_valuation_summary_integrity(nd_bad, None)
+        except Exception as e:  # the failure this test exists to prevent
+            out, fails = [], fails + [f"bridge net_debt {why} RAISED {type(e).__name__} instead of reporting"]
+        check(f"bridge net_debt {why} → violation, no raise", any("net_debt must be explicit" in v for v in out))
+    br_str_shares = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge={"net_debt": 17919, "net_debt_basis": "adj", "shares": 0}),
+                         _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+    check("bridge with zero shares → violation, no ZeroDivisionError",
+          any("no positive shares" in v for v in eval_ap_valuation_summary_integrity(br_str_shares, None)))
+    # §15: a per-case debt figure must name its basis wherever it appears
+    no_ndb = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge={"net_debt": 17919, "minority": 7495, "shares": 1965.28}),
+                  _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+    check("v1.3 per-case bridge without a net_debt_basis caught (§15)",
+          any("no net_debt_basis" in v for v in eval_ap_valuation_summary_integrity(no_ndb, None)))
+
+    # ---- the v1.3 labelling rules key off PRESENCE, not off a complete pair (a half tuple used to skip
+    # every check below it and ship an unlabelled, uncited, underivable lever).
+    half = dict(v13, scenarios=[{"label": "bull", "multiple": 8.21, "level": 107.7},
+                _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+    half_out = eval_ap_valuation_summary_integrity(half, None)
+    check("v1.3 half a metric×multiple pair caught (MODULE_RULES §2)", any("only half of the metric" in v for v in half_out))
+    check("v1.3 half pair still demands multiple_basis", any("incomplete citation" in v for v in half_out))
+    check("v1.3 half pair still demands a source", any("no §5 source" in v for v in half_out))
+    kind_only = dict(v13, scenarios=[{"label": "bull", "level": 107.7, "multiple_kind": "guessed"},
+                     _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+    check("multiple_kind is validated even with no multiple present",
+          any("multiple_kind" in v for v in eval_ap_valuation_summary_integrity(kind_only, None)))
+    no_src = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, source="  "), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+    check("v1.3 scenario levers without a §5 citation caught",
+          any("no §5 source" in v for v in eval_ap_valuation_summary_integrity(no_src, None)))
+    check("pre-1.3 half pairs stay grandfathered",
+          eval_ap_valuation_summary_integrity(dict(old, scenarios=[{"label": "bull", "multiple": 8.21, "level": 107.7}]), None) == [])
+
+    # ---- an unparseable schema_version is REJECTED, never read as pre-1.3 (a typo would switch the gate off)
+    for bad_ver in ("v1.3", "1.3-beta", "garbage", ""):
+        vout = eval_ap_valuation_summary_integrity(dict(v13, schema_version=bad_ver), None)
+        check(f"schema_version {bad_ver!r} rejected", any("not a dotted numeric version" in v for v in vout))
+    check("schema_version '1' parses as 1.0 (pre-1.3, grandfathered)",
+          eval_ap_valuation_summary_integrity(dict(old, schema_version="1"), None) == [])
+    check("schema_version '1.3.0' parses as 1.3 (rules apply)",
+          eval_ap_valuation_summary_integrity(dict(v13, schema_version="1.3.0"), None) == [])
 
     # ---- v1.3 mixed bases in ONE run — EMAAR's real SHAPE (EV/EBITDA base + P/BV bear). The bear is
     # EMAAR's actual arithmetic (10.16 book/share x 0.96 = 9.75); the base metric is synthetic-but-
@@ -635,12 +724,12 @@ def _selftest() -> int:
     emaar = {"schema_version": "1.3", "ticker": "EMAAR", "basis": "ev", "shares": 8838.8, "net_debt": -24969,
              "scenarios": [
                  {"label": "base", "forward_metric": 18122.5, "metric_basis": "normalized EBITDA (synthetic)", "multiple": 6.7,
-                  "multiple_basis": "normalized EV/EBITDA", "multiple_kind": "implied",
+                  "multiple_basis": "normalized EV/EBITDA", "multiple_kind": "implied", "source": "07 §2",
                   "secondary_multiples": [{"value": 7.0, "basis": "P/E"}, {"value": 1.5, "basis": "P/BV (book)"}],
-                  "bridge": {"net_debt": -24969, "minority": 13808, "shares": 8838.8}, "level": 15.00},
+                  "bridge": {"net_debt": -24969, "net_debt_basis": "strict (net cash)", "minority": 13808, "shares": 8838.8}, "level": 15.00},
                  # the BEAR reads on BOOK — an equity multiple, no bridge, no EV arithmetic
                  {"label": "bear", "basis": "equity", "forward_metric": 10.16, "metric_basis": "book value / share",
-                  "multiple": 0.96, "multiple_basis": "P/BV (book)", "multiple_kind": "implied", "level": 9.75},
+                  "multiple": 0.96, "multiple_basis": "P/BV (book)", "multiple_kind": "implied", "source": "07 §3", "level": 9.75},
              ]}
     check("v1.3 mixed bases in one run (EV base + book-value bear) → pass",
           eval_ap_valuation_summary_integrity(emaar, None) == [])

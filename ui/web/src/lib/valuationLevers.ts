@@ -47,6 +47,31 @@ export interface SummaryScenario {
   level?: number | null
   drivers?: string | null
   derivation?: ScenarioDerivation | null
+  // ---- v1.3: the case's OWN basis, named multiple, and EV→equity terms ----
+  /** overrides the run-level basis for THIS case: EMAAR's base reads on EV/EBITDA while its bear reads
+   *  0.96x on BOOK. Bridging an equity multiple turns 9.75 into −2.82, so the case's basis governs. */
+  basis?: Basis | null
+  /** what the multiple IS — 'EV/FY2025 Adj. EBITDA', 'NTM P/E', 'P/BV (book)' */
+  multiple_basis?: string | null
+  /** 'implied' (the value came from this case's machinery and the multiple is what it corresponds to)
+   *  vs 'applied' (the case was genuinely built AS metric × multiple) */
+  multiple_kind?: 'implied' | 'applied' | null
+  /** further yardsticks the orb quoted for the SAME value — cross-checks, never computed with */
+  secondary_multiples?: { value: number; basis: string; note?: string | null }[] | null
+  /** the EV→equity terms THIS case used, when they differ from the run level */
+  bridge?: CaseBridge | null
+  /** the §5 citation the metric and multiple came from */
+  source?: string | null
+}
+
+/** v1.3 per-case EV→equity terms. net_debt is REQUIRED and explicit (0 when debt-free) — an unknown net
+ *  debt is never silently 0 (§15). shares falls back to the top-level count. */
+export interface CaseBridge {
+  net_debt: number
+  net_debt_basis?: string | null
+  minority?: number | null
+  other?: number | null
+  shares?: number | null
 }
 
 export interface ValuationSummary {
@@ -219,6 +244,34 @@ export function levelFromMultiple(metric: number, multiple: number, basis: Basis
   return metric * multiple // equity: EPS × P/E (net debt not used)
 }
 
+/** v1.3: the level a CASE's own levers derive — the browser mirror of the guard's `_case_level`.
+ *
+ *  The case's own basis governs (an equity multiple is never bridged), and its own bridge — when it
+ *  records one — supplies the EV→equity terms instead of the run-level net debt. NHY is the live case:
+ *  the run declares net_debt 13,090 on a broad basis while every scenario deducts the cash-quality-
+ *  adjusted 17,919 AND minority 7,495, on an 'ev' basis the run does not declare. Reading the run-level
+ *  numbers there does not merely round differently — it prices the bear at a different company.
+ *
+ *  Returns null (never a guess) when the terms are not derivable: no positive shares, no explicit net
+ *  debt. Mirrors levelFromMultiple's contract, but reports rather than throws. */
+export function caseLevelFromMultiple(
+  metric: number, multiple: number, basis: Basis,
+  bridge: CaseBridge | null | undefined, shares?: number | null, netDebt: number | null = 0,
+): number | null {
+  // A bridge is meaningful only on an EV case — an equity multiple already gives equity value.
+  const br = basis === 'ev' && bridge ? bridge : null
+  if (br) {
+    if (!isNum(br.net_debt)) return null // §15: unknown net debt is never silently 0
+    const sh = isNum(br.shares) ? br.shares : (isNum(shares) ? shares : null)
+    if (!isNum(sh) || sh <= 0) return null
+    const equity = metric * multiple - br.net_debt
+      - (isNum(br.minority) ? br.minority : 0)
+      + (isNum(br.other) ? br.other : 0)
+    return round(equity / sh, 4)
+  }
+  try { return round(levelFromMultiple(metric, multiple, basis, shares, netDebt), 4) } catch { return null }
+}
+
 // ---- 2. scenario math — the §10 identities ----
 export interface ScenarioRow { label: string; probability: number; price_target: number; return_pct: number | null }
 export interface ScenarioMath {
@@ -328,6 +381,15 @@ export interface DraftScenario {
   // v1.2: the editable copy of the recorded derivation chain — when present, the LEVEL is computed from
   // these figures (the Excel contract: the chain's inputs are typed, the fair value never is).
   chain?: DraftChain | null
+  // v1.3: the case's OWN basis and EV→equity terms drive its level (see caseLevelFromMultiple), plus the
+  // recorded labels the panel shows. Absent → the run-level basis and net debt, exactly as before.
+  basis?: Basis | null
+  bridge?: CaseBridge | null
+  metricBasis?: string | null
+  multipleBasis?: string | null
+  multipleKind?: 'implied' | 'applied' | null
+  secondaryMultiples?: { value: number; basis: string; note?: string | null }[]
+  source?: string | null
 }
 
 export interface DraftChain {
@@ -466,7 +528,10 @@ export function levelForScenario(s: DraftScenario, d: PlaygroundDraft): number |
   if (c !== null) return c
   if (isNum(s.levelOverride)) return s.levelOverride
   if (isNum(s.forwardMetric) && isNum(s.multiple)) {
-    try { return round(levelFromMultiple(s.forwardMetric, s.multiple, d.basis, d.shares, d.netDebt), 4) } catch { return null }
+    // v1.3: the CASE's own basis and bridge govern (Codex #362 P1 r3672...). Falling back to the run-level
+    // basis/net-debt here would price NHY's cases off the run's broad 13,090 with no minority deducted —
+    // a bear of ~49.9 against the committed 45.12, and an equity-basis case bridged into nonsense.
+    return caseLevelFromMultiple(s.forwardMetric, s.multiple, s.basis ?? d.basis, s.bridge, d.shares, d.netDebt)
   }
   return null
 }
@@ -571,6 +636,17 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
         drivers: s.drivers ?? null,
         overrideUnlocked: false,
         chain: buildChain(s.derivation),
+        // v1.3 — carried verbatim: the case's basis and bridge DRIVE its level, the labels are displayed.
+        // A bridge is carried EVEN when malformed. Dropping it would fall back to the run-level terms and
+        // quietly re-price the case on a different convention (NHY's bull would read 114.02 against the
+        // committed 107.70); caseLevelFromMultiple returns null instead, so the cell reads Not assessable.
+        basis: s.basis === 'ev' || s.basis === 'equity' ? s.basis : null,
+        bridge: s.bridge && typeof s.bridge === 'object' ? s.bridge : null,
+        metricBasis: s.metric_basis ?? null,
+        multipleBasis: s.multiple_basis ?? null,
+        multipleKind: s.multiple_kind === 'implied' || s.multiple_kind === 'applied' ? s.multiple_kind : null,
+        secondaryMultiples: (s.secondary_multiples ?? []).filter((x) => x && isNum(x.value) && typeof x.basis === 'string'),
+        source: s.source ?? null,
       })),
     }
   }
@@ -722,7 +798,26 @@ export function traceScenarioCell(s: DraftScenario, cs: ScenarioCellState, publi
     }
   }
   if (cs.kind === 'derived_multiple') {
-    return { title: `${s.label} — computed from your inputs`, formula: `forward metric ${fmt(s.forwardMetric)} × multiple ${fmt(s.multiple)}`, terms: [], source: src }
+    // v1.3: show the WHOLE arithmetic, bridge included. "28,889 × 8.21" alone reads as 237,178 per share
+    // when the case's own bridge makes it 107.75 — a formula that contradicts the number beside it.
+    const mb = s.multipleBasis ? ` (${s.multipleBasis})` : ''
+    let formula = `${s.metricBasis ?? 'forward metric'} ${fmt(s.forwardMetric)} × multiple ${fmt(s.multiple)}${mb}`
+    const br = (s.basis ?? null) === 'ev' && s.bridge ? s.bridge : null
+    if (br) {
+      const parts = [`− net debt ${fmt(br.net_debt, 0)}${br.net_debt_basis ? ` (${br.net_debt_basis})` : ''}`]
+      if (isNum(br.minority)) parts.push(`− minority ${fmt(br.minority, 0)}`)
+      if (isNum(br.other) && br.other !== 0) parts.push(`+ other ${fmt(br.other, 0)}`)
+      formula = `(${formula} ${parts.join(' ')}) ÷ shares ${fmt(isNum(br.shares) ? br.shares : null, 2)}`
+    }
+    return {
+      title: `${s.label} — computed from your inputs`,
+      formula,
+      terms: (s.secondaryMultiples ?? []).map((x) => ({ label: x.basis, calc: `${fmt(x.value)}×${x.note ? ` · ${x.note}` : ''}` })),
+      note: s.multipleKind === 'implied'
+        ? 'the multiple is IMPLIED — the run derived this level from its own machinery and the multiple is what that level corresponds to; typing one here is an explicit reverse assertion'
+        : s.multipleKind === 'applied' ? 'the run built this case AS metric × multiple — the multiple is a genuine input' : undefined,
+      source: s.source ?? src,
+    }
   }
   if (cs.kind === 'live_blend') {
     const base = published ? traceBlend(published.methods, published.blend, labelFor) : null

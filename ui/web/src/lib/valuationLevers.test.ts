@@ -540,4 +540,82 @@ check('runoff trace: formula carries margin % + revenue base; recompute flows th
   assert.ok(out.math.expectedReturnPct !== null && Math.abs(out.math.expectedReturnPct - -6.4) < 0.15, `E[r] ${out.math.expectedReturnPct}`)
 })
 
+
+// ---- v1.3: the case's OWN basis and bridge drive its level (Codex #362 P1) ----
+// NHY's real, committed shape: the RUN declares basis 'equity' with net_debt 13,090 (broad), while every
+// scenario reads on 'ev' and deducts the cash-quality-adjusted 17,919 AND minority 7,495. A client that
+// read the run-level fields would show 28,889 × 3.95 = 114,114 per share on an equity basis — the number
+// that made this contract necessary.
+const NHY13: ValuationLeversResponse = {
+  runRoot: 'analyses/NHY_2026-07-19',
+  levers: {
+    schema_version: '1.3', basis: 'equity', shares: 1965.28, net_debt: 13090, net_debt_basis: 'broad',
+    current_price: 84.96,
+    scenarios: (['bull', 'base', 'bear'] as const).map((label, i) => ({
+      label,
+      forward_metric: 28889, metric_basis: 'FY2025 Adj. EBITDA',
+      multiple: [8.21, 6.45, 3.95][i], multiple_basis: 'EV/FY2025 Adj. EBITDA',
+      multiple_kind: 'implied' as const, basis: 'ev' as const,
+      source: '07_scenario-and-fair-value.md §2',
+      bridge: { net_debt: 17919, net_debt_basis: 'cash-quality adjusted (01 canonical)', minority: 7495, shares: 1965.28 },
+      level: [107.7, 81.83, 45.12][i],
+      secondary_multiples: i === 0 ? [{ value: 7.17, basis: 'EV/FY2026E EBITDA' }] : null,
+    })),
+  },
+  decision: {
+    scenarios: [
+      { label: 'bull', probability: 20, return_pct: 26.8, price_target: 107.7 },
+      { label: 'base', probability: 55, return_pct: -3.7, price_target: 81.83 },
+      { label: 'bear', probability: 25, return_pct: -46.9, price_target: 45.12 },
+    ],
+    entry_price: 84.96, entry_price_timestamp: '2026-07-17', currency: 'NOK',
+    expected_return_pct: -6.4, margin_of_safety_pct: 3.7, downside_risk_pct: 46.9,
+  },
+  overrides: [],
+}
+
+check('v1.3: a per-case ev bridge drives the level (NHY 8.21/6.45/3.95 → 107.75/81.88/45.13)', () => {
+  const out = recompute(draftFromResponse(NHY13))
+  for (const [label, want] of [['bull', 107.75], ['base', 81.88], ['bear', 45.13]] as const) {
+    const got = out.scenarios.find((s) => s.label === label)!.level
+    assert.ok(got !== null && Math.abs(got - want) < 0.02, `${label}: got ${got}, want ~${want}`)
+  }
+})
+check('v1.3: the run-level basis/net-debt are NOT used when the case declares its own', () => {
+  const d = draftFromResponse(NHY13)
+  assert.equal(d.basis, 'equity')        // the run's own declaration is preserved…
+  assert.equal(d.netDebt, 13090)
+  assert.equal(d.scenarios[0].basis, 'ev')  // …and the case's overrides it
+  assert.equal(d.scenarios[0].bridge!.net_debt, 17919)
+  // the failure this exists to prevent: equity basis would give 28,889 × 3.95 = 114,113.55/share
+  const bear = levelForScenario(d.scenarios[2], d)
+  assert.ok(bear !== null && bear < 100, `bear ${bear} — the run-level equity basis leaked into the case`)
+})
+check('v1.3: an equity-basis case is never bridged (EMAAR 10.16 × 0.96 = 9.75, not −2.82)', () => {
+  const d = draftFromResponse(emaarRes)
+  const s = { label: 'bear', probability: 35, forwardMetric: 10.16, multiple: 0.96, levelOverride: null,
+              basis: 'equity' as const, bridge: { net_debt: -24969, minority: 13808, shares: 8838.8 } }
+  assert.ok(Math.abs(levelForScenario(s, { ...d, basis: 'ev', netDebt: -24969 })! - 9.7536) < 1e-3)
+})
+check('v1.3: a bridge with no explicit net_debt reads Not assessable, never the run-level fallback (§15)', () => {
+  const broken = JSON.parse(JSON.stringify(NHY13))
+  delete broken.levers.scenarios[0].bridge.net_debt
+  const d = draftFromResponse(broken)
+  // the case DECLARED its own terms — silently re-pricing it on the run-level ones would show 114.02
+  // against the committed 107.70, which is the disagreement the per-case bridge exists to prevent
+  assert.equal(levelForScenario(d.scenarios[0], d), null)
+  assert.equal(levelForScenario(d.scenarios[1], d), 81.8815) // the other cases are unaffected
+})
+check('v1.3: the trace shows the WHOLE arithmetic, bridge included', () => {
+  const d = draftFromResponse(NHY13)
+  const s = d.scenarios[0]
+  const t = traceScenarioCell(s, scenarioCellState(s, false, null, null, false), d.published ?? null)
+  assert.ok(t.formula.includes('× multiple 8.21'), t.formula)
+  assert.ok(t.formula.includes('net debt 17919') && t.formula.includes('minority 7495'), t.formula)
+  assert.ok(t.formula.includes('÷ shares 1965.28'), t.formula)
+  assert.ok((t.note ?? '').includes('IMPLIED'), t.note ?? '(no note)')
+  assert.equal(t.source, '07_scenario-and-fair-value.md §2')
+  assert.equal(t.terms[0].label, 'EV/FY2026E EBITDA')
+})
+
 console.log(`valuationLevers.test.ts: ${passed} assertions passed`)
