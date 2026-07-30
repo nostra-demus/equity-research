@@ -842,6 +842,54 @@ def test_duplicate_forecast_result_not_double_counted():
     check(len(got) == 1, f"the same ledger entry resolved 3× counts ONCE toward the Brier sample (got {len(got)})")
 
 
+def test_provisional_run_excluded_from_skill_scoring():
+    # fix-run 2026-07-30: a run the engine itself flagged truth-integrity "provisional" (verify-evidence
+    # not Clean/Minor, or an active finish-gate PROVISIONAL banner) must not inflate/deflate Brier, hit
+    # rate, or cohort returns — but it must still be visible in `inventory` and named in `excluded_provisional`.
+    standing, reviews_by_run = [], {}
+    # 10 clean/verified Selected calls, all confirmed at 80% — comfortably above every floor
+    for i in range(10):
+        rec, rev = _selected(i, 80, "confirmed", 4.0)
+        rec["integrity"] = {"status": "verified", "verdict": "Clean", "integrity_score": 95}
+        standing.append(rec)
+        reviews_by_run[rec["run_root"]] = [rev]
+    # 1 PROVISIONAL Selected call that would (if counted) look like a clean MISS: falsified, beat nothing
+    prov_rec, prov_rev = _selected(99, 80, "falsified", -50.0)
+    prov_rec["integrity"] = {"status": "provisional", "verdict": "Material issues", "integrity_score": 40}
+    standing.append(prov_rec)
+    reviews_by_run[prov_rec["run_root"]] = [prov_rev]
+    # 1 unaudited Selected call (no verify-evidence report at all) — must NOT be excluded
+    unaud_rec, unaud_rev = _selected(50, 80, "confirmed", 4.0)
+    unaud_rec["integrity"] = {"status": "unaudited", "verdict": None, "integrity_score": None}
+    standing.append(unaud_rec)
+    reviews_by_run[unaud_rec["run_root"]] = [unaud_rev]
+
+    out = C.build(standing=standing, today="2026-07-30", reviews_provider=lambda rr: reviews_by_run.get(rr, []))
+
+    check(out["n_decisions"] == 12, f"all 12 runs counted in inventory, incl. the provisional one (got {out['n_decisions']})")
+    check(out["n_resolved_forecasts"] == 11,
+          f"the provisional run's forecast is excluded from the Brier corpus — 11, not 12 (got {out['n_resolved_forecasts']})")
+    check(out["n_directional_calls_resolved"] == 11,
+          f"the provisional run's directional call is excluded — 11, not 12 (got {out['n_directional_calls_resolved']})")
+    check(out["hit_rate"] == 1.0, f"the excluded run's -50% loss must not drag the hit rate down (got {out['hit_rate']})")
+    ep = out["excluded_provisional"]
+    check(ep["n"] == 1 and ep["runs"][0]["ticker"] == "SEL99", f"excluded_provisional names the flagged run (got {ep})")
+    statuses = {row["ticker"]: row["integrity_status"] for row in out["inventory"]}
+    check(statuses.get("SEL99") == "provisional" and statuses.get("SEL50") == "unaudited"
+          and statuses.get("SEL0") == "verified",
+          f"inventory rows carry their own integrity_status (got {statuses})")
+
+
+def test_no_integrity_field_behaves_as_before():
+    # Backward compatibility: a standing entry with NO "integrity" key (every pre-existing fixture in this
+    # file, and every run predating this fix) must score exactly as before — never silently excluded.
+    rec, rev = _selected(0, 80, "confirmed", 4.0)
+    check("integrity" not in rec, "fixture sanity: _selected() does not inject an integrity field")
+    out = C.build(standing=[rec], today="2026-07-30", reviews_provider=lambda rr: [rev])
+    check(out["n_resolved_forecasts"] == 1, "a record with no integrity field is scored normally, not excluded")
+    check(out["excluded_provisional"]["n"] == 0, "nothing excluded when no record carries a provisional status")
+
+
 def main():
     print("test_calibrate.py")
     for fn in (test_incomplete_beta, test_clopper_pearson, test_brier_and_murphy, test_e_value,
@@ -866,7 +914,8 @@ def main():
                test_false_comfort_derived_from_verdict, test_arrival_span_malformed_date_no_crash,
                test_superseded_priced_review_not_resurrected, test_skill_declaration_needs_distinct_tickers,
                test_spread_matched_by_horizon, test_duplicate_forecast_result_not_double_counted,
-               test_end_to_end_floor_met, test_probability_scale, test_below_floor_withholds):
+               test_end_to_end_floor_met, test_probability_scale, test_below_floor_withholds,
+               test_provisional_run_excluded_from_skill_scoring, test_no_integrity_field_behaves_as_before):
         print(f"[{fn.__name__}]")
         fn()
     print()

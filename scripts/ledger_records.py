@@ -35,6 +35,27 @@ DECLARES the correction; this module only executes it):
                   bare strings) is coerced to the canonical object shape.
   • math_reconcile / note_clear — documentation-only (no numeric transform); recorded for audit.
 
+TRUTH-INTEGRITY STATUS (each standing entry also carries `entry["integrity"]`)
+--------------------------------------------------------------------------------------
+`/research:verify-evidence` audits a run's citations/math/cross-module anchors and the `/research:full`
+finish-gate stamps a `final_thesis.md` PROVISIONAL when that audit is missing or not Clean/Minor — but
+until now nothing downstream ever READ that signal: `scripts/calibrate.py`'s hit-rate/Brier corpus and
+`/research:track`'s calls-tracker dashboard both treated a PROVISIONAL (unverified, possibly-wrong)
+run identically to a Clean-verified one. `resolve_integrity_status()` reads the SAME two signals the
+finish-gate itself uses (the PROVISIONAL banner text, and the latest `verification_report*.json`
+verdict) and returns one of three statuses, attached to every `load_standing_records()` entry as
+`entry["integrity"]` so calibrate/track/size resolve it once, consistently, the same way corrections
+and supersession already are:
+  • "verified"    — a verification_report exists with verdict Clean/Minor issues, no PROVISIONAL banner.
+  • "provisional" — the PROVISIONAL banner is present, OR a verification_report exists with any other
+                     verdict (Material issues / Failed / blank-unreadable — fail-closed, mirroring the
+                     finish-gate's own fail-closed rule). A caller doing skill-scoring math (Brier, hit
+                     rate, cohort returns) MUST exclude these — the run itself is flagged possibly wrong.
+  • "unaudited"   — neither signal is present: verify-evidence never ran on this run (most runs predate
+                     the audit trio, or it was a standalone module run). This is NOT evidence of a defect
+                     (CLAUDE.md §11 — an absent input is not the input's own failure) and must NOT be
+                     treated the same as "provisional" by a caller.
+
 CONTRACT (mirrors extract_pool.py / decision_surface.py):
   • Pure + importable; the CLI runs only under __main__.
   • Tolerant: a missing/malformed corrections.json is treated as "no corrections" — a correction
@@ -173,6 +194,63 @@ def apply_errata(record, corrections):
     return out
 
 
+# ── truth-integrity status (verify-evidence + finish-gate PROVISIONAL banner) ──────────────────────
+
+_PROVISIONAL_MARK = "PROVISIONAL — the automated finish-gate"
+_CLEAN_VERDICTS = ("Clean", "Minor issues")
+_VERIFY_REPORT_RE = re.compile(r"verification_report(_v\d+)?")
+_VERIFY_REPORT_VERSION_RE = re.compile(r"_v(\d+)\.json$")
+
+
+def _report_version(path):
+    m = _VERIFY_REPORT_VERSION_RE.search(path)
+    return int(m.group(1)) if m else 1
+
+
+def resolve_integrity_status(run_dir):
+    """Truth-integrity status for one run — see the module docstring. Tolerant: a missing/unreadable
+    final_thesis.md or verification_report never raises; each just resolves to its honest default."""
+    banner = False
+    try:
+        with open(os.path.join(run_dir, "final_thesis.md"), "r", encoding="utf-8") as f:
+            head = f.read(2000)
+        banner = _PROVISIONAL_MARK in head
+    except OSError:
+        pass
+
+    verdict, score, report_file = None, None, None
+    reports = sorted(
+        (p for p in glob.glob(os.path.join(run_dir, "verification_report*.json"))
+         if _VERIFY_REPORT_RE.fullmatch(os.path.basename(p)[:-5])),
+        key=_report_version,
+    )
+    if reports:
+        report_file = reports[-1]
+        try:
+            with open(report_file, "r", encoding="utf-8") as f:
+                v = json.load(f)
+            if isinstance(v, dict):
+                verdict = v.get("verdict") or None
+                score = v.get("integrity_score")
+        except (OSError, json.JSONDecodeError, ValueError):
+            verdict = None  # unreadable report — fail closed below, exactly like the finish-gate
+
+    if banner:
+        status = "provisional"
+    elif reports:
+        status = "verified" if verdict in _CLEAN_VERDICTS else "provisional"
+    else:
+        status = "unaudited"
+
+    return {
+        "status": status,
+        "verdict": verdict,
+        "integrity_score": score if isinstance(score, (int, float)) and not isinstance(score, bool) else None,
+        "banner": banner,
+        "report_file": os.path.basename(report_file) if report_file else None,
+    }
+
+
 # ── standing-set resolution ──────────────────────────────────────────────────────────────────────
 
 def _load_record(run_dir):
@@ -201,7 +279,8 @@ def load_standing_records(analyses_root="analyses"):
         corrections = read_corrections(run_dir)
         if superseded_target(corrections):
             continue  # superseded — not a standing call
-        out.append({"run_root": run_dir.replace(os.sep, "/"), "record": apply_errata(record, corrections)})
+        out.append({"run_root": run_dir.replace(os.sep, "/"), "record": apply_errata(record, corrections),
+                     "integrity": resolve_integrity_status(run_dir)})
     return sorted(out, key=lambda e: e["run_root"])
 
 
@@ -286,6 +365,61 @@ def selftest():
         with open(os.path.join(td, "corrections.json"), "w") as f:
             json.dump({"schema": "other/v9", "superseded_by": {"run_root": "x"}}, f)
         check(read_corrections(td) == {}, "wrong-schema sidecar ignored")
+
+    # resolve_integrity_status: no final_thesis.md, no verification_report → "unaudited", never a crash
+    with tempfile.TemporaryDirectory() as td:
+        r = resolve_integrity_status(td)
+        check(r == {"status": "unaudited", "verdict": None, "integrity_score": None,
+                     "banner": False, "report_file": None}, f"unaudited run resolves cleanly, got {r}")
+
+    # resolve_integrity_status: Clean verification_report, no banner → "verified"
+    with tempfile.TemporaryDirectory() as td:
+        open(os.path.join(td, "final_thesis.md"), "w").write("# TICKER — Investment Dossier\n\nbody\n")
+        json.dump({"verdict": "Clean", "integrity_score": 96},
+                  open(os.path.join(td, "verification_report.json"), "w"))
+        r = resolve_integrity_status(td)
+        check(r["status"] == "verified" and r["integrity_score"] == 96, f"Clean report → verified, got {r}")
+
+    # resolve_integrity_status: Material issues verdict, no banner (defensive path) → "provisional"
+    with tempfile.TemporaryDirectory() as td:
+        open(os.path.join(td, "final_thesis.md"), "w").write("# TICKER — Investment Dossier\n\nbody\n")
+        json.dump({"verdict": "Material issues", "integrity_score": 55},
+                  open(os.path.join(td, "verification_report.json"), "w"))
+        r = resolve_integrity_status(td)
+        check(r["status"] == "provisional", f"Material issues verdict → provisional (fail-closed), got {r}")
+
+    # resolve_integrity_status: finish-gate PROVISIONAL banner wins even over a Clean report (banner is a
+    # superset signal — 10B.1 can stamp PROVISIONAL for a math/edge break independent of verify-evidence)
+    with tempfile.TemporaryDirectory() as td:
+        open(os.path.join(td, "final_thesis.md"), "w").write(
+            "> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was "
+            "committed UNVERIFIED.**\n> scenario math broken\n\n# TICKER — Investment Dossier\n")
+        json.dump({"verdict": "Clean", "integrity_score": 100},
+                  open(os.path.join(td, "verification_report.json"), "w"))
+        r = resolve_integrity_status(td)
+        check(r["status"] == "provisional" and r["banner"] is True,
+              f"PROVISIONAL banner overrides a Clean verify-evidence verdict, got {r}")
+
+    # resolve_integrity_status: versioned reports — the LATEST version's verdict wins (_v2 over _v1, _v10 over _v2)
+    with tempfile.TemporaryDirectory() as td:
+        open(os.path.join(td, "final_thesis.md"), "w").write("# TICKER — Investment Dossier\n")
+        json.dump({"verdict": "Material issues"}, open(os.path.join(td, "verification_report.json"), "w"))
+        json.dump({"verdict": "Clean"}, open(os.path.join(td, "verification_report_v2.json"), "w"))
+        r = resolve_integrity_status(td)
+        check(r["status"] == "verified" and r["report_file"] == "verification_report_v2.json",
+              f"latest report VERSION (not lexical order) wins, got {r}")
+
+    # load_standing_records attaches integrity per entry (live wiring, not just the unit fn)
+    with tempfile.TemporaryDirectory() as td:
+        run = os.path.join(td, "TICK_2026-07-30")
+        os.makedirs(run)
+        json.dump({"ticker": "TICK", "decision": "Buy", "decision_date": "2026-07-30"},
+                  open(os.path.join(run, "decision_record.json"), "w"))
+        json.dump({"verdict": "Clean", "integrity_score": 90},
+                  open(os.path.join(run, "verification_report.json"), "w"))
+        standing = load_standing_records(td)
+        check(len(standing) == 1 and standing[0]["integrity"]["status"] == "verified",
+              f"load_standing_records wires integrity onto each entry, got {standing}")
 
     print("[ledger_records] selftest", "PASS" if ok else "FAIL")
     return ok

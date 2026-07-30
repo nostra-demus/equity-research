@@ -28,6 +28,18 @@ WHAT IT COMPUTES (each gated by its own floor; withheld, never faked, below it)
   • Months-to-significance + a standing honesty statement printed every run: WHEN a real verdict
     becomes possible at the observed resolution-arrival rate, so "not yet" is quantified, not vague.
 
+TRUTH-INTEGRITY GATE (added 2026-07-30 — closes the verify-evidence dead-end)
+  Every standing entry carries `ledger_records.resolve_integrity_status()`'s read of the run's
+  truth-integrity: "verified" (verify-evidence ran, verdict Clean/Minor issues), "provisional"
+  (verify-evidence found Material issues/Failed, or the /research:full finish-gate stamped
+  final_thesis.md PROVISIONAL for any reason), or "unaudited" (verify-evidence never ran on this
+  run). A "provisional" run's forecasts/returns are EXCLUDED from every skill-scoring number above
+  (Brier, hit rate, cohort returns, e-value, months-to-significance) — see `excluded_provisional` in
+  the output — because the run is one the engine itself has flagged as possibly wrong; scoring its
+  realized outcome would tell the scoreboard nothing about whether the ENGINE is calibrated, only
+  whether an unverified number happened to land somewhere. An "unaudited" run is NOT excluded
+  (absence of an audit is not evidence of a defect, CLAUDE.md §11) — it scores exactly as before.
+
 CONTRACT
   • Reads the STANDING, corrected ledger via scripts/ledger_records.py (drops superseded runs, applies
     errata on read) — never a raw glob. Read-only on every decision/review record.
@@ -653,6 +665,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
     inventory, all_pairs, directional = [], [], []
     basket_returns = {}          # basket -> [benchmark_relative_return_pct] (pooled, for per-basket cohort mean)
     basket_window_returns = {}   # (basket, review_window) -> [returns] — for the horizon-MATCHED §2 spread
+    excluded_provisional = []    # runs whose truth-integrity is flagged — excluded from skill-scoring math below
     error_tax = {}               # §20 tag -> count
     premortem_outcomes = {"not_applicable": 0, "too_early": 0, "vindicated": 0, "contradicted": 0, "partial": 0}
     premortem_contra = {"false_comfort": 0, "excess_caution": 0}
@@ -680,23 +693,40 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         if isinstance(rec.get("data_sufficiency_score"), (int, float)):
             ds_scores.append(rec["data_sufficiency_score"])
 
+        # Truth-integrity gate (ledger_records.resolve_integrity_status via load_standing_records).
+        # A "provisional" run is one the engine ITSELF has flagged as possibly wrong — a missing or
+        # not-Clean/Minor verify-evidence audit, or an active finish-gate PROVISIONAL banner (fix-run
+        # 2026-07-30: verify-evidence's verdict was a dead end, invisible to every downstream reader).
+        # Its forecasts/returns are EXCLUDED from every skill-scoring number below (Brier, hit rate,
+        # cohort returns, e-value, months-to-significance) — an unverified thesis's realized outcome is
+        # not evidence the ENGINE is calibrated, only that its (possibly mis-cited) numbers happened to
+        # land somewhere. It still counts in `inventory` and the process metrics — CLAUDE.md §11 bans
+        # hiding a gap, not just faking a rate over it. An "unaudited" run (verify-evidence never ran —
+        # most pre-2026-07-24 runs) is NOT penalised: absence of an audit is not evidence of a defect.
+        integrity = entry.get("integrity") or {}
+        provisional = integrity.get("status") == "provisional"
+        if provisional:
+            excluded_provisional.append({"run_root": run_root, "ticker": tkr,
+                                          "verdict": integrity.get("verdict"), "banner": integrity.get("banner")})
+
         pairs = match_resolved_forecasts(rec, reviews)
-        for p in pairs:
-            all_pairs.append(p)
         dh = directional_hit(rec, priced_rev)  # score the direction on the latest PRICED review, not any
-        if dh is not None:
-            directional.append({"ticker": tkr, "hit": dh, "basket": basket,
-                                "review_date": priced_rev.get("review_date") if priced_rev else None})
-        # Effective-N clusters by ticker over EVERY scored bet this run contributes — resolved forecast
-        # pairs AND a directional call. Counting only forecast pairs let a run resolve a directional hit
-        # (returns settle before forecast outcomes, or a decision has no forecast ledger) while reporting
-        # effective_n = 0, so the advisory failed to flag a hit-rate CI/e-value built on correlated bets.
-        scored_here = len(pairs) + (1 if dh is not None else 0)
-        if scored_here:
-            cluster_by_ticker[_norm(tkr)] = cluster_by_ticker.get(_norm(tkr), 0) + scored_here
+        if not provisional:
+            for p in pairs:
+                all_pairs.append(p)
+            if dh is not None:
+                directional.append({"ticker": tkr, "hit": dh, "basket": basket,
+                                    "review_date": priced_rev.get("review_date") if priced_rev else None})
+            # Effective-N clusters by ticker over EVERY scored bet this run contributes — resolved forecast
+            # pairs AND a directional call. Counting only forecast pairs let a run resolve a directional hit
+            # (returns settle before forecast outcomes, or a decision has no forecast ledger) while reporting
+            # effective_n = 0, so the advisory failed to flag a hit-rate CI/e-value built on correlated bets.
+            scored_here = len(pairs) + (1 if dh is not None else 0)
+            if scored_here:
+                cluster_by_ticker[_norm(tkr)] = cluster_by_ticker.get(_norm(tkr), 0) + scored_here
 
         rel = _review_rel(priced_rev)  # returns from the latest PRICED review (tracking-price-aware)
-        if rel is not None:
+        if rel is not None and not provisional:
             # cohort_returns is a POSITION return (positive = the paper position made money). For a Short,
             # the position P&L is the INVERSE of the underlying's benchmark-relative move (a name that
             # underperformed made the short money), so invert before aggregating — otherwise a profitable
@@ -749,6 +779,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         inventory.append({
             "ticker": tkr, "run": _run_date(run_root), "run_root": run_root,
             "decision": rec.get("decision"), "basket": basket,
+            "integrity_status": integrity.get("status"),  # verified / provisional / unaudited — see ledger_records.py
             "confidence_score": conf, "confidence_field_used": conf_field,
             "data_sufficiency_score": rec.get("data_sufficiency_score"),
             "thesis_type": rec.get("thesis_type"),
@@ -780,6 +811,15 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
             "min_directional_hits_for_hit_rate": MIN_DIRECTIONAL_HITS,
         },
         "inventory": inventory,
+        "excluded_provisional": {
+            "n": len(excluded_provisional),
+            "runs": excluded_provisional,
+            "reason": ("verify-evidence found the run's citations/math/anchors NOT Clean/Minor, or the "
+                       "/research:full finish-gate stamped final_thesis.md PROVISIONAL — excluded from "
+                       "every skill-scoring number below (Brier, hit rate, cohort returns, e-value, "
+                       "months-to-significance) so an unverified run's outcome cannot inflate or deflate "
+                       "the engine's own calibration read; still counted in `inventory` (CLAUDE.md §11)."),
+        },
         "basket_distribution": basket_dist,
         "cohort_returns": {},
         "hit_rate": None,
@@ -908,7 +948,10 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         f"N={n_decisions} decisions; {n_reviews} reviews filed; {n_resolved} forecasts resolved; "
         f"{n_directional} directional calls resolved. Floors: Brier ≥{MIN_RESOLVED_FORECASTS} resolved, "
         f"cohort ≥{MIN_REVIEWED_PER_BASKET}/basket, hit rate ≥{MIN_DIRECTIONAL_HITS} directional. "
-        f"Anything below its floor is withheld, not estimated (CLAUDE.md §11)."
+        f"Anything below its floor is withheld, not estimated (CLAUDE.md §11). "
+        f"{out['excluded_provisional']['n']} run(s) excluded from the above as truth-integrity "
+        f"'provisional' (unverified or flagged) — see excluded_provisional; an 'unaudited' run "
+        f"(verify-evidence never ran) is NOT excluded."
     )
     out["honesty_statement"] = _honesty(out)
     out["verdict"] = _verdict(out)

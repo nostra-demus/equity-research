@@ -109,8 +109,14 @@ for _e in load_standing_records():
                or next((t for t in timeline if t["status"] == "due"), None)
                or next((t for t in timeline if t["status"] == "upcoming"), None))
     implied = round(entry * (1 + exp / 100.0), 2) if isinstance(entry, (int, float)) and isinstance(exp, (int, float)) else None
+    integrity = _e.get("integrity") or {}
     calls.append({
         "ticker": d.get("ticker"), "company": d.get("company_name"), "decision_date": d.get("decision_date"),
+        # truth-integrity status (ledger_records.resolve_integrity_status): "verified" (verify-evidence
+        # Clean/Minor, no finish-gate banner), "provisional" (flagged — resolve before trusting this call),
+        # "unaudited" (verify-evidence never ran; not itself a defect). A human scanning the dashboard must
+        # be able to see a PROVISIONAL call is not the same as a verified one (CLAUDE.md §1 — no false confidence).
+        "integrity_status": integrity.get("status"), "integrity_verdict": integrity.get("verdict"),
         # the standing call the engine actually holds: a terminal pre-mortem caps a Selected/Strong-Buy run
         # to Watchlist (full.md fix F28b), recorded additively as post_mortem_*. Show the capped call so the
         # tracker can't display "Strong Buy" next to a broken thesis; flag it when it differs from the original.
@@ -148,21 +154,30 @@ H = [f"# Calls Tracker — {today}\n",
      "stays in each run's `decision_record.json` and `final_thesis.md`. Live updates: "
      "`/research:review-decisions <ticker> ad-hoc`.\n",
      f"- Generated: {today}  ·  Scope: {SCOPE}  ·  Calls: {len(calls)}\n"
-     f"- `*` on a confidence score = post-red-team (pre-mortem haircut applied; fix F28)\n",
+     f"- `*` on a confidence score = post-red-team (pre-mortem haircut applied; fix F28)\n"
+     f"- `⚠ UNVERIFIED` on Verdict = truth-integrity provisional (verify-evidence found the run's citations/"
+     f"math/anchors not Clean/Minor, or the finish-gate stamped it PROVISIONAL) — resolve before trusting "
+     f"this call's numbers. Provisional calls: {sum(1 for c in calls if c.get('integrity_status') == 'provisional')}\n",
      "## All calls\n",
      "| Company | Ticker | Called | Verdict | Horizon | Latest status | Next checkpoint |",
      "| --- | --- | --- | --- | --- | --- | --- |"]
 for c in calls:
     nc = c["next_checkpoint"]
     nxt = "—" if not nc else f'{nc["window"]} ({nc["status"]} {cell(nc["due_date"])})'
-    H.append(f'| {cell(c["company"])} | {c["ticker"]} | {cell(c["decision_date"])} | {cell(c["decision"])} | '
+    verdict_cell = cell(c["decision"]) + (" ⚠ UNVERIFIED" if c.get("integrity_status") == "provisional" else "")
+    H.append(f'| {cell(c["company"])} | {c["ticker"]} | {cell(c["decision_date"])} | {verdict_cell} | '
              f'{cell(c["time_horizon"])} | {cell(c["latest_thesis_status"])} | {nxt} |')
 parts = ["\n".join(H)]
 for c in calls:
     cur = (c.get("currency") or "").strip()
     tgt = "—" if c["implied_target"] is None else f'{cur} {c["implied_target"]}'
+    integrity_line = (f'- ⚠ **UNVERIFIED** — truth-integrity status: provisional'
+                       f'{" (verify-evidence verdict: " + cell(c["integrity_verdict"]) + ")" if c.get("integrity_verdict") else ""}. '
+                       f'Resolve via `/research:verify-evidence {c["ticker"]}` before trusting this call.\n'
+                       if c.get("integrity_status") == "provisional" else '')
     parts.append(
         f'\n\n---\n\n## {cell(c["company"])} ({c["ticker"]}) — {cell(c["decision"])}\n\n'
+        f'{integrity_line}'
         f'- Called **{cell(c["decision_date"])}**  ·  basket {cell(c["basket"])}  ·  '
         f'confidence {cell(c["confidence"])}/100{"*" if c.get("confidence_is_post_review") else ""}  ·  horizon {cell(c["time_horizon"])}\n'
         f'- The call as given: entry {cur} {cell(c["entry_price"])}  ·  expected return {ret(c["expected_return_pct"])} '
