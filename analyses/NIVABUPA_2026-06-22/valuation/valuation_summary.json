@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.3",
   "ticker": "NIVABUPA",
   "as_of": "2026-06-22",
   "currency": "INR",
@@ -15,33 +15,66 @@
   "scenarios": [
     {
       "label": "bull",
-      "forward_metric": null,
-      "multiple": null,
+      "forward_metric": 1.98,
+      "metric_basis": "FY26 EPS (reported, INR per share)",
+      "multiple": 22.2,
+      "multiple_basis": "P/E on FY26 EPS",
+      "multiple_kind": "implied",
+      "basis": "equity",
+      "secondary_multiples": [
+        {
+          "value": 2.27,
+          "basis": "P/BV on BV/share INR 19.39",
+          "note": "quoted alongside the P/E for the same value; a different denominator, so a cross-check only"
+        }
+      ],
       "level": 43.98,
-      "drivers": "RI: Ke -1pp, ROE reaches 15.5%; peer re-rates to full SAHI median (no quality discount); GWP growth >=25%"
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied P/E' and 'Implied P/BV' columns); FY26 EPS (reported) INR 1.98 and BV/share INR 19.39 per that report's anchor block"
     },
     {
       "label": "base",
-      "forward_metric": null,
-      "multiple": null,
-      "level": 36.70,
-      "drivers": "Mechanical blend, adopted with NO discount: 0.70x19.94 (RI/excess-return, primary for a Financial issuer) + 0.30x75.80 (quality-adjusted P/E peers) = 36.70"
+      "forward_metric": 1.98,
+      "metric_basis": "FY26 EPS (reported, INR per share)",
+      "multiple": 18.5,
+      "multiple_basis": "P/E on FY26 EPS",
+      "multiple_kind": "implied",
+      "basis": "equity",
+      "secondary_multiples": [
+        {
+          "value": 1.89,
+          "basis": "P/BV on BV/share INR 19.39",
+          "note": "quoted alongside the P/E for the same value; a different denominator, so a cross-check only"
+        }
+      ],
+      "level": 36.7,
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied P/E' and 'Implied P/BV' columns); FY26 EPS (reported) INR 1.98 and BV/share INR 19.39 per that report's anchor block"
     },
     {
       "label": "bear",
-      "forward_metric": null,
-      "multiple": null,
+      "forward_metric": 1.98,
+      "metric_basis": "FY26 EPS (reported, INR per share)",
+      "multiple": 8.3,
+      "multiple_basis": "P/E on FY26 EPS",
+      "multiple_kind": "implied",
+      "basis": "equity",
+      "secondary_multiples": [
+        {
+          "value": 0.85,
+          "basis": "P/BV on BV/share INR 19.39",
+          "note": "quoted alongside the P/E for the same value; a different denominator, so a cross-check only"
+        }
+      ],
       "level": 16.51,
-      "drivers": "RI: Ke +1pp, ROE peaks 12% (never exceeds Ke); peer at 1.0x P/TBV; encompasses the INR 16.12 structural-reset avoid-ruin floor"
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied P/E' and 'Implied P/BV' columns); FY26 EPS (reported) INR 1.98 and BV/share INR 19.39 per that report's anchor block"
     }
   ],
   "methods": {
-    "peers": 75.80,
+    "peers": 75.8,
     "ri_model": 19.94
   },
   "method_weights": {
-    "peers": 0.30,
-    "ri_model": 0.70
+    "peers": 0.3,
+    "ri_model": 0.7
   },
   "discount_rate": {
     "rf": 0.0685,
