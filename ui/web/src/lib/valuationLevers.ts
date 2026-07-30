@@ -390,6 +390,12 @@ export interface DraftScenario {
   multipleKind?: 'implied' | 'applied' | null
   secondaryMultiples?: { value: number; basis: string; note?: string | null }[]
   source?: string | null
+  // v1.3: the user has EXPLICITLY typed into this case's forward-metric or multiple field. A scenario
+  // can carry BOTH a v1.2 derivation chain (`chain`) and v1.3 metric×multiple tuple at once (the schema's
+  // own emission instructions keep the chain, classifying its implied multiple as `multiple_kind:
+  // 'implied'`) — editing the multiple is that schema's own "explicit reverse assertion", so it must
+  // DETACH the chain rather than being silently ignored underneath it (Codex #362 P1).
+  multipleEdited?: boolean
 }
 
 export interface DraftChain {
@@ -520,12 +526,22 @@ export interface RecomputeResult {
 }
 
 export function levelForScenario(s: DraftScenario, d: PlaygroundDraft): number | null {
-  // Precedence: an EXPLICIT unlock-override wins; then the recorded chain (v1.2 — it reproduces the frozen
-  // level and makes its figures the levers); then the frozen/typed level; then metric×multiple. A chain-less
+  // Precedence: an EXPLICIT unlock-override wins; then — UNLESS the user has explicitly typed into the
+  // multiple/metric fields (multipleEdited) — the recorded chain (v1.2, it reproduces the frozen level
+  // and makes its figures the levers); then the frozen/typed level; then metric×multiple. A chain-less
   // scenario behaves exactly as before (levelOverride first), so older drafts and runs are unchanged.
+  //
+  // A v1.3 scenario can carry BOTH a chain and a metric×multiple tuple (the emission instructions keep
+  // the chain and record the tuple's multiple as `multiple_kind: 'implied'` — its own definition of "the
+  // value came from this case's machinery, stated as a cross-check"). Returning the chain value
+  // unconditionally made editing the multiple/metric a silent no-op: the analyst types a number, the
+  // Worth cell and every return downstream do not move (Codex #362 P1). Typing over the multiple/metric
+  // is the schema's own "explicit reverse assertion" — it must detach the chain, not be ignored beneath it.
   if (s.overrideUnlocked && isNum(s.levelOverride)) return s.levelOverride
-  const c = chainLevel(s.chain, d.shares)
-  if (c !== null) return c
+  if (!s.multipleEdited) {
+    const c = chainLevel(s.chain, d.shares)
+    if (c !== null) return c
+  }
   if (isNum(s.levelOverride)) return s.levelOverride
   if (isNum(s.forwardMetric) && isNum(s.multiple)) {
     // v1.3: the CASE's own basis and bridge govern (Codex #362 P1 r3672...). Falling back to the run-level
@@ -587,7 +603,22 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
   const checks: { wacc?: CheckResult; symmetry?: CheckResult } = {}
   if (isNum(d.wacc) || isNum(ke) || isNum(d.afterTaxKd)) checks.wacc = checkWacc(d.afterTaxKd, d.wacc, ke, d.rf, d.erp, d.isMega)
   const mult = (name: string) => d.scenarios.find((s) => (s.label || '').toLowerCase().includes(name))?.multiple
-  if (isNum(mult('bull')) || isNum(mult('base')) || isNum(mult('bear'))) checks.symmetry = checkMultipleSymmetry(mult('bull'), mult('base'), mult('bear'))
+  // The symmetry check ("bull expands, bear compresses") only means anything when bull/base/bear are
+  // priced on the SAME yardstick. A mixed-method set — an equity P/E bear beside an EV/EBITDA base — makes
+  // the raw multiples incomparable: a 7x P/E bear next to a 6x EV/EBITDA base is not "the bear failed to
+  // compress", it is two different multiples (Codex #362 P2). Gate on multipleBasis (the named yardstick)
+  // when recorded, falling back to the case's own basis (equity/ev) — only run the check when every
+  // scenario that HAS a multiple shares the same key.
+  const comparableKey = (name: string): string | null => {
+    const s = d.scenarios.find((sc) => (sc.label || '').toLowerCase().includes(name))
+    if (!s || !isNum(s.multiple)) return null
+    return typeof s.multipleBasis === 'string' && s.multipleBasis.trim() ? s.multipleBasis.trim().toLowerCase() : (s.basis ?? d.basis)
+  }
+  const keys = (['bull', 'base', 'bear'] as const).map(comparableKey).filter((k): k is string => k !== null)
+  const comparableBases = new Set(keys).size <= 1
+  if (comparableBases && (isNum(mult('bull')) || isNum(mult('base')) || isNum(mult('bear')))) {
+    checks.symmetry = checkMultipleSymmetry(mult('bull'), mult('base'), mult('bear'))
+  }
   const warnings = [...math.warnings, ...(checks.wacc?.problems ?? []), ...(checks.symmetry?.problems ?? [])]
   if (methodInternals.dcf?.outOfGrid) warnings.push("DCF WACC/growth is outside the orb's recorded grid — extrapolated, not validated")
   if (methodInternals.peers?.outOfAnchors) warnings.push("peers multiple is outside the orb's recorded implied-value rows — extrapolated, not validated")
@@ -645,7 +676,13 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
         metricBasis: s.metric_basis ?? null,
         multipleBasis: s.multiple_basis ?? null,
         multipleKind: s.multiple_kind === 'implied' || s.multiple_kind === 'applied' ? s.multiple_kind : null,
-        secondaryMultiples: (s.secondary_multiples ?? []).filter((x) => x && isNum(x.value) && typeof x.basis === 'string'),
+        // The server returns the parsed sidecar WITHOUT applying the JSON Schema, so an unvalidated or
+        // partially-generated sidecar can carry a non-array secondary_multiples (e.g. an object) — `?? []`
+        // does not catch that (a truthy non-null object passes through), and `.filter()` on it throws when
+        // the Playground opens. Guard with Array.isArray and degrade malformed cross-checks to [] (Codex
+        // #362 P2).
+        secondaryMultiples: (Array.isArray(s.secondary_multiples) ? s.secondary_multiples : [])
+          .filter((x) => x && isNum(x.value) && typeof x.basis === 'string'),
         source: s.source ?? null,
       })),
     }

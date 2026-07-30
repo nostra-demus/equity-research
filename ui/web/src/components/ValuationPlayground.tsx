@@ -93,7 +93,7 @@ const plainWarning = (w: string): string | null => {
   return null
 }
 
-function Field({ label, value, onChange, step = 'any', title, hint }: { label: string; value: number | null; onChange: (n: number | null) => void; step?: string; title?: string; hint?: string }) {
+function Field({ label, value, onChange, step = 'any', title, hint, disabled }: { label: string; value: number | null; onChange: (n: number | null) => void; step?: string; title?: string; hint?: string; disabled?: boolean }) {
   const [local, setLocal] = useState<string>(numToStr(value))
   useEffect(() => { if (parseNum(local) !== value) setLocal(numToStr(value)) }, [value]) // eslint-disable-line react-hooks/exhaustive-deps
   return (
@@ -104,6 +104,7 @@ function Field({ label, value, onChange, step = 'any', title, hint }: { label: s
         inputMode="decimal"
         step={step}
         value={local}
+        disabled={disabled}
         onChange={(e) => { setLocal(e.target.value); onChange(parseNum(e.target.value)) }}
       />
     </label>
@@ -303,6 +304,14 @@ export function ValuationPlayground() {
         // downsideRiskPct is INVERTED (higher = worse). Flip it back to a plain return so the chip reads
         // like every other return on the panel; the full table below keeps the inverted row, labelled.
         const worstReturn = typeof out.math.downsideRiskPct === 'number' ? +(-out.math.downsideRiskPct).toFixed(1) : null
+        // v1.3: when EVERY ev-basis case that derives a level supplies its OWN bridge, the top-level
+        // Net debt / Shares fields shadow nothing — recompute always reads `s.bridge`, never the top-level
+        // override, for those cases. Leaving the fields editable with no effect is a silent no-op (Codex
+        // #362 P2); disable them and say why instead. A run where only SOME ev cases carry a bridge (the
+        // guard rejects that shape as double-counting, §15) still uses the top-level fields for the rest,
+        // so this only fires once every case that matters is shadowed.
+        const evCasesWithLever = draft.scenarios.filter((s) => (s.basis ?? draft.basis) === 'ev' && Number.isFinite(s.forwardMetric as number) && Number.isFinite(s.multiple as number))
+        const allEvBridged = evCasesWithLever.length > 0 && evCasesWithLever.every((s) => !!s.bridge)
         return (
         <div className="vpg__body">
           {/* ---- THE ANSWER — pinned, so it never scrolls away from the lever you are moving ---- */}
@@ -393,8 +402,20 @@ export function ValuationPlayground() {
                 onChange={(n) => setTop({ price: n })}
                 title="Re-anchor every return to a fresh price — what the company is worth doesn't move, only your return does."
               />
-              {draft.basis === 'ev' && <Field label="Shares" hint="fully diluted" value={draft.shares} onChange={(n) => setTop({ shares: n })} />}
-              {draft.basis === 'ev' && <Field label="Net debt" hint="+ debt / − cash" value={draft.netDebt} onChange={(n) => setTop({ netDebt: n })} />}
+              {draft.basis === 'ev' && (
+                <Field
+                  label="Shares" hint={allEvBridged ? 'set per case below' : 'fully diluted'}
+                  value={draft.shares} onChange={(n) => setTop({ shares: n })} disabled={allEvBridged}
+                  title={allEvBridged ? "Every case here supplies its own share count — this field has no effect on any of them. Open a case's ƒ to change its own." : undefined}
+                />
+              )}
+              {draft.basis === 'ev' && (
+                <Field
+                  label="Net debt" hint={allEvBridged ? 'set per case below' : '+ debt / − cash'}
+                  value={draft.netDebt} onChange={(n) => setTop({ netDebt: n })} disabled={allEvBridged}
+                  title={allEvBridged ? "Every case here supplies its own debt figure — this field has no effect on any of them. Open a case's ƒ to change its own." : undefined}
+                />
+              )}
             </div>
             <div className="vpg__note">
               Change the price and only the returns move — what the company is worth stays put.
@@ -402,6 +423,7 @@ export function ValuationPlayground() {
                 ? ' Values are built from the whole company (EBITDA × a multiple), then debt is subtracted to get to the shares.'
                 : ' Values are built per share (earnings × a multiple).'}
               {res?.levers?.currency ? ` Figures in ${res.levers.currency}.` : ''}
+              {allEvBridged ? ' Each case below supplies its own debt and share count, so the fields above are shown for reference only.' : ''}
             </div>
           </div>
 
@@ -412,14 +434,19 @@ export function ValuationPlayground() {
               <div className="vpg__scenhead">
                 <span>Case</span>
                 <span>Chance</span>
-                {hasEditableMultiples ? (<><span>Per share</span><span>× multiple</span><span>Worth</span></>) : <span>Worth</span>}
+                {/* generic column names — a row can be a per-share metric OR a total (EBITDA, say); its own
+                    caption underneath the input, not this header, names which (Codex #362 P2) */}
+                {hasEditableMultiples ? (<><span>Metric</span><span>× multiple</span><span>Worth</span></>) : <span>Worth</span>}
                 <span>Return</span>
               </div>
               {draft.scenarios.map((s, i) => {
                 const row = out.scenarios[i]
                 const ret = out.math.perScenario.find((x) => x.label === s.label)?.return_pct ?? null
                 const isBase = (s.label || '').toLowerCase().includes('base')
-                const cv = chainLevel(s.chain, draft.shares)
+                // An explicit edit to the multiple/metric DETACHES the chain (Codex #362 P1) — once
+                // detached, the chain no longer drives this cell's classification either, or the trace
+                // strip below would keep showing the stale chain as if it were still the answer.
+                const cv = s.multipleEdited ? null : chainLevel(s.chain, draft.shares)
                 const cs = scenarioCellState(s, isBase, draft.published?.blend.basePoint ?? null, out.blend.basePoint, out.blendActive, cv)
                 const traceId = `scen:${i}`
                 // per-ROW lever choice: metric×multiple inputs only where the row records them — a chain or
@@ -438,8 +465,26 @@ export function ValuationPlayground() {
                       <TableInput value={s.probability} onChange={(n) => setScen(i, { probability: n })} ariaLabel={`${s.label} chance`} title="How likely you think this case is, in %" />
                       {rowHasMult ? (
                         <>
-                          <TableInput value={s.forwardMetric} onChange={(n) => setScen(i, { forwardMetric: n })} ariaLabel={`${s.label} per-share figure`} />
-                          <TableInput value={s.multiple} onChange={(n) => setScen(i, { multiple: n })} ariaLabel={`${s.label} multiple`} />
+                          {/* Render the recorded basis alongside each input — "28,889" alone reads as a
+                              per-share figure even when it is total EBITDA; the named basis says which
+                              (Codex #362 P2). Editing either field is an explicit reverse assertion against
+                              a recorded chain (multipleEdited), per the schema's own contract for
+                              multiple_kind: 'implied'. */}
+                          <span className="vpg__scenmetricwrap">
+                            <TableInput value={s.forwardMetric} onChange={(n) => setScen(i, { forwardMetric: n, multipleEdited: true })} ariaLabel={`${s.label} per-share figure`} title={s.metricBasis ?? undefined} />
+                            {s.metricBasis && <span className="vpg__scenbasis">{s.metricBasis}</span>}
+                          </span>
+                          <span className="vpg__scenmetricwrap">
+                            <span className="vpg__scenmetricrow">
+                              <TableInput value={s.multiple} onChange={(n) => setScen(i, { multiple: n, multipleEdited: true })} ariaLabel={`${s.label} multiple`} title={s.multipleBasis ?? undefined} />
+                              {/* re-attach: a chain-backed tuple that has been typed over can snap back to
+                                  the recorded chain — the same ↺ convention as the runoff-model detach above. */}
+                              {s.chain && s.multipleEdited && (
+                                <button className="vpg__relock" title="Put back the run's own worked-out figure" onClick={() => setScen(i, { multipleEdited: false })}>↺</button>
+                              )}
+                            </span>
+                            {s.multipleBasis && <span className="vpg__scenbasis">{s.multipleBasis}</span>}
+                          </span>
                         </>
                       ) : cs.kind === 'overridden' ? (
                         <span className="vpg__cellov" style={span2}>
@@ -458,10 +503,21 @@ export function ValuationPlayground() {
                           {fmtN(row?.level, 2)}
                         </button>
                       )}
-                      {hasEditableMultiples && <span className="vpg__scenlevel mono">{fmtN(row?.level, 2)}</span>}
+                      {hasEditableMultiples && (
+                        // A tuple row (rowHasMult) had NO way to open its trace before — the arithmetic
+                        // (incl. any per-case bridge) was reachable only through the non-mult button branch
+                        // above (Codex #362 P2). Make the Worth figure itself the trace toggle for these rows.
+                        rowHasMult ? (
+                          <button className="vpg__scenlevel vpg__scenlevel--btn mono" onClick={() => toggleTrace(traceId)} aria-expanded={openTrace === traceId} title="Show how this is worked out">
+                            {fmtN(row?.level, 2)}
+                          </button>
+                        ) : (
+                          <span className="vpg__scenlevel mono">{fmtN(row?.level, 2)}</span>
+                        )
+                      )}
                       <span className="vpg__scenret mono" style={{ color: tone(ret) }}>{fmtPct(ret)}</span>
                     </div>
-                    {openTrace === traceId && !rowHasMult && cs.kind !== 'overridden' && (
+                    {openTrace === traceId && cs.kind !== 'overridden' && (
                       cs.kind === 'derived_chain' && s.chain ? (
                         <ChainStrip
                           s={s} chain={s.chain} level={cv} fallbackShares={draft.shares}
