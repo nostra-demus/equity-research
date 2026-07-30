@@ -160,6 +160,12 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
         # A case may declare its OWN basis: EMAAR's base reads on EV/EBITDA while its bear reads 0.96x on
         # BOOK. Treating an equity multiple as an EV one and bridging it is not a rounding error — it turns
         # 9.75 into −2.82. Falls back to the run basis.
+        # A MISSPELLED basis ("EV", "Equity") must not fall through to the run-level one: the guard and the
+        # browser would both silently apply the wrong arithmetic, and scan_committed never applies the JSON
+        # Schema enum that would have caught it (Codex #364 P2). Absent is fine — that IS the fallback.
+        if "basis" in s and s.get("basis") is not None and s.get("basis") not in ("equity", "ev"):
+            det.append(f"scenario {s.get('label')!r} basis {s.get('basis')!r} is not 'equity' or 'ev' — a "
+                       f"misspelled basis would silently fall back to the run's and price the case wrong")
         s_basis = s.get("basis") if s.get("basis") in ("equity", "ev") else basis
         if br is not None and s_basis != "ev":
             det.append(f"scenario {s.get('label')!r} records a `bridge` on an equity-basis case — an equity "
@@ -707,6 +713,17 @@ def _selftest() -> int:
           any("no §5 source" in v for v in eval_ap_valuation_summary_integrity(no_src, None)))
     check("pre-1.3 half pairs stay grandfathered",
           eval_ap_valuation_summary_integrity(dict(old, scenarios=[{"label": "bull", "multiple": 8.21, "level": 107.7}]), None) == [])
+
+    # ---- a misspelled per-case basis is REJECTED, never silently fallen back to the run's
+    for bad_b in ("EV", "Equity", "eq", 7):
+        bout = eval_ap_valuation_summary_integrity(
+            dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, basis=bad_b), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)]), None)
+        check(f"scenario basis {bad_b!r} rejected", any("is not 'equity' or 'ev'" in v for v in bout))
+    check("an ABSENT per-case basis still falls back to the run's (that is the contract)",
+          eval_ap_valuation_summary_integrity(dict(v13, basis="ev", scenarios=[
+              {k: v for k, v in _nhy("bull", 8.21, 107.7).items() if k != "basis"},
+              {k: v for k, v in _nhy("base", 6.45, 81.83).items() if k != "basis"},
+              {k: v for k, v in _nhy("bear", 3.95, 45.12).items() if k != "basis"}]), None) == [])
 
     # ---- an unparseable schema_version is REJECTED, never read as pre-1.3 (a typo would switch the gate off)
     for bad_ver in ("v1.3", "1.3-beta", "garbage", ""):
