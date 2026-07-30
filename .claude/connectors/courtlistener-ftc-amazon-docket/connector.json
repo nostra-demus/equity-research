@@ -6,7 +6,7 @@
   "provider": "CourtListener",
   "acquisition": "free_key_api",
   "source_type": "paid_api",
-  "tier": 9,
+  "tier": 5,
   "license": "public_domain (US federal court record); accessed via CourtListener API under its Terms of Use",
   "host_allowlist": ["www.courtlistener.com"],
   "cadence": "event_driven",
@@ -21,7 +21,8 @@
     "case_name": "string",
     "docket_number": "string",
     "court": "string",
-    "entries_count": "int",
+    "entries_returned": "int (entries in THIS payload — a single page, max 20; NOT the docket's total)",
+    "docket_url": "string (human-openable docket page, for citation)",
     "latest_entries": [
       {
         "entry_number": "int|null",

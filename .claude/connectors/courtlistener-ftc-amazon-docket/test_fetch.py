@@ -6,9 +6,13 @@ token precondition) is proven by `fetch.py --verify` at merge time. Run: python3
 """
 from __future__ import annotations
 
+import contextlib
 import importlib.util
+import io
 import json
 import os
+import subprocess
+import sys
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _spec = importlib.util.spec_from_file_location("courtlistener_fetch", os.path.join(_HERE, "fetch.py"))
@@ -37,7 +41,10 @@ REC_OLDER = {
     "description": "ORDER on Application for Leave to Appear Pro Hac Vice.",
     "recap_documents": [],
 }
-RESP = {"count": 2, "next": None, "previous": None, "results": [REC_OLDER, REC_NEWEST]}
+# Newest-first, because that is what `order_by=-date_filed` promises and what the fetcher now REQUIRES.
+# (`count` is never read by the fetcher; v4 documents it as a key carrying a URL to obtain the total, so the
+# int here is illustrative only — do not "improve" entries_returned by reading data["count"] as a number.)
+RESP = {"count": 2, "next": None, "previous": None, "results": [REC_NEWEST, REC_OLDER]}
 
 _fails = 0
 
@@ -55,11 +62,46 @@ check("entries sorted newest-first", entries[0]["date_filed"] == "2025-11-13" an
 check("entry_number carried through (including None for unnumbered minute orders)",
       entries[0]["entry_number"] == 555 and entries[1]["entry_number"] is None)
 check("recap_documents_count computed", entries[0]["recap_documents_count"] == 1 and entries[1]["recap_documents_count"] == 0)
-check("URL-shaped and plain-int docket ids both resolve", payload["entries_count"] == 2)
+check("URL-shaped and plain-int docket ids both resolve", len(entries) == 2)
 check("docket identity constants present", payload["docket_id"] == 67828404 and payload["docket_number"] == "2:23-cv-01495")
-check("sidecar tier 9 + paid_api + connector_id",
-      sidecar["tier"] == 9 and sidecar["source_type"] == "paid_api"
+check("sidecar tier 5 + paid_api + connector_id",
+      sidecar["tier"] == 5 and sidecar["source_type"] == "paid_api"
       and sidecar["connector_id"] == "courtlistener-ftc-amazon-docket")
+
+# The count is PAGE-scoped and must be named so. `entries_count` read as the docket's size, but we fetch one
+# page of <= MAX_ENTRIES: this docket is past entry 555, so a field promising a docket count while reporting
+# 20 would be a false fact (§5). The old assertion (== 2 on a 2-record fixture) was true under BOTH meanings
+# and so could never have caught it — hence a fixture bigger than a page here.
+check("the payload's count is page-scoped and named for it (no `entries_count`)",
+      payload["entries_returned"] == 2 and "entries_count" not in payload)
+_BIG = {"count": 999, "next": "https://www.courtlistener.com/api/rest/v4/docket-entries/?cursor=x",
+        "results": [dict(REC_NEWEST, id=900000 + i, entry_number=600 - i,
+                         date_filed=f"2025-12-{31 - i:02d}") for i in range(mod.MAX_ENTRIES + 5)]}
+_, _big_entries, _big_payload, _big_sidecar = mod.build(_BIG)
+check("a full page is capped at MAX_ENTRIES and the count reports what was RETURNED, not the docket total",
+      len(_big_entries) == mod.MAX_ENTRIES and _big_payload["entries_returned"] == mod.MAX_ENTRIES)
+check("the sidecar note says 'most-recent', never implying it is the whole docket",
+      "most-recent docket entries" in _big_sidecar["note"] and "999" not in _big_sidecar["note"])
+
+# §5 citation: source_url is a token-gated API URL that 401s for a human, so a human-openable docket URL
+# must travel with the data.
+check("a human-openable docket_url is carried in payload and sidecar",
+      payload["docket_url"] == f"https://{mod.HOST}/docket/67828404/federal-trade-commission-v-amazoncom-inc/"
+      and sidecar["docket_url"] == payload["docket_url"])
+check("source_url is retained as the API-pull provenance", "/api/rest/v4/docket-entries/" in payload["source_url"])
+
+# The ordering CONTRACT is verified, not silently repaired. If the API ignores `order_by=-date_filed` we may
+# be handed the OLDEST page; sorting it locally would publish it as `latest_entries` with a stale `as_of`,
+# and nothing downstream could tell — `staleness_sla_days` compares against that same derived `as_of`.
+_ASC = {"count": 2, "results": [REC_OLDER, REC_NEWEST]}   # oldest FIRST — what an ignored order_by looks like
+_raised = False
+try:
+    mod.build(_ASC)
+except RuntimeError as e:
+    _raised = "newest-first" in str(e)
+check("fail-closed when the API did NOT return newest-first (ordering contract unhonoured)", _raised)
+_TIE = {"count": 2, "results": [dict(REC_NEWEST, entry_number=556), dict(REC_NEWEST, entry_number=555)]}
+check("same-day entries do NOT trip the ordering guard (non-strict)", mod.build(_TIE)[0] == "2025-11-13")
 
 for bad, label in [
     ({"count": 0, "results": []}, "empty results"),
@@ -80,9 +122,40 @@ check("_docket_id_from parses a hyperlinked docket URL", mod._docket_id_from(REC
 check("_docket_id_from accepts a plain int docket id", mod._docket_id_from(REC_OLDER) == 67828404)
 check("_docket_id_from returns None on an unrecognized shape", mod._docket_id_from({"docket": None}) is None)
 
+# The CLI's subject guard is argument validation: it must refuse an off-manifest subject with no token
+# configured and without touching the network (so it is provable here, and in CI, where no token exists).
+_cli = subprocess.run([sys.executable, os.path.join(_HERE, "fetch.py"), "--subject", "TSLA"],
+                      capture_output=True, text=True, env={**os.environ, mod.TOKEN_ENV: ""},
+                      timeout=30)
+check("CLI refuses an off-manifest --subject before the token precondition, no network",
+      _cli.returncode == 2 and "not a subject of this connector" in _cli.stderr)
+check("...and the fetcher's SUBJECTS mirrors the manifest",
+      list(mod.SUBJECTS) == json.load(open(os.path.join(_HERE, "connector.json"), encoding="utf-8"))["subjects"])
+
+# A fetch/transform failure must be REPORTED, not raised at whoever reads the connector ledger. Nothing is
+# written either way — the fail-closed contract is the early return — but a traceback is not "instructions".
+_io_err, _rc = io.StringIO(), None
+mod_fetch_json, mod_load_token = mod.fetch_json, mod.load_token
+try:
+    mod.fetch_json = lambda *_a, **_k: (_ for _ in ()).throw(RuntimeError("shape changed underfoot"))
+    mod.load_token = lambda: "test-token-not-used"
+    with contextlib.redirect_stderr(_io_err):
+        _rc = mod.main()
+except BaseException as e:                       # a traceback escaping main() IS the defect
+    _rc = f"raised {type(e).__name__}"
+finally:
+    mod.fetch_json, mod.load_token = mod_fetch_json, mod_load_token
+check("a transform/fetch failure returns a non-zero code with the reason, never a traceback",
+      _rc == 3 and "shape changed underfoot" in _io_err.getvalue() and "Traceback" not in _io_err.getvalue())
+
 man = json.load(open(os.path.join(_HERE, "connector.json"), encoding="utf-8"))
 check("connector.json tier/source_type agree with the sidecar the fetcher writes",
-      man["tier"] == sidecar["tier"] == 9 and man["source_type"] == sidecar["source_type"] == "paid_api")
+      man["tier"] == sidecar["tier"] and man["source_type"] == sidecar["source_type"] == "paid_api")
+# Pin the tier to the band its source_type earns in frameworks/EXTERNAL_DATA.md ("vendor_export, paid_api →
+# 5"). The extract-time clamp only clamps DOWN, so an over-conservative tier is never corrected for us — a
+# drift back to 9 would quietly fold a primary US federal court record in below a rating-agency opinion.
+check("tier is the band paid_api earns (5), matching every sibling connector",
+      man["tier"] == sidecar["tier"] == 5)
 check("connector.json declares an exact-host allowlist containing the fetch host",
       isinstance(man.get("host_allowlist"), list) and mod.HOST in man["host_allowlist"])
 check("connector.json id matches directory name and subjects target AMZN",
