@@ -349,13 +349,16 @@ export function scenarioMath(
   const bear = bears.length ? bears.reduce((w, s) => (s.price_target < w.price_target ? s : w)) : undefined
   const havePrice = isNum(price) && price > 0
   const short = direction === 'short'
-  const perScenario: ScenarioRow[] = clean.map((s) => ({
-    label: s.label, probability: s.probability, price_target: s.price_target,
+  // the same returns UNROUNDED — a ratio must never be built from rounded percentages
+  const rawReturns: number[] = []
+  const perScenario: ScenarioRow[] = clean.map((s) => {
+    const frac = havePrice
+      ? (short ? (price as number) - s.price_target : s.price_target - (price as number)) / (price as number)
+      : null
+    if (frac !== null) rawReturns.push(frac)
     // POSITION-signed: a short gains when the price falls
-    return_pct: havePrice
-      ? pct((short ? (price as number) - s.price_target : s.price_target - (price as number)) / (price as number))
-      : null,
-  }))
+    return { label: s.label, probability: s.probability, price_target: s.price_target, return_pct: frac === null ? null : pct(frac) }
+  })
   const levels: Record<string, number> = {}
   clean.forEach((s) => { levels[(s.label || '').toLowerCase()] = s.price_target })
 
@@ -379,8 +382,12 @@ export function scenarioMath(
   // (pwt - price)/(price - bear) written direction-generally: for a long the price terms cancel and the two
   // are algebraically identical, and this form also holds for a short, whose adverse case is a squeeze
   // rather than the bear price. TSLA publishes 1.85 = 56.57/30.56; the long price formula gives -0.58.
-  out.riskReward = (isNum(out.expectedReturnPct) && isNum(out.downsideRiskPct) && Math.abs(out.downsideRiskPct) > 1e-9)
-    ? round(out.expectedReturnPct / out.downsideRiskPct, 2) : null
+  // Built from UNROUNDED fractions, rounded once at the end. Dividing the two rounded percentages instead
+  // moves AMZN's published -0.41 to -0.42, and lets a real adverse loss under 0.05% round to zero and turn
+  // a derivable ratio into null (Codex #366 P2). The percentage scaling cancels, so it is the same ratio.
+  const erFrac = pwt !== null ? (short ? p - pwt : pwt - p) / p : null
+  const drFrac = rawReturns.length ? -Math.min(...rawReturns) : null
+  out.riskReward = (erFrac !== null && drFrac !== null && Math.abs(drFrac) > 1e-12) ? round(erFrac / drFrac, 2) : null
   // the "is there a genuine adverse branch" check is direction-dependent (eval checks AM / AR)
   if (short) {
     const bull = findByLabel(clean, 'bull')
@@ -985,12 +992,12 @@ export function traceBlend(methods: MethodLever[], b: BlendResult, labelFor: (k:
 export function traceScenarioCell(
   s: DraftScenario, cs: ScenarioCellState, published: PlaygroundDraft['published'],
   labelFor: (k: string) => string = (k) => k,
-  // the run-level basis the case falls back to when it declares none of its own (mirrors levelForScenario's
-  // `s.basis ?? d.basis`) — an EV-basis case that OMITS its own `basis` still bridges correctly in the
-  // actual calculation, but before this fix the trace checked `s.basis === null` directly and silently
-  // dropped the bridge from the displayed arithmetic, so the formula shown did not produce the Worth beside
-  // it (Codex #365 P2, ui/web/src/lib/valuationLevers.ts:805).
-  runBasis: Basis = 'equity',
+  /** the run-level fallbacks the COMPUTATION uses. Without them the trace cannot tell that a case with no
+   *  per-case `basis` inherited an 'ev' run basis (Codex #365 P2, ui/web/src/lib/valuationLevers.ts:805) —
+   *  and would print bare metric × multiple beside a level that was bridged — nor that a bridge with no
+   *  `shares` falls back to the top-level count, nor that a case with NO bridge at all still bridges off
+   *  the run-level net debt (Codex #366). */
+  ctx?: { basis?: Basis | null; shares?: number | null; netDebt?: number | null },
 ): Trace {
   const src = s.drivers ? `run-recorded drivers: ${s.drivers}` : null
   if (cs.kind === 'derived_chain' && s.chain) {
@@ -1019,13 +1026,22 @@ export function traceScenarioCell(
     // when the case's own bridge makes it 107.75 — a formula that contradicts the number beside it.
     const mb = s.multipleBasis ? ` (${s.multipleBasis})` : ''
     let formula = `${s.metricBasis ?? 'forward metric'} ${fmt(s.forwardMetric)} × multiple ${fmt(s.multiple)}${mb}`
-    const effBasis = s.basis ?? runBasis
-    const br = effBasis === 'ev' && s.bridge ? s.bridge : null
+    // the EFFECTIVE basis — the same resolution caseLevelFromMultiple performs
+    const effBasis = s.basis ?? ctx?.basis ?? null
+    // A case with NO per-case bridge still bridges off the RUN-LEVEL net debt/shares when the effective
+    // basis is 'ev' (caseLevelFromMultiple falls back to levelFromMultiple(metric, multiple, basis, shares,
+    // netDebt) in exactly this shape) — so the trace must show that subtraction too, not just cases that
+    // record their own bridge. Showing bare "metric × multiple" here would contradict the level beside it,
+    // which DOES subtract the run-level net debt (Codex #366 P2, item 6).
+    const br = effBasis === 'ev'
+      ? (s.bridge ?? (isNum(ctx?.netDebt) ? ({ net_debt: ctx!.netDebt as number } as CaseBridge) : null))
+      : null
     if (br) {
       const parts = [`− net debt ${fmt(br.net_debt, 0)}${br.net_debt_basis ? ` (${br.net_debt_basis})` : ''}`]
       if (isNum(br.minority)) parts.push(`− minority ${fmt(br.minority, 0)}`)
       if (isNum(br.other) && br.other !== 0) parts.push(`+ other ${fmt(br.other, 0)}`)
-      formula = `(${formula} ${parts.join(' ')}) ÷ shares ${fmt(isNum(br.shares) ? br.shares : null, 2)}`
+      const sh = isNum(br.shares) ? br.shares : (isNum(ctx?.shares) ? (ctx!.shares as number) : null)
+      formula = `(${formula} ${parts.join(' ')}) ÷ shares ${fmt(sh, 2)}`
     }
     const terms = (s.secondaryMultiples ?? []).map((x) => ({ label: x.basis, calc: `${fmt(x.value)}×${x.note ? ` · ${x.note}` : ''}` }))
     // The scenario `source` cites only the forward metric/multiple (schema contract) — a per-case bridge's
@@ -1089,7 +1105,7 @@ export function traceScenarioCell(
   }
 }
 
-export function traceOutput(metric: 'expected' | 'mos' | 'downside' | 'rr' | 'pwt', math: ScenarioMath): Trace | null {
+export function traceOutput(metric: 'expected' | 'mos' | 'downside' | 'rr' | 'pwt', math: ScenarioMath, direction: PositionDirection = 'long'): Trace | null {
   const p = math.price
   const pwt = math.probWeightedTarget
   const base = math.levels['base'] ?? null
@@ -1102,11 +1118,32 @@ export function traceOutput(metric: 'expected' | 'mos' | 'downside' | 'rr' | 'pw
     }
   }
   if (!isNum(p)) return null
+  // A trace has one job: state the arithmetic that produced the number beside it. On a SHORT the return is
+  // position-signed, so printing the long formula puts an equation of the opposite sign next to a +56.57%
+  // (Codex #366 P2).
+  const short = direction === 'short'
   if (metric === 'expected' && isNum(pwt)) {
-    return { title: 'Expected return', formula: `(prob-weighted target ${fmt(pwt)} − price ${fmt(p)}) / ${fmt(p)} = ${fmt(math.expectedReturnPct, 1)}%`, terms: [], note: 'the probability-weighted gain or loss across the scenarios (§10)' }
+    return {
+      title: 'Expected return',
+      formula: short
+        ? `(price ${fmt(p)} − prob-weighted target ${fmt(pwt)}) / ${fmt(p)} = ${fmt(math.expectedReturnPct, 1)}%`
+        : `(prob-weighted target ${fmt(pwt)} − price ${fmt(p)}) / ${fmt(p)} = ${fmt(math.expectedReturnPct, 1)}%`,
+      terms: [],
+      note: short
+        ? 'the probability-weighted gain or loss across the scenarios, from the SHORT\'s side — a falling price is a gain (§10)'
+        : 'the probability-weighted gain or loss across the scenarios (§10)',
+    }
   }
   if (metric === 'mos' && isNum(base)) {
-    return { title: 'Margin of safety', formula: `(base ${fmt(base)} − price ${fmt(p)}) / base ${fmt(base)} = ${fmt(math.marginOfSafetyPct, 1)}%`, terms: [], note: 'the cushion between price and base fair value, as a share of fair value (§16)' }
+    return {
+      title: 'Margin of safety',
+      formula: `(base ${fmt(base)} − price ${fmt(p)}) / base ${fmt(base)} = ${fmt(math.marginOfSafetyPct, 1)}%`,
+      terms: [],
+      // direction-UNIFORM by doctrine: one formula, and the sign says which side of fair value the price is
+      note: isNum(math.marginOfSafetyPct) && (math.marginOfSafetyPct as number) < 0
+        ? 'negative means the price sits ABOVE base fair value — no cushion, an embedded premium (§16)'
+        : 'the cushion between price and base fair value, as a share of fair value (§16)',
+    }
   }
   if (metric === 'downside') {
     // trace the number the row actually shows: downsideRiskPct = the WORST scenario's return, inverted —
@@ -1124,8 +1161,21 @@ export function traceOutput(metric: 'expected' | 'mos' | 'downside' | 'rr' | 'pw
         : `inverted — higher is worse. The worst case is currently ${worst.label}, NOT the bear row — this is not the loss-to-bear.`,
     }
   }
-  if (metric === 'rr' && isNum(pwt) && isNum(bear)) {
-    return { title: 'Risk / reward', formula: `(prob-weighted target ${fmt(pwt)} − price ${fmt(p)}) / (price ${fmt(p)} − bear ${fmt(bear)}) = ${fmt(math.riskReward)}`, terms: [], note: 'expected gain per unit of loss-to-bear' }
+  if (metric === 'rr' && isNum(math.riskReward)) {
+    // The ratio IS expected return / downside risk — which for a long equals the documented
+    // (target − price)/(price − bear) because the price terms cancel. Stating it this way is honest for a
+    // short too, whose adverse case is a squeeze rather than the bear price, and it no longer goes silent
+    // when the worst row is not bear-labelled (Codex #366 P2).
+    const rows = math.perScenario.filter((r) => isNum(r.return_pct))
+    const worst = rows.length ? rows.reduce((a, b) => ((a.return_pct as number) <= (b.return_pct as number) ? a : b)) : null
+    return {
+      title: 'Risk / reward',
+      formula: `expected return ${fmt(math.expectedReturnPct, 1)}% / downside risk ${fmt(math.downsideRiskPct, 1)}% = ${fmt(math.riskReward)}`,
+      terms: [],
+      note: worst
+        ? `expected gain per unit of loss in the worst case — ${worst.label} at ${fmt(worst.price_target)}${isNum(bear) && worst.label.toLowerCase().includes('bear') ? ' (the bear row, so this is the classic loss-to-bear ratio)' : ' (NOT the bear row)'}`
+        : 'expected gain per unit of loss in the worst case',
+    }
   }
   return null
 }

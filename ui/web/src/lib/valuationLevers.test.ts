@@ -5,7 +5,7 @@
 // that produced the fair value, the Playground silently disagrees with the recorded thesis — this file fails
 // first. Parity targets are the exact valuation_math.py outputs: AMZN 210.05, NHY 81.826, EMAAR 16.5245.
 import assert from 'node:assert'
-import { blend, buildMethods, impliedMultiple, caseLevelFromMultiple, levelSourceFor, reanchor, mosRead, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, chainEv, buildChain, levelForScenario, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
+import { blend, buildMethods, impliedMultiple, caseLevelFromMultiple, levelSourceFor, reanchor, mosRead, scenarioMath as sm, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, chainEv, buildChain, levelForScenario, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
 import type { PlaygroundDraft } from './valuationLevers'
 
 let passed = 0
@@ -306,7 +306,11 @@ check('traceOutput NHY: pwt terms per scenario; expected/mos/downside/rr formula
   assert.ok(traceOutput('expected', math)!.formula.includes('84.96'))
   assert.ok(traceOutput('mos', math)!.formula.includes('81.83'))
   assert.ok(traceOutput('downside', math)!.formula.includes('45.12'))
-  assert.ok(traceOutput('rr', math)!.formula.includes('45.12'))
+  // the rr formula now states the ratio actually computed (expected return / downside risk) rather than the
+  // long-only bear-price form — the bear is still named, in the note, so nothing is lost
+  const rr = traceOutput('rr', math)!
+  assert.ok(/expected return .* \/ downside risk/.test(rr.formula), rr.formula)
+  assert.ok((rr.note ?? '').includes('45.12') && /bear/.test(rr.note ?? ''), rr.note ?? '')
   // no price → price-relative traces refuse instead of fabricating
   const noPrice = scenarioMath([{ label: 'base', probability: 100, price_target: 10 }], null)
   assert.equal(traceOutput('expected', noPrice), null)
@@ -1027,4 +1031,64 @@ check('risk/reward stays tied to the two published fields it is built from', () 
   }
 })
 
+// ---- #366 review fixes ----
+check('risk/reward is built from UNROUNDED values, so it reproduces the published figure exactly', () => {
+  // AMZN's published -0.41. Dividing the two ROUNDED percentages gives -0.42 — a real change to a
+  // committed long run that a ±0.02 test tolerance hid.
+  const amzn = scenarioMath([
+    { label: 'bull', probability: 25, price_target: 247 },
+    { label: 'base', probability: 45, price_target: 210 },
+    { label: 'bear', probability: 30, price_target: 146 },
+  ], 237.53)
+  assert.equal(amzn.riskReward, -0.41, `rr ${amzn.riskReward} (rounded-input version gives -0.42)`)
+  // and a sub-0.05% adverse case still yields a ratio instead of null
+  const tiny = scenarioMath([{ label: 'base', probability: 50, price_target: 101 },
+                             { label: 'bear', probability: 50, price_target: 99.98 }], 100)
+  assert.ok(isFinite(tiny.riskReward as number), `tiny ${tiny.riskReward}`)
+  assert.ok(Math.abs((tiny.riskReward as number) - 24.5) < 0.05, `tiny ${tiny.riskReward}`)
+})
+check('traceOutput states the arithmetic that produced the number beside it, on a short', () => {
+  const m = scenarioMath(TSLA_SHORT, 319.69, 'short')
+  const t = traceOutput('expected', m, 'short')!
+  // the long formula printed beside a +56.57% would be an equation of the opposite sign
+  assert.ok(/price 319.69 − prob-weighted target/.test(t.formula), t.formula)
+  assert.ok(/SHORT/.test(t.note ?? ''), t.note ?? '')
+  const long = traceOutput('expected', scenarioMath(TSLA_SHORT, 319.69, 'long'), 'long')!
+  assert.ok(/prob-weighted target .* − price/.test(long.formula), long.formula)
+})
+check('the risk/reward trace states the ratio actually computed, and never goes silent', () => {
+  const m = scenarioMath(TSLA_SHORT, 319.69, 'short')
+  const t = traceOutput('rr', m, 'short')!
+  assert.ok(/expected return .* \/ downside risk/.test(t.formula), t.formula)
+  assert.ok(/tail_squeeze/.test(t.note ?? ''), t.note ?? '')     // names the real worst case
+  assert.ok(/NOT the bear row/.test(t.note ?? ''), t.note ?? '')
+  // a set whose worst row is not bear-labelled used to return null here
+  const noBearWorst = scenarioMath([{ label: 'bull', probability: 50, price_target: 50 },
+                                    { label: 'base', probability: 50, price_target: 120 }], 100)
+  assert.ok(traceOutput('rr', noBearWorst) !== null, 'rr trace must not go silent')
+})
+check('the margin-of-safety trace says which side of fair value the price is on', () => {
+  const t = traceOutput('mos', scenarioMath(TSLA_SHORT, 319.69, 'short'), 'short')!
+  assert.ok(/ABOVE base fair value/.test(t.note ?? ''), t.note ?? '')
+})
+check('the case trace resolves an INHERITED ev basis and the shares fallback', () => {
+  // a case with NO per-case basis, on an ev RUN — exactly TSLA's committed shape
+  const s = { label: 'bull', probability: 25, forwardMetric: 121946, multiple: 11.5, levelOverride: null,
+              basis: null, bridge: { net_debt: -27444, net_debt_basis: 'broad', minority: 661, shares: null },
+              metricBasis: 'NTM revenue', multipleBasis: 'NTM EV/Sales' }
+  const withCtx = traceScenarioCell(s as any, { kind: 'derived_multiple' }, null, (k) => k, { basis: 'ev', shares: 4252.5 })
+  assert.ok(/net debt -27444/.test(withCtx.formula), withCtx.formula)   // the bridge IS shown
+  assert.ok(/minority 661/.test(withCtx.formula), withCtx.formula)
+  assert.ok(/÷ shares 4252.5/.test(withCtx.formula), withCtx.formula)   // the top-level fallback, not '—'
+  // without the context it would print bare metric × multiple beside a bridged level
+  const noCtx = traceScenarioCell(s as any, { kind: 'derived_multiple' }, null)
+  assert.ok(!/net debt/.test(noCtx.formula), noCtx.formula)
+})
+
+// Same truncation guard as the Python suite: a `process.exit` or an early throw above a block would run
+// fewer checks while still exiting 0. Asserting the count is the only way to catch that from inside — the
+// Python side had an entire group go dead this way (Codex #366 review).
+const EXPECTED_CHECKS = 94
+assert.ok(passed >= EXPECTED_CHECKS,
+  `only ${passed} checks ran, expected at least ${EXPECTED_CHECKS} — something above here is short-circuiting`)
 console.log(`valuationLevers.test.ts: ${passed} assertions passed`)

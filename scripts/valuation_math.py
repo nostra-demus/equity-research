@@ -199,12 +199,16 @@ def scenario_math(scenarios: list, price: Optional[float], direction: str = "lon
     bear = min(_bears, key=lambda s: float(s["price_target"])) if _bears else None
 
     per = []
+    raw_returns = []   # the same returns UNROUNDED — ratios must never be built from rounded inputs
     have_price = _isnum(price) and price > 0
     short = str(direction or "long").strip().lower() == "short"
     for s in clean:
         # POSITION-signed: a short gains when the price falls, so its return is (price - target)/price
-        r = _pct(((float(price) - float(s["price_target"])) if short
-                  else (float(s["price_target"]) - float(price))) / float(price)) if have_price else None
+        frac = (((float(price) - float(s["price_target"])) if short
+                 else (float(s["price_target"]) - float(price))) / float(price)) if have_price else None
+        if frac is not None:
+            raw_returns.append(frac)
+        r = _pct(frac) if frac is not None else None
         per.append({"label": s.get("label"), "probability": float(s["probability"]),
                     "price_target": float(s["price_target"]), "return_pct": r})
 
@@ -242,8 +246,13 @@ def scenario_math(scenarios: list, price: Optional[float], direction: str = "lon
     # cancel — the two are algebraically identical. Expressed this way it also holds for a short, whose
     # adverse case is the worst POSITION return (a squeeze), not the bear price. TSLA_2026-07-25 publishes
     # 1.85 = 56.57 / 30.56; the long price formula gives -0.58 on the same numbers.
-    er, dr = out["expected_return_pct"], out["downside_risk_pct"]
-    out["risk_reward"] = (round(er / dr, 2) if _isnum(er) and _isnum(dr) and abs(dr) > 1e-9 else None)
+    # Built from UNROUNDED fractions, rounded once at the end. Dividing the two rounded percentages instead
+    # moves AMZN's published -0.41 to -0.42, and lets a real adverse loss under 0.05% round to zero and turn
+    # a derivable ratio into None (Codex #366 P2). The percentage scaling cancels, so this is the same ratio.
+    er_frac = ((p - prob_weighted_target) if short else (prob_weighted_target - p)) / p if prob_weighted_target is not None else None
+    dr_frac = -min(raw_returns) if raw_returns else None
+    out["risk_reward"] = (round(er_frac / dr_frac, 2)
+                          if er_frac is not None and dr_frac is not None and abs(dr_frac) > 1e-12 else None)
     # "Is there a genuine adverse branch" is direction-dependent: a long needs a bear BELOW the price, a
     # short needs a bull ABOVE it (the squeeze). Firing the long check on a short is backwards — a short's
     # bear sitting below the price is the thesis working, not a defect (eval checks AM / AR).
@@ -258,11 +267,11 @@ def scenario_math(scenarios: list, price: Optional[float], direction: str = "lon
     return out
 
 
-def reanchor(scenarios: list, new_price: float) -> dict:
+def reanchor(scenarios: list, new_price: float, direction: str = "long") -> dict:
     """Re-derive every price-relative read at a fresh price WITHOUT re-running any agent.
     The fair-value LEVELS are price-independent, so this is just scenario_math at the new price —
     the one-line recompute the Price-freshness rule and the Playground both call."""
-    return scenario_math(scenarios, new_price)
+    return scenario_math(scenarios, new_price, direction)
 
 
 # ---------------------------------------------------------------------------
@@ -367,9 +376,13 @@ def _comparable_key(s: "ScenarioLever", run_basis: str) -> str:
     return (s.basis or run_basis or "equity").strip().lower()
 
 
-def recompute(levers: ValuationLevers) -> dict:
+def recompute(levers: ValuationLevers, direction: str = "long") -> dict:
     """Top-level: levers → fair-value levels → scenario math → sanity checks. The one call the
-    /api/valuation-levers recompute endpoint and the Playground client mirror both target."""
+    /api/valuation-levers recompute endpoint and the Playground client mirror both target.
+
+    `direction` ("long" | "short", from decision_record `basket`) is forwarded to scenario_math. Without it
+    a short-side caller using this public entry point silently gets long-signed returns — the fix would
+    reach only callers that bypass this and call scenario_math directly (Codex #366 P2)."""
     scen_out = []
     for s in levers.scenarios:
         if _isnum(s.level_override):
@@ -386,7 +399,7 @@ def recompute(levers: ValuationLevers) -> dict:
                          "price_target": round(level, 4) if level is not None else None,
                          "forward_metric": s.forward_metric, "multiple": s.multiple})
 
-    math = scenario_math(scen_out, levers.current_price)
+    math = scenario_math(scen_out, levers.current_price, direction)
 
     ke = capm_cost_of_equity(levers.rf, levers.beta, levers.erp)
     checks = {}
@@ -427,10 +440,22 @@ def _approx(a, b, tol=0.15) -> bool:
     return a is not None and b is not None and abs(a - b) <= tol
 
 
+# Every check in _selftest is counted, and the count is asserted at the end. A `return` placed above a group
+# — the `if fails` gate used to sit before the short-side group — disables every check below it while the
+# suite still prints PASS. A count is the only thing that catches that from inside (found by a MISSED
+# mutation: moving the gate back up changed nothing).
+_EXPECTED_CHECKS = 59
+_CHECKS_RUN = 0          # module-level on purpose — the CALLER asserts it, so an early return cannot hide it
+
+
 def _selftest() -> int:
+    global _CHECKS_RUN
+    _CHECKS_RUN = 0
     fails = []
 
     def check(name, cond):
+        global _CHECKS_RUN
+        _CHECKS_RUN += 1
         if not cond:
             fails.append(name)
 
@@ -443,7 +468,9 @@ def _selftest() -> int:
     check("amzn_mos≈-13.5", _approx(m["margin_of_safety_pct"], -13.5))
     check("amzn_downside_risk≈38.7", _approx(m["downside_risk_pct"], 38.7))
     check("amzn_downside_to_bear≈38.7", _approx(m["downside_to_bear_pct"], 38.7))
-    check("amzn_risk_reward≈-0.41", _approx(m["risk_reward"], -0.41, tol=0.02))
+    # EXACT, not ±0.02: that tolerance is the size of the rounding error it exists to catch, and it did
+    # hide one — a ratio built from the already-rounded percentages reads -0.42 here (Codex #366 P2).
+    check("amzn_risk_reward == -0.41 exactly (published)", m["risk_reward"] == -0.41)
     check("amzn_pwt≈200.05", _approx(m["prob_weighted_target"], 200.05, tol=0.1))
 
     # --- 2. re-anchor to the live price (~$247.23) with the SAME levels ---
@@ -579,10 +606,7 @@ def _selftest() -> int:
     check("same-basis set still runs + catches bear expanding the multiple",
           "multiple_symmetry" in recompute(same_basis_bad)["checks"] and not recompute(same_basis_bad)["checks"]["multiple_symmetry"]["ok"])
 
-    if fails:
-        print("VALUATION MATH SELFTEST FAIL:", ", ".join(fails))
-        return 1
-    # ---- group 10: POSITION-SIGNED returns for a short (synthesizer.md §6 Downside Risk) ----
+    # ---- group 12: POSITION-SIGNED returns for a short (synthesizer.md §6 Downside Risk) ----
     # The fixture is the committed TSLA_2026-07-25 decision_record, reproduced from its own five levels
     # and probabilities. The long formula gives every number the wrong sign on the same inputs.
     TSLA = [
@@ -596,12 +620,18 @@ def _selftest() -> int:
     check("short: expected return reproduces the published +56.57", abs(sh["expected_return_pct"] - 56.57) < 0.05)
     check("short: downside risk reproduces the published +30.56 (the squeeze, not the bear)",
           abs(sh["downside_risk_pct"] - 30.56) < 0.05)
-    check("short: risk/reward reproduces the published 1.85", abs(sh["risk_reward"] - 1.85) < 0.02)
+    check("short: risk/reward == the published 1.85 exactly", sh["risk_reward"] == 1.85)
     _r = {x["label"]: x["return_pct"] for x in sh["per_scenario"]}
     check("short: a price RISE is a loss (bull 336.08 vs entry 319.69 -> -5.1%)", abs(_r["bull"] + 5.1) < 0.15)
     check("short: a price FALL is a gain (base 32.37 -> +89.9%)", abs(_r["base"] - 89.9) < 0.15)
     check("short: the worst case is the squeeze, not the bear", min(_r.values()) == _r["tail_squeeze"])
     check("short: margin of safety stays direction-uniform and negative", sh["margin_of_safety_pct"] < 0)
+    # two down-legs: "downside to bear" is the WORST bear, not whichever is listed first (cyclical 20.90 is
+    # first and gives 93.5%; the structural 6.86 gives 97.9%)
+    check("downside-to-bear takes the WORST bear, not the first listed", abs(sh["downside_to_bear_pct"] - 97.9) < 0.2)
+    check("...and one bear behaves identically",
+          abs(scenario_math([{"label": "base", "probability": 50, "price_target": 100},
+                             {"label": "bear", "probability": 50, "price_target": 60}], 120)["downside_to_bear_pct"] - 50) < 0.2)
     lg = scenario_math(TSLA, 319.69, direction="long")
     check("the long formula on a short flips every sign", abs(lg["expected_return_pct"] + 56.57) < 0.05)
     check("...and misreports the worst case as the bear", abs(lg["downside_risk_pct"] - 97.9) < 0.2)
@@ -615,16 +645,42 @@ def _selftest() -> int:
     check("an unrecognised direction is treated as long",
           scenario_math(TSLA, 319.69, direction="hedge")["expected_return_pct"] == lg["expected_return_pct"])
 
-    print(f"VALUATION MATH SELFTEST PASS — {10} groups, AMZN + TSLA decision_records reproduced "
+    # risk/reward is built from UNROUNDED fractions, rounded once
+    _tiny = scenario_math([{"label": "base", "probability": 50, "price_target": 101},
+                           {"label": "bear", "probability": 50, "price_target": 99.98}], 100)
+    check("a sub-0.05% adverse case still yields a ratio (rounded inputs made it None)",
+          _isnum(_tiny["risk_reward"]))
+    check("...and the ratio is the unrounded one", abs(_tiny["risk_reward"] - 24.5) < 0.05)
+    # reanchor and recompute must FORWARD the direction, or a short-side caller of the public API gets
+    # long-signed returns while only direct scenario_math callers are fixed
+    check("reanchor forwards direction", reanchor(TSLA, 319.69, "short")["expected_return_pct"] == sh["expected_return_pct"])
+    check("reanchor defaults to long", reanchor(TSLA, 319.69)["expected_return_pct"] == lg["expected_return_pct"])
+
+    if fails:
+        print("VALUATION MATH SELFTEST FAIL:", ", ".join(fails))
+        return 1
+    print(f"VALUATION MATH SELFTEST PASS — {12} groups, AMZN + NHY + EMAAR + TSLA decision_records reproduced "
           f"(AMZN long: expected -16.1 / mos -13.5 / downside 38.7 / rr -0.41; TSLA short: +56.57 / +30.56 / 1.85), "
-          f"re-anchor + WACC + symmetry checks green")
+          f"re-anchor + WACC + symmetry + v1.3 per-case bridge checks green")
     return 0
 
 
 if __name__ == "__main__":
     import sys, json
+    def _run_selftest() -> int:
+        """Runs the suite, then asserts how many checks actually RAN. A `return` placed above a group
+        silently disables every check below it while the suite still prints PASS — that is not hypothetical,
+        it is what had made the entire short-side group dead. The count is checked out here so no early
+        return inside _selftest can bypass it."""
+        rc = _selftest()
+        if _CHECKS_RUN < _EXPECTED_CHECKS:
+            print(f"VALUATION MATH SELFTEST FAIL: only {_CHECKS_RUN} checks ran, expected at least "
+                  f"{_EXPECTED_CHECKS} — a `return` above a group disables everything below it")
+            return 1
+        return rc
+
     if "--selftest" in sys.argv:
-        raise SystemExit(_selftest())
+        raise SystemExit(_run_selftest())
     # demo: the AMZN case, frozen anchor vs live re-anchor
     amzn = [{"label": "bull", "probability": 25, "price_target": 247.0},
             {"label": "base", "probability": 45, "price_target": 210.0},

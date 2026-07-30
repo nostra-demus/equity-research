@@ -480,7 +480,7 @@ export function ValuationPlayground() {
                 {(['exp', 'mos', 'down', 'rr', 'pwt'] as const).map((id) => {
                   if (openTrace !== id) return null
                   const metric = id === 'exp' ? 'expected' : id === 'down' ? 'downside' : id
-                  const tr = traceOutput(metric, out.math)
+                  const tr = traceOutput(metric, out.math, draft.direction ?? 'long')
                   return tr ? <TraceStrip key={id} t={tr} /> : null
                 })}
               </div>
@@ -685,7 +685,7 @@ export function ValuationPlayground() {
                         />
                       ) : (
                         <TraceStrip
-                          t={traceScenarioCell(s, cs, draft.published ?? null, methodLabel, draft.basis)}
+                          t={traceScenarioCell(s, cs, draft.published ?? null, methodLabel, { basis: draft.basis, shares: draft.shares, netDebt: draft.netDebt })}
                           onOverride={cs.kind !== 'live_blend' && cs.kind !== 'derived_multiple' ? () => { unlock(); setOpenTrace(null) } : undefined}
                         />
                       )
@@ -696,7 +696,7 @@ export function ValuationPlayground() {
                     {caseOpen && machinery.includes('trace') && (
                       <div className="vpg__casepanel">
                         <div className="vpg__casetitle">{whereFrom(row?.shownMultiple)} — this case's own arithmetic</div>
-                        <TraceStrip t={traceScenarioCell(s, { kind: 'derived_multiple' }, draft.published ?? null, methodLabel, draft.basis)} onOverride={unlock} />
+                        <TraceStrip t={traceScenarioCell(s, { kind: 'derived_multiple' }, draft.published ?? null, methodLabel, { basis: draft.basis, shares: draft.shares, netDebt: draft.netDebt })} onOverride={unlock} />
                       </div>
                     )}
                     {caseOpen && machinery.includes('chain') && s.chain && (
