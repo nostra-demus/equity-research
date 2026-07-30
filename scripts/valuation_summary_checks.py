@@ -77,6 +77,18 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
     if "price_state" in sidecar and sidecar.get("price_state") not in _PRICE_STATE:
         det.append(f"price_state {sidecar.get('price_state')!r} not in {_PRICE_STATE}")
 
+    # v1.3 additions (multiple_basis / metric_basis / multiple_kind / secondary_multiples / per-case
+    # bridge) are required only of sidecars that DECLARE 1.3 — older runs are grandfathered, exactly like
+    # the dated forward-gates in eval.py. A run opts in by emitting the version.
+    def _ver_at_least(v: str) -> bool:
+        raw = sidecar.get("schema_version")
+        if not isinstance(raw, str):
+            return False
+        try:
+            return tuple(int(x) for x in raw.split(".")[:2]) >= tuple(int(x) for x in v.split(".")[:2])
+        except ValueError:
+            return False
+    v13 = _ver_at_least("1.3")
     scen = sidecar.get("scenarios")
     if not isinstance(scen, list) or not scen:
         det.append("scenarios must be a non-empty array")
@@ -100,16 +112,48 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
         # (bridged for ev) and IGNORES the supplied `level` — so a level that disagrees with that product
         # ships a baseline the Playground would silently override. Verify the identity here.
         fm, mult, lvl = s.get("forward_metric"), s.get("multiple"), s.get("level")
+        br = s.get("bridge") if isinstance(s.get("bridge"), dict) else None
         if _isnum(fm) and _isnum(mult):
-            try:
-                derived = _level_from_multiple(float(fm), float(mult), basis, sidecar.get("shares"), sidecar.get("net_debt"))
-            except Exception as e:
-                det.append(f"scenario {s.get('label')!r} has forward_metric×multiple but no derivable level ({e}) "
-                           f"— an ev basis needs positive shares + a numeric net_debt for the bridge")
+            # v1.3: when the case records its OWN bridge, reproduce through THOSE terms. Conventions differ
+            # legitimately inside one run (NHY deducts net debt 17,919 + minority 7,495 separately, while a
+            # run-level figure may be an all-in deduction) — and mixing them double-counts minority.
+            if br is not None:
+                sh = br.get("shares") if _isnum(br.get("shares")) else sidecar.get("shares")
+                if not (_isnum(sh) and float(sh) > 0):
+                    det.append(f"scenario {s.get('label')!r} bridge has no positive shares (own or top-level)")
+                    derived = None
+                else:
+                    ev = float(fm) * float(mult)
+                    equity = ev - float(br["net_debt"]) \
+                        - (float(br.get("minority")) if _isnum(br.get("minority")) else 0.0) \
+                        + (float(br.get("other")) if _isnum(br.get("other")) else 0.0)
+                    derived = equity / float(sh)
             else:
-                if _isnum(lvl) and abs(float(lvl) - derived) > _tol(derived):
-                    det.append(f"scenario {s.get('label')!r} level {lvl} != forward_metric×multiple {round(derived, 4)} "
-                               f"— the Playground recomputes the latter and would disagree with the recorded level")
+                try:
+                    derived = _level_from_multiple(float(fm), float(mult), basis, sidecar.get("shares"), sidecar.get("net_debt"))
+                except Exception as e:
+                    det.append(f"scenario {s.get('label')!r} has forward_metric×multiple but no derivable level ({e}) "
+                               f"— an ev basis needs positive shares + a numeric net_debt for the bridge")
+                    derived = None
+            if derived is not None and _isnum(lvl) and abs(float(lvl) - derived) > _tol(derived):
+                det.append(f"scenario {s.get('label')!r} level {lvl} != forward_metric×multiple {round(derived, 4)} "
+                           f"— the Playground recomputes the latter and would disagree with the recorded level")
+            # A multiple without its basis is an incomplete citation (§5): "0.96x" means nothing until you
+            # know EMAAR's bear reads it on BOOK rather than EV/EBITDA.
+            if v13 and not (isinstance(s.get("multiple_basis"), str) and s["multiple_basis"].strip()):
+                det.append(f"scenario {s.get('label')!r} records a multiple but no multiple_basis — a bare multiple is an incomplete citation (§5)")
+            if v13 and not (isinstance(s.get("metric_basis"), str) and s["metric_basis"].strip()):
+                det.append(f"scenario {s.get('label')!r} records forward_metric but no metric_basis (which metric, which period)")
+            mk = s.get("multiple_kind")
+            if mk is not None and mk not in ("implied", "applied"):
+                det.append(f"scenario {s.get('label')!r} multiple_kind {mk!r} is not 'implied' or 'applied'")
+        # Secondary multiples are cross-checks the orb quoted for the SAME value — recorded so real analyst
+        # content is not discarded, never used in a computation. Validate shape only.
+        sec = s.get("secondary_multiples")
+        if sec is not None:
+            if not (isinstance(sec, list) and all(isinstance(x, dict) and _isnum(x.get("value"))
+                    and isinstance(x.get("basis"), str) and x["basis"].strip() for x in sec)):
+                det.append(f"scenario {s.get('label')!r} secondary_multiples must be a list of {{value, basis}} with a named basis")
         # v1.2: a recorded derivation chain must REPRODUCE the level (REPRODUCE-or-omit — same rule as the
         # v1.1 method internals). The Playground makes the chain's figures the editable inputs and computes
         # the level from them, so a chain that disagrees ships a baseline the panel would silently contradict.
@@ -176,6 +220,14 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
                         if _isnum(lvl) and abs(chain_ps - float(lvl)) > _tol(lvl):
                             det.append(f"scenario {s.get('label')!r} derivation chain gives {round(chain_ps, 4)} != level {lvl} "
                                        f"— the chain must reproduce the recorded level (REPRODUCE-or-omit)")
+
+    # A per-case bridge on SOME cases only would mean one run mixes an all-in run-level deduction with
+    # split per-case terms — the double-counting failure this field exists to prevent.
+    _sc = [x for x in scen if isinstance(x, dict)] if isinstance(scen, list) else []
+    _with_bridge = [x for x in _sc if isinstance(x.get("bridge"), dict)]
+    if _with_bridge and len(_with_bridge) != len(_sc):
+        _missing = sorted(str(x.get("label")) for x in _sc if not isinstance(x.get("bridge"), dict))
+        det.append(f"some scenarios record their own `bridge` but {_missing} do not — a run must not mix per-case bridge terms with the run-level deduction")
 
     # Distinct labels (a duplicate scenario label is malformed — the Playground keys scenarios by label).
     for lab in sorted({l for l in labels if labels.count(l) > 1}):
@@ -510,6 +562,54 @@ def _selftest() -> int:
     check("runoff missing a required constant → named", any("needs numeric" in v and "wacc" in v for v in eval_ap_valuation_summary_integrity(r_miss, None)))
     r_denom = dict(runoff_ok, scenarios=[{"label": "bear", "level": 45.12, "derivation": dict(runoff, growth=0.08)}])
     check("runoff wacc − growth <= 0 → named", any("perpetuity is undefined" in v for v in eval_ap_valuation_summary_integrity(r_denom, None)))
+
+    # ---- v1.3 per-scenario multiples: named bases, cross-checks, per-case bridge ----
+    # NHY's real shape: ONE metric base, three IMPLIED multiples, a per-case split bridge.
+    def _nhy(label, mult, level, **over):
+        d = {"label": label, "forward_metric": 28889, "metric_basis": "FY2025 Adj. EBITDA",
+             "multiple": mult, "multiple_basis": "EV/FY2025 Adj. EBITDA", "multiple_kind": "implied",
+             "bridge": {"net_debt": 17919, "minority": 7495, "shares": 1965.28}, "level": level}
+        d.update(over); return d
+    v13 = {"schema_version": "1.3", "ticker": "NHY", "basis": "ev", "shares": 1965.28,
+           "scenarios": [_nhy("bull", 8.21, 107.7), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)]}
+    check("v1.3 NHY shape (one metric, three implied multiples, per-case bridge) → pass",
+          eval_ap_valuation_summary_integrity(v13, None) == [])
+    # the reproduce test still bites: a wrong multiple cannot ship
+    bad_mult = dict(v13, scenarios=[_nhy("bull", 9.99, 107.7), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+    check("v1.3 multiple that does not reproduce its level caught",
+          any("!= forward_metric" in v for v in eval_ap_valuation_summary_integrity(bad_mult, None)))
+    # a bare multiple is an incomplete citation (§5)
+    no_basis = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, multiple_basis=None), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+    check("v1.3 multiple without its basis caught (§5)",
+          any("incomplete citation" in v for v in eval_ap_valuation_summary_integrity(no_basis, None)))
+    no_mb = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, metric_basis="  "), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+    check("v1.3 metric without its period caught",
+          any("no metric_basis" in v for v in eval_ap_valuation_summary_integrity(no_mb, None)))
+    bad_kind = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, multiple_kind="guessed"), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+    check("v1.3 unknown multiple_kind caught",
+          any("multiple_kind" in v for v in eval_ap_valuation_summary_integrity(bad_kind, None)))
+    # EMAAR-style secondaries: recorded, shape-validated, never computed with
+    sec_ok = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7), _nhy("base", 6.45, 81.83,
+                  secondary_multiples=[{"value": 7.0, "basis": "P/E"}, {"value": 1.5, "basis": "P/BV (book)"}]),
+                  _nhy("bear", 3.95, 45.12)])
+    check("v1.3 secondary multiples recorded → pass (cross-checks, never computed with)",
+          eval_ap_valuation_summary_integrity(sec_ok, None) == [])
+    sec_bad = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7), _nhy("base", 6.45, 81.83,
+                   secondary_multiples=[{"value": 7.0}]), _nhy("bear", 3.95, 45.12)])
+    check("v1.3 secondary multiple without a named basis caught",
+          any("secondary_multiples" in v for v in eval_ap_valuation_summary_integrity(sec_bad, None)))
+    # mixing a per-case bridge with the run-level deduction is the double-counting trap
+    mixed = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7), _nhy("base", 6.45, 81.83),
+                 {"label": "bear", "forward_metric": 28889, "metric_basis": "FY2025 Adj. EBITDA",
+                  "multiple": 3.95, "multiple_basis": "EV/FY2025 Adj. EBITDA", "level": 45.12}])
+    check("v1.3 some-cases-only bridge caught (convention mixing double-counts minority)",
+          any("must not mix per-case bridge" in v for v in eval_ap_valuation_summary_integrity(mixed, None)))
+    # grandfathering: the SAME shape without a 1.3 declaration is not held to the naming rules
+    old = dict(v13, schema_version="1.2", scenarios=[_nhy("bull", 8.21, 107.7, multiple_basis=None, metric_basis=None),
+               _nhy("base", 6.45, 81.83, multiple_basis=None, metric_basis=None),
+               _nhy("bear", 3.95, 45.12, multiple_basis=None, metric_basis=None)])
+    check("pre-1.3 sidecars are grandfathered (naming rules apply only on opt-in)",
+          eval_ap_valuation_summary_integrity(old, None) == [])
 
     if fails:
         print("VALUATION SUMMARY CHECKS SELFTEST FAIL:", ", ".join(fails))

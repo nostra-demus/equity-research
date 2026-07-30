@@ -210,6 +210,14 @@ Set `schema_version` to `"1.1"` when any internals block is emitted.
 - Transcribe **verbatim** from the orb's own numbers (§5). A scenario whose level came from judgment/triangulation with no executed chain gets NO `derivation` — the Playground shows it as an analyst-call (⚑) cell with the `drivers` text as provenance, which is the honest state. Omit, never invent.
 Set `schema_version` to `"1.2"` when any `derivation` is emitted.
 
+**Per-scenario multiples (schema v1.3 — what the Playground's bull/base/bear grid edits).** `07`'s scenario table already states a multiple for every case; record it, verbatim, with what it is quoted ON:
+- `forward_metric` + `metric_basis` — the metric the multiple applies to and its period (`"FY2025 Adj. EBITDA"`, `"NTM revenue"`). One metric base shared across all three cases is NORMAL (NHY quotes 28,889 with three different implied multiples) — do not invent per-case metrics to make them differ.
+- `multiple` + `multiple_basis` — the number AND what it is (`"EV/FY2025 Adj. EBITDA"`, `"NTM P/E"`, `"P/BV (book)"`). A bare multiple is an incomplete citation (§5): EMAAR's bear reads **0.96x on book** because flow multiples are distorted at a trough, and "0.96x" alone would be unreadable.
+- `multiple_kind` — **`"implied"`** when the value came from this case's own machinery (a margin path, a method blend, a runoff chain) and the multiple is what that value CORRESPONDS to; **`"applied"`** only when the case was genuinely built as metric x multiple. Most are implied — say so honestly rather than dressing a cross-check as an input.
+- `secondary_multiples[]` — further yardsticks the orb quoted for the SAME value (EMAAR's base states ~4.8x LTM EV/EBITDA, ~7.0x P/E and 1.5x P/BV beside its primary ~6.7x normalized). Record them; they are cross-checks and never enter a computation.
+- `bridge` — the EV→equity terms THIS case used (`net_debt`, `net_debt_basis`, `minority`, `other`, `shares`) whenever they differ from the run level. Record it on ALL cases or none: mixing an all-in run-level deduction with split per-case terms double-counts minority (NHY: 17,919 + 7,495 vs an all-in 25,414 — an 8% error at the per-share line).
+- REPRODUCE-or-omit: `(metric x multiple - net_debt - minority + other) / shares` must reproduce the case's `level`. Symmetry still applies (bull ≥ base ≥ bear on comparable bases). Set `schema_version` to `"1.3"` when emitting these — older sidecars stay grandfathered.
+
 If a lever is genuinely unavailable, write `null` — never fabricate one to fill the schema. This file is optional-but-preferred: a run that cannot populate the core scenarios (no fair-value levels) may omit it, and the Playground falls back to the frozen `decision_record` scenarios.
 
 # SELF-CHECK
