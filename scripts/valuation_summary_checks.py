@@ -113,6 +113,14 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
         # ships a baseline the Playground would silently override. Verify the identity here.
         fm, mult, lvl = s.get("forward_metric"), s.get("multiple"), s.get("level")
         br = s.get("bridge") if isinstance(s.get("bridge"), dict) else None
+        # A case may declare its OWN basis: EMAAR's base reads on EV/EBITDA while its bear reads 0.96x on
+        # BOOK. Treating an equity multiple as an EV one and bridging it is not a rounding error — it turns
+        # 9.75 into −2.82. Falls back to the run basis.
+        s_basis = s.get("basis") if s.get("basis") in ("equity", "ev") else basis
+        if br is not None and s_basis != "ev":
+            det.append(f"scenario {s.get('label')!r} records a `bridge` on an equity-basis case — an equity "
+                       f"multiple already gives equity value; there is no EV→equity bridge to apply")
+            br = None
         if _isnum(fm) and _isnum(mult):
             # v1.3: when the case records its OWN bridge, reproduce through THOSE terms. Conventions differ
             # legitimately inside one run (NHY deducts net debt 17,919 + minority 7,495 separately, while a
@@ -130,7 +138,7 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
                     derived = equity / float(sh)
             else:
                 try:
-                    derived = _level_from_multiple(float(fm), float(mult), basis, sidecar.get("shares"), sidecar.get("net_debt"))
+                    derived = _level_from_multiple(float(fm), float(mult), s_basis, sidecar.get("shares"), sidecar.get("net_debt"))
                 except Exception as e:
                     det.append(f"scenario {s.get('label')!r} has forward_metric×multiple but no derivable level ({e}) "
                                f"— an ev basis needs positive shares + a numeric net_debt for the bridge")
@@ -224,10 +232,11 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
     # A per-case bridge on SOME cases only would mean one run mixes an all-in run-level deduction with
     # split per-case terms — the double-counting failure this field exists to prevent.
     _sc = [x for x in scen if isinstance(x, dict)] if isinstance(scen, list) else []
-    _with_bridge = [x for x in _sc if isinstance(x.get("bridge"), dict)]
-    if _with_bridge and len(_with_bridge) != len(_sc):
-        _missing = sorted(str(x.get("label")) for x in _sc if not isinstance(x.get("bridge"), dict))
-        det.append(f"some scenarios record their own `bridge` but {_missing} do not — a run must not mix per-case bridge terms with the run-level deduction")
+    _ev = [x for x in _sc if (x.get("basis") if x.get("basis") in ("equity", "ev") else basis) == "ev"]
+    _with_bridge = [x for x in _ev if isinstance(x.get("bridge"), dict)]
+    if _with_bridge and len(_with_bridge) != len(_ev):
+        _missing = sorted(str(x.get("label")) for x in _ev if not isinstance(x.get("bridge"), dict))
+        det.append(f"some scenarios record their own `bridge` but the EV-basis cases {_missing} do not — a run must not mix per-case bridge terms with the run-level deduction")
 
     # Distinct labels (a duplicate scenario label is malformed — the Playground keys scenarios by label).
     for lab in sorted({l for l in labels if labels.count(l) > 1}):
@@ -610,6 +619,35 @@ def _selftest() -> int:
                _nhy("bear", 3.95, 45.12, multiple_basis=None, metric_basis=None)])
     check("pre-1.3 sidecars are grandfathered (naming rules apply only on opt-in)",
           eval_ap_valuation_summary_integrity(old, None) == [])
+
+    # ---- v1.3 mixed bases in ONE run — EMAAR's real SHAPE (EV/EBITDA base + P/BV bear). The bear is
+    # EMAAR's actual arithmetic (10.16 book/share x 0.96 = 9.75); the base metric is synthetic-but-
+    # consistent (its real 15.00 came from a method blend minus a disclosed owner discount, so no single
+    # LTM metric reproduces it — which is exactly what `multiple_kind: implied` records).
+    emaar = {"schema_version": "1.3", "ticker": "EMAAR", "basis": "ev", "shares": 8838.8, "net_debt": -24969,
+             "scenarios": [
+                 {"label": "base", "forward_metric": 18122.5, "metric_basis": "normalized EBITDA (synthetic)", "multiple": 6.7,
+                  "multiple_basis": "normalized EV/EBITDA", "multiple_kind": "implied",
+                  "secondary_multiples": [{"value": 7.0, "basis": "P/E"}, {"value": 1.5, "basis": "P/BV (book)"}],
+                  "bridge": {"net_debt": -24969, "minority": 13808, "shares": 8838.8}, "level": 15.00},
+                 # the BEAR reads on BOOK — an equity multiple, no bridge, no EV arithmetic
+                 {"label": "bear", "basis": "equity", "forward_metric": 10.16, "metric_basis": "book value / share",
+                  "multiple": 0.96, "multiple_basis": "P/BV (book)", "multiple_kind": "implied", "level": 9.75},
+             ]}
+    check("v1.3 mixed bases in one run (EV base + book-value bear) → pass",
+          eval_ap_valuation_summary_integrity(emaar, None) == [])
+    # the equity case must NOT be bridged — that turns 9.75 into −2.82
+    wrong = json.loads(json.dumps(emaar))
+    wrong["scenarios"][1]["basis"] = "ev"
+    check("an equity multiple mis-declared as ev fails to reproduce (9.75 vs −2.82)",
+          any("!= forward_metric" in v for v in eval_ap_valuation_summary_integrity(wrong, None)))
+    bridged_equity = json.loads(json.dumps(emaar))
+    bridged_equity["scenarios"][1]["bridge"] = {"net_debt": -24969}
+    check("a bridge on an equity-basis case caught (no EV→equity bridge to apply)",
+          any("equity-basis case" in v for v in eval_ap_valuation_summary_integrity(bridged_equity, None)))
+    # all-or-none applies only AMONG ev cases — the book-value bear must not trip it
+    check("the all-or-none bridge rule ignores equity-basis cases",
+          not any("must not mix" in v for v in eval_ap_valuation_summary_integrity(emaar, None)))
 
     if fails:
         print("VALUATION SUMMARY CHECKS SELFTEST FAIL:", ", ".join(fails))
