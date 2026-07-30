@@ -895,6 +895,33 @@ def test_provisional_run_excluded_from_skill_scoring():
     check(ib["divergence_pp"] == round((11 / 12 - 1.0) * 100, 1),
           f"divergence_pp exposes the survivorship the gate introduced (got {ib['divergence_pp']})")
 
+    # Codex P1 (2026-07-30, second finding): the integrity-blind shadow covered directional hits only —
+    # extend the same look-ahead guard to Brier/calibration and to cohort returns. Same fixture: 10 verified
+    # + 1 unaudited resolved at 80% confirmed (realized=1) = 11 gated pairs, Brier 0; the provisional run
+    # resolved at 80% FALSIFIED (realized=0) is dropped from the gate but must reappear in the all-published
+    # shadow. Gated Brier = 11×(0.8-1)² / 11 = 0.04. All-published Brier = (11×0.04 + (0.8-0)²) / 12 = 0.09.
+    check(out["calibration"]["brier"] == 0.04, f"gated Brier excludes the provisional miss (got {out['calibration']['brier']})")
+    ibc = out["integrity_blind_calibration"]
+    check(ibc["n"] == 12, f"the integrity-blind Brier corpus keeps the provisional pair — 12, not 11 (got {ibc['n']})")
+    check(ibc["n_provisional_excluded_from_gated"] == 1,
+          f"exactly the 1 provisional pair is what the gate drops from Brier (got {ibc['n_provisional_excluded_from_gated']})")
+    check(ibc["brier"] == 0.09, f"all-published Brier includes the provisional miss (got {ibc['brier']})")
+    check(ibc["divergence"] == round(0.09 - 0.04, 4),
+          f"divergence exposes the survivorship the gate introduced in Brier (got {ibc['divergence']})")
+
+    # Cohort returns: gated Selected mean = 4.0 (10 verified + 1 unaudited, all +4.0%); all-published mean
+    # pulls in the provisional run's -50.0% = (11×4.0 − 50.0) / 12 = −0.5.
+    check(out["cohort_returns"]["Selected"]["mean_benchmark_relative_pct"] == 4.0,
+          f"gated Selected cohort return excludes the provisional −50% (got {out['cohort_returns']['Selected']})")
+    ibcr = out["integrity_blind_cohort_returns"]["Selected"]
+    check(ibcr["n"] == 12, f"the integrity-blind cohort-return corpus keeps the provisional run — 12, not 11 (got {ibcr['n']})")
+    check(ibcr["n_provisional_excluded_from_gated"] == 1,
+          f"exactly the 1 provisional run is what the gate drops from cohort returns (got {ibcr['n_provisional_excluded_from_gated']})")
+    check(ibcr["mean_benchmark_relative_pct"] == -0.5,
+          f"all-published Selected cohort return includes the provisional −50% (got {ibcr['mean_benchmark_relative_pct']})")
+    check(ibcr["divergence_pct"] == round(-0.5 - 4.0, 3),
+          f"divergence_pct exposes the survivorship the gate introduced in cohort returns (got {ibcr['divergence_pct']})")
+
 
 def test_markdown_names_excluded_and_shadow():
     # The persisted human report (*_decision_performance_summary.md) must NAME every excluded run and show

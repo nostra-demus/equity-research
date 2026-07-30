@@ -243,7 +243,14 @@ def resolve_integrity_status(run_dir):
     if banner:
         status = "provisional"
     elif reports:
-        status = "verified" if verdict in _CLEAN_VERDICTS else "provisional"
+        # Strip before comparing — full.md's own finish-gate does `(v.get("verdict") or "").strip()`
+        # before testing against the same clean-verdict set (full.md ~line 697). A trailing/leading
+        # space ("Minor issues ") is incidental whitespace, not a different verdict: without stripping
+        # here, that run would pass the finish gate as clean (banner cleared) yet this resolver would
+        # mark it provisional — the two readers of the SAME report disagreeing on the SAME run. `verdict`
+        # itself is returned un-stripped (display-only field); only the classification test is normalized.
+        v_norm = verdict.strip() if isinstance(verdict, str) else verdict
+        status = "verified" if v_norm in _CLEAN_VERDICTS else "provisional"
     else:
         status = "unaudited"
 
@@ -413,6 +420,27 @@ def selftest():
         r = resolve_integrity_status(td)
         check(r["status"] == "verified" and r["report_file"] == "verification_report_v2.json",
               f"latest report VERSION (not lexical order) wins, got {r}")
+
+    # resolve_integrity_status: a verdict with incidental surrounding whitespace ("Minor issues ") must be
+    # classified the SAME as the finish gate (full.md ~line 697 does `(v.get("verdict") or "").strip()`
+    # before comparing) — i.e. "verified", not "provisional". Before this fix the untrimmed value failed
+    # the `in _CLEAN_VERDICTS` tuple membership test and the run was wrongly marked provisional even though
+    # the finish gate itself would have cleared its banner for the identical report.
+    with tempfile.TemporaryDirectory() as td:
+        open(os.path.join(td, "final_thesis.md"), "w").write("# TICKER — Investment Dossier\n")
+        json.dump({"verdict": "Minor issues ", "integrity_score": 88},
+                  open(os.path.join(td, "verification_report.json"), "w"))
+        r = resolve_integrity_status(td)
+        check(r["status"] == "verified",
+              f"trailing-whitespace verdict ('Minor issues ') classifies as verified, matching the "
+              f"finish gate's own stripped comparison, got {r}")
+    with tempfile.TemporaryDirectory() as td:
+        open(os.path.join(td, "final_thesis.md"), "w").write("# TICKER — Investment Dossier\n")
+        json.dump({"verdict": "  Clean\n", "integrity_score": 91},
+                  open(os.path.join(td, "verification_report.json"), "w"))
+        r = resolve_integrity_status(td)
+        check(r["status"] == "verified",
+              f"leading/trailing whitespace + newline around 'Clean' still classifies as verified, got {r}")
 
     # load_standing_records attaches integrity per entry (live wiring, not just the unit fn)
     with tempfile.TemporaryDirectory() as td:

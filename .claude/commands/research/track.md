@@ -174,15 +174,19 @@ for c in calls:
     tgt = "—" if c["implied_target"] is None else f'{cur} {c["implied_target"]}'
     # Remediation depends on WHY the run is provisional. A finish-gate PROVISIONAL banner is written into
     # final_thesis.md by /research:full; /research:verify-evidence is read-only on final_thesis.md and so
-    # CANNOT clear a banner — only re-running the finish-gate (/research:rerun or /research:full) regenerates
-    # the thesis and re-stamps/clears it. verify-evidence alone is the right fix ONLY for a report-only
-    # provisional (a Material/Failed audit verdict with no banner). Don't tell the reader to run a command
-    # that can't clear their state.
+    # CANNOT clear a banner — only re-running the finish-gate regenerates the thesis and re-stamps/clears
+    # it. `/research:rerun` takes THREE required arguments (<MODULE> <AGENT> <TICKER> — rerun.md:17) and
+    # stops when fewer are given, and neither the module nor the agent that tripped the banner is knowable
+    # from this tracker row, so `/research:rerun <TICKER>` alone is not a valid command. Point at
+    # `/research:full <TICKER>` instead — it re-runs the whole finish-gate unconditionally and is always
+    # a valid invocation. verify-evidence alone is the right fix ONLY for a report-only provisional (a
+    # Material/Failed audit verdict with no banner). Don't tell the reader to run a command that can't
+    # clear their state.
     if c.get("integrity_banner"):
         integrity_fix = (f'Resolve by fixing the flagged scenario/edge/citation issue and re-running the '
-                         f'finish-gate (`/research:rerun {c["ticker"]}` or `/research:full {c["ticker"]}`), '
-                         f'which regenerates `final_thesis.md` and re-stamps or clears the banner; '
-                         f'`/research:verify-evidence` alone is read-only on the thesis and will NOT clear it')
+                         f'finish-gate (`/research:full {c["ticker"]}`), which regenerates `final_thesis.md` '
+                         f'and re-stamps or clears the banner; `/research:verify-evidence` alone is '
+                         f'read-only on the thesis and will NOT clear it')
     else:
         integrity_fix = (f'Resolve by fixing the flagged citations/math and re-running '
                          f'`/research:verify-evidence {c["ticker"]}`')
