@@ -87,6 +87,44 @@ def level_from_multiple(metric: float, multiple: float, basis: str = "equity",
     raise ValueError(f"unknown basis {basis!r} — use 'equity' or 'ev'")
 
 
+def case_level_from_multiple(metric: float, multiple: float, basis: str,
+                             bridge: Optional[dict] = None, shares: Optional[float] = None,
+                             net_debt: Optional[float] = None) -> Optional[float]:
+    """The level a scenario's OWN levers derive — the CASE's basis and (when it records one) its own
+    bridge govern, falling back to the run-level basis/shares/net_debt only when the case carries none.
+    Mirrors ui/web/src/lib/valuationLevers.ts caseLevelFromMultiple and the guard's `_case_level`
+    (scripts/valuation_summary_checks.py) — all three must agree, or a case reads a different fair
+    value depending which engine evaluated it.
+
+    A per-case bridge is meaningful only on an 'ev' case (an equity multiple already gives equity
+    value). Returns None (never raises, never guesses) when the terms are not derivable — unknown net
+    debt, no positive shares, or a nonnumeric optional deduction (a bridge value present-but-malformed
+    must not be silently read as 0, §15).
+    """
+    b = (basis or "equity").strip().lower()
+    br = bridge if (b == "ev" and isinstance(bridge, dict)) else None
+    if br is not None:
+        nd = br.get("net_debt")
+        if not _isnum(nd):
+            return None  # §15: unknown net debt is never silently 0
+        for key in ("minority", "other"):
+            v = br.get(key)
+            if v is not None and not _isnum(v):
+                return None  # a present-but-nonnumeric deduction is a violation, not a silent zero
+        sh = br.get("shares") if _isnum(br.get("shares")) else shares
+        if not (_isnum(sh) and sh > 0):
+            return None
+        mi = br.get("minority")
+        ot = br.get("other")
+        equity = float(metric) * float(multiple) - float(nd) \
+            - (float(mi) if _isnum(mi) else 0.0) + (float(ot) if _isnum(ot) else 0.0)
+        return equity / float(sh)
+    try:
+        return level_from_multiple(metric, multiple, b, shares, net_debt)
+    except ValueError:
+        return None
+
+
 def blend(methods: dict, weights: dict) -> dict:
     """Weighted base-case point across the value-producing methods (the 07 football-field blend,
     e.g. 0.35·own_history + 0.25·peers + 0.40·dcf). Ignores methods whose value is None/non-numeric
@@ -206,6 +244,18 @@ class ScenarioLever:
     forward_metric: Optional[float] = None      # EPS (basis=equity) or EBITDA/EBIT total (basis=ev)
     multiple: Optional[float] = None
     level_override: Optional[float] = None       # if set, used as the level instead of metric×multiple
+    # v1.3 — this CASE's OWN basis/multiple-basis/bridge, overriding the run-level convention. A run can
+    # genuinely mix methods (EMAAR: EV/EBITDA cases + a 0.96x-on-book bear) — bridging an equity multiple
+    # with the run's EV terms turns 9.75 into −2.82, so the case's own terms must be honored here, not
+    # just in the schema/guard/browser (Codex #362 P1: this dataclass had none of these fields and
+    # `recompute()` always used the run-level basis/shares/net_debt, mispricing NHY's bear as ~114
+    # instead of 45.12).
+    basis: Optional[str] = None                  # 'equity' / 'ev', overriding levers.basis for this case
+    multiple_basis: Optional[str] = None          # what the multiple IS (e.g. 'EV/FY2025 Adj. EBITDA') —
+                                                   # used only to gate the multiple-symmetry check to
+                                                   # comparable cases, never in the level arithmetic
+    bridge: Optional[dict] = None                 # {net_debt, minority, other, shares} — this case's OWN
+                                                   # EV→equity terms, when they differ from the run level
 
 
 @dataclass
@@ -277,6 +327,15 @@ def check_multiple_symmetry(bull_mult, base_mult, bear_mult) -> dict:
     return {"ok": not problems, "bull_expands": bull_expands, "problems": problems}
 
 
+def _comparable_key(s: "ScenarioLever", run_basis: str) -> str:
+    """What makes two scenarios' multiples comparable: the named multiple_basis when the case records
+    one (EMAAR's 'normalized EV/EBITDA' vs 'P/BV (book)' are NOT the same yardstick even though both are
+    just numbers), falling back to the case's own basis (equity/ev) when no name is recorded."""
+    if isinstance(s.multiple_basis, str) and s.multiple_basis.strip():
+        return s.multiple_basis.strip().lower()
+    return (s.basis or run_basis or "equity").strip().lower()
+
+
 def recompute(levers: ValuationLevers) -> dict:
     """Top-level: levers → fair-value levels → scenario math → sanity checks. The one call the
     /api/valuation-levers recompute endpoint and the Playground client mirror both target."""
@@ -285,11 +344,11 @@ def recompute(levers: ValuationLevers) -> dict:
         if _isnum(s.level_override):
             level = float(s.level_override)
         elif _isnum(s.forward_metric) and _isnum(s.multiple):
-            try:
-                level = level_from_multiple(s.forward_metric, s.multiple, levers.basis,
-                                            levers.shares, levers.net_debt)
-            except ValueError:
-                level = None  # EV basis without net debt / positive shares → level Not assessable (§15)
+            # v1.3: the CASE's own basis/bridge govern — falling back to the run-level basis/net-debt
+            # here prices NHY's cases off the run's broad net debt with no minority deducted (~114
+            # instead of the committed 45.12 bear), and bridges an equity-basis case into nonsense.
+            level = case_level_from_multiple(s.forward_metric, s.multiple, s.basis or levers.basis,
+                                             s.bridge, levers.shares, levers.net_debt)
         else:
             level = None
         scen_out.append({"label": s.label, "probability": s.probability,
@@ -304,7 +363,14 @@ def recompute(levers: ValuationLevers) -> dict:
         checks["wacc"] = check_wacc(levers.after_tax_kd, levers.wacc, ke, levers.rf, levers.erp,
                                     levers.is_developed_mega_cap)
     mults = {(s.label or "").strip().lower(): s.multiple for s in levers.scenarios}
-    if any(_isnum(mults.get(k)) for k in ("bull", "base", "bear")):
+    by_label = {(s.label or "").strip().lower(): s for s in levers.scenarios}
+    # A mixed-method set (an equity P/E case beside an EV/EBITDA case) makes the raw multiples
+    # incomparable — a 7x P/E bear vs a 6x EV/EBITDA base is not "the bear compressed the multiple",
+    # it is two different yardsticks (Codex #362 P2). Only run the symmetry check when every case that
+    # HAS a multiple shares the same comparable key.
+    present = [by_label[k] for k in ("bull", "base", "bear") if k in by_label and _isnum(mults.get(k))]
+    comparable = len({_comparable_key(s, levers.basis) for s in present}) <= 1
+    if comparable and any(_isnum(mults.get(k)) for k in ("bull", "base", "bear")):
         checks["multiple_symmetry"] = check_multiple_symmetry(mults.get("bull"), mults.get("base"),
                                                               mults.get("bear"))
 
@@ -420,6 +486,67 @@ def _selftest() -> int:
     # defensive: malformed inputs return a clean result instead of throwing
     check("blend_nondict_safe", blend(None, {})["base_point"] is None)
     check("scenario_math_nonlist_safe", scenario_math(None, 100.0)["prob_weighted_target"] is None)
+
+    # --- 10. v1.3 per-case basis/bridge honored in the Python recompute path (Codex #362 P1) ---
+    # NHY's real shape: run declares basis='ev' with NO run-level shares/net_debt, but EVERY case
+    # supplies its OWN bridge (net debt 17,919 + minority 7,495, shares 1965.28). Before this fix,
+    # recompute() always used the run-level (absent) terms and produced a level Not assessable / wrong;
+    # with the fix it must reproduce the committed 107.75 / 81.88 / 45.12 exactly.
+    def _nhy_lever(label, mult):
+        return ScenarioLever(label, 0, forward_metric=28889, multiple=mult, basis="ev",
+                             multiple_basis="EV/FY2025 Adj. EBITDA",
+                             bridge={"net_debt": 17919, "minority": 7495, "shares": 1965.28})
+    nhy_levers = ValuationLevers(
+        scenarios=[_nhy_lever("bull", 8.21), _nhy_lever("base", 6.45), _nhy_lever("bear", 3.95)],
+        basis="ev", shares=None, net_debt=None, current_price=None)
+    nhy_out = recompute(nhy_levers)
+    nhy_levels = {s["label"]: s["price_target"] for s in nhy_out["scenarios"]}
+    check("nhy_bull_case_bridge≈107.75", _approx(nhy_levels["bull"], 107.75, tol=0.05))
+    check("nhy_base_case_bridge≈81.88", _approx(nhy_levels["base"], 81.88, tol=0.05))
+    check("nhy_bear_case_bridge≈45.12", _approx(nhy_levels["bear"], 45.12, tol=0.05))
+    # proof the bug was real: reading the RUN-level (absent) net debt/shares instead of the case's own
+    # bridge cannot even compute a level (no positive shares) — the pre-fix path returned None/garbage,
+    # never 45.12. A regression back to the run-level path would show up here as None again.
+    check("nhy_bear_not_none (would be None or ~114 on the old run-level-only path)", nhy_levels["bear"] is not None)
+
+    # EMAAR-style mixed basis in ONE run: an EV/EBITDA base (with its own bridge) + a book-value (equity)
+    # bear that must NOT be bridged (bridging 0.96x book turns 9.75 into a nonsense negative number).
+    emaar_levers = ValuationLevers(
+        scenarios=[
+            ScenarioLever("base", 0, forward_metric=18122.5, multiple=6.7, basis="ev",
+                         multiple_basis="normalized EV/EBITDA",
+                         bridge={"net_debt": -24969, "minority": 13808, "shares": 8838.8}),
+            ScenarioLever("bear", 0, forward_metric=10.16, multiple=0.96, basis="equity",
+                         multiple_basis="P/BV (book)"),
+        ],
+        basis="ev", shares=8838.8, net_debt=-24969)
+    emaar_out = recompute(emaar_levers)
+    emaar_levels = {s["label"]: s["price_target"] for s in emaar_out["scenarios"]}
+    check("emaar_base_ev_bridge≈15.00", _approx(emaar_levels["base"], 15.00, tol=0.05))
+    check("emaar_bear_equity_not_bridged≈9.75", _approx(emaar_levels["bear"], 9.75, tol=0.01))
+
+    # --- 11. multiple-symmetry check is gated by comparable basis (Codex #362 P2) ---
+    # bull/base share 'EV/FY2025 Adj. EBITDA'; a mismatched-basis bear must not trigger a false
+    # "bear must compress" warning just because 0.96 < 6.45 on an unrelated yardstick.
+    mixed_symmetry = ValuationLevers(
+        scenarios=[
+            ScenarioLever("bull", 0, forward_metric=28889, multiple=8.21, basis="ev", multiple_basis="EV/FY2025 Adj. EBITDA"),
+            ScenarioLever("base", 0, forward_metric=28889, multiple=6.45, basis="ev", multiple_basis="EV/FY2025 Adj. EBITDA"),
+            ScenarioLever("bear", 0, forward_metric=10.16, multiple=0.96, basis="equity", multiple_basis="P/BV (book)"),
+        ],
+        basis="ev")
+    check("mixed-basis set skips the (meaningless) symmetry check",
+          "multiple_symmetry" not in recompute(mixed_symmetry)["checks"])
+    # same-basis set: the check DOES still run and still catches a real violation
+    same_basis_bad = ValuationLevers(
+        scenarios=[
+            ScenarioLever("bull", 0, forward_metric=100, multiple=20, basis="equity", multiple_basis="P/E"),
+            ScenarioLever("base", 0, forward_metric=100, multiple=20, basis="equity", multiple_basis="P/E"),
+            ScenarioLever("bear", 0, forward_metric=100, multiple=25, basis="equity", multiple_basis="P/E"),
+        ],
+        basis="equity")
+    check("same-basis set still runs + catches bear expanding the multiple",
+          "multiple_symmetry" in recompute(same_basis_bad)["checks"] and not recompute(same_basis_bad)["checks"]["multiple_symmetry"]["ok"])
 
     if fails:
         print("VALUATION MATH SELFTEST FAIL:", ", ".join(fails))
