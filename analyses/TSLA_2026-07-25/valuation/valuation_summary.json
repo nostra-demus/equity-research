@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2",
+  "schema_version": "1.3",
   "ticker": "TSLA",
   "as_of": "2026-07-24",
   "currency": "USD",
@@ -15,47 +15,79 @@
   "scenarios": [
     {
       "label": "bull",
-      "forward_metric": 121946,
-      "metric_basis": "NTM Revenue",
-      "multiple": 11.50,
+      "forward_metric": 121946.0,
+      "metric_basis": "NTM revenue (USD mm)",
+      "multiple": 11.5,
+      "multiple_basis": "NTM EV/Sales",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "bridge": {
+        "net_debt": -27444.0,
+        "net_debt_basis": "broad (net cash) — total debt 16,080 less cash & ST investments 43,524, per 01's canonical broad basis [07 §3 bridge note]",
+        "minority": 661.0,
+        "other": 0.0,
+        "shares": 4252.5
+      },
       "level": 336.08,
       "drivers": "Delivery beat of ~10% (within observed single-quarter swing range) AND the market continues to pay Tesla's own 5-year median NTM EV/Sales multiple (11.50x) — a persistence, not an expansion, of history [02_multiples-own-history.md §2; 07_scenario-and-fair-value.md §3]",
-      "derivation": {
-        "model": "ev_bridge",
-        "ev": 1402378,
-        "net_debt": -27444,
-        "net_debt_basis": "broad — total debt $16,080mm minus cash & ST investments $43,524mm [01_price-and-capital-structure.md §4]",
-        "minority": 661,
-        "other": 0,
-        "shares": 4252.5,
-        "source": "07_scenario-and-fair-value.md §3, executed calculation block (tsla_scenario.py)"
-      }
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear Fair-Value Levels table + the executed tsla_scenario.py snippet); NTM revenue per 02 §1 (EstimatesReport.xls)"
     },
     {
       "label": "base",
-      "forward_metric": 110860,
-      "metric_basis": "NTM Revenue (consensus)",
-      "multiple": 1.00,
+      "forward_metric": 110860.0,
+      "metric_basis": "NTM revenue (USD mm)",
+      "multiple": 1.0,
+      "multiple_basis": "NTM EV/Sales",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "bridge": {
+        "net_debt": -27444.0,
+        "net_debt_basis": "broad (net cash) — total debt 16,080 less cash & ST investments 43,524, per 01's canonical broad basis [07 §3 bridge note]",
+        "minority": 661.0,
+        "other": 0.0,
+        "shares": 4252.5
+      },
       "level": 32.37,
       "drivers": "Consensus NTM revenue is delivered; the market re-prices Tesla toward what its disclosed economics (peer-comparable margin/growth/leverage edge, no proven moat) warrant, rather than continuing to price unmonetized robotaxi/Optimus/FSD optionality [07_scenario-and-fair-value.md §3]",
-      "derivation": {
-        "model": "ev_bridge",
-        "ev": 110860,
-        "net_debt": -27444,
-        "net_debt_basis": "broad — total debt $16,080mm minus cash & ST investments $43,524mm [01_price-and-capital-structure.md §4]",
-        "minority": 661,
-        "other": 0,
-        "shares": 4252.5,
-        "source": "07_scenario-and-fair-value.md §3, executed calculation block (tsla_scenario.py)"
-      }
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear Fair-Value Levels table + the executed tsla_scenario.py snippet); NTM revenue per 02 §1 (EstimatesReport.xls)"
     },
     {
-      "label": "bear",
+      "label": "bear_cyclical",
+      "forward_metric": 88688.0,
+      "metric_basis": "NTM revenue (USD mm)",
+      "multiple": 0.7,
+      "multiple_basis": "NTM EV/Sales",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "bridge": {
+        "net_debt": -27444.0,
+        "net_debt_basis": "broad (net cash) — total debt 16,080 less cash & ST investments 43,524, per 01's canonical broad basis [07 §3 bridge note]",
+        "minority": 661.0,
+        "other": 0.0,
+        "shares": 4252.5
+      },
+      "level": 20.9,
+      "drivers": "Through-cycle demand trough: NTM revenue 110,860 ×0.80 (a 20% miss, widened on the 2008-09 industry analog — Inference, not from filings) × a 0.70x multiple compressed below 03's raw peer median 0.93x. A 12-month marker, not the headline bear",
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear Fair-Value Levels table + the executed tsla_scenario.py snippet); NTM revenue per 02 §1 (EstimatesReport.xls)"
+    },
+    {
+      "label": "bear_structural",
       "forward_metric": null,
       "metric_basis": null,
       "multiple": null,
+      "multiple_basis": null,
+      "multiple_kind": null,
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 861.0,
+        "net_debt_basis": "strict — 07 §3 bear-case bridge note (departs from the broad top-level basis; this scenario is bridged per 01's canonical strict net-debt anchor since it is an EV-based structural reset, not an already-equity multiple)",
+        "minority": 661.0,
+        "other": 0.0,
+        "shares": 4252.5
+      },
       "level": 6.86,
       "drivers": "Structural reset (headline bear, worse of two bear inputs): business-model/09_moat.md finds 'No moat proven' AND an explicitly 'eroding' trajectory (ROIC fell every year for 3 straight years), tripping the CLAUDE.md §24 Filter-5 structural-reset requirement. Uses 04_intrinsic-dcf.md's own declining/runoff terminal: terminal EBIT margin fades to 5.0% (below the 8.5% base-case terminal margin), D&A 8.0% of revenue, capex 6.5% of revenue, g=1.0% [04_intrinsic-dcf.md §5]. A secondary, less severe cyclical-trough bear ($20.90/share: NTM revenue $88,688mm x 0.70x NTM EV/Sales) is shown in the markdown as the nearer-term 12-month marker but is not the headline.",
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear Fair-Value Levels table + the executed tsla_scenario.py snippet); NTM revenue per 02 §1 (EstimatesReport.xls)",
       "derivation": {
         "model": "ev_bridge",
         "ev": 30675,
@@ -65,7 +97,14 @@
         "other": 0,
         "shares": 4252.5,
         "source": "07_scenario-and-fair-value.md §3, executed calculation block; reproduces 04_intrinsic-dcf.md §5 declining/runoff terminal EV ($30,675mm)"
-      }
+      },
+      "secondary_multiples": [
+        {
+          "value": 1.0,
+          "basis": "implied terminal EV/EBITDA on the reset EBIT base",
+          "note": "the orb states this as ~1.0x (approximate, an impaired terminal multiple) — a cross-check on the reset, never an input"
+        }
+      ]
     }
   ],
   "methods": {
@@ -78,25 +117,48 @@
     "own_history": 0.0,
     "peers": 0.45,
     "dcf": 0.25,
-    "sotp": 0.30
+    "sotp": 0.3
   },
   "discount_rate": {
     "rf": 0.047,
     "erp": 0.043,
-    "beta": 1.80,
+    "beta": 1.8,
     "cost_of_equity": 0.1244,
     "wacc": 0.1238,
     "after_tax_kd": 0.0444
   },
   "dcf_grid": {
-    "wacc": [0.1138, 0.1238, 0.1338],
-    "growth": [0.005, 0.010, 0.015],
-    "values": [
-      [9.23, 7.53, 6.12],
-      [9.84, 8.02, 6.51],
-      [10.52, 8.55, 6.94]
+    "wacc": [
+      0.1138,
+      0.1238,
+      0.1338
     ],
-    "base": { "wacc": 0.1238, "growth": 0.010 },
+    "growth": [
+      0.005,
+      0.01,
+      0.015
+    ],
+    "values": [
+      [
+        9.23,
+        7.53,
+        6.12
+      ],
+      [
+        9.84,
+        8.02,
+        6.51
+      ],
+      [
+        10.52,
+        8.55,
+        6.94
+      ]
+    ],
+    "base": {
+      "wacc": 0.1238,
+      "growth": 0.01
+    },
     "source": "04_intrinsic-dcf.md §7 (Sensitivity Grid)"
   },
   "sotp_segments": [
@@ -129,8 +191,16 @@
     "applied_multiple": 1.3,
     "discount_pct": -40,
     "anchors": [
-      { "multiple": 0.93, "value": 30.54, "label": "raw peer median (no premium)" },
-      { "multiple": 1.3, "value": 40.19, "label": "quality-adjusted base case (40% premium to median)" }
+      {
+        "multiple": 0.93,
+        "value": 30.54,
+        "label": "raw peer median (no premium)"
+      },
+      {
+        "multiple": 1.3,
+        "value": 40.19,
+        "label": "quality-adjusted base case (40% premium to median)"
+      }
     ],
     "source": "03_relative-valuation-peers.md §5"
   }
