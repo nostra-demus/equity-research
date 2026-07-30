@@ -121,6 +121,8 @@ export interface ValuationLeversResponse {
   levers: ValuationSummary | null
   decision: {
     scenarios: DecisionScenario[]
+    /** the decision->position key (DECISION_LEDGER §3): "Short" means scenario returns are short-side */
+    basket?: string | null
     entry_price: number | null
     entry_price_timestamp: string | null
     currency: string | null
@@ -317,7 +319,17 @@ export interface ScenarioMath {
 
 const findByLabel = <T extends { label: string }>(rows: T[], name: string): T | undefined => rows.find((s) => (s.label || '').toLowerCase().includes(name))
 
-export function scenarioMath(scenarios: { label: string; probability?: number | null; price_target?: number | null }[], price: number | null | undefined): ScenarioMath {
+/** THE POSITION, from decision_record `basket` ("Short" -> 'short'; every other basket, and an absent one,
+ *  reads long). Scenario returns are POSITION-SIGNED (synthesizer.md §6): a short gains when the price
+ *  falls, so its return is (price - target)/price. Applying the long formula to a short flips every sign —
+ *  TSLA's committed thesis publishes +56.57% and the long formula gives -56.57% on identical inputs. */
+export type PositionDirection = 'long' | 'short'
+
+export function scenarioMath(
+  scenarios: { label: string; probability?: number | null; price_target?: number | null }[],
+  price: number | null | undefined,
+  direction: PositionDirection = 'long',
+): ScenarioMath {
   const warnings: string[] = []
   if (!Array.isArray(scenarios)) {
     return { probWeightedTarget: null, levels: {}, perScenario: [], price: null, priceRelativeAssessable: false,
@@ -338,9 +350,13 @@ export function scenarioMath(scenarios: { label: string; probability?: number | 
   const bears = clean.filter((s) => (s.label || '').toLowerCase().includes('bear'))
   const bear = bears.length ? bears.reduce((w, s) => (s.price_target < w.price_target ? s : w)) : undefined
   const havePrice = isNum(price) && price > 0
+  const short = direction === 'short'
   const perScenario: ScenarioRow[] = clean.map((s) => ({
     label: s.label, probability: s.probability, price_target: s.price_target,
-    return_pct: havePrice ? pct((s.price_target - (price as number)) / (price as number)) : null,
+    // POSITION-signed: a short gains when the price falls
+    return_pct: havePrice
+      ? pct((short ? (price as number) - s.price_target : s.price_target - (price as number)) / (price as number))
+      : null,
   }))
   const levels: Record<string, number> = {}
   clean.forEach((s) => { levels[(s.label || '').toLowerCase()] = s.price_target })
@@ -353,21 +369,51 @@ export function scenarioMath(scenarios: { label: string; probability?: number | 
   }
   if (!havePrice) return out
   const p = price as number
-  out.expectedReturnPct = pwt !== null ? pct((pwt - p) / p) : null
+  out.expectedReturnPct = pwt !== null ? pct((short ? p - pwt : pwt - p) / p) : null
+  // margin of safety stays DIRECTION-UNIFORM — a short candidate simply reads a negative MoS, and
+  // downside-to-bear is a valuation statement about the price falling (synthesizer.md field table)
   out.marginOfSafetyPct = base ? pct((base.price_target - p) / base.price_target) : null
   if (bear) out.downsideToBearPct = pct((p - bear.price_target) / p) // inverted: higher = worse
   else warnings.push('no bear scenario — downside-to-bear Not assessable')
   const rets = perScenario.map((r) => r.return_pct).filter((r): r is number => r !== null)
   out.downsideRiskPct = rets.length ? round(-Math.min(...rets), 1) : null
-  if (bear && pwt !== null) {
-    const denom = p - bear.price_target
-    out.riskReward = Math.abs(denom) > 1e-9 ? round((pwt - p) / denom, 2) : null
+  // Risk/reward = expected position return / downside risk — the documented long formula
+  // (pwt - price)/(price - bear) written direction-generally: for a long the price terms cancel and the two
+  // are algebraically identical, and this form also holds for a short, whose adverse case is a squeeze
+  // rather than the bear price. TSLA publishes 1.85 = 56.57/30.56; the long price formula gives -0.58.
+  out.riskReward = (isNum(out.expectedReturnPct) && isNum(out.downsideRiskPct) && Math.abs(out.downsideRiskPct) > 1e-9)
+    ? round(out.expectedReturnPct / out.downsideRiskPct, 2) : null
+  // the "is there a genuine adverse branch" check is direction-dependent (eval checks AM / AR)
+  if (short) {
+    const bull = findByLabel(clean, 'bull')
+    if (bull && bull.price_target <= p) warnings.push(`bull target ${bull.price_target} is not above price ${p} — no genuine squeeze/upside branch for a short (§8)`)
+  } else if (bear && bear.price_target >= p) {
+    warnings.push(`bear target ${bear.price_target} is not below price ${p} — no genuine downside branch for a long (§8/§16)`)
   }
-  if (bear && bear.price_target >= p) warnings.push(`bear target ${bear.price_target} is not below price ${p} — no genuine downside branch for a long (§8/§16)`)
   return out
 }
 
-export const reanchor = (scenarios: { label: string; probability?: number | null; price_target?: number | null }[], newPrice: number) => scenarioMath(scenarios, newPrice)
+export const reanchor = (scenarios: { label: string; probability?: number | null; price_target?: number | null }[], newPrice: number, direction: PositionDirection = 'long') => scenarioMath(scenarios, newPrice, direction)
+
+/** How to READ a margin of safety. It is direction-uniform by doctrine — one formula, and the SIGN says
+ *  which side of fair value the price sits on (synthesizer.md field table). So the sentence must follow the
+ *  sign: TSLA's MoS is −887.7%, and "Price below that by −887.7%" is a double negative stating the opposite
+ *  of the truth. Returns the magnitude to print plus the label to print it under.
+ *
+ *  `direction` only affects TONE: for a long, a price above fair value is bad news; for a short it is the
+ *  thesis working. */
+export function mosRead(mos: number | null | undefined, direction: PositionDirection = 'long'): {
+  above: boolean; label: string; magnitude: number | null; good: boolean | null
+} {
+  if (!isNum(mos)) return { above: false, label: 'Price below that by', magnitude: null, good: null }
+  const above = mos < 0
+  return {
+    above,
+    label: above ? 'Price above that by' : 'Price below that by',
+    magnitude: round(Math.abs(mos), 1),
+    good: direction === 'short' ? above : !above,
+  }
+}
 
 // ---- 3. discount-rate + symmetry guards ----
 export function capmCostOfEquity(rf?: number | null, beta?: number | null, erp?: number | null): number | null {
@@ -528,6 +574,8 @@ export interface DraftInternals {
 
 export interface PlaygroundDraft {
   basis: Basis
+  /** THE POSITION. Absent -> 'long', so every pre-existing draft and test is unchanged. */
+  direction?: PositionDirection
   shares: number | null
   netDebt: number | null
   price: number | null
@@ -692,7 +740,7 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
       levelSource: source,
     }
   })
-  const math = scenarioMath(scenarios.map((s) => ({ label: s.label, probability: s.probability, price_target: s.level })), d.price)
+  const math = scenarioMath(scenarios.map((s) => ({ label: s.label, probability: s.probability, price_target: s.level })), d.price, d.direction ?? 'long')
   const ke = capmCostOfEquity(d.rf, d.beta, d.erp)
   const checks: { wacc?: CheckResult; symmetry?: CheckResult } = {}
   if (isNum(d.wacc) || isNum(ke) || isNum(d.afterTaxKd)) checks.wacc = checkWacc(d.afterTaxKd, d.wacc, ke, d.rf, d.erp, d.isMega)
@@ -741,11 +789,16 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
   // the untouched Playground recompute returns that disagree with the frozen judgment — the exact stale
   // anchor this feature exists to prevent.
   const price = (res.decision?.entry_price ?? L?.current_price ?? null)
+  // Only the "Short" basket is short-side. Every other basket (Selected / Watchlist / Rejected / Pair Trade
+  // / Insufficient Data) reads long, and an ABSENT basket reads long — the safe default, because a long
+  // reading of a long is right and the panel never silently guesses a short.
+  const direction: PositionDirection = res.decision?.basket === 'Short' ? 'short' : 'long'
   const evBasis = L?.basis === 'ev'
   if (L && Array.isArray(L.scenarios) && L.scenarios.length) {
     const pubMethods = buildMethods(L.methods, L.method_weights)
     return {
       basis: evBasis ? 'ev' : 'equity',
+      direction,
       shares: L.shares ?? null,
       // For an EV basis, an absent net debt is NOT zero — keep it null so EV levels read Not assessable
       // until net debt is supplied (§15). For an equity basis net debt is unused, so 0 is harmless.
@@ -810,7 +863,7 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
   // fallback: frozen decision scenarios (levels only)
   const ds = res.decision?.scenarios ?? []
   return {
-    basis: 'equity', shares: null, netDebt: 0, price,
+    basis: 'equity', direction, shares: null, netDebt: 0, price,
     rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false,
     methods: [], driveBaseFromMix: false, published: null,
     scenarios: ds.map((s) => ({ label: s.label || '', probability: s.probability ?? null, forwardMetric: null, multiple: null, levelOverride: s.price_target ?? null, frozenLevel: s.price_target ?? null, drivers: null, overrideUnlocked: false })),

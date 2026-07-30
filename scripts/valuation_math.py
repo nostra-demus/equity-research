@@ -151,13 +151,26 @@ def _find(scenarios, name):
     return None
 
 
-def scenario_math(scenarios: list, price: Optional[float]) -> dict:
+def scenario_math(scenarios: list, price: Optional[float], direction: str = "long") -> dict:
     """Recompute the scenario identities from bull/base/bear LEVELS and probabilities.
 
     scenarios : list of {"label", "probability" (0-100), "price_target" (the fair-value LEVEL)}.
     price     : current price. If None/non-numeric, the LEVELS and the probability-weighted
                 target are still returned, but every price-relative read is "Not assessable"
                 (the no-price cap — CLAUDE.md §16 / MODULE_RULES).
+    direction : "long" (default) or "short" — THE POSITION, from decision_record `basket`
+                ("Short" -> short; every other basket, and an absent one, reads long). Scenario
+                returns are POSITION-SIGNED per synthesizer.md §6: for a long a return is
+                (target - price)/price; for a SHORT the adverse case is the price RISING, so the
+                position return is (price - target)/price and the long formula must NOT be used
+                because it flips the sign. A short with entry 100 and an adverse target of 130 has
+                downside +30%, not -30%. Getting this wrong makes a Short Candidate's expected
+                return read as a loss — TSLA_2026-07-25 publishes +56.57% and the long formula
+                gives -56.57% on the identical levels and probabilities.
+
+                NOT position-signed, by design: `margin_of_safety_pct` is direction-uniform (a
+                short candidate simply reads a negative MoS — synthesizer.md field table) and
+                `downside_to_bear_pct` is a valuation statement about the price falling to the bear.
 
     Returns (all price-relative fields None when price is absent):
       prob_weighted_target, expected_return_pct, margin_of_safety_pct (base),
@@ -183,8 +196,11 @@ def scenario_math(scenarios: list, price: Optional[float]) -> dict:
 
     per = []
     have_price = _isnum(price) and price > 0
+    short = str(direction or "long").strip().lower() == "short"
     for s in clean:
-        r = _pct((float(s["price_target"]) - float(price)) / float(price)) if have_price else None
+        # POSITION-signed: a short gains when the price falls, so its return is (price - target)/price
+        r = _pct(((float(price) - float(s["price_target"])) if short
+                  else (float(s["price_target"]) - float(price))) / float(price)) if have_price else None
         per.append({"label": s.get("label"), "probability": float(s["probability"]),
                     "price_target": float(s["price_target"]), "return_pct": r})
 
@@ -205,7 +221,7 @@ def scenario_math(scenarios: list, price: Optional[float]) -> dict:
         return out
 
     p = float(price)
-    out["expected_return_pct"] = (_pct((prob_weighted_target - p) / p)
+    out["expected_return_pct"] = (_pct(((p - prob_weighted_target) if short else (prob_weighted_target - p)) / p)
                                   if prob_weighted_target is not None else None)
     out["margin_of_safety_pct"] = (_pct((float(base["price_target"]) - p) / float(base["price_target"]))
                                    if base else None)
@@ -216,12 +232,23 @@ def scenario_math(scenarios: list, price: Optional[float]) -> dict:
         warnings.append("no bear scenario found — downside-to-bear Not assessable")
     rets = [x["return_pct"] for x in per if x["return_pct"] is not None]
     out["downside_risk_pct"] = round(-min(rets), 1) if rets else None    # synthesizer field: −min scenario return
-    if bear and prob_weighted_target is not None:
-        denom = p - float(bear["price_target"])
-        out["risk_reward"] = round((prob_weighted_target - p) / denom, 2) if abs(denom) > 1e-9 else None
-    else:
-        out["risk_reward"] = None
-    if bear and float(bear["price_target"]) >= p:
+    # Risk/reward = expected position return / downside risk. This is the documented long formula
+    #   (Probability-Weighted Target - Price) / (Price - Bear Price)
+    # written direction-generally: for a long, E[r] = (pwt-p)/p and downside = (p-bear)/p, and the p's
+    # cancel — the two are algebraically identical. Expressed this way it also holds for a short, whose
+    # adverse case is the worst POSITION return (a squeeze), not the bear price. TSLA_2026-07-25 publishes
+    # 1.85 = 56.57 / 30.56; the long price formula gives -0.58 on the same numbers.
+    er, dr = out["expected_return_pct"], out["downside_risk_pct"]
+    out["risk_reward"] = (round(er / dr, 2) if _isnum(er) and _isnum(dr) and abs(dr) > 1e-9 else None)
+    # "Is there a genuine adverse branch" is direction-dependent: a long needs a bear BELOW the price, a
+    # short needs a bull ABOVE it (the squeeze). Firing the long check on a short is backwards — a short's
+    # bear sitting below the price is the thesis working, not a defect (eval checks AM / AR).
+    if short:
+        bull = _find(clean, "bull")
+        if bull and float(bull["price_target"]) <= p:
+            warnings.append(f"bull price_target {bull['price_target']} is not above price {p} — no genuine "
+                            f"squeeze/upside branch for a short (§8; eval check AR)")
+    elif bear and float(bear["price_target"]) >= p:
         warnings.append(f"bear price_target {bear['price_target']} is not below price {p} — no genuine "
                         f"downside branch for a long (§8/§16)")
     return out
@@ -551,8 +578,42 @@ def _selftest() -> int:
     if fails:
         print("VALUATION MATH SELFTEST FAIL:", ", ".join(fails))
         return 1
-    print(f"VALUATION MATH SELFTEST PASS — {9} groups, AMZN decision_record reproduced "
-          f"(expected -16.1 / mos -13.5 / downside 38.7 / rr -0.41), re-anchor + WACC + symmetry checks green")
+    # ---- group 10: POSITION-SIGNED returns for a short (synthesizer.md §6 Downside Risk) ----
+    # The fixture is the committed TSLA_2026-07-25 decision_record, reproduced from its own five levels
+    # and probabilities. The long formula gives every number the wrong sign on the same inputs.
+    TSLA = [
+        {"label": "bull",            "probability": 25, "price_target": 336.08},
+        {"label": "base",            "probability": 20, "price_target": 32.37},
+        {"label": "bear_cyclical",   "probability": 25, "price_target": 20.90},
+        {"label": "bear_structural", "probability": 20, "price_target": 6.86},
+        {"label": "tail_squeeze",    "probability": 10, "price_target": 417.40},
+    ]
+    sh = scenario_math(TSLA, 319.69, direction="short")
+    check("short: expected return reproduces the published +56.57", abs(sh["expected_return_pct"] - 56.57) < 0.05)
+    check("short: downside risk reproduces the published +30.56 (the squeeze, not the bear)",
+          abs(sh["downside_risk_pct"] - 30.56) < 0.05)
+    check("short: risk/reward reproduces the published 1.85", abs(sh["risk_reward"] - 1.85) < 0.02)
+    _r = {x["label"]: x["return_pct"] for x in sh["per_scenario"]}
+    check("short: a price RISE is a loss (bull 336.08 vs entry 319.69 -> -5.1%)", abs(_r["bull"] + 5.1) < 0.15)
+    check("short: a price FALL is a gain (base 32.37 -> +89.9%)", abs(_r["base"] - 89.9) < 0.15)
+    check("short: the worst case is the squeeze, not the bear", min(_r.values()) == _r["tail_squeeze"])
+    check("short: margin of safety stays direction-uniform and negative", sh["margin_of_safety_pct"] < 0)
+    lg = scenario_math(TSLA, 319.69, direction="long")
+    check("the long formula on a short flips every sign", abs(lg["expected_return_pct"] + 56.57) < 0.05)
+    check("...and misreports the worst case as the bear", abs(lg["downside_risk_pct"] - 97.9) < 0.2)
+    check("short: no long-side 'bear not below price' warning fires",
+          not any("downside branch for a long" in w for w in sh["warnings"]))
+    check("short: a bull NOT above the price is warned (no squeeze branch)",
+          any("squeeze/upside branch for a short" in w for w in
+              scenario_math([{"label": "bull", "probability": 50, "price_target": 200},
+                             {"label": "bear", "probability": 50, "price_target": 50}], 300, direction="short")["warnings"]))
+    check("direction defaults to long", scenario_math(TSLA, 319.69)["expected_return_pct"] == lg["expected_return_pct"])
+    check("an unrecognised direction is treated as long",
+          scenario_math(TSLA, 319.69, direction="hedge")["expected_return_pct"] == lg["expected_return_pct"])
+
+    print(f"VALUATION MATH SELFTEST PASS — {10} groups, AMZN + TSLA decision_records reproduced "
+          f"(AMZN long: expected -16.1 / mos -13.5 / downside 38.7 / rr -0.41; TSLA short: +56.57 / +30.56 / 1.85), "
+          f"re-anchor + WACC + symmetry checks green")
     return 0
 
 

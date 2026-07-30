@@ -1650,6 +1650,10 @@ app.get('/api/valuation-levers', async (req, reply) => {
   const dec = decision
     ? {
         scenarios: Array.isArray(decision.scenarios) ? decision.scenarios : [],
+        // THE POSITION. Scenario returns are position-signed (synthesizer.md §6), so the Playground cannot
+        // compute a short's returns without it — the long formula flips every sign. `basket` is the
+        // documented decision->position key (frameworks/DECISION_LEDGER.md §3: Short Candidate -> "Short").
+        basket: typeof decision.basket === 'string' ? decision.basket : null,
         entry_price: num(decision.entry_price),
         entry_price_timestamp: decision.entry_price_timestamp ?? null,
         currency: decision.currency ?? null,

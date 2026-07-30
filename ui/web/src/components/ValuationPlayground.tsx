@@ -21,7 +21,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import {
-  draftFromResponse, recompute, deriveMethods, scenarioCellState, chainLevel, chainEv, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend,
+  draftFromResponse, recompute, deriveMethods, mosRead, scenarioCellState, chainLevel, chainEv, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend,
   type PlaygroundDraft, type ValuationLeversResponse, type DraftScenario, type DraftChain,
   type DraftInternals, type GridReadout, type PeersReadout, type Trace, type GoalSeekParam, type GoalSeekResult,
 } from '../lib/valuationLevers'
@@ -422,6 +422,11 @@ export function ValuationPlayground() {
         // so this only fires once every case that matters is shadowed.
         const evCasesWithLever = draft.scenarios.filter((s) => (s.basis ?? draft.basis) === 'ev' && Number.isFinite(s.forwardMetric as number) && Number.isFinite(s.multiple as number))
         const allEvBridged = evCasesWithLever.length > 0 && evCasesWithLever.every((s) => !!s.bridge)
+        // Margin of safety is direction-uniform by doctrine, so its LABEL has to follow the sign or the
+        // sentence is false: TSLA's MoS is −887.7%, and "Price below that by −887.7%" states the opposite
+        // of the truth. mosRead() gives the magnitude to print and the label to print it under.
+        const mosR = mosRead(out.math.marginOfSafetyPct, draft.direction ?? 'long')
+        const mosTone = mosR.good === null ? 'var(--text-faint)' : mosR.good ? 'var(--accent-bright)' : 'var(--bad)'
         return (
         <div className="vpg__body">
           {/* ---- THE ANSWER — pinned, so it never scrolls away from the lever you are moving ---- */}
@@ -444,8 +449,8 @@ export function ValuationPlayground() {
                 <span className="vpg__chipval mono">{fmtN(pgLevel('base'))}</span>
               </div>
               <div className="vpg__chip">
-                <span className="vpg__chiplabel">Price below that by</span>
-                <span className="vpg__chipval mono" style={{ color: tone(out.math.marginOfSafetyPct) }}>{fmtPct(out.math.marginOfSafetyPct)}</span>
+                <span className="vpg__chiplabel">{mosR.label}</span>
+                <span className="vpg__chipval mono" style={{ color: mosTone }}>{mosR.magnitude === null ? '—' : `${mosR.magnitude}%`}</span>
               </div>
               <div className="vpg__chip">
                 <span className="vpg__chiplabel">Worst case</span>
@@ -465,7 +470,7 @@ export function ValuationPlayground() {
                   <span className="vpg__col vpg__col--pg">Yours</span>
                 </div>
                 <CmpRow label="What you'd make" gloss="expected return" sys={sysExp} pg={pgExp} t="exp" />
-                <CmpRow label="Price below fair value by" gloss="margin of safety" sys={dec?.margin_of_safety_pct ?? null} pg={out.math.marginOfSafetyPct} t="mos" />
+                <CmpRow label={mosR.above ? 'Price above fair value by' : 'Price below fair value by'} gloss="margin of safety — the sign says which side of fair value the price sits on" sys={dec?.margin_of_safety_pct ?? null} pg={out.math.marginOfSafetyPct} t="mos" />
                 <CmpRow label="How far it could fall" gloss="downside risk — higher is worse" sys={dec?.downside_risk_pct ?? null} pg={out.math.downsideRiskPct} t="down" invertTone />
                 <CmpRow label="Reward per unit of risk" gloss="risk / reward" sys={null} pg={out.math.riskReward} isPct={false} t="rr" />
                 <CmpRow label="Worth if things go well" gloss="bull" sys={sysLevel('bull')} pg={pgLevel('bull')} isPct={false} />

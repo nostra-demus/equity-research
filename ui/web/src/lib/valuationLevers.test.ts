@@ -5,7 +5,7 @@
 // that produced the fair value, the Playground silently disagrees with the recorded thesis — this file fails
 // first. Parity targets are the exact valuation_math.py outputs: AMZN 210.05, NHY 81.826, EMAAR 16.5245.
 import assert from 'node:assert'
-import { blend, buildMethods, impliedMultiple, caseLevelFromMultiple, levelSourceFor, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, chainEv, buildChain, levelForScenario, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
+import { blend, buildMethods, impliedMultiple, caseLevelFromMultiple, levelSourceFor, reanchor, mosRead, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, chainEv, buildChain, levelForScenario, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
 import type { PlaygroundDraft } from './valuationLevers'
 
 let passed = 0
@@ -940,6 +940,75 @@ check('an unlock seeded from the shown level actually takes over (the button is 
   // and editing it moves the case even though the row records a metric × multiple
   const typed = { ...unlocked, scenarios: unlocked.scenarios.map((x, i) => (i === 0 ? { ...x, levelOverride: 150 } : x)) }
   assert.equal(recompute(typed).scenarios[0].level, 150)
+})
+
+// ---- position-signed returns: the client must match scripts/valuation_math.py on a SHORT ----
+// The fixture is the committed TSLA_2026-07-25 decision_record, reproduced from its own five levels and
+// probabilities. Parity targets are the exact published fields: +56.57 / +30.56 / 1.85.
+const TSLA_SHORT = [
+  { label: 'bull', probability: 25, price_target: 336.08 },
+  { label: 'base', probability: 20, price_target: 32.37 },
+  { label: 'bear_cyclical', probability: 25, price_target: 20.90 },
+  { label: 'bear_structural', probability: 20, price_target: 6.86 },
+  { label: 'tail_squeeze', probability: 10, price_target: 417.40 },
+]
+check('short: reproduces the published TSLA decision_record (+56.57 / +30.56 / 1.85)', () => {
+  const m = scenarioMath(TSLA_SHORT, 319.69, 'short')
+  assert.ok(Math.abs((m.expectedReturnPct as number) - 56.57) < 0.05, `E[r] ${m.expectedReturnPct}`)
+  assert.ok(Math.abs((m.downsideRiskPct as number) - 30.56) < 0.05, `downside ${m.downsideRiskPct}`)
+  assert.ok(Math.abs((m.riskReward as number) - 1.85) < 0.02, `rr ${m.riskReward}`)
+})
+check('short: a price RISE is a loss and a FALL is a gain', () => {
+  const m = scenarioMath(TSLA_SHORT, 319.69, 'short')
+  const r = Object.fromEntries(m.perScenario.map((x) => [x.label, x.return_pct]))
+  assert.ok(Math.abs((r.bull as number) + 5.1) < 0.15, `bull ${r.bull}`)
+  assert.ok(Math.abs((r.base as number) - 89.9) < 0.15, `base ${r.base}`)
+  assert.equal(Math.min(...m.perScenario.map((x) => x.return_pct as number)), r.tail_squeeze)
+})
+check('short: margin of safety stays DIRECTION-UNIFORM (negative, not flipped)', () => {
+  const m = scenarioMath(TSLA_SHORT, 319.69, 'short')
+  assert.ok((m.marginOfSafetyPct as number) < 0, `mos ${m.marginOfSafetyPct}`)
+  assert.equal(m.marginOfSafetyPct, scenarioMath(TSLA_SHORT, 319.69, 'long').marginOfSafetyPct)
+})
+check('the long formula on a short flips every sign — the bug this pins', () => {
+  const lg = scenarioMath(TSLA_SHORT, 319.69, 'long')
+  assert.ok(Math.abs((lg.expectedReturnPct as number) + 56.57) < 0.05, `${lg.expectedReturnPct}`)
+  assert.ok(Math.abs((lg.downsideRiskPct as number) - 97.9) < 0.2, `${lg.downsideRiskPct}`)
+})
+check('the adverse-branch warning follows the direction (AM for a long, AR for a short)', () => {
+  const sh = scenarioMath(TSLA_SHORT, 319.69, 'short')
+  assert.ok(!sh.warnings.some((w) => /downside branch for a long/.test(w)), JSON.stringify(sh.warnings))
+  const noSqueeze = scenarioMath([{ label: 'bull', probability: 50, price_target: 200 },
+                                  { label: 'bear', probability: 50, price_target: 50 }], 300, 'short')
+  assert.ok(noSqueeze.warnings.some((w) => /squeeze\/upside branch for a short/.test(w)), JSON.stringify(noSqueeze.warnings))
+})
+check('direction defaults to long, and reanchor carries it', () => {
+  assert.equal(scenarioMath(TSLA_SHORT, 319.69).expectedReturnPct, scenarioMath(TSLA_SHORT, 319.69, 'long').expectedReturnPct)
+  assert.equal(reanchor(TSLA_SHORT, 319.69, 'short').expectedReturnPct, scenarioMath(TSLA_SHORT, 319.69, 'short').expectedReturnPct)
+})
+check('draftFromResponse reads the direction from the decision basket', () => {
+  const shortRes: ValuationLeversResponse = { ...NHY13, decision: { ...NHY13.decision!, basket: 'Short' } }
+  assert.equal(draftFromResponse(shortRes).direction, 'short')
+  assert.equal(draftFromResponse(NHY13).direction, 'long')
+  assert.equal(draftFromResponse({ ...NHY13, decision: { ...NHY13.decision!, basket: 'Watchlist' } }).direction, 'long')
+  const a = recompute(draftFromResponse(NHY13)).math.expectedReturnPct as number
+  const b = recompute(draftFromResponse(shortRes)).math.expectedReturnPct as number
+  assert.ok(Math.abs(a + b) < 0.15, `long ${a} vs short ${b} — must be equal and opposite`)
+})
+check('mosRead: the sentence follows the sign, so it can never state the opposite of the truth', () => {
+  const above = mosRead(-887.7, 'short')
+  assert.equal(above.label, 'Price above that by')
+  assert.equal(above.magnitude, 887.7)
+  assert.equal(above.good, true)                      // for a SHORT, expensive is the thesis working
+  assert.equal(mosRead(-887.7, 'long').good, false)   // for a LONG, the same fact is bad news
+  assert.equal(mosRead(-3.83, 'long').label, 'Price above that by')
+  const below = mosRead(18.7, 'long')
+  assert.equal(below.label, 'Price below that by')
+  assert.equal(below.magnitude, 18.7)
+  assert.equal(below.good, true)
+  assert.equal(mosRead(18.7, 'short').good, false)     // a cheap stock is bad news for a short
+  assert.equal(mosRead(null).magnitude, null)
+  assert.equal(mosRead(null).good, null)
 })
 
 console.log(`valuationLevers.test.ts: ${passed} assertions passed`)
