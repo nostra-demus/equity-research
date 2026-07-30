@@ -21,7 +21,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import {
-  draftFromResponse, recompute, deriveMethods, scenarioCellState, chainLevel, chainEv, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend,
+  draftFromResponse, recompute, deriveMethods, mosRead, caseTitle, caseSubtitle, scenarioCellState, chainLevel, chainEv, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, multipleOutranksChain,
   type PlaygroundDraft, type ValuationLeversResponse, type DraftScenario, type DraftChain,
   type DraftInternals, type GridReadout, type PeersReadout, type Trace, type GoalSeekParam, type GoalSeekResult,
 } from '../lib/valuationLevers'
@@ -35,6 +35,11 @@ const parseNum = (s: string): number | null => {
 }
 const fmtN = (n: number | null | undefined, d = 2): string => (typeof n === 'number' ? String(Math.round(n * 10 ** d) / 10 ** d) : '—')
 const fmtPct = (n: number | null | undefined): string => (typeof n === 'number' ? `${n > 0 ? '+' : ''}${n}%` : '—')
+// The machinery panel's heading. A run that records no multiple (pre-v1.3, or a judgment case) has no
+// multiple to name, so it says what it IS instead of printing "Where —× comes from".
+const whereFrom = (mult: number | null | undefined): string =>
+  (typeof mult === 'number' ? `Where ${fmtN(mult, 2)}× comes from` : 'Where the value comes from')
+
 const tone = (n: number | null | undefined): string => (typeof n !== 'number' ? 'var(--text-faint)' : n >= 0 ? 'var(--accent-bright)' : 'var(--bad)')
 
 // Grid axes / discount-rate fields are decimals in the sidecar (0.075); every rate field types PERCENT
@@ -66,13 +71,6 @@ const methodLabel = (key: string): string => METHOD_LABELS[key] ?? key.replace(/
 
 // bull / base / bear are the run's OWN labels (never renamed — they are data). A one-line gloss makes them
 // legible to someone who has never read a broker note.
-const caseGloss = (label: string): string => {
-  const l = (label || '').toLowerCase()
-  if (l.includes('bull')) return 'things go well'
-  if (l.includes('bear')) return 'things go badly'
-  if (l.includes('base')) return 'most likely'
-  return ''
-}
 
 // The guard warnings are written for the audit trail — precise, and heavy going. Lead each one with a plain
 // sentence and keep the exact text beneath it, so nothing is softened or lost (§5/§21). An unrecognized
@@ -93,7 +91,7 @@ const plainWarning = (w: string): string | null => {
   return null
 }
 
-function Field({ label, value, onChange, step = 'any', title, hint }: { label: string; value: number | null; onChange: (n: number | null) => void; step?: string; title?: string; hint?: string }) {
+function Field({ label, value, onChange, step = 'any', title, hint, disabled }: { label: string; value: number | null; onChange: (n: number | null) => void; step?: string; title?: string; hint?: string; disabled?: boolean }) {
   const [local, setLocal] = useState<string>(numToStr(value))
   useEffect(() => { if (parseNum(local) !== value) setLocal(numToStr(value)) }, [value]) // eslint-disable-line react-hooks/exhaustive-deps
   return (
@@ -104,6 +102,7 @@ function Field({ label, value, onChange, step = 'any', title, hint }: { label: s
         inputMode="decimal"
         step={step}
         value={local}
+        disabled={disabled}
         onChange={(e) => { setLocal(e.target.value); onChange(parseNum(e.target.value)) }}
       />
     </label>
@@ -203,6 +202,14 @@ export function ValuationPlayground() {
   // v2 Phase-1: one open trace strip at a time (Excel's "trace precedents" — click a computed cell)
   const [openTrace, setOpenTrace] = useState<string | null>(null)
   const toggleTrace = (id: string) => setOpenTrace((t) => (t === id ? null : id))
+  // v1.3: a CASE's machinery panel is a different thing from a trace strip — you compare cases by holding
+  // two open side by side (the bear's runoff against the base's blend), so these do NOT close each other.
+  const [openCases, setOpenCases] = useState<Set<string>>(new Set())
+  const toggleCase = (id: string) => setOpenCases((prev) => {
+    const next = new Set(prev)
+    if (!next.delete(id)) next.add(id)
+    return next
+  })
   // the accordion rows + the "show every number" expansion in the pinned result bar
   const [openMore, setOpenMore] = useState<string | null>(null)
   const toggleMore = (id: string) => setOpenMore((m) => (m === id ? null : id))
@@ -248,6 +255,103 @@ export function ValuationPlayground() {
     const s = out?.scenarios.find((x) => (x.label || '').toLowerCase().includes(name))
     return s && typeof s.level === 'number' ? s.level : null
   }
+
+  // Which case hosts the method mix. The §16 dispersion read comes from recompute (out.methodSpan), off the
+  // same DERIVED method values the blend uses — a span off the raw typed values would contradict the blend
+  // the moment a ▸ sub-lever drives a method (Codex #364 P2).
+  const baseIdx = draft ? draft.scenarios.findIndex((s) => (s.label || '').toLowerCase().includes('base')) : -1
+
+  // The METHOD MIX body — the base case's machinery. Rendered inside that case's ▸ (its natural home:
+  // the blend IS what produces the base level and therefore its implied multiple), and in a standalone
+  // accordion only when a run has no base-labelled scenario to host it. One definition, two call sites.
+  const mixPanel = () => {
+    if (!draft || !out) return null
+    const pubBase = sysLevel('base')
+    const bp = out.blend.basePoint
+    const delta = typeof bp === 'number' && typeof pubBase === 'number' ? bp - pubBase : null
+    return (
+      <>
+            <div className="vpg__mixtable">
+              <div className="vpg__mixhead">
+                <span>Valued by</span><span>Worth</span><span>Weight</span><span>Share used</span>
+              </div>
+              {draft.methods.map((m, i) => {
+                const eff = out.blend.effectiveWeights[m.key]
+                // v1.1 sub-levers: only a method whose run RECORDED internals gets a ▸ (nothing invented)
+                const int = draft.internals as Record<string, { active?: boolean } | null | undefined> | undefined
+                const hasInternals = !!(int && int[m.key])
+                const active = !!(int && int[m.key]?.active)
+                const derived: number | null =
+                  m.key === 'dcf' ? out.methodInternals.dcf?.value ?? null
+                  : m.key === 'sotp' ? out.methodInternals.sotp?.value ?? null
+                  : m.key === 'peers' ? out.methodInternals.peers?.value ?? null : null
+                const open = openMethod === m.key
+                return (
+                  <div key={m.key}>
+                    <div className="vpg__mixrow">
+                      <span className="vpg__mixlabel">
+                        {hasInternals
+                          ? <button className={`vpg__disc${open ? ' vpg__disc--open' : ''}`} onClick={() => setOpenMethod(open ? null : m.key)} title="Open the assumptions behind this one" aria-expanded={open}>▸</button>
+                          : <span className="vpg__disc vpg__disc--none" aria-hidden />}
+                        {methodLabel(m.key)}
+                      </span>
+                      {/* Editable even while DERIVED — typing IS the detach path (Codex #336 r3644218907:
+                          a read-only span made setMethod unreachable, locking the analyst into the ▸
+                          derivation). While active with nothing derivable, the cell blanks — matching the
+                          blend, which drops the method rather than reusing a stale value. */}
+                      <TableInput
+                        value={active ? derived : m.value}
+                        onChange={(n) => setMethod(i, { value: n })}
+                        ariaLabel={`${m.key} value`}
+                        className={active ? 'vpg__scennum--derived' : undefined}
+                        title={active ? 'Worked out from the assumptions below — type here to ignore them and use your own number.' : undefined}
+                      />
+                      <TableInput value={m.weight} onChange={(n) => setMethod(i, { weight: n })} ariaLabel={`${m.key} weight`} />
+                      <span className="vpg__mixeff mono">{typeof eff === 'number' ? `${Math.round(eff * 100)}%` : '—'}</span>
+                    </div>
+                    {open && m.key === 'dcf' && draft.internals?.dcf && (
+                      <DcfPanel d={draft.internals.dcf} readout={out.methodInternals.dcf} onWacc={(n) => setDcfInternal({ wacc: n })} onGrowth={(n) => setDcfInternal({ growth: n })} />
+                    )}
+                    {open && m.key === 'sotp' && draft.internals?.sotp && (
+                      <SotpPanel s={draft.internals.sotp} derived={out.methodInternals.sotp?.value ?? null} onMultiple={setSotpMultiple} />
+                    )}
+                    {open && m.key === 'peers' && draft.internals?.peers && (
+                      <PeersPanel p={draft.internals.peers} readout={out.methodInternals.peers} onMultiple={setPeersMultiple} />
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+            <div className="vpg__mixsum">
+              <div className="vpg__note">
+                Blending those gives <button className="vpg__fxbtn mono" onClick={() => toggleTrace('blend')} aria-expanded={openTrace === 'blend'} title="Show the sum — weight × value, one line per method"><b>{fmtN(bp, 2)}</b></button>
+                {typeof pubBase === 'number' && (
+                  <> against the engine's <b className="mono">{fmtN(pubBase, 2)}</b>
+                    {delta !== null && Math.abs(delta) >= 0.005 && (
+                      <> (a gap of <span className="mono">{delta > 0 ? '+' : ''}{fmtN(delta, 2)}</span>). Weights are rescaled to add to 100% across the methods actually present, so "share used" can differ from what you type.</>
+                    )}
+                  </>
+                )}
+              </div>
+              <label className="vpg__toggle" title="Use this blend as the most-likely value, so moving a weight flows through to your return.">
+                <input type="checkbox" checked={draft.driveBaseFromMix} onChange={(e) => setTop({ driveBaseFromMix: e.target.checked })} />
+                <span>Use this blend as the most-likely value</span>
+              </label>
+              <div className="vpg__note">
+                {out.blendActive
+                  ? <span className="vpg__note--warn">On — the answer at the top is using this blend, not the engine's frozen value.</span>
+                  : draft.driveBaseFromMix
+                    ? <span className="vpg__note--warn">Nothing to blend — no method has a weight, so the most-likely value stays the engine's. The answer at the top does NOT use the mix.</span>
+                    : delta !== null && Math.abs(delta) >= 0.005
+                      ? <>The answer at the top still uses the engine's value — tick the box to use this blend instead.</>
+                      : <>Tick the box to use this blend as the most-likely value.</>}
+              </div>
+            </div>
+            {openTrace === 'blend' && <TraceStrip t={traceBlend(deriveMethods(draft).methods, out.blend, methodLabel)} />}
+      </>
+    )
+  }
+
 
   // t = a trace id: the Playground value becomes a clickable ƒ cell whose derivation opens as a strip below
   // invertTone: for a metric where HIGHER is worse (e.g. downside risk), flip which sign reads as bad/good.
@@ -303,6 +407,19 @@ export function ValuationPlayground() {
         // downsideRiskPct is INVERTED (higher = worse). Flip it back to a plain return so the chip reads
         // like every other return on the panel; the full table below keeps the inverted row, labelled.
         const worstReturn = typeof out.math.downsideRiskPct === 'number' ? +(-out.math.downsideRiskPct).toFixed(1) : null
+        // v1.3: when EVERY ev-basis case that derives a level supplies its OWN bridge, the top-level
+        // Net debt / Shares fields shadow nothing — recompute always reads `s.bridge`, never the top-level
+        // override, for those cases. Leaving the fields editable with no effect is a silent no-op (Codex
+        // #362 P2); disable them and say why instead. A run where only SOME ev cases carry a bridge (the
+        // guard rejects that shape as double-counting, §15) still uses the top-level fields for the rest,
+        // so this only fires once every case that matters is shadowed.
+        const evCasesWithLever = draft.scenarios.filter((s) => (s.basis ?? draft.basis) === 'ev' && Number.isFinite(s.forwardMetric as number) && Number.isFinite(s.multiple as number))
+        const allEvBridged = evCasesWithLever.length > 0 && evCasesWithLever.every((s) => !!s.bridge)
+        // Margin of safety is direction-uniform by doctrine, so its LABEL has to follow the sign or the
+        // sentence is false: TSLA's MoS is −887.7%, and "Price below that by −887.7%" states the opposite
+        // of the truth. mosRead() gives the magnitude to print and the label to print it under.
+        const mosR = mosRead(out.math.marginOfSafetyPct, draft.direction ?? 'long')
+        const mosTone = mosR.good === null ? 'var(--text-faint)' : mosR.good ? 'var(--accent-bright)' : 'var(--bad)'
         return (
         <div className="vpg__body">
           {/* ---- THE ANSWER — pinned, so it never scrolls away from the lever you are moving ---- */}
@@ -325,8 +442,8 @@ export function ValuationPlayground() {
                 <span className="vpg__chipval mono">{fmtN(pgLevel('base'))}</span>
               </div>
               <div className="vpg__chip">
-                <span className="vpg__chiplabel">Price below that by</span>
-                <span className="vpg__chipval mono" style={{ color: tone(out.math.marginOfSafetyPct) }}>{fmtPct(out.math.marginOfSafetyPct)}</span>
+                <span className="vpg__chiplabel">{mosR.label}</span>
+                <span className="vpg__chipval mono" style={{ color: mosTone }}>{mosR.magnitude === null ? '—' : `${mosR.magnitude}%`}</span>
               </div>
               <div className="vpg__chip">
                 <span className="vpg__chiplabel">Worst case</span>
@@ -346,8 +463,18 @@ export function ValuationPlayground() {
                   <span className="vpg__col vpg__col--pg">Yours</span>
                 </div>
                 <CmpRow label="What you'd make" gloss="expected return" sys={sysExp} pg={pgExp} t="exp" />
-                <CmpRow label="Price below fair value by" gloss="margin of safety" sys={dec?.margin_of_safety_pct ?? null} pg={out.math.marginOfSafetyPct} t="mos" />
-                <CmpRow label="How far it could fall" gloss="downside risk — higher is worse" sys={dec?.downside_risk_pct ?? null} pg={out.math.downsideRiskPct} t="down" invertTone />
+                {/* This row shows BOTH the frozen Engine number and the editable Yours number side by side.
+                    They can disagree in SIGN — the user can move price or fair value across the boundary —
+                    so a single "above"/"below" label picked from one side's sign would misstate the other
+                    side's. mosR (below) still drives the single-value hero chip, where that risk doesn't
+                    exist; here the row label stays direction-neutral and each column's own signed number
+                    (+ its own tone colour, already computed independently per column) carries which side of
+                    fair value THAT column's price sits on (Codex #366 P2). */}
+                <CmpRow label="Price vs. fair value" gloss="margin of safety — a positive number means the price sits below fair value (a cushion); negative means it is trading above fair value" sys={dec?.margin_of_safety_pct ?? null} pg={out.math.marginOfSafetyPct} t="mos" invertTone={draft.direction === 'short'} />
+                {/* downsideRiskPct is the worst POSITION return, inverted. For a long that worst case is a
+                    price fall; for a short (e.g. TSLA's squeeze scenario) it is a price RISE — "how far it
+                    could fall" tells a short holder the opposite of their real risk (Codex #366 P2). */}
+                <CmpRow label={draft.direction === 'short' ? 'How far it could move against you' : 'How far it could fall'} gloss="downside risk — higher is worse" sys={dec?.downside_risk_pct ?? null} pg={out.math.downsideRiskPct} t="down" invertTone />
                 <CmpRow label="Reward per unit of risk" gloss="risk / reward" sys={null} pg={out.math.riskReward} isPct={false} t="rr" />
                 <CmpRow label="Worth if things go well" gloss="bull" sys={sysLevel('bull')} pg={pgLevel('bull')} isPct={false} />
                 <CmpRow label="Worth, most likely" gloss="base" sys={sysLevel('base')} pg={pgLevel('base')} isPct={false} />
@@ -356,7 +483,7 @@ export function ValuationPlayground() {
                 {(['exp', 'mos', 'down', 'rr', 'pwt'] as const).map((id) => {
                   if (openTrace !== id) return null
                   const metric = id === 'exp' ? 'expected' : id === 'down' ? 'downside' : id
-                  const tr = traceOutput(metric, out.math)
+                  const tr = traceOutput(metric, out.math, draft.direction ?? 'long')
                   return tr ? <TraceStrip key={id} t={tr} /> : null
                 })}
               </div>
@@ -393,8 +520,20 @@ export function ValuationPlayground() {
                 onChange={(n) => setTop({ price: n })}
                 title="Re-anchor every return to a fresh price — what the company is worth doesn't move, only your return does."
               />
-              {draft.basis === 'ev' && <Field label="Shares" hint="fully diluted" value={draft.shares} onChange={(n) => setTop({ shares: n })} />}
-              {draft.basis === 'ev' && <Field label="Net debt" hint="+ debt / − cash" value={draft.netDebt} onChange={(n) => setTop({ netDebt: n })} />}
+              {draft.basis === 'ev' && (
+                <Field
+                  label="Shares" hint={allEvBridged ? 'set per case below' : 'fully diluted'}
+                  value={draft.shares} onChange={(n) => setTop({ shares: n })} disabled={allEvBridged}
+                  title={allEvBridged ? "Every case here supplies its own share count — this field has no effect on any of them. Open a case's ƒ to change its own." : undefined}
+                />
+              )}
+              {draft.basis === 'ev' && (
+                <Field
+                  label="Net debt" hint={allEvBridged ? 'set per case below' : '+ debt / − cash'}
+                  value={draft.netDebt} onChange={(n) => setTop({ netDebt: n })} disabled={allEvBridged}
+                  title={allEvBridged ? "Every case here supplies its own debt figure — this field has no effect on any of them. Open a case's ƒ to change its own." : undefined}
+                />
+              )}
             </div>
             <div className="vpg__note">
               Change the price and only the returns move — what the company is worth stays put.
@@ -402,6 +541,7 @@ export function ValuationPlayground() {
                 ? ' Values are built from the whole company (EBITDA × a multiple), then debt is subtracted to get to the shares.'
                 : ' Values are built per share (earnings × a multiple).'}
               {res?.levers?.currency ? ` Figures in ${res.levers.currency}.` : ''}
+              {allEvBridged ? ' Each case below supplies its own debt and share count, so the fields above are shown for reference only.' : ''}
             </div>
           </div>
 
@@ -412,14 +552,22 @@ export function ValuationPlayground() {
               <div className="vpg__scenhead">
                 <span>Case</span>
                 <span>Chance</span>
-                {hasEditableMultiples ? (<><span>Per share</span><span>× multiple</span><span>Worth</span></>) : <span>Worth</span>}
+                {/* generic column names — a row can be a per-share metric OR a total (EBITDA, say); its own
+                    caption underneath the input, not this header, names which (Codex #362 P2) */}
+                {hasEditableMultiples ? (<><span>Metric</span><span>× multiple</span><span>Worth</span></>) : <span>Worth</span>}
                 <span>Return</span>
               </div>
               {draft.scenarios.map((s, i) => {
                 const row = out.scenarios[i]
                 const ret = out.math.perScenario.find((x) => x.label === s.label)?.return_pct ?? null
                 const isBase = (s.label || '').toLowerCase().includes('base')
-                const cv = chainLevel(s.chain, draft.shares)
+                // An asserted (typed) multiple, OR a run-recorded `applied` multiple, outranks the chain
+                // (levelSourceFor's precedence, Codex #364 P2) — once either drives, the chain must not
+                // drive this cell's CLASSIFICATION either, or the trace strip below opens ChainStrip and
+                // shows the chain's arithmetic as if it were the answer, while recompute actually used the
+                // multiple (Codex #366 P2 — the two disagreed for an applied+chain case that was never
+                // asserted, e.g. a fresh load of TSLA's cases before any edit).
+                const cv = multipleOutranksChain(s) ? null : chainLevel(s.chain, draft.shares)
                 const cs = scenarioCellState(s, isBase, draft.published?.blend.basePoint ?? null, out.blend.basePoint, out.blendActive, cv)
                 const traceId = `scen:${i}`
                 // per-ROW lever choice: metric×multiple inputs only where the row records them — a chain or
@@ -427,155 +575,203 @@ export function ValuationPlayground() {
                 // empty inputs (Codex #339 r3644833914)
                 const rowHasMult = Number.isFinite(s.forwardMetric as number) || Number.isFinite(s.multiple as number)
                 const span2 = hasEditableMultiples && !rowHasMult ? { gridColumn: 'span 2' } : undefined
-                const gloss = caseGloss(s.label)
+                // The label an analyst reads, and the line under it — both from lib/valuationLevers, which
+                // derives them from the recorded label plus what is (or is not) present. The gloss element
+                // always renders so a row with nothing to add keeps the same height as one that does.
+                const title = caseTitle(s.label)
+                const gloss = caseSubtitle(s)
+                // v1.3: a case's MACHINERY — everything recorded that explains its level, opened INSIDE the
+                // case. A LIST, not a choice: TSLA's base carries an ev_bridge derivation AND four blended
+                // methods, and picking one would have made the mix, its sub-levers and the drive-base toggle
+                // unreachable while goal seek still pointed at them (Codex #364 P1).
+                //   'trace' — this row's own arithmetic, shown only when the multiple is what computes the
+                //             level. Without it NHY's bull states 28,889 × 8.21 beside 107.75 and never
+                //             exposes the net debt 17,919 / minority 7,495 that turns one into the other.
+                const machinery: ('trace' | 'chain' | 'mix')[] = []
+                if (rowHasMult && (row?.levelSource === 'multiple' || row?.levelSource === 'asserted_multiple')) machinery.push('trace')
+                if (s.chain) machinery.push('chain')
+                if (isBase && draft.methods.length > 0) machinery.push('mix')
+                const caseOpen = openCases.has(traceId)
+                const discTitle = machinery.length > 1
+                  ? `Open everything behind this case (${machinery.length} panels)`
+                  : machinery[0] === 'mix' ? 'Open the method mix behind this case'
+                  : machinery[0] === 'chain' ? 'Open the chain this case was worked out from'
+                  : 'Open the arithmetic behind this case — the metric, the multiple and the debt bridge'
+                // Unlocking must actually unlock: the override editor needs a value to edit, and the row has
+                // to RENDER it ahead of the metric/multiple branch, or the button silently does nothing
+                // (Codex #364 P2). Seeds from what is on screen now, so the cell opens at today's number.
+                const unlock = () => setScen(i, { overrideUnlocked: true, levelOverride: row?.level ?? s.frozenLevel ?? null })
                 return (
                   <div key={i}>
-                    <div className="vpg__scenrow">
+                    <div className={`vpg__scenrow${s.masterOnly ? ' vpg__scenrow--master' : ''}${s.orphan ? ' vpg__scenrow--orphan' : ''}`}>
                       <span className="vpg__scenlabel">
-                        {s.label}
-                        {gloss && <span className="vpg__scengloss">{gloss}</span>}
+                        <span className="vpg__scenname">
+                          {machinery.length > 0
+                            ? <button className={`vpg__disc${caseOpen ? ' vpg__disc--open' : ''}`} onClick={() => toggleCase(traceId)} aria-expanded={caseOpen} title={discTitle}>▸</button>
+                            : <span className="vpg__disc vpg__disc--none" aria-hidden />}
+                          {title}
+                        </span>
+                        <span className={`vpg__scengloss${gloss ? '' : ' vpg__scengloss--empty'}`}>{gloss}</span>
                       </span>
                       <TableInput value={s.probability} onChange={(n) => setScen(i, { probability: n })} ariaLabel={`${s.label} chance`} title="How likely you think this case is, in %" />
-                      {rowHasMult ? (
-                        <>
-                          <TableInput value={s.forwardMetric} onChange={(n) => setScen(i, { forwardMetric: n })} ariaLabel={`${s.label} per-share figure`} />
-                          <TableInput value={s.multiple} onChange={(n) => setScen(i, { multiple: n })} ariaLabel={`${s.label} multiple`} />
-                        </>
-                      ) : cs.kind === 'overridden' ? (
-                        <span className="vpg__cellov" style={span2}>
+                      {/* An explicit unlock outranks every other render branch. Checked BEFORE rowHasMult:
+                          a metric×multiple row used to keep its inputs after unlocking, so no override
+                          editor ever appeared and the unlock did nothing (Codex #364 P2). */}
+                      {cs.kind === 'overridden' ? (
+                        <span className="vpg__cellov" style={hasEditableMultiples ? { gridColumn: 'span 2' } : undefined}>
                           <TableInput value={s.levelOverride} onChange={(n) => setScen(i, { levelOverride: n })} ariaLabel={`${s.label} value override`} />
-                          <button className="vpg__relock" title={`Put back the engine's ${fmtN(s.frozenLevel ?? null, 2)}`} onClick={() => setScen(i, { overrideUnlocked: false, levelOverride: s.frozenLevel ?? s.levelOverride })}>↺</button>
+                          <button className="vpg__relock" title={`Put back the engine's ${fmtN(s.frozenLevel ?? null, 2)}`} onClick={() => setScen(i, { overrideUnlocked: false, levelOverride: rowHasMult ? null : (s.frozenLevel ?? s.levelOverride) })}>↺</button>
                         </span>
+                      ) : rowHasMult ? (
+                        <>
+                          <span className="vpg__scencell">
+                            <TableInput value={s.forwardMetric} onChange={(n) => setScen(i, { forwardMetric: n })} ariaLabel={`${s.label} per-share figure`} />
+                            {s.metricBasis && <span className="vpg__basisname" title={s.source ?? undefined}>{s.metricBasis}</span>}
+                          </span>
+                          <span className="vpg__scencell">
+                            <span className="vpg__multwrap">
+                              {/* Two-way binding. Until you type, the multiple is DERIVED from whatever produced
+                                  the level (a blend, a runoff chain) and moves when you move that machinery —
+                                  that is what `implied` means. Typing one is an explicit reverse assertion: it
+                                  starts driving the level instead, and ↺ hands it back. */}
+                              <TableInput
+                                value={row?.multipleIsDerived ? row.shownMultiple : s.multiple}
+                                onChange={(n) => setScen(i, { multiple: n, multipleAsserted: true })}
+                                ariaLabel={`${s.label} multiple`}
+                                className={row?.multipleIsDerived ? 'vpg__scennum--derived' : undefined}
+                                title={row?.multipleIsDerived
+                                  ? `Worked out from this case's own value — ${s.multipleKind === 'applied' ? 'the run applied a multiple here' : 'the run derived the value first, so this multiple is what it corresponds to'}. Type here to set the multiple yourself and let it drive the value instead.`
+                                  : s.multipleAsserted
+                                    ? 'Your multiple — it is driving this value. ↺ puts the run\'s own back.'
+                                    : `The run's own multiple, and it is what computes this value (metric × multiple${(s.basis ?? draft.basis) === 'ev' ? ', less the debt bridge' : ''}). Change either number and the value moves.`}
+                              />
+                              {s.multipleAsserted && (
+                                <button className="vpg__relock" title={`Put back the run's ${fmtN(s.recordedMultiple ?? null, 2)}× and let the machinery drive again`} onClick={() => setScen(i, { multiple: s.recordedMultiple ?? null, multipleAsserted: false })}>↺</button>
+                              )}
+                            </span>
+                            <span className="vpg__basisname">
+                              {s.multipleBasis ?? (draft.basis === 'ev' ? 'EV multiple' : 'equity multiple')}
+                              {(s.secondaryMultiples?.length ?? 0) > 0 && (
+                                <b
+                                  className="vpg__secmult"
+                                  title={`Also quoted for this same value — cross-checks the run states, never used in the arithmetic:\n${s.secondaryMultiples!.map((x) => `${x.value}× ${x.basis}${x.note ? ` — ${x.note}` : ''}`).join('\n')}`}
+                                >+{s.secondaryMultiples!.length}</b>
+                              )}
+                            </span>
+                          </span>
+                        </>
                       ) : (
                         <button
-                          className={`vpg__cell ${cs.kind === 'judgment' ? 'vpg__cell--judg' : cs.kind === 'frozen_wedge' ? 'vpg__cell--wedge' : 'vpg__cell--fx'}`}
+                          className={`vpg__cell ${cs.kind === 'master_case' ? 'vpg__cell--master' : cs.kind === 'judgment' ? 'vpg__cell--judg' : cs.kind === 'frozen_wedge' ? 'vpg__cell--wedge' : 'vpg__cell--fx'}`}
                           style={span2}
                           onClick={() => toggleTrace(traceId)}
                           aria-expanded={openTrace === traceId}
-                          title={cs.kind === 'judgment' ? "The analyst's call — no worked-out chain behind it. Click to see the reasoning, and to unlock it if you want to type your own." : cs.kind === 'frozen_wedge' ? 'The method mix, plus a judgment adjustment the run states. Click to see it.' : 'Worked out from the numbers below. Click to see how.'}
+                          title={cs.kind === 'master_case' ? "The thesis's own case — the valuation module recorded no levers for it and will not. Click to see who owns it, and to unlock it if you want to type your own." : cs.kind === 'judgment' ? "The analyst's call — no worked-out chain behind it. Click to see the reasoning, and to unlock it if you want to type your own." : cs.kind === 'frozen_wedge' ? 'The method mix, plus a judgment adjustment the run states. Click to see it.' : 'Worked out from the numbers below. Click to see how.'}
                         >
-                          <span className="vpg__cellicon" aria-hidden>{cs.kind === 'judgment' ? '⚑' : cs.kind === 'frozen_wedge' ? 'ƒ⚑' : 'ƒ'}</span>
+                          <span className="vpg__cellicon" aria-hidden>{cs.kind === 'judgment' || cs.kind === 'master_case' ? '⚑' : cs.kind === 'frozen_wedge' ? 'ƒ⚑' : 'ƒ'}</span>
                           {fmtN(row?.level, 2)}
                         </button>
                       )}
-                      {hasEditableMultiples && <span className="vpg__scenlevel mono">{fmtN(row?.level, 2)}</span>}
+                      {hasEditableMultiples && (
+                        // A tuple row (rowHasMult) had NO way to open its trace before — the arithmetic
+                        // (incl. any per-case bridge) was reachable only through the non-mult button branch
+                        // above (Codex #362 P2). Make the Worth figure itself the trace toggle for these rows.
+                        rowHasMult ? (
+                          <button className="vpg__scenlevel vpg__scenlevel--btn mono" onClick={() => toggleTrace(traceId)} aria-expanded={openTrace === traceId} title="Show how this is worked out">
+                            {fmtN(row?.level, 2)}
+                          </button>
+                        ) : (
+                          <span className="vpg__scenlevel mono">{fmtN(row?.level, 2)}</span>
+                        )
+                      )}
                       <span className="vpg__scenret mono" style={{ color: tone(ret) }}>{fmtPct(ret)}</span>
                     </div>
-                    {openTrace === traceId && !rowHasMult && cs.kind !== 'overridden' && (
+                    {openTrace === traceId && cs.kind !== 'overridden' && (
                       cs.kind === 'derived_chain' && s.chain ? (
                         <ChainStrip
                           s={s} chain={s.chain} level={cv} fallbackShares={draft.shares}
-                          onEdit={(patch) => setScen(i, { chain: { ...s.chain!, ...patch } })}
-                          onOverride={() => { setScen(i, { overrideUnlocked: true }); setOpenTrace(null) }}
+                          onEdit={(patch) => setScen(i, { chain: { ...s.chain!, ...patch }, chainEdited: true })}
+                          onOverride={() => { unlock(); setOpenTrace(null) }}
                         />
                       ) : (
                         <TraceStrip
-                          t={traceScenarioCell(s, cs, draft.published ?? null, methodLabel)}
-                          onOverride={cs.kind !== 'live_blend' && cs.kind !== 'derived_multiple' ? () => { setScen(i, { overrideUnlocked: true }); setOpenTrace(null) } : undefined}
+                          t={traceScenarioCell(s, cs, draft.published ?? null, methodLabel, { basis: draft.basis, shares: draft.shares, netDebt: draft.netDebt, netDebtBasis: draft.netDebtBasis })}
+                          onOverride={cs.kind !== 'live_blend' && cs.kind !== 'derived_multiple' ? () => { unlock(); setOpenTrace(null) } : undefined}
                         />
                       )
+                    )}
+                    {/* the case's own machinery, opened INSIDE the case — where that multiple came from.
+                        EVERY recorded panel renders, in the order the level is actually built: this row's
+                        arithmetic, then the chain, then the mix. */}
+                    {caseOpen && machinery.includes('trace') && (
+                      <div className="vpg__casepanel">
+                        <div className="vpg__casetitle">{whereFrom(row?.shownMultiple)} — this case's own arithmetic</div>
+                        <TraceStrip t={traceScenarioCell(s, { kind: 'derived_multiple' }, draft.published ?? null, methodLabel, { basis: draft.basis, shares: draft.shares, netDebt: draft.netDebt, netDebtBasis: draft.netDebtBasis })} onOverride={unlock} />
+                      </div>
+                    )}
+                    {caseOpen && machinery.includes('chain') && s.chain && (
+                      <div className="vpg__casepanel">
+                        <div className="vpg__casetitle">{whereFrom(row?.shownMultiple)} — {s.chain.model === 'margin_runoff_dcf' ? 'the impaired-cash-flow runoff' : 'the recorded chain'}</div>
+                        <ChainStrip
+                          s={s} chain={s.chain} level={cv} fallbackShares={draft.shares}
+                          onEdit={(patch) => setScen(i, { chain: { ...s.chain!, ...patch }, multipleAsserted: false, chainEdited: true })}
+                          onOverride={() => { unlock(); toggleCase(traceId) }}
+                        />
+                        {row?.levelSource === 'asserted_multiple' && (
+                          <div className="vpg__note vpg__note--warn">
+                            Your typed <b className="mono">{fmtN(s.multiple, 2)}×</b> is driving this case, so these figures are no longer what sets the value. Press ↺ on the multiple to hand it back to them.
+                          </div>
+                        )}
+                        {/* Editing these figures is an explicit action, so it must outrank "use this blend as
+                            the most-likely value" for THIS row — same rule as an unlock-override or a typed
+                            multiple already get (Codex #366 P2). The checkbox above stays checked (it still
+                            drives every OTHER row/opt-in); only this case's own edit takes it out of the mix. */}
+                        {isBase && draft.driveBaseFromMix && s.chainEdited && row?.levelSource !== 'live_blend' && (
+                          <div className="vpg__note vpg__note--warn">
+                            Your edits above are driving this case now, not the method blend — even though "Use this blend as the most-likely value" is still on. It still drives every other opt-in; this case just took itself out.
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    {caseOpen && machinery.includes('mix') && (
+                      <div className="vpg__casepanel">
+                        <div className="vpg__casetitle">
+                          {machinery.length > 1
+                            ? `The method mix — ${draft.methods.length} way${draft.methods.length === 1 ? '' : 's'} of valuing it, blended`
+                            : `${whereFrom(row?.shownMultiple)} — the weighted blend of ${draft.methods.length} method${draft.methods.length === 1 ? '' : 's'}`}
+                        </div>
+                        {mixPanel()}
+                      </div>
                     )}
                   </div>
                 )
               })}
             </div>
+            {/* §16: cross-method disagreement is a FINDING, not noise — averaged silently it disappears */}
+            {out.methodSpan && (
+              <div className="vpg__dispersion">
+                methods span <b className="mono">{fmtN(out.methodSpan.lo, 2)} – {fmtN(out.methodSpan.hi, 2)}</b>
+                {out.methodSpan.rel !== null && <> · a <b className="mono">{fmtN(out.methodSpan.rel, 0)}%</b> spread</>} · the disagreement is a finding, not noise (§16)
+              </div>
+            )}
             <div className="vpg__note">
               Type the chances — they should add to 100. A value marked <b className="vpg__inlineicon">ƒ</b> was worked out from other numbers, <b className="vpg__inlineicon vpg__inlineicon--judg">⚑</b> is the analyst's own call; click either to see why, or to unlock it and type your own.
+              {hasEditableMultiples && <> A multiple shown in <b className="vpg__inlineicon">colour</b> is worked out from the case's own value — open <b>▸</b> to move what produced it, or type over it to drive the value yourself.</>}
             </div>
           </div>
 
-          {/* ---- more, one click away: the method mix (the real lever on a blend run) ---- */}
-          {draft.methods.length > 0 && (() => {
-            const pubBase = sysLevel('base')
-            const bp = out.blend.basePoint
-            const delta = typeof bp === 'number' && typeof pubBase === 'number' ? bp - pubBase : null
-            return (
+          {/* The method mix normally lives inside the base case's ▸ (it is that case's machinery). A run with
+              no base-labelled scenario would have nowhere to put it, so it keeps its own accordion there. */}
+          {draft.methods.length > 0 && baseIdx < 0 && (
               <More
                 open={openMore === 'mix'}
                 onToggle={() => toggleMore('mix')}
                 title="How the most-likely value was worked out"
                 hint={`${draft.methods.length} ways of valuing it, blended`}
               >
-                <div className="vpg__mixtable">
-                  <div className="vpg__mixhead">
-                    <span>Valued by</span><span>Worth</span><span>Weight</span><span>Share used</span>
-                  </div>
-                  {draft.methods.map((m, i) => {
-                    const eff = out.blend.effectiveWeights[m.key]
-                    // v1.1 sub-levers: only a method whose run RECORDED internals gets a ▸ (nothing invented)
-                    const int = draft.internals as Record<string, { active?: boolean } | null | undefined> | undefined
-                    const hasInternals = !!(int && int[m.key])
-                    const active = !!(int && int[m.key]?.active)
-                    const derived: number | null =
-                      m.key === 'dcf' ? out.methodInternals.dcf?.value ?? null
-                      : m.key === 'sotp' ? out.methodInternals.sotp?.value ?? null
-                      : m.key === 'peers' ? out.methodInternals.peers?.value ?? null : null
-                    const open = openMethod === m.key
-                    return (
-                      <div key={m.key}>
-                        <div className="vpg__mixrow">
-                          <span className="vpg__mixlabel">
-                            {hasInternals
-                              ? <button className={`vpg__disc${open ? ' vpg__disc--open' : ''}`} onClick={() => setOpenMethod(open ? null : m.key)} title="Open the assumptions behind this one" aria-expanded={open}>▸</button>
-                              : <span className="vpg__disc vpg__disc--none" aria-hidden />}
-                            {methodLabel(m.key)}
-                          </span>
-                          {/* Editable even while DERIVED — typing IS the detach path (Codex #336 r3644218907:
-                              a read-only span made setMethod unreachable, locking the analyst into the ▸
-                              derivation). While active with nothing derivable, the cell blanks — matching the
-                              blend, which drops the method rather than reusing a stale value. */}
-                          <TableInput
-                            value={active ? derived : m.value}
-                            onChange={(n) => setMethod(i, { value: n })}
-                            ariaLabel={`${m.key} value`}
-                            className={active ? 'vpg__scennum--derived' : undefined}
-                            title={active ? 'Worked out from the assumptions below — type here to ignore them and use your own number.' : undefined}
-                          />
-                          <TableInput value={m.weight} onChange={(n) => setMethod(i, { weight: n })} ariaLabel={`${m.key} weight`} />
-                          <span className="vpg__mixeff mono">{typeof eff === 'number' ? `${Math.round(eff * 100)}%` : '—'}</span>
-                        </div>
-                        {open && m.key === 'dcf' && draft.internals?.dcf && (
-                          <DcfPanel d={draft.internals.dcf} readout={out.methodInternals.dcf} onWacc={(n) => setDcfInternal({ wacc: n })} onGrowth={(n) => setDcfInternal({ growth: n })} />
-                        )}
-                        {open && m.key === 'sotp' && draft.internals?.sotp && (
-                          <SotpPanel s={draft.internals.sotp} derived={out.methodInternals.sotp?.value ?? null} onMultiple={setSotpMultiple} />
-                        )}
-                        {open && m.key === 'peers' && draft.internals?.peers && (
-                          <PeersPanel p={draft.internals.peers} readout={out.methodInternals.peers} onMultiple={setPeersMultiple} />
-                        )}
-                      </div>
-                    )
-                  })}
-                </div>
-                <div className="vpg__mixsum">
-                  <div className="vpg__note">
-                    Blending those gives <button className="vpg__fxbtn mono" onClick={() => toggleTrace('blend')} aria-expanded={openTrace === 'blend'} title="Show the sum — weight × value, one line per method"><b>{fmtN(bp, 2)}</b></button>
-                    {typeof pubBase === 'number' && (
-                      <> against the engine's <b className="mono">{fmtN(pubBase, 2)}</b>
-                        {delta !== null && Math.abs(delta) >= 0.005 && (
-                          <> (a gap of <span className="mono">{delta > 0 ? '+' : ''}{fmtN(delta, 2)}</span>). Weights are rescaled to add to 100% across the methods actually present, so "share used" can differ from what you type.</>
-                        )}
-                      </>
-                    )}
-                  </div>
-                  <label className="vpg__toggle" title="Use this blend as the most-likely value, so moving a weight flows through to your return.">
-                    <input type="checkbox" checked={draft.driveBaseFromMix} onChange={(e) => setTop({ driveBaseFromMix: e.target.checked })} />
-                    <span>Use this blend as the most-likely value</span>
-                  </label>
-                  <div className="vpg__note">
-                    {out.blendActive
-                      ? <span className="vpg__note--warn">On — the answer at the top is using this blend, not the engine's frozen value.</span>
-                      : draft.driveBaseFromMix
-                        ? <span className="vpg__note--warn">Nothing to blend — no method has a weight, so the most-likely value stays the engine's. The answer at the top does NOT use the mix.</span>
-                        : delta !== null && Math.abs(delta) >= 0.005
-                          ? <>The answer at the top still uses the engine's value — tick the box to use this blend instead.</>
-                          : <>Tick the box to use this blend as the most-likely value.</>}
-                  </div>
-                </div>
-                {openTrace === 'blend' && <TraceStrip t={traceBlend(deriveMethods(draft).methods, out.blend, methodLabel)} />}
+                {mixPanel()}
               </More>
-            )
-          })()}
+          )}
 
           {/* ---- more: goal seek — Excel's Goal Seek over the recorded levers ---- */}
           {draft.methods.length > 0 && (draft.internals?.dcf || draft.internals?.peers) && (() => {

@@ -47,6 +47,35 @@ export interface SummaryScenario {
   level?: number | null
   drivers?: string | null
   derivation?: ScenarioDerivation | null
+  // ---- v1.3: the case's OWN basis, named multiple, and EV→equity terms ----
+  /** overrides the run-level basis for THIS case: EMAAR's base reads on EV/EBITDA while its bear reads
+   *  0.96x on BOOK. Bridging an equity multiple turns 9.75 into −2.82, so the case's basis governs. */
+  basis?: Basis | null
+  /** what the multiple IS — 'EV/FY2025 Adj. EBITDA', 'NTM P/E', 'P/BV (book)' */
+  multiple_basis?: string | null
+  /** 'implied' (the value came from this case's machinery and the multiple is what it corresponds to)
+   *  vs 'applied' (the case was genuinely built AS metric × multiple) */
+  multiple_kind?: 'implied' | 'applied' | null
+  /** further yardsticks the orb quoted for the SAME value — cross-checks, never computed with */
+  secondary_multiples?: { value: number; basis: string; note?: string | null }[] | null
+  /** the EV→equity terms THIS case used, when they differ from the run level */
+  bridge?: CaseBridge | null
+  /** the §5 citation the metric and multiple came from */
+  source?: string | null
+}
+
+/** v1.3 per-case EV→equity terms. net_debt is REQUIRED and explicit (0 when debt-free) — an unknown net
+ *  debt is never silently 0 (§15). shares falls back to the top-level count. */
+export interface CaseBridge {
+  net_debt: number
+  net_debt_basis?: string | null
+  minority?: number | null
+  other?: number | null
+  shares?: number | null
+  /** the §5 citation for THIS bridge's figures, when they come from a different document/module than the
+   *  scenario-level `source` (which cites only the forward metric and multiple). Falls back to the
+   *  scenario-level source when omitted and the terms come from the same place. */
+  source?: string | null
 }
 
 export interface ValuationSummary {
@@ -92,6 +121,8 @@ export interface ValuationLeversResponse {
   levers: ValuationSummary | null
   decision: {
     scenarios: DecisionScenario[]
+    /** the decision->position key (DECISION_LEDGER §3): "Short" means scenario returns are short-side */
+    basket?: string | null
     entry_price: number | null
     entry_price_timestamp: string | null
     currency: string | null
@@ -206,7 +237,7 @@ export function peersFromMultiple(pi: PeersInternals | null | undefined, multipl
 }
 
 // ---- 1. fair-value LEVEL from a (forward metric × multiple) lever ----
-export function levelFromMultiple(metric: number, multiple: number, basis: Basis, shares?: number | null, netDebt: number | null = 0): number {
+export function levelFromMultiple(metric: number, multiple: number, basis: Basis, shares?: number | null, netDebt: number | null = null): number {
   if (basis === 'ev') {
     if (!(isNum(shares) && shares > 0)) throw new Error("basis 'ev' needs positive shares")
     // An EV multiple gives enterprise value; the equity bridge REQUIRES net debt. Treating an unknown
@@ -217,6 +248,64 @@ export function levelFromMultiple(metric: number, multiple: number, basis: Basis
     return (ev - netDebt) / shares
   }
   return metric * multiple // equity: EPS × P/E (net debt not used)
+}
+
+/** v1.3: the level a CASE's own levers derive — the browser mirror of the guard's `_case_level`.
+ *
+ *  The case's own basis governs (an equity multiple is never bridged), and its own bridge — when it
+ *  records one — supplies the EV→equity terms instead of the run-level net debt. NHY is the live case:
+ *  the run declares net_debt 13,090 on a broad basis while every scenario deducts the cash-quality-
+ *  adjusted 17,919 AND minority 7,495, on an 'ev' basis the run does not declare. Reading the run-level
+ *  numbers there does not merely round differently — it prices the bear at a different company.
+ *
+ *  Returns null (never a guess) when the terms are not derivable: no positive shares, no explicit net
+ *  debt. Mirrors levelFromMultiple's contract, but reports rather than throws. */
+export function caseLevelFromMultiple(
+  metric: number, multiple: number, basis: Basis,
+  // §15: no default of 0 — a caller (this run's own callers always pass the run-level net debt
+  // explicitly; an EXPORTED helper called without it must not silently price an unknown-capital-
+  // structure company as debt-free) that omits netDebt gets `null`, which the branches below already
+  // treat as "not derivable", exactly like an explicit null (Codex #366 P2).
+  bridge: CaseBridge | null | undefined, shares?: number | null, netDebt: number | null = null,
+): number | null {
+  // A bridge is meaningful only on an EV case — an equity multiple already gives equity value.
+  const br = basis === 'ev' && bridge ? bridge : null
+  if (br) {
+    if (!isNum(br.net_debt)) return null // §15: unknown net debt is never silently 0
+    const sh = isNum(br.shares) ? br.shares : (isNum(shares) ? shares : null)
+    if (!isNum(sh) || sh <= 0) return null
+    const equity = metric * multiple - br.net_debt
+      - (isNum(br.minority) ? br.minority : 0)
+      + (isNum(br.other) ? br.other : 0)
+    return round(equity / sh, 4)
+  }
+  try { return round(levelFromMultiple(metric, multiple, basis, shares, netDebt), 4) } catch { return null }
+}
+
+/** The other direction: the multiple a LEVEL corresponds to on this case's metric — the IMPLIED multiple.
+ *
+ *  This is what `multiple_kind: "implied"` records. NHY's cases are not built as metric × multiple: the
+ *  base is a weighted blend of four methods, the bear an impaired-FCFF runoff. The multiple is the
+ *  summary the analyst reads (6.45×, 3.95×), so when the machinery moves, the multiple must move with it
+ *  — otherwise the grid would show a multiple that no longer corresponds to the value beside it.
+ *
+ *  Exactly inverts caseLevelFromMultiple. Null when not derivable (no metric, zero metric, no shares). */
+export function impliedMultiple(
+  level: number | null | undefined, metric: number | null | undefined, basis: Basis,
+  // §15: same rule as caseLevelFromMultiple above — no fabricating default. A caller of this EXPORTED
+  // helper that omits netDebt gets `null`, and the EV branch below already refuses to invert an
+  // unknown net debt (Codex #366 P2).
+  bridge: CaseBridge | null | undefined, shares?: number | null, netDebt: number | null = null,
+): number | null {
+  if (!isNum(level) || !isNum(metric) || metric === 0) return null
+  if (basis !== 'ev') return round(level / metric, 4) // equity: level = metric × multiple
+  const br = bridge ?? null
+  const sh = isNum(br?.shares) ? (br!.shares as number) : (isNum(shares) ? shares : null)
+  if (!isNum(sh) || sh <= 0) return null
+  const nd = br ? (isNum(br.net_debt) ? br.net_debt : null) : (isNum(netDebt) ? netDebt : null)
+  if (!isNum(nd)) return null // §15: an unknown net debt cannot be inverted either
+  const ev = level * sh + nd + (isNum(br?.minority) ? (br!.minority as number) : 0) - (isNum(br?.other) ? (br!.other as number) : 0)
+  return round(ev / metric, 4)
 }
 
 // ---- 2. scenario math — the §10 identities ----
@@ -232,16 +321,35 @@ export interface ScenarioMath {
   downsideToBearPct: number | null
   downsideRiskPct: number | null
   riskReward: number | null
+  /** the UNROUNDED fractions (not *100) `riskReward` is actually divided from. `expectedReturnPct` and
+   *  `downsideRiskPct` are already rounded to 1dp for display, so reconstructing the ratio's equation from
+   *  THOSE fields can show operands whose division does not reconcile to the displayed (2dp) `riskReward` —
+   *  AMZN's committed run displays -16.1% / 38.7% = -0.42 that way, while the published ratio (built from
+   *  these unrounded fractions) is -0.41 (Codex #366 P2). Traces must read from here, not from the rounded
+   *  Pct fields, to keep the shown equation reconciling with the shown result. */
+  expectedReturnFrac: number | null
+  downsideRiskFrac: number | null
   warnings: string[]
 }
 
 const findByLabel = <T extends { label: string }>(rows: T[], name: string): T | undefined => rows.find((s) => (s.label || '').toLowerCase().includes(name))
 
-export function scenarioMath(scenarios: { label: string; probability?: number | null; price_target?: number | null }[], price: number | null | undefined): ScenarioMath {
+/** THE POSITION, from decision_record `basket` ("Short" -> 'short'; every other basket, and an absent one,
+ *  reads long). Scenario returns are POSITION-SIGNED (synthesizer.md §6): a short gains when the price
+ *  falls, so its return is (price - target)/price. Applying the long formula to a short flips every sign —
+ *  TSLA's committed thesis publishes +56.57% and the long formula gives -56.57% on identical inputs. */
+export type PositionDirection = 'long' | 'short'
+
+export function scenarioMath(
+  scenarios: { label: string; probability?: number | null; price_target?: number | null }[],
+  price: number | null | undefined,
+  direction: PositionDirection = 'long',
+): ScenarioMath {
   const warnings: string[] = []
   if (!Array.isArray(scenarios)) {
     return { probWeightedTarget: null, levels: {}, perScenario: [], price: null, priceRelativeAssessable: false,
       expectedReturnPct: null, marginOfSafetyPct: null, downsideToBearPct: null, downsideRiskPct: null, riskReward: null,
+      expectedReturnFrac: null, downsideRiskFrac: null,
       warnings: ['scenarios must be an array'] }
   }
   const clean = scenarios.filter((s) => s && isNum(s.probability) && isNum(s.price_target)) as { label: string; probability: number; price_target: number }[]
@@ -249,12 +357,24 @@ export function scenarioMath(scenarios: { label: string; probability?: number | 
   if (clean.length && Math.abs(psum - 100) > 0.5) warnings.push(`scenario probabilities sum to ${round(psum, 2)}, not 100 (§10)`)
   const pwt = clean.length ? clean.reduce((a, s) => a + (s.price_target * s.probability) / 100, 0) : null
   const base = findByLabel(clean, 'base')
-  const bear = findByLabel(clean, 'bear')
+  // The WORST bear, not the first one listed — a run may derive two down-legs (TSLA: a cyclical trough at
+  // 20.90 and a structural reset at 6.86), and the eval harness's own risk/reward denominator uses the
+  // worst (lowest) target across every case, not array order (Codex #365 P1, synthesizer.md:591). With a
+  // single bear this is identical to picking the first.
+  const bears = clean.filter((s) => (s.label || '').toLowerCase().includes('bear'))
+  const bear = bears.length ? bears.reduce((w, s) => (s.price_target < w.price_target ? s : w)) : undefined
   const havePrice = isNum(price) && price > 0
-  const perScenario: ScenarioRow[] = clean.map((s) => ({
-    label: s.label, probability: s.probability, price_target: s.price_target,
-    return_pct: havePrice ? pct((s.price_target - (price as number)) / (price as number)) : null,
-  }))
+  const short = direction === 'short'
+  // the same returns UNROUNDED — a ratio must never be built from rounded percentages
+  const rawReturns: number[] = []
+  const perScenario: ScenarioRow[] = clean.map((s) => {
+    const frac = havePrice
+      ? (short ? (price as number) - s.price_target : s.price_target - (price as number)) / (price as number)
+      : null
+    if (frac !== null) rawReturns.push(frac)
+    // POSITION-signed: a short gains when the price falls
+    return { label: s.label, probability: s.probability, price_target: s.price_target, return_pct: frac === null ? null : pct(frac) }
+  })
   const levels: Record<string, number> = {}
   clean.forEach((s) => { levels[(s.label || '').toLowerCase()] = s.price_target })
 
@@ -262,25 +382,74 @@ export function scenarioMath(scenarios: { label: string; probability?: number | 
     probWeightedTarget: pwt !== null ? round(pwt, 4) : null,
     levels, perScenario, price: havePrice ? (price as number) : null, priceRelativeAssessable: !!havePrice,
     expectedReturnPct: null, marginOfSafetyPct: null, downsideToBearPct: null, downsideRiskPct: null, riskReward: null,
+    expectedReturnFrac: null, downsideRiskFrac: null,
     warnings,
   }
   if (!havePrice) return out
   const p = price as number
-  out.expectedReturnPct = pwt !== null ? pct((pwt - p) / p) : null
+  out.expectedReturnPct = pwt !== null ? pct((short ? p - pwt : pwt - p) / p) : null
+  // margin of safety stays DIRECTION-UNIFORM — a short candidate simply reads a negative MoS, and
+  // downside-to-bear is a valuation statement about the price falling (synthesizer.md field table)
   out.marginOfSafetyPct = base ? pct((base.price_target - p) / base.price_target) : null
   if (bear) out.downsideToBearPct = pct((p - bear.price_target) / p) // inverted: higher = worse
   else warnings.push('no bear scenario — downside-to-bear Not assessable')
   const rets = perScenario.map((r) => r.return_pct).filter((r): r is number => r !== null)
   out.downsideRiskPct = rets.length ? round(-Math.min(...rets), 1) : null
-  if (bear && pwt !== null) {
-    const denom = p - bear.price_target
-    out.riskReward = Math.abs(denom) > 1e-9 ? round((pwt - p) / denom, 2) : null
+  // Risk/reward = expected position return / downside risk — the documented long formula
+  // (pwt - price)/(price - bear) written direction-generally: for a long the price terms cancel and the two
+  // are algebraically identical, and this form also holds for a short, whose adverse case is a squeeze
+  // rather than the bear price. TSLA publishes 1.85 = 56.57/30.56; the long price formula gives -0.58.
+  // Built from UNROUNDED fractions, rounded once at the end. Dividing the two rounded percentages instead
+  // moves AMZN's published -0.41 to -0.42, and lets a real adverse loss under 0.05% round to zero and turn
+  // a derivable ratio into null (Codex #366 P2). The percentage scaling cancels, so it is the same ratio.
+  const erFrac = pwt !== null ? (short ? p - pwt : pwt - p) / p : null
+  const drFrac = rawReturns.length ? -Math.min(...rawReturns) : null
+  // exposed on the result so a trace can reconstruct the SAME division `riskReward` came from, instead of
+  // rebuilding it from the already-rounded Pct fields below.
+  out.expectedReturnFrac = erFrac
+  out.downsideRiskFrac = drFrac
+  // NOT DERIVABLE WITHOUT A REAL ADVERSE CASE — mirrors scripts/valuation_math.py and eval.py's own guard.
+  // When every scenario favours the position (an all-upside setup, e.g. EMAAR_2026-07-03 whose bear sits
+  // ABOVE the entry price) the signed ratio reads negative for what is a good setup. Publishing -1.86 here
+  // would contradict that run's correct, disclosed 1.9x (reward 14.49 / bear gap 7.80).
+  if (erFrac !== null && drFrac !== null && drFrac <= 0) {
+    out.riskReward = null
+    warnings.push('risk/reward Not assessable — no scenario is adverse to the position (the worst case is still a gain), so the signed ratio is meaningless')
+  } else {
+    out.riskReward = (erFrac !== null && drFrac !== null && Math.abs(drFrac) > 1e-12) ? round(erFrac / drFrac, 2) : null
   }
-  if (bear && bear.price_target >= p) warnings.push(`bear target ${bear.price_target} is not below price ${p} — no genuine downside branch for a long (§8/§16)`)
+  // the "is there a genuine adverse branch" check is direction-dependent (eval checks AM / AR)
+  if (short) {
+    const bull = findByLabel(clean, 'bull')
+    if (!bull) warnings.push(`no bull scenario — no genuine squeeze/upside branch for a short (§8)`)
+    else if (bull.price_target <= p) warnings.push(`bull target ${bull.price_target} is not above price ${p} — no genuine squeeze/upside branch for a short (§8)`)
+  } else if (bear && bear.price_target >= p) {
+    warnings.push(`bear target ${bear.price_target} is not below price ${p} — no genuine downside branch for a long (§8/§16)`)
+  }
   return out
 }
 
-export const reanchor = (scenarios: { label: string; probability?: number | null; price_target?: number | null }[], newPrice: number) => scenarioMath(scenarios, newPrice)
+export const reanchor = (scenarios: { label: string; probability?: number | null; price_target?: number | null }[], newPrice: number, direction: PositionDirection = 'long') => scenarioMath(scenarios, newPrice, direction)
+
+/** How to READ a margin of safety. It is direction-uniform by doctrine — one formula, and the SIGN says
+ *  which side of fair value the price sits on (synthesizer.md field table). So the sentence must follow the
+ *  sign: TSLA's MoS is −887.7%, and "Price below that by −887.7%" is a double negative stating the opposite
+ *  of the truth. Returns the magnitude to print plus the label to print it under.
+ *
+ *  `direction` only affects TONE: for a long, a price above fair value is bad news; for a short it is the
+ *  thesis working. */
+export function mosRead(mos: number | null | undefined, direction: PositionDirection = 'long'): {
+  above: boolean; label: string; magnitude: number | null; good: boolean | null
+} {
+  if (!isNum(mos)) return { above: false, label: 'Price below that by', magnitude: null, good: null }
+  const above = mos < 0
+  return {
+    above,
+    label: above ? 'Price above that by' : 'Price below that by',
+    magnitude: round(Math.abs(mos), 1),
+    good: direction === 'short' ? above : !above,
+  }
+}
 
 // ---- 3. discount-rate + symmetry guards ----
 export function capmCostOfEquity(rf?: number | null, beta?: number | null, erp?: number | null): number | null {
@@ -328,6 +497,36 @@ export interface DraftScenario {
   // v1.2: the editable copy of the recorded derivation chain — when present, the LEVEL is computed from
   // these figures (the Excel contract: the chain's inputs are typed, the fair value never is).
   chain?: DraftChain | null
+  // v1.3: the case's OWN basis and EV→equity terms drive its level (see caseLevelFromMultiple), plus the
+  // recorded labels the panel shows. Absent → the run-level basis and net debt, exactly as before.
+  basis?: Basis | null
+  bridge?: CaseBridge | null
+  metricBasis?: string | null
+  multipleBasis?: string | null
+  multipleKind?: 'implied' | 'applied' | null
+  secondaryMultiples?: { value: number; basis: string; note?: string | null }[]
+  source?: string | null
+  /** the thesis holds this case but the valuation module recorded NO levers for it — a case the master
+   *  synthesizer added on top of the module's work (a squeeze tail, a policy tail, a pair-trade leg). It is
+   *  not a gap to be filled later: the module may have said outright it cannot produce one. */
+  masterOnly?: boolean
+  /** a lever set with NO counterpart in the frozen thesis. The guard rejects these (#365), but the client
+   *  must not trust that the guard ran — so it is shown, flagged, rather than silently dropped. */
+  orphan?: boolean
+  /** the run's own multiple, frozen — the comparand for "you have changed this" and the ↺ target */
+  recordedMultiple?: number | null
+  /** the user TYPED a multiple. On an `implied` case this is an explicit reverse assertion: the multiple
+   *  now DRIVES the level, outranking the machinery that originally produced it. Until then the machinery
+   *  drives and the multiple is derived from it — the two-way binding. */
+  multipleAsserted?: boolean
+  /** the user EDITED a chain figure (EV, net debt, a runoff lever, …) through the ChainStrip panel — as
+   *  opposed to `chain` simply EXISTING because the run recorded one. Needed because on the base row, with
+   *  "use this blend as the most-likely value" on, the live blend otherwise outranks the chain unconditionally
+   *  (recompute's `driveBase && isBase` check does not by itself know the chain was just typed into) — so an
+   *  edit here would silently update draft state while the displayed level and returns kept using the blend
+   *  (Codex #366 P2). An explicit chain edit must win over the blend on that one row, exactly the way an
+   *  unlock-override or a typed multiple already does — the checkbox itself stays on. */
+  chainEdited?: boolean
 }
 
 export interface DraftChain {
@@ -426,8 +625,17 @@ export interface DraftInternals {
 
 export interface PlaygroundDraft {
   basis: Basis
+  /** THE POSITION. Absent -> 'long', so every pre-existing draft and test is unchanged. */
+  direction?: PositionDirection
   shares: number | null
   netDebt: number | null
+  /** the RUN-LEVEL net-debt basis label (§15 — 'strict' / 'broad' / 'gross-liquidity'), when the run states
+   *  one. Optional so every pre-existing draft literal and test fixture is unchanged (absent -> null, same
+   *  as an unlabelled/strict figure). Carried alongside `netDebt` so a synthetic run-level bridge (built when
+   *  a case has no per-case bridge but the run is EV-basis) can still label a non-strict figure inline
+   *  instead of rendering it bare (Codex #366 P2 — TSLA's -27,444 "broad net cash" must not print as an
+   *  unlabelled "net debt -27444"). */
+  netDebtBasis?: string | null
   price: number | null
   rf: number | null; erp: number | null; beta: number | null; wacc: number | null; afterTaxKd: number | null
   isMega: boolean
@@ -442,7 +650,16 @@ export interface PlaygroundDraft {
 }
 
 export interface RecomputeResult {
-  scenarios: { label: string; probability: number | null; level: number | null; forwardMetric: number | null; multiple: number | null }[]
+  scenarios: {
+    label: string; probability: number | null; level: number | null; forwardMetric: number | null; multiple: number | null
+    /** what the grid displays in the multiple cell — the typed value, or the one the level IMPLIES */
+    shownMultiple: number | null
+    /** true when shownMultiple was DERIVED from the level (something else drives) — render it as computed.
+     *  False when this multiple is what computes the level, typed or recorded. */
+    multipleIsDerived: boolean
+    /** what actually produced this level — 'live_blend' is the base row's opt-in mix */
+    levelSource: LevelSource | 'live_blend'
+  }[]
   math: ScenarioMath
   checks: { wacc?: CheckResult; symmetry?: CheckResult }
   blend: BlendResult
@@ -454,21 +671,70 @@ export interface RecomputeResult {
   // v1.1: the per-method sub-lever readouts (present only for ACTIVE internals) — the derived method value
   // plus its honesty flags, so the UI can render interpolated/out-of-grid states without recomputing.
   methodInternals: { dcf?: GridReadout; sotp?: { value: number | null }; peers?: PeersReadout }
+  /** §16 cross-method dispersion over the DERIVED method values — null when fewer than two methods carry a
+   *  value, or they all agree (one method cannot disagree with itself). */
+  methodSpan: { lo: number; hi: number; rel: number | null } | null
   warnings: string[]
 }
 
-export function levelForScenario(s: DraftScenario, d: PlaygroundDraft): number | null {
-  // Precedence: an EXPLICIT unlock-override wins; then the recorded chain (v1.2 — it reproduces the frozen
-  // level and makes its figures the levers); then the frozen/typed level; then metric×multiple. A chain-less
-  // scenario behaves exactly as before (levelOverride first), so older drafts and runs are unchanged.
-  if (s.overrideUnlocked && isNum(s.levelOverride)) return s.levelOverride
-  const c = chainLevel(s.chain, d.shares)
-  if (c !== null) return c
-  if (isNum(s.levelOverride)) return s.levelOverride
-  if (isNum(s.forwardMetric) && isNum(s.multiple)) {
-    try { return round(levelFromMultiple(s.forwardMetric, s.multiple, d.basis, d.shares, d.netDebt), 4) } catch { return null }
-  }
+/** WHAT is producing this case's level. Named because the UI has to say so honestly: styling a multiple
+ *  as "worked out from the value" when that multiple IS the only thing computing the value is a lie the
+ *  analyst acts on (Codex #364 P1) — the same class of defect as the guard's two call sites disagreeing.
+ *
+ *  'override'          the analyst explicitly unlocked the cell and typed a value
+ *  'asserted_multiple' the analyst typed a multiple — an explicit reverse assertion, it now drives
+ *  'chain'             a recorded derivation chain (an EV bridge, a margin runoff) drives
+ *  'frozen'            the run's own published level, with no reproducible relationship recorded
+ *  'multiple'          the recorded metric × multiple IS the relationship — the multiple drives
+ */
+export type LevelSource = 'override' | 'asserted_multiple' | 'chain' | 'frozen' | 'multiple' | null
+
+/** True when the recorded/typed metric×multiple relationship OUTRANKS a recorded chain for this case —
+ *  either an explicit reverse assertion (`multipleAsserted`, the analyst typed a multiple) or the v1.3
+ *  `applied` contract (the run itself built the case AS metric × multiple; the multiple is a genuine
+ *  input, not something read off an already-computed level — Codex #364 P2). `levelSourceFor` (what
+ *  actually computes the level) and every UI classifier that decides which panel to SHOW as the driver
+ *  (the Playground's own chain-vs-multiple cell state) must agree on this precedence, or the trace strip
+ *  can render the chain as if it drives while the number beside it was actually computed from the
+ *  multiple — the same class of defect as styling a driving multiple as merely derived (Codex #366 P2). */
+export function multipleOutranksChain(s: DraftScenario): boolean {
+  return (s.multipleAsserted === true || s.multipleKind === 'applied') && isNum(s.forwardMetric) && isNum(s.multiple)
+}
+
+export function levelSourceFor(s: DraftScenario, d: PlaygroundDraft): LevelSource {
+  // Precedence: an EXPLICIT unlock-override wins; then a TYPED multiple (a reverse assertion outranks the
+  // machinery that originally produced the level); then an `applied` multiple (the v1.3 contract's own
+  // definition: the multiple IS a real input here, not something read off an already-computed level — so
+  // it drives even when a chain is ALSO recorded (the chain stays visible as disclosure/cross-check, not
+  // as the driver; Codex #364 P2)); then the recorded chain (v1.2 — it reproduces the frozen level and
+  // makes its figures the levers); then the frozen level; then metric × multiple.
+  if (s.overrideUnlocked && isNum(s.levelOverride)) return 'override'
+  if (s.multipleAsserted && isNum(s.forwardMetric) && isNum(s.multiple)) return 'asserted_multiple'
+  if (s.multipleKind === 'applied' && isNum(s.forwardMetric) && isNum(s.multiple)) return 'multiple'
+  if (chainLevel(s.chain, d.shares) !== null) return 'chain'
+  if (isNum(s.levelOverride)) return 'frozen'
+  if (isNum(s.forwardMetric) && isNum(s.multiple)) return 'multiple'
   return null
+}
+
+export function levelForScenario(s: DraftScenario, d: PlaygroundDraft): number | null {
+  // ONE source of precedence, shared with levelSourceFor: a level whose source label disagrees with the
+  // level itself would put the wrong explanation next to the right number, or the reverse.
+  switch (levelSourceFor(s, d)) {
+    case 'override':
+    case 'frozen':
+      return s.levelOverride as number
+    case 'chain':
+      return chainLevel(s.chain, d.shares)
+    case 'asserted_multiple':
+    case 'multiple':
+      // v1.3: the CASE's own basis and bridge govern (Codex #362 P1). Falling back to the run-level
+      // basis/net-debt here would price NHY's cases off the run's broad 13,090 with no minority deducted —
+      // a bear of ~49.9 against the committed 45.12, and an equity-basis case bridged into nonsense.
+      return caseLevelFromMultiple(s.forwardMetric as number, s.multiple as number, s.basis ?? d.basis, s.bridge, d.shares, d.netDebt)
+    default:
+      return null
+  }
 }
 
 // v1.1: ACTIVE sub-levers derive their method's value from the orb's recorded data BEFORE the blend —
@@ -514,27 +780,180 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
   const driveBase = d.driveBaseFromMix && isNum(blendRes.basePoint)
   const scenarios = d.scenarios.map((s) => {
     const isBase = (s.label || '').toLowerCase().includes('base')
-    const level = driveBase && isBase ? (blendRes.basePoint as number) : levelForScenario(s, d)
-    return { label: s.label, probability: s.probability, level, forwardMetric: s.forwardMetric, multiple: s.multiple }
+    const explicitSource = levelSourceFor(s, d)
+    // The live blend outranks the recorded chain/multiple/frozen level once the analyst opts in — but NOT
+    // an EXPLICIT edit on that same base row: an unlocked override, a just-typed multiple, OR a typed chain
+    // figure (EV, net debt, a runoff lever, …) is the analyst overriding the mix, not the other way round.
+    // Applying live_blend unconditionally made the toggle silently win over an edit the UI promised would
+    // take over (Codex #364 P2 for override/multiple; Codex #366 P2 for the chain — its panel stayed
+    // editable and appeared to do something while the blend kept driving the displayed level and returns).
+    const explicitEdit = explicitSource === 'override' || explicitSource === 'asserted_multiple'
+      || (explicitSource === 'chain' && !!s.chainEdited)
+    const source: LevelSource | 'live_blend' = driveBase && isBase && !explicitEdit ? 'live_blend' : explicitSource
+    const level = source === 'live_blend' ? (blendRes.basePoint as number) : levelForScenario(s, d)
+    // The multiple the grid SHOWS, and whether it reads as computed.
+    //
+    // It is DERIVED only when something ELSE produced the level (a chain, the live blend, an override) —
+    // then it is the implied multiple, and moving that machinery moves it. Where the recorded metric ×
+    // multiple IS the relationship (NHY's bull), the multiple is the DRIVER: styling it as computed and
+    // offering to "let it drive instead" states the opposite of what the panel does, and hides that
+    // editing the metric reprices the case (Codex #364 P1).
+    //
+    // 2dp on the derived reading: a multiple is quoted at two decimals ("3.95×", not "3.9494×"), and while
+    // it is derived it drives nothing — the level came from the machinery. A driver is shown verbatim.
+    const drivenByMultiple = source === 'multiple' || source === 'asserted_multiple'
+    const derivedMultiple = impliedMultiple(level, s.forwardMetric, s.basis ?? d.basis, s.bridge, d.shares, d.netDebt)
+    const shown = drivenByMultiple
+      ? s.multiple
+      : (derivedMultiple !== null ? round(derivedMultiple, 2) : s.multiple ?? null)
+    return {
+      label: s.label, probability: s.probability, level, forwardMetric: s.forwardMetric, multiple: s.multiple,
+      shownMultiple: shown,
+      multipleIsDerived: !drivenByMultiple && derivedMultiple !== null,
+      levelSource: source,
+    }
   })
-  const math = scenarioMath(scenarios.map((s) => ({ label: s.label, probability: s.probability, price_target: s.level })), d.price)
+  const math = scenarioMath(scenarios.map((s) => ({ label: s.label, probability: s.probability, price_target: s.level })), d.price, d.direction ?? 'long')
   const ke = capmCostOfEquity(d.rf, d.beta, d.erp)
   const checks: { wacc?: CheckResult; symmetry?: CheckResult } = {}
   if (isNum(d.wacc) || isNum(ke) || isNum(d.afterTaxKd)) checks.wacc = checkWacc(d.afterTaxKd, d.wacc, ke, d.rf, d.erp, d.isMega)
-  const mult = (name: string) => d.scenarios.find((s) => (s.label || '').toLowerCase().includes(name))?.multiple
-  if (isNum(mult('bull')) || isNum(mult('base')) || isNum(mult('bear'))) checks.symmetry = checkMultipleSymmetry(mult('bull'), mult('base'), mult('bear'))
+  // Symmetry over the multiples the analyst is ACTUALLY looking at, not the recorded ones: move the bear's
+  // machinery until its implied multiple passes the base and the check must fire (Codex #364 P2). And only
+  // across COMPARABLE bases — bull ≥ base ≥ bear says nothing between an EV/EBITDA base and EMAAR's P/BV
+  // bear (MODULE_RULES §2 says "on comparable bases"), so mixed-basis runs are skipped, not falsely warned.
+  const caseOf = (name: string) => {
+    const i = d.scenarios.findIndex((s) => (s.label || '').toLowerCase().includes(name))
+    return i < 0 ? null : { draft: d.scenarios[i], row: scenarios[i] }
+  }
+  const trio = (['bull', 'base', 'bear'] as const).map(caseOf)
+  const shownBases = trio.filter((c) => c && isNum(c.row.shownMultiple)).map((c) => (c!.draft.multipleBasis ?? '').trim().toLowerCase())
+  const comparable = new Set(shownBases).size <= 1
+  const shownMult = (i: number) => (trio[i]?.row.shownMultiple ?? null)
+  if (comparable && trio.some((c, i) => isNum(shownMult(i)))) {
+    checks.symmetry = checkMultipleSymmetry(shownMult(0), shownMult(1), shownMult(2))
+  }
   const warnings = [...math.warnings, ...(checks.wacc?.problems ?? []), ...(checks.symmetry?.problems ?? [])]
   if (methodInternals.dcf?.outOfGrid) warnings.push("DCF WACC/growth is outside the orb's recorded grid — extrapolated, not validated")
   if (methodInternals.peers?.outOfAnchors) warnings.push("peers multiple is outside the orb's recorded implied-value rows — extrapolated, not validated")
-  return { scenarios, math, checks, blend: blendRes, blendActive: driveBase, methodInternals, warnings }
+  // §16 dispersion, off the SAME derived method set the blend uses. Reading the raw typed values would let
+  // the span contradict the blend the moment a ▸ sub-lever drives a method (Codex #364 P2).
+  const spanVals = methods.map((m) => m.value).filter(isNum) as number[]
+  const lo = spanVals.length ? Math.min(...spanVals) : 0
+  const hi = spanVals.length ? Math.max(...spanVals) : 0
+  const mid = (hi + lo) / 2
+  const methodSpan = spanVals.length >= 2 && hi - lo > 1e-9
+    ? { lo, hi, rel: mid !== 0 ? Math.round(((hi - lo) / Math.abs(mid)) * 100) : null }
+    : null
+  return { scenarios, math, checks, blend: blendRes, blendActive: driveBase, methodInternals, methodSpan, warnings }
 }
 
 // Build the initial editable draft from the server response: prefer the valuation_summary.json levers
 // (metric × multiple editable); fall back to the frozen decision_record scenarios (only the LEVELS +
 // price editable) so the Playground still works on runs that predate the valuation_summary emission.
+/** Exact label identity: trimmed, case-insensitive. NOT a substring match — substring is what let the
+ *  sidecar's `bear` pick up `bear_cyclical`'s probability and pin it to the structural bear's level. */
+const sameCase = (a: string | null | undefined, b: string | null | undefined): boolean =>
+  (a || '').trim().toLowerCase() === (b || '').trim().toLowerCase()
+
+/** One editable scenario from the sidecar's recorded levers. `pubMethods` is the run's published
+ *  method mix (used only to detect the base row's own mix machinery — see `preserveFrozenUntilAsserted`
+ *  below); pass `[]` when there is none (a non-base-row call, or a run with no method mix at all). */
+function leverScenario(s: SummaryScenario, probability: number | null, pubMethods: MethodLever[]): DraftScenario {
+  const chain = buildChain(s.derivation)
+  // v1.3: `implied` records the multiple AS A CROSS-CHECK on a level something ELSE already produced
+  // (Codex #364 P1). Where a chain is recorded, the chain IS that something-else and already outranks
+  // the tuple pre-assertion. Where the row is the BASE case and the run ALSO records a method mix,
+  // the mix is that something-else (opt-in via driveBaseFromMix, or simply the frozen judgment on
+  // top of it) — a same-row `implied` tuple with no chain must not silently bypass it either. Only
+  // in THAT shape does clearing levelOverride leave nothing for levelSourceFor to fall back to, so
+  // an untouched, unasserted tuple reads as the driver anyway. Keep the frozen level as the fallback
+  // until the analyst actually asserts.
+  // A pure tuple case with NO other recorded machinery at all (no chain, no mix — e.g. NHY's
+  // bull/bear, or a base with no methods) has nothing else the level COULD be: the tuple + its own
+  // bridge is the only relationship on record, `implied` or not, and stays the default driver exactly
+  // as the v1.3 per-case-bridge feature tests it (§4 — the tuple IS the source here, not a guess).
+  const isBaseRow = (s.label || '').toLowerCase().includes('base')
+  const hasMixMachinery = isBaseRow && pubMethods.length > 0
+  const preserveFrozenUntilAsserted = s.multiple_kind === 'implied' && !chain && hasMixMachinery
+  return {
+    label: s.label,
+    probability,
+    forwardMetric: s.forward_metric ?? null,
+    multiple: s.multiple ?? null,
+    levelOverride: (isNum(s.forward_metric) && isNum(s.multiple) && !preserveFrozenUntilAsserted) ? null : (s.level ?? null),
+    frozenLevel: s.level ?? null,
+    drivers: s.drivers ?? null,
+    overrideUnlocked: false,
+    chain,
+    // v1.3 — carried verbatim: the case's basis and bridge DRIVE its level, the labels are displayed.
+    // A bridge is carried EVEN when malformed. Dropping it would fall back to the run-level terms and
+    // quietly re-price the case on a different convention (NHY's bull would read 114.02 against the
+    // committed 107.70); caseLevelFromMultiple returns null instead, so the cell reads Not assessable.
+    basis: s.basis === 'ev' || s.basis === 'equity' ? s.basis : null,
+    bridge: s.bridge && typeof s.bridge === 'object' ? s.bridge : null,
+    metricBasis: s.metric_basis ?? null,
+    multipleBasis: s.multiple_basis ?? null,
+    multipleKind: s.multiple_kind === 'implied' || s.multiple_kind === 'applied' ? s.multiple_kind : null,
+    // The server returns the parsed sidecar WITHOUT applying the JSON Schema, so an unvalidated or
+    // partially-generated sidecar can carry a non-array secondary_multiples (e.g. an object) — `?? []`
+    // does not catch that (a truthy non-null object passes through), and `.filter()` on it throws when
+    // the Playground opens. Guard with Array.isArray and degrade malformed cross-checks to [] (Codex
+    // #362 P2).
+    secondaryMultiples: (Array.isArray(s.secondary_multiples) ? s.secondary_multiples : [])
+      .filter((x) => x && isNum(x.value) && typeof x.basis === 'string'),
+    source: s.source ?? null,
+    recordedMultiple: s.multiple ?? null,
+    multipleAsserted: false, // nothing is asserted until the analyst types
+  }
+}
+
+/** THE CASE SET COMES FROM THE FROZEN THESIS, not from the levers sidecar.
+ *
+ *  The master synthesizer owns the case set and the probabilities (CLAUDE.md §10, §22); the valuation module
+ *  owns the fair-value levels. So the grid iterates the thesis and attaches the sidecar's levers to it by
+ *  EXACT label. Driving it the other way round — the sidecar's cases, probabilities looked up by substring —
+ *  is what made TSLA's panel show 3 of 5 cases summing to 70% of the probability, report a +71.2% expected
+ *  return against a published +56.57%, and a risk/reward of 13.96 against a published 1.85, because the only
+ *  adverse case it could see was the bull. It also cross-paired: the sidecar's `bear` (the STRUCTURAL bear's
+ *  level) took `bear_cyclical`'s probability.
+ *
+ *  A thesis case with no levers is NOT a gap to fill — the module may have said outright it cannot produce
+ *  one — so it is marked `masterOnly` and rendered from its frozen level. A lever set with no thesis case is
+ *  an orphan: the guard rejects it (#365), but the client never assumes the guard ran, so it is appended and
+ *  flagged rather than silently dropped.
+ *
+ *  With no thesis scenarios at all (a partial run), the sidecar's own order stands. */
+export function buildScenarios(
+  levers: SummaryScenario[],
+  thesis: DecisionScenario[] | undefined,
+  pubMethods: MethodLever[] = [],
+): DraftScenario[] {
+  const rows = (levers || []).filter((s) => s && typeof s.label === 'string')
+  if (!thesis || !thesis.length) {
+    return rows.map((s, i) => leverScenario(s, probabilityFor(s.label, s.probability, thesis, i), pubMethods))
+  }
+  const used = new Set<number>()
+  const out: DraftScenario[] = thesis.map((t) => {
+    const i = rows.findIndex((s, idx) => !used.has(idx) && sameCase(s.label, t.label))
+    if (i >= 0) {
+      used.add(i)
+      // the THESIS's label and probability win — one name per case, and the frozen weights
+      return { ...leverScenario(rows[i], t.probability ?? null, pubMethods), label: t.label || rows[i].label }
+    }
+    return {
+      label: t.label || '', probability: t.probability ?? null,
+      forwardMetric: null, multiple: null,
+      levelOverride: t.price_target ?? null, frozenLevel: t.price_target ?? null,
+      drivers: null, overrideUnlocked: false, masterOnly: true,
+    }
+  })
+  rows.forEach((s, i) => { if (!used.has(i)) out.push({ ...leverScenario(s, null, pubMethods), orphan: true }) })
+  return out
+}
+
 export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft {
   if (!res) {
-    return { basis: 'equity', shares: null, netDebt: 0, price: null,
+    return { basis: 'equity', shares: null, netDebt: 0, netDebtBasis: null, price: null,
       rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false, scenarios: [], methods: [], driveBaseFromMix: false }
   }
   const L = res.levers
@@ -544,15 +963,21 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
   // the untouched Playground recompute returns that disagree with the frozen judgment — the exact stale
   // anchor this feature exists to prevent.
   const price = (res.decision?.entry_price ?? L?.current_price ?? null)
+  // Only the "Short" basket is short-side. Every other basket (Selected / Watchlist / Rejected / Pair Trade
+  // / Insufficient Data) reads long, and an ABSENT basket reads long — the safe default, because a long
+  // reading of a long is right and the panel never silently guesses a short.
+  const direction: PositionDirection = res.decision?.basket === 'Short' ? 'short' : 'long'
   const evBasis = L?.basis === 'ev'
   if (L && Array.isArray(L.scenarios) && L.scenarios.length) {
     const pubMethods = buildMethods(L.methods, L.method_weights)
     return {
       basis: evBasis ? 'ev' : 'equity',
+      direction,
       shares: L.shares ?? null,
       // For an EV basis, an absent net debt is NOT zero — keep it null so EV levels read Not assessable
       // until net debt is supplied (§15). For an equity basis net debt is unused, so 0 is harmless.
       netDebt: isNum(L.net_debt) ? L.net_debt : (evBasis ? null : 0),
+      netDebtBasis: L.net_debt_basis ?? null,
       price,
       rf: L.discount_rate?.rf ?? null, erp: L.discount_rate?.erp ?? null, beta: L.discount_rate?.beta ?? null,
       wacc: L.discount_rate?.wacc ?? null, afterTaxKd: L.discount_rate?.after_tax_kd ?? null,
@@ -561,23 +986,18 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
       driveBaseFromMix: false,
       internals: buildInternals(L),
       published: { methods: pubMethods, blend: blend(pubMethods) },
-      scenarios: L.scenarios.map((s, i) => ({
-        label: s.label,
-        probability: probabilityFor(s.label, s.probability, res.decision?.scenarios, i),
-        forwardMetric: s.forward_metric ?? null,
-        multiple: s.multiple ?? null,
-        levelOverride: (isNum(s.forward_metric) && isNum(s.multiple)) ? null : (s.level ?? null),
-        frozenLevel: s.level ?? null,
-        drivers: s.drivers ?? null,
-        overrideUnlocked: false,
-        chain: buildChain(s.derivation),
-      })),
+      // THE CASE SET COMES FROM THE FROZEN THESIS (buildScenarios), not from the sidecar's own order —
+      // see buildScenarios' own doc comment for why (Codex #367 P1: TSLA's tail_squeeze, decision-only,
+      // used to be silently dropped, understating downside and overstating expected return/risk-reward).
+      // pubMethods is threaded through so a base row's own `implied`+mix-machinery precedence (Codex #364
+      // P1, preserveFrozenUntilAsserted above) is still detected per case.
+      scenarios: buildScenarios(L.scenarios, res.decision?.scenarios, pubMethods),
     }
   }
   // fallback: frozen decision scenarios (levels only)
   const ds = res.decision?.scenarios ?? []
   return {
-    basis: 'equity', shares: null, netDebt: 0, price,
+    basis: 'equity', direction, shares: null, netDebt: 0, netDebtBasis: null, price,
     rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false,
     methods: [], driveBaseFromMix: false, published: null,
     scenarios: ds.map((s) => ({ label: s.label || '', probability: s.probability ?? null, forwardMetric: null, multiple: null, levelOverride: s.price_target ?? null, frozenLevel: s.price_target ?? null, drivers: null, overrideUnlocked: false })),
@@ -647,6 +1067,7 @@ export type ScenarioCellKind =
   | 'live_blend'       // drive-base is on: the base cell IS the live blend (computed, moves with the mix)
   | 'frozen_formula'   // frozen base ≈ the published blend (within rounding) — a computed cell
   | 'frozen_wedge'     // frozen base = published blend + a disclosed judgment wedge (§16, e.g. EMAAR RF-OWN-004)
+  | 'master_case'      // the thesis holds it, the valuation module produced no levers and will not
   | 'derived_chain'    // v1.2: level computes from the scenario's recorded chain — its figures are the levers
   | 'derived_multiple' // level derives from typed forward metric × multiple — those inputs are the levers
   | 'judgment'         // no recorded derivation for this level (bull/bear before the v1.2 emission)
@@ -660,6 +1081,8 @@ const WEDGE_REL_EPS = 0.005
 
 export function scenarioCellState(s: DraftScenario, isBase: boolean, publishedBlend: number | null | undefined, liveBlend: number | null, driveBase: boolean, chainValue?: number | null): ScenarioCellState {
   if (s.overrideUnlocked) return { kind: 'overridden' }
+  // BEFORE the judgment fallback: a master-added case is not an unrecorded chain waiting to be filled in.
+  if (s.masterOnly) return { kind: 'master_case' }
   // drive-base FIRST: recompute gives the live blend precedence over everything else for the base row, so
   // the cell must say so too — a chain/multiple base under drive-base would otherwise display a different
   // derivation than the one actually computing (Gemini #339 r3644675825)
@@ -673,6 +1096,34 @@ export function scenarioCellState(s: DraftScenario, isBase: boolean, publishedBl
     return { kind: 'frozen_wedge', blend: publishedBlend, wedge: round(frozen - publishedBlend, 4) }
   }
   return { kind: 'judgment' }
+}
+
+/** The label an analyst READS, from the label the run recorded. `label` is free text in the schema, not an
+ *  enforced key, so this must degrade gracefully for any string: turn `_` into ` · ` when present (so the
+ *  family reads first and the qualifier second — "Bear · cyclical"), upper-case the leading letter, and
+ *  otherwise leave it alone. No per-name table, so a case shape never seen before still reads correctly. */
+export function caseTitle(label: string | null | undefined): string {
+  const raw = (label || '').trim()
+  if (!raw) return ''
+  const parts = raw.split('_').map((x) => x.trim()).filter(Boolean)
+  const joined = parts.length > 1 ? parts.join(' · ') : raw
+  return joined.charAt(0).toUpperCase() + joined.slice(1)
+}
+
+/** The line under the label. Three states, every one derived from data already present — no new field:
+ *   - a case the master added: say so, because its empty lever cells are otherwise unexplained
+ *   - a BARE bull / base / bear: the universal plain-English phrase (those three are universal)
+ *   - anything else: nothing. "cyclical" and "structural" are standard terms that already carry the
+ *     meaning, and inventing a second English phrase per label is exactly what cannot scale (§26).
+ *  An orphan is called out too — a lever set the frozen thesis does not hold. */
+export function caseSubtitle(s: DraftScenario): string {
+  if (s.orphan) return 'not in the thesis — levers with no case'
+  if (s.masterOnly) return "the thesis's own case — no module levers"
+  const l = (s.label || '').trim().toLowerCase()
+  if (l === 'bull') return 'things go well'
+  if (l === 'base') return 'most likely'
+  if (l === 'bear') return 'things go badly'
+  return ''
 }
 
 // ---- 6. v2 Phase-1: traces — Excel's "trace precedents" for every computed cell ----
@@ -698,7 +1149,19 @@ export function traceBlend(methods: MethodLever[], b: BlendResult, labelFor: (k:
   }
 }
 
-export function traceScenarioCell(s: DraftScenario, cs: ScenarioCellState, published: PlaygroundDraft['published'], labelFor: (k: string) => string = (k) => k): Trace {
+export function traceScenarioCell(
+  s: DraftScenario, cs: ScenarioCellState, published: PlaygroundDraft['published'],
+  labelFor: (k: string) => string = (k) => k,
+  /** the run-level fallbacks the COMPUTATION uses. Without them the trace cannot tell that a case with no
+   *  per-case `basis` inherited an 'ev' run basis (Codex #365 P2, ui/web/src/lib/valuationLevers.ts:805) —
+   *  and would print bare metric × multiple beside a level that was bridged — nor that a bridge with no
+   *  `shares` falls back to the top-level count, nor that a case with NO bridge at all still bridges off
+   *  the run-level net debt (Codex #366). `netDebtBasis` labels that fallback net debt (§15 — 'broad' /
+   *  'gross-liquidity' departs from strict) — without it the synthetic bridge built below prints a bare,
+   *  unlabelled net-debt figure even when the run-level number is explicitly non-strict (Codex #366 P2,
+   *  TSLA's -27,444 "broad net cash"). */
+  ctx?: { basis?: Basis | null; shares?: number | null; netDebt?: number | null; netDebtBasis?: string | null },
+): Trace {
   const src = s.drivers ? `run-recorded drivers: ${s.drivers}` : null
   if (cs.kind === 'derived_chain' && s.chain) {
     const c = s.chain
@@ -721,8 +1184,63 @@ export function traceScenarioCell(s: DraftScenario, cs: ScenarioCellState, publi
       source: c.source ?? src,
     }
   }
+  if (cs.kind === 'master_case') {
+    return {
+      title: `${caseTitle(s.label)} — the thesis's own case`,
+      formula: `the frozen level ${fmt(s.frozenLevel ?? s.levelOverride)}, weighted by the thesis`,
+      terms: [],
+      // NOT the judgment-cell copy: that one promises "a future emission records each scenario's assumption
+      // chain, turning this into a computed cell". For a case the master added on top of the module's work
+      // that is a promise nothing will keep — the valuation module may have said outright it cannot produce
+      // one. Say who owns it instead.
+      note: 'the valuation module recorded no levers for this case — it is the master synthesizer\'s own. You can unlock and type over it, but there is nothing underneath to move, and no later emission will add any.',
+      source: s.drivers ? `run-recorded drivers: ${s.drivers}` : null,
+    }
+  }
   if (cs.kind === 'derived_multiple') {
-    return { title: `${s.label} — computed from your inputs`, formula: `forward metric ${fmt(s.forwardMetric)} × multiple ${fmt(s.multiple)}`, terms: [], source: src }
+    // v1.3: show the WHOLE arithmetic, bridge included. "28,889 × 8.21" alone reads as 237,178 per share
+    // when the case's own bridge makes it 107.75 — a formula that contradicts the number beside it.
+    const mb = s.multipleBasis ? ` (${s.multipleBasis})` : ''
+    let formula = `${s.metricBasis ?? 'forward metric'} ${fmt(s.forwardMetric)} × multiple ${fmt(s.multiple)}${mb}`
+    // the EFFECTIVE basis — the same resolution caseLevelFromMultiple performs
+    const effBasis = s.basis ?? ctx?.basis ?? null
+    // A case with NO per-case bridge still bridges off the RUN-LEVEL net debt/shares when the effective
+    // basis is 'ev' (caseLevelFromMultiple falls back to levelFromMultiple(metric, multiple, basis, shares,
+    // netDebt) in exactly this shape) — so the trace must show that subtraction too, not just cases that
+    // record their own bridge. Showing bare "metric × multiple" here would contradict the level beside it,
+    // which DOES subtract the run-level net debt (Codex #366 P2, item 6).
+    const br = effBasis === 'ev'
+      ? (s.bridge ?? (isNum(ctx?.netDebt)
+          ? ({ net_debt: ctx!.netDebt as number, net_debt_basis: ctx?.netDebtBasis ?? null } as CaseBridge)
+          : null))
+      : null
+    if (br) {
+      const parts = [`− net debt ${fmt(br.net_debt, 0)}${br.net_debt_basis ? ` (${br.net_debt_basis})` : ''}`]
+      if (isNum(br.minority)) parts.push(`− minority ${fmt(br.minority, 0)}`)
+      if (isNum(br.other) && br.other !== 0) parts.push(`+ other ${fmt(br.other, 0)}`)
+      const sh = isNum(br.shares) ? br.shares : (isNum(ctx?.shares) ? (ctx!.shares as number) : null)
+      formula = `(${formula} ${parts.join(' ')}) ÷ shares ${fmt(sh, 2)}`
+    }
+    const terms = (s.secondaryMultiples ?? []).map((x) => ({ label: x.basis, calc: `${fmt(x.value)}×${x.note ? ` · ${x.note}` : ''}` }))
+    // The scenario `source` cites only the forward metric/multiple (schema contract) — a per-case bridge's
+    // net_debt/minority/other/shares can trace to a DIFFERENT document/module (e.g. the balance-sheet-
+    // survival module's debt-note read, not the valuation orb's own scenario table). Printing the metric's
+    // source under the bridge arithmetic would misattribute those figures, so a distinct bridge.source is
+    // shown as its own trace term rather than folded into the single `source` field (Codex #365 P1,
+    // frameworks/valuation_summary.schema.json:39).
+    if (br?.source && br.source !== s.source) terms.push({ label: 'bridge source', calc: br.source })
+    return {
+      title: `${s.label} — computed from your inputs`,
+      formula,
+      terms,
+      // Provenance, stated so it cannot be read as contradicting the input beside it: the RUN derived the
+      // level first (that is what `implied` records), AND this pair is the only relationship the run wrote
+      // down for the case, so it is also what recomputes it here. Both are true; say both.
+      note: s.multipleKind === 'implied'
+        ? 'the run records this multiple as IMPLIED — it derived the level first and the multiple is what that level corresponds to. It is also the only relationship the run wrote down for this case, so it is what recomputes it here.'
+        : s.multipleKind === 'applied' ? 'the run built this case AS metric × multiple — the multiple is a genuine input' : undefined,
+      source: s.source ?? src,
+    }
   }
   if (cs.kind === 'live_blend') {
     const base = published ? traceBlend(published.methods, published.blend, labelFor) : null
@@ -765,7 +1283,7 @@ export function traceScenarioCell(s: DraftScenario, cs: ScenarioCellState, publi
   }
 }
 
-export function traceOutput(metric: 'expected' | 'mos' | 'downside' | 'rr' | 'pwt', math: ScenarioMath): Trace | null {
+export function traceOutput(metric: 'expected' | 'mos' | 'downside' | 'rr' | 'pwt', math: ScenarioMath, direction: PositionDirection = 'long'): Trace | null {
   const p = math.price
   const pwt = math.probWeightedTarget
   const base = math.levels['base'] ?? null
@@ -778,11 +1296,32 @@ export function traceOutput(metric: 'expected' | 'mos' | 'downside' | 'rr' | 'pw
     }
   }
   if (!isNum(p)) return null
+  // A trace has one job: state the arithmetic that produced the number beside it. On a SHORT the return is
+  // position-signed, so printing the long formula puts an equation of the opposite sign next to a +56.57%
+  // (Codex #366 P2).
+  const short = direction === 'short'
   if (metric === 'expected' && isNum(pwt)) {
-    return { title: 'Expected return', formula: `(prob-weighted target ${fmt(pwt)} − price ${fmt(p)}) / ${fmt(p)} = ${fmt(math.expectedReturnPct, 1)}%`, terms: [], note: 'the probability-weighted gain or loss across the scenarios (§10)' }
+    return {
+      title: 'Expected return',
+      formula: short
+        ? `(price ${fmt(p)} − prob-weighted target ${fmt(pwt)}) / ${fmt(p)} = ${fmt(math.expectedReturnPct, 1)}%`
+        : `(prob-weighted target ${fmt(pwt)} − price ${fmt(p)}) / ${fmt(p)} = ${fmt(math.expectedReturnPct, 1)}%`,
+      terms: [],
+      note: short
+        ? 'the probability-weighted gain or loss across the scenarios, from the SHORT\'s side — a falling price is a gain (§10)'
+        : 'the probability-weighted gain or loss across the scenarios (§10)',
+    }
   }
   if (metric === 'mos' && isNum(base)) {
-    return { title: 'Margin of safety', formula: `(base ${fmt(base)} − price ${fmt(p)}) / base ${fmt(base)} = ${fmt(math.marginOfSafetyPct, 1)}%`, terms: [], note: 'the cushion between price and base fair value, as a share of fair value (§16)' }
+    return {
+      title: 'Margin of safety',
+      formula: `(base ${fmt(base)} − price ${fmt(p)}) / base ${fmt(base)} = ${fmt(math.marginOfSafetyPct, 1)}%`,
+      terms: [],
+      // direction-UNIFORM by doctrine: one formula, and the sign says which side of fair value the price is
+      note: isNum(math.marginOfSafetyPct) && (math.marginOfSafetyPct as number) < 0
+        ? 'negative means the price sits ABOVE base fair value — no cushion, an embedded premium (§16)'
+        : 'the cushion between price and base fair value, as a share of fair value (§16)',
+    }
   }
   if (metric === 'downside') {
     // trace the number the row actually shows: downsideRiskPct = the WORST scenario's return, inverted —
@@ -800,8 +1339,28 @@ export function traceOutput(metric: 'expected' | 'mos' | 'downside' | 'rr' | 'pw
         : `inverted — higher is worse. The worst case is currently ${worst.label}, NOT the bear row — this is not the loss-to-bear.`,
     }
   }
-  if (metric === 'rr' && isNum(pwt) && isNum(bear)) {
-    return { title: 'Risk / reward', formula: `(prob-weighted target ${fmt(pwt)} − price ${fmt(p)}) / (price ${fmt(p)} − bear ${fmt(bear)}) = ${fmt(math.riskReward)}`, terms: [], note: 'expected gain per unit of loss-to-bear' }
+  if (metric === 'rr' && isNum(math.riskReward)) {
+    // The ratio IS expected return / downside risk — which for a long equals the documented
+    // (target − price)/(price − bear) because the price terms cancel. Stating it this way is honest for a
+    // short too, whose adverse case is a squeeze rather than the bear price, and it no longer goes silent
+    // when the worst row is not bear-labelled (Codex #366 P2).
+    const rows = math.perScenario.filter((r) => isNum(r.return_pct))
+    const worst = rows.length ? rows.reduce((a, b) => ((a.return_pct as number) <= (b.return_pct as number) ? a : b)) : null
+    // Read from the UNROUNDED fractions `riskReward` was actually divided from, not the already-1dp-rounded
+    // expectedReturnPct/downsideRiskPct — dividing THOSE can show operands that don't reconcile to the
+    // displayed ratio (AMZN: -16.1% / 38.7% = -0.42, but the published -0.41 comes from the unrounded
+    // fractions). 2dp is enough precision here for the shown division to reconcile with the shown (2dp)
+    // ratio (Codex #366 P2).
+    const erPct = isNum(math.expectedReturnFrac) ? round((math.expectedReturnFrac as number) * 100, 2) : math.expectedReturnPct
+    const drPct = isNum(math.downsideRiskFrac) ? round((math.downsideRiskFrac as number) * 100, 2) : math.downsideRiskPct
+    return {
+      title: 'Risk / reward',
+      formula: `expected return ${fmt(erPct, 2)}% / downside risk ${fmt(drPct, 2)}% = ${fmt(math.riskReward)}`,
+      terms: [],
+      note: worst
+        ? `expected gain per unit of loss in the worst case — ${worst.label} at ${fmt(worst.price_target)}${isNum(bear) && worst.label.toLowerCase().includes('bear') ? ' (the bear row, so this is the classic loss-to-bear ratio)' : ' (NOT the bear row)'}`
+        : 'expected gain per unit of loss in the worst case',
+    }
   }
   return null
 }

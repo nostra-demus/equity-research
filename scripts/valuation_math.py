@@ -87,6 +87,44 @@ def level_from_multiple(metric: float, multiple: float, basis: str = "equity",
     raise ValueError(f"unknown basis {basis!r} — use 'equity' or 'ev'")
 
 
+def case_level_from_multiple(metric: float, multiple: float, basis: str,
+                             bridge: Optional[dict] = None, shares: Optional[float] = None,
+                             net_debt: Optional[float] = None) -> Optional[float]:
+    """The level a scenario's OWN levers derive — the CASE's basis and (when it records one) its own
+    bridge govern, falling back to the run-level basis/shares/net_debt only when the case carries none.
+    Mirrors ui/web/src/lib/valuationLevers.ts caseLevelFromMultiple and the guard's `_case_level`
+    (scripts/valuation_summary_checks.py) — all three must agree, or a case reads a different fair
+    value depending which engine evaluated it.
+
+    A per-case bridge is meaningful only on an 'ev' case (an equity multiple already gives equity
+    value). Returns None (never raises, never guesses) when the terms are not derivable — unknown net
+    debt, no positive shares, or a nonnumeric optional deduction (a bridge value present-but-malformed
+    must not be silently read as 0, §15).
+    """
+    b = (basis or "equity").strip().lower()
+    br = bridge if (b == "ev" and isinstance(bridge, dict)) else None
+    if br is not None:
+        nd = br.get("net_debt")
+        if not _isnum(nd):
+            return None  # §15: unknown net debt is never silently 0
+        for key in ("minority", "other"):
+            v = br.get(key)
+            if v is not None and not _isnum(v):
+                return None  # a present-but-nonnumeric deduction is a violation, not a silent zero
+        sh = br.get("shares") if _isnum(br.get("shares")) else shares
+        if not (_isnum(sh) and sh > 0):
+            return None
+        mi = br.get("minority")
+        ot = br.get("other")
+        equity = float(metric) * float(multiple) - float(nd) \
+            - (float(mi) if _isnum(mi) else 0.0) + (float(ot) if _isnum(ot) else 0.0)
+        return equity / float(sh)
+    try:
+        return level_from_multiple(metric, multiple, b, shares, net_debt)
+    except ValueError:
+        return None
+
+
 def blend(methods: dict, weights: dict) -> dict:
     """Weighted base-case point across the value-producing methods (the 07 football-field blend,
     e.g. 0.35·own_history + 0.25·peers + 0.40·dcf). Ignores methods whose value is None/non-numeric
@@ -113,13 +151,26 @@ def _find(scenarios, name):
     return None
 
 
-def scenario_math(scenarios: list, price: Optional[float]) -> dict:
+def scenario_math(scenarios: list, price: Optional[float], direction: str = "long") -> dict:
     """Recompute the scenario identities from bull/base/bear LEVELS and probabilities.
 
     scenarios : list of {"label", "probability" (0-100), "price_target" (the fair-value LEVEL)}.
     price     : current price. If None/non-numeric, the LEVELS and the probability-weighted
                 target are still returned, but every price-relative read is "Not assessable"
                 (the no-price cap — CLAUDE.md §16 / MODULE_RULES).
+    direction : "long" (default) or "short" — THE POSITION, from decision_record `basket`
+                ("Short" -> short; every other basket, and an absent one, reads long). Scenario
+                returns are POSITION-SIGNED per synthesizer.md §6: for a long a return is
+                (target - price)/price; for a SHORT the adverse case is the price RISING, so the
+                position return is (price - target)/price and the long formula must NOT be used
+                because it flips the sign. A short with entry 100 and an adverse target of 130 has
+                downside +30%, not -30%. Getting this wrong makes a Short Candidate's expected
+                return read as a loss — TSLA_2026-07-25 publishes +56.57% and the long formula
+                gives -56.57% on the identical levels and probabilities.
+
+                NOT position-signed, by design: `margin_of_safety_pct` is direction-uniform (a
+                short candidate simply reads a negative MoS — synthesizer.md field table) and
+                `downside_to_bear_pct` is a valuation statement about the price falling to the bear.
 
     Returns (all price-relative fields None when price is absent):
       prob_weighted_target, expected_return_pct, margin_of_safety_pct (base),
@@ -141,12 +192,23 @@ def scenario_math(scenarios: list, price: Optional[float]) -> dict:
                             if clean else None)
 
     base = _find(clean, "base")
-    bear = _find(clean, "bear")
+    # The WORST bear, not the first one listed. A run may derive two down-legs (TSLA: a cyclical trough at
+    # 20.90 and a structural reset at 6.86) and the orb's own graduated rule takes the worse of them as the
+    # headline. With a single bear this is identical to picking the first.
+    _bears = [s for s in clean if "bear" in str(s.get("label", "")).strip().lower()]
+    bear = min(_bears, key=lambda s: float(s["price_target"])) if _bears else None
 
     per = []
+    raw_returns = []   # the same returns UNROUNDED — ratios must never be built from rounded inputs
     have_price = _isnum(price) and price > 0
+    short = str(direction or "long").strip().lower() == "short"
     for s in clean:
-        r = _pct((float(s["price_target"]) - float(price)) / float(price)) if have_price else None
+        # POSITION-signed: a short gains when the price falls, so its return is (price - target)/price
+        frac = (((float(price) - float(s["price_target"])) if short
+                 else (float(s["price_target"]) - float(price))) / float(price)) if have_price else None
+        if frac is not None:
+            raw_returns.append(frac)
+        r = _pct(frac) if frac is not None else None
         per.append({"label": s.get("label"), "probability": float(s["probability"]),
                     "price_target": float(s["price_target"]), "return_pct": r})
 
@@ -167,7 +229,7 @@ def scenario_math(scenarios: list, price: Optional[float]) -> dict:
         return out
 
     p = float(price)
-    out["expected_return_pct"] = (_pct((prob_weighted_target - p) / p)
+    out["expected_return_pct"] = (_pct(((p - prob_weighted_target) if short else (prob_weighted_target - p)) / p)
                                   if prob_weighted_target is not None else None)
     out["margin_of_safety_pct"] = (_pct((float(base["price_target"]) - p) / float(base["price_target"]))
                                    if base else None)
@@ -178,22 +240,52 @@ def scenario_math(scenarios: list, price: Optional[float]) -> dict:
         warnings.append("no bear scenario found — downside-to-bear Not assessable")
     rets = [x["return_pct"] for x in per if x["return_pct"] is not None]
     out["downside_risk_pct"] = round(-min(rets), 1) if rets else None    # synthesizer field: −min scenario return
-    if bear and prob_weighted_target is not None:
-        denom = p - float(bear["price_target"])
-        out["risk_reward"] = round((prob_weighted_target - p) / denom, 2) if abs(denom) > 1e-9 else None
-    else:
+    # Risk/reward = expected position return / downside risk. This is the documented long formula
+    #   (Probability-Weighted Target - Price) / (Price - Bear Price)
+    # written direction-generally: for a long, E[r] = (pwt-p)/p and downside = (p-bear)/p, and the p's
+    # cancel — the two are algebraically identical. Expressed this way it also holds for a short, whose
+    # adverse case is the worst POSITION return (a squeeze), not the bear price. TSLA_2026-07-25 publishes
+    # 1.85 = 56.57 / 30.56; the long price formula gives -0.58 on the same numbers.
+    # Built from UNROUNDED fractions, rounded once at the end. Dividing the two rounded percentages instead
+    # moves AMZN's published -0.41 to -0.42, and lets a real adverse loss under 0.05% round to zero and turn
+    # a derivable ratio into None (Codex #366 P2). The percentage scaling cancels, so this is the same ratio.
+    er_frac = ((p - prob_weighted_target) if short else (prob_weighted_target - p)) / p if prob_weighted_target is not None else None
+    dr_frac = -min(raw_returns) if raw_returns else None
+    # NOT DERIVABLE WITHOUT A REAL ADVERSE CASE. When every scenario is in the position's favour (dr <= 0 —
+    # an all-upside setup, e.g. EMAAR_2026-07-03 whose bear sits ABOVE the entry price) the signed ratio is
+    # meaningless: it comes out negative for what is a good setup. eval.py takes the same view and skips its
+    # risk/reward re-derivation in exactly this case ("a real adverse case exists -> risk/reward is
+    # derivable"), and that run publishes the disclosed magnitude instead (reward 14.49 / bear gap 7.80 =
+    # 1.9x, stated three times in its thesis). Returning a signed -1.86 here would contradict a correct
+    # published number, so return None and say why.
+    if er_frac is not None and dr_frac is not None and dr_frac <= 0:
         out["risk_reward"] = None
-    if bear and float(bear["price_target"]) >= p:
+        warnings.append("risk/reward Not assessable — no scenario is adverse to the position (the worst case "
+                        "is still a gain), so the signed ratio is meaningless; state the reward/gap magnitude instead")
+    else:
+        out["risk_reward"] = (round(er_frac / dr_frac, 2)
+                              if er_frac is not None and dr_frac is not None and abs(dr_frac) > 1e-12 else None)
+    # "Is there a genuine adverse branch" is direction-dependent: a long needs a bear BELOW the price, a
+    # short needs a bull ABOVE it (the squeeze). Firing the long check on a short is backwards — a short's
+    # bear sitting below the price is the thesis working, not a defect (eval checks AM / AR).
+    if short:
+        bull = _find(clean, "bull")
+        if not bull:
+            warnings.append("no bull scenario found — no genuine squeeze/upside branch for a short (§8; eval check AR)")
+        elif float(bull["price_target"]) <= p:
+            warnings.append(f"bull price_target {bull['price_target']} is not above price {p} — no genuine "
+                            f"squeeze/upside branch for a short (§8; eval check AR)")
+    elif bear and float(bear["price_target"]) >= p:
         warnings.append(f"bear price_target {bear['price_target']} is not below price {p} — no genuine "
                         f"downside branch for a long (§8/§16)")
     return out
 
 
-def reanchor(scenarios: list, new_price: float) -> dict:
+def reanchor(scenarios: list, new_price: float, direction: str = "long") -> dict:
     """Re-derive every price-relative read at a fresh price WITHOUT re-running any agent.
     The fair-value LEVELS are price-independent, so this is just scenario_math at the new price —
     the one-line recompute the Price-freshness rule and the Playground both call."""
-    return scenario_math(scenarios, new_price)
+    return scenario_math(scenarios, new_price, direction)
 
 
 # ---------------------------------------------------------------------------
@@ -206,6 +298,18 @@ class ScenarioLever:
     forward_metric: Optional[float] = None      # EPS (basis=equity) or EBITDA/EBIT total (basis=ev)
     multiple: Optional[float] = None
     level_override: Optional[float] = None       # if set, used as the level instead of metric×multiple
+    # v1.3 — this CASE's OWN basis/multiple-basis/bridge, overriding the run-level convention. A run can
+    # genuinely mix methods (EMAAR: EV/EBITDA cases + a 0.96x-on-book bear) — bridging an equity multiple
+    # with the run's EV terms turns 9.75 into −2.82, so the case's own terms must be honored here, not
+    # just in the schema/guard/browser (Codex #362 P1: this dataclass had none of these fields and
+    # `recompute()` always used the run-level basis/shares/net_debt, mispricing NHY's bear as ~114
+    # instead of 45.12).
+    basis: Optional[str] = None                  # 'equity' / 'ev', overriding levers.basis for this case
+    multiple_basis: Optional[str] = None          # what the multiple IS (e.g. 'EV/FY2025 Adj. EBITDA') —
+                                                   # used only to gate the multiple-symmetry check to
+                                                   # comparable cases, never in the level arithmetic
+    bridge: Optional[dict] = None                 # {net_debt, minority, other, shares} — this case's OWN
+                                                   # EV→equity terms, when they differ from the run level
 
 
 @dataclass
@@ -277,26 +381,39 @@ def check_multiple_symmetry(bull_mult, base_mult, bear_mult) -> dict:
     return {"ok": not problems, "bull_expands": bull_expands, "problems": problems}
 
 
-def recompute(levers: ValuationLevers) -> dict:
+def _comparable_key(s: "ScenarioLever", run_basis: str) -> str:
+    """What makes two scenarios' multiples comparable: the named multiple_basis when the case records
+    one (EMAAR's 'normalized EV/EBITDA' vs 'P/BV (book)' are NOT the same yardstick even though both are
+    just numbers), falling back to the case's own basis (equity/ev) when no name is recorded."""
+    if isinstance(s.multiple_basis, str) and s.multiple_basis.strip():
+        return s.multiple_basis.strip().lower()
+    return (s.basis or run_basis or "equity").strip().lower()
+
+
+def recompute(levers: ValuationLevers, direction: str = "long") -> dict:
     """Top-level: levers → fair-value levels → scenario math → sanity checks. The one call the
-    /api/valuation-levers recompute endpoint and the Playground client mirror both target."""
+    /api/valuation-levers recompute endpoint and the Playground client mirror both target.
+
+    `direction` ("long" | "short", from decision_record `basket`) is forwarded to scenario_math. Without it
+    a short-side caller using this public entry point silently gets long-signed returns — the fix would
+    reach only callers that bypass this and call scenario_math directly (Codex #366 P2)."""
     scen_out = []
     for s in levers.scenarios:
         if _isnum(s.level_override):
             level = float(s.level_override)
         elif _isnum(s.forward_metric) and _isnum(s.multiple):
-            try:
-                level = level_from_multiple(s.forward_metric, s.multiple, levers.basis,
-                                            levers.shares, levers.net_debt)
-            except ValueError:
-                level = None  # EV basis without net debt / positive shares → level Not assessable (§15)
+            # v1.3: the CASE's own basis/bridge govern — falling back to the run-level basis/net-debt
+            # here prices NHY's cases off the run's broad net debt with no minority deducted (~114
+            # instead of the committed 45.12 bear), and bridges an equity-basis case into nonsense.
+            level = case_level_from_multiple(s.forward_metric, s.multiple, s.basis or levers.basis,
+                                             s.bridge, levers.shares, levers.net_debt)
         else:
             level = None
         scen_out.append({"label": s.label, "probability": s.probability,
                          "price_target": round(level, 4) if level is not None else None,
                          "forward_metric": s.forward_metric, "multiple": s.multiple})
 
-    math = scenario_math(scen_out, levers.current_price)
+    math = scenario_math(scen_out, levers.current_price, direction)
 
     ke = capm_cost_of_equity(levers.rf, levers.beta, levers.erp)
     checks = {}
@@ -304,7 +421,14 @@ def recompute(levers: ValuationLevers) -> dict:
         checks["wacc"] = check_wacc(levers.after_tax_kd, levers.wacc, ke, levers.rf, levers.erp,
                                     levers.is_developed_mega_cap)
     mults = {(s.label or "").strip().lower(): s.multiple for s in levers.scenarios}
-    if any(_isnum(mults.get(k)) for k in ("bull", "base", "bear")):
+    by_label = {(s.label or "").strip().lower(): s for s in levers.scenarios}
+    # A mixed-method set (an equity P/E case beside an EV/EBITDA case) makes the raw multiples
+    # incomparable — a 7x P/E bear vs a 6x EV/EBITDA base is not "the bear compressed the multiple",
+    # it is two different yardsticks (Codex #362 P2). Only run the symmetry check when every case that
+    # HAS a multiple shares the same comparable key.
+    present = [by_label[k] for k in ("bull", "base", "bear") if k in by_label and _isnum(mults.get(k))]
+    comparable = len({_comparable_key(s, levers.basis) for s in present}) <= 1
+    if comparable and any(_isnum(mults.get(k)) for k in ("bull", "base", "bear")):
         checks["multiple_symmetry"] = check_multiple_symmetry(mults.get("bull"), mults.get("base"),
                                                               mults.get("bear"))
 
@@ -330,10 +454,22 @@ def _approx(a, b, tol=0.15) -> bool:
     return a is not None and b is not None and abs(a - b) <= tol
 
 
+# Every check in _selftest is counted, and the count is asserted at the end. A `return` placed above a group
+# — the `if fails` gate used to sit before the short-side group — disables every check below it while the
+# suite still prints PASS. A count is the only thing that catches that from inside (found by a MISSED
+# mutation: moving the gate back up changed nothing).
+_EXPECTED_CHECKS = 59
+_CHECKS_RUN = 0          # module-level on purpose — the CALLER asserts it, so an early return cannot hide it
+
+
 def _selftest() -> int:
+    global _CHECKS_RUN
+    _CHECKS_RUN = 0
     fails = []
 
     def check(name, cond):
+        global _CHECKS_RUN
+        _CHECKS_RUN += 1
         if not cond:
             fails.append(name)
 
@@ -346,7 +482,9 @@ def _selftest() -> int:
     check("amzn_mos≈-13.5", _approx(m["margin_of_safety_pct"], -13.5))
     check("amzn_downside_risk≈38.7", _approx(m["downside_risk_pct"], 38.7))
     check("amzn_downside_to_bear≈38.7", _approx(m["downside_to_bear_pct"], 38.7))
-    check("amzn_risk_reward≈-0.41", _approx(m["risk_reward"], -0.41, tol=0.02))
+    # EXACT, not ±0.02: that tolerance is the size of the rounding error it exists to catch, and it did
+    # hide one — a ratio built from the already-rounded percentages reads -0.42 here (Codex #366 P2).
+    check("amzn_risk_reward == -0.41 exactly (published)", m["risk_reward"] == -0.41)
     check("amzn_pwt≈200.05", _approx(m["prob_weighted_target"], 200.05, tol=0.1))
 
     # --- 2. re-anchor to the live price (~$247.23) with the SAME levels ---
@@ -421,18 +559,159 @@ def _selftest() -> int:
     check("blend_nondict_safe", blend(None, {})["base_point"] is None)
     check("scenario_math_nonlist_safe", scenario_math(None, 100.0)["prob_weighted_target"] is None)
 
+    # --- 10. v1.3 per-case basis/bridge honored in the Python recompute path (Codex #362 P1) ---
+    # NHY's real shape: run declares basis='ev' with NO run-level shares/net_debt, but EVERY case
+    # supplies its OWN bridge (net debt 17,919 + minority 7,495, shares 1965.28). Before this fix,
+    # recompute() always used the run-level (absent) terms and produced a level Not assessable / wrong;
+    # with the fix it must reproduce the committed 107.75 / 81.88 / 45.12 exactly.
+    def _nhy_lever(label, mult):
+        return ScenarioLever(label, 0, forward_metric=28889, multiple=mult, basis="ev",
+                             multiple_basis="EV/FY2025 Adj. EBITDA",
+                             bridge={"net_debt": 17919, "minority": 7495, "shares": 1965.28})
+    nhy_levers = ValuationLevers(
+        scenarios=[_nhy_lever("bull", 8.21), _nhy_lever("base", 6.45), _nhy_lever("bear", 3.95)],
+        basis="ev", shares=None, net_debt=None, current_price=None)
+    nhy_out = recompute(nhy_levers)
+    nhy_levels = {s["label"]: s["price_target"] for s in nhy_out["scenarios"]}
+    check("nhy_bull_case_bridge≈107.75", _approx(nhy_levels["bull"], 107.75, tol=0.05))
+    check("nhy_base_case_bridge≈81.88", _approx(nhy_levels["base"], 81.88, tol=0.05))
+    check("nhy_bear_case_bridge≈45.12", _approx(nhy_levels["bear"], 45.12, tol=0.05))
+    # proof the bug was real: reading the RUN-level (absent) net debt/shares instead of the case's own
+    # bridge cannot even compute a level (no positive shares) — the pre-fix path returned None/garbage,
+    # never 45.12. A regression back to the run-level path would show up here as None again.
+    check("nhy_bear_not_none (would be None or ~114 on the old run-level-only path)", nhy_levels["bear"] is not None)
+
+    # EMAAR-style mixed basis in ONE run: an EV/EBITDA base (with its own bridge) + a book-value (equity)
+    # bear that must NOT be bridged (bridging 0.96x book turns 9.75 into a nonsense negative number).
+    emaar_levers = ValuationLevers(
+        scenarios=[
+            ScenarioLever("base", 0, forward_metric=18122.5, multiple=6.7, basis="ev",
+                         multiple_basis="normalized EV/EBITDA",
+                         bridge={"net_debt": -24969, "minority": 13808, "shares": 8838.8}),
+            ScenarioLever("bear", 0, forward_metric=10.16, multiple=0.96, basis="equity",
+                         multiple_basis="P/BV (book)"),
+        ],
+        basis="ev", shares=8838.8, net_debt=-24969)
+    emaar_out = recompute(emaar_levers)
+    emaar_levels = {s["label"]: s["price_target"] for s in emaar_out["scenarios"]}
+    check("emaar_base_ev_bridge≈15.00", _approx(emaar_levels["base"], 15.00, tol=0.05))
+    check("emaar_bear_equity_not_bridged≈9.75", _approx(emaar_levels["bear"], 9.75, tol=0.01))
+
+    # --- 11. multiple-symmetry check is gated by comparable basis (Codex #362 P2) ---
+    # bull/base share 'EV/FY2025 Adj. EBITDA'; a mismatched-basis bear must not trigger a false
+    # "bear must compress" warning just because 0.96 < 6.45 on an unrelated yardstick.
+    mixed_symmetry = ValuationLevers(
+        scenarios=[
+            ScenarioLever("bull", 0, forward_metric=28889, multiple=8.21, basis="ev", multiple_basis="EV/FY2025 Adj. EBITDA"),
+            ScenarioLever("base", 0, forward_metric=28889, multiple=6.45, basis="ev", multiple_basis="EV/FY2025 Adj. EBITDA"),
+            ScenarioLever("bear", 0, forward_metric=10.16, multiple=0.96, basis="equity", multiple_basis="P/BV (book)"),
+        ],
+        basis="ev")
+    check("mixed-basis set skips the (meaningless) symmetry check",
+          "multiple_symmetry" not in recompute(mixed_symmetry)["checks"])
+    # same-basis set: the check DOES still run and still catches a real violation
+    same_basis_bad = ValuationLevers(
+        scenarios=[
+            ScenarioLever("bull", 0, forward_metric=100, multiple=20, basis="equity", multiple_basis="P/E"),
+            ScenarioLever("base", 0, forward_metric=100, multiple=20, basis="equity", multiple_basis="P/E"),
+            ScenarioLever("bear", 0, forward_metric=100, multiple=25, basis="equity", multiple_basis="P/E"),
+        ],
+        basis="equity")
+    check("same-basis set still runs + catches bear expanding the multiple",
+          "multiple_symmetry" in recompute(same_basis_bad)["checks"] and not recompute(same_basis_bad)["checks"]["multiple_symmetry"]["ok"])
+
+    # ---- group 12: POSITION-SIGNED returns for a short (synthesizer.md §6 Downside Risk) ----
+    # The fixture is the committed TSLA_2026-07-25 decision_record, reproduced from its own five levels
+    # and probabilities. The long formula gives every number the wrong sign on the same inputs.
+    TSLA = [
+        {"label": "bull",            "probability": 25, "price_target": 336.08},
+        {"label": "base",            "probability": 20, "price_target": 32.37},
+        {"label": "bear_cyclical",   "probability": 25, "price_target": 20.90},
+        {"label": "bear_structural", "probability": 20, "price_target": 6.86},
+        {"label": "tail_squeeze",    "probability": 10, "price_target": 417.40},
+    ]
+    sh = scenario_math(TSLA, 319.69, direction="short")
+    check("short: expected return reproduces the published +56.57", abs(sh["expected_return_pct"] - 56.57) < 0.05)
+    check("short: downside risk reproduces the published +30.56 (the squeeze, not the bear)",
+          abs(sh["downside_risk_pct"] - 30.56) < 0.05)
+    check("short: risk/reward == the published 1.85 exactly", sh["risk_reward"] == 1.85)
+    _r = {x["label"]: x["return_pct"] for x in sh["per_scenario"]}
+    check("short: a price RISE is a loss (bull 336.08 vs entry 319.69 -> -5.1%)", abs(_r["bull"] + 5.1) < 0.15)
+    check("short: a price FALL is a gain (base 32.37 -> +89.9%)", abs(_r["base"] - 89.9) < 0.15)
+    check("short: the worst case is the squeeze, not the bear", min(_r.values()) == _r["tail_squeeze"])
+    check("short: margin of safety stays direction-uniform and negative", sh["margin_of_safety_pct"] < 0)
+    # two down-legs: "downside to bear" is the WORST bear, not whichever is listed first (cyclical 20.90 is
+    # first and gives 93.5%; the structural 6.86 gives 97.9%)
+    check("downside-to-bear takes the WORST bear, not the first listed", abs(sh["downside_to_bear_pct"] - 97.9) < 0.2)
+    check("...and one bear behaves identically",
+          abs(scenario_math([{"label": "base", "probability": 50, "price_target": 100},
+                             {"label": "bear", "probability": 50, "price_target": 60}], 120)["downside_to_bear_pct"] - 50) < 0.2)
+    lg = scenario_math(TSLA, 319.69, direction="long")
+    check("the long formula on a short flips every sign", abs(lg["expected_return_pct"] + 56.57) < 0.05)
+    check("...and misreports the worst case as the bear", abs(lg["downside_risk_pct"] - 97.9) < 0.2)
+    check("short: no long-side 'bear not below price' warning fires",
+          not any("downside branch for a long" in w for w in sh["warnings"]))
+    check("short: a bull NOT above the price is warned (no squeeze branch)",
+          any("squeeze/upside branch for a short" in w for w in
+              scenario_math([{"label": "bull", "probability": 50, "price_target": 200},
+                             {"label": "bear", "probability": 50, "price_target": 50}], 300, direction="short")["warnings"]))
+    check("short: a MISSING bull case is warned too, not silently accepted (Codex #366 P2)",
+          any("no bull scenario" in w for w in
+              scenario_math([{"label": "base", "probability": 50, "price_target": 100},
+                             {"label": "tail_squeeze", "probability": 50, "price_target": 50}], 120, direction="short")["warnings"]))
+    check("direction defaults to long", scenario_math(TSLA, 319.69)["expected_return_pct"] == lg["expected_return_pct"])
+    check("an unrecognised direction is treated as long",
+          scenario_math(TSLA, 319.69, direction="hedge")["expected_return_pct"] == lg["expected_return_pct"])
+
+    # ALL-UPSIDE setup: every scenario favours the position, so there is no adverse case and the signed
+    # ratio is meaningless. EMAAR_2026-07-03's real shape — bear 20.0 ABOVE entry 12.2 — where the run
+    # publishes the disclosed magnitude (reward 14.49 / bear gap 7.80 = 1.9x) and eval.py skips its own
+    # re-derivation. Returning -1.86 here would contradict a correct published number.
+    _up = scenario_math([{"label": "bull", "probability": 20, "price_target": 34.2},
+                         {"label": "base", "probability": 50, "price_target": 27.7},
+                         {"label": "bear", "probability": 30, "price_target": 20.0}], 12.2)
+    check("all-upside: expected return still reproduces EMAAR's published 118.8", abs(_up["expected_return_pct"] - 118.8) < 0.1)
+    check("all-upside: downside risk still reproduces the published -63.9", abs(_up["downside_risk_pct"] + 63.9) < 0.1)
+    check("all-upside: risk/reward is None, not a negative ratio", _up["risk_reward"] is None)
+    check("all-upside: and it says why", any("no scenario is adverse" in w for w in _up["warnings"]))
+    check("a normal long still derives it (AMZN -0.41)", m["risk_reward"] == -0.41)
+
+    # risk/reward is built from UNROUNDED fractions, rounded once
+    _tiny = scenario_math([{"label": "base", "probability": 50, "price_target": 101},
+                           {"label": "bear", "probability": 50, "price_target": 99.98}], 100)
+    check("a sub-0.05% adverse case still yields a ratio (rounded inputs made it None)",
+          _isnum(_tiny["risk_reward"]))
+    check("...and the ratio is the unrounded one", abs(_tiny["risk_reward"] - 24.5) < 0.05)
+    # reanchor and recompute must FORWARD the direction, or a short-side caller of the public API gets
+    # long-signed returns while only direct scenario_math callers are fixed
+    check("reanchor forwards direction", reanchor(TSLA, 319.69, "short")["expected_return_pct"] == sh["expected_return_pct"])
+    check("reanchor defaults to long", reanchor(TSLA, 319.69)["expected_return_pct"] == lg["expected_return_pct"])
+
     if fails:
         print("VALUATION MATH SELFTEST FAIL:", ", ".join(fails))
         return 1
-    print(f"VALUATION MATH SELFTEST PASS — {9} groups, AMZN decision_record reproduced "
-          f"(expected -16.1 / mos -13.5 / downside 38.7 / rr -0.41), re-anchor + WACC + symmetry checks green")
+    print(f"VALUATION MATH SELFTEST PASS — {12} groups, AMZN + NHY + EMAAR + TSLA decision_records reproduced "
+          f"(AMZN long: expected -16.1 / mos -13.5 / downside 38.7 / rr -0.41; TSLA short: +56.57 / +30.56 / 1.85), "
+          f"re-anchor + WACC + symmetry + v1.3 per-case bridge checks green")
     return 0
 
 
 if __name__ == "__main__":
     import sys, json
+    def _run_selftest() -> int:
+        """Runs the suite, then asserts how many checks actually RAN. A `return` placed above a group
+        silently disables every check below it while the suite still prints PASS — that is not hypothetical,
+        it is what had made the entire short-side group dead. The count is checked out here so no early
+        return inside _selftest can bypass it."""
+        rc = _selftest()
+        if _CHECKS_RUN < _EXPECTED_CHECKS:
+            print(f"VALUATION MATH SELFTEST FAIL: only {_CHECKS_RUN} checks ran, expected at least "
+                  f"{_EXPECTED_CHECKS} — a `return` above a group disables everything below it")
+            return 1
+        return rc
+
     if "--selftest" in sys.argv:
-        raise SystemExit(_selftest())
+        raise SystemExit(_run_selftest())
     # demo: the AMZN case, frozen anchor vs live re-anchor
     amzn = [{"label": "bull", "probability": 25, "price_target": 247.0},
             {"label": "base", "probability": 45, "price_target": 210.0},
