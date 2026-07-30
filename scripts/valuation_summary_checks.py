@@ -151,8 +151,12 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
     ver = None
     if isinstance(raw_ver, str):
         parts = raw_ver.strip().split(".")
+        # Keep EVERY parsed component, not just major.minor — "1.3.1" must compare as (1, 3, 1), not
+        # truncate to (1, 3), or a future versioned rule keyed on the patch digit would silently misread
+        # it (Gemini #365, scripts/valuation_summary_checks.py:131). Tuple comparison in Python already
+        # handles the differing lengths against the (1, 3) gate below correctly (e.g. (1, 2, 9) < (1, 3)).
         if 1 <= len(parts) <= 4 and all(p.isdigit() for p in parts):
-            ver = (int(parts[0]), int(parts[1]) if len(parts) > 1 else 0)
+            ver = tuple(int(p) for p in parts)
     if raw_ver is not None and ver is None:
         det.append(f"schema_version {raw_ver!r} is not a dotted numeric version (e.g. '1.3') — an unparseable "
                    f"version would silently grandfather every versioned rule")
@@ -180,7 +184,15 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
         # (bridged for ev) and IGNORES the supplied `level` — so a level that disagrees with that product
         # ships a baseline the Playground would silently override. Verify the identity here.
         fm, mult, lvl = s.get("forward_metric"), s.get("multiple"), s.get("level")
-        br = s.get("bridge") if isinstance(s.get("bridge"), dict) else None
+        raw_bridge = s.get("bridge")
+        if raw_bridge is not None and not isinstance(raw_bridge, dict):
+            # A present-but-non-object bridge (e.g. `"bridge": []`) must not be silently read as absent —
+            # that would let the case be priced from the run-level terms while the client's draftFromResponse
+            # treats the same array as truthy and caseLevelFromMultiple returns null (net_debt missing), so
+            # CI and the Playground would disagree (Codex #365 P2, scripts/valuation_summary_checks.py:159).
+            det.append(f"scenario {s.get('label')!r} bridge {raw_bridge!r} is not an object — a present bridge "
+                       f"must be a {{net_debt, ...}} object, never treated as absent")
+        br = raw_bridge if isinstance(raw_bridge, dict) else None
         # A case may declare its OWN basis: EMAAR's base reads on EV/EBITDA while its bear reads 0.96x on
         # BOOK. Treating an equity multiple as an EV one and bridging it is not a rounding error — it turns
         # 9.75 into −2.82. Falls back to the run basis.
@@ -201,6 +213,14 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
         if br is not None and not _cited(br.get("net_debt_basis")):
             det.append(f"scenario {s.get('label')!r} bridge records a net_debt with no net_debt_basis — a "
                        f"per-case debt figure must name its basis wherever it appears (§15)")
+        # v1.3: the bridge's OWN §5 citation (optional — falls back to the scenario source when the bridge
+        # terms come from the same document). A supplied-but-banned bare phrase ("source", "management
+        # said", ...) is rejected exactly like every other §5-cited field; absence is fine (Codex #365 P1,
+        # frameworks/valuation_summary.schema.json:39).
+        if br is not None and br.get("source") is not None and not _cited(br.get("source")):
+            det.append(f"scenario {s.get('label')!r} bridge records a source that is not a usable §5 citation "
+                       f"({br.get('source')!r}) — bridge figures from a different document/module cannot ship "
+                       f"under a vague or banned bare citation")
         # The v1.3 labelling rules key off the PRESENCE of each lever, not off a complete pair: a scenario
         # carrying a multiple with no forward_metric would otherwise skip every check below and ship an
         # unlabelled, uncited, underivable lever (Gemini + Codex #362).
@@ -794,11 +814,30 @@ def _selftest() -> int:
                          _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
     check("bridge with zero shares → violation, no ZeroDivisionError",
           any("no positive shares" in v for v in eval_ap_valuation_summary_integrity(br_str_shares, None)))
+    # a non-object bridge (e.g. an array) must be REPORTED, never silently read as absent (Codex #365 P2)
+    for bad_bridge in ([17919], "17919", 42, True):
+        nonobj = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge=bad_bridge), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+        out2 = eval_ap_valuation_summary_integrity(nonobj, None)
+        check(f"non-object bridge {bad_bridge!r} caught, not silently treated as absent",
+              any("is not an object" in v for v in out2))
     # §15: a per-case debt figure must name its basis wherever it appears
     no_ndb = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge={"net_debt": 17919, "minority": 7495, "shares": 1965.28}),
                   _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
     check("v1.3 per-case bridge without a net_debt_basis caught (§15)",
           any("no net_debt_basis" in v for v in eval_ap_valuation_summary_integrity(no_ndb, None)))
+    # bridge.source: OPTIONAL, but when present must be a usable §5 citation — a banned bare phrase is
+    # rejected exactly like every other cited field (Codex #365 P1)
+    ok_bridge_src = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge={
+        "net_debt": 17919, "net_debt_basis": "cash-quality adjusted", "minority": 7495, "shares": 1965.28,
+        "source": "balance-sheet-survival/03 §2 (debt note)"}), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+    check("v1.3 bridge with a real §5 source citation passes", eval_ap_valuation_summary_integrity(ok_bridge_src, None) == [])
+    bad_bridge_src = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge={
+        "net_debt": 17919, "net_debt_basis": "cash-quality adjusted", "minority": 7495, "shares": 1965.28,
+        "source": "management said"}), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)])
+    check("v1.3 bridge with a banned bare source caught",
+          any("not a usable §5 citation" in v for v in eval_ap_valuation_summary_integrity(bad_bridge_src, None)))
+    check("v1.3 bridge with NO source at all is fine (falls back to the scenario source)",
+          eval_ap_valuation_summary_integrity(v13, None) == [])
     # a present-but-nonnumeric optional deduction (minority/other) must be REPORTED, not silently read
     # as 0 — a generated bridge with "minority": "7495" (a string) used to pass with the deduction
     # dropped from the arithmetic (Codex #362 P2, fresh evidence beyond the net_debt-only fix)
@@ -859,6 +898,16 @@ def _selftest() -> int:
           eval_ap_valuation_summary_integrity(dict(old, schema_version="1"), None) == [])
     check("schema_version '1.3.0' parses as 1.3 (rules apply)",
           eval_ap_valuation_summary_integrity(dict(v13, schema_version="1.3.0"), None) == [])
+    # a THIRD version component must not be dropped (Gemini #365: "1.3.1" was truncated to (1, 3), which
+    # happens to still compare correctly against the (1, 3) gate today — but only because the truncation
+    # and the full parse agree on THIS gate; assert the full tuple is what is actually compared)
+    check("schema_version '1.3.1' parses as (1, 3, 1), still >= the v1.3 gate",
+          eval_ap_valuation_summary_integrity(dict(v13, schema_version="1.3.1"), None) == [])
+    # v13's own body already satisfies the v1.3 rules too, so this isolates the VERSION comparison: a
+    # truncating parse would read "1.2.9" as (1, 2) < (1, 3) — same verdict as the full (1, 2, 9) — so this
+    # alone would not have caught the truncation bug; it is included for completeness alongside 1.3.1 above.
+    check("schema_version '1.2.9' still parses below the v1.3 gate (grandfathered, no false demand)",
+          eval_ap_valuation_summary_integrity(dict(v13, schema_version="1.2.9"), None) == [])
 
     # ---- v1.3 mixed bases in ONE run — EMAAR's real SHAPE (EV/EBITDA base + P/BV bear). The bear is
     # EMAAR's actual arithmetic (10.16 book/share x 0.96 = 9.75); the base metric is synthetic-but-

@@ -526,7 +526,7 @@ export function ValuationPlayground() {
                         />
                       ) : (
                         <TraceStrip
-                          t={traceScenarioCell(s, cs, draft.published ?? null, methodLabel)}
+                          t={traceScenarioCell(s, cs, draft.published ?? null, methodLabel, draft.basis)}
                           onOverride={cs.kind !== 'live_blend' && cs.kind !== 'derived_multiple' ? () => { setScen(i, { overrideUnlocked: true }); setOpenTrace(null) } : undefined}
                         />
                       )

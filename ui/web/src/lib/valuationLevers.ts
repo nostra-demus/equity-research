@@ -72,6 +72,10 @@ export interface CaseBridge {
   minority?: number | null
   other?: number | null
   shares?: number | null
+  /** the §5 citation for THIS bridge's figures, when they come from a different document/module than the
+   *  scenario-level `source` (which cites only the forward metric and multiple). Falls back to the
+   *  scenario-level source when omitted and the terms come from the same place. */
+  source?: string | null
 }
 
 export interface ValuationSummary {
@@ -302,7 +306,14 @@ export function scenarioMath(scenarios: { label: string; probability?: number | 
   if (clean.length && Math.abs(psum - 100) > 0.5) warnings.push(`scenario probabilities sum to ${round(psum, 2)}, not 100 (§10)`)
   const pwt = clean.length ? clean.reduce((a, s) => a + (s.price_target * s.probability) / 100, 0) : null
   const base = findByLabel(clean, 'base')
-  const bear = findByLabel(clean, 'bear')
+  // The WORST bear, not the first one listed — a run may derive two down-legs (e.g. bear_cyclical and
+  // bear_structural), and the eval harness's own risk/reward denominator uses the worst (lowest) target
+  // across every case, not array order. Picking the first bear-labelled row would silently disagree with
+  // the frozen thesis whenever the second bear is lower (Codex #365 P1, synthesizer.md:591). With a single
+  // bear case this is identical to picking the first. Direction-signed (short-side) selection is PR #366's
+  // job — this stays long-side, matching the rest of this function.
+  const bears = clean.filter((s) => (s.label || '').toLowerCase().includes('bear'))
+  const bear = bears.length ? bears.reduce((w, s) => (s.price_target < w.price_target ? s : w)) : undefined
   const havePrice = isNum(price) && price > 0
   const perScenario: ScenarioRow[] = clean.map((s) => ({
     label: s.label, probability: s.probability, price_target: s.price_target,
@@ -811,7 +822,16 @@ export function traceBlend(methods: MethodLever[], b: BlendResult, labelFor: (k:
   }
 }
 
-export function traceScenarioCell(s: DraftScenario, cs: ScenarioCellState, published: PlaygroundDraft['published'], labelFor: (k: string) => string = (k) => k): Trace {
+export function traceScenarioCell(
+  s: DraftScenario, cs: ScenarioCellState, published: PlaygroundDraft['published'],
+  labelFor: (k: string) => string = (k) => k,
+  // the run-level basis the case falls back to when it declares none of its own (mirrors levelForScenario's
+  // `s.basis ?? d.basis`) — an EV-basis case that OMITS its own `basis` still bridges correctly in the
+  // actual calculation, but before this fix the trace checked `s.basis === null` directly and silently
+  // dropped the bridge from the displayed arithmetic, so the formula shown did not produce the Worth beside
+  // it (Codex #365 P2, ui/web/src/lib/valuationLevers.ts:805).
+  runBasis: Basis = 'equity',
+): Trace {
   const src = s.drivers ? `run-recorded drivers: ${s.drivers}` : null
   if (cs.kind === 'derived_chain' && s.chain) {
     const c = s.chain
@@ -839,17 +859,26 @@ export function traceScenarioCell(s: DraftScenario, cs: ScenarioCellState, publi
     // when the case's own bridge makes it 107.75 — a formula that contradicts the number beside it.
     const mb = s.multipleBasis ? ` (${s.multipleBasis})` : ''
     let formula = `${s.metricBasis ?? 'forward metric'} ${fmt(s.forwardMetric)} × multiple ${fmt(s.multiple)}${mb}`
-    const br = (s.basis ?? null) === 'ev' && s.bridge ? s.bridge : null
+    const effBasis = s.basis ?? runBasis
+    const br = effBasis === 'ev' && s.bridge ? s.bridge : null
     if (br) {
       const parts = [`− net debt ${fmt(br.net_debt, 0)}${br.net_debt_basis ? ` (${br.net_debt_basis})` : ''}`]
       if (isNum(br.minority)) parts.push(`− minority ${fmt(br.minority, 0)}`)
       if (isNum(br.other) && br.other !== 0) parts.push(`+ other ${fmt(br.other, 0)}`)
       formula = `(${formula} ${parts.join(' ')}) ÷ shares ${fmt(isNum(br.shares) ? br.shares : null, 2)}`
     }
+    const terms = (s.secondaryMultiples ?? []).map((x) => ({ label: x.basis, calc: `${fmt(x.value)}×${x.note ? ` · ${x.note}` : ''}` }))
+    // The scenario `source` cites only the forward metric/multiple (schema contract) — a per-case bridge's
+    // net_debt/minority/other/shares can trace to a DIFFERENT document/module (e.g. the balance-sheet-
+    // survival module's debt-note read, not the valuation orb's own scenario table). Printing the metric's
+    // source under the bridge arithmetic would misattribute those figures, so a distinct bridge.source is
+    // shown as its own trace term rather than folded into the single `source` field (Codex #365 P1,
+    // frameworks/valuation_summary.schema.json:39).
+    if (br?.source && br.source !== s.source) terms.push({ label: 'bridge source', calc: br.source })
     return {
       title: `${s.label} — computed from your inputs`,
       formula,
-      terms: (s.secondaryMultiples ?? []).map((x) => ({ label: x.basis, calc: `${fmt(x.value)}×${x.note ? ` · ${x.note}` : ''}` })),
+      terms,
       note: s.multipleKind === 'implied'
         ? 'the multiple is IMPLIED — the run derived this level from its own machinery and the multiple is what that level corresponds to; typing one here is an explicit reverse assertion'
         : s.multipleKind === 'applied' ? 'the run built this case AS metric × multiple — the multiple is a genuine input' : undefined,
