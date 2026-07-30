@@ -276,6 +276,29 @@ export function caseLevelFromMultiple(
   try { return round(levelFromMultiple(metric, multiple, basis, shares, netDebt), 4) } catch { return null }
 }
 
+/** The other direction: the multiple a LEVEL corresponds to on this case's metric — the IMPLIED multiple.
+ *
+ *  This is what `multiple_kind: "implied"` records. NHY's cases are not built as metric × multiple: the
+ *  base is a weighted blend of four methods, the bear an impaired-FCFF runoff. The multiple is the
+ *  summary the analyst reads (6.45×, 3.95×), so when the machinery moves, the multiple must move with it
+ *  — otherwise the grid would show a multiple that no longer corresponds to the value beside it.
+ *
+ *  Exactly inverts caseLevelFromMultiple. Null when not derivable (no metric, zero metric, no shares). */
+export function impliedMultiple(
+  level: number | null | undefined, metric: number | null | undefined, basis: Basis,
+  bridge: CaseBridge | null | undefined, shares?: number | null, netDebt: number | null = 0,
+): number | null {
+  if (!isNum(level) || !isNum(metric) || metric === 0) return null
+  if (basis !== 'ev') return round(level / metric, 4) // equity: level = metric × multiple
+  const br = bridge ?? null
+  const sh = isNum(br?.shares) ? (br!.shares as number) : (isNum(shares) ? shares : null)
+  if (!isNum(sh) || sh <= 0) return null
+  const nd = br ? (isNum(br.net_debt) ? br.net_debt : null) : (isNum(netDebt) ? netDebt : null)
+  if (!isNum(nd)) return null // §15: an unknown net debt cannot be inverted either
+  const ev = level * sh + nd + (isNum(br?.minority) ? (br!.minority as number) : 0) - (isNum(br?.other) ? (br!.other as number) : 0)
+  return round(ev / metric, 4)
+}
+
 // ---- 2. scenario math — the §10 identities ----
 export interface ScenarioRow { label: string; probability: number; price_target: number; return_pct: number | null }
 export interface ScenarioMath {
@@ -401,12 +424,12 @@ export interface DraftScenario {
   multipleKind?: 'implied' | 'applied' | null
   secondaryMultiples?: { value: number; basis: string; note?: string | null }[]
   source?: string | null
-  // v1.3: the user has EXPLICITLY typed into this case's forward-metric or multiple field. A scenario
-  // can carry BOTH a v1.2 derivation chain (`chain`) and v1.3 metric×multiple tuple at once (the schema's
-  // own emission instructions keep the chain, classifying its implied multiple as `multiple_kind:
-  // 'implied'`) — editing the multiple is that schema's own "explicit reverse assertion", so it must
-  // DETACH the chain rather than being silently ignored underneath it (Codex #362 P1).
-  multipleEdited?: boolean
+  /** the run's own multiple, frozen — the comparand for "you have changed this" and the ↺ target */
+  recordedMultiple?: number | null
+  /** the user TYPED a multiple. On an `implied` case this is an explicit reverse assertion: the multiple
+   *  now DRIVES the level, outranking the machinery that originally produced it. Until then the machinery
+   *  drives and the multiple is derived from it — the two-way binding. */
+  multipleAsserted?: boolean
 }
 
 export interface DraftChain {
@@ -521,7 +544,16 @@ export interface PlaygroundDraft {
 }
 
 export interface RecomputeResult {
-  scenarios: { label: string; probability: number | null; level: number | null; forwardMetric: number | null; multiple: number | null }[]
+  scenarios: {
+    label: string; probability: number | null; level: number | null; forwardMetric: number | null; multiple: number | null
+    /** what the grid displays in the multiple cell — the typed value, or the one the level IMPLIES */
+    shownMultiple: number | null
+    /** true when shownMultiple was DERIVED from the level (something else drives) — render it as computed.
+     *  False when this multiple is what computes the level, typed or recorded. */
+    multipleIsDerived: boolean
+    /** what actually produced this level — 'live_blend' is the base row's opt-in mix */
+    levelSource: LevelSource | 'live_blend'
+  }[]
   math: ScenarioMath
   checks: { wacc?: CheckResult; symmetry?: CheckResult }
   blend: BlendResult
@@ -533,34 +565,54 @@ export interface RecomputeResult {
   // v1.1: the per-method sub-lever readouts (present only for ACTIVE internals) — the derived method value
   // plus its honesty flags, so the UI can render interpolated/out-of-grid states without recomputing.
   methodInternals: { dcf?: GridReadout; sotp?: { value: number | null }; peers?: PeersReadout }
+  /** §16 cross-method dispersion over the DERIVED method values — null when fewer than two methods carry a
+   *  value, or they all agree (one method cannot disagree with itself). */
+  methodSpan: { lo: number; hi: number; rel: number | null } | null
   warnings: string[]
 }
 
-export function levelForScenario(s: DraftScenario, d: PlaygroundDraft): number | null {
-  // Precedence: an EXPLICIT unlock-override wins; then — UNLESS the user has explicitly typed into the
-  // multiple/metric fields (multipleEdited) — the recorded chain (v1.2, it reproduces the frozen level
-  // and makes its figures the levers); then the frozen/typed level; then metric×multiple. A chain-less
-  // scenario behaves exactly as before (levelOverride first), so older drafts and runs are unchanged.
-  //
-  // A v1.3 scenario can carry BOTH a chain and a metric×multiple tuple (the emission instructions keep
-  // the chain and record the tuple's multiple as `multiple_kind: 'implied'` — its own definition of "the
-  // value came from this case's machinery, stated as a cross-check"). Returning the chain value
-  // unconditionally made editing the multiple/metric a silent no-op: the analyst types a number, the
-  // Worth cell and every return downstream do not move (Codex #362 P1). Typing over the multiple/metric
-  // is the schema's own "explicit reverse assertion" — it must detach the chain, not be ignored beneath it.
-  if (s.overrideUnlocked && isNum(s.levelOverride)) return s.levelOverride
-  if (!s.multipleEdited) {
-    const c = chainLevel(s.chain, d.shares)
-    if (c !== null) return c
-  }
-  if (isNum(s.levelOverride)) return s.levelOverride
-  if (isNum(s.forwardMetric) && isNum(s.multiple)) {
-    // v1.3: the CASE's own basis and bridge govern (Codex #362 P1 r3672...). Falling back to the run-level
-    // basis/net-debt here would price NHY's cases off the run's broad 13,090 with no minority deducted —
-    // a bear of ~49.9 against the committed 45.12, and an equity-basis case bridged into nonsense.
-    return caseLevelFromMultiple(s.forwardMetric, s.multiple, s.basis ?? d.basis, s.bridge, d.shares, d.netDebt)
-  }
+/** WHAT is producing this case's level. Named because the UI has to say so honestly: styling a multiple
+ *  as "worked out from the value" when that multiple IS the only thing computing the value is a lie the
+ *  analyst acts on (Codex #364 P1) — the same class of defect as the guard's two call sites disagreeing.
+ *
+ *  'override'          the analyst explicitly unlocked the cell and typed a value
+ *  'asserted_multiple' the analyst typed a multiple — an explicit reverse assertion, it now drives
+ *  'chain'             a recorded derivation chain (an EV bridge, a margin runoff) drives
+ *  'frozen'            the run's own published level, with no reproducible relationship recorded
+ *  'multiple'          the recorded metric × multiple IS the relationship — the multiple drives
+ */
+export type LevelSource = 'override' | 'asserted_multiple' | 'chain' | 'frozen' | 'multiple' | null
+
+export function levelSourceFor(s: DraftScenario, d: PlaygroundDraft): LevelSource {
+  // Precedence: an EXPLICIT unlock-override wins; then a TYPED multiple (a reverse assertion outranks the
+  // machinery that originally produced the level); then the recorded chain (v1.2 — it reproduces the frozen
+  // level and makes its figures the levers); then the frozen level; then metric × multiple.
+  if (s.overrideUnlocked && isNum(s.levelOverride)) return 'override'
+  if (s.multipleAsserted && isNum(s.forwardMetric) && isNum(s.multiple)) return 'asserted_multiple'
+  if (chainLevel(s.chain, d.shares) !== null) return 'chain'
+  if (isNum(s.levelOverride)) return 'frozen'
+  if (isNum(s.forwardMetric) && isNum(s.multiple)) return 'multiple'
   return null
+}
+
+export function levelForScenario(s: DraftScenario, d: PlaygroundDraft): number | null {
+  // ONE source of precedence, shared with levelSourceFor: a level whose source label disagrees with the
+  // level itself would put the wrong explanation next to the right number, or the reverse.
+  switch (levelSourceFor(s, d)) {
+    case 'override':
+    case 'frozen':
+      return s.levelOverride as number
+    case 'chain':
+      return chainLevel(s.chain, d.shares)
+    case 'asserted_multiple':
+    case 'multiple':
+      // v1.3: the CASE's own basis and bridge govern (Codex #362 P1). Falling back to the run-level
+      // basis/net-debt here would price NHY's cases off the run's broad 13,090 with no minority deducted —
+      // a bear of ~49.9 against the committed 45.12, and an equity-basis case bridged into nonsense.
+      return caseLevelFromMultiple(s.forwardMetric as number, s.multiple as number, s.basis ?? d.basis, s.bridge, d.shares, d.netDebt)
+    default:
+      return null
+  }
 }
 
 // v1.1: ACTIVE sub-levers derive their method's value from the orb's recorded data BEFORE the blend —
@@ -606,34 +658,63 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
   const driveBase = d.driveBaseFromMix && isNum(blendRes.basePoint)
   const scenarios = d.scenarios.map((s) => {
     const isBase = (s.label || '').toLowerCase().includes('base')
-    const level = driveBase && isBase ? (blendRes.basePoint as number) : levelForScenario(s, d)
-    return { label: s.label, probability: s.probability, level, forwardMetric: s.forwardMetric, multiple: s.multiple }
+    // the live blend OUTRANKS everything on the base row once the analyst has opted into it
+    const source: LevelSource | 'live_blend' = driveBase && isBase ? 'live_blend' : levelSourceFor(s, d)
+    const level = source === 'live_blend' ? (blendRes.basePoint as number) : levelForScenario(s, d)
+    // The multiple the grid SHOWS, and whether it reads as computed.
+    //
+    // It is DERIVED only when something ELSE produced the level (a chain, the live blend, an override) —
+    // then it is the implied multiple, and moving that machinery moves it. Where the recorded metric ×
+    // multiple IS the relationship (NHY's bull), the multiple is the DRIVER: styling it as computed and
+    // offering to "let it drive instead" states the opposite of what the panel does, and hides that
+    // editing the metric reprices the case (Codex #364 P1).
+    //
+    // 2dp on the derived reading: a multiple is quoted at two decimals ("3.95×", not "3.9494×"), and while
+    // it is derived it drives nothing — the level came from the machinery. A driver is shown verbatim.
+    const drivenByMultiple = source === 'multiple' || source === 'asserted_multiple'
+    const derivedMultiple = impliedMultiple(level, s.forwardMetric, s.basis ?? d.basis, s.bridge, d.shares, d.netDebt)
+    const shown = drivenByMultiple
+      ? s.multiple
+      : (derivedMultiple !== null ? round(derivedMultiple, 2) : s.multiple ?? null)
+    return {
+      label: s.label, probability: s.probability, level, forwardMetric: s.forwardMetric, multiple: s.multiple,
+      shownMultiple: shown,
+      multipleIsDerived: !drivenByMultiple && derivedMultiple !== null,
+      levelSource: source,
+    }
   })
   const math = scenarioMath(scenarios.map((s) => ({ label: s.label, probability: s.probability, price_target: s.level })), d.price)
   const ke = capmCostOfEquity(d.rf, d.beta, d.erp)
   const checks: { wacc?: CheckResult; symmetry?: CheckResult } = {}
   if (isNum(d.wacc) || isNum(ke) || isNum(d.afterTaxKd)) checks.wacc = checkWacc(d.afterTaxKd, d.wacc, ke, d.rf, d.erp, d.isMega)
-  const mult = (name: string) => d.scenarios.find((s) => (s.label || '').toLowerCase().includes(name))?.multiple
-  // The symmetry check ("bull expands, bear compresses") only means anything when bull/base/bear are
-  // priced on the SAME yardstick. A mixed-method set — an equity P/E bear beside an EV/EBITDA base — makes
-  // the raw multiples incomparable: a 7x P/E bear next to a 6x EV/EBITDA base is not "the bear failed to
-  // compress", it is two different multiples (Codex #362 P2). Gate on multipleBasis (the named yardstick)
-  // when recorded, falling back to the case's own basis (equity/ev) — only run the check when every
-  // scenario that HAS a multiple shares the same key.
-  const comparableKey = (name: string): string | null => {
-    const s = d.scenarios.find((sc) => (sc.label || '').toLowerCase().includes(name))
-    if (!s || !isNum(s.multiple)) return null
-    return typeof s.multipleBasis === 'string' && s.multipleBasis.trim() ? s.multipleBasis.trim().toLowerCase() : (s.basis ?? d.basis)
+  // Symmetry over the multiples the analyst is ACTUALLY looking at, not the recorded ones: move the bear's
+  // machinery until its implied multiple passes the base and the check must fire (Codex #364 P2). And only
+  // across COMPARABLE bases — bull ≥ base ≥ bear says nothing between an EV/EBITDA base and EMAAR's P/BV
+  // bear (MODULE_RULES §2 says "on comparable bases"), so mixed-basis runs are skipped, not falsely warned.
+  const caseOf = (name: string) => {
+    const i = d.scenarios.findIndex((s) => (s.label || '').toLowerCase().includes(name))
+    return i < 0 ? null : { draft: d.scenarios[i], row: scenarios[i] }
   }
-  const keys = (['bull', 'base', 'bear'] as const).map(comparableKey).filter((k): k is string => k !== null)
-  const comparableBases = new Set(keys).size <= 1
-  if (comparableBases && (isNum(mult('bull')) || isNum(mult('base')) || isNum(mult('bear')))) {
-    checks.symmetry = checkMultipleSymmetry(mult('bull'), mult('base'), mult('bear'))
+  const trio = (['bull', 'base', 'bear'] as const).map(caseOf)
+  const shownBases = trio.filter((c) => c && isNum(c.row.shownMultiple)).map((c) => (c!.draft.multipleBasis ?? '').trim().toLowerCase())
+  const comparable = new Set(shownBases).size <= 1
+  const shownMult = (i: number) => (trio[i]?.row.shownMultiple ?? null)
+  if (comparable && trio.some((c, i) => isNum(shownMult(i)))) {
+    checks.symmetry = checkMultipleSymmetry(shownMult(0), shownMult(1), shownMult(2))
   }
   const warnings = [...math.warnings, ...(checks.wacc?.problems ?? []), ...(checks.symmetry?.problems ?? [])]
   if (methodInternals.dcf?.outOfGrid) warnings.push("DCF WACC/growth is outside the orb's recorded grid — extrapolated, not validated")
   if (methodInternals.peers?.outOfAnchors) warnings.push("peers multiple is outside the orb's recorded implied-value rows — extrapolated, not validated")
-  return { scenarios, math, checks, blend: blendRes, blendActive: driveBase, methodInternals, warnings }
+  // §16 dispersion, off the SAME derived method set the blend uses. Reading the raw typed values would let
+  // the span contradict the blend the moment a ▸ sub-lever drives a method (Codex #364 P2).
+  const spanVals = methods.map((m) => m.value).filter(isNum) as number[]
+  const lo = spanVals.length ? Math.min(...spanVals) : 0
+  const hi = spanVals.length ? Math.max(...spanVals) : 0
+  const mid = (hi + lo) / 2
+  const methodSpan = spanVals.length >= 2 && hi - lo > 1e-9
+    ? { lo, hi, rel: mid !== 0 ? Math.round(((hi - lo) / Math.abs(mid)) * 100) : null }
+    : null
+  return { scenarios, math, checks, blend: blendRes, blendActive: driveBase, methodInternals, methodSpan, warnings }
 }
 
 // Build the initial editable draft from the server response: prefer the valuation_summary.json levers
@@ -695,6 +776,8 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
         secondaryMultiples: (Array.isArray(s.secondary_multiples) ? s.secondary_multiples : [])
           .filter((x) => x && isNum(x.value) && typeof x.basis === 'string'),
         source: s.source ?? null,
+        recordedMultiple: s.multiple ?? null,
+        multipleAsserted: false, // nothing is asserted until the analyst types
       })),
     }
   }
@@ -879,8 +962,11 @@ export function traceScenarioCell(
       title: `${s.label} — computed from your inputs`,
       formula,
       terms,
+      // Provenance, stated so it cannot be read as contradicting the input beside it: the RUN derived the
+      // level first (that is what `implied` records), AND this pair is the only relationship the run wrote
+      // down for the case, so it is also what recomputes it here. Both are true; say both.
       note: s.multipleKind === 'implied'
-        ? 'the multiple is IMPLIED — the run derived this level from its own machinery and the multiple is what that level corresponds to; typing one here is an explicit reverse assertion'
+        ? 'the run records this multiple as IMPLIED — it derived the level first and the multiple is what that level corresponds to. It is also the only relationship the run wrote down for this case, so it is what recomputes it here.'
         : s.multipleKind === 'applied' ? 'the run built this case AS metric × multiple — the multiple is a genuine input' : undefined,
       source: s.source ?? src,
     }

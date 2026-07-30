@@ -193,6 +193,40 @@
   font-size: 9px; color: var(--text-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
+/* ---- v1.3: the case row carries its own machinery (▸ on the label) and each lever names its basis.
+   A multiple with no basis is an incomplete citation (§5) — "0.96×" is unreadable until you know it
+   reads on BOOK — so the label sits under the input, never in a tooltip only. ---- */
+.vpg__scenname { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.vpg__scenname .vpg__disc { width: 18px; height: 18px; font-size: 10px; }
+.vpg__scencell { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.vpg__basisname {
+  font-size: 9px; color: var(--text-faint); letter-spacing: 0.1px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.vpg__multwrap { display: flex; align-items: center; gap: 4px; min-width: 0; }
+.vpg__multwrap .vpg__scennum { min-width: 0; }
+.vpg__multwrap .vpg__relock { width: 18px; height: 18px; font-size: 11px; }
+/* the run's other yardsticks for the SAME value — a count, expanded on hover; never in the arithmetic */
+.vpg__secmult {
+  margin-left: 4px; padding: 0 3px; border-radius: 3px; cursor: help;
+  color: var(--accent-bright); background: var(--accent-wash-soft); font-size: 8.5px; font-weight: 700;
+}
+/* the case's machinery, opened inside the case — indented under the row it belongs to */
+.vpg__casepanel {
+  margin: 2px 0 8px 18px; padding: 8px 10px 4px;
+  border: 1px solid var(--hairline); border-left: 2px solid var(--accent-deep);
+  border-radius: var(--r-sm); background: var(--surface-1);
+  animation: vpg-reveal var(--dur) var(--ease-out) both;
+}
+.vpg__casetitle { font-size: 10.5px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
+.vpg__casepanel .vpg__tracestrip, .vpg__casepanel .vpg__subpanel { margin-left: 0; margin-right: 0; }
+/* §16: methods disagreeing is a finding. Stated once, under the grid, not averaged into silence. */
+.vpg__dispersion {
+  margin-top: 6px; padding: 5px 8px; border-radius: var(--r-sm);
+  background: var(--surface-2); border: 1px solid var(--hairline);
+  font-size: 10.5px; color: var(--text-muted);
+}
+
 /* ---- "more" accordion rows: the mix, goal seek, the discount-rate check ----
    Closed by default. Content mounts at full height and fades in — height is never animated (§3). */
 .vpg__more { border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-2); overflow: hidden; }

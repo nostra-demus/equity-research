@@ -5,8 +5,8 @@
 // that produced the fair value, the Playground silently disagrees with the recorded thesis — this file fails
 // first. Parity targets are the exact valuation_math.py outputs: AMZN 210.05, NHY 81.826, EMAAR 16.5245.
 import assert from 'node:assert'
-import { blend, buildMethods, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, chainEv, buildChain, levelForScenario, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
-import type { DraftScenario, PlaygroundDraft } from './valuationLevers'
+import { blend, buildMethods, impliedMultiple, caseLevelFromMultiple, levelSourceFor, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, chainEv, buildChain, levelForScenario, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
+import type { PlaygroundDraft } from './valuationLevers'
 
 let passed = 0
 const check = (name: string, fn: () => void) => { fn(); passed++ }
@@ -699,27 +699,6 @@ check('v1.3: without the runBasis argument, the trace defaults to "equity" and d
   assert.ok(!t.formula.includes('net debt'), 'default runBasis is equity, so no bridge is shown — the caller MUST pass draft.basis')
 })
 
-// ---- v1.3: an explicit multiple/metric edit DETACHES a v1.2 derivation chain (Codex #362 P1) ----
-// A scenario can carry BOTH a chain and a metric×multiple tuple at once (the emission instructions keep
-// the chain, recording its multiple as multiple_kind: 'implied'). Before the fix, levelForScenario always
-// returned the chain value FIRST, so typing over the multiple/metric was a silent no-op.
-check('levelForScenario: an unedited tuple+chain scenario reads the CHAIN (unchanged behaviour)', () => {
-  const d = draftFromResponse(emaarRes)
-  const s: DraftScenario = { label: 'bear', probability: 35, forwardMetric: 28889, multiple: 3.95, levelOverride: null, chain: buildChain(NHY_BEAR_DERIV) }
-  assert.ok(Math.abs((levelForScenario(s, d) as number) - 45.1238) < 1e-3, 'chain still wins while untouched')
-})
-check('levelForScenario: multipleEdited DETACHES the chain — the typed metric×multiple now drives the level', () => {
-  const d = draftFromResponse(emaarRes)
-  const base: DraftScenario = { label: 'bear', probability: 35, forwardMetric: 28889, multiple: 3.95, levelOverride: null, chain: buildChain(NHY_BEAR_DERIV), basis: 'equity' }
-  const edited: DraftScenario = { ...base, multiple: 5.0, multipleEdited: true }
-  // equity basis (no bridge on this literal): 28889 × 5.0 = 144,445 — nowhere near the chain's 45.12,
-  // proving the chain was actually bypassed, not coincidentally close to it
-  const got = levelForScenario(edited, d)
-  assert.ok(got !== null && Math.abs(got - 28889 * 5.0) < 1e-6, `edited level should be metric×multiple, got ${got}`)
-  // and the UNEDITED sibling with the same chain is untouched — the detach is per-scenario
-  assert.ok(Math.abs((levelForScenario(base, d) as number) - 45.1238) < 1e-3, 'an unedited scenario is unaffected by a sibling being edited')
-})
-
 // ---- checkMultipleSymmetry must be gated by comparable basis in recompute() (Codex #362 P2) ----
 // A mixed-method set (an equity P/E bear beside EV/EBITDA bull/base) makes the raw multiples
 // incomparable — comparing 0.96 to 6.45 numerically is meaningless, so the check must not even run.
@@ -754,6 +733,153 @@ check('draftFromResponse: a non-array secondary_multiples degrades to [] instead
   ;(malformed.levers!.scenarios[0] as any).secondary_multiples = { value: 7.0, basis: 'P/E' } // an object, not an array
   const d = draftFromResponse(malformed)
   assert.deepEqual(d.scenarios[0].secondaryMultiples, [], 'a malformed sidecar value must degrade to an empty list, not throw')
+})
+
+// ---- v1.3 two-way binding: machinery -> implied multiple -> (typed) -> machinery ----
+check('impliedMultiple inverts caseLevelFromMultiple exactly (NHY, ev + bridge)', () => {
+  const br = { net_debt: 17919, net_debt_basis: 'cash-quality adjusted', minority: 7495, shares: 1965.28 }
+  for (const mult of [8.21, 6.45, 3.95]) {
+    const lvl = caseLevelFromMultiple(28889, mult, 'ev', br, 1965.28, 13090)!
+    const back = impliedMultiple(lvl, 28889, 'ev', br, 1965.28, 13090)!
+    assert.ok(Math.abs(back - mult) < 1e-3, `${mult} → ${lvl} → ${back}`)
+  }
+})
+check('impliedMultiple on an equity case is level ÷ metric (EMAAR book bear)', () => {
+  assert.ok(Math.abs(impliedMultiple(9.7536, 10.16, 'equity', null)! - 0.96) < 1e-3)
+})
+check('impliedMultiple refuses rather than guesses (no metric, zero metric, no net debt)', () => {
+  assert.equal(impliedMultiple(100, null, 'equity', null), null)
+  assert.equal(impliedMultiple(100, 0, 'equity', null), null)
+  assert.equal(impliedMultiple(100, 50, 'ev', null, 10, null), null) // §15: unknown net debt
+})
+check('the shown multiple MOVES when the machinery moves (implied, not frozen)', () => {
+  const d = draftFromResponse(NHY13)
+  // give the bear the recorded runoff chain, then push its terminal margin 9.0% → 11.0%
+  const withChain = { ...d, scenarios: d.scenarios.map((s, i) => (i === 2 ? { ...s, chain: buildChain(NHY_RUNOFF_DERIV) } : s)) }
+  const before = recompute(withChain).scenarios[2]
+  const after = recompute({ ...withChain, scenarios: withChain.scenarios.map((s, i) => (i === 2 ? { ...s, chain: { ...s.chain!, margin: 0.11 } } : s)) }).scenarios[2]
+  assert.ok(before.multipleIsDerived && after.multipleIsDerived, 'both must read as derived')
+  assert.ok((after.level as number) > (before.level as number), `level ${before.level} → ${after.level}`)
+  assert.ok((after.shownMultiple as number) > (before.shownMultiple as number),
+    `the implied multiple must follow the level: ${before.shownMultiple} → ${after.shownMultiple}`)
+  // and it still CORRESPONDS: the level recomputes from the shown multiple, to within the half-cent the
+  // 2dp readout costs (28,889 × 0.005 ÷ 1,965.28 = 0.074/share). A derived multiple drives nothing — the
+  // machinery set the level — so quoting it at two decimals, the way multiples are written, is honest.
+  const rt = caseLevelFromMultiple(28889, after.shownMultiple as number, 'ev', withChain.scenarios[2].bridge, 1965.28, 13090)!
+  const readoutTol = 28889 * 0.005 / 1965.28
+  assert.ok(Math.abs(rt - (after.level as number)) <= readoutTol, `${rt} vs ${after.level} (tol ${readoutTol})`)
+  assert.equal(after.shownMultiple, Math.round((after.shownMultiple as number) * 100) / 100, 'a derived multiple reads at 2dp')
+})
+check('a TYPED multiple outranks the machinery and is shown as typed', () => {
+  const d = draftFromResponse(NHY13)
+  const withChain = { ...d, scenarios: d.scenarios.map((s, i) => (i === 2 ? { ...s, chain: buildChain(NHY_RUNOFF_DERIV) } : s)) }
+  const asserted = { ...withChain, scenarios: withChain.scenarios.map((s, i) => (i === 2 ? { ...s, multiple: 5.0, multipleAsserted: true } : s)) }
+  const r = recompute(asserted).scenarios[2]
+  assert.equal(r.multipleIsDerived, false)
+  assert.equal(r.shownMultiple, 5.0)
+  const want = caseLevelFromMultiple(28889, 5.0, 'ev', withChain.scenarios[2].bridge, 1965.28, 13090)
+  assert.ok(Math.abs((r.level as number) - (want as number)) < 1e-6, `typed multiple must drive: ${r.level} vs ${want}`)
+})
+check('↺ (clearing the assertion) hands the level back to the machinery', () => {
+  const d = draftFromResponse(NHY13)
+  const withChain = { ...d, scenarios: d.scenarios.map((s, i) => (i === 2 ? { ...s, chain: buildChain(NHY_RUNOFF_DERIV) } : s)) }
+  const back = recompute({ ...withChain, scenarios: withChain.scenarios.map((s, i) => (i === 2 ? { ...s, multiple: s.recordedMultiple ?? null, multipleAsserted: false } : s)) }).scenarios[2]
+  assert.ok(Math.abs((back.level as number) - 45.12) < 0.02, `back to the chain's own level, got ${back.level}`)
+})
+check('an untouched draft asserts nothing (the run drives until the analyst types)', () => {
+  const d = draftFromResponse(NHY13)
+  assert.ok(d.scenarios.every((s) => s.multipleAsserted === false))
+  assert.deepEqual(d.scenarios.map((s) => s.recordedMultiple), [8.21, 6.45, 3.95])
+})
+
+// ---- #364 review fixes ----
+
+check('levelSourceFor names what actually drives, and levelForScenario never disagrees with it', () => {
+  const d = draftFromResponse(NHY13)
+  const withChain = { ...d, scenarios: d.scenarios.map((x, i) => (i === 2 ? { ...x, chain: buildChain(NHY_RUNOFF_DERIV) } : x)) }
+  const cases: [string, any, string | null][] = [
+    ['recorded metric × multiple', withChain.scenarios[0], 'multiple'],
+    ['a recorded chain', withChain.scenarios[2], 'chain'],
+    ['a typed multiple beats the chain', { ...withChain.scenarios[2], multiple: 5, multipleAsserted: true }, 'asserted_multiple'],
+    ['an explicit unlock beats everything', { ...withChain.scenarios[2], overrideUnlocked: true, levelOverride: 50 }, 'override'],
+    ['a frozen level with no relationship', { label: 'x', probability: null, forwardMetric: null, multiple: null, levelOverride: 12 }, 'frozen'],
+    ['nothing recorded', { label: 'y', probability: null, forwardMetric: null, multiple: null, levelOverride: null }, null],
+  ]
+  for (const [name, sc, want] of cases) {
+    assert.equal(levelSourceFor(sc, withChain), want, name)
+    // the label and the number must come from the SAME branch
+    const lvl = levelForScenario(sc, withChain)
+    if (want === null) assert.equal(lvl, null, name)
+    else assert.ok(lvl !== null, `${name}: source ${want} but no level`)
+  }
+})
+check('a DRIVING multiple does not read as derived (NHY bull), a chain-driven one does (bear)', () => {
+  const d = draftFromResponse(NHY13)
+  const withChain = { ...d, scenarios: d.scenarios.map((x, i) => (i === 2 ? { ...x, chain: buildChain(NHY_RUNOFF_DERIV) } : x)) }
+  const out = recompute(withChain)
+  // bull: metric × multiple IS the relationship — the multiple computes the level, so it is an input
+  assert.equal(out.scenarios[0].multipleIsDerived, false)
+  assert.equal(out.scenarios[0].shownMultiple, 8.21) // verbatim, not round-tripped
+  assert.equal(out.scenarios[0].levelSource, 'multiple')
+  // bear: the chain computes the level, so the multiple is what that level corresponds to
+  assert.equal(out.scenarios[2].multipleIsDerived, true)
+  assert.equal(out.scenarios[2].levelSource, 'chain')
+  // and the live blend outranks the base row when opted into
+  const driven = recompute({ ...withChain, driveBaseFromMix: true, methods: buildMethods({ peers: 93.7, dcf: 70.14 }, { peers: 0.5, dcf: 0.5 }) })
+  assert.equal(driven.scenarios[1].levelSource, 'live_blend')
+  assert.equal(driven.scenarios[1].multipleIsDerived, true)
+})
+check('symmetry follows the EFFECTIVE multiples, so moved machinery can break it', () => {
+  const d = draftFromResponse(NHY13)
+  const withChain = { ...d, scenarios: d.scenarios.map((x, i) => (i === 2 ? { ...x, chain: buildChain(NHY_RUNOFF_DERIV) } : x)) }
+  assert.equal(recompute(withChain).checks.symmetry?.ok, true) // 8.21 >= 6.45 >= 3.95
+  // push the bear's terminal margin until its implied multiple passes the base
+  const hot = { ...withChain, scenarios: withChain.scenarios.map((x, i) => (i === 2 ? { ...x, chain: { ...x.chain!, margin: 0.16 } } : x)) }
+  const r = recompute(hot)
+  assert.ok((r.scenarios[2].shownMultiple as number) > (r.scenarios[1].shownMultiple as number), `bear ${r.scenarios[2].shownMultiple} vs base ${r.scenarios[1].shownMultiple}`)
+  assert.equal(r.checks.symmetry?.ok, false, 'a bear multiple above the base must warn')
+  assert.ok(r.warnings.some((w) => /bear multiple/.test(w)), JSON.stringify(r.warnings))
+})
+check('symmetry is SKIPPED across incomparable bases (an EV base vs a book-value bear)', () => {
+  const d = draftFromResponse(NHY13)
+  const mixed = { ...d, scenarios: [
+    { ...d.scenarios[0], multipleBasis: 'EV/FY2025 Adj. EBITDA' },
+    { ...d.scenarios[1], multipleBasis: 'EV/FY2025 Adj. EBITDA' },
+    // EMAAR's real shape: the bear reads on BOOK, where 0.96x is not comparable to 6.45x EV/EBITDA
+    { ...d.scenarios[2], basis: 'equity' as const, bridge: null, forwardMetric: 10.16, multiple: 0.96, multipleBasis: 'P/BV (book)' },
+  ] }
+  const r = recompute(mixed)
+  assert.equal(r.checks.symmetry, undefined, 'mixed bases must not be compared at all')
+  assert.ok(!r.warnings.some((w) => /multiple/.test(w) && /bear|bull/.test(w)), JSON.stringify(r.warnings))
+})
+check('the dispersion span comes from the DERIVED method values, not the raw typed ones', () => {
+  const d = draftFromResponse(emaarRes)
+  const before = recompute(d).methodSpan!
+  assert.ok(Math.abs(before.lo - 12.5) < 1e-9 && Math.abs(before.hi - 18) < 1e-9, JSON.stringify(before))
+  // drive peers from its recorded anchors — the blend uses the derived value, so the span must too
+  const withPeers: typeof d = { ...d, methods: d.methods, internals: { peers: { pi: NHY_PEERS, multiple: 6.5, active: true } } }
+  const after = recompute(withPeers).methodSpan!
+  assert.notDeepEqual(after, before)
+  const peersDerived = recompute(withPeers).methodInternals.peers?.value
+  assert.ok(peersDerived != null && (after.hi === peersDerived || after.lo === peersDerived),
+    `span ${JSON.stringify(after)} must contain the derived peers value ${peersDerived}`)
+})
+check('one method (or none) is not a dispersion — no span rather than a fake one', () => {
+  const one = { ...draftFromResponse(emaarRes), methods: buildMethods({ dcf: 100 }, { dcf: 1 }) }
+  assert.equal(recompute(one).methodSpan, null)
+  const flat = { ...draftFromResponse(emaarRes), methods: buildMethods({ dcf: 100, peers: 100 }, { dcf: 0.5, peers: 0.5 }) }
+  assert.equal(recompute(flat).methodSpan, null)
+})
+check('an unlock seeded from the shown level actually takes over (the button is not a no-op)', () => {
+  const d = draftFromResponse(NHY13)
+  const shown = recompute(d).scenarios[0].level as number
+  // what the component's `unlock` does: overrideUnlocked + the level currently on screen
+  const unlocked = { ...d, scenarios: d.scenarios.map((x, i) => (i === 0 ? { ...x, overrideUnlocked: true, levelOverride: shown } : x)) }
+  assert.equal(levelSourceFor(unlocked.scenarios[0], unlocked), 'override')
+  assert.equal(recompute(unlocked).scenarios[0].level, shown)
+  // and editing it moves the case even though the row records a metric × multiple
+  const typed = { ...unlocked, scenarios: unlocked.scenarios.map((x, i) => (i === 0 ? { ...x, levelOverride: 150 } : x)) }
+  assert.equal(recompute(typed).scenarios[0].level, 150)
 })
 
 console.log(`valuationLevers.test.ts: ${passed} assertions passed`)
