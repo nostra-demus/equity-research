@@ -18,7 +18,7 @@
       "label": "bull",
       "forward_metric": 2.141,
       "metric_basis": "LTM EPS (AED per share) [02 §1]",
-      "multiple": 9.8,
+      "multiple": 9.8085,
       "multiple_basis": "P/E on LTM EPS",
       "multiple_kind": "implied",
       "basis": "equity",
@@ -40,13 +40,13 @@
         }
       ],
       "level": 21.0,
-      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied Multiple' column); the denominators are the run's own: EPS AED 2.141 [02_multiples-own-history.md §1, P/E row] and BVPS AED 10.16 [02 §1 P/Book row; 01_price-and-capital-structure.md §6]. P/E is the recorded PRIMARY because it is the reading that reproduces the level from a stated metric — the normalized EV/EBITDA the orb emphasises has no stated normalized-EBITDA denominator, so it is carried as a cross-check."
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied Multiple' column); the denominators are the run's own: EPS AED 2.141 [02_multiples-own-history.md §1, P/E row] and BVPS AED 10.16 [02 §1 P/Book row; 01_price-and-capital-structure.md §6]. Every multiple here is IMPLIED: §3 derives the levels from a four-method blend (AED 16.52) less a disclosed AED 1.52 owner/peak-earnings wedge (RF-OWN-004) — see this case's `drivers` — not from a metric x multiple. P/E is this case's recorded primary because it is the reading that reproduces the level from a stated denominator; the normalized EV/EBITDA §3 emphasises has no stated normalized-EBITDA figure anywhere in the run, so it is a cross-check. The multiple is recorded at the precision that reproduces the level (21.0 / 2.141 = 9.8085); §3's own 1dp reading is 9.8x, which would move the frozen level by 0.0182. An implied multiple must never shift the level it was implied FROM."
     },
     {
       "label": "base",
       "forward_metric": 2.141,
       "metric_basis": "LTM EPS (AED per share) [02 §1]",
-      "multiple": 7.0,
+      "multiple": 7.0061,
       "multiple_basis": "P/E on LTM EPS",
       "multiple_kind": "implied",
       "basis": "equity",
@@ -68,18 +68,18 @@
         }
       ],
       "level": 15.0,
-      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied Multiple' column); the denominators are the run's own: EPS AED 2.141 [02_multiples-own-history.md §1, P/E row] and BVPS AED 10.16 [02 §1 P/Book row; 01_price-and-capital-structure.md §6]. P/E is the recorded PRIMARY because it is the reading that reproduces the level from a stated metric — the normalized EV/EBITDA the orb emphasises has no stated normalized-EBITDA denominator, so it is carried as a cross-check."
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied Multiple' column); the denominators are the run's own: EPS AED 2.141 [02_multiples-own-history.md §1, P/E row] and BVPS AED 10.16 [02 §1 P/Book row; 01_price-and-capital-structure.md §6]. Every multiple here is IMPLIED: §3 derives the levels from a four-method blend (AED 16.52) less a disclosed AED 1.52 owner/peak-earnings wedge (RF-OWN-004) — see this case's `drivers` — not from a metric x multiple. P/E is this case's recorded primary because it is the reading that reproduces the level from a stated denominator; the normalized EV/EBITDA §3 emphasises has no stated normalized-EBITDA figure anywhere in the run, so it is a cross-check. The multiple is recorded at the precision that reproduces the level (15.0 / 2.141 = 7.0061); §3's own 1dp reading is 7.0x, which would move the frozen level by 0.0130. An implied multiple must never shift the level it was implied FROM."
     },
     {
       "label": "bear",
       "forward_metric": 10.16,
       "metric_basis": "BVPS (AED per share, Q1-26) [02 §1 / 01 §6]",
-      "multiple": 0.96,
+      "multiple": 0.9596,
       "multiple_basis": "P/BV (book)",
       "multiple_kind": "implied",
       "basis": "equity",
       "level": 9.75,
-      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied Multiple' column); the denominators are the run's own: EPS AED 2.141 [02_multiples-own-history.md §1, P/E row] and BVPS AED 10.16 [02 §1 P/Book row; 01_price-and-capital-structure.md §6]. P/E is the recorded PRIMARY because it is the reading that reproduces the level from a stated metric — the normalized EV/EBITDA the orb emphasises has no stated normalized-EBITDA denominator, so it is carried as a cross-check."
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied Multiple' column); the denominators are the run's own: EPS AED 2.141 [02_multiples-own-history.md §1, P/E row] and BVPS AED 10.16 [02 §1 P/Book row; 01_price-and-capital-structure.md §6]. Every multiple here is IMPLIED: §3 derives the levels from a four-method blend (AED 16.52) less a disclosed AED 1.52 owner/peak-earnings wedge (RF-OWN-004) — see this case's `drivers` — not from a metric x multiple. P/BV on BOOK is this case's recorded primary, because §3 quotes the bear on book (0.96x) and records NO bear-case P/E — flow multiples are distorted at a trough. The multiple is recorded at the precision that reproduces the level (9.75 / 10.16 = 0.9596); §3's own 1dp reading is 0.96x, which would move the frozen level by 0.0036. An implied multiple must never shift the level it was implied FROM."
     }
   ],
   "methods": {

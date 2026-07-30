@@ -15,15 +15,29 @@
   "scenarios": [
     {
       "label": "bull",
+      "forward_metric": 222587.0,
+      "metric_basis": "NTM EBITDA (consensus, USD mm)",
+      "multiple": 12.482,
+      "multiple_basis": "EV/NTM EBITDA",
+      "multiple_kind": "implied",
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 92451.0,
+        "net_debt_basis": "broad — the 01 anchor used by 07 §5's own EV bridge (equity + 92,451 = EV)",
+        "minority": 0.0,
+        "other": 0.0,
+        "shares": 10874.0
+      },
       "secondary_multiples": [
         {
           "value": 14.0,
-          "basis": "EV/NTM EBITDA (this case's own multiple assumption)",
-          "note": "the orb states ~14.0x for this case; its own NTM EBITDA is NOT recorded, so this is a yardstick, not a lever"
+          "basis": "EV/NTM EBITDA (peers-method multiple, 03)",
+          "note": "the orb applies this to the same 222,587 to derive the peers COMPONENT of $278.07/share, which the blend weights at 35% — not the multiple this scenario level implies"
         }
       ],
       "level": 247.0,
-      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table, 'Implied EV/NTM EBITDA' column). The multiple is recorded as a cross-check ONLY: this case's own NTM EBITDA is not stated anywhere in the run, so no metric x multiple pair can be transcribed without inventing the denominator (§20)."
+      "drivers": null,
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table) + its executed snippet, which records NTM EBITDA (consensus) $222,587M and bridges every case as (EBITDA x multiple - net debt 92,451) / 10,874 shares. The recorded `multiple` is the one the scenario LEVEL implies on that metric, at full precision. IMPLIED, not applied: the level is a four-method blend (snippet: 0.35 x peers + 0.25 x dcf + 0.40 x sotp), so no single metric x multiple builds it. The orb's own ~14.0x / ~10.5x are the PEERS-METHOD multiples — the snippet applies them to this same 222,587 to derive the peers COMPONENT ($278.07 / $206.43), which the blend then weights at 35%. They are carried as secondary cross-checks. For the BASE the two coincide: §5 computes 2,375,991 / 222,587 = 10.7x, the same implied multiple recorded here."
     },
     {
       "label": "base",
@@ -40,20 +54,42 @@
         "other": 0.0,
         "shares": 10874.0
       },
+      "secondary_multiples": [
+        {
+          "value": 13.0,
+          "basis": "EV/NTM EBITDA (peers-method multiple, 03)",
+          "note": "the orb applies this to the same 222,587 to derive the peers COMPONENT of $257.6/share, which the blend weights at 35% — not the multiple this scenario level implies"
+        }
+      ],
       "level": 210.0,
-      "source": "07_scenario-and-fair-value.md §5 Warranted-Multiple Check, executed snippet: 'Equity value = 210 x 10,874M = $2,283,540M; EV = $2,283,540M + $92,451M = $2,375,991M; NTM EBITDA (consensus) = $222,587M; Implied EV/NTM EBITDA = $2,375,991M / $222,587M = 10.7x'. The multiple is recorded as the full-precision quotient of the snippet's own two operands (2,375,991 / 222,587 = 10.6743) rather than its displayed 10.7, so the level reproduces exactly."
+      "drivers": null,
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table) + its executed snippet, which records NTM EBITDA (consensus) $222,587M and bridges every case as (EBITDA x multiple - net debt 92,451) / 10,874 shares. The recorded `multiple` is the one the scenario LEVEL implies on that metric, at full precision. IMPLIED, not applied: the level is a four-method blend (snippet: 0.35 x peers + 0.25 x dcf + 0.40 x sotp), so no single metric x multiple builds it. The orb's own ~14.0x / ~10.5x are the PEERS-METHOD multiples — the snippet applies them to this same 222,587 to derive the peers COMPONENT ($278.07 / $206.43), which the blend then weights at 35%. They are carried as secondary cross-checks. For the BASE the two coincide: §5 computes 2,375,991 / 222,587 = 10.7x, the same implied multiple recorded here."
     },
     {
       "label": "bear",
+      "forward_metric": 222587.0,
+      "metric_basis": "NTM EBITDA (consensus, USD mm)",
+      "multiple": 7.5479,
+      "multiple_basis": "EV/NTM EBITDA",
+      "multiple_kind": "implied",
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 92451.0,
+        "net_debt_basis": "broad — the 01 anchor used by 07 §5's own EV bridge (equity + 92,451 = EV)",
+        "minority": 0.0,
+        "other": 0.0,
+        "shares": 10874.0
+      },
       "secondary_multiples": [
         {
           "value": 10.5,
-          "basis": "EV/NTM EBITDA (this case's own multiple assumption)",
-          "note": "the orb states ~10.5x for this case; its own NTM EBITDA is NOT recorded, so this is a yardstick, not a lever"
+          "basis": "EV/NTM EBITDA (peers-method multiple, 03)",
+          "note": "the orb applies this to the same 222,587 to derive the peers COMPONENT of $206.43/share, which the blend weights at 35% — not the multiple this scenario level implies"
         }
       ],
       "level": 146.0,
-      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table, 'Implied EV/NTM EBITDA' column). The multiple is recorded as a cross-check ONLY: this case's own NTM EBITDA is not stated anywhere in the run, so no metric x multiple pair can be transcribed without inventing the denominator (§20)."
+      "drivers": null,
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table) + its executed snippet, which records NTM EBITDA (consensus) $222,587M and bridges every case as (EBITDA x multiple - net debt 92,451) / 10,874 shares. The recorded `multiple` is the one the scenario LEVEL implies on that metric, at full precision. IMPLIED, not applied: the level is a four-method blend (snippet: 0.35 x peers + 0.25 x dcf + 0.40 x sotp), so no single metric x multiple builds it. The orb's own ~14.0x / ~10.5x are the PEERS-METHOD multiples — the snippet applies them to this same 222,587 to derive the peers COMPONENT ($278.07 / $206.43), which the blend then weights at 35%. They are carried as secondary cross-checks. For the BASE the two coincide: §5 computes 2,375,991 / 222,587 = 10.7x, the same implied multiple recorded here."
     }
   ],
   "methods": {
