@@ -1062,6 +1062,11 @@ check('the adverse-branch warning follows the direction (AM for a long, AR for a
                                   { label: 'bear', probability: 50, price_target: 50 }], 300, 'short')
   assert.ok(noSqueeze.warnings.some((w) => /squeeze\/upside branch for a short/.test(w)), JSON.stringify(noSqueeze.warnings))
 })
+check('a short with NO bull case at all is warned too, not silently accepted (Codex #366 P2)', () => {
+  const noBull = scenarioMath([{ label: 'base', probability: 50, price_target: 100 },
+                                { label: 'tail_squeeze', probability: 50, price_target: 50 }], 120, 'short')
+  assert.ok(noBull.warnings.some((w) => /no bull scenario/.test(w)), JSON.stringify(noBull.warnings))
+})
 check('direction defaults to long, and reanchor carries it', () => {
   assert.equal(scenarioMath(TSLA_SHORT, 319.69).expectedReturnPct, scenarioMath(TSLA_SHORT, 319.69, 'long').expectedReturnPct)
   assert.equal(reanchor(TSLA_SHORT, 319.69, 'short').expectedReturnPct, scenarioMath(TSLA_SHORT, 319.69, 'short').expectedReturnPct)

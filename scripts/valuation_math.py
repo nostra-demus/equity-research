@@ -270,7 +270,9 @@ def scenario_math(scenarios: list, price: Optional[float], direction: str = "lon
     # bear sitting below the price is the thesis working, not a defect (eval checks AM / AR).
     if short:
         bull = _find(clean, "bull")
-        if bull and float(bull["price_target"]) <= p:
+        if not bull:
+            warnings.append("no bull scenario found — no genuine squeeze/upside branch for a short (§8; eval check AR)")
+        elif float(bull["price_target"]) <= p:
             warnings.append(f"bull price_target {bull['price_target']} is not above price {p} — no genuine "
                             f"squeeze/upside branch for a short (§8; eval check AR)")
     elif bear and float(bear["price_target"]) >= p:
@@ -653,6 +655,10 @@ def _selftest() -> int:
           any("squeeze/upside branch for a short" in w for w in
               scenario_math([{"label": "bull", "probability": 50, "price_target": 200},
                              {"label": "bear", "probability": 50, "price_target": 50}], 300, direction="short")["warnings"]))
+    check("short: a MISSING bull case is warned too, not silently accepted (Codex #366 P2)",
+          any("no bull scenario" in w for w in
+              scenario_math([{"label": "base", "probability": 50, "price_target": 100},
+                             {"label": "tail_squeeze", "probability": 50, "price_target": 50}], 120, direction="short")["warnings"]))
     check("direction defaults to long", scenario_math(TSLA, 319.69)["expected_return_pct"] == lg["expected_return_pct"])
     check("an unrecognised direction is treated as long",
           scenario_math(TSLA, 319.69, direction="hedge")["expected_return_pct"] == lg["expected_return_pct"])

@@ -421,7 +421,8 @@ export function scenarioMath(
   // the "is there a genuine adverse branch" check is direction-dependent (eval checks AM / AR)
   if (short) {
     const bull = findByLabel(clean, 'bull')
-    if (bull && bull.price_target <= p) warnings.push(`bull target ${bull.price_target} is not above price ${p} — no genuine squeeze/upside branch for a short (§8)`)
+    if (!bull) warnings.push(`no bull scenario — no genuine squeeze/upside branch for a short (§8)`)
+    else if (bull.price_target <= p) warnings.push(`bull target ${bull.price_target} is not above price ${p} — no genuine squeeze/upside branch for a short (§8)`)
   } else if (bear && bear.price_target >= p) {
     warnings.push(`bear target ${bear.price_target} is not below price ${p} — no genuine downside branch for a long (§8/§16)`)
   }
