@@ -121,6 +121,8 @@ export interface ValuationLeversResponse {
   levers: ValuationSummary | null
   decision: {
     scenarios: DecisionScenario[]
+    /** the decision->position key (DECISION_LEDGER §3): "Short" means scenario returns are short-side */
+    basket?: string | null
     entry_price: number | null
     entry_price_timestamp: string | null
     currency: string | null
@@ -235,7 +237,7 @@ export function peersFromMultiple(pi: PeersInternals | null | undefined, multipl
 }
 
 // ---- 1. fair-value LEVEL from a (forward metric × multiple) lever ----
-export function levelFromMultiple(metric: number, multiple: number, basis: Basis, shares?: number | null, netDebt: number | null = 0): number {
+export function levelFromMultiple(metric: number, multiple: number, basis: Basis, shares?: number | null, netDebt: number | null = null): number {
   if (basis === 'ev') {
     if (!(isNum(shares) && shares > 0)) throw new Error("basis 'ev' needs positive shares")
     // An EV multiple gives enterprise value; the equity bridge REQUIRES net debt. Treating an unknown
@@ -260,7 +262,11 @@ export function levelFromMultiple(metric: number, multiple: number, basis: Basis
  *  debt. Mirrors levelFromMultiple's contract, but reports rather than throws. */
 export function caseLevelFromMultiple(
   metric: number, multiple: number, basis: Basis,
-  bridge: CaseBridge | null | undefined, shares?: number | null, netDebt: number | null = 0,
+  // §15: no default of 0 — a caller (this run's own callers always pass the run-level net debt
+  // explicitly; an EXPORTED helper called without it must not silently price an unknown-capital-
+  // structure company as debt-free) that omits netDebt gets `null`, which the branches below already
+  // treat as "not derivable", exactly like an explicit null (Codex #366 P2).
+  bridge: CaseBridge | null | undefined, shares?: number | null, netDebt: number | null = null,
 ): number | null {
   // A bridge is meaningful only on an EV case — an equity multiple already gives equity value.
   const br = basis === 'ev' && bridge ? bridge : null
@@ -286,7 +292,10 @@ export function caseLevelFromMultiple(
  *  Exactly inverts caseLevelFromMultiple. Null when not derivable (no metric, zero metric, no shares). */
 export function impliedMultiple(
   level: number | null | undefined, metric: number | null | undefined, basis: Basis,
-  bridge: CaseBridge | null | undefined, shares?: number | null, netDebt: number | null = 0,
+  // §15: same rule as caseLevelFromMultiple above — no fabricating default. A caller of this EXPORTED
+  // helper that omits netDebt gets `null`, and the EV branch below already refuses to invert an
+  // unknown net debt (Codex #366 P2).
+  bridge: CaseBridge | null | undefined, shares?: number | null, netDebt: number | null = null,
 ): number | null {
   if (!isNum(level) || !isNum(metric) || metric === 0) return null
   if (basis !== 'ev') return round(level / metric, 4) // equity: level = metric × multiple
@@ -312,16 +321,35 @@ export interface ScenarioMath {
   downsideToBearPct: number | null
   downsideRiskPct: number | null
   riskReward: number | null
+  /** the UNROUNDED fractions (not *100) `riskReward` is actually divided from. `expectedReturnPct` and
+   *  `downsideRiskPct` are already rounded to 1dp for display, so reconstructing the ratio's equation from
+   *  THOSE fields can show operands whose division does not reconcile to the displayed (2dp) `riskReward` —
+   *  AMZN's committed run displays -16.1% / 38.7% = -0.42 that way, while the published ratio (built from
+   *  these unrounded fractions) is -0.41 (Codex #366 P2). Traces must read from here, not from the rounded
+   *  Pct fields, to keep the shown equation reconciling with the shown result. */
+  expectedReturnFrac: number | null
+  downsideRiskFrac: number | null
   warnings: string[]
 }
 
 const findByLabel = <T extends { label: string }>(rows: T[], name: string): T | undefined => rows.find((s) => (s.label || '').toLowerCase().includes(name))
 
-export function scenarioMath(scenarios: { label: string; probability?: number | null; price_target?: number | null }[], price: number | null | undefined): ScenarioMath {
+/** THE POSITION, from decision_record `basket` ("Short" -> 'short'; every other basket, and an absent one,
+ *  reads long). Scenario returns are POSITION-SIGNED (synthesizer.md §6): a short gains when the price
+ *  falls, so its return is (price - target)/price. Applying the long formula to a short flips every sign —
+ *  TSLA's committed thesis publishes +56.57% and the long formula gives -56.57% on identical inputs. */
+export type PositionDirection = 'long' | 'short'
+
+export function scenarioMath(
+  scenarios: { label: string; probability?: number | null; price_target?: number | null }[],
+  price: number | null | undefined,
+  direction: PositionDirection = 'long',
+): ScenarioMath {
   const warnings: string[] = []
   if (!Array.isArray(scenarios)) {
     return { probWeightedTarget: null, levels: {}, perScenario: [], price: null, priceRelativeAssessable: false,
       expectedReturnPct: null, marginOfSafetyPct: null, downsideToBearPct: null, downsideRiskPct: null, riskReward: null,
+      expectedReturnFrac: null, downsideRiskFrac: null,
       warnings: ['scenarios must be an array'] }
   }
   const clean = scenarios.filter((s) => s && isNum(s.probability) && isNum(s.price_target)) as { label: string; probability: number; price_target: number }[]
@@ -329,19 +357,24 @@ export function scenarioMath(scenarios: { label: string; probability?: number | 
   if (clean.length && Math.abs(psum - 100) > 0.5) warnings.push(`scenario probabilities sum to ${round(psum, 2)}, not 100 (§10)`)
   const pwt = clean.length ? clean.reduce((a, s) => a + (s.price_target * s.probability) / 100, 0) : null
   const base = findByLabel(clean, 'base')
-  // The WORST bear, not the first one listed — a run may derive two down-legs (e.g. bear_cyclical and
-  // bear_structural), and the eval harness's own risk/reward denominator uses the worst (lowest) target
-  // across every case, not array order. Picking the first bear-labelled row would silently disagree with
-  // the frozen thesis whenever the second bear is lower (Codex #365 P1, synthesizer.md:591). With a single
-  // bear case this is identical to picking the first. Direction-signed (short-side) selection is PR #366's
-  // job — this stays long-side, matching the rest of this function.
+  // The WORST bear, not the first one listed — a run may derive two down-legs (TSLA: a cyclical trough at
+  // 20.90 and a structural reset at 6.86), and the eval harness's own risk/reward denominator uses the
+  // worst (lowest) target across every case, not array order (Codex #365 P1, synthesizer.md:591). With a
+  // single bear this is identical to picking the first.
   const bears = clean.filter((s) => (s.label || '').toLowerCase().includes('bear'))
   const bear = bears.length ? bears.reduce((w, s) => (s.price_target < w.price_target ? s : w)) : undefined
   const havePrice = isNum(price) && price > 0
-  const perScenario: ScenarioRow[] = clean.map((s) => ({
-    label: s.label, probability: s.probability, price_target: s.price_target,
-    return_pct: havePrice ? pct((s.price_target - (price as number)) / (price as number)) : null,
-  }))
+  const short = direction === 'short'
+  // the same returns UNROUNDED — a ratio must never be built from rounded percentages
+  const rawReturns: number[] = []
+  const perScenario: ScenarioRow[] = clean.map((s) => {
+    const frac = havePrice
+      ? (short ? (price as number) - s.price_target : s.price_target - (price as number)) / (price as number)
+      : null
+    if (frac !== null) rawReturns.push(frac)
+    // POSITION-signed: a short gains when the price falls
+    return { label: s.label, probability: s.probability, price_target: s.price_target, return_pct: frac === null ? null : pct(frac) }
+  })
   const levels: Record<string, number> = {}
   clean.forEach((s) => { levels[(s.label || '').toLowerCase()] = s.price_target })
 
@@ -349,25 +382,74 @@ export function scenarioMath(scenarios: { label: string; probability?: number | 
     probWeightedTarget: pwt !== null ? round(pwt, 4) : null,
     levels, perScenario, price: havePrice ? (price as number) : null, priceRelativeAssessable: !!havePrice,
     expectedReturnPct: null, marginOfSafetyPct: null, downsideToBearPct: null, downsideRiskPct: null, riskReward: null,
+    expectedReturnFrac: null, downsideRiskFrac: null,
     warnings,
   }
   if (!havePrice) return out
   const p = price as number
-  out.expectedReturnPct = pwt !== null ? pct((pwt - p) / p) : null
+  out.expectedReturnPct = pwt !== null ? pct((short ? p - pwt : pwt - p) / p) : null
+  // margin of safety stays DIRECTION-UNIFORM — a short candidate simply reads a negative MoS, and
+  // downside-to-bear is a valuation statement about the price falling (synthesizer.md field table)
   out.marginOfSafetyPct = base ? pct((base.price_target - p) / base.price_target) : null
   if (bear) out.downsideToBearPct = pct((p - bear.price_target) / p) // inverted: higher = worse
   else warnings.push('no bear scenario — downside-to-bear Not assessable')
   const rets = perScenario.map((r) => r.return_pct).filter((r): r is number => r !== null)
   out.downsideRiskPct = rets.length ? round(-Math.min(...rets), 1) : null
-  if (bear && pwt !== null) {
-    const denom = p - bear.price_target
-    out.riskReward = Math.abs(denom) > 1e-9 ? round((pwt - p) / denom, 2) : null
+  // Risk/reward = expected position return / downside risk — the documented long formula
+  // (pwt - price)/(price - bear) written direction-generally: for a long the price terms cancel and the two
+  // are algebraically identical, and this form also holds for a short, whose adverse case is a squeeze
+  // rather than the bear price. TSLA publishes 1.85 = 56.57/30.56; the long price formula gives -0.58.
+  // Built from UNROUNDED fractions, rounded once at the end. Dividing the two rounded percentages instead
+  // moves AMZN's published -0.41 to -0.42, and lets a real adverse loss under 0.05% round to zero and turn
+  // a derivable ratio into null (Codex #366 P2). The percentage scaling cancels, so it is the same ratio.
+  const erFrac = pwt !== null ? (short ? p - pwt : pwt - p) / p : null
+  const drFrac = rawReturns.length ? -Math.min(...rawReturns) : null
+  // exposed on the result so a trace can reconstruct the SAME division `riskReward` came from, instead of
+  // rebuilding it from the already-rounded Pct fields below.
+  out.expectedReturnFrac = erFrac
+  out.downsideRiskFrac = drFrac
+  // NOT DERIVABLE WITHOUT A REAL ADVERSE CASE — mirrors scripts/valuation_math.py and eval.py's own guard.
+  // When every scenario favours the position (an all-upside setup, e.g. EMAAR_2026-07-03 whose bear sits
+  // ABOVE the entry price) the signed ratio reads negative for what is a good setup. Publishing -1.86 here
+  // would contradict that run's correct, disclosed 1.9x (reward 14.49 / bear gap 7.80).
+  if (erFrac !== null && drFrac !== null && drFrac <= 0) {
+    out.riskReward = null
+    warnings.push('risk/reward Not assessable — no scenario is adverse to the position (the worst case is still a gain), so the signed ratio is meaningless')
+  } else {
+    out.riskReward = (erFrac !== null && drFrac !== null && Math.abs(drFrac) > 1e-12) ? round(erFrac / drFrac, 2) : null
   }
-  if (bear && bear.price_target >= p) warnings.push(`bear target ${bear.price_target} is not below price ${p} — no genuine downside branch for a long (§8/§16)`)
+  // the "is there a genuine adverse branch" check is direction-dependent (eval checks AM / AR)
+  if (short) {
+    const bull = findByLabel(clean, 'bull')
+    if (!bull) warnings.push(`no bull scenario — no genuine squeeze/upside branch for a short (§8)`)
+    else if (bull.price_target <= p) warnings.push(`bull target ${bull.price_target} is not above price ${p} — no genuine squeeze/upside branch for a short (§8)`)
+  } else if (bear && bear.price_target >= p) {
+    warnings.push(`bear target ${bear.price_target} is not below price ${p} — no genuine downside branch for a long (§8/§16)`)
+  }
   return out
 }
 
-export const reanchor = (scenarios: { label: string; probability?: number | null; price_target?: number | null }[], newPrice: number) => scenarioMath(scenarios, newPrice)
+export const reanchor = (scenarios: { label: string; probability?: number | null; price_target?: number | null }[], newPrice: number, direction: PositionDirection = 'long') => scenarioMath(scenarios, newPrice, direction)
+
+/** How to READ a margin of safety. It is direction-uniform by doctrine — one formula, and the SIGN says
+ *  which side of fair value the price sits on (synthesizer.md field table). So the sentence must follow the
+ *  sign: TSLA's MoS is −887.7%, and "Price below that by −887.7%" is a double negative stating the opposite
+ *  of the truth. Returns the magnitude to print plus the label to print it under.
+ *
+ *  `direction` only affects TONE: for a long, a price above fair value is bad news; for a short it is the
+ *  thesis working. */
+export function mosRead(mos: number | null | undefined, direction: PositionDirection = 'long'): {
+  above: boolean; label: string; magnitude: number | null; good: boolean | null
+} {
+  if (!isNum(mos)) return { above: false, label: 'Price below that by', magnitude: null, good: null }
+  const above = mos < 0
+  return {
+    above,
+    label: above ? 'Price above that by' : 'Price below that by',
+    magnitude: round(Math.abs(mos), 1),
+    good: direction === 'short' ? above : !above,
+  }
+}
 
 // ---- 3. discount-rate + symmetry guards ----
 export function capmCostOfEquity(rf?: number | null, beta?: number | null, erp?: number | null): number | null {
@@ -430,6 +512,14 @@ export interface DraftScenario {
    *  now DRIVES the level, outranking the machinery that originally produced it. Until then the machinery
    *  drives and the multiple is derived from it — the two-way binding. */
   multipleAsserted?: boolean
+  /** the user EDITED a chain figure (EV, net debt, a runoff lever, …) through the ChainStrip panel — as
+   *  opposed to `chain` simply EXISTING because the run recorded one. Needed because on the base row, with
+   *  "use this blend as the most-likely value" on, the live blend otherwise outranks the chain unconditionally
+   *  (recompute's `driveBase && isBase` check does not by itself know the chain was just typed into) — so an
+   *  edit here would silently update draft state while the displayed level and returns kept using the blend
+   *  (Codex #366 P2). An explicit chain edit must win over the blend on that one row, exactly the way an
+   *  unlock-override or a typed multiple already does — the checkbox itself stays on. */
+  chainEdited?: boolean
 }
 
 export interface DraftChain {
@@ -528,8 +618,17 @@ export interface DraftInternals {
 
 export interface PlaygroundDraft {
   basis: Basis
+  /** THE POSITION. Absent -> 'long', so every pre-existing draft and test is unchanged. */
+  direction?: PositionDirection
   shares: number | null
   netDebt: number | null
+  /** the RUN-LEVEL net-debt basis label (§15 — 'strict' / 'broad' / 'gross-liquidity'), when the run states
+   *  one. Optional so every pre-existing draft literal and test fixture is unchanged (absent -> null, same
+   *  as an unlabelled/strict figure). Carried alongside `netDebt` so a synthetic run-level bridge (built when
+   *  a case has no per-case bridge but the run is EV-basis) can still label a non-strict figure inline
+   *  instead of rendering it bare (Codex #366 P2 — TSLA's -27,444 "broad net cash" must not print as an
+   *  unlabelled "net debt -27444"). */
+  netDebtBasis?: string | null
   price: number | null
   rf: number | null; erp: number | null; beta: number | null; wacc: number | null; afterTaxKd: number | null
   isMega: boolean
@@ -582,6 +681,18 @@ export interface RecomputeResult {
  *  'multiple'          the recorded metric × multiple IS the relationship — the multiple drives
  */
 export type LevelSource = 'override' | 'asserted_multiple' | 'chain' | 'frozen' | 'multiple' | null
+
+/** True when the recorded/typed metric×multiple relationship OUTRANKS a recorded chain for this case —
+ *  either an explicit reverse assertion (`multipleAsserted`, the analyst typed a multiple) or the v1.3
+ *  `applied` contract (the run itself built the case AS metric × multiple; the multiple is a genuine
+ *  input, not something read off an already-computed level — Codex #364 P2). `levelSourceFor` (what
+ *  actually computes the level) and every UI classifier that decides which panel to SHOW as the driver
+ *  (the Playground's own chain-vs-multiple cell state) must agree on this precedence, or the trace strip
+ *  can render the chain as if it drives while the number beside it was actually computed from the
+ *  multiple — the same class of defect as styling a driving multiple as merely derived (Codex #366 P2). */
+export function multipleOutranksChain(s: DraftScenario): boolean {
+  return (s.multipleAsserted === true || s.multipleKind === 'applied') && isNum(s.forwardMetric) && isNum(s.multiple)
+}
 
 export function levelSourceFor(s: DraftScenario, d: PlaygroundDraft): LevelSource {
   // Precedence: an EXPLICIT unlock-override wins; then a TYPED multiple (a reverse assertion outranks the
@@ -664,10 +775,13 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
     const isBase = (s.label || '').toLowerCase().includes('base')
     const explicitSource = levelSourceFor(s, d)
     // The live blend outranks the recorded chain/multiple/frozen level once the analyst opts in — but NOT
-    // an EXPLICIT edit on that same base row: an unlocked override or a just-typed multiple is the analyst
-    // overriding the mix, not the other way round. Applying live_blend unconditionally made the toggle
-    // silently win over an edit the UI promised would take over (Codex #364 P2).
+    // an EXPLICIT edit on that same base row: an unlocked override, a just-typed multiple, OR a typed chain
+    // figure (EV, net debt, a runoff lever, …) is the analyst overriding the mix, not the other way round.
+    // Applying live_blend unconditionally made the toggle silently win over an edit the UI promised would
+    // take over (Codex #364 P2 for override/multiple; Codex #366 P2 for the chain — its panel stayed
+    // editable and appeared to do something while the blend kept driving the displayed level and returns).
     const explicitEdit = explicitSource === 'override' || explicitSource === 'asserted_multiple'
+      || (explicitSource === 'chain' && !!s.chainEdited)
     const source: LevelSource | 'live_blend' = driveBase && isBase && !explicitEdit ? 'live_blend' : explicitSource
     const level = source === 'live_blend' ? (blendRes.basePoint as number) : levelForScenario(s, d)
     // The multiple the grid SHOWS, and whether it reads as computed.
@@ -692,7 +806,7 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
       levelSource: source,
     }
   })
-  const math = scenarioMath(scenarios.map((s) => ({ label: s.label, probability: s.probability, price_target: s.level })), d.price)
+  const math = scenarioMath(scenarios.map((s) => ({ label: s.label, probability: s.probability, price_target: s.level })), d.price, d.direction ?? 'long')
   const ke = capmCostOfEquity(d.rf, d.beta, d.erp)
   const checks: { wacc?: CheckResult; symmetry?: CheckResult } = {}
   if (isNum(d.wacc) || isNum(ke) || isNum(d.afterTaxKd)) checks.wacc = checkWacc(d.afterTaxKd, d.wacc, ke, d.rf, d.erp, d.isMega)
@@ -731,7 +845,7 @@ export function recompute(d: PlaygroundDraft): RecomputeResult {
 // price editable) so the Playground still works on runs that predate the valuation_summary emission.
 export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft {
   if (!res) {
-    return { basis: 'equity', shares: null, netDebt: 0, price: null,
+    return { basis: 'equity', shares: null, netDebt: 0, netDebtBasis: null, price: null,
       rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false, scenarios: [], methods: [], driveBaseFromMix: false }
   }
   const L = res.levers
@@ -741,15 +855,21 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
   // the untouched Playground recompute returns that disagree with the frozen judgment — the exact stale
   // anchor this feature exists to prevent.
   const price = (res.decision?.entry_price ?? L?.current_price ?? null)
+  // Only the "Short" basket is short-side. Every other basket (Selected / Watchlist / Rejected / Pair Trade
+  // / Insufficient Data) reads long, and an ABSENT basket reads long — the safe default, because a long
+  // reading of a long is right and the panel never silently guesses a short.
+  const direction: PositionDirection = res.decision?.basket === 'Short' ? 'short' : 'long'
   const evBasis = L?.basis === 'ev'
   if (L && Array.isArray(L.scenarios) && L.scenarios.length) {
     const pubMethods = buildMethods(L.methods, L.method_weights)
     return {
       basis: evBasis ? 'ev' : 'equity',
+      direction,
       shares: L.shares ?? null,
       // For an EV basis, an absent net debt is NOT zero — keep it null so EV levels read Not assessable
       // until net debt is supplied (§15). For an equity basis net debt is unused, so 0 is harmless.
       netDebt: isNum(L.net_debt) ? L.net_debt : (evBasis ? null : 0),
+      netDebtBasis: L.net_debt_basis ?? null,
       price,
       rf: L.discount_rate?.rf ?? null, erp: L.discount_rate?.erp ?? null, beta: L.discount_rate?.beta ?? null,
       wacc: L.discount_rate?.wacc ?? null, afterTaxKd: L.discount_rate?.after_tax_kd ?? null,
@@ -810,7 +930,7 @@ export function draftFromResponse(res: ValuationLeversResponse): PlaygroundDraft
   // fallback: frozen decision scenarios (levels only)
   const ds = res.decision?.scenarios ?? []
   return {
-    basis: 'equity', shares: null, netDebt: 0, price,
+    basis: 'equity', direction, shares: null, netDebt: 0, netDebtBasis: null, price,
     rf: null, erp: null, beta: null, wacc: null, afterTaxKd: null, isMega: false,
     methods: [], driveBaseFromMix: false, published: null,
     scenarios: ds.map((s) => ({ label: s.label || '', probability: s.probability ?? null, forwardMetric: null, multiple: null, levelOverride: s.price_target ?? null, frozenLevel: s.price_target ?? null, drivers: null, overrideUnlocked: false })),
@@ -934,12 +1054,15 @@ export function traceBlend(methods: MethodLever[], b: BlendResult, labelFor: (k:
 export function traceScenarioCell(
   s: DraftScenario, cs: ScenarioCellState, published: PlaygroundDraft['published'],
   labelFor: (k: string) => string = (k) => k,
-  // the run-level basis the case falls back to when it declares none of its own (mirrors levelForScenario's
-  // `s.basis ?? d.basis`) — an EV-basis case that OMITS its own `basis` still bridges correctly in the
-  // actual calculation, but before this fix the trace checked `s.basis === null` directly and silently
-  // dropped the bridge from the displayed arithmetic, so the formula shown did not produce the Worth beside
-  // it (Codex #365 P2, ui/web/src/lib/valuationLevers.ts:805).
-  runBasis: Basis = 'equity',
+  /** the run-level fallbacks the COMPUTATION uses. Without them the trace cannot tell that a case with no
+   *  per-case `basis` inherited an 'ev' run basis (Codex #365 P2, ui/web/src/lib/valuationLevers.ts:805) —
+   *  and would print bare metric × multiple beside a level that was bridged — nor that a bridge with no
+   *  `shares` falls back to the top-level count, nor that a case with NO bridge at all still bridges off
+   *  the run-level net debt (Codex #366). `netDebtBasis` labels that fallback net debt (§15 — 'broad' /
+   *  'gross-liquidity' departs from strict) — without it the synthetic bridge built below prints a bare,
+   *  unlabelled net-debt figure even when the run-level number is explicitly non-strict (Codex #366 P2,
+   *  TSLA's -27,444 "broad net cash"). */
+  ctx?: { basis?: Basis | null; shares?: number | null; netDebt?: number | null; netDebtBasis?: string | null },
 ): Trace {
   const src = s.drivers ? `run-recorded drivers: ${s.drivers}` : null
   if (cs.kind === 'derived_chain' && s.chain) {
@@ -968,13 +1091,24 @@ export function traceScenarioCell(
     // when the case's own bridge makes it 107.75 — a formula that contradicts the number beside it.
     const mb = s.multipleBasis ? ` (${s.multipleBasis})` : ''
     let formula = `${s.metricBasis ?? 'forward metric'} ${fmt(s.forwardMetric)} × multiple ${fmt(s.multiple)}${mb}`
-    const effBasis = s.basis ?? runBasis
-    const br = effBasis === 'ev' && s.bridge ? s.bridge : null
+    // the EFFECTIVE basis — the same resolution caseLevelFromMultiple performs
+    const effBasis = s.basis ?? ctx?.basis ?? null
+    // A case with NO per-case bridge still bridges off the RUN-LEVEL net debt/shares when the effective
+    // basis is 'ev' (caseLevelFromMultiple falls back to levelFromMultiple(metric, multiple, basis, shares,
+    // netDebt) in exactly this shape) — so the trace must show that subtraction too, not just cases that
+    // record their own bridge. Showing bare "metric × multiple" here would contradict the level beside it,
+    // which DOES subtract the run-level net debt (Codex #366 P2, item 6).
+    const br = effBasis === 'ev'
+      ? (s.bridge ?? (isNum(ctx?.netDebt)
+          ? ({ net_debt: ctx!.netDebt as number, net_debt_basis: ctx?.netDebtBasis ?? null } as CaseBridge)
+          : null))
+      : null
     if (br) {
       const parts = [`− net debt ${fmt(br.net_debt, 0)}${br.net_debt_basis ? ` (${br.net_debt_basis})` : ''}`]
       if (isNum(br.minority)) parts.push(`− minority ${fmt(br.minority, 0)}`)
       if (isNum(br.other) && br.other !== 0) parts.push(`+ other ${fmt(br.other, 0)}`)
-      formula = `(${formula} ${parts.join(' ')}) ÷ shares ${fmt(isNum(br.shares) ? br.shares : null, 2)}`
+      const sh = isNum(br.shares) ? br.shares : (isNum(ctx?.shares) ? (ctx!.shares as number) : null)
+      formula = `(${formula} ${parts.join(' ')}) ÷ shares ${fmt(sh, 2)}`
     }
     const terms = (s.secondaryMultiples ?? []).map((x) => ({ label: x.basis, calc: `${fmt(x.value)}×${x.note ? ` · ${x.note}` : ''}` }))
     // The scenario `source` cites only the forward metric/multiple (schema contract) — a per-case bridge's
@@ -1038,7 +1172,7 @@ export function traceScenarioCell(
   }
 }
 
-export function traceOutput(metric: 'expected' | 'mos' | 'downside' | 'rr' | 'pwt', math: ScenarioMath): Trace | null {
+export function traceOutput(metric: 'expected' | 'mos' | 'downside' | 'rr' | 'pwt', math: ScenarioMath, direction: PositionDirection = 'long'): Trace | null {
   const p = math.price
   const pwt = math.probWeightedTarget
   const base = math.levels['base'] ?? null
@@ -1051,11 +1185,32 @@ export function traceOutput(metric: 'expected' | 'mos' | 'downside' | 'rr' | 'pw
     }
   }
   if (!isNum(p)) return null
+  // A trace has one job: state the arithmetic that produced the number beside it. On a SHORT the return is
+  // position-signed, so printing the long formula puts an equation of the opposite sign next to a +56.57%
+  // (Codex #366 P2).
+  const short = direction === 'short'
   if (metric === 'expected' && isNum(pwt)) {
-    return { title: 'Expected return', formula: `(prob-weighted target ${fmt(pwt)} − price ${fmt(p)}) / ${fmt(p)} = ${fmt(math.expectedReturnPct, 1)}%`, terms: [], note: 'the probability-weighted gain or loss across the scenarios (§10)' }
+    return {
+      title: 'Expected return',
+      formula: short
+        ? `(price ${fmt(p)} − prob-weighted target ${fmt(pwt)}) / ${fmt(p)} = ${fmt(math.expectedReturnPct, 1)}%`
+        : `(prob-weighted target ${fmt(pwt)} − price ${fmt(p)}) / ${fmt(p)} = ${fmt(math.expectedReturnPct, 1)}%`,
+      terms: [],
+      note: short
+        ? 'the probability-weighted gain or loss across the scenarios, from the SHORT\'s side — a falling price is a gain (§10)'
+        : 'the probability-weighted gain or loss across the scenarios (§10)',
+    }
   }
   if (metric === 'mos' && isNum(base)) {
-    return { title: 'Margin of safety', formula: `(base ${fmt(base)} − price ${fmt(p)}) / base ${fmt(base)} = ${fmt(math.marginOfSafetyPct, 1)}%`, terms: [], note: 'the cushion between price and base fair value, as a share of fair value (§16)' }
+    return {
+      title: 'Margin of safety',
+      formula: `(base ${fmt(base)} − price ${fmt(p)}) / base ${fmt(base)} = ${fmt(math.marginOfSafetyPct, 1)}%`,
+      terms: [],
+      // direction-UNIFORM by doctrine: one formula, and the sign says which side of fair value the price is
+      note: isNum(math.marginOfSafetyPct) && (math.marginOfSafetyPct as number) < 0
+        ? 'negative means the price sits ABOVE base fair value — no cushion, an embedded premium (§16)'
+        : 'the cushion between price and base fair value, as a share of fair value (§16)',
+    }
   }
   if (metric === 'downside') {
     // trace the number the row actually shows: downsideRiskPct = the WORST scenario's return, inverted —
@@ -1073,8 +1228,28 @@ export function traceOutput(metric: 'expected' | 'mos' | 'downside' | 'rr' | 'pw
         : `inverted — higher is worse. The worst case is currently ${worst.label}, NOT the bear row — this is not the loss-to-bear.`,
     }
   }
-  if (metric === 'rr' && isNum(pwt) && isNum(bear)) {
-    return { title: 'Risk / reward', formula: `(prob-weighted target ${fmt(pwt)} − price ${fmt(p)}) / (price ${fmt(p)} − bear ${fmt(bear)}) = ${fmt(math.riskReward)}`, terms: [], note: 'expected gain per unit of loss-to-bear' }
+  if (metric === 'rr' && isNum(math.riskReward)) {
+    // The ratio IS expected return / downside risk — which for a long equals the documented
+    // (target − price)/(price − bear) because the price terms cancel. Stating it this way is honest for a
+    // short too, whose adverse case is a squeeze rather than the bear price, and it no longer goes silent
+    // when the worst row is not bear-labelled (Codex #366 P2).
+    const rows = math.perScenario.filter((r) => isNum(r.return_pct))
+    const worst = rows.length ? rows.reduce((a, b) => ((a.return_pct as number) <= (b.return_pct as number) ? a : b)) : null
+    // Read from the UNROUNDED fractions `riskReward` was actually divided from, not the already-1dp-rounded
+    // expectedReturnPct/downsideRiskPct — dividing THOSE can show operands that don't reconcile to the
+    // displayed ratio (AMZN: -16.1% / 38.7% = -0.42, but the published -0.41 comes from the unrounded
+    // fractions). 2dp is enough precision here for the shown division to reconcile with the shown (2dp)
+    // ratio (Codex #366 P2).
+    const erPct = isNum(math.expectedReturnFrac) ? round((math.expectedReturnFrac as number) * 100, 2) : math.expectedReturnPct
+    const drPct = isNum(math.downsideRiskFrac) ? round((math.downsideRiskFrac as number) * 100, 2) : math.downsideRiskPct
+    return {
+      title: 'Risk / reward',
+      formula: `expected return ${fmt(erPct, 2)}% / downside risk ${fmt(drPct, 2)}% = ${fmt(math.riskReward)}`,
+      terms: [],
+      note: worst
+        ? `expected gain per unit of loss in the worst case — ${worst.label} at ${fmt(worst.price_target)}${isNum(bear) && worst.label.toLowerCase().includes('bear') ? ' (the bear row, so this is the classic loss-to-bear ratio)' : ' (NOT the bear row)'}`
+        : 'expected gain per unit of loss in the worst case',
+    }
   }
   return null
 }
