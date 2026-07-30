@@ -21,7 +21,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import {
-  draftFromResponse, recompute, deriveMethods, mosRead, scenarioCellState, chainLevel, chainEv, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, multipleOutranksChain,
+  draftFromResponse, recompute, deriveMethods, mosRead, caseTitle, caseSubtitle, scenarioCellState, chainLevel, chainEv, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, multipleOutranksChain,
   type PlaygroundDraft, type ValuationLeversResponse, type DraftScenario, type DraftChain,
   type DraftInternals, type GridReadout, type PeersReadout, type Trace, type GoalSeekParam, type GoalSeekResult,
 } from '../lib/valuationLevers'
@@ -71,13 +71,6 @@ const methodLabel = (key: string): string => METHOD_LABELS[key] ?? key.replace(/
 
 // bull / base / bear are the run's OWN labels (never renamed — they are data). A one-line gloss makes them
 // legible to someone who has never read a broker note.
-const caseGloss = (label: string): string => {
-  const l = (label || '').toLowerCase()
-  if (l.includes('bull')) return 'things go well'
-  if (l.includes('bear')) return 'things go badly'
-  if (l.includes('base')) return 'most likely'
-  return ''
-}
 
 // The guard warnings are written for the audit trail — precise, and heavy going. Lead each one with a plain
 // sentence and keep the exact text beneath it, so nothing is softened or lost (§5/§21). An unrecognized
@@ -582,7 +575,11 @@ export function ValuationPlayground() {
                 // empty inputs (Codex #339 r3644833914)
                 const rowHasMult = Number.isFinite(s.forwardMetric as number) || Number.isFinite(s.multiple as number)
                 const span2 = hasEditableMultiples && !rowHasMult ? { gridColumn: 'span 2' } : undefined
-                const gloss = caseGloss(s.label)
+                // The label an analyst reads, and the line under it — both from lib/valuationLevers, which
+                // derives them from the recorded label plus what is (or is not) present. The gloss element
+                // always renders so a row with nothing to add keeps the same height as one that does.
+                const title = caseTitle(s.label)
+                const gloss = caseSubtitle(s)
                 // v1.3: a case's MACHINERY — everything recorded that explains its level, opened INSIDE the
                 // case. A LIST, not a choice: TSLA's base carries an ev_bridge derivation AND four blended
                 // methods, and picking one would have made the mix, its sub-levers and the drive-base toggle
@@ -606,15 +603,15 @@ export function ValuationPlayground() {
                 const unlock = () => setScen(i, { overrideUnlocked: true, levelOverride: row?.level ?? s.frozenLevel ?? null })
                 return (
                   <div key={i}>
-                    <div className="vpg__scenrow">
+                    <div className={`vpg__scenrow${s.masterOnly ? ' vpg__scenrow--master' : ''}${s.orphan ? ' vpg__scenrow--orphan' : ''}`}>
                       <span className="vpg__scenlabel">
                         <span className="vpg__scenname">
                           {machinery.length > 0
                             ? <button className={`vpg__disc${caseOpen ? ' vpg__disc--open' : ''}`} onClick={() => toggleCase(traceId)} aria-expanded={caseOpen} title={discTitle}>▸</button>
                             : <span className="vpg__disc vpg__disc--none" aria-hidden />}
-                          {s.label}
+                          {title}
                         </span>
-                        {gloss && <span className="vpg__scengloss">{gloss}</span>}
+                        <span className={`vpg__scengloss${gloss ? '' : ' vpg__scengloss--empty'}`}>{gloss}</span>
                       </span>
                       <TableInput value={s.probability} onChange={(n) => setScen(i, { probability: n })} ariaLabel={`${s.label} chance`} title="How likely you think this case is, in %" />
                       {/* An explicit unlock outranks every other render branch. Checked BEFORE rowHasMult:
@@ -665,13 +662,13 @@ export function ValuationPlayground() {
                         </>
                       ) : (
                         <button
-                          className={`vpg__cell ${cs.kind === 'judgment' ? 'vpg__cell--judg' : cs.kind === 'frozen_wedge' ? 'vpg__cell--wedge' : 'vpg__cell--fx'}`}
+                          className={`vpg__cell ${cs.kind === 'master_case' ? 'vpg__cell--master' : cs.kind === 'judgment' ? 'vpg__cell--judg' : cs.kind === 'frozen_wedge' ? 'vpg__cell--wedge' : 'vpg__cell--fx'}`}
                           style={span2}
                           onClick={() => toggleTrace(traceId)}
                           aria-expanded={openTrace === traceId}
-                          title={cs.kind === 'judgment' ? "The analyst's call — no worked-out chain behind it. Click to see the reasoning, and to unlock it if you want to type your own." : cs.kind === 'frozen_wedge' ? 'The method mix, plus a judgment adjustment the run states. Click to see it.' : 'Worked out from the numbers below. Click to see how.'}
+                          title={cs.kind === 'master_case' ? "The thesis's own case — the valuation module recorded no levers for it and will not. Click to see who owns it, and to unlock it if you want to type your own." : cs.kind === 'judgment' ? "The analyst's call — no worked-out chain behind it. Click to see the reasoning, and to unlock it if you want to type your own." : cs.kind === 'frozen_wedge' ? 'The method mix, plus a judgment adjustment the run states. Click to see it.' : 'Worked out from the numbers below. Click to see how.'}
                         >
-                          <span className="vpg__cellicon" aria-hidden>{cs.kind === 'judgment' ? '⚑' : cs.kind === 'frozen_wedge' ? 'ƒ⚑' : 'ƒ'}</span>
+                          <span className="vpg__cellicon" aria-hidden>{cs.kind === 'judgment' || cs.kind === 'master_case' ? '⚑' : cs.kind === 'frozen_wedge' ? 'ƒ⚑' : 'ƒ'}</span>
                           {fmtN(row?.level, 2)}
                         </button>
                       )}

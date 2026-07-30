@@ -5,7 +5,7 @@
 // that produced the fair value, the Playground silently disagrees with the recorded thesis — this file fails
 // first. Parity targets are the exact valuation_math.py outputs: AMZN 210.05, NHY 81.826, EMAAR 16.5245.
 import assert from 'node:assert'
-import { blend, buildMethods, impliedMultiple, caseLevelFromMultiple, levelSourceFor, reanchor, mosRead, scenarioMath as sm, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, chainEv, buildChain, levelForScenario, multipleOutranksChain, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
+import { blend, buildMethods, impliedMultiple, caseLevelFromMultiple, levelSourceFor, reanchor, mosRead, scenarioMath as sm, buildScenarios, caseTitle, caseSubtitle, draftFromResponse, recompute, dcfFromGrid, sotpFromSegments, peersFromMultiple, buildInternals, scenarioCellState, scenarioMath, traceBlend, traceScenarioCell, traceOutput, goalSeekBlend, chainLevel, chainEv, buildChain, levelForScenario, multipleOutranksChain, type MethodLever, type ValuationLeversResponse, type DcfGrid, type PeersInternals } from './valuationLevers'
 import type { PlaygroundDraft } from './valuationLevers'
 
 let passed = 0
@@ -1222,10 +1222,151 @@ check('all-upside: risk/reward is Not assessable rather than a negative ratio', 
                              { label: 'bear', probability: 30, price_target: 146 }], 237.53).riskReward, -0.41)
 })
 
+// ---- the case set comes from the FROZEN THESIS, not from the levers sidecar ----
+// TSLA's committed shape: the thesis holds five cases, the sidecar three, and one of the three is the
+// STRUCTURAL bear recorded under the bare label `bear`.
+const TSLA_THESIS = [
+  { label: 'bull', probability: 25, return_pct: -5.13, price_target: 336.08 },
+  { label: 'base', probability: 20, return_pct: 89.87, price_target: 32.37 },
+  { label: 'bear_cyclical', probability: 25, return_pct: 93.46, price_target: 20.90 },
+  { label: 'bear_structural', probability: 20, return_pct: 97.85, price_target: 6.86 },
+  { label: 'tail_squeeze', probability: 10, return_pct: -30.56, price_target: 417.40 },
+]
+// The sidecar at v1.3 — each EV case carrying its own bridge. Why the bridge matters here, stated exactly:
+// TSLA's committed v1.2 cases each carry a `derivation` ev_bridge that DOES include the 661 minority, and
+// that chain takes precedence, so today's levels reproduce (336.0755 / 32.3675 vs a frozen 336.08 / 32.37).
+// But the metric × multiple pair on its own, against the run-level net_debt of −27,444, gives 336.2312 —
+// the minority is missing from the run level. So the moment an analyst types a multiple (an explicit
+// reverse assertion, which outranks the chain) the case would re-price on a bridge that is short 661.
+// The per-case bridge is what closes that.
+const TSLA_BRIDGE = { net_debt: -27444, net_debt_basis: 'broad (net cash)', minority: 661, shares: 4252.5 }
+const TSLA_LEVERS = [
+  { label: 'bull', forward_metric: 121946, multiple: 11.5, level: 336.08, basis: 'ev', bridge: TSLA_BRIDGE },
+  { label: 'base', forward_metric: 110860, multiple: 1.0, level: 32.37, basis: 'ev', bridge: TSLA_BRIDGE },
+  { label: 'bear_structural', forward_metric: null, multiple: null, level: 6.86 },
+]
+check('the grid follows the THESIS order, not the sidecar order', () => {
+  const rows = buildScenarios(TSLA_LEVERS as any, TSLA_THESIS as any)
+  assert.deepEqual(rows.map((r) => r.label), ['bull', 'base', 'bear_cyclical', 'bear_structural', 'tail_squeeze'])
+  // sidecar-first-then-append would have put bear_structural third — the order this test exists to pin
+  assert.notEqual(rows[2].label, 'bear_structural')
+})
+check('every thesis case is present, so the probabilities add to 100', () => {
+  const rows = buildScenarios(TSLA_LEVERS as any, TSLA_THESIS as any)
+  assert.equal(rows.reduce((a, r) => a + (r.probability ?? 0), 0), 100)
+  assert.deepEqual(rows.map((r) => r.probability), [25, 20, 25, 20, 10])
+})
+check('a thesis case with no levers is marked masterOnly and priced off its frozen level', () => {
+  const rows = buildScenarios(TSLA_LEVERS as any, TSLA_THESIS as any)
+  const cyc = rows.find((r) => r.label === 'bear_cyclical')!
+  const tail = rows.find((r) => r.label === 'tail_squeeze')!
+  for (const r of [cyc, tail]) {
+    assert.equal(r.masterOnly, true, r.label)
+    assert.equal(r.forwardMetric, null)
+    assert.equal(r.multiple, null)
+  }
+  assert.equal(cyc.levelOverride, 20.90)
+  assert.equal(tail.levelOverride, 417.40)
+  // and a case WITH levers is not marked
+  assert.ok(!rows.find((r) => r.label === 'base')!.masterOnly)
+})
+check('levers are matched EXACTLY — no substring cross-pairing', () => {
+  // the bug: the sidecar's bare `bear` (the structural level 6.86) took bear_cyclical's 25% by .includes()
+  const stale = [{ label: 'bull', forward_metric: 121946, multiple: 11.5, level: 336.08 },
+                 { label: 'base', forward_metric: 110860, multiple: 1.0, level: 32.37 },
+                 { label: 'bear', forward_metric: null, multiple: null, level: 6.8555 }]
+  const rows = buildScenarios(stale as any, TSLA_THESIS as any)
+  // `bear` matches NO thesis label exactly, so it is an orphan — never fused onto bear_cyclical
+  const orphan = rows.find((r) => r.orphan)!
+  assert.equal(orphan.label, 'bear')
+  assert.equal(orphan.probability, null)          // it carries no thesis weight
+  assert.equal(rows.filter((r) => r.orphan).length, 1)
+  // both real bears still come from the thesis, each with its own level and weight
+  assert.equal(rows.find((r) => r.label === 'bear_cyclical')!.probability, 25)
+  assert.equal(rows.find((r) => r.label === 'bear_structural')!.probability, 20)
+  assert.equal(rows.find((r) => r.label === 'bear_structural')!.levelOverride, 6.86)
+  // nothing is silently dropped: 5 thesis cases + the orphan
+  assert.equal(rows.length, 6)
+})
+check('label match is trimmed and case-insensitive', () => {
+  const rows = buildScenarios([{ label: '  BULL ', forward_metric: 10, multiple: 2, level: 20 }] as any,
+                              [{ label: 'bull', probability: 100, price_target: 20 }] as any)
+  assert.equal(rows.length, 1)
+  assert.equal(rows[0].label, 'bull')             // the THESIS's spelling wins — one name per case
+  assert.equal(rows[0].forwardMetric, 10)
+  assert.ok(!rows[0].orphan && !rows[0].masterOnly)
+})
+check('no thesis scenarios (a partial run) → the sidecar order stands, unchanged', () => {
+  const rows = buildScenarios(TSLA_LEVERS as any, undefined)
+  assert.deepEqual(rows.map((r) => r.label), ['bull', 'base', 'bear_structural'])
+  assert.ok(rows.every((r) => !r.masterOnly && !r.orphan))
+})
+check('recompute over the thesis-built set reproduces the published TSLA fields', () => {
+  const res: ValuationLeversResponse = {
+    runRoot: 'analyses/TSLA_2026-07-25',
+    levers: { schema_version: '1.3', basis: 'ev', shares: 4252.5, net_debt: -27444, current_price: 319.69,
+              scenarios: TSLA_LEVERS as any },
+    decision: { scenarios: TSLA_THESIS as any, basket: 'Short', entry_price: 319.69,
+                entry_price_timestamp: null, currency: 'USD',
+                expected_return_pct: 56.57, margin_of_safety_pct: -887.7, downside_risk_pct: 30.56 },
+    overrides: [],
+  }
+  const out = recompute(draftFromResponse(res))
+  assert.ok(Math.abs((out.math.expectedReturnPct as number) - 56.57) < 0.1, `E[r] ${out.math.expectedReturnPct}`)
+  assert.ok(Math.abs((out.math.downsideRiskPct as number) - 30.56) < 0.1, `downside ${out.math.downsideRiskPct}`)
+  assert.ok(Math.abs((out.math.riskReward as number) - 1.85) < 0.02, `rr ${out.math.riskReward}`)
+  assert.deepEqual(out.math.warnings, [])         // no "probabilities sum to 70" — every case is present
+  // and each case's per-case bridge reproduces the frozen level (the minority term the run-level net_debt lacks)
+  const lv = Object.fromEntries(out.scenarios.map((x) => [x.label, x.level]))
+  assert.ok(Math.abs((lv.bull as number) - 336.08) < 0.02, `bull ${lv.bull}`)
+  assert.ok(Math.abs((lv.base as number) - 32.37) < 0.02, `base ${lv.base}`)
+  assert.equal(lv.bear_cyclical, 20.90)           // master-added, straight from the frozen level
+  assert.equal(lv.tail_squeeze, 417.40)
+})
+
+// ---- the label an analyst reads ----
+check('caseTitle reads the family first and the qualifier second, for ANY label string', () => {
+  assert.equal(caseTitle('bull'), 'Bull')
+  assert.equal(caseTitle('bear_cyclical'), 'Bear · cyclical')
+  assert.equal(caseTitle('bear_structural'), 'Bear · structural')
+  assert.equal(caseTitle('tail_squeeze'), 'Tail · squeeze')
+  assert.equal(caseTitle('leg_long'), 'Leg · long')                 // a future pair trade, no code change
+  assert.equal(caseTitle('tail_policy'), 'Tail · policy')           // a future commodity case
+  // free text in the schema, so it must degrade gracefully rather than mangle
+  assert.equal(caseTitle('Bear (cyclical trough)'), 'Bear (cyclical trough)')
+  assert.equal(caseTitle('  base  '), 'Base')
+  assert.equal(caseTitle(''), '')
+  assert.equal(caseTitle(null), '')
+})
+check('caseSubtitle has three states and never invents a phrase per label', () => {
+  const bare = (l: string) => caseSubtitle({ label: l, probability: null, forwardMetric: null, multiple: null, levelOverride: null })
+  assert.equal(bare('bull'), 'things go well')
+  assert.equal(bare('base'), 'most likely')
+  assert.equal(bare('bear'), 'things go badly')
+  // a QUALIFIED label gets nothing — "cyclical"/"structural" already carry the meaning
+  assert.equal(bare('bear_cyclical'), '')
+  assert.equal(bare('bear_structural'), '')
+  assert.equal(bare('leg_long'), '')
+  // the two states that are derived from what is absent, not from a new field
+  assert.equal(caseSubtitle({ label: 'tail_squeeze', probability: 10, forwardMetric: null, multiple: null, levelOverride: 417.4, masterOnly: true }), "the thesis's own case — no module levers")
+  assert.equal(caseSubtitle({ label: 'bear', probability: null, forwardMetric: null, multiple: null, levelOverride: 6.86, orphan: true }), 'not in the thesis — levers with no case')
+})
+check('a master-added case gets its OWN cell state and honest copy', () => {
+  const s = { label: 'tail_squeeze', probability: 10, forwardMetric: null, multiple: null,
+              levelOverride: 417.40, frozenLevel: 417.40, masterOnly: true }
+  const cs = scenarioCellState(s as any, false, null, null, false)
+  assert.equal(cs.kind, 'master_case')            // NOT 'judgment'
+  const t = traceScenarioCell(s as any, cs, null)
+  assert.ok(/thesis's own case/.test(t.title), t.title)
+  // the judgment copy promises a future emission that will never come for this case
+  assert.ok(!/future emission records/.test(t.note ?? ''), t.note ?? '')
+  assert.ok(/no later emission will add any/.test(t.note ?? ''), t.note ?? '')
+})
+
 // Same truncation guard as the Python suite: a `process.exit` or an early throw above a block would run
 // fewer checks while still exiting 0. Asserting the count is the only way to catch that from inside — the
 // Python side had an entire group go dead this way (Codex #366 review).
-const EXPECTED_CHECKS = 95
+const EXPECTED_CHECKS = 105
 assert.ok(passed >= EXPECTED_CHECKS,
   `only ${passed} checks ran, expected at least ${EXPECTED_CHECKS} — something above here is short-circuiting`)
 console.log(`valuationLevers.test.ts: ${passed} assertions passed`)
