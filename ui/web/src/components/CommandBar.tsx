@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '../lib/store'
-import { decisionColor, fmtAgo, fmtMinutes, resetIn, resolveVerdict, usageColor, usageLabel, usagePct } from '../lib/format'
+import { decisionColor, fmtAgo, fmtMinutes, nextSweepLabel, resetIn, resolveVerdict, usageColor, usageLabel, usagePct } from '../lib/format'
 import { plainKind } from '../lib/plain'
 import { EngineStatusPill } from './EngineStatus'
 import { ThemeToggle } from './ThemeToggle'
@@ -97,10 +97,9 @@ function BridgeChip() {
   const sweeping = status.sweeping // the server's in-flight flag — not inferred from the schedule
   // Rounding straight to HOURS printed "next 0h" for anything under half an hour — the exact case an
   // operator creates when they drop BRIDGE_INTERVAL_MIN to its 15m clamp floor to watch a sweep. Share the
-  // one duration ladder instead, so a short cadence reads "next 12m".
-  const nextIn = status.nextSweepAt
-    ? fmtMinutes(Math.max(0, (new Date(status.nextSweepAt).getTime() - Date.now()) / 60_000))
-    : null
+  // one duration ladder (fmtMinutes) instead, so a short cadence reads "next 12m". A schedule that has
+  // already passed (a retained snapshot after a failed poll) reads "due now", not a false "next 1m".
+  const nextIn = nextSweepLabel(status.nextSweepAt, Date.now())
   // a malformed manifest is a real config error, distinct from off/idle — surface it even while `running`
   // is otherwise true, instead of it reading as a quiet, valid zero-subject sweep (Codex #359)
   const label = status.manifestError
@@ -109,7 +108,7 @@ function BridgeChip() {
       ? 'News bridge off'
       : sweeping
         ? 'News bridge sweeping now…'
-        : `News bridge on · ${status.totalNotes} routed${nextIn ? ` · next ${nextIn}` : ''}`
+        : `News bridge on · ${status.totalNotes} routed${nextIn ? ` · ${nextIn}` : ''}`
   const perSubject = status.subjects.length
     ? status.subjects.map((s) => `  ${s.subject}: ${s.notes} note${s.notes === 1 ? '' : 's'}${s.newestAt ? ` · newest ${new Date(s.newestAt).toLocaleDateString()}` : ''}`).join('\n')
     : '  (no subjects covered yet)'
@@ -122,7 +121,7 @@ function BridgeChip() {
     <button className="autoscan" onClick={openDataLibrary} title={title}>
       <span className={`autoscan__dot${status.running ? ' autoscan__dot--on' : ''}${sweeping ? ' autoscan__dot--busy' : ''}${status.manifestError ? ' autoscan__dot--error' : ''}`} />
       {!status.manifestError && status.running && status.totalNotes > 0
-        ? <>News bridge on · <span className="autoscan__count">{status.totalNotes} routed</span>{nextIn ? ` · next ${nextIn}` : ''}</>
+        ? <>News bridge on · <span className="autoscan__count">{status.totalNotes} routed</span>{nextIn ? ` · ${nextIn}` : ''}</>
         : label}
     </button>
   )

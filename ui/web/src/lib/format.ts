@@ -98,6 +98,17 @@ export function resetIn(resetsAt?: number): string | null {
   if (ms <= 0) return 'now'
   return fmtMinutes(ms / 60000)   // MINUTES — not fmtDuration, which reads its argument as milliseconds
 }
+// The news-bridge chip's "next sweep" phrase. A NONPOSITIVE delta means the scheduled sweep time has
+// already passed. That is not hypothetical: refreshBridgeStatus keeps the last-known snapshot when a poll
+// fails (status is decoration), so a stale nextSweepAt sits in the past whenever the engine is unreachable
+// or has stopped advancing its schedule. Feeding that straight to fmtMinutes prints "next 1m" — fmtMinutes
+// floors to 1m — so the chip would claim a sweep is imminent forever, hiding that it is overdue. Say
+// "due now" instead (the same <=0 convention resetIn uses). A future time uses the one shared ladder.
+export function nextSweepLabel(nextSweepAt: string | number | null | undefined, now: number): string | null {
+  if (!nextSweepAt) return null
+  const mins = (new Date(nextSweepAt).getTime() - now) / 60_000
+  return mins <= 0 ? 'due now' : `next ${fmtMinutes(mins)}`
+}
 
 // past-relative time for the activity log ("just now", "5m ago", "3h ago", "2d ago", else a date)
 export function fmtAgo(ts?: number): string {

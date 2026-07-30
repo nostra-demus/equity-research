@@ -4,7 +4,7 @@
 // an operator sets (the 15m clamp floor) when they shorten the interval to watch a sweep happen.
 // Run: npx tsx src/lib/format.test.ts
 import assert from 'node:assert/strict'
-import { fmtMinutes, resetIn } from './format'
+import { fmtMinutes, nextSweepLabel, resetIn } from './format'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -50,9 +50,30 @@ check('resetIn and fmtMinutes agree — one ladder, not two', () => {
   }
 })
 
+check('nextSweepLabel says "due now" when the schedule has passed — never a false "next 1m"', () => {
+  const now = 1_700_000_000_000
+  assert.equal(nextSweepLabel(null, now), null)
+  assert.equal(nextSweepLabel(undefined, now), null)
+  // The regression: a retained snapshot after a failed poll leaves nextSweepAt in the PAST. The old inline
+  // code did fmtMinutes(Math.max(0, delta)) — fmtMinutes(0) floors to '1m', so the chip claimed "next 1m"
+  // forever. nextSweepLabel must instead report the sweep as overdue.
+  assert.equal(nextSweepLabel(now - 60_000, now), 'due now')      // 1 min overdue
+  assert.equal(nextSweepLabel(now, now), 'due now')               // exactly due
+  assert.equal(nextSweepLabel(now + 12 * 60_000, now), 'next 12m') // short cadence — the sub-hour case
+  assert.equal(nextSweepLabel(now + 12 * 3_600_000, now), 'next 12h')
+  assert.equal(nextSweepLabel(new Date(now + 3 * 24 * 3_600_000).toISOString(), now), 'next 3d') // ISO input, as the store sends
+})
+
+// Guard: the pre-fix inline expression this replaced would return '1m' for an overdue delta. Prove that is
+// what we moved away from, so a future refactor that reverts to fmtMinutes-on-a-clamped-delta fails here.
+check('the OLD overdue behaviour (fmtMinutes of a clamped delta) was the "1m" bug we removed', () => {
+  const overdueMins = -5           // schedule 5 minutes in the past
+  assert.equal(fmtMinutes(Math.max(0, overdueMins)), '1m')   // reproduces the old, wrong result
+})
+
 // Caller-side floor: a `return` or throw above any group would silently skip it (same guard the other
 // suites use). Bump deliberately when adding a check — never leave it stale-low.
-const EXPECTED_CHECKS = 5
+const EXPECTED_CHECKS = 7
 assert.ok(passed >= EXPECTED_CHECKS,
   `only ${passed} checks ran, expected at least ${EXPECTED_CHECKS} — something above here is short-circuiting`)
 console.log(`format.test.ts: ${passed} checks passed`)
