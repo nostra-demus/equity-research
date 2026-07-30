@@ -50,6 +50,31 @@ def _tol(target) -> float:
     return max(_LEVEL_ABS_FLOOR, _LEVEL_REL_TOL * abs(float(target)))
 
 
+
+def _case_level(s, run_basis, sidecar):
+    """The per-share level a scenario's own levers derive, honouring the CASE's basis and bridge.
+    Returns (value, error) — value None when it is not derivable. One helper for both call sites: the
+    reproduce check and the decision-record contradiction check MUST agree, or the guard contradicts
+    itself (an equity multiple bridged as an EV one turns 9.75 into -2.82)."""
+    fm, mult = s.get("forward_metric"), s.get("multiple")
+    if not (_isnum(fm) and _isnum(mult)):
+        return None, None
+    basis = s.get("basis") if s.get("basis") in ("equity", "ev") else run_basis
+    br = s.get("bridge") if isinstance(s.get("bridge"), dict) and basis == "ev" else None
+    if br is not None:
+        sh = br.get("shares") if _isnum(br.get("shares")) else sidecar.get("shares")
+        if not (_isnum(sh) and float(sh) > 0):
+            return None, "bridge has no positive shares (own or top-level)"
+        equity = float(fm) * float(mult) - float(br["net_debt"]) \
+            - (float(br.get("minority")) if _isnum(br.get("minority")) else 0.0) \
+            + (float(br.get("other")) if _isnum(br.get("other")) else 0.0)
+        return equity / float(sh), None
+    try:
+        return _level_from_multiple(float(fm), float(mult), basis, sidecar.get("shares"), sidecar.get("net_debt")), None
+    except Exception as e:
+        return None, str(e)
+
+
 def eval_ap_valuation_summary_integrity(sidecar, decision):
     """Core of check AP. Returns None (no sidecar → N/A, soft presence) or a list of violation strings
     (empty list = pass). Pure + module-level so both callers' selftests drive every branch fixture-free.
@@ -122,27 +147,9 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
                        f"multiple already gives equity value; there is no EV→equity bridge to apply")
             br = None
         if _isnum(fm) and _isnum(mult):
-            # v1.3: when the case records its OWN bridge, reproduce through THOSE terms. Conventions differ
-            # legitimately inside one run (NHY deducts net debt 17,919 + minority 7,495 separately, while a
-            # run-level figure may be an all-in deduction) — and mixing them double-counts minority.
-            if br is not None:
-                sh = br.get("shares") if _isnum(br.get("shares")) else sidecar.get("shares")
-                if not (_isnum(sh) and float(sh) > 0):
-                    det.append(f"scenario {s.get('label')!r} bridge has no positive shares (own or top-level)")
-                    derived = None
-                else:
-                    ev = float(fm) * float(mult)
-                    equity = ev - float(br["net_debt"]) \
-                        - (float(br.get("minority")) if _isnum(br.get("minority")) else 0.0) \
-                        + (float(br.get("other")) if _isnum(br.get("other")) else 0.0)
-                    derived = equity / float(sh)
-            else:
-                try:
-                    derived = _level_from_multiple(float(fm), float(mult), s_basis, sidecar.get("shares"), sidecar.get("net_debt"))
-                except Exception as e:
-                    det.append(f"scenario {s.get('label')!r} has forward_metric×multiple but no derivable level ({e}) "
-                               f"— an ev basis needs positive shares + a numeric net_debt for the bridge")
-                    derived = None
+            derived, err = _case_level(s, basis, sidecar)
+            if err:
+                det.append(f"scenario {s.get('label')!r} has forward_metric×multiple but no derivable level ({err})")
             if derived is not None and _isnum(lvl) and abs(float(lvl) - derived) > _tol(derived):
                 det.append(f"scenario {s.get('label')!r} level {lvl} != forward_metric×multiple {round(derived, 4)} "
                            f"— the Playground recomputes the latter and would disagree with the recorded level")
@@ -378,7 +385,8 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
             shown = None
             if _isnum(fm) and _isnum(mult):
                 try:
-                    shown = _level_from_multiple(float(fm), float(mult), basis, sidecar.get("shares"), sidecar.get("net_debt"))
+                    shown, _ = _case_level(s, basis, sidecar)
+                    if shown is None: raise ValueError('not derivable')
                 except Exception:
                     shown = float(lvl) if _isnum(lvl) else None
             elif _isnum(lvl):
