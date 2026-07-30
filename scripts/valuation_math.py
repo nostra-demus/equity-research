@@ -448,6 +448,155 @@ def recompute(levers: ValuationLevers, direction: str = "long") -> dict:
 
 
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# 4. Driver -> target: push a NEW forward-metric value through each case's own levers
+# ---------------------------------------------------------------------------
+
+def _case_basis(scen: dict, run_basis: str) -> str:
+    b = scen.get("basis")
+    return b if b in ("equity", "ev") else run_basis
+
+
+def _level_from_case(scen: dict, metric: float, run_basis: str, sidecar: dict):
+    """The per-share level THIS case's recorded levers give for `metric`. None when not derivable.
+    Same resolution as the integrity guard's _case_level and the client's caseLevelFromMultiple."""
+    mult = scen.get("multiple")
+    if not (_isnum(metric) and _isnum(mult)):
+        return None
+    basis = _case_basis(scen, run_basis)
+    br = scen.get("bridge") if isinstance(scen.get("bridge"), dict) and basis == "ev" else None
+    if br is not None:
+        nd = br.get("net_debt")
+        if not _isnum(nd):
+            return None
+        sh = br.get("shares") if _isnum(br.get("shares")) else sidecar.get("shares")
+        if not (_isnum(sh) and float(sh) > 0):
+            return None
+        equity = float(metric) * float(mult) - float(nd) \
+            - (float(br.get("minority")) if _isnum(br.get("minority")) else 0.0) \
+            + (float(br.get("other")) if _isnum(br.get("other")) else 0.0)
+        return equity / float(sh)
+    try:
+        return level_from_multiple(float(metric), float(mult), basis, sidecar.get("shares"), sidecar.get("net_debt"))
+    except ValueError:
+        return None
+
+
+def reprice_from_metric(sidecar: dict, decision: dict, new_metric, base_metric=None,
+                        direction: str = "long") -> dict:
+    """Answer "if the driver moves, what happens to the TARGET?" — the hop the chat could not make.
+
+    The sensitivity engine already turns a driver move into a new value for the run's base metric
+    (scripts/sensitivity_math.py). This takes that new value and pushes it through EACH case's own
+    recorded levers — its multiple, its basis, its EV->equity bridge — then re-derives every return and
+    the probability-weighted expected return. Nothing is estimated: a case that records no reproducible
+    metric x multiple simply does not move, and says so.
+
+    THE METRIC MUST BE THE SAME THING. An EBITDA coefficient cannot be applied to a case priced on
+    revenue. The gate is numeric, not a string match: the sensitivity's base value must equal the
+    valuation's own forward_metric within a small relative tolerance. Refuses with metric_mismatch
+    otherwise — the alternative is a confident answer built on two different denominators.
+
+    WHICH CASES RESPOND. A case whose level comes from a recorded derivation chain (a margin runoff, a
+    structural reset) is NOT re-priced by a spot driver: its level is a multi-year impairment path, not a
+    function of this quarter's price. It is reported as held, with the reason. Same for a case the master
+    added with no module levers at all.
+
+    Returns {ok, cases[], expected_return_pct_before/after, ...} or {ok: False, reason}.
+    """
+    if not isinstance(sidecar, dict) or not isinstance(sidecar.get("scenarios"), list):
+        return {"ok": False, "reason": "no_levers", "detail": "this run records no valuation levers"}
+    if not _isnum(new_metric):
+        return {"ok": False, "reason": "no_new_metric", "detail": "no new metric value to apply"}
+
+    run_basis = sidecar.get("basis") if sidecar.get("basis") in ("equity", "ev") else "equity"
+    price = None
+    for cand in ((decision or {}).get("entry_price"), sidecar.get("current_price")):
+        if _isnum(cand) and float(cand) > 0:
+            price = float(cand)
+            break
+
+    by_label = {}
+    for s in sidecar["scenarios"]:
+        if isinstance(s, dict) and isinstance(s.get("label"), str):
+            by_label[s["label"].strip().lower()] = s
+
+    # the metric gate — compare against the cases that actually carry a forward metric
+    recorded = [float(s["forward_metric"]) for s in by_label.values() if _isnum(s.get("forward_metric"))]
+    if not recorded:
+        return {"ok": False, "reason": "no_metric_cases",
+                "detail": "no case records a forward metric, so a driver move cannot be pushed through"}
+    if _isnum(base_metric):
+        ref = max(recorded, key=lambda v: abs(v))
+        if abs(float(base_metric)) > 1e-9 and abs(ref - float(base_metric)) / abs(float(base_metric)) > 0.02:
+            return {"ok": False, "reason": "metric_mismatch",
+                    "detail": (f"the sensitivity is on a base of {round(float(base_metric), 2)} but the valuation "
+                               f"cases are priced on {round(ref, 2)} — different denominators, so the coefficient "
+                               f"cannot be applied to the fair value")}
+
+    # the CASE SET and the probabilities come from the frozen thesis (§10/§22); the sidecar supplies levers
+    thesis = (decision or {}).get("scenarios")
+    thesis = thesis if isinstance(thesis, list) and thesis else None
+    rows = thesis or [{"label": s.get("label"), "probability": s.get("probability"),
+                       "price_target": s.get("level")} for s in sidecar["scenarios"]]
+
+    cases, before, after = [], [], []
+    for t in rows:
+        lab = str(t.get("label") or "")
+        s = by_label.get(lab.strip().lower())
+        old = t.get("price_target")
+        old = float(old) if _isnum(old) else (float(s["level"]) if s and _isnum(s.get("level")) else None)
+        prob = t.get("probability")
+        row = {"label": lab, "probability": prob if _isnum(prob) else None,
+               "level_before": round(old, 4) if old is not None else None}
+        if s is None:
+            row.update(responds=False, why="the thesis's own case — the valuation module recorded no levers for it",
+                       level_after=row["level_before"])
+        elif isinstance(s.get("derivation"), dict):
+            row.update(responds=False,
+                       why="priced off a recorded derivation chain (a multi-year path), not off the spot driver",
+                       level_after=row["level_before"])
+        else:
+            nl = _level_from_case(s, float(new_metric), run_basis, sidecar)
+            if nl is None:
+                row.update(responds=False, why="records no reproducible metric x multiple", level_after=row["level_before"])
+            else:
+                row.update(responds=True, why=None, level_after=round(nl, 4),
+                           multiple=s.get("multiple"), multiple_basis=s.get("multiple_basis"),
+                           metric_before=s.get("forward_metric"), metric_after=round(float(new_metric), 4))
+        if _isnum(row["probability"]):
+            if row["level_before"] is not None:
+                before.append({"label": lab, "probability": row["probability"], "price_target": row["level_before"]})
+            if row["level_after"] is not None:
+                after.append({"label": lab, "probability": row["probability"], "price_target": row["level_after"]})
+        cases.append(row)
+
+    mb = scenario_math(before, price, direction) if before else None
+    ma = scenario_math(after, price, direction) if after else None
+    for r in cases:
+        for tag, m in (("return_before", mb), ("return_after", ma)):
+            r[tag] = None
+            if m:
+                hit = next((x for x in m["per_scenario"] if str(x["label"]).strip().lower() == r["label"].strip().lower()), None)
+                if hit:
+                    r[tag] = hit["return_pct"]
+    return {
+        "ok": True,
+        "price": price,
+        "direction": "short" if str(direction).strip().lower() == "short" else "long",
+        "metric_before": round(max(recorded, key=lambda v: abs(v)), 4),
+        "metric_after": round(float(new_metric), 4),
+        "cases": cases,
+        "responded": sum(1 for r in cases if r.get("responds")),
+        "held": [r["label"] for r in cases if not r.get("responds")],
+        "expected_return_pct_before": (mb or {}).get("expected_return_pct"),
+        "expected_return_pct_after": (ma or {}).get("expected_return_pct"),
+        "prob_weighted_target_before": (mb or {}).get("prob_weighted_target"),
+        "prob_weighted_target_after": (ma or {}).get("prob_weighted_target"),
+        "warnings": sorted(set((mb or {}).get("warnings", []) + (ma or {}).get("warnings", []))),
+    }
+
+
 # selftest — fixture-free CI gate (mirrors scripts/market_prices.py --selftest)
 # ---------------------------------------------------------------------------
 def _approx(a, b, tol=0.15) -> bool:
@@ -458,7 +607,7 @@ def _approx(a, b, tol=0.15) -> bool:
 # — the `if fails` gate used to sit before the short-side group — disables every check below it while the
 # suite still prints PASS. A count is the only thing that catches that from inside (found by a MISSED
 # mutation: moving the gate back up changed nothing).
-_EXPECTED_CHECKS = 59
+_EXPECTED_CHECKS = 79
 _CHECKS_RUN = 0          # module-level on purpose — the CALLER asserts it, so an early return cannot hide it
 
 
@@ -663,6 +812,61 @@ def _selftest() -> int:
     check("an unrecognised direction is treated as long",
           scenario_math(TSLA, 319.69, direction="hedge")["expected_return_pct"] == lg["expected_return_pct"])
 
+    # ---- group 11: DRIVER -> TARGET (reprice_from_metric) — the chat's missing hop ----
+    # NHY's real shape: one shared metric (FY2025 Adj. EBITDA 28,889), three implied multiples, per-case
+    # bridges, and a BEAR priced off a recorded runoff chain. LME +275/mt -> EBITDA 33,014 (the sensitivity
+    # engine's own output for the user's question "if LME is 3,467/mt").
+    NHY_SC = {
+        "schema_version": "1.3", "ticker": "NHY", "basis": "equity", "shares": 1965.28, "net_debt": 13090,
+        "scenarios": [
+            {"label": "bull", "forward_metric": 28889.0, "multiple": 8.21, "basis": "ev", "level": 107.70,
+             "bridge": {"net_debt": 17919, "net_debt_basis": "adj", "minority": 7495, "other": 0, "shares": 1965.28}},
+            {"label": "base", "forward_metric": 28889.0, "multiple": 6.45, "basis": "ev", "level": 81.83,
+             "bridge": {"net_debt": 17919, "net_debt_basis": "adj", "minority": 7495, "other": 0, "shares": 1965.28}},
+            {"label": "bear", "forward_metric": 28889.0, "multiple": 3.95, "basis": "ev", "level": 45.12,
+             "bridge": {"net_debt": 17919, "net_debt_basis": "adj", "minority": 7495, "other": 0, "shares": 1965.28},
+             "derivation": {"model": "margin_runoff_dcf", "ev": 114095, "net_debt": 17919, "minority": 7495,
+                            "shares": 1965.28, "source": "07 §3"}},
+        ]}
+    NHY_DR = {"entry_price": 84.96, "scenarios": [
+        {"label": "bull", "probability": 20, "price_target": 107.70},
+        {"label": "base", "probability": 55, "price_target": 81.83},
+        {"label": "bear", "probability": 25, "price_target": 45.12}]}
+    rp = reprice_from_metric(NHY_SC, NHY_DR, 33014.0, 28889.0)
+    check("reprice ok", rp["ok"] is True)
+    _c = {r["label"]: r for r in rp["cases"]}
+    check("reprice: the BEFORE expected return reproduces the published -8.4",
+          abs(rp["expected_return_pct_before"] + 8.4) < 0.1)
+    check("reprice: bull re-prices through its own bridge (107.70 -> 124.99)",
+          abs(_c["bull"]["level_after"] - 124.9852) < 0.01)
+    check("reprice: base re-prices (81.83 -> 95.42)", abs(_c["base"]["level_after"] - 95.4196) < 0.01)
+    check("reprice: the chain-priced BEAR is HELD, not re-priced by a spot driver",
+          _c["bear"]["responds"] is False and _c["bear"]["level_after"] == _c["bear"]["level_before"])
+    check("reprice: and it says WHY it is held", "derivation chain" in (_c["bear"]["why"] or ""))
+    check("reprice: expected return moves -8.4 -> +4.5", abs(rp["expected_return_pct_after"] - 4.5) < 0.1)
+    check("reprice: returns are carried per case", abs(_c["base"]["return_after"] - 12.3) < 0.2)
+    # THE METRIC GATE: an EBITDA coefficient must never be applied to a revenue-priced case
+    rev = {"schema_version": "1.3", "basis": "ev", "shares": 4252.5, "scenarios": [
+        {"label": "base", "forward_metric": 110860.0, "multiple": 1.0, "basis": "ev", "level": 32.37,
+         "bridge": {"net_debt": -27444, "net_debt_basis": "broad", "minority": 661, "other": 0, "shares": 4252.5}}]}
+    mm = reprice_from_metric(rev, {"entry_price": 319.69, "scenarios": [{"label": "base", "probability": 100, "price_target": 32.37}]},
+                             33014.0, 28889.0)
+    check("reprice REFUSES a metric mismatch (EBITDA coefficient vs a revenue-priced case)",
+          mm["ok"] is False and mm["reason"] == "metric_mismatch")
+    check("...and names both denominators", "110860" in str(mm["detail"]) and "28889" in str(mm["detail"]))
+    # a case the master added, with no levers at all, is held and named
+    dr5 = {"entry_price": 84.96, "scenarios": NHY_DR["scenarios"] + [{"label": "tail", "probability": 0, "price_target": 200.0}]}
+    rp5 = reprice_from_metric(NHY_SC, dr5, 33014.0, 28889.0)
+    _t = {r["label"]: r for r in rp5["cases"]}["tail"]
+    check("a master-added case is held, with its own reason",
+          _t["responds"] is False and "no levers" in (_t["why"] or ""))
+    check("the case set comes from the THESIS (4 rows, not the sidecar's 3)", len(rp5["cases"]) == 4)
+    # a SHORT re-prices position-signed
+    rp_s = reprice_from_metric(NHY_SC, NHY_DR, 33014.0, 28889.0, direction="short")
+    check("a short's expected return is the mirror of the long's",
+          abs(rp_s["expected_return_pct_after"] + rp["expected_return_pct_after"]) < 0.15)
+    check("no levers at all -> a clean refusal", reprice_from_metric({}, NHY_DR, 33014.0)["ok"] is False)
+
     # ALL-UPSIDE setup: every scenario favours the position, so there is no adverse case and the signed
     # ratio is meaningless. EMAAR_2026-07-03's real shape — bear 20.0 ABOVE entry 12.2 — where the run
     # publishes the disclosed magnitude (reward 14.49 / bear gap 7.80 = 1.9x) and eval.py skips its own
@@ -690,7 +894,7 @@ def _selftest() -> int:
     if fails:
         print("VALUATION MATH SELFTEST FAIL:", ", ".join(fails))
         return 1
-    print(f"VALUATION MATH SELFTEST PASS — {12} groups, AMZN + NHY + EMAAR + TSLA decision_records reproduced "
+    print(f"VALUATION MATH SELFTEST PASS — {13} groups, AMZN + NHY + EMAAR + TSLA decision_records reproduced "
           f"(AMZN long: expected -16.1 / mos -13.5 / downside 38.7 / rr -0.41; TSLA short: +56.57 / +30.56 / 1.85), "
           f"re-anchor + WACC + symmetry + v1.3 per-case bridge checks green")
     return 0
@@ -710,7 +914,27 @@ if __name__ == "__main__":
             return 1
         return rc
 
+    # --reprice: the callable entry the cockpit chat server shells out to (ui/server/src/chat-whatif.ts) for
+    # the driver -> TARGET hop. Reads ONE request as JSON on stdin —
+    #   {"sidecar": <valuation_summary.json>, "decision": <decision_record.json>, "new_metric": number,
+    #    "base_metric": number, "direction": "long"|"short"}
+    # — and writes reprice_from_metric()'s result (or {"error": ...}) as JSON on stdout. The Node side owns
+    # path-sandboxing and passes parsed objects, so this entry never touches the filesystem: the same engine
+    # the guard and the client mirror, one source of truth.
+    if "--reprice" in sys.argv:
+        import json as _j
+        try:
+            _req = _j.load(sys.stdin)
+            if not isinstance(_req, dict):
+                raise ValueError("reprice request must be a JSON object")
+            print(_j.dumps(reprice_from_metric(_req.get("sidecar") or {}, _req.get("decision") or {},
+                                               _req.get("new_metric"), _req.get("base_metric"),
+                                               _req.get("direction") or "long")))
+        except Exception as e:
+            print(_j.dumps({"error": f"reprice request failed: {e}"}))
+        raise SystemExit(0)
     if "--selftest" in sys.argv:
+
         raise SystemExit(_run_selftest())
     # demo: the AMZN case, frozen anchor vs live re-anchor
     amzn = [{"label": "bull", "probability": 25, "price_target": 247.0},

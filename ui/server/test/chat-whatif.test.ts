@@ -9,7 +9,7 @@
 import assert from 'node:assert/strict'
 import {
   detectWhatIf, recordedList, buildParserPrompt, parseModelOutput, parseWhatIf, valueAppearsInQuestion,
-  questionMentionsRow, validateIntents, computePlan, computedContextBlock,
+  questionMentionsRow, validateIntents, computePlan, computedContextBlock, repriceFromMetric, repricedBlock,
   type SensitivitySidecar, type ParseResult, type ParserCall,
 } from '../src/chat-whatif'
 
@@ -271,6 +271,83 @@ await (async () => {
     assert.equal(v.plans.length, 4, `cap holds: got ${v.plans.length}`)
     assert.equal(v.omitted, 1, 'the fifth VALID ask is counted, not silently dropped')
     assert.equal(v.plans[0].variable, 'lme_aluminium_price', 'junk intent did not eat the first slot')
+  })
+
+  // ---- the DRIVER -> TARGET hop: the follow-up the chat used to call not-in-context ----
+  // "if LME is 3,467/mt, what's the EBITDA change?" already worked. "…and what would the price upside or
+  // target change be?" came back not-in-context, because nothing linked the sensitivity sidecar to
+  // valuation_summary.json. These pin the link, using NHY's real committed shape and the REAL python engine.
+  const NHY_VSC = {
+    schema_version: '1.3', ticker: 'NHY', basis: 'equity', shares: 1965.28, net_debt: 13090,
+    scenarios: [
+      { label: 'bull', forward_metric: 28889.0, multiple: 8.21, basis: 'ev', level: 107.70, multiple_basis: 'EV/FY2025 Adj. EBITDA',
+        bridge: { net_debt: 17919, net_debt_basis: 'adj', minority: 7495, other: 0, shares: 1965.28 } },
+      { label: 'base', forward_metric: 28889.0, multiple: 6.45, basis: 'ev', level: 81.83, multiple_basis: 'EV/FY2025 Adj. EBITDA',
+        bridge: { net_debt: 17919, net_debt_basis: 'adj', minority: 7495, other: 0, shares: 1965.28 } },
+      { label: 'bear', forward_metric: 28889.0, multiple: 3.95, basis: 'ev', level: 45.12, multiple_basis: 'EV/FY2025 Adj. EBITDA',
+        bridge: { net_debt: 17919, net_debt_basis: 'adj', minority: 7495, other: 0, shares: 1965.28 },
+        derivation: { model: 'margin_runoff_dcf', ev: 114095, net_debt: 17919, minority: 7495, shares: 1965.28, source: '07 §3' } },
+    ],
+  }
+  const NHY_DEC = { entry_price: 84.96, basket: 'Watchlist', scenarios: [
+    { label: 'bull', probability: 20, price_target: 107.70 },
+    { label: 'base', probability: 55, price_target: 81.83 },
+    { label: 'bear', probability: 25, price_target: 45.12 } ] }
+
+  await check('driver → target: the real engine re-prices each case through its OWN multiple and bridge', async () => {
+    const rv = await repriceFromMetric({ valuationSidecar: NHY_VSC, decision: NHY_DEC, newMetric: 33014, baseMetric: 28889 })
+    assert.ok(rv, 'the engine returned nothing — is python3 present?')
+    assert.equal(rv!.ok, true, JSON.stringify(rv))
+    const by = Object.fromEntries((rv!.cases ?? []).map((c) => [c.label, c]))
+    // the BEFORE expected return must reproduce the published −8.4, or the chain started from the wrong place
+    assert.ok(Math.abs((rv!.expected_return_pct_before as number) + 8.4) < 0.1, `before ${rv!.expected_return_pct_before}`)
+    assert.ok(Math.abs((by.bull.level_after as number) - 124.9852) < 0.01, `bull ${by.bull.level_after}`)
+    assert.ok(Math.abs((by.base.level_after as number) - 95.4196) < 0.01, `base ${by.base.level_after}`)
+    assert.ok(Math.abs((rv!.expected_return_pct_after as number) - 4.5) < 0.1, `after ${rv!.expected_return_pct_after}`)
+  })
+
+  await check('driver → target: a chain-priced case is HELD, and says why', async () => {
+    const rv = await repriceFromMetric({ valuationSidecar: NHY_VSC, decision: NHY_DEC, newMetric: 33014, baseMetric: 28889 })
+    const bear = (rv!.cases ?? []).find((c) => c.label === 'bear')!
+    assert.equal(bear.responds, false)
+    assert.equal(bear.level_after, bear.level_before, 'a multi-year impairment path must not move on a spot driver')
+    assert.match(String(bear.why), /derivation chain/)
+    assert.deepEqual(rv!.held, ['bear'])
+  })
+
+  await check('driver → target: an EBITDA coefficient is REFUSED against a revenue-priced case', async () => {
+    const rev = { schema_version: '1.3', basis: 'ev', shares: 4252.5, scenarios: [
+      { label: 'base', forward_metric: 110860, multiple: 1.0, basis: 'ev', level: 32.37,
+        bridge: { net_debt: -27444, net_debt_basis: 'broad', minority: 661, other: 0, shares: 4252.5 } } ] }
+    const rv = await repriceFromMetric({ valuationSidecar: rev, decision: { entry_price: 319.69, scenarios: [{ label: 'base', probability: 100, price_target: 32.37 }] }, newMetric: 33014, baseMetric: 28889 })
+    assert.equal(rv!.ok, false)
+    assert.equal(rv!.reason, 'metric_mismatch')
+    const block = repricedBlock(rv).join('\n')
+    assert.match(block, /not derivable/)
+    assert.match(block, /Do NOT estimate a price target/)
+  })
+
+  await check('the context block states the target lines the model must narrate', async () => {
+    const rv = await repriceFromMetric({ valuationSidecar: NHY_VSC, decision: NHY_DEC, newMetric: 33014, baseMetric: 28889 })
+    const block = computedContextBlock({ kind: 'scenario', asked: 'if LME is 3,467/mt what happens to the target?',
+      scenario: { variable: 'lme_aluminium_price', delta: 275, coefficient: 15, impact: 4125,
+                  baseValue: 28889, newValue: 33014, impactMetric: 'adjusted_ebitda_nok_m' } as any, reprice: rv })
+    assert.match(block, /TARGET \/ UPSIDE/)
+    assert.match(block, /bull: 107\.70 → 124\.99/)   // 2dp: a per-share level must not print as '108'
+    assert.match(block, /bear: HELD at 45\.12/)
+    assert.match(block, /at a price of 84\.96/)   // and the entry price is not rounded to 85
+    assert.match(block, /EXPECTED RETURN: -8\.4% → \+4\.5%/)
+    assert.match(block, /never re-weight or re-derive them/)
+    // and the driver half is still there, unchanged
+    assert.match(block, /28,889 → 33,014/)   // the driver half, unchanged, thousands-separated
+  })
+
+  await check('no valuation levers → the section is simply absent, never a guess', async () => {
+    assert.deepEqual(repricedBlock(null), [])
+    const rv = await repriceFromMetric({ valuationSidecar: {}, decision: NHY_DEC, newMetric: 33014, baseMetric: 28889 })
+    assert.equal(rv!.ok, false)
+    const block = repricedBlock(rv).join('\n')
+    assert.match(block, /not derivable/)
   })
 
   console.log(`\n${passed} chat-whatif checks passed`)

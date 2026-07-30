@@ -29,6 +29,9 @@ import { REPO_ROOT } from './config'
 import { resolveInsideRuns } from './sandbox'
 
 const SENSITIVITY_ENGINE = path.join(REPO_ROOT, 'scripts', 'sensitivity_math.py')
+// The driver -> TARGET hop lives in the SAME python authority the integrity guard and the Playground client
+// both mirror. The server never re-implements valuation arithmetic: a third mirror is a third thing to drift.
+const VALUATION_ENGINE = path.join(REPO_ROOT, 'scripts', 'valuation_math.py')
 const SIDECAR_REL = 'earnings/sensitivity_summary.json'
 
 // ---- sidecar (the recorded coefficients) ------------------------------------------------------------
@@ -396,13 +399,119 @@ export function marginName(metric?: string | null): string {
 
 // ---- 5. the payload streamed to the panel + the prompt block -----------------------------------------
 export type ComputedPayload =
-  | { kind: 'scenario'; asked: string; scenario: ComputedScenario }
+  // `reprice` is the driver -> TARGET half. Optional: a run with no per-case valuation levers simply omits
+  // the section rather than the chat claiming the target is out of context.
+  | { kind: 'scenario'; asked: string; scenario: ComputedScenario; reprice?: RepricedValuation | null }
   | { kind: 'unsupported'; asked: string; recorded: { variable: string; label?: string | null; unit?: string | null }[]; reason: string }
 
 const fmt = (n: number | null | undefined, d = 0) => (typeof n === 'number' ? n.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }) : '—')
 
 /** The authoritative context block injected into the closed-book prompt. The model narrates THIS; the
  *  numbers are the engine's, verbatim. */
+/** One case in the driver -> target chain. A case that does not respond says why, and is never estimated. */
+export interface RepricedCase {
+  label: string
+  probability: number | null
+  responds: boolean
+  why?: string | null
+  level_before: number | null
+  level_after: number | null
+  return_before: number | null
+  return_after: number | null
+  multiple?: number | null
+  multiple_basis?: string | null
+}
+
+/** The answer to "…and what would the target change be?" — the question the chat used to call not-in-context.
+ *  Every number comes from scripts/valuation_math.py; `ok: false` carries a reason the block states plainly. */
+export interface RepricedValuation {
+  ok: boolean
+  reason?: string | null
+  detail?: string | null
+  price?: number | null
+  direction?: 'long' | 'short'
+  metric_before?: number | null
+  metric_after?: number | null
+  cases?: RepricedCase[]
+  responded?: number
+  held?: string[]
+  expected_return_pct_before?: number | null
+  expected_return_pct_after?: number | null
+  prob_weighted_target_before?: number | null
+  prob_weighted_target_after?: number | null
+  warnings?: string[]
+}
+
+/** Push a NEW base-metric value through each case's own recorded valuation levers.
+ *
+ *  This is the second half of a driver question. The sensitivity engine answers "the EBITDA change"; this
+ *  answers "and therefore the target / the upside" — which the chat previously could not reach at all,
+ *  because nothing linked the sensitivity sidecar to valuation_summary.json. Returns null when the run has
+ *  no levers to push through (the caller then simply omits the section). */
+export async function repriceFromMetric(args: {
+  valuationSidecar: unknown
+  decision: unknown
+  newMetric: number
+  baseMetric?: number | null
+  direction?: 'long' | 'short'
+}): Promise<RepricedValuation | null> {
+  const payload = {
+    sidecar: args.valuationSidecar, decision: args.decision ?? {},
+    new_metric: args.newMetric, base_metric: args.baseMetric ?? null,
+    direction: args.direction ?? 'long',
+  }
+  let out
+  try {
+    out = await execa('python3', [VALUATION_ENGINE, '--reprice'],
+      { cwd: REPO_ROOT, input: JSON.stringify(payload), timeout: 15_000, reject: false })
+  } catch { return null }
+  if (!out || out.exitCode !== 0 || !out.stdout) return null
+  try {
+    const r = JSON.parse(out.stdout)
+    if (r && typeof r === 'object' && !('error' in r)) return r as RepricedValuation
+    return r && r.error ? { ok: false, reason: 'engine_error', detail: String(r.error) } : null
+  } catch { return null }
+}
+
+/** The driver -> target section of the COMPUTED SCENARIO block. Written so the model can only narrate it:
+ *  every level, return and the expected return are already computed, and a case that did NOT move carries
+ *  its own reason so the model cannot invent one. */
+export function repricedBlock(rv: RepricedValuation | null | undefined): string[] {
+  if (!rv) return []
+  if (!rv.ok) {
+    const why = rv.reason === 'metric_mismatch'
+      ? `the fair value cannot be re-derived from this driver: ${rv.detail}`
+      : rv.reason === 'no_levers' || rv.reason === 'no_metric_cases'
+        ? "this run's valuation records no per-case metric x multiple, so a driver move cannot be pushed through to a target"
+        : rv.detail || 'the target could not be re-derived'
+    return ['- TARGET / UPSIDE: not derivable — ' + why,
+            '  Say that plainly. Do NOT estimate a price target or an upside yourself.']
+  }
+  const L: string[] = []
+  const sign = (n: number | null | undefined) => (typeof n === 'number' && n >= 0 ? '+' : '')
+  // PER-SHARE, so 2dp: fmt()'s 0dp default is right for a 28,889 EBITDA and wrong for a 107.70 fair value
+  // (it would print "108", and an 84.96 entry price as "85").
+  const ps = (n: number | null | undefined) => fmt(n, 2)
+  L.push(`- TARGET / UPSIDE — each case re-priced through its OWN recorded multiple and bridge (${rv.direction === 'short' ? 'returns are position-signed for a SHORT: a falling price is a gain' : 'long-side returns'}):`)
+  for (const c of rv.cases ?? []) {
+    if (c.responds) {
+      L.push(`  - ${c.label}: ${ps(c.level_before)} → ${ps(c.level_after)} at its ${c.multiple}x${c.multiple_basis ? ` ${c.multiple_basis}` : ''}`
+        + (c.return_before != null && c.return_after != null ? ` (return ${sign(c.return_before)}${c.return_before}% → ${sign(c.return_after)}${c.return_after}%)` : ''))
+    } else {
+      L.push(`  - ${c.label}: HELD at ${ps(c.level_before)} — ${c.why}. This is not an omission: state it as a finding.`)
+    }
+  }
+  if (rv.prob_weighted_target_before != null) {
+    L.push(`  - probability-weighted target: ${ps(rv.prob_weighted_target_before)} → ${ps(rv.prob_weighted_target_after)}`)
+  }
+  if (rv.expected_return_pct_before != null) {
+    L.push(`  - EXPECTED RETURN: ${sign(rv.expected_return_pct_before)}${rv.expected_return_pct_before}% → ${sign(rv.expected_return_pct_after)}${rv.expected_return_pct_after}%`
+      + `  (probability-weighted across every case the thesis holds, at a price of ${ps(rv.price)})`)
+  }
+  for (const w of rv.warnings ?? []) L.push(`  - caveat: ${w}`)
+  return L
+}
+
 export function computedContextBlock(payload: ComputedPayload): string {
   if (payload.kind === 'unsupported') {
     const list = payload.recorded.map((r) => `${r.label || r.variable}${r.unit ? ` (${r.unit})` : ''}`).join(', ')
@@ -443,6 +552,10 @@ export function computedContextBlock(payload: ComputedPayload): string {
   if (s.withinDisclosedRange === false) lines.push(`- CAUTION: ${s.rangeNote || 'the move is beyond the orb\'s disclosed range — a rough extrapolation'}.`)
   if (s.nonLinearity) lines.push(`- Non-linearity to mention: ${s.nonLinearity}`)
   if (s.periodNote) lines.push(`- NOTE: the question asks about a period this scenario does not forecast — these numbers are a single-period scenario${s.periodBase ? ` on the ${s.periodBase} base` : ' on an unstated base period'}, not a multi-year forecast. Say so.`)
+  for (const l of repricedBlock(payload.reprice)) lines.push(l)
   lines.push('Narrate THIS result in plain English. Use these numbers verbatim; do NOT recompute or change them. Cite the source shown, and carry the confidence, basis, and any caution/non-linearity note into your answer.')
+  if (payload.reprice?.ok) {
+    lines.push('The TARGET / UPSIDE lines above are part of this answer: when the user asks what the driver does to the price, the target, or the upside — now or in a later turn — those are the numbers. They are already probability-weighted across the thesis\'s own cases; never re-weight or re-derive them.')
+  }
   return lines.join('\n')
 }

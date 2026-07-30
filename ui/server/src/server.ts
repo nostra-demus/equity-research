@@ -54,7 +54,7 @@ import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
-import { computePlan, computedContextBlock, detectWhatIf, loadSidecar, parseWhatIf, recordedList, validateIntents } from './chat-whatif'
+import { computePlan, computedContextBlock, detectWhatIf, loadSidecar, parseWhatIf, recordedList, repriceFromMetric, validateIntents } from './chat-whatif'
 import { deleteConversation, getConversation, isValidConversationId, listConversations, recordAssistantMessage, recordUserMessage } from './chat-store'
 import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
@@ -1854,7 +1854,26 @@ app.post('/api/chat', async (req, reply) => {
               if (noteParts.length) scenario.note = noteParts.join(' ')
             }
             if (pr!.periodNote) { scenario.periodNote = true; scenario.periodBase = loaded.sidecar.base_period ?? null }
-            const payload = { kind: 'scenario' as const, asked: last.content, scenario }
+            // THE SECOND HOP: push the new base-metric value through each case's own valuation levers, so
+            // "…and what would the target change be?" is answered in the same block instead of coming back
+            // not-in-context. Always attempted when the metric moved — the follow-up usually arrives a turn
+            // later, and the chat carries prior turns, so the numbers must already be in the transcript.
+            // Best-effort: no valuation sidecar, no python3, a metric mismatch → the section is omitted or
+            // states plainly that it is not derivable. Never estimated.
+            let reprice = null as Awaited<ReturnType<typeof repriceFromMetric>>
+            try {
+              const vsc = readValuationSummary(runRoot)
+              if (vsc && typeof scenario.newValue === 'number') {
+                let dec: any = null
+                try { dec = readDecision(runRoot) } catch { /* a partial run has no frozen thesis */ }
+                reprice = await repriceFromMetric({
+                  valuationSidecar: vsc, decision: dec, newMetric: scenario.newValue,
+                  baseMetric: scenario.baseValue ?? null,
+                  direction: dec?.basket === 'Short' ? 'short' : 'long',
+                })
+              }
+            } catch { /* the driver half still stands on its own */ }
+            const payload = { kind: 'scenario' as const, asked: last.content, scenario, reprice }
             send({ type: 'chat-computed', payload })
             blocks.push(computedContextBlock(payload))
           }
