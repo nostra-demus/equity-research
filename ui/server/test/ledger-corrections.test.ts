@@ -210,4 +210,15 @@ check('resolveDisplayFields: post_review_confidence_score preferred over confide
   assert.equal(r.confidenceIsPostReview, true)
 })
 
+// An empty-string post_mortem_decision falls back to the original decision on read (the truthiness
+// guard on `decision`), so the ⚠ CAPPED flag must stay FALSE — the displayed decision is the uncapped
+// original. The flag has to track the displayed value; flagging capped while showing the original is a
+// false positive that puts a CAPPED badge on an un-downgraded call.
+check('resolveDisplayFields: empty-string post_mortem_decision -> shows original decision, NOT flagged as capped', () => {
+  const r = resolveDisplayFields({ decision: 'Strong Buy', basket: 'Selected', post_mortem_decision: '', post_mortem_basket: '', confidence_score: 70 })
+  assert.equal(r.decision, 'Strong Buy')
+  assert.equal(r.basket, 'Selected')
+  assert.equal(r.decisionIsPostMortemCapped, false)
+})
+
 console.log(`\n${passed} checks passed`)

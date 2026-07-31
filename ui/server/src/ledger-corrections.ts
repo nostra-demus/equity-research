@@ -228,7 +228,11 @@ export function resolveDisplayFields(record: any): LedgerDisplay {
   const pmBasket = rec.post_mortem_basket
   const decision = (typeof pmDecision === 'string' && pmDecision ? pmDecision : null) ?? (rec.decision ?? null)
   const basket = (typeof pmBasket === 'string' && pmBasket ? pmBasket : null) ?? (rec.basket ?? null)
-  const decisionIsPostMortemCapped = pmDecision !== undefined && pmDecision !== null && pmDecision !== rec.decision
+  // Flag capped ONLY when the post-mortem value is the one actually displayed — i.e. a non-empty string
+  // that differs from the original. This must track the `decision` selection above (which falls back to
+  // rec.decision unless pmDecision is a non-empty string); otherwise an empty-string post_mortem_decision
+  // would display the uncapped original yet still raise the ⚠ CAPPED badge (false positive).
+  const decisionIsPostMortemCapped = typeof pmDecision === 'string' && pmDecision !== '' && pmDecision !== rec.decision
   const postReview = typeof rec.post_review_confidence_score === 'number' ? rec.post_review_confidence_score : null
   const confidence = postReview !== null ? postReview : typeof rec.confidence_score === 'number' ? rec.confidence_score : null
   return { decision, basket, decisionIsPostMortemCapped, confidence, confidenceIsPostReview: postReview !== null }
