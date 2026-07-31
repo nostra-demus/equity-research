@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.3",
   "ticker": "EMAAR",
   "as_of": "2026-07-10",
   "currency": "AED",
@@ -9,30 +9,74 @@
   "shares": 8838.789849,
   "net_debt": -24969,
   "net_debt_basis": "broad",
-  "current_price": 12.20,
+  "current_price": 12.2,
   "price_as_of": "2026-06-28",
   "price_state": "pool-verified",
   "is_developed_mega_cap": false,
   "scenarios": [
     {
       "label": "bull",
-      "forward_metric": null,
-      "multiple": null,
-      "level": 21.00,
+      "forward_metric": 2.141,
+      "metric_basis": "LTM EPS (AED per share) [02 §1]",
+      "multiple": 9.8085,
+      "multiple_basis": "P/E on LTM EPS",
+      "multiple_kind": "implied",
+      "basis": "equity",
+      "secondary_multiples": [
+        {
+          "value": 6.9,
+          "basis": "LTM EV/EBITDA",
+          "note": "quoted for the same value"
+        },
+        {
+          "value": 2.1,
+          "basis": "P/BV on BVPS AED 10.16",
+          "note": "quoted for the same value"
+        }
+      ],
+      "level": 21.0,
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied Multiple' column); the denominators are the run's own: EPS AED 2.141 [02_multiples-own-history.md §1, P/E row] and BVPS AED 10.16 [02 §1 P/Book row; 01_price-and-capital-structure.md §6]. This case's LEVEL (AED 21.00) is NOT the base case's four-method-blend-minus-wedge arithmetic (AED 16.52 − 1.52 = 15.00 is the BASE case's own derivation — see the base case's `source`/`drivers`). §3 states the bull is instead 'Anchored on `04`'s 37%-margin grid (AED 20–22) and a de-rated `06` bull' — the DCF sensitivity grid at a ~37% mid-cycle EBIT margin, blended with a de-rated sum-of-the-parts bull case, not a metric x multiple. P/E is this case's recorded primary because it is the reading that reproduces the level from a stated denominator; the normalized EV/EBITDA §3 emphasises (~9-10x, a stated RANGE with no midpoint quoted) has no single stated normalized-EBITDA figure, so it is omitted rather than invented as a cross-check. The multiple is recorded at the precision that reproduces the level (21.0 / 2.141 = 9.8085); §3's own 1dp reading is 9.8x, which would move the frozen level by 0.0182. An implied multiple must never shift the level it was implied FROM.",
       "drivers": "Asset value crystallises: masked wholly-owned Emaar Malls annuity re-rated + backlog delivered; DCF grid high / SOTP bull"
     },
     {
       "label": "base",
-      "forward_metric": null,
-      "multiple": null,
-      "level": 15.00,
+      "forward_metric": 2.141,
+      "metric_basis": "LTM EPS (AED per share) [02 §1]",
+      "multiple": 7.0061,
+      "multiple_basis": "P/E on LTM EPS",
+      "multiple_kind": "implied",
+      "basis": "equity",
+      "secondary_multiples": [
+        {
+          "value": 4.8,
+          "basis": "LTM EV/EBITDA",
+          "note": "quoted for the same value"
+        },
+        {
+          "value": 6.7,
+          "basis": "normalized EV/EBITDA",
+          "note": "the multiple the orb emphasises for this case; no stated normalized-EBITDA denominator, so a cross-check"
+        },
+        {
+          "value": 1.5,
+          "basis": "P/BV on BVPS AED 10.16",
+          "note": "quoted for the same value"
+        }
+      ],
+      "level": 15.0,
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied Multiple' column); the denominators are the run's own: EPS AED 2.141 [02_multiples-own-history.md §1, P/E row] and BVPS AED 10.16 [02 §1 P/Book row; 01_price-and-capital-structure.md §6]. Every multiple here is IMPLIED: §3 derives the levels from a four-method blend (AED 16.52) less a disclosed AED 1.52 owner/peak-earnings wedge (RF-OWN-004) — see this case's `drivers` — not from a metric x multiple. P/E is this case's recorded primary because it is the reading that reproduces the level from a stated denominator; the normalized EV/EBITDA §3 emphasises has no stated normalized-EBITDA figure anywhere in the run, so it is a cross-check. The multiple is recorded at the precision that reproduces the level (15.0 / 2.141 = 7.0061); §3's own 1dp reading is 7.0x, which would move the frozen level by 0.0130. An implied multiple must never shift the level it was implied FROM.",
       "drivers": "Mechanical 4-method blend is AED 16.52 (0.15x12.5 + 0.20x16.9 + 0.30x18.0 + 0.35x16.77); published AED 1.52 lower at 15.00 as a disclosed RF-OWN-004 government-owner / peak-earnings conservative discount"
     },
     {
       "label": "bear",
-      "forward_metric": null,
-      "multiple": null,
+      "forward_metric": 10.16,
+      "metric_basis": "BVPS (AED per share, Q1-26) [02 §1 / 01 §6]",
+      "multiple": 0.9596,
+      "multiple_basis": "P/BV (book)",
+      "multiple_kind": "implied",
+      "basis": "equity",
       "level": 9.75,
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied Multiple' column); the denominators are the run's own: EPS AED 2.141 [02_multiples-own-history.md §1, P/E row] and BVPS AED 10.16 [02 §1 P/Book row; 01_price-and-capital-structure.md §6]. This case's LEVEL (AED 9.75) is NOT the base case's four-method-blend-minus-wedge arithmetic (AED 16.52 − 1.52 = 15.00 is the BASE case's own derivation — see the base case's `source`/`drivers`). §3 instead builds the bear as the worse of a genuine cyclical trough (developer earnings −~35% off peak, at `02`'s cycle-robust 0.94x P/BV median → AED 9.55) and the structural-reset runoff (~AED 15–17.6, carried separately as the avoid-ruin floor); the headline bear (AED 9.75) is the cyclical-trough read, valued on book. P/BV on BOOK is this case's recorded primary, because §3 quotes the bear on book (0.96x) and records NO bear-case P/E — flow multiples are distorted at a trough. The multiple is recorded at the precision that reproduces the level (9.75 / 10.16 = 0.9596); §3's own 1dp reading is 0.96x, which would move the frozen level by 0.0036. An implied multiple must never shift the level it was implied FROM.",
       "drivers": "Through-cycle normalized earnings at a warranted multiple / SOTP bear; Dubai cyclical trough, floored by net cash + mall annuity"
     }
   ],
@@ -44,8 +88,8 @@
   },
   "method_weights": {
     "own_history": 0.15,
-    "peers": 0.20,
-    "dcf": 0.30,
+    "peers": 0.2,
+    "dcf": 0.3,
     "sotp": 0.35
   },
   "discount_rate": {
