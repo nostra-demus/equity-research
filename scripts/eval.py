@@ -1017,7 +1017,11 @@ def eval_au_sign_check_recorded(decision_date, thesis_text):
         return None
     if not thesis_text:
         return None
-    if re.search(r"sign[\s\-]?check", thesis_text, re.I):
+    # \b before 'sign' so an unrelated word ending in -sign ('design check', 'redesign checklist') can't
+    # satisfy a HARD gate; [\s\-_]* so natural spacing variation ('sign check' / 'sign-check' / 'sign_check'
+    # / 'sign  check' / 'sign - check') all register; no trailing boundary, so 'sign-checked' / 'sign checks'
+    # still match. This asserts the line was RECORDED, not that it is correct.
+    if re.search(r"\bsign[\s\-_]*check", thesis_text, re.I):
         return []
     return ["the thesis records no SIGN CHECK against the module that owns its driver (synthesizer.md "
             "Step 3b / HARD GATE 7). State it even when the signs AGREE — one line naming the module, its "
@@ -2778,6 +2782,14 @@ if scope=="selftest":
         ("2026-08-01","sign-check against earnings: disagrees, overridden on ...",[]),  # hyphen form → pass
         ("2026-08-01","SIGN CHECK — valuation agrees",[]),                              # caps → pass
         ("2026-08-01","a long thesis that never mentions it",["records no SIGN CHECK"]),# missing → FAIL
+        # regression: spacing variants the old `sign[\s\-]?check` MISSED (false FAIL on a recorded gate)
+        ("2026-08-01","sign_check: earnings agrees (Tailwind, Med)",[]),                # underscore → pass
+        ("2026-08-01","sign  check: margin-drivers agrees",[]),                         # double space → pass
+        ("2026-08-01","sign - check: valuation disagrees, overridden",[]),              # space-hyphen-space → pass
+        ("2026-08-01","sign-checked against margin-drivers: agrees",[]),               # past tense → pass
+        # regression: false POSITIVE the old regex allowed — 'design check' contains 'sign check' but is
+        # NOT a recorded sign check; on a HARD gate that let a run with no sign check pass silently.
+        ("2026-08-01","our design check of the model passed; no other note",["records no SIGN CHECK"]),
     ]
     for _dd,_tx,_want in aucases:
         got=eval_au_sign_check_recorded(_dd,_tx)
