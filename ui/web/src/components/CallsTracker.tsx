@@ -165,6 +165,19 @@ function CallCard({ c, busy, staticMode, onUpdate, onFileDue, onOpen, onCopyNote
       <div className="callcard__top">
         <div className="callcard__id">
           <span className="verdict" style={{ color: decisionColor(c.decision || '') }}>{dash(c.decision)}</span>
+          {c.integrity_status === 'provisional' && (
+            <span
+              className="flag flag--bad"
+              title={`Truth-integrity: provisional${c.integrity_verdict ? ` (verify-evidence verdict: ${c.integrity_verdict})` : ''}${c.integrity_banner ? ' — the finish-gate stamped this run PROVISIONAL' : ''}. Resolve before trusting this call's numbers.`}
+            >
+              ⚠ UNVERIFIED
+            </span>
+          )}
+          {c.decision_is_post_mortem_capped && (
+            <span className="flag flag--warn" title="A terminal pre-mortem red-team verdict downgraded this call below its original rating — open the thesis for the pre-mortem's verdict and killer risk.">
+              ⚠ CAPPED
+            </span>
+          )}
           <span className="callcard__name" title={dash(c.company)}>{dash(c.company)}</span>
           <span className="callcard__tkr">{c.ticker}</span>
         </div>
