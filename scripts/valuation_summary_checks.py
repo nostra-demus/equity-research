@@ -161,6 +161,7 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
         det.append(f"schema_version {raw_ver!r} is not a dotted numeric version (e.g. '1.3') — an unparseable "
                    f"version would silently grandfather every versioned rule")
     v13 = ver is not None and ver >= (1, 3)
+    v14 = ver is not None and ver >= (1, 4)
     scen = sidecar.get("scenarios")
     if not isinstance(scen, list) or not scen:
         det.append("scenarios must be a non-empty array")
@@ -367,6 +368,60 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
                            "(no method has BOTH a numeric value and a positive weight)")
         except Exception as e:  # a pure resolver should never raise; if it does, the football field is bad
             det.append(f"blend() raised on methods/method_weights: {e}")
+
+    # ---- WEIGHTING-POLICY COMPLIANCE (v1.4) ------------------------------------------------------
+    # WHY: the policy these two checks enforce was ALREADY written, as a hard rule, in three places —
+    # MODULE_RULES "Scenario Construction & Method-Weighting Policy" §1 (multiples carry the majority for an
+    # Operating company; DCF+SOTP combined capped at a minority ≈ ≤ 1/3) and 06_sum-of-the-parts ("Do NOT put
+    # a multiple on the last audited (trailing) year's segment earnings when a forward metric is estimable";
+    # "a trailing SOTP may appear only as a labelled sanity check, never as a weighted method feeding 07").
+    #
+    # Nothing checked it. The AMZN 2026-07-10 run put 40% — the HIGHEST weight — on a SOTP built on FY2025
+    # trailing segment EBIT, with DCF+SOTP at 65% against a 1/3 cap, while its own prose said the trailing
+    # anchor "understates the current run rate" and "the method I trust most is the SOTP-forward approach".
+    # That single weighting produced a base fair value of $210 against a $238 price, a -16.1% expected return
+    # and a Watchlist. Three weeks later the stock printed $270.87 — above the run's own BULL case.
+    #
+    # The blend check above proves the weights ADD UP. These two prove they are ALLOWED. Both are gated on
+    # schema_version >= 1.4 so every existing sidecar is grandfathered, exactly like the v1.3 block above:
+    # a run opts in by emitting the version (and, for the basis rule, by emitting method_basis at all).
+    _MULTIPLE_METHODS = ("own_history", "peers")
+    _CROSSCHECK_METHODS = ("dcf", "sotp")
+    if v14 and isinstance(weights, dict) and weights:
+        wsum = sum(v for v in weights.values() if _isnum(v) and v > 0)
+        if wsum > 0:
+            share = lambda keys: sum(v for k, v in weights.items() if k in keys and _isnum(v) and v > 0) / wsum
+            mult, cross = share(_MULTIPLE_METHODS), share(_CROSSCHECK_METHODS)
+            # The escape hatch is the one MODULE_RULES §1 already names — but it must be DECLARED, not
+            # inferred. An undeclared exception is how the rule got read as advisory.
+            declared = sidecar.get("method_weight_exception")
+            btype = str(sidecar.get("business_type") or "").strip().lower()
+            # The Method Map makes a non-multiple method primary for these types — the policy explicitly
+            # does not apply to them (Financials → DDM/residual-income, REITs → NAV, Holding → SOTP).
+            policy_applies = btype in ("", "operating", "commodity")
+            if policy_applies and cross > (1.0 / 3.0) + 1e-6 and not _cited(declared):
+                det.append(
+                    f"method-weighting policy: cross-check methods (dcf+sotp) carry {cross:.0%} of the base "
+                    f"point, above the ~1/3 cap for an Operating business, with no cited "
+                    f"`method_weight_exception` (MODULE_RULES Scenario Construction §1)")
+            if policy_applies and mult < 0.5 - 1e-6 and not _cited(declared):
+                det.append(
+                    f"method-weighting policy: multiples (own_history+peers) carry only {mult:.0%} of the base "
+                    f"point — the policy requires the MAJORITY for an Operating business with a usable forward "
+                    f"metric, and no `method_weight_exception` is cited (MODULE_RULES Scenario Construction §1)")
+
+    mbasis = sidecar.get("method_basis")
+    if v14 and isinstance(mbasis, dict) and isinstance(weights, dict):
+        for meth, b in mbasis.items():
+            if not isinstance(b, str) or b.strip().lower() != "trailing":
+                continue
+            w = weights.get(meth)
+            if _isnum(w) and w > 0:
+                det.append(
+                    f"method '{meth}' is valued on a TRAILING period yet carries {w:.0%} base-point weight — a "
+                    f"trailing anchor is a labelled sanity check only, never a weighted method "
+                    f"(06_sum-of-the-parts; MODULE_RULES Calculation Standard 10). Re-base it to LTM/forward "
+                    f"or drop its weight to 0.")
 
     # ---- v1.1 method internals (P-C sub-levers) — each block, when present, must REPRODUCE its recorded
     # method value: the grid cell at `base` == methods.dcf, the segment re-sum == methods.sotp, the anchor
@@ -970,6 +1025,43 @@ def _selftest() -> int:
     # all-or-none applies only AMONG ev cases — the book-value bear must not trip it
     check("the all-or-none bridge rule ignores equity-basis cases",
           not any("must not mix" in v for v in eval_ap_valuation_summary_integrity(emaar, None)))
+
+    # ---- v1.4 weighting-policy compliance -------------------------------------------------------
+    # The fixture IS the AMZN 2026-07-10 weighting: peers 35% / dcf 25% / sotp 40%, the SOTP built on
+    # FY2025 TRAILING segment EBIT. Every assertion below would have fired on that run.
+    amzn = dict(ok_sidecar, schema_version="1.4", business_type="Operating",
+                methods={"peers": 258, "dcf": 207, "sotp": 170},
+                method_weights={"peers": 0.35, "dcf": 0.25, "sotp": 0.40},
+                method_basis={"peers": "NTM", "dcf": "FY+1", "sotp": "trailing"})
+    v = eval_ap_valuation_summary_integrity(amzn, dr_match)
+    check("v1.4 AMZN shape: cross-check cap fires", any("above the ~1/3 cap" in x for x in v))
+    check("v1.4 AMZN shape: multiples-majority fires", any("carry only 35%" in x for x in v))
+    check("v1.4 AMZN shape: trailing-weight fires", any("TRAILING period yet carries 40%" in x for x in v))
+
+    # the same weights on a PRE-1.4 sidecar are grandfathered — existing committed runs must not start failing
+    check("pre-1.4 grandfathered", eval_ap_valuation_summary_integrity(dict(amzn, schema_version="1.3"), dr_match) == [])
+
+    good = dict(amzn, method_weights={"peers": 0.45, "own_history": 0.25, "dcf": 0.15, "sotp": 0.15},
+                method_basis={"peers": "NTM", "own_history": "NTM", "dcf": "FY+1", "sotp": "FY+1"})
+    check("compliant blend passes", eval_ap_valuation_summary_integrity(good, dr_match) == [])
+
+    # the documented escape hatch must be CITED — an undeclared exception is how the rule read as advisory
+    exc = dict(amzn, method_weight_exception="Genuine multi-segment conglomerate; SOTP primary per the "
+                                             "Business-Type Method Map [MODULE_RULES Scenario Construction §1]",
+               method_basis={"peers": "NTM", "dcf": "FY+1", "sotp": "FY+1"})
+    check("cited exception clears the weight caps", eval_ap_valuation_summary_integrity(exc, dr_match) == [])
+    check("exception does NOT license a trailing weighted anchor",
+          any("TRAILING period" in x for x in eval_ap_valuation_summary_integrity(
+              dict(exc, method_basis={"peers": "NTM", "dcf": "FY+1", "sotp": "trailing"}), dr_match)))
+
+    # the Method Map's non-multiple types are exempt from multiples-first (REIT → NAV, Financial → DDM)
+    check("REIT exempt from multiples-first", eval_ap_valuation_summary_integrity(
+        dict(amzn, business_type="REIT", method_basis={"peers": "NTM", "dcf": "FY+1", "sotp": "FY+1"}), dr_match) == [])
+
+    # a trailing method at ZERO weight is exactly the permitted labelled sanity check
+    check("trailing sanity check at 0 weight is allowed", eval_ap_valuation_summary_integrity(
+        dict(good, method_weights={"peers": 0.5, "own_history": 0.25, "dcf": 0.25, "sotp": 0.0},
+             method_basis={"peers": "NTM", "own_history": "NTM", "dcf": "FY+1", "sotp": "trailing"}), dr_match) == [])
 
     if fails:
         print("VALUATION SUMMARY CHECKS SELFTEST FAIL:", ", ".join(fails))
