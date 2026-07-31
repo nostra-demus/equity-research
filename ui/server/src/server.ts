@@ -54,7 +54,7 @@ import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
-import { computePlan, computedContextBlock, detectWhatIf, loadSidecar, parseWhatIf, recordedList, repriceFromMetric, validateIntents } from './chat-whatif'
+import { computePlan, computedContextBlock, detectWhatIf, findPriorScenarioComputed, isNumberlessTargetFollowUp, loadSidecar, parseWhatIf, recordedList, repriceFromMetric, validateIntents } from './chat-whatif'
 import { deleteConversation, getConversation, isValidConversationId, listConversations, recordAssistantMessage, recordUserMessage } from './chat-store'
 import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
@@ -1733,7 +1733,15 @@ const ChatBody = z.object({
   conversationId: z.string().max(80).optional(),
   orbKey: z.string().max(200).optional(),
   title: z.string().max(300).optional(),
-  messages: z.array(z.object({ role: z.enum(['user', 'assistant']), content: z.string().max(20000) })).min(1).max(40),
+  // `computed` (assistant turns only): the engine-computed what-if card(s) FROM A PRIOR TURN, echoed back by
+  // the client exactly as it was streamed (chat-computed). Loosely validated (a bounded array of objects) —
+  // it is the server's own prior output round-tripped, not re-derived here; findPriorScenarioComputed checks
+  // the specific fields it actually reads before trusting any of it (Codex #371 P1 — the numberless
+  // "…and what would the target change be?" follow-up resolves against this instead of having nothing).
+  messages: z.array(z.object({
+    role: z.enum(['user', 'assistant']), content: z.string().max(20000),
+    computed: z.array(z.record(z.string(), z.unknown())).max(6).optional(),
+  })).min(1).max(40),
 })
 app.post('/api/chat', async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
@@ -1856,10 +1864,10 @@ app.post('/api/chat', async (req, reply) => {
             if (pr!.periodNote) { scenario.periodNote = true; scenario.periodBase = loaded.sidecar.base_period ?? null }
             // THE SECOND HOP: push the new base-metric value through each case's own valuation levers, so
             // "…and what would the target change be?" is answered in the same block instead of coming back
-            // not-in-context. Always attempted when the metric moved — the follow-up usually arrives a turn
-            // later, and the chat carries prior turns, so the numbers must already be in the transcript.
-            // Best-effort: no valuation sidecar, no python3, a metric mismatch → the section is omitted or
-            // states plainly that it is not derivable. Never estimated.
+            // not-in-context. Always attempted when the metric moved. Best-effort: no valuation sidecar, no
+            // python3, a metric mismatch → the section is omitted or states plainly that it is not derivable.
+            // Never estimated. metricLabel strengthens the engine's own metric-identity gate beyond numeric
+            // proximity alone (Codex #371 P1) — the sensitivity row's own impact metric name.
             let reprice = null as Awaited<ReturnType<typeof repriceFromMetric>>
             try {
               const vsc = readValuationSummary(runRoot)
@@ -1870,6 +1878,7 @@ app.post('/api/chat', async (req, reply) => {
                   valuationSidecar: vsc, decision: dec, newMetric: scenario.newValue,
                   baseMetric: scenario.baseValue ?? null,
                   direction: dec?.basket === 'Short' ? 'short' : 'long',
+                  metricLabel: scenario.impactMetric ?? null,
                 })
               }
             } catch { /* the driver half still stands on its own */ }
@@ -1885,6 +1894,22 @@ app.post('/api/chat', async (req, reply) => {
         }
         // pr null (parse failed/CLI absent) or no plans+no refusal → normal closed-book answer, no card
       }
+    } else if (isNumberlessTargetFollowUp(last.content)) {
+      // "…and what would the price upside or target change be?" — the PR's own headline example, and it has
+      // NO number of its own: detectWhatIf's gate above requires one (it is the gate for parsing a NEW
+      // driver move). ChatBody retains only {role, content} per turn, and buildChatPrompts serializes only
+      // m.content — so unless the model happened to restate every figure in its own prior prose, this
+      // closed-book follow-up had NOTHING deterministic to answer from. Resolve it instead against the most
+      // recent prior turn's already-computed scenario (the client echoes `computed` back on every turn),
+      // replaying the SAME numbers rather than asking the model to recall or re-derive them (Codex #371 P1).
+      const prior = findPriorScenarioComputed(messages.slice(0, -1) as any)
+      if (prior) {
+        send({ type: 'chat-status', stage: 'modeling' })
+        const payload = { ...prior, asked: last.content }
+        send({ type: 'chat-computed', payload })
+        computedBlock = computedContextBlock(payload, { carriedForward: true })
+      }
+      // no prior computed turn found → normal closed-book answer (the model may still recall from prose)
     }
   } catch { /* any what-if failure degrades to a normal closed-book answer, never a 500 */ }
   const { system, user } = buildChatPrompts({ assembled, messages, subject, style: parsed.data.style, computedBlock })

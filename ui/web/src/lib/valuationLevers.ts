@@ -135,6 +135,17 @@ export interface ValuationLeversResponse {
 export interface ValuationOverride { id: string; run_root: string; ts: string; reason: string; overrides: Record<string, unknown>; levels?: Record<string, number> | null }
 
 const isNum = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v)
+
+/** §15 / Codex #371 P2 mirror of scripts/valuation_math.py's `_numeric_or_refuse`: an optional bridge term
+ *  (minority / other) that is absent (undefined/null) is genuinely not recorded and defaults to 0; the SAME
+ *  term present but not a finite number (a raw, not-yet-integrity-checked sidecar can carry anything) must
+ *  REFUSE — never be silently coerced to 0, which would quietly drop part of the EV→equity bridge with high
+ *  confidence. `ok: false` carries no value; the caller must not use `.value` in that branch. */
+function numericBridgeTermOrRefuse(v: unknown): { ok: true; value: number } | { ok: false } {
+  if (v === undefined || v === null) return { ok: true, value: 0 }
+  if (typeof v === 'number' && Number.isFinite(v)) return { ok: true, value: v }
+  return { ok: false }
+}
 const pct = (x: number, nd = 1) => round(x * 100, nd)
 function round(x: number, nd = 4): number { const p = 10 ** nd; return Math.round(x * p) / p }
 
@@ -274,9 +285,12 @@ export function caseLevelFromMultiple(
     if (!isNum(br.net_debt)) return null // §15: unknown net debt is never silently 0
     const sh = isNum(br.shares) ? br.shares : (isNum(shares) ? shares : null)
     if (!isNum(sh) || sh <= 0) return null
-    const equity = metric * multiple - br.net_debt
-      - (isNum(br.minority) ? br.minority : 0)
-      + (isNum(br.other) ? br.other : 0)
+    // §15 / Codex #371 P2: a PRESENT but malformed minority/other must refuse the case, not be silently
+    // treated as 0 — distinct from a term that is genuinely absent (handled inside the helper).
+    const minorityTerm = numericBridgeTermOrRefuse((br as { minority?: unknown }).minority)
+    const otherTerm = numericBridgeTermOrRefuse((br as { other?: unknown }).other)
+    if (!minorityTerm.ok || !otherTerm.ok) return null
+    const equity = metric * multiple - br.net_debt - minorityTerm.value + otherTerm.value
     return round(equity / sh, 4)
   }
   try { return round(levelFromMultiple(metric, multiple, basis, shares, netDebt), 4) } catch { return null }

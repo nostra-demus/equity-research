@@ -776,6 +776,22 @@ check('exported EV helpers called WITHOUT netDebt refuse — no default-0 fabric
   // equity basis is unaffected — it never touches net debt, omitted or not
   assert.ok(Math.abs((caseLevelFromMultiple(10.16, 0.96, 'equity', null, 1965.28) as number) - 10.16 * 0.96) < 1e-6)
 })
+check('caseLevelFromMultiple REFUSES a malformed bridge term, never silently zeros it (Codex #371 P2, §15 — Python mirror)', () => {
+  // A raw, not-yet-integrity-checked sidecar can carry anything at runtime regardless of the TS type — a
+  // string "7495" instead of the number 7495 for minority must refuse the case, not be coerced to 0 (which
+  // would silently drop part of the EV→equity bridge with high confidence — same defect scripts/valuation_math.py's
+  // _numeric_or_refuse guards in the reprice path).
+  const malformed = { net_debt: 50, net_debt_basis: 'strict', minority: '7495' as unknown as number, shares: 10 }
+  assert.equal(caseLevelFromMultiple(100, 5, 'ev', malformed, 10, 50), null, 'a present-but-non-numeric minority must refuse, not read as 0')
+  const malformedOther = { net_debt: 50, net_debt_basis: 'strict', other: {} as unknown as number, shares: 10 }
+  assert.equal(caseLevelFromMultiple(100, 5, 'ev', malformedOther, 10, 50), null, 'a present-but-non-numeric other must refuse too')
+  // control: the SAME shape with minority genuinely ABSENT (not malformed) still derives normally — the
+  // refusal is specifically about malformed-vs-absent, not a blanket new failure on every bridge.
+  const absent = { net_debt: 50, net_debt_basis: 'strict', shares: 10 }
+  const lvl = caseLevelFromMultiple(100, 5, 'ev', absent, 10, 50)
+  assert.ok(isFinite(lvl as number), `an absent (not malformed) minority must still derive a level, got ${lvl}`)
+  assert.ok(Math.abs((lvl as number) - 45) < 1e-6, `expected (100*5-50)/10=45, got ${lvl}`)
+})
 check('the shown multiple MOVES when the machinery moves (implied, not frozen)', () => {
   const d = draftFromResponse(NHY13)
   // give the bear the recorded runoff chain, then push its terminal margin 9.0% → 11.0%
