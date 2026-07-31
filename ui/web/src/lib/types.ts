@@ -383,6 +383,10 @@ export interface CallVsLive {
   expected_return_pct: number
   live_expected_return_pct: number
   expected_return_delta_pp: number
+  // Has the live price left the run's own scenario band? null when the record carries no usable scenario
+  // prices, or on an older engine (deploy-skew: read it as "no band", never as "inside"). Leaving the band
+  // does NOT prove the thesis wrong — it proves the scenario set no longer contains the present.
+  band?: { low: number; high: number; state: 'inside' | 'above' | 'below'; outside_by_pct: number; note: string } | null
 }
 
 export interface QuoteRead {

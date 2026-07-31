@@ -141,6 +141,20 @@ export interface CallVsLive {
   live_expected_return_pct: number
   /** live − frozen, in percentage points. Negative = the move since the call ate into the upside. */
   expected_return_delta_pp: number
+  /**
+   * HAS THE PRICE LEFT THE SCENARIO BAND? — null when the record carries no usable scenario prices.
+   *
+   * The engine already had a date-based alarm (eval check AS: "this forecast came due"). It had no
+   * PRICE-based one, and that is the faster signal: a date waits, a price does not. On AMZN 2026-07-10
+   * the band was 146–247 and the stock closed at 270.87 three weeks later — above the top of the entire
+   * distribution. The engine held the live price AND the band and never compared them; the miss surfaced
+   * only because a human saw the move.
+   *
+   * Read it honestly: leaving the band does NOT prove the thesis wrong. It proves the SCENARIO SET no
+   * longer contains the present — every case the run modelled is now on one side of the market. That is
+   * a prompt to re-examine (§7 / §19), never a verdict, and this field must never be rendered as one.
+   */
+  band: PriceBand | null
 }
 
 // ---- symbol derivation ----
@@ -378,6 +392,64 @@ export function loadSymbolOverrides(file: string): Record<string, string> {
 const round2 = (n: number) => Math.round(n * 100) / 100
 const round1 = (n: number) => Math.round(n * 10) / 10
 
+
+/** The scenario band and where the live price sits against it. */
+export interface PriceBand {
+  low: number  // the lowest scenario price target
+  high: number // the highest
+  /** `inside` | `above` (live > high) | `below` (live < low) — pure geometry, no direction applied. */
+  state: 'inside' | 'above' | 'below'
+  /** How far past the nearest edge, in %, 0 when inside. Always positive. */
+  outside_by_pct: number
+  /** What it MEANS for this position — the geometry above is direction-blind; a higher price is good for
+   *  a long and bad for a short, so the reading flips. Empty when inside the band. */
+  note: string
+}
+
+/**
+ * Where does the live price sit against the run's own scenario band?
+ *
+ * Direction-aware by `basket` (the documented position key — DECISION_LEDGER §3: "Short Candidate" →
+ * "Short"), because the geometry is direction-blind but the MEANING is not: above the band is the market
+ * running past a long's best case, and past a short's worst. Exported pure so the meaning is testable
+ * without a quote, a clock or a network.
+ */
+export function priceBand(
+  scenarios: unknown,
+  livePrice: number | null | undefined,
+  basket?: string | null,
+): PriceBand | null {
+  if (typeof livePrice !== 'number' || !Number.isFinite(livePrice) || livePrice <= 0) return null
+  if (!Array.isArray(scenarios)) return null
+  const targets = scenarios
+    .map((s: any) => (s && typeof s.price_target === 'number' && Number.isFinite(s.price_target) ? s.price_target : null))
+    .filter((v): v is number => v !== null && v > 0)
+  // One target is a point, not a band — a band needs two sides or "outside" is meaningless.
+  if (targets.length < 2) return null
+  const low = Math.min(...targets)
+  const high = Math.max(...targets)
+  const isShort = /short/i.test(String(basket ?? ''))
+  if (livePrice > high) {
+    return {
+      low, high, state: 'above',
+      outside_by_pct: round1((livePrice / high - 1) * 100),
+      note: isShort
+        ? 'The price is above every case this call modelled — further against the short than its own worst case.'
+        : 'The price is above every case this call modelled, including its best one. The call was too cautious, or the facts have changed.',
+    }
+  }
+  if (livePrice < low) {
+    return {
+      low, high, state: 'below',
+      outside_by_pct: round1((1 - livePrice / low) * 100),
+      note: isShort
+        ? 'The price is below every case this call modelled — the short has run past its own best case.'
+        : 'The price is below every case this call modelled, including its worst one. Something the run did not model has happened.',
+    }
+  }
+  return { low, high, state: 'inside', outside_by_pct: 0, note: '' }
+}
+
 /**
  * Re-base a frozen call onto the live price. Returns null unless BOTH anchors are real and positive —
  * a zero or missing entry price makes every ratio here meaningless (and would divide by zero), so
@@ -389,6 +461,8 @@ export function callVsLive(args: {
   livePrice: number | null | undefined
   currency: string
   entryPriceTimestamp?: string | null
+  scenarios?: unknown // decision_record.scenarios — for the band check; absent → band null
+  basket?: string | null // the position, so the band's MEANING is direction-aware
 }): CallVsLive | null {
   const { entryPrice: E, expectedReturnPct: R, livePrice: P } = args
   if (typeof E !== 'number' || !Number.isFinite(E) || E <= 0) return null
@@ -407,6 +481,7 @@ export function callVsLive(args: {
     expected_return_pct: R,
     live_expected_return_pct: round1(liveReturn),
     expected_return_delta_pp: round1(liveReturn - R),
+    band: priceBand(args.scenarios, P, args.basket),
   }
 }
 
