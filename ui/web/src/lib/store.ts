@@ -260,9 +260,6 @@ interface State {
   chainTickers: Set<string> // tickers whose full run is a per-module CHAIN — defer the "complete" celebration to the master step
   selectToken: number
   runStream: StreamRow[]
-  runPanelDismissed: boolean // user closed the run-stream panel while nothing was live; re-shows on the next live run
-  dismissRunStream: () => void // hide the run-stream side panel (allowed only when nothing is live)
-  reopenRunStream: () => void // bring the run-stream side panel back (the top-bar "Runs" affordance)
   coreBloom: boolean
   decision: any | null
   runRoot: string | null
@@ -292,7 +289,7 @@ interface State {
   chatSource?: string // sourcePath from chat-meta — "answering from …"
   chatConversationId?: string // id of the persisted conversation this thread belongs to (from chat-meta)
   chatHistoryOpen: boolean // the saved-conversation browser is open
-  activityOpen: boolean
+  activityOpen: boolean // the Activity dock (live runs + the audit history) — auto-opens whenever a run goes live
   scoringOpen: boolean
   valuationPlaygroundOpen: boolean
   callsOpen: boolean
@@ -795,7 +792,6 @@ export const useStore = create<State>((set, get) => ({
   chainTickers: new Set(),
   selectToken: 0,
   runStream: [],
-  runPanelDismissed: false,
   coreBloom: false,
   decision: null,
   runRoot: null,
@@ -1023,7 +1019,7 @@ export const useStore = create<State>((set, get) => ({
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
     chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
     // the completion plan is per-subject disk truth — never let a previous subject's plan survive a switch
-    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], runPanelDismissed: false, activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, liveQuote: null, liveQuoteAt: null, ...CHAT_RESET })
+    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, liveQuote: null, liveQuoteAt: null, ...CHAT_RESET })
     const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
@@ -1449,8 +1445,6 @@ export const useStore = create<State>((set, get) => ({
 
   // Hide the run-stream panel. Keep the run rows in state (so reopening restores them); a boolean flag drives
   // visibility. The panel re-shows automatically on the next live run (see RunStreamPanel's anyLive effect).
-  dismissRunStream: () => set({ runPanelDismissed: true }),
-  reopenRunStream: () => set({ runPanelDismissed: false }),
 
   cancelRun: async (runId) => {
     const run = get().activeRuns[runId]

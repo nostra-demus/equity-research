@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { fmtCost } from '../lib/format'
 import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, fmtSpan, isOrblessRun, orbClass, orbProgress, scopeTiming, type ScopeOrb } from '../lib/eta'
+import { LIVEISH, pendingForScope, runsForScope } from '../lib/runScope'
 import { Spin } from './Spin'
 
 const dotColor: Record<string, string> = {
@@ -14,9 +15,6 @@ const dotColor: Record<string, string> = {
 
 const runLabel = (r: { kind: string; module?: string; agent?: string }) =>
   r.kind === 'full' ? 'Full run' : r.kind === 'sweep' ? 'News scan' : r.kind === 'module' ? `${r.module} module` : r.kind === 'rerun' ? `Re-run · ${r.agent}` : r.kind === 'doc-intake' ? 'New-data read' : r.agent || 'Agent'
-
-// every in-flight server status (incl. the pre-spawn gate phases the early-acked launch surfaces)
-const LIVEISH = new Set(['starting', 'readiness-checking', 'awaiting-readiness-decision', 'running'])
 
 // what the system is doing right now, in plain words — from the run's server status
 const PHASE_LABEL: Record<string, string> = {
@@ -38,16 +36,19 @@ const TOOL_GLOSS: Record<string, string> = {
   WebFetch: 'reading a source',
 }
 
-export function RunStreamPanel() {
+/** NOW — what this subject is running, or just ran. The live half of the Activity dock: one card per run
+ *  with its progress bar, heartbeat, Cancel, and the orbs reporting in as they finish.
+ *
+ *  It used to be its own floating panel beside the stage, which put the SAME information in two places —
+ *  this, and the Activity log's table — with two entry points and two mental models. It is now a section of
+ *  the dock, so "what's happening" and "what has happened" are one surface read top to bottom. It renders
+ *  only its own content: the shell, the header and the close button belong to the dock. */
+export function RunNowSection() {
   const activeRuns = useStore((s) => s.activeRuns)
   const runStream = useStore((s) => s.runStream)
   const cancelRun = useStore((s) => s.cancelRun)
-  const dismissRunStream = useStore((s) => s.dismissRunStream)
-  const runPanelDismissed = useStore((s) => s.runPanelDismissed)
-  const reopenRunStream = useStore((s) => s.reopenRunStream)
   const ticker = useStore((s) => s.selectedTicker)
   const activeSwarm = useStore((s) => s.activeSwarm)
-  const scSelectedSignal = useStore((s) => s.scSelectedSignal)
   const nodeRuntime = useStore((s) => s.nodeRuntime)
   const nodesByKey = useStore((s) => s.nodesByKey)
   const now = useStore((s) => s.now) // the shared 1s clock owned by SwarmField; ticks only while orbs run
@@ -57,29 +58,9 @@ export function RunStreamPanel() {
   // run-adaptive expected duration per orb class (gate / specialist / synthesis), learned from finished orbs
   const exp = useMemo(() => expectedDurations(collectSamples(nodeRuntime, (k) => { const n = nodesByKey.get(k); return n ? orbClass(n) : 'specialist' })), [nodeRuntime, nodesByKey])
 
-  // runs for the current scope (live + just-finished), oldest first. Research keys on the selected company;
-  // the screener's unit of work is a signal or a sweep, whose `ticker` is a SIG- id or the literal 'sweep' —
-  // filtering those by the research `selectedTicker` hid a running scan entirely (the "no visibility" gap).
-  const runs = Object.values(activeRuns)
-    .filter((r) => (activeSwarm === 'screener' ? r.ticker === 'sweep' || r.ticker.startsWith('SIG-') : r.ticker === ticker))
-    .sort((a, b) => (a.startedAt ?? 0) - (b.startedAt ?? 0))
-
-  // a launch is pending server-ack for THIS subject — show the panel with a starting banner in the
-  // same frame as the click, so the stage is never silent while the request is in flight
-  const pendingHere = launchPending && (launchPending.ticker === ticker || activeSwarm !== 'research')
-  // is anything actually in flight right now? drives close-button visibility + auto-reopen
-  const anyLive = runs.some((r) => LIVEISH.has(r.status)) || !!pendingHere
-  // A new live run supersedes a prior manual close, so the panel returns to show progress — and stays visible
-  // after it finishes, because the flag is cleared now (while live), not on the finish transition.
-  useEffect(() => { if (anyLive && runPanelDismissed) reopenRunStream() }, [anyLive, runPanelDismissed, reopenRunStream])
-  if (!runs.length && runStream.length === 0 && !pendingHere) return null
-  // user closed it and nothing is live → stay hidden until a new run starts or they reopen it from the top bar
-  if (runPanelDismissed && !anyLive) return null
-
-  // The panel is shared across swarms; its scope label must follow the active swarm — not the
-  // research-side selectedTicker, which would otherwise leak a stale ticker (e.g. "BG") into the
-  // screener view, where the unit of work is a signal, not a company.
-  const scope = activeSwarm === 'screener' ? (scSelectedSignal ? `Screener · ${scSelectedSignal}` : 'Screener') : ticker
+  // the scope's runs + the click→ack window, from the shared helper the dock shell also reads (lib/runScope)
+  const runs = runsForScope(activeRuns, activeSwarm, ticker)
+  const pendingHere = pendingForScope(launchPending, activeSwarm, ticker)
 
   const perRun = runs.map((run) => {
     const rows = runStream.filter((r) => r.runId === run.runId)
@@ -90,23 +71,14 @@ export function RunStreamPanel() {
     const running = run.status === 'running' || run.status === 'starting' || run.status === 'readiness-checking' || run.status === 'awaiting-readiness-decision'
     return { run, rows, done, total, running }
   })
-  const aggDone = perRun.reduce((s, p) => s + p.done, 0)
-  const aggTotal = perRun.reduce((s, p) => s + p.total, 0)
+  // Nothing running and nothing just-finished for this subject: the section says so in one quiet line
+  // rather than vanishing, so the dock's shape doesn't jump as runs come and go.
+  if (!runs.length && runStream.length === 0 && !pendingHere) {
+    return <div className="adock__idle">Nothing running for this {activeSwarm === 'screener' ? 'signal' : 'company'} right now. Anything you launch appears here as it happens.</div>
+  }
 
   return (
-    <div className="sidepanel">
-      <div className="sidepanel__head">
-        <div>
-          <div className="sidepanel__title">{runs.length ? `${runs.length} run${runs.length > 1 ? 's' : ''}` : 'Last run'}</div>
-          <div className="sidepanel__meta">{scope}{runs.length && aggTotal ? ` · ${aggDone}/${aggTotal} orbs` : ''}</div>
-        </div>
-        {/* close the panel — allowed whenever nothing is live (a live run keeps the panel pinned so progress
-            stays visible; reopen it any time from the top-bar "Runs" button) */}
-        {!anyLive && (
-          <button type="button" className="sidepanel__close" onClick={dismissRunStream} aria-label="Close run panel" title="Close — reopen from “Runs” in the top bar">✕</button>
-        )}
-      </div>
-
+    <>
       <div className="sidepanel__body">
         {/* click→ack window: the launch was fired and the server hasn't answered yet */}
         {pendingHere && !runs.some((r) => LIVEISH.has(r.status)) && (
@@ -220,6 +192,6 @@ export function RunStreamPanel() {
           </AnimatePresence>
         )}
       </div>
-    </div>
+    </>
   )
 }
