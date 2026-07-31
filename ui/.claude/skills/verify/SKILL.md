@@ -38,7 +38,10 @@ ENTIRE rest of the stack runs for real: Fastify route → child spawn → line p
 - The cockpit boots into the LAST-DEFAULT swarm (screener wire) — click the `Research` chip in the
   command bar first, then `Select ticker ▾`, then the company row.
 - The Ask panel opens via `button.cmdbar__ask` (use `.last()` — screener + research both mount one).
-- Running `npm test` or the live server re-stamps the committed fixture
-  `analyses/ZZKILLB_2099-01-01/.aborted` — `git checkout --` it before committing.
+- `npm test` no longer re-stamps the committed fixture `analyses/ZZKILLB_2099-01-01/.aborted`:
+  `cancel-all.test.ts` now roots its runs in a temp dir, so `writeRunMarker` no-ops instead of writing
+  inside `analyses/`. The old advice ("`git checkout --` it before committing") is obsolete — and it
+  was the failure mode itself, leaking that data mutation into #298 and #371. A LIVE server that
+  actually cancels a real run still writes markers under `analyses/`, which is correct.
 - Esc in the Ask panel closes it AND aborts the in-flight turn (by design); reopening starts a
   fresh thread (the old one stays in History).

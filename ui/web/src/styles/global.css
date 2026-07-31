@@ -557,6 +557,13 @@ a { color: inherit; }
 .chatpanel__computed-prov .more { margin-left: 6px; color: var(--accent-deep); border: 1px solid var(--hairline-strong); border-radius: var(--r-pill); padding: 0 6px; font-size: 9.5px; white-space: nowrap; }
 .chatpanel__computed-prov[open] .more { color: var(--accent-bright); }
 .chatpanel__computed-prov .full { margin-top: 6px; color: var(--text-muted); }
+/* the driver -> TARGET section (reprice_from_metric) nested inside the sensitivity card — a distinct band
+   (top border + faint tint) so the target/return numbers read as their own block, not more sensitivity rows */
+.chatpanel__computed-reprice { border-top: 1px solid var(--hairline-strong); background: var(--bg-2); }
+.chatpanel__computed-reprice--refuse { padding-bottom: 2px; }
+.chatpanel__computed-reprice > .chatpanel__computed-kicker { padding: 8px 12px 2px; }
+.chatpanel__computed-reprice > .chatpanel__computed-rows { padding-top: 0; }
+.chatpanel__computed-reprice > .chatpanel__computed-refuse { padding-top: 2px; }
 /* the one line that must never be missed — promoted (amber wash + accent border), no longer competing
    with boilerplate footers */
 .chatpanel__computed-warn { display: flex; gap: 8px; padding: 9px 12px; font-size: 12px; font-weight: 500; color: var(--accent-bright); background: var(--accent-wash); border-top: 1px solid var(--accent-deep); line-height: 1.5; }

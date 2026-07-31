@@ -448,6 +448,307 @@ def recompute(levers: ValuationLevers, direction: str = "long") -> dict:
 
 
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# 4. Driver -> target: push a NEW forward-metric value through each case's own levers
+# ---------------------------------------------------------------------------
+
+def _case_basis(scen: dict, run_basis: str) -> str:
+    b = scen.get("basis")
+    return b if b in ("equity", "ev") else run_basis
+
+
+class _BridgeTermError(Exception):
+    """A bridge/derivation carries an optional term (minority/other) that IS present but is not numeric.
+    §15: unknown net debt (and, by the same logic, an unreadable minority/other term) is never silently
+    treated as 0 — that quietly drops part of the EV->equity bridge with false confidence. Raised (never
+    swallowed into a bare None) so the caller can report WHY the case did not reprice, distinctly from
+    "this case simply records no metric x multiple" (Codex P2)."""
+
+
+def _numeric_or_refuse(container: dict, key: str) -> float:
+    """`key` absent/None -> 0.0 (a bridge term genuinely not recorded). `key` present but not numeric ->
+    raises _BridgeTermError. Never coerces a malformed value to 0."""
+    v = container.get(key)
+    if v is None:
+        return 0.0
+    if not _isnum(v):
+        raise _BridgeTermError(f"{key!r} is {v!r}, not numeric — refusing rather than treating it as 0")
+    return float(v)
+
+
+def _level_from_case(scen: dict, metric: float, run_basis: str, sidecar: dict):
+    """The per-share level THIS case's recorded levers give for `metric`. None when not derivable.
+    Same resolution as the integrity guard's _case_level and the client's caseLevelFromMultiple.
+    Raises _BridgeTermError when a recorded bridge term is present but malformed (§15) — the caller
+    must not catch that alongside the ordinary "not derivable" None."""
+    mult = scen.get("multiple")
+    if not (_isnum(metric) and _isnum(mult)):
+        return None
+    basis = _case_basis(scen, run_basis)
+    br = scen.get("bridge") if isinstance(scen.get("bridge"), dict) and basis == "ev" else None
+    if br is not None:
+        nd = br.get("net_debt")
+        if not _isnum(nd):
+            return None
+        sh = br.get("shares") if _isnum(br.get("shares")) else sidecar.get("shares")
+        if not (_isnum(sh) and float(sh) > 0):
+            return None
+        equity = float(metric) * float(mult) - float(nd) \
+            - _numeric_or_refuse(br, "minority") + _numeric_or_refuse(br, "other")
+        return equity / float(sh)
+    try:
+        return level_from_multiple(float(metric), float(mult), basis, sidecar.get("shares"), sidecar.get("net_debt"))
+    except ValueError:
+        return None
+
+
+def _level_from_derivation_bridge(deriv: dict, new_ev: float, sidecar: dict):
+    """Reprice a genuinely 'applied' ev_bridge derivation: the SAME recorded bridge terms (net_debt,
+    minority, other, shares), a fresh EV. None when not derivable; raises _BridgeTermError on a malformed
+    optional term (§15), mirroring _level_from_case."""
+    if not _isnum(new_ev):
+        return None
+    nd = deriv.get("net_debt")
+    if not _isnum(nd):
+        return None
+    sh = deriv.get("shares") if _isnum(deriv.get("shares")) else sidecar.get("shares")
+    if not (_isnum(sh) and float(sh) > 0):
+        return None
+    equity = float(new_ev) - float(nd) - _numeric_or_refuse(deriv, "minority") + _numeric_or_refuse(deriv, "other")
+    return equity / float(sh)
+
+
+# Canonical metric-identity families, used ONLY to STRENGTHEN the reprice gate when a label is recorded —
+# never to invent an identity that is not there. Two numerically-close-but-different metrics (an EBITDA
+# figure and an unrelated NTM-revenue figure that happen to sit within 2% of each other) must not silently
+# pass as "the same denominator" just because the numbers are close (Codex #371 P1).
+_METRIC_FAMILIES = {
+    "ebitda": ("ebitda",),
+    "ebit": ("ebit",),
+    "revenue": ("revenue", "sales", "turnover"),
+    "eps": ("eps", "earnings per share", "p/e", "price/earnings", "price-to-earnings", "pe ratio"),
+    "net_income": ("net income", "net profit", "pat "),
+    "book_value": ("book value", "p/bv", "price/book", "price-to-book", "nav"),
+    "fcf": ("free cash flow", "fcf"),
+}
+
+
+def _metric_families(text) -> set:
+    t = f" {str(text or '').strip().lower()} "
+    return {fam for fam, kws in _METRIC_FAMILIES.items() if any(kw in t for kw in kws)}
+
+
+def _case_identity_text(scen: dict) -> str:
+    return f"{scen.get('metric_basis') or ''} {scen.get('multiple_basis') or ''}"
+
+
+def reprice_from_metric(sidecar: dict, decision: dict, new_metric, base_metric=None,
+                        direction: str = "long", metric_label=None) -> dict:
+    """Answer "if the driver moves, what happens to the TARGET?" — the hop the chat could not make.
+
+    The sensitivity engine already turns a driver move into a new value for the run's base metric
+    (scripts/sensitivity_math.py). This takes that new value and pushes it through EACH case's own
+    recorded levers — its multiple, its basis, its EV->equity bridge — then re-derives every return and
+    the probability-weighted expected return. Nothing is estimated: a case that records no reproducible
+    metric x multiple simply does not move, and says so.
+
+    THE METRIC MUST BE THE SAME THING. An EBITDA coefficient cannot be applied to a case priced on
+    revenue. The gate is numeric first: the sensitivity's base value must equal the reference case's
+    forward_metric within a small relative tolerance. Numeric proximity ALONE cannot tell two DIFFERENT
+    metrics that happen to sit close together apart (an EBITDA ~100 and an unrelated NTM-revenue ~101
+    both clear a 2% band) — so when the caller names the driver's metric (`metric_label`) AND the
+    reference case records an identity string (metric_basis / multiple_basis), the two must agree; a
+    recorded identity that contradicts the driver's metric refuses even though the numbers are close
+    (Codex #371 P1). `metric_label` is optional and additive: when it — or the case's own identity text —
+    is not recorded, the numeric gate alone still governs (there is nothing more to check).
+
+    EACH CASE MOVES BY THE DRIVER'S DELTA, NOT TO ITS ABSOLUTE VALUE. Cases legitimately record different
+    forward metrics (a bull case run on a higher blended metric than the bear) — substituting one absolute
+    new value into every case would erase that spread. The reference case's move (new_metric - the
+    effective base) is added to EACH case's own recorded forward_metric instead.
+
+    WHICH CASES RESPOND. A case priced off a genuinely path-dependent recorded derivation (a margin
+    runoff, a structural reset — any model other than a plain 'ev_bridge') is NOT re-priced by a spot
+    driver: its level is a multi-year impairment path, not a function of this quarter's price. It is
+    reported as held, with the reason. An 'ev_bridge' derivation that the case itself records as
+    `multiple_kind: "applied"` (genuinely built AS metric x multiple, then bridged) is NOT path-dependent —
+    it reprices through its own recorded bridge terms with a freshly-computed EV. Same held treatment for
+    a case the master added with no module levers at all.
+
+    Returns {ok, cases[], expected_return_pct_before/after, ...} or {ok: False, reason}.
+    """
+    if not isinstance(sidecar, dict) or not isinstance(sidecar.get("scenarios"), list):
+        return {"ok": False, "reason": "no_levers", "detail": "this run records no valuation levers"}
+    if not _isnum(new_metric):
+        return {"ok": False, "reason": "no_new_metric", "detail": "no new metric value to apply"}
+
+    run_basis = sidecar.get("basis") if sidecar.get("basis") in ("equity", "ev") else "equity"
+    # §5/§20: an anchor price with no date reads as "today's price" on an older run — carry the date the
+    # PRICE ACTUALLY USED was as-of (Codex #371 P2), not just the number.
+    price, price_as_of = None, None
+    for cand, cand_date in (((decision or {}).get("entry_price"), (decision or {}).get("entry_price_timestamp")),
+                            (sidecar.get("current_price"), sidecar.get("price_as_of"))):
+        if _isnum(cand) and float(cand) > 0:
+            price, price_as_of = float(cand), cand_date if isinstance(cand_date, str) and cand_date.strip() else None
+            break
+
+    by_label = {}
+    for s in sidecar["scenarios"]:
+        if isinstance(s, dict) and isinstance(s.get("label"), str):
+            by_label[s["label"].strip().lower()] = s
+
+    # the metric gate — compare against the cases that actually carry a forward metric. Prefer the case
+    # labelled "base" as the reference (the natural anchor a driver's base value is meant to match); only
+    # when no base case records a metric do we fall back to the largest-magnitude one — picking an
+    # arbitrary case here is exactly how a VALID base_metric can wrongly fail the gate (Codex #371 P1).
+    metric_cases = [(lab, s) for lab, s in by_label.items() if _isnum(s.get("forward_metric"))]
+    if not metric_cases:
+        return {"ok": False, "reason": "no_metric_cases",
+                "detail": "no case records a forward metric, so a driver move cannot be pushed through"}
+    if "base" in by_label and _isnum(by_label["base"].get("forward_metric")):
+        ref_label, ref_case = "base", by_label["base"]
+    else:
+        ref_label, ref_case = max(metric_cases, key=lambda kv: abs(float(kv[1]["forward_metric"])))
+    ref = float(ref_case["forward_metric"])
+
+    if _isnum(base_metric):
+        if abs(float(base_metric)) > 1e-9 and abs(ref - float(base_metric)) / abs(float(base_metric)) > 0.02:
+            return {"ok": False, "reason": "metric_mismatch",
+                    "detail": (f"the sensitivity is on a base of {round(float(base_metric), 2)} but the valuation "
+                               f"cases are priced on {round(ref, 2)} — different denominators, so the coefficient "
+                               f"cannot be applied to the fair value")}
+        label_fams = _metric_families(metric_label)
+        if label_fams:
+            case_fams = _metric_families(_case_identity_text(ref_case))
+            if case_fams and not (case_fams & label_fams):
+                return {"ok": False, "reason": "metric_mismatch",
+                        "detail": (f"the driver is on {metric_label!r} but the {ref_label!r} case's recorded "
+                                   f"metric/multiple basis ({_case_identity_text(ref_case).strip() or 'unlabeled'}) "
+                                   f"names a different metric — the values happen to be close "
+                                   f"(driver base {round(float(base_metric), 2)} vs case {round(ref, 2)}) but the "
+                                   f"denominators are not the same thing")}
+
+    effective_base = float(base_metric) if _isnum(base_metric) else ref
+
+    # the CASE SET and the probabilities come from the frozen thesis (§10/§22); the sidecar supplies levers
+    thesis = (decision or {}).get("scenarios")
+    thesis = thesis if isinstance(thesis, list) and thesis else None
+    rows = thesis or [{"label": s.get("label"), "probability": s.get("probability"),
+                       "price_target": s.get("level")} for s in sidecar["scenarios"]]
+
+    cases, before, after = [], [], []
+    for t in rows:
+        lab = str(t.get("label") or "")
+        s = by_label.get(lab.strip().lower())
+        old = t.get("price_target")
+        old = float(old) if _isnum(old) else (float(s["level"]) if s and _isnum(s.get("level")) else None)
+        prob = t.get("probability")
+        row = {"label": lab, "probability": prob if _isnum(prob) else None,
+               "level_before": round(old, 4) if old is not None else None}
+        if s is None:
+            row.update(responds=False, why="the thesis's own case — the valuation module recorded no levers for it",
+                       level_after=row["level_before"])
+        else:
+            # §5/§7: "cite the source the number came from" — the VALUATION's own citation (the metric x
+            # multiple this case is quoted on) is a DIFFERENT source than the driver coefficient's own
+            # citation (already carried on the sensitivity side), and both must be citable separately
+            # (Codex #371 P1). A bridge/derivation's own source (when it differs from the scenario-level
+            # one — e.g. bridge terms traced to a different module's debt-note read) is carried too.
+            if isinstance(s.get("source"), str) and s.get("source").strip():
+                row["source"] = s["source"]
+            deriv = s.get("derivation") if isinstance(s.get("derivation"), dict) else None
+            if deriv is not None and isinstance(deriv.get("source"), str) and deriv.get("source").strip():
+                row["derivation_source"] = deriv["source"]
+            br = s.get("bridge") if isinstance(s.get("bridge"), dict) else None
+            if br is not None and isinstance(br.get("source"), str) and br.get("source").strip():
+                row["bridge_source"] = br["source"]
+            # path-dependent unless it's an 'ev_bridge' chain the case itself records as 'applied' — i.e.
+            # genuinely built AS metric x multiple, the derivation merely carrying the bridge terms.
+            path_dependent = deriv is not None and not (deriv.get("model") == "ev_bridge" and s.get("multiple_kind") == "applied")
+            if path_dependent:
+                row.update(responds=False,
+                           why="priced off a recorded derivation chain (a multi-year path), not off the spot driver",
+                           level_after=row["level_before"])
+            else:
+                case_metric = s.get("forward_metric")
+                if not _isnum(case_metric):
+                    row.update(responds=False, why="records no reproducible metric x multiple", level_after=row["level_before"])
+                else:
+                    # THE DELTA, not the absolute new value — each case keeps its own recorded metric and
+                    # only moves by what the driver moved (Codex #371 P1, highest priority in this batch).
+                    case_new_metric = float(case_metric) + (float(new_metric) - effective_base)
+                    nl, bridge_err = None, None
+                    try:
+                        if deriv is not None:
+                            mult = s.get("multiple")
+                            if _isnum(mult):
+                                nl = _level_from_derivation_bridge(deriv, case_new_metric * float(mult), sidecar)
+                        else:
+                            nl = _level_from_case(s, case_new_metric, run_basis, sidecar)
+                    except _BridgeTermError as e:
+                        bridge_err = str(e)
+                    if bridge_err is not None:
+                        row.update(responds=False,
+                                   why=f"a recorded bridge term is malformed — {bridge_err} — refusing rather than dropping it (§15)",
+                                   level_after=row["level_before"])
+                    elif nl is None:
+                        row.update(responds=False, why="records no reproducible metric x multiple", level_after=row["level_before"])
+                    else:
+                        row.update(responds=True, why=None, level_after=round(nl, 4),
+                                   multiple=s.get("multiple"), multiple_basis=s.get("multiple_basis"),
+                                   metric_before=round(float(case_metric), 4), metric_after=round(case_new_metric, 4))
+        if _isnum(row["probability"]):
+            if row["level_before"] is not None:
+                before.append({"label": lab, "probability": row["probability"], "price_target": row["level_before"]})
+            if row["level_after"] is not None:
+                after.append({"label": lab, "probability": row["probability"], "price_target": row["level_after"]})
+        cases.append(row)
+
+    # §10: a probability-weighted aggregate must never treat a WEIGHTED-but-unpriced case as contributing
+    # zero — scenario_math's weighted sum divides by 100 regardless of how many cases actually made it into
+    # the list, so a silently dropped case is mathematically indistinguishable from "priced at 0", not from
+    # "excluded". scenario_math has no renormalization convention elsewhere in this file to match (checked:
+    # the probabilities-summing-to-100 warning is the only related behaviour, and it does not renormalize
+    # either) — refuse the aggregate instead of publishing a number that quietly assumed a 0 (Codex #371 P2).
+    incomplete_before = [r["label"] for r in cases if _isnum(r["probability"]) and r["level_before"] is None]
+    incomplete_after = [r["label"] for r in cases if _isnum(r["probability"]) and r["level_after"] is None]
+    extra_warnings = []
+    if incomplete_before:
+        extra_warnings.append(
+            f"expected return (before) not computed — {', '.join(incomplete_before)} carries a probability "
+            f"with no derivable level; a probability-weighted sum must not silently drop a weighted case (§10)")
+    if incomplete_after:
+        extra_warnings.append(
+            f"expected return (after) not computed — {', '.join(incomplete_after)} carries a probability "
+            f"with no derivable level; a probability-weighted sum must not silently drop a weighted case (§10)")
+
+    mb = scenario_math(before, price, direction) if before and not incomplete_before else None
+    ma = scenario_math(after, price, direction) if after and not incomplete_after else None
+    for r in cases:
+        for tag, m in (("return_before", mb), ("return_after", ma)):
+            r[tag] = None
+            if m:
+                hit = next((x for x in m["per_scenario"] if str(x["label"]).strip().lower() == r["label"].strip().lower()), None)
+                if hit:
+                    r[tag] = hit["return_pct"]
+    return {
+        "ok": True,
+        "price": price,
+        "price_as_of": price_as_of,
+        "direction": "short" if str(direction).strip().lower() == "short" else "long",
+        "metric_before": round(ref, 4),
+        "metric_after": round(ref + (float(new_metric) - effective_base), 4),
+        "cases": cases,
+        "responded": sum(1 for r in cases if r.get("responds")),
+        "held": [r["label"] for r in cases if not r.get("responds")],
+        "expected_return_pct_before": (mb or {}).get("expected_return_pct"),
+        "expected_return_pct_after": (ma or {}).get("expected_return_pct"),
+        "prob_weighted_target_before": (mb or {}).get("prob_weighted_target"),
+        "prob_weighted_target_after": (ma or {}).get("prob_weighted_target"),
+        "warnings": sorted(set((mb or {}).get("warnings", []) + (ma or {}).get("warnings", []) + extra_warnings)),
+    }
+
+
 # selftest — fixture-free CI gate (mirrors scripts/market_prices.py --selftest)
 # ---------------------------------------------------------------------------
 def _approx(a, b, tol=0.15) -> bool:
@@ -458,7 +759,7 @@ def _approx(a, b, tol=0.15) -> bool:
 # — the `if fails` gate used to sit before the short-side group — disables every check below it while the
 # suite still prints PASS. A count is the only thing that catches that from inside (found by a MISSED
 # mutation: moving the gate back up changed nothing).
-_EXPECTED_CHECKS = 59
+_EXPECTED_CHECKS = 100
 _CHECKS_RUN = 0          # module-level on purpose — the CALLER asserts it, so an early return cannot hide it
 
 
@@ -663,6 +964,171 @@ def _selftest() -> int:
     check("an unrecognised direction is treated as long",
           scenario_math(TSLA, 319.69, direction="hedge")["expected_return_pct"] == lg["expected_return_pct"])
 
+    # ---- group 11: DRIVER -> TARGET (reprice_from_metric) — the chat's missing hop ----
+    # NHY's real shape: one shared metric (FY2025 Adj. EBITDA 28,889), three implied multiples, per-case
+    # bridges, and a BEAR priced off a recorded runoff chain. LME +275/mt -> EBITDA 33,014 (the sensitivity
+    # engine's own output for the user's question "if LME is 3,467/mt").
+    NHY_SC = {
+        "schema_version": "1.3", "ticker": "NHY", "basis": "equity", "shares": 1965.28, "net_debt": 13090,
+        "price_as_of": "2026-06-15",
+        "scenarios": [
+            {"label": "bull", "forward_metric": 28889.0, "multiple": 8.21, "basis": "ev", "level": 107.70,
+             "source": "07_scenario-and-fair-value.md §2 scenario table",
+             "bridge": {"net_debt": 17919, "net_debt_basis": "adj", "minority": 7495, "other": 0, "shares": 1965.28,
+                        "source": "05_balance-sheet-survival.md debt note"}},
+            {"label": "base", "forward_metric": 28889.0, "multiple": 6.45, "basis": "ev", "level": 81.83,
+             "source": "07_scenario-and-fair-value.md §2 scenario table",
+             "bridge": {"net_debt": 17919, "net_debt_basis": "adj", "minority": 7495, "other": 0, "shares": 1965.28}},
+            {"label": "bear", "forward_metric": 28889.0, "multiple": 3.95, "basis": "ev", "level": 45.12,
+             "bridge": {"net_debt": 17919, "net_debt_basis": "adj", "minority": 7495, "other": 0, "shares": 1965.28},
+             "derivation": {"model": "margin_runoff_dcf", "ev": 114095, "net_debt": 17919, "minority": 7495,
+                            "shares": 1965.28, "source": "07 §3"}},
+        ]}
+    NHY_DR = {"entry_price": 84.96, "entry_price_timestamp": "2026-06-15", "scenarios": [
+        {"label": "bull", "probability": 20, "price_target": 107.70},
+        {"label": "base", "probability": 55, "price_target": 81.83},
+        {"label": "bear", "probability": 25, "price_target": 45.12}]}
+    rp = reprice_from_metric(NHY_SC, NHY_DR, 33014.0, 28889.0)
+    check("reprice ok", rp["ok"] is True)
+    _c = {r["label"]: r for r in rp["cases"]}
+    check("reprice: the BEFORE expected return reproduces the published -8.4",
+          abs(rp["expected_return_pct_before"] + 8.4) < 0.1)
+    check("reprice: bull re-prices through its own bridge (107.70 -> 124.99)",
+          abs(_c["bull"]["level_after"] - 124.9852) < 0.01)
+    check("reprice: base re-prices (81.83 -> 95.42)", abs(_c["base"]["level_after"] - 95.4196) < 0.01)
+    check("reprice: the chain-priced BEAR is HELD, not re-priced by a spot driver",
+          _c["bear"]["responds"] is False and _c["bear"]["level_after"] == _c["bear"]["level_before"])
+    check("reprice: and it says WHY it is held", "derivation chain" in (_c["bear"]["why"] or ""))
+    # #7 (P1): the VALUATION's own source is carried per case — a DIFFERENT citation than the driver
+    # coefficient's own source (carried on the sensitivity side, not here), so both are citable (Codex #371 P1)
+    check("reprice: the responding bull case carries its OWN §5 source (the scenario table, not the driver's)",
+          _c["bull"].get("source") == "07_scenario-and-fair-value.md §2 scenario table")
+    check("reprice: a bridge with its own DIFFERENT source is carried separately (not misattributed to the scenario source)",
+          _c["bull"].get("bridge_source") == "05_balance-sheet-survival.md debt note")
+    check("reprice: the HELD bear still carries its derivation's own source",
+          _c["bear"].get("derivation_source") == "07 §3")
+    # #8 (P2): the anchor price carries its OWN date — an old run's price must not read as "today's price"
+    check("reprice: the entry price's date is carried through (not just the number)", rp.get("price_as_of") == "2026-06-15")
+    check("reprice: expected return moves -8.4 -> +4.5", abs(rp["expected_return_pct_after"] - 4.5) < 0.1)
+    check("reprice: returns are carried per case", abs(_c["base"]["return_after"] - 12.3) < 0.2)
+    # THE METRIC GATE: an EBITDA coefficient must never be applied to a revenue-priced case
+    rev = {"schema_version": "1.3", "basis": "ev", "shares": 4252.5, "scenarios": [
+        {"label": "base", "forward_metric": 110860.0, "multiple": 1.0, "basis": "ev", "level": 32.37,
+         "bridge": {"net_debt": -27444, "net_debt_basis": "broad", "minority": 661, "other": 0, "shares": 4252.5}}]}
+    mm = reprice_from_metric(rev, {"entry_price": 319.69, "scenarios": [{"label": "base", "probability": 100, "price_target": 32.37}]},
+                             33014.0, 28889.0)
+    check("reprice REFUSES a metric mismatch (EBITDA coefficient vs a revenue-priced case)",
+          mm["ok"] is False and mm["reason"] == "metric_mismatch")
+    check("...and names both denominators", "110860" in str(mm["detail"]) and "28889" in str(mm["detail"]))
+    # a case the master added, with no levers at all, is held and named
+    dr5 = {"entry_price": 84.96, "scenarios": NHY_DR["scenarios"] + [{"label": "tail", "probability": 0, "price_target": 200.0}]}
+    rp5 = reprice_from_metric(NHY_SC, dr5, 33014.0, 28889.0)
+    _t = {r["label"]: r for r in rp5["cases"]}["tail"]
+    check("a master-added case is held, with its own reason",
+          _t["responds"] is False and "no levers" in (_t["why"] or ""))
+    check("the case set comes from the THESIS (4 rows, not the sidecar's 3)", len(rp5["cases"]) == 4)
+    # a SHORT re-prices position-signed
+    rp_s = reprice_from_metric(NHY_SC, NHY_DR, 33014.0, 28889.0, direction="short")
+    check("a short's expected return is the mirror of the long's",
+          abs(rp_s["expected_return_pct_after"] + rp["expected_return_pct_after"]) < 0.15)
+    check("no levers at all -> a clean refusal", reprice_from_metric({}, NHY_DR, 33014.0)["ok"] is False)
+
+    # ---- group 11b: reprice hardening (Codex #371) ----
+    # #4 (P1, highest priority): EACH case moves by the driver's DELTA, not to one pinned absolute value —
+    # three cases recording DIFFERENT forward metrics (101/100/99, all within the 2% gate of base 100) must
+    # keep their spread after a +10 move, not all land on 110.
+    spread_sc = {"schema_version": "1.3", "basis": "equity", "scenarios": [
+        {"label": "bull", "forward_metric": 101.0, "multiple": 10.0, "multiple_basis": "NTM P/E", "multiple_kind": "applied", "level": 1010.0},
+        {"label": "base", "forward_metric": 100.0, "multiple": 10.0, "multiple_basis": "NTM P/E", "multiple_kind": "applied", "level": 1000.0},
+        {"label": "bear", "forward_metric": 99.0, "multiple": 10.0, "multiple_basis": "NTM P/E", "multiple_kind": "applied", "level": 990.0},
+    ]}
+    spread_dr = {"entry_price": 900.0, "scenarios": [
+        {"label": "bull", "probability": 30, "price_target": 1010.0},
+        {"label": "base", "probability": 40, "price_target": 1000.0},
+        {"label": "bear", "probability": 30, "price_target": 990.0}]}
+    rp_spread = reprice_from_metric(spread_sc, spread_dr, 110.0, 100.0)
+    _cs = {r["label"]: r for r in rp_spread["cases"]}
+    check("delta (not absolute): bull keeps its own metric's move (101->111 => 1110)", _approx(_cs["bull"]["level_after"], 1110.0, tol=0.01))
+    check("delta (not absolute): base moves too (100->110 => 1100)", _approx(_cs["base"]["level_after"], 1100.0, tol=0.01))
+    check("delta (not absolute): bear keeps its own metric's move (99->109 => 1090), NOT pinned to 1100",
+          _approx(_cs["bear"]["level_after"], 1090.0, tol=0.01))
+    check("delta (not absolute): the three cases are NOT all pinned to one value",
+          len({_cs["bull"]["level_after"], _cs["base"]["level_after"], _cs["bear"]["level_after"]}) == 3)
+
+    # #3 (P1): an 'ev_bridge' derivation the case records as multiple_kind 'applied' is genuinely metric x
+    # multiple (then bridged) — NOT path-dependent — so it reprices, using its OWN recorded bridge terms
+    # with a freshly-computed EV. metric 100 x mult 5 = ev 500; bridge net_debt 50, shares 10 -> level 45.
+    applied_case = {"label": "base", "forward_metric": 100.0, "multiple": 5.0, "basis": "ev", "level": 45.0,
+                    "multiple_kind": "applied",
+                    "derivation": {"model": "ev_bridge", "ev": 500.0, "net_debt": 50.0, "shares": 10.0, "source": "x"}}
+    applied_sc = {"schema_version": "1.3", "basis": "ev", "scenarios": [applied_case]}
+    applied_dr = {"entry_price": 40.0, "scenarios": [{"label": "base", "probability": 100, "price_target": 45.0}]}
+    rp_applied = reprice_from_metric(applied_sc, applied_dr, 120.0, 100.0)
+    _ac = rp_applied["cases"][0]
+    check("an 'applied' ev_bridge case REPRICES, not held (Codex #371 P1)", _ac["responds"] is True)
+    check("...through its own bridge terms with a fresh EV (100x5=500 -> 120x5=600, less 50 debt, /10 shares = 55)",
+          _approx(_ac["level_after"], 55.0, tol=0.01))
+    # regression: the SAME derivation shape WITHOUT multiple_kind 'applied' (i.e. 'implied' — a cross-check,
+    # not the generative machinery) stays genuinely held, so the distinction is actually doing the work.
+    implied_case = dict(applied_case, multiple_kind="implied")
+    rp_implied = reprice_from_metric({"schema_version": "1.3", "basis": "ev", "scenarios": [implied_case]},
+                                     applied_dr, 120.0, 100.0)
+    check("an 'implied' ev_bridge case (a cross-check, not the generative lever) stays HELD",
+          rp_implied["cases"][0]["responds"] is False)
+
+    # #1 (P1): the metric-identity gate. Two numerically-close-but-different metrics (EBITDA ~100 vs an
+    # unrelated revenue figure ~101) must not pass on proximity alone when the case's own recorded identity
+    # (multiple_basis) NAMES a different metric than the driver.
+    id_mismatch_sc = {"schema_version": "1.3", "basis": "ev", "scenarios": [
+        {"label": "base", "forward_metric": 101.0, "multiple": 1.0, "multiple_basis": "EV/NTM Revenue",
+         "multiple_kind": "applied", "level": 101.0}]}
+    id_dr = {"entry_price": 90.0, "scenarios": [{"label": "base", "probability": 100, "price_target": 101.0}]}
+    id_mm = reprice_from_metric(id_mismatch_sc, id_dr, 110.0, 100.0, metric_label="EBITDA")
+    check("identity gate REFUSES a coincidental proximity match on a NAMED different metric (Codex #371 P1)",
+          id_mm["ok"] is False and id_mm["reason"] == "metric_mismatch")
+    check("...and names the recorded identity that contradicts the driver", "EV/NTM Revenue" in str(id_mm["detail"]))
+    id_match_sc = {"schema_version": "1.3", "basis": "ev", "scenarios": [
+        {"label": "base", "forward_metric": 101.0, "multiple": 1.0, "multiple_basis": "EV/FY25 Adj. EBITDA",
+         "multiple_kind": "applied", "level": 101.0}]}
+    id_ok = reprice_from_metric(id_match_sc, id_dr, 110.0, 100.0, metric_label="EBITDA")
+    check("identity gate PASSES when the recorded identity agrees with the driver", id_ok["ok"] is True)
+    id_unlabeled_sc = {"schema_version": "1.3", "basis": "ev", "scenarios": [
+        {"label": "base", "forward_metric": 101.0, "multiple": 1.0, "multiple_kind": "applied", "level": 101.0}]}
+    id_unlabeled = reprice_from_metric(id_unlabeled_sc, id_dr, 110.0, 100.0, metric_label="EBITDA")
+    check("identity gate is ADDITIVE: no recorded identity text -> proximity alone still governs (not a new refusal)",
+          id_unlabeled["ok"] is True)
+
+    # #2 (P2): a case that carries a probability but no derivable level (before OR after) must REFUSE the
+    # probability-weighted aggregate, not silently divide by 100 as though it contributed 0.
+    incomplete_sc = {"schema_version": "1.3", "ticker": "NHY", "basis": "equity", "shares": 1965.28, "net_debt": 13090,
+                     "scenarios": NHY_SC["scenarios"] + [{"label": "wild"}]}
+    incomplete_dr = {"entry_price": 84.96, "scenarios": NHY_DR["scenarios"] + [{"label": "wild", "probability": 15}]}
+    rp_incomplete = reprice_from_metric(incomplete_sc, incomplete_dr, 33014.0, 28889.0)
+    check("a weighted-but-unpriced case still reprices ok (per-case rows still returned)", rp_incomplete["ok"] is True)
+    check("...but the AGGREGATE is refused, not silently short-counted (Codex #371 P2)",
+          rp_incomplete["expected_return_pct_before"] is None and rp_incomplete["expected_return_pct_after"] is None)
+    check("...and says which case and why", any("wild" in w and "not computed" in w for w in rp_incomplete["warnings"]))
+
+    # #5 (P2): a bridge term that is PRESENT but malformed (non-numeric) must refuse the case, never be
+    # silently coerced to 0 — distinct from a term that is genuinely ABSENT (which correctly defaults to 0).
+    bad_bridge_sc = {"schema_version": "1.3", "basis": "ev", "scenarios": [
+        {"label": "base", "forward_metric": 100.0, "multiple": 5.0, "basis": "ev", "level": 45.0,
+         "bridge": {"net_debt": 50.0, "net_debt_basis": "strict", "minority": "7495", "shares": 10.0}}]}
+    bad_bridge_dr = {"entry_price": 40.0, "scenarios": [{"label": "base", "probability": 100, "price_target": 45.0}]}
+    rp_bad_bridge = reprice_from_metric(bad_bridge_sc, bad_bridge_dr, 120.0, 100.0)
+    _bb = rp_bad_bridge["cases"][0]
+    check("a malformed (non-numeric) bridge term REFUSES the case, not silently treated as 0 (§15, Codex #371 P2)",
+          _bb["responds"] is False)
+    check("...and says the term is malformed, not just 'no reproducible metric'", "malformed" in (_bb["why"] or ""))
+    # control: the SAME shape with minority genuinely ABSENT (not malformed) reprices normally, proving the
+    # refusal is specifically about malformed-vs-absent, not a blanket new failure on every bridge.
+    ok_bridge_sc = {"schema_version": "1.3", "basis": "ev", "scenarios": [
+        {"label": "base", "forward_metric": 100.0, "multiple": 5.0, "basis": "ev", "level": 45.0,
+         "bridge": {"net_debt": 50.0, "net_debt_basis": "strict", "shares": 10.0}}]}
+    rp_ok_bridge = reprice_from_metric(ok_bridge_sc, bad_bridge_dr, 120.0, 100.0)
+    check("...while a genuinely ABSENT minority (not malformed) still reprices fine (0, as before)",
+          rp_ok_bridge["cases"][0]["responds"] is True and _approx(rp_ok_bridge["cases"][0]["level_after"], 55.0, tol=0.01))
+
     # ALL-UPSIDE setup: every scenario favours the position, so there is no adverse case and the signed
     # ratio is meaningless. EMAAR_2026-07-03's real shape — bear 20.0 ABOVE entry 12.2 — where the run
     # publishes the disclosed magnitude (reward 14.49 / bear gap 7.80 = 1.9x) and eval.py skips its own
@@ -690,7 +1156,7 @@ def _selftest() -> int:
     if fails:
         print("VALUATION MATH SELFTEST FAIL:", ", ".join(fails))
         return 1
-    print(f"VALUATION MATH SELFTEST PASS — {12} groups, AMZN + NHY + EMAAR + TSLA decision_records reproduced "
+    print(f"VALUATION MATH SELFTEST PASS — {14} groups, AMZN + NHY + EMAAR + TSLA decision_records reproduced "
           f"(AMZN long: expected -16.1 / mos -13.5 / downside 38.7 / rr -0.41; TSLA short: +56.57 / +30.56 / 1.85), "
           f"re-anchor + WACC + symmetry + v1.3 per-case bridge checks green")
     return 0
@@ -710,7 +1176,27 @@ if __name__ == "__main__":
             return 1
         return rc
 
+    # --reprice: the callable entry the cockpit chat server shells out to (ui/server/src/chat-whatif.ts) for
+    # the driver -> TARGET hop. Reads ONE request as JSON on stdin —
+    #   {"sidecar": <valuation_summary.json>, "decision": <decision_record.json>, "new_metric": number,
+    #    "base_metric": number, "direction": "long"|"short", "metric_label": string|null}
+    # — and writes reprice_from_metric()'s result (or {"error": ...}) as JSON on stdout. The Node side owns
+    # path-sandboxing and passes parsed objects, so this entry never touches the filesystem: the same engine
+    # the guard and the client mirror, one source of truth.
+    if "--reprice" in sys.argv:
+        import json as _j
+        try:
+            _req = _j.load(sys.stdin)
+            if not isinstance(_req, dict):
+                raise ValueError("reprice request must be a JSON object")
+            print(_j.dumps(reprice_from_metric(_req.get("sidecar") or {}, _req.get("decision") or {},
+                                               _req.get("new_metric"), _req.get("base_metric"),
+                                               _req.get("direction") or "long", _req.get("metric_label"))))
+        except Exception as e:
+            print(_j.dumps({"error": f"reprice request failed: {e}"}))
+        raise SystemExit(0)
     if "--selftest" in sys.argv:
+
         raise SystemExit(_run_selftest())
     # demo: the AMZN case, frozen anchor vs live re-anchor
     amzn = [{"label": "bull", "probability": 25, "price_target": 247.0},
