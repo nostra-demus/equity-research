@@ -30,7 +30,7 @@ import path from 'node:path'
 import { isReservedDataFolder } from './config'
 import { readFeed } from './news/feed'
 import type { FeedItem } from './news/types'
-import { bridgeEventToSubject, matchTrackedSubjects } from './research-bridge'
+import { bridgeEventToSubject, normaliseCompanyName, matchTrackedSubjects } from './research-bridge'
 import { isValidTicker } from './sandbox'
 
 export const CURSOR_FILE = 'research-bridge-cursor.json'
@@ -300,6 +300,19 @@ export interface SweepOpts {
 /** Canonical company name per subject, from each one's NEWEST decision_record.json (`company_name`).
  *  Best-effort and silent: a subject with no run, no record, or an unreadable one simply gets no alias
  *  and keeps ticker-only matching — the fallback must never be able to break a sweep. */
+/** The wire company name that normalises to this subject's canonical name — i.e. the one that actually
+ *  matched. Used only to keep the routed note's provenance line truthful. */
+export function wireNameMatching(item: FeedItem, subjectName?: string): string | undefined {
+  if (!subjectName) return undefined
+  const target = normaliseCompanyName(subjectName)
+  if (!target) return undefined
+  for (const c of item.companies || []) {
+    const raw = String(c?.name || '')
+    if (raw && normaliseCompanyName(raw) === target) return raw
+  }
+  return undefined
+}
+
 export function readSubjectNames(subjects: string[], analysesDir?: string): Record<string, string> {
   const out: Record<string, string> = {}
   if (!analysesDir) return out
@@ -469,6 +482,7 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
           const res = writeNote({
             item: it, ticker: subject, mode: 'auto', user: 'auto', userVia: 'local',
             matchedBy: byName ? 'name' : 'ticker',
+            matchedName: byName ? wireNameMatching(it, subjectNames?.[subject]) : undefined,
             opts: { dataDir: opts.dataDir, stateDir: opts.stateDir, now },
           })
           if (res.already) duplicates++

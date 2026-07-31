@@ -7,8 +7,8 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { matchTrackedSubjects, normaliseCompanyName } from '../src/research-bridge'
-import { readSubjectNames } from '../src/bridge-batch'
+import { matchTrackedSubjects, normaliseCompanyName, renderEventNote } from '../src/research-bridge'
+import { readSubjectNames, wireNameMatching } from '../src/bridge-batch'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -98,7 +98,56 @@ check('readSubjectNames never throws on a missing/unreadable analyses dir', () =
   assert.deepEqual(readSubjectNames(['AMZN'], undefined), {})
 })
 
-const EXPECTED_CHECKS = 11
+// ---- review fixes (#374) ----------------------------------------------------------------------------
+
+check('a LEADING article is stripped too — "The Coca-Cola Company" matches a wire naming "Coca-Cola"', () => {
+  // the suffix pass runs from the END and could never reach it; a large class of names starts with "The"
+  assert.equal(normaliseCompanyName('The Coca-Cola Company'), 'coca cola')
+  assert.equal(normaliseCompanyName('The Walt Disney Company'), 'walt disney')
+  assert.equal(normaliseCompanyName('Coca-Cola'), 'coca cola')
+  fs.mkdirSync(path.join(dataDir, 'KO'), { recursive: true })
+  mkRun('KO_2026-07-01', 'The Coca-Cola Company')
+  const names = readSubjectNames(['KO'], analysesDir)
+  assert.deepEqual(matchTrackedSubjects(item([{ name: 'Coca-Cola', ticker: null }]), dataDir, names), ['KO'])
+  // a name that is ONLY the article still survives normalisation (never empty)
+  assert.equal(normaliseCompanyName('The'), 'the')
+})
+
+check('the name path PROVES the pool exists, exactly as the ticker path does', () => {
+  // an exported matcher must not hand back a subject bridgeEventToSubject would then reject with
+  // "no data/<T>/ pool" — asymmetric strictness between the two paths is a bug waiting for its caller
+  const stale = { GHOST: 'Ghost Corp' }
+  assert.deepEqual(matchTrackedSubjects(item([{ name: 'Ghost Corp', ticker: null }]), dataDir, stale), [])
+})
+
+check('the note quotes the company that MATCHED, not the first ticker-less one', () => {
+  // the wire naming several ticker-less companies used to put "Wildberries" on an AMZN note — a false
+  // claim in the one line whose entire job is provenance (§5)
+  const multi = item([{ name: 'Wildberries', ticker: null }, { name: 'Amazon', ticker: null }])
+  assert.equal(wireNameMatching(multi, 'Amazon.com, Inc.'), 'Amazon')
+  assert.equal(wireNameMatching(multi, 'Norsk Hydro ASA'), undefined)
+  const md = renderEventNote({
+    item: { ...multi, headline: 'h', event_id: 'EVT-0123456789ab' } as any,
+    ticker: 'AMZN', mode: 'auto', user: 'auto',
+    matchedBy: 'name', matchedName: wireNameMatching(multi, 'Amazon.com, Inc.'),
+    now: () => new Date('2026-07-31T00:00:00Z'),
+  })
+  const routed = md.split('\n').find((l) => l.startsWith('- Routed to')) || ''
+  assert.ok(routed.includes('named this tracked subject\'s company exactly ("Amazon")'), routed)
+  // scoped to the PROVENANCE line: the note's "Companies the wire named" section legitimately lists
+  // every company the wire tagged, Wildberries included — it is the routing claim that must be precise
+  assert.ok(!routed.includes('Wildberries'), routed)
+})
+
+check('a TICKER route still claims the ticker, never the name wording', () => {
+  const md = renderEventNote({
+    item: item([{ name: 'Amazon', ticker: 'AMZN' }]) as any,
+    ticker: 'AMZN', mode: 'auto', user: 'auto', now: () => new Date('2026-07-31T00:00:00Z'),
+  })
+  assert.ok(md.includes("the wire's extracted ticker matched this tracked subject exactly"), md)
+})
+
+const EXPECTED_CHECKS = 15
 assert.ok(passed >= EXPECTED_CHECKS,
   `only ${passed} checks ran, expected at least ${EXPECTED_CHECKS} — something above is short-circuiting`)
 console.log(`\nbridge-name-match.test.ts: ${passed} checks passed`)

@@ -122,6 +122,11 @@ export interface RenderNoteOpts {
    *  'name' = no ticker matched and the wire named the company. Recorded because the two carry different
    *  strength, and the note is the reader's only evidence of which one happened. */
   matchedBy?: 'ticker' | 'name'
+  /** For a 'name' route: the wire company name that actually matched. Passed in rather than re-derived,
+   *  because the note must quote the company that MATCHED — picking the first ticker-less company would
+   *  put "Wildberries" on an AMZN note whenever the wire named several. A false provenance claim in the
+   *  one line whose whole job is provenance (§5). */
+  matchedName?: string
 }
 
 export function renderEventNote(o: RenderNoteOpts): string {
@@ -136,7 +141,7 @@ export function renderEventNote(o: RenderNoteOpts): string {
   // this line to judge how firm the link is, and a name match is the weaker of the two (§5).
   const autoWhy =
     o.matchedBy === 'name'
-      ? `the wire extracted no ticker, but named this tracked subject's company exactly ("${cap(String((item.companies || []).find((c) => !c?.ticker)?.name || ''), 80)}").`
+      ? `the wire extracted no ticker, but named this tracked subject's company exactly ("${cap(o.matchedName || '', 80)}").`
       : "the wire's extracted ticker matched this tracked subject exactly."
   const routedLine =
     o.mode === 'manual'
@@ -270,6 +275,7 @@ export function bridgeEventToSubject(o: {
   userVia: string
   enrichment?: EventEnrichment | null
   matchedBy?: 'ticker' | 'name'
+  matchedName?: string
   opts: BridgeOpts
 }): BridgeResult {
   const seg = safeSubjectSegment(o.ticker) // throws 400 on anything that isn't provably one path segment
@@ -285,7 +291,7 @@ export function bridgeEventToSubject(o: {
   const dup = findClusterDuplicate(dir, seg, o.item, noteName)
   if (dup) return dup
 
-  const md = renderEventNote({ item: o.item, ticker: seg, mode: o.mode, user: o.user, enrichment: o.enrichment, matchedBy: o.matchedBy, now: o.opts.now })
+  const md = renderEventNote({ item: o.item, ticker: seg, mode: o.mode, user: o.user, enrichment: o.enrichment, matchedBy: o.matchedBy, matchedName: o.matchedName, now: o.opts.now })
   // Claim `fp` itself with an exclusive create: a plain rename always succeeds and would silently CLOBBER
   // a note another writer created between our existence/dedup checks above and this line — the exact race
   // a manual "Send to research" click, a stream-mode delivery, and this batch sweep can all hit against
@@ -434,7 +440,14 @@ export function matchTrackedSubjects(
   for (const [t, name] of Object.entries(subjectNames)) {
     if (!isValidTicker(t) || isReservedDataFolder(t)) continue
     const n = normaliseCompanyName(name)
-    if (n.length >= 2 && wanted.has(n)) named.push(t.toUpperCase())
+    if (n.length < 2 || !wanted.has(n)) continue
+    // Prove the pool exists, exactly as the ticker path does above. The sweep happens to pass a map built
+    // from already-filtered subjects, but this is an EXPORTED matcher: a caller with a stale alias map
+    // would otherwise be handed a subject bridgeEventToSubject then rejects with "no data/<T>/ pool".
+    // Asymmetric strictness between the two paths is a bug waiting for its caller.
+    try {
+      if (fs.statSync(path.join(dataDir, t)).isDirectory()) named.push(t.toUpperCase())
+    } catch { /* not a tracked subject */ }
   }
   return named.sort()
 }
@@ -459,6 +472,10 @@ export function normaliseCompanyName(raw: string): string {
   ])
   const parts = s.split(' ').filter(Boolean)
   while (parts.length > 1 && SUFFIX.has(parts[parts.length - 1])) parts.pop()
+  // ...and a LEADING article, which the suffix pass cannot reach: "The Coca-Cola Company" normalised to
+  // "the coca cola" and so failed to match a wire naming plain "Coca-Cola". Same for Disney, Home Depot,
+  // Kroger — a large class of names. Only stripped when something remains.
+  while (parts.length > 1 && parts[0] === 'the') parts.shift()
   return parts.join(' ')
 }
 
