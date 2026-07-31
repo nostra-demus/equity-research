@@ -547,6 +547,7 @@ await check('it refuses to invent a band it does not have', () => {
   assert.equal(priceBand(null, 270, null), null, 'no scenarios → no band')
   assert.equal(priceBand([], 270, null), null, 'empty scenarios → no band')
   assert.equal(priceBand([{ label: 'base', price_target: 210 }], 270, null), null, 'ONE target is a point, not a band')
+  assert.equal(priceBand([{ label: 'base', price_target: 210 }, { label: 'bull', price_target: 210 }], 270, null), null, 'identical targets are a point, not a band (low === high)')
   assert.equal(priceBand([{ label: 'a' }, { label: 'b' }], 270, null), null, 'scenarios with no prices → no band')
 })
 

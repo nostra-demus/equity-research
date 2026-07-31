@@ -428,6 +428,10 @@ export function priceBand(
   if (targets.length < 2) return null
   const low = Math.min(...targets)
   const high = Math.max(...targets)
+  // Two-or-more IDENTICAL targets are still a point, not a band: with low === high there is no bull-vs-bear
+  // span, so "above/below the band" and outside_by_pct are meaningless (it would read as "above its own best
+  // case" off a single level). This is the degenerate §10 collapsed-scenario set — refuse it, don't warn on it.
+  if (low === high) return null
   const isShort = /short/i.test(String(basket ?? ''))
   if (livePrice > high) {
     return {
