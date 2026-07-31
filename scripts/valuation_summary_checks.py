@@ -412,13 +412,18 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
 
     mbasis = sidecar.get("method_basis")
     if v14 and isinstance(mbasis, dict) and isinstance(weights, dict):
+        # blend() supports NON-normalized weights (e.g. percent-style 35/25/40 summing to 100), so display
+        # the NORMALIZED share — matching the cross-check block above — else a percent-style weight of 40
+        # renders as "4000%". Normalize by the same positive-weight sum the cross-check block uses.
+        _wsum = sum(v for v in weights.values() if _isnum(v) and v > 0)
         for meth, b in mbasis.items():
             if not isinstance(b, str) or b.strip().lower() != "trailing":
                 continue
             w = weights.get(meth)
             if _isnum(w) and w > 0:
+                shown = (w / _wsum) if _wsum > 0 else w
                 det.append(
-                    f"method '{meth}' is valued on a TRAILING period yet carries {w:.0%} base-point weight — a "
+                    f"method '{meth}' is valued on a TRAILING period yet carries {shown:.0%} base-point weight — a "
                     f"trailing anchor is a labelled sanity check only, never a weighted method "
                     f"(06_sum-of-the-parts; MODULE_RULES Calculation Standard 10). Re-base it to LTM/forward "
                     f"or drop its weight to 0.")
@@ -1062,6 +1067,16 @@ def _selftest() -> int:
     check("trailing sanity check at 0 weight is allowed", eval_ap_valuation_summary_integrity(
         dict(good, method_weights={"peers": 0.5, "own_history": 0.25, "dcf": 0.25, "sotp": 0.0},
              method_basis={"peers": "NTM", "own_history": "NTM", "dcf": "FY+1", "sotp": "trailing"}), dr_match) == [])
+
+    # NON-NORMALIZED (percent-style) weights: blend() supports them, so the trailing-weight message must
+    # show the NORMALIZED share (40 of 100 -> "40%"), not the raw weight ("4000%"). Same AMZN shape, weights
+    # as integers summing to 100. Expected value pinned to the cross-check block's own normalized convention.
+    _pct = dict(amzn, method_weights={"peers": 35, "dcf": 25, "sotp": 40})
+    _pct_out = eval_ap_valuation_summary_integrity(_pct, dr_match)
+    check("trailing-weight % is normalized (40%, not 4000%)",
+          any("TRAILING period yet carries 40% base-point weight" in x for x in _pct_out))
+    check("trailing-weight message never shows a raw non-normalized %",
+          not any("4000%" in x for x in _pct_out))
 
     if fails:
         print("VALUATION SUMMARY CHECKS SELFTEST FAIL:", ", ".join(fails))
