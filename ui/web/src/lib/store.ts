@@ -391,6 +391,13 @@ interface State {
   checkCredit: () => Promise<void>
   selectNode: (key: string | null) => void
   setNow: (n: number) => void
+  // The decision dock's MEASURED height. It is an absolute, bottom-anchored overlay on the same stage as
+  // the constellation, so the field has to reserve real pixels under itself or the master-thesis core is
+  // drawn behind it (it was). Measured rather than assumed because the dock grows a "newer data" notice
+  // and its metric strip wraps — a static guess is wrong in exactly the states that matter. 0 when the
+  // dock is not mounted, which is the honest "no reserve needed".
+  stageDockH: number
+  setStageDockH: (h: number) => void
   nodeStatus: (key: string) => NodeStatus
   activeRunsForTicker: (t: string | null) => ActiveRun[]
   anyRunForTicker: (t: string | null) => boolean
@@ -1269,6 +1276,9 @@ export const useStore = create<State>((set, get) => ({
 
   selectNode: (key) => set({ selectedNodeKey: key }),
   setNow: (n) => set({ now: n }),
+  stageDockH: 0,
+  // guarded so a ResizeObserver firing the same height (very common) never re-renders the whole field
+  setStageDockH: (h) => { if (Math.round(h) !== Math.round(get().stageDockH)) set({ stageDockH: Math.max(0, Math.round(h)) }) },
 
   nodeStatus: (key) => {
     const { nodeRuntime, nodesByKey, dataStatus, selectedTicker, activeSwarm } = get()

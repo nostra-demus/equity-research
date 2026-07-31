@@ -240,7 +240,18 @@ a { color: inherit; }
   transition: background var(--dur-fast);
 }
 .cluster__label:hover { background: var(--accent-wash-soft); }
-.cluster__name { font-size: 11.5px; font-weight: 600; letter-spacing: 0.5px; color: var(--text); text-transform: uppercase; }
+/* Dependency edges are routed between modules, so some of them necessarily pass BEHIND a module's label —
+   a graph cannot promise otherwise. A knockout halo (the map-label technique) keeps the text readable where
+   one crosses, without a solid plate that would weigh the field down. Theme-aware via --bg, paint-only, and
+   it costs no layout: the vertical budget in lib/layout.ts is unaffected. */
+.cluster__name, .cluster__status {
+  text-shadow: 0 0 5px var(--bg), 0 0 5px var(--bg), 0 0 9px var(--bg);
+}
+/* One line, always. The whole vertical budget in lib/layout.ts is built from this block's height, so a
+   name that wrapped ("BALANCE SHEET SURVIVAL") grew the block UPWARD past its reserve — straight into the
+   Constellation/Globe toggle. Module names are far narrower than the column pitch even on the smallest
+   field, so nowrap costs nothing and makes the height deterministic, which is what the budget needs. */
+.cluster__name { font-size: 11.5px; font-weight: 600; letter-spacing: 0.5px; color: var(--text); text-transform: uppercase; white-space: nowrap; }
 .cluster__status { font-size: 10px; letter-spacing: 0.3px; }
 .cluster__run {
   margin-top: 2px; font-size: 10px; color: var(--accent-bright); opacity: 0; transition: opacity var(--dur-fast);
