@@ -147,9 +147,15 @@ function WhatChangedChip() {
 // preferComplete) — a good safety, but silent, so the user can't tell whether the call on screen is current.
 // This says it out loud, right on the decision, with one honest way forward. Sits as a full-width row inside
 // the decision card (flex-basis:100% + order:-1), so it reads as a header above the call it qualifies.
-function NewerRunStrip({ children, action }: {
+interface StripAction { label: string; title: string; disabled?: boolean; onClick: () => void }
+
+function NewerRunStrip({ children, action, primaryAction }: {
   children: ReactNode
-  action: { label: string; title: string; disabled?: boolean; onClick: () => void }
+  action: StripAction
+  // The RECOMMENDED way forward, when the new-data read found one. Rendered last (rightmost, where the
+  // eye lands at the end of the row) and filled, so the cheap targeted path — not the blunt full re-run —
+  // is the obvious click. Omitted when there is no scoped plan, leaving the row exactly as it was.
+  primaryAction?: StripAction
 }) {
   return (
     // stop the click bubbling to the card's openThesis — the strip is its own affordance, not the thesis
@@ -165,6 +171,17 @@ function NewerRunStrip({ children, action }: {
       >
         {action.label}<span aria-hidden> →</span>
       </button>
+      {primaryAction && (
+        <button
+          type="button"
+          className="decision__notice-act decision__notice-act--primary"
+          disabled={primaryAction.disabled}
+          title={primaryAction.title}
+          onClick={(e) => { e.stopPropagation(); primaryAction.onClick() }}
+        >
+          {primaryAction.label}<span aria-hidden> →</span>
+        </button>
+      )}
     </div>
   )
 }
@@ -191,6 +208,12 @@ export function DecisionBanner() {
   const health = useStore((s) => s.health)
   const staticMode = useStore((s) => s.staticMode)
   const fullPending = useStore((s) => s.launchPending?.key === 'full:request')
+  // The one-pass scoped re-run. Already built (store.runScopedRerun → api.runIntakePlan, #358) and already
+  // offered inside the left-rail "New data" dock — but the moment a reader actually faces the choice is
+  // HERE, on the decision, where the blunt full re-run was the only button. Pointing at another panel is
+  // worse than giving the action: same store call, surfaced where the decision is made.
+  const runScoped = useStore((s) => s.runScopedRerun)
+  const scopedPending = useStore((s) => s.scopedRerunPending)
   const liveQuote = useStore((s) => s.liveQuote)
   const refreshLiveQuote = useStore((s) => s.refreshLiveQuote)
   const reduce = useReducedMotion()
@@ -259,6 +282,10 @@ export function DecisionBanner() {
   // re-run has landed since. The call below is real, just not yet re-scored against the newer data.
   const showNewerNotice = hasNewerPartial && viewingStanding
   const runFullDisabled = engineDown || staticMode || fullPending
+  // The scoped run is disabled by the same conditions as the full one, plus its own in-flight state — and
+  // by `fullPending` too, so a reader who just fired the full analysis can't stack a second launch on top
+  // of it from the same row (the launcher would reject it; better not to offer the click at all).
+  const scopedRerunDisabled = engineDown || staticMode || fullPending || scopedPending
   // the new-data read's conclusion (the scoped plan), read-only — drives the notice's "what next" line
   const intakeVerdict = intake?.verdict
   const intakeCmds = intakeVerdict === 'scoped_rerun' ? intake?.rerun_plan?.commands?.length ?? 0 : 0
@@ -292,12 +319,22 @@ export function DecisionBanner() {
         title={isResearch ? 'Open the Thesis — the deep-dive synthesized view' : 'Open the Dossier — the final synthesized view'}
       >
         {showNewerNotice && (
-          <NewerRunStrip action={{ label: 'Run a full analysis', title: 'Produce a fresh decision that folds in the newer data', disabled: runFullDisabled, onClick: requestFull }}>
+          <NewerRunStrip
+            action={{ label: 'Run a full analysis', title: 'Produce a fresh decision that folds in the newer data — every module, every orb', disabled: runFullDisabled, onClick: requestFull }}
+            primaryAction={intakeCmds > 0 ? {
+              label: scopedPending ? 'Starting…' : `Re-run the ${intakeCmds} affected check${intakeCmds === 1 ? '' : 's'}`,
+              title: 'Run only the orbs the new data actually invalidates, then the syntheses and the master — one pass, one final thesis',
+              disabled: scopedRerunDisabled,
+              onClick: () => { void runScoped() },
+            } : undefined}
+          >
             <b>Newer data isn’t in this call yet.</b> The <b style={{ color: decisionColor(verdict) }}>{verdict}</b> below is from your last complete analysis{decisionDate ? ` (${shortDate(decisionDate)})` : ''}. A re-run has looked at newer data since, but hasn’t produced an updated call.
-            {/* Close the loop with the new-data read (the scoped plan): tell the reader what it concluded
-                and the cheaper path when one exists, instead of leaving "so what do I do?" open. */}
+            {/* Close the loop with the new-data read (the scoped plan): say what it concluded, then hand
+                over the cheaper path as a BUTTON right here — the reader is at the decision, which is
+                exactly where the choice gets made. (It also stays in the left "New data" dock, with the
+                per-orb detail; this is the same one-pass run, one click closer.) */}
             {intakeCmds > 0 && (
-              <> The new-data read scoped it: <b>{intakeCmds} check{intakeCmds === 1 ? '' : 's'} affected</b> — the New data panel (left) has the cheaper scoped re-run.</>
+              <> The new-data read scoped it: <b>{intakeCmds} check{intakeCmds === 1 ? '' : 's'} affected</b> — re-run just those instead.</>
             )}
             {intakeVerdict === 'note_only' && (
               <> The new-data read filed the newer evidence as note-only — below the materiality/tier bar to scope a re-run, not proof the inputs are unchanged — so a full run is optional but may still be worth it.</>
