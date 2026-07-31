@@ -72,6 +72,25 @@ if [ -z "$NEWS_ARCHIVE_DIR" ] && [ -f "$AGENTS/com.nostradamus.news-archive.plis
   NEWS_ARCHIVE_DIR="$(/usr/libexec/PlistBuddy -c 'Print :EnvironmentVariables:NEWS_ARCHIVE_DIR' "$AGENTS/com.nostradamus.news-archive.plist" 2>/dev/null || true)"
   [ -n "$NEWS_ARCHIVE_DIR" ] && echo "carried over NEWS_ARCHIVE_DIR from existing install"
 fi
+# Autonomous news-bridge sweep default (#359, role-scoped). ADMIN machines never get autonomous bridge
+# routing — same "no duplicate autonomy" reasoning as the doer-only agents above, applied to this
+# in-process opt-in loop too, since the engine plist is BASE (installed on every role) and its
+# EnvironmentVariables aren't otherwise role-scoped at all. A brand-new DOER install defaults to
+# 'batch'; an EXISTING doer machine's prior explicit choice (the documented off/stream kill-switch)
+# is carried over from the installed plist so a routine reinstall never silently resets it back to
+# 'batch' — same carry-forward shape as NEWS_ARCHIVE_DIR just above.
+if [ "$ROLE" = admin ]; then
+  BRIDGE_MODE_VALUE="off"
+else
+  BRIDGE_MODE_VALUE="batch"
+  if [ -f "$AGENTS/com.nostradamus.engine.plist" ]; then
+    carried_bridge_mode="$(/usr/libexec/PlistBuddy -c 'Print :EnvironmentVariables:BRIDGE_MODE' "$AGENTS/com.nostradamus.engine.plist" 2>/dev/null || true)"
+    if [ -n "$carried_bridge_mode" ]; then
+      BRIDGE_MODE_VALUE="$carried_bridge_mode"
+      echo "carried over BRIDGE_MODE=$carried_bridge_mode from existing install"
+    fi
+  fi
+fi
 # PATH baked into every agent — superset covering Apple-Silicon (/opt/homebrew) AND Intel (/usr/local) brew,
 # plus the user's ~/.local/bin (where the Claude CLI often installs).
 PLIST_PATH="$HOME/.local/bin:/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
@@ -116,9 +135,10 @@ xesc() {
   printf '%s' "$s" | sed -e 's/\\/\\\\/g' -e 's/[&#]/\\&/g'   # 2) sed-RHS escape
 }
 render() {
-  local f="$1" e_home e_prod e_state e_path e_npm e_node e_cf e_news
+  local f="$1" e_home e_prod e_state e_path e_npm e_node e_cf e_news e_bridge
   e_home="$(xesc "$HOME")"; e_prod="$(xesc "$PROD")"; e_state="$(xesc "$STATE_DIR")"; e_path="$(xesc "$PLIST_PATH")"
   e_npm="$(xesc "$NPM_BIN")"; e_node="$(xesc "$NODE_BIN")"; e_cf="$(xesc "$CLOUDFLARED_BIN")"; e_news="$(xesc "$NEWS_ARCHIVE_DIR")"
+  e_bridge="$(xesc "$BRIDGE_MODE_VALUE")"
   sed -i '' \
     -e "s#{{HOME}}#$e_home#g" \
     -e "s#{{ENGINE_REPO_ROOT}}#$e_prod#g" \
@@ -128,6 +148,7 @@ render() {
     -e "s#{{NODE_BIN}}#$e_node#g" \
     -e "s#{{CLOUDFLARED_BIN}}#$e_cf#g" \
     -e "s#{{NEWS_ARCHIVE_DIR}}#$e_news#g" \
+    -e "s#{{BRIDGE_MODE}}#$e_bridge#g" \
     "$f"
   if grep -q '{{' "$f"; then
     echo "ERROR: unrendered placeholder(s) in $(basename "$f"):" >&2; grep -n '{{' "$f" >&2; return 1
