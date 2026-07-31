@@ -121,3 +121,115 @@ export function normalizeRecord(runRoot: string, record: any): any {
   const abs = path.join(ANALYSES_DIR, path.basename(runRoot))
   return applyErrata(record, readCorrections(abs))
 }
+
+// ── truth-integrity status (DECISION_LEDGER.md §18a) ────────────────────────────────────────────
+// Mirrors scripts/ledger_records.py's resolve_integrity_status() EXACTLY — same two signals (the
+// finish-gate PROVISIONAL banner in final_thesis.md, and the latest verification_report*.json verdict),
+// same fail-closed rule, same "unaudited is not a defect" distinction. Until this existed, the only two
+// ledger consumers that applied it were scripts/calibrate.py and /research:track — the live cockpit's
+// GET /api/calls showed a flagged, possibly-wrong run identically to a verified one (§18a "What it does
+// not yet do"). A shared fixture (test/ledger-corrections.test.ts) locks this against the Python selftest.
+const PROVISIONAL_MARK = 'PROVISIONAL — the automated finish-gate'
+const CLEAN_VERDICTS = new Set(['Clean', 'Minor issues'])
+const VERIFY_REPORT_NAME_RE = /^verification_report(_v\d+)?$/
+const VERIFY_REPORT_VERSION_RE = /_v(\d+)\.json$/
+
+export interface IntegrityStatus {
+  status: 'verified' | 'provisional' | 'unaudited'
+  verdict: string | null
+  integrity_score: number | null
+  banner: boolean
+  report_file: string | null
+}
+
+function reportVersion(fileName: string): number {
+  const m = VERIFY_REPORT_VERSION_RE.exec(fileName)
+  return m ? parseInt(m[1], 10) : 1
+}
+
+// Truth-integrity status for one run dir (ABSOLUTE path). Tolerant: a missing/unreadable
+// final_thesis.md or verification_report never throws — each resolves to its honest default,
+// same contract as the Python resolver (a crash here must not break the whole /api/calls response).
+export function resolveIntegrityStatus(runDirAbs: string): IntegrityStatus {
+  let banner = false
+  try {
+    // Node's default utf8 decode is lossy (replaces invalid sequences), so a non-UTF-8 byte anywhere
+    // in the file can't throw here — mirrors the Python resolver's errors="replace" read.
+    const head = fs.readFileSync(path.join(runDirAbs, 'final_thesis.md'), 'utf8').slice(0, 2000)
+    banner = head.includes(PROVISIONAL_MARK)
+  } catch {
+    /* missing/unreadable thesis → banner stays false */
+  }
+
+  let verdict: string | null = null
+  let score: number | null = null
+  let reportFile: string | null = null
+  let reports: string[] = []
+  try {
+    reports = fs
+      .readdirSync(runDirAbs)
+      .filter((f) => f.startsWith('verification_report') && f.endsWith('.json') && VERIFY_REPORT_NAME_RE.test(f.slice(0, -5)))
+      .sort((a, b) => reportVersion(a) - reportVersion(b))
+  } catch {
+    reports = []
+  }
+  if (reports.length) {
+    reportFile = reports[reports.length - 1]
+    try {
+      const v = JSON.parse(fs.readFileSync(path.join(runDirAbs, reportFile), 'utf8'))
+      if (v && typeof v === 'object') {
+        verdict = typeof v.verdict === 'string' && v.verdict ? v.verdict : null
+        score = typeof v.integrity_score === 'number' ? v.integrity_score : null
+      }
+    } catch {
+      verdict = null // unreadable report — fail closed below, exactly like the finish-gate
+    }
+  }
+
+  let status: IntegrityStatus['status']
+  if (banner) {
+    status = 'provisional'
+  } else if (reports.length) {
+    // Strip before comparing (full.md's own finish-gate does the same) — incidental whitespace in the
+    // verdict string must not disagree with the finish-gate's own banner decision on the SAME report.
+    const vNorm = typeof verdict === 'string' ? verdict.trim() : verdict
+    status = vNorm !== null && CLEAN_VERDICTS.has(vNorm) ? 'verified' : 'provisional'
+  } else {
+    status = 'unaudited'
+  }
+
+  return { status, verdict, integrity_score: score, banner, report_file: reportFile }
+}
+
+// Truth-integrity status for a run given its repo-relative run_root — the wrapper every live caller
+// (outputs.ts) actually uses, matching the isSupersededRun/normalizeRecord convention above.
+export function resolveIntegrityStatusForRun(runRoot: string): IntegrityStatus {
+  return resolveIntegrityStatus(path.join(ANALYSES_DIR, path.basename(runRoot)))
+}
+
+// ── post-mortem display fields (DECISION_LEDGER.md §5 post_mortem_decision/basket, fix F28b; and
+// post_review_confidence_score, fix F28) ─────────────────────────────────────────────────────────
+// /research:track already prefers the post-mortem rating cap and the post-red-team confidence over the
+// synthesizer's original, uncapped fields (a terminal pre-mortem verdict — "Thesis broken" — caps a
+// Selected/Short call to Watchlist per full.md's finish-gate). The live cockpit ignored both and showed
+// the ORIGINAL decision/confidence — so a "Strong Buy" the engine's own red-team downgraded could still
+// render as "Strong Buy" on the one surface a human checks in real time. Display-only: never written back.
+export interface LedgerDisplay {
+  decision: string | null
+  basket: string | null
+  decisionIsPostMortemCapped: boolean
+  confidence: number | null
+  confidenceIsPostReview: boolean
+}
+
+export function resolveDisplayFields(record: any): LedgerDisplay {
+  const rec = record ?? {}
+  const pmDecision = rec.post_mortem_decision
+  const pmBasket = rec.post_mortem_basket
+  const decision = (typeof pmDecision === 'string' && pmDecision ? pmDecision : null) ?? (rec.decision ?? null)
+  const basket = (typeof pmBasket === 'string' && pmBasket ? pmBasket : null) ?? (rec.basket ?? null)
+  const decisionIsPostMortemCapped = pmDecision !== undefined && pmDecision !== null && pmDecision !== rec.decision
+  const postReview = typeof rec.post_review_confidence_score === 'number' ? rec.post_review_confidence_score : null
+  const confidence = postReview !== null ? postReview : typeof rec.confidence_score === 'number' ? rec.confidence_score : null
+  return { decision, basket, decisionIsPostMortemCapped, confidence, confidenceIsPostReview: postReview !== null }
+}

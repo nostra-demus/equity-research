@@ -4,7 +4,19 @@
 // board. These cases mirror ledger_records.py's selftest exactly. Run: npx tsx test/ledger-corrections.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import { CORRECTIONS_SCHEMA, applyErrata, supersededTarget } from '../src/ledger-corrections'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+import { CORRECTIONS_SCHEMA, applyErrata, supersededTarget, resolveIntegrityStatus, resolveDisplayFields } from '../src/ledger-corrections'
+
+function withTmpDir(fn: (td: string) => void) {
+  const td = fs.mkdtempSync(path.join(os.tmpdir(), 'ledger-integrity-'))
+  try {
+    fn(td)
+  } finally {
+    fs.rmSync(td, { recursive: true, force: true })
+  }
+}
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -84,6 +96,118 @@ check('scale_fix on a BARE top-level probability field (mirrors the Python bare-
 check('supersededTarget: reads the target, else null', () => {
   assert.equal(supersededTarget({ superseded_by: { run_root: 'analyses/EMAAR_2026-07-10' } }), 'analyses/EMAAR_2026-07-10')
   assert.equal(supersededTarget({}), null)
+})
+
+// resolveIntegrityStatus — mirrors scripts/ledger_records.py's resolve_integrity_status() selftest
+// case-for-case (DECISION_LEDGER.md §18a); this fixture is what keeps the two resolvers from drifting.
+
+check('resolveIntegrityStatus: no final_thesis.md, no verification_report -> unaudited, never throws', () => {
+  withTmpDir((td) => {
+    const r = resolveIntegrityStatus(td)
+    assert.deepEqual(r, { status: 'unaudited', verdict: null, integrity_score: null, banner: false, report_file: null })
+  })
+})
+
+check('resolveIntegrityStatus: Clean verification_report, no banner -> verified', () => {
+  withTmpDir((td) => {
+    fs.writeFileSync(path.join(td, 'final_thesis.md'), '# TICKER — Investment Dossier\n\nbody\n')
+    fs.writeFileSync(path.join(td, 'verification_report.json'), JSON.stringify({ verdict: 'Clean', integrity_score: 96 }))
+    const r = resolveIntegrityStatus(td)
+    assert.equal(r.status, 'verified')
+    assert.equal(r.integrity_score, 96)
+  })
+})
+
+check('resolveIntegrityStatus: Material issues verdict, no banner -> provisional (fail-closed)', () => {
+  withTmpDir((td) => {
+    fs.writeFileSync(path.join(td, 'final_thesis.md'), '# TICKER — Investment Dossier\n\nbody\n')
+    fs.writeFileSync(path.join(td, 'verification_report.json'), JSON.stringify({ verdict: 'Material issues', integrity_score: 55 }))
+    assert.equal(resolveIntegrityStatus(td).status, 'provisional')
+  })
+})
+
+check('resolveIntegrityStatus: PROVISIONAL banner overrides a Clean verify-evidence verdict', () => {
+  withTmpDir((td) => {
+    fs.writeFileSync(
+      path.join(td, 'final_thesis.md'),
+      '> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> scenario math broken\n\n# TICKER — Investment Dossier\n',
+    )
+    fs.writeFileSync(path.join(td, 'verification_report.json'), JSON.stringify({ verdict: 'Clean', integrity_score: 100 }))
+    const r = resolveIntegrityStatus(td)
+    assert.equal(r.status, 'provisional')
+    assert.equal(r.banner, true)
+  })
+})
+
+check('resolveIntegrityStatus: versioned reports — the LATEST version wins (_v2 over base)', () => {
+  withTmpDir((td) => {
+    fs.writeFileSync(path.join(td, 'final_thesis.md'), '# TICKER — Investment Dossier\n')
+    fs.writeFileSync(path.join(td, 'verification_report.json'), JSON.stringify({ verdict: 'Material issues' }))
+    fs.writeFileSync(path.join(td, 'verification_report_v2.json'), JSON.stringify({ verdict: 'Clean' }))
+    const r = resolveIntegrityStatus(td)
+    assert.equal(r.status, 'verified')
+    assert.equal(r.report_file, 'verification_report_v2.json')
+  })
+})
+
+check('resolveIntegrityStatus: incidental whitespace around the verdict still classifies as verified', () => {
+  withTmpDir((td) => {
+    fs.writeFileSync(path.join(td, 'final_thesis.md'), '# TICKER — Investment Dossier\n')
+    fs.writeFileSync(path.join(td, 'verification_report.json'), JSON.stringify({ verdict: 'Minor issues ', integrity_score: 88 }))
+    assert.equal(resolveIntegrityStatus(td).status, 'verified')
+  })
+  withTmpDir((td) => {
+    fs.writeFileSync(path.join(td, 'final_thesis.md'), '# TICKER — Investment Dossier\n')
+    fs.writeFileSync(path.join(td, 'verification_report.json'), JSON.stringify({ verdict: '  Clean\n', integrity_score: 91 }))
+    assert.equal(resolveIntegrityStatus(td).status, 'verified')
+  })
+})
+
+check('resolveIntegrityStatus: non-UTF-8 final_thesis.md resolves without raising', () => {
+  withTmpDir((td) => {
+    fs.writeFileSync(path.join(td, 'final_thesis.md'), Buffer.from([0x23, 0x20, 0x54, 0xff, 0xfe, 0x0a]))
+    const r = resolveIntegrityStatus(td)
+    assert.equal(r.status, 'unaudited')
+    assert.equal(r.banner, false)
+  })
+})
+
+check('resolveIntegrityStatus: PROVISIONAL banner still detected under non-UTF-8 noise', () => {
+  withTmpDir((td) => {
+    fs.writeFileSync(
+      path.join(td, 'final_thesis.md'),
+      Buffer.concat([Buffer.from([0xff]), Buffer.from('> PROVISIONAL — the automated finish-gate found an integrity issue\n'), Buffer.from([0xfe])]),
+    )
+    const r = resolveIntegrityStatus(td)
+    assert.equal(r.status, 'provisional')
+    assert.equal(r.banner, true)
+  })
+})
+
+// resolveDisplayFields — mirrors track.md's read-time preference for the post-mortem rating cap
+// (fix F28b) and the post-review confidence (fix F28) over the synthesizer's original fields.
+
+check('resolveDisplayFields: no post-mortem fields -> passes the original decision/basket/confidence through', () => {
+  const r = resolveDisplayFields({ decision: 'Buy', basket: 'Selected', confidence_score: 70 })
+  assert.deepEqual(r, { decision: 'Buy', basket: 'Selected', decisionIsPostMortemCapped: false, confidence: 70, confidenceIsPostReview: false })
+})
+
+check('resolveDisplayFields: terminal pre-mortem cap -> post_mortem_decision/basket win, flagged as capped', () => {
+  const r = resolveDisplayFields({ decision: 'Strong Buy', basket: 'Selected', post_mortem_decision: 'Watchlist', post_mortem_basket: 'Watchlist', confidence_score: 65 })
+  assert.equal(r.decision, 'Watchlist')
+  assert.equal(r.basket, 'Watchlist')
+  assert.equal(r.decisionIsPostMortemCapped, true)
+})
+
+check('resolveDisplayFields: post_mortem_decision equal to decision (already-conservative pre-mortem) -> not flagged as capped', () => {
+  const r = resolveDisplayFields({ decision: 'Watchlist', basket: 'Watchlist', post_mortem_decision: 'Watchlist', post_mortem_basket: 'Watchlist' })
+  assert.equal(r.decisionIsPostMortemCapped, false)
+})
+
+check('resolveDisplayFields: post_review_confidence_score preferred over confidence_score when present', () => {
+  const r = resolveDisplayFields({ decision: 'Buy', confidence_score: 70, post_review_confidence_score: 62 })
+  assert.equal(r.confidence, 62)
+  assert.equal(r.confidenceIsPostReview, true)
 })
 
 console.log(`\n${passed} checks passed`)
