@@ -8,6 +8,7 @@ import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import { archiveErrorNote } from './archiveError'
+import { stageDockHUpdate } from './stageDock'
 import { affectedModules, focusKeysFor } from './intake'
 import type { BridgeStatus } from './types'
 import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
@@ -1278,7 +1279,7 @@ export const useStore = create<State>((set, get) => ({
   setNow: (n) => set({ now: n }),
   stageDockH: 0,
   // guarded so a ResizeObserver firing the same height (very common) never re-renders the whole field
-  setStageDockH: (h) => { if (Math.round(h) !== Math.round(get().stageDockH)) set({ stageDockH: Math.max(0, Math.round(h)) }) },
+  setStageDockH: (h) => { const next = stageDockHUpdate(h, get().stageDockH); if (next !== null) set({ stageDockH: next }) },
 
   nodeStatus: (key) => {
     const { nodeRuntime, nodesByKey, dataStatus, selectedTicker, activeSwarm } = get()
