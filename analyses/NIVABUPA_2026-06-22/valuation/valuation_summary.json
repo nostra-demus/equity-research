@@ -29,7 +29,7 @@
         }
       ],
       "level": 43.98,
-      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied P/E' and 'Implied P/BV' columns); FY26 EPS (reported) INR 1.98 and BV/share INR 19.39 per that report's anchor block. The recorded P/E is the ratio the LEVEL implies on that EPS, at full precision: the table's 1dp readings (22.2x / 18.5x / 8.3x) would move the frozen levels by up to INR 0.08.",
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied P/E' and 'Implied P/BV' columns); FY26 EPS (reported) INR 1.98 and BV/share INR 19.39 per that report's anchor block. This case's LEVEL is IMPLIED, not applied: §2/§4 build every scenario as a 70%/30% blend of the RI (residual-income) model and the peer method, not a single EPS x P/E — for bull: `04_intrinsic-dcf.md` §3 RI bull INR 25.70 x 0.70 = INR 17.99, plus peer at the undiscounted SAHI-median 43.75x LTM P/E on EPS 1.98 = INR 86.63 x 0.30 = INR 25.99; sum = INR 43.98 (§3's stated bull driver: 'peer re-rates to full SAHI median (no quality discount)'). The recorded P/E (22.2121) is the ratio the LEVEL implies on that EPS, at full precision — a cross-check reading, not the derivation: the table's 1dp reading (22.2x) would move the frozen level by up to INR 0.08.",
       "drivers": "RI: Ke -1pp, ROE reaches 15.5%; peer re-rates to full SAHI median (no quality discount); GWP growth >=25%"
     },
     {
@@ -48,7 +48,7 @@
         }
       ],
       "level": 36.7,
-      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied P/E' and 'Implied P/BV' columns); FY26 EPS (reported) INR 1.98 and BV/share INR 19.39 per that report's anchor block. The recorded P/E is the ratio the LEVEL implies on that EPS, at full precision: the table's 1dp readings (22.2x / 18.5x / 8.3x) would move the frozen levels by up to INR 0.08.",
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied P/E' and 'Implied P/BV' columns); FY26 EPS (reported) INR 1.98 and BV/share INR 19.39 per that report's anchor block. This case's LEVEL is IMPLIED, not applied: §2 builds every scenario as a 70%/30% blend of the RI model and the peer method, not a single EPS x P/E — RI base INR 19.94 x 0.70 = INR 13.96, plus peer at the quality-adjusted 38.3x LTM P/E on EPS 1.98 = INR 75.80 x 0.30 = INR 22.74; sum = INR 36.70 (§2's own executed snippet: 'base_fv = 0.70 x 19.94 + 0.30 x 75.80 = 13.96 + 22.74 = INR 36.70'). The recorded P/E (18.5354) is the ratio the LEVEL implies on that EPS, at full precision — a cross-check reading, not the derivation: the table's 1dp reading (18.5x) would move the frozen level by up to INR 0.08.",
       "drivers": "Mechanical blend, adopted with NO discount: 0.70x19.94 (RI/excess-return, primary for a Financial issuer) + 0.30x75.80 (quality-adjusted P/E peers) = 36.70"
     },
     {
@@ -67,7 +67,7 @@
         }
       ],
       "level": 16.51,
-      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied P/E' and 'Implied P/BV' columns); FY26 EPS (reported) INR 1.98 and BV/share INR 19.39 per that report's anchor block. The recorded P/E is the ratio the LEVEL implies on that EPS, at full precision: the table's 1dp readings (22.2x / 18.5x / 8.3x) would move the frozen levels by up to INR 0.08.",
+      "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear table — 'Implied P/E' and 'Implied P/BV' columns); FY26 EPS (reported) INR 1.98 and BV/share INR 19.39 per that report's anchor block. This case's LEVEL is IMPLIED, not applied: §4 builds the bear as a 70%/30% blend of the RI bear scenario and the peer P/TBV bear (NOT the peer P/E used by bull/base) — RI bear INR 15.40 x 0.70 = INR 10.78, plus peer P/TBV at 1.0x on TBV/share INR 19.11 = INR 19.11 x 0.30 = INR 5.73; sum = INR 16.51 (§4's own executed snippet: 'bear_fv = 0.70 x 15.40 + 0.30 x 19.11 = 10.78 + 5.73 = INR 16.51'). No single EPS x P/E builds this level — it is a genuinely different derivation shape than a metric x multiple, the NIVABUPA twin of AMZN's blended bull case in this same PR (both carry `multiple_kind: implied` for the same reason). The recorded P/E (8.3384) is the ratio the LEVEL implies on that EPS, at full precision — a cross-check reading, not the derivation: the table's 1dp reading (8.3x) would move the frozen level by up to INR 0.08.",
       "drivers": "RI: Ke +1pp, ROE peaks 12% (never exceeds Ke); peer at 1.0x P/TBV; encompasses the INR 16.12 structural-reset avoid-ruin floor"
     }
   ],
