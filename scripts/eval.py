@@ -997,7 +997,12 @@ def _as_due_date(entry, decision_date):
         ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"])}
     m = re.search(r"([A-Za-z]{3,9})\s+(\d{1,2}),\s*(\d{4})", tw)
     if m and m.group(1)[:3].lower() in months:
-        return f"{m.group(3)}-{months[m.group(1)[:3].lower()]:02d}-{int(m.group(2)):02d}"
+        cand = f"{m.group(3)}-{months[m.group(1)[:3].lower()]:02d}-{int(m.group(2)):02d}"
+        # validate the constructed date (same guard as the ISO branch): 'Feb 30, 2026' / 'Sep 31, 2026'
+        # match the regex but are not real calendar dates — an unvalidated invalid date must not be
+        # returned as a due date. An invalid day-form falls through to undateable (None), never overdue.
+        if isdate(cand):
+            return cand
     m = re.search(r"([A-Za-z]{3,9})\s+(\d{4})", tw)
     if m and m.group(1)[:3].lower() in months:
         mo = months[m.group(1)[:3].lower()]
@@ -1018,7 +1023,13 @@ def eval_as_forecast_overdue(decision_date, forecast_ledger, today):
         if not isinstance(e, dict):
             continue
         status = str(e.get("status") or e.get("outcome") or "").strip().lower()
-        if any(r in status for r in _AS_RESOLVED):
+        # EXACT membership, not substring: a substring test settles a forecast on any status that merely
+        # CONTAINS a resolved word — 'unresolved' contains 'resolved', 'avoid' contains 'void', 'disclosed'
+        # contains 'closed' — which would silently skip a still-open forecast and defeat this whole check
+        # (§19: a forecast that cannot be checked later is not a forecast). Real ledger statuses are single
+        # tokens ('open'/'confirmed'/'falsified'/...), and an unrecognised status fails SAFE here: it stays
+        # checkable and, if overdue, is flagged advisory-only — never hard-failed.
+        if status in _AS_RESOLVED:
             continue  # already settled — nothing owed
         due = _as_due_date(e, decision_date)
         if not due or due >= today:
@@ -2751,6 +2762,12 @@ if scope=="selftest":
     _as_month  = {"prediction":"x","status":"open","time_window":"FY2026 full year (confirmed Feb 2027 in annual results)"}
     _as_undate = {"prediction":"x","status":"open","time_window":"the medium term"}
     _as_field  = {"prediction":"x","status":"open","resolves_on":"2026-07-01"}
+    # regression fixtures for the two review fixes (each is RED on the pre-fix code, GREEN after):
+    _as_baddate = {"prediction":"x","status":"open","time_window":"Feb 30, 2026"}          # invalid calendar date
+    _as_baddat2 = {"prediction":"x","status":"open","time_window":"results Sep 31, 2026"}  # Sep has 30 days
+    _as_unres   = dict(_as_open, status="unresolved")   # 'unresolved' CONTAINS 'resolved' — must NOT be skipped
+    _as_avoid   = dict(_as_open, status="avoid")        # 'avoid' CONTAINS 'void' — must NOT be skipped
+    _as_disc    = dict(_as_open, status="disclosed")    # 'disclosed' CONTAINS 'closed' — must NOT be skipped
     ascases=[  # (decision_date, ledger, today, expect: None=N/A, []=nothing due, [substr]=due-with)
         ("2026-07-10",[_as_open],"2026-08-01",["came due 2026-07-31"]),   # the AMZN case — one day after its own test
         ("2026-07-10",[_as_open],"2026-07-31",[]),                        # ON the due date it is not yet overdue
@@ -2761,6 +2778,16 @@ if scope=="selftest":
         ("2026-07-10",[_as_month],"2027-03-01",["came due 2027-02-28"]),  # a bare month closes at its end
         ("2026-07-10",[_as_undate],"2030-01-01",[]),                      # undateable window → never claimed overdue
         ("2026-07-10",[_as_field],"2026-08-01",["came due 2026-07-01"]),  # an explicit resolves_on field wins
+        # BUG1 (invalid-date guard): an impossible calendar date must be UNDATEABLE, never returned/flagged.
+        # Pre-fix returned '2026-02-30'/'2026-09-31' and flagged them overdue; §5/§19 — a due date must be real.
+        ("2026-07-10",[_as_baddate],"2027-01-01",[]),                     # 'Feb 30, 2026' → undateable, nothing owed
+        ("2026-07-10",[_as_baddat2],"2027-01-01",[]),                     # 'Sep 31, 2026' → undateable, nothing owed
+        # BUG2 (exact-status, not substring): a status that merely CONTAINS a resolved word is NOT resolved.
+        # Pre-fix skipped all three (treated settled) and reported nothing due; §19 — an open forecast past
+        # its window must still be flagged. Expect it flagged as due.
+        ("2026-07-10",[_as_unres],"2026-08-01",["came due 2026-07-31"]),  # 'unresolved' ⊃ 'resolved' — still open
+        ("2026-07-10",[_as_avoid],"2026-08-01",["came due 2026-07-31"]),  # 'avoid' ⊃ 'void' — still open
+        ("2026-07-10",[_as_disc],"2026-08-01",["came due 2026-07-31"]),   # 'disclosed' ⊃ 'closed' — still open
         ("2026-07-10",[],"2026-08-01",None),                              # empty ledger → N/A
         ("2026-07-10",5,"2026-08-01",None),                               # malformed → N/A, never crash
         ("2026-07-10",[_as_open],"nonsense",None),                        # unusable clock → N/A
