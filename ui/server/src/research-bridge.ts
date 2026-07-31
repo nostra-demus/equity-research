@@ -432,8 +432,16 @@ export function matchTrackedSubjects(
   // can only ever hit a subject whose own name normalises to the same short string. A bigger floor would
   // not add safety — it would permanently exclude real companies (BP, 3M, ABB, AXA, ING, UBS, SAP) from
   // ever matching by name. A single character is excluded as pure noise.
+  // Restricted to companies the wire genuinely tagged with NO ticker. A company entry that carries a
+  // ticker — even one that failed the strict pass above (wrong exchange suffix, a symbol that isn't
+  // actually tracked) — must not fall through to the looser name match: that would let a rejected ticker
+  // guess win anyway, defeat the exact-ticker safety rule the ticker pass exists to enforce, and the note
+  // would still claim "the wire extracted no ticker" when it did (Codex #374 P1).
   const wanted = new Set(
-    (item.companies || []).map((c) => normaliseCompanyName(String(c?.name || ''))).filter((n) => n.length >= 2),
+    (item.companies || [])
+      .filter((c) => !String(c?.ticker || '').trim())
+      .map((c) => normaliseCompanyName(String(c?.name || '')))
+      .filter((n) => n.length >= 2),
   )
   if (!wanted.size) return []
   const named: string[] = []
@@ -454,8 +462,10 @@ export function matchTrackedSubjects(
 
 /** Strip a company name to the part that identifies it, so a wire headline's "Amazon" matches a pool's
  *  "Amazon.com, Inc." and "Norsk Hydro" matches "Norsk Hydro ASA". Lowercased, punctuation dropped, and
- *  the legal-form and holding-company suffixes removed from the END only — never from the middle, where
- *  they can be part of the actual name. Deliberately conservative: it normalises, it does not fuzzy-match. */
+ *  legal-form suffixes removed from the END only — never from the middle, where they can be part of the
+ *  actual name, and never identity-bearing words like "Group" / "Holdings" (see SUFFIX below — those stay,
+ *  because two different issuers can share everything but that word). Deliberately conservative: it
+ *  normalises, it does not fuzzy-match. */
 export function normaliseCompanyName(raw: string): string {
   let s = String(raw || '').toLowerCase()
   // Collapse a DOTTED acronym into one token before punctuation becomes whitespace, or "BP p.l.c." would
@@ -465,10 +475,15 @@ export function normaliseCompanyName(raw: string): string {
   s = s.replace(/\b(?:[a-z]\.){2,}/g, (m) => m.replace(/\./g, ''))
   s = s.replace(/&/g, ' and ').replace(/[.,''`"()\[\]]/g, ' ').replace(/[-/]/g, ' ')
   s = s.replace(/\s+/g, ' ').trim()
+  // Deliberately EXCLUDES identity-bearing words — 'group' and 'holdings' foremost — for the same reason
+  // news/symbology.ts's coreCompanyName does (see its comment): "Man Group PLC" and "MAN SE" must not
+  // both collapse to "man". Stripping them let one issuer's tickerless name silently claim a DIFFERENT
+  // issuer's research pool with no human in the loop (Codex #374 P1). 'the' is handled separately below
+  // (leading only — the suffix pass only ever sees the END of the name).
   const SUFFIX = new Set([
     'inc', 'incorporated', 'corp', 'corporation', 'co', 'company', 'ltd', 'limited', 'plc', 'llc', 'lp',
     'sa', 'nv', 'bv', 'ag', 'asa', 'ab', 'oyj', 'as', 'spa', 'se', 'kk', 'pjsc', 'psc', 'jsc', 'pt', 'tbk',
-    'holdings', 'holding', 'group', 'the', 'com',
+    'com',
   ])
   const parts = s.split(' ').filter(Boolean)
   while (parts.length > 1 && SUFFIX.has(parts[parts.length - 1])) parts.pop()
@@ -479,16 +494,46 @@ export function normaliseCompanyName(raw: string): string {
   return parts.join(' ')
 }
 
+/** The wire company name that normalises to this subject's canonical name — i.e. the one that actually
+ *  matched. Used only to keep a name-routed note's provenance line truthful (picking the first
+ *  ticker-less company instead would put the wrong company's name on the note whenever the wire named
+ *  several — §5). Lives here (not bridge-batch.ts) so both the batch sweep and the per-item stream path
+ *  can share it without a circular import; bridge-batch.ts re-exports it for its existing callers. */
+export function wireNameMatching(item: FeedItem, subjectName?: string): string | undefined {
+  if (!subjectName) return undefined
+  const target = normaliseCompanyName(subjectName)
+  if (!target) return undefined
+  for (const c of item.companies || []) {
+    const raw = String(c?.name || '')
+    if (raw && normaliseCompanyName(raw) === target) return raw
+  }
+  return undefined
+}
+
 /** Route one freshly-ingested wire item into every matching tracked subject's pool. Never throws —
  *  a bridge miss loses one note, never the ingest cycle. `getEnrichment` is a THUNK so the (whole-
  *  cache-parsing) peek only runs for the handful of items that pass the gates, never per wire item.
- *  Returns the subjects it wrote to. */
-export function autoBridgeItem(item: FeedItem, opts: BridgeOpts, getEnrichment?: () => EventEnrichment | null): string[] {
+ *  `subjectNames` mirrors the batch sweep's alias map (canonical company name per tracked subject) — the
+ *  caller supplies it (server.ts caches it briefly; see bridge-scheduler.ts's getBridgeSubjectNames), so a
+ *  wire item naming a covered company with NO ticker can match here too, not only on the 12-hourly sweep
+ *  (Codex #374 P2: this path silently lacked the fallback the batch path just gained). Omitted => ticker-
+ *  only matching, exactly as before. Returns the subjects it wrote to. */
+export function autoBridgeItem(
+  item: FeedItem,
+  opts: BridgeOpts,
+  getEnrichment?: () => EventEnrichment | null,
+  subjectNames?: Record<string, string>,
+): string[] {
   const written: string[] = []
   try {
     if (!shouldAutoBridge(item)) return written
-    const matched = matchTrackedSubjects(item, opts.dataDir)
+    // matchTrackedSubjects never mixes the two passes within one call: it returns the ticker matches alone
+    // when there are any, and only falls through to the name pass (all-or-nothing) when there are none — so
+    // one boolean covers every subject in `matched`, no per-subject re-derivation needed.
+    const viaTicker = matchTrackedSubjects(item, opts.dataDir)
+    const matched = viaTicker.length ? viaTicker : matchTrackedSubjects(item, opts.dataDir, subjectNames)
     if (!matched.length) return written
+    const byName = !viaTicker.length && matched.length > 0
     let enrichment: EventEnrichment | null = null
     try {
       enrichment = getEnrichment?.() ?? null
@@ -497,7 +542,12 @@ export function autoBridgeItem(item: FeedItem, opts: BridgeOpts, getEnrichment?:
     }
     for (const ticker of matched) {
       try {
-        const res = bridgeEventToSubject({ item, ticker, mode: 'auto', user: 'auto', userVia: 'local', enrichment, opts })
+        const res = bridgeEventToSubject({
+          item, ticker, mode: 'auto', user: 'auto', userVia: 'local', enrichment,
+          matchedBy: byName ? 'name' : 'ticker',
+          matchedName: byName ? wireNameMatching(item, subjectNames?.[ticker]) : undefined,
+          opts,
+        })
         if (!res.already) written.push(ticker)
       } catch {
         /* per-subject best-effort */

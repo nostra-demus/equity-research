@@ -7,7 +7,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { matchTrackedSubjects, normaliseCompanyName, renderEventNote } from '../src/research-bridge'
+import { autoBridgeItem, matchTrackedSubjects, normaliseCompanyName, renderEventNote } from '../src/research-bridge'
 import { readSubjectNames, wireNameMatching } from '../src/bridge-batch'
 
 let passed = 0
@@ -147,7 +147,64 @@ check('a TICKER route still claims the ticker, never the name wording', () => {
   assert.ok(md.includes("the wire's extracted ticker matched this tracked subject exactly"), md)
 })
 
-const EXPECTED_CHECKS = 15
+// ---- second review pass (#374) ----------------------------------------------------------------------
+
+check('a company tagged with a REJECTED ticker never falls through to the name path', () => {
+  // {name: "Amazon", ticker: "AMZ"} — a ticker guess that failed the strict pass (not a tracked symbol) —
+  // must not let "Amazon" win by name anyway; that would defeat the exact-ticker safety rule and the note
+  // would falsely claim "the wire extracted no ticker" when it extracted a (wrong) one.
+  assert.deepEqual(matchTrackedSubjects(item([{ name: 'Amazon', ticker: 'AMZ' }]), dataDir, NAMES), [])
+  // a SECOND, genuinely tickerless company in the same item still gets its fair shot
+  const mixed = item([{ name: 'Amazon', ticker: 'AMZ' }, { name: 'Norsk Hydro', ticker: null }])
+  assert.deepEqual(matchTrackedSubjects(mixed, dataDir, NAMES), ['NHY'])
+})
+
+check('identity-bearing suffixes ("Group", "Holdings") are NEVER stripped — distinct issuers must not collide', () => {
+  // "Man Group PLC" and "MAN SE" share nothing but the stripped word — the exact collision
+  // news/symbology.ts's coreCompanyName already guards against, for the identical reason.
+  assert.equal(normaliseCompanyName('Man Group PLC'), 'man group')
+  assert.equal(normaliseCompanyName('MAN SE'), 'man')
+  assert.notEqual(normaliseCompanyName('Man Group PLC'), normaliseCompanyName('MAN SE'))
+  assert.equal(normaliseCompanyName('Brookfield Asset Management Holdings Inc.'), 'brookfield asset management holdings')
+  fs.mkdirSync(path.join(dataDir, 'MAN'), { recursive: true })
+  mkRun('MAN_2026-07-15', 'MAN SE')
+  const names = readSubjectNames(['MAN'], analysesDir)
+  // a wire naming "Man Group" must NOT route into MAN SE's pool
+  assert.deepEqual(matchTrackedSubjects(item([{ name: 'Man Group', ticker: null }]), dataDir, names), [])
+  // but the exact match still works
+  assert.deepEqual(matchTrackedSubjects(item([{ name: 'MAN SE', ticker: null }]), dataDir, names), ['MAN'])
+})
+
+check('the STREAM per-item path (autoBridgeItem) gets the same name fallback the batch sweep has', () => {
+  const streamDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-stream-'))
+  fs.mkdirSync(path.join(streamDataDir, 'AMZN'), { recursive: true })
+  const materialItem = {
+    event_id: 'EVT-abcdef012345',
+    companies: [{ name: 'Amazon', ticker: null }],
+    relevance: 'material',
+    triage_score: 89,
+    source_tier: 'wire',
+    headline: 'Andy Jassy said Amazon will spend $220 billion this year',
+  } as any
+  const prevFlag = process.env.SCREENER_RESEARCH_BRIDGE
+  process.env.SCREENER_RESEARCH_BRIDGE = '1'
+  try {
+    // without subjectNames: ticker-only, exactly as before — no alias, no match
+    assert.deepEqual(autoBridgeItem(materialItem, { dataDir: streamDataDir, stateDir: streamDataDir }), [])
+    // with subjectNames supplied (mirrors bridge-scheduler's getBridgeSubjectNames): the name fallback fires
+    const written = autoBridgeItem(materialItem, { dataDir: streamDataDir, stateDir: streamDataDir }, undefined, { AMZN: 'Amazon.com, Inc.' })
+    assert.deepEqual(written, ['AMZN'])
+    const note = fs.readFileSync(path.join(streamDataDir, 'AMZN', 'screener_event_EVT-abcdef012345.md'), 'utf8')
+    assert.ok(note.includes('the wire extracted no ticker, but named this tracked subject\'s company exactly ("Amazon")'), note)
+  } finally {
+    if (prevFlag === undefined) delete process.env.SCREENER_RESEARCH_BRIDGE
+    else process.env.SCREENER_RESEARCH_BRIDGE = prevFlag
+    fs.rmSync(streamDataDir, { recursive: true, force: true })
+  }
+})
+
+const EXPECTED_CHECKS = 18
 assert.ok(passed >= EXPECTED_CHECKS,
   `only ${passed} checks ran, expected at least ${EXPECTED_CHECKS} — something above is short-circuiting`)
 console.log(`\nbridge-name-match.test.ts: ${passed} checks passed`)
+try { fs.rmSync(root, { recursive: true, force: true }) } catch { /* best-effort tmp cleanup */ }

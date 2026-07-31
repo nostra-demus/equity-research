@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { DataCoverage } from './DataCoverage'
@@ -38,6 +38,14 @@ export function DataFilesPanel() {
   const analyzeIntake = useStore((s) => s.analyzeIntake)
   const [open, setOpen] = useState(false) // collapsed by default — just the pill; click the header to expand
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
+  // Bumped by e.g. the news-bridge chip after it selects the subject holding the newest routed note — a
+  // click that only changed the selection would leave the note hidden behind a still-collapsed panel
+  // (Codex #374 P2). Only ever pushes OPEN; a user who explicitly re-collapses it after arriving is
+  // respected (this does not run again until the next bump).
+  const expandRequest = useStore((s) => s.dataPoolExpandRequest)
+  useEffect(() => {
+    if (expandRequest > 0) setOpen(true)
+  }, [expandRequest])
 
   if (!dataStatus || !dataStatus.hasAnyData || !dataStatus.files?.length) return null
   const files = dataStatus.files

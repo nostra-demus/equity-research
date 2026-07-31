@@ -89,6 +89,7 @@ function BridgeChip() {
   const refresh = useStore((s) => s.refreshBridgeStatus)
   const openDataLibrary = useStore((s) => s.openDataLibrary)
   const selectTicker = useStore((s) => s.selectTicker)
+  const requestDataPoolExpand = useStore((s) => s.requestDataPoolExpand)
   useEffect(() => {
     void refresh()
     const id = setInterval(() => void refresh(), 60_000)
@@ -108,7 +109,9 @@ function BridgeChip() {
     .filter((s) => s.notes > 0 && s.newestAt)
     .sort((a, b) => Date.parse(b.newestAt as string) - Date.parse(a.newestAt as string))[0]
   const goToNotes = () => {
-    if (newestSubject) void selectTicker(newestSubject.subject)
+    // Selecting alone isn't enough — the Data-pool panel collapses itself by default, so switching to the
+    // right subject behind a still-closed panel is the same dead end the library used to be. Expand it too.
+    if (newestSubject) { void selectTicker(newestSubject.subject); requestDataPoolExpand() }
     else openDataLibrary()
   }
   // Rounding straight to HOURS printed "next 0h" for anything under half an hour — the exact case an

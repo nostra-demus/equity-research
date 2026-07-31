@@ -30,7 +30,12 @@ import path from 'node:path'
 import { isReservedDataFolder } from './config'
 import { readFeed } from './news/feed'
 import type { FeedItem } from './news/types'
-import { bridgeEventToSubject, normaliseCompanyName, matchTrackedSubjects } from './research-bridge'
+import { bridgeEventToSubject, matchTrackedSubjects, wireNameMatching } from './research-bridge'
+
+// Re-exported for existing callers/tests that import it from here — the function itself now lives in
+// research-bridge.ts so the per-item stream path (autoBridgeItem) can share it too, without a circular
+// import (bridge-batch.ts already depends on research-bridge.ts, never the other way around).
+export { wireNameMatching }
 import { isValidTicker } from './sandbox'
 
 export const CURSOR_FILE = 'research-bridge-cursor.json'
@@ -300,18 +305,6 @@ export interface SweepOpts {
 /** Canonical company name per subject, from each one's NEWEST decision_record.json (`company_name`).
  *  Best-effort and silent: a subject with no run, no record, or an unreadable one simply gets no alias
  *  and keeps ticker-only matching — the fallback must never be able to break a sweep. */
-/** The wire company name that normalises to this subject's canonical name — i.e. the one that actually
- *  matched. Used only to keep the routed note's provenance line truthful. */
-export function wireNameMatching(item: FeedItem, subjectName?: string): string | undefined {
-  if (!subjectName) return undefined
-  const target = normaliseCompanyName(subjectName)
-  if (!target) return undefined
-  for (const c of item.companies || []) {
-    const raw = String(c?.name || '')
-    if (raw && normaliseCompanyName(raw) === target) return raw
-  }
-  return undefined
-}
 
 export function readSubjectNames(subjects: string[], analysesDir?: string): Record<string, string> {
   const out: Record<string, string> = {}

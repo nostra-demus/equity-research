@@ -16,7 +16,7 @@ import {
   ANALYSES_DIR, BRIDGE_DIR, BRIDGE_INTERVAL_MIN, BRIDGE_MODE, DATA_DIR, NEWS, REPO_ROOT, STATE_DIR,
 } from './config'
 import { acquireSingletonLock, releaseSingletonLock } from './singleton-lock'
-import { accumulatedFor, bridgeManifestError, enabledSubjects, readBatchConfig, sweepOnce } from './bridge-batch'
+import { accumulatedFor, bridgeManifestError, enabledSubjects, readBatchConfig, readSubjectNames, sweepOnce } from './bridge-batch'
 import { isPerItemBridgeActive } from './research-bridge'
 
 const LOCK_FILE = 'bridge-batch.lock'
@@ -92,6 +92,25 @@ function subjectCounts(subjects: string[]): BridgeSubjectStatus[] {
   const counts = subjects.map((subject) => ({ subject, ...accumulatedFor(DATA_DIR, subject) }))
   subjectCountsCache = { at: Date.now(), subjects, counts }
   return counts
+}
+
+// ---- subject-name alias cache (feeds the STREAM per-item path's name fallback) -------------------------
+// The batch sweep reads every covered subject's canonical company name ONCE per sweep (bridge-batch.ts's
+// own comment). The stream path (research-bridge.ts's autoBridgeItem) has no sweep — it runs on the wire's
+// ingest hot path, once per item — so re-reading every subject's newest decision_record.json per item
+// would multiply a filesystem read by the wire's full item rate for an answer that changes on the order of
+// "a new run finished", not "a new wire item arrived". A short TTL keeps it off the hot path while staying
+// fresh enough that a newly-finished run's canonical name shows up within a few minutes (Codex #374 P2:
+// the stream path silently lacked the name fallback the batch path gained).
+const SUBJECT_NAMES_TTL_MS = 5 * 60_000
+let subjectNamesCache: { at: number; names: Record<string, string> } | null = null
+
+export function getBridgeSubjectNames(): Record<string, string> {
+  const cache = subjectNamesCache
+  if (cache && Date.now() - cache.at < SUBJECT_NAMES_TTL_MS) return cache.names
+  const names = readSubjectNames(currentSubjects(), ANALYSES_DIR)
+  subjectNamesCache = { at: Date.now(), names }
+  return names
 }
 
 export function getBridgeStatus(): BridgeStatus {
