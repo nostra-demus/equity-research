@@ -77,7 +77,8 @@
     "This has a knock-on effect the record cannot express: forecast[0] is written against a '$9.00-$9.50 guide' that no longer exists. When it settles in Feb 2027 it must be resolved against the guide in force, and the note that the range moved must travel with it. A forecast pinned to a guidance range should carry the range's own revision risk in its trigger.",
     "Thesis status moved from on-track (30d review, 2026-07-13) to AT-RISK. Nothing has broken, but the Watchlist case rested on the earnings recovery not being extrapolated and on Viterra integration risk; the quarter delivered a beat, a raised guide, synergies ahead of plan and a completed $2B buyback. Those are all evidence against the reasons for staying on the sidelines.",
     "PRICE FIELDS ARE ALL NULL, and this is now the binding gap on this call. entry_price was null at decision (no pool-verified price existed), the 30d review left it null, and no tracking_price has ever been established — so this record has been unscoreable for two months and will stay unscoreable. Per DECISION_LEDGER §8 the fix is a review-side tracking_price anchored at or near the decision date; no usable dated price was sourced in this review, so none is invented here. Establishing one is the single outstanding action on this record: until then it cannot enter the calibration hit rate (§9), regardless of how the thesis resolves.",
-    "All outcome facts in this review are web-sourced, dated and indicative/unverified (Bunge Q2 2026 results coverage, 2026-07-29, via TradingView and Seeking Alpha). No filing was read for this review; a fuller review should read the Q2 10-Q."
+    "All outcome facts in this review are web-sourced, dated and indicative/unverified (Bunge Q2 2026 results coverage, 2026-07-29, via TradingView and Seeking Alpha). No filing was read for this review; a fuller review should read the Q2 10-Q.",
+    "CORRECTION within this same review, recorded rather than silently fixed: this block first stated that no pre-mortem existed for BG. That was wrong — analyses/BG_2026-06-01/pre_mortem.json is present and returned 'Survives' with a zero haircut. The claim was made without checking the run root, which is precisely the no-source-no-claim failure (CLAUDE.md §3/§5) this engine exists to avoid. The corrected pre_mortem_check above records the outcome as contradicted (false comfort)."
   ],
   "module_calibration_notes": {
     "most_responsible_for_decision": "Not re-derived in this ad-hoc review — the record's own module_scores stand.",
@@ -89,11 +90,11 @@
     "evidence_partition_note": "Process judgments above use only information available on or before 2026-06-01. The Q2 2026 results (2026-07-29) are used ONLY for outcome fields."
   },
   "pre_mortem_check": {
-    "pre_mortem_file": "",
-    "pre_mortem_verdict": "",
-    "pre_mortem_confidence_haircut": null,
-    "outcome_vs_verdict": "not_applicable",
-    "notes": "no pre-mortem ran for this decision — no pre_mortem*.json exists under the run root"
+    "pre_mortem_file": "analyses/BG_2026-06-01/pre_mortem.json",
+    "pre_mortem_verdict": "Survives",
+    "pre_mortem_confidence_haircut": 0,
+    "outcome_vs_verdict": "contradicted",
+    "notes": "FALSE COMFORT. The pre-mortem returned 'Survives' with a zero confidence haircut; two months later this review records the thesis at-risk. The direction of the surprise is worth stating precisely, because it is not the one the red-team was looking for: the thesis weakened because the COMPANY outperformed (beat and raised, synergies ahead of plan), not because a downside risk landed. The pre-mortem's kill_criteria_attack listed six ways the call could break — Brazil indirect-tax claims, FY2026 FCF staying negative, the crush/biofuel spread retracing, Viterra goodwill impairment, a covenant breach, a governance disqualifier — and every one is a DOWNSIDE test. None of them contemplated the bear case simply failing to arrive. That is the specific blind spot this contradiction records: a red-team that attacks only the ways a cautious call could be too optimistic cannot catch a cautious call that was too pessimistic."
   },
   "memo_delta": {
     "summary": "Bunge reported Q2 FY2026 on 29 July: adjusted diluted EPS $2.00, net income $678M, net sales $24.04bn, and — the part that matters to our note — management RAISED full-year adjusted EPS guidance to $9.25-$9.75 from $9.00-$9.50 while lifting the Viterra cost-synergy target from $250M to $350M. Our forecast was explicitly that the quarter would beat and the guide would NOT be raised. It was raised. The thesis is not broken but it is now at risk, and the record still has no price anchor of any kind.",
@@ -106,7 +107,9 @@
         "evidence_source": "Bunge Q2 2026 results, 2026-07-29, via TradingView and Seeking Alpha coverage (web-sourced, dated, indicative)",
         "materiality_score": 70,
         "impact_direction": "negative for the thesis",
-        "impacted_modules": ["earnings"],
+        "impacted_modules": [
+          "earnings"
+        ],
         "rerun_recommended": true,
         "rerun_reason": "The guidance range the earnings case was written against has moved up, and the synergy assumption behind the Viterra caution has moved with it. The earnings module's inputs are stale.",
         "rerun_command": "/research:earnings BG"

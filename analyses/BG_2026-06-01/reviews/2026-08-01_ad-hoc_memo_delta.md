@@ -49,17 +49,27 @@ Every price field here is **null**, and this is no longer a technicality:
 
 So this call has been **unscoreable for two months** and will stay that way. Per DECISION_LEDGER §8 the remedy is a review-side tracking price anchored at or near the decision date. No usable dated price was sourced in this review, so none is invented here — but establishing one is the **single outstanding action** on this record. Until it exists, BG cannot enter the calibration hit rate (§9) no matter how the thesis resolves.
 
-## 5. Section impact map
+## 5. The red-team's own scorecard
+
+BG had a pre-mortem, and it returned **"Survives"** with a **zero** confidence haircut. Two months later this review records the thesis **at-risk**. That is a **contradicted** verdict — false comfort.
+
+The *direction* of the surprise is the interesting part, because it is not the one the red-team was looking for. The thesis weakened because the **company outperformed**, not because a downside risk landed. The pre-mortem's six attack lines were: Brazil indirect-tax claims, FY2026 free cash flow staying negative, the crush/biofuel spread retracing, Viterra goodwill impairment, a covenant breach, a governance disqualifier.
+
+Every one is a **downside** test. None contemplated the bear case simply failing to arrive.
+
+That is the blind spot worth recording: a red-team that only attacks the ways a cautious call could prove too optimistic cannot catch a cautious call that was too **pessimistic**.
+
+## 6. Section impact map
 
 | Original section | Changed? | Materiality /100 | Why | Impacted module(s) | Re-run? |
 |---|---|---:|---|---|---|
 | Earnings — durability of the recovery / guidance risk | Yes | 70 | The guide the case was written against moved up, and the Viterra synergy assumption moved with it | earnings | `/research:earnings BG` |
 
-## 6. Stage-One sheet comment
+## 7. Stage-One sheet comment
 
 Bunge reported second quarter results on 29 July. Adjusted earnings of two dollars a share beat, net income was 678 million dollars on sales of 24 billion, and management raised full year adjusted earnings guidance to 9.25 to 9.75 dollars from 9.00 to 9.50. They also lifted the Viterra cost synergy target from 250 to 350 million and finished a two billion dollar buyback. This matters because our note predicted precisely the opposite shape - a beat on the quarter that management would decline to extrapolate into the full year guide. They extrapolated it. We are not calling the thesis broken, but the two reasons we stayed on the sidelines, that the recovery was not durable and that Viterra integration would disappoint, both took evidence against them in one print. We are moving this to at risk and the earnings work needs redoing on the new guide. Separately, this record still has no entry or tracking price after two months, so we cannot score it at all. That needs fixing before the next checkpoint.
 
-## 7. Questions for management / analysts
+## 8. Questions for management / analysts
 
 1. How much of the raised FY2026 guide is Soybean and Softseed crush margin, and how much is Viterra synergy capture independent of the crush cycle?
 2. The synergy target moved from $250M to $350M — is that pull-forward of savings already identified, or newly identified ones?
@@ -67,7 +77,7 @@ Bunge reported second quarter results on 29 July. Adjusted earnings of two dolla
 4. Where does the Viterra goodwill balance stand, and what headroom does the FY2026 impairment test carry?
 5. After the completed $2B buyback, what is the capital-allocation priority for the rest of FY2026?
 
-## 8. Watch before the next checkpoint
+## 9. Watch before the next checkpoint
 
 - Whether the raised **$9.25–$9.75** guide holds at the Q3 print.
 - **Viterra synergy capture** against the lifted $350M target.
