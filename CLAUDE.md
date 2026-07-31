@@ -132,6 +132,12 @@ Compare claims to relevant base rates wherever possible: sector cyclicality, his
 
 Rule: no exceptional forecast without exceptional evidence. If a forecast sits far outside its own history or its peers', the burden is on the evidence, not on optimism.
 
+**The base rate must match the CLAIM's unit — same metric, same level, same period.** A base rate drawn from a different unit than the claim is not evidence, it is a category error dressed as discipline. Before using one, check three things line up: the METRIC (profit growth is tested against profit growth, not revenue growth), the LEVEL (a segment-driven claim is tested at the segment, not against the consolidated blend), and the PERIOD (a forward claim is tested against comparable forward periods, and the most recent realised periods carry more weight than a decade-old average).
+
+This matters most in a business whose MIX is shifting, where the consolidated history is arithmetically the wrong yardstick: the group average is dominated by the shrinking part, so it understates what the growing part can do. When the mix is shifting, decompose — state the base rate for each segment that actually drives the claim, then re-aggregate at current weights. Say so explicitly when you do.
+
+*The miss this exists for:* an AMZN reverse-DCF read that the market implied ~16.4% annual profit growth judged that "aggressive versus the 11.1% historical revenue CAGR" — testing forward PROFIT growth at group level against a decade of consolidated REVENUE growth, in a company where the segment driving profit (18% of revenue, 57% of profit) was compounding at 28–37%. Wrong metric, wrong level, wrong period, all at once. Realised profit growth in the next reported quarter was +43%.
+
 ---
 
 ## 10. Forecast and Probability Rules
@@ -153,6 +159,13 @@ Require:
 - every forecast has a falsification trigger.
 
 If the scenario math does not reconcile, fix the probabilities, returns, or targets before publishing. Never publish inconsistent scenario math. If current price is missing, use returns only or request the price — do not fake precision.
+
+**A scenario set must SPAN the outcomes, not merely sum to 100%.** Probabilities that add up are necessary and not sufficient: a set can be arithmetically perfect and still contain no state of the world resembling what actually happens. Two required checks before publishing:
+
+- **Span check.** If the bull case sits within roughly a single ordinary move of the current price — a few percent on a large liquid name, i.e. inside the noise the stock makes in a normal week — the set is almost certainly too narrow. Ask plainly: *what single piece of news could move this 10%+, and which scenario contains it?* If the answer is "none", the scenario set is incomplete and must be widened before the expected return is computed. A bull case the stock can clear on one ordinary earnings print was never a bull case.
+- **Conjunction check.** If a case requires N independent conditions to be true SIMULTANEOUSLY, its probability must be justified against that conjunction — and the asymmetry against the other cases must be deliberate. A bull needing four things to go right, weighed against a bear needing one thing to go wrong, is not evidence of a poor risk/reward; it is an artefact of how the cases were built. Either decompose the conjunction into separate cases (the single condition that does most of the work usually deserves its own), or state why all N genuinely move together.
+
+*The miss this exists for:* an AMZN case set of bull $247 (25%) / base $210 (45%) / bear $146 (30%) — a bull only +3.6% above the price, requiring FOUR conditions at once (AWS ≥35% growth AND D&A absorbed on a 6-month lag AND advertising rebounding to 32% AND North America units to 20%), while the bear required only that AWS decelerate. In the event ONE of the four (AWS growth, which printed 37%) moved the stock 15% in two days, to $270.87 — above the top of the entire distribution. The math summed to 100% and reconciled perfectly. It spanned nothing.
 
 ---
 
