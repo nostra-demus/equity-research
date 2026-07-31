@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '../lib/store'
-import { decisionColor, fmtAgo, resetIn, resolveVerdict, usageColor, usageLabel, usagePct } from '../lib/format'
+import { decisionColor, fmtAgo, fmtMinutes, nextSweepLabel, resetIn, resolveVerdict, usageColor, usageLabel, usagePct } from '../lib/format'
 import { plainKind } from '../lib/plain'
 import { EngineStatusPill } from './EngineStatus'
 import { ThemeToggle } from './ThemeToggle'
@@ -95,7 +95,11 @@ function BridgeChip() {
   }, [refresh])
   if (!status) return null // pre-first-read: show nothing rather than a wrong state
   const sweeping = status.sweeping // the server's in-flight flag — not inferred from the schedule
-  const hrsTo = status.nextSweepAt ? Math.max(0, Math.round((new Date(status.nextSweepAt).getTime() - Date.now()) / 3_600_000)) : null
+  // Rounding straight to HOURS printed "next 0h" for anything under half an hour — the exact case an
+  // operator creates when they drop BRIDGE_INTERVAL_MIN to its 15m clamp floor to watch a sweep. Share the
+  // one duration ladder (fmtMinutes) instead, so a short cadence reads "next 12m". A schedule that has
+  // already passed (a retained snapshot after a failed poll) reads "due now", not a false "next 1m".
+  const nextIn = nextSweepLabel(status.nextSweepAt, Date.now())
   // a malformed manifest is a real config error, distinct from off/idle — surface it even while `running`
   // is otherwise true, instead of it reading as a quiet, valid zero-subject sweep (Codex #359)
   const label = status.manifestError
@@ -104,20 +108,20 @@ function BridgeChip() {
       ? 'News bridge off'
       : sweeping
         ? 'News bridge sweeping now…'
-        : `News bridge on · ${status.totalNotes} routed${hrsTo != null ? ` · next ${hrsTo}h` : ''}`
+        : `News bridge on · ${status.totalNotes} routed${nextIn ? ` · ${nextIn}` : ''}`
   const perSubject = status.subjects.length
     ? status.subjects.map((s) => `  ${s.subject}: ${s.notes} note${s.notes === 1 ? '' : 's'}${s.newestAt ? ` · newest ${new Date(s.newestAt).toLocaleDateString()}` : ''}`).join('\n')
     : '  (no subjects covered yet)'
   const title = status.manifestError
     ? `News bridge — configuration error.\n${status.manifestError}\nUnattended routing is not reading a valid subject list right now. Fix the manifest, then click to see the data pools.`
     : status.running
-      ? `News bridge — on, sweeping every ${Math.round(status.intervalMin / 60)}h.\nRouted into research pools so far:\n${perSubject}\nEach note lands in that company's data pool and the cheap analysis scopes which orbs it affects — the paid re-run stays your click.`
+      ? `News bridge — on, sweeping every ${fmtMinutes(status.intervalMin)}.\nRouted into research pools so far:\n${perSubject}\nEach note lands in that company's data pool and the cheap analysis scopes which orbs it affects — the paid re-run stays your click.`
       : `News bridge — off.\n${status.idleReason || 'No reason reported by the engine.'}\nRouted so far: ${status.totalNotes}. Click to see the data pools.`
   return (
     <button className="autoscan" onClick={openDataLibrary} title={title}>
       <span className={`autoscan__dot${status.running ? ' autoscan__dot--on' : ''}${sweeping ? ' autoscan__dot--busy' : ''}${status.manifestError ? ' autoscan__dot--error' : ''}`} />
       {!status.manifestError && status.running && status.totalNotes > 0
-        ? <>News bridge on · <span className="autoscan__count">{status.totalNotes} routed</span>{hrsTo != null ? ` · next ${hrsTo}h` : ''}</>
+        ? <>News bridge on · <span className="autoscan__count">{status.totalNotes} routed</span>{nextIn ? ` · ${nextIn}` : ''}</>
         : label}
     </button>
   )

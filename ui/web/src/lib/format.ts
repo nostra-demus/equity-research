@@ -79,15 +79,35 @@ export function usageColor(status?: string, utilization?: number): string {
   if (u >= 0.75) return 'var(--accent-bright)'
   return 'var(--accent)'
 }
-export function resetIn(resetsAt?: number): string | null {
-  if (!resetsAt) return null
-  const ms = resetsAt * 1000 - Date.now()
-  if (ms <= 0) return 'now'
-  const mins = ms / 60000
+// A span given in MINUTES, in the shortest unit that stays truthful: minutes below an hour, then hours,
+// then days. Extracted from resetIn (the same ladder, measured from a timestamp) so a plain duration
+// formats identically to a countdown. The news-bridge chip previously did its own `Math.round(min / 60)`
+// and printed "sweeping every 0h" for any cadence under half an hour — the 15-minute clamp floor an
+// operator sets to watch a sweep is exactly that case.
+// Named for its INPUT UNIT because fmtDuration above takes MILLISECONDS and formats a short run as
+// "4m 12s" — a different ladder for a different job; do not merge them.
+export function fmtMinutes(mins: number): string {
   if (mins < 60) return `${Math.max(1, Math.round(mins))}m`
   const hours = mins / 60
   if (hours < 48) return `${Math.round(hours)}h`
   return `${Math.round(hours / 24)}d`
+}
+export function resetIn(resetsAt?: number): string | null {
+  if (!resetsAt) return null
+  const ms = resetsAt * 1000 - Date.now()
+  if (ms <= 0) return 'now'
+  return fmtMinutes(ms / 60000)   // MINUTES — not fmtDuration, which reads its argument as milliseconds
+}
+// The news-bridge chip's "next sweep" phrase. A NONPOSITIVE delta means the scheduled sweep time has
+// already passed. That is not hypothetical: refreshBridgeStatus keeps the last-known snapshot when a poll
+// fails (status is decoration), so a stale nextSweepAt sits in the past whenever the engine is unreachable
+// or has stopped advancing its schedule. Feeding that straight to fmtMinutes prints "next 1m" — fmtMinutes
+// floors to 1m — so the chip would claim a sweep is imminent forever, hiding that it is overdue. Say
+// "due now" instead (the same <=0 convention resetIn uses). A future time uses the one shared ladder.
+export function nextSweepLabel(nextSweepAt: string | number | null | undefined, now: number): string | null {
+  if (!nextSweepAt) return null
+  const mins = (new Date(nextSweepAt).getTime() - now) / 60_000
+  return mins <= 0 ? 'due now' : `next ${fmtMinutes(mins)}`
 }
 
 // past-relative time for the activity log ("just now", "5m ago", "3h ago", "2d ago", else a date)

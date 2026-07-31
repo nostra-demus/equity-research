@@ -29,6 +29,9 @@ import { REPO_ROOT } from './config'
 import { resolveInsideRuns } from './sandbox'
 
 const SENSITIVITY_ENGINE = path.join(REPO_ROOT, 'scripts', 'sensitivity_math.py')
+// The driver -> TARGET hop lives in the SAME python authority the integrity guard and the Playground client
+// both mirror. The server never re-implements valuation arithmetic: a third mirror is a third thing to drift.
+const VALUATION_ENGINE = path.join(REPO_ROOT, 'scripts', 'valuation_math.py')
 const SIDECAR_REL = 'earnings/sensitivity_summary.json'
 
 // ---- sidecar (the recorded coefficients) ------------------------------------------------------------
@@ -90,6 +93,48 @@ export function detectWhatIf(question: string): boolean {
   const q = question || ''
   if (!ANY_NUM.test(q)) return false
   return COND_CUE.test(q) || CHANGE_CUE.test(q) || SIGNED_NUM.test(q) || (SOLVE_CUE.test(q) && /%|margin/i.test(q))
+}
+
+// ---- 1b. the NUMBERLESS follow-up ("…and what would the target change be?") --------------------------
+// detectWhatIf REQUIRES a digit in the LATEST message — by design, it is the gate for PARSING A NEW DRIVER
+// MOVE. But the chat's own headline scenario is a follow-up that names no number at all: "if LME is
+// 3,467/mt, what's the EBITDA change?" (has a number, parses fine) then "...and what would the price upside
+// or target change be?" (no number — detectWhatIf returns false, and the reprice block is never built).
+// ChatBody only ever retained {role, content} per turn, and buildChatPrompts serializes only m.content — so
+// unless the model happened to restate every figure in its own prior prose, this closed-book follow-up had
+// NO deterministic data to answer from. This is a SEPARATE, narrower gate: it never parses a new move, it
+// only decides whether to REPLAY a prior turn's already-computed result (Codex #371 P1).
+const FOLLOWUP_TARGET_CUE = /\b(target|upside|downside|price|fair value|re-?price|re-?rate|expected return)\b/i
+
+export function isNumberlessTargetFollowUp(question: string): boolean {
+  const q = question || ''
+  if (ANY_NUM.test(q)) return false // has its own number — the normal what-if path owns this
+  return FOLLOWUP_TARGET_CUE.test(q)
+}
+
+// The shape a chat turn is echoed back as in ChatBody.messages — the client's ChatMessage mirrors this
+// exactly (role/content always; computed only on an assistant turn that streamed a card). Loosely typed
+// on purpose: this is client-echoed JSON (the server's own prior output, round-tripped), not re-validated
+// against the full ComputedPayload shape — findPriorScenarioComputed checks the specific fields it reads.
+export interface StoredChatMessage { role: 'user' | 'assistant'; content: string; computed?: unknown[] }
+
+/** The most recent prior turn's computed SCENARIO payload, searching backward — what a numberless follow-up
+ *  resolves against. Returns null (never a guess) when nothing usable is found: no prior computed turn, or
+ *  the echoed shape does not carry the minimum fields a real ComputedScenario always has. A malformed or
+ *  tampered entry is refused, not partially trusted. */
+export function findPriorScenarioComputed(messages: StoredChatMessage[]): (ComputedPayload & { kind: 'scenario' }) | null {
+  for (let i = messages.length - 1; i >= 0; i--) {
+    const m = messages[i]
+    if (!m || m.role !== 'assistant' || !Array.isArray(m.computed)) continue
+    for (let j = m.computed.length - 1; j >= 0; j--) {
+      const c = m.computed[j] as any
+      if (c && c.kind === 'scenario' && c.scenario && typeof c.scenario === 'object'
+        && typeof c.scenario.variable === 'string' && typeof c.scenario.impact === 'number') {
+        return c as ComputedPayload & { kind: 'scenario' }
+      }
+    }
+  }
+  return null
 }
 
 // ---- 2. the parser contract (model interprets; code verifies) -----------------------------------------
@@ -396,14 +441,154 @@ export function marginName(metric?: string | null): string {
 
 // ---- 5. the payload streamed to the panel + the prompt block -----------------------------------------
 export type ComputedPayload =
-  | { kind: 'scenario'; asked: string; scenario: ComputedScenario }
+  // `reprice` is the driver -> TARGET half. Optional: a run with no per-case valuation levers simply omits
+  // the section rather than the chat claiming the target is out of context.
+  | { kind: 'scenario'; asked: string; scenario: ComputedScenario; reprice?: RepricedValuation | null }
   | { kind: 'unsupported'; asked: string; recorded: { variable: string; label?: string | null; unit?: string | null }[]; reason: string }
 
 const fmt = (n: number | null | undefined, d = 0) => (typeof n === 'number' ? n.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }) : '—')
 
 /** The authoritative context block injected into the closed-book prompt. The model narrates THIS; the
  *  numbers are the engine's, verbatim. */
-export function computedContextBlock(payload: ComputedPayload): string {
+/** One case in the driver -> target chain. A case that does not respond says why, and is never estimated. */
+export interface RepricedCase {
+  label: string
+  probability: number | null
+  responds: boolean
+  why?: string | null
+  level_before: number | null
+  level_after: number | null
+  return_before: number | null
+  return_after: number | null
+  multiple?: number | null
+  multiple_basis?: string | null
+  // §5: "cite the source the number came from" — THIS case's own valuation citation (the metric x
+  // multiple it is quoted on), a DIFFERENT source than the driver coefficient's own (carried separately on
+  // the sensitivity side). bridge_source / derivation_source are carried only when they differ from
+  // `source` (a bridge or derivation chain traced to a different module's document, e.g. a debt note).
+  source?: string | null
+  bridge_source?: string | null
+  derivation_source?: string | null
+}
+
+/** The answer to "…and what would the target change be?" — the question the chat used to call not-in-context.
+ *  Every number comes from scripts/valuation_math.py; `ok: false` carries a reason the block states plainly. */
+export interface RepricedValuation {
+  ok: boolean
+  reason?: string | null
+  detail?: string | null
+  price?: number | null
+  // §5/§20: the date `price` is AS OF — an old run's entry price must not read as "today's price"
+  // (Codex #371 P2). null when the source (decision entry_price_timestamp / sidecar price_as_of) didn't
+  // record one.
+  price_as_of?: string | null
+  direction?: 'long' | 'short'
+  metric_before?: number | null
+  metric_after?: number | null
+  cases?: RepricedCase[]
+  responded?: number
+  held?: string[]
+  expected_return_pct_before?: number | null
+  expected_return_pct_after?: number | null
+  prob_weighted_target_before?: number | null
+  prob_weighted_target_after?: number | null
+  warnings?: string[]
+}
+
+/** Push a NEW base-metric value through each case's own recorded valuation levers.
+ *
+ *  This is the second half of a driver question. The sensitivity engine answers "the EBITDA change"; this
+ *  answers "and therefore the target / the upside" — which the chat previously could not reach at all,
+ *  because nothing linked the sensitivity sidecar to valuation_summary.json. Returns null when the run has
+ *  no levers to push through (the caller then simply omits the section). */
+export async function repriceFromMetric(args: {
+  valuationSidecar: unknown
+  decision: unknown
+  newMetric: number
+  baseMetric?: number | null
+  direction?: 'long' | 'short'
+  // the driver's OWN metric name (the sensitivity row's impact_metric, e.g. "EBITDA") — strengthens the
+  // engine's metric-identity gate beyond numeric proximity alone (Codex #371 P1). Optional and additive:
+  // omitting it leaves the numeric gate as the sole check, exactly as before.
+  metricLabel?: string | null
+}): Promise<RepricedValuation | null> {
+  const payload = {
+    sidecar: args.valuationSidecar, decision: args.decision ?? {},
+    new_metric: args.newMetric, base_metric: args.baseMetric ?? null,
+    direction: args.direction ?? 'long', metric_label: args.metricLabel ?? null,
+  }
+  let out
+  try {
+    out = await execa('python3', [VALUATION_ENGINE, '--reprice'],
+      { cwd: REPO_ROOT, input: JSON.stringify(payload), timeout: 15_000, reject: false })
+  } catch { return null }
+  if (!out || out.exitCode !== 0 || !out.stdout) return null
+  try {
+    const r = JSON.parse(out.stdout)
+    if (r && typeof r === 'object' && !('error' in r)) return r as RepricedValuation
+    return r && r.error ? { ok: false, reason: 'engine_error', detail: String(r.error) } : null
+  } catch { return null }
+}
+
+/** The driver -> target section of the COMPUTED SCENARIO block. Written so the model can only narrate it:
+ *  every level, return and the expected return are already computed, and a case that did NOT move carries
+ *  its own reason so the model cannot invent one. */
+export function repricedBlock(rv: RepricedValuation | null | undefined): string[] {
+  if (!rv) return []
+  if (!rv.ok) {
+    const why = rv.reason === 'metric_mismatch'
+      ? `the fair value cannot be re-derived from this driver: ${rv.detail}`
+      : rv.reason === 'no_levers' || rv.reason === 'no_metric_cases'
+        ? "this run's valuation records no per-case metric x multiple, so a driver move cannot be pushed through to a target"
+        : rv.detail || 'the target could not be re-derived'
+    return ['- TARGET / UPSIDE: not derivable — ' + why,
+            '  Say that plainly. Do NOT estimate a price target or an upside yourself.']
+  }
+  const L: string[] = []
+  const sign = (n: number | null | undefined) => (typeof n === 'number' && n >= 0 ? '+' : '')
+  // PER-SHARE, so 2dp: fmt()'s 0dp default is right for a 28,889 EBITDA and wrong for a 107.70 fair value
+  // (it would print "108", and an 84.96 entry price as "85").
+  const ps = (n: number | null | undefined) => fmt(n, 2)
+  L.push(`- TARGET / UPSIDE — each case re-priced through its OWN recorded multiple and bridge (${rv.direction === 'short' ? 'returns are position-signed for a SHORT: a falling price is a gain' : 'long-side returns'}):`)
+  for (const c of rv.cases ?? []) {
+    // §5: the VALUATION's own citation (this case's metric x multiple) — a DIFFERENT source than the
+    // driver coefficient's own (already cited on the sensitivity side, above this block). A bridge/
+    // derivation source is shown only when it differs (traced to a different module's document).
+    const srcBits: string[] = []
+    if (c.source) srcBits.push(`valuation: ${c.source}`)
+    if (c.bridge_source) srcBits.push(`bridge: ${c.bridge_source}`)
+    if (c.derivation_source && c.derivation_source !== c.source) srcBits.push(`derivation: ${c.derivation_source}`)
+    const srcTail = srcBits.length ? ` [source — ${srcBits.join('; ')}]` : ''
+    if (c.responds) {
+      L.push(`  - ${c.label}: ${ps(c.level_before)} → ${ps(c.level_after)} at its ${c.multiple}x${c.multiple_basis ? ` ${c.multiple_basis}` : ''}`
+        + (c.return_before != null && c.return_after != null ? ` (return ${sign(c.return_before)}${c.return_before}% → ${sign(c.return_after)}${c.return_after}%)` : '')
+        + srcTail)
+    } else {
+      L.push(`  - ${c.label}: HELD at ${ps(c.level_before)} — ${c.why}. This is not an omission: state it as a finding.${srcTail}`)
+    }
+  }
+  if (rv.prob_weighted_target_before != null) {
+    L.push(`  - probability-weighted target: ${ps(rv.prob_weighted_target_before)} → ${ps(rv.prob_weighted_target_after)}`)
+  }
+  if (rv.expected_return_pct_before != null) {
+    // the anchor price carries its OWN date — an older run's price must not read as "today's price"
+    // (Codex #371 P2): "at its recorded entry price of 84.96 (as of 2026-06-15)" when the date is known.
+    const priceTail = rv.price_as_of ? `its recorded entry price of ${ps(rv.price)} (as of ${rv.price_as_of})` : `a price of ${ps(rv.price)} (no recorded date — do not imply this is today's price)`
+    L.push(`  - EXPECTED RETURN: ${sign(rv.expected_return_pct_before)}${rv.expected_return_pct_before}% → ${sign(rv.expected_return_pct_after)}${rv.expected_return_pct_after}%`
+      + `  (probability-weighted across every case the thesis holds, at ${priceTail})`)
+  }
+  for (const w of rv.warnings ?? []) L.push(`  - caveat: ${w}`)
+  L.push('  When citing the TARGET/UPSIDE numbers, cite the VALUATION source(s) shown above per case — do NOT reuse the driver coefficient\'s own source (cited separately above) for these fair-value numbers; they came from a different document (§5).')
+  return L
+}
+
+export function computedContextBlock(payload: ComputedPayload, opts?: { carriedForward?: boolean }): string {
+  // A numberless follow-up ("…and what would the target change be?") resolved against a PRIOR turn's
+  // already-computed result, not a fresh parse — say so, so the model narrates "as computed earlier" and
+  // never implies it just re-ran the calculator on nothing (Codex #371 P1).
+  const carriedNote = opts?.carriedForward
+    ? 'This is the SAME computed result from earlier in this conversation, carried forward because the question referenced it with no new number of its own. Do not recompute it, and do not invent a different figure — restate these numbers.\n'
+    : ''
   if (payload.kind === 'unsupported') {
     const list = payload.recorded.map((r) => `${r.label || r.variable}${r.unit ? ` (${r.unit})` : ''}`).join(', ')
     const why = payload.reason === 'multi' || payload.reason === 'ambiguous' // legacy reasons kept for deploy skew
@@ -415,7 +600,7 @@ export function computedContextBlock(payload: ComputedPayload): string {
           : payload.reason === 'metric_mismatch'
             ? 'The matched coefficient is on a different metric than the run\'s base metric, so it cannot be applied to the base level.'
             : 'The variable the user asked about is not one the sensitivity orb recorded for this company.'
-    return [
+    return carriedNote + [
       `COMPUTED SCENARIO — the engine could NOT model this what-if. ${why}`,
       `Tell the user plainly, and that the engine CAN model: ${list || '(none recorded)'}.`,
       'Do not estimate the unmodelled value yourself — offer the recorded variables (one at a time) instead.',
@@ -423,6 +608,7 @@ export function computedContextBlock(payload: ComputedPayload): string {
   }
   const s = payload.scenario
   const lines: string[] = []
+  if (carriedNote) lines.push(carriedNote.trim())
   lines.push('COMPUTED SCENARIO (authoritative — produced by the engine\'s deterministic calculator scripts/sensitivity_math.py, NOT by you):')
   if (s.note) lines.push(`(${s.note})`)
   const mName = marginName(s.impactMetric)
@@ -443,6 +629,10 @@ export function computedContextBlock(payload: ComputedPayload): string {
   if (s.withinDisclosedRange === false) lines.push(`- CAUTION: ${s.rangeNote || 'the move is beyond the orb\'s disclosed range — a rough extrapolation'}.`)
   if (s.nonLinearity) lines.push(`- Non-linearity to mention: ${s.nonLinearity}`)
   if (s.periodNote) lines.push(`- NOTE: the question asks about a period this scenario does not forecast — these numbers are a single-period scenario${s.periodBase ? ` on the ${s.periodBase} base` : ' on an unstated base period'}, not a multi-year forecast. Say so.`)
+  for (const l of repricedBlock(payload.reprice)) lines.push(l)
   lines.push('Narrate THIS result in plain English. Use these numbers verbatim; do NOT recompute or change them. Cite the source shown, and carry the confidence, basis, and any caution/non-linearity note into your answer.')
+  if (payload.reprice?.ok) {
+    lines.push('The TARGET / UPSIDE lines above are part of this answer: when the user asks what the driver does to the price, the target, or the upside — now or in a later turn — those are the numbers. They are already probability-weighted across the thesis\'s own cases; never re-weight or re-derive them.')
+  }
   return lines.join('\n')
 }

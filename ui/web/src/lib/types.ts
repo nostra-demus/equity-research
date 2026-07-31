@@ -1331,8 +1331,49 @@ export interface ComputedScenario {
   periodBase?: string | null      // the sidecar's base period when known (decorates the note); may be null while periodNote is true
   note?: string | null            // set on the first card of a multi-variable answer
 }
+// The driver -> TARGET hop (scripts/valuation_math.py's reprice_from_metric, via the server's chat-whatif).
+// Field names mirror the server's ui/server/src/chat-whatif.ts RepricedCase/RepricedValuation EXACTLY
+// (snake_case) — this payload is the raw engine JSON passed straight through the server with no camelCase
+// reshaping (unlike ComputedScenario, which the server DOES reshape via shapeScenario), so the client must
+// mirror the same snake_case shape rather than re-deriving one.
+export interface RepricedCase {
+  label: string
+  probability: number | null
+  responds: boolean
+  why?: string | null
+  level_before: number | null
+  level_after: number | null
+  return_before: number | null
+  return_after: number | null
+  multiple?: number | null
+  multiple_basis?: string | null
+  source?: string | null
+  bridge_source?: string | null
+  derivation_source?: string | null
+}
+export interface RepricedValuation {
+  ok: boolean
+  reason?: string | null
+  detail?: string | null
+  price?: number | null
+  price_as_of?: string | null
+  direction?: 'long' | 'short'
+  metric_before?: number | null
+  metric_after?: number | null
+  cases?: RepricedCase[]
+  responded?: number
+  held?: string[]
+  expected_return_pct_before?: number | null
+  expected_return_pct_after?: number | null
+  prob_weighted_target_before?: number | null
+  prob_weighted_target_after?: number | null
+  warnings?: string[]
+}
 export type ChatComputed =
-  | { kind: 'scenario'; asked: string; scenario: ComputedScenario }
+  // `reprice` is the driver -> TARGET half — optional and present only when this run records per-case
+  // valuation levers AND the driver's new metric value could be pushed through them (successfully OR with
+  // an honest ok:false refusal the card must render, never silently drop).
+  | { kind: 'scenario'; asked: string; scenario: ComputedScenario; reprice?: RepricedValuation | null }
   | { kind: 'unsupported'; asked: string; recorded: { variable: string; label?: string | null; unit?: string | null }[]; reason?: string }
 
 // `thinking` (assistant turns) is the model's extended-thinking reasoning, streamed live while the answer

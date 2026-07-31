@@ -208,6 +208,9 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
             det.append(f"scenario {s.get('label')!r} records a `bridge` on an equity-basis case — an equity "
                        f"multiple already gives equity value; there is no EV→equity bridge to apply")
             br = None
+        # (A present-but-non-object bridge is rejected ABOVE, at the single gate this file keeps for it —
+        # deliberately not repeated here: that gate's own comment records that #364 and #365 each added it
+        # independently and settles on one. §2.)
         # §15: a per-case net debt that departs from the run-level basis (NHY's cases deduct the
         # cash-quality-adjusted 17,919 while the run declares the broad 13,090) must SAY so wherever it
         # appears. The bridge is a v1.3-only field, so there is nothing to grandfather (Codex #362 P2).
@@ -833,6 +836,17 @@ def _selftest() -> int:
           eval_ap_valuation_summary_integrity(dict(v13, scenarios=[
               _nhy("bull", 8.21, 107.7, bridge={"net_debt": 17919, "net_debt_basis": "adj", "minority": 7495, "other": None, "shares": 1965.28}),
               _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)]), None) == [])
+
+    # a present, non-OBJECT bridge is a violation — not silently "absent" with a run-level fallback
+    for bad in ("oops", ["a"], 7, True):
+        out = eval_ap_valuation_summary_integrity(
+            dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge=bad), _nhy("base", 6.45, 81.83), _nhy("bear", 3.95, 45.12)]), None)
+        check(f"non-object bridge {bad!r} caught", any("is not an object" in v for v in out))
+    check("an explicit NULL bridge is still fine (the documented absent path)",
+          eval_ap_valuation_summary_integrity(dict(v13, basis="equity", scenarios=[
+              {k: v for k, v in _nhy("bull", 8.21, 237178.69).items() if k not in ("bridge", "basis")},
+              {k: v for k, v in _nhy("base", 6.45, 186335.05).items() if k not in ("bridge", "basis")},
+              {k: v for k, v in _nhy("bear", 3.95, 114112.55).items() if k not in ("bridge", "basis")}]), None) == [])
 
     # §15: a per-case debt figure must name its basis wherever it appears
     no_ndb = dict(v13, scenarios=[_nhy("bull", 8.21, 107.7, bridge={"net_debt": 17919, "minority": 7495, "shares": 1965.28}),

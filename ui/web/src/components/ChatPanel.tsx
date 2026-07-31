@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useStore, isFlowActive } from '../lib/store'
-import type { ChatComputed, ChatScope, ChatStyle, ChatWork } from '../lib/types'
+import type { ChatComputed, ChatScope, ChatStyle, ChatWork, RepricedValuation } from '../lib/types'
 
 const titleize = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
@@ -509,6 +509,72 @@ function ComputedCard({ c }: { c: ChatComputed }) {
         lead={reverse ? `need ${nsigned(s.neededImpact)} ÷ coefficient ${s.coefficient} = ${nsigned(s.resolvedDelta)}${s.unit ? ` ${s.unit}` : ''}` : `coefficient ${s.coefficient} per unit`}
         source={s.source}
       />
+      {c.reprice && <RepriceBlock rv={c.reprice} />}
+    </div>
+  )
+}
+
+// per-share, so 2dp: a 107.70 fair value must not print as "108" (fmt()'s 0dp default is right for a
+// 28,889 EBITDA, wrong here).
+const psfmt = (n: number | null | undefined) => nfmt(n, 2)
+
+// The driver -> TARGET section: the deterministic reprice (scripts/valuation_math.py's reprice_from_metric)
+// rendered as its own card region, so the target/return numbers are visible WITHOUT the model having to
+// restate them in prose — and survive a narration that gets aborted, since the store intentionally
+// preserves the computed card independent of the streamed text (Codex #371 P2).
+function RepriceBlock({ rv }: { rv: RepricedValuation }) {
+  if (!rv.ok) {
+    return (
+      <div className="chatpanel__computed-reprice chatpanel__computed-reprice--refuse">
+        <div className="chatpanel__computed-kicker">Target / upside — not derivable</div>
+        <div className="chatpanel__computed-refuse">{rv.detail || 'the target could not be re-derived from this driver.'}</div>
+      </div>
+    )
+  }
+  const short = rv.direction === 'short'
+  return (
+    <div className="chatpanel__computed-reprice">
+      <div className="chatpanel__computed-kicker" title="Computed by scripts/valuation_math.py's reprice_from_metric — each case re-priced through its OWN recorded multiple and bridge, never estimated.">
+        Target / upside{short ? ' · short (position-signed)' : ''}
+      </div>
+      <div className="chatpanel__computed-rows">
+        {(rv.cases ?? []).map((cs) => (
+          <div className="chatpanel__computed-row" key={cs.label}>
+            <span className="rl">{cs.label}{cs.multiple_basis ? <small> · {cs.multiple_basis}</small> : null}</span>
+            {cs.responds ? (
+              <>
+                <span className="rv">{psfmt(cs.level_before)}<span className="ar" aria-hidden>→</span><b>{psfmt(cs.level_after)}</b></span>
+                <span className="rd">{cs.return_before != null && cs.return_after != null ? `${nsigned(cs.return_before, 1, '%')} → ${nsigned(cs.return_after, 1, '%')}` : (cs.multiple != null ? `${cs.multiple}×` : '')}</span>
+              </>
+            ) : (
+              <>
+                <span className="rv">HELD at {psfmt(cs.level_before)}</span>
+                <span className="rd" title={cs.why || undefined}>{cs.why}</span>
+              </>
+            )}
+          </div>
+        ))}
+        {rv.prob_weighted_target_before != null && (
+          <div className="chatpanel__computed-row">
+            <span className="rl">Probability-weighted target</span>
+            <span className="rv">{psfmt(rv.prob_weighted_target_before)}<span className="ar" aria-hidden>→</span><b>{psfmt(rv.prob_weighted_target_after)}</b></span>
+            <span className="rd" />
+          </div>
+        )}
+        {rv.expected_return_pct_before != null && (
+          <div className="chatpanel__computed-row">
+            <span className="rl">Expected return</span>
+            <span className="rv">{nsigned(rv.expected_return_pct_before, 1, '%')}<span className="ar" aria-hidden>→</span><b>{nsigned(rv.expected_return_pct_after, 1, '%')}</b></span>
+            <span className="rd" />
+          </div>
+        )}
+      </div>
+      {rv.price != null && (
+        <div className="chatpanel__computed-note">
+          at {rv.price_as_of ? `its recorded entry price of ${psfmt(rv.price)} (as of ${rv.price_as_of})` : `a price of ${psfmt(rv.price)} (no recorded date)`}
+        </div>
+      )}
+      {(rv.warnings ?? []).map((w, i) => <div className="chatpanel__computed-note" key={i}>{w}</div>)}
     </div>
   )
 }

@@ -62,6 +62,14 @@ server, not only the macOS `hk-*` timers:
   `hk-review` launchd timer — running both is safe (per-ticker in-flight guard + the DUE gate), so the
   timer can stay as a belt-and-braces fallback. **Reinstall the service to pick the flags up**
   (`scripts/ops/install-services.sh`, then `launchctl kickstart -k gui/$UID/com.nostradamus.engine`).
+- `BRIDGE_MODE` — the company-news bridge (#359, `bridge-scheduler.ts`). Unlike the two flags above,
+  this one IS role-scoped by the installer (not just hardcoded in the plist): a fresh `--role doer`
+  install renders `batch` (routes material wire events into covered subjects' pools every 12h; paid
+  re-runs stay behind a click); every `--role admin` install renders `off`, always — an admin machine
+  never gets autonomous bridge routing, matching the doer-only "no duplicate autonomy" split the other
+  agents already get. An operator's own `off`/`stream` choice on an existing doer machine is carried
+  forward across reinstall (same shape as `NEWS_ARCHIVE_DIR` below), never silently reset to `batch`.
+  See `install-services.sh`'s `BRIDGE_MODE_VALUE` computation.
 
 **Auth for the doer (required).** Both the cockpit and the `hk-*` timers spawn a headless `claude` under
 launchd, which cannot prompt for an interactive login — so the doer needs Anthropic credentials available
