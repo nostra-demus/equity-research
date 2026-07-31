@@ -30,7 +30,12 @@ import path from 'node:path'
 import { isReservedDataFolder } from './config'
 import { readFeed } from './news/feed'
 import type { FeedItem } from './news/types'
-import { bridgeEventToSubject, matchTrackedSubjects } from './research-bridge'
+import { bridgeEventToSubject, matchTrackedSubjects, wireNameMatching } from './research-bridge'
+
+// Re-exported for existing callers/tests that import it from here — the function itself now lives in
+// research-bridge.ts so the per-item stream path (autoBridgeItem) can share it too, without a circular
+// import (bridge-batch.ts already depends on research-bridge.ts, never the other way around).
+export { wireNameMatching }
 import { isValidTicker } from './sandbox'
 
 export const CURSOR_FILE = 'research-bridge-cursor.json'
@@ -253,6 +258,9 @@ export interface SubjectSweep {
   duplicates: number
   /** items considered for this subject after the ticker match */
   considered: number
+  /** of `written`, how many were found ONLY by the company-name fallback (the wire extracted no ticker).
+   *  Surfaced so the fallback's yield is visible rather than silently folded into the total. */
+  matchedByName: number
   /** true when this subject had no cursor and the sweep used the capped backfill window instead
    *  (a brand-new subject, OR one just reset by a disabled→re-enabled transition — see
    *  RETENTION_BOUNDARY_DAYS / readPreviouslyEnabled above) */
@@ -289,6 +297,32 @@ export interface SweepOpts {
   /** seam over research-bridge's bridgeEventToSubject — defaults to the real writer. Exists so a test can
    *  simulate a transient pool-write failure and assert the cursor does not step past the unpersisted event. */
   writeNote?: (args: Parameters<typeof bridgeEventToSubject>[0]) => { already: boolean; path: string }
+  /** where run folders live, for the per-subject company-name lookup that powers the name fallback.
+   *  Omitted => no aliases => ticker-only matching, exactly as before. */
+  analysesDir?: string
+}
+
+/** Canonical company name per subject, from each one's NEWEST decision_record.json (`company_name`).
+ *  Best-effort and silent: a subject with no run, no record, or an unreadable one simply gets no alias
+ *  and keeps ticker-only matching — the fallback must never be able to break a sweep. */
+
+export function readSubjectNames(subjects: string[], analysesDir?: string): Record<string, string> {
+  const out: Record<string, string> = {}
+  if (!analysesDir) return out
+  let dirs: string[] = []
+  try { dirs = fs.readdirSync(analysesDir) } catch { return out }
+  for (const subject of subjects) {
+    const prefix = `${subject}_`
+    const runs = dirs.filter((d) => d.startsWith(prefix)).sort()
+    for (let i = runs.length - 1; i >= 0; i--) {
+      try {
+        const raw = fs.readFileSync(path.join(analysesDir, runs[i], 'decision_record.json'), 'utf8')
+        const name = String(JSON.parse(raw)?.company_name || '').trim()
+        if (name) { out[subject] = name; break }
+      } catch { /* try the next-older run */ }
+    }
+  }
+  return out
 }
 
 /**
@@ -311,6 +345,12 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
   // BEFORE it was disabled: without this, re-enabling a name after (say) a week off silently dumps the
   // whole disabled interval into its pool instead of going through the same bounded `backfillHours` catch-up
   // a brand-new subject gets (Codex review, PR #359: "Reset stale cursors when subjects are re-enabled").
+  // Canonical company name per covered subject, read ONCE per sweep (not per item x subject) from each
+  // subject's newest decision_record.json — the only place the pool records what the company is called.
+  // Feeds the name fallback in matchTrackedSubjects; a subject with no decision record simply has no
+  // alias and keeps ticker-only matching.
+  const subjectNames = readSubjectNames(subjects, opts.analysesDir)
+
   const previouslyEnabled = readPreviouslyEnabled(opts.stateDir, cursors)
   for (const s of subjects) {
     if (!previouslyEnabled.has(s)) delete cursors[s]
@@ -363,12 +403,27 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
     matchCache.set(key, matched)
     return matched
   }
+  // Second pass, only for items the TICKER path did not claim: the wire's enrichment guesses companies
+  // from the headline and routinely names a company without a symbol, so a covered name's material news
+  // was being dropped silently. Cached alongside the ticker match (same per-item cost profile).
+  const nameMatchCache = new Map<string, string[]>()
+  const nameMatchesFor = (it: FeedItem): string[] => {
+    if (!subjectNames || matchesFor(it).length) return []
+    const key = String(it?.event_id || '')
+    const hit = nameMatchCache.get(key)
+    if (hit) return hit
+    let matched: string[] = []
+    try { matched = matchTrackedSubjects(it, opts.dataDir, subjectNames) } catch { matched = [] }
+    nameMatchCache.set(key, matched)
+    return matched
+  }
 
   for (const subject of subjects) {
     const had = typeof cursors[subject] === 'string' && Number.isFinite(Date.parse(cursors[subject]))
     const since = sinceMsFor.get(subject) as number
     let considered = 0
     let duplicates = 0
+    let matchedByName = 0
     // Tracked as EPOCH MS, not by string compare: ISO strings only order correctly when their precision
     // matches, and the wire mixes `...:00Z` with `...:00.000Z` — a lexical compare puts the millisecond
     // form BEFORE the bare one at the same instant, which could park a cursor slightly early (harmless,
@@ -407,7 +462,9 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
     for (const it of chrono) {
       const ts = Date.parse(String(it?.ts || ''))
       if (!Number.isFinite(ts) || ts <= since) continue
-      if (!matchesFor(it).includes(subject)) continue
+      const byTicker = matchesFor(it).includes(subject)
+      const byName = !byTicker && nameMatchesFor(it).includes(subject)
+      if (!byTicker && !byName) continue
       if (groupMs !== null && ts !== groupMs) commitGroup()
       groupMs = ts
       groupIso = String(it.ts)
@@ -417,10 +474,12 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
         try {
           const res = writeNote({
             item: it, ticker: subject, mode: 'auto', user: 'auto', userVia: 'local',
+            matchedBy: byName ? 'name' : 'ticker',
+            matchedName: byName ? wireNameMatching(it, subjectNames?.[subject]) : undefined,
             opts: { dataDir: opts.dataDir, stateDir: opts.stateDir, now },
           })
           if (res.already) duplicates++
-          else written.push(res.path)
+          else { written.push(res.path); if (byName) matchedByName++ }
         } catch {
           // per-item best-effort: one bad item never aborts a subject's window, but it must not be skipped —
           persisted = false
@@ -436,7 +495,7 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
     // this sweep's actual window start (i.e. the retention boundary clamped how far back we looked).
     const uncoveredMs = Math.max(0, windowStartMs - since)
     const retentionGapDays = uncoveredMs > 0 ? Math.ceil(uncoveredMs / 86_400_000) : null
-    sweeps.push({ subject, written, duplicates, considered, backfilled: !had, cursor: newestIso, retentionGapDays })
+    sweeps.push({ subject, written, duplicates, considered, matchedByName, backfilled: !had, cursor: newestIso, retentionGapDays })
   }
 
   // Persist cursors LAST. If this throws (state disk full, rename fails), the window simply repeats next

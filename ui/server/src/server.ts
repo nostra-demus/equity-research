@@ -68,7 +68,7 @@ import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
 import { carryForwardModules, carryForwardScoped, dataPoolNewest, prepareModuleResume, thesisPlan } from './completion'
 import { latestPlanFileFor, readIntakePlan } from './intake'
-import { getBridgeStatus, startBridgeScheduler } from './bridge-scheduler'
+import { getBridgeStatus, getBridgeSubjectNames, startBridgeScheduler } from './bridge-scheduler'
 import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-changed'
 import { readDataNeeds } from './data-needs'
 import { appendPipelineEvent, getPipelineSource, getPipelineView, isPipelineId, listPipelineForSubject, listRecentPipeline, writePipelineSource, type PipelineSourceKind } from './pipeline-store'
@@ -2475,7 +2475,12 @@ const newsClients = new Set<{ send: (e: any) => void }>()
 newsBus.subscribe((e) => {
   if (e.type !== 'news-item') return
   try {
-    autoBridgeItem(e.item, { dataDir: DATA_DIR, stateDir: STATE_DIR }, () => peekCachedEnrichment(STATE_DIR, e.item.event_id))
+    autoBridgeItem(
+      e.item,
+      { dataDir: DATA_DIR, stateDir: STATE_DIR },
+      () => peekCachedEnrichment(STATE_DIR, e.item.event_id),
+      getBridgeSubjectNames(), // short-TTL cache — the name fallback, same as the batch sweep already has
+    )
   } catch {
     /* best-effort — a missed bridge loses one note, never the wire */
   }

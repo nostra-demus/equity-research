@@ -339,6 +339,13 @@ interface State {
   scRouted: Record<string, { route: string; terminal: boolean }> // module -> latest routing (lights the switchyard)
   signalIntakeOpen: boolean
   pipelineOpen: boolean
+  // Bumped to ask the (always-mounted, self-collapsing) Data-pool panel to expand itself right now — e.g.
+  // the news-bridge chip, after selecting the subject holding the newest routed note, so the click actually
+  // reveals the note instead of just switching the selected ticker behind a still-collapsed panel (Codex
+  // #374 P2). A nonce, not a boolean: the panel's own open/close state stays local (each click can toggle
+  // it independently), this only ever pushes it OPEN, once, on each bump — the effect fires on every change,
+  // including a nonce that happens to repeat a prior value's tail digits, because it is a monotonic counter.
+  dataPoolExpandRequest: number
   // ---- Data Library (cross-swarm — deliberately NOT reset on a swarm switch) ----
   dataLibraryOpen: boolean
   dlSelectedId: string | null // THE list<->detail field: null = list, an id = that pipeline's detail
@@ -362,6 +369,7 @@ interface State {
   // runRoot (optional): open a SPECIFIC historical run of the ticker from the run-history expander; omitted,
   // the ticker resolves to its standing run (newest that decided).
   selectTicker: (t: string, runRoot?: string) => Promise<void>
+  requestDataPoolExpand: () => void
   refreshData: () => Promise<void>
   // ---- in-app add-company + Drive upload (Change C) ----
   addCompanyOpen: boolean
@@ -860,6 +868,7 @@ export const useStore = create<State>((set, get) => ({
   scRouted: {},
   signalIntakeOpen: false,
   pipelineOpen: false,
+  dataPoolExpandRequest: 0,
   dataLibraryOpen: false,
   dlSelectedId: null,
   pipelines: null,
@@ -1059,6 +1068,8 @@ export const useStore = create<State>((set, get) => ({
       schedulePoll(get, active.length > 0)
     } catch {}
   },
+
+  requestDataPoolExpand: () => set((s) => ({ dataPoolExpandRequest: s.dataPoolExpandRequest + 1 })),
 
   refreshData: async () => {
     const t = get().selectedTicker
