@@ -417,6 +417,9 @@ a { color: inherit; }
   from { transform: translateX(-105%); }
   to { transform: translateX(265%); }
 }
+/* Paused on a human decision (the readiness gate): live, but nothing is moving. Static and unglowing, so it
+   reads as "stopped, your move" rather than as work in progress or as a finished run. */
+.runbar--paused .runbar__fill { animation: none; opacity: 0.7; }
 @media (prefers-reduced-motion: reduce) {
   /* no travelling segment — hold a dimmed full track, which still reads as "in flight, not measurable" */
   .runbar--indeterminate .runbar__fill { animation: none; width: 100%; transform: none; opacity: 0.45; }
