@@ -16,21 +16,19 @@ import { useStore } from '../lib/store'
 import { anyLive as anyLiveIn, pendingForScope, runsForScope } from '../lib/runScope'
 import { RunNowSection } from './RunStreamPanel'
 import { ActivityHistory } from './ActivityLog'
+import { MIN_W, MAX_FRACTION, DEFAULT_W, clampWidthPx, resolveInitialWidth } from '../lib/dockWidth'
 
-// Width bounds. The floor is the narrowest the live cards stay readable at; the ceiling leaves the stage a
-// usable sliver rather than letting the dock become a de-facto full-screen overlay (the thing this replaced).
-const MIN_W = 320
-const MAX_FRACTION = 0.72
-const DEFAULT_W = 400
+// Width math (bounds, clamp, initial-read) is pure and unit-tested in ../lib/dockWidth; here we only bind
+// it to the live `window` / `localStorage`.
 const STORE_KEY = 'nsw.activityWidth'
 
-const clampWidth = (px: number): number => Math.max(MIN_W, Math.min(px, Math.round(window.innerWidth * MAX_FRACTION)))
+const clampWidth = (px: number): number => clampWidthPx(px, window.innerWidth)
 
 function readStoredWidth(): number {
-  try {
-    const v = Number(localStorage.getItem(STORE_KEY))
-    return Number.isFinite(v) && v > 0 ? v : DEFAULT_W
-  } catch { return DEFAULT_W }
+  // Clamp on read too: a width saved on a larger monitor must not paint past the ceiling on a smaller
+  // screen before the first resize fires (clamping only on resize/drag left the initial paint too wide).
+  try { return resolveInitialWidth(localStorage.getItem(STORE_KEY), window.innerWidth) }
+  catch { return DEFAULT_W }
 }
 
 export function ActivityDock() {
