@@ -3,7 +3,7 @@ import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT } from './config'
 import { resolveInsideAnalyses, resolveInsidePrompts } from './sandbox'
 import { extractVerdict } from './verdict'
-import { isSupersededRun, normalizeRecord } from './ledger-corrections'
+import { isSupersededRun, normalizeRecord, resolveIntegrityStatusForRun, resolveDisplayFields } from './ledger-corrections'
 
 // `resolve` defaults to the analyses/ sandbox (research). The chat reader passes resolveInsideRuns so it
 // can ground on any swarm's run folder; every other caller keeps the analyses-only default unchanged.
@@ -446,13 +446,23 @@ export function listAllCalls() {
       timeline.find((t) => t.status === 'due') ||
       timeline.find((t) => t.status === 'upcoming') ||
       null
+    // Truth-integrity status (DECISION_LEDGER.md §18a) + the post-mortem rating-cap / post-review
+    // confidence preference (fix F28b / F28) that /research:track already applies — the live cockpit
+    // was the one ledger consumer still showing the synthesizer's original, unflagged, uncapped call.
+    const integrity = resolveIntegrityStatusForRun(runRoot)
+    const disp = resolveDisplayFields(d)
     calls.push({
       ticker: d?.ticker ?? name.replace(/_\d{4}-\d{2}-\d{2}$/, ''),
       company: d?.company_name ?? null,
       decision_date: d?.decision_date ?? null,
-      decision: d?.decision ?? null,
-      basket: d?.basket ?? null,
-      confidence: typeof d?.confidence_score === 'number' ? d.confidence_score : null,
+      decision: disp.decision,
+      basket: disp.basket,
+      decision_is_post_mortem_capped: disp.decisionIsPostMortemCapped,
+      confidence: disp.confidence,
+      confidence_is_post_review: disp.confidenceIsPostReview,
+      integrity_status: integrity.status,
+      integrity_verdict: integrity.verdict,
+      integrity_banner: integrity.banner,
       time_horizon: d?.time_horizon ?? null,
       entry_price: entry,
       currency: d?.currency ?? null,

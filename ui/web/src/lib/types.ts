@@ -1498,9 +1498,14 @@ export interface CallSummary {
   ticker: string
   company: string | null
   decision_date: string | null
-  decision: string | null
+  decision: string | null // post-mortem-capped when a terminal pre-mortem verdict applies (fix F28b)
   basket: string | null
-  confidence: number | null
+  decision_is_post_mortem_capped: boolean // true when a terminal pre-mortem verdict downgraded the original call
+  confidence: number | null // prefers post-red-team confidence when present (fix F28)
+  confidence_is_post_review: boolean
+  integrity_status: 'verified' | 'provisional' | 'unaudited' // DECISION_LEDGER.md §18a truth-integrity status
+  integrity_verdict: string | null // the verify-evidence report's own verdict string, when one exists
+  integrity_banner: boolean // true when the finish-gate stamped final_thesis.md PROVISIONAL
   time_horizon: string | null
   entry_price: number | null
   currency: string | null
