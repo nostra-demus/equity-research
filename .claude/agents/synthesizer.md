@@ -236,7 +236,7 @@ Do this before writing §4 (the variant perception):
 
 **The miss this exists for.** On AMZN 2026-07-10 the headline variant perception was "D&A from the capex wave compresses AWS margins" at 60% probability. The engine's own `earnings/03_margin-drivers.md` recorded, that same day, AWS margin **recovering 35.4% → 37.7%** in the latest reported quarter, labelled **Tailwind, High confidence**, *"the new capacity is beginning to be monetized"*; `99_earnings-synthesis` returned **"Earnings accelerating"**, setup **"Balanced"**, and forecast Q2 EBIT **above** consensus. The refutation was in the engine's own file and was demoted to a parenthetical — *"even though Q1 2026 recovered to 37.7%"*. Three weeks later AWS margin printed **39.4%** and the stock closed above the run's own bull case. Nothing in Step 3 was violated, because the module and the thesis were never put side by side.
 
-Record the outcome of this check in §5 (Thesis → Antithesis) even when the signs agree — "sign check: margin-drivers agrees (Headwind, High)" is one line, and its absence is what let the inversion pass silently.
+Record the outcome of this check in §5 (Thesis → Antithesis → Final Thesis) even when the signs agree — "sign check: margin-drivers agrees (Headwind, High)" is one line, and its absence is what let the inversion pass silently.
 
 ---
 
