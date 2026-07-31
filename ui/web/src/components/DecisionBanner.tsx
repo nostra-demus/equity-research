@@ -399,7 +399,7 @@ export function DecisionBanner() {
           {exit.target != null && (
             <Metric
               label="Target"
-              value={`${decision.currency || ''} ${exit.target}`.trim()}
+              value={money(decision.currency, exit.target)}
               sub={exit.band ? `bear–bull ${exit.band}` : undefined}
               title={`Where the engine thinks this is worth exiting: the probability-weighted target of ${money(decision.currency, exit.target)}${exit.band ? `, inside a bear-to-bull band of ${exit.band}` : ''}. ${decision.suggested_action ? `Suggested action: ${decision.suggested_action}` : ''} This is the frozen call's own arithmetic on its own scenarios — not a fresh valuation, and it does not move when the price does.`.trim()}
             />
