@@ -1195,6 +1195,9 @@ a { color: inherit; }
 /* the metric strip: each cell a small uppercase caption over a prominent, tabular-figure value */
 .decision__metrics { display: flex; align-items: center; flex-wrap: wrap; column-gap: 22px; row-gap: 8px; }
 .decision__metric { display: flex; flex-direction: column; gap: 3px; }
+/* the scenario band under the target — a second, quieter line inside the same cell, so the exit level and
+   the distribution it sits in read as one thing and the metric strip gains no new row */
+.decision__msub { font-size: 10px; color: var(--text-faint); font-variant-numeric: tabular-nums; letter-spacing: 0.2px; }
 .decision__mlabel {
   font-size: 8.5px; font-weight: 600; letter-spacing: 0.7px; text-transform: uppercase;
   color: var(--text-faint); white-space: nowrap;
