@@ -118,6 +118,10 @@ export interface RenderNoteOpts {
   user: string
   enrichment?: EventEnrichment | null
   now?: () => Date
+  /** How an AUTO route found this subject. 'ticker' (default) = the wire's extracted symbol matched;
+   *  'name' = no ticker matched and the wire named the company. Recorded because the two carry different
+   *  strength, and the note is the reader's only evidence of which one happened. */
+  matchedBy?: 'ticker' | 'name'
 }
 
 export function renderEventNote(o: RenderNoteOpts): string {
@@ -128,10 +132,16 @@ export function renderEventNote(o: RenderNoteOpts): string {
   const enr = o.enrichment && o.enrichment.ok !== false ? o.enrichment : null
 
   const namedByWire = wireNamesTicker(item, o.ticker)
+  // An auto-route that matched on the company NAME must not claim it matched a ticker — the reader uses
+  // this line to judge how firm the link is, and a name match is the weaker of the two (§5).
+  const autoWhy =
+    o.matchedBy === 'name'
+      ? `the wire extracted no ticker, but named this tracked subject's company exactly ("${cap(String((item.companies || []).find((c) => !c?.ticker)?.name || ''), 80)}").`
+      : "the wire's extracted ticker matched this tracked subject exactly."
   const routedLine =
     o.mode === 'manual'
       ? `- Routed to ${o.ticker}: manually from the cockpit by ${cap(o.user, 120) || 'local'} on ${nowIso} — ${namedByWire ? 'the analyst confirmed a company the wire itself names.' : 'the analyst asserted this event bears on the subject (the wire itself named no matching ticker; the link is analyst judgment).'}`
-      : `- Routed to ${o.ticker}: automatically on ${nowIso} — the wire's extracted ticker matched this tracked subject exactly.`
+      : `- Routed to ${o.ticker}: automatically on ${nowIso} — ${autoWhy}`
 
   const screenerRead = [
     typeof item.triage_score === 'number' ? `score ${item.triage_score} (${item.band} band)` : '',
@@ -259,6 +269,7 @@ export function bridgeEventToSubject(o: {
   user: string
   userVia: string
   enrichment?: EventEnrichment | null
+  matchedBy?: 'ticker' | 'name'
   opts: BridgeOpts
 }): BridgeResult {
   const seg = safeSubjectSegment(o.ticker) // throws 400 on anything that isn't provably one path segment
@@ -274,7 +285,7 @@ export function bridgeEventToSubject(o: {
   const dup = findClusterDuplicate(dir, seg, o.item, noteName)
   if (dup) return dup
 
-  const md = renderEventNote({ item: o.item, ticker: seg, mode: o.mode, user: o.user, enrichment: o.enrichment, now: o.opts.now })
+  const md = renderEventNote({ item: o.item, ticker: seg, mode: o.mode, user: o.user, enrichment: o.enrichment, matchedBy: o.matchedBy, now: o.opts.now })
   // Claim `fp` itself with an exclusive create: a plain rename always succeeds and would silently CLOBBER
   // a note another writer created between our existence/dedup checks above and this line — the exact race
   // a manual "Send to research" click, a stream-mode delivery, and this batch sweep can all hit against
@@ -379,7 +390,14 @@ export function shouldAutoBridge(item: FeedItem): boolean {
  *  only. The unattended path never suffix-strips (EMAAR.DU ↛ EMAAR): bare-symbol collisions across
  *  exchanges would route company A's news into company B's evidence pool with no human in the loop.
  *  The manual menu (where a human confirms) is where the looser match belongs. */
-export function matchTrackedSubjects(item: FeedItem, dataDir: string): string[] {
+export function matchTrackedSubjects(
+  item: FeedItem,
+  dataDir: string,
+  /** Canonical company name per tracked subject (e.g. AMZN -> "Amazon.com, Inc."). When supplied, an item
+   *  whose wire enrichment extracted NO matching ticker may still match a subject by NAME. Omitted =>
+   *  today's ticker-only behaviour exactly, so no existing caller changes semantics. */
+  subjectNames?: Record<string, string>,
+): string[] {
   const candidates = new Set<string>()
   for (const c of item.companies || []) {
     const u = String(c?.ticker || '').toUpperCase().trim()
@@ -394,7 +412,54 @@ export function matchTrackedSubjects(item: FeedItem, dataDir: string): string[] 
       /* not a tracked subject */
     }
   }
-  return out.sort()
+  if (out.length || !subjectNames) return out.sort()
+
+  // NAME FALLBACK — only when no ticker matched, so a good ticker match is never overridden.
+  // The wire's enrichment guesses companies from the headline and often names the company WITHOUT a
+  // symbol: Fortune's "Andy Jassy said Amazon will spend $220 billion this year" came through as
+  // `Amazon · giant company · US` with ticker null, scored 89 and material, and was silently dropped
+  // while the same day's "…Sold $25 Billion in Bonds" (tagged `Amazon · AMZN`) routed fine. Dropping a
+  // covered company's material news because an upstream guesser omitted the symbol is a miss, not a
+  // safety property. Matching is EXACT on the normalised name (never a substring), which keeps the
+  // ticker-path's reason for strictness — "Amazon" must not reach a different Amazon-ish subject.
+  // Length floor is 2, not something larger: matching is EXACT on the normalised name, so a short name
+  // can only ever hit a subject whose own name normalises to the same short string. A bigger floor would
+  // not add safety — it would permanently exclude real companies (BP, 3M, ABB, AXA, ING, UBS, SAP) from
+  // ever matching by name. A single character is excluded as pure noise.
+  const wanted = new Set(
+    (item.companies || []).map((c) => normaliseCompanyName(String(c?.name || ''))).filter((n) => n.length >= 2),
+  )
+  if (!wanted.size) return []
+  const named: string[] = []
+  for (const [t, name] of Object.entries(subjectNames)) {
+    if (!isValidTicker(t) || isReservedDataFolder(t)) continue
+    const n = normaliseCompanyName(name)
+    if (n.length >= 2 && wanted.has(n)) named.push(t.toUpperCase())
+  }
+  return named.sort()
+}
+
+/** Strip a company name to the part that identifies it, so a wire headline's "Amazon" matches a pool's
+ *  "Amazon.com, Inc." and "Norsk Hydro" matches "Norsk Hydro ASA". Lowercased, punctuation dropped, and
+ *  the legal-form and holding-company suffixes removed from the END only — never from the middle, where
+ *  they can be part of the actual name. Deliberately conservative: it normalises, it does not fuzzy-match. */
+export function normaliseCompanyName(raw: string): string {
+  let s = String(raw || '').toLowerCase()
+  // Collapse a DOTTED acronym into one token before punctuation becomes whitespace, or "BP p.l.c." would
+  // shatter into "bp p l c" and the suffix list — which knows "plc" — would never see it. Only runs of
+  // single letters each followed by a period match, so "amazon.com" is untouched and still splits into
+  // "amazon" + "com" for the suffix pass.
+  s = s.replace(/\b(?:[a-z]\.){2,}/g, (m) => m.replace(/\./g, ''))
+  s = s.replace(/&/g, ' and ').replace(/[.,''`"()\[\]]/g, ' ').replace(/[-/]/g, ' ')
+  s = s.replace(/\s+/g, ' ').trim()
+  const SUFFIX = new Set([
+    'inc', 'incorporated', 'corp', 'corporation', 'co', 'company', 'ltd', 'limited', 'plc', 'llc', 'lp',
+    'sa', 'nv', 'bv', 'ag', 'asa', 'ab', 'oyj', 'as', 'spa', 'se', 'kk', 'pjsc', 'psc', 'jsc', 'pt', 'tbk',
+    'holdings', 'holding', 'group', 'the', 'com',
+  ])
+  const parts = s.split(' ').filter(Boolean)
+  while (parts.length > 1 && SUFFIX.has(parts[parts.length - 1])) parts.pop()
+  return parts.join(' ')
 }
 
 /** Route one freshly-ingested wire item into every matching tracked subject's pool. Never throws —

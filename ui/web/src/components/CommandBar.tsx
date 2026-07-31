@@ -88,6 +88,7 @@ function BridgeChip() {
   const status = useStore((s) => s.bridgeStatus)
   const refresh = useStore((s) => s.refreshBridgeStatus)
   const openDataLibrary = useStore((s) => s.openDataLibrary)
+  const selectTicker = useStore((s) => s.selectTicker)
   useEffect(() => {
     void refresh()
     const id = setInterval(() => void refresh(), 60_000)
@@ -95,6 +96,21 @@ function BridgeChip() {
   }, [refresh])
   if (!status) return null // pre-first-read: show nothing rather than a wrong state
   const sweeping = status.sweeping // the server's in-flight flag — not inferred from the schedule
+  // WHERE THE NOTES ACTUALLY ARE. This chip used to open the Data LIBRARY, which lists connector feed
+  // health and — by the bridge manifest's own deliberate design — can never contain a routed note: the
+  // bridge is kept out of .claude/connectors/ precisely so it doesn't sit there as a permanently-un-run
+  // feed. So the chip promised "the data pools" and opened the one panel where the notes cannot appear.
+  // The notes live per-subject in data/<TICKER>/, shown by the always-visible Data-pool panel, which is
+  // scoped to the SELECTED ticker. So: select the covered subject holding the newest note and let that
+  // panel show it. Falls back to the library only when nothing has been routed yet — there is no pool
+  // worth jumping to then.
+  const newestSubject = [...status.subjects]
+    .filter((s) => s.notes > 0 && s.newestAt)
+    .sort((a, b) => Date.parse(b.newestAt as string) - Date.parse(a.newestAt as string))[0]
+  const goToNotes = () => {
+    if (newestSubject) void selectTicker(newestSubject.subject)
+    else openDataLibrary()
+  }
   // Rounding straight to HOURS printed "next 0h" for anything under half an hour — the exact case an
   // operator creates when they drop BRIDGE_INTERVAL_MIN to its 15m clamp floor to watch a sweep. Share the
   // one duration ladder (fmtMinutes) instead, so a short cadence reads "next 12m". A schedule that has
@@ -115,10 +131,10 @@ function BridgeChip() {
   const title = status.manifestError
     ? `News bridge — configuration error.\n${status.manifestError}\nUnattended routing is not reading a valid subject list right now. Fix the manifest, then click to see the data pools.`
     : status.running
-      ? `News bridge — on, sweeping every ${fmtMinutes(status.intervalMin)}.\nRouted into research pools so far:\n${perSubject}\nEach note lands in that company's data pool and the cheap analysis scopes which orbs it affects — the paid re-run stays your click.`
-      : `News bridge — off.\n${status.idleReason || 'No reason reported by the engine.'}\nRouted so far: ${status.totalNotes}. Click to see the data pools.`
+      ? `News bridge — on, sweeping every ${fmtMinutes(status.intervalMin)}.\nRouted into research pools so far:\n${perSubject}\nEach note lands in that company's data pool and the cheap analysis scopes which orbs it affects — the paid re-run stays your click.\nClick to open ${newestSubject ? `${newestSubject.subject}'s data pool, where the newest note landed` : 'the data library'}.`
+      : `News bridge — off.\n${status.idleReason || 'No reason reported by the engine.'}\nRouted so far: ${status.totalNotes}.${newestSubject ? ` Click to open ${newestSubject.subject}'s data pool.` : ''}`
   return (
-    <button className="autoscan" onClick={openDataLibrary} title={title}>
+    <button className="autoscan" onClick={goToNotes} title={title}>
       <span className={`autoscan__dot${status.running ? ' autoscan__dot--on' : ''}${sweeping ? ' autoscan__dot--busy' : ''}${status.manifestError ? ' autoscan__dot--error' : ''}`} />
       {!status.manifestError && status.running && status.totalNotes > 0
         ? <>News bridge on · <span className="autoscan__count">{status.totalNotes} routed</span>{nextIn ? ` · ${nextIn}` : ''}</>

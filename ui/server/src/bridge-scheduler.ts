@@ -13,7 +13,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import {
-  BRIDGE_DIR, BRIDGE_INTERVAL_MIN, BRIDGE_MODE, DATA_DIR, NEWS, REPO_ROOT, STATE_DIR,
+  ANALYSES_DIR, BRIDGE_DIR, BRIDGE_INTERVAL_MIN, BRIDGE_MODE, DATA_DIR, NEWS, REPO_ROOT, STATE_DIR,
 } from './config'
 import { acquireSingletonLock, releaseSingletonLock } from './singleton-lock'
 import { accumulatedFor, bridgeManifestError, enabledSubjects, readBatchConfig, sweepOnce } from './bridge-batch'
@@ -150,9 +150,14 @@ export async function runBridgeSweep(launchAnalysis: (ticker: string) => Promise
     dataDir: DATA_DIR,
     stateDir: STATE_DIR,
     archiveDir: NEWS.newsArchiveDir || '',
+    analysesDir: ANALYSES_DIR,
   })
   const written = res.sweeps.reduce((a, s) => a + s.written.length, 0)
   const duplicates = res.sweeps.reduce((a, s) => a + s.duplicates, 0)
+  // How many of the fresh notes only the NAME fallback found. Logged separately so the fallback's yield is
+  // visible: if it is always 0 the wire's ticker extraction is healthy; a steady non-zero count is the
+  // measure of what ticker-only matching was silently dropping.
+  const byName = res.sweeps.reduce((a, s) => a + s.matchedByName, 0)
 
   // ONE analysis per subject that gained a FRESH note THIS window, plus any subject still owed one from a
   // prior window whose launch didn't start (busy / capacity / CLI). A subject whose window produced only
@@ -191,7 +196,7 @@ export async function runBridgeSweep(launchAnalysis: (ticker: string) => Promise
   lastSweepAt = new Date().toISOString()
   lastSummary = { subjects: subjects.length, written, duplicates, analyses }
   if (written || duplicates) {
-    log(`swept ${subjects.length} subject(s): ${written} note(s) written, ${duplicates} duplicate(s) skipped, ${analyses} analysis/es started`)
+    log(`swept ${subjects.length} subject(s): ${written} note(s) written${byName ? ` (${byName} by company name — the wire extracted no ticker)` : ''}, ${duplicates} duplicate(s) skipped, ${analyses} analysis/es started`)
   }
 }
 
