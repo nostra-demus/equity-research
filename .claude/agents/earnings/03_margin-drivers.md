@@ -204,7 +204,7 @@ State BOTH readings, each with evidence, then say which the evidence currently f
 - [ ] The margin bridge uses actual numbers, not estimates. Inferences are labeled.
 - [ ] The "primary margin metric" choice in Section 4 is justified.
 - [ ] Section 8 names ONE biggest driver, not a list.
-- [ ] Where investment spend is well above its own history, Section 9 states BOTH signs — the cost reading AND the demand reading — with evidence on each, plus the observable that would flip the current read. A spend read only as a cost is an incomplete read (see the rule below).
+- [ ] Where investment spend is well above its own history, Section 9 states BOTH signs — the cost reading AND the demand reading — with evidence on each, plus the observable that would flip the current read. A spend read only as a cost is an incomplete read (see the rule above).
 - [ ] If no transcript exists, the limitation is flagged.
 - [ ] Margin driver table ties to actual cost lines where disclosed.
 - [ ] Primary margin metric is chosen based on business model and justified.
