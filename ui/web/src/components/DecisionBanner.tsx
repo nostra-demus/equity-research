@@ -131,12 +131,13 @@ function chipCopy(wc: WhatChangedRead): { text: string; tone: string; title: str
 
 /** One labelled metric cell: a small uppercase caption over a prominent value, with an optional faint
  *  unit (e.g. "/100"). Full words only — the bar is a read-out, not a place for cryptic abbreviations. */
-function Metric({ label, value, unit, valueColor, title }: {
+function Metric({ label, value, unit, valueColor, title, sub }: {
   label: string
   value: string | number
   unit?: string
   valueColor?: string
   title?: string
+  sub?: string // one muted line under the value — the scenario band under the target
 }) {
   return (
     <div className="decision__metric" title={title}>
@@ -144,8 +145,42 @@ function Metric({ label, value, unit, valueColor, title }: {
       <span className="decision__mval" style={valueColor ? { color: valueColor } : undefined}>
         {value}{unit && <span className="decision__munit">{unit}</span>}
       </span>
+      {sub && <span className="decision__msub">{sub}</span>}
     </div>
   )
+}
+
+/** The exit level, and the band it sits in.
+ *
+ *  The bar showed what the call was PRICED at (Entry), what it costs NOW, and a percentage — but never the
+ *  LEVEL those percentages resolve to. A reader had to do the arithmetic to learn where the engine thinks
+ *  the thing is worth selling. The number already existed: `implied_target` is served on the call, and the
+ *  bull/base/bear price targets are in the decision record — it was only ever shown inside a hover title.
+ *
+ *  It matters most on the calls that are NOT a buy. A Watchlist publishes a "don't pay above" and no exit —
+ *  but the reader may take the position anyway, and then the exit is the number they need. Entry discipline
+ *  and exit discipline are different objects; a call should carry both.
+ *
+ *  Returns null when the run genuinely has no target, so an older record renders exactly as it did before. */
+function targetOf(decision: any, call: { implied_target?: number | null } | null | undefined): { target: number | null; band: string | null } {
+  const num = (v: any): number | null => (typeof v === 'number' && Number.isFinite(v) ? v : null)
+  let target = num(call?.implied_target)
+  const scen: any[] = Array.isArray(decision?.scenarios) ? decision.scenarios : []
+  // Fall back to the record's own scenarios: Σ(probability × price_target). Same arithmetic the engine
+  // used, from the same frozen numbers — never a fresh valuation.
+  if (target == null && scen.length) {
+    let acc = 0, p = 0
+    for (const sc of scen) {
+      const pr = num(sc?.probability), tg = num(sc?.price_target)
+      if (pr == null || tg == null) { p = 0; break }
+      acc += (pr / 100) * tg; p += pr
+    }
+    if (p > 99 && p < 101) target = Math.round(acc * 100) / 100
+  }
+  // the band, low → high, so the reader sees the whole distribution and not just its centre
+  const levels = scen.map((sc) => num(sc?.price_target)).filter((v): v is number => v != null).sort((a, b) => a - b)
+  const band = levels.length >= 2 ? `${levels[0]} – ${levels[levels.length - 1]}` : null
+  return { target, band }
 }
 
 /** The glance layer: the whole answer in one line, or nothing. Opens the detail panel. */
@@ -309,6 +344,8 @@ export function DecisionBanner() {
   const absentReason = liveQuote && liveQuote.ticker === selectedTicker && liveQuote.reason
     ? (liveQuote.reason as QuoteAbsentReason)
     : null
+  const exit = targetOf(decision, call)
+
   return (
     // A static dock frames the animated card so its centring survives framer-motion (which rewrites the
     // card's own transform). The card is seated on the stage floor — a permanent bar, not a floating pill.
@@ -388,6 +425,18 @@ export function DecisionBanner() {
               label="Entry"
               value={`${decision.currency || ''} ${decision.entry_price}`.trim()}
               title={`The price the call was priced at${decision.entry_price_timestamp ? ` on ${shortDate(decision.entry_price_timestamp as string)}` : ''}${decision.entry_price_source ? ` (${decision.entry_price_source})` : ''}. Fixed — it is what the thesis was written against.`}
+            />
+          )}
+          {/* THE EXIT. Entry told you what the call was priced at; this is the level it is priced TO. It
+              renders for every call, not only the buys — a Watchlist reader may take the position anyway,
+              and then this is the number they need. Absent target → cell absent, so an older record with no
+              scenarios renders exactly as before. */}
+          {exit.target != null && (
+            <Metric
+              label="Target"
+              value={money(decision.currency, exit.target)}
+              sub={exit.band ? `bear–bull ${exit.band}` : undefined}
+              title={`Where the engine thinks this is worth exiting: the probability-weighted target of ${money(decision.currency, exit.target)}${exit.band ? `, inside a bear-to-bull band of ${exit.band}` : ''}. ${decision.suggested_action ? `Suggested action: ${decision.suggested_action}` : ''} This is the frozen call's own arithmetic on its own scenarios — not a fresh valuation, and it does not move when the price does.`.trim()}
             />
           )}
           {/* Live price. Gated on a POSITIVE match (DESIGN.md §5): an engine older than this bundle
