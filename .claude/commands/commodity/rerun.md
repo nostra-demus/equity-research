@@ -72,14 +72,15 @@ There is no master synthesizer, run-level memo, or audit dossier to regenerate �
 
 A freshly rewritten record is FRESH — a stale, un-red-teamed prior `pre_mortem.json` no longer describes this run's `action`/`confidence`, and the finish-gate's staleness guard (`scripts/commodity_pre_mortem_haircut.py`) will REJECT a prior report whose `original_action`/`original_confidence` no longer match, exiting nonzero rather than mislabeling the new call. Same gate as `commodity:full` step 5.5 (no backfill condition needed — this invocation just rewrote the record, so it is never "already audited"):
 
-1. Follow `.claude/commands/commodity/pre-mortem.md` against `<RUN_ROOT>` in full — produce ONLY `<RUN_ROOT>/pre_mortem*.json` (versioned `_v2`/`_v3`/… since a prior `pre_mortem.json` from before this re-run already exists; per its rule 1 it can only HOLD or LOWER conviction, never raise it). Skip its own step 7 commit — this command's step 7 below commits the whole run folder in one place.
-2. **Haircut propagation** — patch `decision_record.json` with the pre-mortem's verdict via the shared, tested helper (identical to `commodity:full` step 5.5, and mirrors research/full.md 10B.2's F28/F28b):
+1. Before invoking the command below, capture whatever pre-mortem report already exists — a rerun almost always has one from before this cascade: `PRIOR_PM=$(ls -t "<RUN_ROOT>"/pre_mortem*.json 2>/dev/null | head -1)`.
+2. Follow `.claude/commands/commodity/pre-mortem.md` against `<RUN_ROOT>` in full — produce ONLY `<RUN_ROOT>/pre_mortem*.json` (versioned `_v2`/`_v3`/… since a prior `pre_mortem.json` from before this re-run already exists; per its rule 1 it can only HOLD or LOWER conviction, never raise it). Skip its own step 7 commit — this command's step 7 below commits the whole run folder in one place.
+3. **Haircut propagation** — patch `decision_record.json` with the pre-mortem's verdict via the shared, tested helper (identical to `commodity:full` step 5.5, and mirrors research/full.md 10B.2's F28/F28b). Pass `--prior` whenever step 1 found an existing report — this is the case where a rerun's own re-generation step could silently fail to write the new `_vN` file, leaving the OLD report still on disk with `action`/`confidence` values that happen to still match (nothing about the call changed); value-matching alone would then wrongly look like a fresh, clean pass. `--prior` proves step 2 actually produced something new rather than reusing that stale file:
 
 ```bash
-python3 scripts/commodity_pre_mortem_haircut.py "<RUN_ROOT>"
+python3 scripts/commodity_pre_mortem_haircut.py "<RUN_ROOT>" ${PRIOR_PM:+--prior "$PRIOR_PM"}
 ```
 
-The helper **fails closed**: it exits `0` and prints `RATING-CAP:` only when it actually propagated a fresh pre-mortem; on `no_pre_mortem` / `read_error` / `stale_pre_mortem` it prints `GATE-FAIL:` and exits **nonzero**, leaving `decision_record.json` unpatched. Because this step just generated a fresh pre-mortem, a nonzero exit means the gate genuinely could not run — **STOP before the step 7 commit and report the `GATE-FAIL:` reason; do not ship a freshly rewritten but un-audited `decision_record.json`.** On success, record the printed `RATING-CAP:` line for step 8 (report).
+The helper **fails closed**: it exits `0` and prints `RATING-CAP:` only when it actually propagated a fresh, complete pre-mortem; on `no_pre_mortem` / `read_error` / `incomplete_pre_mortem` / `stale_pre_mortem` / `no_fresh_pre_mortem` it prints `GATE-FAIL:` and exits **nonzero**, leaving `decision_record.json` unpatched. Because this step just generated a fresh pre-mortem, a nonzero exit means the gate genuinely could not run — **STOP before the step 7 commit and report the `GATE-FAIL:` reason; do not ship a freshly rewritten but un-audited `decision_record.json`.** On success, record the printed `RATING-CAP:` line for step 8 (report).
 
 ## 7. Commit and push to main (one commit)
 

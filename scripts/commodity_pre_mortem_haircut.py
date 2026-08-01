@@ -30,19 +30,32 @@ CONTRACT
     (a pre-mortem may only hold or lower conviction), the haircut is derived purely from that delta
     (never from the self-reported confidence_haircut), and post_mortem_action applies the cap only when
     it is at least as cautious as the run's own action on the Buy<Hold<Trim<Avoid ladder.
-  • Fails CLOSED. If no pre_mortem*.json exists ("no_pre_mortem"), a file is unreadable ("read_error"),
-    or the latest report red-teamed a since-rewritten call ("stale_pre_mortem"), decision_record.json is
-    left untouched and the CLI exits NONZERO — a caller that just generated a fresh pre-mortem must halt
-    rather than ship a clean, unaudited record. Only "patched" exits 0.
-  • Idempotent: re-running against the same pre_mortem.json re-derives the identical patch (patch()
-    never mutates `action`/`confidence`, so the staleness snapshot stays matched across re-runs).
+  • Fails CLOSED. decision_record.json is left untouched and the CLI exits NONZERO unless the gate
+    genuinely ran to completion — a caller that just generated a fresh pre-mortem must halt rather
+    than ship a clean, unaudited record. Only "patched" exits 0; every other status is a gate that
+    did NOT run:
+      no_pre_mortem        — no pre_mortem*.json found.
+      read_error           — decision_record.json or pre_mortem*.json missing/unparseable.
+      incomplete_pre_mortem — the report is syntactically valid JSON but semantically empty (no
+                              `verdict` from commodity/pre-mortem.md's own enum, or no finite 0-100
+                              `recommended_confidence`) — a `{}` or a report an LLM abandoned
+                              mid-write must not silently read as "reviewed and clean".
+      stale_pre_mortem     — the latest report red-teamed a since-rewritten call (its
+                              original_action/original_confidence no longer match the record).
+      no_fresh_pre_mortem  — the caller passed `--prior <path>` (the report that already existed
+                              before this invocation ran pre-mortem.md) and the latest report found
+                              is that SAME file — no new report was actually produced this
+                              invocation, so a value-matching old report cannot stand in for one.
+  • Idempotent: re-running against the same pre_mortem.json (without `--prior`) re-derives the
+    identical patch (patch() never mutates `action`/`confidence`, so the staleness snapshot stays
+    matched across re-runs).
   • Pure `patch()` function + a thin CLI wrapper, so BOTH callers that can (re)write
     decision_record.json — commodity:full.md (a freshly-completed terminal module, or a one-time
     backfill of a pre-existing run) and commodity:rerun.md (every cascade that touches
     commodity-thesis) — call the identical, tested logic instead of duplicating a heredoc.
 
 CLI:
-  python3 scripts/commodity_pre_mortem_haircut.py <RUN_ROOT>
+  python3 scripts/commodity_pre_mortem_haircut.py <RUN_ROOT> [--prior <pre_existing_pre_mortem_path>]
   python3 scripts/commodity_pre_mortem_haircut.py --selftest
 """
 from __future__ import annotations
@@ -56,6 +69,16 @@ import sys
 
 def _isnum(x):
     return isinstance(x, (int, float)) and not isinstance(x, bool)  # bool is an int subclass — exclude it
+
+
+# The exact enum commodity/pre-mortem.md step 4 defines — a report carrying anything else (including
+# "", the JSON-missing-key default) never actually reached a verdict.
+_VALID_VERDICTS = {
+    "Survives",
+    "Survives with haircut",
+    "Does not survive — downgrade",
+    "Thesis broken",
+}
 
 
 def latest_pre_mortem(run_root):
@@ -72,26 +95,42 @@ def latest_pre_mortem(run_root):
     return sorted(candidates, key=_vn)[-1] if candidates else None
 
 
-def patch(run_root):
+def patch(run_root, prior_path=None):
     """Propagate the latest pre_mortem*.json in <run_root> into its decision_record.json.
 
-    Returns (status, message, patched_record_or_None):
-      status == "no_pre_mortem"    — no pre_mortem*.json found; decision_record.json untouched.
-      status == "read_error"       — decision_record.json or pre_mortem*.json missing/unparseable;
-                                      decision_record.json untouched.
-      status == "stale_pre_mortem" — the latest pre_mortem*.json red-teamed a DIFFERENT call than the
-                                      record now holds (its original_action/original_confidence no longer
-                                      match the record's action/confidence); decision_record.json untouched.
-      status == "patched"          — decision_record.json rewritten with the four additive fields.
+    `prior_path`, if given, is the pre_mortem*.json path the CALLER already knew existed BEFORE it
+    invoked commodity/pre-mortem.md this time round (e.g. rerun.md step 6.5's pre-check, since a
+    prior report is expected whenever the run has been through this gate before). It proves a NEW
+    report was actually written this invocation — matching `action`/`confidence` values alone cannot
+    prove that (a rerun that leaves both unchanged, paired with a report-generation step that silently
+    failed to write its promised `_vN` file, would otherwise satisfy the staleness guard below on an
+    old report that was never re-run against the current call). Omit it when no prior report is
+    expected (a run's first-ever pre-mortem).
 
-    Every non-"patched" status is a gate that did NOT run — a caller (commodity:full step 5.5 /
-    commodity:rerun step 6.5) that just generated a fresh pre-mortem must treat it as a failure and
-    NOT ship a clean, unaudited record (the CLI signals this with a nonzero exit; see main()).
+    Returns (status, message, patched_record_or_None). See the module CONTRACT docstring for the
+    full list of non-"patched" statuses (no_pre_mortem / read_error / incomplete_pre_mortem /
+    stale_pre_mortem / no_fresh_pre_mortem) — every one of them is a gate that did NOT run, and a
+    caller that just generated a fresh pre-mortem must treat it as a failure and NOT ship a clean,
+    unaudited record (the CLI signals this with a nonzero exit; see main()).
     """
     dr_path = os.path.join(run_root, "decision_record.json")
     pm_path = latest_pre_mortem(run_root)
     if not pm_path:
         return "no_pre_mortem", "no pre_mortem.json found — gate did not run", None
+
+    # FRESHNESS-BY-IDENTITY GUARD (Codex r3694803055). Value-matching (the staleness guard below)
+    # only proves the report is CONSISTENT with the current call — it cannot prove the report was
+    # actually generated THIS invocation, since an old report can happen to match unchanged values.
+    # When the caller supplies the report it already knew about beforehand, the latest report
+    # resolving to that exact same path means pre-mortem.md's own step 5 (write a new pre_mortem*.json)
+    # did not actually produce anything new — fail closed rather than silently re-applying stale work.
+    if prior_path and os.path.abspath(pm_path) == os.path.abspath(prior_path):
+        return (
+            "no_fresh_pre_mortem",
+            f"{os.path.basename(pm_path)} is the same report that already existed before this "
+            f"invocation ran (--prior) — no fresh pre-mortem was generated; gate did not run",
+            None,
+        )
     try:
         pm = json.load(open(pm_path, encoding="utf-8"))
         dr = json.load(open(dr_path, encoding="utf-8"))
@@ -126,6 +165,21 @@ def patch(run_root):
 
     rec_conf = pm.get("recommended_confidence")
     verdict = pm.get("verdict") or ""
+
+    # COMPLETENESS GUARD (Codex r3694803052). A syntactically valid but semantically empty report —
+    # `{}`, or a blank verdict alongside a null recommended_confidence — must not silently pass as a
+    # completed red-team. Without this check the fallbacks below (post_review defaults to orig_conf
+    # when rec_conf isn't numeric; a blank cap retains orig_action) make an EMPTY report indistinguishable
+    # from one that explicitly found the call clean, and the CLI would print RATING-CAP: and exit 0
+    # either way — the exact false-confidence path this gate exists to close. Require an actual verdict
+    # from the enum commodity/pre-mortem.md step 4 defines, and a finite 0-100 recommended_confidence.
+    if verdict not in _VALID_VERDICTS or not (_isnum(rec_conf) and 0 <= rec_conf <= 100):
+        return (
+            "incomplete_pre_mortem",
+            f"{os.path.basename(pm_path)} is missing a valid verdict/recommended_confidence "
+            f"(verdict={verdict!r}, recommended_confidence={rec_conf!r}) — gate did not run",
+            None,
+        )
 
     # CONFIDENCE (gemini r3694529576 + Codex r3694542409). post_review_confidence_score is the number the
     # engine stands behind after its own red-team: the pre-mortem's recommended_confidence, else the
@@ -380,6 +434,57 @@ def _selftest():
         check("idempotent -> identical post_mortem_action", d1["post_mortem_action"] == d2["post_mortem_action"] == "Trim")
         check("idempotent -> identical post_review", d1["post_review_confidence_score"] == d2["post_review_confidence_score"] == 40)
 
+        # 14. INCOMPLETE pre-mortem — a syntactically valid but semantically empty report (`{}`) must
+        #     not silently read as "reviewed and clean" (Codex r3694803052).
+        run = os.path.join(tmp, "EMPTYPM")
+        os.makedirs(run)
+        json.dump({"action": "Hold", "confidence": 50}, open(os.path.join(run, "decision_record.json"), "w"))
+        json.dump({}, open(os.path.join(run, "pre_mortem.json"), "w"))
+        status, _msg, dr = patch(run)
+        check("empty {} report -> incomplete_pre_mortem", status == "incomplete_pre_mortem")
+        check("empty {} report -> no patched record returned", dr is None)
+        untouched = json.load(open(os.path.join(run, "decision_record.json")))
+        check("empty {} report -> decision_record.json untouched", "post_mortem_action" not in untouched)
+
+        # 14b. Blank verdict + null recommended_confidence — same rejection as case 14, not just a
+        #      fully-empty object (the exact shape Codex's example used).
+        run = os.path.join(tmp, "EMPTYPM2")
+        os.makedirs(run)
+        json.dump({"action": "Buy", "confidence": 60}, open(os.path.join(run, "decision_record.json"), "w"))
+        json.dump(
+            {"verdict": "", "recommended_confidence": None, "recommended_action_cap": ""},
+            open(os.path.join(run, "pre_mortem.json"), "w"),
+        )
+        status, _msg, dr = patch(run)
+        check("blank verdict + null confidence -> incomplete_pre_mortem", status == "incomplete_pre_mortem")
+
+        # 15. --prior guard (Codex r3694803055): matching action/confidence values alone cannot prove
+        #     a NEW report was written this invocation. A caller (rerun.md step 6.5) that captured the
+        #     pre-existing report's path before running pre-mortem.md and gets that same path back must
+        #     be rejected — even though its content is otherwise perfectly consistent with the record.
+        run = os.path.join(tmp, "RHODIUM")
+        os.makedirs(run)
+        json.dump({"action": "Hold", "confidence": 52}, open(os.path.join(run, "decision_record.json"), "w"))
+        pm_path = os.path.join(run, "pre_mortem.json")
+        json.dump(
+            {"verdict": "Does not survive — downgrade", "original_action": "Hold", "original_confidence": 52,
+             "recommended_confidence": 40, "recommended_action_cap": "Trim"},
+            open(pm_path, "w"),
+        )
+        status, _msg, dr = patch(run, prior_path=pm_path)
+        check("prior == latest -> no_fresh_pre_mortem", status == "no_fresh_pre_mortem")
+        check("prior == latest -> no patched record returned", dr is None)
+        # A genuinely fresh versioned report proceeds normally even though a prior report is on file.
+        pm_v2 = os.path.join(run, "pre_mortem_v2.json")
+        json.dump(
+            {"verdict": "Does not survive — downgrade", "original_action": "Hold", "original_confidence": 52,
+             "recommended_confidence": 35, "recommended_action_cap": "Trim"},
+            open(pm_v2, "w"),
+        )
+        status, _msg, dr = patch(run, prior_path=pm_path)
+        check("prior != latest (fresh _v2 written) -> patched", status == "patched")
+        check("prior != latest -> uses the fresh v2 values", dr["post_review_confidence_score"] == 35)
+
     if failures:
         print("SELFTEST FAIL:", ", ".join(failures))
         return 1
@@ -390,11 +495,20 @@ def _selftest():
 def main(argv):
     if "--selftest" in argv:
         return _selftest()
-    if not argv:
-        print("usage: commodity_pre_mortem_haircut.py <RUN_ROOT> | --selftest", file=sys.stderr)
+    args = list(argv)
+    prior_path = None
+    if "--prior" in args:
+        i = args.index("--prior")
+        if i + 1 >= len(args):
+            print("usage: commodity_pre_mortem_haircut.py <RUN_ROOT> [--prior <path>] | --selftest", file=sys.stderr)
+            return 2
+        prior_path = args[i + 1]
+        del args[i : i + 2]
+    if not args:
+        print("usage: commodity_pre_mortem_haircut.py <RUN_ROOT> [--prior <path>] | --selftest", file=sys.stderr)
         return 2
-    run_root = argv[0]
-    status, msg, _dr = patch(run_root)
+    run_root = args[0]
+    status, msg, _dr = patch(run_root, prior_path=prior_path)
     if status == "patched":
         print(f"RATING-CAP: {msg}")
         return 0
