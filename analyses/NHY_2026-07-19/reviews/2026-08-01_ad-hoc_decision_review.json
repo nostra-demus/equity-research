@@ -1,0 +1,157 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NHY",
+  "original_decision_date": "2026-07-19",
+  "review_date": "2026-08-01",
+  "review_window": "ad-hoc",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 84.96,
+  "tracking_price": null,
+  "review_price": 86.76,
+  "absolute_return_pct": 2.12,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "prediction": "FQ2 2026 reported revenue beats the Capital IQ consensus of NOK 55,954.2m",
+      "status": "confirmed",
+      "evidence": "Q2 2026 revenue was NOK 56.5bn, up 6% year over year — above the NOK 55,954.2m consensus bar. [Norsk Hydro Q2 2026 results, 2026-07-22; figure via Investing.com Q2 2026 slides coverage, accessed 2026-08-01, indicative/unverified]",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "FQ2 2026 Adjusted EBITDA does NOT clearly beat the Capital IQ consensus of NOK 8,581.8m",
+      "status": "falsified",
+      "evidence": "Adjusted EBITDA was NOK 8,923m, about 4.0% above the NOK 8,581.8m consensus — a clear beat, which is what this forecast predicted would NOT happen. [Norsk Hydro, 'Operational strength delivering solid results', GlobeNewswire, 2026-07-22, quoted verbatim: 'Hydro's adjusted EBITDA for the second quarter of 2026 was NOK 8,923 million']",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "FQ2 2026's cash-flow statement shows receivables normalizing (DSO falling back toward FY2025's 33.0-day level)",
+      "status": "not assessable",
+      "evidence": "The Q2 2026 results release does not state receivables, working capital or days-sales-outstanding figures, and the full interim report was not retrieved for this review. No basis to resolve either way without inventing a number. [Norsk Hydro Q2 2026 results release, GlobeNewswire, 2026-07-22 — receivables/DSO not stated]",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "NHY's strict-basis net debt/EBITDA continues rising past the latest 1.02x reading at the next reported balance sheet",
+      "status": "confirmed",
+      "evidence": "Net debt rose from NOK 12.9bn to NOK 16.3bn during Q2 2026 (+26%), while adjusted EBITDA moved only modestly (NOK 8,923m vs NOK 8,7xx m in Q1 2026 and NOK 7,790m a year earlier). A 26% rise in the numerator against a low-single-digit move in the quarterly denominator raises the ratio. Recorded confirmed on the DIRECTION the forecast stated; the exact strict-basis multiple was NOT recomputed here — the release states no net debt/EBITDA ratio and the full balance sheet was not retrieved, so no figure is claimed. [Norsk Hydro Q2 2026 results, GlobeNewswire, 2026-07-22, quoted verbatim: 'Hydro's net debt increased from NOK 12.9 billion to NOK 16.3 billion during the second quarter']",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "The 22-Jul-2026 and 23-Oct-2026 prints show the Adjusted EBITDA margin fading back towards its longer-run level",
+      "status": "still open",
+      "evidence": "Window runs to 2026-10-23 and only the first of the two prints has landed. Q2 adjusted EBITDA of NOK 8,923m on NOK 56.5bn revenue is a ~15.8% margin; the second print is required before this can be judged.",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "An impairment charge is booked against the Alumetal (Poland/Hungary recycling) CGU",
+      "status": "still open",
+      "evidence": "Window runs to approximately Feb-2027 (FY2026 annual report). No impairment disclosed in the Q2 2026 release; the release notes improved earnings in the recycling business, which is evidence against but does not settle the annual impairment test.",
+      "as_of": "2026-08-01"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "FQ2 2026 results, 22 July 2026",
+      "status": "materialized",
+      "evidence": "Reported 2026-07-22 as scheduled. Revenue NOK 56.5bn (+6% YoY), adjusted EBITDA NOK 8,923m (vs NOK 7,790m a year earlier), reported EBITDA NOK 11.6bn including NOK 2.7bn of adjusting items, adjusted net income NOK 4.6bn (+27.8%), free cash flow NOK 4bn. Higher aluminium prices and product premiums plus improved recycling earnings were named as the drivers. [Norsk Hydro, GlobeNewswire, 2026-07-22]",
+      "as_of": "2026-08-01"
+    },
+    {
+      "catalyst": "FQ3 2026 results, 23 October 2026",
+      "status": "pending",
+      "evidence": "Not yet due.",
+      "as_of": "2026-08-01"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Balance-sheet leverage rising as capex and working capital absorb cash",
+      "status": "materialized",
+      "evidence": "Net debt rose from NOK 12.9bn to NOK 16.3bn over the quarter (+26%) despite NOK 4bn of free cash flow being reported — the direction the original thesis flagged. [Norsk Hydro Q2 2026 results, 2026-07-22]",
+      "as_of": "2026-08-01"
+    },
+    {
+      "risk": "Qatalum (Qatar) operational disruption",
+      "status": "materialized",
+      "evidence": "Contemporaneous coverage of the quarter describes a 'Qatar hit' partly offset by higher aluminium prices, and separate reporting notes Qatalum output running at about 60% of capacity. Recorded as materialized on the operational fact; the earnings impact was absorbed within a beat at the adjusted EBITDA line. [Discovery Alert, 'Norsk Hydro Q2 2026: Higher Aluminium Prices Offset Qatar Hit', 2026; TradingView weekly recap, 'Qatalum output at 60% capacity' — both web-sourced, dated, indicative/unverified]",
+      "as_of": "2026-08-01"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "Filed ad-hoc, not on the 30d schedule (due 2026-08-18). The trigger is that four of this record's forecasts carried a 2026-07-22 window that has now elapsed — surfaced by the new eval check AS (forecasts whose window passed while still unresolved).",
+    "The quarter beat on both lines the record measured. Revenue NOK 56.5bn cleared the NOK 55,954.2m consensus (forecast confirmed); adjusted EBITDA of NOK 8,923m cleared the NOK 8,581.8m consensus by ~4%, which FALSIFIES the record's forecast that EBITDA would not clearly beat. The engine was right on revenue and wrong on profitability, in the company's favour.",
+    "The leverage call was directionally right: net debt rose NOK 12.9bn to NOK 16.3bn in the quarter. Recorded confirmed on direction only — no strict-basis net debt/EBITDA multiple is claimed, because the release states none and the full balance sheet was not retrieved (CLAUDE.md §5: cite the source the number came from, and do not publish a figure that was not read).",
+    "The receivables/DSO forecast is NOT ASSESSABLE rather than forced: the Q2 release does not state receivables, working capital or DSO. This is the honest outcome and it flags a authoring-time weakness — a forecast whose settling data is not in the quarterly release cannot be resolved on the quarterly release, and its trigger should have named the interim report section it settles in.",
+    "Price: entry NOK 84.96 (2026-07-17) to NOK 86.76 (2026-07-31 close) = +2.12%. Web-sourced and indicative/unverified (stockanalysis.com / OSL:NHY coverage, accessed 2026-08-01).",
+    "benchmark_return_pct and sector_return_pct are null. The record itself labels both benchmarks 'convention default, not pool-cited' (OSEBX; LME Aluminium / S&P Global Aluminum & Metals), and neither index return over 2026-07-17 to 2026-07-31 could be sourced for this review. The call is therefore NOT yet benchmark-scoreable and will not drop into the calibration hit rate until a benchmark return is established (§9). Recording that plainly rather than substituting the raw +2.12%.",
+    "Thesis status is on-track, not confirmed: this was a Watchlist with a 12-month horizon, two weeks old. Nothing in the quarter breaks it, and nothing in the quarter resolves it either. decision_quality is 'not assessable' on the same ground — two weeks is not a price outcome."
+  ],
+  "module_calibration_notes": {
+    "most_responsible_for_decision": "Not re-derived in this ad-hoc review — the record's own module_scores stand.",
+    "most_accurate_so_far": "The balance-sheet-survival read: the leverage direction it flagged (rising net debt) is exactly what the quarter delivered, NOK 12.9bn to NOK 16.3bn.",
+    "missed_the_key_variable": "The earnings read on profitability. The record forecast that adjusted EBITDA would NOT clearly beat consensus; it beat by about 4%. Aluminium price and premium strength plus recycling earnings were the drivers, and the record under-weighted them.",
+    "which_module_mattered_most_to_the_outcome": "earnings and balance-sheet-survival. Valuation and governance were not tested by this print.",
+    "confidence_score_judgment": "Not revisited — a two-week-old Watchlist with one print behind it does not yet give grounds to say the original confidence was too high or too low.",
+    "data_sufficiency_score_judgment": "One authoring-time weakness IS visible on information available at 2026-07-19: the receivables/DSO forecast was written with a settling trigger the quarterly release does not carry. That is a forecast-construction fault, not a data-availability one, and it is the reason one of the four elapsed forecasts is unresolvable rather than resolved.",
+    "evidence_partition_note": "Process judgments above use only information available on or before 2026-07-19. The Q2 2026 results (2026-07-22) are used ONLY for outcome fields."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/NHY_2026-07-19/pre_mortem.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 10.0,
+    "outcome_vs_verdict": "too_early",
+    "notes": "The thesis is still on-track — nothing has resolved either way two weeks in — so the red-team's 'Survives with haircut' verdict can be neither vindicated nor contradicted yet. Crediting it now would be exactly the premature confidence this check exists to measure. The pre-mortem recorded no named killer_risk, so there is also no specific risk to test against risk_results."
+  },
+  "memo_delta": {
+    "summary": "Norsk Hydro reported Q2 2026 on 22 July, three days after the decision. Revenue of NOK 56.5bn and adjusted EBITDA of NOK 8,923m both cleared consensus, the second of which the record had explicitly forecast would NOT happen. Net debt rose from NOK 12.9bn to NOK 16.3bn over the quarter, which is the direction the balance-sheet read flagged. The shares are NOK 86.76 versus the NOK 84.96 reference, +2.1%. Nothing breaks the thesis; one forecast is falsified and one is confirmed.",
+    "thesis_delta_verdict": "too_early",
+    "changed_sections": [
+      {
+        "section": "Earnings — FQ2 2026 profitability versus consensus",
+        "original_claim": "FQ2 2026 Adjusted EBITDA does NOT clearly beat the Capital IQ consensus of NOK 8,581.8m.",
+        "new_evidence": "Adjusted EBITDA was NOK 8,923m, about 4% above consensus, driven by higher aluminium prices and product premiums plus improved recycling earnings. Adjusted net income NOK 4.6bn, +27.8% YoY.",
+        "evidence_source": "Norsk Hydro, 'Operational strength delivering solid results', GlobeNewswire, 2026-07-22",
+        "materiality_score": 55,
+        "impact_direction": "positive for the company, negative for the forecast",
+        "impacted_modules": ["earnings"],
+        "rerun_recommended": false,
+        "rerun_reason": "",
+        "rerun_command": ""
+      },
+      {
+        "section": "Balance sheet — net debt trajectory",
+        "original_claim": "Strict-basis net debt/EBITDA continues rising past the latest 1.02x reading.",
+        "new_evidence": "Net debt rose from NOK 12.9bn to NOK 16.3bn during the quarter (+26%) even with NOK 4bn of reported free cash flow.",
+        "evidence_source": "Norsk Hydro Q2 2026 results, GlobeNewswire, 2026-07-22",
+        "materiality_score": 50,
+        "impact_direction": "confirms the original read",
+        "impacted_modules": ["balance-sheet-survival"],
+        "rerun_recommended": false,
+        "rerun_reason": "",
+        "rerun_command": ""
+      }
+    ],
+    "stage_one_comment": "Norsk Hydro reported second quarter results on 22 July, three days after our note. Revenue of 56.5 billion kroner and adjusted EBITDA of 8.9 billion kroner both came in ahead of consensus. The EBITDA beat is worth flagging because we had specifically said it would not clearly beat, so that call was wrong and wrong in the company's favour - higher aluminium prices, better product premiums and improved recycling earnings did more work than we allowed. Net debt went the way we expected, rising from 12.9 to 16.3 billion kroner over the quarter even with four billion of free cash flow, so the leverage concern that kept this on the watchlist is intact. Qatalum is running at about 60 percent of capacity and the quarter absorbed that hit anyway. The shares are 86.76 kroner against our 84.96 reference, up 2.1 percent in two weeks. Nothing here changes the recommendation. We are not moving off watchlist on one print.",
+    "watch_items": [
+      "FQ3 2026 results on 23 October 2026 — the second of the two prints the adjusted-EBITDA-margin forecast needs before it can be judged",
+      "Net debt at the FQ3 balance sheet — whether the NOK 16.3bn continues climbing, and whether a strict-basis net debt/EBITDA ratio is disclosed so the multiple can be measured rather than inferred",
+      "Receivables and DSO in the full FQ2 interim report — the unresolved forecast settles there, not in the results release",
+      "Qatalum recovery from ~60% of capacity",
+      "Alumetal (Poland/Hungary recycling) CGU impairment test in the FY2026 annual report, approximately Feb 2027"
+    ],
+    "management_questions": [
+      "How much of the Q2 adjusted EBITDA beat is aluminium price and premium, and how much is recycling margin that would persist at a lower LME price?",
+      "Net debt rose NOK 3.4bn in a quarter that generated NOK 4bn of free cash flow — what were the offsetting uses?",
+      "Where are receivables and days-sales-outstanding now versus the FY2025 33.0-day level?",
+      "What is the expected timeline for Qatalum to return from ~60% to full capacity, and what is the quarterly EBITDA drag until then?",
+      "What headroom remains before leverage constrains the capital-return policy?"
+    ],
+    "memo_delta_file": "analyses/NHY_2026-07-19/reviews/2026-08-01_ad-hoc_memo_delta.md"
+  }
+}
