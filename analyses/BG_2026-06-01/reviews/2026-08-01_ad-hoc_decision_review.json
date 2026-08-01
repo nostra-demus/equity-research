@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0",
+  "ticker": "BG",
+  "original_decision_date": "2026-06-01",
+  "review_date": "2026-08-01",
+  "review_window": "ad-hoc",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": null,
+  "tracking_price": null,
+  "review_price": null,
+  "absolute_return_pct": null,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "at-risk",
+  "forecast_results": [
+    {
+      "prediction": "FY2026 full-year adjusted EPS lands inside (not above) the $9.00-9.50 guide",
+      "status": "still open",
+      "evidence": "Window runs to approximately Feb 2027. The premise has moved beneath the forecast, however: management RAISED the FY2026 adjusted EPS guide to $9.25-$9.75 with the Q2 print, so the $9.00-$9.50 range this forecast was written against is no longer the company's own guide. It will need to be resolved against the range in force at the time, and the raise is itself evidence against the 'not above' half of the claim. [Bunge Q2 2026 results, 2026-07-29; Seeking Alpha, 'Bunge forecasts 2026 adjusted EPS of $9.25-$9.75 as Viterra synergies run ahead of plan', 2026-07-29, web-sourced, indicative/unverified]",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "Q2 FY2026 beats on the quarter but management does NOT raise the full-year guide",
+      "status": "falsified",
+      "evidence": "Both halves were tested and the second failed. Q2 2026 did beat — adjusted diluted EPS $2.00, GAAP diluted EPS $3.47, net income $678M on net sales of $24.04bn, driven by Soybean Processing and Refining and Softseed Processing and Refining. But management DID raise the full-year adjusted EPS guide, to $9.25-$9.75 from $9.00-$9.50, and raised the Viterra cost-synergy target from $250M to $350M. The forecast predicted a beat WITHOUT a raise; the raise happened. [Bunge Q2 2026 results, 2026-07-29; TradingView, 'Bunge Global posts Q2 2026 net income $678M, adjusted EPS $2.00; raises full-year outlook', 2026-07-29 — web-sourced, indicative/unverified]",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "FY2026 free cash flow turns positive / CFO-to-EBITDA recovers toward 70%",
+      "status": "still open",
+      "evidence": "Window runs to approximately Feb 2027. Cash-flow detail was not gathered for this review; the Q2 release headline figures do not settle it.",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "At the indicative ~$123 price, BG's 12-month total return is negative (<=0%)",
+      "status": "still open",
+      "evidence": "Window runs to approximately Jun 2027. No price was sourced for this review, so no interim read is recorded — see the tracking-price note in lessons.",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "No Viterra goodwill impairment in FY2026",
+      "status": "still open",
+      "evidence": "Window runs to approximately Feb 2027 (FY2026 annual impairment test). Evidence to date runs in the forecast's favour: Viterra cost synergies were reported running ahead of plan with the target raised from $250M to $350M, which is not the profile of a business heading for a goodwill write-down. [Seeking Alpha, 2026-07-29]",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "No covenant breach and no downgrade out of investment grade in the next 12 months",
+      "status": "still open",
+      "evidence": "Window runs to approximately Jun 2027. No breach or downgrade found in the evidence gathered; the company also reported completing a $2B share repurchase commitment and improved internal liquidity, which is evidence against near-term financial stress. [Seeking Alpha, 2026-07-29]",
+      "as_of": "2026-08-01"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "Q2 FY2026 results, late July 2026",
+      "status": "materialized",
+      "evidence": "Reported 2026-07-29. Adjusted diluted EPS $2.00, GAAP diluted EPS $3.47, net income $678M, net sales $24.04bn (vs $12.77bn prior year, reflecting the Viterra combination). FY2026 adjusted EPS guide raised to $9.25-$9.75; Viterra cost-synergy target raised to $350M; $2B share repurchase commitment completed. [Bunge Q2 2026 results, 2026-07-29]",
+      "as_of": "2026-08-01"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Viterra integration underdelivers on synergies",
+      "status": "not materialized",
+      "evidence": "The opposite so far: cost-synergy capture is reported running ahead of plan, with the target raised from $250M to $350M. [Seeking Alpha, 2026-07-29]",
+      "as_of": "2026-08-01"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "Filed ad-hoc, not on a scheduled window (the 30d review was filed 2026-07-13; 90d is not yet due). The trigger is that this record's forecast[1] carried a 'late Jul 2026' window that has now elapsed — surfaced by the new eval check AS.",
+    "The elapsed forecast is FALSIFIED, and it is worth being precise about how: it was a COMPOUND prediction — 'beats on the quarter BUT management does not raise the full-year guide'. The first half was right (Q2 adjusted EPS $2.00 was a beat). The second half was wrong: the guide was raised to $9.25-$9.75. A compound forecast fails if either half fails, and this one failed on the half that carried the thesis — the whole point of the claim was that the beat would not be extrapolated forward. It was.",
+    "This has a knock-on effect the record cannot express: forecast[0] is written against a '$9.00-$9.50 guide' that no longer exists. When it settles in Feb 2027 it must be resolved against the guide in force, and the note that the range moved must travel with it. A forecast pinned to a guidance range should carry the range's own revision risk in its trigger.",
+    "Thesis status moved from on-track (30d review, 2026-07-13) to AT-RISK. Nothing has broken, but the Watchlist case rested on the earnings recovery not being extrapolated and on Viterra integration risk; the quarter delivered a beat, a raised guide, synergies ahead of plan and a completed $2B buyback. Those are all evidence against the reasons for staying on the sidelines.",
+    "PRICE FIELDS ARE ALL NULL, and this is now the binding gap on this call. entry_price was null at decision (no pool-verified price existed), the 30d review left it null, and no tracking_price has ever been established — so this record has been unscoreable for two months and will stay unscoreable. Per DECISION_LEDGER §8 the fix is a review-side tracking_price anchored at or near the decision date; no usable dated price was sourced in this review, so none is invented here. Establishing one is the single outstanding action on this record: until then it cannot enter the calibration hit rate (§9), regardless of how the thesis resolves.",
+    "All outcome facts in this review are web-sourced, dated and indicative/unverified (Bunge Q2 2026 results coverage, 2026-07-29, via TradingView and Seeking Alpha). No filing was read for this review; a fuller review should read the Q2 10-Q.",
+    "CORRECTION within this same review, recorded rather than silently fixed: this block first stated that no pre-mortem existed for BG. That was wrong — analyses/BG_2026-06-01/pre_mortem.json is present and returned 'Survives' with a zero haircut. The claim was made without checking the run root, which is precisely the no-source-no-claim failure (CLAUDE.md §3/§5) this engine exists to avoid. The corrected pre_mortem_check above records the outcome as contradicted (false comfort)."
+  ],
+  "module_calibration_notes": {
+    "most_responsible_for_decision": "Not re-derived in this ad-hoc review — the record's own module_scores stand.",
+    "most_accurate_so_far": "Not yet separable on one print.",
+    "missed_the_key_variable": "The earnings read. The forecast that management would beat WITHOUT raising the full-year guide was the record's expression of 'this recovery is not durable'. Management's raise, plus a synergy target lifted from $250M to $350M, is the direct counter-evidence.",
+    "which_module_mattered_most_to_the_outcome": "earnings, and business-model to the extent the Viterra integration thesis drove the caution.",
+    "confidence_score_judgment": "Not revisited on one print.",
+    "data_sufficiency_score_judgment": "One authoring-time weakness is visible from information available at 2026-06-01: a forecast pinned to a specific guidance range ($9.00-$9.50) is exposed to that range being revised, and its trigger did not say how it resolves if the guide moves. That is a forecast-construction fault, not a data gap.",
+    "evidence_partition_note": "Process judgments above use only information available on or before 2026-06-01. The Q2 2026 results (2026-07-29) are used ONLY for outcome fields."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/BG_2026-06-01/pre_mortem.json",
+    "pre_mortem_verdict": "Survives",
+    "pre_mortem_confidence_haircut": 0,
+    "outcome_vs_verdict": "contradicted",
+    "notes": "FALSE COMFORT. The pre-mortem returned 'Survives' with a zero confidence haircut; two months later this review records the thesis at-risk. The direction of the surprise is worth stating precisely, because it is not the one the red-team was looking for: the thesis weakened because the COMPANY outperformed (beat and raised, synergies ahead of plan), not because a downside risk landed. The pre-mortem's kill_criteria_attack listed six ways the call could break — Brazil indirect-tax claims, FY2026 FCF staying negative, the crush/biofuel spread retracing, Viterra goodwill impairment, a covenant breach, a governance disqualifier — and every one is a DOWNSIDE test. None of them contemplated the bear case simply failing to arrive. That is the specific blind spot this contradiction records: a red-team that attacks only the ways a cautious call could be too optimistic cannot catch a cautious call that was too pessimistic."
+  },
+  "memo_delta": {
+    "summary": "Bunge reported Q2 FY2026 on 29 July: adjusted diluted EPS $2.00, net income $678M, net sales $24.04bn, and — the part that matters to our note — management RAISED full-year adjusted EPS guidance to $9.25-$9.75 from $9.00-$9.50 while lifting the Viterra cost-synergy target from $250M to $350M. Our forecast was explicitly that the quarter would beat and the guide would NOT be raised. It was raised. The thesis is not broken but it is now at risk, and the record still has no price anchor of any kind.",
+    "thesis_delta_verdict": "weakened",
+    "changed_sections": [
+      {
+        "section": "Earnings — durability of the recovery / guidance risk",
+        "original_claim": "Q2 FY2026 beats on the quarter but management does not raise the full-year guide (i.e. the beat is not extrapolated).",
+        "new_evidence": "Q2 adjusted diluted EPS $2.00 and GAAP $3.47 on net sales of $24.04bn; FY2026 adjusted EPS guide raised to $9.25-$9.75; Viterra cost-synergy target raised $250M to $350M; $2B buyback commitment completed.",
+        "evidence_source": "Bunge Q2 2026 results, 2026-07-29, via TradingView and Seeking Alpha coverage (web-sourced, dated, indicative)",
+        "materiality_score": 70,
+        "impact_direction": "negative for the thesis",
+        "impacted_modules": [
+          "earnings"
+        ],
+        "rerun_recommended": true,
+        "rerun_reason": "The guidance range the earnings case was written against has moved up, and the synergy assumption behind the Viterra caution has moved with it. The earnings module's inputs are stale.",
+        "rerun_command": "/research:earnings BG"
+      }
+    ],
+    "stage_one_comment": "Bunge reported second quarter results on 29 July. Adjusted earnings of two dollars a share beat, net income was 678 million dollars on sales of 24 billion, and management raised full year adjusted earnings guidance to 9.25 to 9.75 dollars from 9.00 to 9.50. They also lifted the Viterra cost synergy target from 250 to 350 million and finished a two billion dollar buyback. This matters because our note predicted precisely the opposite shape - a beat on the quarter that management would decline to extrapolate into the full year guide. They extrapolated it. We are not calling the thesis broken, but the two reasons we stayed on the sidelines, that the recovery was not durable and that Viterra integration would disappoint, both took evidence against them in one print. We are moving this to at risk and the earnings work needs redoing on the new guide. Separately, this record still has no entry or tracking price after two months, so we cannot score it at all. That needs fixing before the next checkpoint.",
+    "watch_items": [
+      "Whether the raised $9.25-$9.75 FY2026 guide holds at the Q3 print, or is revised again in either direction",
+      "Viterra cost-synergy capture against the lifted $350M target",
+      "FY2026 free cash flow and CFO-to-EBITDA — the open forecast settles at the FY2026 results (~Feb 2027)",
+      "Viterra goodwill impairment test in the FY2026 annual report",
+      "ESTABLISH A TRACKING PRICE for this record — it has been unscoreable since 2026-06-01 and will remain so until one is anchored"
+    ],
+    "management_questions": [
+      "How much of the raised FY2026 guide is Soybean and Softseed crush margin, and how much is Viterra synergy capture that is independent of the crush cycle?",
+      "The synergy target moved from $250M to $350M — is that pull-forward of previously identified savings, or newly identified ones?",
+      "What crush margin assumption underpins the low end of the $9.25-$9.75 range?",
+      "Where does the Viterra goodwill balance stand, and what headroom does the FY2026 impairment test carry?",
+      "After the completed $2B buyback, what is the capital-allocation priority for the remainder of FY2026?"
+    ],
+    "memo_delta_file": "analyses/BG_2026-06-01/reviews/2026-08-01_ad-hoc_memo_delta.md"
+  }
+}
