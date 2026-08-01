@@ -2,145 +2,741 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "frameworks/valuation_summary.schema.json",
   "title": "Valuation Summary (levers)",
-  "description": "Machine-readable valuation LEVERS emitted by 99_valuation-synthesis alongside its markdown, so the fair value is re-derivable and the cockpit Playground has inputs to move. It carries INPUTS (per-scenario forward metric + multiple, WACC components, shares, net-debt basis, price) — the counterpart to decision_record.json, which carries the master synthesizer's scenario OUTPUTS (probabilities + returns). The module does NOT assign scenario probabilities (that boundary belongs to the master synthesizer, MODULE_RULES Scope), so `probability` is optional here; the Playground reads probabilities from decision_record.json. Consumed by scripts/valuation_math.py (recompute / reanchor) and the /api/valuation-levers endpoint.",
+  "description": "Machine-readable valuation LEVERS emitted by 99_valuation-synthesis alongside its markdown, so the fair value is re-derivable and the cockpit Playground has inputs to move. It carries INPUTS (per-scenario forward metric + multiple, WACC components, shares, net-debt basis, price) \u2014 the counterpart to decision_record.json, which carries the master synthesizer's scenario OUTPUTS (probabilities + returns). The module does NOT assign scenario probabilities (that boundary belongs to the master synthesizer, MODULE_RULES Scope), so `probability` is optional here; the Playground reads probabilities from decision_record.json. Consumed by scripts/valuation_math.py (recompute / reanchor) and the /api/valuation-levers endpoint.",
   "type": "object",
-  "required": ["schema_version", "ticker", "basis", "scenarios"],
+  "required": [
+    "schema_version",
+    "ticker",
+    "basis",
+    "scenarios"
+  ],
   "additionalProperties": true,
   "properties": {
-    "schema_version": {"type": "string", "pattern": "^[0-9]+(\\.[0-9]+){0,3}$", "description": "dotted numeric version ('1.3'). Versioned rules gate on it, so an unparseable value is REJECTED rather than grandfathered as pre-1.3"},
-    "ticker": {"type": "string"},
-    "as_of": {"type": "string", "description": "run date (YYYY-MM-DD)"},
-    "currency": {"type": "string"},
-    "business_type": {"type": "string", "description": "Operating / Financial / REIT / Commodity / Holding (Business-Type Method Map)"},
-    "basis": {"type": "string", "enum": ["equity", "ev"], "description": "equity = per-share metric x equity multiple (P/E on EPS); ev = total metric x EV multiple, bridged by net_debt/shares"},
-    "shares": {"type": ["number", "null"], "description": "diluted shares for the EV->equity per-share bridge (basis='ev')"},
-    "net_debt": {"type": ["number", "null"], "description": "canonical net-debt anchor: positive = debt, negative = net cash (subtracted in the bridge)"},
-    "net_debt_basis": {"type": ["string", "null"], "enum": ["strict", "broad", "gross-liquidity", null], "description": "CLAUDE.md §15 basis label"},
-    "current_price": {"type": ["number", "null"]},
-    "price_as_of": {"type": ["string", "null"]},
-    "price_state": {"type": ["string", "null"], "enum": ["pool-verified", "indicative", "none", null]},
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+){0,3}$",
+      "description": "dotted numeric version ('1.3'). Versioned rules gate on it, so an unparseable value is REJECTED rather than grandfathered as pre-1.3"
+    },
+    "ticker": {
+      "type": "string"
+    },
+    "as_of": {
+      "type": "string",
+      "description": "run date (YYYY-MM-DD)"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "business_type": {
+      "type": "string",
+      "description": "Operating / Financial / REIT / Commodity / Holding (Business-Type Method Map)"
+    },
+    "basis": {
+      "type": "string",
+      "enum": [
+        "equity",
+        "ev"
+      ],
+      "description": "equity = per-share metric x equity multiple (P/E on EPS); ev = total metric x EV multiple, bridged by net_debt/shares"
+    },
+    "shares": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "diluted shares for the EV->equity per-share bridge (basis='ev')"
+    },
+    "net_debt": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "canonical net-debt anchor: positive = debt, negative = net cash (subtracted in the bridge)"
+    },
+    "net_debt_basis": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "strict",
+        "broad",
+        "gross-liquidity",
+        null
+      ],
+      "description": "CLAUDE.md \u00a715 basis label"
+    },
+    "current_price": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "price_as_of": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "price_state": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "pool-verified",
+        "indicative",
+        "none",
+        null
+      ]
+    },
     "scenarios": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["label"],
+        "required": [
+          "label"
+        ],
         "additionalProperties": true,
         "properties": {
-          "label": {"type": "string", "description": "bull / base / bear (matched case-insensitively)"},
-          "probability": {"type": ["number", "null"], "description": "OPTIONAL — the master synthesizer owns probabilities (decision_record.json); omit or null here"},
-          "forward_metric": {"type": ["number", "null"], "description": "forward EPS (basis=equity) or forward EBITDA/EBIT total (basis=ev)"},
-          "metric_basis": {"type": ["string", "null"], "description": "NTM / FY+1 / trailing (label the period)"},
-          "multiple": {"type": ["number", "null"], "description": "the multiple this case is quoted at. Usually IMPLIED (what `level` corresponds to on the stated metric) rather than an input — see multiple_kind"},
-          "basis": {"type": ["string", "null"], "enum": ["equity", "ev", null], "description": "v1.3 — this CASE's basis, overriding the run-level one. Genuinely varies inside a run: EMAAR's base reads on EV/EBITDA while its bear reads 0.96x on BOOK (an equity multiple). 'equity' -> level = metric x multiple; 'ev' -> level = (metric x multiple - net_debt - minority + other) / shares. A `bridge` is meaningful only on an 'ev' case."},
-          "multiple_basis": {"type": ["string", "null"], "description": "v1.3 REQUIRED whenever `multiple` is present: what the multiple IS — 'EV/FY2025 Adj. EBITDA', 'NTM P/E', 'P/BV (book)'. A bare number is an incomplete citation (§5): EMAAR's bear reads 0.96x on BOOK, not EV/EBITDA"},
-          "multiple_kind": {"type": ["string", "null"], "enum": ["implied", "applied", null], "description": "v1.3 — 'implied': the value came from this case's own machinery (a margin path, a method blend, a runoff chain) and the multiple is what that value CORRESPONDS to, stated as a cross-check; 'applied': the case was genuinely built AS metric x multiple. Drives the Playground's two-way behaviour: editing the machinery updates an implied multiple, while typing a multiple is an explicit reverse assertion"},
-          "secondary_multiples": {"type": ["array", "null"], "description": "v1.3 — further yardsticks the orb quoted for the SAME value (EMAAR's base states ~4.8x LTM EV/EBITDA, ~7.0x P/E, 1.5x P/BV alongside its primary ~6.7x normalized). Recorded so real analyst content is not discarded; they are cross-checks and are NEVER used in any computation", "items": {"type": "object", "required": ["value", "basis"], "additionalProperties": true, "properties": {"value": {"type": "number"}, "basis": {"type": "string"}, "note": {"type": ["string", "null"]}}}},
-          "bridge": {"type": ["object", "null"], "description": "v1.3 — the EV->equity terms THIS case used, when they differ from the run level. Recorded per case because conventions genuinely differ within one run (NHY's cases deduct net debt 17,919 + minority 7,495 separately). A bridge on one case must appear on all — mixing an all-in run-level deduction with per-case split terms double-counts minority.", "required": ["net_debt", "net_debt_basis"], "additionalProperties": true, "properties": {"net_debt": {"type": "number"}, "net_debt_basis": {"type": "string", "description": "§15 basis label, REQUIRED: name what this per-case debt figure IS wherever it appears (e.g. 'cash-quality adjusted (01 canonical)' — not the run-level broad figure)"}, "minority": {"type": ["number", "null"]}, "other": {"type": ["number", "null"]}, "shares": {"type": ["number", "null"], "description": "falls back to the top-level shares when null"}, "source": {"type": ["string", "null"], "description": "v1.3 OPTIONAL — the §5 citation for THIS bridge's net_debt/minority/other/shares figures, when they come from a DIFFERENT document/module than the scenario-level `source` (which cites only the forward metric and multiple). NHY's bridge terms trace to the balance-sheet-survival module's debt-note read, not the valuation orb's own scenario table — printing the scenario `source` under the bridge arithmetic would misattribute those figures. Falls back to the scenario-level `source` when the bridge terms come from the same place and this is omitted (Codex #365 P1)."}}},
-          "source": {"type": ["string", "null"], "description": "v1.3 REQUIRED whenever forward_metric/multiple is present: the §5 citation the metric and multiple came from (e.g. '07_scenario-and-fair-value.md §2 scenario table'). The scenario levers are the Playground's most-edited inputs and are held to the same citation bar as dcf_grid / sotp_bridge / peers_internals / derivation"},
-          "level": {"type": ["number", "null"], "description": "the derived per-share fair-value LEVEL (= metric x multiple, bridged for basis='ev'); price-independent"},
-          "drivers": {"type": ["string", "null"], "description": "one line: the operating drivers behind this case"},
-          "derivation": {
-            "type": ["object", "null"],
-            "description": "v1.2 OPTIONAL — the scenario's OWN recorded derivation chain, transcribed from the orb's executed snippet (REPRODUCE-or-omit: the chain must reproduce `level` within tolerance, or be omitted). Records the figures actually used, so the Playground makes them the editable inputs and computes the level. First model: ev_bridge = (ev − net_debt − minority + other) / shares. stated_drivers carries the narrative assumptions BEHIND a recorded figure (e.g. 'terminal Adj. EBITDA margin 9.0%') whose mapping to that figure the orb did NOT record — display-only provenance, never an invented lever.",
-            "required": ["model", "ev", "net_debt", "source"],
+          "label": {
+            "type": "string",
+            "description": "bull / base / bear (matched case-insensitively)"
+          },
+          "probability": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "OPTIONAL \u2014 the master synthesizer owns probabilities (decision_record.json); omit or null here"
+          },
+          "forward_metric": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "forward EPS (basis=equity) or forward EBITDA/EBIT total (basis=ev)"
+          },
+          "metric_basis": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "NTM / FY+1 / trailing (label the period)"
+          },
+          "multiple": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "the multiple this case is quoted at. Usually IMPLIED (what `level` corresponds to on the stated metric) rather than an input \u2014 see multiple_kind"
+          },
+          "basis": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "equity",
+              "ev",
+              null
+            ],
+            "description": "v1.3 \u2014 this CASE's basis, overriding the run-level one. Genuinely varies inside a run: EMAAR's base reads on EV/EBITDA while its bear reads 0.96x on BOOK (an equity multiple). 'equity' -> level = metric x multiple; 'ev' -> level = (metric x multiple - net_debt - minority + other) / shares. A `bridge` is meaningful only on an 'ev' case."
+          },
+          "multiple_basis": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "v1.3 REQUIRED whenever `multiple` is present: what the multiple IS \u2014 'EV/FY2025 Adj. EBITDA', 'NTM P/E', 'P/BV (book)'. A bare number is an incomplete citation (\u00a75): EMAAR's bear reads 0.96x on BOOK, not EV/EBITDA"
+          },
+          "multiple_kind": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "implied",
+              "applied",
+              null
+            ],
+            "description": "v1.3 \u2014 'implied': the value came from this case's own machinery (a margin path, a method blend, a runoff chain) and the multiple is what that value CORRESPONDS to, stated as a cross-check; 'applied': the case was genuinely built AS metric x multiple. Drives the Playground's two-way behaviour: editing the machinery updates an implied multiple, while typing a multiple is an explicit reverse assertion"
+          },
+          "secondary_multiples": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "v1.3 \u2014 further yardsticks the orb quoted for the SAME value (EMAAR's base states ~4.8x LTM EV/EBITDA, ~7.0x P/E, 1.5x P/BV alongside its primary ~6.7x normalized). Recorded so real analyst content is not discarded; they are cross-checks and are NEVER used in any computation",
+            "items": {
+              "type": "object",
+              "required": [
+                "value",
+                "basis"
+              ],
+              "additionalProperties": true,
+              "properties": {
+                "value": {
+                  "type": "number"
+                },
+                "basis": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          },
+          "bridge": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "description": "v1.3 \u2014 the EV->equity terms THIS case used, when they differ from the run level. Recorded per case because conventions genuinely differ within one run (NHY's cases deduct net debt 17,919 + minority 7,495 separately). A bridge on one case must appear on all \u2014 mixing an all-in run-level deduction with per-case split terms double-counts minority.",
+            "required": [
+              "net_debt",
+              "net_debt_basis"
+            ],
             "additionalProperties": true,
             "properties": {
-              "model": {"type": "string", "enum": ["ev_bridge", "margin_runoff_dcf"], "description": "the chain's shape; future models extend this enum (a reader treats an unknown model as not-recorded)"},
-              "ev": {"type": "number", "description": "enterprise value under this scenario, in the filing's own millions. For ev_bridge it is the lever; for margin_runoff_dcf it is the RECORDED anchor the replayed chain must reproduce (guard-checked)"},
-              "margin": {"type": ["number", "null"], "description": "margin_runoff_dcf lever: terminal margin as a decimal (0.09 = 9.0%)"},
-              "growth": {"type": ["number", "null"], "description": "margin_runoff_dcf lever: perpetuity growth as a decimal (−0.01 = declining 1%/yr); wacc − growth must be > 0"},
-              "da": {"type": ["number", "null"], "description": "margin_runoff_dcf: depreciation & amortisation (filing millions; absent → 0)"},
-              "capex": {"type": ["number", "null"], "description": "margin_runoff_dcf: capex (absent → 0)"},
-              "tax": {"type": ["number", "null"], "description": "margin_runoff_dcf: tax rate as a decimal (absent → 0)"},
-              "dnwc": {"type": ["number", "null"], "description": "margin_runoff_dcf: working-capital change (absent → 0)"},
-              "revenue_base": {"type": ["number", "null"], "description": "margin_runoff_dcf constant: the recorded revenue base the margin applies to"},
-              "wacc": {"type": ["number", "null"], "description": "margin_runoff_dcf constant: the discount rate used in the recorded TV denominator. NOT a lever here — it also sits inside pv_factor and pv_explicit, whose WACC-sensitivity the orb did not record"},
-              "pv_factor": {"type": ["number", "null"], "description": "margin_runoff_dcf constant: the recorded discount factor applied to the terminal value"},
-              "pv_explicit": {"type": ["number", "null"], "description": "margin_runoff_dcf constant: the recorded PV of the explicit years added to the discounted TV"},
-              "metric_label": {"type": ["string", "null"], "description": "what the margin is a margin OF (e.g. 'terminal Adj. EBITDA margin') — display label"},
-              "net_debt": {"type": "number", "description": "REQUIRED, explicit even when 0 — the bridge's own net-debt term for THIS scenario (unknown net debt is never silently 0, §15)"},
-              "net_debt_basis": {"type": ["string", "null"], "description": "§15 basis label for the chain's net-debt term when it departs from the top-level basis (e.g. 'cash-quality adjusted (01 canonical)')"},
-              "minority": {"type": ["number", "null"]},
-              "other": {"type": ["number", "null"], "description": "any further bridge term the orb recorded (+ adds to equity)"},
-              "shares": {"type": ["number", "null"], "description": "diluted shares; falls back to the top-level shares when null"},
-              "stated_drivers": {"type": ["array", "null"], "description": "narrative assumptions behind the recorded figures — provenance chips, not levers", "items": {"type": "object", "required": ["label"], "additionalProperties": true, "properties": {
-                "label": {"type": "string"},
-                "value": {"type": ["number", "string", "null"]},
-                "note": {"type": ["string", "null"], "description": "why this is display-only (e.g. 'impaired-FCFF DCF input — its mapping to EV is not recorded')"}
-              }}},
-              "source": {"type": "string", "description": "REQUIRED §5 citation of the orb section / executed snippet the chain is transcribed from — editable levers cannot ship uncited"}
+              "net_debt": {
+                "type": "number"
+              },
+              "net_debt_basis": {
+                "type": "string",
+                "description": "\u00a715 basis label, REQUIRED: name what this per-case debt figure IS wherever it appears (e.g. 'cash-quality adjusted (01 canonical)' \u2014 not the run-level broad figure)"
+              },
+              "minority": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "other": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "shares": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "falls back to the top-level shares when null"
+              },
+              "source": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "v1.3 OPTIONAL \u2014 the \u00a75 citation for THIS bridge's net_debt/minority/other/shares figures, when they come from a DIFFERENT document/module than the scenario-level `source` (which cites only the forward metric and multiple). NHY's bridge terms trace to the balance-sheet-survival module's debt-note read, not the valuation orb's own scenario table \u2014 printing the scenario `source` under the bridge arithmetic would misattribute those figures. Falls back to the scenario-level `source` when the bridge terms come from the same place and this is omitted (Codex #365 P1)."
+              }
+            }
+          },
+          "source": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "v1.3 REQUIRED whenever forward_metric/multiple is present: the \u00a75 citation the metric and multiple came from (e.g. '07_scenario-and-fair-value.md \u00a72 scenario table'). The scenario levers are the Playground's most-edited inputs and are held to the same citation bar as dcf_grid / sotp_bridge / peers_internals / derivation"
+          },
+          "level": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "the derived per-share fair-value LEVEL (= metric x multiple, bridged for basis='ev'); price-independent"
+          },
+          "drivers": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "one line: the operating drivers behind this case"
+          },
+          "derivation": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "description": "v1.2 OPTIONAL \u2014 the scenario's OWN recorded derivation chain, transcribed from the orb's executed snippet (REPRODUCE-or-omit: the chain must reproduce `level` within tolerance, or be omitted). Records the figures actually used, so the Playground makes them the editable inputs and computes the level. First model: ev_bridge = (ev \u2212 net_debt \u2212 minority + other) / shares. stated_drivers carries the narrative assumptions BEHIND a recorded figure (e.g. 'terminal Adj. EBITDA margin 9.0%') whose mapping to that figure the orb did NOT record \u2014 display-only provenance, never an invented lever.",
+            "required": [
+              "model",
+              "ev",
+              "net_debt",
+              "source"
+            ],
+            "additionalProperties": true,
+            "properties": {
+              "model": {
+                "type": "string",
+                "enum": [
+                  "ev_bridge",
+                  "margin_runoff_dcf"
+                ],
+                "description": "the chain's shape; future models extend this enum (a reader treats an unknown model as not-recorded)"
+              },
+              "ev": {
+                "type": "number",
+                "description": "enterprise value under this scenario, in the filing's own millions. For ev_bridge it is the lever; for margin_runoff_dcf it is the RECORDED anchor the replayed chain must reproduce (guard-checked)"
+              },
+              "margin": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "margin_runoff_dcf lever: terminal margin as a decimal (0.09 = 9.0%)"
+              },
+              "growth": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "margin_runoff_dcf lever: perpetuity growth as a decimal (\u22120.01 = declining 1%/yr); wacc \u2212 growth must be > 0"
+              },
+              "da": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "margin_runoff_dcf: depreciation & amortisation (filing millions; absent \u2192 0)"
+              },
+              "capex": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "margin_runoff_dcf: capex (absent \u2192 0)"
+              },
+              "tax": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "margin_runoff_dcf: tax rate as a decimal (absent \u2192 0)"
+              },
+              "dnwc": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "margin_runoff_dcf: working-capital change (absent \u2192 0)"
+              },
+              "revenue_base": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "margin_runoff_dcf constant: the recorded revenue base the margin applies to"
+              },
+              "wacc": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "margin_runoff_dcf constant: the discount rate used in the recorded TV denominator. NOT a lever here \u2014 it also sits inside pv_factor and pv_explicit, whose WACC-sensitivity the orb did not record"
+              },
+              "pv_factor": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "margin_runoff_dcf constant: the recorded discount factor applied to the terminal value"
+              },
+              "pv_explicit": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "margin_runoff_dcf constant: the recorded PV of the explicit years added to the discounted TV"
+              },
+              "metric_label": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "what the margin is a margin OF (e.g. 'terminal Adj. EBITDA margin') \u2014 display label"
+              },
+              "net_debt": {
+                "type": "number",
+                "description": "REQUIRED, explicit even when 0 \u2014 the bridge's own net-debt term for THIS scenario (unknown net debt is never silently 0, \u00a715)"
+              },
+              "net_debt_basis": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "\u00a715 basis label for the chain's net-debt term when it departs from the top-level basis (e.g. 'cash-quality adjusted (01 canonical)')"
+              },
+              "minority": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "other": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "any further bridge term the orb recorded (+ adds to equity)"
+              },
+              "shares": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "diluted shares; falls back to the top-level shares when null"
+              },
+              "stated_drivers": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "description": "narrative assumptions behind the recorded figures \u2014 provenance chips, not levers",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "label"
+                  ],
+                  "additionalProperties": true,
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": [
+                        "number",
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "note": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "description": "why this is display-only (e.g. 'impaired-FCFF DCF input \u2014 its mapping to EV is not recorded')"
+                    }
+                  }
+                }
+              },
+              "source": {
+                "type": "string",
+                "description": "REQUIRED \u00a75 citation of the orb section / executed snippet the chain is transcribed from \u2014 editable levers cannot ship uncited"
+              }
             }
           }
         }
       }
     },
-    "methods": {"type": "object", "description": "cross-method football field {own_history, peers, dcf, sotp: per-share value or null}", "additionalProperties": {"type": ["number", "null"]}},
-    "method_weights": {"type": "object", "description": "effective base-point weights per method (multiples-first policy)", "additionalProperties": {"type": ["number", "null"]}},
+    "methods": {
+      "type": "object",
+      "description": "cross-method football field {own_history, peers, dcf, sotp: per-share value or null}",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "null"
+        ]
+      }
+    },
+    "method_weights": {
+      "type": "object",
+      "description": "effective base-point weights per method (multiples-first policy)",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "null"
+        ]
+      }
+    },
+    "method_basis": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "v1.4 \u2014 the PERIOD BASIS behind each method's value {own_history, peers, dcf, sotp: 'NTM' | 'FY+1' | 'LTM' | 'trailing' | null}. Load-bearing, not documentation: a method valued on a TRAILING period may not carry base-point weight (06_sum-of-the-parts: 'a trailing SOTP may appear only as a labelled sanity check, never as a weighted method feeding 07'). Without this field the guard can validate that the blend adds up but not what it added up.",
+      "additionalProperties": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "method_weight_exception": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "v1.4 \u2014 a CITED sentence naming which MODULE_RULES Scenario Construction \u00a71 exception licenses a base point that departs from multiples-first (a genuine multi-segment conglomerate where SOTP is primary per the Method Map; or no usable forward multiple). Present only when the departure is real. An undeclared departure fails the integrity guard \u2014 the policy is a hard rule, and an exception that is merely implied in prose is how it came to be read as advisory."
+    },
     "discount_rate": {
       "type": "object",
       "additionalProperties": true,
       "properties": {
-        "rf": {"type": ["number", "null"]},
-        "erp": {"type": ["number", "null"]},
-        "beta": {"type": ["number", "null"]},
-        "cost_of_equity": {"type": ["number", "null"]},
-        "wacc": {"type": ["number", "null"]},
-        "after_tax_kd": {"type": ["number", "null"]}
+        "rf": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "erp": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "beta": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "cost_of_equity": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "wacc": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "after_tax_kd": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
       }
     },
-    "is_developed_mega_cap": {"type": ["boolean", "null"], "description": "enables the Gate-4 developed-market mega-cap cost-of-equity ceiling"},
-
+    "is_developed_mega_cap": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "enables the Gate-4 developed-market mega-cap cost-of-equity ceiling"
+    },
     "dcf_grid": {
-      "type": ["object", "null"],
-      "description": "v1.1 (P-C sub-levers) — the DCF orb's OWN recorded WACC × terminal-growth sensitivity grid (04_intrinsic-dcf §7), transcribed verbatim so the Playground can derive the DCF method value from typed WACC/growth fields. Values between recorded points are linear blends of these cells (labelled interpolated); outside the grid is flagged extrapolated. The cell at `base` MUST equal methods.dcf — the grid reproduces the recorded method value, never a new model.",
-      "required": ["wacc", "growth", "values", "base", "source"],
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "v1.1 (P-C sub-levers) \u2014 the DCF orb's OWN recorded WACC \u00d7 terminal-growth sensitivity grid (04_intrinsic-dcf \u00a77), transcribed verbatim so the Playground can derive the DCF method value from typed WACC/growth fields. Values between recorded points are linear blends of these cells (labelled interpolated); outside the grid is flagged extrapolated. The cell at `base` MUST equal methods.dcf \u2014 the grid reproduces the recorded method value, never a new model.",
+      "required": [
+        "wacc",
+        "growth",
+        "values",
+        "base",
+        "source"
+      ],
       "properties": {
-        "wacc": {"type": "array", "items": {"type": "number"}, "description": "ascending WACC column points, as decimals (0.075 = 7.5%)"},
-        "growth": {"type": "array", "items": {"type": "number"}, "description": "ascending terminal-growth row points, as decimals"},
-        "values": {"type": "array", "items": {"type": "array", "items": {"type": "number"}}, "description": "per-share values: values[growthIdx][waccIdx], matching the orb's own table cells"},
-        "base": {"type": "object", "required": ["wacc", "growth"], "properties": {"wacc": {"type": "number"}, "growth": {"type": "number"}}, "description": "REQUIRED — the orb's used WACC/growth pair; its grid cell must equal methods.dcf (the reproduce anchor)"},
-        "source": {"type": "string", "description": "REQUIRED §5 citation, e.g. '04_intrinsic-dcf.md §7' — an uncited lever cannot ship"}
+        "wacc": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "ascending WACC column points, as decimals (0.075 = 7.5%)"
+        },
+        "growth": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "ascending terminal-growth row points, as decimals"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "description": "per-share values: values[growthIdx][waccIdx], matching the orb's own table cells"
+        },
+        "base": {
+          "type": "object",
+          "required": [
+            "wacc",
+            "growth"
+          ],
+          "properties": {
+            "wacc": {
+              "type": "number"
+            },
+            "growth": {
+              "type": "number"
+            }
+          },
+          "description": "REQUIRED \u2014 the orb's used WACC/growth pair; its grid cell must equal methods.dcf (the reproduce anchor)"
+        },
+        "source": {
+          "type": "string",
+          "description": "REQUIRED \u00a75 citation, e.g. '04_intrinsic-dcf.md \u00a77' \u2014 an uncited lever cannot ship"
+        }
       }
     },
     "sotp_segments": {
-      "type": ["array", "null"],
-      "description": "v1.1 (P-C sub-levers) — the SOTP orb's OWN per-segment metric × multiple rows (06_sum-of-the-parts), transcribed verbatim so each segment multiple is a typed lever. Σ(metric × multiple) + sotp_bridge must reproduce methods.sotp through the shares bridge.",
+      "type": [
+        "array",
+        "null"
+      ],
+      "description": "v1.1 (P-C sub-levers) \u2014 the SOTP orb's OWN per-segment metric \u00d7 multiple rows (06_sum-of-the-parts), transcribed verbatim so each segment multiple is a typed lever. \u03a3(metric \u00d7 multiple) + sotp_bridge must reproduce methods.sotp through the shares bridge.",
       "items": {
         "type": "object",
-        "required": ["segment", "metric", "multiple"],
+        "required": [
+          "segment",
+          "metric",
+          "multiple"
+        ],
         "properties": {
-          "segment": {"type": "string"},
-          "metric_name": {"type": ["string", "null"], "description": "e.g. 'LTM Adj. EBITDA' — the basis the multiple applies to"},
-          "metric": {"type": "number", "description": "the segment metric value (company currency, millions)"},
-          "multiple": {"type": "number", "description": "the applied EV multiple"},
-          "comp": {"type": ["string", "null"], "description": "the named comparable behind the multiple"},
-          "source": {"type": ["string", "null"]}
+          "segment": {
+            "type": "string"
+          },
+          "metric_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "e.g. 'LTM Adj. EBITDA' \u2014 the basis the multiple applies to"
+          },
+          "metric": {
+            "type": "number",
+            "description": "the segment metric value (company currency, millions)"
+          },
+          "multiple": {
+            "type": "number",
+            "description": "the applied EV multiple"
+          },
+          "comp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "the named comparable behind the multiple"
+          },
+          "source": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
         }
       }
     },
     "sotp_bridge": {
-      "type": ["object", "null"],
-      "description": "v1.1 — the recorded EV→equity bridge for the SOTP re-sum: per-share = (Σ segment EVs − net_debt − minority + other) / shares (top-level `shares`). Amounts in company currency, millions; positive values are subtracted for net_debt/minority, added for `other`. REQUIRED alongside sotp_segments — a re-sum with no recorded bridge would silently value the firm as debt-free (§15); a truly debt-free firm records an explicit 0.",
-      "required": ["net_debt", "source"],
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "v1.1 \u2014 the recorded EV\u2192equity bridge for the SOTP re-sum: per-share = (\u03a3 segment EVs \u2212 net_debt \u2212 minority + other) / shares (top-level `shares`). Amounts in company currency, millions; positive values are subtracted for net_debt/minority, added for `other`. REQUIRED alongside sotp_segments \u2014 a re-sum with no recorded bridge would silently value the firm as debt-free (\u00a715); a truly debt-free firm records an explicit 0.",
+      "required": [
+        "net_debt",
+        "source"
+      ],
       "properties": {
-        "net_debt": {"type": "number", "description": "REQUIRED — explicit, even when 0 (unknown net debt is never silently 0, §15)"},
-        "minority": {"type": ["number", "null"]},
-        "other": {"type": ["number", "null"], "description": "net other bridge items (+ additions, − subtractions), 0/null when none"},
-        "source": {"type": "string", "description": "REQUIRED §5 citation"}
+        "net_debt": {
+          "type": "number",
+          "description": "REQUIRED \u2014 explicit, even when 0 (unknown net debt is never silently 0, \u00a715)"
+        },
+        "minority": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "other": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "net other bridge items (+ additions, \u2212 subtractions), 0/null when none"
+        },
+        "source": {
+          "type": "string",
+          "description": "REQUIRED \u00a75 citation"
+        }
       }
     },
     "peers_internals": {
-      "type": ["object", "null"],
-      "description": "v1.1 (P-C sub-levers) — the peers orb's OWN implied-value line (03_relative-valuation-peers §5): two verbatim anchor rows (multiple → per-share value) define the affine map the Playground moves along; the lever is the discount % off the peer median. anchors[0] at applied_multiple must equal methods.peers.",
-      "required": ["anchors", "applied_multiple", "source"],
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "v1.1 (P-C sub-levers) \u2014 the peers orb's OWN implied-value line (03_relative-valuation-peers \u00a75): two verbatim anchor rows (multiple \u2192 per-share value) define the affine map the Playground moves along; the lever is the discount % off the peer median. anchors[0] at applied_multiple must equal methods.peers.",
+      "required": [
+        "anchors",
+        "applied_multiple",
+        "source"
+      ],
       "properties": {
-        "metric_name": {"type": ["string", "null"], "description": "e.g. 'NTM EV/EBITDA'"},
-        "median_multiple": {"type": ["number", "null"], "description": "the recorded peer median"},
-        "applied_multiple": {"type": ["number", "null"], "description": "the multiple the base case used (median × (1 − discount))"},
-        "discount_pct": {"type": ["number", "null"], "description": "the recorded quality discount off the median, in percent (10 = 10%)"},
-        "anchors": {"type": "array", "minItems": 2, "items": {"type": "object", "required": ["multiple", "value"], "properties": {"multiple": {"type": "number"}, "value": {"type": "number"}, "label": {"type": ["string", "null"]}}}, "description": "verbatim rows from the orb's implied-value table, ALL honored: the client interpolates piecewise through every recorded row (sorted by multiple), not just the first two"},
-        "source": {"type": "string", "description": "REQUIRED §5 citation"}
+        "metric_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "e.g. 'NTM EV/EBITDA'"
+        },
+        "median_multiple": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "the recorded peer median"
+        },
+        "applied_multiple": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "the multiple the base case used (median \u00d7 (1 \u2212 discount))"
+        },
+        "discount_pct": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "the recorded quality discount off the median, in percent (10 = 10%)"
+        },
+        "anchors": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": [
+              "multiple",
+              "value"
+            ],
+            "properties": {
+              "multiple": {
+                "type": "number"
+              },
+              "value": {
+                "type": "number"
+              },
+              "label": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "description": "verbatim rows from the orb's implied-value table, ALL honored: the client interpolates piecewise through every recorded row (sorted by multiple), not just the first two"
+        },
+        "source": {
+          "type": "string",
+          "description": "REQUIRED \u00a75 citation"
+        }
       }
     }
   }

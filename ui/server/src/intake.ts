@@ -13,8 +13,10 @@
 // no run or no readable plan, so the client shows the honest floor rather than a fabricated one.
 import fs from 'node:fs'
 import path from 'node:path'
+import { REPO_ROOT } from './config'
 import { dataPoolNewest, todayDate } from './completion'
 import { finalDeliverablesPresent } from './launcher'
+import { resolveRunRoot } from './outputs'
 import { findLatestRunRoot, listModuleNames, agentNamesForModule, downstreamCascade } from './roster'
 import { RESEARCH_SWARM_ID } from './swarms'
 
@@ -122,8 +124,23 @@ function latestPlanFile(runRootAbs: string): string | null {
 // Read + normalize the latest scoped rerun plan for a ticker. Returns null when there is no finished
 // run, no plan yet, or the plan is unreadable/malformed (fail toward the honest floor, INTAKE.md §1).
 export function readIntakePlan(ticker: string): IntakePlan | null {
-  const runRootAbs = findLatestRunRoot(ticker)
-  if (!runRootAbs) return null
+  // Resolve the STANDING run — the newest one that actually decided — not the literal newest folder.
+  // This has to match where `/research:intake` WRITES: that command is told to find "the latest FINISHED
+  // run root" and to "skip over a newer but incomplete/failed run folder". This reader used
+  // findLatestRunRoot, a lexical newest-`<TICKER>_*` pick with no completeness check, so a decision-less
+  // shell (an aborted run that left only a couple of agent_metrics files) won the pick, its absent intake/
+  // read as "no plan", and this returned null. Downstream that is indistinguishable from "nothing to do":
+  // zero orbs lit, the New-data dock hidden, and the decision banner left offering only the blunt full
+  // re-run — which is exactly what the feature exists to avoid. Writer and reader must agree on which
+  // folder IS the run. preferComplete is the SAME standing-run pick the other display routes already use
+  // (server.ts), so reuse it rather than teach a second definition of "the run" (CLAUDE.md §2).
+  //
+  // NOTE this is deliberately NOT the resolution latestPlanFileFor() above uses: that one serves the
+  // scoped-rerun STAGING path, which copies the plan into the newer root it just staged and therefore
+  // genuinely wants newest-wins. Display reads the standing run; staging reads the newest. Both correct.
+  const runRootRel = resolveRunRoot({ ticker, preferComplete: true })
+  if (!runRootRel) return null
+  const runRootAbs = path.join(REPO_ROOT, runRootRel)
   const file = latestPlanFile(runRootAbs)
   if (!file) return null
 

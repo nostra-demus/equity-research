@@ -8,6 +8,7 @@ import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import { archiveErrorNote } from './archiveError'
+import { stageDockHUpdate } from './stageDock'
 import { affectedModules, focusKeysFor } from './intake'
 import type { BridgeStatus } from './types'
 import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
@@ -260,9 +261,6 @@ interface State {
   chainTickers: Set<string> // tickers whose full run is a per-module CHAIN — defer the "complete" celebration to the master step
   selectToken: number
   runStream: StreamRow[]
-  runPanelDismissed: boolean // user closed the run-stream panel while nothing was live; re-shows on the next live run
-  dismissRunStream: () => void // hide the run-stream side panel (allowed only when nothing is live)
-  reopenRunStream: () => void // bring the run-stream side panel back (the top-bar "Runs" affordance)
   coreBloom: boolean
   decision: any | null
   runRoot: string | null
@@ -292,7 +290,7 @@ interface State {
   chatSource?: string // sourcePath from chat-meta — "answering from …"
   chatConversationId?: string // id of the persisted conversation this thread belongs to (from chat-meta)
   chatHistoryOpen: boolean // the saved-conversation browser is open
-  activityOpen: boolean
+  activityOpen: boolean // the Activity dock (live runs + the audit history) — auto-opens whenever a run goes live
   scoringOpen: boolean
   valuationPlaygroundOpen: boolean
   callsOpen: boolean
@@ -391,6 +389,13 @@ interface State {
   checkCredit: () => Promise<void>
   selectNode: (key: string | null) => void
   setNow: (n: number) => void
+  // The decision dock's MEASURED height. It is an absolute, bottom-anchored overlay on the same stage as
+  // the constellation, so the field has to reserve real pixels under itself or the master-thesis core is
+  // drawn behind it (it was). Measured rather than assumed because the dock grows a "newer data" notice
+  // and its metric strip wraps — a static guess is wrong in exactly the states that matter. 0 when the
+  // dock is not mounted, which is the honest "no reserve needed".
+  stageDockH: number
+  setStageDockH: (h: number) => void
   nodeStatus: (key: string) => NodeStatus
   activeRunsForTicker: (t: string | null) => ActiveRun[]
   anyRunForTicker: (t: string | null) => boolean
@@ -795,7 +800,6 @@ export const useStore = create<State>((set, get) => ({
   chainTickers: new Set(),
   selectToken: 0,
   runStream: [],
-  runPanelDismissed: false,
   coreBloom: false,
   decision: null,
   runRoot: null,
@@ -1023,7 +1027,7 @@ export const useStore = create<State>((set, get) => ({
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
     chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
     // the completion plan is per-subject disk truth — never let a previous subject's plan survive a switch
-    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], runPanelDismissed: false, activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, liveQuote: null, liveQuoteAt: null, ...CHAT_RESET })
+    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, liveQuote: null, liveQuoteAt: null, ...CHAT_RESET })
     const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
@@ -1269,6 +1273,9 @@ export const useStore = create<State>((set, get) => ({
 
   selectNode: (key) => set({ selectedNodeKey: key }),
   setNow: (n) => set({ now: n }),
+  stageDockH: 0,
+  // guarded so a ResizeObserver firing the same height (very common) never re-renders the whole field
+  setStageDockH: (h) => { const next = stageDockHUpdate(h, get().stageDockH); if (next !== null) set({ stageDockH: next }) },
 
   nodeStatus: (key) => {
     const { nodeRuntime, nodesByKey, dataStatus, selectedTicker, activeSwarm } = get()
@@ -1449,8 +1456,6 @@ export const useStore = create<State>((set, get) => ({
 
   // Hide the run-stream panel. Keep the run rows in state (so reopening restores them); a boolean flag drives
   // visibility. The panel re-shows automatically on the next live run (see RunStreamPanel's anyLive effect).
-  dismissRunStream: () => set({ runPanelDismissed: true }),
-  reopenRunStream: () => set({ runPanelDismissed: false }),
 
   cancelRun: async (runId) => {
     const run = get().activeRuns[runId]

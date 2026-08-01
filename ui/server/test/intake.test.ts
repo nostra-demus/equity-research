@@ -75,7 +75,7 @@ const planFixture = {
 }
 write(`${RUN}/intake/${TODAY}_intake_plan.json`, JSON.stringify(planFixture, null, 2))
 
-const { readIntakePlan } = await import('../src/intake')
+const { readIntakePlan, latestPlanFileFor } = await import('../src/intake')
 
 // ---- 1. valid ticker with a plan: hallucinated names dropped, cascade re-expanded ----
 const plan = readIntakePlan('TEST')
@@ -264,6 +264,48 @@ const planOrdinary = readIntakePlan('ORDINARY')
 assert.ok(planOrdinary)
 assert.equal(planOrdinary!.consumed, false, 'no stamp → never consumed, even though the run it sits in is finished (the ordinary, intended case)')
 assert.equal(planOrdinary!.rerun_plan.commands.length, 1, 'the ordinary, not-yet-executed case must keep executing normally')
+
+// ---- THE STANDING-RUN REGRESSION: a newer DECISION-LESS run folder must not shadow the run the plan
+//      was written into. --------------------------------------------------------------------------
+// The reported bug. `/research:intake` writes into "the latest FINISHED run root" and is told to skip a
+// newer incomplete/failed folder. readIntakePlan resolved the run the opposite way — the lexically newest
+// `<TICKER>_*` directory, no completeness check — so an aborted run that left nothing but a couple of
+// agent_metrics files won the pick, its (absent) intake/ read as "no plan", and this returned null.
+// Downstream that is indistinguishable from "nothing to do": zero orbs lit, the New-data dock hidden, and
+// the decision banner offering only the blunt full re-run. In production this silently discarded FOUR
+// consecutive paid intake reads of AMZN (23/24/29/31 Jul), each of which had correctly scoped the same
+// three orbs off a tier-5 alt-data panel. Writer and reader must agree on which folder IS the run.
+const SHADOW_COMPLETE = `analyses/SHADOW_${day(-3)}`
+write(`${SHADOW_COMPLETE}/final_thesis.md`, '# thesis\n')
+write(`${SHADOW_COMPLETE}/decision_record.json`, JSON.stringify({ ticker: 'SHADOW', decision: 'Watchlist', confidence_score: 57 })) // this run DECIDED → it is the standing run
+write(`${SHADOW_COMPLETE}/intake/${TODAY}_intake_plan.json`, JSON.stringify({
+  ...planFixture, ticker: 'SHADOW', run_root: SHADOW_COMPLETE, watermark: `${SHADOW_COMPLETE}/final_thesis.md`,
+  rerun_plan: { ...planFixture.rerun_plan, entry_orbs: [{ module: 'alpha', agent: 'alpha-thing' }], commands: [planFixture.rerun_plan.commands[0]] },
+}, null, 2))
+
+// …and a NEWER folder that never decided — exactly the production shape (AMZN_2026-07-20 held two
+// agent_metrics files and nothing else): no final_thesis, no decision_record, no intake/.
+write(`analyses/SHADOW_${YESTERDAY}/agent_metrics.a9a757f2.json`, '{}')
+write(`analyses/SHADOW_${YESTERDAY}/agent_metrics.f924ee34.json`, '{}')
+
+const planShadow = readIntakePlan('SHADOW')
+assert.ok(planShadow, 'the plan in the STANDING run is found — a newer decision-less shell must not shadow it')
+assert.equal(planShadow!.verdict, 'scoped_rerun', 'and it still reads as a scoped rerun, not a silent note_only')
+assert.equal(planShadow!.rerun_plan.commands.length, 1, 'its scoped command survives to the client')
+assert.equal(planShadow!.rerun_plan.commands[0].command, '/research:rerun alpha alpha-thing SHADOW')
+assert.equal(planShadow!.rerun_plan.entry_orbs.length, 1, 'and the orb that must LIGHT UP is carried')
+assert.equal(planShadow!.rerun_plan.entry_orbs[0].agent, 'alpha-thing')
+
+// A ticker whose ONLY run never decided must still resolve — a first, still-running analysis has no
+// decision record yet, and its plan must not become unreachable.
+write(`analyses/NODECISION_${TODAY}/final_thesis.md`, '# thesis\n')
+write(`analyses/NODECISION_${TODAY}/intake/${TODAY}_intake_plan.json`, JSON.stringify(emptyPlanFor('NODECISION', `analyses/NODECISION_${TODAY}`, { scan_date: TODAY }), null, 2))
+assert.ok(readIntakePlan('NODECISION'), 'a ticker with no decided run at all still resolves to its newest folder')
+
+// The STAGING path keeps newest-wins on purpose (the scoped-rerun route copies the plan into the root it
+// just staged, #358) — the two resolutions are deliberately different and must not be unified.
+write(`analyses/SHADOW_${YESTERDAY}/intake/${TODAY}_intake_plan.json`, JSON.stringify(emptyPlanFor('SHADOW', `analyses/SHADOW_${YESTERDAY}`, { scan_date: TODAY }), null, 2))
+assert.ok(String(latestPlanFileFor('SHADOW')).includes(`SHADOW_${YESTERDAY}`), 'latestPlanFileFor still resolves the NEWEST root (the staged one), unchanged')
 
 console.log('intake.test.ts: all assertions passed')
 fs.rmSync(REPO, { recursive: true, force: true })

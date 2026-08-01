@@ -1,8 +1,42 @@
-import { useEffect, type ReactNode } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, type ReactNode } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { decisionColor, priceProvenance, priceQualifier, resolveVerdict, stampDayUTC } from '../lib/format'
 import type { QuoteAbsentReason, WhatChangedRead } from '../lib/types'
+
+/**
+ * Publish the dock's measured height so the constellation can reserve real pixels beneath itself.
+ *
+ * The dock is `position: absolute; bottom: 0` on the SAME stage as the swarm field, so anything the field
+ * places near the floor is drawn behind it — which is exactly how the master-thesis core went missing. The
+ * height cannot be assumed: this bar grows a "newer data" notice, and its metric strip wraps at narrow
+ * widths, so the states differ by ~45px. Measuring is the only version that is right in all of them.
+ *
+ * Deliberately NOT a ResizeObserver. Everything that changes this dock's height is either a re-render of
+ * this component (the notice appearing, the verdict loading, a tier arriving) or a viewport resize — both
+ * of which are observable directly and synchronously. A layout effect with no dependency array runs after
+ * EVERY render, so it catches the first class by construction; the resize listener catches the second.
+ * That is strictly more reliable than an observer here, and — unlike one — it is verifiable in a headless
+ * browser, where ResizeObserver notifications are not delivered at all.
+ *
+ * Reports 0 on unmount: a dock that is not there reserves nothing, which is the honest default and also
+ * exactly the pre-existing layout.
+ */
+function useDockMeasure() {
+  const setStageDockH = useStore((s) => s.setStageDockH)
+  const ref = useRef<HTMLDivElement | null>(null)
+  const measure = useCallback(() => {
+    const el = ref.current
+    // border box: the seat has to clear the bar's border and its upward shadow, not just its content
+    setStageDockH(el ? el.getBoundingClientRect().height : 0)
+  }, [setStageDockH])
+  useLayoutEffect(measure) // no dep array on purpose — every render, because every height change is one
+  useEffect(() => {
+    window.addEventListener('resize', measure)
+    return () => { window.removeEventListener('resize', measure); setStageDockH(0) }
+  }, [measure, setStageDockH])
+  return ref
+}
 
 // the three shareable tiers of a finished run, opened from below the Memo orb
 const TIERS = [
@@ -182,9 +216,15 @@ function WhatChangedChip() {
 // preferComplete) — a good safety, but silent, so the user can't tell whether the call on screen is current.
 // This says it out loud, right on the decision, with one honest way forward. Sits as a full-width row inside
 // the decision card (flex-basis:100% + order:-1), so it reads as a header above the call it qualifies.
-function NewerRunStrip({ children, action }: {
+interface StripAction { label: string; title: string; disabled?: boolean; onClick: () => void }
+
+function NewerRunStrip({ children, action, primaryAction }: {
   children: ReactNode
-  action: { label: string; title: string; disabled?: boolean; onClick: () => void }
+  action: StripAction
+  // The RECOMMENDED way forward, when the new-data read found one. Rendered last (rightmost, where the
+  // eye lands at the end of the row) and filled, so the cheap targeted path — not the blunt full re-run —
+  // is the obvious click. Omitted when there is no scoped plan, leaving the row exactly as it was.
+  primaryAction?: StripAction
 }) {
   return (
     // stop the click bubbling to the card's openThesis — the strip is its own affordance, not the thesis
@@ -200,6 +240,17 @@ function NewerRunStrip({ children, action }: {
       >
         {action.label}<span aria-hidden> →</span>
       </button>
+      {primaryAction && (
+        <button
+          type="button"
+          className="decision__notice-act decision__notice-act--primary"
+          disabled={primaryAction.disabled}
+          title={primaryAction.title}
+          onClick={(e) => { e.stopPropagation(); primaryAction.onClick() }}
+        >
+          {primaryAction.label}<span aria-hidden> →</span>
+        </button>
+      )}
     </div>
   )
 }
@@ -218,6 +269,7 @@ export function DecisionBanner() {
   const verdictField = useStore((s) => s.swarms.find((w) => w.id === s.constellationSwarm)?.verdictField)
   // Newer-partial awareness (research only — only research keeps dated run folders). These are read
   // unconditionally, before any early return, so the rules of hooks hold.
+  const dockRef = useDockMeasure()
   const selectedTicker = useStore((s) => s.selectedTicker)
   const tickers = useStore((s) => s.tickers)
   const runRoot = useStore((s) => s.runRoot)
@@ -226,6 +278,12 @@ export function DecisionBanner() {
   const health = useStore((s) => s.health)
   const staticMode = useStore((s) => s.staticMode)
   const fullPending = useStore((s) => s.launchPending?.key === 'full:request')
+  // The one-pass scoped re-run. Already built (store.runScopedRerun → api.runIntakePlan, #358) and already
+  // offered inside the left-rail "New data" dock — but the moment a reader actually faces the choice is
+  // HERE, on the decision, where the blunt full re-run was the only button. Pointing at another panel is
+  // worse than giving the action: same store call, surfaced where the decision is made.
+  const runScoped = useStore((s) => s.runScopedRerun)
+  const scopedPending = useStore((s) => s.scopedRerunPending)
   const liveQuote = useStore((s) => s.liveQuote)
   const refreshLiveQuote = useStore((s) => s.refreshLiveQuote)
   const reduce = useReducedMotion()
@@ -266,7 +324,7 @@ export function DecisionBanner() {
     if (!(hasNewerPartial && runRoot && runRoot !== standingRunRoot)) return null
     const standing = summary?.latestRun
     return (
-      <div className="decision-dock">
+      <div className="decision-dock" ref={dockRef}>
         <motion.div
           className="decision decision--notice-only"
           initial={reduce ? false : { opacity: 0, y: 12 }}
@@ -294,6 +352,10 @@ export function DecisionBanner() {
   // re-run has landed since. The call below is real, just not yet re-scored against the newer data.
   const showNewerNotice = hasNewerPartial && viewingStanding
   const runFullDisabled = engineDown || staticMode || fullPending
+  // The scoped run is disabled by the same conditions as the full one, plus its own in-flight state — and
+  // by `fullPending` too, so a reader who just fired the full analysis can't stack a second launch on top
+  // of it from the same row (the launcher would reject it; better not to offer the click at all).
+  const scopedRerunDisabled = engineDown || staticMode || fullPending || scopedPending
   // the new-data read's conclusion (the scoped plan), read-only — drives the notice's "what next" line
   const intakeVerdict = intake?.verdict
   const intakeCmds = intakeVerdict === 'scoped_rerun' ? intake?.rerun_plan?.commands?.length ?? 0 : 0
@@ -317,7 +379,7 @@ export function DecisionBanner() {
   return (
     // A static dock frames the animated card so its centring survives framer-motion (which rewrites the
     // card's own transform). The card is seated on the stage floor — a permanent bar, not a floating pill.
-    <div className="decision-dock">
+    <div className="decision-dock" ref={dockRef}>
       {/* The wrapper is deliberately NON-interactive (no role/tabIndex): it contains real child buttons
           (the tier buttons + the what-changed chip), and nesting interactive controls inside a role="button"
           produces an invalid, ambiguous a11y tree (DESIGN.md a11y). The whole-bar onClick stays as a mouse
@@ -332,12 +394,22 @@ export function DecisionBanner() {
         title={isResearch ? 'Open the Thesis — the deep-dive synthesized view' : 'Open the Dossier — the final synthesized view'}
       >
         {showNewerNotice && (
-          <NewerRunStrip action={{ label: 'Run a full analysis', title: 'Produce a fresh decision that folds in the newer data', disabled: runFullDisabled, onClick: requestFull }}>
+          <NewerRunStrip
+            action={{ label: 'Run a full analysis', title: 'Produce a fresh decision that folds in the newer data — every module, every orb', disabled: runFullDisabled, onClick: requestFull }}
+            primaryAction={intakeCmds > 0 ? {
+              label: scopedPending ? 'Starting…' : `Re-run the ${intakeCmds} affected check${intakeCmds === 1 ? '' : 's'}`,
+              title: 'Run only the orbs the new data actually invalidates, then the syntheses and the master — one pass, one final thesis',
+              disabled: scopedRerunDisabled,
+              onClick: () => { void runScoped() },
+            } : undefined}
+          >
             <b>Newer data isn’t in this call yet.</b> The <b style={{ color: decisionColor(verdict) }}>{verdict}</b> below is from your last complete analysis{decisionDate ? ` (${shortDate(decisionDate)})` : ''}. A re-run has looked at newer data since, but hasn’t produced an updated call.
-            {/* Close the loop with the new-data read (the scoped plan): tell the reader what it concluded
-                and the cheaper path when one exists, instead of leaving "so what do I do?" open. */}
+            {/* Close the loop with the new-data read (the scoped plan): say what it concluded, then hand
+                over the cheaper path as a BUTTON right here — the reader is at the decision, which is
+                exactly where the choice gets made. (It also stays in the left "New data" dock, with the
+                per-orb detail; this is the same one-pass run, one click closer.) */}
             {intakeCmds > 0 && (
-              <> The new-data read scoped it: <b>{intakeCmds} check{intakeCmds === 1 ? '' : 's'} affected</b> — the New data panel (left) has the cheaper scoped re-run.</>
+              <> The new-data read scoped it: <b>{intakeCmds} check{intakeCmds === 1 ? '' : 's'} affected</b> — re-run just those instead.</>
             )}
             {intakeVerdict === 'note_only' && (
               <> The new-data read filed the newer evidence as note-only — below the materiality/tier bar to scope a re-run, not proof the inputs are unchanged — so a full run is optional but may still be worth it.</>
@@ -418,7 +490,7 @@ export function DecisionBanner() {
           {exit.target != null && (
             <Metric
               label="Target"
-              value={`${decision.currency || ''} ${exit.target}`.trim()}
+              value={money(decision.currency, exit.target)}
               sub={exit.band ? `bear–bull ${exit.band}` : undefined}
               title={`Where the engine thinks this is worth exiting: the probability-weighted target of ${money(decision.currency, exit.target)}${exit.band ? `, inside a bear-to-bull band of ${exit.band}` : ''}. ${decision.suggested_action ? `Suggested action: ${decision.suggested_action}` : ''} This is the frozen call's own arithmetic on its own scenarios — not a fresh valuation, and it does not move when the price does.`.trim()}
             />
