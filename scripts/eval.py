@@ -961,6 +961,84 @@ def _ao_days_after(decision_date, target):
         return None
 
 
+# ---- check AS: a forecast whose window has ELAPSED but was never resolved ---------------------------
+# WHY: check AO proves a forecast is RESOLVABLE at authoring time. Nothing asked whether it was ever
+# actually RESOLVED. The AMZN 2026-07-10 record dated its own decisive test to the day — edge_proof: "At
+# Q2 2026 earnings (July 31, 2026): ... if AWS margin holds or expands, the hypothesis is wrong and the
+# bull case at $247+ is live" — and scheduled a 30-day review for 2026-08-09. The test fired cleanly on
+# the day (AWS margin expanded 35.4% -> 39.4%) and the thesis was falsified, but nothing in the engine
+# noticed: the ledger still read `open`, and the miss surfaced only because a human saw the stock move.
+#
+# A forecast the engine cannot notice has come due is not a forecast, it is a note (§19: "a forecast that
+# cannot be checked later is not a forecast"). This check is what makes the ledger self-reporting.
+#
+# ADVISORY, never a hard FAIL — deliberately. Overdue-ness is created by the PASSAGE OF TIME, not by a
+# defect in the run: every committed run eventually accumulates elapsed forecasts, and failing the suite
+# on the calendar would turn the whole harness red and train readers to ignore it. It reports.
+# The harness's own "now". Overridable so a fixture run is reproducible and the selftest needs no clock.
+TODAY = os.environ.get("EVAL_TODAY") or datetime.date.today().isoformat()
+
+_AS_RESOLVED = ("confirmed", "falsified", "expired", "resolved", "closed", "superseded", "void", "withdrawn")
+
+def _as_due_date(entry, decision_date):
+    """The date a forecast's window CLOSES, as an ISO string, or None when it cannot be dated. Prefers an
+    explicit resolve/due field; otherwise reads a date out of the free-text time_window (the ledger's own
+    convention, e.g. 'Q2 2026 earnings July 31, 2026' / 'FY2026 full year (confirmed Feb 2027 ...)')."""
+    for k in ("resolves_on", "due_date", "resolve_by"):
+        v = entry.get(k)
+        if isdate(v):
+            return v
+    tw = str(entry.get("time_window") or "")
+    m = re.search(r"(\d{4})-(\d{2})-(\d{2})", tw)
+    if m and isdate(m.group(0)):
+        return m.group(0)
+    # "July 31, 2026" / "Feb 2027" — month-name forms the ledger actually uses
+    months = {m_: i + 1 for i, m_ in enumerate(
+        ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"])}
+    m = re.search(r"([A-Za-z]{3,9})\s+(\d{1,2}),\s*(\d{4})", tw)
+    if m and m.group(1)[:3].lower() in months:
+        cand = f"{m.group(3)}-{months[m.group(1)[:3].lower()]:02d}-{int(m.group(2)):02d}"
+        # validate the constructed date (same guard as the ISO branch): 'Feb 30, 2026' / 'Sep 31, 2026'
+        # match the regex but are not real calendar dates — an unvalidated invalid date must not be
+        # returned as a due date. An invalid day-form falls through to undateable (None), never overdue.
+        if isdate(cand):
+            return cand
+    m = re.search(r"([A-Za-z]{3,9})\s+(\d{4})", tw)
+    if m and m.group(1)[:3].lower() in months:
+        mo = months[m.group(1)[:3].lower()]
+        # a bare month closes at its end — use the 28th, the only day every month has
+        return f"{m.group(2)}-{mo:02d}-28"
+    return None
+
+def eval_as_forecast_overdue(decision_date, forecast_ledger, today):
+    """Check AS. Returns None (undateable / empty ledger) or a list of overdue descriptions (empty = none
+    due). Pure — `today` is injected so the result is deterministic and the selftest needs no clock."""
+    if forecast_ledger is not None and not isinstance(forecast_ledger, list):
+        return None
+    fl = forecast_ledger or []
+    if not fl or not isdate(today):
+        return None
+    out = []
+    for i, e in enumerate(fl):
+        if not isinstance(e, dict):
+            continue
+        status = str(e.get("status") or e.get("outcome") or "").strip().lower()
+        # EXACT membership, not substring: a substring test settles a forecast on any status that merely
+        # CONTAINS a resolved word — 'unresolved' contains 'resolved', 'avoid' contains 'void', 'disclosed'
+        # contains 'closed' — which would silently skip a still-open forecast and defeat this whole check
+        # (§19: a forecast that cannot be checked later is not a forecast). Real ledger statuses are single
+        # tokens ('open'/'confirmed'/'falsified'/...), and an unrecognised status fails SAFE here: it stays
+        # checkable and, if overdue, is flagged advisory-only — never hard-failed.
+        if status in _AS_RESOLVED:
+            continue  # already settled — nothing owed
+        due = _as_due_date(e, decision_date)
+        if not due or due >= today:
+            continue  # not dateable, or not yet due
+        pred = str(e.get("prediction") or "")[:110]
+        out.append(f"forecast_ledger[{i}] came due {due} and is still unresolved (status {status or 'unset'!r}): {pred}")
+    return out
+
+
 # ---- check AT: the scenario set must SPAN the outcomes, not merely sum to 100% ----------------------
 # CLAUDE.md §10 (span check). Probabilities that add up are necessary and NOT sufficient: a set can be
 # arithmetically perfect and contain no state of the world resembling what happens.
@@ -2744,6 +2822,53 @@ if scope=="selftest":
         ("2026-07-18",5,None),                                                 # malformed (non-list) → N/A, never crash
         ("2026-07-18",None,None),                                              # None ledger → N/A
     ]
+
+    # ---- check AS: a forecast whose window ELAPSED and was never resolved (advisory) ----------------
+    _as_open   = {"prediction":"Q2 EBIT $23-25B","status":"open","time_window":"Q2 2026 earnings July 31, 2026"}
+    _as_done   = dict(_as_open, status="falsified")
+    _as_iso    = {"prediction":"x","status":"open","time_window":"resolves 2026-07-22"}
+    _as_month  = {"prediction":"x","status":"open","time_window":"FY2026 full year (confirmed Feb 2027 in annual results)"}
+    _as_undate = {"prediction":"x","status":"open","time_window":"the medium term"}
+    _as_field  = {"prediction":"x","status":"open","resolves_on":"2026-07-01"}
+    # regression fixtures for the two review fixes (each is RED on the pre-fix code, GREEN after):
+    _as_baddate = {"prediction":"x","status":"open","time_window":"Feb 30, 2026"}          # invalid calendar date
+    _as_baddat2 = {"prediction":"x","status":"open","time_window":"results Sep 31, 2026"}  # Sep has 30 days
+    _as_unres   = dict(_as_open, status="unresolved")   # 'unresolved' CONTAINS 'resolved' — must NOT be skipped
+    _as_avoid   = dict(_as_open, status="avoid")        # 'avoid' CONTAINS 'void' — must NOT be skipped
+    _as_disc    = dict(_as_open, status="disclosed")    # 'disclosed' CONTAINS 'closed' — must NOT be skipped
+    ascases=[  # (decision_date, ledger, today, expect: None=N/A, []=nothing due, [substr]=due-with)
+        ("2026-07-10",[_as_open],"2026-08-01",["came due 2026-07-31"]),   # the AMZN case — one day after its own test
+        ("2026-07-10",[_as_open],"2026-07-31",[]),                        # ON the due date it is not yet overdue
+        ("2026-07-10",[_as_open],"2026-07-30",[]),                        # before → nothing owed
+        ("2026-07-10",[_as_done],"2026-08-01",[]),                        # already falsified → settled, nothing owed
+        ("2026-07-10",[_as_iso],"2026-08-01",["came due 2026-07-22"]),    # a bare ISO date in the window
+        ("2026-07-10",[_as_month],"2026-03-01",[]),                       # 'Feb 2027' is far future → not due
+        ("2026-07-10",[_as_month],"2027-03-01",["came due 2027-02-28"]),  # a bare month closes at its end
+        ("2026-07-10",[_as_undate],"2030-01-01",[]),                      # undateable window → never claimed overdue
+        ("2026-07-10",[_as_field],"2026-08-01",["came due 2026-07-01"]),  # an explicit resolves_on field wins
+        # BUG1 (invalid-date guard): an impossible calendar date must be UNDATEABLE, never returned/flagged.
+        # Pre-fix returned '2026-02-30'/'2026-09-31' and flagged them overdue; §5/§19 — a due date must be real.
+        ("2026-07-10",[_as_baddate],"2027-01-01",[]),                     # 'Feb 30, 2026' → undateable, nothing owed
+        ("2026-07-10",[_as_baddat2],"2027-01-01",[]),                     # 'Sep 31, 2026' → undateable, nothing owed
+        # BUG2 (exact-status, not substring): a status that merely CONTAINS a resolved word is NOT resolved.
+        # Pre-fix skipped all three (treated settled) and reported nothing due; §19 — an open forecast past
+        # its window must still be flagged. Expect it flagged as due.
+        ("2026-07-10",[_as_unres],"2026-08-01",["came due 2026-07-31"]),  # 'unresolved' ⊃ 'resolved' — still open
+        ("2026-07-10",[_as_avoid],"2026-08-01",["came due 2026-07-31"]),  # 'avoid' ⊃ 'void' — still open
+        ("2026-07-10",[_as_disc],"2026-08-01",["came due 2026-07-31"]),   # 'disclosed' ⊃ 'closed' — still open
+        ("2026-07-10",[],"2026-08-01",None),                              # empty ledger → N/A
+        ("2026-07-10",5,"2026-08-01",None),                               # malformed → N/A, never crash
+        ("2026-07-10",[_as_open],"nonsense",None),                        # unusable clock → N/A
+    ]
+    for _dd,_fl,_td,_want in ascases:
+        got=eval_as_forecast_overdue(_dd,_fl,_td)
+        if _want is None:
+            ok = got is None
+        else:
+            ok = got is not None and len(got)==len(_want) and all(any(w in g for g in got) for w in _want)
+        print(("  [ok] " if ok else "  [BAD] ")+f"AS({_dd!r},today={_td!r}) -> {got!r} (want {_want!r})")
+        if not ok: bad+=1
+
     for dt_,fl_,exp in aocases:
         got=eval_ao_forecast_resolvability(dt_,fl_)
         if exp is None: ok=(got is None)
@@ -2800,7 +2925,7 @@ if scope=="selftest":
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(atcases)} check-AT + {len(aucases)} check-AU cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(atcases)} check-AT + {len(aucases)} check-AU cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -3746,6 +3871,14 @@ for drp in runs:
         if r:
             retro.append({"check":"AK_red_flag_severity_reconciliation","status":"FAIL","detail":"; ".join(r),
                           "note":f"retrospective — decision_date {ddte!r} predates AK_DATE ({AK_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
+    # AS: forecasts whose window has ELAPSED and were never resolved. Advisory by construction — see the
+    # function's own note: overdue-ness is made by the calendar, not by a defect in the run.
+    _asr=eval_as_forecast_overdue(ddte,d.get("forecast_ledger"),TODAY)
+    if _asr:
+        retro.append({"check":"AS_forecast_overdue","status":"DUE","detail":"; ".join(_asr),
+                      "note":"the ledger owes a resolution — run /research:review-decisions for this ticker "
+                             "(§19: a forecast that cannot be checked later is not a forecast); informational "
+                             "only, does not affect pass/gate_eligible/suite_pass"})
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
