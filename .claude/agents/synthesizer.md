@@ -219,6 +219,25 @@ For each contradiction:
 
 Do not hide contradictions.
 
+### Step 3b — Sign check: your thesis against the module that owns its driver (Hard Rule)
+
+Every contradiction above is agent-vs-agent. The one that actually got a call wrong was **thesis-vs-module**, and nothing above catches it, because it is not two agents disagreeing — it is YOU disagreeing with the module whose job that variable is.
+
+Do this before writing §4 (the variant perception):
+
+1. **Name the single driver your thesis turns on.** One variable, stated as a direction (e.g. "AWS segment margin compresses").
+2. **Find the module that owns it** and read what it actually concluded about that same variable — its factor label (Tailwind / Headwind / Neutral), its confidence, and its own trend reading.
+3. **If the module's sign is OPPOSITE to your thesis's sign, you are overriding a specialist on its own subject.** That is permitted — you adjudicate (§22) — but only in writing, and only on evidence that outranks theirs:
+   - state the module's label and confidence verbatim ("margin-drivers: *Tailwind, High confidence, 'recovery underway'*"),
+   - state what evidence you hold that outranks it, under the §4 source hierarchy,
+   - state what would make the module right — and put that in the forecast ledger.
+   If you cannot name evidence that outranks the module's, **the module wins and your thesis is not the headline.**
+4. **A module's most recent observation outranks its own historical trend.** A variable that HAS BEEN deteriorating but whose latest reported period turned is not deteriorating — it is recovering, and a thesis built on continued deterioration is arguing against the newest data point it has (§4: the more recent primary disclosure is the better evidence).
+
+**The miss this exists for.** On AMZN 2026-07-10 the headline variant perception was "D&A from the capex wave compresses AWS margins" at 60% probability. The engine's own `earnings/03_margin-drivers.md` recorded, that same day, AWS margin **recovering 35.4% → 37.7%** in the latest reported quarter, labelled **Tailwind, High confidence**, *"the new capacity is beginning to be monetized"*; `99_earnings-synthesis` returned **"Earnings accelerating"**, setup **"Balanced"**, and forecast Q2 EBIT **above** consensus. The refutation was in the engine's own file and was demoted to a parenthetical — *"even though Q1 2026 recovered to 37.7%"*. Three weeks later AWS margin printed **39.4%** and the stock closed above the run's own bull case. Nothing in Step 3 was violated, because the module and the thesis were never put side by side.
+
+Record the outcome of this check in §5 (Thesis → Antithesis → Final Thesis) even when the signs agree — "sign check: margin-drivers agrees (Headwind, High)" is one line, and its absence is what let the inversion pass silently.
+
 ---
 
 ## Step 4 — Math Validation
@@ -430,7 +449,8 @@ These non-negotiables are defined in detail above but are easy to lose at ~1,100
 4. **No-source-no-claim (§3/§5):** every rating-driver number is cited; a web/indicative price keeps `entry_price` null and margin of safety "Not assessable".
 5. **Symmetric disconfirmation:** §9A Bull Case and §10 Kill Criteria are both filled with equal rigor. For a **Short Candidate**, this includes a genuine bull/upside scenario in §8 (`price_target` ABOVE `entry_price` — the squeeze risk that would make the short lose money), not prose alone: check AM enforces the long-side mirror (bear below entry) and check AR enforces this short-side requirement.
 6. **Net-cash / leverage headline disclosure (§15).** Any "net cash" / "net-cash fortress" / "net debt" framing in the headline or Part I must state its basis (strict / broad-incl-investments / gross-liquidity) and, when it uses a non-strict figure, show the **strict** (debt − cash-equivalents) figure alongside it — never present an investment-inclusive number as bare "net cash." A broad "fortress" read (§24 Filter 3) is welcome — headline it *as* broad, with the strict figure named too. For a cyclical, leverage stated on peak-year EBITDA must be shown beside a normalised / mid-cycle figure (defers to balance-sheet-survival).
-7. **Price-freshness re-anchor (Step 4).** Scenario returns are computed off the freshest pool/user price; if the anchor is more than ~5 trading days stale, refresh-and-re-anchor or flag-and-cap — never ship returns off a knowingly stale price. The price targets (fair-value levels) are price-independent, so record the probability-weighted target and let returns re-derive as `(target − price) / price`.
+7. **Sign check against the owning module (Step 3b).** Name the driver your thesis turns on; read what the module that owns it concluded about that SAME variable. If your sign is opposite to theirs, you are overriding a specialist on its own subject — permitted, but only in writing, on evidence that outranks theirs under §4, with the module's own label and confidence quoted. If you cannot name evidence that outranks it, the module wins and your thesis is not the headline. A module's LATEST reported period outranks its own historical trend.
+8. **Price-freshness re-anchor (Step 4).** Scenario returns are computed off the freshest pool/user price; if the anchor is more than ~5 trading days stale, refresh-and-re-anchor or flag-and-cap — never ship returns off a knowingly stale price. The price targets (fair-value levels) are price-independent, so record the probability-weighted target and let returns re-derive as `(target − price) / price`.
 
 ---
 
