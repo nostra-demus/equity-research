@@ -15,11 +15,10 @@ import { PipelineDiagnostics } from './components/screener/PipelineDiagnostics'
 import { SourcesPanel } from './components/screener/SourcesPanel'
 import { PipelineBoard } from './components/screener/PipelineBoard'
 import { SwarmWarp } from './components/SwarmWarp'
-import { RunStreamPanel } from './components/RunStreamPanel'
+import { ActivityDock } from './components/ActivityDock'
 import { OutputReader } from './components/OutputReader'
 import { ChatPanel } from './components/ChatPanel'
 import { ChatHistory } from './components/ChatHistory'
-import { ActivityLog } from './components/ActivityLog'
 import { ScoringPanel } from './components/screener/ScoringPanel'
 import { ValuationPlayground } from './components/ValuationPlayground'
 import { ReviewPanel } from './components/screener/ReviewPanel'
@@ -195,13 +194,14 @@ export function App() {
         <div className="stage" key={activeSwarm}>
           {activeLayout === 'flow' ? <ScreenerStage /> : <ResearchStage />}
         </div>
-        <RunStreamPanel />
+        {/* ONE activity surface, docked IN the layout (never over it): what's running now, then everything
+            that has run. Opens itself the moment anything launches; drag its edge to resize. */}
+        <ActivityDock />
       </div>
 
       <AnimatePresence>{openOutput && <OutputReader key={openOutput.path || openOutput.nodeKey || 'panel'} output={openOutput} />}</AnimatePresence>
       <AnimatePresence>{chatOpen && <ChatPanel />}</AnimatePresence>
       <AnimatePresence>{chatHistoryOpen && <ChatHistory />}</AnimatePresence>
-      <AnimatePresence>{activityOpen && <ActivityLog />}</AnimatePresence>
       <AnimatePresence>{scoringOpen && <ScoringPanel />}</AnimatePresence>
       <AnimatePresence>{valuationPlaygroundOpen && <ValuationPlayground />}</AnimatePresence>
       <AnimatePresence>{reviewOpen && <ReviewPanel />}</AnimatePresence>

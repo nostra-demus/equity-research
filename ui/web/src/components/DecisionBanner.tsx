@@ -1,8 +1,42 @@
-import { useEffect, type ReactNode } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, type ReactNode } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { decisionColor, priceProvenance, priceQualifier, resolveVerdict, stampDayUTC } from '../lib/format'
 import type { QuoteAbsentReason, WhatChangedRead } from '../lib/types'
+
+/**
+ * Publish the dock's measured height so the constellation can reserve real pixels beneath itself.
+ *
+ * The dock is `position: absolute; bottom: 0` on the SAME stage as the swarm field, so anything the field
+ * places near the floor is drawn behind it — which is exactly how the master-thesis core went missing. The
+ * height cannot be assumed: this bar grows a "newer data" notice, and its metric strip wraps at narrow
+ * widths, so the states differ by ~45px. Measuring is the only version that is right in all of them.
+ *
+ * Deliberately NOT a ResizeObserver. Everything that changes this dock's height is either a re-render of
+ * this component (the notice appearing, the verdict loading, a tier arriving) or a viewport resize — both
+ * of which are observable directly and synchronously. A layout effect with no dependency array runs after
+ * EVERY render, so it catches the first class by construction; the resize listener catches the second.
+ * That is strictly more reliable than an observer here, and — unlike one — it is verifiable in a headless
+ * browser, where ResizeObserver notifications are not delivered at all.
+ *
+ * Reports 0 on unmount: a dock that is not there reserves nothing, which is the honest default and also
+ * exactly the pre-existing layout.
+ */
+function useDockMeasure() {
+  const setStageDockH = useStore((s) => s.setStageDockH)
+  const ref = useRef<HTMLDivElement | null>(null)
+  const measure = useCallback(() => {
+    const el = ref.current
+    // border box: the seat has to clear the bar's border and its upward shadow, not just its content
+    setStageDockH(el ? el.getBoundingClientRect().height : 0)
+  }, [setStageDockH])
+  useLayoutEffect(measure) // no dep array on purpose — every render, because every height change is one
+  useEffect(() => {
+    window.addEventListener('resize', measure)
+    return () => { window.removeEventListener('resize', measure); setStageDockH(0) }
+  }, [measure, setStageDockH])
+  return ref
+}
 
 // the three shareable tiers of a finished run, opened from below the Memo orb
 const TIERS = [
@@ -97,12 +131,13 @@ function chipCopy(wc: WhatChangedRead): { text: string; tone: string; title: str
 
 /** One labelled metric cell: a small uppercase caption over a prominent value, with an optional faint
  *  unit (e.g. "/100"). Full words only — the bar is a read-out, not a place for cryptic abbreviations. */
-function Metric({ label, value, unit, valueColor, title }: {
+function Metric({ label, value, unit, valueColor, title, sub }: {
   label: string
   value: string | number
   unit?: string
   valueColor?: string
   title?: string
+  sub?: string // one muted line under the value — the scenario band under the target
 }) {
   return (
     <div className="decision__metric" title={title}>
@@ -110,8 +145,42 @@ function Metric({ label, value, unit, valueColor, title }: {
       <span className="decision__mval" style={valueColor ? { color: valueColor } : undefined}>
         {value}{unit && <span className="decision__munit">{unit}</span>}
       </span>
+      {sub && <span className="decision__msub">{sub}</span>}
     </div>
   )
+}
+
+/** The exit level, and the band it sits in.
+ *
+ *  The bar showed what the call was PRICED at (Entry), what it costs NOW, and a percentage — but never the
+ *  LEVEL those percentages resolve to. A reader had to do the arithmetic to learn where the engine thinks
+ *  the thing is worth selling. The number already existed: `implied_target` is served on the call, and the
+ *  bull/base/bear price targets are in the decision record — it was only ever shown inside a hover title.
+ *
+ *  It matters most on the calls that are NOT a buy. A Watchlist publishes a "don't pay above" and no exit —
+ *  but the reader may take the position anyway, and then the exit is the number they need. Entry discipline
+ *  and exit discipline are different objects; a call should carry both.
+ *
+ *  Returns null when the run genuinely has no target, so an older record renders exactly as it did before. */
+function targetOf(decision: any, call: { implied_target?: number | null } | null | undefined): { target: number | null; band: string | null } {
+  const num = (v: any): number | null => (typeof v === 'number' && Number.isFinite(v) ? v : null)
+  let target = num(call?.implied_target)
+  const scen: any[] = Array.isArray(decision?.scenarios) ? decision.scenarios : []
+  // Fall back to the record's own scenarios: Σ(probability × price_target). Same arithmetic the engine
+  // used, from the same frozen numbers — never a fresh valuation.
+  if (target == null && scen.length) {
+    let acc = 0, p = 0
+    for (const sc of scen) {
+      const pr = num(sc?.probability), tg = num(sc?.price_target)
+      if (pr == null || tg == null) { p = 0; break }
+      acc += (pr / 100) * tg; p += pr
+    }
+    if (p > 99 && p < 101) target = Math.round(acc * 100) / 100
+  }
+  // the band, low → high, so the reader sees the whole distribution and not just its centre
+  const levels = scen.map((sc) => num(sc?.price_target)).filter((v): v is number => v != null).sort((a, b) => a - b)
+  const band = levels.length >= 2 ? `${levels[0]} – ${levels[levels.length - 1]}` : null
+  return { target, band }
 }
 
 /** The glance layer: the whole answer in one line, or nothing. Opens the detail panel. */
@@ -200,6 +269,7 @@ export function DecisionBanner() {
   const verdictField = useStore((s) => s.swarms.find((w) => w.id === s.constellationSwarm)?.verdictField)
   // Newer-partial awareness (research only — only research keeps dated run folders). These are read
   // unconditionally, before any early return, so the rules of hooks hold.
+  const dockRef = useDockMeasure()
   const selectedTicker = useStore((s) => s.selectedTicker)
   const tickers = useStore((s) => s.tickers)
   const runRoot = useStore((s) => s.runRoot)
@@ -254,7 +324,7 @@ export function DecisionBanner() {
     if (!(hasNewerPartial && runRoot && runRoot !== standingRunRoot)) return null
     const standing = summary?.latestRun
     return (
-      <div className="decision-dock">
+      <div className="decision-dock" ref={dockRef}>
         <motion.div
           className="decision decision--notice-only"
           initial={reduce ? false : { opacity: 0, y: 12 }}
@@ -301,10 +371,12 @@ export function DecisionBanner() {
   const absentReason = liveQuote && liveQuote.ticker === selectedTicker && liveQuote.reason
     ? (liveQuote.reason as QuoteAbsentReason)
     : null
+  const exit = targetOf(decision, call)
+
   return (
     // A static dock frames the animated card so its centring survives framer-motion (which rewrites the
     // card's own transform). The card is seated on the stage floor — a permanent bar, not a floating pill.
-    <div className="decision-dock">
+    <div className="decision-dock" ref={dockRef}>
       {/* The wrapper is deliberately NON-interactive (no role/tabIndex): it contains real child buttons
           (the tier buttons + the what-changed chip), and nesting interactive controls inside a role="button"
           produces an invalid, ambiguous a11y tree (DESIGN.md a11y). The whole-bar onClick stays as a mouse
@@ -390,6 +462,18 @@ export function DecisionBanner() {
               label="Entry"
               value={`${decision.currency || ''} ${decision.entry_price}`.trim()}
               title={`The price the call was priced at${decision.entry_price_timestamp ? ` on ${shortDate(decision.entry_price_timestamp as string)}` : ''}${decision.entry_price_source ? ` (${decision.entry_price_source})` : ''}. Fixed — it is what the thesis was written against.`}
+            />
+          )}
+          {/* THE EXIT. Entry told you what the call was priced at; this is the level it is priced TO. It
+              renders for every call, not only the buys — a Watchlist reader may take the position anyway,
+              and then this is the number they need. Absent target → cell absent, so an older record with no
+              scenarios renders exactly as before. */}
+          {exit.target != null && (
+            <Metric
+              label="Target"
+              value={money(decision.currency, exit.target)}
+              sub={exit.band ? `bear–bull ${exit.band}` : undefined}
+              title={`Where the engine thinks this is worth exiting: the probability-weighted target of ${money(decision.currency, exit.target)}${exit.band ? `, inside a bear-to-bull band of ${exit.band}` : ''}. ${decision.suggested_action ? `Suggested action: ${decision.suggested_action}` : ''} This is the frozen call's own arithmetic on its own scenarios — not a fresh valuation, and it does not move when the price does.`.trim()}
             />
           )}
           {/* Live price. Gated on a POSITIVE match (DESIGN.md §5): an engine older than this bundle
