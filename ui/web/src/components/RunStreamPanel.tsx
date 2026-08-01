@@ -25,6 +25,63 @@ const PHASE_LABEL: Record<string, string> = {
   'awaiting-readiness-decision': 'Paused — waiting for your data-check decision',
 }
 
+// A finished run's bar, tinted by HOW it finished — so "full" never reads as "succeeded" on a run that
+// errored, was cancelled, or was truncated. Absent = the run is still in flight.
+const TERMINAL_TONE: Record<string, string> = {
+  done: 'var(--accent)',
+  error: 'var(--bad)',
+  cancelled: 'var(--bad)',
+  incomplete: 'var(--warn, #d8a656)', // truncated: it ran, but not to the end (see RunStatus 'incomplete')
+}
+
+// The run is stopped, waiting on the USER (the readiness gate). Live, but nothing is moving — so it must
+// neither animate (that would imply work) nor sit blank (that would imply nothing happened).
+const PAUSED_TONE = 'var(--warn, #d8a656)'
+
+/** The run's progress bar. It has to answer "where is this run?" even when there is no fraction to draw.
+ *
+ *  An ORBLESS run — a news scan, or a doc-intake new-data read — has no orbs at all, so `done/total` is
+ *  0/0 and the bar sat at zero width for the run's entire life, INCLUDING after it finished: a card reading
+ *  "New-data read · done" above a completely empty track, which reads as "nothing happened". The same held
+ *  for any run whose transient row stream had been cleared (plannedCount known, rows gone → 0%), and for
+ *  the first minute or two of EVERY full run, which sits at "Starting the engine…" / "Checking the data
+ *  pool…" before a single orb can report. The meta line above already refuses to print "0/0 orbs" for
+ *  exactly this reason; the bar simply never got the same treatment.
+ *
+ *  A fraction is only worth drawing once it MEANS something — that needs a denominator (an orbless run has
+ *  none) AND at least one orb reported against it. Before that the run is not "0% done", it is
+ *  not-yet-measurable, which is what the indeterminate state is for. The standard vocabulary:
+ *
+ *   • live, a real fraction   → determinate fill, as before
+ *   • live, nothing to measure → indeterminate sweep, because any number here would be invented
+ *   • live, paused on the user → full and STATIC in the paused tone: stopped, not working, not finished
+ *   • finished                 → full, in its outcome's colour
+ */
+function RunProgressBar({ pct, running, status, measurable, reported }: { pct: number; running: boolean; status: string; measurable: boolean; reported: boolean }) {
+  const tone = TERMINAL_TONE[status]
+  // Paused at the readiness gate: the run is live but waiting on a human decision. Animating it would
+  // claim work that isn't happening — the one live state that must NOT sweep.
+  const paused = status === 'awaiting-readiness-decision'
+  // Nothing to take a fraction OF (orbless), or nothing has reported against the denominator yet (the
+  // pre-spawn gate phases, and the window before the first orb speaks).
+  const indeterminate = running && !paused && (!measurable || !reported)
+  // Live: the honest fraction where one exists. Finished: a terminal run is never "0% done" — it is over.
+  // A clean finish fills. One that ended badly keeps its measured fraction when that says something ("got
+  // 7/12 through, then stopped"), and otherwise fills in its own colour, so the bar always states the
+  // outcome instead of showing a blank track.
+  const scale = running
+    ? (paused || !measurable || !reported ? 1 : pct / 100)
+    : status !== 'done' && pct > 0 ? pct / 100 : 1
+  return (
+    <div className={`runbar${running && !paused ? ' runbar--live' : ''}${indeterminate ? ' runbar--indeterminate' : ''}${paused ? ' runbar--paused' : ''}`}>
+      <div
+        className="runbar__fill"
+        style={{ transform: indeterminate ? undefined : `scaleX(${scale})`, background: paused ? PAUSED_TONE : running ? 'var(--accent)' : tone || 'var(--neutral)' }}
+      />
+    </div>
+  )
+}
+
 // plain-English gloss for the orchestrator's tool calls (heartbeat lastActivity)
 const TOOL_GLOSS: Record<string, string> = {
   Task: 'dispatching an orb',
@@ -161,9 +218,7 @@ export function RunStreamPanel() {
                 )
               })()}
               <div style={{ padding: '0 16px 6px' }}>
-                <div style={{ height: 5, background: 'var(--surface-3)', borderRadius: 'var(--r-pill)', overflow: 'hidden' }}>
-                  <div style={{ height: '100%', width: '100%', transformOrigin: 'left', transform: `scaleX(${pct / 100})`, background: 'var(--accent)', boxShadow: running ? '0 0 8px var(--accent-glow)' : 'none', transition: 'transform 350ms var(--ease)' }} />
-                </div>
+                <RunProgressBar pct={pct} running={running} status={run.status} measurable={total > 0} reported={rows.length > 0} />
               </div>
               <AnimatePresence initial={false}>
                 {rows.map((r) => {
