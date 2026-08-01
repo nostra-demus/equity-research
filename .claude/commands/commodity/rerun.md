@@ -66,6 +66,19 @@ For each `<M>` in `<CASCADE>` order, dispatch ONE Task: `subagent_type` = `<M>`'
 
 There is no master synthesizer, run-level memo, or audit dossier to regenerate — the terminal `commodity-thesis` IS the deliverable.
 
+## 6.5. Integrity finish-gate — pre-mortem haircut propagation
+
+Whenever the cascade rewrote `decision_record.json` (the `commodity-thesis` check above just confirmed it) it is FRESH — a stale, un-red-teamed prior `pre_mortem.json` no longer describes this run's `action`/`confidence`. Same gate as `commodity:full` step 5.5, always run here (no backfill condition needed — this invocation just rewrote the record, so it is never "already audited"):
+
+1. Follow `.claude/commands/commodity/pre-mortem.md` against `<RUN_ROOT>` in full — produce ONLY `<RUN_ROOT>/pre_mortem*.json` (versioned `_v2`/`_v3`/… since a prior `pre_mortem.json` from before this re-run already exists; per its rule 1 it can only HOLD or LOWER conviction, never raise it). Skip its own step 7 commit — this command's step 7 below commits the whole run folder in one place.
+2. **Haircut propagation** — patch `decision_record.json` with the pre-mortem's verdict via the shared, tested helper (identical to `commodity:full` step 5.5, and mirrors research/full.md 10B.2's F28/F28b):
+
+```bash
+python3 scripts/commodity_pre_mortem_haircut.py "<RUN_ROOT>"
+```
+
+Record the printed `RATING-CAP:` line for step 8 (report). If the cascade did NOT reach `commodity-thesis` (an edge case not expected under normal single-orb reruns within the `commodity-thesis` module itself — step 5's own note says its `99` is not re-run twice), skip this step: `decision_record.json` was not rewritten, so there is nothing fresh to red-team.
+
 ## 7. Commit and push to main (one commit)
 
 Commodity run outputs are DATA (CLAUDE.md §25/§28 — the research-data stream). Commit once through the serialized helper (data pathspec only):
@@ -78,7 +91,7 @@ Capture the commit SHA (`git rev-parse HEAD`, or `NOOP=1` if nothing changed).
 
 ## 8. Report
 
-Print: the run root; the target (module or module/agent) re-run; the cascade order actually run; which module memos/dossiers refreshed (or "failed", best-effort); the terminal dossier path `commodity/runs/<COMMODITY>/commodity-thesis/99_commodity-thesis-synthesis.md`, its **Action** verdict, and the one-line thesis; confirmation that `decision_record.json` was rewritten; the commit SHA pushed to `origin/main` (or NOOP).
+Print: the run root; the target (module or module/agent) re-run; the cascade order actually run; which module memos/dossiers refreshed (or "failed", best-effort); the terminal dossier path `commodity/runs/<COMMODITY>/commodity-thesis/99_commodity-thesis-synthesis.md`, its **Action** verdict, and the one-line thesis; confirmation that `decision_record.json` was rewritten; **the integrity finish-gate result (step 6.5)** — the pre-mortem verdict, confidence haircut, and `post_mortem_action` cap (or "skipped — decision_record.json not rewritten"); the commit SHA pushed to `origin/main` (or NOOP).
 
 ---
 
@@ -87,3 +100,4 @@ Print: the run root; the target (module or module/agent) re-run; the cascade ord
 - Re-run ONLY the target (orb or whole module) and the synthesis chain its output flows into — never sibling modules' specialists whose inputs did not change.
 - Never create a new run folder. Never run the full pipeline. Never re-run the whole swarm.
 - The seeded note lives in `data/<COMMODITY>/` (the Drive pool, outside git) — the commit covers only `commodity/runs/<COMMODITY>/`.
+- Whenever this command rewrites `decision_record.json`, step 6.5 re-red-teams it before the commit — a re-run must never leave a stale pre-mortem verdict attached to a freshly-changed `action`/`confidence`. `commodity:pre-mortem.md` itself stays strictly read-only; the mutation lives in step 6.5, exactly like `commodity:full`.

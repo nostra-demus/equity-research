@@ -63,6 +63,26 @@
         "rationale": { "type": "string", "description": "one or two sentences naming the as-of summary's verdict and, when checked, this commodity's hit-rate/N numbers — plain enough that a reviewer can verify the haircut without opening the calibration summary." }
       }
     },
+    "confidence_haircut": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Additive — written by scripts/commodity_pre_mortem_haircut.py (commodity:full step 5.5 / commodity:rerun step 6.5) after that run's pre_mortem*.json completes. original `confidence` minus post_review_confidence_score, derived from the pre-mortem's recommended_confidence, never trusted as a possibly-zeroed self-reported field (mirrors the research swarm's fix F28). 0 when the call survives the pre-mortem clean. Absent on a run whose finish-gate has not yet run (a pre-existing run awaiting its first backfill, or a run this schema predates)."
+    },
+    "pre_mortem_verdict": {
+      "type": "string",
+      "description": "Additive — the latest pre_mortem*.json's `verdict` verbatim ('Survives' / 'Survives with haircut' / 'Does not survive — downgrade' / 'Thesis broken'), copied in by the same finish-gate step. Absent when the finish-gate has not yet run."
+    },
+    "post_review_confidence_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Additive — the confidence the engine actually stands behind after its own red-team: the pre-mortem's recommended_confidence when a finish-gate has run, else absent. `confidence` above is the synthesizer's original, PRE-pre-mortem number and is never overwritten (CLAUDE.md §18/§22 — caps are applied, never silently overridden); calibration and review consumers should prefer this field when present, mirroring scripts/calibrate.py's confidence_of() preference for the research swarm."
+    },
+    "post_mortem_action": {
+      "type": "string",
+      "enum": ["Buy", "Hold", "Trim", "Avoid", "Research More"],
+      "description": "Additive — `action` above, capped by the pre-mortem's recommended_action_cap when the finish-gate ran and a cap was warranted (never a LESS cautious value than `action` — commodity:pre-mortem.md rule 1); equal to `action` when no cap fired or the finish-gate has not yet run. commodity:review.md and any calibration consumer should prefer this field over `action` when grading the call the engine actually holds, mirroring scripts/calibrate.py's basket_of() preference for the research swarm."
+    },
     "data_needs": {
       "type": "array",
       "description": "Optional, forward-looking. External data series whose absence caps this run's conviction (§11) — surfaced on the cockpit 'Data needs' dock so a durable connector can be built to feed them in continuously. The synthesizer emits the NEED (what / why / where it plugs in / a suggested source); the connector's implementation spec (endpoint, output schema, host allowlist) is authored later by the human at the approval/dispatch step, never here. A `filing_required` need is advisory only — no connector can satisfy it. Omitted or empty when nothing external is capping the call.",

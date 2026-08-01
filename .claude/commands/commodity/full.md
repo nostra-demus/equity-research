@@ -47,6 +47,27 @@ For each module in topo order:
 3. **Run the module pipeline:** follow `frameworks/MODULE_PIPELINE.md` with `<TICKER>` = `<COMMODITY>`, `<DATE>`, `<MODULE>` = the module, `<RUN_ROOT>` = `commodity/runs/<COMMODITY>`, and `<CROSS_MODULE_CONTEXT>` as built. **Commodity deviations:** (a) SKIP Step 1.5 (`extract_pool.py`) unless `data/<COMMODITY>/` exists with files — commodity runs read the profile + live public sources, not an uploaded pool; (b) in the Step 4A Task message the "Data pool path: data/<COMMODITY>/" line is fine — the agents read the `## <COMMODITY>` profile section themselves and fetch primary sources.
 4. **Fail-fast:** if the module's Layer-0 triage returns Insufficient (only `market-structure` has a `fail_fast` triage), the pipeline reports `fail_fast_triggered = true`. Stop the run: commit what exists (step 6) and report the abort — do NOT run downstream modules, since the commodity could not be identified/priced.
 
+## 5.5. Integrity finish-gate — pre-mortem haircut propagation
+
+`commodity-thesis-synthesis` is both advocate and judge of its own `Action:` call — nothing independently tested that verdict before this step existed (`commodity:pre-mortem`'s own rationale). This closes that gap the same way `research:full` step 10B.2 closes it for equity calls (fix F28/F28b), adapted to the commodity swarm's stable one-folder-per-commodity model (no dated re-runs to key a "did this run just happen" check off of).
+
+**Run this step iff EITHER:**
+- (a) the terminal `commodity-thesis` module was completed FRESH in step 5 of THIS invocation (its resume check did not skip it), **or**
+- (b) it was skip-resumed as already-done, but `<RUN_ROOT>/decision_record.json` has no `post_review_confidence_score` field yet — a pre-existing run that predates this gate, backfilled once on its next invocation.
+
+Otherwise (already done AND already carries `post_review_confidence_score`) skip this step entirely — an already-audited, unchanged run must not accumulate a fresh pre-mortem version on every resume-only call.
+
+When the step runs:
+
+1. Follow `.claude/commands/commodity/pre-mortem.md` against `<RUN_ROOT>` in full — produce ONLY `<RUN_ROOT>/pre_mortem*.json` (adversarial red-team; per its rule 1 it can only HOLD or LOWER conviction, never raise it). Skip its own step 7 commit — this command's step 6 below commits the whole run folder in one place.
+2. **Haircut propagation** — patch `decision_record.json` with the pre-mortem's verdict via the shared, tested helper (mirrors research/full.md 10B.2's F28/F28b exactly, in the commodity schema — `action`/`confidence`, not `decision`/`basket`/`confidence_score`):
+
+```bash
+python3 scripts/commodity_pre_mortem_haircut.py "<RUN_ROOT>"
+```
+
+Record the printed `RATING-CAP:` (or `HAIRCUT:` no-op) line for step 7 (report). The patch is additive — `confidence_haircut`, `pre_mortem_verdict`, `post_review_confidence_score`, `post_mortem_action` — and never rewrites the synthesizer's own original `action`/`confidence` fields (CLAUDE.md §18/§22: caps are applied, never silently overridden; the original call stays visible for audit).
+
 ## 6. Commit the dossier
 
 Commodity run outputs are DATA (CLAUDE.md §25/§28 — the research-data stream). Commit through the serialized helper (data pathspec only):
@@ -65,6 +86,7 @@ Print a final summary:
 - Any agents that failed (or "none"), and whether a fail-fast abort fired.
 - The terminal dossier: `commodity/runs/<COMMODITY>/commodity-thesis/99_commodity-thesis-synthesis.md`, its **Action** verdict (Buy / Hold / Trim / Avoid / Research More), and the one-line thesis.
 - Confirmation that `commodity/runs/<COMMODITY>/decision_record.json` was written.
+- **The integrity finish-gate result (step 5.5):** the `RATING-CAP:`/`HAIRCUT:` line — the pre-mortem verdict, the confidence haircut (if any), and the `post_mortem_action` cap (if any) — or "not run (already audited)" if step 5.5 was skipped.
 - The commit SHA pushed to `origin/main` (or NOOP).
 
 ---
@@ -74,3 +96,4 @@ Print a final summary:
 - Do not hardcode module or agent names — everything is discovered from the folders + frontmatter, exactly like `/research:full` and `frameworks/MODULE_PIPELINE.md`.
 - Adding a new module folder `.claude/agents/commodity/<new>/` (with a `99_<new>-synthesis.md` carrying `depends_on`) must require zero changes to this command.
 - Write only inside `commodity/runs/<COMMODITY>/`. Do not touch other commodities or any company run.
+- The integrity finish-gate (step 5.5) is the ONLY step in this command that mutates `decision_record.json` after the terminal module wrote it. `commodity:pre-mortem.md` itself stays strictly read-only — the mutation lives here, exactly mirroring the research swarm's split between `research:pre-mortem.md` (read-only) and `research:full.md` step 10B.2 (the mutator).

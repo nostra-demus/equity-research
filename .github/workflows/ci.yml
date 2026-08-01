@@ -106,6 +106,9 @@ jobs:
       - name: Commodity calibration scoreboard selftest (Phase 4 twin — fixture-free)
         run: python3 scripts/commodity_calibrate.py --selftest
 
+      - name: Commodity pre-mortem haircut-propagation selftest (finish-gate fix F28/F28b twin — fixture-free)
+        run: python3 scripts/commodity_pre_mortem_haircut.py --selftest
+
       - name: Screener feedback-tune selftest (recommend-only rank-weight nudges from the feedback ledger)
         run: python3 scripts/screener_feedback_tune.py --selftest
 
