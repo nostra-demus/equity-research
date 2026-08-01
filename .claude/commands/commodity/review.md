@@ -104,7 +104,12 @@ commodity/runs/<COMMODITY>/reviews/<REVIEW_DATE>_<WINDOW>_decision_review.json
 
 ## 5. Gather the review price and level checks
 
-Read the original `decision_record.json` (read-only). Pull `current_price` (the anchor — copy verbatim into `reference_price`, never re-derive it), `key_levels`, `key_risks`, `thesis_summary`, `action`, `confidence`, `benchmark`.
+Read the original `decision_record.json` (read-only). Pull `current_price` (the anchor — copy verbatim into `reference_price`, never re-derive it), `key_levels`, `key_risks`, `thesis_summary`, `benchmark`.
+
+Two distinct action/confidence values, kept separate — do NOT conflate them:
+
+- **Frozen anchors → the review's `original_action` / `original_confidence` fields.** These are copied **verbatim from the record's own `action` / `confidence`** (the raw, pre-cap fields), never from the post-mortem fields. `scripts/validate_screener_json.py` **requires** `review.original_action == record.action` and `review.original_confidence == record.confidence`; writing the post-mortem values here makes the review fail validation, so the frozen anchor stays raw — it records what the swarm originally published.
+- **Effective graded call → used only in Step 8's outcome table and Step 9, never written into a schema field.** For grading, **prefer `post_mortem_action` / `post_review_confidence_score` when present**, else fall back to `action` / `confidence`. A completed finish-gate pre-mortem (`commodity:full` step 5.5 / `commodity:rerun` step 6.5) can cap the original call to a more cautious action and a lower confidence — grading against the pre-cap `action` would credit or fault a call the engine no longer actually stands behind. This is a grading input, not a stored field: note in `notes` when the graded action differs from `original_action` (i.e. a cap fired). Mirrors `scripts/calibrate.py`'s `basket_of()`/`confidence_of()` preference for the research swarm (fix F28), which likewise reads the capped value for grading while the frozen record keeps its raw fields.
 
 Use WebSearch/WebFetch to find the commodity's current price as of `<REVIEW_DATE>`, from a source at or above the tier the original run cited (prefer the same `benchmark` instrument — e.g. LBMA/COMEX for gold, CME/CBOT for wheat, ICE/LME for copper — per `CLAUDE.md` §4 and this swarm's `sources.preferred` list in `SWARM.md`). Label the source and date. If no verifiable price can be found, set `review_price.value` to `null` and say so in `notes` — do not fabricate a number, and do not silently skip the rest of the review.
 
@@ -124,9 +129,9 @@ For each entry in the original `key_risks[]`, produce one `risk_results` item: `
 
 ## 8. Classify the action outcome
 
-Read this table **in order** (first match wins), same discipline as `DECISION_LEDGER.md` §8's `pre_mortem_check.outcome_vs_verdict` table:
+Read this table **in order** (first match wins), same discipline as `DECISION_LEDGER.md` §8's `pre_mortem_check.outcome_vs_verdict` table. "`action`" below is the Step 5 value (`post_mortem_action` when present, else the record's own `action`) — grade the call the engine actually stood behind, not a pre-cap call it no longer holds:
 
-| Original `action` | Condition | `action_outcome` |
+| `action` | Condition | `action_outcome` |
 |---|---|---|
 | `Research More` | genuinely new primary data landed since `decision_date` that would let the swarm re-run to a real verdict | `vindicated` (the call to wait was right — there was real information still missing) |
 | `Research More` | no new data landed, or a directional call could have been made just as well with what already existed | `contradicted` |
