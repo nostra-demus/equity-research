@@ -66,7 +66,7 @@ When the step runs:
 python3 scripts/commodity_pre_mortem_haircut.py "<RUN_ROOT>"
 ```
 
-Record the printed `RATING-CAP:` (or `HAIRCUT:` no-op) line for step 7 (report). The patch is additive — `confidence_haircut`, `pre_mortem_verdict`, `post_review_confidence_score`, `post_mortem_action` — and never rewrites the synthesizer's own original `action`/`confidence` fields (CLAUDE.md §18/§22: caps are applied, never silently overridden; the original call stays visible for audit).
+The helper **fails closed**: it exits `0` and prints `RATING-CAP:` only when it actually propagated a fresh pre-mortem; on `no_pre_mortem` / `read_error` / `stale_pre_mortem` it prints `GATE-FAIL:` and exits **nonzero**, leaving `decision_record.json` unpatched. Because step 1 just generated a fresh pre-mortem against this run, a nonzero exit means the integrity gate genuinely could not run — **STOP before the step 6 commit and report the `GATE-FAIL:` reason; do not ship a `decision_record.json` whose `Action:` verdict was never red-teamed.** On success, record the printed `RATING-CAP:` line for step 7 (report). The patch is additive — `confidence_haircut`, `pre_mortem_verdict`, `post_review_confidence_score`, `post_mortem_action` — and never rewrites the synthesizer's own original `action`/`confidence` fields (CLAUDE.md §18/§22: caps are applied, never silently overridden; the original call stays visible for audit). The cap is enforced deterministically by the helper (a would-be conviction RAISE from a mis-authored pre-mortem is clamped/rejected), not trusted from the LLM-authored report.
 
 ## 6. Commit the dossier
 
@@ -86,7 +86,7 @@ Print a final summary:
 - Any agents that failed (or "none"), and whether a fail-fast abort fired.
 - The terminal dossier: `commodity/runs/<COMMODITY>/commodity-thesis/99_commodity-thesis-synthesis.md`, its **Action** verdict (Buy / Hold / Trim / Avoid / Research More), and the one-line thesis.
 - Confirmation that `commodity/runs/<COMMODITY>/decision_record.json` was written.
-- **The integrity finish-gate result (step 5.5):** the `RATING-CAP:`/`HAIRCUT:` line — the pre-mortem verdict, the confidence haircut (if any), and the `post_mortem_action` cap (if any) — or "not run (already audited)" if step 5.5 was skipped.
+- **The integrity finish-gate result (step 5.5):** the `RATING-CAP:` line — the pre-mortem verdict, the confidence haircut (if any), and the `post_mortem_action` cap (if any); or "not run (already audited)" if step 5.5 was skipped; or, if the helper exited nonzero, the `GATE-FAIL:` reason and the fact that the run was HALTED before commit (no unaudited record shipped).
 - The commit SHA pushed to `origin/main` (or NOOP).
 
 ---

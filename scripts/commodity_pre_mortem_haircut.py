@@ -25,9 +25,17 @@ CONTRACT
     original `action`/`confidence` (CLAUDE.md §18/§22: caps are applied, never silently overridden;
     the original call stays visible for audit):
       confidence_haircut, pre_mortem_verdict, post_review_confidence_score, post_mortem_action
-  • No-op (status "no_pre_mortem") if no pre_mortem*.json exists yet — a run with no red-team pass
-    ships its original action/confidence unchanged, exactly as before this script existed.
-  • Idempotent: re-running against the same pre_mortem.json re-derives the identical patch.
+  • The confidence and the action cap are BOTH enforced deterministically, not trusted from the
+    LLM-authored report: post_review_confidence_score is clamped never to EXCEED the original
+    (a pre-mortem may only hold or lower conviction), the haircut is derived purely from that delta
+    (never from the self-reported confidence_haircut), and post_mortem_action applies the cap only when
+    it is at least as cautious as the run's own action on the Buy<Hold<Trim<Avoid ladder.
+  • Fails CLOSED. If no pre_mortem*.json exists ("no_pre_mortem"), a file is unreadable ("read_error"),
+    or the latest report red-teamed a since-rewritten call ("stale_pre_mortem"), decision_record.json is
+    left untouched and the CLI exits NONZERO — a caller that just generated a fresh pre-mortem must halt
+    rather than ship a clean, unaudited record. Only "patched" exits 0.
+  • Idempotent: re-running against the same pre_mortem.json re-derives the identical patch (patch()
+    never mutates `action`/`confidence`, so the staleness snapshot stays matched across re-runs).
   • Pure `patch()` function + a thin CLI wrapper, so BOTH callers that can (re)write
     decision_record.json — commodity:full.md (a freshly-completed terminal module, or a one-time
     backfill of a pre-existing run) and commodity:rerun.md (every cascade that touches
@@ -68,46 +76,93 @@ def patch(run_root):
     """Propagate the latest pre_mortem*.json in <run_root> into its decision_record.json.
 
     Returns (status, message, patched_record_or_None):
-      status == "no_pre_mortem" — no pre_mortem*.json found; decision_record.json untouched.
-      status == "read_error"    — decision_record.json or pre_mortem*.json missing/unparseable;
-                                   decision_record.json untouched.
-      status == "patched"       — decision_record.json rewritten with the four additive fields.
+      status == "no_pre_mortem"    — no pre_mortem*.json found; decision_record.json untouched.
+      status == "read_error"       — decision_record.json or pre_mortem*.json missing/unparseable;
+                                      decision_record.json untouched.
+      status == "stale_pre_mortem" — the latest pre_mortem*.json red-teamed a DIFFERENT call than the
+                                      record now holds (its original_action/original_confidence no longer
+                                      match the record's action/confidence); decision_record.json untouched.
+      status == "patched"          — decision_record.json rewritten with the four additive fields.
+
+    Every non-"patched" status is a gate that did NOT run — a caller (commodity:full step 5.5 /
+    commodity:rerun step 6.5) that just generated a fresh pre-mortem must treat it as a failure and
+    NOT ship a clean, unaudited record (the CLI signals this with a nonzero exit; see main()).
     """
     dr_path = os.path.join(run_root, "decision_record.json")
     pm_path = latest_pre_mortem(run_root)
     if not pm_path:
-        return "no_pre_mortem", "no pre_mortem.json found — skipping", None
+        return "no_pre_mortem", "no pre_mortem.json found — gate did not run", None
     try:
         pm = json.load(open(pm_path, encoding="utf-8"))
         dr = json.load(open(dr_path, encoding="utf-8"))
     except Exception as e:
-        return "read_error", f"read error ({e}) — skipping", None
+        return "read_error", f"read error ({e}) — gate did not run", None
+
+    orig_conf = dr.get("confidence")
+    orig_action = dr.get("action") or ""
+
+    # STALENESS GUARD (Codex r3694542416). A pre-mortem snapshots the call it red-teamed in its own
+    # original_action / original_confidence. commodity:rerun reuses the stable run folder and can rewrite
+    # decision_record.json with a NEW action/confidence while a PRIOR pre_mortem.json from before the
+    # re-run still sits in the folder (e.g. a new versioned report failed to write). Applying that prior
+    # verdict to a freshly-changed record ships it both unaudited and MISLABELED. Fail closed: if the
+    # pre-mortem recorded what it reviewed and it no longer matches the record, do not patch. Only fires
+    # when the pre-mortem actually carries the snapshot field (backward compatible with reports that omit
+    # it), and never on the fresh path (a just-generated pre-mortem records the current action/confidence,
+    # which patch() never mutates → it stays matched, so re-running is still idempotent).
+    pm_orig_action = pm.get("original_action")
+    pm_orig_conf = pm.get("original_confidence")
+    stale_bits = []
+    if isinstance(pm_orig_action, str) and pm_orig_action and pm_orig_action != orig_action:
+        stale_bits.append(f"original_action {pm_orig_action!r} != record action {orig_action!r}")
+    if _isnum(pm_orig_conf) and _isnum(orig_conf) and pm_orig_conf != orig_conf:
+        stale_bits.append(f"original_confidence {pm_orig_conf} != record confidence {orig_conf}")
+    if stale_bits:
+        return (
+            "stale_pre_mortem",
+            f"{os.path.basename(pm_path)} red-teamed a different call ({'; '.join(stale_bits)}) — gate did not run",
+            None,
+        )
 
     rec_conf = pm.get("recommended_confidence")
     verdict = pm.get("verdict") or ""
-    orig_conf = dr.get("confidence")
 
-    # DERIVE the haircut from the confidence delta this propagation exists to enforce — do NOT trust
-    # a possibly-null/zeroed self-reported confidence_haircut to decide whether a haircut happened
-    # (mirrors research/full.md 10B.2's identical guard against a silently-buried real cut).
-    pm_orig = pm.get("original_confidence")
-    if not _isnum(pm_orig):
-        pm_orig = orig_conf
-    haircut = pm.get("confidence_haircut")
-    if not _isnum(haircut):
-        haircut = (pm_orig - rec_conf) if (_isnum(pm_orig) and _isnum(rec_conf)) else 0
+    # CONFIDENCE (gemini r3694529576 + Codex r3694542409). post_review_confidence_score is the number the
+    # engine stands behind after its own red-team: the pre-mortem's recommended_confidence, else the
+    # original. A pre-mortem may only HOLD or LOWER conviction (commodity/pre-mortem.md rule 1) — so the
+    # deterministic gate CLAMPS a would-be raise back to the original rather than trusting the LLM-authored
+    # report not to raise it. The haircut is then DERIVED purely from the delta (original − post_review,
+    # clamped ≥ 0), never read from the self-reported confidence_haircut field: a report can carry a
+    # numeric-but-inconsistent haircut (e.g. 0 alongside recommended_confidence below the original), which
+    # would otherwise record a haircut that contradicts the score it sits next to.
+    post_review = rec_conf if _isnum(rec_conf) else orig_conf
+    if _isnum(post_review) and _isnum(orig_conf) and post_review > orig_conf:
+        post_review = orig_conf
+    haircut = (orig_conf - post_review) if (_isnum(orig_conf) and _isnum(post_review)) else 0
+    if _isnum(haircut) and haircut < 0:
+        haircut = 0
 
     dr["confidence_haircut"] = haircut
     dr["pre_mortem_verdict"] = verdict
-    dr["post_review_confidence_score"] = rec_conf if _isnum(rec_conf) else orig_conf
+    dr["post_review_confidence_score"] = post_review
 
-    # Rating-cap propagation. commodity/pre-mortem.md's own rule 1 guarantees recommended_action_cap
-    # is never LESS cautious than the run's own action, so a non-empty cap can be applied directly —
-    # no separate ordering table needed (unlike research/full.md's decision/basket, this schema has a
-    # single `action` field, so there is no separate "basket" to cap).
+    # RATING-CAP propagation with DETERMINISTIC ordering (Codex r3694542418). The pre-mortem is
+    # LLM-authored and only validated as JSON, so its prose promise ("never a LESS cautious cap than the
+    # run's own action" — commodity/pre-mortem.md rule 1 / step 4) is NOT a safety boundary the gate may
+    # trust. Enforce it here: on the caution ladder Buy < Hold < Trim < Avoid, apply the cap only when it
+    # is at least as cautious as the run's own action; a less-cautious (conviction-RAISING) cap is
+    # rejected and the original action is retained. "Research More" is the separate insufficient-evidence
+    # outcome, allowed as a cap from any action; a cap that is neither a ladder value nor "Research More",
+    # or that cannot be ordered against a non-ladder original, retains the original action.
+    _LADDER = {"Buy": 0, "Hold": 1, "Trim": 2, "Avoid": 3}  # higher = more cautious
     cap = (pm.get("recommended_action_cap") or "").strip()
-    orig_action = dr.get("action") or ""
-    dr["post_mortem_action"] = cap if cap else orig_action
+    post_action = orig_action
+    if cap == "Research More":
+        post_action = cap
+    elif cap in _LADDER and orig_action in _LADDER:
+        post_action = cap if _LADDER[cap] >= _LADDER[orig_action] else orig_action
+    # else (no cap / unrecognized cap / non-ladder original): retain orig_action.
+    dr["post_mortem_action"] = post_action
 
     with open(dr_path, "w", encoding="utf-8") as f:
         json.dump(dr, f, indent=2, ensure_ascii=False)
@@ -115,8 +170,8 @@ def patch(run_root):
 
     msg = (
         f"pre_mortem={os.path.basename(pm_path)} verdict={verdict!r} | "
-        f"confidence {orig_conf} -> {dr['post_review_confidence_score']} (-{haircut}) | "
-        f"action {orig_action!r} -> post_mortem_action={dr['post_mortem_action']!r}"
+        f"confidence {orig_conf} -> {post_review} (-{haircut}) | "
+        f"action {orig_action!r} -> post_mortem_action={post_action!r}"
     )
     return "patched", msg, dr
 
@@ -238,6 +293,93 @@ def _selftest():
         status, _msg, dr = patch(run)
         check("unrelated pre_mortem_summary.json ignored -> no_pre_mortem", status == "no_pre_mortem")
 
+        # 8. Action-cap ordering — a LESS cautious cap (Avoid -> Buy) must be REJECTED, not applied
+        #    (commodity/pre-mortem.md rule 1: a pre-mortem can only hold or LOWER conviction). Expected
+        #    value pinned to that rule, NOT to current code behaviour.
+        run = os.path.join(tmp, "NICKEL")
+        os.makedirs(run)
+        json.dump({"action": "Avoid", "confidence": 30}, open(os.path.join(run, "decision_record.json"), "w"))
+        json.dump(
+            {"verdict": "Survives", "original_action": "Avoid", "original_confidence": 30,
+             "recommended_confidence": 30, "recommended_action_cap": "Buy"},
+            open(os.path.join(run, "pre_mortem.json"), "w"),
+        )
+        status, _msg, dr = patch(run)
+        check("less-cautious cap rejected -> original action retained", dr["post_mortem_action"] == "Avoid")
+
+        # 9. Action-cap ordering — "Research More" is an allowed cap from any action (insufficient evidence).
+        run = os.path.join(tmp, "ZINC")
+        os.makedirs(run)
+        json.dump({"action": "Buy", "confidence": 60}, open(os.path.join(run, "decision_record.json"), "w"))
+        json.dump(
+            {"verdict": "Thesis broken", "original_action": "Buy", "original_confidence": 60,
+             "recommended_confidence": 20, "recommended_action_cap": "Research More"},
+            open(os.path.join(run, "pre_mortem.json"), "w"),
+        )
+        status, _msg, dr = patch(run)
+        check("Research More cap applied from Buy", dr["post_mortem_action"] == "Research More")
+
+        # 10. Confidence never-RAISED — a report recommending a HIGHER confidence than the record is clamped
+        #     back to the original (rule 1), and the derived haircut is 0 (never negative).
+        run = os.path.join(tmp, "TIN")
+        os.makedirs(run)
+        json.dump({"action": "Hold", "confidence": 50}, open(os.path.join(run, "decision_record.json"), "w"))
+        json.dump(
+            {"verdict": "Survives", "original_action": "Hold", "original_confidence": 50,
+             "recommended_confidence": 70, "recommended_action_cap": ""},
+            open(os.path.join(run, "pre_mortem.json"), "w"),
+        )
+        status, _msg, dr = patch(run)
+        check("confidence raise clamped to original", dr["post_review_confidence_score"] == 50)
+        check("no negative haircut on a clamped raise", dr["confidence_haircut"] == 0)
+
+        # 11. Haircut DERIVED from the delta even when a numeric-but-inconsistent confidence_haircut=0 is
+        #     self-reported alongside recommended_confidence below the original (Codex r3694542409).
+        run = os.path.join(tmp, "LEAD")
+        os.makedirs(run)
+        json.dump({"action": "Hold", "confidence": 70}, open(os.path.join(run, "decision_record.json"), "w"))
+        json.dump(
+            {"verdict": "Survives with haircut", "original_action": "Hold", "original_confidence": 70,
+             "recommended_confidence": 50, "confidence_haircut": 0, "recommended_action_cap": ""},
+            open(os.path.join(run, "pre_mortem.json"), "w"),
+        )
+        status, _msg, dr = patch(run)
+        check("inconsistent self-reported haircut=0 overridden by derived delta", dr["confidence_haircut"] == 20)
+        check("post_review from recommended not self-reported", dr["post_review_confidence_score"] == 50)
+
+        # 12. STALE pre-mortem — a prior report whose snapshot no longer matches the (since-rewritten)
+        #     record is NOT applied; the record is left untouched and the status is stale_pre_mortem
+        #     (Codex r3694542416).
+        run = os.path.join(tmp, "PLATINUM")
+        os.makedirs(run)
+        json.dump({"action": "Trim", "confidence": 40}, open(os.path.join(run, "decision_record.json"), "w"))
+        json.dump(
+            {"verdict": "Survives", "original_action": "Buy", "original_confidence": 70,
+             "recommended_confidence": 55, "recommended_action_cap": "Hold"},
+            open(os.path.join(run, "pre_mortem.json"), "w"),
+        )
+        status, _msg, dr = patch(run)
+        check("stale pre-mortem (action mismatch) -> stale_pre_mortem", status == "stale_pre_mortem")
+        check("stale pre-mortem -> no patched record returned", dr is None)
+        untouched = json.load(open(os.path.join(run, "decision_record.json")))
+        check("stale pre-mortem -> decision_record.json untouched", "post_mortem_action" not in untouched)
+
+        # 13. Idempotency across the staleness guard — the FRESH path re-runs to the identical patch
+        #     (patch never mutates action/confidence, so the snapshot stays matched).
+        run = os.path.join(tmp, "PALLADIUM")
+        os.makedirs(run)
+        json.dump({"action": "Hold", "confidence": 52}, open(os.path.join(run, "decision_record.json"), "w"))
+        json.dump(
+            {"verdict": "Does not survive — downgrade", "original_action": "Hold", "original_confidence": 52,
+             "recommended_confidence": 40, "recommended_action_cap": "Trim"},
+            open(os.path.join(run, "pre_mortem.json"), "w"),
+        )
+        s1, _m1, d1 = patch(run)
+        s2, _m2, d2 = patch(run)
+        check("idempotent -> both runs patched", s1 == "patched" and s2 == "patched")
+        check("idempotent -> identical post_mortem_action", d1["post_mortem_action"] == d2["post_mortem_action"] == "Trim")
+        check("idempotent -> identical post_review", d1["post_review_confidence_score"] == d2["post_review_confidence_score"] == 40)
+
     if failures:
         print("SELFTEST FAIL:", ", ".join(failures))
         return 1
@@ -253,11 +395,15 @@ def main(argv):
         return 2
     run_root = argv[0]
     status, msg, _dr = patch(run_root)
-    if status in ("no_pre_mortem", "read_error"):
-        print(f"HAIRCUT: {msg}")
+    if status == "patched":
+        print(f"RATING-CAP: {msg}")
         return 0
-    print(f"RATING-CAP: {msg}")
-    return 0
+    # FAIL CLOSED (Codex r3694542402). Every non-"patched" outcome means the integrity gate did NOT
+    # propagate a fresh pre-mortem into the record. A caller that just generated one (commodity:full
+    # step 5.5 / commodity:rerun step 6.5) must halt on this nonzero exit rather than commit a clean,
+    # unaudited action/confidence — the exact false-confidence path this gate exists to close.
+    print(f"GATE-FAIL: {status} — {msg}", file=sys.stderr)
+    return 1
 
 
 if __name__ == "__main__":
