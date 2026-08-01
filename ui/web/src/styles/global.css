@@ -1408,6 +1408,19 @@ a { color: inherit; }
 @media (hover: hover) and (pointer: fine) {
   .decision__notice-act:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 20%, transparent); }
 }
+/* The RECOMMENDED action in the row (the scoped re-run): filled, so the cheap targeted path outranks the
+   blunt full re-run sitting next to it. Same geometry, same press feedback, same transitions as its
+   sibling — only the fill and the ink change, so the pair reads as one control group with a clear rank.
+   --accent-ink is the token that stays legible ON a solid --accent fill in BOTH themes (never --text). */
+.decision__notice-act--primary {
+  color: var(--accent-ink); background: var(--accent); border-color: var(--accent);
+}
+.decision__notice-act--primary:focus-visible { box-shadow: 0 0 0 2px var(--accent-wash), 0 0 0 1px var(--accent); }
+@media (hover: hover) and (pointer: fine) {
+  .decision__notice-act--primary:hover:not(:disabled) {
+    background: var(--accent-bright); border-color: var(--accent-bright); color: var(--accent-bright-ink);
+  }
+}
 
 /* toast */
 .toast {
