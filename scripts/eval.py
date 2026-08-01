@@ -1038,6 +1038,74 @@ def eval_as_forecast_overdue(decision_date, forecast_ledger, today):
         out.append(f"forecast_ledger[{i}] came due {due} and is still unresolved (status {status or 'unset'!r}): {pred}")
     return out
 
+
+# ---- check AT: the scenario set must SPAN the outcomes, not merely sum to 100% ----------------------
+# CLAUDE.md §10 (span check). Probabilities that add up are necessary and NOT sufficient: a set can be
+# arithmetically perfect and contain no state of the world resembling what happens.
+#
+# The miss: AMZN 2026-07-10 shipped bull +3.6% / base -11.9% / bear -38.7%. Perfectly summed, perfectly
+# reconciled. Its BEST case was inside one ordinary week's move of the price — so there was no case in
+# the set in which the thing that actually happened (a good quarter) could occur. The stock closed 15%
+# up two days after the run's own test date, above the top of the entire distribution.
+#
+# The rule this enforces is the cheap half of §10's span check: if the best case is within the noise a
+# liquid stock makes in a normal week, the set is too narrow to carry an expected return. (The other
+# half — the conjunction check — needs the per-case CONDITION text, which decision_record.json does not
+# carry; it stays a §10 prose rule enforced by the synthesizer, not here. Saying so plainly beats a
+# brittle keyword count on prose that lives in another file.)
+#
+# Returns are POSITION-SIGNED (synthesizer.md §6): a short's winning case is also a POSITIVE return, so
+# max() is the best case for either direction and no basket handling is needed.
+AT_DATE = "2026-08-01"
+AT_MIN_BEST_PCT = 5.0  # an ordinary weekly move on a large liquid name — below this the set spans nothing
+
+def eval_at_scenario_span(decision_date, scenarios):
+    """Check AT. None = N/A (pre-gate / no usable scenarios); [] = spans; [violation] = too narrow."""
+    if not (isdate(decision_date) and decision_date >= AT_DATE):
+        return None
+    if not isinstance(scenarios, list) or len(scenarios) < 2:
+        return None  # a single case is not a set — check A/T owns the structural complaint
+    rets = [s.get("return_pct") for s in scenarios
+            if isinstance(s, dict) and isinstance(s.get("return_pct"), (int, float)) and not isinstance(s.get("return_pct"), bool)]
+    if len(rets) < 2:
+        return None  # no usable returns → nothing to measure
+    best = max(rets)
+    if best < AT_MIN_BEST_PCT:
+        return [f"scenario set does not SPAN: the BEST case returns only {best:+.1f}%, inside an ordinary "
+                f"weekly move (<{AT_MIN_BEST_PCT}%). No case in the set contains a good outcome, so the "
+                f"probability-weighted return is an average over a distribution that excludes one side of "
+                f"reality (CLAUDE.md §10 span check). Widen the cases before computing the expected return."]
+    return []
+
+
+# ---- check AU: the thesis must record its sign check against the owning module ----------------------
+# synthesizer.md Step 3b / HARD GATE 7. The synthesizer may override the module that owns its driver —
+# it adjudicates (§22) — but only IN WRITING. The check that was missing is not the override, it is the
+# silence: on AMZN 2026-07-10 the thesis headlined "D&A compresses AWS margins" while the engine's own
+# margin-drivers file said that same margin was RECOVERING (Tailwind, High confidence). Neither agreed
+# nor disagreed was ever written down, so nothing could notice.
+#
+# This asserts PRESENCE, not correctness — whether the override was justified is a judgment no test can
+# make. The absence of the line is what let the inversion pass silently, and absence is checkable.
+AU_DATE = "2026-08-01"
+
+def eval_au_sign_check_recorded(decision_date, thesis_text):
+    """Check AU. None = N/A (pre-gate / no thesis); [] = recorded; [violation] = missing."""
+    if not (isdate(decision_date) and decision_date >= AU_DATE):
+        return None
+    if not thesis_text:
+        return None
+    # \b before 'sign' so an unrelated word ending in -sign ('design check', 'redesign checklist') can't
+    # satisfy a HARD gate; [\s\-_]* so natural spacing variation ('sign check' / 'sign-check' / 'sign_check'
+    # / 'sign  check' / 'sign - check') all register; no trailing boundary, so 'sign-checked' / 'sign checks'
+    # still match. This asserts the line was RECORDED, not that it is correct.
+    if re.search(r"\bsign[\s\-_]*check", thesis_text, re.I):
+        return []
+    return ["the thesis records no SIGN CHECK against the module that owns its driver (synthesizer.md "
+            "Step 3b / HARD GATE 7). State it even when the signs AGREE — one line naming the module, its "
+            "factor label and its confidence. The absence of that line is what let a thesis contradict its "
+            "own module in silence."]
+
 def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
     """Check AO: every forecast must be mechanically RESOLVABLE (so it can enter the Brier score), and
     the record must carry a near-term proof point. Per entry: triggers must (a) carry a pinned numeric
@@ -2811,10 +2879,53 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AO({dt_!r},fl={_n}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
     bad+=aobad
 
+    # ---- check AT: the scenario set must SPAN (§10) ----
+    _sc = lambda *r: [{"label":l,"return_pct":v} for l,v in zip(("bull","base","bear"),r)]
+    atcases=[  # (decision_date, scenarios, expect: None=N/A, []=pass, [substr]=fail-with)
+        ("2026-07-31",_sc(3.6,-11.9,-38.7),None),                              # predates AT_DATE → N/A
+        ("2026-08-01",_sc(3.6,-11.9,-38.7),["BEST case returns only +3.6%"]),  # the REAL AMZN set → FAIL
+        ("2026-08-01",_sc(40.0,12.0,-25.0),[]),                                # a real good case → pass
+        ("2026-08-01",_sc(5.0,-10.0,-30.0),[]),                                # exactly at the bar → pass
+        ("2026-08-01",_sc(4.9,-10.0,-30.0),["only +4.9%"]),                    # just under → FAIL
+        ("2026-08-01",_sc(-1.0,-9.0,-30.0),["only -1.0%"]),                    # every case negative → FAIL
+        ("2026-08-01",[{"label":"base","return_pct":2.0}],None),               # one case is not a set → N/A
+        ("2026-08-01",[{"label":"a"},{"label":"b"}],None),                     # no usable returns → N/A
+        ("2026-08-01",None,None),                                               # no scenarios → N/A
+        ("2026-08-01","nope",None),                                             # malformed → N/A, never crash
+    ]
+    for _dd,_scn,_want in atcases:
+        got=eval_at_scenario_span(_dd,_scn)
+        ok = (got is None) if _want is None else (isinstance(got,list) and len(got)==len(_want) and all(any(w in g for g in got) for w in _want))
+        print(f"  [{'ok' if ok else 'XX'}] AT({_dd!r}) -> {str(got)[:64]}")
+        if not ok: bad+=1
+
+    # ---- check AU: the sign check must be RECORDED (Step 3b / HARD GATE 7) ----
+    aucases=[
+        ("2026-07-31","no such line here",None),                                       # pre-gate → N/A
+        ("2026-08-01","",None),                                                         # no thesis → N/A
+        ("2026-08-01","Sign check: margin-drivers agrees (Headwind, High).",[]),        # recorded → pass
+        ("2026-08-01","sign-check against earnings: disagrees, overridden on ...",[]),  # hyphen form → pass
+        ("2026-08-01","SIGN CHECK — valuation agrees",[]),                              # caps → pass
+        ("2026-08-01","a long thesis that never mentions it",["records no SIGN CHECK"]),# missing → FAIL
+        # regression: spacing variants the old `sign[\s\-]?check` MISSED (false FAIL on a recorded gate)
+        ("2026-08-01","sign_check: earnings agrees (Tailwind, Med)",[]),                # underscore → pass
+        ("2026-08-01","sign  check: margin-drivers agrees",[]),                         # double space → pass
+        ("2026-08-01","sign - check: valuation disagrees, overridden",[]),              # space-hyphen-space → pass
+        ("2026-08-01","sign-checked against margin-drivers: agrees",[]),               # past tense → pass
+        # regression: false POSITIVE the old regex allowed — 'design check' contains 'sign check' but is
+        # NOT a recorded sign check; on a HARD gate that let a run with no sign check pass silently.
+        ("2026-08-01","our design check of the model passed; no other note",["records no SIGN CHECK"]),
+    ]
+    for _dd,_tx,_want in aucases:
+        got=eval_au_sign_check_recorded(_dd,_tx)
+        ok = (got is None) if _want is None else (isinstance(got,list) and len(got)==len(_want) and all(any(w in g for g in got) for w in _want))
+        print(f"  [{'ok' if ok else 'XX'}] AU({_dd!r}) -> {str(got)[:56]}")
+        if not ok: bad+=1
+
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(atcases)} check-AT + {len(aucases)} check-AU cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -3716,6 +3827,24 @@ for drp in runs:
         add("AO_forecast_resolvability",False,"; ".join(_aoresult))
     else:
         add("AO_forecast_resolvability",True,"every forecast carries a pinned/settleable, partitioned trigger and the record has a ≤90-day proof point")
+    # AT scenario SPAN (§10): a set that sums to 100% but whose BEST case sits inside an ordinary weekly
+    # move contains no good outcome at all — the expected return then averages over half of reality.
+    _atresult=eval_at_scenario_span(ddte,d.get("scenarios"))
+    if _atresult is None:
+        add("AT_scenario_span",True,"run predates the span gate, or carries no usable scenario returns — N/A",na=True)
+    elif _atresult:
+        add("AT_scenario_span",False,"; ".join(_atresult))
+    else:
+        add("AT_scenario_span",True,"the scenario set spans a real good outcome, not only degrees of bad")
+    # AU sign check recorded (synthesizer Step 3b / HARD GATE 7): presence, not correctness — the silence
+    # is what let a thesis contradict its own module.
+    _auresult=eval_au_sign_check_recorded(ddte,thesis)
+    if _auresult is None:
+        add("AU_sign_check_recorded",True,"run predates the sign-check gate, or no thesis text — N/A",na=True)
+    elif _auresult:
+        add("AU_sign_check_recorded",False,"; ".join(_auresult))
+    else:
+        add("AU_sign_check_recorded",True,"the thesis records its sign check against the module owning its driver")
     # Retrospective advisories (informational only — NEVER read by run_pass/gate_eligible/suite_pass below).
     # AI and AK reconcile fields that existed long before either check's own landing date (Headline
     # Scorecard prose vs decision_record.json numbers; module-declared red-flag severity vs the red_flags
