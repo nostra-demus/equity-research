@@ -46,7 +46,11 @@ export function SwarmField() {
     return () => ro.disconnect()
   }, [])
 
-  const layout = useMemo(() => (graph ? computeLayout(graph, size.w, size.h) : null), [graph, size.w, size.h])
+  // Reserve the decision dock's MEASURED height under the field. The dock is an absolute, bottom-anchored
+  // overlay on this same stage, so without this the master-thesis core is placed behind it and the Memo
+  // orb — the thing every arrow in the field points at — is invisible (the bug this fixes).
+  const dockH = useStore((s) => s.stageDockH)
+  const layout = useMemo(() => (graph ? computeLayout(graph, size.w, size.h, dockH) : null), [graph, size.w, size.h, dockH])
   const moduleOrder = useMemo(() => new Map((graph?.modules || []).map((m, i) => [m.name, i])), [graph])
   const moduleByName = useMemo(() => new Map((graph?.modules || []).map((m) => [m.name, m])), [graph])
 
