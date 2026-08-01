@@ -240,7 +240,18 @@ a { color: inherit; }
   transition: background var(--dur-fast);
 }
 .cluster__label:hover { background: var(--accent-wash-soft); }
-.cluster__name { font-size: 11.5px; font-weight: 600; letter-spacing: 0.5px; color: var(--text); text-transform: uppercase; }
+/* Dependency edges are routed between modules, so some of them necessarily pass BEHIND a module's label —
+   a graph cannot promise otherwise. A knockout halo (the map-label technique) keeps the text readable where
+   one crosses, without a solid plate that would weigh the field down. Theme-aware via --bg, paint-only, and
+   it costs no layout: the vertical budget in lib/layout.ts is unaffected. */
+.cluster__name, .cluster__status {
+  text-shadow: 0 0 5px var(--bg), 0 0 5px var(--bg), 0 0 9px var(--bg);
+}
+/* One line, always. The whole vertical budget in lib/layout.ts is built from this block's height, so a
+   name that wrapped ("BALANCE SHEET SURVIVAL") grew the block UPWARD past its reserve — straight into the
+   Constellation/Globe toggle. Module names are far narrower than the column pitch even on the smallest
+   field, so nowrap costs nothing and makes the height deterministic, which is what the budget needs. */
+.cluster__name { font-size: 11.5px; font-weight: 600; letter-spacing: 0.5px; color: var(--text); text-transform: uppercase; white-space: nowrap; }
 .cluster__status { font-size: 10px; letter-spacing: 0.3px; }
 .cluster__run {
   margin-top: 2px; font-size: 10px; color: var(--accent-bright); opacity: 0; transition: opacity var(--dur-fast);
@@ -394,6 +405,35 @@ a { color: inherit; }
 .sidepanel__meta { font-size: 11px; color: var(--text-faint); font-family: var(--font-mono); }
 .sidepanel__body { flex: 1; overflow-y: auto; padding: 8px 10px; }
 .sidepanel__empty { color: var(--text-faint); font-size: 12px; padding: 24px 14px; text-align: center; line-height: 1.6; }
+
+/* A run's progress bar (RunStreamPanel). Determinate when there is a fraction, INDETERMINATE while a run
+   with no denominator is in flight (an orbless news scan / new-data read), and full — in its outcome's
+   colour — once it has finished. A finished run drawn at 0% width was the bug: "done" over an empty track. */
+.runbar { height: 5px; background: var(--surface-3); border-radius: var(--r-pill); overflow: hidden; }
+.runbar__fill {
+  height: 100%; width: 100%; transform-origin: left; background: var(--accent);
+  transition: transform 350ms var(--ease), background-color 220ms var(--ease);
+}
+.runbar--live .runbar__fill { box-shadow: 0 0 8px var(--accent-glow); }
+/* The standard indeterminate sweep: a short segment travelling the track, so it reads as "working, length
+   unknown" instead of claiming a percentage. transform only — never width/left — so it stays on the
+   compositor. Translation is in units of the SEGMENT's own width: 100/38 ≈ 263% clears the far edge. */
+.runbar--indeterminate .runbar__fill {
+  width: 38%; transform-origin: center; transition: none;
+  animation: runbar-sweep 1.15s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes runbar-sweep {
+  from { transform: translateX(-105%); }
+  to { transform: translateX(265%); }
+}
+/* Paused on a human decision (the readiness gate): live, but nothing is moving. Static and unglowing, so it
+   reads as "stopped, your move" rather than as work in progress or as a finished run. */
+.runbar--paused .runbar__fill { animation: none; opacity: 0.7; }
+@media (prefers-reduced-motion: reduce) {
+  /* no travelling segment — hold a dimmed full track, which still reads as "in flight, not measurable" */
+  .runbar--indeterminate .runbar__fill { animation: none; width: 100%; transform: none; opacity: 0.45; }
+  .runbar__fill { transition: none; }
+}
 
 .streamrow { display: flex; gap: 10px; padding: 8px 8px; border-radius: var(--r-sm); }
 .streamrow:hover { background: var(--surface-2); }

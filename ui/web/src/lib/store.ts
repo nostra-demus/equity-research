@@ -8,6 +8,7 @@ import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import { archiveErrorNote } from './archiveError'
+import { stageDockHUpdate } from './stageDock'
 import { affectedModules, focusKeysFor } from './intake'
 import type { BridgeStatus } from './types'
 import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
@@ -388,6 +389,13 @@ interface State {
   checkCredit: () => Promise<void>
   selectNode: (key: string | null) => void
   setNow: (n: number) => void
+  // The decision dock's MEASURED height. It is an absolute, bottom-anchored overlay on the same stage as
+  // the constellation, so the field has to reserve real pixels under itself or the master-thesis core is
+  // drawn behind it (it was). Measured rather than assumed because the dock grows a "newer data" notice
+  // and its metric strip wraps — a static guess is wrong in exactly the states that matter. 0 when the
+  // dock is not mounted, which is the honest "no reserve needed".
+  stageDockH: number
+  setStageDockH: (h: number) => void
   nodeStatus: (key: string) => NodeStatus
   activeRunsForTicker: (t: string | null) => ActiveRun[]
   anyRunForTicker: (t: string | null) => boolean
@@ -1265,6 +1273,9 @@ export const useStore = create<State>((set, get) => ({
 
   selectNode: (key) => set({ selectedNodeKey: key }),
   setNow: (n) => set({ now: n }),
+  stageDockH: 0,
+  // guarded so a ResizeObserver firing the same height (very common) never re-renders the whole field
+  setStageDockH: (h) => { const next = stageDockHUpdate(h, get().stageDockH); if (next !== null) set({ stageDockH: next }) },
 
   nodeStatus: (key) => {
     const { nodeRuntime, nodesByKey, dataStatus, selectedTicker, activeSwarm } = get()
