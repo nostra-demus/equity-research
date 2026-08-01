@@ -20,6 +20,7 @@ import path from 'node:path'
 import { NEWS } from '../src/config'
 import {
   callVsLive,
+  priceBand,
   countryFromExchange,
   gateRow,
   getQuotes,
@@ -489,6 +490,73 @@ await check('nameTokens keeps non-Latin letters, so a non-Latin name does NOT va
   // against ANYTHING (the wrong-company hazard). It must now produce real tokens and be judgeable.
   assert.ok(nameTokens('腾讯控股').size > 0, 'a wholly non-Latin name still produces identity tokens')
   assert.equal(namesMatch('腾讯控股', '阿里巴巴集团'), false, 'two different non-Latin names are refused, not waved through')
+})
+
+
+// ---- the price-left-the-band alarm (priceBand) ----
+// The engine already had a DATE alarm (eval check AS). It had no PRICE one — and a date waits where a
+// price does not. These fixtures are the real AMZN 2026-07-10 band.
+
+const AMZN_SCEN = [
+  { label: 'bull', probability: 25, price_target: 247 },
+  { label: 'base', probability: 45, price_target: 210 },
+  { label: 'bear', probability: 30, price_target: 146 },
+]
+
+await check('the real AMZN band: the 2026-07-31 close is ABOVE every case the run modelled', () => {
+  const b = priceBand(AMZN_SCEN, 270.87, 'Watchlist')
+  assert.ok(b, 'a three-case record must produce a band')
+  assert.equal(b!.state, 'above')
+  assert.equal(b!.low, 146)
+  assert.equal(b!.high, 247)
+  assert.equal(b!.outside_by_pct, 9.7, '270.87 is 9.7% above the 247 bull')
+  assert.match(b!.note, /too cautious|facts have changed/i)
+})
+
+await check('inside the band is the quiet state — no alarm, no note', () => {
+  const b = priceBand(AMZN_SCEN, 238.34, 'Watchlist')
+  assert.equal(b!.state, 'inside')
+  assert.equal(b!.outside_by_pct, 0)
+  assert.equal(b!.note, '')
+})
+
+await check('the edges are inclusive — exactly ON a bound is still inside', () => {
+  assert.equal(priceBand(AMZN_SCEN, 247, null)!.state, 'inside')
+  assert.equal(priceBand(AMZN_SCEN, 146, null)!.state, 'inside')
+})
+
+await check('below every case is its own alarm, measured off the bear', () => {
+  const b = priceBand(AMZN_SCEN, 131.4, 'Watchlist')
+  assert.equal(b!.state, 'below')
+  assert.equal(b!.outside_by_pct, 10, '131.4 is 10% below the 146 bear')
+  assert.match(b!.note, /did not model/i)
+})
+
+await check('the MEANING is direction-aware — the same geometry reads oppositely for a short', () => {
+  const long = priceBand(AMZN_SCEN, 270.87, 'Long')
+  const short = priceBand(AMZN_SCEN, 270.87, 'Short')
+  assert.equal(long!.state, short!.state, 'geometry is direction-blind')
+  assert.match(long!.note, /too cautious/i)
+  assert.match(short!.note, /against the short/i, 'above the band is the short losing, not the short winning')
+  assert.match(priceBand(AMZN_SCEN, 131.4, 'Short')!.note, /run past its own best case/i)
+})
+
+await check('it refuses to invent a band it does not have', () => {
+  assert.equal(priceBand(AMZN_SCEN, null, null), null, 'no live price → no band')
+  assert.equal(priceBand(AMZN_SCEN, 0, null), null, 'a zero price is not a price')
+  assert.equal(priceBand(null, 270, null), null, 'no scenarios → no band')
+  assert.equal(priceBand([], 270, null), null, 'empty scenarios → no band')
+  assert.equal(priceBand([{ label: 'base', price_target: 210 }], 270, null), null, 'ONE target is a point, not a band')
+  assert.equal(priceBand([{ label: 'base', price_target: 210 }, { label: 'bull', price_target: 210 }], 270, null), null, 'identical targets are a point, not a band (low === high)')
+  assert.equal(priceBand([{ label: 'a' }, { label: 'b' }], 270, null), null, 'scenarios with no prices → no band')
+})
+
+await check('callVsLive carries the band, and stays null-safe when the record has no scenarios', () => {
+  const withBand = callVsLive({ entryPrice: 238.34, expectedReturnPct: -16.1, livePrice: 270.87, currency: 'USD', scenarios: AMZN_SCEN, basket: 'Watchlist' })
+  assert.equal(withBand!.band!.state, 'above')
+  const noScen = callVsLive({ entryPrice: 238.34, expectedReturnPct: -16.1, livePrice: 270.87, currency: 'USD' })
+  assert.equal(noScen!.band, null, 'an older record with no scenarios simply has no band — never a fake one')
+  assert.equal(noScen!.live_expected_return_pct, withBand!.live_expected_return_pct, 'the band never disturbs the existing math')
 })
 
 for (const d of tmpdirs) { try { fs.rmSync(d, { recursive: true, force: true }) } catch { /* best effort */ } }

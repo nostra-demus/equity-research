@@ -1616,6 +1616,10 @@ app.get('/api/quote', { config: { rateLimit: { max: 600, timeWindow: '1 minute' 
         livePrice: o.quote.price,
         currency: o.quote.currency,
         entryPriceTimestamp: typeof d.entry_price_timestamp === 'string' ? d.entry_price_timestamp : null,
+        // the band check needs the run's own scenario prices and its position (a higher price is good
+        // for a long and bad for a short — see priceBand)
+        scenarios: d.scenarios,
+        basket: typeof d.basket === 'string' ? d.basket : null,
       })
     : null
   return { ticker, quote: o.quote, call, reason: o.reason }

@@ -372,6 +372,9 @@ export function DecisionBanner() {
     ? (liveQuote.reason as QuoteAbsentReason)
     : null
   const exit = targetOf(decision, call)
+  // The price-left-the-band alarm. Gated on a POSITIVE state (DESIGN.md §5 deploy-skew): an engine older
+  // than this bundle sends no `band`, and absence must read as "no band", never as "inside".
+  const band = call?.band && call.band.state !== 'inside' ? call.band : null
 
   return (
     // A static dock frames the animated card so its centring survives framer-motion (which rewrites the
@@ -412,6 +415,22 @@ export function DecisionBanner() {
               <> The new-data read filed the newer evidence as note-only — below the materiality/tier bar to scope a re-run, not proof the inputs are unchanged — so a full run is optional but may still be worth it.</>
             )}
           </NewerRunStrip>
+        )}
+        {/* THE PRICE HAS LEFT THE BAND. The engine already warned on a DATE (eval check AS); this warns on
+            the PRICE, which is the faster signal — a date waits, a price does not. Deliberately worded as
+            a prompt, not a verdict: every case the run modelled is now on one side of the market, which
+            says the scenario set is out of date, NOT that the thesis is refuted (§7/§19). */}
+        {band && (
+          <div className="decision__band" role="status" onClick={(e) => e.stopPropagation()}>
+            <span className="decision__band-glyph" aria-hidden>▲</span>
+            <span>
+              <b>The price has left this call's range.</b>{' '}
+              {money(call!.currency, call!.live_price)} is {band.outside_by_pct}%{' '}
+              {band.state === 'above' ? 'above' : 'below'} the {band.state === 'above' ? 'highest' : 'lowest'} case
+              it modelled ({money(call!.currency, band.low)} – {money(call!.currency, band.high)}). {band.note}{' '}
+              <span className="decision__band-soft">That dates the call — it is not proof the thesis is wrong.</span>
+            </span>
+          </div>
         )}
         <div className="decision__verdict">
           <span className="decision__eyebrow">Decision</span>
