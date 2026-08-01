@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0",
+  "ticker": "HCG",
+  "original_decision_date": "2026-06-01",
+  "review_date": "2026-08-01",
+  "review_window": "ad-hoc",
+  "original_decision": "Avoid",
+  "basket": "Avoid",
+  "entry_price": 646.15,
+  "tracking_price": null,
+  "review_price": null,
+  "absolute_return_pct": null,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "prediction": "FQ1 FY27 revenue misses the ~INR 7,340.9M (~+20% implied) consensus bar",
+      "status": "still open",
+      "evidence": "The window this forecast carries (by 2026-07-30) has ELAPSED, but the event it settles on has not happened: HCG's board meets 2026-08-06 to approve the unaudited FQ1 FY27 results (quarter ended 30-Jun-2026), with the earnings call on 2026-08-07. There is nothing to resolve against, so this is 'still open' — not 'not assessable', because the settling event is scheduled, dated and six days away. Recorded as a forecast-construction fault, not an evidence gap: the window was set before the company's own reporting date. [HealthCare Global Enterprises board-meeting intimation for the quarter ended 30-Jun-2026, meeting 2026-08-06; earnings call 2026-08-07 — web-sourced, dated, indicative/unverified]",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "HCG trades below INR 646.15 (the decision price) in 12 months",
+      "status": "still open",
+      "evidence": "Window runs to 2027-06-01. No price was sourced for this ad-hoc review; the 30d review (2026-07-11) is the last price read on this record.",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "FY27 EPS-Normalized consensus is NOT raised net-positive over the next 6 months",
+      "status": "still open",
+      "evidence": "Window runs to 2026-12-01. The FQ1 FY27 print on 2026-08-06 is the first event capable of moving it.",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "Group statutory ROIC stays below the ~11-12% cost of capital in FY27",
+      "status": "still open",
+      "evidence": "Window runs to the FY27 results (mid-2027). Not resolvable now.",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "Reported (audited) FY26 PAT does NOT reconcile up to the ~INR 557M adjusted figure cleanly",
+      "status": "still open",
+      "evidence": "Window runs to the FY26 audited annual report (~mid-2026). Not re-checked in this ad-hoc review, which was triggered by the FQ1 window only; the 30d review (2026-07-11) is the last read on this item.",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "No further CFO/auditor exit before the next governance review",
+      "status": "still open",
+      "evidence": "Window runs to 2027-06-01. No further exit found in the evidence gathered for this review.",
+      "as_of": "2026-08-01"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "FQ1 FY27 results (quarter ended 30-Jun-2026)",
+      "status": "pending",
+      "evidence": "Board meeting to approve the unaudited results is scheduled for 2026-08-06, with the earnings call on 2026-08-07. The trading window was closed ahead of it. Not yet reported as at this review date. Also flagged in contemporaneous coverage as the first print after the divestment of the non-core IVF business and the listing of the rights-issue shares — both of which will complicate the year-on-year revenue comparison the open forecast is measured against. [HCG board-meeting intimation and earnings-call schedule, 2026-08-06/07 — web-sourced, dated, indicative/unverified]",
+      "as_of": "2026-08-01"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Governance — further CFO/auditor departure",
+      "status": "not materialized",
+      "evidence": "No further exit found in the evidence gathered for this review. Absence of evidence over a two-month window is weak evidence; recorded as not materialized rather than resolved.",
+      "as_of": "2026-08-01"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "Filed ad-hoc and deliberately narrow. The 30d review was filed 2026-07-11 and 90d is not yet due; the only trigger is that forecast[2] carried a 'by 2026-07-30' window that has now elapsed — surfaced by the new eval check AS.",
+    "THE FINDING IS THE FORECAST, NOT THE COMPANY. HCG's FQ1 FY27 forecast was given a window ending 2026-07-30, but the company's own board meeting to approve those results is 2026-08-06 — a week AFTER the window closed. The forecast could never have been resolved inside its own window. That is a construction fault, and it is exactly the class of defect check AO (resolvability at authoring time) is meant to catch: the trigger named a settleable document but the WINDOW was not set to the date that document actually arrives. AO checks that a forecast CAN be settled; it does not check that its window contains the settling event.",
+    "Recorded 'still open' rather than 'not assessable'. The distinction matters for calibration: 'not assessable' means the evidence may never exist; here the evidence is scheduled, dated and six days away. Marking it not-assessable would quietly drop a resolvable forecast out of the scoring population.",
+    "The FQ1 print will be harder to score than the forecast assumed, for reasons dated after the decision and therefore NOT counted against the original process: HCG has since divested its non-core IVF business and listed rights-issue shares. Both distort the year-on-year revenue comparison the ~INR 7,340.9M consensus bar was built on. Whoever resolves this on 2026-08-06 must state which basis they are comparing.",
+    "Price fields are null in this review by choice, not by failure: this was a narrow, single-trigger ad-hoc filing and no fresh price was sourced. The 30d review (2026-07-11) carries the last price read on this record, and the 90d review is the right place for the next one. entry_price of INR 646.15 stands unchanged in the record (timestamped '2026-05, late-May 2026 pool snapshot').",
+    "Thesis status stays on-track: this is an Avoid, two months old, with nothing yet resolved for or against it. decision_quality is not assessable on the same ground."
+  ],
+  "module_calibration_notes": {
+    "most_responsible_for_decision": "Not re-derived in this narrow ad-hoc review — the record's own module_scores stand.",
+    "most_accurate_so_far": "Not separable — no forecast has resolved.",
+    "missed_the_key_variable": "Nothing on the company. On PROCESS, the earnings module (or whichever authored the FQ1 forecast) set a resolution window that closed before the company's reporting date. Judged on information available on or before 2026-06-01: an Indian listed company's Q1 (June-quarter) results are customarily approved in late July or August under SEBI LODR timelines, so a 'by 2026-07-30' window for a June-quarter print was optimistic on the calendar even at authoring time.",
+    "which_module_mattered_most_to_the_outcome": "Too early — no outcome yet.",
+    "confidence_score_judgment": "Not revisited; nothing has resolved.",
+    "data_sufficiency_score_judgment": "Not implicated. This is a forecast-window fault, not a data-availability one.",
+    "evidence_partition_note": "The process judgment above rests only on what was knowable at 2026-06-01 (the customary Indian June-quarter reporting calendar). The 2026-08-06 board-meeting date is used only to establish that the event has not yet occurred."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/HCG_2026-06-01/pre_mortem.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 6,
+    "outcome_vs_verdict": "too_early",
+    "notes": "The thesis is on-track with no forecast resolved either way, so the red-team's 'Survives with haircut' verdict can be neither vindicated nor contradicted. Crediting it before anything is observable is the premature confidence this check exists to measure."
+  },
+  "memo_delta": {
+    "summary": "Nothing material has changed at the company since the memo, and that is the honest answer. The trigger for this filing is internal, not external: the FQ1 FY27 forecast carried a window ending 2026-07-30, but HCG's board does not meet to approve those results until 2026-08-06. The forecast could never have resolved inside its own window. Two post-decision corporate actions — the divestment of the non-core IVF business and the listing of rights-issue shares — will complicate the revenue comparison that forecast is measured against.",
+    "thesis_delta_verdict": "too_early",
+    "changed_sections": [],
+    "stage_one_comment": "No change to the view on HCG. Nothing has been reported since our note - the company only meets on 6 August to approve its June quarter results, with the call the following day. The reason we are filing anything at all is a fault on our side rather than theirs: we set our first quarter revenue forecast to resolve by 30 July, a week before the company was ever going to publish the numbers, so it could not have been settled inside its own window. We have left it open and it should be resolved on 6 August against the roughly 7,341 million rupee consensus bar. One caution for whoever does that: the company has since sold its non-core fertility business and listed rights issue shares, so the year on year revenue comparison will not be like for like and the basis needs stating. The avoid stands and nothing in the last two months argues against it.",
+    "watch_items": [
+      "FQ1 FY27 results, board meeting 2026-08-06 and earnings call 2026-08-07 — resolves the open revenue forecast against the ~INR 7,340.9M bar",
+      "State the comparison basis when resolving it: the IVF divestment and the rights-issue share listing both break the year-on-year comparability the bar assumes",
+      "Whether FY27 EPS-normalized consensus moves net-positive after the print (open forecast, settles 2026-12-01)",
+      "Any further CFO or auditor departure (open governance forecast, settles 2027-06-01)"
+    ],
+    "management_questions": [
+      "On a like-for-like basis excluding the divested IVF business, what was FQ1 FY27 revenue growth?",
+      "What were the proceeds and the P&L treatment of the IVF divestment, and where do they appear in the quarter?",
+      "How have the rights-issue proceeds been deployed, and what is the resulting share count for per-share comparisons?",
+      "What is the current group statutory ROIC, and what is the path to the ~11-12% cost of capital?"
+    ],
+    "memo_delta_file": "analyses/HCG_2026-06-01/reviews/2026-08-01_ad-hoc_memo_delta.md"
+  }
+}
