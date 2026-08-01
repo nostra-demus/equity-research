@@ -1,8 +1,42 @@
-import { useEffect, type ReactNode } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, type ReactNode } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { decisionColor, priceProvenance, priceQualifier, resolveVerdict, stampDayUTC } from '../lib/format'
 import type { QuoteAbsentReason, WhatChangedRead } from '../lib/types'
+
+/**
+ * Publish the dock's measured height so the constellation can reserve real pixels beneath itself.
+ *
+ * The dock is `position: absolute; bottom: 0` on the SAME stage as the swarm field, so anything the field
+ * places near the floor is drawn behind it — which is exactly how the master-thesis core went missing. The
+ * height cannot be assumed: this bar grows a "newer data" notice, and its metric strip wraps at narrow
+ * widths, so the states differ by ~45px. Measuring is the only version that is right in all of them.
+ *
+ * Deliberately NOT a ResizeObserver. Everything that changes this dock's height is either a re-render of
+ * this component (the notice appearing, the verdict loading, a tier arriving) or a viewport resize — both
+ * of which are observable directly and synchronously. A layout effect with no dependency array runs after
+ * EVERY render, so it catches the first class by construction; the resize listener catches the second.
+ * That is strictly more reliable than an observer here, and — unlike one — it is verifiable in a headless
+ * browser, where ResizeObserver notifications are not delivered at all.
+ *
+ * Reports 0 on unmount: a dock that is not there reserves nothing, which is the honest default and also
+ * exactly the pre-existing layout.
+ */
+function useDockMeasure() {
+  const setStageDockH = useStore((s) => s.setStageDockH)
+  const ref = useRef<HTMLDivElement | null>(null)
+  const measure = useCallback(() => {
+    const el = ref.current
+    // border box: the seat has to clear the bar's border and its upward shadow, not just its content
+    setStageDockH(el ? el.getBoundingClientRect().height : 0)
+  }, [setStageDockH])
+  useLayoutEffect(measure) // no dep array on purpose — every render, because every height change is one
+  useEffect(() => {
+    window.addEventListener('resize', measure)
+    return () => { window.removeEventListener('resize', measure); setStageDockH(0) }
+  }, [measure, setStageDockH])
+  return ref
+}
 
 // the three shareable tiers of a finished run, opened from below the Memo orb
 const TIERS = [
@@ -218,6 +252,7 @@ export function DecisionBanner() {
   const verdictField = useStore((s) => s.swarms.find((w) => w.id === s.constellationSwarm)?.verdictField)
   // Newer-partial awareness (research only — only research keeps dated run folders). These are read
   // unconditionally, before any early return, so the rules of hooks hold.
+  const dockRef = useDockMeasure()
   const selectedTicker = useStore((s) => s.selectedTicker)
   const tickers = useStore((s) => s.tickers)
   const runRoot = useStore((s) => s.runRoot)
@@ -266,7 +301,7 @@ export function DecisionBanner() {
     if (!(hasNewerPartial && runRoot && runRoot !== standingRunRoot)) return null
     const standing = summary?.latestRun
     return (
-      <div className="decision-dock">
+      <div className="decision-dock" ref={dockRef}>
         <motion.div
           className="decision decision--notice-only"
           initial={reduce ? false : { opacity: 0, y: 12 }}
@@ -314,7 +349,7 @@ export function DecisionBanner() {
   return (
     // A static dock frames the animated card so its centring survives framer-motion (which rewrites the
     // card's own transform). The card is seated on the stage floor — a permanent bar, not a floating pill.
-    <div className="decision-dock">
+    <div className="decision-dock" ref={dockRef}>
       {/* The wrapper is deliberately NON-interactive (no role/tabIndex): it contains real child buttons
           (the tier buttons + the what-changed chip), and nesting interactive controls inside a role="button"
           produces an invalid, ambiguous a11y tree (DESIGN.md a11y). The whole-bar onClick stays as a mouse

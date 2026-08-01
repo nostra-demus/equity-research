@@ -252,8 +252,13 @@ function statusPill(status: string, extra?: string) {
   )
 }
 
-export function ActivityLog() {
-  const close = useStore((s) => s.closeActivity)
+/** HISTORY — the perpetual audit of every run ever launched: filters, runs grouped back together from their
+ *  scattered steps, Resume, and the per-run reports.
+ *
+ *  This is the second half of the Activity dock. It renders only its own content — the shell, the title and
+ *  the close button belong to the dock, which also owns the live NOW section above it. `onLoaded` reports
+ *  the row/run counts up so the dock's header can summarise both halves in one line. */
+export function ActivityHistory({ onLoaded }: { onLoaded?: (s: { runCount: number; allTime: number; historySince: string | null; loading: boolean }) => void }) {
   const resumableRuns = useStore((s) => s.resumableRuns)
   const resumeRun = useStore((s) => s.resumeRun)
   const launchPending = useStore((s) => s.launchPending)
@@ -342,11 +347,6 @@ export function ActivityLog() {
   }, [load])
 
   useEffect(() => { api.whoami().then(setWhoami).catch(() => {}) }, [])
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close()
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [close])
 
   const anyFilter = !!(range !== 'all' || ticker || kind || user || status || q)
   const clearFilters = () => { setRange('all'); setFromDate(''); setToDate(''); setTicker(''); setKind(''); setUser(''); setStatus(''); setQ('') }
@@ -368,6 +368,8 @@ export function ActivityLog() {
     if (Object.keys(seed).length) setOpenGroups((m) => ({ ...m, ...seed }))
   }, [units, openGroups])
   const historySince = data?.earliest ? fmtAbsolute(data.earliest) : null
+  // hand the counts to the dock header (one summary line for both halves) — after paint, never during render
+  useEffect(() => { onLoaded?.({ runCount, allTime: data?.allTime ?? 0, historySince, loading: loading && !data }) }, [onLoaded, runCount, data, historySince, loading])
 
   // The Resume + reports (⋯) action cell, shared by plain rows and the group parent.
   const actionCell = (r: ActivityRow, resumable: ResumableRunInfo | undefined, showReport: boolean, reportLabel: string) => {
@@ -468,21 +470,10 @@ export function ActivityLog() {
   }
 
   return (
-    <motion.div className="activity" initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
-      <div className="activity__head">
-        <div style={{ minWidth: 0 }}>
-          <div className="activity__title">Activity log</div>
-          <div className="activity__sub">
-            Perpetual audit of every run launched from the cockpit
-            {whoami && <> · signed in as <b style={{ color: 'var(--text-muted)' }}>{whoami.user}</b>{whoami.userVia === 'local' && ' (local)'}</>}
-          </div>
-        </div>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
-          <button className="btn" style={{ height: 30 }} onClick={() => { setLoading(true); load() }}>Refresh ↻</button>
-          <button className="btn btn--ghost" style={{ height: 30 }} onClick={close}>Close ✕</button>
-        </div>
-      </div>
-
+    // NOT `.activity` — that class is the sliding OVERLAY shell, still used by the chat-history browser.
+    // This is a section inside the dock, so it owns its own root and only shares the inner `activity__*`
+    // element styles (filters / count / body / empty), which are position-independent.
+    <div className="ahistory">
       {staticMode ? (
         <div className="activity__empty">The activity log lives on the live engine. This is the read-only showcase.</div>
       ) : (
@@ -532,14 +523,20 @@ export function ActivityLog() {
           </div>
 
           <div className="activity__count">
+            {/* ONE flex item for the whole sentence — without the wrapper each text node becomes its own
+                flex item and the summary breaks apart mid-phrase as the dock narrows. */}
+            <span className="activity__countline">
             {loading && !data ? 'Loading…' : (
               <>
                 Showing <b>{runCount}</b> {anyFilter ? 'matching ' : ''}run{runCount === 1 ? '' : 's'}
                 {runCount !== rows.length ? ` · ${rows.length}${data && data.total > rows.length ? ` of ${data.total}` : ''} step${rows.length === 1 ? '' : 's'}` : (data && data.total > rows.length ? ` · ${rows.length} of ${data.total}` : '')}
                 {data ? ` · ${data.allTime} total ever` : ''}
                 {historySince ? ` · history since ${historySince}` : ''}
+                {whoami && <> · you are <b style={{ color: 'var(--text-muted)' }}>{whoami.user}</b>{whoami.userVia === 'local' && ' (local)'}</>}
               </>
             )}
+            </span>
+            <button className="activity__refresh" onClick={() => { setLoading(true); load() }} title="Re-read the audit log now">Refresh ↻</button>
           </div>
 
           <div className="activity__body">
@@ -559,6 +556,6 @@ export function ActivityLog() {
           {menu && <ActivityReportMenu row={menu.row} anchor={menu.anchor} onClose={() => setMenu(null)} />}
         </>
       )}
-    </motion.div>
+    </div>
   )
 }

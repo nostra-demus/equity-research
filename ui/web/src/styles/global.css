@@ -240,7 +240,18 @@ a { color: inherit; }
   transition: background var(--dur-fast);
 }
 .cluster__label:hover { background: var(--accent-wash-soft); }
-.cluster__name { font-size: 11.5px; font-weight: 600; letter-spacing: 0.5px; color: var(--text); text-transform: uppercase; }
+/* Dependency edges are routed between modules, so some of them necessarily pass BEHIND a module's label —
+   a graph cannot promise otherwise. A knockout halo (the map-label technique) keeps the text readable where
+   one crosses, without a solid plate that would weigh the field down. Theme-aware via --bg, paint-only, and
+   it costs no layout: the vertical budget in lib/layout.ts is unaffected. */
+.cluster__name, .cluster__status {
+  text-shadow: 0 0 5px var(--bg), 0 0 5px var(--bg), 0 0 9px var(--bg);
+}
+/* One line, always. The whole vertical budget in lib/layout.ts is built from this block's height, so a
+   name that wrapped ("BALANCE SHEET SURVIVAL") grew the block UPWARD past its reserve — straight into the
+   Constellation/Globe toggle. Module names are far narrower than the column pitch even on the smallest
+   field, so nowrap costs nothing and makes the height deterministic, which is what the budget needs. */
+.cluster__name { font-size: 11.5px; font-weight: 600; letter-spacing: 0.5px; color: var(--text); text-transform: uppercase; white-space: nowrap; }
 .cluster__status { font-size: 10px; letter-spacing: 0.3px; }
 .cluster__run {
   margin-top: 2px; font-size: 10px; color: var(--accent-bright); opacity: 0; transition: opacity var(--dur-fast);
@@ -377,12 +388,10 @@ a { color: inherit; }
 .btn--danger { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 42%, transparent); }
 .btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-/* ---------- right panel (run stream) ---------- */
-.sidepanel {
-  width: 360px; flex-shrink: 0; border-left: 1px solid var(--hairline);
-  background: var(--panel-bg);
-  display: flex; flex-direction: column; min-height: 0;
-}
+/* ---------- run cards (the dock's NOW section) ----------
+   The old `.sidepanel` root — a fixed 360px panel of its own — is gone: these elements now live inside the
+   resizable Activity dock (`.adock`), which owns the width, the border and the background. Only the element
+   styles remain, so the cards look identical wherever the dock is dragged to. */
 .sidepanel__head { padding: 14px 16px; border-bottom: 1px solid var(--hairline); display: flex; align-items: center; justify-content: space-between; }
 .sidepanel__title { font-size: 12px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-muted); }
 .sidepanel__close {
@@ -396,6 +405,35 @@ a { color: inherit; }
 .sidepanel__meta { font-size: 11px; color: var(--text-faint); font-family: var(--font-mono); }
 .sidepanel__body { flex: 1; overflow-y: auto; padding: 8px 10px; }
 .sidepanel__empty { color: var(--text-faint); font-size: 12px; padding: 24px 14px; text-align: center; line-height: 1.6; }
+
+/* A run's progress bar (RunStreamPanel). Determinate when there is a fraction, INDETERMINATE while a run
+   with no denominator is in flight (an orbless news scan / new-data read), and full — in its outcome's
+   colour — once it has finished. A finished run drawn at 0% width was the bug: "done" over an empty track. */
+.runbar { height: 5px; background: var(--surface-3); border-radius: var(--r-pill); overflow: hidden; }
+.runbar__fill {
+  height: 100%; width: 100%; transform-origin: left; background: var(--accent);
+  transition: transform 350ms var(--ease), background-color 220ms var(--ease);
+}
+.runbar--live .runbar__fill { box-shadow: 0 0 8px var(--accent-glow); }
+/* The standard indeterminate sweep: a short segment travelling the track, so it reads as "working, length
+   unknown" instead of claiming a percentage. transform only — never width/left — so it stays on the
+   compositor. Translation is in units of the SEGMENT's own width: 100/38 ≈ 263% clears the far edge. */
+.runbar--indeterminate .runbar__fill {
+  width: 38%; transform-origin: center; transition: none;
+  animation: runbar-sweep 1.15s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes runbar-sweep {
+  from { transform: translateX(-105%); }
+  to { transform: translateX(265%); }
+}
+/* Paused on a human decision (the readiness gate): live, but nothing is moving. Static and unglowing, so it
+   reads as "stopped, your move" rather than as work in progress or as a finished run. */
+.runbar--paused .runbar__fill { animation: none; opacity: 0.7; }
+@media (prefers-reduced-motion: reduce) {
+  /* no travelling segment — hold a dimmed full track, which still reads as "in flight, not measurable" */
+  .runbar--indeterminate .runbar__fill { animation: none; width: 100%; transform: none; opacity: 0.45; }
+  .runbar__fill { transition: none; }
+}
 
 .streamrow { display: flex; gap: 10px; padding: 8px 8px; border-radius: var(--r-sm); }
 .streamrow:hover { background: var(--surface-2); }
@@ -697,7 +735,123 @@ a { color: inherit; }
 .md blockquote { border-left: 2px solid var(--accent-deep); margin: 12px 0; padding: 4px 14px; color: var(--text-muted); font-style: italic; }
 .md hr { border: none; border-top: 1px solid var(--hairline); margin: 20px 0; }
 
+/* ---------- ACTIVITY DOCK — one surface for what's running and what has run ----------
+   In the layout, not over it: a flex sibling of .stage, so the stage shrinks beside it and the dock can
+   never cover the work it reports on (the old activity overlay did exactly that). `container-type` makes
+   its width the query axis for everything inside — the audit table below reshapes against the DOCK, not
+   the viewport, which is what lets it stay readable at any drag position. */
+.adock {
+  position: relative; flex: none; min-width: 0; container: adock / inline-size;
+  display: flex; flex-direction: column; min-height: 0;
+  border-left: 1px solid var(--hairline); background: var(--panel-bg);
+}
+/* The resize handle: a comfortable 11px hit area straddling the edge, with a 1px visual line. Only the
+   line reacts, so the affordance is quiet until sought. */
+.adock__grip {
+  position: absolute; left: -6px; top: 0; bottom: 0; width: 11px; z-index: 2;
+  cursor: col-resize; touch-action: none; display: flex; justify-content: center;
+}
+.adock__grip:focus-visible { outline: none; }
+.adock__gripline {
+  width: 1px; height: 100%; background: transparent;
+  transition: background-color 140ms cubic-bezier(0.23, 1, 0.32, 1), transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
+  transform: scaleX(1); transform-origin: center;
+}
+@media (hover: hover) and (pointer: fine) {
+  .adock__grip:hover .adock__gripline { background: var(--accent); transform: scaleX(3); }
+}
+.adock__grip:focus-visible .adock__gripline { background: var(--accent); transform: scaleX(3); }
+.adock--dragging .adock__gripline { background: var(--accent); transform: scaleX(3); }
+/* While dragging, kill text selection + pointer noise across the whole dock so the drag stays clean. */
+.adock--dragging { user-select: none; }
+.adock--dragging .adock__scroll { pointer-events: none; }
+
+.adock__head {
+  display: flex; align-items: center; gap: 10px; padding: 13px 14px 12px 16px;
+  border-bottom: 1px solid var(--hairline); flex: none;
+}
+.adock__headmain { min-width: 0; flex: 1; }
+.adock__title {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-muted);
+}
+.adock__livedot { width: 6px; height: 6px; border-radius: 50%; background: var(--live); flex: none; box-shadow: 0 0 7px var(--live); }
+@media (prefers-reduced-motion: no-preference) {
+  .adock__livedot { animation: adock-pulse 1.9s ease-in-out infinite; }
+}
+@keyframes adock-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.adock__sub {
+  margin-top: 3px; font-size: 11px; color: var(--text-faint); font-family: var(--font-mono);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* ONE scroll container for both halves, so the dock reads as a single column top to bottom rather than as
+   two panes fighting over the wheel. */
+.adock__scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
+.adock__section { border-bottom: 1px solid var(--hairline); }
+.adock__section--history { border-bottom: none; }
+/* The section label. Sticky, so you always know which half you are reading once the list is long. */
+.adock__legend {
+  position: sticky; top: 0; z-index: 1;
+  display: flex; align-items: baseline; gap: 8px; margin: 0; padding: 10px 16px 8px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.9px; text-transform: uppercase; color: var(--text-faint);
+  background: var(--panel-bg); border-bottom: 1px solid var(--hairline);
+}
+.adock__legendnote { font-size: 10px; font-weight: 500; letter-spacing: 0.3px; text-transform: none; color: var(--text-faint); font-family: var(--font-mono); }
+.adock__idle { color: var(--text-faint); font-size: 12px; padding: 18px 16px 20px; line-height: 1.6; }
+
 /* ---------- activity / audit log ---------- */
+/* The history half inside the dock. Its inner elements (.activity__filters / __count / __body / __empty)
+   are shared with the overlay shell below and are position-independent, so only the ROOT differs. */
+.ahistory { display: flex; flex-direction: column; }
+.activity__refresh {
+  margin-left: auto; padding: 2px 8px; border-radius: var(--r-sm); font-size: 11px; color: var(--text-muted);
+  background: transparent; border: 1px solid var(--hairline-strong); cursor: pointer;
+  transition: color 140ms cubic-bezier(0.23, 1, 0.32, 1), border-color 140ms cubic-bezier(0.23, 1, 0.32, 1), transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+@media (hover: hover) and (pointer: fine) { .activity__refresh:hover { color: var(--text); border-color: var(--accent); } }
+.activity__refresh:active { transform: scale(0.97); }
+.activity__count { display: flex; align-items: baseline; gap: 10px; }
+.activity__countline { min-width: 0; flex: 1; line-height: 1.5; }
+
+/* ---- the dock's width drives the layout, at every drag position ----
+   Wide: the full audit table. Narrow: the same table's cells flow inline, so EVERY value survives — the
+   row just wraps into a compact card instead of a 9-column grid nothing can render at 400px. Nothing is
+   hidden at any width; only the arrangement changes. */
+@container adock (max-width: 720px) {
+  .ahistory .activity__filters { padding: 10px 14px; gap: 6px; }
+  .ahistory .activity__filters .fld { height: 27px; font-size: 11.5px; }
+  .ahistory .activity__filters .fld--search { min-width: 110px; flex: 1; }
+  .ahistory .seg__btn { height: 27px; padding: 0 9px; font-size: 11.5px; }
+  .ahistory .activity__count { padding: 8px 14px; font-size: 11px; }
+
+  .ahistory .atable thead { display: none; }
+  .ahistory .atable, .ahistory .atable tbody, .ahistory .atable tr { display: block; }
+  .ahistory .atable tr { padding: 9px 14px; border-bottom: 1px solid var(--hairline); }
+  .ahistory .atable td {
+    display: inline-block; border: none; padding: 1px 0; margin-right: 9px; vertical-align: baseline;
+    max-width: 100%; overflow: hidden; text-overflow: ellipsis;
+  }
+  /* Action + Company lead the card and own their own lines; the rest flow as a wrapping meta line. */
+  .ahistory .atable td:nth-child(3) { display: block; margin-right: 0; }
+  .ahistory .atable td:nth-child(4) { display: block; margin-right: 0; font-weight: 600; max-width: 100%; }
+  .ahistory .atable td:nth-child(9) { float: right; margin-right: 0; }
+  .ahistory .atable__num { text-align: left; }
+  /* A bare number is ambiguous once its column header is gone — name it. */
+  .ahistory .atable td:nth-child(7):not(:empty)::before { content: 'cost '; color: var(--text-faint); }
+  .ahistory .atable td:nth-child(8):not(:empty)::before { content: 'took '; color: var(--text-faint); }
+  .ahistory .atable__who { max-width: 46vw; }
+  /* a step inside a run keeps reading as nested once the table's indent column is gone */
+  .ahistory .atable tr.achild { border-left: 2px solid var(--hairline-strong); padding-left: 18px; }
+}
+/* Narrower still: the filter row becomes a single wrapping column of full-width controls rather than a
+   cramped 8-across strip. */
+@container adock (max-width: 430px) {
+  .ahistory .activity__filters .fld { flex: 1 1 100%; }
+  .ahistory .activity__filters .seg { width: 100%; }
+  .ahistory .activity__filters .seg__btn { flex: 1; }
+}
+
 .activity {
   position: absolute; top: 0; right: 0; bottom: 0; width: min(1040px, 88%); z-index: 50;
   background: var(--surface-1); border-left: 1px solid var(--hairline-strong); box-shadow: var(--shadow-2);

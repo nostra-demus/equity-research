@@ -1,0 +1,191 @@
+{
+  "schema_version": "1.0",
+  "ticker": "AMZN",
+  "original_decision_date": "2026-07-10",
+  "review_date": "2026-08-01",
+  "review_window": "ad-hoc",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 238.34,
+  "tracking_price": null,
+  "review_price": 270.87,
+  "absolute_return_pct": 13.65,
+  "benchmark_return_pct": -0.22,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": 13.87,
+  "sector_relative_return_pct": null,
+  "thesis_status": "broken",
+  "forecast_results": [
+    {
+      "prediction": "AWS segment margin compresses 100-300bp in FY2026 vs FY2025 (35.4%) as D&A from the $131.8B capex wave flows through Technology & Infrastructure costs",
+      "status": "still open",
+      "evidence": "Window is FY2026 full year (settles Feb 2027), so it is not yet elapsed — but both reported quarters run the OTHER way: Q1 2026 AWS margin 37.7%, Q2 2026 39.4% ($16.6B EBIT on $42.2B revenue), against the 35.4% FY2025 base. For the full year to compress even 100bp, H2 would have to average roughly 30% — an extreme reversal of the observed trend. Recorded as open on the letter of the window; the evidence to date runs strongly against it. [Amazon Q2 2026 results, IR release, 2026-07-30; CNBC AWS Q2 2026, 2026-07-30]",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "Q2 2026 consolidated EBIT lands in the $23-25B range (above the $23.4B consensus mid-point) driven by AWS acceleration and advertising strength",
+      "status": "falsified",
+      "evidence": "Actual Q2 2026 consolidated operating income was $27.5B, +43% YoY — ABOVE the stated $23-25B range, so the forecast as written did not hold. Its directional claim (above the $23.4B consensus mid-point) was correct; only its magnitude was too conservative, by ~10% at the top of the range. Falsified on the letter, directionally right. [Amazon Q2 2026 results, IR release, 2026-07-30]",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "Amazon's Anthropic $60.6B Level 3 investment is not marked down materially (>$15B reduction) in the next 12 months",
+      "status": "still open",
+      "evidence": "12-month window (settles by Q2 2027 results); no mark-down disclosed in the Q2 2026 release reviewed here. No contrary evidence found.",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "AMZN stock re-rates to the $190-210 range within 12 months as the market prices in D&A cost pressure",
+      "status": "still open",
+      "evidence": "12-month window (to 2026-07-10 +1y), not elapsed. Evidence strongly against: the shares closed 2026-07-31 at $270.87, some 29% ABOVE the top of the predicted range and above the run's own bull case of $247. [stockanalysis.com AMZN price history, accessed 2026-08-01, indicative/unverified]",
+      "as_of": "2026-08-01"
+    },
+    {
+      "prediction": "Amazon completes the Globalstar acquisition within 12 months, adding satellite network risk and M&A integration distraction",
+      "status": "still open",
+      "evidence": "12-month window, not elapsed. No completion or termination found in the evidence gathered for this review.",
+      "as_of": "2026-08-01"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "Q2 2026 earnings, 31 July 2026 — the thesis's own named decisive test of the D&A billing-lag hypothesis",
+      "status": "materialized",
+      "evidence": "Reported 2026-07-30 (a day earlier than the thesis's stated date). Net sales $200.6B (+20%), operating income $27.5B (+43%), AWS revenue $42.2B (+37%, fastest in 18 quarters), AWS operating income $16.6B at a 39.4% margin, capex guided up to ~$220B for the year. The record's edge_proof stated: 'if AWS margin holds or expands, the hypothesis is wrong and the bull case at $247+ is live.' AWS margin expanded ~400bp against the FY2025 base. The test fired, and it fired against the thesis. [Amazon Q2 2026 results, IR release, 2026-07-30; CNBC, 2026-07-30]",
+      "as_of": "2026-08-01"
+    },
+    {
+      "catalyst": "Q3 2026 EBIT guidance as a demand/cost signal",
+      "status": "pending",
+      "evidence": "Not separately verified in this review; the record's kill criterion was a Q3 guide below $22B. No evidence gathered either way.",
+      "as_of": "2026-08-01"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Killer risk — D&A from the capex wave arrives faster than revenue and compresses AWS margins below 30%, driving EBIT to $60-65B and fair value to $146 or below",
+      "status": "not materialized",
+      "evidence": "The opposite occurred in the two quarters reported since: AWS margin 37.7% (Q1) then 39.4% (Q2) against a 35.4% FY2025 base, with consolidated EBIT running at a $27.5B quarterly rate. The kill criterion (Q2 AWS margin <30% AND T&I growing >25% YoY without revenue acceleration) did not trigger — AWS revenue accelerated to +37%. [Amazon Q2 2026 results, 2026-07-30]",
+      "as_of": "2026-08-01"
+    },
+    {
+      "risk": "RF-ACC-001 — Anthropic $60.6B Level 3 mark-to-model investment inflating GAAP EPS",
+      "status": "pending",
+      "evidence": "No mark-down or re-measurement disclosed in the evidence reviewed. The underlying opacity concern is unresolved, not refuted.",
+      "as_of": "2026-08-01"
+    },
+    {
+      "risk": "Capex escalation beyond the modelled ~$200B FY2026 programme",
+      "status": "materialized",
+      "evidence": "Capex guidance was RAISED to approximately $220B for the year, above the ~$200B the run modelled. Notably the market read this as a demand signal rather than a cost: management stated capacity remains short of demand, and the shares rose. The risk materialized in magnitude but not in effect. [Fortune, 2026-07-31; Amazon Q2 2026 results, 2026-07-30]",
+      "as_of": "2026-08-01"
+    }
+  ],
+  "decision_quality": "genuine miss",
+  "error_taxonomy": [
+    "bad base rate",
+    "valuation multiple error",
+    "bad causal inference",
+    "false negative"
+  ],
+  "lessons": [
+    "The thesis's own falsification condition fired against it. The record stated: 'if AWS margin holds or expands, the hypothesis is wrong and the bull case at $247+ is live.' AWS margin expanded from a 35.4% FY2025 base to 39.4% in Q2 2026. On the engine's own stated terms the D&A billing-lag hypothesis is refuted, and the thesis is recorded broken.",
+    "Price outcome: entry $238.34 (2026-07-01, Capital IQ, pool-verified) to $270.87 (2026-07-31 close) = +13.65%, against an S&P 500 move of about -0.22% over the same window = +13.87pp benchmark-relative. As a Watchlist there was no executed position, so this is opportunity cost, not realised loss — but the call was 'do not buy at $238' with an expected return of -16.1%, and it was wrong in both direction and magnitude.",
+    "Review price $270.87 and index levels are web-sourced and indicative/unverified: AMZN close 2026-07-31 via stockanalysis.com price history (accessed 2026-08-01); S&P 500 7,483.23 on 2026-07-01 via CNBC market report and approximately 7,467 on 2026-07-31 via Trading Economics.",
+    "sector_return_pct is null on purpose. The record names the Nasdaq 100 as sector benchmark; only Nasdaq COMPOSITE levels could be sourced, and substituting one index for another would attach a number to a name it did not come from (CLAUDE.md §5). The call is benchmark-scoreable against the S&P 500 and not yet sector-scoreable.",
+    "PROCESS ERROR, judged only on information available on or before 2026-07-10 (no hindsight): the disconfirming evidence was already in the engine's own files. earnings/03_margin-drivers.md recorded AWS margin RECOVERING 35.4% to 37.7% in Q1 2026, labelled Tailwind / High confidence, 'the new capacity is beginning to be monetized'; 99_earnings-synthesis returned 'Earnings accelerating' with a 'Balanced' setup. The master synthesis nonetheless headlined margin COMPRESSION at 60% probability. This is not a data gap and not bad luck — it is the synthesis inverting the sign of its own strongest module.",
+    "PROCESS ERROR, same information partition: the valuation base point put 40% weight — its single largest — on a sum-of-the-parts built on FY2025 TRAILING segment EBIT, while its own text conceded the trailing anchor 'understates the current run rate' and that 'the method I trust most is the SOTP-forward approach'. Peers ($258) and DCF ($207) alone blend to about $237, essentially the market price; the stale leg alone produced the $210 base and the negative margin of safety that drove the Watchlist.",
+    "PROCESS ERROR: the reverse-DCF judged the market's implied ~16.4% profit CAGR 'aggressive vs the 11.1% historical revenue CAGR' — testing forward SEGMENT-DRIVEN PROFIT growth against a decade of CONSOLIDATED REVENUE growth in a business where the segment driving profit was 18% of revenue and 57% of EBIT. Wrong metric, wrong level, wrong period. Realised consolidated EBIT growth in the next reported quarter was +43%.",
+    "PROCESS ERROR: capex was scored only as a future cost (D&A). The same run recorded, as its own 'strongest bull point', a $364B AWS backlog (+49% in one quarter) and management stating supply — not demand — was the binding constraint. Where capacity is sold before it is built, capex is closer to a booking than an expense; the market read the raised $220B guide as a demand signal and the shares rose.",
+    "The scenario set never spanned the outcome. Bull $247 (25%) / base $210 (45%) / bear $146 (30%) — a best case only +3.6% above the price, requiring FOUR conditions simultaneously (AWS >=35% growth AND D&A absorbed on a 6-month lag AND advertising rebounding to 32% AND North America units to 20%), against a bear needing one. ONE of the four (AWS growth, which printed 37%) moved the stock 15% in two days, past the top of the entire distribution.",
+    "What the process got RIGHT, and should not be over-corrected: the run wrote a genuine, dated, machine-checkable kill test and that test resolved cleanly; it never claimed the business was poor ('the franchise is worth owning, but not at today's price'); its Q2 EBIT forecast was directionally correct and ABOVE consensus; and the edge gate did its job — edge_score 35 < 50 capped confidence at 57, so the engine correctly reported that it had no proven edge. The defect is that a -16.1% expected return shipped as the headline anyway.",
+    "Single most important takeaway: the doctrine needed to prevent this was already written and simply unenforced. The multiples-first weighting policy (MODULE_RULES Scenario Construction §1) and the prohibition on a trailing SOTP carrying weight (06_sum-of-the-parts; Calculation Standard 10) were both hard rules, and the run broke both without anything noticing."
+  ],
+  "module_calibration_notes": {
+    "most_responsible_for_decision": "valuation — the -16.1% expected return is arithmetic on its $210 base fair value against a $238.34 price. No other module's score would have produced a Watchlist on its own.",
+    "most_accurate_so_far": "earnings — verdict 'Earnings accelerating', next-quarter setup 'Balanced', and a Q2 EBIT forecast ABOVE the consensus mid-point. Directionally right on every count; its only error was being too conservative on magnitude ($23-25B vs an actual $27.5B).",
+    "missed_the_key_variable": "valuation (weighted a trailing-earnings anchor at 40% while conceding in its own text that it understated the run rate) and the master synthesis (inverted margin-drivers' Tailwind/High reading of the very variable the thesis turned on).",
+    "which_module_mattered_most_to_the_outcome": "valuation and earnings. The realised outcome was an earnings event — AWS revenue acceleration and margin expansion — read correctly by the earnings module and then overridden by the valuation base point and the master synthesis. Governance and balance-sheet-survival were not material to this outcome.",
+    "confidence_score_judgment": "57 was defensible and arguably should have been LOWER, not higher. Given only what was knowable on 2026-07-10, the run held an edge_score of 35 (below its own 50 gate), a valuation module confidence of 55 flagged for method dispersion of 52-148%, and a module (earnings) pointing the opposite way on the thesis's central variable. The gate correctly capped conviction; the failure is that a headline expected return of -16.1% was published on that basis at all. A 'no proven edge' read should suppress the headline number, not merely cap the confidence beside it.",
+    "data_sufficiency_score_judgment": "82 was about right and is not implicated. Every fact needed to reach the correct read — the Q1 2026 AWS margin recovery, the $364B backlog, the supply-constrained management commentary, the forward consensus — was already in the pool on 2026-07-10. This was not a data-availability failure; it was a weighting and adjudication failure.",
+    "evidence_partition_note": "All process judgments above use only information dated on or before 2026-07-10 (the Q1 2026 10-Q, the Q1 2026 earnings call, the FY2025 10-K, the Capital IQ estimates workbook current to 2026-06-26). The Q2 2026 results dated 2026-07-30 are used ONLY for outcome fields (thesis_status, forecast_results, catalyst_results, risk_results, returns), never to downgrade the original reasoning."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "",
+    "pre_mortem_verdict": "",
+    "pre_mortem_confidence_haircut": null,
+    "outcome_vs_verdict": "not_applicable",
+    "notes": "no pre-mortem ran for this decision — no pre_mortem*.json exists under the run root. Worth noting given the outcome: the pre-mortem is exactly the step that would have been asked to attack the D&A hypothesis and the four-condition bull case before publication."
+  },
+  "memo_delta": {
+    "summary": "Amazon reported Q2 2026 on 30 July, one day before the memo's own named decisive test. Every number ran against the memo's central idea: AWS revenue grew 37% (fastest in 18 quarters), AWS operating margin EXPANDED to 39.4% against the 35.4% base the memo said would compress, consolidated operating income was $27.5B (+43%) versus the memo's $23-25B call, and capex guidance was RAISED to about $220B. The shares closed 31 July at $270.87 — above the memo's own bull case of $247. The memo's stated falsification condition has fired, so the thesis is recorded broken rather than merely at risk.",
+    "thesis_delta_verdict": "broken",
+    "changed_sections": [
+      {
+        "section": "The Actual Variant Perception (D&A billing lag compresses AWS margins)",
+        "original_claim": "D&A from the $131.8B FY2025 / ~$200B FY2026 capex wave will compress AWS and consolidated margins materially over 18-24 months — a timing mismatch consensus has not priced. Assigned 60% probability.",
+        "new_evidence": "Q2 2026 AWS operating income $16.6B on $42.2B revenue = 39.4% margin, up from about 33.6% a year earlier and above the 35.4% FY2025 base. AWS revenue +37%, its fastest in 18 quarters. The memo's own edge_proof made this the decisive test in either direction.",
+        "evidence_source": "Amazon Q2 2026 results, IR release, 2026-07-30; CNBC 'AWS earnings Q2 2026', 2026-07-30",
+        "materiality_score": 95,
+        "impact_direction": "negative for the thesis",
+        "impacted_modules": ["earnings", "valuation"],
+        "rerun_recommended": true,
+        "rerun_reason": "The module the thesis turned on now has two reported quarters running the opposite way. Re-reading margins on the Q2 actuals is the minimum before any fresh call.",
+        "rerun_command": "/research:earnings AMZN"
+      },
+      {
+        "section": "Valuation and Peer Mispricing (base fair value $210)",
+        "original_claim": "Base fair value $210 against a $238.34 price — a -13.5% margin of safety — from a blend weighting sum-of-the-parts 40% on FY2025 trailing segment EBIT, peers 35%, DCF 25%.",
+        "new_evidence": "Q2 2026 consolidated operating income of $27.5B annualises far above the FY2025 EBIT base the SOTP leg used, and the shares trade at $270.87. The trailing anchor the module itself called conservative is now further out of date by a full quarter of 43% EBIT growth.",
+        "evidence_source": "Amazon Q2 2026 results, IR release, 2026-07-30; AMZN close 2026-07-31 via stockanalysis.com price history, accessed 2026-08-01 (indicative)",
+        "materiality_score": 90,
+        "impact_direction": "negative for the thesis",
+        "impacted_modules": ["valuation"],
+        "rerun_recommended": true,
+        "rerun_reason": "The base point rests on an earnings base two quarters stale and on a method weighting that the repo's own hard rules do not permit; both must be rebuilt before the fair value means anything.",
+        "rerun_command": "/research:valuation AMZN"
+      },
+      {
+        "section": "Catalyst Calendar / Kill Criteria (31 July 2026 Q2 print)",
+        "original_claim": "July 31 Q2 2026 earnings is the first real test of the D&A billing-lag hypothesis; kill criterion set at Q2 AWS margin <30% with T&I growing >25% YoY.",
+        "new_evidence": "The event occurred 30 July. The kill criterion did NOT trigger (margin 39.4%, revenue accelerating), but the memo's separately stated falsification condition — 'if AWS margin holds or expands, the hypothesis is wrong' — did. The two were not symmetric, and only the softer one was written into kill_criteria.",
+        "evidence_source": "Amazon Q2 2026 results, IR release, 2026-07-30; decision_record.json edge_proof and kill_criteria, 2026-07-10",
+        "materiality_score": 70,
+        "impact_direction": "negative for the thesis",
+        "impacted_modules": ["catalyst"],
+        "rerun_recommended": false,
+        "rerun_reason": "",
+        "rerun_command": ""
+      },
+      {
+        "section": "Capital spend read (capex as future D&A)",
+        "original_claim": "The ~$200B FY2026 capex programme is primarily a future depreciation charge that will compress margins as it lands.",
+        "new_evidence": "Capex guidance raised to about $220B with management stating capacity still falls short of demand. The market read the raise as evidence of demand and the shares rose 15% over two sessions. Three post-decision wire items in the pool carry the same framing.",
+        "evidence_source": "Fortune, 'Andy Jassy said Amazon will spend $220 billion this year', 2026-07-31; data/AMZN/screener_event_EVT-dcc5aa8f071a.md (engine-routed wire event, tier-10 web source, dated)",
+        "materiality_score": 75,
+        "impact_direction": "negative for the thesis",
+        "impacted_modules": ["earnings", "business-model"],
+        "rerun_recommended": true,
+        "rerun_reason": "The margin-driver read scored the spend on one side only; the demand-signal reading is now the one the market and the reported numbers support.",
+        "rerun_command": "/research:rerun earnings margin-drivers AMZN"
+      }
+    ],
+    "stage_one_comment": "Amazon reported Q2 2026 on 30 July and it went against our call in every line that mattered. We argued that depreciation from the AI capex wave would squeeze AWS margins; instead AWS revenue grew 37 percent, its fastest in eighteen quarters, and the AWS operating margin expanded to 39.4 percent against the 35.4 percent base we said would compress. Group operating income was 27.5 billion dollars, above the 23 to 25 billion we forecast, and capex guidance was raised to about 220 billion with management saying capacity still cannot meet demand. The shares closed 31 July at 270.87 dollars, above even our bull case of 247. We wrote our own falsification test into the note - if the AWS margin holds or expands, the idea is wrong - and that test has fired. The thesis is recorded broken. We took no position, so this is opportunity cost rather than loss: plus 13.7 percent against the S and P 500 since our 238.34 dollar reference price. We are not re-rating the stock on this note. The valuation and earnings work needs redoing on the new numbers before we hold any view at all.",
+    "watch_items": [
+      "Q3 2026 results — whether the AWS margin holds near 39% or the D&A drag finally appears with a lag; the original kill criterion of a Q3 EBIT guide below $22B is still live and unresolved",
+      "FY2026 full-year AWS margin versus the 35.4% FY2025 base — the open forecast settles here in Feb 2027 and currently runs the opposite way",
+      "Any mark-down of the $60.6B Anthropic Level 3 position (>$15B would resolve the open forecast and reopen the GAAP EPS quality question)",
+      "Whether the raised ~$220B capex converts to billings on the stated schedule, or begins to outrun revenue as the original thesis argued",
+      "The Globalstar acquisition — completion or termination within the 12-month window"
+    ],
+    "management_questions": [
+      "AWS operating margin has now risen for two consecutive quarters while capex accelerated. How much of that is Trainium mix and how much is capacity utilisation, and which of the two is repeatable?",
+      "What is the current weighted-average recognition lag between capex spend and first billing, and how has it moved since the 6-24 month range given on the Q1 2026 call?",
+      "At a ~$220B annual capex run rate, at what point does depreciation growth exceed AWS revenue growth on your own plan?",
+      "How much of the $364B backlog is contracted at fixed price versus consumption-based, and what portion is expected to bill within twelve months?",
+      "What would have to be true for AWS operating margin to fall back below 35%?",
+      "How is the Anthropic Level 3 position being re-measured, and what observable inputs would move it?"
+    ],
+    "memo_delta_file": "analyses/AMZN_2026-07-10/reviews/2026-08-01_ad-hoc_memo_delta.md"
+  }
+}
