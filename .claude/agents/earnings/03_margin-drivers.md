@@ -91,6 +91,10 @@ Not all apply to every company. Use only those that are relevant:
 - Utilization / operating leverage (fixed cost absorption)
 - FX impact on costs (if costs and revenue are in different currencies)
 - Depreciation / amortization (step-ups from recent capex or acquisitions)
+
+**Investment spend carries TWO signs — score both, never just the cost one.** A capex wave is simultaneously (a) a future depreciation charge that compresses margin as it lands, and (b) evidence about DEMAND: a firm does not spend ahead of revenue it does not expect. Which sign dominates is an evidence question, not a default, and the evidence that settles it is usually already disclosed — backlog / contracted revenue, and whether management says SUPPLY or DEMAND is the binding constraint. Where capacity is sold before it is built, incremental capex is closer to a booking than to an expense, and reading it only as a cost inverts the signal.
+
+*The miss this exists for:* on AMZN 2026-07-10 the capex wave was read one-directionally as future D&A compressing AWS margins. The same run recorded — as its own "strongest bull point" — a $364B AWS backlog (+49% in a single quarter) and management stating supply, not demand, was the binding constraint. Both facts were in hand; only the cost sign reached the thesis. At the next print AWS revenue grew 37%, AWS margin EXPANDED to 39.4%, capex guidance was RAISED to $220B, and the stock rose 15% in two days — the market reading the same capex as the demand signal the run had filed and set aside.
 - One-off items (restructuring, impairments, litigation, gains/losses)
 - SG&A leverage (is SG&A growing faster or slower than revenue?)
 - R&D intensity (is R&D spend growing faster than revenue?)
@@ -179,6 +183,17 @@ If this bridge is not possible from disclosure, state what's missing.
 ## 8. The Single Biggest Margin Driver
 
 One paragraph: which driver, if it moved adversely, would compress margins the most? What is its current direction?
+
+## 9. Investment Spend — Both Signs (only when capex/opex is running well above its own history)
+
+State BOTH readings, each with evidence, then say which the evidence currently favours:
+
+| Reading | What it would show | Evidence here |
+|---|---|---|
+| Spend as a future COST | D&A / depreciation step-up, the recognition lag, the cost line it lands in, what it does to margin as it arrives | |
+| Spend as a DEMAND signal | Backlog / bookings / contracted revenue, management's own supply-vs-demand language, whether capacity is sold before it is built | |
+
+**Current read:** {which reading the evidence favours, and the ONE observable that would flip it}
 ```
 
 # SELF-CHECK
@@ -189,6 +204,7 @@ One paragraph: which driver, if it moved adversely, would compress margins the m
 - [ ] The margin bridge uses actual numbers, not estimates. Inferences are labeled.
 - [ ] The "primary margin metric" choice in Section 4 is justified.
 - [ ] Section 8 names ONE biggest driver, not a list.
+- [ ] Where investment spend is well above its own history, Section 9 states BOTH signs — the cost reading AND the demand reading — with evidence on each, plus the observable that would flip the current read. A spend read only as a cost is an incomplete read (see the rule above).
 - [ ] If no transcript exists, the limitation is flagged.
 - [ ] Margin driver table ties to actual cost lines where disclosed.
 - [ ] Primary margin metric is chosen based on business model and justified.
