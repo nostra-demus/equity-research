@@ -11,7 +11,7 @@ import { archiveErrorNote } from './archiveError'
 import { stageDockHUpdate } from './stageDock'
 import { affectedModules, focusKeysFor } from './intake'
 import type { BridgeStatus } from './types'
-import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
+import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyDlFilters, type DlFilterState } from '../components/datalibrary/DataLibraryFilters'
@@ -140,6 +140,9 @@ let thesisPriceSeq = 0
 // 40 here — anything larger would be rejected 400 and break "continue chatting". The closed-book CONTEXT is
 // re-sent every turn, so trimming only limits how much back-and-forth the model sees, never the evidence.
 const CHAT_MAX_SEND = 40
+// The Screener news chat is a different closed book, so it gets its own aborter and state. Closing one
+// panel can never stop the other panel's request.
+let newsChatAbort: AbortController | null = null
 // narration style is a STICKY preference (persisted) — unlike the ephemeral conversation, the user's
 // "explain it like X" choice should survive across companies and reloads. Default = plain-English 'simple'.
 const CHAT_STYLE_KEY = 'nsw.chatStyle'
@@ -290,6 +293,14 @@ interface State {
   chatSource?: string // sourcePath from chat-meta — "answering from …"
   chatConversationId?: string // id of the persisted conversation this thread belongs to (from chat-meta)
   chatHistoryOpen: boolean // the saved-conversation browser is open
+  // ---- news chat (closed-book Q&A over the saved firehose + archive) ----
+  newsChatOpen: boolean
+  newsChatWindow: NewsChatWindow
+  newsChatMessages: ChatMessage[]
+  newsChatStreaming: boolean
+  newsChatError?: string
+  newsChatReceipt?: NewsChatReceipt
+  newsChatEvidence: NewsChatEvidence[]
   activityOpen: boolean // the Activity dock (live runs + the audit history) — auto-opens whenever a run goes live
   scoringOpen: boolean
   valuationPlaygroundOpen: boolean
@@ -336,6 +347,7 @@ interface State {
   scBoard: ScreenerBoard | null
   scRouted: Record<string, { route: string; terminal: boolean }> // module -> latest routing (lights the switchyard)
   signalIntakeOpen: boolean
+  signalIntakeSeed: SignalIntakeInput | null
   pipelineOpen: boolean
   // Bumped to ask the (always-mounted, self-collapsing) Data-pool panel to expand itself right now — e.g.
   // the news-bridge chip, after selecting the subject holding the newest routed note, so the click actually
@@ -518,6 +530,7 @@ interface State {
   scSelectSignal: (sigId: string | null) => Promise<void>
   scNodeStatus: (key: string) => NodeStatus
   openSignalIntake: () => void
+  openSignalIntakeWith: (seed: SignalIntakeInput) => void
   closeSignalIntake: () => void
   submitSignal: (intake: SignalIntakeInput, until?: string) => Promise<void>
   relaunchSignal: (sigId: string) => Promise<void>
@@ -600,6 +613,14 @@ interface State {
   // on-demand enrichment for the opened event (the real story / SEC items / prior coverage / related)
   enrichCache: Record<string, EventEnrichment | 'loading'>
   fetchEnrichment: (it: FeedItem) => Promise<void>
+
+  // ask the whole saved news wire, then send a useful answer into the existing Signal Check intake
+  openNewsChat: () => void
+  closeNewsChat: () => void
+  setNewsChatWindow: (window: NewsChatWindow) => void
+  sendNewsChatMessage: (text: string) => Promise<void>
+  clearNewsChat: () => void
+  sendNewsChatToSignalCheck: () => void
 
   // ---- the news wire (live scanner view) + manual board actions + kill switch ----
   newsFeedOpen: boolean
@@ -767,6 +788,7 @@ function defaultChatTitle(scope: ChatScope, ticker: string, opts?: { module?: st
 // the chat-panel scope state cleared on every teardown (ticker switch, swarm switch) so a conversation
 // never bleeds across companies. Mirrors how openOutput is nulled alongside it.
 const CHAT_RESET = { chatOpen: false, chatStreaming: false, chatWork: null as ChatWork | null, chatMessages: [] as ChatMessage[], chatError: undefined as string | undefined, chatSource: undefined as string | undefined, chatConversationId: undefined as string | undefined, chatAnswerRunRoot: undefined as string | undefined }
+const NEWS_CHAT_RESET = { newsChatOpen: false, newsChatStreaming: false, newsChatMessages: [] as ChatMessage[], newsChatError: undefined as string | undefined, newsChatReceipt: undefined as NewsChatReceipt | undefined, newsChatEvidence: [] as NewsChatEvidence[] }
 
 export const useStore = create<State>((set, get) => ({
   connected: true,
@@ -838,6 +860,13 @@ export const useStore = create<State>((set, get) => ({
   chatSource: undefined,
   chatConversationId: undefined,
   chatHistoryOpen: false,
+  newsChatOpen: false,
+  newsChatWindow: '24h',
+  newsChatMessages: [],
+  newsChatStreaming: false,
+  newsChatError: undefined,
+  newsChatReceipt: undefined,
+  newsChatEvidence: [],
   activityOpen: false,
   scoringOpen: false,
   valuationPlaygroundOpen: false,
@@ -871,6 +900,7 @@ export const useStore = create<State>((set, get) => ({
   scBoard: null,
   scRouted: {},
   signalIntakeOpen: false,
+  signalIntakeSeed: null,
   pipelineOpen: false,
   dataPoolExpandRequest: 0,
   dataLibraryOpen: false,
@@ -2693,13 +2723,14 @@ export const useStore = create<State>((set, get) => ({
     if (!get().swarms.some((s) => s.id === to)) return
     const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     chatAbort?.abort(); chatAbort = null // chat is research-only — leaving the swarm closes it
+    newsChatAbort?.abort(); newsChatAbort = null
     if (reduced) {
-      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, diagnosticsOpen: false, ...CHAT_RESET })
+      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, signalIntakeSeed: null, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, diagnosticsOpen: false, ...CHAT_RESET, ...NEWS_CHAT_RESET })
       get()._enterSwarm(to)
       if (opts?.landTicker) void get().selectTicker(opts.landTicker)
       return
     }
-    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, diagnosticsOpen: false, ...CHAT_RESET })
+    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, signalIntakeSeed: null, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, diagnosticsOpen: false, ...CHAT_RESET, ...NEWS_CHAT_RESET })
     if (warpTimer) clearTimeout(warpTimer)
     warpTimer = setTimeout(() => get()._advanceWarp(), 420) // collapse -> traverse
   },
@@ -3326,8 +3357,80 @@ export const useStore = create<State>((set, get) => ({
     return get().scSelectedSignal ? 'dormant' : 'dormant'
   },
 
-  openSignalIntake: () => set({ signalIntakeOpen: true }),
-  closeSignalIntake: () => set({ signalIntakeOpen: false }),
+  // ---- ask the saved news wire ----
+  openNewsChat: () => set({ newsChatOpen: true }),
+  closeNewsChat: () => { newsChatAbort?.abort(); newsChatAbort = null; set({ newsChatOpen: false, newsChatStreaming: false }) },
+  setNewsChatWindow: (window) => {
+    if (window === get().newsChatWindow) return
+    newsChatAbort?.abort(); newsChatAbort = null
+    set({ newsChatWindow: window, newsChatMessages: [], newsChatStreaming: false, newsChatError: undefined, newsChatReceipt: undefined, newsChatEvidence: [] })
+  },
+  clearNewsChat: () => {
+    newsChatAbort?.abort(); newsChatAbort = null
+    set({ newsChatMessages: [], newsChatStreaming: false, newsChatError: undefined, newsChatReceipt: undefined, newsChatEvidence: [] })
+  },
+  sendNewsChatMessage: async (text) => {
+    const q = text.trim()
+    if (!q || get().newsChatStreaming) return
+    if (get().staticMode) { set({ newsChatError: 'static-deploy' }); return }
+    const baseline = get().newsChatMessages
+    set({
+      newsChatMessages: [...baseline, { role: 'user', content: q }, { role: 'assistant', content: '' }],
+      newsChatStreaming: true,
+      newsChatError: undefined,
+      newsChatReceipt: undefined,
+      newsChatEvidence: [],
+    })
+    const idx = baseline.length + 1
+    newsChatAbort?.abort()
+    newsChatAbort = new AbortController()
+    await api.newsChatStream(
+      { window: get().newsChatWindow, model: get().chatModel, messages: [...baseline, { role: 'user', content: q }] },
+      {
+        signal: newsChatAbort.signal,
+        onMeta: (m) => set({ newsChatReceipt: m.receipt, newsChatEvidence: m.evidence }),
+        onToken: (tok) => {
+          const msgs = get().newsChatMessages.slice()
+          if (msgs[idx]?.role === 'assistant') { msgs[idx] = { role: 'assistant', content: msgs[idx].content + tok }; set({ newsChatMessages: msgs }) }
+        },
+        onDone: () => set({ newsChatStreaming: false }),
+        onError: (msg) => {
+          const msgs = get().newsChatMessages.slice()
+          if (msgs[idx]?.role === 'assistant' && msgs[idx].content === '') msgs.splice(idx, 1)
+          set({ newsChatMessages: msgs, newsChatStreaming: false, newsChatError: msg })
+        },
+      },
+    )
+  },
+  sendNewsChatToSignalCheck: () => {
+    const messages = get().newsChatMessages
+    const answer = [...messages].reverse().find((m) => m.role === 'assistant' && m.content.trim())?.content.trim()
+    const question = [...messages].reverse().find((m) => m.role === 'user' && m.content.trim())?.content.trim()
+    if (!answer || !question || get().newsChatStreaming) return
+    const refs = new Set([...answer.matchAll(/\[((?:N|H)\d+)\]/g)].map((m) => m[1]))
+    const allEvidence = get().newsChatEvidence
+    const evidence = (refs.size ? allEvidence.filter((e) => refs.has(e.ref)) : allEvidence.slice(0, 8)).slice(0, 14)
+    const sourceLines = evidence.map((e) => `[${e.ref}] ${e.item.source_name}, ${e.item.ts}: ${displayHeadline(e.item)} — ${e.item.url || e.item.event_id}`)
+    const sourcesText = sourceLines.join('\n').slice(0, 1200)
+    const note = [
+      `Question: ${question}`,
+      '',
+      'News-chat answer:',
+      answer.slice(0, 2500),
+      '',
+      'Evidence used:',
+      sourcesText || 'No cited news item was found in the answer.',
+    ].join('\n').slice(0, 3950)
+    get().openSignalIntakeWith({
+      headline: question.length >= 8 ? question.slice(0, 500) : `News idea: ${question}`.slice(0, 500),
+      input_nature: 'human_prompt',
+      human_prompt_note: note,
+    })
+  },
+
+  openSignalIntake: () => set({ signalIntakeOpen: true, signalIntakeSeed: null }),
+  openSignalIntakeWith: (seed) => set({ signalIntakeOpen: true, signalIntakeSeed: seed }),
+  closeSignalIntake: () => set({ signalIntakeOpen: false, signalIntakeSeed: null }),
 
   submitSignal: async (intake, until) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
@@ -3335,7 +3438,7 @@ export const useStore = create<State>((set, get) => ({
     set({ launchPending: { key: 'signal:intake', label: 'Starting the checks…', ticker: '' } })
     try {
       const { runId, preflight } = await api.launchSignal({ intake, until })
-      set({ signalIntakeOpen: false })
+      set({ signalIntakeOpen: false, signalIntakeSeed: null })
       const sigId = preflight.ticker
       set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {} })
       beginScreenerRun(set, get, runId, sigId)

@@ -39,6 +39,7 @@ import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers, peekCachedEnrichment } from './news/enrich'
 import { verdictOf } from './news/impact-floor'
 import { autoBridgeItem, bridgeEventToSubject, findWireItem, listBridgedSubjects } from './research-bridge'
+import { assembleNewsChatContext, buildNewsChatPrompts } from './news/chat'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
 import { appendIdeaFeedback, readIdeaById, writeIdea } from './news/ideas/ideas-store'
@@ -1983,6 +1984,55 @@ app.delete('/api/chats/:id', async (req, reply) => {
   const id = (req.params as any).id as string
   if (!isValidConversationId(id)) return reply.code(400).send({ error: 'invalid conversation id' })
   return { deleted: deleteConversation(id) }
+})
+
+// ---------- chat with the saved news wire ----------
+// This is separate from /api/chat. Research chat reads finished company work; news chat reads the
+// firehose and its archive. Both stay closed-book and both use the same no-tools chat runner.
+const NewsChatBody = z.object({
+  window: z.enum(['24h', '7d', 'history']),
+  model: z.string().max(60).optional(),
+  messages: z.array(z.object({ role: z.enum(['user', 'assistant']), content: z.string().max(12_000) })).min(1).max(30),
+})
+app.post('/api/news/chat', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const parsed = NewsChatBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid news chat request', detail: parsed.error.issues?.[0]?.message })
+  const { window, messages } = parsed.data
+  const last = messages[messages.length - 1]
+  if (last.role !== 'user' || !last.content.trim()) return reply.code(400).send({ error: 'the last message must be a question' })
+  if (chatTurnsInFlight() >= CHAT.maxConcurrent) return reply.code(429).send({ error: 'chat is busy — try again in a moment' })
+  const model = CHAT.allowedModels.includes(parsed.data.model || '') ? parsed.data.model! : CHAT.defaultModel
+
+  let assembled
+  try {
+    assembled = assembleNewsChatContext({
+      repoRoot: REPO_ROOT,
+      archiveDir: NEWS.newsArchiveDir,
+      window,
+      question: last.content,
+    })
+  } catch (e: any) {
+    return reply.code(500).send({ error: 'could not read the saved news', detail: String(e?.message || e) })
+  }
+  if (!assembled.present) return reply.code(409).send({ error: 'no_news', hint: assembled.missingHint })
+
+  const { res, send, ping } = startSSE(reply)
+  const ac = new AbortController()
+  let closed = false
+  res.on('close', () => { closed = true; clearInterval(ping); ac.abort() })
+  send({ type: 'news-chat-meta', receipt: assembled.receipt, evidence: assembled.evidence })
+  const { system, user } = buildNewsChatPrompts({ assembled, messages })
+  try {
+    const out = await runChatTurn({ system, user, model, signal: ac.signal, onToken: (t) => send({ type: 'news-chat-token', content: t }) })
+    if (out.error && out.error !== 'aborted') send({ type: 'news-chat-error', message: out.error })
+    else if (!out.error) send({ type: 'news-chat-done', costUsd: out.costUsd, model })
+  } catch (e: any) {
+    if (!closed) send({ type: 'news-chat-error', message: String(e?.message || e) })
+  } finally {
+    clearInterval(ping)
+    try { res.end() } catch { /* already closed */ }
+  }
 })
 
 // ---------- calls tracker: cross-ticker ledger of every call + its since-the-call timeline ----------

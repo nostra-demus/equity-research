@@ -1482,6 +1482,27 @@ export interface ChatListQuery {
   limit?: number
 }
 
+// ---- chat with the saved Screener news wire ----
+export type NewsChatWindow = '24h' | '7d' | 'history'
+export interface NewsChatReceipt {
+  window: NewsChatWindow
+  label: string
+  itemsSearched: number
+  itemsMatched: number
+  sourceCount: number
+  evidenceCount: number
+  historicalEvidenceCount: number
+  coverageStart: string | null
+  coverageEnd: string | null
+  queryTerms: string[]
+}
+export interface NewsChatEvidence { ref: string; item: FeedItem; historical: boolean }
+export interface NewsChatRequest {
+  window: NewsChatWindow
+  model?: string
+  messages: ChatMessage[]
+}
+
 // ---- calls tracker (the engine's call ledger + since-the-call outcomes) ----
 export interface CallTimelineEntry {
   window: string
