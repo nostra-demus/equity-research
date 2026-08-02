@@ -218,6 +218,8 @@ function hydrate(raw: any): FeedItem | null {
   if (!raw || raw.kind !== 'item' || !raw.event_id || !raw.headline || !raw.ts) return null
   const headline = cleanText(String(raw.headline)) || String(raw.headline)
   const item = { ...raw, headline } as FeedItem
+  item.event_types = Array.isArray(raw.event_types) ? raw.event_types : []
+  item.companies = Array.isArray(raw.companies) ? raw.companies : []
   item.scope ||= deriveScope(item)
   item.source_tier ||= deriveSourceTier(item)
   return item
@@ -607,6 +609,7 @@ export function assembleNewsChatContext(opts: {
 
   const themes = readThemesIndex(opts.repoRoot).themes
     .map((t) => {
+      const topCompanies = Array.isArray(t.top_companies) ? t.top_companies : []
       const flow = opts.window === '24h'
         ? (t.flow_series || []).slice(-24).reduce((a, b) => a + b, 0)
         : opts.window === '7d'
@@ -617,7 +620,7 @@ export function assembleNewsChatContext(opts: {
         value: t,
         fields: [
           { name: 'theme', text: [t.name, t.description], weight: 4, fuzzy: true },
-          { name: 'companies', text: t.top_companies.flatMap((c) => [c.name, c.ticker || '']), weight: 5, fuzzy: true },
+          { name: 'companies', text: topCompanies.flatMap((c) => [c.name, c.ticker || '']), weight: 5, fuzzy: true },
         ],
       })
       return { ...t, windowFlow: flow, queryMatch: match.matchedTerms.length, queryAnchorMatch: match.anchorMatches, queryQualifies: match.qualifies }
@@ -672,7 +675,10 @@ export function assembleNewsChatContext(opts: {
   }
 
   const themeLines = themes.length
-    ? themes.map((t) => `- ${t.name}: flow=${t.windowFlow}; state=${t.tier}; companies=${t.top_companies.map((c) => `${c.ticker || c.name} (${c.order === 1 ? 'direct' : c.order === 2 ? 'second-order' : 'third-order'}, ${c.side})`).join(', ') || 'none named'}`).join('\n')
+    ? themes.map((t) => {
+        const topCompanies = Array.isArray(t.top_companies) ? t.top_companies : []
+        return `- ${t.name}: flow=${t.windowFlow}; state=${t.tier}; companies=${topCompanies.map((c) => `${c.ticker || c.name} (${c.order === 1 ? 'direct' : c.order === 2 ? 'second-order' : 'third-order'}, ${c.side})`).join(', ') || 'none named'}`
+      }).join('\n')
     : '- No matching saved theme.'
   const currentLines = currentTopRows.length ? currentTopRows.map((row, i) => evidenceLine(`N${i + 1}`, row.item, enrichments.get(row.item.event_id), [...(row.match?.reasons || []), ...(row.extraReasons || [])])).join('\n\n') : 'No story matched the question in the chosen window.'
   const historyLines = historicalTopRows.length ? historicalTopRows.map((row, i) => evidenceLine(`H${i + 1}`, row.item, enrichments.get(row.item.event_id), [...(row.match?.reasons || []), ...(row.extraReasons || [])])).join('\n\n') : 'No useful older match was found.'

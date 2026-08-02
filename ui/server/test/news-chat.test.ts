@@ -94,6 +94,27 @@ check('history uses data/NEWS-ARCHIVE even when NEWS_ARCHIVE_DIR is not set', ()
   assert.ok(got.receipt.dataStores.includes('saved archive'))
 })
 
+check('legacy firehose arrays and partial theme rows are normalized instead of crashing chat', () => {
+  const root = tmp()
+  writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [{
+    ...item('EVT-legacy', '2026-08-02T10:00:00Z', 'Amazon Bedrock adds a production feature', 'Amazon', 80),
+    event_types: {} as any,
+    companies: true as any,
+  }])
+  const board = path.join(root, 'screener', 'board')
+  fs.mkdirSync(board, { recursive: true })
+  fs.writeFileSync(path.join(board, 'themes_index.json'), JSON.stringify({
+    generated_at: '2026-08-02T10:00:00Z', history_days: 1, counts: {},
+    themes: [{ theme_id: 'partial', name: 'Amazon Bedrock', description: 'Partial legacy theme', tier: 'active', composite: 50, member_count: 1 }],
+  }))
+  const got = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Amazon Bedrock', now: () => new Date('2026-08-02T12:00:00Z') })
+  assert.equal(got.present, true)
+  assert.equal(got.receipt.itemsMatched, 1)
+  assert.deepEqual(got.evidence[0]?.item.event_types, [])
+  assert.deepEqual(got.evidence[0]?.item.companies, [])
+  assert.match(got.context, /Amazon Bedrock/)
+})
+
 check('all explicit named parts are required so Amazon-only and generic growth stories cannot pretend to answer Bedrock', () => {
   const root = tmp()
   writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [

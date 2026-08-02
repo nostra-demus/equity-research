@@ -174,7 +174,7 @@ export function NewsChatPanel() {
             {!streaming && lastAnswer && (
               <div className="newschat__actions">
                 <button className="btn btn--ghost" onClick={copy}>{copied ? 'Copied' : 'Copy answer'}</button>
-                <button className="btn btn--amber" onClick={runSignal}>Run Signal Check ▸</button>
+                <button className="btn btn--amber" onClick={runSignal} disabled={!canRunSignal}>Run Signal Check ▸</button>
               </div>
             )}
 
