@@ -2009,6 +2009,7 @@ app.post('/api/news/chat', async (req, reply) => {
     assembled = assembleNewsChatContext({
       repoRoot: REPO_ROOT,
       archiveDir: NEWS.newsArchiveDir,
+      enrichCacheFile: path.join(STATE_DIR, 'news-enrich-cache.json'),
       window,
       question: last.content,
     })

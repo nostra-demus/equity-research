@@ -36,6 +36,8 @@ export interface NewsChatReceipt {
   coverageStart: string | null
   coverageEnd: string | null
   queryTerms: string[]
+  queryTermHits: Record<string, number>
+  dataStores: string[]
 }
 
 export interface NewsChatContext {
@@ -51,6 +53,40 @@ interface RankedItem {
   score: number
 }
 
+interface SavedEnrichment {
+  event_id?: string
+  summary?: string
+  summary_en?: string | null
+  gist?: string[]
+  market_angle?: string
+  companies?: { name?: string; ticker?: string | null }[]
+  beneficiaries?: { name?: string; ticker?: string | null; mechanism?: string; basis?: string }[]
+  exposed?: { name?: string; ticker?: string | null; mechanism?: string; basis?: string }[]
+  whats_priced?: string
+  the_edge?: string
+  watch_item?: string
+  theme?: string
+  news_impact?: {
+    affected_metric?: string[]
+    extracted_numbers?: string[]
+    quick_dirty_calculation?: string
+    why_it_matters?: string
+    analyst_takeaway?: string
+  }
+}
+
+interface QuerySpec {
+  terms: string[]
+  anchors: string[]
+  patterns: Map<string, RegExp>
+}
+
+interface MatchScore {
+  termMatches: number
+  anchorMatches: number
+  hitTerms: string[]
+}
+
 const FILE_RE = /^(\d{4}-\d{2}-\d{2})_firehose\.ndjson$/
 const WINDOW_MS: Record<Exclude<NewsChatWindow, 'history'>, number> = {
   '24h': 24 * 60 * 60 * 1000,
@@ -62,16 +98,26 @@ const WINDOW_MS: Record<Exclude<NewsChatWindow, 'history'>, number> = {
 const STOP = new Set(
   [
     'a', 'about', 'after', 'again', 'all', 'also', 'am', 'an', 'and', 'any', 'are', 'as', 'at', 'be',
-    'because', 'been', 'before', 'beneficiaries', 'beneficiary', 'best', 'between', 'but', 'by', 'can', 'candidate', 'changed', 'chat',
-    'companies', 'company', 'compared', 'could', 'create', 'day', 'days', 'did', 'do', 'does', 'exact', 'find', 'for', 'from', 'getting', 'give', 'has',
+    'answer', 'because', 'been', 'before', 'beneficiaries', 'beneficiary', 'best', 'between', 'but', 'by', 'can', 'candidate', 'changed', 'chat',
+    'companies', 'company', 'compared', 'could', 'create', 'data', 'day', 'days', 'did', 'do', 'does', 'evidence', 'exact', 'explain', 'find', 'for', 'from', 'getting', 'give', 'has',
     'have', 'history', 'hour', 'hours', 'how', 'i', 'idea', 'ideas', 'if', 'in', 'into', 'is', 'it',
     'harmed', 'last', 'long', 'loser', 'losers', 'looks', 'may', 'me', 'most', 'my', 'new', 'news', 'next', 'not', 'of', 'on', 'one', 'or', 'order', 'our',
-    'over', 'please', 'screen', 'second', 'second-order', 'sector', 'sectors', 'seven', 'short', 'show', 'signal', 'since', 'some', 'stronger', 'that', 'the', 'their',
-    'them', 'theme', 'themes', 'there', 'these', 'they', 'thing', 'this', 'those', 'to', 'today', 'trade', 'tradable', 'trading',
+    'over', 'please', 'saved', 'screen', 'second', 'second-order', 'sector', 'sectors', 'seven', 'short', 'show', 'signal', 'since', 'some', 'stronger', 'that', 'the', 'their',
+    'tell', 'them', 'theme', 'themes', 'there', 'these', 'they', 'thing', 'this', 'those', 'to', 'today', 'trade', 'tradable', 'trading',
     'up', 'us', 'want', 'week', 'weeks', 'what', 'when', 'where', 'which', 'who', 'why', 'will', 'winner', 'winners', 'with',
     'would', 'you', 'your',
   ],
 )
+
+// These words describe the number or answer the user wants. They are not the subject. When a question
+// also names a company, product, commodity, policy, or theme, at least one of those subject words must
+// appear. This prevents "Amazon Bedrock growth rate" from returning every unrelated growth-rate story.
+const METRIC_TERMS = new Set([
+  'annual', 'capex', 'change', 'changes', 'demand', 'earnings', 'ebitda', 'eps', 'forecast', 'forecasts',
+  'growth', 'guidance', 'margin', 'margins', 'outlook', 'price', 'prices', 'profit', 'profits', 'qoq',
+  'quarter', 'quarterly', 'rate', 'rates', 'revenue', 'revenues', 'sales', 'share', 'shares', 'stock',
+  'trend', 'trends', 'year', 'years', 'yoy',
+])
 
 function tokens(s: string): string[] {
   return (s.toLowerCase().match(/[a-z0-9][a-z0-9.+&-]{1,}/g) || [])
@@ -89,22 +135,53 @@ export function newsQueryTerms(question: string): string[] {
   return out
 }
 
-function listDailyFiles(repoRoot: string, archiveDir: string): { date: string; file: string }[] {
-  const byDate = new Map<string, string>()
-  const add = (dir: string, prefer: boolean) => {
+function querySpec(terms: string[], forcedAnchors?: string[]): QuerySpec {
+  const anchors = forcedAnchors || terms.filter((term) => !METRIC_TERMS.has(term))
+  const patterns = new Map<string, RegExp>()
+  for (const term of terms) {
+    const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    patterns.set(term, new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`, 'i'))
+  }
+  return { terms, anchors, patterns }
+}
+
+function listDailyFiles(repoRoot: string, archiveDir: string): { date: string; file: string; store: string }[] {
+  const byDate = new Map<string, { file: string; store: string }>()
+  const add = (dir: string, prefer: boolean, store: string) => {
     if (!dir) return
     let names: string[] = []
     try { names = fs.readdirSync(dir) } catch { return }
     for (const name of names) {
       const m = FILE_RE.exec(name)
       if (!m) continue
-      if (prefer || !byDate.has(m[1])) byDate.set(m[1], path.join(dir, name))
+      if (prefer || !byDate.has(m[1])) byDate.set(m[1], { file: path.join(dir, name), store })
     }
   }
-  // The Drive mirror is the fallback; a local file with the same date is fresher and wins.
-  add(archiveDir, false)
-  add(path.join(repoRoot, 'screener', 'inbox'), true)
-  return [...byDate.entries()].map(([date, file]) => ({ date, file })).sort((a, b) => b.date.localeCompare(a.date))
+  // The repo data pool is a valid saved archive even when the optional Drive path is not in the process
+  // environment. A configured Drive mirror wins over it; the live local wire wins for the same day.
+  add(path.join(repoRoot, 'data', 'NEWS-ARCHIVE'), false, 'saved archive')
+  add(archiveDir, true, 'saved archive')
+  add(path.join(repoRoot, 'screener', 'inbox'), true, 'live wire')
+  return [...byDate.entries()].map(([date, row]) => ({ date, ...row })).sort((a, b) => b.date.localeCompare(a.date))
+}
+
+function readEnrichmentCache(file: string): Map<string, SavedEnrichment> {
+  const out = new Map<string, SavedEnrichment>()
+  const candidates = [file, file.replace(/news-enrich-cache\.json$/, 'news-enrich-cache.bak.json')]
+  for (const candidate of candidates) {
+    if (!candidate) continue
+    try {
+      const raw = JSON.parse(fs.readFileSync(candidate, 'utf8'))
+      if (!raw || Array.isArray(raw) || typeof raw !== 'object') continue
+      for (const [key, value] of Object.entries(raw)) {
+        if (value && typeof value === 'object') out.set(key, value as SavedEnrichment)
+      }
+      return out
+    } catch {
+      // Try the last-known-good backup.
+    }
+  }
+  return out
 }
 
 function hydrate(raw: any): FeedItem | null {
@@ -150,7 +227,29 @@ class TopItems {
   }
 }
 
-function itemText(item: FeedItem): string {
+function enrichmentText(row: SavedEnrichment | undefined): string {
+  if (!row) return ''
+  const impact = row.news_impact
+  return [
+    row.summary_en || row.summary,
+    ...(row.gist || []),
+    row.market_angle,
+    row.whats_priced,
+    row.the_edge,
+    row.watch_item,
+    row.theme,
+    ...(row.companies || []).flatMap((c) => [c.name, c.ticker || '']),
+    ...(row.beneficiaries || []).flatMap((p) => [p.name, p.ticker || '', p.mechanism || p.basis || '']),
+    ...(row.exposed || []).flatMap((p) => [p.name, p.ticker || '', p.mechanism || p.basis || '']),
+    ...(impact?.affected_metric || []),
+    ...(impact?.extracted_numbers || []),
+    impact?.quick_dirty_calculation,
+    impact?.why_it_matters,
+    impact?.analyst_takeaway,
+  ].filter(Boolean).join(' ')
+}
+
+function itemText(item: FeedItem, enrichment?: SavedEnrichment): string {
   return [
     item.headline_en || item.headline,
     item.headline,
@@ -159,23 +258,35 @@ function itemText(item: FeedItem): string {
     item.scope,
     ...(item.event_types || []),
     ...(item.companies || []).flatMap((c) => [c.name, c.ticker || '']),
+    enrichmentText(enrichment),
   ].join(' ').toLowerCase()
 }
 
-function matches(item: FeedItem, terms: string[]): number {
-  if (!terms.length) return 0
-  const text = itemText(item)
-  let n = 0
-  for (const term of terms) if (text.includes(term)) n++
-  return n
+function matches(item: FeedItem, enrichment: SavedEnrichment | undefined, spec: QuerySpec): MatchScore {
+  if (!spec.terms.length) return { termMatches: 0, anchorMatches: 0, hitTerms: [] }
+  const text = itemText(item, enrichment)
+  const hitTerms = spec.terms.filter((term) => spec.patterns.get(term)?.test(text))
+  const hitSet = new Set(hitTerms)
+  return {
+    termMatches: hitTerms.length,
+    anchorMatches: spec.anchors.filter((term) => hitSet.has(term)).length,
+    hitTerms,
+  }
 }
 
-function rank(item: FeedItem, termMatches: number, nowMs: number, historical: boolean): number {
+function qualifies(match: MatchScore, spec: QuerySpec): boolean {
+  if (!spec.terms.length) return true
+  return spec.anchors.length ? match.anchorMatches > 0 : match.termMatches > 0
+}
+
+function rank(item: FeedItem, match: MatchScore, spec: QuerySpec, nowMs: number, historical: boolean): number {
   const ageHours = Math.max(0, (nowMs - Date.parse(item.ts)) / 3_600_000)
   const freshness = historical ? 0 : Math.max(0, 18 - Math.log2(ageHours + 1) * 3)
   const source = item.source_tier === 'primary_filing' ? 12 : item.source_tier === 'official_data' ? 8 : item.source_tier === 'company' ? 4 : item.source_tier === 'social' ? -10 : 0
   const caution = item.caution ? -18 : 0
-  return Number(item.triage_score || 0) + termMatches * 36 + freshness + source + caution
+  const fullAnchorBonus = spec.anchors.length > 1 && match.anchorMatches === spec.anchors.length ? 80 : 0
+  const coverageBonus = spec.terms.length ? (match.termMatches / spec.terms.length) * 36 : 0
+  return Number(item.triage_score || 0) + match.termMatches * 24 + match.anchorMatches * 72 + fullAnchorBonus + coverageBonus + freshness + source + caution
 }
 
 function uniqueTop(rows: RankedItem[], limit: number): FeedItem[] {
@@ -218,7 +329,7 @@ function short(s: string | undefined | null, max: number): string {
   return v.length <= max ? v : `${v.slice(0, max - 1).trim()}…`
 }
 
-function evidenceLine(ref: string, item: FeedItem): string {
+function evidenceLine(ref: string, item: FeedItem, enrichment?: SavedEnrichment): string {
   const companies = (item.companies || []).map((c) => c.ticker || c.name).filter(Boolean).join(', ') || 'none named'
   const themes = (item.event_types || []).join(', ') || 'none'
   return [
@@ -226,6 +337,11 @@ function evidenceLine(ref: string, item: FeedItem): string {
     `event=${item.event_id} | tier=${item.source_tier || 'unknown'} | scope=${item.scope || 'unknown'} | score=${item.triage_score} | companies=${companies} | tags=${themes}`,
     item.triage_reason ? `scanner note: ${short(item.triage_reason, 220)}` : '',
     item.snippet ? `source snippet: ${short(item.snippet, 360)}` : '',
+    enrichment?.summary || enrichment?.summary_en ? `saved article read: ${short(enrichment.summary_en || enrichment.summary, 520)}` : '',
+    enrichment?.gist?.length ? `saved article points: ${enrichment.gist.slice(0, 4).map((x) => short(x, 220)).join(' | ')}` : '',
+    enrichment?.market_angle ? `saved market angle: ${short(enrichment.market_angle, 320)}` : '',
+    enrichment?.news_impact?.extracted_numbers?.length ? `saved figures: ${enrichment.news_impact.extracted_numbers.slice(0, 8).map((x) => short(x, 80)).join(' | ')}` : '',
+    enrichment?.news_impact?.why_it_matters ? `saved impact: ${short(enrichment.news_impact.why_it_matters, 320)}` : '',
     item.url ? `url: ${item.url}` : '',
   ].filter(Boolean).join('\n')
 }
@@ -237,6 +353,7 @@ function windowLabel(window: NewsChatWindow): string {
 export function assembleNewsChatContext(opts: {
   repoRoot: string
   archiveDir?: string
+  enrichCacheFile?: string
   window: NewsChatWindow
   question: string
   now?: () => Date
@@ -245,12 +362,15 @@ export function assembleNewsChatContext(opts: {
   const nowMs = now.getTime()
   const files = listDailyFiles(opts.repoRoot, opts.archiveDir || '')
   const queryTerms = newsQueryTerms(opts.question)
+  const spec = querySpec(queryTerms)
+  const enrichments = readEnrichmentCache(opts.enrichCacheFile || path.join(opts.repoRoot, 'ui', 'server', '.state', 'news-enrich-cache.json'))
   const current = new TopItems(220)
   const older = new TopItems(100)
   const sources = new Set<string>()
   const companyCounts = new Map<string, number>()
   const eventCounts = new Map<string, number>()
   const tierCounts = new Map<string, number>()
+  const termCounts = new Map<string, number>()
   let itemsSearched = 0
   let itemsMatched = 0
   let coverageStart: string | null = files.length ? files[files.length - 1].date : null
@@ -268,25 +388,28 @@ export function assembleNewsChatContext(opts: {
     if (opts.window !== 'history' && at < cutoffMs) { boundaryOlder.push(item); return }
     itemsSearched++
     sources.add(item.source_name || item.domain || 'unknown')
+    const enrichment = enrichments.get(item.event_id)
+    const match = matches(item, enrichment, spec)
+    if (!qualifies(match, spec)) return
+    itemsMatched++
     for (const c of item.companies || []) bump(companyCounts, c.ticker || c.name)
     for (const e of item.event_types || []) bump(eventCounts, e)
     bump(tierCounts, item.source_tier || 'unknown')
-    const m = matches(item, queryTerms)
-    if (queryTerms.length && !m) return
-    itemsMatched++
-    current.add({ item, score: rank(item, m, nowMs, false) })
+    for (const term of match.hitTerms) bump(termCounts, term)
+    current.add({ item, score: rank(item, match, spec, nowMs, false) })
   }
   for (const f of currentFiles) readItems(f.file, visitCurrent)
 
   const currentTop = uniqueTop(current.values(), 55)
   const historyTerms = seedTerms(currentTop, queryTerms)
+  const historySpec = querySpec(historyTerms, spec.anchors)
   if (opts.window !== 'history' && historyTerms.length) {
     const visitOlder = (item: FeedItem) => {
       const at = Date.parse(item.ts)
       if (!Number.isFinite(at) || at >= cutoffMs) return
-      const m = matches(item, historyTerms)
-      if (!m) return
-      older.add({ item, score: rank(item, m, nowMs, true) })
+      const match = matches(item, enrichments.get(item.event_id), historySpec)
+      if (!qualifies(match, historySpec)) return
+      older.add({ item, score: rank(item, match, historySpec, nowMs, true) })
     }
     for (const item of boundaryOlder) visitOlder(item)
     for (const f of olderFiles) readItems(f.file, visitOlder)
@@ -306,12 +429,19 @@ export function assembleNewsChatContext(opts: {
           ? (t.flow_daily || []).slice(-7).reduce((a, b) => a + b, 0)
           : t.member_count
       const text = `${t.name} ${t.description} ${t.top_companies.map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
-      const match = queryTerms.length ? queryTerms.filter((q) => text.includes(q)).length : 0
-      return { ...t, windowFlow: flow, queryMatch: match }
+      const hitTerms = spec.terms.filter((term) => spec.patterns.get(term)?.test(text))
+      const hits = new Set(hitTerms)
+      const anchorMatch = spec.anchors.filter((term) => hits.has(term)).length
+      return { ...t, windowFlow: flow, queryMatch: hitTerms.length, queryAnchorMatch: anchorMatch }
     })
-    .filter((t) => !queryTerms.length || t.queryMatch > 0)
-    .sort((a, b) => b.queryMatch - a.queryMatch || b.windowFlow - a.windowFlow || b.composite - a.composite)
+    .filter((t) => !queryTerms.length || (spec.anchors.length ? t.queryAnchorMatch > 0 : t.queryMatch > 0))
+    .sort((a, b) => b.queryAnchorMatch - a.queryAnchorMatch || b.queryMatch - a.queryMatch || b.windowFlow - a.windowFlow || b.composite - a.composite)
     .slice(0, 10)
+
+  const dataStores = [...new Set(files.map((f) => f.store))]
+  if (enrichments.size) dataStores.push('saved article reads')
+  dataStores.push('theme index')
+  const queryTermHits = Object.fromEntries(queryTerms.map((term) => [term, termCounts.get(term) || 0]))
 
   const receipt: NewsChatReceipt = {
     window: opts.window,
@@ -324,6 +454,8 @@ export function assembleNewsChatContext(opts: {
     coverageStart,
     coverageEnd,
     queryTerms,
+    queryTermHits,
+    dataStores,
   }
 
   if (!files.length || !itemsSearched) {
@@ -339,13 +471,15 @@ export function assembleNewsChatContext(opts: {
   const themeLines = themes.length
     ? themes.map((t) => `- ${t.name}: flow=${t.windowFlow}; state=${t.tier}; companies=${t.top_companies.map((c) => `${c.ticker || c.name} (${c.order === 1 ? 'direct' : c.order === 2 ? 'second-order' : 'third-order'}, ${c.side})`).join(', ') || 'none named'}`).join('\n')
     : '- No matching saved theme.'
-  const currentLines = currentTop.length ? currentTop.map((item, i) => evidenceLine(`N${i + 1}`, item)).join('\n\n') : 'No story matched the question in the chosen window.'
-  const historyLines = historicalTop.length ? historicalTop.map((item, i) => evidenceLine(`H${i + 1}`, item)).join('\n\n') : 'No useful older match was found.'
+  const currentLines = currentTop.length ? currentTop.map((item, i) => evidenceLine(`N${i + 1}`, item, enrichments.get(item.event_id))).join('\n\n') : 'No story matched the question in the chosen window.'
+  const historyLines = historicalTop.length ? historicalTop.map((item, i) => evidenceLine(`H${i + 1}`, item, enrichments.get(item.event_id))).join('\n\n') : 'No useful older match was found.'
 
   const context = [
     `WINDOW: ${windowLabel(opts.window)}`,
     `SEARCH RECEIPT: searched ${itemsSearched} saved items from ${sources.size} sources; ${itemsMatched} matched the question; archive coverage ${coverageStart || 'unknown'} to ${coverageEnd || 'unknown'}.`,
+    `DATA STORES: ${dataStores.join(', ')}.`,
     `QUERY TERMS: ${queryTerms.join(', ') || 'none — broad scan'}`,
+    `QUERY TERM HITS IN MATCHED ITEMS: ${queryTerms.map((term) => `${term}=${queryTermHits[term]}`).join(', ') || 'broad scan'}`,
     `TOP COMPANY MENTIONS: ${topCounts(companyCounts).map(([k, v]) => `${k}=${v}`).join(', ') || 'none'}`,
     `TOP EVENT TAGS: ${topCounts(eventCounts).map(([k, v]) => `${k}=${v}`).join(', ') || 'none'}`,
     `SOURCE-TIER MIX: ${topCounts(tierCounts).map(([k, v]) => `${k}=${v}`).join(', ') || 'none'}`,
@@ -384,6 +518,8 @@ export function buildNewsChatPrompts(args: {
     '8. When the user asks for ideas, show at most three. For each: direction, company or instrument if named in the evidence, why now, time window, trigger, biggest risk, and kill condition.',
     '9. It is fine to say no idea clears the bar. Do not force a trade.',
     '10. End an idea answer with one short line: "Next step: Run Signal Check" or "Next step: keep watching."',
+    '11. Read QUERY TERM HITS. If an important named product, company, or topic has zero hits, say that the saved news has no direct match. Do not replace it with a related topic.',
+    '12. A subject mention and a number elsewhere are not proof of a requested metric. If no cited evidence line directly links the subject to the number, say the exact figure is missing.',
   ].join('\n')
   const transcript = prior.length
     ? `CONVERSATION SO FAR:\n${prior.map((m) => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`).join('\n\n')}\n\n`

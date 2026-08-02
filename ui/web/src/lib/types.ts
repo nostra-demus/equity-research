@@ -1495,6 +1495,8 @@ export interface NewsChatReceipt {
   coverageStart: string | null
   coverageEnd: string | null
   queryTerms: string[]
+  queryTermHits: Record<string, number>
+  dataStores: string[]
 }
 export interface NewsChatEvidence { ref: string; item: FeedItem; historical: boolean }
 export interface NewsChatRequest {

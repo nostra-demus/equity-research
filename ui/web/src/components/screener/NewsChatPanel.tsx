@@ -111,7 +111,7 @@ export function NewsChatPanel() {
           <div className="chatpanel__title"><span className="chatpanel__badge newschat__badge">Ask</span><span className="chatpanel__titletext">the news wire</span></div>
           <div className="chatpanel__source">
             {receipt
-              ? `Searched ${receipt.itemsSearched.toLocaleString()} items · ${receipt.sourceCount} sources · used ${receipt.evidenceCount + receipt.historicalEvidenceCount}`
+              ? `Searched ${receipt.itemsSearched.toLocaleString()} items · ${receipt.sourceCount} sources · ${receipt.dataStores.length} stores · used ${receipt.evidenceCount + receipt.historicalEvidenceCount}`
               : windowInfo.help}
           </div>
         </div>

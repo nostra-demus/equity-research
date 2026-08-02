@@ -38,6 +38,7 @@ check('broad starter questions do not turn generic trading words into search fil
   assert.deepEqual(newsQueryTerms('Show me second-order winners and losers.'), [])
   assert.deepEqual(newsQueryTerms('What looks new compared with history?'), [])
   assert.deepEqual(newsQueryTerms('What changed for Nvidia?'), ['nvidia'])
+  assert.deepEqual(newsQueryTerms('What is the Amazon Bedrock growth rate? Show me all saved evidence and tell me if it is tradable.'), ['amazon', 'bedrock', 'growth', 'rate'])
 })
 
 check('24h chat searches the full window and adds a matching older item as history', () => {
@@ -71,12 +72,63 @@ check('history chat reads both the local firehose and the archive mirror', () =>
   assert.equal(got.evidence.length, 2)
 })
 
+check('history uses data/NEWS-ARCHIVE even when NEWS_ARCHIVE_DIR is not set', () => {
+  const root = tmp()
+  writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [item('EVT-new', '2026-08-02T10:00:00Z', 'Nvidia opens a new factory', 'Nvidia', 91)])
+  writeDay(path.join(root, 'data', 'NEWS-ARCHIVE'), '2025-11-03', [item('EVT-old', '2025-11-03T10:00:00Z', 'Nvidia opened an older factory', 'Nvidia', 73)])
+  const got = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Nvidia factory', now: () => new Date('2026-08-02T12:00:00Z') })
+  assert.equal(got.receipt.itemsSearched, 2)
+  assert.equal(got.receipt.itemsMatched, 2)
+  assert.equal(got.receipt.coverageStart, '2025-11-03')
+  assert.ok(got.receipt.dataStores.includes('live wire'))
+  assert.ok(got.receipt.dataStores.includes('saved archive'))
+})
+
+check('a named subject is required so generic growth-rate stories cannot bury Amazon', () => {
+  const root = tmp()
+  writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [
+    item('EVT-amazon', '2026-08-02T10:00:00Z', 'Amazon reports faster AWS growth', 'Amazon', 65),
+    item('EVT-other', '2026-08-02T11:00:00Z', 'OtherCo reports a record annual growth rate', 'OtherCo', 100),
+  ])
+  const got = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Amazon Bedrock growth rate', now: () => new Date('2026-08-02T12:00:00Z') })
+  assert.equal(got.receipt.itemsSearched, 2)
+  assert.equal(got.receipt.itemsMatched, 1)
+  assert.equal(got.evidence[0]?.item.event_id, 'EVT-amazon')
+  assert.equal(got.receipt.queryTermHits.amazon, 1)
+  assert.equal(got.receipt.queryTermHits.bedrock, 0)
+  assert.ok(!got.evidence.some((e) => e.item.event_id === 'EVT-other'))
+})
+
+check('saved article reads are searchable and are sent to the answer with the source citation', () => {
+  const root = tmp()
+  const event = item('EVT-bedrock', '2026-08-02T10:00:00Z', 'Amazon launches a cloud update', 'Amazon', 72)
+  writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [event])
+  const stateDir = path.join(root, 'ui', 'server', '.state')
+  fs.mkdirSync(stateDir, { recursive: true })
+  fs.writeFileSync(path.join(stateDir, 'news-enrich-cache.json'), JSON.stringify({
+    'EVT-bedrock': {
+      event_id: 'EVT-bedrock',
+      summary: 'Amazon said the Bedrock growth rate reached 50% in the saved article body.',
+      gist: ['Bedrock usage rose as more customers moved AI work into production.'],
+      news_impact: { extracted_numbers: ['50%'], why_it_matters: 'Faster use may support AWS revenue.' },
+    },
+  }))
+  const got = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Amazon Bedrock growth rate', now: () => new Date('2026-08-02T12:00:00Z') })
+  assert.equal(got.receipt.itemsMatched, 1)
+  assert.equal(got.receipt.queryTermHits.bedrock, 1)
+  assert.ok(got.receipt.dataStores.includes('saved article reads'))
+  assert.match(got.context, /saved article read: Amazon said the Bedrock growth rate reached 50%/)
+  assert.match(got.context, /saved figures: 50%/)
+})
+
 check('news prompt is closed-book, simple, cited, and allowed to reject a trade', () => {
-  const assembled = { present: true, context: 'CURRENT EVIDENCE:\n[N1] test', evidence: [], receipt: { window: '24h' as const, label: 'last 24 hours', itemsSearched: 1, itemsMatched: 1, sourceCount: 1, evidenceCount: 1, historicalEvidenceCount: 0, coverageStart: '2026-08-02', coverageEnd: '2026-08-02', queryTerms: [] } }
+  const assembled = { present: true, context: 'CURRENT EVIDENCE:\n[N1] test', evidence: [], receipt: { window: '24h' as const, label: 'last 24 hours', itemsSearched: 1, itemsMatched: 1, sourceCount: 1, evidenceCount: 1, historicalEvidenceCount: 0, coverageStart: '2026-08-02', coverageEnd: '2026-08-02', queryTerms: [], queryTermHits: {}, dataStores: ['live wire'] } }
   const p = buildNewsChatPrompts({ assembled, messages: [{ role: 'user', content: 'Any idea?' }] })
   assert.match(p.system, /very simple words/i)
   assert.match(p.system, /cite every news claim/i)
   assert.match(p.system, /no idea clears the bar/i)
+  assert.match(p.system, /zero hits/i)
+  assert.match(p.system, /exact figure is missing/i)
   assert.match(p.user, /\[N1\]/)
 })
 
