@@ -21,9 +21,15 @@ const execFileAsync = promisify(execFile)
 // paid gauntlet later fills, so a promoted run maps onto — never fights — this shape.
 export interface SurfacedIdea {
   idea_id: string // IDEA-<sha256-12 of ticker|direction>
+  idea_version: string // immutable thesis/source snapshot key; realized outcomes must match this exact version
+  idea_version_started_at: string // ISO; resets if a prior version later cycles back to the same hash
   ticker: string
   company: string | null
   exchange: string | null
+  ticker_verified: boolean
+  listing_verified: boolean
+  liquidity_verified: boolean
+  listing_verification_source: 'yahoo_symbol_directory' | null
   direction: IdeaDirection
   pair_with: string | null
   reason: string
@@ -68,6 +74,19 @@ export function ideaId(ticker: string, direction: IdeaDirection): string {
   return 'IDEA-' + createHash('sha256').update(`${ticker.toUpperCase()}|${direction}`).digest('hex').slice(0, 12)
 }
 
+/** Exact thesis snapshot identity. Refreshing the same ticker/direction never reuses an old outcome. */
+export function ideaVersion(input: {
+  ticker: string; direction: IdeaDirection; thesisType: ThesisType; reason: string; whyNow: string; sourceEventIds: string[]
+}): string {
+  const canonical = [
+    input.ticker.toUpperCase(), input.direction, input.thesisType,
+    input.reason.trim().toLowerCase().replace(/\s+/g, ' '),
+    input.whyNow.trim().toLowerCase().replace(/\s+/g, ' '),
+    [...new Set(input.sourceEventIds)].sort().join(','),
+  ].join('|')
+  return 'IDEAV-' + createHash('sha256').update(canonical).digest('hex').slice(0, 16)
+}
+
 /**
  * Read the freshest curated sweep (the top-N the auto-ingester writes every cycle) into skim input rows,
  * sorted by materiality, capped at `topN`. Drops nothing but consumed/dismissed rows and the low tail:
@@ -100,6 +119,7 @@ export function readTopSweepRows(repoRoot: string, topN: number): IdeaInputRow[]
       source_name: r.source_name || '',
       region: r.region || '',
       materiality: Number(r.triage_score) || 0,
+      materiality_pre_score: Number.isFinite(Number(r.materiality_pre_score)) ? Number(r.materiality_pre_score) : undefined,
       label: r.event_materiality_label || '',
       event_types: Array.isArray(r.event_types) ? r.event_types : [],
       issuer_linkage: r.issuer_linkage || '',
@@ -108,6 +128,7 @@ export function readTopSweepRows(repoRoot: string, topN: number): IdeaInputRow[]
       source_tier: r.source_tier,
       scheduled_events: Array.isArray(r.scheduled_events) ? r.scheduled_events : [],
       event_direction: r.event_direction,
+      dedup_group: typeof r.dedup_group === 'string' && r.dedup_group.trim() ? r.dedup_group.trim() : undefined,
     }))
 }
 

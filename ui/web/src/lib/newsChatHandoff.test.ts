@@ -23,4 +23,14 @@ check('prefers the strict trade candidate when one exists', () => {
   assert.equal(selectNewsChatHandoffEvidence([direct, candidate], receipt)?.ref, 'N2')
 })
 
+check('never anchors a lower-ranked trade candidate while the note describes the top one', () => {
+  const top = row('N1', 'Top candidate evidence')
+  const lower = row('N2', 'Amazon Bedrock direct evidence', ['exact:amazon', 'exact:bedrock'])
+  const receipt = {
+    queryTerms: ['amazon', 'bedrock'],
+    tradeCandidates: [{ evidenceRefs: ['N1'] }, { evidenceRefs: ['N2'] }],
+  } as any
+  assert.equal(selectNewsChatHandoffEvidence([lower, top], receipt)?.ref, 'N1')
+})
+
 console.log(`\n${passed} checks passed`)

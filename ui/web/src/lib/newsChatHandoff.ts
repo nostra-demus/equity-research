@@ -8,7 +8,9 @@ export function selectNewsChatHandoffEvidence(
   receipt: NewsChatReceipt | undefined,
 ): NewsChatEvidence | undefined {
   if (!evidence.length) return undefined
-  const candidateRefs = new Set(receipt?.tradeCandidates?.flatMap((candidate) => candidate.evidenceRefs) || [])
+  // The handoff note describes the strict top candidate only. Preferring evidence from every candidate
+  // could seed Gate 0 with candidate B while the note and score still describe candidate A.
+  const candidateRefs = new Set(receipt?.tradeCandidates?.[0]?.evidenceRefs || [])
   const queryTerms = receipt?.queryTerms || []
   return [...evidence].sort((a, b) => {
     const score = (row: NewsChatEvidence) => {
@@ -17,6 +19,6 @@ export function selectNewsChatHandoffEvidence(
       const exactReasons = (row.whyMatched || []).filter((reason) => reason.startsWith('exact:')).length
       return (candidateRefs.has(row.ref) ? 1_000 : 0) + headlineHits * 30 + exactReasons + (row.historical ? -10 : 0)
     }
-    return score(b) - score(a)
+    return score(b) - score(a) || a.ref.localeCompare(b.ref)
   })[0]
 }

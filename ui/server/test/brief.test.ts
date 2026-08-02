@@ -8,7 +8,8 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { buildThemeBrief, deterministicBrief, representativeMembers, type BriefConfig } from '../src/news/themes/brief'
+import { buildThemeBrief, deterministicBrief, representativeMembers, themeBriefTokenBound, type BriefConfig } from '../src/news/themes/brief'
+import { Budget, resetBudgetMemory, resetSharedLimiters } from '../src/news/triage/budget'
 import type { Theme, ThemeCompany, ThemeMember } from '../src/news/themes/types'
 
 let passed = 0
@@ -182,6 +183,38 @@ await check('buildThemeBrief: a successful model read returns generation "groq"'
   assert.equal(out.note, undefined, 'a real model read carries no degraded note')
 })
 
+await check('buildThemeBrief reserves the full prompt/output bound near the shared token cap', async () => {
+  resetBudgetMemory()
+  resetSharedLimiters()
+  const dir = tmpState()
+  const input = theme({ theme_id: 'THM-nearcap' })
+  const bound = themeBriefTokenBound(input)
+  const oldEstimate = 1_200
+  const actualTokens = oldEstimate + 150
+  const tokenCap = 100 + bound
+  const seed = Budget.load(dir, 10, tokenCap, Date.now(), 'groq-budget.json')
+  seed.record(0, 100)
+  seed.save()
+  const cfg = { ...GROQ_CFG, groqDailyReqCap: 10, groqDailyTokenCap: tokenCap, groqRpm: 0, groqTpm: 0 }
+  const text = JSON.stringify({ brief: 'A sufficiently long model brief proves that one authorized near-cap request completed successfully.' })
+  let fetches = 0
+  const fetchFn = (async () => {
+    fetches++
+    await new Promise<void>((resolve) => setTimeout(resolve, 20))
+    return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: text } }], usage: { total_tokens: actualTokens } }) }
+  }) as unknown as typeof fetch
+  const results = await Promise.all([
+    buildThemeBrief(input, cfg, dir, fetchFn, { force: true }),
+    buildThemeBrief(input, cfg, dir, fetchFn, { force: true }),
+  ])
+  assert.equal(fetches, 1, 'the competing brief cannot borrow token room reserved by the first')
+  assert.equal(results.filter((row) => row.generation === 'groq').length, 1)
+  const saved = JSON.parse(fs.readFileSync(path.join(dir, 'groq-budget.json'), 'utf8'))
+  assert.equal(saved.tokens, 100 + actualTokens)
+  assert.ok(actualTokens > oldEstimate)
+  assert.ok(saved.tokens <= tokenCap)
+})
+
 // ---- forced regen within the cooldown serves the cache (no second network hit) ----
 await check('buildThemeBrief: force=1 within the cooldown serves the cached brief (no re-fetch)', async () => {
   const dir = tmpState()
@@ -197,9 +230,17 @@ await check('buildThemeBrief: force=1 within the cooldown serves the cached brie
 // ---- model failure degrades to deterministic with a note ----
 await check('buildThemeBrief: model HTTP error degrades to deterministic + a note', async () => {
   const dir = tmpState()
-  const out = await buildThemeBrief(theme(), GROQ_CFG, dir, fakeFetch('', false, 429))
+  const cfg = { ...GROQ_CFG, groqDailyReqCap: 10, groqDailyTokenCap: 10_000, llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000 }
+  let calls = 0
+  const limited = (async () => { calls++; return { ok: false, status: 429, json: async () => ({}) } }) as unknown as typeof fetch
+  const out = await buildThemeBrief(theme(), cfg, dir, limited)
   assert.equal(out.generation, 'deterministic')
   assert.ok(out.note && /model/.test(out.note), 'explains the degrade')
+  const budget = JSON.parse(fs.readFileSync(path.join(dir, 'groq-budget.json'), 'utf8'))
+  assert.equal(budget.requests, 1, 'a 429 counts one request but never exhausts the shared 10-request day')
+  assert.equal(budget.tokens, themeBriefTokenBound(theme()), 'missing 429 usage is charged at the strict per-attempt bound')
+  await buildThemeBrief(theme({ theme_id: 'THM-cooldown2', name: 'Second theme' }), cfg, dir, limited)
+  assert.equal(calls, 1, 'the next brief respects the shared Groq cooldown instead of probing again')
 })
 
 // ---- a too-short model reply is rejected (no empty/garbage briefs) ----

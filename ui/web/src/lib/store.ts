@@ -12,7 +12,7 @@ import { selectNewsChatHandoffEvidence } from './newsChatHandoff'
 import { stageDockHUpdate } from './stageDock'
 import { affectedModules, focusKeysFor } from './intake'
 import type { BridgeStatus } from './types'
-import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
+import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyDlFilters, type DlFilterState } from '../components/datalibrary/DataLibraryFilters'
@@ -151,6 +151,8 @@ const CHAT_MAX_SEND = 40
 // The Screener news chat is a different closed book, so it gets its own aborter and state. Closing one
 // panel can never stop the other panel's request.
 let newsChatAbort: AbortController | null = null
+let newsChatPendingBaseline: ChatMessage[] | null = null
+const NEWS_CHAT_MAX_MESSAGES = 30
 // narration style is a STICKY preference (persisted) — unlike the ephemeral conversation, the user's
 // "explain it like X" choice should survive across companies and reloads. Default = plain-English 'simple'.
 const CHAT_STYLE_KEY = 'nsw.chatStyle'
@@ -309,6 +311,8 @@ interface State {
   newsChatError?: string
   newsChatReceipt?: NewsChatReceipt
   newsChatEvidence: NewsChatEvidence[]
+  newsChatCompletedTurn?: NewsChatCompletedTurn
+  newsChatRetryText?: string
   activityOpen: boolean // the Activity dock (live runs + the audit history) — auto-opens whenever a run goes live
   scoringOpen: boolean
   valuationPlaygroundOpen: boolean
@@ -796,7 +800,16 @@ function defaultChatTitle(scope: ChatScope, ticker: string, opts?: { module?: st
 // the chat-panel scope state cleared on every teardown (ticker switch, swarm switch) so a conversation
 // never bleeds across companies. Mirrors how openOutput is nulled alongside it.
 const CHAT_RESET = { chatOpen: false, chatStreaming: false, chatWork: null as ChatWork | null, chatMessages: [] as ChatMessage[], chatError: undefined as string | undefined, chatSource: undefined as string | undefined, chatConversationId: undefined as string | undefined, chatAnswerRunRoot: undefined as string | undefined }
-const NEWS_CHAT_RESET = { newsChatOpen: false, newsChatStreaming: false, newsChatMessages: [] as ChatMessage[], newsChatError: undefined as string | undefined, newsChatReceipt: undefined as NewsChatReceipt | undefined, newsChatEvidence: [] as NewsChatEvidence[] }
+const NEWS_CHAT_RESET = {
+  newsChatOpen: false,
+  newsChatStreaming: false,
+  newsChatMessages: [] as ChatMessage[],
+  newsChatError: undefined as string | undefined,
+  newsChatReceipt: undefined as NewsChatReceipt | undefined,
+  newsChatEvidence: [] as NewsChatEvidence[],
+  newsChatCompletedTurn: undefined as NewsChatCompletedTurn | undefined,
+  newsChatRetryText: undefined as string | undefined,
+}
 
 export const useStore = create<State>((set, get) => ({
   connected: true,
@@ -875,6 +888,8 @@ export const useStore = create<State>((set, get) => ({
   newsChatError: undefined,
   newsChatReceipt: undefined,
   newsChatEvidence: [],
+  newsChatCompletedTurn: undefined,
+  newsChatRetryText: undefined,
   activityOpen: false,
   scoringOpen: false,
   valuationPlaygroundOpen: false,
@@ -2732,6 +2747,7 @@ export const useStore = create<State>((set, get) => ({
     const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     chatAbort?.abort(); chatAbort = null // chat is research-only — leaving the swarm closes it
     newsChatAbort?.abort(); newsChatAbort = null
+    newsChatPendingBaseline = null
     if (reduced) {
       set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, signalIntakeSeed: null, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, diagnosticsOpen: false, ...CHAT_RESET, ...NEWS_CHAT_RESET })
       get()._enterSwarm(to)
@@ -3367,58 +3383,121 @@ export const useStore = create<State>((set, get) => ({
 
   // ---- ask the saved news wire ----
   openNewsChat: () => set({ newsChatOpen: true }),
-  closeNewsChat: () => { newsChatAbort?.abort(); newsChatAbort = null; set({ newsChatOpen: false, newsChatStreaming: false }) },
+  closeNewsChat: () => {
+    newsChatAbort?.abort()
+    newsChatAbort = null
+    const completed = get().newsChatCompletedTurn
+    const rollback = newsChatPendingBaseline
+    newsChatPendingBaseline = null
+    set({
+      newsChatOpen: false,
+      newsChatStreaming: false,
+      ...(rollback ? { newsChatMessages: rollback } : {}),
+      newsChatReceipt: completed?.receipt,
+      newsChatEvidence: completed?.evidence || [],
+      newsChatError: undefined,
+      newsChatRetryText: undefined,
+    })
+  },
   setNewsChatWindow: (window) => {
     if (window === get().newsChatWindow) return
     newsChatAbort?.abort(); newsChatAbort = null
-    set({ newsChatWindow: window, newsChatMessages: [], newsChatStreaming: false, newsChatError: undefined, newsChatReceipt: undefined, newsChatEvidence: [] })
+    newsChatPendingBaseline = null
+    set({ newsChatWindow: window, newsChatMessages: [], newsChatStreaming: false, newsChatError: undefined, newsChatReceipt: undefined, newsChatEvidence: [], newsChatCompletedTurn: undefined, newsChatRetryText: undefined })
   },
   clearNewsChat: () => {
     newsChatAbort?.abort(); newsChatAbort = null
-    set({ newsChatMessages: [], newsChatStreaming: false, newsChatError: undefined, newsChatReceipt: undefined, newsChatEvidence: [] })
+    newsChatPendingBaseline = null
+    set({ newsChatMessages: [], newsChatStreaming: false, newsChatError: undefined, newsChatReceipt: undefined, newsChatEvidence: [], newsChatCompletedTurn: undefined, newsChatRetryText: undefined })
   },
   sendNewsChatMessage: async (text) => {
     const q = text.trim()
     if (!q || get().newsChatStreaming) return
     if (get().staticMode) { set({ newsChatError: 'static-deploy' }); return }
-    const baseline = get().newsChatMessages
+    // Keep the local transcript and the request below the server's 30-message hard limit. A completed
+    // turn is two messages, so retaining 28 leaves room for the user + assistant placeholders.
+    const baseline = get().newsChatMessages.slice(-(NEWS_CHAT_MAX_MESSAGES - 2))
+    const previousCompleted = get().newsChatCompletedTurn
+    const userMessage: ChatMessage = { role: 'user', content: q }
     set({
-      newsChatMessages: [...baseline, { role: 'user', content: q }, { role: 'assistant', content: '' }],
+      newsChatMessages: [...baseline, userMessage, { role: 'assistant', content: '' }],
       newsChatStreaming: true,
       newsChatError: undefined,
       newsChatReceipt: undefined,
       newsChatEvidence: [],
+      newsChatRetryText: undefined,
     })
     const idx = baseline.length + 1
     newsChatAbort?.abort()
-    newsChatAbort = new AbortController()
+    const controller = new AbortController()
+    newsChatAbort = controller
+    newsChatPendingBaseline = baseline
+    let turnReceipt: NewsChatReceipt | undefined
+    let turnEvidence: NewsChatEvidence[] = []
+    let settled = false
+    const fail = (msg: string) => {
+      if (settled || newsChatAbort !== controller || controller.signal.aborted) return
+      settled = true
+      newsChatAbort = null
+      newsChatPendingBaseline = null
+      set({
+        newsChatMessages: baseline,
+        newsChatStreaming: false,
+        newsChatError: msg,
+        newsChatRetryText: q,
+        newsChatReceipt: previousCompleted?.receipt,
+        newsChatEvidence: previousCompleted?.evidence || [],
+      })
+    }
     await api.newsChatStream(
-      { window: get().newsChatWindow, model: get().chatModel, messages: [...baseline, { role: 'user', content: q }] },
+      { window: get().newsChatWindow, model: get().chatModel, messages: [...baseline, userMessage].slice(-NEWS_CHAT_MAX_MESSAGES) },
       {
-        signal: newsChatAbort.signal,
-        onMeta: (m) => set({ newsChatReceipt: m.receipt, newsChatEvidence: m.evidence }),
+        signal: controller.signal,
+        onMeta: (m) => {
+          if (newsChatAbort !== controller || controller.signal.aborted) return
+          turnReceipt = m.receipt
+          turnEvidence = m.evidence
+          set({ newsChatReceipt: m.receipt, newsChatEvidence: m.evidence })
+        },
         onToken: (tok) => {
+          if (newsChatAbort !== controller || controller.signal.aborted) return
           const msgs = get().newsChatMessages.slice()
           if (msgs[idx]?.role === 'assistant') { msgs[idx] = { role: 'assistant', content: msgs[idx].content + tok }; set({ newsChatMessages: msgs }) }
         },
-        onDone: () => set({ newsChatStreaming: false }),
-        onError: (msg) => {
-          const msgs = get().newsChatMessages.slice()
-          if (msgs[idx]?.role === 'assistant' && msgs[idx].content === '') msgs.splice(idx, 1)
-          set({ newsChatMessages: msgs, newsChatStreaming: false, newsChatError: msg })
+        onDone: () => {
+          if (settled || newsChatAbort !== controller || controller.signal.aborted) return
+          const answer = get().newsChatMessages[idx]?.content.trim() || ''
+          if (!answer || !turnReceipt) { fail('News chat ended before the answer completed. Please retry.'); return }
+          settled = true
+          newsChatAbort = null
+          newsChatPendingBaseline = null
+          set({
+            newsChatStreaming: false,
+            newsChatError: undefined,
+            newsChatRetryText: undefined,
+            newsChatCompletedTurn: { question: q, answer, receipt: turnReceipt, evidence: turnEvidence },
+          })
         },
+        onError: fail,
       },
     )
+    if (!settled && newsChatAbort === controller && !controller.signal.aborted) fail('News chat ended before the answer completed. Please retry.')
   },
   sendNewsChatToSignalCheck: () => {
-    const messages = get().newsChatMessages
-    const answer = [...messages].reverse().find((m) => m.role === 'assistant' && m.content.trim())?.content.trim()
-    const question = [...messages].reverse().find((m) => m.role === 'user' && m.content.trim())?.content.trim()
-    if (!answer || !question || get().newsChatStreaming) return
+    const turn = get().newsChatCompletedTurn
+    if (!turn || get().newsChatStreaming) return
+    const { answer, question, receipt, evidence: allEvidence } = turn
     const refs = new Set([...answer.matchAll(/\[((?:N|H)\d+)\]/g)].map((m) => m[1]))
-    const allEvidence = get().newsChatEvidence
-    const evidence = (refs.size ? allEvidence.filter((e) => refs.has(e.ref)) : allEvidence.slice(0, 8)).slice(0, 14)
-    const tradeCandidate = get().newsChatReceipt?.tradeCandidates?.[0]
+    const citedEvidence = refs.size ? allEvidence.filter((e) => refs.has(e.ref)) : allEvidence.slice(0, 8)
+    const topCandidate = receipt.tradeCandidates?.[0]
+    const candidateRefs = new Set(topCandidate?.evidenceRefs || [])
+    const candidateEvidence = allEvidence.filter((e) => candidateRefs.has(e.ref))
+    // If the receipt promotes a strict top candidate, its own evidence anchors both Gate 0 and the note.
+    // Never describe candidate A while silently seeding candidate B from a lower-ranked row.
+    const evidence = (candidateEvidence.length
+      ? [...new Map([...candidateEvidence, ...citedEvidence].map((row) => [row.ref, row])).values()]
+      : citedEvidence).slice(0, 14)
+    const tradeCandidate = candidateEvidence.length ? topCandidate : undefined
     const sourceLines = evidence.map((e) => `[${e.ref}] ${e.item.source_name}, ${e.item.ts}: ${displayHeadline(e.item)} — ${e.item.url || e.item.event_id}`)
     const sourcesText = sourceLines.join('\n').slice(0, 1200)
     const note = [
@@ -3437,7 +3516,9 @@ export const useStore = create<State>((set, get) => ({
     ].join('\n').slice(0, 3950)
     // When the answer cites a real saved event, keep that source as Gate 0's anchor. The question and
     // answer travel as body text. Falling back to a human prompt remains honest when no cited URL exists.
-    const anchor = selectNewsChatHandoffEvidence(evidence.filter((e) => e.item.url && e.item.source_name), get().newsChatReceipt)
+    const usableEvidence = (topCandidate ? candidateEvidence : evidence)
+      .filter((e) => e.item.url && e.item.source_name)
+    const anchor = selectNewsChatHandoffEvidence(usableEvidence, receipt)
     get().openSignalIntakeWith(anchor ? {
       headline: anchor.item.headline.slice(0, 500),
       source_url: anchor.item.url,
@@ -4163,7 +4244,7 @@ export const useStore = create<State>((set, get) => ({
 
 // DEV-only: expose the store so live timer/ETA visuals can be exercised locally without paying for a real
 // run (simulate running orbs via __store.setState). Tree-shaken out of the production build.
-if (import.meta.env.DEV && typeof window !== 'undefined') (window as any).__store = useStore
+if (import.meta.env?.DEV && typeof window !== 'undefined') (window as any).__store = useStore
 
 function beginRun(set: any, get: () => State, runId: string, info: { kind: string; module?: string; agent?: string; willCommitToMain?: boolean }, plannedKeys: string[], doneKeys: string[] = []) {
   const ticker = get().selectedTicker || ''

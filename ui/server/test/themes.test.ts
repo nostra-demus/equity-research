@@ -14,6 +14,7 @@ import { updateTokenDf, buildGenericSet, loadTokenDf, saveTokenDf, DEFAULT_TOKEN
 import { topicTokens, themeTokens, isRoutineFiling } from '../src/news/text-match'
 import { stepThemes } from '../src/news/themes/engine'
 import { buildSummary, buildThemesIndex, loadThemes, maybeCompactThemesLedger } from '../src/news/themes/store'
+import { Budget, resetBudgetMemory } from '../src/news/triage/budget'
 import type { Theme, ThemeItemView } from '../src/news/themes/types'
 
 let passed = 0
@@ -181,6 +182,60 @@ await check('makeThemeNamer (groq path): renames a real theme, retires a non-the
   assert.equal(real.generation, 'claude')
   assert.ok(real.keywords.includes('hyperscaler'))
   assert.equal(junk.status, 'retired') // is_theme:false → dropped
+})
+
+await check('makeThemeNamer charges its strict bound when a malformed Groq reply has no usage', async () => {
+  const { makeThemeNamer, themeNamerTokenBound } = await import('../src/news/themes/llm')
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-malformed-'))
+  const real = createTheme([
+    item('mr1', 'Nvidia AI data center buildout', { companies: [co('Nvidia', 'NVDA')] }),
+    item('mr2', 'Vertiv expands AI data center cooling', { companies: [co('Vertiv', 'VRT')] }),
+    item('mr3', 'Microsoft expands AI data centers', { companies: [co('Microsoft', 'MSFT')] }),
+  ], NOW)
+  const malformed = (async () => ({ ok: true, status: 200, json: async () => { throw new SyntaxError('malformed JSON') } })) as unknown as typeof fetch
+  const namer = makeThemeNamer({ themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'llama', groqDailyReqCap: 10, groqDailyTokenCap: 10_000 }, malformed, tmp)
+  await namer!([real], NOW)
+  const budget = JSON.parse(fs.readFileSync(path.join(tmp, 'groq-budget.json'), 'utf8'))
+  assert.equal(budget.requests, 1)
+  assert.equal(budget.tokens, themeNamerTokenBound([real]), 'a sent malformed reply is charged at the same safe bound it reserved')
+})
+
+await check('makeThemeNamer reserves the full prompt/output bound near the shared token cap', async () => {
+  const { makeThemeNamer, themeNamerTokenBound } = await import('../src/news/themes/llm')
+  resetBudgetMemory()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-near-cap-'))
+  const first = createTheme([
+    item('nr1', 'Nvidia expands AI data center capacity', { companies: [co('Nvidia', 'NVDA')] }),
+    item('nr2', 'Vertiv expands AI data center cooling', { companies: [co('Vertiv', 'VRT')] }),
+    item('nr3', 'Microsoft expands AI data centers', { companies: [co('Microsoft', 'MSFT')] }),
+  ], NOW)
+  const second = createTheme([
+    item('ns1', 'AMD expands AI data center capacity', { companies: [co('AMD', 'AMD')] }),
+    item('ns2', 'Arista expands AI data center networking', { companies: [co('Arista', 'ANET')] }),
+    item('ns3', 'Dell expands AI server capacity', { companies: [co('Dell', 'DELL')] }),
+  ], NOW)
+  const bound = themeNamerTokenBound([first])
+  const oldEstimate = 1_400
+  const actualTokens = oldEstimate + 200
+  const tokenCap = 100 + bound
+  const seed = Budget.load(tmp, 10, tokenCap, NOW.getTime(), 'groq-budget.json')
+  seed.record(0, 100)
+  seed.save()
+  let fetches = 0
+  const fetchFn = (async () => {
+    fetches++
+    await new Promise<void>((resolve) => setTimeout(resolve, 20))
+    return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: JSON.stringify({ themes: [{ i: 0, is_theme: true, name: 'AI Data-Center Buildout', slug: 'ai-data-center-buildout', description: 'AI infrastructure capacity is expanding.', keywords: ['ai'] }] }) } }], usage: { total_tokens: actualTokens } }) }
+  }) as unknown as typeof fetch
+  const cfg = { themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm', groqDailyReqCap: 10, groqDailyTokenCap: tokenCap }
+  const namerA = makeThemeNamer(cfg, fetchFn, tmp)!
+  const namerB = makeThemeNamer(cfg, fetchFn, tmp)!
+  await Promise.all([namerA([first], NOW), namerB([second], NOW)])
+  assert.equal(fetches, 1, 'the competing namer cannot use the first call\'s reserved token room')
+  const saved = JSON.parse(fs.readFileSync(path.join(tmp, 'groq-budget.json'), 'utf8'))
+  assert.equal(saved.tokens, 100 + actualTokens)
+  assert.ok(actualTokens > oldEstimate)
+  assert.ok(saved.tokens <= tokenCap)
 })
 
 await check('makeThemeNamer returns undefined when no key / model off (stays deterministic)', async () => {

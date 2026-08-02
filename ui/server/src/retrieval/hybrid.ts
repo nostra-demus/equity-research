@@ -19,6 +19,7 @@ export interface HybridQueryOptions {
   terms?: string[]
   forcedAnchors?: string[]
   minAnchorMatches?: number
+  minTermMatches?: number
 }
 
 interface QueryTerm {
@@ -32,6 +33,7 @@ export interface HybridQuery {
   terms: string[]
   anchors: string[]
   minAnchorMatches: number
+  minTermMatches: number
   expandedTerms: Record<string, string[]>
   phrases: string[]
   plans: QueryTerm[]
@@ -199,7 +201,8 @@ export function buildHybridQuery(text: string, opts: HybridQueryOptions = {}): H
   const minAnchorMatches = anchors.length
     ? Math.max(1, Math.min(anchors.length, Math.floor(opts.minAnchorMatches || 1)))
     : 0
-  return { text, terms, anchors, minAnchorMatches, expandedTerms, phrases, plans }
+  const minTermMatches = terms.length ? Math.max(1, Math.min(terms.length, Math.floor(opts.minTermMatches || 1))) : 0
+  return { text, terms, anchors, minAnchorMatches, minTermMatches, expandedTerms, phrases, plans }
 }
 
 interface FieldView {
@@ -315,7 +318,8 @@ export function matchHybridDocument<T>(query: HybridQuery, document: HybridDocum
   const exactSet = new Set(exactTerms)
   const anchorMatches = query.anchors.filter((term) => matched.has(term)).length
   const exactAnchorMatches = query.anchors.filter((term) => exactSet.has(term)).length
-  const qualifies = query.terms.length === 0 || (query.anchors.length ? anchorMatches >= query.minAnchorMatches : matchedTerms.length > 0)
+  const enoughTerms = matchedTerms.length >= query.minTermMatches
+  const qualifies = query.terms.length === 0 || (enoughTerms && (query.anchors.length ? anchorMatches >= query.minAnchorMatches : true))
   recallScore += query.terms.length ? (matchedTerms.length / query.terms.length) * 10 : 0
   if (query.anchors.length && anchorMatches === query.anchors.length) recallScore += 18
 
@@ -349,9 +353,51 @@ export class HybridCollector<T> {
   private readonly documentFrequency = new Map<string, number>()
   private totalLength = 0
   private seen = 0
+  private matched = 0
+  private admissionComparisons = 0
 
-  constructor(query: HybridQuery) {
+  constructor(query: HybridQuery, private readonly maxCandidates = Number.POSITIVE_INFINITY) {
     this.query = query
+  }
+
+  private retentionScore(row: Candidate<T>): number {
+    // Admission needs a stable cheap score before corpus-wide BM25 is known. Named-anchor coverage is
+    // dominant, then exact/phrase/recall evidence and source quality. This preserves the rows most likely
+    // to survive final fusion while strictly bounding archive-query memory.
+    return row.match.anchorMatches * 1e9
+      + row.match.exactAnchorMatches * 1e7
+      + row.match.phraseMatches * 1e5
+      + row.match.exactScore * 1e3
+      + row.match.recallScore * 10
+      + Number(row.document.quality || 0)
+  }
+
+  private isWorse(a: Candidate<T>, b: Candidate<T>): boolean {
+    this.admissionComparisons++
+    const aScore = this.retentionScore(a), bScore = this.retentionScore(b)
+    return aScore < bScore || (aScore === bScore && String(a.document.id).localeCompare(String(b.document.id)) > 0)
+  }
+
+  private heapUp(index: number): void {
+    while (index > 0) {
+      const parent = Math.floor((index - 1) / 2)
+      if (!this.isWorse(this.candidates[index], this.candidates[parent])) break
+      ;[this.candidates[index], this.candidates[parent]] = [this.candidates[parent], this.candidates[index]]
+      index = parent
+    }
+  }
+
+  private heapDown(index: number): void {
+    for (;;) {
+      const left = index * 2 + 1
+      if (left >= this.candidates.length) return
+      const right = left + 1
+      let worst = left
+      if (right < this.candidates.length && this.isWorse(this.candidates[right], this.candidates[left])) worst = right
+      if (!this.isWorse(this.candidates[worst], this.candidates[index])) return
+      ;[this.candidates[index], this.candidates[worst]] = [this.candidates[worst], this.candidates[index]]
+      index = worst
+    }
   }
 
   add(document: HybridDocument<T>): HybridMatch {
@@ -359,12 +405,28 @@ export class HybridCollector<T> {
     this.seen++
     this.totalLength += match.documentLength
     for (const term of match.matchedTerms) this.documentFrequency.set(term, (this.documentFrequency.get(term) || 0) + 1)
-    if (match.qualifies) this.candidates.push({ document, match, bm25Score: 0, score: 0, channelRanks: {} })
+    if (match.qualifies) {
+      this.matched++
+      const candidate = { document, match, bm25Score: 0, score: 0, channelRanks: {} }
+      const cap = Math.max(1, this.maxCandidates)
+      if (this.candidates.length < cap) {
+        this.candidates.push(candidate)
+        if (Number.isFinite(cap)) this.heapUp(this.candidates.length - 1)
+      }
+      else if (Number.isFinite(cap)) {
+        if (this.isWorse(this.candidates[0], candidate)) {
+          this.candidates[0] = candidate
+          this.heapDown(0)
+        }
+      }
+    }
     return match
   }
 
   get documentsSeen(): number { return this.seen }
-  get candidatesMatched(): number { return this.candidates.length }
+  get candidatesMatched(): number { return this.matched }
+  get candidatesRetained(): number { return this.candidates.length }
+  get candidateAdmissionComparisons(): number { return this.admissionComparisons }
 
   results(limit = 100, rankWindow = 500): HybridHit<T>[] {
     if (!this.candidates.length) return []
@@ -402,7 +464,10 @@ export class HybridCollector<T> {
     }
     const rrfConstant = 60
     for (const channel of channels) {
-      const ordered = this.candidates.slice().sort((a, bRow) => valueFor(bRow, channel.name) - valueFor(a, channel.name) || String(a.document.id).localeCompare(String(bRow.document.id)))
+      // A zero-valued channel did not retrieve the document. Giving every zero a tail rank silently
+      // rewards non-matches (especially the quality channel when quality is absent).
+      const ordered = this.candidates.filter((row) => valueFor(row, channel.name) > 0)
+        .sort((a, bRow) => valueFor(bRow, channel.name) - valueFor(a, channel.name) || String(a.document.id).localeCompare(String(bRow.document.id)))
       for (let i = 0; i < Math.min(rankWindow, ordered.length); i++) {
         const row = ordered[i]
         row.channelRanks[channel.name] = i + 1
@@ -423,6 +488,11 @@ export interface RecallCase {
   id: string
   query: string
   relevantIds: string[]
+  /** Reviewed hard negatives that must not enter the result window even if they share generic terms. */
+  irrelevantIds?: string[]
+  forcedAnchors?: string[]
+  minAnchorMatches?: number
+  minTermMatches?: number
 }
 
 export interface RecallReport {
@@ -434,6 +504,7 @@ export interface RecallReport {
   found: number
   expected: number
   misses: { caseId: string; documentId: string }[]
+  hardNegativeIntrusions: { caseId: string; documentId: string; rank: number }[]
   caseResults: { caseId: string; found: number; expected: number; reciprocalRank: number; ndcg: number; topIds: string[] }[]
 }
 
@@ -446,16 +517,26 @@ export function evaluateRecall<T>(
   let found = 0
   let expected = 0
   const misses: RecallReport['misses'] = []
+  const hardNegativeIntrusions: RecallReport['hardNegativeIntrusions'] = []
   let precisionSum = 0
   let reciprocalRankSum = 0
   let ndcgSum = 0
   const caseResults: RecallReport['caseResults'] = []
   for (const test of cases) {
-    const collector = new HybridCollector<T>(buildHybridQuery(test.query, queryOptions))
+    const collector = new HybridCollector<T>(buildHybridQuery(test.query, {
+      ...queryOptions,
+      forcedAnchors: test.forcedAnchors,
+      minAnchorMatches: test.minAnchorMatches,
+      minTermMatches: test.minTermMatches,
+    }))
     for (const document of documents) collector.add(document)
     const topIds = collector.results(k).map((hit) => hit.document.id)
     const got = new Set(topIds)
     const relevant = new Set(test.relevantIds)
+    const irrelevant = new Set(test.irrelevantIds || [])
+    topIds.forEach((id, index) => {
+      if (irrelevant.has(id)) hardNegativeIntrusions.push({ caseId: test.id, documentId: id, rank: index + 1 })
+    })
     let caseFound = 0
     for (const id of test.relevantIds) {
       expected++
@@ -483,6 +564,7 @@ export function evaluateRecall<T>(
     found,
     expected,
     misses,
+    hardNegativeIntrusions,
     caseResults,
   }
 }

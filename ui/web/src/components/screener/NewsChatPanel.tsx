@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useStore } from '../../lib/store'
 import { displayHeadline } from '../../lib/plain'
-import type { NewsChatWindow } from '../../lib/types'
+import type { NewsChatEvidence, NewsChatWindow } from '../../lib/types'
 
 const WINDOWS: { id: NewsChatWindow; label: string; intro: string; help: string }[] = [
   { id: '24h', label: '24H', intro: 'the last 24 hours', help: 'News from the last 24 hours. Older news is used only to test what is new.' },
@@ -28,7 +28,8 @@ export function NewsChatPanel() {
   const streaming = useStore((s) => s.newsChatStreaming)
   const error = useStore((s) => s.newsChatError)
   const receipt = useStore((s) => s.newsChatReceipt)
-  const evidence = useStore((s) => s.newsChatEvidence)
+  const completedTurn = useStore((s) => s.newsChatCompletedTurn)
+  const retryText = useStore((s) => s.newsChatRetryText)
   const send = useStore((s) => s.sendNewsChatMessage)
   const clear = useStore((s) => s.clearNewsChat)
   const runSignal = useStore((s) => s.sendNewsChatToSignalCheck)
@@ -42,13 +43,12 @@ export function NewsChatPanel() {
   const lockedRef = useRef(true)
 
   const windowInfo = WINDOWS.find((w) => w.id === timeWindow) || WINDOWS[0]
-  const lastAnswer = useMemo(() => [...messages].reverse().find((m) => m.role === 'assistant' && m.content.trim())?.content || '', [messages])
-  const lastQuestion = useMemo(() => [...messages].reverse().find((m) => m.role === 'user' && m.content.trim())?.content || '', [messages])
+  const lastAnswer = completedTurn?.answer || ''
   const cited = useMemo(() => {
     const refs = new Set([...lastAnswer.matchAll(/\[((?:N|H)\d+)\]/g)].map((m) => m[1]))
-    return evidence.filter((e) => refs.has(e.ref))
-  }, [lastAnswer, evidence])
-  const canRunSignal = !!lastAnswer && !!lastQuestion && !streaming
+    return (completedTurn?.evidence || []).filter((e) => refs.has(e.ref))
+  }, [lastAnswer, completedTurn])
+  const canRunSignal = !!completedTurn && !streaming
 
   useEffect(() => { inputRef.current?.focus() }, [])
   useEffect(() => {
@@ -75,7 +75,7 @@ export function NewsChatPanel() {
     setDraft('')
     requestAnimationFrame(() => grow(inputRef.current))
   }
-  const retry = () => { if (lastQuestion) doSend(lastQuestion) }
+  const retry = () => { if (retryText) doSend(retryText) }
   const copy = () => {
     if (!lastAnswer) return
     navigator.clipboard?.writeText(lastAnswer).then(() => {
@@ -83,7 +83,7 @@ export function NewsChatPanel() {
       setTimeout(() => setCopied(false), 1400)
     }).catch(() => {})
   }
-  const selectEvidence = (ev: (typeof evidence)[number]) => {
+  const selectEvidence = (ev: NewsChatEvidence) => {
     openEvent(ev.item)
     close()
   }
@@ -121,13 +121,13 @@ export function NewsChatPanel() {
         </div>
       </div>
 
-      <div className="newschat__windows" role="tablist" aria-label="News time window">
+      <div className="newschat__windows" role="group" aria-label="News time window">
         {WINDOWS.map((w) => (
           <button
             key={w.id}
             type="button"
-            role="tab"
-            aria-selected={timeWindow === w.id}
+            aria-pressed={timeWindow === w.id}
+            aria-label={`${w.label}: ${w.help}`}
             className={`newschat__window${timeWindow === w.id ? ' newschat__window--on' : ''}`}
             onClick={() => setWindow(w.id)}
             title={w.help}
@@ -171,14 +171,14 @@ export function NewsChatPanel() {
               </div>
             ))}
 
-            {!streaming && lastAnswer && (
+            {completedTurn && !streaming && (
               <div className="newschat__actions">
                 <button className="btn btn--ghost" onClick={copy}>{copied ? 'Copied' : 'Copy answer'}</button>
                 <button className="btn btn--amber" onClick={runSignal} disabled={!canRunSignal}>Run Signal Check ▸</button>
               </div>
             )}
 
-            {cited.length > 0 && (
+            {!streaming && cited.length > 0 && (
               <div className="newschat__sources">
                 <button className="newschat__sources-toggle" onClick={() => setShowSources((v) => !v)} aria-expanded={showSources}>
                   {cited.length} cited news item{cited.length === 1 ? '' : 's'} {showSources ? '▴' : '▾'}
@@ -199,11 +199,11 @@ export function NewsChatPanel() {
               </div>
             )}
 
-            {error && (
-              <div className="chatpanel__error">
-                {error === 'static-deploy' ? <span>News chat runs on the live engine.</span> : <><span>{error}</span><button className="chatpanel__retry" onClick={retry}>Retry</button></>}
-              </div>
-            )}
+          </div>
+        )}
+        {error && (
+          <div className="chatpanel__error">
+            {error === 'static-deploy' ? <span>News chat runs on the live engine.</span> : <><span>{error}</span>{retryText && <button className="chatpanel__retry" onClick={retry}>Retry</button>}</>}
           </div>
         )}
       </div>

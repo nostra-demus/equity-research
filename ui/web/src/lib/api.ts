@@ -7,7 +7,8 @@ import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { BridgeStatus } from './types'
 import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
-const BASE = import.meta.env.BASE_URL
+// Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
+const BASE = import.meta.env?.BASE_URL || '/'
 
 // ---- live/static mode detection ----
 // Local dev (Fastify backend up) -> live. Cloudflare Pages (no backend) -> static snapshot, read-only.
@@ -1142,6 +1143,7 @@ export const api = {
     const reader = res.body.getReader()
     const decoder = new TextDecoder()
     let buf = ''
+    let terminal = false
     try {
       for (;;) {
         const { value, done } = await reader.read()
@@ -1161,13 +1163,19 @@ export const api = {
           try { parsed = JSON.parse(data) } catch { continue }
           if (ev === 'news-chat-meta') cb.onMeta(parsed)
           else if (ev === 'news-chat-token') cb.onToken(parsed.content ?? '')
-          else if (ev === 'news-chat-done') { cb.onDone(parsed); return }
-          else if (ev === 'news-chat-error') { cb.onError(parsed.message || 'news chat failed'); return }
+          else if (ev === 'news-chat-done') { terminal = true; cb.onDone(parsed); return }
+          else if (ev === 'news-chat-error') { terminal = true; cb.onError(parsed.message || 'news chat failed'); return }
         }
       }
     } catch (e: any) {
-      if (e?.name !== 'AbortError') cb.onError(e?.message || 'stream interrupted')
+      if (e?.name === 'AbortError' || cb.signal.aborted) return
+      terminal = true
+      cb.onError(e?.message || 'stream interrupted')
+      return
     }
+    // A clean transport EOF is not a successful answer. The server's done frame is the commit marker;
+    // without it, any partial tokens/meta must be rolled back by the store. User aborts stay silent.
+    if (!terminal && !cb.signal.aborted) cb.onError('News chat ended before the answer completed. Please retry.')
   },
 
   // who is signed in (Cloudflare Access email) — live only

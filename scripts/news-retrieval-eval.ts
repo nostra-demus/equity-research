@@ -13,6 +13,7 @@ console.log(JSON.stringify({
   mean_reciprocal_rank: result.report.meanReciprocalRank,
   ndcg_at_k: result.report.ndcgAtK,
   failures: result.failures,
+  hard_negative_intrusions: result.report.hardNegativeIntrusions,
   case_results: result.report.caseResults,
 }, null, 2))
 if (!result.passed) process.exitCode = 1

@@ -6,10 +6,10 @@ import { evaluateRecall, type HybridDocument, type RecallCase, type RecallReport
 interface BenchmarkDoc { id: string; quality?: number; headline?: string; company?: string; body?: string }
 interface BenchmarkFile {
   k: number
-  gates: { recall_at_k: number; mean_reciprocal_rank: number; ndcg_at_k: number }
+  gates: { recall_at_k: number; precision_at_k: number; mean_reciprocal_rank: number; ndcg_at_k: number }
   metric_terms?: string[]
   documents: BenchmarkDoc[]
-  cases: { id: string; query: string; relevant_ids: string[] }[]
+  cases: { id: string; query: string; relevant_ids: string[]; irrelevant_ids?: string[]; anchors?: string[]; min_anchor_matches?: number; min_term_matches?: number }[]
 }
 export interface BenchmarkResult { report: RecallReport; gates: BenchmarkFile['gates']; passed: boolean; failures: string[] }
 
@@ -26,12 +26,17 @@ export function runNewsRetrievalBenchmark(repoRoot: string): BenchmarkResult {
       { name: 'body', text: row.body, weight: 3 },
     ],
   }))
-  const cases: RecallCase[] = doc.cases.map((row) => ({ id: row.id, query: row.query, relevantIds: row.relevant_ids }))
+  const cases: RecallCase[] = doc.cases.map((row) => ({
+    id: row.id, query: row.query, relevantIds: row.relevant_ids, irrelevantIds: row.irrelevant_ids || [],
+    forcedAnchors: row.anchors, minAnchorMatches: row.min_anchor_matches, minTermMatches: row.min_term_matches,
+  }))
   const report = evaluateRecall(documents, cases, { concepts: loadRetrievalConcepts(repoRoot), metricTerms: doc.metric_terms || [] }, doc.k || 10)
   const failures: string[] = []
   if (report.recallAtK < doc.gates.recall_at_k) failures.push(`Recall@${doc.k} ${report.recallAtK.toFixed(3)} < ${doc.gates.recall_at_k.toFixed(3)}`)
+  if (report.precisionAtK < doc.gates.precision_at_k) failures.push(`Precision@${doc.k} ${report.precisionAtK.toFixed(3)} < ${doc.gates.precision_at_k.toFixed(3)}`)
   if (report.meanReciprocalRank < doc.gates.mean_reciprocal_rank) failures.push(`MRR ${report.meanReciprocalRank.toFixed(3)} < ${doc.gates.mean_reciprocal_rank.toFixed(3)}`)
   if (report.ndcgAtK < doc.gates.ndcg_at_k) failures.push(`nDCG@${doc.k} ${report.ndcgAtK.toFixed(3)} < ${doc.gates.ndcg_at_k.toFixed(3)}`)
   for (const miss of report.misses) failures.push(`miss ${miss.caseId}: ${miss.documentId}`)
+  for (const hit of report.hardNegativeIntrusions) failures.push(`hard negative ${hit.caseId}: ${hit.documentId} entered at rank ${hit.rank}`)
   return { report, gates: doc.gates, passed: failures.length === 0, failures }
 }

@@ -1519,6 +1519,12 @@ export interface NewsChatReceipt {
   sourceHealth: { total: number; healthy: number; quiet: number; failing: number; idle: number } | null
 }
 export interface NewsChatEvidence { ref: string; item: FeedItem; historical: boolean; whyMatched?: string[] }
+export interface NewsChatCompletedTurn {
+  question: string
+  answer: string
+  receipt: NewsChatReceipt
+  evidence: NewsChatEvidence[]
+}
 export interface NewsChatRequest {
   window: NewsChatWindow
   model?: string

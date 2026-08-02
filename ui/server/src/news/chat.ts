@@ -18,6 +18,7 @@ import type { SourcesReport } from './source-health'
 import { readThemesIndex } from './themes/store'
 import { scoreTradeCluster, type TradeScoreBreakdown } from './trade-score'
 import type { FeedItem } from './types'
+import { appendNewsChatFinalQuestion } from './chat-provider'
 
 export type NewsChatWindow = '24h' | '7d' | 'history'
 
@@ -90,14 +91,15 @@ interface SavedEnrichment {
   summary_en?: string | null
   gist?: string[]
   market_angle?: string
-  companies?: { name?: string; ticker?: string | null }[]
-  beneficiaries?: { name?: string; ticker?: string | null; mechanism?: string; basis?: string }[]
-  exposed?: { name?: string; ticker?: string | null; mechanism?: string; basis?: string }[]
+  companies?: { name?: string; ticker?: string | null; listing_status?: string | null; exchange?: string | null }[]
+  beneficiaries?: { name?: string; named_in_article?: boolean; ticker?: string | null; listing?: string | null; listing_status?: string | null; exchange?: string | null; listing_verified?: boolean; mechanism?: string; basis?: string; order?: 'first' | 'second' | null }[]
+  exposed?: { name?: string; named_in_article?: boolean; ticker?: string | null; listing?: string | null; listing_status?: string | null; exchange?: string | null; listing_verified?: boolean; mechanism?: string; basis?: string; order?: 'first' | 'second' | null }[]
   whats_priced?: string
   the_edge?: string
   watch_item?: string
   theme?: string
   news_impact?: {
+    impact_magnitude?: 'low' | 'medium' | 'high' | 'critical'
     affected_metric?: string[]
     extracted_numbers?: string[]
     quick_dirty_calculation?: string
@@ -138,6 +140,14 @@ const METRIC_TERMS = new Set([
   'spend', 'spending', 'trend', 'trends', 'year', 'years', 'yoy',
 ])
 
+// A capital letter at the start of a sentence does not make an instruction a proper name. Keep this
+// narrower than STOP: these words are useful retrieval terms elsewhere, but must not become required
+// company anchors merely because the user began with "Summarize ..." or "What's ...".
+const LEADING_NON_SUBJECT_WORDS = new Set([
+  'analyse', 'analyze', 'assess', 'describe', 'discuss', 'evaluate', 'overview', 'recap', 'review',
+  'summarise', 'summarize', 'update',
+])
+
 function tokens(s: string): string[] {
   return retrievalTokens(s)
 }
@@ -149,13 +159,25 @@ export function newsQueryTerms(question: string): string[] {
 function explicitNamedAnchors(question: string, terms: string[]): string[] {
   const allowed = new Set(terms)
   const out: string[] = []
-  for (const raw of question.match(/[\p{L}\p{N}][\p{L}\p{N}.&'-]*/gu) || []) {
+  const rawWords = question.match(/[\p{L}\p{N}][\p{L}\p{N}.&'-]*/gu) || []
+  for (const raw of rawWords) {
     if (!(raw === raw.toUpperCase() && /\p{L}/u.test(raw)) && !/^\p{Lu}/u.test(raw)) continue
     for (const token of retrievalTokens(raw)) {
+      const contractionLead = token.includes("'") && STOP.has(token.split("'", 1)[0])
+      // These are grammar/instruction words regardless of how much politeness or phrasing precedes them.
+      // Excluding them only from the explicit-name gate keeps them usable for lexical ranking without ever
+      // turning "Please quickly Summarize Nvidia" into a two-company query.
+      if (LEADING_NON_SUBJECT_WORDS.has(token) || contractionLead) continue
       if (allowed.has(token) && !STOP.has(token) && !METRIC_TERMS.has(token) && !out.includes(token)) out.push(token)
     }
   }
   return out
+}
+
+/** Proper-name anchors with explicit casing; lowercase names are resolved from semantic index entities. */
+export function newsSemanticNamedAnchors(question: string): string[] {
+  const base = buildHybridQuery(question, { stopWords: STOP, metricTerms: METRIC_TERMS })
+  return explicitNamedAnchors(question, base.terms)
 }
 
 function buildNewsQuery(question: string, concepts: ReturnType<typeof loadRetrievalConcepts>) {
@@ -192,6 +214,26 @@ function listDailyFiles(repoRoot: string, archiveDir: string): { date: string; f
 }
 
 let enrichmentCache: { file: string; mtimeMs: number; rows: Map<string, SavedEnrichment> } | null = null
+function normalizeEnrichment(value: SavedEnrichment): SavedEnrichment {
+  const impact = value.news_impact && typeof value.news_impact === 'object' ? value.news_impact : undefined
+  const impactMagnitude = impact && ['low', 'medium', 'high', 'critical'].includes(String(impact.impact_magnitude))
+    ? impact.impact_magnitude
+    : undefined
+  return {
+    ...value,
+    gist: Array.isArray(value.gist) ? value.gist.filter((x): x is string => typeof x === 'string') : [],
+    companies: Array.isArray(value.companies) ? value.companies.filter((x) => x && typeof x === 'object') : [],
+    beneficiaries: Array.isArray(value.beneficiaries) ? value.beneficiaries.filter((x) => x && typeof x === 'object') : [],
+    exposed: Array.isArray(value.exposed) ? value.exposed.filter((x) => x && typeof x === 'object') : [],
+    ...(impact ? { news_impact: {
+      ...impact,
+      impact_magnitude: impactMagnitude,
+      affected_metric: Array.isArray(impact.affected_metric) ? impact.affected_metric.filter((x): x is string => typeof x === 'string') : [],
+      extracted_numbers: Array.isArray(impact.extracted_numbers) ? impact.extracted_numbers.filter((x): x is string => typeof x === 'string') : [],
+    } } : {}),
+  }
+}
+
 function readEnrichmentCache(file: string): Map<string, SavedEnrichment> {
   const out = new Map<string, SavedEnrichment>()
   const candidates = [file, file.replace(/news-enrich-cache\.json$/, 'news-enrich-cache.bak.json')]
@@ -203,7 +245,7 @@ function readEnrichmentCache(file: string): Map<string, SavedEnrichment> {
       const raw = JSON.parse(fs.readFileSync(candidate, 'utf8'))
       if (!raw || Array.isArray(raw) || typeof raw !== 'object') continue
       for (const [key, value] of Object.entries(raw)) {
-        if (value && typeof value === 'object') out.set(key, value as SavedEnrichment)
+        if (value && typeof value === 'object') out.set(key, normalizeEnrichment(value as SavedEnrichment))
       }
       enrichmentCache = { file: candidate, mtimeMs: stat.mtimeMs, rows: out }
       return out
@@ -225,38 +267,76 @@ function hydrate(raw: any): FeedItem | null {
   return item
 }
 
-const dailyLineCache = new Map<string, { mtimeMs: number; lines: string[] }>()
-function readItems(file: string, visit: (item: FeedItem) => void, opts: {
+// Firehose rows are streamed on demand. The old process-lifetime `dailyLineCache` retained every line of
+// every day ever queried (hundreds of MB on a real archive) and populated it with readFileSync on the HTTP
+// request path. Streaming keeps memory bounded to one 64 KiB chunk plus one capped line, and `for await`
+// gives the event loop back to SSE/health requests between chunks.
+const MAX_FIREHOSE_LINE_CHARS = 1_000_000
+function abortError(): DOMException { return new DOMException('Aborted', 'AbortError') }
+function throwIfAborted(signal?: AbortSignal): void { if (signal?.aborted) throw abortError() }
+
+async function readItems(file: string, visit: (item: FeedItem) => void, opts: {
   prefilter?: (line: string) => boolean
   minTs?: number
   maxTsExclusive?: number
-} = {}): number {
-  let stat: fs.Stats
-  try { stat = fs.statSync(file) } catch { return 0 }
-  let cached = dailyLineCache.get(file)
-  if (!cached || cached.mtimeMs !== stat.mtimeMs) {
-    let text = ''
-    try { text = fs.readFileSync(file, 'utf8') } catch { return 0 }
-    cached = { mtimeMs: stat.mtimeMs, lines: text.split('\n').filter((line) => line.includes('"kind"') && line.includes('"item"')) }
-    dailyLineCache.set(file, cached)
-  }
+  signal?: AbortSignal
+} = {}): Promise<number> {
+  throwIfAborted(opts.signal)
   let searched = 0
-  for (const line of cached.lines) {
+  const consume = (line: string) => {
+    if (!line.includes('"kind"') || !line.includes('"item"')) return
     if (opts.minTs !== undefined || opts.maxTsExclusive !== undefined) {
       const stamp = /"ts"\s*:\s*"([^"]+)"/.exec(line)?.[1]
       const at = stamp ? Date.parse(stamp) : NaN
-      if (!Number.isFinite(at)) continue
-      if (opts.minTs !== undefined && at < opts.minTs) continue
-      if (opts.maxTsExclusive !== undefined && at >= opts.maxTsExclusive) continue
+      if (!Number.isFinite(at)) return
+      if (opts.minTs !== undefined && at < opts.minTs) return
+      if (opts.maxTsExclusive !== undefined && at >= opts.maxTsExclusive) return
     }
     searched++
-    if (opts.prefilter && !opts.prefilter(line)) continue
+    if (opts.prefilter && !opts.prefilter(line)) return
     try {
       const item = hydrate(JSON.parse(line))
       if (item) visit(item)
     } catch {
       // One broken line must never break the archive search.
     }
+  }
+
+  let stream: fs.ReadStream
+  try { stream = fs.createReadStream(file, { encoding: 'utf8', highWaterMark: 64 * 1024 }) } catch { return 0 }
+  const stop = () => stream.destroy(abortError())
+  opts.signal?.addEventListener('abort', stop, { once: true })
+  let pending = ''
+  let discardingOversizeLine = false
+  try {
+    for await (const raw of stream) {
+      throwIfAborted(opts.signal)
+      const chunk = String(raw)
+      let start = 0
+      for (let nl = chunk.indexOf('\n'); nl >= 0; nl = chunk.indexOf('\n', start)) {
+        throwIfAborted(opts.signal)
+        const part = chunk.slice(start, nl)
+        if (!discardingOversizeLine) {
+          if (pending.length + part.length <= MAX_FIREHOSE_LINE_CHARS) consume(pending + part)
+          // else: a corrupt/pathological row is dropped instead of becoming an unbounded buffer.
+        }
+        pending = ''
+        discardingOversizeLine = false
+        start = nl + 1
+      }
+      const tail = chunk.slice(start)
+      if (!discardingOversizeLine) {
+        if (pending.length + tail.length <= MAX_FIREHOSE_LINE_CHARS) pending += tail
+        else { pending = ''; discardingOversizeLine = true }
+      }
+    }
+    if (!discardingOversizeLine && pending) consume(pending)
+  } catch (error) {
+    if (opts.signal?.aborted) throw abortError()
+    // A file can disappear while the archive mirror rotates. Treat that day as unavailable.
+  } finally {
+    opts.signal?.removeEventListener('abort', stop)
+    stream.destroy()
   }
   return searched
 }
@@ -265,13 +345,49 @@ function eventIdInLine(line: string): string | null {
   return /"event_id"\s*:\s*"([^"]+)"/.exec(line)?.[1] || null
 }
 
-function candidateEnrichmentIds(query: HybridQuery, rows: Map<string, SavedEnrichment>): Set<string> {
+function candidateEnrichmentIds(query: HybridQuery, rows: Map<string, SavedEnrichment>, max = 512): Set<string> {
   const ids = new Set<string>()
   for (const [id, row] of rows) {
     const match = matchHybridDocument(query, { id, value: id, fields: [{ name: 'saved_article', text: enrichmentText(row), fuzzy: true }] })
     if (match.qualifies) ids.add(id)
+    if (ids.size >= max) break
   }
   return ids
+}
+
+function boundedLineDistance(a: string, b: string, max: number): number {
+  if (Math.abs(a.length - b.length) > max) return max + 1
+  let prev = Array.from({ length: b.length + 1 }, (_, i) => i)
+  for (let i = 1; i <= a.length; i++) {
+    const next = [i]
+    let rowMin = i
+    for (let j = 1; j <= b.length; j++) {
+      const n = Math.min(next[j - 1] + 1, prev[j] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1))
+      next.push(n)
+      if (n < rowMin) rowMin = n
+    }
+    if (rowMin > max) return max + 1
+    prev = next
+  }
+  return prev[b.length]
+}
+
+function lineMayContainFuzzyAnchor(text: string, anchor: string): boolean {
+  if (anchor.length < 5 || /[0-9]/.test(anchor)) return false
+  const max = anchor.length >= 9 ? 2 : 1
+  // Iterate tokens instead of materialising `retrievalTokens(line)`: a corrupt row is capped at 1 MB, but
+  // typo rescue may scan a large archive and must retain only the current token, not an array per row.
+  for (const match of text.matchAll(/[\p{L}\p{N}][\p{L}\p{N}.+&'-]*/gu)) {
+    const compound = normalizeRetrievalText(match[0]).replace(/^[.'+-]+|[.'+-]+$/g, '')
+    const tokens = compound.includes('-') || compound.includes("'")
+      ? [compound, ...compound.split(/[-']/)]
+      : [compound]
+    for (const token of tokens) {
+      if (token.length < 5 || token[0] !== anchor[0] || Math.abs(token.length - anchor.length) > max) continue
+      if (boundedLineDistance(anchor, token, max) <= max) return true
+    }
+  }
+  return false
 }
 
 function fastLineFilter(query: HybridQuery, extraIds: Set<string>): (line: string) => boolean {
@@ -281,9 +397,12 @@ function fastLineFilter(query: HybridQuery, extraIds: Set<string>): (line: strin
     const id = eventIdInLine(line)
     if (id && extraIds.has(id)) return true
     const text = line.toLowerCase()
-    // One exact anchor is a cheap admission probe; the full hybrid matcher still enforces the stricter
-    // named-subject rule after parsing. This keeps typo rescue such as Amazon + "Bedrok" working.
-    return probes.some((variants) => variants.some((probe) => probe && text.includes(probe)))
+    // Exact anchors remain the cheap common path. A query with one required named subject gets the same
+    // tightly bounded typo rescue as the full hybrid matcher; otherwise a misspelling such as Nvdia would
+    // be discarded before the matcher could see a Nvidia headline. Multi-anchor queries still need one
+    // exact anchor at admission, and the full matcher enforces every configured anchor rule after parsing.
+    if (probes.some((variants) => variants.some((probe) => probe && text.includes(probe)))) return true
+    return plans.length === 1 && lineMayContainFuzzyAnchor(text, plans[0].term)
   }
 }
 
@@ -299,18 +418,48 @@ class TopItems {
   private rows: RankedItem[] = []
   constructor(private readonly max: number) {}
 
+  private worse(a: RankedItem, b: RankedItem): boolean {
+    return a.score < b.score
+      || (a.score === b.score && String(a.item.ts).localeCompare(String(b.item.ts)) < 0)
+      || (a.score === b.score && a.item.ts === b.item.ts && a.item.event_id.localeCompare(b.item.event_id) > 0)
+  }
+
+  private up(index: number): void {
+    while (index > 0) {
+      const parent = Math.floor((index - 1) / 2)
+      if (!this.worse(this.rows[index], this.rows[parent])) break
+      ;[this.rows[index], this.rows[parent]] = [this.rows[parent], this.rows[index]]
+      index = parent
+    }
+  }
+
+  private down(index: number): void {
+    for (;;) {
+      const left = index * 2 + 1
+      if (left >= this.rows.length) return
+      const right = left + 1
+      let worst = left
+      if (right < this.rows.length && this.worse(this.rows[right], this.rows[left])) worst = right
+      if (!this.worse(this.rows[worst], this.rows[index])) return
+      ;[this.rows[index], this.rows[worst]] = [this.rows[worst], this.rows[index]]
+      index = worst
+    }
+  }
+
   add(row: RankedItem): void {
     if (this.rows.length < this.max) {
       this.rows.push(row)
+      this.up(this.rows.length - 1)
       return
     }
-    let low = 0
-    for (let i = 1; i < this.rows.length; i++) if (this.rows[i].score < this.rows[low].score) low = i
-    if (row.score > this.rows[low].score) this.rows[low] = row
+    if (this.rows.length && this.worse(this.rows[0], row)) {
+      this.rows[0] = row
+      this.down(0)
+    }
   }
 
   values(): RankedItem[] {
-    return this.rows.slice().sort((a, b) => b.score - a.score || String(b.item.ts).localeCompare(String(a.item.ts)))
+    return this.rows.slice().sort((a, b) => b.score - a.score || String(b.item.ts).localeCompare(String(a.item.ts)) || a.item.event_id.localeCompare(b.item.event_id))
   }
 }
 
@@ -402,6 +551,13 @@ function bump(map: Map<string, number>, key: string | undefined | null): void {
   if (k) map.set(k, (map.get(k) || 0) + 1)
 }
 
+function bumpBounded(map: Map<string, number>, key: string | undefined | null, max = 512): void {
+  const k = String(key || '').trim()
+  if (!k) return
+  if (map.has(k)) map.set(k, (map.get(k) || 0) + 1)
+  else if (map.size < max) map.set(k, 1)
+}
+
 function topCounts(map: Map<string, number>, n = 10): [string, number][] {
   return [...map.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, n)
 }
@@ -458,20 +614,25 @@ function sourceCoverage(report: SourcesReport | undefined): { counts: SourcesRep
   return { counts: report.counts, warnings }
 }
 
-function rankTradeCandidates(evidence: NewsChatEvidence[], nowMs: number): NewsTradeCandidate[] {
-  const groups = new Map<string, { company: string; items: FeedItem[]; refs: string[] }>()
+function rankTradeCandidates(evidence: NewsChatEvidence[], nowMs: number, enrichments: Map<string, SavedEnrichment>): NewsTradeCandidate[] {
+  const groups = new Map<string, { company: string; items: (FeedItem & { impact_magnitude?: 'low' | 'medium' | 'high' | 'critical' | null })[]; refs: string[] }>()
   for (const ev of evidence.filter((e) => !e.historical)) {
     for (const company of ev.item.companies || []) {
       const ticker = String(company.ticker || '').trim().toUpperCase()
       if (!ticker || !/^[A-Z0-9][A-Z0-9.:-]{0,14}$/.test(ticker)) continue
       const group = groups.get(ticker) || { company: company.name || ticker, items: [], refs: [] }
-      group.items.push(ev.item)
+      // materiality_pre_score and dedup_group already travel on the persisted FeedItem. The body reader's
+      // economic-impact label is separate from that composite rank, so attach it explicitly when present.
+      const impactMagnitude = enrichments.get(ev.item.event_id)?.news_impact?.impact_magnitude
+      group.items.push({ ...ev.item, ...(impactMagnitude ? { impact_magnitude: impactMagnitude } : {}) })
       group.refs.push(ev.ref)
       groups.set(ticker, group)
     }
   }
   return [...groups.entries()].map(([ticker, group]) => {
-    const scored = scoreTradeCluster(group.items, { nowMs, ticker })
+    // FeedItem.companies is explicitly a title-model guess (types.ts), not a verified security master or
+    // live quote. Keep it as the candidate label, but do not clear ticker/listing/liquidity caps here.
+    const scored = scoreTradeCluster(group.items, { nowMs, ticker, tickerVerified: false, listingLiquidityVerified: false })
     return {
       ticker,
       company: group.company,
@@ -485,7 +646,7 @@ function rankTradeCandidates(evidence: NewsChatEvidence[], nowMs: number): NewsT
   }).sort((a, b) => b.score - a.score || b.evidenceRefs.length - a.evidenceRefs.length || a.ticker.localeCompare(b.ticker)).slice(0, 5)
 }
 
-export function assembleNewsChatContext(opts: {
+export async function assembleNewsChatContext(opts: {
   repoRoot: string
   archiveDir?: string
   enrichCacheFile?: string
@@ -494,7 +655,9 @@ export function assembleNewsChatContext(opts: {
   sourceReport?: SourcesReport
   semanticResult?: SemanticSearchResult
   now?: () => Date
-}): NewsChatContext {
+  signal?: AbortSignal
+}): Promise<NewsChatContext> {
+  throwIfAborted(opts.signal)
   const now = opts.now?.() || new Date()
   const nowMs = now.getTime()
   const files = listDailyFiles(opts.repoRoot, opts.archiveDir || '')
@@ -503,13 +666,15 @@ export function assembleNewsChatContext(opts: {
   const queryTerms = query.terms
   const enrichments = readEnrichmentCache(opts.enrichCacheFile || path.join(opts.repoRoot, 'ui', 'server', '.state', 'news-enrich-cache.json'))
   const currentBroad = new TopItems(220)
-  const current = queryTerms.length ? new HybridCollector<FeedItem>(query) : null
+  const current = queryTerms.length ? new HybridCollector<FeedItem>(query, 1_200) : null
   const semanticRanks = new Map((opts.semanticResult?.hits || []).map((hit) => [hit.eventId, hit]))
   const fastIds = candidateEnrichmentIds(query, enrichments)
-  for (const id of semanticRanks.keys()) fastIds.add(id)
+  for (const id of semanticRanks.keys()) if (fastIds.size < 768) fastIds.add(id)
   const directPrefilter = queryTerms.length ? fastLineFilter(query, fastIds) : undefined
   const semanticRows = new TopItems(240)
   const relationshipGraph = new NewsRelationshipGraph(query)
+  const currentGraphRows = new TopItems(600)
+  const olderGraphRows = new TopItems(300)
   const sources = new Set<string>()
   const companyCounts = new Map<string, number>()
   const eventCounts = new Map<string, number>()
@@ -528,25 +693,27 @@ export function assembleNewsChatContext(opts: {
     const at = Date.parse(item.ts)
     if (!Number.isFinite(at)) return
     const enrichment = enrichments.get(item.event_id)
-    relationshipGraph.add(item, enrichment)
     const document = retrievalDocument(item, enrichment, nowMs, false)
     const semantic = semanticRanks.get(item.event_id)
     if (semantic) semanticRows.add({ item, score: (document.quality || 0) + semantic.score * 100, extraReasons: [`semantic:${semantic.score.toFixed(3)}`] })
     const match = current?.add(document)
     if (match && !match.qualifies) return
+    currentGraphRows.add({ item, score: (document.quality || 0) + (match?.exactScore || 0) + (match?.recallScore || 0) })
     itemsMatched++
-    sources.add(item.source_name || item.domain || 'unknown')
-    for (const c of item.companies || []) bump(companyCounts, c.ticker || c.name)
-    for (const e of item.event_types || []) bump(eventCounts, e)
-    bump(tierCounts, item.source_tier || 'unknown')
-    for (const term of match?.exactTerms || []) bump(termCounts, term)
-    for (const term of match?.matchedTerms || []) bump(retrievalTermCounts, term)
+    if (sources.size < 512) sources.add(item.source_name || item.domain || 'unknown')
+    for (const c of item.companies || []) bumpBounded(companyCounts, c.ticker || c.name)
+    for (const e of item.event_types || []) bumpBounded(eventCounts, e)
+    bumpBounded(tierCounts, item.source_tier || 'unknown')
+    for (const term of match?.exactTerms || []) bumpBounded(termCounts, term)
+    for (const term of match?.matchedTerms || []) bumpBounded(retrievalTermCounts, term)
     if (!current) currentBroad.add({ item, score: document.quality || 0 })
   }
-  for (const f of currentFiles) itemsSearched += readItems(f.file, visitCurrent, {
+  for (const f of currentFiles) itemsSearched += await readItems(f.file, visitCurrent, {
     prefilter: directPrefilter,
+    signal: opts.signal,
     ...(opts.window === 'history' ? {} : { minTs: cutoffMs }),
   })
+  throwIfAborted(opts.signal)
 
   const lexicalRanked: RankedItem[] = queryTerms.length
     ? current!.results(220).map((hit) => ({ item: hit.document.value, score: hit.score, match: hit.match }))
@@ -555,20 +722,24 @@ export function assembleNewsChatContext(opts: {
   let currentTopRows = uniqueTop(currentRanked, 55)
   const historyTerms = seedTerms(currentTopRows.map((row) => row.item), queryTerms)
   const historyQuery = buildHybridQuery(historyTerms.join(' '), { terms: historyTerms, forcedAnchors: query.anchors, minAnchorMatches: query.minAnchorMatches, concepts, maxTerms: 24 })
-  const older = new HybridCollector<FeedItem>(historyQuery)
+  const older = new HybridCollector<FeedItem>(historyQuery, 800)
   if (opts.window !== 'history' && historyTerms.length) {
     const visitOlder = (item: FeedItem) => {
       const at = Date.parse(item.ts)
       if (!Number.isFinite(at) || at >= cutoffMs) return
       const enrichment = enrichments.get(item.event_id)
-      relationshipGraph.add(item, enrichment)
-      older.add(retrievalDocument(item, enrichments.get(item.event_id), nowMs, true))
+      const document = retrievalDocument(item, enrichment, nowMs, true)
+      const match = older.add(document)
+      if (match.qualifies) olderGraphRows.add({ item, score: (document.quality || 0) + match.exactScore + match.recallScore })
     }
     // Include the boundary date and use the timestamp gate so the part of that file before the cutoff
     // is not lost. The fast named-subject probe makes the full-history novelty check cheap.
     const historyFiles = files.filter((f) => f.date <= cutoffDate)
-    for (const f of historyFiles) readItems(f.file, visitOlder, { prefilter: directPrefilter, maxTsExclusive: cutoffMs })
+    for (const f of historyFiles) await readItems(f.file, visitOlder, { prefilter: directPrefilter, maxTsExclusive: cutoffMs, signal: opts.signal })
   }
+  throwIfAborted(opts.signal)
+  for (const row of uniqueTop(currentGraphRows.values(), 500)) relationshipGraph.add(row.item, enrichments.get(row.item.event_id))
+  for (const row of uniqueTop(olderGraphRows.values(), 250)) relationshipGraph.add(row.item, enrichments.get(row.item.event_id))
   let historicalTopRows = uniqueTop(older.results(100).map((hit) => ({ item: hit.document.value, score: hit.score, match: hit.match })), 20)
   // A second bounded pass fetches evidence connected through a concrete company/commodity. Broad
   // taxonomy nodes never enter this pass (relationship-graph.ts), so it cannot turn "commercial" into
@@ -580,14 +751,14 @@ export function assembleNewsChatContext(opts: {
     .filter((term) => !query.anchors.includes(normalizeRetrievalText(term)))
   if (queryTerms.length && relatedTerms.length) {
     const connectionFilter = literalLineFilter(relatedTerms)
-    const seenConnections = new Set<string>()
+    const connectionRows = new TopItems(600)
     const addConnection = (item: FeedItem) => {
-      if (seenConnections.has(item.event_id)) return
-      seenConnections.add(item.event_id)
-      relationshipGraph.add(item, enrichments.get(item.event_id))
+      connectionRows.add({ item, score: itemQuality(item, nowMs, Date.parse(item.ts) < cutoffMs) })
     }
-    for (const f of files) readItems(f.file, addConnection, { prefilter: connectionFilter })
+    for (const f of files) await readItems(f.file, addConnection, { prefilter: connectionFilter, signal: opts.signal })
+    for (const row of uniqueTop(connectionRows.values(), 500)) relationshipGraph.add(row.item, enrichments.get(row.item.event_id))
   }
+  throwIfAborted(opts.signal)
   const relationships = relationshipGraph.relationships()
   const existingIds = new Set([...currentTopRows, ...historicalTopRows].map((r) => r.item.event_id))
   for (const candidate of relationshipGraph.candidates(existingIds, 12)) {
@@ -605,15 +776,17 @@ export function assembleNewsChatContext(opts: {
     ...historicalTopRows.map((row, i) => ({ ref: `H${i + 1}`, item: row.item, historical: true, whyMatched: [...(row.match?.reasons || []), ...(row.extraReasons || [])] })),
   ]
   const refByEvent = new Map(evidence.map((e) => [e.item.event_id, e.ref]))
-  const tradeCandidates = rankTradeCandidates(evidence, nowMs)
+  const tradeCandidates = rankTradeCandidates(evidence, nowMs, enrichments)
 
   const themes = readThemesIndex(opts.repoRoot).themes
     .map((t) => {
       const topCompanies = Array.isArray(t.top_companies) ? t.top_companies : []
+      const flowSeries = Array.isArray(t.flow_series) ? t.flow_series : []
+      const flowDaily = Array.isArray(t.flow_daily) ? t.flow_daily : []
       const flow = opts.window === '24h'
-        ? (t.flow_series || []).slice(-24).reduce((a, b) => a + b, 0)
+        ? flowSeries.slice(-24).reduce((a, b) => a + b, 0)
         : opts.window === '7d'
-          ? (t.flow_daily || []).slice(-7).reduce((a, b) => a + b, 0)
+          ? flowDaily.slice(-7).reduce((a, b) => a + b, 0)
           : t.member_count
       const match = matchHybridDocument(query, {
         id: t.theme_id,
@@ -763,16 +936,15 @@ export function buildNewsChatPrompts(args: {
   const transcript = prior.length
     ? `CONVERSATION SO FAR:\n${prior.map((m) => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`).join('\n\n')}\n\n`
     : ''
-  const user = [
+  const userPrefix = [
     'NEWS CONTEXT',
     '============',
     args.assembled.context,
     '',
     '============',
-    transcript + 'QUESTION:',
-    last?.content || '',
-    '',
+    transcript,
     'Answer only from the context. Keep the language very simple.',
   ].join('\n')
+  const user = appendNewsChatFinalQuestion(userPrefix, last?.content || '')
   return { system, user }
 }

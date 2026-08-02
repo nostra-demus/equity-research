@@ -535,6 +535,14 @@ export const NEWS = {
   chatGroqFallbackEnabled: process.env.NEWS_CHAT_GROQ_FALLBACK_ENABLED !== '0',
   chatGroqFallbackTimeoutMs: capNum(process.env.NEWS_CHAT_GROQ_FALLBACK_TIMEOUT_MS, 45_000),
   chatGroqFallbackMaxTokens: capNum(process.env.NEWS_CHAT_GROQ_FALLBACK_MAX_TOKENS, 700),
+  // One reservation spans neural retrieval, archive streaming, primary completion, and fallback. This is
+  // deliberately separate from runChatTurn's subprocess counter: archive work must be admitted before it
+  // starts, and a fallback must keep the same slot instead of racing a second request.
+  chatMaxConcurrent: capNum(process.env.NEWS_CHAT_MAX_CONCURRENT, 2),
+  chatRateLimitPerMinute: capNum(process.env.NEWS_CHAT_RATE_LIMIT_PER_MINUTE, 20),
+  // A user-facing fallback will wait only briefly for the shared ingestion minute window. It does not get
+  // a private untracked lane around Groq's limiter/budget/cooldown.
+  chatGroqFallbackLimiterWaitMs: capNum(process.env.NEWS_CHAT_GROQ_FALLBACK_LIMITER_WAIT_MS, 2_500),
   // CLOUD ARCHIVE — the raw-news firehose files are mirrored to a Google Drive for Desktop mount folder
   // (the news-archive launchd agent copies them there; Drive uploads to the cloud). Local files older than
   // the retention window are then pruned, so the laptop disk stays bounded while the full history lives in

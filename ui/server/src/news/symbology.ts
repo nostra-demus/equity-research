@@ -251,5 +251,33 @@ export async function searchSymbolsEnriched(q: string, fetchImpl: FetchLike = fe
   return groups
 }
 
+export interface VerifiedEquityListing {
+  ticker: string
+  exchange: string
+  companyName: string
+  source: 'yahoo_symbol_directory'
+}
+
+/**
+ * Verify that a model/user symbol resolves to an independently returned EQUITY listing. This proves
+ * ticker + venue identity only; it deliberately makes no liquidity claim. Any mismatch/failure is null.
+ */
+export async function verifyEquityListing(ticker: string, companyName?: string | null, fetchImpl: FetchLike = fetch): Promise<VerifiedEquityListing | null> {
+  const wanted = cleanTicker(ticker)
+  if (!wanted) return null
+  const wantedNorm = normTicker(wanted)
+  const groups = await searchSymbolsEnriched(wanted, fetchImpl)
+  const hit = groups.find((group) => {
+    // SymbolGroup carries venue provenance only for its primary `symbol`; aliases are sibling listings
+    // without per-alias venues. Exactness prevents attaching the primary's exchange to a sibling ticker.
+    if (normTicker(group.symbol) !== wantedNorm || !String(group.exchange || '').trim()) return false
+    if (!companyName) return true
+    const expected = String(companyName).toLowerCase()
+    const actual = String(group.name).toLowerCase()
+    return companyNameMatches(actual, expected) || companyNameMatches(expected, actual)
+  })
+  return hit ? { ticker: wanted, exchange: hit.exchange, companyName: hit.name, source: 'yahoo_symbol_directory' } : null
+}
+
 /** Test/ops hook — drop the directory cache. */
 export function invalidateSymbolCache(): void { symCache.clear() }

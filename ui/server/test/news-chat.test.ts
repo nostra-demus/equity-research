@@ -7,15 +7,18 @@ import { assembleNewsChatContext, buildNewsChatPrompts, newsQueryTerms } from '.
 import type { FeedItem } from '../src/news/types'
 
 let passed = 0
-function check(name: string, fn: () => void) {
-  try {
-    fn()
-    passed++
-    console.log(`  ok  ${name}`)
-  } catch (e: any) {
-    console.error(`FAIL  ${name}\n      ${e?.stack || e}`)
-    process.exitCode = 1
-  }
+let checks = Promise.resolve()
+function check(name: string, fn: () => Promise<void> | void) {
+  checks = checks.then(async () => {
+    try {
+      await fn()
+      passed++
+      console.log(`  ok  ${name}`)
+    } catch (e: any) {
+      console.error(`FAIL  ${name}\n      ${e?.stack || e}`)
+      process.exitCode = 1
+    }
+  })
 }
 
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'news-chat-'))
@@ -51,7 +54,7 @@ check('broad starter questions do not turn generic trading words into search fil
   assert.deepEqual(newsQueryTerms('What do all saved news items say about Amazon Bedrock growth rate? Separate facts from inference and tell me what exact trade I should screen.'), ['amazon', 'bedrock', 'growth', 'rate'])
 })
 
-check('24h chat searches the full window and adds a matching older item as history', () => {
+check('24h chat searches the full window and adds a matching older item as history', async () => {
   const root = tmp()
   const archive = path.join(root, 'archive')
   writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [
@@ -59,7 +62,7 @@ check('24h chat searches the full window and adds a matching older item as histo
     item('EVT-now-other', '2026-08-02T09:00:00Z', 'Another company opens a factory', 'Other Co', 82),
   ])
   writeDay(archive, '2026-05-01', [item('EVT-old-nvda', '2026-05-01T08:00:00Z', 'Nvidia discussed an earlier supply plan', 'Nvidia', 76)])
-  const got = assembleNewsChatContext({ repoRoot: root, archiveDir: archive, window: '24h', question: 'What changed for Nvidia?', now: () => new Date('2026-08-02T12:00:00Z') })
+  const got = await assembleNewsChatContext({ repoRoot: root, archiveDir: archive, window: '24h', question: 'What changed for Nvidia?', now: () => new Date('2026-08-02T12:00:00Z') })
   assert.equal(got.present, true)
   assert.equal(got.receipt.itemsSearched, 2)
   assert.equal(got.receipt.itemsMatched, 1)
@@ -69,12 +72,12 @@ check('24h chat searches the full window and adds a matching older item as histo
   assert.match(got.context, /OLDER EVIDENCE/)
 })
 
-check('history chat reads both the local firehose and the archive mirror', () => {
+check('history chat reads both the local firehose and the archive mirror', async () => {
   const root = tmp()
   const archive = path.join(root, 'archive')
   writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [item('EVT-new', '2026-08-02T10:00:00Z', 'Nvidia signs a new supply agreement', 'Nvidia', 91)])
   writeDay(archive, '2025-12-12', [item('EVT-old', '2025-12-12T10:00:00Z', 'Nvidia signs an older supply agreement', 'Nvidia', 73)])
-  const got = assembleNewsChatContext({ repoRoot: root, archiveDir: archive, window: 'history', question: 'Show Nvidia supply news', now: () => new Date('2026-08-02T12:00:00Z') })
+  const got = await assembleNewsChatContext({ repoRoot: root, archiveDir: archive, window: 'history', question: 'Show Nvidia supply news', now: () => new Date('2026-08-02T12:00:00Z') })
   assert.equal(got.receipt.itemsSearched, 2)
   assert.equal(got.receipt.itemsMatched, 2)
   assert.equal(got.receipt.coverageStart, '2025-12-12')
@@ -82,11 +85,11 @@ check('history chat reads both the local firehose and the archive mirror', () =>
   assert.equal(got.evidence.length, 2)
 })
 
-check('history uses data/NEWS-ARCHIVE even when NEWS_ARCHIVE_DIR is not set', () => {
+check('history uses data/NEWS-ARCHIVE even when NEWS_ARCHIVE_DIR is not set', async () => {
   const root = tmp()
   writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [item('EVT-new', '2026-08-02T10:00:00Z', 'Nvidia opens a new factory', 'Nvidia', 91)])
   writeDay(path.join(root, 'data', 'NEWS-ARCHIVE'), '2025-11-03', [item('EVT-old', '2025-11-03T10:00:00Z', 'Nvidia opened an older factory', 'Nvidia', 73)])
-  const got = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Nvidia factory', now: () => new Date('2026-08-02T12:00:00Z') })
+  const got = await assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Nvidia factory', now: () => new Date('2026-08-02T12:00:00Z') })
   assert.equal(got.receipt.itemsSearched, 2)
   assert.equal(got.receipt.itemsMatched, 2)
   assert.equal(got.receipt.coverageStart, '2025-11-03')
@@ -94,7 +97,46 @@ check('history uses data/NEWS-ARCHIVE even when NEWS_ARCHIVE_DIR is not set', ()
   assert.ok(got.receipt.dataStores.includes('saved archive'))
 })
 
-check('legacy firehose arrays and partial theme rows are normalized instead of crashing chat', () => {
+check('archive streaming drops an oversized corrupt row and continues with bounded memory', async () => {
+  const root = tmp()
+  const dir = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(dir, { recursive: true })
+  const good = item('EVT-after-large-row', '2026-08-02T10:00:00Z', 'Nvidia opens a bounded archive test', 'Nvidia', 91)
+  fs.writeFileSync(path.join(dir, '2026-08-02_firehose.ndjson'), `${JSON.stringify({ kind: 'item', junk: 'x'.repeat(1_050_000) })}\n${JSON.stringify(good)}\n`)
+  const got = await assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Nvidia bounded archive', now: () => new Date('2026-08-02T12:00:00Z') })
+  assert.equal(got.receipt.itemsSearched, 1)
+  assert.equal(got.evidence[0]?.item.event_id, 'EVT-after-large-row')
+})
+
+check('high-match archives keep exact scan counts while evidence and retained graph inputs stay bounded', async () => {
+  const root = tmp()
+  const rows = Array.from({ length: 2_500 }, (_, i) => item(
+    `EVT-volume-${i}`,
+    `2026-08-02T${String(i % 24).padStart(2, '0')}:${String(i % 60).padStart(2, '0')}:00Z`,
+    `Nvidia archive volume match ${i}`,
+    'Nvidia',
+    50 + (i % 50),
+  ))
+  writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', rows)
+  const got = await assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Nvidia archive volume', now: () => new Date('2026-08-03T00:00:00Z') })
+  assert.equal(got.receipt.itemsSearched, 2_500)
+  assert.equal(got.receipt.itemsMatched, 2_500)
+  assert.ok(got.evidence.length <= 60)
+  assert.ok(got.receipt.relationships.length <= 12)
+})
+
+check('an already-closed request aborts before archive retrieval starts', async () => {
+  const root = tmp()
+  writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [item('EVT-abort', '2026-08-02T10:00:00Z', 'Nvidia abort test', 'Nvidia')])
+  const controller = new AbortController()
+  controller.abort()
+  await assert.rejects(
+    assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Nvidia', signal: controller.signal }),
+    (error: any) => error?.name === 'AbortError',
+  )
+})
+
+check('legacy firehose arrays and partial theme rows are normalized instead of crashing chat', async () => {
   const root = tmp()
   writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [{
     ...item('EVT-legacy', '2026-08-02T10:00:00Z', 'Amazon Bedrock adds a production feature', 'Amazon', 80),
@@ -107,7 +149,12 @@ check('legacy firehose arrays and partial theme rows are normalized instead of c
     generated_at: '2026-08-02T10:00:00Z', history_days: 1, counts: {},
     themes: [{ theme_id: 'partial', name: 'Amazon Bedrock', description: 'Partial legacy theme', tier: 'active', composite: 50, member_count: 1 }],
   }))
-  const got = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Amazon Bedrock', now: () => new Date('2026-08-02T12:00:00Z') })
+  const stateDir = path.join(root, 'ui', 'server', '.state')
+  fs.mkdirSync(stateDir, { recursive: true })
+  fs.writeFileSync(path.join(stateDir, 'news-enrich-cache.json'), JSON.stringify({
+    'EVT-legacy': { summary: 'Amazon Bedrock saved read', gist: { text: 'not an array' }, companies: 'Amazon', beneficiaries: true, news_impact: { extracted_numbers: '50%' } },
+  }))
+  const got = await assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Amazon Bedrock', now: () => new Date('2026-08-02T12:00:00Z') })
   assert.equal(got.present, true)
   assert.equal(got.receipt.itemsMatched, 1)
   assert.deepEqual(got.evidence[0]?.item.event_types, [])
@@ -115,13 +162,13 @@ check('legacy firehose arrays and partial theme rows are normalized instead of c
   assert.match(got.context, /Amazon Bedrock/)
 })
 
-check('all explicit named parts are required so Amazon-only and generic growth stories cannot pretend to answer Bedrock', () => {
+check('all explicit named parts are required so Amazon-only and generic growth stories cannot pretend to answer Bedrock', async () => {
   const root = tmp()
   writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [
     item('EVT-amazon', '2026-08-02T10:00:00Z', 'Amazon reports faster AWS growth', 'Amazon', 65),
     item('EVT-other', '2026-08-02T11:00:00Z', 'OtherCo reports a record annual growth rate', 'OtherCo', 100),
   ])
-  const got = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Amazon Bedrock growth rate', now: () => new Date('2026-08-02T12:00:00Z') })
+  const got = await assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Amazon Bedrock growth rate', now: () => new Date('2026-08-02T12:00:00Z') })
   assert.equal(got.receipt.itemsSearched, 2)
   assert.equal(got.receipt.itemsMatched, 0)
   assert.equal(got.evidence.length, 0)
@@ -130,20 +177,20 @@ check('all explicit named parts are required so Amazon-only and generic growth s
   assert.ok(!got.evidence.some((e) => e.item.event_id === 'EVT-other'))
 })
 
-check('answer-format words cannot replace a missing named product anchor', () => {
+check('answer-format words cannot replace a missing named product anchor', async () => {
   const root = tmp()
   writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [
     item('EVT-real-bedrock', '2026-08-02T10:00:00Z', 'Amazon Bedrock adds a production feature', 'Amazon', 70),
     item('EVT-shopping', '2026-08-02T11:00:00Z', 'Amazon marks down an emergency kit', 'Amazon', 100),
   ])
   const question = 'What do all saved news items say about Amazon Bedrock growth rate? Separate facts from inference and tell me what exact trade I should screen.'
-  const got = assembleNewsChatContext({ repoRoot: root, window: 'history', question, now: () => new Date('2026-08-02T12:00:00Z') })
+  const got = await assembleNewsChatContext({ repoRoot: root, window: 'history', question, now: () => new Date('2026-08-02T12:00:00Z') })
   assert.equal(got.receipt.itemsMatched, 1)
   assert.equal(got.evidence[0]?.item.event_id, 'EVT-real-bedrock')
   assert.ok(!got.evidence.some((e) => e.item.event_id === 'EVT-shopping'))
 })
 
-check('saved article reads are searchable and are sent to the answer with the source citation', () => {
+check('saved article reads are searchable and are sent to the answer with the source citation', async () => {
   const root = tmp()
   const event = item('EVT-bedrock', '2026-08-02T10:00:00Z', 'Amazon launches a cloud update', 'Amazon', 72)
   writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [event])
@@ -157,7 +204,7 @@ check('saved article reads are searchable and are sent to the answer with the so
       news_impact: { extracted_numbers: ['50%'], why_it_matters: 'Faster use may support AWS revenue.' },
     },
   }))
-  const got = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Amazon Bedrock growth rate', now: () => new Date('2026-08-02T12:00:00Z') })
+  const got = await assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Amazon Bedrock growth rate', now: () => new Date('2026-08-02T12:00:00Z') })
   assert.equal(got.receipt.itemsMatched, 1)
   assert.equal(got.receipt.queryTermHits.bedrock, 1)
   assert.ok(got.receipt.dataStores.includes('saved article reads'))
@@ -165,28 +212,72 @@ check('saved article reads are searchable and are sent to the answer with the so
   assert.match(got.context, /saved figures: 50%/)
 })
 
-check('news chat uses alias, typo, and exact ranking without hiding direct-text gaps', () => {
+check('news chat uses alias, typo, and exact ranking without hiding direct-text gaps', async () => {
   const root = tmp()
   writeConcepts(root)
   writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [
     item('EVT-exact', '2026-08-02T09:00:00Z', 'Amazon Bedrock growth accelerated', 'Amazon', 70),
     item('EVT-alias', '2026-08-02T10:00:00Z', 'Amazon Web Services growth accelerated', 'Amazon', 98),
   ])
-  const exact = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Amazon Bedrock growth', now: () => new Date('2026-08-02T12:00:00Z') })
+  const exact = await assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Amazon Bedrock growth', now: () => new Date('2026-08-02T12:00:00Z') })
   assert.equal(exact.evidence[0]?.item.event_id, 'EVT-exact')
   assert.equal(exact.receipt.retrievalMode, 'hybrid')
 
-  const alias = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'AWS growth', now: () => new Date('2026-08-02T12:00:00Z') })
+  const alias = await assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'AWS growth', now: () => new Date('2026-08-02T12:00:00Z') })
   assert.ok(alias.evidence.some((e) => e.item.event_id === 'EVT-alias'))
   assert.ok(alias.receipt.expandedTerms.aws?.includes('amazon web services'))
 
-  const typo = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Amazon Bedrok growth', now: () => new Date('2026-08-02T12:00:00Z') })
+  const typo = await assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Amazon Bedrok growth', now: () => new Date('2026-08-02T12:00:00Z') })
   assert.equal(typo.receipt.queryTermHits.bedrok, 0)
   assert.equal(typo.receipt.retrievalTermHits.bedrok, 1)
   assert.ok(typo.evidence[0]?.whyMatched?.includes('fuzzy:bedrok→bedrock'))
 })
 
-check('cited graph expands only an explicitly saved beneficiary and ranks it as a strict trade-check candidate', () => {
+check('a single misspelled named subject reaches fuzzy matching without a second exact anchor', async () => {
+  const root = tmp()
+  writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [
+    item('EVT-nvidia-earnings', '2026-08-02T10:00:00Z', 'Nvidia reports quarterly earnings', 'Nvidia', 88),
+    item('EVT-amazon-earnings', '2026-08-02T11:00:00Z', 'Amazon reports quarterly earnings', 'Amazon', 99),
+  ])
+  const got = await assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Nvdia earnings', now: () => new Date('2026-08-02T12:00:00Z') })
+  assert.equal(got.receipt.itemsSearched, 2)
+  assert.equal(got.receipt.itemsMatched, 1)
+  assert.equal(got.evidence[0]?.item.event_id, 'EVT-nvidia-earnings')
+  assert.ok(got.evidence[0]?.whyMatched?.includes('fuzzy:nvdia→nvidia'))
+})
+
+check('sentence-leading instructions and question contractions do not become named-company anchors', async () => {
+  const root = tmp()
+  writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [
+    item('EVT-nvidia-earnings', '2026-08-02T10:00:00Z', 'Nvidia reports quarterly earnings', 'Nvidia', 88),
+    item('EVT-amazon-earnings', '2026-08-02T11:00:00Z', 'Amazon reports quarterly earnings', 'Amazon', 99),
+  ])
+  for (const question of [
+    'Summarize Nvdia earnings',
+    "What's happening with Nvdia?",
+    'Please Summarize Nvdia earnings',
+    "Please, What's happening with Nvdia?",
+    'Please quickly Summarize Nvdia earnings',
+  ]) {
+    const got = await assembleNewsChatContext({ repoRoot: root, window: 'history', question, now: () => new Date('2026-08-02T12:00:00Z') })
+    assert.equal(got.receipt.itemsMatched, 1, question)
+    assert.equal(got.evidence[0]?.item.event_id, 'EVT-nvidia-earnings', question)
+    assert.ok(got.evidence[0]?.whyMatched?.includes('fuzzy:nvdia→nvidia'), question)
+  }
+})
+
+check('a sentence-leading instruction does not weaken explicit multiple-company anchors', async () => {
+  const root = tmp()
+  writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [
+    item('EVT-amazon-only', '2026-08-02T10:00:00Z', 'Amazon reports quarterly earnings', 'Amazon', 99),
+    item('EVT-nvidia-only', '2026-08-02T11:00:00Z', 'Nvidia reports quarterly earnings', 'Nvidia', 98),
+  ])
+  const got = await assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Please Summarize Amazon and Nvidia earnings', now: () => new Date('2026-08-02T12:00:00Z') })
+  assert.equal(got.receipt.itemsMatched, 0)
+  assert.equal(got.evidence.length, 0)
+})
+
+check('cited graph expands only an explicitly saved beneficiary and ranks it as a strict trade-check candidate', async () => {
   const root = tmp()
   const first = item('EVT-bedrock-edge', '2026-08-02T10:00:00Z', 'Amazon launches a cloud AI update', 'Amazon', 93)
   const connected = item('EVT-nvidia-outlook', '2026-08-02T09:00:00Z', 'Nvidia raises its data-center outlook', 'Nvidia', 89)
@@ -194,9 +285,9 @@ check('cited graph expands only an explicitly saved beneficiary and ranks it as 
   const stateDir = path.join(root, 'ui', 'server', '.state')
   fs.mkdirSync(stateDir, { recursive: true })
   fs.writeFileSync(path.join(stateDir, 'news-enrich-cache.json'), JSON.stringify({
-    'EVT-bedrock-edge': { event_id: 'EVT-bedrock-edge', summary: 'Amazon Bedrock usage increased as customers moved AI workloads into production.', beneficiaries: [{ name: 'Nvidia', ticker: 'NVDA', mechanism: 'AI infrastructure demand' }] },
+    'EVT-bedrock-edge': { event_id: 'EVT-bedrock-edge', summary: 'Amazon Bedrock usage increased as customers moved AI workloads into production.', beneficiaries: [{ name: 'Nvidia', named_in_article: true, ticker: 'NVDA', listing: 'Nasdaq listed', listing_verified: true, mechanism: 'AI infrastructure demand', order: 'first' }] },
   }))
-  const got = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Bedrock growth', now: () => new Date('2026-08-02T12:00:00Z') })
+  const got = await assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Bedrock growth', now: () => new Date('2026-08-02T12:00:00Z') })
   assert.ok(got.receipt.relationships.some((r) => r.seed === 'bedrock' && r.related === 'Amazon'))
   assert.ok(got.evidence.some((e) => e.item.event_id === 'EVT-nvidia-outlook' && e.whyMatched?.some((x) => x.includes('saved beneficiary'))))
   const nvidia = got.receipt.tradeCandidates.find((c) => c.ticker === 'NVDA')
@@ -205,10 +296,10 @@ check('cited graph expands only an explicitly saved beneficiary and ranks it as 
   assert.match(got.context, /Co-mention is not causation/i)
 })
 
-check('source failures are visible in the receipt and the model context', () => {
+check('source failures are visible in the receipt and the model context', async () => {
   const root = tmp()
   writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [item('EVT-one', '2026-08-02T10:00:00Z', 'Amazon Bedrock update', 'Amazon')])
-  const got = assembleNewsChatContext({
+  const got = await assembleNewsChatContext({
     repoRoot: root, window: 'history', question: 'Amazon Bedrock', now: () => new Date('2026-08-02T12:00:00Z'),
     sourceReport: {
       updated_at: '2026-08-02T12:00:00Z',
@@ -232,6 +323,8 @@ check('news prompt is closed-book, simple, cited, and allowed to reject a trade'
   assert.match(p.system, /zero hits/i)
   assert.match(p.system, /exact figure is missing/i)
   assert.match(p.user, /\[N1\]/)
+  assert.match(p.user, /NEWS_CHAT_FINAL_QUESTION_CHARS:/)
 })
 
+await checks
 console.log(`\n${passed} checks passed`)

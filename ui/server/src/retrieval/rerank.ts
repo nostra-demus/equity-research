@@ -29,13 +29,16 @@ function jsonObject(text: string): any {
   }
 }
 
-export async function rerankCandidates(args: { query: string; candidates: RerankCandidate[]; config: RerankConfig; fetchFn?: typeof fetch }): Promise<RerankResult> {
+export async function rerankCandidates(args: { query: string; candidates: RerankCandidate[]; config: RerankConfig; fetchFn?: typeof fetch; signal?: AbortSignal }): Promise<RerankResult> {
   const cfg = args.config
   if (!cfg.enabled || !cfg.apiKey || !cfg.model) return { status: 'not_configured', model: null, order: [], scores: {} }
   const rows = args.candidates.slice(0, Math.max(1, cfg.maxCandidates))
   if (!rows.length) return { status: 'active', model: cfg.model, order: [], scores: {} }
   const allowed = new Set(rows.map((r) => r.id))
   const ctrl = new AbortController()
+  const stop = () => ctrl.abort()
+  if (args.signal?.aborted) throw new DOMException('Aborted', 'AbortError')
+  args.signal?.addEventListener('abort', stop, { once: true })
   const timer = setTimeout(() => ctrl.abort(), cfg.timeoutMs)
   try {
     const res = await (args.fetchFn || fetch)(endpoint(cfg.baseUrl), {
@@ -70,6 +73,10 @@ export async function rerankCandidates(args: { query: string; candidates: Rerank
     for (const row of rows) if (!order.includes(row.id)) order.push(row.id)
     return { status: 'active', model: cfg.model, order, scores }
   } catch (e: any) {
+    if (args.signal?.aborted) throw new DOMException('Aborted', 'AbortError')
     return { status: 'provider_error', model: cfg.model, order: [], scores: {}, note: String(e?.message || e).slice(0, 240) }
-  } finally { clearTimeout(timer) }
+  } finally {
+    clearTimeout(timer)
+    args.signal?.removeEventListener('abort', stop)
+  }
 }

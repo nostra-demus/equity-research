@@ -14,6 +14,12 @@ export type RelationshipType = 'co_mentioned' | 'saved_beneficiary' | 'saved_exp
 export interface RelationshipEvidence {
   item: FeedItem
   relation: RelationshipType
+  namedInArticle?: boolean
+  ticker?: string | null
+  listing?: string | null
+  listingVerified?: boolean
+  mechanism?: string | null
+  order?: 'first' | 'second' | null
 }
 
 export interface NewsRelationship {
@@ -25,6 +31,7 @@ export interface NewsRelationship {
   relation: RelationshipType
   mentions: number
   evidence: RelationshipEvidence[]
+  expansionValidated: boolean
 }
 
 export interface GraphCandidate {
@@ -38,9 +45,22 @@ interface SavedReadLike {
   summary?: string
   summary_en?: string | null
   gist?: string[]
-  companies?: { name?: string; ticker?: string | null }[]
-  beneficiaries?: { name?: string; ticker?: string | null }[]
-  exposed?: { name?: string; ticker?: string | null }[]
+  companies?: { name?: string; ticker?: string | null; listing_status?: string | null; exchange?: string | null }[]
+  beneficiaries?: SavedDirectionalCompany[]
+  exposed?: SavedDirectionalCompany[]
+}
+
+interface SavedDirectionalCompany {
+  name?: string
+  named_in_article?: boolean
+  ticker?: string | null
+  listing?: string | null
+  listing_status?: string | null
+  exchange?: string | null
+  /** Set only by a trusted symbology/quote adapter; never emitted by the article-reading model. */
+  listing_verified?: boolean
+  mechanism?: string | null
+  order?: 'first' | 'second' | null
 }
 
 interface Entity {
@@ -49,6 +69,8 @@ interface Entity {
   aliases: string[]
   kind: RelationshipKind
   relation: RelationshipType
+  expansionValidated: boolean
+  directionalEvidence?: Omit<RelationshipEvidence, 'item' | 'relation'>
 }
 
 interface EdgeState {
@@ -79,6 +101,29 @@ function addEntity(map: Map<string, Entity>, entity: Entity): void {
   prev.aliases = [...new Set([...prev.aliases, ...entity.aliases].filter(Boolean))]
   // Explicit saved-read direction is more useful than plain co-mention, but it remains labelled.
   if (prev.relation === 'co_mentioned' && entity.relation !== 'co_mentioned') prev.relation = entity.relation
+  prev.expansionValidated = prev.expansionValidated || entity.expansionValidated
+  if (!prev.directionalEvidence && entity.directionalEvidence) prev.directionalEvidence = entity.directionalEvidence
+}
+
+const TICKER = /^[A-Z0-9][A-Z0-9.:-]{0,14}$/i
+
+function directionalEntity(company: SavedDirectionalCompany, relation: Extract<RelationshipType, 'saved_beneficiary' | 'saved_exposure'>): Entity | null {
+  const label = String(company.name || '').trim()
+  const ticker = String(company.ticker || '').trim().toUpperCase()
+  const listing = String(company.listing || company.exchange || company.listing_status || '').trim()
+  const mechanism = String(company.mechanism || '').trim()
+  const order = company.order === 'first' || company.order === 'second' ? company.order : null
+  if (!label) return null
+  // Inferred groups and private/unknown names remain visible as relationships, but only a fully
+  // evidenced, named listed company can bridge into other archive rows.
+  const listed = /(?:public|listed|nasdaq|nyse|nse|bse|lse|tse|hkex|asx|euronext)/i.test(listing)
+  const expansionValidated = company.named_in_article === true && company.listing_verified === true
+    && TICKER.test(ticker) && listed && Boolean(mechanism && order)
+  return {
+    id: entityId('company', ticker || label), label, aliases: [label, ticker], kind: 'company', relation,
+    expansionValidated,
+    directionalEvidence: { namedInArticle: company.named_in_article === true, ticker: ticker || null, listing: listing || null, listingVerified: company.listing_verified === true, mechanism: mechanism || null, order },
+  }
 }
 
 function itemEntities(item: FeedItem, saved?: SavedReadLike): Entity[] {
@@ -86,26 +131,24 @@ function itemEntities(item: FeedItem, saved?: SavedReadLike): Entity[] {
   for (const company of item.companies || []) {
     const label = String(company.name || company.ticker || '').trim()
     if (!label) continue
-    addEntity(out, { id: entityId('company', company.ticker || label), label, aliases: [label, company.ticker || ''], kind: 'company', relation: 'co_mentioned' })
+    addEntity(out, { id: entityId('company', company.ticker || label), label, aliases: [label, company.ticker || ''], kind: 'company', relation: 'co_mentioned', expansionValidated: false })
   }
   for (const company of saved?.companies || []) {
     const label = String(company.name || company.ticker || '').trim()
     if (!label) continue
-    addEntity(out, { id: entityId('company', company.ticker || label), label, aliases: [label, company.ticker || ''], kind: 'company', relation: 'co_mentioned' })
+    addEntity(out, { id: entityId('company', company.ticker || label), label, aliases: [label, company.ticker || ''], kind: 'company', relation: 'co_mentioned', expansionValidated: false })
   }
   for (const company of saved?.beneficiaries || []) {
-    const label = String(company.name || company.ticker || '').trim()
-    if (!label) continue
-    addEntity(out, { id: entityId('company', company.ticker || label), label, aliases: [label, company.ticker || ''], kind: 'company', relation: 'saved_beneficiary' })
+    const entity = directionalEntity(company, 'saved_beneficiary')
+    if (entity) addEntity(out, entity)
   }
   for (const company of saved?.exposed || []) {
-    const label = String(company.name || company.ticker || '').trim()
-    if (!label) continue
-    addEntity(out, { id: entityId('company', company.ticker || label), label, aliases: [label, company.ticker || ''], kind: 'company', relation: 'saved_exposure' })
+    const entity = directionalEntity(company, 'saved_exposure')
+    if (entity) addEntity(out, entity)
   }
-  for (const topic of item.topics || []) addEntity(out, { id: entityId('topic', topic), label: topic, aliases: [topic], kind: 'topic', relation: 'co_mentioned' })
-  for (const commodity of item.commodities || (item.commodity ? [item.commodity] : [])) addEntity(out, { id: entityId('commodity', commodity), label: commodity, aliases: [commodity], kind: 'commodity', relation: 'co_mentioned' })
-  for (const event of item.event_types || []) addEntity(out, { id: entityId('event', event), label: event.replace(/_/g, ' '), aliases: [event, event.replace(/_/g, ' ')], kind: 'event', relation: 'co_mentioned' })
+  for (const topic of item.topics || []) addEntity(out, { id: entityId('topic', topic), label: topic, aliases: [topic], kind: 'topic', relation: 'co_mentioned', expansionValidated: false })
+  for (const commodity of item.commodities || (item.commodity ? [item.commodity] : [])) addEntity(out, { id: entityId('commodity', commodity), label: commodity, aliases: [commodity], kind: 'commodity', relation: 'co_mentioned', expansionValidated: false })
+  for (const event of item.event_types || []) addEntity(out, { id: entityId('event', event), label: event.replace(/_/g, ' '), aliases: [event, event.replace(/_/g, ' ')], kind: 'event', relation: 'co_mentioned', expansionValidated: false })
   return [...out.values()].slice(0, 14)
 }
 
@@ -152,7 +195,10 @@ export class NewsRelationshipGraph {
   add(item: FeedItem, saved?: SavedReadLike): void {
     if (!this.seeds.length) return
     const entities = itemEntities(item, saved)
-    const quality = Number(item.triage_score || 0) + sourceWeight(item)
+    // triage_score already blends source, scope, recency and other ranking factors. Reusing it here and
+    // then adding source weight double-counted those signals as if they were economic impact.
+    const rawMateriality = Number((item as FeedItem & { materiality_pre_score?: number }).materiality_pre_score || 0)
+    const quality = rawMateriality + sourceWeight(item)
     for (const entity of entities) {
       if (!this.byEntity.has(entity.id)) this.byEntity.set(entity.id, [])
       keepTop(this.byEntity.get(entity.id)!, { item, score: quality })
@@ -178,15 +224,17 @@ export class NewsRelationshipGraph {
               relation: entity.relation,
               mentions: 0,
               evidence: [],
+              expansionValidated: entity.expansionValidated,
             },
             evidenceIds: new Set(),
           }
           this.edges.set(edgeKey, state)
         }
+        state.relationship.expansionValidated = state.relationship.expansionValidated || entity.expansionValidated
         state.relationship.mentions++
         if (!state.evidenceIds.has(item.event_id) && state.relationship.evidence.length < 6) {
           state.evidenceIds.add(item.event_id)
-          state.relationship.evidence.push({ item, relation: entity.relation })
+          state.relationship.evidence.push({ item, relation: entity.relation, ...entity.directionalEvidence })
         }
       }
     }
@@ -221,6 +269,7 @@ export class NewsRelationshipGraph {
       // the answer (Bedrock + Microsoft once must not import unrelated Microsoft lawsuits). Expansion
       // needs the saved reader's explicit beneficiary/exposure label.
       if (relation.relation === 'co_mentioned') continue
+      if (!relation.expansionValidated) continue
       const rows = this.byEntity.get(relation.relatedId) || []
       for (const row of rows) {
         if (existingIds.has(row.item.event_id)) continue

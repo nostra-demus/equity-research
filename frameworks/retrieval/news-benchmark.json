@@ -4,6 +4,7 @@
   "k": 5,
   "gates": {
     "recall_at_k": 1.0,
+    "precision_at_k": 0.9,
     "mean_reciprocal_rank": 0.9,
     "ndcg_at_k": 0.9
   },
@@ -23,17 +24,17 @@
     { "id": "cyber", "quality": 71, "headline": "Cloud provider reports a cybersecurity breach", "company": "CloudCo CLD", "body": "Customer data was exposed in a cyber attack." }
   ],
   "cases": [
-    { "id": "bedrock-exact", "query": "Amazon Bedrock growth rate", "relevant_ids": ["bedrock"] },
-    { "id": "bedrock-typo", "query": "Amazon Bedrok growth", "relevant_ids": ["bedrock"] },
-    { "id": "aws-alias", "query": "AWS revenue growth", "relevant_ids": ["aws"] },
-    { "id": "capex-alias", "query": "Amazon capital spending", "relevant_ids": ["amazon-capex"] },
-    { "id": "gm-outlook", "query": "GM earnings outlook cut", "relevant_ids": ["gm-guidance"] },
-    { "id": "india-primary", "query": "Reliance official exchange quarterly filing", "relevant_ids": ["india-filing"] },
-    { "id": "takeover", "query": "Company A takeover Company B", "relevant_ids": ["mna"] },
-    { "id": "oil-supply", "query": "Brent OPEC supply reduction", "relevant_ids": ["oil"] },
-    { "id": "nvidia-margin", "query": "Nvidia data center margin guidance", "relevant_ids": ["margin"] },
-    { "id": "device-recall", "query": "FDA medical device recall", "relevant_ids": ["recall"] },
-    { "id": "fed-rates", "query": "FOMC interest rate cut", "relevant_ids": ["rates"] },
-    { "id": "cyber-alias", "query": "CloudCo cyber attack customer data", "relevant_ids": ["cyber"] }
+    { "id": "bedrock-exact", "query": "Amazon Bedrock growth rate", "relevant_ids": ["bedrock"], "irrelevant_ids": ["aws", "amazon-capex", "other-growth"], "anchors": ["amazon", "bedrock"], "min_anchor_matches": 2, "min_term_matches": 3 },
+    { "id": "bedrock-typo", "query": "Amazon Bedrok growth", "relevant_ids": ["bedrock"], "irrelevant_ids": ["aws", "amazon-capex", "other-growth"], "anchors": ["amazon", "bedrok"], "min_anchor_matches": 2, "min_term_matches": 3 },
+    { "id": "aws-alias", "query": "AWS revenue growth", "relevant_ids": ["aws"], "irrelevant_ids": ["bedrock", "amazon-capex", "other-growth"], "anchors": ["aws"], "min_anchor_matches": 1, "min_term_matches": 3 },
+    { "id": "capex-alias", "query": "Amazon capital spending", "relevant_ids": ["amazon-capex"], "irrelevant_ids": ["aws", "bedrock", "other-growth"], "anchors": ["amazon"], "min_anchor_matches": 1, "min_term_matches": 3 },
+    { "id": "gm-outlook", "query": "GM earnings outlook cut", "relevant_ids": ["gm-guidance"], "irrelevant_ids": ["oil", "margin", "other-growth"], "anchors": ["gm"], "min_anchor_matches": 1, "min_term_matches": 3 },
+    { "id": "india-primary", "query": "Reliance official exchange quarterly filing", "relevant_ids": ["india-filing"], "irrelevant_ids": ["gm-guidance", "recall"], "anchors": ["reliance"], "min_anchor_matches": 1, "min_term_matches": 3 },
+    { "id": "takeover", "query": "Company A takeover Company B", "relevant_ids": ["mna"], "irrelevant_ids": ["other-growth"], "anchors": ["company"], "min_anchor_matches": 1, "min_term_matches": 2 },
+    { "id": "oil-supply", "query": "Brent OPEC supply reduction", "relevant_ids": ["oil"], "irrelevant_ids": ["rates", "gm-guidance"], "anchors": ["brent", "opec"], "min_anchor_matches": 2, "min_term_matches": 3 },
+    { "id": "nvidia-margin", "query": "Nvidia data center margin guidance", "relevant_ids": ["margin"], "irrelevant_ids": ["amazon-capex", "cyber", "other-growth"], "anchors": ["nvidia"], "min_anchor_matches": 1, "min_term_matches": 3 },
+    { "id": "device-recall", "query": "FDA medical device recall", "relevant_ids": ["recall"], "irrelevant_ids": ["cyber"], "anchors": ["fda"], "min_anchor_matches": 1, "min_term_matches": 3 },
+    { "id": "fed-rates", "query": "FOMC interest rate cut", "relevant_ids": ["rates"], "irrelevant_ids": ["oil", "other-growth"], "anchors": ["fomc"], "min_anchor_matches": 1, "min_term_matches": 3 },
+    { "id": "cyber-alias", "query": "CloudCo cyber attack customer data", "relevant_ids": ["cyber"], "irrelevant_ids": ["amazon-capex", "margin", "bedrock", "recall"], "anchors": ["cloudco"], "min_anchor_matches": 1, "min_term_matches": 3 }
   ]
 }
