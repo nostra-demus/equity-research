@@ -1792,6 +1792,7 @@ app.post('/api/chat', async (req, reply) => {
   try {
     assembled = assembleContext({
       scope, runRoot, module, orbPath, swarmId,
+      question: last.content,
       whatChanged: wc ? { markdown: whatChangedMarkdown(wc) } : null,
     })
   } catch (e: any) {
@@ -2012,6 +2013,7 @@ app.post('/api/news/chat', async (req, reply) => {
       enrichCacheFile: path.join(STATE_DIR, 'news-enrich-cache.json'),
       window,
       question: last.content,
+      sourceReport: buildSourcesReport(REPO_ROOT, STATE_DIR),
     })
   } catch (e: any) {
     return reply.code(500).send({ error: 'could not read the saved news', detail: String(e?.message || e) })

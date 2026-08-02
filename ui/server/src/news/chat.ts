@@ -7,8 +7,11 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { loadRetrievalConcepts } from '../retrieval/concepts'
+import { buildHybridQuery, HybridCollector, matchHybridDocument, retrievalTokens, type HybridDocument, type HybridMatch } from '../retrieval/hybrid'
 import { cleanText } from './clean'
 import { deriveScope, deriveSourceTier } from './scope'
+import type { SourcesReport } from './source-health'
 import { readThemesIndex } from './themes/store'
 import type { FeedItem } from './types'
 
@@ -23,6 +26,7 @@ export interface NewsChatEvidence {
   ref: string
   item: FeedItem
   historical: boolean
+  whyMatched?: string[]
 }
 
 export interface NewsChatReceipt {
@@ -37,7 +41,13 @@ export interface NewsChatReceipt {
   coverageEnd: string | null
   queryTerms: string[]
   queryTermHits: Record<string, number>
+  retrievalTermHits: Record<string, number>
+  expandedTerms: Record<string, string[]>
+  retrievalMode: 'hybrid'
+  retrievalChannels: string[]
   dataStores: string[]
+  coverageWarnings: string[]
+  sourceHealth: SourcesReport['counts'] | null
 }
 
 export interface NewsChatContext {
@@ -51,6 +61,7 @@ export interface NewsChatContext {
 interface RankedItem {
   item: FeedItem
   score: number
+  match?: HybridMatch
 }
 
 interface SavedEnrichment {
@@ -73,18 +84,6 @@ interface SavedEnrichment {
     why_it_matters?: string
     analyst_takeaway?: string
   }
-}
-
-interface QuerySpec {
-  terms: string[]
-  anchors: string[]
-  patterns: Map<string, RegExp>
-}
-
-interface MatchScore {
-  termMatches: number
-  anchorMatches: number
-  hitTerms: string[]
 }
 
 const FILE_RE = /^(\d{4}-\d{2}-\d{2})_firehose\.ndjson$/
@@ -113,36 +112,18 @@ const STOP = new Set(
 // also names a company, product, commodity, policy, or theme, at least one of those subject words must
 // appear. This prevents "Amazon Bedrock growth rate" from returning every unrelated growth-rate story.
 const METRIC_TERMS = new Set([
-  'annual', 'capex', 'change', 'changes', 'demand', 'earnings', 'ebitda', 'eps', 'forecast', 'forecasts',
+  'annual', 'capex', 'capital', 'change', 'changes', 'demand', 'earnings', 'ebitda', 'eps', 'expenditure', 'expenditures', 'expense', 'expenses', 'forecast', 'forecasts',
   'growth', 'guidance', 'margin', 'margins', 'outlook', 'price', 'prices', 'profit', 'profits', 'qoq',
   'quarter', 'quarterly', 'rate', 'rates', 'revenue', 'revenues', 'sales', 'share', 'shares', 'stock',
-  'trend', 'trends', 'year', 'years', 'yoy',
+  'spend', 'spending', 'trend', 'trends', 'year', 'years', 'yoy',
 ])
 
 function tokens(s: string): string[] {
-  return (s.toLowerCase().match(/[a-z0-9][a-z0-9.+&-]{1,}/g) || [])
-    .map((t) => t.replace(/^[+.-]+|[+.-]+$/g, ''))
-    .filter((t) => t.length >= 2)
+  return retrievalTokens(s)
 }
 
 export function newsQueryTerms(question: string): string[] {
-  const out: string[] = []
-  for (const t of tokens(question)) {
-    if (STOP.has(t) || /^[\d.+-]+$/.test(t) || out.includes(t)) continue
-    out.push(t)
-    if (out.length >= 12) break
-  }
-  return out
-}
-
-function querySpec(terms: string[], forcedAnchors?: string[]): QuerySpec {
-  const anchors = forcedAnchors || terms.filter((term) => !METRIC_TERMS.has(term))
-  const patterns = new Map<string, RegExp>()
-  for (const term of terms) {
-    const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    patterns.set(term, new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`, 'i'))
-  }
-  return { terms, anchors, patterns }
+  return buildHybridQuery(question, { stopWords: STOP, metricTerms: METRIC_TERMS }).terms
 }
 
 function listDailyFiles(repoRoot: string, archiveDir: string): { date: string; file: string; store: string }[] {
@@ -249,54 +230,39 @@ function enrichmentText(row: SavedEnrichment | undefined): string {
   ].filter(Boolean).join(' ')
 }
 
-function itemText(item: FeedItem, enrichment?: SavedEnrichment): string {
-  return [
-    item.headline_en || item.headline,
-    item.headline,
-    item.source_name,
-    item.region,
-    item.scope,
-    ...(item.event_types || []),
-    ...(item.companies || []).flatMap((c) => [c.name, c.ticker || '']),
-    enrichmentText(enrichment),
-  ].join(' ').toLowerCase()
-}
-
-function matches(item: FeedItem, enrichment: SavedEnrichment | undefined, spec: QuerySpec): MatchScore {
-  if (!spec.terms.length) return { termMatches: 0, anchorMatches: 0, hitTerms: [] }
-  const text = itemText(item, enrichment)
-  const hitTerms = spec.terms.filter((term) => spec.patterns.get(term)?.test(text))
-  const hitSet = new Set(hitTerms)
-  return {
-    termMatches: hitTerms.length,
-    anchorMatches: spec.anchors.filter((term) => hitSet.has(term)).length,
-    hitTerms,
-  }
-}
-
-function qualifies(match: MatchScore, spec: QuerySpec): boolean {
-  if (!spec.terms.length) return true
-  return spec.anchors.length ? match.anchorMatches > 0 : match.termMatches > 0
-}
-
-function rank(item: FeedItem, match: MatchScore, spec: QuerySpec, nowMs: number, historical: boolean): number {
+function itemQuality(item: FeedItem, nowMs: number, historical: boolean): number {
   const ageHours = Math.max(0, (nowMs - Date.parse(item.ts)) / 3_600_000)
   const freshness = historical ? 0 : Math.max(0, 18 - Math.log2(ageHours + 1) * 3)
   const source = item.source_tier === 'primary_filing' ? 12 : item.source_tier === 'official_data' ? 8 : item.source_tier === 'company' ? 4 : item.source_tier === 'social' ? -10 : 0
   const caution = item.caution ? -18 : 0
-  const fullAnchorBonus = spec.anchors.length > 1 && match.anchorMatches === spec.anchors.length ? 80 : 0
-  const coverageBonus = spec.terms.length ? (match.termMatches / spec.terms.length) * 36 : 0
-  return Number(item.triage_score || 0) + match.termMatches * 24 + match.anchorMatches * 72 + fullAnchorBonus + coverageBonus + freshness + source + caution
+  return Number(item.triage_score || 0) + freshness + source + caution
 }
 
-function uniqueTop(rows: RankedItem[], limit: number): FeedItem[] {
+function retrievalDocument(item: FeedItem, enrichment: SavedEnrichment | undefined, nowMs: number, historical: boolean): HybridDocument<FeedItem> {
+  return {
+    id: item.event_id,
+    groupId: item.dedup_group || item.event_id,
+    value: item,
+    quality: itemQuality(item, nowMs, historical),
+    fields: [
+      { name: 'headline', text: [item.headline_en || '', item.headline], weight: 7, fuzzy: true },
+      { name: 'company', text: (item.companies || []).flatMap((c) => [c.name, c.ticker || '']), weight: 8, fuzzy: true },
+      { name: 'snippet', text: item.snippet, weight: 3 },
+      { name: 'saved_article', text: enrichmentText(enrichment), weight: 3 },
+      { name: 'tags', text: [item.scope || '', ...(item.event_types || [])], weight: 1.5 },
+      { name: 'source', text: [item.source_name, item.domain, item.region], weight: 0.5 },
+    ],
+  }
+}
+
+function uniqueTop(rows: RankedItem[], limit: number): RankedItem[] {
   const seen = new Set<string>()
-  const out: FeedItem[] = []
+  const out: RankedItem[] = []
   for (const row of rows) {
     const key = row.item.dedup_group || row.item.event_id
     if (seen.has(key)) continue
     seen.add(key)
-    out.push(row.item)
+    out.push(row)
     if (out.length >= limit) break
   }
   return out
@@ -329,12 +295,13 @@ function short(s: string | undefined | null, max: number): string {
   return v.length <= max ? v : `${v.slice(0, max - 1).trim()}…`
 }
 
-function evidenceLine(ref: string, item: FeedItem, enrichment?: SavedEnrichment): string {
+function evidenceLine(ref: string, item: FeedItem, enrichment?: SavedEnrichment, whyMatched: string[] = []): string {
   const companies = (item.companies || []).map((c) => c.ticker || c.name).filter(Boolean).join(', ') || 'none named'
   const themes = (item.event_types || []).join(', ') || 'none'
   return [
     `[${ref}] ${item.ts} | ${item.source_name} | ${short(item.headline_en || item.headline, 380)}`,
     `event=${item.event_id} | tier=${item.source_tier || 'unknown'} | scope=${item.scope || 'unknown'} | score=${item.triage_score} | companies=${companies} | tags=${themes}`,
+    whyMatched.length ? `retrieval: ${whyMatched.join(', ')}` : '',
     item.triage_reason ? `scanner note: ${short(item.triage_reason, 220)}` : '',
     item.snippet ? `source snippet: ${short(item.snippet, 360)}` : '',
     enrichment?.summary || enrichment?.summary_en ? `saved article read: ${short(enrichment.summary_en || enrichment.summary, 520)}` : '',
@@ -350,27 +317,41 @@ function windowLabel(window: NewsChatWindow): string {
   return window === '24h' ? 'last 24 hours' : window === '7d' ? 'last 7 days' : 'all saved history'
 }
 
+function sourceCoverage(report: SourcesReport | undefined): { counts: SourcesReport['counts'] | null; warnings: string[] } {
+  if (!report) return { counts: null, warnings: [] }
+  const warnings: string[] = []
+  if (report.counts.failing) {
+    const names = report.sources.filter((s) => s.health === 'failing').slice(0, 5).map((s) => s.name)
+    warnings.push(`${report.counts.failing} source connection(s) are failing${names.length ? `: ${names.join(', ')}` : ''}. Results may be incomplete.`)
+  }
+  if (report.counts.idle) warnings.push(`${report.counts.idle} configured source(s) have not produced a verified fetch yet.`)
+  return { counts: report.counts, warnings }
+}
+
 export function assembleNewsChatContext(opts: {
   repoRoot: string
   archiveDir?: string
   enrichCacheFile?: string
   window: NewsChatWindow
   question: string
+  sourceReport?: SourcesReport
   now?: () => Date
 }): NewsChatContext {
   const now = opts.now?.() || new Date()
   const nowMs = now.getTime()
   const files = listDailyFiles(opts.repoRoot, opts.archiveDir || '')
-  const queryTerms = newsQueryTerms(opts.question)
-  const spec = querySpec(queryTerms)
+  const concepts = loadRetrievalConcepts(opts.repoRoot)
+  const query = buildHybridQuery(opts.question, { stopWords: STOP, metricTerms: METRIC_TERMS, concepts })
+  const queryTerms = query.terms
   const enrichments = readEnrichmentCache(opts.enrichCacheFile || path.join(opts.repoRoot, 'ui', 'server', '.state', 'news-enrich-cache.json'))
-  const current = new TopItems(220)
-  const older = new TopItems(100)
+  const currentBroad = new TopItems(220)
+  const current = queryTerms.length ? new HybridCollector<FeedItem>(query) : null
   const sources = new Set<string>()
   const companyCounts = new Map<string, number>()
   const eventCounts = new Map<string, number>()
   const tierCounts = new Map<string, number>()
   const termCounts = new Map<string, number>()
+  const retrievalTermCounts = new Map<string, number>()
   let itemsSearched = 0
   let itemsMatched = 0
   let coverageStart: string | null = files.length ? files[files.length - 1].date : null
@@ -389,36 +370,42 @@ export function assembleNewsChatContext(opts: {
     itemsSearched++
     sources.add(item.source_name || item.domain || 'unknown')
     const enrichment = enrichments.get(item.event_id)
-    const match = matches(item, enrichment, spec)
-    if (!qualifies(match, spec)) return
+    const document = retrievalDocument(item, enrichment, nowMs, false)
+    const match = current?.add(document)
+    if (match && !match.qualifies) return
     itemsMatched++
     for (const c of item.companies || []) bump(companyCounts, c.ticker || c.name)
     for (const e of item.event_types || []) bump(eventCounts, e)
     bump(tierCounts, item.source_tier || 'unknown')
-    for (const term of match.hitTerms) bump(termCounts, term)
-    current.add({ item, score: rank(item, match, spec, nowMs, false) })
+    for (const term of match?.exactTerms || []) bump(termCounts, term)
+    for (const term of match?.matchedTerms || []) bump(retrievalTermCounts, term)
+    if (!current) currentBroad.add({ item, score: document.quality || 0 })
   }
   for (const f of currentFiles) readItems(f.file, visitCurrent)
 
-  const currentTop = uniqueTop(current.values(), 55)
+  const currentRanked: RankedItem[] = queryTerms.length
+    ? current!.results(220).map((hit) => ({ item: hit.document.value, score: hit.score, match: hit.match }))
+    : currentBroad.values()
+  const currentTopRows = uniqueTop(currentRanked, 55)
+  const currentTop = currentTopRows.map((row) => row.item)
   const historyTerms = seedTerms(currentTop, queryTerms)
-  const historySpec = querySpec(historyTerms, spec.anchors)
+  const historyQuery = buildHybridQuery(historyTerms.join(' '), { terms: historyTerms, forcedAnchors: query.anchors, concepts, maxTerms: 24 })
+  const older = new HybridCollector<FeedItem>(historyQuery)
   if (opts.window !== 'history' && historyTerms.length) {
     const visitOlder = (item: FeedItem) => {
       const at = Date.parse(item.ts)
       if (!Number.isFinite(at) || at >= cutoffMs) return
-      const match = matches(item, enrichments.get(item.event_id), historySpec)
-      if (!qualifies(match, historySpec)) return
-      older.add({ item, score: rank(item, match, historySpec, nowMs, true) })
+      older.add(retrievalDocument(item, enrichments.get(item.event_id), nowMs, true))
     }
     for (const item of boundaryOlder) visitOlder(item)
     for (const f of olderFiles) readItems(f.file, visitOlder)
   }
-  const historicalTop = uniqueTop(older.values(), 20)
+  const historicalTopRows = uniqueTop(older.results(100).map((hit) => ({ item: hit.document.value, score: hit.score, match: hit.match })), 20)
+  const historicalTop = historicalTopRows.map((row) => row.item)
 
   const evidence: NewsChatEvidence[] = [
-    ...currentTop.map((item, i) => ({ ref: `N${i + 1}`, item, historical: false })),
-    ...historicalTop.map((item, i) => ({ ref: `H${i + 1}`, item, historical: true })),
+    ...currentTopRows.map((row, i) => ({ ref: `N${i + 1}`, item: row.item, historical: false, whyMatched: row.match?.reasons })),
+    ...historicalTopRows.map((row, i) => ({ ref: `H${i + 1}`, item: row.item, historical: true, whyMatched: row.match?.reasons })),
   ]
 
   const themes = readThemesIndex(opts.repoRoot).themes
@@ -428,13 +415,17 @@ export function assembleNewsChatContext(opts: {
         : opts.window === '7d'
           ? (t.flow_daily || []).slice(-7).reduce((a, b) => a + b, 0)
           : t.member_count
-      const text = `${t.name} ${t.description} ${t.top_companies.map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
-      const hitTerms = spec.terms.filter((term) => spec.patterns.get(term)?.test(text))
-      const hits = new Set(hitTerms)
-      const anchorMatch = spec.anchors.filter((term) => hits.has(term)).length
-      return { ...t, windowFlow: flow, queryMatch: hitTerms.length, queryAnchorMatch: anchorMatch }
+      const match = matchHybridDocument(query, {
+        id: t.theme_id,
+        value: t,
+        fields: [
+          { name: 'theme', text: [t.name, t.description], weight: 4, fuzzy: true },
+          { name: 'companies', text: t.top_companies.flatMap((c) => [c.name, c.ticker || '']), weight: 5, fuzzy: true },
+        ],
+      })
+      return { ...t, windowFlow: flow, queryMatch: match.matchedTerms.length, queryAnchorMatch: match.anchorMatches, queryQualifies: match.qualifies }
     })
-    .filter((t) => !queryTerms.length || (spec.anchors.length ? t.queryAnchorMatch > 0 : t.queryMatch > 0))
+    .filter((t) => !queryTerms.length || t.queryQualifies)
     .sort((a, b) => b.queryAnchorMatch - a.queryAnchorMatch || b.queryMatch - a.queryMatch || b.windowFlow - a.windowFlow || b.composite - a.composite)
     .slice(0, 10)
 
@@ -442,6 +433,8 @@ export function assembleNewsChatContext(opts: {
   if (enrichments.size) dataStores.push('saved article reads')
   dataStores.push('theme index')
   const queryTermHits = Object.fromEntries(queryTerms.map((term) => [term, termCounts.get(term) || 0]))
+  const retrievalTermHits = Object.fromEntries(queryTerms.map((term) => [term, retrievalTermCounts.get(term) || 0]))
+  const coverage = sourceCoverage(opts.sourceReport)
 
   const receipt: NewsChatReceipt = {
     window: opts.window,
@@ -455,7 +448,13 @@ export function assembleNewsChatContext(opts: {
     coverageEnd,
     queryTerms,
     queryTermHits,
+    retrievalTermHits,
+    expandedTerms: query.expandedTerms,
+    retrievalMode: 'hybrid',
+    retrievalChannels: ['exact text', 'finance concepts', 'word forms', 'typo rescue', 'BM25 relevance', 'source quality', 'RRF fusion'],
     dataStores,
+    coverageWarnings: coverage.warnings,
+    sourceHealth: coverage.counts,
   }
 
   if (!files.length || !itemsSearched) {
@@ -471,15 +470,19 @@ export function assembleNewsChatContext(opts: {
   const themeLines = themes.length
     ? themes.map((t) => `- ${t.name}: flow=${t.windowFlow}; state=${t.tier}; companies=${t.top_companies.map((c) => `${c.ticker || c.name} (${c.order === 1 ? 'direct' : c.order === 2 ? 'second-order' : 'third-order'}, ${c.side})`).join(', ') || 'none named'}`).join('\n')
     : '- No matching saved theme.'
-  const currentLines = currentTop.length ? currentTop.map((item, i) => evidenceLine(`N${i + 1}`, item, enrichments.get(item.event_id))).join('\n\n') : 'No story matched the question in the chosen window.'
-  const historyLines = historicalTop.length ? historicalTop.map((item, i) => evidenceLine(`H${i + 1}`, item, enrichments.get(item.event_id))).join('\n\n') : 'No useful older match was found.'
+  const currentLines = currentTopRows.length ? currentTopRows.map((row, i) => evidenceLine(`N${i + 1}`, row.item, enrichments.get(row.item.event_id), row.match?.reasons)).join('\n\n') : 'No story matched the question in the chosen window.'
+  const historyLines = historicalTopRows.length ? historicalTopRows.map((row, i) => evidenceLine(`H${i + 1}`, row.item, enrichments.get(row.item.event_id), row.match?.reasons)).join('\n\n') : 'No useful older match was found.'
 
   const context = [
     `WINDOW: ${windowLabel(opts.window)}`,
     `SEARCH RECEIPT: searched ${itemsSearched} saved items from ${sources.size} sources; ${itemsMatched} matched the question; archive coverage ${coverageStart || 'unknown'} to ${coverageEnd || 'unknown'}.`,
+    `RETRIEVAL: hybrid (${receipt.retrievalChannels.join(', ')}).`,
     `DATA STORES: ${dataStores.join(', ')}.`,
     `QUERY TERMS: ${queryTerms.join(', ') || 'none — broad scan'}`,
-    `QUERY TERM HITS IN MATCHED ITEMS: ${queryTerms.map((term) => `${term}=${queryTermHits[term]}`).join(', ') || 'broad scan'}`,
+    `DIRECT QUERY TERM HITS IN MATCHED ITEMS: ${queryTerms.map((term) => `${term}=${queryTermHits[term]}`).join(', ') || 'broad scan'}`,
+    `RETRIEVED TERM HITS INCLUDING SAFE EXPANSION: ${queryTerms.map((term) => `${term}=${retrievalTermHits[term]}`).join(', ') || 'broad scan'}`,
+    `SAFE QUERY EXPANSIONS: ${Object.entries(query.expandedTerms).map(([term, values]) => `${term}→${values.join('/')}`).join(', ') || 'none'}`,
+    `SOURCE COVERAGE WARNINGS: ${coverage.warnings.join(' ') || 'none reported'}`,
     `TOP COMPANY MENTIONS: ${topCounts(companyCounts).map(([k, v]) => `${k}=${v}`).join(', ') || 'none'}`,
     `TOP EVENT TAGS: ${topCounts(eventCounts).map(([k, v]) => `${k}=${v}`).join(', ') || 'none'}`,
     `SOURCE-TIER MIX: ${topCounts(tierCounts).map(([k, v]) => `${k}=${v}`).join(', ') || 'none'}`,
@@ -518,8 +521,9 @@ export function buildNewsChatPrompts(args: {
     '8. When the user asks for ideas, show at most three. For each: direction, company or instrument if named in the evidence, why now, time window, trigger, biggest risk, and kill condition.',
     '9. It is fine to say no idea clears the bar. Do not force a trade.',
     '10. End an idea answer with one short line: "Next step: Run Signal Check" or "Next step: keep watching."',
-    '11. Read QUERY TERM HITS. If an important named product, company, or topic has zero hits, say that the saved news has no direct match. Do not replace it with a related topic.',
+    '11. Read DIRECT QUERY TERM HITS. If an important named product, company, or topic has zero hits in direct text, say so. Safe query expansions may find useful related wording, but they do not prove the exact named term appeared.',
     '12. A subject mention and a number elsewhere are not proof of a requested metric. If no cited evidence line directly links the subject to the number, say the exact figure is missing.',
+    '13. Read SOURCE COVERAGE WARNINGS. If a source is failing, never claim the search is complete. State the gap in one short sentence.',
   ].join('\n')
   const transcript = prior.length
     ? `CONVERSATION SO FAR:\n${prior.map((m) => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`).join('\n\n')}\n\n`

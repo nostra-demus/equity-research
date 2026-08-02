@@ -32,6 +32,14 @@ function writeDay(dir: string, date: string, rows: FeedItem[]) {
   fs.mkdirSync(dir, { recursive: true })
   fs.writeFileSync(path.join(dir, `${date}_firehose.ndjson`), rows.map((r) => JSON.stringify(r)).join('\n') + '\n')
 }
+function writeConcepts(root: string) {
+  const dir = path.join(root, 'frameworks', 'retrieval')
+  fs.mkdirSync(dir, { recursive: true })
+  fs.writeFileSync(path.join(dir, 'concepts.json'), JSON.stringify({ groups: [
+    { id: 'amazon_web_services', terms: ['Amazon Web Services', 'AWS'] },
+    { id: 'capital_expenditure', terms: ['capital spending', 'capex'] },
+  ] }))
+}
 
 check('broad starter questions do not turn generic trading words into search filters', () => {
   assert.deepEqual(newsQueryTerms('What changed that may create a trade in the next 1–4 weeks?'), [])
@@ -121,8 +129,47 @@ check('saved article reads are searchable and are sent to the answer with the so
   assert.match(got.context, /saved figures: 50%/)
 })
 
+check('news chat uses alias, typo, and exact ranking without hiding direct-text gaps', () => {
+  const root = tmp()
+  writeConcepts(root)
+  writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [
+    item('EVT-exact', '2026-08-02T09:00:00Z', 'Amazon Bedrock growth accelerated', 'Amazon', 70),
+    item('EVT-alias', '2026-08-02T10:00:00Z', 'Amazon Web Services growth accelerated', 'Amazon', 98),
+  ])
+  const exact = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Amazon Bedrock growth', now: () => new Date('2026-08-02T12:00:00Z') })
+  assert.equal(exact.evidence[0]?.item.event_id, 'EVT-exact')
+  assert.equal(exact.receipt.retrievalMode, 'hybrid')
+
+  const alias = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'AWS growth', now: () => new Date('2026-08-02T12:00:00Z') })
+  assert.ok(alias.evidence.some((e) => e.item.event_id === 'EVT-alias'))
+  assert.ok(alias.receipt.expandedTerms.aws?.includes('amazon web services'))
+
+  const typo = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Amazon Bedrok growth', now: () => new Date('2026-08-02T12:00:00Z') })
+  assert.equal(typo.receipt.queryTermHits.bedrok, 0)
+  assert.equal(typo.receipt.retrievalTermHits.bedrok, 1)
+  assert.ok(typo.evidence[0]?.whyMatched?.includes('fuzzy:bedrok→bedrock'))
+})
+
+check('source failures are visible in the receipt and the model context', () => {
+  const root = tmp()
+  writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [item('EVT-one', '2026-08-02T10:00:00Z', 'Amazon Bedrock update', 'Amazon')])
+  const got = assembleNewsChatContext({
+    repoRoot: root, window: 'history', question: 'Amazon Bedrock', now: () => new Date('2026-08-02T12:00:00Z'),
+    sourceReport: {
+      updated_at: '2026-08-02T12:00:00Z',
+      counts: { total: 2, healthy: 1, quiet: 0, failing: 1, idle: 0 },
+      sources: [
+        { name: 'Reuters', region: 'US', feed_type: 'news', via: 'rss', health: 'healthy', last_data_at: '2026-08-02T10:00:00Z', items_24h: 1, items_7d: 1, fetch_status: 'ok', last_error: null, last_ok_at: '2026-08-02T12:00:00Z' },
+        { name: 'Broken Wire', region: 'US', feed_type: 'news', via: 'rss', health: 'failing', last_data_at: null, items_24h: 0, items_7d: 0, fetch_status: 'error', last_error: 'timeout', last_ok_at: null },
+      ],
+    },
+  })
+  assert.match(got.receipt.coverageWarnings[0], /Broken Wire/)
+  assert.match(got.context, /Results may be incomplete/)
+})
+
 check('news prompt is closed-book, simple, cited, and allowed to reject a trade', () => {
-  const assembled = { present: true, context: 'CURRENT EVIDENCE:\n[N1] test', evidence: [], receipt: { window: '24h' as const, label: 'last 24 hours', itemsSearched: 1, itemsMatched: 1, sourceCount: 1, evidenceCount: 1, historicalEvidenceCount: 0, coverageStart: '2026-08-02', coverageEnd: '2026-08-02', queryTerms: [], queryTermHits: {}, dataStores: ['live wire'] } }
+  const assembled = { present: true, context: 'CURRENT EVIDENCE:\n[N1] test', evidence: [], receipt: { window: '24h' as const, label: 'last 24 hours', itemsSearched: 1, itemsMatched: 1, sourceCount: 1, evidenceCount: 1, historicalEvidenceCount: 0, coverageStart: '2026-08-02', coverageEnd: '2026-08-02', queryTerms: [], queryTermHits: {}, retrievalTermHits: {}, expandedTerms: {}, retrievalMode: 'hybrid' as const, retrievalChannels: [], dataStores: ['live wire'], coverageWarnings: [], sourceHealth: null } }
   const p = buildNewsChatPrompts({ assembled, messages: [{ role: 'user', content: 'Any idea?' }] })
   assert.match(p.system, /very simple words/i)
   assert.match(p.system, /cite every news claim/i)

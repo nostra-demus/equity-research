@@ -13,7 +13,7 @@ import path from 'node:path'
 // config reads env at import time; set harmless defaults BEFORE importing the module under test.
 process.env.ENGINE_STATE_DIR = process.env.ENGINE_STATE_DIR || fs.mkdtempSync(path.join(os.tmpdir(), 'chatctx-'))
 process.env.ENGINE_REPO_ROOT = process.env.ENGINE_REPO_ROOT || process.cwd()
-const { matchLinkedSubjects, linkCandidatesBySwarm, isLinkableRun, toPosixPath } = await import('../src/chat-context')
+const { matchLinkedSubjects, linkCandidatesBySwarm, isLinkableRun, toPosixPath, rankContextPiecesForQuestion } = await import('../src/chat-context')
 const { runManifest } = await import('../src/outputs')
 
 let passed = 0
@@ -109,6 +109,18 @@ check('finding 4 — normalized paths make the equality + prefix logic hold acro
   assert.equal(toPosixPath(winRr) === toPosixPath(posixPrimary), true) // rr === primaryRunRoot now holds
   const synthRel = 'commodity/runs/GOLD/market-structure/99_market-structure-synthesis.md'
   assert.equal(synthRel.startsWith(toPosixPath(winRr) + '/'), true) // survivor filter now matches
+})
+
+check('oversized research chat keeps mandatory records, then the section relevant to the question', () => {
+  const pieces = [
+    { heading: 'Master thesis', relPath: 'run/final_thesis.md', markdown: 'Overall decision.', priority: 5 },
+    { heading: 'Business synthesis', relPath: 'run/business/99.md', markdown: 'Customer retention and product quality.', priority: 3 },
+    { heading: 'Debt maturity detail', relPath: 'run/balance/04.md', markdown: 'The 2028 debt maturity and covenant headroom.', priority: 2 },
+  ]
+  assert.deepEqual(
+    rankContextPiecesForQuestion(pieces, 'What happens at the 2028 debt maturity?').map((p) => p.heading),
+    ['Master thesis', 'Debt maturity detail', 'Business synthesis'],
+  )
 })
 
 // ---- PR #329 review fixes ----

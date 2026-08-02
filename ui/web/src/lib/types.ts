@@ -1496,9 +1496,15 @@ export interface NewsChatReceipt {
   coverageEnd: string | null
   queryTerms: string[]
   queryTermHits: Record<string, number>
+  retrievalTermHits: Record<string, number>
+  expandedTerms: Record<string, string[]>
+  retrievalMode: 'hybrid'
+  retrievalChannels: string[]
   dataStores: string[]
+  coverageWarnings: string[]
+  sourceHealth: { total: number; healthy: number; quiet: number; failing: number; idle: number } | null
 }
-export interface NewsChatEvidence { ref: string; item: FeedItem; historical: boolean }
+export interface NewsChatEvidence { ref: string; item: FeedItem; historical: boolean; whyMatched?: string[] }
 export interface NewsChatRequest {
   window: NewsChatWindow
   model?: string
