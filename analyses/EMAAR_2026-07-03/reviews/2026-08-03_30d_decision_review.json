@@ -1,0 +1,232 @@
+{
+  "schema_version": "1.0",
+  "ticker": "EMAAR",
+  "original_decision_date": "2026-07-03",
+  "review_date": "2026-08-03",
+  "review_window": "30d",
+  "original_decision": "Starter Position Only",
+  "basket": "Selected",
+  "entry_price": 12.2,
+  "tracking_price": null,
+  "review_price": 11.0,
+  "absolute_return_pct": -9.84,
+  "benchmark_return_pct": -3.7,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": -6.14,
+  "sector_relative_return_pct": null,
+  "thesis_status": "at-risk",
+  "forecast_results": [
+    {
+      "prediction": "Q2 2026 EPS beats AED 0.47 consensus by at least 5% on backlog POC recognition",
+      "status": "still open",
+      "evidence": "The forecast runs to 2026-08-15. DFM's EMAAR disclosure page showed no Q2 result as of this review; the latest listed disclosure remained 2026-06-11.",
+      "as_of": "2026-08-03"
+    },
+    {
+      "prediction": "Sukuk 3 (AED 2.75 billion) is refinanced or repaid on schedule without balance-sheet strain",
+      "status": "still open",
+      "evidence": "The contractual maturity is 2026-09-15 and the forecast window runs to 2026-09-30, both after this review.",
+      "as_of": "2026-08-03"
+    },
+    {
+      "prediction": "FY2026 revenue exceeds AED 40 billion on continued backlog conversion",
+      "status": "still open",
+      "evidence": "The forecast runs to the FY2026 annual results by 2027-03-31; no FY2026 result is yet available.",
+      "as_of": "2026-08-03"
+    },
+    {
+      "prediction": "The AED 200 billion masterplan disclosure shows phased capex compatible with positive group FCF",
+      "status": "still open",
+      "evidence": "The forecast runs to 2026-12-31. No post-decision masterplan phasing disclosure was listed by DFM as of this review.",
+      "as_of": "2026-08-03"
+    },
+    {
+      "prediction": "Emaar Misr EGP-denominated net income stabilises or recovers in H1 2026 results",
+      "status": "still open",
+      "evidence": "The forecast runs to 2026-09-30; no H1 2026 Emaar Misr result was available in the pool or EMAAR's DFM disclosures at this review.",
+      "as_of": "2026-08-03"
+    },
+    {
+      "prediction": "EMAAR re-rates to AED 20 or more within 12 months",
+      "status": "still open",
+      "evidence": "The forecast runs to 2027-07-03. The 2026-07-31 close was AED 11.00, but the stated time window has not elapsed.",
+      "as_of": "2026-08-03"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "Q2 2026 results and UAE new-sales update, estimated around 2026-08-10",
+      "status": "pending",
+      "evidence": "No Q2 result was listed on DFM's EMAAR disclosure page as of 2026-08-03; the expected date is after this review."
+    },
+    {
+      "catalyst": "Sukuk 3 maturity on 2026-09-15",
+      "status": "pending",
+      "evidence": "The contractual date is after this review."
+    },
+    {
+      "catalyst": "Q3 2026 results, estimated around November 2026",
+      "status": "pending",
+      "evidence": "The estimated window is after this review."
+    },
+    {
+      "catalyst": "AED 200 billion masterplan capital-discipline disclosure in H2 2026",
+      "status": "pending",
+      "evidence": "No post-decision phasing or pre-sale-gate disclosure was listed by DFM as of 2026-08-03."
+    },
+    {
+      "catalyst": "Alabbar / Eagle Hills related-party resolution",
+      "status": "pending",
+      "evidence": "The FY2025 Annual Report disclosed that management used the IAS 24 exemption for government-related transactions; it did not resolve the government-ecosystem transaction channel or an Emaar/Eagle Hills separation policy."
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "RF-OWN-004 — unaligned government-linked controlling owner",
+      "status": "materialized",
+      "evidence": "The post-decision primary-evidence refresh confirmed that Note 33 elects the IAS 24 exemption for government-related financing, land, utilities, infrastructure and construction transactions. The 2026-07-10 rerun therefore enforced a Watchlist cap."
+    },
+    {
+      "risk": "RF-DISC-001 — compensation disclosure gap",
+      "status": "not materialized",
+      "evidence": "The FY2025 Annual Report added to the pool after the original run disclosed aggregate key-management remuneration, partly closing the original English-language gap; it did not establish a new adverse event."
+    },
+    {
+      "risk": "RF-DISC-002 — related-party transaction opacity",
+      "status": "materialized",
+      "evidence": "FY2025 Annual Report, Note 33, p.212 states that management elected not to disclose government-related transactions under the IAS 24 exemption."
+    },
+    {
+      "risk": "EMAAR-MISR-COLLAPSE — further EGP-denominated earnings deterioration",
+      "status": "pending",
+      "evidence": "No H1 2026 Emaar Misr result was available by this review."
+    },
+    {
+      "risk": "OCF-INFLATION — buyer deposits inflate reported operating cash flow",
+      "status": "pending",
+      "evidence": "No new quarterly cash-flow statement was available by this review."
+    },
+    {
+      "risk": "MASTERPLAN-CAPEX-UNKNOWN — undisclosed capex phasing",
+      "status": "pending",
+      "evidence": "No post-decision masterplan capex schedule was listed by DFM as of 2026-08-03."
+    },
+    {
+      "risk": "COMPOUND-FORENSIC — cash conversion, Misr and related-party disclosure signals combine",
+      "status": "pending",
+      "evidence": "The IAS 24 disclosure gap is confirmed, but the Q2/Misr and cash-conversion evidence needed to resolve the compound risk is not yet available."
+    }
+  ],
+  "decision_quality": "genuine miss",
+  "error_taxonomy": [
+    "bad math",
+    "ignored red flag",
+    "false positive"
+  ],
+  "lessons": [
+    "EMAAR closed at AED 11.00 on 2026-07-31 versus the frozen AED 12.20 entry, a price return of -9.84%; source: Dubai Financial Market EMAAR trading and company-prices pages, 2026-07-31.",
+    "The DFM General Index fell from 6,018.35 on 2026-06-26, the last trading day before the entry-price timestamp, to 5,795.93 on 2026-07-31: -3.70%. EMAAR therefore lagged by 6.14 percentage points; source: Dubai Financial Market historical data, 2026-06-26 and 2026-07-31.",
+    "The named sector benchmark, MSCI UAE Real Estate, could not be verified for the same daily window from an authoritative accessible source, so sector return fields are null.",
+    "The original record was superseded before this review: its 'bear' target of AED 20 was a +63.9% gain, not a downside state, and the RF-OWN-004 rule should have capped the decision at Watchlist. Both defects were knowable from evidence available on 2026-07-03.",
+    "The stock outcome is negative, but the Q2, sukuk, masterplan, Emaar Misr and 12-month valuation forecasts remain open. This review does not treat 30-day price weakness alone as proof that the operating thesis failed.",
+    "Highest-value lesson: a selected idea must contain a genuine capital-loss branch and must obey every governance/solvency cap before expected-return math is allowed to influence the rating."
+  ],
+  "module_calibration_notes": {
+    "most_responsible": "Valuation and the synthesis layer drove the selected call by treating a three-upside-case distribution as exceptional asymmetry.",
+    "most_accurate": "management-governance was most accurate: RF-OWN-004 identified the structural owner-value trap that the later rerun made binding.",
+    "missed_key_variable": "valuation and synthesis failed to construct the already-described joint tail (cycle break plus masterplan cash use plus no rerating) as a quantified loss case, then failed to enforce the owner cap.",
+    "realized_outcome_driver": "EMAAR fell in a falling DFM market and underperformed it by 6.14 percentage points. No scheduled issuer catalyst had reported, so this review cannot attribute the move to a resolved earnings or governance event.",
+    "confidence_reassessment": "Given only information knowable on or before 2026-07-03, conviction should have been lower and the verdict no higher than Watchlist. The missing downside branch and the binding owner flag were visible in the original record itself.",
+    "information_partition": "The process judgment uses only the frozen record's internal math, its cited pre-decision governance evidence and the append-only correction. Post-decision prices and disclosures are used only for outcome status."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "",
+    "pre_mortem_verdict": "",
+    "pre_mortem_confidence_haircut": null,
+    "outcome_vs_verdict": "not_applicable",
+    "notes": "No pre-mortem report exists for this decision."
+  },
+  "memo_delta": {
+    "summary": "The original Starter Position Only call was superseded by a Watchlist rerun and an append-only correction because its supposed bear case was actually a +63.9% gain and the unaligned-owner cap was not enforced. EMAAR then closed at AED 11.00 on 2026-07-31, down 9.84% from the frozen entry and 6.14 percentage points behind the DFM General Index. No scheduled issuer catalyst has reported yet, so the decision and risk model have weakened materially while the operating forecasts remain open.",
+    "thesis_delta_verdict": "weakened",
+    "stage_one_comment": "The 30-day checkpoint is a process failure, not yet an operating-thesis verdict. EMAAR closed at AED 11.00 on 31 July, down 9.84% from the AED 12.20 paper entry and 6.14 percentage points behind the DFM General Index. More importantly, the original Starter Position call was superseded: its AED 20 'bear' target was actually a 63.9% gain, so the scenario set contained no capital-loss state, and the known unaligned-owner flag should have capped the verdict at Watchlist. The 10 July rerun corrected both defects. The FY2025 report now in the pool also confirms that management uses the IAS 24 exemption not to disclose government-related transactions, so the owner-value-trap risk remains real. Q2 results, the September sukuk maturity, Emaar Misr and masterplan phasing are still pending. Action: treat the standing call as Watchlist, do not revive the starter long, and reassess only after the Q2 demand signal and owner-cap evidence.",
+    "changed_sections": [
+      {
+        "section": "Part I — One-Line Decision and Headline Scorecard",
+        "original_claim": "Starter Position Only; buy 1-2% because the bear case sat 63.9% above the AED 12.20 entry and fundamental downside was described as nil.",
+        "new_evidence": "The 2026-07-10 rerun changed the standing verdict to Watchlist. The 2026-07-17 correction superseded this record because the owner cap was misapplied and the 'bear' case was a gain, not downside.",
+        "evidence_source": "analyses/EMAAR_2026-07-10/decision_record.json, 2026-07-10; analyses/EMAAR_2026-07-03/corrections.json, 2026-07-17",
+        "materiality_score": 100,
+        "impact_direction": "negative",
+        "impacted_modules": [
+          "valuation",
+          "management-governance"
+        ],
+        "rerun_recommended": false,
+        "rerun_reason": "The full rerun already completed on 2026-07-10 and produced the standing Watchlist call.",
+        "rerun_command": ""
+      },
+      {
+        "section": "Part II — Scenario Model",
+        "original_claim": "Bull/base/bear targets were AED 34.2/AED 27.7/AED 20.0, all above entry, producing +118.8% expected return and a claimed 1.9x risk/reward ratio.",
+        "new_evidence": "The corrected rerun added a genuine loss branch: bull/base/bear AED 21.00/AED 15.00/AED 9.75, with +17.7% expected return and 0.88x risk/reward. The original distribution therefore did not span plausible outcomes.",
+        "evidence_source": "analyses/EMAAR_2026-07-10/decision_record.json, 2026-07-10; analyses/EMAAR_2026-07-03/corrections.json, 2026-07-17",
+        "materiality_score": 100,
+        "impact_direction": "negative",
+        "impacted_modules": [
+          "valuation"
+        ],
+        "rerun_recommended": false,
+        "rerun_reason": "The corrected scenario model is already present in the 2026-07-10 rerun.",
+        "rerun_command": ""
+      },
+      {
+        "section": "Part II — Governance and Stewardship",
+        "original_claim": "Government-owner and related-party opacity were High risks, but the English FY2025 report was missing and the call still allowed a starter position.",
+        "new_evidence": "The FY2025 report now in the pool confirms that management elected the IAS 24 exemption and did not disclose government-related financing, land, utility, infrastructure and construction transactions. This supports the Watchlist owner-value-trap cap rather than clearing it.",
+        "evidence_source": "FY2025 Integrated Annual Report, Note 33, p.212 (published 2026-03-12; added to pool 2026-07-08)",
+        "materiality_score": 85,
+        "impact_direction": "negative",
+        "impacted_modules": [
+          "management-governance",
+          "business-model"
+        ],
+        "rerun_recommended": false,
+        "rerun_reason": "The 2026-07-10 rerun already incorporated the annual report and enforced the Watchlist cap.",
+        "rerun_command": ""
+      },
+      {
+        "section": "Part I — Position Outcome",
+        "original_claim": "Enter at AED 12.20 with no price stop because any decline was described as market movement rather than fundamental downside.",
+        "new_evidence": "EMAAR closed at AED 11.00 on 2026-07-31, a -9.84% price return and -6.14 percentage points relative to the DFM General Index over the matched entry window.",
+        "evidence_source": "Dubai Financial Market EMAAR trading/company-prices and DFMGI historical-data pages, closes on 2026-06-26 and 2026-07-31",
+        "materiality_score": 60,
+        "impact_direction": "negative",
+        "impacted_modules": [
+          "valuation",
+          "catalyst"
+        ],
+        "rerun_recommended": false,
+        "rerun_reason": "Thirty-day price action is an outcome check, not by itself a reason to rerun a 12-month thesis; the logical defects were already rerun.",
+        "rerun_command": ""
+      }
+    ],
+    "watch_items": [
+      "Q2 2026 results around 2026-08-10: EPS, UAE new sales, backlog growth and margin versus the original confirmation and falsification thresholds.",
+      "Sukuk 3 repayment or refinancing terms at the 2026-09-15 maturity.",
+      "H1 2026 Emaar Misr EGP-denominated profit and any auditor qualification by 2026-09-30.",
+      "Any AED 200 billion masterplan capex schedule, pre-sale gate or move from net cash to material net debt.",
+      "Any Dubai Holding/Eagle Hills related-party asset transfer, fee or disclosure that changes the Watchlist cap.",
+      "MSCI UAE Real Estate return data for a like-for-like sector-relative score when an authoritative daily series becomes available."
+    ],
+    "management_questions": [
+      "What were Q2 2026 UAE property sales, unit volumes and backlog growth, and how do they compare with Q1's +16% sales growth?",
+      "What annual cash commitment and pre-sale gates apply to each phase of the AED 200 billion masterplan?",
+      "Will Sukuk 3 be repaid from cash on 2026-09-15, and what refinancing spread would be acceptable if it is rolled?",
+      "Why did Emaar Misr's EGP-denominated profit fall in FY2025, and what changed in H1 2026?",
+      "Which government-related land, utility, infrastructure, construction and financing transactions are omitted under the IAS 24 exemption, and how are arm's-length terms tested?",
+      "What formal controls separate Emaar opportunities and transactions from Eagle Hills?"
+    ],
+    "memo_delta_file": "analyses/EMAAR_2026-07-03/reviews/2026-08-03_30d_memo_delta.md"
+  }
+}
