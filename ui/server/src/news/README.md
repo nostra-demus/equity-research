@@ -77,6 +77,36 @@ every item read, kept *and* dropped.
 `NEWS_RSS_PER_HOST_GAP_MS` · `NEWS_NSE_ENABLED` · `NEWS_NSE_BASE_URL` · `NEWS_NSE_LOOKBACK_HOURS` ·
 `NEWS_FEED_ITEMS_DAILY_CAP`.
 
+### News chat retrieval
+
+News chat always uses deterministic hybrid search: exact text, finance aliases, word forms, typo
+repair, BM25, source quality, RRF fusion, and cited event connections. Test it with:
+
+```bash
+npm --prefix ui/server run retrieval:eval
+```
+
+Neural retrieval is optional and never shown as active unless it is truly configured and indexed.
+It uses a separate OpenAI-compatible embedding key; the reranker uses a separate key as well. This
+avoids silently spending a triage key. Set `NEWS_RETRIEVAL_EMBEDDING_ENABLED=1`,
+`NEWS_RETRIEVAL_EMBEDDING_API_KEY`, `NEWS_RETRIEVAL_EMBEDDING_BASE_URL`, and
+`NEWS_RETRIEVAL_EMBEDDING_MODEL`. The reranker has the matching `NEWS_RETRIEVAL_RERANK_*` settings.
+
+New items are indexed after each successful ingest cycle. For saved history, first inspect without
+spending, then run a bounded trial before the full resumable backfill:
+
+```bash
+npm --prefix ui/server run retrieval:backfill
+npm --prefix ui/server run retrieval:backfill -- --limit=1000
+npm --prefix ui/server run retrieval:backfill -- --all
+```
+
+The answer uses the local subscription model first. If that model is temporarily unavailable and the
+existing `GROQ_API_KEY` is present, news chat uses a small closed-book Groq backup with the same cited
+evidence and no tools. The backup is limited to public saved-news context and can be disabled with
+`NEWS_CHAT_GROQ_FALLBACK_ENABLED=0`. Its timeout and answer cap are controlled by
+`NEWS_CHAT_GROQ_FALLBACK_TIMEOUT_MS` and `NEWS_CHAT_GROQ_FALLBACK_MAX_TOKENS`.
+
 To add a source: run `npx tsx scripts/verify-feeds.ts <candidates.json>` (live HTTP 200 + parseable
 check that reuses the production parser and reports the real item-link domains), add the feed to
 `frameworks/screener/rss_feeds.json`, and ensure its **link** domain is on the `approved-domains.ts`

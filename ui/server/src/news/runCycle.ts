@@ -22,11 +22,11 @@ import { resolveEventRegion } from './geo'
 import { resolveCountry } from './geography'
 import { invalidateFacets } from './facets'
 import { SeenCache } from './seen-cache'
-import { Budget, UsdBudget, armCooldown, clearCooldown, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, readCooldownUntil } from './triage/budget'
+import { Budget, UsdBudget, armCooldown, clearCooldown, conservativeChatTokenBound, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, readCooldownUntil, type PaceCfg } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
 import { triageBatchAnthropic } from './triage/anthropic'
 import { isPlanQuotaNote, isTerminalApiNote, triageBatchClaudeCli, type ClaudeCliRunner } from './triage/claude-cli'
-import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
+import { SYSTEM, buildUserMessage, estimateTokens, scoreToBand, triageBatch, type TriageOptions, type TriageResult } from './triage/groq'
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
 import { deriveCommodities } from './commodities'
@@ -35,12 +35,64 @@ import { runThemesCycle, bumpCycleCounter, themesConfigFromNews } from './themes
 import { makeThemeNamer } from './themes/llm'
 import type { ThemeItemView } from './themes/types'
 import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from './types'
+import { updateSemanticIndex } from '../retrieval/semantic'
 import fs from 'node:fs'
 
 // Items we could NOT score this cycle (daily budget hit, or a Groq batch that failed even after
 // retry) spill into this file and are re-queued next cycle. Without it they'd be silently lost:
 // the sources won't hand them back (GDELT's lookback ages out; an unchanged RSS feed answers 304).
 const DEFERRED_FILE = 'news-deferred.json'
+
+/** Worst-case billable tokens for one primary-Groq triage attempt. */
+export function triageGroqTokenBound(items: NewsItem[], options: TriageOptions): number {
+  return conservativeChatTokenBound(SYSTEM, buildUserMessage(items), options.maxTokens ?? 2000)
+}
+
+function hardCapAttempts(budget: Budget, perAttemptTokens: number, maxAttempts: number): number {
+  return Math.min(Math.max(1, maxAttempts), budget.remainingRequests, Math.floor(budget.remainingTokens / perAttemptTokens))
+}
+
+function chargedAttemptTokens(result: TriageResult | undefined, perAttemptTokens: number): { requests: number; tokens: number } {
+  const requests = Number.isFinite(result?.requests) ? Math.max(0, Math.floor(result!.requests)) : 0
+  const reportedTokens = Number(result?.tokens)
+  const tokens = requests > 0
+    ? (reportedTokens > 0 ? reportedTokens + perAttemptTokens * Math.max(0, requests - 1) : perAttemptTokens * requests)
+    : 0
+  return { requests, tokens }
+}
+
+/** One primary-Groq ingester batch with an atomic reservation shared by chat/read/idea callers. */
+export async function triageGroqWithReservation(args: {
+  budget: Budget
+  pace: PaceCfg
+  estimatedTokens: number
+  items: NewsItem[]
+  options: TriageOptions
+  now?: () => number
+  fetchFn?: typeof fetch
+  sleep?: (ms: number) => Promise<void>
+  maxAttempts?: number
+}): Promise<TriageResult | null> {
+  const now = args.now || (() => Date.now())
+  const perAttemptTokens = triageGroqTokenBound(args.items, args.options)
+  let attempts = hardCapAttempts(args.budget, perAttemptTokens, args.maxAttempts ?? 2)
+  const at = now()
+  while (attempts > 0 && !args.budget.pacedCanSpend(perAttemptTokens * attempts, args.pace, at, attempts)) attempts--
+  if (!attempts) return null
+  const reservation = args.budget.tryReserve(perAttemptTokens * attempts, args.pace, at, attempts)
+  if (!reservation) return null
+  let result: TriageResult | undefined
+  try {
+    result = await triageBatch(args.items, { ...args.options, maxAttempts: attempts }, args.fetchFn, args.sleep)
+    return result
+  } finally {
+    const charged = chargedAttemptTokens(result, perAttemptTokens)
+    // A timeout/429/malformed reply often has no usage object even though the provider counted the call.
+    // Charge the full safe bound for every sent attempt without reported usage; zero (or the empirical
+    // rate-limiter estimate) is not an honest fallback for work authorized under a hard daily cap.
+    args.budget.reconcile(reservation, charged.requests, charged.tokens)
+  }
+}
 // Spillover backlog of items not yet scored (budget hit / LLM hiccup / plan quota spent). THE CAP IS A
 // LOSS BOUNDARY, not a nicety: whatever sits past it when saveDeferred runs is written to no file and,
 // once it ages out of its source window, is gone — never scored, never re-fetchable. 1,000 was BELOW real
@@ -354,11 +406,16 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     }
     const batch = items.slice(i, i + cfg.triageBatch)
     const est = estimateTokens(batch.length)
+    const groqOptions: TriageOptions = { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens }
+    const groqAttemptTokenBound = triageGroqTokenBound(batch, groqOptions)
     // PROVIDER PICK. Prefer Groq while it's on-schedule (the pacer keeps it spread across the day); when
     // Groq is paced/capped, overflow to Gemini's separate free pool; defer only when BOTH are out.
     // PROVIDER PICK, in order: Groq (primary, paced across the day) → OpenAI-compatible overflow registry
     // (OpenRouter, NVIDIA, …, best first) → Gemini pool → defer when all are out.
-    const groqOk = budget.pacedCanSpend(est, pace, now().getTime())
+    let groqAttempts = Math.min(2, budget.remainingRequests, Math.floor(budget.remainingTokens / groqAttemptTokenBound))
+    const groqAdmissionAt = now().getTime()
+    while (groqAttempts > 0 && !budget.pacedCanSpend(groqAttemptTokenBound * groqAttempts, pace, groqAdmissionAt, groqAttempts)) groqAttempts--
+    const groqOk = groqAttempts > 0
     // RESILIENT PROVIDER CHAIN: try Groq (primary) → overflow registry → Gemini pool, falling to the
     // NEXT provider whenever the current one is unavailable OR was tried and FAILED. The old code only
     // reached overflow when Groq was capped — so a Groq outage (org 429 / network blip) just deferred
@@ -392,18 +449,24 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // undefined here and this is byte-for-byte the old Groq-first behaviour.
     if ((!res || !res.ok) && groqOk && !groqDownThisCycle && !groqCoolingDown) {
       await limiter.acquire(est, sleep, () => now().getTime())
-      res = await triageBatch(batch, { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens }, fetchFn, sleep)
-      groqRequests += res.requests
-      groqTokens += res.tokens
-      budget.record(res.requests, res.tokens)
-      limiter.learn(res.rate, () => now().getTime()) // track the live per-minute ceiling + back off on 429
-      if (!res.ok) {
-        groqDownThisCycle = true // Groq is having a bad cycle → skip it for the rest of THIS cycle, save the cap
-        // …and across cycles until the window lapses — EXCEPT on a cycle abort, where the wall-clock guard
-        // cancelled an in-flight call. That is not a Groq failure, and cooling on it strands the primary tier.
-        if (!deps.signal?.aborted) armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'groq', cfg.llmCooldownMaxMs)
-      } else if (groqCooldownUntil) {
-        clearCooldown(stateDir, 'groq') // a probe after the window lapsed SUCCEEDED → Groq recovered, drop the stale marker
+      const reservedResult = await triageGroqWithReservation({
+        budget, pace, estimatedTokens: est, items: batch,
+        options: groqOptions,
+        now: () => now().getTime(), fetchFn, sleep, maxAttempts: 2,
+      })
+      if (reservedResult) {
+        res = reservedResult
+        groqRequests += res.requests
+        groqTokens += res.tokens
+        limiter.learn(res.rate, () => now().getTime()) // track the live per-minute ceiling + back off on 429
+        if (!res.ok) {
+          groqDownThisCycle = true // Groq is having a bad cycle → skip it for the rest of THIS cycle, save the cap
+          // …and across cycles until the window lapses — EXCEPT on a cycle abort, where the wall-clock guard
+          // cancelled an in-flight call. That is not a Groq failure, and cooling on it strands the primary tier.
+          if (!deps.signal?.aborted) armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'groq', cfg.llmCooldownMaxMs)
+        } else if (groqCooldownUntil) {
+          clearCooldown(stateDir, 'groq') // a probe after the window lapsed SUCCEEDED → Groq recovered, drop the stale marker
+        }
       }
     }
     // Walk a SEGMENT of the overflow chain for THIS SAME batch: a failing/exhausted provider advances to the
@@ -415,15 +478,27 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     const walkOverflow = async (segment: typeof overflow) => {
       for (const ov of segment) {
         // skip already-failed (this cycle), cross-cycle cooling-down, or out-of-budget providers
-        if (ov.failed || ov.coolingDown || !ov.budget.canSpend(est)) continue
+        if (ov.failed || ov.coolingDown) continue
+        const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: ov.p.maxAttempts }
+        const perAttemptTokens = triageGroqTokenBound(batch, options)
+        if (!hardCapAttempts(ov.budget, perAttemptTokens, ov.p.maxAttempts ?? 2)) continue
         await ov.limiter.acquire(est, sleep, () => now().getTime())
+        const attempts = hardCapAttempts(ov.budget, perAttemptTokens, ov.p.maxAttempts ?? 2)
+        const reservation = attempts > 0 ? ov.budget.tryReserve(perAttemptTokens * attempts, undefined, now().getTime(), attempts) : null
+        if (!reservation) continue
         // timeoutMs/maxAttempts: undefined for every provider except one that opts into a longer-than-generic
         // call guard (e.g. the local tier — see its OverflowProvider entry) — triageBatch's own defaults
         // (30_000ms, 2 attempts) apply exactly as before when omitted.
-        res = await triageBatch(batch, { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: ov.p.maxAttempts }, fetchFn, sleep)
+        let overflowResult: TriageResult | undefined
+        try {
+          overflowResult = await triageBatch(batch, { ...options, maxAttempts: attempts }, fetchFn, sleep)
+          res = overflowResult
+        } finally {
+          const charged = chargedAttemptTokens(overflowResult, perAttemptTokens)
+          ov.budget.reconcile(reservation, charged.requests, charged.tokens)
+        }
         ov.requests += res.requests
         ov.tokens += res.tokens
-        ov.budget.record(res.requests, res.tokens)
         if (res.ok) {
           if (ov.cooldownWasSet) clearCooldown(stateDir, ov.p.id) // recovered after a prior cycle's failure → drop the marker
           break // scored — stop walking the chain
@@ -444,22 +519,34 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     if (!res || !res.ok) await walkOverflow(overflowCloud)
     if ((!res || !res.ok) && geminiOn) {
       // first pool model with daily room that isn't failed-this-cycle or cross-cycle cooling down
-      const gemPick = geminiPool.find((g) => !g.failed && !g.coolingDown && g.budget.canSpend(est))
+      const geminiOptions: TriageOptions = { model: '', baseUrl: cfg.geminiBaseUrl, apiKey: cfg.geminiApiKey, maxTokens: cfg.geminiMaxTokens }
+      const geminiAttemptTokenBound = triageGroqTokenBound(batch, geminiOptions)
+      const gemPick = geminiPool.find((g) => !g.failed && !g.coolingDown && hardCapAttempts(g.budget, geminiAttemptTokenBound, 2) > 0)
       if (gemPick) {
         await geminiLimiter!.acquire(est, sleep, () => now().getTime())
-        res = await triageBatchGemini(batch, { model: gemPick.model, baseUrl: cfg.geminiBaseUrl, apiKey: cfg.geminiApiKey, maxTokens: cfg.geminiMaxTokens }, fetchFn, sleep)
-        geminiRequests += res.requests
-        geminiTokens += res.tokens
-        gemPick.budget.record(res.requests, res.tokens)
-        geminiLimiter!.learn(res.rate, () => now().getTime())
-        if (res.ok) {
-          if (gemPick.cooldownWasSet) clearCooldown(stateDir, `gemini:${gemPick.model}`) // recovered → drop the marker
-        } else {
-          gemPick.failed = true // don't re-pick this model for the rest of THIS cycle (the intra-cycle burn fix)
-          if (/PerDay/i.test(res.note || '')) gemPick.budget.exhaust() // model's free day is spent → rotation skips it until midnight PT
-          // transient → cross-cycle backoff, but NOT on a cycle abort (see the overflow loop above: an aborted
-          // in-flight call is not a provider failure, and cooling on it strands a healthy Gemini model).
-          else if (!deps.signal?.aborted) armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, `gemini:${gemPick.model}`, cfg.llmCooldownMaxMs)
+        const attempts = hardCapAttempts(gemPick.budget, geminiAttemptTokenBound, 2)
+        const reservation = attempts > 0 ? gemPick.budget.tryReserve(geminiAttemptTokenBound * attempts, undefined, now().getTime(), attempts) : null
+        if (reservation) {
+          let geminiResult: TriageResult | undefined
+          try {
+            geminiResult = await triageBatchGemini(batch, { ...geminiOptions, model: gemPick.model, maxAttempts: attempts }, fetchFn, sleep)
+            res = geminiResult
+          } finally {
+            const charged = chargedAttemptTokens(geminiResult, geminiAttemptTokenBound)
+            gemPick.budget.reconcile(reservation, charged.requests, charged.tokens)
+          }
+          geminiRequests += res.requests
+          geminiTokens += res.tokens
+          geminiLimiter!.learn(res.rate, () => now().getTime())
+          if (res.ok) {
+            if (gemPick.cooldownWasSet) clearCooldown(stateDir, `gemini:${gemPick.model}`) // recovered → drop the marker
+          } else {
+            gemPick.failed = true // don't re-pick this model for the rest of THIS cycle (the intra-cycle burn fix)
+            if (/PerDay/i.test(res.note || '')) gemPick.budget.exhaust() // model's free day is spent → rotation skips it until midnight PT
+            // transient → cross-cycle backoff, but NOT on a cycle abort (see the overflow loop above: an aborted
+            // in-flight call is not a provider failure, and cooling on it strands a healthy Gemini model).
+            else if (!deps.signal?.aborted) armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, `gemini:${gemPick.model}`, cfg.llmCooldownMaxMs)
+          }
         }
       }
     }
@@ -667,6 +754,30 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const written = appendFeedItems(repoRoot, date, feedItems, cfg.feedItemsDailyCap)
   if (written) invalidateFacets() // a fresh cycle changed the archive — drop the facet index so new items/countries show up before the TTL
   for (const fi of feedItems.slice(0, written)) newsBus.emit({ type: 'news-item', item: fi })
+  // Optional neural index. It runs only when explicitly configured, only over newly persisted items, and
+  // is fully fail-open: provider trouble can never block the wire or turn an item into a false non-match.
+  if (written && cfg.retrievalEmbeddingEnabled) {
+    try {
+      const indexed = await updateSemanticIndex({
+        stateDir,
+        items: feedItems.slice(0, written),
+        fetchFn,
+        config: {
+          enabled: cfg.retrievalEmbeddingEnabled,
+          apiKey: cfg.retrievalEmbeddingApiKey,
+          baseUrl: cfg.retrievalEmbeddingBaseUrl,
+          model: cfg.retrievalEmbeddingModel,
+          timeoutMs: cfg.retrievalEmbeddingTimeoutMs,
+          batchSize: cfg.retrievalEmbeddingBatchSize,
+          maxItemsPerCycle: cfg.retrievalEmbeddingMaxItemsPerCycle,
+        },
+      })
+      if (indexed.indexed) log(`semantic index: added ${indexed.indexed} event${indexed.indexed === 1 ? '' : 's'}`)
+      if (indexed.status === 'provider_error') log(`semantic index: ${indexed.note || 'provider error'} — hybrid search remains active`)
+    } catch (e: any) {
+      log(`semantic index error: ${e?.message || e} — hybrid search remains active`)
+    }
+  }
 
   const overflowReq = overflow.reduce((s, o) => s + o.requests, 0)
   const overflowTok = overflow.reduce((s, o) => s + o.tokens, 0)

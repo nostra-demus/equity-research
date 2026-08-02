@@ -8,8 +8,8 @@
 // chat-completions. Never throws; one retry on a transient failure; FREE TIER ONLY (no billing).
 
 import type { NewsItem, Triage } from '../types'
-import type { RateInfo } from './budget'
-import { ARTICLE_SYSTEM, type ArticleBrief, buildUserMessage, coerceArticleBrief, coerceTriage, durToMs, estimateTokens, SYSTEM, type TriageOptions, type TriageResult } from './groq'
+import { conservativeChatTokenBound, type RateInfo } from './budget'
+import { ARTICLE_SYSTEM, articleMaxOutputTokens, type ArticleBrief, buildArticleUserMessage, buildUserMessage, coerceArticleBrief, coerceTriage, durToMs, estimateTokens, isArticleBodyEligible, SYSTEM, type TriageOptions, type TriageResult } from './groq'
 
 /** Pull Gemini's RetryInfo.retryDelay (e.g. "35s") out of a 429/RESOURCE_EXHAUSTED error body → ms. */
 function parseGeminiRetry(body: any): RateInfo {
@@ -60,6 +60,7 @@ export async function triageBatchGemini(
   const maxAttempts = opts.maxAttempts ?? 2
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
+      requests++ // one count per fetch invocation, including network/response-decoding failures below
       const res = await fetchFn(url, {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-goog-api-key': opts.apiKey },
@@ -73,7 +74,6 @@ export async function triageBatchGemini(
           generationConfig: { temperature: 0.1, maxOutputTokens: opts.maxTokens ?? 2000, responseMimeType: 'application/json', thinkingConfig: { thinkingBudget: 0 } },
         }),
       })
-      requests++
       if (!res.ok) {
         const raw = await res.text().catch(() => '')
         let parsedErr: any
@@ -90,7 +90,8 @@ export async function triageBatchGemini(
         return { byIndex, requests, tokens, ok: false, note: lastNote, rate }
       }
       const data: any = await res.json()
-      tokens += Number(data?.usageMetadata?.totalTokenCount) || estimateTokens(items.length)
+      tokens += Number(data?.usageMetadata?.totalTokenCount)
+        || conservativeChatTokenBound(SYSTEM, buildUserMessage(items), opts.maxTokens ?? 2000)
       const cand = data?.candidates?.[0]
       // a safety block or a max-output truncation is deterministic — report, don't half-parse
       if (data?.promptFeedback?.blockReason) return { byIndex, requests, tokens, ok: false, note: `gemini blocked: ${data.promptFeedback.blockReason}` }
@@ -108,7 +109,6 @@ export async function triageBatchGemini(
       }
       return { byIndex, requests, tokens, ok: true }
     } catch (e: any) {
-      requests++
       lastNote = e?.name === 'TimeoutError' ? 'gemini: request timed out' : e?.message || 'gemini fetch error'
       if (attempt < maxAttempts) await sleep(1500 * attempt)
     }
@@ -134,9 +134,8 @@ export async function analyzeArticleGemini(
   sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
 ): Promise<{ brief: ArticleBrief | null; tokens: number; note?: string; rate?: RateInfo; attempted?: boolean }> {
   if (!opts.apiKey) return { brief: null, tokens: 0, note: 'no GEMINI_API_KEY', attempted: false }
-  const text = String(body || '').slice(0, 6000)
-  if (text.replace(/\s+/g, ' ').trim().length < 80) return { brief: null, tokens: 0, note: 'body too thin to read', attempted: false }
-  const user = `HEADLINE: ${headline}\n\nARTICLE BODY:\n${text}`
+  if (!isArticleBodyEligible(body)) return { brief: null, tokens: 0, note: 'body too thin to read', attempted: false }
+  const user = buildArticleUserMessage(body, headline)
   const url = `${opts.baseUrl}/models/${opts.model}:generateContent`
   let tokens = 0
   let lastNote = 'gemini fetch error'
@@ -153,7 +152,7 @@ export async function analyzeArticleGemini(
           // floor at 3500 output tokens so a worst-case rich transmission brief (now including news_impact's
           // ~9 fields) can't truncate (a length-cut drops the whole brief); a provider asking for more keeps
           // its larger budget. Matches groq.ts + EST_TOKENS.
-          generationConfig: { temperature: 0.1, maxOutputTokens: Math.max(opts.maxTokens ?? 3000, 3500), responseMimeType: 'application/json', thinkingConfig: { thinkingBudget: 0 } },
+          generationConfig: { temperature: 0.1, maxOutputTokens: articleMaxOutputTokens(opts.maxTokens), responseMimeType: 'application/json', thinkingConfig: { thinkingBudget: 0 } },
         }),
       })
       if (!res.ok) {

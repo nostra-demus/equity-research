@@ -457,8 +457,8 @@ def build() -> dict:
     # ---- PM skim: surfaced ideas (news/ideas) + self-grading scorecard ----
     # A pure, read-only projection of the idea snapshots. `stale` is derived at build time from decay_at
     # (an ISO-Z string, so a lexicographic compare against `now` is a correct time compare) — a surfaced
-    # idea ages off the fresh lane for free, no paid pass. Sorted best-first (conviction, then the wire's
-    # own materiality) so the UI can slice the top 1-2 without re-ranking. Missing dir = empty.
+    # idea ages off the fresh lane for free, no paid pass. Sorted best-first by the strict, capped trade
+    # score when present (old snapshots fall back to conviction), then materiality. Missing dir = empty.
     #
     # The scorecard is the skim's HONEST track record: how many ideas it surfaced, how many the human ran,
     # how the DEEP machine graded the ones that were run (confirmed vs passed), and the 👍/👎 tally — no
@@ -496,6 +496,12 @@ def build() -> dict:
             "why_now": rec.get("why_now") or "",
             "conviction": safe_int(rec.get("conviction"), 0),
             "conviction_basis": rec.get("conviction_basis") or "pre_edge_proxy",
+            "trade_score": safe_int(rec.get("trade_score"), safe_int(rec.get("conviction"), 0)),
+            "trade_score_basis": rec.get("trade_score_basis") or "pre_edge_proxy_legacy",
+            "trade_score_breakdown": rec.get("trade_score_breakdown") if isinstance(rec.get("trade_score_breakdown"), dict) else None,
+            "trade_readiness": rec.get("trade_readiness") or "needs_data",
+            "missing_checks": rec.get("missing_checks") if isinstance(rec.get("missing_checks"), list) else [],
+            "learning": rec.get("learning") if isinstance(rec.get("learning"), dict) else None,
             "priced_in": rec.get("priced_in") or "unknown",
             "thesis_type": rec.get("thesis_type") or "company_specific",
             "source_event_ids": rec.get("source_event_ids") if isinstance(rec.get("source_event_ids"), list) else [],
@@ -539,7 +545,7 @@ def build() -> dict:
             else:
                 sc["machine_pending"] += 1
     sc["resolved"] = sc["machine_confirmed"] + sc["machine_passed"]
-    ideas.sort(key=lambda i: (i["stale"], -i["conviction"], -i["materiality_max"]))
+    ideas.sort(key=lambda i: (i["stale"], -i["trade_score"], -i["materiality_max"]))
 
     return {
         "generated_at": now,

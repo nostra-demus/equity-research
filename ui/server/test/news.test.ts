@@ -9,12 +9,13 @@ import { allApprovedDomains, approvedDomains, lookupSource, normalizeDomain } fr
 import { buildQueries, fetchGdelt, fetchGdeltDoc, GDELT_MAX_QUERY_CHARS, resetGdeltBackoff } from '../src/news/sources/gdelt'
 import { eventIdFor, loadLedgerEventIds, normalizeAndFilter, parseSeendate } from '../src/news/normalize'
 import { SeenCache } from '../src/news/seen-cache'
-import { Budget, RateLimiter, armCooldown, clearCooldown, cooldownInfo, pacedHasHeadroom, readCooldownUntil, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
-import { readArticleBrief } from '../src/news/triage/article-read'
+import { Budget, RateLimiter, armCooldown, clearCooldown, cooldownInfo, pacedHasHeadroom, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
+import { articleReadTokenBound, readArticleBrief } from '../src/news/triage/article-read'
 import { coerceTriage, estimateTokens, scoreToBand, triageBatch } from '../src/news/triage/groq'
+import { triageBatchGemini } from '../src/news/triage/gemini'
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox } from '../src/news/write-inbox'
-import { runIngestCycle } from '../src/news/runCycle'
+import { runIngestCycle, triageGroqTokenBound } from '../src/news/runCycle'
 import { anthropicDrainReady, backlogTrend, drainBatchEst, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS } from '../src/config'
 import type { FeedItem, RawArticle, TriagedItem } from '../src/news/types'
@@ -227,6 +228,49 @@ await check('Budget: caps on requests AND tokens, persists, resets on a new UTC 
   assert.equal(b4.canSpend(100), false) // 950+100 > 1000
   assert.equal(b4.canSpend(40), true)
 })
+await check('Budget exhaustion is monotonic across active-reservation reconciliation until day rollover', () => {
+  resetBudgetMemory()
+  const dir = tmp()
+  const day1 = Date.parse('2026-06-12T02:00:00Z')
+  const owner = Budget.load(dir, 5, 1_000, day1)
+  const reservation = owner.tryReserve(400, undefined, day1, 1)
+  assert.ok(reservation)
+  const terminator = Budget.load(dir, 5, 1_000, day1)
+  terminator.exhaust()
+  owner.reconcile(reservation!, 0, 0) // late abort/release from work admitted before the per-day 429
+  assert.equal(owner.canSpend(1), false)
+  assert.equal(owner.remainingRequests, 0)
+  assert.equal(owner.remainingTokens, 0)
+  resetBudgetMemory()
+  const persisted = Budget.load(dir, 5, 1_000, day1)
+  assert.equal(persisted.canSpend(1), false, 'the terminal marker survives process-memory reload')
+  const nextDay = Budget.load(dir, 5, 1_000, Date.parse('2026-06-13T00:30:00Z'))
+  assert.equal(nextDay.canSpend(400), true, 'only the provider-day rollover clears exhaustion')
+})
+await check('late prior-day reconciliation cannot overwrite persisted current-day usage', () => {
+  resetBudgetMemory()
+  const dir = tmp()
+  const file = path.join(dir, 'groq-budget.json')
+  const day1 = Date.parse('2026-06-12T23:59:59Z')
+  const day2 = Date.parse('2026-06-13T00:00:01Z')
+  const stale = Budget.load(dir, 10, 10_000, day1)
+  const oldReservation = stale.tryReserve(700, undefined, day1)
+  assert.ok(oldReservation)
+  const current = Budget.load(dir, 10, 10_000, day2)
+  current.record(2, 1_234)
+  current.save()
+  stale.reconcile(oldReservation!, 1, 600) // completion arrives after the new day has already written
+  stale.record(5, 5_000)
+  stale.save()
+  const disk = JSON.parse(fs.readFileSync(file, 'utf8'))
+  assert.equal(disk.date, '2026-06-13')
+  assert.equal(disk.requests, 2)
+  assert.equal(disk.tokens, 1_234)
+  resetBudgetMemory() // restart: the protected day-2 file is still the source of truth
+  const restarted = Budget.load(dir, 10, 10_000, day2)
+  assert.equal(restarted.requests, 2)
+  assert.equal(restarted.tokens, 1_234)
+})
 await check('RateLimiter spaces calls to ~60s/rpm', async () => {
   const lim = new RateLimiter(60) // min gap 1000ms
   let t = 1_000_000
@@ -281,6 +325,30 @@ await check('triageBatch: HTTP error and non-JSON content both return ok:false (
   assert.equal(bad.byIndex.size, 0)
   const noKey = await triageBatch(items, { model: 'm', baseUrl: 'https://g.test', apiKey: '' }, (async () => res({})) as unknown as typeof fetch)
   assert.equal(noKey.ok, false) // no key → no call
+})
+
+await check('Groq and Gemini adapters count malformed response reads exactly once per retry', async () => {
+  const items = [{ headline: 'RBI cuts rates', source_name: 'Reuters', region: 'IN' } as any]
+  const opts = { model: 'm', baseUrl: 'https://provider.test', apiKey: 'k', maxAttempts: 2 }
+  for (const [name, adapter] of [['groq', triageBatch], ['gemini', triageBatchGemini]] as const) {
+    let jsonFetches = 0
+    const malformedJson = (async () => {
+      jsonFetches++
+      return { ok: true, status: 200, headers: { get: () => null }, json: async () => { throw new SyntaxError('malformed response JSON') } }
+    }) as unknown as typeof fetch
+    const decoded = await adapter(items, opts, malformedJson, noSleep)
+    assert.equal(jsonFetches, 2, `${name}: malformed JSON retries only within maxAttempts`)
+    assert.equal(decoded.requests, 2, `${name}: response.json failure is not double-counted by the broad catch`)
+
+    let bodyFetches = 0
+    const unreadableBody = (async () => {
+      bodyFetches++
+      return { ok: false, status: 503, headers: { get: () => null }, text: async () => { throw new Error('body read failed') } }
+    }) as unknown as typeof fetch
+    const rejected = await adapter(items, opts, unreadableBody, noSleep)
+    assert.equal(bodyFetches, 2, `${name}: unreadable transient error bodies remain retry-bounded`)
+    assert.equal(rejected.requests, 2, `${name}: response.text failure is counted once per HTTP attempt`)
+  }
 })
 
 // ---- inbox writer ----
@@ -586,12 +654,18 @@ await check('overflow paces on the daily TOKEN cap, not just requests (token-gat
     }
     return res({ articles: [] })
   }) as unknown as typeof fetch
-  // dailyReqCap is huge (would NOT bind), but dailyTokenCap (900) fits only ONE 600-token call: the 2nd item's
-  // canSpend(est≈595) sees 600 already spent (600+595>900) and is gated BEFORE any call. A request-only cap
-  // (the prior hardcoded 50M) would have scored both — so this proves runCycle honors p.dailyTokenCap.
+  const maxTokens = 2500
+  const attemptBound = Math.max(
+    triageGroqTokenBound([{ headline: 'RBI cuts repo rate 50 bps in surprise off-cycle move', source_name: 'Reuters', region: 'GLOBAL' } as any], { model: 'llama-3.3-70b', baseUrl: 'https://cerebras.test/v1', apiKey: 'k', maxTokens }),
+    triageGroqTokenBound([{ headline: 'Fed signals one more hike as inflation proves sticky', source_name: 'Reuters', region: 'GLOBAL' } as any], { model: 'llama-3.3-70b', baseUrl: 'https://cerebras.test/v1', apiKey: 'k', maxTokens }),
+  )
+  // The token cap fits one strict per-attempt reservation but, after its 600 actual tokens reconcile, no
+  // second full reservation. A request-only cap would score both, so this proves the overflow path gates on
+  // its real token ceiling without authorizing spend from an empirical estimate.
+  const dailyTokenCap = attemptBound + 100
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, triageBatch: 1,
     anthropicFallbackEnabled: false, // FREE-chain test: keep the paid last-resort tier out (own file: triage-claude-cli.test.ts)
-    overflowProviders: [{ id: 'cerebras', label: 'Cerebras', color: '--provider-cb', kind: 'openai', apiKey: 'k', baseUrl: 'https://cerebras.test/v1', model: 'llama-3.3-70b', maxTokens: 2500, rpm: 6000, tpm: 55_000, dailyReqCap: 14_400, dailyTokenCap: 900, budgetFile: 'cerebras-budget.json', limiter: 'cerebras' }] } as any
+    overflowProviders: [{ id: 'cerebras', label: 'Cerebras', color: '--provider-cb', kind: 'openai', apiKey: 'k', baseUrl: 'https://cerebras.test/v1', model: 'llama-3.3-70b', maxTokens, rpm: 6000, tpm: 55_000, dailyReqCap: 14_400, dailyTokenCap, budgetFile: 'cerebras-budget.json', limiter: 'cerebras' }] } as any
   const now = () => new Date('2026-06-12T09:30:00Z')
   const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
   assert.equal(cbHits, 1, 'only ONE overflow call fit under the daily token cap (the 2nd was gated before any call)')
@@ -853,6 +927,49 @@ await check('readArticleBrief: a 429 arms the shared cooldown (does NOT exhaust 
   assert.equal(r2.brief, null)
 })
 
+await check('article reads reserve the full prompt/output bound near cap for OpenAI and Gemini providers', async () => {
+  const body = 'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slowing growth across the economy.'
+  const headline = 'RBI surprise cut'
+  const bound = articleReadTokenBound(body, headline)
+  const oldEstimate = 4_700
+  const actualTokens = oldEstimate + 250
+  const tokenCap = 100 + bound
+  const brief = JSON.stringify({ gist: ['The central bank cut rates by 50 basis points.'], companies: [], beneficiaries: [], exposed: [], theme: 'macro_sector' })
+
+  for (const kind of ['openai', 'gemini'] as const) {
+    resetBudgetMemory()
+    resetSharedLimiters()
+    const state = tmp()
+    const budgetFile = `${kind}-near-cap-budget.json`
+    const seed = Budget.load(state, 10, tokenCap, Date.now(), budgetFile)
+    seed.record(0, 100)
+    seed.save()
+    const provider = {
+      id: kind, kind, apiKey: 'k', baseUrl: `https://${kind}.test`, model: 'm', rpm: 0, tpm: 0,
+      dailyReqCap: 10, dailyTokenCap: tokenCap, budgetFile, limiter: kind === 'gemini' ? 'gemini' : 'article-near-cap-openai',
+    }
+    let fetches = 0
+    const fetchFn = (async () => {
+      fetches++
+      await new Promise<void>((resolve) => setTimeout(resolve, 20))
+      return kind === 'openai'
+        ? res({ choices: [{ finish_reason: 'stop', message: { content: brief } }], usage: { total_tokens: actualTokens } })
+        : res({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: brief }] } }], usageMetadata: { totalTokenCount: actualTokens } })
+    }) as unknown as typeof fetch
+    const deadline = Date.now() + 20_000
+    const results = await Promise.all([
+      readArticleBrief(body, headline, [provider] as any, { stateDir: state, fetchFn, sleep: noSleep, deadlineMs: deadline }),
+      readArticleBrief(body, headline, [provider] as any, { stateDir: state, fetchFn, sleep: noSleep, deadlineMs: deadline }),
+    ])
+    assert.equal(fetches, 1, `${kind}: the competing near-cap read is not authorized`)
+    assert.equal(results.filter((row) => row.brief).length, 1)
+    const saved = JSON.parse(fs.readFileSync(path.join(state, budgetFile), 'utf8'))
+    assert.equal(saved.tokens, 100 + actualTokens)
+    assert.ok(actualTokens > oldEstimate)
+    assert.ok(saved.tokens <= tokenCap)
+  }
+})
+
 // ---- P1 fix (PR #223 review): a pre-flight miss (no provider request ever made) must NOT arm the shared
 // cooldown. "body too thin to read" is decided BEFORE any HTTP call — a single thin article must never mark
 // a perfectly healthy provider unhealthy and sideline it for the whole cooldown/backoff window. ----
@@ -868,6 +985,7 @@ await check('readArticleBrief: a body too thin to read never contacts the provid
   const r = await readArticleBrief(thinBody, 'RBI surprise cut', [provider] as any, { stateDir: state, fetchFn, sleep: noSleep, now: () => at, deadlineMs: at + 12_000 })
   assert.equal(calls, 0, 'the pre-flight thin-body check short-circuits BEFORE any network call — the provider is never touched')
   assert.equal(r.brief, null)
+  assert.equal(r.attempted, false, 'a preflight skip does not consume an enrichment read attempt')
   assert.equal(readCooldownUntil(state, 'groq'), 0, 'no failure ever reached the provider — the cooldown must stay unarmed')
   assert.equal(fs.existsSync(path.join(state, 'groq-health.json')), false, 'no health marker written — a thin article must not sideline a healthy provider')
 
@@ -875,7 +993,41 @@ await check('readArticleBrief: a body too thin to read never contacts the provid
   // miss left the provider marked healthy, not cooling down.
   const r2 = await readArticleBrief(thinBody, 'RBI surprise cut', [provider] as any, { stateDir: state, fetchFn, sleep: noSleep, now: () => at + 1_000, deadlineMs: at + 13_000 })
   assert.equal(r2.brief, null)
+  assert.equal(r2.attempted, false, 'repeated thin reads remain retryable and never freeze on the attempt cap')
   assert.equal(readCooldownUntil(state, 'groq'), 0, 'still unarmed after a second thin-body miss')
+  assert.equal(fs.existsSync(path.join(state, 'groq-budget.json')), false, 'thin preflight skips before creating or reserving the daily ledger')
+
+  // The same limiter must remain untouched: with zero wait budget, a slot consumed by either thin read
+  // would make this immediate real read skip. A real HTTP call proves both request-gap and TPM authority
+  // are still available.
+  let realCalls = 0
+  const fullBody = 'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slowing growth across the economy.'
+  const content = JSON.stringify({ gist: ['The central bank cut rates by 50 basis points.'], companies: [], beneficiaries: [], exposed: [], theme: 'macro_sector' })
+  const realFetch = (async () => { realCalls++; return res({ choices: [{ finish_reason: 'stop', message: { content } }], usage: { total_tokens: 100 } }) }) as unknown as typeof fetch
+  const r3 = await readArticleBrief(fullBody, 'RBI surprise cut', [provider] as any, { stateDir: state, fetchFn: realFetch, sleep: noSleep, now: () => at + 1_000, deadlineMs: at + 13_000, limiterWaitMs: 0 })
+  assert.equal(realCalls, 1, 'repeated thin reads did not consume the shared limiter slot')
+  assert.ok(r3.brief)
+  assert.equal(r3.attempted, true)
+})
+
+await check('article reservation reconciliation cannot reopen a concurrently exhausted provider day', async () => {
+  resetBudgetMemory()
+  resetSharedLimiters()
+  const state = tmp()
+  const budgetFile = 'article-exhaust-budget.json'
+  const provider = { id: 'article-exhaust', kind: 'openai', apiKey: 'k', baseUrl: 'https://groq.test', model: 'm', rpm: 0, tpm: 0, dailyReqCap: 5, dailyTokenCap: 500_000, budgetFile, limiter: 'article-exhaust' }
+  const body = 'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slowing growth across the economy.'
+  const brief = JSON.stringify({ gist: ['The central bank cut rates by 50 basis points.'], companies: [], beneficiaries: [], exposed: [], theme: 'macro_sector' })
+  const fetchFn = (async () => {
+    Budget.load(state, 5, 500_000, Date.now(), budgetFile).exhaust()
+    return res({ choices: [{ finish_reason: 'stop', message: { content: brief } }], usage: { total_tokens: 100 } })
+  }) as unknown as typeof fetch
+  const result = await readArticleBrief(body, 'RBI surprise cut', [provider] as any, { stateDir: state, fetchFn, sleep: noSleep, deadlineMs: Date.now() + 20_000 })
+  assert.ok(result.brief)
+  const ledger = Budget.load(state, 5, 500_000, Date.now(), budgetFile)
+  assert.equal(ledger.canSpend(1), false)
+  assert.equal(ledger.remainingRequests, 0)
+  assert.equal(ledger.remainingTokens, 0)
 })
 
 // ---- P2 fix (PR #223 review): readArticleBrief must honor the CALLER-supplied cooldownMs/cooldownMaxMs

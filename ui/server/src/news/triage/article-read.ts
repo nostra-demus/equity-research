@@ -18,8 +18,8 @@
 //     one honest free-tier accounting and never collectively bust a quota.
 // Never throws. Returns the first usable brief, or null (→ the caller synthesises the floor).
 
-import { Budget, armCooldown, clearCooldown, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown } from './budget'
-import { analyzeArticle, type ArticleBrief } from './groq'
+import { Budget, armCooldown, clearCooldown, conservativeChatTokenBound, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown } from './budget'
+import { ARTICLE_SYSTEM, analyzeArticle, articleMaxOutputTokens, buildArticleUserMessage, isArticleBodyEligible, type ArticleBrief } from './groq'
 import { analyzeArticleGemini } from './gemini'
 
 // Base cooldown window when a read fails a provider — mirrors config.NEWS.llmCooldownMs's default so the
@@ -79,6 +79,11 @@ export interface ArticleReadResult {
 
 const EST_TOKENS = 4700 // a body read's rough input+output cost (capped); used for budget + limiter sizing — bumped for the richer transmission brief's larger JSON output (news_impact added ~9 fields)
 
+/** Worst-case billable tokens for one article-read attempt on either compatible provider shape. */
+export function articleReadTokenBound(body: string, headline: string, maxTokens?: number): number {
+  return conservativeChatTokenBound(ARTICLE_SYSTEM, buildArticleUserMessage(body, headline), articleMaxOutputTokens(maxTokens))
+}
+
 // A brief "has content" when it carries real signal — gist bullets, named firms, a beneficiary/exposed
 // read, a genuine news_impact verdict (analyst_takeaway is only non-empty when the LLM actually read
 // the article; coerceNewsImpact defaults it to "" on a missing/malformed block), OR a plain-English `story`
@@ -112,12 +117,14 @@ export async function readArticleBrief(
   const log = deps.log || (() => {})
   let lastNote = 'no LLM provider configured'
   let attempted = false // flips true the instant any provider actually executes an LLM call (not a skip)
+  const bodyEligible = isArticleBodyEligible(body)
 
   const cooldownMs = deps.cooldownMs ?? COOLDOWN_MS
   const cooldownMaxMs = deps.cooldownMaxMs ?? COOLDOWN_MAX_MS
   for (const p of providers) {
     if (now() >= deadline) { lastNote = 'deadline reached before a provider answered'; break }
     if (!p.apiKey) continue
+    if (!bodyEligible) { lastNote = 'body too thin to read'; continue }
     // cross-cycle cooldown: skip a provider a recent failure marked unhealthy — HERE or in the ingester
     // (the `<id>-health.json` marker is shared). Stops an opened event / the auto-heal pass from re-probing
     // a known-down provider and re-charging its daily budget on failures (the audit's ungated-drain hole).
@@ -134,6 +141,7 @@ export async function readArticleBrief(
       : p.limiter === 'gemini' ? getSharedGeminiLimiter(p.rpm, p.tpm)
       : getNamedLimiter(p.limiter, p.rpm, p.tpm)
     const waitBudget = () => Math.max(0, Math.min(limiterWaitMs, deadline - now()))
+    const perAttemptTokens = articleReadTokenBound(body, headline, p.maxTokens)
 
     if (p.kind === 'gemini') {
       // rotate the pool: first model with daily room. A per-DAY 429 marks that model done; try the next.
@@ -144,12 +152,15 @@ export async function readArticleBrief(
         if (isCoolingDown(deps.stateDir, coolId, now())) { lastNote = `${coolId} cooling down after a recent failure — skipped`; continue }
         const file = p.budgetFile.replace('{model}', m.model.replace(/[^a-z0-9]+/gi, '-'))
         const budget = Budget.load(deps.stateDir, m.dailyReqCap, p.dailyTokenCap, now(), file, p.dayTz)
-        if (!budget.canSpend(EST_TOKENS)) { lastNote = `${p.id}:${m.model} daily budget reached`; continue }
+        if (!budget.canSpend(perAttemptTokens)) { lastNote = `${p.id}:${m.model} daily budget reached`; continue }
         const got = await limiter.acquire(EST_TOKENS, sleep, now, waitBudget())
         if (!got) { lastNote = `${p.id} rate-limited — skipped`; break } // shared minute window busy → next provider
-        attempted = true // an LLM call is about to run — this counts as a genuine read attempt
+        const reservation = budget.tryReserve(perAttemptTokens)
+        if (!reservation) { lastNote = `${p.id}:${m.model} daily budget reached`; continue }
         const r = await analyzeArticleGemini(body, headline, { model: m.model, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens, timeoutMs: callTimeout, maxAttempts: 1 }, fetchFn, sleep)
-        budget.record(1, r.tokens || EST_TOKENS); budget.save()
+        const requests = r.attempted === false ? 0 : 1
+        if (requests) attempted = true // only a real provider call consumes the caller's read-attempt allowance
+        budget.reconcile(reservation, requests, requests ? (r.tokens || perAttemptTokens) : 0)
         limiter.learn(r.rate, now)
         if (r.brief) {
           clearCooldown(deps.stateDir, coolId) // this model answered → healthy, drop any marker
@@ -167,12 +178,15 @@ export async function readArticleBrief(
       }
     } else {
       const budget = Budget.load(deps.stateDir, p.dailyReqCap, p.dailyTokenCap, now(), p.budgetFile, p.dayTz)
-      if (!budget.canSpend(EST_TOKENS)) { lastNote = `${p.id} daily budget reached`; continue }
+      if (!budget.canSpend(perAttemptTokens)) { lastNote = `${p.id} daily budget reached`; continue }
       const got = await limiter.acquire(EST_TOKENS, sleep, now, waitBudget())
       if (!got) { lastNote = `${p.id} rate-limited — skipped`; continue } // minute window busy → next provider
-      attempted = true // an LLM call is about to run — this counts as a genuine read attempt
+      const reservation = budget.tryReserve(perAttemptTokens)
+      if (!reservation) { lastNote = `${p.id} daily budget reached`; continue }
       const r = await analyzeArticle(body, headline, { model: p.model, models: p.models, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens, headers: p.headers, extraBody: p.extraBody, timeoutMs: callTimeout, maxAttempts: 1 }, fetchFn, sleep)
-      budget.record(1, r.tokens || EST_TOKENS); budget.save()
+      const requests = r.attempted === false ? 0 : 1
+      if (requests) attempted = true // a thin/no-key preflight skip must never freeze future enrichment
+      budget.reconcile(reservation, requests, requests ? (r.tokens || perAttemptTokens) : 0)
       limiter.learn(r.rate, now)
       if (r.brief) {
         clearCooldown(deps.stateDir, p.id) // the provider ANSWERED (even a content-less brief = healthy) → drop any marker

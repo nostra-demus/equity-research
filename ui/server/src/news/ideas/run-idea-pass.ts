@@ -7,12 +7,16 @@
 // It reuses the ingester's exact free-tier guardrails (Budget, the shared RateLimiter, the per-provider
 // cooldown) — never a parallel budget lane (the :8799 double-count lesson) — and it NEVER throws.
 
-import { Budget, armCooldown, clearCooldown, getSharedLimiter, isCoolingDown } from '../triage/budget'
-import { estimateIdeaTokens, surfaceIdeasBatch, type SurfaceIdeasResult } from './surface-ideas'
+import { Budget, armCooldown, clearCooldown, conservativeChatTokenBound, getSharedLimiter, isCoolingDown } from '../triage/budget'
+import { IDEA_SYSTEM, buildIdeaUserMessage, estimateIdeaTokens, surfaceIdeasBatch, type SurfaceIdeasResult } from './surface-ideas'
 import {
-  ideaId, priorCoverage, pruneExpiredIdeas, readIdeaSnapshots, readPassState, readTopSweepRows,
+  ideaId, ideaVersion, priorCoverage, pruneExpiredIdeas, readIdeaSnapshots, readPassState, readTopSweepRows,
   topNHash, writeIdea, writePassState, type SurfacedIdea,
 } from './ideas-store'
+import { IDEA_LEARNING_HORIZON_DAYS, learnIdeaAdjustment } from './idea-learning'
+import { scoreTradeCluster, type TradeEvidence } from '../trade-score'
+import type { IdeaInputRow } from './surface-ideas'
+import { verifyEquityListing } from '../symbology'
 
 export interface IdeaPassConfig {
   topN: number
@@ -47,6 +51,27 @@ export interface IdeaPassDeps {
 
 export interface IdeaPassResult { ran: boolean; produced: number; note?: string }
 
+/** Worst-case billable tokens for one primary-Groq idea-surfacing attempt. */
+export function ideaGroqTokenBound(rows: Parameters<typeof surfaceIdeasBatch>[0], maxOutputTokens: number): number {
+  return conservativeChatTokenBound(IDEA_SYSTEM, buildIdeaUserMessage(rows), maxOutputTokens)
+}
+
+/** Preserve the raw evidence contract between the sweep and the strict scorer. */
+export function tradeEvidenceForIdeaRows(rows: IdeaInputRow[]): TradeEvidence[] {
+  return rows.map((s) => ({
+    event_id: s.event_id,
+    dedup_group: s.dedup_group,
+    ts: s.found_at,
+    source_name: s.source_name,
+    source_tier: s.source_tier,
+    triage_score: s.materiality,
+    materiality_pre_score: s.materiality_pre_score,
+    companies: s.companies,
+    scheduled_events: s.scheduled_events,
+    event_direction: s.event_direction,
+  }))
+}
+
 /**
  * One Groq attempt for the idea batch, sharing the ingester's budget file, shared limiter, and per-provider
  * cooldown. Returns the result on a real call, or null when the pass should be SKIPPED without spending
@@ -54,27 +79,47 @@ export interface IdeaPassResult { ran: boolean; produced: number; note?: string 
  * reader's failure rules exactly: a terminal 4xx exhausts the day; a transient 429/5xx/network arms the
  * shared cooldown (never exhausts — the #219 lesson); a success clears the marker.
  */
-async function callGroq(rows: Parameters<typeof surfaceIdeasBatch>[0], deps: IdeaPassDeps): Promise<SurfaceIdeasResult | null> {
+export async function callGroqForIdeaPass(rows: Parameters<typeof surfaceIdeasBatch>[0], deps: IdeaPassDeps): Promise<SurfaceIdeasResult | null> {
   const c = deps.config
   const now = deps.now || (() => Date.now())
   if (!c.groqApiKey) return null
   if (isCoolingDown(deps.stateDir, 'groq', now())) return null
   const est = estimateIdeaTokens(rows.length)
+  const perAttemptTokens = ideaGroqTokenBound(rows, c.groqMaxTokens)
   const budget = Budget.load(deps.stateDir, c.groqDailyReqCap, c.groqDailyTokenCap, now(), 'groq-budget.json')
   // Gate on the PACER, not the raw hard cap: the idea pass shares groq-budget.json with triage, so it must
   // honor the same clock-prorated ceiling — never spend Groq tokens the pacer is holding back for triage on
   // a heavy-news day (it would draw down the shared daily cap out of turn).
-  if (!budget.pacedCanSpend(est, { targetTokens: c.groqDailyTokenTarget, floorFrac: c.groqPaceFloorFrac }, now())) return null
+  const pace = { targetTokens: c.groqDailyTokenTarget, floorFrac: c.groqPaceFloorFrac }
+  let preflightAttempts = Math.min(2, budget.remainingRequests, Math.floor(budget.remainingTokens / perAttemptTokens))
+  const preflightAt = now()
+  while (preflightAttempts > 0 && !budget.pacedCanSpend(perAttemptTokens * preflightAttempts, pace, preflightAt, preflightAttempts)) preflightAttempts--
+  if (!preflightAttempts) return null
   const limiter = getSharedLimiter(c.groqRpm, c.groqTpm)
   const got = await limiter.acquire(est, deps.sleep, now, c.limiterWaitMs)
   if (!got) return null // the shared Groq minute window is busy (triage mid-cycle) — skip this pass
-  const r = await surfaceIdeasBatch(
-    rows,
-    { model: c.groqModel, baseUrl: c.groqBaseUrl, apiKey: c.groqApiKey, maxTokens: c.groqMaxTokens, timeoutMs: 30_000, maxAttempts: 2 },
-    deps.fetchFn, deps.sleep,
-  )
-  budget.record(r.requests || 1, r.tokens || est)
-  budget.save()
+  let attempts = Math.min(2, budget.remainingRequests, Math.floor(budget.remainingTokens / perAttemptTokens))
+  const reservationAt = now()
+  while (attempts > 0 && !budget.pacedCanSpend(perAttemptTokens * attempts, pace, reservationAt, attempts)) attempts--
+  const reservation = attempts > 0 ? budget.tryReserve(perAttemptTokens * attempts, pace, reservationAt, attempts) : null
+  if (!reservation) return null
+  let r: SurfaceIdeasResult | undefined
+  try {
+    r = await surfaceIdeasBatch(
+      rows,
+      { model: c.groqModel, baseUrl: c.groqBaseUrl, apiKey: c.groqApiKey, maxTokens: c.groqMaxTokens, timeoutMs: 30_000, maxAttempts: attempts },
+      deps.fetchFn, deps.sleep,
+    )
+  } finally {
+    const sentRequests = Number.isFinite(r?.requests) ? Math.max(0, Math.floor(r!.requests)) : 0
+    const reportedTokens = Number(r?.tokens)
+    const chargedTokens = sentRequests > 0
+      ? (reportedTokens > 0
+          ? reportedTokens + perAttemptTokens * Math.max(0, sentRequests - 1)
+          : perAttemptTokens * sentRequests)
+      : 0
+    budget.reconcile(reservation, sentRequests, chargedTokens)
+  }
   limiter.learn(r.rate, now)
   if (r.ok) { clearCooldown(deps.stateDir, 'groq'); return r }
   // A failure NEVER exhausts the SHARED groq-budget.json — that would disable Groq for triage / article-read
@@ -106,13 +151,14 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     const dueRefresh = elapsed >= c.refreshSec * 1000
     if (!changed && !dueRefresh) return { ran: false, produced: 0, note: 'top-N unchanged' }
 
-    const r = await callGroq(rows, deps)
+    const r = await callGroqForIdeaPass(rows, deps)
     if (r === null) return { ran: false, produced: 0, note: 'no free budget for the idea pass right now' }
     // stamp the attempt regardless of outcome so a failing provider isn't re-probed every tick
     writePassState(deps.stateDir, { hash, ran_at_ms: now() })
     if (!r.ok) { log(`idea pass: ${r.note || 'no ideas produced'}`); return { ran: false, produced: 0, note: r.note } }
 
-    const existing = new Map(readIdeaSnapshots(deps.repoRoot).map((i) => [i.idea_id, i]))
+    const snapshots = readIdeaSnapshots(deps.repoRoot)
+    const existing = new Map(snapshots.map((i) => [i.idea_id, i]))
     const nowIso = new Date(now()).toISOString().replace(/\.\d{3}Z$/, 'Z')
     const decayIso = new Date(now() + c.shelfLifeHrs * 3_600_000).toISOString().replace(/\.\d{3}Z$/, 'Z')
     const seen = new Set<string>()
@@ -131,17 +177,51 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       const materialityMax = Math.max(0, ...srcRows.map((s) => s.materiality))
       const newestAt = srcRows.map((s) => s.found_at).filter(Boolean).sort().reverse()[0] || nowIso
       const prevIdea = existing.get(id)
+      const version = ideaVersion({ ticker: raw.ticker, direction: raw.direction, thesisType: raw.thesis_type, reason: raw.reason, whyNow: raw.why_now, sourceEventIds: eventIds })
+      const versionStartedAt = prevIdea?.idea_version === version
+        ? (prevIdea.idea_version_started_at || prevIdea.updated_at || nowIso)
+        : nowIso
+      const learning = learnIdeaAdjustment(deps.repoRoot, snapshots, {
+        direction: raw.direction, thesisType: raw.thesis_type, horizonDays: IDEA_LEARNING_HORIZON_DAYS,
+      })
+      const tradeEvidence = tradeEvidenceForIdeaRows(srcRows)
+      const verifiedListing = await verifyEquityListing(raw.ticker, raw.company, deps.fetchFn || fetch)
+      const trade = scoreTradeCluster(tradeEvidence, {
+        nowMs: now(),
+        ticker: verifiedListing?.ticker || raw.ticker,
+        exchange: verifiedListing?.exchange || raw.exchange,
+        tickerVerified: Boolean(verifiedListing),
+        listingVerified: Boolean(verifiedListing),
+        // The equity directory proves a listed security and venue, not that enough value trades today.
+        // Liquidity stays open for Signal Check; a verified listing can advance to needs_data, never check_now.
+        liquidityVerified: false,
+        pricedIn: raw.priced_in,
+        whyNow: raw.why_now,
+        learningAdjustment: learning.adjustment,
+      })
       const idea: SurfacedIdea = {
         idea_id: id,
-        ticker: raw.ticker,
+        idea_version: version,
+        idea_version_started_at: versionStartedAt,
+        ticker: verifiedListing?.ticker || raw.ticker,
         company: raw.company,
-        exchange: raw.exchange,
+        exchange: verifiedListing?.exchange || raw.exchange,
+        ticker_verified: Boolean(verifiedListing),
+        listing_verified: Boolean(verifiedListing),
+        liquidity_verified: false,
+        listing_verification_source: verifiedListing?.source || null,
         direction: raw.direction,
         pair_with: raw.pair_with,
         reason: raw.reason,
         why_now: raw.why_now,
         conviction: raw.conviction,
         conviction_basis: 'pre_edge_proxy',
+        trade_score: trade.score,
+        trade_score_basis: 'evidence_gate_v1',
+        trade_score_breakdown: trade.breakdown,
+        trade_readiness: trade.readiness,
+        missing_checks: trade.missingChecks,
+        learning,
         priced_in: raw.priced_in,
         thesis_type: raw.thesis_type,
         source_event_ids: eventIds,

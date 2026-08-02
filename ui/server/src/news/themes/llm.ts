@@ -8,7 +8,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { companyKeys } from '../text-match'
-import { Budget, clearCooldown, isCoolingDown } from '../triage/budget'
+import { Budget, clearCooldown, conservativeChatTokenBound, isCoolingDown, type BudgetReservation } from '../triage/budget'
 import type { LlmNamer } from './engine'
 import type { Theme } from './types'
 
@@ -25,21 +25,6 @@ interface NamerCfg {
   // (populated automatically: runCycle passes the full NEWS config).
   groqDailyReqCap?: number
   groqDailyTokenCap?: number
-}
-
-// Rough per-call cost of a namer batch (≤8 clusters + the SYSTEM prompt) — charged to groq-budget.json so
-// the Groq seam here is visible to the same mirror + daily cap the triage/read paths use (was invisible).
-const GROQ_NAMER_EST_TOKENS = 1400
-
-/** Charge one Groq namer request to the shared groq-budget.json (tokens 0 on a failed call, like triage). */
-function chargeGroq(stateDir: string, now: Date, cfg: NamerCfg, tokens: number): void {
-  try {
-    const b = Budget.load(stateDir, cfg.groqDailyReqCap ?? 13_000, cfg.groqDailyTokenCap ?? 500_000, now.getTime())
-    b.record(1, tokens)
-    b.save()
-  } catch {
-    // best-effort accounting — a missed write only slightly under-counts the mirror
-  }
 }
 
 const SYSTEM =
@@ -112,6 +97,11 @@ function buildUserMessage(created: Theme[]): string {
   return `Classify and name these ${created.length} clusters:\n\n${blocks.join('\n\n')}`
 }
 
+/** Worst-case billable tokens for one Groq theme-namer attempt (the caller sends at most eight themes). */
+export function themeNamerTokenBound(created: Theme[]): number {
+  return conservativeChatTokenBound(SYSTEM, buildUserMessage(created.slice(0, 8)), 1200)
+}
+
 async function callClaude(cfg: NamerCfg, user: string, fetchFn: typeof fetch): Promise<string | null> {
   const res = await fetchFn(`${cfg.themesClaudeBaseUrl}/v1/messages`, {
     method: 'POST',
@@ -125,7 +115,7 @@ async function callClaude(cfg: NamerCfg, user: string, fetchFn: typeof fetch): P
   return typeof text === 'string' ? text : null
 }
 
-async function callGroq(cfg: NamerCfg, user: string, fetchFn: typeof fetch): Promise<string | null> {
+async function callGroq(cfg: NamerCfg, user: string, fetchFn: typeof fetch): Promise<{ text: string | null; tokens: number }> {
   const res = await fetchFn(`${cfg.groqBaseUrl}/chat/completions`, {
     method: 'POST',
     headers: { 'content-type': 'application/json', authorization: `Bearer ${cfg.groqApiKey}` },
@@ -135,7 +125,7 @@ async function callGroq(cfg: NamerCfg, user: string, fetchFn: typeof fetch): Pro
   if (!res.ok) throw new Error(`groq HTTP ${res.status}`)
   const data: any = await res.json()
   const text = data?.choices?.[0]?.message?.content
-  return typeof text === 'string' ? text : null
+  return { text: typeof text === 'string' ? text : null, tokens: Number(data?.usage?.total_tokens) || 0 }
 }
 
 /** Apply LLM proposals to the created themes in place (rename/validate). Coerced defensively. */
@@ -177,6 +167,9 @@ export function makeThemeNamer(cfg: NamerCfg, fetchFn: typeof fetch, stateDir: s
 
   return async (created: Theme[], now: Date): Promise<void> => {
     if (!created.length) return
+    const batch = created.slice(0, 8) // cap clusters per call
+    const user = buildUserMessage(batch)
+    const perAttemptTokens = themeNamerTokenBound(batch)
     const todayISO = now.toISOString().slice(0, 10)
     const cap = useClaude ? (cfg.themesClaudeDailyCap ?? 60) : 1e9 // Groq shares its own caps below; Claude is the metered seam
     if (useClaude && !canSpend(stateDir, cap, todayISO)) {
@@ -189,27 +182,38 @@ export function makeThemeNamer(cfg: NamerCfg, fetchFn: typeof fetch, stateDir: s
     // triage/reads it is UNPACED (no shared RateLimiter) and hits the per-minute cap routinely, so its 429s
     // are the expected/benign case — arming on them would sideline a HEALTHY primary Groq. Arming is left to
     // the paced, high-volume seams (triage + the article reader), which are the reliable outage signal.
+    let groqBudget: Budget | null = null
     if (useGroq) {
       if (isCoolingDown(stateDir, 'groq', now.getTime())) { log('themes: groq cooling down — naming deterministically this pass'); return }
-      const gb = Budget.load(stateDir, cfg.groqDailyReqCap ?? 13_000, cfg.groqDailyTokenCap ?? 500_000, now.getTime())
-      if (!gb.canSpend(GROQ_NAMER_EST_TOKENS)) { log('themes: groq daily cap reached — naming deterministically this pass'); return }
+      groqBudget = Budget.load(stateDir, cfg.groqDailyReqCap ?? 13_000, cfg.groqDailyTokenCap ?? 500_000, now.getTime())
+      if (!groqBudget.canSpend(perAttemptTokens)) { log('themes: groq daily cap reached — naming deterministically this pass'); return }
     }
-    const batch = created.slice(0, 8) // cap clusters per call
-    const user = buildUserMessage(batch)
     // Naming runs AFTER the write, so it can afford to retry across a rate-limit window — the Groq
     // per-minute cap is usually exhausted by triage this cycle, but resets within ~60s. 3 attempts.
     const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
     for (let attempt = 1; attempt <= 3; attempt++) {
+      let reservation: BudgetReservation | null = null
       try {
-        const text = useClaude ? await callClaude(cfg, user, fetchFn) : await callGroq(cfg, user, fetchFn)
+        let text: string | null
+        if (useClaude) text = await callClaude(cfg, user, fetchFn)
+        else {
+          reservation = groqBudget!.tryReserve(perAttemptTokens)
+          if (!reservation) { log('themes: groq daily cap reached — naming deterministically this pass'); return }
+          const result = await callGroq(cfg, user, fetchFn)
+          groqBudget!.reconcile(reservation, 1, result.tokens || perAttemptTokens)
+          reservation = null
+          text = result.text
+        }
         if (useClaude) recordSpend(stateDir, todayISO)
-        else { chargeGroq(stateDir, now, cfg, GROQ_NAMER_EST_TOKENS); clearCooldown(stateDir, 'groq') } // Groq answered → count it, mark healthy
+        else clearCooldown(stateDir, 'groq') // Groq answered → count it, mark healthy
         if (!text) return
         applyProposals(batch, parseThemesJson(text))
         log(`themes: named ${batch.length} new theme${batch.length === 1 ? '' : 's'} via ${useClaude ? 'claude' : 'groq'}`)
         return
       } catch (e: any) {
-        if (useGroq) chargeGroq(stateDir, now, cfg, 0) // a failed Groq call still consumed a request — count it (0 tokens)
+        // Provider errors often omit usage even though the request consumed quota. Charge the conservative
+        // per-attempt estimate; reconciling to zero would reopen token headroom for work already sent.
+        if (reservation) groqBudget!.reconcile(reservation, 1, perAttemptTokens)
         const transient = /HTTP (429|5\d\d)/.test(String(e?.message || ''))
         if (attempt === 3 || !transient) {
           // NB: do NOT arm the shared cooldown here — a benign per-minute 429 (the expected case for this

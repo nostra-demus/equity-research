@@ -6,7 +6,7 @@
 
 import { isRegion } from '../geo'
 import type { Band, CompanyGuess, NewsItem, SizeBucket, Triage } from '../types'
-import type { RateInfo } from './budget'
+import { conservativeChatTokenBound, type RateInfo } from './budget'
 
 /** Parse Groq's reset/retry duration strings to ms: "7.66s", "1m30s", "2m59.56s", "120ms", or bare seconds. */
 export function durToMs(s: string | null | undefined): number | undefined {
@@ -209,6 +209,7 @@ export async function triageBatch(
   const maxAttempts = opts.maxAttempts ?? 2
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
+      requests++ // one count per fetch invocation, including network/response-decoding failures below
       const res = await fetchFn(`${opts.baseUrl}/chat/completions`, {
         method: 'POST',
         headers: { 'content-type': 'application/json', authorization: `Bearer ${opts.apiKey}`, ...(opts.headers || {}) },
@@ -226,7 +227,6 @@ export async function triageBatch(
           ...(opts.extraBody || {}), // OpenRouter reasoning effort etc. (Groq omits)
         }),
       })
-      requests++
       const rate = parseRate(res)
       if (!res.ok) {
         const body = await res.text().catch(() => '')
@@ -239,7 +239,8 @@ export async function triageBatch(
         return { byIndex, requests, tokens, ok: false, note: lastNote, rate }
       }
       const data: any = await res.json()
-      const used = Number(data?.usage?.total_tokens) || estimateTokens(items.length)
+      const used = Number(data?.usage?.total_tokens)
+        || conservativeChatTokenBound(SYSTEM, buildUserMessage(items), opts.maxTokens ?? 2000)
       tokens += used
       // a max_tokens truncation is deterministic — report it loudly instead of half-parsing
       if (data?.choices?.[0]?.finish_reason === 'length') {
@@ -256,7 +257,6 @@ export async function triageBatch(
       }
       return { byIndex, requests, tokens, ok: true, rate }
     } catch (e: any) {
-      requests++
       lastNote = e?.name === 'TimeoutError' ? 'groq: request timed out' : e?.message || 'groq fetch error'
       if (attempt < maxAttempts) await sleep(1500 * attempt)
     }
@@ -373,6 +373,20 @@ quick_dirty_calculation — a short back-of-envelope calculation, ONLY when the 
 why_it_matters — one sentence: ties the metric change to earnings, guidance, valuation, the thesis, risk, or a portfolio decision. No hype words (robust, strong fundamentals, well positioned, attractive opportunity, best-in-class).
 analyst_takeaway — one sentence: the single most decision-useful line a portfolio manager should read first. No hype words.
 confidence — integer 0 to 100. 0 when you have no real basis for a verdict (e.g. the body is too thin or off-topic). NEVER fabricate an implied confidence.`
+
+export function buildArticleUserMessage(body: string, headline: string): string {
+  const text = String(body || '').slice(0, 6000)
+  return `HEADLINE: ${headline}\n\nARTICLE BODY:\n${text}`
+}
+
+/** Shared deterministic preflight for every article adapter/orchestrator. */
+export function isArticleBodyEligible(body: string): boolean {
+  return String(body || '').slice(0, 6000).replace(/\s+/g, ' ').trim().length >= 80
+}
+
+export function articleMaxOutputTokens(maxTokens?: number): number {
+  return Math.max(maxTokens ?? 3000, 3500)
+}
 
 const ROLES: CompanyRole[] = ['subject', 'acquirer', 'target', 'forecaster', 'mentioned']
 const LISTING_STATUSES: ListingStatus[] = ['public', 'private', 'unknown']
@@ -513,9 +527,8 @@ export async function analyzeArticle(
   sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
 ): Promise<{ brief: ArticleBrief | null; tokens: number; note?: string; rate?: RateInfo; attempted?: boolean }> {
   if (!opts.apiKey) return { brief: null, tokens: 0, note: 'no GROQ_API_KEY', attempted: false }
-  const text = String(body || '').slice(0, 6000)
-  if (text.replace(/\s+/g, ' ').trim().length < 80) return { brief: null, tokens: 0, note: 'body too thin to read', attempted: false }
-  const user = `HEADLINE: ${headline}\n\nARTICLE BODY:\n${text}`
+  if (!isArticleBodyEligible(body)) return { brief: null, tokens: 0, note: 'body too thin to read', attempted: false }
+  const user = buildArticleUserMessage(body, headline)
   let tokens = 0
   let lastNote = 'groq fetch error'
   const maxAttempts = opts.maxAttempts ?? 2
@@ -534,7 +547,7 @@ export async function analyzeArticle(
           // + 12 parties × several fields + the impact block) can't truncate (finish_reason 'length' drops the
           // WHOLE brief, not just the tail), while a provider that asks for more keeps its larger budget. Sized
           // to the EST_TOKENS reservation (article-read.ts).
-          max_tokens: Math.max(opts.maxTokens ?? 3000, 3500),
+          max_tokens: articleMaxOutputTokens(opts.maxTokens),
           response_format: { type: 'json_object' },
           messages: [
             { role: 'system', content: ARTICLE_SYSTEM },

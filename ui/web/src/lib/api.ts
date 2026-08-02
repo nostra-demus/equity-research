@@ -5,10 +5,10 @@ import { QUOTE_CLIENT_TIMEOUT_MS } from './quoteTimeout'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { BridgeStatus } from './types'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
-
-const BASE = import.meta.env.BASE_URL
+// Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
+const BASE = import.meta.env?.BASE_URL || '/'
 
 // ---- live/static mode detection ----
 // Local dev (Fastify backend up) -> live. Cloudflare Pages (no backend) -> static snapshot, read-only.
@@ -1112,6 +1112,70 @@ export const api = {
     } catch (e: any) {
       if (e?.name !== 'AbortError') cb.onError(e?.message || 'stream interrupted')
     }
+  },
+
+  // The Screener's news chat. Same streamed POST shape as research chat, but its first frame carries
+  // the search receipt and exact firehose rows used as evidence.
+  newsChatStream: async (
+    body: NewsChatRequest,
+    cb: {
+      onMeta: (m: { receipt: NewsChatReceipt; evidence: NewsChatEvidence[] }) => void
+      onToken: (t: string) => void
+      onDone: (d: { costUsd?: number }) => void
+      onError: (msg: string) => void
+      signal: AbortSignal
+    },
+  ): Promise<void> => {
+    if ((await ensureMode()) === 'static') { cb.onError('static-deploy'); return }
+    let res: Response
+    try {
+      res = await fetch('/api/news/chat', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: cb.signal })
+    } catch (e: any) {
+      if (e?.name !== 'AbortError') cb.onError(e?.message || 'network error')
+      return
+    }
+    if (!res.ok || !res.body) {
+      let msg = `${res.status}`
+      try { const j = await res.json(); msg = (j as any)?.hint || (j as any)?.error || msg } catch {}
+      cb.onError(msg)
+      return
+    }
+    const reader = res.body.getReader()
+    const decoder = new TextDecoder()
+    let buf = ''
+    let terminal = false
+    try {
+      for (;;) {
+        const { value, done } = await reader.read()
+        if (done) break
+        buf += decoder.decode(value, { stream: true })
+        const frames = buf.split('\n\n')
+        buf = frames.pop() ?? ''
+        for (const frame of frames) {
+          let ev = 'message'
+          let data = ''
+          for (const line of frame.split('\n')) {
+            if (line.startsWith('event:')) ev = line.slice(6).trim()
+            else if (line.startsWith('data:')) data += line.slice(5).trim()
+          }
+          if (!data) continue
+          let parsed: any
+          try { parsed = JSON.parse(data) } catch { continue }
+          if (ev === 'news-chat-meta') cb.onMeta(parsed)
+          else if (ev === 'news-chat-token') cb.onToken(parsed.content ?? '')
+          else if (ev === 'news-chat-done') { terminal = true; cb.onDone(parsed); return }
+          else if (ev === 'news-chat-error') { terminal = true; cb.onError(parsed.message || 'news chat failed'); return }
+        }
+      }
+    } catch (e: any) {
+      if (e?.name === 'AbortError' || cb.signal.aborted) return
+      terminal = true
+      cb.onError(e?.message || 'stream interrupted')
+      return
+    }
+    // A clean transport EOF is not a successful answer. The server's done frame is the commit marker;
+    // without it, any partial tokens/meta must be rolled back by the store. User aborts stay silent.
+    if (!terminal && !cb.signal.aborted) cb.onError('News chat ended before the answer completed. Please retry.')
   },
 
   // who is signed in (Cloudflare Access email) — live only

@@ -19,6 +19,7 @@ import { ActivityDock } from './components/ActivityDock'
 import { OutputReader } from './components/OutputReader'
 import { ChatPanel } from './components/ChatPanel'
 import { ChatHistory } from './components/ChatHistory'
+import { NewsChatPanel } from './components/screener/NewsChatPanel'
 import { ScoringPanel } from './components/screener/ScoringPanel'
 import { ValuationPlayground } from './components/ValuationPlayground'
 import { ReviewPanel } from './components/screener/ReviewPanel'
@@ -164,6 +165,7 @@ export function App() {
   const dataPipelineOpen = useStore((s) => s.dataPipelineOpen)
   const chatOpen = useStore((s) => s.chatOpen)
   const chatHistoryOpen = useStore((s) => s.chatHistoryOpen)
+  const newsChatOpen = useStore((s) => s.newsChatOpen)
   const newsFeedOpen = useStore((s) => s.newsFeedOpen)
   const sourcesOpen = useStore((s) => s.sourcesOpen)
   const diagnosticsOpen = useStore((s) => s.diagnosticsOpen)
@@ -202,6 +204,7 @@ export function App() {
       <AnimatePresence>{openOutput && <OutputReader key={openOutput.path || openOutput.nodeKey || 'panel'} output={openOutput} />}</AnimatePresence>
       <AnimatePresence>{chatOpen && <ChatPanel />}</AnimatePresence>
       <AnimatePresence>{chatHistoryOpen && <ChatHistory />}</AnimatePresence>
+      <AnimatePresence>{newsChatOpen && <NewsChatPanel />}</AnimatePresence>
       <AnimatePresence>{scoringOpen && <ScoringPanel />}</AnimatePresence>
       <AnimatePresence>{valuationPlaygroundOpen && <ValuationPlayground />}</AnimatePresence>
       <AnimatePresence>{reviewOpen && <ReviewPanel />}</AnimatePresence>

@@ -7,6 +7,19 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { Buffer } from 'node:buffer'
+
+// A tokenizer-independent upper bound for one two-message chat completion. A tokenizer cannot emit
+// more input tokens than there are UTF-8 bytes in the text (each ordinary token consumes at least one
+// byte); the configured completion ceiling bounds output tokens. The fixed allowance covers the model's
+// chat-template/BOS/EOS framing around the two messages. This is intentionally much more conservative
+// than the calibrated estimates used by RateLimiter: hard daily admission must be safe even when a
+// response reports unexpectedly high usage or omits its usage object altogether.
+export function conservativeChatTokenBound(system: string, user: string, maxOutputTokens: number): number {
+  const output = Number.isFinite(maxOutputTokens) ? Math.max(0, Math.ceil(maxOutputTokens)) : 0
+  const chatEnvelope = 256
+  return Buffer.byteLength(system, 'utf8') + Buffer.byteLength(user, 'utf8') + output + chatEnvelope
+}
 
 // Day key (YYYY-MM-DD) marking the reset boundary. Default UTC; pass an IANA tz (e.g.
 // 'America/Los_Angeles') for a provider whose daily quota resets in a specific zone — Gemini's
@@ -64,18 +77,38 @@ export function pacedHasHeadroom(
   return tokens + need <= pacedCeiling(now, pace)
 }
 
-interface BudgetState { date: string; requests: number; tokens: number }
+interface BudgetState { date: string; requests: number; tokens: number; exhausted?: boolean }
+
+// Every in-process caller that points at the same ledger must mutate the same counters. `Budget.load`
+// is intentionally cheap and is used throughout the ingester, so returning independent snapshots here
+// lets concurrent callers both admit against the same last-saved value and then overwrite each other.
+// The single-instance ingester lock is the cross-process boundary; this map is the process-local atomic
+// boundary shared by chat, triage, article reads, and theme naming.
+const sharedBudgetStates = new Map<string, BudgetState>()
+
+export interface BudgetReservation {
+  readonly requests: number
+  readonly tokens: number
+  active: boolean
+}
 
 export class Budget {
   private state: BudgetState
   constructor(private file: string, private reqCap: number, private tokenCap: number, now = Date.now(), private dayTz?: string) {
-    this.state = { date: dayKey(now, dayTz), requests: 0, tokens: 0 }
-    try {
-      const loaded = JSON.parse(fs.readFileSync(file, 'utf8')) as BudgetState
-      // carry the counters only if they belong to today (in this provider's reset zone); else fresh day
-      if (loaded && loaded.date === this.state.date) this.state = loaded
-    } catch {
-      // no prior file → today starts at zero
+    this.file = path.resolve(file)
+    const today = dayKey(now, dayTz)
+    const shared = sharedBudgetStates.get(this.file)
+    if (shared?.date === today) this.state = shared
+    else {
+      this.state = { date: today, requests: 0, tokens: 0 }
+      try {
+        const loaded = JSON.parse(fs.readFileSync(this.file, 'utf8')) as BudgetState
+        // carry the counters only if they belong to today (in this provider's reset zone); else fresh day
+        if (loaded && loaded.date === today) this.state = loaded
+      } catch {
+        // no prior file → today starts at zero
+      }
+      sharedBudgetStates.set(this.file, this.state)
     }
   }
 
@@ -83,12 +116,24 @@ export class Budget {
     return new Budget(path.join(stateDir, fileName), reqCap, tokenCap, now, dayTz)
   }
 
-  /** Mark today's quota fully spent — e.g. the provider returned a per-DAY 429, so skip it until reset. */
-  exhaust(): void { this.state.requests = Math.max(this.state.requests, this.reqCap) }
+  /** A newer provider day replaces this file's shared state object. Any older instance becomes inert so
+   *  a late request completion cannot write yesterday's counters over today's already-persisted usage. */
+  private ownsCurrentState(): boolean { return sharedBudgetStates.get(this.file) === this.state }
+
+  /** Mark today's quota terminally spent. Active reservations may still reconcile later, but can never
+   *  reopen headroom: `exhausted` is a monotonic day-scoped marker shared by every Budget for this file. */
+  exhaust(): void {
+    if (!this.ownsCurrentState()) return
+    this.state.exhausted = true
+    this.state.requests = Math.max(this.state.requests, this.reqCap)
+    this.save()
+  }
 
   /** Headroom for one more call expected to cost ~estTokens. False when either daily cap is reached. */
-  canSpend(estTokens: number): boolean {
-    if (this.state.requests >= this.reqCap) return false
+  canSpend(estTokens: number, requests = 1): boolean {
+    if (!this.ownsCurrentState()) return false
+    if (this.state.exhausted) return false
+    if (this.state.requests + Math.max(0, requests) > this.reqCap) return false
     if (this.state.tokens + Math.max(0, estTokens) > this.tokenCap) return false
     return true
   }
@@ -100,17 +145,44 @@ export class Budget {
    * the whole day instead of going dark by noon. `pace.targetTokens <= 0` disables the pacer (falls back
    * to the plain hard-cap canSpend).
    */
-  pacedCanSpend(estTokens: number, pace: PaceCfg, now = Date.now()): boolean {
-    if (!this.canSpend(estTokens)) return false
+  pacedCanSpend(estTokens: number, pace: PaceCfg, now = Date.now(), requests = 1): boolean {
+    if (!this.canSpend(estTokens, requests)) return false
     return this.state.tokens + Math.max(0, estTokens) <= pacedCeiling(now, pace)
   }
 
+  /** Atomically reserve one process-local provider call before starting network I/O. */
+  tryReserve(estTokens: number, pace?: PaceCfg, now = Date.now(), requests = 1): BudgetReservation | null {
+    const tokens = Math.max(0, estTokens)
+    const requestCount = Math.max(0, requests)
+    const allowed = pace ? this.pacedCanSpend(tokens, pace, now, requestCount) : this.canSpend(tokens, requestCount)
+    if (!allowed) return null
+    const reservation: BudgetReservation = { requests: requestCount, tokens, active: true }
+    this.record(reservation.requests, reservation.tokens)
+    this.save()
+    return reservation
+  }
+
+  /** Replace a reservation with actual usage, or release it when no provider request was made. */
+  reconcile(reservation: BudgetReservation, requests: number, tokens: number): void {
+    if (!reservation.active) return
+    reservation.active = false
+    if (!this.ownsCurrentState()) return // stale day: do not mutate and, critically, do not save
+    // A per-day quota response can exhaust the shared ledger while another call still owns a reservation.
+    // Releasing/reconciling that older reservation must not subtract from the terminal state and revive it.
+    if (this.state.exhausted) { this.save(); return }
+    this.state.requests = Math.max(0, this.state.requests - reservation.requests + Math.max(0, requests))
+    this.state.tokens = Math.max(0, this.state.tokens - reservation.tokens + Math.max(0, tokens))
+    this.save()
+  }
+
   record(requests: number, tokens: number): void {
+    if (!this.ownsCurrentState()) return
     this.state.requests += Math.max(0, requests)
     this.state.tokens += Math.max(0, tokens)
   }
 
   save(): void {
+    if (!this.ownsCurrentState()) return
     try {
       fs.mkdirSync(path.dirname(this.file), { recursive: true })
       fs.writeFileSync(this.file, JSON.stringify(this.state))
@@ -121,7 +193,12 @@ export class Budget {
 
   get requests(): number { return this.state.requests }
   get tokens(): number { return this.state.tokens }
+  get remainingRequests(): number { return !this.ownsCurrentState() || this.state.exhausted ? 0 : Math.max(0, this.reqCap - this.state.requests) }
+  get remainingTokens(): number { return !this.ownsCurrentState() || this.state.exhausted ? 0 : Math.max(0, this.tokenCap - this.state.tokens) }
 }
+
+/** Test hook only — callers use unique state directories, then clear process-shared ledger snapshots. */
+export function resetBudgetMemory(): void { sharedBudgetStates.clear() }
 
 // Cross-cycle PER-PROVIDER cooldown — a third free-tier guardrail, sitting alongside Budget and RateLimiter.
 // The in-cycle "stop poking a down provider" flags (runCycle groqDownThisCycle / ov.failed) only live for

@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "description": "Small, reviewed finance-search gate. Add a case whenever the desk finds a real miss. CI must not lower a gate to make a failure pass.",
+  "k": 5,
+  "gates": {
+    "recall_at_k": 1.0,
+    "precision_at_k": 0.9,
+    "mean_reciprocal_rank": 0.9,
+    "ndcg_at_k": 0.9
+  },
+  "metric_terms": ["growth", "rate", "revenue", "margin", "guidance", "capex", "sales", "profit"],
+  "documents": [
+    { "id": "bedrock", "quality": 75, "headline": "Amazon Bedrock usage growth accelerates as customers move AI workloads into production", "company": "Amazon AMZN", "body": "The report names Bedrock and Amazon Web Services." },
+    { "id": "aws", "quality": 82, "headline": "Amazon Web Services revenue growth accelerates", "company": "Amazon AMZN", "body": "AWS cloud demand improved." },
+    { "id": "amazon-capex", "quality": 85, "headline": "Amazon raises capex for data centers", "company": "Amazon AMZN", "body": "Capital spending rises for AI infrastructure." },
+    { "id": "other-growth", "quality": 99, "headline": "OtherCo annual growth rate reaches a record", "company": "OtherCo OTHR", "body": "Unrelated retailer." },
+    { "id": "gm-guidance", "quality": 80, "headline": "General Motors cuts full-year profit guidance", "company": "General Motors GM", "body": "The automaker lowered its earnings outlook." },
+    { "id": "india-filing", "quality": 96, "headline": "Reliance Industries files quarterly results with NSE and BSE", "company": "Reliance Industries RELIANCE", "body": "Official exchange filing under SEBI LODR." },
+    { "id": "mna", "quality": 78, "headline": "Company A agrees to acquire Company B for $4 billion", "company": "Company A AAA Company B BBB", "body": "Takeover and merger agreement." },
+    { "id": "oil", "quality": 70, "headline": "Brent crude rises after OPEC supply cut", "company": "", "body": "Oil supply falls." },
+    { "id": "margin", "quality": 74, "headline": "Nvidia gross margin forecast rises on data-center mix", "company": "Nvidia NVDA", "body": "The chipmaker raised its margin outlook." },
+    { "id": "recall", "quality": 92, "headline": "FDA recalls a medical device after safety reports", "company": "MedDevice MED", "body": "Official product recall notice." },
+    { "id": "rates", "quality": 72, "headline": "Federal Reserve cuts interest rates by 25 basis points", "company": "", "body": "FOMC rate decision." },
+    { "id": "cyber", "quality": 71, "headline": "Cloud provider reports a cybersecurity breach", "company": "CloudCo CLD", "body": "Customer data was exposed in a cyber attack." }
+  ],
+  "cases": [
+    { "id": "bedrock-exact", "query": "Amazon Bedrock growth rate", "relevant_ids": ["bedrock"], "irrelevant_ids": ["aws", "amazon-capex", "other-growth"], "anchors": ["amazon", "bedrock"], "min_anchor_matches": 2, "min_term_matches": 3 },
+    { "id": "bedrock-typo", "query": "Amazon Bedrok growth", "relevant_ids": ["bedrock"], "irrelevant_ids": ["aws", "amazon-capex", "other-growth"], "anchors": ["amazon", "bedrok"], "min_anchor_matches": 2, "min_term_matches": 3 },
+    { "id": "aws-alias", "query": "AWS revenue growth", "relevant_ids": ["aws"], "irrelevant_ids": ["bedrock", "amazon-capex", "other-growth"], "anchors": ["aws"], "min_anchor_matches": 1, "min_term_matches": 3 },
+    { "id": "capex-alias", "query": "Amazon capital spending", "relevant_ids": ["amazon-capex"], "irrelevant_ids": ["aws", "bedrock", "other-growth"], "anchors": ["amazon"], "min_anchor_matches": 1, "min_term_matches": 3 },
+    { "id": "gm-outlook", "query": "GM earnings outlook cut", "relevant_ids": ["gm-guidance"], "irrelevant_ids": ["oil", "margin", "other-growth"], "anchors": ["gm"], "min_anchor_matches": 1, "min_term_matches": 3 },
+    { "id": "india-primary", "query": "Reliance official exchange quarterly filing", "relevant_ids": ["india-filing"], "irrelevant_ids": ["gm-guidance", "recall"], "anchors": ["reliance"], "min_anchor_matches": 1, "min_term_matches": 3 },
+    { "id": "takeover", "query": "Company A takeover Company B", "relevant_ids": ["mna"], "irrelevant_ids": ["other-growth"], "anchors": ["company"], "min_anchor_matches": 1, "min_term_matches": 2 },
+    { "id": "oil-supply", "query": "Brent OPEC supply reduction", "relevant_ids": ["oil"], "irrelevant_ids": ["rates", "gm-guidance"], "anchors": ["brent", "opec"], "min_anchor_matches": 2, "min_term_matches": 3 },
+    { "id": "nvidia-margin", "query": "Nvidia data center margin guidance", "relevant_ids": ["margin"], "irrelevant_ids": ["amazon-capex", "cyber", "other-growth"], "anchors": ["nvidia"], "min_anchor_matches": 1, "min_term_matches": 3 },
+    { "id": "device-recall", "query": "FDA medical device recall", "relevant_ids": ["recall"], "irrelevant_ids": ["cyber"], "anchors": ["fda"], "min_anchor_matches": 1, "min_term_matches": 3 },
+    { "id": "fed-rates", "query": "FOMC interest rate cut", "relevant_ids": ["rates"], "irrelevant_ids": ["oil", "other-growth"], "anchors": ["fomc"], "min_anchor_matches": 1, "min_term_matches": 3 },
+    { "id": "cyber-alias", "query": "CloudCo cyber attack customer data", "relevant_ids": ["cyber"], "irrelevant_ids": ["amazon-capex", "margin", "bedrock", "recall"], "anchors": ["cloudco"], "min_anchor_matches": 1, "min_term_matches": 3 }
+  ]
+}

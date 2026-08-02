@@ -11,6 +11,8 @@ import { promisify } from 'node:util'
 import { createHash } from 'node:crypto'
 import { eventIdFor } from '../normalize'
 import type { IdeaDirection, IdeaInputRow, PricedIn, RawIdea, ThesisType } from './surface-ideas'
+import type { TradeScoreBreakdown } from '../trade-score'
+import type { IdeaLearning } from './idea-learning'
 
 const execFileAsync = promisify(execFile)
 
@@ -19,15 +21,27 @@ const execFileAsync = promisify(execFile)
 // paid gauntlet later fills, so a promoted run maps onto — never fights — this shape.
 export interface SurfacedIdea {
   idea_id: string // IDEA-<sha256-12 of ticker|direction>
+  idea_version: string // immutable thesis/source snapshot key; realized outcomes must match this exact version
+  idea_version_started_at: string // ISO; resets if a prior version later cycles back to the same hash
   ticker: string
   company: string | null
   exchange: string | null
+  ticker_verified: boolean
+  listing_verified: boolean
+  liquidity_verified: boolean
+  listing_verification_source: 'yahoo_symbol_directory' | null
   direction: IdeaDirection
   pair_with: string | null
   reason: string
   why_now: string
   conviction: number // 0-100 pre-edge PROXY
   conviction_basis: 'pre_edge_proxy' // hard label — never the locked edge score (§7)
+  trade_score: number // strict, capped readiness score; still not expected return or a verdict
+  trade_score_basis: 'evidence_gate_v1'
+  trade_score_breakdown: TradeScoreBreakdown
+  trade_readiness: 'check_now' | 'needs_data' | 'watch_only'
+  missing_checks: string[]
+  learning: IdeaLearning
   priced_in: PricedIn
   thesis_type: ThesisType
   source_event_ids: string[] // EVT-* — the join key back to the wire (canonical eventIdFor over the original headline)
@@ -58,6 +72,19 @@ function ideasLog(repoRoot: string): string { return path.join(repoRoot, 'screen
 /** Stable idea identity: same ticker + same direction = the same directional call, refreshed in place. */
 export function ideaId(ticker: string, direction: IdeaDirection): string {
   return 'IDEA-' + createHash('sha256').update(`${ticker.toUpperCase()}|${direction}`).digest('hex').slice(0, 12)
+}
+
+/** Exact thesis snapshot identity. Refreshing the same ticker/direction never reuses an old outcome. */
+export function ideaVersion(input: {
+  ticker: string; direction: IdeaDirection; thesisType: ThesisType; reason: string; whyNow: string; sourceEventIds: string[]
+}): string {
+  const canonical = [
+    input.ticker.toUpperCase(), input.direction, input.thesisType,
+    input.reason.trim().toLowerCase().replace(/\s+/g, ' '),
+    input.whyNow.trim().toLowerCase().replace(/\s+/g, ' '),
+    [...new Set(input.sourceEventIds)].sort().join(','),
+  ].join('|')
+  return 'IDEAV-' + createHash('sha256').update(canonical).digest('hex').slice(0, 16)
 }
 
 /**
@@ -92,11 +119,16 @@ export function readTopSweepRows(repoRoot: string, topN: number): IdeaInputRow[]
       source_name: r.source_name || '',
       region: r.region || '',
       materiality: Number(r.triage_score) || 0,
+      materiality_pre_score: Number.isFinite(Number(r.materiality_pre_score)) ? Number(r.materiality_pre_score) : undefined,
       label: r.event_materiality_label || '',
       event_types: Array.isArray(r.event_types) ? r.event_types : [],
       issuer_linkage: r.issuer_linkage || '',
       companies: Array.isArray(r.companies) ? r.companies : [],
       found_at: r.found_at || doc?.updated_at || '',
+      source_tier: r.source_tier,
+      scheduled_events: Array.isArray(r.scheduled_events) ? r.scheduled_events : [],
+      event_direction: r.event_direction,
+      dedup_group: typeof r.dedup_group === 'string' && r.dedup_group.trim() ? r.dedup_group.trim() : undefined,
     }))
 }
 

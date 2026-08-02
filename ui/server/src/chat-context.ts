@@ -11,6 +11,8 @@
 import path from 'node:path'
 import { CHAT, REPO_ROOT } from './config'
 import { readDecision, readMarkdown, runManifest } from './outputs'
+import { loadRetrievalConcepts } from './retrieval/concepts'
+import { buildHybridQuery, HybridCollector } from './retrieval/hybrid'
 import { buildSwarmGraph, findRunRootForSubject, swarmSubjects } from './roster'
 import { listSwarms } from './swarms'
 import { resolveInsideRuns } from './sandbox'
@@ -42,7 +44,7 @@ const CHAT_STYLE_INSTRUCTIONS: Record<ChatStyle, string> = {
 // rough token estimate — ~4 chars/token is close enough to size the context cap (we never bill on it).
 const estTokens = (s: string): number => Math.ceil(s.length / 4)
 
-interface ContextPiece {
+export interface ContextPiece {
   heading: string
   relPath: string
   markdown: string
@@ -96,15 +98,44 @@ function manifestView(runRoot: string) {
   return { man, orbPaths, orbByModule }
 }
 
-function trimToBudget(pieces: ContextPiece[]): { kept: ContextPiece[]; dropped: ContextPiece[] } {
+export function rankContextPiecesForQuestion(pieces: ContextPiece[], question = ''): ContextPiece[] {
+  const indexed = pieces.map((p, i) => ({ p, i, id: `${i}:${p.relPath}` }))
+  let ordered = indexed.slice().sort((a, b) => b.p.priority - a.p.priority || a.i - b.i)
+  const query = buildHybridQuery(question, { concepts: loadRetrievalConcepts(REPO_ROOT), maxTerms: 12 })
+  if (query.terms.length) {
+    const collector = new HybridCollector<(typeof indexed)[number]>(query)
+    for (const row of indexed) {
+      collector.add({
+        id: row.id,
+        value: row,
+        quality: row.p.priority * 100,
+        fields: [
+          { name: 'heading', text: row.p.heading, weight: 7, fuzzy: true },
+          { name: 'path', text: row.p.relPath, weight: 2, fuzzy: true },
+          { name: 'body', text: row.p.markdown, weight: 1 },
+        ],
+      })
+    }
+    const mandatory = indexed.filter((row) => row.p.priority >= 4).sort((a, b) => b.p.priority - a.p.priority || a.i - b.i)
+    const used = new Set(mandatory.map((row) => row.id))
+    const relevant = collector.results(indexed.length).map((hit) => hit.document.value).filter((row) => !used.has(row.id))
+    for (const row of relevant) used.add(row.id)
+    const remaining = indexed.filter((row) => !used.has(row.id)).sort((a, b) => b.p.priority - a.p.priority || a.i - b.i)
+    ordered = [...mandatory, ...relevant, ...remaining]
+  }
+  return ordered.map((row) => row.p)
+}
+
+function trimToBudget(pieces: ContextPiece[], question = ''): { kept: ContextPiece[]; dropped: ContextPiece[] } {
   const total = pieces.reduce((n, p) => n + estTokens(p.markdown), 0)
   if (total <= CHAT.contextMaxTokens) return { kept: pieces, dropped: [] }
-  // keep highest-priority first; among equal priority keep the original (manifest) order
-  const ordered = pieces.map((p, i) => ({ p, i })).sort((a, b) => b.p.priority - a.p.priority || a.i - b.i)
+  // The final thesis and decision record remain mandatory. For everything else, use the same explainable
+  // hybrid retrieval as news chat so an oversized run keeps the sections that answer this question.
+  const ordered = rankContextPiecesForQuestion(pieces, question)
   const kept: ContextPiece[] = []
   const dropped: ContextPiece[] = []
   let used = 0
-  for (const { p } of ordered) {
+  for (const p of ordered) {
     const t = estTokens(p.markdown)
     if (used + t <= CHAT.contextMaxTokens || kept.length === 0) {
       kept.push(p)
@@ -232,6 +263,7 @@ export function assembleContext(opts: {
   orbPath?: string
   swarmId?: string // which swarm's module graph to walk for the run scope (default research)
   linked?: boolean // include cross-swarm dossiers the run references (default on; run scope only)
+  question?: string // used only when an oversized scope must keep the most relevant sections
   // The git-history delta, pre-computed by the caller. It arrives ALREADY RENDERED because reading git
   // is async and this assembler is sync with one caller (an already-async route handler). Keeping it that
   // way is deliberate: making this async would cascade, and the only sync alternative — execFileSync —
@@ -294,7 +326,7 @@ export function assembleContext(opts: {
         priority: isSynth ? 3 : isTriage ? 1 : 2,
       })
     }
-    const { kept, dropped } = trimToBudget(pieces)
+    const { kept, dropped } = trimToBudget(pieces, opts.question)
     const degraded = dropped.length > 0
     return {
       present: true, scope, runRoot, label: `${moduleLabel(mod)} module`,
@@ -376,7 +408,7 @@ export function assembleContext(opts: {
       }
     }
   }
-  const { kept, dropped } = trimToBudget(pieces)
+  const { kept, dropped } = trimToBudget(pieces, opts.question)
   const degraded = dropped.length > 0
   // Only report a linked run whose content actually SURVIVED the trim — never promise the model a dossier
   // that got dropped on the way out (same rule the change-block honours below).

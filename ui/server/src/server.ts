@@ -39,6 +39,10 @@ import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers, peekCachedEnrichment } from './news/enrich'
 import { verdictOf } from './news/impact-floor'
 import { autoBridgeItem, bridgeEventToSubject, findWireItem, listBridgedSubjects } from './research-bridge'
+import { applyNewsRerank, assembleNewsChatContext, buildNewsChatPrompts, newsSemanticNamedAnchors } from './news/chat'
+import { NewsChatRequestGate, bindNewsChatRequestAbort, runNewsChatFallback, shouldUseNewsChatFallback } from './news/chat-provider'
+import { searchSemanticIndex } from './retrieval/semantic'
+import { rerankCandidates } from './retrieval/rerank'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
 import { appendIdeaFeedback, readIdeaById, writeIdea } from './news/ideas/ideas-store'
@@ -1791,6 +1795,7 @@ app.post('/api/chat', async (req, reply) => {
   try {
     assembled = assembleContext({
       scope, runRoot, module, orbPath, swarmId,
+      question: last.content,
       whatChanged: wc ? { markdown: whatChangedMarkdown(wc) } : null,
     })
   } catch (e: any) {
@@ -1983,6 +1988,132 @@ app.delete('/api/chats/:id', async (req, reply) => {
   const id = (req.params as any).id as string
   if (!isValidConversationId(id)) return reply.code(400).send({ error: 'invalid conversation id' })
   return { deleted: deleteConversation(id) }
+})
+
+// ---------- chat with the saved news wire ----------
+// This is separate from /api/chat. Research chat reads finished company work; news chat reads the
+// firehose and its archive. Both stay closed-book and both use the same no-tools chat runner.
+const NewsChatBody = z.object({
+  window: z.enum(['24h', '7d', 'history']),
+  model: z.string().max(60).optional(),
+  messages: z.array(z.object({ role: z.enum(['user', 'assistant']), content: z.string().max(12_000) })).min(1).max(30),
+})
+const newsChatGate = new NewsChatRequestGate(NEWS.chatMaxConcurrent)
+app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMinute, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const parsed = NewsChatBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid news chat request', detail: parsed.error.issues?.[0]?.message })
+  const { window, messages } = parsed.data
+  const last = messages[messages.length - 1]
+  if (last.role !== 'user' || !last.content.trim()) return reply.code(400).send({ error: 'the last message must be a question' })
+  const releaseNewsChat = newsChatGate.tryAcquire()
+  if (!releaseNewsChat) return reply.code(429).send({ error: 'news chat is busy — try again in a moment' })
+  const model = CHAT.allowedModels.includes(parsed.data.model || '') ? parsed.data.model! : CHAT.defaultModel
+  const requestAbort = bindNewsChatRequestAbort(req.raw, reply.raw)
+  const ac = requestAbort.controller
+
+  try {
+    let assembled
+    try {
+    const semanticResult = await searchSemanticIndex({
+      stateDir: STATE_DIR,
+      query: last.content,
+      namedAnchors: newsSemanticNamedAnchors(last.content),
+      config: {
+        enabled: NEWS.retrievalEmbeddingEnabled,
+        apiKey: NEWS.retrievalEmbeddingApiKey,
+        baseUrl: NEWS.retrievalEmbeddingBaseUrl,
+        model: NEWS.retrievalEmbeddingModel,
+        timeoutMs: NEWS.retrievalEmbeddingTimeoutMs,
+        batchSize: NEWS.retrievalEmbeddingBatchSize,
+        maxItemsPerCycle: NEWS.retrievalEmbeddingMaxItemsPerCycle,
+      },
+      signal: ac.signal,
+    })
+    assembled = await assembleNewsChatContext({
+      repoRoot: REPO_ROOT,
+      archiveDir: NEWS.newsArchiveDir,
+      enrichCacheFile: path.join(STATE_DIR, 'news-enrich-cache.json'),
+      window,
+      question: last.content,
+      sourceReport: buildSourcesReport(REPO_ROOT, STATE_DIR),
+      semanticResult,
+      signal: ac.signal,
+    })
+    const reranked = await rerankCandidates({
+      query: last.content,
+      candidates: assembled.evidence.map((e: any) => ({
+        id: e.ref,
+        text: [e.item.headline_en || e.item.headline, e.item.snippet, ...(e.item.companies || []).flatMap((c: any) => [c.name, c.ticker || '']), ...(e.whyMatched || [])].filter(Boolean).join(' '),
+      })),
+      config: {
+        enabled: NEWS.retrievalRerankEnabled,
+        apiKey: NEWS.retrievalRerankApiKey,
+        baseUrl: NEWS.retrievalRerankBaseUrl,
+        model: NEWS.retrievalRerankModel,
+        timeoutMs: NEWS.retrievalRerankTimeoutMs,
+        maxCandidates: NEWS.retrievalRerankMaxCandidates,
+      },
+      signal: ac.signal,
+    })
+    assembled = applyNewsRerank(assembled, reranked)
+    } catch (e: any) {
+      if (ac.signal.aborted) return
+      return reply.code(500).send({ error: 'could not read the saved news', detail: String(e?.message || e) })
+    }
+    if (!assembled.present) return reply.code(409).send({ error: 'no_news', hint: assembled.missingHint })
+
+    const { res, send, ping } = startSSE(reply)
+    let closed = false
+    res.on('close', () => { closed = true; clearInterval(ping) })
+    send({ type: 'news-chat-meta', receipt: assembled.receipt, evidence: assembled.evidence })
+    const { system, user } = buildNewsChatPrompts({ assembled, messages })
+    try {
+      // Hold primary text until the turn succeeds. If the primary emits a partial answer and then reports
+      // a quota/timeout error, the fallback starts from a clean response rather than being concatenated to
+      // a sentence from another model.
+      const primaryChunks: string[] = []
+      const out = await runChatTurn({ system, user, model, signal: ac.signal, onToken: (t) => primaryChunks.push(t) })
+      if (out.error && out.error !== 'aborted' && shouldUseNewsChatFallback(out.error)) {
+        send({ type: 'news-chat-status', stage: 'backup-provider' })
+        const backup = await runNewsChatFallback({
+          system, user, signal: ac.signal, onToken: (t) => send({ type: 'news-chat-token', content: t }),
+          config: {
+            enabled: NEWS.chatGroqFallbackEnabled,
+            apiKey: NEWS.groqApiKey,
+            baseUrl: NEWS.groqBaseUrl,
+            model: NEWS.groqModel,
+            timeoutMs: NEWS.chatGroqFallbackTimeoutMs,
+            maxTokens: NEWS.chatGroqFallbackMaxTokens,
+            stateDir: STATE_DIR,
+            rpm: NEWS.groqRpm,
+            tpm: NEWS.groqTpm,
+            dailyReqCap: NEWS.groqDailyReqCap,
+            dailyTokenCap: NEWS.groqDailyTokenCap,
+            dailyTokenTarget: NEWS.groqDailyTokenTarget,
+            paceFloorFrac: NEWS.groqPaceFloorFrac,
+            limiterWaitMs: NEWS.chatGroqFallbackLimiterWaitMs,
+            cooldownMs: NEWS.llmCooldownMs,
+            cooldownMaxMs: NEWS.llmCooldownMaxMs,
+          },
+        })
+        if (!backup.error) send({ type: 'news-chat-done', costUsd: backup.costUsd, model: backup.model || NEWS.groqModel, fallbackFrom: model })
+        else if (backup.error !== 'aborted') send({ type: 'news-chat-error', message: `${out.error} ${backup.error}` })
+      } else if (out.error && out.error !== 'aborted') send({ type: 'news-chat-error', message: out.error })
+      else if (!out.error) {
+        for (const content of primaryChunks) send({ type: 'news-chat-token', content })
+        send({ type: 'news-chat-done', costUsd: out.costUsd, model })
+      }
+    } catch (e: any) {
+      if (!closed) send({ type: 'news-chat-error', message: String(e?.message || e) })
+    } finally {
+      clearInterval(ping)
+      try { res.end() } catch { /* already closed */ }
+    }
+  } finally {
+    requestAbort.dispose()
+    releaseNewsChat()
+  }
 })
 
 // ---------- calls tracker: cross-ticker ledger of every call + its since-the-call timeline ----------

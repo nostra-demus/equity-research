@@ -229,6 +229,7 @@ function ScreenerControls() {
   const openSignalIntake = useStore((s) => s.openSignalIntake)
   const openPipeline = useStore((s) => s.openPipeline)
   const openActivity = useStore((s) => s.openActivity)
+  const openNewsChat = useStore((s) => s.openNewsChat)
   const health = useStore((s) => s.health)
   const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
   // ONE runs entry: opens the book (every event you've checked) AND un-hides the live-progress rail, so
@@ -237,6 +238,9 @@ function ScreenerControls() {
   const openRuns = () => { openActivity(); openPipeline() }
   return (
     <>
+      <button className="btn cmdbar__ask" onClick={openNewsChat} title="Ask the last 24 hours, 7 days, or all saved news for possible trade ideas">
+        Ask news ▸
+      </button>
       <button className="btn btn--ghost" onClick={openRuns} title="Your runs — the live progress of anything running now, plus the full book of every event you've checked; reopen any analysis">
         Runs
       </button>

@@ -8,7 +8,9 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { buildIdeaUserMessage, coerceIdea, estimateIdeaTokens, surfaceIdeasBatch, type IdeaInputRow } from '../src/news/ideas/surface-ideas'
-import { ideaId, readIdeaById, readTopSweepRows, topNHash, writeIdea } from '../src/news/ideas/ideas-store'
+import { ideaId, ideaVersion, readIdeaById, readTopSweepRows, topNHash, writeIdea } from '../src/news/ideas/ideas-store'
+import { tradeEvidenceForIdeaRows } from '../src/news/ideas/run-idea-pass'
+import { scoreTradeCluster } from '../src/news/trade-score'
 import { eventIdFor } from '../src/news/normalize'
 
 let passed = 0
@@ -32,7 +34,7 @@ function stubFetch(body: any, opts: { ok?: boolean; status?: number; finish?: st
 const OPTS = { model: 'm', baseUrl: 'http://x', apiKey: 'k' }
 const ROWS: IdeaInputRow[] = [
   { event_id: 'EVT-1', headline: 'A closes strait', headline_orig: 'A closes strait', url: 'http://a', source_name: 'Reuters', region: 'GLOBAL', materiality: 100, label: 'critical', event_types: ['macro_sector'], issuer_linkage: 'macro', companies: [], found_at: '2026-07-12T12:00:00Z' },
-  { event_id: 'EVT-2', headline: 'B expands refinery', headline_orig: 'B expands refinery', url: 'http://b', source_name: 'BusinessLine', region: 'IN', materiality: 88, label: 'high', event_types: ['capex'], issuer_linkage: 'primary', companies: [{ name: 'B', ticker: 'BBB', listing_country: 'IN' }], found_at: '2026-07-12T11:00:00Z' },
+  { event_id: 'EVT-2', dedup_group: 'STORY-B', headline: 'B expands refinery', headline_orig: 'B expands refinery', url: 'http://b', source_name: 'BusinessLine', region: 'IN', materiality: 88, materiality_pre_score: 71, label: 'high', event_types: ['capex'], issuer_linkage: 'primary', companies: [{ name: 'B', ticker: 'BBB', listing_country: 'IN' }], found_at: '2026-07-12T11:00:00Z' },
 ]
 
 // ---- coerceIdea ----
@@ -94,12 +96,46 @@ check('surfaceIdeasBatch: non-JSON content returns ok:false, never throws', asyn
   const r = await surfaceIdeasBatch(ROWS, OPTS, stubFetch('not json at all'), noSleep)
   assert.equal(r.ok, false)
 })
+check('surfaceIdeasBatch counts malformed response reads exactly once per retry', async () => {
+  let jsonFetches = 0
+  const malformedJson = (async () => {
+    jsonFetches++
+    return { ok: true, status: 200, headers: { get: () => null }, json: async () => { throw new SyntaxError('malformed response JSON') } }
+  }) as unknown as typeof fetch
+  const decoded = await surfaceIdeasBatch(ROWS, { ...OPTS, maxAttempts: 2 }, malformedJson, noSleep)
+  assert.equal(jsonFetches, 2)
+  assert.equal(decoded.requests, 2, 'response.json failure is not double-counted by the broad catch')
+
+  let bodyFetches = 0
+  const unreadableBody = (async () => {
+    bodyFetches++
+    return { ok: false, status: 503, headers: { get: () => null }, text: async () => { throw new Error('body read failed') } }
+  }) as unknown as typeof fetch
+  const rejected = await surfaceIdeasBatch(ROWS, { ...OPTS, maxAttempts: 2 }, unreadableBody, noSleep)
+  assert.equal(bodyFetches, 2)
+  assert.equal(rejected.requests, 2, 'response.text failure is counted once per HTTP attempt')
+})
 
 // ---- identity + helpers ----
 check('ideaId is stable and differs by direction', () => {
   assert.equal(ideaId('STNG', 'long'), ideaId('stng', 'long'))      // case-insensitive
   assert.notEqual(ideaId('STNG', 'long'), ideaId('STNG', 'short'))  // direction is part of identity
   assert.match(ideaId('STNG', 'long'), /^IDEA-[a-f0-9]{12}$/)
+})
+check('ideaVersion binds the exact thesis and source snapshot', () => {
+  const base = { ticker: 'BBB', direction: 'long' as const, thesisType: 'company_specific' as const, reason: 'Refinery adds output', whyNow: 'Results on 2026-08-06', sourceEventIds: ['EVT-2'] }
+  assert.equal(ideaVersion(base), ideaVersion({ ...base, ticker: 'bbb' }))
+  assert.notEqual(ideaVersion(base), ideaVersion({ ...base, sourceEventIds: ['EVT-3'] }))
+})
+check('auto-idea evidence carries raw impact and story dedup without substituting the composite severity label', () => {
+  const evidence = tradeEvidenceForIdeaRows(ROWS)
+  assert.equal(evidence[1].materiality_pre_score, 71)
+  assert.equal(evidence[1].dedup_group, 'STORY-B')
+  assert.equal(evidence[1].impact_magnitude, undefined, 'score-derived label is not body-read economic impact')
+  const scored = scoreTradeCluster(evidence, { ticker: 'BBB', exchange: 'NSE', tickerVerified: true, listingVerified: true })
+  assert.equal(scored.breakdown.impact, 18)
+  assert.equal(scored.readiness, 'needs_data', 'independently verified listing advances past watch-only while liquidity remains explicit')
+  assert.ok(scored.missingChecks.includes('live liquidity'))
 })
 check('topNHash is order-independent and changes with the set', () => {
   assert.equal(topNHash(ROWS), topNHash([...ROWS].reverse()))
@@ -123,7 +159,7 @@ check('readTopSweepRows reads the freshest sweep, sorts by materiality, drops co
   fs.writeFileSync(path.join(inbox, '2026-07-10_sweep.json'), JSON.stringify({ rows: [{ headline: 'stale day', url: 'http://s', triage_score: 99 }] }))
   fs.writeFileSync(path.join(inbox, '2026-07-12_sweep.json'), JSON.stringify({ rows: [
     { headline: 'low', url: 'http://l', triage_score: 20, source_name: 'X' },
-    { headline: 'top', url: 'http://t', triage_score: 95, source_name: 'X' },
+    { headline: 'top', url: 'http://t', triage_score: 95, materiality_pre_score: 72, dedup_group: 'STORY-top', source_name: 'X' },
     { headline: 'consumed', url: 'http://c', triage_score: 90, consumed: true },
     { headline: 'no score', url: 'http://n' },
   ] }))
@@ -132,6 +168,8 @@ check('readTopSweepRows reads the freshest sweep, sorts by materiality, drops co
   assert.equal(rows[0].headline, 'top')     // sorted by materiality desc
   assert.equal(rows[1].headline, 'low')
   assert.equal(rows[0].event_id, eventIdFor('top', 'http://t')) // canonical id, matches the wire/ledger join key
+  assert.equal(rows[0].materiality_pre_score, 72)
+  assert.equal(rows[0].dedup_group, 'STORY-top')
   fs.rmSync(dir, { recursive: true, force: true })
 })
 check('readTopSweepRows keeps the ORIGINAL headline for the SIG byte-match on a non-English row', () => {

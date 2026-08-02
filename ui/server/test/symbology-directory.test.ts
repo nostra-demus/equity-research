@@ -9,7 +9,7 @@
 // Each assertion is red on the pre-fix code and green after. Run: npx tsx test/symbology-directory.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import { coreCompanyName, invalidateSymbolCache, searchSymbolsEnriched } from '../src/news/symbology'
+import { coreCompanyName, invalidateSymbolCache, searchSymbolsEnriched, verifyEquityListing } from '../src/news/symbology'
 
 let passed = 0
 async function check(name: string, fn: () => Promise<void> | void) {
@@ -65,6 +65,16 @@ async function main() {
     const groups = await searchSymbolsEnriched('nhydy', fetchImpl)
     assert.equal(groups.length, 1, 'the primary result is preserved despite the enrichment failure')
     assert.equal(groups[0].symbol, 'NHYDY')
+  })
+
+  await check('listing verification never assigns a sibling venue or a colliding base ticker', async () => {
+    invalidateSymbolCache()
+    const fetchImpl = (async () => resp(true, [
+      { quoteType: 'EQUITY', symbol: 'ACME.L', longname: 'Acme UK PLC', exchDisp: 'LSE' },
+      { quoteType: 'EQUITY', symbol: 'ACME', longname: 'Different Acme Inc', exchDisp: 'NYSE' },
+    ])) as any
+    assert.equal(await verifyEquityListing('ACME.L', 'Acme UK', fetchImpl).then((x) => x?.exchange), 'LSE')
+    assert.equal(await verifyEquityListing('ACME', 'Acme UK', fetchImpl), null, 'same base/alias cannot borrow the sibling listing venue')
   })
 }
 

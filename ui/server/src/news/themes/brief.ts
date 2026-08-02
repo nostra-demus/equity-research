@@ -12,7 +12,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
-import { Budget, getSharedLimiter } from '../triage/budget'
+import { Budget, armCooldown, clearCooldown, conservativeChatTokenBound, getSharedLimiter, isCoolingDown } from '../triage/budget'
 import type { Theme, ThemeCompany, ThemeMember } from './types'
 
 export interface ThemeBrief {
@@ -36,6 +36,8 @@ export interface BriefConfig {
   groqTpm?: number
   groqDailyReqCap?: number
   groqDailyTokenCap?: number
+  llmCooldownMs?: number
+  llmCooldownMaxMs?: number
 }
 
 const CACHE_FILE = 'themes-brief-cache.json'
@@ -200,6 +202,11 @@ function buildUserMessage(theme: Theme): string {
   )
 }
 
+/** Worst-case billable tokens for one Groq theme-brief attempt. */
+export function themeBriefTokenBound(theme: Theme): number {
+  return conservativeChatTokenBound(SYSTEM, buildUserMessage(theme), 500)
+}
+
 /** Pull {"brief":"..."} out of an LLM text response, tolerant of surrounding prose. */
 function parseBriefJson(text: string): string | null {
   try {
@@ -213,7 +220,7 @@ function parseBriefJson(text: string): string | null {
   }
 }
 
-async function callGroq(cfg: BriefConfig, user: string, fetchFn: typeof fetch): Promise<string> {
+async function callGroq(cfg: BriefConfig, user: string, fetchFn: typeof fetch): Promise<{ text: string; tokens: number }> {
   const res = await fetchFn(`${cfg.groqBaseUrl}/chat/completions`, {
     method: 'POST',
     headers: { 'content-type': 'application/json', authorization: `Bearer ${cfg.groqApiKey}` },
@@ -232,30 +239,34 @@ async function callGroq(cfg: BriefConfig, user: string, fetchFn: typeof fetch): 
   if (!res.ok) throw new Error(`groq HTTP ${res.status}`)
   const data: any = await res.json()
   const text = data?.choices?.[0]?.message?.content
-  return typeof text === 'string' ? text : ''
+  return { text: typeof text === 'string' ? text : '', tokens: Number(data?.usage?.total_tokens) || 0 }
 }
 
 /** One brief from Groq, on the SHARED free-tier budget + per-minute limiter (so the brief never
  *  collectively busts the day's Groq quota or races the live scanner's per-minute window). Returns the
  *  validated brief text, or null if the budget/limiter is unavailable, the call fails, or the reply is
- *  too short. Never throws. A 4xx/429 exhausts today's budget so subsequent briefs skip Groq until reset
- *  (exactly like the ingester + the on-demand article read). */
+ *  too short. Never throws. Provider failures arm the shared cooldown; this non-essential read never
+ *  exhausts the shared daily ledger, especially not on a transient per-minute 429. */
 async function tryGroqBrief(theme: Theme, cfg: BriefConfig, stateDir: string, fetchFn: typeof fetch): Promise<string | null> {
-  const budget = Budget.load(stateDir, cfg.groqDailyReqCap ?? 13_000, cfg.groqDailyTokenCap ?? 500_000, Date.now(), 'groq-budget.json')
-  if (!budget.canSpend(EST_TOKENS)) return null
+  const now = Date.now()
+  if (isCoolingDown(stateDir, 'groq', now)) return null
+  const budget = Budget.load(stateDir, cfg.groqDailyReqCap ?? 13_000, cfg.groqDailyTokenCap ?? 500_000, now, 'groq-budget.json')
+  const perAttemptTokens = themeBriefTokenBound(theme)
+  if (!budget.canSpend(perAttemptTokens)) return null
   const limiter = getSharedLimiter(cfg.groqRpm ?? 28, cfg.groqTpm ?? 6000)
   const got = await limiter.acquire(EST_TOKENS, undefined, undefined, LIMITER_WAIT_MS)
   if (!got) return null // per-minute window busy — degrade rather than make the user wait
+  const reservation = budget.tryReserve(perAttemptTokens)
+  if (!reservation) return null
   try {
-    const text = await callGroq(cfg, buildUserMessage(theme), fetchFn)
-    budget.record(1, EST_TOKENS)
-    budget.save()
-    const brief = parseBriefJson(text)
+    const result = await callGroq(cfg, buildUserMessage(theme), fetchFn)
+    budget.reconcile(reservation, 1, result.tokens || perAttemptTokens)
+    clearCooldown(stateDir, 'groq')
+    const brief = parseBriefJson(result.text)
     return brief && brief.length >= 40 ? brief.slice(0, 900) : null
   } catch (e: any) {
-    budget.record(1, EST_TOKENS)
-    if (/HTTP (4\d\d|429)/.test(String(e?.message || ''))) budget.exhaust()
-    budget.save()
+    budget.reconcile(reservation, 1, perAttemptTokens)
+    armCooldown(stateDir, Date.now(), cfg.llmCooldownMs ?? 300_000, 'groq', cfg.llmCooldownMaxMs ?? 3_600_000)
     return null
   }
 }

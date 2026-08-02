@@ -16,7 +16,7 @@
 // wire already computed (materiality/label/types/companies), so the model spends its tokens on the
 // event->idea leap, not on re-deriving materiality.
 
-import type { RateInfo } from '../triage/budget'
+import { conservativeChatTokenBound, type RateInfo } from '../triage/budget'
 import { EVENT_TYPES } from '../triage/groq'
 
 // §14 thesis-type classification — the surface skim must name when a "stock idea" is really a macro /
@@ -41,11 +41,16 @@ export interface IdeaInputRow {
   source_name: string
   region: string
   materiality: number // triage_score (composite priority) — the wire's own read
+  materiality_pre_score?: number // raw title-read economic materiality; never substitute the composite
   label: string // event_materiality_label (low/medium/high/critical)
   event_types: string[]
   issuer_linkage: string
   companies: { name: string; ticker: string | null; listing_country: string | null }[]
   found_at: string // ISO — the freshest source timestamp, drives freshness/decay downstream
+  source_tier?: import('../scope').SourceTierId
+  scheduled_events?: string[]
+  event_direction?: import('../types').EventDirection
+  dedup_group?: string // one underlying story across publisher copies
 }
 
 // A surfaced idea, as the LLM returns it (raw, per-batch). Indices in `src` point back into the input rows
@@ -213,6 +218,7 @@ export async function surfaceIdeasBatch(
   const maxAttempts = opts.maxAttempts ?? 2
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
+      requests++ // one count per fetch invocation, including network/response-decoding failures below
       const res = await fetchFn(`${opts.baseUrl}/chat/completions`, {
         method: 'POST',
         headers: { 'content-type': 'application/json', authorization: `Bearer ${opts.apiKey}`, ...(opts.headers || {}) },
@@ -230,7 +236,6 @@ export async function surfaceIdeasBatch(
           ...(opts.extraBody || {}),
         }),
       })
-      requests++
       const rate = readRate(res)
       if (!res.ok) {
         const body = await res.text().catch(() => '')
@@ -239,7 +244,8 @@ export async function surfaceIdeasBatch(
         return { ideas: [], requests, tokens, ok: false, note: lastNote, rate }
       }
       const data: any = await res.json()
-      tokens += Number(data?.usage?.total_tokens) || estimateIdeaTokens(rows.length)
+      tokens += Number(data?.usage?.total_tokens)
+        || conservativeChatTokenBound(IDEA_SYSTEM, buildIdeaUserMessage(rows), opts.maxTokens ?? 2500)
       if (data?.choices?.[0]?.finish_reason === 'length') {
         return { ideas: [], requests, tokens, ok: false, note: 'idea: output truncated at max_tokens', rate }
       }
@@ -251,7 +257,6 @@ export async function surfaceIdeasBatch(
       const ideas = arr.map((r) => coerceIdea(r, rows.length)).filter((x): x is RawIdea => x !== null).slice(0, 6)
       return { ideas, requests, tokens, ok: true, rate }
     } catch (e: any) {
-      requests++
       lastNote = e?.name === 'TimeoutError' ? 'idea: request timed out' : e?.message || 'idea fetch error'
       if (attempt < maxAttempts) await sleep(1500 * attempt)
     }

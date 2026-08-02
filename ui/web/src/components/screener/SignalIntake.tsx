@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import { Spin } from '../Spin'
@@ -30,6 +30,7 @@ export function SignalIntake() {
   const close = useStore((s) => s.closeSignalIntake)
   const submit = useStore((s) => s.submitSignal)
   const starting = useStore((s) => s.launchPending?.key === 'signal:intake')
+  const seed = useStore((s) => s.signalIntakeSeed)
   const [nature, setNature] = useState<string>('news_headline')
   const [headline, setHeadline] = useState('')
   const [url, setUrl] = useState('')
@@ -37,6 +38,17 @@ export function SignalIntake() {
   const [note, setNote] = useState('')
   const isHuman = nature === 'human_prompt'
   const valid = headline.trim().length >= 8 && (isHuman || (url.trim().length > 0 && source.trim().length > 0))
+
+  // A news-chat answer can open this form with a draft. A normal "Check an event" open has no seed
+  // and gets a clean form. The user can still edit every field before spending money on the checks.
+  useEffect(() => {
+    if (!open) return
+    setNature(seed?.input_nature || 'news_headline')
+    setHeadline(seed?.headline || '')
+    setUrl(seed?.source_url || '')
+    setSource(seed?.source_name || '')
+    setNote(seed?.human_prompt_note || seed?.body_text || '')
+  }, [open, seed])
 
   const onSubmit = () => {
     if (!valid) return
