@@ -39,7 +39,10 @@ import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers, peekCachedEnrichment } from './news/enrich'
 import { verdictOf } from './news/impact-floor'
 import { autoBridgeItem, bridgeEventToSubject, findWireItem, listBridgedSubjects } from './research-bridge'
-import { assembleNewsChatContext, buildNewsChatPrompts } from './news/chat'
+import { applyNewsRerank, assembleNewsChatContext, buildNewsChatPrompts } from './news/chat'
+import { runNewsChatFallback, shouldUseNewsChatFallback } from './news/chat-provider'
+import { searchSemanticIndex } from './retrieval/semantic'
+import { rerankCandidates } from './retrieval/rerank'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
 import { appendIdeaFeedback, readIdeaById, writeIdea } from './news/ideas/ideas-store'
@@ -2007,6 +2010,19 @@ app.post('/api/news/chat', async (req, reply) => {
 
   let assembled
   try {
+    const semanticResult = await searchSemanticIndex({
+      stateDir: STATE_DIR,
+      query: last.content,
+      config: {
+        enabled: NEWS.retrievalEmbeddingEnabled,
+        apiKey: NEWS.retrievalEmbeddingApiKey,
+        baseUrl: NEWS.retrievalEmbeddingBaseUrl,
+        model: NEWS.retrievalEmbeddingModel,
+        timeoutMs: NEWS.retrievalEmbeddingTimeoutMs,
+        batchSize: NEWS.retrievalEmbeddingBatchSize,
+        maxItemsPerCycle: NEWS.retrievalEmbeddingMaxItemsPerCycle,
+      },
+    })
     assembled = assembleNewsChatContext({
       repoRoot: REPO_ROOT,
       archiveDir: NEWS.newsArchiveDir,
@@ -2014,7 +2030,24 @@ app.post('/api/news/chat', async (req, reply) => {
       window,
       question: last.content,
       sourceReport: buildSourcesReport(REPO_ROOT, STATE_DIR),
+      semanticResult,
     })
+    const reranked = await rerankCandidates({
+      query: last.content,
+      candidates: assembled.evidence.map((e: any) => ({
+        id: e.ref,
+        text: [e.item.headline_en || e.item.headline, e.item.snippet, ...(e.item.companies || []).flatMap((c: any) => [c.name, c.ticker || '']), ...(e.whyMatched || [])].filter(Boolean).join(' '),
+      })),
+      config: {
+        enabled: NEWS.retrievalRerankEnabled,
+        apiKey: NEWS.retrievalRerankApiKey,
+        baseUrl: NEWS.retrievalRerankBaseUrl,
+        model: NEWS.retrievalRerankModel,
+        timeoutMs: NEWS.retrievalRerankTimeoutMs,
+        maxCandidates: NEWS.retrievalRerankMaxCandidates,
+      },
+    })
+    assembled = applyNewsRerank(assembled, reranked)
   } catch (e: any) {
     return reply.code(500).send({ error: 'could not read the saved news', detail: String(e?.message || e) })
   }
@@ -2027,8 +2060,24 @@ app.post('/api/news/chat', async (req, reply) => {
   send({ type: 'news-chat-meta', receipt: assembled.receipt, evidence: assembled.evidence })
   const { system, user } = buildNewsChatPrompts({ assembled, messages })
   try {
-    const out = await runChatTurn({ system, user, model, signal: ac.signal, onToken: (t) => send({ type: 'news-chat-token', content: t }) })
-    if (out.error && out.error !== 'aborted') send({ type: 'news-chat-error', message: out.error })
+    const onToken = (t: string) => send({ type: 'news-chat-token', content: t })
+    const out = await runChatTurn({ system, user, model, signal: ac.signal, onToken })
+    if (out.error && out.error !== 'aborted' && shouldUseNewsChatFallback(out.error)) {
+      send({ type: 'news-chat-status', stage: 'backup-provider' })
+      const backup = await runNewsChatFallback({
+        system, user, signal: ac.signal, onToken,
+        config: {
+          enabled: NEWS.chatGroqFallbackEnabled,
+          apiKey: NEWS.groqApiKey,
+          baseUrl: NEWS.groqBaseUrl,
+          model: NEWS.groqModel,
+          timeoutMs: NEWS.chatGroqFallbackTimeoutMs,
+          maxTokens: NEWS.chatGroqFallbackMaxTokens,
+        },
+      })
+      if (!backup.error) send({ type: 'news-chat-done', costUsd: backup.costUsd, model: backup.model || NEWS.groqModel, fallbackFrom: model })
+      else if (backup.error !== 'aborted') send({ type: 'news-chat-error', message: `${out.error} ${backup.error}` })
+    } else if (out.error && out.error !== 'aborted') send({ type: 'news-chat-error', message: out.error })
     else if (!out.error) send({ type: 'news-chat-done', costUsd: out.costUsd, model })
   } catch (e: any) {
     if (!closed) send({ type: 'news-chat-error', message: String(e?.message || e) })

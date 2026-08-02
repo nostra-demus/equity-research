@@ -105,7 +105,7 @@ export function SourcesPanel() {
             <div className="srcpanel__empty">{q ? `No source matches “${q}”.` : `Nothing ${filter === 'all' ? '' : filter}.`}</div>
           ) : (
             <ul className="srclist">
-              {rows.map((r) => <SourceRowItem key={`${r.via}:${r.name}`} r={r} />)}
+              {rows.map((r) => <SourceRowItem key={r.id || `${r.via}:${r.name}:${r.url || ''}`} r={r} />)}
             </ul>
           )}
         </div>
@@ -124,6 +124,8 @@ function SourceRowItem({ r }: { r: SourceRow }) {
         <div className="srcrow__meta">
           {r.region !== '—' ? `${r.region} · ` : ''}{r.feed_type}{r.via !== 'rss' ? ` · ${r.via}` : ''}
           {r.last_error ? <span className="srcrow__err"> · {r.last_error.slice(0, 48)}</span> : null}
+          {r.repair?.state === 'fallback_active' ? <span className="srcrow__err"> · fallback active</span> : null}
+          {r.repair?.state === 'covered_by_peer' ? <span> · covered by another feed</span> : null}
         </div>
       </div>
       <div className="srcrow__right">

@@ -529,6 +529,12 @@ export const NEWS = {
   // the current free model when you provision the key. Override with GROQ_MODEL.
   groqModel: process.env.GROQ_MODEL || 'llama-3.1-8b-instant',
   groqBaseUrl: process.env.GROQ_BASE_URL || 'https://api.groq.com/openai/v1',
+  // Public-news chat stays on the stronger subscription model first. If that provider is temporarily
+  // unavailable, the already-configured Groq connection may finish the same closed-book, cited answer.
+  // This never applies to research-report chat and never grants the backup model tools.
+  chatGroqFallbackEnabled: process.env.NEWS_CHAT_GROQ_FALLBACK_ENABLED !== '0',
+  chatGroqFallbackTimeoutMs: capNum(process.env.NEWS_CHAT_GROQ_FALLBACK_TIMEOUT_MS, 45_000),
+  chatGroqFallbackMaxTokens: capNum(process.env.NEWS_CHAT_GROQ_FALLBACK_MAX_TOKENS, 700),
   // CLOUD ARCHIVE — the raw-news firehose files are mirrored to a Google Drive for Desktop mount folder
   // (the news-archive launchd agent copies them there; Drive uploads to the cloud). Local files older than
   // the retention window are then pruned, so the laptop disk stays bounded while the full history lives in
@@ -536,6 +542,22 @@ export const NEWS = {
   // filter still spans the whole archive. Empty → no cloud archive (read local only).
   newsArchiveDir: process.env.NEWS_ARCHIVE_DIR || '',
   newsLocalRetentionDays: capNum(process.env.NEWS_LOCAL_RETENTION_DAYS, 30), // days of firehose kept on local disk
+  // OPTIONAL neural retrieval. The deterministic hybrid search is always present; these two provider
+  // seams add a compact embedding index and a second-stage rerank when an operator supplies an
+  // OpenAI-compatible endpoint. They never borrow a triage key silently and fail open to hybrid search.
+  retrievalEmbeddingEnabled: process.env.NEWS_RETRIEVAL_EMBEDDING_ENABLED === '1',
+  retrievalEmbeddingApiKey: process.env.NEWS_RETRIEVAL_EMBEDDING_API_KEY || '',
+  retrievalEmbeddingBaseUrl: process.env.NEWS_RETRIEVAL_EMBEDDING_BASE_URL || 'https://api.openai.com/v1',
+  retrievalEmbeddingModel: process.env.NEWS_RETRIEVAL_EMBEDDING_MODEL || 'text-embedding-3-small',
+  retrievalEmbeddingTimeoutMs: capNum(process.env.NEWS_RETRIEVAL_EMBEDDING_TIMEOUT_MS, 20_000),
+  retrievalEmbeddingBatchSize: capNum(process.env.NEWS_RETRIEVAL_EMBEDDING_BATCH_SIZE, 64),
+  retrievalEmbeddingMaxItemsPerCycle: capNum(process.env.NEWS_RETRIEVAL_EMBEDDING_MAX_ITEMS_PER_CYCLE, 256),
+  retrievalRerankEnabled: process.env.NEWS_RETRIEVAL_RERANK_ENABLED === '1',
+  retrievalRerankApiKey: process.env.NEWS_RETRIEVAL_RERANK_API_KEY || '',
+  retrievalRerankBaseUrl: process.env.NEWS_RETRIEVAL_RERANK_BASE_URL || 'https://api.openai.com/v1',
+  retrievalRerankModel: process.env.NEWS_RETRIEVAL_RERANK_MODEL || 'gpt-5-mini',
+  retrievalRerankTimeoutMs: capNum(process.env.NEWS_RETRIEVAL_RERANK_TIMEOUT_MS, 25_000),
+  retrievalRerankMaxCandidates: capNum(process.env.NEWS_RETRIEVAL_RERANK_MAX_CANDIDATES, 30),
   // Master switch. Default: ON iff a key exists. Set NEWS_INGEST_ENABLED=0 to force off even with a key.
   enabled: process.env.NEWS_INGEST_ENABLED === '0' ? false : Boolean(process.env.GROQ_API_KEY),
   // How often the in-server scheduler runs a cycle (the standalone --once entrypoint ignores this).

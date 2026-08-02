@@ -8,11 +8,15 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { loadRetrievalConcepts } from '../retrieval/concepts'
-import { buildHybridQuery, HybridCollector, matchHybridDocument, retrievalTokens, type HybridDocument, type HybridMatch } from '../retrieval/hybrid'
+import { buildHybridQuery, HybridCollector, matchHybridDocument, normalizeRetrievalText, retrievalTokens, type HybridDocument, type HybridMatch, type HybridQuery } from '../retrieval/hybrid'
+import type { SemanticSearchResult } from '../retrieval/semantic'
+import type { RerankResult } from '../retrieval/rerank'
 import { cleanText } from './clean'
+import { NewsRelationshipGraph, relationshipLine } from './relationship-graph'
 import { deriveScope, deriveSourceTier } from './scope'
 import type { SourcesReport } from './source-health'
 import { readThemesIndex } from './themes/store'
+import { scoreTradeCluster, type TradeScoreBreakdown } from './trade-score'
 import type { FeedItem } from './types'
 
 export type NewsChatWindow = '24h' | '7d' | 'history'
@@ -43,11 +47,26 @@ export interface NewsChatReceipt {
   queryTermHits: Record<string, number>
   retrievalTermHits: Record<string, number>
   expandedTerms: Record<string, string[]>
-  retrievalMode: 'hybrid'
+  retrievalMode: 'hybrid' | 'hybrid_neural'
   retrievalChannels: string[]
+  semantic: { status: SemanticSearchResult['status']; model: string | null; indexedItems: number; hitsUsed: number; note?: string } | null
+  rerank: { status: RerankResult['status']; model: string | null; note?: string } | null
+  relationships: { seed: string; related: string; kind: string; relation: string; mentions: number; evidenceEventIds: string[] }[]
+  tradeCandidates: NewsTradeCandidate[]
   dataStores: string[]
   coverageWarnings: string[]
   sourceHealth: SourcesReport['counts'] | null
+}
+
+export interface NewsTradeCandidate {
+  ticker: string
+  company: string
+  score: number
+  readiness: 'check_now' | 'needs_data' | 'watch_only'
+  direction: 'long' | 'short' | 'mixed' | 'unknown'
+  breakdown: TradeScoreBreakdown
+  missingChecks: string[]
+  evidenceRefs: string[]
 }
 
 export interface NewsChatContext {
@@ -62,6 +81,7 @@ interface RankedItem {
   item: FeedItem
   score: number
   match?: HybridMatch
+  extraReasons?: string[]
 }
 
 interface SavedEnrichment {
@@ -98,13 +118,13 @@ const STOP = new Set(
   [
     'a', 'about', 'after', 'again', 'all', 'also', 'am', 'an', 'and', 'any', 'are', 'as', 'at', 'be',
     'answer', 'because', 'been', 'before', 'beneficiaries', 'beneficiary', 'best', 'between', 'but', 'by', 'can', 'candidate', 'changed', 'chat',
-    'companies', 'company', 'compared', 'could', 'create', 'data', 'day', 'days', 'did', 'do', 'does', 'evidence', 'exact', 'explain', 'find', 'for', 'from', 'getting', 'give', 'has',
+    'companies', 'company', 'compared', 'could', 'create', 'data', 'day', 'days', 'did', 'do', 'does', 'evidence', 'exact', 'exactly', 'explain', 'fact', 'facts', 'find', 'for', 'from', 'getting', 'give', 'has',
     'have', 'history', 'hour', 'hours', 'how', 'i', 'idea', 'ideas', 'if', 'in', 'into', 'is', 'it',
-    'harmed', 'last', 'long', 'loser', 'losers', 'looks', 'may', 'me', 'most', 'my', 'new', 'news', 'next', 'not', 'of', 'on', 'one', 'or', 'order', 'our',
-    'over', 'please', 'saved', 'screen', 'second', 'second-order', 'sector', 'sectors', 'seven', 'short', 'show', 'signal', 'since', 'some', 'stronger', 'that', 'the', 'their',
+    'harmed', 'inference', 'item', 'items', 'last', 'long', 'loser', 'losers', 'looks', 'may', 'me', 'most', 'my', 'new', 'news', 'next', 'no', 'not', 'of', 'on', 'one', 'only', 'or', 'order', 'our',
+    'over', 'please', 'read', 'run', 'said', 'say', 'says', 'saved', 'screen', 'screening', 'second', 'second-order', 'sector', 'sectors', 'separate', 'seven', 'short', 'should', 'show', 'signal', 'simply', 'since', 'some', 'stronger', 'that', 'the', 'their',
     'tell', 'them', 'theme', 'themes', 'there', 'these', 'they', 'thing', 'this', 'those', 'to', 'today', 'trade', 'tradable', 'trading',
     'up', 'us', 'want', 'week', 'weeks', 'what', 'when', 'where', 'which', 'who', 'why', 'will', 'winner', 'winners', 'with',
-    'would', 'you', 'your',
+    'use', 'using', 'would', 'you', 'your',
   ],
 )
 
@@ -124,6 +144,31 @@ function tokens(s: string): string[] {
 
 export function newsQueryTerms(question: string): string[] {
   return buildHybridQuery(question, { stopWords: STOP, metricTerms: METRIC_TERMS }).terms
+}
+
+function explicitNamedAnchors(question: string, terms: string[]): string[] {
+  const allowed = new Set(terms)
+  const out: string[] = []
+  for (const raw of question.match(/[\p{L}\p{N}][\p{L}\p{N}.&'-]*/gu) || []) {
+    if (!(raw === raw.toUpperCase() && /\p{L}/u.test(raw)) && !/^\p{Lu}/u.test(raw)) continue
+    for (const token of retrievalTokens(raw)) {
+      if (allowed.has(token) && !STOP.has(token) && !METRIC_TERMS.has(token) && !out.includes(token)) out.push(token)
+    }
+  }
+  return out
+}
+
+function buildNewsQuery(question: string, concepts: ReturnType<typeof loadRetrievalConcepts>) {
+  const base = buildHybridQuery(question, { stopWords: STOP, metricTerms: METRIC_TERMS, concepts })
+  const named = explicitNamedAnchors(question, base.terms)
+  const forcedAnchors = named.length ? named : base.anchors
+  // Two explicit named parts (Amazon + Bedrock) must both be present. One named issuer (Nvidia, RBI)
+  // remains the required anchor while descriptive words improve ranking instead of opening the gate.
+  const minAnchorMatches = named.length > 1 ? Math.min(2, named.length)
+    : named.length === 1 ? 1
+      : forcedAnchors.length <= 2 ? forcedAnchors.length
+        : 2
+  return buildHybridQuery(question, { stopWords: STOP, metricTerms: METRIC_TERMS, concepts, forcedAnchors, minAnchorMatches })
 }
 
 function listDailyFiles(repoRoot: string, archiveDir: string): { date: string; file: string; store: string }[] {
@@ -146,17 +191,21 @@ function listDailyFiles(repoRoot: string, archiveDir: string): { date: string; f
   return [...byDate.entries()].map(([date, row]) => ({ date, ...row })).sort((a, b) => b.date.localeCompare(a.date))
 }
 
+let enrichmentCache: { file: string; mtimeMs: number; rows: Map<string, SavedEnrichment> } | null = null
 function readEnrichmentCache(file: string): Map<string, SavedEnrichment> {
   const out = new Map<string, SavedEnrichment>()
   const candidates = [file, file.replace(/news-enrich-cache\.json$/, 'news-enrich-cache.bak.json')]
   for (const candidate of candidates) {
     if (!candidate) continue
     try {
+      const stat = fs.statSync(candidate)
+      if (enrichmentCache?.file === candidate && enrichmentCache.mtimeMs === stat.mtimeMs) return enrichmentCache.rows
       const raw = JSON.parse(fs.readFileSync(candidate, 'utf8'))
       if (!raw || Array.isArray(raw) || typeof raw !== 'object') continue
       for (const [key, value] of Object.entries(raw)) {
         if (value && typeof value === 'object') out.set(key, value as SavedEnrichment)
       }
+      enrichmentCache = { file: candidate, mtimeMs: stat.mtimeMs, rows: out }
       return out
     } catch {
       // Try the last-known-good backup.
@@ -174,18 +223,73 @@ function hydrate(raw: any): FeedItem | null {
   return item
 }
 
-function readItems(file: string, visit: (item: FeedItem) => void): void {
-  let text = ''
-  try { text = fs.readFileSync(file, 'utf8') } catch { return }
-  for (const line of text.split('\n')) {
-    const t = line.trim()
-    if (!t || !t.includes('"kind"')) continue
+const dailyLineCache = new Map<string, { mtimeMs: number; lines: string[] }>()
+function readItems(file: string, visit: (item: FeedItem) => void, opts: {
+  prefilter?: (line: string) => boolean
+  minTs?: number
+  maxTsExclusive?: number
+} = {}): number {
+  let stat: fs.Stats
+  try { stat = fs.statSync(file) } catch { return 0 }
+  let cached = dailyLineCache.get(file)
+  if (!cached || cached.mtimeMs !== stat.mtimeMs) {
+    let text = ''
+    try { text = fs.readFileSync(file, 'utf8') } catch { return 0 }
+    cached = { mtimeMs: stat.mtimeMs, lines: text.split('\n').filter((line) => line.includes('"kind"') && line.includes('"item"')) }
+    dailyLineCache.set(file, cached)
+  }
+  let searched = 0
+  for (const line of cached.lines) {
+    if (opts.minTs !== undefined || opts.maxTsExclusive !== undefined) {
+      const stamp = /"ts"\s*:\s*"([^"]+)"/.exec(line)?.[1]
+      const at = stamp ? Date.parse(stamp) : NaN
+      if (!Number.isFinite(at)) continue
+      if (opts.minTs !== undefined && at < opts.minTs) continue
+      if (opts.maxTsExclusive !== undefined && at >= opts.maxTsExclusive) continue
+    }
+    searched++
+    if (opts.prefilter && !opts.prefilter(line)) continue
     try {
-      const item = hydrate(JSON.parse(t))
+      const item = hydrate(JSON.parse(line))
       if (item) visit(item)
     } catch {
       // One broken line must never break the archive search.
     }
+  }
+  return searched
+}
+
+function eventIdInLine(line: string): string | null {
+  return /"event_id"\s*:\s*"([^"]+)"/.exec(line)?.[1] || null
+}
+
+function candidateEnrichmentIds(query: HybridQuery, rows: Map<string, SavedEnrichment>): Set<string> {
+  const ids = new Set<string>()
+  for (const [id, row] of rows) {
+    const match = matchHybridDocument(query, { id, value: id, fields: [{ name: 'saved_article', text: enrichmentText(row), fuzzy: true }] })
+    if (match.qualifies) ids.add(id)
+  }
+  return ids
+}
+
+function fastLineFilter(query: HybridQuery, extraIds: Set<string>): (line: string) => boolean {
+  const plans = query.plans.filter((plan) => plan.anchor)
+  const probes = plans.map((plan) => [plan.term, ...plan.variants.map((v) => v.text)].map(normalizeRetrievalText))
+  return (line: string) => {
+    const id = eventIdInLine(line)
+    if (id && extraIds.has(id)) return true
+    const text = line.toLowerCase()
+    // One exact anchor is a cheap admission probe; the full hybrid matcher still enforces the stricter
+    // named-subject rule after parsing. This keeps typo rescue such as Amazon + "Bedrok" working.
+    return probes.some((variants) => variants.some((probe) => probe && text.includes(probe)))
+  }
+}
+
+function literalLineFilter(terms: string[]): (line: string) => boolean {
+  const probes = [...new Set(terms.map((x) => normalizeRetrievalText(x)).filter((x) => x.length >= 2))].slice(0, 24)
+  return (line: string) => {
+    const text = line.toLowerCase()
+    return probes.some((probe) => text.includes(probe))
   }
 }
 
@@ -268,6 +372,29 @@ function uniqueTop(rows: RankedItem[], limit: number): RankedItem[] {
   return out
 }
 
+function fuseRows(primary: RankedItem[], secondary: RankedItem[], limit: number): RankedItem[] {
+  const rows = new Map<string, RankedItem & { fused: number; bestPrimary: number }>()
+  const add = (list: RankedItem[], weight: number, primaryLane: boolean) => {
+    for (let i = 0; i < list.length; i++) {
+      const row = list[i]
+      const prev = rows.get(row.item.event_id)
+      const fused = (prev?.fused || 0) + weight / (60 + i + 1)
+      rows.set(row.item.event_id, {
+        ...(prev || row),
+        ...row,
+        extraReasons: [...new Set([...(prev?.extraReasons || []), ...(row.extraReasons || [])])],
+        fused,
+        bestPrimary: primaryLane ? Math.min(prev?.bestPrimary ?? Number.POSITIVE_INFINITY, i) : (prev?.bestPrimary ?? Number.POSITIVE_INFINITY),
+      })
+    }
+  }
+  add(primary, 1.4, true)
+  add(secondary, 1, false)
+  return [...rows.values()]
+    .sort((a, b) => (b.match?.anchorMatches || 0) - (a.match?.anchorMatches || 0) || b.fused - a.fused || a.bestPrimary - b.bestPrimary || String(b.item.ts).localeCompare(String(a.item.ts)))
+    .slice(0, limit)
+}
+
 function bump(map: Map<string, number>, key: string | undefined | null): void {
   const k = String(key || '').trim()
   if (k) map.set(k, (map.get(k) || 0) + 1)
@@ -325,7 +452,35 @@ function sourceCoverage(report: SourcesReport | undefined): { counts: SourcesRep
     warnings.push(`${report.counts.failing} source connection(s) are failing${names.length ? `: ${names.join(', ')}` : ''}. Results may be incomplete.`)
   }
   if (report.counts.idle) warnings.push(`${report.counts.idle} configured source(s) have not produced a verified fetch yet.`)
+  if (report.coverage?.critical_gaps?.length) warnings.push(`No working peer covers: ${report.coverage.critical_gaps.slice(0, 5).join(', ')}.`)
   return { counts: report.counts, warnings }
+}
+
+function rankTradeCandidates(evidence: NewsChatEvidence[], nowMs: number): NewsTradeCandidate[] {
+  const groups = new Map<string, { company: string; items: FeedItem[]; refs: string[] }>()
+  for (const ev of evidence.filter((e) => !e.historical)) {
+    for (const company of ev.item.companies || []) {
+      const ticker = String(company.ticker || '').trim().toUpperCase()
+      if (!ticker || !/^[A-Z0-9][A-Z0-9.:-]{0,14}$/.test(ticker)) continue
+      const group = groups.get(ticker) || { company: company.name || ticker, items: [], refs: [] }
+      group.items.push(ev.item)
+      group.refs.push(ev.ref)
+      groups.set(ticker, group)
+    }
+  }
+  return [...groups.entries()].map(([ticker, group]) => {
+    const scored = scoreTradeCluster(group.items, { nowMs, ticker })
+    return {
+      ticker,
+      company: group.company,
+      score: scored.score,
+      readiness: scored.readiness,
+      direction: scored.direction,
+      breakdown: scored.breakdown,
+      missingChecks: scored.missingChecks,
+      evidenceRefs: [...new Set(group.refs)].slice(0, 8),
+    }
+  }).sort((a, b) => b.score - a.score || b.evidenceRefs.length - a.evidenceRefs.length || a.ticker.localeCompare(b.ticker)).slice(0, 5)
 }
 
 export function assembleNewsChatContext(opts: {
@@ -335,17 +490,24 @@ export function assembleNewsChatContext(opts: {
   window: NewsChatWindow
   question: string
   sourceReport?: SourcesReport
+  semanticResult?: SemanticSearchResult
   now?: () => Date
 }): NewsChatContext {
   const now = opts.now?.() || new Date()
   const nowMs = now.getTime()
   const files = listDailyFiles(opts.repoRoot, opts.archiveDir || '')
   const concepts = loadRetrievalConcepts(opts.repoRoot)
-  const query = buildHybridQuery(opts.question, { stopWords: STOP, metricTerms: METRIC_TERMS, concepts })
+  const query = buildNewsQuery(opts.question, concepts)
   const queryTerms = query.terms
   const enrichments = readEnrichmentCache(opts.enrichCacheFile || path.join(opts.repoRoot, 'ui', 'server', '.state', 'news-enrich-cache.json'))
   const currentBroad = new TopItems(220)
   const current = queryTerms.length ? new HybridCollector<FeedItem>(query) : null
+  const semanticRanks = new Map((opts.semanticResult?.hits || []).map((hit) => [hit.eventId, hit]))
+  const fastIds = candidateEnrichmentIds(query, enrichments)
+  for (const id of semanticRanks.keys()) fastIds.add(id)
+  const directPrefilter = queryTerms.length ? fastLineFilter(query, fastIds) : undefined
+  const semanticRows = new TopItems(240)
+  const relationshipGraph = new NewsRelationshipGraph(query)
   const sources = new Set<string>()
   const companyCounts = new Map<string, number>()
   const eventCounts = new Map<string, number>()
@@ -360,20 +522,18 @@ export function assembleNewsChatContext(opts: {
   const cutoffMs = opts.window === 'history' ? -Infinity : nowMs - WINDOW_MS[opts.window]
   const cutoffDate = opts.window === 'history' ? '' : new Date(cutoffMs).toISOString().slice(0, 10)
   const currentFiles = opts.window === 'history' ? files : files.filter((f) => f.date >= cutoffDate)
-  const olderFiles = opts.window === 'history' ? [] : files.filter((f) => f.date < cutoffDate)
-  const boundaryOlder: FeedItem[] = []
-
   const visitCurrent = (item: FeedItem) => {
     const at = Date.parse(item.ts)
     if (!Number.isFinite(at)) return
-    if (opts.window !== 'history' && at < cutoffMs) { boundaryOlder.push(item); return }
-    itemsSearched++
-    sources.add(item.source_name || item.domain || 'unknown')
     const enrichment = enrichments.get(item.event_id)
+    relationshipGraph.add(item, enrichment)
     const document = retrievalDocument(item, enrichment, nowMs, false)
+    const semantic = semanticRanks.get(item.event_id)
+    if (semantic) semanticRows.add({ item, score: (document.quality || 0) + semantic.score * 100, extraReasons: [`semantic:${semantic.score.toFixed(3)}`] })
     const match = current?.add(document)
     if (match && !match.qualifies) return
     itemsMatched++
+    sources.add(item.source_name || item.domain || 'unknown')
     for (const c of item.companies || []) bump(companyCounts, c.ticker || c.name)
     for (const e of item.event_types || []) bump(eventCounts, e)
     bump(tierCounts, item.source_tier || 'unknown')
@@ -381,32 +541,69 @@ export function assembleNewsChatContext(opts: {
     for (const term of match?.matchedTerms || []) bump(retrievalTermCounts, term)
     if (!current) currentBroad.add({ item, score: document.quality || 0 })
   }
-  for (const f of currentFiles) readItems(f.file, visitCurrent)
+  for (const f of currentFiles) itemsSearched += readItems(f.file, visitCurrent, {
+    prefilter: directPrefilter,
+    ...(opts.window === 'history' ? {} : { minTs: cutoffMs }),
+  })
 
-  const currentRanked: RankedItem[] = queryTerms.length
+  const lexicalRanked: RankedItem[] = queryTerms.length
     ? current!.results(220).map((hit) => ({ item: hit.document.value, score: hit.score, match: hit.match }))
     : currentBroad.values()
-  const currentTopRows = uniqueTop(currentRanked, 55)
-  const currentTop = currentTopRows.map((row) => row.item)
-  const historyTerms = seedTerms(currentTop, queryTerms)
-  const historyQuery = buildHybridQuery(historyTerms.join(' '), { terms: historyTerms, forcedAnchors: query.anchors, concepts, maxTerms: 24 })
+  const currentRanked = opts.semanticResult?.status === 'active' ? fuseRows(lexicalRanked, semanticRows.values(), 220) : lexicalRanked
+  let currentTopRows = uniqueTop(currentRanked, 55)
+  const historyTerms = seedTerms(currentTopRows.map((row) => row.item), queryTerms)
+  const historyQuery = buildHybridQuery(historyTerms.join(' '), { terms: historyTerms, forcedAnchors: query.anchors, minAnchorMatches: query.minAnchorMatches, concepts, maxTerms: 24 })
   const older = new HybridCollector<FeedItem>(historyQuery)
   if (opts.window !== 'history' && historyTerms.length) {
     const visitOlder = (item: FeedItem) => {
       const at = Date.parse(item.ts)
       if (!Number.isFinite(at) || at >= cutoffMs) return
+      const enrichment = enrichments.get(item.event_id)
+      relationshipGraph.add(item, enrichment)
       older.add(retrievalDocument(item, enrichments.get(item.event_id), nowMs, true))
     }
-    for (const item of boundaryOlder) visitOlder(item)
-    for (const f of olderFiles) readItems(f.file, visitOlder)
+    // Include the boundary date and use the timestamp gate so the part of that file before the cutoff
+    // is not lost. The fast named-subject probe makes the full-history novelty check cheap.
+    const historyFiles = files.filter((f) => f.date <= cutoffDate)
+    for (const f of historyFiles) readItems(f.file, visitOlder, { prefilter: directPrefilter, maxTsExclusive: cutoffMs })
   }
-  const historicalTopRows = uniqueTop(older.results(100).map((hit) => ({ item: hit.document.value, score: hit.score, match: hit.match })), 20)
-  const historicalTop = historicalTopRows.map((row) => row.item)
+  let historicalTopRows = uniqueTop(older.results(100).map((hit) => ({ item: hit.document.value, score: hit.score, match: hit.match })), 20)
+  // A second bounded pass fetches evidence connected through a concrete company/commodity. Broad
+  // taxonomy nodes never enter this pass (relationship-graph.ts), so it cannot turn "commercial" into
+  // a link between unrelated stories.
+  const seedRelationships = relationshipGraph.relationships()
+  const relatedTerms = seedRelationships
+    .filter((r) => r.relation !== 'co_mentioned' && (r.kind === 'company' || r.kind === 'commodity'))
+    .flatMap((r) => [r.related, ...r.aliases])
+    .filter((term) => !query.anchors.includes(normalizeRetrievalText(term)))
+  if (queryTerms.length && relatedTerms.length) {
+    const connectionFilter = literalLineFilter(relatedTerms)
+    const seenConnections = new Set<string>()
+    const addConnection = (item: FeedItem) => {
+      if (seenConnections.has(item.event_id)) return
+      seenConnections.add(item.event_id)
+      relationshipGraph.add(item, enrichments.get(item.event_id))
+    }
+    for (const f of files) readItems(f.file, addConnection, { prefilter: connectionFilter })
+  }
+  const relationships = relationshipGraph.relationships()
+  const existingIds = new Set([...currentTopRows, ...historicalTopRows].map((r) => r.item.event_id))
+  for (const candidate of relationshipGraph.candidates(existingIds, 12)) {
+    const historical = opts.window !== 'history' && Date.parse(candidate.item.ts) < cutoffMs
+    const row: RankedItem = { item: candidate.item, score: candidate.score, extraReasons: [candidate.reason] }
+    if (historical) historicalTopRows.push(row)
+    else currentTopRows.push(row)
+    existingIds.add(candidate.item.event_id)
+  }
+  currentTopRows = uniqueTop(currentTopRows, 60)
+  historicalTopRows = uniqueTop(historicalTopRows, 24)
 
   const evidence: NewsChatEvidence[] = [
-    ...currentTopRows.map((row, i) => ({ ref: `N${i + 1}`, item: row.item, historical: false, whyMatched: row.match?.reasons })),
-    ...historicalTopRows.map((row, i) => ({ ref: `H${i + 1}`, item: row.item, historical: true, whyMatched: row.match?.reasons })),
+    ...currentTopRows.map((row, i) => ({ ref: `N${i + 1}`, item: row.item, historical: false, whyMatched: [...(row.match?.reasons || []), ...(row.extraReasons || [])] })),
+    ...historicalTopRows.map((row, i) => ({ ref: `H${i + 1}`, item: row.item, historical: true, whyMatched: [...(row.match?.reasons || []), ...(row.extraReasons || [])] })),
   ]
+  const refByEvent = new Map(evidence.map((e) => [e.item.event_id, e.ref]))
+  const tradeCandidates = rankTradeCandidates(evidence, nowMs)
 
   const themes = readThemesIndex(opts.repoRoot).themes
     .map((t) => {
@@ -442,16 +639,23 @@ export function assembleNewsChatContext(opts: {
     itemsSearched,
     itemsMatched,
     sourceCount: sources.size,
-    evidenceCount: currentTop.length,
-    historicalEvidenceCount: historicalTop.length,
+    evidenceCount: currentTopRows.length,
+    historicalEvidenceCount: historicalTopRows.length,
     coverageStart,
     coverageEnd,
     queryTerms,
     queryTermHits,
     retrievalTermHits,
     expandedTerms: query.expandedTerms,
-    retrievalMode: 'hybrid',
-    retrievalChannels: ['exact text', 'finance concepts', 'word forms', 'typo rescue', 'BM25 relevance', 'source quality', 'RRF fusion'],
+    retrievalMode: opts.semanticResult?.status === 'active' ? 'hybrid_neural' : 'hybrid',
+    retrievalChannels: [
+      'exact text', 'finance concepts', 'word forms', 'typo rescue', 'BM25 relevance', 'source quality', 'RRF fusion', 'cited event graph',
+      ...(opts.semanticResult?.status === 'active' ? ['neural embeddings'] : []),
+    ],
+    semantic: opts.semanticResult ? { status: opts.semanticResult.status, model: opts.semanticResult.model, indexedItems: opts.semanticResult.indexedItems, hitsUsed: evidence.filter((e) => e.whyMatched?.some((r) => r.startsWith('semantic:'))).length, ...(opts.semanticResult.note ? { note: opts.semanticResult.note } : {}) } : null,
+    rerank: null,
+    relationships: relationships.map((r) => ({ seed: r.seed, related: r.related, kind: r.kind, relation: r.relation, mentions: r.mentions, evidenceEventIds: r.evidence.map((e) => e.item.event_id) })),
+    tradeCandidates,
     dataStores,
     coverageWarnings: coverage.warnings,
     sourceHealth: coverage.counts,
@@ -470,13 +674,16 @@ export function assembleNewsChatContext(opts: {
   const themeLines = themes.length
     ? themes.map((t) => `- ${t.name}: flow=${t.windowFlow}; state=${t.tier}; companies=${t.top_companies.map((c) => `${c.ticker || c.name} (${c.order === 1 ? 'direct' : c.order === 2 ? 'second-order' : 'third-order'}, ${c.side})`).join(', ') || 'none named'}`).join('\n')
     : '- No matching saved theme.'
-  const currentLines = currentTopRows.length ? currentTopRows.map((row, i) => evidenceLine(`N${i + 1}`, row.item, enrichments.get(row.item.event_id), row.match?.reasons)).join('\n\n') : 'No story matched the question in the chosen window.'
-  const historyLines = historicalTopRows.length ? historicalTopRows.map((row, i) => evidenceLine(`H${i + 1}`, row.item, enrichments.get(row.item.event_id), row.match?.reasons)).join('\n\n') : 'No useful older match was found.'
+  const currentLines = currentTopRows.length ? currentTopRows.map((row, i) => evidenceLine(`N${i + 1}`, row.item, enrichments.get(row.item.event_id), [...(row.match?.reasons || []), ...(row.extraReasons || [])])).join('\n\n') : 'No story matched the question in the chosen window.'
+  const historyLines = historicalTopRows.length ? historicalTopRows.map((row, i) => evidenceLine(`H${i + 1}`, row.item, enrichments.get(row.item.event_id), [...(row.match?.reasons || []), ...(row.extraReasons || [])])).join('\n\n') : 'No useful older match was found.'
+  const connectionLines = relationships.length ? relationships.map((r) => relationshipLine(r, refByEvent)).join('\n') : '- No cited relationship was found for the named subject.'
+  const tradeLines = tradeCandidates.length ? tradeCandidates.map((c, i) => `- #${i + 1} ${c.ticker} (${c.company}): readiness=${c.score}/100, side=${c.direction}, state=${c.readiness}, evidence=${c.evidenceRefs.map((r) => `[${r}]`).join(' ')}, still needs=${c.missingChecks.join('; ') || 'none'}.`).join('\n') : '- No listed ticker has enough cited evidence to rank.'
 
   const context = [
     `WINDOW: ${windowLabel(opts.window)}`,
     `SEARCH RECEIPT: searched ${itemsSearched} saved items from ${sources.size} sources; ${itemsMatched} matched the question; archive coverage ${coverageStart || 'unknown'} to ${coverageEnd || 'unknown'}.`,
     `RETRIEVAL: hybrid (${receipt.retrievalChannels.join(', ')}).`,
+    `NEURAL SEARCH: ${receipt.semantic ? `${receipt.semantic.status}; model=${receipt.semantic.model || 'none'}; indexed=${receipt.semantic.indexedItems}; used=${receipt.semantic.hitsUsed}` : 'not requested'}.`,
     `DATA STORES: ${dataStores.join(', ')}.`,
     `QUERY TERMS: ${queryTerms.join(', ') || 'none — broad scan'}`,
     `DIRECT QUERY TERM HITS IN MATCHED ITEMS: ${queryTerms.map((term) => `${term}=${queryTermHits[term]}`).join(', ') || 'broad scan'}`,
@@ -486,6 +693,12 @@ export function assembleNewsChatContext(opts: {
     `TOP COMPANY MENTIONS: ${topCounts(companyCounts).map(([k, v]) => `${k}=${v}`).join(', ') || 'none'}`,
     `TOP EVENT TAGS: ${topCounts(eventCounts).map(([k, v]) => `${k}=${v}`).join(', ') || 'none'}`,
     `SOURCE-TIER MIX: ${topCounts(tierCounts).map(([k, v]) => `${k}=${v}`).join(', ') || 'none'}`,
+    '',
+    'CITED CONNECTIONS — co-mention is not causation; saved beneficiary/exposure labels are model output, not filed fact:',
+    connectionLines,
+    '',
+    'STRICT TRADE-CANDIDATE RANKING — a check queue, not a return forecast:',
+    tradeLines,
     '',
     'LIVING THEMES IN THIS WINDOW:',
     themeLines,
@@ -498,6 +711,19 @@ export function assembleNewsChatContext(opts: {
   ].join('\n')
 
   return { present: true, context, evidence, receipt }
+}
+
+export function applyNewsRerank(assembled: NewsChatContext, result: RerankResult): NewsChatContext {
+  assembled.receipt.rerank = { status: result.status, model: result.model, ...(result.note ? { note: result.note } : {}) }
+  if (result.status !== 'active' || !result.order.length) return assembled
+  const known = new Map(assembled.evidence.map((e) => [e.ref, e]))
+  const ordered = result.order.filter((ref) => known.has(ref)).slice(0, 20)
+  if (!ordered.length) return assembled
+  assembled.context = [
+    `NEURAL SECOND-STAGE ORDER: ${ordered.map((ref) => `[${ref}]${result.scores[ref] === undefined ? '' : `=${Math.round(result.scores[ref])}`}`).join(', ')}. This only reorders cited candidates; it does not create facts.`,
+    assembled.context,
+  ].join('\n')
+  return assembled
 }
 
 export function buildNewsChatPrompts(args: {
@@ -524,6 +750,9 @@ export function buildNewsChatPrompts(args: {
     '11. Read DIRECT QUERY TERM HITS. If an important named product, company, or topic has zero hits in direct text, say so. Safe query expansions may find useful related wording, but they do not prove the exact named term appeared.',
     '12. A subject mention and a number elsewhere are not proof of a requested metric. If no cited evidence line directly links the subject to the number, say the exact figure is missing.',
     '13. Read SOURCE COVERAGE WARNINGS. If a source is failing, never claim the search is complete. State the gap in one short sentence.',
+    '14. A CITED CONNECTION marked co-mentioned is a search path, not proof that one thing caused another. Say "connection" or "read-across", not "caused", unless the cited source states the mechanism.',
+    '15. STRICT TRADE-CANDIDATE RANKING is a queue for Signal Check. It is not expected return. Keep every listed missing check and never call a candidate tradable until those checks are done.',
+    '16. Neural search and reranking may change which saved items are read first. They never turn similarity into a fact; every answer still needs the cited source text.',
   ].join('\n')
   const transcript = prior.length
     ? `CONVERSATION SO FAR:\n${prior.map((m) => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`).join('\n\n')}\n\n`

@@ -143,6 +143,26 @@ await check('fetchRss: WAF-cloak self-heal — a 403 on the browser UA auto-retr
   assert.ok(seenUas.some((u) => u.includes('nostra-demus-screener')), 'fell back to the contact UA')
 })
 
+await check('fetchRss: configured fallback endpoint repairs a dead primary and records the active connection', async () => {
+  const state = tmp()
+  const feedsPath = path.join(tmp(), 'feeds.json')
+  fs.writeFileSync(feedsPath, JSON.stringify({ feeds: [{ url: 'https://primary.test/rss', fallback_urls: ['https://mirror.test/rss'], source_name: 'Test Wire' }] }))
+  const calls: string[] = []
+  const fetchFn = (async (url: string) => {
+    calls.push(String(url))
+    if (String(url).includes('primary.test')) return { ok: false, status: 503, text: async () => 'down', headers: { get: () => null } }
+    return { ok: true, status: 200, text: async () => RSS2, headers: { get: () => null } }
+  }) as unknown as typeof fetch
+  const arts = await fetchRss({ feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state }, { fetchFn, sleep: noSleep, now: () => new Date('2026-06-12T09:30:00Z') })
+  assert.equal(arts.length, 2)
+  assert.equal(calls.filter((u) => u.includes('primary.test')).length, 3, 'primary gets the normal retry budget')
+  assert.equal(calls.filter((u) => u.includes('mirror.test')).length, 1, 'fallback is used only after primary fails')
+  const health = JSON.parse(fs.readFileSync(path.join(state, 'news-source-health.json'), 'utf8'))
+  assert.equal(health['https://primary.test/rss'].status, 'ok')
+  assert.equal(health['https://primary.test/rss'].fallbackActive, true)
+  assert.equal(health['https://primary.test/rss'].activeUrl, 'https://mirror.test/rss')
+})
+
 await check('fetchRss: conditional GET — a 304 feed contributes nothing and costs nothing', async () => {
   const state = tmp()
   const feedsPath = path.join(tmp(), 'feeds.json')
@@ -187,6 +207,7 @@ await check('rss_feeds.json: valid, every feed has an http url + source_name, no
     assert.ok(!urls.has(f.url), `no duplicate feed url: ${f.url}`)
     urls.add(f.url)
     if ('user_agent' in f) assert.ok(typeof f.user_agent === 'string' && f.user_agent.length > 0, 'user_agent override is a non-empty string')
+    if ('fallback_urls' in f) assert.ok(Array.isArray(f.fallback_urls) && f.fallback_urls.every((u: unknown) => typeof u === 'string' && /^https?:\/\//i.test(u)), 'fallback_urls contains only http(s) endpoints')
   }
 })
 

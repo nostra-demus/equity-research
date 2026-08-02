@@ -35,6 +35,7 @@ import { runThemesCycle, bumpCycleCounter, themesConfigFromNews } from './themes
 import { makeThemeNamer } from './themes/llm'
 import type { ThemeItemView } from './themes/types'
 import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from './types'
+import { updateSemanticIndex } from '../retrieval/semantic'
 import fs from 'node:fs'
 
 // Items we could NOT score this cycle (daily budget hit, or a Groq batch that failed even after
@@ -667,6 +668,30 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const written = appendFeedItems(repoRoot, date, feedItems, cfg.feedItemsDailyCap)
   if (written) invalidateFacets() // a fresh cycle changed the archive — drop the facet index so new items/countries show up before the TTL
   for (const fi of feedItems.slice(0, written)) newsBus.emit({ type: 'news-item', item: fi })
+  // Optional neural index. It runs only when explicitly configured, only over newly persisted items, and
+  // is fully fail-open: provider trouble can never block the wire or turn an item into a false non-match.
+  if (written && cfg.retrievalEmbeddingEnabled) {
+    try {
+      const indexed = await updateSemanticIndex({
+        stateDir,
+        items: feedItems.slice(0, written),
+        fetchFn,
+        config: {
+          enabled: cfg.retrievalEmbeddingEnabled,
+          apiKey: cfg.retrievalEmbeddingApiKey,
+          baseUrl: cfg.retrievalEmbeddingBaseUrl,
+          model: cfg.retrievalEmbeddingModel,
+          timeoutMs: cfg.retrievalEmbeddingTimeoutMs,
+          batchSize: cfg.retrievalEmbeddingBatchSize,
+          maxItemsPerCycle: cfg.retrievalEmbeddingMaxItemsPerCycle,
+        },
+      })
+      if (indexed.indexed) log(`semantic index: added ${indexed.indexed} event${indexed.indexed === 1 ? '' : 's'}`)
+      if (indexed.status === 'provider_error') log(`semantic index: ${indexed.note || 'provider error'} — hybrid search remains active`)
+    } catch (e: any) {
+      log(`semantic index error: ${e?.message || e} — hybrid search remains active`)
+    }
+  }
 
   const overflowReq = overflow.reduce((s, o) => s + o.requests, 0)
   const overflowTok = overflow.reduce((s, o) => s + o.tokens, 0)

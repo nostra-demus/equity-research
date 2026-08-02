@@ -159,6 +159,7 @@ function IdeaCard({ idea }: { idea: BoardIdea }) {
         {macro && <span className="bidea__tag bidea__tag--warn">{prettyType(idea.thesis_type)} bet — not a pure stock pick</span>}
         {idea.priced_in === 'room' && <span className="bidea__tag">may not be priced in yet</span>}
         {idea.priced_in === 'priced' && <span className="bidea__tag">may already be priced in</span>}
+        {!!idea.missing_checks?.length && <span className="bidea__tag bidea__tag--warn">needs {idea.missing_checks.slice(0, 2).join(' + ')}</span>}
         <span className={`bidea__tag bidea__tag--cov${rated ? ' bidea__tag--rated' : ''}`}>
           {rated
             ? `already rated${pc?.latest_decision ? ` · ${pc.latest_decision}` : ''}`
@@ -168,9 +169,9 @@ function IdeaCard({ idea }: { idea: BoardIdea }) {
 
       <div className="bidea__foot">
         <div className="bidea__read" title="A surface read from the skim — NOT the locked edge score the full machine computes.">
-          <span className="bidea__readlabel">read on it</span>
-          <span className="bidea__readnum">{idea.conviction}<span className="bidea__readden">/100</span></span>
-          <span className="bidea__bar" aria-hidden><span className="bidea__barfill" style={{ width: `${Math.max(0, Math.min(100, idea.conviction))}%` }} /></span>
+          <span className="bidea__readlabel">trade readiness</span>
+          <span className="bidea__readnum">{idea.trade_score ?? idea.conviction}<span className="bidea__readden">/100</span></span>
+          <span className="bidea__bar" aria-hidden><span className="bidea__barfill" style={{ width: `${Math.max(0, Math.min(100, idea.trade_score ?? idea.conviction))}%` }} /></span>
         </div>
         <div className="bidea__actions">
           <IdeaFeedback idea={idea} />
@@ -187,7 +188,7 @@ function CompactIdea({ idea }: { idea: BoardIdea }) {
       <span className={`bidea-c__side bidea-c__side--${idea.direction}`}>{sideLabel(idea.direction)}</span>
       <span className="bidea-c__ticker">{idea.ticker}</span>
       <span className="bidea-c__reason">{idea.reason}</span>
-      <span className="bidea-c__read" title="pre-edge read on it">{idea.conviction}</span>
+      <span className="bidea-c__read" title="strict trade readiness; Signal Check still decides">{idea.trade_score ?? idea.conviction}</span>
       <PromoteButton idea={idea} compact />
     </div>
   )

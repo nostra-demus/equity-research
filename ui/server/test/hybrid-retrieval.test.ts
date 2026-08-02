@@ -63,6 +63,13 @@ check('matches simple word forms without changing the meaning', () => {
   assert.ok(matched.reasons.includes('stem:revenues→revenue'))
 })
 
+check('matches hyphenated finance phrases without losing the compound token', () => {
+  const query = buildHybridQuery('Nvidia data center margin', { metricTerms: ['margin'] })
+  const matched = matchHybridDocument(query, doc('nvidia', 'Nvidia data-center margin forecast rises'))
+  assert.equal(matched.anchorMatches, 3)
+  assert.equal(matched.qualifies, true)
+})
+
 check('keeps named anchors so generic metric noise cannot qualify', () => {
   const query = buildHybridQuery('Amazon Bedrock growth rate', { metricTerms: ['growth', 'rate'] })
   assert.equal(matchHybridDocument(query, doc('other', 'OtherCo annual growth rate reaches a record')).qualifies, false)

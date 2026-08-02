@@ -18,6 +18,7 @@ export interface HybridQueryOptions {
   maxTerms?: number
   terms?: string[]
   forcedAnchors?: string[]
+  minAnchorMatches?: number
 }
 
 interface QueryTerm {
@@ -30,6 +31,7 @@ export interface HybridQuery {
   text: string
   terms: string[]
   anchors: string[]
+  minAnchorMatches: number
   expandedTerms: Record<string, string[]>
   phrases: string[]
   plans: QueryTerm[]
@@ -89,6 +91,12 @@ export function retrievalTokens(value: unknown): string[] {
   return (normalizeRetrievalText(value).match(tokenPattern) || [])
     .map((token) => token.replace(/^[.'+-]+|[.'+-]+$/g, ''))
     .filter((token) => token.length >= 2)
+    // Keep the compound for symbols/names (BRK-B, year-over-year), and also expose its word parts so a
+    // query for "data center" matches source text that wrote "data-center". Before this, the benchmark's
+    // Nvidia item lost to an unrelated Amazon item merely because one publisher used a hyphen.
+    .flatMap((token) => token.includes('-') || token.includes("'")
+      ? [token, ...token.split(/[-']/).filter((part) => part.length >= 2)]
+      : [token])
 }
 
 function stem(token: string): string {
@@ -188,7 +196,10 @@ export function buildHybridQuery(text: string, opts: HybridQueryOptions = {}): H
 
   const phrases: string[] = []
   for (let i = 0; i < terms.length - 1; i++) phrases.push(`${terms[i]} ${terms[i + 1]}`)
-  return { text, terms, anchors, expandedTerms, phrases, plans }
+  const minAnchorMatches = anchors.length
+    ? Math.max(1, Math.min(anchors.length, Math.floor(opts.minAnchorMatches || 1)))
+    : 0
+  return { text, terms, anchors, minAnchorMatches, expandedTerms, phrases, plans }
 }
 
 interface FieldView {
@@ -304,7 +315,7 @@ export function matchHybridDocument<T>(query: HybridQuery, document: HybridDocum
   const exactSet = new Set(exactTerms)
   const anchorMatches = query.anchors.filter((term) => matched.has(term)).length
   const exactAnchorMatches = query.anchors.filter((term) => exactSet.has(term)).length
-  const qualifies = query.terms.length === 0 || (query.anchors.length ? anchorMatches > 0 : matchedTerms.length > 0)
+  const qualifies = query.terms.length === 0 || (query.anchors.length ? anchorMatches >= query.minAnchorMatches : matchedTerms.length > 0)
   recallScore += query.terms.length ? (matchedTerms.length / query.terms.length) * 10 : 0
   if (query.anchors.length && anchorMatches === query.anchors.length) recallScore += 18
 
@@ -417,9 +428,13 @@ export interface RecallCase {
 export interface RecallReport {
   cases: number
   recallAtK: number
+  precisionAtK: number
+  meanReciprocalRank: number
+  ndcgAtK: number
   found: number
   expected: number
   misses: { caseId: string; documentId: string }[]
+  caseResults: { caseId: string; found: number; expected: number; reciprocalRank: number; ndcg: number; topIds: string[] }[]
 }
 
 export function evaluateRecall<T>(
@@ -431,15 +446,43 @@ export function evaluateRecall<T>(
   let found = 0
   let expected = 0
   const misses: RecallReport['misses'] = []
+  let precisionSum = 0
+  let reciprocalRankSum = 0
+  let ndcgSum = 0
+  const caseResults: RecallReport['caseResults'] = []
   for (const test of cases) {
     const collector = new HybridCollector<T>(buildHybridQuery(test.query, queryOptions))
     for (const document of documents) collector.add(document)
-    const got = new Set(collector.results(k).map((hit) => hit.document.id))
+    const topIds = collector.results(k).map((hit) => hit.document.id)
+    const got = new Set(topIds)
+    const relevant = new Set(test.relevantIds)
+    let caseFound = 0
     for (const id of test.relevantIds) {
       expected++
-      if (got.has(id)) found++
+      if (got.has(id)) { found++; caseFound++ }
       else misses.push({ caseId: test.id, documentId: id })
     }
+    const first = topIds.findIndex((id) => relevant.has(id))
+    const reciprocalRank = first < 0 ? 0 : 1 / (first + 1)
+    let dcg = 0
+    for (let i = 0; i < topIds.length; i++) if (relevant.has(topIds[i])) dcg += 1 / Math.log2(i + 2)
+    let ideal = 0
+    for (let i = 0; i < Math.min(k, relevant.size); i++) ideal += 1 / Math.log2(i + 2)
+    const ndcg = ideal ? dcg / ideal : 1
+    precisionSum += topIds.length ? caseFound / topIds.length : (relevant.size ? 0 : 1)
+    reciprocalRankSum += reciprocalRank
+    ndcgSum += ndcg
+    caseResults.push({ caseId: test.id, found: caseFound, expected: relevant.size, reciprocalRank, ndcg, topIds })
   }
-  return { cases: cases.length, recallAtK: expected ? found / expected : 1, found, expected, misses }
+  return {
+    cases: cases.length,
+    recallAtK: expected ? found / expected : 1,
+    precisionAtK: cases.length ? precisionSum / cases.length : 1,
+    meanReciprocalRank: cases.length ? reciprocalRankSum / cases.length : 1,
+    ndcgAtK: cases.length ? ndcgSum / cases.length : 1,
+    found,
+    expected,
+    misses,
+    caseResults,
+  }
 }

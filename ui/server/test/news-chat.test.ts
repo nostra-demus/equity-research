@@ -20,11 +20,12 @@ function check(name: string, fn: () => void) {
 
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'news-chat-'))
 function item(id: string, ts: string, headline: string, company: string, score = 80): FeedItem {
+  const tickers: Record<string, string> = { Nvidia: 'NVDA', Amazon: 'AMZN' }
   return {
     kind: 'item', ts, event_id: id, headline, url: `https://reuters.com/${id}`, domain: 'reuters.com',
     source_name: 'Reuters', via: 'rss', region: 'US', input_nature: 'news_headline', triage_score: score,
     band: 'pick', triage_reason: 'Material company news.', relevance: 'material', event_types: ['commercial'],
-    issuer_linkage: 'primary', companies: [{ name: company, ticker: company === 'Nvidia' ? 'NVDA' : null, listing_country: 'US' }],
+    issuer_linkage: 'primary', companies: [{ name: company, ticker: tickers[company] || null, listing_country: 'US' }],
     size_bucket: 'mega', scope: 'single_name', source_tier: 'news', dedup_status: 'new', inboxed: true,
   }
 }
@@ -47,6 +48,7 @@ check('broad starter questions do not turn generic trading words into search fil
   assert.deepEqual(newsQueryTerms('What looks new compared with history?'), [])
   assert.deepEqual(newsQueryTerms('What changed for Nvidia?'), ['nvidia'])
   assert.deepEqual(newsQueryTerms('What is the Amazon Bedrock growth rate? Show me all saved evidence and tell me if it is tradable.'), ['amazon', 'bedrock', 'growth', 'rate'])
+  assert.deepEqual(newsQueryTerms('What do all saved news items say about Amazon Bedrock growth rate? Separate facts from inference and tell me what exact trade I should screen.'), ['amazon', 'bedrock', 'growth', 'rate'])
 })
 
 check('24h chat searches the full window and adds a matching older item as history', () => {
@@ -92,7 +94,7 @@ check('history uses data/NEWS-ARCHIVE even when NEWS_ARCHIVE_DIR is not set', ()
   assert.ok(got.receipt.dataStores.includes('saved archive'))
 })
 
-check('a named subject is required so generic growth-rate stories cannot bury Amazon', () => {
+check('all explicit named parts are required so Amazon-only and generic growth stories cannot pretend to answer Bedrock', () => {
   const root = tmp()
   writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [
     item('EVT-amazon', '2026-08-02T10:00:00Z', 'Amazon reports faster AWS growth', 'Amazon', 65),
@@ -100,11 +102,24 @@ check('a named subject is required so generic growth-rate stories cannot bury Am
   ])
   const got = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Amazon Bedrock growth rate', now: () => new Date('2026-08-02T12:00:00Z') })
   assert.equal(got.receipt.itemsSearched, 2)
-  assert.equal(got.receipt.itemsMatched, 1)
-  assert.equal(got.evidence[0]?.item.event_id, 'EVT-amazon')
-  assert.equal(got.receipt.queryTermHits.amazon, 1)
+  assert.equal(got.receipt.itemsMatched, 0)
+  assert.equal(got.evidence.length, 0)
+  assert.equal(got.receipt.queryTermHits.amazon, 0)
   assert.equal(got.receipt.queryTermHits.bedrock, 0)
   assert.ok(!got.evidence.some((e) => e.item.event_id === 'EVT-other'))
+})
+
+check('answer-format words cannot replace a missing named product anchor', () => {
+  const root = tmp()
+  writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [
+    item('EVT-real-bedrock', '2026-08-02T10:00:00Z', 'Amazon Bedrock adds a production feature', 'Amazon', 70),
+    item('EVT-shopping', '2026-08-02T11:00:00Z', 'Amazon marks down an emergency kit', 'Amazon', 100),
+  ])
+  const question = 'What do all saved news items say about Amazon Bedrock growth rate? Separate facts from inference and tell me what exact trade I should screen.'
+  const got = assembleNewsChatContext({ repoRoot: root, window: 'history', question, now: () => new Date('2026-08-02T12:00:00Z') })
+  assert.equal(got.receipt.itemsMatched, 1)
+  assert.equal(got.evidence[0]?.item.event_id, 'EVT-real-bedrock')
+  assert.ok(!got.evidence.some((e) => e.item.event_id === 'EVT-shopping'))
 })
 
 check('saved article reads are searchable and are sent to the answer with the source citation', () => {
@@ -150,6 +165,25 @@ check('news chat uses alias, typo, and exact ranking without hiding direct-text 
   assert.ok(typo.evidence[0]?.whyMatched?.includes('fuzzy:bedrok→bedrock'))
 })
 
+check('cited graph expands only an explicitly saved beneficiary and ranks it as a strict trade-check candidate', () => {
+  const root = tmp()
+  const first = item('EVT-bedrock-edge', '2026-08-02T10:00:00Z', 'Amazon launches a cloud AI update', 'Amazon', 93)
+  const connected = item('EVT-nvidia-outlook', '2026-08-02T09:00:00Z', 'Nvidia raises its data-center outlook', 'Nvidia', 89)
+  writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [first, connected])
+  const stateDir = path.join(root, 'ui', 'server', '.state')
+  fs.mkdirSync(stateDir, { recursive: true })
+  fs.writeFileSync(path.join(stateDir, 'news-enrich-cache.json'), JSON.stringify({
+    'EVT-bedrock-edge': { event_id: 'EVT-bedrock-edge', summary: 'Amazon Bedrock usage increased as customers moved AI workloads into production.', beneficiaries: [{ name: 'Nvidia', ticker: 'NVDA', mechanism: 'AI infrastructure demand' }] },
+  }))
+  const got = assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Bedrock growth', now: () => new Date('2026-08-02T12:00:00Z') })
+  assert.ok(got.receipt.relationships.some((r) => r.seed === 'bedrock' && r.related === 'Amazon'))
+  assert.ok(got.evidence.some((e) => e.item.event_id === 'EVT-nvidia-outlook' && e.whyMatched?.some((x) => x.includes('saved beneficiary'))))
+  const nvidia = got.receipt.tradeCandidates.find((c) => c.ticker === 'NVDA')
+  assert.ok(nvidia, 'the cited saved beneficiary becomes a trade-check candidate')
+  assert.ok(nvidia?.missingChecks.includes('price and market expectations'))
+  assert.match(got.context, /Co-mention is not causation/i)
+})
+
 check('source failures are visible in the receipt and the model context', () => {
   const root = tmp()
   writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [item('EVT-one', '2026-08-02T10:00:00Z', 'Amazon Bedrock update', 'Amazon')])
@@ -169,7 +203,7 @@ check('source failures are visible in the receipt and the model context', () => 
 })
 
 check('news prompt is closed-book, simple, cited, and allowed to reject a trade', () => {
-  const assembled = { present: true, context: 'CURRENT EVIDENCE:\n[N1] test', evidence: [], receipt: { window: '24h' as const, label: 'last 24 hours', itemsSearched: 1, itemsMatched: 1, sourceCount: 1, evidenceCount: 1, historicalEvidenceCount: 0, coverageStart: '2026-08-02', coverageEnd: '2026-08-02', queryTerms: [], queryTermHits: {}, retrievalTermHits: {}, expandedTerms: {}, retrievalMode: 'hybrid' as const, retrievalChannels: [], dataStores: ['live wire'], coverageWarnings: [], sourceHealth: null } }
+  const assembled = { present: true, context: 'CURRENT EVIDENCE:\n[N1] test', evidence: [], receipt: { window: '24h' as const, label: 'last 24 hours', itemsSearched: 1, itemsMatched: 1, sourceCount: 1, evidenceCount: 1, historicalEvidenceCount: 0, coverageStart: '2026-08-02', coverageEnd: '2026-08-02', queryTerms: [], queryTermHits: {}, retrievalTermHits: {}, expandedTerms: {}, retrievalMode: 'hybrid' as const, retrievalChannels: [], dataStores: ['live wire'], coverageWarnings: [], sourceHealth: null, semantic: null, rerank: null, relationships: [], tradeCandidates: [] } }
   const p = buildNewsChatPrompts({ assembled, messages: [{ role: 'user', content: 'Any idea?' }] })
   assert.match(p.system, /very simple words/i)
   assert.match(p.system, /cite every news claim/i)

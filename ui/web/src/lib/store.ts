@@ -8,6 +8,7 @@ import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import { archiveErrorNote } from './archiveError'
+import { selectNewsChatHandoffEvidence } from './newsChatHandoff'
 import { stageDockHUpdate } from './stageDock'
 import { affectedModules, focusKeysFor } from './intake'
 import type { BridgeStatus } from './types'
@@ -17,6 +18,13 @@ import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyDlFilters, type DlFilterState } from '../components/datalibrary/DataLibraryFilters'
 import type { PipelinesRead } from './types'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
+
+const SIGNAL_INPUT_NATURES = new Set([
+  'news_headline', 'regulatory_filing', 'earnings_release', 'earnings_call_transcript',
+  'company_press_release', 'exchange_announcement', 'price_alert', 'commodity_price_move',
+  'shipping_rate_move', 'options_flow_alert', 'chart_pattern', 'geopolitical_event', 'macro_data_release',
+])
+const signalNatureFromNews = (value: string | undefined) => value && SIGNAL_INPUT_NATURES.has(value) ? value : 'news_headline'
 
 // A company the user drilled into from an event (the COMPANIES NAMED chips) — the main stage then
 // shows every wire story about it. listing_country/exchange + listing_status (public/private/unknown)
@@ -3410,6 +3418,7 @@ export const useStore = create<State>((set, get) => ({
     const refs = new Set([...answer.matchAll(/\[((?:N|H)\d+)\]/g)].map((m) => m[1]))
     const allEvidence = get().newsChatEvidence
     const evidence = (refs.size ? allEvidence.filter((e) => refs.has(e.ref)) : allEvidence.slice(0, 8)).slice(0, 14)
+    const tradeCandidate = get().newsChatReceipt?.tradeCandidates?.[0]
     const sourceLines = evidence.map((e) => `[${e.ref}] ${e.item.source_name}, ${e.item.ts}: ${displayHeadline(e.item)} — ${e.item.url || e.item.event_id}`)
     const sourcesText = sourceLines.join('\n').slice(0, 1200)
     const note = [
@@ -3420,8 +3429,22 @@ export const useStore = create<State>((set, get) => ({
       '',
       'Evidence used:',
       sourcesText || 'No cited news item was found in the answer.',
+      ...(tradeCandidate ? [
+        '',
+        `Strict chat rank: ${tradeCandidate.ticker} ${tradeCandidate.score}/100 (${tradeCandidate.readiness}; ${tradeCandidate.direction}).`,
+        `Still needs: ${tradeCandidate.missingChecks.join('; ') || 'none listed'}.`,
+      ] : []),
     ].join('\n').slice(0, 3950)
-    get().openSignalIntakeWith({
+    // When the answer cites a real saved event, keep that source as Gate 0's anchor. The question and
+    // answer travel as body text. Falling back to a human prompt remains honest when no cited URL exists.
+    const anchor = selectNewsChatHandoffEvidence(evidence.filter((e) => e.item.url && e.item.source_name), get().newsChatReceipt)
+    get().openSignalIntakeWith(anchor ? {
+      headline: anchor.item.headline.slice(0, 500),
+      source_url: anchor.item.url,
+      source_name: anchor.item.source_name,
+      input_nature: signalNatureFromNews(anchor.item.input_nature),
+      body_text: note,
+    } : {
       headline: question.length >= 8 ? question.slice(0, 500) : `News idea: ${question}`.slice(0, 500),
       input_nature: 'human_prompt',
       human_prompt_note: note,

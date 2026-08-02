@@ -12,7 +12,9 @@
     "typecheck": "tsc --noEmit",
     "test": "node test/run-all.mjs",
     "feeds:health": "tsx ../../scripts/feed-health.ts --strict",
-    "enrich:health": "tsx ../../scripts/news-enrich-health.ts"
+    "enrich:health": "tsx ../../scripts/news-enrich-health.ts",
+    "retrieval:eval": "tsx ../../scripts/news-retrieval-eval.ts",
+    "retrieval:backfill": "tsx ../../scripts/news-semantic-backfill.ts"
   },
   "dependencies": {
     "@fastify/cors": "^10.0.1",

@@ -113,4 +113,26 @@ await check('buildSourcesReport: stale error hidden on healthy/quiet; current er
   assert.equal(report.counts.failing, 1)
 })
 
+await check('buildSourcesReport: duplicate publisher feeds remain separate connections', () => {
+  const repoRoot = tmp('srch-repo-')
+  const stateDir = tmp('srch-state-')
+  fs.mkdirSync(path.join(repoRoot, 'frameworks', 'screener'), { recursive: true })
+  fs.writeFileSync(path.join(repoRoot, 'frameworks', 'screener', 'rss_feeds.json'), JSON.stringify({ feeds: [
+    { url: 'https://same.example/markets.xml', source_name: 'Same Publisher', region: 'US' },
+    { url: 'https://same.example/technology.xml', source_name: 'Same Publisher', region: 'US' },
+  ] }))
+  fs.writeFileSync(path.join(stateDir, 'news-source-health.json'), JSON.stringify({
+    'https://same.example/markets.xml': { status: 'ok', items: 2, fails: 0, at: '2026-06-16T13:15:18Z', lastOkAt: '2026-06-16T13:15:18Z' },
+    'https://same.example/technology.xml': { status: 'error', items: 0, fails: 3, at: '2026-06-16T13:15:18Z', lastErrAt: '2026-06-16T13:15:18Z', lastError: 'HTTP 503' },
+  }))
+  const report = buildSourcesReport(repoRoot, stateDir, { now: () => new Date('2026-06-16T13:20:00Z') })
+  const same = report.sources.filter((r) => r.name === 'Same Publisher')
+  assert.equal(same.length, 2, 'publisher name must not collapse independent endpoints')
+  assert.equal(new Set(same.map((r) => r.id)).size, 2)
+  assert.equal(same.filter((r) => r.health === 'healthy').length, 1)
+  assert.equal(same.filter((r) => r.health === 'failing').length, 1)
+  assert.equal(same.find((r) => r.health === 'failing')?.repair?.state, 'covered_by_peer')
+  assert.equal(report.coverage?.critical_gaps.length, 0, 'the data group is still covered by its working peer')
+})
+
 console.log(`\n${passed} source-health checks passed`)

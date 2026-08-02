@@ -7,7 +7,9 @@ export type HealthState = 'connecting' | 'online' | 'reconnecting' | 'engine-off
 // Per-source health for the Sources panel (GET /api/news/sources).
 export type SourceHealth = 'healthy' | 'quiet' | 'failing' | 'idle'
 export interface SourceRow {
+  id?: string
   name: string
+  url?: string | null
   region: string
   feed_type: string
   via: string
@@ -18,10 +20,12 @@ export interface SourceRow {
   fetch_status: 'ok' | 'unchanged' | 'empty' | 'error' | null
   last_error: string | null
   last_ok_at: string | null
+  repair?: { state: 'none' | 'fallback_active' | 'covered_by_peer' | 'retrying' | 'needs_attention' | 'unverified'; fallback_covered: boolean; action: string | null }
 }
 export interface SourcesReport {
   updated_at: string
   counts: { total: number; healthy: number; quiet: number; failing: number; idle: number }
+  coverage?: { connection_coverage_pct: number; groups: { id: string; label: string; total: number; working: number; failing: number; unverified: number; covered: boolean }[]; critical_gaps: string[]; repair_active: number }
   sources: SourceRow[]
 }
 
@@ -1027,6 +1031,12 @@ export interface BoardIdea {
   why_now: string
   conviction: number // 0-100 pre-edge PROXY
   conviction_basis: 'pre_edge_proxy'
+  trade_score: number
+  trade_score_basis: 'evidence_gate_v1' | 'pre_edge_proxy_legacy'
+  trade_score_breakdown: { evidence: number; impact: number; specificity: number; timing: number; expression: number; corroboration: number; learning_adjustment: number } | null
+  trade_readiness: 'check_now' | 'needs_data' | 'watch_only'
+  missing_checks: string[]
+  learning: { resolved: number; positive: number; negative: number; adjustment: number; basis: string; evidenceIds: string[] } | null
   priced_in: 'priced' | 'room' | 'unknown'
   thesis_type: string
   source_event_ids: string[]
@@ -1498,8 +1508,12 @@ export interface NewsChatReceipt {
   queryTermHits: Record<string, number>
   retrievalTermHits: Record<string, number>
   expandedTerms: Record<string, string[]>
-  retrievalMode: 'hybrid'
+  retrievalMode: 'hybrid' | 'hybrid_neural'
   retrievalChannels: string[]
+  semantic?: { status: 'active' | 'not_configured' | 'empty_index' | 'provider_error'; model: string | null; indexedItems: number; hitsUsed: number; note?: string } | null
+  rerank?: { status: 'active' | 'not_configured' | 'provider_error'; model: string | null; note?: string } | null
+  relationships?: { seed: string; related: string; kind: string; relation: string; mentions: number; evidenceEventIds: string[] }[]
+  tradeCandidates?: { ticker: string; company: string; score: number; readiness: 'check_now' | 'needs_data' | 'watch_only'; direction: 'long' | 'short' | 'mixed' | 'unknown'; breakdown: { evidence: number; impact: number; specificity: number; timing: number; expression: number; corroboration: number; learning_adjustment: number }; missingChecks: string[]; evidenceRefs: string[] }[]
   dataStores: string[]
   coverageWarnings: string[]
   sourceHealth: { total: number; healthy: number; quiet: number; failing: number; idle: number } | null

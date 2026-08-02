@@ -46,6 +46,9 @@ export interface IdeaInputRow {
   issuer_linkage: string
   companies: { name: string; ticker: string | null; listing_country: string | null }[]
   found_at: string // ISO — the freshest source timestamp, drives freshness/decay downstream
+  source_tier?: import('../scope').SourceTierId
+  scheduled_events?: string[]
+  event_direction?: import('../types').EventDirection
 }
 
 // A surfaced idea, as the LLM returns it (raw, per-batch). Indices in `src` point back into the input rows

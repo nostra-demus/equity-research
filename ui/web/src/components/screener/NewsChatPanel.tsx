@@ -111,7 +111,7 @@ export function NewsChatPanel() {
           <div className="chatpanel__title"><span className="chatpanel__badge newschat__badge">Ask</span><span className="chatpanel__titletext">the news wire</span></div>
           <div className="chatpanel__source">
             {receipt
-              ? `Hybrid search · ${receipt.itemsSearched.toLocaleString()} items · ${receipt.sourceCount} sources · used ${receipt.evidenceCount + receipt.historicalEvidenceCount}`
+              ? `${receipt.retrievalMode === 'hybrid_neural' ? 'Hybrid + neural' : 'Hybrid search'} · ${receipt.itemsSearched.toLocaleString()} items · ${receipt.sourceCount} sources · ${receipt.relationships?.length || 0} connections · used ${receipt.evidenceCount + receipt.historicalEvidenceCount}`
               : windowInfo.help}
           </div>
         </div>

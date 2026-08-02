@@ -11,6 +11,8 @@ import { promisify } from 'node:util'
 import { createHash } from 'node:crypto'
 import { eventIdFor } from '../normalize'
 import type { IdeaDirection, IdeaInputRow, PricedIn, RawIdea, ThesisType } from './surface-ideas'
+import type { TradeScoreBreakdown } from '../trade-score'
+import type { IdeaLearning } from './idea-learning'
 
 const execFileAsync = promisify(execFile)
 
@@ -28,6 +30,12 @@ export interface SurfacedIdea {
   why_now: string
   conviction: number // 0-100 pre-edge PROXY
   conviction_basis: 'pre_edge_proxy' // hard label — never the locked edge score (§7)
+  trade_score: number // strict, capped readiness score; still not expected return or a verdict
+  trade_score_basis: 'evidence_gate_v1'
+  trade_score_breakdown: TradeScoreBreakdown
+  trade_readiness: 'check_now' | 'needs_data' | 'watch_only'
+  missing_checks: string[]
+  learning: IdeaLearning
   priced_in: PricedIn
   thesis_type: ThesisType
   source_event_ids: string[] // EVT-* — the join key back to the wire (canonical eventIdFor over the original headline)
@@ -97,6 +105,9 @@ export function readTopSweepRows(repoRoot: string, topN: number): IdeaInputRow[]
       issuer_linkage: r.issuer_linkage || '',
       companies: Array.isArray(r.companies) ? r.companies : [],
       found_at: r.found_at || doc?.updated_at || '',
+      source_tier: r.source_tier,
+      scheduled_events: Array.isArray(r.scheduled_events) ? r.scheduled_events : [],
+      event_direction: r.event_direction,
     }))
 }
 

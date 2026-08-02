@@ -49,6 +49,7 @@ interface FeedEntry {
   url: string
   source_name?: string
   user_agent?: string // optional per-feed UA override (e.g. SEC's required contact UA)
+  fallback_urls?: string[] // optional same-source mirrors; tried only after the primary endpoint fails
 }
 
 type CondCache = Record<string, { etag?: string; lastModified?: string }>
@@ -234,8 +235,15 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
   const concurrency = Math.max(1, opts.concurrency ?? 8)
   const perHostGapMs = opts.perHostGapMs ?? 700
   // per-feed fetch outcome this cycle → persisted for the cockpit's Sources health panel
-  const health = new Map<string, { status: FetchStatus; items: number; note?: string }>()
-  const rec = (feed: FeedEntry, status: FetchStatus, items: number, note?: string) => health.set(feed.source_name || feed.url, { status, items, note })
+  const health = new Map<string, { status: FetchStatus; items: number; note?: string; sourceName?: string; activeUrl?: string; fallbackActive?: boolean }>()
+  const rec = (feed: FeedEntry, status: FetchStatus, items: number, note?: string, activeUrl?: string) => health.set(feed.url, {
+    status,
+    items,
+    note,
+    sourceName: feed.source_name || feed.url,
+    activeUrl: activeUrl || feed.url,
+    fallbackActive: Boolean(activeUrl && activeUrl !== feed.url),
+  })
 
   let feeds: FeedEntry[]
   try {
@@ -259,7 +267,11 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
     // Rather than hand-maintain a per-feed override for each, we AUTO-fall back to the contact UA once
     // on a cloak-shaped status — so every current AND future such feed self-heals with zero config.
     let triedContact = ua === CONTACT_UA
-    for (let attempt = 1; attempt <= 3; attempt++) {
+    const endpoints = [feed.url, ...((feed.fallback_urls || []).filter((u) => typeof u === 'string' && /^https?:\/\//i.test(u) && u !== feed.url))].slice(0, 4)
+    let endpointIdx = 0
+    let attempt = 1
+    while (endpointIdx < endpoints.length) {
+      const endpoint = endpoints[endpointIdx]
       const ctrl = new AbortController()
       const timer = setTimeout(() => ctrl.abort(), opts.timeoutMs)
       try {
@@ -268,11 +280,11 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
         // a feed that serves a generic content-type would otherwise be rejected. Keeps the specific types
         // first (preferred) while never hard-failing a valid feed on the Accept header alone.
         const headers: Record<string, string> = { 'user-agent': ua, accept: RSS_ACCEPT }
-        const cond = cache[feed.url]
+        const cond = cache[endpoint]
         if (cond?.etag) headers['if-none-match'] = cond.etag
         if (cond?.lastModified) headers['if-modified-since'] = cond.lastModified
-        const res = await fetchFn(feed.url, { headers, signal: ctrl.signal })
-        if (res.status === 304) { rec(feed, 'unchanged', 0); return [] } // unchanged since last cycle
+        const res = await fetchFn(endpoint, { headers, signal: ctrl.signal })
+        if (res.status === 304) { rec(feed, 'unchanged', 0, undefined, endpoint); return [] } // unchanged since last cycle
         if (!res.ok) {
           // cloak-shaped block → retry IMMEDIATELY with the honest contact UA before counting a failure
           if (!triedContact && (res.status === 403 || res.status === 404 || res.status === 302 || res.status === 410 || res.status === 451)) {
@@ -285,8 +297,8 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
         const xml = await res.text()
         const etag = res.headers.get('etag')
         const lastModified = res.headers.get('last-modified')
-        if (etag || lastModified) cache[feed.url] = { etag: etag || undefined, lastModified: lastModified || undefined }
-        const items = parseFeed(xml, 60, feed.url)
+        if (etag || lastModified) cache[endpoint] = { etag: etag || undefined, lastModified: lastModified || undefined }
+        const items = parseFeed(xml, 60, endpoint)
         const arts: RawArticle[] = []
         for (const it of items) {
           const d = it.date ? new Date(it.date) : null
@@ -304,10 +316,11 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
             domain,
             seendate: d && !Number.isNaN(d.getTime()) ? d.toISOString().replace(/\.\d{3}Z$/, 'Z') : now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
             via: 'rss',
+            source_name: feed.source_name,
             snippet: it.snippet || undefined,
           })
         }
-        rec(feed, arts.length ? 'ok' : 'empty', arts.length)
+        rec(feed, arts.length ? 'ok' : 'empty', arts.length, undefined, endpoint)
         return arts
       } catch (e: any) {
         // A TIMEOUT (AbortError) does not retry: a feed that didn't answer within timeoutMs almost never
@@ -318,11 +331,20 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
         const isTimeout = e?.name === 'AbortError'
         if (isTimeout || attempt === 3) {
           const note = isTimeout ? 'timeout' : e?.message || String(e)
+          if (endpointIdx + 1 < endpoints.length) {
+            log(`rss ${feed.source_name || feed.url}: ${note} on primary endpoint; trying configured fallback`)
+            endpointIdx++
+            attempt = 1
+            ua = feed.user_agent || defaultUa
+            triedContact = ua === CONTACT_UA
+            continue
+          }
           log(`rss ${feed.source_name || feed.url}: ${note}, gave up`)
-          rec(feed, 'error', 0, note)
+          rec(feed, 'error', 0, note, endpoint)
           return []
         }
         await sleep(1000 * attempt)
+        attempt++
       } finally {
         clearTimeout(timer)
       }

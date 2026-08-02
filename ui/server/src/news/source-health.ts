@@ -16,12 +16,31 @@ export type FetchStatus = 'ok' | 'unchanged' | 'empty' | 'error'
 // `fails` = consecutive error cycles (reset to 0 on any successful fetch). It is what keeps a single
 // transient blip — undici's network-wide "fetch failed" that hits ~every feed at once for one cycle and
 // recovers the next — from flipping the whole board to "failing".
-interface HealthEntry { status: FetchStatus; lastOkAt?: string; lastErrAt?: string; lastError?: string; lastItemsAt?: string; items?: number; fails?: number; at: string }
+interface HealthEntry {
+  status: FetchStatus
+  lastOkAt?: string
+  lastErrAt?: string
+  lastError?: string
+  lastItemsAt?: string
+  items?: number
+  fails?: number
+  at: string
+  sourceName?: string
+  activeUrl?: string
+  fallbackActive?: boolean
+}
 type HealthFile = Record<string, HealthEntry>
 
 /** Merge this cycle's RSS fetch outcomes into the persisted health file (never throws). Keeps the last
  *  success time AND the last time the feed actually brought items, even across failing/empty cycles. */
-export function recordRssHealth(stateDir: string, outcomes: Map<string, { status: FetchStatus; items: number; note?: string }>, nowIso: string): void {
+export function recordRssHealth(stateDir: string, outcomes: Map<string, {
+  status: FetchStatus
+  items: number
+  note?: string
+  sourceName?: string
+  activeUrl?: string
+  fallbackActive?: boolean
+}>, nowIso: string): void {
   if (!outcomes.size) return
   try {
     const file = path.join(stateDir, HEALTH_FILE)
@@ -29,7 +48,15 @@ export function recordRssHealth(stateDir: string, outcomes: Map<string, { status
     try { cur = JSON.parse(fs.readFileSync(file, 'utf8')) || {} } catch { cur = {} }
     for (const [name, o] of outcomes) {
       const prev = cur[name] || ({} as HealthEntry)
-      const e: HealthEntry = { ...prev, status: o.status, items: o.items, at: nowIso }
+      const e: HealthEntry = {
+        ...prev,
+        status: o.status,
+        items: o.items,
+        at: nowIso,
+        ...(o.sourceName ? { sourceName: o.sourceName } : {}),
+        ...(o.activeUrl ? { activeUrl: o.activeUrl } : {}),
+        fallbackActive: Boolean(o.fallbackActive),
+      }
       if (o.status === 'error') { e.lastErrAt = nowIso; e.lastError = o.note; e.fails = (prev.fails || 0) + 1 }
       else {
         e.lastOkAt = nowIso // ok / unchanged / empty all mean the fetch itself succeeded → streak resets
@@ -53,7 +80,9 @@ export function recordRssHealth(stateDir: string, outcomes: Map<string, { status
 
 export type Health = 'healthy' | 'quiet' | 'failing' | 'idle'
 export interface SourceRow {
+  id?: string // stable per connection; RSS uses the configured primary URL, so duplicate publishers stay separate
   name: string
+  url?: string | null
   region: string
   feed_type: string // 'news' | 'filing' | 'recall' (RSS: inferred from source_name; adapters: fixed)
   via: string // rss | gdelt | nse | hkex | asx | gov
@@ -64,10 +93,30 @@ export interface SourceRow {
   fetch_status: FetchStatus | null // last fetch outcome (RSS only)
   last_error: string | null
   last_ok_at: string | null
+  repair?: {
+    state: 'none' | 'fallback_active' | 'covered_by_peer' | 'retrying' | 'needs_attention' | 'unverified'
+    fallback_covered: boolean
+    action: string | null
+  }
+}
+export interface SourceCoverageGroup {
+  id: string
+  label: string
+  total: number
+  working: number
+  failing: number
+  unverified: number
+  covered: boolean
 }
 export interface SourcesReport {
   updated_at: string
   counts: { total: number; healthy: number; quiet: number; failing: number; idle: number }
+  coverage?: {
+    connection_coverage_pct: number
+    groups: SourceCoverageGroup[]
+    critical_gaps: string[]
+    repair_active: number
+  }
   sources: SourceRow[]
 }
 
@@ -94,13 +143,22 @@ const tier = (source_name: string): string => {
 export function buildSourcesReport(repoRoot: string, stateDir: string, opts: { now?: () => Date } = {}): SourcesReport {
   const now = (opts.now || (() => new Date()))()
   const nowMs = now.getTime()
-  const empty: SourcesReport = { updated_at: now.toISOString(), counts: { total: 0, healthy: 0, quiet: 0, failing: 0, idle: 0 }, sources: [] }
+  const empty: SourcesReport = {
+    updated_at: now.toISOString(),
+    counts: { total: 0, healthy: 0, quiet: 0, failing: 0, idle: 0 },
+    coverage: { connection_coverage_pct: 0, groups: [], critical_gaps: [], repair_active: 0 },
+    sources: [],
+  }
   try {
     // 1. roster — every RSS feed (by source_name) + the fixed JSON-adapter sources
     const feedsDoc = JSON.parse(fs.readFileSync(path.join(repoRoot, 'frameworks/screener/rss_feeds.json'), 'utf8'))
-    const roster = new Map<string, { region: string; feed_type: string; via: string }>()
+    const roster = new Map<string, { name: string; url: string | null; region: string; feed_type: string; via: string }>()
     for (const f of feedsDoc.feeds || []) {
-      if (f?.source_name && !roster.has(f.source_name)) roster.set(f.source_name, { region: '—', feed_type: tier(f.source_name), via: 'rss' })
+      if (!f?.url) continue
+      const name = String(f.source_name || f.url)
+      // URL, not publisher name, is the connection identity. A publisher can expose many independent
+      // feeds (Bloomberg currently has six); collapsing them made one good endpoint hide five failures.
+      roster.set(`rss:${f.url}`, { name, url: f.url, region: String(f.region || '—'), feed_type: tier(name), via: 'rss' })
     }
     const ADAPTERS: { name: string; via: string; feed_type: string; region: string }[] = [
       { name: 'GDELT — global press index', via: 'gdelt', feed_type: 'news', region: 'GLOBAL' },
@@ -110,7 +168,7 @@ export function buildSourcesReport(repoRoot: string, stateDir: string, opts: { n
       { name: 'openFDA — drug/device recalls + clearances', via: 'gov', feed_type: 'recall', region: 'US' },
       { name: 'Reddit — social discovery (capped)', via: 'reddit', feed_type: 'social', region: 'GLOBAL' },
     ]
-    for (const a of ADAPTERS) roster.set(a.name, { region: a.region, feed_type: a.feed_type, via: a.via })
+    for (const a of ADAPTERS) roster.set(`adapter:${a.via}`, { name: a.name, url: null, region: a.region, feed_type: a.feed_type, via: a.via })
 
     // 2. adapter last-data, aggregated BY VIA from the firehose (their items carry the per-publisher
     //    firewall name, not the adapter label, so we can't match by name — but `via` is exact).
@@ -132,7 +190,8 @@ export function buildSourcesReport(repoRoot: string, stateDir: string, opts: { n
 
     // 4. classify each source
     const rows: SourceRow[] = []
-    for (const [name, meta] of roster) {
+    for (const [id, meta] of roster) {
+      const name = meta.name
       const isAdapter = meta.via !== 'rss'
       let healthV: Health
       let lastData: string | null
@@ -149,7 +208,9 @@ export function buildSourcesReport(repoRoot: string, stateDir: string, opts: { n
         const dataMs = lastData ? Date.parse(lastData) : NaN
         healthV = items24h > 0 ? 'healthy' : items7d > 0 || (!Number.isNaN(dataMs) && nowMs - dataMs <= 7 * 24 * MS_H) ? 'quiet' : 'idle'
       } else {
-        const h = health[name]
+        // URL-keyed health is the current contract. The name lookup is a one-way migration bridge for
+        // health files written before per-connection identity existed.
+        const h = health[meta.url || ''] || health[name]
         fetch_status = h?.status || null
         // Surface the error ONLY when the LATEST fetch errored. A feed that has since recovered
         // (status ok / unchanged / empty) must never show a stale error from an earlier bad cycle —
@@ -177,7 +238,60 @@ export function buildSourcesReport(repoRoot: string, stateDir: string, opts: { n
         }
       }
 
-      rows.push({ name, region: meta.region, feed_type: meta.feed_type, via: meta.via, health: healthV, last_data_at: lastData, items_24h: items24h, items_7d: items7d, fetch_status, last_error, last_ok_at })
+      rows.push({
+        id,
+        name,
+        url: meta.url,
+        region: meta.region,
+        feed_type: meta.feed_type,
+        via: meta.via,
+        health: healthV,
+        last_data_at: lastData,
+        items_24h: items24h,
+        items_7d: items7d,
+        fetch_status,
+        last_error,
+        last_ok_at,
+        repair: { state: 'none', fallback_covered: false, action: null },
+      })
+    }
+
+    // Redundancy is judged by function + region, not publisher name. It does not claim the source set is
+    // complete; it answers the narrower operational question: if one connection is down, is another live
+    // connection still covering the same class of data?
+    const grouped = new Map<string, SourceRow[]>()
+    for (const row of rows) {
+      const key = `${row.feed_type}:${row.region}`
+      if (!grouped.has(key)) grouped.set(key, [])
+      grouped.get(key)!.push(row)
+    }
+    const groups: SourceCoverageGroup[] = []
+    const criticalGaps: string[] = []
+    let repairActive = 0
+    for (const [id, members] of grouped) {
+      const working = members.filter((r) => r.health === 'healthy' || r.health === 'quiet').length
+      const failing = members.filter((r) => r.health === 'failing').length
+      const unverified = members.filter((r) => r.health === 'idle').length
+      const label = `${members[0]?.feed_type || 'source'} · ${members[0]?.region || '—'}`
+      const covered = working > 0
+      groups.push({ id, label, total: members.length, working, failing, unverified, covered })
+      if (!covered && failing > 0) criticalGaps.push(label)
+      for (const row of members) {
+        const h = row.url ? (health[row.url] || health[row.name]) : undefined
+        const peerCovered = members.some((p) => p !== row && (p.health === 'healthy' || p.health === 'quiet'))
+        if (h?.fallbackActive && row.health !== 'failing') {
+          row.repair = { state: 'fallback_active', fallback_covered: true, action: `Using fallback endpoint${h.activeUrl ? `: ${h.activeUrl}` : ''}.` }
+          repairActive++
+        } else if (row.health === 'failing' && peerCovered) {
+          row.repair = { state: 'covered_by_peer', fallback_covered: true, action: 'Retry this feed; another live connection covers the same data group.' }
+          repairActive++
+        } else if (row.health === 'failing') {
+          row.repair = { state: (h?.fails || 0) >= 3 ? 'needs_attention' : 'retrying', fallback_covered: false, action: (h?.fails || 0) >= 3 ? 'Replace or add a fallback endpoint.' : 'Automatic retry is active.' }
+          repairActive++
+        } else if (row.health === 'idle') {
+          row.repair = { state: 'unverified', fallback_covered: peerCovered, action: 'Waiting for the first verified fetch.' }
+        }
+      }
     }
 
     // sort: failing first (the problems, pinned at the very top), then the healthy bulk, then quiet,
@@ -187,7 +301,18 @@ export function buildSourcesReport(repoRoot: string, stateDir: string, opts: { n
 
     const counts = { total: rows.length, healthy: 0, quiet: 0, failing: 0, idle: 0 }
     for (const r of rows) counts[r.health]++
-    return { updated_at: now.toISOString(), counts, sources: rows }
+    const workingConnections = counts.healthy + counts.quiet
+    return {
+      updated_at: now.toISOString(),
+      counts,
+      coverage: {
+        connection_coverage_pct: counts.total ? Math.round((workingConnections / counts.total) * 1000) / 10 : 0,
+        groups: groups.sort((a, b) => Number(a.covered) - Number(b.covered) || b.failing - a.failing || a.label.localeCompare(b.label)),
+        critical_gaps: criticalGaps,
+        repair_active: repairActive,
+      },
+      sources: rows,
+    }
   } catch {
     return empty
   }

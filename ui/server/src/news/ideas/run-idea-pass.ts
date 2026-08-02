@@ -13,6 +13,8 @@ import {
   ideaId, priorCoverage, pruneExpiredIdeas, readIdeaSnapshots, readPassState, readTopSweepRows,
   topNHash, writeIdea, writePassState, type SurfacedIdea,
 } from './ideas-store'
+import { learnIdeaAdjustment } from './idea-learning'
+import { scoreTradeCluster, type TradeEvidence } from '../trade-score'
 
 export interface IdeaPassConfig {
   topN: number
@@ -112,7 +114,8 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     writePassState(deps.stateDir, { hash, ran_at_ms: now() })
     if (!r.ok) { log(`idea pass: ${r.note || 'no ideas produced'}`); return { ran: false, produced: 0, note: r.note } }
 
-    const existing = new Map(readIdeaSnapshots(deps.repoRoot).map((i) => [i.idea_id, i]))
+    const snapshots = readIdeaSnapshots(deps.repoRoot)
+    const existing = new Map(snapshots.map((i) => [i.idea_id, i]))
     const nowIso = new Date(now()).toISOString().replace(/\.\d{3}Z$/, 'Z')
     const decayIso = new Date(now() + c.shelfLifeHrs * 3_600_000).toISOString().replace(/\.\d{3}Z$/, 'Z')
     const seen = new Set<string>()
@@ -131,6 +134,25 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       const materialityMax = Math.max(0, ...srcRows.map((s) => s.materiality))
       const newestAt = srcRows.map((s) => s.found_at).filter(Boolean).sort().reverse()[0] || nowIso
       const prevIdea = existing.get(id)
+      const learning = learnIdeaAdjustment(deps.repoRoot, snapshots, { direction: raw.direction, thesisType: raw.thesis_type })
+      const tradeEvidence: TradeEvidence[] = srcRows.map((s) => ({
+        event_id: s.event_id,
+        ts: s.found_at,
+        source_name: s.source_name,
+        source_tier: s.source_tier,
+        triage_score: s.materiality,
+        companies: s.companies,
+        scheduled_events: s.scheduled_events,
+        event_direction: s.event_direction,
+      }))
+      const trade = scoreTradeCluster(tradeEvidence, {
+        nowMs: now(),
+        ticker: raw.ticker,
+        exchange: raw.exchange,
+        pricedIn: raw.priced_in,
+        whyNow: raw.why_now,
+        learningAdjustment: learning.adjustment,
+      })
       const idea: SurfacedIdea = {
         idea_id: id,
         ticker: raw.ticker,
@@ -142,6 +164,12 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
         why_now: raw.why_now,
         conviction: raw.conviction,
         conviction_basis: 'pre_edge_proxy',
+        trade_score: trade.score,
+        trade_score_basis: 'evidence_gate_v1',
+        trade_score_breakdown: trade.breakdown,
+        trade_readiness: trade.readiness,
+        missing_checks: trade.missingChecks,
+        learning,
         priced_in: raw.priced_in,
         thesis_type: raw.thesis_type,
         source_event_ids: eventIds,
