@@ -52,3 +52,9 @@ __pycache__/
 # writes index.json.tmp.<pid> then os.replace()s it onto index.json (never meant to be tracked;
 # they only survive on the rare crash between write and rename) — never commit
 screener/board/index.json.tmp.*
+
+# Transient cross-process Ideas locks/reservations. They coordinate runtime writes but are never research data.
+screener/ledger/ideas/*.json.lock
+screener/ledger/ideas/*.promotion
+screener/ledger/*.ndjson.lock/
+screener/ledger/.qualified-idea-outcomes-pass.lock/

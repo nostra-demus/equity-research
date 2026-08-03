@@ -77,7 +77,7 @@ Before writing the final dossier, read inputs in this priority order:
 
 ## PRIMARY INPUTS (read first, trust most)
 
-1. `CLAUDE.md` at the repo root and apply all rules inside it. Also read **`frameworks/DECISION_LEDGER.md`** — it defines the canonical `decision_record.json` schema you must emit at the end of the run (see the **Decision Record Output Requirement** section below). Reading it is required; do not invent a conflicting schema.
+1. `CLAUDE.md` at the repo root and apply all rules inside it. Also read **`frameworks/DECISION_LEDGER.md`** — it defines the canonical `decision_record.json` schema you must emit at the end of the run (see the **Decision Record Output Requirement** section below). Reading it is required; do not invent a conflicting schema. Read **`frameworks/ideas/README.md`**, **`frameworks/ideas/idea-assessment.schema.json`**, and **`frameworks/MARKET_FEED.md`** as well; together they define the separate, fail-closed `<RUN_ROOT>/idea_3_6m.json` projection every new full run must emit. Do not infer that schema from the UI.
 
 2. `RUN_METADATA.md` at `analyses/{TICKER}_{DATE}/RUN_METADATA.md`, if it exists. This file is written by the `/research:full` orchestrator at the start of every multi-module run and contains:
    - Ticker, company name, and run date
@@ -1047,14 +1047,15 @@ then write the full report to exactly that file.
 
 Do not only print the answer in chat.
 
-Do not create a different output file unless explicitly instructed.
+Do not create a different thesis filename. The two required machine-readable companions below are the only additional synthesizer outputs.
 
-In addition to the thesis, you MUST also write the machine-readable decision record — see **Decision Record Output Requirement** (next section). It is written in addition to `final_thesis.md`, never instead of it.
+In addition to the thesis, you MUST also write the machine-readable decision record and the 3–6 month idea assessment — see the two output requirements below. They are written in addition to `final_thesis.md`, never instead of it.
 
-After writing both files, briefly confirm:
+After writing all three files, briefly confirm:
 
 - Final thesis path (`<RUN_ROOT>/final_thesis.md`)
 - Decision record path (`<RUN_ROOT>/decision_record.json`) — confirm it was written and parses as valid JSON
+- Idea assessment path (`<RUN_ROOT>/idea_3_6m.json`) — confirm it was written, parses as valid JSON, and say `candidate` or `not_assessable`
 - Rating
 - Confidence score
 - Basket and paper treatment
@@ -1064,10 +1065,11 @@ After writing both files, briefly confirm:
 
 # Decision Record Output Requirement
 
-The synthesizer writes two outputs:
+The synthesizer writes three outputs:
 
 1. `final_thesis.md` — human-readable institutional investment memo.
 2. `decision_record.json` — machine-readable decision ledger entry for feedback-loop tracking.
+3. `idea_3_6m.json` — a fail-closed 90–183 day projection consumed by the qualified Ideas board.
 
 The `decision_record.json` must be written **in addition to** `final_thesis.md`, **never instead of it**. Write `final_thesis.md` first (the orchestrator treats the run as failed if it is missing); then write the decision record. This implements Phase 2 of `frameworks/DECISION_LEDGER.md`.
 
@@ -1105,10 +1107,13 @@ The exact object to emit (mirrors `frameworks/DECISION_LEDGER.md` §5 — that f
   "benchmark": "",
   "sector_benchmark": "",
   "time_horizon": "",
+  "scenario_horizon_days": null,
   "expected_return_pct": null,
   "downside_risk_pct": null,
   "margin_of_safety_pct": null,
   "risk_reward": null,
+  "scenarios": [],
+  "idea_valuation_bridge": null,
   "confidence_score": null,
   "data_sufficiency_score": null,
   "confidence_inputs": null,
@@ -1165,7 +1170,7 @@ Populate each field as follows. All of these come from work you have already don
 | company_name | final thesis / raw data / module outputs if available |
 | exchange | raw data / metadata if available |
 | currency | price/financial data source if available |
-| decision_date | run date or current analysis date |
+| decision_date | exact `YYYY-MM-DD` suffix of `<RUN_ROOT>`; the final candidate must copy it exactly |
 | run_root | actual run root path |
 | final_thesis_path | `<RUN_ROOT>/final_thesis.md` |
 | decision | Part I one-line decision |
@@ -1178,11 +1183,13 @@ Populate each field as follows. All of these come from work you have already don
 | benchmark | benchmark used in thesis, if available |
 | sector_benchmark | sector benchmark used, if available |
 | time_horizon | final thesis time horizon |
+| scenario_horizon_days | exact integer calendar-day horizon of the §8 source scenario targets; required for a final Ideas projection |
 | expected_return_pct | expected return from valuation/scenario math |
 | downside_risk_pct | downside from bear case/scenario math |
 | margin_of_safety_pct | discount of price to base-case fair value, IN PERCENTAGE POINTS = ((base FV − price)/base FV) × 100 — do not publish the bare 0–1 ratio, from the valuation module; null when no pool-verified price ("Not assessable"). Direction-uniform — a short candidate → negative MoS. Required once entry_price and the base-labelled scenario's price_target both exist (derivable); only stays null when price is not pool-verified. The eval harness re-derives it from the base-labelled scenario target (check M). |
 | risk_reward | risk/reward from final thesis |
-| scenarios | §8 Scenario Model rows — array of `{label, probability, return_pct, price_target}` (fix F08; enables deterministic math re-check) |
+| scenarios | §8 Scenario Model rows — array of `{scenario_id, label, probability, return_pct, price_target, conditions, source, joint_probability_basis}`; stable structured authority for deterministic math and Ideas projection |
+| idea_valuation_bridge | §8/valuation object `{source_horizon_days, method, convergence_fraction, rationale, source}`; `source_horizon_days` exactly equals `scenario_horizon_days` |
 | confidence_score | final confidence score /100 (post-split runs ≥ 2026-07-11: set equal to `conviction` for backward-compat) |
 | data_sufficiency_score | data sufficiency score /100 |
 | confidence_inputs | (additive, runs ≥ 2026-07-11) the recorded judgments the scorer consumes — see the Confidence Scoring Rules step 1 and `DECISION_LEDGER.md` §5 |
@@ -1257,10 +1264,126 @@ python3 -c "import datetime; d=datetime.date.fromisoformat('<DECISION_DATE>'); p
 ## Field-type rules
 
 - `thesis_type`, `kill_criteria`, `red_flags`, `missing_data`, `forecast_ledger`, `scenarios` are JSON **arrays**.
-- `scenarios` is an array of objects, one per §8 case: `{"label": "bull|base|bear|…", "probability": <0–100 number>, "return_pct": <number>, "price_target": <number or null>}`. Probabilities sum to 100. Copy these straight from §8; the eval harness recomputes `expected_return_pct` / `risk_reward` from them, so they must match the published numbers. Use `[]` only if no scenario model was built (then `expected_return_pct` must be null too).
+- `scenarios` is an array of three to seven objects, one per §8 case:
+  `{"scenario_id": <stable id>, "label": "bull|base|bear|…", "probability": <0–100 number>,
+  "return_pct": <number>, "price_target": <positive source-horizon target>, "conditions": [<one or more>],
+  "source": <exact citation>, "joint_probability_basis": <string or null>}`. Ids and labels are unique;
+  probabilities sum to 100. Explain the conjunction when multiple independent conditions must hold.
+  Copy these straight from §8; the eval harness recomputes `expected_return_pct` / `risk_reward`, and the
+  Ideas projection copies the ids, probabilities, source targets, conditions, sources, and conjunction
+  bases exactly. Use `[]` only if no scenario model was built (then `expected_return_pct` must be null and
+  the final Ideas assessment must be `not_assessable`).
+- `scenario_horizon_days` is the exact integer source-target horizon. `idea_valuation_bridge` is the one
+  object required to project it to 90–183 days; its `source_horizon_days` must equal that integer.
 - `module_scores` is a JSON **object** keyed by module name (e.g. `{"business-model": 78, "earnings": 72}`; an object value such as `{"score": 78, "verdict": "..."}` is also acceptable).
 - `calibration_feedback` is a JSON **object** with exactly the nine keys shown in the schema above (`source_summary`, `status`, `haircut_points`, `modules_flagged`, `flagged_forecast_types`, `flagged_thesis_types`, `leading_error_categories_flagged`, `error_defense_evidence`, `rationale`); `status` must be one of the four literal strings — never a paraphrase. `status=="applied"` requires at least one of `modules_flagged` / `flagged_forecast_types` / `flagged_thesis_types` / `leading_error_categories_flagged` to carry an entry. `error_defense_evidence` is an object keyed by the as-of summary's leading `error_taxonomy_distribution` categories (count ≥ 2); `{}` when none exists yet.
 - `review_schedule` is a JSON **object** with `30d` / `90d` / `180d` / `365d` keys.
-- Each `forecast_ledger` element follows `frameworks/DECISION_LEDGER.md` §6: `prediction`, `probability`, `time_window`, `evidence_today`, `confirmation_trigger`, `falsification_trigger`, `owner_module`, `confidence_score`, `status` (default `"open"`), `forecast_type` (from the closed set — see the Forecast Ledger section above; `""` only if genuinely none fits, never left off). Probabilities use the `CLAUDE.md` §10 bands. If no forecast has enough evidence, use `[]`.
+- Each `forecast_ledger` element follows `frameworks/DECISION_LEDGER.md` §6: `prediction`, `probability`,
+  `time_window`, `evidence_today`, `confirmation_trigger`, `falsification_trigger`, `owner_module`,
+  `confidence_score`, `status` (default `"open"`), and `forecast_type` (from the closed set). The one row
+  eligible to anchor the final Ideas catalyst must additionally carry stable `forecast_id`, exact
+  `window_start` / `window_end` / `status_as_of`, `source_citation`, `metric`, `threshold`, at least two
+  `causal_steps`, and `stock_bullish_trigger` / `stock_bearish_trigger`. Probabilities use the
+  `CLAUDE.md` §10 bands. If no forecast has enough evidence, use `[]`; the final Ideas assessment is then
+  `not_assessable` rather than a free-prose substitute.
 - `red_flags`: carry Critical/High (and material Medium) red flags from the modules, with their Red Flag IDs where available. Each `severity` value is copied verbatim from the module that declared it — check AK reconciles a module's own declared Critical count against how many `red_flags` entries here actually carry `"severity": "Critical"`.
 
+---
+
+# 3–6 Month Idea Assessment Output Requirement
+
+After `final_thesis.md` and `decision_record.json`, write `<RUN_ROOT>/idea_3_6m.json` on **every new full
+run**. This is a deterministic projection of the decision you already made, not a second thesis and not
+a request to force an idea. Read and follow `frameworks/ideas/README.md`; validate against the field
+contract in `frameworks/ideas/idea-assessment.schema.json`.
+
+The wrapper always uses `schema_version: "idea-assessment/v1"`. Emit exactly one of:
+
+- `status: "candidate"`, `gaps: []`, and one complete `qualified-idea/v1` object; or
+- `status: "not_assessable"`, at least one specific gap, and `candidate: null`.
+
+`candidate` means “complete enough for the independent runtime evaluator to judge.” It does **not** mean
+qualified. Never write a stored pass/rank. Never weaken a gap merely to fill the UI.
+
+On the ordinary master-synthesis invocation, the integrity audits and
+`idea_projection_manifest.json` do not exist yet. Therefore write a preliminary `not_assessable` wrapper
+with the specific gap `"Pending post-audit projection manifest and canonical market evidence."` Do not
+run `--write-idea-evidence`, do not invent a candidate around the missing snapshot, and do not claim the
+preliminary artifact is eligible for admission. A complete candidate may be written only when the
+orchestrator later invokes this agent explicitly for the final post-audit re-projection.
+
+Hard producer rules:
+
+1. Reconcile ticker, company, decision date, decision, data-sufficiency score, edge score/proof, red
+   flags, hard caps, entry price, scenarios, valuation bridge, selected forecast, and sources to this
+   run's final thesis and decision record. This file cannot upgrade the decision or invent a cleaner risk
+   state. Set `candidate.policy_version` to `"ideas-policy/precal-v1"`; never omit or paraphrase it.
+2. Use one exact 90–183 day end date. The start must be a future tradable session after the final audit
+   and admission gate, no more than three calendar days after the frozen quote and projection time. The
+   system never counts performance from before the forecast was admitted. Do not relabel the thesis's
+   12-month fair value as a 3–6 month target.
+3. For final re-projection, require a digest-valid `<RUN_ROOT>/idea_projection_manifest.json` created by
+   `python3 scripts/create_idea_projection_manifest.py <RUN_ROOT>` after all audits. Copy its
+   `manifest_sha256` exactly to `candidate.projection_manifest_sha256`; never create or repair that
+   manifest inside the projection task. Replace the preliminary wrapper with a newly timestamped final
+   wrapper: its `created_at`, and a candidate's matching `created_at`, must be no earlier than the
+   manifest's `created_at`. Never retain the preliminary wrapper's pre-manifest timestamp, including when
+   the final result remains `not_assessable`. Run
+   `python3 scripts/market_prices.py --write-idea-evidence <TICKER> <RUN_ROOT>` (add the decision record's
+   `--exchange` and `--currency` selectors when the ticker is ambiguous). On success, copy the exact
+   `instrument`, `quote`, `liquidity`, and `market_risk` fields from
+   `<RUN_ROOT>/idea_market_evidence.json.evidence`, and copy its `evidence_sha256` to
+   `candidate.market_evidence_sha256`. Never transcribe or recompute those fields by hand. If the manifest
+   is missing or invalid during a requested final re-projection, stop and report a projection-seal error
+   without editing the assessment; the orchestrator records `IDEA-ADMISSION: error` and requires a new
+   dated run. If the deterministic market snapshot is unavailable after a valid manifest, emit
+   `not_assessable`; a narrative, web quote, listing lookup, or guessed FX rate is not a substitute.
+4. For the final candidate, set `research.integrity_status` to `"unaudited"` (or `"provisional"` when
+   the manifest-pinned thesis already carries that stamp). The freezer independently resolves the pinned
+   verification report, provisional banner, corrections, and supersession; the producer cannot bless
+   itself. The frozen live reader, not this field alone, projects a verified result after clean admission.
+   The independent pinned audits also override self-grading: set `research.edge_score` to the lower of
+   the decision-record and expectations-gap scores, and derive the exact hard-cap state/reason from the
+   pinned pre-mortem and expectations-gap using `frameworks/ideas/README.md`. A non-surviving pre-mortem,
+   its recommended rating cap, or an expectations audit without a Moderate/Strong proven exploitable
+   edge remains binding at every confidence level. If these cannot be reconciled exactly, emit
+   `not_assessable`; never omit an adverse audit to make a candidate pass.
+5. Set `research.calibration_status` to `"pre_data"`. Only the exact-horizon outcome cohort owns the live
+   `pre_data` / `insufficient` / `measured` state.
+6. The v1 contract does not carry borrow availability, recall risk, or borrow cost. If every structural
+   field is evidenced, still emit the complete short candidate: the independent runtime will reject it
+   deterministically with `short_execution_unverified`, preserving the real reason it did not clear. Use
+   `not_assessable` only when evidence needed to construct the candidate itself is missing.
+7. Copy the exact `decision_record.idea_valuation_bridge` to `candidate.valuation_bridge` and require its
+   `source_horizon_days` to equal `decision_record.scenario_horizon_days`. Every candidate scenario maps
+   the decision record's stable id, label, probability, source price target, conditions, source, and
+   conjunction basis exactly; it may add only the mechanically derived shorter-window `price_target` and
+   `return_pct`. For a same-horizon or event-payoff source, source and candidate targets are equal.
+   For a longer source, use only `catalyst_partial_convergence` and exactly recompute `price_target = entry
+   + convergence_fraction × (source_price_target − entry)`. Recompute returns, probability sum, expected
+   return, loss probability, worst-20% loss magnitude, and worst-case loss with code. Favorable tail mass
+   contributes zero loss; it never cancels a catastrophic state. If any input or math does not reconcile,
+   write `not_assessable`.
+8. Do not open or edit an older run to populate this new projection. The current dated run is the only
+   write target.
+9. Select exactly one open decision-record forecast by `forecast_id`. Copy its dates, source citation,
+   causal steps, and bullish/bearish triggers exactly into `candidate.catalyst`; map its falsification
+   trigger, metric, threshold, window end, and source exactly into `candidate.falsifier`. If the row is
+   missing, ambiguous, stale, already in progress, or not machine-resolvable, write `not_assessable`.
+
+For a **final idea re-projection** request after the integrity audits, do not rewrite `final_thesis.md`,
+`decision_record.json`, any audit, any module output, `memo.md`, or `audit_dossier.md`. Re-read the
+manifest-pinned standing/post-mortem fields, write only `idea_market_evidence.json`, and replace only this
+run's preliminary `idea_3_6m.json`. Once the manifest exists, every pinned artifact is immutable; a
+changed audit requires a new dated run. This final projection is the one the immutable admission gate
+freezes.
+
+For the final projection run, run `python3 -m json.tool <RUN_ROOT>/idea_3_6m.json` and
+`python3 scripts/validate_screener_json.py frameworks/ideas/idea-assessment.schema.json <RUN_ROOT>/idea_3_6m.json`.
+If parsing or JSON Schema validation fails, emit an honest `not_assessable` wrapper naming the actual gap
+and rerun both. Then return without invoking the admission freezer and do not revise the assessment again.
+The orchestrator invokes `python3 scripts/freeze_idea_admission.py <RUN_ROOT>` exactly once; that one locked
+operation performs semantic validation and atomically freezes its result. The producer therefore never
+sees a gate result it could use to edit its first candidate, and a crash cannot expose a rejection without
+also sealing it. Never weaken a candidate to make the runtime ranker pass; policy rejection is a valid
+frozen result.

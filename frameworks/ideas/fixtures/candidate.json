@@ -1,0 +1,137 @@
+{
+  "schema_version": "idea-assessment/v1",
+  "assessment_id": "FIXTURE-2026-08-03-3-6m",
+  "run_root": "analyses/FIXTURE_2026-08-03",
+  "created_at": "2026-08-03T10:00:00Z",
+  "ticker": "FIXTURE",
+  "company": "Fixture Holdings",
+  "status": "candidate",
+  "gaps": [],
+  "candidate": {
+    "schema_version": "qualified-idea/v1",
+    "policy_version": "ideas-policy/precal-v1",
+    "idea_id": "FIXTURE-2026-08-03-long-3-6m",
+    "market_evidence_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "projection_manifest_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "run_root": "analyses/FIXTURE_2026-08-03",
+    "decision_date": "2026-08-03",
+    "created_at": "2026-08-03T10:00:00Z",
+    "instrument": {
+      "ticker": "FIXTURE",
+      "company": "Fixture Holdings",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "direction": "long",
+      "asset_type": "equity"
+    },
+    "horizon": {
+      "start": "2026-08-03T10:00:00Z",
+      "end": "2027-01-30T10:00:00Z"
+    },
+    "quote": {
+      "price": 100,
+      "as_of": "2026-08-03T00:00:00Z",
+      "source": "SampleProvider adjusted close, 2026-08-03",
+      "identity_verified": true,
+      "stale": false
+    },
+    "liquidity": {
+      "verified": true,
+      "as_of": "2026-08-03T00:00:00Z",
+      "source": "SampleProvider 60-session close × volume, 2026-08-03",
+      "lookback_days": 60,
+      "observed_sessions": 60,
+      "coverage_pct": 100,
+      "window_start": "2026-05-11T00:00:00Z",
+      "window_end": "2026-08-03T00:00:00Z",
+      "median_daily_value_usd": 50000000,
+      "currency_conversion": {
+        "pair": "USD/USD",
+        "rate_usd_per_currency": 1,
+        "as_of": "2026-08-03T00:00:00Z",
+        "source": "USD listing currency"
+      }
+    },
+    "market_risk": {
+      "as_of": "2026-08-03T00:00:00Z",
+      "source": "SampleProvider split-adjusted closes, 2026-08-03",
+      "lookback_days": 60,
+      "ordinary_move_pct": 8
+    },
+    "research": {
+      "decision": "Buy",
+      "integrity_status": "unaudited",
+      "data_sufficiency_score": 82,
+      "edge_score": 66,
+      "edge_proof": "The filed KPI can beat the frozen consensus baseline by a falsifiable margin.",
+      "hard_cap_active": false,
+      "hard_cap_reason": null,
+      "unresolved_red_flags": [],
+      "calibration_status": "pre_data"
+    },
+    "catalyst": {
+      "forecast_id": "FC-FIXTURE-Q3",
+      "name": "Third-quarter results",
+      "window_start": "2026-10-20T00:00:00Z",
+      "window_end": "2026-10-25T00:00:00Z",
+      "source": "Company calendar, 2026-08-03",
+      "status_at_admission": "scheduled_unresolved",
+      "status_as_of": "2026-08-03T09:59:00Z",
+      "causal_steps": [
+        "The company files the measured KPI result.",
+        "Consensus revises the same KPI and valuation inputs."
+      ],
+      "bullish_trigger": "The filed KPI is at least 112 against a frozen consensus of 100.",
+      "bearish_trigger": "The filed KPI is below the frozen consensus of 100."
+    },
+    "falsifier": {
+      "condition": "The edge is falsified when the filed KPI is below the frozen consensus baseline.",
+      "metric": "Filed KPI",
+      "threshold": "Below 100",
+      "deadline": "2026-10-25T00:00:00Z",
+      "source": "Third-quarter filing, expected 2026-10-25"
+    },
+    "valuation_bridge": {
+      "source_horizon_days": 180,
+      "method": "same_horizon",
+      "convergence_fraction": null,
+      "rationale": "Each target is the modeled event payoff inside this exact holding window.",
+      "source": "Run scenario model, 2026-08-03"
+    },
+    "scenarios": [
+      {
+        "scenario_id": "bull",
+        "label": "bull",
+        "probability_pct": 25,
+        "price_target": 140,
+        "source_price_target": 140,
+        "return_pct": 40,
+        "conditions": ["The filed KPI is at least 120."],
+        "source": "Run scenario model, 2026-08-03",
+        "joint_probability_basis": null
+      },
+      {
+        "scenario_id": "base",
+        "label": "base",
+        "probability_pct": 55,
+        "price_target": 118,
+        "source_price_target": 118,
+        "return_pct": 18,
+        "conditions": ["The filed KPI is between 108 and 119."],
+        "source": "Run scenario model, 2026-08-03",
+        "joint_probability_basis": null
+      },
+      {
+        "scenario_id": "bear",
+        "label": "bear",
+        "probability_pct": 20,
+        "price_target": 88,
+        "source_price_target": 88,
+        "return_pct": -12,
+        "conditions": ["The filed KPI is below 108."],
+        "source": "Run scenario model, 2026-08-03",
+        "joint_probability_basis": null
+      }
+    ]
+  }
+}

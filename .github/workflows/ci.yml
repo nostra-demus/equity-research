@@ -97,6 +97,12 @@ jobs:
       - name: Validate screener + commodity JSON schemas against committed fixtures
         run: python3 scripts/validate_screener_json.py --fixture
 
+      - name: Qualified-idea immutable admission + projection-manifest regressions
+        run: python3 scripts/test_freeze_idea_admission.py
+
+      - name: Qualified-idea Python/TypeScript canonical-digest parity
+        run: python3 scripts/test_canonical_json.py
+
       - name: Commodity calibration-gate selftest (post-gate branches the --fixture N/A runs never exercise — fixture-free)
         run: python3 scripts/validate_screener_json.py --selftest
 

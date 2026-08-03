@@ -21,7 +21,7 @@ external data (which lives under `data/<TICKER>/external/`), this is a cross-cut
 
 ```
 data/_market/<Provider>/
-   <anything>.csv        long-format daily closes
+   <anything>.csv        long-format daily closes (optional volume for liquidity work)
    _symbols.json         OPTIONAL — per-symbol metadata for beta adjustment
    <file>.source.json    OPTIONAL — provenance sidecar (EXTERNAL_DATA §3 shape)
 ```
@@ -29,16 +29,22 @@ data/_market/<Provider>/
 ### The CSV (required columns, header row mandatory)
 
 ```
-date,symbol,close
-2026-06-01,NIFTY50,23400.5
-2026-06-01,TMCV,369.15
-2026-07-01,NIFTY50,24100.0
-2026-07-01,TMCV,422.20
+date,symbol,close,volume
+2026-06-01,NIFTY50,23400.5,
+2026-06-01,TMCV,369.15,1530210
+2026-07-01,NIFTY50,24100.0,
+2026-07-01,TMCV,422.20,1828400
 ```
 
 - `date` — ISO `YYYY-MM-DD`. `symbol` — any stable string (an index, a sector index, or a stock).
-  `close` — a float in the symbol's own currency.
-- One row per `(symbol, date)`. Multiple CSVs per provider are merged; later files win on a clash.
+  `close` — a float in the symbol's own currency. `volume` is optional; when present it is the session's
+  share/unit volume and lets research verify median daily traded value (`close × volume`) instead of
+  claiming liquidity from a listing lookup.
+- One row per `(symbol, date)`. Multiple CSVs **inside one provider folder** are merged; later files win
+  on a clash. Strict history/evidence exports never merge rows across providers.
+- Optional `exchange`, `currency`, and `price_basis` columns bind a row even more tightly. If supplied,
+  every value must agree with that same provider's `_symbols.json`; a conflict invalidates the strict
+  export. They are assertions, not last-row-wins metadata.
 - The feed's **as-of is the latest `date` in the data**, never a file's modification time.
 - A stock and its benchmark must share a currency for the excess to be meaningful; returns themselves
   are unit-free.
@@ -47,14 +53,67 @@ date,symbol,close
 
 ```json
 {
-  "TMCV":  { "kind": "equity", "benchmark": "NIFTY50", "sector": "NIFTYAUTO", "beta": 1.15 },
-  "NIFTY50": { "kind": "benchmark" },
-  "NIFTYAUTO": { "kind": "sector" }
+  "TMCV":  {
+    "kind": "equity", "exchange": "NSE", "currency": "INR",
+    "benchmark": "NIFTY50", "sector": "NIFTYAUTO", "beta": 1.15,
+    "price_basis": "split_adjusted", "security_status": "active",
+    "usd_fx_pair": "INR/USD", "usd_fx_rate": 0.01198, "usd_fx_as_of": "2026-08-03",
+    "usd_fx_source": "RBI reference rate, 2026-08-03"
+  },
+  "NIFTY50": {
+    "kind": "benchmark", "exchange": "INDEX", "currency": "INR",
+    "price_basis": "split_adjusted"
+  },
+  "NIFTYAUTO": {
+    "kind": "sector", "exchange": "INDEX", "currency": "INR",
+    "price_basis": "split_adjusted"
+  }
 }
 ```
 
 Without it, `beta` defaults to `1.0` (so the beta-adjusted excess equals the naive benchmark-relative
 excess) and no sector attribution is done.
+
+The qualified 3–6 month outcome loop is stricter than the generic calibration reader. It exports a stock
+history only when one **data-contributing provider's own** `_symbols.json` positively identifies `kind`,
+`exchange`, `currency`, and `price_basis: "split_adjusted"`. Rows, volumes, listing identity, and price-basis
+metadata stay bound to that provider. Metadata from a provider that contributed no rows cannot bless raw
+rows from another provider. Two contributing providers for the same requested listing are conflicting
+provenance and fail closed rather than being spliced into one history.
+
+Ticker alone remains accepted only when exactly one provider listing is possible. When a ticker collides
+across listings, use `--exchange EXCHANGE --currency CCC`; both selectors are checked against provider
+metadata, never copied into it. A provider with rows but no identity remains an ambiguity and cannot be
+silently discarded. A bare close series may be raw or adjusted; guessing would turn a stock split into
+fake alpha. For a delisted name set `security_status: "delisted"` and add a source-bound terminal value,
+including zero where shareholders recovered nothing:
+
+```json
+{
+  "OLDCO": {
+    "kind": "equity", "exchange": "NYSE", "currency": "USD",
+    "price_basis": "split_adjusted", "security_status": "delisted",
+    "terminal_value": { "date": "2026-09-10", "price": 0, "source": "bankruptcy distribution notice" }
+  }
+}
+```
+
+The new-idea qualification reader is stricter again. `--idea-evidence SYMBOL` requires `kind: "equity"`
+and returns a quote, measured
+median daily traded value, and the median absolute five-session price move only when it can prove them:
+
+- at least 60 split-adjusted price sessions for the ordinary-move distribution;
+- one fixed window of the latest 60 non-future sessions for liquidity, with observed `close × volume` on
+  at least 54/60 sessions (90% coverage; missing volume is unknown, never zero);
+- a quote no more than seven calendar days old; and
+- for a non-USD listing, exact `usd_fx_pair: "<CCC>/USD"`, positive `usd_fx_rate` (USD per one unit of
+  listing currency), ISO `usd_fx_as_of` on or before and within 14 days of the quote, and a non-empty
+  `usd_fx_source` citation. The export carries all four fields in `liquidity.currency_conversion`.
+- no future-dated price or FX observation. Future price rows are excluded from every calculation and
+  make the evidence unavailable, so they cannot influence the displayed quote, liquidity, or risk.
+
+The export returns `available: false` plus named `gaps` when any requirement is missing. A listing lookup
+does not prove liquidity, and the adapter never guesses an FX rate.
 
 ## What reads it
 
@@ -63,6 +122,23 @@ excess) and no sector attribution is done.
 - `total_return(symbol, d0, d1)` — raw price return over a window.
 - `beta_adjusted_excess(symbol, d0, d1)` — `stock_return − beta·benchmark_return`, returning BOTH the
   raw and the beta-adjusted figure so you can see the market move stripped out.
+- `adjusted_history(symbol)` / `--history SYMBOL` — strict `market-history/v1` export for the qualified
+  idea outcome loop; unavailable unless one provider proves the price basis and listing identity. Supply
+  `--exchange EXCHANGE --currency CCC` to verify/disambiguate a ticker collision.
+- `idea_evidence(symbol)` / `--idea-evidence SYMBOL` — deterministic entry quote, USD traded-value
+  liquidity, and ordinary five-session move for a new 3–6 month assessment; explicit gaps on missing data.
+- `--write-idea-evidence SYMBOL RUN_ROOT` — requires complete evidence and atomically writes the canonical
+  `RUN_ROOT/idea_market_evidence.json` sidecar. It runs only after a digest-valid post-audit
+  `idea_projection_manifest.json` exists. Its schema is `idea-market-evidence-snapshot/v1`; it stores
+  that manifest's exact `manifest_sha256` as `projection_manifest_sha256`, a timezone-bearing
+  `captured_at`, the evidence object, and `evidence_sha256` computed over the shared fail-closed
+  cross-runtime canonical JSON contract in `scripts/canonical_json.py` (UTF-16 key order, ECMAScript
+  number/string spelling, finite numbers, negative zero normalized, and integer-valued magnitudes limited
+  to JavaScript's safe range). This is stricter than merely sorting keys and is not unrestricted JCS. The
+  command prints the path and digest. Re-running with identical evidence
+  yields the same digest; a failed/incomplete read writes nothing. There is no canonical pre-audit capture:
+  the manifest pins the final thesis, decision, and three audits first, and any later change to a pinned
+  artifact requires a new dated run rather than reusing this sidecar.
 
 `scripts/calibrate.py` reports whether a feed is present and which return basis it used. **Until a feed
 lands, calibrate falls back to the review-time benchmark-relative return each review already computed,

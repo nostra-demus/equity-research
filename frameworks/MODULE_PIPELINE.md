@@ -27,6 +27,17 @@ The pipeline returns a structured status the orchestrator can act on:
 
 ---
 
+## Step 0 — Refuse writes into a sealed run
+
+Before creating a module folder, refreshing extracts, or dispatching an agent, test for
+`<RUN_ROOT>/idea_projection_manifest.json` or `<RUN_ROOT>/idea_admission.json`. If either exists, STOP
+this module. The ex-ante projection has sealed the run; module output, source extracts, syntheses, and
+audits must remain byte-stable. New evidence requires a new dated run. A correction uses the append-only
+correction ledger and never deletes the seal. This generic check applies automatically to every current
+or future module; no module name is hand-wired.
+
+---
+
 ## Step 1 — Create the module output folder
 
 ```

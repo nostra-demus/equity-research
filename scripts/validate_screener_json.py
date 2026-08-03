@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Dependency-free JSON Schema checker for the screener and commodity swarms' schemas
-(draft-07 subset).
+"""Dependency-free JSON Schema checker for the engine's tracked JSON contracts.
 
 The schemas use a deliberate subset of JSON Schema: type, required, properties,
-items, enum, const, minimum/maximum, minItems/maxItems, minLength/maxLength, pattern,
-$ref (#/definitions/...), and allOf with if/then/else. This validator covers exactly that
+items, enum, const, numeric bounds, minItems/maxItems/uniqueItems, minLength/maxLength, pattern,
+date/date-time format, strict additionalProperties, $ref, oneOf, and allOf with if/then/else. This covers
+the screener, commodity, and 3–6 month idea-assessment schemas without a third-party package. The checker
+covers exactly that
 subset, so schema conformance can be asserted on machines without the jsonschema package
 (the engine's verification step and the fixture check both call it).
 
@@ -39,6 +40,7 @@ from __future__ import annotations
 import datetime
 import glob
 import json
+import math
 import os
 import re
 import sys
@@ -49,6 +51,13 @@ TYPES = {
     "object": dict, "array": list, "string": str, "integer": int,
     "number": (int, float), "boolean": bool, "null": type(None),
 }
+
+# JSON Schema's date-time format follows RFC 3339: a full date, a clock time, and an explicit UTC offset.
+# datetime.fromisoformat() alone is too permissive here: it accepts a bare YYYY-MM-DD as midnight and a
+# timezone-less local timestamp, either of which makes freshness checks machine-dependent.
+RFC3339_DATETIME_RE = re.compile(
+    r"^\d{4}-\d{2}-\d{2}[Tt]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:[Zz]|[+-]\d{2}:\d{2})$"
+)
 
 
 class Checker:
@@ -76,6 +85,19 @@ class Checker:
     def check(self, node: dict, doc, path: str):
         node = self.deref(node)
 
+        # Python's json parser accepts the non-standard literals NaN and +/-Infinity by default. They also
+        # evade every ordinary bound comparison (NaN < minimum and NaN > maximum are both false), so reject
+        # non-finite values before type or numeric-bound evaluation.
+        if isinstance(doc, float) and not math.isfinite(doc):
+            self.err(path, f"{doc!r} is not a finite JSON number")
+            return
+
+        if "oneOf" in node:
+            matches = sum(1 for branch in node["oneOf"] if self.matches(branch, doc))
+            if matches != 1:
+                self.err(path, f"must match exactly one oneOf branch, matched {matches}")
+                return
+
         t = node.get("type")
         if t is not None:
             types = t if isinstance(t, list) else [t]
@@ -99,18 +121,46 @@ class Checker:
                 self.err(path, f"longer than maxLength {node['maxLength']}")
             if "pattern" in node and not re.search(node["pattern"], doc):
                 self.err(path, f"{doc!r} does not match pattern {node['pattern']!r}")
+            fmt = node.get("format")
+            if fmt in ("date", "date-time"):
+                try:
+                    if fmt == "date":
+                        datetime.date.fromisoformat(doc)
+                    else:
+                        if not RFC3339_DATETIME_RE.fullmatch(doc):
+                            raise ValueError("date-time must include clock time and timezone")
+                        parsed = datetime.datetime.fromisoformat(
+                            re.sub(r"[Zz]$", "+00:00", doc).replace("t", "T")
+                        )
+                        if parsed.tzinfo is None or parsed.utcoffset() is None:
+                            raise ValueError("date-time must include timezone")
+                except (ValueError, TypeError):
+                    self.err(path, f"{doc!r} is not a valid RFC 3339 {fmt}")
 
         if isinstance(doc, (int, float)) and not isinstance(doc, bool):
             if "minimum" in node and doc < node["minimum"]:
                 self.err(path, f"{doc} < minimum {node['minimum']}")
             if "maximum" in node and doc > node["maximum"]:
                 self.err(path, f"{doc} > maximum {node['maximum']}")
+            if "exclusiveMinimum" in node and doc <= node["exclusiveMinimum"]:
+                self.err(path, f"{doc} <= exclusiveMinimum {node['exclusiveMinimum']}")
+            if "exclusiveMaximum" in node and doc >= node["exclusiveMaximum"]:
+                self.err(path, f"{doc} >= exclusiveMaximum {node['exclusiveMaximum']}")
 
         if isinstance(doc, list):
             if "minItems" in node and len(doc) < node["minItems"]:
                 self.err(path, f"fewer than minItems {node['minItems']}")
             if "maxItems" in node and len(doc) > node["maxItems"]:
                 self.err(path, f"more than maxItems {node['maxItems']}")
+            if node.get("uniqueItems") is True:
+                try:
+                    encoded = [json.dumps(v, sort_keys=True, separators=(",", ":"), allow_nan=False) for v in doc]
+                except (TypeError, ValueError):
+                    # The recursive item check reports the precise non-finite/type path; uniqueness cannot be
+                    # evaluated safely until those values are valid JSON.
+                    encoded = []
+                if encoded and len(set(encoded)) != len(encoded):
+                    self.err(path, "items must be unique")
             items = node.get("items")
             if items:
                 for i, v in enumerate(doc):
@@ -125,7 +175,11 @@ class Checker:
                 if k in props:
                     self.check(props[k], v, f"{path}.{k}" if path else k)
             ap = node.get("additionalProperties")
-            if isinstance(ap, dict):
+            if ap is False:
+                extras = sorted(set(doc) - set(props))
+                for key in extras:
+                    self.err(f"{path}.{key}" if path else key, "additional property is not allowed")
+            elif isinstance(ap, dict):
                 for k, v in doc.items():
                     if k not in props:
                         self.check(ap, v, f"{path}.{k}" if path else k)
@@ -142,15 +196,39 @@ class Checker:
                 self.check(branch, doc, path)
 
 
+def nonfinite_errors(doc, path: str = "") -> list[str]:
+    """Reject non-standard JSON numeric literals anywhere, including under schema-unconstrained keys."""
+    if isinstance(doc, float):
+        return [] if math.isfinite(doc) else [f"{path or '(root)'} — {doc!r} is not a finite JSON number"]
+    if isinstance(doc, list):
+        return [
+            error
+            for index, value in enumerate(doc)
+            for error in nonfinite_errors(value, f"{path}[{index}]")
+        ]
+    if isinstance(doc, dict):
+        return [
+            error
+            for key, value in doc.items()
+            for error in nonfinite_errors(value, f"{path}.{key}" if path else key)
+        ]
+    return []
+
+
 def validate(schema_path: str, doc_path: str) -> list[str]:
     schema = json.load(open(schema_path, encoding="utf-8"))
     doc = json.load(open(doc_path, encoding="utf-8"))
     c = Checker(schema)
     c.check(schema, doc, "")
-    return c.errors
+    # Checker catches finite-number defects on every schema-traversed number. This independent walk also
+    # covers values hidden under an intentionally open/untyped portion of a schema.
+    return nonfinite_errors(doc) + [error for error in c.errors if "is not a finite JSON number" not in error]
 
 
 FIXTURE_PAIRS = [
+    ("frameworks/ideas/idea-assessment.schema.json", "frameworks/ideas/fixtures/candidate.json"),
+    ("frameworks/ideas/idea-assessment.schema.json", "frameworks/ideas/fixtures/rejected-candidate.json"),
+    ("frameworks/ideas/idea-assessment.schema.json", "frameworks/ideas/fixtures/not-assessable.json"),
     ("frameworks/screener/intake.schema.json", "screener/runs/SIG-20260610-a3f2c81d/intake.json"),
     ("frameworks/screener/signal_payload.schema.json", "screener/runs/SIG-20260610-a3f2c81d/signal_payload.json"),
     ("frameworks/screener/thesis_record.schema.json", "screener/runs/SIG-20260610-a3f2c81d/thesis_record.json"),
@@ -640,9 +718,48 @@ def _selftest_calibration_gate() -> int:
     return 0
 
 
+def _selftest_schema_primitives() -> int:
+    """Pin finite-number and timezone-bearing date-time behavior that Python does not enforce by default."""
+    schema = {
+        "type": "object",
+        "additionalProperties": True,
+        "required": ["at", "value"],
+        "properties": {
+            "at": {"type": "string", "format": "date-time"},
+            "value": {"type": "number"},
+        },
+    }
+    cases = [
+        ("UTC date-time", {"at": "2026-08-03T10:15:20Z", "value": 1.0}, True),
+        ("offset date-time", {"at": "2026-08-03T10:15:20.125+05:30", "value": 1.0}, True),
+        ("date-only is not date-time", {"at": "2026-08-03", "value": 1.0}, False),
+        ("timezone-less is not date-time", {"at": "2026-08-03T10:15:20", "value": 1.0}, False),
+        ("impossible date-time", {"at": "2026-02-30T10:15:20Z", "value": 1.0}, False),
+        ("NaN is not JSON number", {"at": "2026-08-03T10:15:20Z", "value": float("nan")}, False),
+        ("infinity is not JSON number", {"at": "2026-08-03T10:15:20Z", "value": float("inf")}, False),
+        ("untyped nested NaN is rejected", {"at": "2026-08-03T10:15:20Z", "value": 1.0, "open": {"x": float("nan")}}, False),
+    ]
+    failures = []
+    for name, doc, want_accept in cases:
+        checker = Checker(schema)
+        checker.check(schema, doc, "")
+        errors = nonfinite_errors(doc) + checker.errors
+        if (len(errors) == 0) != want_accept:
+            failures.append(f"{name} (want_accept={want_accept}, errors={errors[:1]})")
+    if failures:
+        print("SELFTEST FAIL (schema primitives):")
+        for failure in failures:
+            print(f"   - {failure}")
+        return 1
+    print("SELFTEST OK — finite numbers and timezone-bearing RFC 3339 date-times are enforced")
+    return 0
+
+
 def main(argv: list[str]) -> int:
     if len(argv) >= 2 and argv[1] == "--selftest":
-        return _selftest_calibration_gate()
+        calibration_result = _selftest_calibration_gate()
+        primitive_result = _selftest_schema_primitives()
+        return 1 if calibration_result or primitive_result else 0
     if len(argv) >= 2 and argv[1] == "--fixture":
         pairs = [(os.path.join(REPO, s), os.path.join(REPO, d)) for s, d in FIXTURE_PAIRS]
         pairs += [(os.path.join(REPO, THESIS_INTEGRITY_SCHEMA), os.path.join(REPO, d)) for d in screener_integrity_reviews()]

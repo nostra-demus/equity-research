@@ -606,6 +606,23 @@ function resolveAgentRunRoot(ticker: string): string {
   return resolveRunRoot({ ticker }) ?? today
 }
 
+/** A projection/admission makes the dated research folder immutable. This is checked before any paid
+ * module/agent/rerun launch, in addition to the slash-command guard, so UI launches cannot spend first
+ * and discover the seal later. A full launch may still enter its explicit read-only recovery route. */
+export function isSealedResearchRun(runRoot: string): boolean {
+  const abs = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
+  return fs.existsSync(path.join(abs, 'idea_projection_manifest.json')) || fs.existsSync(path.join(abs, 'idea_admission.json'))
+}
+
+function sealedResearchRunError(runRoot: string): Error {
+  const err: any = new Error(
+    `Research run ${runRoot} is sealed by its Ideas projection/admission. Start a new dated full run; the old ex-ante result cannot be rewritten.`,
+  )
+  err.statusCode = 409
+  err.body = { code: 'research_run_sealed', reason: 'immutable_projection', detail: runRoot }
+  return err
+}
+
 // Modules this run writes into (for D2b / D3 admission). swarmId is resolved by the caller.
 function coveredModulesFor(swarmId: string, kind: RunKind, module?: string, agent?: string): string[] {
   const g = buildSwarmGraph(swarmId)
@@ -930,6 +947,8 @@ export function chainedResumePreflight(ticker: string, plannedModules: string[],
 }
 
 export async function launchFullChained(ticker: string, user: string, userVia: 'cf-access' | 'local', deps: FullChainDeps = defaultFullChainDeps): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> {
+  const datedRoot = `analyses/${ticker}_${todayDate()}`
+  if (isSealedResearchRun(datedRoot)) throw sealedResearchRunError(datedRoot)
   const g = buildSwarmGraph()
   const names = g.modules.map((m) => m.name)
   const known = new Set(names)
@@ -1240,7 +1259,10 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     const ticker = params.ticker || ''
     subjectId = ticker
     // opt-in: run a full pipeline as a chain of per-module runs + master (each its own budget)
-    if (kind === 'full' && FULL_PER_MODULE) return launchFullChained(ticker, user, userVia)
+    const datedRoot = `analyses/${ticker}_${todayDate()}`
+    // A sealed full run uses full.md's read-only recovery route. Do not send it through the per-module
+    // scheduler, which would begin rewriting modules before the command could observe the seal.
+    if (kind === 'full' && FULL_PER_MODULE && !isSealedResearchRun(datedRoot)) return launchFullChained(ticker, user, userVia)
     if (kind === 'rerun') {
       const latest = resolveRunRoot({ ticker })
       if (!latest) {
@@ -1265,6 +1287,10 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       // just records the (cheap, side-effect-free) fact so the code after admission can act on it.
       isFullRelaunch = kind === 'full' && fs.existsSync(path.join(REPO_ROOT, runRoot)) && !finalDeliverablesPresent(runRoot)
     }
+  }
+
+  if (swarmId === 'research' && ['module', 'agent', 'rerun'].includes(kind) && isSealedResearchRun(runRoot)) {
+    throw sealedResearchRunError(runRoot)
   }
 
   const ticker = subjectId // RunState display/compat field: research = the ticker; swarms = the subject id

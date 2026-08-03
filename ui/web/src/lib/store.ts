@@ -217,6 +217,7 @@ const autoResumeTries = new Map<string, { count: number; lastAt: number }>()
 // events whose signal-state read is currently in flight — guards concurrent fetchSignalState WITHOUT
 // parking a 'loading' sentinel in the store, so a refetch keeps the last-known badge visible (no flash).
 const signalStateInFlight = new Set<string>()
+let scBoardFetchGeneration = 0 // newest board request owns fetch status/data; slow older responses are ignored
 const AUTO_RESUME_MAX = 3 // give up after this many real failures → fall back to the manual Continue
 const AUTO_RESUME_COOLDOWN_MS = 30_000 // min gap between re-attempts of the SAME signal
 const AUTO_RESUME_BATCH = 4 // most to kick off per cycle (the server's own cap gates the rest)
@@ -357,6 +358,9 @@ interface State {
   scRuntime: Record<string, NodeRuntime>
   scSelectedSignal: string | null // SIG id whose run folder is shown on the gauntlet
   scBoard: ScreenerBoard | null
+  // The board poll previously swallowed every exception, so an unreachable engine looked exactly like
+  // an eternally-empty Ideas tab. Preserve the last good board but expose whether it is still refreshing.
+  scBoardFetch: { status: 'idle' | 'loading' | 'refreshing' | 'ready' | 'error'; error: string | null; lastSuccessAt: number | null }
   scRouted: Record<string, { route: string; terminal: boolean }> // module -> latest routing (lights the switchyard)
   signalIntakeOpen: boolean
   signalIntakeSeed: SignalIntakeInput | null
@@ -921,6 +925,7 @@ export const useStore = create<State>((set, get) => ({
   scRuntime: {},
   scSelectedSignal: null,
   scBoard: null,
+  scBoardFetch: { status: 'idle', error: null, lastSuccessAt: null },
   scRouted: {},
   signalIntakeOpen: false,
   signalIntakeSeed: null,
@@ -3282,20 +3287,33 @@ export const useStore = create<State>((set, get) => ({
       await get().scRefreshBoard() // revert the optimistic vote to the server's truth
       return
     }
-    // On success KEEP the optimistic vote — do NOT refetch here. The server rebuilds the board on a deferred
-    // setImmediate, so an immediate GET would read the PRE-rebuild board (feedback still null), clobber the
-    // filled thumb, and break toggle-off (vote===pol would compare against null). The periodic 30s board poll
-    // reconciles the scorecard + any 👎 decay change once the rebuild has landed.
+    // On success keep the optimistic vote; the periodic poll reads the live snapshot/feedback projection
+    // and reconciles the scorecard without depending on the deferred generated-board rebuild.
   },
 
   scRefreshBoard: async () => {
+    const generation = ++scBoardFetchGeneration
+    // A cold fetch owns the skeleton. A background refresh keeps the last board and any prior failure
+    // visible until a successful response replaces both; clicking Retry must not briefly paint green.
+    set((s) => ({
+      scBoardFetch: {
+        ...s.scBoardFetch,
+        status: s.scBoard ? 'refreshing' : 'loading',
+        error: s.scBoard ? s.scBoardFetch.error : null,
+      },
+    }))
     try {
       const scBoard = await api.screenerBoard()
-      set({ scBoard })
+      if (generation !== scBoardFetchGeneration) return
+      set({ scBoard, scBoardFetch: { status: 'ready', error: null, lastSuccessAt: Date.now() } })
       // a partial run the engine forgot (it came back after a break) shows up here as resumable — pick
       // it back up on its own so the user never has to hunt for a "failed" run and click Continue.
       void get()._maybeAutoResume(scBoard.resumable)
-    } catch {}
+    } catch (e: any) {
+      if (generation !== scBoardFetchGeneration) return
+      const message = typeof e?.message === 'string' && e.message ? e.message : 'The board request failed.'
+      set((s) => ({ scBoardFetch: { status: 'error', error: message, lastSuccessAt: s.scBoardFetch.lastSuccessAt } }))
+    }
   },
 
   // Auto-resume every interrupted (non-terminal, non-aborted) partial run the server surfaced. Fires on

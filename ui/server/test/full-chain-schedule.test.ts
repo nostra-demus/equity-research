@@ -192,6 +192,26 @@ const sorted = (a: string[]) => [...a].sort()
     assert.equal(f.wasMarkerCleared(), true, 'a halted chain clears the defer-memo marker (no orphan poisoning a later same-day standalone run)')
   })
 
+  await check('a sealed dated run is rejected before the chained scheduler writes a marker or launches paid work', async () => {
+    const TICK = 'ZZSEALEDCHAIN'
+    const d = new Date()
+    const TODAY = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+    const runRootAbs = path.join(REPO_ROOT, 'analyses', `${TICK}_${TODAY}`)
+    try {
+      fs.mkdirSync(runRootAbs, { recursive: true })
+      fs.writeFileSync(path.join(runRootAbs, 'idea_admission.json'), '{}\n')
+      const f = makeFake()
+      await assert.rejects(
+        () => launchFullChained(TICK, 'tester', 'local', f.deps),
+        (error: any) => error?.statusCode === 409 && error?.body?.code === 'research_run_sealed',
+      )
+      assert.equal(f.getMarker(), null, 'the defer marker is not written for a sealed run')
+      assert.deepEqual(f.launches, [], 'no module or master launch occurs')
+    } finally {
+      fs.rmSync(runRootAbs, { recursive: true, force: true })
+    }
+  })
+
   // RESUME (the honest-UI fix): a run folder already holding finished modules is CONTINUED — those modules
   // are reported as `skipped` (the cockpit shows them done, not "starting") and are NOT re-launched; only
   // the rest are `planned`. Touches a temp run folder, always cleaned up (never leak a fixture into git).

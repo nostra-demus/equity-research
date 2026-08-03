@@ -28,6 +28,11 @@ Parse `$ARGUMENTS` as `RUN_OR_TICKER`:
 
 Confirm `<RUN_ROOT>/final_thesis.md` exists; if not, STOP and report "No finished run at `<RUN_ROOT>` (no final_thesis.md)." Capture `<TICKER>` (from the folder name or `decision_record.json`), `<RUN_DATE>` (from the folder name), and the data pool `data/<TICKER>/`.
 
+If `<RUN_ROOT>/idea_projection_manifest.json` or `<RUN_ROOT>/idea_admission.json` already exists, STOP
+before writing a new audit. That run's canonical audit set is sealed; appending a newer audit version would
+correctly invalidate its live admission. New analysis belongs in a new dated run, while a discovered error
+belongs in the append-only correction ledger. Never weaken this guard by deleting the seal.
+
 Read (read-only): `final_thesis.md`, `decision_record.json` (if present), every `<RUN_ROOT>/*/99_*-synthesis.md`, `RUN_METADATA.md`, and the specific module sub-agent files and `data/<TICKER>/` sources you need to check a claim.
 
 ## 1b. Build a searchable corpus from the data pool (text AND binary files)
@@ -143,6 +148,8 @@ Write to `<RUN_ROOT>/verification_report.json`. If it already exists, DO NOT ove
   "verifier": "verify-evidence",
   "final_thesis_path": "",
   "decision_record_path": "",
+  "final_thesis_sha256": "",
+  "decision_record_sha256": "",
   "claims_checked": null,
   "claim_checks": [],
   "math_checks": [],
@@ -157,6 +164,11 @@ Write to `<RUN_ROOT>/verification_report.json`. If it already exists, DO NOT ove
 `claim_checks[]` element: `{ "claim": "", "citation": "", "source_checked": "", "status": "", "evidence": "", "severity": "" }`.
 `math_checks[]` element: `{ "quantity": "", "reported": "", "recomputed": "", "ties": null, "detail": "" }`.
 `anchor_checks[]` element: `{ "anchor": "", "values_by_module": {}, "consistent": null, "detail": "" }`.
+
+Immediately before writing the report, compute SHA-256 over the exact `final_thesis_path` and
+`decision_record_path` bytes you audited (`sha256sum` on Linux or `shasum -a 256` on macOS) and record both
+lowercase 64-hex digests. If either path or digest cannot be recorded, stop rather than emit a Clean report
+that could later bless changed inputs.
 
 Conventions: valid JSON; no markdown fences; no comments; no trailing commas; `null` for unknown numbers; `""` for unknown strings; `[]`/`{}` for empty collections; never fabricate a value. Validate before continuing:
 

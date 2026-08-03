@@ -1,0 +1,316 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "frameworks/ideas/idea-assessment.schema.json",
+  "title": "3-6 month idea assessment",
+  "description": "Fail-closed producer contract for <RUN_ROOT>/idea_3_6m.json. Every full research run records either one fully evidenced 3-6 month candidate or an honest not-assessable result.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "assessment_id",
+    "run_root",
+    "created_at",
+    "ticker",
+    "company",
+    "status",
+    "gaps",
+    "candidate"
+  ],
+  "properties": {
+    "schema_version": { "const": "idea-assessment/v1" },
+    "assessment_id": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "run_root": { "type": "string", "pattern": "^analyses/[^/]+_[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "ticker": { "type": "string", "pattern": "^[-A-Z0-9.]{1,24}$" },
+    "company": { "type": ["string", "null"], "minLength": 1 },
+    "status": { "enum": ["candidate", "not_assessable"] },
+    "gaps": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 240 }
+    },
+    "candidate": {
+      "oneOf": [
+        { "$ref": "#/$defs/qualifiedIdea" },
+        { "type": "null" }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "status": { "const": "candidate" } },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "gaps": { "maxItems": 0 },
+          "candidate": { "$ref": "#/$defs/qualifiedIdea" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "status": { "const": "not_assessable" } },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "gaps": { "minItems": 1 },
+          "candidate": { "type": "null" }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "qualifiedIdea": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "policy_version",
+        "idea_id",
+        "market_evidence_sha256",
+        "projection_manifest_sha256",
+        "run_root",
+        "decision_date",
+        "created_at",
+        "instrument",
+        "horizon",
+        "quote",
+        "liquidity",
+        "market_risk",
+        "research",
+        "catalyst",
+        "falsifier",
+        "valuation_bridge",
+        "scenarios"
+      ],
+      "properties": {
+        "schema_version": { "const": "qualified-idea/v1" },
+        "policy_version": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "idea_id": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "market_evidence_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "projection_manifest_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "run_root": { "type": "string", "pattern": "^analyses/[^/]+_[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "decision_date": { "type": "string", "format": "date" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "instrument": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["ticker", "company", "exchange", "currency", "direction", "asset_type"],
+          "properties": {
+            "ticker": { "type": "string", "pattern": "^[-A-Z0-9.]{1,24}$" },
+            "company": { "type": "string", "minLength": 1 },
+            "exchange": { "type": "string", "minLength": 1 },
+            "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+            "direction": { "enum": ["long", "short"] },
+            "asset_type": { "const": "equity" }
+          }
+        },
+        "horizon": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["start", "end"],
+          "properties": {
+            "start": { "type": "string", "format": "date-time" },
+            "end": { "type": "string", "format": "date-time" }
+          }
+        },
+        "quote": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["price", "as_of", "source", "identity_verified", "stale"],
+          "properties": {
+            "price": { "type": "number", "exclusiveMinimum": 0 },
+            "as_of": { "type": "string", "format": "date-time" },
+            "source": { "type": "string", "minLength": 1 },
+            "identity_verified": { "const": true },
+            "stale": { "const": false }
+          }
+        },
+        "liquidity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["verified", "as_of", "source", "lookback_days", "observed_sessions", "coverage_pct", "window_start", "window_end", "median_daily_value_usd", "currency_conversion"],
+          "properties": {
+            "verified": { "const": true },
+            "as_of": { "type": "string", "format": "date-time" },
+            "source": { "type": "string", "minLength": 1 },
+            "lookback_days": { "type": "integer", "minimum": 60 },
+            "observed_sessions": { "type": "integer", "minimum": 0 },
+            "coverage_pct": { "type": "number", "minimum": 90, "maximum": 100 },
+            "window_start": { "type": "string", "format": "date-time" },
+            "window_end": { "type": "string", "format": "date-time" },
+            "median_daily_value_usd": { "type": "number", "minimum": 0 },
+            "currency_conversion": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["pair", "rate_usd_per_currency", "as_of", "source"],
+              "properties": {
+                "pair": { "type": "string", "pattern": "^[A-Z]{3}/USD$" },
+                "rate_usd_per_currency": { "type": "number", "exclusiveMinimum": 0 },
+                "as_of": { "type": "string", "format": "date-time" },
+                "source": { "type": "string", "minLength": 1 }
+              }
+            }
+          }
+        },
+        "market_risk": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["as_of", "source", "lookback_days", "ordinary_move_pct"],
+          "properties": {
+            "as_of": { "type": "string", "format": "date-time" },
+            "source": { "type": "string", "minLength": 1 },
+            "lookback_days": { "type": "integer", "minimum": 60 },
+            "ordinary_move_pct": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        },
+        "research": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "decision",
+            "integrity_status",
+            "data_sufficiency_score",
+            "edge_score",
+            "edge_proof",
+            "hard_cap_active",
+            "hard_cap_reason",
+            "unresolved_red_flags",
+            "calibration_status"
+          ],
+          "properties": {
+            "decision": {
+              "enum": [
+                "Strong Buy",
+                "Buy",
+                "Starter Position Only",
+                "Watchlist",
+                "Avoid",
+                "Short Candidate",
+                "Pair Trade / Hedge Required",
+                "Insufficient Data — Refuse To Rate"
+              ]
+            },
+            "integrity_status": { "enum": ["verified", "provisional", "unaudited"] },
+            "data_sufficiency_score": { "type": "number", "minimum": 0, "maximum": 100 },
+            "edge_score": { "type": "number", "minimum": 0, "maximum": 100 },
+            "edge_proof": { "type": "string", "minLength": 20 },
+            "hard_cap_active": { "type": "boolean" },
+            "hard_cap_reason": {
+              "oneOf": [
+                { "type": "string", "minLength": 1 },
+                { "type": "null" }
+              ]
+            },
+            "unresolved_red_flags": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["id", "severity", "description"],
+                "properties": {
+                  "id": { "type": "string", "minLength": 1 },
+                  "severity": { "enum": ["Critical", "High", "Medium", "Low"] },
+                  "description": { "type": "string", "minLength": 1 }
+                }
+              }
+            },
+            "calibration_status": { "const": "pre_data" }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": { "hard_cap_active": { "const": true } },
+                "required": ["hard_cap_active"]
+              },
+              "then": {
+                "properties": { "hard_cap_reason": { "type": "string", "minLength": 1 } }
+              },
+              "else": {
+                "properties": { "hard_cap_reason": { "type": "null" } }
+              }
+            }
+          ]
+        },
+        "catalyst": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["forecast_id", "name", "window_start", "window_end", "source", "status_at_admission", "status_as_of", "causal_steps", "bullish_trigger", "bearish_trigger"],
+          "properties": {
+            "forecast_id": { "type": "string", "minLength": 1, "maxLength": 160 },
+            "name": { "type": "string", "minLength": 1 },
+            "window_start": { "type": "string", "format": "date-time" },
+            "window_end": { "type": "string", "format": "date-time" },
+            "source": { "type": "string", "minLength": 1 },
+            "status_at_admission": { "const": "scheduled_unresolved" },
+            "status_as_of": { "type": "string", "format": "date-time" },
+            "causal_steps": {
+              "type": "array",
+              "minItems": 2,
+              "items": { "type": "string", "minLength": 10 }
+            },
+            "bullish_trigger": { "type": "string", "minLength": 10 },
+            "bearish_trigger": { "type": "string", "minLength": 10 }
+          }
+        },
+        "falsifier": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["condition", "metric", "threshold", "deadline", "source"],
+          "properties": {
+            "condition": { "type": "string", "minLength": 20 },
+            "metric": { "type": "string", "minLength": 1 },
+            "threshold": { "type": "string", "minLength": 1 },
+            "deadline": { "type": "string", "format": "date-time" },
+            "source": { "type": "string", "minLength": 1 }
+          }
+        },
+        "valuation_bridge": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source_horizon_days", "method", "convergence_fraction", "rationale", "source"],
+          "properties": {
+            "source_horizon_days": { "type": "integer", "minimum": 1 },
+            "method": { "enum": ["same_horizon", "catalyst_partial_convergence", "event_payoff", "other"] },
+            "convergence_fraction": {
+              "oneOf": [
+                { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+                { "type": "null" }
+              ]
+            },
+            "rationale": { "type": "string", "minLength": 20 },
+            "source": { "type": "string", "minLength": 1 }
+          }
+        },
+        "scenarios": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 7,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["scenario_id", "label", "probability_pct", "price_target", "source_price_target", "conditions", "source"],
+            "properties": {
+              "scenario_id": { "type": "string", "minLength": 1, "maxLength": 160 },
+              "label": { "type": "string", "minLength": 1 },
+              "probability_pct": { "type": "number", "exclusiveMinimum": 0, "maximum": 100 },
+              "price_target": { "type": "number", "exclusiveMinimum": 0 },
+              "source_price_target": { "type": "number", "exclusiveMinimum": 0 },
+              "return_pct": { "type": ["number", "null"] },
+              "conditions": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string", "minLength": 5 }
+              },
+              "source": { "type": "string", "minLength": 1 },
+              "joint_probability_basis": { "type": ["string", "null"], "minLength": 20 }
+            }
+          }
+        }
+      }
+    }
+  }
+}

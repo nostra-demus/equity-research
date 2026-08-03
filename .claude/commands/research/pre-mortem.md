@@ -25,6 +25,10 @@ Parse `$ARGUMENTS` as `RUN_OR_TICKER`:
 
 Confirm `<RUN_ROOT>/final_thesis.md` exists; else STOP ("No finished run at `<RUN_ROOT>`"). Capture `<TICKER>`, `<RUN_DATE>`, and `data/<TICKER>/`.
 
+If `<RUN_ROOT>/idea_projection_manifest.json` or `<RUN_ROOT>/idea_admission.json` already exists, STOP
+before writing a new audit. The run's audit authority is sealed; append-only corrections or a new dated
+research run are the only valid follow-ups. Do not delete or bypass the seal.
+
 Read (read-only): `final_thesis.md`, `decision_record.json` (if present), every `<RUN_ROOT>/*/99_*-synthesis.md`, `RUN_METADATA.md`, and any module sub-agent file or `data/<TICKER>/` source you need. Capture `original_decision`, `original_confidence` (the confidence score), the thesis's stated bull/bear cases, kill criteria, variant perception, scenario model, and red flags.
 
 ## 2. Pick the adversarial direction (red-team the ACTUAL call)
@@ -55,7 +59,9 @@ Produce each of the following, grounded in the dossier + data pool (and, only wh
 
 ## 4. Verdict, haircut, and rating cap
 
-- **`survives`** (bool) — does the decision survive the pre-mortem at its stated conviction?
+- **`survives`** (bool) — whether the directional decision survives: `true` for `Survives` and
+  `Survives with haircut`; `false` for `Does not survive — downgrade` and `Thesis broken`. The separate
+  confidence fields carry the haircut, so do not encode a mere confidence reduction as `survives: false`.
 - **`verdict`** — one of:
   - **Survives** — the bear case is real but the decision holds at its stated confidence; no haircut.
   - **Survives with haircut** — the decision holds but confidence was too high vs the bear case / base rate; recommend a points haircut.
@@ -79,6 +85,8 @@ Write `<RUN_ROOT>/pre_mortem.json`. If it exists, do NOT overwrite — use `pre_
   "auditor": "pre-mortem",
   "final_thesis_path": "",
   "decision_record_path": "",
+  "final_thesis_sha256": "",
+  "decision_record_sha256": "",
   "original_decision": "",
   "original_confidence": null,
   "adversarial_direction": "",
@@ -104,6 +112,11 @@ Write `<RUN_ROOT>/pre_mortem.json`. If it exists, do NOT overwrite — use `pre_
 
 `kill_criteria_attack[]` element: `{ "criterion": "", "closeness_to_trigger": "", "disconfirming_evidence_now": "", "severity": "" }`.
 `variant_perception_attack` object: `{ "claimed_edge": "", "already_priced": null, "is_provably_different": null, "what_would_prove_not_different": "" }`.
+
+Immediately before writing the report, compute SHA-256 over the exact `final_thesis_path` and
+`decision_record_path` bytes you audited (`sha256sum` on Linux or `shasum -a 256` on macOS) and record both
+lowercase 64-hex digests. If either path or digest cannot be recorded, stop rather than emit an audit that
+could later bless changed inputs.
 
 Conventions: valid JSON; no markdown fences; no comments; no trailing commas; `null` for unknown numbers; `""` for unknown strings; `[]`/`{}` for empty collections; never fabricate. Validate before continuing:
 

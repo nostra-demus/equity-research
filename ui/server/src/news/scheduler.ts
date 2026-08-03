@@ -16,17 +16,20 @@ import { refreshBoard } from './write-inbox'
 import { runIngestCycle } from './runCycle'
 import { healEnrichCache } from './enrich-heal'
 import { runIdeaPass } from './ideas/run-idea-pass'
+import { initializeIdeasHealth, inspectIdeaSnapshots, updateIdeasHealth } from './ideas/ideas-health'
+import { runQualifiedIdeaOutcomePass } from '../qualified-idea-outcome-runner'
 import { cooldownInfo, isCoolingDown, pacedCeiling, pacedHasHeadroom } from './triage/budget'
 import { estimateTokens } from './triage/groq'
 import { preTriagePriority } from './rank'
 import { DEFERRED_CAP } from './runCycle'
 import type { CycleSummary, DeferReason, LastResortState } from './types'
 
-// The PM-skim config, assembled once from NEWS (opt-in via IDEAS_ENABLED). Reuses the ingester's own Groq
+// The news-lead skim config, assembled once from NEWS. Reuses the ingester's own Groq
 // budget / limiter / cooldown knobs so the two paths share one honest free-tier accounting.
 const IDEA_PASS_CONFIG = {
   topN: NEWS.ideasTopN,
   shelfLifeHrs: NEWS.ideasShelfLifeHrs,
+  inputMaxAgeHrs: NEWS.ideasInputMaxAgeHrs,
   minIntervalSec: NEWS.ideasMinIntervalSec,
   refreshSec: NEWS.ideasRefreshSec,
   groqApiKey: NEWS.groqApiKey,
@@ -42,6 +45,41 @@ const IDEA_PASS_CONFIG = {
   llmCooldownMs: NEWS.llmCooldownMs,
   llmCooldownMaxMs: NEWS.llmCooldownMaxMs,
   limiterWaitMs: 4000, // give up the shared Groq minute window fast if triage has it — skip the pass, don't block
+}
+
+/** One configured lead-skim pass shared by both runtime topologies (in-process scheduler and the
+ * standalone launchd cycle). Keeping this in one place prevents production from silently omitting a
+ * feature the cockpit-hosted scheduler happens to run. */
+export async function runConfiguredIdeaPass(log: (m: string) => void = () => {}) {
+  if (!NEWS.enabled || !NEWS.ideasEnabled) {
+    const at = Date.now()
+    const missingKey = !NEWS.groqApiKey
+    const ideasDisabled = !NEWS.ideasEnabled
+    updateIdeasHealth(STATE_DIR, {
+      enabled: NEWS.ideasEnabled, status: ideasDisabled ? 'disabled' : 'error', outcome: 'not_run',
+      reason_code: ideasDisabled ? 'disabled' : missingKey ? 'missing_api_key' : 'ingester_disabled',
+      reason: ideasDisabled
+        ? 'The idea pass is disabled by IDEAS_ENABLED=0.'
+        : missingKey ? 'The news ingester and idea pass have no Groq API key.' : 'The news ingester is disabled by NEWS_INGEST_ENABLED=0.',
+      next_eligible_at: null,
+      input_count: 0, produced_count: 0,
+    }, at, inspectIdeaSnapshots(REPO_ROOT, at))
+    return {
+      ran: false, produced: 0,
+      note: ideasDisabled ? 'disabled' : missingKey ? 'missing_api_key' : 'ingester_disabled',
+      reason_code: ideasDisabled ? 'disabled' as const : missingKey ? 'missing_api_key' as const : 'ingester_disabled' as const,
+    }
+  }
+  return runIdeaPass({
+    repoRoot: REPO_ROOT, stateDir: STATE_DIR, config: IDEA_PASS_CONFIG,
+    refreshBoard: () => refreshBoard(REPO_ROOT, log), log, persistHealth: true,
+  })
+}
+
+/** Outcome settlement is independent of whether the cheap lead skim is enabled. */
+export async function runConfiguredQualifiedIdeaOutcomes(log: (m: string) => void = () => {}) {
+  try { return await runQualifiedIdeaOutcomePass(REPO_ROOT, Date.now(), STATE_DIR) }
+  catch (e: any) { log(`qualified idea outcome pass error: ${e?.message || e}`); return null }
 }
 
 const PACE = { targetTokens: NEWS.groqDailyTokenTarget, floorFrac: NEWS.groqPaceFloorFrac }
@@ -85,6 +123,10 @@ export async function runAbortableCycle<T>(
 
 let timer: ReturnType<typeof setInterval> | null = null
 let drainTimer: ReturnType<typeof setInterval> | null = null
+let initialTickTimer: ReturnType<typeof setTimeout> | null = null
+let ingesterRetryTimer: ReturnType<typeof setTimeout> | null = null
+let outcomeTimer: ReturnType<typeof setInterval> | null = null
+let outcomeRunning = false
 let running = false
 let lastCycleAt: string | null = null
 let nextCycleAt: string | null = null
@@ -92,6 +134,39 @@ let lastNote: string | null = null
 // True when another engine owns the ingester lock for this data dir, so THIS process serves the cockpit but
 // never fetches/scores (read-only). Surfaced in status/diagnostics so "why am I not scanning?" is answerable.
 let readOnlyMode = false
+
+/** Avoid redundant interval calls inside this process. The runner's repository lock is the authoritative
+ * whole-pass singleton across every engine process pointed at the same research ledgers. */
+async function runScheduledQualifiedIdeaOutcomes(
+  log: (m: string) => void,
+  run: (log: (m: string) => void) => Promise<unknown> = runConfiguredQualifiedIdeaOutcomes,
+): Promise<void> {
+  if (outcomeRunning) return
+  outcomeRunning = true
+  try { await run(log) }
+  finally { outcomeRunning = false }
+}
+
+/** Start the exact-horizon settlement clock. It is deliberately separate from news ingestion: full
+ * research outcomes still mature when the cheap news skim is disabled, missing a provider key, or
+ * serving read-only because another process owns the ingester lock. Returns false when already active. */
+export function startQualifiedIdeaOutcomeLoop(
+  log: (m: string) => void = () => {},
+  options: { intervalMs?: number; run?: (log: (m: string) => void) => Promise<unknown> } = {},
+): boolean {
+  if (outcomeTimer) return false
+  const run = options.run || runConfiguredQualifiedIdeaOutcomes
+  const intervalMs = Math.max(10, options.intervalMs ?? Math.max(60_000, NEWS.pollIntervalMin * 60_000))
+  void runScheduledQualifiedIdeaOutcomes(log, run)
+  outcomeTimer = setInterval(() => { void runScheduledQualifiedIdeaOutcomes(log, run) }, intervalMs)
+  outcomeTimer.unref?.()
+  return true
+}
+
+/** Stop the settlement clock. An already-running pass is allowed to finish; no later pass is queued. */
+export function stopQualifiedIdeaOutcomeLoop(): void {
+  if (outcomeTimer) { clearInterval(outcomeTimer); outcomeTimer = null }
+}
 
 // How often the drain tick works the deferred backlog (no fetch). Short, so the daily-budget pacer
 // releases its clock-prorated allowance in small frequent sub-bursts (an even all-day drip) rather than
@@ -750,7 +825,23 @@ export function releaseIngesterLock(stateDir: string): void {
 }
 
 export function startNewsIngester(): void {
+  const log = (m: string) => console.log(`[news] ${m}`) // eslint-disable-line no-console
+  // This loop belongs to the cockpit process, not to the news provider. Start it before every news-mode
+  // branch; its own guard makes repeated startNewsIngester calls idempotent.
+  startQualifiedIdeaOutcomeLoop(log)
+  initializeIdeasHealth(STATE_DIR, REPO_ROOT)
   if (!NEWS.enabled) {
+    const at = Date.now()
+    const missingKey = !NEWS.groqApiKey
+    updateIdeasHealth(STATE_DIR, {
+      enabled: NEWS.ideasEnabled,
+      status: NEWS.ideasEnabled ? 'error' : 'disabled', outcome: 'not_run',
+      reason_code: NEWS.ideasEnabled ? (missingKey ? 'missing_api_key' : 'ingester_disabled') : 'disabled',
+      reason: NEWS.ideasEnabled
+        ? (missingKey ? 'The news ingester and idea pass have no Groq API key.' : 'The news ingester is disabled by NEWS_INGEST_ENABLED=0.')
+        : 'The idea pass is disabled by IDEAS_ENABLED=0.',
+      next_eligible_at: null, input_count: 0, produced_count: 0,
+    }, at, inspectIdeaSnapshots(REPO_ROOT, at))
     // eslint-disable-next-line no-console
     console.log(NEWS.groqApiKey ? '[news] ingester disabled (NEWS_INGEST_ENABLED=0)' : '[news] ingester idle — set GROQ_API_KEY to turn it on')
     return
@@ -761,11 +852,18 @@ export function startNewsIngester(): void {
   if (!acquireIngesterLock(STATE_DIR)) {
     readOnlyMode = true // surfaced in status/diagnostics so the cockpit can say why this engine isn't scanning
     // eslint-disable-next-line no-console
-    console.log('[news] another engine already owns the ingester for this data dir — staying read-only (no duplicate fetching). Stop the other instance, or point this one at a separate ENGINE_STATE_DIR.')
+    console.log('[news] another engine already owns the ingester for this data dir — read-only for now; lock acquisition will retry automatically.')
+    if (!ingesterRetryTimer) {
+      ingesterRetryTimer = setTimeout(() => {
+        ingesterRetryTimer = null
+        startNewsIngester()
+      }, 30_000)
+      ingesterRetryTimer.unref?.()
+    }
     return
   }
+  readOnlyMode = false
   process.once('exit', () => releaseIngesterLock(STATE_DIR))
-  const log = (m: string) => console.log(`[news] ${m}`) // eslint-disable-line no-console
   const tick = async () => {
     // Advance BEFORE the overlap guard. setInterval fires on schedule whether or not we run, so the next
     // fetch attempt is always one interval away — even when this tick is skipped because a drain is still
@@ -775,26 +873,30 @@ export function startNewsIngester(): void {
     if (running) return // never overlap cycles
     running = true
     try {
-      const summary = await runAbortableCycle(
-        (signal) => runIngestCycle({ log, signal, fetchFn: withCycleSignal(fetch, signal) }),
-        CYCLE_TIMEOUT_MS,
-        () => log(`cycle exceeded ${Math.round(CYCLE_TIMEOUT_MS / 1000)}s guard — aborting in-flight work`),
-      )
-      lastNote = summary.note || null
-      // AUTO-FIX (under the SAME cycle lock so it can't overlap a drain and double-spend a budget file):
-      // re-read any degraded THE STORY entries still on the wire, so a momentarily-missed article fixes
-      // itself without a human reopening it. Budget-gated, capped, never throws, and bounded by its own
-      // per-fetch timeouts — AWAITED to completion (not raced) so it can't overlap the next tick either.
-      if (budgetHasHeadroom()) await healEnrichCache({ hasBudget: budgetHasHeadroom, log })
-      // PM SKIM (opt-in): after triage + heal, surface the best 1-2 tradable ideas from the ranked top-N.
-      // Same cycle lock (no overlap/double-spend), same budget gate; the pass throttles itself (change-
-      // detection + interval floor) so this per-cycle call almost always no-ops without spending a token.
-      if (NEWS.ideasEnabled && budgetHasHeadroom()) {
-        await runIdeaPass({ repoRoot: REPO_ROOT, stateDir: STATE_DIR, config: IDEA_PASS_CONFIG, refreshBoard: () => refreshBoard(REPO_ROOT, log), log })
+      try {
+        const summary = await runAbortableCycle(
+          (signal) => runIngestCycle({ log, signal, fetchFn: withCycleSignal(fetch, signal) }),
+          CYCLE_TIMEOUT_MS,
+          () => log(`cycle exceeded ${Math.round(CYCLE_TIMEOUT_MS / 1000)}s guard — aborting in-flight work`),
+        )
+        lastNote = summary.note || null
+        // AUTO-FIX (under the SAME cycle lock so it can't overlap a drain and double-spend a budget file):
+        // re-read any degraded THE STORY entries still on the wire, so a momentarily-missed article fixes
+        // itself without a human reopening it. Budget-gated, capped, never throws, and bounded by its own
+        // per-fetch timeouts — AWAITED to completion (not raced) so it can't overlap the next tick either.
+        if (budgetHasHeadroom()) await healEnrichCache({ hasBudget: budgetHasHeadroom, log })
+      } catch (e: any) {
+        log(`cycle error: ${e?.message || e}`)
+        lastNote = `cycle error: ${e?.message || e}`
       }
+      // This is deliberately outside the ingest try. runIdeaPass applies its own sweep + found_at age
+      // ceiling, so a transient source failure does not suppress a safe pass over still-current inputs.
+      // Outcome settlement has one owner: its independent interval above.
+      await runConfiguredIdeaPass(log)
     } catch (e: any) {
-      log(`cycle error: ${e?.message || e}`)
-      lastNote = `cycle error: ${e?.message || e}`
+      // runConfiguredIdeaPass is fail-soft, but keep a final boundary so an unexpected regression cannot
+      // wedge the scheduler lock.
+      log(`idea pass error: ${e?.message || e}`)
     } finally {
       running = false
       lastCycleAt = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
@@ -821,7 +923,8 @@ export function startNewsIngester(): void {
     }
   }
 
-  setTimeout(tick, 5000) // let the server settle, then run the first cycle
+  initialTickTimer = setTimeout(() => { initialTickTimer = null; void tick() }, 5000) // let the server settle, then run the first cycle
+  initialTickTimer.unref?.()
   nextCycleAt = new Date(Date.now() + 5000).toISOString().replace(/\.\d{3}Z$/, 'Z')
   timer = setInterval(tick, NEWS.pollIntervalMin * 60_000)
   timer.unref?.()
@@ -833,6 +936,9 @@ export function startNewsIngester(): void {
 }
 
 export function stopNewsIngester(): void {
+  if (initialTickTimer) { clearTimeout(initialTickTimer); initialTickTimer = null }
+  if (ingesterRetryTimer) { clearTimeout(ingesterRetryTimer); ingesterRetryTimer = null }
   if (timer) { clearInterval(timer); timer = null }
   if (drainTimer) { clearInterval(drainTimer); drainTimer = null }
+  stopQualifiedIdeaOutcomeLoop()
 }

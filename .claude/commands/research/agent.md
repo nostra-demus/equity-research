@@ -40,6 +40,11 @@ From the matched file read the frontmatter `name` (= the `subagent_type`) and `l
 - Else resolve the LATEST prior run: `ls -1d analyses/<TICKER>_* 2>/dev/null | sort -r | head -n1`. If one exists, use it as `<RUN_ROOT>`.
 - Else `mkdir -p "analyses/<TICKER>_<DATE>"` and use that.
 
+Before creating `<MODULE_DIR>`, check for `<RUN_ROOT>/idea_projection_manifest.json` or
+`<RUN_ROOT>/idea_admission.json`. If either exists, STOP: the run is sealed and a single-agent write or
+extract refresh would make its evidence graph inconsistent with the frozen projection. Use a new dated
+run for new evidence or the append-only correction ledger for an error; never delete the seal.
+
 Set `<MODULE_DIR>` = `<RUN_ROOT>/<MODULE>` and `mkdir -p "<MODULE_DIR>"`. The agent's output path is `<OUTPUT_PATH>` = `<MODULE_DIR>/<NN>_<AGENT_SLUG>.md`.
 
 ## 5. Prerequisite check (do not fabricate upstream)

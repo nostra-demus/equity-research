@@ -16,6 +16,11 @@ You operationalize the root `CLAUDE.md` **§7 Variant Perception Standard** — 
 
 Parse `$ARGUMENTS` as `RUN_OR_TICKER`: a path/`analyses/…`/existing dir → `<RUN_ROOT>`; a bare ticker → latest `analyses/<ARG>_*/` via `ls -1d … | sort -r | head -1`; empty → most recent run with a `final_thesis.md`. Confirm `<RUN_ROOT>/final_thesis.md` exists (else STOP). Capture `<TICKER>`, `<RUN_DATE>`, `data/<TICKER>/`.
 
+If `<RUN_ROOT>/idea_projection_manifest.json` or `<RUN_ROOT>/idea_admission.json` already exists, STOP
+before writing a new audit. Its canonical audit set is sealed; a new version would intentionally
+quarantine the live admission. Use a new dated research run for new evidence or the append-only correction
+ledger for an error. Never remove the seal to make an old projection mutable.
+
 Read (read-only): `final_thesis.md` (variant-perception section, scenario model, valuation section), `decision_record.json`, the `valuation/99_*` synthesis + `valuation/05_reverse-dcf.md` + `valuation/03_relative-valuation-peers.md`, the `earnings/04_guidance-consensus.md`, and the Capital IQ consensus data in `data/<TICKER>/` as needed.
 
 ## 2. What the price implies (the market's embedded expectations)
@@ -65,6 +70,9 @@ Write `<RUN_ROOT>/expectations_gap.json` (if it exists, `_v2`, `_v3`, …). Sche
   "performed_at": "",
   "analyst": "expectations-gap",
   "final_thesis_path": "",
+  "decision_record_path": "",
+  "final_thesis_sha256": "",
+  "decision_record_sha256": "",
   "current_price": null,
   "price_is_indicative": null,
   "consensus_expectations": "",
@@ -84,6 +92,11 @@ Write `<RUN_ROOT>/expectations_gap.json` (if it exists, `_v2`, `_v3`, …). Sche
   "notes": ""
 }
 ```
+
+Before reading either input, resolve the exact canonical paths shown above. Immediately before writing the
+report, compute SHA-256 over the exact bytes you audited (`sha256sum` on Linux or `shasum -a 256` on macOS)
+and record both lowercase 64-hex digests. If either path or digest cannot be recorded, stop and do not emit
+a report that could later be mistaken for an audit of different bytes.
 
 Conventions: valid JSON; no fences/comments/trailing commas; `null`/`""`/`[]`/`{}` for unknowns; never fabricate. Validate: `python3 -m json.tool "<file>" >/tmp/expgap_check.json`. Fix if invalid. Confirm no original artifact was modified.
 

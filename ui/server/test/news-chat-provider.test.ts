@@ -233,7 +233,7 @@ await check('chat racing the idea pass cannot exceed their shared Groq request c
     callGroqForIdeaPass(ideaRows, {
       repoRoot: sharedDir, stateDir: sharedDir, refreshBoard: async () => {}, fetchFn: sharedFetch, sleep: async () => {},
       config: {
-        topN: 1, shelfLifeHrs: 1, minIntervalSec: 0, refreshSec: 0, groqApiKey: 'test-key', groqBaseUrl: 'https://api.example/v1', groqModel: 'test-model', groqMaxTokens: 900,
+        topN: 1, shelfLifeHrs: 1, inputMaxAgeHrs: 1, minIntervalSec: 0, refreshSec: 0, groqApiKey: 'test-key', groqBaseUrl: 'https://api.example/v1', groqModel: 'test-model', groqMaxTokens: 900,
         groqDailyReqCap: 1, groqDailyTokenCap: 1_000_000, groqDailyTokenTarget: 1_000_000, groqPaceFloorFrac: 1,
         groqRpm: 0, groqTpm: 1_000_000, llmCooldownMs: 1_000, llmCooldownMaxMs: 10_000, limiterWaitMs: 0,
       },
@@ -405,7 +405,7 @@ await check('idea pass reserves the worst case when actual usage exceeds its old
   const run = () => callGroqForIdeaPass(ideaRows, {
     repoRoot: sharedDir, stateDir: sharedDir, refreshBoard: async () => {}, fetchFn: retryingFetch, sleep: async () => {},
     config: {
-      topN: 1, shelfLifeHrs: 1, minIntervalSec: 0, refreshSec: 0, groqApiKey: 'test-key', groqBaseUrl: 'https://api.example/v1', groqModel: 'test-model', groqMaxTokens: 900,
+      topN: 1, shelfLifeHrs: 1, inputMaxAgeHrs: 1, minIntervalSec: 0, refreshSec: 0, groqApiKey: 'test-key', groqBaseUrl: 'https://api.example/v1', groqModel: 'test-model', groqMaxTokens: 900,
       groqDailyReqCap: 10, groqDailyTokenCap: tokenCap, groqDailyTokenTarget: tokenCap, groqPaceFloorFrac: 1,
       groqRpm: 0, groqTpm: 1_000_000, llmCooldownMs: 1_000, llmCooldownMaxMs: 10_000, limiterWaitMs: 0,
     },
@@ -440,7 +440,7 @@ await check('idea pass degrades to one attempt at the pacer boundary', async () 
     fetchFn: (async () => { fetches++; return new Response('rate limited', { status: 429 }) }) as typeof fetch,
     sleep: async () => {},
     config: {
-      topN: 1, shelfLifeHrs: 1, minIntervalSec: 0, refreshSec: 0, groqApiKey: 'test-key', groqBaseUrl: 'https://api.example/v1', groqModel: 'test-model', groqMaxTokens: 900,
+      topN: 1, shelfLifeHrs: 1, inputMaxAgeHrs: 1, minIntervalSec: 0, refreshSec: 0, groqApiKey: 'test-key', groqBaseUrl: 'https://api.example/v1', groqModel: 'test-model', groqMaxTokens: 900,
       groqDailyReqCap: 10, groqDailyTokenCap: hardCap, groqDailyTokenTarget: 100 + perAttemptBound + 10, groqPaceFloorFrac: 1,
       groqRpm: 0, groqTpm: 1_000_000, llmCooldownMs: 1_000, llmCooldownMaxMs: 10_000, limiterWaitMs: 0,
     },
