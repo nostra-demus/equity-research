@@ -1,11 +1,14 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { DATA_DIR, REPO_ROOT } from './config'
+import { DATA_DIR, NEWS, REPO_ROOT, STATE_DIR } from './config'
 import { IN_FLIGHT_STATUSES, listRuns } from './registry'
 import { listModuleNames } from './roster'
 import { resolveInsideScreener } from './sandbox'
 import { swarmById } from './swarms'
 import { extractRouting, extractVerdict } from './verdict'
+import { ideasHealthLivenessMs, readIdeasHealth } from './news/ideas/ideas-health'
+import { projectLiveIdeas } from './news/ideas/ideas-projection'
+import { buildQualifiedIdeasBoard } from './qualified-ideas-store'
 
 // Read-only API surface over the screener swarm's canonical stores. Every path is derived from the
 // SWARM.md manifest (never hardcoded beyond the swarm id this API is named for) and sandboxed to
@@ -40,7 +43,24 @@ export function screenerBoard() {
   // dropped connection). Computed fresh from disk every fetch — the in-memory registry is wiped on
   // an engine restart, so the run folders are the only surviving truth.
   const resumable = listResumableSignals(new Set(live.map((r) => r.subjectId)))
-  return { ...index, live, resumable }
+  const liveIdeas = projectLiveIdeas(REPO_ROOT, index)
+  // Runtime projections override any older generated-index copy. `ideas: []` alone cannot say whether
+  // the news-lead pass succeeded, never ran, or failed; qualified_ideas is a separate full-research gate.
+  return {
+    ...index,
+    ideas: liveIdeas.ideas,
+    ideas_scorecard: liveIdeas.scorecard,
+    ideas_health: readIdeasHealth(
+      STATE_DIR,
+      REPO_ROOT,
+      NEWS.ideasEnabled,
+      Date.now(),
+      ideasHealthLivenessMs(NEWS.pollIntervalMin * 60_000),
+    ),
+    qualified_ideas: buildQualifiedIdeasBoard(REPO_ROOT),
+    live,
+    resumable,
+  }
 }
 
 // A screener signal run is RESUMABLE when its folder shows a partial gauntlet that neither finished

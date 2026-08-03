@@ -28,6 +28,7 @@ import { FeedbackMenu } from './FeedbackMenu'
 import { ScanStatus } from './ScanStatus'
 import type { ReportMenuAnchor } from '../ActivityReportMenu'
 import { itemOnWire, subjectOfItem, WIRE_OTHER } from '../../lib/wire'
+import { summarizeIdeasSurface } from '../../lib/ideasView'
 import { useWireConfig } from '../wire/WireContext'
 import { SubjectChips } from '../wire/SubjectChips'
 
@@ -269,6 +270,7 @@ export function EventRail() {
   const openCalendar = useStore((s) => s.openCalendar)
   const closeCalendar = useStore((s) => s.closeCalendar)
   const scBoard = useStore((s) => s.scBoard)
+  const scBoardFetch = useStore((s) => s.scBoardFetch)
   const setThemesGeo = useStore((s) => s.setThemesGeo)
   const openNewsFeed = useStore((s) => s.openNewsFeed)
   const openSources = useStore((s) => s.openSources)
@@ -325,10 +327,12 @@ export function EventRail() {
   const pickTab = (t: ListTab) => { setTab(t); if (themesOpen) closeThemes(); if (ideasOpen) closeIdeas(); if (calendarOpen) closeCalendar() }
   // the list surfaces (Wire / Everything) are showing when no full-pane surface (Themes / Calendar / Ideas) is open
   const listActive = !themesOpen && !ideasOpen && !calendarOpen
-  // The "Best ideas" tab is screener-only (the flow wire) AND deploy-skew-safe: it shows only when the
-  // server positively sends the ideas array (a capability check, never a swarm-id literal — DESIGN.md §5/§7).
-  const ideasAvailable = cfg.flow && Array.isArray(scBoard?.ideas)
-  const liveIdeaCount = (scBoard?.ideas || []).filter((i) => !i.stale).length
+  // A rolling deploy may expose qualification, lead health, or the legacy lead array first. Any positive
+  // capability keeps the Ideas surface inspectable; the badge counts qualified research, never cheap leads.
+  const ideasSummary = summarizeIdeasSurface(scBoard)
+  // A cold board failure must not hide the only surface that explains the failure. Keep Ideas openable
+  // so the user sees an explicit retry state instead of a missing tab that looks like "no ideas".
+  const ideasAvailable = cfg.flow && (ideasSummary.available || scBoardFetch.status === 'error')
 
   // ARCHIVE MODE: any structured filter (geography / sector / theme / size / text) flips the rail from the
   // live 2-day SSE wire to a server-side search over the WHOLE since-inception archive — so a sparse
@@ -614,9 +618,11 @@ export function EventRail() {
         )}
         <div className="evrail__seg" role="radiogroup" aria-label="How to view the wire">
           {ideasAvailable && (
-            <button type="button" role="radio" aria-checked={ideasOpen} className={`evrail__segbtn evrail__segbtn--ideas${ideasOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => openIdeas()} title="The best 1-2 tradable stock ideas the desk skimmed from today's top-ranked wire">
-              {liveIdeaCount > 0 && <span className="evrail__segdot" aria-hidden />}
-              Ideas{liveIdeaCount ? ` · ${liveIdeaCount}` : ''}
+            <button type="button" role="radio" aria-checked={ideasOpen} className={`evrail__segbtn evrail__segbtn--ideas${ideasOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => openIdeas()} title={scBoardFetch.status === 'error' ? 'Ideas board could not refresh — open for details and retry' : 'Qualified 3–6 month research decisions, plus clearly separated unverified news leads'}>
+              {scBoardFetch.status === 'error'
+                ? <span className="evrail__segdot evrail__segdot--bad" aria-hidden />
+                : ideasSummary.liveLeadCount > 0 && ideasSummary.qualifiedCount === 0 && <span className="evrail__segdot" aria-hidden title="Fresh unverified news leads" />}
+              Ideas{ideasSummary.qualifiedCount ? ` · ${ideasSummary.qualifiedCount}` : ''}
             </button>
           )}
           <button type="button" role="radio" aria-checked={themesOpen} className={`evrail__segbtn${themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => void openThemes('map')} title="The wire clustered into living investment themes">

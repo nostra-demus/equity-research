@@ -1,0 +1,143 @@
+{
+  "schema_version": "idea-assessment/v1",
+  "assessment_id": "REJECTED-2026-08-03-3-6m",
+  "run_root": "analyses/REJECTED_2026-08-03",
+  "created_at": "2026-08-03T10:00:00Z",
+  "ticker": "REJECTED",
+  "company": "Rejected Fixture Holdings",
+  "status": "candidate",
+  "gaps": [],
+  "candidate": {
+    "schema_version": "qualified-idea/v1",
+    "policy_version": "ideas-policy/precal-v1",
+    "idea_id": "REJECTED-2026-08-03-long-3-6m",
+    "market_evidence_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "projection_manifest_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "run_root": "analyses/REJECTED_2026-08-03",
+    "decision_date": "2026-08-03",
+    "created_at": "2026-08-03T10:00:00Z",
+    "instrument": {
+      "ticker": "REJECTED",
+      "company": "Rejected Fixture Holdings",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "direction": "long",
+      "asset_type": "equity"
+    },
+    "horizon": {
+      "start": "2026-08-03T10:00:00Z",
+      "end": "2027-01-30T10:00:00Z"
+    },
+    "quote": {
+      "price": 100,
+      "as_of": "2026-08-03T00:00:00Z",
+      "source": "SampleProvider adjusted close, 2026-08-03",
+      "identity_verified": true,
+      "stale": false
+    },
+    "liquidity": {
+      "verified": true,
+      "as_of": "2026-08-03T00:00:00Z",
+      "source": "SampleProvider 60-session close × volume, 2026-08-03",
+      "lookback_days": 60,
+      "observed_sessions": 60,
+      "coverage_pct": 100,
+      "window_start": "2026-05-11T00:00:00Z",
+      "window_end": "2026-08-03T00:00:00Z",
+      "median_daily_value_usd": 1000000,
+      "currency_conversion": {
+        "pair": "USD/USD",
+        "rate_usd_per_currency": 1,
+        "as_of": "2026-08-03T00:00:00Z",
+        "source": "USD listing currency"
+      }
+    },
+    "market_risk": {
+      "as_of": "2026-08-03T00:00:00Z",
+      "source": "SampleProvider split-adjusted closes, 2026-08-03",
+      "lookback_days": 60,
+      "ordinary_move_pct": 8
+    },
+    "research": {
+      "decision": "Watchlist",
+      "integrity_status": "unaudited",
+      "data_sufficiency_score": 40,
+      "edge_score": 20,
+      "edge_proof": "The measured evidence does not yet prove a view different from the market baseline.",
+      "hard_cap_active": true,
+      "hard_cap_reason": "An unresolved solvency lock caps the decision at Watchlist.",
+      "unresolved_red_flags": [
+        {
+          "id": "RF-SOLV-1",
+          "severity": "Critical",
+          "description": "Covenant headroom is not proven from the available filing."
+        }
+      ],
+      "calibration_status": "pre_data"
+    },
+    "catalyst": {
+      "forecast_id": "FC-REJECTED-Q3",
+      "name": "Third-quarter results",
+      "window_start": "2026-10-20T00:00:00Z",
+      "window_end": "2026-10-25T00:00:00Z",
+      "source": "Company calendar, 2026-08-03",
+      "status_at_admission": "scheduled_unresolved",
+      "status_as_of": "2026-08-03T09:59:00Z",
+      "causal_steps": [
+        "The company files the measured covenant result.",
+        "The market updates its survival and valuation assumptions."
+      ],
+      "bullish_trigger": "The filing proves covenant headroom above the disclosed minimum.",
+      "bearish_trigger": "The filing shows covenant headroom at or below the disclosed minimum."
+    },
+    "falsifier": {
+      "condition": "The possible edge is falsified when covenant headroom remains at or below the minimum.",
+      "metric": "Covenant headroom",
+      "threshold": "At or below the disclosed minimum",
+      "deadline": "2026-10-25T00:00:00Z",
+      "source": "Third-quarter filing, expected 2026-10-25"
+    },
+    "valuation_bridge": {
+      "source_horizon_days": 180,
+      "method": "same_horizon",
+      "convergence_fraction": null,
+      "rationale": "Each target is the modeled event payoff inside this exact holding window.",
+      "source": "Run scenario model, 2026-08-03"
+    },
+    "scenarios": [
+      {
+        "scenario_id": "bull",
+        "label": "bull",
+        "probability_pct": 25,
+        "price_target": 140,
+        "source_price_target": 140,
+        "return_pct": 40,
+        "conditions": ["The filing proves ample covenant headroom."],
+        "source": "Run scenario model, 2026-08-03",
+        "joint_probability_basis": null
+      },
+      {
+        "scenario_id": "base",
+        "label": "base",
+        "probability_pct": 55,
+        "price_target": 105,
+        "source_price_target": 105,
+        "return_pct": 5,
+        "conditions": ["The filing leaves covenant headroom unresolved."],
+        "source": "Run scenario model, 2026-08-03",
+        "joint_probability_basis": null
+      },
+      {
+        "scenario_id": "bear",
+        "label": "bear",
+        "probability_pct": 20,
+        "price_target": 70,
+        "source_price_target": 70,
+        "return_pct": -30,
+        "conditions": ["The filing confirms a covenant breach."],
+        "source": "Run scenario model, 2026-08-03",
+        "joint_probability_basis": null
+      }
+    ]
+  }
+}

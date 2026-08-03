@@ -1067,6 +1067,193 @@ export interface IdeasScorecard {
   up_votes: number
   down_votes: number
 }
+// Truth metadata for the cheap ideas preflight. `status` says whether the worker is available now;
+// `outcome` says what the last attempt produced. The UI must use `last_success_at` for freshness — the
+// board itself is rebuilt for many unrelated reasons, so `generated_at` is not an ideas timestamp.
+export type IdeasHealthStatus = 'disabled' | 'waiting' | 'deferred' | 'running' | 'healthy' | 'degraded' | 'error'
+export type IdeasHealthOutcome = 'not_run' | 'skipped' | 'success_empty' | 'success_with_ideas' | 'failed'
+export type IdeasHealthReasonCode =
+  | 'disabled'
+  | 'never_run'
+  | 'ingester_disabled'
+  | 'insufficient_inputs'
+  | 'min_interval'
+  | 'inputs_unchanged'
+  | 'missing_api_key'
+  | 'provider_cooldown'
+  | 'daily_budget'
+  | 'paced_budget'
+  | 'rate_limiter_busy'
+  | 'provider_error'
+  | 'internal_error'
+  | 'stale_running'
+  | 'stale_health'
+  | 'health_corrupt'
+  | 'stale_inputs'
+  | 'snapshot_store_error'
+  | 'write_conflict'
+  | null
+export type IdeaSnapshotStoreStatus = 'missing' | 'ok' | 'degraded' | 'unreadable'
+export interface IdeaSnapshotStoreDiagnostics {
+  status: IdeaSnapshotStoreStatus
+  file_count: number
+  valid_count: number
+  corrupt_count: number
+  invalid_count: number
+  unprojectable_count: number
+  error: string | null
+}
+export interface IdeasHealth {
+  schema_version: 'ideas-health/v1'
+  enabled: boolean
+  status: IdeasHealthStatus
+  outcome: IdeasHealthOutcome
+  reason_code: IdeasHealthReasonCode
+  reason: string | null
+  updated_at: string
+  last_attempt_at: string | null
+  last_success_at: string | null
+  next_eligible_at: string | null
+  input_count: number
+  produced_count: number
+  live_count: number
+  stale_count: number
+  snapshot_store?: IdeaSnapshotStoreDiagnostics
+}
+export interface QualifiedIdeaIssue {
+  code: string
+  message: string
+  disposition: 'research' | 'reject'
+}
+export interface QualifiedIdeaCandidate {
+  schema_version: 'qualified-idea/v1'
+  policy_version: string
+  idea_id: string
+  market_evidence_sha256: string
+  projection_manifest_sha256: string
+  run_root: string
+  decision_date: string
+  created_at: string
+  instrument: { ticker: string; company: string; exchange: string; currency: string; direction: 'long' | 'short'; asset_type: 'equity' }
+  horizon: { start: string; end: string }
+  quote: { price: number; as_of: string; source: string; identity_verified: boolean; stale: boolean }
+  liquidity: {
+    verified: boolean; as_of: string; source: string; lookback_days: number; observed_sessions: number
+    coverage_pct: number; window_start: string; window_end: string; median_daily_value_usd: number
+    currency_conversion: { pair: string; rate_usd_per_currency: number; as_of: string; source: string }
+  }
+  market_risk: { as_of: string; source: string; lookback_days: number; ordinary_move_pct: number }
+  research: {
+    decision: string; integrity_status: 'verified' | 'provisional' | 'unaudited'
+    data_sufficiency_score: number; edge_score: number; edge_proof: string
+    hard_cap_active: boolean; hard_cap_reason: string | null
+    unresolved_red_flags: { id: string; severity: 'Critical' | 'High' | 'Medium' | 'Low'; description: string }[]
+    calibration_status: 'pre_data' | 'insufficient' | 'measured' | 'calibrated'
+  }
+  catalyst: {
+    forecast_id: string; name: string; window_start: string; window_end: string; source: string
+    status_at_admission: 'scheduled_unresolved'; status_as_of: string; causal_steps: string[]
+    bullish_trigger: string; bearish_trigger: string
+  }
+  falsifier: { condition: string; metric: string; threshold: string; deadline: string; source: string }
+  valuation_bridge: { source_horizon_days: number; method: string; convergence_fraction: number | null; rationale: string; source: string }
+  scenarios: { scenario_id: string; label: string; probability_pct: number; price_target: number; source_price_target: number; return_pct?: number | null; conditions: string[]; source: string; joint_probability_basis?: string | null }[]
+}
+export interface QualifiedIdeaMetrics {
+  expected_return_pct: number
+  loss_probability_pct: number
+  worst_case_loss_pct: number
+  tail_loss_pct: number
+  best_case_return_pct: number
+  probability_sum_pct: number
+  scenario_returns: { label: string; probability_pct: number; return_pct: number }[]
+}
+export interface QualifiedIdeaEvaluation {
+  candidate: QualifiedIdeaCandidate
+  status: 'qualified' | 'needs_research' | 'does_not_clear'
+  issues: QualifiedIdeaIssue[]
+  metrics: QualifiedIdeaMetrics | null
+  pareto_layer: number | null
+  calibration_note: string
+  admission?: { admission_id: string; admission_sha256: string; candidate_sha256: string; frozen_at: string }
+}
+export interface QualifiedIdeaCalibrationStats {
+  outcomes: number; unique_ideas: number; unique_tickers: number
+  average_predicted_positive_pct: number | null; realized_positive_pct: number | null
+  positive_calibration_gap_pp: number | null; mean_brier_positive: number | null
+  average_predicted_return_pct: number | null; average_realized_return_pct: number | null
+  return_forecast_error_pct: number | null; mean_absolute_return_error_pct: number | null
+  scenario_range_coverage_pct: number | null
+  tail_loss_breach_pct: number | null; average_max_adverse_excursion_pct: number | null
+  average_excess_vs_benchmark_pct: number | null; benchmark_observations: number; benchmark_coverage_pct: number | null
+}
+export interface QualifiedIdeasPolicy {
+  horizonMinDays: number
+  horizonMaxDays: number
+  entryMaxSkewDays: number
+  quoteMaxAgeDays: number
+  liquidityMaxAgeDays: number
+  liquidityLookbackMinDays: number
+  liquidityMinCoveragePct: number
+  marketRiskLookbackMinDays: number
+  minMedianDailyValueUsd: number
+  minDataSufficiency: number
+  minEdgeScore: number
+  minExpectedReturnPct: number
+  maxTailLossPct: number
+  maxWorstCaseLossPct: number
+  minAdverseProbabilityPct: number
+  minAdverseMovePct: number
+  minAdverseVsOrdinaryMove: number
+  minFavorableVsOrdinaryMove: number
+  tailProbabilityPct: number
+  probabilityTolerancePct: number
+  returnReconciliationTolerancePct: number
+}
+export interface QualifiedIdeasBoard {
+  schema_version: 'qualified-ideas-board/v1'
+  generated_at: string
+  policy_version: string
+  policy: QualifiedIdeasPolicy
+  health: {
+    status: 'pre_data' | 'healthy' | 'degraded'
+    outcome: 'no_artifacts' | 'none_clear' | 'qualified' | 'invalid_artifacts' | 'storage_error'
+    reason: string
+    artifact_count: number; assessment_count: number; parsed_count: number; invalid_count: number
+    not_assessable_count: number; qualified_count: number; needs_research_count: number
+    does_not_clear_count: number; measured_count: number
+  }
+  outcome_health_state: 'valid' | 'expired' | 'unknown'
+  outcome_health: null | {
+    schema_version: 'qualified-idea-outcomes-health/v2'; repository_scope_sha256: string; pass_id: string; pass_sequence: number; pass_started_at: string
+    status: 'pre_data' | 'healthy' | 'degraded' | 'error'
+    outcome: 'no_qualified_ideas' | 'nothing_due' | 'endpoint_pending' | 'resolved' | 'history_missing' | 'admission_failed' | 'provider_failed' | 'failed'
+    reason: string; updated_at: string; expires_at: string; terminal: true
+    qualified_idea_count: number; admission_count: number; admission_appended_count: number
+    admission_existing_count: number; admission_conflict_count: number; due_count: number
+    appended_count: number; existing_count: number; unresolved_count: number; not_due_count: number; endpoint_pending_count: number
+    ledger_invalid_count: number; ledger_conflict_count: number
+    missing_history: string[]; missing_comparators: string[]
+    provider_failures: { symbol: string; role: 'security' | 'benchmark' | 'sector'; code: string; reason: string }[]
+    errors: string[]
+  }
+  calibration: {
+    schema_version: 'qualified-idea-calibration/v2'; policy_version: string; generated_at: string
+    status: 'pre_data' | 'insufficient' | 'measured'; reason: string
+    minimums: { outcomes: number; unique_tickers: number; benchmark_coverage_pct: number }
+    valid_outcome_count: number; invalid_outcome_count: number; conflicting_outcome_count: number
+    future_outcome_count: number; excluded_nonstanding_count: number
+    overall: QualifiedIdeaCalibrationStats; by_horizon: Record<string, QualifiedIdeaCalibrationStats>
+    by_horizon_direction: Record<string, {
+      horizon_bucket: string; direction: 'long' | 'short'; status: 'pre_data' | 'insufficient' | 'measured'
+      reason: string; stats: QualifiedIdeaCalibrationStats
+    }>
+  }
+  qualified: QualifiedIdeaEvaluation[]
+  needs_research: QualifiedIdeaEvaluation[]
+  does_not_clear: QualifiedIdeaEvaluation[]
+  not_assessable: { assessment_id: string; run_root: string; created_at: string; ticker: string; company: string | null; gaps: string[] }[]
+}
 // Run-state of a wire event's signal (GET /api/screener/signal-state) — drives the reader's "Run the checks"
 // split button + badge. A pure read of the run folder + live registry; never a launch.
 export interface SignalState {
@@ -1090,6 +1277,8 @@ export interface ScreenerBoard {
   // the cockpit fails closed — the "Best ideas" tab only shows when the server positively sends the array.
   ideas?: BoardIdea[]
   ideas_scorecard?: IdeasScorecard // the skim's honest track record (absent on an older engine)
+  ideas_health?: IdeasHealth // absent on a legacy engine; the UI must not infer success from `ideas: []`
+  qualified_ideas?: QualifiedIdeasBoard // full-research 3-6 month gate; never inferred from news leads
   counts: Record<string, number>
   book_momentum?: BookMomentum
   live?: { runId: string; kind: string; subjectId: string; runRoot: string | null; startedAt: number }[]

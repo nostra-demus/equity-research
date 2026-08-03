@@ -163,6 +163,12 @@ export function coerceIdea(raw: any, rowCount: number): RawIdea | null {
   if (!Number.isFinite(conviction)) conviction = 0
   conviction = Math.max(0, Math.min(100, Math.round(conviction)))
   const pairTicker = typeof raw?.pair_with === 'string' && TICKER_RE.test(raw.pair_with.trim()) ? raw.pair_with.trim().toUpperCase() : null
+  const reason = str(raw?.reason, 280)
+  const whyNow = str(raw?.why_now, 240)
+  // These are required evidence fields in the persisted contract, not cosmetic defaults. Letting a blank
+  // mechanism/timing sentence through creates an invalid snapshot downstream and can turn malformed model
+  // output into a false success_empty health state. Likewise, a pair without its second leg is not a pair.
+  if (!reason || !whyNow || (direction === 'pair' && !pairTicker)) return null
 
   return {
     src: uniqSrc,
@@ -171,8 +177,8 @@ export function coerceIdea(raw: any, rowCount: number): RawIdea | null {
     exchange: str(raw?.exchange, 24) || null,
     direction,
     pair_with: direction === 'pair' ? pairTicker : null,
-    reason: str(raw?.reason, 280),
-    why_now: str(raw?.why_now, 240),
+    reason,
+    why_now: whyNow,
     conviction,
     priced_in,
     thesis_type,
@@ -253,8 +259,20 @@ export async function surfaceIdeasBatch(
       if (typeof content !== 'string') return { ideas: [], requests, tokens, ok: false, note: 'idea: empty content', rate }
       let parsed: any
       try { parsed = JSON.parse(content) } catch { return { ideas: [], requests, tokens, ok: false, note: 'idea: non-JSON content', rate } }
-      const arr: any[] = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.ideas) ? parsed.ideas : []
+      // An honest empty result has one exact shape: {"ideas":[]}. Treating a missing/wrong `ideas`
+      // field as [] makes provider schema drift indistinguishable from "nothing clears the bar" — the
+      // same false-green empty state this health contract exists to prevent.
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed) || !Array.isArray(parsed.ideas)) {
+        return { ideas: [], requests, tokens, ok: false, note: 'idea: invalid response schema (expected top-level ideas array)', rate }
+      }
+      const arr: any[] = parsed.ideas
       const ideas = arr.map((r) => coerceIdea(r, rows.length)).filter((x): x is RawIdea => x !== null).slice(0, 6)
+      // A non-empty model answer whose every row fails the source/ticker gates is broken output, not a
+      // successful rejection. Partial drift remains usable when at least one row survives; a literal []
+      // remains the only success_empty result.
+      if (arr.length > 0 && ideas.length === 0) {
+        return { ideas: [], requests, tokens, ok: false, note: 'idea: response contained no valid idea rows', rate }
+      }
       return { ideas, requests, tokens, ok: true, rate }
     } catch (e: any) {
       lastNote = e?.name === 'TimeoutError' ? 'idea: request timed out' : e?.message || 'idea fetch error'

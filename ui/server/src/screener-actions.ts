@@ -2,7 +2,7 @@
 // APPEND-ONLY ledger line (never an edit of the engine-owned thesis JSON): the board builder
 // (scripts/update_board_index.py) applies the latest override per thesis as `effective_status`
 // while the engine's own `status` stays visible — your call and the engine's verdict are never
-// confused. Appends route through scripts/append-ndjson.sh (atomic-mkdir lock + idempotency key),
+// confused. Appends route through scripts/append-ndjson.sh (kernel lock + idempotency key),
 // the same path every other shared ledger uses.
 
 import { execFile } from 'node:child_process'
@@ -13,7 +13,7 @@ import { promisify } from 'node:util'
 import { REPO_ROOT } from './config'
 
 // async execFile (never execFileSync from a request handler — spawning bash synchronously blocks the
-// single event loop; append-ndjson.sh serializes with its own mkdir lock, so concurrent async appends
+// single event loop; append-ndjson.sh serializes with its own kernel lock, so concurrent async appends
 // are as safe as the sequential sync ones were).
 const execFileAsync = promisify(execFile)
 

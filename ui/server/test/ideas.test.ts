@@ -8,10 +8,15 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { buildIdeaUserMessage, coerceIdea, estimateIdeaTokens, surfaceIdeasBatch, type IdeaInputRow } from '../src/news/ideas/surface-ideas'
-import { ideaId, ideaVersion, readIdeaById, readTopSweepRows, topNHash, writeIdea } from '../src/news/ideas/ideas-store'
+import {
+  finalizeIdeaPromotion, ideaDecayAt, ideaId, ideaSnapshotRevision, ideaVersion, pruneExpiredIdeas,
+  isSurfacedIdeaSnapshot, readIdeaById, readIdeaSnapshotStore, readTopSweep, readTopSweepRows, releaseIdeaPromotion,
+  reserveIdeaPromotion, topNHash, updateIdeaSnapshot, writeIdea, writeIdeaIfRevision,
+} from '../src/news/ideas/ideas-store'
 import { tradeEvidenceForIdeaRows } from '../src/news/ideas/run-idea-pass'
 import { scoreTradeCluster } from '../src/news/trade-score'
 import { eventIdFor } from '../src/news/normalize'
+import { validIdeaSnapshot } from './ideas-fixture'
 
 let passed = 0
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -47,7 +52,7 @@ check('coerceIdea drops an idea with no valid ticker (no source = no claim)', ()
   assert.equal(coerceIdea({ src: [0], ticker: 'this is not a ticker' }, 2), null)
 })
 check('coerceIdea clamps conviction and defaults side/priced/type safely', () => {
-  const i = coerceIdea({ src: [0, 0, 9], ticker: 'stng', conviction: 250, direction: 'sideways', priced_in: 'maybe', thesis_type: 'nonsense' }, 2)
+  const i = coerceIdea({ src: [0, 0, 9], ticker: 'stng', reason: 'Rates lift cash earnings', why_now: 'Results are due this month', conviction: 250, direction: 'sideways', priced_in: 'maybe', thesis_type: 'nonsense' }, 2)
   assert.ok(i)
   assert.equal(i!.conviction, 100)
   assert.equal(i!.ticker, 'STNG')            // uppercased
@@ -57,18 +62,25 @@ check('coerceIdea clamps conviction and defaults side/priced/type safely', () =>
   assert.equal(i!.thesis_type, 'company_specific')
 })
 check('coerceIdea keeps pair_with only for a pair', () => {
-  assert.equal(coerceIdea({ src: [0], ticker: 'AAA', direction: 'long', pair_with: 'BBB' }, 2)!.pair_with, null)
-  assert.equal(coerceIdea({ src: [0], ticker: 'AAA', direction: 'pair', pair_with: 'bbb' }, 2)!.pair_with, 'BBB')
+  const evidence = { src: [0], ticker: 'AAA', reason: 'Demand shifts market share', why_now: 'Results are due this month' }
+  assert.equal(coerceIdea({ ...evidence, direction: 'long', pair_with: 'BBB' }, 2)!.pair_with, null)
+  assert.equal(coerceIdea({ ...evidence, direction: 'pair', pair_with: 'bbb' }, 2)!.pair_with, 'BBB')
 })
 check('coerceIdea negative/NaN conviction floors at 0', () => {
-  assert.equal(coerceIdea({ src: [0], ticker: 'AAA', conviction: -5 }, 2)!.conviction, 0)
-  assert.equal(coerceIdea({ src: [0], ticker: 'AAA', conviction: 'x' }, 2)!.conviction, 0)
+  const evidence = { src: [0], ticker: 'AAA', reason: 'Demand lifts revenue', why_now: 'Results are due this month' }
+  assert.equal(coerceIdea({ ...evidence, conviction: -5 }, 2)!.conviction, 0)
+  assert.equal(coerceIdea({ ...evidence, conviction: 'x' }, 2)!.conviction, 0)
+})
+check('coerceIdea rejects missing mechanism/timing evidence and an incomplete pair', () => {
+  assert.equal(coerceIdea({ src: [0], ticker: 'AAA', why_now: 'Results are due this month' }, 2), null)
+  assert.equal(coerceIdea({ src: [0], ticker: 'AAA', reason: 'Demand lifts revenue' }, 2), null)
+  assert.equal(coerceIdea({ src: [0], ticker: 'AAA', direction: 'pair', reason: 'Demand shifts share', why_now: 'Results are due this month' }, 2), null)
 })
 
 // ---- surfaceIdeasBatch (fetch-stubbed; never throws, honors the reliability contract) ----
 check('surfaceIdeasBatch parses ideas and drops the invalid ones', async () => {
   const r = await surfaceIdeasBatch(ROWS, OPTS, stubFetch({ ideas: [
-    { src: [0], ticker: 'STNG', direction: 'long', conviction: 61 },
+    { src: [0], ticker: 'STNG', direction: 'long', reason: 'Freight disruption lifts tanker rates', why_now: 'The strait closure is live now', conviction: 61 },
     { src: [1], ticker: '', direction: 'long' },        // dropped: no ticker
     { ticker: 'ZZZ' },                                    // dropped: no src
   ] }), noSleep)
@@ -95,6 +107,28 @@ check('surfaceIdeasBatch: a terminal HTTP error returns ok:false (deferred, not 
 check('surfaceIdeasBatch: non-JSON content returns ok:false, never throws', async () => {
   const r = await surfaceIdeasBatch(ROWS, OPTS, stubFetch('not json at all'), noSleep)
   assert.equal(r.ok, false)
+})
+check('surfaceIdeasBatch: only a literal top-level ideas array can be an honest empty result', async () => {
+  const missing = await surfaceIdeasBatch(ROWS, OPTS, stubFetch({ result: [] }), noSleep)
+  assert.equal(missing.ok, false)
+  assert.match(missing.note || '', /invalid response schema/)
+
+  const wrongTopLevel = await surfaceIdeasBatch(ROWS, OPTS, stubFetch([]), noSleep)
+  assert.equal(wrongTopLevel.ok, false)
+  assert.match(wrongTopLevel.note || '', /invalid response schema/)
+
+  const empty = await surfaceIdeasBatch(ROWS, OPTS, stubFetch({ ideas: [] }), noSleep)
+  assert.equal(empty.ok, true)
+  assert.equal(empty.ideas.length, 0)
+})
+check('surfaceIdeasBatch: a non-empty response with no valid rows fails closed', async () => {
+  const r = await surfaceIdeasBatch(ROWS, OPTS, stubFetch({ ideas: [
+    { src: [99], ticker: 'AAA' },
+    { src: [0], ticker: '' },
+  ] }), noSleep)
+  assert.equal(r.ok, false)
+  assert.equal(r.ideas.length, 0)
+  assert.match(r.note || '', /no valid idea rows/)
 })
 check('surfaceIdeasBatch counts malformed response reads exactly once per retry', async () => {
   let jsonFetches = 0
@@ -127,6 +161,19 @@ check('ideaVersion binds the exact thesis and source snapshot', () => {
   assert.equal(ideaVersion(base), ideaVersion({ ...base, ticker: 'bbb' }))
   assert.notEqual(ideaVersion(base), ideaVersion({ ...base, sourceEventIds: ['EVT-3'] }))
 })
+check('persisted snapshot validation binds the complete shape, identity, sources, scores, and lifecycle', () => {
+  const valid = validIdeaSnapshot('BOUND')
+  assert.equal(isSurfacedIdeaSnapshot(valid), true)
+  assert.equal(isSurfacedIdeaSnapshot({ ...valid, trade_score: Number.NaN }), false)
+  assert.equal(isSurfacedIdeaSnapshot({ ...valid, conviction: 101 }), false)
+  assert.equal(isSurfacedIdeaSnapshot({ ...valid, source_event_ids: ['EVT-notcanonical'] }), false)
+  assert.equal(isSurfacedIdeaSnapshot({ ...valid, idea_id: ideaId('OTHER', 'long') }), false)
+  assert.equal(isSurfacedIdeaSnapshot({ ...valid, idea_version: 'IDEAV-0000000000000000' }), false)
+  assert.equal(isSurfacedIdeaSnapshot({ ...valid, idea_version_started_at: '2026-08-03T07:00:00Z' }), false)
+  const missing = { ...valid } as any
+  delete missing.why_now
+  assert.equal(isSurfacedIdeaSnapshot(missing), false)
+})
 check('auto-idea evidence carries raw impact and story dedup without substituting the composite severity label', () => {
   const evidence = tradeEvidenceForIdeaRows(ROWS)
   assert.equal(evidence[1].materiality_pre_score, 71)
@@ -140,6 +187,11 @@ check('auto-idea evidence carries raw impact and story dedup without substitutin
 check('topNHash is order-independent and changes with the set', () => {
   assert.equal(topNHash(ROWS), topNHash([...ROWS].reverse()))
   assert.notEqual(topNHash(ROWS), topNHash([ROWS[0]]))
+})
+check('lead decay stays anchored to source time instead of resetting at provider time', () => {
+  const now = Date.parse('2026-08-03T12:00:00Z')
+  assert.equal(ideaDecayAt('2026-08-03T06:00:00Z', now, 36), '2026-08-04T18:00:00Z')
+  assert.equal(ideaDecayAt('2026-08-03T12:03:00Z', now, 36), '2026-08-05T00:00:00Z', 'small future source skew cannot extend the shelf')
 })
 check('buildIdeaUserMessage carries the pre-computed materiality + names', () => {
   const msg = buildIdeaUserMessage(ROWS)
@@ -185,6 +237,25 @@ check('readTopSweepRows keeps the ORIGINAL headline for the SIG byte-match on a 
   assert.equal(row.event_id, eventIdFor('ソフトバンクが半導体を売却', 'http://jp')) // canonical id over the original
   fs.rmSync(dir, { recursive: true, force: true })
 })
+check('readTopSweep enforces both sweep and per-row freshness when an operational ceiling is supplied', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-03T11:00:00Z',
+    rows: [
+      { headline: 'fresh', url: 'http://fresh', triage_score: 90, found_at: '2026-08-03T10:00:00Z' },
+      { headline: 'old', url: 'http://old', triage_score: 95, found_at: '2026-08-01T10:00:00Z' },
+      { headline: 'bad time', url: 'http://bad', triage_score: 80, found_at: 'yesterday' },
+    ],
+  }))
+  const got = readTopSweep(dir, 5, { nowMs: Date.parse('2026-08-03T12:00:00Z'), maxAgeMs: 36 * 3_600_000 })
+  assert.equal(got.status, 'ok')
+  assert.deepEqual(got.rows.map((r) => r.headline), ['fresh'])
+  assert.equal(got.stale_row_count, 1)
+  assert.equal(got.invalid_time_count, 1)
+  fs.rmSync(dir, { recursive: true, force: true })
+})
 
 // ---- readIdeaById path-traversal barrier (security: the `:id` route param reaches a filesystem path) ----
 // Expected behaviour pinned to the security contract, NOT to current code: readIdeaById must ONLY read a
@@ -194,7 +265,7 @@ check('readTopSweepRows keeps the ORIGINAL headline for the SIG byte-match on a 
 check('readIdeaById reads a well-formed idea by its strict id', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-'))
   const id = ideaId('BBB', 'long')
-  writeIdea(dir, { idea_id: id, ticker: 'BBB' } as any)
+  writeIdea(dir, validIdeaSnapshot('BBB'))
   const got = readIdeaById(dir, id)
   assert.equal(got?.idea_id, id)
   fs.rmSync(dir, { recursive: true, force: true })
@@ -209,6 +280,78 @@ check('readIdeaById refuses a path-traversal id and never escapes the ideas dir'
   assert.equal(readIdeaById(dir, '../../../../etc/hosts'), null)   // absolute-ish traversal → refused
   assert.equal(readIdeaById(dir, 'IDEA-not12hex'), null)           // wrong shape → refused
   assert.equal(readIdeaById(dir, 'IDEA-AAAAAAAAAAAA'), null)       // uppercase hex not in the [a-f0-9] token → refused
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('snapshot diagnostics distinguish an empty store from corrupt files', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-'))
+  assert.equal(readIdeaSnapshotStore(dir).status, 'missing')
+  const store = path.join(dir, 'screener', 'ledger', 'ideas')
+  fs.mkdirSync(store, { recursive: true })
+  fs.writeFileSync(path.join(store, 'bad.json'), '{')
+  fs.writeFileSync(path.join(store, `${ideaId('BAD', 'long')}.json`), JSON.stringify({ idea_id: ideaId('BAD', 'long'), ticker: 'BAD' }))
+  const got = readIdeaSnapshotStore(dir)
+  assert.equal(got.status, 'degraded')
+  assert.equal(got.corrupt_count, 1)
+  assert.equal(got.invalid_count, 1)
+  assert.equal(got.snapshots.length, 0)
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('snapshot CAS refuses to overwrite a newer lifecycle edit', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-'))
+  const id = ideaId('BBB', 'long')
+  const original = validIdeaSnapshot('BBB', 'long', { updated_at: '2026-08-03T10:00:00Z' })
+  writeIdea(dir, original)
+  const expected = ideaSnapshotRevision(readIdeaById(dir, id))
+  writeIdea(dir, { ...original, updated_at: '2026-08-03T10:01:00Z', status: 'promoted', promoted_signal_id: 'SIG-new' })
+  assert.equal(writeIdeaIfRevision(dir, { ...original, updated_at: '2026-08-03T10:02:00Z' }, expected), false)
+  assert.equal(readIdeaById(dir, id)?.status, 'promoted')
+  assert.equal(readIdeaById(dir, id)?.promoted_signal_id, 'SIG-new')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('promotion reservation prevents double spend and merges into the newest snapshot', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-'))
+  const id = ideaId('PROMO', 'long')
+  const original = validIdeaSnapshot('PROMO', 'long', {
+    reason: 'Old evidence supports the earnings catalyst', updated_at: '2026-08-03T10:00:00Z',
+    decay_at: '2026-08-03T06:30:00Z',
+  })
+  writeIdea(dir, original)
+  const reservation = reserveIdeaPromotion(dir, id, Date.parse('2026-08-03T10:01:00Z'))
+  assert.ok(reservation)
+  assert.equal(reserveIdeaPromotion(dir, id, Date.parse('2026-08-03T10:02:00Z')), null, 'a concurrent request cannot reserve the same paid launch')
+  const refreshed = updateIdeaSnapshot(dir, id, (current) => {
+    const reason = 'New evidence supports the earnings catalyst'
+    const updatedAt = '2026-08-03T10:03:00Z'
+    return {
+      ...current,
+      reason,
+      idea_version: ideaVersion({
+        ticker: current.ticker, direction: current.direction, thesisType: current.thesis_type,
+        reason, whyNow: current.why_now, sourceEventIds: current.source_event_ids,
+      }),
+      idea_version_started_at: updatedAt,
+      updated_at: updatedAt,
+    }
+  })
+  assert.equal(refreshed?.reason, 'New evidence supports the earnings catalyst')
+  assert.equal(pruneExpiredIdeas(dir, Date.parse('2026-08-10T00:00:00Z'), 0), 0, 'an in-flight paid launch cannot be pruned')
+  finalizeIdeaPromotion(dir, id, reservation!.token, 'SIG-paid', '2026-08-03T10:04:00Z', original)
+  const promoted = readIdeaById(dir, id)
+  assert.equal(promoted?.reason, 'New evidence supports the earnings catalyst', 'finalization preserves provider fields refreshed during launch')
+  assert.equal(promoted?.status, 'promoted')
+  assert.equal(promoted?.promoted_signal_id, 'SIG-paid')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('only a reservation owner can release a pending promotion', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-'))
+  const id = ideaId('RELEASE', 'long')
+  const original = validIdeaSnapshot('RELEASE', 'long', { decay_at: '2026-08-03T06:30:00Z' })
+  writeIdea(dir, original)
+  const reservation = reserveIdeaPromotion(dir, id, Date.parse('2026-08-03T10:00:00Z'))!
+  releaseIdeaPromotion(dir, id, 'wrong-token')
+  assert.equal(reserveIdeaPromotion(dir, id, Date.parse('2026-08-03T10:01:00Z')), null)
+  releaseIdeaPromotion(dir, id, reservation.token)
+  assert.ok(reserveIdeaPromotion(dir, id, Date.parse('2026-08-03T10:02:00Z')))
   fs.rmSync(dir, { recursive: true, force: true })
 })
 

@@ -167,7 +167,7 @@ the record already proves. It is **not** a channel for changing a decision with 
 
 ## 5. Decision Record Schema
 
-The canonical `decision_record.json` the synthesizer emits — one per final thesis, written to `<RUN_ROOT>/decision_record.json` alongside `final_thesis.md` (Phase 2, live since the BG run). This schema is **proven** — it validated cleanly on BG — and is preserved unchanged.
+The canonical `decision_record.json` the synthesizer emits — one per final thesis, written to `<RUN_ROOT>/decision_record.json` alongside `final_thesis.md` (Phase 2, live since the BG run). Its 1.0 base is **proven** — it validated cleanly on BG — and later capabilities use explicitly documented additive fields so older records remain readable.
 
 ```json
 {
@@ -189,11 +189,13 @@ The canonical `decision_record.json` the synthesizer emits — one per final the
   "benchmark": "",
   "sector_benchmark": "",
   "time_horizon": "",
+  "scenario_horizon_days": null,
   "expected_return_pct": null,
   "downside_risk_pct": null,
   "margin_of_safety_pct": null,
   "risk_reward": null,
   "scenarios": [],
+  "idea_valuation_bridge": null,
   "confidence_score": null,
   "data_sufficiency_score": null,
   "rating_cap": "",
@@ -255,11 +257,13 @@ The three `post_review_*` fields are **additive and optional** — the synthesiz
 | `benchmark` | Yes | Benchmark index for relative return. | Thesis / convention |
 | `sector_benchmark` | Recommended | Sector index, if available. | Thesis / convention |
 | `time_horizon` | Yes | Intended horizon (e.g. "12–18m"). | Part I |
+| `scenario_horizon_days` | Additive (required for final Ideas projection) | Exact integer horizon, in calendar days, of the source scenario targets. This is authority for the Ideas bridge, not the holding-period range. | §8 Scenario Model |
 | `expected_return_pct` | Recommended | Base-case expected return, if quantified. | Part I / valuation |
 | `downside_risk_pct` | Recommended | Bear-case downside, if quantified. | Part I / valuation |
 | `margin_of_safety_pct` | Required once derivable (additive) | Discount of price to the **base-case** fair value, in percentage points = `((base FV − price) / base FV) × 100`; `null` ONLY when there is no pool-verified price ("Not assessable"). Direction-uniform (built from price levels, not returns) — a short candidate yields a negative MoS. The eval harness re-derives it from the `base`-labelled `scenarios[]` target (check M) and, for runs dated on/after 2026-07-10, FAILS a `null` value that is derivable from `entry_price` + the base scenario's `price_target` — it is not optional once assessable. Backward-compatible — older records omit it. | Part I / valuation |
 | `risk_reward` | Recommended | Risk/reward ratio. | Part I |
-| `scenarios` | Recommended (additive) | Array of §8 scenario rows: `{label, probability, return_pct, price_target}`; probabilities sum to 100. Lets the eval harness deterministically recompute `expected_return_pct` / `risk_reward` instead of trusting hand arithmetic (fix F08/F12). Backward-compatible — older records omit it; the math gate only activates for runs dated on/after 2026-06-08. | Part I / §8 Scenario Model |
+| `scenarios` | Recommended (additive; structured authority required for final Ideas projection) | Array of §8 scenario rows. Existing math fields remain, and every forward Ideas-eligible row also carries stable `scenario_id`, non-empty `conditions`, a concrete `source`, and `joint_probability_basis` (string when the case joins conditions; otherwise `null`). Probabilities sum to 100. See the structured shape below. | Part I / §8 Scenario Model |
+| `idea_valuation_bridge` | Additive (required for final Ideas projection) | One object `{source_horizon_days, method, convergence_fraction, rationale, source}` that binds the scenario target horizon to the 3–6 month projection. `source_horizon_days` exactly equals `scenario_horizon_days`; this object is copied byte-for-byte to `candidate.valuation_bridge`. | §8 Scenario Model / valuation |
 | `confidence_score` | Yes | Confidence /100. | Part I |
 | `data_sufficiency_score` | Yes | Data sufficiency /100 (`CLAUDE.md` §11). | Part I / gate |
 | `rating_cap` | Conditional | Any rating cap applied, else "". | Rating Cap Rules |
@@ -292,11 +296,75 @@ The three `post_review_*` fields are **additive and optional** — the synthesiz
 
 Rules: keep field names exactly as above. Absent values are `null` (numbers), `""` (strings), or `[]`/`{}` — never fabricated.
 
+**Structured scenario authority for the final Ideas projection (additive).** A forward run that will be
+re-projected into a final 3–6 month candidate uses this exact decision-record shape:
+
+```json
+{
+  "scenario_horizon_days": 365,
+  "scenarios": [
+    {
+      "scenario_id": "base-demand-normalises",
+      "label": "base",
+      "probability": 50,
+      "return_pct": 12.4,
+      "price_target": 112.4,
+      "conditions": ["Demand follows the filed base case"],
+      "source": "Q1 FY27 results, exchange filing 2026-07-29, outlook section",
+      "joint_probability_basis": null
+    },
+    {
+      "scenario_id": "bull-demand-and-margin",
+      "label": "bull",
+      "probability": 25,
+      "return_pct": 35.0,
+      "price_target": 135.0,
+      "conditions": ["Demand exceeds the filed base case", "Gross margin clears the cited threshold"],
+      "source": "Q1 FY27 results, exchange filing 2026-07-29; valuation synthesis §8",
+      "joint_probability_basis": "The two conditions share the same volume-led operating-leverage driver."
+    },
+    {
+      "scenario_id": "bear-demand-miss",
+      "label": "bear",
+      "probability": 25,
+      "return_pct": -25.0,
+      "price_target": 75.0,
+      "conditions": ["Demand misses the filed downside threshold"],
+      "source": "Q1 FY27 results, exchange filing 2026-07-29, risk section",
+      "joint_probability_basis": null
+    }
+  ],
+  "idea_valuation_bridge": {
+    "source_horizon_days": 365,
+    "method": "catalyst_partial_convergence",
+    "convergence_fraction": 0.3,
+    "rationale": "The dated catalyst can reveal part, but not all, of the one-year valuation gap.",
+    "source": "Q1 FY27 results, exchange filing 2026-07-29; valuation synthesis §8"
+  }
+}
+```
+
+There are three to seven scenarios, ids and labels are unique, probabilities sum to 100, and each
+scenario has at least one condition. `joint_probability_basis` is required as a non-empty explanation
+when multiple independent conditions must hold simultaneously; otherwise it is `null`. For Ideas,
+`decision_record.scenarios[].price_target` is the source-horizon target. The final candidate preserves it
+as `source_price_target` and computes its separate shorter-window `price_target` only through the exact
+`idea_valuation_bridge`. The candidate copies ids, labels, probabilities, conditions, sources, and
+conjunction bases exactly; it cannot silently author a new distribution.
+
 **`edge_score` / `edge_proof` are additive** (introduced 2026-06-15) — they complete the `CLAUDE.md` §7 variant structure (consensus → priced-in → edge → *proof of edge*) and make the edge mechanical, so the confidence cap can bind to a number and the review loop can later grade it. Records dated before 2026-06-15 omit them; downstream consumers fall back to the narrative `variant_perception_*` fields and `confidence_score`. `schema_version` stays "1.0" — the same additive convention as `scenarios[]` and the `post_review_*` fields.
 
 **`business_type` / `primary_valuation_method` are additive** (introduced 2026-06-18) — they make the sector overlay classification and the chosen valuation method machine-readable so Phase 4 can slice calibration by sector type and the eval harness (check W) can verify the method is not forbidden for the sector per `SECTOR_OVERLAYS.md`. Records dated before 2026-06-18 omit them; downstream consumers treat absence as `""`. `schema_version` stays "1.0".
 
 **`confidence_inputs` / `analysis_confidence` / `conviction` / `sizing_hint` / `confidence_breakdown` are additive** (introduced 2026-07-11) — they split the single LLM-asserted `confidence_score` into a deterministic, auditable two-number scheme computed by `scripts/confidence.py`: `analysis_confidence` ("understanding" — evidence quality, direction-agnostic) and `conviction` (how much to bet, direction-aware). `conviction` is the drop-in successor to `confidence_score` (which the synthesizer sets equal to it for backward compatibility); the eval harness reconciles the scorecard `Conviction /100` against the JSON (check AI); `confidence_inputs` is recorded so a later gate can re-derive `conviction` from first principles (the `reconcile()` in `scripts/confidence.py`). Records dated before 2026-07-11 omit these; downstream consumers fall back to `confidence_score`. The numeric weights in `confidence.py` are uncalibrated priors (isolated in its `CONST` block) pending Phase-4/6 calibration — this makes the number auditable, not yet a validated probability. `schema_version` stays "1.0".
+
+**`scenario_horizon_days` / structured scenario authority / `idea_valuation_bridge` and the selected
+forecast fields are additive** (introduced 2026-08-03). They make the source distribution, shorter-window
+bridge, and dated catalyst machine-resolvable before any candidate exists. Older records may omit them;
+such a record remains readable by ledger consumers but is `not_assessable` for a new Ideas admission.
+These fields do not change the standing thesis or its scenario math. They prevent the downstream
+projection from inventing ids, conditions, sources, targets, probabilities, or catalyst/falsifier terms.
+`schema_version` stays `"1.0"`.
 
 **`margin_of_safety_pct` is additive** (introduced 2026-07-10) — the valuation module's margin of safety, `((base FV − price) / base FV) × 100`, made machine-readable so the eval harness (check M) can re-derive it from the `base`-labelled `scenarios[]` target instead of trusting the prose. It is `null` ONLY when there is no pool-verified price ("Not assessable") — for runs dated on/after 2026-07-10 the gate FAILS a `null` value that `entry_price` + the base scenario's `price_target` make derivable, so it is required once assessable, not merely reconciled when present. Records dated before 2026-07-10 omit it; downstream consumers treat absence as unquantified. `schema_version` stays "1.0" — the same additive convention as `scenarios[]` / `edge_score`.
 
@@ -308,16 +376,29 @@ Each element of `decision_record.forecast_ledger` — the machine-readable form 
 
 ```json
 {
-  "prediction": "",
-  "probability": null,
-  "time_window": "",
-  "evidence_today": "",
-  "confirmation_trigger": "",
-  "falsification_trigger": "",
-  "owner_module": "",
-  "confidence_score": null,
+  "forecast_id": "FC-TICKER-RESULTS-2026Q4",
+  "prediction": "The next filed result will report volume growth of at least 12% year over year.",
+  "probability": 65,
+  "time_window": "2026-11-01 to 2026-11-15",
+  "window_start": "2026-11-01T00:00:00Z",
+  "window_end": "2026-11-15T23:59:59Z",
+  "status_as_of": "2026-08-03T09:00:00Z",
+  "evidence_today": "Q1 FY27 results, exchange filing 2026-07-29, operating metrics",
+  "source_citation": "Company results calendar, exchange filing 2026-07-29",
+  "metric": "Reported volume growth",
+  "threshold": "At least 12% year over year",
+  "causal_steps": [
+    "The filed result reports the source-bound volume metric.",
+    "The reported result changes the market's matching earnings estimate."
+  ],
+  "confirmation_trigger": "Reported volume growth is at least 12% year over year.",
+  "falsification_trigger": "Reported volume growth is below 5% year over year.",
+  "stock_bullish_trigger": "The filed metric clears 12% and consensus earnings revisions rise.",
+  "stock_bearish_trigger": "The filed metric is below 5% or consensus earnings revisions fall.",
+  "owner_module": "earnings",
+  "confidence_score": 65,
   "status": "open",
-  "forecast_type": ""
+  "forecast_type": "catalyst_or_estimate_revision"
 }
 ```
 
@@ -325,6 +406,12 @@ Rules:
 - Only include forecasts with enough evidence.
 - `probability` must be a **number in [0, 100]** using the §10 percentage-point scale — Remote: 0–10, Very unlikely: 10–25, Unlikely: 25–45, Toss-up: 45–60, Likely: 60–75, Very likely: 75–90, Almost certain: 90–100. A decimal-fraction value (e.g. `0.6` instead of `60`) is a defect: it looks like a correct probability but silently corrupts Phase 4 Brier-score computation, which treats the input as a percentage (60% becomes 0.6%). `null` is allowed when no reliable probability estimate can be made, but the entry cannot contribute to Brier-score calibration. Eval check T2 (landing 2026-06-22) enforces this: non-numeric values, values outside [0, 100], and values in the open interval (0, 1) all FAIL.
 - Every forecast must have a **confirmation** trigger and a **falsification** trigger.
+- A forecast selected by a final Ideas candidate has one stable `forecast_id` and must also carry
+  machine-readable `window_start`, `window_end`, and `status_as_of` timestamps; one exact
+  `source_citation`; an observable `metric` and `threshold`; at least two non-empty `causal_steps`; and
+  symmetric `stock_bullish_trigger` / `stock_bearish_trigger`. Its `status` must still be `"open"` when
+  selected. `candidate.catalyst.forecast_id` selects exactly one such row. Catalyst and falsifier fields
+  are copied mechanically from that row, so no free-prose catalyst can be introduced during projection.
 - Forecasts must be reviewable later (resolved only via review records, §8 — `status` ∈ {open, confirmed, falsified, expired}).
 - If no reliable forecast can be created, say why (and leave `forecast_ledger` as `[]`).
 - `forecast_type` (**additive, introduced 2026-07-01**) tags what KIND of forecast this is, from a closed set: `revenue`, `margin_or_cost`, `earnings_eps`, `cash_flow`, `valuation_or_price_return`, `balance_sheet_or_solvency`, `governance_or_accounting`, `catalyst_or_estimate_revision`, `other`. This is orthogonal to `owner_module` (which module wrote the forecast) — a single module (e.g. earnings) routinely produces more than one forecast_type (a revenue call and a margin call behave differently under Phase 4 calibration and can fail for different reasons). Its purpose is to let `/research:calibrate` answer "which KIND of forecast is the engine systematically over/under-confident on," not just which module — a flat, unsliced Brier score hides that pattern no matter how much history accumulates. `""` (empty string) or the field's absence is allowed and treated identically — records dated before 2026-07-01 omit it; downstream consumers (calibrate) bucket those as "untagged" and never fabricate a type. Eval check T (the `T_forecast_ledger_quality` check) validates it against the closed enum, case-exact, when present, for runs dated on/after 2026-07-01 — same forward-looking-gate convention as check T2 for `probability`.
@@ -736,3 +823,59 @@ Phase 4 (`/research:calibrate`) can compute whether the engine's stated confiden
 
 **What it does not yet do.** The corrected TS resolver (`resolveIntegrityStatusForRun`) is READ-only display wiring for the live Calls panel — it does not gate any live scoring surface the way `scripts/calibrate.py` gates Phase 4 (there is no TS-side equivalent of Brier/hit-rate computation to gate). If a future live scoring surface is added to the cockpit, it must exclude `provisional` runs the same way `calibrate.py` does, not just display the badge.
 - review dates are generated from the decision date — ✓ (BG: 30/90/180/365d from 2026-06-01)
+
+---
+
+## 19. Qualified 3–6 Month Projection (forward runs; additive)
+
+Every new `/research:full` run writes `<RUN_ROOT>/idea_3_6m.json` beside the immutable
+`decision_record.json`. The preliminary wrapper is replaceable only once by the final post-audit
+projection, whose only job is to ask
+whether the standing research decision can be expressed honestly as one executable 90–183 day
+distribution. The additive decision-authority fields in §5–6 exist specifically so the projection can be
+mechanical rather than a second opinion.
+
+The producer and runtime contract is canonical in `frameworks/ideas/README.md` and
+`frameworks/ideas/idea-assessment.schema.json`. Before audits, the master synthesizer writes an explicit
+preliminary `not_assessable` wrapper because no canonical market capture may precede the post-audit
+manifest. After all decision/stamp mutations, the three audits rerun read-only and bind their conclusions
+to the exact final thesis/decision hashes. Only then does the orchestrator create
+`idea_projection_manifest.json`; the final re-projection then writes either one complete `candidate` or
+an explicit `not_assessable` result with named gaps. The candidate carries the manifest digest and copies
+the exact structured decision authority. Manifest validation also binds `ticker` and `decision_date` to
+the exact ticker/date encoded by the run folder; matching audits cannot authorize a wrong-listing or
+wrong-date record. After JSON Schema validation, the directory-locked freezer
+performs semantic admission and the immutable first write in one atomic operation; there is no preview
+result that can be retried after a crash. The runtime then rechecks current integrity, corrections,
+supersession, identity, quote freshness, measured liquidity, evidence, caps, catalyst timing, horizon
+bridge, scenario math, expected return, and worst-tail loss. A producer cannot store a pass or rank. The
+freezer writes the first final result for every status, including a `not_applicable` snapshot for
+`not_assessable`; the same run never gets a second attempt after seeing a gate or later market result.
+This final negative requires a valid projection manifest. Manifest creation/validation failure is an
+`IDEA-ADMISSION: error` hard stop, never a completed `not_applicable` result; the next attempt uses a new
+dated run. The final replacement assessment is newly timestamped no earlier than that valid manifest; a
+preliminary pre-manifest `created_at` cannot be carried into a frozen `not_applicable` result.
+
+This projection follows the same immutability rule as the ledger:
+
+- no prior dated run's `decision_record.json` or `final_thesis.md` is edited to create an idea; the
+  current run's deterministic finish-gate changes must all finish before the manifest;
+- once `idea_projection_manifest.json` exists, none of its pinned thesis, decision, or audit artifacts is
+  edited; any changed audit requires a new dated run;
+- module, single-agent, master-rerun, and standalone-audit entrypoints refuse writes into a sealed run;
+- once `idea_admission.json` exists, its positive, rejected, or not-applicable assessment is immutable;
+- no older dated run is backfilled merely to make the Ideas board look populated;
+- new evidence creates a new dated run, and the newest standing assessment per listing is what the
+  live board evaluates; and
+- corrections/supersession and truth-integrity status are resolved on read, so a stale derivative cannot
+  retain a clean label after its source run changes.
+
+The outcome lane settles each qualified idea once at its own exact end date using source-bound,
+split-adjusted market history. It never grades one forecast at both 90 and 180 days. Only an invalid
+immutable admission or conflicting immutable cohort key is excluded from this frozen cohort. Later
+corrections, supersession, or current source-artifact drift quarantine the live call but do not erase a
+forecast whose admission-time integrity and digests were valid; allowing those later facts to remove a
+known winner or loser would create survival bias. Calibration remains `pre_data` / `insufficient` until
+the sample and benchmark coverage floors clear. The first post-floor label is `measured`, not
+`calibrated`: sample size makes Brier and
+signed/absolute forecast-error diagnostics judgeable; it does not prove the probabilities accurate.

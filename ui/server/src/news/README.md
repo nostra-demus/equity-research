@@ -50,7 +50,7 @@ export GROQ_API_KEY=gsk_...        # the one secret (free tier)
 Two hosting modes (build-both):
 
 - **In the cockpit server** — automatic. When `GROQ_API_KEY` is set, `server.ts` starts the scheduler
-  (`scheduler.ts`) after boot; it runs a cycle every `NEWS_POLL_INTERVAL_MIN` (default 15). Runs
+  (`scheduler.ts`) after boot; it runs a cycle every `NEWS_POLL_INTERVAL_MIN` (default 5). Runs
   whenever the cockpit is up.
 - **Standalone (true 24/7)** — `npm --prefix ui/server run ingest:once` runs exactly one cycle and
   exits (prints a JSON summary, exits 0/1). Put it on cron, or use the launchd service at
@@ -71,6 +71,10 @@ every item read, kept *and* dropped.
 ## Config (all `NEWS.*` in `../config.ts`, env-tunable)
 
 `GROQ_API_KEY` · `GROQ_MODEL` · `NEWS_INGEST_ENABLED` · `NEWS_POLL_INTERVAL_MIN` ·
+`IDEAS_ENABLED` (default on; `0` is the kill switch) · `IDEAS_TOP_N` · `IDEAS_MIN_INTERVAL_SEC` ·
+`IDEAS_REFRESH_SEC` · `IDEAS_SHELF_LIFE_HRS` · `IDEAS_INPUT_MAX_AGE_HRS` (default 36; both the
+sweep heartbeat and every contributing `found_at` must be inside this ceiling; it may tighten but
+never widen the shelf-life limit) ·
 `NEWS_GROQ_DAILY_REQ_CAP` · `NEWS_GROQ_DAILY_TOKEN_CAP` · `NEWS_GROQ_RPM` · `NEWS_TRIAGE_BATCH` ·
 `NEWS_GDELT_LOOKBACK_MIN` · `NEWS_INBOX_MAX_ROWS` · `NEWS_PICK_THRESHOLD` · `NEWS_WATCH_THRESHOLD` ·
 `NEWS_RSS_ENABLED` · `NEWS_RSS_FEEDS_PATH` · `NEWS_RSS_USER_AGENT` · `NEWS_RSS_CONCURRENCY` ·

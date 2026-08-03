@@ -27,9 +27,10 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
+
+from repo_mutation import append_ndjson, atomic_write_json, atomic_write_text, repository_mutation
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LEDGER = os.path.join(REPO, "screener", "ledger")
@@ -82,11 +83,6 @@ def to_day(iso: str | None) -> datetime | None:
     return None
 
 
-def append(path: str, obj: dict, key: str, val: str) -> None:
-    subprocess.run(["bash", APPEND, path, json.dumps(obj, ensure_ascii=False), key, val],
-                   cwd=REPO, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-
 def subscore_delta(kind: str, verdict: str, prob: float | None):
     """Return (dV, dM, dC) — the locked, evidence-derived sub-score move (§6). Pre-sized under the cap."""
     p = prob if isinstance(prob, (int, float)) else 0.2
@@ -127,6 +123,32 @@ def data_sufficiency(verdict: str, source_count: int) -> float:
     return 0.7
 
 
+def journal_projection(event: dict, thesis_id: str) -> dict | None:
+    """Return a self-consistent committed projection carried by a conviction event."""
+    projection = event.get("state_projection")
+    if not isinstance(projection, dict) or event.get("thesis_id") != thesis_id:
+        return None
+    if (projection.get("thesis_id") != thesis_id or projection.get("state") != event.get("to_state")
+            or projection.get("edge_score_live") != event.get("edge_score_live")
+            or projection.get("sell_side_rating") != event.get("sell_side_rating")
+            or event.get("event_key") not in (projection.get("history") or [])):
+        return None
+    return projection
+
+
+def publish_resolved_checkpoints(resolved_ids: set[str]) -> None:
+    if not resolved_ids:
+        return
+    rows = read_ndjson(CHECKPOINTS)
+    changed = False
+    for row in rows:
+        if row.get("checkpoint_id") in resolved_ids and row.get("status") != "resolved":
+            row["status"] = "resolved"
+            changed = True
+    if changed:
+        atomic_write_text(CHECKPOINTS, "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows))
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("thesis_id")
@@ -141,6 +163,14 @@ def main() -> int:
     ap.add_argument("--error-tag", default="")
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
+
+    # One lease covers every mutable read, both ledger rows, and both projections. This is the
+    # transaction boundary shared with deploy/commit; computing outside it would act on stale state.
+    with repository_mutation(REPO) as mutation:
+        return run_locked(a, mutation)
+
+
+def run_locked(a, mutation) -> int:
 
     tid, cid = a.thesis_id, a.checkpoint_id
     checked_at = a.at or now_z()
@@ -189,8 +219,80 @@ def main() -> int:
         "vr_key": f"{cid}::{a.verdict}::{checked_at[:10]}",
     }
 
+    # A vr_key is one immutable observation. A retry may carry a later wall-clock timestamp, but it
+    # must reuse the first row byte-for-byte; changed evidence under the same key is a conflict, not
+    # an update. This is what makes append-success/projection-failure recovery converge.
+    tick_rows = read_ndjson(TICKS)
+    matching_vrs = [r for r in tick_rows if r.get("row_type") == "validation_result" and r.get("vr_key") == vr["vr_key"]]
+    if matching_vrs:
+        canonical_vr = matching_vrs[0]
+        if any(r != canonical_vr for r in matching_vrs[1:]):
+            print(f"conflicting validation rows already exist for {vr['vr_key']} — refusing to project", file=sys.stderr)
+            return 3
+        proposed = dict(vr)
+        proposed["run_id"] = canonical_vr.get("run_id")
+        proposed["checked_at"] = canonical_vr.get("checked_at")
+        if proposed != canonical_vr:
+            print(f"validation {vr['vr_key']} already exists with different evidence — refusing overwrite", file=sys.stderr)
+            return 3
+        vr = canonical_vr
+        checked_at = str(vr["checked_at"])
+
+    event_key = f"{tid}::{vr['vr_key']}::conviction"
+    matching_events = [r for r in tick_rows if r.get("row_type") == "conviction_event" and r.get("event_key") == event_key]
+    if matching_events and any(r != matching_events[0] for r in matching_events[1:]):
+        print(f"conflicting conviction events already exist for {event_key} — refusing to project", file=sys.stderr)
+        return 3
+    canonical_event = matching_events[0] if matching_events else None
+
+    # The append-only event is the transaction journal: it carries the complete resulting projection.
+    # On any retry, publish the newest valid journal image and reconcile every resolved checkpoint. This
+    # heals A-crash → B-success → delayed-A-retry without trying to replay A as though B never happened.
+    if canonical_event is not None:
+        journal_events = [
+            row for row in tick_rows
+            if row.get("row_type") == "conviction_event" and row.get("thesis_id") == tid
+            and journal_projection(row, tid) is not None
+        ]
+        if journal_projection(canonical_event, tid) is None or not journal_events:
+            print(f"conviction event {event_key} has no valid recovery projection — refusing guess", file=sys.stderr)
+            return 3
+        # append-ndjson serializes this ledger; append order is the commit order. `--at` can backfill an
+        # older observation, so timestamps must never choose an earlier transaction over the last row.
+        latest = journal_events[-1]
+        resolved_from_ledger = {
+            str(row.get("checkpoint_id")) for row in tick_rows
+            if row.get("row_type") == "validation_result" and row.get("thesis_id") == tid
+            and row.get("verdict") != "unresolved" and row.get("checkpoint_id")
+        }
+        if a.dry_run:
+            print(f"  {tid}  retry would restore projection {latest['event_key']} (dry run — nothing written)")
+            return 0
+        atomic_write_json(state_path, journal_projection(latest, tid))
+        publish_resolved_checkpoints(resolved_from_ledger)
+        print(f"  {tid}  recovered idempotently from {latest['event_key']}")
+        return 0
+
+    prior_journal_events = [
+        row for row in tick_rows
+        if row.get("row_type") == "conviction_event" and row.get("thesis_id") == tid
+        and journal_projection(row, tid) is not None
+    ]
+    latest_journal = prior_journal_events[-1] if prior_journal_events else None
+    latest_projection = journal_projection(latest_journal, tid) if latest_journal else None
+    authoritative_state = latest_projection or state
+
+    # Archived is a closed state, not another scoring band. A queued validation may have started
+    # before the archive became visible, so dispatch filtering alone is insufficient. Only the
+    # explicit restore command may publish a later live projection; accepting a fresh validation
+    # here would silently undo a kill, expiry, or terminal integrity review.
+    if authoritative_state.get("archived"):
+        reason = (latest_journal or {}).get("terminal_reason") or (latest_journal or {}).get("kind") or "archive"
+        print(f"{tid} is archived by {reason} — restore it explicitly before validating", file=sys.stderr)
+        return 4
+
     # ---- replay all resolved validations (this one included) from the frozen baseline ----
-    prior = [r for r in read_ndjson(TICKS) if r.get("row_type") == "validation_result" and r.get("thesis_id") == tid]
+    prior = [r for r in tick_rows if r.get("row_type") == "validation_result" and r.get("thesis_id") == tid]
     prior = [r for r in prior if r.get("vr_key") != vr["vr_key"]]  # avoid double-count on re-run
     history = prior + [vr]
     history.sort(key=lambda r: r.get("checked_at") or "")
@@ -228,8 +330,10 @@ def main() -> int:
     # ---- state machine ----
     insufficient = False
     archived = False
-    prev_state = state.get("state", "provisional")
-    prev_edge = int(state.get("edge_score_live") or edge_locked)
+    prior_journal = latest_journal
+    prev_state = (prior_journal or {}).get("to_state") or authoritative_state.get("state", "provisional")
+    prev_edge_raw = (prior_journal or {}).get("edge_score_live")
+    prev_edge = int(prev_edge_raw if isinstance(prev_edge_raw, (int, float)) else (authoritative_state.get("edge_score_live") or edge_locked))
     if breached_two_src:
         new_state, archived = "falsified_discarded", True
     elif breached_one_src:
@@ -249,7 +353,9 @@ def main() -> int:
     else:
         new_state = "fading" if (a.verdict in ("against", "partial") and edge_live >= 50) else "watching"
 
-    validated = bool(confirmed_cp_ids) or a.verdict in ("confirmed", "against", "breached_kill", "partial")
+    # `validated` means at least one checkpoint has ever resolved. An unresolved observation after a
+    # prior resolution must not erase that fact or make the UI call the thesis unchecked again.
+    validated = bool(resolved_ids)
     dsf = data_sufficiency(a.verdict, a.source_count)
     if insufficient:  # frozen — never silently upgrade on an unconfirmed kill
         new_state = prev_state
@@ -262,16 +368,31 @@ def main() -> int:
     progress_confirmed = len({i for i in resolved_ids})
 
     # ---- trajectory + velocity ----
-    traj = list(state.get("trajectory") or [])
+    # Ledger append order is application/commit order. `--at` may deliberately backfill an older
+    # observation, so sorting by observation time can put a stale projection at the end and make
+    # trajectory disagree with edge_score_live. Rebuild from committed event order; timestamps are
+    # metadata used only to scale the rate, never to choose which state is newest.
+    traj: list[dict] = []
+    seen_events: set[str] = set()
+    for row in tick_rows:
+        if row.get("row_type") != "conviction_event" or row.get("thesis_id") != tid:
+            continue
+        event_id = row.get("event_key")
+        is_seed = row.get("kind") == "seed"
+        is_validation = bool(row.get("triggering_checkpoint_id")) and journal_projection(row, tid) is not None
+        if (not is_seed and not is_validation) or not isinstance(event_id, str) or event_id in seen_events:
+            continue
+        if isinstance(row.get("at"), str) and isinstance(row.get("edge_score_live"), (int, float)):
+            traj.append({"at": row["at"], "edge": row["edge_score_live"]})
+            seen_events.add(event_id)
+    if not traj:
+        existing = authoritative_state.get("trajectory") or []
+        first = next((p for p in existing if isinstance(p, dict)
+                      and isinstance(p.get("at"), str) and isinstance(p.get("edge"), (int, float))), None)
+        traj.append(dict(first) if first else {"at": rec.get("meta", {}).get("created_at") or checked_at,
+                                              "edge": edge_locked})
     traj.append({"at": checked_at, "edge": edge_live})
-    # dedupe identical trailing points
-    seen, dedup = set(), []
-    for p in traj:
-        k = (p["at"], p["edge"])
-        if k not in seen:
-            seen.add(k)
-            dedup.append(p)
-    traj = dedup[-24:]
+    traj = traj[-24:]
     now_dt = to_day(checked_at)
     ref_edge = traj[0]["edge"]
     ref_dt = to_day(traj[0]["at"])
@@ -306,13 +427,14 @@ def main() -> int:
     event = {
         "row_type": "conviction_event", "thesis_id": tid, "at": checked_at, "kind": move_kind,
         "from_state": prev_state, "to_state": new_state, "edge_locked": edge_locked,
+        "previous_edge_score_live": prev_edge,
         "edge_score_live": edge_live, "subscores_before": base,
         "subscores_after": {"variant_perception_quality": V, "mispricing_reason_strength": M, "convergence_trigger_clarity": C},
         "conviction": conviction, "sell_side_rating": rating, "triggering_checkpoint_id": cid,
-        "evidence_refs": [vr["vr_key"]], "plain_note": plain, "event_key": f"{tid}::{checked_at}::{cid}",
+        "evidence_refs": [vr["vr_key"]], "plain_note": plain, "event_key": event_key,
     }
-
-    snap = dict(state)
+    snap = dict(authoritative_state)
+    event_history = [row["event_key"] for row in prior_journal_events]
     snap.update({
         "state": new_state, "sell_side_rating": rating, "edge_locked": edge_locked,
         "edge_score_live": edge_live, "conviction": conviction, "data_sufficiency_factor": dsf,
@@ -321,12 +443,14 @@ def main() -> int:
         "proximity_pct": proximity, "progress_confirmed": progress_confirmed, "progress_total": len(cps),
         "validated": validated, "trajectory": traj, "next_checkpoint": next_cp,
         "stale": False, "insufficient": insufficient, "archived": archived,
-        "plain_note": plain, "history": (state.get("history") or []) + [event["event_key"]],
-        "updated_at": now_z(),
+        "plain_note": plain,
+        "history": list(dict.fromkeys([*(authoritative_state.get("history") or []), *event_history, event["event_key"]])),
+        "updated_at": checked_at,
     })
     if archived and new_state == "falsified_discarded":
         snap["kill_reason"] = a.note or cp.get("falsification_text", "")
         snap["error_taxonomy_tag"] = a.error_tag
+    event["state_projection"] = snap
 
     print(f"  {tid}  {prev_state}({prev_edge}) → {new_state}({edge_live})  [{rating}]  conv={conviction} vel={velocity}/30d "
           f"prox={proximity}% verdict={a.verdict} src={a.source_count}"
@@ -337,20 +461,10 @@ def main() -> int:
         print("  (dry run — nothing written)")
         return 0
 
-    append(TICKS, vr, "vr_key", vr["vr_key"])
-    append(TICKS, event, "event_key", event["event_key"])
-    with open(state_path, "w", encoding="utf-8") as f:
-        json.dump(snap, f, indent=2, ensure_ascii=False)
-        f.write("\n")
-    # mark the checkpoint resolved (rewrite the calendar line's status in place)
-    if a.verdict != "unresolved":
-        rows = read_ndjson(CHECKPOINTS)
-        for r in rows:
-            if r.get("checkpoint_id") == cid:
-                r["status"] = "resolved"
-        with open(CHECKPOINTS, "w", encoding="utf-8") as f:
-            for r in rows:
-                f.write(json.dumps(r, ensure_ascii=False) + "\n")
+    append_ndjson(mutation, APPEND, TICKS, vr, "vr_key", vr["vr_key"])
+    append_ndjson(mutation, APPEND, TICKS, event, "event_key", event["event_key"])
+    atomic_write_json(state_path, snap)
+    publish_resolved_checkpoints({str(value) for value in resolved_ids if value})
     return 0
 
 

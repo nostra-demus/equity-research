@@ -130,10 +130,12 @@ CLAUDE.md §9) and to anchor a **review / tracking price** for a null-entry call
 `data/_market/<Provider>/`, on the same §7 file-drop contract (a fetcher WRITES FILES; no engine wiring,
 no live engine API call).
 
-- **Format:** long-format CSV, header `date,symbol,close` (ISO date; symbol = index/sector/stock; close
-  = float in the symbol's own currency), one row per `(symbol, date)`. An optional `_symbols.json` maps
-  a symbol to `{kind, benchmark, sector, beta}` to enable beta-adjusted excess (absent → beta 1.0). The
-  full contract, with examples, is in `frameworks/MARKET_FEED.md` (kept in `frameworks/`, not under the
+- **Format:** long-format CSV, required header fields `date,symbol,close` with optional `volume` (ISO date;
+  symbol = index/sector/stock; close = float in the symbol's own currency), one row per `(symbol, date)`.
+  An optional `_symbols.json` maps a symbol to `{kind, benchmark, sector, beta}` to enable beta-adjusted
+  excess (absent → beta 1.0). The qualified-idea outcome loop additionally requires explicit `exchange`,
+  `currency`, and `price_basis: "split_adjusted"`; it never guesses whether a bare close series was adjusted.
+  The full contract, with examples, is in `frameworks/MARKET_FEED.md` (kept in `frameworks/`, not under the
   gitignored `data/` pool, so the pool tree carries no tracked files — see that doc's header).
 - **The as-of is the latest date IN the data**, never a file mtime (§8 / fix F23).
 - **Readers:** `scripts/market_prices.py` (pure, read-only — `close_on`, `total_return`,

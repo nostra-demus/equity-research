@@ -11,10 +11,11 @@ This orchestrator:
 2. Writes `RUN_METADATA.md` before any module runs.
 3. Runs each module's pipeline inline, using the shared pipeline defined in `frameworks/MODULE_PIPELINE.md`.
 4. Continues past per-module fail-fast aborts; aborts the whole run only if **every** module aborts.
-5. Invokes the master synthesizer once all modules finish, then generates two more output tiers beside the deep-dive thesis — a ~10-page plain-English colleague `memo.md` and a deterministic, lossless `audit_dossier.md` (every agent and sub-agent output concatenated). Three tiers from one run: memo (share) → `final_thesis.md` (deep dive) → `audit_dossier.md` (audit everything).
+5. Invokes the master synthesizer once all modules finish, completes the integrity audits and immutable Ideas admission, then generates two derived output tiers beside the deep-dive thesis — a ~10-page plain-English colleague `memo.md` and a deterministic, lossless `audit_dossier.md` (every agent and sub-agent output concatenated). Three tiers from one run: memo (share) → `final_thesis.md` (deep dive) → `audit_dossier.md` (audit everything).
 6. Makes **two** commits on `main` per run (per repo `CLAUDE.md` git policy: one run-artifacts commit, then one metadata-backfill commit that fills in the commit SHA of the first one). Per-module commits do NOT happen under this orchestrator — they only happen when a module command is invoked standalone.
 
-Execute the steps below in order. Do not skip any.
+Execute the applicable steps below in order. The only skips are the explicit sealed-recovery routes in
+step 3A; they protect immutable research rather than weakening the workflow.
 
 ---
 
@@ -45,6 +46,41 @@ mkdir -p "analyses/${ARGUMENTS}_<DATE>"
 ```
 
 Capture the path `analyses/${ARGUMENTS}_<DATE>` as `<RUN_ROOT>`. Every module and the master synthesizer will write inside this folder. Use `${ARGUMENTS}_<DATE>` (with braces) in Bash to avoid the `$ARGUMENTS_<DATE>` shell-parse ambiguity.
+
+### 3A. Detect and protect a sealed run
+
+Before writing metadata or dispatching any paid research task, inspect `<RUN_ROOT>`:
+
+- If `idea_admission.json` exists, set `<RECOVERY_MODE>` to `admission_sealed`. Run
+  `python3 scripts/freeze_idea_admission.py <RUN_ROOT>` idempotently to verify the immutable record and
+  its current pinned inputs. Accept `admitted` / `not_applicable` (exit 0) and `not_admitted` (exit 3) as
+  valid sealed results; any other exit is a validation failure. Do not rerun a module, synthesizer,
+  deterministic thesis stamp, audit, market
+  capture, or final projection. Skip directly to step 10C, which may rebuild only derived memo/dossier
+  files, then finish metadata/commit recovery. A failed validation records `IDEA-ADMISSION: error` and is
+  a hard stop: preserve the sealed bytes and require a genuinely new dated run for new research.
+- Else, if `idea_projection_manifest.json` exists, set `<RECOVERY_MODE>` to `projection_sealed`. Run
+  `python3 scripts/create_idea_projection_manifest.py <RUN_ROOT>` and require `status: existing`. If that
+  validation fails, record `IDEA-ADMISSION: error` and stop before market capture, re-projection, the
+  freezer, or derived-output recovery; preserve the bytes and use a new dated run. Do not rerun modules,
+  synthesis, deterministic stamps, or audits. Skip to step 10B.4 and classify the assessment before doing
+  anything else:
+  - a schema-valid final `candidate`, newly timestamped no earlier than the manifest, may continue directly
+    to parse/schema/freezer only when its canonical market snapshot exists and matches the manifest;
+  - a schema-valid final `not_assessable` wrapper, newly timestamped no earlier than the manifest and no
+    longer carrying the exact preliminary pending-manifest gap, continues directly to parse/schema/freezer.
+    It does not require a market snapshot: snapshot unavailability may be the honest final gap;
+  - only the exact preliminary `not_assessable` wrapper with its pre-manifest timestamp and no market
+    snapshot may run the final re-projection Task; and
+  - any other combination records `IDEA-ADMISSION: error`, preserves the bytes, and requires a new dated run.
+  Under the atomic sequence in step 10B.4, any completed semantic gate already has
+  `idea_admission.json`; if that file appears at any point, stop this branch and restart under
+  `admission_sealed` rather than re-projecting.
+- Otherwise set `<RECOVERY_MODE>` to `fresh` and continue normally.
+
+A manifest seals every artifact it pins. An admission seals the assessment result as well, including
+`not_applicable`. Same-day convenience is never permission to rewrite an ex-ante forecast after later
+information or a gate result is visible.
 
 ---
 
@@ -90,7 +126,9 @@ Capture the result as `<REPO_SHA>`.
 
 ## 7. Write RUN_METADATA.md (initial)
 
-Use the Write tool to create `<RUN_ROOT>/RUN_METADATA.md` with the following content (substitute values literally):
+For a fresh run, use the Write tool to create `<RUN_ROOT>/RUN_METADATA.md` with the following content
+(substitute values literally). In either sealed recovery mode, preserve the existing metadata and update
+only the final recovery/status fields after the immutable validation succeeds:
 
 ```
 # Run Metadata
@@ -171,7 +209,7 @@ Follow every step in `frameworks/MODULE_PIPELINE.md` with these inputs:
 - `<RUN_ROOT>` = the run root from step 3
 - `<CROSS_MODULE_CONTEXT>` = the string from step 8A
 
-**Defer the module memo (speed, output-neutral).** When you follow `MODULE_PIPELINE.md` Step 4.9 for this module, do Step 4.9B (the deterministic module dossier) but **skip Step 4.9A (the LLM module memo)** — in a `/research:full` run the per-module memos are generated together in one batch in **Step 10A.0** (after the master synthesizer). Nothing downstream reads a module memo (the master reads each `99_*-synthesis.md`, and every dossier already excludes `*_memo.md`), so this changes only *when* a memo is written, never its content — and it stops the pipeline pausing ~2.5 min after every module.
+**Defer the module memo (speed, output-neutral).** When you follow `MODULE_PIPELINE.md` Step 4.9 for this module, do Step 4.9B (the deterministic module dossier) but **skip Step 4.9A (the LLM module memo)** — in a `/research:full` run the per-module memos are generated together in one batch in **Step 10C** (after final Ideas admission). Nothing downstream reads a module memo (the master reads each `99_*-synthesis.md`, and every dossier already excludes `*_memo.md`), so this changes only *when* a memo is written, never its content — and it stops the pipeline pausing ~2.5 min after every module.
 
 ### 8C. Record outcome
 
@@ -203,11 +241,34 @@ Dispatch a single Task call:
 
 Wait for it to complete. Treat the synthesizer as failed if `<RUN_ROOT>/final_thesis.md` does not exist when it returns.
 
+**10.0 — Preliminary idea-assessment existence and schema gate (forward runs only).** If the thesis exists,
+the same synthesizer must also have written `<RUN_ROOT>/idea_3_6m.json`. This is an early completeness
+check only. Step 10B.4 re-projects it from the post-audit decision and is the only version eligible for
+immutable admission. Run:
+
+`python3 scripts/validate_screener_json.py frameworks/ideas/idea-assessment.schema.json <RUN_ROOT>/idea_3_6m.json`
+
+- The preliminary result must be `not_assessable` with `candidate: null` and must name the pending
+  post-audit projection manifest/canonical market evidence. Canonical market evidence cannot be written
+  before the manifest, so a preliminary `candidate` is a production defect even when it passes JSON
+  Schema. Replace it with the minimal honest `not_assessable` wrapper for this run and the gap
+  `"Pending post-audit projection manifest and canonical market evidence."`, then rerun the validator.
+  Do not run `--write-idea-evidence`, upgrade it, or reach into an older run to fill the board.
+- If the file is missing, write one minimal `idea-assessment/v1` wrapper for THIS run with
+  `status: "not_assessable"`, `candidate: null`, and the single gap `"Master synthesizer did not emit the required 3–6 month assessment."`; use the current ticker/run root, company `null`, current UTC time, and stable assessment id `<TICKER>-<DATE>-3-6m`. Then rerun the validator. This fallback records the production defect without inventing an idea.
+- If a present file fails schema validation, do not call it healthy and do not silently repair its
+  candidate. Record `invalid (schema gate failed)` for step 11 and surface the validator errors in step 13.
+
 ---
 
-## 10A. Generate the memo and the audit dossier
+## 10A. Memo and audit-dossier procedure (DEFERRED until after 10B.4)
 
-Run this step only if `<RUN_ROOT>/final_thesis.md` exists (the synthesizer succeeded). If the synthesizer was skipped because every module aborted, skip 10A entirely and record both tiers as `skipped (no final thesis)` in step 11.
+**Do not execute any 10A substep at this point.** Keep this procedure as the canonical generation
+instructions, but execute it only when step 10C invokes it after the final idea re-projection and atomic
+semantic admission. This ordering prevents `memo.md`, module memos, or
+`audit_dossier.md` from freezing the preliminary idea state.
+
+When step 10C invokes this procedure, run it only if `<RUN_ROOT>/final_thesis.md` exists (the synthesizer succeeded). If the synthesizer was skipped because every module aborted, skip the procedure entirely and record both tiers as `skipped (no final thesis)` in step 11.
 
 These are the other two tiers of the run, written **beside** `final_thesis.md` so the step-12 commit (`git add "analyses/${ARGUMENTS}_<DATE>/"`) picks them up automatically — no extra commit:
 
@@ -216,9 +277,9 @@ These are the other two tiers of the run, written **beside** `final_thesis.md` s
 
 ### 10A.0 — Module memos (deferred batch, LLM, via the `module-memo-writer` agent)
 
-In a full run the per-module memos were deferred from step 8 (Step 4.9A was skipped) so they don't pause the pipeline ~2.5 min after each module. Generate them now, after the master synthesis — they are leaf outputs nothing else reads, so this is pure scheduling and is output-neutral (the memo content is identical to inline generation; only its timing moves).
+In a full run the per-module memos were deferred from step 8 (Step 4.9A was skipped) so they don't pause the pipeline ~2.5 min after each module. When step 10C invokes this procedure, generate them from the final post-admission artifact set. They are leaf outputs nothing else reads.
 
-For **every** module folder `<RUN_ROOT>/<module>/` that has a `99_*-synthesis.md`, dispatch a `module-memo-writer` Task — **regenerate unconditionally**; do NOT skip a module just because a `<module>_memo.md` already exists. (On a second `/research:full` into the same dated run folder the synthesis was rewritten, so an old memo from the earlier attempt must be refreshed to stay in sync — never left stale beside a fresh synthesis. This mirrors the inline Step 4.9A, which always rewrote the memo after its synthesis.) **Issue all of these Task calls in a single message so they run concurrently** — the memos are independent, so batched they cost about one memo's time, not the sum of six. For each such module the user message is:
+For **every** module folder `<RUN_ROOT>/<module>/` that has a `99_*-synthesis.md`, dispatch a `module-memo-writer` Task — **regenerate unconditionally**; do NOT skip a module just because a `<module>_memo.md` already exists. Derived memos are deliberately outside the sealed admission set and a recovery may have left one partial or stale. The module synthesis itself is never rewritten after sealing. **Issue all of these Task calls in a single message so they run concurrently** — the memos are independent, so batched they cost about one memo's time, not the sum of six. For each such module the user message is:
 
 > Read `<RUN_ROOT>/<module>/99_<...>-synthesis.md` and write the module memo to `<RUN_ROOT>/<module>/<module>_memo.md`. Condense only what the synthesis already carries — do not add new analysis, numbers, or evidence, and do not change its verdict, scores, or caps. The saved file must start with its `#` header and contain no chat-confirmation block. Do not write any other file and do not run git.
 
@@ -790,6 +851,117 @@ PY
 
 Record the printed `GATE-EXPECTATIONS:` line for step 11 ("Integrity gate") and step 13. This carries the same weight as the 10B.1/10B.2 stamps — a `PROVISIONAL` result here means a confident rating shipped with no independently-confirmed variant perception, the exact "fake variant perception" CLAUDE.md §7 bans.
 
+### 10B.3A — Final immutable audit set
+
+The propagation and provisional-stamp steps above mutate `decision_record.json` and/or `final_thesis.md`
+after the first audit pass. Therefore the earlier reports are diagnostic history, not admission authority.
+Now rerun all three read-only audits against the final exact bytes, producing their next append-only
+versions (`verification_report_vN.json`, `pre_mortem_vN.json`, and `expectations_gap_vN.json`):
+
+1. follow `.claude/commands/research/verify-evidence.md`;
+2. follow `.claude/commands/research/pre-mortem.md`;
+3. follow `.claude/commands/research/expectations-gap.md`.
+
+Skip each audit command's commit step. Every final report must carry the exact repo-relative thesis and
+decision paths plus lowercase SHA-256 digests of both input files. From this point until manifest creation,
+do not run haircut propagation, a provisional stamp, synthesis, or any other writer over those inputs.
+These final audit conclusions are authoritative even when they are adverse: the admission freezer uses the
+pre-mortem verdict/cap and expectations-gap quality/exploitability/edge score directly. A malformed,
+missing, stale-input, or internally inconsistent final audit makes manifest creation fail closed.
+
+---
+
+### 10B.4 — Final idea re-projection and immutable admission
+
+The preliminary assessment predates the pre-mortem and expectations-gap audits. It must never remain a
+`Buy` after those gates lower the standing decision, and a later clean verification must never backdate a
+forecast after its result is visible. First pin the final on-disk record, then re-project and freeze once.
+
+Create the first-writer-wins post-audit manifest:
+
+```bash
+python3 scripts/create_idea_projection_manifest.py <RUN_ROOT>
+```
+
+It pins the exact bytes of `final_thesis.md`, `decision_record.json`, the canonical verification report,
+pre-mortem, and expectations-gap audit. It also requires `decision_record.ticker` and `decision_date` to
+match the ticker/date encoded by `<RUN_ROOT>` exactly; an internally consistent audit set cannot bless the
+wrong listing or dated cohort. If it fails, record `IDEA-ADMISSION: error` with the exact manifest
+error and STOP before market capture, final re-projection, parse/schema replacement, the freezer, or
+derived-output recovery. A missing/invalid projection seal cannot honestly become `not_applicable`.
+Preserve the failed run bytes and start a genuinely new dated run; never repair the audit/decision in
+place and retry this dated projection. Once creation succeeds, none of the pinned artifacts may be edited.
+A changed audit or decision artifact requires a new dated run, never an overwrite of the manifest or a
+mutation followed by retry.
+
+After manifest creation succeeds, dispatch one final Task call.
+
+- `subagent_type: "synthesizer"`
+- User message:
+
+  > Final idea re-projection only for `<RUN_ROOT>`. A digest-valid post-audit
+  > `idea_projection_manifest.json` already exists. Do not edit the thesis, decision record, module
+  > outputs, audit files, or manifest. Re-read the manifest-pinned standing/post-mortem decision and final
+  > integrity state, including the final pre-mortem and expectations-gap conclusions. Normalize
+  > `research.edge_score` to the lower of the decision-record and expectations-gap scores. Any final
+  > pre-mortem non-survival/rating cap or expectations-gap result without a Moderate/Strong proven
+  > exploitable edge is a binding hard cap; copy the exact canonical reason defined in
+  > `frameworks/ideas/README.md`. Run the canonical `--write-idea-evidence` command, then replace only this run's
+  > `idea_3_6m.json` with a reconciled candidate or honest `not_assessable` result under
+  > `frameworks/ideas/README.md`. A candidate must carry the manifest digest and exact decision authority:
+  > set the replacement wrapper's `created_at` (and a candidate's `created_at`) to this final projection
+  > time, no earlier than the manifest's `created_at`; never retain the preliminary wrapper's pre-manifest
+  > timestamp. Then carry
+  > `decision_date`; stable scenario ids, conditions, sources, probabilities and conjunction bases; the
+  > exact `idea_valuation_bridge`, whose `source_horizon_days` equals `scenario_horizon_days`; and one
+  > machine-resolvable forecast selected by
+  > `forecast_id`, including its dates, source, metric/threshold, causal steps, and bullish/bearish triggers.
+
+After it returns, run the parse and JSON Schema checks first:
+
+```bash
+python3 -m json.tool <RUN_ROOT>/idea_3_6m.json >/dev/null
+python3 scripts/validate_screener_json.py frameworks/ideas/idea-assessment.schema.json <RUN_ROOT>/idea_3_6m.json
+```
+
+If JSON parsing or Schema validation fails, replace the broken final projection with one minimal
+`not_assessable` wrapper for this run whose gap names that production failure and whose `created_at` is the
+current final-projection time, no earlier than the manifest's `created_at`; never copy the preliminary
+wrapper's timestamp. Then rerun parse + Schema before proceeding. This is fail-closed quarantine before
+any semantic result exists, not a candidate repair. Once both checks pass, invoke the locked first-writer
+freezer exactly once:
+
+```bash
+python3 scripts/freeze_idea_admission.py <RUN_ROOT>
+```
+
+That one command performs the complete manifest, market, decision-authority, integrity, and timestamp
+reconciliation and atomically writes immutable `<RUN_ROOT>/idea_admission.json` under the same directory
+lock. Treat `admitted` (exit 0), `not_admitted` (exit 3, with gaps), and `not_applicable` (exit 0) as
+completed outcomes. A complete candidate can honestly fail the later policy ranker and still be admitted
+by this semantic freezer; do not weaken it merely to force qualification. Any exception, `error`, unreadable
+result, or unexpected exit is a validator failure: report it and do not mutate or retry the assessment.
+
+There is deliberately no non-writing semantic preview. Once the command exposes a gate result, the same
+locked operation has already frozen it, so a crash cannot leave a visible rejection that recovery later
+re-projects. A crash before the atomic rename leaves no completed gate; a crash after it is recovered only
+through the `admission_sealed` branch. A non-admission is an honest result and does not abort the research
+run, but it must be reported with its gaps. Never delete or overwrite any frozen result after a later audit;
+only a new dated run may make a new ex-ante forecast.
+
+Record `IDEA-ADMISSION: admitted|not_admitted|not_applicable|error` plus the specific gaps for step 11 and
+step 13. The live Ideas board and outcome loop consume only a digest-valid `admitted` snapshot; they never
+reconstruct history from a mutable assessment or current verification report.
+
+---
+
+## 10C. Generate the memo and audit dossier from final state
+
+Only now execute the complete deferred procedure in step 10A (10A.0, 10A.1, and 10A.2). Regenerate the
+derived files unconditionally when their procedure says to do so; an older memo or dossier from a resumed
+run is stale. This is deliberately after final re-projection and admission, so no derived output can freeze
+or present the preliminary Ideas state as final.
+
 ---
 
 ## 11. Update RUN_METADATA.md (final)
@@ -801,6 +973,10 @@ Rewrite `<RUN_ROOT>/RUN_METADATA.md` via the Write tool to fill in the placehold
 - "Synthesizer status": `succeeded` (if `final_thesis.md` exists), `failed` (if it does not), or `skipped (all modules aborted)`
 - "Memo status": `succeeded` (if `memo.md` exists), `failed`, or `skipped (no final thesis)`
 - "Audit dossier status": `succeeded` (if `audit_dossier.md` exists), `failed`, or `skipped (no final thesis)`
+- "3–6 month idea assessment": `candidate — admitted`, `candidate — not admitted (<reason>)`,
+  `not_assessable`, `error (<admission validator reason>)`, `invalid (final schema gate failed)`, or
+  `skipped (no final thesis)`, derived from the final step-10B.4 artifact/admission snapshot — never from
+  whether the Ideas UI happens to be populated
 - "Integrity gate": the step-10B result — the `GATE: PASS|PROVISIONAL|ERROR` line from 10B.1, the verify-evidence verdict and the pre-mortem verdict / any confidence haircut from 10B.2, and the `GATE-EXPECTATIONS: PASS|PROVISIONAL` line from 10B.3 (e.g. `PASS; verify-evidence: Verified; pre-mortem: Survives (confidence 70→64); expectations-gap: PASS`). If 10B was skipped because no `final_thesis.md` exists, write `skipped (no final thesis)`.
 - "Commit SHA": leave as `(to be filled after commit)` — you'll patch it post-commit in step 12.
 
@@ -839,6 +1015,9 @@ Print a final summary to the user containing:
 - Number of modules discovered and their names
 - Per-module status: `completed` / `aborted (fail-fast at <agent>)` / `aborted (failures: <names>)`
 - Whether the master synthesizer ran and whether `final_thesis.md` exists
+- The final `<RUN_ROOT>/idea_3_6m.json` plus step-10B.4 admission status (`candidate — admitted`,
+  `candidate — not admitted` with gaps, honest `not_assessable`, `error` with the validator reason, or
+  invalid with the schema error); never describe a missing/invalid/unadmitted artifact as “none clear”
 - **The integrity finish-gate result (step 10B):** the `GATE: PASS|PROVISIONAL` line, the verify-evidence verdict, any pre-mortem confidence haircut, and the `GATE-EXPECTATIONS:` result (10B.3). If any of these is `PROVISIONAL` or verify-evidence is `Failed`, say so prominently — the published thesis carries a PROVISIONAL banner and its numbers are not yet trusted.
 - The three output tiers and their paths: `<RUN_ROOT>/memo.md` (~10-page colleague memo), `<RUN_ROOT>/final_thesis.md` (deep-dive thesis), `<RUN_ROOT>/audit_dossier.md` (full audit concatenation) — noting any that were skipped or failed
 - The two commit SHAs pushed to `origin/main`

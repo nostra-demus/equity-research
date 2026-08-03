@@ -47,9 +47,11 @@
     },
     "stale": { "type": "boolean", "description": "A checkpoint's by-date passed with no validation on record. Rating frozen." },
     "insufficient": { "type": "boolean", "description": "Validator ran but no approved source yielded the number (or a single-source kill awaiting a second). Rating frozen." },
-    "archived": { "type": "boolean", "description": "Terminal (falsified_discarded / expired_unproven) — off the live leaderboard, in the Archived tray, still counted." },
+    "archived": { "type": "boolean", "description": "Terminal/off-live (falsified, expired, or integrity-rejected) — in the Archived tray and still counted; integrity rejection may preserve the prior scoring rung for audit." },
     "kill_reason": { "type": "string" },
     "error_taxonomy_tag": { "type": "string" },
+    "terminal_reason": { "type": "string", "description": "Machine-readable source of an off-live terminal archive, for example thesis_integrity_review." },
+    "integrity_routing": { "type": "string", "description": "Exact terminal thesis-integrity routing preserved in the archived projection." },
     "plain_note": { "type": "string", "description": "The latest sell-side one-liner (§21)." },
     "history": { "type": "array", "items": { "type": "string" }, "description": "conviction_event ids, oldest first." },
     "updated_at": { "type": "string" }
@@ -83,7 +85,7 @@
     },
     "validation_result": {
       "type": "object",
-      "description": "One row of screener/ledger/conviction/conviction.ndjson (row_type=validation_result). Idempotency key: checkpoint_id::run_id.",
+      "description": "One immutable observation in conviction.ndjson. Idempotency key: vr_key = checkpoint_id::verdict::UTC-day; a retry reuses the first checked_at/payload and a conflicting payload fails closed.",
       "required": ["row_type", "checkpoint_id", "thesis_id", "verdict", "checked_at"],
       "properties": {
         "row_type": { "type": "string", "const": "validation_result" },
@@ -115,21 +117,23 @@
         "realized": { "type": ["integer", "null"], "minimum": 0, "maximum": 1, "description": "Did the predicted event happen (1) or not (0)? Brier input." },
         "error_taxonomy_tag": { "type": "string", "description": "§20 tag when against/breached (missing_data, stale_data, bad_extraction, …)." },
         "narrative": { "type": "string" },
-        "checked_at": { "type": "string" }
+        "checked_at": { "type": "string" },
+        "vr_key": { "type": "string" }
       }
     },
     "conviction_event": {
       "type": "object",
-      "description": "One row of screener/ledger/conviction/conviction.ndjson (row_type=conviction_event). Idempotency key: thesis_id::at.",
+      "description": "One transaction-journal row in conviction.ndjson. Validation events key deterministically from vr_key; restores key from the archived snapshot digest; terminal integrity archives bind their routing to the predecessor row. state_projection is the complete recovery image, and the last valid event in serialized ledger order wins (timestamps can be backfilled).",
       "required": ["row_type", "thesis_id", "at", "kind", "from_state", "to_state", "edge_locked", "edge_score_live"],
       "properties": {
         "row_type": { "type": "string", "const": "conviction_event" },
         "thesis_id": { "type": "string" },
         "at": { "type": "string" },
-        "kind": { "type": "string", "enum": ["seed", "upgrade", "downgrade", "discard", "hold", "recover", "expire"] },
+        "kind": { "type": "string", "enum": ["seed", "upgrade", "downgrade", "discard", "hold", "recover", "expire", "integrity_archive"] },
         "from_state": { "type": "string" },
         "to_state": { "type": "string" },
         "edge_locked": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "previous_edge_score_live": { "type": "integer", "minimum": 0, "maximum": 100 },
         "edge_score_live": { "type": "integer", "minimum": 0, "maximum": 100 },
         "subscores_before": { "type": "object" },
         "subscores_after": { "type": "object" },
@@ -137,7 +141,14 @@
         "sell_side_rating": { "type": "string" },
         "triggering_checkpoint_id": { "type": ["string", "null"] },
         "evidence_refs": { "type": "array", "items": { "type": "string" } },
-        "plain_note": { "type": "string" }
+        "plain_note": { "type": "string" },
+        "event_key": { "type": "string" },
+        "restore_basis_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "restored_by": { "type": "string" },
+        "terminal_reason": { "type": "string" },
+        "integrity_routing": { "type": "string" },
+        "integrity_archive_basis_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "state_projection": { "$ref": "#" }
       }
     }
   }

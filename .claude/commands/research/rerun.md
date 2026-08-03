@@ -36,6 +36,19 @@ ls -1d analyses/<TICKER>_* 2>/dev/null | sort -r | head -n 1
 
 Capture as `<RUN_ROOT>`. If empty, STOP: "No existing run to re-run for `<TICKER>`. Run a module or the full pipeline first (`/research:full <TICKER>`)." A re-run mutates the latest existing run folder; it must not create a new one.
 
+### 3A. Refuse to mutate a sealed Ideas run
+
+Before any extraction, Task call, or write, check for `<RUN_ROOT>/idea_projection_manifest.json` or
+`<RUN_ROOT>/idea_admission.json`. If either exists, STOP and report:
+
+> This run is sealed by its ex-ante Ideas projection/admission and cannot be rerun in place. Start a new
+> dated `/research:full <TICKER>` run for the new evidence. The old forecast and negative/positive
+> admission result must remain byte-stable for honest outcome calibration.
+
+Do not delete the seal, rewrite an audit, refresh the pool extract inside that run, or treat a sealed
+`not_applicable`/`not_admitted` result as permission to retry. This guard applies equally to master-only,
+module, and specialist reruns. Unsealed legacy/incomplete runs continue through the steps below.
+
 ## 4. Identify and classify the target orb
 
 If the master target (step 1), skip to step 8.
@@ -169,6 +182,7 @@ Print: the resolved `<RUN_ROOT>`; the target orb that was re-run; the ordered ca
 - Discover everything (agents, layers, `depends_on`, cascade order) from the files and frontmatter — never hardcode module or agent names. The cascade is derived entirely from `depends_on`, exactly like `/research:full`.
 - Re-run ONLY the selected orb and the `99` syntheses in the cascade (plus master + tiers). Never re-run sibling specialists or any downstream module's specialists — reuse their existing outputs.
 - Re-run the cascade syntheses strictly in topological order so each reads already-refreshed upstream.
-- Mutate the latest EXISTING run folder. Never create a new run folder.
+- Mutate the latest EXISTING **unsealed** run folder. A projection/admission seal is an absolute stop;
+  new evidence then requires a new dated full run.
 - Exactly one commit at the end. The individual agents must not commit.
 - Step 8A's deterministic finish-gate runs for EVERY rerun, standalone or chained — never skip it just because `.defer_module_memos` is absent. Only the LLM audit trio (verify-evidence + pre-mortem + expectations-gap, Step 9B) stays reserved for the per-module-chain path.

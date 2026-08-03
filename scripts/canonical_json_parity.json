@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-canonical-json-parity/v1",
+  "contract": "idea-canonical-json/v1",
+  "accepted": [
+    {
+      "name": "ecmascript-numbers-utf16-key-order-and-strings",
+      "value": {
+        "10": "ten",
+        "2": "two",
+        "numbers": [
+          100.0,
+          1.0,
+          -0.0,
+          1e-7,
+          1e-6,
+          0.00000123,
+          1.25,
+          333333333.33333329,
+          9007199254740991.0,
+          0.002
+        ],
+        "strings": [
+          "é",
+          "line\nbreak",
+          "</script>",
+          "😀"
+        ],
+        "": "bmp-private-use",
+        "😀": "astral-key",
+        "nested": {
+          "z": false,
+          "a": null
+        }
+      },
+      "canonical": "{\"10\":\"ten\",\"2\":\"two\",\"nested\":{\"a\":null,\"z\":false},\"numbers\":[100,1,0,1e-7,0.000001,0.00000123,1.25,333333333.3333333,9007199254740991,0.002],\"strings\":[\"é\",\"line\\nbreak\",\"</script>\",\"😀\"],\"😀\":\"astral-key\",\"\":\"bmp-private-use\"}",
+      "sha256": "e2dfec6a10dd55cccf7f07e78c3033c4ad4dca503da1cdc8f75b9528e6b54ad9"
+    }
+  ],
+  "rejected": [
+    {
+      "name": "not-a-number",
+      "kind": "number_expression",
+      "expression": "NaN",
+      "reason": "non_finite"
+    },
+    {
+      "name": "positive-infinity",
+      "kind": "number_expression",
+      "expression": "Infinity",
+      "reason": "non_finite"
+    },
+    {
+      "name": "unsafe-integer",
+      "kind": "number_expression",
+      "expression": "9007199254740992",
+      "reason": "unsafe_integral"
+    },
+    {
+      "name": "unsafe-integral-float",
+      "kind": "number_expression",
+      "expression": "1e20",
+      "reason": "unsafe_integral"
+    },
+    {
+      "name": "lone-surrogate",
+      "kind": "string_code_unit",
+      "expression": "D800",
+      "reason": "lone_surrogate"
+    },
+    {
+      "name": "non-json-value",
+      "kind": "expression",
+      "expression": "undefined",
+      "reason": "non_json"
+    }
+  ]
+}

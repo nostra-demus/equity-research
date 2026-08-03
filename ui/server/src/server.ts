@@ -45,7 +45,10 @@ import { searchSemanticIndex } from './retrieval/semantic'
 import { rerankCandidates } from './retrieval/rerank'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
-import { appendIdeaFeedback, readIdeaById, writeIdea } from './news/ideas/ideas-store'
+import {
+  appendIdeaFeedback, finalizeIdeaPromotion, readIdeaById, releaseIdeaPromotion, reserveIdeaPromotion,
+  updateIdeaSnapshot,
+} from './news/ideas/ideas-store'
 import { auditInboxAction, hideSignal, moveThesis, MOVE_TARGETS, SIGNAL_ACTIONS } from './screener-actions'
 import { appendFeedbackRoute, FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
 import { FEEDBACK_MAX_IMAGES, type FeedbackCategory, type FeedbackItemRecord, appendFeedbackEvent, foldFeedback, isFeedbackId, itemDir, newFeedbackId, readAllFeedback as readAllCockpitFeedback, saveFeedbackImage, writeFeedbackItem } from './feedback-store'
@@ -84,6 +87,7 @@ import { startConnectorRunner, lastLedgerError } from './connector-runner'
 import { startConnectorRepair } from './connector-repair'
 import { readPipelines } from './pipelines'
 import { SubjectBusyError, withSubjectLock } from './subject-lock'
+import { acquireSingletonLock, releaseSingletonLock } from './singleton-lock'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
 
@@ -2761,14 +2765,31 @@ app.post('/api/screener/ideas/:id/promote', { config: { rateLimit: { max: 60, ti
   const intake = hasSource
     ? { headline, source_url: idea.source_url as string, source_name: idea.source_name as string, input_nature: 'news_headline' }
     : { headline, human_prompt_note: `Desk skim — ${idea.direction.toUpperCase()} ${idea.ticker}: ${idea.reason}`.slice(0, 4000), input_nature: 'human_prompt' }
+  const reservation = reserveIdeaPromotion(REPO_ROOT, ideaId)
+  if (!reservation) {
+    const current = readIdeaById(REPO_ROOT, ideaId)
+    if (current?.status === 'promoted' && current.promoted_signal_id) {
+      return { sigId: current.promoted_signal_id, runId: null, alreadyPromoted: true }
+    }
+    return reply.code(409).send({ error: 'this idea is already being sent to the full machine' })
+  }
+  let launchCompleted = false
   try {
     const out = await launch({ kind: 'signal', intake, user, userVia })
+    launchCompleted = true
     const sigId = out.preflight?.ticker || sigIdFor({ headline, source_url: idea.source_url || '' } as Parameters<typeof sigIdFor>[0], todayDate())
-    // stamp the snapshot so the board shows "In the machine" (deterministic — the board rebuilds from this)
-    writeIdea(REPO_ROOT, { ...idea, status: 'promoted', promoted_signal_id: sigId, updated_at: new Date().toISOString().replace(/\.\d{3}Z$/, 'Z') })
+    // Merge only lifecycle fields into the newest provider snapshot under the reservation. A refresh or
+    // feedback update that landed during the paid launch remains intact.
+    finalizeIdeaPromotion(
+      REPO_ROOT, ideaId, reservation.token, sigId,
+      new Date().toISOString().replace(/\.\d{3}Z$/, 'Z'), idea,
+    )
     setImmediate(() => { try { refreshBoard(REPO_ROOT) } catch { /* best-effort */ } })
     return { sigId, runId: out.runId }
   } catch (e: any) {
+    // A completed paid launch must keep its durable reservation if the final stamp unexpectedly fails;
+    // allowing another click would spend twice. Pre-launch failures are safe to release and retry.
+    if (!launchCompleted) releaseIdeaPromotion(REPO_ROOT, ideaId, reservation.token)
     const body = e?.body && typeof e.body === 'object' ? e.body : null
     return reply.code(e?.statusCode || 500).send({ error: e?.message || 'promote failed', ...(body || {}) })
   }
@@ -2794,11 +2815,12 @@ app.post('/api/screener/ideas/:id/feedback', { config: { rateLimit: { max: 600, 
     // decay onto the FRESH snapshot, never the stale pre-await one, so a concurrent promoted stamp / refreshed
     // source set is preserved (the writeIdea below is synchronous after this read — no yield, no lost update).
     if (parsed.data.polarity === 'down') {
-      const fresh = readIdeaById(REPO_ROOT, ideaId) || idea
       const graceMs = Math.max(0, NEWS.ideasDownvoteGraceHrs) * 3_600_000
-      const cur = Date.parse(fresh.decay_at)
-      const next = Math.min(Number.isFinite(cur) ? cur : Number.POSITIVE_INFINITY, Date.now() + graceMs)
-      writeIdea(REPO_ROOT, { ...fresh, decay_at: new Date(next).toISOString().replace(/\.\d{3}Z$/, 'Z'), updated_at: ts })
+      updateIdeaSnapshot(REPO_ROOT, ideaId, (fresh) => {
+        const cur = Date.parse(fresh.decay_at)
+        const next = Math.min(Number.isFinite(cur) ? cur : Number.POSITIVE_INFINITY, Date.now() + graceMs)
+        return { ...fresh, decay_at: new Date(next).toISOString().replace(/\.\d{3}Z$/, 'Z'), updated_at: ts }
+      })
     }
     setImmediate(() => { try { refreshBoard(REPO_ROOT) } catch { /* best-effort */ } })
     return { ok: true }
@@ -3200,38 +3222,17 @@ if (fs.existsSync(WEB_DIST)) {
 // ── Single-instance lock ──────────────────────────────────────────────────────
 // The OS already blocks two binds to the SAME :8787 (the second gets EADDRINUSE, handled in .catch below).
 // The real hazard is a SECOND engine started with a DIFFERENT PORT (the :8799 incident): it shares this
-// checkout's data + state and doubles all ingester / filesystem / LLM load. A repo-keyed pidfile makes one
-// engine per checkout regardless of PORT. process.kill(pid, 0) sends NO signal — it's a liveness probe; a
-// stale pidfile (owner gone → throws ESRCH) is reclaimed automatically.
-const ENGINE_PIDFILE = path.join(STATE_DIR, 'engine.pid')
+// checkout's data + state and doubles all ingester / filesystem / LLM load. The retained kernel lease is
+// independent of PORT and releases automatically on crash. Its stable inode is never unlinked, so stale
+// PID text, PID reuse, and unlink/recreate races cannot admit two engines or block the next healthy boot.
+const ENGINE_LOCK_FILE = 'engine.lock'
 function claimSingleInstanceLock() {
-  try {
-    const prev = Number(fs.readFileSync(ENGINE_PIDFILE, 'utf8').trim())
-    if (prev && prev !== process.pid) {
-      try {
-        process.kill(prev, 0) // throws if that pid is gone; succeeds (no signal sent) if it's alive
-        // eslint-disable-next-line no-console
-        console.error(`[swarm-cockpit] another engine is already running for this checkout (pid ${prev}); exiting`)
-        process.exit(1)
-      } catch {
-        /* stale pidfile (owner gone) — fall through and claim it */
-      }
-    }
-  } catch {
-    /* no pidfile yet — claim it */
+  if (!acquireSingletonLock(STATE_DIR, ENGINE_LOCK_FILE)) {
+    // eslint-disable-next-line no-console
+    console.error('[swarm-cockpit] another engine owns this checkout, or singleton safety could not be established; exiting')
+    process.exit(1)
   }
-  try {
-    fs.mkdirSync(path.dirname(ENGINE_PIDFILE), { recursive: true })
-    fs.writeFileSync(ENGINE_PIDFILE, String(process.pid))
-    // release on a clean exit (best-effort; a hard kill leaves a stale file the liveness probe handles)
-    process.on('exit', () => {
-      try {
-        if (Number(fs.readFileSync(ENGINE_PIDFILE, 'utf8').trim()) === process.pid) fs.unlinkSync(ENGINE_PIDFILE)
-      } catch {}
-    })
-  } catch {
-    /* non-fatal: if the pidfile can't be written, don't block startup */
-  }
+  process.once('exit', () => releaseSingletonLock(STATE_DIR, ENGINE_LOCK_FILE))
 }
 claimSingleInstanceLock()
 
