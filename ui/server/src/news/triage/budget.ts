@@ -9,6 +9,10 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { Buffer } from 'node:buffer'
 
+// Request-gated providers still flow through Budget's request+token contract. Give them one shared,
+// deliberately unreachable daily token ceiling instead of repeating a magic sentinel across callers.
+export const NON_BINDING_DAILY_TOKEN_CAP = 50_000_000
+
 // A tokenizer-independent upper bound for one two-message chat completion. A tokenizer cannot emit
 // more input tokens than there are UTF-8 bytes in the text (each ordinary token consumes at least one
 // byte); the configured completion ceiling bounds output tokens. The fixed allowance covers the model's

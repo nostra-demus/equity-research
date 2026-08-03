@@ -4,8 +4,10 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { ideasHealthLivenessMs, initializeIdeasHealth, inspectPersistedIdeasHealth, readIdeasHealth, readPersistedIdeasHealth, updateIdeasHealth } from '../src/news/ideas/ideas-health'
-import { runIdeaPass, type IdeaPassConfig } from '../src/news/ideas/run-idea-pass'
+import { callGroqForIdeaPass, ideaGroqTokenBound, runIdeaPass, type IdeaPassConfig } from '../src/news/ideas/run-idea-pass'
 import { ideaId, readTopSweep, topNHash, writePassState } from '../src/news/ideas/ideas-store'
+import { Budget, NON_BINDING_DAILY_TOKEN_CAP, readCooldownUntil } from '../src/news/triage/budget'
+import type { OverflowProvider } from '../src/config'
 import { validIdeaSnapshot } from './ideas-fixture'
 
 const NOW = Date.parse('2026-08-03T12:00:00Z')
@@ -15,6 +17,14 @@ const cfg: IdeaPassConfig = {
   groqDailyReqCap: 100, groqDailyTokenCap: 1_000_000, groqDailyTokenTarget: 1_000_000,
   groqPaceFloorFrac: 1, groqRpm: 28, groqTpm: 1_000_000,
   llmCooldownMs: 1_000, llmCooldownMaxMs: 10_000, limiterWaitMs: 0,
+}
+
+function testProvider(id: string, baseUrl: string, patch: Partial<OverflowProvider> = {}): OverflowProvider {
+  return {
+    id, label: id, color: '--provider-test', apiKey: `${id}-key`, baseUrl, model: `${id}-model`,
+    dailyReqCap: 10, rpm: 0, maxTokens: 500, maxAttempts: 1, budgetFile: `${id}-budget.json`,
+    ...patch,
+  }
 }
 
 function rootWithRows(n: number, foundAt = '2026-08-03T10:00:00Z', updatedAt = '2026-08-03T11:00:00Z'): string {
@@ -80,7 +90,7 @@ assert.equal(failureThrottle.reason_code, 'min_interval')
 const stillFailed = readIdeasHealth(failedState, failedRoot, true, FAIL_NOW + 60_000)
 assert.equal(stillFailed.outcome, 'failed', 'a throttle is not a recovery event')
 assert.equal(stillFailed.reason_code, 'provider_error', 'the terminal provider failure stays visible until a real retry')
-assert.equal(failedFetches, 2, 'the provider made its bounded attempts only on the first pass')
+assert.equal(failedFetches, 1, 'the operational chain probes a provider once, then waits for the next eligible pass')
 const healthy = readIdeasHealth(okState, okRoot, true, NOW)
 assert.equal(healthy.status, 'healthy')
 assert.equal(healthy.outcome, 'success_empty', 'a valid empty provider response is success, not a failure or a qualified rejection')
@@ -142,6 +152,271 @@ const recoveredCrash = readIdeasHealth(crashState, crashRoot, true, retryAt)
 assert.equal(recoveredCrash.status, 'healthy')
 assert.equal(recoveredCrash.outcome, 'success_empty')
 assert.equal(recoveredCrash.last_success_at, new Date(retryAt).toISOString())
+
+// The production failure this guards: Groq can be at its daily cap while an existing overflow tier still
+// has room. The same canonical budget files must route the pass onward; a literal [] is a real success and
+// must stop the chain instead of shopping for a provider willing to invent an idea.
+const fallbackRoot = rootWithRows(2)
+const fallbackState = path.join(fallbackRoot, '.state')
+Budget.load(fallbackState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap, NOW, 'groq-budget.json').exhaust()
+const nearCap = testProvider('ideas-near-cap', 'https://cerebras.test/v1', {
+  label: 'Cerebras', dailyTokenCap: 100,
+})
+const mistral = testProvider('ideas-fallback', 'https://mistral.test/v1', { label: 'Mistral' })
+const later = testProvider('ideas-later', 'https://later.test/v1', { label: 'Later provider' })
+const fallbackUrls: string[] = []
+const fallbackFetch = (async (input: Parameters<typeof fetch>[0]) => {
+  fallbackUrls.push(String(input))
+  return new Response(JSON.stringify({
+    choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+    usage: { total_tokens: 50 },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+}) as typeof fetch
+const fallbackAt = NOW + 30 * 60_000
+const fallback = await runIdeaPass({
+  repoRoot: fallbackRoot, stateDir: fallbackState,
+  config: { ...cfg, overflowProviders: [nearCap, mistral, later] }, refreshBoard: async () => {},
+  now: () => fallbackAt, fetchFn: fallbackFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(fallback.ran, true)
+assert.equal(fallback.produced, 0)
+assert.deepEqual(fallbackUrls, ['https://mistral.test/v1/chat/completions'], 'valid empty stops at the first eligible fallback')
+assert.equal(Budget.load(fallbackState, 10, 100, fallbackAt, nearCap.budgetFile).requests, 0, 'a token-gated near-cap tier is skipped without a request')
+assert.equal(Budget.load(fallbackState, 10, NON_BINDING_DAILY_TOKEN_CAP, fallbackAt, mistral.budgetFile).requests, 1)
+assert.equal(Budget.load(fallbackState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap, fallbackAt, 'groq-budget.json').remainingRequests, 0)
+const fallbackHealth = readIdeasHealth(fallbackState, fallbackRoot, true, fallbackAt)
+assert.equal(fallbackHealth.status, 'healthy')
+assert.equal(fallbackHealth.outcome, 'success_empty')
+assert.match(fallbackHealth.reason || '', /Mistral completed successfully/)
+
+// A transient primary failure falls through in the SAME pass. Only availability failures arm the shared
+// provider cooldown; the fallback success remains the health verdict.
+const transientRoot = rootWithRows(2)
+const transientState = path.join(transientRoot, '.state')
+const transientAt = NOW + 32 * 60_000
+const transientFallback = testProvider('ideas-after-groq', 'https://fallback.test/v1', { label: 'Fallback' })
+let groqFailures = 0
+let transientFallbackCalls = 0
+const transientFetch = (async (input: Parameters<typeof fetch>[0]) => {
+  if (String(input).startsWith(cfg.groqBaseUrl)) {
+    groqFailures++
+    return new Response('temporarily unavailable', { status: 503 })
+  }
+  transientFallbackCalls++
+  return new Response(JSON.stringify({
+    choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+    usage: { total_tokens: 50 },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+}) as typeof fetch
+const transient = await runIdeaPass({
+  repoRoot: transientRoot, stateDir: transientState,
+  config: { ...cfg, overflowProviders: [transientFallback] }, refreshBoard: async () => {},
+  now: () => transientAt, fetchFn: transientFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(transient.ran, true)
+assert.equal(groqFailures, 1, 'the operational chain gives each tier one bounded probe before falling through')
+assert.equal(transientFallbackCalls, 1)
+assert.ok(readCooldownUntil(transientState, 'groq') > transientAt, 'availability failure cools shared Groq')
+assert.equal(readIdeasHealth(transientState, transientRoot, true, transientAt).outcome, 'success_empty')
+
+// The adapter itself is supposed to be fail-soft. Keep a second boundary anyway: if a future retry helper
+// unexpectedly throws, Ideas fails closed, charges conservatively, and never crashes or cools shared Groq.
+const adapterGuardRoot = rootWithRows(2)
+const adapterGuardState = path.join(adapterGuardRoot, '.state')
+const adapterGuardAt = NOW + 33 * 60_000
+const adapterGuardRows = readTopSweep(adapterGuardRoot, cfg.topN, {
+  nowMs: adapterGuardAt, maxAgeMs: cfg.inputMaxAgeHrs! * 3_600_000,
+}).rows
+const adapterGuard = await callGroqForIdeaPass(adapterGuardRows, {
+  repoRoot: adapterGuardRoot, stateDir: adapterGuardState, config: cfg, refreshBoard: async () => {},
+  now: () => adapterGuardAt,
+  fetchFn: (async () => new Response('temporarily unavailable', { status: 503 })) as typeof fetch,
+  sleep: async () => { throw new Error('retry helper failed') },
+})
+assert.equal(adapterGuard?.ok, false)
+assert.equal(adapterGuard?.failureKind, 'contract')
+assert.match(adapterGuard?.note || '', /unexpected adapter failure/)
+assert.equal(readCooldownUntil(adapterGuardState, 'groq'), 0, 'an internal Ideas adapter bug cannot cool shared Groq')
+assert.ok(readCooldownUntil(adapterGuardState, 'ideas:groq') > adapterGuardAt)
+assert.equal(
+  Budget.load(adapterGuardState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap, adapterGuardAt, 'groq-budget.json').tokens,
+  ideaGroqTokenBound(adapterGuardRows, cfg.groqMaxTokens),
+  'an escaped adapter failure is charged at one full conservative attempt',
+)
+
+// Bad Ideas JSON is workload-specific: charge the real request, then cool only `ideas:<provider>`. It must
+// never exhaust the shared ledger or mark the provider unhealthy for core news triage.
+const contractRoot = rootWithRows(2)
+const contractState = path.join(contractRoot, '.state')
+const contractAt = NOW + 34 * 60_000
+const contractProvider = testProvider('ideas-contract', 'https://contract.test/v1', { label: 'Contract provider' })
+const contractResult = await runIdeaPass({
+  repoRoot: contractRoot, stateDir: contractState,
+  config: { ...cfg, groqApiKey: '', overflowProviders: [contractProvider] }, refreshBoard: async () => {},
+  now: () => contractAt,
+  fetchFn: (async () => new Response(JSON.stringify({
+    choices: [{ finish_reason: 'stop', message: { content: '{"wrong":[]}' } }], usage: { total_tokens: 25 },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })) as typeof fetch,
+  sleep: async () => {}, persistHealth: true,
+})
+assert.equal(contractResult.reason_code, 'provider_error')
+assert.equal(readCooldownUntil(contractState, 'ideas-contract'), 0, 'Ideas schema drift cannot cool shared triage')
+assert.ok(readCooldownUntil(contractState, 'ideas:ideas-contract') > contractAt)
+const contractBudget = Budget.load(contractState, 10, NON_BINDING_DAILY_TOKEN_CAP, contractAt, contractProvider.budgetFile)
+assert.equal(contractBudget.requests, 1)
+assert.equal(contractBudget.remainingRequests, 9, 'contract drift charges one call but does not poison the day')
+
+const requestRoot = rootWithRows(2)
+const requestState = path.join(requestRoot, '.state')
+const requestAt = NOW + 35 * 60_000
+const requestProvider = testProvider('ideas-request-shape', 'https://request.test/v1', { label: 'Request provider' })
+await runIdeaPass({
+  repoRoot: requestRoot, stateDir: requestState,
+  config: { ...cfg, groqApiKey: '', overflowProviders: [requestProvider] }, refreshBoard: async () => {}, now: () => requestAt,
+  fetchFn: (async () => new Response('Ideas payload rejected', { status: 400 })) as typeof fetch,
+  sleep: async () => {}, persistHealth: true,
+})
+assert.equal(readCooldownUntil(requestState, 'ideas-request-shape'), 0, 'Ideas HTTP 400 cannot cool shared triage')
+assert.ok(readCooldownUntil(requestState, 'ideas:ideas-request-shape') > requestAt)
+assert.equal(Budget.load(requestState, 10, NON_BINDING_DAILY_TOKEN_CAP, requestAt, requestProvider.budgetFile).remainingRequests, 9)
+
+// No provider attempt means no false success or attempt timestamp. The UI must say deferred with the
+// per-tier reasons instead of claiming that the wire genuinely cleared no ideas.
+const cappedRoot = rootWithRows(2)
+const cappedState = path.join(cappedRoot, '.state')
+const cappedAt = NOW + 36 * 60_000
+const cappedProvider = testProvider('ideas-capped', 'https://capped.test/v1', { label: 'Capped provider' })
+Budget.load(cappedState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap, cappedAt, 'groq-budget.json').exhaust()
+Budget.load(cappedState, cappedProvider.dailyReqCap, NON_BINDING_DAILY_TOKEN_CAP, cappedAt, cappedProvider.budgetFile).exhaust()
+let cappedFetches = 0
+const capped = await runIdeaPass({
+  repoRoot: cappedRoot, stateDir: cappedState,
+  config: { ...cfg, overflowProviders: [cappedProvider] }, refreshBoard: async () => {}, now: () => cappedAt,
+  fetchFn: (async () => { cappedFetches++; throw new Error('must not call') }) as typeof fetch, persistHealth: true,
+})
+assert.equal(capped.reason_code, 'daily_budget')
+assert.equal(cappedFetches, 0)
+const cappedHealth = readIdeasHealth(cappedState, cappedRoot, true, cappedAt)
+assert.equal(cappedHealth.status, 'deferred')
+assert.equal(cappedHealth.outcome, 'skipped')
+assert.equal(cappedHealth.last_attempt_at, null)
+assert.match(cappedHealth.reason || '', /Groq.+exhausted.+Capped provider.+exhausted/)
+
+// A configured local primary is registry-driven and stays ahead of Groq. Its unlimited ledger is still
+// charged for observability, and no cloud request is made after a valid local result.
+const localRoot = rootWithRows(2)
+const localState = path.join(localRoot, '.state')
+const localAt = NOW + 38 * 60_000
+const localProvider = testProvider('local', 'https://local.test/v1', {
+  label: 'Local', apiKey: 'local', dailyReqCap: 100_000_000, budgetFile: 'local-budget.json',
+})
+const localUrls: string[] = []
+const local = await runIdeaPass({
+  repoRoot: localRoot, stateDir: localState,
+  config: { ...cfg, localProvider, overflowProviders: [] }, refreshBoard: async () => {}, now: () => localAt,
+  fetchFn: (async (input: Parameters<typeof fetch>[0]) => {
+    localUrls.push(String(input))
+    return new Response(JSON.stringify({
+      choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }], usage: { total_tokens: 20 },
+    }), { status: 200, headers: { 'content-type': 'application/json' } })
+  }) as typeof fetch,
+  sleep: async () => {}, persistHealth: true,
+})
+assert.equal(local.ran, true)
+assert.deepEqual(localUrls, ['https://local.test/v1/chat/completions'])
+assert.equal(Budget.load(localState, localProvider.dailyReqCap, NON_BINDING_DAILY_TOKEN_CAP, localAt, localProvider.budgetFile).requests, 1)
+assert.match(readIdeasHealth(localState, localRoot, true, localAt).reason || '', /Local completed successfully/)
+
+// Ideas may give a deliberately slow local tier less time than core triage so fallbacks remain reachable.
+// That workload-local deadline must never arm Local's shared cooldown and sideline the ordinary news loop.
+const slowLocalRoot = rootWithRows(2)
+const slowLocalState = path.join(slowLocalRoot, '.state')
+const slowLocalAt = NOW + 39 * 60_000
+const slowLocal = testProvider('local', 'https://slow-local.test/v1', {
+  label: 'Local', apiKey: 'local', timeoutMs: 1_000, dailyReqCap: 100_000_000, budgetFile: 'local-budget.json',
+})
+const afterSlowLocal = testProvider('after-slow-local', 'https://after-local.test/v1', { label: 'Cloud fallback' })
+const slowLocalUrls: string[] = []
+const slowLocalResult = await runIdeaPass({
+  repoRoot: slowLocalRoot, stateDir: slowLocalState,
+  config: {
+    ...cfg, groqApiKey: '', localProvider: slowLocal, overflowProviders: [afterSlowLocal],
+    providerAttemptTimeoutMs: 20, providerChainTimeoutMs: 500,
+  },
+  refreshBoard: async () => {}, now: () => slowLocalAt, sleep: async () => {}, persistHealth: true,
+  fetchFn: ((input: Parameters<typeof fetch>[0], init?: Parameters<typeof fetch>[1]) => {
+    slowLocalUrls.push(String(input))
+    if (!String(input).startsWith(slowLocal.baseUrl)) {
+      return Promise.resolve(new Response(JSON.stringify({
+        choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+        usage: { total_tokens: 20 },
+      }), { status: 200, headers: { 'content-type': 'application/json' } }))
+    }
+    return new Promise<Response>((_resolve, reject) => {
+      const signal = init?.signal
+      // AbortSignal.timeout uses an unref'd timer, so keep the process alive until the expected abort.
+      const hold = setTimeout(() => reject(new Error('Ideas attempt timeout did not fire')), 1_000)
+      const abort = () => { clearTimeout(hold); reject(signal?.reason || new DOMException('aborted', 'AbortError')) }
+      if (signal?.aborted) abort()
+      else signal?.addEventListener('abort', abort, { once: true })
+    })
+  }) as typeof fetch,
+})
+assert.equal(slowLocalResult.ran, true)
+assert.deepEqual(slowLocalUrls, ['https://slow-local.test/v1/chat/completions', 'https://after-local.test/v1/chat/completions'])
+assert.equal(readCooldownUntil(slowLocalState, 'local'), 0, 'Ideas latency policy cannot cool Local for core triage')
+assert.ok(readCooldownUntil(slowLocalState, 'ideas:local') > slowLocalAt, 'the short timeout is remembered only by Ideas')
+assert.match(readIdeasHealth(slowLocalState, slowLocalRoot, true, slowLocalAt).reason || '', /Cloud fallback completed successfully/)
+
+// The same provider budget object is the atomic admission boundary for every caller. Even two accidental
+// concurrent Ideas passes cannot collectively exceed a one-request overflow cap.
+const raceRoot = rootWithRows(2)
+const raceState = path.join(raceRoot, '.state')
+const raceAt = NOW + 40 * 60_000
+const raceProvider = testProvider('ideas-race', 'https://race.test/v1', { dailyReqCap: 1 })
+let raceFetches = 0
+const raceFetch = (async () => {
+  raceFetches++
+  await new Promise<void>((resolve) => setTimeout(resolve, 20))
+  return new Response(JSON.stringify({
+    choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }], usage: { total_tokens: 10 },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+}) as typeof fetch
+const raceDeps = {
+  repoRoot: raceRoot, stateDir: raceState,
+  config: { ...cfg, groqApiKey: '', overflowProviders: [raceProvider] }, refreshBoard: async () => {},
+  now: () => raceAt, fetchFn: raceFetch, sleep: async () => {}, persistHealth: true,
+}
+const raceResults = await Promise.all([runIdeaPass(raceDeps), runIdeaPass(raceDeps)])
+assert.equal(raceFetches, 1)
+assert.equal(raceResults.filter((r) => r.ran).length, 1)
+assert.equal(Budget.load(raceState, 1, NON_BINDING_DAILY_TOKEN_CAP, raceAt, raceProvider.budgetFile).requests, 1)
+
+// The full sequential walk is bounded below the health stale-running threshold. Cancelling on that global
+// guard is not a provider outage and therefore must not poison its shared cooldown.
+const deadlineRoot = rootWithRows(2)
+const deadlineState = path.join(deadlineRoot, '.state')
+const deadlineAt = NOW + 42 * 60_000
+const deadlineProvider = testProvider('ideas-deadline', 'https://deadline.test/v1')
+const deadline = await runIdeaPass({
+  repoRoot: deadlineRoot, stateDir: deadlineState,
+  config: { ...cfg, groqApiKey: '', overflowProviders: [deadlineProvider], providerChainTimeoutMs: 20 },
+  refreshBoard: async () => {}, now: () => deadlineAt, sleep: async () => {}, persistHealth: true,
+  fetchFn: ((_: Parameters<typeof fetch>[0], init?: Parameters<typeof fetch>[1]) => new Promise<Response>((_resolve, reject) => {
+    const signal = init?.signal
+    // Keep one referenced test timer alive because AbortSignal.timeout deliberately uses an unref'd timer.
+    const hold = setTimeout(() => reject(new Error('deadline signal did not fire')), 1_000)
+    const abort = () => {
+      clearTimeout(hold)
+      reject(signal?.reason || new DOMException('aborted', 'AbortError'))
+    }
+    if (signal?.aborted) abort()
+    else signal?.addEventListener('abort', abort, { once: true })
+  })) as typeof fetch,
+})
+assert.equal(deadline.reason_code, 'provider_error')
+assert.equal(readCooldownUntil(deadlineState, 'ideas-deadline'), 0)
+assert.equal(readIdeasHealth(deadlineState, deadlineRoot, true, deadlineAt).outcome, 'failed')
 
 const expiredHealth = readIdeasHealth(okState, okRoot, true, NOW + 60_000 + 2 * 60 * 60_000 + 1)
 assert.equal(expiredHealth.reason_code, 'stale_health', 'a stopped scheduler cannot retain a perpetual healthy/waiting certificate')
@@ -234,6 +509,14 @@ assert.equal(invalidStore.status, 'degraded')
 assert.equal(invalidStore.reason_code, 'snapshot_store_error')
 assert.equal(invalidStore.live_count, 0, 'invalid persisted leads never become live')
 assert.equal(invalidStore.snapshot_store.invalid_count, 1)
+updateIdeasHealth(invalidStoreState, {
+  enabled: true, status: 'healthy', outcome: 'success_with_ideas', reason_code: null, reason: 'persisted one',
+  last_attempt_at: new Date(NOW).toISOString(), last_success_at: new Date(NOW).toISOString(), produced_count: 1,
+}, NOW)
+const invalidProduced = readIdeasHealth(invalidStoreState, invalidStoreRoot, true, NOW)
+assert.equal(invalidProduced.status, 'error')
+assert.equal(invalidProduced.outcome, 'failed', 'a corrupt sole snapshot cannot remain success_with_ideas')
+assert.equal(invalidProduced.produced_count, 0)
 
 const missingProducedRoot = rootWithRows(0)
 const missingProducedState = path.join(missingProducedRoot, '.state')
@@ -246,5 +529,5 @@ assert.equal(missingProduced.status, 'error')
 assert.equal(missingProduced.outcome, 'failed')
 assert.equal(missingProduced.reason_code, 'snapshot_store_error', 'success_with_ideas must reconcile to an actually projectable snapshot')
 
-for (const root of [thin, noKeyRoot, okRoot, failedRoot, crashRoot, staleRoot, staleSweepRoot, staleRowsRoot, brokenStoreRoot, invalidStoreRoot, missingProducedRoot]) fs.rmSync(root, { recursive: true, force: true })
+for (const root of [thin, noKeyRoot, okRoot, failedRoot, crashRoot, fallbackRoot, transientRoot, adapterGuardRoot, contractRoot, requestRoot, cappedRoot, localRoot, slowLocalRoot, raceRoot, deadlineRoot, staleRoot, staleSweepRoot, staleRowsRoot, brokenStoreRoot, invalidStoreRoot, missingProducedRoot]) fs.rmSync(root, { recursive: true, force: true })
 console.log('\n1 ideas-health test file passed')

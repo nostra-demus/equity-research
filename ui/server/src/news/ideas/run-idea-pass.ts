@@ -1,13 +1,14 @@
-// The orchestrator: read the top-N -> one budget-gated free-LLM call -> persist the ideas -> refresh the
-// board. Runs from the ingester tick (scheduler.ts), AFTER triage, so it never competes with the wire's
-// own scoring. Two cheap guards keep it from ever busting Groq's daily budget or starving triage:
+// The orchestrator: read the top-N -> first eligible provider in the existing free chain -> persist the
+// ideas -> refresh the board. It runs after triage so it reads the freshest ranked wire, but can flow around
+// a spent/busy tier instead of going dark behind it. Two cheap guards keep it from starving core triage:
 //   - CHANGE DETECTION: it only spends when the top-N event set actually shifts (a hash), or once every
 //     `refreshSec` as a heartbeat — a per-cycle call (288×/day) would blow the 500k token budget alone.
 //   - INTERVAL FLOOR: never more often than `minIntervalSec`, so even a churny wire can't hammer it.
-// It reuses the ingester's exact free-tier guardrails (Budget, the shared RateLimiter, the per-provider
-// cooldown) — never a parallel budget lane (the :8799 double-count lesson) — and it NEVER throws.
+// It reuses every tier's exact budget file, limiter, and provider cooldown — never a parallel budget lane
+// (the :8799 double-count lesson). Ideas-contract errors use an idea-scoped cooldown so they cannot sideline
+// healthy core triage. The whole provider walk is deadline-bounded below stale-running detection. Never throws.
 
-import { Budget, armCooldown, clearCooldown, conservativeChatTokenBound, getSharedLimiter, isCoolingDown } from '../triage/budget'
+import { Budget, NON_BINDING_DAILY_TOKEN_CAP, armCooldown, clearCooldown, conservativeChatTokenBound, getNamedLimiter, getSharedLimiter, isCoolingDown } from '../triage/budget'
 import { IDEA_SYSTEM, buildIdeaUserMessage, estimateIdeaTokens, surfaceIdeasBatch, type SurfaceIdeasResult } from './surface-ideas'
 import {
   ideaDecayAt, ideaId, ideaSnapshotRevision, ideaVersion, priorCoverage, pruneExpiredIdeas, readIdeaById,
@@ -21,6 +22,7 @@ import { verifyEquityListing } from '../symbology'
 import {
   inspectIdeaSnapshots, inspectPersistedIdeasHealth, updateIdeasHealth, type IdeasHealthReasonCode,
 } from './ideas-health'
+import type { OverflowProvider } from '../../config'
 
 export interface IdeaPassConfig {
   topN: number
@@ -41,6 +43,24 @@ export interface IdeaPassConfig {
   llmCooldownMs: number
   llmCooldownMaxMs: number
   limiterWaitMs: number
+  /** The canonical provider registry used by news triage. Local-primary is separate; demoted local is
+   * already the final overflow entry, so the operational chain never hand-wires or duplicates a tier. */
+  localProvider?: OverflowProvider | null
+  overflowProviders?: OverflowProvider[]
+  localCooldownMs?: number
+  /** Hard wall-clock bound for the whole sequential walk. Production is capped below health's 120s
+   * stale-running threshold; the override exists for deterministic timeout tests. */
+  providerChainTimeoutMs?: number
+  /** Per-provider latency budget inside the sequential Ideas walk. This may be shorter than a tier's
+   * normal triage timeout so fallbacks remain reachable, but expiry is Ideas-scoped and must never mark
+   * that shared provider unhealthy for its ordinary workload. */
+  providerAttemptTimeoutMs?: number
+}
+
+type RoutedIdeaProvider = OverflowProvider & {
+  /** Groq alone is clock-paced because its pool is shared with primary triage. Overflow providers use
+   * their ordinary hard caps, matching runCycle's existing routing contract. */
+  pace?: { targetTokens: number; floorFrac: number }
 }
 
 export interface IdeaPassDeps {
@@ -56,9 +76,14 @@ export interface IdeaPassDeps {
 }
 
 export interface IdeaPassResult { ran: boolean; produced: number; note?: string; reason_code?: IdeasHealthReasonCode }
-interface ProviderDecision { result: SurfaceIdeasResult | null; reason_code: IdeasHealthReasonCode | null }
+interface ProviderDecision {
+  result: SurfaceIdeasResult | null
+  reason_code: IdeasHealthReasonCode | null
+  note?: string
+  provider?: string
+}
 
-/** Worst-case billable tokens for one primary-Groq idea-surfacing attempt. */
+/** Worst-case billable tokens for one OpenAI-compatible idea-surfacing attempt. */
 export function ideaGroqTokenBound(rows: Parameters<typeof surfaceIdeasBatch>[0], maxOutputTokens: number): number {
   return conservativeChatTokenBound(IDEA_SYSTEM, buildIdeaUserMessage(rows), maxOutputTokens)
 }
@@ -79,53 +104,105 @@ export function tradeEvidenceForIdeaRows(rows: IdeaInputRow[]): TradeEvidence[] 
   }))
 }
 
-/**
- * One Groq attempt for the idea batch, sharing the ingester's budget file, shared limiter, and per-provider
- * cooldown. Returns the result on a real call, or null when the pass should be SKIPPED without spending
- * (no key, cooling down, out of daily budget, or the per-minute window is busy). Mirrors the on-demand
- * reader's failure rules exactly: a terminal 4xx exhausts the day; a transient 429/5xx/network arms the
- * shared cooldown (never exhausts — the #219 lesson); a success clears the marker.
- */
-async function callGroqForIdeaPassDetailed(rows: Parameters<typeof surfaceIdeasBatch>[0], deps: IdeaPassDeps): Promise<ProviderDecision> {
+/** The Groq descriptor is synthesized only because Groq predates the overflow registry. */
+function groqProvider(c: IdeaPassConfig): RoutedIdeaProvider {
+  return {
+    id: 'groq', label: 'Groq', color: '--provider-groq', apiKey: c.groqApiKey, baseUrl: c.groqBaseUrl, model: c.groqModel,
+    maxTokens: c.groqMaxTokens, dailyReqCap: c.groqDailyReqCap, dailyTokenCap: c.groqDailyTokenCap,
+    rpm: c.groqRpm, tpm: c.groqTpm, budgetFile: 'groq-budget.json',
+    pace: { targetTokens: c.groqDailyTokenTarget, floorFrac: c.groqPaceFloorFrac },
+  }
+}
+
+function providerReason(code: IdeasHealthReasonCode, label: string): string {
+  if (code === 'missing_api_key') return `${label} is not configured.`
+  if (code === 'provider_cooldown') return `${label} is cooling down after a transient failure.`
+  if (code === 'daily_budget') return `${label}'s daily request or token budget is exhausted.`
+  if (code === 'paced_budget') return `${label}'s daily pacer is holding capacity for later news triage.`
+  if (code === 'rate_limiter_busy') return `${label}'s shared per-minute window is busy.`
+  return `${label} could not be used.`
+}
+
+/** One OpenAI-compatible provider attempt with the same budget file, limiter, and cooldown used by
+ * news triage. The provider shape comes from config, so adding another overflow tier remains zero-touch. */
+async function callProviderForIdeaPassDetailed(
+  rows: Parameters<typeof surfaceIdeasBatch>[0],
+  deps: IdeaPassDeps,
+  p: RoutedIdeaProvider,
+  chainSignal?: AbortSignal,
+): Promise<ProviderDecision> {
   const c = deps.config
   const now = deps.now || (() => Date.now())
-  if (!c.groqApiKey) return { result: null, reason_code: 'missing_api_key' }
-  if (isCoolingDown(deps.stateDir, 'groq', now())) return { result: null, reason_code: 'provider_cooldown' }
+  const label = p.label || p.id
+  const ideaCooldownId = `ideas:${p.id}`
+  if (!p.apiKey) return { result: null, reason_code: 'missing_api_key', note: providerReason('missing_api_key', label), provider: label }
+  if (isCoolingDown(deps.stateDir, p.id, now())) return { result: null, reason_code: 'provider_cooldown', note: providerReason('provider_cooldown', label), provider: label }
+  if (isCoolingDown(deps.stateDir, ideaCooldownId, now())) return { result: null, reason_code: 'provider_cooldown', note: `${label} is cooling down for the Ideas response contract.`, provider: label }
   const est = estimateIdeaTokens(rows.length)
-  const perAttemptTokens = ideaGroqTokenBound(rows, c.groqMaxTokens)
-  const budget = Budget.load(deps.stateDir, c.groqDailyReqCap, c.groqDailyTokenCap, now(), 'groq-budget.json')
-  // Gate on the PACER, not the raw hard cap: the idea pass shares groq-budget.json with triage, so it must
-  // honor the same clock-prorated ceiling — never spend Groq tokens the pacer is holding back for triage on
-  // a heavy-news day (it would draw down the shared daily cap out of turn).
-  const pace = { targetTokens: c.groqDailyTokenTarget, floorFrac: c.groqPaceFloorFrac }
-  const hardAttempts = Math.min(2, budget.remainingRequests, Math.floor(budget.remainingTokens / perAttemptTokens))
-  if (!hardAttempts) return { result: null, reason_code: 'daily_budget' }
+  const perAttemptTokens = ideaGroqTokenBound(rows, p.maxTokens)
+  const budget = Budget.load(deps.stateDir, p.dailyReqCap, p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP, now(), p.budgetFile, p.dayTz)
+  // The operational chain gives each tier one bounded probe, then moves on. Retrying one provider twice can
+  // consume the entire health window and strand healthy fallbacks. The exported Groq-only compatibility seam
+  // keeps its historical two-attempt contract because it has no next tier to try.
+  const attemptCap = chainSignal ? 1 : Math.max(1, Math.min(2, p.maxAttempts ?? 2))
+  const hardAttempts = Math.min(attemptCap, budget.remainingRequests, Math.floor(budget.remainingTokens / perAttemptTokens))
+  if (!hardAttempts) return { result: null, reason_code: 'daily_budget', note: providerReason('daily_budget', label), provider: label }
   let preflightAttempts = hardAttempts
   const preflightAt = now()
-  while (preflightAttempts > 0 && !budget.pacedCanSpend(perAttemptTokens * preflightAttempts, pace, preflightAt, preflightAttempts)) preflightAttempts--
-  if (!preflightAttempts) return { result: null, reason_code: 'paced_budget' }
-  const limiter = getSharedLimiter(c.groqRpm, c.groqTpm)
+  while (preflightAttempts > 0 && !(p.pace
+    ? budget.pacedCanSpend(perAttemptTokens * preflightAttempts, p.pace, preflightAt, preflightAttempts)
+    : budget.canSpend(perAttemptTokens * preflightAttempts, preflightAttempts))) preflightAttempts--
+  if (!preflightAttempts) {
+    const code: IdeasHealthReasonCode = p.pace ? 'paced_budget' : 'daily_budget'
+    return { result: null, reason_code: code, note: providerReason(code, label), provider: label }
+  }
+  const limiter = p.id === 'groq' ? getSharedLimiter(p.rpm, p.tpm ?? 0) : getNamedLimiter(p.id, p.rpm, p.tpm ?? 0)
   const got = await limiter.acquire(est, deps.sleep, now, c.limiterWaitMs)
-  if (!got) return { result: null, reason_code: 'rate_limiter_busy' } // triage owns the minute window
-  let attempts = Math.min(2, budget.remainingRequests, Math.floor(budget.remainingTokens / perAttemptTokens))
+  if (!got) return { result: null, reason_code: 'rate_limiter_busy', note: providerReason('rate_limiter_busy', label), provider: label }
+  let attempts = Math.min(attemptCap, budget.remainingRequests, Math.floor(budget.remainingTokens / perAttemptTokens))
   const reservationAt = now()
-  while (attempts > 0 && !budget.pacedCanSpend(perAttemptTokens * attempts, pace, reservationAt, attempts)) attempts--
-  const reservation = attempts > 0 ? budget.tryReserve(perAttemptTokens * attempts, pace, reservationAt, attempts) : null
-  if (!reservation) return { result: null, reason_code: 'paced_budget' }
+  while (attempts > 0 && !(p.pace
+    ? budget.pacedCanSpend(perAttemptTokens * attempts, p.pace, reservationAt, attempts)
+    : budget.canSpend(perAttemptTokens * attempts, attempts))) attempts--
+  const reservation = attempts > 0 ? budget.tryReserve(perAttemptTokens * attempts, p.pace, reservationAt, attempts) : null
+  if (!reservation) {
+    const code: IdeasHealthReasonCode = p.pace ? 'paced_budget' : 'daily_budget'
+    return { result: null, reason_code: code, note: providerReason(code, label), provider: label }
+  }
   let r: SurfaceIdeasResult | undefined
+  let ideaImposedTimeout = false
   if (deps.persistHealth) {
     updateIdeasHealth(deps.stateDir, {
       enabled: true, status: 'running', outcome: 'not_run', reason_code: null,
-      reason: 'The provider is reading the current ranked lead set.', last_attempt_at: new Date(now()).toISOString(),
+      reason: `${label} is reading the current ranked lead set.`, last_attempt_at: new Date(now()).toISOString(),
       next_eligible_at: null, input_count: rows.length, produced_count: 0,
     }, now(), inspectIdeaSnapshots(deps.repoRoot, now()))
   }
   try {
+    const providerTimeoutMs = p.timeoutMs ?? 30_000
+    const ideaTimeoutMs = chainSignal
+      ? Math.min(c.providerAttemptTimeoutMs ?? 30_000, providerTimeoutMs)
+      : providerTimeoutMs
+    ideaImposedTimeout = Boolean(chainSignal && ideaTimeoutMs < providerTimeoutMs)
     r = await surfaceIdeasBatch(
       rows,
-      { model: c.groqModel, baseUrl: c.groqBaseUrl, apiKey: c.groqApiKey, maxTokens: c.groqMaxTokens, timeoutMs: 30_000, maxAttempts: attempts },
+      {
+        model: p.model, models: p.models, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens,
+        headers: p.headers, extraBody: p.extraBody,
+        timeoutMs: ideaTimeoutMs,
+        maxAttempts: attempts,
+        signal: chainSignal,
+      },
       deps.fetchFn, deps.sleep,
     )
+  } catch (e: any) {
+    // surfaceIdeasBatch is fail-soft by contract, but keep the orchestration boundary fail-soft too. If a
+    // future adapter regression escapes unexpectedly, charge one conservative attempt and isolate the bug
+    // to Ideas instead of crashing the scheduler or pretending the shared provider is unavailable.
+    r = {
+      ideas: [], requests: 1, tokens: perAttemptTokens, ok: false, failureKind: 'contract',
+      note: `idea: unexpected adapter failure: ${e?.message || String(e)}`,
+    }
   } finally {
     const sentRequests = Number.isFinite(r?.requests) ? Math.max(0, Math.floor(r!.requests)) : 0
     const reportedTokens = Number(r?.tokens)
@@ -137,13 +214,72 @@ async function callGroqForIdeaPassDetailed(rows: Parameters<typeof surfaceIdeasB
     budget.reconcile(reservation, sentRequests, chargedTokens)
   }
   limiter.learn(r.rate, now)
-  if (r.ok) { clearCooldown(deps.stateDir, 'groq'); return { result: r, reason_code: null } }
-  // A failure NEVER exhausts the SHARED groq-budget.json — that would disable Groq for triage / article-read
-  // / heal off ONE non-essential idea-pass call for the rest of the UTC day (the #219-class "one failed call
-  // drains the shared Groq day" trap). Always arm the backing-off per-provider cooldown instead: it self-
-  // clears on the next success, and a config-level 400/413 (e.g. IDEAS_TOP_N too high) just backs off harmlessly.
-  armCooldown(deps.stateDir, now(), c.llmCooldownMs, 'groq', c.llmCooldownMaxMs)
-  return { result: r, reason_code: 'provider_error' }
+  if (r.ok) {
+    clearCooldown(deps.stateDir, p.id)
+    clearCooldown(deps.stateDir, ideaCooldownId)
+    return { result: r, reason_code: null, provider: label }
+  }
+  if (chainSignal?.aborted) {
+    // The pass's own wall-clock guard cancelled the request; that is not evidence that this shared provider
+    // is unhealthy. A later pass may probe it normally instead of sidelining core triage.
+    return { result: r, reason_code: 'provider_error', note: `${label}: provider-chain deadline reached`, provider: label }
+  }
+  const localCooldown = p.id === 'local' ? (c.localCooldownMs ?? c.llmCooldownMs) : c.llmCooldownMs
+  const localCooldownMax = p.id === 'local' ? localCooldown : c.llmCooldownMaxMs
+  const providerTerminal = r.failureKind === 'request' && [401, 402, 403, 404].includes(r.httpStatus || 0)
+  const ideaDeadlineFailure = ideaImposedTimeout
+    && r.failureKind === 'availability'
+    && /request timed out/i.test(r.note || '')
+  if (providerTerminal && p.id !== 'groq') {
+    // These are account/model-wide failures for the configured overflow descriptor, so mirror core triage's
+    // day-scoped terminal treatment. Groq retains its historical no-exhaust protection (#219).
+    budget.exhaust()
+  } else if ((r.failureKind === 'availability' && !ideaDeadlineFailure) || providerTerminal) {
+    // 429/5xx/timeout/network means the tier itself is unavailable; sharing this cooldown lets every workload
+    // route around it. Local retains its canonical short, flat recovery window.
+    armCooldown(deps.stateDir, now(), localCooldown, p.id, localCooldownMax)
+  } else {
+    // HTTP 400/413/422, malformed/truncated/schema-invalid output, and an Ideas-imposed shorter timeout may
+    // be specific to this richer nonessential seam. Never poison the provider's shared triage health.
+    armCooldown(deps.stateDir, now(), localCooldown, ideaCooldownId, localCooldownMax)
+  }
+  return { result: r, reason_code: 'provider_error', note: `${label}: ${r.note || 'provider error'}`, provider: label }
+}
+
+async function callIdeaProvidersDetailed(rows: Parameters<typeof surfaceIdeasBatch>[0], deps: IdeaPassDeps): Promise<ProviderDecision> {
+  const providers: RoutedIdeaProvider[] = [
+    ...(deps.config.localProvider ? [deps.config.localProvider] : []),
+    groqProvider(deps.config),
+    ...(deps.config.overflowProviders || []),
+  ]
+  // Health declares a running attempt stale after 120s. Keep the full sequential walk below it even when
+  // several providers hang; surfaceIdeasBatch combines this signal with each provider's own request timeout.
+  const chainTimeoutMs = Math.min(90_000, Math.max(1, deps.config.providerChainTimeoutMs ?? 90_000))
+  const chainSignal = AbortSignal.timeout(chainTimeoutMs)
+  const skips: ProviderDecision[] = []
+  const failures: ProviderDecision[] = []
+  for (const provider of providers) {
+    if (chainSignal.aborted) break
+    const decision = await callProviderForIdeaPassDetailed(rows, deps, provider, chainSignal)
+    if (decision.result?.ok) return decision // a literal valid [] is a real terminal success
+    if (decision.result) failures.push(decision)
+    else skips.push(decision)
+  }
+  const failed = failures.at(-1) || null
+  const deadlineNote = chainSignal.aborted ? 'The idea provider chain reached its safe runtime limit.' : ''
+  const notes = [...failures, ...skips].map((d) => d.note).filter(Boolean).concat(deadlineNote).filter(Boolean).join(' ')
+  if (failed?.result) return { ...failed, result: { ...failed.result, note: notes || failed.result.note } }
+  const codes = new Set(skips.map((d) => d.reason_code))
+  const code: IdeasHealthReasonCode = codes.has('rate_limiter_busy') ? 'rate_limiter_busy'
+    : codes.has('provider_cooldown') ? 'provider_cooldown'
+      : codes.has('paced_budget') ? 'paced_budget'
+        : codes.has('daily_budget') ? 'daily_budget'
+          : 'missing_api_key'
+  return { result: null, reason_code: code, note: notes || 'No configured idea provider is eligible.' }
+}
+
+async function callGroqForIdeaPassDetailed(rows: Parameters<typeof surfaceIdeasBatch>[0], deps: IdeaPassDeps): Promise<ProviderDecision> {
+  return callProviderForIdeaPassDetailed(rows, deps, groqProvider(deps.config))
 }
 
 /** Backward-compatible provider seam used by budget/concurrency tests. Operational callers use the
@@ -261,19 +397,19 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       return { ran: false, produced: 0, note: 'top-N unchanged', reason_code: 'inputs_unchanged' }
     }
 
-    const provider = await callGroqForIdeaPassDetailed(rows, deps)
+    const provider = await callIdeaProvidersDetailed(rows, deps)
     const r = provider.result
     if (r === null) {
       const code = provider.reason_code || 'internal_error'
       const deferred = new Set<IdeasHealthReasonCode>(['provider_cooldown', 'daily_budget', 'paced_budget', 'rate_limiter_busy']).has(code)
       const counts = inspectIdeaSnapshots(deps.repoRoot, now())
       const status = deferred ? 'deferred' : (counts.live_count + counts.stale_count > 0 ? 'degraded' : 'error')
-      const reason = code === 'missing_api_key' ? 'The idea pass has no Groq API key.'
-        : code === 'provider_cooldown' ? 'The shared provider is cooling down after a transient failure.'
-          : code === 'daily_budget' ? 'The shared provider daily request or token budget is exhausted.'
-            : code === 'paced_budget' ? 'The daily pacer is holding budget for later news triage.'
-              : code === 'rate_limiter_busy' ? 'News triage currently owns the shared per-minute provider window.'
-                : 'The idea pass could not determine provider eligibility.'
+      const reason = provider.note || (code === 'missing_api_key' ? 'No configured idea provider has an API key.'
+        : code === 'provider_cooldown' ? 'Every configured idea provider is cooling down.'
+          : code === 'daily_budget' ? 'Every configured idea provider is out of daily request or token budget.'
+            : code === 'paced_budget' ? 'The provider chain is holding paced capacity for later news triage.'
+              : code === 'rate_limiter_busy' ? 'Every eligible provider currently has a busy per-minute window.'
+                : 'The idea pass could not determine provider eligibility.')
       health({ enabled: true, status, outcome: 'skipped', reason_code: code, reason, next_eligible_at: null, input_count: rows.length, produced_count: 0 })
       return { ran: false, produced: 0, note: reason, reason_code: code }
     }
@@ -405,19 +541,20 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       : writeConflicts ? 'write_conflict'
       : storeDegraded ? 'snapshot_store_error'
         : null
+    const providerName = provider.provider || 'The provider'
     const reason = persistenceFailed
       ? writeConflicts > 0
-        ? 'The provider returned news leads, but none could be committed without overwriting a newer snapshot revision.'
+        ? `${providerName} returned news leads, but none could be committed without overwriting a newer snapshot revision.`
         : storeDegraded
-          ? `The provider returned news leads, but none became a projectable snapshot; ${snapshotState.snapshot_store.corrupt_count + snapshotState.snapshot_store.invalid_count + snapshotState.snapshot_store.unprojectable_count} snapshot file${snapshotState.snapshot_store.file_count === 1 ? '' : 's'} failed the store contract.`
-          : 'The provider returned news leads, but none survived source freshness and persistence validation.'
+          ? `${providerName} returned news leads, but none became a projectable snapshot; ${snapshotState.snapshot_store.corrupt_count + snapshotState.snapshot_store.invalid_count + snapshotState.snapshot_store.unprojectable_count} snapshot file${snapshotState.snapshot_store.file_count === 1 ? '' : 's'} failed the store contract.`
+          : `${providerName} returned news leads, but none survived source freshness and persistence validation.`
       : writeConflicts
-        ? `The provider surfaced ${produced} lead${produced === 1 ? '' : 's'}; ${writeConflicts} concurrent snapshot update${writeConflicts === 1 ? '' : 's'} were preserved.`
+        ? `${providerName} surfaced ${produced} lead${produced === 1 ? '' : 's'}; ${writeConflicts} concurrent snapshot update${writeConflicts === 1 ? '' : 's'} were preserved.`
         : storeDegraded
-          ? `The provider pass completed, but ${snapshotState.snapshot_store.corrupt_count + snapshotState.snapshot_store.invalid_count + snapshotState.snapshot_store.unprojectable_count} snapshot file${snapshotState.snapshot_store.file_count === 1 ? '' : 's'} cannot be projected safely.`
+          ? `${providerName} completed the pass, but ${snapshotState.snapshot_store.corrupt_count + snapshotState.snapshot_store.invalid_count + snapshotState.snapshot_store.unprojectable_count} snapshot file${snapshotState.snapshot_store.file_count === 1 ? '' : 's'} cannot be projected safely.`
           : produced
-            ? `The provider surfaced ${produced} unverified news lead${produced === 1 ? '' : 's'}.`
-            : 'The provider completed successfully and returned no news leads.'
+            ? `${providerName} surfaced ${produced} unverified news lead${produced === 1 ? '' : 's'}.`
+            : `${providerName} completed successfully and returned no news leads.`
     health({
       enabled: true, status, outcome, reason_code: reasonCode,
       reason,
@@ -425,7 +562,7 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       next_eligible_at: new Date(finishedAt + c.minIntervalSec * 1000).toISOString(),
       input_count: rows.length, produced_count: produced,
     }, finishedAt)
-    log(`idea pass: surfaced ${produced} idea${produced === 1 ? '' : 's'} from ${rows.length} ranked items`)
+    log(`idea pass: ${providerName} surfaced ${produced} idea${produced === 1 ? '' : 's'} from ${rows.length} ranked items`)
     return { ran: true, produced, note: persistenceFailed ? reason : undefined, reason_code: reasonCode || undefined }
   } catch (e: any) {
     log(`idea pass error: ${e?.message || e}`)

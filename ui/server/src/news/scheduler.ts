@@ -1,6 +1,6 @@
 // In-server scheduler — the "runs whenever the cockpit is up" hosting mode. One guarded call from
-// server.ts after the control plane binds; if there's no Groq key (or NEWS_INGEST_ENABLED=0) it logs
-// once and stays dark, so a keyless deploy behaves exactly as before. A cycle never throws and never
+// server.ts after the control plane binds; if no triage provider exists (or NEWS_INGEST_ENABLED=0) it logs
+// once and stays dark, so a providerless deploy behaves exactly as before. A cycle never throws and never
 // blocks the event loop; the interval is unref'd so it can't, by itself, keep the process alive.
 //
 // The scheduler also carries the ingester's STATUS for the cockpit's auto-scan chip: when the last
@@ -24,8 +24,9 @@ import { preTriagePriority } from './rank'
 import { DEFERRED_CAP } from './runCycle'
 import type { CycleSummary, DeferReason, LastResortState } from './types'
 
-// The news-lead skim config, assembled once from NEWS. Reuses the ingester's own Groq
-// budget / limiter / cooldown knobs so the two paths share one honest free-tier accounting.
+// The news-lead skim config, assembled once from NEWS. It reuses the ingester's canonical OpenAI-compatible
+// local/Groq/overflow registry and each tier's own budget, limiter, and cooldown — one accounting path, with
+// no hand-wired provider names beyond the grandfathered Groq primary descriptor.
 const IDEA_PASS_CONFIG = {
   topN: NEWS.ideasTopN,
   shelfLifeHrs: NEWS.ideasShelfLifeHrs,
@@ -44,30 +45,33 @@ const IDEA_PASS_CONFIG = {
   groqTpm: NEWS.groqTpm,
   llmCooldownMs: NEWS.llmCooldownMs,
   llmCooldownMaxMs: NEWS.llmCooldownMaxMs,
-  limiterWaitMs: 4000, // give up the shared Groq minute window fast if triage has it — skip the pass, don't block
+  localCooldownMs: NEWS.localCooldownMs,
+  localProvider: NEWS.localProvider,
+  overflowProviders: NEWS.overflowProviders,
+  limiterWaitMs: 4000, // give up a busy tier's minute window quickly, then try the next one
 }
 
 /** One configured lead-skim pass shared by both runtime topologies (in-process scheduler and the
  * standalone launchd cycle). Keeping this in one place prevents production from silently omitting a
  * feature the cockpit-hosted scheduler happens to run. */
 export async function runConfiguredIdeaPass(log: (m: string) => void = () => {}) {
-  if (!NEWS.enabled || !NEWS.ideasEnabled) {
+  if (!NEWS.enabled || !NEWS.ideasEnabled || !NEWS.ideaProviderConfigured) {
     const at = Date.now()
-    const missingKey = !NEWS.groqApiKey
+    const missingProvider = !NEWS.ideaProviderConfigured
     const ideasDisabled = !NEWS.ideasEnabled
     updateIdeasHealth(STATE_DIR, {
       enabled: NEWS.ideasEnabled, status: ideasDisabled ? 'disabled' : 'error', outcome: 'not_run',
-      reason_code: ideasDisabled ? 'disabled' : missingKey ? 'missing_api_key' : 'ingester_disabled',
+      reason_code: ideasDisabled ? 'disabled' : missingProvider ? 'missing_api_key' : 'ingester_disabled',
       reason: ideasDisabled
         ? 'The idea pass is disabled by IDEAS_ENABLED=0.'
-        : missingKey ? 'The news ingester and idea pass have no Groq API key.' : 'The news ingester is disabled by NEWS_INGEST_ENABLED=0.',
+        : missingProvider ? 'The idea pass has no configured local, Groq, or OpenAI-compatible fallback provider.' : 'The news ingester is disabled by NEWS_INGEST_ENABLED=0.',
       next_eligible_at: null,
       input_count: 0, produced_count: 0,
     }, at, inspectIdeaSnapshots(REPO_ROOT, at))
     return {
       ran: false, produced: 0,
-      note: ideasDisabled ? 'disabled' : missingKey ? 'missing_api_key' : 'ingester_disabled',
-      reason_code: ideasDisabled ? 'disabled' as const : missingKey ? 'missing_api_key' as const : 'ingester_disabled' as const,
+      note: ideasDisabled ? 'disabled' : missingProvider ? 'missing_api_key' : 'ingester_disabled',
+      reason_code: ideasDisabled ? 'disabled' as const : missingProvider ? 'missing_api_key' as const : 'ingester_disabled' as const,
     }
   }
   return runIdeaPass({
@@ -291,22 +295,25 @@ function overflowHasHeadroom(now = Date.now()): boolean {
  * an OpenAI-compatible provider) has room. Gating Groq on the pacer spreads an overload day evenly; OR-ing
  * the overflow pools keeps the drain clearing the backlog on their separate free quotas once Groq is paced.
  */
-function budgetHasHeadroom(now = Date.now()): boolean {
+export function budgetHasHeadroom(now = Date.now()): boolean {
   const today = new Date(now).toISOString().slice(0, 10)
-  let groqOk = true
-  try {
-    const b = JSON.parse(fs.readFileSync(path.join(STATE_DIR, 'groq-budget.json'), 'utf8'))
-    // Groq is drain-usable only if it is NOT in a failure cooldown AND has paced room for one more batch —
-    // exactly the triage loop's `!groqCoolingDown && budget.pacedCanSpend(est)`. The old check read only the
-    // budget file, so a Groq in a failure cooldown (but under its token ceiling — the reported snapshot:
-    // "Cooling, 273k/500k tok") reported headroom, the drain ran, and the loop skipped Groq anyway.
-    // pacedHasHeadroom(tokens, requests, reqCap, tokenCap, PACE, now, est) reserves one batch's est tokens.
-    if (b?.date === today) {
-      groqOk = !isCoolingDown(STATE_DIR, 'groq', now) &&
-        pacedHasHeadroom(Number(b.tokens) || 0, Number(b.requests) || 0, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE, now, batchEst())
+  let groqOk = Boolean(NEWS.groqApiKey)
+  if (groqOk) {
+    try {
+      const b = JSON.parse(fs.readFileSync(path.join(STATE_DIR, 'groq-budget.json'), 'utf8'))
+      // Groq is drain-usable only if it is NOT in a failure cooldown AND has paced room for one more batch —
+      // exactly the triage loop's `!groqCoolingDown && budget.pacedCanSpend(est)`. The old check read only the
+      // budget file, so a Groq in a failure cooldown (but under its token ceiling — the reported snapshot:
+      // "Cooling, 273k/500k tok") reported headroom, the drain ran, and the loop skipped Groq anyway.
+      // pacedHasHeadroom(tokens, requests, reqCap, tokenCap, PACE, now, est) reserves one batch's est tokens.
+      if (b?.date === today) {
+        groqOk = !isCoolingDown(STATE_DIR, 'groq', now) &&
+          pacedHasHeadroom(Number(b.tokens) || 0, Number(b.requests) || 0, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE, now, batchEst())
+      }
+    } catch {
+      // A configured Groq with no ledger is fresh. An absent Groq was already false above and must not
+      // create phantom headroom that repeatedly drains into an exhausted fallback-only deployment.
     }
-  } catch {
-    return true // unreadable budget → don't stall the drain
   }
   return groqOk || geminiHasHeadroom(now) || overflowHasHeadroom(now)
 }
@@ -831,18 +838,18 @@ export function startNewsIngester(): void {
   initializeIdeasHealth(STATE_DIR, REPO_ROOT)
   if (!NEWS.enabled) {
     const at = Date.now()
-    const missingKey = !NEWS.groqApiKey
+    const missingProvider = !NEWS.providerConfigured
     updateIdeasHealth(STATE_DIR, {
       enabled: NEWS.ideasEnabled,
       status: NEWS.ideasEnabled ? 'error' : 'disabled', outcome: 'not_run',
-      reason_code: NEWS.ideasEnabled ? (missingKey ? 'missing_api_key' : 'ingester_disabled') : 'disabled',
+      reason_code: NEWS.ideasEnabled ? (missingProvider ? 'missing_api_key' : 'ingester_disabled') : 'disabled',
       reason: NEWS.ideasEnabled
-        ? (missingKey ? 'The news ingester and idea pass have no Groq API key.' : 'The news ingester is disabled by NEWS_INGEST_ENABLED=0.')
+        ? (missingProvider ? 'The news ingester and idea pass have no configured provider.' : 'The news ingester is disabled by NEWS_INGEST_ENABLED=0.')
         : 'The idea pass is disabled by IDEAS_ENABLED=0.',
       next_eligible_at: null, input_count: 0, produced_count: 0,
     }, at, inspectIdeaSnapshots(REPO_ROOT, at))
     // eslint-disable-next-line no-console
-    console.log(NEWS.groqApiKey ? '[news] ingester disabled (NEWS_INGEST_ENABLED=0)' : '[news] ingester idle — set GROQ_API_KEY to turn it on')
+    console.log(NEWS.providerConfigured ? '[news] ingester disabled (NEWS_INGEST_ENABLED=0)' : '[news] ingester idle — configure a news triage provider to turn it on')
     return
   }
   if (timer) return

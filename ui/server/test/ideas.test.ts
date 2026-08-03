@@ -88,6 +88,32 @@ check('surfaceIdeasBatch parses ideas and drops the invalid ones', async () => {
   assert.equal(r.ideas.length, 1)
   assert.equal(r.ideas[0].ticker, 'STNG')
 })
+check('surfaceIdeasBatch forwards the canonical overflow provider transport fields', async () => {
+  let seenUrl = ''
+  let seenInit: RequestInit | undefined
+  const controller = new AbortController()
+  const fetchFn = (async (input: Parameters<typeof fetch>[0], init?: RequestInit) => {
+    seenUrl = String(input)
+    seenInit = init
+    return new Response(JSON.stringify({
+      choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+      usage: { total_tokens: 10 },
+    }), { status: 200, headers: { 'content-type': 'application/json' } })
+  }) as typeof fetch
+  const r = await surfaceIdeasBatch(ROWS, {
+    ...OPTS, baseUrl: 'https://overflow.test/v1', model: 'primary', models: ['primary', 'backup'],
+    headers: { 'X-Provider': 'kept' }, extraBody: { reasoning_effort: 'low' }, maxAttempts: 1,
+    timeoutMs: 5_000, signal: controller.signal,
+  }, fetchFn, noSleep)
+  assert.equal(r.ok, true)
+  assert.equal(seenUrl, 'https://overflow.test/v1/chat/completions')
+  assert.equal((seenInit?.headers as Record<string, string>)['X-Provider'], 'kept')
+  assert.ok(seenInit?.signal)
+  const body = JSON.parse(String(seenInit?.body))
+  assert.equal(body.model, 'primary')
+  assert.deepEqual(body.models, ['primary', 'backup'])
+  assert.equal(body.reasoning_effort, 'low')
+})
 check('surfaceIdeasBatch: empty rows is a no-op ok (no spend)', async () => {
   const r = await surfaceIdeasBatch([], OPTS, stubFetch({ ideas: [] }), noSleep)
   assert.equal(r.ok, true); assert.equal(r.requests, 0); assert.equal(r.ideas.length, 0)
@@ -98,15 +124,15 @@ check('surfaceIdeasBatch: missing api key returns ok:false without a call', asyn
 })
 check('surfaceIdeasBatch: a max_tokens truncation is reported, not half-parsed', async () => {
   const r = await surfaceIdeasBatch(ROWS, OPTS, stubFetch({ ideas: [{ src: [0], ticker: 'AAA' }] }, { finish: 'length' }), noSleep)
-  assert.equal(r.ok, false); assert.equal(r.ideas.length, 0); assert.match(r.note || '', /truncated/)
+  assert.equal(r.ok, false); assert.equal(r.failureKind, 'contract'); assert.equal(r.ideas.length, 0); assert.match(r.note || '', /truncated/)
 })
 check('surfaceIdeasBatch: a terminal HTTP error returns ok:false (deferred, not scored-zero)', async () => {
   const r = await surfaceIdeasBatch(ROWS, OPTS, stubFetch('bad', { ok: false, status: 400 }), noSleep, noSleep)
-  assert.equal(r.ok, false); assert.match(r.note || '', /HTTP 400/)
+  assert.equal(r.ok, false); assert.equal(r.failureKind, 'request'); assert.equal(r.httpStatus, 400); assert.match(r.note || '', /HTTP 400/)
 })
 check('surfaceIdeasBatch: non-JSON content returns ok:false, never throws', async () => {
   const r = await surfaceIdeasBatch(ROWS, OPTS, stubFetch('not json at all'), noSleep)
-  assert.equal(r.ok, false)
+  assert.equal(r.ok, false); assert.equal(r.failureKind, 'contract')
 })
 check('surfaceIdeasBatch: only a literal top-level ideas array can be an honest empty result', async () => {
   const missing = await surfaceIdeasBatch(ROWS, OPTS, stubFetch({ result: [] }), noSleep)
@@ -130,15 +156,16 @@ check('surfaceIdeasBatch: a non-empty response with no valid rows fails closed',
   assert.equal(r.ideas.length, 0)
   assert.match(r.note || '', /no valid idea rows/)
 })
-check('surfaceIdeasBatch counts malformed response reads exactly once per retry', async () => {
+check('surfaceIdeasBatch separates malformed HTTP-200 envelopes from provider availability', async () => {
   let jsonFetches = 0
   const malformedJson = (async () => {
     jsonFetches++
     return { ok: true, status: 200, headers: { get: () => null }, json: async () => { throw new SyntaxError('malformed response JSON') } }
   }) as unknown as typeof fetch
   const decoded = await surfaceIdeasBatch(ROWS, { ...OPTS, maxAttempts: 2 }, malformedJson, noSleep)
-  assert.equal(jsonFetches, 2)
-  assert.equal(decoded.requests, 2, 'response.json failure is not double-counted by the broad catch')
+  assert.equal(jsonFetches, 1, 'a contract-broken envelope is not retried against the same provider')
+  assert.equal(decoded.requests, 1)
+  assert.equal(decoded.failureKind, 'contract', 'malformed success JSON must never cool shared triage')
 
   let bodyFetches = 0
   const unreadableBody = (async () => {
@@ -148,6 +175,20 @@ check('surfaceIdeasBatch counts malformed response reads exactly once per retry'
   const rejected = await surfaceIdeasBatch(ROWS, { ...OPTS, maxAttempts: 2 }, unreadableBody, noSleep)
   assert.equal(bodyFetches, 2)
   assert.equal(rejected.requests, 2, 'response.text failure is counted once per HTTP attempt')
+})
+check('surfaceIdeasBatch stops retries immediately when its parent operation is aborted', async () => {
+  const controller = new AbortController()
+  controller.abort(new DOMException('chain ended', 'AbortError'))
+  let fetches = 0
+  let sleeps = 0
+  const r = await surfaceIdeasBatch(ROWS, { ...OPTS, maxAttempts: 2, signal: controller.signal }, (async (_input, init) => {
+    fetches++
+    throw init?.signal?.reason || new DOMException('aborted', 'AbortError')
+  }) as typeof fetch, async () => { sleeps++ })
+  assert.equal(r.ok, false)
+  assert.equal(r.failureKind, 'availability')
+  assert.equal(fetches, 1)
+  assert.equal(sleeps, 0, 'a cancelled parent never pays retry backoff or starts a second request')
 })
 
 // ---- identity + helpers ----

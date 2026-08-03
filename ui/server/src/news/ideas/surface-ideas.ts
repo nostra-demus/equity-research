@@ -78,6 +78,10 @@ export interface SurfaceIdeasResult {
   ok: boolean
   note?: string
   rate?: RateInfo
+  /** Structured failure policy for callers that share provider health with other workloads. Contract or
+   * request-shape failures are idea-scoped; only availability failures may cool the provider globally. */
+  failureKind?: 'availability' | 'request' | 'contract'
+  httpStatus?: number
 }
 
 // Input-token estimate for the budget pre-check + per-minute reservation. Each row carries more context
@@ -194,12 +198,12 @@ export function coerceIdea(raw: any, rowCount: number): RawIdea | null {
  */
 export async function surfaceIdeasBatch(
   rows: IdeaInputRow[],
-  opts: { model: string; baseUrl: string; apiKey: string; maxTokens?: number; models?: string[]; headers?: Record<string, string>; extraBody?: Record<string, unknown>; timeoutMs?: number; maxAttempts?: number },
+  opts: { model: string; baseUrl: string; apiKey: string; maxTokens?: number; models?: string[]; headers?: Record<string, string>; extraBody?: Record<string, unknown>; timeoutMs?: number; maxAttempts?: number; signal?: AbortSignal },
   fetchFn: typeof fetch = fetch,
   sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
 ): Promise<SurfaceIdeasResult> {
   if (!rows.length) return { ideas: [], requests: 0, tokens: 0, ok: true }
-  if (!opts.apiKey) return { ideas: [], requests: 0, tokens: 0, ok: false, note: 'no api key' }
+  if (!opts.apiKey) return { ideas: [], requests: 0, tokens: 0, ok: false, note: 'no api key', failureKind: 'request' }
 
   // parseRate lives in groq.ts; import lazily-free by re-reading headers here to avoid a cross-module cycle
   const readRate = (res: { headers?: { get(k: string): string | null } }): RateInfo => {
@@ -225,10 +229,11 @@ export async function surfaceIdeasBatch(
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
       requests++ // one count per fetch invocation, including network/response-decoding failures below
+      const requestSignal = AbortSignal.timeout(opts.timeoutMs ?? 30_000)
       const res = await fetchFn(`${opts.baseUrl}/chat/completions`, {
         method: 'POST',
         headers: { 'content-type': 'application/json', authorization: `Bearer ${opts.apiKey}`, ...(opts.headers || {}) },
-        signal: AbortSignal.timeout(opts.timeoutMs ?? 30_000),
+        signal: opts.signal ? AbortSignal.any([opts.signal, requestSignal]) : requestSignal,
         body: JSON.stringify({
           model: opts.model,
           ...(opts.models?.length ? { models: opts.models } : {}),
@@ -247,23 +252,37 @@ export async function surfaceIdeasBatch(
         const body = await res.text().catch(() => '')
         lastNote = `idea HTTP ${res.status}${body ? ': ' + body.slice(0, 120) : ''}`
         if ((res.status === 429 || res.status >= 500) && attempt < maxAttempts) { await sleep(rate.retryAfterMs || 1500 * attempt); continue }
-        return { ideas: [], requests, tokens, ok: false, note: lastNote, rate }
+        return {
+          ideas: [], requests, tokens, ok: false, note: lastNote, rate, httpStatus: res.status,
+          failureKind: res.status === 429 || res.status >= 500 ? 'availability' : 'request',
+        }
       }
-      const data: any = await res.json()
+      let data: any
+      try {
+        data = await res.json()
+      } catch (e: any) {
+        // A syntactically malformed HTTP-200 envelope is a response-contract failure, not proof that the
+        // provider is unavailable. Keep it idea-scoped so this nonessential skim cannot cool core triage.
+        // A stream/read failure is transport availability and stays on the retry path below.
+        if (e?.name === 'SyntaxError') {
+          return { ideas: [], requests, tokens, ok: false, note: 'idea: malformed provider response JSON', rate, failureKind: 'contract' }
+        }
+        throw e
+      }
       tokens += Number(data?.usage?.total_tokens)
         || conservativeChatTokenBound(IDEA_SYSTEM, buildIdeaUserMessage(rows), opts.maxTokens ?? 2500)
       if (data?.choices?.[0]?.finish_reason === 'length') {
-        return { ideas: [], requests, tokens, ok: false, note: 'idea: output truncated at max_tokens', rate }
+        return { ideas: [], requests, tokens, ok: false, note: 'idea: output truncated at max_tokens', rate, failureKind: 'contract' }
       }
       const content = data?.choices?.[0]?.message?.content
-      if (typeof content !== 'string') return { ideas: [], requests, tokens, ok: false, note: 'idea: empty content', rate }
+      if (typeof content !== 'string') return { ideas: [], requests, tokens, ok: false, note: 'idea: empty content', rate, failureKind: 'contract' }
       let parsed: any
-      try { parsed = JSON.parse(content) } catch { return { ideas: [], requests, tokens, ok: false, note: 'idea: non-JSON content', rate } }
+      try { parsed = JSON.parse(content) } catch { return { ideas: [], requests, tokens, ok: false, note: 'idea: non-JSON content', rate, failureKind: 'contract' } }
       // An honest empty result has one exact shape: {"ideas":[]}. Treating a missing/wrong `ideas`
       // field as [] makes provider schema drift indistinguishable from "nothing clears the bar" — the
       // same false-green empty state this health contract exists to prevent.
       if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed) || !Array.isArray(parsed.ideas)) {
-        return { ideas: [], requests, tokens, ok: false, note: 'idea: invalid response schema (expected top-level ideas array)', rate }
+        return { ideas: [], requests, tokens, ok: false, note: 'idea: invalid response schema (expected top-level ideas array)', rate, failureKind: 'contract' }
       }
       const arr: any[] = parsed.ideas
       const ideas = arr.map((r) => coerceIdea(r, rows.length)).filter((x): x is RawIdea => x !== null).slice(0, 6)
@@ -271,13 +290,14 @@ export async function surfaceIdeasBatch(
       // successful rejection. Partial drift remains usable when at least one row survives; a literal []
       // remains the only success_empty result.
       if (arr.length > 0 && ideas.length === 0) {
-        return { ideas: [], requests, tokens, ok: false, note: 'idea: response contained no valid idea rows', rate }
+        return { ideas: [], requests, tokens, ok: false, note: 'idea: response contained no valid idea rows', rate, failureKind: 'contract' }
       }
       return { ideas, requests, tokens, ok: true, rate }
     } catch (e: any) {
       lastNote = e?.name === 'TimeoutError' ? 'idea: request timed out' : e?.message || 'idea fetch error'
+      if (opts.signal?.aborted) break
       if (attempt < maxAttempts) await sleep(1500 * attempt)
     }
   }
-  return { ideas: [], requests, tokens, ok: false, note: lastNote }
+  return { ideas: [], requests, tokens, ok: false, note: lastNote, failureKind: 'availability' }
 }

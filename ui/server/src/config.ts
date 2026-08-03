@@ -4,6 +4,7 @@ import os from 'node:os'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import type { ArticleReadProvider } from './news/triage/article-read'
+import { NON_BINDING_DAILY_TOKEN_CAP } from './news/triage/budget'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -398,6 +399,22 @@ export function buildLocalProvider(): OverflowProvider | null {
 export function localIsPrimary(): boolean {
   return process.env.NEWS_LOCAL_ENABLED === '1' && process.env.NEWS_LOCAL_PRIMARY !== '0'
 }
+
+// Materialize the canonical OpenAI-compatible provider registry once. NEWS.enabled is a scheduler gate,
+// not a Groq gate: any configured triage provider can keep the system alive when Groq is absent or spent.
+// Gemini remains a native generateContent provider (outside this OpenAI-compatible registry) but is also
+// sufficient to run news triage. Explicit NEWS_INGEST_ENABLED=0 remains authoritative below.
+const CONFIGURED_LOCAL_PROVIDER = localIsPrimary() ? buildLocalProvider() : null
+const CONFIGURED_OVERFLOW_PROVIDERS = buildOverflowProviders()
+const NEWS_IDEA_PROVIDER_CONFIGURED = Boolean(
+  process.env.GROQ_API_KEY
+  || CONFIGURED_LOCAL_PROVIDER
+  || CONFIGURED_OVERFLOW_PROVIDERS.length > 0,
+)
+const NEWS_PROVIDER_CONFIGURED = Boolean(
+  NEWS_IDEA_PROVIDER_CONFIGURED
+  || (process.env.GEMINI_API_KEY && process.env.NEWS_GEMINI_ENABLED !== '0'),
+)
 export const LAUNCH_GUARDS: Record<LaunchKind, { maxTurns: number; budgetUsd: number }> = {
   full: { maxTurns: capNum(process.env.ENGINE_FULL_MAX_TURNS, 2500), budgetUsd: capNum(process.env.ENGINE_FULL_BUDGET_USD, 300) },
   module: { maxTurns: capNum(process.env.ENGINE_MODULE_MAX_TURNS, 350), budgetUsd: capNum(process.env.ENGINE_MODULE_BUDGET_USD, 56) },
@@ -519,11 +536,11 @@ export const CHAT = {
 // The expensive gauntlet stays free of both: promoting an inbox row into the paid gauntlet stays the
 // human's one-click action (the cockpit "check it ▸" button). Auto-promote is intentionally absent.
 //
-// Every knob is env-tunable; the loop is OFF unless a Groq key is present, so a deploy without the
-// key behaves exactly as before. Defaults sit well under Groq's free-tier ceilings (~1k req/day,
+// Every knob is env-tunable; the loop is OFF unless at least one triage provider is configured, so a
+// providerless deploy behaves exactly as before. Defaults sit well under Groq's free-tier ceilings (~1k req/day,
 // ~100-200k tokens/day) with margin, so a smartly-batched cycle never trips a rate limit.
 export const NEWS = {
-  // The only secret. Absent → the ingester stays dark (no fetch, no scheduler).
+  // The grandfathered primary secret. Its absence no longer disables a configured fallback chain.
   groqApiKey: process.env.GROQ_API_KEY || '',
   // A small, fast, cheap Groq model is ideal for batched title-triage. Model ids change — confirm
   // the current free model when you provision the key. Override with GROQ_MODEL.
@@ -566,8 +583,10 @@ export const NEWS = {
   retrievalRerankModel: process.env.NEWS_RETRIEVAL_RERANK_MODEL || 'gpt-5-mini',
   retrievalRerankTimeoutMs: capNum(process.env.NEWS_RETRIEVAL_RERANK_TIMEOUT_MS, 25_000),
   retrievalRerankMaxCandidates: capNum(process.env.NEWS_RETRIEVAL_RERANK_MAX_CANDIDATES, 30),
-  // Master switch. Default: ON iff a key exists. Set NEWS_INGEST_ENABLED=0 to force off even with a key.
-  enabled: process.env.NEWS_INGEST_ENABLED === '0' ? false : Boolean(process.env.GROQ_API_KEY),
+  // Master switch. Default: ON iff any canonical provider exists. Set NEWS_INGEST_ENABLED=0 to force off.
+  enabled: process.env.NEWS_INGEST_ENABLED === '0' ? false : NEWS_PROVIDER_CONFIGURED,
+  providerConfigured: NEWS_PROVIDER_CONFIGURED,
+  ideaProviderConfigured: NEWS_IDEA_PROVIDER_CONFIGURED,
   // How often the in-server scheduler runs a cycle (the standalone --once entrypoint ignores this).
   // 5 min (down from 15): fresher headline intake + more frequent dot bursts on the themes map. Safe —
   // Groq scoring is paced separately (RPM/TPM, learned from live headers) and the daily caps defer
@@ -638,8 +657,8 @@ export const NEWS = {
   // PM SKIM — the "Best ideas" pass (news/ideas). Tier 1.5: after triage, one cheap batched free-LLM call
   // over the wire's already-ranked top-N surfaces the best 1-2 TRADABLE stock ideas (ticker · side · reason
   // · pre-edge read), feeding the paid gauntlet on a click. On by default, with IDEAS_ENABLED=0 as the
-  // explicit kill switch. It rides the SAME Groq budget /
-  // limiter / cooldown as triage (never a parallel lane), and is throttled hard so it can't starve triage:
+  // explicit kill switch. It rides the SAME canonical local/Groq/overflow registry and each tier's shared
+  // budget / limiter / cooldown as triage (never a parallel lane), and is throttled hard so it can't starve triage:
   // it spends only when the top-N event set changes (or once per ideasRefreshSec heartbeat), and never more
   // often than ideasMinIntervalSec. A per-cycle call would blow the 500k token budget alone.
   ideasEnabled: process.env.IDEAS_ENABLED !== '0',
@@ -694,12 +713,12 @@ export const NEWS = {
   // Groq is paced/capped, each with its own free daily budget + limiter. Their free models are far stronger
   // than Groq's 8B. Adding another OpenAI-compatible free key = one entry in buildOverflowProviders() — it
   // then auto-appears in routing, the drain gate, status, and as a cockpit chip (§26, zero other edits).
-  overflowProviders: buildOverflowProviders(),
+  overflowProviders: CONFIGURED_OVERFLOW_PROVIDERS,
   // LOCAL primary brain — the unlimited $0 tier tried FIRST for every batch when enabled (NEWS_LOCAL_PRIMARY,
   // default on). null when local is off OR demoted to a fallback (NEWS_LOCAL_PRIMARY=0 → it lives in
   // overflowProviders instead). runCycle routes to it ahead of Groq; getNewsStatus/diagnostics surface it first.
-  localProvider: localIsPrimary() ? buildLocalProvider() : null,
-  localPrimary: localIsPrimary(),
+  localProvider: CONFIGURED_LOCAL_PROVIDER,
+  localPrimary: Boolean(CONFIGURED_LOCAL_PROVIDER),
   // Local's cross-cycle cooldown after a failed probe: SHORT + flat (re-probe a sleeping box fast), unlike the
   // cloud tiers' exponential backoff — local has no daily cap to protect from failed-probe burn, so recovering
   // fast when the box wakes matters more than sparing a failed call.
@@ -964,7 +983,7 @@ export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadP
     // TOKEN-gated provider (Cerebras) carries its own tpm + daily token cap, so the read paces on the SAME
     // binding limit as the ingester (they share the budget file + limiter); request-gated providers
     // (OpenRouter/NVIDIA) omit them → tpm 0 + a non-binding token cap, the prior behaviour byte-for-byte.
-    out.push({ id: p.id, kind: 'openai', apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model, models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: p.tpm ?? 0, dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? 50_000_000, budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody, limiter: p.id })
+    out.push({ id: p.id, kind: 'openai', apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model, models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: p.tpm ?? 0, dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP, budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody, limiter: p.id })
   }
   return out
 }
@@ -993,7 +1012,7 @@ export function buildFilingReadProviders(cfg: typeof NEWS = NEWS): ArticleReadPr
     rpm: cfg.filingReadRpm,
     tpm: 0, // request-gated, like the OpenRouter/NVIDIA overflow providers
     dailyReqCap: cfg.filingReadDailyReqCap,
-    dailyTokenCap: 50_000_000, // non-binding (request-gated)
+    dailyTokenCap: NON_BINDING_DAILY_TOKEN_CAP, // non-binding (request-gated)
     budgetFile: 'filing-read-budget.json', // its OWN budget — never shares the article firehose's Groq quota
     limiter: 'filing-read', // its OWN process-wide limiter, independent of the ingester's
   }]
