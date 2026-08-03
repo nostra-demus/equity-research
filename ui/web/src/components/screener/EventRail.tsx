@@ -21,7 +21,7 @@ import { fmtStampLocal } from '../../lib/format'
 import { extractCommodities, extractSectors } from '../../lib/taxonomy'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
-import { archiveFiltersActive, emptyFilters, FeedFilters, filtersActive, gicsEmptyMessage, keywordReadAsNote, matchesFilters, resolveKeywordCompanies, type FeedFilterState } from './FeedFilters'
+import { archiveFiltersActive, clearSecondaryFilters, emptyFilters, FeedFilters, filtersActive, gicsEmptyMessage, keywordReadAsNote, matchesFilters, resolveKeywordCompanies, type FeedFilterState } from './FeedFilters'
 import { api, type ArchiveQuery, type CompanyFacet } from '../../lib/api'
 import { archiveErrorSentence } from '../../lib/archiveError'
 import { FeedbackMenu } from './FeedbackMenu'
@@ -31,6 +31,7 @@ import { itemOnWire, subjectOfItem, WIRE_OTHER } from '../../lib/wire'
 import { summarizeIdeasSurface } from '../../lib/ideasView'
 import { useWireConfig } from '../wire/WireContext'
 import { SubjectChips } from '../wire/SubjectChips'
+import { CompanyFilter } from './CompanyFilter'
 
 // a multi-select dropdown for a broad scope with dynamic sub-values (Sector, Commodity). "All X" =
 // the whole scope; specific picks narrow to those. Closes on outside-click / Escape.
@@ -306,12 +307,13 @@ export function EventRail() {
   const [subjectSel, setSubjectSel] = useState<Set<string>>(new Set())
   const setThemesSubject = useStore((s) => s.setThemesSubject)
   const [showShelved, setShowShelved] = useState(false)
-  // the secondary filters (theme / search / sector / size) — now always visible
+  // Primary company/geography filters stay visible; secondary theme/search/sector/size filters disclose below.
   const [filters, setFilters] = useState<FeedFilterState>(emptyFilters())
   // collapse toggle for the secondary filters — COLLAPSED by default; opens only if you've opened it before (per browser)
   const [filtersOpen, setFiltersOpen] = useState<boolean>(() => { try { return localStorage.getItem('nsw.filtersOpen') === '1' } catch { return false } })
   const toggleFilters = () => setFiltersOpen((v) => { const n = !v; try { localStorage.setItem('nsw.filtersOpen', n ? '1' : '0') } catch {} return n })
-  const refineCount = filters.themes.size + (filters.country || filters.geoRegion ? 1 : 0) + (filters.size ? 1 : 0) + (filters.gicsSector ? 1 : 0) + (filters.gicsSubSector ? 1 : 0) + (filters.company ? 1 : 0) + (filters.text.trim() ? 1 : 0)
+  const refineCount = filters.themes.size + (filters.size ? 1 : 0) + (filters.gicsSector ? 1 : 0) + (filters.gicsSubSector ? 1 : 0) + (filters.text.trim() ? 1 : 0)
+  const clearRefinements = () => setFilters(clearSecondaryFilters)
   // Sector & Commodity drill into specific sub-values (dynamic multi-select); openDrop = which menu is open
   const [sectorSel, setSectorSel] = useState<SubSel>({ all: false, picks: new Set() })
   const [commSel, setCommSel] = useState<SubSel>({ all: false, picks: new Set() })
@@ -719,6 +721,18 @@ export function EventRail() {
             ))}
           </select>
         </div>
+        {/* COMPANY — a primary question alongside Where, not an advanced refinement. The autocomplete's
+            matching contract is unchanged; only its placement is promoted so it never disappears behind
+            the Filters disclosure. */}
+        <div className="evscope evscope--company-filter" role="group" aria-label="Filter by company or ticker">
+          <span className="evscope__dim" aria-hidden>Company</span>
+          <CompanyFilter
+            value={filters.company}
+            onChange={(company) => setFilters((current) => ({ ...current, company }))}
+            options={facets?.companies || []}
+            searchSymbols={api.symbolSearch}
+          />
+        </div>
         {/* honest scope line: in archive mode say plainly that we are reading ALL history, and how far back.
             A search that FAILED says so here first — it never gets to claim a horizon it never reached. */}
         {archiveMode && (
@@ -750,13 +764,23 @@ export function EventRail() {
             {!filtersOpen && refineCount > 0 && <span className="evrefine__badge">{refineCount}</span>}
             <span className="evrefine__caret" aria-hidden>▾</span>
           </button>
-          {!filtersOpen && filtersActive(filters) && (
-            <button type="button" className="evrefine__clear" onClick={() => setFilters(emptyFilters())} title="Clear the filters">clear</button>
+          {!filtersOpen && refineCount > 0 && (
+            <button type="button" className="evrefine__clear" onClick={clearRefinements} title="Clear the advanced filters">clear</button>
           )}
         </div>
         {filtersOpen && (
           <div className="evrail__filters">
-            <FeedFilters value={filters} onChange={setFilters} sources={[]} companies={facets?.companies || []} searchSymbols={api.symbolSearch} compact />
+            <FeedFilters
+              value={filters}
+              onChange={setFilters}
+              sources={[]}
+              companies={facets?.companies || []}
+              searchSymbols={api.symbolSearch}
+              compact
+              showCompany={false}
+              showClear={refineCount > 0}
+              onClear={clearRefinements}
+            />
           </div>
         )}
       </header>

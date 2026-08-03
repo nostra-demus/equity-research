@@ -2829,7 +2829,10 @@ a { color: inherit; }
 /* narrow / stacked: the rail collapses above the reader instead of squeezing it */
 @media (max-width: 720px) {
   .scstage { flex-direction: column; }
-  .evrail { width: auto; max-height: 40vh; border-right: none; border-bottom: 1px solid var(--hairline); }
+  /* The primary geography + company controls now live in the persistent header. Give the stacked rail
+     enough room to keep a useful event list below them on a phone, while leaving the reader almost half
+     the viewport. At 40vh the list collapsed to roughly one text line on a 375px-wide screen. */
+  .evrail { width: auto; max-height: 55vh; border-right: none; border-bottom: 1px solid var(--hairline); }
 }
 
 /* ============================================================================
@@ -2906,6 +2909,11 @@ a { color: inherit; }
 /* Geography — a cross-cutting "where" dimension on its own row, set apart from the "what" category chips */
 .evscope--geo { margin-top: 9px; }
 .evscope__dim { font-size: 9px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-faint); align-self: center; }
+/* Company is a primary rail filter, directly below Where. Keep the autocomplete full-width on the narrow
+   rail and let its results menu use that same width instead of the compact advanced-filter sizing. */
+.evscope--company-filter { margin-top: 7px; flex-wrap: nowrap; }
+.evscope--company-filter .cfilter { flex: 1 1 auto; min-width: 0; }
+.evscope--company-filter .cfilter__menu { width: 100%; max-width: none; }
 
 /* Sector / Commodity multi-select dropdowns (dynamic sub-values, live counts) */
 .evscope__dropwrap { position: relative; display: inline-flex; }

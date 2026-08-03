@@ -35,6 +35,18 @@ export const emptyFilters = (): FeedFilterState => ({ themes: new Set(), region:
 export const filtersActive = (f: FeedFilterState): boolean =>
   f.themes.size > 0 || !!f.region || !!f.country || !!f.geoRegion || !!f.source || !!f.band || !!f.size || !!f.linkage || !!f.gicsSector || !!f.gicsSubSector || !!f.company || !!f.text.trim()
 
+// The rail keeps geography + company visible as primary controls. Clearing the disclosed panel must only
+// reset the secondary refinements; otherwise its nearby "clear" button silently undoes a choice outside
+// that panel. Keep this pure so promoted-filter surfaces can share and regression-test the contract.
+export function clearSecondaryFilters(value: FeedFilterState): FeedFilterState {
+  return {
+    ...emptyFilters(),
+    country: value.country,
+    geoRegion: value.geoRegion,
+    company: value.company,
+  }
+}
+
 // The structured filter that triggers ARCHIVE search (the whole-history, server-side read) — everything
 // except the legacy `region` (which only narrows the live wire). When none of these is set, the rail
 // stays in LIVE mode (the 2-day SSE wire). Mirrors the server-side dimensions in news/feed-filter.ts
@@ -163,6 +175,9 @@ export function FeedFilters({
   companies = [],
   searchSymbols,
   compact = false,
+  showCompany = true,
+  showClear,
+  onClear,
 }: {
   value: FeedFilterState
   onChange: (f: FeedFilterState) => void
@@ -170,8 +185,12 @@ export function FeedFilters({
   companies?: CompanyFacet[] // distinct companies on the wire (archive facet) — the ticker autofill's suggestions
   searchSymbols?: (q: string) => Promise<SymbolGroup[]> // the global "any ticker, any country" directory (api.symbolSearch) — injected by the live surfaces
   compact?: boolean // the rail variant: themes + text + size (no band/source/linkage; region lives in the rail's own Geography dropdown)
+  showCompany?: boolean // false when the surface promotes CompanyFilter into its always-visible primary controls
+  showClear?: boolean // lets a surface scope the clear affordance to only the filters rendered in this panel
+  onClear?: () => void
 }) {
   const set = (patch: Partial<FeedFilterState>) => onChange({ ...value, ...patch })
+  const clearVisible = showClear ?? filtersActive(value)
   const toggleTheme = (t: string) => {
     const themes = new Set(value.themes)
     if (themes.has(t)) themes.delete(t)
@@ -188,15 +207,13 @@ export function FeedFilters({
         ))}
       </div>
       <div className="ffilters__row">
-        {/* Pick a company by ticker (autofill) — the reliable "filter by company" path: type a ticker or
-            name, pick the suggestion, and every item tagged with that ticker OR named in the headline comes
-            back. Sits first so it's the obvious company filter; the free-text box beside it still searches
-            headlines. */}
-        <CompanyFilter value={value.company} onChange={(company) => set({ company })} options={companies} searchSymbols={searchSymbols} />
+        {/* The full wire keeps its company picker here. Compact rails promote the same control into their
+            always-visible primary row; the free-text box remains an advanced headline refinement. */}
+        {showCompany && <CompanyFilter value={value.company} onChange={(company) => set({ company })} options={companies} searchSymbols={searchSymbols} />}
         <input
           className="ffilters__text"
           value={value.text}
-          placeholder="search headline, company or ticker…"
+          placeholder={showCompany ? 'search headline, company or ticker…' : 'search headlines or keywords…'}
           title="Search the words in a headline. Type a ticker (AMZN) and it is read as that company, so you get its news however the headline spells it."
           onChange={(e) => set({ text: e.target.value })}
         />
@@ -277,8 +294,8 @@ export function FeedFilters({
             ))}
           </select>
         )}
-        {filtersActive(value) && (
-          <button className="btn btn--ghost ffilters__clear" onClick={() => onChange(emptyFilters())}>
+        {clearVisible && (
+          <button className="btn btn--ghost ffilters__clear" onClick={onClear || (() => onChange(emptyFilters()))}>
             clear
           </button>
         )}

@@ -300,7 +300,6 @@ export function CompanyFilter({
         aria-controls={listId}
         aria-activedescendant={dropdownOpen ? optId(hi) : undefined}
         aria-label="Filter by company — type a ticker or name and pick a suggestion"
-        title="Filter by company — type any ticker (any exchange) or the name and pick a match, so every item about that company comes back"
       />
       {dropdownOpen && (
         <div className="cfilter__menu" role="listbox" id={listId}>
