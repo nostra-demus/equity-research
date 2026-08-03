@@ -518,7 +518,7 @@ export function EventDetail({ it }: { it: FeedItem }) {
   return (
     <div className="evdetail-wrap" ref={wrapRef}>
       <article className="evdetail" key={`${it.event_id}-${it.ts}`}>
-        <button type="button" className="evdetail__back" onClick={() => close(null)} title="Back to events (Esc)">
+        <button type="button" data-event-detail-focus="true" className="evdetail__back" onClick={() => close(null)} title="Back to events (Esc)">
           <span className="evdetail__back-arrow" aria-hidden>‹</span>
           Back to events
         </button>

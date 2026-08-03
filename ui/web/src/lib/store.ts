@@ -141,6 +141,12 @@ const runSources = new Map<string, EventSource>()
 // in-flight chat turn's aborter (module-level so closeChat / scope-change / ticker-switch can cancel it
 // without threading it through React state). Chat is ephemeral — one conversation at a time.
 let chatAbort: AbortController | null = null
+// The last committed transcript before an in-flight turn. Switching Ask contexts or closing the drawer
+// aborts the request and restores this baseline, so a half-written paid response never becomes the thread.
+let chatPendingBaseline: { messages: ChatMessage[]; conversationId?: string; source?: string } | null = null
+// Saved-chat resumes cross multiple awaits. A newer Ask/navigation action invalidates an older resume so a
+// slow history read can never close the drawer the user just opened or replace the newer conversation.
+let chatResumeSeq = 0
 // Monotonic stamp for "complete the thesis" re-pricing requests: only the newest response may be applied.
 let thesisPriceSeq = 0
 // Most-recent turns sent to the model per request. The server's ChatBody caps the transcript at 40, so a
@@ -148,6 +154,10 @@ let thesisPriceSeq = 0
 // 40 here — anything larger would be rejected 400 and break "continue chatting". The closed-book CONTEXT is
 // re-sent every turn, so trimming only limits how much back-and-forth the model sees, never the evidence.
 const CHAT_MAX_SEND = 40
+function newChatTurnId(): string {
+  const uuid = globalThis.crypto?.randomUUID?.().replace(/-/g, '')
+  return `turn_${uuid || `${Date.now().toString(36)}_${Math.random().toString(36).slice(2)}`}`
+}
 // The Screener news chat is a different closed book, so it gets its own aborter and state. Closing one
 // panel can never stop the other panel's request.
 let newsChatAbort: AbortController | null = null
@@ -301,6 +311,8 @@ interface State {
   // What the in-flight turn is doing right now (real streamed stages — see ChatWork in types.ts). null ⇒ idle.
   chatWork: ChatWork | null
   chatError?: string
+  chatRetryText?: string // failed turns roll back; this keeps the exact question available to Retry
+  chatRetryTurnId?: string // Retry reuses the same durable idempotency key; it never saves a duplicate turn
   chatSource?: string // sourcePath from chat-meta — "answering from …"
   chatConversationId?: string // id of the persisted conversation this thread belongs to (from chat-meta)
   chatHistoryOpen: boolean // the saved-conversation browser is open
@@ -509,14 +521,14 @@ interface State {
   setChatScope: (scope: ChatScope, opts?: { module?: string; orbPath?: string; orbKey?: string }) => void
   setChatModel: (m: string) => void
   setChatStyle: (s: ChatStyle) => void
-  sendChatMessage: (text: string) => Promise<void>
+  sendChatMessage: (text: string, retryTurnId?: string) => Promise<void>
   clearChat: () => void
   // ---- saved chat history (persisted Ask conversations) ----
   openChatHistory: () => void
   closeChatHistory: () => void
   resumeConversation: (id: string) => Promise<void> // reopen a saved conversation and keep chatting
   startNewChat: () => void // open a fresh Ask conversation (from the history panel or elsewhere)
-  deleteConversation: (id: string) => Promise<void>
+  deleteConversation: (id: string) => Promise<boolean>
   openActivity: () => void
   closeActivity: () => void
   openScoring: () => void
@@ -803,7 +815,7 @@ function defaultChatTitle(scope: ChatScope, ticker: string, opts?: { module?: st
 
 // the chat-panel scope state cleared on every teardown (ticker switch, swarm switch) so a conversation
 // never bleeds across companies. Mirrors how openOutput is nulled alongside it.
-const CHAT_RESET = { chatOpen: false, chatStreaming: false, chatWork: null as ChatWork | null, chatMessages: [] as ChatMessage[], chatError: undefined as string | undefined, chatSource: undefined as string | undefined, chatConversationId: undefined as string | undefined, chatAnswerRunRoot: undefined as string | undefined }
+const CHAT_RESET = { chatOpen: false, chatStreaming: false, chatWork: null as ChatWork | null, chatMessages: [] as ChatMessage[], chatError: undefined as string | undefined, chatRetryText: undefined as string | undefined, chatRetryTurnId: undefined as string | undefined, chatSource: undefined as string | undefined, chatConversationId: undefined as string | undefined, chatAnswerRunRoot: undefined as string | undefined }
 const NEWS_CHAT_RESET = {
   newsChatOpen: false,
   newsChatStreaming: false,
@@ -882,6 +894,8 @@ export const useStore = create<State>((set, get) => ({
   chatStreaming: false,
   chatWork: null,
   chatError: undefined,
+  chatRetryText: undefined,
+  chatRetryTurnId: undefined,
   chatSource: undefined,
   chatConversationId: undefined,
   chatHistoryOpen: false,
@@ -1083,6 +1097,7 @@ export const useStore = create<State>((set, get) => ({
     const token = ++selectGen
     // keep only still-live runs across tickers (drop finished); the new ticker rebuilds from snapshots
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
+    chatPendingBaseline = null
     chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
     // the completion plan is per-subject disk truth — never let a previous subject's plan survive a switch
     set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, liveQuote: null, liveQuoteAt: null, ...CHAT_RESET })
@@ -2131,62 +2146,106 @@ export const useStore = create<State>((set, get) => ({
   openChat: (scope, opts) => {
     const t = chatSubjectOf(get())
     if (!t) { get().setToast({ msg: isFlowActive(get()) ? 'Open a signal first' : 'Select a company first', tone: 'info' }); return }
-    // reopening the SAME scope keeps the thread; a different scope target starts fresh
+    // Ask has one visible entry point. Its two evidence books remain separate, and only one drawer may
+    // own the screen at a time; otherwise both Escape handlers and both streaming surfaces compete.
+    if (get().newsChatOpen || get().newsChatStreaming) get().closeNewsChat()
+    chatResumeSeq++
+    // Re-addressing the open panel keeps its thread. An explicit Close followed by Ask starts fresh; the
+    // completed prior thread remains available in History (the documented close contract).
     const sameScope = get().chatOpen && get().chatScope === scope && get().chatModule === opts?.module && get().chatOrbKey === opts?.orbKey
+    const rollback = chatPendingBaseline
+    chatPendingBaseline = null
     chatAbort?.abort(); chatAbort = null
     set({
-      chatOpen: true, chatScope: scope,
-      chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey, chatAnswerRunRoot: undefined,
+      chatHistoryOpen: false, chatOpen: true, chatScope: scope,
+      chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey,
       chatTitle: defaultChatTitle(scope, t, opts),
-      chatError: undefined, chatSource: undefined, chatStreaming: false, chatWork: null,
+      chatError: undefined, chatRetryText: undefined, chatRetryTurnId: undefined, chatStreaming: false, chatWork: null,
       // a different scope starts a fresh thread AND a fresh saved conversation; reopening the same scope keeps both
-      ...(sameScope ? {} : { chatMessages: [], chatConversationId: undefined }),
+      ...(sameScope
+        ? (rollback ? { chatMessages: rollback.messages, chatConversationId: rollback.conversationId, chatSource: rollback.source } : {})
+        : { chatMessages: [], chatConversationId: undefined, chatSource: undefined, chatAnswerRunRoot: undefined }),
     })
   },
-  closeChat: () => { chatAbort?.abort(); chatAbort = null; set({ chatOpen: false, chatStreaming: false, chatWork: null }) },
+  closeChat: () => {
+    const rollback = chatPendingBaseline
+    chatPendingBaseline = null
+    chatAbort?.abort(); chatAbort = null
+    set({
+      chatOpen: false, chatStreaming: false, chatWork: null, chatRetryText: undefined, chatRetryTurnId: undefined,
+      ...(rollback ? { chatMessages: rollback.messages, chatConversationId: rollback.conversationId, chatSource: rollback.source } : {}),
+    })
+  },
   setChatScope: (scope, opts) => {
+    chatPendingBaseline = null
     chatAbort?.abort(); chatAbort = null
     set({
       chatScope: scope, chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey, chatAnswerRunRoot: undefined,
-      chatMessages: [], chatStreaming: false, chatWork: null, chatError: undefined, chatSource: undefined, chatConversationId: undefined,
+      chatMessages: [], chatStreaming: false, chatWork: null, chatError: undefined, chatRetryText: undefined, chatRetryTurnId: undefined, chatSource: undefined, chatConversationId: undefined,
       chatTitle: defaultChatTitle(scope, chatSubjectOf(get()) || '', opts),
     })
   },
   setChatModel: (m) => set({ chatModel: m }),
   setChatStyle: (s) => { try { localStorage.setItem(CHAT_STYLE_KEY, s) } catch { /* blocked storage */ } set({ chatStyle: s }) },
   // Clear starts a NEW conversation (fresh saved thread); the prior one stays in history — nothing is lost.
-  clearChat: () => { chatAbort?.abort(); chatAbort = null; set({ chatMessages: [], chatError: undefined, chatStreaming: false, chatWork: null, chatSource: undefined, chatConversationId: undefined, chatAnswerRunRoot: undefined }) },
+  clearChat: () => { chatPendingBaseline = null; chatAbort?.abort(); chatAbort = null; set({ chatMessages: [], chatError: undefined, chatRetryText: undefined, chatRetryTurnId: undefined, chatStreaming: false, chatWork: null, chatSource: undefined, chatConversationId: undefined, chatAnswerRunRoot: undefined }) },
 
   // ---- saved chat history (persisted Ask conversations) ----
-  openChatHistory: () => set({ chatHistoryOpen: true }),
-  closeChatHistory: () => set({ chatHistoryOpen: false }),
+  openChatHistory: () => {
+    chatResumeSeq++
+    if (get().newsChatOpen || get().newsChatStreaming) get().closeNewsChat()
+    set({ chatHistoryOpen: true })
+  },
+  closeChatHistory: () => { chatResumeSeq++; set({ chatHistoryOpen: false }) },
   // Reopen a saved conversation and keep chatting: fetch its transcript, make sure the right swarm +
   // company are selected (so the closed-book context resolves against the same run), then load the thread
   // and its saved conversation id into the panel. The next turn appends to the SAME saved conversation.
   resumeConversation: async (id) => {
     if (get().staticMode) { get().setToast({ msg: 'Chat history lives on the live engine (npm run dev)', tone: 'info' }); return }
+    const resumeSeq = ++chatResumeSeq
+    const navAtStart = {
+      activeSwarm: get().activeSwarm,
+      selectToken: get().selectToken,
+      selectedTicker: get().selectedTicker,
+      selectedSignal: get().scSelectedSignal,
+    }
     // stop any in-flight turn FIRST — otherwise its streaming callback keeps writing tokens into the thread
     // we're about to replace (the same-swarm/same-ticker path below runs neither the swarm switch nor
     // selectTicker, so nothing else would abort it).
+    const rollback = chatPendingBaseline
+    chatPendingBaseline = null
     chatAbort?.abort(); chatAbort = null
+    if (rollback) set({ chatMessages: rollback.messages, chatConversationId: rollback.conversationId, chatSource: rollback.source, chatStreaming: false, chatWork: null })
     const c = await api.getChat(id).catch(() => null)
+    if (resumeSeq !== chatResumeSeq) return
+    if (get().activeSwarm !== navAtStart.activeSwarm || get().selectToken !== navAtStart.selectToken || get().selectedTicker !== navAtStart.selectedTicker || get().scSelectedSignal !== navAtStart.selectedSignal) return
     if (!c) { get().setToast({ msg: 'Could not open that conversation', tone: 'info' }); return }
+    // History is now the winning navigation. Cancel even a same-swarm collapse that was already scheduled;
+    // otherwise its old timer can fire after this await and replace the conversation we just resumed.
+    if (warpTimer) { clearTimeout(warpTimer); warpTimer = null }
+    if (get().warp) set({ warp: null })
     const targetSwarm = c.swarm || 'research'
     // A different swarm is a deliberate jump — switch directly (no animated warp), mirroring switchSwarm's
     // reduced-motion reset so no panel or in-flight warp is left dangling over the new view.
     if (get().activeSwarm !== targetSwarm) {
       if (!get().swarms.some((s) => s.id === targetSwarm)) { get().setToast({ msg: `The ${targetSwarm} view isn’t available here`, tone: 'info' }); return }
-      if (warpTimer) { clearTimeout(warpTimer); warpTimer = null }
+      if (get().newsChatOpen || get().newsChatStreaming) get().closeNewsChat()
       set({ activeSwarm: targetSwarm, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, diagnosticsOpen: false, ...CHAT_RESET })
       get()._enterSwarm(targetSwarm)
+    } else if (get().newsChatOpen || get().newsChatStreaming) {
+      get().closeNewsChat()
     }
     // select the subject if we're not already on it (loads its graph/manifest). A flow swarm (screener)
     // reopens the SIGNAL run; a constellation swarm reopens the company/commodity run (selectTicker applies
     // its own CHAT_RESET). Either way the server re-resolves the run from (swarm, subject).
     if (isFlowActive(get())) {
-      if (get().scSelectedSignal !== c.subject) await get().scSelectSignal(c.subject)
+      if (get().scSelectedSignal !== c.subject) {
+        await get().scSelectSignal(c.subject)
+        if (resumeSeq !== chatResumeSeq || get().scSelectedSignal !== c.subject) return
+      }
     } else if (get().selectedTicker !== c.subject) {
       await get().selectTicker(c.subject)
+      if (resumeSeq !== chatResumeSeq || get().selectedTicker !== c.subject) return
     }
     // Decide which run to answer this resumed conversation from, and keep the thread chat-able. Prefer the
     // CURRENT run when it can still serve the conversation's scope (so "continue" chats the latest output);
@@ -2225,13 +2284,15 @@ export const useStore = create<State>((set, get) => ({
       chatOrbKey: c.orbKey,
       chatAnswerRunRoot: answerRunRoot,
       chatTitle: c.title || defaultChatTitle(c.scope, c.subject, { module: c.module }),
-      chatMessages: c.messages.map((m) => ({ role: m.role, content: m.content, thinking: m.thinking })),
+      chatMessages: c.messages.map((m) => ({ role: m.role, content: m.content, turnId: m.turnId, thinking: m.thinking, computed: m.computed })),
       chatConversationId: c.id,
       chatModel: c.model || get().chatModel,
       chatStyle: (c.style as ChatStyle) || get().chatStyle,
       chatStreaming: false,
       chatWork: null,
       chatError: undefined,
+      chatRetryText: undefined,
+      chatRetryTurnId: undefined,
       chatSource: undefined,
     })
   },
@@ -2240,32 +2301,41 @@ export const useStore = create<State>((set, get) => ({
   startNewChat: () => {
     const t = chatSubjectOf(get())
     if (!t) { get().setToast({ msg: isFlowActive(get()) ? 'Open a signal first' : 'Select a company first', tone: 'info' }); return }
+    chatResumeSeq++
+    if (get().newsChatOpen || get().newsChatStreaming) get().closeNewsChat()
+    chatPendingBaseline = null
     chatAbort?.abort(); chatAbort = null
     set({
       chatHistoryOpen: false, chatOpen: true, chatScope: 'run',
       chatModule: undefined, chatOrbPath: undefined, chatOrbKey: undefined, chatAnswerRunRoot: undefined,
       chatTitle: defaultChatTitle('run', t), chatMessages: [], chatConversationId: undefined,
-      chatError: undefined, chatSource: undefined, chatStreaming: false, chatWork: null,
+      chatError: undefined, chatRetryText: undefined, chatRetryTurnId: undefined, chatSource: undefined, chatStreaming: false, chatWork: null,
     })
   },
   deleteConversation: async (id) => {
-    if (get().staticMode) return
-    try { await api.deleteChat(id) } catch { get().setToast({ msg: 'Could not delete that conversation', tone: 'info' }); return }
+    if (get().staticMode) return false
+    try {
+      const result = await api.deleteChat(id)
+      if (!result.deleted) { get().setToast({ msg: 'Could not delete that conversation', tone: 'info' }); return false }
+    } catch { get().setToast({ msg: 'Could not delete that conversation', tone: 'info' }); return false }
     // if the deleted one is the thread currently open, detach so the next turn starts a fresh saved conversation
     if (get().chatConversationId === id) set({ chatConversationId: undefined })
+    return true
   },
-  sendChatMessage: async (text) => {
+  sendChatMessage: async (text, retryTurnId) => {
     const q = text.trim()
     if (!q || get().chatStreaming) return
     if (get().staticMode) { set({ chatError: 'static-deploy' }); return }
     const subject = chatSubjectOf(get())
     if (!subject) return
+    const turnId = retryTurnId || newChatTurnId()
     const baseline = get().chatMessages
+    chatPendingBaseline = { messages: baseline, conversationId: get().chatConversationId, source: get().chatSource }
     // optimistic: append the user turn + an empty assistant turn we grow token-by-token. chatWork starts
     // at 'sending' NOW (the one stage the client itself knows to be true) and then follows the server's
     // streamed real stages — never a guessed progress state.
     const t0 = Date.now()
-    set({ chatMessages: [...baseline, { role: 'user', content: q }, { role: 'assistant', content: '' }], chatStreaming: true, chatWork: { stage: 'sending', startedAt: t0, stageAt: t0 }, chatError: undefined, chatSource: undefined })
+    set({ chatMessages: [...baseline, { role: 'user', content: q, turnId }, { role: 'assistant', content: '', turnId }], chatStreaming: true, chatWork: { stage: 'sending', startedAt: t0, stageAt: t0 }, chatError: undefined, chatRetryText: undefined, chatRetryTurnId: undefined, chatSource: undefined })
     const idx = baseline.length + 1 // index of the assistant turn we mutate
     // advance the live working state, preserving the turn's start time (the panel's stopwatch) + the model
     // id once known. Positively matches known stages only (deploy skew — DESIGN.md §5).
@@ -2274,7 +2344,8 @@ export const useStore = create<State>((set, get) => ({
       set({ chatWork: { stage, model: model ?? w?.model, startedAt: w?.startedAt ?? t0, stageAt: Date.now() } })
     }
     chatAbort?.abort()
-    chatAbort = new AbortController()
+    const controller = new AbortController()
+    chatAbort = controller
     const sw = get().activeSwarm
     const isResearch = sw === 'research'
     await api.chatStream(
@@ -2289,48 +2360,78 @@ export const useStore = create<State>((set, get) => ({
           : { swarm: sw, subject }),
         module: get().chatModule, orbPath: get().chatOrbPath, orbKey: get().chatOrbKey, model: get().chatModel, style: get().chatStyle,
         // chat-history persistence: attach to the saved conversation (server mints its id on the first turn)
-        conversationId: get().chatConversationId, title: get().chatTitle,
+        conversationId: get().chatConversationId, turnId, title: get().chatTitle,
         // Only the most-recent CHAT_MAX_SEND turns go to the model — the server rejects a transcript over that
         // (ChatBody caps it), so a long or resumed thread (the full history is kept in chatMessages + on disk)
         // must be windowed here or "continue chatting" would 400 once it grows past the cap.
-        messages: [...baseline, { role: 'user' as const, content: q }].slice(-CHAT_MAX_SEND),
+        messages: [...baseline, { role: 'user' as const, content: q, turnId }].slice(-CHAT_MAX_SEND),
       },
       {
-        signal: chatAbort.signal,
+        signal: controller.signal,
         // capture the server-minted conversation id so later turns append to the same saved thread.
         // meta arriving = the server assembled the closed-book context — a real stage transition.
-        onMeta: (m) => { set({ chatSource: m.sourcePath, ...(m.conversationId ? { chatConversationId: m.conversationId } : {}) }); advance('context') },
+        onMeta: (m) => { if (chatAbort !== controller || controller.signal.aborted) return; set({ chatSource: m.sourcePath, ...(m.conversationId ? { chatConversationId: m.conversationId } : {}) }); advance('context') },
         // real lifecycle stages streamed by the server (starting → connected → thinking → writing);
         // an unknown/future stage is ignored rather than mis-rendered.
         onStatus: (st) => {
+          if (chatAbort !== controller || controller.signal.aborted) return
           if (st.stage === 'modeling' || st.stage === 'starting' || st.stage === 'connected' || st.stage === 'thinking' || st.stage === 'writing') advance(st.stage, st.model)
         },
         // the model's own reasoning, streamed verbatim — grows the assistant turn's thinking text live
         onThinking: (tok) => {
+          if (chatAbort !== controller || controller.signal.aborted) return
           const msgs = get().chatMessages.slice()
           if (msgs[idx]?.role === 'assistant') { msgs[idx] = { ...msgs[idx], thinking: (msgs[idx].thinking || '') + tok }; set({ chatMessages: msgs }) }
         },
         // deterministic what-if card(s) the engine computed for this turn — APPENDED (a joint ask streams one
         // card per variable). The numbers are the engine's; the streamed text narrates around them.
         onComputed: (c) => {
+          if (chatAbort !== controller || controller.signal.aborted) return
           const msgs = get().chatMessages.slice()
           if (msgs[idx]?.role === 'assistant') { msgs[idx] = { ...msgs[idx], computed: [...(msgs[idx].computed || []), c] }; set({ chatMessages: msgs }) }
+        },
+        // If the terminal SSE frame was lost after the durable commit, the API reconciles by turn id and
+        // returns the canonical saved answer. Replace partial text exactly; do not append and duplicate it.
+        onRecovered: (turn) => {
+          if (chatAbort !== controller || controller.signal.aborted) return
+          const msgs = get().chatMessages.slice()
+          if (msgs[idx]?.role === 'assistant') {
+            msgs[idx] = { ...msgs[idx], content: turn.answer, thinking: turn.thinking, computed: turn.computed }
+            set({ chatMessages: msgs, chatConversationId: turn.conversationId, chatSource: turn.sourcePath })
+          }
         },
         onToken: (tok) => {
           // first answer token also flips the stage to 'writing' — covers a stream whose text arrives
           // without a preceding chat-status (an older engine during deploy skew).
+          if (chatAbort !== controller || controller.signal.aborted) return
           if (get().chatWork?.stage !== 'writing') advance('writing')
           const msgs = get().chatMessages.slice()
           if (msgs[idx]?.role === 'assistant') { msgs[idx] = { ...msgs[idx], content: msgs[idx].content + tok }; set({ chatMessages: msgs }) }
         },
-        onDone: () => set({ chatStreaming: false, chatWork: null }),
+        onDone: () => {
+          if (chatAbort !== controller || controller.signal.aborted) return
+          chatAbort = null
+          chatPendingBaseline = null
+          set({ chatStreaming: false, chatWork: null, chatRetryText: undefined, chatRetryTurnId: undefined })
+        },
         onError: (msg) => {
-          // drop the empty assistant bubble if nothing streamed (thinking alone doesn't save it) — but a
-          // bubble carrying engine-computed what-if cards SURVIVES: those numbers came from the calculator,
-          // not the model, so a failed narration turn must not erase them. Then surface the error + retry.
-          const msgs = get().chatMessages.slice()
-          if (msgs[idx]?.role === 'assistant' && msgs[idx].content === '' && !msgs[idx].computed?.length) msgs.splice(idx, 1)
-          set({ chatMessages: msgs, chatStreaming: false, chatWork: null, chatError: msg })
+          if (chatAbort !== controller || controller.signal.aborted) return
+          chatAbort = null
+          const rollback = chatPendingBaseline
+          chatPendingBaseline = null
+          // A turn enters durable History only with a completed assistant answer. Mirror that contract in
+          // the drawer for model and transport failures: restore the last committed transcript, but retain
+          // the exact question separately so Retry remains one click.
+          set({
+            chatMessages: rollback?.messages ?? baseline,
+            chatConversationId: rollback?.conversationId,
+            chatSource: rollback?.source,
+            chatStreaming: false,
+            chatWork: null,
+            chatError: msg,
+            chatRetryText: q,
+            chatRetryTurnId: turnId,
+          })
         },
       },
     )
@@ -2749,7 +2850,9 @@ export const useStore = create<State>((set, get) => ({
     const from = get().activeSwarm
     if (to === from || get().warp) return
     if (!get().swarms.some((s) => s.id === to)) return
+    chatResumeSeq++ // invalidate any slower History resume before the animated navigation begins
     const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    chatPendingBaseline = null
     chatAbort?.abort(); chatAbort = null // chat is research-only — leaving the swarm closes it
     newsChatAbort?.abort(); newsChatAbort = null
     newsChatPendingBaseline = null
@@ -3371,6 +3474,8 @@ export const useStore = create<State>((set, get) => ({
     // a different signal is a different run — reset chat state exactly like selectTicker does, so an open
     // (or saved) conversation can't keep posting against the signal it was opened for after the board moves
     // on to another one (cross-run answer contamination: wrong SIG context + wrong saved thread/id).
+    chatPendingBaseline = null
+    chatAbort?.abort(); chatAbort = null
     set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {}, ...CHAT_RESET })
     if (!sigId) return
     try {
@@ -3400,7 +3505,11 @@ export const useStore = create<State>((set, get) => ({
   },
 
   // ---- ask the saved news wire ----
-  openNewsChat: () => set({ newsChatOpen: true }),
+  openNewsChat: () => {
+    chatResumeSeq++
+    if (get().chatOpen || get().chatStreaming) get().closeChat()
+    set({ chatHistoryOpen: false, newsChatOpen: true })
+  },
   closeNewsChat: () => {
     newsChatAbort?.abort()
     newsChatAbort = null

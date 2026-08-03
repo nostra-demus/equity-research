@@ -1,8 +1,9 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useStore, isFlowActive } from '../lib/store'
+import { focusAskDrawer, restoreAskEntryFocus } from '../lib/askFocus'
 import type { ChatComputed, ChatScope, ChatStyle, ChatWork, RepricedValuation } from '../lib/types'
 
 const titleize = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
@@ -27,9 +28,24 @@ const STYLES: { id: ChatStyle; label: string; sub: string }[] = [
   { id: 'detailed', label: 'Detailed', sub: 'thorough, structured walkthrough' },
 ]
 
+export function retryAndFocusAskDrawer(onRetry: () => void): void {
+  onRetry()
+  focusAskDrawer()
+}
+
+export function ChatErrorNotice({ error, retryText, onRetry, staticMessage }: { error: string; retryText?: string; onRetry: () => void; staticMessage: ReactNode }) {
+  return (
+    <div className="chatpanel__error" role="alert">
+      {error === 'static-deploy'
+        ? <span>{staticMessage}</span>
+        : <><span>{error}</span>{retryText && <button className="chatpanel__retry" onClick={() => retryAndFocusAskDrawer(onRetry)}>Retry</button>}</>}
+    </div>
+  )
+}
+
 export function ChatPanel() {
   const reduce = useReducedMotion()
-  const close = useStore((s) => s.closeChat)
+  const dismiss = useStore((s) => s.closeChat)
   const scope = useStore((s) => s.chatScope)
   const chatModule = useStore((s) => s.chatModule)
   const chatOrbKey = useStore((s) => s.chatOrbKey)
@@ -40,6 +56,8 @@ export function ChatPanel() {
   const streaming = useStore((s) => s.chatStreaming)
   const work = useStore((s) => s.chatWork)
   const error = useStore((s) => s.chatError)
+  const retryText = useStore((s) => s.chatRetryText)
+  const retryTurnId = useStore((s) => s.chatRetryTurnId)
   const source = useStore((s) => s.chatSource)
   const model = useStore((s) => s.chatModel)
   const style = useStore((s) => s.chatStyle)
@@ -82,6 +100,7 @@ export function ChatPanel() {
   const [styleMenu, setStyleMenu] = useState(false)
   const [copied, setCopied] = useState<number | null>(null)
   const inputRef = useRef<HTMLTextAreaElement | null>(null)
+  const closeRef = useRef<HTMLButtonElement | null>(null)
   const threadRef = useRef<HTMLDivElement | null>(null)
   const lockedRef = useRef(true) // auto-scroll to bottom while the user hasn't scrolled up
 
@@ -94,8 +113,11 @@ export function ChatPanel() {
     : scope === 'module' ? !!scopes.modules.find((m) => m.module === chatModule)?.present
     : !!scopes.orbs.find((o) => o.key === chatOrbKey)?.present)
 
-  // focus the composer on open (occasional surface → autofocus is fine)
-  useEffect(() => { inputRef.current?.focus() }, [])
+  const close = useCallback(() => { dismiss(); restoreAskEntryFocus() }, [dismiss])
+
+  // Focus the composer when it can accept input. If the output is not ready (or this is the static
+  // showcase), focus the drawer's Close control instead of silently targeting a disabled textarea.
+  useEffect(() => { (present && !staticMode ? inputRef.current : closeRef.current)?.focus() }, [])
   // Esc closes (also aborts any in-flight stream via closeChat). When the History panel is open ON TOP of
   // this one, it owns Escape — ignore it here so one keypress doesn't close both.
   useEffect(() => {
@@ -117,11 +139,11 @@ export function ChatPanel() {
 
   const grow = (el: HTMLTextAreaElement | null) => { if (el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 140) + 'px' } }
 
-  const doSend = (text: string) => {
+  const doSend = (text: string, turnId?: string) => {
     const t = text.trim()
     if (!t || streaming || !present || staticMode) return
     lockedRef.current = true
-    void send(t)
+    void send(t, turnId)
     setDraft('')
     requestAnimationFrame(() => grow(inputRef.current))
   }
@@ -132,8 +154,7 @@ export function ChatPanel() {
     navigator.clipboard?.writeText(text).then(() => { setCopied(i); setTimeout(() => setCopied((c) => (c === i ? null : c)), 1400) }).catch(() => {})
   }
   const retry = () => {
-    const lastUser = [...messages].reverse().find((m) => m.role === 'user')
-    if (lastUser) doSend(lastUser.content)
+    if (retryText) doSend(retryText, retryTurnId)
   }
   const runThisScope = () => {
     if (scope === 'module' && chatModule) void launchModule(chatModule)
@@ -228,7 +249,7 @@ export function ChatPanel() {
           </div>
           <button className="btn btn--ghost" style={{ height: 30 }} onClick={openHistory} title="View and reopen saved conversations">History</button>
           {messages.length > 0 && <button className="btn btn--ghost" style={{ height: 30 }} onClick={clear} title="Start a new conversation (this one stays saved in History)">New</button>}
-          <button className="btn btn--ghost" style={{ height: 30 }} onClick={close}>Close ✕</button>
+          <button ref={closeRef} data-ask-close="true" className="btn btn--ghost" style={{ height: 30 }} onClick={close}>Close ✕</button>
         </div>
       </div>
 
@@ -243,7 +264,7 @@ export function ChatPanel() {
                 ? <p className="chatpanel__hintline">Use <b>Run full ▸</b> in the top bar to run the whole pipeline.</p>
                 : <button className="btn btn--amber" disabled={staticMode || !!chatLaunchPending} onClick={runThisScope}>{chatLaunchPending ? 'Starting…' : scope === 'module' ? `Run ${titleize(chatModule || '')} ▸` : 'Run this orb ▸'}</button>}
           </div>
-        ) : messages.length === 0 ? (
+        ) : messages.length === 0 && !error ? (
           <div className="chatpanel__empty">
             <div className="chatpanel__greet">Ask anything about <b>{title.replace(/^Ask · /, '')}</b>.<br />Every answer is drawn only from what the engine already wrote — with the orb or module it came from cited.</div>
             <div className="chatpanel__stylepick">
@@ -288,13 +309,7 @@ export function ChatPanel() {
                 </div>
               )
             })}
-            {error && (
-              <div className="chatpanel__error">
-                {error === 'static-deploy'
-                  ? <span>Chat runs live — start the engine with <code>npm run dev</code> to ask questions.</span>
-                  : <><span>{error}</span><button className="chatpanel__retry" onClick={retry}>Retry</button></>}
-              </div>
-            )}
+            {error && <ChatErrorNotice error={error} retryText={retryText} onRetry={retry} staticMessage={<>Chat runs live — start the engine with <code>npm run dev</code> to ask questions.</>} />}
           </div>
         )}
       </div>
@@ -302,6 +317,7 @@ export function ChatPanel() {
       <div className="chatpanel__input">
         <textarea
           ref={inputRef}
+          data-ask-composer="true"
           className="chatpanel__textarea"
           placeholder={present ? 'Ask about this output…' : 'Run this output first to chat with it'}
           value={draft}

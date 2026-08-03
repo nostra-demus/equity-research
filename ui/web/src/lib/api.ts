@@ -5,7 +5,7 @@ import { QUOTE_CLIENT_TIMEOUT_MS } from './quoteTimeout'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { BridgeStatus } from './types'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 // Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
 const BASE = import.meta.env?.BASE_URL || '/'
@@ -1060,6 +1060,9 @@ export const api = {
       onStatus?: (s: { stage?: string; model?: string }) => void
       onThinking?: (t: string) => void
       onComputed?: (c: ChatComputed) => void
+      // Exact completed answer recovered by turn id when the SSE connection dies after the server committed
+      // but before the browser received chat-done. The store replaces any partial assistant text with this.
+      onRecovered: (turn: CompletedChatTurn) => void
       onToken: (t: string) => void
       onDone: (d: { costUsd?: number }) => void
       onError: (msg: string) => void
@@ -1067,11 +1070,34 @@ export const api = {
     },
   ): Promise<void> => {
     if ((await ensureMode()) === 'static') { cb.onError('static-deploy'); return }
+    let terminal = false
+    const recoverCommittedTurn = async (): Promise<boolean> => {
+      if (!body.turnId || cb.signal.aborted) return false
+      try {
+        const r = await fetch(`/api/chat/turn/${encodeURIComponent(body.turnId)}`, { signal: cb.signal })
+        if (!r.ok) return false
+        const turn = await r.json() as CompletedChatTurn
+        const question = [...body.messages].reverse().find((message) => message.role === 'user')?.content
+        if (cb.signal.aborted || turn.turnId !== body.turnId || turn.question !== question || !turn.conversationId) return false
+        cb.onRecovered(turn)
+        cb.onDone({ costUsd: 0 })
+        terminal = true
+        return true
+      } catch (e: any) {
+        if (e?.name === 'AbortError') return false
+        return false
+      }
+    }
+    const ambiguousFailure = async (message: string) => {
+      if (terminal || cb.signal.aborted) return
+      if (await recoverCommittedTurn()) return
+      if (!cb.signal.aborted) { terminal = true; cb.onError(message) }
+    }
     let res: Response
     try {
       res = await fetch('/api/chat', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: cb.signal })
     } catch (e: any) {
-      if (e?.name !== 'AbortError') cb.onError(e?.message || 'network error')
+      if (e?.name !== 'AbortError') await ambiguousFailure(e?.message || 'network error')
       return
     }
     if (!res.ok || !res.body) {
@@ -1105,12 +1131,15 @@ export const api = {
           else if (ev === 'chat-thinking') cb.onThinking?.(parsed.content ?? '')
           else if (ev === 'chat-computed') { if (parsed.payload) cb.onComputed?.(parsed.payload) }
           else if (ev === 'chat-token') cb.onToken(parsed.content ?? '')
-          else if (ev === 'chat-done') { cb.onDone(parsed); return }
-          else if (ev === 'chat-error') { cb.onError(parsed.message || 'chat failed'); return }
+          else if (ev === 'chat-done') { terminal = true; cb.onDone(parsed); return }
+          else if (ev === 'chat-error') { terminal = true; cb.onError(parsed.message || 'chat failed'); return }
         }
       }
+      // A successful or model-error stream returns from the terminal frame above. EOF without one is a
+      // transport interruption; surface it so the store can restore the committed baseline and offer Retry.
+      await ambiguousFailure('stream interrupted')
     } catch (e: any) {
-      if (e?.name !== 'AbortError') cb.onError(e?.message || 'stream interrupted')
+      if (e?.name !== 'AbortError') await ambiguousFailure(e?.message || 'stream interrupted')
     }
   },
 

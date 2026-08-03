@@ -1,10 +1,12 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useStore } from '../../lib/store'
+import { restoreAskEntryFocus } from '../../lib/askFocus'
 import { displayHeadline } from '../../lib/plain'
 import type { NewsChatEvidence, NewsChatWindow } from '../../lib/types'
+import { ChatErrorNotice } from '../ChatPanel'
 
 const WINDOWS: { id: NewsChatWindow; label: string; intro: string; help: string }[] = [
   { id: '24h', label: '24H', intro: 'the last 24 hours', help: 'News from the last 24 hours. Older news is used only to test what is new.' },
@@ -19,9 +21,16 @@ const STARTERS = [
   'What looks new compared with history?',
 ]
 
+export function focusSelectedEventDetail(): void {
+  if (typeof document === 'undefined') return
+  const focus = () => document.querySelector<HTMLElement>('[data-event-detail-focus="true"]')?.focus()
+  if (typeof requestAnimationFrame === 'function') requestAnimationFrame(focus)
+  else focus()
+}
+
 export function NewsChatPanel() {
   const reduce = useReducedMotion()
-  const close = useStore((s) => s.closeNewsChat)
+  const dismiss = useStore((s) => s.closeNewsChat)
   const timeWindow = useStore((s) => s.newsChatWindow)
   const setWindow = useStore((s) => s.setNewsChatWindow)
   const messages = useStore((s) => s.newsChatMessages)
@@ -39,6 +48,7 @@ export function NewsChatPanel() {
   const [showSources, setShowSources] = useState(true)
   const [copied, setCopied] = useState(false)
   const inputRef = useRef<HTMLTextAreaElement | null>(null)
+  const closeRef = useRef<HTMLButtonElement | null>(null)
   const threadRef = useRef<HTMLDivElement | null>(null)
   const lockedRef = useRef(true)
 
@@ -49,8 +59,9 @@ export function NewsChatPanel() {
     return (completedTurn?.evidence || []).filter((e) => refs.has(e.ref))
   }, [lastAnswer, completedTurn])
   const canRunSignal = !!completedTurn && !streaming
+  const close = useCallback(() => { dismiss(); restoreAskEntryFocus() }, [dismiss])
 
-  useEffect(() => { inputRef.current?.focus() }, [])
+  useEffect(() => { (staticMode ? closeRef.current : inputRef.current)?.focus() }, [])
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close() }
     window.addEventListener('keydown', onKey)
@@ -85,7 +96,8 @@ export function NewsChatPanel() {
   }
   const selectEvidence = (ev: NewsChatEvidence) => {
     openEvent(ev.item)
-    close()
+    dismiss()
+    focusSelectedEventDetail()
   }
   const onThreadScroll = () => {
     const el = threadRef.current
@@ -117,7 +129,7 @@ export function NewsChatPanel() {
         </div>
         <div className="newschat__headbuttons">
           {messages.length > 0 && <button className="btn btn--ghost" onClick={clear}>Clear</button>}
-          <button className="btn btn--ghost" onClick={close}>Close ✕</button>
+          <button ref={closeRef} data-ask-close="true" className="btn btn--ghost" onClick={close}>Close ✕</button>
         </div>
       </div>
 
@@ -201,16 +213,13 @@ export function NewsChatPanel() {
 
           </div>
         )}
-        {error && (
-          <div className="chatpanel__error">
-            {error === 'static-deploy' ? <span>News chat runs on the live engine.</span> : <><span>{error}</span>{retryText && <button className="chatpanel__retry" onClick={retry}>Retry</button>}</>}
-          </div>
-        )}
+        {error && <ChatErrorNotice error={error} retryText={retryText} onRetry={retry} staticMessage="News chat runs on the live engine." />}
       </div>
 
       <div className="chatpanel__input">
         <textarea
           ref={inputRef}
+          data-ask-composer="true"
           className="chatpanel__textarea"
           placeholder={`Ask the ${windowInfo.label.toLowerCase()}…`}
           value={draft}

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore, chatSubjectOf } from '../lib/store'
 import { api, isStatic } from '../lib/api'
+import { captureAskOpener, focusAskDrawer } from '../lib/askFocus'
 import { fmtAbsolute, fmtAgo, moduleLabel } from '../lib/format'
 import type { ChatConversationSummary, ChatListResult, ChatScope, Whoami } from '../lib/types'
 
@@ -15,8 +16,53 @@ const scopeLabel = (c: ChatConversationSummary): string => {
   return 'Single orb'
 }
 
+type HistoryFocusTarget = Pick<HTMLElement, 'focus' | 'isConnected'> & { disabled?: boolean }
+
+const scheduleFocus = (focus: () => void) => {
+  if (typeof requestAnimationFrame === 'function') requestAnimationFrame(focus)
+  else focus()
+}
+
+export function focusChatHistoryPanel(): void {
+  if (typeof document === 'undefined') return
+  scheduleFocus(() => document.querySelector<HTMLElement>('[data-chat-history-close="true"]')?.focus())
+}
+
+export function restoreChatHistoryFocus(opener: HistoryFocusTarget | null): void {
+  if (typeof document === 'undefined') return
+  scheduleFocus(() => {
+    const fallback = document.querySelector<HTMLElement>('[data-ask-entry="true"]:not(:disabled)')
+    const target = opener && opener.isConnected !== false && !opener.disabled ? opener : fallback
+    target?.focus()
+  })
+}
+
+export function focusChatHistoryDeleteConfirmation(target: HistoryFocusTarget | null): void {
+  scheduleFocus(() => {
+    if (target && target.isConnected !== false && !target.disabled) target.focus()
+  })
+}
+
+export function restoreChatHistoryDeleteTrigger(resolveTarget: () => HistoryFocusTarget | null): void {
+  scheduleFocus(() => {
+    const target = resolveTarget()
+    if (target && target.isConnected !== false && !target.disabled) target.focus()
+  })
+}
+
+export function focusChatHistoryAfterDelete(
+  resolveRow: () => HistoryFocusTarget | null,
+  resolveClose: () => HistoryFocusTarget | null,
+): void {
+  scheduleFocus(() => {
+    const row = resolveRow()
+    const target = row && row.isConnected !== false && !row.disabled ? row : resolveClose()
+    if (target && target.isConnected !== false && !target.disabled) target.focus()
+  })
+}
+
 export function ChatHistory() {
-  const close = useStore((s) => s.closeChatHistory)
+  const dismiss = useStore((s) => s.closeChatHistory)
   const resume = useStore((s) => s.resumeConversation)
   const del = useStore((s) => s.deleteConversation)
   const startNewChat = useStore((s) => s.startNewChat)
@@ -40,7 +86,22 @@ export function ChatHistory() {
 
   const reqGen = useRef(0)
   const mounted = useRef(true)
+  const openerRef = useRef<HTMLElement | null>(null)
+  const confirmDeleteRef = useRef<HTMLButtonElement | null>(null)
+  const deleteTriggerRefs = useRef(new Map<string, HTMLButtonElement>())
+  const close = useCallback(() => {
+    dismiss()
+    restoreChatHistoryFocus(openerRef.current)
+  }, [dismiss])
   useEffect(() => { mounted.current = true; return () => { mounted.current = false } }, [])
+  useEffect(() => {
+    const active = typeof document === 'undefined' ? null : document.activeElement as HTMLElement | null
+    openerRef.current = active && active !== document.body && typeof active.focus === 'function' ? active : null
+    focusChatHistoryPanel()
+  }, [])
+  useEffect(() => {
+    if (confirmDel) focusChatHistoryDeleteConfirmation(confirmDeleteRef.current)
+  }, [confirmDel])
 
   const load = useCallback(async () => {
     // With "Mine" selected we need the signed-in identity to filter by — hold the first load until whoami
@@ -67,13 +128,55 @@ export function ChatHistory() {
   useEffect(() => { api.whoami().then(setWhoami).catch(() => setWhoami({ user: 'local', userVia: 'local' })) }, [])
   useEffect(() => { load() }, [load])
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && (confirmDel ? setConfirmDel(null) : close())
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      if (confirmDel) {
+        const id = confirmDel
+        setConfirmDel(null)
+        restoreChatHistoryDeleteTrigger(() => deleteTriggerRefs.current.get(id) ?? null)
+      } else close()
+    }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [close, confirmDel])
 
-  const onResume = async (id: string) => { setResuming(id); await resume(id); if (mounted.current) setResuming(null) }
-  const onDelete = async (id: string) => { setConfirmDel(null); await del(id); load() }
+  const onResume = async (id: string, opener: HTMLElement) => {
+    captureAskOpener(opener)
+    setResuming(id)
+    await resume(id)
+    if (mounted.current) setResuming(null)
+    if (useStore.getState().chatOpen && !useStore.getState().chatHistoryOpen) focusAskDrawer()
+  }
+  const onStartNew = (opener: HTMLElement) => {
+    captureAskOpener(opener)
+    startNewChat()
+    if (useStore.getState().chatOpen && !useStore.getState().chatHistoryOpen) focusAskDrawer()
+  }
+  const onDelete = async (id: string) => {
+    const index = rows.findIndex((row) => row.id === id)
+    const adjacentId = rows[index + 1]?.id ?? rows[index - 1]?.id
+    setConfirmDel(null)
+    // The focused confirmation button unmounts immediately. Move focus to a control that survives the
+    // request instead of leaving it on <body> for the whole network round trip.
+    focusChatHistoryAfterDelete(
+      () => typeof document === 'undefined' || !adjacentId ? null : document.querySelector<HTMLElement>(`[data-chat-history-row-focus="${adjacentId}"]`),
+      () => typeof document === 'undefined' ? null : document.querySelector<HTMLElement>('[data-chat-history-close="true"]'),
+    )
+    const deleted = await del(id)
+    if (deleted) await load()
+    focusChatHistoryAfterDelete(
+      () => {
+        if (typeof document === 'undefined') return null
+        if (!deleted) return deleteTriggerRefs.current.get(id) ?? null
+        return adjacentId ? document.querySelector<HTMLElement>(`[data-chat-history-row-focus="${adjacentId}"]`) : null
+      },
+      () => typeof document === 'undefined' ? null : document.querySelector<HTMLElement>('[data-chat-history-close="true"]'),
+    )
+  }
+  const cancelDelete = (id: string) => {
+    setConfirmDel(null)
+    restoreChatHistoryDeleteTrigger(() => deleteTriggerRefs.current.get(id) ?? null)
+  }
 
   const rows = data?.conversations ?? []
   const anyFilter = !!(subject || scope || q || !mineOnly)
@@ -92,9 +195,9 @@ export function ChatHistory() {
           </div>
         </div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
-          {!staticMode && <button className="btn btn--amber" style={{ height: 30 }} disabled={!chatSubject} onClick={startNewChat} title={chatSubject ? 'Start a fresh Ask conversation about the open subject' : 'Open a signal or select a company first'}>New chat ▸</button>}
+          {!staticMode && <button className="btn btn--amber" style={{ height: 30 }} disabled={!chatSubject} onClick={(event) => onStartNew(event.currentTarget)} title={chatSubject ? 'Start a fresh Ask conversation about the open subject' : 'Open a signal or select a company first'}>New chat ▸</button>}
           <button className="btn" style={{ height: 30 }} onClick={() => { setLoading(true); load() }}>Refresh ↻</button>
-          <button className="btn btn--ghost" style={{ height: 30 }} onClick={close}>Close ✕</button>
+          <button data-chat-history-close="true" className="btn btn--ghost" style={{ height: 30 }} onClick={close}>Close ✕</button>
         </div>
       </div>
 
@@ -141,7 +244,7 @@ export function ChatHistory() {
                     No saved conversations yet. Start one and it’s saved here automatically.
                     {!staticMode && chatSubject && (
                       <div style={{ marginTop: 14 }}>
-                        <button className="btn btn--amber" onClick={startNewChat}>New chat ▸</button>
+                        <button className="btn btn--amber" onClick={(event) => onStartNew(event.currentTarget)}>New chat ▸</button>
                       </div>
                     )}
                   </>
@@ -151,9 +254,9 @@ export function ChatHistory() {
               <div className="chathist__list">
                 {rows.map((c) => (
                   <div key={c.id} className="chathist__row">
-                    <div className="chathist__main" role="button" tabIndex={0}
-                      onClick={() => onResume(c.id)}
-                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onResume(c.id) } }}
+                    <div className="chathist__main" role="button" tabIndex={0} data-chat-history-row-focus={c.id}
+                      onClick={(event) => void onResume(c.id, event.currentTarget)}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); void onResume(c.id, e.currentTarget) } }}
                       title="Continue this conversation">
                       <div className="chathist__q">{c.preview || c.title || 'Conversation'}</div>
                       <div className="chathist__meta">
@@ -169,16 +272,25 @@ export function ChatHistory() {
                       </div>
                     </div>
                     <div className="chathist__actions">
-                      <button className="btn btn--amber" style={{ height: 28 }} disabled={resuming === c.id} onClick={() => onResume(c.id)}>
+                      <button className="btn btn--amber" style={{ height: 28 }} disabled={resuming === c.id} onClick={(event) => void onResume(c.id, event.currentTarget)}>
                         {resuming === c.id ? 'Opening…' : 'Continue ▸'}
                       </button>
                       {confirmDel === c.id ? (
                         <span className="chathist__confirm">
-                          <button className="btn btn--ghost" style={{ height: 28, fontSize: 12 }} onClick={() => onDelete(c.id)} title="Confirm delete">Delete</button>
-                          <button className="btn btn--ghost" style={{ height: 28, fontSize: 12 }} onClick={() => setConfirmDel(null)}>Cancel</button>
+                          <button ref={confirmDeleteRef} className="btn btn--ghost" style={{ height: 28, fontSize: 12 }} onClick={() => onDelete(c.id)} title="Confirm delete">Delete</button>
+                          <button className="btn btn--ghost" style={{ height: 28, fontSize: 12 }} onClick={() => cancelDelete(c.id)}>Cancel</button>
                         </span>
                       ) : (
-                        <button className="chathist__del" aria-label="Delete this conversation" title="Delete this conversation" onClick={() => setConfirmDel(c.id)}>✕</button>
+                        <button
+                          ref={(element) => {
+                            if (element) deleteTriggerRefs.current.set(c.id, element)
+                            else deleteTriggerRefs.current.delete(c.id)
+                          }}
+                          className="chathist__del"
+                          aria-label="Delete this conversation"
+                          title="Delete this conversation"
+                          onClick={() => setConfirmDel(c.id)}
+                        >✕</button>
                       )}
                     </div>
                   </div>
