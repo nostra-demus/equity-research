@@ -6,7 +6,7 @@ import path from 'node:path'
 import { ideasHealthLivenessMs, initializeIdeasHealth, inspectPersistedIdeasHealth, readIdeasHealth, readPersistedIdeasHealth, updateIdeasHealth } from '../src/news/ideas/ideas-health'
 import { runIdeaPass, type IdeaPassConfig } from '../src/news/ideas/run-idea-pass'
 import { ideaId, readTopSweep, topNHash, writePassState } from '../src/news/ideas/ideas-store'
-import { Budget, readCooldownUntil } from '../src/news/triage/budget'
+import { Budget, NON_BINDING_DAILY_TOKEN_CAP, readCooldownUntil } from '../src/news/triage/budget'
 import type { OverflowProvider } from '../src/config'
 import { validIdeaSnapshot } from './ideas-fixture'
 
@@ -182,7 +182,7 @@ assert.equal(fallback.ran, true)
 assert.equal(fallback.produced, 0)
 assert.deepEqual(fallbackUrls, ['https://mistral.test/v1/chat/completions'], 'valid empty stops at the first eligible fallback')
 assert.equal(Budget.load(fallbackState, 10, 100, fallbackAt, nearCap.budgetFile).requests, 0, 'a token-gated near-cap tier is skipped without a request')
-assert.equal(Budget.load(fallbackState, 10, 50_000_000, fallbackAt, mistral.budgetFile).requests, 1)
+assert.equal(Budget.load(fallbackState, 10, NON_BINDING_DAILY_TOKEN_CAP, fallbackAt, mistral.budgetFile).requests, 1)
 assert.equal(Budget.load(fallbackState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap, fallbackAt, 'groq-budget.json').remainingRequests, 0)
 const fallbackHealth = readIdeasHealth(fallbackState, fallbackRoot, true, fallbackAt)
 assert.equal(fallbackHealth.status, 'healthy')
@@ -237,7 +237,7 @@ const contractResult = await runIdeaPass({
 assert.equal(contractResult.reason_code, 'provider_error')
 assert.equal(readCooldownUntil(contractState, 'ideas-contract'), 0, 'Ideas schema drift cannot cool shared triage')
 assert.ok(readCooldownUntil(contractState, 'ideas:ideas-contract') > contractAt)
-const contractBudget = Budget.load(contractState, 10, 50_000_000, contractAt, contractProvider.budgetFile)
+const contractBudget = Budget.load(contractState, 10, NON_BINDING_DAILY_TOKEN_CAP, contractAt, contractProvider.budgetFile)
 assert.equal(contractBudget.requests, 1)
 assert.equal(contractBudget.remainingRequests, 9, 'contract drift charges one call but does not poison the day')
 
@@ -253,7 +253,7 @@ await runIdeaPass({
 })
 assert.equal(readCooldownUntil(requestState, 'ideas-request-shape'), 0, 'Ideas HTTP 400 cannot cool shared triage')
 assert.ok(readCooldownUntil(requestState, 'ideas:ideas-request-shape') > requestAt)
-assert.equal(Budget.load(requestState, 10, 50_000_000, requestAt, requestProvider.budgetFile).remainingRequests, 9)
+assert.equal(Budget.load(requestState, 10, NON_BINDING_DAILY_TOKEN_CAP, requestAt, requestProvider.budgetFile).remainingRequests, 9)
 
 // No provider attempt means no false success or attempt timestamp. The UI must say deferred with the
 // per-tier reasons instead of claiming that the wire genuinely cleared no ideas.
@@ -262,7 +262,7 @@ const cappedState = path.join(cappedRoot, '.state')
 const cappedAt = NOW + 36 * 60_000
 const cappedProvider = testProvider('ideas-capped', 'https://capped.test/v1', { label: 'Capped provider' })
 Budget.load(cappedState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap, cappedAt, 'groq-budget.json').exhaust()
-Budget.load(cappedState, cappedProvider.dailyReqCap, 50_000_000, cappedAt, cappedProvider.budgetFile).exhaust()
+Budget.load(cappedState, cappedProvider.dailyReqCap, NON_BINDING_DAILY_TOKEN_CAP, cappedAt, cappedProvider.budgetFile).exhaust()
 let cappedFetches = 0
 const capped = await runIdeaPass({
   repoRoot: cappedRoot, stateDir: cappedState,
@@ -299,7 +299,7 @@ const local = await runIdeaPass({
 })
 assert.equal(local.ran, true)
 assert.deepEqual(localUrls, ['https://local.test/v1/chat/completions'])
-assert.equal(Budget.load(localState, localProvider.dailyReqCap, 50_000_000, localAt, localProvider.budgetFile).requests, 1)
+assert.equal(Budget.load(localState, localProvider.dailyReqCap, NON_BINDING_DAILY_TOKEN_CAP, localAt, localProvider.budgetFile).requests, 1)
 assert.match(readIdeasHealth(localState, localRoot, true, localAt).reason || '', /Local completed successfully/)
 
 // Ideas may give a deliberately slow local tier less time than core triage so fallbacks remain reachable.
@@ -365,7 +365,7 @@ const raceDeps = {
 const raceResults = await Promise.all([runIdeaPass(raceDeps), runIdeaPass(raceDeps)])
 assert.equal(raceFetches, 1)
 assert.equal(raceResults.filter((r) => r.ran).length, 1)
-assert.equal(Budget.load(raceState, 1, 50_000_000, raceAt, raceProvider.budgetFile).requests, 1)
+assert.equal(Budget.load(raceState, 1, NON_BINDING_DAILY_TOKEN_CAP, raceAt, raceProvider.budgetFile).requests, 1)
 
 // The full sequential walk is bounded below the health stale-running threshold. Cancelling on that global
 // guard is not a provider outage and therefore must not poison its shared cooldown.

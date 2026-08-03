@@ -22,7 +22,7 @@ import { resolveEventRegion } from './geo'
 import { resolveCountry } from './geography'
 import { invalidateFacets } from './facets'
 import { SeenCache } from './seen-cache'
-import { Budget, UsdBudget, armCooldown, clearCooldown, conservativeChatTokenBound, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, readCooldownUntil, type PaceCfg } from './triage/budget'
+import { Budget, NON_BINDING_DAILY_TOKEN_CAP, UsdBudget, armCooldown, clearCooldown, conservativeChatTokenBound, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, readCooldownUntil, type PaceCfg } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
 import { triageBatchAnthropic } from './triage/anthropic'
 import { isPlanQuotaNote, isTerminalApiNote, triageBatchClaudeCli, type ClaudeCliRunner } from './triage/claude-cli'
@@ -318,7 +318,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // request-gated one omits them → a non-binding 50M token cap + tpm 0 (request-spacing only), as before.
   const overflow = cfg.overflowProviders.map((p) => ({
     p,
-    budget: Budget.load(stateDir, p.dailyReqCap, p.dailyTokenCap ?? 50_000_000, now().getTime(), p.budgetFile, p.dayTz),
+    budget: Budget.load(stateDir, p.dailyReqCap, p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP, now().getTime(), p.budgetFile, p.dayTz),
     limiter: getNamedLimiter(p.id, p.rpm, p.tpm ?? 0),
     requests: 0,
     tokens: 0,
@@ -357,7 +357,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const localProvider = cfg.localProvider
   const localOn = !!localProvider
   const localLimiter = localOn ? getNamedLimiter('local', localProvider!.rpm, localProvider!.tpm ?? 0) : null
-  const localBudget = localOn ? Budget.load(stateDir, localProvider!.dailyReqCap, localProvider!.dailyTokenCap ?? 50_000_000, now().getTime(), localProvider!.budgetFile, localProvider!.dayTz) : null
+  const localBudget = localOn ? Budget.load(stateDir, localProvider!.dailyReqCap, localProvider!.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP, now().getTime(), localProvider!.budgetFile, localProvider!.dayTz) : null
   const localCoolingDown = localOn && isCoolingDown(stateDir, 'local', now().getTime())
   const localCooldownWasSet = localOn ? readCooldownUntil(stateDir, 'local') : 0
   let localRequests = 0

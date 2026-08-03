@@ -4,6 +4,7 @@ import os from 'node:os'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import type { ArticleReadProvider } from './news/triage/article-read'
+import { NON_BINDING_DAILY_TOKEN_CAP } from './news/triage/budget'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -982,7 +983,7 @@ export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadP
     // TOKEN-gated provider (Cerebras) carries its own tpm + daily token cap, so the read paces on the SAME
     // binding limit as the ingester (they share the budget file + limiter); request-gated providers
     // (OpenRouter/NVIDIA) omit them → tpm 0 + a non-binding token cap, the prior behaviour byte-for-byte.
-    out.push({ id: p.id, kind: 'openai', apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model, models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: p.tpm ?? 0, dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? 50_000_000, budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody, limiter: p.id })
+    out.push({ id: p.id, kind: 'openai', apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model, models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: p.tpm ?? 0, dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP, budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody, limiter: p.id })
   }
   return out
 }
@@ -1011,7 +1012,7 @@ export function buildFilingReadProviders(cfg: typeof NEWS = NEWS): ArticleReadPr
     rpm: cfg.filingReadRpm,
     tpm: 0, // request-gated, like the OpenRouter/NVIDIA overflow providers
     dailyReqCap: cfg.filingReadDailyReqCap,
-    dailyTokenCap: 50_000_000, // non-binding (request-gated)
+    dailyTokenCap: NON_BINDING_DAILY_TOKEN_CAP, // non-binding (request-gated)
     budgetFile: 'filing-read-budget.json', // its OWN budget — never shares the article firehose's Groq quota
     limiter: 'filing-read', // its OWN process-wide limiter, independent of the ingester's
   }]

@@ -8,7 +8,7 @@
 // (the :8799 double-count lesson). Ideas-contract errors use an idea-scoped cooldown so they cannot sideline
 // healthy core triage. The whole provider walk is deadline-bounded below stale-running detection. Never throws.
 
-import { Budget, armCooldown, clearCooldown, conservativeChatTokenBound, getNamedLimiter, getSharedLimiter, isCoolingDown } from '../triage/budget'
+import { Budget, NON_BINDING_DAILY_TOKEN_CAP, armCooldown, clearCooldown, conservativeChatTokenBound, getNamedLimiter, getSharedLimiter, isCoolingDown } from '../triage/budget'
 import { IDEA_SYSTEM, buildIdeaUserMessage, estimateIdeaTokens, surfaceIdeasBatch, type SurfaceIdeasResult } from './surface-ideas'
 import {
   ideaDecayAt, ideaId, ideaSnapshotRevision, ideaVersion, priorCoverage, pruneExpiredIdeas, readIdeaById,
@@ -140,7 +140,7 @@ async function callProviderForIdeaPassDetailed(
   if (isCoolingDown(deps.stateDir, ideaCooldownId, now())) return { result: null, reason_code: 'provider_cooldown', note: `${label} is cooling down for the Ideas response contract.`, provider: label }
   const est = estimateIdeaTokens(rows.length)
   const perAttemptTokens = ideaGroqTokenBound(rows, p.maxTokens)
-  const budget = Budget.load(deps.stateDir, p.dailyReqCap, p.dailyTokenCap ?? 50_000_000, now(), p.budgetFile, p.dayTz)
+  const budget = Budget.load(deps.stateDir, p.dailyReqCap, p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP, now(), p.budgetFile, p.dayTz)
   // The operational chain gives each tier one bounded probe, then moves on. Retrying one provider twice can
   // consume the entire health window and strand healthy fallbacks. The exported Groq-only compatibility seam
   // keeps its historical two-attempt contract because it has no next tier to try.
