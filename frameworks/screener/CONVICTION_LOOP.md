@@ -124,10 +124,17 @@ engine instead owns its own ledgers; the board merges them (a human override sti
   - `validation_result`: `{row_type, checkpoint_id, thesis_id, source_field, observed_value, threshold,
     unit, verdict (confirmed|partial|against|breached_kill|unresolved), distance_to_threshold,
     cited_evidence[{url,source,grade,retrieved_at}], source_count, predicted_prob, realized (0|1),
-    error_taxonomy_tag, checked_at}`.
-  - `conviction_event`: `{row_type, thesis_id, at, kind (upgrade|downgrade|discard|hold|recover|expire),
+    error_taxonomy_tag, checked_at, vr_key}`. `vr_key = checkpoint_id::verdict::UTC-day` is immutable:
+    a retry reuses the first timestamp and payload; different evidence under one key fails closed.
+  - `conviction_event`: `{row_type, thesis_id, at, kind (upgrade|downgrade|discard|hold|recover|expire|integrity_archive),
     from_state, to_state, edge_locked, edge_score_live, subscores_before, subscores_after, conviction,
-    sell_side_rating, triggering_checkpoint_id, evidence_refs[], plain_note}`.
+    sell_side_rating, triggering_checkpoint_id, evidence_refs[], plain_note, event_key,
+    state_projection}`. This is also the transaction journal: `state_projection` carries the complete
+    derived snapshot that the event committed. Recovery publishes the **last valid event in serialized
+    ledger append order**, never the greatest `at` timestamp (the validator supports backfilled `--at`).
+    Validation event keys derive from `vr_key`; restore keys derive from the archived snapshot digest.
+    A terminal thesis-integrity review appends `integrity_archive` with terminal markers and a key bound
+    to the review routing plus its predecessor row, so a delayed validation retry cannot reopen it.
 - `screener/ledger/conviction/conviction_state/<thesis_id>.json` — **derived, regenerable** snapshot the
   board reads: `{state, sell_side_rating, edge_locked, edge_score_live, conviction, upgrade_velocity,
   trajectory_enum (accelerating|steady|stalling|decaying), rank_score, proximity_pct,

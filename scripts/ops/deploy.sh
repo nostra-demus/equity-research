@@ -23,7 +23,7 @@
 #                     written (that jammed it against the 24/7 screener). The marker SYNC path needs no
 #                     clean tree — it only rebuilds already-present source into ui/dist
 #   • marker-gated — rebuild iff the built artifacts are behind HEAD; advance the marker only on success
-#   • single-flight — mkdir lock with a 30-min staleness breaker
+#   • single-flight — retained-descriptor kernel flock for the entire deploy; crashes release it
 #   • always exit 0 — incidents live in the log, not the launchd exit code
 # Canonical source: scripts/ops/deploy.sh (installed to ~/.nostra-ops by install-services.sh).
 # ─────────────────────────────────────────────────────────────────────────────
@@ -34,9 +34,10 @@ UID_NUM="$(id -u)"
 # resolve npm to an absolute path (launchd has a minimal PATH; brew is /opt/homebrew on Apple-Silicon, /usr/local on Intel)
 NPM="$(command -v npm 2>/dev/null || true)"; [ -n "$NPM" ] || for c in /opt/homebrew/bin/npm /usr/local/bin/npm; do [ -x "$c" ] && NPM="$c" && break; done; NPM="${NPM:-/opt/homebrew/bin/npm}"
 GIT="$(command -v git || echo /usr/bin/git)"
+PYTHON="$(command -v python3 || echo /usr/bin/python3)"
 OPS="$HOME/.nostra-ops"
 LOG="$HOME/Library/Logs/nostradamus-deploy.log"
-LOCKDIR="$OPS/.deploy.lock.d"
+DEPLOY_LOCK="$OPS/.deploy.flock"
 MARK="$OPS/.deployed.sha"   # the SHA the built ui/dist + running engine were last reconciled to
 FAILMARK="$OPS/.deploy.failed"                       # "<sha> <epoch>" of the last build/boot that failed (backoff)
 FAIL_BACKOFF="${DEPLOY_FAIL_BACKOFF_SECS:-1800}"     # don't re-attempt the SAME failing SHA more often than this
@@ -91,50 +92,59 @@ ensure_data_symlink() {
   ln -s "$POOL" "$d" 2>/dev/null && log "data-guard: restored data -> Drive pool symlink" || log "WARN data-guard: failed to create data symlink"
 }
 
-# ---- single-flight lock (macOS has no flock) ----
-if ! mkdir "$LOCKDIR" 2>/dev/null; then
-  age=$(( $(date +%s) - $(stat -f %m "$LOCKDIR" 2>/dev/null || echo 0) ))
-  if [ "$age" -gt 1800 ]; then
-    rmdir "$LOCKDIR" 2>/dev/null || true
-    mkdir "$LOCKDIR" 2>/dev/null || exit 0
-    log "WARN broke stale lock (${age}s old)"
-  else
-    exit 0   # another deploy in progress
-  fi
+# ---- whole-deploy single-flight ----
+# fd 8 survives the short Python helper because flock belongs to the shared open-file description.
+# The kernel releases it on every shell exit/crash, so a long npm/build/health cycle can never be
+# "reclaimed" by age and overlapped by another deploy. A launchd tick that finds it held simply skips.
+exec 8>>"$DEPLOY_LOCK" || { log "WARN cannot open deploy single-flight lock"; exit 0; }
+if ! "$PYTHON" - 8<&8 <<'PYDEPLOYLOCK'
+import fcntl
+
+try:
+    fcntl.flock(8, fcntl.LOCK_EX | fcntl.LOCK_NB)
+except BlockingIOError:
+    raise SystemExit(3)
+PYDEPLOYLOCK
+then
+  exec 8>&-
+  exit 0
 fi
-# ---- shared git lock (mutual-exclusion with the engine's data commits) ----
-# The engine commits research data into THIS prod worktree via scripts/commit-run.sh, which serializes
-# every git mutation under a global mkdir lock at ${TMPDIR}/equity-research-git-<sha1(worktree)>.lock.
-# deploy's ff-merge mutates the same index/working-tree, so it must take the SAME lock around the merge —
-# otherwise the two collide on .git/index.lock and a data commit can be stranded (commit-run exits 4,
-# "push manually"). We mirror commit-run's path derivation + owner-file + stale-break EXACTLY so each side
-# recognizes (and can stale-break) the other's lock. Bounded wait: if the engine holds it we SKIP this
-# cycle and retry in ~120s — the watcher never blocks.
+# ---- shared repository-mutation flock (engine commits + tracked-ledger appends) ----
+# commit-run.sh and append-ndjson.sh use the same persistent file in this worktree's Git directory.
+# Python applies flock on fd 9, then exits; this shell retains the locked open-file description until
+# gitlock_release closes it. There is no PID probing, stale deletion, ownerless crash window, or TMPDIR
+# split-brain. Bounded wait: if the engine holds it we skip this cycle and retry in ~120s.
 GITLOCK=""
 gitlock_acquire() {
-  local top repo_id i created host pid age
+  local top
+  [ -n "$GITLOCK" ] && return 0
   top="$("$GIT" -C "$PROD" rev-parse --show-toplevel 2>/dev/null)" || return 1
-  repo_id="$(printf '%s' "$top" | shasum | awk '{print $1}')"
-  GITLOCK="${TMPDIR:-/tmp}/equity-research-git-${repo_id}.lock"
-  for i in $(seq 1 30); do                       # ~15s, then give up and retry next cycle
-    if mkdir "$GITLOCK" 2>/dev/null; then
-      printf 'pid=%s\nhost=%s\ncreated=%s\n' "$$" "$(hostname)" "$(date +%s)" > "$GITLOCK/owner" 2>/dev/null || true
-      return 0
-    fi
-    if [ -f "$GITLOCK/owner" ]; then             # honor commit-run's stale-break: old AND holder dead on THIS host
-      created="$(awk -F= '/^created=/{print $2}' "$GITLOCK/owner" 2>/dev/null)"
-      host="$(awk -F= '/^host=/{print $2}' "$GITLOCK/owner" 2>/dev/null)"
-      pid="$(awk -F= '/^pid=/{print $2}' "$GITLOCK/owner" 2>/dev/null)"
-      age=$(( $(date +%s) - ${created:-0} ))
-      if [ "$age" -gt 900 ] && [ "$host" = "$(hostname)" ] && [ -n "${pid:-}" ] && ! kill -0 "$pid" 2>/dev/null; then
-        rm -rf "$GITLOCK" 2>/dev/null; continue
-      fi
-    fi
-    sleep 0.5
-  done
-  GITLOCK=""; return 1
+  GITLOCK="$("$GIT" -C "$top" rev-parse --git-path nostra-engine-mutation.flock 2>/dev/null)"
+  case "$GITLOCK" in /*) ;; ?*) GITLOCK="$top/$GITLOCK" ;; *) GITLOCK=""; return 1 ;; esac
+  exec 9>>"$GITLOCK" || { GITLOCK=""; return 1; }
+  if "$PYTHON" - 15000 9<&9 <<'PYLOCK'
+import fcntl
+import sys
+import time
+
+deadline = time.monotonic() + int(sys.argv[1]) / 1000
+while True:
+    try:
+        fcntl.flock(9, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        break
+    except BlockingIOError:
+        if time.monotonic() >= deadline:
+            raise SystemExit(3)
+        time.sleep(0.05)
+PYLOCK
+  then
+    return 0
+  fi
+  exec 9>&-
+  GITLOCK=""
+  return 1
 }
-gitlock_release() { [ -n "$GITLOCK" ] && rm -rf "$GITLOCK" 2>/dev/null; GITLOCK=""; }
+gitlock_release() { [ -n "$GITLOCK" ] && exec 9>&-; GITLOCK=""; }
 
 # A §28 DATA path — the only paths the engine ever writes into this checkout (analyses/**, screener/**,
 # analyses/tracking/**). Anything else dirty is an unexpected/unreviewed edit and must block a release.
@@ -203,20 +213,21 @@ rollback_to_mark() {
     log "  ROLLBACK IMPOSSIBLE — no distinct last-good marker; the site stays on the flapping engine. FIX ${bad:0:9} on main."
     return 1
   fi
-  if ! gitlock_acquire; then
-    log "  ROLLBACK deferred — engine holds the git lock; retry next cycle"
+  # reconcile_build is called only while this deploy owns the repository lease. Keeping that same lease
+  # through reset, rebuild, restart, and health verification prevents a commit/rebase from changing the
+  # rollback source under npm. Never self-reacquire fd9 here.
+  if [ -z "$GITLOCK" ]; then
+    log "  ROLLBACK refused — caller does not hold the repository mutation lock"
     return 1
   fi
   head="$("$GIT" rev-parse HEAD 2>/dev/null)"
   if ! "$GIT" merge-base --is-ancestor "$good" "$head" 2>/dev/null \
      || ! "$GIT" merge-base --is-ancestor "$head" origin/main 2>/dev/null; then
-    gitlock_release
     log "  ROLLBACK REFUSED — unsafe (last-good ${good:0:9} not strictly behind HEAD ${head:0:9}, or HEAD has unpushed commits)"
     return 1
   fi
   log "  ROLLBACK git reset --hard ${good:0:9} — undoing boot-broken ${bad:0:9}"
   "$GIT" reset --hard "$good" >>"$LOG" 2>&1
-  gitlock_release
   # rebuild the rolled-back tree and restart so the engine is immediately back on last-good code
   ( cd "$PROD/ui/web" && "$NPM" run build ) >>"$LOG" 2>&1 || log "  WARN rebuild after rollback failed"
   launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.engine" 2>>"$LOG" || log "  WARN engine kickstart after rollback failed"
@@ -313,13 +324,21 @@ reconcile_build() {
     printf '%s %s\n' "$target" "$(date +%s)" > "$FAILMARK.tmp" 2>/dev/null && mv "$FAILMARK.tmp" "$FAILMARK" 2>/dev/null || true
   fi
 }
-trap 'gitlock_release; rmdir "$LOCKDIR" 2>/dev/null' EXIT
+trap 'gitlock_release; exec 8>&-' EXIT
 
 cd "$PROD" 2>/dev/null || { log "FATAL cannot cd $PROD"; exit 0; }
 
 ensure_data_symlink   # re-assert data/ -> Drive pool symlink before any git op / build (defense-in-depth)
 
-# ---- fetch (no working-tree mutation, no index lock) ----
+# One repository lease spans fetch/ref resolution, any fast-forward, the complete source read/build,
+# restart/health decision, and marker publication. This makes <target> an immutable build input: an engine
+# data commit that loses a push race cannot rebase newer ui/** into the checkout while npm is reading it.
+if ! gitlock_acquire; then
+  log "SKIP engine repository mutation in progress (shared lock held) — retry next cycle"
+  exit 0
+fi
+
+# ---- fetch (serialized with every other repository mutation) ----
 # route fetch stderr to a side file so git's gc/maintenance warnings never pollute the deploy log;
 # only surface it when the fetch actually fails.
 "$GIT" fetch --quiet origin main 2>"$OPS/.fetch.err" || { log "WARN git fetch failed: $(tail -1 "$OPS/.fetch.err" 2>/dev/null)"; exit 0; }
@@ -399,9 +418,9 @@ if [ "$LOCAL" = "$REMOTE" ]; then
   else
     CHANGED="$("$GIT" diff --name-only "$MARKER" "$target" 2>/dev/null)"
   fi
-  gitlock_release
   log "SYNC built ${MARKER:0:9} behind HEAD ${target:0:9} (checkout advanced outside deploy) — reconciling"
   reconcile_build "$CHANGED" "$target"
+  gitlock_release
   log "DONE ${target:0:9}"
   exit 0
 fi
@@ -473,7 +492,6 @@ fi
 
 log "DEPLOY ${LOCAL:0:9} -> ${REMOTE:0:9}"
 "$GIT" merge --ff-only origin/main >"$OPS/.merge.out" 2>&1; mrc=$?
-gitlock_release   # merge done — release at once so the engine isn't blocked through the rebuild below
 # keep the changed-file summary, drop git's gc/maintenance noise
 grep -vE 'gc\.log|loose objects|Auto packing|git help gc|Please correct|Automatic cleanup|^warning:|^$' "$OPS/.merge.out" >> "$LOG" 2>/dev/null || true
 if [ "$mrc" -ne 0 ]; then
@@ -487,5 +505,6 @@ build_base="$LOCAL"
 [ -n "$MARKER" ] && "$GIT" merge-base --is-ancestor "$MARKER" "$REMOTE" 2>/dev/null && build_base="$MARKER"
 CHANGED="$("$GIT" diff --name-only "$build_base" "$REMOTE" 2>/dev/null)"
 reconcile_build "$CHANGED" "$REMOTE"
+gitlock_release
 log "DONE ${REMOTE:0:9}"
 exit 0

@@ -56,7 +56,7 @@ async function main(): Promise<void> {
   // (startNewsIngester takes the SAME lock). Without it, this standalone run + an open cockpit pointed at
   // the same ENGINE_STATE_DIR would BOTH fetch, triage, and write — double-spending budgets and racing the
   // firehose/ledger writes. If the owner is alive, skip this cycle (exit 0 — not a failure; the owner does
-  // the work); a dead owner's stale lock is reclaimed by acquireIngesterLock's PID-liveness check.
+  // the work); a dead owner's retained kernel lease disappears automatically when its process exits.
   if (!acquireIngesterLock(STATE_DIR)) {
     log('another engine already owns the ingester for this data dir — skipping this cycle (no duplicate fetching)')
     const qualifiedOutcomes = await runConfiguredQualifiedIdeaOutcomes(log)

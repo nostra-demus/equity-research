@@ -1225,7 +1225,7 @@ export interface QualifiedIdeasBoard {
   }
   outcome_health_state: 'valid' | 'expired' | 'unknown'
   outcome_health: null | {
-    schema_version: 'qualified-idea-outcomes-health/v2'; pass_id: string; pass_sequence: number; pass_started_at: string
+    schema_version: 'qualified-idea-outcomes-health/v2'; repository_scope_sha256: string; pass_id: string; pass_sequence: number; pass_started_at: string
     status: 'pre_data' | 'healthy' | 'degraded' | 'error'
     outcome: 'no_qualified_ideas' | 'nothing_due' | 'endpoint_pending' | 'resolved' | 'history_missing' | 'admission_failed' | 'provider_failed' | 'failed'
     reason: string; updated_at: string; expires_at: string; terminal: true

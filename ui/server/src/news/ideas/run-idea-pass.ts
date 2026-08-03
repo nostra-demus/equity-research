@@ -203,11 +203,34 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     const prev = readPassState(deps.stateDir)
     const priorHealthRead = inspectPersistedIdeasHealth(deps.stateDir)
     const priorHealth = priorHealthRead.health
-    const priorFailed = priorHealthRead.status === 'corrupt' || priorHealth?.outcome === 'failed'
-    const elapsed = prev ? now() - prev.ran_at_ms : Number.POSITIVE_INFINITY
+    // The scheduler/standalone entrypoint serializes passes. Therefore a persisted `running` record at
+    // the start of a new invocation is crash evidence, not an in-flight peer. Anchor the hard interval to
+    // both lifecycle files: ideas-pass.json may already have been stamped after the provider returned,
+    // while a crash before that stamp leaves only last_attempt_at. Losing either clock can cause an
+    // immediate double-spend or, after a waiting transition, cache a result that never completed.
+    const priorUnfinished = priorHealthRead.status === 'ok' && priorHealth?.status === 'running'
+    const priorAttemptAt = priorHealth?.last_attempt_at ? Date.parse(priorHealth.last_attempt_at) : NaN
+    const intervalAnchor = Math.max(
+      Number.isFinite(prev?.ran_at_ms) ? prev!.ran_at_ms : Number.NEGATIVE_INFINITY,
+      Number.isFinite(priorAttemptAt) ? priorAttemptAt : Number.NEGATIVE_INFINITY,
+    )
+    const priorFailed = priorHealthRead.status === 'corrupt' || priorHealth?.outcome === 'failed' || priorUnfinished
+    const elapsed = Number.isFinite(intervalAnchor) ? now() - intervalAnchor : Number.POSITIVE_INFINITY
     if (elapsed < c.minIntervalSec * 1000) {
-      const next = prev!.ran_at_ms + c.minIntervalSec * 1000
-      if (priorFailed) {
+      const next = intervalAnchor + c.minIntervalSec * 1000
+      if (priorUnfinished) {
+        const counts = inspectIdeaSnapshots(deps.repoRoot, now())
+        health({
+          enabled: true,
+          status: counts.live_count + counts.stale_count > 0 ? 'degraded' : 'error',
+          outcome: 'failed',
+          reason_code: 'stale_running',
+          reason: 'The prior provider attempt did not record a completion; it will retry after the minimum interval.',
+          next_eligible_at: new Date(next).toISOString(),
+          input_count: rows.length,
+          produced_count: 0,
+        })
+      } else if (priorFailed) {
         // Throttling is not recovery. Keep the terminal provider/internal failure visible until a real
         // retry completes; only advance its eligibility clock.
         if (priorHealthRead.status === 'corrupt') {
@@ -222,7 +245,9 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       } else {
         health({ enabled: true, status: 'waiting', outcome: 'skipped', reason_code: 'min_interval', reason: 'The last provider attempt is still inside the minimum interval.', next_eligible_at: new Date(next).toISOString(), input_count: rows.length, produced_count: 0 })
       }
-      return { ran: false, produced: 0, note: 'within min interval', reason_code: 'min_interval' }
+      return priorUnfinished
+        ? { ran: false, produced: 0, note: 'prior provider attempt unfinished', reason_code: 'stale_running' }
+        : { ran: false, produced: 0, note: 'within min interval', reason_code: 'min_interval' }
     }
     const changed = !prev || prev.hash !== hash
     // A failed attempt retries as soon as the hard interval allows, even when the event ids are unchanged.

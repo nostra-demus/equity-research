@@ -5,7 +5,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { ideasHealthLivenessMs, initializeIdeasHealth, inspectPersistedIdeasHealth, readIdeasHealth, readPersistedIdeasHealth, updateIdeasHealth } from '../src/news/ideas/ideas-health'
 import { runIdeaPass, type IdeaPassConfig } from '../src/news/ideas/run-idea-pass'
-import { ideaId } from '../src/news/ideas/ideas-store'
+import { ideaId, readTopSweep, topNHash, writePassState } from '../src/news/ideas/ideas-store'
 import { validIdeaSnapshot } from './ideas-fixture'
 
 const NOW = Date.parse('2026-08-03T12:00:00Z')
@@ -93,6 +93,56 @@ const waiting = readIdeasHealth(okState, okRoot, true, NOW + 60_000)
 assert.equal(waiting.status, 'waiting')
 assert.equal(waiting.last_success_at, healthy.last_success_at, 'skip transitions preserve the last real success')
 assert.equal(fetches, 1)
+
+// Simulate a crash after the provider returned and ideas-pass.json was stamped, but before the health
+// record could be completed. The surviving `running` record must remain visible as a failed attempt while
+// the hard interval drains, then unchanged input must retry immediately instead of being treated as a
+// valid cached empty result until the one-hour refresh.
+const crashRoot = rootWithRows(2)
+const crashState = path.join(crashRoot, '.state')
+const crashAt = NOW
+const crashRows = readTopSweep(crashRoot, cfg.topN, {
+  nowMs: crashAt,
+  maxAgeMs: cfg.inputMaxAgeHrs! * 3_600_000,
+}).rows
+writePassState(crashState, { hash: topNHash(crashRows), ran_at_ms: crashAt })
+updateIdeasHealth(crashState, {
+  enabled: true, status: 'running', outcome: 'not_run', reason_code: null,
+  reason: 'The provider is reading the current ranked lead set.',
+  last_attempt_at: new Date(crashAt).toISOString(), last_success_at: null, next_eligible_at: null,
+  input_count: crashRows.length, produced_count: 0,
+}, crashAt)
+let crashRetryFetches = 0
+const crashFetch = (async () => {
+  crashRetryFetches++
+  return new Response(JSON.stringify({
+    choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+    usage: { total_tokens: 50 },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+}) as typeof fetch
+const crashThrottle = await runIdeaPass({
+  repoRoot: crashRoot, stateDir: crashState, config: cfg, refreshBoard: async () => {},
+  now: () => crashAt + 60_000, fetchFn: crashFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(crashThrottle.reason_code, 'stale_running')
+assert.equal(crashRetryFetches, 0, 'an abandoned attempt still honors the provider minimum interval')
+const crashed = readIdeasHealth(crashState, crashRoot, true, crashAt + 60_000)
+assert.equal(crashed.status, 'error')
+assert.equal(crashed.outcome, 'failed')
+assert.equal(crashed.reason_code, 'stale_running', 'the crash is not overwritten by a waiting/min_interval transition')
+assert.equal(crashed.last_success_at, null, 'an unfinished pass is never a cached empty success')
+const retryAt = crashAt + cfg.minIntervalSec * 1000 + 1
+const crashRetry = await runIdeaPass({
+  repoRoot: crashRoot, stateDir: crashState, config: cfg, refreshBoard: async () => {},
+  now: () => retryAt, fetchFn: crashFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(crashRetry.ran, true, 'unchanged input retries as soon as the minimum interval permits')
+assert.equal(crashRetryFetches, 1)
+const recoveredCrash = readIdeasHealth(crashState, crashRoot, true, retryAt)
+assert.equal(recoveredCrash.status, 'healthy')
+assert.equal(recoveredCrash.outcome, 'success_empty')
+assert.equal(recoveredCrash.last_success_at, new Date(retryAt).toISOString())
+
 const expiredHealth = readIdeasHealth(okState, okRoot, true, NOW + 60_000 + 2 * 60 * 60_000 + 1)
 assert.equal(expiredHealth.reason_code, 'stale_health', 'a stopped scheduler cannot retain a perpetual healthy/waiting certificate')
 const slowLoopLiveness = ideasHealthLivenessMs(3 * 60 * 60_000)
@@ -196,5 +246,5 @@ assert.equal(missingProduced.status, 'error')
 assert.equal(missingProduced.outcome, 'failed')
 assert.equal(missingProduced.reason_code, 'snapshot_store_error', 'success_with_ideas must reconcile to an actually projectable snapshot')
 
-for (const root of [thin, noKeyRoot, okRoot, failedRoot, staleRoot, staleSweepRoot, staleRowsRoot, brokenStoreRoot, invalidStoreRoot, missingProducedRoot]) fs.rmSync(root, { recursive: true, force: true })
+for (const root of [thin, noKeyRoot, okRoot, failedRoot, crashRoot, staleRoot, staleSweepRoot, staleRowsRoot, brokenStoreRoot, invalidStoreRoot, missingProducedRoot]) fs.rmSync(root, { recursive: true, force: true })
 console.log('\n1 ideas-health test file passed')

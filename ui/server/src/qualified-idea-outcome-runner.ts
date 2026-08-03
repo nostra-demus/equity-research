@@ -77,6 +77,7 @@ export interface QualifiedIdeaOutcomeProviderFailure {
 
 export interface QualifiedIdeaOutcomeHealth {
   schema_version: 'qualified-idea-outcomes-health/v2'
+  repository_scope_sha256: string
   pass_id: string
   pass_sequence: number
   pass_started_at: string
@@ -145,7 +146,8 @@ export function assessQualifiedIdeaOutcomeHealth(v: unknown, nowMs = Date.now())
     (h.outcome !== 'history_missing' || h.unresolved_count > 0) &&
     (h.outcome !== 'provider_failed' || h.provider_failures.some((x) => x.role === 'security' && x.code !== 'history_not_found'))
   if (
-    h.schema_version !== 'qualified-idea-outcomes-health/v2' || !/^QOHP-\d{12}-[a-f0-9]{12}$/.test(String(h.pass_id ?? '')) ||
+    h.schema_version !== 'qualified-idea-outcomes-health/v2' || !/^[a-f0-9]{64}$/.test(String(h.repository_scope_sha256 ?? '')) ||
+    !/^QOHP-\d{12}-[a-f0-9]{12}$/.test(String(h.pass_id ?? '')) ||
     !statuses.has(h.status) || !outcomes.has(h.outcome) || !nonBlank(h.reason) || h.terminal !== true ||
     !finite(started) || !finite(updated) || !finite(expires) || started > updated || updated > nowMs || started > nowMs ||
     expires <= updated || expires !== updated + QUALIFIED_OUTCOME_HEALTH_TTL_MS || passNumber !== h.pass_sequence ||
@@ -204,7 +206,12 @@ async function appendSnapshot(
 ): Promise<'appended' | 'duplicate'> {
   const { stdout } = await execFileAsync('bash', [
     path.join(repoRoot, 'scripts', 'append-ndjson.sh'), file, JSON.stringify(row), key, value,
-  ], { cwd: repoRoot, timeout: 20_000 })
+  ], {
+    cwd: repoRoot,
+    timeout: 20_000,
+    // Return a named lock-timeout before Node's process timeout so health records the real cause.
+    env: { ...process.env, NDJSON_REPO_LOCK_WAIT_MS: '15000' },
+  })
   if (/^APPENDED=1\s*$/m.test(stdout)) return 'appended'
   if (/^DUPLICATE=1\s*$/m.test(stdout)) return 'duplicate'
   throw new Error(`append helper returned no disposition: ${stdout.trim().slice(0, 160)}`)
@@ -261,7 +268,12 @@ function providerFailure(
   }
 }
 
-async function executeOutcomePass(repoRoot: string, nowMs: number, passStartedMs: number): Promise<HealthDraft> {
+async function executeOutcomePass(
+  repoRoot: string,
+  nowMs: number,
+  passStartedMs: number,
+  repositoryScopeSha256: string,
+): Promise<HealthDraft> {
   const ledgerDir = path.join(repoRoot, 'screener', 'ledger')
   const admissionsFile = path.join(ledgerDir, 'qualified_idea_cohort_entries.ndjson')
   const outcomesFile = path.join(ledgerDir, 'qualified_idea_outcomes.ndjson')
@@ -451,6 +463,7 @@ async function executeOutcomePass(repoRoot: string, nowMs: number, passStartedMs
 
   return {
     schema_version: 'qualified-idea-outcomes-health/v2',
+    repository_scope_sha256: repositoryScopeSha256,
     pass_started_at: passStartedAt,
     status, outcome, reason, terminal: true,
     qualified_idea_count: evaluations.length,
@@ -562,17 +575,19 @@ async function acquireFlockLease(lock: string, waitMs: number, timeoutMessage: s
 async function claimOutcomePass(
   lock: string,
   healthFile: string,
+  repositoryScopeSha256: string,
   nowMs: number,
 ): Promise<OutcomePassClaim> {
   fs.mkdirSync(path.dirname(lock), { recursive: true })
-  const priorPassId = readPersistedHealth(healthFile, nowMs)?.pass_id ?? null
+  const prior = readPersistedHealth(healthFile, nowMs)
+  const priorPassId = prior?.repository_scope_sha256 === repositoryScopeSha256 ? prior.pass_id : null
   const lease = await acquireFlockLease(
     lock,
     OUTCOME_PASS_LOCK_WAIT_MS,
     'timed out waiting for the repository-scoped qualified-idea outcome pass',
   )
   const completed = readPersistedHealth(healthFile, Math.max(nowMs, Date.now()))
-  if (completed && completed.pass_id !== priorPassId) {
+  if (completed?.repository_scope_sha256 === repositoryScopeSha256 && completed.pass_id !== priorPassId) {
     lease.release()
     return { kind: 'observed', health: completed }
   }
@@ -586,16 +601,18 @@ async function runOwnedQualifiedIdeaOutcomePass(
 ): Promise<QualifiedIdeaOutcomeHealth> {
   const healthFile = qualifiedIdeaOutcomeHealthPath(repoRoot, stateDir)
   const lock = qualifiedIdeaOutcomePassLockPath(repoRoot, stateDir)
-  const claim = await claimOutcomePass(lock, healthFile, Math.max(effectiveNow, Date.now()))
+  const repositoryScopeSha256 = createHash('sha256').update(lock).digest('hex')
+  const claim = await claimOutcomePass(lock, healthFile, repositoryScopeSha256, Math.max(effectiveNow, Date.now()))
   if (claim.kind === 'observed') return claim.health
   const passStartedMs = Math.max(effectiveNow, Date.now())
   try {
-    const draft = await executeOutcomePass(repoRoot, effectiveNow, passStartedMs)
+    const draft = await executeOutcomePass(repoRoot, effectiveNow, passStartedMs, repositoryScopeSha256)
     return await writeTerminalHealth(healthFile, draft, Math.max(passStartedMs, Date.now()))
   } catch (err: any) {
     const message = String(err?.message || err).slice(0, 500)
     const failed: HealthDraft = {
       schema_version: 'qualified-idea-outcomes-health/v2',
+      repository_scope_sha256: repositoryScopeSha256,
       pass_started_at: new Date(passStartedMs).toISOString(),
       status: 'error', outcome: 'failed', reason: 'The outcome pass ended with an unhandled system error.', terminal: true,
       qualified_idea_count: 0, admission_count: 0, admission_appended_count: 0, admission_existing_count: 0,

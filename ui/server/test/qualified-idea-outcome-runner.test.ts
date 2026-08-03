@@ -268,6 +268,7 @@ try {
   assert.equal(assessQualifiedIdeaOutcomeHealth({ ...empty, qualified_idea_count: 1 }, NOW).state, 'invalid')
   assert.equal(assessQualifiedIdeaOutcomeHealth({ ...empty, status: 'healthy', outcome: 'nothing_due', due_count: 1 }, NOW).state, 'invalid')
   assert.equal(assessQualifiedIdeaOutcomeHealth({ ...empty, status: 'healthy', outcome: 'resolved' }, NOW).state, 'invalid')
+  assert.equal(assessQualifiedIdeaOutcomeHealth({ ...empty, repository_scope_sha256: 'wrong-repository' }, NOW).state, 'invalid')
 
   // In-process coalescing includes state identity: one checkout can publish independently to two
   // configured state directories, while the repository flock still serializes immutable ledgers.
@@ -294,11 +295,38 @@ try {
   const sharedStateParent = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-outcome-shared-state-'))
   const sharedState = path.join(sharedStateParent, '.state')
   try {
-    const sharedHealth = await Promise.all([
-      runQualifiedIdeaOutcomePass(sharedRootA, NOW, sharedState),
-      runQualifiedIdeaOutcomePass(sharedRootB, NOW, sharedState),
-    ])
+    // Hold B's repository lock so B snapshots the old shared health, then let A publish before B can
+    // acquire. Without repository-bound health identity, B incorrectly observed A's pass and skipped.
+    const sharedBLock = qualifiedIdeaOutcomePassLockPath(sharedRootB, sharedState)
+    fs.mkdirSync(path.dirname(sharedBLock), { recursive: true })
+    const sharedBHolder = spawn('python3', ['-c', [
+      'import fcntl, sys, time',
+      'lock = open(sys.argv[1], "a+")',
+      'fcntl.flock(lock.fileno(), fcntl.LOCK_EX)',
+      'print("LOCKED", flush=True)',
+      'time.sleep(10)',
+    ].join(';'), sharedBLock], { stdio: ['ignore', 'pipe', 'pipe'] })
+    let sharedBHolderStdout = ''
+    sharedBHolder.stdout.on('data', (chunk) => { sharedBHolderStdout += String(chunk) })
+    await new Promise<void>((resolve, reject) => {
+      const poll = setInterval(() => {
+        if (!sharedBHolderStdout.includes('LOCKED')) return
+        clearInterval(poll)
+        resolve()
+      }, 5)
+      sharedBHolder.once('error', (err) => { clearInterval(poll); reject(err) })
+    })
+    const delayedB = runQualifiedIdeaOutcomePass(sharedRootB, NOW, sharedState)
+    await new Promise((resolve) => setTimeout(resolve, 100))
+    const healthA = await runQualifiedIdeaOutcomePass(sharedRootA, NOW, sharedState)
+    const sharedBClosed = new Promise<void>((resolve) => sharedBHolder.once('close', () => resolve()))
+    assert.equal(sharedBHolder.kill('SIGKILL'), true)
+    await sharedBClosed
+    const healthB = await delayedB
+    const sharedHealth = [healthA, healthB]
     assert.deepEqual(sharedHealth.map((health) => health.pass_sequence).sort((a, b) => a - b), [1, 2])
+    assert.notEqual(healthA.repository_scope_sha256, healthB.repository_scope_sha256)
+    assert.notEqual(healthA.pass_id, healthB.pass_id, 'one repository cannot observe another repository\'s pass')
     const finalShared = JSON.parse(fs.readFileSync(qualifiedIdeaOutcomeHealthPath(sharedRootA, sharedState), 'utf8'))
     assert.equal(finalShared.pass_sequence, 2)
   } finally {

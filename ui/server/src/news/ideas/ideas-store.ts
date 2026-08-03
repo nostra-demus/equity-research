@@ -6,11 +6,13 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { execFile } from 'node:child_process'
+import { execFile, spawnSync } from 'node:child_process'
 import { promisify } from 'node:util'
 import { createHash, randomUUID } from 'node:crypto'
+import { fileURLToPath } from 'node:url'
 import { eventIdFor } from '../normalize'
 import { parseRfc3339Ms } from '../../rfc3339'
+import { acquireRetainedFlockSync, releaseRetainedFlock } from '../../singleton-lock'
 import { THESIS_TYPES, type IdeaDirection, type IdeaInputRow, type PricedIn, type RawIdea, type ThesisType } from './surface-ideas'
 import type { TradeScoreBreakdown } from '../trade-score'
 import type { IdeaLearning } from './idea-learning'
@@ -95,62 +97,101 @@ export interface TopSweepFreshnessOptions {
 
 function ideasDir(repoRoot: string): string { return path.join(repoRoot, 'screener', 'ledger', 'ideas') }
 function ideasLog(repoRoot: string): string { return path.join(repoRoot, 'screener', 'ledger', 'ideas.ndjson') }
-const IDEA_LOCK_STALE_MS = 30_000
 const IDEA_PROMOTION_STALE_MS = 30 * 60_000
-const lockWait = new Int32Array(new SharedArrayBuffer(4))
+const IDEA_LOCK_WAIT_MS = 2_000
+const IDEA_LOCK_POLL_MS = 10
 
 function acquireIdeaLock(fp: string): number {
   const lock = `${fp}.lock`
-  for (let attempt = 0; attempt < 50; attempt++) {
-    try {
-      const fd = fs.openSync(lock, 'wx', 0o600)
-      try {
-        fs.writeFileSync(fd, `${process.pid} ${Date.now()}\n`)
-        return fd
-      } catch (e) {
-        try { fs.closeSync(fd) } catch { /* best effort */ }
-        try { fs.unlinkSync(lock) } catch { /* best effort */ }
-        throw e
-      }
-    } catch (e: any) {
-      if (e?.code !== 'EEXIST') throw e
-      try {
-        if (Date.now() - fs.statSync(lock).mtimeMs > IDEA_LOCK_STALE_MS) {
-          const ownerPid = Number(fs.readFileSync(lock, 'utf8').trim().split(/\s+/)[0])
-          let ownerAlive = Number.isInteger(ownerPid) && ownerPid > 1
-          if (ownerAlive) {
-            try { process.kill(ownerPid, 0) }
-            catch (probe: any) { if (probe?.code === 'ESRCH') ownerAlive = false }
-          }
-          // Age alone is not ownership loss: a live writer can be paused by the OS. Reclaim only a lock
-          // whose recorded process is gone, otherwise two writers could overlap after the timeout.
-          if (!ownerAlive) {
-            fs.unlinkSync(lock)
-            continue
-          }
-        }
-      } catch (statError: any) {
-        if (statError?.code === 'ENOENT') continue
-      }
-      // Snapshot writes are synchronous and normally hold the lock for under a millisecond. A very short
-      // bounded wait avoids failing a human promotion on harmless cross-process overlap without wedging
-      // the event loop behind an abandoned lock.
-      Atomics.wait(lockWait, 0, 0, 5)
-    }
-  }
-  throw Object.assign(new Error(`idea snapshot busy: ${path.basename(fp)}`), { code: 'EBUSY' })
+  return acquireRetainedFlockSync(lock, {
+    waitMs: IDEA_LOCK_WAIT_MS,
+    pollMs: IDEA_LOCK_POLL_MS,
+    busyMessage: `idea snapshot busy: ${path.basename(fp)}`,
+  })
 }
 
-function releaseIdeaLock(fp: string, fd: number): void {
-  const lock = `${fp}.lock`
+function releaseIdeaLock(_fp: string, fd: number): void {
+  releaseRetainedFlock(fd)
+}
+
+interface IdeaMutationLease {
+  repositoryFd: number | null
+  snapshotFd: number
+}
+
+function repositoryMutationLockPath(repoRoot: string): string | null {
+  const root = path.resolve(repoRoot)
+  // Unit callers may intentionally use a plain temporary directory. A real checkout always has a .git
+  // file/directory; if Git then fails, that is an operational fault and must not silently disable locking.
+  if (!fs.existsSync(path.join(root, '.git'))) return null
+  const result = spawnSync('git', [
+    '-C', root, 'rev-parse', '--show-toplevel', '--git-path', 'nostra-engine-mutation.flock',
+  ], { encoding: 'utf8', timeout: 5_000, maxBuffer: 64_000 })
+  if (result.status !== 0) {
+    const detail = result.error?.message || String(result.stderr || '').trim() || `exit ${result.status ?? result.signal ?? 'unknown'}`
+    throw new Error(`cannot resolve repository mutation lock: ${detail.slice(0, 200)}`)
+  }
+  const [top, rawLock, ...extra] = String(result.stdout || '').trim().split(/\r?\n/)
+  if (!top || !rawLock || extra.length) throw new Error('cannot resolve repository mutation lock: invalid git output')
+  return path.isAbsolute(rawLock) ? rawLock : path.join(top, rawLock)
+}
+
+/** Lock order is repository then snapshot, matching deploy/commit -> data mutation ordering. This keeps
+ * a checkout from replacing either the journal or projection halfway through one Ideas transaction. */
+function acquireIdeaMutationLease(repoRoot: string, fp: string): IdeaMutationLease {
+  const repositoryLock = repositoryMutationLockPath(repoRoot)
+  const repositoryFd = repositoryLock === null
+    ? null
+    : acquireRetainedFlockSync(repositoryLock, {
+      waitMs: IDEA_LOCK_WAIT_MS,
+      pollMs: IDEA_LOCK_POLL_MS,
+      busyMessage: 'ideas store busy: repository mutation in progress',
+    })
   try {
-    // A dead-owner reclaimer may have removed this pathname and another writer may already own a new
-    // inode. Only unlink the same inode this descriptor acquired; never delete a successor's lock.
-    const held = fs.fstatSync(fd)
-    const current = fs.statSync(lock)
-    if (held.dev === current.dev && held.ino === current.ino) fs.unlinkSync(lock)
-  } catch { /* stale timeout reclaims it */ }
-  finally { try { fs.closeSync(fd) } catch { /* best effort */ } }
+    return { repositoryFd, snapshotFd: acquireIdeaLock(fp) }
+  } catch (error) {
+    if (repositoryFd !== null) releaseIdeaLock(repositoryLock!, repositoryFd)
+    throw error
+  }
+}
+
+function releaseIdeaMutationLease(fp: string, lease: IdeaMutationLease): void {
+  releaseIdeaLock(fp, lease.snapshotFd)
+  if (lease.repositoryFd !== null) releaseIdeaLock('', lease.repositoryFd)
+}
+
+const sourceTreeAppendHelper = fileURLToPath(new URL('../../../../../scripts/append-ndjson.sh', import.meta.url))
+
+function appendIdeaHistory(repoRoot: string, idea: SurfacedIdea, repositoryFd: number | null): void {
+  const helperInRepo = path.join(repoRoot, 'scripts', 'append-ndjson.sh')
+  const helper = fs.existsSync(helperInRepo) ? helperInRepo : sourceTreeAppendHelper
+  if (!fs.existsSync(helper)) throw new Error(`Ideas history append helper is missing: ${helper}`)
+  // Event first, projection second. The deterministic id makes a retry after a crash safe: an already
+  // fsynced journal event is recognized, then the still-missing snapshot projection can be completed.
+  const ideaHistoryId = 'IDEAH-' + createHash('sha256').update(JSON.stringify(idea)).digest('hex')
+  // Derived envelope keys are last so an unexpected extra field on a disk-loaded snapshot cannot spoof
+  // the idempotency identity or journal time used by the append helper.
+  const row = { ...idea, ts: idea.updated_at, idea_history_id: ideaHistoryId }
+  const inherited = repositoryFd !== null
+  const result = spawnSync('bash', [
+    helper, ideasLog(repoRoot), JSON.stringify(row), 'idea_history_id', ideaHistoryId,
+  ], {
+    cwd: repoRoot,
+    encoding: 'utf8',
+    timeout: 20_000,
+    maxBuffer: 256_000,
+    stdio: (inherited ? ['ignore', 'pipe', 'pipe', repositoryFd] : ['ignore', 'pipe', 'pipe']) as any,
+    env: {
+      ...process.env,
+      NDJSON_REPO_LOCK_WAIT_MS: '15000',
+      ...(inherited ? { NOSTRA_REPO_LOCK_FD: '3' } : {}),
+    },
+  })
+  const stdout = String(result.stdout || '')
+  if (result.status === 0 && /^(?:APPENDED|DUPLICATE)=1\s*$/m.test(stdout)) return
+  const stderr = String(result.stderr || '').trim()
+  const detail = result.error?.message || stderr || stdout.trim() || `exit ${result.status ?? result.signal ?? 'unknown'}`
+  throw Object.assign(new Error(`Ideas history append failed: ${detail.slice(0, 240)}`), { code: 'EIDEA_APPEND' })
 }
 
 /** Stable idea identity: same ticker + same direction = the same directional call, refreshed in place. */
@@ -464,15 +505,21 @@ export function readIdeaById(repoRoot: string, ideaId: string): SurfacedIdea | n
   } catch { return null }
 }
 
-function writeIdeaUnlocked(repoRoot: string, idea: SurfacedIdea, fp: string): void {
-  const tmp = `${fp}.tmp.${process.pid}`
+function writeIdeaUnlocked(repoRoot: string, idea: SurfacedIdea, fp: string, repositoryFd: number | null): void {
+  appendIdeaHistory(repoRoot, idea, repositoryFd)
+  const tmp = path.join(path.dirname(fp), `.${path.basename(fp)}.tmp.${process.pid}.${randomUUID()}`)
+  let tmpFd: number | null = null
   try {
-    fs.writeFileSync(tmp, JSON.stringify(idea, null, 2) + '\n')
+    tmpFd = fs.openSync(tmp, 'wx', 0o600)
+    fs.writeFileSync(tmpFd, JSON.stringify(idea, null, 2) + '\n')
+    fs.fsyncSync(tmpFd)
+    fs.closeSync(tmpFd)
+    tmpFd = null
     fs.renameSync(tmp, fp)
   } finally {
-    if (fs.existsSync(tmp)) fs.unlinkSync(tmp)
+    if (tmpFd !== null) try { fs.closeSync(tmpFd) } catch { /* best effort */ }
+    try { fs.unlinkSync(tmp) } catch (error: any) { if (error?.code !== 'ENOENT') throw error }
   }
-  try { fs.appendFileSync(ideasLog(repoRoot), JSON.stringify({ ts: idea.updated_at, ...idea }) + '\n') } catch { /* a lost history line is not fatal */ }
 }
 
 /** Write one idea snapshot (overwrite, atomic tmp+rename) AND append the append-only history log. */
@@ -480,9 +527,9 @@ export function writeIdea(repoRoot: string, idea: SurfacedIdea): void {
   const dir = ideasDir(repoRoot)
   fs.mkdirSync(dir, { recursive: true })
   const fp = path.join(dir, `${idea.idea_id}.json`)
-  const lockFd = acquireIdeaLock(fp)
-  try { writeIdeaUnlocked(repoRoot, idea, fp) }
-  finally { releaseIdeaLock(fp, lockFd) }
+  const lease = acquireIdeaMutationLease(repoRoot, fp)
+  try { writeIdeaUnlocked(repoRoot, idea, fp, lease.repositoryFd) }
+  finally { releaseIdeaMutationLease(fp, lease) }
 }
 
 /** A compact revision token for optimistic snapshot updates. It binds every field, not only updated_at,
@@ -499,18 +546,18 @@ export function writeIdeaIfRevision(repoRoot: string, idea: SurfacedIdea, expect
   const dir = ideasDir(repoRoot)
   fs.mkdirSync(dir, { recursive: true })
   const fp = path.join(dir, `${idea.idea_id}.json`)
-  let lockFd: number
-  try { lockFd = acquireIdeaLock(fp) } catch (e: any) {
+  let lease: IdeaMutationLease
+  try { lease = acquireIdeaMutationLease(repoRoot, fp) } catch (e: any) {
     if (e?.code === 'EBUSY') return false
     throw e
   }
   try {
     const current = readIdeaById(repoRoot, idea.idea_id)
     if (ideaSnapshotRevision(current) !== expectedRevision) return false
-    writeIdeaUnlocked(repoRoot, idea, fp)
+    writeIdeaUnlocked(repoRoot, idea, fp, lease.repositoryFd)
     return true
   } finally {
-    releaseIdeaLock(fp, lockFd)
+    releaseIdeaMutationLease(fp, lease)
   }
 }
 
@@ -523,8 +570,8 @@ export function updateIdeaSnapshot(
   if (!/^IDEA-[a-f0-9]{12}$/.test(ideaId)) return null
   const dir = ideasDir(repoRoot)
   const fp = path.join(dir, `${ideaId}.json`)
-  let lockFd: number
-  try { lockFd = acquireIdeaLock(fp) } catch (e: any) {
+  let lease: IdeaMutationLease
+  try { lease = acquireIdeaMutationLease(repoRoot, fp) } catch (e: any) {
     if (e?.code === 'EBUSY') return null
     throw e
   }
@@ -533,10 +580,10 @@ export function updateIdeaSnapshot(
     if (!current) return null
     const next = update(current)
     if (next.idea_id !== ideaId) throw new Error('idea snapshot update changed immutable identity')
-    writeIdeaUnlocked(repoRoot, next, fp)
+    writeIdeaUnlocked(repoRoot, next, fp, lease.repositoryFd)
     return next
   } finally {
-    releaseIdeaLock(fp, lockFd)
+    releaseIdeaMutationLease(fp, lease)
   }
 }
 
@@ -557,8 +604,8 @@ export function reserveIdeaPromotion(repoRoot: string, ideaId: string, nowMs = D
   const dir = ideasDir(repoRoot)
   fs.mkdirSync(dir, { recursive: true })
   const fp = path.join(dir, `${ideaId}.json`)
-  let lockFd: number
-  try { lockFd = acquireIdeaLock(fp) } catch (e: any) {
+  let lease: IdeaMutationLease
+  try { lease = acquireIdeaMutationLease(repoRoot, fp) } catch (e: any) {
     if (e?.code === 'EBUSY') return null
     throw e
   }
@@ -578,7 +625,7 @@ export function reserveIdeaPromotion(repoRoot: string, ideaId: string, nowMs = D
     fs.writeFileSync(reservationFile, JSON.stringify(reservation) + '\n', { flag: 'wx', mode: 0o600 })
     return reservation
   } finally {
-    releaseIdeaLock(fp, lockFd)
+    releaseIdeaMutationLease(fp, lease)
   }
 }
 
@@ -586,15 +633,15 @@ export function reserveIdeaPromotion(repoRoot: string, ideaId: string, nowMs = D
 export function releaseIdeaPromotion(repoRoot: string, ideaId: string, token: string): void {
   if (!/^IDEA-[a-f0-9]{12}$/.test(ideaId)) return
   const fp = path.join(ideasDir(repoRoot), `${ideaId}.json`)
-  let lockFd: number
-  try { lockFd = acquireIdeaLock(fp) } catch { return }
+  let lease: IdeaMutationLease
+  try { lease = acquireIdeaMutationLease(repoRoot, fp) } catch { return }
   try {
     const reservationFile = promotionReservationPath(repoRoot, ideaId)
     if (readPromotionReservation(reservationFile)?.token === token) {
       try { fs.unlinkSync(reservationFile) } catch { /* best effort */ }
     }
   } finally {
-    releaseIdeaLock(fp, lockFd)
+    releaseIdeaMutationLease(fp, lease)
   }
 }
 
@@ -608,18 +655,18 @@ export function finalizeIdeaPromotion(
   fallback: SurfacedIdea,
 ): SurfacedIdea {
   const fp = path.join(ideasDir(repoRoot), `${ideaId}.json`)
-  const lockFd = acquireIdeaLock(fp)
+  const lease = acquireIdeaMutationLease(repoRoot, fp)
   try {
     const reservationFile = promotionReservationPath(repoRoot, ideaId)
     if (readPromotionReservation(reservationFile)?.token !== token) throw new Error('idea promotion reservation was lost')
     const current = readIdeaById(repoRoot, ideaId) || fallback
     if (current.idea_id !== ideaId) throw new Error('idea promotion identity changed')
     const next: SurfacedIdea = { ...current, status: 'promoted', promoted_signal_id: signalId, updated_at: updatedAt }
-    writeIdeaUnlocked(repoRoot, next, fp)
+    writeIdeaUnlocked(repoRoot, next, fp, lease.repositoryFd)
     fs.unlinkSync(reservationFile)
     return next
   } finally {
-    releaseIdeaLock(fp, lockFd)
+    releaseIdeaMutationLease(fp, lease)
   }
 }
 
@@ -632,8 +679,8 @@ export function pruneExpiredIdeas(repoRoot: string, nowMs: number, hardTtlMs: nu
   let removed = 0
   for (const idea of readIdeaSnapshots(repoRoot)) {
     const fp = path.join(ideasDir(repoRoot), `${idea.idea_id}.json`)
-    let lockFd: number
-    try { lockFd = acquireIdeaLock(fp) } catch { continue }
+    let lease: IdeaMutationLease
+    try { lease = acquireIdeaMutationLease(repoRoot, fp) } catch { continue }
     try {
       // Re-read inside the writer lock. A refresh/promotion that landed after the directory scan wins.
       const current = readIdeaById(repoRoot, idea.idea_id)
@@ -643,7 +690,7 @@ export function pruneExpiredIdeas(repoRoot: string, nowMs: number, hardTtlMs: nu
         try { fs.unlinkSync(fp); removed++ } catch { /* best effort */ }
       }
     } finally {
-      releaseIdeaLock(fp, lockFd)
+      releaseIdeaMutationLease(fp, lease)
     }
   }
   return removed

@@ -14,7 +14,7 @@ import { promisify } from 'node:util'
 import { REPO_ROOT } from './config'
 
 // async execFile (never execFileSync from a request handler — a synchronous bash spawn blocks the single
-// event loop; append-ndjson.sh's own mkdir lock keeps concurrent async appends safe).
+// event loop; append-ndjson.sh's own kernel lock keeps concurrent async appends safe).
 const execFileAsync = promisify(execFile)
 
 export const FEEDBACK_TYPES = [

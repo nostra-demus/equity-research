@@ -20,12 +20,14 @@ operator/direction here are hints. Safe to re-run: checkpoints dedupe, the snaps
 from __future__ import annotations
 
 import glob
+import hashlib
 import json
 import os
 import re
-import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
+
+from repo_mutation import append_ndjson, atomic_write_json, repository_mutation
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LEDGER = os.path.join(REPO, "screener", "ledger")
@@ -66,6 +68,23 @@ STOPWORDS = {"the", "and", "for", "from", "with", "that", "this", "after", "into
 
 def now_z() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def read_ndjson(path: str) -> list[dict]:
+    rows: list[dict] = []
+    try:
+        handle = open(path, encoding="utf-8", errors="replace")
+    except FileNotFoundError:
+        return rows
+    with handle:
+        for line in handle:
+            try:
+                row = json.loads(line)
+                if isinstance(row, dict):
+                    rows.append(row)
+            except (TypeError, ValueError):
+                continue
+    return rows
 
 
 def parse_due(text: str | None) -> str | None:
@@ -145,12 +164,7 @@ def parse_count_threshold(text: str):
     return None, "na"
 
 
-def append(path: str, obj: dict, key: str, val: str) -> None:
-    subprocess.run(["bash", APPEND, path, json.dumps(obj, ensure_ascii=False), key, val],
-                   cwd=REPO, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-
-def emit_for(rec: dict) -> str | None:
+def emit_for(rec: dict, mutation) -> str | None:
     meta = rec.get("meta", {})
     tid = meta.get("thesis_id")
     if not tid:
@@ -243,7 +257,7 @@ def emit_for(rec: dict) -> str | None:
         wire_keywords=keywords(m04.get("expiry_condition") or ""))
 
     for cp in cps:
-        append(CHECKPOINTS, cp, "checkpoint_id", cp["checkpoint_id"])
+        append_ndjson(mutation, APPEND, CHECKPOINTS, cp, "checkpoint_id", cp["checkpoint_id"])
 
     # ---- initial flat conviction_state ----
     state = STATE_FROM_STATUS.get(meta.get("status") or "", "watching")
@@ -262,18 +276,16 @@ def emit_for(rec: dict) -> str | None:
                        + (f"; first up: {next_cp['metric_name'][:60]} by {next_cp['due_at']}." if next_cp else ".")),
         "history": [], "updated_at": now_z(),
     }
-    os.makedirs(STATE_DIR, exist_ok=True)
-    with open(os.path.join(STATE_DIR, f"{tid}.json"), "w", encoding="utf-8") as f:
-        json.dump(snap, f, indent=2, ensure_ascii=False)
-        f.write("\n")
-
     seed = {
         "row_type": "conviction_event", "thesis_id": tid, "at": created, "kind": "seed",
         "from_state": state, "to_state": state, "edge_locked": edge, "edge_score_live": edge,
         "conviction": edge, "sell_side_rating": RATING[state], "triggering_checkpoint_id": None,
         "evidence_refs": [], "plain_note": snap["plain_note"], "event_key": f"{tid}::seed",
     }
-    append(TICKS, seed, "event_key", seed["event_key"])
+    append_ndjson(mutation, APPEND, TICKS, seed, "event_key", seed["event_key"])
+    # conviction_state is a projection/commit marker, not a source ledger. Publish it whole and only
+    # when absent: re-running the seeder must never reset a thesis that rescore already advanced.
+    atomic_write_json(os.path.join(STATE_DIR, f"{tid}.json"), snap, create_only=True)
     return tid
 
 
@@ -334,33 +346,123 @@ def latest_integrity_routing(rec: dict) -> str | None:
     return routing if routing == "Proceed" else (routing or "unreadable_integrity_review")
 
 
-def archive_state(tid: str, reason: str) -> bool:
+def archive_state(tid: str, routing: str, mutation) -> bool:
     """A post-lock terminal integrity review (watchlist_integrity_*) rejects an ALREADY-seeded thesis:
     mark its conviction_state snapshot `archived` so conviction-dispatch stops selecting its checkpoints
     (dueCheckpoints/onWireItem key off `archived`). Without this, skipping re-emission alone leaves the
     stale live book selectable → paid /screener:validate runs on a rejected thesis (CONVICTION_LOOP.md;
-    CLAUDE.md §24). Returns True if a live snapshot existed and was archived."""
+    CLAUDE.md §24).
+
+    The archive is a first-class conviction journal transaction, not a snapshot-only mutation. Its
+    deterministic identity binds the terminal routing to the immediately preceding serialized journal
+    row. Therefore a crash after the append but before snapshot publication recovers idempotently, an
+    older validation retry restores this later archive image, and an explicit restore can be followed by
+    a new archive transaction if the terminal review still stands. Returns True when a snapshot existed
+    and this call changed/recovered its published projection.
+    """
     sp = os.path.join(STATE_DIR, f"{tid}.json")
     if not os.path.exists(sp):
         return False
     try:
         with open(sp, encoding="utf-8") as f:
-            snap = json.load(f)
+            published_snap = json.load(f)
     except Exception:  # noqa: BLE001
         return False
-    if snap.get("archived"):
-        return False  # already archived — idempotent
+
+    reason = f"latest thesis-integrity review routed {routing} (terminal)"
+    events = [
+        row for row in read_ndjson(TICKS)
+        if row.get("row_type") == "conviction_event" and row.get("thesis_id") == tid
+    ]
+    latest = events[-1] if events else None
+
+    def event_projection(row: dict | None) -> dict | None:
+        if not isinstance(row, dict):
+            return None
+        projection = row.get("state_projection")
+        event_key = row.get("event_key")
+        if (not isinstance(projection, dict) or row.get("thesis_id") != tid
+                or projection.get("thesis_id") != tid
+                or projection.get("state") != row.get("to_state")
+                or projection.get("edge_score_live") != row.get("edge_score_live")
+                or projection.get("sell_side_rating") != row.get("sell_side_rating")
+                or not isinstance(event_key, str) or event_key not in (projection.get("history") or [])):
+            return None
+        return projection
+
+    latest_projection = event_projection(latest)
+    if latest is not None and latest.get("kind") != "seed" and latest_projection is None:
+        # The append-only row is authoritative over the mutable projection. Guessing from disk after a
+        # non-seed event with no complete image could erase a committed validation or restore.
+        raise RuntimeError(f"latest conviction event for {tid} has no valid recovery projection")
+    snap = dict(latest_projection or published_snap)
+
+    # The event append is the commit point. If it already won serialized order, republish its complete
+    # projection rather than deriving a new event from a possibly stale/crash-reverted snapshot.
+    if (latest is not None and latest.get("kind") == "integrity_archive"
+            and latest.get("terminal_reason") == "thesis_integrity_review"
+            and latest.get("integrity_routing") == routing):
+        projection = latest_projection
+        if not isinstance(projection, dict) or projection.get("archived") is not True:
+            raise RuntimeError(f"terminal integrity event for {tid} has no valid recovery projection")
+        changed = published_snap != projection
+        atomic_write_json(sp, projection)
+        return changed
+
+    predecessor = (json.dumps(latest, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+                   if latest is not None else "no-prior-conviction-event")
+    basis = hashlib.sha256(json.dumps({
+        "routing": routing,
+        "predecessor_sha256": hashlib.sha256(predecessor.encode()).hexdigest(),
+    }, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    event_key = f"{tid}::integrity_archive::{basis[:24]}"
+    matches = [row for row in events if row.get("event_key") == event_key]
+    if matches:
+        # A matching event not at the end would make a deduplicated append unable to become the newest
+        # transaction. Refuse that impossible/corrupt journal shape instead of publishing old state.
+        raise RuntimeError(f"terminal integrity event {event_key} is not the latest journal row")
+
+    archived_at = now_z()
+    state = str(snap.get("state") or "watching")
     snap["archived"] = True
     snap["stale"] = True
     snap["plain_note"] = f"Archived — {reason}. No live checkpoints; no paid validation."
-    snap["updated_at"] = now_z()
-    with open(sp, "w", encoding="utf-8") as f:
-        json.dump(snap, f, indent=2, ensure_ascii=False)
-        f.write("\n")
+    snap["updated_at"] = archived_at
+    snap["terminal_reason"] = "thesis_integrity_review"
+    snap["integrity_routing"] = routing
+    # The authoritative projection already carries its committed history in serialized order. Do not
+    # splice raw legacy/seed rows into the middle here; append only this new transaction.
+    snap["history"] = list(dict.fromkeys([*(snap.get("history") or []), event_key]))
+    event = {
+        "row_type": "conviction_event", "thesis_id": tid, "at": archived_at,
+        "kind": "integrity_archive", "from_state": state, "to_state": state,
+        "edge_locked": int(snap.get("edge_locked") or 0),
+        "previous_edge_score_live": int(snap.get("edge_score_live") or 0),
+        "edge_score_live": int(snap.get("edge_score_live") or 0),
+        "conviction": int(snap.get("conviction") or snap.get("edge_score_live") or 0),
+        "sell_side_rating": snap.get("sell_side_rating") or RATING.get(state, "Watchlist"),
+        "triggering_checkpoint_id": None, "evidence_refs": [],
+        "plain_note": snap["plain_note"], "event_key": event_key,
+        "terminal_reason": "thesis_integrity_review", "integrity_routing": routing,
+        "integrity_archive_basis_sha256": basis,
+    }
+    # Keep journal_projection's equality invariants literal even for a legacy partial snapshot.
+    snap["sell_side_rating"] = event["sell_side_rating"]
+    snap["edge_score_live"] = event["edge_score_live"]
+    event["state_projection"] = snap
+    append_ndjson(mutation, APPEND, TICKS, event, "event_key", event_key)
+    atomic_write_json(sp, snap)
     return True
 
 
 def main(argv: list[str]) -> int:
+    # The ledger rows and their state projections are one transaction relative to rescore,
+    # restore, commit-run, and deploy. Hold the lease while reading and emitting the full batch.
+    with repository_mutation(REPO) as mutation:
+        return main_locked(argv, mutation)
+
+
+def main_locked(argv: list[str], mutation) -> int:
     os.makedirs(CONV, exist_ok=True)
     if len(argv) >= 2:
         files = [os.path.join(THESES, f"{argv[1]}.json")]
@@ -394,12 +496,12 @@ def main(argv: list[str]) -> int:
                   f"adversarial gate MUST run before a conviction calendar (fail-closed, §24)", file=sys.stderr)
             continue
         if routing is not None and routing != "Proceed":
-            archived = archive_state(tid0, f"latest thesis-integrity review routed {routing} (terminal)")
+            archived = archive_state(tid0, routing, mutation)
             print(f"skip {tid0}: latest thesis-integrity review routed {routing!r} (terminal) — no "
                   f"conviction calendar for a rejected thesis"
                   + ("; archived its existing conviction_state" if archived else ""), file=sys.stderr)
             continue
-        tid = emit_for(rec)
+        tid = emit_for(rec, mutation)
         if tid:
             done += 1
             print(f"emitted checkpoints + state for {tid}")

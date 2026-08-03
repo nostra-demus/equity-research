@@ -248,7 +248,7 @@ export function writeIdeasHealth(stateDir: string, health: IdeasHealthV1): void 
   } catch {
     // A missed health write loses diagnostics, not idea output or budget accounting.
   } finally {
-    try { if (fs.existsSync(tmp)) fs.unlinkSync(tmp) } catch { /* best effort */ }
+    try { fs.unlinkSync(tmp) } catch { /* best effort */ }
   }
 }
 

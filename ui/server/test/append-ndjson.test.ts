@@ -14,7 +14,7 @@ const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'append-ndjso
 const ledger = path.join(root, 'ledger.ndjson')
 const script = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../scripts/append-ndjson.sh')
 const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms))
-async function waitFor(predicate: () => boolean, timeoutMs = 5_000): Promise<void> {
+async function waitFor(predicate: () => boolean, timeoutMs = 15_000): Promise<void> {
   const started = Date.now()
   while (!predicate()) {
     if (Date.now() - started > timeoutMs) throw new Error('timed out waiting for signal-race state')
@@ -108,6 +108,44 @@ try {
   })
   assert.match(recovered.stdout, /^APPENDED=1\s*$/m)
   assert.equal(JSON.parse(fs.readFileSync(lockedLedger, 'utf8')).outcome_id, 'recovered')
+
+  // Repository checkouts replace pathnames rather than mutating an open inode. A repository-local
+  // append therefore joins the same mutation mutex as commit-run/deploy before taking its inode flock.
+  const repoRoot = path.join(root, 'repo-lock-fixture')
+  fs.mkdirSync(repoRoot)
+  await execFileAsync('git', ['init', '-q', repoRoot], { timeout: 20_000 })
+  const repoLedger = path.join(repoRoot, 'screener', 'ledger', 'events.ndjson')
+  const repoWriter = spawn('bash', [script, repoLedger, JSON.stringify({ outcome_id: 'repo-owner' }), 'outcome_id', 'repo-owner'], {
+    env: { ...process.env, TMPDIR: tmpA, NDJSON_TEST_HOLD_AFTER_LOCK_SECS: '30' },
+    stdio: ['ignore', 'pipe', 'pipe'],
+  })
+  let repoWriterStdout = ''
+  repoWriter.stdout.on('data', (chunk) => { repoWriterStdout += String(chunk) })
+  await waitFor(() => repoWriterStdout.includes('LOCKED=1'))
+  const { stdout: repoLockOutput } = await execFileAsync('git', ['-C', repoRoot, 'rev-parse', '--git-path', 'nostra-engine-mutation.flock'])
+  const repoMutationLockRaw = repoLockOutput.trim()
+  const repoMutationLock = path.isAbsolute(repoMutationLockRaw) ? repoMutationLockRaw : path.join(repoRoot, repoMutationLockRaw)
+  assert.equal(fs.existsSync(repoMutationLock), true, 'append holds the deploy/commit mutation mutex')
+  await assert.rejects(
+    execFileAsync('bash', [script, path.join(repoRoot, 'screener', 'ledger', 'other.ndjson'), JSON.stringify({ outcome_id: 'blocked-by-repo' })], {
+      timeout: 20_000,
+      env: { ...process.env, TMPDIR: tmpB, NDJSON_REPO_LOCK_WAIT_MS: '20' },
+    }),
+    (error: any) => error?.code === 3 && /repository mutation lock/.test(String(error?.stderr)),
+    'a different TMPDIR cannot create a second mutex or enter through another ledger pathname',
+  )
+  const repoWriterClosed = new Promise<{ code: number | null; signal: NodeJS.Signals | null }>((resolve) => {
+    repoWriter.once('close', (code, signal) => resolve({ code, signal }))
+  })
+  assert.equal(repoWriter.kill('SIGTERM'), true)
+  const repoWriterExit = await repoWriterClosed
+  assert.equal(repoWriterExit.code, null)
+  assert.equal(repoWriterExit.signal, 'SIGTERM')
+  assert.equal(fs.existsSync(repoMutationLock), true, 'the stable lock inode persists harmlessly after owner death')
+  const afterRepoSignal = await execFileAsync('bash', [script, repoLedger, JSON.stringify({ outcome_id: 'after-repo-signal' }), 'outcome_id', 'after-repo-signal'], {
+    timeout: 20_000, env: { ...process.env, TMPDIR: tmpA },
+  })
+  assert.match(afterRepoSignal.stdout, /^APPENDED=1\s*$/m)
 
   // Real signal race: kill a writer while it owns the critical section. The kernel must release the
   // lease and terminate the writer (not resume and append); the next writer then acquires normally.

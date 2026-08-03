@@ -1,46 +1,108 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { spawnSync } from 'node:child_process'
 
-// Single-instance lock — one named long-running job per state dir, across processes.
-//
-// Two engines pointed at the SAME ENGINE_STATE_DIR (a stray manual start, a wrong-port instance, a
-// duplicated deploy) would otherwise BOTH run the news ingester AND the resume supervisor — doubling
-// every fetch/relaunch and racing every write (the 2026-06-20 ":8799" incident: a forgotten manual
-// instance double-loaded the machine for ~2 days). This is the atomic PID lock that prevents it,
-// generalized from the ingester's original lock so the resume supervisor reuses the exact same proven
-// path (a different lock FILE per job, so the ingester and the supervisor never block each other).
-//
-// Returns true iff THIS process now owns `lockFile`. FAILS OPEN: any unexpected fs error returns true,
-// so the guard can never stop the legitimate sole engine from doing its job — it returns false ONLY
-// when it positively confirms another LIVE owner. A crashed holder leaves a stale lock the next start
-// steals via the PID-liveness check (a SIGTERM/SIGKILL never fires the clean-exit release).
-export function acquireSingletonLock(stateDir: string, lockFile: string): boolean {
-  const fp = path.join(stateDir, lockFile)
-  for (let attempt = 0; attempt < 2; attempt++) {
-    try {
-      fs.mkdirSync(stateDir, { recursive: true })
-      const fd = fs.openSync(fp, 'wx') // atomic create-exclusive: win the race, or throw EEXIST
-      try { fs.writeSync(fd, String(process.pid)) } finally { fs.closeSync(fd) }
-      return true
-    } catch (e: any) {
-      if (e?.code !== 'EEXIST') return true // unexpected fs error → never block the sole engine
-      let holder = 0
-      try { holder = parseInt(fs.readFileSync(fp, 'utf8').trim(), 10) || 0 } catch { /* unreadable */ }
-      if (holder === process.pid) return true // re-entrant: we already own it
-      if (holder > 0) {
-        let alive = false
-        try { process.kill(holder, 0); alive = true } catch (err: any) { alive = err?.code === 'EPERM' } // EPERM = exists, not ours
-        if (alive) return false // another LIVE engine owns this job for this state dir
-      }
-      try { fs.unlinkSync(fp) } catch { /* cleared elsewhere */ } // stale (dead/zero/unreadable) → drop, retry create
-    }
-  }
-  return true // couldn't prove a live owner after stealing a stale lock → fail open
+const FLOCK_LEASE_PROGRAM = [
+  'import fcntl, sys, time',
+  'wait_ms, poll_ms = int(sys.argv[1]), int(sys.argv[2])',
+  'deadline = time.monotonic() + wait_ms / 1000',
+  'while True:',
+  ' try:',
+  '  fcntl.flock(3, fcntl.LOCK_EX | fcntl.LOCK_NB)',
+  '  break',
+  ' except BlockingIOError:',
+  '  if time.monotonic() >= deadline:',
+  '   print("TIMEOUT", flush=True)',
+  '   raise SystemExit(3)',
+  '  time.sleep(poll_ms / 1000)',
+  'print("LOCKED", flush=True)',
+].join('\n')
+
+export interface RetainedFlockOptions {
+  waitMs: number
+  pollMs?: number
+  busyMessage: string
 }
 
-// Best-effort release of OUR lock (clean exit only). A crash leaves a stale lock that the next start
-// steals via acquireSingletonLock's liveness check, so this is a courtesy, not a correctness requirement.
+function busyError(message: string): Error & { code: string } {
+  return Object.assign(new Error(message), { code: 'EBUSY' })
+}
+
+/** Acquire a kernel-owned flock on a descriptor retained by this Node process. Python performs the
+ * portable syscall on child fd 3; the inherited open-file description remains locked until Node closes
+ * its copy. The pathname is stable and must never be unlinked as part of release or stale recovery. */
+export function acquireRetainedFlockSync(lockPath: string, options: RetainedFlockOptions): number {
+  const waitMs = Math.max(0, Math.trunc(options.waitMs))
+  const pollMs = Math.max(1, Math.trunc(options.pollMs ?? 10))
+  fs.mkdirSync(path.dirname(lockPath), { recursive: true })
+  const fd = fs.openSync(lockPath, 'a+', 0o600)
+  const result = spawnSync('python3', [
+    '-c', FLOCK_LEASE_PROGRAM, String(waitMs), String(pollMs),
+  ], {
+    stdio: ['ignore', 'pipe', 'pipe', fd] as any,
+    encoding: 'utf8',
+    timeout: waitMs + 5_000,
+    maxBuffer: 64_000,
+  })
+  const stdout = String(result.stdout || '')
+  const stderr = String(result.stderr || '')
+  if (result.status === 0 && /(?:^|\n)LOCKED(?:\n|$)/.test(stdout)) return fd
+  try { fs.closeSync(fd) } catch { /* already closed */ }
+  if (result.status === 3 || /(?:^|\n)TIMEOUT(?:\n|$)/.test(stdout)) throw busyError(options.busyMessage)
+  const detail = result.error?.message || stderr.trim() || `exit ${result.status ?? result.signal ?? 'unknown'}`
+  throw new Error(`flock acquisition helper failed: ${detail.slice(0, 200)}`)
+}
+
+export function releaseRetainedFlock(fd: number): void {
+  try { fs.closeSync(fd) } catch { /* process exit also releases the kernel lease */ }
+}
+
+// One descriptor per canonical pathname. File contents are diagnostic only; the kernel lease is the
+// authority. This avoids every stale-PID failure: PID reuse, crash residue, unlink/recreate ABA races,
+// and a false "live owner" caused by unrelated reuse of a dead process's PID.
+const singletonLeases = new Map<string, number>()
+
+function canonicalLockPath(stateDir: string, lockFile: string): string {
+  fs.mkdirSync(stateDir, { recursive: true })
+  return path.join(fs.realpathSync.native(stateDir), lockFile)
+}
+
+/** Returns true iff this process owns the named kernel lease. Unexpected lock errors fail closed and are
+ * logged: starting a second writer is more dangerous than temporarily refusing to start one. */
+export function acquireSingletonLock(stateDir: string, lockFile: string): boolean {
+  let lockPath = ''
+  try {
+    lockPath = canonicalLockPath(stateDir, lockFile)
+    if (singletonLeases.has(lockPath)) return true
+    const fd = acquireRetainedFlockSync(lockPath, {
+      waitMs: 0,
+      busyMessage: `singleton already owned: ${lockFile}`,
+    })
+    try {
+      fs.ftruncateSync(fd, 0)
+      fs.writeSync(fd, `${process.pid}\n`, 0, 'utf8')
+      fs.fsyncSync(fd)
+    } catch (error) {
+      releaseRetainedFlock(fd)
+      throw error
+    }
+    singletonLeases.set(lockPath, fd)
+    return true
+  } catch (error: any) {
+    if (error?.code !== 'EBUSY') {
+      // eslint-disable-next-line no-console
+      console.error(`[singleton-lock] cannot acquire ${lockPath || path.join(stateDir, lockFile)}; refusing duplicate-safe startup`, error)
+    }
+    return false
+  }
+}
+
+/** Release only this process's retained descriptor. The stable lock inode deliberately remains on disk. */
 export function releaseSingletonLock(stateDir: string, lockFile: string): void {
-  const fp = path.join(stateDir, lockFile)
-  try { if (fs.readFileSync(fp, 'utf8').trim() === String(process.pid)) fs.unlinkSync(fp) } catch { /* nothing to release */ }
+  let lockPath = ''
+  try { lockPath = canonicalLockPath(stateDir, lockFile) } catch { return }
+  const fd = singletonLeases.get(lockPath)
+  if (fd === undefined) return
+  singletonLeases.delete(lockPath)
+  releaseRetainedFlock(fd)
 }

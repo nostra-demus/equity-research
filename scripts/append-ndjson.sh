@@ -44,6 +44,81 @@ FILE_DIR="$(cd "$(dirname "$FILE")" 2>/dev/null && pwd -P)" || {
 }
 FILE="$FILE_DIR/$(basename "$FILE")"
 
+# Tracked data ledgers can be replaced by a fast-forward even while their old inode stays open. Join the
+# exact repository-mutation flock used by commit-run.sh and deploy.sh before opening one, so checkout can
+# only happen wholly before or wholly after the append. The persistent lock file lives in this worktree's
+# Git directory: it is independent of TMPDIR, never replaced by checkout, and the kernel releases ownership
+# on every process exit/crash. Gitignored runtime ledgers outside analyses/ and screener/ skip this global
+# mutex and use only their inode lock below.
+REPO_LOCK=""
+if REPO_TOP="$(git -C "$FILE_DIR" rev-parse --show-toplevel 2>/dev/null)"; then
+  case "$FILE" in
+    "$REPO_TOP"/*)
+      REPO_REL="${FILE#"$REPO_TOP"/}"
+      case "$REPO_REL" in
+        analyses/*|screener/*)
+          REPO_LOCK="$(git -C "$REPO_TOP" rev-parse --git-path nostra-engine-mutation.flock 2>/dev/null || true)"
+          case "$REPO_LOCK" in /*) ;; ?*) REPO_LOCK="$REPO_TOP/$REPO_LOCK" ;; esac
+          ;;
+      esac
+      ;;
+  esac
+fi
+if [ -n "$REPO_LOCK" ]; then
+  if [ -n "${NOSTRA_REPO_LOCK_FD:-}" ]; then
+    # A multi-file Python transaction already owns the lease. Verify that the inherited descriptor
+    # names this exact stable lock and shares its held open-file description; never blindly trust an
+    # environment flag or open a second descriptor (which would deadlock against our own parent).
+    if ! REPO_LOCK="$REPO_LOCK" python3 - <<'PYINHERITED'
+import fcntl
+import os
+
+try:
+    fd = int(os.environ["NOSTRA_REPO_LOCK_FD"])
+    held = os.fstat(fd)
+    expected = os.stat(os.environ["REPO_LOCK"])
+    if (held.st_dev, held.st_ino) != (expected.st_dev, expected.st_ino):
+        raise ValueError("descriptor does not name the repository lock")
+    fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+except (BlockingIOError, KeyError, OSError, ValueError):
+    raise SystemExit(3)
+PYINHERITED
+    then
+      echo "append-ndjson: invalid inherited repository mutation lease" >&2
+      exit 3
+    fi
+  else
+    exec 9>>"$REPO_LOCK" || {
+      echo "append-ndjson: cannot open repository mutation lock: $REPO_LOCK" >&2
+      exit 3
+    }
+    if ! python3 - "${NDJSON_REPO_LOCK_WAIT_MS:-900000}" 9<&9 <<'PYLOCK'
+import fcntl
+import sys
+import time
+
+try:
+    wait_ms = max(0, int(sys.argv[1]))
+except ValueError:
+    wait_ms = 900_000
+deadline = time.monotonic() + wait_ms / 1000
+while True:
+    try:
+        fcntl.flock(9, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        break
+    except BlockingIOError:
+        if time.monotonic() >= deadline:
+            raise SystemExit(3)
+        time.sleep(0.05)
+PYLOCK
+    then
+      exec 9>&-
+      echo "append-ndjson: timed out waiting for repository mutation lock: $REPO_LOCK" >&2
+      exit 3
+    fi
+  fi
+fi
+
 # The kernel, not PID metadata, owns the mutex. Lock the ledger inode itself so real paths, symlinks, and
 # hard-link aliases all converge on one lease. Advisory flock is released automatically on process death;
 # there is no stale pathname to reclaim and no ABA window in which a delayed reclaimer can delete a live

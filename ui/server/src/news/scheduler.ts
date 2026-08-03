@@ -812,14 +812,13 @@ const INGESTER_LOCK_FILE = 'news-ingester.lock'
  *  SECOND engine pointed at the SAME data dir — e.g. a stray manual `npm start` on another port — from
  *  running a DUPLICATE ingester, which doubles every feed/GDELT/LLM fetch and races every write (the
  *  2026-06-20 ":8799" incident: a forgotten manual instance double-loaded the machine for ~2 days).
- *  Thin wrapper over the shared atomic PID lock (singleton-lock.ts); the resume supervisor uses the same
+ *  Thin wrapper over the shared retained kernel lock (singleton-lock.ts); the resume supervisor uses the same
  *  helper with its own lock file, so the two never block each other. Behavior unchanged. */
 export function acquireIngesterLock(stateDir: string): boolean {
   return acquireSingletonLock(stateDir, INGESTER_LOCK_FILE)
 }
 
-/** Best-effort release of OUR lock (clean exit only). A crash leaves a stale lock that the next start
- *  steals via acquireIngesterLock's liveness check, so this is a courtesy, not a correctness requirement. */
+/** Release our retained descriptor on a clean exit. A crash closes it in the kernel automatically. */
 export function releaseIngesterLock(stateDir: string): void {
   releaseSingletonLock(stateDir, INGESTER_LOCK_FILE)
 }

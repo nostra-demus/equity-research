@@ -85,6 +85,11 @@ jobs:
       - name: commit-run.sh push regression test (fast-forward push from a non-main branch)
         run: python3 scripts/test_commit_run.py
 
+      - name: Repository mutation lease tests (deploy/commit/ledger transaction exclusion)
+        run: |
+          python3 scripts/test_repo_mutation.py
+          python3 scripts/test_conviction_transactions.py
+
       - name: Run cost/runtime attribution tool unit tests (dedup-by-requestId + list pricing)
         run: python3 scripts/test_run_cost_report.py
 
