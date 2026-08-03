@@ -4,9 +4,12 @@
 // matches an item tagged with that exact ticker OR named in its headline/company blob.
 // Run: npx tsx src/components/screener/companyFilter.test.ts
 import assert from 'node:assert/strict'
-import { archiveFiltersActive, emptyFilters, filtersActive, keywordReadAsNote, matchesFilters, type Filterable, type FeedFilterState } from './FeedFilters'
+import { createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
+import { archiveFiltersActive, clearSecondaryFilters, emptyFilters, FeedFilters, filtersActive, keywordReadAsNote, matchesFilters, type Filterable, type FeedFilterState } from './FeedFilters'
 import { mergeCompanyOptions, rankOption, resolveKeywordCompanies, resolveTypedCompany } from './CompanyFilter'
 import { baseTicker, cleanTicker, companyNameMatches, coreCompanyName, groupListingCountry } from '../../lib/symbology'
+import { EventRail } from './EventRail'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -16,6 +19,56 @@ function check(name: string, fn: () => void) {
 
 const it = (over: Partial<Filterable> = {}): Filterable => ({ headline: 'A generic corporate update', companies: [], ...over })
 const withCompany = (company: FeedFilterState['company']): FeedFilterState => ({ ...emptyFilters(), company })
+
+check('a surface can promote the company picker without leaving a duplicate in advanced filters', () => {
+  const common = { value: emptyFilters(), onChange: () => {}, sources: [], companies: [], compact: true }
+  const promoted = renderToStaticMarkup(createElement(FeedFilters, { ...common, showCompany: false }))
+  assert.doesNotMatch(promoted, /Filter by company/, 'the advanced panel must not render a second company combobox')
+  assert.match(promoted, /search headlines or keywords/, 'the remaining text box must read as a keyword refinement')
+
+  const standard = renderToStaticMarkup(createElement(FeedFilters, common))
+  assert.match(standard, /Filter by company/, 'other FeedFilters surfaces keep the company picker by default')
+})
+
+check('the rail renders one primary company picker directly after geography', () => {
+  const rail = renderToStaticMarkup(createElement(EventRail))
+  assert.equal((rail.match(/role="combobox"/g) || []).length, 1, 'the collapsed rail must render exactly one company combobox')
+  const geography = rail.indexOf('aria-label="Filter by geography')
+  const company = rail.indexOf('aria-label="Filter by company or ticker"')
+  assert.ok(geography >= 0 && company > geography, 'the primary company filter must follow the geography row')
+})
+
+check('clearing advanced filters preserves primary geography and company', () => {
+  const company = { ticker: 'AMZN', name: 'Amazon.com Inc', aliases: ['Amazon'], tickerAliases: ['AMZN.NE'], listingCountry: 'US' }
+  const current: FeedFilterState = {
+    ...emptyFilters(),
+    themes: new Set(['deals', 'products']),
+    country: 'US',
+    geoRegion: 'North America',
+    region: 'Americas',
+    source: 'Reuters',
+    band: 'high',
+    size: 'large',
+    linkage: 'direct',
+    gicsSector: 'Consumer Discretionary',
+    gicsSubSector: 'Broadline Retail',
+    company,
+    text: 'tariffs',
+  }
+  const cleared = clearSecondaryFilters(current)
+  assert.equal(cleared.country, 'US')
+  assert.equal(cleared.geoRegion, 'North America')
+  assert.deepEqual(cleared.company, company)
+  assert.deepEqual(cleared.themes, new Set())
+  assert.equal(cleared.region, '')
+  assert.equal(cleared.source, '')
+  assert.equal(cleared.band, '')
+  assert.equal(cleared.size, '')
+  assert.equal(cleared.linkage, '')
+  assert.equal(cleared.gicsSector, '')
+  assert.equal(cleared.gicsSubSector, '')
+  assert.equal(cleared.text, '')
+})
 
 // ---- exact ticker ----
 check('matches an item tagged with the exact ticker (case-insensitive), not a different one', () => {
