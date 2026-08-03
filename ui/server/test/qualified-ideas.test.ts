@@ -124,6 +124,13 @@ const missingFreshness = candidate('QIDEA-missing-freshness')
 delete (missingFreshness.quote as any).stale
 assert.ok(evaluateQualifiedIdea(missingFreshness, { nowMs: NOW }).issues.some((x) => x.code === 'unverified_quote'), 'freshness must be explicitly proven false, not inferred from a missing flag')
 
+const missingQuote = candidate('QIDEA-missing-quote') as any
+delete missingQuote.quote
+let missingQuoteResult: ReturnType<typeof evaluateQualifiedIdea> | undefined
+assert.doesNotThrow(() => { missingQuoteResult = evaluateQualifiedIdea(missingQuote, { nowMs: NOW }) }, 'malformed market evidence must fail closed instead of crashing the board')
+assert.ok(missingQuoteResult?.issues.some((x) => x.code === 'unverified_quote'))
+assert.ok(missingQuoteResult?.issues.some((x) => x.code === 'invalid_scenarios'), 'return math cannot be admitted without a valid frozen entry quote')
+
 const noBridge = candidate('QIDEA-bridge')
 noBridge.valuation_bridge = {
   source_horizon_days: 365, method: 'same_horizon', convergence_fraction: null,

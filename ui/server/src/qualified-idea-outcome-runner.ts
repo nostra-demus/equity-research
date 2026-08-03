@@ -4,9 +4,8 @@
 // expiring terminal snapshot, so an old green file can never masquerade as a running system.
 
 import fs from 'node:fs'
-import os from 'node:os'
 import path from 'node:path'
-import { execFile } from 'node:child_process'
+import { execFile, spawn } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { promisify } from 'node:util'
 import { listFrozenQualifiedIdeaEvaluations } from './qualified-ideas-store'
@@ -34,7 +33,7 @@ export const QUALIFIED_OUTCOME_HEALTH_TTL_MS = qualifiedOutcomeHealthTtlMs(
   Math.max(60_000, (Number.isFinite(configuredOutcomeLoopMin) && configuredOutcomeLoopMin > 0 ? configuredOutcomeLoopMin : 5) * 60_000),
 )
 export const QUALIFIED_OUTCOME_HEALTH_FILE = 'qualified-idea-outcomes-health.json'
-const QUALIFIED_OUTCOME_PASS_LOCK = '.qualified-idea-outcomes-pass.lock'
+const QUALIFIED_OUTCOME_PASS_LOCK = '.qualified-idea-outcomes-pass.flock'
 
 /** Mutable runtime health follows the engine-wide STATE_DIR convention, never the immutable ledger. */
 export function qualifiedIdeaOutcomeStateDir(repoRoot: string): string {
@@ -211,46 +210,17 @@ async function appendSnapshot(
   throw new Error(`append helper returned no disposition: ${stdout.trim().slice(0, 160)}`)
 }
 
-const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms))
-
-async function withHealthLock<T>(file: string, fn: () => T | Promise<T>): Promise<T> {
-  const lock = `${file}.lock`
-  fs.mkdirSync(path.dirname(file), { recursive: true })
-  let held = false
-  for (let attempt = 0; attempt < 200; attempt++) {
-    try {
-      fs.mkdirSync(lock)
-      held = true
-      fs.writeFileSync(path.join(lock, 'owner'), `${process.pid}\n`)
-      break
-    } catch (err: any) {
-      if (err?.code !== 'EEXIST') throw err
-      try {
-        const pid = Number(fs.readFileSync(path.join(lock, 'owner'), 'utf8').trim())
-        const age = Date.now() - fs.statSync(lock).mtimeMs
-        if (Number.isInteger(pid) && pid > 1 && age > 60_000) {
-          try { process.kill(pid, 0) } catch {
-            try { fs.rmSync(lock, { recursive: true, force: true }) } catch { /* another writer won */ }
-          }
-        }
-      } catch { /* owner creation race: wait, never steal young unknown ownership */ }
-      await wait(25)
-    }
-  }
-  if (!held) throw new Error('timed out waiting for outcome-health lock')
-  try { return await fn() }
-  finally {
-    try {
-      const owner = fs.readFileSync(path.join(lock, 'owner'), 'utf8').trim()
-      if (owner === String(process.pid)) fs.rmSync(lock, { recursive: true, force: true })
-    } catch { /* best effort; a dead-owner pass can reclaim after the grace period */ }
-  }
-}
-
 type HealthDraft = Omit<QualifiedIdeaOutcomeHealth, 'pass_id' | 'pass_sequence' | 'updated_at' | 'expires_at'>
 
+/** Health can be shared by independently checked-out repository roots, so it has its own kernel lock.
+ * Sequence allocation and the atomic temp-file rename both happen while that descriptor is held. */
 async function writeTerminalHealth(file: string, draft: HealthDraft, nowMs: number): Promise<QualifiedIdeaOutcomeHealth> {
-  return withHealthLock(file, () => {
+  const lease = await acquireFlockLease(
+    `${file}.flock`,
+    OUTCOME_HEALTH_LOCK_WAIT_MS,
+    'timed out waiting to publish qualified-idea outcome health',
+  )
+  try {
     let priorSequence = 0
     try {
       const prior = JSON.parse(fs.readFileSync(file, 'utf8'))
@@ -268,7 +238,6 @@ async function writeTerminalHealth(file: string, draft: HealthDraft, nowMs: numb
       expires_at: new Date(nowMs + QUALIFIED_OUTCOME_HEALTH_TTL_MS).toISOString(),
     }
     const tmp = `${file}.tmp.${process.pid}.${sequence}.${Math.random().toString(16).slice(2)}`
-    fs.mkdirSync(path.dirname(file), { recursive: true })
     try {
       fs.writeFileSync(tmp, JSON.stringify(health, null, 2) + '\n')
       fs.renameSync(tmp, file)
@@ -276,7 +245,9 @@ async function writeTerminalHealth(file: string, draft: HealthDraft, nowMs: numb
       try { fs.rmSync(tmp, { force: true }) } catch { /* best effort */ }
     }
     return health
-  })
+  } finally {
+    lease.release()
+  }
 }
 
 function providerFailure(
@@ -502,12 +473,27 @@ async function executeOutcomePass(repoRoot: string, nowMs: number, passStartedMs
   }
 }
 
-interface OutcomePassLease { token: string; release: () => void }
+interface OutcomePassLease { release: () => void }
 type OutcomePassClaim = { kind: 'owned'; lease: OutcomePassLease } | { kind: 'observed'; health: QualifiedIdeaOutcomeHealth }
 const activeOutcomePasses = new Map<string, Promise<QualifiedIdeaOutcomeHealth>>()
 const OUTCOME_PASS_LOCK_WAIT_MS = 30 * 60_000
+const OUTCOME_HEALTH_LOCK_WAIT_MS = 30_000
 const OUTCOME_PASS_LOCK_POLL_MS = 50
-const OUTCOME_PASS_MALFORMED_GRACE_MS = 60_000
+const FLOCK_LEASE_PROGRAM = [
+  'import fcntl, sys, time',
+  'wait_ms, poll_ms = int(sys.argv[1]), int(sys.argv[2])',
+  'deadline = time.monotonic() + wait_ms / 1000',
+  'while True:',
+  ' try:',
+  '  fcntl.flock(3, fcntl.LOCK_EX | fcntl.LOCK_NB)',
+  '  break',
+  ' except BlockingIOError:',
+  '  if time.monotonic() >= deadline:',
+  '   print("TIMEOUT", flush=True)',
+  '   raise SystemExit(3)',
+  '  time.sleep(poll_ms / 1000)',
+  'print("LOCKED", flush=True)',
+].join('\n')
 
 function readPersistedHealth(file: string, nowMs: number): QualifiedIdeaOutcomeHealth | null {
   try {
@@ -517,24 +503,60 @@ function readPersistedHealth(file: string, nowMs: number): QualifiedIdeaOutcomeH
   } catch { return null }
 }
 
-function reclaimDeadOutcomePassLock(lock: string): void {
-  let age = 0
-  try { age = Math.max(0, Date.now() - fs.statSync(lock).mtimeMs) } catch { return }
-  const ownerFile = path.join(lock, 'owner.json')
-  let owner: any = null
-  try { owner = JSON.parse(fs.readFileSync(ownerFile, 'utf8')) } catch { /* owner creation or malformed owner */ }
-  const validPid = Number.isInteger(owner?.pid) && owner.pid > 1
-  const validHost = nonBlank(owner?.host)
-  let reclaim = false
-  if (validPid && validHost && owner.host === os.hostname()) {
-    try { process.kill(owner.pid, 0) } catch (err: any) { reclaim = err?.code !== 'EPERM' }
-  } else if ((!owner || !validPid || !validHost) && age >= OUTCOME_PASS_MALFORMED_GRACE_MS) {
-    reclaim = true
+/** Python performs the portable flock syscall on fd 3 and exits. Node retains the same open-file
+ * description, so lock ownership cannot disappear with a helper process; closing this fd is release. */
+async function acquireFlockLease(lock: string, waitMs: number, timeoutMessage: string): Promise<OutcomePassLease> {
+  fs.mkdirSync(path.dirname(lock), { recursive: true })
+  const fd = fs.openSync(lock, 'a+')
+  let child: ReturnType<typeof spawn>
+  try {
+    child = spawn('python3', [
+      '-c', FLOCK_LEASE_PROGRAM, String(waitMs), String(OUTCOME_PASS_LOCK_POLL_MS),
+    ], { stdio: ['ignore', 'pipe', 'pipe', fd] })
+  } catch (err) {
+    fs.closeSync(fd)
+    throw err
   }
-  // A live remote owner cannot be disproved from this host, so it always fails closed.
-  if (!reclaim) return
-  try { fs.unlinkSync(ownerFile) } catch { /* ownerless lock */ }
-  try { fs.rmdirSync(lock) } catch { /* changed or reclaimed elsewhere */ }
+  child.stdout!.setEncoding('utf8')
+  child.stderr!.setEncoding('utf8')
+  let stdout = ''
+  let stderr = ''
+  let watchdogExpired = false
+  child.stderr!.on('data', (chunk) => { stderr += String(chunk) })
+  child.stdout!.on('data', (chunk) => { stdout += String(chunk) })
+  try {
+    await new Promise<void>((resolve, reject) => {
+      const watchdog = setTimeout(() => {
+        watchdogExpired = true
+        child.kill('SIGKILL')
+      }, waitMs + 5_000)
+      watchdog.unref()
+      child.once('error', (err) => {
+        clearTimeout(watchdog)
+        reject(err)
+      })
+      child.once('close', (code, signal) => {
+        clearTimeout(watchdog)
+        const timedOut = watchdogExpired || code === 3 || /TIMEOUT/.test(stdout)
+        if (code === 0 && /(?:^|\n)LOCKED(?:\n|$)/.test(stdout)) resolve()
+        else reject(new Error(timedOut
+          ? timeoutMessage
+          : `flock acquisition helper failed${signal ? ` (${signal})` : ''}${stderr.trim() ? `: ${stderr.trim().slice(0, 200)}` : ''}`))
+      })
+    })
+  } catch (err) {
+    try { fs.closeSync(fd) } catch { /* already closed */ }
+    throw err
+  }
+
+  let released = false
+  return {
+    release: () => {
+      if (released) return
+      released = true
+      fs.closeSync(fd)
+    },
+  }
 }
 
 async function claimOutcomePass(
@@ -544,45 +566,17 @@ async function claimOutcomePass(
 ): Promise<OutcomePassClaim> {
   fs.mkdirSync(path.dirname(lock), { recursive: true })
   const priorPassId = readPersistedHealth(healthFile, nowMs)?.pass_id ?? null
-  const deadline = Date.now() + OUTCOME_PASS_LOCK_WAIT_MS
-  let contended = false
-  while (Date.now() <= deadline) {
-    if (contended && !fs.existsSync(lock)) {
-      const completed = readPersistedHealth(healthFile, Math.max(nowMs, Date.now()))
-      if (completed && completed.pass_id !== priorPassId) return { kind: 'observed', health: completed }
-    }
-    try {
-      fs.mkdirSync(lock)
-      const token = `${process.pid}-${Date.now()}-${Math.random().toString(16).slice(2)}`
-      const ownerFile = path.join(lock, 'owner.json')
-      try {
-        fs.writeFileSync(ownerFile, JSON.stringify({ pid: process.pid, host: os.hostname(), token, started_at: new Date().toISOString() }) + '\n', { flag: 'wx' })
-      } catch (err) {
-        try { fs.rmdirSync(lock) } catch { /* fail closed if ownership is uncertain */ }
-        throw err
-      }
-      return {
-        kind: 'owned',
-        lease: {
-          token,
-          release: () => {
-            try {
-              const owner = JSON.parse(fs.readFileSync(ownerFile, 'utf8'))
-              if (owner?.token !== token || owner?.pid !== process.pid || owner?.host !== os.hostname()) return
-              fs.unlinkSync(ownerFile)
-              fs.rmdirSync(lock)
-            } catch { /* a dead-owner recovery will reclaim only after its explicit grace */ }
-          },
-        },
-      }
-    } catch (err: any) {
-      if (err?.code !== 'EEXIST') throw err
-      contended = true
-      reclaimDeadOutcomePassLock(lock)
-      await wait(OUTCOME_PASS_LOCK_POLL_MS)
-    }
+  const lease = await acquireFlockLease(
+    lock,
+    OUTCOME_PASS_LOCK_WAIT_MS,
+    'timed out waiting for the repository-scoped qualified-idea outcome pass',
+  )
+  const completed = readPersistedHealth(healthFile, Math.max(nowMs, Date.now()))
+  if (completed && completed.pass_id !== priorPassId) {
+    lease.release()
+    return { kind: 'observed', health: completed }
   }
-  throw new Error('timed out waiting for the repository-scoped qualified-idea outcome pass')
+  return { kind: 'owned', lease }
 }
 
 async function runOwnedQualifiedIdeaOutcomePass(
@@ -622,7 +616,7 @@ export function runQualifiedIdeaOutcomePass(
   stateDir = qualifiedIdeaOutcomeStateDir(repoRoot),
 ): Promise<QualifiedIdeaOutcomeHealth> {
   const effectiveNow = finite(nowMs) ? nowMs : Date.now()
-  const key = qualifiedIdeaOutcomePassLockPath(repoRoot, stateDir)
+  const key = `${qualifiedIdeaOutcomePassLockPath(repoRoot, stateDir)}\0${path.resolve(stateDir)}`
   const active = activeOutcomePasses.get(key)
   if (active) return active
   const pending = runOwnedQualifiedIdeaOutcomePass(repoRoot, effectiveNow, stateDir)

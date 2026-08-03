@@ -1,6 +1,6 @@
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import { execFile } from 'node:child_process'
+import { execFile, spawn } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
@@ -220,8 +220,36 @@ const stateDir = path.join(root, 'ui', 'server', '.state')
 const runPass = (nowMs = NOW) => runQualifiedIdeaOutcomePass(root, nowMs, stateDir)
 try {
   assert.equal(qualifiedIdeaOutcomeHealthPath(root, stateDir), path.join(stateDir, 'qualified-idea-outcomes-health.json'))
-  assert.equal(qualifiedIdeaOutcomePassLockPath(root, stateDir), path.join(fs.realpathSync(root), 'screener', 'ledger', '.qualified-idea-outcomes-pass.lock'))
-  const empty = await runPass()
+  const passLock = qualifiedIdeaOutcomePassLockPath(root, stateDir)
+  assert.equal(passLock, path.join(fs.realpathSync(root), 'screener', 'ledger', '.qualified-idea-outcomes-pass.flock'))
+  fs.mkdirSync(path.dirname(passLock), { recursive: true })
+  const holder = spawn('python3', ['-c', [
+    'import fcntl, sys, time',
+    'lock = open(sys.argv[1], "a+")',
+    'fcntl.flock(lock.fileno(), fcntl.LOCK_EX)',
+    'print("LOCKED", flush=True)',
+    'time.sleep(10)',
+  ].join(';'), passLock], { stdio: ['ignore', 'pipe', 'pipe'] })
+  let holderStdout = ''
+  holder.stdout.on('data', (chunk) => { holderStdout += String(chunk) })
+  await new Promise<void>((resolve, reject) => {
+    const poll = setInterval(() => {
+      if (!holderStdout.includes('LOCKED')) return
+      clearInterval(poll)
+      resolve()
+    }, 5)
+    holder.once('error', (err) => { clearInterval(poll); reject(err) })
+    holder.once('close', (code) => {
+      if (!holderStdout.includes('LOCKED')) { clearInterval(poll); reject(new Error(`test flock holder exited ${code}`)) }
+    })
+  })
+  let blockedSettled = false
+  const blockedPass = runPass().finally(() => { blockedSettled = true })
+  await new Promise((resolve) => setTimeout(resolve, 100))
+  assert.equal(blockedSettled, false, 'a live kernel lease serializes the entire outcome pass')
+  assert.equal(holder.kill('SIGKILL'), true)
+  await new Promise<void>((resolve) => holder.once('close', () => resolve()))
+  const empty = await blockedPass
   assert.equal(empty.status, 'pre_data')
   assert.equal(empty.outcome, 'no_qualified_ideas')
   assert.equal(empty.terminal, true)
@@ -240,6 +268,44 @@ try {
   assert.equal(assessQualifiedIdeaOutcomeHealth({ ...empty, qualified_idea_count: 1 }, NOW).state, 'invalid')
   assert.equal(assessQualifiedIdeaOutcomeHealth({ ...empty, status: 'healthy', outcome: 'nothing_due', due_count: 1 }, NOW).state, 'invalid')
   assert.equal(assessQualifiedIdeaOutcomeHealth({ ...empty, status: 'healthy', outcome: 'resolved' }, NOW).state, 'invalid')
+
+  // In-process coalescing includes state identity: one checkout can publish independently to two
+  // configured state directories, while the repository flock still serializes immutable ledgers.
+  const dualStateRoot = newRoot()
+  const dualStateA = path.join(dualStateRoot, '.state-a')
+  const dualStateB = path.join(dualStateRoot, '.state-b')
+  try {
+    const [healthA, healthB] = await Promise.all([
+      runQualifiedIdeaOutcomePass(dualStateRoot, NOW, dualStateA),
+      runQualifiedIdeaOutcomePass(dualStateRoot, NOW, dualStateB),
+    ])
+    assert.equal(healthA.pass_sequence, 1)
+    assert.equal(healthB.pass_sequence, 1)
+    assert.equal(JSON.parse(fs.readFileSync(qualifiedIdeaOutcomeHealthPath(dualStateRoot, dualStateA), 'utf8')).pass_id, healthA.pass_id)
+    assert.equal(JSON.parse(fs.readFileSync(qualifiedIdeaOutcomeHealthPath(dualStateRoot, dualStateB), 'utf8')).pass_id, healthB.pass_id)
+  } finally {
+    fs.rmSync(dualStateRoot, { recursive: true, force: true })
+  }
+
+  // Conversely, two different checkouts can intentionally share one runtime state directory. Their
+  // repository locks differ, so the health-file flock must allocate distinct monotonic sequences.
+  const sharedRootA = newRoot()
+  const sharedRootB = newRoot()
+  const sharedStateParent = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-outcome-shared-state-'))
+  const sharedState = path.join(sharedStateParent, '.state')
+  try {
+    const sharedHealth = await Promise.all([
+      runQualifiedIdeaOutcomePass(sharedRootA, NOW, sharedState),
+      runQualifiedIdeaOutcomePass(sharedRootB, NOW, sharedState),
+    ])
+    assert.deepEqual(sharedHealth.map((health) => health.pass_sequence).sort((a, b) => a - b), [1, 2])
+    const finalShared = JSON.parse(fs.readFileSync(qualifiedIdeaOutcomeHealthPath(sharedRootA, sharedState), 'utf8'))
+    assert.equal(finalShared.pass_sequence, 2)
+  } finally {
+    fs.rmSync(sharedRootA, { recursive: true, force: true })
+    fs.rmSync(sharedRootB, { recursive: true, force: true })
+    fs.rmSync(sharedStateParent, { recursive: true, force: true })
+  }
 
   const c = candidate()
   writeAdmittedRun(root, c)
@@ -288,7 +354,8 @@ try {
   ].join('\n') + '\n')
 
   // Two independent Node processes pointed at the same repository/state directory join one whole pass.
-  // Slow the canonical provider in this isolated fixture so the process startup race is deterministic.
+  // The acquisition helper has already exited before provider work begins, so this also proves the
+  // retained Node descriptor—not helper liveness—owns the lease throughout the slow critical section.
   const marketScript = path.join(root, 'scripts', 'market_prices.py')
   const slowTarget = path.join(root, 'scripts', 'market_prices-real.py')
   fs.renameSync(marketScript, slowTarget)

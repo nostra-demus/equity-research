@@ -637,6 +637,7 @@ export function evaluateQualifiedIdea(
 
   const scenarios = candidate?.scenarios
   const metrics = metricsFor(candidate, policy)
+  const quotePrice = finite(quote?.price) && quote.price > 0 ? quote.price : null
   if (!Array.isArray(scenarios) || scenarios.length < 3 || scenarios.length > 7 || !metrics || new Set((scenarios || []).map((s) => String(s?.scenario_id ?? '').trim())).size !== scenarios?.length || new Set((scenarios || []).map((s) => String(s?.label ?? '').trim())).size !== scenarios?.length || !(scenarios || []).every((s) =>
     nonBlank(s?.scenario_id) && nonBlank(s?.source) &&
     Array.isArray(s?.conditions) && s.conditions.length > 0 && s.conditions.every((x) => nonBlank(x, 5)) &&
@@ -647,7 +648,7 @@ export function evaluateQualifiedIdea(
   if (metrics && Math.abs(metrics.probability_sum_pct - 100) > policy.probabilityTolerancePct) {
     add(issues, 'scenario_probability_sum', `Scenario probabilities total ${metrics.probability_sum_pct}%, not 100%.`, 'research')
   }
-  if (metrics && Array.isArray(scenarios)) {
+  if (metrics && Array.isArray(scenarios) && quotePrice !== null) {
     for (let i = 0; i < scenarios.length; i++) {
       const stated = scenarios[i]?.return_pct
       const computed = metrics.scenario_returns[i]?.return_pct
@@ -659,9 +660,9 @@ export function evaluateQualifiedIdea(
       }
       const sourceTarget = scenarios[i]?.source_price_target
       const expectedTarget = bridge?.method === 'catalyst_partial_convergence' && finite(bridge?.convergence_fraction)
-        ? quote.price + bridge.convergence_fraction * (sourceTarget - quote.price)
+        ? quotePrice + bridge.convergence_fraction * (sourceTarget - quotePrice)
         : sourceTarget
-      if (!finite(sourceTarget) || sourceTarget <= 0 || !finite(expectedTarget) || Math.abs(expectedTarget - scenarios[i].price_target) > Math.max(0.01, quote.price * 0.0005)) {
+      if (!finite(sourceTarget) || sourceTarget <= 0 || !finite(expectedTarget) || Math.abs(expectedTarget - scenarios[i].price_target) > Math.max(0.01, quotePrice * 0.0005)) {
         add(issues, 'missing_horizon_bridge', `Scenario ${scenarios[i]?.label || i + 1} target does not reconcile to its frozen source target and bridge.`, 'research')
       }
     }
