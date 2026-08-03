@@ -61,8 +61,8 @@ import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
-import { computePlan, computedContextBlock, detectWhatIf, findPriorScenarioComputed, isNumberlessTargetFollowUp, loadSidecar, parseWhatIf, recordedList, repriceFromMetric, validateIntents } from './chat-whatif'
-import { deleteConversation, getConversation, isValidConversationId, listConversations, recordAssistantMessage, recordUserMessage } from './chat-store'
+import { computePlan, computedContextBlock, detectWhatIf, isNumberlessTargetFollowUp, loadSidecar, parseWhatIf, recordedList, repriceFromMetric, resolveAuthenticatedPriorScenario, validateIntents } from './chat-whatif'
+import { ChatTurnReservationError, deleteConversation, findCompletedTurnForUser, getConversation, isValidConversationId, isValidTurnId, listConversations, recordAssistantMessageForPending, recordPendingUserMessage, rollbackUserMessage, type UserMessageRollback } from './chat-store'
 import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { getNewsDiagnostics, getNewsStatus, startNewsIngester } from './news/scheduler'
@@ -1743,15 +1743,15 @@ const ChatBody = z.object({
   // chat-history persistence: an echoed conversation id attaches this turn to an existing saved thread
   // (server mints a fresh one when absent/unknown); orbKey + title let a saved orb conversation be reopened.
   conversationId: z.string().max(80).optional(),
+  turnId: z.string().max(110).refine(isValidTurnId, 'invalid chat turn id').optional(),
   orbKey: z.string().max(200).optional(),
   title: z.string().max(300).optional(),
-  // `computed` (assistant turns only): the engine-computed what-if card(s) FROM A PRIOR TURN, echoed back by
-  // the client exactly as it was streamed (chat-computed). Loosely validated (a bounded array of objects) —
-  // it is the server's own prior output round-tripped, not re-derived here; findPriorScenarioComputed checks
-  // the specific fields it actually reads before trusting any of it (Codex #371 P1 — the numberless
-  // "…and what would the target change be?" follow-up resolves against this instead of having nothing).
+  // `computed` remains accepted for deploy-skew/display compatibility, but is NEVER an authority: a client
+  // can forge its request body. Numberless scenario follow-ups load figures from the user-scoped immutable
+  // turn receipt after matching this echo to the conversation's adjacent durable assistant turn.
   messages: z.array(z.object({
     role: z.enum(['user', 'assistant']), content: z.string().max(20000),
+    turnId: z.string().max(110).refine(isValidTurnId, 'invalid message turn id').optional(),
     computed: z.array(z.record(z.string(), z.unknown())).max(6).optional(),
   })).min(1).max(40),
 })
@@ -1765,7 +1765,30 @@ app.post('/api/chat', async (req, reply) => {
 
   const last = messages[messages.length - 1]
   if (last.role !== 'user' || !last.content.trim()) return reply.code(400).send({ error: 'the last message must be a non-empty user question' })
-  if (chatTurnsInFlight() >= CHAT.maxConcurrent) return reply.code(429).send({ error: 'chat is busy — try again in a moment' })
+  const { user: chatUser, userVia } = identify(req)
+
+  const replayCompletedTurn = (completed: NonNullable<ReturnType<typeof findCompletedTurnForUser>>) => {
+    if (completed.userMessage.content !== last.content) {
+      return reply.code(409).send({ error: 'chat turn id was already used for a different question' })
+    }
+    const { res, send, ping } = startSSE(reply)
+    try {
+      send({
+        type: 'chat-meta',
+        conversationId: completed.conversation.id,
+        scopeResolved: completed.conversation.title,
+        sourcePath: completed.assistantMessage.sourcePath,
+        recovered: true,
+      })
+      if (completed.assistantMessage.thinking) send({ type: 'chat-thinking', content: completed.assistantMessage.thinking })
+      for (const payload of completed.assistantMessage.computed || []) send({ type: 'chat-computed', payload })
+      send({ type: 'chat-token', content: completed.assistantMessage.content })
+      send({ type: 'chat-done', costUsd: 0, model: completed.conversation.model, recovered: true })
+    } finally {
+      clearInterval(ping)
+      try { res.end() } catch { /* already closed */ }
+    }
+  }
 
   // Resolve the run root and confine reads to it (orbPath is re-validated against the manifest inside
   // assembleContext, so a request-supplied path can never read outside this run). Research resolves the
@@ -1784,6 +1807,58 @@ app.post('/api/chat', async (req, reply) => {
     subject = parsed.data.ticker || (runRoot ? runRoot.replace(/^analyses\//, '').replace(/_\d{4}-\d{2}-\d{2}$/, '') : '')
   }
   if (!runRoot) return reply.code(404).send({ error: 'no run found for this subject yet — run the engine first' })
+  const matchesCurrentChatContext = (conversation: {
+    swarm: string; subject: string; scope: string; module?: string; orbKey?: string; orbPath?: string
+  }) => {
+    if (conversation.swarm !== swarmId || conversation.subject !== subject || conversation.scope !== scope) return false
+    if (scope === 'module' && (conversation.module ?? '') !== (module ?? '')) return false
+    if (scope === 'orb') {
+      if (conversation.orbKey || parsed.data.orbKey) {
+        return Boolean(conversation.orbKey && parsed.data.orbKey && conversation.orbKey === parsed.data.orbKey)
+      }
+      return (conversation.orbPath ?? '') === (orbPath ?? '')
+    }
+    return true
+  }
+
+  // Idempotent retry/reconciliation: the answer may already be durable even when the browser missed the
+  // terminal SSE frame. A turn id is user-scoped but not globally tied to the currently selected company,
+  // so resolve and match that context before replay. A stale Retry from another ticker/module/orb must fail
+  // closed instead of leaking its old answer into the newly selected panel.
+  if (parsed.data.turnId) {
+    const completed = findCompletedTurnForUser(parsed.data.turnId, chatUser)
+    if (completed) {
+      if (!matchesCurrentChatContext(completed.conversation)) {
+        return reply.code(409).send({ error: 'chat turn belongs to a different subject or scope' })
+      }
+      return replayCompletedTurn(completed)
+    }
+  }
+  if (chatTurnsInFlight() >= CHAT.maxConcurrent) return reply.code(429).send({ error: 'chat is busy — try again in a moment' })
+
+  // Bind both request and response lifecycle before the first await, including a snapshot of sockets that
+  // vanished just before registration. This is the same proven two-sided guard used by news chat.
+  const requestAbort = bindNewsChatRequestAbort(req.raw, reply.raw)
+  const ac = requestAbort.controller
+  let closed = ac.signal.aborted
+  let ping: ReturnType<typeof setInterval> | null = null
+  let pendingSavedQuestion: UserMessageRollback | null = null
+  let rollbackPromise: Promise<boolean> | null = null
+  const rollbackCanceledQuestion = async () => {
+    const pending = pendingSavedQuestion
+    if (!pending) { if (rollbackPromise) await rollbackPromise; return }
+    pendingSavedQuestion = null
+    rollbackPromise = rollbackUserMessage(pending).catch(() => false)
+    await rollbackPromise
+  }
+  const onAbort = () => {
+    closed = true
+    if (ping) clearInterval(ping)
+    // Discard the in-memory reservation immediately; do not wait for a slow model process to acknowledge abort.
+    void rollbackCanceledQuestion()
+  }
+  ac.signal.addEventListener('abort', onAbort, { once: true })
+  if (ac.signal.aborted) onAbort()
 
   // The git-history delta for the SAME runRoot the context is built from — never re-resolved from the
   // subject, or this block would describe a different run than every other piece. Run scope only: an
@@ -1794,6 +1869,7 @@ app.post('/api/chat', async (req, reply) => {
     swarmId === RESEARCH_SWARM_ID && scope === 'run'
       ? await readWhatChanged({ runRoot }).catch(() => null)
       : null
+  if (closed) { requestAbort.dispose(); return }
 
   let assembled
   try {
@@ -1803,33 +1879,62 @@ app.post('/api/chat', async (req, reply) => {
       whatChanged: wc ? { markdown: whatChangedMarkdown(wc) } : null,
     })
   } catch (e: any) {
+    requestAbort.dispose()
     return reply.code(400).send({ error: 'cannot assemble context', detail: String(e?.message || e) })
   }
-  if (!assembled.present) return reply.code(409).send({ error: 'not_run', hint: assembled.missingHint })
+  if (!assembled.present) { requestAbort.dispose(); return reply.code(409).send({ error: 'not_run', hint: assembled.missingHint }) }
 
-  // Persist this turn's question under the authoritative identity (from Cloudflare Access, NOT the body),
-  // creating the conversation on the first turn. The resolved id is echoed in chat-meta so the client
-  // attaches later turns here. History is best-effort: a persistence failure must never break the answer.
-  const { user: chatUser, userVia } = identify(req)
+  // Reserve this turn under the authoritative identity (from Cloudflare Access, NOT the body). The resolved
+  // id is echoed in chat-meta so later turns attach here; the question + answer reach History together only
+  // on clean completion. History remains best-effort and can never break the answer.
   let conversationId = isValidConversationId(parsed.data.conversationId) ? parsed.data.conversationId : undefined
   try {
-    const convo = await recordUserMessage(
+    const recorded = await recordPendingUserMessage(
       { user: chatUser, userVia, swarm: swarmId, subject, scope, module, orbPath: parsed.data.orbPath, orbKey: parsed.data.orbKey, runRoot, title: parsed.data.title || assembled.label, model, style: parsed.data.style },
       last.content,
       conversationId,
+      parsed.data.turnId,
     )
+    // The fast-path lookup above can race a just-finishing request. Admission is authoritative: its
+    // completed-or-pending decision is atomic with the in-memory reservation, so a committed id can never
+    // escape this branch and launch another paid model turn.
+    if (recorded.status === 'completed') {
+      ac.signal.removeEventListener('abort', onAbort)
+      requestAbort.dispose()
+      if (closed) return
+      if (!matchesCurrentChatContext(recorded.completed.conversation)) {
+        return reply.code(409).send({ error: 'chat turn belongs to a different subject or scope' })
+      }
+      return replayCompletedTurn(recorded.completed)
+    }
+    const convo = recorded.conversation
     conversationId = convo.id
-  } catch { /* history write failed — answer the question anyway */ }
+    pendingSavedQuestion = recorded.rollback
+  } catch (error) {
+    // A duplicate in-flight id is not a best-effort History failure: launching another model call would
+    // defeat the idempotency contract. The original request will either commit or release its reservation.
+    if (error instanceof ChatTurnReservationError) {
+      requestAbort.dispose()
+      const status = error.code === 'CONVERSATION_BUSY' ? 503
+        : error.code === 'TURN_ALREADY_PENDING' || error.code === 'TURN_CONTEXT_MISMATCH' ? 409
+          : 400
+      return reply.code(status).send({ error: error.message, code: error.code })
+    }
+    // A modern client supplied an idempotency key, so ANY failure to establish its durable admission guard
+    // must stop here. Falling through would launch paid, untracked work that an exact Retry could duplicate.
+    // Only legacy clients with no turn id retain the old best-effort History behavior.
+    if (parsed.data.turnId) {
+      requestAbort.dispose()
+      return reply.code(503).send({ error: 'could not reserve this chat turn safely — retry in a moment', code: 'TURN_RESERVATION_FAILED' })
+    }
+    // Ordinary History I/O remains best-effort: it must never prevent the user from getting an answer.
+  }
+  if (closed) { await rollbackCanceledQuestion(); requestAbort.dispose(); return }
 
   // Hijack into an SSE stream for the answer.
-  const { res, send, ping } = startSSE(reply)
-  const ac = new AbortController()
-  let closed = false
-  // Detect a real client disconnect on the RESPONSE socket, NOT req.raw: for a POST, req 'close' fires
-  // as soon as the request BODY is consumed (the request side is done) — which would abort the turn
-  // instantly, before any token. The response stream closes only on an actual disconnect (or our own
-  // res.end()), which is the correct cancel signal for streamed POST output.
-  res.on('close', () => { closed = true; clearInterval(ping); ac.abort() })
+  const sse = startSSE(reply)
+  const { res, send } = sse
+  ping = sse.ping
   send({ type: 'chat-meta', conversationId, scopeResolved: assembled.label, sourcePath: assembled.sourcePath, degraded: assembled.degraded, degradeNote: assembled.degradeNote })
   // Deterministic what-if modeling: when the question is a quantified what-if AND this run recorded the
   // sensitivity coefficients, compute the scenario with the engine (scripts/sensitivity_math.py) and both
@@ -1837,6 +1942,7 @@ app.post('/api/chat', async (req, reply) => {
   // the model narrates a number it did not calculate (CLAUDE.md §15/§20). Best-effort: any failure — no
   // sidecar, an unparseable move, no python3 — degrades to a normal closed-book answer, never a 500.
   let computedBlock: string | undefined
+  const computedPayloads: unknown[] = []
   let parserCostUsd = 0 // the what-if parse's cost — folded into the turn's reported/persisted cost
   try {
     if (detectWhatIf(last.content)) {
@@ -1864,7 +1970,9 @@ app.post('/api/chat', async (req, reply) => {
           // a joint ask computes each leg SEPARATELY (they don't simply add) — one card per variable
           const blocks: string[] = []
           for (const pl of v.plans) {
-            const scenario = await computePlan(loaded.sidecar, pl)
+            if (closed || ac.signal.aborted) break
+            const scenario = await computePlan(loaded.sidecar, pl, ac.signal)
+            if (closed || ac.signal.aborted) break
             if (!scenario) continue
             if (blocks.length === 0) {
               // honest coverage notes ride the FIRST card: joint asks are computed per-leg, and any valid
@@ -1892,10 +2000,13 @@ app.post('/api/chat', async (req, reply) => {
                   baseMetric: scenario.baseValue ?? null,
                   direction: dec?.basket === 'Short' ? 'short' : 'long',
                   metricLabel: scenario.impactMetric ?? null,
+                  signal: ac.signal,
                 })
               }
             } catch { /* the driver half still stands on its own */ }
+            if (closed || ac.signal.aborted) break
             const payload = { kind: 'scenario' as const, asked: last.content, scenario, reprice }
+            computedPayloads.push(payload)
             send({ type: 'chat-computed', payload })
             blocks.push(computedContextBlock(payload))
           }
@@ -1903,6 +2014,7 @@ app.post('/api/chat', async (req, reply) => {
         } else if (v?.refusal) {
           // an honest refusal card (unrecorded variable, or a target the sidecar can't support) — never a number
           const payload = { kind: 'unsupported' as const, asked: last.content, recorded: recordedList(loaded.sidecar), reason: v.refusal }
+          computedPayloads.push(payload)
           send({ type: 'chat-computed', payload }); computedBlock = computedContextBlock(payload)
         }
         // pr null (parse failed/CLI absent) or no plans+no refusal → normal closed-book answer, no card
@@ -1910,21 +2022,49 @@ app.post('/api/chat', async (req, reply) => {
     } else if (isNumberlessTargetFollowUp(last.content)) {
       // "…and what would the price upside or target change be?" — the PR's own headline example, and it has
       // NO number of its own: detectWhatIf's gate above requires one (it is the gate for parsing a NEW
-      // driver move). ChatBody retains only {role, content} per turn, and buildChatPrompts serializes only
-      // m.content — so unless the model happened to restate every figure in its own prior prose, this
-      // closed-book follow-up had NOTHING deterministic to answer from. Resolve it instead against the most
-      // recent prior turn's already-computed scenario (the client echoes `computed` back on every turn),
-      // replaying the SAME numbers rather than asking the model to recall or re-derive them (Codex #371 P1).
-      const prior = findPriorScenarioComputed(messages.slice(0, -1) as any)
+      // driver move). The prompt serializes only message prose, so unless the model happened to restate every
+      // figure in its own prior answer, this closed-book follow-up had NOTHING deterministic to use. Resolve
+      // it against the immediately prior authenticated turn's already-computed scenario. The client's echoed
+      // card is deliberately ignored: History proves adjacency and the immutable user-scoped receipt supplies every
+      // number/citation, so a forged request body can never be relabelled as engine output.
+      const durableConversation = conversationId ? getConversation(conversationId) : null
+      const durableLast = durableConversation && matchesCurrentChatContext(durableConversation)
+        ? durableConversation.messages.at(-1)
+        : undefined
+      const prior = resolveAuthenticatedPriorScenario(
+        messages.slice(0, -1),
+        conversationId,
+        durableLast,
+        (turnId) => {
+          const completed = findCompletedTurnForUser(turnId, chatUser)
+          return completed && matchesCurrentChatContext(completed.conversation) ? {
+            conversationId: completed.conversation.id,
+            turnId,
+            assistantMessage: {
+              content: completed.assistantMessage.content,
+              computed: completed.assistantMessage.computed,
+            },
+          } : null
+        },
+      )
       if (prior) {
         send({ type: 'chat-status', stage: 'modeling' })
         const payload = { ...prior, asked: last.content }
+        computedPayloads.push(payload)
         send({ type: 'chat-computed', payload })
         computedBlock = computedContextBlock(payload, { carriedForward: true })
       }
       // no prior computed turn found → normal closed-book answer (the model may still recall from prose)
     }
   } catch { /* any what-if failure degrades to a normal closed-book answer, never a 500 */ }
+  if (closed || ac.signal.aborted) {
+    await rollbackCanceledQuestion()
+    if (ping) clearInterval(ping)
+    try { res.end() } catch { /* already closed */ }
+    ac.signal.removeEventListener('abort', onAbort)
+    requestAbort.dispose()
+    return
+  }
   const { system, user } = buildChatPrompts({ assembled, messages, subject, style: parsed.data.style, computedBlock })
   // Live progress for the panel's working state. Every chat-status stage maps to a REAL event (spawn /
   // CLI init / thinking block / first text block — see ChatTurnSignal in chat-llm.ts), and chat-thinking
@@ -1943,18 +2083,53 @@ app.post('/api/chat', async (req, reply) => {
         else if (s.kind === 'answer-start') send({ type: 'chat-status', stage: 'writing' })
       },
     })
-    if (out.error && out.error !== 'aborted') send({ type: 'chat-error', message: out.error })
-    else if (!out.error) {
-      send({ type: 'chat-done', costUsd: out.costUsd + parserCostUsd, model })
-      // save the assistant answer only on a clean completion (an errored/aborted turn leaves the question
-      // in history but no half-answer). Best-effort, off the response path.
-      if (conversationId && answer) void recordAssistantMessage(conversationId, answer, { sourcePath: assembled.sourcePath, costUsd: out.costUsd + parserCostUsd, thinking: thinking || undefined }).catch(() => {})
+    if (closed || ac.signal.aborted || out.error) {
+      await rollbackCanceledQuestion()
+      if (!closed && out.error) send({ type: 'chat-error', message: out.error })
+    }
+    else {
+      // Commit the user question + answer atomically before announcing success. Every failed/incomplete turn
+      // rolls back on both client and server, so the drawer and durable History cannot disagree.
+      const pending = pendingSavedQuestion
+      let completionSafe = true
+      if (pending) {
+        const committed = await recordAssistantMessageForPending(
+          pending,
+          answer,
+          { sourcePath: assembled.sourcePath, costUsd: out.costUsd + parserCostUsd, thinking: thinking || undefined, computed: computedPayloads.length ? computedPayloads : undefined },
+          () => !closed && !ac.signal.aborted,
+        ).catch(() => false)
+        if (committed) pendingSavedQuestion = null
+        else {
+          // A receipt can have committed even when its separate History-view write failed, or another
+          // deploy-overlap process may have won the immutable turn id. The first case is safe to finish
+          // after WAL healing; the second must roll this process's streamed loser back and let Retry replay
+          // the canonical winner. Never announce chat-done for an ambiguous persistence outcome.
+          const completed = findCompletedTurnForUser(pending.turnId, chatUser)
+          const sameCanonicalAnswer = completed?.userMessage.content === last.content
+            && completed.assistantMessage.content === answer
+          await rollbackCanceledQuestion()
+          if (!sameCanonicalAnswer) {
+            completionSafe = false
+            if (!closed) send({
+              type: 'chat-error',
+              message: completed
+                ? 'This turn completed on another server. Retry to load the saved answer.'
+                : 'The answer could not be saved safely. Retry the same turn.',
+            })
+          }
+        }
+      }
+      if (!closed && completionSafe) send({ type: 'chat-done', costUsd: out.costUsd + parserCostUsd, model })
     }
   } catch (e: any) {
-    if (!closed) send({ type: 'chat-error', message: String(e?.message || e) })
+    await rollbackCanceledQuestion()
+    if (!closed && !ac.signal.aborted) send({ type: 'chat-error', message: String(e?.message || e) })
   } finally {
-    clearInterval(ping)
+    if (ping) clearInterval(ping)
     try { res.end() } catch { /* already closed */ }
+    ac.signal.removeEventListener('abort', onAbort)
+    requestAbort.dispose()
   }
 })
 
@@ -1986,12 +2161,33 @@ app.get('/api/chats/:id', async (req, reply) => {
   return convo
 })
 
+// Reconcile an ambiguously interrupted stream by its client-minted turn id. Only a complete question +
+// answer pair owned by the authoritative caller is visible; pending or rolled-back work returns 404.
+app.get('/api/chat/turn/:turnId', async (req, reply) => {
+  const turnId = (req.params as any).turnId as string
+  if (!isValidTurnId(turnId)) return reply.code(400).send({ error: 'invalid chat turn id' })
+  const { user } = identify(req)
+  const completed = findCompletedTurnForUser(turnId, user)
+  if (!completed) return reply.code(404).send({ error: 'completed chat turn not found' })
+  return {
+    conversationId: completed.conversation.id,
+    turnId,
+    question: completed.userMessage.content,
+    answer: completed.assistantMessage.content,
+    thinking: completed.assistantMessage.thinking,
+    computed: completed.assistantMessage.computed,
+    sourcePath: completed.assistantMessage.sourcePath,
+    costUsd: completed.assistantMessage.costUsd,
+  }
+})
+
 // Delete one saved conversation (history hygiene). CSRF-guarded like the other cockpit writes.
 app.delete('/api/chats/:id', async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   const id = (req.params as any).id as string
   if (!isValidConversationId(id)) return reply.code(400).send({ error: 'invalid conversation id' })
-  return { deleted: deleteConversation(id) }
+  const { user } = identify(req)
+  return { deleted: deleteConversation(id, user) }
 })
 
 // ---------- chat with the saved news wire ----------

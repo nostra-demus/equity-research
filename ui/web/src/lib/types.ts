@@ -1583,7 +1583,15 @@ export type ChatComputed =
 // is being worked out and kept afterwards so the thought process stays readable. `computed` (assistant
 // turns) holds the engine-computed what-if card(s) for this turn — an ARRAY because a joint ask ("aluminium
 // AND USD/NOK") returns one card per variable, computed separately.
-export interface ChatMessage { role: 'user' | 'assistant'; content: string; thinking?: string; computed?: ChatComputed[] }
+export interface ChatMessage {
+  role: 'user' | 'assistant'
+  content: string
+  // One completed question/answer pair shares this id. Besides exact Retry, the server uses it only as a
+  // pointer into the authenticated receipt store; client-echoed computed figures are never trusted.
+  turnId?: string
+  thinking?: string
+  computed?: ChatComputed[]
+}
 
 // What an in-flight chat turn is doing RIGHT NOW — drives the panel's live working state. Every stage is
 // tied to a real event, never a fabricated progress guess:
@@ -1609,6 +1617,9 @@ export interface ChatRequest {
   model?: string
   style?: ChatStyle
   conversationId?: string // attaches this turn to a saved conversation (server mints one when absent)
+  // Client-minted idempotency key for one question. A retry reuses it so a response whose terminal frame
+  // was lost can be replayed from History instead of charging for and saving a duplicate model turn.
+  turnId?: string
   title?: string // the panel's header title, stored so history rows read as a name
   messages: ChatMessage[]
 }
@@ -1641,6 +1652,16 @@ export interface ChatConversationSummary {
   lastPreview: string
 }
 export interface StoredChatMessage extends ChatMessage { ts: number; sourcePath?: string; costUsd?: number }
+export interface CompletedChatTurn {
+  conversationId: string
+  turnId: string
+  question: string
+  answer: string
+  thinking?: string
+  computed?: ChatComputed[]
+  sourcePath?: string
+  costUsd?: number
+}
 // The full conversation returned by GET /api/chats/:id — drives "continue chatting".
 export interface ChatConversationDetail {
   v: 1

@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useStore } from '../lib/store'
 import { api } from '../lib/api'
+import { captureAskOpener } from '../lib/askFocus'
 import { buildReportHtml, parseMeta, safeName } from '../lib/export'
 import { buildDocxBlob } from '../lib/docx'
 import { fmtClock } from '../lib/eta'
@@ -228,7 +229,7 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
       }
       return openChat('run')
     }
-    return <button className="btn" style={{ height: 30 }} onClick={() => void onClick()} title="Ask questions about this output — answered only from what the engine wrote">Chat ▸</button>
+    return <button className="btn" style={{ height: 30 }} onClick={(event) => { captureAskOpener(event.currentTarget); void onClick() }} title="Ask questions about this output — answered only from what the engine wrote">Chat ▸</button>
   }
 
   // the Prompt control — view/download the exact instructions this orb + its module run on, so anyone

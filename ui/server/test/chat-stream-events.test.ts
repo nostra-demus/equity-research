@@ -4,7 +4,7 @@
 // or a refactor can't silently blind the panel (or, worse, mis-attribute reasoning text to the answer).
 // Run: npx tsx test/chat-stream-events.test.ts
 import assert from 'node:assert/strict'
-import { classifyChatLine } from '../src/chat-llm'
+import { chatTurnsInFlight, classifyChatLine, runChatTurn } from '../src/chat-llm'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -99,5 +99,24 @@ check('junk and unknown lines are silent', () => {
     assert.deepEqual(classifyChatLine(junk), [])
   }
 })
+
+// A request can disconnect while the route is still assembling context or parsing a what-if. The paid turn
+// adapter itself is the final guard: a pre-aborted signal must return before capability detection or spawn.
+try {
+  const controller = new AbortController()
+  controller.abort()
+  const before = chatTurnsInFlight()
+  const outcome = await runChatTurn({
+    system: 'closed book', user: 'must never spawn', model: 'sonnet', signal: controller.signal, onToken: () => {},
+  })
+  assert.equal(outcome.error, 'aborted')
+  assert.equal(outcome.costUsd, 0)
+  assert.equal(chatTurnsInFlight(), before, 'pre-abort must not consume a concurrency slot')
+  passed++
+  console.log('  ok  pre-aborted turn exits before capability detection or paid spawn')
+} catch (e: any) {
+  console.error(`FAIL  pre-aborted turn exits before capability detection or paid spawn\n      ${e?.stack || e?.message || e}`)
+  process.exitCode = 1
+}
 
 console.log(`\nchat-stream-events: ${passed} checks passed${process.exitCode ? ' — WITH FAILURES' : ''}`)

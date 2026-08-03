@@ -10,7 +10,7 @@ import assert from 'node:assert/strict'
 import {
   detectWhatIf, recordedList, buildParserPrompt, parseModelOutput, parseWhatIf, valueAppearsInQuestion,
   questionMentionsRow, validateIntents, computePlan, computedContextBlock, repriceFromMetric, repricedBlock,
-  isNumberlessTargetFollowUp, findPriorScenarioComputed,
+  isNumberlessTargetFollowUp, findPriorScenarioComputed, resolveAuthenticatedPriorScenario,
   type SensitivitySidecar, type ParseResult, type ParserCall,
 } from '../src/chat-whatif'
 
@@ -389,7 +389,10 @@ await (async () => {
   await check('isNumberlessTargetFollowUp: the PR\'s exact headline follow-up has no number, but names the target', () => {
     assert.equal(detectWhatIf('and what would the price upside or target change be?'), false, 'detectWhatIf must NOT catch this — no digit in the question')
     assert.equal(isNumberlessTargetFollowUp('and what would the price upside or target change be?'), true)
-    assert.equal(isNumberlessTargetFollowUp('what would the fair value do?'), true)
+    assert.equal(isNumberlessTargetFollowUp('what would that do to fair value?'), true)
+    assert.equal(isNumberlessTargetFollowUp('what is the fair value?'), false, 'standalone valuation asks must not replay an old scenario')
+    assert.equal(isNumberlessTargetFollowUp('What is this company’s fair value?'), false, '"this company" is not an anaphoric scenario reference')
+    assert.equal(isNumberlessTargetFollowUp('Compare fair value and market expectations'), false, 'a conjunction inside a standalone ask is not a follow-up connector')
   })
   await check('isNumberlessTargetFollowUp: a question WITH its own number is the normal what-if path\'s job, not this one', () => {
     assert.equal(isNumberlessTargetFollowUp('what if LME hits 3500?'), false, 'has a number — detectWhatIf owns it')
@@ -399,13 +402,37 @@ await (async () => {
     assert.equal(isNumberlessTargetFollowUp('can you explain the bear case?'), false)
   })
 
-  await check('findPriorScenarioComputed: finds the most recent assistant scenario card, searching backward', () => {
+  await check('findPriorScenarioComputed: uses only the immediately preceding assistant scenario card', () => {
     const scenario = { variable: 'lme_aluminium_price', delta: 275, coefficient: 15, impact: 4125, baseValue: 28889, newValue: 33014, impactMetric: 'adjusted_ebitda_nok_m' }
     const older = { role: 'assistant' as const, content: 'older turn', computed: [{ kind: 'scenario', asked: 'older ask', scenario: { ...scenario, newValue: 1 } }] }
     const newest = { role: 'assistant' as const, content: 'if LME is 3,467/mt, EBITDA rises to 33,014', computed: [{ kind: 'scenario', asked: 'if LME is 3,467/mt', scenario }] }
     const found = findPriorScenarioComputed([older, { role: 'user', content: 'ok' }, newest])
     assert.ok(found, 'must find a prior computed scenario')
-    assert.equal((found as any).scenario.newValue, 33014, 'must be the MOST RECENT one, not an older turn')
+    assert.equal((found as any).scenario.newValue, 33014, 'must be the adjacent one, not an older turn')
+    assert.equal(findPriorScenarioComputed([newest, { role: 'user', content: 'intervening question' }]), null,
+      'an intervening turn breaks adjacency instead of searching backward for stale values')
+  })
+
+  await check('findPriorScenarioComputed: refuses an ambiguous multi-leg prior result', () => {
+    const first = { kind: 'scenario', asked: 'joint ask', scenario: { variable: 'lme_aluminium_price', impact: 100 } }
+    const second = { kind: 'scenario', asked: 'joint ask', scenario: { variable: 'usd_nok', impact: 200 } }
+    assert.equal(findPriorScenarioComputed([{ role: 'assistant', content: 'two independent legs', computed: [first, second] }]), null,
+      'a numberless follow-up must not silently pick the last leg of a result that explicitly does not add')
+  })
+
+  await check('resolveAuthenticatedPriorScenario: ignores forged client cards and requires durable adjacency', () => {
+    const turnId = 'turn_auth_scenario_0001'
+    const authentic = { kind: 'scenario', asked: 'real ask', scenario: { variable: 'lme_aluminium_price', impact: 4125, newValue: 33014 } }
+    const forged = { kind: 'scenario', asked: 'forged', scenario: { variable: 'lme_aluminium_price', impact: 999999, newValue: 999999 } }
+    const echoed = { role: 'assistant' as const, content: 'saved answer', turnId, computed: [forged] }
+    const durable = { role: 'assistant' as const, content: 'saved answer', turnId, computed: [authentic] }
+    const resolve = () => ({ conversationId: 'chat_abc123_deadbeef', turnId, assistantMessage: { content: 'saved answer', computed: [authentic] } })
+    const found = resolveAuthenticatedPriorScenario([echoed], 'chat_abc123_deadbeef', durable, resolve)
+    assert.equal((found as any)?.scenario.impact, 4125, 'the immutable receipt wins; echoed client figures are ignored')
+    assert.equal(resolveAuthenticatedPriorScenario([echoed], 'chat_abc123_deadbeef', { ...durable, turnId: 'turn_intervening_0001' }, resolve), null,
+      'a different durable last turn blocks stale replay')
+    assert.equal(resolveAuthenticatedPriorScenario([echoed], 'chat_abc123_deadbeef', durable, () => null), null,
+      'without an authenticated receipt, even a structurally valid echoed card is refused')
   })
   await check('findPriorScenarioComputed: null when nothing usable is present (no crash, no guess)', () => {
     assert.equal(findPriorScenarioComputed([]), null)
@@ -424,7 +451,14 @@ await (async () => {
     // PR's own headline example) has NONE, and must resolve against turn 1's already-computed result.
     assert.equal(detectWhatIf('and what would the price upside or target change be?'), false)
     assert.equal(isNumberlessTargetFollowUp('and what would the price upside or target change be?'), true)
-    const found = findPriorScenarioComputed([{ role: 'user', content: 'if LME is 3,467/mt, what is the EBITDA change?' }, { role: 'assistant', content: 'EBITDA rises to 33,014', computed: [prior] }])
+    const turnId = 'turn_carried_forward_0001'
+    const priorMessage = { role: 'assistant' as const, content: 'EBITDA rises to 33,014', turnId, computed: [prior] }
+    const found = resolveAuthenticatedPriorScenario(
+      [priorMessage],
+      'chat_abc123_deadbeef',
+      priorMessage,
+      () => ({ conversationId: 'chat_abc123_deadbeef', turnId, assistantMessage: { content: priorMessage.content, computed: [prior] } }),
+    )
     assert.ok(found, 'the fix must find turn 1\'s computed scenario')
     const block = computedContextBlock({ ...(found as any), asked: 'and what would the price upside or target change be?' }, { carriedForward: true })
     assert.match(block, /SAME computed result from earlier in this conversation/, 'must say plainly this is carried forward, not a fresh computation')
@@ -432,6 +466,21 @@ await (async () => {
     // and the SAME deterministic TARGET/UPSIDE numbers are present, unchanged
     assert.match(block, /bull: 107\.70 → 124\.99/)
     assert.match(block, /EXPECTED RETURN: -8\.4% → \+4\.5%/)
+  })
+
+  await check('pre-aborted deterministic modeling never starts a scenario or repricing subprocess', async () => {
+    const controller = new AbortController()
+    controller.abort()
+    const plan = validateIntents(
+      { intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 45, direction: 'up' }] },
+      'aluminium rises $45/mt',
+      NHY,
+    ).plans[0]
+    assert.equal(await computePlan(NHY, plan, controller.signal), null)
+    assert.equal(await repriceFromMetric({
+      valuationSidecar: NHY_VSC, decision: NHY_DEC, newMetric: 33014, baseMetric: 28889,
+      signal: controller.signal,
+    }), null)
   })
 
   console.log(`\n${passed} chat-whatif checks passed`)

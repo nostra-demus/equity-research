@@ -37,7 +37,8 @@ ENTIRE rest of the stack runs for real: Fastify route → child spawn → line p
   busy. Use `'load'` + timeouts/selectors.
 - The cockpit boots into the LAST-DEFAULT swarm (screener wire) — click the `Research` chip in the
   command bar first, then `Select ticker ▾`, then the company row.
-- The Ask panel opens via `button.cmdbar__ask` (use `.last()` — screener + research both mount one).
+- The screener has one `button.cmdbar__ask` entry: open it, then choose `This signal’s output` or
+  `News wire`. Research keeps one direct `button.cmdbar__ask` entry.
 - `npm test` no longer re-stamps the committed fixture `analyses/ZZKILLB_2099-01-01/.aborted`:
   `cancel-all.test.ts` now roots its runs in a temp dir, so `writeRunMarker` no-ops instead of writing
   inside `analyses/`. The old advice ("`git checkout --` it before committing") is obsolete — and it

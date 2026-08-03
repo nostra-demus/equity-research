@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { spawnSync } from 'node:child_process'
+import { spawn, spawnSync } from 'node:child_process'
 
 const FLOCK_LEASE_PROGRAM = [
   'import fcntl, sys, time',
@@ -51,6 +51,64 @@ export function acquireRetainedFlockSync(lockPath: string, options: RetainedFloc
   if (result.status === 3 || /(?:^|\n)TIMEOUT(?:\n|$)/.test(stdout)) throw busyError(options.busyMessage)
   const detail = result.error?.message || stderr.trim() || `exit ${result.status ?? result.signal ?? 'unknown'}`
   throw new Error(`flock acquisition helper failed: ${detail.slice(0, 200)}`)
+}
+
+/** Async variant for request paths which may wait briefly for another writer. It uses the same inherited
+ * open-file description as the synchronous helper, but leaves Node's event loop free while the kernel lock
+ * is busy. The returned descriptor is the lease: a crash or close releases it without pathname cleanup. */
+export async function acquireRetainedFlock(lockPath: string, options: RetainedFlockOptions): Promise<number> {
+  const waitMs = Math.max(0, Math.trunc(options.waitMs))
+  const pollMs = Math.max(1, Math.trunc(options.pollMs ?? 10))
+  fs.mkdirSync(path.dirname(lockPath), { recursive: true })
+  const fd = fs.openSync(lockPath, 'a+', 0o600)
+  let child: ReturnType<typeof spawn>
+  try {
+    child = spawn('python3', [
+      '-c', FLOCK_LEASE_PROGRAM, String(waitMs), String(pollMs),
+    ], { stdio: ['ignore', 'pipe', 'pipe', fd] })
+  } catch (error) {
+    releaseRetainedFlock(fd)
+    throw error
+  }
+
+  let stdout = ''
+  let stderr = ''
+  child.stdout?.setEncoding('utf8')
+  child.stderr?.setEncoding('utf8')
+  child.stdout?.on('data', (chunk) => { stdout += String(chunk) })
+  child.stderr?.on('data', (chunk) => { stderr += String(chunk) })
+
+  try {
+    await new Promise<void>((resolve, reject) => {
+      let watchdogExpired = false
+      const watchdog = setTimeout(() => {
+        watchdogExpired = true
+        child.kill('SIGKILL')
+      }, waitMs + 5_000)
+      watchdog.unref()
+      child.once('error', (error) => {
+        clearTimeout(watchdog)
+        reject(error)
+      })
+      child.once('close', (code, signal) => {
+        clearTimeout(watchdog)
+        if (code === 0 && /(?:^|\n)LOCKED(?:\n|$)/.test(stdout)) {
+          resolve()
+          return
+        }
+        if (watchdogExpired || code === 3 || /(?:^|\n)TIMEOUT(?:\n|$)/.test(stdout)) {
+          reject(busyError(options.busyMessage))
+          return
+        }
+        const detail = stderr.trim() || `exit ${code ?? signal ?? 'unknown'}`
+        reject(new Error(`flock acquisition helper failed: ${detail.slice(0, 200)}`))
+      })
+    })
+    return fd
+  } catch (error) {
+    releaseRetainedFlock(fd)
+    throw error
+  }
 }
 
 export function releaseRetainedFlock(fd: number): void {

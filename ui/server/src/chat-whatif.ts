@@ -100,41 +100,72 @@ export function detectWhatIf(question: string): boolean {
 // MOVE. But the chat's own headline scenario is a follow-up that names no number at all: "if LME is
 // 3,467/mt, what's the EBITDA change?" (has a number, parses fine) then "...and what would the price upside
 // or target change be?" (no number — detectWhatIf returns false, and the reprice block is never built).
-// ChatBody only ever retained {role, content} per turn, and buildChatPrompts serializes only m.content — so
-// unless the model happened to restate every figure in its own prior prose, this closed-book follow-up had
-// NO deterministic data to answer from. This is a SEPARATE, narrower gate: it never parses a new move, it
-// only decides whether to REPLAY a prior turn's already-computed result (Codex #371 P1).
+// buildChatPrompts serializes only message prose, so unless the model happened to restate every figure in
+// its prior answer, this closed-book follow-up had no deterministic data to use. This is a separate, narrower
+// gate: it never parses a new move; it only decides whether authenticated History may carry a prior result
+// forward (Codex #371 P1).
 const FOLLOWUP_TARGET_CUE = /\b(target|upside|downside|price|fair value|re-?price|re-?rate|expected return)\b/i
+// Anaphora, not mere token presence. "Compare fair value and expectations" and "this company's fair value"
+// are standalone asks; a real continuation starts with a connector or points to what the prior result does.
+const FOLLOWUP_REFERENCE_CUE = /^(?:\s*(?:and|so|then)\s+(?:what|how)\b)|\b(?:what|how)\s+(?:would|does|do|will)\s+(?:that|this|it)\s+(?:do|mean|imply|change|affect|alter|translate|flow)\b|\b(?:that|this|same|above)\s+(?:scenario|case|result|move|change|target|upside|downside)\b/i
 
 export function isNumberlessTargetFollowUp(question: string): boolean {
   const q = question || ''
   if (ANY_NUM.test(q)) return false // has its own number — the normal what-if path owns this
-  return FOLLOWUP_TARGET_CUE.test(q)
+  // "What is fair value?" is a standalone valuation question, not permission to replay an arbitrary old
+  // what-if. Require language that points back to an immediately preceding result; adjacency is verified
+  // separately against authenticated History before any card is carried forward.
+  return FOLLOWUP_TARGET_CUE.test(q) && FOLLOWUP_REFERENCE_CUE.test(q)
 }
 
-// The shape a chat turn is echoed back as in ChatBody.messages — the client's ChatMessage mirrors this
-// exactly (role/content always; computed only on an assistant turn that streamed a card). Loosely typed
-// on purpose: this is client-echoed JSON (the server's own prior output, round-tripped), not re-validated
-// against the full ComputedPayload shape — findPriorScenarioComputed checks the specific fields it reads.
-export interface StoredChatMessage { role: 'user' | 'assistant'; content: string; computed?: unknown[] }
+// The shape a chat turn is echoed back as in ChatBody.messages. `computed` exists for display/deploy-skew
+// compatibility, but resolveAuthenticatedPriorScenario never reads it: the user-scoped immutable receipt is
+// the only source of figures that can be carried forward as authoritative engine output.
+export interface StoredChatMessage { role: 'user' | 'assistant'; content: string; turnId?: string; computed?: unknown[] }
 
-/** The most recent prior turn's computed SCENARIO payload, searching backward — what a numberless follow-up
- *  resolves against. Returns null (never a guess) when nothing usable is found: no prior computed turn, or
- *  the echoed shape does not carry the minimum fields a real ComputedScenario always has. A malformed or
- *  tampered entry is refused, not partially trusted. */
+/** The immediately preceding assistant turn's computed SCENARIO payload. The caller must supply computed
+ *  data loaded from the server's authenticated completion receipt — never the client's echoed `computed`.
+ *  Returns null (never a guess) when that adjacent turn has no usable scenario. */
 export function findPriorScenarioComputed(messages: StoredChatMessage[]): (ComputedPayload & { kind: 'scenario' }) | null {
-  for (let i = messages.length - 1; i >= 0; i--) {
-    const m = messages[i]
-    if (!m || m.role !== 'assistant' || !Array.isArray(m.computed)) continue
-    for (let j = m.computed.length - 1; j >= 0; j--) {
-      const c = m.computed[j] as any
-      if (c && c.kind === 'scenario' && c.scenario && typeof c.scenario === 'object'
-        && typeof c.scenario.variable === 'string' && typeof c.scenario.impact === 'number') {
-        return c as ComputedPayload & { kind: 'scenario' }
-      }
-    }
-  }
-  return null
+  const m = messages.at(-1)
+  if (!m || m.role !== 'assistant' || !Array.isArray(m.computed)) return null
+  const scenarios = m.computed.filter((candidate) => {
+    const c = candidate as any
+    return c && c.kind === 'scenario' && c.scenario && typeof c.scenario === 'object'
+      && typeof c.scenario.variable === 'string' && typeof c.scenario.impact === 'number'
+  }) as (ComputedPayload & { kind: 'scenario' })[]
+  // Joint asks deliberately emit independent legs that do not simply add. A numberless "what does that do
+  // to the target?" cannot silently choose one leg, so carry forward only an unambiguous single scenario.
+  return scenarios.length === 1 ? scenarios[0] : null
+}
+
+export interface AuthenticatedScenarioTurn {
+  conversationId: string
+  turnId: string
+  assistantMessage: { content: string; computed?: unknown[] }
+}
+
+/** Resolve a carried-forward card without trusting any client-supplied figures. The browser must identify
+ *  the adjacent turn, durable History must agree it is literally the conversation's last message, and the
+ *  immutable user-scoped receipt supplies the only computed payload that can become authoritative. */
+export function resolveAuthenticatedPriorScenario(
+  echoedMessages: StoredChatMessage[],
+  conversationId: string | undefined,
+  durableLast: StoredChatMessage | undefined,
+  resolveTurn: (turnId: string) => AuthenticatedScenarioTurn | null,
+): (ComputedPayload & { kind: 'scenario' }) | null {
+  const echoed = echoedMessages.at(-1)
+  if (!conversationId || !echoed || echoed.role !== 'assistant' || !echoed.turnId) return null
+  if (!durableLast || durableLast.role !== 'assistant' || durableLast.turnId !== echoed.turnId || durableLast.content !== echoed.content) return null
+  const completed = resolveTurn(echoed.turnId)
+  if (!completed || completed.conversationId !== conversationId || completed.turnId !== echoed.turnId
+    || completed.assistantMessage.content !== echoed.content) return null
+  return findPriorScenarioComputed([{
+    role: 'assistant',
+    content: completed.assistantMessage.content,
+    turnId: completed.turnId,
+    computed: completed.assistantMessage.computed,
+  }])
 }
 
 // ---- 2. the parser contract (model interprets; code verifies) -----------------------------------------
@@ -410,7 +441,8 @@ export type ScenarioRequest = { delta: number } | { targetLevel: number } | { ta
 
 /** Run the deterministic engine for one intent. Returns null on any failure — a failed call degrades to a
  *  normal answer, never a fabricated number or a 500. */
-export async function computeScenario(sidecar: SensitivitySidecar, variable: string, req: ScenarioRequest): Promise<ComputedScenario | null> {
+export async function computeScenario(sidecar: SensitivitySidecar, variable: string, req: ScenarioRequest, signal?: AbortSignal): Promise<ComputedScenario | null> {
+  if (signal?.aborted) return null
   const payload: any = { sidecar, variable }
   if ('delta' in req) payload.delta = req.delta
   else if ('targetLevel' in req) payload.target_level = req.targetLevel
@@ -418,15 +450,17 @@ export async function computeScenario(sidecar: SensitivitySidecar, variable: str
   else if ('targetMargin' in req) payload.target_margin = req.targetMargin
   let out
   try {
-    out = await execa('python3', [SENSITIVITY_ENGINE, '--scenario'], { cwd: REPO_ROOT, input: JSON.stringify(payload), timeout: 15_000, reject: false })
+    out = await execa('python3', [SENSITIVITY_ENGINE, '--scenario'], {
+      cwd: REPO_ROOT, input: JSON.stringify(payload), timeout: 15_000, reject: false, cancelSignal: signal,
+    })
   } catch { return null }
   if (!out || out.exitCode !== 0 || !out.stdout) return null
   try { return shapeScenario(JSON.parse(out.stdout)) } catch { return null }
 }
 
 /** Compute one validated Plan → a ComputedScenario, or null. */
-export async function computePlan(sidecar: SensitivitySidecar, plan: Plan): Promise<ComputedScenario | null> {
-  return computeScenario(sidecar, plan.variable, plan.req)
+export async function computePlan(sidecar: SensitivitySidecar, plan: Plan, signal?: AbortSignal): Promise<ComputedScenario | null> {
+  return computeScenario(sidecar, plan.variable, plan.req, signal)
 }
 
 // the margin's honest name, derived from the base metric — an EBITDA base yields an EBITDA margin, never an
@@ -511,7 +545,9 @@ export async function repriceFromMetric(args: {
   // engine's metric-identity gate beyond numeric proximity alone (Codex #371 P1). Optional and additive:
   // omitting it leaves the numeric gate as the sole check, exactly as before.
   metricLabel?: string | null
+  signal?: AbortSignal
 }): Promise<RepricedValuation | null> {
+  if (args.signal?.aborted) return null
   const payload = {
     sidecar: args.valuationSidecar, decision: args.decision ?? {},
     new_metric: args.newMetric, base_metric: args.baseMetric ?? null,
@@ -520,7 +556,7 @@ export async function repriceFromMetric(args: {
   let out
   try {
     out = await execa('python3', [VALUATION_ENGINE, '--reprice'],
-      { cwd: REPO_ROOT, input: JSON.stringify(payload), timeout: 15_000, reject: false })
+      { cwd: REPO_ROOT, input: JSON.stringify(payload), timeout: 15_000, reject: false, cancelSignal: args.signal })
   } catch { return null }
   if (!out || out.exitCode !== 0 || !out.stdout) return null
   try {

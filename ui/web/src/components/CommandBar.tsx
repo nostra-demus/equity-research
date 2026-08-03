@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../lib/store'
+import { captureAskOpener } from '../lib/askFocus'
 import { decisionColor, fmtAgo, fmtMinutes, nextSweepLabel, resetIn, resolveVerdict, usageColor, usageLabel, usagePct } from '../lib/format'
 import { plainKind } from '../lib/plain'
 import { EngineStatusPill } from './EngineStatus'
@@ -222,14 +223,125 @@ function StopControl() {
   )
 }
 
-// Screener-mode middle controls: Recent runs · Check an event. The triage → idea funnel folded into
-// the left Events rail (one unified stream); this button opens the run history. The news scan is
-// automatic — its status chip (AutoScanChip) lives beside the engine pill.
+// One top-level Ask entry, two deliberately separate evidence books. Signal chat is closed-book over
+// what the selected gauntlet run wrote; news chat searches the saved wire. Combining their transcripts
+// would blur provenance, so the menu unifies navigation while the two chat systems stay independent.
+export type AskMenuKeyIntent = 'escape' | 'tab' | 'first' | 'last' | 'previous' | 'next' | null
+export function askMenuKeyIntent(key: string): AskMenuKeyIntent {
+  if (key === 'Escape') return 'escape'
+  if (key === 'Tab') return 'tab'
+  if (key === 'Home') return 'first'
+  if (key === 'End') return 'last'
+  if (key === 'ArrowUp') return 'previous'
+  if (key === 'ArrowDown') return 'next'
+  return null
+}
+
+export function ScreenerAskMenu() {
+  const selectedSignal = useStore((s) => s.scSelectedSignal)
+  const openChat = useStore((s) => s.openChat)
+  const openNewsChat = useStore((s) => s.openNewsChat)
+  const [open, setOpen] = useState(false)
+  const triggerRef = useRef<HTMLButtonElement | null>(null)
+  const menuRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (!open) return
+    const focusable = () => Array.from(menuRef.current?.querySelectorAll<HTMLButtonElement>('[role="menuitem"]') || [])
+    requestAnimationFrame(() => focusable()[0]?.focus())
+    const onKey = (e: KeyboardEvent) => {
+      const intent = askMenuKeyIntent(e.key)
+      if (intent === 'escape') {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+        setOpen(false)
+        requestAnimationFrame(() => triggerRef.current?.focus())
+        return
+      }
+      // Let the browser advance focus normally, but dismiss the popover before focus reaches the next
+      // command-bar control. This prevents a stale menu from remaining open behind Runs / Check an event.
+      if (intent === 'tab') {
+        e.preventDefault()
+        const trigger = triggerRef.current
+        const controls = Array.from(trigger?.closest('.topbar')?.querySelectorAll<HTMLButtonElement>('button:not(:disabled)') || [])
+          .filter((item) => !item.closest('[role="menu"]'))
+        const current = trigger ? controls.indexOf(trigger) : -1
+        const target = controls[current + (e.shiftKey ? -1 : 1)] || trigger
+        setOpen(false)
+        requestAnimationFrame(() => target?.focus())
+        return
+      }
+      if (!intent) return
+      const items = focusable()
+      if (!items.length) return
+      e.preventDefault()
+      e.stopImmediatePropagation()
+      const current = items.indexOf(document.activeElement as HTMLButtonElement)
+      const next = intent === 'first' ? 0
+        : intent === 'last' ? items.length - 1
+          : intent === 'previous' ? (current <= 0 ? items.length - 1 : current - 1)
+            : (current + 1) % items.length
+      items[next]?.focus()
+    }
+    window.addEventListener('keydown', onKey, true)
+    return () => window.removeEventListener('keydown', onKey, true)
+  }, [open])
+
+  const choose = (action: () => void) => { captureAskOpener(triggerRef.current); setOpen(false); action() }
+  const closeAndRestore = () => {
+    setOpen(false)
+    requestAnimationFrame(() => triggerRef.current?.focus())
+  }
+
+  return (
+    <div className="cmdask">
+      <button
+        ref={triggerRef}
+        data-ask-entry="true"
+        className="btn cmdbar__ask cmdask__trigger"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-controls="screener-ask-menu"
+        onClick={() => setOpen((v) => !v)}
+        title="Choose whether to ask about this signal or search the saved news wire"
+      >
+        Ask <span className="cmdask__chev" aria-hidden>▾</span>
+      </button>
+      {open && (
+        <>
+          <div className="cmdask__scrim" onClick={closeAndRestore} />
+          <div ref={menuRef} id="screener-ask-menu" className="tickerpick__menu cmdask__menu" role="menu" aria-label="Choose what to ask">
+            <div className="cmdask__head">Ask about…</div>
+            <button
+              className="tickerpick__item cmdask__item"
+              role="menuitem"
+              aria-disabled={!selectedSignal}
+              onClick={() => { if (selectedSignal) choose(() => openChat('run')) }}
+            >
+              <span className="cmdask__copy">
+                <b>This signal’s output</b>
+                <span>{selectedSignal ? 'Answer only from what this run wrote' : 'Open a signal first'}</span>
+              </span>
+            </button>
+            <button className="tickerpick__item cmdask__item" role="menuitem" onClick={() => choose(openNewsChat)}>
+              <span className="cmdask__copy">
+                <b>News wire</b>
+                <span>Search the last 24 hours, 7 days, or all saved news</span>
+              </span>
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+// Screener-mode middle controls: Runs · Check an event. The triage → idea funnel is folded into
+// the left Events rail (one unified stream); the news scan is automatic and Ask owns its two contexts.
 function ScreenerControls() {
   const openSignalIntake = useStore((s) => s.openSignalIntake)
   const openPipeline = useStore((s) => s.openPipeline)
   const openActivity = useStore((s) => s.openActivity)
-  const openNewsChat = useStore((s) => s.openNewsChat)
   const health = useStore((s) => s.health)
   const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
   // ONE runs entry: opens the book (every event you've checked) AND un-hides the live-progress rail, so
@@ -238,9 +350,6 @@ function ScreenerControls() {
   const openRuns = () => { openActivity(); openPipeline() }
   return (
     <>
-      <button className="btn cmdbar__ask" onClick={openNewsChat} title="Ask the last 24 hours, 7 days, or all saved news for possible trade ideas">
-        Ask news ▸
-      </button>
       <button className="btn btn--ghost" onClick={openRuns} title="Your runs — the live progress of anything running now, plus the full book of every event you've checked; reopen any analysis">
         Runs
       </button>
@@ -575,7 +684,6 @@ export function CommandBar() {
   const pipelines = useStore((s) => s.pipelines)
   const openChat = useStore((s) => s.openChat)
   const openChatHistory = useStore((s) => s.openChatHistory)
-  const scSelectedSignal = useStore((s) => s.scSelectedSignal) // the signal whose run is on the gauntlet — the screener Ask's subject
   // "Runs" reopen: shown only while the run panel is closed (dismiss only happens from the panel, and switching
   // company/starting a run clears the flag — so a visible flag always means there's a hidden panel to bring back)
   const requestFull = useStore((s) => s.requestFull)
@@ -623,11 +731,7 @@ export function CommandBar() {
           {/* the live-run rail's reopen is folded into the single "Runs" button below (ScreenerControls) —
               no separate top-bar button, so "Runs" and "Recent runs" no longer read as duplicates */}
           <button className="btn btn--ghost" onClick={openChatHistory} title="Chat history — reopen and continue any past Ask conversation">Chats</button>
-          {/* Ask about the open signal's output — closed-book Q&A over what the gauntlet wrote, exactly like
-              the research cockpit's Ask. Gated on a selected signal (the SIG whose run is on the gauntlet). */}
-          <button className="btn cmdbar__ask" disabled={!scSelectedSignal} onClick={() => openChat('run')} title={scSelectedSignal ? 'Ask questions about this signal’s output — answered only from what the engine wrote' : 'Open a signal first'}>
-            Ask ▸
-          </button>
+          <ScreenerAskMenu />
           <ScreenerControls />
         </>
       ) : (
@@ -649,7 +753,7 @@ export function CommandBar() {
           {decision?.final_thesis_path !== undefined || verdict ? (
             <button className="btn btn--ghost" onClick={openThesis}>{activeSwarm === 'research' ? 'Thesis' : 'Dossier'}</button>
           ) : null}
-          <button className="btn cmdbar__ask" disabled={!selectedTicker} onClick={() => openChat('run')} title={selectedTicker ? 'Ask questions about this run’s output — answered only from what the engine wrote' : 'Select a company first'}>
+          <button data-ask-entry="true" className="btn cmdbar__ask" disabled={!selectedTicker} onClick={(event) => { captureAskOpener(event.currentTarget); openChat('run') }} title={selectedTicker ? 'Ask questions about this run’s output — answered only from what the engine wrote' : 'Select a company first'}>
             Ask ▸
           </button>
           <ResumeChip />

@@ -119,12 +119,17 @@ export async function runChatTurn(opts: {
   thinkingTokens?: number
   budgetUsd?: number
 }): Promise<ChatTurnOutcome> {
+  // A request can disappear while the route is still assembling context or parsing a what-if. Refuse the
+  // turn before touching the concurrency counter or doing the async CLI capability probe, and check again
+  // after that probe so an abort during it can never spawn a paid model process.
+  if (opts.signal.aborted) return { costUsd: 0, error: 'aborted' }
   if (activeChatTurns >= CHAT.maxConcurrent) {
     return { costUsd: 0, error: 'Chat is busy right now — try again in a moment.' }
   }
   activeChatTurns++
   try {
     const flags = await detectFlags()
+    if (opts.signal.aborted) return { costUsd: 0, error: 'aborted' }
     const args: string[] = ['--print', '--output-format', 'stream-json', '--verbose']
     if (flags.has('--no-session-persistence')) args.push('--no-session-persistence')
     if (flags.has('--include-partial-messages')) args.push('--include-partial-messages')

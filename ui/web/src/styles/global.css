@@ -702,6 +702,19 @@ a { color: inherit; }
 .cmdbar__ask { color: var(--accent-bright); border-color: var(--accent-deep); font-weight: 600; }
 .cmdbar__ask:hover { background: var(--accent-wash); }
 .cmdbar__ask:disabled { opacity: 0.45; }
+.cmdask { position: relative; flex-shrink: 0; }
+.cmdask__trigger { display: inline-flex; align-items: center; gap: 5px; }
+.cmdask__chev { color: var(--text-faint); font-size: 10px; transition: transform var(--dur-fast); }
+.cmdask__trigger[aria-expanded='true'] .cmdask__chev { transform: rotate(180deg); }
+.cmdask__scrim { position: fixed; inset: 0; z-index: 39; }
+.cmdask__menu { min-width: 300px; padding: 6px; }
+.cmdask__head { padding: 5px 10px 7px; color: var(--text-faint); font-size: 10px; font-weight: 700; letter-spacing: 0.45px; text-transform: uppercase; }
+.cmdask__item { align-items: flex-start; }
+.cmdask__item:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; background: var(--accent-wash-soft); }
+.cmdask__item[aria-disabled='true'] { cursor: not-allowed; opacity: 0.48; background: transparent; }
+.cmdask__copy { display: flex; min-width: 0; flex-direction: column; gap: 3px; }
+.cmdask__copy b { color: var(--text); font-size: 12px; font-weight: 650; }
+.cmdask__copy span { color: var(--text-faint); font-size: 10.5px; line-height: 1.35; }
 
 @media (prefers-reduced-motion: reduce) {
   .chatpanel__work { animation: none; }
