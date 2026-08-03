@@ -375,17 +375,8 @@ export function readIdeasHealth(
       ...state,
     }
   }
-  if ((state.snapshot_store.status === 'degraded' || state.snapshot_store.status === 'unreadable')
-      && (base.status === 'healthy' || base.status === 'waiting' || base.status === 'deferred')) {
-    return {
-      ...base,
-      enabled: true,
-      status: 'degraded',
-      reason_code: 'snapshot_store_error',
-      reason: 'The last provider pass succeeded, but one or more persisted lead snapshots cannot be read safely.',
-      ...state,
-    }
-  }
+  // Reconcile a claimed produced count BEFORE the generic degraded-store projection. Otherwise one corrupt
+  // sole snapshot can short-circuit here as `degraded / success_with_ideas` even though zero valid leads exist.
   if (base.outcome === 'success_with_ideas' && state.snapshot_store.valid_count < base.produced_count) {
     return {
       ...base,
@@ -395,6 +386,17 @@ export function readIdeasHealth(
       reason_code: 'snapshot_store_error',
       reason: `The provider reported ${base.produced_count} persisted lead${base.produced_count === 1 ? '' : 's'}, but only ${state.snapshot_store.valid_count} projectable snapshot${state.snapshot_store.valid_count === 1 ? '' : 's'} remain.`,
       produced_count: 0,
+      ...state,
+    }
+  }
+  if ((state.snapshot_store.status === 'degraded' || state.snapshot_store.status === 'unreadable')
+      && (base.status === 'healthy' || base.status === 'waiting' || base.status === 'deferred')) {
+    return {
+      ...base,
+      enabled: true,
+      status: 'degraded',
+      reason_code: 'snapshot_store_error',
+      reason: 'The last provider pass succeeded, but one or more persisted lead snapshots cannot be read safely.',
       ...state,
     }
   }
