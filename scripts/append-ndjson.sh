@@ -126,9 +126,21 @@ while [ "$attempt" -lt "$MAX_ATTEMPTS" ]; do
     # Mark ownership immediately after mkdir so an arriving signal cannot strand the directory in the
     # tiny interval before the owner file is written.
     HELD=1
-    if ! printf 'pid=%s\nhost=%s\ncreated=%s\ntoken=%s\n' "$$" "$(hostname)" "$(date +%s)" "$OWNER_TOKEN" > "$LOCK/owner"; then
+    if [ "${NDJSON_TEST_FAIL_OWNER_WRITE:-0}" = "1" ]; then
+      # Exercise the real partial-write cleanup branch without relying on a filesystem-specific fault.
+      printf 'pid=%s\n' "$$" > "$LOCK/owner"
+      owner_written=0
+    elif printf 'pid=%s\nhost=%s\ncreated=%s\ntoken=%s\n' "$$" "$(hostname)" "$(date +%s)" "$OWNER_TOKEN" > "$LOCK/owner"; then
+      owner_written=1
+    else
+      owner_written=0
+    fi
+    if [ "$owner_written" != "1" ]; then
       # A stale-owner reclaimer from an older helper may have removed the tiny ownerless window. Do not
-      # fail the append or proceed unlocked; clear local ownership and retry acquisition.
+      # fail the append or proceed unlocked. Remove a partial owner file and the directory we just made
+      # before clearing local ownership; otherwise HELD=0 prevents the exit trap from cleaning the lock.
+      rm -f "$LOCK/owner" 2>/dev/null || true
+      rmdir "$LOCK" 2>/dev/null || true
       HELD=0
       attempt=$((attempt + 1))
       continue

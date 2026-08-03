@@ -73,6 +73,20 @@ try {
   )
   assert.equal(fs.existsSync(lockedLedger), false, 'lock timeout must never fall back to an unlocked append')
 
+  // If durable owner metadata cannot be completed, the writer must remove both a partial owner file and
+  // the directory it just acquired before retrying. HELD is cleared on this branch, so the exit trap alone
+  // cannot rescue a leaked lock.
+  const ownerWriteLedger = path.join(root, 'owner-write-failure.ndjson')
+  await assert.rejects(
+    execFileAsync('bash', [script, ownerWriteLedger, JSON.stringify({ outcome_id: 'must-not-write' }), 'outcome_id', 'must-not-write'], {
+      timeout: 20_000,
+      env: { ...process.env, NDJSON_TEST_FAIL_OWNER_WRITE: '1', NDJSON_LOCK_MAX_ATTEMPTS: '2', NDJSON_LOCK_SLEEP_SECS: '0.01' },
+    }),
+    (error: any) => error?.code === 3 && /timed out waiting for ledger lock/.test(String(error?.stderr)),
+  )
+  assert.equal(fs.existsSync(`${ownerWriteLedger}.lock`), false, 'a failed owner write cannot strand its lock directory')
+  assert.equal(fs.existsSync(ownerWriteLedger), false, 'a failed owner write cannot append')
+
   const staleLedger = path.join(root, 'stale.ndjson')
   const staleLock = `${staleLedger}.lock`
   fs.mkdirSync(staleLock)

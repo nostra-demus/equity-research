@@ -216,8 +216,10 @@ def nonfinite_errors(doc, path: str = "") -> list[str]:
 
 
 def validate(schema_path: str, doc_path: str) -> list[str]:
-    schema = json.load(open(schema_path, encoding="utf-8"))
-    doc = json.load(open(doc_path, encoding="utf-8"))
+    with open(schema_path, encoding="utf-8") as handle:
+        schema = json.load(handle)
+    with open(doc_path, encoding="utf-8") as handle:
+        doc = json.load(handle)
     c = Checker(schema)
     c.check(schema, doc, "")
     # Checker catches finite-number defects on every schema-traversed number. This independent walk also
