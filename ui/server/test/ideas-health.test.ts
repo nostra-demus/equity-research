@@ -4,7 +4,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { ideasHealthLivenessMs, initializeIdeasHealth, inspectPersistedIdeasHealth, readIdeasHealth, readPersistedIdeasHealth, updateIdeasHealth } from '../src/news/ideas/ideas-health'
-import { runIdeaPass, type IdeaPassConfig } from '../src/news/ideas/run-idea-pass'
+import { callGroqForIdeaPass, ideaGroqTokenBound, runIdeaPass, type IdeaPassConfig } from '../src/news/ideas/run-idea-pass'
 import { ideaId, readTopSweep, topNHash, writePassState } from '../src/news/ideas/ideas-store'
 import { Budget, NON_BINDING_DAILY_TOKEN_CAP, readCooldownUntil } from '../src/news/triage/budget'
 import type { OverflowProvider } from '../src/config'
@@ -218,6 +218,31 @@ assert.equal(groqFailures, 1, 'the operational chain gives each tier one bounded
 assert.equal(transientFallbackCalls, 1)
 assert.ok(readCooldownUntil(transientState, 'groq') > transientAt, 'availability failure cools shared Groq')
 assert.equal(readIdeasHealth(transientState, transientRoot, true, transientAt).outcome, 'success_empty')
+
+// The adapter itself is supposed to be fail-soft. Keep a second boundary anyway: if a future retry helper
+// unexpectedly throws, Ideas fails closed, charges conservatively, and never crashes or cools shared Groq.
+const adapterGuardRoot = rootWithRows(2)
+const adapterGuardState = path.join(adapterGuardRoot, '.state')
+const adapterGuardAt = NOW + 33 * 60_000
+const adapterGuardRows = readTopSweep(adapterGuardRoot, cfg.topN, {
+  nowMs: adapterGuardAt, maxAgeMs: cfg.inputMaxAgeHrs! * 3_600_000,
+}).rows
+const adapterGuard = await callGroqForIdeaPass(adapterGuardRows, {
+  repoRoot: adapterGuardRoot, stateDir: adapterGuardState, config: cfg, refreshBoard: async () => {},
+  now: () => adapterGuardAt,
+  fetchFn: (async () => new Response('temporarily unavailable', { status: 503 })) as typeof fetch,
+  sleep: async () => { throw new Error('retry helper failed') },
+})
+assert.equal(adapterGuard?.ok, false)
+assert.equal(adapterGuard?.failureKind, 'contract')
+assert.match(adapterGuard?.note || '', /unexpected adapter failure/)
+assert.equal(readCooldownUntil(adapterGuardState, 'groq'), 0, 'an internal Ideas adapter bug cannot cool shared Groq')
+assert.ok(readCooldownUntil(adapterGuardState, 'ideas:groq') > adapterGuardAt)
+assert.equal(
+  Budget.load(adapterGuardState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap, adapterGuardAt, 'groq-budget.json').tokens,
+  ideaGroqTokenBound(adapterGuardRows, cfg.groqMaxTokens),
+  'an escaped adapter failure is charged at one full conservative attempt',
+)
 
 // Bad Ideas JSON is workload-specific: charge the real request, then cool only `ideas:<provider>`. It must
 // never exhaust the shared ledger or mark the provider unhealthy for core news triage.
@@ -504,5 +529,5 @@ assert.equal(missingProduced.status, 'error')
 assert.equal(missingProduced.outcome, 'failed')
 assert.equal(missingProduced.reason_code, 'snapshot_store_error', 'success_with_ideas must reconcile to an actually projectable snapshot')
 
-for (const root of [thin, noKeyRoot, okRoot, failedRoot, crashRoot, fallbackRoot, transientRoot, contractRoot, requestRoot, cappedRoot, localRoot, slowLocalRoot, raceRoot, deadlineRoot, staleRoot, staleSweepRoot, staleRowsRoot, brokenStoreRoot, invalidStoreRoot, missingProducedRoot]) fs.rmSync(root, { recursive: true, force: true })
+for (const root of [thin, noKeyRoot, okRoot, failedRoot, crashRoot, fallbackRoot, transientRoot, adapterGuardRoot, contractRoot, requestRoot, cappedRoot, localRoot, slowLocalRoot, raceRoot, deadlineRoot, staleRoot, staleSweepRoot, staleRowsRoot, brokenStoreRoot, invalidStoreRoot, missingProducedRoot]) fs.rmSync(root, { recursive: true, force: true })
 console.log('\n1 ideas-health test file passed')

@@ -176,6 +176,20 @@ check('surfaceIdeasBatch separates malformed HTTP-200 envelopes from provider av
   assert.equal(bodyFetches, 2)
   assert.equal(rejected.requests, 2, 'response.text failure is counted once per HTTP attempt')
 })
+check('surfaceIdeasBatch stops retries immediately when its parent operation is aborted', async () => {
+  const controller = new AbortController()
+  controller.abort(new DOMException('chain ended', 'AbortError'))
+  let fetches = 0
+  let sleeps = 0
+  const r = await surfaceIdeasBatch(ROWS, { ...OPTS, maxAttempts: 2, signal: controller.signal }, (async (_input, init) => {
+    fetches++
+    throw init?.signal?.reason || new DOMException('aborted', 'AbortError')
+  }) as typeof fetch, async () => { sleeps++ })
+  assert.equal(r.ok, false)
+  assert.equal(r.failureKind, 'availability')
+  assert.equal(fetches, 1)
+  assert.equal(sleeps, 0, 'a cancelled parent never pays retry backoff or starts a second request')
+})
 
 // ---- identity + helpers ----
 check('ideaId is stable and differs by direction', () => {

@@ -295,6 +295,7 @@ export async function surfaceIdeasBatch(
       return { ideas, requests, tokens, ok: true, rate }
     } catch (e: any) {
       lastNote = e?.name === 'TimeoutError' ? 'idea: request timed out' : e?.message || 'idea fetch error'
+      if (opts.signal?.aborted) break
       if (attempt < maxAttempts) await sleep(1500 * attempt)
     }
   }

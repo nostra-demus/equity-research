@@ -195,6 +195,14 @@ async function callProviderForIdeaPassDetailed(
       },
       deps.fetchFn, deps.sleep,
     )
+  } catch (e: any) {
+    // surfaceIdeasBatch is fail-soft by contract, but keep the orchestration boundary fail-soft too. If a
+    // future adapter regression escapes unexpectedly, charge one conservative attempt and isolate the bug
+    // to Ideas instead of crashing the scheduler or pretending the shared provider is unavailable.
+    r = {
+      ideas: [], requests: 1, tokens: perAttemptTokens, ok: false, failureKind: 'contract',
+      note: `idea: unexpected adapter failure: ${e?.message || String(e)}`,
+    }
   } finally {
     const sentRequests = Number.isFinite(r?.requests) ? Math.max(0, Math.floor(r!.requests)) : 0
     const reportedTokens = Number(r?.tokens)
