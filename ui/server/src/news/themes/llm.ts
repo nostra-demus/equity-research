@@ -7,10 +7,11 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { companyKeys } from '../text-match'
+import { companyKeys, themeNarrativeTokens } from '../text-match'
 import { Budget, clearCooldown, conservativeChatTokenBound, isCoolingDown, type BudgetReservation } from '../triage/budget'
 import type { LlmNamer } from './engine'
 import type { Theme } from './types'
+import { themeStoryKey } from './story-key'
 
 interface NamerCfg {
   themesDiscoverModel?: string // 'claude-haiku' | 'groq' | 'off'
@@ -129,7 +130,7 @@ async function callGroq(cfg: NamerCfg, user: string, fetchFn: typeof fetch): Pro
 }
 
 /** Apply LLM proposals to the created themes in place (rename/validate). Coerced defensively. */
-function applyProposals(created: Theme[], proposals: any[]): void {
+function applyProposals(created: Theme[], proposals: any[], generation: 'claude' | 'groq'): void {
   const byIndex = new Map<number, any>()
   for (const p of proposals) {
     const i = Number(p?.i)
@@ -137,23 +138,48 @@ function applyProposals(created: Theme[], proposals: any[]): void {
   }
   created.forEach((t, i) => {
     const p = byIndex.get(i)
-    if (!p) return // model omitted → keep deterministic name (a needs_rename flag stays for the next pass)
-    delete t.needs_rename // processed — either renamed below or judged not-a-theme
+    if (!p) return // model omitted → keep validation/rename flags so a later discovery pass retries
     if (p.is_theme === false) {
+      delete t.needs_rename // explicitly judged not-a-theme
+      delete t.needs_validation
       t.status = 'retired' // not a real theme — drop it
+      t.rev++
       return
     }
+    // Fail closed on a malformed/partial proposal. `generation` is the public qualification proof that
+    // a model explicitly validated this cluster, so an omitted/string-valued verdict must never grant it.
+    // Leave the deterministic cluster as Context and let a later discovery pass try again.
+    if (p.is_theme !== true) return
     const name = typeof p.name === 'string' ? p.name.trim().slice(0, 80) : ''
-    if (name) {
-      t.name = name
-      t.slug = (typeof p.slug === 'string' && slugify(p.slug)) || slugify(name)
-    }
-    if (typeof p.description === 'string' && p.description.trim()) t.description = p.description.trim().slice(0, 240)
+    const description = typeof p.description === 'string' ? p.description.trim().slice(0, 240) : ''
+    // `is_theme:true` without the required narrative copy is still a partial/malformed proposal. Clearing
+    // the queue here upgrades generation but leaves the deterministic "x · y" / "Recurring news around"
+    // label in permanent Context with no future retry (and can bless stale prose on an active legacy row).
+    if (!name || !description) return
+    delete t.needs_rename // explicitly validated and re-grounded by this same complete proposal
+    delete t.needs_validation
+    t.name = name
+    t.slug = (typeof p.slug === 'string' && slugify(p.slug)) || slugify(name)
+    t.description = description
     if (Array.isArray(p.keywords)) {
-      const kw = p.keywords.filter((k: any) => typeof k === 'string' && k.trim()).map((k: string) => k.toLowerCase().trim()).slice(0, 12)
+      // Proposed anchors may guide future assignment, so they must be present in at least two distinct
+      // underlying stories. A model-written but unsupported word is description prose, not a join key.
+      const support = new Map<string, Set<string>>()
+      for (const member of t.members) {
+        const story = themeStoryKey(member)
+        for (const token of themeNarrativeTokens(member.headline, member.companies, member.tier)) {
+          if (!support.has(token)) support.set(token, new Set())
+          support.get(token)!.add(story)
+        }
+      }
+      const kw = p.keywords
+        .filter((k: any) => typeof k === 'string' && k.trim())
+        .map((k: string) => k.toLowerCase().trim())
+        .filter((k: string) => (support.get(k)?.size || 0) >= 2)
+        .slice(0, 12)
       if (kw.length) t.keywords = [...new Set([...kw, ...t.keywords])].slice(0, 14)
     }
-    t.generation = 'claude'
+    t.generation = generation
     t.rev++
   })
 }
@@ -207,7 +233,7 @@ export function makeThemeNamer(cfg: NamerCfg, fetchFn: typeof fetch, stateDir: s
         if (useClaude) recordSpend(stateDir, todayISO)
         else clearCooldown(stateDir, 'groq') // Groq answered → count it, mark healthy
         if (!text) return
-        applyProposals(batch, parseThemesJson(text))
+        applyProposals(batch, parseThemesJson(text), useClaude ? 'claude' : 'groq')
         log(`themes: named ${batch.length} new theme${batch.length === 1 ? '' : 's'} via ${useClaude ? 'claude' : 'groq'}`)
         return
       } catch (e: any) {

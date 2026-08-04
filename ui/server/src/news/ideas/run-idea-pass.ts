@@ -9,16 +9,20 @@
 // healthy core triage. The whole provider walk is deadline-bounded below stale-running detection. Never throws.
 
 import { Budget, NON_BINDING_DAILY_TOKEN_CAP, armCooldown, clearCooldown, conservativeChatTokenBound, getNamedLimiter, getSharedLimiter, isCoolingDown } from '../triage/budget'
-import { IDEA_SYSTEM, buildIdeaUserMessage, estimateIdeaTokens, surfaceIdeasBatch, type SurfaceIdeasResult } from './surface-ideas'
+import {
+  IDEA_SYSTEM, buildIdeaUserMessage, estimateIdeaTokens, surfaceIdeasBatch,
+  type IdeaInputRow, type IdeaOriginType, type IdeaSourceTheme, type RawIdea, type SurfaceIdeasResult,
+} from './surface-ideas'
 import {
   ideaDecayAt, ideaId, ideaSnapshotRevision, ideaVersion, priorCoverage, pruneExpiredIdeas, readIdeaById,
-  readIdeaSnapshots, readPassState, readTopSweep, topNHash, writeIdeaIfRevision, writePassState,
+  readIdeaSnapshots, readPassState, readTopSweep, retireUnadmittedThemeIdeas, topNEffectHash, topNHash,
+  writeIdeaIfRevision, writePassState,
   type SurfacedIdea,
 } from './ideas-store'
 import { IDEA_LEARNING_HORIZON_DAYS, learnIdeaAdjustment } from './idea-learning'
 import { scoreTradeCluster, type TradeEvidence } from '../trade-score'
-import type { IdeaInputRow } from './surface-ideas'
-import { verifyEquityListing } from '../symbology'
+import { normTicker, verifyEquityListing } from '../symbology'
+import { normName } from '../text-match'
 import {
   inspectIdeaSnapshots, inspectPersistedIdeasHealth, updateIdeasHealth, type IdeasHealthReasonCode,
 } from './ideas-health'
@@ -28,6 +32,8 @@ export interface IdeaPassConfig {
   topN: number
   shelfLifeHrs: number
   inputMaxAgeHrs?: number
+  /** Direct Themes → Ideas bridge gate; omitted remains enabled for deploy-compatible callers. */
+  themesEnabled?: boolean
   minIntervalSec: number
   refreshSec: number
   groqApiKey: string
@@ -102,6 +108,105 @@ export function tradeEvidenceForIdeaRows(rows: IdeaInputRow[]): TradeEvidence[] 
     scheduled_events: s.scheduled_events,
     event_direction: s.event_direction,
   }))
+}
+
+/** Derive provenance only after the model has selected raw source indices. Theme rows elsewhere in the
+ * batch cannot leak into the saved idea, and provider-authored JSON has no lineage field to trust. */
+type ThemeProofMap = Map<string, Set<string>>
+const themeProofKey = (themeId: string, themeRev: number) => `${themeId}@${themeRev}`
+export interface ThemeIdeaProof {
+  evidenceByTheme: ThemeProofMap
+  /** Exact server-qualified harmed expression name used to verify a pair's second listing. Null for
+   * non-pairs and wire-only pairs, whose second leg uses an exact ticker-only directory lookup. */
+  pairCompanyName: string | null
+}
+
+/** Enforce the server-authored Theme expression allowlist after resolving provider `src` indices. Every
+ * selected Theme/mixed revision must independently prove the returned company/ticker and direction; a
+ * pair additionally needs a qualified harmed leg. Wire-only selections retain their existing behavior. */
+export function themeProofForIdea(raw: RawIdea, rows: IdeaInputRow[]): ThemeIdeaProof | null {
+  const themeRows = rows.filter((row) => row.origin_type === 'theme' || row.origin_type === 'mixed')
+  if (!themeRows.length) return { evidenceByTheme: new Map(), pairCompanyName: null }
+  const companyKey = normName(raw.company)
+  const primaryTicker = normTicker(raw.ticker)
+  const primarySide = raw.direction === 'short' ? 'harmed' : 'beneficiary'
+  const pairTicker = raw.direction === 'pair' ? normTicker(raw.pair_with) : ''
+  if (!companyKey || !primaryTicker || (raw.direction === 'pair' && (!pairTicker || pairTicker === primaryTicker))) return null
+
+  const proofs: ThemeProofMap = new Map()
+  let pairCompanyKey = ''
+  let pairCompanyName: string | null = null
+  for (const row of themeRows) {
+    if (!row.source_themes?.length) return null
+    for (const theme of row.source_themes) {
+      const expressions = (row.theme_expressions || []).filter((expression) => (
+        expression.theme_id === theme.theme_id && expression.theme_rev === theme.theme_rev
+      ))
+      const primary = expressions.find((expression) => (
+        expression.side === primarySide
+        && normTicker(expression.ticker) === primaryTicker
+        && expression.name_key === companyKey
+        && expression.evidence_event_ids.length > 0
+      ))
+      if (!primary) return null
+      const key = themeProofKey(theme.theme_id, theme.theme_rev)
+      const eventIds = proofs.get(key) || new Set<string>()
+      for (const eventId of primary.evidence_event_ids) eventIds.add(eventId)
+      if (raw.direction === 'pair') {
+        const pair = expressions.find((expression) => (
+          expression.side === 'harmed'
+          && normTicker(expression.ticker) === pairTicker
+          && expression.evidence_event_ids.length > 0
+        ))
+        if (!pair) return null
+        const matchedPairKey = pair.name_key || normName(pair.name)
+        if (!matchedPairKey || (pairCompanyKey && pairCompanyKey !== matchedPairKey)) return null
+        if (!pairCompanyKey) {
+          pairCompanyKey = matchedPairKey
+          pairCompanyName = pair.name
+        }
+        for (const eventId of pair.evidence_event_ids) eventIds.add(eventId)
+      }
+      proofs.set(key, eventIds)
+    }
+  }
+  return { evidenceByTheme: proofs, pairCompanyName }
+}
+
+export function ideaLineageForRows(
+  rows: IdeaInputRow[],
+  expressionProofs: ThemeProofMap = new Map(),
+): { origin_type: IdeaOriginType; source_themes: IdeaSourceTheme[] } {
+  let sawWire = false
+  let sawTheme = false
+  const sourceThemes: IdeaSourceTheme[] = []
+  for (const row of rows) {
+    const origin = row.origin_type || 'wire'
+    if (origin === 'wire' || origin === 'mixed') sawWire = true
+    if (origin === 'theme' || origin === 'mixed') sawTheme = true
+    for (const theme of row.source_themes || []) {
+      sawTheme = true
+      const evidenceIds = theme.evidence_event_ids?.length ? theme.evidence_event_ids : [row.event_id]
+      const expressionIds = expressionProofs.get(themeProofKey(theme.theme_id, theme.theme_rev)) || []
+      const existing = sourceThemes.find((candidate) => candidate.theme_id === theme.theme_id)
+      if (existing) {
+        const merged = new Set(existing.evidence_event_ids || [])
+        for (const eventId of evidenceIds) merged.add(eventId)
+        for (const eventId of expressionIds) merged.add(eventId)
+        existing.evidence_event_ids = [...merged]
+      } else if (sourceThemes.length < 64) {
+        sourceThemes.push({
+          theme_id: theme.theme_id,
+          theme_rev: theme.theme_rev,
+          evidence_event_ids: [...new Set([...evidenceIds, ...expressionIds])],
+        })
+      }
+    }
+  }
+  return {
+    origin_type: sawTheme ? (sawWire ? 'mixed' : 'theme') : 'wire',
+    source_themes: sourceThemes,
+  }
 }
 
 /** The Groq descriptor is synthesized only because Groq predates the overflow registry. */
@@ -311,8 +416,14 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     const sweep = readTopSweep(deps.repoRoot, c.topN, {
       nowMs: inputAt,
       maxAgeMs: inputMaxAgeHrs * 3_600_000,
+      themesEnabled: c.themesEnabled !== false,
     })
     const rows = sweep.rows
+    // Reconcile Theme-only snapshots before every cache, interval, or row-count exit. A quiet provider
+    // lane must not leave a withdrawn Theme thesis looking live. Mixed calls retain independent wire
+    // support; promoted and in-flight calls remain lifecycle-owned and are never removed here.
+    const retired = retireUnadmittedThemeIdeas(deps.repoRoot, rows)
+    if (retired > 0) await deps.refreshBoard()
     if (rows.length < 2) {
       const staleInput = sweep.status === 'stale' || sweep.status === 'corrupt'
       const counts = inspectIdeaSnapshots(deps.repoRoot, inputAt)
@@ -336,6 +447,7 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     }
 
     const hash = topNHash(rows)
+    const effectHash = topNEffectHash(rows)
     const prev = readPassState(deps.stateDir)
     const priorHealthRead = inspectPersistedIdeasHealth(deps.stateDir)
     const priorHealth = priorHealthRead.health
@@ -385,7 +497,10 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
         ? { ran: false, produced: 0, note: 'prior provider attempt unfinished', reason_code: 'stale_running' }
         : { ran: false, produced: 0, note: 'within min interval', reason_code: 'min_interval' }
     }
-    const changed = !prev || prev.hash !== hash
+    // Prompt spend and persistence effects are separate. A Theme revision/evidence edge can change while
+    // the model-visible rows stay byte-identical; that still needs one minimal rerun so saved lineage and
+    // version catch up instead of reusing an incoherent cached effect.
+    const changed = !prev || prev.hash !== hash || prev.effect_hash !== effectHash
     // A failed attempt retries as soon as the hard interval allows, even when the event ids are unchanged.
     // Treating the failed hash as a valid cached result used to hide the outage until the hourly heartbeat.
     const dueRefresh = priorFailed
@@ -414,7 +529,7 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       return { ran: false, produced: 0, note: reason, reason_code: code }
     }
     // stamp the attempt regardless of outcome so a failing provider isn't re-probed every tick
-    writePassState(deps.stateDir, { hash, ran_at_ms: now() })
+    writePassState(deps.stateDir, { hash, effect_hash: effectHash, ran_at_ms: now() })
     if (!r.ok) {
       const counts = inspectIdeaSnapshots(deps.repoRoot, now())
       health({ enabled: true, status: counts.live_count + counts.stale_count > 0 ? 'degraded' : 'error', outcome: 'failed', reason_code: 'provider_error', reason: r.note || 'The provider attempt failed.', next_eligible_at: null, input_count: rows.length, produced_count: 0 })
@@ -430,10 +545,18 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     for (const raw of r.ideas) {
       const id = ideaId(raw.ticker, raw.direction)
       if (seen.has(id)) continue // two raw rows collapsed to the same call — the model returned the best first
-      seen.add(id)
       const srcRows = raw.src.map((i) => rows[i]).filter(Boolean)
       if (!srcRows.length) continue
-      const eventIds = [...new Set(srcRows.map((s) => s.event_id))]
+      // Resolve selected indices first, then bind returned issuer/ticker/direction to every server-qualified
+      // Theme expression. Provider JSON cannot mint a constituent. A rejected duplicate stays out of `seen`
+      // so a later correctly bound row for the same directional call may still be persisted.
+      const expressionProofs = themeProofForIdea(raw, srcRows)
+      if (!expressionProofs) continue
+      const lineage = ideaLineageForRows(srcRows, expressionProofs.evidenceByTheme)
+      const eventIds = [...new Set([
+        ...srcRows.map((s) => s.event_id),
+        ...lineage.source_themes.flatMap((theme) => theme.evidence_event_ids || []),
+      ])]
       // primary = the highest-materiality contributing row; its source anchors a later promotion so the
       // launched signal's SIG_ID byte-matches the wire event (headline|url|date) and Gate 0 sees a real source.
       const primary = srcRows.slice().sort((a, b) => b.materiality - a.materiality)[0]
@@ -442,12 +565,42 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       const newestAt = srcRows.map((s) => s.found_at).filter(Boolean).sort().reverse()[0] || nowIso
       const decayIso = ideaDecayAt(newestAt, now(), c.shelfLifeHrs)
       if (!decayIso) continue
-      const version = ideaVersion({ ticker: raw.ticker, direction: raw.direction, thesisType: raw.thesis_type, reason: raw.reason, whyNow: raw.why_now, sourceEventIds: eventIds })
       const learning = learnIdeaAdjustment(deps.repoRoot, snapshots, {
         direction: raw.direction, thesisType: raw.thesis_type, horizonDays: IDEA_LEARNING_HORIZON_DAYS,
       })
       const tradeEvidence = tradeEvidenceForIdeaRows(srcRows)
       const verifiedListing = await verifyEquityListing(raw.ticker, raw.company, deps.fetchFn || fetch)
+      let verifiedPairListing: Awaited<ReturnType<typeof verifyEquityListing>> = null
+      if (raw.direction === 'pair') {
+        // A pair asserts that BOTH legs are tradable listed equities. Theme/mixed inputs bind the second
+        // lookup to the exact harmed expression name that cleared server qualification. Wire-only inputs
+        // have no authoritative second company name, so use the directory's safe exact-ticker path.
+        if (!verifiedListing || !raw.pair_with) continue
+        const hasThemeInput = srcRows.some((row) => row.origin_type === 'theme' || row.origin_type === 'mixed')
+        const pairCompanyName = hasThemeInput ? expressionProofs.pairCompanyName : null
+        if (hasThemeInput && !pairCompanyName) continue
+        verifiedPairListing = await verifyEquityListing(
+          raw.pair_with,
+          pairCompanyName || undefined,
+          deps.fetchFn || fetch,
+        )
+        if (!verifiedPairListing) continue
+      }
+      // Listing rejection must not reserve the stable idea id: a later provider row for the same primary
+      // call may carry a valid independently verified pair leg.
+      seen.add(id)
+      const persistedPairTicker = raw.direction === 'pair' ? verifiedPairListing!.ticker : null
+      const version = ideaVersion({
+        ticker: verifiedListing?.ticker || raw.ticker,
+        direction: raw.direction,
+        pairWith: persistedPairTicker,
+        thesisType: raw.thesis_type,
+        reason: raw.reason,
+        whyNow: raw.why_now,
+        sourceEventIds: eventIds,
+        originType: lineage.origin_type,
+        sourceThemes: lineage.source_themes,
+      })
       const trade = scoreTradeCluster(tradeEvidence, {
         nowMs: now(),
         ticker: verifiedListing?.ticker || raw.ticker,
@@ -485,7 +638,7 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
           liquidity_verified: false,
           listing_verification_source: verifiedListing?.source || null,
           direction: raw.direction,
-          pair_with: raw.pair_with,
+          pair_with: persistedPairTicker,
           reason: raw.reason,
           why_now: raw.why_now,
           conviction: raw.conviction,
@@ -498,6 +651,8 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
           learning,
           priced_in: raw.priced_in,
           thesis_type: raw.thesis_type,
+          origin_type: lineage.origin_type,
+          source_themes: lineage.source_themes,
           source_event_ids: eventIds,
           source_headlines: headlines,
           source_headline: primary?.headline_orig || primary?.headline || null,

@@ -87,6 +87,32 @@ function agoLabel(iso: string): string {
 function sideLabel(d: BoardIdea['direction']): string { return d === 'pair' ? 'PAIR' : d.toUpperCase() }
 function prettyType(t: string): string { return t.replace(/_/g, ' ') }
 
+export interface IdeaThemeAttribution {
+  label: 'found through Themes' | 'theme corroborated'
+  title: string
+}
+
+/** Keep provenance language narrower than the underlying data. A theme-only lead was discovered through
+ * Themes; a mixed lead was already present on the wire and Themes supplied corroborating evidence. */
+export function ideaThemeAttribution(
+  idea: Pick<BoardIdea, 'origin_type' | 'source_themes'>,
+): IdeaThemeAttribution | null {
+  if (!idea.source_themes?.length) return null
+  if (idea.origin_type === 'theme') {
+    return {
+      label: 'found through Themes',
+      title: 'This lead entered the skim through a theme that cleared the evidence gate',
+    }
+  }
+  if (idea.origin_type === 'mixed') {
+    return {
+      label: 'theme corroborated',
+      title: 'This lead appeared on the wire and was corroborated by a theme that cleared the evidence gate',
+    }
+  }
+  return null
+}
+
 // A paid gauntlet run is a real spend, so the CTA arms on the first click and fires on the second (the
 // cockpit's "Scan now" idiom), auto-disarming after a few seconds. Self-contained: manages its own arm /
 // sending / error state and calls the store directly, so the card list stays declarative.
@@ -140,6 +166,7 @@ function IdeaCard({ idea }: { idea: BoardIdea }) {
   const macro = MACRO_TYPES.has(idea.thesis_type)
   const pc = idea.prior_coverage
   const rated = pc?.has_run
+  const themeAttribution = ideaThemeAttribution(idea)
   return (
     <article className={`bidea bidea--${idea.direction}`}>
       <div className="bidea__head">
@@ -167,6 +194,11 @@ function IdeaCard({ idea }: { idea: BoardIdea }) {
       )}
 
       <div className="bidea__tags">
+        {themeAttribution && (
+          <span className="bidea__tag bidea__tag--theme" title={themeAttribution.title}>
+            {themeAttribution.label}
+          </span>
+        )}
         {idea.direction === 'pair' && idea.pair_with && <span className="bidea__tag">short {idea.pair_with}</span>}
         {macro && <span className="bidea__tag bidea__tag--warn">{prettyType(idea.thesis_type)} bet — not a pure stock pick</span>}
         {idea.priced_in === 'room' && <span className="bidea__tag">may not be priced in yet</span>}
@@ -194,11 +226,13 @@ function IdeaCard({ idea }: { idea: BoardIdea }) {
   )
 }
 
-function CompactIdea({ idea }: { idea: BoardIdea }) {
+export function CompactIdea({ idea }: { idea: BoardIdea }) {
+  const themeAttribution = ideaThemeAttribution(idea)
   return (
     <div className="bidea-c">
       <span className={`bidea-c__side bidea-c__side--${idea.direction}`}>{sideLabel(idea.direction)}</span>
       <span className="bidea-c__ticker">{idea.ticker}</span>
+      {themeAttribution && <span className="bidea-c__theme" title={themeAttribution.title}>{themeAttribution.label}</span>}
       <span className="bidea-c__reason">{idea.reason}</span>
       <span className="bidea-c__read" title="strict trade readiness; Signal Check still decides">{idea.trade_score ?? idea.conviction}</span>
       <PromoteButton idea={idea} compact />

@@ -68,6 +68,10 @@ export interface ThemeScores {
 // The full event is resolved against readFeed() only on the deep-dive API call.
 export interface ThemeMember {
   event_id: string
+  // Canonical story-family id from the wire deduper. Optional for legacy ledger rows. The first-look
+  // evidence gate uses it before normalized-headline fallback so ten wire rewrites of one story count
+  // as one corroborating observation, not ten.
+  dedup_group?: string
   headline: string
   headline_en?: string | null // English translation (news/lang.ts) — kept so a member older than the feed window still renders in English
   found_at: string // ISO
@@ -137,6 +141,20 @@ export interface Theme {
   // name/description no longer describe the members (e.g. the strangers were purged). The next discovery
   // pass folds ≤renamePerPass flagged themes into its existing namer call. Additive; ignored by readers.
   needs_rename?: boolean
+  // Fresh deterministic clusters stay here until the optional validator explicitly accepts or rejects
+  // them. This field is only written on newly-created clusters; legacy deterministic ledger rows are not
+  // silently enrolled into the queue. A provider/cap/malformed-response failure therefore retries on a
+  // later discovery pass even when that pass creates no new cluster.
+  needs_validation?: boolean
+}
+
+/** Explicit invalidation for a theme that disappeared from the live index. SSE clients must consume this
+ *  instead of inferring removal from the absence of a later `theme-update` event. */
+export interface ThemeRemoval {
+  theme_id: string
+  reason: 'retired' | 'merged'
+  merged_into: string | null
+  rev: number
 }
 
 // A compact projection for the live SSE bus + the index list view (no member arrays).
@@ -150,10 +168,72 @@ export interface ThemeSummary {
   flow_series: number[] // hourly (last sparkWindows h)
   flow_daily: number[] // daily (last DAILY_WINDOWS days, newest last) — drives the long time-window views
   member_count: number
-  top_companies: { name: string; ticker: string | null; order: OrderTier; side: ImpactSide }[]
+  first_seen: string
+  // Keep heat's component scores visible. `composite` remains above for old clients; this additive copy
+  // lets the first-look explain heat without treating it as proof that a theme is investable.
+  score_components: ThemeScores
+  // Raw, bounded proof — never a synthesized claim. Rows are distinct story families/headlines and
+  // routine paperwork is excluded, so repetition cannot manufacture corroboration.
+  evidence: ThemeEvidence[]
+  /** Authoritative, qualification-derived trade expressions. Each ticker is tied to the exact
+   * narrative-supporting evidence row that proved it; downstream consumers may narrow this set but
+   * must never expand it from model output or from the display ordering of top_companies. */
+  qualified_expressions: ThemeQualifiedExpression[]
+  // The old four fields stay intact; the additive fields expose the actual listing/centrality evidence
+  // behind each expression so clients do not infer it from order alone.
+  top_companies: {
+    name: string
+    ticker: string | null
+    listing_country: string | null
+    order: OrderTier
+    side: ImpactSide
+    mention_count: number
+    impact_composite: number
+    last_seen: string
+  }[]
+  assessment: ThemeAssessment
   related_themes: { theme_id: string; name: string; kind: 'related' | 'opposite' }[]
   last_flow: string
   rev: number
+}
+
+export interface ThemeQualifiedExpression {
+  name: string
+  name_key: string
+  ticker: string
+  listing_country: string | null
+  side: Exclude<ImpactSide, 'mixed'>
+  evidence_event_ids: string[]
+}
+
+export interface ThemeEvidence {
+  event_id: string
+  headline: string
+  found_at: string
+  score: number
+  source_tier: string
+}
+
+export type ThemeAssessmentStatus = 'actionable' | 'forming' | 'context'
+
+/** Evidence counts used by the first-look admission gate. There is deliberately no weighted aggregate:
+ *  each gate is inspectable, and ordering is lexicographic (actionable → forming → context). */
+export interface ThemeAssessmentMetrics {
+  recent_6h_flow: number // distinct narrative-supporting rows aged 0–6h
+  prior_6h_flow: number // the same measure aged >6–12h (recent − prior = visible acceleration)
+  unique_evidence_count: number // distinct non-routine rows, including unconfirmed rows
+  high_quality_evidence_count: number // filing/official/company/news rows (not social/unconfirmed)
+  narrative_support_count: number // distinct rows carrying at least one recurring narrative token
+  narrative_coherence_pct: number // narrative_support_count / unique_evidence_count × 100
+  recurring_narrative_token_count: number // non-company theme tokens recurring in >=2 distinct rows
+  first_order_directional_ticker_count: number // syntactically-clean ticker-linked order-1 names with raw proof; listing/liquidity unverified
+}
+
+export interface ThemeAssessment {
+  status: ThemeAssessmentStatus
+  reasons: string[] // plain facts that cleared gates
+  blockers: string[] // explicit failed gates; empty only when actionable
+  metrics: ThemeAssessmentMetrics
 }
 
 export interface ThemesIndex {
@@ -184,6 +264,7 @@ export interface ThemeDetail {
 // run over either a fresh TriagedItem or a backfilled FeedItem without coupling to their full shapes).
 export interface ThemeItemView {
   event_id: string
+  dedup_group?: string // canonical story family; persisted onto ThemeMember for evidence dedupe
   headline: string
   headline_en?: string | null // English translation (news/lang.ts) — carried onto the member so themes render in English
   found_at: string // ISO

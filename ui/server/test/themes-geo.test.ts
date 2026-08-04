@@ -22,6 +22,7 @@ const hoursAgo = (h: number) => new Date(NOW.getTime() - h * 3_600_000).toISOStr
 function member(id: string, opts: Partial<ThemeMember> = {}): ThemeMember {
   return {
     event_id: id,
+    dedup_group: opts.dedup_group,
     headline: opts.headline || 'a headline with no place named',
     headline_en: opts.headline_en,
     found_at: opts.found_at || hoursAgo(1),
@@ -67,6 +68,18 @@ check('country slice: member_count is the geo member count, not the theme total'
   assert.equal(idx.themes[0].member_count, 1) // only the one HK member of the 3
 })
 
+check('country slice dedupes story families before company placement and qualification', () => {
+  const acme = { name: 'Acme HK', ticker: 'ACME', listing_country: 'HK' }
+  const duplicated = theme('THM-duphk111', 'HK duplicate proof', [
+    member('d1', { dedup_group: 'story-a', country: 'HK', companies: [acme] }),
+    member('d1-copy', { dedup_group: 'story-a', country: 'HK', companies: [acme] }),
+    member('d2', { dedup_group: 'story-b', country: 'HK', companies: [acme] }),
+  ])
+  const summary = buildGeoThemesIndex([duplicated], { country: 'HK' }, now).themes[0]
+  assert.equal(summary.member_count, 2)
+  assert.equal(summary.top_companies[0]?.mention_count, 2, 'a publisher copy cannot inflate sliced company centrality')
+})
+
 check('country slice: a lowercase query param still matches (server upstreams uppercase, be defensive)', () => {
   const idx = buildGeoThemesIndex([hk], { country: 'hk' }, now)
   assert.equal(idx.themes.length, 1)
@@ -110,7 +123,13 @@ check('ranking: the bigger, fresher geo theme sorts first', () => {
 })
 
 check('geo top_companies are only the geo-listed names', () => {
-  const t = theme('THM-coaa9999', 'Co geo', [member('c1', { country: 'HK' })], {
+  // Put the names on the sliced member itself: the summary now rebuilds company facts from slice proof
+  // and deliberately refuses a global company row that no sliced story names.
+  const companies = [
+    { name: 'HK Co', ticker: 'HKC', listing_country: 'HK' } as any,
+    { name: 'US Co', ticker: 'USC', listing_country: 'US' } as any,
+  ]
+  const t = theme('THM-coaa9999', 'Co geo', [member('c1', { country: 'HK', companies })], {
     companies: [
       { name: 'HK Co', ticker: 'HKC', listing_country: 'HK', order: 1, side: 'beneficiary' } as any,
       { name: 'US Co', ticker: 'USC', listing_country: 'US', order: 1, side: 'beneficiary' } as any,

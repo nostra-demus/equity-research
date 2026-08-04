@@ -183,23 +183,47 @@
     },
     "ideas": {
       "type": "array",
-      "description": "The PM skim's surfaced ideas (news/ideas) — a cheap free-LLM pass over the ranked wire top-N that names the best 1-2 tradable stock ideas (ticker · side · one plain reason · a pre-edge read), feeding the paid gauntlet on a click. Best-first (conviction, then materiality); a decayed idea sorts last and carries stale:true. Optional (absent on an engine build before this feature) — the cockpit fails closed when it's missing.",
+      "description": "The PM skim's surfaced ideas (news/ideas) — a cheap free-LLM pass over ranked wire and actionable-theme inputs that names the best 1-2 tradable stock ideas (ticker · side · one plain reason · a pre-edge read), feeding the paid gauntlet on a click. Best-first (trade score, then materiality); a decayed idea sorts last and carries stale:true. Optional (absent on an engine build before this feature) — the cockpit fails closed when it's missing.",
       "items": {
         "type": "object",
         "required": ["idea_id", "ticker", "direction", "conviction"],
         "properties": {
           "idea_id": { "type": "string", "description": "IDEA-<sha256-12 of ticker|direction> — stable identity; a re-surfacing of the same directional call updates in place." },
-          "ticker": { "type": "string" },
+          "ticker": { "type": "string", "pattern": "^[A-Z0-9][A-Z0-9.&-]{0,14}$" },
           "company": { "type": ["string", "null"] },
           "exchange": { "type": ["string", "null"], "description": "The model's guess; UNVERIFIED (no dated listing check at surface tier)." },
           "direction": { "type": "string", "enum": ["long", "short", "pair"] },
-          "pair_with": { "type": ["string", "null"], "description": "The other leg's ticker when direction is pair." },
+          "pair_with": { "type": ["string", "null"], "description": "The other leg's ticker when direction is pair. New lineage snapshots persist it only after independent directory verification and bind its normalized value into the immutable idea version; field-absent legacy lineage may predate that guarantee." },
           "reason": { "type": "string", "description": "One plain-English sentence stating the mechanism (§21)." },
           "why_now": { "type": "string", "description": "Why it's live now — the dated catalyst, or 'timing unproven' (§17)." },
           "conviction": { "type": "integer", "description": "0–100 PRE-EDGE proxy — NOT the locked 0.40/0.30/0.30 edge score." },
           "conviction_basis": { "type": "string", "enum": ["pre_edge_proxy"], "description": "Hard label so the surface read can never masquerade as the locked edge score (§7)." },
           "priced_in": { "type": "string", "enum": ["priced", "room", "unknown"] },
           "thesis_type": { "type": "string", "description": "§14 classification — flags a macro/commodity/policy bet wearing a ticker." },
+          "origin_type": { "type": "string", "enum": ["wire", "theme", "mixed"], "description": "How the surfaced idea entered the skim. Optional only for deploy-compatible legacy snapshots; when present, source_themes is present too." },
+          "source_themes": {
+            "type": "array",
+            "maxItems": 64,
+            "uniqueItems": true,
+            "description": "Exact theme revisions behind this idea. Empty for wire origin; non-empty for theme/mixed, where every ref must carry evidence_event_ids. Legacy means both source_themes and origin_type are absent.",
+            "items": {
+              "type": "object",
+              "required": ["theme_id", "theme_rev"],
+              "additionalProperties": false,
+              "properties": {
+                "theme_id": { "type": "string", "pattern": "^THM-[a-f0-9]{8}$" },
+                "theme_rev": { "type": "integer", "minimum": 1 },
+                "evidence_event_ids": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 64,
+                  "uniqueItems": true,
+                  "items": { "type": "string", "pattern": "^EVT-[a-f0-9]{12}$" },
+                  "description": "Exact wire events from this theme revision that contributed to the idea; required for every theme/mixed lineage ref."
+                }
+              }
+            }
+          },
           "source_event_ids": { "type": "array", "items": { "type": "string" }, "description": "EVT-* — the join key back to the wire events that produced this idea." },
           "source_headlines": { "type": "array", "items": { "type": "string" } },
           "source_url": { "type": ["string", "null"], "description": "The primary source URL — so a promotion's SIG_ID byte-matches the wire event." },
@@ -223,7 +247,52 @@
           "promoted_signal_id": { "type": ["string", "null"] },
           "feedback": { "type": ["string", "null"], "enum": ["up", "down", null], "description": "The human's latest 👍/👎 on this idea (self-grading loop); null = no vote. From screener/ledger/ideas_feedback.ndjson, last vote per idea wins." },
           "stale": { "type": "boolean", "description": "Derived at build time: decay_at is in the past." }
-        }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "direction": { "const": "pair" } } },
+            "then": {
+              "required": ["pair_with"],
+              "properties": { "pair_with": { "type": "string", "pattern": "^[A-Z0-9][A-Z0-9.&-]{0,14}$" } }
+            }
+          },
+          {
+            "if": { "properties": { "direction": { "enum": ["long", "short"] } } },
+            "then": {
+              "required": ["pair_with"],
+              "properties": { "pair_with": { "type": "null" } }
+            }
+          },
+          {
+            "if": { "required": ["origin_type"] },
+            "then": { "required": ["source_themes"] }
+          },
+          {
+            "if": { "required": ["source_themes"] },
+            "then": { "required": ["origin_type"] }
+          },
+          {
+            "if": {
+              "required": ["origin_type"],
+              "properties": { "origin_type": { "const": "wire" } }
+            },
+            "then": { "properties": { "source_themes": { "maxItems": 0 } } }
+          },
+          {
+            "if": {
+              "required": ["origin_type"],
+              "properties": { "origin_type": { "enum": ["theme", "mixed"] } }
+            },
+            "then": {
+              "properties": {
+                "source_themes": {
+                  "minItems": 1,
+                  "items": { "required": ["evidence_event_ids"] }
+                }
+              }
+            }
+          }
+        ]
       }
     },
     "ideas_scorecard": {

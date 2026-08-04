@@ -7,9 +7,10 @@
 
 import type { CompanyGuess } from '../types'
 import { deriveCommodities } from '../commodities'
-import { companyKeys, themeTokens, intersectionSize } from '../text-match'
+import { companyKeys, themeNarrativeTokens, intersectionSize, topicTokens } from '../text-match'
 import { companyImpact } from './order'
 import { bumpDaily } from './score'
+import { themeStoryKey } from './story-key'
 import type { Theme, ThemeItemView, ThemeMember, ThemeCompany } from './types'
 
 export interface AssignConfig {
@@ -20,15 +21,26 @@ export const DEFAULT_ASSIGN_CONFIG: AssignConfig = { maxThemesPerItem: 3, maxMem
 
 const isCompanyLinkage = (l?: string) => l === 'primary' || l === 'secondary'
 
-/** Overlap score of an item against a theme. Match requires a company hit OR ≥2 shared topic tokens —
- *  the same "actually about the same thing" bar the related-events finder uses. */
+function narrativeKeywords(theme: Theme): Set<string> {
+  const companyWords = new Set<string>()
+  for (const c of theme.companies || []) {
+    for (const token of topicTokens(null, [c])) companyWords.add(token)
+    for (const token of topicTokens(c.name, [])) companyWords.add(token)
+  }
+  return new Set((theme.keywords || []).filter((token) => !companyWords.has(token)))
+}
+
+/** Overlap score of an item against a theme. A company hit is supporting evidence, never a theme by
+ *  itself. Joining requires a recurring narrative: ≥2 shared narrative tokens, or one shared narrative
+ *  token when the same company is also named. This prevents every story about a frequent issuer from
+ *  collapsing into a single company timeline while still allowing a tightly named follow-up to join. */
 export function overlapScore(itemCompanyKeys: Set<string>, itemTokens: Set<string>, itemEventTypes: string[], theme: Theme): { score: number; matched: boolean } {
   const themeCompanyKeys = new Set(theme.company_keys)
-  const themeKeywords = new Set(theme.keywords)
+  const themeKeywords = narrativeKeywords(theme)
   const companyOverlap = intersectionSize(itemCompanyKeys, themeCompanyKeys)
   const tokenOverlap = intersectionSize(itemTokens, themeKeywords)
   const affinity = (itemEventTypes || []).some((t) => theme.event_type_affinity.includes(t)) ? 1 : 0
-  const matched = companyOverlap >= 1 || tokenOverlap >= 2
+  const matched = tokenOverlap >= 2 || (companyOverlap >= 1 && tokenOverlap >= 1)
   return { score: 3 * companyOverlap + tokenOverlap + affinity, matched }
 }
 
@@ -37,11 +49,14 @@ export function overlapScore(itemCompanyKeys: Set<string>, itemTokens: Set<strin
 export function rebuildThemeCompanies(theme: Theme): void {
   interface Acc { name: string; ticker: string | null; listing_country: string | null; key: string; count: number; scoreSum: number; linkage: Record<string, number>; events: Record<string, number>; last: string; soloHeadlines: string[] }
   const byKey = new Map<string, Acc>()
-  for (const m of theme.members) {
+  for (const m of (Array.isArray(theme.members) ? theme.members : [])) {
+    // Ledger rows cross a runtime boundary with no schema migration. A legacy/partial member may carry a
+    // truthy non-array `companies` value; treating that as no company proof keeps every index fail-soft.
+    const memberCompanies = Array.isArray(m.companies) ? m.companies : []
     // real, investable companies named in THIS member (countries/agencies/people already filtered out)
-    const realKeys = (m.companies || []).map((c) => companyKeys([c]).values().next().value as string | undefined).filter(Boolean) as string[]
+    const realKeys = memberCompanies.map((c) => companyKeys([c]).values().next().value as string | undefined).filter(Boolean) as string[]
     const solo = new Set(realKeys).size === 1 // single-subject member → its side is safe to read from the headline
-    for (const c of m.companies || []) {
+    for (const c of memberCompanies) {
       const key = companyKeys([c]).values().next().value as string | undefined
       if (!key) continue // not a real company (country/agency/person) → skipped
       let a = byKey.get(key)
@@ -53,7 +68,7 @@ export function rebuildThemeCompanies(theme: Theme): void {
       a.scoreSum += m.score || 0
       if (c.ticker && !a.ticker) a.ticker = c.ticker
       if (m.issuer_linkage) a.linkage[m.issuer_linkage] = (a.linkage[m.issuer_linkage] || 0) + 1
-      for (const ev of m.event_types || []) a.events[ev] = (a.events[ev] || 0) + 1
+      for (const ev of (Array.isArray(m.event_types) ? m.event_types : [])) a.events[ev] = (a.events[ev] || 0) + 1
       if (m.found_at > a.last) a.last = m.found_at
       if (solo && m.headline) a.soloHeadlines.push(m.headline)
     }
@@ -92,10 +107,10 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
 
   for (const it of items) {
     const itemCompanyKeys = companyKeys(it.companies)
-    // theme-layer tokens: calendar/event boilerplate + corpus-generic (token-df) words suppressed; a
-    // routine filing contributes company tokens only, so it can join its company's theme but never
-    // chain a topic (see text-match.ts)
-    const itemTokens = themeTokens(it.headline, it.companies, it.source_tier, generic)
+    // Narrative-only theme tokens: calendar/event boilerplate, corpus-generic words, and the issuer's
+    // own name are suppressed. A routine filing therefore contributes no narrative and cannot inflate a
+    // theme merely because it names the same company (see text-match.ts).
+    const itemTokens = themeNarrativeTokens(it.headline, it.companies, it.source_tier, generic)
     const evs = it.event_types || []
     const hits: { theme: Theme; score: number }[] = []
     for (const theme of live) {
@@ -110,12 +125,14 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
     const chosen = hits.slice(0, cfg.maxThemesPerItem)
     const joined: string[] = []
     for (const { theme } of chosen) {
-      if (theme.members.some((m) => m.event_id === it.event_id)) {
+      const storyKey = themeStoryKey(it)
+      if (theme.members.some((m) => themeStoryKey(m) === storyKey)) {
         joined.push(theme.theme_id) // already a member — still record membership, don't double-count
         continue
       }
       const member: ThemeMember = {
         event_id: it.event_id,
+        dedup_group: it.dedup_group,
         headline: it.headline,
         headline_en: it.headline_en, // carry the translation so a member older than the feed window still renders in English
         found_at: it.found_at,

@@ -196,8 +196,8 @@ const ROUTINE_FILING_RES: RegExp[] = [
 
 /** Is this item high-volume regulatory paperwork (SAST/Reg 29 stake disclosures, AGM/EGM poll results,
  *  "results for the year ended" calendar notices, board-meeting intimations, routine EDGAR forms)?
- *  Routine filings may anchor their COMPANY's theme but must never define a topic — a hundred unrelated
- *  companies' Reg 29 disclosures share boilerplate words, not a narrative. */
+ *  Routine filings must never define a narrative — a hundred unrelated companies' Reg 29 disclosures
+ *  share boilerplate words, not an investment theme. */
 export function isRoutineFiling(headline?: string | null, sourceTier?: string | null): boolean {
   const h = String(headline || '')
   if (ROUTINE_FILING_RES.some((re) => re.test(h))) return true
@@ -212,9 +212,9 @@ export function isRoutineFiling(headline?: string | null, sourceTier?: string | 
  *  topicTokens minus calendar/event noise and fiscal-period tokens, minus the caller's corpus-generic
  *  set (the rolling document-frequency layer) — EXCEPT tokens derived from the item's own companies
  *  (normalized names + tickers), which always survive every suppression class (a hot company name must
- *  never be suppressed). A routine filing contributes its company tokens ONLY: it may anchor a company
- *  theme, never a topic. Dedup keeps the ungated topicTokens — it must still merge reposts of the same
- *  routine notice. */
+ *  never be suppressed). A routine filing contributes its company tokens ONLY for compatibility at this
+ *  layer; themeNarrativeTokens removes them before clustering or assignment, so paperwork cannot create
+ *  or inflate a theme. Dedup keeps the ungated topicTokens so it still merges reposts of the same notice. */
 export function themeTokens(headline?: string | null, companies?: CompanyGuess[] | null, sourceTier?: string | null, generic?: Set<string>): Set<string> {
   if (isRoutineFiling(headline, sourceTier)) return topicTokens(null, companies)
   const out = topicTokens(headline, companies)
@@ -223,5 +223,26 @@ export function themeTokens(headline?: string | null, companies?: CompanyGuess[]
     if (immune.has(t)) continue
     if (THEME_NOISE_TOKENS.has(t) || FISCAL_TOKEN_RE.test(t) || generic?.has(t)) out.delete(t)
   }
+  return out
+}
+
+/** Narrative-only theme tokens. Company names are useful identity anchors, but they are not a shared
+ *  investment narrative by themselves: a drug approval and an office lease from the same issuer must not
+ *  become one "theme" simply because both headlines say the issuer's name. Remove the normalized company
+ *  keys/tickers AND the meaningful words inside each company name ("Wells", "Fargo") from themeTokens.
+ *  Discovery/assignment use this stricter set; story-level dedup keeps topicTokens unchanged. */
+export function themeNarrativeTokens(
+  headline?: string | null,
+  companies?: CompanyGuess[] | null,
+  sourceTier?: string | null,
+  generic?: Set<string>,
+): Set<string> {
+  const out = themeTokens(headline, companies, sourceTier, generic)
+  const companyWords = topicTokens(null, companies)
+  for (const c of companies || []) {
+    if (!isCompanyName(c?.name)) continue
+    for (const token of topicTokens(c.name, [])) companyWords.add(token)
+  }
+  for (const token of companyWords) out.delete(token)
   return out
 }

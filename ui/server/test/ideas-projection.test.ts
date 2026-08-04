@@ -17,7 +17,14 @@ try {
   const oldId = ideaId('OLD', 'long')
   const noExpiryId = ideaId('NOEXP', 'long')
   // Neither idea exists in the generated index: the live snapshot projection must still surface both.
-  fs.writeFileSync(path.join(dir, `${liveId}.json`), JSON.stringify(validIdeaSnapshot('LIVE', 'long', { decay_at: '2026-08-03T08:00:00Z' })))
+  const liveBase = validIdeaSnapshot('LIVE')
+  const liveTheme = {
+    theme_id: 'THM-a1b2c3d4', theme_rev: 6, evidence_event_ids: [liveBase.source_event_ids[0]],
+  }
+  fs.writeFileSync(path.join(dir, `${liveId}.json`), JSON.stringify(validIdeaSnapshot('LIVE', 'long', {
+    decay_at: '2026-08-03T08:00:00Z', origin_type: 'mixed',
+    source_themes: [liveTheme],
+  })))
   fs.writeFileSync(path.join(dir, `${oldId}.json`), JSON.stringify(validIdeaSnapshot('OLD', 'long', {
     decay_at: '2026-08-03T06:30:00Z',
     status: 'promoted', promoted_signal_id: 'SIG-old', trade_score: 99,
@@ -44,6 +51,9 @@ try {
   assert.equal((projected.ideas[1] as any).stale, true, 'decay is recomputed at API read time')
   assert.equal((projected.ideas[0] as any).feedback, null, 'latest clear vote wins')
   assert.equal((projected.ideas[1] as any).feedback, 'down')
+  assert.equal((projected.ideas[0] as any).origin_type, 'mixed')
+  assert.deepEqual((projected.ideas[0] as any).source_themes, [liveTheme])
+  assert.equal(Object.hasOwn(projected.ideas[1], 'origin_type'), false, 'legacy snapshots stay deploy-compatible')
   assert.deepEqual(projected.scorecard, {
     surfaced_total: 2,
     live_count: 1,

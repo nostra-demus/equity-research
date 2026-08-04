@@ -18,6 +18,7 @@
 
 import { conservativeChatTokenBound, type RateInfo } from '../triage/budget'
 import { EVENT_TYPES } from '../triage/groq'
+import { cleanTicker } from '../symbology'
 
 // §14 thesis-type classification — the surface skim must name when a "stock idea" is really a macro /
 // commodity / policy bet wearing a ticker, so it is never shown as a clean single-name pick.
@@ -30,6 +31,25 @@ export type ThesisType = (typeof THESIS_TYPES)[number]
 
 export type IdeaDirection = 'long' | 'short' | 'pair'
 export type PricedIn = 'priced' | 'room' | 'unknown'
+export type IdeaOriginType = 'wire' | 'theme' | 'mixed'
+export interface IdeaSourceTheme {
+  theme_id: string
+  theme_rev: number
+  /** Exact wire events from this revision that contributed to the selected, possibly publisher-deduped
+   * input row. Optional only for deploy-compatible snapshots written before row↔theme edges existed. */
+  evidence_event_ids?: string[]
+}
+
+export interface IdeaThemeExpression {
+  theme_id: string
+  theme_rev: number
+  name: string
+  name_key: string
+  ticker: string
+  listing_country: string | null
+  side: 'beneficiary' | 'harmed'
+  evidence_event_ids: string[]
+}
 
 // One row of the top-N the skim reads: exactly the fields the wire already scored (InboxRow subset), so
 // the model gets the materiality read for free and spends its budget on the trade idea.
@@ -51,6 +71,13 @@ export interface IdeaInputRow {
   scheduled_events?: string[]
   event_direction?: import('../types').EventDirection
   dedup_group?: string // one underlying story across publisher copies
+  // Additive provenance for the Themes -> Ideas bridge. Optional so older callers and deployed snapshots
+  // remain valid; the provider only chooses `src` indices and never authors either lineage field.
+  origin_type?: IdeaOriginType
+  source_themes?: IdeaSourceTheme[]
+  /** Server-authored allowlist copied from the qualified ThemeSummary. It is model-visible for selection,
+   * then enforced after `src` resolution; provider output can never add an eligible company or ticker. */
+  theme_expressions?: IdeaThemeExpression[]
 }
 
 // A surfaced idea, as the LLM returns it (raw, per-batch). Indices in `src` point back into the input rows
@@ -95,6 +122,8 @@ export const IDEA_SYSTEM = `You are the sharpest portfolio manager on a buy-side
 
 You are given the desk's already-ranked top items, each with the wire's own materiality read (0-100), a severity label, event types, and any companies it guessed. Your ONLY job is the leap the wire cannot make: from an event to a concrete position — which exact listed stock to play, which way, why, and how sure you are.
 
+Some rows carry "qualified_theme_expressions". Those are a server-verified allowlist from an actionable Theme: for any such source row, choose only a listed company/ticker on that row's allowlist. Beneficiary means long; harmed means short. A pair must use an allowed beneficiary as "ticker" and an allowed harmed company as "pair_with". If the clean expression is not on the allowlist, do not use that row and do not surface the idea from it.
+
 THE BAR IS HIGH. Most items yield NO idea. Return an idea ONLY when ALL of these hold:
 - there is a SPECIFIC, LISTED, liquid stock (or a clean pair) that expresses the event — not "the sector", not a private company, not an index;
 - you can name the ticker with real confidence (never invent or guess a ticker — if you are unsure of the exact symbol, do not surface the idea);
@@ -130,12 +159,17 @@ export function buildIdeaUserMessage(rows: IdeaInputRow[]): string {
       .slice(0, 3)
       .join(', ')
     const tags = (r.event_types || []).slice(0, 4).join('/')
+    const themeExpressions = (r.theme_expressions || [])
+      .map((expression) => `${expression.name} (${expression.ticker}; ${expression.side})`)
+      .slice(0, 4)
+      .join(', ')
     const bits = [
       `materiality=${Math.round(r.materiality)}`,
       r.label ? `severity=${r.label}` : '',
       tags ? `types=${tags}` : '',
       r.issuer_linkage ? `linkage=${r.issuer_linkage}` : '',
       comp ? `names=${comp}` : '',
+      themeExpressions ? `qualified_theme_expressions=${themeExpressions}` : '',
     ].filter(Boolean).join(' · ')
     return `${i}. [${r.source_name} · ${r.region}] ${r.headline}\n   (${bits})`
   })
@@ -144,7 +178,6 @@ export function buildIdeaUserMessage(rows: IdeaInputRow[]): string {
 
 const DIRECTIONS: IdeaDirection[] = ['long', 'short', 'pair']
 const PRICED: PricedIn[] = ['priced', 'room', 'unknown']
-const TICKER_RE = /^[A-Z0-9.\-]{1,12}$/i
 const str = (v: unknown, max: number): string => (typeof v === 'string' ? v.trim().slice(0, max) : '')
 
 // Coerce one raw idea against the input rows it must reference. Returns null (dropped) when it fails the
@@ -157,7 +190,7 @@ export function coerceIdea(raw: any, rowCount: number): RawIdea | null {
   const uniqSrc = [...new Set<number>(src)]
   if (!uniqSrc.length) return null // an idea with no traceable source event is not surfaceable
 
-  const ticker = typeof raw?.ticker === 'string' && TICKER_RE.test(raw.ticker.trim()) ? raw.ticker.trim().toUpperCase() : ''
+  const ticker = typeof raw?.ticker === 'string' ? cleanTicker(raw.ticker) || '' : ''
   if (!ticker) return null // never surface an idea we can't name a ticker for (§5, no source = no claim)
 
   const direction: IdeaDirection = DIRECTIONS.includes(raw?.direction) ? raw.direction : 'long'
@@ -166,7 +199,7 @@ export function coerceIdea(raw: any, rowCount: number): RawIdea | null {
   let conviction = Number(raw?.conviction)
   if (!Number.isFinite(conviction)) conviction = 0
   conviction = Math.max(0, Math.min(100, Math.round(conviction)))
-  const pairTicker = typeof raw?.pair_with === 'string' && TICKER_RE.test(raw.pair_with.trim()) ? raw.pair_with.trim().toUpperCase() : null
+  const pairTicker = typeof raw?.pair_with === 'string' ? cleanTicker(raw.pair_with) : null
   const reason = str(raw?.reason, 280)
   const whyNow = str(raw?.why_now, 240)
   // These are required evidence fields in the persisted contract, not cosmetic defaults. Letting a blank

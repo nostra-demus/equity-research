@@ -139,6 +139,10 @@ export function projectLiveIdeas(repoRoot: string, index: any = {}, nowMs = Date
       learning: rec.learning && typeof rec.learning === 'object' ? rec.learning : null,
       priced_in: PRICED_IN.has(rec.priced_in) ? rec.priced_in : 'unknown',
       thesis_type: typeof rec.thesis_type === 'string' ? rec.thesis_type : 'company_specific',
+      ...(rec.origin_type === undefined ? {} : {
+        origin_type: rec.origin_type,
+        source_themes: (rec.source_themes || []).map((theme) => ({ ...theme })),
+      }),
       source_event_ids: stringArray(rec.source_event_ids),
       source_headlines: stringArray(rec.source_headlines),
       source_url: typeof rec.source_url === 'string' ? rec.source_url : null,
