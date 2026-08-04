@@ -142,7 +142,7 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   // self-healer erase the evidence before the compiler can choose a replacement pair.
   if (input.generic?.size) {
     for (const theme of themes) {
-      if (theme.status !== 'live' || !theme.narrative?.anchor_terms.some((anchor) => input.generic!.has(anchor))) continue
+      if (theme.status !== 'live' || !theme.narrative?.anchor_terms?.some((anchor) => input.generic!.has(anchor))) continue
       if (!theme.needs_rename) {
         theme.needs_rename = true
         theme.validation_queued_at = now.toISOString().replace(/\.\d{3}Z$/, 'Z')

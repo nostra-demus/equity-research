@@ -130,7 +130,7 @@ function buildUserMessage(created: Theme[], generic?: Set<string>): string {
     const pending = new Set(t.pending_narrative_event_ids || [])
     const heads = sampleMembers(t).map((m) => `   - ${pending.has(m.event_id) ? '[PENDING — classify] ' : ''}[${m.event_id}] [${m.tier}] [${m.found_at}] ${m.headline}`).join('\n')
     const cos = t.companies.slice(0, 12).map((c) => `${c.name_key}|${c.ticker || 'NO_TICKER'}|${c.name}`).join(', ') || '(none named)'
-    const priorAnchorsGeneric = Boolean(t.narrative?.anchor_terms.some((anchor) => generic?.has(anchor)))
+    const priorAnchorsGeneric = Boolean(t.narrative?.anchor_terms?.some((anchor) => generic?.has(anchor)))
     const prior = t.narrative
       ? `\nPrior validated thesis (update this same thesis; classify new rows as support/challenge/context):\n` +
         `   Thesis: ${t.narrative.thesis}\n   Anchors: ${t.narrative.anchor_terms.join(' + ')}${priorAnchorsGeneric ? ' [CORPUS-GENERIC — replace both anchors, not the thesis]' : ''}\n` +
@@ -280,7 +280,7 @@ function applyProposals(created: Theme[], proposals: any[], generation: 'claude'
       .filter(([, stance]) => stance === 'supports')
       .map(([eventId]) => memberById.get(eventId)!)
       .filter(isSupportingThemeEvidence)
-    const priorAnchorsAreGeneric = Boolean(t.narrative?.anchor_terms.some((anchor) => generic?.has(anchor)))
+    const priorAnchorsAreGeneric = Boolean(t.narrative?.anchor_terms?.some((anchor) => generic?.has(anchor)))
     // An established causal identity cannot be silently redefined during a rename or update. A genuinely
     // different anchor pair must form a new deterministic cluster/theme; the sole exception is an explicit
     // re-ground because the old pair became corpus-generic.

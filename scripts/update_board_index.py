@@ -288,7 +288,11 @@ def idea_version_for_record(rec: dict, lineage: dict) -> str | None:
     """Hash the exact TypeScript v2 canonical structured payload for a board candidate."""
     ticker = rec.get("ticker")
     direction = rec.get("direction")
-    pair_with = rec.get("pair_with") if "pair_with" in rec else object()
+    # v2 deliberately binds `pair_with` for every direction: a pair carries its verified second symbol;
+    # long/short carry an explicit null. Field absence is a legacy shape and must not hash as v2.
+    if "pair_with" not in rec:
+        return None
+    pair_with = rec.get("pair_with")
     thesis_type = rec.get("thesis_type")
     reason = rec.get("reason")
     why_now = rec.get("why_now")
@@ -897,6 +901,9 @@ def _selftest() -> int:
     check("new Theme lineage binds exact why-now membership",
           theme_lineage == {"origin_type": "theme", "source_themes": [theme_ref]}
           and valid_idea_version(theme_rec, theme_lineage))
+    check("new v2 requires explicit null pair_with on a non-pair",
+          idea_version_for_record({key: value for key, value in theme_rec.items()
+                                   if key != "pair_with"}, theme_lineage) is None)
     check("Theme why-now outside its exact evidence ref fails closed",
           project_idea_lineage({**theme_rec, "source_themes": [{**theme_ref,
               "evidence_event_ids": [proof_event]}]}) is None)
