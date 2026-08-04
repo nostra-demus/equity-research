@@ -8,6 +8,7 @@ import { ideaId, ideaVersion, readIdeaById, writeIdea } from '../src/news/ideas/
 import { runIdeaPass, type IdeaPassConfig } from '../src/news/ideas/run-idea-pass'
 import { eventIdFor } from '../src/news/normalize'
 import { invalidateSymbolCache } from '../src/news/symbology'
+import { resetSharedLimiters } from '../src/news/triage/budget'
 import { validIdeaSnapshot } from './ideas-fixture'
 
 const NOW = Date.parse('2026-08-03T12:00:00Z')
@@ -89,6 +90,7 @@ fs.mkdirSync(lineageBoard, { recursive: true })
 const wireHeadline = 'Link Corp wins a material contract'
 const wireUrl = 'https://exchange.test/link'
 const unusedHeadline = 'Unused theme catalyst reaches the market'
+const unusedProofHeadline = 'Unused Co filing proves its exposure to the catalyst'
 const usedHeadline = 'Used theme catalyst lifts Link demand'
 const feedRow = (headline: string, url: string, score: number) => ({
   kind: 'item', ts: '2026-08-03T10:00:00Z', found_at: '2026-08-03T10:00:00Z', event_id: eventIdFor(headline, url), headline, url,
@@ -98,6 +100,7 @@ const feedRow = (headline: string, url: string, score: number) => ({
   dedup_status: 'new', inboxed: true,
 })
 const unusedFeed = feedRow(unusedHeadline, 'https://news.test/unused', 88)
+const unusedProof = feedRow(unusedProofHeadline, 'https://filings.test/unused-proof', 87)
 const usedFeedBase = feedRow(usedHeadline, 'https://news.test/used', 70)
 const usedFeed = { ...usedFeedBase, dedup_group: usedFeedBase.event_id }
 const usedCopy = {
@@ -107,34 +110,45 @@ const usedCopy = {
 fs.writeFileSync(path.join(lineageInbox, '2026-08-03_sweep.json'), JSON.stringify({
   updated_at: '2026-08-03T11:30:00Z', rows: [
     { headline: wireHeadline, url: wireUrl, source_name: 'Exchange', found_at: '2026-08-03T10:30:00Z', triage_score: 91 },
-    { headline: 'Peer demand rises into results', url: 'https://exchange.test/peer', source_name: 'Exchange', found_at: '2026-08-03T09:00:00Z', triage_score: 84 },
-    { headline: 'Peer adds new capacity', url: 'https://exchange.test/peer-capacity', source_name: 'Exchange', found_at: '2026-08-03T09:00:00Z', triage_score: 83 },
-    { headline: 'Supplier reports higher orders', url: 'https://exchange.test/supplier', source_name: 'Exchange', found_at: '2026-08-03T09:00:00Z', triage_score: 82 },
+    ...[86, 85, 84, 83, 82, 81, 80].map((score) => ({
+      headline: `Independent wire ${score}`, url: `https://exchange.test/wire-${score}`, source_name: 'Exchange',
+      found_at: '2026-08-03T09:00:00Z', triage_score: score,
+    })),
   ],
 }))
-fs.writeFileSync(path.join(lineageInbox, '2026-08-03_firehose.ndjson'), `${JSON.stringify(unusedFeed)}\n${JSON.stringify(usedFeed)}\n${JSON.stringify(usedCopy)}\n`)
+fs.writeFileSync(path.join(lineageInbox, '2026-08-03_firehose.ndjson'), `${JSON.stringify(unusedFeed)}\n${JSON.stringify(unusedProof)}\n${JSON.stringify(usedFeed)}\n${JSON.stringify(usedCopy)}\n`)
 fs.writeFileSync(path.join(lineageBoard, 'themes_index.json'), JSON.stringify({ generated_at: '2026-08-03T11:55:00Z', themes: [
   {
-    theme_id: 'THM-aaaaaaaa', rev: 2, assessment: { status: 'actionable' },
-    evidence: [{ event_id: unusedFeed.event_id, found_at: unusedFeed.found_at }],
+    theme_id: 'THM-aaaaaaaa', rev: 2, activity: 'reinforced', assessment: { status: 'actionable', activity: 'reinforced' },
+    description: 'The catalyst changes demand for directly exposed issuers.',
+    narrative: {
+      thesis: 'The fresh catalyst can lift revenue for issuers with proven direct exposure.',
+      why_now: 'The catalyst reached the market today.', why_now_event_id: unusedFeed.event_id,
+    },
+    evidence: [
+      { event_id: unusedFeed.event_id, found_at: unusedFeed.found_at, stance: 'supports' },
+      { event_id: unusedProof.event_id, found_at: unusedProof.found_at, stance: 'supports' },
+    ],
     qualified_expressions: [{
       name: 'Unused Co', name_key: 'unused', ticker: 'UNUSED', listing_country: 'US', side: 'beneficiary',
-      evidence_event_ids: [unusedFeed.event_id],
+      role: 'direct', mechanism: 'The catalyst directly changes Unused Co revenue.',
+      evidence_event_ids: [unusedProof.event_id],
     }],
   },
   {
-    theme_id: 'THM-bbbbbbbb', rev: 5, assessment: { status: 'actionable' },
-    evidence: [{ event_id: usedFeed.event_id, found_at: usedFeed.found_at }],
+    theme_id: 'THM-bbbbbbbb', rev: 5, activity: 'reinforced', assessment: { status: 'actionable', activity: 'reinforced' },
+    description: 'Link has filing-backed exposure to the live demand catalyst.',
+    narrative: {
+      thesis: 'The fresh demand catalyst can lift Link revenue through its proven direct exposure.',
+      why_now: 'The demand catalyst was confirmed today.', why_now_event_id: usedFeed.event_id,
+    },
+    evidence: [
+      { event_id: usedFeed.event_id, found_at: usedFeed.found_at, stance: 'supports' },
+      { event_id: usedCopy.event_id, found_at: usedCopy.found_at, stance: 'supports' },
+    ],
     qualified_expressions: [{
       name: 'Link Corp', name_key: 'link', ticker: 'LINK', listing_country: 'US', side: 'beneficiary',
-      evidence_event_ids: [usedFeed.event_id],
-    }],
-  },
-  {
-    theme_id: 'THM-cccccccc', rev: 3, assessment: { status: 'actionable' },
-    evidence: [{ event_id: usedCopy.event_id, found_at: usedCopy.found_at }],
-    qualified_expressions: [{
-      name: 'Link Corp', name_key: 'link', ticker: 'LINK', listing_country: 'US', side: 'beneficiary',
+      role: 'direct', mechanism: 'The demand catalyst directly lifts Link Corp revenue.',
       evidence_event_ids: [usedCopy.event_id],
     }],
   },
@@ -148,15 +162,16 @@ const lineageFetch = (async (input: Parameters<typeof fetch>[0]) => {
   return new Response(JSON.stringify({
     choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [
       {
-        // Final input order is wire(91), unused theme(88), three wire rows (84/83/82), used theme(70).
-        // This first duplicate invents LINK from an UNUSED-only Theme row and must fail closed without
+        // Final input order is wire(91), unused WHY_NOW(88), unused EXPRESSION_PROOF(87), seven wire rows,
+        // used WHY_NOW(70), used EXPRESSION_PROOF(69). This first duplicate invents LINK from the complete
+        // UNUSED package and must fail closed without
         // blocking the later correctly bound duplicate for the same ticker/direction.
-        src: [1], ticker: 'LINK', company: 'Link Corp', exchange: 'NYSE', direction: 'long',
+        src: [1, 2], ticker: 'LINK', company: 'Link Corp', exchange: 'NYSE', direction: 'long',
         reason: 'The catalyst can lift revenue', why_now: 'The catalyst was reported today',
         conviction: 68, priced_in: 'room', thesis_type: 'company_specific',
       },
       {
-        src: [0, 5], ticker: 'LINK', company: 'Link Corp', exchange: 'NYSE', direction: 'long',
+        src: [0, 10, 11], ticker: 'LINK', company: 'Link Corp', exchange: 'NYSE', direction: 'long',
         reason: 'The contract and demand catalyst can lift revenue', why_now: 'Both catalysts were reported today',
         conviction: 68, priced_in: 'room', thesis_type: 'company_specific',
       },
@@ -173,14 +188,15 @@ try {
   const persisted = readIdeaById(lineageRoot, ideaId('LINK', 'long'))
   assert.equal(persisted?.origin_type, 'mixed')
   assert.deepEqual(persisted?.source_themes, [
-    { theme_id: 'THM-bbbbbbbb', theme_rev: 5, evidence_event_ids: [usedFeed.event_id] },
-    { theme_id: 'THM-cccccccc', theme_rev: 3, evidence_event_ids: [usedCopy.event_id] },
-  ], 'discarded publisher copies retain their exact row↔theme edge while unused src indices supply no lineage')
+    { theme_id: 'THM-bbbbbbbb', theme_rev: 5, evidence_event_ids: [usedFeed.event_id, usedCopy.event_id], why_now_event_id: usedFeed.event_id },
+  ], 'the selected exact two-row package retains its id@revision and unused package supplies no lineage')
   assert.deepEqual(persisted?.source_event_ids, [eventIdFor(wireHeadline, wireUrl), usedFeed.event_id, usedCopy.event_id])
   assert.notEqual(persisted?.idea_version, ideaVersion({
     ticker: 'LINK', direction: 'long', pairWith: null, thesisType: 'company_specific',
     reason: 'The contract and demand catalyst can lift revenue', whyNow: 'Both catalysts were reported today',
     sourceEventIds: persisted?.source_event_ids || [], originType: 'mixed',
+    primarySourceEventId: persisted?.primary_source_event_id || '', sourceHeadline: persisted?.source_headline || '',
+    sourceUrl: persisted?.source_url || '', sourceName: persisted?.source_name || '',
     sourceThemes: persisted?.source_themes?.map((theme) => theme.theme_id === 'THM-bbbbbbbb'
       ? { ...theme, theme_rev: theme.theme_rev + 1 }
       : theme) || [],
@@ -190,7 +206,6 @@ try {
   const refreshedIndex = JSON.parse(fs.readFileSync(path.join(lineageBoard, 'themes_index.json'), 'utf8'))
   refreshedIndex.generated_at = '2026-08-03T12:15:00Z'
   refreshedIndex.themes[1].rev = 6
-  refreshedIndex.themes[2].rev = 4
   fs.writeFileSync(path.join(lineageBoard, 'themes_index.json'), JSON.stringify(refreshedIndex))
   const effectRerun = await runIdeaPass({
     repoRoot: lineageRoot, stateDir: lineageState, config, refreshBoard: async () => {},
@@ -201,11 +216,128 @@ try {
   const refreshed = readIdeaById(lineageRoot, ideaId('LINK', 'long'))
   assert.deepEqual(refreshed?.source_themes.map(({ theme_id, theme_rev }) => ({ theme_id, theme_rev })), [
     { theme_id: 'THM-bbbbbbbb', theme_rev: 6 },
-    { theme_id: 'THM-cccccccc', theme_rev: 4 },
   ])
   assert.notEqual(refreshed?.idea_version, firstVersion)
 } finally {
   fs.rmSync(lineageRoot, { recursive: true, force: true })
+}
+
+// A useful Theme package is causal, not row-local: today's why-now update may name no listed company,
+// while the exact first-order expression was established weeks earlier. The provider must select BOTH;
+// choosing either row alone fails the post-model proof contract without blocking the valid third attempt.
+const packageRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'idea-pass-13d-package-'))
+const packageState = path.join(packageRoot, '.state')
+const packageInbox = path.join(packageRoot, 'screener', 'inbox')
+const packageBoard = path.join(packageRoot, 'screener', 'board')
+fs.mkdirSync(packageInbox, { recursive: true })
+fs.mkdirSync(packageBoard, { recursive: true })
+const whyHeadline = 'Grid regulator confirms transformer backlog is still extending'
+const whyUrl = 'https://regulator.test/grid-backlog-update'
+const whyEvent = eventIdFor(whyHeadline, whyUrl)
+const expressionHeadline = 'Acme discloses transformer capacity tied to the grid bottleneck'
+const expressionUrl = 'https://filings.test/acme-transformer-capacity'
+const expressionEvent = eventIdFor(expressionHeadline, expressionUrl)
+const freshWhy = {
+  kind: 'item', ts: '2026-08-03T11:30:00Z', found_at: '2026-08-03T11:30:00Z', event_id: whyEvent,
+  headline: whyHeadline, url: whyUrl, domain: 'regulator.test', source_name: 'Grid Regulator', via: 'rss',
+  region: 'US', input_nature: 'news_headline', triage_score: 95, band: 'pick', triage_reason: 'material',
+  relevance: 'material', event_types: ['policy'], issuer_linkage: 'macro', companies: [], size_bucket: 'large',
+  dedup_status: 'new', inboxed: true,
+}
+const structuralExpression = {
+  kind: 'item', ts: '2026-07-10T09:00:00Z', found_at: '2026-07-10T09:00:00Z', event_id: expressionEvent,
+  headline: expressionHeadline, url: expressionUrl, domain: 'filings.test', source_name: 'Acme 8-K', via: 'rss',
+  region: 'US', input_nature: 'filing', triage_score: 94, band: 'pick', triage_reason: 'material',
+  relevance: 'material', event_types: ['capex'], issuer_linkage: 'primary',
+  companies: [{ name: 'Acme Corp', ticker: 'ACME', listing_country: 'US' }], size_bucket: 'large',
+  dedup_status: 'new', inboxed: true,
+}
+fs.writeFileSync(path.join(packageInbox, '2026-08-03_firehose.ndjson'), `${JSON.stringify(freshWhy)}\n`)
+fs.writeFileSync(path.join(packageInbox, '2026-07-10_firehose.ndjson'), `${JSON.stringify(structuralExpression)}\n`)
+fs.writeFileSync(path.join(packageInbox, '2026-08-03_sweep.json'), JSON.stringify({
+  updated_at: '2026-08-03T11:55:00Z', rows: [1, 2, 3, 4].map((n) => ({
+    headline: `Independent wire ${n}`, url: `https://exchange.test/independent-${n}`, source_name: 'Exchange',
+    found_at: '2026-08-03T11:00:00Z', triage_score: 100 - n,
+  })),
+}))
+fs.writeFileSync(path.join(packageBoard, 'themes_index.json'), JSON.stringify({
+  generated_at: '2026-08-03T11:59:00Z',
+  themes: [{
+    theme_id: 'THM-13da13da', rev: 8, activity: 'reinforced',
+    assessment: { status: 'actionable', activity: 'reinforced' },
+    description: 'A live transformer backlog meets Acme filing-backed capacity exposure.',
+    narrative: {
+      thesis: 'The live grid backlog can extend pricing for Acme transformer capacity.',
+      why_now: 'The regulator confirmed today that the backlog is still extending.',
+      why_now_event_id: whyEvent,
+    },
+    evidence: [
+      { event_id: whyEvent, found_at: freshWhy.found_at, stance: 'supports' },
+      { event_id: expressionEvent, found_at: structuralExpression.found_at, stance: 'supports' },
+    ],
+    qualified_expressions: [{
+      name: 'Acme Corp', name_key: 'acme', ticker: 'ACME', listing_country: 'US', side: 'beneficiary',
+      role: 'bottleneck', mechanism: 'Acme sells the constrained transformer capacity named in the structural filing.',
+      evidence_event_ids: [expressionEvent],
+    }],
+  }],
+}))
+invalidateSymbolCache()
+resetSharedLimiters()
+let packagePrompt = ''
+const packageFetch = (async (input: Parameters<typeof fetch>[0], init?: RequestInit) => {
+  if (String(input).includes('query1.finance.yahoo.com')) {
+    return new Response(JSON.stringify({ quotes: [{ quoteType: 'EQUITY', symbol: 'ACME', longname: 'Acme Corp', exchDisp: 'NYSE' }] }), { status: 200 })
+  }
+  const request = JSON.parse(String(init?.body || '{}'))
+  packagePrompt = String(request.messages?.find((message: { role?: string }) => message.role === 'user')?.content || '')
+  return new Response(JSON.stringify({
+    choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [
+      {
+        src: [4], ticker: 'ACME', company: 'Acme Corp', exchange: 'NYSE', direction: 'long',
+        reason: 'The backlog can extend transformer pricing', why_now: 'The regulator confirmed the backlog today',
+        conviction: 68, priced_in: 'room', thesis_type: 'company_specific',
+      },
+      {
+        src: [5], ticker: 'ACME', company: 'Acme Corp', exchange: 'NYSE', direction: 'long',
+        reason: 'The backlog can extend transformer pricing', why_now: 'The structural filing identifies the exposure',
+        conviction: 68, priced_in: 'room', thesis_type: 'company_specific',
+      },
+      {
+        src: [4, 5], ticker: 'ACME', company: 'Acme Corp', exchange: 'NYSE', direction: 'long',
+        reason: 'The live backlog can extend pricing for Acme transformer capacity', why_now: 'The regulator confirmed the backlog today',
+        conviction: 68, priced_in: 'room', thesis_type: 'company_specific',
+      },
+    ] }) } }], usage: { total_tokens: 100 },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+}) as typeof fetch
+try {
+  const result = await runIdeaPass({
+    repoRoot: packageRoot, stateDir: packageState,
+    config: { ...config, groqBaseUrl: 'https://package-provider.test/v1' },
+    refreshBoard: async () => {}, now: () => NOW,
+    fetchFn: packageFetch, sleep: async () => {}, persistHealth: true,
+  })
+  assert.equal(result.produced, 1, `why-only and expression-only attempts fail; the complete two-row package clears: ${JSON.stringify(result)}`)
+  const persisted = readIdeaById(packageRoot, ideaId('ACME', 'long'))
+  assert.deepEqual(persisted?.source_event_ids, [whyEvent, expressionEvent])
+  assert.deepEqual(persisted?.source_themes, [{
+    theme_id: 'THM-13da13da', theme_rev: 8,
+    evidence_event_ids: [whyEvent, expressionEvent], why_now_event_id: whyEvent,
+  }])
+  assert.match(packagePrompt, new RegExp(`THM-13da13da@8; role=WHY_NOW; why_now_event=${whyEvent}`))
+  assert.match(packagePrompt, new RegExp(`THM-13da13da@8; role=EXPRESSION_PROOF; why_now_event=${whyEvent}`))
+  assert.match(packagePrompt, /thesis="The live grid backlog can extend pricing for Acme transformer capacity\."/)
+  assert.match(packagePrompt, /context="A live transformer backlog meets Acme filing-backed capacity exposure\."/)
+  assert.equal(persisted?.primary_source_event_id, whyEvent, 'launch binds the designated why-now event id')
+  assert.equal(persisted?.source_headline, whyHeadline, 'the original why-now headline survives the bridge')
+  assert.equal(persisted?.source_url, whyUrl, 'the designated why-now source URL survives the bridge')
+  assert.equal(persisted?.source_name, 'Grid Regulator', 'the exact publisher survives the bridge')
+  assert.equal(persisted?.newest_source_at, freshWhy.found_at, 'old structural proof cannot replace the fresh why-now clock')
+} finally {
+  fs.rmSync(packageRoot, { recursive: true, force: true })
+  invalidateSymbolCache()
+  resetSharedLimiters()
 }
 
 // A provider can return a structurally valid model row that later fails the stricter persisted snapshot
@@ -321,10 +453,12 @@ try {
     ticker: 'PAIRPRIM', direction: 'pair', pairWith: 'BADLEG', thesisType: 'company_specific',
     reason: persisted?.reason || '', whyNow: persisted?.why_now || '',
     sourceEventIds: persisted?.source_event_ids || [], originType: 'wire', sourceThemes: [],
+    primarySourceEventId: persisted?.primary_source_event_id || '', sourceHeadline: persisted?.source_headline || '',
+    sourceUrl: persisted?.source_url || '', sourceName: persisted?.source_name || '',
   }), 'the saved version binds the independently verified second leg')
 } finally {
   fs.rmSync(pairRoot, { recursive: true, force: true })
   invalidateSymbolCache()
 }
 
-console.log('\n4 idea-pass integrity checks passed')
+console.log('\n5 idea-pass integrity checks passed')

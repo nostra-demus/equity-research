@@ -205,6 +205,8 @@ async function runThemesStage(input: {
         triage_score: t.triage_score,
         materiality_pre_score: t.materiality_pre_score,
         source_tier: deriveSourceTier(t),
+        source_name: t.source_name,
+        url: t.url,
         scope: deriveScope(t),
         region: t.region,
         country: resolveCountry(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage),

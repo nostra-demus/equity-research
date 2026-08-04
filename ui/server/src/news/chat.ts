@@ -15,10 +15,21 @@ import { cleanText } from './clean'
 import { NewsRelationshipGraph, relationshipLine } from './relationship-graph'
 import { deriveScope, deriveSourceTier } from './scope'
 import type { SourcesReport } from './source-health'
-import { readThemesIndex } from './themes/store'
+import { createThemesIndexReader } from './themes/api-index'
 import { scoreTradeCluster, type TradeScoreBreakdown } from './trade-score'
 import type { FeedItem } from './types'
 import { appendNewsChatFinalQuestion } from './chat-provider'
+
+const canonicalThemeReaders = new Map<string, ReturnType<typeof createThemesIndexReader>>()
+function readCanonicalThemes(repoRoot: string) {
+  const key = path.resolve(repoRoot)
+  let read = canonicalThemeReaders.get(key)
+  if (!read) {
+    read = createThemesIndexReader(repoRoot)
+    canonicalThemeReaders.set(key, read)
+  }
+  return read()
+}
 
 export type NewsChatWindow = '24h' | '7d' | 'history'
 
@@ -778,9 +789,11 @@ export async function assembleNewsChatContext(opts: {
   const refByEvent = new Map(evidence.map((e) => [e.item.event_id, e.ref]))
   const tradeCandidates = rankTradeCandidates(evidence, nowMs, enrichments)
 
-  const themes = readThemesIndex(opts.repoRoot).themes
-    .map((t) => {
-      const topCompanies = Array.isArray(t.top_companies) ? t.top_companies : []
+  const themes = readCanonicalThemes(opts.repoRoot).themes
+    .flatMap((t) => {
+      if (!t.narrative || t.narrative.version !== 1 || t.assessment?.status === 'context') return []
+      const expressions = Array.isArray(t.qualified_expressions) ? t.qualified_expressions : []
+      const evidence = Array.isArray(t.evidence) ? t.evidence : []
       const flowSeries = Array.isArray(t.flow_series) ? t.flow_series : []
       const flowDaily = Array.isArray(t.flow_daily) ? t.flow_daily : []
       const flow = opts.window === '24h'
@@ -792,11 +805,12 @@ export async function assembleNewsChatContext(opts: {
         id: t.theme_id,
         value: t,
         fields: [
-          { name: 'theme', text: [t.name, t.description], weight: 4, fuzzy: true },
-          { name: 'companies', text: topCompanies.flatMap((c) => [c.name, c.ticker || '']), weight: 5, fuzzy: true },
+          { name: 'theme', text: [t.name, t.narrative.thesis, t.narrative.why_now, ...t.narrative.mechanism_steps], weight: 4, fuzzy: true },
+          { name: 'expressions', text: expressions.flatMap((expression) => [expression.name, expression.ticker, expression.role, expression.mechanism]), weight: 5, fuzzy: true },
+          { name: 'evidence', text: evidence.map((row) => row.headline), weight: 3, fuzzy: true },
         ],
       })
-      return { ...t, windowFlow: flow, queryMatch: match.matchedTerms.length, queryAnchorMatch: match.anchorMatches, queryQualifies: match.qualifies }
+      return [{ ...t, windowFlow: flow, queryMatch: match.matchedTerms.length, queryAnchorMatch: match.anchorMatches, queryQualifies: match.qualifies }]
     })
     .filter((t) => !queryTerms.length || t.queryQualifies)
     .sort((a, b) => b.queryAnchorMatch - a.queryAnchorMatch || b.queryMatch - a.queryMatch || b.windowFlow - a.windowFlow || b.composite - a.composite)
@@ -849,8 +863,10 @@ export async function assembleNewsChatContext(opts: {
 
   const themeLines = themes.length
     ? themes.map((t) => {
-        const topCompanies = Array.isArray(t.top_companies) ? t.top_companies : []
-        return `- ${t.name}: flow=${t.windowFlow}; state=${t.tier}; companies=${topCompanies.map((c) => `${c.ticker || c.name} (${c.order === 1 ? 'direct' : c.order === 2 ? 'second-order' : 'third-order'}, ${c.side})`).join(', ') || 'none named'}`
+        const expressions = Array.isArray(t.qualified_expressions) ? t.qualified_expressions : []
+        const support = (t.evidence || []).filter((row) => row.stance === 'supports').length
+        const challenges = (t.evidence || []).filter((row) => row.stance === 'challenges').length
+        return `- ${t.name}: thesis=${t.narrative!.thesis}; why_now=${t.narrative!.why_now}; status=${t.assessment.status}; evidence_confidence=${t.conviction}; activity=${t.activity}; core_flow=${t.windowFlow}; support=${support}; challenges=${challenges}; evidence-bound expressions=${expressions.map((expression) => `${expression.ticker} [${expression.role}, ${expression.side}]: ${expression.mechanism}`).join(' | ') || 'none proven'}`
       }).join('\n')
     : '- No matching saved theme.'
   const currentLines = currentTopRows.length ? currentTopRows.map((row, i) => evidenceLine(`N${i + 1}`, row.item, enrichments.get(row.item.event_id), [...(row.match?.reasons || []), ...(row.extraReasons || [])])).join('\n\n') : 'No story matched the question in the chosen window.'

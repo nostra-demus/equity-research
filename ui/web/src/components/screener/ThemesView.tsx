@@ -1,21 +1,28 @@
 // The dynamic-themes view: the living, ranked investment themes the news firehose is bucketed into.
 // Two ways to look at the same themes[] — a spatial MAP (sources → ranking lens → theme basins, with
-// hot basins risen + pulsing) and a ranked BOARD (cards with a flow sparkline + companies by order) —
-// plus a deep-dive that reuses the existing event reader + "run the checks" funnel. Custom inline SVG
+// hot basins risen + pulsing) and a ranked BOARD of evidence-bound thesis dossiers — plus a deep-dive
+// that reuses the existing event reader + "run the checks" funnel. Custom inline SVG
 // (no graph lib), tokens-only colour, transform/opacity animation, reduced-motion aware.
 
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent as ReactKeyboardEvent } from 'react'
-import { createPortal } from 'react-dom'
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { fmtStampLocal } from '../../lib/format'
 import { displayHeadline } from '../../lib/plain'
 import { nextRovingRadioIndex, rovingRadioTabStopIndex } from '../../lib/rovingRadio'
 import { useStore } from '../../lib/store'
-import { heatOf, momentumOf, recentFlow, radiusFor, sparklinePoints, tierColorVar, tierLabel, orderLabel, THEME_WINDOWS, flowInWindow, heatInWindow, windowCoverage, windowLabel, groupThemesForBriefing, shouldHideThemeIntake, shouldResetThemeWindow, sourceTierLabel, splitQualifiedThemeExpressions, themeBriefingEvidence, themeCompanyLabel, themeFlowDelta, themeForMapHover, themeMapMode, themeSliceDisplay, themeSurfaceAssessment, themeWindowForView, validThemeCompanyName, validThemeTicker, type Theme, type ThemeCompany, type ThemeCompanyLite, type ThemeSliceDisplay, type ThemeWindow, type WindowCoverage } from '../../lib/themes'
+import { heatOf, momentumOf, qualifiedThemeExpressions, recentFlow, radiusFor, sparklinePoints, tierColorVar, tierLabel, THEME_WINDOWS, THEMES_STAGE_MAX_AGE_MS, flowInWindow, groupThemeEvidence, heatInWindow, windowCoverage, windowLabel, groupThemesForBriefing, shouldHideThemeIntake, shouldResetThemeWindow, sourceTierLabel, themeBriefingEvidence, themeCompanyLabel, themeFlowDelta, themeForMapHover, themeMapMode, themeSliceDisplay, themeStageIsStale, themesForPmSurface, themeSurfaceAssessment, themeWindowForView, validatedThemeNarrative, type Theme, type ThemeActivity, type ThemeConviction, type ThemeExpressionRole, type ThemeSliceDisplay, type ThemeWindow, type ValidatedThemeEvidence, type ValidatedThemeQualifiedExpression, type WindowCoverage } from '../../lib/themes'
 import type { FeedItem, IntensityWindow } from '../../lib/types'
 import { useWireConfig } from '../wire/WireContext'
 
 const TIERS = ['all', 'hot', 'active', 'cooling', 'parked'] as const
 const THEMES_PROJECTION_REFRESH_MS = 60_000
+
+export function themeMapEmptyCopy(tier: (typeof TIERS)[number], win: ThemeWindow | null): string {
+  const heat = tier === 'all' ? '' : tierLabel(tier)
+  if (win && heat) return `No validated investment theme in the ${heat} heat tier took qualifying news in ${win.full}. Clear the heat filter or try another window.`
+  if (win) return `No validated investment theme took qualifying news in ${win.full}. Try a longer window or return to Live.`
+  if (heat) return `No validated actionable or forming investment theme matches the ${heat} heat tier. Clear the heat filter to see every validated theme.`
+  return 'No validated actionable or forming investment theme is available. Raw Context clusters stay off this PM surface until they have a complete thesis contract.'
+}
 
 // The map's central readout + source-lane mix are labelled by the active intensity-rollup window, which
 // the single "When" ribbon drives (see intensityWindowForHours) — there is no separate intensity picker.
@@ -34,9 +41,6 @@ function handleRovingRadioKeyDown(event: ReactKeyboardEvent<HTMLButtonElement>) 
   next.click()
 }
 
-// guard against empty / placeholder company guesses leaking into chips
-const real = <T extends { name?: string | null }>(cos: T[]): T[] => cos.filter((c) => validThemeCompanyName(c.name))
-
 export function ThemesView() {
   const themes = useStore((s) => s.themes)
   const view = useStore((s) => s.themesView)
@@ -47,10 +51,12 @@ export function ThemesView() {
   const themesSubject = useStore((s) => s.themesSubject)
   const historyDays = useStore((s) => s.themesHistoryDays)
   const generatedAt = useStore((s) => s.themesGeneratedAt)
+  const projectedAt = useStore((s) => s.themesProjectedAt)
   const setThemesView = useStore((s) => s.setThemesView)
   const setThemesWindow = useStore((s) => s.setThemesWindow)
   const selectTheme = useStore((s) => s.selectTheme)
   const refreshThemes = useStore((s) => s.refreshThemes)
+  const retryThemes = useStore((s) => s.retryThemes)
   const staticMode = useStore((s) => s.staticMode)
   const wireConfig = useWireConfig()
   const [tier, setTier] = useState<(typeof TIERS)[number]>('all')
@@ -72,14 +78,15 @@ export function ThemesView() {
     [geoLabel, themesSubject, wireConfig.flow, wireConfig.eventScope],
   )
 
+  const pmThemes = useMemo(() => themesForPmSurface(themes), [themes])
   const shown = useMemo(() => {
     // Heat is an exploration control, not the briefing's qualification bar. A heat chip selected on the
-    // map must never silently hide a Worth-checking row when the user returns to the briefing.
-    if (view !== 'map') return themes
-    const byTier = tier === 'all' ? themes : themes.filter((t) => t.tier === tier)
+    // map must never admit raw Context clusters or hide a qualified row on the briefing.
+    if (view !== 'map') return pmThemes
+    const byTier = tier === 'all' ? pmThemes : pmThemes.filter((t) => t.tier === tier)
     if (windowHours == null) return byTier
     return byTier.filter((t) => flowInWindow(t, windowHours) > 0).sort((a, b) => heatInWindow(b, windowHours) - heatInWindow(a, windowHours))
-  }, [themes, tier, view, windowHours])
+  }, [pmThemes, tier, view, windowHours])
   const briefingCounts = useMemo(() => groupThemesForBriefing(themes).counts, [themes])
 
   // don't strand the user on a window that stops being honestly backed (history shrank — e.g. an engine
@@ -99,9 +106,14 @@ export function ThemesView() {
     return () => window.clearInterval(id)
   }, [staticMode, view, refreshThemes])
 
-  const stale = status === 'error' && themes.length > 0
+  // Projection reads can remain healthy while the thesis compiler is stalled. Only generated_at is the
+  // evidence-stage clock; projected_at is useful audit metadata but cannot paint this screen live.
+  const stageStale = themeStageIsStale(generatedAt)
+  // Missing/aged stage truth is stale even when the result set is empty. An empty old stage is not proof
+  // that nothing qualifies now, and a cold error must never inherit the green/current presentation.
+  const stale = status === 'error' || stageStale
 
-  if (selectedTheme) return <ThemeDeepDive sourceSlice={slice} stale={status === 'error'} generatedAt={generatedAt} />
+  if (selectedTheme) return <ThemeDeepDive sourceSlice={slice} stale={stale} refreshFailed={status === 'error'} generatedAt={generatedAt} />
 
   const cov = win ? windowCoverage(win, historyDays) : null
   const windowedTotal = win ? shown.reduce((n, t) => n + flowInWindow(t, windowHours), 0) : 0
@@ -109,38 +121,43 @@ export function ThemesView() {
   const selectedWindowIndex = THEME_WINDOWS.findIndex((w) => effectiveWindow === w.hours)
   const windowTabStopIndex = rovingRadioTabStopIndex(selectedWindowIndex, windowCoverages.map((coverage) => coverage.selectable))
   const generatedStamp = fmtStampLocal(generatedAt || undefined)
+  const projectedStamp = fmtStampLocal(projectedAt || undefined)
   const freshnessCopy = status === 'error'
     ? themes.length ? `stale · last successful index ${generatedStamp || 'time unknown'}` : 'refresh failed · no cached index'
     : status === 'loading'
       ? themes.length ? `refreshing · last good index ${generatedStamp || 'time unknown'}` : 'building first index…'
-      : generatedStamp ? `index ${generatedStamp}` : 'index time unavailable'
+      : stageStale
+        ? `saved screen · last successful stage ${generatedStamp || 'time unknown'} · older than ${THEMES_STAGE_MAX_AGE_MS / 60_000}m`
+        : generatedStamp ? `stage ${generatedStamp}` : 'stage time unavailable'
   const sliceSuffix = slice.active ? ` · ${slice.label}` : ''
   const noRowsCopy = status === 'error'
     ? `index unavailable${sliceSuffix}`
     : status === 'loading'
       ? `loading${sliceSuffix}`
+      : stageStale
+        ? `last successful screen is not current${sliceSuffix}`
       : `nothing formed${sliceSuffix}`
 
   return (
-    <div className="themes">
+    <div className="themes" aria-busy={status === 'loading'}>
       <header className="themes__head">
         <div className="themes__title">
           <div className="themes__titleline">
             <span className="themes__titlemain">Themes {view === 'map' ? 'explorer' : 'briefing'}</span>
-            <span className={`themes__freshness${status === 'error' ? ' is-stale' : ''}`}>{freshnessCopy}</span>
+            <span className={`themes__freshness${status === 'error' || (status === 'ready' && stageStale) ? ' is-stale' : ''}`} role="status" aria-live="polite" title={projectedStamp ? `Read-time score projection: ${projectedStamp}. Thesis-stage freshness is based only on the successful-stage timestamp.` : undefined}>{freshnessCopy}</span>
           </div>
           <span className="themes__sub">
             {!themes.length
               ? noRowsCopy
               : stale
                 ? view === 'map'
-                  ? `Last successful explorer snapshot${sliceSuffix} · ${themes.length} clusters · retained evidence, not current`
-                  : `Last successful screen${sliceSuffix} · ${briefingCounts.worthChecking} previously qualified · ${briefingCounts.forming} previously forming · ${briefingCounts.context} previous context · not current`
+                  ? `Last successful explorer snapshot${sliceSuffix} · ${pmThemes.length} validated themes · retained evidence, not current`
+                  : `Last successful screen${sliceSuffix} · ${briefingCounts.worthChecking} previously actionable · ${briefingCounts.forming} previously forming · not current`
               : view === 'map'
                 ? win
-                  ? `News-flow map${sliceSuffix} · ${win.full}`
-                  : `${themes.length} live clusters${slice.active ? ` in ${slice.label}` : ''} · explore heat and relationships`
-                : `Current screen${sliceSuffix} · ${briefingCounts.worthChecking} worth checking · ${briefingCounts.forming} forming · ${briefingCounts.context} context · news patterns, not investment ratings`}
+                  ? `Validated investment-thesis map${sliceSuffix} · ${win.full}`
+                  : `${pmThemes.length} validated investment theme${pmThemes.length === 1 ? '' : 's'}${slice.active ? ` in ${slice.label}` : ''} · raw context clusters are excluded`
+                : `Current screen${sliceSuffix} · ${briefingCounts.worthChecking} actionable · ${briefingCounts.forming} forming · evidence-led theses, not investment ratings`}
           </span>
         </div>
         <div className="themes__controls">
@@ -210,32 +227,39 @@ export function ThemesView() {
           </span>
         </div>
       ) : (
-        <div className={`themes__current${stale ? ' themes__current--stale' : ''}`} role={stale ? 'alert' : 'note'}>
+        <div className={`themes__current${stale ? ' themes__current--stale' : ''}`} role={stale ? 'alert' : 'note'} aria-live="polite">
           {!stale && <span className="themes__tldot themes__tldot--live" aria-hidden />}
-          {stale
-            ? `Refresh failed. Showing the last successful briefing${generatedStamp ? ` from ${generatedStamp}` : ''}; its qualification and evidence are retained for audit, not current.`
-            : `Current-only briefing${sliceSuffix} · evidence in the last 6 hours compared with the prior 6 hours`}
+          <span>{stale
+            ? status === 'error'
+              ? `Refresh failed. Showing the last successful briefing${generatedStamp ? ` from ${generatedStamp}` : ''}; its qualification and evidence are retained for audit, not current.`
+              : `The last successful thesis stage${generatedStamp ? ` was ${generatedStamp}` : ' has no valid timestamp'} and is older than ${THEMES_STAGE_MAX_AGE_MS / 60_000} minutes. A newer score projection${projectedStamp ? ` from ${projectedStamp}` : ''} does not make its evidence current.`
+            : `Current-only briefing${sliceSuffix} · supporting evidence in the last 6 hours compared with the prior 6 hours`}</span>
+          {stale && <button type="button" className="themes__retry" disabled={status === 'loading'} onClick={() => void retryThemes()}>{status === 'loading' ? 'Refreshing Themes…' : 'Retry Themes refresh'}</button>}
         </div>
       )}
 
       {status === 'loading' && !themes.length ? (
-        <div className="themes__empty"><div className="themes__shimmer" /><p>Reading the wire and clustering it into themes…</p></div>
+        <div className="themes__empty" role="status" aria-live="polite"><div className="themes__shimmer" /><p>Reading the wire and compiling investment themes…</p></div>
       ) : status === 'error' && !themes.length ? (
-        <div className="themes__empty">
+        <div className="themes__empty" role="alert" aria-live="assertive">
           <div className="themes__emptyorb" />
           <p>The themes index could not refresh, and there is no cached briefing to show. The wire itself may still be available.</p>
+          <button type="button" className="themes__retry" onClick={() => void retryThemes()}>Retry Themes</button>
         </div>
       ) : !themes.length ? (
         <div className="themes__empty">
           <div className="themes__emptyorb" />
-          <p>{slice.active
+          <p>{stale
+            ? `The last successful Themes stage contained no validated investment theme${slice.active ? ` for ${slice.label}` : ''}, but that stage is no longer current. Refresh before treating the empty result as today's answer.`
+            : slice.active
             ? `No themes are being driven by ${slice.label} news right now. Clear or change the active scope to widen the screen.`
             : 'No theme evidence has cleared the briefing yet. As distinct current stories form a coherent narrative, this view will show what cleared the bar and what is still missing.'}</p>
         </div>
-      ) : view === 'map' && win && !shown.length ? (
+      ) : view === 'map' && !shown.length ? (
         <div className="themes__empty">
           <div className="themes__emptyorb" />
-          <p>No theme took news in {win.full}. Try a longer window — or switch to Live to see the current briefing.</p>
+          <p>{themeMapEmptyCopy(tier, win)}</p>
+          {tier !== 'all' && <button type="button" className="themes__retry" onClick={() => setTier('all')}>Show all heat tiers</button>}
         </div>
       ) : view === 'map' ? (
         <ThemeMap themes={shown} onPick={selectTheme} win={win} cov={cov} slice={slice} stale={stale} />
@@ -500,6 +524,9 @@ function ThemeMap({ themes, onPick, win, cov, slice, stale }: { themes: Theme[];
   }, [frozen])
 
   const scopeLabel = slice.active ? slice.label : ''
+  const countScopeLabel = historical && win
+    ? (scopeLabel ? `${scopeLabel} during ${win.full}` : win.full)
+    : scopeLabel
   const asOfParts = [
     stale ? 'Last successful index · not current' : '',
     slice.active ? `Scoped to ${slice.label}` : '',
@@ -523,12 +550,14 @@ function ThemeMap({ themes, onPick, win, cov, slice, stale }: { themes: Theme[];
         <div className="thememap-compact__list" role="list" aria-label="Themes in the explorer">
           {themes.map((t, rank) => {
             const count = historical ? flowInWindow(t, windowHours as number) : t.member_count
+            const assessment = themeSurfaceAssessment(t)
+            const narrative = validatedThemeNarrative(t)
             return (
               <div key={t.theme_id} className="thememap-compact__item" role="listitem">
-                <button type="button" onClick={() => onPick(t.theme_id)} aria-label={`Open ${t.name}`}>
+                <button type="button" onClick={() => onPick(t.theme_id)} aria-label={`Open ${t.name}. ${narrative?.thesis || t.description} News heat ${t.composite} out of 100. ${assessment?.conviction ? CONVICTION_LABEL[assessment.conviction] : 'Evidence confidence unavailable'}. ${countLabel(count, countScopeLabel)}.`}>
                   <span className="thememap-compact__rank">{rank + 1}</span>
                   <span className="thememap-compact__copy"><b>{t.name}</b><small>{t.description}</small></span>
-                  <span className="thememap-compact__meta">{tierLabel(t.tier)}{stale ? '' : ` · ${momentumOf(t)}`}<small>{countLabel(count, scopeLabel)}</small></span>
+                  <span className="thememap-compact__meta">News heat · {t.composite}/100{stale ? '' : ` · ${momentumOf(t)}`}<small>{assessment?.conviction ? CONVICTION_LABEL[assessment.conviction] : 'Evidence confidence unavailable'} · {countLabel(count, countScopeLabel)}</small></span>
                 </button>
               </div>
             )
@@ -623,6 +652,9 @@ function ThemeMap({ themes, onPick, win, cov, slice, stale }: { themes: Theme[];
       {/* theme basins */}
       {layout.nodes.map((n) => {
         const t = n.theme
+        const narrative = validatedThemeNarrative(t)
+        const assessment = themeSurfaceAssessment(t)
+        const nodeCount = frozen ? (historical ? flowInWindow(t, windowHours as number) : t.member_count) : (shown[t.theme_id] ?? t.member_count)
         return (
           <button
             key={n.id}
@@ -631,16 +663,37 @@ function ThemeMap({ themes, onPick, win, cov, slice, stale }: { themes: Theme[];
             style={{ left: n.x - n.r, top: n.y - n.r, width: n.r * 2, height: n.r * 2, ['--tier' as any]: tierColorVar(t.tier), ['--enter' as any]: n.enterRank }}
             onMouseEnter={() => setHover(n.id)}
             onMouseLeave={() => setHover(null)}
+            onFocus={() => setHover(n.id)}
+            onBlur={() => setHover((current) => current === n.id ? null : current)}
             onClick={() => onPick(t.theme_id)}
             title={t.description}
+            aria-label={`Open ${t.name}. ${narrative?.thesis || t.description} News heat ${t.composite} out of 100. ${assessment?.conviction ? CONVICTION_LABEL[assessment.conviction] : 'Evidence confidence unavailable'}. ${countLabel(nodeCount, countScopeLabel)}.`}
           >
             <span className="themenode__core" />
-            <span className="themenode__count">{(frozen ? (historical ? flowInWindow(t, windowHours as number) : t.member_count) : (shown[t.theme_id] ?? t.member_count)).toLocaleString()}</span>
+            <span className="themenode__count">{nodeCount.toLocaleString()}</span>
             <span className="themenode__label" style={{ width: n.labelW, WebkitLineClamp: 3, color: 'var(--text)' }}>{t.name}</span>
           </button>
         )
       })}
-      {hoveredTheme && <MapTooltip theme={hoveredTheme} sliceLabel={scopeLabel} stale={stale} />}
+      {layout.omittedThemes.length > 0 && (
+        <details className="thememap__overflow">
+          <summary>Showing {layout.nodes.length} of {layout.totalThemes} themes · {layout.omittedThemes.length} more</summary>
+          <div className="thememap__overflow-list" role="list" aria-label="Themes omitted from the spatial layout">
+            {layout.omittedThemes.map((theme) => {
+              const narrative = validatedThemeNarrative(theme)
+              return (
+                <div key={theme.theme_id} role="listitem">
+                  <button type="button" onClick={() => onPick(theme.theme_id)} aria-label={`Open omitted theme ${theme.name}`}>
+                    <b>{theme.name}</b>
+                    <span>{narrative?.thesis || theme.description}</span>
+                  </button>
+                </div>
+              )
+            })}
+          </div>
+        </details>
+      )}
+      {hoveredTheme && <MapTooltip theme={hoveredTheme} count={historical ? flowInWindow(hoveredTheme, windowHours as number) : hoveredTheme.member_count} countScopeLabel={countScopeLabel} stale={stale} />}
     </div>
   )
 }
@@ -651,19 +704,23 @@ function countLabel(n: number, sliceLabel: string): string {
   return sliceLabel ? `${n.toLocaleString()} items in ${sliceLabel}` : `${n.toLocaleString()} items`
 }
 
-function MapTooltip({ theme, sliceLabel, stale }: { theme: Theme; sliceLabel: string; stale: boolean }) {
+export function MapTooltip({ theme, count, countScopeLabel, stale }: { theme: Theme; count: number; countScopeLabel: string; stale: boolean }) {
+  const narrative = validatedThemeNarrative(theme)
+  const expressions = qualifiedThemeExpressions(theme)
+  const assessment = themeSurfaceAssessment(theme)
   return (
     <div className="thememap__tip" role="status">
       <div className="thememap__tip-name">{theme.name}</div>
-      <div className="thememap__tip-desc">{theme.description}</div>
-      <div className="thememap__tip-meta">{tierLabel(theme.tier)}{stale ? ' · last indexed' : ` · ${momentumOf(theme)}`} · score {theme.composite} · {countLabel(theme.member_count, sliceLabel)}</div>
-      {real(theme.top_companies).length > 0 && <div className="thememap__tip-cos">{real(theme.top_companies).slice(0, 5).map((c) => c.name).join(' · ')}</div>}
+      <div className="thememap__tip-desc">{narrative?.thesis || theme.description}</div>
+      <div className="thememap__tip-meta">News heat {theme.composite}/100 · {tierLabel(theme.tier)}{stale ? ' · last indexed' : ` · ${momentumOf(theme)}`} · {countLabel(count, countScopeLabel)}</div>
+      <div className="thememap__tip-confidence">{assessment?.conviction ? CONVICTION_LABEL[assessment.conviction] : 'Evidence confidence unavailable'}</div>
+      {expressions.length > 0 && <div className="thememap__tip-cos">{expressions.slice(0, 5).map((c) => `${themeCompanyLabel(c)} · ${expressionRoleLabel(c.role)}`).join(' · ')}</div>}
     </div>
   )
 }
 
 interface MapNode { id: string; x: number; y: number; r: number; flow: boolean; labelW: number; enterRank: number; theme: Theme }
-function computeMapLayout(themes: Theme[], W: number, H: number, tierCounts: Record<string, number> = {}, windowHours: number | null = null, showIntake = true) {
+export function computeMapLayout(themes: Theme[], W: number, H: number, tierCounts: Record<string, number> = {}, windowHours: number | null = null, showIntake = true) {
   const coreX = W * (showIntake ? 0.26 : 0.12), coreY = H * 0.5, coreR = Math.min(32, H * 0.06)
   // lanes are DATA-DRIVEN: only tiers we actually collect (news always shown), each carrying its real
   // count + share so the lane labels read the true source mix.
@@ -686,7 +743,8 @@ function computeMapLayout(themes: Theme[], W: number, H: number, tierCounts: Rec
   // (the biggest mover of the last 7d need not be the biggest all-time theme).
   const heat = (t: Theme) => (windowHours == null ? heatOf(t) : heatInWindow(t, windowHours))
   const sizeCount = (t: Theme) => (windowHours == null ? t.member_count : flowInWindow(t, windowHours))
-  const ranked = [...themes].sort((a, b) => heat(b) - heat(a)).slice(0, 16)
+  const rankedThemes = [...themes].sort((a, b) => heat(b) - heat(a))
+  const ranked = rankedThemes.slice(0, 16)
   const items = ranked.map((t) => ({ t, r: radiusFor(sizeCount(t), 13, maxR), flow: recentFlow(t.flow_series, 2) > 0 }))
   const slotH = (it: { r: number }) => it.r * 2 + LABEL_H + GAP
 
@@ -728,7 +786,9 @@ function computeMapLayout(themes: Theme[], W: number, H: number, tierCounts: Rec
   // sets the radius). Independent of the spatial packing above; this rank alone drives the staggered
   // reveal cascade (see --enter / --theme-stagger in global.css), so the map assembles largest → smallest.
   ;[...nodes].sort((a, b) => sizeCount(b.theme) - sizeCount(a.theme) || b.r - a.r).forEach((n, i) => { n.enterRank = i })
-  return { lanes, core: { x: coreX, y: coreY, r: coreR }, nodes }
+  const shownIds = new Set(nodes.map((node) => node.id))
+  const omittedThemes = rankedThemes.filter((theme) => !shownIds.has(theme.theme_id))
+  return { lanes, core: { x: coreX, y: coreY, r: coreR }, nodes, omittedThemes, totalThemes: rankedThemes.length }
 }
 
 function hcurve(x1: number, y1: number, x2: number, y2: number): string {
@@ -739,39 +799,34 @@ function hcurve(x1: number, y1: number, x2: number, y2: number): string {
 // ---------------- the BOARD ----------------
 
 function ThemeBoard({ themes, onPick, sliceLabel, stale }: { themes: Theme[]; onPick: (id: string) => void; sliceLabel: string; stale: boolean }) {
-  const [showAllWorth, setShowAllWorth] = useState(false)
   const [showAllForming, setShowAllForming] = useState(false)
-  const [showAllContext, setShowAllContext] = useState(false)
-  // Ask the pure grouper for the full ranked lanes, then make first-look density a reversible display
-  // choice. No row is delegated to the capped map or silently made unreachable.
-  const groups = groupThemesForBriefing(themes, themes.length)
-  const worth = showAllWorth ? groups.worthChecking : groups.worthChecking.slice(0, 5)
+  const groups = groupThemesForBriefing(themes)
+  const worth = groups.worthChecking
   const forming = showAllForming ? groups.forming : groups.forming.slice(0, 8)
-  const context = showAllContext ? groups.context : groups.context.slice(0, 20)
   return (
     <div className="themebriefing">
       <section className="themebriefing__section" aria-labelledby="themes-worth-checking">
         <div className="themebriefing__sectionhead">
           <div>
-            <h3 id="themes-worth-checking">{stale ? 'Last qualified' : 'Worth checking'}</h3>
+            <h3 id="themes-worth-checking">{stale ? 'Last actionable theses' : 'Actionable investment theses'}</h3>
             <p>{stale
-              ? 'These patterns cleared the evidence gate at the last successful index. They are retained for audit and must be refreshed before entering the Ideas skim.'
-              : 'Coherent evidence, a current reason, and a first-order ticker-linked direction. Their strongest evidence can enter the Ideas skim, where listing and liquidity are checked.'}</p>
+              ? 'These dossiers cleared the complete narrative contract at the last successful index. They are retained for audit and must be refreshed before use.'
+              : 'At most five complete, falsifiable theses. Each name is tied to a stated economic mechanism and cited source evidence; listing, liquidity, valuation, governance, and solvency still require the Ideas checks.'}</p>
           </div>
           <span>{groups.counts.worthChecking}</span>
         </div>
         {!worth.length ? (
           <div className="themebriefing__zero">
             <b>{stale
-              ? `Nothing qualified in the last successful theme screen${sliceLabel ? ` for ${sliceLabel}` : ''}.`
-              : `Nothing clears the theme screen${sliceLabel ? ` for ${sliceLabel}` : ''} right now.`}</b>
+              ? `No actionable thesis survived in the last successful theme screen${sliceLabel ? ` for ${sliceLabel}` : ''}.`
+              : `No complete investment thesis clears the screen${sliceLabel ? ` for ${sliceLabel}` : ''} right now.`}</b>
             <span>{groups.counts.forming
               ? stale
-                ? `${groups.counts.forming} pattern${groups.counts.forming === 1 ? ' was' : 's were'} forming at that index; the then-missing proof is shown below.`
-                : `${groups.counts.forming} pattern${groups.counts.forming === 1 ? ' is' : 's are'} still forming; the missing proof is shown below.`
+                ? `${groups.counts.forming} thesis${groups.counts.forming === 1 ? ' was' : 'es were'} forming at that index; the then-missing proof is shown below.`
+                : `${groups.counts.forming} thesis${groups.counts.forming === 1 ? ' is' : 'es are'} still forming; the missing proof is shown below.`
               : stale
-                ? 'No cluster had enough distinct evidence and an evidence-bound direction at the last successful index.'
-                : 'The wire is being monitored, but no cluster has enough distinct evidence and a first-order ticker-linked direction to take your time.'}</span>
+                ? 'No validated narrative had enough current proof and an evidence-bound expression at the last successful index.'
+                : 'The wire is still monitored. Raw clusters remain internal until they carry a complete narrative and current evidence.'}</span>
           </div>
         ) : (
           <div className="themebriefing__worth" id="themes-worth-list">
@@ -780,16 +835,26 @@ function ThemeBoard({ themes, onPick, sliceLabel, stale }: { themes: Theme[]; on
             ))}
           </div>
         )}
-        {groups.counts.worthChecking > 5 && (
-          <button
-            type="button"
-            className="themebriefing__toggle"
-            aria-expanded={showAllWorth}
-            aria-controls="themes-worth-list"
-            onClick={() => setShowAllWorth((v) => !v)}
-          >
-            {showAllWorth ? 'Show the top 5 only' : stale ? `Show all ${groups.counts.worthChecking} last-qualified themes` : `Show all ${groups.counts.worthChecking} worth-checking themes`}
-          </button>
+        {groups.hiddenWorthChecking > 0 && (
+          <div className="themebriefing__more">
+            <p>{groups.hiddenWorthChecking} more actionable {groups.hiddenWorthChecking === 1 ? 'thesis' : 'theses'} after the five-dossier first look</p>
+            <div className="themebriefing__more-list" role="list" aria-label="Additional actionable investment theses">
+              {groups.additionalWorthChecking.map((theme, index) => {
+                const narrative = validatedThemeNarrative(theme)
+                const assessment = themeSurfaceAssessment(theme)
+                return (
+                  <div key={theme.theme_id} role="listitem">
+                    <button type="button" onClick={() => onPick(theme.theme_id)} aria-label={`Open thesis dossier for ${theme.name}`}>
+                      <span className="themebriefing__more-rank mono">{index + 6}</span>
+                      <span className="themebriefing__more-copy"><b>{theme.name}</b><small>{narrative?.thesis}</small></span>
+                      <span className="themebriefing__more-meta">{assessment?.conviction ? CONVICTION_LABEL[assessment.conviction] : 'Evidence confidence unavailable'}<small>{assessment?.activity ? ACTIVITY_LABEL[assessment.activity] : 'Activity unavailable'}</small></span>
+                      <span aria-hidden>→</span>
+                    </button>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
         )}
       </section>
 
@@ -798,7 +863,7 @@ function ThemeBoard({ themes, onPick, sliceLabel, stale }: { themes: Theme[]; on
           <div className="themebriefing__sectionhead">
             <div>
               <h3 id="themes-forming">{stale ? 'Previously forming' : 'Forming'}</h3>
-              <p>{stale ? 'Patterns that were missing one or more required checks at the last successful index.' : 'Patterns still missing one or more required checks.'}</p>
+              <p>{stale ? 'Validated theses that were still missing one or more required proof checks.' : 'Validated theses still missing one or more required proof checks.'}</p>
             </div>
             <span>{groups.counts.forming}</span>
           </div>
@@ -818,124 +883,167 @@ function ThemeBoard({ themes, onPick, sliceLabel, stale }: { themes: Theme[]; on
           )}
         </section>
       )}
-
-      {groups.context.length > 0 && (
-        <details className="themecontext">
-          <summary>
-            <span><b>{stale ? 'Previous context' : 'Context'}</b> — tracked clusters that {stale ? 'did not clear' : 'do not clear'} the first-look bar</span>
-            <em>{groups.counts.context}</em>
-          </summary>
-          <div className="themecontext__list" id="themes-context-list">
-            {context.map((t) => <ThemeContextRow key={t.theme_id} t={t} onPick={onPick} />)}
-          </div>
-          {groups.context.length > 20 && (
-            <button
-              type="button"
-              className="themebriefing__toggle"
-              aria-expanded={showAllContext}
-              aria-controls="themes-context-list"
-              onClick={() => setShowAllContext((v) => !v)}
-            >
-              {showAllContext ? 'Show the first 20 context themes' : `Show all ${groups.context.length} context themes`}
-            </button>
-          )}
-        </details>
-      )}
     </div>
   )
 }
 
 function flowDeltaCopy(t: Theme): string {
   const delta = themeFlowDelta(t)
-  if (delta == null) return 'Six-hour change unavailable'
-  if (delta > 0) return `+${delta} evidence item${delta === 1 ? '' : 's'} vs prior 6h`
-  if (delta < 0) return `${Math.abs(delta)} fewer evidence item${delta === -1 ? '' : 's'} vs prior 6h`
-  return 'Evidence flow flat vs prior 6h'
+  if (delta == null) return 'Six-hour supporting-evidence change unavailable'
+  if (delta > 0) return `+${delta} supporting evidence item${delta === 1 ? '' : 's'} vs prior 6h`
+  if (delta < 0) return `${Math.abs(delta)} fewer supporting evidence item${delta === -1 ? '' : 's'} vs prior 6h`
+  return 'Supporting-evidence flow flat vs prior 6h'
 }
 
-function ThemeBriefingRow({ t, rank, onPick, sliceLabel, stale }: { t: Theme; rank: number; onPick: (id: string) => void; sliceLabel: string; stale: boolean }) {
-  const assessment = themeSurfaceAssessment(t)!
-  const directions = splitQualifiedThemeExpressions(t)
-  const evidence = themeBriefingEvidence(t)
+const ACTIVITY_LABEL: Record<ThemeActivity, string> = { new: 'New thesis', reinforced: 'Reinforced', challenged: 'Challenged', quiet: 'Quiet' }
+const CONVICTION_LABEL: Record<ThemeConviction, string> = { high: 'High evidence confidence', medium: 'Medium evidence confidence', watch: 'Evidence incomplete' }
+
+function expressionRoleLabel(role: ThemeExpressionRole): string {
+  return ({ direct: 'Direct', bottleneck: 'Bottleneck', enabler: 'Enabler', harmed: 'Exposed loser', hedge: 'Hedge' } as Record<ThemeExpressionRole, string>)[role]
+}
+
+function EvidenceRows({ rows }: { rows: ValidatedThemeEvidence[] }) {
   return (
-    <article className="themebrief" aria-labelledby={`themebrief-${t.theme_id}`}>
-      <div className="themebrief__rank" aria-label={`Rank ${rank}`}>{rank}</div>
+    <ul className="themedossier__evidence-list">
+      {rows.map((e) => (
+        <li key={e.event_id}>
+          <span className="themedossier__evmeta">
+            <span className="themedossier__wire-score" title="Wire materiality score; not evidence confidence">
+              <strong className="mono">{e.score}</strong>
+              <span>wire materiality · not confidence</span>
+            </span>
+            <a href={e.url} target="_blank" rel="noreferrer" aria-label={`Open exact source for ${e.headline}`}>{e.source_name}</a>
+            <span>{sourceTierLabel(e.source_tier)} · {fmtStampLocal(e.found_at)}</span>
+          </span>
+          <span className="themedossier__evhead">{e.headline}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+export function ThemeExpressionRead({ expressions, evidence, stale = false }: { expressions: ValidatedThemeQualifiedExpression[]; evidence: ValidatedThemeEvidence[]; stale?: boolean }) {
+  const byId = new Map(evidence.map((row) => [row.event_id, row]))
+  if (!expressions.length) return <span className="themebrief__missing">No evidence-bound investable expression is proven yet.</span>
+  return (
+    <ul className="themedossier__expressions">
+      {expressions.map((expression) => {
+        const proof = expression.evidence_event_ids.map((eventId) => byId.get(eventId)).filter((row): row is ValidatedThemeEvidence => !!row)
+        return (
+          <li key={`${expression.name_key}-${expression.ticker}-${expression.role}`} className={`themedossier__expression themedossier__expression--${expression.side}`}>
+            <div className="themedossier__expression-head">
+              <span className={`themedossier__role themedossier__role--${expression.role}`}>{expressionRoleLabel(expression.role)}</span>
+              <b className="mono">{themeCompanyLabel(expression)}</b>
+              <span>{expression.name}</span>
+              <em>{expression.side === 'beneficiary' ? 'may gain' : 'may be hurt'}</em>
+            </div>
+            <p>{expression.mechanism}</p>
+            <div className="themedossier__expression-proof">
+              <b>{stale ? 'Source evidence at last index' : 'Cited source evidence'}</b>
+              {proof.length ? <EvidenceRows rows={proof} /> : <span className="themebrief__missing">The referenced proof rows are not present in this summary.</span>}
+            </div>
+          </li>
+        )
+      })}
+    </ul>
+  )
+}
+
+export function ThemeNarrativeDossier({ t, rank, onPick, sliceLabel = '', stale = false, deep = false }: { t: Theme; rank?: number; onPick?: (id: string) => void; sliceLabel?: string; stale?: boolean; deep?: boolean }) {
+  const narrative = validatedThemeNarrative(t)
+  const assessment = themeSurfaceAssessment(t)
+  if (!narrative || !assessment || assessment.status === 'context') return null
+  const evidence = themeBriefingEvidence(t)
+  const evidenceGroups = groupThemeEvidence(t)
+  const expressions = qualifiedThemeExpressions(t)
+  const whyNowProof = evidence.find((row) => row.event_id === narrative.why_now_event_id)
+  const excluded = Number.isFinite(t.off_core_member_count)
+    ? Math.max(0, t.off_core_member_count!)
+    : Math.max(0, assessment.metrics.off_core_evidence_count || 0)
+  const headingId = `${deep ? 'themedd-dossier' : 'themebrief'}-${t.theme_id}`
+  return (
+    <article className={`themebrief themedossier${deep ? ' themebrief--deep' : ''}`} aria-labelledby={headingId}>
+      {rank != null && <div className="themebrief__rank" aria-label={`Rank ${rank}`}>{rank}</div>}
       <div className="themebrief__body">
         <div className="themebrief__top">
-          <span className="themebrief__status">{stale ? 'Last qualified · stale' : 'Worth checking'}</span>
-          <span className="themebrief__flow">{stale ? 'At last index · ' : ''}{flowDeltaCopy(t)} · {countLabel(t.member_count, sliceLabel)}</span>
+          <span className={`themedossier__activity themedossier__activity--${assessment.activity}`}>{stale ? 'Last index · ' : ''}{ACTIVITY_LABEL[assessment.activity!]}</span>
+          <span className={`themedossier__conviction themedossier__conviction--${assessment.conviction}`}>{CONVICTION_LABEL[assessment.conviction!]}</span>
+          <span className="themedossier__horizon">Horizon · {narrative.horizon}</span>
+          <span className="themebrief__flow">{stale ? 'At last index · ' : ''}{flowDeltaCopy(t)}{sliceLabel ? ` · ${sliceLabel}` : ''}</span>
         </div>
-        <h4 id={`themebrief-${t.theme_id}`}>{t.name}</h4>
-        <p className="themebrief__description"><b>Theme</b><span>{t.description}</span></p>
-        <div className="themebrief__why">
-          <b>{stale ? 'Why it qualified then' : 'Why it surfaced'}</b>
-          <div>{assessment.reasons.length ? assessment.reasons.slice(0, 2).map((r, i) => <span key={i}>{r}</span>) : <span>The server qualified the pattern but returned no plain-English reason.</span>}</div>
+        <h4 id={headingId}>{t.name}</h4>
+        <p className="themedossier__thesis">{narrative.thesis}</p>
+        <p className="themedossier__inference"><b>Engine synthesis / inference.</b> The thesis, why-now wording, causal chain, and company mechanisms are interpretations of the cited evidence. They are not statements copied from those sources.</p>
+
+        <div className="themedossier__section">
+          <h5>What changed</h5>
+          <div>
+            <p>{narrative.why_now}</p>
+            <small>Engine-checked {fmtStampLocal(narrative.validated_at)}</small>
+            {whyNowProof && (
+              <div className="themedossier__why-proof">
+                <b>Why-now source evidence</b>
+                <EvidenceRows rows={[whyNowProof]} />
+              </div>
+            )}
+          </div>
         </div>
-        <div className="themebrief__evidence">
-          <b>{stale ? 'Evidence at last index' : 'Recent qualifying evidence'}</b>
-          {evidence.length ? (
-            <ul>
-              {evidence.map((e) => (
-                <li key={e.event_id}>
-                  <span className="themebrief__evmeta"><strong className="mono">{e.score}</strong> {sourceTierLabel(e.source_tier)} · {fmtStampLocal(e.found_at)}</span>
-                  <span className="themebrief__evhead">{e.headline}</span>
-                </li>
-              ))}
-            </ul>
-          ) : <span className="themebrief__missing">No qualifying evidence headline was returned.</span>}
+        <div className="themedossier__section">
+          <h5>Why it matters</h5>
+          <ol className="themedossier__mechanism">{narrative.mechanism_steps.map((step, index) => <li key={`${index}-${step}`}>{step}</li>)}</ol>
         </div>
-        <ThemeDirectionRead directions={directions} stale={stale} />
+        <div className="themedossier__section themedossier__section--stack">
+          <h5>How to play / exposed names</h5>
+          <ThemeExpressionRead expressions={expressions} evidence={evidence} stale={stale} />
+        </div>
+        <div className="themedossier__section themedossier__section--break">
+          <h5>What would break it</h5>
+          <div><p>{narrative.falsifier}</p><small>Analyst-defined falsification test, not a sourced fact.</small></div>
+        </div>
+        <div className="themedossier__section themedossier__section--stack">
+          <h5>{stale ? 'Evidence at last index' : 'Evidence in this thesis'}</h5>
+          <div className="themedossier__evidence-groups">
+            <section aria-label={`${evidenceGroups.supports.length} supporting evidence rows`}>
+              <h6>Supports <span>{evidenceGroups.supports.length}</span></h6>
+              {evidenceGroups.supports.length ? <EvidenceRows rows={evidenceGroups.supports} /> : <span className="themebrief__missing">No supporting row was returned in this summary.</span>}
+            </section>
+            <section className="themedossier__challenges" aria-label={`${evidenceGroups.challenges.length} challenging evidence rows`}>
+              <h6>Challenges <span>{evidenceGroups.challenges.length}</span></h6>
+              {evidenceGroups.challenges.length ? <EvidenceRows rows={evidenceGroups.challenges} /> : <span className="themebrief__missing">No challenging row was returned in this summary.</span>}
+            </section>
+          </div>
+        </div>
       </div>
-      <aside className="themebrief__aside">
-        <div className="themebrief__proof">
-          <span><b>{assessment.metrics.unique_evidence_count}</b> distinct</span>
-          <span><b>{assessment.metrics.high_quality_evidence_count}</b> supported-source</span>
-          <span><b>{assessment.metrics.narrative_coherence_pct}%</b> coherent</span>
-        </div>
-        <button type="button" className="themebrief__open" onClick={() => onPick(t.theme_id)} aria-label={`${stale ? 'Inspect saved' : 'Open'} evidence and company map for ${t.name}`}>
-          {stale ? 'Inspect saved evidence & company map' : 'Open evidence & company map'} <span aria-hidden>→</span>
-        </button>
-      </aside>
+      {!deep && (
+        <aside className="themebrief__aside">
+          <div className="themebrief__proof">
+            <span><b>{assessment.metrics.recent_24h_support_count}</b> support · 24h</span>
+            <span><b>{assessment.metrics.recent_24h_challenge_count}</b> challenge · 24h</span>
+            <span><b>{assessment.metrics.narrative_coherence_pct}%</b> coherent</span>
+            <span><b>{excluded}</b> off-thesis excluded</span>
+          </div>
+          {onPick && <button type="button" className="themebrief__open" onClick={() => onPick(t.theme_id)} aria-label={`${stale ? 'Inspect saved' : 'Open'} thesis dossier for ${t.name}`}>{stale ? 'Inspect saved thesis' : 'Open thesis dossier'} <span aria-hidden>→</span></button>}
+        </aside>
+      )}
     </article>
   )
 }
 
-export function ThemeDirectionRead({ directions, stale = false }: { directions: ReturnType<typeof splitQualifiedThemeExpressions>; stale?: boolean }) {
-  const groups = [
-    { label: stale ? 'Tagged may gain' : 'May gain', tone: 'gain', items: directions.beneficiaries, tip: `${stale ? 'Last-indexed first-order candidate' : 'First-order candidate'} tied to the exact qualifying evidence rows that indicate it may gain if the theme holds` },
-    { label: stale ? 'Tagged may be hurt' : 'May be hurt', tone: 'hurt', items: directions.harmed, tip: `${stale ? 'Last-indexed first-order candidate' : 'First-order candidate'} tied to the exact qualifying evidence rows that indicate it may be hurt if the theme holds` },
-  ]
-  const any = groups.some((g) => g.items.length)
-  return (
-    <div className="themebrief__directions">
-      <b>{stale ? 'Candidates at last index' : 'First-order ticker-linked candidates'}</b>
-      {!any ? <span className="themebrief__missing">No evidence-bound first-order direction is proven.</span> : groups.map((g) => g.items.length > 0 && (
-        <div key={g.label} className={`themebrief__dir themebrief__dir--${g.tone}`}>
-          <span>{g.label}</span>
-          <div>{g.items.slice(0, 4).map((c) => {
-            const proofCount = c.evidence_event_ids.length
-            return (
-              <em key={`${g.tone}-${c.name_key}-${c.ticker}`} title={`${g.tip} · ${proofCount} matching proof row${proofCount === 1 ? '' : 's'}`}>
-                {themeCompanyLabel(c)} <small>{proofCount} proof</small>
-              </em>
-            )
-          })}</div>
-        </div>
-      ))}
-    </div>
-  )
+function ThemeBriefingRow({ t, rank, onPick, sliceLabel, stale }: { t: Theme; rank: number; onPick: (id: string) => void; sliceLabel: string; stale: boolean }) {
+  return <ThemeNarrativeDossier t={t} rank={rank} onPick={onPick} sliceLabel={sliceLabel} stale={stale} />
 }
 
 function ThemeFormingRow({ t, onPick, stale }: { t: Theme; onPick: (id: string) => void; stale: boolean }) {
   const assessment = themeSurfaceAssessment(t)
+  const narrative = validatedThemeNarrative(t)
   const blockers = assessment?.blockers || []
   return (
     <article className="themeforming__row">
       <div className="themeforming__copy">
-        <h4>{t.name}</h4>
-        <p>{t.description}</p>
+        <div className="themeforming__top"><h4>{t.name}</h4>{assessment?.activity && <span className={`themedossier__activity themedossier__activity--${assessment.activity}`}>{ACTIVITY_LABEL[assessment.activity]}</span>}{assessment?.conviction && <span className={`themedossier__conviction themedossier__conviction--${assessment.conviction}`}>{CONVICTION_LABEL[assessment.conviction]}</span>}</div>
+        <p>{narrative?.thesis}</p>
         <div className="themeforming__blockers">
-          <b>{stale ? 'Needed then' : 'Still needed'}</b>
+          <b>{stale ? 'Missing proof then' : 'Missing proof'}</b>
           {blockers.length ? <ul>{blockers.map((b, i) => <li key={i}>{b}</li>)}</ul> : <span>No blocker detail was returned.</span>}
         </div>
       </div>
@@ -947,17 +1055,6 @@ function ThemeFormingRow({ t, onPick, stale }: { t: Theme; onPick: (id: string) 
   )
 }
 
-function ThemeContextRow({ t, onPick }: { t: Theme; onPick: (id: string) => void }) {
-  const assessment = themeSurfaceAssessment(t)
-  const explanation = assessment?.blockers?.[0] || assessment?.reasons?.[0] || 'No qualification assessment was returned by the server.'
-  return (
-    <article className="themecontext__row">
-      <div><h4>{t.name}</h4><p>{explanation}</p></div>
-      <button type="button" onClick={() => onPick(t.theme_id)} aria-label={`Open context theme ${t.name}`}>Open <span aria-hidden>→</span></button>
-    </article>
-  )
-}
-
 // The flow sparkline. `interactive` (used on the deep-dive) adds a hover crosshair + a tooltip that
 // names the hour and its item count, so you can read HOW the theme built over time, not just the shape.
 // flow_series is hourly, newest bucket last, zero-filled to now — so point i is (n-1-i) hours before now.
@@ -965,6 +1062,8 @@ function Sparkline({ series, w = 88, h = 18, interactive = false, fluid = false 
   const pad = 1
   const ref = useRef<SVGSVGElement>(null)
   const [hi, setHi] = useState<number | null>(null)
+  const [keyboardActive, setKeyboardActive] = useState(false)
+  const descriptionId = useId()
   const pts = sparklinePoints(series, w, h, pad)
   if (!pts) return <span className="sparkline sparkline--empty" />
   const coords = pts.split(' ').map((p) => p.split(',').map(Number))
@@ -986,19 +1085,49 @@ function Sparkline({ series, w = 88, h = 18, interactive = false, fluid = false 
     const x = (e.clientX - r.left) * (w / r.width)
     setHi(Math.max(0, Math.min(n - 1, Math.round((x - pad) / (stepX || 1)))))
   }
+  const onKeyDown = (event: ReactKeyboardEvent<SVGSVGElement>) => {
+    let next = hi ?? n - 1
+    if (event.key === 'ArrowLeft') next--
+    else if (event.key === 'ArrowRight') next++
+    else if (event.key === 'Home') next = 0
+    else if (event.key === 'End') next = n - 1
+    else return
+    event.preventDefault()
+    setHi(Math.max(0, Math.min(n - 1, next)))
+  }
   // anchor the newest bucket at the current hour (local), each prior bucket one hour earlier
   const when = hi == null ? null : new Date(Math.floor(Date.now() / 3600_000) * 3600_000 - (n - 1 - hi) * 3600_000)
   const val = hi == null ? 0 : series[hi]
+  const total = series.reduce((sum, value) => sum + value, 0)
+  const latest = series[n - 1] || 0
+  const peak = Math.max(0, ...series)
   return (
     <span className={`sparkline-wrap${fluid ? ' sparkline-wrap--fluid' : ''}`} style={fluid ? { width: '100%', maxWidth: w, height: h } : { width: w, height: h }}>
-      <svg ref={ref} className="sparkline sparkline--live" width={fluid ? '100%' : w} height={h} viewBox={`0 0 ${w} ${h}`} onPointerMove={onMove} onPointerLeave={() => setHi(null)} role="img" aria-label="news flow by hour — hover for each hour’s item count">
+      <svg
+        ref={ref}
+        className="sparkline sparkline--live"
+        width={fluid ? '100%' : w}
+        height={h}
+        viewBox={`0 0 ${w} ${h}`}
+        onPointerMove={onMove}
+        onPointerLeave={() => { if (!keyboardActive) setHi(null) }}
+        onFocus={() => { setKeyboardActive(true); setHi((current) => current ?? n - 1) }}
+        onBlur={() => { setKeyboardActive(false); setHi(null) }}
+        onKeyDown={onKeyDown}
+        role="img"
+        tabIndex={0}
+        aria-label="Interactive hourly news-flow chart"
+        aria-describedby={descriptionId}
+      >
         <polyline points={pts} fill="none" stroke="var(--accent)" strokeWidth="1.5" vectorEffect="non-scaling-stroke" strokeLinejoin="round" />
         {last && <circle cx={last[0]} cy={last[1]} r="2" fill="var(--accent-bright)" />}
         {sel && <line className="sparkline__guide" x1={sel[0]} y1={pad} x2={sel[0]} y2={h - pad} />}
         {sel && <circle className="sparkline__dot" cx={sel[0]} cy={sel[1]} r="2.6" />}
       </svg>
+      <span id={descriptionId} className="sr-only">{n} hourly buckets. {total} items in total; {latest} in the latest hour; peak {peak}. Focus the chart and use Left or Right Arrow, Home, and End to inspect an exact hour.</span>
+      <span className="sr-only" aria-live="polite">{keyboardActive && when ? `${when.toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric' })}: ${val} item${val === 1 ? '' : 's'}.` : ''}</span>
       {sel && when && (
-        <span className="sparkline__tip" style={{ left: `${(sel[0] / w) * 100}%` }}>
+        <span className="sparkline__tip" style={{ left: `${(sel[0] / w) * 100}%` }} aria-hidden="true">
           <span className="sparkline__tip-time">{when.toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric' })}</span>
           <span className="sparkline__tip-val">{val} item{val === 1 ? '' : 's'}</span>
         </span>
@@ -1009,287 +1138,23 @@ function Sparkline({ series, w = 88, h = 18, interactive = false, fluid = false 
 
 // ---------------- the DEEP-DIVE ----------------
 
-// The plain-English explainer under the title: read these few sentences and you understand the theme.
-// Loading shows a calm 3-line skeleton (never a spinner); once written it reads as a comfortable
-// paragraph. `canRefresh` (a real brief object exists) gates the rewrite affordance, so the bare
-// one-line-description fallback — e.g. the static showcase, where a rewrite would be a no-op — shows no
-// button. An in-place refresh keeps the old text and spins the icon; aria-busy + aria-live announce it.
-function ThemeBriefBlock({ brief, note, loading, refreshing, canRefresh, onRefresh }: { brief: string; note?: string; loading: boolean; refreshing: boolean; canRefresh: boolean; onRefresh: () => void }) {
-  if (loading) {
-    return (
-      <div className="themedd__brief" aria-busy="true" aria-label="Writing a brief on this theme…">
-        <span className="themedd__briefline" />
-        <span className="themedd__briefline" />
-        <span className="themedd__briefline themedd__briefline--short" />
-      </div>
-    )
-  }
-  if (!brief) return null
-  return (
-    <div className="themedd__brief" aria-busy={refreshing}>
-      <p className="themedd__brieftext" aria-live="polite">{brief}</p>
-      {(note || canRefresh) && (
-        <div className="themedd__briefmeta">
-          {note && <span className="themedd__briefnote" title={note}>from headlines</span>}
-          {canRefresh && (
-            <button type="button" className={`themedd__briefrefresh${refreshing ? ' is-on' : ''}`} onClick={onRefresh} disabled={refreshing} aria-busy={refreshing} title="Rewrite this brief from the latest news" aria-label="Rewrite this brief">
-              <span className="themedd__briefrefresh-i" aria-hidden>↻</span>
-            </button>
-          )}
-        </div>
-      )}
-    </div>
-  )
-}
-
-// ---- order tiers + the per-company "why is it here" popover ----
-
-// Which order tier a chip sits in, spoken, for the popover badge + the aria label.
-const ORDER_NOUN: Record<number, string> = { 1: 'Direct (1st-order)', 2: 'Ripple (2nd-order)', 3: 'Read-across (3rd-order)' }
-// One card is open at a time, so a single stable id is enough to point the active chip's aria-describedby
-// at it — a screen reader then announces the card's reason + stories + impact on focus (not just the label).
-const WHY_CARD_ID = 'themewhy-card'
-// The four impact sub-scores (0–25 each) in plain English — short label for the bar, long for the title.
-const IMPACT_BARS: { key: keyof ThemeCompany['impact']; short: string; long: string }[] = [
-  { key: 'directness', short: 'direct', long: 'How directly the theme’s news points at it' },
-  { key: 'magnitude', short: 'size', long: 'How material the news naming it is' },
-  { key: 'speed', short: 'speed', long: 'How fast the driving event plays out' },
-  { key: 'reversibility', short: 'lasting', long: 'How lasting the effect is (structural vs easily hedged)' },
-]
-const scoreTone = (n: number) => (n >= 70 ? 'var(--live)' : n >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)')
-
-// The reason shown when the server hasn't sent a `why` (an OLD engine during a deploy, DESIGN.md §5) — a
-// plain, honest fallback built from the fields the chip already has, so the card is never empty pre-deploy.
-function fallbackReason(c: ThemeCompany): string {
-  const times = c.mention_count <= 0 ? 'named' : c.mention_count === 1 ? 'named once' : `named ${c.mention_count} times`
-  const noun = c.order === 1 ? 'a direct (first-order)' : c.order === 2 ? 'a ripple (second-order)' : 'a read-across (third-order)'
-  return `${times} in this theme’s news — ${noun} name.`
-}
-
-type WhyPos = { left: number; top: number; width: number; originX: number; originY: 'top' | 'bottom' }
-type WhyActive = { key: string; c: ThemeCompany; sticky: boolean; rect: DOMRect; instant: boolean }
-
-// A stable, always-mounted description target so aria-describedby resolves from the FIRST focus event
-// (a screen reader reads the accessibility tree at focus time — an id added only after focus, once React
-// commits the "card is open" state, is too late for many readers). aria-live announces content changes
-// even when focus stays on the same chip (e.g. Tab moving the card between adjacent chips).
-const WHY_DESC_ID = 'themewhy-desc'
-
-/** Place the card against the chip using its MEASURED height: below by default, flipped above when below
- *  can't hold it and above has more room, then clamped so it never runs off the top or bottom. The
- *  transform-origin sits under the chip (origin-aware, DESIGN.md §3 / emil). Absolute top (not bottom) so
- *  the clamp is exact regardless of which side it opened toward. */
-function placeWhy(rect: DOMRect, height: number): WhyPos {
-  const GAP = 8
-  const vw = window.innerWidth
-  const vh = window.innerHeight
-  const width = Math.min(320, vw - 16)
-  const belowSpace = vh - rect.bottom
-  const above = belowSpace < height + GAP && rect.top - GAP > belowSpace
-  const left = Math.max(8, Math.min(rect.left, vw - 8 - width))
-  const originX = Math.max(14, Math.min(width - 14, rect.left + rect.width / 2 - left))
-  const rawTop = above ? rect.top - GAP - height : rect.bottom + GAP
-  const top = Math.max(8, Math.min(rawTop, vh - 8 - height)) // never clip top or bottom
-  return { left, top, width, originX, originY: above ? 'bottom' : 'top' }
-}
-
-// The orders section: three tiers of company chips. Hovering (or tapping) a chip opens a single shared
-// card explaining WHY it sits in that tier — the plain reason + the real stories that named it + the
-// impact breakdown. One card at a time (a tooltip singleton), portaled so it never clips the scroll panel.
-function ThemeOrders({ orders }: { orders: [string, ThemeCompany[]][] }) {
-  const [active, setActive] = useState<WhyActive | null>(null)
-  const openRef = useRef(false) // is a card currently open? — drives the instant-subsequent-hover skip (emil)
-  const openTimer = useRef<number | undefined>(undefined)
-  const closeTimer = useRef<number | undefined>(undefined)
-  const openedAt = useRef(0) // when the current card opened — lets onScroll ignore the auto-scroll that FOCUS itself causes
-  const activeRef = useRef<WhyActive | null>(null)
-  activeRef.current = active
-  const fine = () => typeof window !== 'undefined' && !!window.matchMedia?.('(hover: hover) and (pointer: fine)').matches
-
-  const clearTimers = () => { window.clearTimeout(openTimer.current); window.clearTimeout(closeTimer.current) }
-  const close = () => { clearTimers(); openRef.current = false; setActive(null) }
-
-  const openFor = (key: string, c: ThemeCompany, el: HTMLElement, sticky: boolean, instant: boolean) => {
-    clearTimers()
-    openRef.current = true
-    openedAt.current = performance.now()
-    setActive({ key, c, sticky, rect: el.getBoundingClientRect(), instant })
-  }
-
-  // hover intent: open after a short delay, or INSTANTLY if a card is already open (adjacent chips read fast)
-  const onEnter = (key: string, c: ThemeCompany, el: HTMLElement) => {
-    if (!fine() || activeRef.current?.sticky) return
-    clearTimers()
-    if (openRef.current) { openFor(key, c, el, false, true); return }
-    openTimer.current = window.setTimeout(() => openFor(key, c, el, false, false), 120)
-  }
-  const onLeave = (key: string) => {
-    window.clearTimeout(openTimer.current)
-    const a = activeRef.current
-    if (!a || a.sticky || a.key !== key) return
-    closeTimer.current = window.setTimeout(() => { if (!activeRef.current?.sticky) close() }, 110)
-  }
-  // click toggles a sticky card (also the touch path — no hover there); focus previews; blur closes a hover card
-  const onClick = (key: string, c: ThemeCompany, el: HTMLElement) => {
-    const a = activeRef.current
-    if (a?.key === key && a.sticky) { close(); return }
-    openFor(key, c, el, true, true)
-  }
-  // focus always moves the card to the newly-focused chip (keyboard Tab), replacing any prior card — so a
-  // pinned card never strands focus on a different chip. Opened non-sticky (a preview); Enter/Space pins it.
-  const onFocus = (key: string, c: ThemeCompany, el: HTMLElement) => openFor(key, c, el, false, true)
-  const onBlur = (key: string) => { const a = activeRef.current; if (a && !a.sticky && a.key === key) close() }
-
-  // while a card is open: Esc + an outside pointerdown close a sticky card; a genuine user scroll/resize
-  // closes both (a fixed card would detach from a chip that scrolled away). The scroll a keyboard FOCUS
-  // triggers to bring an off-screen chip into view fires right after open — ignore it, or the card the
-  // focus just opened would vanish in the same frame.
-  // Registered once (not re-bound per open/close) — every handler reads activeRef.current so it always
-  // sees the live state without the effect re-running on every hover/focus transition.
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape' && activeRef.current) close() }
-    const onDown = (e: PointerEvent) => { if (activeRef.current?.sticky && !(e.target as HTMLElement)?.closest?.('.themedd__co, .themewhy')) close() }
-    const onScroll = () => { if (activeRef.current && performance.now() - openedAt.current > 300) close() } // skip the focus-induced auto-scroll
-    const onResize = () => { if (activeRef.current) close() }
-    window.addEventListener('keydown', onKey)
-    window.addEventListener('pointerdown', onDown, true)
-    window.addEventListener('scroll', onScroll, true)
-    window.addEventListener('resize', onResize)
-    return () => {
-      window.removeEventListener('keydown', onKey)
-      window.removeEventListener('pointerdown', onDown, true)
-      window.removeEventListener('scroll', onScroll, true)
-      window.removeEventListener('resize', onResize)
-    }
-  }, [])
-  useEffect(() => () => clearTimers(), [])
-
-  return (
-    <div className="themedd__orders">
-      {orders.map(([label, cos]) => cos.length > 0 && (
-        <div key={label} className="themedd__ordergrp">
-          <div className="themedd__orderlabel">{label}</div>
-          <div className="themedd__cos">
-            {real(cos).slice(0, 12).map((c, i) => {
-              const key = `${label}-${c.name_key || c.name}-${i}`
-              const on = active?.key === key
-              const ticker = validThemeTicker(c.ticker) ? c.ticker!.trim() : null
-              return (
-                <button
-                  key={key}
-                  type="button"
-                  className={`themedd__co themedd__co--${c.side}${on ? ' is-open' : ''}`}
-                  aria-expanded={on && !!active?.sticky}
-                  aria-describedby={WHY_DESC_ID}
-                  aria-label={`${ticker ? `${ticker} ` : ''}${c.name} — ${ORDER_NOUN[c.order]} in this theme`}
-                  onPointerEnter={(e) => onEnter(key, c, e.currentTarget)}
-                  onPointerLeave={() => onLeave(key)}
-                  onFocus={(e) => onFocus(key, c, e.currentTarget)}
-                  onBlur={() => onBlur(key)}
-                  onClick={(e) => onClick(key, c, e.currentTarget)}
-                >
-                  {ticker ? <b>{ticker}</b> : null}{c.name}
-                </button>
-              )
-            })}
-          </div>
-        </div>
-      ))}
-      {/* sr-only, always mounted (not portaled) — see WHY_DESC_ID above */}
-      <span id={WHY_DESC_ID} className="sr-only" aria-live="polite">{active ? (active.c.why?.reason || fallbackReason(active.c)) : ''}</span>
-      {active && <CompanyWhyCard key={active.key} c={active.c} rect={active.rect} instant={active.instant} sticky={active.sticky} />}
-    </div>
-  )
-}
-
-// The card itself — portaled into the active swarm's token scope (falling back to <body>) so `position:
-// fixed` still escapes the scroll panel/any transformed ancestor, but the swarm-scoped color tokens
-// ([data-swarm], DESIGN.md) still resolve — a plain document.body portal would fall back to the root
-// research amber tokens in a screener/commodity context. Pure information visually (pointer-events: none;
-// pointer-events: auto only while sticky, so a tap on the open card can't fall through to whatever sits
-// beneath it) — the reason, the sourced stories, and the impact bars. It renders hidden for one layout
-// pass, MEASURES its real height, then places itself against the chip so it can never clip the top or
-// bottom (heights vary with the number of stories). useLayoutEffect runs before paint, so there is no
-// visible jump.
-function CompanyWhyCard({ c, rect, instant, sticky }: { c: ThemeCompany; rect: DOMRect; instant: boolean; sticky: boolean }) {
-  const why = c.why
-  const reason = why?.reason || fallbackReason(c)
-  const evidence = why?.evidence || []
-  const ticker = validThemeTicker(c.ticker) ? c.ticker!.trim() : null
-  const ref = useRef<HTMLDivElement>(null)
-  const [pos, setPos] = useState<WhyPos | null>(null)
-  useLayoutEffect(() => {
-    const h = ref.current?.offsetHeight ?? 300
-    setPos(placeWhy(rect, h))
-  }, [rect])
-  const style: CSSProperties = pos
-    ? { left: pos.left, top: pos.top, width: pos.width, transformOrigin: `${pos.originX}px ${pos.originY}` }
-    : { left: rect.left, top: 0, width: Math.min(320, window.innerWidth - 16), visibility: 'hidden' } // measured next frame
-  // aria-hidden: the description that matters to a screen reader is WHY_DESC_ID (a stable, always-mounted
-  // sr-only region, wired via aria-describedby) — this visual card is not referenced by any aria-* attribute,
-  // so hide it from the accessibility tree rather than let a browse-mode virtual cursor surface it twice.
-  return createPortal(
-    <div ref={ref} id={WHY_CARD_ID} className={`themewhy${pos && instant ? ' themewhy--instant' : ''}${sticky ? ' themewhy--sticky' : ''}`} aria-hidden="true" style={style}>
-      <div className="themewhy__head">
-        {ticker ? <b className="themewhy__tk mono">{ticker}</b> : null}
-        <span className="themewhy__name">{c.name}</span>
-        <span className={`themewhy__tier themewhy__tier--o${c.order}`}>{orderLabel(c.order)}</span>
-        <span className={`themewhy__side themewhy__side--${c.side}`}>{c.side === 'beneficiary' ? 'may gain' : c.side === 'harmed' ? 'may be hurt' : 'direction mixed'}</span>
-      </div>
-      <p className="themewhy__reason">{reason}</p>
-      {evidence.length > 0 ? (
-        <div className="themewhy__ev">
-          <div className="themewhy__evlabel">Why it’s here — the stories that named it</div>
-          <ul className="themewhy__evlist">
-            {evidence.map((e) => (
-              <li key={e.event_id} className="themewhy__evrow">
-                <span className="themewhy__evscore mono" style={{ color: scoreTone(e.score) }}>{e.score}</span>
-                <span className="themewhy__evhl">{e.headline}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <div className="themewhy__evempty">Named in this theme’s recent news.</div>
-      )}
-      <div className="themewhy__impact">
-        <span className="themewhy__impacttitle">Impact <b className="mono">{c.impact?.composite ?? 0}</b><span className="themewhy__impactmax">/100</span></span>
-        <div className="themewhy__bars">
-          {IMPACT_BARS.map((b) => {
-            const v = Math.max(0, Math.min(25, c.impact?.[b.key] ?? 0))
-            return (
-              <div key={b.key} className="themewhy__bar" title={`${b.long}: ${v}/25`} aria-label={`${b.short} ${v} of 25`}>
-                <span className="themewhy__barlabel" aria-hidden>{b.short}</span>
-                <span className="themewhy__bartrack" aria-hidden><span className="themewhy__barfill" style={{ transform: `scaleX(${v / 25})` }} /></span>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-    </div>,
-    document.querySelector('.app[data-swarm]') ?? document.body,
-  )
-}
-
-function ThemeDeepDive({ sourceSlice, stale, generatedAt }: { sourceSlice: ThemeSliceDisplay; stale: boolean; generatedAt: string | null }) {
+function ThemeDeepDive({ sourceSlice, stale, refreshFailed, generatedAt }: { sourceSlice: ThemeSliceDisplay; stale: boolean; refreshFailed: boolean; generatedAt: string | null }) {
   const selectedId = useStore((s) => s.selectedTheme)
   const detail = useStore((s) => s.themeDetail)
   const detailError = useStore((s) => s.themeDetailError)
   const loading = useStore((s) => s.themesLoading)
-  const brief = useStore((s) => s.themeBrief)
-  const briefLoading = useStore((s) => s.themeBriefLoading)
+  const indexedThemes = useStore((s) => s.themes)
   const selectTheme = useStore((s) => s.selectTheme)
-  const regenerateThemeBrief = useStore((s) => s.regenerateThemeBrief)
   const scSelectEvent = useStore((s) => s.scSelectEvent)
   const runEventChecks = useStore((s) => s.runEventChecks)
 
   if (loading) {
     return (
-      <div className="themedd">
+      <div className="themedd" aria-busy="true">
         <button type="button" className="themedd__back" onClick={() => selectTheme(null)}>← Themes</button>
-        {stale && <ThemeDeepDiveStaleNote generatedAt={generatedAt} />}
+        {stale && <ThemeDeepDiveStaleNote generatedAt={generatedAt} refreshFailed={refreshFailed} />}
         {sourceSlice.active && <ThemeDeepDiveScopeNote sourceSlice={sourceSlice} />}
-        <div className="themes__empty"><div className="themes__shimmer" /></div>
+        <div className="themes__empty" role="status" aria-live="polite"><div className="themes__shimmer" /><p>Loading the exact thesis evidence…</p></div>
       </div>
     )
   }
@@ -1297,7 +1162,7 @@ function ThemeDeepDive({ sourceSlice, stale, generatedAt }: { sourceSlice: Theme
     return (
       <div className="themedd">
         <button type="button" className="themedd__back" onClick={() => selectTheme(null)}>← Themes</button>
-        {stale && <ThemeDeepDiveStaleNote generatedAt={generatedAt} />}
+        {stale && <ThemeDeepDiveStaleNote generatedAt={generatedAt} refreshFailed={refreshFailed} />}
         {sourceSlice.active && <ThemeDeepDiveScopeNote sourceSlice={sourceSlice} />}
         <div className="themedd__loadfail" role="alert">
           <b>Theme detail could not be loaded.</b>
@@ -1312,38 +1177,62 @@ function ThemeDeepDive({ sourceSlice, stale, generatedAt }: { sourceSlice: Theme
     )
   }
   const t = detail.theme
-  const orders: [string, ThemeCompany[]][] = [['Direct (1st-order)', detail.companies_by_order.first], ['Ripple (2nd-order)', detail.companies_by_order.second], ['Read-across (3rd-order)', detail.companies_by_order.third]]
-  const top = detail.members[0]
+  const assessment = themeSurfaceAssessment(t)
+  const narrative = validatedThemeNarrative(t)
+  if (!assessment || !narrative || assessment.status === 'context') {
+    return (
+      <div className="themedd">
+        <button type="button" className="themedd__back" onClick={() => selectTheme(null)}>← Themes</button>
+        {stale && <ThemeDeepDiveStaleNote generatedAt={generatedAt} refreshFailed={refreshFailed} />}
+        <div className="themedd__loadfail" role="alert">
+          <b>This saved detail does not have a complete investment-thesis contract.</b>
+          <span>It has failed closed and is not shown as a PM theme. Return to Themes and wait for the server to revalidate its narrative, evidence stances, activity, evidence confidence, and expressions.</span>
+          <div><button type="button" className="btn" onClick={() => selectTheme(null)}>Back to Themes</button></div>
+        </div>
+      </div>
+    )
+  }
+  // The redesigned detail endpoint already projects only the canonical supporting/challenging core.
+  // Keep its complete proof set here; the compact summary evidence above is deliberately capped.
+  const thesisMembers = detail.members
+  const top = thesisMembers[0]
+  const validatedThemeIds = new Set(themesForPmSurface(indexedThemes).map((theme) => theme.theme_id))
+  const related = detail.related_themes.filter((theme) => validatedThemeIds.has(theme.theme_id))
+  const indexedTheme = indexedThemes.find((theme) => theme.theme_id === t.theme_id)
+  // Detail.scores is a legacy ledger score and can lag the canonical public projection. Keep every visible
+  // heat read tied to the current summary contract (or say that its components are unavailable).
+  const projectedHeat = indexedTheme?.score_components || t.score_components
+  const newsHeat = indexedTheme?.composite ?? t.composite
+  const newsTier = indexedTheme?.tier ?? t.tier
   return (
     <div className="themedd">
       <div className="themedd__head">
         <button type="button" className="themedd__back" onClick={() => selectTheme(null)}>← Themes</button>
-        <span className={`themecard__tier themecard__tier--${t.tier}`}>{stale ? 'Last indexed' : tierLabel(t.tier)}</span>
-        <span className="themedd__score mono">{t.composite}<span className="themedd__score-sub">/100</span></span>
-        <span className="themedd__flow">{stale ? `saved snapshot · ${t.member_count} items` : `${momentumOf(t)}${t.fresh_flow ? ` · +${t.fresh_flow} fresh` : ''} · ${t.member_count} items`}</span>
+        <span className={`themecard__tier themecard__tier--${newsTier}`}>{stale ? 'Last indexed news heat' : `News heat · ${tierLabel(newsTier)}`}</span>
+        <span className="themedd__score mono" title="News heat, separate from evidence confidence">{newsHeat}<span className="themedd__score-sub">/100 news heat</span></span>
+        <span className={`themedossier__conviction themedossier__conviction--${assessment.conviction}`}>{CONVICTION_LABEL[assessment.conviction!]}</span>
+        <span className="themedd__flow">{stale ? 'saved snapshot' : `${momentumOf(t)} evidence flow`}</span>
       </div>
-      {stale && <ThemeDeepDiveStaleNote generatedAt={generatedAt} />}
+      {stale && <ThemeDeepDiveStaleNote generatedAt={generatedAt} refreshFailed={refreshFailed} />}
       {sourceSlice.active && <ThemeDeepDiveScopeNote sourceSlice={sourceSlice} />}
       <h2 className="themedd__name">{t.name}</h2>
-      {/* the plain-English brief — read these few sentences and you understand the theme; loads in its
-          own slot (a first-time read takes a beat) so the rest of the deep-dive never waits on it. */}
-      <ThemeBriefBlock brief={brief?.brief?.trim() || (briefLoading ? '' : t.description)} note={brief?.generation === 'deterministic' ? brief?.note : undefined} loading={briefLoading && !brief} refreshing={briefLoading} canRefresh={!stale && !!brief} onRefresh={regenerateThemeBrief} />
-      <div className="themedd__sparkrow"><Sparkline series={t.flow_series} w={220} h={36} interactive fluid /><span className="themedd__scores">{stale ? 'last-indexed scores · ' : ''}freshness {detail.scores.freshness} · breadth {detail.scores.breadth} · staying power {detail.scores.persistence}</span></div>
+      <ThemeNarrativeDossier t={t} stale={stale} deep />
+      <div className="themedd__sparkrow"><Sparkline series={t.flow_series} w={220} h={36} interactive fluid /><span className="themedd__scores">{projectedHeat
+        ? <>{stale ? 'last-indexed news heat · ' : 'news heat · '}freshness {projectedHeat.freshness} · breadth {projectedHeat.breadth} · staying power {projectedHeat.persistence}</>
+        : 'News-heat components unavailable in the canonical summary.'}</span></div>
 
-      <ThemeOrders orders={orders} />
-
-      {detail.related_themes.length > 0 && (
+      {related.length > 0 && (
         <div className="themedd__related">
-          <span className="themedd__rellabel">Linked themes:</span>
-          {detail.related_themes.slice(0, 5).map((r) => (
+          <span className="themedd__rellabel">Other validated themes · exploratory overlap, not a causal link:</span>
+          {related.slice(0, 5).map((r) => (
             <button key={r.theme_id} type="button" className={`themedd__relchip${r.kind === 'opposite' ? ' is-opposite' : ''}`} onClick={() => selectTheme(r.theme_id)}>{r.kind === 'opposite' ? '⇄ ' : ''}{r.name}</button>
           ))}
         </div>
       )}
 
-      <div className="themedd__newshead">{stale ? 'News in the last loaded theme detail' : 'The news in this theme'}</div>
+      <div className="themedd__newshead">{stale ? 'Evidence in the last loaded thesis detail' : 'Evidence in this thesis'}</div>
       <div className="themedd__news">
-        {detail.members.slice(0, 24).map((m) => (
+        {thesisMembers.slice(0, 24).map((m) => (
           <button key={`${m.event_id}-${m.ts}`} type="button" className="themedd__row" onClick={() => scSelectEvent(m as FeedItem)}>
             <span className="themedd__rowscore mono" style={{ color: m.triage_score >= 70 ? 'var(--live)' : m.triage_score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)' }}>{m.triage_score}</span>
             <span className="themedd__rowhead" title={m.headline_en && m.headline_en !== m.headline ? `original: ${m.headline}` : undefined}>{displayHeadline(m)}</span>
@@ -1351,6 +1240,7 @@ function ThemeDeepDive({ sourceSlice, stale, generatedAt }: { sourceSlice: Theme
             <span className="themedd__rowsrc">{m.source_name}</span>
           </button>
         ))}
+        {!thesisMembers.length && <div className="themedd__newsempty">The detail response did not include the exact evidence rows referenced by this thesis summary.</div>}
       </div>
 
       {top && (
@@ -1362,12 +1252,14 @@ function ThemeDeepDive({ sourceSlice, stale, generatedAt }: { sourceSlice: Theme
   )
 }
 
-function ThemeDeepDiveStaleNote({ generatedAt }: { generatedAt: string | null }) {
+function ThemeDeepDiveStaleNote({ generatedAt, refreshFailed }: { generatedAt: string | null; refreshFailed: boolean }) {
   const stamp = fmtStampLocal(generatedAt || undefined)
   return (
     <div className="themedd__scope themedd__scope--stale" role="alert">
       <b>Last successful Themes snapshot{stamp ? ` · ${stamp}` : ''}</b>
-      <span>Refresh failed. This detail and its qualification evidence are retained for audit, not current. Refresh Themes before treating the direction, scores, or company map as live.</span>
+      <span>{refreshFailed
+        ? 'Refresh failed. This dossier and its exact qualification evidence are retained for audit, not current. Refresh Themes before treating its activity, evidence confidence, mechanism, or expressions as live.'
+        : 'The last successful Themes stage is older than 10 minutes. This dossier and its exact qualification evidence are retained for audit, not current; a newer read-time score projection does not refresh the thesis proof.'}</span>
     </div>
   )
 }
@@ -1376,7 +1268,7 @@ function ThemeDeepDiveScopeNote({ sourceSlice }: { sourceSlice: ThemeSliceDispla
   return (
     <div className="themedd__scope" role="note">
       <b>Opened from {sourceSlice.label}</b>
-      <span>This detail uses the theme’s global evidence, companies, and generated brief because the detail API cannot slice them yet. The first-look qualification you opened was scoped to {sourceSlice.label}.</span>
+      <span>The detail API remains global. This view therefore keeps the {sourceSlice.label} scope disclosure visible and renders only exact, stance-labelled thesis evidence and qualified expressions; it does not infer causality from co-mentions.</span>
     </div>
   )
 }

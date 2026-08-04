@@ -8,6 +8,38 @@ export type ThemeTier = 'hot' | 'active' | 'cooling' | 'parked'
 export type ThemeStatus = 'live' | 'merged' | 'retired'
 export type OrderTier = 1 | 2 | 3 // first / second / third order (direct → ripple)
 export type ImpactSide = 'beneficiary' | 'harmed' | 'mixed'
+export type ThemeEvidenceStance = 'supports' | 'challenges'
+export type ThemeActivity = 'new' | 'reinforced' | 'challenged' | 'quiet'
+export type ThemeConviction = 'high' | 'medium' | 'watch'
+export type ThemeHorizon = 'days' | 'weeks' | 'months' | 'years'
+export type ThemeExpressionRole = 'direct' | 'bottleneck' | 'enabler' | 'harmed' | 'hedge'
+
+/** Versioned, evidence-bound investment thesis compiled by the existing discovery validator. Raw lexical
+ * clusters have no contract and remain internal Context. The model may write the hypothesis, but every
+ * source-bearing field is joined back to real member IDs before this object is persisted. */
+export interface ThemeNarrative {
+  version: 1
+  thesis: string
+  why_now: string
+  why_now_event_id: string
+  mechanism_steps: string[]
+  horizon: ThemeHorizon
+  falsifier: string // analyst-generated test, shown as such; not represented as a sourced fact
+  anchor_terms: [string, string]
+  evidence: { event_id: string; stance: ThemeEvidenceStance }[]
+  // Rows the validator reviewed and found related to the subject but neutral to the causal claim. Keeping
+  // these IDs is essential: otherwise a ledger reload cannot distinguish "classified context" from
+  // "never reviewed" and silently puts the same row back into the update queue.
+  context_event_ids: string[]
+  expressions: {
+    name_key: string
+    side: Exclude<ImpactSide, 'mixed'>
+    role: ThemeExpressionRole
+    mechanism: string
+    evidence_event_ids: string[]
+  }[]
+  validated_at: string
+}
 
 // The beneficiary-map 4×25 impact rubric (.claude/agents/screener/thesis-structure/03_beneficiary-map.md),
 // reused verbatim so a theme's company ordering speaks the same language as the gauntlet's tiers.
@@ -77,6 +109,8 @@ export interface ThemeMember {
   found_at: string // ISO
   score: number // the item's composite triage_score (0–100)
   tier: string // source_tier (primary_filing … unconfirmed)
+  source_name?: string // exact publisher/filing source carried into the evidence projection
+  url?: string // original evidence URL; optional on legacy ledger rows
   // carried so the theme's company list + order tiers can be rebuilt from its members (score.ts
   // ignores these; assign.ts/order.ts use them). Kept compact.
   companies?: CompanyGuess[]
@@ -99,13 +133,13 @@ export interface ThemeMember {
 export interface RelatedTheme {
   theme_id: string
   name: string
-  shared_company_keys: number
-  token_overlap: number // jaccard of keyword sets
+  shared_company_keys: number // legacy field name: count of shared validated expression keys
+  token_overlap: number // jaccard of validated causal-mechanism tokens (never raw theme keywords)
   kind: 'related' | 'opposite' // opposite = same blast radius, beneficiary vs harmed (a pair trade)
 }
 
 export interface Theme {
-  theme_id: string // THM-<sha256-8 of slug> — content-stable across rebuilds
+  theme_id: string // THM-<sha256-8 of initial slug + anchors + evidence identity> — rename-stable
   name: string // "AI data-center buildout"
   slug: string
   description: string // one plain-English line (§21)
@@ -133,19 +167,28 @@ export interface Theme {
   // lifecycle
   status: ThemeStatus
   merged_into: string | null
-  first_seen: string
+  first_seen: string // immutable lifecycle start; evidence excerpts/eviction must never move it forward
   last_flow: string // ISO of the most recent member item
   generation: 'deterministic' | 'groq' | 'claude' // provenance of the discovery/naming
+  narrative?: ThemeNarrative // absent on raw/legacy clusters; those fail closed until revalidated
   rev: number // bumped on every mutation (SSE dedup / change detection)
   // server-only: set when a self-heal shifted an LLM-named theme's identity enough that its persisted
   // name/description no longer describe the members (e.g. the strangers were purged). The next discovery
   // pass folds ≤renamePerPass flagged themes into its existing namer call. Additive; ignored by readers.
   needs_rename?: boolean
-  // Fresh deterministic clusters stay here until the optional validator explicitly accepts or rejects
-  // them. This field is only written on newly-created clusters; legacy deterministic ledger rows are not
-  // silently enrolled into the queue. A provider/cap/malformed-response failure therefore retries on a
+  // Fresh and automatically migrated deterministic clusters stay here until the optional validator
+  // explicitly accepts or rejects them. A provider/cap/malformed-response failure therefore retries on a
   // later discovery pass even when that pass creates no new cluster.
   needs_validation?: boolean
+  // A new row matched the complete validated anchor pair. The existing contract remains safe to show,
+  // while the next bounded validator batch decides whether the update supports, challenges or is context.
+  needs_narrative_update?: boolean
+  // Exact rows awaiting the next bounded validator pass. A boolean alone lost rows beyond the prompt cap;
+  // this FIFO drains across passes and keeps every arrival classifiable as support/challenge/context.
+  pending_narrative_event_ids?: string[]
+  // Durable queue fairness: repeated updates on two early ledger rows cannot starve later validation debt.
+  validation_queued_at?: string
+  validation_attempted_at?: string
 }
 
 /** Explicit invalidation for a theme that disappeared from the live index. SSE clients must consume this
@@ -167,14 +210,22 @@ export interface ThemeSummary {
   fresh_flow: number
   flow_series: number[] // hourly (last sparkWindows h)
   flow_daily: number[] // daily (last DAILY_WINDOWS days, newest last) — drives the long time-window views
+  // The durable all-arrival heat accumulator. `flow_daily` above is rebuilt from the bounded qualified
+  // evidence excerpt; this separate series preserves months of observed traffic without presenting raw or
+  // context rows as thesis proof.
+  heat_flow_daily: number[]
   member_count: number
-  first_seen: string
+  first_seen: string // immutable theme lifecycle start, not the oldest currently retained evidence row
   // Keep heat's component scores visible. `composite` remains above for old clients; this additive copy
   // lets the first-look explain heat without treating it as proof that a theme is investable.
   score_components: ThemeScores
   // Raw, bounded proof — never a synthesized claim. Rows are distinct story families/headlines and
   // routine paperwork is excluded, so repetition cannot manufacture corroboration.
   evidence: ThemeEvidence[]
+  narrative: Omit<ThemeNarrative, 'anchor_terms' | 'evidence' | 'expressions'> | null
+  activity: ThemeActivity
+  conviction: ThemeConviction
+  off_core_member_count: number
   /** Authoritative, qualification-derived trade expressions. Each ticker is tied to the exact
    * narrative-supporting evidence row that proved it; downstream consumers may narrow this set but
    * must never expand it from model output or from the display ordering of top_companies. */
@@ -203,6 +254,8 @@ export interface ThemeQualifiedExpression {
   ticker: string
   listing_country: string | null
   side: Exclude<ImpactSide, 'mixed'>
+  role: ThemeExpressionRole
+  mechanism: string
   evidence_event_ids: string[]
 }
 
@@ -212,6 +265,9 @@ export interface ThemeEvidence {
   found_at: string
   score: number
   source_tier: string
+  source_name: string | null
+  url: string | null
+  stance: ThemeEvidenceStance
 }
 
 export type ThemeAssessmentStatus = 'actionable' | 'forming' | 'context'
@@ -227,10 +283,15 @@ export interface ThemeAssessmentMetrics {
   narrative_coherence_pct: number // narrative_support_count / unique_evidence_count × 100
   recurring_narrative_token_count: number // non-company theme tokens recurring in >=2 distinct rows
   first_order_directional_ticker_count: number // syntactically-clean ticker-linked order-1 names with raw proof; listing/liquidity unverified
+  recent_24h_support_count: number
+  recent_24h_challenge_count: number
+  off_core_evidence_count: number
 }
 
 export interface ThemeAssessment {
   status: ThemeAssessmentStatus
+  activity: ThemeActivity
+  conviction: ThemeConviction
   reasons: string[] // plain facts that cleared gates
   blockers: string[] // explicit failed gates; empty only when actionable
   metrics: ThemeAssessmentMetrics
@@ -238,6 +299,9 @@ export interface ThemeAssessment {
 
 export interface ThemesIndex {
   generated_at: string
+  /** Wall-clock time of the read-time qualification projection. `generated_at` remains the last
+   * successful Themes pipeline stage, so a stopped scanner cannot look live merely because HTTP works. */
+  projected_at?: string
   themes: ThemeSummary[]
   counts: { hot: number; active: number; cooling: number; parked: number; retired: number; total: number }
   history_days: number // how many days of real daily-flow history exist (caps how far the window selector can honestly reach)
@@ -274,6 +338,8 @@ export interface ThemeItemView {
   triage_score?: number
   materiality_pre_score?: number
   source_tier?: string
+  source_name?: string
+  url?: string
   scope?: string
   region?: string // legacy 8-bucket market region (geo.ts) — a coarse floor
   country?: string | null // ISO alpha-2 the event is ABOUT (geography.ts) — persisted onto the member for geo slicing

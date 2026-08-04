@@ -5,6 +5,7 @@ import path from 'node:path'
 import { projectLiveIdeas } from '../src/news/ideas/ideas-projection'
 import { countIdeaSnapshots } from '../src/news/ideas/ideas-health'
 import { ideaId, readIdeaSnapshotStore } from '../src/news/ideas/ideas-store'
+import { eventIdFor } from '../src/news/normalize'
 import { validIdeaSnapshot } from './ideas-fixture'
 
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-projection-'))
@@ -18,11 +19,18 @@ try {
   const noExpiryId = ideaId('NOEXP', 'long')
   // Neither idea exists in the generated index: the live snapshot projection must still surface both.
   const liveBase = validIdeaSnapshot('LIVE')
+  const liveExpressionHeadline = 'LIVE issuer filing proves the named expression'
+  const liveExpressionUrl = 'https://exchange.test/live-expression'
+  const liveExpressionEventId = eventIdFor(liveExpressionHeadline, liveExpressionUrl)
   const liveTheme = {
-    theme_id: 'THM-a1b2c3d4', theme_rev: 6, evidence_event_ids: [liveBase.source_event_ids[0]],
+    theme_id: 'THM-a1b2c3d4', theme_rev: 6,
+    evidence_event_ids: [liveBase.source_event_ids[0], liveExpressionEventId],
+    why_now_event_id: liveBase.source_event_ids[0],
   }
   fs.writeFileSync(path.join(dir, `${liveId}.json`), JSON.stringify(validIdeaSnapshot('LIVE', 'long', {
     decay_at: '2026-08-03T08:00:00Z', origin_type: 'mixed',
+    source_event_ids: [liveBase.source_event_ids[0], liveExpressionEventId],
+    source_headlines: [liveBase.source_headlines[0], liveExpressionHeadline],
     source_themes: [liveTheme],
   })))
   fs.writeFileSync(path.join(dir, `${oldId}.json`), JSON.stringify(validIdeaSnapshot('OLD', 'long', {
@@ -53,7 +61,8 @@ try {
   assert.equal((projected.ideas[1] as any).feedback, 'down')
   assert.equal((projected.ideas[0] as any).origin_type, 'mixed')
   assert.deepEqual((projected.ideas[0] as any).source_themes, [liveTheme])
-  assert.equal(Object.hasOwn(projected.ideas[1], 'origin_type'), false, 'legacy snapshots stay deploy-compatible')
+  assert.equal((projected.ideas[1] as any).origin_type, 'wire', 'current wire snapshots keep their explicit lineage')
+  assert.deepEqual((projected.ideas[1] as any).source_themes, [])
   assert.deepEqual(projected.scorecard, {
     surfaced_total: 2,
     live_count: 1,

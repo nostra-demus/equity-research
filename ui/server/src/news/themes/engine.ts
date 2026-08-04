@@ -62,7 +62,7 @@ export function themesConfigFromNews(news: { themesRetireHours?: number; themesM
 
 // An optional LLM pass that renames/validates freshly-created themes in place (sets name/slug/
 // description/keywords; may set status:'retired' to reject a non-theme). Async; absent = deterministic.
-export type LlmNamer = (created: Theme[], now: Date) => Promise<void>
+export type LlmNamer = (created: Theme[], now: Date, generic?: Set<string>) => Promise<void>
 
 export interface StepInput {
   themes: Theme[]
@@ -92,6 +92,28 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   const themes = input.themes
   const changedIds = new Set<string>()
 
+  // Version migration is automatic and bounded. Old lexical clusters remain internal and cannot absorb
+  // stories; each discovery pass enrolls at most four newest-first for the existing validator lane, with no hand edits
+  // to historical rows and no separate model call.
+  if (input.runDiscovery) {
+    const legacyDebt = themes
+      .filter((theme) => theme.status === 'live' && !theme.narrative && !theme.needs_validation && !theme.needs_rename)
+      .sort((a, b) => (a.last_flow < b.last_flow ? 1 : a.last_flow > b.last_flow ? -1 : 0))
+      .slice(0, 4)
+    for (const theme of legacyDebt) {
+      if (theme.generation === 'deterministic') {
+        theme.needs_validation = true
+        // Legacy clusters predate the FIFO contract. Enrol their complete retained member set so a large
+        // theme is not judged forever from one ten-row prompt while qualification counts every row.
+        theme.pending_narrative_event_ids = theme.members.map((member) => member.event_id)
+      }
+      else theme.needs_rename = true
+      theme.validation_queued_at = now.toISOString().replace(/\.\d{3}Z$/, 'Z')
+      theme.rev++
+      changedIds.add(theme.theme_id)
+    }
+  }
+
   // CLAUDE.md §4/§24: a `social` (Reddit) item is discovery/corroboration only and must NEVER independently
   // drive an investment narrative — a theme is a thesis precursor. The band/score caps keep social out of
   // the top `pick`, but a non-drop social item still lands in `picks` (and the discovery cold-start pool),
@@ -109,17 +131,34 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   // when a heal shifted an LLM-named theme's identity or membership enough, its persisted narrative
   // name/description likely describe the OLD mix — flag it for a re-name (rides an existing namer call)
   const flagRename = (t: Theme, r: { identityShift: number; purgeShare: number }) => {
-    if (t.generation !== 'deterministic' && (r.identityShift > cfg.renameIdentityShift || r.purgeShare > cfg.renamePurgeShare)) t.needs_rename = true
+    if (t.generation !== 'deterministic' && (r.identityShift > cfg.renameIdentityShift || r.purgeShare > cfg.renamePurgeShare)) {
+      if (!t.needs_rename) t.validation_queued_at = now.toISOString().replace(/\.\d{3}Z$/, 'Z')
+      t.needs_rename = true
+    }
+  }
+
+  // A once-specific pair can become corpus boilerplate. Stop assignment immediately and queue the same
+  // thesis for re-grounding instead of either granting a permanent generic-word exemption or letting the
+  // self-healer erase the evidence before the compiler can choose a replacement pair.
+  if (input.generic?.size) {
+    for (const theme of themes) {
+      if (theme.status !== 'live' || !theme.narrative?.anchor_terms?.some((anchor) => input.generic!.has(anchor))) continue
+      if (!theme.needs_rename) {
+        theme.needs_rename = true
+        theme.validation_queued_at = now.toISOString().replace(/\.\d{3}Z$/, 'Z')
+        delete theme.validation_attempted_at
+        theme.rev++
+        changedIds.add(theme.theme_id)
+      }
+    }
   }
 
   // 1. assignment (every cycle) — also bumps each touched theme's daily ring per new member landed
   const a = assignThemes(items, themes, cfg.assign, now, input.generic)
   for (const id of a.touched) {
     changedIds.add(id)
-    // Do not mass-enroll the legacy deterministic ledger. Once a row actively absorbs fresh evidence,
-    // though, keeping it permanently Context would swallow the very cluster that deserves validation.
-    const touched = themes.find((t) => t.theme_id === id)
-    if (touched?.status === 'live' && touched.generation === 'deterministic') touched.needs_validation = true
+    // assignThemes records the exact pending event IDs on validated themes. Keeping that write next to
+    // membership means duplicate/no-op assignments cannot manufacture validation debt.
   }
   let pool = [...input.pool.filter(notSocial), ...a.unclustered]
 
@@ -136,38 +175,67 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
     }
   }
 
-  // 2. discovery (periodic). Validator retries do NOT depend on fresh pool flow: a newly deterministic
-  // cluster whose provider was capped/down/malformed remains explicitly queued for a later pass.
+  // 2. Discovery remains periodic, but narrative UPDATE classification runs every scanner cycle. New
+  // matching evidence otherwise sits unclassified for the full discovery cadence, and sustained ingress
+  // can outrun a queue that only drains hourly.
+  let created: Theme[] = []
   if (input.runDiscovery) {
-    let created: Theme[] = []
     if (pool.length) {
       const discovered = discoverDeterministic(pool, themes, now, cfg.discover, input.generic)
       created = discovered.created
       pool = discovered.leftover
     }
-    // Only new rows carrying this explicit flag enter the validation queue. Legacy deterministic themes
-    // have no flag and are deliberately left alone. The real namer caps the combined request to eight.
-    const pendingValidations = themes
-      .filter((t) => t.status === 'live' && t.generation === 'deterministic' && t.needs_validation)
-      .slice(0, 8)
-    // Fold up to renamePerPass healed-but-stale-named themes into the SAME call (no extra budget): the
-    // namer re-grounds their narrative in the post-heal members, or retires a husk.
-    const renames = themes.filter((t) => t.status === 'live' && t.needs_rename).slice(0, cfg.renamePerPass)
-    // The provider accepts at most eight clusters. Validation/rename debt must lead that bounded batch:
-    // putting fresh discoveries first lets a busy wire manufacture 8+ new clusters every pass and starve
-    // old failed validations forever. Renames are themselves capped, so pending validations still make
-    // progress; fresh rows that do not fit keep `needs_validation` and join the FIFO debt next pass.
-    const validationBatch = [...renames, ...pendingValidations, ...created].slice(0, 8)
-    if (input.llmNamer && validationBatch.length) {
-      try {
-        await input.llmNamer(validationBatch, now)
-      } catch {
-        // LLM failure → keep validation/rename flags for a later discovery pass (fail-soft)
-      }
-      // A processed queued theme cleared its flag (or was retired) — persist + emit/invalidate it.
-      for (const t of pendingValidations) if (!t.needs_validation || t.status !== 'live') changedIds.add(t.theme_id)
-      for (const t of renames) if (!t.needs_rename || t.status !== 'live') changedIds.add(t.theme_id)
+  }
+
+  // Fair debt order uses the last attempt when present (round-robin under repeated failures), otherwise
+  // the original enqueue clock. Within each theme, llm.sampleMembers drains pending IDs oldest-first.
+  const debtTime = (theme: Theme) => Date.parse(theme.validation_attempted_at || theme.validation_queued_at || '') || 0
+  const byDebt = (a: Theme, b: Theme) => debtTime(a) - debtTime(b) || a.theme_id.localeCompare(b.theme_id)
+  const updates = themes
+    .filter((t) => t.status === 'live' && t.narrative && t.needs_narrative_update)
+    .sort(byDebt)
+  const pendingValidations = input.runDiscovery ? themes
+    .filter((t) => t.status === 'live' && t.generation === 'deterministic' && t.needs_validation)
+    .sort(byDebt) : []
+  const renames = input.runDiscovery ? themes
+    .filter((t) => t.status === 'live' && t.needs_rename && !t.needs_narrative_update)
+    .sort(byDebt)
+    .slice(0, cfg.renamePerPass) : []
+
+  // Four is the compiler's hard batch. Reserve two slots for update debt on discovery cycles, then give
+  // one lane each to validation and rename when present; unused lanes flow back to updates. On ordinary
+  // cycles all four slots drain updates. A flood of renames/new clusters therefore cannot starve evidence.
+  const validationBatch: Theme[] = []
+  const add = (theme: Theme | undefined) => {
+    if (theme && !validationBatch.includes(theme) && validationBatch.length < 4) validationBatch.push(theme)
+  }
+  for (const theme of updates.slice(0, input.runDiscovery ? 2 : 4)) add(theme)
+  if (input.runDiscovery) {
+    add(pendingValidations[0] || created[0])
+    add(renames[0])
+  }
+  for (const theme of updates) add(theme)
+  for (const theme of pendingValidations) add(theme)
+  for (const theme of created) add(theme)
+  for (const theme of renames) add(theme)
+
+  if (input.llmNamer && validationBatch.length) {
+    const attemptedAt = now.toISOString().replace(/\.\d{3}Z$/, 'Z')
+    for (const theme of validationBatch) {
+      theme.validation_attempted_at = attemptedAt
+      if (!theme.validation_queued_at) theme.validation_queued_at = attemptedAt
+      theme.rev++
+      changedIds.add(theme.theme_id)
     }
+    try {
+      await input.llmNamer(validationBatch, now, input.generic)
+    } catch {
+      // LLM failure → keep queue flags for a later cycle (fail-soft)
+    }
+    for (const theme of validationBatch) changedIds.add(theme.theme_id)
+  }
+
+  if (input.runDiscovery) {
     for (const t of created) {
       if (t.status === 'live') {
         themes.push(t)
@@ -342,7 +410,14 @@ export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: 
   const changedIds = new Set(res.changedThemeIds)
   const changedThemes = res.themes.filter((t) => changedIds.has(t.theme_id))
   const fixedNow = () => cycleNow
-  appendThemeMutations(input.repoRoot, changedThemes, fixedNow)
+  const ledgerAdvanced = appendThemeMutations(input.repoRoot, changedThemes, fixedNow)
+  if (!ledgerAdvanced) {
+    // The ledger is the source of truth. Publishing the in-memory index, consuming the pool, emitting SSE
+    // freshness, or stamping assignments after a failed append creates a state clients can see but the next
+    // process cannot reconstruct. Leave every downstream artifact untouched so the next cycle retries from
+    // the same durable inputs.
+    return { changed: [], removed: [], assignments: new Map() }
+  }
   maybeCompactThemesLedger(input.repoRoot, fixedNow) // keep the append-only ledger from ballooning (→ git-push 408s)
   savePool(input.stateDir, res.pool, cfg.poolCap)
   writeThemesIndex(input.repoRoot, res.themes, fixedNow)

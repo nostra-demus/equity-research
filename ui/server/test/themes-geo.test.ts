@@ -8,6 +8,7 @@ import assert from 'node:assert/strict'
 import { buildGeoThemesIndex, memberCountry, memberMatchesGeo, hasThemeGeo } from '../src/news/themes/geo-index'
 import { assignThemes } from '../src/news/themes/assign'
 import type { Theme, ThemeItemView, ThemeMember } from '../src/news/themes/types'
+import { attachValidNarrative } from './themes-fixtures'
 
 let passed = 0
 function check(name: string, fn: () => void): void {
@@ -23,7 +24,7 @@ function member(id: string, opts: Partial<ThemeMember> = {}): ThemeMember {
   return {
     event_id: id,
     dedup_group: opts.dedup_group,
-    headline: opts.headline || 'a headline with no place named',
+    headline: opts.headline || `AI data center capacity update ${id}`,
     headline_en: opts.headline_en,
     found_at: opts.found_at || hoursAgo(1),
     score: opts.score ?? 70,
@@ -38,7 +39,7 @@ function member(id: string, opts: Partial<ThemeMember> = {}): ThemeMember {
 
 function theme(id: string, name: string, members: ThemeMember[], opts: Partial<Theme> = {}): Theme {
   const last = members.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), '')
-  return {
+  const result: Theme = {
     theme_id: id, name, slug: name.toLowerCase().replace(/\s+/g, '-'), description: `${name} — what it is`,
     keywords: opts.keywords || [], company_keys: opts.company_keys || [], event_type_affinity: opts.event_type_affinity || [],
     members, member_count_total: members.length,
@@ -48,12 +49,18 @@ function theme(id: string, name: string, members: ThemeMember[], opts: Partial<T
     status: opts.status || 'live', merged_into: null, first_seen: opts.first_seen || hoursAgo(48),
     last_flow: last, generation: 'deterministic', rev: 1,
   }
+  if (members.length >= 2) attachValidNarrative(result)
+  return result
 }
 
 const us = theme('THM-usaa1111', 'US thing', [member('u1', { country: 'US' }), member('u2', { country: 'US' })])
 const hk = theme('THM-hkaa2222', 'HK thing', [member('h1', { country: 'HK' }), member('h2', { country: 'HK' }), member('h3', { country: 'HK' })])
-const inn = theme('THM-inaa3333', 'India thing', [member('i1', { country: 'IN' })])
-const mixed = theme('THM-mxaa4444', 'Mixed', [member('m1', { country: 'HK' }), member('m2', { country: 'IN' }), member('m3', { country: 'US' })])
+const inn = theme('THM-inaa3333', 'India thing', [member('i1', { country: 'IN' }), member('i2', { country: 'IN' })])
+const mixed = theme('THM-mxaa4444', 'Mixed', [
+  member('mh1', { country: 'HK' }), member('mh2', { country: 'HK' }),
+  member('mi1', { country: 'IN' }), member('mi2', { country: 'IN' }),
+  member('mu1', { country: 'US' }), member('mu2', { country: 'US' }),
+])
 
 // ---- country slice ----
 check('country slice: keeps only themes with members in that country, dropping the rest', () => {
@@ -65,7 +72,7 @@ check('country slice: keeps only themes with members in that country, dropping t
 check('country slice: member_count is the geo member count, not the theme total', () => {
   const idx = buildGeoThemesIndex([mixed], { country: 'HK' }, now)
   assert.equal(idx.themes.length, 1)
-  assert.equal(idx.themes[0].member_count, 1) // only the one HK member of the 3
+  assert.equal(idx.themes[0].member_count, 2) // only the two HK members of the six
 })
 
 check('country slice dedupes story families before company placement and qualification', () => {
@@ -98,13 +105,20 @@ check('continent slice: North America includes US, excludes HK/IN', () => {
 
 // ---- legacy members (no stored country) resolve lazily, same as the archive ----
 check('legacy member: country resolved from a place named in the headline (gazetteer)', () => {
-  const legacy = theme('THM-lgaa5555', 'Legacy HK', [member('l1', { headline: 'Hong Kong exchange sees record listings' })])
+  const legacy = theme('THM-lgaa5555', 'Legacy HK', [
+    member('l1', { headline: 'Hong Kong exchange listing demand rises' }),
+    member('l2', { headline: 'Hong Kong exchange listing demand expands' }),
+  ])
   const idx = buildGeoThemesIndex([legacy], { country: 'HK' }, now)
   assert.equal(idx.themes.length, 1)
 })
 
 check('legacy member: country resolved from a primary single-company listing_country', () => {
-  const legacy = theme('THM-lgaa6666', 'Legacy co', [member('l2', { headline: 'quarterly earnings rise', issuer_linkage: 'primary', companies: [{ name: 'Foo Ltd', ticker: 'FOO', listing_country: 'HK' } as any] })])
+  const company = { name: 'Foo Ltd', ticker: 'FOO', listing_country: 'HK' } as any
+  const legacy = theme('THM-lgaa6666', 'Legacy co', [
+    member('lc1', { headline: 'Network capacity investment rises', issuer_linkage: 'primary', companies: [company] }),
+    member('lc2', { headline: 'Network capacity investment expands', issuer_linkage: 'primary', companies: [company] }),
+  ])
   const idx = buildGeoThemesIndex([legacy], { country: 'HK' }, now)
   assert.equal(idx.themes.length, 1)
 })
@@ -116,27 +130,25 @@ check('ranking: the bigger, fresher geo theme sorts first', () => {
     member('b2', { country: 'HK', found_at: hoursAgo(0), score: 90, tier: 'primary_filing' }),
     member('b3', { country: 'HK', found_at: hoursAgo(0), score: 90, tier: 'primary_filing' }),
   ], { companies: [{ name: 'A', ticker: 'A', listing_country: 'HK', order: 1, side: 'beneficiary' } as any, { name: 'B', ticker: 'B', listing_country: 'HK', order: 1, side: 'beneficiary' } as any] })
-  const small = theme('THM-smaa8888', 'Small HK', [member('s1', { country: 'HK', found_at: hoursAgo(40), score: 40, tier: 'news' })])
+  const small = theme('THM-smaa8888', 'Small HK', [
+    member('s1', { country: 'HK', found_at: hoursAgo(40), score: 40, tier: 'news' }),
+    member('s2', { country: 'HK', found_at: hoursAgo(41), score: 40, tier: 'news' }),
+  ])
   const idx = buildGeoThemesIndex([small, big], { country: 'HK' }, now)
   assert.equal(idx.themes[0].theme_id, 'THM-bgaa7777')
   assert.ok(idx.themes[0].composite >= idx.themes[1].composite)
 })
 
-check('geo top_companies are only the geo-listed names', () => {
-  // Put the names on the sliced member itself: the summary now rebuilds company facts from slice proof
-  // and deliberately refuses a global company row that no sliced story names.
-  const companies = [
-    { name: 'HK Co', ticker: 'HKC', listing_country: 'HK' } as any,
-    { name: 'US Co', ticker: 'USC', listing_country: 'US' } as any,
-  ]
-  const t = theme('THM-coaa9999', 'Co geo', [member('c1', { country: 'HK', companies })], {
-    companies: [
-      { name: 'HK Co', ticker: 'HKC', listing_country: 'HK', order: 1, side: 'beneficiary' } as any,
-      { name: 'US Co', ticker: 'USC', listing_country: 'US', order: 1, side: 'beneficiary' } as any,
-    ],
-  })
-  const idx = buildGeoThemesIndex([t], { country: 'HK' }, now)
-  assert.deepEqual(idx.themes[0].top_companies.map((c) => c.ticker), ['HKC'])
+check('Where scopes what the evidence is about and preserves a cross-border listed expression', () => {
+  const nvidia = { name: 'Nvidia', ticker: 'NVDA', listing_country: 'US' } as any
+  const t = theme('THM-coaa9999', 'India AI capacity', [
+    member('c1', { country: 'IN', companies: [nvidia], headline: 'India AI data center capacity requires Nvidia accelerators' }),
+    member('c2', { country: 'IN', companies: [nvidia], headline: 'India AI data center capacity expands Nvidia accelerator demand' }),
+  ], { companies: [{ ...nvidia, order: 1, side: 'beneficiary' } as any] })
+  const summary = buildGeoThemesIndex([t], { country: 'IN' }, now).themes[0]
+  assert.equal(summary.assessment.status, 'actionable')
+  assert.deepEqual(summary.top_companies.map((c) => c.ticker), ['NVDA'])
+  assert.deepEqual(summary.qualified_expressions.map((expression) => expression.ticker), ['NVDA'])
 })
 
 check('non-live themes are never included', () => {
@@ -163,18 +175,25 @@ check('memberCountry: legacy member with only a domain region reproduces the arc
 })
 
 check('geo slice: a region-floor-only member is INCLUDED (matches the archive Events list)', () => {
-  const t = theme('THM-flaa1313', 'Floor only', [member('f1', { region: 'IN', country: undefined, issuer_linkage: 'sector', companies: [], headline: 'BSE scrip update' })])
+  const t = theme('THM-flaa1313', 'Floor only', [
+    member('f1', { region: 'IN', country: undefined, issuer_linkage: 'sector', companies: [], headline: 'BSE market capacity investment rises' }),
+    member('f2', { region: 'IN', country: undefined, issuer_linkage: 'sector', companies: [], headline: 'BSE market capacity investment expands' }),
+  ])
   assert.equal(buildGeoThemesIndex([t], { country: 'IN' }, now).themes.length, 1)
   assert.equal(buildGeoThemesIndex([t], { geoRegion: 'Asia' }, now).themes.length, 1)
 })
 
 check('assignThemes persists the domain region floor onto the new member', () => {
-  const live = theme('THM-rgaa1414', 'Reg floor', [], { keywords: ['reliance', 'refinery', 'petrochemical'], event_type_affinity: ['operational'] })
+  const live = theme('THM-rgaa1414', 'Reg floor', [
+    member('rf1', { headline: 'Refinery petrochemical output rises', region: 'IN' }),
+    member('rf2', { headline: 'Refinery petrochemical output expands', region: 'IN' }),
+  ], { keywords: ['reliance', 'refinery', 'petrochemical'], event_type_affinity: ['operational'] })
   const it: ThemeItemView = { event_id: 'e2', headline: 'Reliance refinery petrochemical output', found_at: hoursAgo(1), companies: [], event_types: ['operational'], issuer_linkage: 'sector', triage_score: 75, source_tier: 'news', region: 'IN', country: null }
   assignThemes([it], [live], undefined, NOW)
-  assert.equal(live.members.length, 1)
-  assert.equal(live.members[0].region, 'IN')
-  assert.equal(memberCountry(live.members[0]), 'IN') // floor reproduces the country
+  const landed = live.members.find((row) => row.event_id === 'e2')!
+  assert.equal(live.members.length, 3)
+  assert.equal(landed.region, 'IN')
+  assert.equal(memberCountry(landed), 'IN') // floor reproduces the country
 })
 
 check('memberMatchesGeo: country exact, continent rollup', () => {
@@ -193,12 +212,15 @@ check('hasThemeGeo', () => {
 
 // ---- the persistence assignThemes now writes ----
 check('assignThemes persists the item country onto the new member', () => {
-  const live = theme('THM-asaa1212', 'Semiconductors', [], { keywords: ['nvidia', 'semiconductor', 'datacenter'], event_type_affinity: ['product'] })
+  const live = theme('THM-asaa1212', 'Semiconductors', [
+    member('as1', { headline: 'Semiconductor datacenter expansion rises', country: 'US' }),
+    member('as2', { headline: 'Semiconductor datacenter expansion broadens', country: 'US' }),
+  ], { keywords: ['nvidia', 'semiconductor', 'datacenter'], event_type_affinity: ['product'] })
   const it: ThemeItemView = { event_id: 'e1', headline: 'Nvidia semiconductor datacenter expansion announced', found_at: hoursAgo(1), companies: [], event_types: ['product'], issuer_linkage: 'primary', triage_score: 80, source_tier: 'news', country: 'US' }
   const res = assignThemes([it], [live], undefined, NOW)
   assert.ok(res.touched.has('THM-asaa1212'))
-  assert.equal(live.members.length, 1)
-  assert.equal(live.members[0].country, 'US')
+  assert.equal(live.members.length, 3)
+  assert.equal(live.members.find((row) => row.event_id === 'e1')?.country, 'US')
 })
 
 console.log(`\nthemes-geo: ${passed} checks passed`)

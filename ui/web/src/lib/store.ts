@@ -5,7 +5,7 @@ import { downstreamCascade, type CascadeNode } from './cascade'
 import { moduleLabel, preferRunRoot, resolveVerdict } from './format'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief, ThemeRemoval } from './themes'
-import { compareBriefingThemes, intensityWindowForHours, themeWindowForView } from './themes'
+import { compareBriefingThemes, intensityWindowForHours, themeSurfaceStatus, themeWindowForView } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import { archiveErrorNote } from './archiveError'
 import { selectNewsChatHandoffEvidence } from './newsChatHandoff'
@@ -178,12 +178,47 @@ let themesGeoRefetchTimer: any = null // debounces the geo-sliced themes re-fetc
 // Every Themes request gets a generation. Slice labels alone are not enough: two requests for the same
 // slice can finish out of order, and an owner switch can briefly recreate the same empty geo/subject.
 let themesRequestSeq = 0
+// Detail reads have their own generation. The selected id alone is not a sufficient guard: retrying the
+// same id can leave two responses in flight, and the slower old response must never overwrite the newer.
+let themeDetailRequestSeq = 0
+// Only explicit user retries are coalesced. Background projection refreshes retain their existing
+// newest-request-wins semantics, while a double-click cannot launch duplicate recovery requests.
+let themesRetryPromise: Promise<void> | null = null
 // Unlike ordinary theme revisions, a qualification/time-decay projection can change without bumping
 // Theme.rev. Track every live upsert so a response that began before it cannot overwrite the SSE truth.
 let themeUpsertMutationSeq = 0
 // A removal can race an already-buffered theme-update frame. Keep its revision for this session so an
 // older update cannot resurrect a retired/merged row after the explicit invalidation lands.
 const themeRemovalRevs = new Map<string, number>()
+
+const canonicalContractValue = (value: unknown): unknown => {
+  if (Array.isArray(value)) return value.map(canonicalContractValue)
+  if (!value || typeof value !== 'object') return value
+  return Object.fromEntries(
+    Object.entries(value as Record<string, unknown>)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([key, entry]) => [key, canonicalContractValue(entry)]),
+  )
+}
+
+// Only fields that determine the PM thesis belong here. Slice-specific flow/member counts and read-time
+// heat can legitimately differ between the index and the global detail endpoint; narrative truth cannot.
+const themeDetailContractKey = (theme: Theme | null | undefined): string | null => theme
+  ? JSON.stringify(canonicalContractValue({
+      theme_id: theme.theme_id,
+      rev: theme.rev,
+      name: theme.name,
+      description: theme.description,
+      narrative: theme.narrative ?? null,
+      activity: theme.activity ?? null,
+      conviction: theme.conviction ?? null,
+      assessment: theme.assessment || theme.opportunity || null,
+      evidence: theme.evidence || [],
+      qualified_expressions: theme.qualified_expressions || [],
+    }))
+  : null
+
+const cancelThemeDetailRequest = () => { themeDetailRequestSeq++ }
 let selectGen = 0 // bumped on every selectTicker; async work bails if it changed (fast-switch guard)
 let archiveToken = 0 // bumped on every archive search; a stale slow response bails if it changed (last-write-wins)
 let facetsToken = 0 // same guard for a standalone facets load (contextless / on dropdown open)
@@ -749,6 +784,7 @@ interface State {
   themesWindow: number | null // the selected time-window lookback in HOURS; null = Live (real-time)
   themesHistoryDays: number // days of real daily-flow history the engine has (gates the long windows)
   themesGeneratedAt: string | null // server timestamp for the last successfully loaded index (cached-state honesty)
+  themesProjectedAt: string | null // read-time decay projection; never substitutes for themesGeneratedAt freshness
   // the "Where" geography picker (owned by the Event rail) mirrored here so the Themes view slices by it —
   // empty country+geoRegion = the global (un-filtered) index. `label` is the country/continent display name.
   themesGeo: { country: string; geoRegion: string; label: string }
@@ -771,6 +807,7 @@ interface State {
   selectTheme: (id: string | null) => Promise<void>
   regenerateThemeBrief: () => Promise<void>
   refreshThemes: () => Promise<void>
+  retryThemes: () => Promise<void>
 
   // ---- wire (the swarm-generic news-wire surface — lib/wire.ts; shared by every swarm that declares one) ----
   wireSwarm: string // which swarm OWNS the wire view state (archive query, themes geo/subject) — reset on change
@@ -1018,6 +1055,7 @@ export const useStore = create<State>((set, get) => ({
   themesWindow: null,
   themesHistoryDays: 0,
   themesGeneratedAt: null,
+  themesProjectedAt: null,
   themesGeo: { country: '', geoRegion: '', label: '' },
   selectedTheme: null,
   themeDetail: null,
@@ -2911,13 +2949,14 @@ export const useStore = create<State>((set, get) => ({
   _enterWire: (to) => {
     if (get().wireSwarm === to) return
     themesRequestSeq++ // invalidate any response owned by the wire we are leaving
+    cancelThemeDetailRequest()
     if (themesGeoRefetchTimer) { clearTimeout(themesGeoRefetchTimer); themesGeoRefetchTimer = null }
     set({
       wireSwarm: to,
       scArchiveQuery: {}, scArchiveResults: [], scArchiveCursor: null, scArchiveLoading: false,
       scArchiveLoadingMore: false, scArchiveScannedThrough: null, scArchiveExhausted: false, scArchiveError: null,
       scFacets: null, scFacetsLoading: false,
-      themes: [], themesStatus: 'idle', themesView: null, themesWindow: null, themesHistoryDays: 0, themesGeneratedAt: null,
+      themes: [], themesStatus: 'idle', themesView: null, themesWindow: null, themesHistoryDays: 0, themesGeneratedAt: null, themesProjectedAt: null,
       themesGeo: { country: '', geoRegion: '', label: '' }, themesSubject: null,
       selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false,
       feedWindowDays: 2,
@@ -3021,6 +3060,7 @@ export const useStore = create<State>((set, get) => ({
     const g = requestState.themesGeo
     const subject = requestState.themesSubject
     const cfg = activeWireConfig(requestState)
+    const sliced = !!(g.country || g.geoRegion || subject || (cfg && !cfg.flow && cfg.eventScope))
     // Full owner identity matters in addition to the visible slice. A slow response from one wire can
     // otherwise land after _enterWire resets both wires to the same empty geo/subject values.
     const owner = {
@@ -3067,15 +3107,30 @@ export const useStore = create<State>((set, get) => ({
       // state in the same synchronous write. The request/owner guard above makes an older response unable
       // to dismiss a selection made on a newer owner or slice; the async detail callbacks also key off the
       // selected id, so they cannot repopulate it after this clear.
-      const selectedTheme = get().selectedTheme
-      const selectedMissing = !!selectedTheme && !currentThemes.some((t) => t.theme_id === selectedTheme)
+      const stateBeforeSet = get()
+      const selectedTheme = stateBeforeSet.selectedTheme
+      const previousSelectedSummary = selectedTheme ? stateBeforeSet.themes.find((t) => t.theme_id === selectedTheme) : undefined
+      const nextSelectedSummary = selectedTheme ? currentThemes.find((t) => t.theme_id === selectedTheme) : undefined
+      const selectedMissing = !!selectedTheme && (!nextSelectedSummary || themeSurfaceStatus(nextSelectedSummary) === 'context')
+      // The detail endpoint is global. On the global index, compare the complete thesis contract; on a
+      // geo/subject slice, only revision identity is portable because the slice has its own qualification.
+      const selectedContractChanged = !!selectedTheme && !!nextSelectedSummary && !selectedMissing && (
+        sliced
+          ? (!!previousSelectedSummary && previousSelectedSummary.rev !== nextSelectedSummary.rev)
+          : (
+              (!!previousSelectedSummary && themeDetailContractKey(previousSelectedSummary) !== themeDetailContractKey(nextSelectedSummary))
+              || (!!stateBeforeSet.themeDetail && themeDetailContractKey(stateBeforeSet.themeDetail.theme) !== themeDetailContractKey(nextSelectedSummary))
+            )
+      )
+      if (selectedMissing || selectedContractChanged) cancelThemeDetailRequest()
       set({
         themes: currentThemes,
         themesHistoryDays: idx.history_days || 0,
         themesGeneratedAt: idx.generated_at || null,
+        themesProjectedAt: idx.projected_at || null,
         themesStatus: 'ready',
-        ...(selectedMissing ? {
-          selectedTheme: null,
+        ...(selectedMissing || selectedContractChanged ? {
+          selectedTheme: selectedMissing ? null : selectedTheme,
           themeDetail: null,
           themeDetailError: null,
           themeBrief: null,
@@ -3083,22 +3138,36 @@ export const useStore = create<State>((set, get) => ({
           themeBriefLoading: false,
         } : {}),
       })
+      // Keep an open global dossier aligned with the exact summary revision/qualification. Calling the
+      // normal selector gives the replacement read a new generation, so the invalidated response cannot
+      // land even if it resolves a moment later.
+      if (selectedContractChanged && selectedTheme) void get().selectTheme(selectedTheme)
     } catch {
       // A failed superseded request cannot turn a newer success (or a different owner/slice) red.
       if (stillOwnsRequest()) set({ themesStatus: 'error' })
     }
+  },
+  retryThemes: () => {
+    if (themesRetryPromise) return themesRetryPromise
+    set({ themesStatus: 'loading' })
+    const pending = get().refreshThemes().finally(() => {
+      if (themesRetryPromise === pending) themesRetryPromise = null
+    })
+    themesRetryPromise = pending
+    return pending
   },
   // the wire rail's subject chips call this so the Themes map/board slice to the same single subject —
   // the exact themesGeo pattern (debounced refetch, display updates without a wasted round-trip).
   setThemesSubject: (s) => {
     if (get().themesSubject === s) return
     themesRequestSeq++ // invalidate immediately; the matching refetch is deliberately debounced below
+    cancelThemeDetailRequest()
     const open = get().themesView !== null
     // A cached index has one implicit slice. Once the subject changes it is not evidence for the new
     // label, so clear it instead of briefly (or after a failed fetch, indefinitely) relabelling it.
     set({
       themesSubject: s,
-      themes: [], themesHistoryDays: 0, themesGeneratedAt: null,
+      themes: [], themesHistoryDays: 0, themesGeneratedAt: null, themesProjectedAt: null,
       themesStatus: open ? 'loading' : 'idle',
       selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false,
     })
@@ -3117,12 +3186,13 @@ export const useStore = create<State>((set, get) => ({
     if (!geoChanged && cur.label === geo.label) return
     if (!geoChanged) { set({ themesGeo: geo }); return }
     themesRequestSeq++ // invalidate immediately; old results cannot land during the debounce window
+    cancelThemeDetailRequest()
     const open = get().themesView !== null
     // Same fail-closed slice rule as subject changes: old geography rows never wear the new geography's
     // label. Clearing is intentionally blunt and honest; a matching fresh index replaces it shortly.
     set({
       themesGeo: geo,
-      themes: [], themesHistoryDays: 0, themesGeneratedAt: null,
+      themes: [], themesHistoryDays: 0, themesGeneratedAt: null, themesProjectedAt: null,
       themesStatus: open ? 'loading' : 'idle',
       selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false,
     })
@@ -3135,19 +3205,24 @@ export const useStore = create<State>((set, get) => ({
   // sibling Themes view. Kicks a board refresh so the freshly-skimmed ideas land without waiting for the
   // 30s poll. Read-only — surfacing happens server-side on the ingester tick.
   openIdeas: () => {
-    set({ ideasOpen: true, calendarOpen: false, themesView: null, scSelectedEvent: null, scFocusedCompany: null })
+    cancelThemeDetailRequest()
+    set({ ideasOpen: true, calendarOpen: false, themesView: null, selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false, scSelectedEvent: null, scFocusedCompany: null })
     void get().scRefreshBoard()
   },
   closeIdeas: () => set({ ideasOpen: false }),
   // The "Calendar" tab. Mirrors openIdeas: takes the main pane, clears any open event, closes the sibling
   // tabs. CalendarView fetches /api/calendar itself (no store data to seed) — this just flips the pane.
-  openCalendar: () => set({ calendarOpen: true, ideasOpen: false, themesView: null, scSelectedEvent: null, scFocusedCompany: null }),
+  openCalendar: () => {
+    cancelThemeDetailRequest()
+    set({ calendarOpen: true, ideasOpen: false, themesView: null, selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false, scSelectedEvent: null, scFocusedCompany: null })
+  },
   closeCalendar: () => set({ calendarOpen: false }),
   openThemes: async (view) => {
     const themesWindow = themeWindowForView(view, get().themesWindow)
     // An explicit Themes-tab open is navigation to the first-look surface, not a resurrection of whichever
     // deep dive happened to be open before Ideas/Calendar. Clear its whole async state synchronously so an
     // old detail callback sees a different selected id and cannot land during the new index request.
+    cancelThemeDetailRequest()
     set({
       themesView: view,
       themesWindow,
@@ -3175,7 +3250,8 @@ export const useStore = create<State>((set, get) => ({
   },
   setThemesView: (view) => {
     const themesWindow = themeWindowForView(view, get().themesWindow)
-    set({ themesView: view, themesWindow, selectedTheme: null })
+    cancelThemeDetailRequest()
+    set({ themesView: view, themesWindow, selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false })
     void get().setIntensityWindow(intensityWindowForHours(themesWindow))
   },
   setThemesWindow: (hours) => {
@@ -3183,21 +3259,54 @@ export const useStore = create<State>((set, get) => ({
     set({ themesWindow })
     void get().setIntensityWindow(intensityWindowForHours(themesWindow)) // historical windows belong only to Explore
   },
-  closeThemes: () => set({ themesView: null, selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false }),
+  closeThemes: () => {
+    cancelThemeDetailRequest()
+    set({ themesView: null, selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false })
+  },
   selectTheme: async (id) => {
+    const requestSeq = ++themeDetailRequestSeq
     if (!id) { set({ selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false }); return }
-    set({ selectedTheme: id, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: true, themeBriefLoading: true })
-    // members/companies + the plain-English brief load in PARALLEL — the deep-dive renders instantly while
-    // the brief (a first-time Groq read can take a beat) streams into its own slot. Each guards on the
-    // still-open id so a fast click-through never lands a stale result on the new theme.
-    void api.newsTheme(id).then(
-      (detail) => { if (get().selectedTheme === id) set({ themeDetail: detail, themeDetailError: null, themesLoading: false }) },
-      (error: any) => { if (get().selectedTheme === id) set({ themeDetailError: error?.message || 'The theme detail could not be loaded.', themesLoading: false }) },
+    const requestState = get()
+    const summaryAtRequest = requestState.themes.find((theme) => theme.theme_id === id)
+    const cfg = activeWireConfig(requestState)
+    const sliced = !!(
+      requestState.themesGeo.country
+      || requestState.themesGeo.geoRegion
+      || requestState.themesSubject
+      || (cfg && !cfg.flow && cfg.eventScope)
     )
-    void api.newsThemeBrief(id).then(
-      (brief) => { if (get().selectedTheme === id) set({ themeBrief: brief, themeBriefLoading: false }) },
-      () => { if (get().selectedTheme === id) set({ themeBriefLoading: false }) },
-    )
+    const expectedContract = sliced ? null : themeDetailContractKey(summaryAtRequest)
+    set({ selectedTheme: id, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: true, themeBriefLoading: false })
+    // The detail payload already carries the canonical narrative dossier. Do not launch the retired
+    // headline-only brief synthesizer on every open; it could disagree with the contract and spend budget
+    // for output this UI no longer renders.
+    try {
+      const detail = await api.newsTheme(id)
+      if (requestSeq !== themeDetailRequestSeq || get().selectedTheme !== id) return
+      if (!detail) {
+        set({ themeDetail: null, themeDetailError: 'The theme detail endpoint returned no current dossier.', themesLoading: false })
+        return
+      }
+      const currentSummary = get().themes.find((theme) => theme.theme_id === id)
+      const currentContract = themeDetailContractKey(currentSummary)
+      const responseContract = themeDetailContractKey(detail.theme)
+      const revisionMatches = !!currentSummary
+        && Number.isFinite(currentSummary.rev)
+        && Number.isFinite(detail.theme.rev)
+        && currentSummary.rev === detail.theme.rev
+      const contractMatches = sliced
+        ? revisionMatches
+        : revisionMatches && !!expectedContract && expectedContract === currentContract && currentContract === responseContract
+      if (!currentSummary || themeSurfaceStatus(currentSummary) === 'context' || detail.theme.theme_id !== id || !contractMatches) {
+        set({ themeDetail: null, themeDetailError: 'The theme changed while its detail was loading. Retry from the current Themes screen.', themesLoading: false })
+        return
+      }
+      set({ themeDetail: detail, themeDetailError: null, themesLoading: false })
+    } catch (error: any) {
+      if (requestSeq === themeDetailRequestSeq && get().selectedTheme === id) {
+        set({ themeDetailError: error?.message || 'The theme detail could not be loaded.', themesLoading: false })
+      }
+    }
   },
   // force a fresh read of the open theme's brief (the deep-dive "↻" — useful when new news has landed)
   regenerateThemeBrief: async () => {
@@ -4276,6 +4385,7 @@ export const useStore = create<State>((set, get) => ({
       // active slice invalidates its request and schedules a full replacement below.
       if (refetchSlice) themesRequestSeq++
       const selected = get().selectedTheme === removal.theme_id
+      if (selected) cancelThemeDetailRequest()
       set({
         themes: get().themes.filter((t) => t.theme_id !== removal.theme_id),
         ...(selected ? { selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false } : {}),
@@ -4299,6 +4409,13 @@ export const useStore = create<State>((set, get) => ({
       const g = get().themesGeo
       const wireCfg = activeWireConfig(get())
       if (g.country || g.geoRegion || get().themesSubject || (wireCfg && !wireCfg.flow && wireCfg.eventScope)) {
+        // The SSE summary is global and cannot be stamped into a sliced index. If it targets the open
+        // dossier, close that dossier immediately rather than displaying a revision the matching slice
+        // has not yet requalified; the debounced index refresh makes it reopenable when proven there.
+        if (get().selectedTheme === t.theme_id) {
+          cancelThemeDetailRequest()
+          set({ selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false })
+        }
         if (themesGeoRefetchTimer) clearTimeout(themesGeoRefetchTimer)
         themesGeoRefetchTimer = setTimeout(() => void get().refreshThemes(), 1200)
         return
@@ -4311,11 +4428,23 @@ export const useStore = create<State>((set, get) => ({
       const cur = get().themes
       const i = cur.findIndex((x) => x.theme_id === t.theme_id)
       if (i >= 0 && Number.isFinite(cur[i].rev) && Number.isFinite(t.rev) && cur[i].rev > t.rev) return
+      const selected = get().selectedTheme === t.theme_id
+      const selectedInvalid = selected && themeSurfaceStatus(t) === 'context'
+      const selectedChanged = selected && !selectedInvalid && themeDetailContractKey(cur[i]) !== themeDetailContractKey(t)
+      if (selectedInvalid || selectedChanged) cancelThemeDetailRequest()
       const next = i >= 0 ? cur.map((x) => (x.theme_id === t.theme_id ? t : x)) : [...cur, t]
       // Match the server's evidence-first index contract. Composite-only sorting would let a hot Context
       // row jump above an actionable pattern after any live patch until the next full refresh.
       next.sort(compareBriefingThemes)
-      set({ themes: next })
+      set({
+        themes: next,
+        ...(selectedInvalid ? {
+          selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false,
+        } : selectedChanged ? {
+          themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false,
+        } : {}),
+      })
+      if (selectedChanged) void get().selectTheme(t.theme_id)
     }
   },
 

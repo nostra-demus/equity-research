@@ -7,6 +7,7 @@ import assert from 'node:assert/strict'
 import { buildWhyIndex, reasonFor, buildCompanyWhy, type WhyMember, type WhyCompany } from '../src/news/themes/why'
 import { buildThemeDetail } from '../src/news/themes/store'
 import type { Theme, ThemeCompany, ThemeMember } from '../src/news/themes/types'
+import { attachValidNarrative } from './themes-fixtures'
 
 let passed = 0
 function check(name: string, fn: () => void | Promise<void>): Promise<void> | void {
@@ -136,20 +137,24 @@ await check('buildCompanyWhy: no evidence is fine — the reason still stands', 
 // ---- buildThemeDetail wiring: attaches why WITHOUT mutating the theme ----
 await check('buildThemeDetail: attaches a why to every company and does not mutate the theme', () => {
   const members: ThemeMember[] = [
-    { event_id: 'e1', headline: 'Shell may be hit by Hormuz disruption', found_at: '2026-06-13T10:00:00Z', score: 80, tier: 'news', companies: [co('Shell', 'SHEL')] },
-    { event_id: 'e2', headline: 'Micron shipments watch Gulf tensions', found_at: '2026-06-13T09:00:00Z', score: 60, tier: 'news', companies: [co('Micron', 'MU')] },
+    { event_id: 'e1', headline: 'Shell faces Gulf shipping disruption after Hormuz closure', found_at: '2026-06-13T10:00:00Z', score: 80, tier: 'news', source_name: 'Example Wire', url: 'https://example.test/shell-hormuz', companies: [co('Shell', 'SHEL')] },
+    { event_id: 'e2', headline: 'Micron faces Gulf shipping disruption after Hormuz closure', found_at: '2026-06-13T09:00:00Z', score: 60, tier: 'news', source_name: 'Primary Filing', url: 'https://example.test/micron-hormuz', companies: [co('Micron', 'MU')] },
   ]
   const companies: ThemeCompany[] = [
     { name: 'Shell', ticker: 'SHEL', listing_country: null, name_key: 'shell', order: 1, side: 'mixed', impact: { directness: 22, magnitude: 20, speed: 22, reversibility: 18, composite: 82 }, mention_count: 1, last_seen: 'e1' as any },
     { name: 'Micron', ticker: 'MU', listing_country: null, name_key: 'micron', order: 2, side: 'mixed', impact: { directness: 14, magnitude: 15, speed: 22, reversibility: 16, composite: 67 }, mention_count: 1, last_seen: 'e2' as any },
   ]
   const theme = {
-    theme_id: 'THM-test', name: 'Kuwait · iran', slug: 'kuwait-iran', description: 'x', keywords: [], company_keys: [], event_type_affinity: [],
+    theme_id: 'THM-test', name: 'Gulf Shipping Disruption', slug: 'gulf-shipping-disruption', description: 'Hormuz disruption is affecting companies exposed to Gulf shipping.', keywords: [], company_keys: [], event_type_affinity: [],
     members, member_count_total: 2, companies, sectors: [],
     scores: { freshness: 90, magnitude: 50, breadth: 100, persistence: 33, composite: 86 } as any,
     tier: 'hot', fresh_flow: 1, flow_series: [1], related_themes: [], status: 'live', merged_into: null,
     first_seen: '2026-06-13T09:00:00Z', last_flow: '2026-06-13T10:00:00Z', generation: 'deterministic', rev: 1,
   } as unknown as Theme
+  attachValidNarrative(theme, { expressions: [
+    { name_key: 'shell', side: 'harmed', role: 'direct', mechanism: 'Shell is directly exposed to Gulf shipping disruption.', evidence_event_ids: ['e1'] },
+    { name_key: 'micron', side: 'harmed', role: 'direct', mechanism: 'Micron is directly exposed to Gulf shipping disruption.', evidence_event_ids: ['e2'] },
+  ] })
 
   // a nonexistent repo → readFeed fails inside buildThemeDetail, which falls back to minimal member rows
   const detail = buildThemeDetail('/nonexistent-repo-xyz', theme)
@@ -162,6 +167,11 @@ await check('buildThemeDetail: attaches a why to every company and does not muta
   assert.equal(shell.why!.evidence[0]?.event_id, 'e1')
   assert.ok(micron.why, 'micron has a why')
   assert.equal(micron.why!.evidence[0]?.event_id, 'e2')
+  assert.deepEqual(detail.members.map((row) => [row.source_name, row.url]), [
+    ['Example Wire', 'https://example.test/shell-hormuz'],
+    ['Primary Filing', 'https://example.test/micron-hormuz'],
+  ], 'older structural proof retains its exact publisher and URL in the fallback path')
+  assert.deepEqual(detail.scores, detail.theme.score_components, 'detail heat uses the same core-only projection as its summary')
   // the persisted theme.companies must stay clean (why is read-time only, never ledgered)
   assert.equal((theme.companies[0] as any).why, undefined, 'the source theme company was not mutated')
 })

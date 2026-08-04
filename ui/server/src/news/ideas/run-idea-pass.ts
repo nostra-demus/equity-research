@@ -11,7 +11,7 @@
 import { Budget, NON_BINDING_DAILY_TOKEN_CAP, armCooldown, clearCooldown, conservativeChatTokenBound, getNamedLimiter, getSharedLimiter, isCoolingDown } from '../triage/budget'
 import {
   IDEA_SYSTEM, buildIdeaUserMessage, estimateIdeaTokens, surfaceIdeasBatch,
-  type IdeaInputRow, type IdeaOriginType, type IdeaSourceTheme, type RawIdea, type SurfaceIdeasResult,
+  type IdeaInputRow, type IdeaOriginType, type IdeaSourceTheme, type IdeaThemeExpression, type RawIdea, type SurfaceIdeasResult,
 } from './surface-ideas'
 import {
   ideaDecayAt, ideaId, ideaSnapshotRevision, ideaVersion, priorCoverage, pruneExpiredIdeas, readIdeaById,
@@ -23,6 +23,7 @@ import { IDEA_LEARNING_HORIZON_DAYS, learnIdeaAdjustment } from './idea-learning
 import { scoreTradeCluster, type TradeEvidence } from '../trade-score'
 import { normTicker, verifyEquityListing } from '../symbology'
 import { normName } from '../text-match'
+import { eventIdFor } from '../normalize'
 import {
   inspectIdeaSnapshots, inspectPersistedIdeasHealth, updateIdeasHealth, type IdeasHealthReasonCode,
 } from './ideas-health'
@@ -121,9 +122,10 @@ export interface ThemeIdeaProof {
   pairCompanyName: string | null
 }
 
-/** Enforce the server-authored Theme expression allowlist after resolving provider `src` indices. Every
- * selected Theme/mixed revision must independently prove the returned company/ticker and direction; a
- * pair additionally needs a qualified harmed leg. Wire-only selections retain their existing behavior. */
+/** Enforce the server-authored Theme contract after resolving provider `src` indices. Proof lives at the
+ * selected revision/set level: one row may be the fresh why-now trigger while an older row is the exact
+ * company-expression proof. Requiring every row to carry the expression rejected that legitimate 13D-style
+ * evidence stack; requiring both edges across the selected set keeps it fail-closed. */
 export function themeProofForIdea(raw: RawIdea, rows: IdeaInputRow[]): ThemeIdeaProof | null {
   const themeRows = rows.filter((row) => row.origin_type === 'theme' || row.origin_type === 'mixed')
   if (!themeRows.length) return { evidenceByTheme: new Map(), pairCompanyName: null }
@@ -133,42 +135,70 @@ export function themeProofForIdea(raw: RawIdea, rows: IdeaInputRow[]): ThemeIdea
   const pairTicker = raw.direction === 'pair' ? normTicker(raw.pair_with) : ''
   if (!companyKey || !primaryTicker || (raw.direction === 'pair' && (!pairTicker || pairTicker === primaryTicker))) return null
 
+  const revisionsByTheme = new Map<string, number>()
+  const groups = new Map<string, { theme: IdeaSourceTheme; rows: IdeaInputRow[] }>()
+  for (const row of themeRows) {
+    if (!row.source_themes?.length || !row.theme_contexts?.length) return null
+    for (const theme of row.source_themes) {
+      const priorRevision = revisionsByTheme.get(theme.theme_id)
+      if (priorRevision !== undefined && priorRevision !== theme.theme_rev) return null
+      revisionsByTheme.set(theme.theme_id, theme.theme_rev)
+      const key = themeProofKey(theme.theme_id, theme.theme_rev)
+      let group = groups.get(key)
+      if (!group) {
+        group = { theme, rows: [] }
+        groups.set(key, group)
+      } else if (!group.theme.why_now_event_id || !theme.why_now_event_id
+        || group.theme.why_now_event_id !== theme.why_now_event_id) return null
+      const contexts = row.theme_contexts.filter((context) => (
+        context.theme_id === theme.theme_id && context.theme_rev === theme.theme_rev
+        && context.why_now_event_id === theme.why_now_event_id
+      ))
+      if (contexts.length !== 1 || !(theme.evidence_event_ids || []).includes(row.event_id)) return null
+      group.rows.push(row)
+    }
+  }
+
   const proofs: ThemeProofMap = new Map()
   let pairCompanyKey = ''
   let pairCompanyName: string | null = null
-  for (const row of themeRows) {
-    if (!row.source_themes?.length) return null
-    for (const theme of row.source_themes) {
-      const expressions = (row.theme_expressions || []).filter((expression) => (
-        expression.theme_id === theme.theme_id && expression.theme_rev === theme.theme_rev
-      ))
-      const primary = expressions.find((expression) => (
-        expression.side === primarySide
+  for (const [key, group] of groups) {
+    const whyNowId = group.theme.why_now_event_id
+    const whyRows = group.rows.filter((row) => row.event_id === whyNowId
+      && row.theme_contexts?.some((context) => context.theme_id === group.theme.theme_id
+        && context.theme_rev === group.theme.theme_rev && context.role === 'WHY_NOW'))
+    const proofRows = group.rows.filter((row) => row.event_id !== whyNowId
+      && row.theme_contexts?.some((context) => context.theme_id === group.theme.theme_id
+        && context.theme_rev === group.theme.theme_rev && context.role === 'EXPRESSION_PROOF'))
+    if (!whyNowId || whyRows.length !== 1 || !proofRows.length) return null
+    const primaryMatch = proofRows.flatMap((row) => (row.theme_expressions || []).map((expression) => ({ row, expression })))
+      .find(({ row, expression }) => (
+        expression.theme_id === group.theme.theme_id
+        && expression.theme_rev === group.theme.theme_rev
+        && expression.side === primarySide
         && normTicker(expression.ticker) === primaryTicker
         && expression.name_key === companyKey
-        && expression.evidence_event_ids.length > 0
+        && expression.evidence_event_ids.includes(row.event_id)
       ))
-      if (!primary) return null
-      const key = themeProofKey(theme.theme_id, theme.theme_rev)
-      const eventIds = proofs.get(key) || new Set<string>()
-      for (const eventId of primary.evidence_event_ids) eventIds.add(eventId)
-      if (raw.direction === 'pair') {
-        const pair = expressions.find((expression) => (
-          expression.side === 'harmed'
+    if (!primaryMatch) return null
+    const eventIds = new Set([whyNowId, primaryMatch.row.event_id])
+    if (raw.direction === 'pair') {
+      const pairMatch = proofRows.flatMap((row) => (row.theme_expressions || []).map((expression) => ({ row, expression })))
+        .find(({ row, expression }) => (
+          expression.theme_id === group.theme.theme_id
+          && expression.theme_rev === group.theme.theme_rev
+          && expression.side === 'harmed'
           && normTicker(expression.ticker) === pairTicker
-          && expression.evidence_event_ids.length > 0
+          && expression.evidence_event_ids.includes(row.event_id)
         ))
-        if (!pair) return null
-        const matchedPairKey = pair.name_key || normName(pair.name)
-        if (!matchedPairKey || (pairCompanyKey && pairCompanyKey !== matchedPairKey)) return null
-        if (!pairCompanyKey) {
-          pairCompanyKey = matchedPairKey
-          pairCompanyName = pair.name
-        }
-        for (const eventId of pair.evidence_event_ids) eventIds.add(eventId)
-      }
-      proofs.set(key, eventIds)
+      if (!pairMatch) return null
+      const pair = pairMatch.expression
+      const matchedPairKey = pair.name_key || normName(pair.name)
+      if (!matchedPairKey || (pairCompanyKey && pairCompanyKey !== matchedPairKey)) return null
+      if (!pairCompanyKey) { pairCompanyKey = matchedPairKey; pairCompanyName = pair.name }
+      eventIds.add(pairMatch.row.event_id)
     }
+    proofs.set(key, eventIds)
   }
   return { evidenceByTheme: proofs, pairCompanyName }
 }
@@ -176,7 +206,7 @@ export function themeProofForIdea(raw: RawIdea, rows: IdeaInputRow[]): ThemeIdea
 export function ideaLineageForRows(
   rows: IdeaInputRow[],
   expressionProofs: ThemeProofMap = new Map(),
-): { origin_type: IdeaOriginType; source_themes: IdeaSourceTheme[] } {
+): { origin_type: IdeaOriginType; source_themes: IdeaSourceTheme[] } | null {
   let sawWire = false
   let sawTheme = false
   const sourceThemes: IdeaSourceTheme[] = []
@@ -186,10 +216,12 @@ export function ideaLineageForRows(
     if (origin === 'theme' || origin === 'mixed') sawTheme = true
     for (const theme of row.source_themes || []) {
       sawTheme = true
+      if (!theme.why_now_event_id) return null
       const evidenceIds = theme.evidence_event_ids?.length ? theme.evidence_event_ids : [row.event_id]
       const expressionIds = expressionProofs.get(themeProofKey(theme.theme_id, theme.theme_rev)) || []
       const existing = sourceThemes.find((candidate) => candidate.theme_id === theme.theme_id)
       if (existing) {
+        if (existing.theme_rev !== theme.theme_rev || existing.why_now_event_id !== theme.why_now_event_id) return null
         const merged = new Set(existing.evidence_event_ids || [])
         for (const eventId of evidenceIds) merged.add(eventId)
         for (const eventId of expressionIds) merged.add(eventId)
@@ -199,10 +231,13 @@ export function ideaLineageForRows(
           theme_id: theme.theme_id,
           theme_rev: theme.theme_rev,
           evidence_event_ids: [...new Set([...evidenceIds, ...expressionIds])],
+          why_now_event_id: theme.why_now_event_id,
         })
       }
     }
   }
+  if (sawTheme && sourceThemes.some((theme) => !theme.why_now_event_id
+    || !theme.evidence_event_ids?.includes(theme.why_now_event_id))) return null
   return {
     origin_type: sawTheme ? (sawWire ? 'mixed' : 'theme') : 'wire',
     source_themes: sourceThemes,
@@ -553,16 +588,27 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       const expressionProofs = themeProofForIdea(raw, srcRows)
       if (!expressionProofs) continue
       const lineage = ideaLineageForRows(srcRows, expressionProofs.evidenceByTheme)
+      if (!lineage) continue
       const eventIds = [...new Set([
         ...srcRows.map((s) => s.event_id),
         ...lineage.source_themes.flatMap((theme) => theme.evidence_event_ids || []),
       ])]
-      // primary = the highest-materiality contributing row; its source anchors a later promotion so the
-      // launched signal's SIG_ID byte-matches the wire event (headline|url|date) and Gate 0 sees a real source.
-      const primary = srcRows.slice().sort((a, b) => b.materiality - a.materiality)[0]
+      // Wire-only calls use the highest-materiality selected row. Theme/mixed calls MUST launch from the
+      // exact causal row designated by the admitted revision, never from a louder structural proof row.
+      const whyNowIds = new Set(lineage.source_themes.map((theme) => theme.why_now_event_id).filter(Boolean))
+      if (lineage.origin_type !== 'wire' && whyNowIds.size !== 1) continue
+      const primary = lineage.origin_type === 'wire'
+        ? srcRows.slice().sort((a, b) => b.materiality - a.materiality)[0]
+        : srcRows.find((row) => row.event_id === [...whyNowIds][0]
+          && row.theme_contexts?.some((context) => context.role === 'WHY_NOW'))
+      if (!primary?.headline_orig || !primary.url || !primary.source_name
+        || eventIdFor(primary.headline_orig, primary.url) !== primary.event_id
+        || !eventIds.includes(primary.event_id)) continue
       const headlines = [primary, ...srcRows.filter((s) => s !== primary)].map((s) => s.headline).filter(Boolean).slice(0, 4)
       const materialityMax = Math.max(0, ...srcRows.map((s) => s.materiality))
-      const newestAt = srcRows.map((s) => s.found_at).filter(Boolean).sort().reverse()[0] || nowIso
+      const newestAt = lineage.origin_type === 'wire'
+        ? (srcRows.map((s) => s.found_at).filter(Boolean).sort().reverse()[0] || nowIso)
+        : primary.found_at
       const decayIso = ideaDecayAt(newestAt, now(), c.shelfLifeHrs)
       if (!decayIso) continue
       const learning = learnIdeaAdjustment(deps.repoRoot, snapshots, {
@@ -598,6 +644,10 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
         reason: raw.reason,
         whyNow: raw.why_now,
         sourceEventIds: eventIds,
+        primarySourceEventId: primary.event_id,
+        sourceHeadline: primary.headline_orig,
+        sourceUrl: primary.url,
+        sourceName: primary.source_name,
         originType: lineage.origin_type,
         sourceThemes: lineage.source_themes,
       })
@@ -654,6 +704,7 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
           origin_type: lineage.origin_type,
           source_themes: lineage.source_themes,
           source_event_ids: eventIds,
+          primary_source_event_id: primary.event_id,
           source_headlines: headlines,
           source_headline: primary?.headline_orig || primary?.headline || null,
           source_url: primary?.url || null,

@@ -43,9 +43,9 @@ function theme(over: Partial<Theme> = {}): Theme {
     company_keys: ['novonordisk', 'ellililly'],
     event_type_affinity: ['clinical_trial', 'regulatory'],
     members: [
-      member('e1', 'Eli Lilly obesity pill hits primary endpoint in phase 3 trial', { score: 92, found_at: hoursAgo(3) }),
-      member('e2', 'Novo Nordisk raises Wegovy output as demand outstrips supply', { score: 81, found_at: hoursAgo(8) }),
-      member('e3', 'FDA clears new GLP-1 label for cardiovascular risk reduction', { score: 75, found_at: hoursAgo(1) }),
+      member('e1', 'Eli Lilly GLP-1 obesity weight loss pill hits primary endpoint in phase 3 trial', { score: 92, found_at: hoursAgo(3) }),
+      member('e2', 'Novo Nordisk raises GLP-1 obesity weight loss drug output as demand outstrips supply', { score: 81, found_at: hoursAgo(8) }),
+      member('e3', 'FDA clears new GLP-1 obesity weight loss drug label for cardiovascular risk reduction', { score: 75, found_at: hoursAgo(1) }),
     ],
     member_count_total: 14,
     companies: [company('Eli Lilly', 1), company('Novo Nordisk', 1), company('Hims & Hers', 2)],
@@ -90,7 +90,7 @@ await check('deterministicBrief: multi-sentence, names the lead company, quotes 
   assert.ok(b.length > 60, 'should be a real paragraph')
   assert.ok((b.match(/\./g) || []).length >= 2, 'at least two sentences')
   assert.ok(b.includes('Eli Lilly'), 'names a lead company')
-  assert.ok(b.includes('obesity pill'), 'anchors on the top-scored headline')
+  assert.ok(b.includes('obesity weight loss pill'), 'anchors on the top-scored headline')
   assert.ok(/flow is picking up \(\+4 new recently\)/.test(b), 'momentum carries the fresh-flow number, not a bare adjective')
 })
 
@@ -167,10 +167,41 @@ await check('buildThemeBrief: a new top-scored headline changes the signature â†
   const dir = tmpState()
   const cfg: BriefConfig = { themeBriefModel: 'off' }
   const a = await buildThemeBrief(theme(), cfg, dir, throwingFetch)
-  const moved = theme({ members: [member('e9', 'Pfizer abandons its oral GLP-1 after liver-safety signal', { score: 95, found_at: hoursAgo(0) }), ...theme().members] })
+  const moved = theme({ members: [member('e9', 'Pfizer abandons its oral GLP-1 obesity weight loss pill after liver-safety signal', { score: 95, found_at: hoursAgo(0) }), ...theme().members] })
   const b = await buildThemeBrief(moved, cfg, dir, throwingFetch)
   assert.notEqual(b.brief, a.brief, 'a substantive (top-scored) change re-synthesises')
   assert.ok(b.brief.includes('Pfizer'), 'reflects the new lead story')
+})
+
+await check('validated narratives project one canonical dossier without a second headline-model synthesis', async () => {
+  const dir = tmpState()
+  const input = theme()
+  input.narrative = {
+    version: 1,
+    thesis: 'GLP-1 obesity supply is expanding as manufacturers add weight-loss drug capacity.',
+    why_now: 'Novo Nordisk raised output after demand exceeded supply.',
+    why_now_event_id: 'e2',
+    mechanism_steps: ['Manufacturers add capacity.', 'More supply changes available treatment volumes and producer revenue.'],
+    horizon: 'months',
+    falsifier: 'The thesis fails if disclosed output falls or demand no longer exceeds supply.',
+    anchor_terms: ['obesity', 'weight'],
+    evidence: [{ event_id: 'e1', stance: 'supports' }, { event_id: 'e2', stance: 'supports' }],
+    expressions: [],
+    validated_at: NOW.toISOString(),
+  }
+  let fetches = 0
+  const shouldNotFetch = (async () => { fetches++; throw new Error('canonical narrative must not be resynthesised') }) as unknown as typeof fetch
+  const first = await buildThemeBrief(input, GROQ_CFG, dir, shouldNotFetch)
+  assert.equal(fetches, 0)
+  assert.equal(first.generation, 'deterministic')
+  assert.match(first.brief, /GLP-1 obesity supply is expanding/)
+  assert.match(first.brief, /What changed: Novo Nordisk raised output/)
+  assert.match(first.brief, /What would break it:/)
+
+  input.narrative = { ...input.narrative, why_now: 'The FDA widened the obesity-drug label.', why_now_event_id: 'e3' }
+  const revised = await buildThemeBrief(input, GROQ_CFG, dir, shouldNotFetch)
+  assert.notEqual(revised.brief, first.brief, 'a narrative revision changes the canonical cached projection')
+  assert.equal(fetches, 0)
 })
 
 // ---- Groq path via a stubbed fetch (on the shared budget + limiter) ----

@@ -14,9 +14,11 @@ import { eventIdFor } from '../normalize'
 import { readFeed } from '../feed'
 import { cleanTicker, normTicker } from '../symbology'
 import { createThemesIndexReader } from '../themes/api-index'
-import { readThemesIndex, themesLedgerPath } from '../themes/store'
+import { loadThemes, readThemesIndex, themesLedgerPath } from '../themes/store'
+import type { Theme, ThemeMember } from '../themes/types'
 import type { FeedItem } from '../types'
 import { parseRfc3339Ms } from '../../rfc3339'
+import { canonicalJsonText } from '../../canonical-json'
 import { acquireRetainedFlockSync, releaseRetainedFlock } from '../../singleton-lock'
 import {
   buildIdeaUserMessage,
@@ -26,6 +28,7 @@ import {
   type IdeaInputRow,
   type IdeaOriginType,
   type IdeaSourceTheme,
+  type IdeaThemeContext,
   type IdeaThemeExpression,
   type PricedIn,
   type RawIdea,
@@ -67,6 +70,7 @@ export interface SurfacedIdea {
   origin_type?: IdeaOriginType // absent only on deploy-compatible legacy snapshots
   source_themes?: IdeaSourceTheme[] // exact theme revisions attached to the raw source rows the idea used
   source_event_ids: string[] // EVT-* — the join key back to the wire (canonical eventIdFor over the original headline)
+  primary_source_event_id?: string // exact launch source; absent only on conservatively preserved wire-only legacy snapshots
   source_headlines: string[] // for the card, newest first (display — may be the English translation)
   source_headline: string | null // the primary source's ORIGINAL-language headline — the promote intake uses THIS so its SIG_ID byte-matches the wire launch
   source_url: string | null // the primary (highest-materiality) source's URL — so a promotion's SIG_ID byte-matches the wire event
@@ -220,47 +224,86 @@ export function ideaId(ticker: string, direction: IdeaDirection): string {
   return 'IDEA-' + createHash('sha256').update(`${ticker.toUpperCase()}|${direction}`).digest('hex').slice(0, 12)
 }
 
-/** Exact thesis snapshot identity. Refreshing the same ticker/direction never reuses an old outcome. */
-export function ideaVersion(input: {
-  ticker: string; direction: IdeaDirection; pairWith: string | null; thesisType: ThesisType; reason: string; whyNow: string; sourceEventIds: string[]
-  originType?: IdeaOriginType; sourceThemes?: IdeaSourceTheme[]
-}): string {
-  const lineage = input.originType === undefined
-    ? []
-    : [
-      input.originType,
-      [...(input.sourceThemes || [])]
-        .map((theme) => {
-          const evidence = [...new Set(theme.evidence_event_ids || [])].sort().join(',')
-          return `${theme.theme_id}@${theme.theme_rev}[${evidence}]`
-        })
-        .sort()
-        .join(';'),
-    ]
-  const canonical = [
-    input.ticker.toUpperCase(), input.direction,
-    `pair:${input.pairWith === null ? 'null' : normTicker(input.pairWith)}`,
-    input.thesisType,
-    input.reason.trim().toLowerCase().replace(/\s+/g, ' '),
-    input.whyNow.trim().toLowerCase().replace(/\s+/g, ' '),
-    [...new Set(input.sourceEventIds)].sort().join(','),
-    ...lineage,
-  ].join('|')
-  return 'IDEAV-' + createHash('sha256').update(canonical).digest('hex').slice(0, 16)
+export interface IdeaVersionInput {
+  ticker: string
+  direction: IdeaDirection
+  pairWith: string | null
+  thesisType: ThesisType
+  reason: string
+  whyNow: string
+  sourceEventIds: string[]
+  primarySourceEventId: string
+  sourceHeadline: string
+  sourceUrl: string
+  sourceName: string
+  originType: IdeaOriginType
+  sourceThemes: IdeaSourceTheme[]
+}
+
+const IDEA_VERSION_SCHEMA = 'surfaced-idea-version/v2' as const
+const normalizedIdeaText = (value: string) => value.trim().toLowerCase().replace(/\s+/g, ' ')
+
+/** Exact thesis snapshot identity. The canonical, versioned JSON payload has no delimiter grammar: a
+ * headline, URL, company name, or future field containing `|`, `;`, `[]`, or braces cannot alias another
+ * record. scripts/update_board_index.py hashes the same canonical UTF-8 bytes. */
+export function ideaVersion(input: IdeaVersionInput): string {
+  const sourceThemes = [...input.sourceThemes]
+    .map((theme) => ({
+      theme_id: theme.theme_id,
+      theme_rev: theme.theme_rev,
+      evidence_event_ids: [...new Set(theme.evidence_event_ids || [])].sort(),
+      why_now_event_id: theme.why_now_event_id ?? null,
+    }))
+    .sort((a, b) => a.theme_id.localeCompare(b.theme_id) || a.theme_rev - b.theme_rev)
+  const payload = {
+    schema_version: IDEA_VERSION_SCHEMA,
+    thesis: {
+      ticker: input.ticker.toUpperCase(),
+      direction: input.direction,
+      pair_with: input.pairWith === null ? null : normTicker(input.pairWith),
+      thesis_type: input.thesisType,
+      reason: normalizedIdeaText(input.reason),
+      why_now: normalizedIdeaText(input.whyNow),
+    },
+    sources: {
+      event_ids: [...new Set(input.sourceEventIds)].sort(),
+      origin_type: input.originType,
+      source_themes: sourceThemes,
+      primary: {
+        event_id: input.primarySourceEventId,
+        headline: input.sourceHeadline,
+        url: input.sourceUrl,
+        name: input.sourceName,
+      },
+    },
+  }
+  return 'IDEAV-' + createHash('sha256').update(canonicalJsonText(payload), 'utf8').digest('hex').slice(0, 16)
 }
 
 /** Pre-pair-leg recipe accepted only for snapshots that also predate lineage. Absence of both lineage
  * fields is the migration discriminator; no new wire/theme/mixed snapshot may use this hash. */
 function legacyIdeaVersion(input: {
-  ticker: string; direction: IdeaDirection; thesisType: ThesisType; reason: string; whyNow: string; sourceEventIds: string[]
-}): string {
+  ticker: string; direction: IdeaDirection; pairWith?: string | null; thesisType: ThesisType; reason: string; whyNow: string; sourceEventIds: string[]
+  originType?: IdeaOriginType; sourceThemes?: IdeaSourceTheme[]
+}, bindPair = false): string {
   const canonical = [
-    input.ticker.toUpperCase(), input.direction, input.thesisType,
+    input.ticker.toUpperCase(), input.direction,
+    ...(bindPair ? [`pair:${input.pairWith === null ? 'null' : normTicker(input.pairWith || '')}`] : []),
+    input.thesisType,
     input.reason.trim().toLowerCase().replace(/\s+/g, ' '),
     input.whyNow.trim().toLowerCase().replace(/\s+/g, ' '),
     [...new Set(input.sourceEventIds)].sort().join(','),
-  ].join('|')
-  return 'IDEAV-' + createHash('sha256').update(canonical).digest('hex').slice(0, 16)
+  ]
+  if (input.originType !== undefined) {
+    const refs = [...(input.sourceThemes || [])].map((theme) => {
+      const evidence = [...new Set(theme.evidence_event_ids || [])].sort().join(',')
+      const whyNow = theme.why_now_event_id ? `{why:${theme.why_now_event_id}}` : ''
+      return `${theme.theme_id}@${theme.theme_rev}[${evidence}]${whyNow}`
+    }).sort().join(';')
+    canonical.push(input.originType, refs)
+  }
+  const text = canonical.join('|')
+  return 'IDEAV-' + createHash('sha256').update(text).digest('hex').slice(0, 16)
 }
 
 const IDEA_ID_RE = /^IDEA-[a-f0-9]{12}$/
@@ -276,7 +319,11 @@ const MAX_SOURCE_THEMES = 64
 const MAX_ACTIONABLE_THEMES = 64
 const MAX_THEME_EVIDENCE_ROWS = 192
 const MAX_THEME_EXPRESSIONS = 4
-const MAX_THEME_FEED_LOOKBACK_DAYS = 4
+// A 13D-style package can pair today's causal update with structural company proof established weeks
+// earlier. The resolver remains tightly bounded: at most 64 themes / 192 exact event IDs / 31 calendar
+// files, and canonical Theme members are used first so a healthy ledger does not rescan the firehose.
+const MAX_THEME_STRUCTURAL_PROOF_AGE_MS = 30 * 86_400_000
+const MAX_THEME_FEED_LOOKBACK_DAYS = 31
 const MAX_THEMES_READER_CACHE = 8
 // The themes writer runs every default five-minute poll and the full ingest-cycle guard is eight minutes.
 // Two polls (10 minutes) is therefore the conservative last-good ceiling: it tolerates one ordinary slow
@@ -291,9 +338,9 @@ interface IdeasThemesReader {
 }
 const ideasThemesReaders = new Map<string, IdeasThemesReader>()
 
-/** Reproject from the canonical ledger on the API reader's bounded TTL, so a quiet ingest cycle cannot
- * age out a still-actionable bridge merely because no new item rewrote themes_index.json. The persisted
- * index remains a cold-start/fixture fallback and keeps its existing strict ten-minute ceiling below. */
+/** Reproject content from the canonical ledger, but preserve the persisted index clock: that clock is the
+ * last successful Themes stage. Stamping `now` onto a ledger reprojection hid a failed stage and allowed a
+ * stale thesis to annotate a newer sweep. */
 function readCurrentThemesIndex(repoRoot: string, nowMs: number) {
   if (!fs.existsSync(themesLedgerPath(repoRoot))) return readThemesIndex(repoRoot)
   const key = path.resolve(repoRoot)
@@ -309,7 +356,9 @@ function readCurrentThemesIndex(repoRoot: string, nowMs: number) {
     ideasThemesReaders.set(key, cached)
   }
   cached.nowMs = nowMs
-  return cached.read()
+  const projected = cached.read()
+  const lastSuccessful = readThemesIndex(repoRoot)
+  return { ...projected, generated_at: lastSuccessful.generated_at }
 }
 
 function record(value: unknown): value is Record<string, unknown> {
@@ -371,7 +420,7 @@ function validLearning(value: unknown): value is IdeaLearning {
 
 /** New snapshots carry both lineage fields; legacy snapshots carry neither. Partial or contradictory
  * lineage fails closed so a malformed deploy cannot silently relabel a wire idea as theme-backed. */
-function validIdeaLineage(value: Record<string, unknown>): boolean {
+function validIdeaLineage(value: Record<string, unknown>, requireWhyNow: boolean): boolean {
   const hasOrigin = Object.prototype.hasOwnProperty.call(value, 'origin_type')
   const hasThemes = Object.prototype.hasOwnProperty.call(value, 'source_themes')
   if (!hasOrigin && !hasThemes) return true
@@ -391,6 +440,20 @@ function validIdeaLineage(value: Record<string, unknown>): boolean {
     if (hasEvidenceIds) {
       if (!exactStringArray(theme.evidence_event_ids, 64, 16, false, true)) return false
       if (!theme.evidence_event_ids.every((id) => EVENT_ID_RE.test(id) && sourceEventIds.has(id))) return false
+    }
+    const hasWhyNow = Object.prototype.hasOwnProperty.call(theme, 'why_now_event_id')
+    if (hasWhyNow) {
+      if (!exactString(theme.why_now_event_id, 16) || !EVENT_ID_RE.test(theme.why_now_event_id)
+        || !sourceEventIds.has(theme.why_now_event_id)
+        || !hasEvidenceIds
+        || !(theme.evidence_event_ids as string[]).includes(theme.why_now_event_id)) return false
+    }
+    if (requireWhyNow && value.origin_type !== 'wire') {
+      if (!hasWhyNow) return false
+      const evidenceIds = theme.evidence_event_ids as string[]
+      // A Theme-derived idea is a two-source causal package: the fresh why-now trigger plus distinct
+      // issuer/expression proof. One event may not wear both hats in persisted lineage either.
+      if (evidenceIds.length < 2 || !evidenceIds.some((eventId) => eventId !== theme.why_now_event_id)) return false
     }
   }
   return value.origin_type === 'wire'
@@ -429,36 +492,57 @@ export function isSurfacedIdeaSnapshot(value: unknown, expectedIdeaId?: string):
   if (!exactStringArray(value.missing_checks, 32, 160, true, true) || !validLearning(value.learning)) return false
   if (!PRICED_IN.has(value.priced_in as PricedIn) || !THESIS_TYPE_SET.has(String(value.thesis_type))) return false
   if (!exactStringArray(value.source_event_ids, 64, 16, false, true) || !value.source_event_ids.every((id) => EVENT_ID_RE.test(id))) return false
-  if (!validIdeaLineage(value)) return false
+  const hasPrimarySource = Object.prototype.hasOwnProperty.call(value, 'primary_source_event_id')
+  if (!validIdeaLineage(value, hasPrimarySource)) return false
   if (!exactStringArray(value.source_headlines, 4, 500, false)) return false
   if (!nullableExactString(value.source_headline, 500) || !nullableExactString(value.source_url, 2_000) || !nullableExactString(value.source_name, 160)) return false
+  if (hasPrimarySource) {
+    if (!exactString(value.primary_source_event_id, 16) || !EVENT_ID_RE.test(value.primary_source_event_id)
+      || !(value.source_event_ids as string[]).includes(value.primary_source_event_id)
+      || value.source_headline === null || value.source_url === null || value.source_name === null
+      || eventIdFor(value.source_headline, value.source_url) !== value.primary_source_event_id) return false
+  } else if (value.origin_type === 'theme' || value.origin_type === 'mixed') {
+    // Historical Theme lineage without an exact launch source cannot be proven safe. It is intentionally
+    // retired by the next pass / omitted by static projection instead of being guessed through migration.
+    return false
+  }
   if (!boundedNumber(value.materiality_max, 0, 100)) return false
   if (!validPriorCoverage(value.prior_coverage)) return false
 
-  const version = ideaVersion({
-    ticker: value.ticker,
-    direction,
-    pairWith: value.pair_with,
-    thesisType: value.thesis_type as ThesisType,
-    reason: value.reason,
-    whyNow: value.why_now,
-    sourceEventIds: value.source_event_ids,
-    ...(Object.prototype.hasOwnProperty.call(value, 'origin_type')
-      ? { originType: value.origin_type as IdeaOriginType, sourceThemes: value.source_themes as IdeaSourceTheme[] }
-      : {}),
-  })
-  // Legacy means neither lineage field exists. Only that distinguishable pre-lineage shape may retain
-  // the prior pair-unbound recipe. Every explicit lineage snapshot binds origin, revisions, evidence,
-  // and the normalized nullable pair leg into one exact immutable version.
-  const hasLineage = Object.prototype.hasOwnProperty.call(value, 'origin_type')
-  if (value.idea_version !== version && (hasLineage || value.idea_version !== legacyIdeaVersion({
-    ticker: value.ticker,
-    direction,
-    thesisType: value.thesis_type as ThesisType,
-    reason: value.reason,
-    whyNow: value.why_now,
-    sourceEventIds: value.source_event_ids,
-  }))) return false
+  if (hasPrimarySource) {
+    const version = ideaVersion({
+      ticker: value.ticker,
+      direction,
+      pairWith: value.pair_with,
+      thesisType: value.thesis_type as ThesisType,
+      reason: value.reason,
+      whyNow: value.why_now,
+      sourceEventIds: value.source_event_ids,
+      primarySourceEventId: value.primary_source_event_id as string,
+      sourceHeadline: value.source_headline as string,
+      sourceUrl: value.source_url as string,
+      sourceName: value.source_name as string,
+      originType: value.origin_type as IdeaOriginType,
+      sourceThemes: value.source_themes as IdeaSourceTheme[],
+    })
+    if (value.idea_version !== version) return false
+  } else {
+    const hasLineage = Object.prototype.hasOwnProperty.call(value, 'origin_type')
+    const legacy = legacyIdeaVersion({
+      ticker: value.ticker,
+      direction,
+      pairWith: value.pair_with,
+      thesisType: value.thesis_type as ThesisType,
+      reason: value.reason,
+      whyNow: value.why_now,
+      sourceEventIds: value.source_event_ids,
+      ...(hasLineage ? {
+        originType: value.origin_type as IdeaOriginType,
+        sourceThemes: value.source_themes as IdeaSourceTheme[],
+      } : {}),
+    }, hasLineage)
+    if (value.idea_version !== legacy) return false
+  }
 
   const versionStarted = parseRfc3339Ms(value.idea_version_started_at)
   const newestSource = parseRfc3339Ms(value.newest_source_at)
@@ -504,26 +588,38 @@ function dedupeIdeaRows(rows: IdeaInputRow[]): IdeaInputRow[] {
 function validThemeRef(theme: unknown): theme is {
   theme_id: string
   rev: number
-  assessment: { status: string }
-  evidence: { event_id: string; found_at?: string }[]
+  description: string
+  activity: string
+  assessment: { status: string; activity?: string }
+  narrative: { thesis: string; why_now: string; why_now_event_id: string }
+  evidence: { event_id: string; found_at?: string; stance: 'supports' | 'challenges' }[]
   qualified_expressions: {
     name: string
     name_key: string
     ticker: string
     listing_country: string | null
     side: 'beneficiary' | 'harmed'
+    role: 'direct' | 'bottleneck' | 'enabler' | 'harmed' | 'hedge'
+    mechanism: string
     evidence_event_ids: string[]
   }[]
 } {
-  if (!record(theme) || !THEME_ID_RE.test(String(theme.theme_id || ''))) return false
+  if (!record(theme) || !THEME_ID_RE.test(String(theme.theme_id || '')) || !exactString(theme.description, 500)) return false
   if (!boundedNumber(theme.rev, 1, Number.MAX_SAFE_INTEGER, true)) return false
-  if (!record(theme.assessment) || theme.assessment.status !== 'actionable' || !Array.isArray(theme.evidence)) return false
+  if (!record(theme.assessment) || theme.assessment.status !== 'actionable' || theme.activity === 'challenged'
+    || theme.assessment.activity === 'challenged' || !record(theme.narrative)
+    || !exactString(theme.narrative.thesis, 1_000) || !exactString(theme.narrative.why_now, 1_000)
+    || !EVENT_ID_RE.test(String(theme.narrative.why_now_event_id || '')) || !Array.isArray(theme.evidence)) return false
   if (!Array.isArray(theme.qualified_expressions)
     || theme.qualified_expressions.length < 1
     || theme.qualified_expressions.length > MAX_THEME_EXPRESSIONS) return false
   const evidenceIds = new Set<string>()
   for (const evidence of theme.evidence) {
-    if (record(evidence) && EVENT_ID_RE.test(String(evidence.event_id || ''))) evidenceIds.add(String(evidence.event_id))
+    if (!record(evidence) || (evidence.stance !== 'supports' && evidence.stance !== 'challenges')) return false
+    // An explicit challenge is unresolved for as long as the current revision retains it. Recency only
+    // changes the activity label; it must never quietly turn a challenged thesis into an Ideas seed.
+    if (evidence.stance === 'challenges') return false
+    if (evidence.stance === 'supports' && EVENT_ID_RE.test(String(evidence.event_id || ''))) evidenceIds.add(String(evidence.event_id))
   }
   const expressionKeys = new Set<string>()
   for (const expression of theme.qualified_expressions) {
@@ -534,6 +630,9 @@ function validThemeRef(theme: unknown): theme is {
       || cleanTicker(expression.ticker) !== expression.ticker
       || (expression.listing_country !== null && !exactString(expression.listing_country, 3))
       || (expression.side !== 'beneficiary' && expression.side !== 'harmed')
+      || !['direct', 'bottleneck', 'enabler', 'harmed', 'hedge'].includes(String(expression.role || ''))
+      || (expression.role === 'harmed' && expression.side !== 'harmed')
+      || !exactString(expression.mechanism, 300)
       || !exactStringArray(expression.evidence_event_ids, 3, 16, false, true)
       || !expression.evidence_event_ids.every((id) => EVENT_ID_RE.test(id) && evidenceIds.has(id))) return false
     const key = `${expression.name_key}|${expression.ticker}|${expression.side}`
@@ -541,6 +640,57 @@ function validThemeRef(theme: unknown): theme is {
     expressionKeys.add(key)
   }
   return true
+}
+
+const canonicalThemeKey = (themeId: string, rev: number) => `${themeId}@${rev}`
+
+/** The PM index is intentionally a small excerpt. Read the current canonical revision once so an
+ * explicit challenge outside that excerpt still blocks admission and older exact member provenance can
+ * resolve without a broad feed scan. Index-only fixtures/deploy migration keep the bounded feed fallback. */
+function canonicalThemeProof(repoRoot: string): {
+  byRevision: Map<string, Theme>
+  sourcesByEvent: Map<string, ThemeMember>
+} {
+  const byRevision = new Map<string, Theme>()
+  const sourcesByEvent = new Map<string, ThemeMember>()
+  if (!fs.existsSync(themesLedgerPath(repoRoot))) return { byRevision, sourcesByEvent }
+  for (const theme of loadThemes(repoRoot)) {
+    if (theme.status !== 'live') continue
+    byRevision.set(canonicalThemeKey(theme.theme_id, theme.rev), theme)
+    for (const member of Array.isArray(theme.members) ? theme.members : []) {
+      const prior = sourcesByEvent.get(member.event_id)
+      // Keep the oldest provenance when malformed duplicate revisions disagree, so a rewritten member
+      // cannot make a structural proof look newer than the exact retained evidence.
+      if (!prior || parseRfc3339Ms(member.found_at) < parseRfc3339Ms(prior.found_at)) {
+        sourcesByEvent.set(member.event_id, member)
+      }
+    }
+  }
+  return { byRevision, sourcesByEvent }
+}
+
+type ThemeIdeaFeedSource = Pick<FeedItem, 'event_id' | 'headline' | 'url' | 'source_name' | 'triage_score'>
+  & Partial<Pick<FeedItem,
+    'headline_en' | 'found_at' | 'region' | 'event_types' | 'issuer_linkage' | 'companies' | 'source_tier'
+    | 'scheduled_events' | 'event_direction' | 'dedup_group' | 'rank_factors' | 'event_materiality_label'>>
+
+function memberFeedSource(member: ThemeMember | undefined): ThemeIdeaFeedSource | null {
+  if (!member || !member.url?.trim() || !member.source_name?.trim()) return null
+  return {
+    event_id: member.event_id,
+    headline: member.headline,
+    headline_en: member.headline_en,
+    url: member.url,
+    source_name: member.source_name,
+    triage_score: member.score,
+    found_at: member.found_at,
+    region: (member.region || '') as FeedItem['region'],
+    event_types: Array.isArray(member.event_types) ? member.event_types : [],
+    issuer_linkage: (member.issuer_linkage || '') as FeedItem['issuer_linkage'],
+    companies: Array.isArray(member.companies) ? member.companies : [],
+    source_tier: member.tier as FeedItem['source_tier'],
+    dedup_group: member.dedup_group,
+  }
 }
 
 function sourceTimeIsFresh(sourceAt: string, freshness?: TopSweepFreshnessOptions): boolean {
@@ -553,9 +703,10 @@ function sourceTimeIsFresh(sourceAt: string, freshness?: TopSweepFreshnessOption
 }
 
 function themeIdeaRow(
-  item: FeedItem,
+  item: ThemeIdeaFeedSource,
   sourceThemes: IdeaSourceTheme[],
   themeExpressions: IdeaThemeExpression[],
+  themeContexts: IdeaThemeContext[],
   sourceAt: string,
 ): IdeaInputRow | null {
   if (!EVENT_ID_RE.test(String(item.event_id || '')) || !item.url || !item.headline || !item.source_name) return null
@@ -584,11 +735,12 @@ function themeIdeaRow(
     origin_type: 'theme',
     source_themes: sourceThemes,
     theme_expressions: themeExpressions,
+    theme_contexts: themeContexts,
   }
 }
 
-/** Resolve the ranked actionable-theme evidence to real firehose rows. Missing/legacy theme fields fail
- * closed, and duplicate publisher copies merge into one story while retaining each source theme revision. */
+/** Resolve each actionable Theme into one complete, exact-revision causal package: a fresh WHY_NOW row
+ * plus one distinct EXPRESSION_PROOF row. Missing/legacy fields and conflicting revisions fail closed. */
 function readActionableThemeRows(
   repoRoot: string,
   freshness?: TopSweepFreshnessOptions,
@@ -605,35 +757,50 @@ function readActionableThemeRows(
     // its retained last-good index predates the sweep and must not annotate the new wire.
     || (Number.isFinite(indexNotBeforeMs) && indexGeneratedMs < Number(indexNotBeforeMs))) return []
 
-  const themes = index.themes as unknown[]
-  const orderedEventIds: string[] = []
-  const refsByEvent = new Map<string, IdeaSourceTheme[]>()
-  const expressionsByEvent = new Map<string, IdeaThemeExpression[]>()
-  const evidenceAtByEvent = new Map<string, string>()
+  const themes = (index.themes as unknown[]).slice(0, MAX_ACTIONABLE_THEMES)
+  const canonical = canonicalThemeProof(repoRoot)
+  const ledgerPresent = fs.existsSync(themesLedgerPath(repoRoot))
+  const revisionsByTheme = new Map<string, Set<number>>()
+  for (const raw of themes) {
+    if (!record(raw) || !THEME_ID_RE.test(String(raw.theme_id || ''))
+      || !boundedNumber(raw.rev, 1, Number.MAX_SAFE_INTEGER, true)) continue
+    const revisions = revisionsByTheme.get(String(raw.theme_id)) || new Set<number>()
+    revisions.add(Number(raw.rev))
+    revisionsByTheme.set(String(raw.theme_id), revisions)
+  }
+  const conflictingThemeIds = new Set([...revisionsByTheme]
+    .filter(([, revisions]) => revisions.size > 1)
+    .map(([themeId]) => themeId))
+  interface ThemeEvidenceRequest {
+    eventId: string
+    evidenceAt: string
+    sourceTheme: IdeaSourceTheme
+    expressions: IdeaThemeExpression[]
+    context: IdeaThemeContext
+  }
+  const requests: ThemeEvidenceRequest[] = []
   let evidenceRowsSeen = 0
-  for (const theme of themes.slice(0, MAX_ACTIONABLE_THEMES)) {
-    if (!validThemeRef(theme)) continue
+  for (const theme of themes) {
+    if (!validThemeRef(theme) || conflictingThemeIds.has(theme.theme_id)) continue
+    const retained = canonical.byRevision.get(canonicalThemeKey(theme.theme_id, theme.rev))
+    if ((ledgerPresent && !retained)
+      || retained?.narrative?.evidence.some((evidence) => evidence.stance === 'challenges')) continue
+    const whyNowEventId = theme.narrative.why_now_event_id
+    const proofIds = new Set(theme.qualified_expressions
+      .flatMap((expression) => expression.evidence_event_ids)
+      .filter((eventId) => eventId !== whyNowEventId))
+    // A Theme seed is never one row wearing two hats. The provider sees and must select the causal update
+    // and independently bound issuer proof as two exact source rows from one revision.
+    if (!proofIds.size) continue
     for (const evidence of theme.evidence) {
+      if (!record(evidence) || evidence.stance !== 'supports') continue
       if (evidenceRowsSeen >= MAX_THEME_EVIDENCE_ROWS) break
+      const eventId = EVENT_ID_RE.test(String(evidence.event_id || '')) ? String(evidence.event_id) : ''
+      const role = eventId === whyNowEventId ? 'WHY_NOW' : proofIds.has(eventId) ? 'EXPRESSION_PROOF' : null
+      if (!eventId || !role) continue
       evidenceRowsSeen++
-      const eventId = record(evidence) && EVENT_ID_RE.test(String(evidence.event_id || '')) ? String(evidence.event_id) : ''
-      if (!eventId) continue
-      if (!refsByEvent.has(eventId)) orderedEventIds.push(eventId)
-      const refs = refsByEvent.get(eventId) || []
-      const priorRef = refs.find((prior) => prior.theme_id === theme.theme_id)
-      if (priorRef) {
-        const evidenceIds = new Set(priorRef.evidence_event_ids || [])
-        evidenceIds.add(eventId)
-        priorRef.evidence_event_ids = [...evidenceIds]
-      } else if (refs.length < MAX_SOURCE_THEMES) {
-        refs.push({ theme_id: theme.theme_id, theme_rev: theme.rev, evidence_event_ids: [eventId] })
-      }
-      refsByEvent.set(eventId, refs)
-      const expressions = expressionsByEvent.get(eventId) || []
-      for (const expression of theme.qualified_expressions) {
-        const key = `${theme.theme_id}|${theme.rev}|${expression.ticker}|${expression.side}`
-        if (expressions.some((prior) => `${prior.theme_id}|${prior.theme_rev}|${prior.ticker}|${prior.side}` === key)) continue
-        expressions.push({
+      const expressions: IdeaThemeExpression[] = role === 'EXPRESSION_PROOF'
+        ? theme.qualified_expressions.filter((expression) => expression.evidence_event_ids.includes(eventId)).map((expression) => ({
           theme_id: theme.theme_id,
           theme_rev: theme.rev,
           name: expression.name,
@@ -641,79 +808,85 @@ function readActionableThemeRows(
           ticker: expression.ticker,
           listing_country: expression.listing_country,
           side: expression.side,
+          role: expression.role,
+          mechanism: expression.mechanism,
           evidence_event_ids: [...expression.evidence_event_ids],
-        })
-      }
-      expressionsByEvent.set(eventId, expressions)
-      const evidenceAt = record(evidence) && typeof evidence.found_at === 'string' ? evidence.found_at : ''
-      const evidenceMs = parseRfc3339Ms(evidenceAt)
-      const priorAt = evidenceAtByEvent.get(eventId)
-      // Conflicting copies of one evidence timestamp fail conservatively: keep the oldest valid source
-      // time so a later malformed/rebuilt index cannot extend the story's Ideas shelf life.
-      if (Number.isFinite(evidenceMs)
-        && (!priorAt || evidenceMs < parseRfc3339Ms(priorAt))) evidenceAtByEvent.set(eventId, evidenceAt)
+        })) : []
+      if (role === 'EXPRESSION_PROOF' && !expressions.length) continue
+      requests.push({
+        eventId,
+        evidenceAt: typeof evidence.found_at === 'string' ? evidence.found_at : '',
+        sourceTheme: {
+          theme_id: theme.theme_id,
+          theme_rev: theme.rev,
+          evidence_event_ids: role === 'WHY_NOW' ? [whyNowEventId] : [whyNowEventId, eventId],
+          why_now_event_id: whyNowEventId,
+        },
+        expressions,
+        context: {
+          theme_id: theme.theme_id,
+          theme_rev: theme.rev,
+          role,
+          thesis: theme.narrative.thesis.trim().slice(0, 320),
+          context: theme.description.trim().slice(0, 240),
+          why_now_event_id: whyNowEventId,
+        },
+      })
     }
   }
-  if (!orderedEventIds.length) return []
+  if (!requests.length) return []
 
-  const targetIds = new Set(orderedEventIds)
-  const maxAgeMs = freshness && Number.isFinite(freshness.maxAgeMs) && freshness.maxAgeMs > 0
-    ? freshness.maxAgeMs
-    : 1
-  const days = freshness
-    ? Math.min(MAX_THEME_FEED_LOOKBACK_DAYS, Math.max(2, Math.ceil(maxAgeMs / 86_400_000) + 1))
-    : 2
-  const feed = readFeed(repoRoot, days, {
+  const targetIds = new Set(requests.map((request) => request.eventId))
+  const days = freshness ? MAX_THEME_FEED_LOOKBACK_DAYS : 2
+  const unresolvedIds = new Set([...targetIds].filter((eventId) => !memberFeedSource(canonical.sourcesByEvent.get(eventId))))
+  const feed = unresolvedIds.size ? readFeed(repoRoot, days, {
     now: () => new Date(nowMs),
-    maxItems: targetIds.size,
-    predicate: (item) => targetIds.has(item.event_id),
+    maxItems: unresolvedIds.size,
+    predicate: (item) => unresolvedIds.has(item.event_id),
     applyActiveWeights: false,
     // A sparse evidence lookup cannot recompute the canonical story family from only the target rows.
     // Keep the ingest-time group so theme evidence still joins a wire publisher copy of the same story.
     preservePersistedDedupGroups: true,
-  })
+  }) : { items: [], cycles: [] }
   const byEvent = new Map(feed.items.map((item) => [item.event_id, item]))
-  const byStory = new Map<string, IdeaInputRow>()
-  const orderedStories: string[] = []
-  for (const eventId of orderedEventIds) {
-    const item = byEvent.get(eventId)
+  const packages = new Map<string, { whyNow: IdeaInputRow | null; proofs: IdeaInputRow[] }>()
+  for (const request of requests) {
+    const item = memberFeedSource(canonical.sourcesByEvent.get(request.eventId)) || byEvent.get(request.eventId)
     if (!item) continue
     const persistedAt = typeof item.found_at === 'string' && Number.isFinite(parseRfc3339Ms(item.found_at))
       ? item.found_at
       : null
-    const sourceAt = persistedAt || evidenceAtByEvent.get(eventId) || ''
-    if (!sourceTimeIsFresh(sourceAt, freshness)) continue
-    const row = themeIdeaRow(item, refsByEvent.get(eventId) || [], expressionsByEvent.get(eventId) || [], sourceAt)
+    const sourceAt = persistedAt || request.evidenceAt
+    const isWhyNow = request.context.role === 'WHY_NOW'
+    const sourceMs = parseRfc3339Ms(sourceAt)
+    const withinStructuralLookback = !freshness || (Number.isFinite(sourceMs)
+      && sourceMs >= nowMs - MAX_THEME_STRUCTURAL_PROOF_AGE_MS
+      && sourceMs <= nowMs + (freshness.futureSkewMs ?? SOURCE_FUTURE_SKEW_MS))
+    if (isWhyNow ? !sourceTimeIsFresh(sourceAt, freshness) : !withinStructuralLookback) continue
+    const row = themeIdeaRow(item, [request.sourceTheme], request.expressions, [request.context], sourceAt)
     if (!row) continue
-    const key = ideaStoryKey(row)
-    const prior = byStory.get(key)
-    if (!prior) {
-      orderedStories.push(key)
-      byStory.set(key, row)
-      continue
-    }
-    const refs = [...(prior.source_themes || [])]
-    for (const sourceTheme of row.source_themes || []) {
-      const existing = refs.find((candidate) => candidate.theme_id === sourceTheme.theme_id)
-      if (existing) {
-        const evidenceIds = new Set(existing.evidence_event_ids || [])
-        for (const eventId of sourceTheme.evidence_event_ids || []) evidenceIds.add(eventId)
-        existing.evidence_event_ids = [...evidenceIds]
-      } else if (refs.length < MAX_SOURCE_THEMES) {
-        refs.push({ ...sourceTheme, evidence_event_ids: [...(sourceTheme.evidence_event_ids || [])] })
-      }
-    }
-    prior.source_themes = refs
-    const expressions = [...(prior.theme_expressions || [])]
-    for (const expression of row.theme_expressions || []) {
-      const key = `${expression.theme_id}|${expression.theme_rev}|${expression.ticker}|${expression.side}`
-      if (!expressions.some((candidate) => `${candidate.theme_id}|${candidate.theme_rev}|${candidate.ticker}|${candidate.side}` === key)) {
-        expressions.push({ ...expression, evidence_event_ids: [...expression.evidence_event_ids] })
-      }
-    }
-    prior.theme_expressions = expressions
+    const key = canonicalThemeKey(request.context.theme_id, request.context.theme_rev)
+    const group = packages.get(key) || { whyNow: null, proofs: [] }
+    if (isWhyNow) {
+      // Duplicate representations of the exact why-now event fail closed for this package rather than
+      // letting publisher ordering decide which source launches the paid run.
+      if (group.whyNow && group.whyNow.event_id !== row.event_id) continue
+      group.whyNow = row
+    } else group.proofs.push(row)
+    packages.set(key, group)
   }
-  return orderedStories.map((key) => byStory.get(key)!).filter(Boolean)
+  const out: IdeaInputRow[] = []
+  for (const group of packages.values()) {
+    if (!group.whyNow || !group.proofs.length) continue
+    const proof = [...group.proofs].sort((a, b) => (
+      (b.theme_expressions?.length || 0) - (a.theme_expressions?.length || 0)
+      || b.materiality - a.materiality
+      || a.event_id.localeCompare(b.event_id)
+    ))[0]
+    if (proof.event_id === group.whyNow.event_id) continue
+    out.push(group.whyNow, proof)
+  }
+  return out
 }
 
 /**
@@ -855,13 +1028,28 @@ export function readTopSweep(
       .filter((row) => !themeReserve.some((reservedRow) => sameIdeaStory(row, reservedRow)))
       .slice(0, cap - themeReserve.length),
   ]
-  for (const themeRow of themeRows) {
+  const themePackages = new Map<string, IdeaInputRow[]>()
+  for (const row of themeRows) {
+    const context = row.theme_contexts?.length === 1 ? row.theme_contexts[0] : null
+    if (!context) continue
+    const key = canonicalThemeKey(context.theme_id, context.theme_rev)
+    const group = themePackages.get(key) || []
+    group.push(row)
+    themePackages.set(key, group)
+  }
+  for (const group of themePackages.values()) {
     if (reserved.length >= reserveCap) break
-    const wireMatch = ordinaryWireRows.find((wireRow) => sameIdeaStory(wireRow, themeRow))
-    const candidate = wireMatch ? { ...themeRow, origin_type: 'mixed' as const } : themeRow
-    const tentative = [...reserved, candidate]
+    const whyRows = group.filter((row) => row.theme_contexts?.[0]?.role === 'WHY_NOW')
+    const proofRows = group.filter((row) => row.theme_contexts?.[0]?.role === 'EXPRESSION_PROOF')
+    if (whyRows.length !== 1 || proofRows.length !== 1 || whyRows[0].event_id === proofRows[0].event_id) continue
+    const candidates = [whyRows[0], proofRows[0]].map((themeRow) => {
+      const wireMatch = ordinaryWireRows.find((wireRow) => sameIdeaStory(wireRow, themeRow))
+      return wireMatch ? { ...themeRow, origin_type: 'mixed' as const } : themeRow
+    })
+    if (reserved.length + candidates.length > reserveCap) continue
+    const tentative = [...reserved, ...candidates]
     const tentativeRows = projectWith(tentative)
-    if (tentative.length <= Math.floor(tentativeRows.length / 3)) reserved.push(candidate)
+    if (tentative.length <= Math.floor(tentativeRows.length / 3)) reserved.push(...candidates)
   }
   const projected = projectWith(reserved).sort((a, b) => b.materiality - a.materiality)
   return {
@@ -912,6 +1100,7 @@ export function topNEffectHash(rows: IdeaInputRow[]): string {
         theme_id: theme.theme_id,
         theme_rev: theme.theme_rev,
         evidence_event_ids: [...(theme.evidence_event_ids || [])].sort(),
+        why_now_event_id: theme.why_now_event_id || null,
       }))
       .sort((a, b) => a.theme_id.localeCompare(b.theme_id)),
     theme_expressions: [...(row.theme_expressions || [])]
@@ -926,6 +1115,9 @@ export function topNEffectHash(rows: IdeaInputRow[]): string {
         evidence_event_ids: [...expression.evidence_event_ids].sort(),
       }))
       .sort((a, b) => `${a.theme_id}|${a.ticker}|${a.side}`.localeCompare(`${b.theme_id}|${b.ticker}|${b.side}`)),
+    theme_contexts: [...(row.theme_contexts || [])]
+      .map((context) => ({ ...context }))
+      .sort((a, b) => `${a.theme_id}|${a.theme_rev}|${a.role}`.localeCompare(`${b.theme_id}|${b.theme_rev}|${b.role}`)),
   }))
   return createHash('sha256').update(JSON.stringify(canonical)).digest('hex').slice(0, 16)
 }
@@ -1154,41 +1346,72 @@ export function finalizeIdeaPromotion(
   }
 }
 
-function themeAdmissionEdges(rows: IdeaInputRow[]): Map<string, Set<string>> {
-  const edges = new Map<string, Set<string>>()
+interface ThemeAdmissionEdge { evidence: Set<string>; whyNow: Set<string>; roles: Set<string> }
+function themeAdmissionEdges(rows: IdeaInputRow[]): Map<string, ThemeAdmissionEdge> {
+  const edges = new Map<string, ThemeAdmissionEdge>()
+  const revisionsByTheme = new Map<string, Set<number>>()
   for (const row of rows) {
     if (row.origin_type !== 'theme' && row.origin_type !== 'mixed') continue
     for (const theme of row.source_themes || []) {
       const key = `${theme.theme_id}@${theme.theme_rev}`
-      const ids = edges.get(key) || new Set<string>()
-      for (const eventId of theme.evidence_event_ids || []) ids.add(eventId)
+      const revisions = revisionsByTheme.get(theme.theme_id) || new Set<number>()
+      revisions.add(theme.theme_rev)
+      revisionsByTheme.set(theme.theme_id, revisions)
+      const edge = edges.get(key) || { evidence: new Set<string>(), whyNow: new Set<string>(), roles: new Set<string>() }
+      for (const eventId of theme.evidence_event_ids || []) edge.evidence.add(eventId)
+      if (theme.why_now_event_id) edge.whyNow.add(theme.why_now_event_id)
       for (const expression of row.theme_expressions || []) {
         if (expression.theme_id !== theme.theme_id || expression.theme_rev !== theme.theme_rev) continue
-        for (const eventId of expression.evidence_event_ids) ids.add(eventId)
+        for (const eventId of expression.evidence_event_ids) edge.evidence.add(eventId)
       }
-      edges.set(key, ids)
+      for (const context of row.theme_contexts || []) {
+        if (context.theme_id === theme.theme_id && context.theme_rev === theme.theme_rev) edge.roles.add(context.role)
+      }
+      edges.set(key, edge)
     }
+  }
+  for (const [themeId, revisions] of revisionsByTheme) {
+    if (revisions.size < 2) continue
+    for (const rev of revisions) edges.delete(`${themeId}@${rev}`)
   }
   return edges
 }
 
-function themeOnlyIdeaIsAdmitted(idea: SurfacedIdea, edges: Map<string, Set<string>>): boolean {
-  if (idea.origin_type !== 'theme' || !idea.source_themes?.length) return true
+function themeDerivedIdeaIsAdmitted(idea: SurfacedIdea, edges: Map<string, ThemeAdmissionEdge>): boolean {
+  if ((idea.origin_type !== 'theme' && idea.origin_type !== 'mixed') || !idea.source_themes?.length) return true
   return idea.source_themes.every((theme) => {
     const admitted = edges.get(`${theme.theme_id}@${theme.theme_rev}`)
-    return Boolean(admitted?.size && theme.evidence_event_ids?.length
-      && theme.evidence_event_ids.every((eventId) => admitted.has(eventId)))
+    return Boolean(admitted?.evidence.size && theme.evidence_event_ids?.length && theme.why_now_event_id
+      && admitted.whyNow.size === 1 && admitted.whyNow.has(theme.why_now_event_id)
+      && admitted.roles.has('WHY_NOW') && admitted.roles.has('EXPRESSION_PROOF')
+      && theme.evidence_event_ids.includes(theme.why_now_event_id)
+      && theme.evidence_event_ids.every((eventId) => admitted.evidence.has(eventId)))
   })
 }
 
-/** Immediately retire an unpromoted Theme-only lead whose exact current Theme revision/evidence edges no
- * longer clear admission. Mixed ideas retain their independent wire path; promoted ideas and in-flight
- * promotion reservations are immutable historical commitments. The append-only history remains intact. */
+function mixedIdeaHasIndependentWireIssuerProof(idea: SurfacedIdea, rows: IdeaInputRow[]): boolean {
+  if (idea.origin_type !== 'mixed' || !idea.primary_source_event_id || !idea.source_headline
+    || !idea.source_url || !idea.source_name) return false
+  return rows.some((row) => {
+    if (row.origin_type !== 'wire' || row.event_id !== idea.primary_source_event_id
+      || row.issuer_linkage !== 'primary'
+      || row.headline_orig !== idea.source_headline || row.url !== idea.source_url || row.source_name !== idea.source_name
+      || eventIdFor(row.headline_orig, row.url) !== row.event_id) return false
+    const tickers = new Set((row.companies || []).map((company) => cleanTicker(company.ticker)).filter(Boolean))
+    if (!tickers.has(idea.ticker)) return false
+    return idea.direction !== 'pair' || Boolean(idea.pair_with && tickers.has(idea.pair_with))
+  })
+}
+
+/** Immediately retire every unpromoted Theme-derived lead whose exact current revision/package no longer
+ * clears admission. A mixed lead survives only when its bound primary event independently clears the
+ * current wire as exact primary-issuer proof; a historical `mixed` label alone is not proof. */
 export function retireUnadmittedThemeIdeas(repoRoot: string, admittedRows: IdeaInputRow[]): number {
   const edges = themeAdmissionEdges(admittedRows)
   let removed = 0
   for (const idea of readIdeaSnapshots(repoRoot)) {
-    if (idea.status === 'promoted' || idea.origin_type !== 'theme' || themeOnlyIdeaIsAdmitted(idea, edges)) continue
+    if (idea.status === 'promoted' || (idea.origin_type !== 'theme' && idea.origin_type !== 'mixed')
+      || themeDerivedIdeaIsAdmitted(idea, edges) || mixedIdeaHasIndependentWireIssuerProof(idea, admittedRows)) continue
     const fp = path.join(ideasDir(repoRoot), `${idea.idea_id}.json`)
     let lease: IdeaMutationLease
     try { lease = acquireIdeaMutationLease(repoRoot, fp) } catch { continue }
@@ -1196,8 +1419,9 @@ export function retireUnadmittedThemeIdeas(repoRoot: string, admittedRows: IdeaI
       const current = readIdeaById(repoRoot, idea.idea_id)
       if (!current
         || current.status === 'promoted'
-        || current.origin_type !== 'theme'
-        || themeOnlyIdeaIsAdmitted(current, edges)
+        || (current.origin_type !== 'theme' && current.origin_type !== 'mixed')
+        || themeDerivedIdeaIsAdmitted(current, edges)
+        || mixedIdeaHasIndependentWireIssuerProof(current, admittedRows)
         || fs.existsSync(promotionReservationPath(repoRoot, current.idea_id))) continue
       try { fs.unlinkSync(fp); removed++ } catch { /* best effort */ }
     } finally {

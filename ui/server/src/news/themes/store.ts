@@ -2,8 +2,8 @@
 // of the screener uses. screener/ledger/themes.ndjson is the durable history (one line per theme
 // mutation, last-line-per-theme_id wins on load — identical to events.ndjson); screener/board/
 // themes_index.json is the compact live index the cockpit reads (the TS layer is its single writer, so
-// there's no double-writer race with the python board builder). Never throws — a lost write only costs
-// the cockpit a stale theme until next cycle.
+// there's no double-writer race with the python board builder). Never throws; append success is explicit so
+// the orchestrator cannot publish an index/freshness state that has no durable ledger mutation behind it.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -11,10 +11,11 @@ import { readFeed } from '../feed'
 import { deriveSourceTier } from '../scope'
 import { companyKeys } from '../text-match'
 import type { FeedItem } from '../types'
-import type { Theme, ThemeSummary, ThemesIndex, ThemeMutation, ThemeTier, ThemeDetail, CompaniesByOrder, ThemeItemView, ThemeCompany, ThemeEvidence, ThemeMember, ThemeQualifiedExpression } from './types'
+import type { Theme, ThemeSummary, ThemesIndex, ThemeMutation, ThemeTier, ThemeDetail, CompaniesByOrder, ThemeItemView, ThemeCompany, ThemeEvidence, ThemeMember, ThemeQualifiedExpression, ThemeNarrative } from './types'
 import { buildWhyIndex, buildCompanyWhy } from './why'
-import { compareThemeSummaries, companiesForMembers, qualifyTheme, uniqueThemeMembers } from './qualification'
+import { compareThemeSummaries, companiesForMembers, firstSeenForMembers, qualifyTheme, uniqueThemeMembers } from './qualification'
 import { cleanTicker } from '../symbology'
+import { DAILY_WINDOWS, ensureDaily, scoreTheme } from './score'
 
 const ledgerPath = (repoRoot: string) => path.join(repoRoot, 'screener', 'ledger', 'themes.ndjson')
 const indexPath = (repoRoot: string) => path.join(repoRoot, 'screener', 'board', 'themes_index.json')
@@ -56,12 +57,92 @@ function normalizeMember(v: unknown): ThemeMember | null {
     found_at: foundAt,
     score: bounded(m.score),
     tier: typeof m.tier === 'string' && m.tier.trim() ? m.tier.trim() : 'unconfirmed',
+    ...(typeof m.source_name === 'string' && m.source_name.trim() ? { source_name: m.source_name.trim().slice(0, 160) } : {}),
+    ...(typeof m.url === 'string' && /^https?:\/\//i.test(m.url.trim()) ? { url: m.url.trim().slice(0, 2000) } : {}),
     companies,
     event_types: strings(m.event_types, 6),
     ...(typeof m.issuer_linkage === 'string' && m.issuer_linkage.trim() ? { issuer_linkage: m.issuer_linkage.trim() } : {}),
     ...(m.country === null ? { country: null } : typeof m.country === 'string' && m.country.trim() ? { country: m.country.trim().toUpperCase() } : {}),
     ...(typeof m.region === 'string' && m.region.trim() ? { region: m.region.trim() } : {}),
     ...(Array.isArray(m.commodities) ? { commodities: strings(m.commodities, 8) } : {}),
+  }
+}
+
+function normalizeNarrative(v: unknown, members: ThemeMember[]): ThemeNarrative | undefined {
+  const raw = object(v)
+  if (!raw || raw.version !== 1) return undefined
+  const text = (value: unknown, cap: number): string => typeof value === 'string' ? value.trim().slice(0, cap) : ''
+  const thesis = text(raw.thesis, 360)
+  const whyNow = text(raw.why_now, 360)
+  const whyNowEventId = text(raw.why_now_event_id, 160)
+  const falsifier = text(raw.falsifier, 360)
+  const horizon = ['days', 'weeks', 'months', 'years'].includes(raw.horizon) ? raw.horizon as ThemeNarrative['horizon'] : null
+  const anchorTerms = strings(raw.anchor_terms, 2).map((value) => value.toLowerCase())
+  const mechanismSteps = strings(raw.mechanism_steps, 4).map((value) => value.slice(0, 260))
+  const validatedAt = iso(raw.validated_at)
+  const memberIds = new Set(members.map((member) => member.event_id))
+  if (!thesis || !whyNow || !falsifier || !horizon || !validatedAt || mechanismSteps.length < 2 || anchorTerms.length !== 2) return undefined
+  if (!memberIds.has(whyNowEventId)) return undefined
+
+  const evidenceCandidates = Array.isArray(raw.evidence) ? raw.evidence.flatMap((value: unknown) => {
+    const row = object(value)
+    const eventId = text(row?.event_id, 160)
+    if (!memberIds.has(eventId) || (row?.stance !== 'supports' && row?.stance !== 'challenges')) return []
+    return [{ event_id: eventId, stance: row.stance }]
+  }) : []
+  const classificationById = new Map<string, 'supports' | 'challenges'>()
+  for (const row of evidenceCandidates) {
+    const prior = classificationById.get(row.event_id)
+    if (row.stance === 'challenges' || prior !== 'challenges') classificationById.set(row.event_id, row.stance)
+  }
+  // Keep the complete bounded classification ledger internally. The PM projection selects a five-row
+  // excerpt later in qualifyTheme; truncating here makes support/coherence mathematically impossible for
+  // any retained theme whose member ring is larger than the old cap.
+  const evidence = [...classificationById].map(([event_id, stance]) => ({ event_id, stance }))
+  const supports = new Set(evidence.filter((row) => row.stance === 'supports').map((row) => row.event_id))
+  if (supports.size < 2 || !supports.has(whyNowEventId)) return undefined
+  const classifiedEvidenceIds = new Set(evidence.map((row) => row.event_id))
+  const contextEventIds = strings(raw.context_event_ids, 400)
+    .filter((eventId) => memberIds.has(eventId) && !classifiedEvidenceIds.has(eventId))
+
+  const roles = new Set(['direct', 'bottleneck', 'enabler', 'harmed', 'hedge'])
+  const expressionCandidates: ThemeNarrative['expressions'] = Array.isArray(raw.expressions) ? raw.expressions.flatMap((value: unknown) => {
+    const row = object(value)
+    const nameKey = text(row?.name_key, 160)
+    const mechanism = text(row?.mechanism, 300)
+    const evidenceIds = strings(row?.evidence_event_ids, 4).filter((eventId) => supports.has(eventId))
+    if (!nameKey || !mechanism || !evidenceIds.length || !roles.has(row?.role) || (row?.side !== 'beneficiary' && row?.side !== 'harmed')) return []
+    if (row.role === 'harmed' && row.side !== 'harmed') return []
+    return [{
+      name_key: nameKey,
+      side: row.side,
+      role: row.role as ThemeNarrative['expressions'][number]['role'],
+      mechanism,
+      evidence_event_ids: evidenceIds,
+    }]
+  }).slice(0, 12) : []
+  const expressionByName = new Map<string, ThemeNarrative['expressions'][number]>()
+  const conflictingExpressionNames = new Set<string>()
+  for (const expression of expressionCandidates) {
+    const prior = expressionByName.get(expression.name_key)
+    if (!prior) expressionByName.set(expression.name_key, expression)
+    else if (prior.side !== expression.side || prior.role !== expression.role || prior.mechanism !== expression.mechanism) conflictingExpressionNames.add(expression.name_key)
+    else prior.evidence_event_ids = [...new Set([...prior.evidence_event_ids, ...expression.evidence_event_ids])].slice(0, 4)
+  }
+  const expressions = [...expressionByName.values()].filter((expression) => !conflictingExpressionNames.has(expression.name_key)).slice(0, 6)
+  return {
+    version: 1,
+    thesis,
+    why_now: whyNow,
+    why_now_event_id: whyNowEventId,
+    mechanism_steps: mechanismSteps,
+    horizon,
+    falsifier,
+    anchor_terms: anchorTerms as [string, string],
+    evidence,
+    context_event_ids: contextEventIds,
+    expressions,
+    validated_at: validatedAt,
   }
 }
 
@@ -135,6 +216,20 @@ function normalizeTheme(v: unknown): Theme | null {
   const tier = raw.tier === 'hot' || raw.tier === 'active' || raw.tier === 'cooling' || raw.tier === 'parked' ? raw.tier : 'parked'
   const flowSeries = Array.isArray(raw.flow_series) ? raw.flow_series.map((n: unknown) => Math.max(0, Math.floor(finite(n)))).slice(-48) : []
   const flowDaily = Array.isArray(raw.flow_daily) ? raw.flow_daily.map((n: unknown) => Math.max(0, Math.floor(finite(n)))).slice(-120) : undefined
+  const narrative = normalizeNarrative(raw.narrative, members)
+  const classifiedNarrativeIds = new Set([
+    ...(narrative?.evidence.map((row) => row.event_id) || []),
+    ...(narrative?.context_event_ids || []),
+  ])
+  const pendingCap = Math.max(400, members.length)
+  const tracksNarrativeDebt = (narrative && raw.needs_narrative_update === true)
+    || (!narrative && generation === 'deterministic' && raw.needs_validation === true)
+  const pendingNarrativeIds = tracksNarrativeDebt
+    ? (strings(raw.pending_narrative_event_ids, pendingCap).length
+        ? strings(raw.pending_narrative_event_ids, pendingCap)
+        : members.map((member) => member.event_id).filter((eventId) => !classifiedNarrativeIds.has(eventId)))
+      .filter((eventId) => members.some((member) => member.event_id === eventId))
+    : []
   return {
     theme_id: raw.theme_id,
     name: raw.name.trim(), slug: raw.slug.trim(), description: raw.description.trim(),
@@ -154,12 +249,19 @@ function normalizeTheme(v: unknown): Theme | null {
     related_themes: related,
     status: raw.status,
     merged_into: raw.status === 'merged' && typeof raw.merged_into === 'string' && THEME_ID_RE.test(raw.merged_into) ? raw.merged_into : null,
-    first_seen: Date.parse(firstSeen) <= Date.parse(memberFirst) ? firstSeen : memberFirst,
+    // Once present, the lifecycle start is immutable. Member eviction, a correction admitted later, or a
+    // malformed earlier source clock must not move an established theme's birth date in either direction.
+    first_seen: firstSeen,
     last_flow: memberLast,
     generation,
+    ...(narrative ? { narrative } : {}),
     rev: Math.max(0, Math.floor(finite(raw.rev))),
     ...(raw.needs_rename === true ? { needs_rename: true } : {}),
     ...(generation === 'deterministic' && raw.needs_validation === true ? { needs_validation: true } : {}),
+    ...(narrative && raw.needs_narrative_update === true ? { needs_narrative_update: true } : {}),
+    ...(tracksNarrativeDebt ? { pending_narrative_event_ids: pendingNarrativeIds } : {}),
+    ...(iso(raw.validation_queued_at) ? { validation_queued_at: iso(raw.validation_queued_at) } : {}),
+    ...(iso(raw.validation_attempted_at) ? { validation_attempted_at: iso(raw.validation_attempted_at) } : {}),
   }
 }
 
@@ -190,17 +292,18 @@ export function loadThemes(repoRoot: string): Theme[] {
   return [...byId.values()]
 }
 
-/** Append one mutation line per changed theme. Best-effort. */
-export function appendThemeMutations(repoRoot: string, themes: Theme[], now: () => Date = () => new Date()): void {
-  if (!themes.length) return
+/** Append one mutation line per changed theme. False means nothing downstream may advance. */
+export function appendThemeMutations(repoRoot: string, themes: Theme[], now: () => Date = () => new Date()): boolean {
+  if (!themes.length) return true
   const fp = ledgerPath(repoRoot)
   try {
     fs.mkdirSync(path.dirname(fp), { recursive: true })
     const ts = now().toISOString().replace(/\.\d{3}Z$/, 'Z')
     const lines = themes.map((theme) => JSON.stringify({ kind: 'theme', ts, theme } satisfies ThemeMutation)).join('\n') + '\n'
     fs.appendFileSync(fp, lines)
+    return true
   } catch {
-    // a missed append only loses the durable record of one mutation; the index still has it
+    return false
   }
 }
 
@@ -273,30 +376,36 @@ const MAX_QUALIFIED_EXPRESSIONS = 4
  * summary is the authority consumed by Ideas; display order and provider-authored company strings are
  * never allowed to manufacture another eligible expression. */
 function qualifiedExpressions(
+  theme: Theme,
   companies: ThemeCompany[],
   members: ThemeMember[],
   evidence: ThemeEvidence[],
   actionable: boolean,
 ): ThemeQualifiedExpression[] {
-  if (!actionable) return []
+  if (!actionable || !theme.narrative) return []
   const memberById = new Map(members.map((member) => [member.event_id, member]))
+  const companyByKey = new Map(companies.map((company) => [company.name_key, company]))
+  const visibleEvidence = new Set(evidence.filter((row) => row.stance === 'supports').map((row) => row.event_id))
   const out: ThemeQualifiedExpression[] = []
-  for (const company of companies) {
+  for (const expression of theme.narrative.expressions) {
+    const company = companyByKey.get(expression.name_key)
+    if (!company) continue
     const ticker = cleanTicker(company.ticker)
-    if (!ticker || company.order !== 1 || company.side === 'mixed') continue
-    const proofIds = evidence
-      .filter((row) => {
-        const memberCompanies = memberById.get(row.event_id)?.companies
-        return companyKeys(Array.isArray(memberCompanies) ? memberCompanies : []).has(company.name_key)
-      })
-      .map((row) => row.event_id)
+    if (!ticker || !expression.mechanism?.trim()) continue
+    const proofIds = expression.evidence_event_ids.filter((eventId) => {
+      if (!visibleEvidence.has(eventId)) return false
+      const memberCompanies = memberById.get(eventId)?.companies
+      return companyKeys(Array.isArray(memberCompanies) ? memberCompanies : []).has(company.name_key)
+    })
     if (!proofIds.length) continue
     out.push({
       name: company.name,
       name_key: company.name_key,
       ticker,
       listing_country: company.listing_country ?? null,
-      side: company.side,
+      side: expression.side,
+      role: expression.role,
+      mechanism: expression.mechanism,
       evidence_event_ids: [...new Set(proofIds)].slice(0, 3),
     })
     if (out.length >= MAX_QUALIFIED_EXPRESSIONS) break
@@ -308,14 +417,33 @@ function qualifiedExpressions(
 export function buildSummary(t: Theme, now: Date = new Date(), companyProjection?: ThemeCompany[]): ThemeSummary {
   const members = Array.isArray(t.members) ? t.members : []
   const uniqueMembers = uniqueThemeMembers(members)
-  // Recompute from the proof ring at read time. This fixes old ledger rows whose company counts/order
-  // were inflated by publisher copies, without rewriting historical results.
-  const companies = Array.isArray(companyProjection) ? companyProjection : companiesForMembers(t, uniqueMembers)
+  const allCompanies = Array.isArray(companyProjection) ? companyProjection : companiesForMembers(t, uniqueMembers)
+  const firstPass = qualifyTheme(t, now, uniqueMembers, allCompanies)
+  // Every public projection uses the same canonical core. Off-thesis rows cannot leak back through a
+  // company count, detail panel or brief after qualification correctly excluded them.
+  const coreMembers = [...firstPass.supporting_members, ...firstPass.challenging_members]
+  const rebuiltCompanies = companiesForMembers(t, coreMembers)
+  // A caller-supplied projection is an admission boundary, not merely a seed for the first pass. Geo and
+  // commodity slices deliberately remove names outside their scope; rebuilding from core evidence must
+  // not silently add those names back because a sliced story happened to mention them.
+  const admittedCompanyKeys = Array.isArray(companyProjection)
+    ? new Set(allCompanies.map((company) => company.name_key))
+    : null
+  const companies = admittedCompanyKeys
+    ? rebuiltCompanies.filter((company) => admittedCompanyKeys.has(company.name_key))
+    : rebuiltCompanies
   const qualified = qualifyTheme(t, now, uniqueMembers, companies)
+  const coreFirstSeen = firstSeenForMembers(coreMembers, t.first_seen)
+  // Heat and every time-window series are evidence projections too. Reusing the persisted all-member
+  // score here let hundreds of explicitly excluded rows make a two-row thesis the largest/hottest node.
+  const coreScored = scoreTheme({ members: coreMembers, companies, sectors: [], first_seen: coreFirstSeen }, now)
+  const daily: { members: ThemeMember[]; flow_daily?: number[]; flow_daily_day?: string } = { members: coreMembers }
+  ensureDaily(daily, now.getTime(), DAILY_WINDOWS)
   const visibleCompanies = topCompaniesWithExpression(companies, qualified.expression_company_key, 8)
   const expressions = qualifiedExpressions(
+    t,
     companies,
-    uniqueMembers,
+    qualified.supporting_members,
     qualified.evidence,
     qualified.assessment.status === 'actionable',
   )
@@ -323,18 +451,34 @@ export function buildSummary(t: Theme, now: Date = new Date(), companyProjection
     theme_id: t.theme_id,
     name: t.name,
     description: t.description,
-    tier: t.tier,
-    composite: t.scores.composite,
-    fresh_flow: t.fresh_flow,
-    flow_series: t.flow_series,
-    flow_daily: t.flow_daily || [],
+    tier: coreScored.tier,
+    composite: coreScored.scores.composite,
+    fresh_flow: coreScored.fresh_flow,
+    flow_series: coreScored.flow_series,
+    flow_daily: daily.flow_daily || [],
+    heat_flow_daily: Array.isArray(t.flow_daily) ? [...t.flow_daily] : (daily.flow_daily || []),
     // First-look volume is the distinct underlying stories CURRENTLY available as proof. Lifetime
     // member_count_total includes duplicate publisher copies and rows evicted from the evidence ring, so
     // using it made old noisy themes look permanently huge even after their proof disappeared.
-    member_count: uniqueMembers.length,
+    member_count: coreMembers.length,
     first_seen: t.first_seen,
-    score_components: { ...t.scores },
+    score_components: { ...coreScored.scores },
     evidence: qualified.evidence,
+    narrative: t.narrative && !t.needs_rename && qualified.assessment.status !== 'context'
+      && qualified.evidence.some((row) => row.stance === 'supports' && row.event_id === t.narrative!.why_now_event_id) ? {
+      version: t.narrative.version,
+      thesis: t.narrative.thesis,
+      why_now: t.narrative.why_now,
+      why_now_event_id: t.narrative.why_now_event_id,
+      mechanism_steps: [...t.narrative.mechanism_steps],
+      horizon: t.narrative.horizon,
+      falsifier: t.narrative.falsifier,
+      context_event_ids: [...t.narrative.context_event_ids],
+      validated_at: t.narrative.validated_at,
+    } : null,
+    activity: qualified.assessment.activity,
+    conviction: qualified.assessment.conviction,
+    off_core_member_count: qualified.off_core_members.length,
     qualified_expressions: expressions,
     top_companies: visibleCompanies.map((c) => ({
       name: c.name,
@@ -348,7 +492,7 @@ export function buildSummary(t: Theme, now: Date = new Date(), companyProjection
     })),
     assessment: qualified.assessment,
     related_themes: top(t.related_themes, 5).map((r) => ({ theme_id: r.theme_id, name: r.name, kind: r.kind })),
-    last_flow: t.last_flow,
+    last_flow: coreMembers.reduce((latest, member) => !latest || member.found_at > latest ? member.found_at : latest, ''),
     rev: t.rev,
   }
 }
@@ -357,22 +501,22 @@ export function buildSummary(t: Theme, now: Date = new Date(), companyProjection
 export function buildThemesIndex(themes: Theme[], now: () => Date = () => new Date()): ThemesIndex {
   const live = themes.filter((t) => t.status === 'live')
   const nowD = now()
-  const summaries = live.map((t) => buildSummary(t, nowD)).sort(compareThemeSummaries)
+  // The PM-facing index is a thesis product, not a raw-cluster diagnostic. Contractless/rejected Context
+  // rows stay in the ledger for migration and audit but can never occupy the Themes first look or map.
+  const summaries = live
+    .map((t) => buildSummary(t, nowD))
+    .filter((summary) => summary.narrative && summary.assessment.status !== 'context')
+    .sort(compareThemeSummaries)
   const counts = { hot: 0, active: 0, cooling: 0, parked: 0, retired: 0, total: 0 }
-  for (const t of themes) {
-    if (t.status === 'retired') counts.retired++
-    else if (t.status === 'live') {
-      counts.total++
-      counts[t.tier as ThemeTier]++
-    }
-  }
+  counts.retired = themes.filter((theme) => theme.status === 'retired').length
+  for (const summary of summaries) { counts.total++; counts[summary.tier as ThemeTier]++ }
   // how many days of real daily-flow history exist = the furthest-back non-zero daily bucket across
   // live themes. This is what the UI's window selector honestly reaches: a "last 7d" view is only fully
   // backed once history_days ≥ 7. Grows one real day per day; the firehose is high-volume, so every past
   // accrued day has flow in at least one theme, making this a truthful lower bound on coverage.
   let history_days = 0
-  for (const t of live) {
-    const fd = t.flow_daily || []
+  for (const summary of summaries) {
+    const fd = summary.flow_daily || []
     const firstNonZero = fd.findIndex((v) => v > 0)
     if (firstNonZero >= 0) history_days = Math.max(history_days, fd.length - firstNonZero)
   }
@@ -421,7 +565,8 @@ export function readRecentThemeItems(repoRoot: string, minScore: number): ThemeI
         event_id: it.event_id, dedup_group: it.dedup_group, headline: it.headline, headline_en: it.headline_en, found_at: it.found_at,
         companies: it.companies || [], event_types: it.event_types || [], issuer_linkage: it.issuer_linkage,
         triage_score: it.triage_score, materiality_pre_score: (it as any).materiality_pre_score,
-        source_tier: it.source_tier || deriveSourceTier(it), scope: it.scope, region: it.region, country: it.country,
+        source_tier: it.source_tier || deriveSourceTier(it), source_name: it.source_name, url: it.url,
+        scope: it.scope, region: it.region, country: it.country,
         commodities: it.commodities, // canonical commodity tag(s) — carried onto members for the commodity slice
       })
     }
@@ -439,7 +584,7 @@ export function readRecentThemeItems(repoRoot: string, minScore: number): ThemeI
 export function loadTheme(repoRoot: string, themeId: string): Theme | null {
   // Merged rows are tombstones just like retired rows. Returning one here lets a racing detail/brief GET
   // reopen a theme after the index and SSE removal already declared it gone.
-  return loadThemes(repoRoot).find((t) => t.theme_id === themeId && t.status === 'live') || null
+  return loadThemes(repoRoot).find((t) => t.theme_id === themeId && t.status === 'live' && t.narrative && !t.needs_rename) || null
 }
 
 /** The deep-dive payload: resolve the theme's member event_ids → full FeedItems (newest/best first),
@@ -456,15 +601,23 @@ export function buildThemeDetail(repoRoot: string, theme: Theme): ThemeDetail {
   // The detail uses the same unique-story proof as the first-look summary. Otherwise opening a clean
   // briefing row could bring back ten syndicated copies and copy-inflated company placement from a
   // legacy ledger row.
-  const proofMembers = uniqueThemeMembers(Array.isArray(theme.members) ? theme.members : [])
+  const uniqueMembers = uniqueThemeMembers(Array.isArray(theme.members) ? theme.members : [])
+  const initialCompanies = companiesForMembers(theme, uniqueMembers)
+  const qualified = qualifyTheme(theme, new Date(), uniqueMembers, initialCompanies)
+  // Detail, summary and brief share the exact same thesis evidence. The hundreds of excluded rows in a
+  // polluted legacy bag are diagnostics only and never reappear as “news in this theme”.
+  const proofMembers = [...qualified.supporting_members, ...qualified.challenging_members]
   const members: FeedItem[] = proofMembers
     .map((m) => {
       const f = feedById.get(m.event_id)
       if (f) return f
       // minimal fallback so a member older than the 2-day feed still shows
+      const sourceUrl = typeof m.url === 'string' ? m.url : ''
+      let sourceDomain = ''
+      try { sourceDomain = sourceUrl ? new URL(sourceUrl).hostname : '' } catch { /* malformed legacy URL */ }
       return {
-        kind: 'item', ts: m.found_at, event_id: m.event_id, headline: m.headline, headline_en: m.headline_en, url: '', domain: '',
-        source_name: '', via: 'gdelt', region: 'GLOBAL', input_nature: 'news_headline',
+        kind: 'item', ts: m.found_at, event_id: m.event_id, headline: m.headline, headline_en: m.headline_en, url: sourceUrl, domain: sourceDomain,
+        source_name: m.source_name || sourceDomain, via: 'gdelt', region: 'GLOBAL', input_nature: 'news_headline',
         triage_score: m.score, band: 'watch', triage_reason: '', relevance: 'relevant_non_material',
         event_types: m.event_types || [], issuer_linkage: (m.issuer_linkage as any) || 'sector',
         companies: m.companies || [], size_bucket: 'unknown', source_tier: m.tier as any,
@@ -477,7 +630,9 @@ export function buildThemeDetail(repoRoot: string, theme: Theme): ThemeDetail {
   // the member stories that named it (§3 evidence). Built off theme.members — the SAME source the company
   // list was aggregated from (rebuildThemeCompanies), so the name_key join lands exactly. Non-mutating: a
   // fresh copy per company so the in-memory theme (and any later ledger write) never carries the why.
+  const expressionKeys = new Set((theme.narrative?.expressions || []).map((expression) => expression.name_key))
   const projectedCompanies = companiesForMembers(theme, proofMembers)
+    .filter((company) => !theme.narrative || expressionKeys.has(company.name_key))
   const whyIndex = buildWhyIndex(proofMembers)
   const withWhy = (c: ThemeCompany): ThemeCompany => ({ ...c, why: buildCompanyWhy(c, c.name_key, whyIndex) })
   const byOrder: CompaniesByOrder = { first: [], second: [], third: [] }
@@ -488,9 +643,12 @@ export function buildThemeDetail(repoRoot: string, theme: Theme): ThemeDetail {
   // Default the array pass-throughs so a malformed theme degrades gracefully on the CLIENT too: the deep
   // dive dereferences `detail.related_themes.length` (and maps sectors/keywords), so a missing/non-array
   // field here would crash `ThemeDeepDive` even though the server got past buildSummary.
+  const summary = buildSummary(theme)
   return {
-    theme: buildSummary(theme),
-    scores: theme.scores,
+    theme: summary,
+    // Keep the compatibility field, but derive it from the same core-only projection as the header.
+    // Legacy all-member scores may contain hundreds of rows the thesis contract explicitly excluded.
+    scores: summary.score_components,
     members,
     companies_by_order: byOrder,
     sectors: Array.isArray(theme.sectors) ? theme.sectors : [],
