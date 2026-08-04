@@ -11,6 +11,7 @@ import { createTheme, DEFAULT_DISCOVER_CONFIG, mergeAndRetire } from '../src/new
 import { buildSummary, appendThemeMutations, loadTheme, loadThemes, readThemesIndex, writeThemesIndex } from '../src/news/themes/store'
 import { uniqueThemeEvidenceMembers, uniqueThemeMembers } from '../src/news/themes/qualification'
 import type { ThemeItemView } from '../src/news/themes/types'
+import { attachValidNarrative } from './themes-fixtures'
 
 const NOW = new Date('2026-08-04T06:00:00Z')
 const hoursAgo = (h: number) => new Date(NOW.getTime() - h * 3_600_000).toISOString()
@@ -24,7 +25,7 @@ const narrative = (rows: ThemeItemView[]) => {
   const theme = createTheme(rows, NOW, 'claude')
   theme.name = 'AI Data-Center Capacity Buildout'
   theme.description = 'Chip, cooling and power suppliers are expanding capacity for AI data centers.'
-  return theme
+  return attachValidNarrative(theme)
 }
 
 // dedup_group is the canonical event_id, not a separate namespace. This mixed shape exists at the
@@ -65,8 +66,9 @@ const narrative = (rows: ThemeItemView[]) => {
   fs.rmSync(root, { recursive: true, force: true })
 }
 
-// Merging two ordered rings must keep the newest source-time tail, and a model-approved keeper must lose
-// admission until the combined narrative is explicitly re-grounded.
+// Merging two ordered rings must preserve every newly unclassified evidence row even when that temporarily
+// exceeds the ordinary ring cap, and a model-approved keeper must lose admission until the combined
+// narrative is explicitly re-grounded.
 {
   const fresh = narrative([
     item('fresh-a', 'Nvidia expands AI data center chip capacity', { companies: [co('Nvidia', 'NVDA')], found_at: hoursAgo(1) }),
@@ -82,13 +84,14 @@ const narrative = (rows: ThemeItemView[]) => {
   fresh.scores.composite = 80
   old.scores.composite = 20
   mergeAndRetire([fresh, old], NOW, { ...DEFAULT_DISCOVER_CONFIG, maxMembers: 3 })
-  assert.deepEqual(fresh.members.map((m) => m.event_id), ['fresh-c', 'fresh-b', 'fresh-a'])
+  assert.deepEqual(fresh.members.map((m) => m.event_id), ['old-c', 'old-b', 'old-a', 'fresh-c', 'fresh-b', 'fresh-a'])
+  assert.deepEqual(fresh.pending_narrative_event_ids, ['old-c', 'old-b', 'old-a'])
   assert.equal(fresh.last_flow, hoursAgo(1))
   assert.equal(fresh.needs_rename, true)
   assert.equal(buildSummary(fresh, NOW).assessment.status, 'context', 'pre-merge validation cannot admit the combined cluster')
 }
 
-// A quiet drain still advances the Theme clock and emits the time-only demotion to an already-open client.
+// A quiet drain still advances activity for an already-open client without expiring durable conviction.
 {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'themes-quiet-clock-'))
   const stateDir = path.join(root, 'state')
@@ -103,16 +106,17 @@ const narrative = (rows: ThemeItemView[]) => {
 
   const seen: NewsBusEvent[] = []
   const unsubscribe = newsBus.subscribe((event) => seen.push(event))
-  const later = new Date(NOW.getTime() + 8 * 3_600_000)
+  const later = new Date(NOW.getTime() + 25 * 3_600_000)
   await runIngestCycle({
     repoRoot: root, stateDir, skipFetch: true, now: () => later,
     config: { groqApiKey: 'test', themesEnabled: true, themesDiscoverEveryCycles: 99 },
     log: () => {},
   })
   unsubscribe()
-  assert.equal(readThemesIndex(root).themes[0]?.assessment.status, 'context')
-  assert.ok(seen.some((event) => event.type === 'theme-update' && event.theme.theme_id === initial.theme_id && event.theme.assessment.status === 'context'))
+  assert.equal(readThemesIndex(root).themes[0]?.assessment.status, 'actionable')
+  assert.equal(readThemesIndex(root).themes[0]?.activity, 'quiet')
+  assert.ok(seen.some((event) => event.type === 'theme-update' && event.theme.theme_id === initial.theme_id && event.theme.activity === 'quiet'))
   fs.rmSync(root, { recursive: true, force: true })
 }
 
-console.log('themes hardening: canonical families, ledger boundary, merge invalidation and quiet clock passed')
+console.log('themes hardening: canonical families, ledger boundary, merge invalidation and quiet activity passed')

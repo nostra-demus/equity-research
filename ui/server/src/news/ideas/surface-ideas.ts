@@ -38,6 +38,9 @@ export interface IdeaSourceTheme {
   /** Exact wire events from this revision that contributed to the selected, possibly publisher-deduped
    * input row. Optional only for deploy-compatible snapshots written before row↔theme edges existed. */
   evidence_event_ids?: string[]
+  /** The supporting event bound to this revision's why-now claim. New lineage always carries it; optional
+   * only for deploy-compatible historical snapshots. */
+  why_now_event_id?: string
 }
 
 export interface IdeaThemeExpression {
@@ -48,7 +51,21 @@ export interface IdeaThemeExpression {
   ticker: string
   listing_country: string | null
   side: 'beneficiary' | 'harmed'
+  role?: 'direct' | 'bottleneck' | 'enabler' | 'harmed' | 'hedge'
+  mechanism?: string
   evidence_event_ids: string[]
+}
+
+export type IdeaThemeRowRole = 'WHY_NOW' | 'EXPRESSION_PROOF'
+export interface IdeaThemeContext {
+  theme_id: string
+  theme_rev: number
+  /** A Theme seed is a causal package, not a free-floating headline. The model must select one exact
+   * WHY_NOW row and a distinct EXPRESSION_PROOF row from this same revision. */
+  role: IdeaThemeRowRole
+  thesis: string
+  context: string
+  why_now_event_id: string
 }
 
 // One row of the top-N the skim reads: exactly the fields the wire already scored (InboxRow subset), so
@@ -78,6 +95,9 @@ export interface IdeaInputRow {
   /** Server-authored allowlist copied from the qualified ThemeSummary. It is model-visible for selection,
    * then enforced after `src` resolution; provider output can never add an eligible company or ticker. */
   theme_expressions?: IdeaThemeExpression[]
+  /** Bounded, server-authored Theme package metadata. It makes the real provider prompt auditable: exact
+   * revision, exact evidence role, and the short thesis/context that the row is meant to prove. */
+  theme_contexts?: IdeaThemeContext[]
 }
 
 // A surfaced idea, as the LLM returns it (raw, per-batch). Indices in `src` point back into the input rows
@@ -122,7 +142,7 @@ export const IDEA_SYSTEM = `You are the sharpest portfolio manager on a buy-side
 
 You are given the desk's already-ranked top items, each with the wire's own materiality read (0-100), a severity label, event types, and any companies it guessed. Your ONLY job is the leap the wire cannot make: from an event to a concrete position — which exact listed stock to play, which way, why, and how sure you are.
 
-Some rows carry "qualified_theme_expressions". Those are a server-verified allowlist from an actionable Theme: for any such source row, choose only a listed company/ticker on that row's allowlist. Beneficiary means long; harmed means short. A pair must use an allowed beneficiary as "ticker" and an allowed harmed company as "pair_with". If the clean expression is not on the allowlist, do not use that row and do not surface the idea from it.
+Some rows are labelled as a server-qualified Theme package. A Theme package is usable only when your "src" includes BOTH distinct evidence roles from the SAME exact theme id@revision: one row labelled WHY_NOW and at least one row labelled EXPRESSION_PROOF. Never mix revisions, never use a partial package, and never infer a company from the WHY_NOW row alone. The EXPRESSION_PROOF row carries "qualified_theme_expressions", a server-verified allowlist: choose only a listed company/ticker on that allowlist. Beneficiary means long; harmed means short. A pair must use an allowed beneficiary as "ticker" and an allowed harmed company as "pair_with". If a complete same-revision package and the clean expression are not present, do not use those rows and do not surface the idea from them.
 
 THE BAR IS HIGH. Most items yield NO idea. Return an idea ONLY when ALL of these hold:
 - there is a SPECIFIC, LISTED, liquid stock (or a clean pair) that expresses the event — not "the sector", not a private company, not an index;
@@ -160,15 +180,21 @@ export function buildIdeaUserMessage(rows: IdeaInputRow[]): string {
       .join(', ')
     const tags = (r.event_types || []).slice(0, 4).join('/')
     const themeExpressions = (r.theme_expressions || [])
-      .map((expression) => `${expression.name} (${expression.ticker}; ${expression.side})`)
+      .map((expression) => `${expression.name} (${expression.ticker}; ${expression.side}${expression.role ? `; ${expression.role}` : ''}${expression.mechanism ? `; mechanism: ${expression.mechanism}` : ''})`)
       .slice(0, 4)
       .join(', ')
+    const themeContexts = (r.theme_contexts || [])
+      .map((theme) => `${theme.theme_id}@${theme.theme_rev}; role=${theme.role}; why_now_event=${theme.why_now_event_id}; thesis=${JSON.stringify(theme.thesis)}; context=${JSON.stringify(theme.context)}`)
+      .slice(0, 4)
+      .join(' | ')
     const bits = [
+      `found_at=${r.found_at}`,
       `materiality=${Math.round(r.materiality)}`,
       r.label ? `severity=${r.label}` : '',
       tags ? `types=${tags}` : '',
       r.issuer_linkage ? `linkage=${r.issuer_linkage}` : '',
       comp ? `names=${comp}` : '',
+      themeContexts ? `theme_package=${themeContexts}` : '',
       themeExpressions ? `qualified_theme_expressions=${themeExpressions}` : '',
     ].filter(Boolean).join(' · ')
     return `${i}. [${r.source_name} · ${r.region}] ${r.headline}\n   (${bits})`

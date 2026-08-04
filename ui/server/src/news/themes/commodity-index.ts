@@ -15,7 +15,7 @@
 // the commodity chips are cumulative filters, exactly like the Events list).
 
 import { deriveCommodities } from '../commodities'
-import { companyMatchesGeo, memberMatchesGeo, type ThemeGeo } from './geo-index'
+import { memberMatchesGeo, type ThemeGeo } from './geo-index'
 import { DAILY_WINDOWS, ensureDaily, scoreTheme, type ThemeScoreConfig } from './score'
 import type { Theme, ThemeMember, ThemesIndex, ThemeSummary, ThemeTier } from './types'
 import { buildSummary } from './store'
@@ -72,8 +72,9 @@ export function buildCommodityThemesIndex(
 
     // Rebuild company placement from the sliced proof. The old projection reused the theme's GLOBAL
     // company rows, which could show a name/side/count supported only by another commodity's stories.
-    let sliceCompanies = companiesForMembers(t, sliceMembers)
-    if (filter.geo) sliceCompanies = sliceCompanies.filter((c) => companyMatchesGeo(c, filter.geo as ThemeGeo))
+    // Geography scopes what the evidence is ABOUT, not where the expression is listed. Preserve a
+    // cross-border beneficiary (for example an India catalyst expressed through a US-listed supplier).
+    const sliceCompanies = companiesForMembers(t, sliceMembers)
     const sliceFirstSeen = firstSeenForMembers(sliceMembers, t.first_seen)
     const scored = scoreTheme({ members: sliceMembers, companies: sliceCompanies, sectors: [], first_seen: sliceFirstSeen }, nowD, cfg)
 
@@ -81,12 +82,6 @@ export function buildCommodityThemesIndex(
     const holder: { flow_daily?: number[]; flow_daily_day?: string; members: { found_at: string }[] } = { members: sliceMembers }
     ensureDaily(holder, nowMs, DAILY_WINDOWS)
     const flow_daily = holder.flow_daily || []
-    const firstNonZero = flow_daily.findIndex((v) => v > 0)
-    if (firstNonZero >= 0) history_days = Math.max(history_days, flow_daily.length - firstNonZero)
-
-    counts.total++
-    counts[scored.tier as ThemeTier]++
-
     const slicedTheme: Theme = {
       ...t,
       members: sliceMembers,
@@ -97,10 +92,17 @@ export function buildCommodityThemesIndex(
       fresh_flow: scored.fresh_flow,
       flow_series: scored.flow_series,
       flow_daily,
-      first_seen: sliceFirstSeen,
+      first_seen: t.first_seen,
       last_flow: sliceMembers.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), ''),
     }
-    out.push(buildSummary(slicedTheme, nowD, sliceCompanies))
+    const summary = buildSummary(slicedTheme, nowD, sliceCompanies)
+    if (summary.narrative && summary.assessment.status !== 'context') {
+      const firstNonZero = summary.flow_daily.findIndex((value) => value > 0)
+      if (firstNonZero >= 0) history_days = Math.max(history_days, summary.flow_daily.length - firstNonZero)
+      out.push(summary)
+      counts.total++
+      counts[summary.tier as ThemeTier]++
+    }
   }
 
   // Same evidence-first admission order as the global index; sliced heat only breaks later ties.

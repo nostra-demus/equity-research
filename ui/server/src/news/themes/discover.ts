@@ -6,9 +6,10 @@
 
 import { createHash } from 'node:crypto'
 import { companyKeys, themeNarrativeTokens, intersectionSize, jaccard } from '../text-match'
-import { rebuildThemeCompanies, overlapScore } from './assign'
+import { rebuildThemeCompanies } from './assign'
 import { ensureDaily } from './score'
 import { themeStoryKey } from './story-key'
+import { selectNarrativeCore } from './core'
 import type { Theme, ThemeItemView, ThemeMember, RelatedTheme } from './types'
 
 export interface DiscoverConfig {
@@ -17,6 +18,7 @@ export interface DiscoverConfig {
   maxPoolScan: number // cap the O(n²) clustering to the most recent N unclustered items
   maxMembers: number
   retireHours: number // a parked theme with no flow for this long is retired
+  thesisRetireDays: number // validated theses persist as durable research memory through quiet news
   mergeSharedCompanies: number // company-supported merge floor; still requires ≥2 shared narrative anchors
   mergeKeywordJaccard: number // …or with keyword jaccard above this
 }
@@ -26,12 +28,18 @@ export const DEFAULT_DISCOVER_CONFIG: DiscoverConfig = {
   maxPoolScan: 600,
   maxMembers: 400,
   retireHours: 72,
+  thesisRetireDays: 180,
   mergeSharedCompanies: 3,
   mergeKeywordJaccard: 0.5,
 }
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'theme'
-const themeId = (slug: string) => 'THM-' + createHash('sha256').update(slug).digest('hex').slice(0, 8)
+const themeId = (slug: string, anchors: string[], evidenceKeys: string[]) => 'THM-' + createHash('sha256')
+  // A display label is mutable and often collides ("Emerging cluster", one recurring issuer). Bind the
+  // durable identity to the deterministic anchor/evidence core so two unrelated clusters cannot alias and
+  // a later rename cannot change the id.
+  .update(JSON.stringify({ slug, anchors: [...anchors].sort(), evidence: [...evidenceKeys].sort() }))
+  .digest('hex').slice(0, 8)
 const iso = (d: Date) => d.toISOString().replace(/\.\d{3}Z$/, 'Z')
 
 const oldestFirst = <T extends { event_id: string; found_at?: string }>(a: T, b: T): number => {
@@ -65,32 +73,47 @@ function itemSig(it: ThemeItemView, generic?: Set<string>): { keys: Set<string>;
   return { keys: companyKeys(it.companies), toks: themeNarrativeTokens(it.headline, it.companies, it.source_tier, generic) }
 }
 
-/** Connected-components clustering: a shared company is supporting context, never a theme by itself.
- *  Items connect on ≥3 narrative tokens, or on ≥2 when they also share a company. The stricter edge is
- *  important because connected components amplify one weak bridge into a giant incoherent cluster. */
+/** Dense anchor-pair clustering. Every row in a returned multi-row cluster carries the SAME narrative
+ * pair. This deliberately gives up some recall: a bridge headline may touch two narratives, but it cannot
+ * fuse their unrelated rows through connected-component transitivity. Unclaimed rows remain singletons
+ * and can form later when corroborating evidence arrives. */
 export function clusterItems(items: ThemeItemView[], generic?: Set<string>): number[][] {
-  const n = items.length
   const sigs = items.map((it) => itemSig(it, generic))
-  const parent = Array.from({ length: n }, (_, i) => i)
-  const find = (x: number): number => (parent[x] === x ? x : (parent[x] = find(parent[x])))
-  const union = (a: number, b: number) => { const ra = find(a), rb = find(b); if (ra !== rb) parent[ra] = rb }
-  // Edge bar for FORMING a new cluster is deliberately strict (shared company OR ≥3 shared topic
-  // tokens) — connected-components chains transitively, so a ≥2-token edge merges unrelated items
-  // through generic bridge words. Assignment to an already-defined theme stays the looser ≥2 bar.
-  for (let i = 0; i < n; i++) {
-    for (let j = i + 1; j < n; j++) {
-      const companies = intersectionSize(sigs[i].keys, sigs[j].keys)
-      const narrative = intersectionSize(sigs[i].toks, sigs[j].toks)
-      if (narrative >= 3 || (companies >= 1 && narrative >= 2)) union(i, j)
+  const tokenDf = new Map<string, number>()
+  const candidates = new Map<string, number[]>()
+  for (let row = 0; row < sigs.length; row++) {
+    const tokens = [...sigs[row].toks].sort().slice(0, 18)
+    for (const token of tokens) tokenDf.set(token, (tokenDf.get(token) || 0) + 1)
+    for (let i = 0; i < tokens.length; i++) {
+      for (let j = i + 1; j < tokens.length; j++) {
+        const key = `${tokens[i]}\u0000${tokens[j]}`
+        const rows = candidates.get(key) || []
+        rows.push(row)
+        candidates.set(key, rows)
+      }
     }
   }
-  const groups = new Map<number, number[]>()
-  for (let i = 0; i < n; i++) {
-    const r = find(i)
-    if (!groups.has(r)) groups.set(r, [])
-    groups.get(r)!.push(i)
+
+  const ranked = [...candidates.entries()]
+    .filter(([, rows]) => rows.length >= 2)
+    .sort((a, b) => {
+      const bySupport = b[1].length - a[1].length
+      if (bySupport) return bySupport
+      const [a1, a2] = a[0].split('\u0000'); const [b1, b2] = b[0].split('\u0000')
+      const aDf = (tokenDf.get(a1) || 0) + (tokenDf.get(a2) || 0)
+      const bDf = (tokenDf.get(b1) || 0) + (tokenDf.get(b2) || 0)
+      return aDf - bDf || a[0].localeCompare(b[0])
+    })
+  const claimed = new Set<number>()
+  const groups: number[][] = []
+  for (const [, support] of ranked) {
+    const available = support.filter((index) => !claimed.has(index))
+    if (available.length < 2) continue
+    groups.push(available)
+    for (const index of available) claimed.add(index)
   }
-  return [...groups.values()].sort((a, b) => b.length - a.length)
+  for (let index = 0; index < items.length; index++) if (!claimed.has(index)) groups.push([index])
+  return groups.sort((a, b) => b.length - a.length || a[0] - b[0])
 }
 
 function memberOf(it: ThemeItemView): ThemeMember {
@@ -102,6 +125,8 @@ function memberOf(it: ThemeItemView): ThemeMember {
     found_at: it.found_at,
     score: typeof it.triage_score === 'number' ? it.triage_score : it.materiality_pre_score || 0,
     tier: it.source_tier || 'news',
+    source_name: it.source_name,
+    url: it.url,
     companies: (it.companies || []).slice(0, 4),
     event_types: (it.event_types || []).slice(0, 6),
     issuer_linkage: it.issuer_linkage,
@@ -156,7 +181,7 @@ export function createTheme(items: ThemeItemView[], now: Date, generation: Theme
   const members = unique.map(memberOf)
   const last_flow = members.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), members[0]?.found_at || iso(now))
   const theme: Theme = {
-    theme_id: themeId(slug),
+    theme_id: themeId(slug, id.keywords.slice(0, 4), unique.map(themeStoryKey)),
     name,
     slug,
     description: `Recurring news around ${name}.`,
@@ -179,6 +204,12 @@ export function createTheme(items: ThemeItemView[], now: Date, generation: Theme
     generation,
     rev: 1,
     needs_validation: generation === 'deterministic' ? true : undefined,
+    // A fresh cluster can be much larger than one bounded model prompt. Queue every retained story now so
+    // the compiler drains the complete evidence set FIFO across later passes; otherwise the first sample
+    // silently becomes the whole classification ledger and large coherent themes can never clear the
+    // coherence gate.
+    pending_narrative_event_ids: generation === 'deterministic' ? members.map((member) => member.event_id) : undefined,
+    validation_queued_at: generation === 'deterministic' ? iso(now) : undefined,
   }
   rebuildThemeCompanies(theme)
   return theme
@@ -201,20 +232,31 @@ export function refreshThemeIdentity(theme: Theme, cfg: DiscoverConfig = DEFAULT
   // members persist source_tier as `tier` — map it back so the routine-filing gate inside themeTokens
   // applies at heal time exactly as it does at assignment time
   const asViews = (ms: ThemeMember[]) => ms.map((m) => ({ ...m, source_tier: m.tier })) as unknown as ThemeItemView[]
-  // 1. recompute identity from the current members (clean tokenizer)
-  const id = clusterIdentity(asViews(theme.members), generic)
-  const probe: Theme = { ...theme, keywords: id.keywords, company_keys: id.company_keys, event_type_affinity: id.affinity }
-  // 2. keep only members that still clear the assignment bar against the refreshed identity
-  const kept = theme.members.filter((m) => overlapScore(companyKeys(m.companies), themeNarrativeTokens(m.headline, m.companies, m.tier, generic), m.event_types || [], probe).matched)
+  // 1. select ONE dense core before deriving identity. The old algorithm derived a union identity from the
+  // contaminated bag and then tested that same bag against it, allowing repeated contaminants to certify
+  // themselves. A validated contract fixes the pair; a legacy row chooses its densest pair afresh.
+  const declared = theme.narrative?.anchor_terms || []
+  // A rolling boilerplate shift can invalidate a once-specific contract. Do not use that invalid pair to
+  // purge its own evidence: the engine queues the full row for compiler re-grounding, which must find a
+  // different exact non-generic pair before assignment resumes.
+  if (declared.some((anchor) => generic?.has(anchor))) {
+    return { changed: false, retire: false, identityShift: 0, purgeShare: 0 }
+  }
+  const core = selectNarrativeCore(theme.members, declared, generic)
+  const challengeIds = new Set((theme.narrative?.evidence || []).filter((row) => row.stance === 'challenges').map((row) => row.event_id))
+  const kept = [
+    ...core.members,
+    ...theme.members.filter((member) => challengeIds.has(member.event_id) && !core.members.includes(member)),
+  ]
   // 3. retire if too little real signal is left to be a multi-company theme
   const distinct = new Set<string>()
   for (const m of kept) for (const k of companyKeys(m.companies)) distinct.add(k)
   const retire = kept.length < cfg.minClusterItems || distinct.size < cfg.minClusterCompanies
   if (retire) return { changed: true, retire: true, identityShift: 1, purgeShare: 1 }
-  // 4. commit: kept members + refreshed identity, then a second identity pass tightened to the kept set
+  // 4. commit: kept members + identity derived only from that coherent core
   theme.members = kept
   const id2 = clusterIdentity(asViews(kept), generic)
-  theme.keywords = id2.keywords
+  theme.keywords = [...new Set([...(core.anchors || []), ...id2.keywords])].slice(0, 14)
   theme.company_keys = id2.company_keys
   theme.event_type_affinity = id2.affinity
   rebuildThemeCompanies(theme)
@@ -243,16 +285,8 @@ export function refreshThemeIdentity(theme: Theme, cfg: DiscoverConfig = DEFAULT
  *  so demotion machinery would be dead weight. */
 export function coherenceOf(theme: Theme, generic?: Set<string>): number {
   if (!theme.members.length) return 1
-  const topKeys = new Set(theme.company_keys.slice(0, 5))
-  const kw = new Set(theme.keywords)
-  let ok = 0
-  for (const m of theme.members) {
-    const companyHit = intersectionSize(companyKeys(m.companies), topKeys) >= 1
-    const narrativeHit = kw.size ? intersectionSize(themeNarrativeTokens(m.headline, m.companies, m.tier, generic), kw) : 0
-    const hit = narrativeHit >= 2 || (companyHit && narrativeHit >= 1)
-    if (hit) ok++
-  }
-  return ok / theme.members.length
+  const core = selectNarrativeCore(theme.members, theme.narrative?.anchor_terms || [], generic)
+  return core.members.length / theme.members.length
 }
 
 /** Discover new themes from the unclustered pool. Returns newly-created themes (status live) plus the
@@ -301,25 +335,58 @@ export function discoverDeterministic(pool: ThemeItemView[], existing: Theme[], 
   return { created, leftover }
 }
 
-/** Deterministic theme→theme edges: related (shared companies/keywords) / opposite (shared blast radius,
- *  beneficiary vs harmed). Recomputed each discovery pass. */
+const CAUSAL_STOP = new Set(['the', 'and', 'for', 'that', 'this', 'with', 'from', 'into', 'through', 'will', 'would', 'could', 'more', 'less', 'than', 'then', 'their', 'named', 'evidence', 'company', 'companies'])
+const causalTokens = (theme: Theme): Set<string> => {
+  const text = [theme.narrative?.thesis, ...(theme.narrative?.mechanism_steps || []), ...(theme.narrative?.expressions || []).map((expression) => expression.mechanism)].join(' ').toLowerCase()
+  return new Set((text.match(/[a-z][a-z0-9-]{2,}/g) || []).filter((token) => !CAUSAL_STOP.has(token)))
+}
+
+const expressionRelation = (a: Theme, b: Theme): { shared: number; opposite: boolean } => {
+  let shared = 0
+  let opposite = false
+  for (const left of a.narrative?.expressions || []) {
+    const leftMechanism = new Set((left.mechanism.toLowerCase().match(/[a-z][a-z0-9-]{2,}/g) || []).filter((token) => !CAUSAL_STOP.has(token)))
+    for (const right of b.narrative?.expressions || []) {
+      if (left.name_key !== right.name_key) continue
+      const rightMechanism = new Set((right.mechanism.toLowerCase().match(/[a-z][a-z0-9-]{2,}/g) || []).filter((token) => !CAUSAL_STOP.has(token)))
+      if (intersectionSize(leftMechanism, rightMechanism) < 2) continue // same ticker alone proves nothing
+      shared++
+      if (left.side !== right.side) opposite = true
+    }
+  }
+  return { shared, opposite }
+}
+
+/** Link only validator-approved causal contracts. Shared issuers and raw keyword overlap are deliberately
+ * absent: two theses must share a validated anchor/mechanism structure or the same sourced expression with
+ * materially overlapping economic mechanisms. */
 export function linkThemes(themes: Theme[], cfg: DiscoverConfig = DEFAULT_DISCOVER_CONFIG): void {
-  const live = themes.filter((t) => t.status === 'live')
+  // Raw lexical clusters have no causal relationship to expose. Link only validator-approved theses.
+  const live = themes.filter((t) => t.status === 'live' && t.narrative)
+  for (const theme of themes) if (theme.status === 'live' && !theme.narrative) theme.related_themes = []
   for (const a of live) {
-    const aKeys = new Set(a.company_keys)
-    const aKw = new Set(a.keywords)
-    const aHarmed = a.companies.some((c) => c.side === 'harmed')
+    const aCausal = causalTokens(a)
+    const aAnchors = new Set(a.narrative!.anchor_terms)
     const edges: RelatedTheme[] = []
     for (const b of live) {
       if (b.theme_id === a.theme_id) continue
-      const shared = intersectionSize(aKeys, new Set(b.company_keys))
-      const kw = jaccard(aKw, new Set(b.keywords))
-      if (shared >= 2 || kw >= cfg.mergeKeywordJaccard * 0.6) {
-        const bHarmed = b.companies.some((c) => c.side === 'harmed')
-        edges.push({ theme_id: b.theme_id, name: b.name, shared_company_keys: shared, token_overlap: Math.round(kw * 100) / 100, kind: aHarmed !== bHarmed && shared >= 2 ? 'opposite' : 'related' })
-      }
+      const bCausal = causalTokens(b)
+      const causalShared = intersectionSize(aCausal, bCausal)
+      const causalOverlap = jaccard(aCausal, bCausal)
+      const anchorShared = intersectionSize(aAnchors, new Set(b.narrative!.anchor_terms))
+      const expressions = expressionRelation(a, b)
+      const sameCausalStructure = anchorShared === 2 && causalShared >= 2
+      const sameExpressionMechanism = expressions.shared > 0 && causalShared >= 2 && causalOverlap >= 0.2
+      if (!sameCausalStructure && !sameExpressionMechanism) continue
+      edges.push({
+        theme_id: b.theme_id,
+        name: b.name,
+        shared_company_keys: expressions.shared,
+        token_overlap: Math.round(causalOverlap * 100) / 100,
+        kind: expressions.opposite ? 'opposite' : 'related',
+      })
     }
-    edges.sort((x, y) => y.shared_company_keys - x.shared_company_keys || y.token_overlap - x.token_overlap)
+    edges.sort((x, y) => y.shared_company_keys - x.shared_company_keys || y.token_overlap - x.token_overlap || x.theme_id.localeCompare(y.theme_id))
     a.related_themes = edges.slice(0, 6)
   }
 }
@@ -338,6 +405,23 @@ export function mergeAndRetire(themes: Theme[], now: Date, cfg: DiscoverConfig =
     for (let j = i + 1; j < arr.length; j++) {
       const drop = arr[j]
       if (drop.status !== 'live') continue
+      // Never merge a validated causal contract into a raw bag, or two contracts that do not share the
+      // same complete anchor pair. Similar companies/topics are not proof of the same economic thesis.
+      if (Boolean(keep.narrative) !== Boolean(drop.narrative)) continue
+      if (keep.narrative && drop.narrative) {
+        const sharedAnchors = intersectionSize(new Set(keep.narrative.anchor_terms), new Set(drop.narrative.anchor_terms))
+        if (sharedAnchors !== 2) continue
+        // Matching anchor words identify a subject, not a directionally identical investment thesis.
+        // Merge validated contracts only when their full causal language is substantially the same and
+        // no shared expression points in the opposite direction. Otherwise preserve both contracts and
+        // let linkThemes expose their related/opposite relationship without destroying either thesis.
+        const keepCausal = causalTokens(keep)
+        const dropCausal = causalTokens(drop)
+        const causalShared = intersectionSize(keepCausal, dropCausal)
+        const causalOverlap = jaccard(keepCausal, dropCausal)
+        const expressions = expressionRelation(keep, drop)
+        if (expressions.opposite || causalShared < 4 || causalOverlap < 0.45) continue
+      }
       const shared = intersectionSize(new Set(keep.company_keys), new Set(drop.company_keys))
       const keepKeywords = new Set(keep.keywords)
       const dropKeywords = new Set(drop.keywords)
@@ -349,6 +433,16 @@ export function mergeAndRetire(themes: Theme[], now: Date, cfg: DiscoverConfig =
       const companySupported = shared >= cfg.mergeSharedCompanies && narrativeOverlap >= 2
       const narrativeDuplicate = narrativeOverlap >= 2 && kw >= cfg.mergeKeywordJaccard
       if (companySupported || narrativeDuplicate) {
+        const explicitChallengeIds = new Set([
+          ...(keep.narrative?.evidence || []).filter((row) => row.stance === 'challenges').map((row) => row.event_id),
+          ...(drop.narrative?.evidence || []).filter((row) => row.stance === 'challenges').map((row) => row.event_id),
+        ])
+        const keeperClassifiedIds = new Set((keep.narrative?.evidence || []).map((row) => row.event_id))
+        const mergedPendingIds = new Set([
+          ...(keep.pending_narrative_event_ids || []),
+          ...(drop.pending_narrative_event_ids || []),
+          ...(drop.narrative?.evidence || []).filter((row) => row.stance === 'challenges').map((row) => row.event_id),
+        ])
         const seen = new Set(keep.members.map(themeStoryKey))
         for (const m of drop.members) {
           const story = themeStoryKey(m)
@@ -363,12 +457,40 @@ export function mergeAndRetire(themes: Theme[], now: Date, cfg: DiscoverConfig =
           const safeB = Number.isFinite(bMs) ? bMs : Number.NEGATIVE_INFINITY
           return safeA - safeB
         })
-        if (keep.members.length > cfg.maxMembers) keep.members.splice(0, keep.members.length - cfg.maxMembers)
+        const mergedCore = selectNarrativeCore(keep.members, keep.narrative?.anchor_terms || [])
+        if (keep.generation !== 'deterministic') {
+          for (const member of mergedCore.members) if (!keeperClassifiedIds.has(member.event_id)) mergedPendingIds.add(member.event_id)
+        }
+        // Challenges do not need to repeat the thesis anchors—their job is to falsify them. Keep every
+        // explicit challenge from both contracts through the revalidation pass instead of pruning the
+        // very evidence that could reverse the call.
+        const challenges = keep.members.filter((member) => explicitChallengeIds.has(member.event_id))
+        const challengeSet = new Set(challenges.map((member) => member.event_id))
+        // Pending rows have not yet been adjudicated and therefore cannot be reconstructed from the old
+        // narrative after a merge. Keep them beside explicit challenges; only the remaining slots are
+        // filled by the shared anchor core. This prevents bounded-ring pruning from silently declaring
+        // an unreviewed update classified.
+        const protectedIds = new Set([
+          ...challengeSet,
+          ...mergedPendingIds,
+          ...(keep.narrative?.evidence || []).map((row) => row.event_id),
+        ])
+        // Pending debt is lossless even when a burst alone exceeds the ordinary ring cap. The ring may be
+        // temporarily larger than maxMembers until the FIFO drains; truncating here would make a merge
+        // silently erase rows that assignment deliberately protected.
+        const protectedMembers = keep.members.filter((member) => protectedIds.has(member.event_id))
+        const protectedMemberIds = new Set(protectedMembers.map((member) => member.event_id))
+        const coreWithoutProtected = mergedCore.members.filter((member) => !protectedMemberIds.has(member.event_id))
+        const coreSlots = Math.max(0, cfg.maxMembers - protectedMembers.length)
+        keep.members = [...(coreSlots ? coreWithoutProtected.slice(-coreSlots) : []), ...protectedMembers].sort((a, b) => Date.parse(a.found_at) - Date.parse(b.found_at))
         // Lifetime publisher-copy totals are not a useful measure of a theme. From this merge onward the
         // counter is repaired to the unique evidence carried by the bounded member ring.
         keep.member_count_total = keep.members.length
-        keep.keywords = [...new Set([...keep.keywords, ...drop.keywords])].slice(0, 14)
-        keep.company_keys = [...new Set([...keep.company_keys, ...drop.company_keys])].slice(0, 16)
+        const retainedCoreIds = new Set(mergedCore.members.map((member) => member.event_id))
+        const mergedIdentity = clusterIdentity(keep.members.filter((member) => retainedCoreIds.has(member.event_id) && !challengeSet.has(member.event_id)).map((member) => ({ ...member, source_tier: member.tier })) as ThemeItemView[])
+        keep.keywords = [...new Set([...(mergedCore.anchors || []), ...mergedIdentity.keywords])].slice(0, 14)
+        keep.company_keys = mergedIdentity.company_keys
+        keep.event_type_affinity = mergedIdentity.affinity
         keep.last_flow = keep.members.reduce((latest, member) => {
           const memberMs = Date.parse(member.found_at)
           const latestMs = Date.parse(latest)
@@ -385,7 +507,13 @@ export function mergeAndRetire(themes: Theme[], now: Date, cfg: DiscoverConfig =
         // The validator approved the PRE-merge narrative. Combining two clusters can change the name's
         // meaning and can add exactly the evidence/expression that clears admission, so fail closed until
         // the merged keeper is explicitly re-grounded on a later discovery pass.
-        if (keep.generation !== 'deterministic') keep.needs_rename = true
+        if (keep.generation !== 'deterministic') {
+          keep.pending_narrative_event_ids = [...mergedPendingIds].filter((eventId) => keep.members.some((member) => member.event_id === eventId))
+          keep.needs_narrative_update = keep.pending_narrative_event_ids.length > 0 || undefined
+          keep.needs_rename = true
+          keep.validation_queued_at = now.toISOString().replace(/\.\d{3}Z$/, 'Z')
+          delete keep.validation_attempted_at
+        }
         keep.rev++
         rebuildThemeCompanies(keep)
         drop.status = 'merged'
@@ -397,10 +525,21 @@ export function mergeAndRetire(themes: Theme[], now: Date, cfg: DiscoverConfig =
     }
   }
 
-  // retire: parked + no flow for retireHours
-  const cutoff = now.getTime() - cfg.retireHours * 3_600_000
+  // Retirement is age-based, not heat-gated. Magnitude and breadth deliberately do not decay, so using
+  // `tier === parked` kept a broad year-old thesis alive forever despite the explicit 180-day horizon.
+  const rawCutoff = now.getTime() - cfg.retireHours * 3_600_000
+  const thesisCutoff = now.getTime() - cfg.thesisRetireDays * 24 * 3_600_000
   for (const t of live()) {
-    if (t.tier === 'parked' && new Date(t.last_flow).getTime() < cutoff) {
+    const cutoff = t.narrative ? thesisCutoff : rawCutoff
+    // A validated thesis ages from its latest explicit support/challenge classification. Raw matching
+    // traffic, neutral context and still-pending rows are heat/review inputs, not evidence that the thesis
+    // remains alive. Contractless clusters retain the legacy raw-flow clock.
+    const memberById = new Map(t.members.map((member) => [member.event_id, member]))
+    const evidenceClock = t.narrative
+      ? Math.max(0, ...t.narrative.evidence.map((row) => Date.parse(memberById.get(row.event_id)?.found_at || '') || 0))
+      : Date.parse(t.last_flow)
+    const lifecycleFallback = Date.parse(t.narrative?.validated_at || t.first_seen) || 0
+    if ((evidenceClock || lifecycleFallback) < cutoff) {
       t.status = 'retired'
       t.rev++
       changed.add(t.theme_id)

@@ -189,6 +189,8 @@
         "required": ["idea_id", "ticker", "direction", "conviction"],
         "properties": {
           "idea_id": { "type": "string", "description": "IDEA-<sha256-12 of ticker|direction> — stable identity; a re-surfacing of the same directional call updates in place." },
+          "idea_version": { "type": "string", "pattern": "^IDEAV-[a-f0-9]{16}$", "description": "Immutable surfaced-idea-version/v2 canonical-JSON hash (legacy wire snapshots may retain the prior recipe)." },
+          "idea_version_started_at": { "type": "string" },
           "ticker": { "type": "string", "pattern": "^[A-Z0-9][A-Z0-9.&-]{0,14}$" },
           "company": { "type": ["string", "null"] },
           "exchange": { "type": ["string", "null"], "description": "The model's guess; UNVERIFIED (no dated listing check at surface tier)." },
@@ -215,17 +217,24 @@
                 "theme_rev": { "type": "integer", "minimum": 1 },
                 "evidence_event_ids": {
                   "type": "array",
-                  "minItems": 1,
+                  "minItems": 2,
                   "maxItems": 64,
                   "uniqueItems": true,
                   "items": { "type": "string", "pattern": "^EVT-[a-f0-9]{12}$" },
-                  "description": "Exact wire events from this theme revision that contributed to the idea; required for every theme/mixed lineage ref."
+                  "description": "Exact wire events from this theme revision that contributed to the idea; new theme/mixed lineage requires the distinct why-now trigger plus structural expression proof."
+                },
+                "why_now_event_id": {
+                  "type": "string",
+                  "pattern": "^EVT-[a-f0-9]{12}$",
+                  "description": "The supporting event bound to this revision's why-now claim; present on new lineage and included in source_event_ids when the theme seeds an idea."
                 }
               }
             }
           },
-          "source_event_ids": { "type": "array", "items": { "type": "string" }, "description": "EVT-* — the join key back to the wire events that produced this idea." },
+          "source_event_ids": { "type": "array", "minItems": 1, "maxItems": 64, "uniqueItems": true, "items": { "type": "string", "pattern": "^EVT-[a-f0-9]{12}$" }, "description": "EVT-* — the join key back to the wire events that produced this idea." },
+          "primary_source_event_id": { "type": "string", "pattern": "^EVT-[a-f0-9]{12}$", "description": "Exact member of source_event_ids recomputed from source_headline + source_url. It supplies the promotion launch source." },
           "source_headlines": { "type": "array", "items": { "type": "string" } },
+          "source_headline": { "type": ["string", "null"], "description": "Original-language headline bound to primary_source_event_id." },
           "source_url": { "type": ["string", "null"], "description": "The primary source URL — so a promotion's SIG_ID byte-matches the wire event." },
           "source_name": { "type": ["string", "null"], "description": "The primary source publisher — Gate 0 checks it on promotion." },
           "materiality_max": { "type": "integer", "description": "Top triage_score among the source events." },
@@ -284,11 +293,26 @@
               "properties": { "origin_type": { "enum": ["theme", "mixed"] } }
             },
             "then": {
+              "required": ["primary_source_event_id", "source_headline", "source_url", "source_name"],
               "properties": {
                 "source_themes": {
                   "minItems": 1,
-                  "items": { "required": ["evidence_event_ids"] }
-                }
+                  "items": { "required": ["evidence_event_ids", "why_now_event_id"] }
+                },
+                "source_headline": { "type": "string", "minLength": 1 },
+                "source_url": { "type": "string", "minLength": 1 },
+                "source_name": { "type": "string", "minLength": 1 }
+              }
+            }
+          },
+          {
+            "if": { "required": ["primary_source_event_id"] },
+            "then": {
+              "required": ["origin_type", "source_themes", "source_headline", "source_url", "source_name"],
+              "properties": {
+                "source_headline": { "type": "string", "minLength": 1 },
+                "source_url": { "type": "string", "minLength": 1 },
+                "source_name": { "type": "string", "minLength": 1 }
               }
             }
           }

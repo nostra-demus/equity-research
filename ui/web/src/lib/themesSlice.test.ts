@@ -24,6 +24,7 @@ const seedCache = () => useStore.setState({
   themes: [cachedTheme],
   themesHistoryDays: 9,
   themesGeneratedAt: '2026-08-04T00:00:00Z',
+  themesProjectedAt: '2026-08-04T00:00:30Z',
   themesStatus: 'ready',
   themesLoading: true,
   selectedTheme: cachedTheme.theme_id,
@@ -35,6 +36,7 @@ useStore.setState({ themesGeo: { country: '', geoRegion: '', label: 'Everywhere'
 useStore.getState().setThemesGeo({ country: 'IN', geoRegion: 'asia', label: 'India' })
 assert.deepEqual(useStore.getState().themes, [], 'a new geography clears the prior index immediately')
 assert.equal(useStore.getState().themesGeneratedAt, null)
+assert.equal(useStore.getState().themesProjectedAt, null)
 assert.equal(useStore.getState().themesHistoryDays, 0)
 assert.equal(useStore.getState().themesStatus, 'idle', 'a closed surface waits honestly for its next open')
 assert.equal(useStore.getState().themesLoading, false)
@@ -45,6 +47,7 @@ useStore.setState({ themesGeo: { country: 'IN', geoRegion: 'asia', label: 'India
 useStore.getState().setThemesGeo({ country: 'IN', geoRegion: 'asia', label: 'India (updated label)' })
 assert.deepEqual(useStore.getState().themes, [cachedTheme], 'a label-only correction keeps the matching cached slice')
 assert.equal(useStore.getState().themesGeneratedAt, '2026-08-04T00:00:00Z')
+assert.equal(useStore.getState().themesProjectedAt, '2026-08-04T00:00:30Z')
 
 seedCache()
 useStore.setState({ themesSubject: null })
@@ -55,12 +58,53 @@ assert.equal(useStore.getState().themesStatus, 'idle')
 
 const indexFor = (themes: Theme[], generatedAt: string): ThemesIndex => ({
   generated_at: generatedAt,
+  projected_at: new Date(Date.parse(generatedAt) + 30_000).toISOString(),
   themes,
   counts: { hot: 0, active: themes.length, cooling: 0, parked: 0, retired: 0, total: themes.length },
   history_days: 12,
 })
 const indexOf = (t: Theme, generatedAt: string): ThemesIndex => indexFor([t], generatedAt)
-const newerTheme = { ...cachedTheme, theme_id: 'THM-NEW', name: 'New response', rev: 2 }
+const supportingEvidence = (eventId: string, slug: string): NonNullable<Theme['evidence']> => [
+  { event_id: eventId, headline: `${slug} why-now source`, found_at: '2026-08-04T00:00:00Z', score: 82, source_tier: 'news', source_name: 'Evidence Wire', url: `https://example.test/${slug}`, stance: 'supports' },
+  { event_id: `${eventId}-2`, headline: `${slug} issuer corroboration`, found_at: '2026-08-03T23:00:00Z', score: 80, source_tier: 'company', source_name: 'Issuer Disclosure', url: `https://example.test/${slug}/2`, stance: 'supports' },
+  { event_id: `${eventId}-3`, headline: `${slug} independent corroboration`, found_at: '2026-08-03T22:00:00Z', score: 78, source_tier: 'news', source_name: 'Second Evidence Wire', url: `https://example.test/${slug}/3`, stance: 'supports' },
+]
+const actionableAssessment = {
+  status: 'actionable',
+  activity: 'reinforced',
+  conviction: 'high',
+  reasons: ['Current supported evidence and a first-order ticker direction.'],
+  blockers: [],
+  metrics: {
+    recent_6h_flow: 3, prior_6h_flow: 1, unique_evidence_count: 3, high_quality_evidence_count: 3,
+    narrative_support_count: 3, narrative_coherence_pct: 80, recurring_narrative_token_count: 2,
+    first_order_directional_ticker_count: 1,
+    recent_24h_support_count: 3, recent_24h_challenge_count: 0, off_core_evidence_count: 0,
+  },
+} satisfies ThemeSurfaceAssessment
+const newerTheme = {
+  ...cachedTheme,
+  theme_id: 'THM-NEW',
+  name: 'New response',
+  rev: 2,
+  activity: 'reinforced',
+  conviction: 'high',
+  narrative: {
+    version: 1,
+    thesis: 'A specific change reaches New Response Co earnings through a validated mechanism.',
+    why_now: 'New supporting evidence landed today.',
+    why_now_event_id: 'EV-NEW',
+    mechanism_steps: ['The industry input changes.', 'New Response Co revenue responds.'],
+    horizon: 'months',
+    falsifier: 'The named input reverses by quarter-end.',
+    validated_at: '2026-08-04T00:00:00Z',
+  },
+  assessment: actionableAssessment,
+  evidence: supportingEvidence('EV-NEW', 'new-response'),
+  qualified_expressions: [{
+    name: 'New Response Co', name_key: 'new-response-co', ticker: 'NEW', listing_country: 'US', side: 'beneficiary', role: 'direct', mechanism: 'The industry input change reaches company revenue directly.', evidence_event_ids: ['EV-NEW'],
+  }],
+} satisfies Theme
 const detailOf = (t: Theme): ThemeDetail => ({
   theme: t,
   scores: { freshness: 50, magnitude: 50, breadth: 50, persistence: 50, composite: 50 },
@@ -97,6 +141,7 @@ try {
   await oldRequest
   assert.equal(useStore.getState().themes[0]?.theme_id, newerTheme.theme_id, 'a slower same-slice request cannot overwrite the newest response')
   assert.equal(useStore.getState().themesGeneratedAt, '2026-08-04T00:02:00Z')
+  assert.equal(useStore.getState().themesProjectedAt, '2026-08-04T00:02:30.000Z', 'read-time projection is retained separately from the successful-stage clock')
   assert.equal(useStore.getState().selectedTheme, newerTheme.theme_id, 'a superseded response that omits the open theme cannot dismiss the newer selection')
   assert.equal(useStore.getState().themeDetail?.theme.theme_id, newerTheme.theme_id)
 
@@ -233,6 +278,31 @@ try {
   api.newsThemes = originalNewsThemes
 }
 
+// Explicit recovery is busy immediately and coalesces repeated clicks, while background refreshes above
+// keep their separate newest-request-wins generations.
+try {
+  let retryCalls = 0
+  let resolveRetry!: (index: ThemesIndex) => void
+  api.newsThemes = () => {
+    retryCalls++
+    return new Promise<ThemesIndex>((resolve) => { resolveRetry = resolve })
+  }
+  useStore.setState({
+    themes: [], themesStatus: 'error', themesGeneratedAt: null, themesProjectedAt: null,
+    themesView: 'board', activeSwarm: 'owner-b', wireSwarm: 'owner-b', swarms: [],
+    themesGeo: { country: '', geoRegion: '', label: '' }, themesSubject: null,
+  })
+  const firstRetry = useStore.getState().retryThemes()
+  const duplicateRetry = useStore.getState().retryThemes()
+  assert.equal(useStore.getState().themesStatus, 'loading', 'retry enters a visible busy state before awaiting the network')
+  assert.equal(retryCalls, 1, 'two recovery clicks share one in-flight Themes request')
+  resolveRetry(indexOf(newerTheme, '2026-08-04T00:08:30Z'))
+  await Promise.all([firstRetry, duplicateRetry])
+  assert.equal(useStore.getState().themesStatus, 'ready')
+} finally {
+  api.newsThemes = originalNewsThemes
+}
+
 const originalNewsTheme = api.newsTheme
 const originalNewsThemeBrief = api.newsThemeBrief
 try {
@@ -249,26 +319,61 @@ try {
   api.newsThemeBrief = originalNewsThemeBrief
 }
 
-const actionableAssessment = {
-  status: 'actionable',
-  reasons: ['Current supported evidence and a first-order ticker direction.'],
-  blockers: [],
-  metrics: {
-    recent_6h_flow: 4, prior_6h_flow: 1, unique_evidence_count: 3, high_quality_evidence_count: 2,
-    narrative_support_count: 3, narrative_coherence_pct: 80, recurring_narrative_token_count: 2,
-    first_order_directional_ticker_count: 1,
-  },
-} satisfies ThemeSurfaceAssessment
+try {
+  type DetailPending = { resolve: (detail: ThemeDetail) => void; reject: (error: Error) => void }
+  let pendingDetails: DetailPending[] = []
+  api.newsTheme = () => new Promise<ThemeDetail>((resolve, reject) => pendingDetails.push({ resolve, reject }))
+  useStore.setState({
+    themes: [newerTheme], themesStatus: 'ready', themesView: 'board', selectedTheme: null,
+    themeDetail: null, themeDetailError: null, themesLoading: false,
+    themesGeo: { country: '', geoRegion: '', label: '' }, themesSubject: null,
+    activeSwarm: 'owner-b', wireSwarm: 'owner-b', swarms: [],
+  })
+  const olderDetailRead = useStore.getState().selectTheme(newerTheme.theme_id)
+  const newerDetailRead = useStore.getState().selectTheme(newerTheme.theme_id)
+  pendingDetails[1].resolve(detailOf({ ...newerTheme, composite: 72 }))
+  await newerDetailRead
+  pendingDetails[0].resolve(detailOf({ ...newerTheme, composite: 71 }))
+  await olderDetailRead
+  assert.equal(useStore.getState().themeDetail?.theme.composite, 72, 'a slower same-id detail response cannot overwrite the newer retry')
+
+  pendingDetails = []
+  const changedSummary = { ...newerTheme, name: 'Updated response' }
+  useStore.getState()._handleNewsEvent({ type: 'theme-update', theme: changedSummary })
+  assert.equal(useStore.getState().themeDetail, null, 'a live contract change invalidates the open dossier synchronously')
+  assert.equal(useStore.getState().themesLoading, true, 'the replacement dossier exposes its loading state')
+  assert.equal(pendingDetails.length, 1, 'a changed open global theme starts one replacement detail read')
+  pendingDetails[0].resolve(detailOf(changedSummary))
+  await new Promise((resolve) => setTimeout(resolve, 0))
+  assert.equal(useStore.getState().themeDetail?.theme.name, changedSummary.name, 'the open dossier lands only after it matches the current contract')
+  await useStore.getState().selectTheme(null)
+} finally {
+  api.newsTheme = originalNewsTheme
+}
+
 const highCompositeContext = { ...cachedTheme, theme_id: 'THM-HIGH-CONTEXT', name: 'High composite context', composite: 99 }
 const lowCompositeActionable = {
   ...newerTheme,
   theme_id: 'THM-LOW-ACTIONABLE',
   name: 'Low composite actionable',
   composite: 20,
+  activity: 'reinforced',
+  conviction: 'high',
+  off_core_member_count: 0,
+  narrative: {
+    version: 1,
+    thesis: 'A specific change reaches Low Actionable Co earnings through a validated mechanism.',
+    why_now: 'New supporting evidence landed today.',
+    why_now_event_id: 'EV-LOW-ACTIONABLE',
+    mechanism_steps: ['The industry input changes.', 'Low Actionable Co revenue responds.'],
+    horizon: 'months',
+    falsifier: 'The named input reverses by quarter-end.',
+    validated_at: '2026-08-04T00:00:00Z',
+  },
   assessment: actionableAssessment,
-  evidence: [{ event_id: 'EV-LOW-ACTIONABLE', headline: 'Low composite actionable proof', found_at: '2026-08-04T00:00:00Z', score: 82, source_tier: 'news' }],
+  evidence: supportingEvidence('EV-LOW-ACTIONABLE', 'low-actionable'),
   qualified_expressions: [{
-    name: 'Low Actionable Co', name_key: 'low-actionable-co', ticker: 'LOW', listing_country: 'US', side: 'beneficiary', evidence_event_ids: ['EV-LOW-ACTIONABLE'],
+    name: 'Low Actionable Co', name_key: 'low-actionable-co', ticker: 'LOW', listing_country: 'US', side: 'beneficiary', role: 'direct', mechanism: 'The industry input change reaches company revenue directly.', evidence_event_ids: ['EV-LOW-ACTIONABLE'],
   }],
 } satisfies Theme
 useStore.setState({

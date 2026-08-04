@@ -42,7 +42,10 @@ export function validIdeaSnapshot(
     },
     priced_in: 'unknown',
     thesis_type: 'company_specific',
+    origin_type: 'wire',
+    source_themes: [],
     source_event_ids: [sourceEventId],
+    primary_source_event_id: sourceEventId,
     source_headlines: [`${upper} files a material update`],
     source_headline: `${upper} files a material update`,
     source_url: sourceUrl,
@@ -69,9 +72,12 @@ export function validIdeaSnapshot(
       reason: value.reason,
       whyNow: value.why_now,
       sourceEventIds: value.source_event_ids,
-      ...(Object.prototype.hasOwnProperty.call(value, 'origin_type')
-        ? { originType: value.origin_type, sourceThemes: value.source_themes }
-        : {}),
+      primarySourceEventId: value.primary_source_event_id!,
+      sourceHeadline: value.source_headline!,
+      sourceUrl: value.source_url!,
+      sourceName: value.source_name!,
+      originType: value.origin_type!,
+      sourceThemes: value.source_themes!,
     })
   }
   return value

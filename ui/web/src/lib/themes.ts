@@ -8,6 +8,24 @@ export type ThemeTier = 'hot' | 'active' | 'cooling' | 'parked'
 export type OrderTier = 1 | 2 | 3
 export type ImpactSide = 'beneficiary' | 'harmed' | 'mixed'
 export type ThemeSurfaceStatus = 'actionable' | 'forming' | 'context'
+export type ThemeEvidenceStance = 'supports' | 'challenges'
+export type ThemeActivity = 'new' | 'reinforced' | 'challenged' | 'quiet'
+export type ThemeConviction = 'high' | 'medium' | 'watch'
+export type ThemeHorizon = 'days' | 'weeks' | 'months' | 'years'
+export type ThemeExpressionRole = 'direct' | 'bottleneck' | 'enabler' | 'harmed' | 'hedge'
+
+/** The PM-facing thesis contract. It is optional on Theme for deploy skew, but a theme cannot reach an
+ * actionable/forming surface until every field validates at the client trust boundary. */
+export interface ThemeNarrative {
+  version?: 1
+  thesis: string
+  why_now: string
+  why_now_event_id: string
+  mechanism_steps: string[]
+  horizon: ThemeHorizon
+  falsifier: string
+  validated_at: string
+}
 
 export interface ThemeScores {
   freshness: number
@@ -23,6 +41,10 @@ export interface ThemeScores {
 // newly deployed web bundle fails closed while an older server is still serving the previous shape.
 export interface ThemeSurfaceAssessment {
   status: ThemeSurfaceStatus
+  // Optional in the TypeScript mirror so cached/older payloads still deserialize. Runtime qualification
+  // below requires both fields and their matching top-level projection before the PM surface trusts them.
+  activity?: ThemeActivity
+  conviction?: ThemeConviction
   reasons: string[]
   blockers: string[]
   metrics: {
@@ -34,6 +56,9 @@ export interface ThemeSurfaceAssessment {
     narrative_coherence_pct: number
     recurring_narrative_token_count: number
     first_order_directional_ticker_count: number
+    recent_24h_support_count?: number
+    recent_24h_challenge_count?: number
+    off_core_evidence_count?: number
   }
 }
 
@@ -43,6 +68,9 @@ export interface ThemeEvidence {
   found_at: string
   score: number
   source_tier: string
+  source_name?: string | null
+  url?: string | null
+  stance?: ThemeEvidenceStance
 }
 
 /** A trade expression that the server bound to the exact narrative-supporting evidence rows that proved it.
@@ -53,6 +81,8 @@ export interface ThemeQualifiedExpression {
   ticker: string
   listing_country: string | null
   side: Exclude<ImpactSide, 'mixed'>
+  role?: ThemeExpressionRole
+  mechanism?: string
   evidence_event_ids: string[]
 }
 
@@ -95,6 +125,10 @@ export interface Theme {
   first_seen?: string
   score_components?: ThemeScores
   evidence?: ThemeEvidence[]
+  narrative?: ThemeNarrative | null
+  activity?: ThemeActivity
+  conviction?: ThemeConviction
+  off_core_member_count?: number
   qualified_expressions?: ThemeQualifiedExpression[]
   // `assessment` is the canonical server field. `opportunity` remains an optional rollout alias so a
   // web deploy cannot mislabel a qualified theme if an earlier server draft briefly serves that name.
@@ -105,21 +139,12 @@ export interface Theme {
 }
 export interface ThemesIndex {
   generated_at: string
+  /** Read-time score/decay projection. This may advance without a successful thesis-compilation stage and
+   * must never be used as the PM surface's evidence-freshness clock. */
+  projected_at?: string
   themes: Theme[]
   counts: { hot: number; active: number; cooling: number; parked: number; retired: number; total: number }
   history_days: number // days of real daily-flow history available (caps how far the window selector reaches)
-}
-// one member story that named a company — the sourced evidence for its order-tier placement (server why.ts)
-export interface CompanyEvidence {
-  headline: string
-  event_id: string
-  score: number
-}
-// the plain-English "why is this company here" for the deep-dive (server buildThemeDetail). Optional: an
-// OLD engine won't send it (deploy skew, DESIGN.md §5) — the chip falls back to its impact/mention read.
-export interface CompanyWhy {
-  reason: string
-  evidence: CompanyEvidence[]
 }
 export interface ThemeCompany extends ThemeCompanyLite {
   listing_country: string | null
@@ -127,7 +152,6 @@ export interface ThemeCompany extends ThemeCompanyLite {
   mention_count: number
   impact: { directness: number; magnitude: number; speed: number; reversibility: number; composite: number }
   last_seen: string
-  why?: CompanyWhy
 }
 // /api/news/themes/:id → the deep-dive
 export interface ThemeDetail {
@@ -252,32 +276,125 @@ export function themeCompanyLabel(c: Pick<ThemeCompanyLite, 'name' | 'ticker'>):
   return validThemeTicker(c.ticker) ? c.ticker!.trim() : c.name.trim()
 }
 
-/** Qualification accessor with a fail-closed deploy-skew rule: no assessment means Context, never an
- *  inferred "worth checking" call based on the old heat score. */
-type ThemeAssessmentInput = Pick<Theme, 'assessment' | 'opportunity' | 'evidence' | 'qualified_expressions'>
+/** Qualification accessor with a fail-closed deploy-skew rule: no complete thesis contract means
+ * Context, never an inferred investment narrative based on the old heat score. */
+type ThemeAssessmentInput = Pick<Theme, 'assessment' | 'opportunity' | 'evidence' | 'qualified_expressions' | 'narrative' | 'activity' | 'conviction'>
+
+const ACTIVITIES: ThemeActivity[] = ['new', 'reinforced', 'challenged', 'quiet']
+const CONVICTIONS: ThemeConviction[] = ['high', 'medium', 'watch']
+const HORIZONS: ThemeHorizon[] = ['days', 'weeks', 'months', 'years']
+const EXPRESSION_ROLES: ThemeExpressionRole[] = ['direct', 'bottleneck', 'enabler', 'harmed', 'hedge']
+
+const cleanRequiredCopy = (value: unknown): string | null => {
+  if (typeof value !== 'string') return null
+  const copy = value.trim()
+  return copy && !PLACEHOLDER.test(copy) ? copy : null
+}
+
+/** Validate and normalize the answer-first thesis before any PM-facing consumer reads it. */
+export function validatedThemeNarrative(t: Pick<Theme, 'narrative' | 'evidence'>): ThemeNarrative | null {
+  const candidate = t.narrative
+  if (!candidate || typeof candidate !== 'object') return null
+  if (candidate.version !== 1) return null
+  const thesis = cleanRequiredCopy(candidate.thesis)
+  const whyNow = cleanRequiredCopy(candidate.why_now)
+  const whyNowEventId = cleanRequiredCopy(candidate.why_now_event_id)
+  const falsifier = cleanRequiredCopy(candidate.falsifier)
+  const validatedAt = cleanRequiredCopy(candidate.validated_at)
+  if (!thesis || !whyNow || !whyNowEventId || !falsifier || !validatedAt || !Number.isFinite(Date.parse(validatedAt))) return null
+  if (!HORIZONS.includes(candidate.horizon)) return null
+  if (!Array.isArray(candidate.mechanism_steps) || candidate.mechanism_steps.length < 2) return null
+  const mechanismSteps = candidate.mechanism_steps.map(cleanRequiredCopy)
+  if (mechanismSteps.some((step) => !step)) return null
+  if (!themeBriefingEvidence(t).some((evidence) => evidence.stance === 'supports' && evidence.event_id === whyNowEventId)) return null
+  return {
+    ...(candidate.version === 1 ? { version: 1 as const } : {}),
+    thesis,
+    why_now: whyNow,
+    why_now_event_id: whyNowEventId,
+    mechanism_steps: mechanismSteps as string[],
+    horizon: candidate.horizon,
+    falsifier,
+    validated_at: validatedAt,
+  }
+}
+
+export type ValidatedThemeEvidence = ThemeEvidence & { stance: ThemeEvidenceStance; source_name: string; url: string }
+
+/** Exact, stance-labelled summary proof. A legacy row without stance is not silently called support. */
+export function themeBriefingEvidence(t: Pick<Theme, 'evidence'>): ValidatedThemeEvidence[] {
+  if (!Array.isArray(t.evidence)) return []
+  const byId = new Map<string, ValidatedThemeEvidence>()
+  const conflicts = new Set<string>()
+  for (const evidence of t.evidence) {
+    const eventId = cleanRequiredCopy(evidence?.event_id)
+    const headline = cleanRequiredCopy(evidence?.headline)
+    const foundAt = cleanRequiredCopy(evidence?.found_at)
+    const sourceTier = cleanRequiredCopy(evidence?.source_tier)
+    const stance = evidence?.stance
+    if (!eventId || !headline || !foundAt || !sourceTier || !Number.isFinite(Date.parse(foundAt))) continue
+    if (!Number.isFinite(evidence.score) || evidence.score < 0 || evidence.score > 100) continue
+    if (stance !== 'supports' && stance !== 'challenges') continue
+    const sourceName = typeof evidence.source_name === 'string' && evidence.source_name.trim() ? evidence.source_name.trim() : null
+    const url = typeof evidence.url === 'string' && /^https?:\/\//i.test(evidence.url.trim()) ? evidence.url.trim() : null
+    // An evidence claim without its exact source is not auditable from the PM surface. Keep the fields
+    // optional on the wire type for rolling deploys, but fail closed before calling the row validated.
+    if (!sourceName || !url) continue
+    const normalized = { ...evidence, event_id: eventId, headline, found_at: foundAt, source_tier: sourceTier, source_name: sourceName, url, stance }
+    const prior = byId.get(eventId)
+    if (!prior) byId.set(eventId, normalized)
+    // An event id is the provenance identity, not a loose de-duplication hint. If two rows carrying the
+    // same id disagree on ANY auditable source fact, neither row is safe to present as exact proof.
+    // In particular, accepting the first URL would let a conflicting duplicate silently redirect the
+    // PM away from the source that actually supports the claim.
+    else if (
+      prior.headline !== normalized.headline
+      || prior.found_at !== normalized.found_at
+      || prior.score !== normalized.score
+      || prior.source_tier !== normalized.source_tier
+      || prior.source_name !== normalized.source_name
+      || prior.url !== normalized.url
+      || prior.stance !== normalized.stance
+    ) conflicts.add(eventId)
+  }
+  return [...byId.entries()].filter(([eventId]) => !conflicts.has(eventId)).map(([, evidence]) => evidence)
+}
+
+export interface ThemeEvidenceGroups {
+  supports: ValidatedThemeEvidence[]
+  challenges: ValidatedThemeEvidence[]
+}
+
+export function groupThemeEvidence(t: Pick<Theme, 'evidence'>): ThemeEvidenceGroups {
+  const groups: ThemeEvidenceGroups = { supports: [], challenges: [] }
+  for (const evidence of themeBriefingEvidence(t)) groups[evidence.stance].push(evidence)
+  return groups
+}
+
+export type ValidatedThemeQualifiedExpression = ThemeQualifiedExpression & Required<Pick<ThemeQualifiedExpression, 'role' | 'mechanism'>>
 
 /** Validate the server's evidence-bound expressions at the client trust boundary. A display-only company,
  * malformed expression, or proof id absent from this exact summary cannot become a first-look direction. */
 export function qualifiedThemeExpressions(
   t: Pick<Theme, 'evidence' | 'qualified_expressions'>,
-): ThemeQualifiedExpression[] {
+): ValidatedThemeQualifiedExpression[] {
   if (!Array.isArray(t.evidence) || !Array.isArray(t.qualified_expressions)) return []
-  const evidenceIds = new Set(
-    t.evidence
-      .map((row) => typeof row?.event_id === 'string' ? row.event_id.trim() : '')
-      .filter(Boolean),
-  )
-  if (!evidenceIds.size) return []
-  const byIdentity = new Map<string, ThemeQualifiedExpression>()
+  const evidenceById = new Map(themeBriefingEvidence(t).map((row) => [row.event_id, row]))
+  if (!evidenceById.size) return []
+  const byIdentity = new Map<string, ValidatedThemeQualifiedExpression>()
   const conflictingIdentities = new Set<string>()
   for (const expression of t.qualified_expressions) {
     if (!expression || !validThemeCompanyName(expression.name) || !validThemeTicker(expression.ticker)) continue
     if (expression.side !== 'beneficiary' && expression.side !== 'harmed') continue
+    if (!expression.role || !EXPRESSION_ROLES.includes(expression.role)) continue
+    if (expression.role === 'harmed' && expression.side !== 'harmed') continue
+    const mechanism = cleanRequiredCopy(expression.mechanism)
+    if (!mechanism) continue
     if (!Array.isArray(expression.evidence_event_ids)) continue
     const rawProofIds = expression.evidence_event_ids.map((eventId) => typeof eventId === 'string' ? eventId.trim() : '')
     // The server emits an exact proof contract, not a bag from which the client may salvage good rows.
     // One empty/unknown id makes the whole expression unproven on this summary and therefore ineligible.
-    if (!rawProofIds.length || rawProofIds.some((eventId) => !eventId || !evidenceIds.has(eventId))) continue
+    if (!rawProofIds.length || rawProofIds.some((eventId) => !eventId || evidenceById.get(eventId)?.stance !== 'supports')) continue
     const proofIds = [...new Set(rawProofIds)]
     const nameKey = typeof expression.name_key === 'string' ? expression.name_key.trim() : ''
     if (!nameKey) continue
@@ -286,10 +403,10 @@ export function qualifiedThemeExpressions(
       ? expression.listing_country.trim()
       : null
     const identity = `${nameKey.toLowerCase()}|${ticker}|${(listingCountry || '').toLowerCase()}`
-    const normalized = { ...expression, name: expression.name.trim(), name_key: nameKey, ticker, listing_country: listingCountry, evidence_event_ids: proofIds }
+    const normalized: ValidatedThemeQualifiedExpression = { ...expression, name: expression.name.trim(), name_key: nameKey, ticker, listing_country: listingCountry, role: expression.role, mechanism, evidence_event_ids: proofIds }
     const prior = byIdentity.get(identity)
     if (!prior) byIdentity.set(identity, normalized)
-    else if (prior.side !== normalized.side) conflictingIdentities.add(identity)
+    else if (prior.side !== normalized.side || prior.role !== normalized.role || prior.mechanism !== normalized.mechanism) conflictingIdentities.add(identity)
     else prior.evidence_event_ids = [...new Set([...prior.evidence_event_ids, ...normalized.evidence_event_ids])]
   }
   return [...byIdentity.entries()]
@@ -300,6 +417,8 @@ export function qualifiedThemeExpressions(
 export function themeSurfaceAssessment(t: ThemeAssessmentInput): ThemeSurfaceAssessment | null {
   const candidate = t.assessment || t.opportunity
   if (!candidate || !['actionable', 'forming', 'context'].includes(candidate.status)) return null
+  if (!candidate.activity || !ACTIVITIES.includes(candidate.activity) || candidate.activity !== t.activity) return null
+  if (!candidate.conviction || !CONVICTIONS.includes(candidate.conviction) || candidate.conviction !== t.conviction) return null
   if (!Array.isArray(candidate.reasons) || !candidate.reasons.every((v) => typeof v === 'string')) return null
   if (!Array.isArray(candidate.blockers) || !candidate.blockers.every((v) => typeof v === 'string')) return null
   const m = candidate.metrics
@@ -312,15 +431,69 @@ export function themeSurfaceAssessment(t: ThemeAssessmentInput): ThemeSurfaceAss
     m.narrative_support_count,
     m.recurring_narrative_token_count,
     m.first_order_directional_ticker_count,
+    m.recent_24h_support_count,
+    m.recent_24h_challenge_count,
+    m.off_core_evidence_count,
   ]
-  if (!counts.every((v) => Number.isFinite(v) && v >= 0)) return null
+  if (!counts.every((v) => typeof v === 'number' && Number.isFinite(v) && Number.isInteger(v) && v >= 0)) return null
   if (!Number.isFinite(m.narrative_coherence_pct) || m.narrative_coherence_pct < 0 || m.narrative_coherence_pct > 100) return null
+  const evidence = groupThemeEvidence(t)
+  const visibleEvidenceCount = evidence.supports.length + evidence.challenges.length
+  const recentSupport = m.recent_24h_support_count!
+  const recentChallenge = m.recent_24h_challenge_count!
+  // Metrics describe the complete retained evidence core while the summary deliberately caps its displayed
+  // rows. They may therefore exceed the visible counts, but they cannot contradict the rows that are shown
+  // or the server's public admission minima. A partial cache claiming three supports while carrying one
+  // source row must not become a polished high-confidence dossier in the browser.
+  if (
+    m.high_quality_evidence_count > m.unique_evidence_count
+    || m.narrative_support_count > m.high_quality_evidence_count
+    || m.recent_6h_flow > m.narrative_support_count
+    || m.prior_6h_flow > m.narrative_support_count
+    || recentSupport > m.narrative_support_count
+    || recentChallenge + m.narrative_support_count + m.off_core_evidence_count! > m.unique_evidence_count
+    || visibleEvidenceCount > m.unique_evidence_count
+    || evidence.supports.length > m.narrative_support_count
+    || evidence.challenges.length > m.unique_evidence_count - m.narrative_support_count
+  ) return null
+  if (recentChallenge > 0 && evidence.challenges.length < 1) return null
+  // These axes are produced together by the qualification engine. Reject impossible cross-field states
+  // at the browser trust boundary instead of displaying a polished but internally contradictory thesis.
+  if ((candidate.activity === 'new' || candidate.activity === 'reinforced') && recentSupport < 1) return null
+  if (candidate.activity === 'challenged' && (recentChallenge < 1 || evidence.challenges.length < 1)) return null
+  if (candidate.activity === 'quiet' && (recentSupport > 0 || recentChallenge > 0)) return null
+  // High confidence is available only when the retained proof set contains no challenge. A challenge can
+  // be older than 24 hours, so checking the displayed, stance-labelled evidence is required as well as
+  // the recent counter.
+  if (candidate.conviction === 'high' && (recentChallenge > 0 || evidence.challenges.length > 0)) return null
+  // Actionable and Forming are both investment-thesis lanes. A new bundle paired with an older server,
+  // or a malformed cached narrative, stays internal Context rather than falling back to a topic label.
+  if (candidate.status !== 'context' && !validatedThemeNarrative(t)) return null
+  if (candidate.status === 'context' && candidate.conviction !== 'watch') return null
+  if (candidate.status !== 'context' && (
+    m.narrative_support_count < 2
+    || m.recurring_narrative_token_count < 2
+    || m.narrative_coherence_pct < 60
+    || evidence.supports.length < 2
+  )) return null
+  if (candidate.status === 'forming' && (candidate.conviction !== 'watch' || !candidate.blockers.length)) return null
   // An actionable row has cleared every gate: it must explain at least one fact and have no blocker.
   // A partial deploy or malformed cache that merely says `status: actionable` fails closed to Context.
   if (candidate.status === 'actionable' && (
+    candidate.conviction === 'watch'
+    ||
     !candidate.reasons.length
     || candidate.blockers.length
     || !qualifiedThemeExpressions(t).length
+  )) return null
+  if (candidate.status === 'actionable' && (
+    m.first_order_directional_ticker_count < 1
+    || qualifiedThemeExpressions(t).length < m.first_order_directional_ticker_count
+  )) return null
+  if (candidate.conviction === 'high' && (
+    m.narrative_support_count < 3
+    || m.narrative_coherence_pct < 75
+    || evidence.supports.length < 3
   )) return null
   return candidate
 }
@@ -339,11 +512,11 @@ export function themeFlowDelta(t: ThemeAssessmentInput): number | null {
 }
 
 export interface DirectionalThemeExpressions {
-  beneficiaries: ThemeQualifiedExpression[]
-  harmed: ThemeQualifiedExpression[]
+  beneficiaries: ValidatedThemeQualifiedExpression[]
+  harmed: ValidatedThemeQualifiedExpression[]
 }
 
-/** Evidence-bound first-order expressions split by direction. `top_companies` is intentionally absent:
+/** Evidence-bound qualified expressions split by direction. `top_companies` is intentionally absent:
  * it is a display ranking and can contain valid but unrelated tickers that did not clear qualification. */
 export function splitQualifiedThemeExpressions(
   t: Pick<Theme, 'evidence' | 'qualified_expressions'>,
@@ -358,21 +531,23 @@ export function splitQualifiedThemeExpressions(
 
 const finiteOr = (n: number | undefined, fallback: number): number => Number.isFinite(n) ? n! : fallback
 
-/** Exact client twin of the server's explainable, lexicographic sort. There is no weighted usefulness
- *  score: acceleration wins first, then current flow, ticker-linked direction, narrative support,
- *  supported-source evidence, legacy heat only as a late tiebreak, recency, and finally name. */
+/** Exact client twin of the server's explainable, lexicographic sort. Thesis admission wins first, then
+ * conviction and thesis-changing activity; evidence facts beat legacy news heat. */
 export function compareBriefingThemes(a: Theme, b: Theme): number {
   const statusOrder: Record<ThemeSurfaceStatus, number> = { actionable: 0, forming: 1, context: 2 }
   const status = statusOrder[themeSurfaceStatus(a)] - statusOrder[themeSurfaceStatus(b)]
   if (status) return status
-  const am = themeSurfaceAssessment(a)?.metrics
-  const bm = themeSurfaceAssessment(b)?.metrics
-  const ad = themeFlowDelta(a)
-  const bd = themeFlowDelta(b)
-  return finiteOr(bd ?? undefined, -Infinity) - finiteOr(ad ?? undefined, -Infinity)
-    || finiteOr(bm?.recent_6h_flow, -1) - finiteOr(am?.recent_6h_flow, -1)
+  const aa = themeSurfaceAssessment(a)
+  const ba = themeSurfaceAssessment(b)
+  const am = aa?.metrics
+  const bm = ba?.metrics
+  const convictionOrder: Record<ThemeConviction, number> = { high: 0, medium: 1, watch: 2 }
+  const activityOrder: Record<ThemeActivity, number> = { challenged: 0, new: 1, reinforced: 2, quiet: 3 }
+  return (aa?.conviction ? convictionOrder[aa.conviction] : 3) - (ba?.conviction ? convictionOrder[ba.conviction] : 3)
+    || (aa?.activity ? activityOrder[aa.activity] : 4) - (ba?.activity ? activityOrder[ba.activity] : 4)
     || finiteOr(bm?.first_order_directional_ticker_count, -1) - finiteOr(am?.first_order_directional_ticker_count, -1)
     || finiteOr(bm?.narrative_support_count, -1) - finiteOr(am?.narrative_support_count, -1)
+    || finiteOr(bm?.narrative_coherence_pct, -1) - finiteOr(am?.narrative_coherence_pct, -1)
     || finiteOr(bm?.high_quality_evidence_count, -1) - finiteOr(am?.high_quality_evidence_count, -1)
     || finiteOr(b.composite, -1) - finiteOr(a.composite, -1)
     || finiteOr(Date.parse(b.last_flow || ''), -Infinity) - finiteOr(Date.parse(a.last_flow || ''), -Infinity)
@@ -381,27 +556,48 @@ export function compareBriefingThemes(a: Theme, b: Theme): number {
 
 export interface ThemeBriefingGroups {
   worthChecking: Theme[]
+  additionalWorthChecking: Theme[]
   forming: Theme[]
-  context: Theme[]
-  counts: { worthChecking: number; forming: number; context: number }
+  counts: { worthChecking: number; forming: number }
   hiddenWorthChecking: number
+  excludedContextCount: number
 }
 
-/** Build the ranked first-look hierarchy. The default returns the five highest-value full briefing rows;
- * callers can request a larger explicit limit when they offer an in-place show-all control. */
-export function groupThemesForBriefing(themes: Theme[], maxWorthChecking = 5): ThemeBriefingGroups {
+/** The PM surface receives only validated investment narratives. Raw Context clusters remain internal. */
+export function themesForPmSurface(themes: readonly Theme[]): Theme[] {
+  return themes.filter((theme) => {
+    const status = themeSurfaceStatus(theme)
+    return status === 'actionable' || status === 'forming'
+  })
+}
+
+/** Build the ranked first-look hierarchy. Full thesis dossiers are deliberately capped at five. */
+export function groupThemesForBriefing(themes: Theme[]): ThemeBriefingGroups {
   const ranked = [...themes].sort(compareBriefingThemes)
   const allWorth = ranked.filter((t) => themeSurfaceStatus(t) === 'actionable')
   const forming = ranked.filter((t) => themeSurfaceStatus(t) === 'forming')
-  const context = ranked.filter((t) => themeSurfaceStatus(t) === 'context')
-  const limit = Math.max(0, Math.floor(maxWorthChecking))
+  const excludedContextCount = Math.max(0, themes.length - allWorth.length - forming.length)
   return {
-    worthChecking: allWorth.slice(0, limit),
+    worthChecking: allWorth.slice(0, 5),
+    additionalWorthChecking: allWorth.slice(5),
     forming,
-    context,
-    counts: { worthChecking: allWorth.length, forming: forming.length, context: context.length },
-    hiddenWorthChecking: Math.max(0, allWorth.length - limit),
+    counts: { worthChecking: allWorth.length, forming: forming.length },
+    hiddenWorthChecking: Math.max(0, allWorth.length - 5),
+    excludedContextCount,
   }
+}
+
+/** The server keeps the last successful thesis stage for audit and projects score decay over it on read.
+ * A successful HTTP read therefore does not prove that the thesis stage is current. */
+export const THEMES_STAGE_MAX_AGE_MS = 10 * 60_000
+
+export function themeStageIsStale(
+  generatedAt: string | null | undefined,
+  now: number = Date.now(),
+  maxAgeMs: number = THEMES_STAGE_MAX_AGE_MS,
+): boolean {
+  const generated = generatedAt ? Date.parse(generatedAt) : NaN
+  return !Number.isFinite(generated) || generated > now + 60_000 || now - generated > maxAgeMs
 }
 
 export function sourceTierLabel(tier: string | null | undefined): string {
@@ -413,22 +609,6 @@ export function sourceTierLabel(tier: string | null | undefined): string {
     unconfirmed: 'unconfirmed',
     social: 'social',
   } as Record<string, string>)[tier || ''] || (tier || 'source').replace(/_/g, ' ')
-}
-
-/** The summary pins at most three recent qualifying rows, including ticker-expression proof when one
- * exists. Keep all three, de-duplicate by headline, and fail closed on malformed cached evidence. */
-export function themeBriefingEvidence(t: Pick<Theme, 'evidence'>): ThemeEvidence[] {
-  if (!Array.isArray(t.evidence)) return []
-  const seen = new Set<string>()
-  const out: ThemeEvidence[] = []
-  for (const evidence of t.evidence) {
-    const headline = evidence?.headline?.trim()
-    if (!headline || seen.has(headline)) continue
-    seen.add(headline)
-    out.push(evidence)
-    if (out.length === 3) break
-  }
-  return out
 }
 
 export interface ThemeSliceDisplay {

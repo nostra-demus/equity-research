@@ -8,7 +8,10 @@ import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { buildIdeaUserMessage, coerceIdea, estimateIdeaTokens, surfaceIdeasBatch, type IdeaInputRow, type RawIdea } from '../src/news/ideas/surface-ideas'
+import {
+  buildIdeaUserMessage, coerceIdea, estimateIdeaTokens, surfaceIdeasBatch,
+  type IdeaInputRow, type IdeaThemeExpression, type RawIdea,
+} from '../src/news/ideas/surface-ideas'
 import {
   finalizeIdeaPromotion, ideaDecayAt, ideaId, ideaSnapshotRevision, ideaVersion, pruneExpiredIdeas,
   isSurfacedIdeaSnapshot, readIdeaById, readIdeaSnapshotStore, readTopSweep, readTopSweepRows, releaseIdeaPromotion,
@@ -18,9 +21,10 @@ import { ideaLineageForRows, themeProofForIdea, tradeEvidenceForIdeaRows } from 
 import { scoreTradeCluster } from '../src/news/trade-score'
 import { eventIdFor } from '../src/news/normalize'
 import { createTheme } from '../src/news/themes/discover'
-import { appendThemeMutations } from '../src/news/themes/store'
+import { appendThemeMutations, buildThemesIndex } from '../src/news/themes/store'
 import type { ThemeItemView } from '../src/news/themes/types'
 import { validIdeaSnapshot } from './ideas-fixture'
+import { attachValidNarrative } from './themes-fixtures'
 
 let passed = 0
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -47,11 +51,104 @@ const ROWS: IdeaInputRow[] = [
 ]
 const qualifiedExpression = (
   evidenceEventIds: string[],
-  patch: Partial<{ name: string; name_key: string; ticker: string; listing_country: string | null; side: 'beneficiary' | 'harmed' }> = {},
+  patch: Partial<{
+    name: string
+    name_key: string
+    ticker: string
+    listing_country: string | null
+    side: 'beneficiary' | 'harmed'
+    role: 'direct' | 'bottleneck' | 'enabler' | 'harmed' | 'hedge'
+    mechanism: string
+  }> = {},
 ) => ({
   name: 'Acme', name_key: 'acme', ticker: 'ACME', listing_country: 'US' as string | null,
-  side: 'beneficiary' as const, evidence_event_ids: evidenceEventIds, ...patch,
+  side: 'beneficiary' as const, role: 'direct' as const,
+  mechanism: 'The event directly changes Acme revenue or costs.', evidence_event_ids: evidenceEventIds, ...patch,
 })
+const actionableTheme = (
+  theme_id: string,
+  rev: number,
+  evidence: { event_id: string; found_at: string; stance: 'supports' | 'challenges' }[],
+  qualified_expressions: ReturnType<typeof qualifiedExpression>[],
+  patch: Record<string, unknown> = {},
+) => ({
+  theme_id,
+  rev,
+  description: 'A current causal change is affecting the named listed-company exposure.',
+  activity: 'reinforced',
+  assessment: { status: 'actionable', activity: 'reinforced' },
+  narrative: {
+    thesis: 'The cited change can alter revenue, costs or capacity for the evidence-bound expression.',
+    why_now: 'The designated current source shows that the causal change is active now.',
+    why_now_event_id: evidence.find((row) => row.stance === 'supports')?.event_id,
+  },
+  evidence,
+  qualified_expressions,
+  ...patch,
+})
+
+const exactThemeExpression = (
+  themeId: string,
+  themeRev: number,
+  proofEventId: string,
+  patch: Partial<IdeaThemeExpression> = {},
+): IdeaThemeExpression => ({
+  theme_id: themeId,
+  theme_rev: themeRev,
+  name: 'Acme',
+  name_key: 'acme',
+  ticker: 'ACME',
+  listing_country: 'US',
+  side: 'beneficiary',
+  role: 'direct',
+  mechanism: 'The structural evidence directly binds the listed issuer to the causal change.',
+  evidence_event_ids: [proofEventId],
+  ...patch,
+})
+
+/** Mirror the production Theme seed exactly: one fresh trigger and one distinct issuer proof. */
+const exactThemePackageRows = (
+  themeId: string,
+  themeRev: number,
+  whyRow: IdeaInputRow,
+  proofRow: IdeaInputRow,
+  expressions: IdeaThemeExpression[] = [exactThemeExpression(themeId, themeRev, proofRow.event_id)],
+): [IdeaInputRow, IdeaInputRow] => {
+  const whyNowEventId = whyRow.event_id
+  const context = {
+    theme_id: themeId,
+    theme_rev: themeRev,
+    thesis: 'The cited causal change alters revenue, costs or capacity for the evidence-bound expression.',
+    context: 'A fresh trigger is paired with separate structural issuer proof.',
+    why_now_event_id: whyNowEventId,
+  }
+  return [
+    {
+      ...whyRow,
+      origin_type: 'theme',
+      source_themes: [{
+        theme_id: themeId,
+        theme_rev: themeRev,
+        evidence_event_ids: [whyNowEventId],
+        why_now_event_id: whyNowEventId,
+      }],
+      theme_expressions: [],
+      theme_contexts: [{ ...context, role: 'WHY_NOW' }],
+    },
+    {
+      ...proofRow,
+      origin_type: 'theme',
+      source_themes: [{
+        theme_id: themeId,
+        theme_rev: themeRev,
+        evidence_event_ids: [whyNowEventId, proofRow.event_id],
+        why_now_event_id: whyNowEventId,
+      }],
+      theme_expressions: expressions,
+      theme_contexts: [{ ...context, role: 'EXPRESSION_PROOF' }],
+    },
+  ]
+}
 
 // ---- coerceIdea ----
 check('coerceIdea drops an idea with no valid source index', () => {
@@ -215,15 +312,24 @@ check('ideaId is stable and differs by direction', () => {
   assert.match(ideaId('STNG', 'long'), /^IDEA-[a-f0-9]{12}$/)
 })
 check('ideaVersion binds the exact thesis and source snapshot', () => {
-  const base = { ticker: 'BBB', direction: 'long' as const, pairWith: null, thesisType: 'company_specific' as const, reason: 'Refinery adds output', whyNow: 'Results on 2026-08-06', sourceEventIds: ['EVT-2'] }
+  const sourceHeadline = 'Acme files a material capacity update'
+  const sourceUrl = 'https://exchange.test/acme-capacity'
+  const whyEvent = eventIdFor(sourceHeadline, sourceUrl)
+  const proofEvent = eventIdFor('Acme filing proves the listed issuer exposure', 'https://filings.test/acme-proof')
+  const base = {
+    ticker: 'BBB', direction: 'long' as const, pairWith: null, thesisType: 'company_specific' as const,
+    reason: 'Refinery adds output', whyNow: 'Results on 2026-08-06', sourceEventIds: [whyEvent],
+    primarySourceEventId: whyEvent, sourceHeadline, sourceUrl, sourceName: 'Exchange',
+    originType: 'wire' as const, sourceThemes: [],
+  }
   assert.equal(ideaVersion(base), ideaVersion({ ...base, ticker: 'bbb' }))
-  assert.notEqual(ideaVersion(base), ideaVersion({ ...base, sourceEventIds: ['EVT-3'] }))
+  assert.notEqual(ideaVersion(base), ideaVersion({ ...base, sourceEventIds: [proofEvent] }))
 
   const themed = {
     ...base,
-    sourceEventIds: ['EVT-2', 'EVT-3'],
+    sourceEventIds: [whyEvent, proofEvent],
     originType: 'theme' as const,
-    sourceThemes: [{ theme_id: 'THM-a1b2c3d4', theme_rev: 2, evidence_event_ids: ['EVT-2'] }],
+    sourceThemes: [{ theme_id: 'THM-a1b2c3d4', theme_rev: 2, evidence_event_ids: [whyEvent, proofEvent], why_now_event_id: whyEvent }],
   }
   assert.notEqual(
     ideaVersion(themed),
@@ -232,17 +338,23 @@ check('ideaVersion binds the exact thesis and source snapshot', () => {
   )
   assert.notEqual(
     ideaVersion(themed),
-    ideaVersion({ ...themed, sourceThemes: [{ ...themed.sourceThemes[0], evidence_event_ids: ['EVT-3'] }] }),
+    ideaVersion({ ...themed, sourceThemes: [{ ...themed.sourceThemes[0], evidence_event_ids: [whyEvent] }] }),
     'changing only the evidence mapped to a Theme is a new exact thesis snapshot',
+  )
+  assert.notEqual(
+    ideaVersion({ ...themed, sourceThemes: [{ ...themed.sourceThemes[0], why_now_event_id: whyEvent }] }),
+    ideaVersion({ ...themed, sourceThemes: [{ ...themed.sourceThemes[0], why_now_event_id: proofEvent }] }),
+    'changing only the exact why-now edge is a new thesis snapshot',
   )
   const pair = { ...base, ticker: 'AMD', direction: 'pair' as const, pairWith: 'INTC' }
   assert.notEqual(ideaVersion(pair), ideaVersion({ ...pair, pairWith: 'NVDA' }), 'AMD paired with INTC is a different immutable call from AMD paired with NVDA')
   assert.equal(ideaVersion({ ...pair, pairWith: 'BRK-B' }), ideaVersion({ ...pair, pairWith: 'BRK.B' }), 'the pair leg uses normalized ticker spelling')
   assert.equal(ideaVersion({
     ticker: 'AMD', direction: 'pair', pairWith: 'INTC', thesisType: 'company_specific',
-    reason: '  Demand   shifts share ', whyNow: 'Results due now', sourceEventIds: ['EVT-0123456789ab'],
+    reason: '  Demand   lifts earnings ', whyNow: 'Results are due this month', sourceEventIds: [whyEvent, proofEvent],
+    primarySourceEventId: whyEvent, sourceHeadline, sourceUrl, sourceName: 'Exchange',
     originType: 'wire', sourceThemes: [],
-  }), 'IDEAV-02ebcb0b4c9452ba', 'TypeScript and the static Python verifier share one canonical pair-version vector')
+  }), 'IDEAV-f7194ed98c4f8fc9', 'TypeScript and the static Python verifier share one canonical pair-version vector')
 })
 check('persisted snapshot validation binds the complete shape, identity, sources, scores, and lifecycle', () => {
   const valid = validIdeaSnapshot('BOUND')
@@ -275,9 +387,19 @@ check('snapshot validation accepts only field-absent legacy lineage and binds ev
   assert.equal(isSurfacedIdeaSnapshot({ ...legacy, origin_type: 'theme', source_themes: [sourceTheme, sourceTheme] }), false)
 
   const mappedBase = validIdeaSnapshot('MAPPED')
-  const mappedTheme = { ...sourceTheme, evidence_event_ids: [mappedBase.source_event_ids[0]] }
-  const mapped = validIdeaSnapshot('MAPPED', 'long', { origin_type: 'theme', source_themes: [mappedTheme] })
-  assert.equal(isSurfacedIdeaSnapshot(mapped), true, 'mapped Theme evidence must resolve to an idea source event')
+  const mappedWhy = mappedBase.source_event_ids[0]
+  const mappedProof = eventIdFor('Mapped structural proof', 'https://exchange.test/mapped-proof')
+  const mappedTheme = {
+    ...sourceTheme,
+    evidence_event_ids: [mappedWhy, mappedProof],
+    why_now_event_id: mappedWhy,
+  }
+  const mapped = validIdeaSnapshot('MAPPED', 'long', {
+    source_event_ids: [mappedWhy, mappedProof],
+    origin_type: 'theme',
+    source_themes: [mappedTheme],
+  })
+  assert.equal(isSurfacedIdeaSnapshot(mapped), true, 'mapped Theme evidence binds distinct why-now and structural proof events')
   assert.equal(isSurfacedIdeaSnapshot({ ...mapped, idea_version: legacy.idea_version }), false, 'a pre-lineage version cannot claim mapped new lineage')
   assert.equal(isSurfacedIdeaSnapshot(validIdeaSnapshot('MAPPED', 'long', {
     origin_type: 'theme', source_themes: [{ ...sourceTheme, evidence_event_ids: ['not-an-event'] }],
@@ -297,7 +419,11 @@ check('snapshot validation accepts only field-absent legacy lineage and binds ev
   })), false, 'a partially mapped Theme lineage cannot hide a missing evidence mapping')
 })
 check('only distinguishable pre-lineage snapshots may retain the old pair-unbound version', () => {
-  const legacy = validIdeaSnapshot('AMD', 'pair', { pair_with: 'INTC' })
+  const modern = validIdeaSnapshot('AMD', 'pair', { pair_with: 'INTC' })
+  const legacy = { ...modern } as any
+  delete legacy.origin_type
+  delete legacy.source_themes
+  delete legacy.primary_source_event_id
   const oldCanonical = [
     legacy.ticker.toUpperCase(), legacy.direction, legacy.thesis_type,
     legacy.reason.trim().toLowerCase().replace(/\s+/g, ' '),
@@ -314,46 +440,51 @@ check('only distinguishable pre-lineage snapshots may retain the old pair-unboun
   assert.equal(isSurfacedIdeaSnapshot({ ...lineaged, pair_with: 'NVDA' }), false, 'changing only the persisted pair leg invalidates the new version')
 })
 check('idea lineage is derived only from supplied raw source rows', () => {
-  const theme = { theme_id: 'THM-a1b2c3d4', theme_rev: 2 }
-  const themeWithEvidence = { ...theme, evidence_event_ids: [ROWS[1].event_id] }
+  const themeId = 'THM-a1b2c3d4'
+  const themeRev = 2
+  const [whyRow, proofRow] = exactThemePackageRows(themeId, themeRev, ROWS[0], ROWS[1])
+  const themeWithEvidence = {
+    theme_id: themeId,
+    theme_rev: themeRev,
+    evidence_event_ids: [ROWS[0].event_id, ROWS[1].event_id],
+    why_now_event_id: ROWS[0].event_id,
+  }
   assert.deepEqual(ideaLineageForRows([{ ...ROWS[0], origin_type: 'wire', source_themes: [] }]), { origin_type: 'wire', source_themes: [] })
-  assert.deepEqual(ideaLineageForRows([{ ...ROWS[1], origin_type: 'theme', source_themes: [theme] }]), { origin_type: 'theme', source_themes: [themeWithEvidence] })
+  assert.deepEqual(ideaLineageForRows([whyRow, proofRow]), { origin_type: 'theme', source_themes: [themeWithEvidence] })
   assert.deepEqual(ideaLineageForRows([
-    { ...ROWS[0], origin_type: 'wire', source_themes: [] },
-    { ...ROWS[1], origin_type: 'theme', source_themes: [theme] },
+    { ...ROWS[0], origin_type: 'wire', source_themes: [] }, whyRow, proofRow,
   ]), { origin_type: 'mixed', source_themes: [themeWithEvidence] })
 })
 check('Theme provider output must bind exact qualified issuer, listing, side, and pair leg', () => {
-  const eventId = 'EVT-0123456789ab'
-  const themeRow: IdeaInputRow = {
-    ...ROWS[0], event_id: eventId, origin_type: 'theme',
-    source_themes: [{ theme_id: 'THM-a1b2c3d4', theme_rev: 3, evidence_event_ids: [eventId] }],
-    theme_expressions: [{
-      theme_id: 'THM-a1b2c3d4', theme_rev: 3, name: 'Berkshire Hathaway',
-      name_key: 'berkshirehathaway', ticker: 'BRK.B', listing_country: 'US', side: 'beneficiary',
-      evidence_event_ids: [eventId],
-    }],
-  }
+  const themeId = 'THM-a1b2c3d4'
+  const themeRev = 3
+  const whyRow = { ...ROWS[0], event_id: 'EVT-0123456789ab' }
+  const proofRow = { ...ROWS[1], event_id: 'EVT-abcdef012345' }
+  const primaryExpression = exactThemeExpression(themeId, themeRev, proofRow.event_id, {
+    name: 'Berkshire Hathaway', name_key: 'berkshirehathaway', ticker: 'BRK.B',
+  })
+  const themeRows = exactThemePackageRows(themeId, themeRev, whyRow, proofRow, [primaryExpression])
   const raw: RawIdea = {
-    src: [0], ticker: 'BRK-B', company: 'Berkshire Hathaway', exchange: 'NYSE', direction: 'long', pair_with: null,
+    src: [0, 1], ticker: 'BRK-B', company: 'Berkshire Hathaway', exchange: 'NYSE', direction: 'long', pair_with: null,
     reason: 'Insurance pricing can lift earnings', why_now: 'Results are due this month', conviction: 60,
     priced_in: 'unknown', thesis_type: 'company_specific',
   }
-  assert.deepEqual([...themeProofForIdea(raw, [themeRow])!.evidenceByTheme.get('THM-a1b2c3d4@3')!], [eventId], 'share-class separator aliases are equivalent')
-  assert.equal(themeProofForIdea({ ...raw, ticker: 'BRK.B.NS' }, [themeRow]), null, 'exchange/base aliases are not silently widened')
-  assert.equal(themeProofForIdea({ ...raw, company: 'Berkshire Energy' }, [themeRow]), null)
-  assert.equal(themeProofForIdea({ ...raw, direction: 'short' }, [themeRow]), null, 'beneficiary proof cannot support a short')
+  assert.deepEqual(
+    [...themeProofForIdea(raw, themeRows)!.evidenceByTheme.get('THM-a1b2c3d4@3')!],
+    [whyRow.event_id, proofRow.event_id],
+    'share-class separator aliases are equivalent only with both exact evidence roles',
+  )
+  assert.equal(themeProofForIdea({ ...raw, ticker: 'BRK.B.NS' }, themeRows), null, 'exchange/base aliases are not silently widened')
+  assert.equal(themeProofForIdea({ ...raw, company: 'Berkshire Energy' }, themeRows), null)
+  assert.equal(themeProofForIdea({ ...raw, direction: 'short' }, themeRows), null, 'beneficiary proof cannot support a short')
 
-  const pairRow: IdeaInputRow = {
-    ...themeRow,
-    theme_expressions: [...themeRow.theme_expressions!, {
-      theme_id: 'THM-a1b2c3d4', theme_rev: 3, name: 'JPMorgan Chase', name_key: 'jpmorganchase',
-      ticker: 'JPM', listing_country: 'US', side: 'harmed', evidence_event_ids: [eventId],
-    }],
-  }
+  const harmedExpression = exactThemeExpression(themeId, themeRev, proofRow.event_id, {
+    name: 'JPMorgan Chase', name_key: 'jpmorganchase', ticker: 'JPM', side: 'harmed', role: 'harmed',
+  })
+  const pairRows = exactThemePackageRows(themeId, themeRev, whyRow, proofRow, [primaryExpression, harmedExpression])
   const pair = { ...raw, direction: 'pair' as const, pair_with: 'JPM' }
-  assert.equal(themeProofForIdea(pair, [pairRow])?.pairCompanyName, 'JPMorgan Chase')
-  assert.equal(themeProofForIdea({ ...pair, pair_with: 'BAC' }, [pairRow]), null)
+  assert.equal(themeProofForIdea(pair, pairRows)?.pairCompanyName, 'JPMorgan Chase')
+  assert.equal(themeProofForIdea({ ...pair, pair_with: 'BAC' }, pairRows), null)
   assert.ok(themeProofForIdea({ ...raw, ticker: 'UNBOUND', company: 'Anything' }, [{ ...ROWS[0], origin_type: 'wire', source_themes: [] }]), 'wire-only behavior is unchanged')
 })
 check('auto-idea evidence carries raw impact and story dedup without substituting the composite severity label', () => {
@@ -396,6 +527,11 @@ check('topNHash tracks only the ordered model-visible prompt', () => {
   }
   assert.equal(topNHash([effectV1]), topNHash([effectV2]), 'revision metadata does not change provider spend input')
   assert.notEqual(topNEffectHash([effectV1]), topNEffectHash([effectV2]), 'revision metadata does change persistence effects')
+  assert.notEqual(
+    topNEffectHash([{ ...effectV2, source_themes: [{ ...effectV2.source_themes![0], why_now_event_id: 'EVT-fedcba987654' }] }]),
+    topNEffectHash([{ ...effectV2, source_themes: [{ ...effectV2.source_themes![0], why_now_event_id: 'EVT-0123456789ab' }] }]),
+    'changing which exact support is the why-now edge reruns persistence even when visible headlines are unchanged',
+  )
 })
 check('lead decay stays anchored to source time instead of resetting at provider time', () => {
   const now = Date.parse('2026-08-03T12:00:00Z')
@@ -494,13 +630,13 @@ check('readTopSweep reserves at most one-third for actionable theme evidence and
   }))
   fs.writeFileSync(path.join(inbox, '2026-08-03_firehose.ndjson'), [...wire.slice(6), publisherCopy, themeCopyOfTopWire].map((item) => JSON.stringify(item)).join('\n') + '\n')
   fs.writeFileSync(path.join(board, 'themes_index.json'), JSON.stringify({ generated_at: '2026-08-03T11:55:00Z', themes: [
-    { theme_id: 'THM-11111111', rev: 1, assessment: { status: 'forming' }, evidence: [{ event_id: wire[6].event_id, found_at: at }] },
-    { theme_id: 'THM-22222222', rev: 1, assessment: { status: 'context' }, evidence: [{ event_id: wire[7].event_id, found_at: at }] },
-    { theme_id: 'THM-a1b2c3d4', rev: 4, assessment: { status: 'actionable' }, evidence: [
-      { event_id: wire[8].event_id, headline: 'must not be mapped', found_at: at },
-      { event_id: publisherCopy.event_id, found_at: at },
-      { event_id: themeCopyOfTopWire.event_id, found_at: at },
-    ], qualified_expressions: [qualifiedExpression([wire[8].event_id, publisherCopy.event_id, themeCopyOfTopWire.event_id])] },
+    { theme_id: 'THM-11111111', rev: 1, assessment: { status: 'forming' }, evidence: [{ event_id: wire[6].event_id, found_at: at, stance: 'supports' }] },
+    { theme_id: 'THM-22222222', rev: 1, assessment: { status: 'context' }, evidence: [{ event_id: wire[7].event_id, found_at: at, stance: 'supports' }] },
+    actionableTheme('THM-a1b2c3d4', 4, [
+      { event_id: wire[8].event_id, headline: 'must not be mapped', found_at: at, stance: 'supports' },
+      { event_id: publisherCopy.event_id, found_at: at, stance: 'supports' },
+      { event_id: themeCopyOfTopWire.event_id, found_at: at, stance: 'supports' },
+    ] as any, [qualifiedExpression([wire[8].event_id, publisherCopy.event_id, themeCopyOfTopWire.event_id])]),
   ] }))
 
   const got = readTopSweep(dir, 6, { nowMs: Date.parse('2026-08-03T12:00:00Z'), maxAgeMs: 36 * 3_600_000 })
@@ -514,8 +650,9 @@ check('readTopSweep reserves at most one-third for actionable theme evidence and
   assert.deepEqual(linked.source_themes, [{
     theme_id: 'THM-a1b2c3d4',
     theme_rev: 4,
-    evidence_event_ids: [wire[8].event_id, publisherCopy.event_id],
-  }])
+    evidence_event_ids: [wire[8].event_id],
+    why_now_event_id: wire[8].event_id,
+  }], 'each prompt row carries only its exact input edge; persistence joins the complete package later')
   assert.equal(got.rows.filter((row) => row.headline === 'Actionable evidence').length, 1, 'two publisher copies use only one of the two reserved slots')
   const mixed = got.rows.find((row) => row.headline === 'Wire one: syndicated rewrite')!
   assert.equal(mixed.origin_type, 'mixed', 'a persisted story-family match to the ordinary capped wire is mixed')
@@ -534,6 +671,101 @@ check('readTopSweep reserves at most one-third for actionable theme evidence and
   fs.writeFileSync(path.join(board, 'themes_index.json'), JSON.stringify({ generated_at: '2026-08-03T11:55:00Z', themes: [{ theme_id: 'THM-a1b2c3d4', rev: 4 }] }))
   const legacy = readTopSweep(dir, 6, { nowMs: Date.parse('2026-08-03T12:00:00Z'), maxAgeMs: 36 * 3_600_000 })
   assert.deepEqual(legacy.rows.map((row) => row.headline), ['Wire one', 'Wire two', 'Wire three', 'Wire four', 'Wire five', 'Wire six'], 'old indexes contribute no reserve rows')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('Theme-to-Ideas bridge excludes the whole theme when a retained challenge exists', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-theme-proof-binding-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  const board = path.join(dir, 'screener', 'board')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.mkdirSync(board, { recursive: true })
+  const at = '2026-08-03T10:00:00Z'
+  const feedItem = (headline: string, url: string, score: number) => ({
+    kind: 'item', ts: at, found_at: at, event_id: eventIdFor(headline, url), headline, url,
+    domain: 'news.test', source_name: 'Publisher', via: 'rss', region: 'US', input_nature: 'news_headline',
+    triage_score: score, band: 'watch', triage_reason: 'material', relevance: 'material',
+    event_types: ['operational'], issuer_linkage: 'primary', companies: [], size_bucket: 'large',
+    dedup_status: 'new', inboxed: true,
+  })
+  const boundSupport = feedItem('Bound supporting evidence', 'https://news.test/bound-support', 92)
+  const unboundSupport = feedItem('Unbound supporting evidence', 'https://news.test/unbound-support', 91)
+  const challenge = feedItem('Evidence challenging the theme', 'https://news.test/challenge', 90)
+  fs.writeFileSync(
+    path.join(inbox, '2026-08-03_firehose.ndjson'),
+    [boundSupport, unboundSupport, challenge].map((row) => JSON.stringify(row)).join('\n') + '\n',
+  )
+  fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-03T11:55:00Z',
+    rows: [1, 2, 3, 4].map((n) => ({
+      headline: `Proof-binding wire ${n}`, url: `https://wire.test/proof-binding-${n}`,
+      source_name: 'Wire', triage_score: 100 - n, found_at: at,
+    })),
+  }))
+  fs.writeFileSync(path.join(board, 'themes_index.json'), JSON.stringify({
+    generated_at: '2026-08-03T11:59:00Z',
+    themes: [actionableTheme('THM-a1b2c3d4', 7, [
+        { event_id: challenge.event_id, found_at: at, stance: 'challenges' },
+        { event_id: boundSupport.event_id, found_at: at, stance: 'supports' },
+        { event_id: unboundSupport.event_id, found_at: at, stance: 'supports' },
+      ], [qualifiedExpression([boundSupport.event_id])], {
+        activity: 'quiet', assessment: { status: 'actionable', activity: 'quiet' },
+      })],
+  }))
+
+  const got = readTopSweep(dir, 6, {
+    nowMs: Date.parse('2026-08-03T12:00:00Z'), maxAgeMs: 36 * 3_600_000,
+  })
+  assert.ok(got.rows.every((row) => row.origin_type === 'wire'), 'one retained explicit challenge excludes the entire theme even when its activity label is quiet')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('a retained unconfirmed challenge stays visible and blocks Ideas', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-theme-ledger-challenge-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  const board = path.join(dir, 'screener', 'board')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.mkdirSync(board, { recursive: true })
+  const now = new Date('2026-08-03T12:00:00Z')
+  const company = { name: 'Acme Corp', ticker: 'ACME', listing_country: 'US' }
+  const support = [
+    ['Acme transformer backlog expands grid capacity', 'https://filings.test/acme-capacity'],
+    ['Acme transformer backlog tightens grid capacity', 'https://regulator.test/grid-capacity'],
+  ].map(([headline, url], index) => ({
+    event_id: eventIdFor(headline, url), headline, found_at: `2026-08-03T${10 + index}:00:00Z`,
+    triage_score: 90 - index, source_tier: index ? 'official_data' : 'company', source_name: index ? 'Grid Regulator' : 'Acme filing',
+    url, companies: [company], event_types: ['capex'], issuer_linkage: 'primary', country: 'US', region: 'US',
+  }))
+  const challengeHeadline = 'Unconfirmed report says Acme transformer backlog is easing'
+  const challengeUrl = 'https://rumor.test/acme-backlog'
+  const challenge = {
+    event_id: eventIdFor(challengeHeadline, challengeUrl), headline: challengeHeadline,
+    found_at: '2026-07-01T09:00:00Z', triage_score: 50, source_tier: 'unconfirmed', source_name: 'Rumor wire', url: challengeUrl,
+    companies: [company], event_types: ['operational'], issuer_linkage: 'primary', country: 'US', region: 'US',
+  }
+  const theme = attachValidNarrative(
+    createTheme([...support, challenge] as ThemeItemView[], now, 'claude'),
+    {
+      support_event_ids: support.map((row) => row.event_id),
+      challenge_event_ids: [challenge.event_id],
+      why_now_event_id: support[1].event_id,
+      validated_at: '2026-08-03T11:30:00Z',
+    },
+  )
+  theme.name = 'Transformer Backlog Extends Grid Buildout'
+  theme.description = 'A persistent transformer backlog constrains grid capacity and shifts economics to qualified suppliers.'
+  const publicTheme = buildThemesIndex([theme], () => now).themes[0]
+  assert.equal(publicTheme.assessment.status, 'actionable')
+  assert.ok(publicTheme.evidence.some((row) => row.event_id === challenge.event_id && row.stance === 'challenges'), 'adverse evidence is never hidden merely because its source is weak')
+  appendThemeMutations(dir, [theme], () => new Date('2026-08-03T11:58:00Z'))
+  fs.writeFileSync(path.join(board, 'themes_index.json'), JSON.stringify({ generated_at: '2026-08-03T11:59:00Z', themes: [] }))
+  fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-03T11:55:00Z', rows: [1, 2, 3, 4].map((n) => ({
+      headline: `Challenge-control wire ${n}`, url: `https://wire.test/challenge-control-${n}`,
+      source_name: 'Wire', triage_score: 100 - n, found_at: '2026-08-03T11:00:00Z',
+    })),
+  }))
+
+  const got = readTopSweep(dir, 6, { nowMs: now.getTime(), maxAgeMs: 36 * 3_600_000 })
+  assert.ok(got.rows.every((row) => row.origin_type === 'wire'), 'canonical retained challenge wins over a clean-looking excerpt')
   fs.rmSync(dir, { recursive: true, force: true })
 })
 check('theme reserve cannot bootstrap sparse, stale, or corrupt wire input and stays one-third of actual rows', () => {
@@ -555,11 +787,11 @@ check('theme reserve cannot bootstrap sparse, stale, or corrupt wire input and s
   fs.writeFileSync(path.join(inbox, '2026-08-03_firehose.ndjson'), themes.map((item) => JSON.stringify(item)).join('\n') + '\n')
   fs.writeFileSync(path.join(board, 'themes_index.json'), JSON.stringify({
     generated_at: '2026-08-03T11:59:00Z',
-    themes: [{
-      theme_id: 'THM-a1b2c3d4', rev: 1, assessment: { status: 'actionable' },
-      evidence: themes.map((item) => ({ event_id: item.event_id, found_at: at })),
-      qualified_expressions: [qualifiedExpression(themes.map((item) => item.event_id))],
-    }],
+    themes: [actionableTheme(
+      'THM-a1b2c3d4', 1,
+      themes.map((item) => ({ event_id: item.event_id, found_at: at, stance: 'supports' })),
+      [qualifiedExpression(themes.map((item) => item.event_id))],
+    )],
   }))
   const sweepPath = path.join(inbox, '2026-08-03_sweep.json')
   const wire = [1, 2, 3, 4].map((n) => ({
@@ -576,9 +808,9 @@ check('theme reserve cannot bootstrap sparse, stale, or corrupt wire input and s
 
   fs.writeFileSync(sweepPath, JSON.stringify({ updated_at: '2026-08-03T11:58:00Z', rows: wire.slice(0, 2) }))
   const twoWire = read()
-  assert.equal(twoWire.rows.length, 3)
-  assert.equal(twoWire.rows.filter((row) => row.origin_type === 'theme' || row.origin_type === 'mixed').length, 1)
-  assert.ok(1 <= Math.floor(twoWire.rows.length / 3), 'minority uses actual final rows, not configured topN')
+  assert.equal(twoWire.rows.length, 2)
+  assert.equal(twoWire.rows.filter((row) => row.origin_type === 'theme' || row.origin_type === 'mixed').length, 0)
+  assert.equal(Math.floor(twoWire.rows.length / 3), 0, 'an indivisible two-row Theme package cannot bootstrap a sparse wire')
 
   fs.writeFileSync(sweepPath, JSON.stringify({ updated_at: '2026-08-03T11:58:00Z', rows: wire.slice(0, 1) }))
   const oneWire = read()
@@ -605,12 +837,20 @@ check('Theme-to-Ideas lookup caps the actionable revision scan', () => {
   const liveHeadline = 'Bounded Theme evidence'
   const liveUrl = 'https://news.test/bounded-theme'
   const liveEventId = eventIdFor(liveHeadline, liveUrl)
-  fs.writeFileSync(path.join(inbox, '2026-08-03_firehose.ndjson'), JSON.stringify({
-    kind: 'item', ts: at, found_at: at, event_id: liveEventId, headline: liveHeadline, url: liveUrl,
-    domain: 'news.test', source_name: 'News', via: 'rss', region: 'US', input_nature: 'news_headline',
+  const proofHeadline = 'Bounded Theme issuer exposure proof'
+  const proofUrl = 'https://filings.test/bounded-theme-proof'
+  const proofEventId = eventIdFor(proofHeadline, proofUrl)
+  const feedItem = (eventId: string, headline: string, url: string, sourceName: string) => ({
+    kind: 'item', ts: at, found_at: at, event_id: eventId, headline, url,
+    domain: new URL(url).hostname, source_name: sourceName, via: 'rss', region: 'US', input_nature: 'news_headline',
     triage_score: 90, band: 'watch', triage_reason: 'material', relevance: 'material', event_types: ['operational'],
     issuer_linkage: 'primary', companies: [], size_bucket: 'large', dedup_status: 'new', inboxed: true,
-  }) + '\n')
+  })
+  fs.writeFileSync(
+    path.join(inbox, '2026-08-03_firehose.ndjson'),
+    [feedItem(liveEventId, liveHeadline, liveUrl, 'News'), feedItem(proofEventId, proofHeadline, proofUrl, 'Exchange filing')]
+      .map((row) => JSON.stringify(row)).join('\n') + '\n',
+  )
   fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
     updated_at: '2026-08-03T11:55:00Z', rows: [1, 2, 3, 4].map((n) => ({
       headline: `Bound wire ${n}`, url: `https://wire.test/bound-${n}`, triage_score: 100 - n, found_at: at,
@@ -618,16 +858,20 @@ check('Theme-to-Ideas lookup caps the actionable revision scan', () => {
   }))
   const missingThemes = Array.from({ length: 64 }, (_, index) => {
     const eventId = eventIdFor(`Missing bounded evidence ${index}`, `https://missing.test/${index}`)
-    return {
-      theme_id: `THM-${index.toString(16).padStart(8, '0')}`, rev: 1,
-      assessment: { status: 'actionable' }, evidence: [{ event_id: eventId, found_at: at }],
-      qualified_expressions: [qualifiedExpression([eventId])],
-    }
+    return actionableTheme(
+      `THM-${index.toString(16).padStart(8, '0')}`, 1,
+      [{ event_id: eventId, found_at: at, stance: 'supports' }],
+      [qualifiedExpression([eventId])],
+    )
   })
-  const liveTheme = {
-    theme_id: 'THM-ffffffff', rev: 1, assessment: { status: 'actionable' },
-    evidence: [{ event_id: liveEventId, found_at: at }], qualified_expressions: [qualifiedExpression([liveEventId])],
-  }
+  const liveTheme = actionableTheme(
+    'THM-ffffffff', 1,
+    [
+      { event_id: liveEventId, found_at: at, stance: 'supports' },
+      { event_id: proofEventId, found_at: at, stance: 'supports' },
+    ],
+    [qualifiedExpression([proofEventId])],
+  )
   const indexPath = path.join(board, 'themes_index.json')
   const read = () => readTopSweep(dir, 6, { nowMs: Date.parse('2026-08-03T12:00:00Z'), maxAgeMs: 36 * 3_600_000 })
   fs.writeFileSync(indexPath, JSON.stringify({ generated_at: '2026-08-03T11:59:00Z', themes: [...missingThemes, liveTheme] }))
@@ -645,40 +889,53 @@ check('theme evidence uses source time and requires a freshly generated themes i
   const themeHeadline = 'Theme source-time evidence'
   const themeUrl = 'https://news.test/theme-time'
   const eventId = eventIdFor(themeHeadline, themeUrl)
+  const proofHeadline = 'Theme source-time issuer proof'
+  const proofUrl = 'https://filings.test/theme-time-proof'
+  const proofEventId = eventIdFor(proofHeadline, proofUrl)
   const feedPath = path.join(inbox, '2026-08-03_firehose.ndjson')
-  const feedItem = (foundAt?: string) => ({
+  const feedItem = (rowEventId: string, headline: string, url: string, foundAt?: string) => ({
     kind: 'item', ts: '2026-08-03T11:59:00Z', ...(foundAt ? { found_at: foundAt } : {}),
-    event_id: eventId, headline: themeHeadline, url: themeUrl, domain: 'news.test', source_name: 'Publisher',
+    event_id: rowEventId, headline, url, domain: new URL(url).hostname, source_name: 'Publisher',
     via: 'rss', region: 'US', input_nature: 'news_headline', triage_score: 90, band: 'watch',
     triage_reason: 'material', relevance: 'material', event_types: ['operational'], issuer_linkage: 'primary',
     companies: [], size_bucket: 'large', dedup_status: 'new', inboxed: true,
   })
+  const writeFeed = (foundAt?: string) => fs.writeFileSync(
+    feedPath,
+    [feedItem(eventId, themeHeadline, themeUrl, foundAt), feedItem(proofEventId, proofHeadline, proofUrl, foundAt)]
+      .map((row) => JSON.stringify(row)).join('\n') + '\n',
+  )
   fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
     updated_at: '2026-08-03T11:45:00Z',
     rows: [
       { headline: 'Wire A', url: 'https://wire.test/a', triage_score: 99, found_at: '2026-08-03T10:00:00Z' },
       { headline: 'Wire B', url: 'https://wire.test/b', triage_score: 98, found_at: '2026-08-03T10:00:00Z' },
+      { headline: 'Wire C', url: 'https://wire.test/c', triage_score: 97, found_at: '2026-08-03T10:00:00Z' },
+      { headline: 'Wire D', url: 'https://wire.test/d', triage_score: 96, found_at: '2026-08-03T10:00:00Z' },
     ],
   }))
   const writeIndex = (generatedAt: string | undefined, evidenceAt: string) => fs.writeFileSync(
     path.join(board, 'themes_index.json'),
     JSON.stringify({
       ...(generatedAt ? { generated_at: generatedAt } : {}),
-      themes: [{
-        theme_id: 'THM-a1b2c3d4', rev: 3, assessment: { status: 'actionable' },
-        evidence: [{ event_id: eventId, found_at: evidenceAt }],
-        qualified_expressions: [qualifiedExpression([eventId])],
-      }],
+      themes: [actionableTheme(
+        'THM-a1b2c3d4', 3,
+        [
+          { event_id: eventId, found_at: evidenceAt, stance: 'supports' },
+          { event_id: proofEventId, found_at: evidenceAt, stance: 'supports' },
+        ],
+        [qualifiedExpression([proofEventId])],
+      )],
     }),
   )
   const read = () => readTopSweep(dir, 6, { nowMs: Date.parse('2026-08-03T12:00:00Z'), maxAgeMs: 36 * 3_600_000 })
 
-  fs.writeFileSync(feedPath, JSON.stringify(feedItem('2026-08-01T00:00:00Z')) + '\n')
+  writeFeed('2026-08-01T00:00:00Z')
   writeIndex('2026-08-03T11:59:00Z', '2026-08-01T00:00:00Z')
   assert.equal(read().rows.some((row) => row.event_id === eventId), false, 'fresh triage ts cannot revive old source evidence')
 
   const sourceAt = '2026-08-03T10:30:00Z'
-  fs.writeFileSync(feedPath, JSON.stringify(feedItem()) + '\n')
+  writeFeed()
   writeIndex('2026-08-03T11:50:01Z', sourceAt)
   const fresh = read().rows.find((row) => row.event_id === eventId)
   assert.equal(fresh?.found_at, sourceAt, 'legacy feed rows use the theme evidence timestamp, never triage ts')
@@ -698,7 +955,7 @@ check('theme evidence uses source time and requires a freshly generated themes i
   )
   fs.rmSync(dir, { recursive: true, force: true })
 })
-check('quiet Theme ledgers are reprojected at Ideas read time instead of expiring after ten minutes', () => {
+check('ledger content is reprojected without forging a newer last-successful Themes stage clock', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-theme-ledger-read-'))
   const inbox = path.join(dir, 'screener', 'inbox')
   const board = path.join(dir, 'screener', 'board')
@@ -716,7 +973,15 @@ check('quiet Theme ledgers are reprojected at Ideas read time instead of expirin
       source_tier: 'news', country: 'US', region: 'US',
     }
   })
-  const theme = createTheme(themeViews, new Date('2026-08-03T11:30:00Z'), 'claude')
+  const theme = attachValidNarrative(
+    createTheme(themeViews, new Date('2026-08-03T11:30:00Z'), 'claude'),
+    {
+      validated_at: '2026-08-03T11:30:00Z',
+      // The default expression binds the first member; why-now must be a separate event so the
+      // reprojected Theme remains an exact two-row causal package.
+      why_now_event_id: themeViews[1].event_id,
+    },
+  )
   theme.name = 'AI Data-Center Chip Capacity'
   theme.description = 'Nvidia is expanding chip capacity for AI data centers.'
   appendThemeMutations(dir, [theme], () => new Date('2026-08-03T11:30:00Z'))
@@ -737,10 +1002,15 @@ check('quiet Theme ledgers are reprojected at Ideas read time instead of expirin
   }))
   fs.writeFileSync(path.join(board, 'themes_index.json'), JSON.stringify({ generated_at: '2026-08-03T11:30:00Z', themes: [] }))
 
+  const staleStage = readTopSweep(dir, 6, {
+    nowMs: projectionNow.getTime(), maxAgeMs: 36 * 3_600_000,
+  })
+  assert.ok(staleStage.rows.every((row) => row.origin_type === 'wire'), 'a canonical re-projection cannot restamp a 30-minute-old failed Themes stage')
+  fs.writeFileSync(path.join(board, 'themes_index.json'), JSON.stringify({ generated_at: '2026-08-03T11:59:00Z', themes: [] }))
   const current = readTopSweep(dir, 6, {
     nowMs: projectionNow.getTime(), maxAgeMs: 36 * 3_600_000,
   })
-  assert.ok(current.rows.some((row) => row.origin_type === 'theme' && row.theme_expressions?.[0]?.ticker === 'NVDA'))
+  assert.ok(current.rows.some((row) => row.origin_type === 'theme' && row.theme_expressions?.[0]?.ticker === 'NVDA'), 'fresh stage clock may use the canonical ledger projection')
   const disabled = readTopSweep(dir, 6, {
     nowMs: projectionNow.getTime(), maxAgeMs: 36 * 3_600_000, themesEnabled: false,
   })
@@ -776,13 +1046,11 @@ check('consumed and dismissed events or story families cannot re-enter through T
   }))
   fs.writeFileSync(path.join(board, 'themes_index.json'), JSON.stringify({
     generated_at: '2026-08-03T11:59:00Z',
-    themes: [{
-      theme_id: 'THM-a1b2c3d4', rev: 2, assessment: { status: 'actionable' }, evidence: [
-        { event_id: dismissed.event_id, found_at: at },
-        { event_id: dismissedCopy.event_id, found_at: at },
-        { event_id: consumed.event_id, found_at: at },
-      ], qualified_expressions: [qualifiedExpression([dismissed.event_id, dismissedCopy.event_id, consumed.event_id])],
-    }],
+    themes: [actionableTheme('THM-a1b2c3d4', 2, [
+        { event_id: dismissed.event_id, found_at: at, stance: 'supports' },
+        { event_id: dismissedCopy.event_id, found_at: at, stance: 'supports' },
+        { event_id: consumed.event_id, found_at: at, stance: 'supports' },
+      ], [qualifiedExpression([dismissed.event_id, dismissedCopy.event_id, consumed.event_id])])],
   }))
   const got = readTopSweep(dir, 6, { nowMs: Date.parse('2026-08-03T12:00:00Z'), maxAgeMs: 36 * 3_600_000 })
   assert.deepEqual(got.rows.map((row) => row.headline), ['Wire A', 'Wire B'])
@@ -822,12 +1090,10 @@ check('prior-day consumed and dismissed state blocks still-fresh Theme evidence 
   )
   fs.writeFileSync(path.join(board, 'themes_index.json'), JSON.stringify({
     generated_at: '2026-08-04T00:09:00Z',
-    themes: [{
-      theme_id: 'THM-a1b2c3d4', rev: 4, assessment: { status: 'actionable' }, evidence: [
-        { event_id: dismissed.event_id, found_at: sourceAt },
-        { event_id: consumedCopy.event_id, found_at: sourceAt },
-      ], qualified_expressions: [qualifiedExpression([dismissed.event_id, consumedCopy.event_id])],
-    }],
+    themes: [actionableTheme('THM-a1b2c3d4', 4, [
+        { event_id: dismissed.event_id, found_at: sourceAt, stance: 'supports' },
+        { event_id: consumedCopy.event_id, found_at: sourceAt, stance: 'supports' },
+      ], [qualifiedExpression([dismissed.event_id, consumedCopy.event_id])])],
   }))
 
   const got = readTopSweep(dir, 6, {
@@ -861,7 +1127,18 @@ check('a canonical event id cross-matches a publisher copy dedup_group for mixed
     relevance: 'material', event_types: ['operational'], issuer_linkage: 'primary', companies: [],
     size_bucket: 'large', dedup_status: 'new', dedup_group: anchorId, inboxed: true,
   }
-  const otherWire = [2, 3, 4].map((n) => ({
+  const proofHeadline = 'Exchange filing binds the canonical Theme to Acme'
+  const proofUrl = 'https://filings.test/canonical-theme-proof'
+  const proof = {
+    ...copy,
+    event_id: eventIdFor(proofHeadline, proofUrl),
+    headline: proofHeadline,
+    url: proofUrl,
+    domain: 'filings.test',
+    source_name: 'Exchange filing',
+    dedup_group: 'STORY-canonical-theme-proof',
+  }
+  const otherWire = [2, 3, 4, 5].map((n) => ({
     headline: `Independent wire ${n}`, url: `https://wire.test/independent-${n}`, source_name: 'Wire',
     triage_score: 100 - n, found_at: at,
   }))
@@ -869,13 +1146,19 @@ check('a canonical event id cross-matches a publisher copy dedup_group for mixed
   fs.writeFileSync(sweepPath, JSON.stringify({
     updated_at: '2026-08-03T11:58:00Z', rows: [anchor, ...otherWire],
   }))
-  fs.writeFileSync(path.join(inbox, '2026-08-03_firehose.ndjson'), JSON.stringify(copy) + '\n')
+  fs.writeFileSync(
+    path.join(inbox, '2026-08-03_firehose.ndjson'),
+    [copy, proof].map((row) => JSON.stringify(row)).join('\n') + '\n',
+  )
   fs.writeFileSync(path.join(board, 'themes_index.json'), JSON.stringify({
-    generated_at: '2026-08-03T11:59:00Z', themes: [{
-      theme_id: 'THM-a1b2c3d4', rev: 3, assessment: { status: 'actionable' },
-      evidence: [{ event_id: copy.event_id, found_at: at }],
-      qualified_expressions: [qualifiedExpression([copy.event_id])],
-    }],
+    generated_at: '2026-08-03T11:59:00Z', themes: [actionableTheme(
+      'THM-a1b2c3d4', 3,
+      [
+        { event_id: copy.event_id, found_at: at, stance: 'supports' },
+        { event_id: proof.event_id, found_at: at, stance: 'supports' },
+      ],
+      [qualifiedExpression([proof.event_id])],
+    )],
   }))
   const read = () => readTopSweep(dir, 6, {
     nowMs: Date.parse('2026-08-03T12:00:00Z'), maxAgeMs: 36 * 3_600_000,
@@ -898,36 +1181,56 @@ check('a canonical event id cross-matches a publisher copy dedup_group for mixed
   assert.deepEqual(blocked.rows.map((row) => row.headline), otherWire.map((row) => row.headline))
   fs.rmSync(dir, { recursive: true, force: true })
 })
-check('withdrawn Theme admission immediately retires only unpromoted theme-only snapshots', () => {
+check('withdrawn Theme admission retires every unpromoted Theme-derived snapshot without current wire proof', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-theme-retire-'))
   const themeId = 'THM-a1b2c3d4'
-  const themeOnly = validIdeaSnapshot('RETIRE')
-  const edge = themeOnly.source_event_ids[0]
-  writeIdea(dir, validIdeaSnapshot('RETIRE', 'long', {
-    origin_type: 'theme', source_themes: [{ theme_id: themeId, theme_rev: 4, evidence_event_ids: [edge] }],
-  }))
-  writeIdea(dir, validIdeaSnapshot('MIXED', 'long', {
-    source_event_ids: [edge],
-    origin_type: 'mixed', source_themes: [{ theme_id: themeId, theme_rev: 4, evidence_event_ids: [edge] }],
-  }))
-  writeIdea(dir, validIdeaSnapshot('PROMOTED', 'long', {
-    source_event_ids: [edge],
-    origin_type: 'theme', source_themes: [{ theme_id: themeId, theme_rev: 4, evidence_event_ids: [edge] }],
+  const themeRev = 4
+  const whyHeadline = 'Retire trigger remains active'
+  const whyUrl = 'https://exchange.test/retire-trigger'
+  const whyEventId = eventIdFor(whyHeadline, whyUrl)
+  const proofHeadline = 'Retire filing proves the listed exposure'
+  const proofUrl = 'https://filings.test/retire-proof'
+  const proofEventId = eventIdFor(proofHeadline, proofUrl)
+  const sourceTheme = {
+    theme_id: themeId,
+    theme_rev: themeRev,
+    evidence_event_ids: [whyEventId, proofEventId],
+    why_now_event_id: whyEventId,
+  }
+  const themeSnapshot = (ticker: string, originType: 'theme' | 'mixed', patch: Record<string, unknown> = {}) => validIdeaSnapshot(ticker, 'long', {
+    source_event_ids: [whyEventId, proofEventId],
+    primary_source_event_id: whyEventId,
+    source_headlines: [whyHeadline, proofHeadline],
+    source_headline: whyHeadline,
+    source_url: whyUrl,
+    source_name: 'Exchange',
+    origin_type: originType,
+    source_themes: [sourceTheme],
+    ...patch,
+  })
+  writeIdea(dir, themeSnapshot('RETIRE', 'theme'))
+  writeIdea(dir, themeSnapshot('MIXED', 'mixed'))
+  writeIdea(dir, themeSnapshot('PROMOTED', 'theme', {
     status: 'promoted', promoted_signal_id: 'SIG-retained',
   }))
-  const admitted: IdeaInputRow[] = [{
-    ...ROWS[0], event_id: edge, origin_type: 'theme',
-    source_themes: [{ theme_id: themeId, theme_rev: 4, evidence_event_ids: [edge] }],
-    theme_expressions: [{
-      theme_id: themeId, theme_rev: 4, name: 'Retire', name_key: 'retire', ticker: 'RETIRE',
-      listing_country: 'US', side: 'beneficiary', evidence_event_ids: [edge],
-    }],
-  }]
+  const whyRow: IdeaInputRow = {
+    ...ROWS[0], event_id: whyEventId, headline: whyHeadline, headline_orig: whyHeadline,
+    url: whyUrl, source_name: 'Exchange',
+  }
+  const proofRow: IdeaInputRow = {
+    ...ROWS[1], event_id: proofEventId, headline: proofHeadline, headline_orig: proofHeadline,
+    url: proofUrl, source_name: 'Exchange filing',
+  }
+  const admitted = exactThemePackageRows(themeId, themeRev, whyRow, proofRow, [
+    exactThemeExpression(themeId, themeRev, proofEventId, {
+      name: 'Retire', name_key: 'retire', ticker: 'RETIRE',
+    }),
+  ])
   assert.equal(retireUnadmittedThemeIdeas(dir, admitted), 0)
   assert.ok(readIdeaById(dir, ideaId('RETIRE', 'long')))
-  assert.equal(retireUnadmittedThemeIdeas(dir, []), 1)
+  assert.equal(retireUnadmittedThemeIdeas(dir, []), 2)
   assert.equal(readIdeaById(dir, ideaId('RETIRE', 'long')), null)
-  assert.ok(readIdeaById(dir, ideaId('MIXED', 'long')), 'mixed retains its independent wire support')
+  assert.equal(readIdeaById(dir, ideaId('MIXED', 'long')), null, 'a historical mixed label is not independent current wire proof')
   assert.equal(readIdeaById(dir, ideaId('PROMOTED', 'long'))?.status, 'promoted')
   fs.rmSync(dir, { recursive: true, force: true })
 })
@@ -1003,6 +1306,9 @@ check('promotion reservation prevents double spend and merges into the newest sn
       idea_version: ideaVersion({
         ticker: current.ticker, direction: current.direction, pairWith: current.pair_with, thesisType: current.thesis_type,
         reason, whyNow: current.why_now, sourceEventIds: current.source_event_ids,
+        primarySourceEventId: current.primary_source_event_id!, sourceHeadline: current.source_headline!,
+        sourceUrl: current.source_url!, sourceName: current.source_name!, originType: current.origin_type!,
+        sourceThemes: current.source_themes!,
       }),
       idea_version_started_at: updatedAt,
       updated_at: updatedAt,

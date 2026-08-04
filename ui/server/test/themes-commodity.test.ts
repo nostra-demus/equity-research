@@ -8,6 +8,7 @@ process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import { buildCommodityThemesIndex, memberCommodities, memberMatchesCommodity } from '../src/news/themes/commodity-index'
 import type { Theme, ThemeMember } from '../src/news/themes/types'
+import { attachValidNarrative } from './themes-fixtures'
 
 let passed = 0
 function check(name: string, fn: () => void): void {
@@ -23,7 +24,7 @@ function member(id: string, opts: Partial<ThemeMember> = {}): ThemeMember {
   return {
     event_id: id,
     dedup_group: opts.dedup_group,
-    headline: opts.headline || 'a headline naming no commodity',
+    headline: opts.headline || `AI data center capacity update ${id}`,
     headline_en: opts.headline_en,
     found_at: opts.found_at || hoursAgo(1),
     score: opts.score ?? 70,
@@ -39,7 +40,7 @@ function member(id: string, opts: Partial<ThemeMember> = {}): ThemeMember {
 
 function theme(id: string, name: string, members: ThemeMember[], opts: Partial<Theme> = {}): Theme {
   const last = members.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), '')
-  return {
+  const result: Theme = {
     theme_id: id, name, slug: name.toLowerCase().replace(/\s+/g, '-'), description: `${name} — what it is`,
     keywords: opts.keywords || [], company_keys: opts.company_keys || [], event_type_affinity: opts.event_type_affinity || [],
     members, member_count_total: members.length,
@@ -49,6 +50,8 @@ function theme(id: string, name: string, members: ThemeMember[], opts: Partial<T
     status: opts.status || 'live', merged_into: null, first_seen: opts.first_seen || hoursAgo(48),
     last_flow: last, generation: 'deterministic', rev: 1,
   }
+  if (members.length >= 2) attachValidNarrative(result)
+  return result
 }
 
 // ---- member tag resolution ----
@@ -118,21 +121,40 @@ check("{commodity:'GOLD'} narrows versus the any-commodity slice", () => {
   ])
   assert.equal(buildCommodityThemesIndex([mixed], {}, now).themes[0].member_count, 5, 'any tagged commodity counts with no subject set')
   assert.equal(buildCommodityThemesIndex([mixed], { commodity: 'GOLD' }, now).themes[0].member_count, 3)
+  assert.equal(buildCommodityThemesIndex([mixed], { commodity: 'SUGAR' }, now).themes.length, 0, 'a slice cannot borrow the global GOLD why-now event')
+  attachValidNarrative(mixed, { why_now_event_id: 'x4' })
   assert.equal(buildCommodityThemesIndex([mixed], { commodity: 'SUGAR' }, now).themes[0].member_count, 2)
   assert.equal(buildCommodityThemesIndex([mixed], { commodity: 'COCOA' }, now).themes.length, 0, 'a subject with no flow drops the theme')
 })
 
 check('geo composition: a GOLD member in IN is excluded by geo {country: US} even though it is tagged', () => {
-  const inTheme = theme('THM-geoddd44', 'India gold', [member('g5', { commodities: ['GOLD'], country: 'IN' })])
+  const inTheme = theme('THM-geoddd44', 'India gold', [
+    member('g5', { commodities: ['GOLD'], country: 'IN' }),
+    member('g6', { commodities: ['GOLD'], country: 'IN' }),
+  ])
   assert.equal(buildCommodityThemesIndex([inTheme], { commodity: 'GOLD', geo: { country: 'IN' } }, now).themes.length, 1)
   assert.equal(buildCommodityThemesIndex([inTheme], { commodity: 'GOLD', geo: { country: 'US' } }, now).themes.length, 0)
 })
 
+check('commodity + Where preserves a cross-border listed beneficiary named by the scoped evidence', () => {
+  const nvidia = { name: 'Nvidia', ticker: 'NVDA', listing_country: 'US' } as any
+  const crossBorder = theme('THM-goldxbrd', 'India gold compute demand', [
+    member('xb1', { commodities: ['GOLD'], country: 'IN', companies: [nvidia], headline: 'India gold market AI data center capacity raises Nvidia demand' }),
+    member('xb2', { commodities: ['GOLD'], country: 'IN', companies: [nvidia], headline: 'India gold market AI data center capacity expands Nvidia demand' }),
+  ], { companies: [{ ...nvidia, order: 1, side: 'beneficiary' } as any] })
+  const summary = buildCommodityThemesIndex([crossBorder], { commodity: 'GOLD', geo: { country: 'IN' } }, now).themes[0]
+  assert.equal(summary.assessment.status, 'actionable')
+  assert.deepEqual(summary.qualified_expressions.map((expression) => expression.ticker), ['NVDA'])
+})
+
 check('legacy members (no stored tags) slice via the derive path — the whole ledger works, no migration', () => {
-  const legacy = theme('THM-lgcyee55', 'Legacy sugar', [member('l1', { headline: 'Sugar prices surge in India' })])
+  const legacy = theme('THM-lgcyee55', 'Legacy sugar', [
+    member('l1', { headline: 'Sugar prices surge as India demand rises' }),
+    member('l2', { headline: 'Sugar prices surge as India demand expands' }),
+  ])
   const idx = buildCommodityThemesIndex([legacy], { commodity: 'SUGAR' }, now)
   assert.equal(idx.themes.length, 1)
-  assert.equal(idx.themes[0].member_count, 1)
+  assert.equal(idx.themes[0].member_count, 2)
 })
 
 check('non-live themes are never included, even with commodity flow', () => {

@@ -11,6 +11,8 @@ import { companyKeys, themeNarrativeTokens, intersectionSize, topicTokens } from
 import { companyImpact } from './order'
 import { bumpDaily } from './score'
 import { themeStoryKey } from './story-key'
+import { assignmentAnchors } from './core'
+import { sourcePriority } from './evidence'
 import type { Theme, ThemeItemView, ThemeMember, ThemeCompany } from './types'
 
 export interface AssignConfig {
@@ -21,26 +23,49 @@ export const DEFAULT_ASSIGN_CONFIG: AssignConfig = { maxThemesPerItem: 3, maxMem
 
 const isCompanyLinkage = (l?: string) => l === 'primary' || l === 'secondary'
 
-function narrativeKeywords(theme: Theme): Set<string> {
+/** Keep the ordinary evidence excerpt bounded without evicting rows that have not yet been classified.
+ * A burst may temporarily take the ring above maxMembers when pending debt alone exceeds the cap; that is
+ * deliberate. Dropping an unreviewed row is silent data loss, while the validator drains the FIFO and the
+ * next landing compacts the ordinary tail again. Existing sourced support/challenge rows are also pinned so
+ * a quiet established contract cannot become invalid merely because raw context traffic was busy. */
+function boundMembers(theme: Theme, maxMembers: number): void {
+  const protectedIds = new Set([
+    ...(theme.pending_narrative_event_ids || []),
+    ...(theme.narrative?.evidence || []).map((row) => row.event_id),
+  ])
+  const protectedMembers = theme.members.filter((member) => protectedIds.has(member.event_id))
+  const protectedMemberIds = new Set(protectedMembers.map((member) => member.event_id))
+  const ordinary = theme.members.filter((member) => !protectedMemberIds.has(member.event_id))
+  const ordinarySlots = Math.max(0, maxMembers - protectedMembers.length)
+  theme.members = [...(ordinarySlots ? ordinary.slice(-ordinarySlots) : []), ...protectedMembers]
+    .sort((a, b) => Date.parse(a.found_at) - Date.parse(b.found_at))
+}
+
+function narrativeKeywords(theme: Theme, generic?: Set<string>): Set<string> {
+  const contractAnchors = assignmentAnchors(theme)
+  if (contractAnchors.length === 2) return new Set(contractAnchors.filter((token) => !generic?.has(token)))
   const companyWords = new Set<string>()
   for (const c of theme.companies || []) {
     for (const token of topicTokens(null, [c])) companyWords.add(token)
     for (const token of topicTokens(c.name, [])) companyWords.add(token)
   }
-  return new Set((theme.keywords || []).filter((token) => !companyWords.has(token)))
+  return new Set((theme.keywords || []).filter((token) => !companyWords.has(token) && !generic?.has(token)))
 }
 
-/** Overlap score of an item against a theme. A company hit is supporting evidence, never a theme by
- *  itself. Joining requires a recurring narrative: ≥2 shared narrative tokens, or one shared narrative
- *  token when the same company is also named. This prevents every story about a frequent issuer from
- *  collapsing into a single company timeline while still allowing a tightly named follow-up to join. */
-export function overlapScore(itemCompanyKeys: Set<string>, itemTokens: Set<string>, itemEventTypes: string[], theme: Theme): { score: number; matched: boolean } {
+/** Overlap score of an item against a theme. A company hit can rank two valid matches, never create one.
+ * Joining requires the complete validated anchor pair, or three shared tokens for a contractless legacy
+ * cluster waiting to be migrated. */
+export function overlapScore(itemCompanyKeys: Set<string>, itemTokens: Set<string>, itemEventTypes: string[], theme: Theme, generic?: Set<string>): { score: number; matched: boolean } {
   const themeCompanyKeys = new Set(theme.company_keys)
-  const themeKeywords = narrativeKeywords(theme)
+  const themeKeywords = narrativeKeywords(theme, generic)
   const companyOverlap = intersectionSize(itemCompanyKeys, themeCompanyKeys)
   const tokenOverlap = intersectionSize(itemTokens, themeKeywords)
   const affinity = (itemEventTypes || []).some((t) => theme.event_type_affinity.includes(t)) ? 1 : 0
-  const matched = tokenOverlap >= 2 || (companyOverlap >= 1 && tokenOverlap >= 1)
+  const contractAnchors = assignmentAnchors(theme).filter((token) => !generic?.has(token))
+  // A validated thesis owns its exact two-anchor membership rule. Company overlap is a ranking signal
+  // only; it can never pull a story into the theme. Contractless legacy clusters use a stricter
+  // three-token floor while they await automatic revalidation, which stops them absorbing more noise.
+  const matched = contractAnchors.length === 2 ? tokenOverlap === 2 : tokenOverlap >= 3
   return { score: 3 * companyOverlap + tokenOverlap + affinity, matched }
 }
 
@@ -99,7 +124,9 @@ export interface AssignResult {
  *  companies, last_flow, rev). Returns the per-item theme_ids, the unclustered pool, and which themes
  *  changed (so the caller can rescore + emit only those). */
 export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: AssignConfig = DEFAULT_ASSIGN_CONFIG, now: Date = new Date(), generic?: Set<string>): AssignResult {
-  const live = themes.filter((t) => t.status === 'live')
+  // Raw/legacy clusters are migration input, not destinations. Until a validator has compiled a causal
+  // contract they cannot absorb more stories and snowball their own lexical identity.
+  const live = themes.filter((t) => t.status === 'live' && t.narrative && !t.needs_rename)
   const nowMs = now.getTime()
   const assignments = new Map<string, string[]>()
   const unclustered: ThemeItemView[] = []
@@ -114,7 +141,7 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
     const evs = it.event_types || []
     const hits: { theme: Theme; score: number }[] = []
     for (const theme of live) {
-      const { score, matched } = overlapScore(itemCompanyKeys, itemTokens, evs, theme)
+      const { score, matched } = overlapScore(itemCompanyKeys, itemTokens, evs, theme, generic)
       if (matched) hits.push({ theme, score })
     }
     if (!hits.length) {
@@ -126,10 +153,6 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
     const joined: string[] = []
     for (const { theme } of chosen) {
       const storyKey = themeStoryKey(it)
-      if (theme.members.some((m) => themeStoryKey(m) === storyKey)) {
-        joined.push(theme.theme_id) // already a member — still record membership, don't double-count
-        continue
-      }
       const member: ThemeMember = {
         event_id: it.event_id,
         dedup_group: it.dedup_group,
@@ -138,6 +161,8 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
         found_at: it.found_at,
         score: typeof it.triage_score === 'number' ? it.triage_score : it.materiality_pre_score || 0,
         tier: it.source_tier || 'news',
+        source_name: it.source_name,
+        url: it.url,
         companies: (it.companies || []).slice(0, 4) as CompanyGuess[],
         event_types: evs.slice(0, 6),
         issuer_linkage: it.issuer_linkage,
@@ -147,12 +172,42 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
         // like country/geo above — derived here (zero-cost) when the item didn't arrive pre-tagged
         ...(() => { const cs = it.commodities ?? deriveCommodities(it); return cs && cs.length ? { commodities: cs } : {} })(),
       }
+      const existingIndex = theme.members.findIndex((existing) => themeStoryKey(existing) === storyKey)
+      if (existingIndex >= 0) {
+        const existing = theme.members[existingIndex]
+        // One syndicated story is still one observation, but its canonical representative must improve
+        // when a filing/official/company source arrives after a weaker publisher copy. Replacing rather
+        // than double-counting preserves honest breadth. A changed event id is re-adjudicated because the
+        // old classification cannot be silently transferred to different provenance.
+        if (sourcePriority(member.tier) > sourcePriority(existing.tier)) {
+          theme.members[existingIndex] = member
+          if (member.found_at > theme.last_flow) theme.last_flow = member.found_at
+          theme.rev++
+          if (theme.narrative && member.event_id !== existing.event_id) {
+            const wasQueued = theme.needs_narrative_update === true
+            const pending = (theme.pending_narrative_event_ids || []).filter((eventId) => eventId !== existing.event_id)
+            theme.pending_narrative_event_ids = [...new Set([...pending, member.event_id])]
+            theme.needs_narrative_update = true
+            if (!wasQueued) theme.validation_queued_at = now.toISOString().replace(/\.\d{3}Z$/, 'Z')
+          }
+          boundMembers(theme, cfg.maxMembers)
+          touched.add(theme.theme_id)
+        }
+        joined.push(theme.theme_id) // already the same story — record membership, never count it twice
+        continue
+      }
       theme.members.push(member)
-      if (theme.members.length > cfg.maxMembers) theme.members.splice(0, theme.members.length - cfg.maxMembers)
       theme.member_count_total++
       bumpDaily(theme, it.found_at, nowMs) // record this landing in the long-horizon daily ring (survives member eviction)
       if (it.found_at > theme.last_flow) theme.last_flow = it.found_at
       theme.rev++
+      if (theme.narrative) {
+        const wasQueued = theme.needs_narrative_update === true
+        theme.pending_narrative_event_ids = [...new Set([...(theme.pending_narrative_event_ids || []), it.event_id])]
+        theme.needs_narrative_update = true
+        if (!wasQueued) theme.validation_queued_at = now.toISOString().replace(/\.\d{3}Z$/, 'Z')
+      }
+      boundMembers(theme, cfg.maxMembers)
       touched.add(theme.theme_id)
       joined.push(theme.theme_id)
     }

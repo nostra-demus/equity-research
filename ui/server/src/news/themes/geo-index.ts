@@ -59,8 +59,9 @@ export function memberMatchesGeo(m: ThemeMember, geo: ThemeGeo): boolean {
   return true
 }
 
-/** A theme company counts toward the geography when its listing country matches (the geo-relevant names to
- *  surface as chips + to feed the breadth score). Companies with no known listing country don't count. */
+/** Explicit listing-country matcher retained for callers that really ask about a listing venue. It must
+ *  not be applied to the Themes `Where` slice: that scope describes what the evidence is ABOUT, and a
+ *  country catalyst can legitimately point to a listed beneficiary elsewhere. */
 export function companyMatchesGeo(c: ThemeCompany, geo: ThemeGeo): boolean {
   const cc = (c.listing_country || '').trim().toUpperCase()
   if (!isCountry(cc)) return false
@@ -96,7 +97,7 @@ export function buildGeoThemesIndex(
 
     // Rebuild from the sliced members first. Filtering the global company aggregate leaked unrelated
     // mentions, counts, sides and last-seen values into a country view.
-    const geoCompanies = companiesForMembers(t, geoMembers).filter((c) => companyMatchesGeo(c, geo))
+    const geoCompanies = companiesForMembers(t, geoMembers)
     // Re-score from the geo slice. Sectors carry no country, so they can't be attributed to a geography —
     // breadth reads off the geo companies only (conservative, and consistent across every theme).
     const sliceFirstSeen = firstSeenForMembers(geoMembers, t.first_seen)
@@ -106,12 +107,6 @@ export function buildGeoThemesIndex(
     const holder: { flow_daily?: number[]; flow_daily_day?: string; members: { found_at: string }[] } = { members: geoMembers }
     ensureDaily(holder, nowMs, DAILY_WINDOWS)
     const flow_daily = holder.flow_daily || []
-    const firstNonZero = flow_daily.findIndex((v) => v > 0)
-    if (firstNonZero >= 0) history_days = Math.max(history_days, flow_daily.length - firstNonZero)
-
-    counts.total++
-    counts[scored.tier as ThemeTier]++
-
     const slicedTheme: Theme = {
       ...t,
       members: geoMembers,
@@ -122,10 +117,20 @@ export function buildGeoThemesIndex(
       fresh_flow: scored.fresh_flow,
       flow_series: scored.flow_series,
       flow_daily,
-      first_seen: sliceFirstSeen,
+      first_seen: t.first_seen,
       last_flow: geoMembers.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), ''),
     }
-    out.push(buildSummary(slicedTheme, nowD, geoCompanies))
+    const summary = buildSummary(slicedTheme, nowD, geoCompanies)
+    if (summary.narrative && summary.assessment.status !== 'context') {
+      // Counts and advertised history are evidence products, not raw slice traffic. buildSummary has
+      // already narrowed flow_daily/tier to explicit support+challenge; heat_flow_daily retains the raw
+      // scoped accumulator separately for diagnostics.
+      const firstNonZero = summary.flow_daily.findIndex((value) => value > 0)
+      if (firstNonZero >= 0) history_days = Math.max(history_days, summary.flow_daily.length - firstNonZero)
+      out.push(summary)
+      counts.total++
+      counts[summary.tier as ThemeTier]++
+    }
   }
 
   // Same evidence-first admission order as the global index; sliced heat only breaks later ties.

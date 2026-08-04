@@ -14,6 +14,7 @@ import path from 'node:path'
 import { createHash } from 'node:crypto'
 import { Budget, armCooldown, clearCooldown, conservativeChatTokenBound, getSharedLimiter, isCoolingDown } from '../triage/budget'
 import type { Theme, ThemeCompany, ThemeMember } from './types'
+import { selectNarrativeCore } from './core'
 
 export interface ThemeBrief {
   theme_id: string
@@ -87,13 +88,27 @@ const asStr = (v: unknown): string => (typeof v === 'string' ? v : '')
 // maps this over EVERY member and runs inside briefSig BEFORE buildThemeBrief's own guards, so it must
 // never throw (the never-throws contract). Coerce both fields through asStr before calling .trim().
 const headlineOf = (m: ThemeMember) => (asStr(m.headline_en).trim() ? asStr(m.headline_en) : asStr(m.headline)).trim()
+const narrativeCompanies = (theme: Theme): ThemeCompany[] => {
+  const companies = Array.isArray(theme.companies) ? theme.companies : []
+  if (!theme.narrative) return companies
+  const allowed = new Set(theme.narrative.expressions.map((expression) => expression.name_key))
+  return companies.filter((company) => allowed.has(company.name_key))
+}
 
 /** The handful of member stories that best characterise the theme — the union of its highest-scored and
  *  its most-recent items, deduped. Both lenses matter: score captures prominence, recency captures a
  *  fresh development that hasn't accrued a score yet. Used to build the PROMPT (we want the freshest news
  *  in front of the model). The cache SIGNATURE deliberately uses a more stable basis — see briefSig. */
 export function representativeMembers(theme: Theme, n = 12): ThemeMember[] {
-  const ms = theme.members || []
+  const all = Array.isArray(theme.members) ? theme.members : []
+  const core = selectNarrativeCore(all, theme.narrative?.anchor_terms || [])
+  const approvedIds = new Set((theme.narrative?.evidence || []).map((row) => row.event_id))
+  const ms = theme.narrative
+    ? all.filter((member) => approvedIds.has(member.event_id))
+    // Contractless rows are no longer public Themes, but this legacy helper remains total for old cache
+    // entries and diagnostics. When no dense pair exists, show the bounded raw set instead of returning an
+    // empty paragraph; validated narratives never take this path and therefore cannot leak off-core rows.
+    : (core.members.length ? core.members : all)
   const byScore = [...ms].sort((a, b) => (b.score || 0) - (a.score || 0)).slice(0, 8)
   const byRecency = [...ms].sort((a, b) => (a.found_at < b.found_at ? 1 : -1)).slice(0, 6)
   const seen = new Set<string>()
@@ -111,7 +126,7 @@ export function representativeMembers(theme: Theme, n = 12): ThemeMember[] {
 
 /** The theme's most prominent (highest-scored) headlines — the stable basis for the cache signature. */
 function signatureHeadlines(theme: Theme, n = 10): string[] {
-  return [...(theme.members || [])].sort((a, b) => (b.score || 0) - (a.score || 0)).slice(0, n).map(headlineOf)
+  return representativeMembers(theme, n).sort((a, b) => (b.score || 0) - (a.score || 0)).slice(0, n).map(headlineOf)
 }
 
 /** A content signature that changes only when the SUBSTANCE of the theme changes — its name, its named
@@ -120,8 +135,20 @@ function signatureHeadlines(theme: Theme, n = 10): string[] {
  *  not re-generated); a genuinely big new story scores high enough to enter the top set and busts it. */
 function briefSig(theme: Theme): string {
   const heads = signatureHeadlines(theme).sort()
-  const cos = (theme.companies || []).map((c) => c.name).filter(realName).slice(0, 6).sort()
-  return createHash('sha256').update(JSON.stringify({ n: theme.name, h: heads, c: cos })).digest('hex').slice(0, 16)
+  const cos = narrativeCompanies(theme).map((c) => c.name).filter(realName).slice(0, 6).sort()
+  const narrative = theme.narrative ? {
+    thesis: theme.narrative.thesis,
+    why_now: theme.narrative.why_now,
+    why_now_event_id: theme.narrative.why_now_event_id,
+    mechanism_steps: theme.narrative.mechanism_steps,
+    horizon: theme.narrative.horizon,
+    falsifier: theme.narrative.falsifier,
+    evidence: theme.narrative.evidence,
+    expressions: theme.narrative.expressions,
+    validated_at: theme.narrative.validated_at,
+    pending_event_ids: theme.needs_narrative_update ? theme.pending_narrative_event_ids || [] : [],
+  } : null
+  return createHash('sha256').update(JSON.stringify({ n: theme.name, h: heads, c: cos, narrative })).digest('hex').slice(0, 16)
 }
 
 // ---- deterministic fallback (always available, $0, no network) ----
@@ -155,12 +182,19 @@ function momentumPhrase(theme: Theme): string {
  *  LLM read, but never wrong and never empty — the safety net the route can always fall back to. Pure /
  *  total: tolerant of a malformed (undefined members/companies) theme so it can never throw. */
 export function deterministicBrief(theme: Theme): string {
+  if (theme.narrative && theme.needs_narrative_update) {
+    const pending = theme.pending_narrative_event_ids?.length || 1
+    return `Provisional — ${pending} new matching evidence row${pending === 1 ? '' : 's'} still need support, challenge or context classification. The last validated thesis was: ${theme.narrative.thesis}`
+  }
+  if (theme.narrative && !theme.needs_rename) {
+    return `${theme.narrative.thesis} What changed: ${theme.narrative.why_now} The proposed economic chain is ${theme.narrative.mechanism_steps.join(' → ')}. What would break it: ${theme.narrative.falsifier}`
+  }
   const members = representativeMembers(theme)
-  const cos = (theme.companies || []).map((c) => c.name).filter(realName).slice(0, 4)
+  const cos = narrativeCompanies(theme).map((c) => c.name).filter(realName).slice(0, 4)
   const topHead = members[0] ? headlineOf(members[0]) : ''
   const n = theme.member_count_total || (theme.members?.length ?? 0)
   const affinity = (theme.event_type_affinity || []).slice(0, 3).map(humanizeType).filter(Boolean)
-  const distinctCos = new Set((theme.companies || []).map((c) => c.name_key)).size
+  const distinctCos = new Set(narrativeCompanies(theme).map((c) => c.name_key)).size
 
   const parts: string[] = []
   parts.push(cos.length ? `A run of ${n} related stories centred on ${listWords(cos)}.` : `A cluster of ${n} related stories.`)
@@ -187,7 +221,7 @@ const SYSTEM =
 function buildUserMessage(theme: Theme): string {
   const members = representativeMembers(theme)
   const byOrder = (o: number) =>
-    (theme.companies || [])
+    narrativeCompanies(theme)
       .filter((c: ThemeCompany) => c.order === o && realName(c.name))
       .slice(0, 8)
       .map((c) => c.name)
@@ -303,6 +337,37 @@ export async function buildThemeBrief(
   // a forced regen that lands within FORCE_COOLDOWN_MS of the last build is ignored (served from cache),
   // so a rapid ?force=1 loop can't repeatedly bypass the signature cache and hammer Groq
   const force = !!opts.force && hitAgeMs > FORCE_COOLDOWN_MS
+
+  // A validated narrative is already the adjudicated synthesis. Running a second headline-only model can
+  // erase challenge labels or contradict the dossier, so this legacy endpoint becomes a deterministic
+  // projection of the same contract (and costs no provider budget).
+  if (theme.narrative && theme.needs_narrative_update) {
+    const out: ThemeBrief = {
+      theme_id: theme.theme_id,
+      brief: deterministicBrief(theme),
+      generation: 'deterministic',
+      generated_at: iso(),
+      note: 'Provisional: new matching evidence is awaiting narrative classification.',
+    }
+    saveBrief(stateDir, theme.theme_id, { ...out, sig })
+    return out
+  }
+
+  if (theme.narrative && !theme.needs_rename) {
+    if (!force && hit && hit.sig === sig) {
+      const { sig: _omit, ...brief } = hit
+      return brief
+    }
+    const out: ThemeBrief = {
+      theme_id: theme.theme_id,
+      brief: deterministicBrief(theme),
+      generation: 'deterministic',
+      generated_at: iso(),
+      note: 'Projected from the validated theme narrative.',
+    }
+    saveBrief(stateDir, theme.theme_id, { ...out, sig })
+    return out
+  }
 
   if (!force && hit && hit.sig === sig) {
     const upgradable = hit.generation === 'deterministic' && llmEnabled && hitAgeMs > UPGRADE_COOLDOWN_MS
