@@ -507,8 +507,17 @@ export function mergeAndRetire(themes: Theme[], now: Date, cfg: DiscoverConfig =
         // The validator approved the PRE-merge narrative. Combining two clusters can change the name's
         // meaning and can add exactly the evidence/expression that clears admission, so fail closed until
         // the merged keeper is explicitly re-grounded on a later discovery pass.
-        if (keep.generation !== 'deterministic') {
-          keep.pending_narrative_event_ids = [...mergedPendingIds].filter((eventId) => keep.members.some((member) => member.event_id === eventId))
+        const retainedPendingIds = [...mergedPendingIds].filter((eventId) => keep.members.some((member) => member.event_id === eventId))
+        keep.pending_narrative_event_ids = retainedPendingIds
+        if (keep.generation === 'deterministic') {
+          // More than one fresh cluster can be discovered in a pass while the bounded compiler validates
+          // only part of that batch. If two raw clusters merge, carry BOTH queues onto the keeper; retaining
+          // the folded members without their debt would make half the evidence permanently invisible to the
+          // validator even though qualification still counted it in the denominator.
+          keep.needs_validation = true
+          keep.validation_queued_at = now.toISOString().replace(/\.\d{3}Z$/, 'Z')
+          delete keep.validation_attempted_at
+        } else {
           keep.needs_narrative_update = keep.pending_narrative_event_ids.length > 0 || undefined
           keep.needs_rename = true
           keep.validation_queued_at = now.toISOString().replace(/\.\d{3}Z$/, 'Z')

@@ -278,6 +278,13 @@ await check('mergeAndRetire: two themes sharing companies merge; a parked, long-
   const changed = mergeAndRetire(themes, NOW)
   assert.ok([t1, t2].some((t) => t.status === 'merged'), 'one of the duplicate themes merged')
   assert.ok(changed.size >= 2)
+  const keeper = themes.find((theme) => theme.status === 'live')!
+  assert.deepEqual(
+    new Set(keeper.pending_narrative_event_ids),
+    new Set(['m1', 'm2', 'm3', 'm4', 'm5', 'm6']),
+    'a raw merge carries both clusters complete validation queues',
+  )
+  assert.equal(keeper.needs_validation, true)
   // retire: a parked theme whose last_flow is 100h old
   const stale = createTheme([item('s', 'old thing', { companies: [co('OldCo'), co('Other')], found_at: hoursAgo(100) }), item('s2', 'old thing two', { companies: [co('OldCo'), co('Other')], found_at: hoursAgo(100) }), item('s3', 'old thing three', { companies: [co('OldCo'), co('Other')], found_at: hoursAgo(100) })], NOW)
   stale.tier = 'parked'
