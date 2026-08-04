@@ -627,7 +627,7 @@ export function EventRail() {
               Ideas{ideasSummary.qualifiedCount ? ` · ${ideasSummary.qualifiedCount}` : ''}
             </button>
           )}
-          <button type="button" role="radio" aria-checked={themesOpen} className={`evrail__segbtn${themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => void openThemes('map')} title="The wire clustered into living investment themes">
+          <button type="button" role="radio" aria-checked={themesOpen} className={`evrail__segbtn${themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => void openThemes('board')} title="A ranked first look at coherent themes worth checking, with forming patterns kept separate">
             Themes
           </button>
           <button type="button" role="radio" aria-checked={calendarOpen} className={`evrail__segbtn${calendarOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => (calendarOpen ? closeCalendar() : openCalendar())} title="What's scheduled ahead — upcoming earnings dates and macro releases (a forward calendar)">

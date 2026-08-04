@@ -7,12 +7,72 @@ import type { FeedItem, IntensityWindow } from './types'
 export type ThemeTier = 'hot' | 'active' | 'cooling' | 'parked'
 export type OrderTier = 1 | 2 | 3
 export type ImpactSide = 'beneficiary' | 'harmed' | 'mixed'
+export type ThemeSurfaceStatus = 'actionable' | 'forming' | 'context'
+
+export interface ThemeScores {
+  freshness: number
+  magnitude: number
+  breadth: number
+  persistence: number
+  composite: number
+}
+
+// The first-look qualification is deliberately separate from heat. Heat says how much news a cluster
+// is taking; this read says whether the cluster has enough distinct, coherent evidence and a ticker-linked,
+// directional expression to deserve scarce PM attention. Every field is optional on Theme below so a
+// newly deployed web bundle fails closed while an older server is still serving the previous shape.
+export interface ThemeSurfaceAssessment {
+  status: ThemeSurfaceStatus
+  reasons: string[]
+  blockers: string[]
+  metrics: {
+    recent_6h_flow: number
+    prior_6h_flow: number
+    unique_evidence_count: number
+    high_quality_evidence_count: number
+    narrative_support_count: number
+    narrative_coherence_pct: number
+    recurring_narrative_token_count: number
+    first_order_directional_ticker_count: number
+  }
+}
+
+export interface ThemeEvidence {
+  event_id: string
+  headline: string
+  found_at: string
+  score: number
+  source_tier: string
+}
+
+/** A trade expression that the server bound to the exact narrative-supporting evidence rows that proved it.
+ * Optional on Theme during deploy skew; consumers must fail closed when an actionable summary omits it. */
+export interface ThemeQualifiedExpression {
+  name: string
+  name_key: string
+  ticker: string
+  listing_country: string | null
+  side: Exclude<ImpactSide, 'mixed'>
+  evidence_event_ids: string[]
+}
+
+/** Explicit SSE invalidation for a theme that no longer belongs in any current index. */
+export interface ThemeRemoval {
+  theme_id: string
+  reason: 'retired' | 'merged'
+  merged_into: string | null
+  rev: number
+}
 
 export interface ThemeCompanyLite {
   name: string
   ticker: string | null
   order: OrderTier
   side: ImpactSide
+  listing_country?: string | null
+  mention_count?: number
+  impact_composite?: number
+  last_seen?: string
 }
 export interface RelatedThemeLite {
   theme_id: string
@@ -32,6 +92,14 @@ export interface Theme {
   member_count: number
   top_companies: ThemeCompanyLite[]
   related_themes: RelatedThemeLite[]
+  first_seen?: string
+  score_components?: ThemeScores
+  evidence?: ThemeEvidence[]
+  qualified_expressions?: ThemeQualifiedExpression[]
+  // `assessment` is the canonical server field. `opportunity` remains an optional rollout alias so a
+  // web deploy cannot mislabel a qualified theme if an earlier server draft briefly serves that name.
+  assessment?: ThemeSurfaceAssessment
+  opportunity?: ThemeSurfaceAssessment
   last_flow: string
   rev: number
 }
@@ -162,6 +230,248 @@ export function sparklinePoints(series: number[], w: number, h: number, pad = 1)
 
 export const orderLabel = (o: OrderTier): string => (o === 1 ? 'Direct' : o === 2 ? 'Ripple' : 'Read-across')
 
+// ---- PM briefing helpers ----
+
+const PLACEHOLDER = /^(?:null|undefined|n\/?a|none|unknown|-+)$/i
+
+/** A conservative display guard, not a listing or liquidity claim. It removes extraction placeholders and long
+ *  numeric filing identifiers while retaining valid all-numeric exchange tickers such as Japan's 4-digit
+ *  codes. Passing this check proves only that the server returned a displayable ticker-shaped candidate. */
+export function validThemeTicker(ticker: string | null | undefined): boolean {
+  const s = ticker?.trim() || ''
+  if (!s || PLACEHOLDER.test(s) || /^0+$/.test(s) || /^\d{6,}$/.test(s)) return false
+  return /^[A-Z0-9][A-Z0-9.\-:]{0,19}$/i.test(s)
+}
+
+export function validThemeCompanyName(name: string | null | undefined): boolean {
+  const s = name?.trim() || ''
+  return !!s && !PLACEHOLDER.test(s)
+}
+
+export function themeCompanyLabel(c: Pick<ThemeCompanyLite, 'name' | 'ticker'>): string {
+  return validThemeTicker(c.ticker) ? c.ticker!.trim() : c.name.trim()
+}
+
+/** Qualification accessor with a fail-closed deploy-skew rule: no assessment means Context, never an
+ *  inferred "worth checking" call based on the old heat score. */
+type ThemeAssessmentInput = Pick<Theme, 'assessment' | 'opportunity' | 'evidence' | 'qualified_expressions'>
+
+/** Validate the server's evidence-bound expressions at the client trust boundary. A display-only company,
+ * malformed expression, or proof id absent from this exact summary cannot become a first-look direction. */
+export function qualifiedThemeExpressions(
+  t: Pick<Theme, 'evidence' | 'qualified_expressions'>,
+): ThemeQualifiedExpression[] {
+  if (!Array.isArray(t.evidence) || !Array.isArray(t.qualified_expressions)) return []
+  const evidenceIds = new Set(
+    t.evidence
+      .map((row) => typeof row?.event_id === 'string' ? row.event_id.trim() : '')
+      .filter(Boolean),
+  )
+  if (!evidenceIds.size) return []
+  const byIdentity = new Map<string, ThemeQualifiedExpression>()
+  const conflictingIdentities = new Set<string>()
+  for (const expression of t.qualified_expressions) {
+    if (!expression || !validThemeCompanyName(expression.name) || !validThemeTicker(expression.ticker)) continue
+    if (expression.side !== 'beneficiary' && expression.side !== 'harmed') continue
+    if (!Array.isArray(expression.evidence_event_ids)) continue
+    const rawProofIds = expression.evidence_event_ids.map((eventId) => typeof eventId === 'string' ? eventId.trim() : '')
+    // The server emits an exact proof contract, not a bag from which the client may salvage good rows.
+    // One empty/unknown id makes the whole expression unproven on this summary and therefore ineligible.
+    if (!rawProofIds.length || rawProofIds.some((eventId) => !eventId || !evidenceIds.has(eventId))) continue
+    const proofIds = [...new Set(rawProofIds)]
+    const nameKey = typeof expression.name_key === 'string' ? expression.name_key.trim() : ''
+    if (!nameKey) continue
+    const ticker = expression.ticker.trim().toUpperCase()
+    const listingCountry = typeof expression.listing_country === 'string' && expression.listing_country.trim()
+      ? expression.listing_country.trim()
+      : null
+    const identity = `${nameKey.toLowerCase()}|${ticker}|${(listingCountry || '').toLowerCase()}`
+    const normalized = { ...expression, name: expression.name.trim(), name_key: nameKey, ticker, listing_country: listingCountry, evidence_event_ids: proofIds }
+    const prior = byIdentity.get(identity)
+    if (!prior) byIdentity.set(identity, normalized)
+    else if (prior.side !== normalized.side) conflictingIdentities.add(identity)
+    else prior.evidence_event_ids = [...new Set([...prior.evidence_event_ids, ...normalized.evidence_event_ids])]
+  }
+  return [...byIdentity.entries()]
+    .filter(([identity]) => !conflictingIdentities.has(identity))
+    .map(([, expression]) => expression)
+}
+
+export function themeSurfaceAssessment(t: ThemeAssessmentInput): ThemeSurfaceAssessment | null {
+  const candidate = t.assessment || t.opportunity
+  if (!candidate || !['actionable', 'forming', 'context'].includes(candidate.status)) return null
+  if (!Array.isArray(candidate.reasons) || !candidate.reasons.every((v) => typeof v === 'string')) return null
+  if (!Array.isArray(candidate.blockers) || !candidate.blockers.every((v) => typeof v === 'string')) return null
+  const m = candidate.metrics
+  if (!m || typeof m !== 'object') return null
+  const counts = [
+    m.recent_6h_flow,
+    m.prior_6h_flow,
+    m.unique_evidence_count,
+    m.high_quality_evidence_count,
+    m.narrative_support_count,
+    m.recurring_narrative_token_count,
+    m.first_order_directional_ticker_count,
+  ]
+  if (!counts.every((v) => Number.isFinite(v) && v >= 0)) return null
+  if (!Number.isFinite(m.narrative_coherence_pct) || m.narrative_coherence_pct < 0 || m.narrative_coherence_pct > 100) return null
+  // An actionable row has cleared every gate: it must explain at least one fact and have no blocker.
+  // A partial deploy or malformed cache that merely says `status: actionable` fails closed to Context.
+  if (candidate.status === 'actionable' && (
+    !candidate.reasons.length
+    || candidate.blockers.length
+    || !qualifiedThemeExpressions(t).length
+  )) return null
+  return candidate
+}
+
+export function themeSurfaceStatus(t: ThemeAssessmentInput): ThemeSurfaceStatus {
+  return themeSurfaceAssessment(t)?.status || 'context'
+}
+
+/** Current six-hour evidence flow minus the preceding six-hour window. Null means the server did not
+ *  send an assessment; zero is a real "unchanged" result and must not be collapsed into missing. */
+export function themeFlowDelta(t: ThemeAssessmentInput): number | null {
+  const a = themeSurfaceAssessment(t)
+  const m = a?.metrics
+  if (!m || !Number.isFinite(m.recent_6h_flow) || !Number.isFinite(m.prior_6h_flow)) return null
+  return m.recent_6h_flow - m.prior_6h_flow
+}
+
+export interface DirectionalThemeExpressions {
+  beneficiaries: ThemeQualifiedExpression[]
+  harmed: ThemeQualifiedExpression[]
+}
+
+/** Evidence-bound first-order expressions split by direction. `top_companies` is intentionally absent:
+ * it is a display ranking and can contain valid but unrelated tickers that did not clear qualification. */
+export function splitQualifiedThemeExpressions(
+  t: Pick<Theme, 'evidence' | 'qualified_expressions'>,
+): DirectionalThemeExpressions {
+  const out: DirectionalThemeExpressions = { beneficiaries: [], harmed: [] }
+  for (const expression of qualifiedThemeExpressions(t)) {
+    if (expression.side === 'beneficiary') out.beneficiaries.push(expression)
+    else out.harmed.push(expression)
+  }
+  return out
+}
+
+const finiteOr = (n: number | undefined, fallback: number): number => Number.isFinite(n) ? n! : fallback
+
+/** Exact client twin of the server's explainable, lexicographic sort. There is no weighted usefulness
+ *  score: acceleration wins first, then current flow, ticker-linked direction, narrative support,
+ *  supported-source evidence, legacy heat only as a late tiebreak, recency, and finally name. */
+export function compareBriefingThemes(a: Theme, b: Theme): number {
+  const statusOrder: Record<ThemeSurfaceStatus, number> = { actionable: 0, forming: 1, context: 2 }
+  const status = statusOrder[themeSurfaceStatus(a)] - statusOrder[themeSurfaceStatus(b)]
+  if (status) return status
+  const am = themeSurfaceAssessment(a)?.metrics
+  const bm = themeSurfaceAssessment(b)?.metrics
+  const ad = themeFlowDelta(a)
+  const bd = themeFlowDelta(b)
+  return finiteOr(bd ?? undefined, -Infinity) - finiteOr(ad ?? undefined, -Infinity)
+    || finiteOr(bm?.recent_6h_flow, -1) - finiteOr(am?.recent_6h_flow, -1)
+    || finiteOr(bm?.first_order_directional_ticker_count, -1) - finiteOr(am?.first_order_directional_ticker_count, -1)
+    || finiteOr(bm?.narrative_support_count, -1) - finiteOr(am?.narrative_support_count, -1)
+    || finiteOr(bm?.high_quality_evidence_count, -1) - finiteOr(am?.high_quality_evidence_count, -1)
+    || finiteOr(b.composite, -1) - finiteOr(a.composite, -1)
+    || finiteOr(Date.parse(b.last_flow || ''), -Infinity) - finiteOr(Date.parse(a.last_flow || ''), -Infinity)
+    || a.name.localeCompare(b.name)
+}
+
+export interface ThemeBriefingGroups {
+  worthChecking: Theme[]
+  forming: Theme[]
+  context: Theme[]
+  counts: { worthChecking: number; forming: number; context: number }
+  hiddenWorthChecking: number
+}
+
+/** Build the ranked first-look hierarchy. The default returns the five highest-value full briefing rows;
+ * callers can request a larger explicit limit when they offer an in-place show-all control. */
+export function groupThemesForBriefing(themes: Theme[], maxWorthChecking = 5): ThemeBriefingGroups {
+  const ranked = [...themes].sort(compareBriefingThemes)
+  const allWorth = ranked.filter((t) => themeSurfaceStatus(t) === 'actionable')
+  const forming = ranked.filter((t) => themeSurfaceStatus(t) === 'forming')
+  const context = ranked.filter((t) => themeSurfaceStatus(t) === 'context')
+  const limit = Math.max(0, Math.floor(maxWorthChecking))
+  return {
+    worthChecking: allWorth.slice(0, limit),
+    forming,
+    context,
+    counts: { worthChecking: allWorth.length, forming: forming.length, context: context.length },
+    hiddenWorthChecking: Math.max(0, allWorth.length - limit),
+  }
+}
+
+export function sourceTierLabel(tier: string | null | undefined): string {
+  return ({
+    primary_filing: 'filing',
+    official_data: 'official',
+    company: 'company',
+    news: 'news',
+    unconfirmed: 'unconfirmed',
+    social: 'social',
+  } as Record<string, string>)[tier || ''] || (tier || 'source').replace(/_/g, ' ')
+}
+
+/** The summary pins at most three recent qualifying rows, including ticker-expression proof when one
+ * exists. Keep all three, de-duplicate by headline, and fail closed on malformed cached evidence. */
+export function themeBriefingEvidence(t: Pick<Theme, 'evidence'>): ThemeEvidence[] {
+  if (!Array.isArray(t.evidence)) return []
+  const seen = new Set<string>()
+  const out: ThemeEvidence[] = []
+  for (const evidence of t.evidence) {
+    const headline = evidence?.headline?.trim()
+    if (!headline || seen.has(headline)) continue
+    seen.add(headline)
+    out.push(evidence)
+    if (out.length === 3) break
+  }
+  return out
+}
+
+export interface ThemeSliceDisplay {
+  /** True when the index is narrower than the global all-wire index. */
+  active: boolean
+  /** Plain label used everywhere the sliced index is shown. */
+  label: string
+}
+
+/** One display contract for the same server-side Themes slice used by the header, briefing, map, and
+ * deep dive. A non-flow wire is scoped even before one subject is selected, so its global intake must
+ * never be presented as if it described that narrower index. */
+export function themeSliceDisplay(geoLabel: string, subject: string | null, eventScope?: string | null): ThemeSliceDisplay {
+  const parts: string[] = []
+  const geo = geoLabel.trim()
+  const selectedSubject = subject?.trim() || ''
+  const scope = (eventScope || '').trim().replace(/[_-]+/g, ' ')
+  if (geo) parts.push(geo)
+  if (selectedSubject) parts.push(selectedSubject)
+  else if (scope) parts.push(`${scope} wire`)
+  return { active: parts.length > 0, label: parts.join(' · ') }
+}
+
+export type ThemeMapMode = 'compact' | 'spatial'
+
+/** The relationship graph needs enough horizontal room for its source lanes, ranking lens, and labelled
+ * basins. Below that width a ranked compact explorer is truthful and reachable instead of a clipped map. */
+export function themeMapMode(width: number): ThemeMapMode {
+  return Number.isFinite(width) && width > 0 && width < 620 ? 'compact' : 'spatial'
+}
+
+/** Hover state can outlive its theme by one render when an SSE removal lands. Resolve defensively so a
+ * tooltip never receives `undefined` during that transition. */
+export function themeForMapHover(themes: readonly Theme[], themeId: string | null): Theme | null {
+  return themeId ? themes.find((theme) => theme.theme_id === themeId) ?? null : null
+}
+
+/** Source-tier lanes are usable only for the global live view or an exactly matching historical rollup.
+ * A scoped view and a historical window without its own rollup hide the current-wire mix. */
+export function shouldHideThemeIntake(scoped: boolean, historical: boolean, hasExactRollup: boolean): boolean {
+  return scoped || (historical && !hasExactRollup)
+}
+
 // ---- time-window selector ----
 // The user scrubs the SAME live themes through different lookbacks: "what's hottest in the last hour"
 // vs "...the last 3 months". A window re-ranks + re-sizes themes by the news flow WITHIN it. Short
@@ -174,6 +484,13 @@ export interface ThemeWindow {
   label: string // the pill label
   full: string // spoken form for captions + empty states ("the last 7 days")
   hours: number | null // null = Live (the real-time view); otherwise the lookback in hours
+}
+
+/** Briefing is an explicitly current screen. Historical lookbacks belong to the exploratory map, where
+ * flow controls both ordering and size. Keeping this rule pure gives store/UI callers the same defensive
+ * answer during persisted-state or deploy skew: a board can never inherit a historical window. */
+export function themeWindowForView(view: 'map' | 'board' | null, requestedHours: number | null): number | null {
+  return view === 'map' ? requestedHours : null
 }
 
 export const THEME_WINDOWS: ThemeWindow[] = [
@@ -237,6 +554,17 @@ export function windowCoverage(w: ThemeWindow, historyDays: number): WindowCover
   const neededDays = Math.ceil(w.hours / 24)
   const coveredDays = Math.min(neededDays, Math.max(0, Math.floor(historyDays)))
   return { selectable: coveredDays >= 1, coveredDays, neededDays, partial: coveredDays < neededDays }
+}
+
+/** A slice refresh temporarily clears history. Only a completed replacement index may invalidate the
+ * selected lookback; loading/error/idle states preserve the user's window for a retry or cached return. */
+export function shouldResetThemeWindow(
+  status: 'idle' | 'loading' | 'ready' | 'error',
+  view: 'map' | 'board' | null,
+  win: ThemeWindow | null,
+  historyDays: number,
+): boolean {
+  return status === 'ready' && view === 'map' && !!win && !windowCoverage(win, historyDays).selectable
 }
 
 /** The spoken window label, qualified when only PART of it is backed by real history — so a label never

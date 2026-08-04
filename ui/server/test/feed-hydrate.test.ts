@@ -22,9 +22,9 @@ const DATE = '2026-07-23'
 const inbox = path.join(TMP, 'screener', 'inbox')
 fs.mkdirSync(inbox, { recursive: true })
 const lines = [
-  JSON.stringify({ kind: 'item', id: 'a', headline: 'Row with a non-array companies field', companies: { ticker: 'X' } }),
+  JSON.stringify({ kind: 'item', id: 'a', headline: 'Row with a non-array companies field', companies: { ticker: 'X' }, found_at: '2026-07-23T06:30:00Z' }),
   JSON.stringify({ kind: 'item', id: 'b', headline: 'Row with no companies field at all' }),
-  JSON.stringify({ kind: 'item', id: 'c', headline: 'Row with a normal companies array', companies: [{ name: 'Acme', ticker: 'null' }] }),
+  JSON.stringify({ kind: 'item', id: 'c', headline: 'Row with a normal companies array', companies: [{ name: 'Acme', ticker: 'null' }], found_at: 'not-a-timestamp' }),
 ]
 fs.writeFileSync(path.join(inbox, `${DATE}_firehose.ndjson`), lines.join('\n'))
 
@@ -34,11 +34,14 @@ try {
     assert.equal(items.length, 3, 'all three rows survive — a bad companies field must not drop the row')
     const a = items.find((i) => i.id === 'a')
     assert.deepEqual(a?.companies, [], 'a non-array companies is normalised to []')
+    assert.equal(a?.found_at, '2026-07-23T06:30:00Z', 'a valid source timestamp survives hydration')
     const b = items.find((i) => i.id === 'b')
     assert.deepEqual(b?.companies, [], 'an absent companies is []')
+    assert.equal(b?.found_at, undefined, 'a legacy row stays honestly source-time unknown')
     const c = items.find((i) => i.id === 'c')
     assert.equal(c?.companies?.length, 1, 'a good companies array is kept')
     assert.equal(c?.companies?.[0].ticker, null, 'and its junk "null" ticker is still scrubbed on read')
+    assert.equal(c?.found_at, undefined, 'a malformed source timestamp fails closed')
   })
 } finally {
   fs.rmSync(TMP, { recursive: true, force: true })

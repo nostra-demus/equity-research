@@ -21,8 +21,10 @@ Output:
 from __future__ import annotations
 
 import glob
+import hashlib
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 
@@ -63,6 +65,24 @@ MACHINE_PASS = {
     "watchlist_integrity_downgrade", "watchlist_integrity_broken",
     "LOG", "PARK", "suppress",
 }
+
+IDEA_ORIGIN_TYPES = {"wire", "theme", "mixed"}
+IDEA_THEME_ID_RE = re.compile(r"^THM-[a-f0-9]{8}$")
+IDEA_EVENT_ID_RE = re.compile(r"^EVT-[a-f0-9]{12}$")
+IDEA_TICKER_RE = re.compile(r"^[A-Z0-9][A-Z0-9.&-]{0,14}$")
+IDEA_JUNK_TICKERS = {
+    "NULL", "NONE", "N/A", "NA", "N.A", "UNKNOWN", "TBD", "PRIVATE", "UNLISTED", "OTC", "IPO",
+}
+MAX_IDEA_SOURCE_THEMES = 64
+MAX_THEME_EVIDENCE_EVENTS = 64
+
+
+def valid_idea_ticker(value: object) -> bool:
+    """Python twin of news/symbology.cleanTicker for persisted Ideas."""
+    return (isinstance(value, str)
+            and value not in IDEA_JUNK_TICKERS
+            and IDEA_TICKER_RE.fullmatch(value) is not None
+            and re.fullmatch(r"\d{7,}", value.replace(".", "").replace("-", "")) is None)
 
 
 def override_supersedes_review(ovr, ir) -> bool:
@@ -105,6 +125,130 @@ def safe_int(v, default: int = 0) -> int:
         return int(v)
     except (TypeError, ValueError):
         return default
+
+
+def project_idea_lineage(rec: dict) -> dict | None:
+    """Return the board-safe lineage projection, or None for malformed new provenance.
+
+    Legacy idea snapshots predate Themes and carry neither field, so they intentionally project no
+    lineage keys. New snapshots must carry both fields and obey their origin/cardinality contract. The
+    per-theme evidence ids are mandatory on every new theme/mixed snapshot; dropping them would sever
+    the exact Theme -> wire-event audit trail in the static board. "Legacy" means both lineage fields
+    are absent — an all-unmapped new lineage is malformed, not a compatibility shape.
+    """
+    has_origin = "origin_type" in rec
+    has_themes = "source_themes" in rec
+    if not has_origin and not has_themes:
+        return {}
+    if not has_origin or not has_themes or rec.get("origin_type") not in IDEA_ORIGIN_TYPES:
+        return None
+
+    raw_themes = rec.get("source_themes")
+    if not isinstance(raw_themes, list) or len(raw_themes) > MAX_IDEA_SOURCE_THEMES:
+        return None
+    source_event_ids = {
+        event_id for event_id in (rec.get("source_event_ids") or [])
+        if isinstance(event_id, str)
+    } if isinstance(rec.get("source_event_ids"), list) else set()
+
+    source_themes: list[dict] = []
+    seen_theme_ids: set[str] = set()
+    for raw_theme in raw_themes:
+        if not isinstance(raw_theme, dict):
+            return None
+        theme_id = raw_theme.get("theme_id")
+        theme_rev = raw_theme.get("theme_rev")
+        if not isinstance(theme_id, str) or not IDEA_THEME_ID_RE.fullmatch(theme_id):
+            return None
+        if (not isinstance(theme_rev, int) or isinstance(theme_rev, bool) or theme_rev < 1
+                or theme_id in seen_theme_ids):
+            return None
+        seen_theme_ids.add(theme_id)
+
+        theme_ref = {"theme_id": theme_id, "theme_rev": theme_rev}
+        if "evidence_event_ids" not in raw_theme:
+            return None
+        event_ids = raw_theme.get("evidence_event_ids")
+        if (not isinstance(event_ids, list) or not event_ids
+                or len(event_ids) > MAX_THEME_EVIDENCE_EVENTS
+                or any(not isinstance(event_id, str) or not IDEA_EVENT_ID_RE.fullmatch(event_id)
+                       for event_id in event_ids)
+                or len(set(event_ids)) != len(event_ids)
+                or any(event_id not in source_event_ids for event_id in event_ids)):
+            return None
+        theme_ref["evidence_event_ids"] = list(event_ids)
+        source_themes.append(theme_ref)
+
+    origin_type = rec["origin_type"]
+    if (origin_type == "wire") != (len(source_themes) == 0):
+        return None
+    return {"origin_type": origin_type, "source_themes": source_themes}
+
+
+def idea_version_for_record(rec: dict, lineage: dict, *, bind_pair: bool = True) -> str | None:
+    """Recompute the exact TypeScript ideaVersion recipe for a board candidate.
+
+    Static projection is a second trust boundary. Once lineage exists, the version must bind origin,
+    Theme revision, every mapped evidence edge, and the normalized nullable pair leg; accepting a
+    pre-lineage version beside new fields would let mutable provenance travel under an old outcome identity.
+    """
+    ticker = rec.get("ticker")
+    direction = rec.get("direction")
+    thesis_type = rec.get("thesis_type")
+    reason = rec.get("reason")
+    why_now = rec.get("why_now")
+    event_ids = rec.get("source_event_ids")
+    if "pair_with" not in rec:
+        return None
+    pair_with = rec.get("pair_with")
+    if (not all(isinstance(v, str) for v in (ticker, direction, thesis_type, reason, why_now))
+            or not valid_idea_ticker(ticker)
+            or not isinstance(event_ids, list)
+            or not event_ids
+            or len(event_ids) > 64
+            or any(not isinstance(event_id, str) or not IDEA_EVENT_ID_RE.fullmatch(event_id)
+                   for event_id in event_ids)
+            or len(set(event_ids)) != len(event_ids)):
+        return None
+    if direction == "pair":
+        if not valid_idea_ticker(pair_with):
+            return None
+    elif pair_with is not None:
+        return None
+
+    canonical = [
+        ticker.upper(),
+        direction,
+    ]
+    if bind_pair:
+        normalized_pair = "null" if pair_with is None else pair_with.strip().upper().replace("-", ".")
+        canonical.append(f"pair:{normalized_pair}")
+    canonical.extend([
+        thesis_type,
+        " ".join(reason.strip().lower().split()),
+        " ".join(why_now.strip().lower().split()),
+        ",".join(sorted(set(event_ids))),
+    ])
+    if lineage:
+        refs = []
+        for theme in lineage["source_themes"]:
+            evidence = ",".join(sorted(set(theme["evidence_event_ids"])))
+            refs.append(f"{theme['theme_id']}@{theme['theme_rev']}[{evidence}]")
+        canonical.extend([lineage["origin_type"], ";".join(sorted(refs))])
+    digest = hashlib.sha256("|".join(canonical).encode("utf-8")).hexdigest()[:16]
+    return f"IDEAV-{digest}"
+
+
+def valid_idea_version(rec: dict, lineage: dict) -> bool:
+    expected = idea_version_for_record(rec, lineage)
+    if expected is not None and rec.get("idea_version") == expected:
+        return True
+    # Only the field-absent pre-lineage shape is distinguishable as an old snapshot. No explicit lineage
+    # may use the pair-unbound recipe, even when every other canonical field happens to match.
+    if lineage:
+        return False
+    legacy = idea_version_for_record(rec, {}, bind_pair=False)
+    return legacy is not None and rec.get("idea_version") == legacy
 
 
 def read_ndjson(path: str) -> list[dict]:
@@ -479,6 +623,9 @@ def build() -> dict:
         rec = read_json(fp)
         if not isinstance(rec, dict) or not rec.get("idea_id") or not rec.get("ticker"):
             continue
+        lineage = project_idea_lineage(rec)
+        if lineage is None or not valid_idea_version(rec, lineage):
+            continue
         decay_at = rec.get("decay_at") or ""
         pc = rec.get("prior_coverage") if isinstance(rec.get("prior_coverage"), dict) else None
         fb = idea_fb.get(rec.get("idea_id"))
@@ -504,6 +651,7 @@ def build() -> dict:
             "learning": rec.get("learning") if isinstance(rec.get("learning"), dict) else None,
             "priced_in": rec.get("priced_in") or "unknown",
             "thesis_type": rec.get("thesis_type") or "company_specific",
+            **lineage,
             "source_event_ids": rec.get("source_event_ids") if isinstance(rec.get("source_event_ids"), list) else [],
             "source_headlines": rec.get("source_headlines") if isinstance(rec.get("source_headlines"), list) else [],
             "source_url": rec.get("source_url"),
@@ -565,7 +713,7 @@ USAGE = """usage: update_board_index.py [--check | --selftest]
   (no args)  rebuild screener/board/index.json from the canonical stores
   --check    build in memory and compare against the existing board (generated_at
              ignored); exit 0 if up to date, 1 if stale/missing. Writes NOTHING.
-  --selftest fixture-free unit test of the ideas-scorecard machine-grade classifier.
+  --selftest fixture-free unit tests of ideas-scorecard grading and Ideas lineage projection.
              Writes NOTHING. Exit 1 on any assertion failure.
   --help     show this help. Writes NOTHING.
 
@@ -574,10 +722,7 @@ flag (e.g. a typo'd --help) must never trigger a rebuild."""
 
 
 def _selftest() -> int:
-    """Fixture-free: pins machine_grade_status() + the CONFIRM/PASS buckets — the ideas-scorecard
-    classification that had zero regression protection (build() runs only against the real, mutable
-    stores at command-run time). Expected values pinned to the rule that the deep machine's own terminal
-    adversarial verdict (a thesis-integrity kill) must never be scored as machine_confirmed."""
+    """Fixture-free regressions for ideas scorecard grading and the static lineage projection."""
     bad = 0
 
     def check(label, cond):
@@ -622,6 +767,179 @@ def _selftest() -> int:
     # The two integrity kills are in PASS and NOT in CONFIRM.
     check("integrity kills are in MACHINE_PASS", TERMINAL_INTEGRITY <= MACHINE_PASS)
     check("integrity kills are NOT in MACHINE_CONFIRM", not (TERMINAL_INTEGRITY & MACHINE_CONFIRM))
+
+    # Deploy compatibility is explicit: old snapshots have neither key and must not acquire a made-up
+    # wire origin. Every new theme/mixed ref maps exact wire evidence, and its version binds that mapping.
+    check("legacy idea omits both lineage keys", project_idea_lineage({}) == {})
+    expected_lineage = {
+        "origin_type": "mixed",
+        "source_themes": [
+            {
+                "theme_id": "THM-a1b2c3d4",
+                "theme_rev": 6,
+                "evidence_event_ids": ["EVT-0123456789ab"],
+            },
+            {
+                "theme_id": "THM-deadbeef",
+                "theme_rev": 2,
+                "evidence_event_ids": ["EVT-fedcba987654"],
+            },
+        ],
+    }
+    lineage_record = {
+        **expected_lineage,
+        "source_event_ids": ["EVT-0123456789ab", "EVT-fedcba987654"],
+    }
+    check("new lineage preserves revision and required evidence edges",
+          project_idea_lineage(lineage_record) == expected_lineage)
+    unmapped_theme_lineage = {
+        "origin_type": "theme",
+        "source_themes": [
+            {"theme_id": "THM-a1b2c3d4", "theme_rev": 5},
+            {"theme_id": "THM-deadbeef", "theme_rev": 1},
+        ],
+    }
+    check("all-unmapped new theme refs fail closed",
+          project_idea_lineage(unmapped_theme_lineage) is None)
+    check("wire origin requires no source themes",
+          project_idea_lineage({"origin_type": "wire", "source_themes": []})
+          == {"origin_type": "wire", "source_themes": []})
+    check("partial lineage fails closed", project_idea_lineage({"origin_type": "theme"}) is None)
+    check("theme origin requires a theme ref",
+          project_idea_lineage({"origin_type": "theme", "source_themes": []}) is None)
+    check("wire origin rejects a theme ref",
+          project_idea_lineage({"origin_type": "wire", "source_themes": expected_lineage["source_themes"]}) is None)
+    check("duplicate theme ids fail closed",
+          project_idea_lineage({
+              "origin_type": "theme",
+              "source_event_ids": ["EVT-0123456789ab"],
+              "source_themes": [expected_lineage["source_themes"][0], expected_lineage["source_themes"][0]],
+          }) is None)
+    check("partly mapped theme refs fail closed",
+          project_idea_lineage({
+              "origin_type": "theme",
+              "source_event_ids": ["EVT-0123456789ab"],
+              "source_themes": [
+                  {"theme_id": "THM-a1b2c3d4", "theme_rev": 1},
+                  {
+                      "theme_id": "THM-deadbeef", "theme_rev": 2,
+                      "evidence_event_ids": ["EVT-0123456789ab"],
+                  },
+              ],
+          }) is None)
+    check("bad evidence edge fails closed",
+          project_idea_lineage({
+              "origin_type": "theme",
+              "source_event_ids": ["EVT-0123456789ab"],
+              "source_themes": [{
+                  "theme_id": "THM-a1b2c3d4", "theme_rev": 1, "evidence_event_ids": ["EVT-not-an-id"],
+              }],
+          }) is None)
+
+    def versioned(lineage_fields: dict, event_ids: list[str], *, ticker: str = "ACME",
+                  direction: str = "long", pair_with: str | None = None) -> tuple[dict, dict]:
+        rec = {
+            "ticker": ticker,
+            "direction": direction,
+            "pair_with": pair_with,
+            "thesis_type": "company_specific",
+            "reason": "  Demand   lifts earnings ",
+            "why_now": "Results are due this month",
+            "source_event_ids": event_ids,
+            **lineage_fields,
+        }
+        projected = project_idea_lineage(rec)
+        if projected is None:
+            return rec, {}
+        rec["idea_version"] = idea_version_for_record(rec, projected)
+        return rec, projected
+
+    legacy_rec, legacy_projected = versioned({}, ["EVT-0123456789ab"])
+    legacy_rec["idea_version"] = idea_version_for_record(legacy_rec, {}, bind_pair=False)
+    check("distinguishable pre-lineage snapshot retains the pair-unbound recipe",
+          legacy_projected == {} and valid_idea_version(legacy_rec, legacy_projected))
+    wire_rec, wire_projected = versioned(
+        {"origin_type": "wire", "source_themes": []}, ["EVT-0123456789ab"])
+    check("new wire version binds its explicit origin",
+          wire_projected == {"origin_type": "wire", "source_themes": []}
+          and valid_idea_version(wire_rec, wire_projected)
+          and wire_rec["idea_version"] != legacy_rec["idea_version"])
+    mapped_rec, mapped_projected = versioned(expected_lineage, [
+        "EVT-0123456789ab", "EVT-fedcba987654",
+    ])
+    check("new theme version binds id, revision, and evidence",
+          valid_idea_version(mapped_rec, mapped_projected))
+
+    old_hash_with_new_lineage = {
+        **mapped_rec,
+        "idea_version": idea_version_for_record(mapped_rec, {}, bind_pair=False),
+    }
+    check("pre-lineage hash cannot claim new lineage",
+          not valid_idea_version(old_hash_with_new_lineage, mapped_projected))
+    changed_rev = {
+        **mapped_rec,
+        "source_themes": [
+            {**mapped_rec["source_themes"][0], "theme_rev": 7},
+            mapped_rec["source_themes"][1],
+        ],
+    }
+    changed_rev_projected = project_idea_lineage(changed_rev)
+    check("unchanged version rejects a changed Theme revision",
+          changed_rev_projected is not None
+          and not valid_idea_version(changed_rev, changed_rev_projected))
+    changed_evidence = {
+        **mapped_rec,
+        "source_themes": [
+            {
+                **mapped_rec["source_themes"][0],
+                "evidence_event_ids": ["EVT-fedcba987654"],
+            },
+            mapped_rec["source_themes"][1],
+        ],
+    }
+    changed_evidence_projected = project_idea_lineage(changed_evidence)
+    check("unchanged version rejects changed Theme evidence",
+          changed_evidence_projected is not None
+          and not valid_idea_version(changed_evidence, changed_evidence_projected))
+
+    pair_rec, pair_projected = versioned(
+        {"origin_type": "wire", "source_themes": []}, ["EVT-0123456789ab"],
+        ticker="AMD", direction="pair", pair_with="INTC")
+    pair_nvda = {**pair_rec, "pair_with": "NVDA"}
+    pair_nvda_version = idea_version_for_record(pair_nvda, pair_projected)
+    check("AMD paired with INTC has a different IDEAV from AMD paired with NVDA",
+          pair_rec["idea_version"] != pair_nvda_version)
+    pair_class_dash = {**pair_rec, "pair_with": "BRK-B"}
+    pair_class_dot = {**pair_rec, "pair_with": "BRK.B"}
+    check("pair version normalizes share-class separators",
+          idea_version_for_record(pair_class_dash, pair_projected)
+          == idea_version_for_record(pair_class_dot, pair_projected))
+    pair_old = {**pair_rec, "idea_version": idea_version_for_record(pair_rec, {}, bind_pair=False)}
+    check("explicit new wire lineage rejects the old pair-unbound hash",
+          not valid_idea_version(pair_old, pair_projected))
+    global_pair_rec, global_pair_projected = versioned(
+        {"origin_type": "wire", "source_themes": []}, ["EVT-0123456789ab"],
+        ticker="M&M.NS", direction="pair", pair_with="ABCDEFGHIJKLMNO")
+    check("global ampersand and 15-character ticker contracts survive board projection",
+          valid_idea_version(global_pair_rec, global_pair_projected))
+    parity_rec = {
+        "ticker": "AMD", "direction": "pair", "pair_with": "INTC",
+        "thesis_type": "company_specific", "reason": "  Demand   shifts share ",
+        "why_now": "Results due now", "source_event_ids": ["EVT-0123456789ab"],
+        "origin_type": "wire", "source_themes": [],
+    }
+    check("Python matches the TypeScript canonical pair-version vector",
+          idea_version_for_record(parity_rec, project_idea_lineage(parity_rec) or {})
+          == "IDEAV-02ebcb0b4c9452ba")
+    check("evidence edge outside the idea's source events fails closed",
+          project_idea_lineage({
+              "origin_type": "theme",
+              "source_event_ids": ["EVT-0123456789ab"],
+              "source_themes": [{
+                  "theme_id": "THM-a1b2c3d4", "theme_rev": 1,
+                  "evidence_event_ids": ["EVT-fedcba987654"],
+              }],
+          }) is None)
 
     print(f"update_board_index selftest: {'ALL OK' if bad == 0 else f'{bad} FAILED'}")
     return 1 if bad else 0

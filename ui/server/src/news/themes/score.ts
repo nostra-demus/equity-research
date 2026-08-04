@@ -9,6 +9,7 @@
 // slides hot→active→cooling→parked each cycle with no cron.
 
 import type { Theme, ThemeMember, ThemeScores, ThemeTier } from './types'
+import { themeStoryKey } from './story-key'
 
 export interface ThemeScoreConfig {
   weights: { freshness: number; magnitude: number; breadth: number; persistence: number }
@@ -49,6 +50,18 @@ const ageHours = (iso: string, nowMs: number): number => {
   return Math.max(0, (nowMs - t) / 3_600_000)
 }
 
+function uniqueMembers(members: ThemeMember[]): ThemeMember[] {
+  const byStory = new Map<string, ThemeMember>()
+  for (const member of members) {
+    const key = themeStoryKey(member)
+    const prior = byStory.get(key)
+    const quality = (TIER_WEIGHT[member.tier] ?? 1) * 100 + (member.score || 0)
+    const priorQuality = prior ? (TIER_WEIGHT[prior.tier] ?? 1) * 100 + (prior.score || 0) : -1
+    if (!prior || quality > priorQuality) byStory.set(key, member)
+  }
+  return [...byStory.values()]
+}
+
 export function tierFor(composite: number, th: ThemeScoreConfig['thresholds']): ThemeTier {
   if (composite >= th.hot) return 'hot'
   if (composite >= th.active) return 'active'
@@ -66,7 +79,9 @@ export interface ScoredTheme {
 /** Score one theme from its member ring + company/sector breadth. Pure; `now` injected for tests. */
 export function scoreTheme(theme: Pick<Theme, 'members' | 'companies' | 'sectors' | 'first_seen'>, now: Date = new Date(), cfg: ThemeScoreConfig = DEFAULT_THEME_SCORE_CONFIG): ScoredTheme {
   const nowMs = now.getTime()
-  const members: ThemeMember[] = theme.members || []
+  // One underlying story may arrive through several publishers. Corroborating copies are useful in the
+  // reader, but they are not independent theme magnitude, persistence, or flow observations.
+  const members: ThemeMember[] = uniqueMembers(theme.members || [])
   const ln2 = Math.log(2)
 
   // freshness — sum of recency-decayed member weights, saturated
@@ -137,7 +152,7 @@ const dayDelta = (laterKey: string, earlierKey: string): number => Math.round((d
 export interface DailyRingHolder {
   flow_daily?: number[]
   flow_daily_day?: string // UTC date (YYYY-MM-DD) of the newest bucket
-  members?: { found_at: string }[]
+  members?: { event_id?: string; dedup_group?: string; found_at: string }[]
 }
 
 /** Seed the daily ring from the member ring (real recent history) if it's missing or malformed,
@@ -146,7 +161,11 @@ export function ensureDaily(t: DailyRingHolder, nowMs: number, windows = DAILY_W
   if (Array.isArray(t.flow_daily) && t.flow_daily.length === windows && typeof t.flow_daily_day === 'string') return
   const anchor = dayKeyOf(nowMs)
   const arr = new Array(windows).fill(0)
+  const seen = new Set<string>()
   for (const m of t.members || []) {
+    const story = themeStoryKey(m) || `${m.found_at}:${seen.size}`
+    if (seen.has(story)) continue
+    seen.add(story)
     const ms = Date.parse(m.found_at)
     if (!Number.isFinite(ms)) continue
     const back = dayDelta(anchor, dayKeyOf(ms)) // 0 = today, 1 = yesterday, …

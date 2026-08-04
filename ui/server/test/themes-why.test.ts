@@ -153,12 +153,14 @@ await check('buildThemeDetail: attaches a why to every company and does not muta
 
   // a nonexistent repo → readFeed fails inside buildThemeDetail, which falls back to minimal member rows
   const detail = buildThemeDetail('/nonexistent-repo-xyz', theme)
-  const shell = detail.companies_by_order.first.find((c) => c.name_key === 'shell')!
-  const micron = detail.companies_by_order.second.find((c) => c.name_key === 'micron')!
+  // Detail placement is rebuilt from unique member proof, so a stale/manual persisted order cannot leak
+  // through. This wiring check cares that every rebuilt company carries its source-backed why.
+  const rebuilt = [...detail.companies_by_order.first, ...detail.companies_by_order.second, ...detail.companies_by_order.third]
+  const shell = rebuilt.find((c) => c.name_key === 'shell')!
+  const micron = rebuilt.find((c) => c.name_key === 'micron')!
   assert.ok(shell.why, 'shell has a why')
-  assert.match(shell.why!.reason, /Direct \(first-order\)/)
   assert.equal(shell.why!.evidence[0]?.event_id, 'e1')
-  assert.match(micron.why!.reason, /Ripple \(second-order\)/)
+  assert.ok(micron.why, 'micron has a why')
   assert.equal(micron.why!.evidence[0]?.event_id, 'e2')
   // the persisted theme.companies must stay clean (why is read-time only, never ledgered)
   assert.equal((theme.companies[0] as any).why, undefined, 'the source theme company was not mutated')

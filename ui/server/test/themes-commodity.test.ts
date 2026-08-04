@@ -22,6 +22,7 @@ const hoursAgo = (h: number) => new Date(NOW.getTime() - h * 3_600_000).toISOStr
 function member(id: string, opts: Partial<ThemeMember> = {}): ThemeMember {
   return {
     event_id: id,
+    dedup_group: opts.dedup_group,
     headline: opts.headline || 'a headline naming no commodity',
     headline_en: opts.headline_en,
     found_at: opts.found_at || hoursAgo(1),
@@ -93,6 +94,18 @@ check('buildCommodityThemesIndex: theme A carries member_count 3 (its GOLD membe
   assert.equal(idx.themes[0].member_count, 3, 'sliced member count — the 2 untagged members do not count')
   assert.equal(idx.counts.total, 1, 'counts reflect the sliced index, not the input list')
   assert.equal(idx.counts.hot + idx.counts.active + idx.counts.cooling + idx.counts.parked, 1, 'the included theme lands in exactly one tier')
+})
+
+check('commodity slice dedupes story families before company placement and qualification', () => {
+  const miner = { name: 'Gold Miner', ticker: 'GOLD', listing_country: 'US' }
+  const duplicated = theme('THM-dupgold1', 'Duplicate gold proof', [
+    member('d1', { dedup_group: 'story-a', commodities: ['GOLD'], companies: [miner] }),
+    member('d1-copy', { dedup_group: 'story-a', commodities: ['GOLD'], companies: [miner] }),
+    member('d2', { dedup_group: 'story-b', commodities: ['GOLD'], companies: [miner] }),
+  ])
+  const summary = buildCommodityThemesIndex([duplicated], { commodity: 'GOLD' }, now).themes[0]
+  assert.equal(summary.member_count, 2)
+  assert.equal(summary.top_companies[0]?.mention_count, 2, 'a publisher copy cannot inflate sliced company centrality')
 })
 
 check("{commodity:'GOLD'} narrows versus the any-commodity slice", () => {

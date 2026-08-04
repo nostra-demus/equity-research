@@ -64,10 +64,14 @@ export function validIdeaSnapshot(
     value.idea_version = ideaVersion({
       ticker: value.ticker,
       direction: value.direction,
+      pairWith: value.pair_with,
       thesisType: value.thesis_type,
       reason: value.reason,
       whyNow: value.why_now,
       sourceEventIds: value.source_event_ids,
+      ...(Object.prototype.hasOwnProperty.call(value, 'origin_type')
+        ? { originType: value.origin_type, sourceThemes: value.source_themes }
+        : {}),
     })
   }
   return value

@@ -14,9 +14,10 @@ import path from 'node:path'
 import { assignThemes, DEFAULT_ASSIGN_CONFIG, type AssignConfig } from './assign'
 import { coherenceOf, discoverDeterministic, linkThemes, mergeAndRetire, refreshThemeIdentity, DEFAULT_DISCOVER_CONFIG, type DiscoverConfig } from './discover'
 import { scoreTheme, ensureDaily, rollDaily, DEFAULT_THEME_SCORE_CONFIG, type ThemeScoreConfig } from './score'
-import { appendThemeMutations, buildSummary, loadThemes, maybeCompactThemesLedger, readRecentThemeItems, writeThemesIndex } from './store'
+import { appendThemeMutations, buildSummary, loadThemes, maybeCompactThemesLedger, readRecentThemeItems, readThemesIndex, writeThemesIndex } from './store'
 import { buildGenericSet, loadTokenDf, saveTokenDf, updateTokenDf, DEFAULT_TOKEN_DF_CONFIG, type TokenDfConfig } from './token-df'
-import type { Theme, ThemeItemView, ThemeSummary } from './types'
+import type { Theme, ThemeItemView, ThemeRemoval, ThemeSummary } from './types'
+import { themeStoryKey } from './story-key'
 
 export interface ThemesConfig {
   score: ThemeScoreConfig
@@ -77,7 +78,9 @@ export interface StepInput {
 export interface StepResult {
   themes: Theme[]
   pool: ThemeItemView[]
-  changed: ThemeSummary[] // themes that materially changed (for persist + SSE)
+  changed: ThemeSummary[] // live themes that materially changed (for SSE)
+  removed: ThemeRemoval[] // explicit invalidations for live clients
+  changedThemeIds: string[] // every structural mutation, including merged/retired rows (for persistence)
   assignments: Map<string, string[]> // event_id → theme_ids (for stamping theme_ids on items)
 }
 
@@ -106,12 +109,18 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   // when a heal shifted an LLM-named theme's identity or membership enough, its persisted narrative
   // name/description likely describe the OLD mix — flag it for a re-name (rides an existing namer call)
   const flagRename = (t: Theme, r: { identityShift: number; purgeShare: number }) => {
-    if (t.generation === 'claude' && (r.identityShift > cfg.renameIdentityShift || r.purgeShare > cfg.renamePurgeShare)) t.needs_rename = true
+    if (t.generation !== 'deterministic' && (r.identityShift > cfg.renameIdentityShift || r.purgeShare > cfg.renamePurgeShare)) t.needs_rename = true
   }
 
   // 1. assignment (every cycle) — also bumps each touched theme's daily ring per new member landed
   const a = assignThemes(items, themes, cfg.assign, now, input.generic)
-  for (const id of a.touched) changedIds.add(id)
+  for (const id of a.touched) {
+    changedIds.add(id)
+    // Do not mass-enroll the legacy deterministic ledger. Once a row actively absorbs fresh evidence,
+    // though, keeping it permanently Context would swallow the very cluster that deserves validation.
+    const touched = themes.find((t) => t.theme_id === id)
+    if (touched?.status === 'live' && touched.generation === 'deterministic') touched.needs_validation = true
+  }
   let pool = [...input.pool.filter(notSocial), ...a.unclustered]
 
   // 1b. self-heal existing themes (periodic): re-derive each live theme's identity from its members with
@@ -127,20 +136,36 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
     }
   }
 
-  // 2. discovery (periodic)
-  if (input.runDiscovery && pool.length) {
-    const { created, leftover } = discoverDeterministic(pool, themes, now, cfg.discover, input.generic)
-    pool = leftover
-    if (created.length && input.llmNamer) {
-      // fold up to renamePerPass healed-but-stale-named themes into the SAME call (no extra budget):
-      // the namer re-grounds their name/description in the post-heal members, or retires a husk.
-      const renames = themes.filter((t) => t.status === 'live' && t.needs_rename).slice(0, cfg.renamePerPass)
+  // 2. discovery (periodic). Validator retries do NOT depend on fresh pool flow: a newly deterministic
+  // cluster whose provider was capped/down/malformed remains explicitly queued for a later pass.
+  if (input.runDiscovery) {
+    let created: Theme[] = []
+    if (pool.length) {
+      const discovered = discoverDeterministic(pool, themes, now, cfg.discover, input.generic)
+      created = discovered.created
+      pool = discovered.leftover
+    }
+    // Only new rows carrying this explicit flag enter the validation queue. Legacy deterministic themes
+    // have no flag and are deliberately left alone. The real namer caps the combined request to eight.
+    const pendingValidations = themes
+      .filter((t) => t.status === 'live' && t.generation === 'deterministic' && t.needs_validation)
+      .slice(0, 8)
+    // Fold up to renamePerPass healed-but-stale-named themes into the SAME call (no extra budget): the
+    // namer re-grounds their narrative in the post-heal members, or retires a husk.
+    const renames = themes.filter((t) => t.status === 'live' && t.needs_rename).slice(0, cfg.renamePerPass)
+    // The provider accepts at most eight clusters. Validation/rename debt must lead that bounded batch:
+    // putting fresh discoveries first lets a busy wire manufacture 8+ new clusters every pass and starve
+    // old failed validations forever. Renames are themselves capped, so pending validations still make
+    // progress; fresh rows that do not fit keep `needs_validation` and join the FIFO debt next pass.
+    const validationBatch = [...renames, ...pendingValidations, ...created].slice(0, 8)
+    if (input.llmNamer && validationBatch.length) {
       try {
-        await input.llmNamer([...created, ...renames], now)
+        await input.llmNamer(validationBatch, now)
       } catch {
-        // LLM failure → keep the deterministic names (fail-soft)
+        // LLM failure → keep validation/rename flags for a later discovery pass (fail-soft)
       }
-      // a processed rename cleared its flag (or was retired) — persist + emit it
+      // A processed queued theme cleared its flag (or was retired) — persist + emit/invalidate it.
+      for (const t of pendingValidations) if (!t.needs_validation || t.status !== 'live') changedIds.add(t.theme_id)
       for (const t of renames) if (!t.needs_rename || t.status !== 'live') changedIds.add(t.theme_id)
     }
     for (const t of created) {
@@ -149,8 +174,10 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
         changedIds.add(t.theme_id)
       }
     }
-    linkThemes(themes, cfg.discover)
     for (const id of mergeAndRetire(themes, now, cfg.discover)) changedIds.add(id)
+    // Link only the post-merge live set. Linking first leaves the just-merged tombstone in every related
+    // edge until the next discovery pass even though clients have already received its removal event.
+    linkThemes(themes, cfg.discover)
   }
 
   // 3. rescore EVERY live theme (drives decay); a tier flip counts as a material change. Also roll its
@@ -178,14 +205,29 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   // bound the pool (newest kept)
   if (pool.length > cfg.poolCap) pool = pool.slice(pool.length - cfg.poolCap)
 
-  const changed = themes.filter((t) => changedIds.has(t.theme_id)).map(buildSummary)
-  return { themes, pool, changed, assignments: a.assignments }
+  const changedThemeIds = [...changedIds]
+  const changed = themes.filter((t) => changedIds.has(t.theme_id) && t.status === 'live').map((t) => buildSummary(t, now))
+  const removed = themes
+    .filter((t) => changedIds.has(t.theme_id) && (t.status === 'retired' || t.status === 'merged'))
+    .map((t): ThemeRemoval => ({ theme_id: t.theme_id, reason: t.status as ThemeRemoval['reason'], merged_into: t.merged_into, rev: t.rev }))
+  return { themes, pool, changed, removed, changedThemeIds, assignments: a.assignments }
 }
 
 // ---- I/O wrapper ----
 
 const poolPath = (stateDir: string) => path.join(stateDir, 'themes-unclustered.json')
 const counterPath = (stateDir: string) => path.join(stateDir, 'themes-cycle.json')
+
+/** Persisted pools written by older builds may be newest-first. Normalize before ANY tail cap, otherwise
+ *  `slice(-cap)` can discard the freshest rows before discoverDeterministic gets a chance to sort them. */
+function poolOldestFirst(pool: ThemeItemView[]): ThemeItemView[] {
+  return [...pool].sort((a, b) => {
+    const aMs = Date.parse(a.found_at); const bMs = Date.parse(b.found_at)
+    const safeA = Number.isFinite(aMs) ? aMs : Number.NEGATIVE_INFINITY
+    const safeB = Number.isFinite(bMs) ? bMs : Number.NEGATIVE_INFINITY
+    return safeA - safeB // stable for equal clocks: later arrival remains later in the pool
+  })
+}
 
 /** Read + increment the persisted cycle counter (for the "discover every N cycles" cadence). */
 export function bumpCycleCounter(stateDir: string): number {
@@ -208,7 +250,7 @@ export function bumpCycleCounter(stateDir: string): number {
 function loadPool(stateDir: string): ThemeItemView[] {
   try {
     const arr = JSON.parse(fs.readFileSync(poolPath(stateDir), 'utf8'))
-    return Array.isArray(arr) ? arr : []
+    return Array.isArray(arr) ? poolOldestFirst(arr) : []
   } catch {
     return []
   }
@@ -216,10 +258,19 @@ function loadPool(stateDir: string): ThemeItemView[] {
 function savePool(stateDir: string, pool: ThemeItemView[], cap: number): void {
   try {
     fs.mkdirSync(stateDir, { recursive: true })
-    fs.writeFileSync(poolPath(stateDir), JSON.stringify(pool.slice(-cap)) + '\n')
+    fs.writeFileSync(poolPath(stateDir), JSON.stringify(poolOldestFirst(pool).slice(-cap)) + '\n')
   } catch {
     // a lost pool only costs a few items' clustering chance
   }
+}
+
+function assessmentFingerprint(summary: unknown): string | null {
+  if (!summary || typeof summary !== 'object' || Array.isArray(summary)) return null
+  const assessment = (summary as { assessment?: unknown }).assessment
+  if (!assessment || typeof assessment !== 'object' || Array.isArray(assessment)) return null
+  const status = (assessment as { status?: unknown }).status
+  if (status !== 'actionable' && status !== 'forming' && status !== 'context') return null
+  return JSON.stringify(assessment)
 }
 
 export interface RunThemesInput {
@@ -235,10 +286,14 @@ export interface RunThemesInput {
 
 /** Full cycle with persistence. Returns the changed theme summaries (for the SSE bus) and the
  *  assignments (so runCycle can stamp theme_ids onto the firehose/inbox items). Never throws. */
-export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: ThemeSummary[]; assignments: Map<string, string[]> }> {
+export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: ThemeSummary[]; removed: ThemeRemoval[]; assignments: Map<string, string[]> }> {
   const now = input.now || (() => new Date())
+  const cycleNow = now()
   const cfg = input.cfg || DEFAULT_THEMES_CONFIG
   const themes = loadThemes(input.repoRoot)
+  // The index is the exact projection open clients last received. Keep it only as a comparison baseline;
+  // absent/legacy rows with no assessment are ignored so an upgrade does not emit every theme at once.
+  const priorIndex = readThemesIndex(input.repoRoot)
   let pool = loadPool(input.stateDir)
   // rolling token-DF: count this cycle's (non-social) items into the ring, then materialize the
   // corpus-generic set every code path suppresses this cycle. An enhancement layer — a failure here
@@ -246,7 +301,7 @@ export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: 
   let generic: Set<string> | undefined
   try {
     const dfState = loadTokenDf(input.stateDir)
-    updateTokenDf(dfState, input.items.filter((v) => (v.source_tier || '') !== 'social'), now().getTime(), cfg.df)
+    updateTokenDf(dfState, input.items.filter((v) => (v.source_tier || '') !== 'social'), cycleNow.getTime(), cfg.df)
     saveTokenDf(input.stateDir, dfState)
     generic = buildGenericSet(dfState, cfg.df)
   } catch {
@@ -256,23 +311,40 @@ export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: 
   // member of any theme — so discovery forms from the whole recent backlog (rich cold-start), not just
   // the few items this cycle. Self-heals duplicates via mergeAndRetire.
   if (input.runDiscovery) {
-    const memberIds = new Set<string>()
-    for (const t of themes) for (const m of t.members) memberIds.add(m.event_id)
-    const haveInPool = new Set(pool.map((p) => p.event_id))
+    const memberStories = new Set<string>()
+    for (const t of themes) for (const m of t.members) memberStories.add(themeStoryKey(m))
+    const haveInPool = new Set(pool.map(themeStoryKey))
     for (const it of readRecentThemeItems(input.repoRoot, input.minScore ?? 50)) {
-      if (!memberIds.has(it.event_id) && !haveInPool.has(it.event_id)) {
+      const story = themeStoryKey(it)
+      if (!memberStories.has(story) && !haveInPool.has(story)) {
         pool.push(it)
-        haveInPool.add(it.event_id)
+        haveInPool.add(story)
       }
     }
+    pool = poolOldestFirst(pool)
     if (pool.length > cfg.poolCap) pool = pool.slice(pool.length - cfg.poolCap)
   }
-  const res = await stepThemes({ themes, pool, items: input.items, runDiscovery: input.runDiscovery, now: now(), cfg, llmNamer: input.llmNamer, generic })
-  // persist: append only the changed themes to the ledger; rewrite the full live index
-  const changedThemes = res.themes.filter((t) => res.changed.some((c) => c.theme_id === t.theme_id))
-  appendThemeMutations(input.repoRoot, changedThemes, now)
-  maybeCompactThemesLedger(input.repoRoot, now) // keep the append-only ledger from ballooning (→ git-push 408s)
+  const res = await stepThemes({ themes, pool, items: input.items, runDiscovery: input.runDiscovery, now: cycleNow, cfg, llmNamer: input.llmNamer, generic })
+  // A theme can cross the 6h qualification boundary while its persisted Theme record and heat tier remain
+  // unchanged. Compare the new assessment with the prior index and emit only genuine projection changes.
+  // These time-only summaries must NOT become ledger mutations: no Theme field/revision changed.
+  const emittedById = new Map(res.changed.map((summary) => [summary.theme_id, summary]))
+  const priorById = new Map(priorIndex.themes.map((summary) => [summary.theme_id, summary as unknown]))
+  for (const theme of res.themes) {
+    if (theme.status !== 'live' || emittedById.has(theme.theme_id)) continue
+    const priorFingerprint = assessmentFingerprint(priorById.get(theme.theme_id))
+    if (!priorFingerprint) continue
+    const current = buildSummary(theme, cycleNow)
+    const currentFingerprint = assessmentFingerprint(current)
+    if (currentFingerprint !== priorFingerprint) emittedById.set(theme.theme_id, current)
+  }
+  // persist: append only structurally changed themes to the ledger; rewrite the full live index
+  const changedIds = new Set(res.changedThemeIds)
+  const changedThemes = res.themes.filter((t) => changedIds.has(t.theme_id))
+  const fixedNow = () => cycleNow
+  appendThemeMutations(input.repoRoot, changedThemes, fixedNow)
+  maybeCompactThemesLedger(input.repoRoot, fixedNow) // keep the append-only ledger from ballooning (→ git-push 408s)
   savePool(input.stateDir, res.pool, cfg.poolCap)
-  writeThemesIndex(input.repoRoot, res.themes, now)
-  return { changed: res.changed, assignments: res.assignments }
+  writeThemesIndex(input.repoRoot, res.themes, fixedNow)
+  return { changed: [...emittedById.values()], removed: res.removed, assignments: res.assignments }
 }

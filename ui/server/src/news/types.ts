@@ -159,6 +159,7 @@ export interface InboxRow {
 export interface FeedItem {
   kind: 'item'
   ts: string // ISO 8601 — when triaged
+  found_at?: string // ISO 8601 — source publication/discovery time; absent on legacy firehose lines
   event_id: string
   headline: string
   headline_en?: string | null // English translation of a non-English headline (news/lang.ts); absent/null when the original is English

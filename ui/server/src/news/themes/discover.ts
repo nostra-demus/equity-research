@@ -5,9 +5,10 @@
 // companies, so turning the LLM off degrades gracefully to this deterministic baseline.
 
 import { createHash } from 'node:crypto'
-import { companyKeys, themeTokens, intersectionSize, jaccard } from '../text-match'
+import { companyKeys, themeNarrativeTokens, intersectionSize, jaccard } from '../text-match'
 import { rebuildThemeCompanies, overlapScore } from './assign'
 import { ensureDaily } from './score'
+import { themeStoryKey } from './story-key'
 import type { Theme, ThemeItemView, ThemeMember, RelatedTheme } from './types'
 
 export interface DiscoverConfig {
@@ -16,7 +17,7 @@ export interface DiscoverConfig {
   maxPoolScan: number // cap the O(n²) clustering to the most recent N unclustered items
   maxMembers: number
   retireHours: number // a parked theme with no flow for this long is retired
-  mergeSharedCompanies: number // merge two live themes sharing ≥ this many company keys
+  mergeSharedCompanies: number // company-supported merge floor; still requires ≥2 shared narrative anchors
   mergeKeywordJaccard: number // …or with keyword jaccard above this
 }
 export const DEFAULT_DISCOVER_CONFIG: DiscoverConfig = {
@@ -33,13 +34,40 @@ const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').repla
 const themeId = (slug: string) => 'THM-' + createHash('sha256').update(slug).digest('hex').slice(0, 8)
 const iso = (d: Date) => d.toISOString().replace(/\.\d{3}Z$/, 'Z')
 
-// memo: each item's company keys + theme-layer topic tokens (computed once for the clustering graph)
-function itemSig(it: ThemeItemView, generic?: Set<string>): { keys: Set<string>; toks: Set<string> } {
-  return { keys: companyKeys(it.companies), toks: themeTokens(it.headline, it.companies, it.source_tier, generic) }
+const oldestFirst = <T extends { event_id: string; found_at?: string }>(a: T, b: T): number => {
+  const aMs = typeof a.found_at === 'string' ? Date.parse(a.found_at) : Number.NaN
+  const bMs = typeof b.found_at === 'string' ? Date.parse(b.found_at) : Number.NaN
+  // Invalid legacy pool clocks are oldest, so they can never displace known-fresh rows from the scan
+  // tail. ThemeItemView normally has a valid clock; this is defensive for persisted pool JSON.
+  const safeA = Number.isFinite(aMs) ? aMs : Number.NEGATIVE_INFINITY
+  const safeB = Number.isFinite(bMs) ? bMs : Number.NEGATIVE_INFINITY
+  // Array#sort is stable: equal source clocks preserve pool arrival order, so the later publisher copy
+  // remains the representative selected by the reverse dedup pass below.
+  return safeA - safeB
 }
 
-/** Connected-components clustering: items i,j share an edge when they share a company OR ≥3 topic
- *  tokens (the "actually about the same thing" bar). Returns clusters of indices, largest first. */
+/** One newest representative per story, returned in explicit oldest→newest source-time order. */
+function uniqueStoryItems<T extends { event_id: string; dedup_group?: string; found_at?: string }>(items: T[]): T[] {
+  const ordered = [...items].sort(oldestFirst)
+  const seen = new Set<string>()
+  const reversed: T[] = []
+  for (let i = ordered.length - 1; i >= 0; i--) {
+    const key = themeStoryKey(ordered[i])
+    if (seen.has(key)) continue
+    seen.add(key)
+    reversed.push(ordered[i])
+  }
+  return reversed.reverse()
+}
+
+// memo: each item's company keys + theme-layer topic tokens (computed once for the clustering graph)
+function itemSig(it: ThemeItemView, generic?: Set<string>): { keys: Set<string>; toks: Set<string> } {
+  return { keys: companyKeys(it.companies), toks: themeNarrativeTokens(it.headline, it.companies, it.source_tier, generic) }
+}
+
+/** Connected-components clustering: a shared company is supporting context, never a theme by itself.
+ *  Items connect on ≥3 narrative tokens, or on ≥2 when they also share a company. The stricter edge is
+ *  important because connected components amplify one weak bridge into a giant incoherent cluster. */
 export function clusterItems(items: ThemeItemView[], generic?: Set<string>): number[][] {
   const n = items.length
   const sigs = items.map((it) => itemSig(it, generic))
@@ -51,7 +79,9 @@ export function clusterItems(items: ThemeItemView[], generic?: Set<string>): num
   // through generic bridge words. Assignment to an already-defined theme stays the looser ≥2 bar.
   for (let i = 0; i < n; i++) {
     for (let j = i + 1; j < n; j++) {
-      if (intersectionSize(sigs[i].keys, sigs[j].keys) >= 1 || intersectionSize(sigs[i].toks, sigs[j].toks) >= 3) union(i, j)
+      const companies = intersectionSize(sigs[i].keys, sigs[j].keys)
+      const narrative = intersectionSize(sigs[i].toks, sigs[j].toks)
+      if (narrative >= 3 || (companies >= 1 && narrative >= 2)) union(i, j)
     }
   }
   const groups = new Map<number, number[]>()
@@ -66,13 +96,18 @@ export function clusterItems(items: ThemeItemView[], generic?: Set<string>): num
 function memberOf(it: ThemeItemView): ThemeMember {
   return {
     event_id: it.event_id,
+    dedup_group: it.dedup_group,
     headline: it.headline,
+    headline_en: it.headline_en,
     found_at: it.found_at,
     score: typeof it.triage_score === 'number' ? it.triage_score : it.materiality_pre_score || 0,
     tier: it.source_tier || 'news',
     companies: (it.companies || []).slice(0, 4),
     event_types: (it.event_types || []).slice(0, 6),
     issuer_linkage: it.issuer_linkage,
+    country: it.country,
+    region: it.region,
+    commodities: Array.isArray(it.commodities) ? [...it.commodities] : undefined,
   }
 }
 
@@ -83,7 +118,7 @@ function clusterIdentity(items: ThemeItemView[], generic?: Set<string>): { keywo
   const keyName = new Map<string, string>()
   const evFreq = new Map<string, number>()
   for (const it of items) {
-    for (const t of themeTokens(it.headline, it.companies, it.source_tier, generic)) tokFreq.set(t, (tokFreq.get(t) || 0) + 1)
+    for (const t of themeNarrativeTokens(it.headline, it.companies, it.source_tier, generic)) tokFreq.set(t, (tokFreq.get(t) || 0) + 1)
     for (const c of it.companies || []) {
       const k = companyKeys([c]).values().next().value as string | undefined
       if (!k) continue
@@ -114,10 +149,11 @@ function deterministicName(id: ReturnType<typeof clusterIdentity>): string {
 
 /** Build a fresh Theme from a cluster of items. */
 export function createTheme(items: ThemeItemView[], now: Date, generation: Theme['generation'] = 'deterministic', generic?: Set<string>): Theme {
-  const id = clusterIdentity(items, generic)
+  const unique = uniqueStoryItems(items)
+  const id = clusterIdentity(unique, generic)
   const name = deterministicName(id)
   const slug = slugify(name)
-  const members = items.map(memberOf)
+  const members = unique.map(memberOf)
   const last_flow = members.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), members[0]?.found_at || iso(now))
   const theme: Theme = {
     theme_id: themeId(slug),
@@ -142,6 +178,7 @@ export function createTheme(items: ThemeItemView[], now: Date, generation: Theme
     last_flow,
     generation,
     rev: 1,
+    needs_validation: generation === 'deterministic' ? true : undefined,
   }
   rebuildThemeCompanies(theme)
   return theme
@@ -168,7 +205,7 @@ export function refreshThemeIdentity(theme: Theme, cfg: DiscoverConfig = DEFAULT
   const id = clusterIdentity(asViews(theme.members), generic)
   const probe: Theme = { ...theme, keywords: id.keywords, company_keys: id.company_keys, event_type_affinity: id.affinity }
   // 2. keep only members that still clear the assignment bar against the refreshed identity
-  const kept = theme.members.filter((m) => overlapScore(companyKeys(m.companies), themeTokens(m.headline, m.companies, m.tier, generic), m.event_types || [], probe).matched)
+  const kept = theme.members.filter((m) => overlapScore(companyKeys(m.companies), themeNarrativeTokens(m.headline, m.companies, m.tier, generic), m.event_types || [], probe).matched)
   // 3. retire if too little real signal is left to be a multi-company theme
   const distinct = new Set<string>()
   for (const m of kept) for (const k of companyKeys(m.companies)) distinct.add(k)
@@ -210,8 +247,9 @@ export function coherenceOf(theme: Theme, generic?: Set<string>): number {
   const kw = new Set(theme.keywords)
   let ok = 0
   for (const m of theme.members) {
-    let hit = intersectionSize(companyKeys(m.companies), topKeys) >= 1
-    if (!hit && kw.size) hit = intersectionSize(themeTokens(m.headline, m.companies, m.tier, generic), kw) >= 2
+    const companyHit = intersectionSize(companyKeys(m.companies), topKeys) >= 1
+    const narrativeHit = kw.size ? intersectionSize(themeNarrativeTokens(m.headline, m.companies, m.tier, generic), kw) : 0
+    const hit = narrativeHit >= 2 || (companyHit && narrativeHit >= 1)
     if (hit) ok++
   }
   return ok / theme.members.length
@@ -220,8 +258,12 @@ export function coherenceOf(theme: Theme, generic?: Set<string>): number {
 /** Discover new themes from the unclustered pool. Returns newly-created themes (status live) plus the
  *  leftover items that didn't form a qualifying cluster (kept in the pool for next time). */
 export function discoverDeterministic(pool: ThemeItemView[], existing: Theme[], now: Date, cfg: DiscoverConfig = DEFAULT_DISCOVER_CONFIG, generic?: Set<string>): { created: Theme[]; leftover: ThemeItemView[] } {
-  const scan = pool.slice(-cfg.maxPoolScan)
-  const skipped = pool.slice(0, Math.max(0, pool.length - cfg.maxPoolScan))
+  // Deduplicate the WHOLE pool before taking the scan tail. Deduping only `scanRaw` left an older copy in
+  // `skipped` whenever publisher copies straddled the maxPoolScan boundary, so the consumed story came
+  // back on every later pass. Keep the newest representative and its true position in the pool.
+  const uniquePool = uniqueStoryItems(pool)
+  const scan = uniquePool.slice(-cfg.maxPoolScan)
+  const skipped = uniquePool.slice(0, Math.max(0, uniquePool.length - cfg.maxPoolScan))
   const clusters = clusterItems(scan, generic)
   const created: Theme[] = []
   const leftover: ThemeItemView[] = [...skipped]
@@ -230,7 +272,7 @@ export function discoverDeterministic(pool: ThemeItemView[], existing: Theme[], 
   // this pass, not a theme identity. Used below to refuse clusters glued together ONLY by such words
   // (the "results · ended · march" failure shape) even when future boilerplate isn't in any static list.
   const df = new Map<string, number>()
-  for (const it of scan) for (const t of themeTokens(it.headline, it.companies, it.source_tier, generic)) df.set(t, (df.get(t) || 0) + 1)
+  for (const it of scan) for (const t of themeNarrativeTokens(it.headline, it.companies, it.source_tier, generic)) df.set(t, (df.get(t) || 0) + 1)
   const genericBar = Math.max(10, Math.ceil(scan.length * 0.25))
   for (const idxs of clusters) {
     const items = idxs.map((i) => scan[i])
@@ -297,15 +339,41 @@ export function mergeAndRetire(themes: Theme[], now: Date, cfg: DiscoverConfig =
       const drop = arr[j]
       if (drop.status !== 'live') continue
       const shared = intersectionSize(new Set(keep.company_keys), new Set(drop.company_keys))
-      const kw = jaccard(new Set(keep.keywords), new Set(drop.keywords))
-      if (shared >= cfg.mergeSharedCompanies || kw >= cfg.mergeKeywordJaccard) {
-        const seen = new Set(keep.members.map((m) => m.event_id))
-        for (const m of drop.members) if (!seen.has(m.event_id)) keep.members.push(m)
+      const keepKeywords = new Set(keep.keywords)
+      const dropKeywords = new Set(drop.keywords)
+      const narrativeOverlap = intersectionSize(keepKeywords, dropKeywords)
+      const kw = jaccard(keepKeywords, dropKeywords)
+      // Shared issuers can carry unrelated stories (e.g. capacity expansion vs a cyber incident). Company
+      // overlap may SUPPORT a merge only when at least two narrative anchors also overlap; keyword-jaccard
+      // remains the independent near-duplicate path and already implies a shared narrative.
+      const companySupported = shared >= cfg.mergeSharedCompanies && narrativeOverlap >= 2
+      const narrativeDuplicate = narrativeOverlap >= 2 && kw >= cfg.mergeKeywordJaccard
+      if (companySupported || narrativeDuplicate) {
+        const seen = new Set(keep.members.map(themeStoryKey))
+        for (const m of drop.members) {
+          const story = themeStoryKey(m)
+          if (!seen.has(story)) { keep.members.push(m); seen.add(story) }
+        }
+        // Two individually ordered rings are not ordered after simple concatenation. Re-sort by source
+        // time BEFORE applying the bounded tail, otherwise a large older drop can evict the keeper's
+        // freshest evidence and leave last_flow pointing at a row that is no longer in the proof ring.
+        keep.members.sort((a, b) => {
+          const aMs = Date.parse(a.found_at); const bMs = Date.parse(b.found_at)
+          const safeA = Number.isFinite(aMs) ? aMs : Number.NEGATIVE_INFINITY
+          const safeB = Number.isFinite(bMs) ? bMs : Number.NEGATIVE_INFINITY
+          return safeA - safeB
+        })
         if (keep.members.length > cfg.maxMembers) keep.members.splice(0, keep.members.length - cfg.maxMembers)
-        keep.member_count_total += drop.member_count_total
+        // Lifetime publisher-copy totals are not a useful measure of a theme. From this merge onward the
+        // counter is repaired to the unique evidence carried by the bounded member ring.
+        keep.member_count_total = keep.members.length
         keep.keywords = [...new Set([...keep.keywords, ...drop.keywords])].slice(0, 14)
         keep.company_keys = [...new Set([...keep.company_keys, ...drop.company_keys])].slice(0, 16)
-        if (drop.last_flow > keep.last_flow) keep.last_flow = drop.last_flow
+        keep.last_flow = keep.members.reduce((latest, member) => {
+          const memberMs = Date.parse(member.found_at)
+          const latestMs = Date.parse(latest)
+          return Number.isFinite(memberMs) && (!Number.isFinite(latestMs) || memberMs > latestMs) ? member.found_at : latest
+        }, '')
         // re-seed keep's daily ring from the combined, de-duplicated member ring so a merge neither loses
         // the folded-in theme's flow nor double-counts events that were members of BOTH themes (an item
         // can belong to up to maxThemesPerItem themes). Recent-day truth comes from the member ring; daily
@@ -314,6 +382,10 @@ export function mergeAndRetire(themes: Theme[], now: Date, cfg: DiscoverConfig =
         keep.flow_daily = undefined
         keep.flow_daily_day = undefined
         ensureDaily(keep, now.getTime())
+        // The validator approved the PRE-merge narrative. Combining two clusters can change the name's
+        // meaning and can add exactly the evidence/expression that clears admission, so fail closed until
+        // the merged keeper is explicitly re-grounded on a later discovery pass.
+        if (keep.generation !== 'deterministic') keep.needs_rename = true
         keep.rev++
         rebuildThemeCompanies(keep)
         drop.status = 'merged'

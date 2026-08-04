@@ -176,6 +176,66 @@ export interface RunCycleDeps {
   claudeCliRunner?: ClaudeCliRunner
 }
 
+/** Maintain Themes on EVERY scanner clock, including a fetch that produced no new on-list items. Theme
+ * admission and retirement depend on wall time, and validation retries depend on discovery cadence; tying
+ * this stage to a non-empty triage queue leaves open clients with stale actionable rows on quiet days. */
+async function runThemesStage(input: {
+  cfg: Cfg
+  repoRoot: string
+  stateDir: string
+  picks: TriagedItem[]
+  fetchFn: typeof fetch
+  now: () => Date
+  log: (m: string) => void
+}): Promise<void> {
+  const { cfg, repoRoot, stateDir, picks, fetchFn, now, log } = input
+  if (!cfg.themesEnabled) return
+  try {
+    const themeItems: ThemeItemView[] = picks
+      .filter((t) => t.triage_score >= cfg.themesMinScore)
+      .map((t) => ({
+        event_id: t.event_id,
+        dedup_group: t.dedup_group, // one underlying story across publisher copies — Themes counts it once
+        headline: t.headline,
+        headline_en: t.headline_en,
+        found_at: t.found_at,
+        companies: t.companies,
+        event_types: t.event_types,
+        issuer_linkage: t.issuer_linkage,
+        triage_score: t.triage_score,
+        materiality_pre_score: t.materiality_pre_score,
+        source_tier: deriveSourceTier(t),
+        scope: deriveScope(t),
+        region: t.region,
+        country: resolveCountry(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage),
+        commodities: deriveCommodities(t),
+      }))
+    const n = bumpCycleCounter(stateDir)
+    let themesTimeout: ReturnType<typeof setTimeout> | undefined
+    const res = await Promise.race([
+      runThemesCycle({
+        repoRoot,
+        stateDir,
+        items: themeItems,
+        runDiscovery: n % Math.max(1, cfg.themesDiscoverEveryCycles) === 0,
+        minScore: cfg.themesMinScore,
+        now,
+        cfg: themesConfigFromNews(cfg),
+        llmNamer: makeThemeNamer(cfg, fetchFn, stateDir, log),
+      }),
+      new Promise<never>((_, reject) => {
+        themesTimeout = setTimeout(() => reject(new Error('themes stage exceeded 90s — skipped')), 90_000)
+        themesTimeout.unref?.()
+      }),
+    ]).finally(() => { if (themesTimeout) clearTimeout(themesTimeout) })
+    for (const summary of res.changed) newsBus.emit({ type: 'theme-update', theme: summary })
+    for (const removal of res.removed) newsBus.emit({ type: 'theme-remove', removal })
+    if (res.changed.length || res.removed.length) log(`themes: ${res.changed.length} updated, ${res.removed.length} removed`)
+  } catch (e: any) {
+    log(`themes stage error: ${e?.message || e}`)
+  }
+}
+
 export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSummary> {
   const cfg: Cfg = { ...NEWS, ...(deps.config || {}) }
   const repoRoot = deps.repoRoot || REPO_ROOT
@@ -191,6 +251,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const blank: CycleSummary = { ts, ok: false, fetched: 0, candidates: 0, picked: 0, watched: 0, dropped: 0, inboxed: 0, groq_requests: 0, groq_tokens: 0, phase }
 
   if (!cfg.groqApiKey) {
+    await runThemesStage({ cfg, repoRoot, stateDir, picks: [], fetchFn, now, log })
     return { ...blank, note: 'no GROQ_API_KEY — ingester idle' }
   }
 
@@ -285,6 +346,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     const summary: CycleSummary = { ...blank, ok: true, fetched: raws.length, fresh: fresh.length, carryover: requeued.length, backlog: 0, backlog_cap: DEFERRED_CAP, note: 'no new on-list items', ...(sources ? { sources } : {}) }
     appendFirehoseSummary(repoRoot, date, summary)
     newsBus.emit({ type: 'news-cycle', summary })
+    await runThemesStage({ cfg, repoRoot, stateDir, picks: [], fetchFn, now, log })
     return summary
   }
 
@@ -710,6 +772,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const feedItems: FeedItem[] = triaged.map((t) => ({
     kind: 'item',
     ts,
+    found_at: t.found_at, // source publication/discovery time; `ts` above remains the triage audit clock
     event_id: t.event_id,
     headline: t.headline,
     headline_en: t.headline_en, // English translation of a non-English headline (news/lang.ts); null when English
@@ -895,59 +958,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   newsBus.emit({ type: 'news-cycle', summary })
   log(`news cycle: fetched ${raws.length}, ${items.length} new, picked ${picked}, watched ${watched}, dropped ${dropped}; ${localRequests ? `local ${localRequests} req / ${localTokens} tok · ` : ''}groq ${groqRequests} req / ${groqTokens} tok${geminiRequests ? ` · gemini ${geminiRequests} req / ${geminiTokens} tok` : ''}${overflowLog}${anthropicRequests ? ` · haiku ${anthropicRequests} req / $${anthropicCostUsd.toFixed(3)}` : ''}`)
 
-  // 5. THEMES — bucket the material items into living, ranked investment themes (assign every cycle,
-  // discover periodically, decay automatically). Runs AFTER the write and is fully guarded, so a themes
-  // bug can never block or corrupt the core pipeline (same fail-soft posture as every other stage).
-  if (cfg.themesEnabled) {
-    try {
-      const themeItems: ThemeItemView[] = picks
-        .filter((t) => t.triage_score >= cfg.themesMinScore)
-        .map((t) => ({
-        event_id: t.event_id,
-        headline: t.headline,
-        headline_en: t.headline_en, // carry the translation so theme members render in English too
-        found_at: t.found_at,
-        companies: t.companies,
-        event_types: t.event_types,
-        issuer_linkage: t.issuer_linkage,
-        triage_score: t.triage_score,
-        materiality_pre_score: t.materiality_pre_score,
-        source_tier: deriveSourceTier(t),
-        scope: deriveScope(t),
-        region: t.region,
-        country: resolveCountry(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage), // same resolver as the feed write (line ~432) → member country == feed-item country
-        commodities: deriveCommodities(t), // same tagger as the feed write → member tags == feed-item tags
-      }))
-      const n = bumpCycleCounter(stateDir)
-      // Hard time-bound: themes runs AFTER the core write, so it must NEVER eat the cycle. Even though
-      // every LLM call inside has its own 30s timeout, bound the whole stage as a belt-and-suspenders
-      // (a slow clustering pass or a retry loop can't stall the ingester) — the catch below logs + skips.
-      // The timer is cleared as soon as EITHER side of the race settles: an uncleared timer is a dangling
-      // handle that keeps the process alive for the full 90s even after `runThemesCycle` wins the race —
-      // harmless in the long-running server, but it silently added ~90s to every test that reaches this
-      // stage (a real, measured regression in CI wall-clock, not a hypothetical one).
-      let themesTimeout: ReturnType<typeof setTimeout>
-      const res = await Promise.race([
-        runThemesCycle({
-          repoRoot,
-          stateDir,
-          items: themeItems,
-          runDiscovery: n % Math.max(1, cfg.themesDiscoverEveryCycles) === 0,
-          minScore: cfg.themesMinScore,
-          now,
-          cfg: themesConfigFromNews(cfg),
-          llmNamer: makeThemeNamer(cfg, fetchFn, stateDir, log),
-        }),
-        new Promise<never>((_, rej) => {
-          themesTimeout = setTimeout(() => rej(new Error('themes stage exceeded 90s — skipped')), 90_000)
-          themesTimeout.unref?.()
-        }),
-      ]).finally(() => clearTimeout(themesTimeout))
-      for (const s of res.changed) newsBus.emit({ type: 'theme-update', theme: s })
-      if (res.changed.length) log(`themes: ${res.changed.length} updated`)
-    } catch (e: any) {
-      log(`themes stage error: ${e?.message || e}`)
-    }
-  }
+  // 5. THEMES — bucket material items and run the same maintenance clock used by quiet cycles. Fully
+  // guarded so a themes bug can never block or corrupt the core wire.
+  await runThemesStage({ cfg, repoRoot, stateDir, picks, fetchFn, now, log })
   return summary
 }

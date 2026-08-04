@@ -86,4 +86,29 @@ check('without an override, readFeed still uses the NEWS.dedupMaxScan default (u
   assert.equal(byId.get(b.event_id)!.dedup_group, b.event_id)
 })
 
+check('a sparse target lookup can preserve the persisted canonical dedup group', () => {
+  const canonical = mk({ event_id: 'EVT-eeeeeeeeeee1', ts: minAgo(5), headline: 'Copper smelter halts after power outage' })
+  const publisherCopy = mk({
+    event_id: 'EVT-eeeeeeeeeee2', ts: minAgo(4),
+    headline: 'Power outage forces copper smelter shutdown', source_name: 'Other Outlet',
+    dedup_group: canonical.event_id,
+  })
+  const unrelated = mk({ event_id: 'EVT-fffffffffff1', ts: minAgo(3), headline: 'Retailer opens a new flagship store' })
+  const { repo } = writeRepo([canonical, publisherCopy, unrelated])
+  const targets = new Set([publisherCopy.event_id, unrelated.event_id])
+
+  const snap = readFeed(repo, 1, {
+    now, maxItems: 100, predicate: (it) => targets.has(it.event_id),
+    preservePersistedDedupGroups: true,
+  })
+  const byId = new Map(snap.items.map((it) => [it.event_id, it]))
+
+  assert.equal(snap.items.length, 2, 'the predicate returns only the sparse target subset')
+  assert.equal(
+    byId.get(publisherCopy.event_id)!.dedup_group,
+    canonical.event_id,
+    'the filtered publisher copy keeps the full-feed canonical representative',
+  )
+})
+
 console.log(`\n${passed} feed-dedup-scan checks passed`)

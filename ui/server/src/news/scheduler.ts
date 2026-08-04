@@ -31,6 +31,7 @@ const IDEA_PASS_CONFIG = {
   topN: NEWS.ideasTopN,
   shelfLifeHrs: NEWS.ideasShelfLifeHrs,
   inputMaxAgeHrs: NEWS.ideasInputMaxAgeHrs,
+  themesEnabled: NEWS.themesEnabled,
   minIntervalSec: NEWS.ideasMinIntervalSec,
   refreshSec: NEWS.ideasRefreshSec,
   groqApiKey: NEWS.groqApiKey,

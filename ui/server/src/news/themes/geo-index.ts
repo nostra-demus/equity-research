@@ -18,6 +18,8 @@ import { isCountry, regionOfCountry, resolveCountry } from '../geography'
 import type { Region } from '../types'
 import { DAILY_WINDOWS, ensureDaily, scoreTheme, type ThemeScoreConfig } from './score'
 import type { Theme, ThemeCompany, ThemeMember, ThemesIndex, ThemeSummary, ThemeTier } from './types'
+import { buildSummary } from './store'
+import { compareThemeSummaries, companiesForMembers, firstSeenForMembers, uniqueThemeMembers } from './qualification'
 
 /** The geography to slice by — a country (leaf) OR a continent (branch). Country wins when both are set. */
 export interface ThemeGeo {
@@ -28,7 +30,6 @@ export interface ThemeGeo {
 // Array-safe: themes come from loadThemes(), which parses raw ledger lines with no schema normalisation,
 // so `companies` / `related_themes` can be missing or a corrupt non-array truthy value. Guard so the
 // geo-sliced index never throws on `.slice` (mirrors store.ts top()).
-const top = <T>(a: T[] | null | undefined, n: number): T[] => (Array.isArray(a) ? a.slice(0, n) : [])
 // Coerce an untrusted ledger array field to a real array (missing, or `{}` / `true` from a corrupt row).
 const arr = <T>(v: T[] | null | undefined): T[] => (Array.isArray(v) ? v : [])
 
@@ -60,7 +61,7 @@ export function memberMatchesGeo(m: ThemeMember, geo: ThemeGeo): boolean {
 
 /** A theme company counts toward the geography when its listing country matches (the geo-relevant names to
  *  surface as chips + to feed the breadth score). Companies with no known listing country don't count. */
-function companyMatchesGeo(c: ThemeCompany, geo: ThemeGeo): boolean {
+export function companyMatchesGeo(c: ThemeCompany, geo: ThemeGeo): boolean {
   const cc = (c.listing_country || '').trim().toUpperCase()
   if (!isCountry(cc)) return false
   if (geo.country) return cc === geo.country.toUpperCase()
@@ -90,13 +91,16 @@ export function buildGeoThemesIndex(
 
   for (const t of themes) {
     if (t.status !== 'live') continue
-    const geoMembers = arr(t.members).filter((m) => memberMatchesGeo(m, geo))
+    const geoMembers = uniqueThemeMembers(arr(t.members).filter((m) => memberMatchesGeo(m, geo)))
     if (!geoMembers.length) continue // this theme isn't about the requested geography → drop it
 
-    const geoCompanies = arr(t.companies).filter((c) => companyMatchesGeo(c, geo))
+    // Rebuild from the sliced members first. Filtering the global company aggregate leaked unrelated
+    // mentions, counts, sides and last-seen values into a country view.
+    const geoCompanies = companiesForMembers(t, geoMembers).filter((c) => companyMatchesGeo(c, geo))
     // Re-score from the geo slice. Sectors carry no country, so they can't be attributed to a geography —
     // breadth reads off the geo companies only (conservative, and consistent across every theme).
-    const scored = scoreTheme({ members: geoMembers, companies: geoCompanies, sectors: [], first_seen: t.first_seen }, nowD, cfg)
+    const sliceFirstSeen = firstSeenForMembers(geoMembers, t.first_seen)
+    const scored = scoreTheme({ members: geoMembers, companies: geoCompanies, sectors: [], first_seen: sliceFirstSeen }, nowD, cfg)
 
     // rebuild the daily ring from the geo members (real depth — only as far back as the ring reaches)
     const holder: { flow_daily?: number[]; flow_daily_day?: string; members: { found_at: string }[] } = { members: geoMembers }
@@ -108,24 +112,23 @@ export function buildGeoThemesIndex(
     counts.total++
     counts[scored.tier as ThemeTier]++
 
-    out.push({
-      theme_id: t.theme_id,
-      name: t.name,
-      description: t.description,
+    const slicedTheme: Theme = {
+      ...t,
+      members: geoMembers,
+      companies: geoCompanies,
+      sectors: [],
+      scores: scored.scores,
       tier: scored.tier,
-      composite: scored.scores.composite,
       fresh_flow: scored.fresh_flow,
       flow_series: scored.flow_series,
       flow_daily,
-      member_count: geoMembers.length, // honest: recent geo items in the ring (caps at the ring size)
-      top_companies: top(geoCompanies, 8).map((c) => ({ name: c.name, ticker: c.ticker, order: c.order, side: c.side })),
-      related_themes: top(t.related_themes, 5).map((r) => ({ theme_id: r.theme_id, name: r.name, kind: r.kind })),
+      first_seen: sliceFirstSeen,
       last_flow: geoMembers.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), ''),
-      rev: t.rev,
-    })
+    }
+    out.push(buildSummary(slicedTheme, nowD, geoCompanies))
   }
 
-  // rank by the geo composite, then geo volume, then recency — the biggest, most-alive geo theme first
-  out.sort((a, b) => b.composite - a.composite || b.member_count - a.member_count || (a.last_flow < b.last_flow ? 1 : -1))
+  // Same evidence-first admission order as the global index; sliced heat only breaks later ties.
+  out.sort(compareThemeSummaries)
   return { generated_at: nowD.toISOString().replace(/\.\d{3}Z$/, 'Z'), themes: out, counts, history_days }
 }

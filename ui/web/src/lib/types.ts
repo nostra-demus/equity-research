@@ -1039,6 +1039,8 @@ export interface BoardIdea {
   learning: { resolved: number; positive: number; negative: number; adjustment: number; basis: string; evidenceIds: string[] } | null
   priced_in: 'priced' | 'room' | 'unknown'
   thesis_type: string
+  origin_type?: 'wire' | 'theme' | 'mixed'
+  source_themes?: { theme_id: string; theme_rev: number }[]
   source_event_ids: string[]
   source_headlines: string[]
   source_url: string | null

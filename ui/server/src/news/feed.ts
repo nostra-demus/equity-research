@@ -22,6 +22,7 @@ import { resolveCountry } from './geography'
 import { cleanTicker } from './symbology'
 import { NEWS, STATE_DIR } from '../config'
 import { bodyVerdicts } from './impact-floor'
+import { isRfc3339 } from '../rfc3339'
 
 /** Hydrate a feed item on read: clean any HTML/markup left in the headline (older firehose lines were
  *  stored before ingest-time cleaning — e.g. "<a href=…>Title</a>"), fill scope/source_tier, and derive
@@ -29,6 +30,10 @@ import { bodyVerdicts } from './impact-floor'
  *  WHOLE backlog is classified like a fresh item without any backfill. Idempotent; never drops real text. */
 function hydrate(it: FeedItem): FeedItem {
   const headline = cleanText(it.headline)
+  // Source time was added after the original firehose schema. Preserve a valid persisted value, but do
+  // not relabel the legacy triage timestamp (`ts`) as source time: callers that require source freshness
+  // must be able to distinguish "unknown" and fail closed.
+  const found_at = isRfc3339(it.found_at) ? it.found_at : undefined
   const needsClean = headline !== it.headline
   const needsGeo = it.country === undefined // older firehose line, written before the country field existed
   const needsClassifier = it.event_scope === undefined // older line, predates the event-materiality classifier
@@ -48,11 +53,12 @@ function hydrate(it: FeedItem): FeedItem {
   // heals the WHOLE backlog with no backfill, so the facet/autofill and the company filter never see a
   // fake symbol. Rides BOTH return paths. Idempotent; names are untouched (entities.ts owns name junk).
   const companies = (Array.isArray(it.companies) ? it.companies : []).map((c) => { const t = cleanTicker(c.ticker); return t === (c.ticker ?? null) ? c : { ...c, ticker: t } })
-  if (it.scope && it.source_tier && !needsClean && !needsGeo && !needsClassifier && !needsCommodity) return { ...it, companies, topics, scheduled_events }
+  if (it.scope && it.source_tier && !needsClean && !needsGeo && !needsClassifier && !needsCommodity) return { ...it, found_at, companies, topics, scheduled_events }
   const scope = it.scope || deriveScope({ ...it, headline, companies }) // pass the normalised (always-array) companies so a legacy non-array field can't crash deriveScope's filter
   const commodities = needsCommodity ? deriveCommodities({ ...it, headline: headline || it.headline }) : undefined
   return {
     ...it,
+    found_at,
     headline: headline || it.headline,
     scope,
     source_tier: it.source_tier || deriveSourceTier(it),
@@ -269,11 +275,23 @@ export interface FeedSnapshot {
   cycles: CycleSummary[]
 }
 
+export interface ReadFeedOptions {
+  now?: () => Date
+  maxItems?: number
+  archiveDir?: string
+  applyActiveWeights?: boolean
+  predicate?: (it: FeedItem) => boolean
+  dedupMaxScan?: number
+  /** Sparse identity lookups must keep the ingest-time canonical group. Re-clustering only the filtered
+   * subset can replace that group with a different representative and split one story into two. */
+  preservePersistedDedupGroups?: boolean
+}
+
 /**
  * Read the last `days` firehose files (today first) and split records by kind. Items come back
  * newest-first, capped, corrupt lines skipped — same tolerance discipline as the ledger readers.
  */
-export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; maxItems?: number; archiveDir?: string; applyActiveWeights?: boolean; predicate?: (it: FeedItem) => boolean; dedupMaxScan?: number } = {}): FeedSnapshot {
+export function readFeed(repoRoot: string, days = 2, opts: ReadFeedOptions = {}): FeedSnapshot {
   const now = opts.now || (() => new Date())
   const maxItems = opts.maxItems && opts.maxItems > 0 ? opts.maxItems : 1000
   const archiveDir = opts.archiveDir || '' // Google Drive mount folder — read older days from here after local prune
@@ -321,7 +339,9 @@ export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; m
   // items qualify for clustering: it uses the persisted ingest-time scores (which already reflect the
   // weights in force when each item was ingested). Default on, so every display consumer is unaffected.
   if (opts.applyActiveWeights !== false) withActiveWeights(capped)
-  withDedup(capped, opts.dedupMaxScan) // story-cluster the served window so the wire shows one row per story
+  if (!opts.preservePersistedDedupGroups) {
+    withDedup(capped, opts.dedupMaxScan) // story-cluster the served window so the wire shows one row per story
+  }
   return { items: capped, cycles }
 }
 

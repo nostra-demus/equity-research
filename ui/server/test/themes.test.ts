@@ -9,11 +9,11 @@ import path from 'node:path'
 import { scoreTheme, ensureDaily, rollDaily, bumpDaily, DAILY_WINDOWS } from '../src/news/themes/score'
 import { companyImpact, orderTierFor } from '../src/news/themes/order'
 import { assignThemes } from '../src/news/themes/assign'
-import { clusterItems, discoverDeterministic, createTheme, mergeAndRetire, refreshThemeIdentity, coherenceOf } from '../src/news/themes/discover'
+import { clusterItems, discoverDeterministic, createTheme, mergeAndRetire, refreshThemeIdentity, coherenceOf, DEFAULT_DISCOVER_CONFIG } from '../src/news/themes/discover'
 import { updateTokenDf, buildGenericSet, loadTokenDf, saveTokenDf, DEFAULT_TOKEN_DF_CONFIG, type TokenDfState } from '../src/news/themes/token-df'
 import { topicTokens, themeTokens, isRoutineFiling } from '../src/news/text-match'
-import { stepThemes } from '../src/news/themes/engine'
-import { buildSummary, buildThemesIndex, loadThemes, maybeCompactThemesLedger } from '../src/news/themes/store'
+import { stepThemes, runThemesCycle, DEFAULT_THEMES_CONFIG } from '../src/news/themes/engine'
+import { appendThemeMutations, buildSummary, buildThemesIndex, loadThemes, maybeCompactThemesLedger, readThemesIndex, writeThemesIndex } from '../src/news/themes/store'
 import { Budget, resetBudgetMemory } from '../src/news/triage/budget'
 import type { Theme, ThemeItemView } from '../src/news/themes/types'
 
@@ -32,7 +32,13 @@ const NOW = new Date('2026-06-13T12:00:00Z')
 const hoursAgo = (h: number) => new Date(NOW.getTime() - h * 3_600_000).toISOString().replace(/\.\d{3}Z$/, 'Z')
 
 function item(id: string, headline: string, opts: Partial<ThemeItemView> = {}): ThemeItemView {
-  return { event_id: id, headline, found_at: opts.found_at || hoursAgo(0), companies: opts.companies || [], event_types: opts.event_types || [], issuer_linkage: opts.issuer_linkage || 'primary', triage_score: opts.triage_score ?? 70, source_tier: opts.source_tier || 'news', scope: opts.scope, region: opts.region }
+  return {
+    event_id: id, dedup_group: opts.dedup_group, headline, headline_en: opts.headline_en,
+    found_at: opts.found_at || hoursAgo(0), companies: opts.companies || [], event_types: opts.event_types || [],
+    issuer_linkage: opts.issuer_linkage || 'primary', triage_score: opts.triage_score ?? 70,
+    source_tier: opts.source_tier || 'news', scope: opts.scope, region: opts.region, country: opts.country,
+    commodities: opts.commodities,
+  }
 }
 const co = (name: string, ticker: string | null = null) => ({ name, ticker, listing_country: null })
 
@@ -69,7 +75,7 @@ await check('companyImpact: a directly-named, material, fast event → first-ord
 })
 
 // ---- assignment / bucketing ----
-await check('assignThemes: items join themes by company OR ≥2 topic tokens; off-theme items are unclustered', () => {
+await check('assignThemes: items join on recurring narrative (a company hit only strengthens it); off-theme items stay unclustered', () => {
   const theme: Theme = createTheme(
     [
       item('s1', 'Nvidia ramps AI data center GPU shipments', { companies: [co('Nvidia', 'NVDA')], event_types: ['product'] }),
@@ -107,10 +113,72 @@ await check('clusterItems + discoverDeterministic: a 3-item, 2-company cluster f
   assert.ok(leftover.some((i) => i.event_id === 'z1'), 'the unrelated item stays in the pool')
 })
 
+await check('discoverDeterministic dedupes the whole pool before the scan cut', () => {
+  const pool = [
+    item('old-copy', 'Old publisher copy of a solar capacity story', { dedup_group: 'story-solar' }),
+    item('other-1', 'Unrelated steel tariff update'),
+    item('other-2', 'Unrelated shipping rate update'),
+    item('new-copy', 'Newest publisher copy of a solar capacity story', { dedup_group: 'story-solar' }),
+  ]
+  const { leftover } = discoverDeterministic(pool, [], NOW, { ...DEFAULT_DISCOVER_CONFIG, maxPoolScan: 3, minClusterItems: 99 })
+  const copies = leftover.filter((row) => row.dedup_group === 'story-solar')
+  assert.deepEqual(copies.map((row) => row.event_id), ['new-copy'], 'an older copy cannot survive in skipped leftovers')
+})
+
+await check('discoverDeterministic sorts a newest-first cold pool before scanning its fresh tail', () => {
+  const newestFirst = [
+    item('fresh-3', 'Rigetti reports quantum computing qubit chip milestones', { companies: [co('Rigetti', 'RGTI')], found_at: hoursAgo(1) }),
+    item('fresh-2', 'IonQ and Rigetti advance quantum computing qubit chips', { companies: [co('IonQ', 'IONQ'), co('Rigetti', 'RGTI')], found_at: hoursAgo(2) }),
+    item('fresh-1', 'IonQ expands quantum computing qubit chip capacity', { companies: [co('IonQ', 'IONQ')], found_at: hoursAgo(3) }),
+    item('old-2', 'Old unrelated shipping rate item', { found_at: hoursAgo(20) }),
+    item('old-1', 'Older unrelated steel tariff item', { found_at: hoursAgo(21) }),
+  ]
+  const { created } = discoverDeterministic(newestFirst, [], NOW, { ...DEFAULT_DISCOVER_CONFIG, maxPoolScan: 3 })
+  assert.equal(created.length, 1, 'the scan tail is the three freshest rows, regardless of input ordering')
+  assert.deepEqual(new Set(created[0].members.map((m) => m.event_id)), new Set(['fresh-1', 'fresh-2', 'fresh-3']))
+})
+
+await check('runThemesCycle normalizes a legacy newest-first pool before its pre-discovery cap', async () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'themes-pool-order-'))
+  const stateDir = path.join(dir, 'state')
+  fs.mkdirSync(stateDir, { recursive: true })
+  const newestFirst = [
+    item('cycle-fresh-3', 'Rigetti reports quantum computing qubit chip milestones', { companies: [co('Rigetti', 'RGTI')], found_at: hoursAgo(1) }),
+    item('cycle-fresh-2', 'IonQ and Rigetti advance quantum computing qubit chips', { companies: [co('IonQ', 'IONQ'), co('Rigetti', 'RGTI')], found_at: hoursAgo(2) }),
+    item('cycle-fresh-1', 'IonQ expands quantum computing qubit chip capacity', { companies: [co('IonQ', 'IONQ')], found_at: hoursAgo(3) }),
+    item('cycle-old-2', 'Old unrelated shipping rate item', { found_at: hoursAgo(20) }),
+    item('cycle-old-1', 'Older unrelated steel tariff item', { found_at: hoursAgo(21) }),
+  ]
+  fs.writeFileSync(path.join(stateDir, 'themes-unclustered.json'), JSON.stringify(newestFirst) + '\n')
+  const cfg = {
+    ...DEFAULT_THEMES_CONFIG,
+    poolCap: 3,
+    discover: { ...DEFAULT_THEMES_CONFIG.discover, maxPoolScan: 3 },
+  }
+  await runThemesCycle({ repoRoot: dir, stateDir, items: [], runDiscovery: true, now: () => NOW, cfg })
+  const created = loadThemes(dir)
+  assert.equal(created.length, 1, 'the fresh cluster survives the wrapper cap and is discovered')
+  assert.deepEqual(new Set(created[0].members.map((m) => m.event_id)), new Set(['cycle-fresh-1', 'cycle-fresh-2', 'cycle-fresh-3']))
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+
+await check('createTheme carries translation and slice metadata onto every discovered member', () => {
+  const t = createTheme([
+    item('meta-1', 'Original headline', {
+      headline_en: 'English headline', country: 'IN', region: 'ASIA', commodities: ['GOLD', 'SILVER'],
+      companies: [co('MetalCo', 'METL')],
+    }),
+  ], NOW)
+  assert.equal(t.members[0].headline_en, 'English headline')
+  assert.equal(t.members[0].country, 'IN')
+  assert.equal(t.members[0].region, 'ASIA')
+  assert.deepEqual(t.members[0].commodities, ['GOLD', 'SILVER'])
+})
+
 // ---- merge + retire ----
 await check('mergeAndRetire: two themes sharing companies merge; a parked, long-stale theme retires', () => {
-  const t1 = createTheme([item('m1', 'Nvidia AI chip demand', { companies: [co('Nvidia', 'NVDA'), co('AMD', 'AMD')] }), item('m2', 'Nvidia AMD GPU race', { companies: [co('Nvidia', 'NVDA'), co('AMD', 'AMD')] }), item('m3', 'Nvidia AMD data center', { companies: [co('Nvidia'), co('AMD')] })], NOW)
-  const t2 = createTheme([item('m4', 'AMD Nvidia accelerator war', { companies: [co('AMD', 'AMD'), co('Nvidia', 'NVDA')] }), item('m5', 'Nvidia AMD chips', { companies: [co('Nvidia'), co('AMD')] }), item('m6', 'AMD Nvidia GPU', { companies: [co('AMD'), co('Nvidia')] })], NOW)
+  const t1 = createTheme([item('m1', 'Nvidia AMD AI chip demand rises', { companies: [co('Nvidia', 'NVDA'), co('AMD', 'AMD')] }), item('m2', 'Nvidia AMD AI chip demand race', { companies: [co('Nvidia', 'NVDA'), co('AMD', 'AMD')] }), item('m3', 'Nvidia AMD AI chip demand outlook', { companies: [co('Nvidia'), co('AMD')] })], NOW)
+  const t2 = createTheme([item('m4', 'AMD Nvidia AI chip demand accelerates', { companies: [co('AMD', 'AMD'), co('Nvidia', 'NVDA')] }), item('m5', 'Nvidia AMD AI chip demand rises', { companies: [co('Nvidia'), co('AMD')] }), item('m6', 'AMD Nvidia AI chip demand outlook', { companies: [co('AMD'), co('Nvidia')] })], NOW)
   // force distinct ids by tweaking one slug so they are two themes that then merge on shared companies
   t2.theme_id = t1.theme_id + '-x'
   const themes = [t1, t2]
@@ -124,6 +192,24 @@ await check('mergeAndRetire: two themes sharing companies merge; a parked, long-
   stale.last_flow = hoursAgo(100)
   mergeAndRetire([stale], NOW)
   assert.equal(stale.status, 'retired')
+})
+
+await check('mergeAndRetire refuses shared-company themes with disconnected narratives', () => {
+  const sharedCompanies = [co('Alpha Holdings', 'ALPH'), co('Beta Holdings', 'BETA'), co('Gamma Holdings', 'GAMM')]
+  const capacity = createTheme([
+    item('mc1', 'Solar panel capacity expansion accelerates', { companies: sharedCompanies }),
+    item('mc2', 'Solar panel capacity expansion continues', { companies: sharedCompanies }),
+    item('mc3', 'Solar panel capacity expansion broadens', { companies: sharedCompanies }),
+  ], NOW)
+  const cyber = createTheme([
+    item('md1', 'Cyber breach response investigation begins', { companies: sharedCompanies }),
+    item('md2', 'Cyber breach response investigation widens', { companies: sharedCompanies }),
+    item('md3', 'Cyber breach response investigation continues', { companies: sharedCompanies }),
+  ], NOW)
+  cyber.theme_id = `${capacity.theme_id}-cyber`
+  mergeAndRetire([capacity, cyber], NOW)
+  assert.equal(capacity.status, 'live')
+  assert.equal(cyber.status, 'live')
 })
 
 // ---- end-to-end step ----
@@ -143,6 +229,80 @@ await check('stepThemes: items get assigned, discovery forms a theme, everything
   assert.ok(res.changed.length >= 1, 'changed summaries returned for SSE/persist')
 })
 
+await check('stepThemes emits explicit merged invalidations instead of ghost summaries', async () => {
+  const mk = (prefix: string) => createTheme([
+    item(`${prefix}1`, 'Nvidia AMD AI chip demand capacity expands', { companies: [co('Nvidia', 'NVDA'), co('AMD', 'AMD')] }),
+    item(`${prefix}2`, 'AMD Nvidia AI chip demand capacity rises', { companies: [co('AMD', 'AMD'), co('Nvidia', 'NVDA')] }),
+    item(`${prefix}3`, 'Nvidia AMD AI chip demand capacity outlook', { companies: [co('Nvidia', 'NVDA'), co('AMD', 'AMD')] }),
+  ], NOW, 'claude')
+  const keep = mk('keep')
+  const drop = mk('drop')
+  drop.theme_id = `${drop.theme_id}-other`
+  keep.scores.composite = 60
+  drop.scores.composite = 50
+  const res = await stepThemes({ themes: [keep, drop], pool: [], items: [], runDiscovery: true, now: NOW })
+  const removal = res.removed.find((r) => r.reason === 'merged')
+  assert.ok(removal, 'the merged-away theme has an explicit invalidation')
+  assert.equal(removal!.merged_into, keep.theme_id)
+  assert.ok(!res.changed.some((summary) => summary.theme_id === removal!.theme_id), 'a removed theme is never emitted as a live summary')
+})
+
+await check('runThemesCycle persists retirement and returns a client invalidation', async () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'themes-removal-'))
+  const stateDir = path.join(dir, 'state')
+  const stale = createTheme([
+    item('ret-1', 'OldCo PeerCo copper mine output declines', { companies: [co('OldCo', 'OLD'), co('PeerCo', 'PEER')], found_at: hoursAgo(100) }),
+    item('ret-2', 'PeerCo OldCo copper mine output falls', { companies: [co('PeerCo', 'PEER'), co('OldCo', 'OLD')], found_at: hoursAgo(100) }),
+    item('ret-3', 'OldCo PeerCo copper mine output weakens', { companies: [co('OldCo', 'OLD'), co('PeerCo', 'PEER')], found_at: hoursAgo(100) }),
+  ], NOW, 'claude')
+  stale.name = 'Copper Mine Output Decline'
+  stale.description = 'OldCo and PeerCo are reporting lower copper mine output.'
+  stale.tier = 'parked'
+  stale.last_flow = hoursAgo(100)
+  appendThemeMutations(dir, [stale], () => NOW)
+  writeThemesIndex(dir, [stale], () => NOW)
+
+  const res = await runThemesCycle({ repoRoot: dir, stateDir, items: [], runDiscovery: true, now: () => NOW })
+  assert.deepEqual(res.removed, [{ theme_id: stale.theme_id, reason: 'retired', merged_into: null, rev: stale.rev + 1 }])
+  assert.ok(!res.changed.some((summary) => summary.theme_id === stale.theme_id))
+  assert.equal(loadThemes(dir).find((t) => t.theme_id === stale.theme_id)?.status, 'retired', 'the invalidated state is durable')
+  assert.equal(readThemesIndex(dir).themes.some((t) => t.theme_id === stale.theme_id), false, 'the rebuilt snapshot drops the ghost')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+
+await check('runThemesCycle emits qualification decay once without appending a time-only ledger mutation', async () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'themes-time-decay-'))
+  const stateDir = path.join(dir, 'state')
+  const initialNow = new Date('2026-06-13T06:00:00Z')
+  const at = (hours: number) => new Date(initialNow.getTime() - hours * 3_600_000).toISOString().replace(/\.\d{3}Z$/, 'Z')
+  const theme = createTheme([
+    item('td1', 'Nvidia expands AI data center chip capacity', { companies: [co('Nvidia', 'NVDA')], event_types: ['capex'], found_at: at(1) }),
+    item('td2', 'Vertiv expands AI data center cooling capacity', { companies: [co('Vertiv', 'VRT')], event_types: ['capex'], found_at: at(2) }),
+    item('td3', 'Microsoft expands AI data center power capacity', { companies: [co('Microsoft', 'MSFT')], event_types: ['capex'], found_at: at(3) }),
+  ], initialNow, 'claude')
+  theme.name = 'AI Data-Center Capacity Buildout'
+  theme.description = 'Chip, power and cooling suppliers are expanding capacity as demand rises.'
+  theme.tier = 'hot'
+  assert.equal(buildSummary(theme, initialNow).assessment.status, 'actionable')
+  appendThemeMutations(dir, [theme], () => initialNow)
+  writeThemesIndex(dir, [theme], () => initialNow)
+
+  const later = new Date(initialNow.getTime() + 7 * 3_600_000)
+  const cfg = {
+    ...DEFAULT_THEMES_CONFIG,
+    score: { ...DEFAULT_THEMES_CONFIG.score, thresholds: { hot: 0, active: 0, cooling: 0 } },
+  }
+  const first = await runThemesCycle({ repoRoot: dir, stateDir, items: [], runDiscovery: false, now: () => later, cfg })
+  assert.equal(first.changed.length, 1)
+  assert.equal(first.changed[0].assessment.status, 'context')
+  const ledger = path.join(dir, 'screener', 'ledger', 'themes.ndjson')
+  assert.equal(fs.readFileSync(ledger, 'utf8').trim().split('\n').length, 1, 'projection-only decay does not duplicate a Theme mutation')
+
+  const unchanged = await runThemesCycle({ repoRoot: dir, stateDir, items: [], runDiscovery: false, now: () => later, cfg })
+  assert.deepEqual(unchanged.changed, [], 'the same assessment is not emitted again on every cycle')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+
 // Regression (PR #71 Codex finding): a `social` (Reddit) item must NEVER independently drive a theme —
 // a theme is a thesis precursor (CLAUDE.md §4/§24). The band/score caps keep social out of the top pick,
 // but a non-drop social item still reaches the themes layer, which has no source-tier guard (score.ts
@@ -150,9 +310,9 @@ await check('stepThemes: items get assigned, discovery forms a theme, everything
 // theme. Expected: a cluster of social-only items yields NO theme; the SAME cluster on a real source does.
 await check('stepThemes: social-only items NEVER form a theme; the same cluster on a real source does (§4/§24)', async () => {
   const mk = (tier: string) => [
-    item('z1', 'Acme mass layoffs hit 5000 staff', { companies: [co('Acme', 'ACME')], event_types: ['management'], triage_score: 88, source_tier: tier }),
-    item('z2', 'Acme layoffs deepen as restructuring widens', { companies: [co('Acme', 'ACME')], event_types: ['operations'], triage_score: 84, source_tier: tier }),
-    item('z3', 'Beta joins Acme in the mass layoffs wave', { companies: [co('Beta', 'BETA'), co('Acme', 'ACME')], event_types: ['management'], triage_score: 80, source_tier: tier }),
+    item('z1', 'Acme mass layoffs restructuring hits 5000 staff', { companies: [co('Acme', 'ACME')], event_types: ['management'], triage_score: 88, source_tier: tier }),
+    item('z2', 'Acme mass layoffs restructuring deepens', { companies: [co('Acme', 'ACME')], event_types: ['operations'], triage_score: 84, source_tier: tier }),
+    item('z3', 'Beta joins Acme mass layoffs restructuring wave', { companies: [co('Beta', 'BETA'), co('Acme', 'ACME')], event_types: ['management'], triage_score: 80, source_tier: tier }),
   ]
   const social = await stepThemes({ themes: [], pool: [], items: mk('social'), runDiscovery: true, now: NOW })
   assert.equal(social.themes.filter((t) => t.status === 'live').length, 0, 'no theme is discovered from social-only items')
@@ -179,9 +339,59 @@ await check('makeThemeNamer (groq path): renames a real theme, retires a non-the
   assert.ok(namer, 'a namer is returned when a key is present')
   await namer!([real, junk], NOW)
   assert.equal(real.name, 'AI Data-Center Buildout')
-  assert.equal(real.generation, 'claude')
-  assert.ok(real.keywords.includes('hyperscaler'))
+  assert.equal(real.generation, 'groq')
+  assert.ok(real.keywords.includes('ai'), 'a proposed keyword recurring in the evidence is accepted')
+  assert.ok(!real.keywords.includes('hyperscaler'), 'an unsupported model-written keyword cannot become a future join key')
   assert.equal(junk.status, 'retired') // is_theme:false → dropped
+})
+
+await check('makeThemeNamer: a malformed verdict never grants validator-approved generation', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-verdict-'))
+  const candidate = createTheme([
+    item('v1', 'Nvidia AI data center buildout accelerates', { companies: [co('Nvidia', 'NVDA')] }),
+    item('v2', 'Vertiv expands AI data center cooling capacity', { companies: [co('Vertiv', 'VRT')] }),
+    item('v3', 'Microsoft expands AI data center capacity', { companies: [co('Microsoft', 'MSFT')] }),
+  ], NOW)
+  candidate.needs_rename = true
+  const content = JSON.stringify({ themes: [{
+    i: 0,
+    // Missing the required boolean `is_theme`: prose alone must not turn a deterministic cluster into
+    // a validator-approved theme or clear a pending rename retry.
+    name: 'AI Data-Center Buildout',
+    description: 'AI infrastructure capacity is expanding.',
+    keywords: ['ai'],
+  }] })
+  const fetchFn = (async () => ({ ok: true, status: 200, json: async () => ({ choices: [{ message: { content } }], usage: { total_tokens: 20 } }) })) as unknown as typeof fetch
+  const namer = makeThemeNamer({ themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'llama', groqDailyReqCap: 10, groqDailyTokenCap: 10_000 }, fetchFn, tmp)
+  await namer!([candidate], NOW)
+  assert.equal(candidate.generation, 'deterministic')
+  assert.equal(candidate.needs_rename, true)
+  assert.notEqual(candidate.name, 'AI Data-Center Buildout')
+})
+
+await check('makeThemeNamer: an incomplete true verdict stays queued for validation', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-partial-verdict-'))
+  const candidate = createTheme([
+    item('pv1', 'Nvidia AI data center buildout accelerates', { companies: [co('Nvidia', 'NVDA')] }),
+    item('pv2', 'Vertiv expands AI data center cooling capacity', { companies: [co('Vertiv', 'VRT')] }),
+    item('pv3', 'Microsoft expands AI data center capacity', { companies: [co('Microsoft', 'MSFT')] }),
+  ], NOW)
+  candidate.needs_validation = true
+  const prior = { name: candidate.name, description: candidate.description, slug: candidate.slug }
+  const content = JSON.stringify({ themes: [{
+    i: 0,
+    is_theme: true,
+    name: 'AI Data-Center Buildout',
+    // Missing the required description: this is not enough to re-ground the narrative or clear retry.
+  }] })
+  const fetchFn = (async () => ({ ok: true, status: 200, json: async () => ({ choices: [{ message: { content } }], usage: { total_tokens: 20 } }) })) as unknown as typeof fetch
+  const namer = makeThemeNamer({ themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'llama', groqDailyReqCap: 10, groqDailyTokenCap: 10_000 }, fetchFn, tmp)
+  await namer!([candidate], NOW)
+  assert.equal(candidate.generation, 'deterministic')
+  assert.equal(candidate.needs_validation, true)
+  assert.deepEqual({ name: candidate.name, description: candidate.description, slug: candidate.slug }, prior)
 })
 
 await check('makeThemeNamer charges its strict bound when a malformed Groq reply has no usage', async () => {
@@ -300,8 +510,8 @@ await check('bumpDaily: a FUTURE-dated item is clamped to today — anchor + his
 
 await check('mergeAndRetire: the merged theme re-seeds its daily ring from DE-DUPLICATED members (no double-count)', () => {
   const shared = item('shared1', 'Nvidia AMD chip race heats up', { companies: [co('Nvidia', 'NVDA'), co('AMD', 'AMD')] })
-  const t1 = createTheme([item('g1', 'Nvidia AMD AI demand', { companies: [co('Nvidia', 'NVDA'), co('AMD', 'AMD')] }), item('g2', 'Nvidia AMD GPU race', { companies: [co('Nvidia', 'NVDA'), co('AMD', 'AMD')] }), shared], NOW)
-  const t2 = createTheme([item('h1', 'AMD Nvidia accelerator war', { companies: [co('AMD', 'AMD'), co('Nvidia', 'NVDA')] }), item('h2', 'Nvidia AMD chips', { companies: [co('Nvidia'), co('AMD')] }), shared], NOW)
+  const t1 = createTheme([item('g1', 'Nvidia AMD chip race demand', { companies: [co('Nvidia', 'NVDA'), co('AMD', 'AMD')] }), item('g2', 'Nvidia AMD chip race accelerates', { companies: [co('Nvidia', 'NVDA'), co('AMD', 'AMD')] }), shared], NOW)
+  const t2 = createTheme([item('h1', 'AMD Nvidia chip race heats up', { companies: [co('AMD', 'AMD'), co('Nvidia', 'NVDA')] }), item('h2', 'Nvidia AMD chip race demand', { companies: [co('Nvidia'), co('AMD')] }), shared], NOW)
   t2.theme_id = t1.theme_id + '-x' // force two distinct themes that then merge on shared companies
   ensureDaily(t1, NOW.getTime()); ensureDaily(t2, NOW.getTime())
   assert.equal(t1.flow_daily![DAILY_WINDOWS - 1], 3, "each theme starts with 3 'today' members")
@@ -355,7 +565,7 @@ check('clusterItems: a batch of routine earnings-date announcements from unrelat
 check('clusterItems control: headlines sharing BOTH tokens AND a company still form one cluster (the fix is not over-broad)', () => {
   const pool = [
     item('n1', 'Nvidia ramps AI data center GPU shipments', { companies: [co('Nvidia', 'NVDA')] }),
-    item('n2', 'Nvidia data center GPU demand accelerates', { companies: [co('Nvidia', 'NVDA')] }),
+    item('n2', 'Nvidia data center shipments demand accelerates', { companies: [co('Nvidia', 'NVDA')] }),
   ]
   assert.equal(clusterItems(pool)[0].length, 2, 'same-company items still cluster')
 })
@@ -464,7 +674,20 @@ function writeLedger(repoRoot: string, lines: string[]): string {
   fs.writeFileSync(fp, lines.join('\n') + (lines.length ? '\n' : ''))
   return fp
 }
-const themeLine = (id: string, rev: number) => JSON.stringify({ kind: 'theme', ts: hoursAgo(rev), theme: { theme_id: id, name: id, rev } })
+const compactIds = { A: 'THM-aaaaaaaa', B: 'THM-bbbbbbbb', C: 'THM-cccccccc' } as const
+const themeLine = (id: keyof typeof compactIds, rev: number) => {
+  // Persistence accepts only complete Theme mutations. Keep this compaction fixture on that same durable
+  // contract so the test proves losslessness without teaching the loader to bless partial forged rows.
+  const theme = createTheme([
+    item(`${id}-${rev}-1`, `${id} expands AI data center capacity`, { companies: [co(`${id} One`, `${id}1`)] }),
+    item(`${id}-${rev}-2`, `${id} expands AI data center cooling capacity`, { companies: [co(`${id} Two`, `${id}2`)] }),
+    item(`${id}-${rev}-3`, `${id} expands AI data center power capacity`, { companies: [co(`${id} Three`, `${id}3`)] }),
+  ], NOW)
+  theme.theme_id = compactIds[id]
+  theme.name = id
+  theme.rev = rev
+  return JSON.stringify({ kind: 'theme', ts: hoursAgo(rev), theme })
+}
 
 await check('maybeCompactThemesLedger: over threshold → one line per theme_id, identical loadThemes result (lossless)', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'themes-compact-'))
@@ -480,7 +703,7 @@ await check('maybeCompactThemesLedger: over threshold → one line per theme_id,
   const norm = (ts: Theme[]) => [...ts].map((t) => JSON.stringify(t)).sort()
   assert.deepEqual(norm(after), norm(before), 'compaction must not change what loadThemes returns')
   assert.equal(after.length, 3, 'three distinct theme_ids survive')
-  assert.equal((after.find((t) => t.theme_id === 'A') as any).rev, 3, 'last mutation per id wins')
+  assert.equal((after.find((t) => t.theme_id === compactIds.A) as any).rev, 3, 'last mutation per id wins')
   // bounded: exactly one physical line per theme_id now
   const lines = fs.readFileSync(fp, 'utf8').split('\n').filter((l) => l.trim())
   assert.equal(lines.length, 3, 'ledger collapses to one line per theme_id')
@@ -573,7 +796,7 @@ check('isRoutineFiling: paperwork shapes are routine; genuine events and electio
   assert.ok(!isRoutineFiling('KO YO GROUP (00827): UPDATES IN RELATION TO GOING CONCERN AND MITIGATION MEASURES'), 'a going-concern update is never routine')
 })
 
-check('assignThemes: a routine filing joins ONLY via its company — never via boilerplate tokens', () => {
+check('assignThemes: routine paperwork does not inflate a narrative, even when it names the same company', () => {
   const yb = createTheme(
     [
       item('y1', 'Emirates NBD to buy controlling stake in Yes Bank', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['mna'] }),
@@ -581,9 +804,11 @@ check('assignThemes: a routine filing joins ONLY via its company — never via b
     ],
     NOW,
   )
-  // a SAST disclosure ABOUT Yes Bank joins its company theme (company channel, by design)
+  // A SAST disclosure ABOUT Yes Bank still has no narrative content. Company overlap alone is not proof
+  // of a theme, so it stays outside the evidence cluster.
   const rYb = assignThemes([item('sast-yb', 'Yes Bank Ltd: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Emirates NBD', { companies: [co('Yes Bank', 'YESBANK')], source_tier: 'primary_filing', event_types: ['capital_actions'] })], [yb])
-  assert.deepEqual(rYb.assignments.get('sast-yb'), [yb.theme_id], 'the on-company SAST filing lands in the company theme')
+  assert.equal(rYb.assignments.size, 0, 'the on-company SAST filing does not become investment evidence')
+  assert.equal(rYb.unclustered.length, 1)
   // an unrelated company's SAST disclosure does NOT join, despite sharing the entire boilerplate text
   const rLinc = assignThemes([item('sast-linc', 'Linc Ltd-$: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Niyati Sharma', { companies: [co('Linc Ltd')], source_tier: 'primary_filing', event_types: ['capital_actions'] })], [yb])
   assert.equal(rLinc.assignments.size, 0, 'the off-company SAST filing is rejected')
@@ -621,8 +846,8 @@ check('refreshThemeIdentity: a Yes-Bank-shaped theme with no real core retires e
 check('refreshThemeIdentity: a Yes Bank theme WITH a real core survives — SAST strangers purged, core kept', () => {
   const members = [
     item('y1', 'Emirates NBD to buy controlling stake in Yes Bank', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['mna'] }),
-    item('y2', 'Yes Bank stake sale to Emirates NBD clears RBI hurdle', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['regulatory'] }),
-    item('y3', 'Emirates NBD Yes Bank deal reshapes Indian private banking', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['mna'] }),
+    item('y2', 'Yes Bank controlling stake sale to Emirates NBD clears RBI hurdle', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['regulatory'] }),
+    item('y3', 'Emirates NBD controlling stake sale reshapes Indian private banking', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['mna'] }),
     item('s1', 'Linc Ltd-$: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Niyati Sharma', { companies: [co('Linc Ltd')], source_tier: 'primary_filing' }),
     item('s2', 'Chambal Fertilisers & Chemicals Ltd: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Sidh Enterprises Ltd', { companies: [co('Chambal Fertilisers & Chemicals Ltd')], source_tier: 'primary_filing' }),
   ]
@@ -751,20 +976,22 @@ await check('generic tokens neither match themes nor become keywords; company to
   assert.ok(t2.keywords.includes('glut'), 'distinctive tokens still can')
 })
 
-await check('refreshThemeIdentity reports identityShift + purgeShare; the engine flags claude-named themes for rename', async () => {
+await check('refreshThemeIdentity reports identityShift + purgeShare; the engine flags model-named themes for rename', async () => {
   const mkPoisoned = () => {
     const t = createTheme(
       [
         item('y1', 'Emirates NBD to buy controlling stake in Yes Bank', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['mna'] }),
-        item('y2', 'Yes Bank stake sale to Emirates NBD clears RBI hurdle', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['regulatory'] }),
-        item('y3', 'Emirates NBD Yes Bank deal reshapes Indian private banking', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['mna'] }),
+        item('y2', 'Yes Bank controlling stake sale to Emirates NBD clears RBI hurdle', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['regulatory'] }),
+        item('y3', 'Emirates NBD controlling stake sale reshapes Indian private banking', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['mna'] }),
         item('s1', 'Linc Ltd-$: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Niyati Sharma', { companies: [co('Linc Ltd')], source_tier: 'primary_filing' }),
         item('s2', 'Chambal Fertilisers & Chemicals Ltd: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Sidh Enterprises Ltd', { companies: [co('Chambal Fertilisers & Chemicals Ltd')], source_tier: 'primary_filing' }),
       ],
       NOW,
     )
     t.keywords = ['substantial', 'acquisition', 'takeovers', 'yes', 'bank']
-    t.generation = 'claude'
+    // Groq used to be mislabeled as Claude. Pin the corrected provenance path so a healed Groq-named
+    // theme cannot silently keep a stale narrative after that provenance fix.
+    t.generation = 'groq'
     t.name = 'Yes Bank Ltd'
     return t
   }
@@ -823,6 +1050,100 @@ await check('renames are capped per pass and unprocessed flags survive for the n
   assert.equal(flagged.filter((t) => t.needs_rename).length, 1, 'the third stays flagged for the next pass')
 })
 
+await check('new deterministic themes retry validation on a later empty discovery pass; legacy rows are not enrolled', async () => {
+  const cluster = [
+    item('vr1', 'IonQ expands quantum computing qubit chip capacity', { companies: [co('IonQ', 'IONQ')] }),
+    item('vr2', 'IonQ and Rigetti advance quantum computing qubit chips', { companies: [co('IonQ', 'IONQ'), co('Rigetti', 'RGTI')] }),
+    item('vr3', 'Rigetti reports quantum computing qubit chip milestones', { companies: [co('Rigetti', 'RGTI')] }),
+  ]
+  let failedCalls = 0
+  const first = await stepThemes({
+    themes: [], pool: cluster, items: [], runDiscovery: true, now: NOW,
+    llmNamer: async () => { failedCalls++; throw new Error('provider unavailable') },
+  })
+  assert.equal(failedCalls, 1)
+  const queued = first.themes[0]
+  assert.equal(queued.needs_validation, true, 'the failed validation remains explicitly queued')
+
+  let retryBatch: Theme[] = []
+  const second = await stepThemes({
+    themes: first.themes, pool: [], items: [], runDiscovery: true, now: NOW,
+    llmNamer: async (batch) => {
+      retryBatch = batch
+      const t = batch.find((candidate) => candidate.theme_id === queued.theme_id)!
+      delete t.needs_validation
+      t.generation = 'claude'
+      t.name = 'Quantum Computing Capacity Buildout'
+      t.description = 'IonQ and Rigetti are expanding quantum-computing chip capacity.'
+      t.rev++
+    },
+  })
+  assert.ok(retryBatch.some((t) => t.theme_id === queued.theme_id), 'the empty later pass retries the queued theme')
+  assert.equal(queued.needs_validation, undefined)
+  assert.ok(second.changed.some((summary) => summary.theme_id === queued.theme_id), 'successful validation is persisted and emitted')
+
+  const legacy = createTheme(cluster.map((row, i) => ({ ...row, event_id: `legacy-${i}` })), NOW)
+  delete legacy.needs_validation // what a pre-queue ledger row looks like
+  let legacyCalls = 0
+  await stepThemes({ themes: [legacy], pool: [], items: [], runDiscovery: true, now: NOW, llmNamer: async () => { legacyCalls++ } })
+  assert.equal(legacyCalls, 0, 'untouched legacy deterministic themes are not mass-enqueued')
+
+  await stepThemes({
+    themes: [legacy], pool: [], runDiscovery: false, now: NOW,
+    items: [item('legacy-fresh', 'IonQ advances quantum computing qubit chip capacity', { companies: [co('IonQ', 'IONQ')] })],
+  })
+  assert.equal(legacy.needs_validation, true, 'fresh evidence assigned into a legacy deterministic row enrolls only that row')
+  let touchedRetry = false
+  await stepThemes({
+    themes: [legacy], pool: [], items: [], runDiscovery: true, now: NOW,
+    llmNamer: async (batch) => {
+      touchedRetry = batch.some((t) => t.theme_id === legacy.theme_id)
+      delete legacy.needs_validation
+      legacy.generation = 'claude'
+      legacy.rev++
+    },
+  })
+  assert.equal(touchedRetry, true, 'the touched legacy row validates on the next discovery cadence')
+})
+
+await check('validation debt leads the bounded namer batch even when 8+ new clusters arrive', async () => {
+  const pending = createTheme([
+    item('debt-p1', 'IonQ expands quantum qubit production', { companies: [co('IonQ', 'IONQ')] }),
+    item('debt-p2', 'Rigetti expands quantum qubit production', { companies: [co('Rigetti', 'RGTI')] }),
+    item('debt-p3', 'IonQ and Rigetti accelerate quantum qubit production', { companies: [co('IonQ', 'IONQ'), co('Rigetti', 'RGTI')] }),
+  ], NOW)
+  const rename = createTheme([
+    item('debt-r1', 'Vertiv expands data center cooling capacity', { companies: [co('Vertiv', 'VRT')] }),
+    item('debt-r2', 'Eaton expands data center cooling capacity', { companies: [co('Eaton', 'ETN')] }),
+    item('debt-r3', 'Vertiv and Eaton accelerate data center cooling capacity', { companies: [co('Vertiv', 'VRT'), co('Eaton', 'ETN')] }),
+  ], NOW, 'claude')
+  rename.needs_rename = true
+
+  const specs = [
+    ['hydrogen', 'electrolyzer'], ['copper', 'smelter'], ['battery', 'recycling'], ['robotic', 'warehouse'],
+    ['aviation', 'engine'], ['satellite', 'launch'], ['insurance', 'pricing'], ['semiconductor', 'packaging'],
+  ]
+  const busyPool = specs.flatMap(([a, b], i) => {
+    const one = `Maker${i}A`; const two = `Maker${i}B`
+    return [
+      item(`busy-${i}-1`, `${one} advances ${a} ${b} rollout`, { companies: [co(one, `M${i}A`)] }),
+      item(`busy-${i}-2`, `${two} joins ${a} ${b} buildout`, { companies: [co(two, `M${i}B`)] }),
+      item(`busy-${i}-3`, `${one} and ${two} accelerate ${a} ${b} investment`, { companies: [co(one, `M${i}A`), co(two, `M${i}B`)] }),
+    ]
+  })
+  let batch: Theme[] = []
+  const result = await stepThemes({
+    themes: [pending, rename], pool: busyPool, items: [], runDiscovery: true, now: NOW,
+    llmNamer: async (received) => { batch = received },
+  })
+  const newThemes = result.themes.filter((theme) => theme.theme_id !== pending.theme_id && theme.theme_id !== rename.theme_id)
+  assert.ok(newThemes.length >= 8, 'the cycle really created at least eight fresh clusters')
+  assert.equal(batch.length, 8, 'the engine enforces the provider batch cap itself')
+  assert.deepEqual(batch.slice(0, 2).map((theme) => theme.theme_id), [rename.theme_id, pending.theme_id], 'rename and pending-validation debt cannot be starved by fresh discoveries')
+  assert.equal(pending.needs_validation, true, 'an unprocessed/partial fake verdict remains fail-closed and queued')
+  assert.equal(rename.needs_rename, true, 'an unprocessed/partial fake verdict remains fail-closed and queued')
+})
+
 await check('makeThemeNamer samples headlines STRATIFIED by company (breadth, not the newest wire burst)', async () => {
   const { makeThemeNamer } = await import('../src/news/themes/llm')
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-strat-'))
@@ -870,7 +1191,7 @@ await check('coherenceOf: low on a polluted theme, 1.0 on a healthy one — and 
   // a NON-discovery cycle heals it immediately instead of waiting for the cadence
   const res = await stepThemes({ themes: [polluted], pool: [], items: [], runDiscovery: false, now: NOW })
   assert.equal(polluted.status, 'retired', 'the polluted theme (no real multi-company core) is healed away off-cadence')
-  assert.ok(res.changed.some((c) => c.theme_id === polluted.theme_id), 'the change is persisted + emitted')
+  assert.ok(res.removed.some((r) => r.theme_id === polluted.theme_id && r.reason === 'retired'), 'the change is persisted + explicitly invalidated')
   // and the healthy theme is untouched by the same path
   const before = healthy.members.length
   await stepThemes({ themes: [healthy], pool: [], items: [], runDiscovery: false, now: NOW })

@@ -31,10 +31,9 @@ import { searchSymbolsEnriched } from './news/symbology'
 import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
-import { readThemesIndex, loadTheme, loadThemes, buildThemeDetail, themesLedgerPath } from './news/themes/store'
-import { buildGeoThemesIndex, hasThemeGeo, type ThemeGeo } from './news/themes/geo-index'
-import { buildCommodityThemesIndex } from './news/themes/commodity-index'
-import type { ThemesIndex } from './news/themes/types'
+import { loadTheme, buildThemeDetail } from './news/themes/store'
+import type { ThemeGeo } from './news/themes/geo-index'
+import { createThemesIndexReader } from './news/themes/api-index'
 import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers, peekCachedEnrichment } from './news/enrich'
 import { verdictOf } from './news/impact-floor'
@@ -2597,29 +2596,10 @@ app.post('/api/news/rank-weights/autotune/run', { config: { rateLimit: { max: 60
 // THEMES — the living, ranked investment themes the firehose is bucketed into. With a `country` (ISO
 // alpha-2) or `geoRegion` (continent) query param it returns the SAME themes sliced to that geography —
 // re-ranked + re-sized by that geography's news flow — so the cockpit's "Where" picker narrows the Themes
-// view, not just the Events list. No geo param → the fast pre-built global index. The geo path reads the
-// full ledger (member rings) from disk, so it carries the same per-route limiter as the other fs routes.
+// view, not just the Events list. All shapes are projected from one short-lived ledger snapshot: unlike
+// the cycle-written board index, this lets time-only evidence gates age even if the scanner stops.
 const THEME_RE = /^THM-[a-z0-9]{8}$/
-// Cache the geo-sliced index by (ledger mtime, geo key). The ledger only changes once per ~5-min cycle, so
-// nearly every geo request is served O(1) instead of re-parsing the whole ledger + re-running the country
-// gazetteer over every member (measured ~89ms today, ~540ms at the 32MB size prod once reached — all on the
-// single event loop). A new mtime drops the whole map, so a cycle's fresh themes show up immediately.
-let themesGeoCache: { mtime: number; byGeo: Map<string, ThemesIndex> } = { mtime: -1, byGeo: new Map() }
-function slicedThemesIndex(geo: ThemeGeo, commodity: { scoped: boolean; subject?: string }): ThemesIndex {
-  let mtime = 0
-  try { mtime = fs.statSync(themesLedgerPath(REPO_ROOT)).mtimeMs } catch { /* no ledger yet → mtime 0 */ }
-  if (themesGeoCache.mtime !== mtime) themesGeoCache = { mtime, byGeo: new Map() }
-  const key = `${geo.country || ''}|${geo.geoRegion || ''}|${commodity.scoped ? 'c' : ''}|${commodity.subject || ''}`
-  const hit = themesGeoCache.byGeo.get(key)
-  if (hit) return hit
-  // the commodity slice composes the geo filter itself (memberMatchesCommodity applies both), so the
-  // two pickers stack exactly like they do on the Events list
-  const idx = commodity.scoped
-    ? buildCommodityThemesIndex(loadThemes(REPO_ROOT), { commodity: commodity.subject, geo: hasThemeGeo(geo) ? geo : null })
-    : buildGeoThemesIndex(loadThemes(REPO_ROOT), geo)
-  themesGeoCache.byGeo.set(key, idx)
-  return idx
-}
+const readThemesForApi = createThemesIndexReader(REPO_ROOT)
 app.get('/api/news/themes', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
   const q = (req.query as any) || {}
   const geo: ThemeGeo = {
@@ -2631,8 +2611,7 @@ app.get('/api/news/themes', { config: { rateLimit: { max: 600, timeWindow: '1 mi
   // ledger has no per-scope member attribution beyond commodities today (honest scope, not a 400).
   const subject = typeof q.commodity === 'string' && q.commodity.trim() ? q.commodity.trim().toUpperCase() : undefined
   const commodityScoped = subject !== undefined || (typeof q.scope === 'string' && q.scope.trim() === 'commodity')
-  if (!commodityScoped && !hasThemeGeo(geo)) return readThemesIndex(REPO_ROOT)
-  return slicedThemesIndex(geo, { scoped: commodityScoped, subject })
+  return readThemesForApi(geo, { scoped: commodityScoped, subject })
 })
 app.get('/api/news/themes/:id', async (req, reply) => {
   const id = String((req.params as any)?.id || '')
@@ -2821,16 +2800,21 @@ newsBus.subscribe((e) => {
   }
 })
 newsBus.subscribe((e) => {
-  // Explicit per-variant mapping (not a fall-through ternary): adding a bus event must be a compile
-  // error here, never a silently mis-shaped payload on the wire.
-  const payload =
-    e.type === 'news-item'
-      ? { type: 'news-item', item: e.item }
-      : e.type === 'theme-update'
-        ? { type: 'theme-update', theme: e.theme }
-        : e.type === 'news-cycle-start'
-          ? { type: 'news-cycle-start', ts: e.ts, phase: e.phase }
-          : { type: 'news-cycle', summary: e.summary }
+  // Exhaustive per-variant mapping: adding a bus event is a compile error here, never a silently
+  // mis-shaped payload on the wire.
+  const payload = (() => {
+    switch (e.type) {
+      case 'news-item': return { type: 'news-item', item: e.item }
+      case 'theme-update': return { type: 'theme-update', theme: e.theme }
+      case 'theme-remove': return { type: 'theme-remove', removal: e.removal }
+      case 'news-cycle-start': return { type: 'news-cycle-start', ts: e.ts, phase: e.phase }
+      case 'news-cycle': return { type: 'news-cycle', summary: e.summary }
+      default: {
+        const exhaustive: never = e
+        return exhaustive
+      }
+    }
+  })()
   for (const c of newsClients) c.send(payload)
 })
 app.get('/api/news/stream', (req, reply) => {

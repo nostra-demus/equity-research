@@ -522,10 +522,12 @@ await check('runIngestCycle writes kind:"item" feed lines for kept AND dropped, 
   const kept = items.find((i) => i.band === 'pick')!
   const dropped = items.find((i) => i.band === 'drop')!
   assert.equal(kept.inboxed, true)
+  assert.equal(kept.found_at, '2026-06-12T09:00:00Z', 'the feed keeps source time distinct from the 09:30 triage clock')
   assert.equal(kept.event_types[0], 'macro_sector')
   assert.equal(kept.companies[0].ticker, 'CANFINHOME')
   assert.equal(kept.size_bucket, 'mid')
   assert.equal(dropped.inboxed, false)
+  assert.equal(dropped.found_at, '2026-06-12T09:01:00Z')
   assert.equal(dropped.triage_reason, 'Weekend opinion piece.')
   assert.equal(cycles.length, 1)
   // …and the inbox row persists the theme/company fields
