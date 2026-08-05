@@ -5,7 +5,7 @@
   "action": "Hold",
   "benchmark": "LBMA Gold Price / COMEX GC front-month (GCQ26)",
   "current_price": {
-    "value": 4192.40,
+    "value": 4192.4,
     "currency": "USD",
     "unit": "troy oz",
     "as_of": "2026-07-03"
@@ -41,5 +41,9 @@
     "Federal Reserve FOMC calendar, federalreserve.gov, confirmed 2026-07-03",
     "Metals Focus via Kitco, 2026-06-05 (vendor estimate, unverified)",
     "Standard Chartered note via goldsilver.com, 2026-06-24 (unverified)"
-  ]
+  ],
+  "confidence_haircut": 13,
+  "pre_mortem_verdict": "Does not survive — downgrade",
+  "post_review_confidence_score": 39,
+  "post_mortem_action": "Trim"
 }
