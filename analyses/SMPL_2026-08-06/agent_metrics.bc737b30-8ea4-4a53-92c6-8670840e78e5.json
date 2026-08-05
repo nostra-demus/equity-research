@@ -1,0 +1,75 @@
+{
+  "agents": [
+    {
+      "agent": "catalyst-synthesis",
+      "model": "claude-sonnet-5",
+      "calls": 4,
+      "usage": {
+        "input_tokens": 8,
+        "output_tokens": 8191,
+        "cache_read_input_tokens": 117232,
+        "cache_creation_input_tokens": 44897,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 44897,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.32642235,
+      "runtime_ms": 82642,
+      "module": "catalyst"
+    },
+    {
+      "agent": "catalyst-data-triage",
+      "model": "claude-sonnet-5",
+      "calls": 13,
+      "usage": {
+        "input_tokens": 26,
+        "output_tokens": 6232,
+        "cache_read_input_tokens": 754658,
+        "cache_creation_input_tokens": 84803,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 84803,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.63796665,
+      "runtime_ms": 95322,
+      "module": "catalyst"
+    },
+    {
+      "agent": "catalyst-calendar",
+      "model": "claude-sonnet-5",
+      "calls": 9,
+      "usage": {
+        "input_tokens": 18,
+        "output_tokens": 14898,
+        "cache_read_input_tokens": 654923,
+        "cache_creation_input_tokens": 170142,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 170142,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.0580334,
+      "runtime_ms": 174880,
+      "module": "catalyst"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 18,
+    "usage": {
+      "input_tokens": 36,
+      "output_tokens": 10346,
+      "cache_read_input_tokens": 1436715,
+      "cache_creation_input_tokens": 70738,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 70738
+      }
+    },
+    "cost": 1.0107405,
+    "runtime_ms": 0
+  }
+}
