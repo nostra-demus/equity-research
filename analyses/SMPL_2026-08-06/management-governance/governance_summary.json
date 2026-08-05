@@ -1,0 +1,35 @@
+{
+  "ticker": "SMPL",
+  "date": "2026-08-06",
+  "module": "management-governance",
+  "stewardship_verdict": "Standard / mixed",
+  "hard_disqualifier_flagged": false,
+  "scores": {
+    "management_quality": 44,
+    "capital_allocation": 47,
+    "incentive_alignment": 68,
+    "shareholder_friendliness": 76,
+    "shareholder_friendliness_components": {
+      "ownership_alignment_score_04": 75,
+      "board_shareholder_rights_score_05": 76
+    },
+    "disclosure_candor": 75,
+    "governance_risk_inverted_higher_worse": 62,
+    "data_quality": 88,
+    "overall_usefulness": 90
+  },
+  "governance_score": 59,
+  "governance_score_formula": "0.20*47 + 0.18*68 + 0.18*76 + 0.16*75 + 0.16*44 + 0.12*(100-62) = 58.92",
+  "confidence_score": 85,
+  "confidence_adjusted_governance_score": 50,
+  "governance_rating": "Watchlist",
+  "red_flag_count": 8,
+  "critical_red_flag_count": 2,
+  "filters_24_tripped": {
+    "filter_1_integrity": false,
+    "filter_2_turnaround": true,
+    "filter_4_serial_acquirer": true,
+    "filter_6_unaligned_owner": false
+  },
+  "supersedes": "business-model/11_capital-allocation-governance"
+}

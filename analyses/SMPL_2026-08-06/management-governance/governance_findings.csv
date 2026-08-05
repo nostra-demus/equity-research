@@ -1,0 +1,96 @@
+finding_id,agent,section,question,standardized_verdict,raw_value,unit,trend,peer_verdict,score,max_score,penalty,confidence_1_to_5,materiality,evidence,red_flag_id,follow_up_required
+01-001,01_management-and-track-record,Key Executives,CEO current-stint tenure,Amber,6.5,months,Deteriorating,Not Applicable,8,20,-6,5,High,"CIQ Key Developments.rtf, 2026-01-20",see 01-003,Internal successor being groomed?
+01-002,01_management-and-track-record,Key Executives,CFO tenure in role,Amber,13,months,Deteriorating,Not Applicable,8,20,-6,5,Medium,"2026 Proxy p.35-36",analogous RF-MGT-002,Dedicated Controller/CAO re-hired?
+01-003,01_management-and-track-record,Mgmt Stability,Senior leadership changes trailing 12mo,Red,3,count,Deteriorating,Not Applicable,5,20,-15,5,High,"CIQ Key Dev.; Proxy p.60-61",see business-model/11 sev55,Cross-ref only
+01-004,01_management-and-track-record,Mgmt Stability,Controller/CAO resignation control-depth concern,Amber,1,dual-hat,Deteriorating,Not Applicable,5,15,-5,5,Medium,"FQ3 10-Q Item 4",RF-MGT-002,Dedicated Controller/CAO appointed?
+01-005,01_management-and-track-record,Promise vs Delivery,Tanner final FQ2 FY26 guidance kept,Red,-5.6,% below guided range,Deteriorating,Not Applicable,3,30,-12,4,Critical,"Estimates Report; Q2 FY26 call",none,Was guide built on deteriorating data?
+01-006,01_management-and-track-record,Promise vs Delivery,OWYN growth promise delivered,Red,71,% impaired 24mo,Deteriorating,Not Applicable,2,30,-14,5,Critical,"FY26 Q3 10-Q Note 4",RF-CAP-004,Escalate on a third deal
+01-007,01_management-and-track-record,Promise vs Delivery,FY2025 guidance kept,Amber,-0.6,% vs range,Stable-deteriorating,Not Applicable,18,30,0,4,Medium,"Estimates Report; FY25 10-K",,None
+01-008,01_management-and-track-record,Promise vs Delivery,FY2026 in-progress guide kept,Green,3,consecutive beats,Improving,Not Applicable,20,30,0,4,Medium,"earnings/04 sec6",,Does streak continue?
+01-009,01_management-and-track-record,Turnaround Test,Years proven operating inflection,Red,0,years,Not enough history,Not Applicable,4,25,-10,4,High,"Q2/Q3 FY26 transcripts",RF-MGT-004,Track narrowing declines
+01-010,01_management-and-track-record,Turnaround Test,Case sold on resume not numbers,Amber,2,execs cited,N/A,Not Applicable,5,10,-3,4,Medium,"CIQ Key Dev.; Proxy p.27",,None
+01-011,01_management-and-track-record,Integrity Test,Adverse integrity buzz routed,Not Applicable,0,count,N/A,Not Applicable,,,0,5,Low,"business-model/01 sec3",,None
+01-012,01_management-and-track-record,Stated Strategy,Long-run targets disclosed,Amber,,%,Too new to grade,Not Applicable,6,10,-2,3,Medium,"Q2/Q3 FY26 transcripts",,Track FY27/28 progress
+01-013,01_management-and-track-record,Mgmt Stability,Insider buying present,Green,90000,shares,Improving,Not Applicable,4,5,0,4,Low,"CIQ Insider Trading",,Cross-ref agent 04
+01-014,01_management-and-track-record,Mgmt Stability,CEO severance economics concern,Red,4.3,$M midpoint,Deteriorating,Not Applicable,3,10,-4,5,High,"2026 Proxy p.60",cross-ref bm/12 sev50,None
+02-001,02_capital-allocation-scorecard,Uses of Capital,Share of 5yr CFO to acquisitions,Red,34.7,% of FY21-25 CFO,N/A,Not Applicable,3,10,-6,5,Critical,"FY25 10-K p.43",RF-CAP-004,See 02-006
+02-002,02_capital-allocation-scorecard,Uses of Capital,Share of 5yr CFO to buybacks,Amber,16.2,% of FY21-25 CFO,N/A,Not Applicable,10,10,0,4,Medium,"FY25 10-K p.73-74",,None
+02-003,02_capital-allocation-scorecard,Uses of Capital,Share of 5yr CFO to dividends,Not Applicable,0,%,Stable,Not Applicable,,,0,5,Low,"FY25 10-K p.32",,None
+02-004,02_capital-allocation-scorecard,Uses of Capital,Share of 5yr CFO to debt repayment,Green,44.2,% of FY21-25 CFO,Improving then reversing,Not Applicable,8,10,0,4,Medium,"CIQ Financials_Annual",,Track FY26 debt draw
+02-005,02_capital-allocation-scorecard,M&A Scorecard,OWYN growth promise delivered,Red,71,% impaired 24mo,Deteriorating,Not Applicable,1,20,-14,5,Critical,"FY26 Q3 10-Q Note 4",RF-CAP-004,Escalate on third deal
+02-006,02_capital-allocation-scorecard,M&A Scorecard,Serial acquirer Filter 4,Red,2,deals in 6yr,N/A,Not Applicable,2,20,-14,5,Critical,"FY25 10-K p.43",RF-CAP-004,Monitor for third deal
+02-007,02_capital-allocation-scorecard,M&A Scorecard,Opportunity cost of OWYN,Red,8.5,% shares foregone,N/A,Not Applicable,2,10,-6,3,High,"FY25 10-K p.43,73-74",,None
+02-008,02_capital-allocation-scorecard,Buyback Scorecard,FY21-24 buybacks offset dilution,Red,4,of 4yr net increase,Deteriorating then reversing,Not Applicable,3,8,-5,5,Medium,"CIQ Financials_Annual",RF-CAP-002,None reversed FY25-26
+02-009,02_capital-allocation-scorecard,Buyback Scorecard,FY2025 buybacks offset dilution,Amber,-0.42,% net change,Improving,Not Applicable,6,8,0,5,Medium,"CIQ Financials_Annual",,None
+02-010,02_capital-allocation-scorecard,Buyback Scorecard,FY2026 YTD buybacks offset dilution,Green,-11.3,% net change,Improving sharply,Not Applicable,9,10,0,5,High,"FY26 Q3 10-Q p.15,31-32",,None
+02-011,02_capital-allocation-scorecard,Buyback Scorecard,FY2026 buyback funded by fresh debt,Amber,150.0,$M issued,Deteriorating,Not Applicable,5,10,-3,5,High,"FY26 Q3 10-Q p.31-32",,Track repayment
+02-012,02_capital-allocation-scorecard,Buyback Scorecard,FQ3 buyback price corroborated by insiders,Green,0.36,$ gap,N/A,Not Applicable,5,5,0,4,Medium,"FY26 Q3 10-Q p.15",,None
+02-013,02_capital-allocation-scorecard,Dividends,No-dividend distress or deliberate,Not Applicable,0,% payout,Stable,Not Applicable,,,0,5,Low,"FY25 10-K p.32",,None
+02-014,02_capital-allocation-scorecard,Organic Reinvestment,Incremental ROIC FY2022,Green,26.6,%,N/A,Not Applicable,8,10,0,3,Medium,"Derived",,None
+02-015,02_capital-allocation-scorecard,Organic Reinvestment,Incremental ROIC FY2024 OWYN,Red,-0.5,%,Deteriorating,Not Applicable,1,10,-6,3,Critical,"Derived",RF-CAP-004,Corroborates 02-005/006
+02-016,02_capital-allocation-scorecard,Per-Share Value,Book value/share FY21-25,Green,46,% cumulative,Improving then reversing,Not Applicable,6,10,0,4,Medium,"CIQ Financials_Annual",,None
+02-017,02_capital-allocation-scorecard,Per-Share Value,Book value/share LTM impairment period,Red,-11.5,% decline,Deteriorating,Not Applicable,3,10,-3,5,High,"CIQ Financials_Annual",RF-CAP-004,Track stabilization
+02-018,02_capital-allocation-scorecard,Per-Share Value,Diluted EPS growth,Red,-2.08,$ LTM,Deteriorating,Not Applicable,2,10,-3,5,Critical,"earnings/01 sec1-2",RF-CAP-004,Track EPS recovery
+03-001,03_incentives-and-compensation,Comp Structure,CEO target pay mix Tanner FY25,Amber,59,% equity,Not enough history,In line,12,20,0,5,Medium,"2026 Proxy p.40",,Confirm Scalzo FY26 mix
+03-002,03_incentives-and-compensation,Comp Structure,Current CEO pay disclosed,Insufficient Data,,,Not enough history,Not Applicable,0,0,0,2,High,"Web-sourced 8-K unverified",,Obtain primary exhibits
+03-003,03_incentives-and-compensation,Performance Metrics,Annual bonus pays on,Red,100,% weight size metrics,Stable,No peer set,5,25,-10,5,High,"2026 Proxy p.44-45",RF-MGT-003,Watch for returns metric
+03-004,03_incentives-and-compensation,Performance Metrics,LTIP PSU primary metric,Green,100-200,% payout TSR,Stable,In line,18,20,0,5,High,"2026 Proxy p.46-47",,None
+03-005,03_incentives-and-compensation,Performance Metrics,Absolute-size PSU modifier,Amber,25,max pp swing,New,No peer set,0,0,0,5,Medium,"2026 Proxy p.47",,Track FY27 payout
+03-006,03_incentives-and-compensation,Performance Metrics,RSUs carry performance condition,Red,0,% subject to metric,Stable,No peer set,5,15,-5,5,Medium,"2026 Proxy p.46-47",,None
+03-007,03_incentives-and-compensation,Pay vs Performance,FY2025 bonus tracked outcome,Green,85,% of target,Deteriorating,No peer set,14,20,0,4,High,"2026 Proxy p.44-45",,Confirm FY26 outcome
+03-008,03_incentives-and-compensation,Pay vs Performance,CAP tracked net income or TSR,Amber,65,% CAP increase,Deteriorating,Better than peers,10,15,0,5,High,"2026 Proxy p.62-63",,None
+03-009,03_incentives-and-compensation,Pay vs Performance,CEO-to-median pay ratio,Amber,30,:1,Not enough history,Not assessed,6,10,0,5,Low,"2026 Proxy p.61",,None
+03-010,03_incentives-and-compensation,Pay vs Performance,Say-on-pay support,Green,97.3,% approval,Not enough history,Better than typical,9,10,0,5,Low,"2026 Proxy p.41",,Obtain 2026 vote outcome
+03-011,03_incentives-and-compensation,Pay vs Performance,New CEO package larger less conditioned,Amber,2000000,options,Deteriorating,No peer set,4,10,-2,2,High,"Web-sourced 8-K",,Obtain primary exhibit
+03-012,03_incentives-and-compensation,Governance features,Anti-hedging/pledging/clawback/ownership,Green,5,x base salary,Stable,In line,8,10,0,5,Medium,"2026 Proxy p.50-51",,None
+04-001,04_ownership-and-insider-behavior,Ownership,Total insider ownership,Amber,8.76,%,Not enough history,Not Applicable,10,25,0,5,High,"2026 Proxy p.66",,Track next cycle
+04-002,04_ownership-and-insider-behavior,Ownership,Kilts individual ownership,Amber,3.89,%,Improving,Not Applicable,12,25,0,5,Medium,"2026 Proxy p.66",,None
+04-003,04_ownership-and-insider-behavior,Ownership,Kilts stake bought vs granted,Amber,73,% costless,Not enough history,Not Applicable,6,15,0,4,Medium,"2026 Proxy p.67-68",,None
+04-004,04_ownership-and-insider-behavior,Insider Transactions,Net insider open-market 12mo,Green,1296228,USD net buying,Improving,Not Applicable,16,20,0,5,High,"CIQ Insider Trading",,None
+04-005,04_ownership-and-insider-behavior,Insider Transactions,Kilts open-market buy,Green,991480,USD,N/A,Not Applicable,,,0,5,High,"CIQ Insider Trading",,None
+04-006,04_ownership-and-insider-behavior,Insider Transactions,Daley open-market buy,Green,117782,USD,N/A,Not Applicable,,,0,5,Medium,"CIQ Insider Trading",,None
+04-007,04_ownership-and-insider-behavior,Insider Transactions,Matthews departing sale,Amber,-114053,USD,N/A,Not Applicable,,,0,5,Low,"CIQ Insider Trading",,None
+04-008,04_ownership-and-insider-behavior,Insider Transactions,West Other Disposition unconfirmed,Insufficient Data,348000,shares,N/A,Not Applicable,0,0,0,2,Medium,"CIQ Insider Trading",,Confirm via Form 4
+04-009,04_ownership-and-insider-behavior,Pledging,Insider share pledging,Green,0,% pledged,Stable,Not Applicable,20,20,0,5,Critical,"2026 Proxy Anti-Hedging Policy",,None
+04-010,04_ownership-and-insider-behavior,Control Structure,Dual-class shares,Green,1,class,Stable,Not Applicable,10,10,0,5,High,"2026 Proxy; FY25 10-K",,None
+04-011,04_ownership-and-insider-behavior,Control Structure,Shareholder bloc board rights,Green,0,active blocs,Improving,Not Applicable,,,0,5,Medium,"2026 Proxy p.67-68",,None
+04-012,04_ownership-and-insider-behavior,Control Structure,Unaligned controlling owner Filter 6,Not Applicable,,,N/A,Not Applicable,,,0,5,High,"sec1,sec4",,None
+04-013,04_ownership-and-insider-behavior,Institutional Ownership,Top institutional concentration,Green,13.90,% BlackRock,Stable,Not Applicable,7,10,0,4,Medium,"2026 Proxy footnote2; CIQ",,None
+04-014,04_ownership-and-insider-behavior,Institutional Ownership,Institutional repositioning,Amber,-2656699,shares FMR,Deteriorating mild,Not Applicable,,,0,3,Medium,"CIQ Ownership Summary",,Watch next quarter
+04-015,04_ownership-and-insider-behavior,Ownership,Scalzo post-return ownership,Insufficient Data,,,Not enough history,Not Applicable,0,0,0,1,Medium,"CIQ Insider Trading; 2026 Proxy",,Obtain Form 3/4
+05-001,05_board-and-shareholder-rights,Board Composition,Board size independent pct,Green,90.9,% 10/11,Stable,Not Applicable,16,20,0,5,Medium,"2026 Proxy p.10",,None
+05-002,05_board-and-shareholder-rights,Board Composition,Chair CEO split,Green,1,Chair+CEO,Stable,Not Applicable,8,10,0,5,Medium,"2026 Proxy p.11",,Re-combine if Kilts retires?
+05-003,05_board-and-shareholder-rights,Board Composition,Committees independent,Green,100,%,Stable,Not Applicable,14,15,0,5,Medium,"2026 Proxy p.19-22",,None
+05-004,05_board-and-shareholder-rights,Board Composition,Independence real or technical,Amber,3,of 10 same firm,Stable,Not Applicable,8,15,-5,5,Medium,"2026 Proxy p.27,30,34,68",no dedicated ID,Nomination right still exercisable?
+05-005,05_board-and-shareholder-rights,Tenure,Average director tenure,Green,6.6,years,Stable,Not Applicable,7,10,0,4,Low,"2026 Proxy p.25-35",,None
+05-006,05_board-and-shareholder-rights,Tenure,CEO-director overboarded,Amber,2,other boards,N/A,Not Applicable,3,5,-2,4,Low,"CIQ Key Dev.",,Will Scalzo reduce seats?
+05-007,05_board-and-shareholder-rights,Tenure,Chair succession risk,Amber,1,year to retirement,N/A,Not Applicable,3,5,-2,5,Medium,"2026 Proxy p.10,27",,Succession plan disclosed?
+05-008,05_board-and-shareholder-rights,Tenure,Board refreshed,Green,1,new director,Improving,Not Applicable,6,10,0,5,Low,"2026 Proxy p.18",,None
+05-009,05_board-and-shareholder-rights,Related-Party,Material dollar RPTs,Green,0,% rev/exp,Stable,Not Applicable,18,20,0,5,Critical,"2026 Proxy p.68",,None
+05-010,05_board-and-shareholder-rights,Related-Party,RPT policy exists,Green,1,policy,Stable,Not Applicable,5,5,0,5,Medium,"2026 Proxy p.11",,None
+05-011,05_board-and-shareholder-rights,Related-Party,SPAC sponsor rights still live,Insufficient Data,,,Not enough history,Not Applicable,,,0,3,Medium,"2026 Proxy p.68",,Confirm legal status
+05-012,05_board-and-shareholder-rights,Related-Party,Pledging hedging ban,Green,1,policy,Stable,Not Applicable,5,5,0,5,Medium,"2026 Proxy p.15",,None
+05-013,05_board-and-shareholder-rights,Takeover Defenses,Poison pill adopted,Green,0,plans,Stable,Not Applicable,5,5,0,4,Medium,"FY25 10-K Risk Factors",,None
+05-014,05_board-and-shareholder-rights,Takeover Defenses,Classified staggered board,Green,0,classes,Stable,Not Applicable,5,5,0,5,Medium,"2026 Proxy p.10",,None
+05-015,05_board-and-shareholder-rights,Takeover Defenses,Dual-class unequal voting,Green,1,class,Stable,Not Applicable,5,5,0,5,Medium,"FY25 10-K cover",,None
+05-016,05_board-and-shareholder-rights,Takeover Defenses,Special meeting written consent rights,Red,0,of 2 rights,Stable,Not Applicable,0,15,-12,5,High,"FY25 10-K Risk Factors",RF-SHR-002-adjacent,Ever blocked a proposal?
+05-017,05_board-and-shareholder-rights,Takeover Defenses,Director removal standard,Amber,1,for-cause majority-outstanding,Stable,Not Applicable,3,10,-4,5,Medium,"FY25 10-K Risk Factors",,None
+05-018,05_board-and-shareholder-rights,Takeover Defenses,Election standard resignation backstop,Green,1,plurality+resignation,Stable,Not Applicable,6,8,0,5,Medium,"2026 Proxy p.24",,None
+05-019,05_board-and-shareholder-rights,Shareholder Voting,Say-on-pay result,Green,97.3,% approval,N/A,Not Applicable,10,10,0,5,High,"2026 Proxy p.53",,Confirm 2026 result
+05-020,05_board-and-shareholder-rights,Shareholder Voting,2026 AGM outcome confirmed,Insufficient Data,,,Not enough history,Not Applicable,,,0,2,Medium,"Not in pool",,Obtain post-meeting filing
+05-021,05_board-and-shareholder-rights,Shareholder Voting,ISS Glass Lewis available,Insufficient Data,,,N/A,Not Applicable,,,0,1,Low,"Not in pool",,None
+05-022,05_board-and-shareholder-rights,Shareholder Voting,Equity plan dilution,Green,2.36,% incremental,Stable,Not Applicable,7,10,0,5,Low,"2026 Proxy p.72-73",,None
+05-023,05_board-and-shareholder-rights,Ownership Context,Aggregate director officer ownership,Green,8.76,%,Not enough history,Not Applicable,4,5,0,5,Low,"2026 Proxy p.66",,Cross-ref agent 04
+05-024,05_board-and-shareholder-rights,Ownership Context,Unaligned controlling owner,Not Applicable,0,count,N/A,Not Applicable,,,0,5,Low,"business-model/01 sec1 item2",,None
+06-001,06_candor-and-disclosure-quality,Owning the Misses,FQ2 FY26 guidance miss owned,Green,-5.6,% below range,N/A,Not Applicable,22,25,0,5,Critical,"Q2 FY26 transcript",,None
+06-002,06_candor-and-disclosure-quality,Owning the Misses,OWYN failure owned,Green,71,% impaired,Deteriorating,Not Applicable,22,25,0,5,Critical,"Q2/Q3 FY26 transcripts",,None
+06-003,06_candor-and-disclosure-quality,Non-GAAP Aggressiveness,Adjustments above 15% threshold,Red,56.3,% GAAP EBITDA FY25,Deteriorating,Not Applicable,4,20,-12,5,High,"earnings/06 sec4,sec9",RF-DISC-002,Track normalization
+06-004,06_candor-and-disclosure-quality,Non-GAAP Aggressiveness,Integration expense non-recurring,Red,2,yrs+1qtr recurring,Deteriorating,Not Applicable,3,20,-3,5,High,"earnings/06 sec4",RF-DISC-002,Disappears post-integration?
+06-005,06_candor-and-disclosure-quality,Non-GAAP Aggressiveness,Adjusted EBITDA excludes recurring loss,Red,391.9,$M excluded,Deteriorating,Not Applicable,3,15,-9,5,Critical,"earnings/06 sec1,sec10",RF-DISC-002,Escalate on 4th impairment
+06-006,06_candor-and-disclosure-quality,Disclosure Transparency,Brand-level KPIs consistent,Green,3,brands,Stable,Not Applicable,16,20,0,4,Medium,"Q2/Q3 FY26 transcripts",,None
+06-007,06_candor-and-disclosure-quality,Disclosure Transparency,Maintenance vs growth capex split,Amber,0,breakdown,Not disclosed,Not Applicable,4,10,-4,3,Medium,"earnings/06 sec1",,Will FY26 10-K break out?
+06-008,06_candor-and-disclosure-quality,Disclosure Transparency,Transcript vs vendor capex agree,Amber,5,$M discrepancy,N/A,Not Applicable,3,5,-2,2,Low,"Q3 FY26 transcript; Guidance tab",,Reconcile vs press release
+06-009,06_candor-and-disclosure-quality,Q&A Transparency,Questions answered directly,Green,2,of 2 no evasion,Stable,Not Applicable,14,15,0,4,High,"Q2/Q3 FY26 transcripts",,None
+06-010,06_candor-and-disclosure-quality,Disclosure Timeliness,Filings on schedule,Green,0,delayed,Stable,Not Applicable,9,10,0,4,Medium,"10-Q filing dates",,None
+06-011,06_candor-and-disclosure-quality,Specificity vs Boilerplate,Root-cause specific or generic,Amber,2,brand-specific causes,Stable,Not Applicable,7,10,-1,3,Medium,"Q2/Q3 FY26 transcripts",,None
+06-012,06_candor-and-disclosure-quality,Integrity Cross-Check,Adverse integrity signal routed,Not Applicable,0,count,N/A,Not Applicable,,,0,5,Low,"business-model/01 sec3",,None
