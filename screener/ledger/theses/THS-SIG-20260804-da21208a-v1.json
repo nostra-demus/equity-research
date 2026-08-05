@@ -1,0 +1,636 @@
+{
+  "meta": {
+    "thesis_id": "THS-SIG-20260804-da21208a-v1",
+    "signal_id": "SIG-20260804-da21208a",
+    "created_at": "2026-08-05T00:00:00Z",
+    "locked": true,
+    "version": 1,
+    "version_history": [],
+    "status": "provisional",
+    "status_reason": "Edge-definition synthesis scored the edge 67/100 (0.40 x VPQ 63 + 0.30 x MRS 65 + 0.30 x CTC 75 = 67.2), inside the 60-80 provisional band: a numeric, evidenced variant (marginal incentive intensity 13.9% vs 10.9% disclosed average) and a verifiable complexity-based mispricing reason, converging on a scheduled Q3 2026 earnings trigger, but each leg carries its own moderating flag rather than clearing the >80 full_machine bar.",
+    "next_action": "Surface candidates for the direct/indirect/harmed-party industries carried forward in M0_3.",
+    "analyst_id": "ceekay@muns.io",
+    "phase1_completed_at": "2026-08-05T16:30:00Z",
+    "next_module": "candidate-surfacing",
+    "raw_input_source": {
+      "input_nature": "news_headline",
+      "input_datetime": "2026-08-04T08:52:40.974Z",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "source_url": "https://www.reuters.com/business/retail-consumer/singapores-grab-lifts-annual-revenue-forecast-2026-08-03/",
+      "source_grade": "A",
+      "human_prompt_note": "",
+      "approved_source_check": true
+    }
+  },
+  "headline": "Singapore's Grab lifts annual forecasts as AI, incentives drive growth",
+  "run_root": "screener/runs/SIG-20260804-da21208a/",
+  "M0_1": {
+    "event_statement": "On 4 August 2026, Grab Holdings Limited, the Singapore-headquartered ride-hailing and delivery company, raised its full-year 2026 revenue guidance to a range of $4.10 billion to $4.15 billion, up from a prior range of $4.04 billion to $4.10 billion, and raised its full-year 2026 adjusted EBITDA guidance to a range of $720 million to $740 million, up from a prior range of $700 million to $720 million. The company reported second-quarter 2026 revenue of $997 million, a 22% increase from the prior-year quarter, and on-demand gross merchandise value of $6.5 billion, a 21% increase from the prior-year quarter. Grab's board authorized a new $750 million share repurchase program, bringing total repurchase authorizations since 2024 to $1.75 billion. Shares of the Nasdaq-listed company rose 4% in extended trading after the announcement.",
+    "sentence_count": 4,
+    "primary_source": "Reuters",
+    "source_url": "https://www.reuters.com/business/retail-consumer/singapores-grab-lifts-annual-revenue-forecast-2026-08-03/",
+    "supporting_source_urls": [
+      "https://www.grab.com/sg/press/others/grab-reports-record-second-quarter-2026-results-raises-full-year-guidance-and-announces-750-million-share-repurchase-program/",
+      "https://www.dealstreetasia.com/stories/grab-q2-2026-earnings-490963"
+    ],
+    "source_grade": "A",
+    "source_grade_rationale": "Reuters is a primary newswire named directly on sources.signal_gate.allowed, Source-quality Tier 1.",
+    "causal_language_check": true,
+    "causal_language_review": "Grepped the draft against the banned list and synonyms doing causal work (because, due to, driven by, as a result, leading to, signals, suggests, implies, panic, crisis, soaring, plunging, aggressively, inevitably). None appear in the statement; the intake body's own causal framing (\"encouraged by strong demand\", \"driven by promotional offers\") was deliberately omitted from the sterile statement.",
+    "60_second_source_check": true,
+    "60_second_check_note": "Primary Reuters URL returned a tool-level fetch_error (domain-level fetch restriction, not a paywall). Fallback ran in priority order: SEC EDGAR 6-K filings (tier 2) returned HTTP 403 and were unreadable; the official Grab IR press release (tier 1) and DealStreetAsia (tier 3, on-list) were both opened directly and fully confirm every fact in the statement.",
+    "paywall_detected": false,
+    "primary_read_quality": "fetch_error",
+    "extraction_confidence": 75,
+    "confirmation_status": "confirmed",
+    "alternate_sources_found": [
+      {
+        "source_name": "Grab Investor Relations (official press release, grab.com)",
+        "url": "https://www.grab.com/sg/press/others/grab-reports-record-second-quarter-2026-results-raises-full-year-guidance-and-announces-750-million-share-repurchase-program/",
+        "tier": 1,
+        "confirms": "full",
+        "retrieved_at": "2026-08-05T10:20:00Z"
+      },
+      {
+        "source_name": "SEC EDGAR (Form 6-K, filing 1)",
+        "url": "https://www.sec.gov/Archives/edgar/data/0001855612/000185561226000123/a2026q2-earningspressrelea.htm",
+        "tier": 2,
+        "confirms": "none",
+        "retrieved_at": "2026-08-05T10:15:00Z"
+      },
+      {
+        "source_name": "SEC EDGAR (Form 6-K, filing 2)",
+        "url": "https://www.sec.gov/Archives/edgar/data/0001855612/000185561226000125/a52026q2-earningspressrele.htm",
+        "tier": 2,
+        "confirms": "none",
+        "retrieved_at": "2026-08-05T10:15:30Z"
+      },
+      {
+        "source_name": "DealStreetAsia",
+        "url": "https://www.dealstreetasia.com/stories/grab-q2-2026-earnings-490963",
+        "tier": 3,
+        "confirms": "full",
+        "retrieved_at": "2026-08-05T10:14:30Z"
+      }
+    ],
+    "filled_by": "agent"
+  },
+  "M0_2": {
+    "world_changes": [
+      {
+        "id": "WC-001",
+        "change_description": "Grab raised its FY2026 revenue guidance range",
+        "quantitative_magnitude": "New range $4.10bn-$4.15bn (midpoint $4.125bn), +$55m / +1.35% at the midpoint",
+        "baseline_reference": "Prior FY26 guidance $4.04bn-$4.10bn (midpoint $4.07bn)",
+        "date_confirmed": "2026-08-04",
+        "source": "Grab Holdings Investor Relations press release, 2026-08-04",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-002",
+        "change_description": "Grab raised its FY2026 adjusted EBITDA guidance range",
+        "quantitative_magnitude": "New range $720m-$740m (midpoint $730m), +$20m / +2.8% at the midpoint",
+        "baseline_reference": "Prior FY26 guidance $700m-$720m (midpoint $710m)",
+        "date_confirmed": "2026-08-04",
+        "source": "Grab Holdings Investor Relations press release, 2026-08-04",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-003",
+        "change_description": "Q2 2026 reported revenue",
+        "quantitative_magnitude": "$997m, +$178m / +21.7% (company reports +22%)",
+        "baseline_reference": "Q2 2025 revenue $819m",
+        "date_confirmed": "2026-08-04",
+        "source": "Grab Holdings Investor Relations press release, 2026-08-04; baseline Yahoo Finance / Zacks, \"Grab Q2 Earnings Meet, Revenues Surpass Estimates\", 2025-08-22",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-004",
+        "change_description": "Q2 2026 on-demand gross merchandise value (GMV)",
+        "quantitative_magnitude": "$6.5bn, +$1.15bn / +21.5% (company reports +21%)",
+        "baseline_reference": "Q2 2025 on-demand GMV $5.35bn",
+        "date_confirmed": "2026-08-04",
+        "source": "Grab Holdings Investor Relations press release, 2026-08-04; baseline Yahoo Finance / Zacks, \"Grab Q2 Earnings Meet, Revenues Surpass Estimates\", 2025-08-22",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-005",
+        "change_description": "Board authorized a new share-repurchase program",
+        "quantitative_magnitude": "+$750m new authorization, taking cumulative authorizations since 2024 to $1.75bn (+75% vs. prior cumulative total)",
+        "baseline_reference": "Prior cumulative repurchase authorizations since 2024: $1.0bn ($1.75bn total minus the new $750m tranche)",
+        "date_confirmed": "2026-08-04",
+        "source": "Grab Holdings Investor Relations press release, 2026-08-04; corroborated DealStreetAsia, \"Grab lifts 2026 outlook, unveils $750m buyback as one-off gain boosts Q2 profit\", 2026-08-04",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-006",
+        "change_description": "GRAB share price moved in extended/after-hours trading following the release",
+        "quantitative_magnitude": "After-hours price $3.82, +4.14% (company/press reports ~4%)",
+        "baseline_reference": "Last regular-session close before the after-hours move: $3.67",
+        "date_confirmed": "2026-08-04",
+        "source": "Benzinga, \"Grab (GRAB) Stock Is Trending Overnight: Here's Why Shares Rose After Hours\", 2026-08-04",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      }
+    ],
+    "gate_result": "pass",
+    "gate_rationale": "Six changes are each backed by a quantified magnitude, a pre-event baseline, a confirmation date, and an on-list or primary source - above the 2-item minimum and within the 6-item maximum.",
+    "watchlist_deferred_items": [
+      "Full execution of the new $750m buyback authorization - an authorization, not a completed purchase; Grab's prior $500m tranche (announced Feb 2026) had only ~$400m executed as of this release.",
+      "FY2026 actual revenue landing inside the new $4.10bn-$4.15bn guidance range - a forward target for an incomplete fiscal year, not a change that has already happened.",
+      "FY2026 actual adjusted EBITDA landing inside the new $720m-$740m guidance range - same reasoning, a forward target not a realized result.",
+      "Continued share-price appreciation beyond the initial +4.14% after-hours move - any further re-rating over subsequent sessions is an expectation about market reaction, not yet an observed, dated fact."
+    ],
+    "agent_data_sources_checked": [
+      "Grab Holdings Investor Relations press release (grab.com), 2026-08-04",
+      "DealStreetAsia, \"Grab lifts 2026 outlook, unveils $750m buyback as one-off gain boosts Q2 profit\", 2026-08-04",
+      "Yahoo Finance / Zacks, \"Grab Q2 Earnings Meet, Revenues Surpass Estimates, Improve Y/Y\", 2025-08-22",
+      "Cryptonomist, \"Grab Holdings Limited stock jumps to $3.67...\", 2026-08-04",
+      "Benzinga, \"Grab (GRAB) Stock Is Trending Overnight: Here's Why Shares Rose After Hours\", 2026-08-04"
+    ]
+  },
+  "M0_3": {
+    "direct_beneficiaries": [
+      {
+        "id": "DIR-001",
+        "industry_category": "Southeast Asia digital-payment transaction processing / payment-rail providers",
+        "gics_classification": "Financials - Transaction & Payment Processing Services, GICS 40203020",
+        "mechanism": "WC-004: on-demand GMV $6.5bn, +21.5% YoY. Rising GMV is the dollar volume settled through the payment rails and processors that clear in-app payments across Grab's markets - one step from GMV to settled payment volume.",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 15,
+          "speed_score": 25,
+          "reversibility_score": 15,
+          "composite_score": 80,
+          "tier": "primary",
+          "carry_forward": true,
+          "scoring_notes": "Directness is high (25) because rising GMV converts almost mechanically into settled payment volume in the same period. Magnitude is capped at 15 because only Grab's own GMV is quantified - the actual revenue captured by the third-party payment-processing industry (its take rate on that volume) is not disclosed anywhere in the confirmed world changes. Speed is 25 because the volume is already flowing this quarter. Reversibility is 15 because Grab could route more volume through its own wallet (GXS/GrabPay) over time, and consumer demand could slow, both of which would pull share away from third-party rails."
+        }
+      },
+      {
+        "id": "DIR-002",
+        "industry_category": "Southeast Asia gig-driver vehicle / two-wheeler leasing and fleet-financing providers",
+        "gics_classification": "Financials - Consumer Finance, GICS 40203010",
+        "mechanism": "WC-004 (GMV +21.5%) and WC-001 (raised FY26 revenue guidance) reflect higher trip/order volumes, which need more active driver vehicle-hours; providers financing or leasing vehicles to gig drivers see demand rise as the addressable driver fleet grows to cover the added volume.",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 15,
+          "speed_score": 15,
+          "reversibility_score": 15,
+          "composite_score": 60,
+          "tier": "secondary",
+          "carry_forward": true,
+          "scoring_notes": "The link runs through two steps - more GMV needs more driver-hours, which needs more financed vehicles - so directness is 15, not 25. No driver-count or vehicle-count figure exists in the confirmed changes, so magnitude is estimated (15). Fleet-financing decisions take longer than one quarter to show up, so speed is lagged (15). Drivers can also lease through other channels or use owned vehicles, so reversibility is partial (15)."
+        }
+      }
+    ],
+    "indirect_beneficiaries": [
+      {
+        "id": "IND-001",
+        "industry_category": "Southeast Asia online ride-hailing and food/grocery delivery platform peers competing in overlapping city markets",
+        "gics_classification": "Industrials - Ground Transportation, GICS 20304010",
+        "mechanism": "Step 1: WC-003/WC-004 (Grab revenue +21.7%, GMV +21.5%) and WC-001 (raised guidance) reveal an underlying acceleration in regional on-demand demand. Step 2: competing platforms selling into the same consumer base in the same metro markets are plausibly exposed to the same tailwind - inferential, not independently confirmed by any peer's own reported numbers.",
+        "two_step_mechanism": "Grab's confirmed acceleration -> inferred regional demand tailwind -> inferred peer exposure (unconfirmed by peer data)",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 15,
+          "speed_score": 15,
+          "reversibility_score": 15,
+          "composite_score": 60,
+          "tier": "secondary",
+          "carry_forward": true,
+          "scoring_notes": "This rests entirely on inference - Grab's own results are confirmed, but no peer's numbers are. That inferential middle step caps directness at 15. The same \"estimated, not independently confirmed\" logic caps magnitude at 15. Peer results would only become visible in their own next quarterly reporting cycle, so speed is lagged (15). Reversibility is partial (15) since the demand tailwind, if real, could fade with the macro cycle."
+        }
+      }
+    ],
+    "harmed_parties": [
+      {
+        "id": "HARM-001",
+        "industry_category": "Traditional and informal (non-platform) taxi and passenger-transport operators in Southeast Asia",
+        "gics_classification": "Industrials - Ground Transportation, GICS 20304010, informal segment",
+        "mechanism": "Step 1: WC-004 (on-demand GMV +21.5%) and WC-001 (raised guidance) show Grab continuing to grow within the passenger-trip pool. Step 2: because on-demand platform growth in mature SE Asia markets is largely substitutional (riders choosing the app over hailing a street taxi), continued platform growth implies the non-platform segment's addressable trip volume keeps shrinking - inferred from platform-side growth, not from any informal-segment data.",
+        "two_step_mechanism": "Grab platform GMV growth -> inferred substitution away from street-hail/informal taxis (no informal-segment data)",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 15,
+          "speed_score": 15,
+          "reversibility_score": 25,
+          "composite_score": 70,
+          "tier": "secondary",
+          "carry_forward": true,
+          "scoring_notes": "The mechanism is inferential (no informal-taxi data exists to confirm share loss directly), so directness and magnitude are both capped at 15. The shift accrues gradually, so speed is lagged (15). Reversibility is scored high (25) because once riders habitually book on an app, migration back to street-hailing is rare - this is a largely one-way, structurally sticky substitution, which is why it clears into the secondary tier despite resting on inference."
+        }
+      },
+      {
+        "id": "HARM-002",
+        "industry_category": "Southeast Asia restaurant and food-service merchants selling through on-demand delivery marketplaces",
+        "gics_classification": "Consumer Discretionary - Restaurants, GICS 25301040",
+        "mechanism": "Step 1: WC-002 (raised FY26 adjusted EBITDA guidance, +2.8% at midpoint) alongside WC-004 (delivery-inclusive GMV growth) shows platform profitability improving as GMV scales. Step 2: take-rate/commission economics are the channel by which rising delivery GMV becomes rising platform profit, so merchants transacting on the marketplace keep bearing that commission structure - the commission rate itself is not disclosed in any WC, so this link is an inference, not a filed fact.",
+        "two_step_mechanism": "Rising platform EBITDA + GMV -> inferred continued commission burden on merchants (commission rate undisclosed)",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 5,
+          "speed_score": 15,
+          "reversibility_score": 15,
+          "composite_score": 50,
+          "tier": "parked",
+          "carry_forward": false,
+          "scoring_notes": "Same two-step, inferential structure as HARM-001, but weaker: the confirmed world changes never disclose a commission rate or a merchant-level figure, so magnitude drops to directional-only (5) rather than estimated. Merchants can also multi-home across delivery apps or shift to dine-in/owned channels, so reversibility is partial (15). The composite lands at exactly the parked threshold."
+        }
+      }
+    ],
+    "population_gate": {
+      "direct_beneficiaries_populated": true,
+      "indirect_beneficiaries_populated": true,
+      "harmed_parties_populated": true,
+      "at_least_one_populated": true,
+      "both_sides_empty": false,
+      "primary_count": 1,
+      "secondary_count": 3,
+      "parked_count": 1,
+      "carry_forward_count": 4,
+      "zero_carry_forward_action": "proceed"
+    },
+    "pair_trade_notes": "Platform-share pair: long the Southeast Asia on-demand ride-hailing and delivery platform industry (IND-001) against short/avoid the traditional and informal taxi and passenger-transport industry (HARM-001). Both sides trace to the same underlying mechanism - Grab's confirmed GMV and guidance growth (WC-001, WC-004) as evidence of platform share continuing to displace non-platform passenger transport in the same city markets. Gig-fleet-financing pair: long the gig-driver vehicle/two-wheeler leasing and fleet-financing industry (DIR-002), which gains as platform ride volume requires more financed vehicles, against the owner-operated segment of the traditional taxi industry (part of HARM-001), which loses fleet-utilization economics to the same platform growth.",
+    "ticker_check": true,
+    "ticker_check_detail": {
+      "performed": true,
+      "violations": [],
+      "repair_action": "none required"
+    }
+  },
+  "M0_4": {
+    "horizon": "medium_weeks_3months",
+    "horizon_rationale": "The confirmed world changes are a full-year 2026 guidance raise (WC-001, WC-002) and a Q2 2026 beat (WC-003, WC-004) - both are read against Grab's own quarterly reporting cycle, not a single dated catalyst. Grab's Q2 2026 results (quarter ended 30 June) were released 2026-08-04, roughly five weeks after quarter-end; on that same cadence, Q3 2026 results (quarter ending 30 September) fall around early-to-mid November 2026 - about 13 weeks from today. That next print is the first point at which the market can check whether the AI-cost and incentive-driven growth cited by management continued, or whether the raised range was a one-quarter pull-forward. The $750m buyback (WC-005) has no fixed completion date and does not itself set the clock.",
+    "expiry_condition": "Grab Holdings publishes its Q3 2026 earnings results and either reaffirms/raises or cuts the FY2026 revenue ($4.10bn-$4.15bn) and adjusted EBITDA ($720m-$740m) guidance issued 2026-08-04. The print is the checkable resolution of whether the growth pace behind WC-001-WC-004 (22% revenue growth, 21% GMV growth) continued into Q3 or decelerated.",
+    "expiry_condition_is_observable": true,
+    "expiry_condition_is_opinion": false,
+    "monitoring_frequency": "Weekly scan of the Grab Investor Relations page and SEC EDGAR 6-K filings for interim disclosures (business updates, guidance pre-announcements); step up to daily checks during the two weeks surrounding the expected Q3 2026 print (early-to-mid November 2026).",
+    "horizon_expiry_market_signal": "GRAB share price (Nasdaq: GRAB) relative to the pre-print close of $3.67 and the post-print after-hours level of $3.82 (WC-006). Sustained multi-session trading back below $3.67 before the Q3 print would signal the market has already priced out the guidance raise; sustained trading at or above $3.82 into the Q3 print confirms the market continues to price in the raised guidance. This is a market-side confirmation, separate from the Q3 earnings print itself."
+  },
+  "M0_5": {
+    "falsification_sentence": "Grab's Q3 2026 earnings print, expected by mid-November 2026, reports on-demand gross merchandise value (GMV - the total dollar value of orders/trips booked through the app) growth decelerating to below 10% year-over-year, roughly half the 21.5% pace reported for Q2 2026.",
+    "falsification_condition_type": "magnitude_decay",
+    "monitorable_metric_1": "Grab on-demand GMV, year-over-year % growth, as disclosed in Grab Holdings' Q3 2026 earnings release (grab.com/sg/press) and the corresponding Form 6-K filing (SEC EDGAR, issuer CIK 0001855612)",
+    "monitorable_metric_2": "Grab total revenue, year-over-year % growth, from the same Q3 2026 release/6-K - used to cross-check that a GMV slowdown is a genuine demand deceleration and not a one-off mix artifact",
+    "monitorable_threshold_rate": 10,
+    "monitorable_threshold_rate_unit": "% year-over-year GMV growth (cross-checked against revenue growth in the same print)",
+    "monitorable_threshold_date": "2026-11-15",
+    "uncomfortable_check": true,
+    "uncomfortable_check_rationale": "The load-bearing claim underneath every carried-forward party in the M0.3 beneficiary map - DIR-001 (payment rails), DIR-002 (driver-fleet financing), IND-001 (competing platforms), HARM-001 (informal taxis), HARM-002 (delivery merchants) - is that Grab's Q2 2026 acceleration (GMV +21.5%, revenue +21.7%, WC-003/WC-004) reflects a genuine, continuing rise in Southeast Asia on-demand demand, not a one-quarter pull-forward (e.g., a promotional push timed around the guidance raise and buyback announcement). Every \"speed\" and \"magnitude\" sub-score in M0.3 assumes that pace holds through the M0.4 horizon. If Q3 GMV growth halves to below 10%, the payment-volume mechanism DIR-001 depends on shrinks, the added-driver-hours mechanism DIR-002 depends on weakens, the regional-tailwind inference IND-001 depends on is unconfirmed or reversed, and the continued-share-loss inference behind HARM-001/HARM-002 no longer holds because Grab itself is not growing at the rate that inference requires. This is not a miss on the margins - it is the same mechanism that produced every carried-forward party running in reverse. The thesis would be dead, not dented.",
+    "secondary_falsifiers": [
+      {
+        "id": "SF-001",
+        "description": "Grab cuts its FY2026 revenue guidance below the pre-August-2026 floor of $4.04bn (reversing WC-001) at the Q3 2026 print or in any interim disclosure before it",
+        "monitorable_metric": "FY2026 revenue guidance range, low end - Grab IR release / Form 6-K",
+        "probability_estimate": 0.15
+      },
+      {
+        "id": "SF-002",
+        "description": "A major Southeast Asia on-demand peer (e.g., GoTo/Gojek, or Delivery Hero's foodpanda) reports flat or declining on-demand GMV for the period overlapping Grab's Q2/Q3 2026 - showing Grab's growth is share capture, not a regional demand tailwind, and invalidating IND-001's peer-tailwind assumption",
+        "monitorable_metric": "Peer on-demand GMV, year-over-year % growth - peer's own quarterly earnings release",
+        "probability_estimate": 0.3
+      },
+      {
+        "id": "SF-003",
+        "description": "Grab discloses that its in-house payment product (GrabPay / GXS Bank) share of on-demand GMV settled in-app has risen materially (e.g., crosses 40% of GMV), showing volume is shifting away from third-party payment rails rather than through them - falsifies DIR-001 specifically",
+        "monitorable_metric": "GrabPay/GXS in-app payment penetration, % of on-demand GMV - Grab investor materials or earnings-call disclosure",
+        "probability_estimate": 0.2
+      }
+    ],
+    "locked_after_m0_complete": true,
+    "locked_at": "2026-08-05T16:30:00Z"
+  },
+  "M0_6_1": {
+    "consensus_view": {
+      "paragraph": "Wall Street reads Grab's 4 August 2026 guidance raise as confirmation that Southeast Asia's largest ride-hailing and delivery platform is scaling profitably, not just growing. Twenty-six analysts cover the stock and every one of them rates it Buy or Strong Buy - zero Hold, zero Sell - with an average price target of $5.85, implying roughly 57% upside from the $3.72 close [stockanalysis.com, GRAB forecast page, data as of 2026-08-05]. The bull case rests on the same numbers Grab itself highlighted: 22% revenue growth and 21% GMV growth in the second quarter alone, delivered while adjusted EBITDA guidance also rose, which the market reads as proof that AI-driven cost cuts - CFO Peter Oey said the cost structure \"is getting better and better,\" with product delivery three times faster and roughly 40,000 sales-inefficiency hours eliminated - are letting Grab keep spending on driver incentives and the low-cost \"Saver\" tier to defend share through a regional fuel-cost spike without giving up margin [Reuters, \"Singapore's Grab lifts annual forecasts as AI, incentives drive growth,\" 2026-08-03/04]. Even the most cautious desk currently covering the stock, Barclays, cut its price target from $7 to $5 on 3 August 2026 but kept an Overweight rating, framing the new number as still \"meaningful upside\" from the low $3s - the consensus is moderating its enthusiasm, not its direction [Barclays note via timothysykes.com, \"GRAB Stock Holds Range As Barclays Trims Price Target,\" 2026-08-03]. The new $750 million buyback, on top of $1.75 billion authorized since 2024, reads to the Street as a signal that cash generation is now durable enough to return capital rather than needing to be hoarded for growth investment or a downturn.",
+      "numeric_anchor": "Average sell-side price target $5.85 (range $4.60-$8.00, median $5.90), implying ~57% upside from the $3.72 close [stockanalysis.com, GRAB forecast page, data as of 2026-08-05]",
+      "key_consensus_assumptions": [
+        "The Q2 2026 growth acceleration (22% revenue growth, 21% GMV growth) reflects durable demand in Southeast Asia's on-demand market, not a one-quarter pull-forward funded by the $706 million Grab spent on customer and partner incentives that same quarter.",
+        "AI-driven cost efficiencies will keep expanding adjusted EBITDA margin even while promotional and driver-incentive spending stays elevated to defend market share against the regional fuel-cost spike.",
+        "The raised FY2026 guidance ($4.10bn-$4.15bn revenue, $720m-$740m adjusted EBITDA) will be met or exceeded at the Q3 print, not walked back the way full-year ranges sometimes need revising mid-cycle.",
+        "Grab's scale and market leadership justify a premium valuation (trailing P/E around 42x-44x) despite live regulatory scrutiny (a US senator pushing the FTC on food-delivery fee practices) and recent insider selling by CEO Anthony Tan."
+      ]
+    },
+    "contrary_view": {
+      "exists": false,
+      "paragraph": "Searched analyst-rating aggregators (stockanalysis.com, TipRanks, Benzinga, Investing.com, MarketScreener) for any current Hold, Sell, or Underweight rating on GRAB, and Seeking Alpha's author-ratings and sell-side-ratings pages for a bear-thesis article carrying a numeric price target. None found as of 2026-08-05: coverage stands at 26 analysts, all Buy or Strong Buy. Bank of America's only Underperform rating on GRAB predates January 2025 - BofA upgraded it to Neutral on 2025-01-07 (target $4.90->$5.10) and further to Buy on 2026-01-19 (target $6.30) - stale and superseded, not a current dissent. Separately found valuation-skeptic commentary that stops short of a formal rating: a trailing P/E of roughly 42x-44x described as demanding \"flawless execution,\" CEO Anthony Tan's two 2026 insider sales of 400,000 shares each (cutting his Class A stake to 28,498 shares), and a US Senate push for FTC scrutiny of food-delivery fee practices. None of this is attached to a named analyst house's current Hold/Sell rating with its own numeric anchor, so it does not clear the bar for a documented contrary view under this section.",
+      "contrary_numeric_anchor": null,
+      "contrary_view_sources": [
+        "stockanalysis.com, GRAB forecast page, 2026-08-05",
+        "TipRanks/The Fly, MarketBeat (BofA rating history), 2025-01-07 and 2026-01-19",
+        "StocksToTrade, \"GRAB Stock Slips As Insider Selling And Fee Scrutiny Mount\", 2026-07-17",
+        "StocksToTrade, \"...Regulatory Heat And Insider Selling Mount\", 2026-07-22"
+      ]
+    },
+    "consensus_strength": {
+      "unanimity_rating": "high",
+      "unanimity_rationale": "26 of 26 covering analysts rate GRAB Buy or Strong Buy, zero Hold, zero Sell, as of 2026-08-05 [stockanalysis.com, GRAB forecast page]."
+    },
+    "analyst_rating_distribution": {
+      "buy_count": 26,
+      "hold_count": 0,
+      "sell_count": 0,
+      "total_analysts": 26,
+      "buy_pct": 100,
+      "source": "stockanalysis.com, GRAB forecast page",
+      "as_of": "2026-08-05"
+    },
+    "entrenchment_note": "With zero Hold/Sell ratings among 26 analysts, a downgrade requires one house to break from every peer alone - a career-risk asymmetry that keeps ratings anchored near existing Buy calls even as price targets get trimmed (Barclays cut its target by nearly 30% on 2026-08-03 but held the rating). GRAB's status as the largest Nasdaq-listed Southeast Asia platform stock also makes it a default holding in regional-growth and EM-tech mandates, reinforcing flows that track the consensus view rather than testing it.",
+    "strawman_risk_check": true
+  },
+  "M0_6_2": {
+    "estimate_dispersion": {
+      "data": {
+        "fy2026_revenue_high": "$4.2bn",
+        "fy2026_revenue_average": "$4.1bn",
+        "fy2026_revenue_low": "$4.0bn",
+        "fy2026_eps_high": "$0.09",
+        "fy2026_eps_average": "$0.08",
+        "fy2026_eps_low": "$0.08",
+        "company_fy2026_revenue_guidance_for_comparison": "$4.10bn-$4.15bn",
+        "analyst_count": 23,
+        "source": "stockanalysis.com, Analyst Forecast, retrieved 2026-08-05"
+      },
+      "interpretation": "The revenue spread is $0.2bn, about 4.9% of the average - a tight fence, and the average ($4.1bn) already sits inside the company's own newly raised guidance band. This snapshot is taken one trading day after the 4 August raise, so the tightness confirms the sell side moved to match management fast, not that the range was already this tight before the print."
+    },
+    "estimate_revision_trajectory": {
+      "data": {
+        "three_months_ago_2026_05_04": "Guidance $4.04bn-$4.10bn (midpoint $4.07bn), Q1 2026 print",
+        "one_month_ago_early_july_2026": "Unchanged: $4.04bn-$4.10bn (midpoint $4.07bn) - no interim revision issued",
+        "now_2026_08_04_05": "Raised guidance $4.10bn-$4.15bn (midpoint $4.125bn); analyst consensus average $4.1bn"
+      },
+      "interpretation": "The company guidance path - the anchor sell-side estimates were pinned to - was flat for roughly three months and then stepped up 1.4% at the midpoint on 4 August.",
+      "missing_reason": "A dollar-denominated sell-side consensus revision history with exact 90/60/30-day-ago columns (e.g. a Zacks or Visible Alpha revision table) was searched at zacks.com/stock/quote/GRAB/detailed-earning-estimates (blocked by bot-detection) and not independently retrieved elsewhere; the guidance-trajectory table is used as the closest verifiable proxy and is labeled as company guidance, not raw analyst-consensus dollars, to avoid conflating the two."
+    },
+    "implied_scenario_from_multiple": {
+      "data": {
+        "enterprise_value": "$10.67bn",
+        "market_cap": "$15.17bn",
+        "fy2026_adj_ebitda_guidance_midpoint": "$730m ((720+740)/2)",
+        "fy2025_actual_adj_ebitda": "$500m",
+        "forward_ev_ebitda": "14.6x ($10,670m / $730m)",
+        "implied_yoy_ebitda_growth": "46.0% (($730m-$500m)/$500m)",
+        "uber_trailing_ev_ebitda_peer_reference": "21.22x",
+        "implied_ev_at_uber_multiple": "$15.5bn ($730m x 21.22), ~45% above GRAB's actual $10.67bn EV",
+        "cap_ev_bridge": "$15.17bn market cap - $10.67bn EV ~= $4.5bn of net cash/investments priced in but not decomposed by source into gross debt vs cash"
+      },
+      "interpretation": "Even though management just guided to 46% adjusted-EBITDA growth - far faster than Uber's own pace - GRAB trades at 14.6x forward EBITDA versus Uber's 21.22x trailing multiple. The gap implies the market is pricing a scenario where this growth rate does not hold through the guided period (a deceleration path, not a continuation of the Q2 print), and/or applying a standing discount for GRAB's smaller scale, Southeast Asia listing, and large uncommitted cash balance rather than crediting the cash at par."
+    },
+    "options_implied_move": {
+      "data": {
+        "implied_move_into_2026_08_03_print": "10.29%",
+        "actual_realized_move": "8.17% max intraday / 1.36% at close - inside the implied move",
+        "iv_iv_rank_stale_snapshot": "IV ~40.6%, IV rank ~33rd percentile, dated ~2026-06-26 (over five weeks old, flagged stale)",
+        "source": "optionslam.com, GRAB Earnings Straddle History, retrieved 2026-08-05"
+      },
+      "interpretation": "The options market correctly sized a double-digit move for the 3 August print and the stock's realized move landed inside it - an orderly, not disorderly, reaction.",
+      "missing_reason": "ATM call/put premiums and an implied-move percentage specific to the NEXT catalyst (Q3 2026 earnings, expected ~2026-11-11 per optionslam.com's own earnings calendar) were searched on optionslam.com and unusualwhales.com/stock/GRAB/volatility; optionslam explicitly states historical tracking data for that date is not yet available, and unusualwhales returned only JS-rendered shell content with no extractable data via fetch. A current (post-print) IV percentile reading was also not found - the only IV rank figure located is five-plus weeks stale and is shown above labeled as such."
+    },
+    "short_interest_positioning": {
+      "data": {
+        "shares_short": "315.17 million",
+        "short_pct_of_float": "11.35%",
+        "institutional_ownership": "50.04%",
+        "insider_ownership": "3.62%",
+        "named_holders": "Vanguard Group (~8.18m shares, ~0.20% of Grab, grew position 7.7% in Q1); BlackRock named among largest shareholders (share count not sourced)",
+        "source": "stockanalysis.com, Key Statistics, 2026-08-05; named-holder detail MarketBeat/holdingschannel.com 13F aggregation, dated to Q1 2026 filings"
+      },
+      "interpretation": "At 11.35% of float, short interest is elevated for a large-cap platform stock - a meaningful bear cohort was already positioned ahead of the print, not a name the market was universally bullish on.",
+      "missing_reason": "Other web sources returned materially different short-interest percentages (5.47%, 9.19%, 4.56% of float) for GRAB, reflecting different free-float denominators and FINRA's biweekly settlement lag rather than a single clean series; the 11.35% figure is the one independently verified against its own cited page and is used as the primary read, with the conflict flagged rather than hidden. The named-fund detail is web-aggregated from 13F filings, not independently re-verified against SEC EDGAR directly."
+    },
+    "implied_scenario_interpretation": "Two things point the same way. Block 3 shows the market paying 14.6x forward EBITDA for guidance implying 46% EBITDA growth - a discount to Uber's own 21.22x trailing multiple despite GRAB's guided pace being roughly double Uber's - which only makes sense if the market expects that growth rate to fade rather than persist. Block 5 adds that 11.35% of the float is already short, meaning a real bear cohort is positioned against the guidance holding. Read together with Block 4 (the options market priced, and the stock cleared, an orderly ~10% move on the print itself - no panic, no euphoria), the scenario the market is pricing is not \"guidance miss imminent\" and not \"durable re-rate to peer multiples\" - it is a show-me discount: the raise is provisionally believed for FY2026 (Block 1's tight, already-updated estimate band), but the market is withholding the growth-durability premium a 46%-EBITDA-growth platform would otherwise command until the pace survives at least one more quarter.",
+    "all_five_fields_present": true,
+    "fields_missing_flagged": [
+      "Block 2 - a dollar-denominated sell-side consensus revision history (exact 90/60/30-day columns) could not be retrieved (zacks.com blocked by bot-detection); a company-guidance-trajectory proxy is used instead, clearly labeled.",
+      "Block 3 - a formalized, independently citable \"Southeast Asia on-demand platform sector normal EV/EBITDA range\" was searched (DBS Vickers research PDF - unreadable/corrupted extraction; RS Capital Substack - wrong-dated preview, paywalled valuation section; minichart.com - HTTP 403) and not found; Uber's multiple is used as a single verifiable peer point instead of a range.",
+      "Block 4 - ATM options premiums and an implied-move % specific to the next catalyst (Q3 2026 earnings, ~2026-11-11) are not yet tracked by optionslam.com or extractable from unusualwhales.com; only the just-completed print's implied move and a stale (~5-week-old) IV rank are available.",
+      "Block 5 - short-interest percentage of float conflicts across sources (4.56%-11.35%); the highest-confidence, directly-verified figure (11.35%, stockanalysis.com) is used and the conflict is flagged rather than resolved by averaging."
+    ]
+  },
+  "M0_6_3": {
+    "variant_paragraph": "Consensus (26/26 Buy, M0.6.1 assumption #1) treats Grab's Q2 growth as durable demand, not a quarter bought with incentive dollars. Grab's own disclosed numbers say otherwise: incentive spend grew 29% year-over-year - faster than the 22% revenue growth and 21% GMV growth it produced - and the marginal incentive dollar spent on the LAST $1.15 billion of GMV growth bought less than the average dollar did. Of the 21 points of GMV growth, 17 came from more people using the app (MTU, monthly transacting users, +17%) and only 3 came from existing users spending more per visit. That is an acquisition-funnel growth pattern, not the demand-intensity story consensus is pricing.",
+    "consensus_numeric_view": "Growth is durable, not incentive-funded pull-forward; AI cost efficiencies expand margin even as incentive spend stays elevated (M0.6.1 assumptions #1, #2); avg PT $5.85, ~57% implied upside.",
+    "our_numeric_view": "Marginal incentive intensity on the quarter's GMV growth ran ~13.9%, vs. the disclosed 10.9% average - a ~3.0pp / ~28% relative premium; incentive spend growth (29% YoY) outpaced revenue (22%) and GMV (21%) growth; ~81% of GMV growth came from user-count expansion (MTU +17%), ~14% from per-user spend intensity (GMV/MTU +3%).",
+    "numeric_departure_magnitude": "Marginal incentive intensity +3.0pp (~28% relative) above the average rate; incentive-spend growth outrunning revenue growth by ~7pp. Carry-through: Q2 2025 incentives $546.7m -> Q2 2026 incentives $706m (+29.2% YoY); Q2 2025 GMV $5.35bn -> Q2 2026 GMV $6.5bn (+21.5% YoY, incremental $1.15bn); incremental incentives $159.3m / incremental GMV $1.15bn = 13.9% marginal intensity vs. 10.9% company-disclosed average (up 72bp YoY); gap = 13.9/10.9 - 1 = +27.5% relative. On-demand MTU +17% YoY, GMV per MTU +3% YoY (1.17 x 1.03 = 1.205 reproduces ~21% GMV growth): ~17 of ~21 points (~81%) from user-count growth, ~3 points (~14%) from per-user spend growth.",
+    "mechanism_1_missing_from_consensus": "Rising marginal cost of growth: Consensus assumption #2 (\"AI-driven cost efficiencies will keep expanding adjusted EBITDA margin even while... incentive spending stays elevated\") is tested against the BLENDED incentive ratio (10.9%), which did rise only 72bp YoY and looks manageable. The marginal ratio on the quarter's actual incremental GMV (13.9%) is meaningfully higher and is the number that matters for whether the NEXT unit of growth is as profitable as the last. Consensus has not decomposed average versus marginal incentive intensity; carried through, a marginal rate persistently above the average implies EBITDA-margin expansion is more fragile to any pullback in incentive spend than the blended figures suggest.",
+    "mechanism_2_missing_from_consensus": "Growth composition is acquisition-driven, not demand-driven: Consensus assumption #1 (\"durable demand... not a one-quarter pull-forward funded by incentives\") is not evidenced by Grab's own reported drivers: ~81% of GMV growth is MTU (new/returning-user count) growth, funded directly by the $706m incentive book, versus ~14% from GMV per existing user. A user-count-led growth mix is mechanically more exposed to an incentive slowdown than a per-user-intensity-led mix would be - the M0.5 kill switch already tests the OUTCOME of this (GMV growth halving would break the thesis) but the record has not carried through WHY the growth composition makes that outcome plausible.",
+    "sell_side_coverage_gap_confirmed": true,
+    "sell_side_gap_evidence": "Five searches run 2026-08-05 for sell-side coverage of Grab's incentive-driven growth quality, plus a direct fetch of Simply Wall St's \"Are Conflicting Ratings on Grab (GRAB) Hinting at a Deeper Shift in Its Investment Story?\" article. The GENERAL risk that incentive-heavy growth could limit margin expansion IS already flagged qualitatively - search results surfaced bear-case commentary that \"incentive-heavy growth and rising competition might limit how much of Grab's forecast earnings expansion actually reaches the bottom line,\" and the fetched Simply Wall St article names a 7%-of-GMV incentive threshold as a risk marker; Barclays' 2026-08-03 target cut from $7 to $5 (M0.6.1) is consistent with the Street already discounting SOME growth-quality concern. What is NOT found in any searched source: the specific marginal-vs-average incentive-intensity decomposition (13.9% vs 10.9%, a 3.0pp/28% gap) or the MTU-vs-per-MTU growth-composition split (81%/14%) as an argument against growth durability. No source performs this arithmetic. The variant is therefore a real, unmodeled quantitative mechanism layered on top of a qualitative risk the market already partly senses - not a risk the market is blind to altogether.",
+    "manifestation_event": "Grab's Q3 2026 earnings release (and accompanying Form 6-K), the same print that resolves the M0.4 horizon and the M0.5 kill switch. The two metrics that would make this variant visible: (a) on-demand incentives as % of GMV moving materially above 10.9% and/or continuing to grow faster than GMV, and (b) the MTU vs. GMV-per-MTU growth split showing MTU deceleration (an acquisition engine running out of new users to subsidize) while GMV-per-MTU stays flat.",
+    "manifestation_time_window": "Expected 2026-11-11 (per the options market's earnings-calendar entry, M0.6.2 Block 4) through 2026-11-15 (M0.5's monitorable_threshold_date) - same window as the M0.4 horizon close and the M0.5 falsification test, not a separately invented date."
+  },
+  "M0_6_4": {
+    "primary_category": "complexity",
+    "primary_category_rationale": "The mechanism M0.6.3 found - marginal incentive spend running above the average rate, and GMV growth splitting 81% user-count / 14% per-user-spend - is not a number Grab publishes or any sell-side note carries. Getting to it means pulling incentive dollars and GMV from two separate quarterly releases, computing the period-over-period change by hand, and then cross-checking that against segment-level incentive figures that sit in different sections of the same release (Facts 1-3 below). The raw numbers are all already public - nothing is stale, which rules out timing - so the reason this isn't priced is that the standard workflow of updating a model off Grab's own pre-computed blended ratio never performs the extra subtraction step, not that the data is missing or hard to find.",
+    "evidence_verifiable_fact_1": "Grab's Q2 2026 earnings release states the on-demand incentive ratio only as a single blended level with the company's own year-over-year comparison already done for the reader - \"on-demand incentives as a proportion of on-demand GMV increased 72bp YoY to 10.9%.\" No line in the release computes an incremental (marginal-dollar-over-marginal-GMV) ratio; getting that number means separately pulling the raw incentive-dollar and GMV figures from this release and from the prior-year Q2 2025 filing and doing the subtraction and division independently. Verify via: Grab Q2 2026 press release, grab.com, 2026-08-04; Grab Q2 2025 Form 6-K, SEC EDGAR CIK 1855612, filed August 2025.",
+    "evidence_verifiable_fact_2": "The release reports GMV, MTU, and GMV-per-MTU growth and the incentive-ratio figures in separate \"segment highlights\" subsections for Mobility, Deliveries, and Financial Services, rather than in one table that ties incentive dollars directly to which growth driver - new users or existing-user spend - they funded. Confirmed by a direct read of the release's own section structure. Verify via: Grab Q2 2026 press release, grab.com, 2026-08-04 (section headers \"Mobility,\" \"Deliveries,\" \"Financial Services\").",
+    "evidence_verifiable_fact_3": "The single 10.9% group-level incentive ratio cited elsewhere in this record is itself a blend of two segments moving at different speeds: Deliveries incentives ran 11.9% of GMV in Q2 2026 (up from 11.3%), while Mobility incentives ran 8.8% of GMV (up from 7.8%). A reader has to break out this segment split before the marginal-intensity mechanism can be correctly attributed to demand growth versus fuel-crisis driver support, and the group average does not show it on its own. Verify via: Grab Q2 2026 results, segment highlights, reported in \"Grab Q2 2026 slides: EBITDA surges 54% as profitability accelerates,\" Investing.com, 2026-08-04, cross-checked against the grab.com press release of the same date.",
+    "secondary_categories": [
+      {
+        "category": "behavioral",
+        "rationale": "Zero Hold/Sell ratings across 26 analysts (M0.6.1) shows the Street anchors on Grab's own pre-computed, already-favorable blended ratio and \"record results\" framing rather than recomputing a marginal figure; breaking from 25 peers to flag a subtler growth-quality read carries a career-risk cost that reinforces the anchor (M0.6.1 entrenchment_note)."
+      },
+      {
+        "category": "mandate_constraint",
+        "rationale": "GRAB's status as the largest Nasdaq-listed Southeast Asia platform stock makes it a default or required holding in regional-growth and EM-tech mandates (M0.6.1 entrenchment_note); a mandate-driven holder owns the name regardless of the incentive-intensity math, which weakens the incentive for that holder base to do the segment-level disaggregation in Fact 3."
+      }
+    ]
+  },
+  "M0_6_5": {
+    "trigger_name": "Grab Holdings' Q3 2026 earnings release (grab.com/sg/press release + accompanying Form 6-K, SEC EDGAR CIK 0001855612)",
+    "trigger_date_range": "2026-11-03 to 2026-11-17 (base case 2026-11-03/04)",
+    "trigger_type": "scheduled",
+    "probability_if_unscheduled": null,
+    "probability_note": "Quarterly earnings disclosure is a recurring, mandatory obligation for a Nasdaq-listed 6-K filer - the event WILL happen; only its exact date inside the window is estimated because Grab has not yet issued formal notice for Q3 2026. The base-case date (Nov 3-4) is set from Grab's own prior-year cadence: it announced Q3 2025 results on 3-4 November 2025 and Q3 2023 results on 9 November 2023. The wide end of the range (Nov 17) is a single vendor's forward placeholder (investing.com, GRAB Earnings, retrieved 2026-08-05), not corroborated by Grab's own historical pattern or by optionslam.com's own earnings-calendar entry (~2026-11-11) - it is shown as the outlier bound, not the central estimate. The base-case date lands well inside the M0.4 'medium_weeks_3months' horizon (~13 weeks from 2026-08-05) and matches the M0.5 monitorable_threshold_date (2026-11-15) with room to spare; the wide-end vendor estimate (Nov 17) would land 2 days AFTER the M0.5 threshold date, flagged so the kill switch's monitoring window is extended by ~2 days if the print actually lands that late, not that the horizon itself is breached.",
+    "causal_mechanism": [
+      "Grab's Q3 2026 6-K discloses on-demand incentives as a percentage of GMV together with the MTU and GMV-per-MTU splits; if the marginal incentive ratio stays above the Q2 2026 average of 10.9% and/or MTU growth decelerates while incentive dollars keep rising, the mechanism M0.6.3 identified becomes a filed, dated fact instead of a derived one.",
+      "The 26 sell-side analysts covering GRAB rebuild their FY2027 adjusted-EBITDA-margin models on the newly disclosed marginal-versus-average incentive split rather than the blended ratio they use today; Barclays - already the outlier having cut its target from $7 to $5 on 2026-08-03 on qualitative incentive concern - is the most likely desk to formalize the marginal-cost read into a published note, and possibly into a rating or further target cut.",
+      "The existing short cohort (11.35% of float) adds to positions on confirmation, while momentum and regional-growth/EM-tech mandate funds - the flows M0.6.1's entrenchment_note says currently anchor GRAB as a 'default holding' - begin trimming exposure, since a documented deceleration removes the support for that default-holding status.",
+      "GRAB's forward EV/EBITDA multiple - 14.6x against Uber's 21.22x trailing multiple - compresses further as the market re-prices the growth story from 'durable, AI-margin-funded' to 'incentive-subsidized and decelerating,' closing the gap between the variant view and the traded price. If the metrics instead confirm consensus (marginal ratio falls back toward 10.9%, MTU growth holds), the multiple gap could instead narrow toward Uber's, which is the disconfirming path the M0.5 kill switch already tracks."
+    ],
+    "secondary_triggers": [
+      {
+        "id": "ST-001",
+        "trigger_name": "GoTo (Gojek Tokopedia) Q3 2026 results - Indonesia's largest on-demand peer, reports before Grab's own print",
+        "trigger_date_range": "2026-10-28 (est.)",
+        "trigger_type": "scheduled",
+        "probability": 0.3,
+        "mechanism": "If GoTo's own on-demand GMV growth is flat/declining or its incentive-to-GMV ratio is also rising, it independently corroborates a region-wide (not just Grab-specific) incentive-funded growth pattern ahead of Grab's Q3 print (reuses thesis_record.json SF-002's 0.30 estimate for this exact peer-read-across path)."
+      },
+      {
+        "id": "ST-002",
+        "trigger_name": "A sell-side desk (most likely Barclays, given its 2026-08-03 target cut) publishes a note that explicitly models GRAB's marginal-versus-average incentive intensity",
+        "trigger_date_range": "Unscheduled, could land any time before the Q3 print",
+        "trigger_type": "unscheduled",
+        "probability": 0.2,
+        "mechanism": "M0.6.3's coverage-gap search found the general incentive-spend risk already flagged qualitatively but the specific marginal-ratio arithmetic (13.9% vs. 10.9%) nowhere in print; a desk publishing that exact decomposition would shift consensus assumption #2 (M0.6.1) directly, causing partial repricing before Q3 results confirm or deny it."
+      },
+      {
+        "id": "ST-003",
+        "trigger_name": "An interim Grab business update or investor-conference KPI disclosure between now and the Q3 print",
+        "trigger_date_range": "Unscheduled",
+        "trigger_type": "unscheduled",
+        "probability": 0.1,
+        "mechanism": "Grab does not routinely issue interim monthly KPIs outside quarterly reporting; if management is asked directly about MTU trend or incentive intensity at a public forum and answers with a number, it would partially confirm or deny the variant weeks before the scheduled print."
+      }
+    ]
+  },
+  "M0_6_6": {
+    "scoring_criteria": {
+      "variant_perception_quality": {
+        "sub_score": 63,
+        "rationale": "The variant clears the 'no proven variant' floor by a wide margin: M0.6.3 shows a specific numeric departure (marginal incentive intensity 13.9% vs. the disclosed 10.9% average, a 3.0pp/~28% relative gap, arithmetic shown line-by-line from Grab's own Q2 2025/2026 figures) and two named mechanisms (rising marginal cost of growth; an 81%-user-count/14%-per-user growth composition consensus has not decomposed). The coverage-gap evidence is genuine (five dated searches plus a direct fetch) but returns a partial result, not a clean miss - the general incentive-heavy-growth risk is already qualitatively flagged (Barclays' 3 August target cut, Simply Wall St's own 7%-of-GMV threshold), and the specialist's own verdict self-moderates the variant to 'weak-to-moderate' for exactly this reason, holding this in the 'strong' band rather than 'very strong.'"
+      },
+      "mispricing_reason_strength": {
+        "sub_score": 65,
+        "rationale": "The complexity category fits the evidence: none of Grab's disclosures compute an incremental incentive ratio, the release splits GMV/MTU and incentive figures across separate segment subsections rather than tying them together, and the single group-level 10.9% ratio blends two segments moving at different speeds (Deliveries 11.9%, Mobility 8.8%) a reader must break out independently. All three facts are independently verifiable against named documents and none duplicate a number already on the record elsewhere in M0.6, but this is a workflow-based gap that persists only until one analyst performs the subtraction (M0.6.5's own ST-002 puts that at 20% probability before Q3) - real but thinner persistence than a mandate constraint or structural flow, capping it mid-strong."
+      },
+      "convergence_trigger_clarity": {
+        "sub_score": 75,
+        "rationale": "The trigger is dated from Grab's own real reporting cadence (Q3 2025 announced 3-4 November 2025; Q3 2023 announced 9 November 2023), is a scheduled and mandatory 6-K disclosure, and lands inside both the M0.4 horizon and the M0.5 threshold date in the base case. The four-step mechanism names real actors at each stage (Grab's own 6-K, the 26 covering analysts led by Barclays, the existing 11.35%-of-float short cohort and mandate funds, and the resulting EV/EBITDA compression). The score is held below 'very strong' because Grab has not yet issued formal Q3 2026 notice (the date is inferred from cadence) and the cited vendor's wide-end estimate sits two days past the M0.5 threshold date, requiring the monitoring window to be flagged for a short extension."
+      }
+    },
+    "blended_calculation": "0.40 x 63 + 0.30 x 65 + 0.30 x 75 = 25.2 + 19.5 + 22.5 = 67.2",
+    "final_score": 67,
+    "analyst_override": false,
+    "justification_sentence_1": "The blend is carried most by convergence_trigger_clarity (75) and mispricing_reason_strength (65), both anchored in named, dated, independently verifiable evidence, while variant_perception_quality (63) is held back because the specialist's own coverage-gap search found the general incentive-spend risk already partly reflected in Barclays' target cut and the market's own show-me discount.",
+    "justification_sentence_2": "At 67, the edge clears the bar for deeper candidate work but not the full machine - this is a real, unmodeled quantitative mechanism layered on a risk the market has partly sensed, not either a market that is completely blind or a mechanism still fully hidden.",
+    "routing_outcome": "provisional",
+    "routing_logic": "Final score 67 falls in the 60-80 band, which routes to provisional (not full_machine, which requires >80; not watchlist_no_edge, which requires <60).",
+    "routing_reason": "A genuine numeric variant, a verifiable complexity-based mispricing mechanism, and a well-dated four-step convergence trigger are all present and specifically evidenced, but each leg carries its own moderating flag - the variant builds on a partially market-sensed risk, the mispricing gap is workflow-thin and could close on a single sell-side note, and the trigger's exact date is inferred rather than yet formally confirmed by Grab - which is enough evidence to warrant candidate surfacing without yet justifying full-machine conviction."
+  },
+  "sources": [
+    {
+      "url": "https://www.reuters.com/business/retail-consumer/singapores-grab-lifts-annual-revenue-forecast-2026-08-03/",
+      "source_name": "Reuters",
+      "source_grade": "A",
+      "retrieved_at": "2026-08-04T08:52:40.974Z",
+      "claim_supported": "Grab raised FY26 revenue guidance to $4.10-$4.15bn (from $4.04-$4.10bn) and adjusted EBITDA guidance to $720-$740m (from $700-$720m); Q2 2026 revenue rose 22% YoY to $997m (beating the $990.8m estimate) on 21% GMV growth to $6.5bn; Grab announced a new $750m buyback; shares rose 4% in extended trading."
+    },
+    {
+      "url": "https://www.grab.com/sg/press/others/grab-reports-record-second-quarter-2026-results-raises-full-year-guidance-and-announces-750-million-share-repurchase-program/",
+      "source_name": "Grab Holdings Investor Relations (official press release)",
+      "source_grade": "A",
+      "retrieved_at": "2026-08-05T10:20:00Z",
+      "claim_supported": "Full confirmation of FY26 guidance ranges (new and prior), Q2 2026 revenue and GMV, the $750m buyback with cumulative authorization total, on-demand incentive ratio (10.9% of GMV, +72bp YoY), segment-level incentive splits (Deliveries 11.9%, Mobility 8.8%), and MTU/GMV-per-MTU growth figures."
+    },
+    {
+      "url": "https://www.dealstreetasia.com/stories/grab-q2-2026-earnings-490963",
+      "source_name": "DealStreetAsia",
+      "source_grade": "B",
+      "retrieved_at": "2026-08-05T10:14:30Z",
+      "claim_supported": "Corroborates new and prior guidance ranges, Q2 revenue/GMV, buyback amount, and the prior $500m Feb-2026 tranche's ~$400m executed status."
+    },
+    {
+      "url": "",
+      "source_name": "Yahoo Finance / Zacks, \"Grab Q2 Earnings Meet, Revenues Surpass Estimates\"",
+      "source_grade": "B",
+      "retrieved_at": "2025-08-22T00:00:00Z",
+      "claim_supported": "Q2 2025 baseline revenue ($819m) and on-demand GMV ($5.35bn) used as the prior-year comparison for WC-003 and WC-004, and as the incentive-intensity baseline in M0.6.3."
+    },
+    {
+      "url": "",
+      "source_name": "Benzinga, \"Grab (GRAB) Stock Is Trending Overnight: Here's Why Shares Rose After Hours\"",
+      "source_grade": "B",
+      "retrieved_at": "2026-08-04T00:00:00Z",
+      "claim_supported": "Regular-session close ($3.67) and after-hours price/move (+4.14% to $3.82) for WC-006."
+    },
+    {
+      "url": "https://stockanalysis.com/stocks/grab/forecast/",
+      "source_name": "stockanalysis.com, GRAB Analyst Forecast page",
+      "source_grade": "B",
+      "retrieved_at": "2026-08-05T00:00:00Z",
+      "claim_supported": "26 analysts rate GRAB Buy/Strong Buy (21 Strong Buy + 5 Buy), 0 Hold, 0 Sell; average price target $5.85 (range $4.60-$8.00, median $5.90); FY2026 consensus revenue high/avg/low $4.2bn/$4.1bn/$4.0bn (23 analysts); consensus EPS high/avg/low $0.09/$0.08/$0.08."
+    },
+    {
+      "url": "https://stockanalysis.com/stocks/grab/statistics/",
+      "source_name": "stockanalysis.com, GRAB Key Statistics page",
+      "source_grade": "B",
+      "retrieved_at": "2026-08-05T00:00:00Z",
+      "claim_supported": "Current price $3.72; enterprise value $10.67bn; market cap $15.17bn; Uber (UBER) trailing EV/EBITDA 21.22x; shares short 315.17m (11.35% of float); institutional ownership 50.04%; insider ownership 3.62%."
+    },
+    {
+      "url": "",
+      "source_name": "Barclays note via timothysykes.com, \"GRAB Stock Holds Range As Barclays Trims Price Target\"",
+      "source_grade": "B",
+      "retrieved_at": "2026-08-03T00:00:00Z",
+      "claim_supported": "Barclays cut its GRAB price target from $7 to $5 on 2026-08-03 while retaining an Overweight rating, framing the new target as still meaningful upside."
+    },
+    {
+      "url": "",
+      "source_name": "TipRanks/The Fly and MarketBeat, Bank of America GRAB rating history",
+      "source_grade": "B",
+      "retrieved_at": "2026-08-05T00:00:00Z",
+      "claim_supported": "Bank of America's Underperform rating on GRAB predates January 2025; upgraded to Neutral 2025-01-07 (target $4.90->$5.10), upgraded to Buy 2026-01-19 (target $6.30) - stale, superseded, not a current dissent."
+    },
+    {
+      "url": "",
+      "source_name": "StocksToTrade, \"GRAB Stock Slips As Insider Selling And Fee Scrutiny Mount\" / \"...Regulatory Heat And Insider Selling Mount\"",
+      "source_grade": "B",
+      "retrieved_at": "2026-08-05T00:00:00Z",
+      "claim_supported": "Trailing P/E ~42x-44x described as demanding flawless execution; CEO Anthony Tan sold 400,000 shares twice in 2026, cutting his Class A stake to 28,498 shares; US Senate push for FTC scrutiny of food-delivery fee practices."
+    },
+    {
+      "url": "https://optionslam.com/earnings/stock/GRAB",
+      "source_name": "optionslam.com, GRAB Earnings Straddle History",
+      "source_grade": "B",
+      "retrieved_at": "2026-08-05T00:00:00Z",
+      "claim_supported": "Implied move into the 2026-08-03 print was 10.29%; actual realized move 8.17% max intraday / 1.36% at close; IV ~40.6%, IV rank ~33rd percentile (stale, dated ~2026-06-26); Q3 2026 earnings expected ~2026-11-11 per the site's own earnings calendar."
+    },
+    {
+      "url": "",
+      "source_name": "MarketBeat / holdingschannel.com 13F aggregation",
+      "source_grade": "B",
+      "retrieved_at": "2026-08-05T00:00:00Z",
+      "claim_supported": "Vanguard Group holds ~8.18m GRAB shares (~0.20% of Grab), grew position 7.7% in Q1 2026; BlackRock named among largest shareholders (share count not sourced), dated to Q1 2026 13F filings."
+    },
+    {
+      "url": "",
+      "source_name": "Investing.com, \"Grab Q2 2026 slides: EBITDA surges 54% as profitability accelerates\"",
+      "source_grade": "B",
+      "retrieved_at": "2026-08-04T00:00:00Z",
+      "claim_supported": "Segment-level incentive splits (Deliveries incentives 11.9% of GMV up from 11.3%; Mobility incentives 8.8% of GMV up from 7.8%), cross-checked against the grab.com press release of the same date."
+    },
+    {
+      "url": "",
+      "source_name": "Simply Wall St, \"Are Conflicting Ratings on Grab (GRAB) Hinting at a Deeper Shift in Its Investment Story?\"",
+      "source_grade": "B",
+      "retrieved_at": "2026-08-05T00:00:00Z",
+      "claim_supported": "Bear-case commentary that incentive-heavy growth and rising competition might limit how much of Grab's forecast earnings expansion reaches the bottom line; names a 7%-of-GMV incentive threshold as a risk marker - the coverage-gap evidence for M0.6.3."
+    },
+    {
+      "url": "",
+      "source_name": "MarketScreener, GoTo (Gojek Tokopedia) financial calendar",
+      "source_grade": "B",
+      "retrieved_at": "2026-08-05T00:00:00Z",
+      "claim_supported": "GoTo's Q3 2026 results estimated for 2026-10-28, used as the date basis for secondary trigger ST-001."
+    },
+    {
+      "url": "",
+      "source_name": "investing.com, GRAB Earnings calendar",
+      "source_grade": "B",
+      "retrieved_at": "2026-08-05T00:00:00Z",
+      "claim_supported": "Vendor placeholder estimate of Q3 2026 earnings date, wide-end bound 2026-11-17, used as the outlier bound (not the central estimate) for the M0.6.5 trigger date range."
+    },
+    {
+      "url": "https://www.grab.com/sg/press/",
+      "source_name": "Grab Investor Relations, \"Grab to Announce Third Quarter 2025 Results on 3 November, 2025\"",
+      "source_grade": "A",
+      "retrieved_at": "2026-08-05T00:00:00Z",
+      "claim_supported": "Grab's Q3 2025 results were announced 3-4 November 2025, and Q3 2023 results on 9 November 2023 - the historical cadence used to set the M0.6.5 base-case Q3 2026 trigger date."
+    }
+  ],
+  "integrity_review": {
+    "verdict": "Thesis broken",
+    "routing": "watchlist_integrity_broken",
+    "reviewed_at": "2026-08-05T00:00:00Z",
+    "review_file": "screener/runs/SIG-20260804-da21208a/thesis_integrity_review.json",
+    "edge_score_haircut_note": "If this record is ever revisited, the M0_5 threshold should be recalibrated inside Grab's own observed 20%-24% GMV-growth band (e.g., a fall to the mid-to-high teens by Q3, not below 10%) so the kill switch can actually fire on a realistic bear path; the current threshold cannot."
+  }
+}

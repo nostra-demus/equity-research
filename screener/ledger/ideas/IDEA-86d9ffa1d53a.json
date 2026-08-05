@@ -1,0 +1,75 @@
+{
+  "idea_id": "IDEA-86d9ffa1d53a",
+  "idea_version": "IDEAV-01fbd508d5416175",
+  "idea_version_started_at": "2026-08-04T22:25:56Z",
+  "ticker": "2222.SR",
+  "company": "Saudi Aramco",
+  "exchange": "TSE",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "long",
+  "pair_with": null,
+  "reason": "Q2 2026 net profit rose 44% to $32.69 billion driven by higher oil prices from geopolitical tensions in the Strait of Hormuz.",
+  "why_now": "Earnings released today with a 44% profit surge tied to live oil price dislocation.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v1",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 6,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "commodity_conditional",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-12f2ecb379de",
+    "EVT-61d8bdb89e5a"
+  ],
+  "primary_source_event_id": "EVT-12f2ecb379de",
+  "source_headlines": [
+    "Aramco's profits soar 44 percent as Iran war boosts prices",
+    "Saudi Aramco delivers 44 percent surge in net profit to $32.69 billion in Q2 2026"
+  ],
+  "source_headline": "Aramco's profits soar 44 percent as Iran war boosts prices",
+  "source_url": "https://www.newarab.com/news/aramcos-profits-soar-44-percent-iran-war-boosts-prices",
+  "source_name": "The New Arab",
+  "materiality_max": 100,
+  "newest_source_at": "2026-08-04T07:40:05Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-08-04T09:11:59Z",
+  "updated_at": "2026-08-04T22:25:56Z",
+  "decay_at": "2026-08-05T19:40:05Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
