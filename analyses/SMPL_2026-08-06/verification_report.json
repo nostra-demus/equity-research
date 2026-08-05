@@ -1,0 +1,313 @@
+{
+  "schema_version": "1.0",
+  "ticker": "SMPL",
+  "run_root": "analyses/SMPL_2026-08-06",
+  "verified_at": "2026-08-05T21:47:30Z",
+  "verifier": "verify-evidence",
+  "final_thesis_path": "analyses/SMPL_2026-08-06/final_thesis.md",
+  "decision_record_path": "analyses/SMPL_2026-08-06/decision_record.json",
+  "final_thesis_sha256": "57fe1bba6dc421ca7c4f8764efe5655798cb7ce4d8552f5d934b2752170c7c4f",
+  "decision_record_sha256": "8ab758590be8476059a03fc9d080092ec2b2644a06a47a4a497e5c50f4e17dba",
+  "claims_checked": 15,
+  "claim_checks": [
+    {
+      "claim": "OWYN acquisition total net consideration paid ~$280.2M (debt-funded, Jun-2024) — used by management-governance, final_thesis §3/§9b/§18, decision_record red_flags RF-CAP-004",
+      "citation": "FY26 Q3 10-Q, Note 4; FY2025 10-K p.43",
+      "source_checked": "/tmp/corpus.txt (FQ3 FY2026 10-Q extract, Note 4 Goodwill and Intangibles)",
+      "status": "verified",
+      "evidence": "Corpus literal match: \"...resulting in a total net consideration paid of $280.2 million.\" (resolve_citations.py hit_count=4)",
+      "severity": "info"
+    },
+    {
+      "claim": "OWYN acquisition price ~$280.4M — used by business-model/99 and business-model/11_capital-allocation-governance.md (Filter 4 severity row)",
+      "citation": "CIQ Financials_Annual.xls, Cash Flow tab: Cash Acquisitions -280.4 (FYE Aug-31-2024)",
+      "source_checked": "/tmp/corpus.txt (Financials_Annual__Cash-Flow.txt extract)",
+      "status": "verified",
+      "evidence": "Corpus literal match: \"OWYN Acquisition for $280.4 million, and $5.7 million purchases of property and equipment.\" and CIQ Cash Flow tab row \"Cash Acquisitions ... -280.4\". Figure is genuinely sourced, but see anchor_checks — this disagrees by $0.2M (0.07%) with the $280.2M figure management-governance/final_thesis use for the same headline number, with neither module flagging the cross-module gap.",
+      "severity": "low"
+    },
+    {
+      "claim": "OWYN write-off $200.0M against the purchase price (71% impaired within 24 months) — RF-CAP-004 Critical, the single binding rating-cap driver",
+      "citation": "FY26 Q3 10-Q, Note 4",
+      "source_checked": "/tmp/corpus.txt (FQ3 FY2026 10-Q extract, Note 4)",
+      "status": "verified",
+      "evidence": "Corpus literal match: \"Impairment charges were $200.0 million for OWYN and $93.0 million for Atkins for the thirty-nine weeks ended May 30, 2026.\" 200.0/280.2 = 71.4%; 200.0/280.4 = 71.3% — both round to the stated \"71%\" regardless of which OWYN-price figure is used.",
+      "severity": "info"
+    },
+    {
+      "claim": "Quest Nutrition 2019 acquisition price ~$982.1M — the earlier half of the §24 Filter 4 \"two material debt-funded deals\" pattern, repeated in final_thesis §3, §5, §9b, §9A and decision_record red_flags",
+      "citation": "CIQ Financials_Annual.xls, Cash Flow tab: Cash Acquisitions -982.1 (FYE Aug-29-2020)",
+      "source_checked": "/tmp/corpus.txt (Financials_Annual__Cash-Flow.txt extract)",
+      "status": "verified",
+      "evidence": "Corpus literal match at line 11744: \"Cash Acquisitions -620.8 -1.8 - -982.1 - - - -280.4 1.713 0\" (Financials_Annual Cash Flow tab). NOTE: resolve_citations.py's automated pass returned hit_count=0 for this figure — a tool false negative, because its regex uses a negative lookbehind `(?<![\\d.\\-])` that excludes a match immediately preceded by a minus sign, and the pool stores this figure as \"-982.1\" (a cash outflow). Confirmed present via direct grep; not a real data gap. A secondary CIQ export (Financials_Quarterly.xls Cash Flow tab) carries a slightly different LTM-aggregated figure (-984.2) for the same historical acquisition — a ~0.2% annual-vs-quarterly vendor periodization difference, not a stale duplicate; the thesis correctly cites the Annual tab's $982.1M.",
+      "severity": "info"
+    },
+    {
+      "claim": "Cumulative goodwill/brand impairment $391.9M across three of the last four quarters (FQ4 FY2025 $60.9M + FQ2 FY2026 $249.0M + FQ3 FY2026 $82.0M) — RF-DISC-002 Critical, drives disclosure-candor and earnings-quality scores",
+      "citation": "FY2025 10-K Income Statement; Q2 FY2026 10-Q MD&A; Q3 FY2026 10-Q Note 4",
+      "source_checked": "/tmp/corpus.txt (three separate MD&A extracts)",
+      "status": "verified",
+      "evidence": "All three quarterly figures literal-match: \"Loss on impairment charges were $60.9 million for the fifty-two weeks ended August 30, 2025\"; \"...were $249.0 million for the thirteen weeks ended February 28, 2026\"; \"...were $82.0 million for the thirteen weeks ended May 30, 2026\". Sum = 60.9+249.0+82.0 = 391.9, ties exactly to the cited total.",
+      "severity": "info"
+    },
+    {
+      "claim": "Atkins-specific impairment component $124.0M for the 39 weeks ended May 30, 2026 [earnings/01_historical-financials.md, cited as one of four components of the $391.9M total]",
+      "citation": "earnings/01_historical-financials.md footnote [8] (FY26 Q3 10-Q, Note 4)",
+      "source_checked": "/tmp/corpus.txt — full-corpus search for \"124.0\"",
+      "status": "unsupported",
+      "evidence": "The figure \"124.0\" does not appear anywhere in the extracted corpus. The 10-Q's own Note 4 text states: \"Impairment charges were $200.0 million for OWYN and $93.0 million for Atkins for the thirty-nine weeks ended May 30, 2026\" — the real Atkins YTD figure is $93.0M, not $124.0M (this $93.0M figure is what business-model/11 and business-model/99 correctly cite). Using $200.0(OWYN)+$93.0(Atkins)+$38.0(goodwill, confirmed separately in the corpus)=$331.0M for the 39-week YTD, plus the prior-year $60.9M Atkins impairment = $391.9M, reconciling exactly to the headline total used everywhere else in the dossier. The erroneous $124.0M breakdown appears only in earnings/01_historical-financials.md's own text and is NOT propagated into earnings/99, the final thesis, or decision_record.json (which all correctly state the $391.9M aggregate without repeating this specific component figure).",
+      "severity": "medium"
+    },
+    {
+      "claim": "TTM (Latest twelve months) Adjusted EBITDA $234.6M, built from four quarterly company-disclosed Adjusted EBITDA figures (FQ4 FY25 $66.2M + FQ1 FY26 $55.6M + FQ2 FY26 $55.5M + FQ3 FY26 $57.2M) — the spine figure for every leverage/coverage/EV-EBITDA ratio in the dossier",
+      "citation": "earnings/01_historical-financials.md [3][4][5][9]; balance-sheet-survival/01",
+      "source_checked": "/tmp/corpus.txt (CIQ Estimates Report Consensus-tab EBITDA actuals row; Q3 FY2026 earnings-call transcript)",
+      "status": "verified",
+      "evidence": "Q3 FY2026 transcript literal match: \"Adjusted EBITDA was $57.2 million, a decline of 22.5% year over year\" (company-disclosed, not a data-vendor figure). The CIQ Estimates Report Consensus-tab EBITDA-actuals row carries the matching quarterly series \"...66.239 55.624 55.51 57.241...\"; precise sum = 66.239+55.624+55.51+57.241 = 234.614, which rounds to the stated $234.6M. This is a company-disclosed non-GAAP metric correctly cross-checked against a CIQ actuals series of the SAME concept (not a vendor-standardized EBITDA substituted under a filing citation) — no vendor-vs-filing mis-citation trap per CLAUDE.md's explicit EBITDA-provenance check.",
+      "severity": "info"
+    },
+    {
+      "claim": "Net debt (strict basis) $276.1M = $400.0M total debt (gross principal) − $123.9M cash — canonical balance-sheet-survival anchor, net leverage 1.18x",
+      "citation": "balance-sheet-survival/01_capital-structure-and-leverage.md; Q3 FY26 10-Q p.31-32",
+      "source_checked": "/tmp/corpus.txt (Q3 FY2026 earnings-call transcript; Q3 FY2026 10-Q Note 5)",
+      "status": "verified",
+      "evidence": "Both components literal-match: \"the company had cash of $123.9 million and an outstanding principal balance on its term loan of $400 million\" (Q3 FY26 transcript) and \"As of May 30, 2026, the outstanding balance of the Term Facility was $400.0 million\" (10-Q Note 5). $400.0M - $123.9M = $276.1M, ties exactly. This is a derived figure (component sums, not itself a single filed line item) — legitimate per the audit standard since both inputs are independently sourced.",
+      "severity": "info"
+    },
+    {
+      "claim": "Committed liquidity $197.8M = $123.9M cash + $73.9M undrawn revolver availability",
+      "citation": "balance-sheet-survival/03_liquidity-runway.md",
+      "source_checked": "/tmp/corpus.txt (CIQ Financials_Quarterly Capital Structure Details tab)",
+      "status": "verified",
+      "evidence": "\"Undrawn Revolving Credit ... 73.9\" confirmed literally in the CIQ Capital Structure Details tab (most recent period column). $123.9M + $73.9M = $197.8M, ties exactly.",
+      "severity": "info"
+    },
+    {
+      "claim": "Current price $11.33 (close, Aug-04-2026, pool-verified) — the valuation anchor for margin of safety, expected return, and all scenario targets",
+      "citation": "Capital IQ Public Company Profile; Estimates Report.xls Consensus tab",
+      "source_checked": "/tmp/corpus.txt (two independent Capital IQ extracts)",
+      "status": "verified",
+      "evidence": "Two pool sources agree exactly: \"Previous Close 11.33\" (Public Company Profile) and \"Latest Price/Last Close Price 11.34/11.33\" (Estimates Report Consensus tab). A stale $10.28 embedded price in a different CIQ workbook was correctly identified and rejected by valuation/01 as a superseded snapshot.",
+      "severity": "info"
+    },
+    {
+      "claim": "Consensus mean target price $14.88 (8 analysts, median $14.00, high $20.00, low $12.00); 11 rated analysts (4 Buy, 0 Outperform, 7 Hold)",
+      "citation": "Capital IQ Estimates Report.xls, Consensus tab",
+      "source_checked": "/tmp/corpus.txt",
+      "status": "verified",
+      "evidence": "Corpus literal match: \"Target Price 14.88 14 20.00/12.00 2.37 8/8 ... 1 - Buy 4\" — mean, median, high/low, and analyst count all tie to the thesis's Consensus Expectations table (§17).",
+      "severity": "info"
+    },
+    {
+      "claim": "Enterprise value $1,326.84M (EV bridge: market cap $1,002.26M + debt $397.04M + leases $51.43M + 0 minority + 0 preferred − cash $123.88M)",
+      "citation": "valuation/01_price-and-capital-structure.md §4",
+      "source_checked": "/tmp/corpus.txt (Public Company Profile PDF, TEV line; CIQ Financials_Quarterly Balance Sheet tab)",
+      "status": "verified",
+      "evidence": "Corpus literal match: \"= Total Enterprise Value (TEV) 1,326.84\". Bridge arithmetic recomputed: 1,002.26 + 397.04 + 51.43 + 0 + 0 − 123.88 = 1,326.85 (ties to the stated $1,326.84 within $0.01M rounding). Cross-check: this same bridge implies lease-inclusive net debt of 397.04+51.43-123.88=$324.59M, which ties to the $324.6M/$324.58M figure the earnings and valuation modules separately cite for their own basis.",
+      "severity": "info"
+    },
+    {
+      "claim": "FY2026 buyback $213.2M (39 weeks ended May 30, 2026), funded partly by a $150.0M fresh draw under the Nov-19-2025 Eighth Amendment (Amendment No. 8)",
+      "citation": "FY26 Q3 10-Q p.31-32, Stock Repurchase Program note",
+      "source_checked": "/tmp/corpus.txt (Q3 FY2026 10-Q MD&A, Note on Credit Agreement)",
+      "status": "verified",
+      "evidence": "Corpus literal match: \"Net cash used in financing activities for the thirty-nine weeks ended May 30, 2026, primarily consisted of $213.2 million in repurchases of common stock ... partially offset by $150.0 million in proceeds from issuance of long-term debt\" and separately \"On November 19, 2025, the Company entered into an eighth amendment (the '2026 Incremental Facility Amendment') ... to increase the principal borrowed on the Term Facility by $150.0 million and provided for an extension of the maturity date from March 17, 2027 to March 17, 2030.\" Both figures verified against the correct, specific context (resolve_citations.py's automated pass returned high hit counts for \"150.0\" across unrelated contexts — e.g., a FY2025 $150.0M term-loan repayment, and the original 2017 $150.0M term-loan draw — so this claim required manual disambiguation to the correct Nov-2025 Amendment No. 8 context, which is confirmed correct).",
+      "severity": "info"
+    },
+    {
+      "claim": "Governance Score 59/100 = 0.20×CapAlloc(47) + 0.18×Incentive(68) + 0.18×ShFriendliness(76) + 0.16×Candor(75) + 0.16×MgmtQuality(44) + 0.12×(100−GovRisk(62))",
+      "citation": "management-governance/99_management-governance-synthesis.md §1",
+      "source_checked": "N/A — internal formula recomputation",
+      "status": "verified",
+      "evidence": "Recomputed: 0.20×47=9.40; 0.18×68=12.24; 0.18×76=13.68; 0.16×75=12.00; 0.16×44=7.04; 0.12×38=4.56. Sum=58.92, rounds to 59 — ties exactly to the stated Governance Score. Confidence-Adjusted Score: 59×85/100=50.15≈50, also ties.",
+      "severity": "info"
+    },
+    {
+      "claim": "\"~800bps\" five-year gross-margin decline (40.7% FY21 → 33.3% TTM) — repeated across business-model/07, /09, /12, /99, and final_thesis §1, §6, §PartIII as \"the clearest single red flag\"",
+      "citation": "business-model/07_business-quality.md §1 (Margin stability row)",
+      "source_checked": "business-model/07_business-quality.md's own cited endpoints",
+      "status": "miscited",
+      "evidence": "The module's own cited endpoints are 40.7% (FY21) and 33.3% (TTM). 40.7 − 33.3 = 7.4 percentage points = 740bps, not ~800bps. \"~800bps\" overstates the decline described by the module's own two cited numbers by 60bps (an ~8% relative overstatement) — this is a materiality-adjacent business-quality narrative figure repeated verbatim at least 6 times across business-model/07, /09, /12, /99, the business-model memo, and final_thesis (§1 headline scorecard implicitly, §6, Chapter A), not corrected anywhere in the dossier.",
+      "severity": "medium"
+    }
+  ],
+  "math_checks": [
+    {
+      "quantity": "Scenario probabilities sum",
+      "reported": "15% + 40% + 30% + 15%",
+      "recomputed": "100%",
+      "ties": true,
+      "detail": "Bull 15 + Base 40 + Bear_operating 30 + Bear_structural 15 = 100. Ties exactly."
+    },
+    {
+      "quantity": "Probability-weighted expected return",
+      "reported": "+22.63%",
+      "recomputed": "+22.6335%",
+      "ties": true,
+      "detail": "0.15×94.00 + 0.40×34.77 + 0.30×(-25.68) + 0.15×15.53 = 14.10+13.908-7.704+2.3295 = 22.6335, rounds to +22.63%. Ties exactly to §8/§14 and decision_record.expected_return_pct=22.63."
+    },
+    {
+      "quantity": "Probability-weighted target price",
+      "reported": "$13.8945 ≈ $13.89",
+      "recomputed": "$13.8945",
+      "ties": true,
+      "detail": "0.15×21.98 + 0.40×15.27 + 0.30×8.42 + 0.15×13.09 = 3.297+6.108+2.526+1.9635 = 13.8945. Ties exactly."
+    },
+    {
+      "quantity": "Expected return reconciliation (from weighted target vs. price)",
+      "reported": "(13.8945-11.33)/11.33 = +22.63% (stated to reconcile)",
+      "recomputed": "(13.8945-11.33)/11.33 = 2.5645/11.33 = 22.634%",
+      "ties": true,
+      "detail": "Ties to the probability-weighted expected return within rounding — the two independently-computed figures agree as CLAUDE.md §10 requires."
+    },
+    {
+      "quantity": "Risk/reward (weighted target vs. price, over price-to-headline-bear downside)",
+      "reported": "0.88",
+      "recomputed": "(13.8945-11.33)/(11.33-8.42) = 2.5645/2.91 = 0.8814",
+      "ties": true,
+      "detail": "Ties to the stated 0.88 within rounding."
+    },
+    {
+      "quantity": "Individual scenario returns from price targets ((target-price)/price)",
+      "reported": "bull +94.00%, base +34.77%, bear_operating -25.68%, bear_structural +15.53%",
+      "recomputed": "bull (21.98-11.33)/11.33=+94.00%; base (15.27-11.33)/11.33=+34.775%; bear_operating (8.42-11.33)/11.33=-25.6919%; bear_structural (13.09-11.33)/11.33=+15.534%",
+      "ties": true,
+      "detail": "All four tie within normal rounding tolerance. bear_operating recomputes to -25.69% vs the reported -25.68% — a 0.01 percentage-point rounding difference, immaterial and within tolerance."
+    },
+    {
+      "quantity": "Downside risk (-min(scenario returns), position-signed for a long)",
+      "reported": "25.68% (headline figure quoted as 25.7% in §2/§8 rounding)",
+      "recomputed": "-min(94.00,34.77,-25.68,15.53) = 25.68%",
+      "ties": true,
+      "detail": "Ties exactly to decision_record.downside_risk_pct=25.68 and the §14 math block."
+    },
+    {
+      "quantity": "Margin of safety (base case)",
+      "reported": "25.80%",
+      "recomputed": "(15.27-11.33)/15.27 = 3.94/15.27 = 25.80%",
+      "ties": true,
+      "detail": "Ties exactly to decision_record.margin_of_safety_pct=25.8."
+    },
+    {
+      "quantity": "Net leverage (strict basis) = net debt / TTM adjusted EBITDA",
+      "reported": "1.18x",
+      "recomputed": "276.1 / 234.6 = 1.1769",
+      "ties": true,
+      "detail": "Ties to the stated 1.18x within rounding."
+    },
+    {
+      "quantity": "Net leverage (lease-inclusive basis) = net debt / TTM adjusted EBITDA",
+      "reported": "1.38x",
+      "recomputed": "324.6 / 234.6 = 1.3836",
+      "ties": true,
+      "detail": "Ties to the stated 1.38x within rounding; also ties to valuation/01's $324.58M/$234.6M basis."
+    },
+    {
+      "quantity": "Covenant headroom = (6.00x ceiling - 1.18x actual) / 6.00x",
+      "reported": "80.3%",
+      "recomputed": "(6.00-1.18)/6.00 = 4.82/6.00 = 80.33%",
+      "ties": true,
+      "detail": "Ties exactly to the stated +80.3% indicative headroom."
+    },
+    {
+      "quantity": "EV bridge (market cap + debt + leases + minority + preferred − cash)",
+      "reported": "$1,326.84M",
+      "recomputed": "1,002.26 + 397.04 + 51.43 + 0 + 0 - 123.88 = 1,326.85",
+      "ties": true,
+      "detail": "Ties within $0.01M rounding; also cross-checked to Capital IQ's own headline TEV figure of $1,326.84M found literally in the corpus."
+    },
+    {
+      "quantity": "\"~800bps\" gross-margin decline (40.7% FY21 to 33.3% TTM), business-model/07 and repeated across five other locations",
+      "reported": "~800bps",
+      "recomputed": "40.7 - 33.3 = 7.4 percentage points = 740bps",
+      "ties": false,
+      "detail": "740bps rounds naturally to \"~750bps,\" not \"~800bps\" — the module's own two cited endpoints do not support an 800bps characterization; this is a ~60bps (8% relative) overstatement of the business-quality module's own headline red-flag magnitude, repeated verbatim across business-model/07, /09, /12, /99, the business-model memo, and referenced in final_thesis. Does not change the underlying weak-quality verdict or the rating cap (which is driven by RF-CAP-004, not this figure), so it is not classified as a rating-driver break, but it is a real, uncorrected math tie failure."
+    },
+    {
+      "quantity": "RF-DISC-002's juxtaposition of the $391.9M cumulative (3-quarter, 2-fiscal-year) impairment against \"56.3% of GAAP EBITDA in FY2025\"",
+      "reported": "final_thesis §9b / decision_record red_flags: \"Adjusted EBITDA excludes a $391.9M impairment pattern recurring across 3 of the last 4 quarters ... adjustments 56.3% of GAAP EBITDA in FY2025\"",
+      "recomputed": "56.3% is independently correct as FY2025-ONLY total non-GAAP adjustments ($100.2M) / FY2025 GAAP EBITDA ($177.9M) per earnings/06_earnings-quality.md — a different, narrower concept than the $391.9M 3-quarter cumulative impairment figure it is placed beside",
+      "ties": false,
+      "detail": "Both underlying numbers are independently sourced and correct in their own right (verified above), but they describe different scopes: $391.9M spans FQ4 FY2025 + FQ2 FY2026 + FQ3 FY2026 (three quarters straddling two fiscal years), while 56.3% is FY2025-only total non-GAAP adjustments (impairment + SBC + other add-backs, only $60.9M of which is the FY2025 portion of impairment) against FY2025-only GAAP EBITDA. Presenting them adjacently without noting the scope difference is a CLAUDE.md §9 base-rate/period-matching hygiene issue (same-metric-same-period discipline), not a fabrication — the underlying earnings/06 table itself keeps the two properly separated."
+    }
+  ],
+  "anchor_checks": [
+    {
+      "anchor": "OWYN acquisition purchase price (headline $ used to compute the 71% impairment ratio and the Filter 4 serial-acquirer severity)",
+      "values_by_module": {
+        "management-governance": "$280.2M (\"total net consideration paid\", FY26 Q3 10-Q Note 4)",
+        "final_thesis / decision_record": "$280.2M",
+        "business-model": "$280.4M (CIQ Financials_Annual Cash Flow tab, \"Cash Acquisitions\" line, FYE Aug-31-2024)"
+      },
+      "consistent": false,
+      "detail": "Both figures are genuinely sourced (verified above) but represent different accounting concepts — the 10-Q Note 4's business-combination \"total net consideration paid\" vs. the CIQ cash-flow-statement \"Cash Acquisitions\" investing-activities line (which may include additional transaction cash outflows on a different classification basis). The $0.2M (0.07%) gap is immaterial to the 71% headline impairment ratio (rounds to 71% either way) and does not change the rating, but no module flags or reconciles the cross-module discrepancy for the same headline number, which is exactly the kind of un-reconciled anchor gap CLAUDE.md §15 hygiene and this audit's Section C are designed to catch. Severity: low (immaterial magnitude, both individually well-sourced, no rating impact)."
+    },
+    {
+      "anchor": "Net debt (strict basis: total debt − cash & equivalents, no leases)",
+      "values_by_module": {
+        "balance-sheet-survival": "$276.1M (canonical)",
+        "final_thesis §18": "$276.1M (adopts balance-sheet-survival as canonical, explicitly labeled \"strict basis\")"
+      },
+      "consistent": true,
+      "detail": "Single, consistently-labeled strict-basis figure used only by balance-sheet-survival and the final thesis (which explicitly defers to it as canonical). No unlabeled conflicting \"strict\" figure appears elsewhere (unlike the TMCV precedent this rule exists to catch)."
+    },
+    {
+      "anchor": "Net debt (lease-inclusive / broad basis)",
+      "values_by_module": {
+        "earnings": "$324.6M (1.38x)",
+        "valuation": "$324.58M (1.38x)"
+      },
+      "consistent": true,
+      "detail": "The two figures agree within $0.02M (rounding-precision difference only) and both are explicitly labeled as a distinct, lease-inclusive basis from the balance-sheet-survival module's strict $276.1M figure. Final thesis §18 explicitly flags and reconciles this dual-basis presentation per §15 hygiene — a correctly labeled basis difference, not a defect."
+    },
+    {
+      "anchor": "TTM Adjusted EBITDA (the leverage/coverage/EV-EBITDA denominator)",
+      "values_by_module": {
+        "balance-sheet-survival": "$234.6M",
+        "earnings": "$234.6M",
+        "valuation (implied via 1.38x = 324.6/234.6)": "$234.6M"
+      },
+      "consistent": true,
+      "detail": "Single consistent figure used identically across all three modules that need an EBITDA denominator; independently verified against a company-disclosed quarterly Adjusted EBITDA series (see claim_checks) rather than a mismatched vendor figure."
+    },
+    {
+      "anchor": "Diluted share count",
+      "values_by_module": {
+        "valuation": "88,460,545 (market-cap/basic, cover-page) and 89,934,884 (fully-diluted, per-share fair value) — two counts, explicitly labeled for two different purposes per the module's stated Fully Diluted Equity Rules",
+        "business-model": "~88.4M (May-2026), consistent with the 88,460,545 basic count"
+      },
+      "consistent": true,
+      "detail": "The valuation module's dual share count is deliberate and clearly labeled (market cap uses the cover-page count per Hard Rule 1; per-share fair value uses the fully-diluted count), not an unreconciled conflict. business-model's ~88.4M figure agrees with the basic count."
+    },
+    {
+      "anchor": "Current price",
+      "values_by_module": {
+        "valuation": "$11.33 (Aug-04-2026 close, pool-verified)",
+        "final_thesis / decision_record": "$11.33"
+      },
+      "consistent": true,
+      "detail": "Single consistent, cross-corroborated figure (two independent CIQ exports agree) used throughout the dossier."
+    },
+    {
+      "anchor": "Enterprise value / EV bridge",
+      "values_by_module": {
+        "valuation": "$1,326.84M"
+      },
+      "consistent": true,
+      "detail": "Only cited by the valuation module (its own anchor); not restated or contradicted elsewhere. Internally reconciles to the pool's own CIQ TEV figure (see claim_checks)."
+    },
+    {
+      "anchor": "Governance Score / rating",
+      "values_by_module": {
+        "management-governance": "59/100 (Confidence-Adjusted 50/100), Watchlist band",
+        "final_thesis §9b / Chapter E / decision_record": "59/100, Confidence-Adjusted 50/100, Watchlist"
+      },
+      "consistent": true,
+      "detail": "Single consistent figure, correctly propagated verbatim into the final thesis and decision record with no restatement drift."
+    }
+  ],
+  "integrity_score": 72,
+  "verdict": "Minor issues",
+  "blocking_findings": [],
+  "notes": "Deterministic ciq_facts.json cross-check (step 1c) was NOT available for this run and could not be generated in this environment: the environment's only Python interpreter is 3.9.6, and .claude/tools/ciq.py requires enum.StrEnum (Python >=3.11); no newer interpreter is installed (checked /usr/local/opt/python@3.11/3.12/3.13 — cellar formulas not actually installed). This is noted per the tool's own best-effort/skip instruction, not treated as a run defect. In its place, this audit ran the deterministic resolve_citations.py resolver plus extensive direct corpus greps and manual cross-module tracing for every material claim. Two tool-behavior notes for future audits of this run: (1) resolve_citations.py's regex uses a negative lookbehind that excludes any match immediately preceded by a minus sign, producing false-negative hit_count=0 for figures stored in the pool as negative cash-flow-statement outflows (e.g. Quest's -982.1 acquisition cash outflow) — these were confirmed present via direct grep, not treated as unsupported; (2) several figures (150.0, 6.00, 200.0) recur across many unrelated contexts in the pool (loan repayments, historical facility sizes, buyback authorizations), so the resolver's raw hit_count alone is insufficient — each was manually disambiguated to its cited specific context. Overall the dossier's rating-driving numbers (OWYN write-off, cumulative impairment total, net debt/leverage, EV bridge, scenario math, governance-score formula, consensus target) are well-sourced and tie out. The two real defects found — an unsupported $124.0M Atkins-impairment component figure isolated to earnings/01_historical-financials.md (not propagated to headline numbers), and a repeated ~60bps overstatement of the five-year gross-margin decline (~800bps stated vs 740bps from the module's own cited endpoints) — do not change the OWYN/RF-CAP-004 rating cap or the scenario/valuation math, so they do not rise to Material. A low-severity, unreconciled $0.2M cross-module discrepancy on the OWYN purchase price ($280.2M vs $280.4M, both genuinely sourced to different document types) and a period/scope-mismatched juxtaposition of the $391.9M cumulative impairment against a FY2025-only 56.3% adjustment ratio round out the findings."
+}
