@@ -1106,6 +1106,60 @@ def eval_au_sign_check_recorded(decision_date, thesis_text):
             "factor label and its confidence. The absence of that line is what let a thesis contradict its "
             "own module in silence."]
 
+
+# ---- check AV: the §10 conjunction check must actually be WRITTEN, not just spanned -------------------
+# CLAUDE.md §10 conjunction check: "If a case requires N independent conditions to be true SIMULTANEOUSLY,
+# its probability must be justified against that conjunction ... Either decompose the conjunction into
+# separate cases ... or state why all N genuinely move together." Check AT (above) mechanized the SPAN
+# half of §10 but its own comment explicitly punted on this half: "the conjunction check ... needs the
+# per-case CONDITION text, which decision_record.json does not carry; it stays a §10 prose rule enforced
+# by the synthesizer, not here." That blocker is gone: DECISION_LEDGER.md §5's 2026-08-03 structured
+# scenario authority added `conditions[]` and `joint_probability_basis` to every scenario row, and
+# synthesizer.md's Field-type rules already instruct every run (not only Ideas-eligible ones) to "Explain
+# the conjunction when multiple independent conditions must hold." Nothing has verified that instruction
+# was followed since the data existed to check it.
+#
+# Same restraint as check AU: this is a PRESENCE/SCHEMA-CONSISTENCY check, not a truth check — it cannot
+# judge whether a cited conjunction basis is actually correct, only that one was written when the schema
+# requires it (2+ simultaneous conditions), and that the field is not misused where the schema reserves
+# `null` (fewer than 2 conditions). The miss this guards against: a multi-condition bull case (the AMZN
+# §10 example — AWS growth AND D&A absorbed on a lag AND advertising rebounding AND NA units growing, all
+# at once) assigned a probability with nothing on record justifying why all N conditions move together.
+AV_DATE = "2026-08-03"  # DECISION_LEDGER.md §5 structured-scenario-authority rollout
+AV_MIN_BASIS_LEN = 20   # mirrors the ≥20-char "non-trivial" bar DECISION_LEDGER.md §18 already uses for error_defense_evidence
+
+def eval_av_conjunction_disclosure(decision_date, scenarios):
+    """Check AV. None = N/A (pre-gate, or scenarios aren't in the structured shape yet); [] = every
+    scenario's conditions[] / joint_probability_basis pair is schema-consistent; [violation,...] = at
+    least one scenario either omits a required conjunction basis or carries a stray one."""
+    if not (isdate(decision_date) and decision_date >= AV_DATE):
+        return None
+    if not isinstance(scenarios, list) or len(scenarios) < 2:
+        return None
+    structured = [s for s in scenarios if isinstance(s, dict) and isinstance(s.get("conditions"), list)]
+    if len(structured) < 2:
+        return None  # not the structured scenario shape yet (pre-rollout record, or malformed) — nothing to check
+    out = []
+    for s in structured:
+        label = str(s.get("label") or s.get("scenario_id") or "?")
+        conds = s.get("conditions")
+        jpb = s.get("joint_probability_basis")
+        jpb_txt = jpb.strip() if isinstance(jpb, str) else ""
+        if len(conds) >= 2:
+            if len(jpb_txt) < AV_MIN_BASIS_LEN:
+                out.append(f"scenario '{label}' has {len(conds)} conditions that must hold simultaneously "
+                           f"but joint_probability_basis is "
+                           f"{'empty' if not jpb_txt else 'too short to be a real explanation'} — CLAUDE.md "
+                           f"§10 requires stating why all conditions genuinely move together, or "
+                           f"decomposing the conjunction into separate cases")
+        elif jpb_txt:
+            out.append(f"scenario '{label}' has only {len(conds)} condition(s) but still carries a "
+                       f"joint_probability_basis ('{jpb_txt[:60]}') — DECISION_LEDGER.md §5 reserves this "
+                       f"field for scenarios with 2+ simultaneous conditions; a value here either misuses "
+                       f"the field or hides an undisclosed second condition")
+    return out
+
+
 def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
     """Check AO: every forecast must be mechanically RESOLVABLE (so it can enter the Brier score), and
     the record must carry a near-term proof point. Per entry: triggers must (a) carry a pinned numeric
@@ -2922,10 +2976,43 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AU({_dd!r}) -> {str(got)[:56]}")
         if not ok: bad+=1
 
+    # ---- check AV: the §10 conjunction basis must be WRITTEN, and only where required ----
+    _av2 = lambda label,conds,jpb: {"label":label,"conditions":conds,"joint_probability_basis":jpb}
+    avcases=[  # (decision_date, scenarios, expect: None=N/A, []=pass, [substr]=fail-with)
+        ("2026-08-02",[_av2("bull",["a","b"],"shared driver"),_av2("bear",["c"],None)],None),  # predates AV_DATE → N/A
+        # the real AMZN-shaped miss: 4 conditions, no basis at all → FAIL (one violation: bull only —
+        # bear has 1 condition and no basis, which is compliant)
+        ("2026-08-03",[_av2("bull",["aws>=35%","d&a lag","ads rebound","na units"],None),
+                        _av2("bear",["aws decel"],None)],
+         ["has 4 conditions that must hold simultaneously"]),
+        # 2 conditions, a real (non-trivial) basis → pass
+        ("2026-08-03",[_av2("bull",["demand exceeds base","margin clears threshold"],
+                             "The two conditions share the same volume-led operating-leverage driver."),
+                        _av2("bear",["demand misses"],None)], []),
+        # 2 conditions, a basis that's present but too short to be a real explanation → FAIL
+        ("2026-08-03",[_av2("bull",["a","b"],"linked"),_av2("bear",["c"],None)],
+         ["too short to be a real explanation"]),
+        # single condition carrying a stray basis (schema reserves the field for 2+) → FAIL
+        ("2026-08-03",[_av2("bull",["a","b"],"shared driver, explained fully here"),
+                        _av2("bear",["c"],"should not be set")],
+         ["still carries a joint_probability_basis"]),
+        # single-condition scenarios, no basis anywhere → pass (nothing to justify)
+        ("2026-08-03",[_av2("bull",["a"],None),_av2("base",["b"],""),_av2("bear",["c"],None)], []),
+        ("2026-08-03",[{"label":"bull"},{"label":"bear"}],None),           # no structured conditions[] → N/A
+        ("2026-08-03",[_av2("bull",["a"],None)],None),                    # one scenario is not a set → N/A
+        ("2026-08-03",None,None),                                          # no scenarios → N/A
+        ("2026-08-03","nope",None),                                        # malformed → N/A, never crash
+    ]
+    for _dd,_scn,_want in avcases:
+        got=eval_av_conjunction_disclosure(_dd,_scn)
+        ok = (got is None) if _want is None else (isinstance(got,list) and len(got)==len(_want) and all(any(w in g for g in got) for w in _want))
+        print(f"  [{'ok' if ok else 'XX'}] AV({_dd!r}) -> {str(got)[:64]}")
+        if not ok: bad+=1
+
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(atcases)} check-AT + {len(aucases)} check-AU cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -3845,6 +3932,15 @@ for drp in runs:
         add("AU_sign_check_recorded",False,"; ".join(_auresult))
     else:
         add("AU_sign_check_recorded",True,"the thesis records its sign check against the module owning its driver")
+    # AV conjunction disclosure (§10): a scenario requiring 2+ simultaneous conditions must carry a real
+    # (non-trivial) joint_probability_basis; a scenario with <2 conditions must not carry one at all.
+    _avresult=eval_av_conjunction_disclosure(ddte,d.get("scenarios"))
+    if _avresult is None:
+        add("AV_conjunction_disclosure",True,"run predates structured-scenario-authority rollout, or scenarios aren't in that shape — N/A",na=True)
+    elif _avresult:
+        add("AV_conjunction_disclosure",False,"; ".join(_avresult))
+    else:
+        add("AV_conjunction_disclosure",True,"every scenario's conditions[] / joint_probability_basis pair is schema-consistent (§10)")
     # Retrospective advisories (informational only — NEVER read by run_pass/gate_eligible/suite_pass below).
     # AI and AK reconcile fields that existed long before either check's own landing date (Headline
     # Scorecard prose vs decision_record.json numbers; module-declared red-flag severity vs the red_flags
