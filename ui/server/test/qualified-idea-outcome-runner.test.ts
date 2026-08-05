@@ -22,7 +22,11 @@ const execFileAsync = promisify(execFile)
 const sourceAppend = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../scripts/append-ndjson.sh')
 const sourceMarket = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../scripts/market_prices.py')
 const sourceCanonicalJson = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../scripts/canonical_json.py')
-const NOW = Date.parse('2026-08-04T12:00:00Z')
+// Pinned a year past the real clock, never a fixed past date: production stamps every pass
+// timestamp with Math.max(effectiveNow, Date.now()), so a fixed NOW in the past silently gets
+// overridden by real wall-clock time once the calendar passes it, breaking every exact-equality
+// assertion below (confirmed failure: NOW was '2026-08-04T12:00:00Z', started failing 2026-08-05).
+const NOW = Date.now() + 365 * 86_400_000
 const PROVIDER = 'LicensedTest'
 const DAY_MS = 86_400_000
 
