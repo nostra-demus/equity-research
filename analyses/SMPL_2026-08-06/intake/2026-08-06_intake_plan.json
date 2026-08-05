@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "ticker": "SMPL",
+  "run_root": "analyses/SMPL_2026-08-06",
+  "scan_date": "2026-08-06",
+  "scanned_at": "2026-08-05T21:51:30Z",
+  "watermark": "analyses/SMPL_2026-08-06/final_thesis.md",
+  "new_docs": [],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [],
+    "commands": [],
+    "note_only": []
+  },
+  "verdict": "note_only",
+  "summary": "No new documents since the last run. The only file in data/SMPL/ newer than final_thesis.md is the engine's own routed output (Memos 2026-08-06 03-20-51/), which is correctly excluded via the .nostradamus_output sentinel. Nothing to rerun."
+}
