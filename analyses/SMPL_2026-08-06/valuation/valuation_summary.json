@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.4",
+  "ticker": "SMPL",
+  "as_of": "2026-08-06",
+  "currency": "USD",
+  "business_type": "Operating",
+  "basis": "ev",
+  "shares": 89.934884,
+  "net_debt": 324.58,
+  "net_debt_basis": "strict",
+  "current_price": 11.33,
+  "price_as_of": "2026-08-04",
+  "price_state": "pool-verified",
+  "is_developed_mega_cap": false,
+  "discount_rate": {
+    "rf": 0.046,
+    "erp": 0.055,
+    "beta": 0.36,
+    "cost_of_equity": 0.0958,
+    "wacc": 0.0793,
+    "after_tax_kd": 0.0424
+  },
+  "methods": {
+    "dcf": 17.53,
+    "sotp": 16.71,
+    "peers": 13.76,
+    "own_history": 37.74
+  },
+  "method_weights": {
+    "dcf": 0.40,
+    "sotp": 0.0,
+    "peers": 0.60,
+    "own_history": 0.0
+  },
+  "method_basis": {
+    "own_history": "LTM",
+    "peers": "NTM",
+    "dcf": "FY+1",
+    "sotp": "NTM"
+  },
+  "method_weight_exception": "DCF weighted at 40% (above the standard ≤⅓ cross-check cap) because own-history multiples (02) self-excluded as not a defensible fair-value input, leaving peer relative valuation (03) as the sole surviving multiples-camp method; DCF (04) was elevated to supplement the 'majority' role the multiples camp normally carries, rather than left an under-weighted afterthought [07_scenario-and-fair-value.md §1].",
+  "dcf_grid": {
+    "wacc": [0.0693, 0.0793, 0.0893],
+    "growth": [0.005, 0.01, 0.015],
+    "values": [
+      [19.60, 16.52, 14.18],
+      [21.03, 17.53, 14.92],
+      [22.72, 18.70, 15.76]
+    ],
+    "base": {"wacc": 0.0793, "growth": 0.01},
+    "source": "04_intrinsic-dcf.md §7 Sensitivity Grid"
+  },
+  "peers_internals": {
+    "median_multiple": 8.72,
+    "applied_multiple": 7.15,
+    "discount_pct": 0.18,
+    "anchors": [
+      {"multiple": 7.15, "value": 13.76, "basis": "NTM EV/EBITDA (quality-adjusted, base case)"},
+      {"multiple": 6.40, "value": 11.86, "basis": "LTM EV/EBITDA (CIQ-basis, quality-adjusted)"},
+      {"multiple": 1.07, "value": 12.89, "basis": "LTM EV/Sales (quality-adjusted)"},
+      {"multiple": 1.10, "value": 12.19, "basis": "NTM EV/Sales (quality-adjusted)"}
+    ],
+    "source": "03_relative-valuation-peers.md §5 Implied Value from Peer Multiples"
+  },
+  "scenarios": [
+    {
+      "label": "bull",
+      "probability": null,
+      "forward_metric": 264.5,
+      "metric_basis": "NTM Adj. EBITDA (consensus)",
+      "multiple": 8.70,
+      "multiple_basis": "EV/NTM Adjusted EBITDA",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "source": "07_scenario-and-fair-value.md §3 scenario table",
+      "level": 21.98,
+      "drivers": "Commodity input costs ease vs. FY2026 guide (+$27.0M EBITDA) + Quest re-accelerates to +8% YoY from +1.1% (+$11.4M) + Sept-2026 price increase lands at the low end of management's elasticity range (+$7.7M); multiple expands to the plain (un-discounted) peer median (8.72x ≈ 8.70x used), i.e. the 18% quality haircut closes entirely. 12-month horizon (~Aug-2027)."
+    },
+    {
+      "label": "base",
+      "probability": null,
+      "forward_metric": 218.42,
+      "metric_basis": "NTM Adj. EBITDA (consensus, unchanged)",
+      "multiple": 7.77,
+      "multiple_basis": "EV/NTM Adjusted EBITDA",
+      "multiple_kind": "implied",
+      "basis": "ev",
+      "source": "07_scenario-and-fair-value.md §2-§3 (base_point blend + scenario table)",
+      "level": 15.27,
+      "drivers": "60/40 weighted blend of 03's quality-adjusted peer multiple (7.15x) and 04's DCF-implied multiple (8.70x); margin stabilizes near the TTM trough, Atkins decline moderates on schedule, no major re-rating catalyst fires. 12-month horizon (~Aug-2027)."
+    },
+    {
+      "label": "bear_operating",
+      "probability": null,
+      "forward_metric": 177.4,
+      "metric_basis": "NTM Adj. EBITDA (stressed)",
+      "multiple": 6.10,
+      "multiple_basis": "EV/NTM Adjusted EBITDA",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "source": "07_scenario-and-fair-value.md §3 scenario table",
+      "level": 8.42,
+      "drivers": "Commodity costs worsen further vs. guide (−$27.0M) + Quest growth falls to −5% YoY (−$10.1M) + Atkins decline deepens to −30% YoY (−$3.9M) — a 'turnaround stalls' narrative. Multiple compresses to SMPL's own 5-year floor (6.11x, used as 6.10x). Headline bear (worse-of test vs. structural reset). 12-month horizon (~Aug-2027)."
+    },
+    {
+      "label": "bear_structural",
+      "probability": null,
+      "forward_metric": null,
+      "metric_basis": null,
+      "multiple": null,
+      "multiple_basis": null,
+      "multiple_kind": null,
+      "basis": "ev",
+      "source": "07_scenario-and-fair-value.md §3 Structural-reset bridge (executed); derived in 04_intrinsic-dcf.md §5",
+      "level": 13.09,
+      "drivers": "Permanent, not cyclical, share loss: Atkins/OWYN terminal margin fades to 14.5% (below the TTM trough) and the terminal perpetuity turns negative (g = −1.0%), reflecting continued, non-recovering share loss inside SMPL's own dominant Quest segment. Labelled avoid-ruin floor, not the headline bear (worse-of test picked bear_operating). 24-36 month horizon.",
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 1501.8,
+        "net_debt": 324.58,
+        "minority": 0,
+        "other": 0,
+        "shares": 89.934884,
+        "stated_drivers": [
+          {"label": "terminal Adjusted EBITDA margin", "value": 0.145, "note": "faded below TTM trough (16.9%), reflecting continued non-recovering share loss"},
+          {"label": "terminal growth (g)", "value": -0.01, "note": "declining-perpetuity terminal, nominal basis"}
+        ],
+        "source": "07_scenario-and-fair-value.md §3 Structural-reset bridge (executed); 04_intrinsic-dcf.md §5"
+      }
+    }
+  ]
+}
