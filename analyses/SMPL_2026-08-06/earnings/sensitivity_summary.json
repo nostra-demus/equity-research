@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "ticker": "SMPL",
+  "as_of": "2026-08-06",
+  "currency": "USD",
+  "base_metric": "adjusted_ebitda_usd_m (company non-GAAP, FY2026 guidance midpoint)",
+  "base_value": 222.5,
+  "base_value_source": "Q3 FY26 earnings call transcript, prepared remarks (CFO Bealer), Jul 9 2026; corroborated by Estimates Report.xls Guidance tab, entry dated 2026-07-09 (earnings/04_guidance-consensus.md §2)",
+  "base_period": "FY2026 (guidance, full year ending on or about Aug 29, 2026)",
+  "revenue_base": 1350.0,
+  "revenue_period": "FY2026 (guidance, full year ending on or about Aug 29, 2026)",
+  "sensitivities": [
+    {
+      "variable": "quest_revenue_growth_rate",
+      "label": "Quest brand YoY net-sales growth rate",
+      "unit": "pp (percentage points of YoY revenue growth)",
+      "base_value": 1.1,
+      "coefficient": 1.649,
+      "impact_metric": null,
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": {"low": -5, "high": 8},
+      "non_linearity": "Coefficient assumes Quest's incremental revenue flows through at the CONSOLIDATED FY2025 Adjusted EBITDA margin (19.2%), because no brand-level margin is disclosed under ASC 280 single-segment reporting. If Quest's true margin differs from the consolidated blend, actual flow-through will differ; not tested at moves outside the -5 to +8pp range shown in §2.",
+      "source": "Derived by agent from FY2025 10-K, Note 15 (Quest = 59.5% of FY2025 net sales); FQ3 FY26 10-Q, Note 12 and Q3 FY26 earnings call, Jul 9 2026 (Quest = 63.7% of 9-month FY26 net sales, +1.1% YoY in FQ3 FY26); earnings/01_historical-financials.md §4 (FY2025 Adjusted EBITDA margin 19.2%, $278.2M/$1,450.9M)"
+    },
+    {
+      "variable": "atkins_revenue_growth_rate",
+      "label": "Atkins brand YoY net-sales growth rate",
+      "unit": "pp (percentage points of YoY revenue growth)",
+      "base_value": -24.6,
+      "coefficient": 0.6445,
+      "impact_metric": null,
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": {"low": -30, "high": -10},
+      "non_linearity": "Coefficient assumes Atkins's incremental revenue flows through at the CONSOLIDATED FY2025 Adjusted EBITDA margin (19.2%), because no brand-level margin is disclosed under ASC 280 single-segment reporting. Atkins's true margin may differ; the fixed-cost base behind Atkins's own declining revenue is not disclosed separately (operating-deleverage risk, see §6 of the markdown report).",
+      "source": "Derived by agent from Q3 FY26 earnings call, Jul 9 2026, CEO prepared remarks (Atkins = 24.9% of 9-month FY26 net sales, FQ3 FY26 YoY decline -24.6%); FY2025 10-K, Item 1A, p.24 (Walmart cut Atkins assortment in FY2025); earnings/01_historical-financials.md §4 (FY2025 Adjusted EBITDA margin 19.2%)"
+    },
+    {
+      "variable": "walmart_amazon_net_sales",
+      "label": "Combined Walmart + Amazon net sales (retail customer concentration)",
+      "unit": "USD million (change in combined Walmart + Amazon net sales)",
+      "base_value": 710.9,
+      "coefficient": 0.1917,
+      "impact_metric": null,
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": {"low": -71.1, "high": 71.1},
+      "non_linearity": "Coefficient assumes any change in Walmart/Amazon-sourced net sales flows through at the CONSOLIDATED FY2025 Adjusted EBITDA margin (19.2%) -- no customer-level margin is disclosed. A retailer's shelf-space decision is typically a step function (an assortment cut/add), not a smooth continuous move, so intermediate points on this scale are less reliable than the endpoints actually tested (+/-10% of the combined base) in the markdown §2 table.",
+      "source": "Derived by agent from FY2025 10-K, Item 1A, p.24 (Walmart ~31%, Amazon ~18% of FY2025 net sales of $1,450.9M; no minimum-purchase commitments at either retailer; Walmart reduced Atkins assortment during FY2025); earnings/01_historical-financials.md §4 (FY2025 Adjusted EBITDA margin 19.2%)"
+    },
+    {
+      "variable": "term_loan_interest_rate",
+      "label": "Interest rate on $250.0M variable-rate (SOFR-based) term loan",
+      "unit": "pp (percentage points, rate change)",
+      "base_value": null,
+      "coefficient": -2.5,
+      "impact_metric": "pretax_income_usd_m",
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": {"low": -1, "high": 1},
+      "non_linearity": null,
+      "source": "FY2025 10-K, Item 7A, p.49: 'a hypothetical 100 basis point increase in interest rates...would increase our annual interest expense by approximately $2.5 million', based on the $250.0 million Term Facility balance outstanding as of August 30, 2025; no interest-rate swaps or caps in place"
+    }
+  ]
+}
