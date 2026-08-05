@@ -1,0 +1,77 @@
+{
+  "idea_id": "IDEA-8f1df7ea5f44",
+  "idea_version": "IDEAV-ca51e5d424d33bdf",
+  "idea_version_started_at": "2026-08-04T17:45:24Z",
+  "ticker": "BP",
+  "company": "BP",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "long",
+  "pair_with": null,
+  "reason": "Oil price surge from the Iran war directly lifts BP's refining and upstream margins, driving profit growth.",
+  "why_now": "Q2 2026 earnings report released today showing profit more than doubling to over $5 billion.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v1",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 10,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "commodity_conditional",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-12f2ecb379de",
+    "EVT-65615a9dc389",
+    "EVT-98de16092f40",
+    "EVT-61d8bdb89e5a"
+  ],
+  "primary_source_event_id": "EVT-12f2ecb379de",
+  "source_headlines": [
+    "Aramco's profits soar 44 percent as Iran war boosts prices",
+    "BP profits more than double as Iran war sends oil prices soaring",
+    "BP’s Q2 profit more than doubles to top US$5 billion on oil surge",
+    "Saudi Aramco delivers 44 percent surge in net profit to $32.69 billion in Q2 2026"
+  ],
+  "source_headline": "Aramco's profits soar 44 percent as Iran war boosts prices",
+  "source_url": "https://www.newarab.com/news/aramcos-profits-soar-44-percent-iran-war-boosts-prices",
+  "source_name": "The New Arab",
+  "materiality_max": 100,
+  "newest_source_at": "2026-08-04T07:40:05Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-08-04T13:18:48Z",
+  "updated_at": "2026-08-04T17:45:24Z",
+  "decay_at": "2026-08-05T19:40:05Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

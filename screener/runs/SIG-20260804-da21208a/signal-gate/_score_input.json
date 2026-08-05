@@ -1,0 +1,35 @@
+{
+  "relevance_label": "material",
+  "event_types": ["earnings_revenue_margin", "guidance_change", "capital_actions"],
+  "issuer_linkage": "primary_issuer",
+  "pair_label": "new_event",
+  "confirmation_upgrade": false,
+  "relevance_confidence": 0.95,
+  "source_name": "Reuters",
+  "source_grade": "A",
+  "is_official_filing": false,
+  "paywalled": false,
+  "corroborated": false,
+  "filing_type": "unknown_filing",
+  "is_generic_media": false,
+  "specificity_score": 95,
+  "quantifiability_score": 95,
+  "investability_score": 90,
+  "sensational_uncorroborated": false,
+  "issuer_public_status": "public",
+  "portfolio_position": false,
+  "sector_wide_move": false,
+  "live_theme_match": false,
+  "commodity_rate_transmission": false,
+  "specificity_signals": {
+    "hard_number_cited": true,
+    "corroborating_second_number": true,
+    "named_counterparty_or_instrument": true,
+    "effective_date_stated": true
+  },
+  "estimate_impact_signals": {
+    "moves_consensus_estimate": true,
+    "traceable_to_valuation_driver": true,
+    "material_relative_to_size": true
+  }
+}
