@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "ticker": "UBER",
+  "as_of": "2026-08-06",
+  "currency": "USD",
+  "base_metric": "adjusted_ebitda_usd_m",
+  "base_value": 8730,
+  "base_value_source": "FY2025 Adj. EBITDA (company-defined, non-GAAP) [`01_historical-financials.md` §1, citing Financials.xls Segments tab, 'Total EBITDA' row]",
+  "base_period": "FY2025",
+  "revenue_base": 52017,
+  "revenue_period": "FY2025",
+  "sensitivities": [
+    {
+      "variable": "revenue_growth_rate",
+      "label": "Consolidated revenue YoY growth rate (proxy for Mobility Gross Bookings growth, the largest revenue driver)",
+      "unit": "pp (YoY growth rate)",
+      "base_value": 18.3,
+      "coefficient": 145.3,
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": {"low": -4, "high": 4},
+      "non_linearity": "Coefficient uses the FY2024->FY2025 average incremental EBITDA margin (~27.9% = $2,246mm EBITDA gain / $8,039mm revenue gain). In a deceleration this likely overstates margin retention because SG&A/R&D are semi-fixed near-term (operating deleverage), so the true bear-case EBITDA hit could exceed the linear estimate.",
+      "source": "Derived from `01_historical-financials.md` §1 (FY2024/FY2025 Revenue and Adj. EBITDA). Inference, not from filings."
+    },
+    {
+      "variable": "cogs_pct_revenue_bps",
+      "label": "Cost of revenue (COGS) as % of revenue, in bps (driven mainly by the insurance-cost / driver-incentive line)",
+      "unit": "bps of revenue",
+      "base_value": 6150,
+      "coefficient": -5.2,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": -100, "high": 100},
+      "non_linearity": "Insurance-cost savings are currently fully reinvested into pricing per management, not banked - zero disclosed margin buffer, so an adverse (bear) move is not offset by any other cost lever; asymmetric downside versus the bull case.",
+      "source": "`03_margin-drivers.md` §3-4, §8 (COGS ratio FY2024 62.49% -> FY2025 61.50%, Financials.xls Income Statement tab); move-size basis is the historical one-year observed change."
+    },
+    {
+      "variable": "sga_pct_revenue_bps",
+      "label": "SG&A as % of revenue, in bps (AI-driven headcount-discipline lever)",
+      "unit": "bps of revenue",
+      "base_value": 1987,
+      "coefficient": -5.2,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": -150, "high": 150},
+      "non_linearity": "LTM SG&A ratio (20.50%) has already partially reversed +63bps versus the FY2025 endpoint (19.87%), showing this lever can move against the company within two quarters, faster than the multi-year improving trend would suggest.",
+      "source": "`03_margin-drivers.md` §3-4, §6 (SG&A ratio FY2024 22.45% -> FY2025 19.87%, LTM 20.50%, Financials.xls Income Statement tab)."
+    }
+  ]
+}
