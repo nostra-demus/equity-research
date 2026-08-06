@@ -225,6 +225,37 @@ def eval_forecast_type(entry):
         return f"forecast_type={ft!r} not in closed enum {sorted(FORECAST_TYPE_ENUM)}"
     return None
 
+# CLAUDE.md §19 requires each forecast_ledger entry to record 8 fields: prediction, probability,
+# time_window, evidence_today, confirmation_trigger, falsification_trigger, owner_module, confidence_score.
+# Check T (below) has always enforced 4 of them (prediction/confirmation_trigger/falsification_trigger/
+# time_window) plus status/probability/forecast_type validity — but never evidence_today, owner_module,
+# or confidence_score, even though DECISION_LEDGER.md §6's own example schema carries all three. Nothing
+# mechanical stopped a future synthesizer-prompt edit from silently dropping them: the learning loop needs
+# owner_module to slice calibration by module (calibrate.py's calibration_by_module) and confidence_score
+# to weight/aggregate forecasts by conviction, and review-decisions' luck-vs-skill judgment (DECISION_
+# LEDGER.md §10) needs evidence_today to see what was known AT THE TIME, not read back in hindsight.
+# owner_module is checked against ROSTER (self-discovered from .claude/agents/*/99_*-synthesis.md, same
+# set check AA/AJ use) rather than a hardcoded module list, per CLAUDE.md §26 zero-touch extensibility —
+# a new module is absorbed automatically, nothing here needs editing when one is added.
+OWNERCONF_DATE="2026-08-06"
+def eval_forecast_entry_completeness(entry):
+    """Validate a single forecast_ledger entry's owner_module / confidence_score / evidence_today
+    fields per CLAUDE.md §19. Returns a list of error strings (empty list = pass). Side-effect-free
+    + module-level so the selftest drives all branches fixture-free (every committed fixture already
+    carries all three fields in practice, so this can't be exercised via a missing-field golden fixture)."""
+    errs=[]
+    om=entry.get("owner_module")
+    if not str(om or "").strip():
+        errs.append("missing or empty: owner_module")
+    elif ROSTER and om not in ROSTER:
+        errs.append(f"owner_module={om!r} not in module roster {sorted(ROSTER)}")
+    cs=entry.get("confidence_score")
+    if not (isnum(cs) and 0<=cs<=100):
+        errs.append(f"confidence_score={cs!r} must be a number in [0, 100] per CLAUDE.md §19/§12")
+    if not str(entry.get("evidence_today") or "").strip():
+        errs.append("missing or empty: evidence_today")
+    return errs
+
 # ── Check AA (§18 module verdict-lock caps) — module-level so `eval.py selftest` can drive it ──
 # CLAUDE.md §18 mandates two hard verdict-lock caps that the master synthesizer's PROMPT states but
 # nothing mechanically verifies. Gap: when the balance-sheet-survival (BSS) module synthesis contains
@@ -1457,6 +1488,36 @@ if scope=="selftest":
         if not ok: t3bad+=1
         print(f"  [{'ok' if ok else 'XX'}] T3({entry_!r}) -> {got!r}"+("" if ok else f"  EXPECTED fragment {exp!r}"))
     bad+=t3bad
+    # check T4 (forecast_ledger owner_module/confidence_score/evidence_today completeness) — every
+    # committed fixture already carries all three fields, so the golden suite can't exercise a
+    # missing-field branch; the selftest drives the validator directly for full branch coverage.
+    T4=eval_forecast_entry_completeness
+    t4cases=[  # (entry_dict, expected: [] = ok, list of substrings that must each appear somewhere in errs)
+        ({"owner_module":"earnings","confidence_score":65,"evidence_today":"Q1 filing"}, []),
+        ({"owner_module":"valuation","confidence_score":0,"evidence_today":"x"}, []),        # 0 is a valid score
+        ({"owner_module":"valuation","confidence_score":100,"evidence_today":"x"}, []),      # 100 is valid
+        ({"owner_module":"catalyst","confidence_score":45.5,"evidence_today":"x"}, []),      # float ok
+        ({"confidence_score":65,"evidence_today":"x"}, ["missing or empty: owner_module"]),
+        ({"owner_module":"","confidence_score":65,"evidence_today":"x"}, ["missing or empty: owner_module"]),
+        ({"owner_module":"macro","confidence_score":65,"evidence_today":"x"}, ["not in module roster"]),   # not a real module
+        ({"owner_module":"Earnings","confidence_score":65,"evidence_today":"x"}, ["not in module roster"]), # case-exact
+        ({"owner_module":"earnings","evidence_today":"x"}, ["confidence_score=None"]),
+        ({"owner_module":"earnings","confidence_score":None,"evidence_today":"x"}, ["confidence_score=None"]),
+        ({"owner_module":"earnings","confidence_score":"high","evidence_today":"x"}, ["confidence_score='high'"]),
+        ({"owner_module":"earnings","confidence_score":-5,"evidence_today":"x"}, ["confidence_score=-5"]),
+        ({"owner_module":"earnings","confidence_score":101,"evidence_today":"x"}, ["confidence_score=101"]),
+        ({"owner_module":"earnings","confidence_score":True,"evidence_today":"x"}, ["confidence_score=True"]),  # bool excluded
+        ({"owner_module":"earnings","confidence_score":65}, ["missing or empty: evidence_today"]),
+        ({"owner_module":"earnings","confidence_score":65,"evidence_today":""}, ["missing or empty: evidence_today"]),
+        ({}, ["missing or empty: owner_module","confidence_score=None","missing or empty: evidence_today"]),  # all three absent
+    ]
+    t4bad=0
+    for entry_,exp in t4cases:
+        got=T4(entry_)
+        ok=(got==[] if exp==[] else all(any(e in g for g in got) for e in exp))
+        if not ok: t4bad+=1
+        print(f"  [{'ok' if ok else 'XX'}] T4({entry_!r}) -> {got!r}"+("" if ok else f"  EXPECTED fragments {exp!r}"))
+    bad+=t4bad
     # check AA — §18 module verdict-lock caps. The golden suite can't reach the cap branches
     # (all committed fixtures predate AA_DATE → N/A); drive every branch here.
     # Expected values: "na" (N/A), "pass" (no violations), "fail" (one or more violations).
@@ -3012,7 +3073,7 @@ if scope=="selftest":
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -3443,6 +3504,9 @@ for drp in runs:
             if isdate(ddte) and ddte>=FTYPE_DATE:
                 fterr=eval_forecast_type(entry)
                 if fterr: fdet.append(f"forecast_ledger[{i}] {fterr}")
+            if isdate(ddte) and ddte>=OWNERCONF_DATE:
+                for cerr in eval_forecast_entry_completeness(entry):
+                    fdet.append(f"forecast_ledger[{i}] {cerr}")
         add("T_forecast_ledger_quality",not fdet,
             "; ".join(fdet) or
             (f"all {len(fl)} forecast_ledger entries have required fields + valid status + valid probability" if fl
@@ -4059,7 +4123,7 @@ FRAMEWORK_CONTRACTS={
  "scripts/market_prices.py":["data/_market","close_on","total_return","beta_adjusted_excess","raw_excess_pct","beta_adjusted_excess_pct","available","as_of","date,symbol,close"],
  "frameworks/MARKET_FEED.md":["date,symbol,close","_symbols.json","beta_adjusted_excess","close_on","EXTERNAL_DATA"],
  "frameworks/EXTERNAL_DATA.md":["data/_market","market_prices.py","beta-adjusted","tracking_price","date,symbol,close"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_FTYPE_DATE","AG_TTYPE_DATE","AG_ERRTAX_DATE","AG_STATUSES","_ag_leading_error_categories","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","eval_ar_short_bull_case_sanity","AR_DATE","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date","eval_ap_valuation_summary_integrity","scan_committed"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","eval_forecast_entry_completeness","OWNERCONF_DATE","owner_module","confidence_score","evidence_today","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_FTYPE_DATE","AG_TTYPE_DATE","AG_ERRTAX_DATE","AG_STATUSES","_ag_leading_error_categories","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","eval_ar_short_bull_case_sanity","AR_DATE","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date","eval_ap_valuation_summary_integrity","scan_committed"],
 
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
