@@ -1,0 +1,92 @@
+finding_id,agent,section,question,verdict,raw_value,unit,trend,peer_verdict,score,penalty,confidence,materiality,evidence,red_flag_id,follow_up
+01-001,01,Key Executives,CEO tenure,Green,8.9,years,Stable,NA,18,0,4,Medium,Professionals.rtf,,None
+01-002,01,Management Stability,CFO turnover count / shortest tenure,Amber,3,CFOs since 2018,Deteriorating,NA,10,-6,3,High,"biz-model/11; Professionals.rtf; TechCrunch (unverified)",,Confirm reason via proxy/8-K
+01-003,01,Key Executives,Board Chair tenure/independence,Green,8,"years, Independent",Stable,NA,4,0,4,Low,Board Members.rtf,,None
+01-004,01,Management Stability,CTO turnover,Amber,1,CTO change Dec-2025,Not enough history,NA,3,-2,3,Low,Professionals.rtf,,Confirm predecessor CTO
+01-005,01,Key Executives,Founder/owner-operator status,NA,0.18,% insider ownership,Stable,NA,,,3,Medium,biz-model/11,,None
+01-006,01,Promise vs Delivery,"Adj. EBITDA vs guide, FQ1 2026",Green,2481,"$mm vs $2370-2470mm guided",Improving,NA,6,0,3,Medium,"CIQ Estimates, Guidance tab",,None
+01-007,01,Promise vs Delivery,"Adj. EBITDA vs guide, FQ2 2026",Green,2819,"$mm vs $2700-2800mm guided",Improving,NA,6,0,3,Medium,"CIQ Estimates; earnings/04",,None
+01-008,01,Promise vs Delivery,"Adj. EPS vs guide, FQ1 2026",Green,0.72,"$ vs $0.65-0.72 guided",Improving,NA,5,0,3,Medium,"CIQ Estimates, Guidance tab",,None
+01-009,01,Promise vs Delivery,"Adj. EPS vs guide, FQ2 2026",Green,0.81,"$ vs $0.78-0.82 guided",Stable,NA,5,0,3,Medium,"CIQ Estimates, Guidance tab",,None
+01-010,01,Promise vs Delivery,Revenue consensus miss pattern,Amber,-0.52,% miss FQ2 2026,Deteriorating,NA,3,-3,3,Medium,"earnings/04; CIQ Estimates",,Watch FQ3 2026
+01-011,01,Stated Strategy,US Mobility acceleration promise vs Q2 result,Green,22,% YoY Gross Bookings growth,Improving,NA,4,0,3,Medium,Q2 FY26 transcript,,Confirm continuation
+01-012,01,Stated Strategy,Headcount-discipline claim verifiability,Insufficient Data,,,Not enough history,NA,0,0,1,Low,"Q2 FY26 transcript, Q&A p.9",,Obtain headcount disclosure
+01-013,01,Turnaround Test,"Delivered operating inflection, FY23-FY25",Green,5565,"$mm Op. Income FY25 (from $1110mm FY23)",Improving,NA,10,0,4,High,"biz-model/01; Financials.xls",,None
+01-014,01,Management Stability,CFO departure characterization,Amber,,,Not enough history,NA,3,-2,2,Medium,"Web: TechCrunch/CFO Dive (unverified)",,Confirm via 8-K/proxy
+01-015,01,Integrity Test,Adverse integrity buzz routed?,NA,0,,Not enough history,NA,,,4,,biz-model/01 §3,,None
+01-016,01,Stated Strategy,AV commercialization $10bn investment,Insufficient Data,10000,$mm multi-year commitment,Not enough history,NA,0,0,3,High,Q2 FY26 transcript,,Track capital deployed
+01-017,01,Promise vs Delivery,~50% FCF buyback framework overridden,Amber,4000,"$mm pulled for DH stake, Q2 2026",Deteriorating,NA,3,-3,3,High,biz-model/11,,Confirm buyback cadence resumes
+02-001,02,Uses of Capital,"Acquisitions as % of cumulative CFO, FY21-25",Amber,15.2,% of CFO,Not enough history,NA,6,-4,4,High,"Financials.xls, CF tab",,Track FY26-27 M&A cash line
+02-002,02,Uses of Capital,"Buybacks as % of cumulative CFO, FY21-25",Green,37.0,% of CFO,Rising sharply,NA,7,0,4,Medium,"Financials.xls, CF tab",,None
+02-003,02,Uses of Capital,"Debt repaid vs issued, FY21-25",Amber,1304,$mm net debt issued,Deteriorating into LTM,NA,4,-2,4,Medium,"Financials.xls, CF tab",,None
+02-004,02,M&A Scorecard,Delivery Hero deal size vs market cap,Red,10.6,% of market cap,New,NA,3,-8,4,Critical,"CIQ M&A db; Public Co Profile",RF-CAP-004,Track leverage vs <2x target
+02-005,02,M&A Scorecard,Serial-acquirer cadence,Red,7,acquisitions in ~18 months,Accelerating,NA,2,,4,Critical,"Public Co Profile; CIQ Landscape",RF-CAP-004,Monitor deal count/debt
+02-006,02,M&A Scorecard,Forced divestiture opportunity cost,Red,1600,$mm SSW divestiture,New,NA,,,4,High,"CIQ Landscape, DH deal entry",RF-CAP-004,Confirm divested entity/multiple
+02-007,02,M&A Scorecard,$4bn buyback capital redirected to DH stake,Amber,4000,$mm,New,NA,3,-4,3,High,Q2 FY26 transcript,,Confirm buyback cadence
+02-008,02,M&A Scorecard,Trendyol Go organic/acquired growth conflation,Amber,,,Deteriorating,NA,3,-2,3,Medium,Q2 FY26 transcript,,Isolate organic vs. inorganic growth
+02-009,02,Buyback Scorecard,"Net share-count change, Dec-2024 to Aug-2026",Green,-2.2,%,Improving then reversing,NA,8,0,4,Medium,Historical Cap. tab,,None
+02-010,02,Buyback Scorecard,"Buyback price discipline vs trading range, FY2025",Amber,84.38,$ est. avg vs $65.41-101.99 range,Not enough history,NA,4,-3,2,High,"Historical Cap. tab; Public Co Profile",,Confirm via 10-Q/10-K
+02-011,02,Buyback Scorecard,Buybacks vs SBC dollar ratio,Green,3.9,x,Stable,NA,6,0,4,Medium,"Financials.xls, CF tab",,None
+02-012,02,Dividends,Dividend payout ratio,NA,0,%,Stable,NA,,,4,Low,"Financials.xls, CF tab",,None
+02-013,02,Dividends,"Incremental ROIC, FY22-25",Green,34.7,% (approximation),Improving,NA,20,0,3,High,"Financials.xls, IS/BS",,Confirm with disclosed segment ROIC
+02-014,02,Uses of Capital/BS,"Net debt trajectory, FY25 to LTM Jun26",Red,9340,$mm net debt (strict),Sharply deteriorating,NA,3,-5,4,Critical,"Financials.xls, BS tab",RF-CAP-004,Track leverage vs <2x target
+02-015,02,Capital Allocation Score,Rejector-filter cap applied (section 24 Filter 4),Red,50,/100 capped from raw 58,,NA,50,-8,4,Critical,"This agent §4; biz-model/11",RF-CAP-004,Re-score post-close
+03-001,03,Comp Structure,DEF 14A / CD&A present in pool used by this agent?,Insufficient Data,0,count,Not enough history,NA,0,20,5,High,00 triage filename inventory,,Obtain DEF 14A
+03-002,03,Comp Structure,CEO base/bonus/LTIP mix,Insufficient Data,,USD,Not enough history,NA,0,20,1,Critical,No Summary Comp. Table in pool,,Obtain SCT
+03-003,03,Comp Structure,CFO base/bonus/LTIP mix,Insufficient Data,,USD,Not enough history,NA,0,20,1,Critical,"No SCT; CFO changed 2026-02-16",,Obtain new-hire disclosure
+03-004,03,Performance Metrics,Annual bonus metrics/weights,Insufficient Data,,% weight,Not enough history,"Lyft 50/50 GB/AdjEBITDA (web, unverified)",0,20,1,Critical,No bonus-plan disclosure,,Obtain CD&A bonus section
+03-005,03,Performance Metrics,LTIP metrics/weights,Insufficient Data,,% weight,Not enough history,"DoorDash stock-hurdle LTIP (web, unverified)",0,15,1,Critical,No LTIP disclosure,,Obtain CD&A LTI section
+03-006,03,Comp Structure,Company-wide SBC expense (context only),Green,1826,"$mm, FY2025",Stable,NA,,,5,Medium,"Financials.xls, CF tab",,None
+03-007,03,Pay vs Performance,CEO total pay,Insufficient Data,,USD,Not enough history,NA,0,15,1,Critical,No SCT in pool,,Obtain SCT
+03-008,03,Pay vs Performance,Say-on-pay support (%),Insufficient Data,,%,Not enough history,NA,0,10,1,High,No AGM voting disclosure in pool used by this agent,,"Obtain 8-K/AGM results (see synthesis §3 - 05 sourced 91% avg)"
+03-009,03,Pay vs Performance,Capital-return policy signal (company level),Green,50,% FCF to buybacks (stated),Stable,NA,,,3,Medium,Q2 FY26 transcript,,Confirm mapping to exec metric
+04-001,04,Ownership,CEO ownership % and $ value,NA,0.060,"% (1225802 sh, $87.8mm)",Stable,NA,,,3,Medium,"CIQ Landscape, Top 25 Holders",,None
+04-002,04,Ownership,Total officer+director ownership %,Amber,0.176,% ($256.8mm),Stable,NA,8,-17,3,High,CIQ Landscape,,Confirm via primary beneficial-ownership table
+04-003,04,Ownership,Largest institutional holder,Green,7.417,% (BlackRock),Stable,NA,,,3,Low,CIQ Landscape,,None
+04-004,04,Ownership,PIF stake & board seat,Amber,3.578,% ($5216.1mm); 1 board seat,Stable,NA,,,3,Medium,"CIQ Landscape; Board Members.rtf",,Monitor PIF stake
+04-005,04,Ownership quality,Bought vs granted - accumulation mechanism,Red,0,of 44 six-month purchases = cash buys,Not enough history,NA,3,-12,3,High,"CIQ Landscape, Insider Purchases",,Confirm via Form 4
+04-006,04,Insider Transactions,"Net insider activity, trailing 6 months",Amber,-33973,shares,Deteriorating,NA,8,-12,3,Medium,CIQ Landscape,,Obtain missing 7-12mo window
+04-007,04,Insider Transactions,"Net insider activity, trailing 3 months",Amber,-3609,shares,Stable,NA,,,3,Low,CIQ Landscape,,None
+04-008,04,Market Conduct,CEO sale timing vs subsequent FQ1 2026 result,Green,253700,"shares, $18.94mm @ $74.66",Not enough history,NA,,,3,High,"CIQ Landscape; 01 §4",,None
+04-009,04,Pledging,Promoter/insider share pledge,Green,0,% pledged,Stable,NA,20,0,4,Low,"biz-model/01 #2; CIQ Landscape",,None
+04-010,04,Control Structure,Dual-class/super-voting shares,Green,99.7,"% float, single class",Stable,NA,9,-1,3,Medium,Public Co Profile,,Confirm via 10-K cover page
+04-011,04,Control Structure,Controlled-company status,Green,7.417,% held by largest single holder,Stable,NA,,,3,Medium,CIQ Landscape,,None
+04-012,04,Control Structure,Unaligned-controlling-owner test (section 24 Filter 6),NA,0,no controlling owner,Stable,NA,,,4,,CIQ Landscape,,None
+04-013,04,Market Conduct,Vanguard entity buy/sell reattribution,Insufficient Data,-192499602,shares,Not enough history,NA,,,2,Low,"CIQ Landscape, Top Buyers/Sellers",,None
+04-014,04,Market Conduct,Toyota full exit of legacy strategic stake,Amber,-5125868,shares (now 0),Not enough history,NA,7,-3,3,Low,"CIQ Landscape; Public Co Profile",,None
+04-015,04,Market Conduct,Unusual price/volume before announcements,Insufficient Data,,,Not enough history,NA,0,0,1,Low,Public Co Profile (single snapshot),,Obtain daily price/volume history
+05-001,05,Board Composition,Independent-director %,Green,90,% (9 of 10),Stable,NA,18,0,5,High,"FY26 DEF 14A, p.11",,None
+05-002,05,Board Composition,Chair/CEO split,Green,1,Independent Chair since Aug-2018,Stable,NA,5,0,5,Medium,"FY26 DEF 14A, p.2",,None
+05-003,05,Board Composition,Committee independence,Green,100,% all 3 committees,Stable,NA,15,0,5,High,"FY26 DEF 14A, p.11",,None
+05-004,05,Board Composition,Board/committee attendance,Green,75,% minimum attendance,Stable,NA,5,0,5,Low,"FY26 DEF 14A, p.33",,None
+05-005,05,Board Composition,PIF-affiliated director on Audit Cmte,Amber,3.57,% Alnowaiser (PIF),Stable,NA,6,-4,4,Medium,"FY26 DEF 14A, p.80",,Monitor Audit Cmte PIF matters
+05-006,05,Tenure & Refreshment,Average independent-director tenure,Green,5.6,years,Stable,NA,8,0,5,Low,"FY26 DEF 14A, p.10",,None
+05-007,05,Tenure & Refreshment,Overboarding policy exceptions,Amber,2,directors with exceptions,Stable,NA,4,-6,5,Medium,"FY26 DEF 14A, p.28",,Confirm annual re-review
+05-008,05,Tenure & Refreshment,Board refreshment (last 3 years),Green,3,of 10 seats,Improving,NA,7,0,5,Low,"FY26 DEF 14A, p.2,10",,None
+05-009,05,Related-Party,Material RPT >$120000 disclosed,Green,0,transactions,Stable,NA,18,0,5,High,"FY26 DEF 14A, p.34",,None
+05-010,05,Related-Party,Section 16(a) filing compliance,Amber,1,delinquent/corrected Form 3 (Arora),Not enough history,NA,3,-2,5,Low,"FY26 DEF 14A, p.33",,None
+05-011,05,Takeover Defenses,Poison pill present,Green,0,absent,Stable,NA,10,0,5,Medium,"FY26 DEF 14A, p.11",,None
+05-012,05,Takeover Defenses,Classified/staggered board,Green,0,absent,Stable,NA,10,0,5,Medium,"FY26 DEF 14A, p.11",,None
+05-013,05,Takeover Defenses,Dual-class/unequal voting,Green,0,absent,Stable,NA,10,0,5,High,"FY26 DEF 14A, p.11",,None
+05-014,05,Takeover Defenses,Director-election voting standard,Green,1,majority-vote,Stable,NA,5,0,5,Medium,"FY26 DEF 14A, p.11,20",,None
+05-015,05,Shareholder Rights,Right to call a special meeting,Amber,25,% voting power required,Stable,NA,6,-4,5,Medium,"FY26 DEF 14A, p.11",,None
+05-016,05,Shareholder Rights,Right to act by written consent,Red,0,absent,Not enough history,NA,0,-10,3,Medium,"FY26 DEF 14A, p.11 (omission-inferred)",,Confirm vs Certificate of Incorporation
+05-017,05,Shareholder Rights,Proxy access availability,Green,3,% / 3-yr up to 2 dir or 20% of board,Stable,NA,6,0,5,Low,"FY26 DEF 14A, p.11",,None
+05-018,05,AGM Voting,Say-on-Pay support level,Green,91,% avg 5 years (each >=85%),Stable,NA,10,0,4,Medium,"FY26 DEF 14A, p.44",,None
+05-019,05,AGM Voting,2026 AGM director/auditor vote counts,Insufficient Data,,,Not enough history,NA,0,0,1,Low,Not located,,Obtain 2026 AGM 8-K Item 5.07
+05-020,05,Dilution,"Net share-count change, Dec-2024 to Aug-2026",Amber,3,mm net shares,Mixed,NA,6,-4,4,Medium,"FY26 DEF 14A, p.80; biz-model/11",,Track buyback resumption
+06-001,06,Owning the Misses,Revenue consensus miss addressed?,Amber,-0.52,% miss FQ2 2026,Deteriorating,NA,8,-4,3,Medium,"earnings/04; Q2 FY26 transcript",,Watch FQ3 2026
+06-002,06,Owning the Misses,Buyback framework override owned?,Green,4000,$mm,Improving,NA,8,0,3,High,"Q2 FY26 transcript, p.11-12",,Confirm cadence resumes
+06-003,06,Owning the Misses,UK take-rate reclassification owned?,Green,400,bps of ~500bps decline,Stable,NA,8,0,3,High,"Q2 FY26 transcript, p.12",,None
+06-004,06,Non-GAAP Aggressiveness,Adj. EBITDA vs GAAP-EBITDA gap itemization,Red,38.3,"% gap FY25, ~25% unitemized",Stable,NA,5,-6,3,High,earnings/06 §4,7,RF-DISC-002,Request itemized reconciliation
+06-005,06,Non-GAAP Aggressiveness,"Deferred-tax valuation-allowance release, 2 years",Red,10104,$mm combined FY24-25,Recurring,NA,4,-6,4,High,"earnings/06 §5,8; biz-model/12",RF-DISC-002,Confirm via next 10-K
+06-006,06,Non-GAAP Aggressiveness,Normalized Net Income vs GAAP direction,Green,-64.1,% (Normalized below GAAP),Stable,NA,6,0,4,Medium,earnings/06 §7,,None
+06-007,06,Disclosure Transparency,Segment/KPI disclosure specificity,Green,7.6,% Mobility op. margin,Stable,NA,6,0,3,Medium,"Q2 FY26 transcript, p.12",,None
+06-008,06,Disclosure Transparency,Revenue guidance discontinuation,Amber,2020,year stopped,Deteriorating,NA,6,-3,3,Medium,earnings/04 §2,,Monitor reinstatement
+06-009,06,Disclosure Transparency,Compensation/RPT disclosure (this agent's read),Insufficient Data,,,Not enough history,NA,0,0,1,Medium,00 triage §3,,"Obtain DEF 14A (see synthesis §3 - 05 sourced it)"
+06-010,06,Tone in Bad Times,Transcript for actual worst quarter available?,Insufficient Data,0,verbatim transcripts FQ3/4 2025,Not enough history,NA,0,0,1,High,00 triage §2; earnings/04 §6,,Obtain FQ3/FQ4 2025 transcripts
+06-011,06,Tone in Bad Times,Q&A directness on hard questions,Green,3,direct quantified answers,Stable,NA,8,0,3,Medium,Q2 FY26 transcript,,None
+06-012,06,Tone in Bad Times,M&A rationale specificity (Delivery Hero),Amber,0,quantified return metric stated,Not enough history,NA,3,-2,3,Medium,"Q2 FY26 transcript, p.4",,Request ROIC/IRR target
+06-013,06,Disclosure Timeliness,Results/guidance issued same day,Green,0,days delay,Stable,NA,8,0,3,Low,Q2 FY26 transcript,,None
+06-014,06,Non-GAAP Aggressiveness,Cash-backed earnings (CFO/Adj. EBITDA),Green,115.7,"%, FY2025",Improving,NA,6,0,4,Medium,earnings/06 §1,2,,None
+06-015,06,Owning the Misses,"Headcount-discipline claim, challenge completeness",Amber,10-20,"% headcount cut, couple of orgs",Not enough history,NA,4,-2,2,Low,"Q2 FY26 transcript, p.9",,Obtain headcount time series

@@ -1,0 +1,36 @@
+{
+  "ticker": "UBER",
+  "date": "2026-08-06",
+  "module": "management-governance",
+  "stewardship_verdict": "Standard / mixed",
+  "hard_disqualifier_flagged": false,
+  "scores": {
+    "management_quality": 65,
+    "capital_allocation": 50,
+    "incentive_alignment": 10,
+    "shareholder_friendliness": 74,
+    "disclosure_candor": 56,
+    "governance_risk_inverted": 65,
+    "data_quality": 62,
+    "overall_usefulness": 68
+  },
+  "governance_score": 48.68,
+  "governance_score_rounded": 49,
+  "confidence_score": 65,
+  "confidence_adjusted_governance_score": 31.85,
+  "confidence_adjusted_governance_score_rounded": 32,
+  "governance_rating": "Weak",
+  "red_flag_count_distinct_ids": 2,
+  "red_flag_firing_rows": 7,
+  "critical_red_flag_count_hard_lock_tier": 0,
+  "critical_materiality_red_flags": ["RF-CAP-004"],
+  "high_severity_red_flags": ["RF-DISC-002"],
+  "section24_filters_tripped": ["Filter 4 (serial acquirer, RF-CAP-004)"],
+  "section24_filters_not_tripped": ["Filter 1 (integrity)", "Filter 2 (turnaround)", "Filter 6 (unaligned owner)"],
+  "partial_data_caps_applied": [
+    "Incentive alignment max 50 (no compensation-metric disclosure read)",
+    "Overall usefulness max 70"
+  ],
+  "supersedes": "business-model/11_capital-allocation-governance.md",
+  "biggest_next_data_request": "Have the incentives-and-compensation specialist read the CD&A / Summary Compensation Table section of the FY2026 DEF 14A already retrieved by 05_board-and-shareholder-rights from SEC EDGAR"
+}

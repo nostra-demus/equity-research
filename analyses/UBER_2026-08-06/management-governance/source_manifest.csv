@@ -1,0 +1,18 @@
+table,field1,field2,field3,field4,field5,field6
+5B Source Coverage Matrix,Governance Need,Best Available Source,Period,Confidence 1-5,Missing?,Replacement Source
+5B,Board composition,Board Members.rtf,Current (tenures 2017-2025),3 (investor deck/vendor-profile tier per module's confidence heuristic),Partial -- no formal proxy confirms current committee charters,DEF 14A (not in pool)
+5B,Compensation,--,--,--,Y -- fully missing,DEF 14A Compensation Discussion & Analysis (not in pool)
+5B,Ownership,"CIQReportLandscape.rtf, ""Public Ownership Summary"" / ""Top 25 Holders""",As of Aug-05-2026,3,Partial -- vendor-sourced not filed Schedule 13D/13G,"Schedule 13D/13G, Form 4 filings (not in pool)"
+5B,Insider trades,"CIQReportLandscape.rtf, ""Insider Trading Activity Summary"" / ""Recent Insider Purchases/Sales""",Last 3/6 months ending ~Aug-05-2026,3,Partial -- vendor-aggregated not primary Form 4,Form 4 filings (not in pool)
+5B,Related-party transactions,--,--,--,Y -- fully missing,10-K Note (Related Party) / DEF 14A (not in pool)
+5B,Auditor report,--,--,--,Y -- fully missing,10-K Auditor's Report (not in pool)
+5B,Secretarial / compliance report,Not applicable (US issuer -- no SEBI secretarial-audit equivalent),--,--,N/A,--
+5B,AGM voting,--,--,--,Y -- fully missing,DEF 14A / 8-K voting results (not in pool)
+5B,Capital-allocation history,"Financials.xls, Cash Flow & Historical Capitalization tabs; business-model/11",FY2021-FY2025 + LTM Jun-2026 (annual); Dec-2024-Aug-2026 (quarterly shares),4,N,--
+5B,Legal / regulatory cases,Not found in this pool,--,--,Y -- fully missing,10-K Legal Proceedings item / 8-K (not in pool)
+5C Data Freshness,Source,Period,As-of Date,Age,Stale?,Impact
+5C,UberTechnologiesIncNYSEUBER_CIQReportLandscape.rtf (ownership/insider),Ownership snapshot + insider trades trailing 3/6 months,~Aug-05-2026,0 months,No,Current -- usable as the ownership/insider baseline
+5C,Uber Technologies Inc NYSE UBER Financials.xls (Cash Flow / Historical Capitalization),FY2021-FY2025 + LTM Jun-2026 / quarterly through Aug-2026,Jun-30-2026 (LTM) / Aug-2026 (quote),0-2 months,No,Current for capital-allocation history
+5C,Uber Technologies Inc NYSE UBER Board Members.rtf,Current roster,Aug-05-2026 (file date; content reflects present tenures no explicit ""as of"" stamp inside),0 months (assumed current),No,"Usable, but note the file carries no internal as-of date distinct from the Drive sync date -- flagged per fix F23 for downstream awareness"
+5C,Q2 2026 Earnings Call transcript,Q2 FY2026 (quarter ended Jun-30-2026),Aug-05-2026,0 months,No,Single most recent management commentary; only one quarter in the pool
+5C,No proxy / no 10-K / no shareholder letter,--,--,--,N/A (absent not stale),Drives the Partial verdict below
