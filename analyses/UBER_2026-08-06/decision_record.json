@@ -1,0 +1,346 @@
+{
+  "schema_version": "1.0",
+  "ticker": "UBER",
+  "company_name": "Uber Technologies, Inc.",
+  "exchange": "NYSE",
+  "currency": "USD",
+  "decision_date": "2026-08-06",
+  "run_root": "analyses/UBER_2026-08-06",
+  "final_thesis_path": "analyses/UBER_2026-08-06/final_thesis.md",
+  "decision": "Watchlist",
+  "suggested_action": "Do not initiate a position now. Track the FQ3 2026 print (~Oct 2026) and the Delivery Hero bridge-facility covenant terms once disclosed; revisit at the next scheduled review.",
+  "paper_treatment": "No trade, track opportunity cost",
+  "basket": "Watchlist",
+  "entry_price": 68.18,
+  "entry_price_source": "Capital IQ Comparable Analysis export, close price, corroborated across three independent Capital IQ exports (pool-verified)",
+  "entry_price_timestamp": "2026-08-05",
+  "benchmark": "S&P 500",
+  "sector_benchmark": "Consumer Discretionary / Industry-specific: no dedicated mobility/delivery index used in this pool",
+  "time_horizon": "12 months",
+  "scenario_horizon_days": 365,
+  "expected_return_pct": 8.15,
+  "downside_risk_pct": 40.99,
+  "margin_of_safety_pct": 8.98,
+  "risk_reward": 0.2,
+  "scenarios": [
+    {
+      "scenario_id": "bull",
+      "label": "bull",
+      "probability": 25,
+      "return_pct": 53.84,
+      "price_target": 104.89,
+      "conditions": [
+        "Mobility Gross Bookings growth re-accelerates (~+4pp vs FY2025 pace)",
+        "SG&A leverage resumes improving rather than continuing its current reversal",
+        "The insurance-cost/driver-incentive tailwind is banked, not reinvested into pricing",
+        "The Delivery Hero deal closes without integration drag",
+        "The market grants a multiple modestly above the raw unadjusted core-peer median (14.42x) given Uber's highest-in-set EBITDA margin"
+      ],
+      "source": "valuation/07_scenario-and-fair-value.md §3 scenario table; valuation/valuation_summary.json",
+      "joint_probability_basis": "All five conditions share the same underlying driver: a durable, not cyclical, margin/growth inflection that both re-accelerates the top line and lets the market re-rate the multiple. They are treated as substantially correlated rather than independent, which is why the bull probability (25%) is not the product of five independent probabilities."
+    },
+    {
+      "scenario_id": "base",
+      "label": "base",
+      "probability": 50,
+      "return_pct": 9.87,
+      "price_target": 74.91,
+      "conditions": [
+        "Consensus growth/margin path holds (9-analyst NTM consensus)",
+        "The market closes roughly a third of today's ~-17.5% NTM EV/EBITDA discount to the quality-adjusted peer level, landing at 13.25x (still below the raw 14.42x peer median)"
+      ],
+      "source": "valuation/07_scenario-and-fair-value.md §3 scenario table; valuation/valuation_summary.json",
+      "joint_probability_basis": null
+    },
+    {
+      "scenario_id": "bear_cyclical",
+      "label": "bear_cyclical",
+      "probability": 25,
+      "return_pct": -40.99,
+      "price_target": 40.23,
+      "conditions": [
+        "Bookings deceleration continues while the cost base cannot flex down as fast (SG&A already reversing, +63bps off the FY2025 low)",
+        "EBITDA moves down more than a naive linear extrapolation would suggest, reflecting Freight's chronic weakness and prior downturn precedent (FY2021 consolidated EBITDA margin -16.8%)",
+        "The multiple compresses to 10.0x, toward Lyft's 7.94x NTM EV/EBITDA",
+        "12-month cyclical trough, not a structural reset"
+      ],
+      "source": "valuation/07_scenario-and-fair-value.md §3 scenario table; valuation/valuation_summary.json",
+      "joint_probability_basis": "The cost-inflexibility, EBITDA-decline-severity, and multiple-compression conditions all flow from the same underlying cyclical-slowdown driver, not independent events."
+    }
+  ],
+  "idea_valuation_bridge": {
+    "source_horizon_days": 365,
+    "method": "catalyst_partial_convergence",
+    "convergence_fraction": 0.3,
+    "rationale": "The FQ3 2026 earnings print (~90 days out) and any early signal on the Delivery Hero bridge covenant terms can reveal part, but not all, of the one-year valuation gap between the $68.18 price and the $74.91 base-case fair value; a full re-rating (per the base case) requires a sustained multi-quarter margin/growth confirmation, not a single print.",
+    "source": "valuation/07_scenario-and-fair-value.md §3; catalyst/99_catalyst-synthesis.md §2 (FQ3 2026 print, ~2026-10-29 estimated)"
+  },
+  "confidence_score": 48.0,
+  "data_sufficiency_score": 70,
+  "confidence_inputs": {
+    "data_sufficiency": 70,
+    "corroboration": 65,
+    "evidence_tier": 45,
+    "staleness_penalty": 0,
+    "edge_score": 40,
+    "edge_proof_present": true,
+    "decision": "Watchlist",
+    "expected_return_pct": 8.15,
+    "modules_absent": [
+      "filings",
+      "options"
+    ],
+    "critical_governance_unresolved": false,
+    "catalyst_timing_weak": true,
+    "rating_cap_ceiling": null,
+    "downgrades": [
+      {
+        "type": "unresolved cross-specialist conflict (bookings-vs-revenue gap not decomposable from pool)",
+        "points": 10,
+        "reason": "earnings/99_earnings-synthesis.md §2-3: ~10pp Gross-Bookings-to-Revenue gap unreconciled against any primary filing; management's 'optical, UK reclassification' explanation is unverified"
+      }
+    ],
+    "calibration_haircut": 0,
+    "exceptional_evidence": false
+  },
+  "analysis_confidence": 62.5,
+  "conviction": 48.0,
+  "sizing_hint": {
+    "band": "watch",
+    "action": "monitor only — no position (track opportunity cost)"
+  },
+  "confidence_breakdown": {
+    "analysis_confidence": 62.5,
+    "analysis_confidence_build": "0.5*dataSuff(70) + 0.25*corrob(65) + 0.25*tier(45) - stale(0) = 62.5",
+    "direction": "neutral",
+    "documented_ceiling": 70.0,
+    "documented_ceiling_sources": [
+      100.0,
+      70.0,
+      80.0,
+      70.0,
+      100.0
+    ],
+    "unknown_absent_keys": [],
+    "direction_ceiling": 58.0,
+    "direction_ceiling_reason": "neutral: min(documented 70, non-committal 58)",
+    "understanding_capped_to_ceiling": 58.0,
+    "downgrades": [
+      {
+        "type": "unresolved cross-specialist conflict (bookings-vs-revenue gap not decomposable from pool)",
+        "points": 10,
+        "reason": "earnings/99_earnings-synthesis.md §2-3: ~10pp Gross-Bookings-to-Revenue gap unreconciled against any primary filing"
+      }
+    ],
+    "calibration_haircut": 0,
+    "downgrade_points_total": 10.0,
+    "conviction_hard_max": 85.0,
+    "conviction": 48.0,
+    "formula": "conviction = clamp( min( min(analysis_confidence, direction_ceiling) - sum(max(0,downgrades)) - max(0,calibration_haircut), direction_ceiling ), 0, hard_max )"
+  },
+  "rating_cap": "RF-CAP-004 (serial-acquirer pattern, Critical materiality, management-governance module) caps the rating at Watchlist — no bypass regardless of thesis type or edge score, per Rating Cap Rules / eval check AD.",
+  "thesis_type": [
+    "Company-specific",
+    "Sector-cycle"
+  ],
+  "variant_perception_summary": "The market's implied bar (14.7% FCFF growth, 12.8% terminal margin, per the reverse-DCF) sits below what Uber already delivers and below consensus, so the current -17.5% NTM EV/EBITDA peer discount is not fully explained by growth pessimism alone. The engine's edge is narrow (score 40/100, below the 50-point conviction-unlocking threshold): the Delivery Hero bridge facility's forward covenant compression (a 0.9%-25.5% EBITDA-decline breach threshold once drawn) is real and quantified but not yet visible in any currently reported balance-sheet ratio, and the ~10pp Gross-Bookings-to-Revenue gap remains genuinely unresolved against any primary filing.",
+  "what_everyone_knows": "Uber is the largest global ride-hailing/delivery marketplace, has turned durably profitable, is buying back stock, and has signed a large, debt-funded, publicly known acquisition of Delivery Hero (announced 2026-07-16). Driver-classification regulatory risk and an AV-partnership (not owned-technology) strategy are widely discussed.",
+  "what_is_priced_in": "A cautious growth/margin case: the reverse-DCF shows the $68.18 price requires only 14.7% FCFF growth and a 12.8% terminal margin, both below Uber's own consensus-anchored case (18.6%/16.0%) and below what Uber already delivers (12.1% LTM EBIT margin). The 'no moat proven' finding and the M&A/capital-allocation risk are likely already contributing to the -17.5% NTM EV/EBITDA discount to the core peer set.",
+  "what_market_may_be_missing": "(1) The Delivery Hero bridge facility's forward covenant compression is not visible in any currently reported balance-sheet ratio because the debt has not been drawn yet. (2) SG&A leverage — the largest quantified earnings sensitivity — has already begun reversing (LTM ratio 20.50% vs. the FY2025 low of 19.87%) ahead of a headline miss. (3) The ~10pp Gross-Bookings-to-Revenue gap remains unreconciled against any primary filing; management's 'optical' explanation is unverified.",
+  "edge_score": 40,
+  "edge_proof": "If the FQ3 2026 print (guided 2026-08-05, reported ~late Oct 2026) shows the LTM SG&A ratio continuing to rise past 20.50% AND reported Revenue growth continuing to lag Gross Bookings growth by a similar or wider gap with no primary-filing reconciliation offered, that confirms the margin/re-rating case is more fragile than the market's already-cautious bar assumes. Conversely, if the Delivery Hero bridge facility's actual covenant package (expected ahead of the H2 2027 close) shows real post-draw headroom, the balance-sheet risk this dossier flags is refuted.",
+  "killer_risk": "The Delivery Hero acquisition closing and drawing its ~€14bn bridge facility without adequate disclosed covenant headroom — pro-forma leverage would compress the assumed covenant cushion from +62-72% today to a breach on as little as a 0.9%-25.5% EBITDA decline, turning an ordinary recession into a covenant crisis at the exact moment leverage discipline is least proven (RF-CAP-004).",
+  "kill_criteria": [
+    {
+      "criterion": "Delivery Hero bridge facility discloses a covenant threshold with <10% post-draw headroom, or a covenant breach/waiver is disclosed within 4 quarters of the draw",
+      "meaning": "The forward leverage risk flagged as the single killer risk is confirmed, not hypothetical",
+      "monitor": "Bridge-facility financing disclosures through H2 2027 close",
+      "module_source": "balance-sheet-survival"
+    },
+    {
+      "criterion": "Revenue misses the Street for a 3rd straight quarter AND the LTM SG&A ratio continues rising past 20.50%",
+      "meaning": "The margin/re-rating case underlying the base and bull scenarios is genuinely fragile, not merely decelerating on optics",
+      "monitor": "FQ3 2026 print (~Oct 2026)",
+      "module_source": "earnings"
+    },
+    {
+      "criterion": "A further large debt-funded acquisition is announced before Delivery Hero even closes, or gross leverage overshoots the (unverified) <2x target",
+      "meaning": "Management repeats the exact pattern that triggered RF-CAP-004, confirming rather than resolving the serial-acquirer risk",
+      "monitor": "Quarterly leverage and M&A disclosures",
+      "module_source": "management-governance"
+    },
+    {
+      "criterion": "A driver-classification ruling or new law in a major market (US or EU) reclassifies gig drivers as employees",
+      "meaning": "The independent-contractor cost structure underpinning both Mobility and Delivery is repriced simultaneously",
+      "monitor": "Ongoing city/state/EU regulatory tracking",
+      "module_source": "business-model"
+    },
+    {
+      "criterion": "The NTM EV/EBITDA multiple compresses further toward Lyft's 7.94x rather than re-rating, confirming the market treats current margins as a peak",
+      "meaning": "The valuation case's central assumption (an evidenced but not-yet-earned re-rating) is refuted",
+      "monitor": "Quarterly multiple tracking vs. the 4-name peer set",
+      "module_source": "valuation"
+    }
+  ],
+  "forecast_ledger": [
+    {
+      "prediction": "Uber's FQ3 2026 (quarter ended Sep-30-2026) results will report Adjusted EBITDA within or above the guided $2,860-$2,960mm range.",
+      "probability": 65,
+      "time_window": "2026-10-25 to 2026-11-05",
+      "evidence_today": "Guidance issued 2026-08-05: Adj. EBITDA $2,860-$2,960mm, Adj. EPS $0.84-$0.88; last two quarters beat the guidance high end [earnings/04_guidance-consensus.md]",
+      "confirmation_trigger": "Reported FQ3 2026 Adjusted EBITDA >= $2,860mm.",
+      "falsification_trigger": "Reported FQ3 2026 Adjusted EBITDA < $2,860mm.",
+      "owner_module": "earnings",
+      "confidence_score": 65,
+      "status": "open",
+      "forecast_type": "earnings_eps"
+    },
+    {
+      "prediction": "Uber's FQ3 2026 reported Revenue growth will miss the Street's own pre-print consensus estimate for a third consecutive quarter.",
+      "probability": 45,
+      "time_window": "2026-10-25 to 2026-11-05",
+      "evidence_today": "Revenue estimates cut ~-1.0% last month; FQ1'26 -0.45% and FQ2'26 -0.52% misses vs Street [earnings/04_guidance-consensus.md]",
+      "confirmation_trigger": "Reported FQ3 2026 revenue YoY growth is below the pre-print Street consensus estimate.",
+      "falsification_trigger": "Reported FQ3 2026 revenue YoY growth meets or beats the pre-print Street consensus estimate.",
+      "owner_module": "earnings",
+      "confidence_score": 50,
+      "status": "open",
+      "forecast_type": "revenue"
+    },
+    {
+      "prediction": "Uber's FQ3 2026 SG&A ratio (SG&A as % of revenue) will be at or above the LTM Jun-2026 level of 20.50%, continuing off the FY2025 low of 19.87%.",
+      "probability": 55,
+      "time_window": "2026-10-25 to 2026-11-05",
+      "evidence_today": "LTM SG&A ratio 20.50% vs FY2025 low 19.87%, +63bps already reversed [earnings/07_earnings-sensitivity.md]",
+      "confirmation_trigger": "FQ3 2026 reported SG&A/revenue ratio >= 20.50%.",
+      "falsification_trigger": "FQ3 2026 reported SG&A/revenue ratio < 19.87%.",
+      "owner_module": "earnings",
+      "confidence_score": 50,
+      "status": "open",
+      "forecast_type": "margin_or_cost"
+    },
+    {
+      "prediction": "The Delivery Hero SE acquisition will close within the H2 2027 window at or near its announced terms, without a leverage covenant breach or waiver disclosed in the twelve months following the bridge-facility draw.",
+      "probability": 50,
+      "time_window": "2027-07-01 to 2027-12-31",
+      "evidence_today": "Business Combination Agreement signed 2026-07-16; €700mm/€200mm termination fees; $1.6bn SSW Partners divestiture required for antitrust clearance [catalyst/01_catalyst-calendar.md; balance-sheet-survival/06_downside-stress-test.md]",
+      "confirmation_trigger": "Deal closes within H2 2027 and no covenant breach/waiver is disclosed in the four quarters following the bridge draw.",
+      "falsification_trigger": "Deal slips past 2027-12-31, is blocked/terminated, or a covenant breach/waiver is disclosed within four quarters of the bridge draw.",
+      "owner_module": "balance-sheet-survival",
+      "confidence_score": 40,
+      "status": "open",
+      "forecast_type": "balance_sheet_or_solvency"
+    },
+    {
+      "prediction": "Uber's NTM EV/EBITDA multiple will sit at or above 13.0x (versus 11.89x today) within the next 12 months, consistent with the base-case re-rating.",
+      "probability": 40,
+      "time_window": "2027-07-01 to 2027-08-31",
+      "evidence_today": "Base case assumes the market closes roughly a third of the current -17.5% NTM EV/EBITDA discount [valuation/07_scenario-and-fair-value.md]",
+      "confirmation_trigger": "NTM EV/EBITDA multiple >= 13.0x at the 12-month review.",
+      "falsification_trigger": "NTM EV/EBITDA multiple remains at or below 11.89x at the 12-month review.",
+      "owner_module": "valuation",
+      "confidence_score": 40,
+      "status": "open",
+      "forecast_type": "valuation_or_price_return"
+    }
+  ],
+  "module_scores": {
+    "business-model": {
+      "score": 62,
+      "verdict": "Average business — worth deeper work only if cheap"
+    },
+    "earnings": {
+      "score": 68,
+      "verdict": "Mixed earnings setup; red-flag severity: Material concerns"
+    },
+    "valuation": {
+      "score": 82,
+      "verdict": "Fairly valued (borderline modestly undervalued)"
+    },
+    "balance-sheet-survival": {
+      "score": 75,
+      "verdict": "Adequate"
+    },
+    "management-governance": {
+      "score": 68,
+      "verdict": "Standard / mixed; Governance Score 49/100 (Weak band)"
+    },
+    "catalyst": {
+      "score": 68,
+      "verdict": "Catalysts exist but timing vague"
+    }
+  },
+  "red_flags": [
+    {
+      "id": "RF-CAP-004",
+      "severity": "Critical",
+      "description": "Serial-acquirer pattern: at least 7 acquisitions in ~18 months culminating in the $14.8bn, debt-funded Delivery Hero deal (10.6% of Uber's own market cap), financed by a ~€14bn bridge facility, requiring a forced $1.6bn divestiture, and net debt jumping from $76mm to $9,340mm in one LTM window. Materiality-Critical per the module's own tagging; not one of the enumerated fraud/going-concern/enforcement/restatement/RPT>10% hard-lock triggers (module's own hard-lock Critical count = 0), but independently caps the master rating at Watchlist via the separate, non-bypassable CLAUDE.md §24 Filter 4 mechanism.",
+      "source": "management-governance/02_capital-allocation-scorecard.md; management-governance/99_management-governance-synthesis.md"
+    },
+    {
+      "id": "RF-DISC-002",
+      "severity": "High",
+      "description": "Recurring non-GAAP aggressiveness: ~25% of Adjusted EBITDA's own addback never itemized (FY2025 gap +38.3% vs GAAP-based EBITDA); a deferred-tax valuation-allowance release inflated GAAP net income by a combined $10,104mm over two consecutive years (FY2024 $5,758mm + FY2025 $4,346mm), never flagged as a distortion on any call in the pool.",
+      "source": "earnings/06_earnings-quality.md; management-governance/06_candor-and-disclosure-quality.md"
+    },
+    {
+      "id": "RF-OBS-001",
+      "severity": "High",
+      "description": "Contingent-liability spike: total contingent exposure of at least $6,414mm (22.6% of Jun-30-2026 total equity), driven by a $5,611mm gross unrecognized tax benefit that grew 13.7% year-over-year and is not separately broken out from Other Non-Current Liabilities on the balance sheet, plus a live €700mm Delivery Hero termination fee and an active wrongful-death lawsuit.",
+      "source": "balance-sheet-survival/05_off-balance-sheet-and-contingencies.md"
+    },
+    {
+      "id": "RF-BQ-005",
+      "severity": "Medium",
+      "description": "Fast-changing industry / rate-of-change risk (≤40 threshold, scored 35/100): Uber is spreading ~$10bn across six-plus unproven AV partners rather than owning proprietary technology, and cannot predict who wins the AV transition. Non-binding on the actual business-quality score (47 already sits below the 65 cap) but flags this as a sector/technology-cycle bet, not a settled durable compounder.",
+      "source": "business-model/07_business-quality.md; business-model/99_business-model-synthesis.md"
+    },
+    {
+      "id": "N/A-EARNINGS-BOOKINGS-GAP",
+      "severity": "High",
+      "description": "Unreconciled ~10-percentage-point gap between Mobility Gross Bookings growth (+22% YoY) and reported Revenue growth (+12.2% YoY); management's 'optical, UK reclassification' explanation is unverified against any primary filing. Determines whether the earnings setup reads as genuinely accelerating or decelerating.",
+      "source": "earnings/02_revenue-drivers.md; earnings/08_earnings-red-flags.md; earnings/99_earnings-synthesis.md"
+    },
+    {
+      "id": "N/A-BS-FORWARD-LEVERAGE",
+      "severity": "High",
+      "description": "Once the Delivery Hero acquisition closes and the ~€14bn bridge facility is drawn, pro-forma leverage on mid-cycle EBITDA runs 5.0x-6.6x and an assumed 3.5x covenant would breach at an EBITDA decline of just 0.9% (full-bridge draw) to 25.5% (consideration-only) — a normal 30-40% recession breaches it in three of four pro-forma combinations modeled. Covenant terms themselves are undisclosed (Not assessable).",
+      "source": "balance-sheet-survival/06_downside-stress-test.md; balance-sheet-survival/99_balance-sheet-survival-synthesis.md"
+    }
+  ],
+  "missing_data": [
+    "The primary FY2025 10-K or FQ3 2026 10-Q (no primary SEC filing exists anywhere in the data pool; every figure across all six modules is a Capital IQ vendor transcription) — single highest-value next data request: the FQ3 2026 10-Q's MD&A revenue bridge, which would resolve the ~10pp Gross-Bookings-to-Revenue gap.",
+    "The Delivery Hero bridge facility's actual covenant package (maintenance-covenant thresholds, covenant-EBITDA definition, rate structure, hedging) — no credit agreement, indenture, or covenant summary exists anywhere in the pool; covenant headroom is 'Not assessable'.",
+    "Uber's own existing debt covenant package (same gap as above, for the pre-existing bond/revolver stack).",
+    "The FY2026 DEF 14A's Compensation Discussion & Analysis and Summary Compensation Table (the underlying filing has been located via SEC EDGAR by the management-governance module but was not read for compensation-metric purposes).",
+    "FQ3/FQ4 2025 earnings-call transcripts (the actual weak quarters) — only the Q2 FY2026 transcript is in the pool.",
+    "A 3-5 year own-multiple history (only 17 months / 7 quarters exist in the pool), which would sharpen or undercut the own-history reversion read (currently zero-weighted).",
+    "No options/positioning data (IBKR) anywhere in the pool for this run."
+  ],
+  "review_schedule": {
+    "30d": "2026-09-05",
+    "90d": "2026-11-04",
+    "180d": "2027-02-02",
+    "365d": "2027-08-06"
+  },
+  "created_by": "synthesizer",
+  "notes": "No RUN_METADATA.md exists for this run (non-blocking; the run appears to have been invoked module-by-module). No prior dated UBER run exists to compare against. Two slightly different net-debt as-of cuts appear across modules ($9,340mm per earnings/balance-sheet-survival's own canonical figure at Jun-30-2026 used for confidence_inputs and scenario math per valuation_summary.json, vs $9,861mm cited in balance-sheet-survival/99's own headline — both are strict-basis, same period, and the difference does not change the survival or scenario conclusions; flagged for reconciliation against a primary filing once available. Entry price is pool-verified (not indicative/web) — a full paper-trade tracking record is appropriate for the Watchlist basket per DECISION_LEDGER.md §3.",
+  "business_type": "Operating",
+  "primary_valuation_method": "Relative valuation (peer multiples) — 68% weight on the four-name core marketplace peer set (Lyft, DoorDash, DiDi, Grab); FCFF DCF (16%) and sum-of-the-parts (16%) as capped cross-checks.",
+  "calibration_feedback": {
+    "source_summary": "analyses/performance/2026-08-01_calibration_summary.json",
+    "status": "pre_data",
+    "haircut_points": 0,
+    "modules_flagged": [],
+    "flagged_forecast_types": [],
+    "flagged_thesis_types": [],
+    "leading_error_categories_flagged": [],
+    "error_defense_evidence": {},
+    "rationale": "The as-of calibration summary (2026-08-01) carries a top-level verdict starting with 'Pre-data' (7 decisions, 7 reviews, 1 resolved forecast, 1 resolved directional call — all below their respective floors) and no error_taxonomy_distribution category has count >= 2 (bad base rate, valuation multiple error, bad causal inference, and false negative each sit at count 1). Per Pre-Write Gate step 2, module/forecast-type/thesis-type slices are inapplicable below their own floor and the error-taxonomy trigger has no leading category yet, so status = pre_data and no adjustment is applied."
+  },
+  "confidence_haircut": 6.0,
+  "pre_mortem_verdict": "Survives with haircut",
+  "post_review_confidence_score": 42.0,
+  "post_mortem_decision": "Watchlist",
+  "post_mortem_basket": "Watchlist"
+}

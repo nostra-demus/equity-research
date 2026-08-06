@@ -1,0 +1,224 @@
+{
+  "schema_version": "1.0",
+  "ticker": "UBER",
+  "run_root": "analyses/UBER_2026-08-06",
+  "verified_at": "2026-08-06T18:47:40Z",
+  "verifier": "verify-evidence",
+  "final_thesis_path": "analyses/UBER_2026-08-06/final_thesis.md",
+  "decision_record_path": "analyses/UBER_2026-08-06/decision_record.json",
+  "final_thesis_sha256": "e62ddf7d317d5f51a1248374996c67bae81ac62dfb603742cdfe24a3fa2dfcce",
+  "decision_record_sha256": "78f50ea2e925f92d15e2240906afd6f77f6e0770977e0adddfe2e08a8b419872",
+  "claims_checked": 12,
+  "claim_checks": [
+    {
+      "claim": "Net debt used throughout the EV bridge, scenario fair-value math, and headline leverage/confidence figures is $9,340mm, labeled 'strict basis'",
+      "citation": "valuation/01_price-and-capital-structure.md §5 'Net debt (strict: total debt − cash & equivalents)'; reused as 'strict (01 canonical)' in valuation_summary.json, earnings/99, and decision_record.json scenario derivations",
+      "source_checked": "valuation/01_price-and-capital-structure.md; earnings/99_earnings-synthesis.md §5b; decision_record.json scenarios[].derivation",
+      "status": "miscited",
+      "evidence": "Deterministic resolver (resolve_citations.py) hit_count=2 for '9340' in the pool corpus (CIQ Balance Sheet 'Net Debt' supplemental row and Comparable-Analysis workbook) — the NUMBER is genuinely in the pool. But the calculation nets total debt ($14,731mm) against cash & equivalents PLUS short-term investments ($4,870mm + $521mm = $5,391mm), which per CLAUDE.md §15 is the BROAD basis, not strict. balance-sheet-survival/01_capital-structure-and-leverage.md §4 computes the true strict figure (cash & equivalents only, $14,731mm − $4,870mm) = $9,861mm and explicitly labels $9,340mm as the broad (ST-investments-inclusive) figure. See anchor_checks for the propagation.",
+      "severity": "high"
+    },
+    {
+      "claim": "Bull/Base/Bear-cyclical fair-value levels ($104.89 / $74.91 / $40.23) via forward NTM EBITDA × multiple, EV-bridged with net debt $9,340mm and minority $1,083mm over 2,087.980mm shares",
+      "citation": "valuation/07_scenario-and-fair-value.md §3; valuation_summary.json scenarios[]; final_thesis.md §8",
+      "source_checked": "valuation_summary.json derivation fields (forward_metric, multiple, ev, net_debt, minority, shares)",
+      "status": "verified",
+      "evidence": "Independent Python recompute of EV=forward_metric×multiple, equity=EV−net_debt−minority, per_share=equity/shares reproduces all three levels within rounding: bull 15,296×15.0→$104.89 (recomputed $104.8942); base 12,589.03×13.25→$74.91 (recomputed $74.8961, ~1.4¢ off due to a rounded forward_metric used inside the stored 'ev' field, 12,589.00 vs 12,589.03); bear_cyclical 9,442×10.0→$40.23 (recomputed $40.2288). All tie to the cent or better.",
+      "severity": "info"
+    },
+    {
+      "claim": "final_thesis.md is committed with an unresolved 'PROVISIONAL — committed UNVERIFIED' finish-gate banner reporting that a live 'Playground' recompute of the base and bear_cyclical scenario levels disagrees with the frozen levels, plus a sizing-text wording mismatch vs decision_record.json",
+      "citation": "final_thesis.md, lines 1–4 (banner)",
+      "source_checked": "final_thesis.md header; decision_record.json sizing_hint.action; valuation_summary.json scenarios",
+      "status": "unverified",
+      "evidence": "The banner states: base level 74.91 != forward_metric×multiple 75.4148 (a +0.70% drift); bear_cyclical level 40.23 != recomputed 40.7475 (+1.29% drift); 'Suggested sizing' text ('Watch only — no position; track opportunity cost') does not literally match decision_record.json sizing_hint.action ('monitor only — no position (track opportunity cost)'). Reconciling my own recompute (claim #2 above) against the frozen valuation_summary.json inputs ties cleanly, so the discrepancy the gate found is between the FROZEN thesis and a separate LIVE recompute (implied forward_metric ≈$12,671mm vs the frozen $12,589.03mm, a ~0.65% drift consistent with a moving consensus NTM EBITDA) — not an internal arithmetic error inside the committed artifacts themselves. The run was nonetheless committed to the ledger despite failing its own automated integrity gate, and this remains unresolved as of this audit.",
+      "severity": "high"
+    },
+    {
+      "claim": "Headline Adjusted EBITDA FY2025 = $8,730mm",
+      "citation": "earnings/01_historical-financials.md §0/§1, 'Financials.xls, Segments tab, Total EBITDA row'",
+      "source_checked": "CIQ Segments tab extract (Business Segments table, 'Total EBITDA' row, FY2025 column)",
+      "status": "verified",
+      "evidence": "Corpus 'Total EBITDA -2528 -774 1713 4052 6484 8730' — FY2025 (rightmost) column = 8730, ties exactly. Correctly cited to the CIQ Segments tab (vendor, company-defined non-GAAP) throughout — never mis-attributed to a '10-K' or 'Annual Report' citation, consistent with CLAUDE.md's EBITDA-provenance rule.",
+      "severity": "info"
+    },
+    {
+      "claim": "GAAP-based EBITDA FY2025 = $6,312mm (Operating Income + D&A, CapIQ-standardized)",
+      "citation": "earnings/01_historical-financials.md §4, 'Financials.xls, Income Statement tab, EBITDA supplemental row'",
+      "source_checked": "CIQ Income Statement tab extract",
+      "status": "verified",
+      "evidence": "Corpus 'EBITDA -2932 -885 1933 3536 6312 7474' and '-885 1933 3536 6312 7474 ...' — 6312 appears in the FY2025 position in both instances, ties exactly.",
+      "severity": "info"
+    },
+    {
+      "claim": "LTM (Jun-30-2026) Adjusted EBITDA = $10,043mm — drives the '0.98x Adjusted EBITDA' leverage headline",
+      "citation": "earnings/01_historical-financials.md §2 TTM Snapshot",
+      "source_checked": "CIQ Estimates Report, Surprise tab, quarterly Adj. EBITDA actuals",
+      "status": "verified",
+      "evidence": "Not a single literal LTM cell in the pool, but reproducible: sum of the four most recent quarterly Adj. EBITDA actuals (FQ3'25 2,256 + FQ4'25 2,487 + FQ1'26 2,481 + FQ2'26 2,819) = 10,043 exactly; all four quarterly figures independently confirmed present in the corpus (line 4464/4650/5646 series).",
+      "severity": "info"
+    },
+    {
+      "claim": "Deferred-tax valuation-allowance release of $5,758mm (FY2024) and $4,346mm (FY2025) — the evidentiary basis for RF-DISC-002 (High severity)",
+      "citation": "earnings/06_earnings-quality.md §4-5,8, 'Income Statement tab, Income Tax Expense row'",
+      "source_checked": "CIQ Income Statement tab extract",
+      "status": "verified",
+      "evidence": "Corpus line: 'Income Tax Expense -492 -181 213 -5758 -4346 -3052' — the deterministic resolver initially reported hit_count=0 for '5758'/'4346' because its token regex excludes numbers preceded by a minus sign (a benefit, not an expense); a direct grep confirms both figures are present as negative Income Tax Expense (i.e., tax benefits) in exactly the FY2024/FY2025 columns cited.",
+      "severity": "info"
+    },
+    {
+      "claim": "Mobility segment EBITDA margin 26.6% (FY2025) — the primary cost-advantage/moat evidence",
+      "citation": "business-model/03_segment-map.md §1; business-model/09_moat.md §2",
+      "source_checked": "CIQ Segments tab, Business Segments table (Mobility Revenue and Mobility EBITDA rows, FY2025)",
+      "status": "verified",
+      "evidence": "Corpus: Mobility Revenue FY2025 = 29,670; Mobility EBITDA FY2025 = 7,899. 7,899 / 29,670 = 26.63%, ties to the cited 26.6%.",
+      "severity": "info"
+    },
+    {
+      "claim": "3-year average ROIC 6.2% (FY2023–FY2025) vs ~8.1% WACC estimate — the decisive 'no moat proven' test",
+      "citation": "business-model/09_moat.md §3-4",
+      "source_checked": "CIQ Ratios tab 'Return on Capital %' row; module's own CAPM build",
+      "status": "verified / inference-labeled",
+      "evidence": "ROIC: CIQ Return on Capital % series FY2023 3.11%, FY2024 6.00%, FY2025 9.36% — simple average = 6.157% ≈ 6.2%, ties. WACC (~8.1%) is explicitly and correctly labeled 'CAPM inference, not from filings' with sourced beta (1.15, CIQ vendor), a web-sourced risk-free rate (dated, labeled unverified), and a stated ERP assumption — properly disclosed as an estimate, not presented as a filed figure.",
+      "severity": "info"
+    },
+    {
+      "claim": "Enterprise Value $149,210.14mm; EV bridge = Market cap $138,787.14mm + Total debt $14,731mm + Minority $1,083mm + Preferred $0 − Cash & ST Inv. $5,391mm",
+      "citation": "valuation/01_price-and-capital-structure.md §4",
+      "source_checked": "CIQ Key Stats tab 'Total Enterprise Value (TEV)' row",
+      "status": "verified",
+      "evidence": "Corpus lines 2137/3168: '= Total Enterprise Value (TEV) 149210.140706' / '149,210.1' — literal match. Bridge recomputes exactly: 138,787.14 + 14,731 + 1,083 + 0 − 5,391 = 149,210.14.",
+      "severity": "info"
+    },
+    {
+      "claim": "Delivery Hero bridge-facility covenant breach threshold of 0.9%–25.5% EBITDA decline post-draw — the stated 'killer risk' figure",
+      "citation": "balance-sheet-survival/06_downside-stress-test.md; final_thesis.md §2 Headline Scorecard",
+      "source_checked": "balance-sheet-survival/99_balance-sheet-survival-synthesis.md §1, §6",
+      "status": "inference-labeled",
+      "evidence": "Explicitly and consistently disclosed as 'Inference, not from filings,' resting on an ASSUMED 3.5x max-net-leverage covenant — no credit agreement, indenture, or covenant summary exists anywhere in the pool. The Claim Quality Ledger in final_thesis.md correctly tags this Level 2 ('Keep, labeled as inference'). No mislabeling defect found.",
+      "severity": "info"
+    },
+    {
+      "claim": "'RUN_METADATA.md: not present for this run' (final_thesis.md line 10) / 'No RUN_METADATA.md exists for this run' (decision_record.json notes field)",
+      "citation": "final_thesis.md line 10; decision_record.json.notes",
+      "source_checked": "analyses/UBER_2026-08-06/RUN_METADATA.md",
+      "status": "unsupported",
+      "evidence": "RUN_METADATA.md exists in the run folder and states orchestrator '/research:full (per-module chain)', all 6 modules completed, and 'Synthesizer status: completed (master re-run)' — directly contradicting both committed statements. Likely a stale claim from before RUN_METADATA.md was added/regenerated; not a rating-driver, but a factual inaccuracy in a committed artifact.",
+      "severity": "low"
+    }
+  ],
+  "math_checks": [
+    {
+      "quantity": "Revenue growth FY2024→FY2025",
+      "reported": "+18.3%",
+      "recomputed": "(52,017-43,978)/43,978 = 18.28%",
+      "ties": true,
+      "detail": "earnings/01_historical-financials.md §1"
+    },
+    {
+      "quantity": "Adjusted EBITDA margin change FY2024→FY2025 (bps)",
+      "reported": "+204bps",
+      "recomputed": "16.78% - 14.74% = 2.04pp = 204bps",
+      "ties": true,
+      "detail": "earnings/01_historical-financials.md §1"
+    },
+    {
+      "quantity": "FCF FY2025 = CFO − total capex",
+      "reported": "$9,763mm",
+      "recomputed": "10,099 - 336 = 9,763",
+      "ties": true,
+      "detail": "earnings/06_earnings-quality.md §1, matches CLAUDE.md §15 definition exactly"
+    },
+    {
+      "quantity": "Net debt, strict basis per CLAUDE.md §15 (total debt − cash & equivalents ONLY)",
+      "reported": "$9,861mm (balance-sheet-survival/01, canonical strict)",
+      "recomputed": "14,731 - 4,870 = 9,861",
+      "ties": true,
+      "detail": "Arithmetic ties exactly. However valuation/01, earnings/99, and decision_record.json instead use $9,340mm (which additionally nets $521mm of ST investments) while ALSO calling it 'strict' — see anchor_checks for the resulting mislabel/conflict."
+    },
+    {
+      "quantity": "EV bridge = Market cap + Total debt + Minority + Preferred − Cash & ST Investments",
+      "reported": "$149,210.14mm",
+      "recomputed": "138,787.14 + 14,731 + 1,083 + 0 - 5,391 = 149,210.14",
+      "ties": true,
+      "detail": "valuation/01_price-and-capital-structure.md §4"
+    },
+    {
+      "quantity": "Net leverage on canonical strict net debt ($9,861mm)",
+      "reported": "1.32x GAAP EBITDA / 0.98x Adjusted EBITDA",
+      "recomputed": "9,861/7,474 = 1.320x; 9,861/10,043 = 0.982x",
+      "ties": true,
+      "detail": "balance-sheet-survival/01_capital-structure-and-leverage.md §5"
+    },
+    {
+      "quantity": "Scenario probabilities sum",
+      "reported": "100%",
+      "recomputed": "25% + 50% + 25% = 100%",
+      "ties": true,
+      "detail": "decision_record.json scenarios[]; final_thesis.md §8"
+    },
+    {
+      "quantity": "Expected return = Σ(probability × scenario return)",
+      "reported": "8.15%",
+      "recomputed": "0.25×53.84% + 0.50×9.87% + 0.25×(-40.99%) = 8.1475%",
+      "ties": true,
+      "detail": "decision_record.json.expected_return_pct; final_thesis.md §14"
+    },
+    {
+      "quantity": "Probability-weighted target price and its implied return, tied back to the direct expected-return calc",
+      "reported": "$73.73 target; 8.15% return from target",
+      "recomputed": "0.25×104.89+0.50×74.91+0.25×40.23=73.73; (73.73-68.18)/68.18=8.14%",
+      "ties": true,
+      "detail": "final_thesis.md §14 — reconciles within rounding to the direct expected-return figure"
+    },
+    {
+      "quantity": "Risk/reward = (target - price) / (price - bear)",
+      "reported": "0.20x",
+      "recomputed": "(73.73-68.18)/(68.18-40.23) = 5.55/27.95 = 0.1985",
+      "ties": true,
+      "detail": "final_thesis.md §14; decision_record.json.risk_reward"
+    },
+    {
+      "quantity": "Margin of safety = (base FV - price) / base FV",
+      "reported": "8.98% (displayed as ~9.0%)",
+      "recomputed": "(74.91-68.18)/74.91 = 8.98%",
+      "ties": true,
+      "detail": "decision_record.json.margin_of_safety_pct"
+    },
+    {
+      "quantity": "Downside risk = -min(scenario returns)",
+      "reported": "40.99% (displayed as 41.0%)",
+      "recomputed": "-(-40.99%) = 40.99%",
+      "ties": true,
+      "detail": "decision_record.json.downside_risk_pct"
+    },
+    {
+      "quantity": "Scenario fair-value levels independently re-derived from EV bridge inputs recorded together in valuation_summary.json",
+      "reported": "Bull $104.89 / Base $74.91 / Bear-cyclical $40.23",
+      "recomputed": "Bull $104.8942 / Base $74.8961 / Bear-cyclical $40.2288",
+      "ties": true,
+      "detail": "All tie within a cent using the SAME net_debt/minority/shares/forward_metric/multiple recorded together in the module's own artifact — the run's internal scenario math is NOT broken."
+    },
+    {
+      "quantity": "Finish-gate 'Playground' live recompute of base/bear_cyclical scenario levels (self-disclosed in the PROVISIONAL banner)",
+      "reported": "Base $74.91 recorded vs $75.4148 recomputed (+0.70%); Bear_cyclical $40.23 recorded vs $40.7475 recomputed (+1.29%)",
+      "recomputed": "Implied forward_metric behind $75.4148 ≈ $12,671mm vs the frozen $12,589.03mm baked into valuation_summary.json (~0.65% drift) — consistent with a moving/live NTM EBITDA consensus rather than an internal formula error",
+      "ties": false,
+      "detail": "Unresolved as of this audit; self-flagged by the run's own finish-gate; the committed artifacts were NOT corrected before commit (banner text: 'this thesis was committed UNVERIFIED'). This is a live-vs-frozen data-drift issue, not a broken formula inside the committed artifacts (see the prior check)."
+    },
+    {
+      "quantity": "Currency/FX sanity — Delivery Hero deal figures (EUR) vs Uber financials (USD)",
+      "reported": "€41.50/share, €12.9bn/€8.4bn stated alongside $14.8bn equity value; ~€14bn bridge facility kept in EUR, not silently converted",
+      "recomputed": "n/a — sanity check only",
+      "ties": true,
+      "detail": "No silent cross-currency conversion found; EUR figures are presented alongside, not substituted for, USD figures, consistent with CLAUDE.md §27."
+    }
+  ],
+  "integrity_score": 67,
+  "verdict": "Material issues",
+  "blocking_findings": [
+    "Net-debt basis mislabel / anchor conflict: valuation/01, earnings/99, and decision_record.json all label $9,340mm as the 'strict' net-debt basis, but that figure nets in $521mm of short-term investments and is therefore the BROAD basis per CLAUDE.md §15's own definition (total debt − cash & equivalents ONLY). balance-sheet-survival/01 correctly computes the true strict figure as $9,861mm and correctly labels $9,340mm as broad — so the 'strict' tag carries two different values ($9,340mm vs $9,861mm) across modules for the same period. The headline EV bridge and all three scenario fair-value levels ($104.89/$74.91/$40.23) rest on the mislabeled $9,340mm figure. Dollar impact is small (~$0.25/share, <0.4% of EV) and does not change the Watchlist decision, but it is a required §15 hygiene/anchor-conflict flag.",
+    "The committed final_thesis.md carries an explicit, unresolved 'PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED' banner: a live 'Playground' recompute of the base and bear_cyclical scenario fair-value levels disagrees with the frozen levels (base +0.70% drift, bear_cyclical +1.29% drift), and the Headline Scorecard's sizing text does not literally match decision_record.json's sizing_hint.action. The run was committed to the ledger despite failing its own automated release gate, and the discrepancy remains unresolved in the artifacts audited here."
+  ],
+  "notes": "No ciq_facts.json exists for this run (confirmed absent at analyses/UBER_2026-08-06/_pool_extracts/ciq_facts.json) — step 1c (deterministic CIQ cross-check) was skipped per the best-effort instruction. All 13 source files / 37 tabs in the extraction manifest show status 'ok' with zero extraction failures, so no rating-driver figure is excused as 'unverified (extraction unavailable)'. All checked rating-driver figures (net debt components, EV bridge, headline EBITDA on both GAAP and Adjusted bases, ROIC, Mobility margin, the two deferred-tax benefit figures behind RF-DISC-002, and the full scenario/expected-return/risk-reward/margin-of-safety math) were located in the cited sources and recompute correctly — no fabricated or unsupported rating-driver number was found, and no vague citations ('company filings', bare '10-K', etc.) were found in final_thesis.md. The verdict is capped at 'Material issues' (not 'Failed') because neither defect is a fabricated/unsupported rating-driver nor a broken core scenario-math formula within the committed artifacts themselves — both are, respectively, a labeling/definitional error (net debt basis) and a self-disclosed, small-magnitude live-vs-frozen data-drift the run's own gate already caught and surfaced to the reader via the PROVISIONAL banner, but did not resolve before commit."
+}
