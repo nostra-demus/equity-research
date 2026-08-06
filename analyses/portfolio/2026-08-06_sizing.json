@@ -1,0 +1,66 @@
+{
+    "schema_version": "1.0",
+    "generated_at": "2026-08-06",
+    "scope": "all",
+    "disclaimer": "Illustrative model paper-portfolio for research process-tracking — not investment advice, not real orders.",
+    "n_decisions": 8,
+    "positions": [],
+    "watch": [
+        {
+            "ticker": "AMZN",
+            "decision": "Watchlist",
+            "size_in_trigger": "Re-entry zone $190-200 (>12% margin of safety on base fair value $210). July 31, 2026 Q2 earnings was the first real test of the AWS D&A billing-lag hypothesis (edge_score 35 < 50 gate) — check the print against the confirmation/falsification triggers at the 2026-08-09 30-day review.",
+            "next_review": "2026-08-09"
+        },
+        {
+            "ticker": "BG",
+            "decision": "Watchlist",
+            "size_in_trigger": "Re-rate to Starter Position Only only on a pool-confirmed price below ~$100, or a clean post-Viterra FY2026 cash-conversion print (currently do not buy at indicative ~$123).",
+            "next_review": "2026-08-30"
+        },
+        {
+            "ticker": "EMAAR",
+            "decision": "Watchlist",
+            "size_in_trigger": "Revisit toward a starter long only if pre-sales hold >=+16% YoY and the discount begins to close, or on primary evidence the state owner/founder-MD treats minorities as value-owners (unaligned-owner filter caps at Watchlist regardless of price). No position at AED 12.20; watch the Q2 2026 print (est. 10 Aug 2026).",
+            "next_review": "2026-08-09"
+        },
+        {
+            "ticker": "HCG",
+            "decision": "Avoid",
+            "size_in_trigger": "Only re-underwrite at/below INR 520 (base-case low, where a margin of safety begins) or on two consecutive clean prints showing ROIC rising toward the cost of capital. Currently rejected — weak governance (7 High flags) plus no margin of safety.",
+            "next_review": "2026-08-30"
+        },
+        {
+            "ticker": "NHY",
+            "decision": "Watchlist",
+            "size_in_trigger": "Revisit only if price falls toward or below the NOK 70-82 weighted fair-value band, or if the Alumetal impairment / Brazil tax risk clears without damage. Edge score 30 < 50 gate; five High-severity flags outstanding (unaligned Norwegian-state stake, written-off battery bet, dividend > FCF, recurring 'non-recurring' charge, AGM pay revolt). Next print 23-Oct-2026.",
+            "next_review": "2026-08-18"
+        },
+        {
+            "ticker": "SMPL",
+            "decision": "Watchlist",
+            "size_in_trigger": "Monitor only — no position. Revisit after the Oct-23-2026 FQ4 print and the Sept-2026 price increase's elasticity result (visible in the FQ1 FY2027 print). Edge score 35 < 50 gate; confidence_score 40.",
+            "next_review": "2026-09-05"
+        },
+        {
+            "ticker": "TMCV",
+            "decision": "Watchlist",
+            "size_in_trigger": "Re-rate when the Iveco financing structure is confirmed and the TMF Holdings AGM vote outcome is known (large-deal/serial-acquirer risk plus a borderline unaligned-owner concern hold it at Watchlist until resolved).",
+            "next_review": "2026-09-05"
+        },
+        {
+            "ticker": "TSLA",
+            "decision": "Short Candidate",
+            "size_in_trigger": "Held at zero model weight, not sized: truth-integrity status is 'provisional' (final_thesis.md carries an active finish-gate PROVISIONAL banner from the 2026-07-25 run — the automated finish-gate found an integrity issue and the thesis was committed unverified). This is a hard exclusion per Step 2, applied identically to the long and short side; unrelated to the thesis's own economics (expected_return_pct +56.57% on the short, edge_score 40, verification_report verdict 'Minor issues', pre_mortem 'Survives with haircut'). Re-eligible only once the run is re-verified/re-audited and the banner clears — otherwise re-underwrite per the thesis's own suggested_action: small, defined-risk short via long-dated puts / put spreads, not naked stock, and not sized larger even then given the pre-mortem's own 'functionally Watchlist-strength' caution.",
+            "next_review": "2026-08-24"
+        }
+    ],
+    "book": {
+        "gross_pct": 0,
+        "cash_pct": 100,
+        "max_name_pct": 0,
+        "concentration_note": "No positions — 100% model cash. All 8 standing decisions are Watchlist (6) or Rejected/Avoid (1), or excluded on the integrity gate (TSLA Short Candidate, provisional). None carries a Selected basket (Strong Buy/Buy/Starter).",
+        "correlation_flags": "Not applicable with zero positions. For future reference if any of these later clear their gates: AMZN, EMAAR, NHY and TMCV all carry a 'Sector-cycle' or commodity/cyclical tag alongside their company-specific driver — check for shared macro/consumer-cycle exposure before treating them as independent bets. SMPL carries a 'Governance turnaround' tag — CLAUDE.md §24 Filter 2 (turnaround base-rate penalty) applies if it is ever re-rated. AMZN, EMAAR and NHY each carry an unaligned-owner structural cap (Filter 6); BG and TMCV each carry a large-deal/serial-acquirer cap (Filter 4) — distinct risk vectors, but relevant if the book expands and multiple names trip the same filter."
+    },
+    "notes": "New this run: SMPL (Simply Good Foods, decided 2026-08-06, Watchlist — edge_score 35, confidence 40, expected_return +22.63% but basket is Watchlist not Selected, so it is not long-eligible despite the positive expected return; this is the eligibility gate working as designed — a positive expected-return name with no evidence-backed edge above the Selected threshold still gets zero weight). The other 7 standing decisions are unchanged from 2026-08-01 (AMZN_2026-07-10, BG_2026-06-01, EMAAR_2026-07-10, HCG_2026-06-01, NHY_2026-07-19, TMCV_2026-06-07, TSLA_2026-07-25), none reaching a Selected basket and TSLA still excluded on the truth-integrity gate (entry.integrity.status == 'provisional', finish-gate banner active). Book remains 0% gross / 100% model cash — the discipline self-zeroing every name in the current ledger, which is itself a valid result per CLAUDE.md §1."
+}
