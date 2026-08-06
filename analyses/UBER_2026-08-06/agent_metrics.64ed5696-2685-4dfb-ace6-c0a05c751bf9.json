@@ -1,0 +1,39 @@
+{
+  "agents": [
+    {
+      "agent": "management-governance-synthesis",
+      "model": "claude-sonnet-5",
+      "calls": 12,
+      "usage": {
+        "input_tokens": 24,
+        "output_tokens": 62477,
+        "cache_read_input_tokens": 1339041,
+        "cache_creation_input_tokens": 223686,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 223686,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 2.1777618,
+      "runtime_ms": 560742,
+      "module": "management-governance"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 25,
+    "usage": {
+      "input_tokens": 50,
+      "output_tokens": 10258,
+      "cache_read_input_tokens": 2227739,
+      "cache_creation_input_tokens": 94630,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 94630
+      }
+    },
+    "cost": 1.3901217000000001,
+    "runtime_ms": 0
+  }
+}
