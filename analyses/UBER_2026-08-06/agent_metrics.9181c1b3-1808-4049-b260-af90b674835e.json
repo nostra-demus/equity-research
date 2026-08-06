@@ -1,0 +1,20 @@
+{
+  "agents": [],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 1,
+    "usage": {
+      "input_tokens": 2,
+      "output_tokens": 225,
+      "cache_read_input_tokens": 23119,
+      "cache_creation_input_tokens": 45413,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 45413
+      }
+    },
+    "cost": 0.2827947,
+    "runtime_ms": 0
+  }
+}
