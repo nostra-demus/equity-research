@@ -1,0 +1,2095 @@
+{
+  "date": "2026-08-04",
+  "updated_at": "2026-08-05T00:00:26Z",
+  "focus_hint": null,
+  "source": "auto_ingester",
+  "rows": [
+    {
+      "inbox_id": "INB-20260804-119",
+      "headline": "Cargo Ship Attacked in Omani Sector of the Strait of Hormuz",
+      "url": "https://maritime-executive.com/article/cargo-ship-attacked-in-omani-sector-of-the-strait-of-hormuz",
+      "source_name": "Maritime Executive",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-08-04T02:47:46Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cargo ship attacked in the Strait of Hormuz, escalating regional security risk for shipping.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 78,
+      "event_types": [
+        "macro_sector",
+        "operations"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "scope": "commodity",
+      "source_tier": "official_data",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "commodity",
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 5,
+        "scope": 4,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "official_data",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Cargo ship attacked in the Strait of Hormuz, escalating regional security risk for shipping.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-48c496d8e025"
+    },
+    {
+      "inbox_id": "INB-20260804-132",
+      "headline": "Mastercard completes $1.8B BVNK acquisition in stablecoin push",
+      "url": "https://cointelegraph.com/news/mastercard-completes-bvnk-acquisition-stablecoin-push?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T02:58:51Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mastercard completed a $1.8 billion acquisition of BVNK.",
+      "headline_en": null,
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mastercard",
+          "ticker": "MA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "Mastercard completed a $1.8 billion acquisition of BVNK.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-7669df96fe31"
+    },
+    {
+      "inbox_id": "INB-20260804-191",
+      "headline": "Segro accepts £14bn takeover offer from US rival Prologis",
+      "url": "https://www.ft.com/content/1d8ac0ff-8ff0-44fd-bd92-5fd18983f31e?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T08:23:23Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Segro accepted a £14bn takeover offer from Prologis",
+      "headline_en": null,
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Segro",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Prologis",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "Segro accepted a £14bn takeover offer from Prologis",
+      "dedup_status": "new",
+      "dedup_group": "EVT-9355ca6ec8c9"
+    },
+    {
+      "inbox_id": "INB-20260804-194",
+      "headline": "Toyota Raises Full-Year Net Profit Forecast",
+      "url": "https://www.nippon.com/en/news/yjj2026080400606/",
+      "source_name": "nippon.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T08:01:56Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Toyota raised its full-year net profit forecast",
+      "headline_en": null,
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toyota",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "Toyota raised its full-year net profit forecast",
+      "dedup_status": "new",
+      "dedup_group": "EVT-1d78b836a638"
+    },
+    {
+      "inbox_id": "INB-20260804-197",
+      "headline": "Segro agrees £14 billion takeover from US firm Prologsis",
+      "url": "https://www.independent.co.uk/news/business/british-london-press-association-b3027001.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T08:13:07Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Segro agreed to a £14bn takeover by US firm Prologis",
+      "headline_en": null,
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Segro",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Prologis",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "Segro agreed to a £14bn takeover by US firm Prologis",
+      "dedup_status": "new",
+      "dedup_group": "EVT-8491c16409a5"
+    },
+    {
+      "inbox_id": "INB-20260804-211",
+      "headline": "Prologis to Buy U.K.’s Segro for $18.8 Billion",
+      "url": "https://www.wsj.com/business/deals/prologis-to-buy-u-k-s-segro-for-18-8-billion-50b0ddd5?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T06:40:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Prologis announced purchase of Segro for $18.8 billion.",
+      "headline_en": null,
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prologis",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Segro",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "Prologis announced purchase of Segro for $18.8 billion.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-f2a85a0cc0e7"
+    },
+    {
+      "inbox_id": "INB-20260804-259",
+      "headline": "Prologis, SEGRO Agree To £14 Bln Combination",
+      "url": "https://www.nasdaq.com/articles/prologis-segro-agree-ps14-bln-combination",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T07:47:30Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Prologis and SEGRO agreed to a £14 billion combination.",
+      "headline_en": null,
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prologis",
+          "ticker": "PLD",
+          "listing_country": "US"
+        },
+        {
+          "name": "SEGRO",
+          "ticker": "SGRO",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "mixed",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "Prologis and SEGRO agreed to a £14 billion combination.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-dce100618bd5"
+    },
+    {
+      "inbox_id": "INB-20260804-281",
+      "headline": "Zen Energy creditors lucky to get 10¢ on the dollar after collapse",
+      "url": "https://www.afr.com/companies/energy/zen-energy-creditors-lucky-to-get-10-on-the-dollar-after-collapse-20260804-p60l92?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T08:09:31Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Zen Energy creditors receive only 10¢ on the dollar after collapse",
+      "headline_en": null,
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zen Energy",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "prelim_note": "Zen Energy creditors receive only 10¢ on the dollar after collapse",
+      "dedup_status": "new",
+      "dedup_group": "EVT-c75f4fd91ef4"
+    },
+    {
+      "inbox_id": "INB-20260804-308",
+      "headline": "Aramco's profits soar 44 percent as Iran war boosts prices",
+      "url": "https://www.newarab.com/news/aramcos-profits-soar-44-percent-iran-war-boosts-prices",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T07:40:05Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aramco's 44% profit surge driven by geopolitical oil-price shock from Iran conflict materially boosts its cash flow and sector-wide earnings outlook.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "macro_sector",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": "2222.SR",
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "Aramco's 44% profit surge driven by geopolitical oil-price shock from Iran conflict materially boosts its cash flow and sector-wide earnings outlook.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-708efd3e5d3d"
+    },
+    {
+      "inbox_id": "INB-20260804-343",
+      "headline": "BP’s Q2 profit more than doubles to top US$5 billion on oil surge",
+      "url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/bps-q2-profit-more-doubles-top-us5-billion-oil-surge",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T07:31:50Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BP’s Q2 profit more than doubles to over US$5 billion, a major earnings beat driven by oil price surge.",
+      "headline_en": null,
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BP",
+          "ticker": "BP",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "prelim_note": "BP’s Q2 profit more than doubles to over US$5 billion, a major earnings beat driven by oil price surge.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-98de16092f40"
+    },
+    {
+      "inbox_id": "INB-20260804-375",
+      "headline": "Saudi Aramco delivers 44 percent surge in net profit to $32.69 billion in Q2 2026",
+      "url": "https://economymiddleeast.com/news/saudi-aramco-delivers-44-percent-surge-net-profit-32-69-billion-q2-2026/?utm_source=rss&utm_medium=rss&utm_campaign=saudi-aramco-delivers-44-percent-surge-net-profit-32-69-billion-q2-2026",
+      "source_name": "Economy Middle East",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T07:10:08Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Saudi Aramco reports a 44% surge in Q2 2026 net profit to $32.69B, a major earnings beat for a mega-cap energy company.",
+      "headline_en": null,
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": "2222.SR",
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "Saudi Aramco reports a 44% surge in Q2 2026 net profit to $32.69B, a major earnings beat for a mega-cap energy company.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-61d8bdb89e5a"
+    },
+    {
+      "inbox_id": "INB-20260804-390",
+      "headline": "HSBC lance un rachat d'actions de $1 md après un bénéfice au S1 supérieur aux attentes",
+      "url": "https://www.reuters.com/fr/affaires/hsbc-lance-un-rachat-dactions-de-1-md-aprs-un-bnfice-au-s1-suprieur-aux-attentes-2026-08-04/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T06:47:45Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HSBC announces a $1B share buyback following better-than-expected H1 profit, signaling strong capital position.",
+      "headline_en": null,
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HSBC Holdings",
+          "ticker": "HSBA.L",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "HSBC announces a $1B share buyback following better-than-expected H1 profit, signaling strong capital position.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-6f9564283fea"
+    },
+    {
+      "inbox_id": "INB-20260804-397",
+      "headline": "CSC DEVELOPMENT (00830): Profit Warning",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0804/2026080401018.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-04T08:47:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning with no details, but implies a significant negative outlook change.",
+      "headline_en": null,
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CSC DEVELOPMENT",
+          "ticker": "00830",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "prelim_note": "Profit warning with no details, but implies a significant negative outlook change.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-f140b6e7122d"
+    },
+    {
+      "inbox_id": "INB-20260804-406",
+      "headline": "HSBC profits jump 23% as bank is boosted by higher net interest margins... and it will resume share buybacks",
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16026759/HSBC-resumes-1bn-buyback-profits-soar-23.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T08:42:17Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HSBC's 23% profit jump and resumption of buybacks signal improved financial performance and capital return to shareholders.",
+      "headline_en": null,
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HSBC Holdings",
+          "ticker": "HSBA.L",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "large"
+      },
+      "prelim_note": "HSBC's 23% profit jump and resumption of buybacks signal improved financial performance and capital return to shareholders.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-60599d8483ee"
+    },
+    {
+      "inbox_id": "INB-20260804-428",
+      "headline": "CMA LOGISTICS (01292): Profit Alert",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0804/2026080401056.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-04T08:50:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit alert indicating a likely earnings downgrade for CMA LOGISTICS.",
+      "headline_en": null,
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CMA LOGISTICS",
+          "ticker": "01292",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "prelim_note": "Profit alert indicating a likely earnings downgrade for CMA LOGISTICS.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-d57ea36f4edd"
+    },
+    {
+      "inbox_id": "INB-20260804-430",
+      "headline": "HS#TENCTRC2703D HS#XIAMIRP2810G HS#TENCTRC2702N HS#ALIBARC2701N HS#PINANRC2812G HS#ALIBARC2702G (54854 54855 54861 54867 54869 54870): Supplemental Listing Document for Callable Bull/Bear Contracts issued by The Hongkong and Shanghai Banking Corporation Limited - 54854, 54855, 54861, 54867, 54869, 54870",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0804/2026080401024.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-04T08:47:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Issuance of new callable bull/bear contracts by HSBC, a structured product that could affect trading volumes and investor exposure for the named issuers (54854, 54855, 54861, 54867, 54869, 54870).",
+      "headline_en": null,
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Hongkong and Shanghai Banking Corporation Limited",
+          "ticker": null,
+          "listing_country": "HK"
+        },
+        {
+          "name": "HSBC Holdings plc",
+          "ticker": "5",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "multi_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "Issuance of new callable bull/bear contracts by HSBC, a structured product that could affect trading volumes and investor exposure for the named issuers (54854, 54855, 54861, 54867, 54869, 54870).",
+      "dedup_status": "new",
+      "dedup_group": "EVT-52dac4b0400c"
+    },
+    {
+      "inbox_id": "INB-20260804-433",
+      "headline": "JP#HSI RP2902B JP#HSI RP29069 JP#HSI RP2906A JP#HSI RC2810A JP#HSI RP2906C JP#HSI RP29029 JP#HSI RC28101 (53136 53226 53228 53263 53293 61142 69106): Notice of Valuation of Residual Value of Callable Bull/Bear Contracts issued by J.P. Morgan Structured Products B.V.",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0804/2026080401007.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-04T08:46:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Notice of valuation of residual value of callable bull/bear contracts issued by J.P. Morgan Structured Products B.V. for multiple contracts (53136, 53226, 53228, 53263, 53293, 61142, 69106) — affects structured product exposure and trading volumes.",
+      "headline_en": null,
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "J.P. Morgan Structured Products B.V.",
+          "ticker": null,
+          "listing_country": "NL"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "Notice of valuation of residual value of callable bull/bear contracts issued by J.P. Morgan Structured Products B.V. for multiple contracts (53136, 53226, 53228, 53263, 53293, 61142, 69106) — affects structured product exposure and trading volumes.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-45d51d0dbc8a"
+    },
+    {
+      "inbox_id": "INB-20260804-434",
+      "headline": "JP#ALIBARP2811D (55098): Notice of Valuation of Residual Value of Callable Bull/Bear Contracts issued by J.P. Morgan Structured Products B.V.",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0804/2026080401005.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-04T08:46:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Notice of valuation of residual value of callable bull/bear contracts issued by J.P. Morgan Structured Products B.V. for ALIBARC2811D (55098) — affects structured product exposure and trading volumes.",
+      "headline_en": null,
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "J.P. Morgan Structured Products B.V.",
+          "ticker": null,
+          "listing_country": "NL"
+        },
+        {
+          "name": "Alibaba Group Holding Limited",
+          "ticker": "9988",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "multi_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "Notice of valuation of residual value of callable bull/bear contracts issued by J.P. Morgan Structured Products B.V. for ALIBARC2811D (55098) — affects structured product exposure and trading volumes.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-0049e7b24ef2"
+    },
+    {
+      "inbox_id": "INB-20260804-442",
+      "headline": "Prologis, Inc. Announces Recommended Combination",
+      "url": "https://www.globenewswire.com/news-release/2026/08/04/3338072/0/en/Prologis-Inc-Announces-Recommended-Combination.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-04T08:50:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Prologis announces a recommended combination (merger), a large-scale M&A event.",
+      "headline_en": null,
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prologis, Inc.",
+          "ticker": "PLD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "multi_name",
+      "source_tier": "company",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "Prologis announces a recommended combination (merger), a large-scale M&A event.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-4b29b3e656e0"
+    },
+    {
+      "inbox_id": "INB-20260804-461",
+      "headline": "Nigeria’s NNPC Takes $4.5 Billion Loan for Nation’s Priorities",
+      "url": "https://www.bloomberg.com/news/articles/2026-08-04/nigeria-s-nnpc-takes-4-5-billion-loan-for-nation-s-priorities",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T08:28:20Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A $4.5B loan by Nigeria’s NNPC increases debt load and sovereign risk, potentially affecting investor outlook.",
+      "headline_en": null,
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nigerian National Petroleum Corporation (NNPC)",
+          "ticker": null,
+          "listing_country": "NG"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "A $4.5B loan by Nigeria’s NNPC increases debt load and sovereign risk, potentially affecting investor outlook.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-d654c57fa36f"
+    },
+    {
+      "inbox_id": "INB-20260804-493",
+      "headline": "Saudi Aramco says Houthi attacks had no material impact, reports $33.4b adjusted Q2 net income",
+      "url": "https://gulfnews.com/business/energy/saudi-aramco-says-houthi-attacks-had-no-material-impact-reports-334-billion-adjusted-q2-net-income-1.500630014",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T07:34:59Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Saudi Aramco reports $33.4B adjusted Q2 net income and states Houthi attacks had no material impact, confirming operational resilience and strong profitability.",
+      "headline_en": null,
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "earnings_revenue_margin",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": "2222.SR",
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "Saudi Aramco reports $33.4B adjusted Q2 net income and states Houthi attacks had no material impact, confirming operational resilience and strong profitability.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-46f8d6dc2357"
+    },
+    {
+      "inbox_id": "INB-20260804-500",
+      "headline": "Toyota plans $6.3bn buyback as weak yen boosts outlook",
+      "url": "https://www.ft.com/content/8a703d1e-99d4-4a04-a08a-761489d33da3?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T09:04:12Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Toyota plans a major $6.3 billion share buyback program supported by a boosted outlook from a weak yen.",
+      "headline_en": null,
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toyota Motor Corporation",
+          "ticker": "7203",
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "Toyota plans a major $6.3 billion share buyback program supported by a boosted outlook from a weak yen.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-b0b5712b7ade"
+    },
+    {
+      "inbox_id": "INB-20260804-501",
+      "headline": "Embodied-AI startup PaXini raises RMB1 billion to scale tactile-sensing technology",
+      "url": "https://technode.com/2026/08/04/embodied-ai-startup-paxini-raises-rmb1-billion-to-scale-tactile-sensing-technology/",
+      "source_name": "TechNode",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T08:52:39Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Embodied-AI startup PaXini raised RMB 1 billion to scale its tactile-sensing technology.",
+      "headline_en": null,
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PaXini",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "small"
+      },
+      "prelim_note": "Embodied-AI startup PaXini raised RMB 1 billion to scale its tactile-sensing technology.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-552474192983"
+    },
+    {
+      "inbox_id": "INB-20260804-503",
+      "headline": "GDC (08271): PROFIT WARNING",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0804/2026080401202.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-04T09:04:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning issued by GDC (08271), indicating a deterioration in outlook with no specific numbers but clearly negative.",
+      "headline_en": null,
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GDC",
+          "ticker": "08271",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "prelim_note": "Profit warning issued by GDC (08271), indicating a deterioration in outlook with no specific numbers but clearly negative.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-b6891c75eb16"
+    },
+    {
+      "inbox_id": "INB-20260804-504",
+      "headline": "Bending Spoons makes first post-IPO acquisition with $1.3 billion Airtable deal",
+      "url": "https://www.reuters.com/legal/transactional/bending-spoons-makes-first-post-ipo-acquisition-with-13-billion-airtable-deal-2026-08-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T09:01:44Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A $1.3B acquisition is a major capital action that can shift growth strategy and capital structure for Bending Spoons.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bending Spoons",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "A $1.3B acquisition is a major capital action that can shift growth strategy and capital structure for Bending Spoons.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-8b8a17010242"
+    },
+    {
+      "inbox_id": "INB-20260804-510",
+      "headline": "SKYWORTH GROUP (00751): INSIDE INFORMATION POSITIVE PROFIT ALERT",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0804/2026080401158.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-04T09:00:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A positive profit alert from a listed company can influence investor sentiment and expectations.",
+      "headline_en": null,
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SKYWORTH GROUP",
+          "ticker": "00751",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "prelim_note": "A positive profit alert from a listed company can influence investor sentiment and expectations.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-cb136b49fc8c"
+    },
+    {
+      "inbox_id": "INB-20260804-511",
+      "headline": "BIL: ESTIMATED DISTRIBUTION ANNOUNCEMENT [price-sensitive]",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BIL?key=2924-03117913-2A1687592",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-04T09:03:15Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A price-sensitive distribution announcement for a major Australian issuer, likely impacting cash flows or dividends.",
+      "headline_en": null,
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BIL",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "large"
+      },
+      "prelim_note": "A price-sensitive distribution announcement for a major Australian issuer, likely impacting cash flows or dividends.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-c442ed2b5342"
+    },
+    {
+      "inbox_id": "INB-20260804-533",
+      "headline": "Ukrainian drones hit Wildberries warehouses in overnight strikes",
+      "url": "https://www.ft.com/content/4d9d5f1a-df3e-490e-9567-f7f7f968f3a4?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T08:57:29Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ukrainian drone strikes on Wildberries warehouses (a major Russian e-commerce player) disrupt supply chains and operations, increasing costs and risk for suppliers/customers in the sector.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "operations",
+        "macro_sector"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Wildberries",
+          "ticker": null,
+          "listing_country": "RU"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "prelim_note": "Ukrainian drone strikes on Wildberries warehouses (a major Russian e-commerce player) disrupt supply chains and operations, increasing costs and risk for suppliers/customers in the sector.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-9382cc77d8b7"
+    },
+    {
+      "inbox_id": "INB-20260804-536",
+      "headline": "Prysmian announces $3.8bn acquisition of Atkore",
+      "url": "https://finance.yahoo.com/energy/articles/prysmian-announces-3-8bn-acquisition-084601051.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T08:46:01Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Prysmian announces a $3.8bn acquisition of Atkore, a large-scale M&A event with potential strategic implications.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prysmian",
+          "ticker": "PRY.MI",
+          "listing_country": "IT"
+        },
+        {
+          "name": "Atkore",
+          "ticker": "ATKR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "Prysmian announces a $3.8bn acquisition of Atkore, a large-scale M&A event with potential strategic implications.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-c4a27209113e"
+    },
+    {
+      "inbox_id": "INB-20260804-565",
+      "headline": "Immobilienmarkt: Adlon soll für mindestens 280 Millionen Euro verkauft werden",
+      "url": "https://www.handelsblatt.com/finanzen/immobilien/immobilienmarkt-adlon-soll-fuer-mindestens-280-millionen-euro-verkauft-werden/100244929.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T09:14:09Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A major asset (Adlon hotel) is being sold for a named price (€280M), which could impact the seller's capital structure or strategic direction.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adlon",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "A major asset (Adlon hotel) is being sold for a named price (€280M), which could impact the seller's capital structure or strategic direction.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-a58fb2025cd0"
+    },
+    {
+      "inbox_id": "INB-20260804-571",
+      "headline": "Retailer Zalando set for record daily share price fall as growth outlook weighs",
+      "url": "https://www.reuters.com/business/zalando-expects-2026-growth-lower-end-range-narrows-profit-outlook-2026-08-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T09:07:01Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Zalando's record daily share price fall due to a growth outlook cut signals a severe negative revision to its revenue/margin outlook.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zalando",
+          "ticker": "ZAL.DE",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "prelim_note": "Zalando's record daily share price fall due to a growth outlook cut signals a severe negative revision to its revenue/margin outlook.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-b105ebf153aa"
+    },
+    {
+      "inbox_id": "INB-20260804-572",
+      "headline": "Oil giant Aramco's profits soar 44 pct as war boosts prices",
+      "url": "https://kuwaittimes.com/article/47590/business/oil-giant-aramcos-profits-soar-44-pct-as-war-boosts-prices/",
+      "source_name": "Kuwait Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T07:46:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aramco's 44% profit surge due to war-driven oil prices signals a major positive revision to its revenue/margin outlook.",
+      "headline_en": null,
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aramco",
+          "ticker": "2222.SR",
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "Aramco's 44% profit surge due to war-driven oil prices signals a major positive revision to its revenue/margin outlook.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-6ad94d140541"
+    },
+    {
+      "inbox_id": "INB-20260804-577",
+      "headline": "Toyota lifts annual forecast and unveils $6 billion buyback, but shares fall",
+      "url": "https://www.reuters.com/business/autos-transportation/toyota-profit-drops-fifth-straight-quarter-china-slump-iran-war-impact-2026-08-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T09:15:52Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Toyota raised its annual forecast and announced a $6B buyback, but shares fell, indicating mixed investor reaction to guidance and capital return.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "guidance_change",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toyota",
+          "ticker": "TM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "mixed",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "Toyota raised its annual forecast and announced a $6B buyback, but shares fell, indicating mixed investor reaction to guidance and capital return.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-3a61bc84688f"
+    },
+    {
+      "inbox_id": "INB-20260804-579",
+      "headline": "RAYMOND IND (00229): PROFIT WARNING",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0804/2026080303407.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-04T09:25:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning indicating a significant decline in expected earnings.",
+      "headline_en": null,
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RAYMOND IND",
+          "ticker": "00229",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "prelim_note": "Profit warning indicating a significant decline in expected earnings.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-0a8792a0dc3c"
+    },
+    {
+      "inbox_id": "INB-20260804-594",
+      "headline": "AE Industrial Closes Purchase of L3Harris’s Space Propulsion, Power and Electronics Units Establishing the Business as Rocketdyne",
+      "url": "http://www.businesswire.com/news/home/20260804787940/en/AE-Industrial-Closes-Purchase-of-L3Harris%E2%80%99s-Space-Propulsion-Power-and-Electronics-Units-Establishing-the-Business-as-Rocketdyne/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire — Merger/Acquisition News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-04T09:20:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AE Industrial acquires L3Harris’s space propulsion, power and electronics units for an undisclosed but likely large sum, creating a new business unit (Rocketdyne).",
+      "headline_en": null,
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AE Industrial",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "L3Harris",
+          "ticker": "LHX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "company",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "AE Industrial acquires L3Harris’s space propulsion, power and electronics units for an undisclosed but likely large sum, creating a new business unit (Rocketdyne).",
+      "dedup_status": "new",
+      "dedup_group": "EVT-6a26942930bb"
+    },
+    {
+      "inbox_id": "INB-20260804-616",
+      "headline": "BP-Le bénéfice au T2 dépasse les $5mds avec la guerre en Iran",
+      "url": "https://www.reuters.com/fr/affaires/bp-le-bnfice-au-t2-multipli-par-plus-de-deux-sur-un-an-2026-08-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T09:29:36Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BP reported Q2 profit exceeding $5 billion, driven by geopolitical events, which can materially impact revenue and margins.",
+      "headline_en": "BP Q2 profit exceeds $5bn with war in Iran",
+      "headline_lang": "French",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BP",
+          "ticker": "BP.L",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "BP reported Q2 profit exceeding $5 billion, driven by geopolitical events, which can materially impact revenue and margins.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-a8da23cb4805"
+    },
+    {
+      "inbox_id": "INB-20260804-618",
+      "headline": "BP, utile trim2 più che raddoppiato su anno",
+      "url": "https://www.reuters.com/it/azienda/bp-utile-trim2-pi-che-raddoppiato-su-anno-2026-08-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T09:28:09Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BP's Q2 profit more than doubled year-over-year, a clear positive for revenue and margins.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BP",
+          "ticker": "BP.L",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "BP's Q2 profit more than doubled year-over-year, a clear positive for revenue and margins.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-0b389e9fecf9"
+    },
+    {
+      "inbox_id": "INB-20260804-627",
+      "headline": "Golar LNG raises $600 million loan with FLNG business expansion in mind",
+      "url": "https://www.offshore-energy.biz/golar-lng-raises-600-million-loan-with-flng-business-expansion-in-mind/",
+      "source_name": "Offshore Energy",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T09:12:31Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A $600 million loan tied to FLNG business expansion is a significant capital action and capex commitment for the company.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "debt_credit",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Golar LNG",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "prelim_note": "A $600 million loan tied to FLNG business expansion is a significant capital action and capex commitment for the company.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-3ed8b6c38605"
+    },
+    {
+      "inbox_id": "INB-20260804-633",
+      "headline": "Yukon Supports CapVest Partners and Second Nature Brands with the Acquisition of Tillamook Country Smoker",
+      "url": "http://www.businesswire.com/news/home/20260804906153/en/Yukon-Supports-CapVest-Partners-and-Second-Nature-Brands-with-the-Acquisition-of-Tillamook-Country-Smoker/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire — Merger/Acquisition News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-04T11:15:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A named acquisition (Tillamook Country Smoker) with financial backing from CapVest Partners and Second Nature Brands, indicating strategic expansion.",
+      "headline_en": null,
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "CapVest Partners",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Second Nature Brands",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "multi_name",
+      "source_tier": "company",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "A named acquisition (Tillamook Country Smoker) with financial backing from CapVest Partners and Second Nature Brands, indicating strategic expansion.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-008494d43b5c"
+    },
+    {
+      "inbox_id": "INB-20260804-635",
+      "headline": "P&G to acquire supplement brand Thorne for $3.8 billion",
+      "url": "https://finance.yahoo.com/healthcare/articles/p-g-acquire-supplement-brand-173135989.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-04T17:31:35Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "P&G agreed to acquire Thorne for $3.8B, a large M&A deal that could impact P&G's financials and strategy.",
+      "headline_en": null,
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Procter & Gamble",
+          "ticker": "PG",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "P&G agreed to acquire Thorne for $3.8B, a large M&A deal that could impact P&G's financials and strategy.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-94122dad3a4e"
+    }
+  ]
+}

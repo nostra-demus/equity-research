@@ -1,0 +1,2163 @@
+{
+  "date": "2026-08-03",
+  "updated_at": "2026-08-04T00:03:56Z",
+  "focus_hint": null,
+  "source": "auto_ingester",
+  "rows": [
+    {
+      "inbox_id": "INB-20260803-001",
+      "headline": "CN ENGY STORAGE (01143): JOINT ANNOUNCEMENT (1) SANCTION OF THE SCHEME; (2) EXPECTED EFFECTIVE DATE OF THE SCHEME; (3) EXPECTED DATE OF WITHDRAWAL OF LISTING OF CHINA ENERGY STORAGE TECHNOLOGY DEVELOPMENT LIMITED; AND (4) THE OPTION PROPOSAL TO REMAIN OPEN FOR ACCEPTANCE",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0803/2026080300021.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-02T23:43:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sanction of the scheme and expected effective date of the scheme.",
+      "headline_en": null,
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CN ENGY STORAGE (01143)",
+          "ticker": "01143",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Sanction of the scheme and expected effective date of the scheme.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-159ddfee9b96"
+    },
+    {
+      "inbox_id": "INB-20260803-002",
+      "headline": "AR1: Binding Proposal to Acquire Hammer Metals [price-sensitive]",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AR1?key=2924-03117269-2A1687208",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-02T23:59:49Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binding proposal to acquire Hammer Metals.",
+      "headline_en": null,
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AR1",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Hammer Metals",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "multi_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Binding proposal to acquire Hammer Metals.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-5a4f48f6cd8d"
+    },
+    {
+      "inbox_id": "INB-20260803-014",
+      "headline": "AstraZeneca held talks with Bristol Myers Squibb on $400 billion megadeal, source says",
+      "url": "https://www.reuters.com/legal/litigation/astrazeneca-holds-talks-with-bristol-myers-squibb-potential-megadeal-ft-reports-2026-08-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-02T23:58:05Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AstraZeneca and Bristol Myers Squibb are in talks for a $400 billion merger, a major deal that could reshape the pharma sector.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AstraZeneca",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Bristol Myers Squibb",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "AstraZeneca and Bristol Myers Squibb are in talks for a $400 billion merger, a major deal that could reshape the pharma sector.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-54ede0521ddd"
+    },
+    {
+      "inbox_id": "INB-20260803-197",
+      "headline": "Ageas sells its stake in Maybank Ageas Holdings Berhad to its JV partner Maybank for EUR 1.1 billion",
+      "url": "https://www.globenewswire.com/news-release/2026/08/03/3337203/0/en/Ageas-sells-its-stake-in-Maybank-Ageas-Holdings-Berhad-to-its-JV-partner-Maybank-for-EUR-1-1-billion.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-03T04:45:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ageas sells its stake in Maybank Ageas Holdings Berhad to Maybank for EUR 1.1 billion.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ageas",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Maybank Ageas Holdings Berhad",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "company",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "Ageas sells its stake in Maybank Ageas Holdings Berhad to Maybank for EUR 1.1 billion.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-b35388f09ae5"
+    },
+    {
+      "inbox_id": "INB-20260803-198",
+      "headline": "Ageas cède sa participation dans Maybank Ageas Holdings Berhad à son partenaire de coentreprise Maybank pour EUR 1,1 milliard",
+      "url": "https://www.globenewswire.com/news-release/2026/08/03/3337203/0/fr/Ageas-c%C3%A8de-sa-participation-dans-Maybank-Ageas-Holdings-Berhad-%C3%A0-son-partenaire-de-coentreprise-Maybank-pour-EUR-1-1-milliard.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-03T04:45:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ageas cède sa participation dans Maybank Ageas Holdings Berhad à son partenaire de coentreprise Maybank pour EUR 1,1 milliard.",
+      "headline_en": "Ageas sells its stake in Maybank Ageas Holdings Berhad to its JV partner Maybank for EUR 1.1 billion",
+      "headline_lang": "French",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ageas",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Maybank Ageas Holdings Berhad",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "company",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "Ageas cède sa participation dans Maybank Ageas Holdings Berhad à son partenaire de coentreprise Maybank pour EUR 1,1 milliard.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-d484ea1f1228"
+    },
+    {
+      "inbox_id": "INB-20260803-199",
+      "headline": "Ageas verkoopt zijn belang in Maybank Ageas Holdings Berhad aan JV‑partner Maybank voor EUR 1,1 miljard",
+      "url": "https://www.globenewswire.com/news-release/2026/08/03/3337203/0/nl/Ageas-verkoopt-zijn-belang-in-Maybank-Ageas-Holdings-Berhad-aan-JV-partner-Maybank-voor-EUR-1-1-miljard.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-03T04:45:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ageas verkoopt zijn belang in Maybank Ageas Holdings Berhad aan JV‑partner Maybank voor EUR 1,1 miljard.",
+      "headline_en": "Ageas sells its stake in Maybank Ageas Holdings Berhad to its JV partner Maybank for EUR 1.1 billion",
+      "headline_lang": "Dutch",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ageas",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Maybank Ageas Holdings Berhad",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "company",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "Ageas verkoopt zijn belang in Maybank Ageas Holdings Berhad aan JV‑partner Maybank voor EUR 1,1 miljard.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-c523dc050886"
+    },
+    {
+      "inbox_id": "INB-20260803-249",
+      "headline": "Malaysia’s Maybank to Buy Ageas Stake in Etiqa for $1.2 Billion",
+      "url": "https://www.bloomberg.com/news/articles/2026-08-03/malaysia-s-top-bank-is-said-to-near-buying-ageas-stake-in-etiqa",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T03:49:45Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Maybank to acquire Ageas stake in Etiqa for $1.2 billion.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maybank",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Ageas",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "Maybank to acquire Ageas stake in Etiqa for $1.2 billion.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-232e30e0dd01"
+    },
+    {
+      "inbox_id": "INB-20260803-279",
+      "headline": "ASSA ABLOY avser att förvärva Gunnebo Entrance Control",
+      "url": "https://news.cision.com/se/assa-abloy/r/assa-abloy-avser-att-forvarva-gunnebo-entrance-control,c4379297",
+      "source_name": "Cision — Sweden Regulatory & Company News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-03T06:00:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A confirmed acquisition announcement can materially impact ASSA ABLOY's capital structure and operations.",
+      "headline_en": null,
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ASSA ABLOY",
+          "ticker": "ASSA-B.ST",
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "company",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "A confirmed acquisition announcement can materially impact ASSA ABLOY's capital structure and operations.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-39f1983a5e15"
+    },
+    {
+      "inbox_id": "INB-20260803-304",
+      "headline": "Atkore Agrees to Be Bought by Prysmian for $3.8 Billion, Including Debt",
+      "url": "https://www.wsj.com/business/deals/atkore-agrees-to-be-bought-by-prysmian-for-3-8-billion-including-debt-c84b786d?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T06:05:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Prysmian agrees to acquire Atkore for $3.8B including debt, a major M&A event for both companies.",
+      "headline_en": null,
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 95,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prysmian",
+          "ticker": "PRY.IM",
+          "listing_country": "IT"
+        },
+        {
+          "name": "Atkore",
+          "ticker": "ATKR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 95,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "Prysmian agrees to acquire Atkore for $3.8B including debt, a major M&A event for both companies.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-35974123217d"
+    },
+    {
+      "inbox_id": "INB-20260803-309",
+      "headline": "Russia's Wildberries says warehouse in Vladimir region is on fire after Ukrainian drone attack",
+      "url": "https://www.reuters.com/world/russias-wildberries-says-warehouse-vladimir-region-is-fire-after-ukrainian-drone-2026-08-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T06:11:03Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wildberries' warehouse fire in Russia, linked to a Ukrainian drone attack, disrupts operations and raises supply-chain risk.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "operations",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wildberries",
+          "ticker": null,
+          "listing_country": "RU"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "prelim_note": "Wildberries' warehouse fire in Russia, linked to a Ukrainian drone attack, disrupts operations and raises supply-chain risk.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-e7c1a961150f"
+    },
+    {
+      "inbox_id": "INB-20260803-312",
+      "headline": "UltraTech Cement Ltd: Intimation for allotment of Non-Convertible Debentures of Rs. 5000 crore",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a4bc6ccc-dbd0-41fd-b9f3-9eb82801ca5a.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-03T06:31:21Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A Rs 5,000 crore non-convertible debenture issuance is a material capital-raising event that affects cash flow and capital structure.",
+      "headline_en": null,
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UltraTech Cement Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "large"
+      },
+      "prelim_note": "A Rs 5,000 crore non-convertible debenture issuance is a material capital-raising event that affects cash flow and capital structure.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-4ed6a3a9632f"
+    },
+    {
+      "inbox_id": "INB-20260803-332",
+      "headline": "RWS snaps up Acolad in £22.4m deal to widen AI platform reach",
+      "url": "https://ukinvestormagazine.co.uk/rws-snaps-up-acolad-in-22-4m-deal-to-widen-ai-platform-reach/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T06:36:58Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RWS has acquired Acolad in a £22.4 million deal to expand its AI platform reach.",
+      "headline_en": null,
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RWS",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Acolad",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "RWS has acquired Acolad in a £22.4 million deal to expand its AI platform reach.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-32598802df6b"
+    },
+    {
+      "inbox_id": "INB-20260803-283",
+      "headline": "Pharma: Astra Zeneca erwägt offenbar 400-Milliarden-Dollar-Fusion mit US-Rivalen Bristol Myers Squibb",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/pharma-astrazeneca-erwaegt-mega-fusion-mit-us-rivalen-bristol-myers-squibb-01/100244536.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T05:51:46Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A reported $400 billion merger between AstraZeneca and Bristol-Myers Squibb would be one of the largest pharma deals ever, reshaping industry dynamics.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AstraZeneca",
+          "ticker": "AZN",
+          "listing_country": "GB"
+        },
+        {
+          "name": "Bristol-Myers Squibb",
+          "ticker": "BMY",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "mixed",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "A reported $400 billion merger between AstraZeneca and Bristol-Myers Squibb would be one of the largest pharma deals ever, reshaping industry dynamics.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-904677861360"
+    },
+    {
+      "inbox_id": "INB-20260803-333",
+      "headline": "Italian navy boards sanctioned tanker off Sicily",
+      "url": "https://splash247.com/italian-navy-boards-sanctioned-tanker-off-sicily/",
+      "source_name": "Splash247",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-08-03T06:45:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A sanctioned tanker boarding signals a supply disruption in global oil markets.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "scope": "commodity",
+      "source_tier": "official_data",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "commodity",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 5,
+        "scope": 4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "official_data",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "A sanctioned tanker boarding signals a supply disruption in global oil markets.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-13b39acd9f5a"
+    },
+    {
+      "inbox_id": "INB-20260803-334",
+      "headline": "Renewables in Europe: TotalEnergies Acquires Shell’s Renewables Business and Sells a 50% Stake in a Portfolio of Developed Assets to KKR | TTE Stock News",
+      "url": "https://www.stocktitan.net/news/TTE/renewables-in-europe-total-energies-acquires-shell-s-renewables-8q1il1uyxnic.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-03T06:45:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TotalEnergies acquires Shell’s renewables business and sells a 50% stake in developed assets to KKR, indicating strategic portfolio shifts.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TotalEnergies",
+          "ticker": "TTE",
+          "listing_country": "FR"
+        },
+        {
+          "name": "Shell",
+          "ticker": "SHEL",
+          "listing_country": "GB"
+        },
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "multi_name",
+      "source_tier": "company",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "TotalEnergies acquires Shell’s renewables business and sells a 50% stake in developed assets to KKR, indicating strategic portfolio shifts.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-6ec116c9f2a4"
+    },
+    {
+      "inbox_id": "INB-20260803-337",
+      "headline": "‎ENBD to acquire HSBC Egypt retail business",
+      "url": "https://www.argaam.com/en/article/articledetail/id/1925340",
+      "source_name": "Argaam — UAE Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T10:43:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ENBD’s acquisition of HSBC Egypt’s retail business is a large-scale M&A transaction affecting regional banking dynamics.",
+      "headline_en": null,
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emirates NBD",
+          "ticker": null,
+          "listing_country": "AE"
+        },
+        {
+          "name": "HSBC Egypt",
+          "ticker": null,
+          "listing_country": "EG"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "ENBD’s acquisition of HSBC Egypt’s retail business is a large-scale M&A transaction affecting regional banking dynamics.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-4f0117123a73"
+    },
+    {
+      "inbox_id": "INB-20260803-346",
+      "headline": "RWS reaches agreement to acquire Acolad",
+      "url": "https://www.prnewswire.com/news-releases/rws-reaches-agreement-to-acquire-acolad-302840992.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-03T06:54:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RWS's acquisition of Acolad for an undisclosed amount is a significant strategic move that could alter its revenue and operational footprint.",
+      "headline_en": null,
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RWS",
+          "ticker": "RWS.L",
+          "listing_country": "GB"
+        },
+        {
+          "name": "Acolad",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "company",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "RWS's acquisition of Acolad for an undisclosed amount is a significant strategic move that could alter its revenue and operational footprint.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-0d1d042f052b"
+    },
+    {
+      "inbox_id": "INB-20260803-349",
+      "headline": "Renouvelables en Europe : TotalEnergies acquiert les activités renouvelables de Shell et cède 50 % d’un portefeuille d’actifs développés à KKR",
+      "url": "http://www.businesswire.com/news/home/20260802719085/fr/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire — Merger/Acquisition News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-03T06:45:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TotalEnergies acquires Shell's renewables assets and sells 50% stake to KKR, reshaping its energy portfolio and capital structure.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TotalEnergies",
+          "ticker": "TTE",
+          "listing_country": "FR"
+        },
+        {
+          "name": "Shell",
+          "ticker": "SHEL",
+          "listing_country": "GB"
+        },
+        {
+          "name": "KKR",
+          "ticker": "KKR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "multi_name",
+      "source_tier": "company",
+      "event_materiality_label": "critical",
+      "event_direction": "mixed",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "TotalEnergies acquires Shell's renewables assets and sells 50% stake to KKR, reshaping its energy portfolio and capital structure.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-bc259294c697"
+    },
+    {
+      "inbox_id": "INB-20260803-364",
+      "headline": "AstraZeneca discute avec Bristol Myers Squibb d'une fusion à $400 mds-source",
+      "url": "https://www.reuters.com/fr/affaires/astrazeneca-discute-avec-bristol-myers-squibb-dune-fusion-400-mds-source-2026-08-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T07:00:09Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A potential $400B merger between AstraZeneca and Bristol Myers Squibb would be one of the largest pharma deals ever.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AstraZeneca",
+          "ticker": "AZN",
+          "listing_country": "GB"
+        },
+        {
+          "name": "Bristol Myers Squibb",
+          "ticker": "BMY",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "A potential $400B merger between AstraZeneca and Bristol Myers Squibb would be one of the largest pharma deals ever.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-6fd5c671f134"
+    },
+    {
+      "inbox_id": "INB-20260803-375",
+      "headline": "한수원, 1조7500억 규모 포천양수발전소 본공사 착수",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=274047",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T06:28:19Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Korea Hydro & Nuclear Power has started construction on the Pocheon Pumped-Storage Power Plant, a 1.75 trillion won project.",
+      "headline_en": "Korea Hydro & Nuclear Power starts main construction of 1.75 trillion won Pocheon Pumped-Storage Power Plant",
+      "headline_lang": "Korean",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "한수원",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Korea Hydro & Nuclear Power has started construction on the Pocheon Pumped-Storage Power Plant, a 1.75 trillion won project.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-6fbaf417d679"
+    },
+    {
+      "inbox_id": "INB-20260803-379",
+      "headline": "Dubai Residential REIT approves Dh573 million payout after profit surges 15%",
+      "url": "https://gulfnews.com/business/markets/dubai-residential-reit-approves-dh573-million-payout-after-profit-surges-15-1.500628903",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T06:49:55Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dubai Residential REIT approved a Dh573 million payout after profit surged 15%.",
+      "headline_en": null,
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dubai Residential REIT",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Dubai Residential REIT approved a Dh573 million payout after profit surged 15%.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-b10597df1668"
+    },
+    {
+      "inbox_id": "INB-20260803-380",
+      "headline": "AstraZeneca holds talks with Bristol Myers Squibb over $400bn merger",
+      "url": "https://www.theguardian.com/business/2026/aug/03/astrazeneca-talks-bristol-myers-squibb-merger-pharmaceuticals",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T07:05:19Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AstraZeneca shares fell 8.9% following reports of merger talks.",
+      "headline_en": null,
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AstraZeneca",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "AstraZeneca shares fell 8.9% following reports of merger talks.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-20cb3f667407"
+    },
+    {
+      "inbox_id": "INB-20260803-383",
+      "headline": "ZEEL shares plunge 13% after SEBI order in Hyderabad land pledge case",
+      "url": "https://www.thehindubusinessline.com/markets/stock-markets/zeel-shares-plunge-13-after-sebi-order-in-hyderabad-land-pledge-case/article71300153.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T07:03:26Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A SEBI order in a land pledge case could lead to legal penalties, asset freeze, or operational disruption for ZEEL.",
+      "headline_en": null,
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ZEEL",
+          "ticker": "ZEEL",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "prelim_note": "A SEBI order in a land pledge case could lead to legal penalties, asset freeze, or operational disruption for ZEEL.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-39c2672ab1c1"
+    },
+    {
+      "inbox_id": "INB-20260803-389",
+      "headline": "Sandoz To Pay $450 Mln To Settle U.S. Generic Drug Litigation; Backs FY26 Outlook",
+      "url": "https://www.nasdaq.com/articles/sandoz-pay-450-mln-settle-us-generic-drug-litigation-backs-fy26-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T05:55:23Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sandoz to pay $450M to settle U.S. generic drug litigation, backing FY26 outlook with no quantified impact.",
+      "headline_en": null,
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "litigation_enforcement",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sandoz",
+          "ticker": "SZK.VX",
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "prelim_note": "Sandoz to pay $450M to settle U.S. generic drug litigation, backing FY26 outlook with no quantified impact.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-bff2e303442e"
+    },
+    {
+      "inbox_id": "INB-20260803-392",
+      "headline": "EchoStar's satellite internet unit Hughes files for bankruptcy",
+      "url": "https://www.reuters.com/legal/litigation/echostars-satellite-internet-unit-hughes-files-bankruptcy-2026-08-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T07:10:26Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A satellite internet unit of EchoStar filing for bankruptcy, a survival event with significant operational and financial implications.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EchoStar",
+          "ticker": "SATS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "prelim_note": "A satellite internet unit of EchoStar filing for bankruptcy, a survival event with significant operational and financial implications.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-2da085f777ca"
+    },
+    {
+      "inbox_id": "INB-20260803-396",
+      "headline": "Ukraine sinks FESCO boxship",
+      "url": "https://splash247.com/ukraine-sinks-fesco-boxship/",
+      "source_name": "Splash247",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-08-03T07:17:10Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Destruction of a major shipping asset in a conflict zone disrupts global supply chains and raises insurance/operational risks for the sector.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "scope": "commodity",
+      "source_tier": "official_data",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "commodity",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 5,
+        "scope": 4,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "official_data",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Destruction of a major shipping asset in a conflict zone disrupts global supply chains and raises insurance/operational risks for the sector.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-583c1841112b"
+    },
+    {
+      "inbox_id": "INB-20260803-407",
+      "headline": "TotalEnergies rachète à Shell ses activités renouvelables, vend 50% d'un portefeuille à KKR",
+      "url": "https://www.reuters.com/fr/affaires/totalenergies-rachte-shell-ses-activits-renouvelables-vend-50-dun-portefeuille-2026-08-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T07:10:13Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TotalEnergies is acquiring renewable assets from Shell and selling a 50% stake to KKR, representing a significant strategic portfolio shift.",
+      "headline_en": "TotalEnergies buys renewable activities from Shell, sells 50% of a portfolio to KKR",
+      "headline_lang": "French",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TotalEnergies",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "Shell",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "prelim_note": "TotalEnergies is acquiring renewable assets from Shell and selling a 50% stake to KKR, representing a significant strategic portfolio shift.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-76c0bdffea5a"
+    },
+    {
+      "inbox_id": "INB-20260803-408",
+      "headline": "KKR to Acquire a 50% Stake in a Portfolio of Developed Renewable Assets from TotalEnergies Across Europe",
+      "url": "http://www.businesswire.com/news/home/20260802134675/en/KKR-to-Acquire-a-50-Stake-in-a-Portfolio-of-Developed-Renewable-Assets-from-TotalEnergies-Across-Europe/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire — Merger/Acquisition News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-03T07:20:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KKR agrees to acquire a 50% stake in a €50bn+ portfolio of developed renewable assets from TotalEnergies, a major strategic move for both parties.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KKR & Co. Inc.",
+          "ticker": "KKR",
+          "listing_country": "US"
+        },
+        {
+          "name": "TotalEnergies SE",
+          "ticker": "TTE",
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "company",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "KKR agrees to acquire a 50% stake in a €50bn+ portfolio of developed renewable assets from TotalEnergies, a major strategic move for both parties.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-7744e9f240e3"
+    },
+    {
+      "inbox_id": "INB-20260803-410",
+      "headline": "Crypto treasury firm ZeroStack warns of survival risk amid $82.5M loss",
+      "url": "https://cointelegraph.com/news/zerostack-survival-risk-82m-crypto-loss?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T07:15:56Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An $82.5M loss and survival risk warning for ZeroStack indicates severe financial distress.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ZeroStack",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "An $82.5M loss and survival risk warning for ZeroStack indicates severe financial distress.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-5cb28af5d7c0"
+    },
+    {
+      "inbox_id": "INB-20260803-411",
+      "headline": "AstraZeneca in talks over £300bn mega-merger with US rival – reports",
+      "url": "https://www.standard.co.uk/business/business-news/astrazeneca-financial-times-new-york-cambridge-trump-b1292148.html",
+      "source_name": "The Standard (Evening Standard) — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T07:14:54Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A £300B merger talks report with a US rival would drastically alter AstraZeneca's revenue, margins, and capital structure.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AstraZeneca",
+          "ticker": "AZN",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "A £300B merger talks report with a US rival would drastically alter AstraZeneca's revenue, margins, and capital structure.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-e2226357ff74"
+    },
+    {
+      "inbox_id": "INB-20260803-415",
+      "headline": "GPGI, Inc. Sued for Securities Law Violations - Contact the DJS Law Group to Discuss Your Rights - GPGI",
+      "url": "https://www.prnewswire.com/news-releases/gpgi-inc-sued-for-securities-law-violations---contact-the-djs-law-group-to-discuss-your-rights--gpgi-302840818.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-03T07:29:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A securities lawsuit against GPGI alleging violations that could lead to material legal liabilities or reputational damage.",
+      "headline_en": null,
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GPGI, Inc.",
+          "ticker": "GPGI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "scope": "single_name",
+      "source_tier": "company",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "prelim_note": "A securities lawsuit against GPGI alleging violations that could lead to material legal liabilities or reputational damage.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-39428bf2d04d"
+    },
+    {
+      "inbox_id": "INB-20260803-429",
+      "headline": "Planet Fitness, Inc. Sued for Securities Law Violations - Contact the DJS Law Group to Discuss Your Rights - PLNT",
+      "url": "https://www.prnewswire.com/news-releases/planet-fitness-inc-sued-for-securities-law-violations---contact-the-djs-law-group-to-discuss-your-rights--plnt-302840832.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-03T07:32:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A securities lawsuit against Planet Fitness could lead to legal costs, fines, or reputational damage, materially impacting its financials and stock price.",
+      "headline_en": null,
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Planet Fitness, Inc.",
+          "ticker": "PLNT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "company",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "prelim_note": "A securities lawsuit against Planet Fitness could lead to legal costs, fines, or reputational damage, materially impacting its financials and stock price.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-d7a77cb48cd5"
+    },
+    {
+      "inbox_id": "INB-20260803-442",
+      "headline": "Primoris Services Corporation Sued for Securities Law Violations - Contact the DJS Law Group to Discuss Your Rights - PRIM",
+      "url": "https://www.prnewswire.com/news-releases/primoris-services-corporation-sued-for-securities-law-violations---contact-the-djs-law-group-to-discuss-your-rights--prim-302840826.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-03T07:41:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Securities lawsuit against Primoris Services could lead to material legal costs or penalties.",
+      "headline_en": null,
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Primoris Services Corporation",
+          "ticker": "PRIM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "scope": "single_name",
+      "source_tier": "company",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "prelim_note": "Securities lawsuit against Primoris Services could lead to material legal costs or penalties.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-689f01f6a765"
+    },
+    {
+      "inbox_id": "INB-20260803-443",
+      "headline": "Maybank to buy Ageas stake in Etiqa for US$1.2 billion",
+      "url": "https://www.businesstimes.com.sg/companies-markets/banking-finance/maybank-buy-ageas-stake-etiqa-us1-2-billion",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T07:46:58Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A $1.2 billion acquisition of a stake in Etiqa by Maybank is a large M&A event.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maybank",
+          "ticker": null,
+          "listing_country": "MY"
+        },
+        {
+          "name": "Ageas",
+          "ticker": null,
+          "listing_country": "BE"
+        },
+        {
+          "name": "Etiqa",
+          "ticker": null,
+          "listing_country": "MY"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "A $1.2 billion acquisition of a stake in Etiqa by Maybank is a large M&A event.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-3f5b343f708a"
+    },
+    {
+      "inbox_id": "INB-20260803-453",
+      "headline": "Chinese AI Firm Siphoned American AI Knowledge From Anthropic Claude By Using Millions Of Prompts",
+      "url": "https://www.forbes.com/sites/lanceeliot/2026/08/03/chinese-ai-firm-siphoned-american-ai-knowledge-from-claude-by-using-millions-of-prompts-and-trained-on-the-responses/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T07:15:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A Chinese AI firm allegedly siphoning American AI knowledge from Anthropic Claude using millions of prompts represents a significant intellectual property theft and potential regulatory/legal issue.",
+      "headline_en": null,
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "litigation_enforcement",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "A Chinese AI firm allegedly siphoning American AI knowledge from Anthropic Claude using millions of prompts represents a significant intellectual property theft and potential regulatory/legal issue.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-eb3f025bac6b"
+    },
+    {
+      "inbox_id": "INB-20260803-455",
+      "headline": "Once-bankrupt Atari returns to profit with decade-high revenue",
+      "url": "https://www.straitstimes.com/business/once-bankrupt-atari-returns-to-profit-with-decade-high-revenue",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T07:57:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Atari reported a return to profit and decade-high revenue.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Atari",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "prelim_note": "Atari reported a return to profit and decade-high revenue.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-85920a42788c"
+    },
+    {
+      "inbox_id": "INB-20260803-456",
+      "headline": "Gupta’s Tasmanian smelter to be liquidated in painful blow for jobs",
+      "url": "https://www.afr.com/companies/manufacturing/gupta-s-tasmanian-smelter-to-be-liquidated-in-painful-blow-for-jobs-20260731-p60kc3?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T08:00:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Gupta's Tasmanian smelter is being liquidated, resulting in job losses.",
+      "headline_en": null,
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "event_types": [
+        "restructuring_layoffs",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gupta's Tasmanian smelter",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Gupta's Tasmanian smelter is being liquidated, resulting in job losses.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-173b7b8f8682"
+    },
+    {
+      "inbox_id": "INB-20260803-457",
+      "headline": "Grant Thornton on the hunt for deals after partners approve $1b buyout",
+      "url": "https://www.afr.com/companies/professional-services/grant-thornton-on-the-hunt-for-deals-after-partners-approve-1b-buyout-20260802-p60kqc?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T07:57:59Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Grant Thornton partners approved a $1 billion buyout, signaling future M&A activity.",
+      "headline_en": null,
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Grant Thornton",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Grant Thornton partners approved a $1 billion buyout, signaling future M&A activity.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-7b212aabe9a7"
+    },
+    {
+      "inbox_id": "INB-20260803-458",
+      "headline": "One MobiKwik Q1 Results: Firm reports profit for 3rd consecutive quarter; stock jumps 9% on strong performance",
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/one-mobikwik-systems-q1-results-co-posts-rs-7-6-cr-profit-vs-rs-419-cr-loss-yoy/articleshow/132822382.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T06:44:53Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "One MobiKwik reported its third consecutive quarter of profit, with stock rising 9%.",
+      "headline_en": null,
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "One MobiKwik",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "scope": "single_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "prelim_note": "One MobiKwik reported its third consecutive quarter of profit, with stock rising 9%.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-2c6c7f047707"
+    },
+    {
+      "inbox_id": "INB-20260803-461",
+      "headline": "Itochu to buy 50% of US aircraft lessor Aviation Capital from Tokyo Century",
+      "url": "https://www.reuters.com/world/asia-pacific/itochu-buy-50-us-aircraft-lessor-aviation-capital-tokyo-century-2026-08-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-03T08:37:43Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Itochu agrees to acquire 50% of Aviation Capital for a significant stake, a named M&A deal with clear strategic implications.",
+      "headline_en": null,
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Itochu",
+          "ticker": "8001.T",
+          "listing_country": "JP"
+        },
+        {
+          "name": "Aviation Capital",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Tokyo Century",
+          "ticker": "8439.T",
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "event_materiality_label": "critical",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "prelim_note": "Itochu agrees to acquire 50% of Aviation Capital for a significant stake, a named M&A deal with clear strategic implications.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-e00973697f05"
+    }
+  ]
+}
