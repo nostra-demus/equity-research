@@ -661,6 +661,39 @@ def check_commodity_scenario_math(doc_path: str) -> list[str]:
     if isnum(dr) and bear_rets and abs(dr - min(bear_rets)) > max(1.0, abs(min(bear_rets)) * 0.05):
         errs.append(f"downside_risk_pct={dr} != the bear scenario's return_pct={min(bear_rets)}")
 
+    # risk_reward re-derived, never trusted — the same "a hand-typed number will not survive" contract the
+    # expected_return / downside checks above already enforce, extended to the third leg of §10's triple.
+    # The schema allows EITHER convention (expected_return/|downside|, OR the bull/bear return ratio), so a
+    # value matching either is accepted; one matching neither is a hand-typed ratio that does not reconcile
+    # with its own distribution. Sign-aware with the same relative floor as eval.py check M's rr subcheck.
+    rr = doc.get("risk_reward")
+    if isnum(rr) and bear_rets:
+        bear = min(bear_rets)
+        conv = []  # (name, value) for each derivable convention
+        if bear != 0:
+            conv.append(("expected_return/|downside|", calc_er / abs(bear)))
+        if rets and min(rets) != 0:
+            conv.append(("bull/bear", max(rets) / abs(min(rets))))
+
+        def _rr_matches(c: float) -> bool:
+            signflip = abs(rr) > 0.25 and abs(c) > 0.25 and (rr > 0) != (c > 0)
+            return abs(rr - c) <= max(0.15, abs(c) * 0.12) and not signflip
+
+        if conv and not any(_rr_matches(c) for _, c in conv):
+            named = " nor ".join(f"{n}={round(c, 2)}" for n, c in conv)
+            errs.append(f"risk_reward={rr} reconciles with neither §10 convention ({named}) — a hand-typed ratio")
+
+    # §10 requires the full triple be STATED post-gate wherever a bear case exists (the same requirement the
+    # expected_return_pct check above enforces, applied to the downside and the risk/reward): "risk/reward is
+    # stated where a bear-case price exists", and the commodity dossier's bear fair value always is one. A
+    # distribution that quantifies the mean but omits the downside/ratio is an incomplete forecast, not a
+    # refusal to forecast (that escape hatch lives in the empty-scenarios branch above).
+    if post_gate and bear_rets:
+        if not isnum(dr):
+            errs.append("scenarios[] present but downside_risk_pct is missing/non-numeric — §10 requires the stated downside where a bear case exists")
+        if not isnum(rr):
+            errs.append("scenarios[] present but risk_reward is missing/non-numeric — §10 requires risk/reward be stated where a bear-case price exists")
+
     # price_target must be present and numeric on ALL cases or none — a partial set silently skips the
     # strongest independent anchor (check M's own review fix).
     tgts = [s.get("price_target") for s in scen if isinstance(s, dict)]
@@ -850,11 +883,24 @@ def _selftest_scenario_math() -> int:
     run("pre-gate record that ships a BROKEN distribution -> still FAIL (shipping it is asserting it)",
         rec(decision_date=pre, expected_return_pct=18.0), False)
 
+    # ---- §10's third leg: risk_reward re-derived, and the full triple required post-gate ----
+    # rec()'s risk_reward is 0.25 = expected_return(7.5)/|downside(30)|. A value matching neither §10
+    # convention (0.25 = expected_return/|downside|, 1.33 = bull/bear 40/30) is a hand-typed ratio and
+    # must NOT survive — the exact hole that let risk_reward drift from its own distribution.
+    run("hand-typed risk_reward matching neither §10 convention -> FAIL", rec(risk_reward=99.0), False)
+    # The schema permits the bull/bear ratio as the alternate convention — a record stating it that way
+    # must still be accepted, so the re-derivation is convention-tolerant, not over-strict.
+    run("risk_reward stated as the bull/bear ratio (the schema's other convention) -> accept", rec(risk_reward=1.33), True)
+    # §10 requires risk/reward be STATED where a bear case exists; a post-gate distribution may not quantify
+    # the mean and leave the downside or the ratio blank (mirrors the expected_return_pct requirement).
+    run("post-gate scenarios present but risk_reward omitted -> FAIL", rec(risk_reward=None), False)
+    run("post-gate scenarios present but downside_risk_pct omitted -> FAIL", rec(downside_risk_pct=None), False)
+
     if failures:
         for f in failures:
             print(f"SELFTEST FAIL — {f}")
         return 1
-    print("SELFTEST OK — check_commodity_scenario_math truth table (21 branches) matches the §10 contract")
+    print("SELFTEST OK — check_commodity_scenario_math truth table (24 branches) matches the §10 contract")
     return 0
 
 
