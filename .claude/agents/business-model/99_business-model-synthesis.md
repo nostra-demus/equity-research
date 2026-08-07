@@ -123,6 +123,8 @@ If any row is Y, the Verdict below is LOCKED at "Low-quality business — avoid 
 
 If multiple caps affect the same score, use the most restrictive.
 
+**FORENSIC TAG PROPAGATION (CLAUDE.md §13; eval check AQ).** If `01_disqualifier-scan.md` emitted `RF-DISQ-001 (multiple sub-threshold disqualifier near-misses)` and/or `12_red-flags-sweep.md` emitted `RF-RFS-001 (aggressive accounting practice pattern)` as standalone lines, propagate each fired tag here as a standalone line too (in Section 4's Note To The Final Synthesizer bullet list is sufficient) — even if this module's own Overall usefulness score already absorbed the finding. The master synthesizer's cross-module forensic roll-up (synthesizer.md Pre-Write Gate step 4B) reads these tags, alongside `earnings/06`'s RF-EQ-001/RF-EQ-002, `balance-sheet-survival/05`'s RF-OBS-001, and `management-governance/06`'s RF-DISC-001/RF-DISC-002/RF-REG-002, to detect a compounding accounting-integrity mosaic that no single module's own score cap would catch on its own. A synthesis that drops a fired tag lets that cross-module check silently miss it (CLAUDE.md §11).
+
 **Module Disconfirmation (CLAUDE.md §8; fix F37).** Before the roll-up, force a two-sided test for THIS module's domain — do not let disconfirmation collapse into a one-directional score:
 - **Strongest bear point:** the single finding that most undermines the verdict above.
 - **Strongest bull point:** the single finding that most supports it (the steelman, even if you land bearish).

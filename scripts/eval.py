@@ -1940,6 +1940,11 @@ if scope=="selftest":
     MG_SYNTH_CLEAN = "Management-governance synthesis: clean, no forensic flags."
     EQ_SYNTH_CLEAN = "Earnings synthesis: clean, no forensic flags."
     OBS_SYNTH_CLEAN = "Balance-sheet-survival synthesis: clean, no forensic flags."
+    BM_SYNTH_BOTH = "Business-model synthesis.\nRF-DISQ-001 (multiple sub-threshold disqualifier near-misses)\nRF-RFS-001 (aggressive accounting practice pattern)"
+    BM_SYNTH_DISQ1 = "RF-DISQ-001 (multiple sub-threshold disqualifier near-misses)"
+    BM_SYNTH_NEG = "RF-DISQ-001 not triggered — fewer than 2 disqualifiers in the near-miss band."
+    BM_SYNTH_CLEAN = "Business-model synthesis: clean, no forensic flags."
+    BM_SPEC_BOTH = "Disqualifier-scan + red-flags-sweep specialists (combined).\nRF-DISQ-001 (multiple sub-threshold disqualifier near-misses)\n\nRF-RFS-001 (aggressive accounting practice pattern)"
     aqcases=[  # (decision, decision_date, module_synth_txt, module_specialist_txt, expect: None|[]|[tags])
         # pre-gate: always None (N/A), regardless of how many tags would otherwise fire
         ("Strong Buy","2026-07-23",{"earnings":EQ_SYNTH_BOTH,"balance-sheet-survival":OBS_SYNTH_1},{},None),
@@ -1982,6 +1987,25 @@ if scope=="selftest":
          {"earnings":EQ_SYNTH_CLEAN,"balance-sheet-survival":OBS_SYNTH_CLEAN,"management-governance":MG_SYNTH_CLEAN},
          {"earnings":EQ_SPEC_BOTH,"balance-sheet-survival":OBS_SPEC_1},
          ["RF-EQ-001","RF-EQ-002","RF-OBS-001"]),
+        # business-model alone: 2 distinct tags (RF-DISQ-001, RF-RFS-001) but ONE module → below module
+        # threshold, pass regardless of conviction (mirrors the earnings-alone case above)
+        ("Strong Buy","2026-07-24",{"business-model":BM_SYNTH_BOTH},{},[]),
+        # business-model's one tag (RF-DISQ-001) + earnings' two tags (RF-EQ-001/002) = 3 distinct tags
+        # across 2 distinct modules + conviction → fire (proves business-model now counts toward the mosaic)
+        ("Strong Buy","2026-07-24",
+         {"earnings":EQ_SYNTH_BOTH,"business-model":BM_SYNTH_DISQ1},{},
+         ["RF-EQ-001","RF-EQ-002","RF-DISQ-001"]),
+        # business-model negated (RF-DISQ-001 not triggered) + earnings' two tags → still only 2 distinct
+        # fired tags, 1 module → pass (negation must not count, same as the earnings negation case above)
+        ("Strong Buy","2026-07-24",
+         {"earnings":EQ_SYNTH_BOTH,"business-model":BM_SYNTH_NEG},{},[]),
+        # business-model source-only propagation: synthesis clean, but the COMBINED 01_+12_ specialist
+        # text fired both tags → business-model alone still only 1 module, so pair with balance-sheet-
+        # survival's specialist-only fire to cross the module threshold: 3 distinct tags, 2 modules → fire
+        ("Buy","2026-07-24",
+         {"business-model":BM_SYNTH_CLEAN,"balance-sheet-survival":OBS_SYNTH_CLEAN},
+         {"business-model":BM_SPEC_BOTH,"balance-sheet-survival":OBS_SPEC_1},
+         ["RF-DISQ-001","RF-RFS-001","RF-OBS-001"]),
         # clean everywhere + conviction → pass
         ("Strong Buy","2026-07-24",
          {"earnings":EQ_SYNTH_CLEAN,"balance-sheet-survival":OBS_SYNTH_CLEAN,"management-governance":MG_SYNTH_CLEAN},
@@ -3833,25 +3857,34 @@ for drp in runs:
     #   synthesizer.md Pre-Write Gate step 4B. Mechanizes the "3+ independent sub-threshold forensic
     #   signals → compound High accounting-integrity flag" mosaic check, which — unlike its five §24
     #   sibling caps (AC/AD/AE/AF above) — had zero mechanical enforcement until now (flagged as the
-    #   next-highest-leverage gap when AG shipped, PR #321). Detection: six standalone-line tags across
-    #   three modules (RF-EQ-001/002 earnings, RF-OBS-001 balance-sheet-survival, RF-DISC-001/002 +
-    #   RF-REG-002 management-governance); see scripts/rating_caps.py for the full detection rationale.
+    #   next-highest-leverage gap when AG shipped, PR #321). Detection: eight standalone-line tags
+    #   across four modules (RF-EQ-001/002 earnings, RF-OBS-001 balance-sheet-survival, RF-DISC-001/002
+    #   + RF-REG-002 management-governance, RF-DISQ-001 + RF-RFS-001 business-model); see
+    #   scripts/rating_caps.py for the full detection rationale. business-model contributes two tags
+    #   from two different specialists (01_disqualifier-scan, 12_red-flags-sweep), so its specialist
+    #   text is the concatenation of both.
     #   _read_synth_text / _read_specialist_text are defined in the AD/AE blocks above; AQ_DATE > AF_DATE
-    #   > AE_DATE > AD_DATE so both are always available here.
+    #   > AE_DATE > AD_DATE so both are always available here, and bm_txt_ae (business-model synthesis)
+    #   was already read in the AE block — reuse it, avoid a duplicate glob/read.
     if isdate(ddte) and ddte>=AQ_DATE:
+        _bm_disq_spec_aq=_read_specialist_text("business-model","01_")
+        _bm_rfs_spec_aq=_read_specialist_text("business-model","12_")
+        _bm_spec_combined_aq="\n\n".join(t for t in (_bm_disq_spec_aq,_bm_rfs_spec_aq) if t) or None
         _aq_synth={
             "earnings":_read_synth_text("earnings"),
             "balance-sheet-survival":_read_synth_text("balance-sheet-survival"),
             "management-governance":mg_txt_af,  # already read above; same file, avoid a duplicate glob/read
+            "business-model":bm_txt_ae,  # already read above; same file, avoid a duplicate glob/read
         }
         _aq_spec={
             "earnings":_read_specialist_text("earnings","06_"),
             "balance-sheet-survival":_read_specialist_text("balance-sheet-survival","05_"),
             "management-governance":_read_specialist_text("management-governance","06_"),
+            "business-model":_bm_spec_combined_aq,
         }
         aqresult=eval_aq_forensic_mosaic_cap(dec,ddte,_aq_synth,_aq_spec)
         if aqresult is None:
-            add("AQ_forensic_mosaic_cap",True,"none of the three owning modules (earnings, balance-sheet-survival, management-governance) ran — N/A",na=True)
+            add("AQ_forensic_mosaic_cap",True,"none of the four owning modules (earnings, balance-sheet-survival, management-governance, business-model) ran — N/A",na=True)
         elif aqresult:
             add("AQ_forensic_mosaic_cap",False,"; ".join(aqresult))
         else:
@@ -4077,7 +4110,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/business-model/02_business-identity.md":["Sector Overlay","SECTOR_OVERLAYS.md","generic read"],
  ".claude/agents/business-model/MODULE_RULES.md":["Rejector-Filter Penalties & Caps","Serial acquirers","Fast-changing industry"],
  ".claude/agents/business-model/07_business-quality.md":["Industry rate-of-change","11 quality factors","at a cyclical peak, anchor them","SECTOR_OVERLAYS.md","sector overlay","No sector overlay","RF-BQ-005"],
- ".claude/agents/business-model/99_business-model-synthesis.md":["RF-BQ-005","Filter 5"],
+ ".claude/agents/business-model/99_business-model-synthesis.md":["RF-BQ-005","Filter 5","RF-DISQ-001","RF-RFS-001","FORENSIC TAG PROPAGATION"],
  ".claude/agents/earnings/03_margin-drivers.md":["SECTOR_OVERLAYS.md","sector overlay","No sector overlay"],
  ".claude/agents/business-model/09_moat.md":["Use a through-cycle return"],
  ".claude/agents/earnings/MODULE_RULES.md":["Cycle-Position Rule"],
@@ -4091,7 +4124,8 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/balance-sheet-survival/06_downside-stress-test.md":["Pending acquisition (pro-forma) check"],
  ".claude/agents/balance-sheet-survival/01_capital-structure-and-leverage.md":["state it with its basis (CLAUDE.md §15)","Net debt (strict, §15)"],
  ".claude/agents/valuation/04_intrinsic-dcf.md":["benchmarked against peer-normal AND the company","Working capital scales with revenue"],
- ".claude/agents/business-model/01_disqualifier-scan.md":["Integrity note","Filter 1"],
+ ".claude/agents/business-model/01_disqualifier-scan.md":["Integrity note","Filter 1","RF-DISQ-001","Near-miss compounding signal"],
+ ".claude/agents/business-model/12_red-flags-sweep.md":["RF-RFS-001","Aggressive-accounting tag"],
  ".claude/agents/business-model/11_capital-allocation-governance.md":["Filter 4","opportunity cost"],
  ".claude/agents/management-governance/MODULE_RULES.md":["RF-CAP-004","RF-OWN-004","RF-MGT-004","RF-MGT-005","§24"],
  ".claude/agents/management-governance/01_management-and-track-record.md":["Turnaround","Filter 2","RF-MGT-005"],
@@ -4099,7 +4133,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
  ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3","Label the cycle position of the EBITDA","the **strict** basis (CLAUDE.md §15)"],
  ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap","benchmarked against BOTH a peer-normal margin"],
- ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","leading_error_categories_flagged","error_defense_evidence","no defense evidence found","eval_aq_forensic_mosaic_cap","Cross-module forensic mosaic","eval_ar_short_bull_case_sanity","genuine loss to the short"],
+ ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","leading_error_categories_flagged","error_defense_evidence","no defense evidence found","eval_aq_forensic_mosaic_cap","Cross-module forensic mosaic","eval_ar_short_bull_case_sanity","genuine loss to the short","RF-DISQ-001","RF-RFS-001"],
  ".claude/agents/catalyst/MODULE_RULES.md":["§17 Catalyst Discipline","Catalyst Category Checklist","No proven catalyst yet"],
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
