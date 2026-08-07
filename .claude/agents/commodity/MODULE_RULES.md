@@ -63,6 +63,38 @@ settle 2026-06-30]`. A web quote with no primary equivalent is dated and labelle
 - Distinguish **spot / front-month / deferred** and **the physical commodity vs the instrument** (an
   ETF/ETC has fees and roll drag — CANE is not raw sugar, GLD is not spot gold).
 
+## 4a. Driver attribution — show the arithmetic, name the residual (§15)
+
+Commodity theses are driver stories, so this is where the engine is most likely to assert a cause it never
+computed. Root §15 requires any driver-attribution claim to print its own arithmetic, carry the sensitivity's
+own basis, and state the unexplained residual. In this swarm, write it as ONE line, in this form, every time:
+
+```
+Attribution: <driver> <move> × <sensitivity, WITH ITS BASIS> [Source, date]
+  = <modelled move in the price's own units> of the <observed move> observed
+  → <N>% explained, <100−N>% residual (unattributed).
+```
+
+Worked, from the failure this rule exists for:
+
+```
+Attribution: 10y REAL yield +50bp × ~1.75% per 25bp — NOMINAL-yield basis [WGC, …]
+  = −3.5% ≈ −$196 of the −$1,405 (−25.1%) observed
+  → BASIS MISMATCH: this coefficient is not measured on real yields, so it cannot be applied here.
+    Even taken at face value it explains ~14%; ~86% is residual. "Tracks almost exactly" is false.
+```
+
+Three rules follow, and they bind every commodity agent:
+
+- **The adjective must match the number.** "Accounts for the bulk of", "explains most of", "tracks almost
+  exactly" require the printed arithmetic to clear ~50%. Below that, say what it actually explains.
+- **A sensitivity carries its basis like a currency figure carries its FX rate.** Nominal vs real yield,
+  breakeven, trade-weighted vs bilateral dollar, spot vs forward — name it, and refuse the claim outright
+  when the basis does not match the move being explained. Do not silently substitute.
+- **A large residual is the finding, not a caveat.** A price mostly unexplained by the named driver means
+  the thesis does not yet know what moved it — that caps conviction (§11/§12) and belongs in the risk
+  summary, not in a closing hedge sentence.
+
 ## 5. Action discipline (the verdict)
 
 The terminal `commodity-thesis` module emits ONE `Action:` verdict — `Buy`, `Hold`, `Trim`, `Avoid`, or

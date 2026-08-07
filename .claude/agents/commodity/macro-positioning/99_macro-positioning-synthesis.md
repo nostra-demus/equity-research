@@ -45,6 +45,8 @@ You DO NOT issue the action verdict. Do NOT write a line beginning `Action:`.
 
 # SELF-CHECK
 - [ ] Net macro tilt + dominant driver stated; positioning placed vs range.
+- [ ] The drivers orb's `Attribution:` line is carried forward verbatim, residual included — never compressed into "driven by X" (§15 / MODULE_RULES §4a). If the attribution's residual is large, that is stated here as a limit on the macro read, not dropped.
+- [ ] No sensitivity is applied across a basis it was not measured on (nominal vs real yield, breakeven, trade-weighted vs bilateral FX); any such claim was refused rather than passed on.
 - [ ] No line begins with `Action:`.
 
 # CHAT CONFIRMATION
