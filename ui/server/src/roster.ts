@@ -4,6 +4,7 @@ import fg from 'fast-glob'
 import matter from 'gray-matter'
 import { AGENTS_DIR, ANALYSES_DIR, REPO_ROOT } from './config'
 import { RESEARCH_SWARM_ID, listSwarms, runRootForSubject, swarmById } from './swarms'
+import { resolveDisplayFields } from './ledger-corrections'
 import type { AgentNode, DataReadinessDecl, ModuleNode, SwarmGraph, SwarmManifest, SwarmSubjectSummary } from './types'
 
 function readFrontmatter(filePath: string) {
@@ -249,10 +250,24 @@ export function swarmSubjects(swarmId: string): string[] {
 // (commodity: `Action` → record key `action`). Fail-closed: without a verdict field only the research
 // `decision` shape resolves. Never hardcodes a swarm/subject name (§26).
 function resolveRecordVerdict(dr: Record<string, any>, verdictField?: string | null): string | null {
-  if (dr && typeof dr.decision === 'string' && dr.decision) return dr.decision
-  if (!verdictField) return null
-  const v = dr?.[verdictField] ?? dr?.[verdictField.toLowerCase()]
+  const key = resolveVerdictKey(dr, verdictField)
+  if (!key) return null
+  const v = dr?.[key]
   return typeof v === 'string' && v ? v : null
+}
+
+// WHICH record key the verdict was read from — research `decision` wins when present (the fail-closed
+// default), otherwise the swarm's self-declared routing field, tried as declared then lowercased (SWARM.md
+// may capitalize it: commodity declares `Action`, the JSON key is `action`). Returned separately from the
+// value so the post-mortem cap can be looked up against the SAME key (`post_mortem_<key>`) the verdict came
+// from — otherwise a swarm's cap and its original call could be read off different fields.
+function resolveVerdictKey(dr: Record<string, any>, verdictField?: string | null): string | null {
+  if (dr && typeof dr.decision === 'string' && dr.decision) return 'decision'
+  if (!verdictField) return null
+  if (typeof dr?.[verdictField] === 'string' && dr[verdictField]) return verdictField
+  const lower = verdictField.toLowerCase()
+  if (typeof dr?.[lower] === 'string' && dr[lower]) return lower
+  return null
 }
 
 // Per-subject run summaries for a NON-research swarm's subject picker: for each subject swarmSubjects()
@@ -276,6 +291,8 @@ export function swarmSubjectSummaries(swarmId: string): SwarmSubjectSummary[] {
       verdict: null,
       decisionDate: null,
       confidence: null,
+      verdictIsPostMortemCapped: false,
+      confidenceIsPostReview: false,
       lastChangeAt: null,
     }
     if (!abs) return summary
@@ -286,11 +303,21 @@ export function swarmSubjectSummaries(swarmId: string): SwarmSubjectSummary[] {
       const dr = JSON.parse(fs.readFileSync(drPath, 'utf8'))
       // only an OBJECT record is a usable "this run decided" signal (mirrors summarizeRuns' guard)
       if (dr && typeof dr === 'object' && !Array.isArray(dr)) {
+        // EFFECTIVE call, not the synthesizer's original: a run whose own red-team downgraded the verdict
+        // must not still render as the uncapped call on the one surface a human checks in real time. This
+        // is fixes F28/F28b — which research already applied via outputs.ts — finally reaching every other
+        // swarm. GOLD is the case that exposed it: its pre_mortem.json says "Does not survive — downgrade"
+        // (Trim, 40) while this picker showed the original Hold / 52. The resolver is swarm-generic (it
+        // keys off the swarm's own routing field), so nothing here names a swarm or subject (§26).
         summary.verdict = resolveRecordVerdict(dr, verdictField)
         summary.decisionDate = typeof dr.decision_date === 'string' ? dr.decision_date : null
-        // commodity records store `confidence`; research-style records store `confidence_score`
-        summary.confidence = typeof dr.confidence_score === 'number' ? dr.confidence_score
-          : typeof dr.confidence === 'number' ? dr.confidence : null
+        const disp = resolveDisplayFields(dr, { verdictField: resolveVerdictKey(dr, verdictField) })
+        if (disp.decision) summary.verdict = disp.decision
+        summary.verdictIsPostMortemCapped = disp.decisionIsPostMortemCapped
+        // commodity records store `confidence`; research-style records store `confidence_score` — the
+        // resolver reads either, and prefers `post_review_confidence_score` over both when present
+        summary.confidence = disp.confidence
+        summary.confidenceIsPostReview = disp.confidenceIsPostReview
       }
       try { summary.lastChangeAt = fs.statSync(drPath).mtimeMs } catch { /* keep the folder mtime */ }
     } catch { /* no or malformed decision record — hasRun stays true, verdict null */ }

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, type ReactNode } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useStore } from '../lib/store'
-import { decisionColor, priceProvenance, priceQualifier, resolveVerdict, stampDayUTC } from '../lib/format'
+import { decisionColor, priceProvenance, priceQualifier, resolveConfidence, resolveVerdict, resolveVerdictOriginal, stampDayUTC, verdictIsCapped } from '../lib/format'
 import type { QuoteAbsentReason, WhatChangedRead } from '../lib/types'
 
 /**
@@ -344,7 +344,13 @@ export function DecisionBanner() {
   // the synthesizer emitted them; fall back to the old single confidence_score otherwise.
   const d = decision as any
   const twoNumber = typeof d.conviction === 'number' && typeof d.analysis_confidence === 'number'
-  const singleConf = decision.confidence_score ?? decision.confidence
+  // EFFECTIVE confidence — the post-red-team score wins over the synthesizer's own when the record carries
+  // one (fix F28), matching the capped verdict resolved above. Showing 52 beside a Trim the red-team cut to
+  // 40 would put the cap and its confidence on different sides of the same call.
+  const conf = resolveConfidence(decision)
+  const singleConf = conf.value
+  const capped = verdictIsCapped(decision, verdictField)
+  const originalVerdict = capped ? resolveVerdictOriginal(decision, verdictField) : null
   // the three memo/thesis/dossier tiers exist only for research runs — a swarm run has one final
   // dossier (the banner itself opens it), so an all-off tier row would just be noise
   const anyTier = TIERS.some(({ key }) => reports[key])
@@ -434,7 +440,21 @@ export function DecisionBanner() {
         )}
         <div className="decision__verdict">
           <span className="decision__eyebrow">Decision</span>
-          <span className="decision__call" style={{ color: decisionColor(verdict) }}>{verdict}</span>
+          <span className="decision__callrow">
+            <span className="decision__call" style={{ color: decisionColor(verdict) }}>{verdict}</span>
+            {/* The engine's own red-team downgraded this call. The verdict shown IS the cap; this says so,
+                and names the original — otherwise a reader has no way to tell a first-pass call from one
+                that survived a downgrade, and the audit trail (which keeps the original field intact by
+                design) stays invisible on the one surface a human actually reads. */}
+            {capped && (
+              <span
+                className="decision__capflag"
+                title={`Red-teamed and downgraded: the engine's own pre-mortem cut this call from ${originalVerdict ?? 'its original rating'} to ${verdict}${conf.isPostReview ? `, and its confidence to ${singleConf}/100` : ''}. The original stays in the decision record for audit. Open the dossier for the pre-mortem's killer risk.`}
+              >
+                ⚠ CAPPED
+              </span>
+            )}
+          </span>
         </div>
         <div className="decision__divider" />
         <div className="decision__metrics">

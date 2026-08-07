@@ -1411,7 +1411,18 @@ a { color: inherit; }
 .decision__eyebrow {
   font-size: 9px; font-weight: 600; letter-spacing: 0.9px; text-transform: uppercase; color: var(--text-faint);
 }
+.decision__callrow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .decision__call { font-size: 16px; font-weight: 700; letter-spacing: 0.2px; line-height: 1.1; }
+/* "⚠ CAPPED" — the engine's own red-team downgraded this call, so the verdict beside it IS the cap.
+   Deliberately quieter than .decision__call (9.5px vs 16px, outline not fill): it qualifies the verdict,
+   it must not compete with it. Same pill language as CallsTracker's .flag--warn so a capped call reads
+   identically on the dashboard and here — restated rather than imported, because that stylesheet ships
+   with a lazily-mounted component and this banner must not depend on it having been loaded. */
+.decision__capflag {
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.3px; padding: 2px 8px;
+  border-radius: var(--r-pill); border: 1px solid currentColor; color: var(--accent-bright);
+  white-space: nowrap; flex-shrink: 0; cursor: help;
+}
 .decision__divider { width: 1px; height: 28px; background: var(--hairline-strong); }
 /* the metric strip: each cell a small uppercase caption over a prominent, tabular-figure value */
 .decision__metrics { display: flex; align-items: center; flex-wrap: wrap; column-gap: 22px; row-gap: 8px; }

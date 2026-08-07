@@ -4,7 +4,7 @@
 // an operator sets (the 15m clamp floor) when they shorten the interval to watch a sweep happen.
 // Run: npx tsx src/lib/format.test.ts
 import assert from 'node:assert/strict'
-import { fmtMinutes, nextSweepLabel, resetIn } from './format'
+import { fmtMinutes, nextSweepLabel, resetIn, resolveConfidence, resolveVerdict, resolveVerdictOriginal, verdictIsCapped } from './format'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -71,9 +71,63 @@ check('the OLD overdue behaviour (fmtMinutes of a clamped delta) was the "1m" bu
   assert.equal(fmtMinutes(Math.max(0, overdueMins)), '1m')   // reproduces the old, wrong result
 })
 
+// ── the effective call: resolveVerdict / verdictIsCapped / resolveConfidence ───────────────────────
+// Every cockpit surface (DecisionBanner, CommandBar, CoreOrb, the store's report title) resolves the call
+// through these. They must show the run's OWN red-team cap, not the synthesizer's original — a GOLD
+// dossier whose pre_mortem.json read "Does not survive — downgrade" (Trim, 40) kept rendering Hold / 52
+// live, because the cap lands in `post_mortem_<verdict field>` and nothing on the client read it.
+
+check('research: post_mortem_decision is the displayed call, and it is flagged as capped', () => {
+  const rec = { decision: 'Strong Buy', post_mortem_decision: 'Watchlist', confidence_score: 65, post_review_confidence_score: 49 }
+  assert.equal(resolveVerdict(rec), 'Watchlist')
+  assert.equal(verdictIsCapped(rec), true)
+  assert.equal(resolveVerdictOriginal(rec), 'Strong Buy')
+  assert.deepEqual(resolveConfidence(rec), { value: 49, isPostReview: true })
+})
+
+check('commodity: the cap is read off the swarm\'s OWN verdict field (Action -> post_mortem_action)', () => {
+  const rec = { action: 'Hold', confidence: 52, post_mortem_action: 'Trim', post_review_confidence_score: 40 }
+  assert.equal(resolveVerdict(rec, 'Action'), 'Trim')       // SWARM.md capitalizes it
+  assert.equal(resolveVerdict(rec, 'action'), 'Trim')       // the record key is lowercase
+  assert.equal(verdictIsCapped(rec, 'Action'), true)
+  assert.equal(resolveVerdictOriginal(rec, 'Action'), 'Hold')
+  assert.deepEqual(resolveConfidence(rec), { value: 40, isPostReview: true })
+})
+
+check('an un-red-teamed record shows its own call and raises no CAPPED badge', () => {
+  const rec = { action: 'Hold', confidence: 52 }
+  assert.equal(resolveVerdict(rec, 'Action'), 'Hold')
+  assert.equal(verdictIsCapped(rec, 'Action'), false)
+  assert.deepEqual(resolveConfidence(rec), { value: 52, isPostReview: false })
+})
+
+// The badge must track the value actually SHOWN. A blank or equal cap displays the original, so flagging
+// it would put a CAPPED badge on a call nothing downgraded (the F28b false positive).
+check('a blank or unchanged cap displays the original and is NOT flagged', () => {
+  assert.equal(resolveVerdict({ action: 'Hold', post_mortem_action: '' }, 'Action'), 'Hold')
+  assert.equal(verdictIsCapped({ action: 'Hold', post_mortem_action: '' }, 'Action'), false)
+  assert.equal(verdictIsCapped({ action: 'Avoid', post_mortem_action: 'Avoid' }, 'Action'), false)
+})
+
+// Deploy-skew rule: a new client against an older engine gets no verdictField. It must fall back to the
+// research shape and resolve nothing rather than guessing another swarm's key.
+check('no verdictField -> fails closed to the research shape, never guesses `action`', () => {
+  const rec = { action: 'Hold', post_mortem_action: 'Trim', confidence: 52 }
+  assert.equal(resolveVerdict(rec), null)
+  assert.equal(verdictIsCapped(rec), false)
+  assert.equal(resolveConfidence(rec).value, 52) // confidence is shape-agnostic, so it still reads
+})
+
+check('resolveVerdict is null-safe on an absent/empty record (the pre-decision banner state)', () => {
+  assert.equal(resolveVerdict(null, 'Action'), null)
+  assert.equal(resolveVerdict(undefined), null)
+  assert.equal(verdictIsCapped(null, 'Action'), false)
+  assert.deepEqual(resolveConfidence(null), { value: null, isPostReview: false })
+})
+
 // Caller-side floor: a `return` or throw above any group would silently skip it (same guard the other
 // suites use). Bump deliberately when adding a check — never leave it stale-low.
-const EXPECTED_CHECKS = 7
+const EXPECTED_CHECKS = 13
 assert.ok(passed >= EXPECTED_CHECKS,
   `only ${passed} checks ran, expected at least ${EXPECTED_CHECKS} — something above here is short-circuiting`)
 console.log(`format.test.ts: ${passed} checks passed`)

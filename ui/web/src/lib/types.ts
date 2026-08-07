@@ -1383,9 +1383,13 @@ export interface SwarmSubjectSummary {
   subject: string
   hasRun: boolean
   runRoot: string | null
+  // EFFECTIVE verdict/confidence — the run's own red-team cap wins over the synthesizer's original
+  // call when one applies (fixes F28/F28b, extended from research to every swarm)
   verdict: string | null
   decisionDate: string | null
   confidence: number | null
+  verdictIsPostMortemCapped: boolean
+  confidenceIsPostReview: boolean
   lastChangeAt: number | null
 }
 

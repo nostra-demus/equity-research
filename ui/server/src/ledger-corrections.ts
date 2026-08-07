@@ -214,6 +214,14 @@ export function resolveIntegrityStatusForRun(runRoot: string): IntegrityStatus {
 // Selected/Short call to Watchlist per full.md's finish-gate). The live cockpit ignored both and showed
 // the ORIGINAL decision/confidence — so a "Strong Buy" the engine's own red-team downgraded could still
 // render as "Strong Buy" on the one surface a human checks in real time. Display-only: never written back.
+//
+// SWARM-GENERIC (§26): the record's verdict key is the swarm's OWN self-declared `routing.verdict_field`
+// (SWARM.md) — research `decision`, commodity `Action` → `action` — and the post-mortem override key is
+// always `post_mortem_<that key>`, which is exactly what both writers emit (full.md 10B.2 writes
+// `post_mortem_decision`; scripts/commodity_pre_mortem_haircut.py writes `post_mortem_action`). Confidence
+// is the same shape both sides: `post_review_confidence_score` over the original `confidence_score`
+// (research) / `confidence` (commodity). No swarm or subject name is hardcoded here — a future swarm that
+// declares a verdict field and runs a pre-mortem inherits the cap with no engine-code edit.
 export interface LedgerDisplay {
   decision: string | null
   basket: string | null
@@ -222,18 +230,36 @@ export interface LedgerDisplay {
   confidenceIsPostReview: boolean
 }
 
-export function resolveDisplayFields(record: any): LedgerDisplay {
+// The record key a swarm's verdict actually lands on. SWARM.md may declare it capitalized ("Action" — it
+// doubles as the labelled line greps look for in synthesis prose), while the JSON key is lowercase; mirror
+// roster.ts resolveRecordVerdict and accept either. Defaults to research's `decision`.
+function verdictRecordKey(rec: Record<string, any>, verdictField?: string | null): string {
+  const f = (verdictField || '').trim()
+  if (!f) return 'decision'
+  if (Object.prototype.hasOwnProperty.call(rec, f)) return f
+  const lower = f.toLowerCase()
+  if (Object.prototype.hasOwnProperty.call(rec, lower)) return lower
+  // Neither key present (record predates the field, or the run never decided): still return the lowercase
+  // form so the `post_mortem_<key>` lookup below stays well-defined and a cap can still surface.
+  return lower
+}
+
+export function resolveDisplayFields(record: any, opts?: { verdictField?: string | null }): LedgerDisplay {
   const rec = record ?? {}
-  const pmDecision = rec.post_mortem_decision
+  const key = verdictRecordKey(rec, opts?.verdictField)
+  const original = rec[key]
+  const pmDecision = rec[`post_mortem_${key}`]
   const pmBasket = rec.post_mortem_basket
-  const decision = (typeof pmDecision === 'string' && pmDecision ? pmDecision : null) ?? (rec.decision ?? null)
+  const decision = (typeof pmDecision === 'string' && pmDecision ? pmDecision : null) ?? (typeof original === 'string' && original ? original : null)
   const basket = (typeof pmBasket === 'string' && pmBasket ? pmBasket : null) ?? (rec.basket ?? null)
   // Flag capped ONLY when the post-mortem value is the one actually displayed — i.e. a non-empty string
   // that differs from the original. This must track the `decision` selection above (which falls back to
-  // rec.decision unless pmDecision is a non-empty string); otherwise an empty-string post_mortem_decision
+  // the original unless pmDecision is a non-empty string); otherwise an empty-string post_mortem_decision
   // would display the uncapped original yet still raise the ⚠ CAPPED badge (false positive).
-  const decisionIsPostMortemCapped = typeof pmDecision === 'string' && pmDecision !== '' && pmDecision !== rec.decision
+  const decisionIsPostMortemCapped = typeof pmDecision === 'string' && pmDecision !== '' && pmDecision !== original
   const postReview = typeof rec.post_review_confidence_score === 'number' ? rec.post_review_confidence_score : null
-  const confidence = postReview !== null ? postReview : typeof rec.confidence_score === 'number' ? rec.confidence_score : null
+  const originalConfidence = typeof rec.confidence_score === 'number' ? rec.confidence_score
+    : typeof rec.confidence === 'number' ? rec.confidence : null
+  const confidence = postReview !== null ? postReview : originalConfidence
   return { decision, basket, decisionIsPostMortemCapped, confidence, confidenceIsPostReview: postReview !== null }
 }

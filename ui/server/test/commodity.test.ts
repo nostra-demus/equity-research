@@ -9,7 +9,7 @@ import { REPO_ROOT } from '../src/config'
 import { createRun, finishRun, setActiveSubjectRun, type RunState } from '../src/registry'
 import { handleFile } from '../src/fs-watcher'
 import { estimate, truncatedBeforeFinal } from '../src/launcher'
-import { agentNameIndexAllSwarms, buildSwarmGraph, downstreamCascade, graphForSubject, swarmSubjects, terminalModuleName } from '../src/roster'
+import { agentNameIndexAllSwarms, buildSwarmGraph, downstreamCascade, graphForSubject, swarmSubjectSummaries, swarmSubjects, terminalModuleName } from '../src/roster'
 import { listSwarms, swarmById } from '../src/swarms'
 import { readMarkdown, runManifest } from '../src/outputs'
 import { resolveInsideRuns } from '../src/sandbox'
@@ -92,6 +92,24 @@ check('swarmSubjects lists GOLD from the run folder AND SUGAR from the declared 
   assert.ok(subs.includes('GOLD'), 'GOLD (fixture run folder) missing')
   assert.ok(subs.includes('SUGAR'), 'SUGAR (profiles heading) missing')
   assert.deepEqual(swarmSubjects('research'), []) // research uses /api/tickers, not this
+})
+
+// The subject picker must show the EFFECTIVE call, not the synthesizer's original — a commodity run whose
+// own pre-mortem downgraded it may not still advertise the uncapped verdict here (fixes F28/F28b, which
+// research already applied in outputs.ts, reaching the other swarms). Asserted as an INVARIANT against
+// whatever the committed record says rather than a pinned "Trim": the record is data (§25, a separate
+// commit lane), so pinning a value would make this code test fail on a data change it does not own.
+check('swarmSubjectSummaries: the commodity picker surfaces the red-teamed cap, never the uncapped original', () => {
+  const gold = swarmSubjectSummaries('commodity').find((s) => s.subject === 'GOLD')
+  assert.ok(gold, 'GOLD summary missing')
+  assert.equal(gold!.hasRun, true)
+  const rec = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'commodity/runs/GOLD/decision_record.json'), 'utf8'))
+  const cap = typeof rec.post_mortem_action === 'string' && rec.post_mortem_action ? rec.post_mortem_action : null
+  const post = typeof rec.post_review_confidence_score === 'number' ? rec.post_review_confidence_score : null
+  assert.equal(gold!.verdict, cap ?? rec.action, 'picker must show the capped action when the record carries one')
+  assert.equal(gold!.confidence, post ?? rec.confidence, 'picker must show the post-red-team confidence when the record carries one')
+  assert.equal(gold!.verdictIsPostMortemCapped, !!cap && cap !== rec.action)
+  assert.equal(gold!.confidenceIsPostReview, post !== null)
 })
 
 // ---- launch preflight is swarm-scoped (reused full kind routed by swarm) ----
