@@ -339,8 +339,8 @@ def eval_af_filter1_integrity_cap(decision, decision_date, mg_txt, track_txt=Non
 # upstream agents that feed it a stable finding-ID tagging convention ... before eval.py can count
 # distinct fired tags." This check is that mechanization's first slice.
 #
-# Detection: six standalone-line tags, each the SOURCE emitter for one distinct §13 trigger, spanning
-# three modules (mirrors the AD/AE/AF pattern of scanning both the specialist source AND the module
+# Detection: eight standalone-line tags, each the SOURCE emitter for one distinct §13 trigger, spanning
+# four modules (mirrors the AD/AE/AF pattern of scanning both the specialist source AND the module
 # synthesis so a missed propagation still fires the cap):
 #   RF-EQ-001   — rising accruals divergent from cash earnings     (earnings/06_earnings-quality.md)
 #   RF-EQ-002   — cash-conversion breakdown                        (earnings/06_earnings-quality.md)
@@ -348,8 +348,17 @@ def eval_af_filter1_integrity_cap(decision, decision_date, mg_txt, track_txt=Non
 #   RF-DISC-001 — commentary contradicting the numbers              (management-governance/06_candor-and-disclosure-quality.md)
 #   RF-DISC-002 — recurring "one-off" / aggressive non-GAAP add-backs (management-governance/06_candor-and-disclosure-quality.md)
 #   RF-REG-002  — delayed results / material-disclosure timeliness (management-governance/06_candor-and-disclosure-quality.md)
-# Each module synthesis (earnings/99, balance-sheet-survival/99, management-governance/99) propagates
-# whatever its specialists fired.
+#   RF-DISQ-001 — multiple sub-threshold disqualifier near-misses  (business-model/01_disqualifier-scan.md)
+#   RF-RFS-001  — aggressive accounting practice pattern           (business-model/12_red-flags-sweep.md)
+# Each module synthesis (earnings/99, balance-sheet-survival/99, management-governance/99,
+# business-model/99) propagates whatever its specialists fired. RF-DISQ-001 and RF-RFS-001 were added
+# after the check first shipped — until then business-model/01 and /12 were an explicitly-documented
+# gap: real forensic-relevant findings from those two specialists (disqualifier near-misses, aggressive
+# accounting patterns) existed only as prose the mosaic LOOK could see, never as a tag the mechanical
+# scan could count. Each of the two new tags is itself already a compounding signal at its source
+# (RF-DISQ-001 requires ≥2 near-misses; RF-RFS-001 requires severity ≥50), so it counts as ONE distinct
+# forensic signal here, same as any other module's tag — this does not lower the bar, it closes the
+# blind spot in the module coverage.
 #
 # Threshold (deliberately narrower than a bare "3 tags anywhere"): fires only when BOTH (a) three or
 # more DISTINCT tags are fired, AND (b) those tags span two or more DISTINCT modules. A single module
@@ -380,6 +389,8 @@ FORENSIC_TAGS = {
     "RF-DISC-001": ("management-governance", "06_", "commentary contradicting the numbers"),
     "RF-DISC-002": ("management-governance", "06_", "recurring \"one-off\" / aggressive non-GAAP add-backs"),
     "RF-REG-002":  ("management-governance", "06_", "delayed results / material-disclosure timeliness"),
+    "RF-DISQ-001": ("business-model", "01_", "multiple sub-threshold disqualifier near-misses"),
+    "RF-RFS-001":  ("business-model", "12_", "aggressive accounting practice pattern"),
 }
 ABOVE_STARTER_AQ = {"Strong Buy", "Buy"}  # decisions that exceed the "Starter Position Only" cap
 MOSAIC_MIN_DISTINCT_TAGS = 3     # CLAUDE.md §13 / synthesizer.md 4B: "three or more independent ... signals"
@@ -387,20 +398,23 @@ MOSAIC_MIN_DISTINCT_MODULES = 2  # a cross-MODULE mosaic, not one module's own s
 
 def eval_aq_forensic_mosaic_cap(decision, decision_date, module_synth_txt, module_specialist_txt):
     """Check AQ: §13 cross-module forensic-mosaic conviction cap (synthesizer.md Pre-Write Gate 4B).
-    Returns None (N/A — pre-gate, or none of the six source modules/specialists are present), or a
+    Returns None (N/A — pre-gate, or none of the four source modules/specialists are present), or a
     list of violation strings (empty list = pass). Side-effect-free + module-level so eval.py selftest
     can drive it.
-    module_synth_txt / module_specialist_txt: dicts keyed by the three owning module dirs
-    ('earnings', 'balance-sheet-survival', 'management-governance') mapping to that module's
-    99_*-synthesis.md text / the relevant NN_*.md specialist text (each value may be None if that
-    module or specialist did not run). Every FORENSIC_TAGS tag is scanned in BOTH its synthesis and
-    its specialist source (see module docstring) so a synthesis that forgets to propagate a fired tag
-    still counts toward the mosaic — mirrors how AD/AE/AF read their tags from the specialist source,
-    not the roll-up alone (CLAUDE.md §11: caps are applied, never silently overridden)."""
+    module_synth_txt / module_specialist_txt: dicts keyed by the four owning module dirs
+    ('earnings', 'balance-sheet-survival', 'management-governance', 'business-model') mapping to that
+    module's 99_*-synthesis.md text / the relevant specialist text (each value may be None if that
+    module or specialist did not run). Business-model owns two tags from two different specialists
+    (RF-DISQ-001 from 01_, RF-RFS-001 from 12_) — its 'business-model' entry in module_specialist_txt
+    is the concatenation of both specialist texts (the caller's job; this function only keys by
+    module, same as every other module here). Every FORENSIC_TAGS tag is scanned in BOTH its synthesis
+    and its specialist source (see module docstring) so a synthesis that forgets to propagate a fired
+    tag still counts toward the mosaic — mirrors how AD/AE/AF read their tags from the specialist
+    source, not the roll-up alone (CLAUDE.md §11: caps are applied, never silently overridden)."""
     if not (isdate(decision_date) and decision_date >= AQ_DATE):
         return None  # forward-looking; pre-gate runs N/A
     if not any((module_synth_txt or {}).values()) and not any((module_specialist_txt or {}).values()):
-        return None  # none of the three owning modules ran at all — N/A
+        return None  # none of the four owning modules ran at all — N/A
     fired_by_module = {}
     for tag, (mod, _prefix, _desc) in FORENSIC_TAGS.items():
         synth = (module_synth_txt or {}).get(mod)

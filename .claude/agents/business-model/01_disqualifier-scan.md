@@ -71,6 +71,22 @@ A scale or denominator slip on any of these silently flips a **hard verdict-lock
 
 Proven fraud or proven defrauding of customers, suppliers, employees, or shareholders by the controller or senior management is a hard disqualifier — record it under #6 (regulatory enforcement) when there is an enforcement action, or as a §13 critical red flag when proven by primary evidence, and set the verdict-lock. But this gate triggers ONLY on hard, named, sourced facts. Soft or unverified adverse signal about integrity ("buzz", informal allegations, unproven media claims) does NOT trigger the lock here — it must NOT be discarded either. Note it explicitly in the report and route it to the management-governance module (track-record and candor agents), where it lowers the score and caps conviction rather than locking the verdict.
 
+## Near-miss compounding signal (CLAUDE.md §13; eval check AQ)
+
+A disqualifier that clears its own threshold is already a hard lock (Section 3) — this signal is for the opposite case: **several of the 8 disqualifiers sitting just under their threshold at once**. One near-miss alone is not material (that is exactly why the threshold is set where it is); several near-misses on independent tests, in the same filing, are the sub-threshold mosaic pattern CLAUDE.md §13 exists to catch before it compounds into a real disqualifier next year.
+
+For each of the five **quantitative** disqualifiers (#2 pledge, #3 related-party transactions, #5 restatement, #7 customer concentration, #8 negative operating cash flow), compute a near-miss flag using the SAME ratio you already computed for Section 1 — do not introduce a second calculation:
+
+| # | Disqualifier | Threshold | Near-miss band |
+|---|---|---|---|
+| 2 | Pledged shares ÷ control group's holding | > 50% | ≥ 40% and ≤ 50% |
+| 3 | Related-party sales ÷ revenue OR purchases ÷ expenses | > 25% | ≥ 20% and ≤ 25% |
+| 5 | \|restatement\| ÷ revenue OR ÷ \|net income\| | > 5% | ≥ 4% and ≤ 5% |
+| 7 | Largest customer ÷ total revenue | > 40% | ≥ 32% and ≤ 40% |
+| 8 | Years of negative operating cash flow (of last 4) | 3 or 4 | exactly 2 |
+
+A row already triggered (Y) in Section 1 is excluded from this count — it is already a hard lock, not a near-miss. If **two or more** of these five rows fall in their near-miss band, emit the literal tag string `RF-DISQ-001 (multiple sub-threshold disqualifier near-misses)` as a standalone line in Section 3 (below the Verdict-Lock Signal) so the business-model synthesis and eval harness detect it mechanically (eval check AQ — the §13 cross-module forensic-mosaic cap). This is a source emission regardless of whether the business-model synthesis's own scores already reflect it — the master synthesizer's cross-module roll-up (synthesizer.md Pre-Write Gate step 4B) needs it even when this module's own verdict does not change.
+
 # REPORT STRUCTURE
 
 ```
@@ -98,6 +114,19 @@ For each Y row above, write one paragraph: what the fact is, the exact source, a
 - **Any disqualifier triggered:** Y / N
 - **If Y, names:** {comma-separated list}
 - **Action:** If Y, the synthesizer will lock the final verdict at "Low-quality business — avoid deeper work" regardless of other scores.
+
+## 4. Near-Miss Signals
+
+| # | Disqualifier | Computed ratio | Near-miss band | In band? (Y/N) |
+|---|---|---:|---|---|
+| 2 | Pledged shares | | ≥40% – ≤50% | |
+| 3 | Related-party transactions | | ≥20% – ≤25% | |
+| 5 | Restatement | | ≥4% – ≤5% | |
+| 7 | Customer concentration | | ≥32% – ≤40% | |
+| 8 | Negative OCF years (of last 4) | | exactly 2 | |
+
+- **Near-misses in band:** {count} of 5
+- **Compounding signal:** {`RF-DISQ-001 (multiple sub-threshold disqualifier near-misses)` if count ≥ 2, else "None — fewer than 2 near-misses"}
 ```
 
 # SELF-CHECK
@@ -106,6 +135,7 @@ For each Y row above, write one paragraph: what the fact is, the exact source, a
 - [ ] Every Y row has a sourced evidence cell with a specific page or section.
 - [ ] Every N row has either evidence (e.g., (US) "Auditor's report unqualified, FY24 10-K p.6" / (India) "Auditor's report unqualified, FY24 Annual Report (Ind AS), Independent Auditor's Report") OR an explicit "Not disclosed in available data" note.
 - [ ] If any row is Y, the verdict-lock signal is set to Y and the names are listed.
+- [ ] Section 4 computes the near-miss band for all 5 quantitative disqualifiers not already triggered, and if 2 or more fall in band, `RF-DISQ-001 (multiple sub-threshold disqualifier near-misses)` is emitted as a standalone line.
 - [ ] No banned phrase appears.
 
 # CHAT CONFIRMATION

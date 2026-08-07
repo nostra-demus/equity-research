@@ -73,6 +73,10 @@ If any upstream is missing, note at the top:
 - Cybersecurity / data breach disclosures
 - ESG / regulatory transition risk material to the business
 
+## Aggressive-accounting tag (CLAUDE.md §13; eval check AQ)
+
+If any row in Section 2 is an **aggressive-accounting pattern** — revenue-recognition timing games, capitalized expenses that belong on the income statement, a one-off gain/boost not clearly disclosed as non-recurring, or an off-cycle accounting-policy change with no disclosed business reason — AND its Severity is **≥50/100**, emit the literal tag string `RF-RFS-001 (aggressive accounting practice pattern)` as a standalone line in Section 3 (below the named flag) so the business-model synthesis and eval harness detect it mechanically (eval check AQ — the §13 cross-module forensic-mosaic cap). This is a source emission regardless of whether the flag alone would move the business-model verdict — the master synthesizer's cross-module roll-up (synthesizer.md Pre-Write Gate step 4B) needs it even when this module's own read absorbs the finding. Emit it at most once per report even if several rows qualify — name the most severe qualifying row in Section 3.
+
 # REPORT STRUCTURE
 
 ```
@@ -104,6 +108,8 @@ One paragraph naming the single most material flag from Section 2 and explaining
 
 If Section 2 is empty, write *"No new severe flag identified."*
 
+If an aggressive-accounting-pattern row (severity ≥50) is present in Section 2, add on its own line: `RF-RFS-001 (aggressive accounting practice pattern)`. Otherwise omit this line entirely — do not write a negated form.
+
 ## 4. Cross-Cutting Patterns
 
 Sometimes individual flags look minor but a pattern across them is meaningful (e.g., aggressive revenue recognition + frequent auditor changes + large related-party transactions = pattern). Surface any such pattern in 2–3 sentences. If no pattern exists, skip this section.
@@ -116,6 +122,7 @@ Sometimes individual flags look minor but a pattern across them is meaningful (e
 - [ ] Every flag in Section 2 has specific evidence in [Source, Period, Page] format.
 - [ ] Severity column is direction-flagged (higher = worse).
 - [ ] Section 3 names ONE most severe flag, not a list.
+- [ ] If any Section 2 row is an aggressive-accounting pattern with severity ≥50, `RF-RFS-001 (aggressive accounting practice pattern)` is emitted as a standalone line in Section 3.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION
