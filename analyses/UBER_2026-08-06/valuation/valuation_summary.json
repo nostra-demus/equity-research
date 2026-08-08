@@ -21,19 +21,16 @@
       "multiple_basis": "NTM EV/EBITDA",
       "multiple_kind": "applied",
       "basis": "ev",
-      "level": 104.89,
-      "drivers": "Bookings growth re-accelerates (~+4pp vs FY2025 pace), SG&A leverage resumes improving, insurance-cost tailwind banked not reinvested, Delivery Hero deal closes without integration drag, market grants a multiple modestly above the raw unadjusted core-peer median (14.42x) given Uber's highest-in-set EBITDA margin.",
-      "source": "07_scenario-and-fair-value.md §3 scenario table",
-      "derivation": {
-        "model": "ev_bridge",
-        "ev": 229440.0,
+      "bridge": {
         "net_debt": 9340.0,
-        "net_debt_basis": "strict (01 canonical)",
+        "net_debt_basis": "strict (total debt 14,731 less cash & equivalents 5,391) — 01's canonical figure [07 §3 bridge note]",
         "minority": 1083.0,
         "other": 0.0,
-        "shares": 2087.980,
-        "source": "07_scenario-and-fair-value.md §3 (forward NTM EBITDA x multiple, bridged with 01's canonical net debt/minority)"
-      }
+        "shares": 2087.980
+      },
+      "level": 104.89,
+      "drivers": "Bookings growth re-accelerates (~+4pp vs FY2025 pace), SG&A leverage resumes improving, insurance-cost tailwind banked not reinvested, Delivery Hero deal closes without integration drag, market grants a multiple modestly above the raw unadjusted core-peer median (14.42x) given Uber's highest-in-set EBITDA margin.",
+      "source": "07_scenario-and-fair-value.md §3 scenario table"
     },
     {
       "label": "base",
@@ -43,19 +40,16 @@
       "multiple_basis": "NTM EV/EBITDA",
       "multiple_kind": "applied",
       "basis": "ev",
-      "level": 74.91,
-      "drivers": "Consensus growth/margin path holds (9-analyst NTM consensus); market closes roughly a third of today's ~-17.5% NTM EV/EBITDA discount to the quality-adjusted peer level (13.0x), landing at 13.25x — still below the raw 14.42x peer median, reflecting the unresolved 'No moat proven' and rate-of-change (AV-disintermediation) caveats.",
-      "source": "07_scenario-and-fair-value.md §3 scenario table",
-      "derivation": {
-        "model": "ev_bridge",
-        "ev": 166804.25,
+      "bridge": {
         "net_debt": 9340.0,
-        "net_debt_basis": "strict (01 canonical)",
+        "net_debt_basis": "strict (total debt 14,731 less cash & equivalents 5,391) — 01's canonical figure [07 §3 bridge note]",
         "minority": 1083.0,
         "other": 0.0,
-        "shares": 2087.980,
-        "source": "07_scenario-and-fair-value.md §3 (forward NTM EBITDA x multiple, bridged with 01's canonical net debt/minority)"
-      }
+        "shares": 2087.980
+      },
+      "level": 74.91,
+      "drivers": "Consensus growth/margin path holds (9-analyst NTM consensus); market closes roughly a third of today's ~-17.5% NTM EV/EBITDA discount to the quality-adjusted peer level (13.0x), landing at 13.25x — still below the raw 14.42x peer median, reflecting the unresolved 'No moat proven' and rate-of-change (AV-disintermediation) caveats.",
+      "source": "07_scenario-and-fair-value.md §3 scenario table"
     },
     {
       "label": "bear_cyclical",
@@ -65,41 +59,16 @@
       "multiple_basis": "NTM EV/EBITDA",
       "multiple_kind": "applied",
       "basis": "ev",
+      "bridge": {
+        "net_debt": 9340.0,
+        "net_debt_basis": "strict (total debt 14,731 less cash & equivalents 5,391) — 01's canonical figure [07 §3 bridge note]",
+        "minority": 1083.0,
+        "other": 0.0,
+        "shares": 2087.980
+      },
       "level": 40.23,
       "drivers": "Bookings deceleration continues while cost base cannot flex down as fast (SG&A semi-fixed in a real slowdown, SG&A-reversal already +63bps off FY2025 low); widened -25% EBITDA move (vs a naive linear -21.6%) reflecting Freight's chronic weakness and cited prior downturns (FY2021 consolidated EBITDA margin -16.8%); multiple compresses to 10.0x, toward Lyft's 7.94x NTM EV/EBITDA. 12-month horizon (cyclical trough).",
-      "source": "07_scenario-and-fair-value.md §3 scenario table",
-      "derivation": {
-        "model": "ev_bridge",
-        "ev": 94420.0,
-        "net_debt": 9340.0,
-        "net_debt_basis": "strict (01 canonical)",
-        "minority": 1083.0,
-        "other": 0.0,
-        "shares": 2087.980,
-        "source": "07_scenario-and-fair-value.md §3 (forward NTM EBITDA x multiple, bridged with 01's canonical net debt/minority)"
-      }
-    },
-    {
-      "label": "bear_structural",
-      "forward_metric": null,
-      "metric_basis": "Terminal (FY2032+, non-recovering runoff)",
-      "multiple": null,
-      "multiple_basis": null,
-      "multiple_kind": null,
-      "basis": "ev",
-      "level": 31.88,
-      "drivers": "24-36 month structural-reset / avoid-ruin floor, not the headline bear. Declining-perpetuity (runoff) DCF terminal: terminal EBIT margin faded to a non-recovering 8.0% (vs base-case plateau of 16.0%; LTM actual 12.1%) and terminal growth of -2.0% (genuine negative nominal trajectory) reflecting a structural reset — e.g. a major-market driver-classification ruling or AV disintermediation. Reused verbatim from 04_intrinsic-dcf.md §5; carried to the master synthesizer's Kill Criteria (CLAUDE.md §24), not blended into the headline bear.",
-      "source": "04_intrinsic-dcf.md §5 (declining-perpetuity runoff terminal); reused verbatim in 07_scenario-and-fair-value.md §3",
-      "derivation": {
-        "model": "ev_bridge",
-        "ev": 76978.0,
-        "net_debt": 9340.0,
-        "net_debt_basis": "strict (01 canonical)",
-        "minority": 1083.0,
-        "other": 0.0,
-        "shares": 2087.980,
-        "source": "04_intrinsic-dcf.md §5 executed bridge (runoff terminal), reused verbatim in 07_scenario-and-fair-value.md §3"
-      }
+      "source": "07_scenario-and-fair-value.md §3 scenario table"
     }
   ],
   "methods": {
