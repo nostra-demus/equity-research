@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "ticker": "UBER",
+  "as_of": "2026-08-08",
+  "currency": "USD",
+  "base_metric": "ebit_usd_m",
+  "base_value": 6700,
+  "base_value_source": "01_historical-financials.md §2 (TTM EBIT, TTM ended Jun-30-2026; cross-checked to CIQ Financials_Annual.xls LTM column)",
+  "base_period": "TTM Jun-30-2026",
+  "revenue_base": 55227,
+  "revenue_period": "TTM Jun-30-2026",
+  "sensitivities": [
+    {
+      "variable": "driver_courier_incentive_cost_ratio",
+      "label": "Driver/Courier/Carrier variable payments (cost of revenue) as % of revenue",
+      "unit": "pp of revenue",
+      "base_value": 55.1,
+      "coefficient": -552.27,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": -2, "high": 2},
+      "non_linearity": "Largest single cost line (55-61% of revenue); an adverse move driven by competitive pressure to defend driver/courier supply liquidity may be sticky and hard to reverse quickly (business-model/06_value-chain.md §1).",
+      "source": "03_margin-drivers.md §3, §8a"
+    },
+    {
+      "variable": "ex_uk_revenue_growth_yoy",
+      "label": "Ex-UK YoY revenue growth rate (proxy for Trip/Gross Bookings volume)",
+      "unit": "pp YoY growth",
+      "base_value": 19.9,
+      "coefficient": 165.68,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": -5, "high": 5},
+      "non_linearity": "Coefficient assumes a ~30% incremental EBIT margin, inferred from FY24->FY25 (34.4%) and Q2'25->Q2'26 (28.6%) actual incremental margins, not company-disclosed. In a volume slowdown, driver/courier incentive spend may not de-lever proportionally (supply-liquidity floor), so the true bear-case coefficient could be more negative than this symmetric estimate.",
+      "source": "02_revenue-drivers.md §6a, §7; 01_historical-financials.md §1, §2; 03_margin-drivers.md §3, §8a"
+    },
+    {
+      "variable": "fx_translation_revenue_growth",
+      "label": "FX translation effect on YoY revenue growth",
+      "unit": "pp of reported vs constant-currency growth",
+      "base_value": 1.0,
+      "coefficient": 552.27,
+      "impact_metric": "revenue_usd_m",
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": {"low": -2, "high": 2},
+      "non_linearity": "Revenue-level effect only. EBIT-level impact is not separately disclosed; local revenue and local operating costs both move with the same currency, so translation effects likely net out substantially at the operating-margin level - no FX-to-EBIT coefficient is asserted.",
+      "source": "02_revenue-drivers.md §3; business-model/10_external-dependency.md §2"
+    }
+  ]
+}
