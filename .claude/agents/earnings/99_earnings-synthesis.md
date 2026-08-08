@@ -241,6 +241,7 @@ Bullet list, no prose paragraphs. **Surface what the scores MEAN — do not rest
 - [ ] Final verdict is consistent with revenue trend, margin trend, quality, AND consensus setup — not driven by one in isolation.
 - [ ] The synthesis does not overstate confidence if consensus or cash flow data is missing.
 - [ ] No new analysis appears that wasn't in upstream outputs.
+- [ ] Any margin or revenue bridge carried into this synthesis keeps its residual, not just its named driver — a large unexplained residual from `03_margin-drivers` §7a or `02_revenue-drivers` §6a is stated here as a limit on the driver read, never compressed into "driven by X" (MODULE_RULES "Driver Attribution" / `CLAUDE.md` §15). No sensitivity or ratio is repeated across a basis it was not measured on.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

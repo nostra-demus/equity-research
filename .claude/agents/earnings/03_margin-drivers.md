@@ -63,6 +63,7 @@ If `01_historical-financials.md` is missing, write at the top:
 4. Identify the company-specific margin drivers from MD&A, transcripts, and cost disclosures.
 5. For each driver, assess the current direction and magnitude.
 6. If segment data exists, decompose drivers per segment.
+7. **Attribute the margin bridge, and reconcile it (MODULE_RULES "Driver Attribution" / `CLAUDE.md` §15).** When Section 7's bridge derives a component's bps from a quoted cost ratio, pass-through lag, or elasticity, show that multiplication — do not assert the bps figure on its own authority. Name the ratio's basis (which period's mix, consolidated vs segment) and refuse to apply it across a basis it wasn't measured on. Sum the components against the stated Total margin change; state the gap as the residual (quantified in "Other," not rounded away). If Section 8's single-biggest-driver claim rests on a bridge where the named driver clears roughly half the observed change, say so; if the bridge is mostly unexplained, say that instead of naming a "biggest driver" the arithmetic doesn't support.
 
 # WHAT TO READ (priority for this agent)
 
@@ -180,6 +181,22 @@ Where evidence allows, decompose the margin change vs the prior year or prior qu
 
 If this bridge is not possible from disclosure, state what's missing.
 
+## 7a. Bridge Attribution and Residual (MODULE_RULES "Driver Attribution" / §15)
+
+For each component in Section 7 whose bps figure came from a quoted cost ratio, pass-through lag, or
+elasticity, show the derivation in this form (or state "Asserted from disclosure, no sensitivity applied"
+when the figure is a reported number, not a modelled one):
+
+```
+{Component}: {driver move} × {ratio/elasticity, WITH ITS BASIS} [Source, date]
+  = {modelled bps} of the {total bps} observed change
+  → {basis matches / MISMATCH — refused}
+```
+
+Then reconcile: sum of components vs stated Total (Section 7's Total row) = **{N}bps reconciled, {M}bps
+residual**. If the residual is large relative to the total, state that plainly — it caps how confidently
+Section 8 can name a single biggest driver.
+
 ## 8. The Single Biggest Margin Driver
 
 One paragraph: which driver, if it moved adversely, would compress margins the most? What is its current direction?
@@ -202,6 +219,7 @@ State BOTH readings, each with evidence, then say which the evidence currently f
 - [ ] Only relevant drivers are listed — no filler rows.
 - [ ] Every driver row has direction (Tailwind / Neutral / Headwind / Unknown), magnitude, and evidence.
 - [ ] The margin bridge uses actual numbers, not estimates. Inferences are labeled.
+- [ ] Section 7a shows the arithmetic for any bridge component derived from a quoted sensitivity, names that sensitivity's basis, and reconciles the components to the stated Total — the residual is quantified, not rounded away. No sensitivity is applied across a basis it was not measured on.
 - [ ] The "primary margin metric" choice in Section 4 is justified.
 - [ ] Section 8 names ONE biggest driver, not a list.
 - [ ] Where investment spend is well above its own history, Section 9 states BOTH signs — the cost reading AND the demand reading — with evidence on each, plus the observable that would flip the current read. A spend read only as a cost is an incomplete read (see the rule above).

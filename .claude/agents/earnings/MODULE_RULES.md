@@ -112,6 +112,45 @@ This module follows CLAUDE.md §27. The US form names in this file and its agent
 8. Net debt must be: `total debt − cash and equivalents` unless the company defines it differently.
 9. If fiscal calendars differ across data sources, explicitly reconcile them.
 10. If a metric comes from Capital IQ, Bloomberg, or FactSet, label the source and "data as of" date.
+11. Every bridge/decomposition table (the margin bridge, the revenue growth decomposition) is a
+    driver-attribution claim and follows the rule below — it is not exempt because the number lives in a
+    table instead of a sentence.
+
+---
+
+## Driver Attribution — Show the Arithmetic, Name the Residual (§15)
+
+Margin and revenue bridges are driver stories, so this is where the module is most likely to assert a
+cause it never computed. Root `CLAUDE.md` §15 requires any driver-attribution claim — a move explained by
+a driver AND a sensitivity — to print its own arithmetic, carry the sensitivity's own basis, and state the
+unexplained residual. In this module that means the Margin Bridge (`03_margin-drivers` §7) and the Revenue
+Growth Decomposition (`02_revenue-drivers` §6):
+
+- **Show the derivation, not just the bps/pp figure.** Where a component's contribution is derived from a
+  quoted sensitivity (e.g. "COGS is ~60% of revenue, so an 8% input-cost rise costs ~480bps of gross
+  margin"), print that multiplication in the table or the line beneath it — do not assert the bps number
+  on its own authority.
+- **A sensitivity carries its basis like a currency figure carries its FX rate.** A cost ratio, pass-through
+  lag, or elasticity is measured against a specific base (last period's mix, this period's mix, consolidated
+  vs segment-level) — name which, and refuse to apply a ratio measured on one base to a different one
+  (e.g. using last year's revenue mix to weight this year's cost change).
+- **Reconcile the bridge to its own Total row.** Sum the listed components and compare to the stated Total
+  margin/revenue change. Whatever gap exists is the residual — it belongs in the table (the "Other" row,
+  quantified) or a stated line beneath it, never rounded away into a component it doesn't belong to.
+- **The adjective must match the number.** "Largely driven by", "the main driver", "explains the bulk of"
+  require the printed arithmetic to clear roughly half the observed change. Below that, say what the driver
+  actually explains and flag the rest as unexplained.
+- **A large residual is the finding, not a caveat.** A bridge that is mostly "Other" means the module does
+  not yet know what moved the number — say so plainly in Section 8/7's single-biggest-driver paragraph
+  (`03_margin-drivers`) or Section 7 (`02_revenue-drivers`), since a "biggest driver" claim resting on a
+  bridge that doesn't reconcile is exactly the false-confidence defect §15 exists to prevent.
+
+*The miss this rule exists for (`CLAUDE.md` §15):* a GOLD dossier explained a 25.1% price correction with a
+50bp real-yield move at a nominal-yield sensitivity — the wrong basis made the coefficient applicable, and
+the arithmetic it never performed (2 × 1.75% ≈ $196, ~14% of the fall) would have shown "accounts for the
+bulk of" was false by a factor of seven. A margin or revenue bridge that quotes a cost ratio or elasticity
+without doing the multiplication, or that lets "Other" absorb a large gap silently, is the same error in a
+different table.
 
 ---
 

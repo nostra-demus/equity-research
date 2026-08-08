@@ -47,6 +47,7 @@ If `01_historical-financials.md` is missing, write at the top:
 4. Identify the company-specific revenue drivers from MD&A, transcripts, and investor decks.
 5. For each driver, assess the current direction and magnitude.
 6. If segment data exists, decompose drivers per segment.
+7. **Attribute the revenue decomposition, and reconcile it (MODULE_RULES "Driver Attribution" / `CLAUDE.md` §15).** When Section 6's decomposition derives a component's contribution (pp) from a quoted volume/price/mix ratio, show that multiplication — do not assert the pp figure on its own authority. Name the ratio's basis (which period's mix, spot vs contracted price) and refuse to apply it across a basis it wasn't measured on. Sum the components against the stated Total revenue growth; state the gap as the residual (quantified in "Other," not rounded away). If Section 7's single-biggest-driver claim rests on a decomposition where the named driver clears roughly half the observed growth, say so; if the decomposition is mostly unexplained, say that instead of naming a "biggest driver" the arithmetic doesn't support.
 
 # WHAT TO READ (priority for this agent)
 
@@ -156,6 +157,22 @@ Where evidence allows, decompose the most recent annual or quarterly revenue gro
 
 If this decomposition is not possible from disclosure, state what's missing.
 
+## 6a. Decomposition Attribution and Residual (MODULE_RULES "Driver Attribution" / §15)
+
+For each component in Section 6 whose pp figure came from a quoted volume/price/mix ratio, show the
+derivation in this form (or state "Asserted from disclosure, no ratio applied" when the figure is a
+reported number, not a modelled one):
+
+```
+{Component}: {driver move} × {ratio, WITH ITS BASIS} [Source, date]
+  = {modelled pp} of the {total pp} observed growth
+  → {basis matches / MISMATCH — refused}
+```
+
+Then reconcile: sum of components vs stated Total (Section 6's Total row) = **{N}pp reconciled, {M}pp
+residual**. If the residual is large relative to the total, state that plainly — it caps how confidently
+Section 7 can name a single biggest driver.
+
 ## 7. The Single Biggest Revenue Driver
 
 One paragraph: which driver, if it moved 10–20%, would have the largest impact on revenue? What is its current direction?
@@ -167,6 +184,7 @@ One paragraph: which driver, if it moved 10–20%, would have the largest impact
 - [ ] Only relevant drivers are listed — no filler rows for drivers that don't apply.
 - [ ] Every driver row has a current level, direction, magnitude, and evidence.
 - [ ] The growth decomposition uses actual numbers, not estimates. If estimates are used, they're labeled as inference.
+- [ ] Section 6a shows the arithmetic for any decomposition component derived from a quoted ratio, names that ratio's basis, and reconciles the components to the stated Total — the residual is quantified, not rounded away. No ratio is applied across a basis it was not measured on.
 - [ ] Section 7 names ONE biggest driver, not a list.
 - [ ] If no quarterly data exists, QoQ drivers are marked "Not available" per partial-data rules.
 - [ ] If no transcript exists, the limitation is flagged.
