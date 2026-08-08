@@ -141,7 +141,7 @@ Growth Decomposition (`02_revenue-drivers` §6):
   require the printed arithmetic to clear roughly half the observed change. Below that, say what the driver
   actually explains and flag the rest as unexplained.
 - **A large residual is the finding, not a caveat.** A bridge that is mostly "Other" means the module does
-  not yet know what moved the number — say so plainly in Section 8/7's single-biggest-driver paragraph
+  not yet know what moved the number — say so plainly in Section 8's single-biggest-driver paragraph
   (`03_margin-drivers`) or Section 7 (`02_revenue-drivers`), since a "biggest driver" claim resting on a
   bridge that doesn't reconcile is exactly the false-confidence defect §15 exists to prevent.
 
