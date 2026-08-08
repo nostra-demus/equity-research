@@ -1,0 +1,196 @@
+{
+  "schema_version": "1.4",
+  "ticker": "UBER",
+  "as_of": "2026-08-09",
+  "currency": "USD",
+  "business_type": "Operating",
+  "basis": "ev",
+  "shares": 2056.327,
+  "net_debt": 9340.0,
+  "net_debt_basis": "broad",
+  "current_price": 68.18,
+  "price_as_of": "2026-08-06",
+  "price_state": "pool-verified",
+  "is_developed_mega_cap": true,
+  "scenarios": [
+    {
+      "label": "bull",
+      "probability": null,
+      "forward_metric": 65301.6,
+      "metric_basis": "NTM revenue (consensus + 5%, beat scenario)",
+      "multiple": 3.44,
+      "multiple_basis": "NTM EV/Sales (own-history 5yr median — top of usable band)",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 9340.0,
+        "net_debt_basis": "broad (01 canonical)",
+        "minority": 1083.0,
+        "other": 0,
+        "shares": 2056.327,
+        "source": "01_price-and-capital-structure.md §4-5"
+      },
+      "source": "07_scenario-and-fair-value.md §3 scenario table",
+      "level": 104.17,
+      "drivers": "Trip/Gross-Bookings volume growth accelerates toward ~25% YoY and the driver/courier payment ratio improves ~2pp (earnings/07 bull case); the market credits the resulting growth/margin combination with a re-rate to the 5-year EV/Sales median, treating the FY2025-26 de-rating as sentiment-driven rather than structural."
+    },
+    {
+      "label": "base",
+      "probability": null,
+      "forward_metric": 62192.0,
+      "metric_basis": "NTM revenue (CIQ consensus)",
+      "multiple": 2.6944,
+      "multiple_basis": "NTM EV/Sales (implied by the mechanically-weighted 4-method base point; independently cross-checks to an implied ~13.3x NTM EV/EBITDA, matching 03's own 13.2x)",
+      "multiple_kind": "implied",
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 9340.0,
+        "net_debt_basis": "broad (01 canonical)",
+        "minority": 1083.0,
+        "other": 0,
+        "shares": 2056.327,
+        "source": "01_price-and-capital-structure.md §4-5"
+      },
+      "source": "07_scenario-and-fair-value.md §2 (mechanically-weighted blend of 02/03/04/06) and §3 (metric x multiple cross-check, reproduces within 0.2%)",
+      "level": 76.42,
+      "drivers": "Growth continues to decelerate gradually in line with consensus (no shock either way); driver-payment ratio holds roughly flat to modestly improving; the pending Delivery Hero deal has not yet closed or moved net debt; the market grants modest credit for Uber's structurally higher margin base without assuming the 2021-era zero-rate multiple regime returns."
+    },
+    {
+      "label": "bear_cyclical",
+      "probability": null,
+      "forward_metric": 57216.64,
+      "metric_basis": "NTM revenue (consensus − 8%, ~15% YoY growth)",
+      "multiple": 1.88,
+      "multiple_basis": "NTM EV/Sales (own-history 5yr band minimum)",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 9340.0,
+        "net_debt_basis": "broad (01 canonical)",
+        "minority": 1083.0,
+        "other": 0,
+        "shares": 2056.327,
+        "source": "01_price-and-capital-structure.md §4-5"
+      },
+      "source": "07_scenario-and-fair-value.md §3 scenario table",
+      "level": 47.24,
+      "drivers": "12-month cyclical/deceleration case: Trip/Gross-Bookings growth decelerates further and the driver/courier payment ratio worsens ~2pp simultaneously (earnings/07 bear case); the multiple compresses to the low end of Uber's own 5-year trading range as the market re-prices slower growth and the just-drawn Delivery Hero-funding leverage. This is the headline Bear (worse of the two down-legs by a modest margin is bear_structural, see below)."
+    },
+    {
+      "label": "bear_structural",
+      "probability": null,
+      "forward_metric": null,
+      "metric_basis": null,
+      "multiple": null,
+      "multiple_basis": null,
+      "multiple_kind": null,
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 9340.0,
+        "net_debt_basis": "broad (01 canonical)",
+        "minority": 1083.0,
+        "other": 0,
+        "shares": 2056.327,
+        "source": "01_price-and-capital-structure.md §4-5"
+      },
+      "source": "04_intrinsic-dcf.md §5 (structural-reset declining-perpetuity terminal); reproduced verbatim in 07_scenario-and-fair-value.md §3",
+      "level": 43.38,
+      "drivers": "24-36 month autonomous-vehicle disruption case (avoid-ruin floor, not the headline bear): EBIT margin fades from 11.0% (Yr5) to 7.0% (Yr10) vs. the base case's 13.2%→12.8%; terminal growth cut to 1.0% (structurally impaired, non-recovering franchise). Trigger: business-model/07_business-quality.md rates industry rate-of-change/disruption risk 32/100; Waymo already runs an independent commercialized robotaxi fleet. Routed to the avoid-ruin floor (not the headline Bear) because the moat is rated Narrow-but-widening, not eroding.",
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 99626.1,
+        "net_debt": 9340.0,
+        "net_debt_basis": "broad (01 canonical)",
+        "minority": 1083.0,
+        "other": 0,
+        "shares": 2056.327,
+        "source": "04_intrinsic-dcf.md §5 (structural-reset declining-perpetuity terminal: Sum PV stressed FCFF $58,248.5M + PV stressed TV $41,377.6M = EV $99,626.1M); reproduced in 07_scenario-and-fair-value.md §3"
+      }
+    }
+  ],
+  "methods": {
+    "own_history": 87.37,
+    "peers": 75.75,
+    "dcf": 79.82,
+    "sotp": 57.34
+  },
+  "method_weights": {
+    "own_history": 0.29,
+    "peers": 0.38,
+    "dcf": 0.15,
+    "sotp": 0.18
+  },
+  "method_basis": {
+    "own_history": "LTM",
+    "peers": "NTM",
+    "dcf": null,
+    "sotp": "NTM"
+  },
+  "method_weight_exception": null,
+  "discount_rate": {
+    "rf": 0.0465,
+    "erp": 0.045,
+    "beta": 1.15,
+    "cost_of_equity": 0.09825,
+    "wacc": 0.09203,
+    "after_tax_kd": 0.03318
+  },
+  "dcf_grid": {
+    "wacc": [0.082, 0.092, 0.102],
+    "growth": [0.03, 0.035, 0.04],
+    "values": [
+      [90.97, 75.52, 64.37],
+      [97.68, 79.82, 67.28],
+      [105.99, 84.93, 70.66]
+    ],
+    "base": {
+      "wacc": 0.092,
+      "growth": 0.035
+    },
+    "source": "04_intrinsic-dcf.md §7 sensitivity grid"
+  },
+  "sotp_segments": [
+    {
+      "segment": "Mobility",
+      "metric_name": "FY26E EBITDA-equivalent (H1 FY26 Segment Operating Income annualized + pro-rata D&A add-back)",
+      "metric": 8901.0,
+      "multiple": 7.94,
+      "comp": "Lyft, Inc. (NTM TEV/Fwd EBITDA 7.94x) — base case, conservative per Core Principle 6",
+      "source": "06_sum-of-the-parts.md §2-3"
+    },
+    {
+      "segment": "Delivery",
+      "metric_name": "FY26E EBITDA-equivalent (H1 FY26 Segment Operating Income annualized + pro-rata D&A add-back)",
+      "metric": 4333.0,
+      "multiple": 20.78,
+      "comp": "DoorDash, Inc. (NTM TEV/Fwd EBITDA 20.78x)",
+      "source": "06_sum-of-the-parts.md §2-3"
+    },
+    {
+      "segment": "Freight",
+      "metric_name": "FY26E revenue (near-zero EBITDA-equivalent, valued on EV/Revenue instead)",
+      "metric": 6165.0,
+      "multiple": 0.51,
+      "comp": "RXO, Inc. (EV/Sales ≈0.51x) — base case; web-sourced, indicative, unverified",
+      "source": "06_sum-of-the-parts.md §2-3"
+    }
+  ],
+  "sotp_bridge": {
+    "net_debt": 9340.0,
+    "net_debt_basis": "broad (01 canonical)",
+    "minority": 1083.0,
+    "other": -35535.0,
+    "source": "06_sum-of-the-parts.md §4 equity bridge: − capitalized unallocated corporate costs ($4,360M FY26E × 11.89x = −$51,840M) + equity-method & other minority investments add-back (+$16,305M) = net other −$35,535M"
+  },
+  "peers_internals": {
+    "metric_name": "NTM EV/EBITDA",
+    "median_multiple": 14.42,
+    "applied_multiple": 13.2,
+    "discount_pct": 8.46,
+    "anchors": [
+      {"multiple": 13.2, "value": 75.75, "label": "quality-and-growth-adjusted (base case)"},
+      {"multiple": 14.42, "value": 83.22, "label": "full peer median, no adjustment"}
+    ],
+    "source": "03_relative-valuation-peers.md §5 implied-value table"
+  }
+}
