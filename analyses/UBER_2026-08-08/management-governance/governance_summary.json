@@ -1,0 +1,36 @@
+{
+  "ticker": "UBER",
+  "date": "2026-08-08",
+  "module": "management-governance",
+  "stewardship_verdict": "Misaligned or weak stewardship",
+  "hard_disqualifier_flagged": false,
+  "hard_disqualifier_detail": "business-model/01_disqualifier-scan.md: all 8 tests N, no verdict lock",
+  "scores": {
+    "management_quality": 74,
+    "capital_allocation": 50,
+    "capital_allocation_uncapped": 58,
+    "incentive_alignment": 5,
+    "shareholder_friendliness": 60,
+    "shareholder_friendliness_uncapped_blend": 62,
+    "disclosure_candor": 51,
+    "governance_risk_inverted_higher_worse": 66,
+    "data_quality": 62,
+    "overall_usefulness": 65
+  },
+  "governance_score": 46,
+  "governance_score_formula": "0.20*50 + 0.18*5 + 0.18*60 + 0.16*51 + 0.16*74 + 0.12*(100-66) = 45.8",
+  "confidence_score": 58,
+  "confidence_adjusted_governance_score": 27,
+  "governance_rating": "Weak",
+  "red_flag_count": 7,
+  "critical_red_flag_count": 3,
+  "rejector_filters": {
+    "filter_1_integrity": "tested, not tripped",
+    "filter_2_turnaround": "tested, not tripped (no live turnaround thesis)",
+    "filter_4_serial_acquirer": "TRIPPED - RF-CAP-004 - CapAlloc capped 50, GovRisk floored 60",
+    "filter_6_unaligned_owner": "tested, not tripped"
+  },
+  "supersedes": "business-model/11_capital-allocation-governance.md",
+  "insider_ownership_pct": 0.18,
+  "ceo_ownership_pct": 0.060
+}

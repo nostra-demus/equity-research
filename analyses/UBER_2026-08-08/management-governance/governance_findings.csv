@@ -1,0 +1,93 @@
+finding_id,agent,section,question,verdict,raw_value,unit,trend,peer_verdict,score,penalty,confidence,materiality,evidence,red_flag_id,follow_up
+01-001,01,Key Executives,CEO tenure and continuity,Green,9,years,Stable,No peer set,18,0,5,Medium,CIQ Professionals export,,None
+01-002,01,Key Executives,Is CEO a founder/owner-operator?,N/A,0,N/A,N/A,N/A,,0,5,Medium,business-model/11,,Confirm insider % once proxy available
+01-003,01,Mgmt Stability,CFO change in last 12 months,Amber,1,count,New,No peer set,12,-3,5,Medium,CIQ Key Developments,,Monitor first 2-3 quarters
+01-004,01,Mgmt Stability,CFO turnover pattern (multi-yr),Amber,3,CFOs since 2018,Recurring,No peer set,,0,2,Medium,Web press unverified,,Track a 3rd change
+01-005,01,Mgmt Stability,Senior departure within 3mo of CFO change,Amber,1,count (CPO),New,No peer set,,0,5,Medium,CIQ Key Developments,,Watch next 6 months
+01-006,01,Mgmt Stability,Succession depth - new COO role,Green,1,new role,New,No peer set,8,0,3,Low,CIQ Professionals/Web,,None
+01-007,01,Promise vs Delivery,Adj. EBITDA guidance beat rate TTM,Green,4,of 4 quarters,Improving,No peer set,24,0,5,High,earnings/04,,None
+01-008,01,Promise vs Delivery,EPS Normalized accuracy (1 qtr),Green,1,of 1 quarter,Too short,No peer set,,0,4,Medium,earnings/04,,Re-check after 2-3 qtrs
+01-009,01,Promise vs Delivery,Revenue vs consensus (unguided),Amber,-0.52,% Q2 miss,Deteriorating small,No peer set,,0,5,Low,earnings/04,,Track post-UK-reclass
+01-010,01,Promise vs Delivery,CFO-transition no accounting dispute,Green,1,statement,Stable,No peer set,,0,4,Medium,CIQ/bizmodel/01,,Re-check next filing
+01-011,01,Turnaround Test,Live turnaround requiring discount?,N/A,0,N/A,N/A,N/A,,0,4,Medium,earnings/04; 10-K,,None
+01-012,01,Integrity Test,Routed adverse-integrity buzz,Green cleared,2,items reviewed,N/A,No peer set,,0,4,Medium,bizmodel/01; 10-K,,None
+01-013,01,Key Executives,Independent non-exec chair,Green,1,Chairman,Stable,No peer set,,0,5,Low,CIQ Board Members,,Deepened in 05
+02-001,02,Uses of Capital,Buybacks as % of cumulative CFO FY21-25,Amber,37.0,%,Rising,No peer set,,0,5,Medium,CIQ Cash Flow,,Track post-Delivery Hero
+02-002,02,Uses of Capital,M&A net cash as % of cumulative CFO,Amber,15.2,%,Volatile,No peer set,,0,5,High,CIQ Cash Flow,,None
+02-003,02,Uses of Capital,Debt repaid vs issued FY21-25,Amber,10617,$mm repaid (11921 issued),Refinancing not deleveraging,No peer set,,0,5,Medium,CIQ Cash Flow,,None
+02-004,02,M&A Scorecard,Transplace/Uber Freight delivered?,Red,-33,$mm FY25 EBITDA,Deteriorating 3yr decline,No peer set,,0,5,High,CIQ Segments,RF-CAP-004,Track 4th declining year
+02-005,02,M&A Scorecard,Drizly delivered?,Red,1,deal shut down,Terminated,No peer set,,0,3,Medium,Web unverified,RF-CAP-004,None - closed
+02-006,02,M&A Scorecard,Careem round trip,Amber,100,$mm 2026 step,Round trip,No peer set,,0,3,Low,CIQ Key Dev; Web,,Confirm 2023 price
+02-007,02,M&A Scorecard,Serial-acquirer pattern (Filter 4),Red,6,deals in 8 months,Accelerating,No peer set,,0,5,Critical,CIQ Key Dev; bizmodel/11,RF-CAP-004,Track integration further deals
+02-008,02,M&A Scorecard,Delivery Hero opportunity cost,Red,1600,$mm forced divestiture,New,No peer set,,0,4,Critical,CIQ Key Dev; Q2 10-Q,RF-CAP-004,Track close financing margin
+02-009,02,Buyback Scorecard,FY2024 buyback vs SBC dilution,Red,1.8,% share-count increase,Worsening then improving,No peer set,,0,5,Medium,CIQ Balance Sheet,RF-CAP-002,Cleared FY25 monitor recurrence
+02-010,02,Buyback Scorecard,FY2025 buyback vs SBC dilution,Green,-1.9,% share-count reduction,Improving,No peer set,,0,5,Medium,CIQ Balance Sheet,,Confirm holds FY2026
+02-011,02,Buyback Scorecard,FY25 avg buyback price vs current price,Amber,-13.2,% current below avg,N/A,No peer set,,0,4,Medium,10-K; CIQ,,Re-check post-valuation
+02-012,02,Buyback Scorecard,Buybacks continuing while leverage rises,Amber,4664,$mm net debt increase,Deteriorating,No peer set,,0,5,High,earnings/01,,Monitor net debt/EBITDA
+02-013,02,Dividends,Dividend policy,N/A,0,% payout,Stable none,No peer set,,0,5,Low,CIQ Cash Flow,,None
+02-014,02,Reinvestment,Incremental ROIC FY23-FY25,Green,24.6,%,N/A,No peer set WACC ~8-10% inference,20,0,3,High,CIQ Bal.Sht/IS,,Recompute w/ WACC
+02-015,02,Uses of Capital,Capex intensity,Green,6.4,% of cumulative CFO,Stable,No peer set,,0,5,Low,CIQ Cash Flow,,None
+03-001,03,Comp Structure,Proxy/comp disclosure present?,Insufficient Data,0,present/absent,N/A,No peer set,0,0,5,High,10-K Items 11-14,,Ingest 2026 DEF 14A
+03-002,03,Comp Structure,CEO/CFO base/bonus/LTIP amounts,Insufficient Data,0,N/A,N/A,No peer set,0,0,5,High,10-K Item 11,,Pull proxy comp table
+03-003,03,Performance Metrics,Annual bonus metrics/weights,Insufficient Data,0,N/A,N/A,No peer set,0,0,5,High,10-K Item 11,,Pull proxy CD&A
+03-004,03,Performance Metrics,LTIP performance-award metrics named,Insufficient Data,0,N/A,N/A,No peer set,5,0,4,Medium,10-K Note 10,,Pull proxy CD&A
+03-005,03,Performance Metrics,Market-based award materiality,Green directional,0,not material,Stable/small,No peer set,,0,5,Low,10-K Note 10,,Confirm in proxy
+03-006,03,Comp Structure,Company-wide SBC expense context,N/A,1826,$mm FY25,Roughly stable,No peer set,,0,5,Low,10-K Note 10,,None
+03-007,03,Pay vs Performance,CEO total pay vs performance,Insufficient Data,0,N/A,N/A,No peer set,0,0,5,High,10-K Item 11,,Pull proxy pay-vs-perf table
+03-008,03,Pay vs Performance,Say-on-pay support %,Insufficient Data,0,%,N/A,No peer set,0,0,5,Medium,10-K Item 11,,Pull AGM results
+03-009,03,Pay vs Performance,Peer LTIP design context (Lyft),N/A,50,% PSU weighting Lyft,Increasing peer,Lyft in line with sector norm,,0,2,Low,Web Lyft proxy unverified,,Context only
+04-001,04,Ownership,Total insider ownership %,Amber,0.18,% of shares out.,Not enough history,No peer set,6,0,3,High,CIQ Landscape,,Confirm vs 2026 DEF 14A
+04-002,04,Ownership,CEO ownership stake,Amber,1225802,shares $87.8mm 0.060%,Not enough history,No peer set,,,3,Medium,CIQ Landscape,,
+04-003,04,Ownership,Largest institutional holder,Green,7.417,% BlackRock,Not enough history,No peer set,,,3,Low,CIQ Landscape,,
+04-004,04,Ownership,Shareholder bloc with board rights PIF,Amber,3.578,%,Not enough history,No peer set,,,3,Medium,CIQ Landscape; Board Members,,Monitor toward control threshold
+04-005,04,Insider Transactions,Bought vs granted quality,Red,0,of ~6 events were cash buys,Not enough history,No peer set,3,0,3,High,CIQ Landscape,,Confirm via 2026 DEF 14A
+04-006,04,Insider Transactions,Net insider activity 6 months,Amber,-33973,net shares sold,Selling,No peer set,8,0,3,Medium,CIQ Landscape,,
+04-007,04,Insider Transactions,Net insider activity 3 months,Amber,-3609,net shares sold,Selling,No peer set,,,3,Low,CIQ Landscape,,
+04-008,04,Insider Transactions,Large multi-exec sale cluster Mar-16-26,Amber,18941242,USD CEO tranche,N/A,No peer set,,,3,Medium,CIQ Landscape,,Need raw Form 4 dates
+04-009,04,Pledging,Insider/promoter pledging,Green,0,% pledged,N/A,No peer set,19,0,5,Critical,10-K Insider Trading Policy,,
+04-010,04,Control Structure,Dual-class / super-voting,Green,1,class 1 vote/share,N/A,No peer set,9,0,5,High,10-K cover page,,
+04-011,04,Control Structure,Unaligned-owner test Filter 6,N/A,0,N/A,N/A,No peer set,,,4,Critical,CIQ Landscape,,
+04-012,04,Market Conduct,Institutional-holder trend Toyota exit,Amber,-5125868,shares,Exited,No peer set,7,0,3,Low,CIQ Landscape,,
+04-013,04,Data Sufficiency,Proxy/DEF 14A availability,Insufficient Data,0,N/A,N/A,N/A,,,N/A,Critical,10-K Item 12,,Obtain 2026 DEF 14A ownership table
+05-001,05,Board Composition,Board size,N/A,10,directors,Stable,No peer set,,0,4,Low,CIQ Board Members,,None
+05-002,05,Board Composition,Independent-director %,Green,90,%,Stable,No peer set,16,0,5,High,CIQ Board Members,,None
+05-003,05,Board Composition,Chair/CEO split,Green,1,independent chair since 2018,Stable,No peer set,5,0,5,Medium,CIQ Board Members,,None
+05-004,05,Board Composition,Audit Committee independence,Green,100,%,Stable,No peer set,5,0,4,High,CIQ Board Members,,None
+05-005,05,Board Composition,Comp Committee independence,Green,100,%,Stable,No peer set,5,0,4,Medium,CIQ Board Members,,None
+05-006,05,Board Composition,Nominating/Gov Committee independence,Green,100,%,Stable,No peer set,5,0,4,Medium,CIQ Board Members,,None
+05-007,05,Tenure,Avg independent-director tenure,Green,5.9,years,N/A,No peer set,8,0,4,Low,CIQ Board Members,,None
+05-008,05,Tenure,Board refreshment last 3 yrs,Green,2,directors added,Improving,No peer set,6,0,4,Low,CIQ Board Members,,None
+05-009,05,Tenure,Overboarding - Alnowaiser,Amber,5,concurrent roles,Stable,No peer set,2,-3,3,Medium,CIQ Board Members,,Monitor attendance/support
+05-010,05,Tenure,Overboarding - Arora,Red,20.31,% votes against,New,No peer set,0,-5,3,High,Web AGM; Glass Lewis,RF-SHR-001,Monitor 2027 AGM
+05-011,05,Related-Party,Moove term loan,Green,384,$mm,Increasing,No peer set,8,0,5,Low,10-K Note Investments,,None
+05-012,05,Related-Party,Lime convertible note,Green,144,$mm,Increasing,No peer set,8,0,5,Low,10-K,,None
+05-013,05,Related-Party,Careem Technologies minority stake,Green,42,% retained equity,Stable,No peer set,,0,5,Low,10-K,,None
+05-014,05,Related-Party,Combined RPT vs revenue/net worth,Green,1.01,% of revenue,N/A,No peer set,,0,5,Low,10-K; bizmodel/01,,None
+05-015,05,Related-Party,RPT approval-mechanism disclosure,Insufficient Data,0,N/A,N/A,No peer set,0,0,2,Low,10-K deferred to proxy,,Retrieve proxy RPT policy
+05-016,05,Takeover Defenses,Poison pill,Green,0,active plans,Stable,No peer set,5,0,4,Medium,10-K risk factors,,None
+05-017,05,Takeover Defenses,Blank-check preferred authority,Amber,1,provision present,Stable,No peer set,2,-3,5,Medium,10-K risk factors,,None
+05-018,05,Takeover Defenses,Classified/staggered board,Green,0,staggered classes,Stable,No peer set,5,0,4,Medium,10-K; Web,,None
+05-019,05,Takeover Defenses,Dual-class/unequal voting,Green,0,classes,Stable,No peer set,5,0,4,High,10-K; Web,,None
+05-020,05,Takeover Defenses,Majority vs plurality voting,Amber,1,majority w/ rejectable resignation,Stable,No peer set,3,-2,3,Medium,Web bylaws summary,,Confirm exact bylaw language
+05-021,05,Takeover Defenses,Special-meeting right,Red,0,unilateral right,Stable,No peer set,0,-5,5,High,10-K risk factors,,None
+05-022,05,Takeover Defenses,Written consent,Red,0,unilateral right,Stable,No peer set,0,-5,3,High,Web cert. of incorp.,,Confirm vs charter exhibit
+05-023,05,Takeover Defenses,Cumulative voting,Red,0,permitted,Stable,No peer set,0,-5,5,Medium,10-K risk factors,,None
+05-024,05,Takeover Defenses,Board fills vacancies,Amber,1,board-controlled,Stable,No peer set,2,-3,5,Medium,10-K risk factors,,None
+05-025,05,Shareholder Voting,Say-on-pay support,Green,6.24,% against,N/A,No peer set,5,0,3,Medium,Web AGM summary,,None
+05-026,05,Shareholder Voting,Auditor ratification support,Green,1.60,% against,N/A,No peer set,5,0,3,Low,Web AGM summary,,None
+05-027,05,Shareholder Voting,Chairman Sugar votes against,Amber,8.09,% against,New,No peer set,2,-3,3,Medium,Web AGM summary,,Track 2027 AGM
+05-028,05,Minority Protection,Controlling shareholder/promoter group,Green,0,controlling holder,Stable since IPO,No peer set,10,0,5,Critical,bizmodel/01,,None
+05-029,05,Minority Protection,Shareholder derivative lawsuit full board,Red,400181,alleged reports vs 12522 disclosed,New unresolved,No peer set,0,-10,2,Critical,Web Forbes 2026-07-23,unregistered,Track docket motions to dismiss
+06-001,06,Owning Misses,UK take-rate decline owned or obscured?,Green,400,of 500 bps attributed,N/A,No peer set,12,0,5,Medium,Q2 FY26 transcript,,None
+06-002,06,Owning Misses,GAAP EPS volatility explained on calls?,Amber,0,mentions,N/A,No peer set,4,-3,4,Medium,Q1/Q2 transcripts; earnings/06,,Watch future calls
+06-003,06,Owning Misses,MDL named in legal proceedings 3 filings?,Red,0,of 3 filings,Persistent,No peer set,3,-8,5,High,10-K; 10-Qs; CIQ Key Dev,RF-REG-002,Confirm next filing
+06-004,06,Owning Misses,CFO-transition claim credible/unrefuted?,Green,1,statement,Stable,No peer set,9,0,4,Medium,CIQ Key Dev; 01,,Re-check next filing
+06-005,06,Non-GAAP,One-off legal/regulatory add-back recurs?,Red,1123,$M FY24 564 FY25,Recurring,No peer set,4,-8,5,High,earnings/06,RF-DISC-002,Confirm 3rd-year recurrence
+06-006,06,Non-GAAP,SBC excluded from headline profitability?,Amber,1826,$M FY25 20.9% of AEBITDA,Stable rising $,No peer set,5,0,5,High,earnings/06,,None
+06-007,06,Non-GAAP,Adjusted-EBITDA-to-GAAP gap,Amber,56.9,%,Stable-widening,No peer set,,0,5,High,earnings/06,,None
+06-008,06,Disclosure Transparency,Consolidated EBITDA reconciliation discontinued?,Red,0,reconciliations in FY26 10-Qs,Deteriorating,No peer set,2,-14,5,Critical,earnings/01,06,08,RF-DISC-001,Confirm return in FY26 10-K
+06-009,06,Disclosure Transparency,Segment methodology change,Amber,1,change,New,No peer set,,0,5,Medium,Q1/Q2 10-Q,,Confirm recast figures reconcile
+06-010,06,Disclosure Transparency,Aggregate legal reserve disclosed?,Green,1.8,$bn Jun-30-26,Falling,No peer set,6,0,5,Medium,Q2 10-Q Note 11,,None
+06-011,06,Tone,Register of prepared remarks both beat qtrs,Amber,2,of 2 superlative openings,N/A,No peer set,5,0,4,Low,Q1/Q2 transcripts,,Reassess at next miss quarter
+06-012,06,Tone,Delivery Hero value claim evidenced?,Amber,1,unproven forward claim,N/A,No peer set,,0,4,Medium,Q2 transcript,,Track post-close disclosure
+06-013,06,Q&A Transparency,Litigation raised/deflected in Q&A?,N/A,0,questions asked,N/A,No peer set,,0,5,Medium,Q1/Q2 transcripts,,None

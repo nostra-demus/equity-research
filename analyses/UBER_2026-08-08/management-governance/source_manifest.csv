@@ -1,0 +1,87 @@
+section,field1,field2,field3,field4,field5
+file_inventory,Filename,Type,Period Covered,Last Modified,Governance Relevance
+file_inventory,Uber_Technologies_Inc_-_Form_10-K(Feb-13-2026).doc,"Annual filing (10-K, filed Feb-13-2026)",FY2025 (ended Dec-31-2025),Aug-08-2026 (Drive sync date — not the filing date; filing date is inside the document),High
+file_inventory,Uber_Technologies_Inc_-_Form_10-Q(Aug-05-2026).doc,Quarterly filing (10-Q),Q2 FY2026 (ended Jun-30-2026),Aug-08-2026 (sync date),High
+file_inventory,Uber_Technologies_Inc_-_Form_10-Q(May-06-2026).doc,Quarterly filing (10-Q),Q1 FY2026 (ended Mar-31-2026),Aug-08-2026 (sync date),High
+file_inventory,Uber Technologies Inc NYSE UBER Board Members.rtf,"Board/director dossier (Capital IQ ""Professionals"" export)","Current board as of extraction (bios include tenure ""2018-Present"" etc.)",Aug-06-2026 (sync date),High
+file_inventory,Uber Technologies Inc NYSE UBER Professionals.rtf,Executive-officer dossier (Capital IQ export),Current officers as of extraction,Aug-06-2026 (sync date),Medium-High
+file_inventory,Uber Technologies Inc NYSE UBER Public Company Profile.rtf,Company/ownership/credit-rating snapshot (Capital IQ export),"Quote data as of Aug-06-2026; 1,207 holders of record as of Feb-10-2026 (per 10-K)",Aug-08-2026 (sync date),Medium-High
+file_inventory,Uber Technologies Inc NYSE UBER Key Developments.rtf,"Corporate-events feed (Capital IQ export: management changes, buybacks, AGM notice, litigation, M&A)","2024–2026 (multi-year events log, entries dated within text)",Aug-07-2026 (sync date),High
+file_inventory,"Uber Technologies, Inc., Q1 2026 Earnings Call, May 06, 2026.rtf",Transcript,Q1 FY2026 (May-06-2026),Aug-07-2026 (sync date),Medium
+file_inventory,"Uber Technologies, Inc., Q2 2026 Earnings Call, Aug 05, 2026.rtf",Transcript,Q2 FY2026 (Aug-05-2026),Aug-07-2026 (sync date),Medium
+file_inventory,UberTechnologiesIncNYSEUBER_CIQReportLandscape.rtf,Combined Capital IQ company report,"Multiple, as of extraction dates embedded in report",Aug-06-2026 (sync date),Medium
+file_inventory,Uber Technologies Inc NYSE UBER Analyst Coverage.rtf,Sell-side coverage list,Current as of extraction,Aug-06-2026 (sync date),Low
+file_inventory,Uber Technologies Inc NYSE UBER Customers.rtf,Customer relationships (Capital IQ export),Current as of extraction,Aug-07-2026 (sync date),Low
+file_inventory,Uber Technologies Inc NYSE UBER Products.rtf,Product list (Capital IQ export),Current as of extraction,Aug-06-2026 (sync date),Low
+file_inventory,Uber Technologies Inc NYSE UBER Suppliers.rtf,Supplier relationships (Capital IQ export),Current as of extraction,Aug-07-2026 (sync date),Low
+file_inventory,"Company Comparable Analysis Uber Technologies Inc.xls (multi-tab, see below)",Vendor comp/valuation workbook,As-of 2026-08-06,Aug-06-2026,Medium (peer benchmarking)
+file_inventory,"Short Iinterest_12m_Uber.xls (multi-tab, see below)",Short-interest chart/attribution,Trailing 12 months to ~Aug-2026,Aug-08-2026,"Low (insider/market signal, not insider-transaction data)"
+file_inventory,Uber Technologies Inc NYSE UBER Events Calendar.xls (1 tab),Corporate events calendar,Forward events,Aug-08-2026,Low
+file_inventory,"Uber Technologies Inc NYSE UBER Financials_Annual.xls (multi-tab, see below)",Vendor financial-statement workbook (annual),FY2016–LTM(Jun-2026),Aug-07-2026,Medium (capital-allocation scorecard inputs)
+file_inventory,"Uber Technologies Inc NYSE UBER Financials_Quarterly.xls (multi-tab, see below)",Vendor financial-statement workbook (quarterly),Multi-quarter history through Q2 FY2026,Aug-07-2026,Medium
+file_inventory,"UberTechnologies,IncNYSEUBEREstimatesReport.xls (multi-tab, see below)",Vendor consensus/estimates workbook,Consensus as of extraction; guidance/surprise history multi-quarter,Aug-06-2026,Low-Medium (candor/guidance cross-check)
+file_inventory,"UberTechnologies,IncNYSEUBEREstimatesReport (1).xls (multi-tab, duplicate of the above)",Vendor consensus/estimates workbook (duplicate/refresh),"Same content as above, refreshed",Aug-08-2026,Low-Medium (duplicate)
+multi_tab_detail,Parent Workbook,Tab,Rows×Cols,Governance Relevance
+multi_tab_detail,Company Comparable Analysis Uber Technologies Inc.xls,Financial Data,50×17,Medium
+multi_tab_detail,Company Comparable Analysis Uber Technologies Inc.xls,Trading Multiples,50×9,"Medium (peer set: Lyft, DoorDash, DiDi)"
+multi_tab_detail,Company Comparable Analysis Uber Technologies Inc.xls,Operating Statistics,50×13,Medium
+multi_tab_detail,Company Comparable Analysis Uber Technologies Inc.xls,Business Description,44×3,Low
+multi_tab_detail,Company Comparable Analysis Uber Technologies Inc.xls,Implied Valuation,69×9,Low (out of scope for this module)
+multi_tab_detail,Company Comparable Analysis Uber Technologies Inc.xls,Valuation Chart,32×2,Low
+multi_tab_detail,Company Comparable Analysis Uber Technologies Inc.xls,Credit Health Panel,47×10,"Low-Medium (leverage/solvency, cross-refs balance-sheet module)"
+multi_tab_detail,Company Comparable Analysis Uber Technologies Inc.xls,Disclaimer,26×1,None
+multi_tab_detail,Short Iinterest_12m_Uber.xls,Chart 1 with Data,284×2,Low
+multi_tab_detail,Short Iinterest_12m_Uber.xls,Attributions,45×1,None
+multi_tab_detail,Uber Technologies Inc NYSE UBER Events Calendar.xls,Events Calendar,36×3,Low
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Annual.xls,Key Stats,91×13,Medium
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Annual.xls,Income Statement,120×12,Low
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Annual.xls,Balance Sheet,103×12,"Medium (shares out, debt trend)"
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Annual.xls,Cash Flow,80×12,"High (buybacks, dividends, capex — capital-allocation scorecard)"
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Annual.xls,Multiples,91×32,Low
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Annual.xls,Historical Capitalization,39×32,Medium
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Annual.xls,Capital Structure Summary,114×23,Medium
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Annual.xls,Capital Structure Details,46×10,Medium
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Annual.xls,Ratios,161×12,Low
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Annual.xls,Supplemental,78×11,Low
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Annual.xls,Industry Specific,15×6,None
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Annual.xls,Pension OPEB,15×6,Low
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Annual.xls,Segments,63×11,Low
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Quarterly.xls,Key Stats,91×13,Medium
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Quarterly.xls,Income Statement,117×35,Low
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Quarterly.xls,Balance Sheet,101×35,Medium
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Quarterly.xls,Cash Flow,77×35,High (quarterly buyback cadence)
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Quarterly.xls,Multiples,91×32,Low
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Quarterly.xls,Historical Capitalization,39×32,Medium
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Quarterly.xls,Capital Structure Summary,84×67,Medium
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Quarterly.xls,Capital Structure Details,46×10,Medium
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Quarterly.xls,Ratios,161×35,Low
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Quarterly.xls,Supplemental,55×35,Low
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Quarterly.xls,Industry Specific,15×6,None
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Quarterly.xls,Pension OPEB,15×6,Low
+multi_tab_detail,Uber Technologies Inc NYSE UBER Financials_Quarterly.xls,Segments,70×35,Low
+multi_tab_detail,"UberTechnologies,IncNYSEUBEREstimatesReport.xls / (1).xls (identical tab sets)",Consensus,447×41,Low
+multi_tab_detail,"UberTechnologies,IncNYSEUBEREstimatesReport.xls / (1).xls",Recent Changes,265×10,Low
+multi_tab_detail,"UberTechnologies,IncNYSEUBEREstimatesReport.xls / (1).xls",Guidance,109×29,"Low-Medium (guidance-vs-delivery, candor cross-check)"
+multi_tab_detail,"UberTechnologies,IncNYSEUBEREstimatesReport.xls / (1).xls",Multiples,26×7,None
+multi_tab_detail,"UberTechnologies,IncNYSEUBEREstimatesReport.xls / (1).xls",Surprise,211×31,"Low-Medium (beat/miss track record, candor cross-check)"
+multi_tab_detail,"UberTechnologies,IncNYSEUBEREstimatesReport.xls / (1).xls",Trends,303×21,Low
+multi_tab_detail,"UberTechnologies,IncNYSEUBEREstimatesReport.xls / (1).xls",Revisions,467×21,Low
+source_coverage_matrix,Governance Need,Best Available Source,Period,Confidence 1–5,Missing?,Replacement Source
+source_coverage_matrix,Board composition,Board Members.rtf (CIQ) + 10-K Item 10 reference,Current (as of Aug-2026 extraction),3,N,—
+source_coverage_matrix,Compensation,Not available at the individual pay-table / metric-weight level,N/A,—,Y,2026 DEF 14A Proxy Statement (not in pool)
+source_coverage_matrix,Ownership,Public Company Profile investor-name list (no %); 10-K holder-of-record count,Feb-2026 / Aug-2026,2,Partial,"2026 DEF 14A ""Security Ownership"" table + Schedule 13D/13G filings (not in pool)"
+source_coverage_matrix,Insider trades,Not available (no Form 4 data),N/A,—,Y,SEC EDGAR Form 4 filings / Capital IQ Insider Transactions export (not in pool)
+source_coverage_matrix,Related-party transactions,"FY25 10-K Notes (Moove, Lime, Careem)",FY2025,5,N (figures present; proxy-level RPT policy narrative absent),2026 Proxy Statement (RPT policy detail)
+source_coverage_matrix,Auditor report,"FY25 10-K, Report of Independent Registered Public Accounting Firm (PwC, unqualified, ICFR effective)",FY2025,5,N,—
+source_coverage_matrix,Secretarial / compliance report,Not applicable in the US regime (no equivalent required document),N/A,—,N/A,—
+source_coverage_matrix,AGM voting,"Key Developments.rtf notes the AGM date (May-04-2026) and agenda (director elections, Say-on-Pay, Say-on-Pay frequency, PwC ratification) but not the vote-result tallies",May-2026 (agenda only),2,Partial,8-K filing of AGM voting results (not in pool)
+source_coverage_matrix,Capital-allocation history,Key Developments.rtf (buyback tranches) + Financials_Annual/Quarterly.xls Cash Flow tabs,FY2016–LTM(Jun-2026),4,N,—
+source_coverage_matrix,Legal / regulatory cases,"FY25 10-K Item 3 (driver classification, sexual-assault MDL, state unemployment tax); Key Developments.rtf (two bellwether-trial verdicts)",FY2025–2026,4,N,—
+data_freshness,Source,Period,As-of Date,Age,Stale?,Impact
+data_freshness,FY25 10-K,FY2025 (ended Dec-31-2025),Filed Feb-13-2026,~6 months,N,"Primary annual source, current"
+data_freshness,Q2 FY26 10-Q,Q2 FY2026 (ended Jun-30-2026),Filed Aug-05-2026,~3 days,N,Most current filing in the pool
+data_freshness,Q1 FY26 10-Q,Q1 FY2026 (ended Mar-31-2026),Filed May-06-2026,~3 months,N,Current
+data_freshness,Board Members / Professionals (CIQ),Current roster,Extraction Aug-06-2026,~2 days,N,"Reflects most recent management changes (CFO transition, CPO/President reorg)"
+data_freshness,Key Developments (CIQ),Multi-year events feed through mid-2026,Extraction Aug-07-2026,~1 day,N,Covers buyback tranches through Q1 FY2026 and management-change events through May-2026
+data_freshness,Public Company Profile (CIQ),Quote/ownership snapshot,Extraction Aug-06-2026 (quote as of Aug-05-2026 close),~3 days,N,Current
+data_freshness,2026 Proxy Statement,N/A,Not in pool,N/A,"N/A — absent, not stale",The single most valuable missing document (see §6)
