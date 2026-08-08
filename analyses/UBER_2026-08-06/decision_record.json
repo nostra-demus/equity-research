@@ -50,7 +50,7 @@
         "The market closes roughly a third of today's ~-17.5% NTM EV/EBITDA discount to the quality-adjusted peer level, landing at 13.25x (still below the raw 14.42x peer median)"
       ],
       "source": "valuation/07_scenario-and-fair-value.md §3 scenario table; valuation/valuation_summary.json",
-      "joint_probability_basis": null
+      "joint_probability_basis": "Both conditions express the same underlying driver rather than two independent events: delivering the consensus growth/margin path is itself what earns the partial multiple re-rating, so the forward metric and the multiple move together. The 50% base probability is set against that single correlated outcome, not as the product of two separate probabilities. The re-rating is deliberately held to roughly a third of the gap (13.25x, still below the raw 14.42x peer median) because the unresolved 'no moat proven' verdict and the AV-disintermediation rate-of-change caveat cap how far the multiple can travel even when the earnings path is met."
     },
     {
       "scenario_id": "bear_cyclical",

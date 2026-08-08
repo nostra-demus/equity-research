@@ -880,6 +880,13 @@ _AO_NAMED_DOC = re.compile(r"\b(10-?k|10-?q|8-?k|20-?f|6-?k|annual report|"
                            r"second-quarter|third-quarter|fourth-quarter|q[1-4]|h[12]|fy\s?\d{2,4})\s+"
                            r"(?:results?|report|filing|earnings|numbers)|"
                            r"filing|filed|transcript|nse|bse|sec|sebi|def ?14a|proxy|press release|"
+                           # A regulatory DISCLOSURE settles exactly like the 'filing|filed' already above it
+                           # ("no such disclosure by 2026-09-30" is checked the same way as "not filed by …"),
+                           # and a COURT/tribunal DOCKET is a public primary record that outranks an 8-K under
+                           # §4 — the list was SEC/India-filing-centric and simply had no vocabulary for either,
+                           # so a securities-litigation or deal-closing forecast settled on the docket read as
+                           # unresolvable. §27: name the local forum, not a US-only one.
+                           r"disclos(?:e|ed|es|ure|ures|ing)|docket|court|tribunal|nclt|nclat|"
                            # NOT bare 'guidance' / 'rating' — an event noun with no numeric bar and no
                            # settlement source ('guidance improves', 'rating worsens') is calibration-dead.
                            # A legitimate use carries its own context that already matches here: a period-
@@ -916,6 +923,45 @@ def _ao_pins_a_number(text):
     consensus' → False (only the fiscal year); 'FY27 EPS above ₹42' → True (42 survives); 'revenue above
     2026 cr' → True (a bare four-digit threshold is kept, not mistaken for a year)."""
     return bool(re.search(r"\d", _AO_PERIOD_TOKENS.sub(" ", text or "")))
+
+# A falsification that is the DATED NEGATION of an already-resolvable confirmation is fully settleable, and
+# used to fail anyway. The canonical shape of a BINARY EVENT forecast is "confirmation: <event> disclosed in
+# an 8-K by 2026-09-30" / "falsification: no such disclosure by 2026-09-30" — the scorer reads BOTH fields of
+# the SAME entry, so the anaphora ('no such') resolves against its own sibling, and the deadline is explicit.
+# Demanding that this half separately restate a number or a document name does not make it more resolvable;
+# it pushes authors toward vaguer prose that happens to carry a digit. AO's own comment block already names
+# the priority: "a false-positive eval gate blocks valid PRs — worse than letting a weak year-only reference
+# pass."
+#
+# Deliberately NARROW — all three must hold, or the trigger fails exactly as before:
+#   (a) the trigger OPENS with / carries a negation,
+#   (b) it carries a back-reference marker — 'no such' (anaphoric), an explicit 'within the window/period',
+#       or an explicit calendar date (the deadline), and
+#   (c) its SIBLING confirmation is itself resolvable (pins a number or names a settleable document).
+# The one-sided-vagueness defect this check exists to catch is untouched: a bare "margin does not improve"
+# beside a numbered "margin above 12%" confirmation has a negation but NO back-reference marker, so it still
+# fails — as its selftest case (_fc_onesided) asserts.
+# Separators are `[\s\-_]+`, not a bare `\s+`, so ordinary formatting variation ('time frame' /
+# 'time-frame', 'no  such' across a wrapped line) cannot false-NEGATIVE its way into a spurious AO
+# failure — the same convention check AU already uses for `\bsign[\s\-_]*check` (Gemini #405).
+_AO_NEGATION = re.compile(r"^\W*(?:no|none|neither|not|never)\b|"
+                          r"\b(?:does|do|did|is|are|was|were|has|have|had|will|would)[\s\-_]+not\b|"
+                          r"\bfails?[\s\-_]+to\b|\bno[\s\-_]+such\b", re.I)
+_AO_BACKREF = re.compile(r"\bno[\s\-_]+such\b|"
+                         r"\bwithin[\s\-_]+the[\s\-_]+(?:window|period|time[\s\-_]*frame)\b", re.I)
+
+def _ao_is_negated_mirror(trigger, sibling):
+    """True when `trigger` is the dated negation of an already-resolvable `sibling` confirmation — see the
+    block comment above for why that is settleable and why the test is this narrow."""
+    if not trigger or not sibling:
+        return False
+    if not (_ao_pins_a_number(sibling) or _AO_NAMED_DOC.search(sibling)):
+        return False  # (c) nothing resolvable to mirror — both halves vague is the real defect
+    if not _AO_NEGATION.search(trigger):
+        return False  # (a)
+    # (b) an explicit anaphor/window phrase, or a real calendar date acting as the deadline
+    return bool(_AO_BACKREF.search(trigger)
+                or _AO_ISO_RE.search(trigger) or _AO_MONTH_RE.search(trigger))
 
 def _ao_earliest_date(time_window, not_before=None):
     """Best-effort EARLIEST confidently-parseable resolution date (YYYY-MM-DD) from a free-text
@@ -1237,6 +1283,11 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
             # settleable document. (An empty trigger is check T's job, not AO's — skip it here.)
             for side, trig in (("confirmation", ct), ("falsification", ft)):
                 if trig and not _ao_pins_a_number(trig) and not _AO_NAMED_DOC.search(trig):
+                    # A falsification that is the dated negation of a resolvable confirmation settles fine
+                    # (see _ao_is_negated_mirror). Only the falsification side may mirror — a confirmation
+                    # that merely negates something is not a positive, checkable claim.
+                    if side == "falsification" and _ao_is_negated_mirror(trig, ct):
+                        continue
                     issues.append(f"forecast_ledger[{i}] the {side} trigger carries no pinned numeric bar (a "
                                   f"fiscal-year/quarter label is not a threshold) and names no settleable document — "
                                   f"not mechanically resolvable (§5/§19)")
@@ -2925,6 +2976,15 @@ if scope=="selftest":
     _fc_compactcons={"confirmation_trigger":"Q1FY27 EPS beats consensus","falsification_trigger":"Q1FY27 EPS below consensus","time_window":"August 2026"}
     _fc_bareguid={"confirmation_trigger":"guidance improves","falsification_trigger":"guidance worsens","time_window":"August 2026"}
     _fc_qonly={"confirmation_trigger":"net cash eliminated below 0","falsification_trigger":"net cash still above 0","time_window":"Q1 FY27"}
+    # Binary EVENT forecasts — settleable, and pre-fix all six failed. The TSLA_2026-07-25 / UBER_2026-08-06 cases.
+    _fc_mirrordate={"confirmation_trigger":"Signed replacement/extension disclosed in an 8-K or 10-Q by 2026-08-30","falsification_trigger":"No such disclosure by 2026-08-30","time_window":"By 2026-08-30"}
+    _fc_mirrorwin={"confirmation_trigger":"8-K or 10-Q discloses a newly probable tranche and associated SBC step-up","falsification_trigger":"No new tranche becomes probable within the window","time_window":"By 2026-08-30"}
+    _fc_docket={"confirmation_trigger":"Court denies the motion, in whole or material part, per the docket","falsification_trigger":"Court grants the motion (dismissal, with or without prejudice), OR no ruling issued within the window","time_window":"By 2026-08-30"}
+    _fc_disclosed={"confirmation_trigger":"Deal closes within H2 2026 and no covenant breach is disclosed","falsification_trigger":"Deal slips past 2026-08-30, is blocked, or a covenant waiver is disclosed within four quarters","time_window":"By 2026-08-30"}
+    # The mirror rule must NOT rescue these: a negation with no back-reference marker (r_onesided, unchanged),
+    # and a mirror-shaped falsification whose SIBLING confirmation is itself unresolvable (both halves vague).
+    _fc_mirrorvague={"confirmation_trigger":"margin improves","falsification_trigger":"No such improvement by 2026-08-30","time_window":"By 2026-08-30"}
+    _fc_mirrorconf={"confirmation_trigger":"No such improvement within the window","falsification_trigger":"margin below 12%","time_window":"By 2026-08-30"}
     aocases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substrings]=fail-with)
         ("2026-07-17",[_fc_good],None),                                        # predates AO_DATE → N/A
         ("2026-07-18",[],None),                                                # empty ledger → N/A (§19)
@@ -2958,6 +3018,12 @@ if scope=="selftest":
         ("2026-07-18",[_fc_vague,_fc_far,_fc_far,_fc_far,_fc_far],["insufficient near-term"]), # 1 undateable + 4 long, 0 near-term → the undateable one can't dodge the quota when a long forecast exists (r10)
         ("2026-07-18",[_fc_samemonth],[]),                                     # 'results July 2026' on a July-18 decision → month runs to the 31st, NOT stale, near-term → pass (r11)
         ("2026-07-18",[_fc_conshalf],["pins no number in the consensus trigger"]), # one consensus side pins 42/40, the other 'below consensus in Q1 results' names a doc but pins no consensus value → FAIL (r11)
+        ("2026-07-18",[_fc_mirrordate],[]),                                    # 'No such disclosure by <date>' mirrors a resolvable 8-K confirmation → pass (TSLA fc[1]/fc[6])
+        ("2026-07-18",[_fc_mirrorwin],[]),                                     # '…within the window' mirror, no doc noun of its own → pass (TSLA fc[4])
+        ("2026-07-18",[_fc_docket],[]),                                        # a court DOCKET is a settleable primary record → pass (TSLA fc[3])
+        ("2026-07-18",[_fc_disclosed],[]),                                     # 'is disclosed' settles like 'is filed' → pass (UBER fc[3])
+        ("2026-07-18",[_fc_mirrorvague],["not mechanically resolvable"]),      # mirror shape but the SIBLING confirmation is vague → both halves unresolvable → still FAIL
+        ("2026-07-18",[_fc_mirrorconf],["the confirmation trigger"]),          # only the FALSIFICATION may mirror — a negated confirmation is not a positive claim → still FAIL
         ("2026-07-18",5,None),                                                 # malformed (non-list) → N/A, never crash
         ("2026-07-18",None,None),                                              # None ledger → N/A
     ]

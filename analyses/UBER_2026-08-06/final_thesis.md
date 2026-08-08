@@ -37,7 +37,7 @@ Run date: 2026-08-06 | Modules: business-model, earnings, valuation, balance-she
 | Risk/reward | 0.20x (a thin ~$5.55/share upside cushion against a ~$27.95/share cyclical-bear drop) |
 | Understanding /100 | 62.5 |
 | Conviction /100 | 48.0 |
-| Suggested sizing | Watch only — no position; track opportunity cost |
+| Suggested sizing | monitor only — no position (track opportunity cost) |
 | Thesis type | Company-specific; Sector-cycle |
 | Variant perception — edge score /100 | 40 (below the 50 threshold — confidence capped at 60 regardless of decision) |
 | Biggest upside driver | The market's implied bar (14.7% FCFF growth, 12.8% terminal margin) sits below what Uber already delivers (LTM EBIT margin 12.1%, Mobility EBITDA margin 26.6%) and below consensus (18.6% CAGR, 16.0% margin) — a re-rating case that is evidenced but not yet earned through a full cycle |
@@ -70,6 +70,7 @@ Run date: 2026-08-06 | Modules: business-model, earnings, valuation, balance-she
 - **Revised thesis:** Even granting the margin lead is real, the single largest capital decision management has made in the last 18 months — the debt-funded, $14.8bn Delivery Hero acquisition — is a Critical-materiality red flag (RF-CAP-004) that must cap conviction regardless of the underlying business quality, per the engine's own no-bypass rule.
 - **Antithesis:** The organic capital-allocation record (excluding M&A) is genuinely value-creative — incremental ROIC 25–35%, buybacks that actually shrank the share count — and the board is independently strong (90% independent, zero disclosed related-party transactions). This is not a governance failure; it is one specific, quantifiable capital-allocation risk sitting on top of an otherwise reasonable operator.
 - **Final thesis:** Watchlist. The business is better than "average," but the price does not yet compensate for the acquisition risk, and the rating cap is mechanical, not a judgment call this synthesis is free to override.
+- **Sign check (Step 3b):** the driver this thesis turns on is the debt-funded Delivery Hero acquisition, owned by **management-governance**, and the signs **agree** — that module scores capital allocation **50/100** (capped from a raw 58) on **RF-CAP-004, "serial acquirer", Red, Critical materiality, evidence level 4** [`management-governance/99_management-governance-synthesis.md` §2 and Universal Findings 02-005 / 02-015]. This synthesis applies that cap rather than overriding it, so no specialist is being overruled on its own subject. The secondary driver — covenant headroom once the ~€14bn bridge is drawn — is owned by **balance-sheet-survival**, which also agrees: verdict **"Adequate, capped by undisclosed covenant terms"**, covenant headroom **"Not assessable"**, breach possible on a **0.9%–25.5%** EBITDA decline [`balance-sheet-survival/99_balance-sheet-survival-synthesis.md` §1, §5].
 - **Insight threshold reached:** the remaining uncertainty is mostly data-dependent (the Delivery Hero bridge covenant terms, the FQ3 2026 revenue-bookings reconciliation), not reasoning-dependent.
 
 ## 6. Simple Summary

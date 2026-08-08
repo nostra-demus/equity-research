@@ -44,7 +44,7 @@ Five of six modules — **business-model, earnings, balance-sheet-survival, mana
 | Risk/reward | **1.85** (stress-tested, using the own-history maximum multiple as the adverse ceiling — NOT the naive 11.0 you get using only the fundamentals-derived bull case, which understates true squeeze risk; see §14) |
 | Understanding /100 | **72.2** |
 | Conviction /100 | **60.0** |
-| Suggested sizing | Small (paper) short; size to borrow/risk, not to the modeled reward — see §11 |
+| Suggested sizing | short candidate — initiate a (paper) short; size to borrow/risk — small, and sized to borrow/risk rather than to the modeled reward (see §11) |
 | Thesis type | Company-specific; Sector-cycle |
 | Variant perception — edge score /100 | **40** (moderate — a quantified, cross-module synthesis of a largely-known bear case, not a genuinely hidden fact; edge gate does not bind because Short Candidate is evidence-gated, not edge-gated) |
 | Biggest upside driver (i.e., biggest risk TO the short) | Continued, undated market willingness to keep paying Tesla's own historical ~11.5x NTM EV/Sales multiple — the bull case is essentially flat to today's price ($336.08 vs $319.69) |
