@@ -244,8 +244,11 @@ Require:
 - margin changes expressed in basis points;
 - no mixing of fiscal periods without reconciliation;
 - no mixing of currencies without the FX date and rate;
+- **a driver-attribution claim shows its own arithmetic and names its residual.** Whenever a move is explained by a driver and a sensitivity — "a 50bp rise in real yields, at ~1.75% per 25bp, accounts for the bulk of the fall" — do the multiplication in the text, convert it to the same units as the observed move, and state what share is left unexplained. Two things are then banned: (a) an adjective ("accounts for the bulk of", "explains most of", "tracks almost exactly") that the printed arithmetic does not support, and (b) applying a sensitivity across a basis it was not measured on. A sensitivity is measured against a specific variable — nominal yield, real yield, breakeven, trade-weighted vs bilateral FX, spot vs forward — and carries that basis with it exactly as a currency figure carries its FX rate; using a nominal-yield coefficient on a real-yield change is the same class of defect as using last year's rate on this year's balance. The residual is not a caveat to append, it is the finding: a driver explaining 14% of a move means the move is mostly unexplained, and the thesis must say so rather than round the gap away (§20 bad math, bad causal inference);
 - no silent use of management-adjusted numbers — adjustments must be visible and sourced;
 - per-share comparisons use fully-diluted share counts (treasury-stock method for options), with the share-count source stated.
+
+*The miss this exists for:* a GOLD dossier explained a 25.1% correction (−$1,405, from $5,597 to $4,192) with a 50bp rise in the 10-year REAL yield, priced at a ~1.75%-per-25bp sensitivity quoted for NOMINAL yields. The arithmetic it never performed is 2 × 1.75% = 3.5%, or about $196 — roughly 14% of the observed fall, not "the bulk" of it. Both errors ran the same direction: the wrong basis made the coefficient applicable, and the unperformed multiplication made it sufficient. The resulting call rested on a causal story that its own numbers contradicted by a factor of seven.
 
 ---
 

@@ -221,4 +221,68 @@ check('resolveDisplayFields: empty-string post_mortem_decision -> shows original
   assert.equal(r.decisionIsPostMortemCapped, false)
 })
 
+// ── swarm-generic cap (§26) ────────────────────────────────────────────────────────────────────────
+// The same F28/F28b preference has to hold for a NON-research swarm, whose record names its verdict
+// something else. Commodity is the live case: `action` / `confidence`, capped by
+// scripts/commodity_pre_mortem_haircut.py into `post_mortem_action` / `post_review_confidence_score`.
+// The GOLD run is why this exists — its pre_mortem.json said "Does not survive — downgrade" (Trim, 40)
+// while every cockpit surface still rendered the original Hold / 52.
+
+check('resolveDisplayFields: commodity shape — post_mortem_action caps `action`, post-review caps `confidence`', () => {
+  const r = resolveDisplayFields(
+    { action: 'Hold', confidence: 52, post_mortem_action: 'Trim', post_review_confidence_score: 40, confidence_haircut: 12 },
+    { verdictField: 'action' },
+  )
+  assert.equal(r.decision, 'Trim')
+  assert.equal(r.decisionIsPostMortemCapped, true)
+  assert.equal(r.confidence, 40)
+  assert.equal(r.confidenceIsPostReview, true)
+})
+
+check('resolveDisplayFields: SWARM.md may capitalize the verdict field ("Action") — the lowercase record key still resolves', () => {
+  const r = resolveDisplayFields(
+    { action: 'Hold', confidence: 52, post_mortem_action: 'Trim', post_review_confidence_score: 40 },
+    { verdictField: 'Action' },
+  )
+  assert.equal(r.decision, 'Trim')
+  assert.equal(r.decisionIsPostMortemCapped, true)
+})
+
+check('resolveDisplayFields: commodity record with NO pre-mortem yet -> original action/confidence, nothing flagged', () => {
+  const r = resolveDisplayFields({ action: 'Hold', confidence: 52 }, { verdictField: 'action' })
+  assert.equal(r.decision, 'Hold')
+  assert.equal(r.decisionIsPostMortemCapped, false)
+  assert.equal(r.confidence, 52)
+  assert.equal(r.confidenceIsPostReview, false)
+})
+
+// A pre-mortem that finds the call already conservative writes the SAME action back (the helper's
+// "clean survival" path). Displaying it is right; badging it CAPPED is a false positive.
+check('resolveDisplayFields: commodity clean survival (post_mortem_action == action) -> not flagged as capped', () => {
+  const r = resolveDisplayFields(
+    { action: 'Avoid', confidence: 61, post_mortem_action: 'Avoid', post_review_confidence_score: 61 },
+    { verdictField: 'action' },
+  )
+  assert.equal(r.decision, 'Avoid')
+  assert.equal(r.decisionIsPostMortemCapped, false)
+})
+
+// Without a verdictField the resolver must not silently start reading some other swarm's key — it falls
+// back to research's `decision` and finds nothing, rather than guessing (the fail-closed rule the rest of
+// the swarm plumbing follows during a deploy-skew window).
+check('resolveDisplayFields: no verdictField -> fails closed to the research `decision` shape, never guesses `action`', () => {
+  const r = resolveDisplayFields({ action: 'Hold', confidence: 52, post_mortem_action: 'Trim' })
+  assert.equal(r.decision, null)
+  assert.equal(r.decisionIsPostMortemCapped, false)
+  // confidence is shape-agnostic (research `confidence_score` OR commodity `confidence`), so it still reads
+  assert.equal(r.confidence, 52)
+})
+
+// Research records must be byte-identical to the pre-change behaviour when no opts are passed — the
+// generalization is additive, not a re-route of the lane that already worked.
+check('resolveDisplayFields: research call is unchanged by the generalization (no opts, `decision` wins)', () => {
+  const r = resolveDisplayFields({ decision: 'Strong Buy', basket: 'Selected', post_mortem_decision: 'Watchlist', post_mortem_basket: 'Watchlist', confidence_score: 65, post_review_confidence_score: 49 })
+  assert.deepEqual(r, { decision: 'Watchlist', basket: 'Watchlist', decisionIsPostMortemCapped: true, confidence: 49, confidenceIsPostReview: true })
+})
+
 console.log(`\n${passed} checks passed`)

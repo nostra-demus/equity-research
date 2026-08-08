@@ -65,7 +65,20 @@ You must:
 - Bear / base / bull fair value (from the cost-curve orb, anchor-grade labels kept).
 - Margin of safety: discount/premium to base fair value, and downside to the floor — two numbers (or "Not assessable", §11).
 - Roll-adjusted view: does the exposure earn or bleed carry (from the price-curve orb's roll-adjusted return)?
-- NOTE: this is a §16 valuation range in prose + `key_levels`. It is NOT a §10 scenario/forecast ledger — the commodity dossier is a single-verdict record by design (see decision_record.schema.json); do not add a scenario-probability ledger to the JSON.
+
+## 3b. Scenarios & Expected Return (§10)
+Turn the band above into a distribution. Bear / base / bull, each with its probability, its return over ONE stated horizon, and the level it resolves to — then the expected return the probabilities actually imply.
+
+| Case | Probability | Target ({unit}) | Return | What must hold | Falsified if |
+|---|---|---|---|---|---|
+
+- **Probabilities sum to 100.** State them as numbers, never as words — §10 bans vague probability language, and that includes writing "not today's probability-weighted reality" over a dossier that carries no probabilities.
+- **Expected return = Sum(probability × return).** Do the arithmetic and print it. `check_commodity_scenario_math` re-derives it and FAILS a headline that disagrees with its own distribution, so a hand-typed number will not survive.
+- **One horizon for the whole table** (`scenario_horizon_days`), set to the window the catalyst chain actually resolves over — not a round number of convenience.
+- **Returns are roll-adjusted where the expression bleeds carry.** If the dossier prices a contango drag, that drag belongs INSIDE these returns; a spot call presented as the return on a roll-bearing vehicle is the §15/§16 error the price-curve orb exists to prevent.
+- **Every case carries a falsifier** — an observable tripwire, dated where the driver is a scheduled release, not the negation of its own condition restated. This is what `/commodity:review` grades the call against later (§19).
+- **A case joining several independent conditions states why it was priced as one** (`joint_probability_basis`) — a conjunction is less likely than its parts.
+- If the fair-value orb was absent so no band exists, write "Not assessable (§11)" here and set NO expected return. Refusing to forecast is a valid output (§24); a distribution invented on top of a missing band is not.
 
 ## 4. Risk Summary
 - Strongest bear case:
@@ -106,6 +119,25 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
   "thesis_summary": "one or two sentences",
   "key_risks": ["…"],
   "key_levels": { "support": null, "resistance": null, "fair_value_range": null },
+  "scenario_horizon_days": 120,
+  "scenarios": [
+    {
+      "scenario_id": "bear-real-yields-hold",
+      "label": "bear",
+      "probability": 30,
+      "return_pct": -8.0,
+      "price_target": 0,
+      "conditions": ["the named driver stays where it is through the dated catalyst"],
+      "source": "cost-curve orb bear anchor; macro-positioning synthesis",
+      "joint_probability_basis": null,
+      "invalidated_if": "the observable tripwire that proves THIS case wrong, dated where the driver is a scheduled release"
+    },
+    { "label": "base", "…": "same shape" },
+    { "label": "bull", "…": "same shape" }
+  ],
+  "expected_return_pct": 0,
+  "downside_risk_pct": -8.0,
+  "risk_reward": 0,
   "relative_view": "how it ranks vs the other tracked commodities",
   "confidence": 0,
   "calibration_feedback": {
@@ -157,7 +189,11 @@ cockpit surfaces so a durable feed can be built for it. Rules:
 
 **Populate `key_levels` from the cost-curve orb.** Set `fair_value_range` to the orb's bear/base/bull band as a free-text string (e.g. `"bear 15.0 / base 19.5 / bull 24.0 ¢/lb, anchor-grade"`). Prefer the orb's cash-cost / floor level for `support` and its demand-destruction / incentive ceiling for `resistance` (fall back to the price-curve orb's technical levels only if the fundamental anchor is absent). If the fair-value orb was missing, leave all three `null` and mark margin of safety "Not assessable" in the prose (§11) — do not invent a level.
 
-**No §10 scenario ledger in the record.** The commodity `decision_record.json` is a single-verdict shape by design — `decision_record.schema.json` deliberately omits a scenario/forecast ledger. Carry the fair-value band as the §16 valuation range (prose + `key_levels` above); do NOT add scenario-probability fields to the JSON.
+**Write the §10 scenario block into the record.** This used to say the opposite — that the commodity record was a single-verdict shape and a scenario ledger must NOT be added. That was a module relaxing a root standard, which §23 forbids: the dossier states a bear-case price, and §10 attaches its requirements to exactly that. So the record now carries `scenario_horizon_days`, `scenarios[]`, `expected_return_pct`, `downside_risk_pct` and `risk_reward`, using the research swarm's field names verbatim (`frameworks/DECISION_LEDGER.md` §5) plus `invalidated_if` per case.
+
+Copy the §3b table into `scenarios[]` — same probabilities, same targets, same returns, same falsifiers. The JSON and the prose are one forecast stated twice; `scripts/validate_screener_json.py`'s `check_commodity_scenario_math` re-derives the arithmetic from the record and fails any drift between them (probabilities that miss 100, an expected return that is not `Sum(p × ret)`, a `downside_risk_pct` that is not the bear case's own return, a `return_pct` that disagrees with its own `price_target` against `current_price`, a missing horizon, a missing falsifier, a duplicate id, an unexplained conjunction).
+
+If §3b concluded "Not assessable" (no fair-value orb, §11), omit all five fields — do not ship a placeholder distribution. The gate allows an honest absence; what it refuses is a quantified return with no distribution behind it.
 
 **`key_levels` field types (schema-enforced).** `support` and `resistance` are a SINGLE NUMBER — a bare price level in the benchmark's own units — or `null`; NEVER a range or a string with commentary. Reduce a support/resistance ZONE to one representative level (the floor for support, the ceiling for resistance). Any range, band, or caveat (e.g. "web unverified") goes in `fair_value_range` (free text) or the prose — NOT in `support`/`resistance`. A string in those two fails `frameworks/commodity/decision_record.schema.json` and red-lines CI.
 
@@ -167,7 +203,10 @@ cockpit surfaces so a durable feed can be built for it. Rules:
 - [ ] The dossier states a bear/base/bull fair-value band and a margin of safety (two numbers, or "Not assessable" if the fair-value orb was absent, §11); anchor-grade labels are kept.
 - [ ] The roll-adjusted view is stated — a bullish spot call in contango is not presented as a win on a roll-bearing vehicle.
 - [ ] The risk summary folds in the supply-security policy killer risk with its expiry/flip trigger.
-- [ ] `key_levels.fair_value_range` carries the band; `support`/`resistance` are single numbers (or `null`) from the fundamental anchors — not range-strings. No §10 scenario/forecast ledger was added to the JSON.
+- [ ] `key_levels.fair_value_range` carries the band; `support`/`resistance` are single numbers (or `null`) from the fundamental anchors — not range-strings.
+- [ ] §3b states bear/base/bull with numeric probabilities summing to 100, one stated horizon, a falsifier per case, and an expected return whose arithmetic is printed — and `scenarios[]`/`expected_return_pct`/`downside_risk_pct`/`risk_reward`/`scenario_horizon_days` in the JSON match it exactly. No probability-weighted LANGUAGE anywhere in the dossier without the numbers behind it (§10). If the fair-value orb was absent, §3b says "Not assessable" and all five fields are omitted — never a placeholder distribution.
+- [ ] Scenario returns are roll-adjusted wherever the dossier prices a carry cost — the drag is inside the return, not a footnote beside it.
+- [ ] Every causal claim about what moved the price shows its arithmetic and names its residual (§15 / MODULE_RULES §4a), and no sensitivity was applied across a basis it was not measured on. No "tracks almost exactly" / "accounts for the bulk of" survives unless the printed numbers clear it; where the residual is large, the dossier says the move is mostly unexplained and caps conviction accordingly (§11/§12).
 - [ ] The `## Routing` block has a single `Action:` line matching one allowed verdict exactly.
 - [ ] `decision_record.json` was written and is valid JSON with the `action` matching the Routing line.
 - [ ] Risk summary names the killer risk and the flip condition; the relative read answers "are we in the right commodity?".

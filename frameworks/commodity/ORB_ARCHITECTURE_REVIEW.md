@@ -30,12 +30,21 @@ decomposition; the gaps were **orb-level and deepen-level, not module-level**. A
 2. **No roll-adjusted return, and a prose-only risk summary.** A correct spot call held through contango was
    booked as a win when the carry was bleeding it dry — a genuine commodity-specific blind spot with no
    equity analog.
-   - *Correction discovered during build:* `decision_record.schema.json` **deliberately** omits a §10
-     scenario/forecast ledger ("§10 scenario math does not apply to the single-verdict commodity dossier").
-     The review's early framing of "§10 is a standing compliance hole" was wrong. The real, non-contradictory
-     gap is the **roll-adjusted return** + a **§16 fair-value band** — both delivered without a scenario
-     ledger in the JSON. If a full scenario ledger is ever wanted, it is a deliberate schema + fixture change,
-     made on its own, not smuggled in here.
+   - *Correction discovered during build:* `decision_record.schema.json` **deliberately** omitted a §10
+     scenario/forecast ledger ("§10 scenario math does not apply to the single-verdict commodity dossier"),
+     so this review recorded "§10 is a standing compliance hole" as a mis-framing and scoped the fix to the
+     **roll-adjusted return** + a **§16 fair-value band**.
+   - ***That correction was itself wrong, and is now reversed (2026-08-07).*** The schema cannot exempt a
+     module from a root standard — §23 lets a module ADD detail, never relax one. And the exemption did not
+     even hold on its own terms: §10 attaches its requirements wherever a bear-case price exists, and the
+     dossier states one (the cost-curve orb's bear anchor, and `key_levels.support`). The cost of the
+     exemption showed up in the first real dossier: GOLD spoke of "today's probability-weighted reality"
+     while carrying no probabilities, no expected return, and no forecast §19's ledger could ever grade.
+     The deliberate schema change this bullet said would be needed has now been made on its own, as it
+     asked: `scenario_horizon_days` / `scenarios[]` / `expected_return_pct` / `downside_risk_pct` /
+     `risk_reward`, additive and date-gated (`COMMODITY_SCENARIO_GATE_DATE`), re-derived by
+     `check_commodity_scenario_math` rather than trusted. Roll-adjustment is now carried INSIDE the
+     scenario returns, which is where it binds the call instead of sitting beside it.
 3. **Siloed macro read (§14).** `macro-drivers` reads one commodity at a time, so the engine cannot answer
    the first question a global-macro PM asks — *is this commodity alpha or regime beta?* — and can issue a
    confident Buy the whole complex is rejecting.

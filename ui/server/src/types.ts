@@ -232,10 +232,17 @@ export interface SwarmSubjectSummary {
   // the subject's run root, repo-relative (e.g. "commodity/runs/GOLD"), or null when never run
   runRoot: string | null
   // the routing verdict from decision_record.json (e.g. "Hold"), resolved via the swarm's verdict field;
-  // null when there is no run, no decision record yet, or the record carries no verdict
+  // null when there is no run, no decision record yet, or the record carries no verdict.
+  // EFFECTIVE, not original: when the run's own red-team (pre-mortem) capped the call, the cap is what
+  // shows here (fix F28b, extended to every swarm) — the original stays in the record for audit.
   verdict: string | null
   decisionDate: string | null
+  // effective confidence — the post-red-team score when the record carries one (fix F28), else the original
   confidence: number | null
+  // true when the displayed verdict is the pre-mortem's cap rather than the synthesizer's own call
+  verdictIsPostMortemCapped: boolean
+  // true when the displayed confidence is the post-red-team score rather than the synthesizer's own
+  confidenceIsPostReview: boolean
   // mtime of the decision record (or the run folder as a fallback) — drives the "N ago" readout
   lastChangeAt: number | null
 }

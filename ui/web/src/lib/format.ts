@@ -27,16 +27,66 @@ export function decisionColor(decision?: string | null): string {
   return 'var(--text-faint)'
 }
 
-// The verdict of a decision record, across swarms: research records carry `decision`; a non-research
-// swarm self-declares its routing verdict key in SWARM.md (commodity: `Action` → record key `action`),
-// served per swarm as SwarmMeta.verdictField. Fail-closed: without a verdictField (research, or an
-// older engine during a deploy-skew window) only the research shape resolves.
-export function resolveVerdict(decision: any, verdictField?: string | null): string | null {
+// WHICH key of a decision record carries the verdict, across swarms: research records carry `decision`;
+// a non-research swarm self-declares its routing verdict key in SWARM.md (commodity: `Action` → record key
+// `action`), served per swarm as SwarmMeta.verdictField. Fail-closed: without a verdictField (research, or
+// an older engine during a deploy-skew window) only the research shape resolves. Returned as a key rather
+// than a value so the post-mortem cap can be read off the SAME field the original call came from.
+function verdictKey(decision: any, verdictField?: string | null): string | null {
   if (!decision) return null
-  if (typeof decision.decision === 'string' && decision.decision) return decision.decision
+  if (typeof decision.decision === 'string' && decision.decision) return 'decision'
   if (!verdictField) return null
-  const v = decision[verdictField] ?? decision[verdictField.toLowerCase()]
+  if (typeof decision[verdictField] === 'string' && decision[verdictField]) return verdictField
+  const lower = verdictField.toLowerCase()
+  if (typeof decision[lower] === 'string' && decision[lower]) return lower
+  return null
+}
+
+// The EFFECTIVE verdict of a decision record — the run's own red-team cap when one applies, else the
+// synthesizer's original call. A pre-mortem that concludes "does not survive" writes `post_mortem_<key>`
+// (full.md 10B.2 for research; scripts/commodity_pre_mortem_haircut.py for commodity) and the original
+// field is deliberately left untouched for audit (CLAUDE.md §18/§22: caps are applied, never silently
+// overridden). Every cockpit surface must therefore read the cap — showing the uncapped call is how a
+// GOLD "Hold / 52" kept rendering live after the engine's own red-team had downgraded it to Trim / 40.
+// Fail-closed: no cap field, or a blank one, shows the original.
+export function resolveVerdict(decision: any, verdictField?: string | null): string | null {
+  const key = verdictKey(decision, verdictField)
+  if (!key) return null
+  const capped = decision[`post_mortem_${key}`]
+  if (typeof capped === 'string' && capped) return capped
+  const v = decision[key]
   return typeof v === 'string' && v ? v : null
+}
+
+// True only when the cap is the value actually being displayed — a `post_mortem_<key>` that is a non-empty
+// string AND differs from the original. Must track resolveVerdict's own selection, or a blank/equal cap
+// would raise the badge over an un-downgraded call (the F28b false-positive).
+export function verdictIsCapped(decision: any, verdictField?: string | null): boolean {
+  const key = verdictKey(decision, verdictField)
+  if (!key) return false
+  const capped = decision[`post_mortem_${key}`]
+  return typeof capped === 'string' && capped !== '' && capped !== decision[key]
+}
+
+// The synthesizer's ORIGINAL, uncapped call — kept in the record for audit (§18/§22) and shown only to
+// explain what a cap changed. Never the headline; resolveVerdict is.
+export function resolveVerdictOriginal(decision: any, verdictField?: string | null): string | null {
+  const key = verdictKey(decision, verdictField)
+  if (!key) return null
+  const v = decision[key]
+  return typeof v === 'string' && v ? v : null
+}
+
+// The EFFECTIVE headline confidence — the post-red-team score when the record carries one, else the
+// synthesizer's own (research writes `confidence_score`, commodity `confidence`). Client twin of the
+// server's resolveDisplayFields; same fail-closed rule.
+export function resolveConfidence(decision: any): { value: number | null; isPostReview: boolean } {
+  if (!decision) return { value: null, isPostReview: false }
+  const post = decision.post_review_confidence_score
+  if (typeof post === 'number') return { value: post, isPostReview: true }
+  const own = typeof decision.confidence_score === 'number' ? decision.confidence_score
+    : typeof decision.confidence === 'number' ? decision.confidence : null
+  return { value: own, isPostReview: false }
 }
 
 export function moduleLabel(name: string): string {

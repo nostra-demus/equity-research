@@ -42,7 +42,33 @@ Glob `.claude/agents/commodity/*/99_*-synthesis.md`. For each, the parent folder
 
 For each module in topo order:
 
-1. **Resume check:** if `<RUN_ROOT>/<module>/99_<module>-synthesis.md` already exists and is non-empty (`test -s`), SKIP this module (a prior run finished it) and treat it as done for cross-module context.
+1. **Resume check — COMPLETE and CURRENT, not merely present.** A module is skippable only when a prior run genuinely finished the work this run would do. "Its synthesis file exists" is not that test, and using it let a module stay `done` forever: the GOLD run's `supply-demand` and `commodity-thesis` syntheses were written before `04_commodity-supply-security` and `02_commodity-cost-curve-fair-value` existed, so every later `/commodity:full GOLD` skipped both modules and those two orbs never ran — while the dossier's own pre-mortem was separately noting the cost-curve orb's absence as a reason its margin of safety was not durable. A stale module survives precisely because it is stale.
+
+   Skip the module ONLY if ALL THREE hold; otherwise re-run it in full:
+   - (a) `<RUN_ROOT>/<module>/99_<module>-synthesis.md` exists and is non-empty;
+   - (b) **every orb the module currently declares** has a non-empty output in the run folder — derived from the discovered roster (`.claude/agents/commodity/<module>/[0-9][0-9]_*.md`, excluding `99_`), never a hardcoded list, so an orb added later invalidates the module automatically with no edit here (§26);
+   - (c) the synthesis is **at least as new as** every one of those orb outputs and every dependency module's synthesis — so an orb re-run on its own (`/commodity:rerun`), or an upstream module re-run in this pass, forces this module to be re-adjudicated instead of leaving a synthesis that never saw its own inputs.
+
+   (b) is the load-bearing test and is fully durable: it compares file EXISTENCE against the live roster. (c) compares mtimes, which are **not durable across a fresh clone** (every file lands with the checkout time), so on a freshly cloned tree (c) simply never fires and the check degrades to (a)+(b) — weaker, never wrong. On the persistent checkout the engine actually runs from, mtimes are real and (c) does its job.
+
+```bash
+# prints SKIP or RERUN:<reason> for <module>
+MOD=<module>; RR=<RUN_ROOT>; SYN="$RR/$MOD/99_$MOD-synthesis.md"
+if [ ! -s "$SYN" ]; then echo "RERUN:no-synthesis"; else
+  reason=""
+  for f in .claude/agents/commodity/"$MOD"/[0-9][0-9]_*.md; do
+    orb=$(basename "$f" .md); case "$orb" in 99_*) continue;; esac
+    [ -s "$RR/$MOD/$orb.md" ] || reason="${reason}missing-orb:$orb "
+    [ -s "$RR/$MOD/$orb.md" ] && [ "$RR/$MOD/$orb.md" -nt "$SYN" ] && reason="${reason}orb-newer:$orb "
+  done
+  for dep in <deps of this module>; do
+    [ -s "$RR/$dep/99_$dep-synthesis.md" ] && [ "$RR/$dep/99_$dep-synthesis.md" -nt "$SYN" ] && reason="${reason}dep-newer:$dep "
+  done
+  [ -n "$reason" ] && echo "RERUN:$reason" || echo "SKIP"
+fi
+```
+
+   Report each module's SKIP / RERUN decision and its reason in step 7 — a resume that silently skipped a module carrying a missing orb is exactly the failure this check exists to make visible. Note also that `/commodity:intake` covers the OTHER staleness axis (new documents landing in `data/<COMMODITY>/`) and writes a scoped rerun plan; this check covers structural staleness — orbs and upstream syntheses — and neither substitutes for the other.
 2. **Cross-module context:** build `<CROSS_MODULE_CONTEXT>` exactly as `frameworks/MODULE_PIPELINE.md` Step 4A specifies — one sentence per dependency module that is DONE in this run, `<Dep> cross-module path: <RUN_ROOT>/<dep>/.` (capitalize the dep's first letter). If the module has no deps, set it to `none`.
 3. **Run the module pipeline:** follow `frameworks/MODULE_PIPELINE.md` with `<TICKER>` = `<COMMODITY>`, `<DATE>`, `<MODULE>` = the module, `<RUN_ROOT>` = `commodity/runs/<COMMODITY>`, and `<CROSS_MODULE_CONTEXT>` as built. **Commodity deviations:** (a) SKIP Step 1.5 (`extract_pool.py`) unless `data/<COMMODITY>/` exists with files — commodity runs read the profile + live public sources, not an uploaded pool; (b) in the Step 4A Task message the "Data pool path: data/<COMMODITY>/" line is fine — the agents read the `## <COMMODITY>` profile section themselves and fetch primary sources.
 4. **Fail-fast:** if the module's Layer-0 triage returns Insufficient (only `market-structure` has a `fail_fast` triage), the pipeline reports `fail_fast_triggered = true`. Stop the run: commit what exists (step 6) and report the abort — do NOT run downstream modules, since the commodity could not be identified/priced.
@@ -83,7 +109,7 @@ Capture the commit SHA from `git rev-parse HEAD` (the helper prints `COMMIT_SHA=
 
 Print a final summary:
 
-- The modules run (and any skipped-because-already-done), with per-module 99-synthesis paths.
+- The modules run, with per-module 99-synthesis paths, and **each module's step-5.1 resume decision with its reason** — `SKIP` (complete and current) or `RERUN:<reason>` (`no-synthesis`, `missing-orb:<orb>`, `orb-newer:<orb>`, `dep-newer:<module>`). Naming the reason is the point: a resume that skipped a module because its synthesis merely existed, while an orb declared for that module had never run, is the silent failure step 5.1 exists to surface.
 - Any agents that failed (or "none"), and whether a fail-fast abort fired.
 - The terminal dossier: `commodity/runs/<COMMODITY>/commodity-thesis/99_commodity-thesis-synthesis.md`, its **Action** verdict (Buy / Hold / Trim / Avoid / Research More), and the one-line thesis.
 - Confirmation that `commodity/runs/<COMMODITY>/decision_record.json` was written.

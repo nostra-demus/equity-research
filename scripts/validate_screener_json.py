@@ -334,6 +334,13 @@ TRIAGE_VERDICT_RE = re.compile(r"\*\*Verdict:\*\*\s*(Sufficient|Partial|Insuffic
 # date (ALUMINIUM/COPPER/GOLD/WHEAT, all dated 2026-07-02..07-18) genuinely predate the gate and are N/A.
 COMMODITY_CALIBRATION_GATE_DATE = "2026-07-21"
 CALIBRATION_STATUSES = {"not_available", "pre_data", "checked_no_action", "applied"}
+# Rollout date for check_commodity_scenario_math (CLAUDE.md §10, the commodity-scoped twin of eval.py
+# check M). Same forward-looking convention as COMMODITY_CALIBRATION_GATE_DATE above: every commodity
+# decision_record.json dated on/after this date must carry the scenario distribution its own expected
+# return was derived from. The four runs committed before it (ALUMINIUM/COPPER/GOLD/WHEAT, dated
+# 2026-07-02..07-18) predate the block entirely and are N/A — they are not retro-failed for missing
+# something the synthesizer was, at the time, explicitly told NOT to write.
+COMMODITY_SCENARIO_GATE_DATE = "2026-08-08"
 
 
 def commodity_decision_records() -> list[str]:
@@ -567,6 +574,165 @@ def _commodity_calib_summary_asof(decision_date: str):
         return None
 
 
+def check_commodity_scenario_math(doc_path: str) -> list[str]:
+    """The commodity-scoped twin of eval.py check M — CLAUDE.md §10 arithmetic, re-derived rather than
+    trusted. A commodity dossier states a bear-case price (the cost-curve orb's bear fair value, and
+    key_levels.support), which is exactly the condition §10 attaches its requirements to; the record used
+    to be exempted from them by its own schema, so a dossier could speak of "today's probability-weighted
+    reality" while carrying no probabilities at all, and no forecast §19's ledger could ever grade.
+
+    Re-derives, never trusts: probabilities sum to 100; expected_return_pct equals Sum(p x ret);
+    downside_risk_pct equals the bear case's own return; the labels map onto a real bear/base/bull band;
+    ids are unique; a conjunction of independent conditions carries a joint_probability_basis; and every
+    case carries an observable falsifier. Sign-aware with a relative floor, mirroring check M — a small
+    sign flip (+0.4 vs -0.4) is the failure an absolute tolerance lets through.
+
+    Forward-looking: N/A for any decision_date before COMMODITY_SCENARIO_GATE_DATE, so the four runs
+    committed before the gate (ALUMINIUM/COPPER/GOLD/WHEAT) stay green and are not retro-failed for
+    missing a block the engine could not yet write."""
+    try:
+        doc = json.load(open(doc_path, encoding="utf-8"))
+    except Exception as e:
+        return [f"could not parse for cross-check: {e}"]
+    # Same root-type guard as the other commodity cross-checks: these are §25 DATA commits that reach this
+    # validator without passing CI, and main() runs cross-checks even after validate() failed.
+    if not isinstance(doc, dict):
+        return ["commodity decision_record is not a JSON object"]
+
+    def isnum(v) -> bool:
+        return isinstance(v, (int, float)) and not isinstance(v, bool)
+
+    decision_date = doc.get("decision_date")
+    post_gate = isinstance(decision_date, str) and decision_date >= COMMODITY_SCENARIO_GATE_DATE
+    scen = doc.get("scenarios")
+    errs: list[str] = []
+
+    if not isinstance(scen, list) or not scen:
+        if not post_gate:
+            return []  # genuinely predates the gate — never a violation
+        # A post-gate run that quantified a return MUST ship the distribution it was derived from;
+        # one that quantified nothing is refusing to state a forecast, which §11/§24 allow.
+        for fld in ("expected_return_pct", "downside_risk_pct", "risk_reward"):
+            if doc.get(fld) is not None:
+                errs.append(
+                    f"{fld} is set but scenarios[] is missing/empty — the math cannot be re-derived "
+                    f"(required for decision_date >= {COMMODITY_SCENARIO_GATE_DATE})"
+                )
+        return errs
+
+    # ---- the distribution itself (checked whenever present, pre-gate records included: a record that
+    # ---- ships scenarios[] is asserting this math regardless of its date)
+    if not isnum(doc.get("scenario_horizon_days")):
+        errs.append("scenarios[] present but scenario_horizon_days is missing/non-numeric — §10 requires a time window")
+
+    ids = [s.get("scenario_id") for s in scen if isinstance(s, dict)]
+    if len(set(ids)) != len(ids):
+        errs.append(f"scenario_id values are not unique: {ids}")
+    labels = [s.get("label") for s in scen if isinstance(s, dict)]
+    for required in ("bear", "base", "bull"):
+        if required not in labels:
+            errs.append(f"no {required!r}-labelled scenario — the distribution must span the fair-value band it came from")
+
+    try:
+        probs = [float(s["probability"]) for s in scen]
+        rets = [float(s["return_pct"]) for s in scen]
+    except (KeyError, TypeError, ValueError) as e:
+        return errs + [f"scenarios[] probability/return_pct missing or non-numeric ({e}) — cannot reconcile the math"]
+
+    psum = sum(probs)
+    if abs(psum - 100) > 0.5:
+        errs.append(f"scenario probabilities sum to {round(psum, 2)}, not 100 (§10)")
+
+    calc_er = sum(p / 100.0 * r for p, r in zip(probs, rets))
+    er = doc.get("expected_return_pct")
+    if isnum(er):
+        # Sign-aware AND relative-floor, exactly as eval.py check M: an absolute-only tolerance lets a
+        # small-magnitude sign flip through, which is the error that most changes the call.
+        signflip = abs(er) > 0.25 and abs(calc_er) > 0.25 and (er > 0) != (calc_er > 0)
+        if abs(er - calc_er) > max(1.0, abs(calc_er) * 0.05) or signflip:
+            errs.append(f"expected_return_pct={er} != Sum(p*ret)={round(calc_er, 2)} (§10 must reconcile)")
+    elif post_gate:
+        errs.append("scenarios[] present but expected_return_pct is missing/non-numeric — §10 requires the reconciled expected return")
+
+    # downside_risk_pct is the BEAR case's own return, not a separately-authored number: two independent
+    # statements of the same downside are two chances to disagree (§20 bad-math).
+    bear_rets = [float(s["return_pct"]) for s in scen if isinstance(s, dict) and s.get("label") == "bear"]
+    dr = doc.get("downside_risk_pct")
+    if isnum(dr) and bear_rets and abs(dr - min(bear_rets)) > max(1.0, abs(min(bear_rets)) * 0.05):
+        errs.append(f"downside_risk_pct={dr} != the bear scenario's return_pct={min(bear_rets)}")
+
+    # risk_reward re-derived, never trusted — the same "a hand-typed number will not survive" contract the
+    # expected_return / downside checks above already enforce, extended to the third leg of §10's triple.
+    # The schema allows EITHER convention (expected_return/|downside|, OR the bull/bear return ratio), so a
+    # value matching either is accepted; one matching neither is a hand-typed ratio that does not reconcile
+    # with its own distribution. Sign-aware with the same relative floor as eval.py check M's rr subcheck.
+    rr = doc.get("risk_reward")
+    if isnum(rr) and bear_rets:
+        bear = min(bear_rets)
+        conv = []  # (name, value) for each derivable convention
+        if bear != 0:
+            conv.append(("expected_return/|downside|", calc_er / abs(bear)))
+        if rets and min(rets) != 0:
+            conv.append(("bull/bear", max(rets) / abs(min(rets))))
+
+        def _rr_matches(c: float) -> bool:
+            signflip = abs(rr) > 0.25 and abs(c) > 0.25 and (rr > 0) != (c > 0)
+            return abs(rr - c) <= max(0.15, abs(c) * 0.12) and not signflip
+
+        if conv and not any(_rr_matches(c) for _, c in conv):
+            named = " nor ".join(f"{n}={round(c, 2)}" for n, c in conv)
+            errs.append(f"risk_reward={rr} reconciles with neither §10 convention ({named}) — a hand-typed ratio")
+
+    # §10 requires the full triple be STATED post-gate wherever a bear case exists (the same requirement the
+    # expected_return_pct check above enforces, applied to the downside and the risk/reward): "risk/reward is
+    # stated where a bear-case price exists", and the commodity dossier's bear fair value always is one. A
+    # distribution that quantifies the mean but omits the downside/ratio is an incomplete forecast, not a
+    # refusal to forecast (that escape hatch lives in the empty-scenarios branch above).
+    if post_gate and bear_rets:
+        if not isnum(dr):
+            errs.append("scenarios[] present but downside_risk_pct is missing/non-numeric — §10 requires the stated downside where a bear case exists")
+        if not isnum(rr):
+            errs.append("scenarios[] present but risk_reward is missing/non-numeric — §10 requires risk/reward be stated where a bear-case price exists")
+
+    # price_target must be present and numeric on ALL cases or none — a partial set silently skips the
+    # strongest independent anchor (check M's own review fix).
+    tgts = [s.get("price_target") for s in scen if isinstance(s, dict)]
+    if any(t is not None for t in tgts) and not all(isnum(t) for t in tgts):
+        errs.append("price_target present on some scenarios but not all numeric — cannot reconcile targets")
+
+    # Cross-check each return against its own target and the record's own current price: the return and
+    # the level are two views of one forecast, and a mismatch means one of them is wrong.
+    cur = doc.get("current_price")
+    px = cur.get("value") if isinstance(cur, dict) else None
+    if isnum(px) and px and all(isnum(t) for t in tgts):
+        for s, t in zip(scen, tgts):
+            implied = (t - px) / px * 100.0
+            stated = float(s["return_pct"])
+            if abs(stated - implied) > max(1.5, abs(implied) * 0.05):
+                errs.append(
+                    f"scenario {s.get('scenario_id')!r}: return_pct={stated} disagrees with its own "
+                    f"price_target {t} vs current_price {px} (implies {round(implied, 2)}%)"
+                )
+
+    # §10 falsification trigger + §8 conjunction honesty, per case.
+    for s in scen:
+        if not isinstance(s, dict):
+            errs.append("scenarios[] contains a non-object entry")
+            continue
+        sid = s.get("scenario_id")
+        if not (isinstance(s.get("invalidated_if"), str) and s["invalidated_if"].strip()):
+            errs.append(f"scenario {sid!r} has no invalidated_if — §10 requires a falsification trigger per forecast")
+        conds = s.get("conditions")
+        if isinstance(conds, list) and len(conds) > 1:
+            jpb = s.get("joint_probability_basis")
+            if not (isinstance(jpb, str) and jpb.strip()):
+                errs.append(
+                    f"scenario {sid!r} joins {len(conds)} conditions but has no joint_probability_basis — "
+                    "a conjunction is less likely than its parts and must say why it was priced as one"
+                )
+    return errs
+
+
 def check_commodity_calibration_gate(doc_path: str) -> list[str]:
     """The commodity-scoped twin of eval.py's check AG (frameworks/DECISION_LEDGER.md §18): verifies
     99_commodity-thesis-synthesis.md did not silently skip reading back scripts/commodity_calibrate.py's
@@ -627,6 +793,115 @@ def check_commodity_calibration_gate(doc_path: str) -> list[str]:
         if isinstance(fs, list) and len(fs) > 0:
             errs.append(f"status='checked_no_action' but flagged_slices={fs!r} is non-empty")
     return errs
+
+
+def _selftest_scenario_math() -> int:
+    """Fixture-free truth table for check_commodity_scenario_math (CLAUDE.md §10). Same reason
+    _selftest_calibration_gate exists: --fixture only sees the four committed PRE-gate commodity runs,
+    which are all N/A, so every branch that actually enforces the math would ship untested and a future
+    edit could silently disable it while CI stayed green. Expected values are pinned to §10 itself
+    (probabilities sum to 100; expected return = Sum(p x ret); risk/reward stated where a bear price
+    exists; a time window and a falsification trigger per forecast) — NOT to the checker's behaviour."""
+    import tempfile
+
+    failures = []
+
+    def run(name, doc, want_accept):
+        with tempfile.TemporaryDirectory() as d:
+            dp = os.path.join(d, "rec.json")
+            json.dump(doc, open(dp, "w"))
+            errs = check_commodity_scenario_math(dp)
+        if (len(errs) == 0) != want_accept:
+            failures.append(f"{name} (want_accept={want_accept}, errs={errs[:2]})")
+
+    GATE = COMMODITY_SCENARIO_GATE_DATE
+    pre = (datetime.date.fromisoformat(GATE) - datetime.timedelta(days=1)).isoformat()
+    post = (datetime.date.fromisoformat(GATE) + datetime.timedelta(days=4)).isoformat()
+
+    def sc(sid, label, p, ret, tgt, **kw):
+        b = {"scenario_id": sid, "label": label, "probability": p, "return_pct": ret,
+             "price_target": tgt, "conditions": [f"{label} case holds"], "source": "cost-curve orb",
+             "joint_probability_basis": None, "invalidated_if": f"{label} tripwire is observed"}
+        b.update(kw)
+        return b
+
+    # price 100 -> targets 70/110/140 imply -30 / +10 / +40
+    GOOD = [sc("bear-x", "bear", 25, -30.0, 70.0), sc("base-x", "base", 50, 10.0, 110.0), sc("bull-x", "bull", 25, 40.0, 140.0)]
+    # E[r] = .25*-30 + .50*10 + .25*40 = -7.5 + 5 + 10 = 7.5
+    def rec(**kw):
+        b = {"swarm": "commodity", "commodity": "GOLD", "decision_date": post, "action": "Hold",
+             "confidence": 50, "current_price": {"value": 100.0, "currency": "USD", "unit": "t", "as_of": post},
+             "scenario_horizon_days": 120, "scenarios": [dict(s) for s in GOOD],
+             "expected_return_pct": 7.5, "downside_risk_pct": -30.0, "risk_reward": 0.25}
+        b.update(kw)
+        return b
+
+    # ---- forward-looking N/A + malformed root ----
+    run("pre-gate record with no scenarios -> N/A", {"decision_date": pre, "action": "Hold"}, True)
+    run("pre-gate record with a quantified return but no scenarios -> still N/A",
+        {"decision_date": pre, "expected_return_pct": 12.0}, True)
+    run("post-gate record with NO quantified return -> allowed (refusing to forecast is valid, §11/§24)",
+        {"decision_date": post, "action": "Research More"}, True)
+    run("post-gate record quantifying a return with no scenarios[] -> FAIL",
+        {"decision_date": post, "expected_return_pct": 12.0}, False)
+    run("non-object root -> reported, never crashes", [], False)
+
+    # ---- the arithmetic ----
+    run("well-formed distribution -> accept", rec(), True)
+    run("probabilities that do not sum to 100 -> FAIL",
+        rec(scenarios=[sc("bear-x", "bear", 25, -30.0, 70.0), sc("base-x", "base", 50, 10.0, 110.0), sc("bull-x", "bull", 40, 40.0, 140.0)]), False)
+    run("expected_return_pct disagreeing with Sum(p*ret) -> FAIL", rec(expected_return_pct=18.0), False)
+    run("expected_return_pct within tolerance -> accept", rec(expected_return_pct=7.9), True)
+    # The failure an absolute-only tolerance lets through, and the one that most changes the call: the
+    # distribution says the trade loses (-0.4) and the headline says it wins (+0.4). The gap is 0.8pp, so
+    # a plain 1.0pp tolerance accepts it; only the sign-aware arm catches it.
+    run("small-magnitude SIGN FLIP -> FAIL",
+        rec(scenarios=[sc("bear-x", "bear", 50, -2.0, 98.0), sc("base-x", "base", 30, 1.0, 101.0), sc("bull-x", "bull", 20, 1.5, 101.5)],
+            expected_return_pct=0.4, downside_risk_pct=-2.0), False)
+    run("downside_risk_pct that is not the bear case's own return -> FAIL", rec(downside_risk_pct=-12.0), False)
+    run("return_pct disagreeing with its own price_target -> FAIL",
+        rec(scenarios=[sc("bear-x", "bear", 25, -30.0, 70.0), sc("base-x", "base", 50, 10.0, 155.0), sc("bull-x", "bull", 25, 40.0, 140.0)]), False)
+    run("price_target on some scenarios but not all -> FAIL",
+        rec(scenarios=[sc("bear-x", "bear", 25, -30.0, 70.0), sc("base-x", "base", 50, 10.0, None), sc("bull-x", "bull", 25, 40.0, 140.0)]), False)
+
+    # ---- §10 structure ----
+    run("missing scenario_horizon_days -> FAIL (no time window)", rec(scenario_horizon_days=None), False)
+    run("a case with no invalidated_if -> FAIL (no falsification trigger)",
+        rec(scenarios=[sc("bear-x", "bear", 25, -30.0, 70.0), sc("base-x", "base", 50, 10.0, 110.0), sc("bull-x", "bull", 25, 40.0, 140.0, invalidated_if="  ")]), False)
+    run("duplicate scenario_id -> FAIL",
+        rec(scenarios=[sc("dup", "bear", 25, -30.0, 70.0), sc("dup", "base", 50, 10.0, 110.0), sc("bull-x", "bull", 25, 40.0, 140.0)]), False)
+    run("no bull case -> FAIL (the distribution must span the band)",
+        rec(scenarios=[sc("bear-x", "bear", 25, -30.0, 70.0), sc("base-x", "base", 50, 10.0, 110.0), sc("base-y", "base", 25, 40.0, 140.0)]), False)
+    run("conjunction of independent conditions with no joint_probability_basis -> FAIL",
+        rec(scenarios=[sc("bear-x", "bear", 25, -30.0, 70.0), sc("base-x", "base", 50, 10.0, 110.0),
+                       sc("bull-x", "bull", 25, 40.0, 140.0, conditions=["real yields fall below 1.5%", "ETF flows turn positive 3 weeks running"])]), False)
+    run("the same conjunction WITH a basis -> accept",
+        rec(scenarios=[sc("bear-x", "bear", 25, -30.0, 70.0), sc("base-x", "base", 50, 10.0, 110.0),
+                       sc("bull-x", "bull", 25, 40.0, 140.0, conditions=["real yields fall below 1.5%", "ETF flows turn positive 3 weeks running"],
+                          joint_probability_basis="Both follow from one Fed pivot; they are not independent draws.")]), True)
+    # A pre-gate record that VOLUNTARILY ships scenarios[] is asserting the math and is held to it.
+    run("pre-gate record that ships a BROKEN distribution -> still FAIL (shipping it is asserting it)",
+        rec(decision_date=pre, expected_return_pct=18.0), False)
+
+    # ---- §10's third leg: risk_reward re-derived, and the full triple required post-gate ----
+    # rec()'s risk_reward is 0.25 = expected_return(7.5)/|downside(30)|. A value matching neither §10
+    # convention (0.25 = expected_return/|downside|, 1.33 = bull/bear 40/30) is a hand-typed ratio and
+    # must NOT survive — the exact hole that let risk_reward drift from its own distribution.
+    run("hand-typed risk_reward matching neither §10 convention -> FAIL", rec(risk_reward=99.0), False)
+    # The schema permits the bull/bear ratio as the alternate convention — a record stating it that way
+    # must still be accepted, so the re-derivation is convention-tolerant, not over-strict.
+    run("risk_reward stated as the bull/bear ratio (the schema's other convention) -> accept", rec(risk_reward=1.33), True)
+    # §10 requires risk/reward be STATED where a bear case exists; a post-gate distribution may not quantify
+    # the mean and leave the downside or the ratio blank (mirrors the expected_return_pct requirement).
+    run("post-gate scenarios present but risk_reward omitted -> FAIL", rec(risk_reward=None), False)
+    run("post-gate scenarios present but downside_risk_pct omitted -> FAIL", rec(downside_risk_pct=None), False)
+
+    if failures:
+        for f in failures:
+            print(f"SELFTEST FAIL — {f}")
+        return 1
+    print("SELFTEST OK — check_commodity_scenario_math truth table (24 branches) matches the §10 contract")
+    return 0
 
 
 def _selftest_calibration_gate() -> int:
@@ -760,8 +1035,9 @@ def _selftest_schema_primitives() -> int:
 def main(argv: list[str]) -> int:
     if len(argv) >= 2 and argv[1] == "--selftest":
         calibration_result = _selftest_calibration_gate()
+        scenario_result = _selftest_scenario_math()
         primitive_result = _selftest_schema_primitives()
-        return 1 if calibration_result or primitive_result else 0
+        return 1 if calibration_result or scenario_result or primitive_result else 0
     if len(argv) >= 2 and argv[1] == "--fixture":
         pairs = [(os.path.join(REPO, s), os.path.join(REPO, d)) for s, d in FIXTURE_PAIRS]
         pairs += [(os.path.join(REPO, THESIS_INTEGRITY_SCHEMA), os.path.join(REPO, d)) for d in screener_integrity_reviews()]
@@ -777,7 +1053,7 @@ def main(argv: list[str]) -> int:
         errs = validate(schema_p, doc_p)
         rel = os.path.relpath(doc_p, REPO)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_SCHEMA)):
-            errs = errs + check_commodity_routing(doc_p) + check_commodity_data_sufficiency(doc_p) + check_commodity_calibration_gate(doc_p)
+            errs = errs + check_commodity_routing(doc_p) + check_commodity_data_sufficiency(doc_p) + check_commodity_calibration_gate(doc_p) + check_commodity_scenario_math(doc_p)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_REVIEW_SCHEMA)):
             errs = errs + check_commodity_review_anchors(doc_p)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, THESIS_INTEGRITY_SCHEMA)):
