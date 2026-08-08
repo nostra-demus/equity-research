@@ -941,11 +941,14 @@ def _ao_pins_a_number(text):
 # The one-sided-vagueness defect this check exists to catch is untouched: a bare "margin does not improve"
 # beside a numbered "margin above 12%" confirmation has a negation but NO back-reference marker, so it still
 # fails — as its selftest case (_fc_onesided) asserts.
+# Separators are `[\s\-_]+`, not a bare `\s+`, so ordinary formatting variation ('time frame' /
+# 'time-frame', 'no  such' across a wrapped line) cannot false-NEGATIVE its way into a spurious AO
+# failure — the same convention check AU already uses for `\bsign[\s\-_]*check` (Gemini #405).
 _AO_NEGATION = re.compile(r"^\W*(?:no|none|neither|not|never)\b|"
-                          r"\b(?:does|do|did|is|are|was|were|has|have|had|will|would)\s+not\b|"
-                          r"\bfails?\s+to\b|\bno\s+such\b", re.I)
-_AO_BACKREF = re.compile(r"\bno\s+such\b|"
-                         r"\bwithin\s+the\s+(?:window|period|time\s*frame|timeframe)\b", re.I)
+                          r"\b(?:does|do|did|is|are|was|were|has|have|had|will|would)[\s\-_]+not\b|"
+                          r"\bfails?[\s\-_]+to\b|\bno[\s\-_]+such\b", re.I)
+_AO_BACKREF = re.compile(r"\bno[\s\-_]+such\b|"
+                         r"\bwithin[\s\-_]+the[\s\-_]+(?:window|period|time[\s\-_]*frame)\b", re.I)
 
 def _ao_is_negated_mirror(trigger, sibling):
     """True when `trigger` is the dated negation of an already-resolvable `sibling` confirmation — see the
