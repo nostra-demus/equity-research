@@ -1,0 +1,300 @@
+{
+  "schema_version": "1.0",
+  "ticker": "UBER",
+  "run_root": "analyses/UBER_2026-08-06",
+  "scan_date": "2026-08-08",
+  "scanned_at": "2026-08-08T16:12:30Z",
+  "watermark": "analyses/UBER_2026-08-06/final_thesis.md",
+  "new_docs": [
+    {
+      "path": "data/UBER/Uber Technologies Inc NYSE UBER Customers.rtf",
+      "sha256": "542cc94440c9c7e654fb46d3a7f61b6e35611cafc3fdaae1c7db8a2e262c408a",
+      "provider": "Capital IQ",
+      "source_type": "vendor_relationship_export",
+      "tier": 5,
+      "as_of": "",
+      "claims_summary": "Named, disclosed customer relationships (rolling 2-year window) not previously in the pool, e.g. Aeon Co. (Uber Eats client) and Apple Inc. (distributor relationship, sourced to Uber's own 2026 Form 10-K per the vendor). Directly fills the gap 05_customer-geography flagged: 'Uber does not disclose individual named customers anywhere in this pool' and left Freight shipper-concentration as an untested data gap.",
+      "materiality_score": 65,
+      "impact_direction": "mixed",
+      "entry_orbs": [
+        { "module": "business-model", "agent": "customer-geography",
+          "why": "This is the exact named-customer/counterparty disclosure the agent's own output records as absent from the pool; it directly extends the customer-concentration and Freight-shipper tests in 05_customer-geography.md §customer table.",
+          "confidence": 0.8 },
+        { "module": "business-model", "agent": "value-chain",
+          "why": "Named customer-side relationships (e.g. Uber Eats client accounts) bear on the value-chain agent's bargaining-power and concentration read, which it also flagged as data-gapped.",
+          "confidence": 0.5 }
+      ]
+    },
+    {
+      "path": "data/UBER/Uber Technologies Inc NYSE UBER Suppliers.rtf",
+      "sha256": "4f8b2b9d2cf1f4e09e8be5bc2a9201e50a745d5aa837e070ddcd7edcf56e9f39",
+      "provider": "Capital IQ",
+      "source_type": "vendor_relationship_export",
+      "tier": 5,
+      "as_of": "",
+      "claims_summary": "Named, disclosed supplier relationships (rolling 2-year window) not previously in the pool, e.g. A&W Food Services of Canada and Albertsons Companies as restaurant/grocery-side suppliers on the Delivery marketplace. 06_value-chain.md explicitly said supplier/driver-carrier concentration 'does not apply the way it would for a manufacturer... this is a genuine gap, not a zero' — this document is direct, if partial, evidence on that exact gap (retail/restaurant partners, not driver supply).",
+      "materiality_score": 65,
+      "impact_direction": "mixed",
+      "entry_orbs": [
+        { "module": "business-model", "agent": "value-chain",
+          "why": "This is named supplier-side disclosure for the Delivery marketplace, the specific input-concentration gap 06_value-chain.md flags as ungrounded ('no filing in this pool discloses... single-source dependency').",
+          "confidence": 0.7 },
+        { "module": "business-model", "agent": "customer-geography",
+          "why": "Supplier relationships are the flip side of the same counterparty-concentration test 05_customer-geography.md runs; widened for consistency with the paired Customers.rtf entry.",
+          "confidence": 0.5 }
+      ]
+    },
+    {
+      "path": "data/UBER/Uber Technologies, Inc., Q1 2026 Earnings Call, May 06, 2026.rtf",
+      "sha256": "dda98f6b3b8a280d1f50f9c37debc0be54a37bb54f650873bf5f80b1b94bd10e",
+      "provider": "S&P Global Market Intelligence (Capital IQ)",
+      "source_type": "earnings_transcript",
+      "tier": 6,
+      "as_of": "2026-05-06",
+      "claims_summary": "Verbatim FQ1 2026 call (May 6, 2026) — genuinely new to this pool: 99_earnings-synthesis.md's data-triage line records only a verbatim Q2 FY2026 transcript as present ('N — verbatim Q2 FY2026 transcript present'), so Q1's transcript, including management's own framing of the FQ1 GAAP EPS miss (actual $0.13 vs $0.71 consensus, -81.7%), was never read. The Estimates Report already in the pool shows the same miss as a bare number; this transcript is the only source for management's qualitative explanation of it.",
+      "materiality_score": 55,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/UBER/Uber Technologies Inc NYSE UBER Key Developments.rtf",
+      "sha256": "1bf72f030d3697df973928258182254d7718b1299bcdd28bf1de80dafb8cf3a1",
+      "provider": "Capital IQ",
+      "source_type": "vendor_news_feed",
+      "tier": 5,
+      "as_of": "2026-08-05",
+      "claims_summary": "1-year Key Developments feed. The two most recent entries (Aug-05-2026) are the Q2 2026 earnings release/call, both already fully incorporated. The one incremental item is 'Uber and Wayve Move A Step Closer to Autonomous Rides in London' (TfL granted Private Hire Vehicle licences to Wayve's AV fleet, Aug-05-2026) — Wayve/AV partnerships are already extensively discussed in business-identity, business-quality, value-chain, moat and management-and-track-record (sourced to the Q2 call itself), and this is an incremental operational milestone within that already-covered theme, not a new driver.",
+      "materiality_score": 30,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/UBER/Uber Technologies Inc NYSE UBER Public Company Profile.rtf",
+      "sha256": "07ffe7b251f9524413a80d6bbd54771d7e99d72ba257a248bdab8a5ca019f72b",
+      "provider": "Capital IQ",
+      "source_type": "vendor_quote_snapshot",
+      "tier": 5,
+      "as_of": "2026-08-06",
+      "claims_summary": "Same file already in the original pool manifest, re-saved with a live quote refresh one trading day later: price $69.48 -> $70.74 (+1.8%), 52-wk range high $69.62 -> $70.87, market cap $138,787mm -> $139,262mm, EV/EBITDA 19.1x -> 19.2x. decision_record.json's entry_price ($68.18, dated 2026-08-05, cross-verified across three CapIQ exports) is one day older and about 3.8% below this newer quote — an ordinary single-day move, not a new fact about the business.",
+      "materiality_score": 20,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/UBER/Uber Technologies Inc NYSE UBER Financials_Quarterly.xls",
+      "sha256": "fb3c714dffed381e031d7c8bfc8b391e4effe1429c1fb7dad312677919d5508b",
+      "provider": "Capital IQ",
+      "source_type": "vendor_financials_export",
+      "tier": 5,
+      "as_of": "2026-06-30",
+      "claims_summary": "Quarterly-granularity CapIQ financials workbook (35 quarters, Q1'18-Q2'26) not present in the original pool as a standalone file. Cross-checked: the quarter-by-quarter revenue/margin figures it carries (through FQ2'26) match what 01_historical-financials.md already built into its 8-quarter trend and FY2023-FY2025 seasonality tables from the pool's other CapIQ exports and the Q2 call — no new figure identified.",
+      "materiality_score": 20,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/UBER/Uber Technologies Inc NYSE UBER Financials_Annual.xls",
+      "sha256": "074c15797ba7642e18028381ca1f0159e3b5195a1a2d39cf4bfb9b2ccc5372c7",
+      "provider": "Capital IQ",
+      "source_type": "vendor_financials_export",
+      "tier": 5,
+      "as_of": "2026-06-30",
+      "claims_summary": "Annual CapIQ financials workbook extended to 12 years vs the original Financials.xls's 7 — same recent-year figures already used in the historical-financials baseline, with only pre-2019 history genuinely added, which the current thesis does not rely on.",
+      "materiality_score": 15,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/UBER/Uber Technologies, Inc., Q2 2026 Earnings Call, Aug 05, 2026.rtf",
+      "sha256": "1373b26f037549404a7d983eb160b58eb969aecf37f8f5906e4d5e2064dd6458",
+      "provider": "S&P Global Market Intelligence (Capital IQ)",
+      "source_type": "earnings_transcript",
+      "tier": 6,
+      "as_of": "2026-08-05",
+      "claims_summary": "Same FQ2 2026 call (same date, speakers, prepared remarks and Q&A) already extracted from the pool's Q2 2026 Earnings Call PDF and used as the run's verbatim transcript source; this is an RTF re-export of the identical call, not new content.",
+      "materiality_score": 5,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/UBER/UberTechnologies,IncNYSEUBEREstimatesReport (1).xls",
+      "sha256": "73978ca74284a6d27ece9c9e1afc56c91b733a0f2c440fd601b841ec28478822",
+      "provider": "Capital IQ",
+      "source_type": "vendor_estimates_export",
+      "tier": 5,
+      "as_of": "2026-08-05",
+      "claims_summary": "File mtime moved to 2026-08-08 but a byte-for-byte diff of every extracted tab (Consensus, Guidance, Multiples, Recent Changes, Revisions, Surprise, Trends) against this same file's extract already saved in the run's own _pool_extracts/ shows zero differences — the file was re-touched on disk, not re-saved with new data.",
+      "materiality_score": 0,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/UBER/Charting Excel Export Aug-05-2026 2_49 PM.xls",
+      "sha256": "88204ec58b532b9b8fbaba74f8eb4c49e7ab78751b567015c9f8bdb3a85a0ed7",
+      "provider": "Capital IQ",
+      "source_type": "vendor_chart_export",
+      "tier": 5,
+      "as_of": "2026-08-05",
+      "claims_summary": "Already present in the run's own pool-extraction manifest (analyses/UBER_2026-08-06/_pool_extracts/manifest.md) with an unchanged mtime from the original 2026-08-06 ingest window — already read, not new to the engine.",
+      "materiality_score": 0,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/UBER/Company Comparable Analysis Uber Technologies Inc.xls",
+      "sha256": "d24e63b053c37dce64a5acc2401974be8415bafc97141d833e7834812cec1124",
+      "provider": "Capital IQ",
+      "source_type": "vendor_comps_export",
+      "tier": 5,
+      "as_of": "2026-08-05",
+      "claims_summary": "Already present in the run's own pool-extraction manifest with an unchanged mtime from the original ingest window — already read, not new to the engine. (This is the source of the entry_price cross-check in decision_record.json.)",
+      "materiality_score": 0,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/UBER/Company_Comparable_Analysis_Uber_Technologies _Inc.rtf",
+      "sha256": "6f0d8c4863645ebc52a3cd75dd4f8f173b727752b82a9a0d13be4b97c3e11fbe",
+      "provider": "Capital IQ",
+      "source_type": "vendor_comps_export",
+      "tier": 5,
+      "as_of": "2026-08-05",
+      "claims_summary": "Already present in the run's own pool-extraction manifest with an unchanged mtime from the original ingest window — already read, not new to the engine.",
+      "materiality_score": 0,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/UBER/Uber Technologies Inc NYSE UBER Analyst Coverage.rtf",
+      "sha256": "a6489295b5eeb85e55c93b793bba3da8ae8da4771cda5fbf0f4e31623ad08382",
+      "provider": "Capital IQ",
+      "source_type": "vendor_analyst_export",
+      "tier": 5,
+      "as_of": "2026-08-05",
+      "claims_summary": "Already present in the run's own pool-extraction manifest with an unchanged mtime from the original ingest window — already read, not new to the engine.",
+      "materiality_score": 0,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/UBER/Uber Technologies Inc NYSE UBER Board Members.rtf",
+      "sha256": "783160913ea7eac5ed92f5c8192cfbfd07eb512b85877ce4d6a70c7bac9d42ae",
+      "provider": "Capital IQ",
+      "source_type": "vendor_governance_export",
+      "tier": 5,
+      "as_of": "2026-08-05",
+      "claims_summary": "Already present in the run's own pool-extraction manifest with an unchanged mtime from the original ingest window — already read, not new to the engine.",
+      "materiality_score": 0,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/UBER/Uber Technologies Inc NYSE UBER Financials.xls",
+      "sha256": "8bcfa77e0bff0fdcd4168f3ba409243dfd80c4f3a940c4f4b4327bfdd196b848",
+      "provider": "Capital IQ",
+      "source_type": "vendor_financials_export",
+      "tier": 5,
+      "as_of": "2026-08-05",
+      "claims_summary": "Already present in the run's own pool-extraction manifest with an unchanged mtime from the original ingest window — already read, not new to the engine.",
+      "materiality_score": 0,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/UBER/Uber Technologies Inc NYSE UBER Products.rtf",
+      "sha256": "ca8208c82ff77d2cc94bc19bdd244ef54ea64335e2f7edb7002ce742b18681b7",
+      "provider": "Capital IQ",
+      "source_type": "vendor_products_export",
+      "tier": 5,
+      "as_of": "2026-08-05",
+      "claims_summary": "Already present in the run's own pool-extraction manifest with an unchanged mtime from the original ingest window — already read, not new to the engine.",
+      "materiality_score": 0,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/UBER/Uber Technologies Inc NYSE UBER Professionals.rtf",
+      "sha256": "e3ee801ee76d7219547aef9cf6fc90419a93219ed1ec7f7bef1982c94db4cc0c",
+      "provider": "Capital IQ",
+      "source_type": "vendor_people_export",
+      "tier": 5,
+      "as_of": "2026-08-05",
+      "claims_summary": "Already present in the run's own pool-extraction manifest with an unchanged mtime from the original ingest window — already read, not new to the engine.",
+      "materiality_score": 0,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/UBER/UberTechnologies,IncNYSEUBEREstimatesReport.xls",
+      "sha256": "19513a99db83d4b05719c6e956318f472b0132441943cb3639c0d3842d23df03",
+      "provider": "Capital IQ",
+      "source_type": "vendor_estimates_export",
+      "tier": 5,
+      "as_of": "2026-08-05",
+      "claims_summary": "Already present in the run's own pool-extraction manifest with an unchanged mtime from the original ingest window — already read, not new to the engine.",
+      "materiality_score": 0,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/UBER/UberTechnologiesIncNYSEUBER_CIQReportLandscape.rtf",
+      "sha256": "4dbb7c96fc843ff0711408a39cab7191abc470caa01ed916015659cfc22f7dfd",
+      "provider": "Capital IQ",
+      "source_type": "vendor_company_report",
+      "tier": 5,
+      "as_of": "2026-08-05",
+      "claims_summary": "Already present in the run's own pool-extraction manifest with an unchanged mtime from the original ingest window — already read, not new to the engine.",
+      "materiality_score": 0,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    }
+  ],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [
+      { "module": "business-model", "agent": "customer-geography" },
+      { "module": "business-model", "agent": "value-chain" }
+    ],
+    "commands": [
+      {
+        "command": "/research:rerun business-model customer-geography UBER",
+        "module": "business-model", "agent": "customer-geography",
+        "cascade_modules": ["business-model", "earnings", "management-governance", "balance-sheet-survival", "valuation", "catalyst"],
+        "triggered_by": [
+          "data/UBER/Uber Technologies Inc NYSE UBER Customers.rtf",
+          "data/UBER/Uber Technologies Inc NYSE UBER Suppliers.rtf"
+        ]
+      },
+      {
+        "command": "/research:rerun business-model value-chain UBER",
+        "module": "business-model", "agent": "value-chain",
+        "cascade_modules": ["business-model", "earnings", "management-governance", "balance-sheet-survival", "valuation", "catalyst"],
+        "triggered_by": [
+          "data/UBER/Uber Technologies Inc NYSE UBER Suppliers.rtf",
+          "data/UBER/Uber Technologies Inc NYSE UBER Customers.rtf"
+        ]
+      }
+    ],
+    "note_only": [
+      { "path": "data/UBER/Uber Technologies, Inc., Q1 2026 Earnings Call, May 06, 2026.rtf", "reason": "Genuinely unread transcript (materiality 55, below the 60 gate) — the FQ1 miss it explains is already a known number; only management's qualitative framing is new, and that framing most likely reconfirms the already-flagged pattern of GAAP-EPS noise rather than changing it. Watch item for management-governance/candor-and-disclosure-quality if a second corroborating document lands." },
+      { "path": "data/UBER/Uber Technologies Inc NYSE UBER Key Developments.rtf", "reason": "Materiality 30 < gate — the two most-recent items duplicate the already-incorporated Q2 print; the one incremental item (Wayve London PHV licensing) sits inside an already-covered theme." },
+      { "path": "data/UBER/Uber Technologies Inc NYSE UBER Public Company Profile.rtf", "reason": "Materiality 20 < gate — a routine ~3.8% one-day quote drift vs the entry price already used, well inside ordinary noise (CLAUDE.md §10 span check)." },
+      { "path": "data/UBER/Uber Technologies Inc NYSE UBER Financials_Quarterly.xls", "reason": "Materiality 20 < gate — quarterly figures cross-checked against the already-built historical-financials trend/seasonality tables; no new figure found." },
+      { "path": "data/UBER/Uber Technologies Inc NYSE UBER Financials_Annual.xls", "reason": "Materiality 15 < gate — extends annual history only into pre-2019 periods the thesis does not rely on." },
+      { "path": "data/UBER/Uber Technologies, Inc., Q2 2026 Earnings Call, Aug 05, 2026.rtf", "reason": "Materiality 5 < gate — an RTF re-export of the same FQ2 2026 call already used as the run's verbatim transcript source." },
+      { "path": "data/UBER/UberTechnologies,IncNYSEUBEREstimatesReport (1).xls", "reason": "Materiality 0 — byte-identical to the extract already in the run's own _pool_extracts/; mtime-only change." },
+      { "path": "data/UBER/Charting Excel Export Aug-05-2026 2_49 PM.xls", "reason": "Already in the run's own pool-extraction manifest, unchanged — already read." },
+      { "path": "data/UBER/Company Comparable Analysis Uber Technologies Inc.xls", "reason": "Already in the run's own pool-extraction manifest, unchanged — already read." },
+      { "path": "data/UBER/Company_Comparable_Analysis_Uber_Technologies _Inc.rtf", "reason": "Already in the run's own pool-extraction manifest, unchanged — already read." },
+      { "path": "data/UBER/Uber Technologies Inc NYSE UBER Analyst Coverage.rtf", "reason": "Already in the run's own pool-extraction manifest, unchanged — already read." },
+      { "path": "data/UBER/Uber Technologies Inc NYSE UBER Board Members.rtf", "reason": "Already in the run's own pool-extraction manifest, unchanged — already read." },
+      { "path": "data/UBER/Uber Technologies Inc NYSE UBER Financials.xls", "reason": "Already in the run's own pool-extraction manifest, unchanged — already read." },
+      { "path": "data/UBER/Uber Technologies Inc NYSE UBER Products.rtf", "reason": "Already in the run's own pool-extraction manifest, unchanged — already read." },
+      { "path": "data/UBER/Uber Technologies Inc NYSE UBER Professionals.rtf", "reason": "Already in the run's own pool-extraction manifest, unchanged — already read." },
+      { "path": "data/UBER/UberTechnologies,IncNYSEUBEREstimatesReport.xls", "reason": "Already in the run's own pool-extraction manifest, unchanged — already read." },
+      { "path": "data/UBER/UberTechnologiesIncNYSEUBER_CIQReportLandscape.rtf", "reason": "Already in the run's own pool-extraction manifest, unchanged — already read." }
+    ]
+  },
+  "verdict": "scoped_rerun",
+  "summary": "Two new Capital IQ vendor exports (Customers.rtf, Suppliers.rtf) fill a data gap the original run explicitly flagged — named customer/supplier relationships were absent from the pool, capping the customer-concentration and supplier-concentration reads in business-model. Scope to business-model/customer-geography and business-model/value-chain plus their downstream cascade. A newly-arrived Q1 2026 earnings-call transcript, a Capital IQ Key Developments feed, a routine price-quote refresh, and two extended CapIQ financials workbooks were all read and judged immaterial or already reflected in the current thesis (below the 60 materiality gate); ten further pool files carry mtimes after the naive watermark check but are already present, byte-unchanged, in this run's own pool-extraction manifest from 2026-08-06 and were excluded as already-read."
+}
