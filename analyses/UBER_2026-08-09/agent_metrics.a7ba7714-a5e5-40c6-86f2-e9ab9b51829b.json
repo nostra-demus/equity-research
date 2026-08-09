@@ -1,0 +1,147 @@
+{
+  "agents": [
+    {
+      "agent": "earnings-data-triage",
+      "model": "claude-sonnet-5",
+      "calls": 13,
+      "usage": {
+        "input_tokens": 26,
+        "output_tokens": 10869,
+        "cache_read_input_tokens": 640874,
+        "cache_creation_input_tokens": 84964,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 84964,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.6739902,
+      "runtime_ms": 106909,
+      "module": "earnings"
+    },
+    {
+      "agent": "historical-financials",
+      "model": "claude-sonnet-5",
+      "calls": 25,
+      "usage": {
+        "input_tokens": 50,
+        "output_tokens": 50398,
+        "cache_read_input_tokens": 2429249,
+        "cache_creation_input_tokens": 159838,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 159838,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 2.0842872000000003,
+      "runtime_ms": 599266,
+      "module": "earnings"
+    },
+    {
+      "agent": "margin-drivers",
+      "model": "claude-sonnet-5",
+      "calls": 25,
+      "usage": {
+        "input_tokens": 50,
+        "output_tokens": 38042,
+        "cache_read_input_tokens": 2363684,
+        "cache_creation_input_tokens": 147089,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 147089,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.83146895,
+      "runtime_ms": 0,
+      "module": "earnings"
+    },
+    {
+      "agent": "earnings-quality",
+      "model": "claude-sonnet-5",
+      "calls": 21,
+      "usage": {
+        "input_tokens": 42,
+        "output_tokens": 33050,
+        "cache_read_input_tokens": 1601922,
+        "cache_creation_input_tokens": 116234,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 116234,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.4123301000000001,
+      "runtime_ms": 0,
+      "module": "earnings"
+    },
+    {
+      "agent": "earnings-red-flags",
+      "model": "claude-sonnet-5",
+      "calls": 12,
+      "usage": {
+        "input_tokens": 24,
+        "output_tokens": 51149,
+        "cache_read_input_tokens": 1062643,
+        "cache_creation_input_tokens": 184135,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 184135,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.7766061499999999,
+      "runtime_ms": 490977,
+      "module": "earnings"
+    },
+    {
+      "agent": "earnings-synthesis",
+      "model": "claude-sonnet-5",
+      "calls": 24,
+      "usage": {
+        "input_tokens": 48,
+        "output_tokens": 27781,
+        "cache_read_input_tokens": 3028924,
+        "cache_creation_input_tokens": 164016,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 164016,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.9405962,
+      "runtime_ms": 372695,
+      "module": "earnings"
+    },
+    {
+      "agent": "revenue-drivers",
+      "model": "claude-sonnet-5",
+      "calls": 36,
+      "usage": {
+        "input_tokens": 72,
+        "output_tokens": 58411,
+        "cache_read_input_tokens": 3179035,
+        "cache_creation_input_tokens": 155993,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 155993,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 2.41506525,
+      "runtime_ms": 0,
+      "module": "earnings"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 32,
+    "usage": {
+      "input_tokens": 64,
+      "output_tokens": 17001,
+      "cache_read_input_tokens": 2937372,
+      "cache_creation_input_tokens": 85313,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 85313
+      }
+    },
+    "cost": 1.6482966000000001,
+    "runtime_ms": 0
+  }
+}
