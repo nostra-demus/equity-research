@@ -1,0 +1,165 @@
+{
+  "agents": [
+    {
+      "agent": "downside-stress-test",
+      "model": "claude-sonnet-5",
+      "calls": 13,
+      "usage": {
+        "input_tokens": 10425,
+        "output_tokens": 21267,
+        "cache_read_input_tokens": 1183271,
+        "cache_creation_input_tokens": 138690,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 138690,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.2253488000000001,
+      "runtime_ms": 324572,
+      "module": "balance-sheet-survival"
+    },
+    {
+      "agent": "capital-structure-and-leverage",
+      "model": "claude-sonnet-5",
+      "calls": 48,
+      "usage": {
+        "input_tokens": 96,
+        "output_tokens": 39617,
+        "cache_read_input_tokens": 4224892,
+        "cache_creation_input_tokens": 148749,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 148749,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 2.41981935,
+      "runtime_ms": 566278,
+      "module": "balance-sheet-survival"
+    },
+    {
+      "agent": "off-balance-sheet-and-contingencies",
+      "model": "claude-sonnet-5",
+      "calls": 19,
+      "usage": {
+        "input_tokens": 38,
+        "output_tokens": 11367,
+        "cache_read_input_tokens": 1383228,
+        "cache_creation_input_tokens": 98712,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 98712,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.9557574,
+      "runtime_ms": 0,
+      "module": "balance-sheet-survival"
+    },
+    {
+      "agent": "coverage-and-covenants",
+      "model": "claude-sonnet-5",
+      "calls": 38,
+      "usage": {
+        "input_tokens": 76,
+        "output_tokens": 19346,
+        "cache_read_input_tokens": 2880337,
+        "cache_creation_input_tokens": 107528,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 107528,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.5577491,
+      "runtime_ms": 0,
+      "module": "balance-sheet-survival"
+    },
+    {
+      "agent": "liquidity-runway",
+      "model": "claude-sonnet-5",
+      "calls": 6,
+      "usage": {
+        "input_tokens": 8598,
+        "output_tokens": 1858,
+        "cache_read_input_tokens": 269581,
+        "cache_creation_input_tokens": 88058,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 88058,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.4647558,
+      "runtime_ms": 132890,
+      "module": "balance-sheet-survival"
+    },
+    {
+      "agent": "balance-sheet-survival-synthesis",
+      "model": "claude-sonnet-5",
+      "calls": 7,
+      "usage": {
+        "input_tokens": 14,
+        "output_tokens": 23639,
+        "cache_read_input_tokens": 389387,
+        "cache_creation_input_tokens": 111106,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 111106,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.8880906,
+      "runtime_ms": 233155,
+      "module": "balance-sheet-survival"
+    },
+    {
+      "agent": "maturity-wall-and-refinancing",
+      "model": "claude-sonnet-5",
+      "calls": 16,
+      "usage": {
+        "input_tokens": 32,
+        "output_tokens": 21309,
+        "cache_read_input_tokens": 1071684,
+        "cache_creation_input_tokens": 95818,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 95818,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.0005537,
+      "runtime_ms": 0,
+      "module": "balance-sheet-survival"
+    },
+    {
+      "agent": "solvency-data-triage",
+      "model": "claude-sonnet-5",
+      "calls": 11,
+      "usage": {
+        "input_tokens": 1079,
+        "output_tokens": 12876,
+        "cache_read_input_tokens": 573500,
+        "cache_creation_input_tokens": 78188,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 78188,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.661632,
+      "runtime_ms": 127183,
+      "module": "balance-sheet-survival"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 35,
+    "usage": {
+      "input_tokens": 70,
+      "output_tokens": 17199,
+      "cache_read_input_tokens": 3206324,
+      "cache_creation_input_tokens": 85980,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 85980
+      }
+    },
+    "cost": 1.7359722000000002,
+    "runtime_ms": 0
+  }
+}
