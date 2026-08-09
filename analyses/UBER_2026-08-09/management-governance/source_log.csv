@@ -1,0 +1,69 @@
+source_id,agent,source_type,filename_or_filing,period,page_or_section,date,confidence_1_to_5,used_for
+S1-01,01,Data-vendor bio export,Uber-Technologies-Inc-NYSE-UBER-Professionals.txt (CIQ),Current,Executive bios,2026-08-09,3,Executive appointment dates tenure background
+S2-01,01,Data-vendor bio export,Uber-Technologies-Inc-NYSE-UBER-Board-Members.txt (CIQ),Current,Board bios,2026-08-09,3,Chairman/director tenure and background
+S3-01,01,Data-vendor event export,Uber-Technologies-Inc-NYSE-UBER-Key-Developments.txt (CIQ),2025-2026,CFO/CPO/Freight-CEO change announcements,2026-08-09,4,Management stability events
+S4-01,01,Audited annual filing,Uber_Technologies_Inc_-_Form_10-K (Feb-13-2026),FY2025,"Item 5, 7, 8",2026-02-13,5,Financial trajectory control structure Adj EBITDA reconciliation
+S5-01,01,Cross-module,earnings/01_historical-financials.md,FY2021-2025 TTM,"Sec 1, 4",2026-08-09,4,Multi-year EBIT/FCF trajectory
+S6-01,01,Cross-module,earnings/04_guidance-consensus.md,FQ3 FY25-FQ3 FY26,"Sec 2, 6",2026-08-09,4,Quarterly guidance vs actual
+S7-01,01,Cross-module,business-model/02_business-identity.md,FY2025,"Sec 2, 4",2026-08-09,4,Gross Bookings/Adj EBITDA figures
+S8-01,01,Cross-module,business-model/01_disqualifier-scan.md,Current,Integrity note,2026-08-09,3,Routing of soft integrity signals
+S9-01,01,Cross-module,business-model/12_red-flags-sweep.md,Current,"Sec 1, 2",2026-08-09,3,Corroboration of Adj EBITDA reconciliation discontinuation
+S10-01,01,Carried prior-run artifact,management-governance/red_flags.csv,Carried 2026-08-08,UNREGISTERED-BOARD-OVERSIGHT row,2026-08-08,2,Prior-run derivative lawsuit detail
+S11-01,01,Cross-module,management-governance/00_governance-data-triage.md,Current,Control structure,2026-08-09,4,Single-class share structure
+S12-01,01,Web unverified,Forbes derivative lawsuit article,N/A,Article,2026-07-23,2,Corroboration of lawsuit allegations
+S13-01,01,Web unverified,TechCrunch derivative lawsuit article,N/A,Article,2026-06-22,2,Earlier report of same lawsuit
+S14-01,01,Web unverified,Uber Investor Update Feb-2024 and media coverage,FY2024-2026 outlook,3-year targets,2024-02-14,2,Investor Day targets not in pool
+S1-02,02,Audited annual filing,Uber_Technologies_Inc_-_Form_10-K (Feb-13-2026),FY2025,"Item 5, Note 17/18/19",2026-02-13,5,Buyback price table M&A deal terms
+S2-02,02,Quarterly filing,Uber_Technologies_Inc_-_Form_10-Q (Aug-05-2026),Q2 FY2026,Note 3,2026-08-05,5,Delivery Hero terms Careem re-consolidation
+S3-02,02,Data-vendor financials export,Financials_Annual Cash Flow tab (CIQ),FY2016-LTM,Cash Flow,2026-08-09,4,Buybacks dividends capex debt
+S4-02,02,Data-vendor financials export,Financials_Annual Historical Capitalization tab (CIQ),2017-2026,Hist Cap,2026-08-09,4,Share count and price
+S5-02,02,Data-vendor financials export,Financials_Annual Capital Structure Summary tab (CIQ),2016-2026,Cap Structure,2026-08-09,4,Total Capital for ROIC
+S6-02,02,Data-vendor financials export,Financials_Quarterly Cash Flow tab (CIQ),Q1 2018-Q2 2026,Cash Flow,2026-08-09,4,Quarterly buyback cross-check
+S7-02,02,Cross-module,earnings/01_historical-financials.md,FY2021-2025 TTM,"Sec 1,2,3,6",2026-08-09,4,CFO FCF capex EBIT net-debt
+S8-02,02,Cross-module,business-model/11_capital-allocation-governance.md,Current,"Sec 1-4",2026-08-09,4,Upstream quick-read
+S9-02,02,Cross-module,management-governance/01_management-and-track-record.md,Current,"Sec 2, 4A",2026-08-09,4,Freight CEO transition context
+S10-02,02,Cross-module,valuation/02_multiples-own-history.md,2026-08-06,Header,2026-08-09,4,Current price anchor
+S11-02,02,Web unverified,CBS/CNN/PYMNTS Drizly shutdown coverage,N/A,Articles,2024-01-15,2,Drizly shutdown date and price
+S12-02,02,Web unverified,Forbes/CNBC Careem acquisition coverage,N/A,Articles,2019-03-26,2,Original Careem deal terms
+S13-02,02,Web unverified,CNBC/TechCrunch Postmates coverage,N/A,Articles,2020-07-06,2,Postmates deal terms
+S14-02,02,Web unverified,Dallas Innovates/SiliconANGLE/TechCrunch Transplace coverage,N/A,Articles,2021-07-22,2,Transplace deal terms
+S15-02,02,Web unverified,Bloomberg/CNBC/TechCrunch Foodpanda Taiwan coverage,N/A,Articles,2024-05-14,2,Foodpanda Taiwan deal terms
+S16-02,02,Web unverified,CB Insights Cornershop coverage,N/A,Article,2019,1,Cornershop deal terms
+S1-03,03,Audited annual filing,Uber_Technologies_Inc_-_Form_10-K,FY2025,Item 11,2026-02-13,5,Item 11 incorporated by reference to absent proxy
+S2-03,03,Audited annual filing,Uber_Technologies_Inc_-_Form_10-K,FY2025,Item 12,2026-02-13,5,Ownership deferral to proxy
+S3-03,03,Audited annual filing,Uber_Technologies_Inc_-_Form_10-K,FY2025,"Item 13, 14",2026-02-13,5,Governance-adjacent disclosures deferred
+S4-03,03,Audited annual filing,Uber_Technologies_Inc_-_Form_10-K,FY2023-2025,Note 10,2026-02-13,5,Equity-plan mechanics SBC expense
+S5-03,03,Cross-module,prior-run management-governance/01,FY2025-2026,"Sec 1, 2",2026-08-08,5,CEO/CFO identity and tenure context
+S6-03,03,Web unverified,SEC EDGAR search result 2026 DEF 14A existence,FY2025 proxy,N/A,2026-04,2,Confirms proxy exists but not ingested
+S7-03,03,Web unverified,Lyft FY2025 proxy PSU-weighting search summary,FY2025,N/A,2025,2,Peer-benchmarking context only
+S1-04,04,Data-vendor ownership export,UberTechnologiesIncNYSEUBER_CIQReportLandscape,Snapshot ~Aug-2026,"Ownership, insider transactions",2026-08-06,4,Ownership and insider-transaction tables
+S2-04,04,Audited annual filing,Uber_Technologies_Inc_-_Form_10-K,FY2025,"Cover page, Insider Trading Policy, Item 9B",2026-02-13,5,Control structure pledging 10b5-1
+S3-04,04,Data-vendor company export,Public Company Profile (CIQ),Aug-06-2026,"Stock Quote, Investors list",2026-08-06,4,Price market cap float and Toyota conflict
+S4-04,04,Data-vendor director-bio export,Board Members (CIQ),Current,Alnowaiser bio,2026-08-06,4,PIF board-seat detail
+S5-04,04,Cross-module,management-governance/01_management-and-track-record.md,FY2026,Founder status,2026-08-09,5,CEO non-founder status
+S6-04,04,Cross-module,business-model/01_disqualifier-scan.md,FY2025/2026,Disqualifier 2,2026-08-09,5,Pledging cross-check
+S7-04,04,Cross-module,business-model/11_capital-allocation-governance.md,FY2025/2026,Ownership row,2026-08-09,4,Confirms proxy absence
+S8-04,04,Cross-module,management-governance/00_governance-data-triage.md,FY2026,File Inventory,2026-08-09,5,Holders-of-record figure
+S9-04,04,Data-vendor corporate-events feed,Key Developments (CIQ),Mar-16 to Mar-31-2026,Entries,2026-08-09,3,Market-conduct timing check
+S1-05,05,Data-vendor bio export,Board Members (CIQ),Current Aug-2026,"Full director bios, tenure, committees",2026-08-09,3,Board composition independence tenure overboarding
+S2-05,05,Data-vendor snapshot,Public Company Profile (CIQ),Aug-2026,Investors list,2026-08-09,2,PIF as listed investor
+S3-05,05,Audited annual filing,Uber_Technologies_Inc_-_Form_10-K,FY2025,Risk Factors,2026-02-13,5,Anti-takeover provisions
+S4-05,05,Audited annual filing,Uber_Technologies_Inc_-_Form_10-K,FY2025,"Cover page, Item 10/12/13/14",2026-02-13,5,Single-class confirmation proxy-deferral gaps
+S5-05,05,Audited annual filing,Uber_Technologies_Inc_-_Form_10-K,FY2025,"Note 4/5/6/15",2026-02-13,5,Related-party balances and terms
+S6-05,05,Audited annual filing,Uber_Technologies_Inc_-_Form_10-K,FY2025,Financial statements,2026-02-13,5,RPT materiality denominators
+S7-05,05,Data-vendor event export,Key Developments (CIQ),May-2026,AGM notice,2026-08-09,4,AGM agenda
+S8-05,05,Cross-module,business-model/01_disqualifier-scan.md,Current,RPT test rows,2026-08-09,4,No RPT disqualifier corroboration
+S9-05,05,Cross-module,business-model/11_capital-allocation-governance.md,Current,"Control, buyback rows",2026-08-09,4,Single-class and dilution trend
+S10-05,05,Cross-module,management-governance/01_management-and-track-record.md,Current,"Sec 4A, RF-MGT-005",2026-08-09,2,Derivative lawsuit detail carried forward
+S11-05,05,Cross-module,management-governance/00_governance-data-triage.md,Current,"Sec 3, 5, 5A, 5B",2026-08-09,4,Board disclosure availability jurisdiction
+S12-05,05,Cross-module,management-governance/03_incentives-and-compensation.md,Current,"Sec 1, Partial-data notice",2026-08-09,4,Confirms Items 11-14 deferred
+S1-06,06,Verbatim earnings-call transcript,Q1 2026 Earnings Call May 06 2026,Q1 FY2026,Full transcript,2026-05-06,4,Tone Q&A directness promise framing
+S2-06,06,Verbatim earnings-call transcript,Q2 2026 Earnings Call Aug 05 2026,Q2 FY2026,Full transcript,2026-08-05,4,Tone Q&A directness UK take-rate breakdown
+S3-06,06,Cross-module,earnings/06_earnings-quality.md,FY2021-2025,"Sec 4,5,7,9-10",2026-08-09,4,Non-GAAP aggressiveness GAAP-to-adjusted gap
+S4-06,06,Cross-module,earnings/04_guidance-consensus.md,FQ3 FY25-FQ3 FY26,"Sec 3, 6",2026-08-09,4,Revenue-miss magnitude guidance-beat context
+S5-06,06,Cross-module,earnings/08_earnings-red-flags.md,Q1-Q2 FY26,"Sec 2.2-2.3",2026-08-09,4,Revenue-deceleration trend not named
+S6-06,06,Cross-module,management-governance/01_management-and-track-record.md,FY2021-2026,"Sec 4, 4A",2026-08-09,4,Promise-vs-delivery record RF-MGT-005
+S7-06,06,Prior-run artifact,management-governance/red_flags.csv,Carried current run,"RF-DISC-001, RF-DISC-002, RF-REG-002 rows",2026-08-08/09,3,Registered red-flag triggers re-confirmed
+S8-06,06,Audited annual filing,Uber_Technologies_Inc_-_Form_10-K,FY2025,Item 7,2026-02-13,5,Non-GAAP reconciliation figures
+S9-06,06,Quarterly filing,Q1/Q2 FY2026 10-Q,Q1-Q2 FY2026,MD&A,2026-05-06/2026-08-05,5,Confirmation of Adj EBITDA discontinuation
+S10-06,06,Cross-module,management-governance/00_governance-data-triage.md,Current,"Sec 2, 6",2026-08-09,4,Confirmation no shareholder-letter tradition

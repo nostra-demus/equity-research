@@ -1,0 +1,77 @@
+finding_id,agent,section,question,verdict,raw_value,unit,trend,peer_verdict,score,penalty,confidence,materiality,evidence,red_flag_id,follow_up
+01-001,01,1,Is CEO a founder/owner-operator?,Green,0,boolean,Stable,No peer set,,0,4,Low,"CEO hired externally Sep-2017; single class of stock, no controlling holder",,None
+01-002,01,1/2,CEO tenure and continuity,Green,8.9,years,Stable,No peer set,,0,4,Medium,Continuous CEO since Sep-2017,,None
+01-003,01,2,CFO turnover trailing 12mo,Amber,1,count,Deteriorating,No peer set,,0,4,Medium,"Mahendra-Rajah to Krishnamurthy, Feb-16-2026, internal, no accounting cause disclosed",,Confirm no restatement in FY26 10-K
+01-004,01,2,Senior departures trailing ~12mo,Amber,4,count,Deteriorating,No peer set,,0,4,Medium,"CFO, CPO, CTO-scope, Freight CEO all internal, none scandal-flagged",,Watch pace next 2 quarters
+01-005,01,3/4,Gross Bookings 3-yr target vs actual,Green,19-20,% YoY FY25,Improving,No peer set,,0,3,High,+19% reported/+20% cc vs Feb-2024 target,,None
+01-006,01,3/4,Adj EBITDA 3-yr target vs actual,Amber,34.6,% YoY FY24-25,"Improving, below range",No peer set,,0,3,High,$6484M to $8730M vs Feb-2024 target,,Obtain FY23 Adj EBITDA
+01-007,01,3/4,FCF conversion target vs actual,Green,111.8,% FY25,Improving,No peer set,,0,4,High,FCF $9763M / Adj EBITDA $8730M,,None
+01-008,01,4,Adj EBITDA guidance beat streak,Green,4,consecutive qtrs,Improving,No peer set,,0,4,High,"Beaten every qtr, above high end last 2",,Track FQ3 FY26
+01-009,01,4,Revenue vs consensus unguided,Amber,-0.52,% Q2 FY26,Stable,No peer set,,0,4,Medium,"Q1/Q2 FY26 both missed narrowly; UK one-off explains most",,Confirm Q3 FY26
+01-010,01,4A,Adj-EBITDA-to-GAAP reconciliation discontinued,Red,0,boolean,Deteriorating,No peer set,,0,4,High,Zero mentions in Q1/Q2 10-Qs or transcripts,RF-DISC-001,Confirm return in FY26 10-K
+01-011,01,4A,Unresolved derivative lawsuit naming CEO+board,Red,2,confidence 1-5,New/unresolved,No peer set,,0,2,Critical,"Alleges board ignored safety-risk model 2017-2022; false 2024-26 proxy statements alleged",RF-MGT-005,Track docket
+01-012,01,4A,Turnaround proof standard Filter 2,Green,4,consecutive yrs delivered inflection,Improving,No peer set,,0,5,High,EBIT -22.0% to +10.7%; FCF -$743M to +$9763M FY21-25,,None
+02-001,02,1,Buybacks as % of cumulative CFO FY21-25,Green,37.0,%,Improving,No peer set,,0,4,High,$7775M of $21018M cumulative CFO,,None
+02-002,02,1,Dividend payout ratio,N/A,0,%,Stable never paid,No peer set,,0,5,Medium,Total Dividends Paid = 0 every year,,None
+02-003,02,2,Drizly outcome,Red,1.1,$bn full write-off,Deteriorating to zero,No peer set,,0,2,High,"Shut Mar-2024, ~2.5yrs after close",RF-CAP-001,Confirm goodwill impairment
+02-004,02,2,Careem divestiture then re-acquisition to control,Red,3,deal-stage reversals,Deteriorating,No peer set,,0,4,High,"$3.1bn 2019 deal; control rebuilt by Jul-30-2026",RF-CAP-004,Track FY26 10-K consolidation
+02-005,02,2,Serial-acquirer / Delivery Hero,Red,14.8,$bn equity value,New largest deal in history,No peer set,,0,5,Critical,Bridge ~1.2x pre-deal debt; ~8-10% of market cap,RF-CAP-004,Track financing terms
+02-006,02,3,Net share-count change full 5-yr window,Amber,4.15,% increase,"Improving but still net-negative",No peer set,,0,4,High,1954.5mm Dec-21 to 2035.6mm Mar-26,,Monitor gap closing
+02-007,02,3,Net share-count change recent 15mo window,Green,-2.66,% decrease,Improving,No peer set,,0,4,High,2091.2mm Mar-25 to 2035.6mm Mar-26,,Confirm continues FY26
+02-008,02,3,Q4 FY25 buyback price vs subsequent trading,Amber,88.90,$/sh vs $68.18 current,Deteriorating,No peer set,,0,5,High,Computed from FY25 10-K Item 5 table,,Obtain FY26 buyback price detail
+02-009,02,3,Buybacks funded while leverage rises,Amber,67.0,% increase strict net debt,Deteriorating,No peer set,,0,4,High,"$5904M to $9861M, +$3957M driven by Q2 FY26 debt issuance",,Track Q3/Q4 net debt
+02-010,02,4,Incremental ROIC FY22-FY25 estimate,Green,29.0,% inference,Improving,No peer set,,0,2,Medium,"Delta NOPAT ~$5843M / Delta Invested Capital ~$20164M",,Recompute with FY26 data
+02-011,02,4,Dividend policy,N/A,0,boolean,Stable,No peer set,,0,5,Low,No dividend ever paid,,None
+02-012,02,1,Capex intensity vs revenue,Green,0.65,% of revenue FY25,Improving,No peer set,,0,4,Low,$336M/$52017M,,None
+03-001,03,Comp Structure,Proxy/comp disclosure present?,Insufficient Data,0,present/absent,N/A,No peer set,0,0,5,High,10-K Items 11-14 incorporated by reference to absent 2026 Proxy,,Ingest 2026 DEF 14A
+03-002,03,Comp Structure,CEO/CFO base/bonus/LTIP amounts,Insufficient Data,0,N/A,N/A,No peer set,0,0,5,High,10-K Item 11 absent,,Pull proxy Summary Comp Table
+03-003,03,Perf Metrics,Annual bonus metrics/weights,Insufficient Data,0,N/A,N/A,No peer set,0,0,5,High,10-K Item 11 absent,,Pull proxy CD&A
+03-004,03,Perf Metrics,LTIP performance-award metrics named,Insufficient Data,0,N/A,N/A,No peer set,5,0,4,Medium,10-K Note 10 category named not itemized,,Pull proxy CD&A LTIP table
+03-005,03,Perf Metrics,Market-based award materiality,Green directional,0,not material,Stable/small,No peer set,,0,5,Low,10-K Note 10,,Confirm in proxy
+03-006,03,Comp Structure,Company-wide SBC expense context,N/A,1826,$mm FY25,Roughly stable,No peer set,,0,5,Low,10-K Note 10,,None
+03-007,03,Pay vs Perf,CEO total pay vs performance,Insufficient Data,0,N/A,N/A,No peer set,0,0,5,High,10-K Item 11 absent,,Pull pay-vs-performance table
+03-008,03,Pay vs Perf,Say-on-pay support %,Insufficient Data,0,%,N/A,No peer set,0,0,5,Medium,10-K Item 11 absent,,Pull AGM voting-results 8-K
+03-009,03,Pay vs Perf,Peer LTIP design context Lyft,N/A,50,% target equity Lyft,Increasing peer,Lyft sector norm,,0,2,Low,Web Lyft proxy coverage unverified,,Context only
+04-001,04,1,Total insider ownership %,Amber,0.18,% of CSO,Not enough history,No peer set,,,3,Medium,CIQ Report Landscape,,Confirm vs 2026 proxy
+04-002,04,1,CEO ownership stake,Amber,1225802,shares $87.8mm,Not enough history,No peer set,,,3,Medium,CIQ Report Landscape,,Confirm vs 2026 proxy
+04-003,04,1,Cash-bought vs granted ownership,Amber,0,count of cash buys 6mo,Not enough history,No peer set,4,,3,Medium,All $0-value RSU vests except one ambiguous CFO transaction,,Check pre-2026 history
+04-004,04,2,Net insider activity 6mo,Amber,-33973,net shares sold,Roughly stable,No peer set,10,,4,Low,CIQ Insider Trading Activity Summary,,Monitor concentration
+04-005,04,2,CEO largest transaction timing,Amber,18941242,USD Mar-16-26 sale,N/A,No peer set,,,3,Medium,Recurring monthly pattern; no adverse news found nearby,,Confirm 10b5-1 plan status
+04-006,04,3,Insider share pledging,Green,0,% pledged,N/A,No peer set,20,0,5,Critical,Contractually banned per Insider Trading Policy,,None
+04-007,04,4,Dual-class / super-voting structure,Green,1,share class,Stable,No peer set,10,0,5,Medium,Single class par $0.00001,,None
+04-008,04,4,Controlled-company / controlling-bloc status,Green,7.417,% largest holder BlackRock,N/A,No peer set,,,4,Medium,1207 holders of record,,None
+04-009,04,4,Sovereign-wealth-fund stake with board seat,Amber,3.578,% PIF,Not enough history,No peer set,8,,3,Medium,PIF's Alnowaiser Independent Director since Nov-2023,,Check 05 for related-party dealings
+04-010,04,Filter 6,Controlling-owner alignment test,N/A Green,0,boolean no control,N/A,No peer set,,,4,High,No govt control no parent no conglomerate,,None
+04-011,04,4A,Institutional holder exit check Toyota,Amber,5125868,shares full exit,Toyota exited Vanguard shift is reclassification,No peer set,7,,3,Low-Med,Top Sellers table vs investor-list conflict,,Resolve vs primary 13D/13G
+04-012,04,2,Market-conduct timing,Insufficient Data,,,N/A,No peer set,,,2,Medium,No daily price/volume-vs-announcement dataset in pool,,Obtain matched price/volume series
+05-001,05,1,Board independence % voting directors,Green,90,%,Not enough history,No peer set,18,0,3,High,9/10 voting directors Independent CEO sole non-independent,,None
+05-002,05,1,Chair/CEO split,Green,1,boolean,Stable since Aug-2018,No peer set,,0,4,Medium,Independent Chairman Sugar separate from CEO,,None
+05-003,05,1,Audit Committee independence,Green,100,%,Not enough history,No peer set,,0,3,High,5/5 independent Thain chair ex-Goldman/NYSE,,Confirm financial expert designation
+05-004,05,1,Comp/Nominating/Governance Committee independence,Green,100,% each,Not enough history,No peer set,,0,3,Medium,All 3 committees 100% independent CEO on none,,None
+05-005,05,2,Average independent-director tenure,Green,6.0,years,Not enough history,No peer set,,0,3,Medium,Calculated across 9 independent directors,,None
+05-006,05,2,Board refreshment last 3 yrs,Green,2,count/9,Improving,No peer set,,0,3,Low,Alnowaiser 2023 Arora 2025,,None
+05-007,05,2,Director overboarding Alnowaiser,Amber,5,concurrent roles,Stable,No peer set,,0,3,Medium,Full-time PIF exec plus 4 other board seats,,Confirm attendance in next proxy
+05-008,05,2,Director overboarding Arora,Amber,2,outside boards sitting CEO,Stable,No peer set,,0,3,Low,Chairman/CEO Palo Alto Networks plus 2 boards,,Monitor attendance
+05-009,05,2,PIF-affiliated director labeled independent,Amber,1,boolean,N/A,No peer set,,0,2,Medium,Alnowaiser is PIF Deputy Governor,,Pull proxy for PIF current stake
+05-010,05,3,Combined RPT exposure,Green,1.5,% of FY25 revenue,Growing Moove faster than revenue,No peer set,16,0,5,Low-Med,Moove $384mm Lime $119mm Careem ~$300mm,,Track Moove growth vs revenue
+05-011,05,3,RPT approval-process narrative,Insufficient Data,0,present/absent,N/A,No peer set,0,0,5,Medium,Item 13 incorporated by reference to absent proxy,,Pull proxy Item 13
+05-012,05,4,Poison pill,Amber,0,boolean enabled not active,Stable,No peer set,,0,4,Medium,Blank-check preferred authority exists,,Confirm any plan ever adopted
+05-013,05,4,Classified / staggered board,Green,0,boolean,Stable,No peer set,,0,4,High,Full board elected annually,,None
+05-014,05,4,Dual-class / unequal voting,Green,0,boolean,Stable,No peer set,,0,5,High,Single class,,None
+05-015,05,4,Cumulative voting for directors,Red,0,boolean prohibited,Stable,No peer set,,0,4,Medium,10-K risk factor prohibition limits minority board representation,,Monitor proxy-access proposals
+05-016,05,4,Shareholder ability to call special meetings,Amber,0,boolean restricted,Stable,No peer set,,0,4,Medium,10-K risk factor limitations on special meetings,,None
+05-017,05,4A,AGM votes-against any resolution,Insufficient Data,0,%,N/A,No peer set,0,0,1,High,Vote-result 8-K not in pool agenda known only,,Pull post-AGM 8-K
+05-018,05,4A,Dilution trend net share count,Green,-2.6,% Dec-24 peak to Mar-26,Improving reversed,No peer set,,0,4,Medium,Buyback authorization now outrunning SBC dilution,,None
+05-019,05,5,Unresolved derivative lawsuit cross-ref 01,Red,2,confidence 1-5,New/unresolved,No peer set,,0,2,Critical,Alleges false 2024-26 proxy safety-oversight disclosures names CEO/Chairman/board,RF-MGT-005,Track docket
+06-001,06,1,Q1/Q2 FY26 revenue miss owned when raised,Amber,-0.52,% Q2 FY26 vs consensus,Stable,No peer set,,0,4,Medium,CFO gave specific breakdown only when asked,,Confirm Q3 remarks proactive
+06-002,06,1,Multi-quarter revenue deceleration named,Red,0,boolean not named,Deteriorating disclosure,No peer set,,0,4,High,Zero mentions in either transcript Gross Bookings used instead,,Track Q3 FY26 remarks
+06-003,06,1/2,Adj EBITDA discontinuation acknowledged on calls,Red,0,count of mentions/2 transcripts,Deteriorating,No peer set,,0,4,High,Zero mentions full-text search,RF-DISC-001,Confirm return in FY26 10-K
+06-004,06,2,Recurring legal/regulatory reserve still treated as one-off,Red,564,$mm FY25 1123mm FY24,Declining $ but still present 2 yrs,No peer set,,0,5,High,Added back as non-recurring both years,RF-DISC-002,Confirm 3rd-year recurrence
+06-005,06,2,Non-D&A add-backs as % of FY25 Income from Ops,Amber,43.9,%,Not enough history,No peer set,,0,4,High,$2446mm/$5565mm,,Monitor into FY26
+06-006,06,2,GAAP-to-Adj-EBITDA gap magnitude/trend,Green,38.3,% gap FY25 83.4% FY24,Improving narrowing,No peer set,,0,4,Medium,$6312M to $8730M vs $3536M to $6484M,,None
+06-007,06,1/3,Two MDL verdicts named in 3 recent filings,Red,2,count unnamed,New/unresolved,No peer set,,0,3,Medium,Arizona $8.5mm Charlotte $5000 not named despite aggregate reserve,RF-REG-002,Check next 10-Q/10-K
+06-008,06,1,Feb-2026 CFO-transition statement direct,Green,1,boolean,N/A,No peer set,,0,3,Medium,Not the result of any disagreements concerning financial disclosures,,Confirm no restatement in FY26 10-K
+06-009,06,4,Analyst questions answered directly or deflected,Green,0,count deflected,N/A,No peer set,,0,4,Medium,UK take-rate Brazil AI/headcount all quantified,,None
+06-010,06,4,Prepared-remarks tone candid or promotional,Amber,1,qualitative,N/A,No peer set,,0,4,Medium,Outstanding/exceptional opened both calls before negatives,,Reassess at next weak quarter
+06-011,06,5,Unresolved integrity signal weighing on candor,Red,2,confidence 1-5,New/unresolved,No peer set,,0,2,Critical,Derivative lawsuit alleges false proxy safety-oversight statements,RF-MGT-005,Track docket
+06-012,06,Data,No shareholder letters candor from transcripts+filings,N/A,,,N/A,No peer set,,0,4,Low,US SEC filer no letter tradition 2 verbatim transcripts present,,None
