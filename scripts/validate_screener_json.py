@@ -341,6 +341,14 @@ CALIBRATION_STATUSES = {"not_available", "pre_data", "checked_no_action", "appli
 # 2026-07-02..07-18) predate the block entirely and are N/A — they are not retro-failed for missing
 # something the synthesizer was, at the time, explicitly told NOT to write.
 COMMODITY_SCENARIO_GATE_DATE = "2026-08-08"
+# §10 SPAN-check threshold — the commodity-scoped twin of eval.py's AT_MIN_BEST_PCT (check
+# eval_at_scenario_span). Same value and rationale as the research-swarm check: a scenario set can sum to
+# 100 and reconcile its expected return perfectly while still spanning nothing, if no case in the set
+# clears an ordinary move. Unconditional whenever scenarios[] is present, mirroring the conjunction
+# sub-check below rather than COMMODITY_SCENARIO_GATE_DATE above: a record that ships a distribution is
+# asserting it regardless of decision_date, so there is no pre-gate exemption for this sub-check (moot in
+# practice — the four pre-gate commodity runs carry no scenarios[] at all, so neither check fires on them).
+SCENARIO_SPAN_MIN_BEST_PCT = 5.0
 
 
 def commodity_decision_records() -> list[str]:
@@ -583,9 +591,11 @@ def check_commodity_scenario_math(doc_path: str) -> list[str]:
 
     Re-derives, never trusts: probabilities sum to 100; expected_return_pct equals Sum(p x ret);
     downside_risk_pct equals the bear case's own return; the labels map onto a real bear/base/bull band;
-    ids are unique; a conjunction of independent conditions carries a joint_probability_basis; and every
-    case carries an observable falsifier. Sign-aware with a relative floor, mirroring check M — a small
-    sign flip (+0.4 vs -0.4) is the failure an absolute tolerance lets through.
+    ids are unique; the best case actually SPANS an ordinary move (the twin of eval.py check AT — a set
+    can reconcile perfectly and still contain no case resembling what would actually happen); a
+    conjunction of independent conditions carries a joint_probability_basis (the twin of check AV); and
+    every case carries an observable falsifier. Sign-aware with a relative floor, mirroring check M — a
+    small sign flip (+0.4 vs -0.4) is the failure an absolute tolerance lets through.
 
     Forward-looking: N/A for any decision_date before COMMODITY_SCENARIO_GATE_DATE, so the four runs
     committed before the gate (ALUMINIUM/COPPER/GOLD/WHEAT) stay green and are not retro-failed for
@@ -638,6 +648,22 @@ def check_commodity_scenario_math(doc_path: str) -> list[str]:
         rets = [float(s["return_pct"]) for s in scen]
     except (KeyError, TypeError, ValueError) as e:
         return errs + [f"scenarios[] probability/return_pct missing or non-numeric ({e}) — cannot reconcile the math"]
+
+    # §10 SPAN check (the commodity-scoped twin of eval.py check AT). A labelled bull case is not enough —
+    # the set must contain a case that actually clears an ordinary move, or the "distribution" is an
+    # average over outcomes that all exclude the move that would make the thesis pay off. This is exactly
+    # the failure mode CLAUDE.md §10 names ("a bull case the stock can clear on one ordinary earnings
+    # print was never a bull case") and eval.py's AT check already catches for the research swarm; nothing
+    # ported it to the commodity swarm when check_commodity_scenario_math was added.
+    best_ret = max(rets)
+    if best_ret < SCENARIO_SPAN_MIN_BEST_PCT:
+        errs.append(
+            f"scenario set does not SPAN: the best case returns only {best_ret:+.1f}%, inside an ordinary "
+            f"move (<{SCENARIO_SPAN_MIN_BEST_PCT}%) for a liquidly-traded commodity benchmark. No case in "
+            f"the set contains a real upside outcome, so the probability-weighted return averages over a "
+            f"distribution that excludes one side of reality (CLAUDE.md §10 span check). Widen the cases "
+            f"before computing the expected return."
+        )
 
     psum = sum(probs)
     if abs(psum - 100) > 0.5:
@@ -872,6 +898,12 @@ def _selftest_scenario_math() -> int:
         rec(scenarios=[sc("dup", "bear", 25, -30.0, 70.0), sc("dup", "base", 50, 10.0, 110.0), sc("bull-x", "bull", 25, 40.0, 140.0)]), False)
     run("no bull case -> FAIL (the distribution must span the band)",
         rec(scenarios=[sc("bear-x", "bear", 25, -30.0, 70.0), sc("base-x", "base", 50, 10.0, 110.0), sc("base-y", "base", 25, 40.0, 140.0)]), False)
+    # The GOLD-miss shape (CLAUDE.md §10): a set that reconciles perfectly (probabilities sum to 100,
+    # expected_return_pct = Sum(p*ret), risk_reward re-derives) but whose best case never clears an
+    # ordinary move. Every other §10 leg is deliberately clean here so this isolates the SPAN check alone.
+    run("bull case inside an ordinary move -> FAIL (§10 span)",
+        rec(scenarios=[sc("bear-x", "bear", 25, -3.0, 97.0), sc("base-x", "base", 50, 1.0, 101.0), sc("bull-x", "bull", 25, 3.0, 103.0)],
+            expected_return_pct=0.5, downside_risk_pct=-3.0, risk_reward=0.167), False)
     run("conjunction of independent conditions with no joint_probability_basis -> FAIL",
         rec(scenarios=[sc("bear-x", "bear", 25, -30.0, 70.0), sc("base-x", "base", 50, 10.0, 110.0),
                        sc("bull-x", "bull", 25, 40.0, 140.0, conditions=["real yields fall below 1.5%", "ETF flows turn positive 3 weeks running"])]), False)
@@ -900,7 +932,7 @@ def _selftest_scenario_math() -> int:
         for f in failures:
             print(f"SELFTEST FAIL — {f}")
         return 1
-    print("SELFTEST OK — check_commodity_scenario_math truth table (24 branches) matches the §10 contract")
+    print("SELFTEST OK — check_commodity_scenario_math truth table (25 branches) matches the §10 contract")
     return 0
 
 
