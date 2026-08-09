@@ -341,6 +341,17 @@ CALIBRATION_STATUSES = {"not_available", "pre_data", "checked_no_action", "appli
 # 2026-07-02..07-18) predate the block entirely and are N/A — they are not retro-failed for missing
 # something the synthesizer was, at the time, explicitly told NOT to write.
 COMMODITY_SCENARIO_GATE_DATE = "2026-08-08"
+# §10 SPAN-check threshold — the commodity-scoped twin of eval.py's AT_MIN_BEST_PCT (check
+# eval_at_scenario_span). Same value and rationale as the research-swarm check: a scenario set can sum to
+# 100 and reconcile its expected return perfectly while still spanning nothing, if the bull case's
+# benchmark move never clears an ordinary move. Applied to the BENCHMARK price move (price_target vs
+# current_price) of the nonzero-probability bull case, not the raw roll-adjusted return_pct — see the
+# span block in check_commodity_scenario_math for why the commodity schema needs those four refinements.
+# Unconditional whenever scenarios[] is present, mirroring the conjunction sub-check below rather than
+# COMMODITY_SCENARIO_GATE_DATE above: a record that ships a distribution is asserting it regardless of
+# decision_date, so there is no pre-gate exemption for this sub-check (moot in practice — the four
+# pre-gate commodity runs carry no scenarios[] at all, so neither check fires on them).
+SCENARIO_SPAN_MIN_BEST_PCT = 5.0
 
 
 def commodity_decision_records() -> list[str]:
@@ -583,9 +594,11 @@ def check_commodity_scenario_math(doc_path: str) -> list[str]:
 
     Re-derives, never trusts: probabilities sum to 100; expected_return_pct equals Sum(p x ret);
     downside_risk_pct equals the bear case's own return; the labels map onto a real bear/base/bull band;
-    ids are unique; a conjunction of independent conditions carries a joint_probability_basis; and every
-    case carries an observable falsifier. Sign-aware with a relative floor, mirroring check M — a small
-    sign flip (+0.4 vs -0.4) is the failure an absolute tolerance lets through.
+    ids are unique; the bull case's benchmark move actually SPANS an ordinary move (the twin of eval.py
+    check AT — a set can reconcile perfectly and still contain no case resembling what would happen); a
+    conjunction of independent conditions carries a joint_probability_basis (the twin of check AV); and
+    every case carries an observable falsifier. Sign-aware with a relative floor, mirroring check M — a
+    small sign flip (+0.4 vs -0.4) is the failure an absolute tolerance lets through.
 
     Forward-looking: N/A for any decision_date before COMMODITY_SCENARIO_GATE_DATE, so the four runs
     committed before the gate (ALUMINIUM/COPPER/GOLD/WHEAT) stay green and are not retro-failed for
@@ -638,6 +651,75 @@ def check_commodity_scenario_math(doc_path: str) -> list[str]:
         rets = [float(s["return_pct"]) for s in scen]
     except (KeyError, TypeError, ValueError) as e:
         return errs + [f"scenarios[] probability/return_pct missing or non-numeric ({e}) — cannot reconcile the math"]
+
+    # §10 SPAN check (the commodity-scoped twin of eval.py check AT). This adapts the equity twin's bare
+    # max(return_pct) to the commodity schema, which — unlike the equity records eval.py reads — separates
+    # price_target (the BENCHMARK level) from return_pct (the ROLL-ADJUSTED position return) and whose
+    # action verdicts are long-only. Four schema-driven refinements, each closing a way a bare max() lets
+    # a non-spanning set through (raised by Codex on this PR, r3742531399/401/404 and r3742876382):
+    #   (1) §10's "ordinary move of the current price" is a BENCHMARK move, so measure it from price_target
+    #       vs current_price, NOT from the roll-adjusted return_pct — a contango carry that nets a real
+    #       +5%+ benchmark move down below the threshold (or a backwardation that lifts a sub-5% benchmark
+    #       move above it) is exactly the divergence the schema separates these two fields for.
+    #   (2) the spanning case must be the BULL-labelled upside case, not whichever case holds the highest
+    #       number: a mislabeled base with a larger move cannot discharge the bull's own §10 obligation.
+    #       (eval.py can use max() because equity returns are position-signed and shorts exist; commodity
+    #       verdicts are long-only and label maps to price direction, so the bull IS the upside case.)
+    #   (3) the spanning case must carry NONZERO probability: a 0%-probability bull (schema allows
+    #       probability minimum 0) places no mass on the upside, so the distribution still excludes it.
+    #   (4) an unusable benchmark anchor is REJECTED, never silently swapped for the roll-adjusted metric
+    #       (Codex r3742876382): current_price.value is a bare {"type":"number"} with no positive minimum,
+    #       so a schema-valid record can carry value 0 or negative, for which the benchmark % move is
+    #       undefined (0 divides) or economically meaningless (negative base). The old code fell back to
+    #       return_pct there — the very roll-adjusted metric refinement (1) exists to keep OUT of the span
+    #       — and the downstream return↔target reconciliation also skips a non-positive price ("and px"),
+    #       so such a record passed every scenario check. Since the schema REQUIRES both current_price.value
+    #       and each scenario's price_target, a benchmark move is always derivable for a valid record; the
+    #       only way it is not is an unusable anchor, which is a defect to surface, not a metric to switch.
+    # This is the failure mode CLAUDE.md §10 names ("a bull case the stock can clear on one ordinary
+    # earnings print was never a bull case"); nothing ported even the bare check to the commodity swarm
+    # when check_commodity_scenario_math was added.
+    cur_span = doc.get("current_price")
+    cur_val = cur_span.get("value") if isinstance(cur_span, dict) else None
+    usable_anchor = isnum(cur_val) and cur_val > 0  # a benchmark % move needs a positive base to divide by
+    bull_moves = []        # benchmark price move (%) of each nonzero-probability bull-labelled case
+    bull_with_mass = False  # did any bull-labelled case carry real (nonzero) probability?
+    for s in scen:
+        if not isinstance(s, dict) or s.get("label") != "bull":
+            continue
+        if not (isnum(s.get("probability")) and s["probability"] > 0):
+            continue  # zero-mass bull — the upside it claims to span carries no probability
+        bull_with_mass = True
+        tgt = s.get("price_target")
+        if isnum(tgt) and usable_anchor:
+            bull_moves.append((tgt - cur_val) / cur_val * 100.0)  # the benchmark move §10 measures
+        # else: no usable benchmark move for this case — do NOT silently substitute the roll-adjusted
+        # return_pct (refinement 4); the unusable-anchor branch below reports it once for the whole set.
+    if "bull" in labels and not bull_with_mass:
+        errs.append(
+            "scenario set does not SPAN: every bull-labelled case carries zero probability, so the "
+            "distribution assigns no mass to the upside and excludes one side of reality (CLAUDE.md §10 "
+            "span check). Give the bull case real probability before computing the expected return."
+        )
+    elif bull_with_mass and not bull_moves:
+        errs.append(
+            f"scenario span is NOT ASSESSABLE: a bull case carries real probability but its benchmark "
+            f"move cannot be derived — current_price.value={cur_val!r} is not a usable positive number, "
+            f"or the bull case has no numeric price_target. §10's 'ordinary move of the current price' is "
+            f"a benchmark move; the roll-adjusted return_pct is a different metric and must not be silently "
+            f"substituted (CLAUDE.md §10 span check). Provide a positive current_price.value and a numeric "
+            f"price_target before computing the expected return."
+        )
+    elif bull_moves:
+        best_move = max(bull_moves)
+        if best_move < SCENARIO_SPAN_MIN_BEST_PCT:
+            errs.append(
+                f"scenario set does not SPAN: the bull case's benchmark move is only {best_move:+.1f}%, "
+                f"inside an ordinary move (<{SCENARIO_SPAN_MIN_BEST_PCT}%) for a liquidly-traded commodity "
+                f"benchmark. No case in the set contains a real upside outcome, so the probability-weighted "
+                f"return averages over a distribution that excludes one side of reality (CLAUDE.md §10 span "
+                f"check). Widen the cases before computing the expected return."
+            )
 
     psum = sum(probs)
     if abs(psum - 100) > 0.5:
@@ -872,6 +954,53 @@ def _selftest_scenario_math() -> int:
         rec(scenarios=[sc("dup", "bear", 25, -30.0, 70.0), sc("dup", "base", 50, 10.0, 110.0), sc("bull-x", "bull", 25, 40.0, 140.0)]), False)
     run("no bull case -> FAIL (the distribution must span the band)",
         rec(scenarios=[sc("bear-x", "bear", 25, -30.0, 70.0), sc("base-x", "base", 50, 10.0, 110.0), sc("base-y", "base", 25, 40.0, 140.0)]), False)
+    # The GOLD-miss shape (CLAUDE.md §10): a set that reconciles perfectly (probabilities sum to 100,
+    # expected_return_pct = Sum(p*ret), risk_reward re-derives) but whose best case never clears an
+    # ordinary move. Every other §10 leg is deliberately clean here so this isolates the SPAN check alone.
+    run("bull case inside an ordinary move -> FAIL (§10 span)",
+        rec(scenarios=[sc("bear-x", "bear", 25, -3.0, 97.0), sc("base-x", "base", 50, 1.0, 101.0), sc("bull-x", "bull", 25, 3.0, 103.0)],
+            expected_return_pct=0.5, downside_risk_pct=-3.0, risk_reward=0.167), False)
+    # §10 span, refinement (2) — Codex r3742531399: a mislabeled BASE with a larger move than the bull
+    # must not discharge the bull's own span obligation. Here base is +10% but the labelled bull is only
+    # +3% (inside an ordinary move); a bare max(return_pct) accepts this (base rescues it), the bull's own
+    # benchmark move rejects it. Every other §10 leg reconciles (E[r]=.25*-5+.5*10+.25*3=4.5).
+    run("bull inside an ordinary move but base carries a larger move -> FAIL (§10 span, not rescued by max)",
+        rec(scenarios=[sc("bear-x", "bear", 25, -5.0, 95.0), sc("base-x", "base", 50, 10.0, 110.0), sc("bull-x", "bull", 25, 3.0, 103.0)],
+            expected_return_pct=4.5, downside_risk_pct=-5.0, risk_reward=0.9), False)
+    # §10 span, refinement (3) — Codex r3742531401: a +40% bull carrying ZERO probability places no mass
+    # on the upside, so the distribution still excludes it. A bare max(return_pct) accepts this (40>=5);
+    # requiring the spanning case to carry probability rejects it. E[r]=0*40+.6*2+.4*-10=-2.8, rr=bull/bear=4.0.
+    run("bull at +40% but with zero probability -> FAIL (§10 span, no mass on the upside)",
+        rec(scenarios=[sc("bear-x", "bear", 40, -10.0, 90.0), sc("base-x", "base", 60, 2.0, 102.0), sc("bull-x", "bull", 0, 40.0, 140.0)],
+            expected_return_pct=-2.8, downside_risk_pct=-10.0, risk_reward=4.0), False)
+    # §10 span, refinement (1) — Codex r3742531404, backwardation false-PASS: return_pct is roll-adjusted,
+    # so a bull whose BENCHMARK move is only +4.5% (target 104.5, inside an ordinary move) can carry a
+    # +5.5% roll-adjusted return. The 1.0pt gap clears the existing return/target tolerance (max(1.5,..)),
+    # so a bare max(return_pct)=5.5 accepts it; the benchmark move (+4.5%) rejects it. E[r]=.30*-4+.45*1+.25*5.5=0.625.
+    run("bull's roll-adjusted return clears 5% but its benchmark move does not -> FAIL (§10 span, measured on the benchmark)",
+        rec(scenarios=[sc("bear-x", "bear", 30, -4.0, 96.0), sc("base-x", "base", 45, 1.0, 101.0), sc("bull-x", "bull", 25, 5.5, 104.5)],
+            expected_return_pct=0.625, downside_risk_pct=-4.0, risk_reward=0.156), False)
+    # §10 span, refinement (1) — the contango false-FAIL the same fix removes: a bull whose BENCHMARK move
+    # is +6% (target 106, a real move that DOES span) nets to a +4.7% roll-adjusted return after contango.
+    # A bare max(return_pct)=4.7 wrongly REJECTS a genuinely spanning set; the benchmark move (+6%) accepts
+    # it. E[r]=.25*-6+.5*1+.25*4.7=0.175. Confirms the fix does not just tighten — it corrects both signs.
+    run("bull's benchmark move spans (+6%) though contango nets its return to +4.7% -> ACCEPT (§10 span, measured on the benchmark)",
+        rec(scenarios=[sc("bear-x", "bear", 25, -6.0, 94.0), sc("base-x", "base", 50, 1.0, 101.0), sc("bull-x", "bull", 25, 4.7, 106.0)],
+            expected_return_pct=0.175, downside_risk_pct=-6.0, risk_reward=0.03), True)
+    # §10 span, refinement (4) — Codex r3742876382: an UNUSABLE benchmark anchor must be rejected, not
+    # silently swapped for the roll-adjusted return_pct. current_price.value is a bare number with no
+    # positive minimum, so value 0 is schema-legal; the benchmark % move (t-0)/0 is undefined, and the
+    # downstream return↔target reconciliation also skips a non-positive price ("and px"), so the old
+    # return_pct fallback let a +40% roll-adjusted bull pass every check. Here every other §10 leg
+    # reconciles (E[r]=.40*-10+.35*2+.25*40=6.7, downside=bear -10, rr=6.7/10=0.67); only the anchor is
+    # broken. Old code: cur_val>0 is False -> fallback max(return_pct)=40 >= 5 -> ACCEPTS (the bug). New
+    # code: no derivable benchmark move for a bull with mass -> "span NOT ASSESSABLE" -> REJECTS.
+    # (A negative current_price.value is caught by the same cur_val>0 guard; it is not a separate red-on-
+    # old case because the negative-price return↔target reconciliation already rejects it on old code too.)
+    run("bull with mass but current_price.value is 0 (unusable anchor) -> FAIL (§10 span, not assessable)",
+        rec(current_price={"value": 0.0, "currency": "USD", "unit": "t", "as_of": post},
+            scenarios=[sc("bear-x", "bear", 40, -10.0, 90.0), sc("base-x", "base", 35, 2.0, 102.0), sc("bull-x", "bull", 25, 40.0, 1.0)],
+            expected_return_pct=6.7, downside_risk_pct=-10.0, risk_reward=0.67), False)
     run("conjunction of independent conditions with no joint_probability_basis -> FAIL",
         rec(scenarios=[sc("bear-x", "bear", 25, -30.0, 70.0), sc("base-x", "base", 50, 10.0, 110.0),
                        sc("bull-x", "bull", 25, 40.0, 140.0, conditions=["real yields fall below 1.5%", "ETF flows turn positive 3 weeks running"])]), False)
@@ -900,7 +1029,7 @@ def _selftest_scenario_math() -> int:
         for f in failures:
             print(f"SELFTEST FAIL — {f}")
         return 1
-    print("SELFTEST OK — check_commodity_scenario_math truth table (24 branches) matches the §10 contract")
+    print("SELFTEST OK — check_commodity_scenario_math truth table (30 branches) matches the §10 contract")
     return 0
 
 
