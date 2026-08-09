@@ -5,6 +5,9 @@
 
 # UBER — Investment Dossier (2026-08-09)
 
+> **ERRATUM (appended 2026-08-10 · the analysis below is unchanged · frozen decision record untouched, DECISION_LEDGER §4a).**
+> **Sign check:** this thesis turns on the debt-funded Delivery Hero deal being a serial-acquirer / capital-allocation headwind. The owning specialist, `management-governance/02_capital-allocation-scorecard.md` finding `02-005`, agrees: standardized verdict **Red**, materiality **Critical**, confidence **5/5**, with `RF-CAP-004` triggered. The master thesis does not override that specialist; it carries the same flag into the Watchlist cap. This records the missing synthesizer Step 3b check only; no decision, scenario, confidence, or `decision_record.json` field changes. See `corrections.json` (kind: `note_clear`).
+
 Uber Technologies runs the app that matches riders, eaters, and shippers with independent drivers, couriers, and trucking carriers, and takes a cut of every transaction — it owns none of the vehicles.
 
 Run date: 2026-08-09 | Modules: business-model, earnings, valuation, balance-sheet-survival, management-governance, catalyst (all six ran; business-model/earnings/balance-sheet-survival/management-governance were scoped re-runs against a refreshed data pool, catalyst and valuation carried one input orb forward and refreshed the rest — see `RESUMED_FROM.md` in each module folder) | `RUN_METADATA.md` was not found in this run root — non-blocking; every module's own `99_*-synthesis.md` and `RESUMED_FROM.md` stamp is used instead to reconstruct scope. | Current price used throughout: $68.18 (2026-08-06, pool-verified, Capital IQ) | Prior dated run: `analyses/UBER_2026-08-06` (decision: Watchlist, confidence 48) and an intermediate `analyses/UBER_2026-08-08` (no `final_thesis.md` produced — synthesis did not complete that day).
