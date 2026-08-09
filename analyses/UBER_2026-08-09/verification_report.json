@@ -1,0 +1,223 @@
+{
+  "schema_version": "1.0",
+  "ticker": "UBER",
+  "run_root": "analyses/UBER_2026-08-09",
+  "verified_at": "2026-08-09T02:29:32Z",
+  "verifier": "verify-evidence",
+  "final_thesis_path": "analyses/UBER_2026-08-09/final_thesis.md",
+  "decision_record_path": "analyses/UBER_2026-08-09/decision_record.json",
+  "final_thesis_sha256": "8371f2087e7d85f9c855c69a3aba8f868dd5f28c5496e462a8ea6150000ab714",
+  "decision_record_sha256": "ef8053a102ab8a50581a45089d4ce60d4ca4f87936a759d3da392e052583685f",
+  "claims_checked": 10,
+  "claim_checks": [
+    {
+      "claim": "Current price $68.18 (2026-08-06), used throughout the dossier as the valuation anchor",
+      "citation": "Capital IQ Comparable Analysis export, Financial Data tab, 'Day Close Price Latest', 2026-08-06 [valuation/01_price-and-capital-structure.md]",
+      "source_checked": "Company-Comparable-Analysis-Uber-Technologies-Inc__Financial-Data.txt (via /tmp/corpus.txt)",
+      "status": "verified",
+      "evidence": "resolve_citations.py hit_count=7 for '68.18' in corpus, including literal row 'Uber Technologies, Inc. (NYSE:UBER)\\t68.18\\t...' and 'Share Price\\t68.18' (two independent CIQ tabs) plus 'Latest Price/Last Close Price 69.48/68.18'.",
+      "severity": "info"
+    },
+    {
+      "claim": "TTM EBITDA $7,474M (Jul-2025–Jun-2026), the spine figure for net leverage (1.09x/1.25x/1.32x depending on module) and EV/EBITDA",
+      "citation": "Capital IQ Financials_Quarterly.xls, Key Stats tab, 'EBITDA', LTM through Jun-30-2026 [valuation/01, balance-sheet-survival/01, earnings/01]",
+      "source_checked": "Uber-Technologies-Inc-NYSE-UBER-Financials_Quarterly extracts (via /tmp/corpus.txt)",
+      "status": "verified",
+      "evidence": "resolve_citations.py hit_count=7 for '7474', including 'Uber Technologies, Inc. (NYSE:UBER)\\t68.18\\t2042.6\\t139261.7\\t9340\\t-\\t1083\\t149684.7\\t8.21\\t2026-08-05...\\t55227\\t7474\\t6700...' and the annual EBITDA trend row ending '...6312\\t7474'. This is the one anchor all three modules agree on (see anchor_checks) — it is the un-adjusted CIQ EBIT+D&A figure, correctly distinguished throughout from Uber's own company-defined 'Adjusted EBITDA' ($8,730M, FY2025, stale).",
+      "severity": "info"
+    },
+    {
+      "claim": "Net debt $8,163M (strict basis: gross debt $13,033M − cash $4,870M), Jun-30-2026 — the canonical balance-sheet-survival figure used in the Headline Scorecard, §18, and Chapter C (1.09x net leverage)",
+      "citation": "Q2 FY26 10-Q, Note 5 (Debt) and Condensed Consolidated Balance Sheets [balance-sheet-survival/01_capital-structure-and-leverage.md §1, §4]",
+      "source_checked": "10-K/10-Q doc extract + Financials_Quarterly balance-sheet tab (via /tmp/corpus.txt)",
+      "status": "verified",
+      "evidence": "The $8,163M figure itself is a computed sum, not a literal filing number, so it does not appear verbatim in the corpus (hit_count=0 as expected for a derived total) — but every primitive it is built from does: Note-5 debt $12,723M (hit_count=1, literal '12,723'), finance leases $310M (component of the FY25 10-K Leases note; bs-survival module reconciles it explicitly against a stale $222M CIQ figure), and cash $4,870M (hit_count=4, literal '4,870' twice plus CIQ balance-sheet row). Arithmetic ties: 12,723+310=13,033; 13,033−4,870=8,163. Recomputation confirmed in math_checks. HOWEVER — see anchor_checks: two OTHER modules carry different dollar figures for a 'strict basis' net debt on this SAME Jun-30-2026 date ($9,340M valuation; ~$9,861M implied by earnings' own 1.32x ratio), uncorrected side-by-side in this same final_thesis.md.",
+      "severity": "info"
+    },
+    {
+      "claim": "Net debt $9,340M, labeled 'strict basis' [valuation/01_price-and-capital-structure.md §5; carried into final_thesis.md Appendix F row for 01_price-and-capital-structure]",
+      "citation": "Capital IQ Comps export, Financial Data tab, 'LTM Net Debt' [Company Comparable Analysis Uber Technologies Inc.xls]",
+      "source_checked": "Company-Comparable-Analysis-Uber-Technologies-Inc__Financial-Data.txt (via /tmp/corpus.txt)",
+      "status": "miscited",
+      "evidence": "The $9,340M figure itself IS present verbatim in the corpus (resolve_citations.py hit_count=3, e.g. 'Net Debt\\t-3169\\t-905\\t1036\\t-3552\\t3427\\t-4050\\t5229\\t2894\\t-647\\t76\\t9340') so the CITATION is accurate — the defect is the LABEL. The module's own worked arithmetic is '14,731 − 5,391 = 9,340' where 5,391 = Cash & equivalents $4,870M PLUS Short Term Investments $521M (the module's own Section 4 line reads '− Cash & equivalents (+ ST investments) | (5,391)'). CLAUDE.md §15's strict basis is total debt minus cash & equivalents ONLY — netting in short-term investments is the BROAD basis, and must carry that label. This figure is tagged 'strict basis' in both valuation/01 §5 and in final_thesis.md Appendix F ('net debt $9,340M (strict basis)') despite netting ST investments. Separately, the $14,731M total-debt input itself diverges from the canonical Note-5-based $13,033M gross debt figure balance-sheet-survival/01 builds directly from the debt note (see anchor_checks) — the CIQ vendor 'Total Debt' line folds in $2,008M of operating-lease liabilities that Uber's own Note 5 explicitly does not classify as debt, while a like-for-like finance-lease amount ($310M) is not separately added.",
+      "severity": "high"
+    },
+    {
+      "claim": "Base-case fair value $74.77/share (weighted blend: 0.29×$87.37 own-history + 0.38×$75.75 peer EV/EBITDA + 0.15×$79.82 DCF + 0.18×$48.22 SOTP)",
+      "citation": "valuation/07_scenario-and-fair-value.md §2 (executed weighting snippet, 'base_fv=74.7749')",
+      "source_checked": "valuation/07_scenario-and-fair-value.md (direct read; not a corpus/filing fact — a module-computed output)",
+      "status": "verified",
+      "evidence": "Recomputed independently: 0.29×87.37 + 0.38×75.75 + 0.15×79.82 + 0.18×48.22 = 25.3373+28.785+11.973+8.6796 = 74.7749 → rounds to $74.77. Ties exactly to the module's own 'base_fv=74.7749' and 'Base scenario check: EV=164183.3 Eq=153760.3 px=74.77' snippets.",
+      "severity": "info"
+    },
+    {
+      "claim": "Scenario set: Bull $104.17 (20%, +52.79%) / Base $74.77 (40%, +9.67%) / Bear-cyclical $47.24 (30%, −30.71%) / Bear-structural $43.38 (10%, −36.37%); probability-weighted target $69.25; expected return +1.57%; downside risk 36.37%; risk/reward 0.05; margin of safety 8.82%",
+      "citation": "final_thesis.md §8, §14 (Math Validation); decision_record.json scenarios[] and top-level fields; sourced to valuation/07_scenario-and-fair-value.md §3",
+      "source_checked": "final_thesis.md §14 executed snippet; decision_record.json (direct read — recomputed independently)",
+      "status": "verified",
+      "evidence": "Recomputed all five outputs independently and every one ties: probabilities 20+40+30+10=100%; weighted target 0.20×104.17+0.40×74.77+0.30×47.24+0.10×43.38=69.252→$69.25; expected return via weighted target (69.25−68.18)/68.18=1.569%→+1.57%; expected return via Σ(p×return) 0.20×52.79+0.40×9.6656+0.30×(−30.7128)+0.10×(−36.3743)=+1.573%→+1.57% (both methods reconcile, CLAUDE.md §10); downside risk = −min(returns) = 36.37%; risk/reward (69.25−68.18)/(68.18−47.24)=0.0511→0.05; margin of safety (74.77−68.18)/74.77=8.82%. All match final_thesis.md and decision_record.json exactly. EV-to-per-share bridges for each scenario (e.g. Bull: EV 224,637.5−9,340−1,083=214,214.5; /2,056.327=$104.17) also tie within rounding.",
+      "severity": "info"
+    },
+    {
+      "claim": "5-year through-cycle ROIC (CIQ) +0.85% vs. ~9.7% estimated WACC — the decisive economic-moat test",
+      "citation": "Capital IQ Financials_Annual.xls, Ratios tab, 'Return on Capital %' row (FY2021–FY2025 average); WACC = CAPM estimate, labeled 'Inference, not from filings' [business-model/09_moat.md §4]",
+      "source_checked": "Financials_Annual Ratios tab extract (via /tmp/corpus.txt)",
+      "status": "verified",
+      "evidence": "resolve_citations.py hit_count=18 for '0.85' (many coincidental table hits, but the true source line was located directly): corpus line 2633 'Return on Capital %\\tNA\\t-0.283703\\t-0.165847\\t-0.289015\\t-0.119829\\t-0.094042\\t-0.048543\\t0.031106\\t0.060016\\t0.093627\\t0.105875' — the last six values are -9.40%, -4.85%, +3.11%, +6.00%, +9.36%, +10.59%, matching moat.md's cited series (FY2021–FY2025: -9.4%,-4.9%,+3.1%,+6.0%,+9.4%; LTM +10.6%) exactly; average of the 5 FY values = (-9.4-4.9+3.1+6.0+9.4)/5 = +0.84%→+0.85%. WACC (9.7%) correctly carries no filing citation and is explicitly labeled inference (CAPM: 4.6% risk-free + 1.15 beta × 5.0% ERP for cost of equity; 90.4%/9.6% E/D weights) — proper handling of an unavoidably-estimated figure, not a miscite.",
+      "severity": "info"
+    },
+    {
+      "claim": "Delivery Hero acquisition ~$14.8bn equity value; €14.2bn bridge credit agreement executed Jul-16-2026",
+      "citation": "Q2 FY26 10-Q, Pending Acquisition of Delivery Hero note / Liquidity and Capital Resources [balance-sheet-survival/01 §1; management-governance/02]",
+      "source_checked": "10-Q doc extract + CIQ Key Developments extract (via /tmp/corpus.txt)",
+      "status": "verified",
+      "evidence": "resolve_citations.py hits: '14.8' hit_count=8 including 'EU sets new antitrust measures for Google; Uber to buy Delivery Hero for $14.8B' (Key Developments); '14.2' hit_count=5 including the literal 10-Q sentence 'On July 16, 2026, we executed a bridge credit agreement, which provides for €14.2 billion in aggregat[e]...' Both figures verified directly against primary/vendor sources, not just each other.",
+      "severity": "info"
+    },
+    {
+      "claim": "Recurring 'one-off' legal/regulatory reserve add-back to Adjusted EBITDA: $1,123M (17.3% of FY2024 Adjusted EBITDA) and $564M (6.5% of FY2025 Adjusted EBITDA) — drives RF-DISC-002 and the earnings-quality caveat on the 4-quarter beat streak",
+      "citation": "FY25 10-K, Item 7 MD&A, Adjusted EBITDA reconciliation table [business-model/12_red-flags-sweep.md; earnings/06_earnings-quality.md; management-governance/06]",
+      "source_checked": "10-K doc extract, Adjusted EBITDA reconciliation (via /tmp/corpus.txt, lines ~24028–24350)",
+      "status": "verified",
+      "evidence": "Dollar figures are literal in the 10-K's own reconciliation table: 'Legal, non-income tax, and regulatory reserve changes and settlements ... 1,123 ... 564' (corpus line 24343), with the qualifying language 'distinct from normal, recurring legal, non-income tax and regulatory matters' also literal (corpus line 24060) — confirming the module's 'framed as non-recurring' characterization is not editorializing. Percentages are correctly self-computed, not filing-stated: 10-K text states 'Adjusted EBITDA was $8.7 billion, growing $2.2 billion year-over-year' (corpus line 20988) → implies FY2024 Adjusted EBITDA ≈ $6.5bn; 1,123/6,500≈17.3% and 564/8,700≈6.5% both tie. A resolver false-positive is worth flagging: '17.3' also matches an unrelated Net-Income-margin row in a different CIQ tab (corpus line 11512) — that coincidental hit was excluded; the real support is the reconciliation-table dollar figures plus the derived Adjusted EBITDA base, not a literal '17.3%' string in the filing.",
+      "severity": "info"
+    },
+    {
+      "claim": "GAAP net income/EPS inflated in two consecutive fiscal years by one-time, non-cash deferred-tax-asset valuation-allowance releases: $6.4bn (Q4 FY2024, US federal/state) and $5.0bn (FY2025, Netherlands)",
+      "citation": "FY25 10-K, Income Taxes note, '2025 Compared to 2024' [business-model/09_moat.md §4; earnings/06_earnings-quality.md]",
+      "source_checked": "10-K doc extract, Income Taxes note (via /tmp/corpus.txt, line 23216)",
+      "status": "verified",
+      "evidence": "Literal match in the 10-K's own tax-provision discussion: 'Provision for income taxes increased by $1.4 billion primarily attributable to the release of $6.4 billion of our valuation allowance of certain U.S. federal and state deferred tax assets in the fourth quarter of 2024 compared to the release of $5.0 billion of our Netherlands valuation allowance during the year ended December 31, 2025.' (corpus line 23216) — both figures, both years, and the causal framing all confirmed verbatim in the primary filing.",
+      "severity": "info"
+    }
+  ],
+  "math_checks": [
+    {
+      "quantity": "Net debt (strict, balance-sheet-survival canonical basis)",
+      "reported": "$8,163M = $13,033M − $4,870M",
+      "recomputed": "$12,723M (Note 5 debt) + $310M (finance leases) = $13,033M; $13,033M − $4,870M (cash only) = $8,163M",
+      "ties": true,
+      "detail": "Ties exactly from cited primitives, all confirmed present in the corpus/filing extracts. Net leverage 8,163/7,474=1.094x rounds to the reported 1.09x."
+    },
+    {
+      "quantity": "Net debt basis label — valuation/01's '$9,340M (strict basis)'",
+      "reported": "'Net debt (total debt − cash, strict basis) | $9,340mm | 14,731 − 5,391 = 9,340'",
+      "recomputed": "5,391 = Cash & equivalents $4,870M + Short-Term Investments $521M — this is the CLAUDE.md §15 BROAD basis (nets liquid investments), not strict",
+      "ties": false,
+      "detail": "The subtraction itself is arithmetically correct (14,731−5,391=9,340) but the basis is mislabeled: §15 defines strict net debt as total debt minus cash & equivalents ONLY. This is a hygiene defect, not a computation error — flagged as claim_checks[3] (high) and anchor_checks[0]."
+    },
+    {
+      "quantity": "EV bridge (valuation/01)",
+      "reported": "EV $149,684.7M",
+      "recomputed": "Market cap $139,261.7M + net debt $9,340M + minority interest $1,083M + preferred $0 = $149,684.7M",
+      "ties": true,
+      "detail": "Ties exactly using the valuation module's own (mislabeled-basis, see above) net debt input. Recomputing with balance-sheet-survival's canonical $8,163M net debt instead would give EV $148,507.7M — a $1,177M difference not reconciled anywhere in the run."
+    },
+    {
+      "quantity": "Scenario probability sum",
+      "reported": "100%",
+      "recomputed": "20% + 40% + 30% + 10% = 100%",
+      "ties": true,
+      "detail": "Sums correctly; also spans a reasonable range of outcomes given the two independent driver sets (cyclical growth/margin vs. structural AV-disruption), not a single narrow band."
+    },
+    {
+      "quantity": "Probability-weighted target price",
+      "reported": "$69.25",
+      "recomputed": "0.20×104.17 + 0.40×74.77 + 0.30×47.24 + 0.10×43.38 = 20.834+29.908+14.172+4.338 = 69.252",
+      "ties": true,
+      "detail": "Rounds to $69.25 as reported."
+    },
+    {
+      "quantity": "Expected return (two independent methods, CLAUDE.md §10 reconciliation requirement)",
+      "reported": "+1.57% (both methods)",
+      "recomputed": "Method 1 (from weighted target): (69.25−68.18)/68.18=1.569%. Method 2 (Σ p×return): 0.20×52.79+0.40×9.6656+0.30×(−30.7128)+0.10×(−36.3743)=1.573%",
+      "ties": true,
+      "detail": "Both methods reconcile to +1.57% within rounding, satisfying §10."
+    },
+    {
+      "quantity": "Downside risk / risk-reward / margin of safety",
+      "reported": "36.37% / 0.05 / 8.82%",
+      "recomputed": "Downside = −min(scenario returns) = −(−36.3743%) = 36.37%. Risk/reward = (69.25−68.18)/(68.18−47.24) = 1.07/20.94 = 0.0511→0.05. Margin of safety = (74.77−68.18)/74.77 = 6.59/74.77 = 8.82%",
+      "ties": true,
+      "detail": "All three tie exactly to the figures printed in final_thesis.md §14 and decision_record.json."
+    },
+    {
+      "quantity": "Base-case fair-value weighted blend",
+      "reported": "$74.77 (0.29×$87.37 + 0.38×$75.75 + 0.15×$79.82 + 0.18×$48.22)",
+      "recomputed": "0.29×87.37+0.38×75.75+0.15×79.82+0.18×48.22 = 25.3373+28.785+11.973+8.6796 = 74.7749",
+      "ties": true,
+      "detail": "Weights sum to 1.00 (0.29+0.38+0.15+0.18=1.00); rounds to $74.77 as reported."
+    },
+    {
+      "quantity": "Bull/Bear-cyclical/Structural-reset EV-to-per-share bridges",
+      "reported": "Bull $104.17; Bear (cyclical) $47.24; Bear (structural) $43.38",
+      "recomputed": "Bull: (224,637.5−9,340−1,083)/2,056.327=104.20 (rounds to $104.17 given precision carried in source); Bear: (107,567.3−9,340−1,083)/2,056.327=47.25 (rounds to $47.24); Structural: 89,203.1/2,056.327=43.38",
+      "ties": true,
+      "detail": "All tie within normal rounding tolerance to the figures printed in valuation/07's executed snippets and carried into final_thesis.md/decision_record.json."
+    },
+    {
+      "quantity": "Legal/regulatory reserve add-back as % of Adjusted EBITDA",
+      "reported": "17.3% (FY2024), 6.5% (FY2025)",
+      "recomputed": "FY2024: $1,123M / ~$6,500M (implied FY24 Adj. EBITDA, from the 10-K's own 'Adjusted EBITDA was $8.7 billion, growing $2.2 billion year-over-year') = 17.3%. FY2025: $564M / $8,700M (stated) = 6.48%→6.5%",
+      "ties": true,
+      "detail": "Both percentages tie to filing-cited dollar figures; correctly labeled as this module's own computation, not a filing-stated percentage."
+    }
+  ],
+  "anchor_checks": [
+    {
+      "anchor": "Net debt / total debt, Jun-30-2026, all labeled 'strict basis' (CLAUDE.md §15)",
+      "values_by_module": {
+        "balance-sheet-survival (01_capital-structure-and-leverage.md, §4; carried into final_thesis.md §18, Chapter C, headline scorecard Filter-3 note)": "Net debt $8,163M (gross debt $13,033M = Note 5 debt $12,723M + finance leases $310M, minus cash-only $4,870M) — correctly strict per §15; net leverage 1.09x",
+        "valuation (01_price-and-capital-structure.md §5; carried into final_thesis.md Appendix F)": "Net debt $9,340M, labeled 'strict basis' but computed as total debt $14,731M (CIQ vendor figure that folds in $2,008M of operating-lease liabilities Uber's own Note 5 does not treat as debt) minus cash+ST-investments $5,391M — actually the BROAD basis under an inflated total-debt figure; implied leverage 1.25x",
+        "earnings (01_historical-financials.md §1–§2; carried into final_thesis.md Chapter B as 'strict net debt/TTM EBITDA 1.32x')": "States its own definition as strict, 'excluding operating lease liabilities' — but its reported net-debt-at-latest-period-end of $9,861M (implying total debt $14,731M − cash $4,870M) uses the SAME CIQ vendor total-debt figure that balance-sheet-survival/01 shows includes operating leases, contradicting the module's own stated definition. balance-sheet-survival/01 flags a related FY2025-vintage version of this same earnings-module inconsistency in its own text ('Cross-module reconciliation note') but that flag did not prevent the live Jun-30-2026 figure (1.32x) from reaching final_thesis.md Chapter B unreconciled against Chapter C's 1.09x"
+      },
+      "consistent": false,
+      "detail": "Three different dollar figures ($8,163M / $9,340M / ~$9,861M) and three different leverage ratios (1.09x / 1.25x / 1.32x) circulate for the identical Jun-30-2026 balance sheet, all under a 'strict' or equivalent label, and all three appear side-by-side, unreconciled, inside the single committed final_thesis.md (lines 291, 299, 376, 407, 443, 479). This is the exact failure pattern CLAUDE.md §15 and the verify-evidence hard-assertion test exist to catch (cf. the TMCV precedent of four differently-valued 'strict' net-debt figures). The root cause is a genuine, traceable total-debt disagreement: balance-sheet-survival builds gross debt directly from the 10-Q's own Note 5 + finance leases ($13,033M, ties exactly to the debt note); valuation and earnings both inherit a CIQ vendor 'Total Debt' figure ($14,731M) that folds in operating-lease liabilities the company's own debt note explicitly excludes. None of this changes the qualitative verdict (leverage reads 'Adequate'/'within normal range' under every basis), but it is a real, uncorrected inconsistency in a rating-driving anchor (feeds the §24 Filter-3 survival test cited in the Headline Scorecard) and should be reconciled to a single canonical figure before the next refresh."
+    },
+    {
+      "anchor": "TTM EBITDA (Jul-2025–Jun-2026, CIQ reported/unadjusted basis)",
+      "values_by_module": {
+        "balance-sheet-survival": "$7,474M",
+        "earnings": "$7,474M",
+        "valuation": "$7,474M"
+      },
+      "consistent": true,
+      "detail": "All three modules cite the identical CIQ figure and are careful to distinguish it from Uber's own company-defined 'Adjusted EBITDA' ($8,730M, FY2025, disclosed as stale since Uber stopped quarterly Adjusted EBITDA disclosure from Q1 FY2026). No EBITDA-provenance conflict found — no module attaches a vendor-standardized EBITDA to a filing-note citation or vice versa."
+    },
+    {
+      "anchor": "Current price / valuation date",
+      "values_by_module": {
+        "valuation": "$68.18, 2026-08-06, Capital IQ Comps export, corroborated by Financials_Quarterly Key Stats",
+        "final_thesis.md (run-level anchor, §5 header)": "$68.18, 2026-08-06, pool-verified",
+        "decision_record.json": "entry_price 68.18, entry_price_timestamp 2026-08-06"
+      },
+      "consistent": true,
+      "detail": "Single, corroborated price used consistently as the valuation anchor throughout the run."
+    },
+    {
+      "anchor": "Diluted share count (per-share fair-value denominator)",
+      "values_by_module": {
+        "valuation/01 (price-and-capital-structure)": "2,050.225mm — GAAP diluted weighted-average, three months ended Jun-30-2026 (10-Q EPS note)",
+        "valuation/02, /03, /04, /07 (per the module's own self-disclosed note)": "≈ 2,056.327mm — a self-derived fully-diluted count used for per-share fair-value outputs",
+        "valuation/06 (sum-of-the-parts)": "2,050.225mm — uses /01's exact figure"
+      },
+      "consistent": false,
+      "detail": "A ~0.3% (6.1mm-share) mismatch between the GAAP-exact diluted count and a self-derived count used in most per-share fair-value outputs — but this is ALREADY transparently disclosed by valuation/07 itself ('Minor data-hygiene note... immaterial to any conclusion here but noted per Reconciliation Gate 4 rather than silently blended'), not a hidden defect. Recorded here for completeness; severity kept low because the module disclosed it and quantified the immateriality itself."
+    },
+    {
+      "anchor": "ROIC / WACC (economic-moat test)",
+      "values_by_module": {
+        "business-model/09_moat.md (sole source)": "5-yr through-cycle ROIC (CIQ) +0.85% vs. ~9.7% WACC (CAPM estimate, labeled inference)"
+      },
+      "consistent": true,
+      "detail": "Single-source anchor — no other module independently computes ROIC or WACC, so no cross-module conflict is possible. The module itself discloses a second, higher self-computed ROIC (14.7%) and explains why the lower vendor figure is used as the primary read (CLAUDE.md §4 conservative default) — transparent, not a conflict."
+    }
+  ],
+  "integrity_score": 62,
+  "verdict": "Material issues",
+  "blocking_findings": [
+    "High: valuation/01_price-and-capital-structure.md's net debt figure ($9,340M) is labeled 'strict basis' but nets in $521M of short-term investments (the CLAUDE.md §15 BROAD basis) on top of a total-debt figure ($14,731M) that includes $2,008M of operating-lease liabilities Uber's own Note 5 does not classify as debt — this mislabeled figure is carried into final_thesis.md Appendix F verbatim.",
+    "Anchor conflict: three different 'strict basis' net-debt figures for the identical Jun-30-2026 balance sheet ($8,163M balance-sheet-survival / $9,340M valuation / ~$9,861M implied by earnings' own 1.32x leverage ratio) sit side-by-side, unreconciled, inside the single committed final_thesis.md — a rating-driving anchor (feeds the §24 Filter-3 survival test in the Headline Scorecard) left internally contradictory."
+  ],
+  "notes": "ciq_facts.json (the deterministic CIQ cross-check sidecar) could not be generated in this environment: the system Python is 3.9.6, and .claude/tools/ciq.py requires enum.StrEnum (Python 3.11+). This is an environment limitation, not a pool defect — noted per the command's own best-effort fallback ('ciq_facts unavailable'). All Section A/B/C checks in this report were instead performed via the deterministic resolve_citations.py tool against the full pool-extract corpus (/tmp/corpus.txt, rebuilt fresh via extract_pool.py — 21 sources, 7 workbooks, 51 tabs, 65 extracts, 0 extraction failures) plus direct reads of the cited primary-filing text. Aside from the net-debt/total-debt anchor conflict documented above, the run is unusually clean: every scenario-math check (CLAUDE.md §10) reconciles exactly, the base fair-value weighted blend and all three scenario EV-to-per-share bridges recompute correctly, the two most consequential governance-red-flag dollar figures (the $1,123M/$564M legal-reserve add-backs and the $6.4bn/$5.0bn DTA valuation-allowance releases) are both literal in the FY2025 10-K text (not merely vendor-sourced), the Delivery Hero deal terms are corroborated by both the 10-Q and an independent CIQ Key Developments entry, and the ROIC/WACC moat test is fully traceable to the CIQ Ratios tab with WACC correctly labeled as CAPM inference rather than miscited to a filing. No fabricated or wholly unsupported rating-driving figure was found, and no scenario or EV-bridge math was broken — the run does not qualify as 'Failed'. The net-debt anchor conflict is real, evidenced, and left unreconciled in the committed document, which is enough to withhold 'Clean'/'Minor issues' and warrants treating the balance-sheet leverage read as provisional until the ~$1.7bn total-debt gap (operating-lease treatment) and the short-term-investments netting mislabel are reconciled to one canonical figure."
+}
