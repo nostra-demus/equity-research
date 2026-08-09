@@ -1,0 +1,111 @@
+{
+  "agents": [
+    {
+      "agent": "valuation-synthesis",
+      "model": "claude-sonnet-5",
+      "calls": 24,
+      "usage": {
+        "input_tokens": 12965,
+        "output_tokens": 36848,
+        "cache_read_input_tokens": 2326137,
+        "cache_creation_input_tokens": 317711,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 317711,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 2.48087235,
+      "runtime_ms": 642674,
+      "module": "valuation"
+    },
+    {
+      "agent": "price-and-capital-structure",
+      "model": "claude-sonnet-5",
+      "calls": 30,
+      "usage": {
+        "input_tokens": 60,
+        "output_tokens": 30565,
+        "cache_read_input_tokens": 2980161,
+        "cache_creation_input_tokens": 139776,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 139776,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.8768633000000001,
+      "runtime_ms": 360068,
+      "module": "valuation"
+    },
+    {
+      "agent": "module-memo-writer",
+      "model": "claude-opus-4-8",
+      "calls": 4,
+      "usage": {
+        "input_tokens": 8,
+        "output_tokens": 4179,
+        "cache_read_input_tokens": 83377,
+        "cache_creation_input_tokens": 37344,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 37344,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.3796035,
+      "runtime_ms": 58645,
+      "module": "(top-level)"
+    },
+    {
+      "agent": "sum-of-the-parts",
+      "model": "claude-sonnet-5",
+      "calls": 17,
+      "usage": {
+        "input_tokens": 1613,
+        "output_tokens": 47952,
+        "cache_read_input_tokens": 1705217,
+        "cache_creation_input_tokens": 154663,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 154663,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.81567035,
+      "runtime_ms": 541384,
+      "module": "valuation"
+    },
+    {
+      "agent": "scenario-and-fair-value",
+      "model": "claude-sonnet-5",
+      "calls": 11,
+      "usage": {
+        "input_tokens": 6201,
+        "output_tokens": 20790,
+        "cache_read_input_tokens": 1065919,
+        "cache_creation_input_tokens": 146710,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 146710,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.2003911999999999,
+      "runtime_ms": 250434,
+      "module": "valuation"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 26,
+    "usage": {
+      "input_tokens": 52,
+      "output_tokens": 20813,
+      "cache_read_input_tokens": 2815259,
+      "cache_creation_input_tokens": 107685,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 107685
+      }
+    },
+    "cost": 1.8030387,
+    "runtime_ms": 0
+  }
+}
