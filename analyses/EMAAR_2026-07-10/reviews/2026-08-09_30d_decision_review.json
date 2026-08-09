@@ -1,0 +1,184 @@
+{
+  "schema_version": "1.0",
+  "ticker": "EMAAR",
+  "original_decision_date": "2026-07-10",
+  "review_date": "2026-08-09",
+  "review_window": "30d",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 12.2,
+  "tracking_price": null,
+  "review_price": 11.5,
+  "absolute_return_pct": -5.74,
+  "benchmark_return_pct": -0.63,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": -5.11,
+  "sector_relative_return_pct": null,
+  "thesis_status": "confirmed",
+  "forecast_results": [
+    {
+      "prediction": "Q2 2026 (10 Aug) reports an EPS/EBITDA profit-line beat vs the reset consensus bar",
+      "status": "falsified",
+      "evidence": "Emaar reported Q2/H1 2026 results on 2026-08-07 (earlier than the CIQ-estimated ~10 Aug date). Q2 revenue grew 18% YoY but missed analyst expectations by ~6% and fell 7% QoQ. Q2 EBITDA fell 22% QoQ and landed 5% below consensus. Net profit attributable was AED 3.7bn, +9% YoY but -27% QoQ. The falsification_trigger ('Q2 EPS misses consensus OR Q2 EBITDA misses consensus') is satisfied via the EBITDA miss; the confirmation_trigger required BOTH legs to beat, and EBITDA did not. [Investing.com, 'Emaar Properties reports lower profit despite revenue growth', 2026-08-07; Gulf News H1 2026 results summary, 2026-08-07]",
+      "as_of": "2026-08-09"
+    },
+    {
+      "prediction": "Q2 2026 property pre-sales growth decelerates below Q1-26's +16% YoY",
+      "status": "confirmed",
+      "evidence": "Property development sales (pre-sales) totaled AED 4.24bn in Q2 2026, DOWN 84% YoY and 81% QoQ -- far below the +16% YoY confirmation_trigger threshold and consistent (cross-checked) with the H1 2026 total property-sales figure of AED 26.6bn (Q1 ~AED 22.3bn implied + Q2 AED 4.24bn ~= AED 26.6bn H1). Total revenue backlog growth also decelerated to +13% YoY (from the +29%/+39% cited in the original decision record), though it remains positive rather than flat. [IndexBox, 'Emaar H1 2026 Results', 2026-08-07; Investing.com Q2 2026 earnings summary, 2026-08-07; Gulf News H1 2026 results, 2026-08-07]",
+      "as_of": "2026-08-09"
+    },
+    {
+      "prediction": "No value-crystallizing owner action (mall spin/REIT/special distribution) within 12 months",
+      "status": "still open",
+      "evidence": "12-month window (to 2027-07-10), not elapsed. No mall spin/REIT/special distribution announced. If anything, the period saw the OPPOSITE of a crystallization signal: Emaar and Dubai Holding unveiled a new ~AED 200bn ('Dubai Estate') masterplan for 150,000 residents -- a large NEW capital commitment, not a return of existing mall value to minorities. Consistent with continued non-crystallization. [AGBI, 'Emaar's unnamed $54bn mega-project tipped to be Dubai Estate', 2026-07; Gulf Business, 'Emaar to unveil $54bn Dubai mega project', 2026-07]",
+      "as_of": "2026-08-09"
+    },
+    {
+      "prediction": "Net-cash fortress maintained (no swing to material net debt) over 12 months",
+      "status": "still open",
+      "evidence": "12-month window, not elapsed. H1 2026 EBITDA of AED 12.9bn (+24% YoY) and net profit before tax of AED 12.8bn (+23% YoY) indicate continued strong cash generation; no debt-funded capital call or net-debt swing was found in the evidence gathered. Not independently verified against a balance-sheet source this review -- treated as still open, no contrary evidence.",
+      "as_of": "2026-08-09"
+    },
+    {
+      "prediction": "FY2026 dividend held at ~AED 1.00/share (declared ~Feb 2027)",
+      "status": "still open",
+      "evidence": "Window not yet reached (declaration expected ~Feb 2027). No dividend announcement found in this review's evidence.",
+      "as_of": "2026-08-09"
+    },
+    {
+      "prediction": "Price stays below the AED 15.00 base fair value at 12 months (value trap persists)",
+      "status": "still open",
+      "evidence": "12-month window, not elapsed. Price AED 11.50 (2026-08-07) remains well below AED 15.00, and 30 days of evidence (pre-sales collapse, EBITDA miss) makes a near-term re-rate toward AED 15.00 look less likely, not more, though the window is far from over.",
+      "as_of": "2026-08-09"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "Q2 2026 results (CIQ-estimated ~10 Aug)",
+      "status": "materialized",
+      "evidence": "Reported 2026-08-07, three to five days earlier than the CIQ-estimated date. Results showed an EBITDA/revenue miss vs consensus and a sharp pre-sales deceleration -- see forecast_results above.",
+      "as_of": "2026-08-09"
+    },
+    {
+      "catalyst": "Sukuk maturity/refinancing, 15 Sep 2026",
+      "status": "pending",
+      "evidence": "Not yet due at review date; no evidence gathered either way in this review.",
+      "as_of": "2026-08-09"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Kill criterion 1 -- Q2 2026 pre-sales growth < +16% YoY and falling / backlog growth stepping toward flat (the Dubai cycle turning)",
+      "status": "materialized",
+      "evidence": "Both legs of this kill criterion are satisfied: pre-sales growth was -84% YoY (and -81% QoQ, i.e. falling further within the same half), and backlog growth decelerated to +13% YoY from the +29%/+39% cited in the original decision record -- a clear step toward flat, though not literally at zero. This is the single most consequential finding of this review window. [IndexBox / Investing.com / Gulf News, all 2026-08-07, cross-checked against the H1 2026 total for internal consistency]",
+      "as_of": "2026-08-09"
+    },
+    {
+      "risk": "Killer risk -- value trap via a value-indifferent Government-of-Dubai controller, compounded by the Dubai cycle rolling over from its 2025 peak",
+      "status": "materialized",
+      "evidence": "The cyclical leg of the killer risk is now directly evidenced by the Q2 pre-sales collapse and backlog deceleration above. The governance/owner leg (no incentive to crystallize mall value) is reinforced, not newly evidenced, by the AED 200bn Dubai Estate masterplan announcement -- new capital deployment rather than value return to minorities.",
+      "as_of": "2026-08-09"
+    },
+    {
+      "risk": "Kill criterion 2 -- a richly-priced parent asset injected from Dubai Holding, funded by new Emaar shares",
+      "status": "not materialized",
+      "evidence": "The new AED 200bn Dubai Estate masterplan was announced as an Emaar/Dubai Holding-backed development, not disclosed as an asset injection funded by a new Emaar share issuance. No dilutive capital raise found in evidence gathered. Worth monitoring as the masterplan's funding structure becomes clearer.",
+      "as_of": "2026-08-09"
+    },
+    {
+      "risk": "Kill criterion 3 -- development gross margin fades below the guided 'low 50s' toward high-40s",
+      "status": "pending",
+      "evidence": "Not directly assessable from evidence gathered -- EBITDA fell 22% QoQ and missed consensus by 5%, which is suggestive but is not the specific development gross-margin metric named in the kill criterion. Not assessable this review.",
+      "as_of": "2026-08-09"
+    },
+    {
+      "risk": "Kill criterion 5 -- net cash swings to material net debt via a debt-funded capital call",
+      "status": "not materialized",
+      "evidence": "No evidence of a debt-funded capital call found. H1 2026 EBITDA and net profit before tax both grew double digits YoY, consistent with continued self-funding.",
+      "as_of": "2026-08-09"
+    },
+    {
+      "risk": "Kill criterion 6 -- founder-MD (Alabbar) departs abruptly, or Emaar<->Eagle Hills deal-flow diversion evidence surfaces",
+      "status": "not materialized",
+      "evidence": "Alabbar remained visibly active in the period (quoted commentary on H1 2026 results and the new masterplan). No deal-flow diversion evidence found.",
+      "as_of": "2026-08-09"
+    }
+  ],
+  "decision_quality": "skill",
+  "error_taxonomy": [],
+  "lessons": [
+    "The engine's own named forward test fired within the 30-day window, in the direction the caution anticipated: kill criterion 1 (Q2 pre-sales growth < +16% YoY and falling, backlog growth stepping toward flat) is satisfied -- pre-sales fell 84% YoY, and backlog growth decelerated from +29%/+39% to +13% YoY. This is the specific, dated, falsifiable evidence the record's edge_proof said would disprove the priced-in FCF collapse if it held above +16%; it did not hold, and the record's caution is validated rather than contradicted.",
+    "Price outcome: entry AED 12.20 (2026-06-28, CIQ-derived, 12 days stale at decision time) to AED 11.50 (2026-08-07 close) = -5.74%, against a DFM General Index move of approximately -0.63% over a closely-matched window (5,955.58 on 2026-06-30 to 5,918 on 2026-08-06) = -5.11pp benchmark-relative. As a Watchlist with no position, this is opportunity cost AVOIDED, not loss -- the record explicitly declined to recommend a starter long unless pre-sales held >=+16% YoY, and pre-sales missed that bar by a wide margin. The engine's discipline not to upgrade is what a Watchlist call is supposed to do when the risk it names actually shows up.",
+    "decision_quality is scored 'skill' on this basis: the specific, falsifiable, dated threshold (pre-sales >=+16% YoY) that would have justified moving off Watchlist toward a starter long was missed by ~100 percentage points, and price moved down rather than toward the base-case AED 15.00 target -- both the analytical call (cycle-peak risk is real) and the position discipline (do not buy) are validated by the same evidence. This should not be read as a call to become more bearish than Watchlist; the wholly-owned mall-annuity value argument (~79% of EV) is unaffected by this print and was never the part of the thesis being tested here.",
+    "Review price AED 11.50 (2026-08-07 close) via stockanalysis.com, accessed 2026-08-09, indicative/unverified. A separate investing.com snapshot showed AED 11.96 on 2026-08-06 with an apparently stale AED 13.40 'previous close' -- the DFM-listed quote data available via web search is noisy; stockanalysis.com's dated close was preferred as the cleaner, explicitly dated figure. Flagging this data-quality caveat explicitly rather than silently picking a number.",
+    "DFM General Index (benchmark): 5,955.58 on 2026-06-30 (closest dated figure found to the 2026-06-28 entry_price_timestamp, a 2-day gap) via a market-report search snippet, and 5,918 on 2026-08-06 (one day before the review price date) via tradingeconomics.com, both accessed 2026-08-09, indicative/unverified. The date mismatches on both ends are small relative to a ~5.5-week window and are disclosed rather than smoothed over.",
+    "sector_return_pct is null on purpose. The record names Aldar Properties (ADX) as sector benchmark; a dated late-June 2026 Aldar price could not be sourced in this review (only a 2026-07-24 price of AED 7.65 and a 2026-08-07 price of AED 7.78 were found, neither matching the entry window), so a relative return was not computed rather than attaching a number to a mismatched date. Not yet sector-scoreable.",
+    "New forward-looking item not previously in the thesis: Emaar and Dubai Holding unveiled a ~AED 200bn ('Dubai Estate') masterplan for 150,000 residents during this window. This is a large NEW capital commitment layered on top of a quarter where pre-sales just collapsed 84% YoY -- worth watching as a capital-discipline question (financing structure, dilution risk, pace of deployment) even though no dilutive raise or asset-injection-from-parent structure has been disclosed yet.",
+    "PROCESS NOTE, judged only on information available on or before 2026-07-10 (no hindsight): the record's own kill_criteria list and edge_proof pre-specified this exact test (a +16% YoY pre-sales threshold) before the print, and the print resolved cleanly against the bullish case. This is the outcome the CLAUDE.md Section 24 Rejector Doctrine is written to reward -- avoiding a value trap is a valid result, not a missed opportunity, when the avoided upside (AED 15.00 base case, +22.95%) did not in fact materialize and the price instead fell.",
+    "Single most important takeaway: the Watchlist rating and the specific, dated kill criterion attached to it both did their job in 30 days. The remaining open question is unchanged from the original thesis -- whether a minority-friendly owner action ever crystallizes the mall-annuity value -- and this review found no evidence either way on that question; if anything, the new AED 200bn masterplan is a mild negative signal for near-term crystallization, since it commits capital to new development rather than to shareholder returns."
+  ],
+  "module_calibration_notes": {
+    "most_responsible_for_decision": "management-governance (RF-OWN-004, the binding rating cap) and catalyst (which wrote the falsifiable +16% pre-sales threshold that resolved this review). Between them they set both the ceiling (Watchlist, not a buy) and the falsifiable near-term test.",
+    "most_accurate_so_far": "catalyst -- its forecast (owner_module: catalyst) specifically predicted pre-sales deceleration below +16% YoY, at 60% probability, and the outcome (-84% YoY) confirmed the direction with far greater magnitude than the 60%-confidence forecast implied.",
+    "missed_the_key_variable": "None identified this review. The module that owned the decisive forward variable (catalyst, on pre-sales growth) called it correctly in direction; no module appears to have missed a variable that mattered to this specific 30-day outcome.",
+    "which_module_mattered_most_to_the_outcome": "catalyst and earnings. The realised outcome (a cyclical demand slowdown showing up first in pre-sales and then in the EBITDA miss) is exactly the forward-looking, cyclical read those two modules were tracking; governance and balance-sheet-survival were not directly tested by this print.",
+    "confidence_score_judgment": "52 (edge-gated at <=60 by edge_score=38<50) looks, if anything, slightly conservative given the outcome: the falsifiable near-term test the record staked its edge_proof on resolved cleanly and in the predicted direction within 30 days. Judged only on information knowable as of 2026-07-10.",
+    "data_sufficiency_score_judgment": "80 looks about right and is not implicated by this outcome -- the pre-sales and backlog data needed to write the +16% test was already in the pool on 2026-07-10; nothing about this outcome reveals a data gap.",
+    "evidence_partition_note": "Process judgments above use only information dated on or before 2026-07-10 (the FY2025 Annual Report, Q1 2026 results, and CIQ exports current to late June 2026). The Q2/H1 2026 results (2026-08-07) and the Dubai Estate masterplan news (2026-07) are used only for outcome fields (thesis_status, forecast_results, catalyst_results, risk_results, returns), never to alter the original reasoning."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "",
+    "pre_mortem_verdict": "",
+    "pre_mortem_confidence_haircut": null,
+    "outcome_vs_verdict": "not_applicable",
+    "notes": "No pre_mortem*.json exists under analyses/EMAAR_2026-07-10/."
+  },
+  "memo_delta": {
+    "summary": "Emaar reported Q2/H1 2026 results on 2026-08-07, ahead of the CIQ-estimated ~10 Aug date. Property pre-sales collapsed 84% YoY (81% QoQ) to AED 4.24bn, EBITDA fell 22% QoQ and missed consensus by 5%, and backlog growth decelerated to +13% YoY from the +29%/+39% cited in the original decision. This is exactly the kill criterion (pre-sales <+16% YoY and falling, backlog stepping toward flat) the record wrote as its near-term Dubai-cycle test, and it fired. Separately, Emaar and Dubai Holding unveiled a new ~AED 200bn masterplan -- a large new capital commitment, not a value-crystallizing action for minorities. The price fell from AED 12.20 to AED 11.50 (-5.74%, -5.11pp vs the DFM General Index) over the same window. The Watchlist rating and the caution behind it are confirmed, not weakened.",
+    "thesis_delta_verdict": "strengthened",
+    "changed_sections": [
+      {
+        "section": "Kill criterion 1 / edge_proof (the +16% YoY pre-sales threshold)",
+        "original_claim": "Falsifiable near-term test: if Q2 2026 pre-sales hold >=+16% YoY and backlog growth holds >=+29%, the priced-in FCF collapse is disproven on fundamentals; if not, the Dubai cycle is turning.",
+        "new_evidence": "Q2 2026 property development sales were AED 4.24bn, down 84% YoY and 81% QoQ; total backlog growth decelerated to +13% YoY. Both thresholds were missed by a wide margin.",
+        "evidence_source": "IndexBox 'Emaar H1 2026 Results', 2026-08-07; Investing.com Q2 2026 earnings summary, 2026-08-07; Gulf News H1 2026 results, 2026-08-07",
+        "materiality_score": 90,
+        "impact_direction": "negative",
+        "impacted_modules": ["catalyst", "earnings", "valuation"],
+        "rerun_recommended": true,
+        "rerun_reason": "The thesis's own decisive near-term test has now resolved with a full quarter of data; earnings and valuation should be re-read against the actual Q2 print (pre-sales collapse, EBITDA miss, decelerating backlog) before the 90d checkpoint, even though the Watchlist rating itself is not currently in question.",
+        "rerun_command": "/research:earnings EMAAR"
+      },
+      {
+        "section": "Capital allocation / owner incentive (RF-OWN-004)",
+        "original_claim": "A value-indifferent Government-of-Dubai controller has no disclosed intent to crystallize the masked mall value; upgrade requires a mall spin/REIT/special distribution or arm's-length IAS 24 RPT disclosure.",
+        "new_evidence": "Emaar and Dubai Holding unveiled a new ~AED 200bn ('Dubai Estate') masterplan for 150,000 residents -- capital committed to new development, not to crystallizing existing asset value for minority holders.",
+        "evidence_source": "AGBI, 'Emaar's unnamed $54bn mega-project tipped to be Dubai Estate', 2026-07; Gulf Business, 'Emaar to unveil $54bn Dubai mega project', 2026-07",
+        "materiality_score": 45,
+        "impact_direction": "negative",
+        "impacted_modules": ["management-governance"],
+        "rerun_recommended": false,
+        "rerun_reason": "",
+        "rerun_command": ""
+      }
+    ],
+    "stage_one_comment": "Emaar's Q2 2026 print, reported 7 August, confirmed the exact risk we flagged as our reason to stay on the sidelines. We wrote a specific test in July: if pre-sales held above 16 percent year on year growth, the priced-in earnings collapse would be disproven; if not, the Dubai cycle was turning. Pre-sales fell 84 percent year on year instead, and EBITDA missed consensus by 5 percent. This is not a surprise that hurts us -- it is the risk we declined to bet against. We took no position, and the shares fell from 12.20 to 11.50 dirhams, about 5.7 percent, roughly 5 points worse than the Dubai market index over the same stretch. Separately, Emaar and its state parent unveiled a new 200 billion dirham development plan, which commits fresh capital rather than returning the trapped mall value to minority holders -- a mild negative for the part of our thesis that depends on the owner eventually acting differently. We are keeping the Watchlist rating. The mall-annuity value argument is untouched by this print; what changed is confirmation that the cyclical risk gating it is real and already showing up in the numbers.",
+    "watch_items": [
+      "Whether /research:earnings EMAAR and /research:valuation EMAAR are re-run on the Q2 2026 actuals",
+      "The Dubai Estate masterplan's funding structure as it is disclosed -- watch specifically for any Emaar share issuance or Dubai Holding asset injection (kill criterion 2)",
+      "Q3 2026 pre-sales and backlog trend -- whether the Q2 deceleration continues or stabilizes",
+      "The 15 Sep 2026 sukuk maturity/refinancing event",
+      "Any disclosed CFO succession update (interim CFO status as of the original decision record) or founder-MD (Alabbar) developments",
+      "FY2026 dividend declaration (~Feb 2027) for the ~AED 1.00/share continuation"
+    ],
+    "management_questions": [
+      "What drove the 84% YoY / 81% QoQ collapse in Q2 property development sales -- is this a high year-ago comparison base, a genuine demand slowdown, or a timing shift of launches into other quarters?",
+      "How is the new ~AED 200bn Dubai Estate masterplan going to be funded, and will any of it involve new Emaar share issuance or an asset transfer from Dubai Holding?",
+      "What drove the Q2 EBITDA miss versus consensus, and is the margin pressure segment-specific (hospitality, as one source suggested) or broader?",
+      "Is backlog growth deceleration to +13% YoY (from +29%/+39%) expected to continue, and at what backlog growth rate would the development segment's revenue recognition begin to decline?",
+      "Has a permanent CFO been named, or does Hesham Heikal's continued listing as CFO indicate the interim status from the May 2026 departure has already been resolved?"
+    ],
+    "memo_delta_file": "analyses/EMAAR_2026-07-10/reviews/2026-08-09_30d_memo_delta.md"
+  }
+}
