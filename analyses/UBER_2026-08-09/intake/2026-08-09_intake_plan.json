@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "ticker": "UBER",
+  "run_root": "analyses/UBER_2026-08-09",
+  "scan_date": "2026-08-09",
+  "scanned_at": "2026-08-09T02:36:11Z",
+  "watermark": "analyses/UBER_2026-08-09/final_thesis.md",
+  "new_docs": [],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [],
+    "commands": [],
+    "note_only": []
+  },
+  "verdict": "note_only",
+  "summary": "No new documents have landed in the UBER data pool since the last finished run (analyses/UBER_2026-08-09, watermarked at final_thesis.md). Nothing to scope — the current thesis stands unchanged."
+}
