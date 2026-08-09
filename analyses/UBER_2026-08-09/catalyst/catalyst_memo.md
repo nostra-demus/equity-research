@@ -1,6 +1,6 @@
 # Catalyst Module Memo — UBER
 
-**Verdict: Dated, evidenced near-term catalysts** — real hard-dated events sit inside six months (earnings, a debt maturity), but the biggest item by size (the Delivery Hero deal) can't be timed and must not be read as bullish.
+**Verdict: Dated, evidenced near-term catalysts** — three near-term events carry proven dates, but the single most important catalyst (the Delivery Hero deal) cannot be cleanly timed and is flagged under the serial-acquirer rule.
 
 Memo date: 2026-08-09
 
@@ -8,84 +8,76 @@ Memo date: 2026-08-09
 
 ## Scores at a Glance
 
-Every score below is carried verbatim from the module synthesis (§1). All are out of 100.
+All scores are out of 100. Higher is better unless marked inverted.
 
-| Measure | Score /100 | Notes |
+| Score | Value | Note |
 |---|---|---|
-| Catalyst strength | 48 | — |
-| Timing visibility | 45 | mix of proven and vague dates |
-| Catalyst risk | 62 | **inverted — higher means worse** |
-| Data quality | 80 | "Sufficient" (from 00 data-triage §3) |
-| Overall usefulness | 78 | — |
+| Catalyst strength | 52 | **Capped at max 55** (see cap below) |
+| Timing visibility | 48 | — |
+| Catalyst risk *(inverted — higher is worse)* | 63 | — |
+| Data quality | 85 | — |
+| Overall usefulness | 74 | — |
 
-**Score caps applied:** None triggered. The synthesis checked four cap triggers (no dated events, all-thematic calendar, upstream modules missing, §24-flagged item sold as the main bullish catalyst) and none fired. Catalyst strength is self-limited to 48, already below the 55 ceiling the §24 cap would otherwise impose, so the effect is the same either way (§3).
+**Score cap applied:** One cap trips. The most important catalyst (the Delivery Hero acquisition) is also the main bullish catalyst the market points to, and it triggers §24 Filter 4 (serial mergers-and-acquisitions, flag RF-CAP-004). That caps catalyst strength at a maximum of 55; the module set it at 52. No other cap applies.
 
-**§24 Avoid-Big-Risks filter tripped:** Filter 4 (serial acquirer), on the Delivery Hero SE acquisition — flag RF-CAP-004, tripped. The synthesis is explicit: this must **not** be read as conviction-lifting.
+**§24 Avoid-Big-Risks filters tripped:** Filter 4 (serial acquirer). The Delivery Hero acquisition is the primary trip; the smaller Getir Turkey and Blacklane closes carry the same flag. None should be read as lifting conviction on its own.
 
 ---
 
 ## What This Module Found
 
-Uber's calendar carries genuine dated events, not just a thematic story. Two of the seven catalysts have proven dates and both sit inside six months: the Q3 FY2026 earnings release on Nov-03-2026, and a $2,000M ("M" = million) Term Loan (a fixed-term bank loan) that matures in December 2026 [§2].
+Uber's next 12 months are a mix of events, not a single clean story. Of nine dated or windowed catalysts, three carry proven dates and six are only windows — roughly one-third proven by count [`01_catalyst-calendar.md` §1].
 
-The nearest event is the November earnings print. It tests whether Uber clears the high end of its own guided EBITDA/EPS range for a third straight quarter — EBITDA is a rough measure of operating profit before interest, tax, and non-cash charges — while a run of small revenue misses continues. Uber has beaten its guided EBITDA high end by a near-identical ~2.5% in the last two quarters, so this is a real, two-sided, timeable event [§1A]. The date itself is a CIQ-derived estimate that has been accurate to within one day on the last two prints [§1].
+The nearest dated event is Q3 FY2026 earnings, estimated November 3, 2026. It tests whether Uber's streak of beating its own profit guidance — four of four quarters beaten, the last two above the guided high end by about 2.5% — survives a revenue line that has narrowly missed what analysts expected (consensus) the last two quarters running [`Uber Technologies Inc NYSE UBER Events Calendar.xls`; `earnings/04_guidance-consensus.md` §2]. EBITDA here means earnings before interest, tax, and write-downs — a rough measure of operating profit. The beat streak is driven by a real +377 basis-point (3.77 percentage-point) drop in ex-UK cost of revenue in Q2 FY26 alone — a cost pattern, not a one-off [`earnings/05_beat-miss-setup.md` §2].
 
-The single most important catalyst by size is the Delivery Hero SE tender offer (an offer to buy out remaining shareholders), expected H2 2027 — a roughly $14.8bn deal that would about double Uber's gross debt (total borrowings). But its window is a soft half-year, it sits outside the 12-month band, and it is tripped by the §24 serial-acquirer filter. On a first pass it looks like the dominant bullish catalyst; the synthesis says treating it that way "would be the single biggest misread this module can produce" [§1A].
+The single most important catalyst by far is the Delivery Hero acquisition and how Uber pays for it — a $14.8 billion deal (equity value) funded by a €14.2 billion bridge loan (short-term borrowing meant to be replaced later by longer-term debt). If that bridge is drawn in full, net leverage — net debt divided by operating profit, i.e. how many years of profit the debt equals — roughly triples, from 1.09x to 3.14x [`Q2 FY26 10-Q, Note 3`; `balance-sheet-survival/99` §1].
 
-The biggest bearish, windowed item is the Q3 2026 bridge-facility term-out — the point where the €14.2bn short-term bridge loan for the Delivery Hero financing converts to permanent debt on terms not yet disclosed. This is the balance-sheet-survival module's own named "single killer risk," and no numeric covenant (a lender's binding limit) is disclosed anywhere in the debt stack [§1, §1A].
+The single most important risk is that same bridge loan converting to term debt, expected in Q3 2026 on terms disclosed nowhere in the data pool. If it is priced above the roughly 5.2–5.7% market range, or if a first-ever maintenance covenant appears (a lender condition Uber must keep meeting), the illustrative point at which Uber would break a debt covenant collapses from a ~73% to a ~30% EBITDA decline — meaning far less cushion before trouble [`balance-sheet-survival/99` §1].
 
 ---
 
 ## The Specialists, Briefly
 
-This module drew on one dedicated calendar specialist plus feeds from other completed modules:
+- **Catalyst calendar (`01`)** → Nine dated/windowed catalysts; three proven-dated (Q3 earnings, Dec-2026 Term Loan maturity, Q1 FY27 UK-VAT lap), six vague windows.
+- **Earnings (`04`/`05`)** → Guidance issued at EBITDA $2,860M–$2,960M / EPS Normalized $0.84–$0.88; four-quarter beat streak against a revenue line missing consensus the last two quarters.
+- **Balance-sheet-survival (`99`/`02`)** → Delivery Hero bridge conversion is "the single biggest refinancing risk"; pro-forma leverage 1.09x→3.14x if drawn in full; covenant-break point collapses from ~73% to ~30% on worse terms.
+- **Management-governance (`02`/`05`)** → Delivery Hero, Getir Turkey, and Blacklane all flagged serial-M&A (RF-CAP-004); capital-allocation score already carries the penalty.
 
-- **Catalyst calendar (01):** built the seven-item 12-month calendar; concluded the Delivery Hero tender "is not a bullish catalyst on the evidence gathered here" [§1A].
-- **Earnings module feed:** Uber cleared its guided EBITDA high end by ~2.5% in each of the last two quarters; live risk is a widening revenue miss [§1A].
-- **Balance-sheet-survival feed:** named the Q3 2026 bridge term-out its "single killer risk"; the Dec-2026 Term Loan is covered 2.7x by $5,391M of unrestricted cash and short-term investments [§2].
-- **Management-governance feed:** Uber's two largest comparable prior deals (Transplace/Uber Freight and Drizly) both failed to deliver; the capital-allocation score is already capped at 50/100 on the pattern (RF-CAP-004) [§1A].
-
-No cross-specialist disagreement was flagged. The one tension the synthesis stresses — that the largest dollar item is not the most bullish item — is resolved against reading Delivery Hero as bullish, and that resolution stands.
+The most important tension the synthesis flagged: the market sells the Delivery Hero deal as a growth-accelerating bull catalyst, but the module treats it as exactly the debt-funded, undisclosed-terms M&A pattern §24 Filter 4 exists to catch. The synthesis resolves this against the deal being read as bullish — Uber's own record (Drizly, a full write-off; Careem, a reversed divestiture) is the base rate to judge it against [`01_catalyst-calendar.md` §4].
 
 ---
 
 ## What Would Change This Read
 
-The synthesis lists specific, observable triggers per event (§2):
-
-- **Q3 FY2026 earnings (Nov-03-2026, proven date).** Better: EBITDA/EPS clear the guided high end a third straight quarter and revenue holds inside its recent under-0.6% miss range. Worse: revenue misses consensus by more than 2%, or EBITDA falls below the guided low end for the first time in five quarters, or the Q4 guide fails the normal seasonal step-up or introduces a first-ever quantified AV-program (autonomous-vehicle) cost.
-- **December 2026 Term Loan maturity (proven date).** Better: repaid or refinanced from cash on hand without touching the revolver (a standby credit line) or free cash flow. Worse: rolled into new debt at a step-up above ~60–90bps (basis points; 100bps = 1%), or funded via revolver/FCF — signaling tighter liquidity than the standalone math implies.
-- **Q3 2026 bridge-facility term-out (vague, management-stated quarter).** Better: permanent financing lands with a wide, disclosed covenant package and a funding mix beyond pure debt, keeping pro-forma net leverage below ~3.3x. Worse: locks in near the full €14.2bn debt-funded amount with tight covenants and a higher-than-modeled coupon.
-- **Delivery Hero tender (H2 2027, vague).** Better: clears the threshold and antitrust on schedule, divestiture closes cleanly, financing doesn't lift pro-forma leverage much beyond ~3.3x. Worse: delayed, blocked, or renegotiated (€700mm break fee), or closes with net leverage rising toward ~5.5x in a downturn.
+- **Q3 FY2026 earnings (Nov-03-2026, proven date).** Better: EBITDA/EPS Normalized clears the guided high end a third straight quarter on continued cost leverage and Gross Bookings growth above 20%. Worse: revenue misses beyond the recent ±0.6% range (below ~$14,400M), the Q4 guide fails the seasonal step-up, or the first quantified self-driving-vehicle (AV) investment cost lands [`earnings/05_beat-miss-setup.md` §2–5].
+- **Delivery Hero bridge-to-term-loan conversion (Q3 2026, vague window).** Better: termed out near or below the ~4.67% weighted-average coupon, covenants consistent with today's largely covenant-light debt. Worse: priced above the ~5.2–5.7% range, or first-ever maintenance covenants appear [`balance-sheet-survival/99` §1].
+- **Dec-2026 Term Loan maturity ($2,000M, proven date).** Better: clean rollover at a similar or lower spread. Worse: refinanced at a materially wider spread (plausible if leverage rises to ~3.14x) [`Q2 FY26 10-Q, Note 5`].
+- **Q1 FY27 UK-VAT lap (proven, mechanical).** Better: reported revenue growth reappears as the ~$1.1bn/quarter drag laps. Worse: the lap reveals underlying ex-UK growth had slowed faster than the optical drag masked [`Q2 FY26 10-Q, MD&A`].
+- **Delivery Hero tender completion (H2 2027, outside the 12-month window).** Worse: the deal falls through, is repriced, or faces extended regulatory review, leaving the bridge drawn without the offsetting asset [`balance-sheet-survival/99` §1].
 
 ---
 
 ## Bottom Line
 
-- **Verdict:** Dated, evidenced near-term catalysts — usable for the next two quarters, not for the M&A story that dominates headlines.
-- **Why it could be better than it looks:** Uber has beaten its guided EBITDA high end by ~2.5% two quarters running, and the earnings date is proven to within a day — a real, evidence-based beat setup [§1A].
-- **Why it could be worse:** the €14.2bn Delivery Hero bridge converts to permanent debt on undisclosed, possibly unfavorable terms around Q3 2026 — the balance-sheet module's named "single killer risk" — right as the Dec-2026 Term Loan is also due [§1A].
-- **What evidence is missing:** no numeric covenant package for the €14.2bn Delivery Hero financing, and no scheduled decision dates for the driver-classification litigation or the UK VAT appeal (~$1.8bn receivable) [§4].
-- **Do not misread:** the Delivery Hero deal is the largest dollar item but is §24 Filter-4 flagged (serial acquirer, RF-CAP-004) with a poor record on the two largest comparable prior deals — not a bullish catalyst [§1, §5].
-- **One thing to watch next:** the Q3 2026 bridge-facility term-out — it is the real near-term proxy for how the whole M&A capital-structure bet plays out [§4].
+- **Verdict:** Dated, evidenced near-term catalysts exist, but the largest one cannot be cleanly timed. Catalyst strength 52/100 (capped at 55); timing visibility 48/100.
+- **Could be better than it looks:** the near-term operating story is timeable and leans cautiously constructive — a real four-quarter profit-beat streak on genuine cost improvement, and the Dec-2026 Term Loan is well-covered by cash.
+- **Could be worse than it looks:** the calendar's largest event is a debt-funded, serial-acquirer deal that roughly triples leverage if fully drawn, with financing terms disclosed nowhere in the pool.
+- **What's missing:** the Delivery Hero bridge-to-term-loan terms — maturity, pricing, and covenants — despite the conversion being expected within about two months of this report.
+- **One thing to watch next:** whether Q3 FY2026 EBITDA clears guidance a third straight quarter, and whether the Delivery Hero bridge terms are disclosed before or at the conversion.
 
 ---
 
 ## Plain-English Glossary
 
-Terms in order of first appearance; plain meanings only, no new numbers.
+Terms are explained where they first appear; this lists them again for quick reference.
 
-- **Catalyst:** a specific dated event that could move the stock.
-- **Term Loan:** a bank loan repaid by a fixed maturity date.
-- **EBITDA:** a rough measure of operating profit before interest, tax, and non-cash charges.
-- **EPS (Normalized):** profit per share, adjusted to strip out one-off items.
-- **Tender offer:** an offer to buy out a company's remaining shareholders.
-- **Gross debt:** total borrowings, before subtracting cash.
-- **Bridge facility / term-out:** a short-term loan that later converts ("terms out") into longer-term permanent debt.
-- **Covenant:** a binding limit a lender imposes on the borrower (e.g. a leverage ceiling).
-- **Net leverage:** debt minus cash, measured against EBITDA — how heavy the debt load is.
-- **Revolver:** a standby credit line the company can draw and repay as needed.
-- **Free cash flow (FCF):** operating cash left after capital spending.
-- **Basis points (bps):** hundredths of a percent; 100bps = 1%.
-- **Break fee:** a penalty payable if a signed deal is walked away from.
-- **Consensus:** the average of analysts' published estimates.
+- **Catalyst:** a specific dated or windowed event that could move the stock.
+- **Consensus:** the average of analysts' forecasts for a number like revenue.
+- **EBITDA:** earnings before interest, tax, and write-downs — a rough measure of operating profit.
+- **Basis point:** one-hundredth of a percentage point; 377bp = 3.77 points.
+- **Equity value:** the price paid for the shares of the company being bought.
+- **Bridge loan:** short-term borrowing meant to be replaced later by longer-term ("term") debt.
+- **Net leverage:** net debt divided by operating profit — how many years of profit the debt equals.
+- **Covenant / maintenance covenant:** a lender condition the borrower must keep meeting; breaking it can force early repayment.
+- **Coupon:** the interest rate paid on the debt.
+- **Gross Bookings:** the total value of trips and orders run through Uber's platform.
