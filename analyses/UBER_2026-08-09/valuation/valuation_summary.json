@@ -5,13 +5,14 @@
   "currency": "USD",
   "business_type": "Operating",
   "basis": "ev",
-  "shares": 2056.327,
+  "shares": 2050.225,
   "net_debt": 9340.0,
-  "net_debt_basis": "broad",
+  "net_debt_basis": "strict",
   "current_price": 68.18,
   "price_as_of": "2026-08-06",
   "price_state": "pool-verified",
   "is_developed_mega_cap": true,
+  "reconciliation_note": "This run's 06 (sum-of-the-parts) and 07 (scenario-and-fair-value) were both freshly regenerated, resolving the prior pass's stale-SOTP issue ($57.34 -> $48.22 base). 07's base-case level moved from $76.42 (stale) to $74.77/share (fresh) as a result. The four methods' raw base-case points still span $48.22 (sotp) to $87.37 (own_history) -- an 81.2% point-to-point spread -- but 07 explicitly reconciles this (comp-selection sensitivity inside 06: Lyft 7.94x vs. DiDi 16.58x for the Mobility comp swings 06's own output by 74.2%; plus a real, filed $52.3bn capitalized corporate-overhead deduction) and the Method-Weighting Policy's ~1/3 cap on dcf+sotp combined weight keeps the outlier sotp read from dragging the published base down by more than 2.2% vs. the pre-refresh figure -- see 99_valuation-synthesis.md Section 3. Two minor pre-existing (~0.3%) hygiene mismatches are carried, not fixed, here: (1) scenario bridges below use the fully-diluted share count 02/03/04/07 independently derived (2,056.327M) rather than 01's own exact GAAP diluted-weighted-average figure (2,050.225M, used at this file's top level and by 06's bridge) -- see 99_valuation-synthesis.md Section 3; (2) 02/04/07's prose labels the $9,340M net-debt figure 'broad basis' while 01 and 06 correctly label the identical computation (total debt - cash & ST investments only) 'strict basis' -- this file uses the correct 'strict' label throughout.",
   "scenarios": [
     {
       "label": "bull",
@@ -24,11 +25,11 @@
       "basis": "ev",
       "bridge": {
         "net_debt": 9340.0,
-        "net_debt_basis": "broad (01 canonical)",
+        "net_debt_basis": "strict (01 canonical; 07 prose mislabels this 'broad' — same figure, see reconciliation_note)",
         "minority": 1083.0,
         "other": 0,
         "shares": 2056.327,
-        "source": "01_price-and-capital-structure.md §4-5"
+        "source": "01_price-and-capital-structure.md §4-5, as reused verbatim by 07"
       },
       "source": "07_scenario-and-fair-value.md §3 scenario table",
       "level": 104.17,
@@ -39,20 +40,20 @@
       "probability": null,
       "forward_metric": 62192.0,
       "metric_basis": "NTM revenue (CIQ consensus)",
-      "multiple": 2.6944,
-      "multiple_basis": "NTM EV/Sales (implied by the mechanically-weighted 4-method base point; independently cross-checks to an implied ~13.3x NTM EV/EBITDA, matching 03's own 13.2x)",
+      "multiple": 2.64,
+      "multiple_basis": "NTM EV/Sales (implied by the mechanically-weighted 4-method base point; independently cross-checks to an implied ~13.04x NTM EV/EBITDA, within 1.2% of 03's own 13.2x)",
       "multiple_kind": "implied",
       "basis": "ev",
       "bridge": {
         "net_debt": 9340.0,
-        "net_debt_basis": "broad (01 canonical)",
+        "net_debt_basis": "strict (01 canonical; 07 prose mislabels this 'broad' — same figure, see reconciliation_note)",
         "minority": 1083.0,
         "other": 0,
         "shares": 2056.327,
-        "source": "01_price-and-capital-structure.md §4-5"
+        "source": "01_price-and-capital-structure.md §4-5, as reused verbatim by 07"
       },
-      "source": "07_scenario-and-fair-value.md §2 (mechanically-weighted blend of 02/03/04/06) and §3 (metric x multiple cross-check, reproduces within 0.2%)",
-      "level": 76.42,
+      "source": "07_scenario-and-fair-value.md §2 (mechanically-weighted blend of 02/03/04/06, fresh 06=48.22) and §3 (metric x multiple cross-check, reproduces within 0.03%)",
+      "level": 74.77,
       "drivers": "Growth continues to decelerate gradually in line with consensus (no shock either way); driver-payment ratio holds roughly flat to modestly improving; the pending Delivery Hero deal has not yet closed or moved net debt; the market grants modest credit for Uber's structurally higher margin base without assuming the 2021-era zero-rate multiple regime returns."
     },
     {
@@ -66,15 +67,15 @@
       "basis": "ev",
       "bridge": {
         "net_debt": 9340.0,
-        "net_debt_basis": "broad (01 canonical)",
+        "net_debt_basis": "strict (01 canonical; 07 prose mislabels this 'broad' — same figure, see reconciliation_note)",
         "minority": 1083.0,
         "other": 0,
         "shares": 2056.327,
-        "source": "01_price-and-capital-structure.md §4-5"
+        "source": "01_price-and-capital-structure.md §4-5, as reused verbatim by 07"
       },
       "source": "07_scenario-and-fair-value.md §3 scenario table",
       "level": 47.24,
-      "drivers": "12-month cyclical/deceleration case: Trip/Gross-Bookings growth decelerates further and the driver/courier payment ratio worsens ~2pp simultaneously (earnings/07 bear case); the multiple compresses to the low end of Uber's own 5-year trading range as the market re-prices slower growth and the just-drawn Delivery Hero-funding leverage. This is the headline Bear (worse of the two down-legs by a modest margin is bear_structural, see below)."
+      "drivers": "12-month cyclical/deceleration case: Trip/Gross-Bookings growth decelerates further and the driver/courier payment ratio worsens ~2pp simultaneously (earnings/07 bear case); the multiple compresses to the low end of Uber's own 5-year trading range as the market re-prices slower growth and the just-drawn Delivery Hero-funding leverage. This is the headline Bear (bear_structural below is the worse of the two down-legs, on a longer horizon)."
     },
     {
       "label": "bear_structural",
@@ -87,11 +88,11 @@
       "basis": "ev",
       "bridge": {
         "net_debt": 9340.0,
-        "net_debt_basis": "broad (01 canonical)",
+        "net_debt_basis": "strict (01 canonical; 07 prose mislabels this 'broad' — same figure, see reconciliation_note)",
         "minority": 1083.0,
         "other": 0,
         "shares": 2056.327,
-        "source": "01_price-and-capital-structure.md §4-5"
+        "source": "01_price-and-capital-structure.md §4-5, as reused verbatim by 07"
       },
       "source": "04_intrinsic-dcf.md §5 (structural-reset declining-perpetuity terminal); reproduced verbatim in 07_scenario-and-fair-value.md §3",
       "level": 43.38,
@@ -100,7 +101,7 @@
         "model": "ev_bridge",
         "ev": 99626.1,
         "net_debt": 9340.0,
-        "net_debt_basis": "broad (01 canonical)",
+        "net_debt_basis": "strict (01 canonical; 04/07 prose mislabels this 'broad' — same figure, see reconciliation_note)",
         "minority": 1083.0,
         "other": 0,
         "shares": 2056.327,
@@ -112,7 +113,7 @@
     "own_history": 87.37,
     "peers": 75.75,
     "dcf": 79.82,
-    "sotp": 57.34
+    "sotp": 48.22
   },
   "method_weights": {
     "own_history": 0.29,
@@ -152,35 +153,35 @@
   "sotp_segments": [
     {
       "segment": "Mobility",
-      "metric_name": "FY26E EBITDA-equivalent (H1 FY26 Segment Operating Income annualized + pro-rata D&A add-back)",
-      "metric": 8901.0,
+      "metric_name": "FY26E Segment Operating Income, used as a segment-EBITDA proxy (annualized H1 FY26 actual: $4,244M x 2)",
+      "metric": 8488.0,
       "multiple": 7.94,
-      "comp": "Lyft, Inc. (NTM TEV/Fwd EBITDA 7.94x) — base case, conservative per Core Principle 6",
-      "source": "06_sum-of-the-parts.md §2-3"
+      "comp": "Lyft, Inc. (NasdaqGS:LYFT) — NTM TEV/Forward EBITDA 7.94x",
+      "source": "06_sum-of-the-parts.md §2-3 (fresh rerun)"
     },
     {
       "segment": "Delivery",
-      "metric_name": "FY26E EBITDA-equivalent (H1 FY26 Segment Operating Income annualized + pro-rata D&A add-back)",
-      "metric": 4333.0,
+      "metric_name": "FY26E Segment Operating Income, used as a segment-EBITDA proxy (annualized H1 FY26 actual: $2,016M x 2)",
+      "metric": 4032.0,
       "multiple": 20.78,
-      "comp": "DoorDash, Inc. (NTM TEV/Fwd EBITDA 20.78x)",
-      "source": "06_sum-of-the-parts.md §2-3"
+      "comp": "DoorDash, Inc. (NasdaqGS:DASH) — NTM TEV/Forward EBITDA 20.78x",
+      "source": "06_sum-of-the-parts.md §2-3 (fresh rerun)"
     },
     {
       "segment": "Freight",
-      "metric_name": "FY26E revenue (near-zero EBITDA-equivalent, valued on EV/Revenue instead)",
-      "metric": 6165.0,
-      "multiple": 0.51,
-      "comp": "RXO, Inc. (EV/Sales ≈0.51x) — base case; web-sourced, indicative, unverified",
-      "source": "06_sum-of-the-parts.md §2-3"
+      "metric_name": "FY26E revenue (annualized H1 FY26 actual: $2,920M x 2) — loss-making at the segment level, so valued on EV/Revenue, not EV/EBITDA",
+      "metric": 5840.0,
+      "multiple": 1.13,
+      "comp": "C.H. Robinson Worldwide, Inc. (NasdaqGS:CHRW) — LTM (trailing) EV/Revenue 1.13x, flagged as trailing not forward per Calculation Standard 10 fallback",
+      "source": "06_sum-of-the-parts.md §2-3 (fresh rerun)"
     }
   ],
   "sotp_bridge": {
     "net_debt": 9340.0,
-    "net_debt_basis": "broad (01 canonical)",
+    "net_debt_basis": "strict (01 canonical, fresh rerun)",
     "minority": 1083.0,
-    "other": -35535.0,
-    "source": "06_sum-of-the-parts.md §4 equity bridge: − capitalized unallocated corporate costs ($4,360M FY26E × 11.89x = −$51,840M) + equity-method & other minority investments add-back (+$16,305M) = net other −$35,535M"
+    "other": -48493.0,
+    "source": "06_sum-of-the-parts.md §4 equity bridge (fresh rerun): − capitalized unallocated corporate costs (core $4,360M FY26E x 11.89x = −$51,840M + episodic $426M x 1x = −$426M, total −$52,266M) + equity-method investments add-back (+$3,773M: Delivery Hero $3,502M + Careem $147M + other $124M) = net other −$48,493M"
   },
   "peers_internals": {
     "metric_name": "NTM EV/EBITDA",

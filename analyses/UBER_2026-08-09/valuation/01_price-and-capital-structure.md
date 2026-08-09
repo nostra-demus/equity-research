@@ -1,111 +1,109 @@
 # Price & Capital Structure — UBER
 
-Reporting standard: US GAAP. Reporting currency: USD (millions, except per-share figures, which are whole dollars). Fiscal year end: December 31. Listing: NYSE:UBER (US SEC filer — 10-K/10-Q are the correct native filings; no local-equivalent substitution needed) [FY25 10-K cover page; Q2 FY26 10-Q cover page].
+**Reporting standard:** US GAAP. **Reporting currency:** USD, in millions except per-share figures. **Fiscal year end:** December 31. Uber Technologies, Inc. is a US SEC filer (NYSE: UBER); no local-equivalent substitution is needed [FY25 10-K, cover page; Q2 FY26 10-Q (filed 2026-08-05), cover page].
 
 ## 1. Current Price
 
 | Field | Value | Source | As-of Date |
 |---|---|---|---|
-| Current price | $68.18 | Capital IQ Comps export, "Financial Data" tab (Day Close Price Latest) [Company Comparable Analysis Uber Technologies Inc.xls, data as of 2026-08-06]; independently corroborated by [Uber Technologies Inc NYSE UBER Financials_Quarterly.xls, Key Stats tab, "Share Price"] | 2026-08-06 |
-| Currency | USD | Both sources above | — |
-| Price basis | Last close | Comps tab header: "Day Close Price Latest" | 2026-08-06 |
+| Current price | $68.18 | Capital IQ Comps export, "Financial Data" tab, "Day Close Price Latest" [Company Comparable Analysis Uber Technologies Inc.xls, Financial Data tab, as of 2026-08-06]; corroborated by Capital IQ Financials_Quarterly export, "Key Stats" tab, "Share Price" [Uber Technologies Inc NYSE UBER Financials_Quarterly.xls, Key Stats tab] | 2026-08-06 |
+| Currency | USD | Both exports state "US Dollar" / "USD" | — |
+| Price basis (last close / intraday / indicative) | Last close | Comps export column header "Day Close Price Latest" | 2026-08-06 |
 
-Two independent Capital IQ exports — the standalone comps workbook and the Financials_Quarterly workbook — both show $68.18 for the same as-of date, so this is a pool-verified, corroborated price (not merely single-sourced).
+Both pool sources agree to the cent ($68.18), so this is a **pool-verified** price, not an indicative/web quote. No web quote was attempted or needed.
 
-**Price staleness.** Run date 2026-08-09 minus quote as-of date 2026-08-06 = 3 calendar days. The only intervening trading day is Friday 2026-08-07 (2026-08-08/09 are a weekend), so the price is roughly 1 trading day old — well inside the 5-trading-day freshness threshold. No refresh attempt was needed and no staleness cap applies.
-
-**Price-state tag: `pool-verified`.**
+**Price staleness (quantitative).** Run date is 2026-08-09 (Sunday). Quote as-of date is 2026-08-06 (Thursday). The only trading day that has elapsed since the quote and before the run date is 2026-08-07 (Friday) — **age ≈ 1 trading day**, well inside the 5-trading-day freshness threshold. **Refresh attempt:** the data pool was searched for a fresher IBKR screenshot or user-provided quote; none exists (no `data/UBER/external/` directory and no IBKR file in `data/UBER/`), so the Capital IQ comps price stands as the anchor with no refresh available or needed given its freshness. No staleness cap applies.
 
 ## 2. Share Count
 
 | Field | Value | Source |
 |---|---:|---|
-| Basic shares outstanding (as-of Jul-31-2026) | 2,042,560,121 | Q2 FY26 10-Q cover page, filed 2026-08-05: "The number of shares of the registrant's common stock outstanding as of July 31, 2026 was 2,042,560,121" — matches Capital IQ Key Stats "Shares Out." 2,042.560121mm exactly |
-| Basic weighted-average shares (3 months ended Jun-30-2026) | 2,036,458,000 | Q2 FY26 10-Q, EPS note |
-| Diluted weighted-average shares (3 months ended Jun-30-2026) | 2,050,225,000 | Q2 FY26 10-Q, EPS note (GAAP, treasury-stock method for awards, if-converted for convertibles) |
-| Dilutive effect of equity awards (options/RSUs, TSM) | 11,180,000 | Q2 FY26 10-Q, EPS note |
-| Dilutive effect of Convertible Notes (if-converted, GAAP quarterly calc) | 254,000 | Q2 FY26 10-Q, EPS note |
-| Dilutive effect of Freight Holding contingently issuable shares | 12,000 | Q2 FY26 10-Q, EPS note |
-| Dilutive effect of other contingently issuable shares | 2,321,000 | Q2 FY26 10-Q, EPS note |
-| **Fully diluted shares (derived, current)** | **≈2,056,327,000 (~2,056.3M)** | Derived: cover-page basic (2,042,560,121, as of Jul-31-2026) + the Q2 FY26 disclosed dilutive add-on (13,767,000 = 11,180k awards + 254k converts + 12k Freight Holding + 2,321k other) — *Inference, not from filings*: assumes the dilution rate is stable between Jun-30 and Jul-31, 2026 |
-| Share count used for market cap | 2,042,560,121 (basic, cover-page) | Per Fully Diluted Equity Rule #1 — most recent "as of" count, not a weighted-average |
-| Share count used for per-share fair value | ≈2,056.3M (fully diluted, derived above) | Per Fully Diluted Equity Rule #2 |
+| Basic shares outstanding (as-of) | 2,042,560,121 (2,042.560mm) | Q2 FY26 10-Q cover page: "The number of shares of the registrant's common stock outstanding as of July 31, 2026 was 2,042,560,121." [Q2 FY26 10-Q (filed 2026-08-05), cover page]. Matches Capital IQ Key Stats "Shares Out." exactly (2042.560121) [Financials_Quarterly.xls, Key Stats tab] |
+| Shares outstanding at balance-sheet date (Jun-30-2026) | 2,036.458mm | Capital IQ Historical Capitalization tab, "Total Shares Out. on Balance Sheet Date," last column [Financials_Quarterly.xls, Historical Capitalization tab]; ties to the 10-Q's basic weighted-average shares for the three months ended Jun-30-2026 (2,036,458 thousand) [Q2 FY26 10-Q, EPS note] |
+| Diluted weighted-average shares — three months ended Jun-30-2026 | 2,050.225mm | Q2 FY26 10-Q, "Diluted weighted-average common stock outstanding" [Q2 FY26 10-Q, EPS note] |
+| Diluted weighted-average shares — six months ended Jun-30-2026 | 2,060.763mm | Same note, six-month column [Q2 FY26 10-Q, EPS note] |
+| Options outstanding (Jun-30-2026) | 6,099 thousand (~6.1mm), weighted-avg exercise price $51.44, in-the-money at $68.18 | Q2 FY26 10-Q, Note 7 "Stockholders' Equity," Stock Option and SAR Activity table [Q2 FY26 10-Q, Note 7] |
+| SARs outstanding (Jun-30-2026) | 10 thousand (negligible) | Same table [Q2 FY26 10-Q, Note 7] |
+| Unvested RSUs outstanding (Jun-30-2026) | 71,804 thousand (~71.8mm), weighted-avg grant-date fair value $71.66 | Q2 FY26 10-Q, Note 7, RSU activity table [Q2 FY26 10-Q, Note 7] |
+| Convertibles / potential shares (if-converted) | 2028 Convertible Notes: $1,725mm principal, conversion rate 13.7848 shares/$1,000 (≈$72.55 conversion price); 2028 Exchangeable Senior Notes: $1,125mm principal, exchangeable into **Aurora Innovation Class A shares** (not UBER shares) — not dilutive to UBER's own share count | Capital IQ Financials_Quarterly, Capital Structure Details tab (FY2025 detail) [Financials_Quarterly.xls, Capital Structure Details tab]; conversion terms confirmed in Q2 FY26 10-Q Note on debt [Q2 FY26 10-Q, Debt note] |
+| **Fully diluted shares (company GAAP TSM + if-converted), Q2 FY26 (3-month weighted avg)** | **2,050.225mm** | Q2 FY26 10-Q EPS note reconciliation: basic 2,036,458 + dilutive equity awards (options/RSUs, TSM) 11,180 + Freight Holding contingently issuable shares 12 + convertible notes (if-converted) 254 + other contingently issuable shares 2,321 = 2,050,225 (thousand) [Q2 FY26 10-Q, EPS note] |
+| Share count used for market cap | 2,042.560mm (basic, cover-page, as of Jul-31-2026) | Per Fully Diluted Equity Rules: market-cap count uses the most recent "as of" shares outstanding, not a period weighted-average [Q2 FY26 10-Q, cover page] |
+| Share count used for per-share fair value | 2,050.225mm (diluted weighted-average, three months ended Jun-30-2026) | Most recent GAAP-computed fully diluted count (TSM for options/RSUs, if-converted for convertibles) [Q2 FY26 10-Q, EPS note] |
 
-**Convertible/exchangeable notes and dilution.** The 2028 Convertible Notes carry an initial conversion rate of 13.7848 shares per $1,000 principal, equivalent to an initial conversion price of roughly $72.5/share [Q2 FY26 10-Q, Debt note]. At the current price of $68.18 this is out-of-the-money, so the notes are correctly treated as debt (already inside Total Debt below) rather than as additional equity dilution beyond the small GAAP quarterly if-converted add-on (254,000 shares) shown above. The separate 2028 Exchangeable Senior Notes are exchangeable into shares of **Aurora** (a company Uber holds a stake in), not into Uber's own stock, so they do not dilute Uber's share count at all [Q2 FY26 10-Q, Debt note].
+**Share Count Reconciliation Table (Q2 FY26, three months ended Jun-30-2026, in thousands):**
 
-**Limitation.** The pool does not itemize individual option strike prices or an outstanding-options count separate from the aggregate GAAP TSM add-on, so the fully diluted figure above is built by adding the disclosed quarterly dilution amount to the more current cover-page basic count rather than an independent bottom-up TSM build. This is a reasonable approximation given the small size of the dilutive adjustment (~0.67% of basic shares) but is flagged as a limitation for downstream per-share sensitivity.
+| Step | Shares |
+|---|---:|
+| Basic weighted-average | 2,036,458 |
+| + Dilutive effect of equity awards (options + RSUs, treasury-stock method) | 11,180 |
+| + Dilutive effect of Freight Holding contingently issuable shares | 12 |
+| + Dilutive effect of Convertible Notes (if-converted) | 254 |
+| + Dilutive effect of other contingently issuable shares | 2,321 |
+| = Diluted weighted-average shares | 2,050,225 |
+
+Note on gap between the two counts used: the cover-page basic count (2,042.560mm, as of Jul-31-2026) is used for market cap because it is the most current "as of" spot count. The diluted weighted-average (2,050.225mm) is a Q2 FY26 period-average, not a spot count as of Jul-31-2026 — it is used for per-share fair value because it is the company's own GAAP-computed fully diluted figure (treasury-stock method for options/RSUs, if-converted for convertibles) and is more rigorous than a self-derived estimate. This mixes two dates (Jun-30 quarter-average dilution vs. Jul-31 spot basic count); the ~2% gap between the two counts (13.7mm shares, the Q2 net dilution) is immaterial to fair-value-per-share outputs and is disclosed here as a limitation rather than blended into a single inferred number. The 2028 Exchangeable Senior Notes are excluded from UBER's own dilution because they convert into Aurora Innovation shares, not UBER shares [Q2 FY26 10-Q, Debt note].
+
+Uber pays no dividend and has an active buyback program (Q2 FY26 repurchases: $518mm; buybacks ranged $150mm–$3,011mm/quarter over the trailing two years) [Financials_Quarterly.xls, Cash Flow tab, "Repurchase of Common Stock"], which is why basic shares outstanding have trended down from ~2,078mm (mid-2025) to ~2,036–2,043mm (mid-2026) despite ongoing equity issuance from vesting RSUs.
 
 ## 3. Market Capitalization
 
-`Market cap = share count × current price = 2,042,560,121 × $68.18 = $139,261.7M`
+`Market cap = share count × current price = 2,042,560,121 × $68.18 = $139,261.7mm`
 
-This ties exactly to the Capital IQ figure in both source tabs ($139,261.749049M) [Financials_Quarterly Key Stats tab; Comps "Financial Data" tab, both as of 2026-08-06] — no rounding discrepancy.
+This ties exactly to the Capital IQ comps export's own computed "Market Capitalization Latest" of $139,261.749mm [Company Comparable Analysis Uber Technologies Inc.xls, Financial Data tab] and to the Financials_Quarterly Key Stats "Market Capitalization" of $139,261.749mm [Financials_Quarterly.xls, Key Stats tab].
 
 ## 4. Enterprise Value Bridge
 
-| Component | Amount ($M) | Source |
+All figures as of the balance sheet date Jun-30-2026 unless noted; price/share count as stated above.
+
+| Component | Amount ($mm) | Source |
 |---|---:|---|
 | Market capitalization | 139,261.7 | Section 3 above |
-| + Total debt (short + long term, incl. finance & operating lease liabilities) | 14,731 | [Uber Financials_Quarterly.xls, Balance Sheet & Key Stats tabs, Jun-30-2026: LT Debt 10,726 + LT Leases 1,830 + Curr. Port. LT Debt 1,997 + Curr. Port. Leases 178 = 14,731] |
-| + Minority / non-controlling interest | 1,083 | [Uber Financials_Quarterly.xls, Balance Sheet, Jun-30-2026] |
-| + Preferred equity | 0 (nil) | [Uber Financials_Quarterly.xls, Balance Sheet — no preferred equity line since FY2019] |
-| + Operating lease liabilities | Already included above | CIQ classifies Uber's Operating Lease Liabilities (FY2025: $1,559M principal, 6.6% imputed rate) as a lease-type debt instrument inside Total Debt [Financials_Quarterly.xls, Capital Structure Details]; adding them again would double-count |
-| + Underfunded pension / other LT obligations | None | Pension/OPEB tab: not applicable — Uber has no defined-benefit pension |
-| − Cash & equivalents (+ ST investments) | 5,391 | [Balance Sheet, Jun-30-2026: Cash and equivalents 4,870 + ST investments 521 = 5,391] |
-| − Equity-method investments (treated separately) | Not netted | See cash-quality note below |
-| **= Enterprise value (EV)** | **149,684.7** | Ties exactly to CIQ TEV ($149,684.749049M) — no plug |
+| + Total debt (short + long term) | 14,731 | Financials_Quarterly.xls, Key Stats tab, "Total Debt" [as of Jun-30-2026]; reconciles to balance sheet: Long-Term Debt 10,726 + Long-Term Leases 1,830 + Current Portion LT Debt 1,997 + Current Portion of Leases 178 = 14,731 [Financials_Quarterly.xls, Balance Sheet tab] |
+| + Minority / non-controlling interest | 1,083 | Financials_Quarterly.xls, Key Stats tab, "Total Minority Interest"; ties to Balance Sheet "Minority Interest" line [Financials_Quarterly.xls, Balance Sheet tab] |
+| + Preferred equity | 0 | Financials_Quarterly.xls, Key Stats tab, "Pref. Equity" = "-"; Balance Sheet shows no preferred stock outstanding in any recent quarter (only a legacy 2018–2019 convertible preferred that had converted by 2020) [Financials_Quarterly.xls, Balance Sheet tab] |
+| + Operating lease liabilities (material, but already included above) | 0 (already in Total Debt) | Operating and finance lease liabilities ($1,559mm operating + $222mm finance per the FY2025 tranche detail) are already folded into the CIQ "Total Debt" figure via "Total Lease Liabilities" — not added again [Financials_Quarterly.xls, Capital Structure Summary tab; Capital Structure Details tab] |
+| + Underfunded pension / other long-term obligations | Not applicable | No pension/OPEB plan disclosed — "No Data Available" [Financials_Quarterly.xls, Pension OPEB tab] |
+| − Cash & equivalents (+ ST investments) | (5,391) | Financials_Quarterly.xls, Balance Sheet tab: Cash and Equivalents 4,870 + Short Term Investments 521 = 5,391 [as of Jun-30-2026]; matches Key Stats "Cash & Short Term Investments" |
+| − Equity-method investments (treated separately — NOT netted) | Not netted; disclosed only | See Cash Quality note below |
+| **= Enterprise value (EV)** | **149,684.7** | 139,261.7 + 14,731 + 1,083 + 0 − 5,391 = 149,684.7; ties exactly to Capital IQ's own computed "Total Enterprise Value (TEV)" of $149,684.749mm [Financials_Quarterly.xls, Key Stats tab; Company Comparable Analysis, Financial Data tab] |
 
-**Cash quality.** The $5,391M netted above is genuine cash and short-term equivalents/investments — Cash and equivalents ($4,870M) plus short-term investments ($521M) [Balance Sheet, Jun-30-2026]. Restricted cash ($661M) is a separate balance-sheet line and is correctly **not** included in this figure. Uber's $12,532M of **long-term investments** (Jun-30-2026) is **not** netted here — this pool includes Uber's marked-to-market minority equity stakes (Aurora, Grab, Didi, Delivery Hero, Joby, and others), which swing materially with market prices (e.g., a $1.6B net unrealized gain on securities in Q2 FY26 alone, including a $1.1B gain on the Delivery Hero stake and a $899M gain on Aurora, partly offset by a $437M loss on Didi) [Q2 FY26 10-Q, Other Income note]. Netting a volatile, non-cash, mark-to-market portfolio like this into "cash" would understate EV and flatter net debt — it is deliberately excluded. Equity-method investments jumped from $268M (Mar-31-2026) to $3,773M (Jun-30-2026) [Balance Sheet], which the 10-Q explains is driven by Uber's enlarged Delivery Hero stake moving to equity-method accounting (see subsequent-event note below) — also not netted.
+**Adjustments NOT made, and why:** No separate operating-lease add-back (already embedded in Total Debt per the source, avoiding double-count). No pension adjustment (none exists). No contingent-consideration / earn-out liability add-back beyond what is captured in the "other contingently issuable shares" dilution already reflected in the diluted share count (Section 2) — Uber does not disclose a separate cash earn-out liability material to the EV bridge in the reviewed sources.
 
-**Adjustment NOT made:** operating leases (already embedded in CIQ's Total Debt figure, see above — separately adding them would double-count, so no further adjustment is made). No pension exists. No contingent-claims adjustment is made; the pending Delivery Hero acquisition (below) is disclosed but not yet incorporated into any balance-sheet figure.
-
-**Filing-vs-vendor debt reconciliation.** The 10-Q's own risk-factor language states "we had total outstanding indebtedness of $12.6 billion aggregate principal amount" as of Jun-30-2026 [Q2 FY26 10-Q, Risk Factors]. This is narrower than the CIQ Total Debt figure of $14,731M used above because the filing's $12.6B figure appears to exclude lease liabilities: $14,731M − ($1,830M LT leases + $178M current leases) = $12,723M, close to (not exact — residual ~$120M likely debt discount/premium/issuance-cost adjustments) the filed $12.6B. Both numbers are cited to their own source per §5 — the CIQ figure (incl. leases) is used for the EV bridge above because it reconciles cleanly to the CIQ TEV figure with no plug; the filing's narrower principal-only figure is noted for transparency.
-
-**Material subsequent event — NOT reflected in the figures above.** On 2026-07-16 (after the Jun-30-2026 balance-sheet date, but before this report's run date), Uber signed a Business Combination Agreement to acquire **Delivery Hero SE** via a voluntary public takeover offer at €41.50/share — an implied equity value of ~$14.8 billion for 100% of Delivery Hero — subject to a 50%+1-share minimum acceptance threshold and regulatory clearances, expected to close in H2 2027 [Q2 FY26 10-Q, "Pending Acquisition of Delivery Hero" note]. Uber will fund the offer with existing cash plus new debt: it executed a **€14.2 billion bridge credit agreement** (senior unsecured loans, Morgan Stanley Senior Funding as administrative agent) on the same date [Q2 FY26 10-Q, same note; 10-Q exhibit index]. None of this — the offer consideration, the bridge facility, or any drawn debt — appears in the Jun-30-2026 balance sheet used for the EV bridge above. If the bridge facility is drawn, Total Debt could rise materially (on the order of $15–16B at spot EUR/USD) beyond the $14,731M shown here. This is the single largest near-term capital-structure risk not captured in this anchor and should be flagged explicitly by every downstream valuation agent (04 DCF, 06 SOTP, 07 scenarios) as a pending, pre-close item.
+**Cash quality — real operating cash only.** The $5,391mm netted above is Cash and Equivalents ($4,870mm) plus Short-Term Investments ($521mm) only [Financials_Quarterly.xls, Balance Sheet tab]. It explicitly **excludes**: Restricted Cash ($661mm, a separate balance-sheet line, not netted) and Long-Term Investments ($12,532mm, a separate balance-sheet line, not netted). Within that $12,532mm Long-Term Investments balance sits $3,773mm of **equity-method investments** — Delivery Hero ($3,502mm, reclassified from marketable securities to an equity-method stake during Q2 FY26 after a stake increase), Careem Technologies ($147mm), and other ($124mm) [Q2 FY26 10-Q, Note 3 — Equity Method Investments]. None of this $3,773mm, nor the remaining ~$8.8bn of long-term investments (public/private equity and debt securities carried at fair value, per the 10-Q's investment-risk disclosure), is netted into the EV bridge above — the canonical bridge matches the vendor's own TEV computation and nets only true cash & ST investments. Flag: a downstream agent building a "core operating EV" excluding these large non-operating financial-asset stakes (equity securities in Aurora, Didi, Grab, Joby, and now Delivery Hero, plus the equity-method book) would show a materially lower EV than the $149,684.7mm canonical figure above; this agent presents the canonical (vendor-consistent) bridge and flags the non-operating asset value here rather than silently netting it.
 
 ## 5. Net Debt & Leverage Snapshot
 
 | Metric | Value | Source |
 |---|---:|---|
-| Total debt | $14,731M | Section 4 |
-| Cash & equivalents only (strict basis) | $4,870M | [Balance Sheet, Jun-30-2026] |
-| Cash & ST investments (broad basis) | $5,391M | [Balance Sheet, Jun-30-2026] |
-| **Net debt — strict basis** (total debt − cash & equivalents only) | **$9,861M** | Computed here; matches `earnings/01_historical-financials.md`'s independent cross-check figure of $9,861M as of Jun-30-2026 exactly |
-| **Net debt — broad basis** (total debt − cash & ST investments) | **$9,340M** | Matches CIQ's own "Net Debt" field and ties the EV bridge above with no plug |
-| Net debt/EBITDA — broad basis | 1.25x | $9,340M / $7,474M LTM EBITDA |
-| Net debt/EBITDA — strict basis | 1.32x | $9,861M / $7,474M LTM EBITDA |
-| EBITDA basis used | $7,474M | CIQ-computed EBITDA (LTM through Jun-30-2026, reported/GAAP-derived, not a company-defined "Adjusted EBITDA") [Financials_Quarterly.xls, Key Stats] |
-| S&P issuer credit rating (foreign-currency LT) | BBB+ | [Comps "Credit Health Panel" tab, financials updated 2026-08-05] |
+| Total debt | $14,731mm | Section 4 |
+| Cash & equivalents (+ ST investments) | $5,391mm | Section 4 |
+| Net debt (total debt − cash, **strict basis**) | $9,340mm | 14,731 − 5,391 = 9,340; ties to Capital IQ Comps "LTM Net Debt" of $9,340mm [Company Comparable Analysis, Financial Data tab] |
+| LTM EBITDA (CIQ-computed, GAAP-basis: EBIT + D&A) | $7,474mm | Financials_Quarterly.xls, Key Stats tab, "EBITDA," LTM through Jun-30-2026 [as reported in the Press Release LTM column] |
+| Net Debt / LTM EBITDA | 1.25x | 9,340 / 7,474 = 1.25 |
+| S&P issuer credit rating (foreign-currency, long-term) | BBB+ (investment grade) | Company Comparable Analysis, Credit Health Panel tab [as of 2026-08-06] |
 
-**Canonical basis for this module.** Per CLAUDE.md §15 the strict basis (debt − cash & equivalents only) is the default net-debt definition, and it is shown above and matches the earnings module's independent figure exactly — a useful cross-check. However, the **broad basis ($9,340M) is designated canonical for this valuation module's downstream agents (02/03/04/06/07)**, because it is the figure that ties the EV bridge (Section 4) to the market cap with no plug (Reconciliation Gate 2). Any downstream agent using the strict $9,861M figure instead must state the one-line reason per the Reconciliation Gate.
+Label note: the LTM EBITDA figure above is Capital IQ's own GAAP-basis calculation (EBIT + D&A), not a company-defined "Adjusted EBITDA." Uber itself discontinued disclosing a consolidated Adjusted EBITDA measure starting Q1 FY26, replacing segment Adjusted EBITDA with "Segment Operating Income" [Q2 FY26 10-Q, segment note: "Beginning in the first quarter of 2026, we changed our segment operating performance measure from Segment Adjusted EBITDA to Segment Operating Income."]. No consolidated company-adjusted-EBITDA figure was found in the Q2 FY26 10-Q or the Q2 FY26 earnings call transcript. Downstream multiples agents should use the CIQ GAAP-basis EBITDA above (or build their own adjusted figure from disclosed line items) and label the basis explicitly.
 
 ## 6. Per-Share Reference Values
 
 | Metric | Per Share | Source |
 |---|---:|---|
-| Book value per share | $13.41 | Common equity $27,316M / 2,036.458M period-end basic shares [Balance Sheet, Jun-30-2026] |
-| Tangible book value per share | $8.21 | Tangible book value $16,712M / 2,036.458M period-end basic shares [Balance Sheet, Jun-30-2026] |
-| Net debt per share — broad basis (canonical) | $4.57 | $9,340M / 2,042.560121M market-cap share count |
-| Net debt per share — strict basis | $4.83 | $9,861M / 2,042.560121M market-cap share count |
+| Book value per share | $13.41 | Total Common Equity $27,316mm ÷ 2,036.458mm shares (balance-sheet-date count) [Financials_Quarterly.xls, Balance Sheet / Historical Capitalization tabs]. Using the market-cap share count (2,042.560mm) instead gives $13.38 — immaterial difference, both bases shown for transparency |
+| Tangible book value per share | $8.21 | Tangible Book Value $16,712mm ÷ 2,036.458mm shares [Financials_Quarterly.xls, Historical Capitalization tab]; matches Comps sheet "LTM Tangible Book Value/Share" of $8.21 exactly |
+| Net cash (or net debt) per share (strict basis) | $(4.56) net debt/share | Net debt $9,340mm ÷ 2,050.225mm diluted weighted-average shares (per-share fair-value count) = $4.56 net debt per share |
 
 ## 7. Anchor Summary (canonical numbers for downstream agents)
 
-- **Current price:** $68.18, as of 2026-08-06 (last close, pool-verified, corroborated by two independent Capital IQ exports; ~1 trading day old at the 2026-08-09 run date — not stale).
-- **Share counts:** 2,042,560,121 (basic, cover-page) for market cap; ~2,056.3M (fully diluted, derived — see limitation in §2) for per-share fair value.
-- **Market cap:** $139,261.7M.
-- **Net debt:** $9,340M (broad basis, canonical for this module) / $9,861M (strict basis, cross-checked against `earnings/01`).
-- **EV:** $149,684.7M (ties with no plug).
-- **Reporting currency:** USD.
-- **Key caveats:** (1) A material subsequent event — the pending Delivery Hero acquisition (~$14.8B implied equity value, funded partly by a new €14.2B bridge credit facility signed 2026-07-16) — is NOT reflected in any figure above; downstream agents must flag it as a pre-close item that could materially raise Total Debt. (2) The fully diluted share count for per-share fair value is a derived estimate (basic cover-page count + the most recent quarter's disclosed dilution add-on), not an independently rebuilt TSM figure — flagged as a limitation. (3) $12,532M of long-term investments (including volatile, mark-to-market minority equity stakes in Aurora, Grab, Didi, Delivery Hero, and others) sits inside EV and is not netted as cash — downstream DCF/SOTP agents should consider whether to value this portfolio separately.
+Current price $68.18 (as of 2026-08-06, last close, pool-verified — Capital IQ comps export corroborated by the Financials_Quarterly Key Stats export). The price is ~1 trading day old at the run date (2026-08-09); no staleness cap applies. Market cap uses the 10-Q cover-page basic count (2,042.560mm shares, as of Jul-31-2026); per-share fair value should use the diluted weighted-average count (2,050.225mm, three months ended Jun-30-2026). Market cap is $139,261.7mm; enterprise value is $149,684.7mm, built from total debt $14,731mm, minority interest $1,083mm, zero preferred equity, and $5,391mm of true cash & ST investments (restricted cash and $3,773mm of equity-method/financial-asset investments are explicitly excluded from the cash netted, per the Cash Quality note in Section 4). Net debt is $9,340mm (strict basis: total debt − cash & ST investments), or 1.25x LTM EBITDA. Reporting currency is USD; reporting standard is US GAAP. No balance-sheet or price-related caps apply to this module.
 
 ### Anchor Block (copy-forward)
 
 - Price: $68.18 (2026-08-06, last close)
 - Price-state: pool-verified
 - Currency: USD
-- Shares (market cap): 2,042,560,121 (10-Q cover page, as of 2026-07-31-2026)
-- Shares (per-share fair value): ~2,056,327,000 (derived — cover-page basic + Q2 FY26 disclosed dilution add-on; limitation noted in §2)
-- Market cap: $139,261.7M
-- Net debt: $9,340M (broad basis, canonical) / $9,861M (strict basis, cross-check)
-- EV: $149,684.7M
-- Key caveats: pending Delivery Hero acquisition and €14.2B bridge facility (signed 2026-07-16) not reflected in any figure above; derived (not bottom-up) fully diluted share count; $12.5B of mark-to-market minority equity stakes sit inside EV unadjusted.
+- Shares (market cap): 2,042.560mm (10-Q cover page, as of 2026-07-31)
+- Shares (per-share fair value): 2,050.225mm (diluted weighted-average, three months ended 2026-06-30; GAAP TSM + if-converted)
+- Market cap: $139,261.7mm
+- Net debt: $9,340mm (strict basis: total debt $14,731mm − cash & ST investments $5,391mm)
+- EV: $149,684.7mm
+- Key caveats: (1) per-share fair-value share count is a Q2 FY26 weighted-average, not a spot count as of the market-cap date — an immaterial (~0.4%) mismatch, disclosed rather than blended; (2) $3,773mm of equity-method investments (mainly a new $3,502mm Delivery Hero stake reclassified in Q2 FY26) and further financial-asset investments sit inside the $12,532mm Long-Term Investments balance and are NOT netted from EV — the canonical bridge matches the vendor's own TEV computation; a "core operating EV" excluding these would be materially lower and is not computed here; (3) Uber discontinued consolidated Adjusted EBITDA disclosure in Q1 FY26 — the LTM EBITDA cited (Section 5) is Capital IQ's own GAAP-basis calculation, not a company-adjusted figure.

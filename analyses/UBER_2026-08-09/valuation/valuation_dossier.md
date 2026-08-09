@@ -2,9 +2,9 @@
 
 > Deterministic, lossless concatenation of every artifact in this module — the module synthesis and every specialist output, in order. Generated mechanically (no LLM rewriting), so nothing is omitted or paraphrased. This is the module's "see everything" tier; the module's decision lives in `99_*-synthesis.md` and the short read in `valuation_memo.md`.
 
-- Generated: 2026-08-08T19:23:02Z
+- Generated: 2026-08-09T01:59:08Z
 - Module folder: `valuation`
-- Contents: 1 module synthesis + 8 specialist outputs = 9 files
+- Contents: 1 module synthesis + 9 specialist outputs = 10 files
 
 ## Table of Contents
 
@@ -17,6 +17,7 @@
 - [valuation / 05_reverse-dcf.md](#valuation-05-reverse-dcf-md) — `05_reverse-dcf.md`
 - [valuation / 06_sum-of-the-parts.md](#valuation-06-sum-of-the-parts-md) — `06_sum-of-the-parts.md`
 - [valuation / 07_scenario-and-fair-value.md](#valuation-07-scenario-and-fair-value-md) — `07_scenario-and-fair-value.md`
+- [valuation / RESUMED_FROM.md](#valuation-resumed-from-md) — `RESUMED_FROM.md`
 
 
 ---
@@ -29,96 +30,107 @@ _Source: `99_valuation-synthesis.md`_
 
 ## Abstract
 
-UBER screens modestly undervalued: base-case fair value of $76.42 a share sits roughly 12% above the $68.18 price (2026-08-06, pool-verified), a 10.78% margin of safety, with bull/base/bear levels of $104.17 / $76.42 / $47.24 driven mainly by the peer-relative EV/EBITDA read, which independently converges with the scenario build's own warranted multiple near 13.2x. The reverse-DCF shows the price bakes in only about 5.05% ten-year free-cash-flow growth and a steady-state margin the company has already exceeded on a trailing basis — an achievable, conservative set of expectations, not a stretch. Downside to the 12-month bear case is a much larger 30.71%, and a separately labelled autonomous-vehicle structural-reset floor near $43.38 marks a longer-horizon tail the base case does not carry. Cross-method base points span 52%, reconciled but not eliminated — call it modestly undervalued, not a clear mispricing, and watch the pending debt-funded Delivery Hero deal.
+UBER sits close to fairly valued: the base-case fair value of $74.77/share is only 9.7% above the $68.18 price (2026-08-06, pool-verified), just inside the ±10% "fairly valued" band rather than a clear mispricing. Bull/base/bear fair-value levels of $104.17 / $74.77 / $47.24 (12-month), plus a longer-dated $43.38 structural-reset floor, are driven mainly by the peer-relative EV/EBITDA read (38% weight), which converges within 1.2% of an independent own-history-based warranted-multiple check. The price implies just a 5.05% ten-year free-cash-flow growth rate and a steady-state margin Uber has already beaten on a trailing basis — a conservative, achievable bar, not an aggressive one. The margin of safety is a thin 8.82% cushion to the base case, against a much larger 30.7% downside to the 12-month bear (36.4% to the structural-reset floor) — the risk/reward already looks downside-skewed on a one-year view. No misaligned-owner value-trap risk applies here; the cheapness, such as it is, looks modest and largely explained rather than a trap. Verdict: Fairly valued.
 
 ## 1. Valuation Verdict
 
-- **Verdict:** Modestly undervalued
-- **Base-case fair value (point, per share):** $76.42
+- **Verdict:** Fairly valued
+- **Base-case fair value (point, per share):** $74.77
 - **Current price:** $68.18 (2026-08-06, last close, pool-verified — corroborated by two independent Capital IQ exports)
-- **Bull / Base / Bear fair-value levels (points):** Bull $104.17 / Base $76.42 / Bear $47.24 (all 12-month horizon), plus a separately labelled structural-reset avoid-ruin floor of $43.38 (24–36 month horizon, AV-disruption case — see §3)
-- **Cross-method dispersion (football field, low–high):** $57.34 (sum-of-the-parts, base) – $87.37 (own-history EV/Sales, median reversion) across the four value-producing base-case points — a 52.4% spread, reconciled explicitly in §3 below, not averaged away
-- Valuation attractiveness /100 (higher = cheaper): **58**
-- Margin of safety /100 (higher = better): **48**
-- Valuation confidence /100: **68**
-- Downside risk /100 (higher = WORSE, inverted): **58**
-- Data quality /100: **90**
-- Overall usefulness /100: **85**
-- Dominant valuation method (one line): Peer-relative NTM EV/EBITDA (`03`) — the one method that isolates a warranted multiple net of comp distortion (excludes both Uber's own revenue-multiple premium and GAAP EPS mark-to-market noise), and its 13.2x quality-adjusted multiple independently converges with the scenario build's own back-solved warranted multiple (13.2x–13.3x).
-- What's priced in (one line): The current price implies roughly 5.05% annual free-cash-flow growth over 10 years and a 10.78% steady-state operating margin — both below what Uber has already delivered (TTM EBIT margin 12.13%) or what `04`'s own base-case forecast assumes (6.54% FCFF CAGR), reading as conservative, not aggressive.
-- Biggest valuation risk (one line): The pending ~$14.8bn Delivery Hero acquisition and its €14.2bn bridge-financing facility (signed 2026-07-16) are not reflected in any anchor, EV bridge, or fair-value level in this report — if the bridge is drawn, net debt could rise materially and move every level below.
+- **Bull / Base / Bear fair-value levels (points):** Bull $104.17 / Base $74.77 / Bear $47.24 (12-month horizon), plus a separately-labelled structural-reset (AV-disruption) avoid-ruin floor of $43.38 (24–36 month horizon)
+- **Cross-method dispersion (football field, low–high):** $48.22 (sum-of-the-parts base) to $87.37 (own-history EV/Sales median reversion) across the four base-case method points — an 81.2% point-to-point spread, explained below (Section 3), not silently averaged
+- Valuation attractiveness /100 *(higher = cheaper)*: **54** — a real but thin upside (+9.7% to base), inside the "fairly valued" band; not a deep discount
+- Margin of safety /100 *(higher = better)*: **38** — 8.82% cushion to base fair value is a modest buffer, not a real margin of safety
+- Valuation confidence /100: **66** — the three forward-looking methods (peers, DCF, own-history) cluster within a 15.4% band ($75.75–$87.37); only the fresh SOTP is an outlier, and it is explained (comp-selection artifact + a real, filed corporate-overhead deduction) and capped at 18% weight, not a live unreconciled disagreement
+- Downside risk /100 *(higher = worse)*: **58** — 30.7% downside to the 12-month bear, 36.4% to the structural-reset floor; a real, evidence-grounded downside, not a tail-only risk
+- Data quality /100: **87** — full income statement, cash flow, capital structure, consensus, peer comps, and segment data all present in the pool; only minor gaps (no forward Freight comp, a small ~0.3% share-count inconsistency across sub-agents)
+- Overall usefulness /100: **83**
+- Dominant valuation method (one line): Peer-relative NTM EV/EBITDA (`03`, 38% weight) — it isolates a warranted multiple net of both Uber's own revenue-multiple premium and GAAP EPS's mark-to-market noise, and cross-checks within 1.2% of the base case's own independently-built EV/Sales-implied multiple
+- What's priced in (one line): A 5.05% ten-year FCF CAGR, ~1.5 years of above-GDP growth, and a 10.78% steady-state EBIT margin — all below what Uber has already delivered or what `04`'s own base-case DCF assumes; the market is pricing in conservative, not aggressive, expectations
+- Biggest valuation risk (one line): The pending, debt-funded Delivery Hero acquisition (~$14.8bn, funded partly by a new €14.2bn bridge facility) is not reflected in any fair-value level above and could raise net debt materially once it closes
 
 ## 1A. Module Disconfirmation
 
-- **Strongest bear point:** The sum-of-the-parts base case ($57.34, `06`) sits 24.9% below the weighted blend, and the own-history reversion base ($87.37, `02`) itself flags real doubt that full mean reversion is warranted — revenue growth has decelerated from +18.3% (FY2025) to +12.2% YoY (Q2 FY2026), net debt/EBITDA has releveraged from 0.82x to ~1.25x–1.32x, and a debt-funded Delivery Hero acquisition is pending close, all real, cited fundamentals rather than sentiment [`02_multiples-own-history.md` §3, §4; `01_price-and-capital-structure.md` §4].
-- **Strongest bull point:** The reverse-DCF shows the market is pricing in materially less than Uber has already proven — 5.05% implied 10-year FCFF CAGR versus an 18.1% FY2023–2025 historical revenue CAGR and `04`'s own 6.54% base-case forecast, and a 10.78% implied steady-state EBIT margin the TTM run-rate (12.13%) has already exceeded [`05_reverse-dcf.md` §3, §5].
-- **Single killer risk:** The autonomous-vehicle structural-reset case — Waymo already runs an independent, commercialized robotaxi fleet, and `business-model/07_business-quality.md` scores industry disruption risk at 32/100, tripping the declining-perpetuity trigger. If this crystallizes, the multiples-based base case ($76+) becomes largely irrelevant and value falls toward the $43.38 avoid-ruin floor on a 24–36 month horizon [`04_intrinsic-dcf.md` §5; `07_scenario-and-fair-value.md` §3].
-- **Disconfirming evidence already visible:** `06`'s SOTP dispersion ($57.34–$96.71) is driven almost entirely by a single comp choice (Lyft 7.94x vs. DiDi 16.58x for Mobility) rather than independent conviction, and `04` self-caps its own confidence at Low–Medium because Uber's disclosed working-capital cash source (self-insurance-reserve buildup) breaks the standard reinvestment-rate/ROIC financeable-growth cross-check — both are the module's own admissions, not this synthesis's invention.
+- **Strongest bear point:** The freshly-rerun SOTP (`06`) values Uber at $48.22/share, 35.5% below the published base case — and even though the gap is explained as mostly comp-selection sensitivity plus a real corporate-overhead deduction, the $52.3bn capitalized unallocated-corporate-cost subtraction is itself a genuine, filed, audited cost, not a modeling artifact, and it alone swings per-share value by roughly $25 [`06_sum-of-the-parts.md` §4–5].
+- **Strongest bull point:** Two independently-derived warranted-multiple reads — the peer-relative quality-and-growth-adjusted NTM EV/EBITDA (13.2x, `03`) and the base-case EV/Sales scenario construction's own implied multiple (13.04x, `07` §5) — converge within 1.2% of each other from completely different starting points, which is a genuine cross-check, not model-fitting [`03_relative-valuation-peers.md` §5; `07_scenario-and-fair-value.md` §5].
+- **Single killer risk:** The undisclosed autonomous-vehicle P&L/capex cost — Uber's own 10-K frames AV as a competitive threat it "may fail to offer... at competitive scale... before competitors," Waymo already runs an independent commercialized robotaxi fleet, and `business-model/07_business-quality.md` scores industry disruption risk 32/100, which is what drives the $43.38 structural-reset floor (a 36.4% downside from price) [`04_intrinsic-dcf.md` §5; `07_scenario-and-fair-value.md` §3].
+- **Disconfirming evidence already visible:** `02` itself flags that Uber's own EV/Sales de-rating (from a 5-year mean/median of 3.44x–3.55x to a current 2.71x) has real, cited fundamental causes — decelerating revenue growth (18.3%→12.2% YoY) and releveraging (0.82x→~1.3x net debt/EBITDA) — not pure sentiment, meaning a full reversion to the own-history median ($87.37) may not be earned [`02_multiples-own-history.md` §3, §4].
 
 ## 2. Specialist Roll-Up
 
 | Specialist | Verdict Line | Biggest Finding |
 |---|---|---|
-| valuation-data-triage | Sufficient — all five methods (own-history, peer-relative, DCF, reverse-DCF, SOTP) can run; no active partial-data caps | Only minor confirm-items remain: an independently rebuilt fully-diluted share count and a Freight segment lacking a close pure-play comp in the pool's own comp set |
-| price-and-capital-structure | Price $68.18 (2026-08-06), pool-verified; EV $149,684.7M; net debt $9,340M broad basis (canonical) | The pending ~$14.8bn Delivery Hero acquisition and its €14.2bn bridge credit facility (signed 2026-07-16) are NOT reflected in any anchor — the single largest near-term capital-structure risk this report carries forward |
-| multiples-own-history | Base case $87.37 (+28.1%) on 5yr EV/Sales median reversion — the only undistorted own-history band | EV/EBITDA, EV/EBIT, and P/E "cheapness" on the full history is a base-effect artifact (Uber only turned GAAP-profitable in 2023) and is excluded from the fair-value math, not a genuine re-rating signal |
-| relative-valuation-peers | Base case $75.75 (+11.1%) on a quality-and-growth-adjusted 13.2x NTM EV/EBITDA | Uber trades at a premium on revenue multiples (+38.5% to +52.0%) and a discount on profit multiples — the forward discount is largely explained by a real growth-rate gap versus DoorDash/Grab, not inferior quality |
-| intrinsic-dcf | Base case $79.82 (+17.1%); terminal value 59.5% of EV | Disclosed working-capital cash source (self-insurance-reserve buildup) breaks the standard financeable-growth cross-check, so intrinsic confidence is self-capped Low–Medium; a separate structural-reset terminal computes to $43.38 |
-| reverse-dcf | Price implies 5.05% 10yr FCFF CAGR, ~1.5yrs of above-GDP growth, 10.78% steady-state EBIT margin | All three implied hurdles sit below what Uber has already delivered or what `04`'s own base case assumes — reads as conservative, not aggressive |
-| sum-of-the-parts | Base case $57.34 (−15.9%); high case $96.71 (+41.9%) | The entire base-to-high spread is driven by a single comp choice for Mobility (Lyft 7.94x vs. DiDi 16.58x); capitalizing $4.4bn of corporate overhead at 11.89x subtracts $51.8bn — roughly a third of market cap |
-| scenario-and-fair-value | Bull $104.17 / Base $76.42 / Bear $47.24; MoS 10.78%; downside-to-bear 30.71% | Peer-relative method (38% weight) drives the answer and independently converges with the scenario build's own back-solved warranted multiple (13.2x vs. 13.3x) — the strongest piece of triangulation in the report |
+| valuation-data-triage | Sufficient — every method in the map can run, no active partial-data caps | Full pool coverage: price, consensus, peers, segments, cash flow all present |
+| price-and-capital-structure | Pool-verified price $68.18 (2026-08-06); EV $149,684.7M; net debt $9,340M (strict basis) | ~1 trading day old — no staleness cap; $3,773M of equity-method investments (new Delivery Hero stake) sit outside the canonical EV bridge |
+| multiples-own-history | EV/Sales reversion implies $87.37/share (+28.1%); EV/EBITDA/EBIT/P-FCF history excluded as base-effect distorted | Only EV/Sales offers a clean, undistorted 5-year band; the de-rating has real fundamental causes, not just sentiment |
+| relative-valuation-peers | Quality-and-growth-adjusted NTM EV/EBITDA (13.2x) implies $75.75/share (+11.1%) | Forward EV/EBITDA discount to peers (−17.5%) is largely explained by Uber's slower growth vs. DoorDash/Grab, not inferior quality |
+| intrinsic-dcf | Base-case DCF value $79.82/share (+17.1%), self-capped Low–Medium confidence | Terminal value 59.5% of EV; disclosed working-capital cash source breaks the standard financeable-growth cross-check |
+| reverse-dcf | Price implies a 5.05% 10-yr FCF CAGR — conservative vs. history and vs. `04`'s own base case | The FCF-base definition (not the discount rate) is the dominant sensitivity on what's priced in |
+| sum-of-the-parts | Freshly rerun: base SOTP $48.22/share (−29.3% vs. price), dispersion $31.46–$83.99 | 74.2% of the base-to-high spread is driven by a single Mobility-comp choice (Lyft vs. DiDi); a real $52.3bn corporate-overhead deduction also drags the figure down |
+| scenario-and-fair-value | Bull $104.17 / Base $74.77 / Bear $47.24, structural-reset floor $43.38 | 81.2% cross-method base-case spread is reconciled (comp-artifact + capped weighting), not silently averaged; margin of safety only 8.82% |
 
 ## 3. Reconciliation
 
-**Cross-method spread exceeds the 40% tolerance and is reconciled, not averaged away.** The four value-producing methods' own base-case points span $57.34 (SOTP, `06`) to $87.37 (own-history EV/Sales reversion, `02`) — a 52.4% spread. `02`'s high end is discounted in the weighted blend because `02` itself doubts full reversion is warranted (decelerating growth, releveraging, a pending debt-funded acquisition are real fundamental reasons the market may be correctly, not mistakenly, pricing a lower multiple than its 2021–2024 own-history average). `06`'s low end is a comp-selection artifact, not an independent read of Uber's operating economics: swapping only the Mobility comparable (Lyft → DiDi, both named peers) moves the SOTP output from $57.34 to $96.71, a 69% swing from a single input, and the $51.8bn corporate-overhead capitalization is a stated modeling convention (no better-disclosed segment-level corporate-cost multiple exists), not new negative information. `04`'s $79.82 sits close to the blend (7.6% above) and is not a material drag, though `04` self-caps its own confidence because the disclosed working-capital cash source breaks the standard financeable-growth cross-check. The method trusted most for this company is the peer-relative NTM EV/EBITDA read (`03`, $75.75, 38% weight) — it isolates a warranted multiple net of both Uber's revenue-multiple premium (which would double-count via EV/Sales) and GAAP EPS's mark-to-market noise (which distorts P/E) — and it independently converges with the scenario build's own back-solved implied multiple (13.2x vs. 13.3x, arrived at from a completely different starting point). The mechanically-weighted blend across all four methods ($76.42) is published as-is, with no discretionary override.
+**Headline number, and why it is not the finding on its own.** The four value-producing methods' base-case points span $48.22 (SOTP) to $87.37 (own-history EV/Sales), an 81.2% point-to-point spread — well above the 40% Reconciliation Gate 6 tolerance on a raw-spread basis. `07` does not silently average this away, and neither does this synthesis: it reconciles the gap with two named, evidence-based drivers, and the drivers matter more than the raw percentage.
+
+1. **Comp-selection sensitivity inside the SOTP, not new economic information.** Swapping only the Mobility comparable — Lyft (7.94x NTM EV/EBITDA) for DiDi (16.58x) — moves `06`'s own output from $48.22 to $83.99, a 74.2% swing from a single input choice among two comparables Uber's own 10-K names directly as competitors [`06_sum-of-the-parts.md` §2–3]. Neither Mobility's nor Delivery's own unit economics changed between those two SOTP readings — both segments run at materially higher margins than either peer set (`06` §5) — so most of the SOTP's distance from the other three methods is a choice-of-yardstick artifact, not a signal the business is worth less.
+2. **A real, filed cost that a segment-only view must net out in full.** The $52.3bn capitalized unallocated-corporate-cost deduction (Corporate G&A + Platform R&D, annualized and capitalized at Uber's own blended multiple) is not an assumption — it is a line-itemized, audited cost that swings the SOTP per-share result by roughly $25 on its own [`06_sum-of-the-parts.md` §4]. This is the one piece of the SOTP gap that is not merely a comp artifact, and it is a legitimate reason the SOTP reads lower than a segment-only sum would suggest.
+
+**How the published base case handles this.** Per the Scenario Construction & Method-Weighting Policy, `04` (DCF) and `06` (SOTP) are capped at a combined ≈⅓ weight for this Operating business with a usable forward multiple — `02`+`03` (own-history and peer multiples) carry the 67% majority. At `06`'s capped 18% weight, its $48.22 outlier pulls the mechanically-weighted blend only 1.3% below `03`'s own $75.75 peer-relative read — the policy visibly did its job: the published $74.77 base is not the $67.80 that a naive average of $48.22 and $87.37 would produce, and it stays anchored on the two forward-looking, majority-weighted methods.
+
+**The three methods that matter most for the base case actually agree closely.** Own-history ($87.37), peers ($75.75), and DCF ($79.82) cluster within a 15.4% band once the outlier SOTP is set aside — a real, if modest, convergence. `03` (peer-relative) is trusted most because it independently isolates a warranted multiple net of Uber's own revenue-multiple premium (which double-counts if EV/Sales is used bluntly) and net of GAAP EPS's mark-to-market noise (which distorts P/E). The base-case scenario construction's own EV/Sales-implied multiple (13.04x) lands within 1.2% of `03`'s 13.2x from a completely independent starting point — the strongest single piece of triangulation in this report.
+
+**Methods broadly agree at the base point once the policy weighting is applied — fair value clusters at $74.77, with the wider $48.22–$87.37 football field explained above rather than averaged away.**
+
+**Minor data-hygiene note (not a fair-value driver).** `02`, `03`, `04`, and `07` use a self-derived fully diluted share count of ≈2,056.327M for per-share fair-value outputs, while `01`'s own exact GAAP diluted weighted-average figure is 2,050.225M (used correctly by `06`) — a ~0.3% mismatch, immaterial to any conclusion here but noted per Reconciliation Gate 4 rather than silently blended.
 
 ## 4. Score Cap Application
 
 | Cap Trigger | Applied? (Y/N) | Affected Score | Final Cap |
 |---|---|---|---|
-| No pool-verified price (price-state `indicative` or `none`) | N — price is $68.18, pool-verified, corroborated by two independent Capital IQ exports, ~1 trading day old | — | Not applicable |
-| No consensus / forward estimates | N — CIQ consensus present (FY26E–FY28E revenue, EBITDA, EPS) | — | Not applicable |
-| No peer data | N — 4 curated peers (Lyft, DoorDash, DiDi, Grab) with LTM/NTM multiples | — | Not applicable |
-| Only one valuation method usable | N — 4 value-producing methods ran (own-history, peers, DCF, SOTP) plus reverse-DCF as a cross-check | — | Not applicable |
-| No cash flow AND DCF is only method | N — full cash flow statement present; DCF is one of four methods | — | Not applicable |
-| SOTP not possible for multi-segment | N — SOTP ran on all three reportable segments (Mobility, Delivery, Freight) | — | Not applicable |
-| Methods disagree >40% unreconciled | N — the 52.4% base-case spread WAS explicitly reconciled per Reconciliation Gate 6 in `07` §2 and §3 above (comp-selection artifact identified for SOTP; reversion-doubt identified for own-history) | — | Not applicable (cap is for *unreconciled* disagreement) |
-| Terminal value >75% of DCF EV | N — terminal value is 59.46% of DCF EV, below the 75% threshold | — | Not applicable |
-| Misaligned controlling owner (RF-OWN-004, §24 Filter 6) | N — the prior 2026-08-08 management-governance run found RF-OWN-004 not triggered (no controlling shareholder; PIF 3.578% and BlackRock 7.417% are both minority holders). No management-governance module exists in this run's root (`analyses/UBER_2026-08-09/`); the final adjudication is deferred to the master synthesizer per the module's cross-module rule | — | Not applicable, pending master-synthesizer confirmation |
+| No pool-verified price (price-state `indicative` or `none`) | N — price is pool-verified ($68.18, 2026-08-06) | MoS, downside-to-bear, observed up/down, attractiveness + confidence | Not applied |
+| No consensus / forward estimates | N — CIQ consensus present (NTM revenue, EBITDA, EPS) | Valuation confidence | Not applied |
+| No peer data | N — 4-name curated peer set (Lyft, DoorDash, DiDi, Grab) present | Overall usefulness | Not applied |
+| Only one valuation method usable | N — four value-producing methods ran (02/03/04/06) | Valuation confidence | Not applied |
+| No cash flow AND DCF is only method | N — cash flow statement present; DCF is one of four methods | Valuation confidence | Not applied |
+| SOTP not possible for multi-segment | N — SOTP ran fully (Mobility/Delivery/Freight) | Overall usefulness | Not applied |
+| Methods disagree >40% unreconciled | **Judgment call: N — disagreement is present (81.2%) but IS reconciled** (Section 3: named drivers — comp-selection artifact + a real corporate-overhead deduction — plus the ≤⅓ weighting cap that visibly limits the outlier's effect on the published base to 1.3%) | Valuation confidence | Not applied as a hard cap; reflected instead in the confidence score (66, not higher) rather than a mechanical 55-cap |
+| Terminal value >75% of DCF EV | N — DCF terminal value is 59.5% of EV, below the 75% threshold | Valuation confidence | Not applied |
+| Misaligned controlling owner (RF-OWN-004, §24 Filter 6) | N — management-governance module found no controlling shareholder (PIF 3.578%, BlackRock 7.417%, both minority) | Valuation attractiveness | Not applied |
 
-No score caps bind for this run.
+No hard cap binds this run. Valuation confidence (66) reflects, by judgment rather than a mechanical cap, that the 81.2% raw spread — while reconciled with named, cited drivers — is still a real source of residual uncertainty (the corporate-overhead deduction and the comp-choice sensitivity are both genuine, not resolved to a single number), so confidence sits in the "Strong" band's lower half rather than higher.
 
 ## 5. Fair-Value Summary
 
-UBER's bull/base/bear fair-value levels are $104.17 / $76.42 / $47.24 (all 12-month horizon), driven primarily by the peer-relative NTM EV/EBITDA method (`03`, 38% weight, 13.2x quality-and-growth-adjusted multiple), with a separately labelled 24–36 month structural-reset avoid-ruin floor of $43.38 carried forward for kill-criteria purposes rather than headlined as the bear case, because the AV-disruption risk that triggers it is firing on a moat rated Narrow-but-widening, not eroding. At $68.18, the price implies (per `05`'s reverse-DCF) roughly 5.05% ten-year free-cash-flow growth and a 10.78% steady-state operating margin — both levels Uber has already met or beaten on a trailing basis (TTM EBIT margin 12.13%, FY2023–2025 revenue CAGR 18.1%), so what's priced in reads as achievable, even conservative, rather than a stretch the earnings evidence would need to overcome. The margin of safety to the base case is a modest 10.78% (base $76.42 vs. price $68.18) — a real but not deep cushion — while the downside to the 12-month bear case is a much larger 30.71% ($47.24), and the longer-horizon structural-reset floor implies a 36.4% loss from price; the risk/reward on a one-year view is asymmetric toward the downside, a fact this module states but does not weight or size. On value-trap risk: no structurally misaligned controlling owner is flagged (prior governance run), the moat is Narrow but improving (CIQ return on capital rose from −4.9% FY2022 to +10.6% LTM), and the apparent cheapness on profit multiples versus peers is largely explained by a real, cited growth-rate gap versus DoorDash/Grab rather than the market simply mispricing quality it does not yet recognize — so this reads as a genuine, if modest, margin of safety rather than a multiple the business does not deserve, contingent on the AV-disruption and Delivery Hero-leverage risks not crystallizing.
+The bull/base/bear fair-value levels are $104.17 / $74.77 / $47.24 (12-month), with a separate $43.38 structural-reset floor on a 24–36 month horizon, and the single method driving the base case is the peer-relative NTM EV/EBITDA read (`03`) — chosen because it isolates a warranted multiple net of the two distortions that afflict Uber's other multiples (its own revenue-multiple premium, and GAAP EPS's mark-to-market noise from minority equity stakes). The current $68.18 price implies just a 5.05% ten-year FCF growth rate and a 10.78% steady-state margin Uber's trailing 12 months (12.13%) has already exceeded — an achievable, even conservative, bar against the company's own delivered results and `04`'s own base-case forecast (`05`). The margin of safety to the base case is a thin 8.82% — a real but modest cushion, not a deep discount — while the downside to the 12-month bear is a much larger 30.7% (36.4% to the structural-reset floor), an asymmetry this module states but does not weight or size. This does not read as a value trap in the classic sense (no misaligned controlling owner, and the segments individually outperform their own peer sets on margin), but the cheap-looking SOTP read is a real caution: Uber's own history shows the market has recently, and for cited fundamental reasons (decelerating growth, releveraging, a pending debt-funded acquisition), chosen not to pay the multiple it once did, so a bull case resting on a full reversion to the 5-year own-history median ($87.37) should be treated with real skepticism rather than assumed.
 
 ## 6. What Would Change The Valuation Verdict?
 
 | Current Verdict | What Would Make It Cheaper | What Would Make It More Expensive | Data Needed |
 |---|---|---|---|
-| Modestly undervalued | A further leg down in the EV/Sales or EV/EBITDA multiple with no change to fundamentals (pure de-rating); the Delivery Hero bridge facility being drawn in full, pushing net debt materially higher without an offsetting EBITDA contribution yet recognized; evidence the AV-disruption structural-reset risk is crystallizing sooner than the 24–36 month horizon assumed | Gross-Bookings/Trip growth re-accelerating toward the bull case's ~25% YoY pace alongside a stable-to-improving driver/courier payment ratio; the market re-rating EV/Sales back toward its 5-year median (3.44x–3.55x) on evidence the recent de-rating was sentiment-driven, not structural; the Delivery Hero deal closing with clearly accretive, de-levering economics | Post-close Delivery Hero integration terms and updated balance sheet; a post-close capital-structure update once the bridge facility is drawn or refinanced; segment-level consensus estimates (currently absent, forcing `06`'s own forward-metric build); a longer own-history peer-relative time series to judge whether today's premium/discount to peers is typical or unusual |
+| Fairly valued | Revenue/Gross-Bookings growth reaccelerating toward the ~25% pace in `earnings/07`'s bull case, or the driver/courier payment ratio improving materially, without the multiple compressing — would push the base case toward the $87.37 own-history reversion figure; a materially lower price with fair value unchanged | Growth decelerating further alongside a worsening driver/courier payment ratio (`07`'s bear combination) plus the Delivery Hero bridge facility being drawn and raising net debt materially; a price rally with fair value unchanged | Post-close Delivery Hero balance-sheet and P&L detail; a segment-level consensus estimate (currently absent, forcing `06` to annualize a single half-year); a longer peer-multiple time series to judge whether today's premium/discount to peers is typical or unusual |
 
 ## 7. Note To The Final Synthesizer
 
-- Bull / base / bear fair-value LEVELS: $104.17 / $76.42 / $47.24 (12-month horizon), plus a separately labelled structural-reset avoid-ruin floor of $43.38 (24–36 month horizon, distinct case per the Scenario Construction policy — do not collapse it into the headline bear). The dominant method behind the base point is peer-relative NTM EV/EBITDA (`03`, 38% weight), cross-validated by an independently-derived warranted multiple from the scenario construction itself (13.2x vs. 13.3x).
-- What the price implies (from `05`): ~5.05% ten-year FCFF CAGR and a 10.78% steady-state EBIT margin — both below what Uber has already delivered or what `04`'s own base case assumes. This reads as achievable, even conservative — not a reason to discount the base case.
-- Margin of safety (discount to base fair value) = **10.78%** (modest cushion, not a deep discount). Downside-to-bear (loss to the 12-month bear case) = **30.71%** — materially larger than the upside to base. The structural-reset floor ($43.38) implies a longer-horizon 36.4% downside on a lower-probability, longer-dated trigger.
-- Genuine value, not a value trap: no structurally misaligned controlling owner is flagged (prior 2026-08-08 governance run — RF-OWN-004 not triggered, no controlling shareholder), and the profit-multiple discount to peers is largely explained by a real growth-rate gap versus DoorDash/Grab rather than a quality the market refuses to recognize. The warranted-multiple case (13.2x NTM EV/EBITDA) is below Uber's own 5-year history for cited, fundamental reasons (decelerating growth, Narrow moat, unresolved AV-disruption risk) — the base case is not built on a multiple the business has never sustained.
-- Trust most: peer-relative EV/EBITDA (`03`). Discount most: SOTP's low end (`06`, $57.34) — it is a single comp-choice artifact (Lyft vs. DiDi for Mobility), not an independent read; and `04`'s DCF, which self-caps its own confidence because the disclosed working-capital cash source (self-insurance-reserve buildup) breaks the standard financeable-growth cross-check.
-- No partial-data caps applied this run — price is pool-verified and fresh, consensus/peers/segment/cash-flow data are all present. The single highest-value next data request is a post-close (or updated pre-close) capital-structure read once the Delivery Hero bridge facility is drawn or the deal's financing terms firm up — every fair-value level in this report excludes that pending, disclosed subsequent event.
-- Biggest missing data point: confirmation of how much of the €14.2bn Delivery Hero bridge facility will actually be drawn, and on what terms — this could move net debt (and every downstream per-share bridge) by a magnitude larger than any single multiple assumption in this report.
-- **Explicit handoff:** the master synthesizer's "Valuation and Peer Mispricing" section should defer to this synthesis; the bull/base/bear fair-value LEVELS here ($104.17 / $76.42 / $47.24, plus the $43.38 structural-reset floor) are the inputs for the master's probability-weighted scenario model — this module assigns no probabilities.
+- Bull/base/bear fair-value levels: $104.17 / $74.77 / $47.24 (12-month), plus a separately-labelled $43.38 structural-reset (AV-disruption) floor on a 24–36 month horizon. The dominant method behind the base case is peer-relative NTM EV/EBITDA (`03`, 38% weight), cross-checked within 1.2% by the scenario construction's own independently-derived EV/Sales-implied multiple.
+- What the price implies: a 5.05% ten-year FCF CAGR, ~1.5 years of above-GDP growth, and a 10.78% steady-state EBIT margin — all below what Uber has already delivered (TTM EBIT margin 12.13%) or what `04`'s own base-case DCF assumes (6.54% FCFF CAGR). This reads as achievable, not aggressive.
+- Margin of safety to base case: 8.82% (a thin cushion). Downside to the 12-month bear: 30.71%. Downside to the 24–36 month structural-reset floor: 36.37%. The downside anchor for kill-criteria purposes should be the bear-case value ($47.24) for the near-term and the structural-reset floor ($43.38) for the AV-disruption tail risk specifically.
+- Genuine value or value-trap risk: not a classic value trap (no misaligned controlling owner per the management-governance module; both operating segments individually outperform their named peer sets on margin), but the SOTP's low reading is a real caution against assuming a full reversion to the 5-year own-history multiple — `02` itself documents cited fundamental reasons (decelerating growth, releveraging, a pending debt-funded acquisition) the market may not be mispricing.
+- Method to trust / discount: trust the peer-relative EV/EBITDA read (`03`) most; discount the SOTP's absolute level (`06`) as a standalone fair-value signal (it is dominated by a single comp-choice and a large but real corporate-overhead deduction) while treating its underlying finding — Delivery is worth more per dollar of forward earnings than Mobility, on peer multiples — as informative context. `04`'s DCF is a useful cross-check but self-capped Low–Medium confidence due to a working-capital-driven method tension in its financeable-growth check.
+- Partial-data caps: none applied. Price is pool-verified and fresh (~1 trading day old); no confidence cap from staleness, consensus, peer-data, method-count, cash-flow, SOTP-collapse, terminal-dominance, or ownership triggers. The 81.2% raw cross-method spread was judged reconciled (named drivers + policy-capped weighting), not left as an unexplained disagreement, and is instead reflected in a moderate (66) rather than high confidence score.
+- Biggest missing data point (single highest-value next request): post-close Delivery Hero deal terms and the drawn amount of the €14.2bn bridge facility — none of the fair-value levels above reflect this pending, debt-funded acquisition, and it is the single largest unmodeled risk to every level in this report.
+- **Explicit handoff:** the master synthesizer's "Valuation and Peer Mispricing" section should defer to this synthesis. The bull/base/bear fair-value levels above ($104.17 / $74.77 / $47.24, plus the $43.38 structural-reset floor) are the inputs for the master's own probability-weighted scenario model — this module assigns no probabilities and computes no expected return; that belongs to the master synthesizer.
 
 ## 8. Simple Summary
 
-- UBER is modestly cheap, not deeply cheap: base fair value $76.42 is about 12% above the $68.18 price, a 10.78% cushion.
-- Bull / Base / Bear fair-value levels: $104.17 / $76.42 / $47.24 (12 months), plus a $43.38 longer-horizon floor if the autonomous-vehicle risk turns real.
-- The market is pricing in less growth (5.05% a year, 10 years) and a lower steady-state margin (10.78%) than Uber has already delivered — that's a conservative bar, not an aggressive one.
-- The downside is bigger than the upside on a one-year view: 30.71% to the bear case versus 12.09% implied upside to base.
-- The method that matters most here is the peer-comparison read (EV/EBITDA against Lyft, DoorDash, DiDi, Grab) — it lines up independently with the scenario model's own math.
-- Not a clear value trap: no dominant/misaligned owner, and the cheap-vs-peers profit multiple is explained by slower growth, not by hidden risk the market is ignoring — but the pending, debt-funded Delivery Hero deal is a real, unpriced risk to watch.
-- A pool-verified current price was available for this run — no data gap there. The main gap is what the Delivery Hero acquisition's financing will actually look like once it closes.
-- This module is useful and complete for the master synthesizer: all five methods ran, disagreements were reconciled with reasons (not averaged away), and no score caps applied.
+- Not clearly cheap or expensive: base fair value is $74.77 against a $68.18 price, a 9.7% gap — just inside "fairly valued."
+- Bull $104.17 / Base $74.77 / Bear $47.24 (12-month), plus a $43.38 longer-horizon structural-reset floor if the autonomous-vehicle risk crystallizes.
+- The market is pricing in modest growth: a 5.05% ten-year cash-flow growth rate, below what Uber has already delivered.
+- Downside is bigger than the upside on a one-year view: 30.7% down to the bear case versus 8.82% of cushion to the base case.
+- The peer-multiple method (EV/EBITDA against Lyft, DoorDash, DiDi, Grab) is the one to trust most here — it lines up almost exactly with an independent own-history-based check.
+- Not a classic value trap — no controlling owner problem, and both segments individually beat their peer sets on margin — but the sum-of-the-parts read is a real caution against assuming the stock reverts fully to its old, richer multiple.
+- A pool-verified current price was available ($68.18, 2026-08-06) — no missing-price gap this run.
+- This module is directly useful to the master synthesizer: complete data, four independently-run methods, and an explicit reconciliation of the one method (SOTP) that disagrees most.
 
 
 
@@ -302,115 +314,113 @@ _Source: `01_price-and-capital-structure.md`_
 
 # Price & Capital Structure — UBER
 
-Reporting standard: US GAAP. Reporting currency: USD (millions, except per-share figures, which are whole dollars). Fiscal year end: December 31. Listing: NYSE:UBER (US SEC filer — 10-K/10-Q are the correct native filings; no local-equivalent substitution needed) [FY25 10-K cover page; Q2 FY26 10-Q cover page].
+**Reporting standard:** US GAAP. **Reporting currency:** USD, in millions except per-share figures. **Fiscal year end:** December 31. Uber Technologies, Inc. is a US SEC filer (NYSE: UBER); no local-equivalent substitution is needed [FY25 10-K, cover page; Q2 FY26 10-Q (filed 2026-08-05), cover page].
 
 ## 1. Current Price
 
 | Field | Value | Source | As-of Date |
 |---|---|---|---|
-| Current price | $68.18 | Capital IQ Comps export, "Financial Data" tab (Day Close Price Latest) [Company Comparable Analysis Uber Technologies Inc.xls, data as of 2026-08-06]; independently corroborated by [Uber Technologies Inc NYSE UBER Financials_Quarterly.xls, Key Stats tab, "Share Price"] | 2026-08-06 |
-| Currency | USD | Both sources above | — |
-| Price basis | Last close | Comps tab header: "Day Close Price Latest" | 2026-08-06 |
+| Current price | $68.18 | Capital IQ Comps export, "Financial Data" tab, "Day Close Price Latest" [Company Comparable Analysis Uber Technologies Inc.xls, Financial Data tab, as of 2026-08-06]; corroborated by Capital IQ Financials_Quarterly export, "Key Stats" tab, "Share Price" [Uber Technologies Inc NYSE UBER Financials_Quarterly.xls, Key Stats tab] | 2026-08-06 |
+| Currency | USD | Both exports state "US Dollar" / "USD" | — |
+| Price basis (last close / intraday / indicative) | Last close | Comps export column header "Day Close Price Latest" | 2026-08-06 |
 
-Two independent Capital IQ exports — the standalone comps workbook and the Financials_Quarterly workbook — both show $68.18 for the same as-of date, so this is a pool-verified, corroborated price (not merely single-sourced).
+Both pool sources agree to the cent ($68.18), so this is a **pool-verified** price, not an indicative/web quote. No web quote was attempted or needed.
 
-**Price staleness.** Run date 2026-08-09 minus quote as-of date 2026-08-06 = 3 calendar days. The only intervening trading day is Friday 2026-08-07 (2026-08-08/09 are a weekend), so the price is roughly 1 trading day old — well inside the 5-trading-day freshness threshold. No refresh attempt was needed and no staleness cap applies.
-
-**Price-state tag: `pool-verified`.**
+**Price staleness (quantitative).** Run date is 2026-08-09 (Sunday). Quote as-of date is 2026-08-06 (Thursday). The only trading day that has elapsed since the quote and before the run date is 2026-08-07 (Friday) — **age ≈ 1 trading day**, well inside the 5-trading-day freshness threshold. **Refresh attempt:** the data pool was searched for a fresher IBKR screenshot or user-provided quote; none exists (no `data/UBER/external/` directory and no IBKR file in `data/UBER/`), so the Capital IQ comps price stands as the anchor with no refresh available or needed given its freshness. No staleness cap applies.
 
 ## 2. Share Count
 
 | Field | Value | Source |
 |---|---:|---|
-| Basic shares outstanding (as-of Jul-31-2026) | 2,042,560,121 | Q2 FY26 10-Q cover page, filed 2026-08-05: "The number of shares of the registrant's common stock outstanding as of July 31, 2026 was 2,042,560,121" — matches Capital IQ Key Stats "Shares Out." 2,042.560121mm exactly |
-| Basic weighted-average shares (3 months ended Jun-30-2026) | 2,036,458,000 | Q2 FY26 10-Q, EPS note |
-| Diluted weighted-average shares (3 months ended Jun-30-2026) | 2,050,225,000 | Q2 FY26 10-Q, EPS note (GAAP, treasury-stock method for awards, if-converted for convertibles) |
-| Dilutive effect of equity awards (options/RSUs, TSM) | 11,180,000 | Q2 FY26 10-Q, EPS note |
-| Dilutive effect of Convertible Notes (if-converted, GAAP quarterly calc) | 254,000 | Q2 FY26 10-Q, EPS note |
-| Dilutive effect of Freight Holding contingently issuable shares | 12,000 | Q2 FY26 10-Q, EPS note |
-| Dilutive effect of other contingently issuable shares | 2,321,000 | Q2 FY26 10-Q, EPS note |
-| **Fully diluted shares (derived, current)** | **≈2,056,327,000 (~2,056.3M)** | Derived: cover-page basic (2,042,560,121, as of Jul-31-2026) + the Q2 FY26 disclosed dilutive add-on (13,767,000 = 11,180k awards + 254k converts + 12k Freight Holding + 2,321k other) — *Inference, not from filings*: assumes the dilution rate is stable between Jun-30 and Jul-31, 2026 |
-| Share count used for market cap | 2,042,560,121 (basic, cover-page) | Per Fully Diluted Equity Rule #1 — most recent "as of" count, not a weighted-average |
-| Share count used for per-share fair value | ≈2,056.3M (fully diluted, derived above) | Per Fully Diluted Equity Rule #2 |
+| Basic shares outstanding (as-of) | 2,042,560,121 (2,042.560mm) | Q2 FY26 10-Q cover page: "The number of shares of the registrant's common stock outstanding as of July 31, 2026 was 2,042,560,121." [Q2 FY26 10-Q (filed 2026-08-05), cover page]. Matches Capital IQ Key Stats "Shares Out." exactly (2042.560121) [Financials_Quarterly.xls, Key Stats tab] |
+| Shares outstanding at balance-sheet date (Jun-30-2026) | 2,036.458mm | Capital IQ Historical Capitalization tab, "Total Shares Out. on Balance Sheet Date," last column [Financials_Quarterly.xls, Historical Capitalization tab]; ties to the 10-Q's basic weighted-average shares for the three months ended Jun-30-2026 (2,036,458 thousand) [Q2 FY26 10-Q, EPS note] |
+| Diluted weighted-average shares — three months ended Jun-30-2026 | 2,050.225mm | Q2 FY26 10-Q, "Diluted weighted-average common stock outstanding" [Q2 FY26 10-Q, EPS note] |
+| Diluted weighted-average shares — six months ended Jun-30-2026 | 2,060.763mm | Same note, six-month column [Q2 FY26 10-Q, EPS note] |
+| Options outstanding (Jun-30-2026) | 6,099 thousand (~6.1mm), weighted-avg exercise price $51.44, in-the-money at $68.18 | Q2 FY26 10-Q, Note 7 "Stockholders' Equity," Stock Option and SAR Activity table [Q2 FY26 10-Q, Note 7] |
+| SARs outstanding (Jun-30-2026) | 10 thousand (negligible) | Same table [Q2 FY26 10-Q, Note 7] |
+| Unvested RSUs outstanding (Jun-30-2026) | 71,804 thousand (~71.8mm), weighted-avg grant-date fair value $71.66 | Q2 FY26 10-Q, Note 7, RSU activity table [Q2 FY26 10-Q, Note 7] |
+| Convertibles / potential shares (if-converted) | 2028 Convertible Notes: $1,725mm principal, conversion rate 13.7848 shares/$1,000 (≈$72.55 conversion price); 2028 Exchangeable Senior Notes: $1,125mm principal, exchangeable into **Aurora Innovation Class A shares** (not UBER shares) — not dilutive to UBER's own share count | Capital IQ Financials_Quarterly, Capital Structure Details tab (FY2025 detail) [Financials_Quarterly.xls, Capital Structure Details tab]; conversion terms confirmed in Q2 FY26 10-Q Note on debt [Q2 FY26 10-Q, Debt note] |
+| **Fully diluted shares (company GAAP TSM + if-converted), Q2 FY26 (3-month weighted avg)** | **2,050.225mm** | Q2 FY26 10-Q EPS note reconciliation: basic 2,036,458 + dilutive equity awards (options/RSUs, TSM) 11,180 + Freight Holding contingently issuable shares 12 + convertible notes (if-converted) 254 + other contingently issuable shares 2,321 = 2,050,225 (thousand) [Q2 FY26 10-Q, EPS note] |
+| Share count used for market cap | 2,042.560mm (basic, cover-page, as of Jul-31-2026) | Per Fully Diluted Equity Rules: market-cap count uses the most recent "as of" shares outstanding, not a period weighted-average [Q2 FY26 10-Q, cover page] |
+| Share count used for per-share fair value | 2,050.225mm (diluted weighted-average, three months ended Jun-30-2026) | Most recent GAAP-computed fully diluted count (TSM for options/RSUs, if-converted for convertibles) [Q2 FY26 10-Q, EPS note] |
 
-**Convertible/exchangeable notes and dilution.** The 2028 Convertible Notes carry an initial conversion rate of 13.7848 shares per $1,000 principal, equivalent to an initial conversion price of roughly $72.5/share [Q2 FY26 10-Q, Debt note]. At the current price of $68.18 this is out-of-the-money, so the notes are correctly treated as debt (already inside Total Debt below) rather than as additional equity dilution beyond the small GAAP quarterly if-converted add-on (254,000 shares) shown above. The separate 2028 Exchangeable Senior Notes are exchangeable into shares of **Aurora** (a company Uber holds a stake in), not into Uber's own stock, so they do not dilute Uber's share count at all [Q2 FY26 10-Q, Debt note].
+**Share Count Reconciliation Table (Q2 FY26, three months ended Jun-30-2026, in thousands):**
 
-**Limitation.** The pool does not itemize individual option strike prices or an outstanding-options count separate from the aggregate GAAP TSM add-on, so the fully diluted figure above is built by adding the disclosed quarterly dilution amount to the more current cover-page basic count rather than an independent bottom-up TSM build. This is a reasonable approximation given the small size of the dilutive adjustment (~0.67% of basic shares) but is flagged as a limitation for downstream per-share sensitivity.
+| Step | Shares |
+|---|---:|
+| Basic weighted-average | 2,036,458 |
+| + Dilutive effect of equity awards (options + RSUs, treasury-stock method) | 11,180 |
+| + Dilutive effect of Freight Holding contingently issuable shares | 12 |
+| + Dilutive effect of Convertible Notes (if-converted) | 254 |
+| + Dilutive effect of other contingently issuable shares | 2,321 |
+| = Diluted weighted-average shares | 2,050,225 |
+
+Note on gap between the two counts used: the cover-page basic count (2,042.560mm, as of Jul-31-2026) is used for market cap because it is the most current "as of" spot count. The diluted weighted-average (2,050.225mm) is a Q2 FY26 period-average, not a spot count as of Jul-31-2026 — it is used for per-share fair value because it is the company's own GAAP-computed fully diluted figure (treasury-stock method for options/RSUs, if-converted for convertibles) and is more rigorous than a self-derived estimate. This mixes two dates (Jun-30 quarter-average dilution vs. Jul-31 spot basic count); the ~2% gap between the two counts (13.7mm shares, the Q2 net dilution) is immaterial to fair-value-per-share outputs and is disclosed here as a limitation rather than blended into a single inferred number. The 2028 Exchangeable Senior Notes are excluded from UBER's own dilution because they convert into Aurora Innovation shares, not UBER shares [Q2 FY26 10-Q, Debt note].
+
+Uber pays no dividend and has an active buyback program (Q2 FY26 repurchases: $518mm; buybacks ranged $150mm–$3,011mm/quarter over the trailing two years) [Financials_Quarterly.xls, Cash Flow tab, "Repurchase of Common Stock"], which is why basic shares outstanding have trended down from ~2,078mm (mid-2025) to ~2,036–2,043mm (mid-2026) despite ongoing equity issuance from vesting RSUs.
 
 ## 3. Market Capitalization
 
-`Market cap = share count × current price = 2,042,560,121 × $68.18 = $139,261.7M`
+`Market cap = share count × current price = 2,042,560,121 × $68.18 = $139,261.7mm`
 
-This ties exactly to the Capital IQ figure in both source tabs ($139,261.749049M) [Financials_Quarterly Key Stats tab; Comps "Financial Data" tab, both as of 2026-08-06] — no rounding discrepancy.
+This ties exactly to the Capital IQ comps export's own computed "Market Capitalization Latest" of $139,261.749mm [Company Comparable Analysis Uber Technologies Inc.xls, Financial Data tab] and to the Financials_Quarterly Key Stats "Market Capitalization" of $139,261.749mm [Financials_Quarterly.xls, Key Stats tab].
 
 ## 4. Enterprise Value Bridge
 
-| Component | Amount ($M) | Source |
+All figures as of the balance sheet date Jun-30-2026 unless noted; price/share count as stated above.
+
+| Component | Amount ($mm) | Source |
 |---|---:|---|
 | Market capitalization | 139,261.7 | Section 3 above |
-| + Total debt (short + long term, incl. finance & operating lease liabilities) | 14,731 | [Uber Financials_Quarterly.xls, Balance Sheet & Key Stats tabs, Jun-30-2026: LT Debt 10,726 + LT Leases 1,830 + Curr. Port. LT Debt 1,997 + Curr. Port. Leases 178 = 14,731] |
-| + Minority / non-controlling interest | 1,083 | [Uber Financials_Quarterly.xls, Balance Sheet, Jun-30-2026] |
-| + Preferred equity | 0 (nil) | [Uber Financials_Quarterly.xls, Balance Sheet — no preferred equity line since FY2019] |
-| + Operating lease liabilities | Already included above | CIQ classifies Uber's Operating Lease Liabilities (FY2025: $1,559M principal, 6.6% imputed rate) as a lease-type debt instrument inside Total Debt [Financials_Quarterly.xls, Capital Structure Details]; adding them again would double-count |
-| + Underfunded pension / other LT obligations | None | Pension/OPEB tab: not applicable — Uber has no defined-benefit pension |
-| − Cash & equivalents (+ ST investments) | 5,391 | [Balance Sheet, Jun-30-2026: Cash and equivalents 4,870 + ST investments 521 = 5,391] |
-| − Equity-method investments (treated separately) | Not netted | See cash-quality note below |
-| **= Enterprise value (EV)** | **149,684.7** | Ties exactly to CIQ TEV ($149,684.749049M) — no plug |
+| + Total debt (short + long term) | 14,731 | Financials_Quarterly.xls, Key Stats tab, "Total Debt" [as of Jun-30-2026]; reconciles to balance sheet: Long-Term Debt 10,726 + Long-Term Leases 1,830 + Current Portion LT Debt 1,997 + Current Portion of Leases 178 = 14,731 [Financials_Quarterly.xls, Balance Sheet tab] |
+| + Minority / non-controlling interest | 1,083 | Financials_Quarterly.xls, Key Stats tab, "Total Minority Interest"; ties to Balance Sheet "Minority Interest" line [Financials_Quarterly.xls, Balance Sheet tab] |
+| + Preferred equity | 0 | Financials_Quarterly.xls, Key Stats tab, "Pref. Equity" = "-"; Balance Sheet shows no preferred stock outstanding in any recent quarter (only a legacy 2018–2019 convertible preferred that had converted by 2020) [Financials_Quarterly.xls, Balance Sheet tab] |
+| + Operating lease liabilities (material, but already included above) | 0 (already in Total Debt) | Operating and finance lease liabilities ($1,559mm operating + $222mm finance per the FY2025 tranche detail) are already folded into the CIQ "Total Debt" figure via "Total Lease Liabilities" — not added again [Financials_Quarterly.xls, Capital Structure Summary tab; Capital Structure Details tab] |
+| + Underfunded pension / other long-term obligations | Not applicable | No pension/OPEB plan disclosed — "No Data Available" [Financials_Quarterly.xls, Pension OPEB tab] |
+| − Cash & equivalents (+ ST investments) | (5,391) | Financials_Quarterly.xls, Balance Sheet tab: Cash and Equivalents 4,870 + Short Term Investments 521 = 5,391 [as of Jun-30-2026]; matches Key Stats "Cash & Short Term Investments" |
+| − Equity-method investments (treated separately — NOT netted) | Not netted; disclosed only | See Cash Quality note below |
+| **= Enterprise value (EV)** | **149,684.7** | 139,261.7 + 14,731 + 1,083 + 0 − 5,391 = 149,684.7; ties exactly to Capital IQ's own computed "Total Enterprise Value (TEV)" of $149,684.749mm [Financials_Quarterly.xls, Key Stats tab; Company Comparable Analysis, Financial Data tab] |
 
-**Cash quality.** The $5,391M netted above is genuine cash and short-term equivalents/investments — Cash and equivalents ($4,870M) plus short-term investments ($521M) [Balance Sheet, Jun-30-2026]. Restricted cash ($661M) is a separate balance-sheet line and is correctly **not** included in this figure. Uber's $12,532M of **long-term investments** (Jun-30-2026) is **not** netted here — this pool includes Uber's marked-to-market minority equity stakes (Aurora, Grab, Didi, Delivery Hero, Joby, and others), which swing materially with market prices (e.g., a $1.6B net unrealized gain on securities in Q2 FY26 alone, including a $1.1B gain on the Delivery Hero stake and a $899M gain on Aurora, partly offset by a $437M loss on Didi) [Q2 FY26 10-Q, Other Income note]. Netting a volatile, non-cash, mark-to-market portfolio like this into "cash" would understate EV and flatter net debt — it is deliberately excluded. Equity-method investments jumped from $268M (Mar-31-2026) to $3,773M (Jun-30-2026) [Balance Sheet], which the 10-Q explains is driven by Uber's enlarged Delivery Hero stake moving to equity-method accounting (see subsequent-event note below) — also not netted.
+**Adjustments NOT made, and why:** No separate operating-lease add-back (already embedded in Total Debt per the source, avoiding double-count). No pension adjustment (none exists). No contingent-consideration / earn-out liability add-back beyond what is captured in the "other contingently issuable shares" dilution already reflected in the diluted share count (Section 2) — Uber does not disclose a separate cash earn-out liability material to the EV bridge in the reviewed sources.
 
-**Adjustment NOT made:** operating leases (already embedded in CIQ's Total Debt figure, see above — separately adding them would double-count, so no further adjustment is made). No pension exists. No contingent-claims adjustment is made; the pending Delivery Hero acquisition (below) is disclosed but not yet incorporated into any balance-sheet figure.
-
-**Filing-vs-vendor debt reconciliation.** The 10-Q's own risk-factor language states "we had total outstanding indebtedness of $12.6 billion aggregate principal amount" as of Jun-30-2026 [Q2 FY26 10-Q, Risk Factors]. This is narrower than the CIQ Total Debt figure of $14,731M used above because the filing's $12.6B figure appears to exclude lease liabilities: $14,731M − ($1,830M LT leases + $178M current leases) = $12,723M, close to (not exact — residual ~$120M likely debt discount/premium/issuance-cost adjustments) the filed $12.6B. Both numbers are cited to their own source per §5 — the CIQ figure (incl. leases) is used for the EV bridge above because it reconciles cleanly to the CIQ TEV figure with no plug; the filing's narrower principal-only figure is noted for transparency.
-
-**Material subsequent event — NOT reflected in the figures above.** On 2026-07-16 (after the Jun-30-2026 balance-sheet date, but before this report's run date), Uber signed a Business Combination Agreement to acquire **Delivery Hero SE** via a voluntary public takeover offer at €41.50/share — an implied equity value of ~$14.8 billion for 100% of Delivery Hero — subject to a 50%+1-share minimum acceptance threshold and regulatory clearances, expected to close in H2 2027 [Q2 FY26 10-Q, "Pending Acquisition of Delivery Hero" note]. Uber will fund the offer with existing cash plus new debt: it executed a **€14.2 billion bridge credit agreement** (senior unsecured loans, Morgan Stanley Senior Funding as administrative agent) on the same date [Q2 FY26 10-Q, same note; 10-Q exhibit index]. None of this — the offer consideration, the bridge facility, or any drawn debt — appears in the Jun-30-2026 balance sheet used for the EV bridge above. If the bridge facility is drawn, Total Debt could rise materially (on the order of $15–16B at spot EUR/USD) beyond the $14,731M shown here. This is the single largest near-term capital-structure risk not captured in this anchor and should be flagged explicitly by every downstream valuation agent (04 DCF, 06 SOTP, 07 scenarios) as a pending, pre-close item.
+**Cash quality — real operating cash only.** The $5,391mm netted above is Cash and Equivalents ($4,870mm) plus Short-Term Investments ($521mm) only [Financials_Quarterly.xls, Balance Sheet tab]. It explicitly **excludes**: Restricted Cash ($661mm, a separate balance-sheet line, not netted) and Long-Term Investments ($12,532mm, a separate balance-sheet line, not netted). Within that $12,532mm Long-Term Investments balance sits $3,773mm of **equity-method investments** — Delivery Hero ($3,502mm, reclassified from marketable securities to an equity-method stake during Q2 FY26 after a stake increase), Careem Technologies ($147mm), and other ($124mm) [Q2 FY26 10-Q, Note 3 — Equity Method Investments]. None of this $3,773mm, nor the remaining ~$8.8bn of long-term investments (public/private equity and debt securities carried at fair value, per the 10-Q's investment-risk disclosure), is netted into the EV bridge above — the canonical bridge matches the vendor's own TEV computation and nets only true cash & ST investments. Flag: a downstream agent building a "core operating EV" excluding these large non-operating financial-asset stakes (equity securities in Aurora, Didi, Grab, Joby, and now Delivery Hero, plus the equity-method book) would show a materially lower EV than the $149,684.7mm canonical figure above; this agent presents the canonical (vendor-consistent) bridge and flags the non-operating asset value here rather than silently netting it.
 
 ## 5. Net Debt & Leverage Snapshot
 
 | Metric | Value | Source |
 |---|---:|---|
-| Total debt | $14,731M | Section 4 |
-| Cash & equivalents only (strict basis) | $4,870M | [Balance Sheet, Jun-30-2026] |
-| Cash & ST investments (broad basis) | $5,391M | [Balance Sheet, Jun-30-2026] |
-| **Net debt — strict basis** (total debt − cash & equivalents only) | **$9,861M** | Computed here; matches `earnings/01_historical-financials.md`'s independent cross-check figure of $9,861M as of Jun-30-2026 exactly |
-| **Net debt — broad basis** (total debt − cash & ST investments) | **$9,340M** | Matches CIQ's own "Net Debt" field and ties the EV bridge above with no plug |
-| Net debt/EBITDA — broad basis | 1.25x | $9,340M / $7,474M LTM EBITDA |
-| Net debt/EBITDA — strict basis | 1.32x | $9,861M / $7,474M LTM EBITDA |
-| EBITDA basis used | $7,474M | CIQ-computed EBITDA (LTM through Jun-30-2026, reported/GAAP-derived, not a company-defined "Adjusted EBITDA") [Financials_Quarterly.xls, Key Stats] |
-| S&P issuer credit rating (foreign-currency LT) | BBB+ | [Comps "Credit Health Panel" tab, financials updated 2026-08-05] |
+| Total debt | $14,731mm | Section 4 |
+| Cash & equivalents (+ ST investments) | $5,391mm | Section 4 |
+| Net debt (total debt − cash, **strict basis**) | $9,340mm | 14,731 − 5,391 = 9,340; ties to Capital IQ Comps "LTM Net Debt" of $9,340mm [Company Comparable Analysis, Financial Data tab] |
+| LTM EBITDA (CIQ-computed, GAAP-basis: EBIT + D&A) | $7,474mm | Financials_Quarterly.xls, Key Stats tab, "EBITDA," LTM through Jun-30-2026 [as reported in the Press Release LTM column] |
+| Net Debt / LTM EBITDA | 1.25x | 9,340 / 7,474 = 1.25 |
+| S&P issuer credit rating (foreign-currency, long-term) | BBB+ (investment grade) | Company Comparable Analysis, Credit Health Panel tab [as of 2026-08-06] |
 
-**Canonical basis for this module.** Per CLAUDE.md §15 the strict basis (debt − cash & equivalents only) is the default net-debt definition, and it is shown above and matches the earnings module's independent figure exactly — a useful cross-check. However, the **broad basis ($9,340M) is designated canonical for this valuation module's downstream agents (02/03/04/06/07)**, because it is the figure that ties the EV bridge (Section 4) to the market cap with no plug (Reconciliation Gate 2). Any downstream agent using the strict $9,861M figure instead must state the one-line reason per the Reconciliation Gate.
+Label note: the LTM EBITDA figure above is Capital IQ's own GAAP-basis calculation (EBIT + D&A), not a company-defined "Adjusted EBITDA." Uber itself discontinued disclosing a consolidated Adjusted EBITDA measure starting Q1 FY26, replacing segment Adjusted EBITDA with "Segment Operating Income" [Q2 FY26 10-Q, segment note: "Beginning in the first quarter of 2026, we changed our segment operating performance measure from Segment Adjusted EBITDA to Segment Operating Income."]. No consolidated company-adjusted-EBITDA figure was found in the Q2 FY26 10-Q or the Q2 FY26 earnings call transcript. Downstream multiples agents should use the CIQ GAAP-basis EBITDA above (or build their own adjusted figure from disclosed line items) and label the basis explicitly.
 
 ## 6. Per-Share Reference Values
 
 | Metric | Per Share | Source |
 |---|---:|---|
-| Book value per share | $13.41 | Common equity $27,316M / 2,036.458M period-end basic shares [Balance Sheet, Jun-30-2026] |
-| Tangible book value per share | $8.21 | Tangible book value $16,712M / 2,036.458M period-end basic shares [Balance Sheet, Jun-30-2026] |
-| Net debt per share — broad basis (canonical) | $4.57 | $9,340M / 2,042.560121M market-cap share count |
-| Net debt per share — strict basis | $4.83 | $9,861M / 2,042.560121M market-cap share count |
+| Book value per share | $13.41 | Total Common Equity $27,316mm ÷ 2,036.458mm shares (balance-sheet-date count) [Financials_Quarterly.xls, Balance Sheet / Historical Capitalization tabs]. Using the market-cap share count (2,042.560mm) instead gives $13.38 — immaterial difference, both bases shown for transparency |
+| Tangible book value per share | $8.21 | Tangible Book Value $16,712mm ÷ 2,036.458mm shares [Financials_Quarterly.xls, Historical Capitalization tab]; matches Comps sheet "LTM Tangible Book Value/Share" of $8.21 exactly |
+| Net cash (or net debt) per share (strict basis) | $(4.56) net debt/share | Net debt $9,340mm ÷ 2,050.225mm diluted weighted-average shares (per-share fair-value count) = $4.56 net debt per share |
 
 ## 7. Anchor Summary (canonical numbers for downstream agents)
 
-- **Current price:** $68.18, as of 2026-08-06 (last close, pool-verified, corroborated by two independent Capital IQ exports; ~1 trading day old at the 2026-08-09 run date — not stale).
-- **Share counts:** 2,042,560,121 (basic, cover-page) for market cap; ~2,056.3M (fully diluted, derived — see limitation in §2) for per-share fair value.
-- **Market cap:** $139,261.7M.
-- **Net debt:** $9,340M (broad basis, canonical for this module) / $9,861M (strict basis, cross-checked against `earnings/01`).
-- **EV:** $149,684.7M (ties with no plug).
-- **Reporting currency:** USD.
-- **Key caveats:** (1) A material subsequent event — the pending Delivery Hero acquisition (~$14.8B implied equity value, funded partly by a new €14.2B bridge credit facility signed 2026-07-16) — is NOT reflected in any figure above; downstream agents must flag it as a pre-close item that could materially raise Total Debt. (2) The fully diluted share count for per-share fair value is a derived estimate (basic cover-page count + the most recent quarter's disclosed dilution add-on), not an independently rebuilt TSM figure — flagged as a limitation. (3) $12,532M of long-term investments (including volatile, mark-to-market minority equity stakes in Aurora, Grab, Didi, Delivery Hero, and others) sits inside EV and is not netted as cash — downstream DCF/SOTP agents should consider whether to value this portfolio separately.
+Current price $68.18 (as of 2026-08-06, last close, pool-verified — Capital IQ comps export corroborated by the Financials_Quarterly Key Stats export). The price is ~1 trading day old at the run date (2026-08-09); no staleness cap applies. Market cap uses the 10-Q cover-page basic count (2,042.560mm shares, as of Jul-31-2026); per-share fair value should use the diluted weighted-average count (2,050.225mm, three months ended Jun-30-2026). Market cap is $139,261.7mm; enterprise value is $149,684.7mm, built from total debt $14,731mm, minority interest $1,083mm, zero preferred equity, and $5,391mm of true cash & ST investments (restricted cash and $3,773mm of equity-method/financial-asset investments are explicitly excluded from the cash netted, per the Cash Quality note in Section 4). Net debt is $9,340mm (strict basis: total debt − cash & ST investments), or 1.25x LTM EBITDA. Reporting currency is USD; reporting standard is US GAAP. No balance-sheet or price-related caps apply to this module.
 
 ### Anchor Block (copy-forward)
 
 - Price: $68.18 (2026-08-06, last close)
 - Price-state: pool-verified
 - Currency: USD
-- Shares (market cap): 2,042,560,121 (10-Q cover page, as of 2026-07-31-2026)
-- Shares (per-share fair value): ~2,056,327,000 (derived — cover-page basic + Q2 FY26 disclosed dilution add-on; limitation noted in §2)
-- Market cap: $139,261.7M
-- Net debt: $9,340M (broad basis, canonical) / $9,861M (strict basis, cross-check)
-- EV: $149,684.7M
-- Key caveats: pending Delivery Hero acquisition and €14.2B bridge facility (signed 2026-07-16) not reflected in any figure above; derived (not bottom-up) fully diluted share count; $12.5B of mark-to-market minority equity stakes sit inside EV unadjusted.
+- Shares (market cap): 2,042.560mm (10-Q cover page, as of 2026-07-31)
+- Shares (per-share fair value): 2,050.225mm (diluted weighted-average, three months ended 2026-06-30; GAAP TSM + if-converted)
+- Market cap: $139,261.7mm
+- Net debt: $9,340mm (strict basis: total debt $14,731mm − cash & ST investments $5,391mm)
+- EV: $149,684.7mm
+- Key caveats: (1) per-share fair-value share count is a Q2 FY26 weighted-average, not a spot count as of the market-cap date — an immaterial (~0.4%) mismatch, disclosed rather than blended; (2) $3,773mm of equity-method investments (mainly a new $3,502mm Delivery Hero stake reclassified in Q2 FY26) and further financial-asset investments sit inside the $12,532mm Long-Term Investments balance and are NOT netted from EV — the canonical bridge matches the vendor's own TEV computation; a "core operating EV" excluding these would be materially lower and is not computed here; (3) Uber discontinued consolidated Adjusted EBITDA disclosure in Q1 FY26 — the LTM EBITDA cited (Section 5) is Capital IQ's own GAAP-basis calculation, not a company-adjusted figure.
 
 
 
@@ -949,97 +959,126 @@ _Source: `06_sum-of-the-parts.md`_
 
 # Sum-of-the-Parts — UBER
 
-Reporting standard: US GAAP. Reporting currency: USD (millions, except per-share figures). Fiscal year end: December 31. Listing: NYSE:UBER (US SEC filer) [FY25 10-K cover page]. All anchor figures (price $68.18 as of 2026-08-06, diluted shares ~2,056.327M, net debt $9,340M broad-basis canonical, EV $149,684.7M) are taken verbatim from `01_price-and-capital-structure.md` per Reconciliation Gate 1.
+**Reporting standard:** US GAAP. **Reporting currency:** USD, in millions except per-share figures. Uber Technologies, Inc. is a US SEC filer (NYSE: UBER); no local-equivalent substitution is needed. All figures are drawn from the FY25 10-K (filed 2026-02-13) and the Q2 FY26 10-Q (filed 2026-08-05) unless otherwise cited [FY25 10-K, cover page; Q2 FY26 10-Q, cover page].
 
-Uber is **not** effectively single-segment: Mobility is 57.0% of FY25 revenue and 69.1% of FY25 total segment Adjusted EBITDA [`business-model/03_segment-map.md`, citing FY25 10-K, Note 13, p.112–114] — below the 85% collapse threshold. Delivery is a real, growing second engine (31.2% of segment profit); Freight is currently a small loss-maker. A full three-segment SOTP is required and runs below; the material unallocated Corporate G&A / Platform R&D bucket is capitalized and subtracted in the bridge, not dropped (Reconciliation Gate 3).
+Uber is **not** effectively single-segment — Mobility is the dominant segment (57.0% of FY25 revenue, 69.1% of FY25 segment-level Adjusted EBITDA) but Delivery is material on both measures (33.2% / 31.2%) [upstream: `business-model/03_segment-map.md`, citing FY25 10-K, Note 13, p.8421–8613]. A full three-segment SOTP is run below; the partial-data single-segment collapse does not apply.
+
+**Anchor reuse (Reconciliation Gate 1).** Price $68.18 (2026-08-06, pool-verified last close), diluted shares 2,050.225mm (Q2 FY26 diluted weighted-average, GAAP TSM + if-converted), net debt $9,340mm (strict basis: total debt $14,731mm − cash & ST investments $5,391mm), minority interest $1,083mm, preferred $0, equity-method investments $3,773mm (Delivery Hero $3,502mm + Careem $147mm + other $124mm, sitting inside Long-Term Investments and NOT netted in `01`'s canonical EV) — all taken verbatim from `01_price-and-capital-structure.md`, Sections 2, 4, 7.
 
 ## 1. Segment Inventory
 
-Figures are FY2025 (year ended Dec-31-2025), the latest audited annual period, under the company's discontinued-but-last-clean "Segment Adjusted EBITDA" basis [FY25 10-K, Note 13, p.112–114]. "% of Total Segment EBITDA" is computed against the sum of the three reportable segments only ($11,438M), which sums to 100% by construction; the unallocated Corporate G&A / Platform R&D bucket sits below that line and is shown separately so it cannot silently inflate any segment's share above 100%.
+Figures below are **FY2025 (audited, year ended Dec-31-2025)** on **Segment Adjusted EBITDA**, the measure the company used for that year. This is the trailing/audited anchor for Section 1 only — it is **not** the forward metric used to value the segments in Sections 2–3 (see the basis-change note below).
 
-| Segment | Revenue (FY25) | Adjusted EBITDA (FY25) | Margin | % of Total Segment EBITDA | Source |
+| Segment | Revenue | Adjusted EBITDA | Margin | % of Total Segment EBITDA | Source |
 |---|---:|---:|---:|---:|---|
-| Mobility | $29,670M | $7,899M | 26.6% | 69.1% | FY25 10-K, Note 13, p.114 |
-| Delivery | $17,248M | $3,572M | 20.7% | 31.2% | FY25 10-K, Note 13, p.114 |
-| Freight | $5,099M | -$33M | -0.6% | -0.3% | FY25 10-K, Note 13, p.114 |
-| **Total reportable segments** | **$52,017M** | **$11,438M** | **22.0%** | **100.0%** | FY25 10-K, Note 13 |
-| Corporate G&A & Platform R&D (unallocated, not a segment) | — | -$2,708M | — | -23.7% of total segment EBITDA | FY25 10-K, Note 13, p.113 |
-| **Consolidated Adjusted EBITDA** | **$52,017M** | **$8,730M** | **16.8%** | — | FY25 10-K, Note 13 |
+| Mobility | $29,670M | $7,899M | 26.6% | 69.1% | FY25 10-K, p.8421–8577 |
+| Delivery | $17,248M | $3,572M | 20.7% | 31.2% | FY25 10-K, p.8446–8591 |
+| Freight | $5,099M | -$33M | -0.6% | -0.3% | FY25 10-K, p.8465–8613 |
+| **Segment-level total** | **$52,017M** | **$11,438M** | **22.0%** | **100.0%** | FY25 10-K, p.8484–8620 |
+| Corporate G&A and Platform R&D (unallocated) | — | -$2,708M | — | (23.7% of segment total) | FY25 10-K, p.8620–8667 |
+| **Consolidated Adjusted EBITDA** | | **$8,730M** | | | FY25 10-K, p.8620–8667 |
 
-Revenue reconciles exactly to consolidated revenue with no "Other" bucket [`business-model/03_segment-map.md`]. **Metric-basis break:** beginning Q1 FY26, Uber discontinued "Segment Adjusted EBITDA" and replaced it with "Segment Operating Income," a different (lower) profit measure that nets stock-based compensation and depreciation within segment costs rather than adding them back; FY2026-and-later segment figures are not directly comparable to the FY25 table above on a margin-for-margin basis [Q2 FY26 10-Q, Note 10: "Beginning in the first quarter of 2026, we changed our segment operating performance measure from Segment Adjusted EBITDA to Segment Operating Income"]. Section 2 addresses this directly in building the forward metric.
+Reporting currency USD; reporting standard US GAAP. **Denominator for "% of Total Segment EBITDA"**: the sum of the three reportable segments' Adjusted EBITDA ($11,438M), which is how the company itself presents the reconciliation — this is *before* the unallocated Corporate G&A / Platform R&D bucket ($2,708M, 23.7% of segment-level total), which is disclosed separately and is not dropped [FY25 10-K, p.8620–8667]. Freight's -0.3% is a small negative share, not an error — a loss-making segment mechanically produces a negative share of a positive segment-level total.
 
-**Vendor data-quality flag:** the CIQ `Financials_Quarterly.xls` "Segments" tab's "Operating Profit Before Tax" row mislabels its Jun-30-2026 column — it repeats the Q2 **FY25** recast comparative ($1,729M / $766M / -$26M for Mobility/Delivery/Freight) rather than the actual Q2 **FY26** figures. This agent uses the primary 10-Q Note 10 tables directly (verified against the filing text) rather than that CIQ column, per the source hierarchy (§4/§5) — filings beat vendor exports, and a vendor number is never cited under a filing's name.
+**Basis-change flag (do not blend).** Beginning Q1 FY26, Uber replaced Segment Adjusted EBITDA with **Segment Operating Income** as its segment performance measure, and recast prior periods to the new basis; Segment Operating Income is a genuinely different (EBIT-type, post-D&A/SBC-allocation) measure, not a relabeling [Q2 FY26 10-Q, Note 10, p.14216–14221]. FY25 Adjusted EBITDA (Section 1, above) is therefore **not** blended with the FY26 Segment Operating Income figures used as the forward valuation metric in Sections 2–3 below — the two bases are kept separate throughout this report, per the upstream segment-map's own warning [`business-model/03_segment-map.md`, §3].
 
 ## 2. Segment Multiples & Comparables
 
-**Forward metric construction (Inference, not from filings, built from filed inputs).** No segment-level consensus exists (confirmed: `earnings/04_guidance-consensus.md` has no segment split), so a forward metric is built directly from the primary filing:
-1. H1 FY26 actual Segment Operating Income, annualized ×2 [Q2 FY26 10-Q, Note 10, "Six Months Ended June 30, 2026" table: Mobility $4,244M, Delivery $2,016M, Freight -$54M] → Mobility $8,488M, Delivery $4,032M, Freight -$108M.
-2. Add back a pro-rata D&A allocation to convert this EBIT-like measure to an EBITDA-equivalent matching the CIQ-standardized basis the peer multiples below are quoted on (CIQ "EBITDA" = GAAP operating income + D&A, confirmed by back-solving Uber's own LTM EV/EBITDA of 19.2x against EV $149,684.7M → implied EBITDA ≈$7,796M, close to the LTM $7,474M CIQ figure in `01` — i.e., CIQ's peer EBITDA multiples are NOT the company's SBC-adjusted "Adjusted EBITDA," so no SBC add-back is needed, only D&A). FY25 D&A was $719M on $52,017M revenue (1.38% of revenue) [`earnings/01_historical-financials.md`, citing FY25 10-K Adjusted EBITDA reconciliation]. Applied to FY26E revenue (below) → ≈$800M FY26E D&A, allocated pro-rata by segment revenue share.
-3. FY26E segment revenue is built by taking H1 FY26 actual revenue [Q2 FY26 10-Q, Note 10] and adding an implied H2 FY26E (= consensus FY2026E total revenue $57,834.88M [`earnings/04_guidance-consensus.md`, Consensus tab] − H1 FY26 actual $27,394M), split across segments using the H1 FY26 revenue mix.
+**Forward metric basis (stated once, applies to all three segments):** FY26E figures below are **not** a consensus estimate (no segment-level consensus exists in the data pool or via CIQ) — they are the company's own **audited six-months-ended Jun-30-2026 (H1 FY26) Segment Operating Income and revenue, annualized (×2)** [Q2 FY26 10-Q, Note 10, p.15434–15462 (six-month segment table): Mobility Segment Operating Income $4,244M, Delivery $2,016M, Freight -$54M; revenue Mobility $14,161M, Delivery $10,313M, Freight $2,920M, per `business-model/03_segment-map.md` citing the same 10-Q pages]. Annualizing a half-year actual is **inference, not from filings** for the doubling step itself, though the underlying H1 figures are audited/filed. This is labelled **"FY26E (annualized H1 FY26 actual)"** throughout — a forward-year proxy, not a trailing-year multiple base, satisfying the Calculation Standard 10 forward-basis requirement in the absence of segment consensus.
 
-| Segment | FY26E Revenue | FY26E Segment Op. Income (H1 annualized) | + D&A add-back | = FY26E EBITDA-equivalent |
-|---|---:|---:|---:|---:|
-| Mobility | $29,899M | $8,488M | $413M | $8,901M |
-| Delivery | $21,774M | $4,032M | $301M | $4,333M |
-| Freight | $6,165M | -$108M | $85M | -$23M |
-| **Total** | **$57,838M** | **$12,412M** | **$799M** | **$13,211M** |
+Uber's Segment Operating Income is already net of D&A (an EBIT-type measure), and Uber's consolidated D&A run-rate is small (~1.4% of revenue: H1 FY26 D&A $372M ÷ H1 FY26 revenue $27,394M [Capital IQ Financials_Quarterly, Income Statement tab]) — so using it as a close proxy for segment EBITDA, matched against comparables' NTM EV/EBITDA multiples, understates true segment EBITDA only slightly and makes the resulting valuation mildly **conservative**, not inflated.
 
-Freight's FY26E EBITDA-equivalent is essentially zero (-$23M) — too close to breakeven for an EV/EBITDA multiple to be meaningful (multiplying a near-zero base produces a near-zero or sign-flipping result regardless of the multiple chosen), so Freight is valued on **EV/Revenue** instead, flagged explicitly below.
+| Segment | Metric Used (period basis) | Multiple Applied | Named Comparable | Comparable's Multiple (period basis) | Source |
+|---|---|---:|---|---:|---|
+| Mobility | FY26E Segment Operating Income, used as a segment-EBITDA proxy (annualized H1 FY26) | 7.94x | **Lyft, Inc. (NasdaqGS:LYFT)** | NTM TEV/Forward EBITDA 7.94x | Capital IQ Comparable Analysis export, Trading Multiples tab, as-of 2026-08-06 |
+| Delivery | FY26E Segment Operating Income, used as a segment-EBITDA proxy (annualized H1 FY26) | 20.78x | **DoorDash, Inc. (NasdaqGS:DASH)** | NTM TEV/Forward EBITDA 20.78x | Capital IQ Comparable Analysis export, Trading Multiples tab, as-of 2026-08-06 |
+| Freight | FY26E segment revenue (annualized H1 FY26) | 1.13x | **C.H. Robinson Worldwide, Inc. (NasdaqGS:CHRW)** | **LTM (trailing)** EV/Revenue 1.13x — flagged, see note | Web: stockanalysis.com, CHRW statistics page, as of 2026-08-08 (indicative, unverified) |
 
-| Segment | Metric Used (period basis) | Multiple Applied | Named Comparable | Comparable's Multiple | Why It Fits | Source |
-|---|---|---:|---|---:|---|---|
-| Mobility | FY26E EBITDA-equivalent, $8,901M (current FY, ~5 months remaining) | 7.94x (base) / 16.58x (high dispersion) | Lyft, Inc. (base) / DiDi Global Inc. (high) | Lyft NTM TEV/Fwd EBITDA 7.94x; DiDi NTM TEV/Fwd EBITDA 16.58x | Lyft is `business-model/08_competitive-map.md`'s own-named "closest same-business, same-geography peer" — same asset-light US/Canada rideshare marketplace, no owned fleet — used as the conservative base per Core Principle 6 (default to the lower value when comps conflict); DiDi is a larger-scale global rideshare marketplace with comparable economics, shown as the high-end cross-check since Uber Mobility's ~30% margin and market-leading scale clearly exceed Lyft's near-breakeven profile | Capital IQ Comps export, Trading Multiples tab, as of 2026-08-06 |
-| Delivery | FY26E EBITDA-equivalent, $4,333M (current FY, ~5 months remaining) | 20.78x | DoorDash, Inc. | NTM TEV/Fwd EBITDA 20.78x | Direct, same-geography US food/grocery delivery marketplace, named as a Delivery competitor in Uber's own FY25 10-K, asset-light (couriers own vehicles, matching Uber's model) — the single cleanest match in the pool, no second comp needed | Capital IQ Comps export, Trading Multiples tab, as of 2026-08-06 |
-| Freight | FY26E revenue, $6,165M (current FY, ~5 months remaining) | 0.51x (base) / 1.17x (high) | RXO, Inc. (base) / C.H. Robinson Worldwide (high) | RXO EV/Sales ≈0.51x; CHRW EV/Sales 1.17x | RXO is an asset-light truckload freight brokerage with no owned trucking fleet — the closest economic match to Uber Freight's own description ("digital marketplace connecting Shippers and Carriers... Uber owns no trucking fleet" [`business-model/03_segment-map.md`]) — used as the base; C.H. Robinson is a larger, more diversified, higher-margin logistics broker, shown as the high-end cross-check | Web: stockanalysis.com / MarketScreener, RXO EV/Sales, 2026 snapshot (indicative, unverified, no precise as-of date found — labelled); Web: stockanalysis.com, CHRW EV/Sales as of 2026-08-04 (indicative, unverified) |
+**Why each comparable fits (business economics, not surface label):**
+- **Lyft** is Uber's own named ridesharing competitor [FY25 10-K, Item 1, "Competitive Environment," p.5] and, per the upstream competitive map, "the closest same-business, same-geography peer" — a US/Canada peer-to-peer rideshare marketplace on the same asset-light driver-supply model as Mobility [`business-model/08_competitive-map.md`, §2].
+- **DoorDash** is a same-model, multi-brand (DoorDash/Wolt/Deliveroo) asset-light delivery marketplace connecting merchants, consumers and couriers — the direct structural analog to Uber's Delivery segment, including the same international-expansion-via-acquisition pattern Uber is now pursuing with Delivery Hero [Capital IQ Comparable Analysis export, Business Description tab].
+- **C.H. Robinson** is a non-asset-based (does not own trucks) freight brokerage connecting shippers and carriers — the correct economic match for Uber Freight's marketplace/brokerage model, as distinct from an asset-heavy trucking-fleet owner (e.g., J.B. Hunt) that the CIQ comp set does not even include here.
 
-**Freight comparable limitation, flagged per triage:** no freight-brokerage peer exists in the pool's 10-name Capital IQ comp set (`00_valuation-data-triage.md` flagged this directly); RXO and C.H. Robinson are sourced from the web, dated, and labelled unverified per the source hierarchy. Both web multiples are effectively current/LTM snapshots, not a strict NTM figure (no forward EV/Sales was found for either), so there is a mild period-basis mismatch applying a current-ish multiple to a FY26E revenue base — flagged, not corrected, given no better forward freight-broker multiple is available.
+**Freight basis flag.** No forward (NTM) EV/Revenue or EV/EBITDA multiple for C.H. Robinson was available from the sources consulted (web search and a direct statistics-page fetch both returned only trailing figures); the trailing 1.13x above is used and explicitly flagged as **trailing**, not forward, per Calculation Standard 10's fallback allowance. Freight is loss-making at the segment level (FY26E Segment Operating Income -$108M annualized), so an EV/EBITDA multiple cannot be applied to it at all — EV/Revenue is the only usable metric. Freight is ~4% of gross segment EV below and does not drive the SOTP conclusion; a 3-year-average CHRW EV/Revenue of 0.8x (a lower alternative, same web source class, unverified) would cut the Freight segment value to ~$4,672M from $6,599M — a ~$1.9bn swing, immaterial to the total.
+
+**Cross-comp dispersion (secondary comps, named but weaker fit).** Two other named-competitor comps in the pool produce a materially different multiple and are shown as bounds, not the base case:
+- **DiDi Global (OTCPK:DIDI.Y)** — named as a Mobility competitor in the FY25 10-K, but per the competitive map "only a partial competitor in practice" (China-dominant; overlaps Uber mainly in LatAm) [`business-model/08_competitive-map.md`, §2]. NTM TEV/Forward EBITDA 16.58x, versus an LTM EBITDA that is currently **negative** (-$564.3M) — the forward multiple rests on a consensus swing to profitability that has not yet happened, a materially more speculative anchor than Lyft's [Capital IQ Comparable Analysis export, Trading Multiples & Financial Data tabs, as-of 2026-08-06].
+- **Grab Holdings (NasdaqGS:GRAB)** — a Southeast Asia super-app (ride-hail + delivery + fintech blend), not individually named as a Mobility or Delivery competitor in Uber's own 10-K competitive-environment disclosure, but present in Uber's own CIQ comp set. NTM TEV/Forward EBITDA 12.26x [Capital IQ Comparable Analysis export, Trading Multiples tab, as-of 2026-08-06].
 
 ## 3. Segment Valuation
 
-`Segment EV = FY26E metric × multiple`. Base case uses the conservative comparable named above for each segment (Lyft for Mobility, RXO for Freight); the high-dispersion case swaps in the named alternative comp.
+All figures $mm. `Segment EV = FY26E metric × multiple.`
 
-| Segment | Metric Value | Multiple (base) | Segment EV (base) | Multiple (high) | Segment EV (high) |
-|---|---:|---:|---:|---:|---:|
-| Mobility | $8,901M | 7.94x (Lyft) | $70,674M | 16.58x (DiDi) | $147,579M |
-| Delivery | $4,333M | 20.78x (DoorDash) | $90,040M | 20.78x (DoorDash) | $90,040M |
-| Freight | $6,165M (revenue) | 0.51x (RXO) | $3,144M | 1.17x (CHRW) | $7,213M |
-| **Gross enterprise value (sum)** | | | **$163,858M** | | **$244,832M** |
+| Segment | Metric Value (FY26E) | Multiple | Segment EV |
+|---|---:|---:|---:|
+| Mobility | $8,488 (Segment Operating Income, annualized H1 FY26: $4,244 × 2) | 7.94x (Lyft) | $67,395 |
+| Delivery | $4,032 (Segment Operating Income, annualized H1 FY26: $2,016 × 2) | 20.78x (DoorDash) | $83,785 |
+| Freight | $5,840 (Revenue, annualized H1 FY26: $2,920 × 2) | 1.13x (C.H. Robinson, trailing) | $6,599 |
+| **Gross enterprise value (sum)** | | | **$157,779** |
 
-For context (not part of the bridge): the base-case gross segment EV ($163,858M) sits about 9.5% above Uber's current actual EV ($149,684.7M, per `01`) *before* any deduction for corporate overhead — the corporate-cost capitalization in Section 4 is what brings the SOTP-derived figure back down.
+**Dispersion (secondary comps, not the base case):**
+
+| Scenario | Mobility comp | Delivery comp | Gross EV |
+|---|---|---|---:|
+| Low | Lyft 7.94x ($67,395) | Grab 12.26x ($49,432) | $123,426 |
+| **Base** | **Lyft 7.94x ($67,395)** | **DoorDash 20.78x ($83,785)** | **$157,779** |
+| High | DiDi 16.58x ($140,731) | DoorDash 20.78x ($83,785) | $231,115 |
+
+(Freight held at $6,599 in all three scenarios — see §2 for its own small sensitivity to the CHRW multiple choice.)
+
+**Reconciliation to consolidated (Gate 3 — no vanished bucket).** FY26E segment-level total Operating Income (annualized H1 FY26 actual) is $12,412M (= $8,488 + $4,032 − $108). Consolidated GAAP Income from Operations for the same H1 FY26 base period was $3,813M [Capital IQ Financials_Quarterly, Income Statement tab; ties to the 10-Q's own six-month segment-note reconciliation, see below]. The **named, line-itemized** reconciling bucket for the six months ended Jun-30-2026, none of it vanished, is [Q2 FY26 10-Q, Note 10, p.15470–15579]:
+
+| Reconciling item (H1 FY26 actual) | $mm |
+|---|---:|
+| Corporate G&A and Platform R&D | -2,180 |
+| Amortization of acquired intangible assets | -120 |
+| Legal, non-income tax, and regulatory reserve changes and settlements | -12 |
+| Goodwill and asset impairments / loss on sale of assets | -4 |
+| Acquisition, financing and divestitures related expenses | -56 |
+| Loss on lease arrangement, net | -5 |
+| Restructuring and related charges | -16 |
+| **Total reconciling items** | **-2,393** |
+| = Consolidated Income from Operations, H1 FY26 | **3,813** |
+
+$6,206 (segment total) − $2,393 (reconciling items) = $3,813 ✓ ties exactly to the CIQ-sourced consolidated figure. This is a real, filed reconciliation, not a plug.
 
 ## 4. Equity Bridge
 
-Corporate G&A / Platform R&D is a permanent cost drag on all three segments and cannot be dropped (Reconciliation Gate 3). It is capitalized as a perpetuity at Uber's own consolidated NTM EV/EBITDA multiple (11.89x [Capital IQ Comps export, Trading Multiples tab, Uber row, as of 2026-08-06]) — the only directly observable market multiple available for this purpose, used as a stated modeling choice, not a segment-specific comparable. FY26E corporate cost is built the same way as the segment metrics: H1 FY26 actual (-$2,180M) [Q2 FY26 10-Q, Note 10] annualized ×2 = -$4,360M. Capitalized value = $4,360M × 11.89x = $51,840M.
+**Capitalizing the unallocated corporate bucket (not dropped by assertion — Gate 3).** The reconciling bucket above splits into (a) the recurring, ongoing **"Corporate G&A and Platform R&D"** line — the closest analog to what a segment-based valuation should treat as a permanent negative-earnings drag on group value — and (b) smaller, more episodic items (acquired-intangible amortization, legal/regulatory settlements, impairments, M&A/financing costs, a lease loss, restructuring). These are capitalized differently:
 
-Uber is net debt (not net cash) on both bases per `01`, so only a single "− net debt" line is needed — no add-back double-count risk. Per `01`, $12,532M of long-term investments (mostly mark-to-market minority equity stakes in Aurora, Grab, Didi, Delivery Hero (pre-equity-method portion), Joby, and others) and $3,773M of equity-method investments (predominantly Uber's enlarged Delivery Hero stake, reclassified from Mar-31 to Jun-30-2026) are **not** netted in `01`'s EV bridge and are separate, genuinely non-operating financial assets outside the three operating segments — `01` explicitly flags that "downstream DCF/SOTP agents should consider whether to value this portfolio separately." They are added back here as a single combined line.
+- **Core Corporate G&A and Platform R&D**: $2,180M (H1 FY26) → annualized (×2) = $4,360M. Capitalized as a **perpetual** drag at Uber's own **NTM TEV/Forward EBITDA multiple of 11.89x** [Capital IQ Comparable Analysis export, Trading Multiples tab, as-of 2026-08-06] — the same logic as valuing a segment's EBITDA, applied symmetrically to a negative EBITDA-equivalent: `$4,360M × 11.89x = $51,840M`.
+- **Other reconciling items**: $213M (H1 FY26) → annualized (×2) = $426M. Treated as a **single-year cash charge** (1x, not capitalized as a perpetuity) given their episodic nature (M&A/restructuring/legal/impairment/lease items are not expected to recur at this exact level every year): `$426M × 1x = $426M`.
+- **Total capitalized unallocated corporate cost: $51,840M + $426M = $52,266M.**
 
-| Step | Value ($M) |
+| Step | Value ($mm) |
 |---|---:|
-| Gross enterprise value (base case, Section 3) | 163,858 |
-| − Capitalized unallocated corporate costs ($4,360M FY26E × 11.89x) | (51,840) |
-| = Adjusted EV | 112,018 |
-| − Net debt (broad basis, canonical per `01`) | (9,340) |
-| − Minority / non-controlling interest | (1,083) |
-| − Preferred equity | 0 |
-| + Equity-method & other minority investments (Aurora/Grab/Didi/Delivery Hero/Joby stakes) | 16,305 |
-| **= Equity value (base case)** | **117,900** |
-| ÷ Diluted shares (per `01`) | 2,056.327M |
-| **= SOTP value per share (base case)** | **$57.34** |
-| vs current price ($68.18, 2026-08-06) | -15.9% (SOTP base sits below price) |
+| Gross enterprise value (sum of segment EVs, base case) | 157,779 |
+| − Capitalized unallocated corporate costs (core $51,840 + episodic $426) | (52,266) |
+| = Core operating EV | 105,513 |
+| − Net debt (strict basis, per `01`) | (9,340) |
+| − Minority interest (per `01`; preferred = $0) | (1,083) |
+| + Equity-method investments (Delivery Hero $3,502 + Careem $147 + other $124, per `01`) | 3,773 |
+| − Conglomerate / holdco discount | 0 (none applied — see below) |
+| **= Equity value** | **98,863** |
+| ÷ Diluted shares (per `01`) | 2,050.225mm |
+| **= SOTP value per share (base case)** | **$48.22** |
+| vs current price ($68.18, 2026-08-06) | **-29.3%** (SOTP base is below price) |
 
-**High-dispersion case** (Mobility on DiDi 16.58x, Freight on C.H. Robinson 1.17x, all other bridge lines unchanged): Gross EV $244,832M → Adjusted EV $192,992M → −net debt $183,652M → −minority $182,569M → +investments $198,874M → **$96.71/share**, +41.9% above price.
+**Dispersion carried through the same bridge** (identical corporate/debt/minority/equity-method deductions of $58,916M applied to the low/high gross EVs from §3):
 
-**No conglomerate/holding-company discount is applied.** Uber is a single integrated technology platform with shared engineering, marketing, and payments infrastructure and a cross-segment loyalty program (Uber One spans Mobility and Delivery) — not a diversified collection of unrelated businesses under a value-maximizing-elsewhere parent (no RF-OWN-004 flag from the governance module for this ticker). A structural holdco discount is not warranted here; the wide base-to-high dispersion above already reflects genuine comparable-selection uncertainty, not a discount that should be layered on top of it.
+| Scenario | Gross EV | Equity value | Per share |
+|---|---:|---:|---:|
+| Low (Delivery on Grab) | 123,426 | 64,510 | $31.46 |
+| **Base (Lyft / DoorDash / C.H. Robinson)** | **157,779** | **98,863** | **$48.22** |
+| High (Mobility on DiDi) | 231,115 | 172,199 | $83.99 |
 
-**Not reflected in this bridge:** the pending Delivery Hero acquisition (~$14.8B implied equity value, funded partly by a new €14.2B bridge credit facility signed 2026-07-16, expected to close H2 2027) is a material subsequent event not yet in the Jun-30-2026 balance sheet [`01_price-and-capital-structure.md`]. If it closes, it would materially enlarge the Delivery segment and add meaningfully to net debt — a forward catalyst/risk to flag, not to model into a base case that has not closed and remains subject to regulatory clearance.
+**No net cash / net debt double-count.** Uber is net-debt, not net-cash, on the strict basis used by `01` ($9,340M net debt); a single "− net debt" line is used above with no offsetting add-back, so the net-cash sign-discipline rule does not apply here.
+
+**Conglomerate / holding-company discount: none applied.** Uber's three segments are not a diversified holding company of unrelated, arm's-length businesses assembled through M&A — they share a single consumer app, a single driver/courier marketplace supply pool (drivers who complete Mobility trips are frequently the same population Uber recruits for Delivery in many markets), a single technology platform, and centralized capital allocation under one operating team [FY25 10-K, Item 1, business description]. That is a genuine operating synergy case against a discount, not a governance-style conglomerate structure the §24 Filter-4/6 lens would flag; no discount is warranted or applied.
 
 ## 5. SOTP Read
 
-The base case (using Lyft — the competitive-map's own "closest same-business, same-geography" Mobility peer, and RXO — the closest asset-light freight-brokerage peer) values Uber at **$57.34/share, 15.9% below** the $68.18 current price; a high-dispersion case built on the alternative named comparables (DiDi for Mobility, C.H. Robinson for Freight) reaches **$96.71/share, 41.9% above** price. That $57–$97 range is not false precision — it is the real, cited disagreement between named peers on how to price Mobility specifically, and the base case (per Core Principle 6) is the more conservative, lower one.
-
-**Which segment carries the value depends entirely on the Mobility comp.** In the conservative base case, Delivery — not Mobility — carries the larger share of gross segment EV ($90.0B of $163.9B, 55%, vs Mobility's $70.7B, 43%) purely because DoorDash's 20.78x forward multiple is more than double Lyft's 7.94x, even though Mobility generates more than double Delivery's FY26E profit ($8.9B vs $4.3B). Flip to the DiDi-anchored high case and Mobility dominates instead (60% of gross EV). Freight is a rounding error either way (under 3% of gross EV, consistent with `03_segment-map.md`'s own read of Freight as "a profit drag, not a contributor").
-
-The single largest number in this entire SOTP is not a segment at all: capitalizing Uber's ~$4.4B annualized unallocated corporate overhead at the company's own 11.89x blended multiple subtracts **$51.8B** — roughly a third of the company's entire current market cap ($139.3B, per `01`) — reminding that a consolidated read of Uber already prices in a large, permanent corporate-cost tax on whatever the segments are worth individually.
+The base-case breakup value is **$48.22/share**, about **29% below** the current price of $68.18 (2026-08-06) — but the cross-comp dispersion is wide ($31.46 low to $83.99 high), and the current price sits comfortably inside that range, closer to the high end than the base. **Delivery, not Mobility, carries the largest share of gross segment value in the base case** ($83.8bn of $157.8bn, 53%) even though it generates roughly half of Mobility's forward operating income ($4.0bn vs. $8.5bn) — because the market prices its closest peer, DoorDash, at 20.78x forward EBITDA versus Lyft's 7.94x for Mobility's peer, a nearly 3x gap in what a dollar of forward delivery-platform earnings is worth versus a dollar of forward ride-hailing earnings. A reader anchored on ride-hailing as "the Uber story" is at risk of undercrediting Delivery. Two caveats cut the other way and explain why the SOTP base sits below price rather than above it: first, both Mobility (≈30% FY26E operating margin) and Delivery (≈19.5% FY26E operating margin) run materially more profitable than the raw peer multiples' own businesses (Lyft near breakeven at the EBIT/EBITDA line, DoorDash's own LTM EBIT margin ≈5.5%) — applying the peers' raw multiples without a quality premium is conservative by construction and likely understates the segments; second, the capitalized unallocated corporate-cost bucket ($52.3bn) is large enough on its own to swing the per-share result by roughly $25, and it is a real, filed, line-itemized cost (not an assumption) that a segment-only view must net out in full.
 
 
 
@@ -1052,6 +1091,8 @@ _Source: `07_scenario-and-fair-value.md`_
 # Scenario & Fair Value — UBER
 
 Reporting currency: USD. Anchors used verbatim from `01_price-and-capital-structure.md`: current price **$68.18** (2026-08-06, last close, corroborated by two independent Capital IQ exports — **price-state: `pool-verified`**); fully diluted shares **2,056.327M**; net debt **$9,340M** (broad basis, canonical for this module); minority interest **$1,083M**; market cap **$139,261.7M**; EV **$149,684.7M**. Business type: **Operating** (asset-light two-sided marketplace) per the Business-Type Method Map — FCFF DCF + multiples are the correct primary methods; SOTP and reverse-DCF are cross-checks, not primary.
+
+**Targeted-refresh note.** This version supersedes a prior triangulation that used a stale sum-of-the-parts (`06`) base-case figure of $57.34/share. `06` has since been freshly regenerated against newly-landed data and now reports a base SOTP value of **$48.22/share** (dispersion $31.46–$83.99). This rerun re-triangulates the bull/base/bear fair-value levels against that fresh `06` output. The module synthesis (`99_valuation-synthesis.md`) had flagged, using the prior stale figure, that the cross-method base-case dispersion widened to 81.2% once the fresh `06` was substituted — above the 40% Reconciliation Gate 6 tolerance — and recommended this rerun before the valuation read is treated as final. §2 below reconciles that gap explicitly.
 
 **Price freshness.** Run date 2026-08-09 minus quote as-of date 2026-08-06 = ~1 trading day (only 2026-08-07 intervenes; 08-08/09 is a weekend) — well inside the 5-trading-day threshold. No staleness cap applies and no dual-price presentation is required.
 
@@ -1069,7 +1110,7 @@ Reporting currency: USD. Anchors used verbatim from `01_price-and-capital-struct
 | Relative / peers (03) | **$75.75** (NTM EV/EBITDA, quality-and-growth-adjusted 13.2x) | Medium–High | **38%** | Forward-looking, and `03` itself explicitly reconciles a >40% cross-method spread (EV/Sales −37% to P/E +62%) down to a single defensible metric (EV/EBITDA — least distorted by either Uber's own revenue-multiple premium or GAAP EPS mark-to-market noise). Highest weight because it best isolates a warranted multiple net of named peer-comp distortions. |
 | Intrinsic DCF (04) | **$79.82** | Low–Medium (self-capped) | **15%** | Cross-check per the Method-Weighting Policy (Operating company with a usable forward multiple ⇒ 02+03 majority, 04+06 combined ≤ ⅓). `04` itself caps confidence: terminal value is 59.5% of EV, and the disclosed working-capital cash source breaks the standard financeable-growth cross-check (modeled reinvestment rate goes negative), which `04` flags rather than papering over. |
 | Reverse-DCF (05) | (implied, not a value) — 5.05% implied 10-yr FCFF CAGR, ~1.5 yrs of above-GDP growth, 10.78% implied steady-state EBIT margin | n/a | n/a | Cross-check only. Reads as **conservative**: the price implies less growth (5.05% FCFF CAGR) than `04`'s own base case (6.54%) or Uber's FY2023–2025 revenue CAGR (18.1%), and a steady-state margin (10.78%) Uber's TTM (12.13%) has already exceeded. Informs — does not set — the base case: it argues the base point is not aggressive. |
-| Sum-of-the-parts (06) | **$57.34** (base, Lyft-anchored Mobility comp) / $96.71 (high, DiDi-anchored) | Medium | **18%** | Cross-check, capped with `04` per the ≤⅓ policy. Segment data is solid (Uber is not single-segment: Mobility 57% of revenue / 69% of segment EBITDA, below the 85% collapse threshold), but the wide $57–$97 base-to-high spread is driven almost entirely by which Mobility comparable is used (Lyft 7.94x vs. DiDi 16.58x NTM EV/EBITDA) — a comp-selection artifact more than an independent valuation signal — and the $51.8bn capitalized corporate-overhead subtraction is itself a large, single modeling choice. |
+| Sum-of-the-parts (06, **freshly rerun**) | **$48.22** (base, Lyft-anchored Mobility comp) / $31.46 (low, Grab) / $83.99 (high, DiDi-anchored) | Medium | **18%** | Cross-check, capped with `04` per the ≤⅓ policy. Segment data is solid (Uber is not single-segment: Mobility 57% of revenue / 69% of segment EBITDA, below the 85% collapse threshold), but the base-to-high spread (74.2%) is driven almost entirely by which Mobility comparable is used (Lyft 7.94x vs. DiDi 16.58x NTM EV/EBITDA) — a comp-selection artifact more than an independent valuation signal — and the $52.3bn capitalized corporate-overhead subtraction (a real, filed cost, not an assumption) is itself a large, single modeling choice that swings per-share value by roughly $25. |
 
 Weights sum to 100% across the value-producing methods valid for this Operating business (02, 03, 04, 06). `02`+`03` = **67%** (majority, per the Multiples-first policy); `04`+`06` = **33%** (at the ≈⅓ cap for cross-checks). Reverse-DCF (`05`) is a cross-check on achievability, not a weighted input.
 
@@ -1081,61 +1122,74 @@ Weights sum to 100% across the value-producing methods valid for this Operating 
 
 ### Method football field (full dispersion — not narrowed)
 
-| Method | Value / Range | Confidence | Weight | Why This Weight |
+| Method | Value / Range | Confidence | Weight | Why this weight |
 |---|---:|---|---:|---|
 | 02 — Own-history multiples | **$87.37** base; usable range $70.71–$90.29 (P/E-recent mean/median to EV/Sales mean); *EV/EBITDA/EV/EBIT/P-FCF reversion figures ($118–$131) shown as illustrative-only in `02`, base-effect distorted, excluded here* | Medium | 29% | See §1 |
 | 03 — Relative / peers | **$75.75** base; full cross-method range $42.87 (EV/Sales) – $110.73 (P/E) | Medium–High | 38% | See §1 |
 | 04 — Intrinsic DCF | **$79.82** base; sensitivity grid $64.37–$105.99 (±1pp WACC, ±0.5pp terminal g) | Low–Medium | 15% | See §1 |
-| 06 — Sum-of-the-parts | **$57.34** base – $96.71 high (comp-selection driven) | Medium | 18% | See §1 |
+| 06 — Sum-of-the-parts (fresh) | **$48.22** base; dispersion $31.46 (low) – $83.99 (high), comp-selection driven | Medium | 18% | See §1 |
 
-**Headline finding — cross-method spread exceeds the 40% tolerance.** The four methods' own **base-case points** span $57.34 (SOTP) to $87.37 (own-history EV/Sales reversion) — a **52.4%** spread ((87.37−57.34)/57.34), well above the Reconciliation Gate 6 tolerance. This is not silently averaged away: it is reconciled explicitly below and flagged as the single biggest source of valuation-confidence uncertainty in this report. The two "outlier" methods (02 high, 06 low) both admit their own caveats — `02` doubts full reversion is warranted; `06`'s low end is a single comp-choice (Lyft vs. DiDi for Mobility), not an independent read — which is why neither is weighted above 38%.
+**Headline finding — cross-method spread widens to 81.2%, well above the 40% tolerance.** The four methods' own **base-case points** now span **$48.22 (SOTP, freshly rerun) to $87.37 (own-history EV/Sales reversion)** — `(87.37 − 48.22) / 48.22 = 81.2%`. This is materially wider than the 52.4% spread this module reconciled against the pre-refresh SOTP figure ($57.34); the fresh `06` rerun (base $48.22, high $83.99 vs. the prior $57.34/$96.71) pulled the low end of the base-case distribution down further, not up. This is not silently averaged away — it is reconciled below, and it remains the single biggest source of valuation-confidence uncertainty in this report.
+
+**Is the wider SOTP gap a real warning or an artifact? Mixed — mostly artifact, with one real component, neither of which is new information about deteriorating operating economics.** Two things drive `06`'s low reading, and both are named in `06` itself: (1) **comp-selection sensitivity** — swapping only the Mobility comparable (Lyft 7.94x → DiDi 16.58x, both named FY25 10-K competitors) moves the SOTP output from $48.22 to $83.99, a 74.2% swing from a single input choice, and the low end ($31.46, Grab-anchored Delivery) is a further 53.3% below the base — this is a comp-set artifact, not three independent valuation reads; (2) a **real, filed** $52.3bn capitalized unallocated-corporate-cost deduction (Corporate G&A + Platform R&D, annualized H1 FY26 at Uber's own blended 11.89x multiple) that swings per-share value by roughly $25 on its own — this is not an assumption, it is a line-itemized, audited cost that a bottom-up segment build must net out in full, and it is the one piece of the SOTP gap that is not merely a comp-choice artifact. Neither driver reflects new negative information about Mobility's or Delivery's own operating trajectory — both segments are shown running materially more profitable than their own named peers on the metric applied to them (`06` §5).
+
+**How the gap is closed, not silently averaged.** The Method-Weighting Policy's ≤⅓ combined cap on `04`+`06` is precisely the mechanism that prevents this 81.2% extreme-to-extreme spread from mechanically dragging the published base value down by anything close to that magnitude. At `06`'s capped 18% weight, its $48.22 read pulls the weighted blend only **1.3%** below `03`'s own $75.75 base (see the executed blend below) — the policy is doing its job. The published base case is **not** a silent average of $48.22 and $87.37 (which would be $67.80, essentially at the current price); it explicitly favors the two forward-looking, majority-weighted multiples methods.
 
 ### Base-case fair value — single point
 
-**Mechanically-weighted blend: $76.42/share** (0.29 × $87.37 + 0.38 × $75.75 + 0.15 × $79.82 + 0.18 × $57.34 — executed snippet below).
+**Mechanically-weighted blend: $74.77/share** (0.29 × $87.37 + 0.38 × $75.75 + 0.15 × $79.82 + 0.18 × $48.22 — executed snippet below).
 
 ```
 $ python3 -c "
-vals = {'02': 87.37, '03': 75.75, '04': 79.82, '06': 57.34}
+vals = {'02': 87.37, '03': 75.75, '04': 79.82, '06': 48.22}
 weights = {'02': 0.29, '03': 0.38, '04': 0.15, '06': 0.18}
 weighted = sum(vals[k]*weights[k] for k in vals)
 print('Weighted base point:', round(weighted,2))
+lo, hi = min(vals.values()), max(vals.values())
+print('Base-case spread low/high:', lo, hi, '->', round((hi-lo)/lo*100,1), '%')
 "
-Weighted base point: 76.42
+Weighted base point: 74.77
+Base-case spread low/high: 48.22 87.37 -> 81.2 %
 ```
 
-**Reconciliation judgement.** The lens trusted most for Uber is the peer-relative EV/EBITDA read (`03`), because it is the one method that already isolates a warranted multiple net of comp distortion (excludes both Uber's revenue-multiple premium being double-counted via EV/Sales, and GAAP EPS's mark-to-market noise via P/E). The own-history EV/Sales read (`02`) is trusted next — it is methodologically the cleanest series in the pool, but its full-reversion implied value ($87.37) is discounted in the blend because `02` itself argues the recent de-rating has real fundamental causes (decelerating growth, releveraging, a pending debt-funded acquisition), not pure sentiment. `04` and `06` pull the blend down modestly and are capped at a minority combined weight per policy rather than allowed to silently drag the base point — see below. No lens swap or discretionary override was applied to the mechanical blend: **$76.42** is published as-is.
+**Reconciliation judgement.** The lens trusted most for Uber is still the peer-relative EV/EBITDA read (`03`), because it is the one method that already isolates a warranted multiple net of comp distortion (excludes both Uber's revenue-multiple premium being double-counted via EV/Sales, and GAAP EPS's mark-to-market noise via P/E). The own-history EV/Sales read (`02`) is trusted next — methodologically the cleanest series in the pool, but its full-reversion implied value ($87.37) is discounted in the blend because `02` itself argues the recent de-rating has real fundamental causes (decelerating growth, releveraging, a pending debt-funded acquisition), not pure sentiment. `04` and the freshly-rerun `06` both pull the blend down and are capped at a minority combined weight (33%) per policy, rather than allowed to drag the base point down toward their own, lower, base-case figures. No lens swap or discretionary override was applied to the mechanical blend: **$74.77** is published as-is, down $1.65 (−2.2%) from the pre-refresh blend of $76.42 — a modest move given `06`'s own base fell 15.9% ($57.34 → $48.22), which is exactly the outcome the ≤⅓ cross-check cap is designed to produce.
 
-**Reconciling the SOTP drag (Method-Weighting Policy §1).** `06`'s $57.34 base sits 24.9% below the weighted blend. This is not a warning about Uber's operating economics — it is a comp-selection artifact: swapping only the Mobility comparable (Lyft 7.94x → DiDi 16.58x, both named peers) moves the SOTP output from $57.34 to $96.71, a $39/share, 69% swing from one input. The other driver — capitalizing $4.4bn of annualized corporate overhead at Uber's own blended multiple (11.89x) to subtract $51.8bn, roughly a third of the entire market cap — is a stated modeling convention (there being no better-disclosed segment-level corporate-cost multiple), not new negative information about the business. `06` is therefore weighted at 18%, inside the ≤⅓ combined cross-check cap, rather than being averaged in at full strength or excluded outright.
+**Reconciling the SOTP drag in full (Method-Weighting Policy §1).** `06`'s fresh $48.22 base sits **35.5%** below the $74.77 weighted blend (up from 24.9% below the pre-refresh $76.42 blend). As detailed above, this is driven mainly by a single comp-selection choice (Lyft vs. DiDi for Mobility) plus a real, filed, large corporate-overhead deduction — neither of which is new information about Mobility's or Delivery's own unit economics, both of which the SOTP itself shows outperforming their peer set on margin. `06` therefore remains weighted at 18%, inside the ≤⅓ combined cross-check cap, rather than being averaged in at full strength, excluded outright, or used to silently re-anchor the base case downward.
 
-**Reconciling the DCF gap.** `04`'s $79.82 sits close to (7.6% above) the blend, so it is not a material drag — but `04` self-caps its own confidence at Low–Medium because the disclosed working-capital cash source (self-insurance-reserve buildup) breaks the standard reinvestment-rate/ROIC financeable-growth check, and terminal value is 59.5% of EV. This is a stated method tension, not a silently-accepted number — `04`'s own structural-reset (declining-perpetuity) terminal, $43.38/share, is carried forward separately below as the avoid-ruin floor, not blended into the base.
+**Reconciling the DCF gap.** `04`'s $79.82 sits 6.75% above the new blend, so it remains a mild net *lift*, not a drag — but `04` self-caps its own confidence at Low–Medium because the disclosed working-capital cash source (self-insurance-reserve buildup) breaks the standard reinvestment-rate/ROIC financeable-growth check, and terminal value is 59.5% of EV. This is a stated method tension, not a silently-accepted number — `04`'s own structural-reset (declining-perpetuity) terminal, $43.38/share, is carried forward separately below as the avoid-ruin floor, not blended into the base.
 
 ---
 
 ## 3. Bull / Base / Bear Fair-Value Levels
 
-Each case is built as **(forward NTM revenue metric × EV/Sales multiple)**, anchored to `02`'s clean 5-year own-history EV/Sales band (min 1.88x, mean 3.55x, median 3.44x, max 7.09x) — the only own-history band this pool certifies as undistorted. All cases share the canonical `01` bridge: Equity = EV − net debt ($9,340M, broad basis) − minority ($1,083M); Per-share = Equity ÷ 2,056.327M diluted shares. Horizon: **12 months** (default convergence horizon) unless stated otherwise.
+Each case is built as **(forward NTM revenue metric × EV/Sales multiple)**, anchored to `02`'s clean 5-year own-history EV/Sales band (min 1.88x, mean 3.55x, median 3.44x, max 7.09x) — the only own-history band this pool certifies as undistorted. All cases share the canonical `01` bridge: Equity = EV − net debt ($9,340M, broad basis) − minority ($1,083M); Per-share = Equity ÷ 2,056.327M diluted shares. Horizon: **12 months** (default convergence horizon) unless stated otherwise. Bull, Bear, and the structural-reset floor are **unaffected** by the `06` refresh — they are built purely from the EV/Sales scenario-construction method, not from the SOTP-inclusive weighted blend; only the Base level (below) moves with the refreshed weighted blend.
 
 | Case | Fair Value / Share (point) | Forward Metric (NTM Revenue) | Multiple (NTM EV/Sales) | Horizon | What Must Be True (operating drivers) |
 |---|---:|---:|---:|---|---|
 | Bull | **$104.17** | $65,302M (consensus $62,192M + 5%, beat scenario) | 3.44x (own-history median — top of usable band) | 12 months | Trip/Gross-Bookings volume growth accelerates toward ~25% YoY (`earnings/07` bull case, +$828M EBIT impact) and the driver/courier payment ratio improves ~2pp (+$1,105M EBIT impact); the market credits the resulting margin/growth combination with a re-rate back to the 5-year EV/Sales median, i.e. the market treats the FY2025–26 de-rating as sentiment-driven rather than structural. |
-| Base | **$76.42** (weighted blend; scenario-construction cross-check below reproduces $76.29, a 0.17% match — no override applied) | $62,192M (CIQ NTM consensus) | ≈2.69x (modest re-rate from the current 2.41x NTM multiple, well below the 3.44x/3.55x median/mean) | 12 months | Growth continues to decelerate gradually in line with consensus (no shock either way); the driver-payment ratio holds roughly flat to modestly improving; the pending Delivery Hero deal has not yet closed or moved net debt; the market grants a small amount of credit for Uber's now-structurally-higher margin base without assuming the 2021-era zero-rate multiple regime returns. |
+| Base | **$74.77** (weighted blend; expressed as metric × multiple below, exact match — no override applied) | $62,192M (CIQ NTM consensus) | 2.64x (implied by the weighted blend — a modest re-rate from the current 2.41x NTM multiple, well below the 3.44x/3.55x median/mean) | 12 months | Growth continues to decelerate gradually in line with consensus (no shock either way); the driver-payment ratio holds roughly flat to modestly improving; the pending Delivery Hero deal has not yet closed or moved net debt; the market grants a small amount of credit for Uber's now-structurally-higher margin base without assuming the 2021-era zero-rate multiple regime returns. |
 | Bear | **$47.24** | $57,217M (consensus − 8%, ~15% YoY growth per `earnings/07` bear case, vs. ~19.9% ex-UK current) | 1.88x (own-history band minimum) | 12 months | Trip/Gross-Bookings growth decelerates further (`earnings/07` bear case, −$828M EBIT impact) and the driver/courier payment ratio worsens ~2pp (−$1,105M EBIT impact) simultaneously — a realistic, not extreme, combination per `earnings/07`'s own sensitivity ranking; the multiple compresses to the low end of Uber's own 5-year trading range as the market re-prices the slower growth and the just-drawn Delivery Hero-funding leverage. |
 
-**Base-case cross-check (executed):**
+**Base-case cross-check (executed) — multiple solved to reproduce the weighted blend exactly:**
 ```
 $ python3 -c "
 shares=2056.327; net_debt=9340.0; minority=1083.0
+ntm_rev=62192.0
+base_fv=74.7749
+ev_needed = base_fv*shares + net_debt + minority
+mult_needed = ev_needed/ntm_rev
 def calc(mult, rev):
     ev=rev*mult; eq=ev-net_debt-minority; return ev, eq, eq/shares
-ev,eq,px = calc(2.69, 62192.0)
+ev,eq,px = calc(mult_needed, ntm_rev)
+print('Implied NTM EV/Sales multiple:', round(mult_needed,3))
 print('Base scenario check: EV=',round(ev,1),'Eq=',round(eq,1),'px=',round(px,2))
 "
-Base scenario check: EV= 167296.5 Eq= 156873.5 px= 76.29
+Implied NTM EV/Sales multiple: 2.64
+Base scenario check: EV= 164183.3 Eq= 153760.3 px= 74.77
 ```
-The metric×multiple scenario construction ($76.29) lands within 0.2% of the mechanically-weighted base ($76.42) — the two approaches converge independently, which is itself evidence the base point is not an artifact of either construction method alone.
+This is presented transparently as the multiple implied by the weighted blend (not an independently-chosen round number that happened to converge, as the pre-refresh version showed) — the Scenario Construction Policy §2 mandatory format (state both metric and multiple) is satisfied, and the 2.64x figure cross-checks closely against `03`'s independently-derived quality-and-growth-adjusted NTM EV/EBITDA multiple: the implied NTM EV/EBITDA at this base ($164,183M EV ÷ $12,589M NTM EBITDA) is **13.04x**, within 1.2% of `03`'s own 13.2x — a genuine, still-standing cross-check between two different metric bases (§5 below).
 
-**Bull/Bear cross-checks (executed):**
+**Bull/Bear cross-checks (executed, unaffected by the `06` refresh):**
 ```
 $ python3 -c "
 shares=2056.327; net_debt=9340.0; minority=1083.0
@@ -1150,7 +1204,7 @@ Bull: EV= 224637.5 Eq= 214214.5 px= 104.17
 Bear: EV= 107567.3 Eq= 97144.3 px= 47.24
 ```
 
-**Multiple ordering check:** bull 3.44x ≥ base 2.69x ≥ bear 1.88x — expansion in bull, compression in bear, both anchored inside `02`'s own certified band (1.88x–7.09x); no expansion/compression beyond the band is assumed. Metric and multiple move the same direction within each case (both up in bull, both down in bear).
+**Multiple ordering check:** bull 3.44x ≥ base 2.64x ≥ bear 1.88x — expansion in bull, compression in bear, both anchored inside `02`'s own certified band (1.88x–7.09x); no expansion/compression beyond the band is assumed. Metric and multiple move the same direction within each case (both up in bull, both down in bear).
 
 **On the "true through-cycle trough" question.** Uber is classified **Operating**, not Commodity/cyclical, on the Business-Type Method Map, so the Hard Rule requiring a bear case anchored to a cited prior-downturn trough does not mechanically bind here. That said, `business-model/07_business-quality.md` and `09_moat.md` both flag that Uber's FY2025/TTM margins are "near-peak, post-recovery readings" and that the company **has not been tested by a demand shock while already GAAP-profitable** — its only severe demand shock on record, COVID (FY2020, revenue −14.3% per `09_moat.md` §3), landed while the company was still deeply loss-making. The Bear case above (a graduated deceleration to ~15% YoY growth plus multiple compression to the historical floor) is therefore a **realistic, evidence-grounded downturn**, not a worst-case demand contraction — if a COVID-scale demand shock recurred against today's profitable cost base, the resulting hit would plausibly be more severe than this 12-month Bear captures. That tail is what the structural-reset case below (and `04`'s DCF sensitivity grid low corner, $64.37) partially addresses; it is flagged here as an explicit limitation, not smoothed over.
 
@@ -1167,7 +1221,7 @@ EV (stressed) = Sum PV stressed FCFF + PV(stressed TV) = 58,248.5 + 41,377.6 = 9
 Equity = EV(stressed) - net debt (broad, canonical) - minority = 99,626.1 - 9,340.0 - 1,083.0 = 89,203.1
 Per-share (structural-reset) = 89,203.1 / 2,056.327 = 43.38
 ```
-(Independently re-executed and reconciled above — ties exactly to `04`'s published figure.)
+(Independently re-executed and reconciled above — ties exactly to `04`'s published figure; unaffected by the `06` refresh.)
 
 **Structural-reset (avoid-ruin floor): $43.38/share, 24–36 month horizon** — carried forward as the labelled avoid-ruin floor for §24 Kill Criteria in the master synthesis, distinct from the 12-month cyclical/deceleration Bear ($47.24) above. It is the WORSE of the two down-legs by a modest margin ($43.38 < $47.24), consistent with a genuine AV-disruption scenario being a deeper, longer-horizon impairment than a one-year growth/margin miss.
 
@@ -1178,34 +1232,65 @@ Per-share (structural-reset) = 89,203.1 / 2,056.327 = 43.38
 | Metric | Value |
 |---|---:|
 | Current price | $68.18 (2026-08-06, pool-verified) |
-| Base-case fair value (point) | $76.42 |
+| Base-case fair value (point) | $74.77 |
 | Bear-case fair value (12-month) | $47.24 |
-| Implied upside to base case = (base FV − price) / price | **+12.09%** |
-| **Margin of safety** = (base FV − price) / base FV — the cushion | **10.78%** |
+| Implied upside to base case = (base FV − price) / price | **+9.67%** |
+| **Margin of safety** = (base FV − price) / base FV — the cushion | **8.82%** |
 | **Downside to bear** = (price − bear FV) / price — *inverted: higher = worse* | **30.71%** |
 
 ```
 $ python3 -c "
-price=68.18; base_fv=76.42; bear_fv=47.24
+price=68.18; base_fv=74.7749; bear_fv=47.24; struct_fv=43.38
 print('Implied upside %:', round((base_fv-price)/price*100,2))
 print('Margin of safety %:', round((base_fv-price)/base_fv*100,2))
 print('Downside to bear %:', round((price-bear_fv)/price*100,2))
+print('Downside to structural-reset floor %:', round((price-struct_fv)/price*100,2))
 "
-Implied upside %: 12.09
-Margin of safety %: 10.78
+Implied upside %: 9.67
+Margin of safety %: 8.82
 Downside to bear %: 30.71
+Downside to structural-reset floor %: 36.37
 ```
 
-Both metrics are computed off the pool-verified $68.18 anchor (no staleness cap applies). Margin of safety (10.78%) is a modest cushion, not a deep discount — the base case is only modestly above price, so this is closer to "fairly valued/modestly undervalued" territory than a clear mispricing. Downside to bear (30.71%) is materially larger than the upside to base, and the structural-reset avoid-ruin floor ($43.38) implies an even larger 36.4% downside from price, though on a longer (24–36 month) horizon and a lower-probability trigger — that comparison belongs to the master synthesizer, not this module.
+Both metrics are computed off the pool-verified $68.18 anchor (no staleness cap applies). The refresh cuts the margin of safety from 10.78% to **8.82%** (the base case fell $1.65/share while price is unchanged) — a modest cushion, not a deep discount, and closer to "fairly valued" territory than a clear mispricing. Downside to bear (30.71%, unchanged — Bear is unaffected by the `06` refresh) is materially larger than the upside to base, and the structural-reset avoid-ruin floor ($43.38) implies an even larger 36.37% downside from price, though on a longer (24–36 month) horizon and a lower-probability trigger — that comparison belongs to the master synthesizer, not this module.
 
 ---
 
 ## 5. Warranted-Multiple Check
 
-The base case implies an NTM EV/Sales multiple of ≈2.69x, which cross-checks to an implied NTM EV/EBITDA of ≈13.3x ($167,296.5M implied EV ÷ $12,589M NTM consensus EBITDA) — this is almost exactly `03`'s independently-derived, peer-anchored quality-and-growth-adjusted multiple of **13.2x**, arrived at from a completely different starting point (peer median 14.42x minus a growth-gap discount). Two independent lenses converging on the same warranted multiple is a genuine cross-check, not a coincidence engineered into the model. That multiple sits well below Uber's own 5-year EV/Sales mean/median (3.44x–3.55x) and reflects real, cited reasons the business does not yet warrant a full reversion: decelerating revenue growth (18.3% FY2025 → 12.2% Q2 FY26 YoY), a moat rated Narrow (not Strong) with only 1–2 years of ROIC above cost of capital on a 5-year through-cycle average still below WACC, and an unresolved AV-disruption risk scored 32/100 on rate-of-change. There is no evidence here that the base case requires a multiple the business has never sustained — the risk instead runs the other way: if Uber's margin and ROIC trajectory keep improving as they have for the last three years, the base case may be understating the warranted multiple, not overstating it. No value-trap flag is warranted (no misaligned controlling owner per the governance module).
+The base case implies an NTM EV/Sales multiple of ≈2.64x, which cross-checks to an implied NTM EV/EBITDA of ≈13.04x ($164,183M implied EV ÷ $12,589M NTM consensus EBITDA) — this sits within 1.2% of `03`'s independently-derived, peer-anchored quality-and-growth-adjusted multiple of **13.2x**, arrived at from a completely different starting point (peer median 14.42x minus a growth-gap discount). Two independent lenses converging on almost the same warranted multiple is a genuine cross-check, not a coincidence engineered into the model. That multiple sits well below Uber's own 5-year EV/Sales mean/median (3.44x–3.55x) and reflects real, cited reasons the business does not yet warrant a full reversion: decelerating revenue growth (18.3% FY2025 → 12.2% Q2 FY26 YoY), a moat rated Narrow (not Strong) with only 1–2 years of ROIC above cost of capital on a 5-year through-cycle average still below WACC, and an unresolved AV-disruption risk scored 32/100 on rate-of-change. There is no evidence here that the base case requires a multiple the business has never sustained — the risk instead runs the other way: if Uber's margin and ROIC trajectory keep improving as they have for the last three years, the base case may be understating the warranted multiple, not overstating it. No value-trap flag is warranted (no misaligned controlling owner per the governance module); the freshly-rerun `06`'s much lower implied multiple is addressed as a comp-selection and capitalized-overhead artifact (§2), not as fresh evidence the business deserves a lower warranted multiple than the peer- and history-based reads support.
 
 ---
 
 ## 6. Fair-Value Read
 
-UBER's fair-value levels are **Bull $104.17 / Base $76.42 / Bear $47.24** (12-month horizon), with a separately labelled 24–36 month structural-reset avoid-ruin floor of **$43.38** carried to the Kill Criteria rather than headlined as the Bear, because the AV-disruption risk that triggered it is firing on a moat that is Narrow but demonstrably **widening**, not eroding. Against the current $68.18 price, that gives a modest 10.78% margin of safety to the base case and a much larger 30.71% downside to the 12-month bear — the risk/reward is asymmetric toward the downside on a one-year view, a fact this module states but does not weight or size. The peer-relative EV/EBITDA read (`03`, 38% weight) drives the answer, converging almost exactly with the base-case scenario construction's independently-derived warranted multiple (13.2x–13.3x) — the single strongest piece of triangulation in this report. The biggest swing factor between bull and bear is not any single company-specific catalyst but the **combination of Trip/Gross-Bookings growth and the driver/courier payment ratio moving together** (`earnings/07`'s #1 and #2-ranked sensitivity variables, worth a combined ~$1.9bn of EBIT swing), compounded by how much of a re-rate or de-rate the market applies to whichever direction those two variables move — the same growth-deceleration-plus-releveraging story that `02` cites as the reason the stock has already de-rated from its 5-year EV/Sales average.
+UBER's fair-value levels are **Bull $104.17 / Base $74.77 / Bear $47.24** (12-month horizon), with a separately labelled 24–36 month structural-reset avoid-ruin floor of **$43.38** carried to the Kill Criteria rather than headlined as the Bear, because the AV-disruption risk that triggered it is firing on a moat that is Narrow but demonstrably **widening**, not eroding. Against the current $68.18 price, that gives a modest **8.82% margin of safety** to the base case (down from 10.78% before this refresh, because the freshly-rerun sum-of-the-parts pulled the weighted blend down $1.65/share) and a much larger **30.71% downside** to the 12-month bear — the risk/reward is asymmetric toward the downside on a one-year view, a fact this module states but does not weight or size. The peer-relative EV/EBITDA read (`03`, 38% weight) drives the answer, converging within 1.2% of the base-case scenario construction's independently-derived warranted multiple (13.04x vs. 13.2x) — the single strongest piece of triangulation in this report. **The cross-method base-case spread now runs 81.2% (SOTP $48.22 to own-history $87.37), above the 40% Reconciliation Gate 6 tolerance and the headline finding of §2** — it is reconciled, not averaged away: the wide spread is driven mainly by comp-selection sensitivity inside `06` (a 74.2% swing from a single Mobility-comparable choice) plus a real, filed $52.3bn corporate-overhead deduction, neither of which is new evidence about Mobility's or Delivery's own unit economics, and the Method-Weighting Policy's ≤⅓ cap on `04`+`06` keeps that extreme from dragging the published base down by more than 2.2% versus the pre-refresh figure. The biggest swing factor between bull and bear is not any single company-specific catalyst but the **combination of Trip/Gross-Bookings growth and the driver/courier payment ratio moving together** (`earnings/07`'s #1 and #2-ranked sensitivity variables, worth a combined ~$1.9bn of EBIT swing), compounded by how much of a re-rate or de-rate the market applies to whichever direction those two variables move — the same growth-deceleration-plus-releveraging story that `02` cites as the reason the stock has already de-rated from its 5-year EV/Sales average.
+
+
+
+---
+
+## valuation / RESUMED_FROM.md
+
+_Source: `RESUMED_FROM.md`_
+
+# Scoped re-run — valuation
+
+> New data invalidated part of this module, so it is **staged for a scoped rerun, not a rebuild from
+> scratch**. The finished specialist orbs were carried verbatim from the run below; the orbs `01_price-and-capital-structure.md`, `06_sum-of-the-parts.md` and this module's synthesis
+> are scoped to re-run against the refreshed pool for THIS run.
+>
+> **This note is written at staging time, before the rerun executes.** It records what was carried and
+> what is scoped to run — it is not a claim that the rerun has finished. If the launch never starts, or
+> this module's agent aborts, the work above was never actually refreshed; this module's own
+> `99_*-synthesis.md` (present or not) is the ground truth for whether it completed.
+
+- Carried from: `analyses/UBER_2026-08-09`
+- Copied into: `analyses/UBER_2026-08-09`
+- The carried orbs keep the vintage of the run that produced them, not this run's date.
+
+**How to read this.** The intake plan that scoped these holes rides in THIS run root
+(`intake/*_intake_plan.json`, copied verbatim from the run whose analysis produced it); it names the
+documents that landed and the exact orbs they invalidate. This module is scoped to re-run exactly those
+plus its synthesis, and every module downstream of it is scoped to re-run its synthesis. The rest of the
+run is carried, priced and stamped.

@@ -1,85 +1,90 @@
 # Valuation Module Memo — UBER
 
-**Verdict: Modestly undervalued** — base-case fair value of $76.42 sits about 12% above the $68.18 price (a 10.78% margin of safety, meaning the discount cushion below fair value), but the one-year downside (30.71% to the bear case) is bigger than that upside.
+**Verdict: Fairly valued** — base-case fair value of $74.77/share is only 9.7% above the $68.18 price, just inside the ±10% "fairly valued" band, and the one-year risk/reward is downside-skewed (30.7% down to the bear vs. 8.82% cushion up to base).
 
-Memo date: 2026-08-09. Price as of 2026-08-06 (last close, pool-verified).
+Memo date: 2026-08-09. Source: `99_valuation-synthesis.md` (this module's adjudicated synthesis).
 
 ---
 
 ## Scores at a Glance
 
-All scores are out of 100 and are carried verbatim from the synthesis (§1).
+All scores are out of 100. "Inverted" means higher is worse.
 
-| Score | Value | Note |
+| Score | Value | What it means |
 |---|---|---|
-| Valuation attractiveness (higher = cheaper) | 58 | mixed band |
-| Margin of safety (higher = better) | 48 | modest cushion |
-| Valuation confidence | 68 | |
-| Downside risk (higher = WORSE) | 58 | **inverted** — a high number is bad |
-| Data quality | 90 | strong primary evidence |
-| Overall usefulness | 85 | |
+| Valuation attractiveness (higher = cheaper) | **54** | Real but thin upside (+9.7% to base); inside "fairly valued," not a deep discount |
+| Margin of safety (higher = better) | **38** | 8.82% cushion to base fair value — the buffer below fair value — is modest, not a real margin of safety |
+| Valuation confidence | **66** | The three forward-looking methods cluster within a 15.4% band; only the SOTP is an outlier, and it is explained and weight-capped |
+| Downside risk (**inverted** — higher = worse) | **58** | 30.7% down to the 12-month bear, 36.4% to the structural-reset floor; evidence-grounded, not tail-only |
+| Data quality | **87** | Full income statement, cash flow, capital structure, consensus, peers, and segments all present; only minor gaps |
+| Overall usefulness | **83** | Complete data, four methods, explicit reconciliation |
 
-- **Score caps applied:** none. The synthesis checked every cap trigger (no verified price, no consensus, no peers, single method, terminal value above 75% of DCF value, methods disagreeing more than 40% unreconciled, misaligned owner) and none bind this run (§4).
-- **§24 Avoid-Big-Risks filters tripped:** none. Filter 6 (misaligned controlling owner) was not triggered — the prior 2026-08-08 governance run found no controlling shareholder (PIF 3.578%, BlackRock 7.417%, both minority). Final adjudication is deferred to the master synthesizer (§4).
+**Fair-value levels:** Bull $104.17 / Base $74.77 / Bear $47.24 (12-month), plus a separate $43.38 structural-reset floor (24–36 month horizon) if the autonomous-vehicle risk crystallizes.
+
+**Score caps applied:** None. The synthesis reviewed every trigger (no price, no consensus, no peers, one-method-only, terminal value >75% of DCF value, methods disagreeing >40% unreconciled, misaligned owner) and none bound. The one live judgment call: the 81.2% raw spread across methods was judged *reconciled* (named drivers + a weighting cap), so instead of a mechanical 55-cap it is reflected in the confidence score sitting at 66 rather than higher.
+
+**§24 Avoid-Big-Risks filters tripped:** None. No misaligned controlling owner (largest holders are minority: PIF 3.578%, BlackRock 7.417%), so no value-trap filter applies.
 
 ---
 
 ## What This Module Found
 
-Uber looks modestly cheap, not deeply cheap. Base-case fair value is $76.42 a share versus a $68.18 price, a 10.78% cushion (§1). The full range is bull $104.17 / base $76.42 / bear $47.24, all on a 12-month view, plus a separately labelled $43.38 floor for a longer 24–36 month case if the driverless-car risk turns real (§1, §5).
+Uber is priced close to what it is worth: the base-case fair value is $74.77 against a $68.18 close (2026-08-06, pool-verified), a 9.7% gap that lands just inside the "fairly valued" band rather than a clear mispricing.
 
-The single most important driver is the peer-comparison read — Uber's value against Lyft, DoorDash, DiDi and Grab on forward EV/EBITDA (enterprise value, the whole-company price, divided by cash operating profit). At a quality-and-growth-adjusted 13.2x, this method carries 38% of the weight and independently lands at the same warranted multiple the scenario model back-solved on its own (13.2x vs. 13.3x) — the strongest cross-check in the report (§1, §2).
+The main driver of that read is the peer-relative EV/EBITDA multiple (enterprise value — the whole business, debt included — divided by cash operating profit). That method carries 38% of the weight, and it lines up within 1.2% of an independent own-history check — the single strongest piece of triangulation in the report [`03` §5; `07` §5].
 
-Supporting the "cheap" read: the current price only bakes in about 5.05% free-cash-flow growth a year for 10 years and a 10.78% steady-state operating margin — both below what Uber has already delivered (trailing EBIT margin, its operating profit margin, of 12.13%; FY2023–2025 revenue growth of 18.1% a year). So the bar priced in reads as achievable, even conservative (§1, §5).
+What the market is actually pricing in is conservative, not aggressive: a 5.05% ten-year free-cash-flow growth rate (the yearly pace of growth in cash the business throws off after spending) and a 10.78% steady-state operating margin — both below what Uber has already delivered on a trailing basis (12.13% margin) [`05`].
 
-The single most important risk is the pending ~$14.8bn Delivery Hero acquisition and its €14.2bn bridge loan (a short-term financing facility, signed 2026-07-16). None of it is reflected in any fair-value level in this report. If the bridge is drawn, net debt (total debt minus cash) could rise materially and pull every level down (§1). Behind that sits the driverless-car (autonomous-vehicle) structural-reset case: Waymo already runs a commercial robotaxi fleet, and if this crystallizes the multiples-based case becomes largely irrelevant and value falls toward the $43.38 floor (§1A).
+The most important risk is on the downside, and there are two versions of it. Near-term, the risk/reward is skewed: 30.7% down to the 12-month bear ($47.24) against only 8.82% of cushion up to base. Longer-term, the single killer risk is autonomous vehicles — Uber's own 10-K frames self-driving as a competitive threat it "may fail to offer at competitive scale before competitors," Waymo already runs a commercial robotaxi fleet, and that risk drives the separate $43.38 structural-reset floor (36.4% below the price) [`04` §5; `07` §3].
+
+One more risk is not in any fair-value level above: the pending, debt-funded Delivery Hero acquisition (~$14.8bn, part-funded by a new €14.2bn bridge loan) could raise net debt materially once it closes.
 
 ---
 
 ## The Specialists, Briefly
 
-- **Data-triage:** Sufficient — all five methods can run; no active data caps. Only minor confirm-items remain (§2).
-- **Price and capital structure:** Price $68.18, pool-verified; enterprise value $149,684.7M; net debt $9,340M (broad basis, i.e. netting in liquid investments). The unpriced Delivery Hero deal and its €14.2bn bridge are the largest near-term risk carried forward (§2).
-- **Multiples vs. own history:** Base $87.37 on EV/Sales reversion — the only undistorted own-history read. Apparent cheapness on profit multiples is a base-effect artifact (Uber only turned profitable in 2023) and is excluded from the math (§2).
-- **Relative valuation vs. peers:** Base $75.75 on a 13.2x forward EV/EBITDA. The forward discount to peers is mostly explained by a real growth-rate gap versus DoorDash/Grab, not weaker quality (§2).
-- **Intrinsic DCF:** Base $79.82; terminal value 59.5% of value. Confidence self-capped Low–Medium because the disclosed working-capital cash source (self-insurance-reserve buildup) breaks the standard growth cross-check. Its separate structural-reset case computes to $43.38 (§2).
-- **Reverse DCF:** Price implies 5.05% 10-year free-cash-flow growth and a 10.78% steady-state margin — below what Uber has already delivered. Reads as conservative (§2).
-- **Sum-of-the-parts:** Base $57.34; high $96.71. The whole spread is driven by one comp choice for Mobility (Lyft 7.94x vs. DiDi 16.58x) (§2).
+- **valuation-data-triage:** Sufficient — every method could run, no active data caps; full pool coverage.
+- **price-and-capital-structure:** Pool-verified price $68.18 (2026-08-06); enterprise value $149,684.7M; net debt $9,340M (strict basis — total debt minus cash). Price ~1 trading day old, no staleness cap.
+- **multiples-own-history:** EV/Sales reversion (comparing today's revenue multiple to its own 5-year history) implies $87.37/share (+28.1%); the de-rating has real fundamental causes, not just sentiment.
+- **relative-valuation-peers:** Quality- and growth-adjusted forward EV/EBITDA (13.2x) implies $75.75/share (+11.1%); the discount to peers is largely explained by Uber's slower growth vs. DoorDash/Grab, not worse quality.
+- **intrinsic-dcf:** Base-case discounted-cash-flow value $79.82/share (+17.1%), self-capped Low–Medium confidence; terminal value is 59.5% of the total.
+- **reverse-dcf:** Price implies a 5.05% ten-year cash-flow growth rate — conservative vs. Uber's own history and vs. the DCF's own base case.
+- **sum-of-the-parts (SOTP):** Freshly rerun — base value $48.22/share (−29.3% vs. price); dispersion $31.46–$83.99.
+- **scenario-and-fair-value:** Bull $104.17 / Base $74.77 / Bear $47.24, structural-reset floor $43.38; margin of safety only 8.82%.
 
-**Most important disagreement:** the four methods' base points span 52.4% ($57.34 to $87.37) — beyond the 40% tolerance — but the synthesis reconciled it rather than averaging (§3). The low end (sum-of-the-parts, $57.34) is a single comp-choice artifact: swapping only the Mobility comparable moves it to $96.71. The high end ($87.37) is discounted because own-history itself doubts full mean reversion (decelerating growth, releveraging, the pending debt-funded deal). The mechanically-weighted blend ($76.42) is published as-is, with no discretionary override, and the peer-relative read is trusted most (§3).
+**The one disagreement that matters:** the SOTP ($48.22) reads 35.5% below the published base case. The synthesis reconciled this, and did not average it away. About 74.2% of the SOTP's own internal spread comes from a single comparable choice — swapping Lyft (7.94x) for DiDi (16.58x) for the Mobility segment moves the output from $48.22 to $83.99. The rest is a real, filed cost: a $52.3bn capitalized corporate-overhead deduction that swings per-share value by roughly $25 on its own. The published base case caps DCF + SOTP at a combined ≈⅓ weight (SOTP at 18%), so the outlier pulls the blend only 1.3% below the peer read — the weighting visibly did its job. The three methods that matter most — own-history ($87.37), peers ($75.75), DCF ($79.82) — cluster within a 15.4% band.
 
 ---
 
 ## What Would Change This Read
 
-From the synthesis's own verdict-change table (§6):
+| To make it look cheaper | To make it look more expensive |
+|---|---|
+| Revenue/gross-bookings growth reaccelerating toward the ~25% pace in the earnings bull case, or the driver/courier payment ratio improving materially, without the multiple compressing — pushing base toward the $87.37 own-history figure; or a materially lower price with fair value unchanged | Growth decelerating further alongside a worsening driver/courier payment ratio, plus the Delivery Hero bridge loan being drawn and raising net debt materially; or a price rally with fair value unchanged |
 
-**Would make it cheaper (or worse):** a further multiple de-rating with no change in fundamentals; the Delivery Hero bridge being drawn in full, pushing net debt higher with no offsetting profit yet; or evidence the driverless-car reset is arriving sooner than the 24–36 month horizon assumed.
-
-**Would make it more expensive (or better):** Gross-Bookings/Trip growth re-accelerating toward the bull case's ~25% YoY pace with a stable driver/courier payment ratio; the market re-rating EV/Sales back toward its 5-year median (3.44x–3.55x) on evidence the de-rating was sentiment-driven; or the Delivery Hero deal closing on clearly accretive, debt-reducing terms.
-
-**Data needed:** post-close Delivery Hero integration terms and updated balance sheet; a capital-structure update once the bridge is drawn or refinanced; segment-level consensus estimates (currently absent); and a longer peer-relative history to judge whether today's discount is typical.
+Data that would sharpen the read: post-close Delivery Hero balance-sheet and P&L detail; a segment-level consensus estimate (currently absent); and a longer peer-multiple time series to judge whether today's discount to peers is normal or unusual.
 
 ---
 
 ## Bottom Line
 
-- **Verdict:** Modestly undervalued — base fair value $76.42 vs. $68.18 price, a 10.78% cushion. Real but not deep.
-- **Biggest reason it could be better than it looks:** the market is pricing in less growth (5.05% a year) and a lower margin (10.78%) than Uber has already delivered — a conservative bar, and the peer read independently confirms the base case.
-- **Biggest reason it could be worse:** downside beats upside on a one-year view — 30.71% to the bear case ($47.24) versus 12.09% implied upside to base — and a longer-dated driverless-car reset could drag value to the $43.38 floor (36.4% below price).
-- **What evidence is missing:** how much of the €14.2bn Delivery Hero bridge will actually be drawn, and on what terms — no fair-value level here reflects it.
-- **One thing to watch next:** a post-close (or updated pre-close) capital-structure read once the Delivery Hero financing firms up — the synthesis's single highest-value next data request.
+- **Verdict: Fairly valued.** Base $74.77 vs. $68.18 price — a 9.7% gap, just inside the neutral band.
+- **Why it could be better than it looks:** two independent warranted-multiple reads (peer 13.2x, own EV/Sales-implied 13.04x) converge within 1.2% at the base; the market is pricing in a conservative 5.05% cash-flow growth rate, below what Uber has already delivered.
+- **Why it could be worse than it looks:** downside dominates the upside on a one-year view (30.7% to the bear vs. 8.82% cushion), and the SOTP read ($48.22) is a real caution against assuming a full reversion to the old, richer multiple.
+- **What evidence is missing:** post-close Delivery Hero deal terms and the drawn amount of the €14.2bn bridge loan — none of the fair-value levels above reflect this pending, debt-funded acquisition. It is the single largest unmodeled risk.
+- **The one thing to watch next:** whether the Delivery Hero deal closes and how much of the bridge facility is drawn onto the balance sheet.
 
 ---
 
 ## Plain-English Glossary
 
-- **Margin of safety:** the discount of price below fair value — the cushion if you are wrong.
-- **EV/EBITDA:** enterprise value (the price to buy the whole company, debt included) divided by cash operating profit; used to compare Uber against peers.
-- **EV/Sales:** the same enterprise value divided by revenue.
-- **EBIT margin:** operating profit as a share of revenue.
-- **Net debt:** total debt minus cash; "broad basis" means liquid investments are also netted off.
-- **Bridge loan:** a short-term financing facility used to fund a deal before permanent financing is arranged.
-- **DCF / reverse-DCF:** a discounted-cash-flow model values future cash; a reverse-DCF instead back-solves what growth the current price already assumes.
-- **Terminal value:** the portion of a DCF value that comes from cash flows beyond the explicit forecast window.
-- **Sum-of-the-parts:** valuing each business segment separately, then adding them up.
+- **Fair value:** the per-share price the business is estimated to be worth, against which the market price is compared.
+- **Enterprise value (EV):** the value of the whole business including debt, not just the equity.
+- **EV/EBITDA:** enterprise value divided by cash operating profit (earnings before interest, tax, depreciation, amortization) — a multiple used to compare companies.
+- **EV/Sales:** enterprise value divided by revenue — the multiple this module's own-history check uses.
+- **Free cash flow (FCF):** the cash a business throws off after operating spending and investment; its growth rate is what the market's price implies here.
+- **Net debt (strict basis):** total debt minus cash — $9,340M here.
+- **Margin of safety:** the cushion between price and fair value that protects against being wrong — 8.82% to base here, called thin.
+- **Discounted cash flow (DCF) / terminal value:** a method that values a business from its future cash flows; terminal value is the part beyond the explicit forecast (59.5% of the total here).
+- **Sum-of-the-parts (SOTP):** valuing each business segment separately and adding them up.
+- **Reverse-DCF ("what's priced in"):** working backwards from today's price to find the growth rate the market is assuming (5.05% here).
