@@ -7,6 +7,7 @@
 // Rule (deploy skew §5 + §3): every field is positively matched; an absent field is OMITTED from the
 // card, never invented, never defaulted.
 import { resolveConfidence, resolveVerdict, verdictIsCapped } from '../../lib/format'
+import { commodityDecisionProjection } from '../../lib/commodityDecision'
 import type { BoardSignal, BoardThesis, QuoteRead, SwarmSubjectSummary } from '../../lib/types'
 
 export interface ResearchSnap {
@@ -44,6 +45,10 @@ export interface CommoditySnap {
   price?: number
   priceUnit?: string
   asOf?: string
+  targetExposure?: number | null
+  coverageComplete?: boolean
+  conflict?: boolean
+  horizons?: Array<{ name: string; classification: string; implementableReturnPct: number | null; targetDate: string | null }>
   chips: string[]
 }
 export interface NeverRunSnap {
@@ -116,11 +121,14 @@ export function signalSnapshot(signal: BoardSignal | undefined, thesis: BoardThe
 export function commoditySnapshot(summary: SwarmSubjectSummary | undefined, record: any): CommoditySnap | NeverRunSnap {
   if (!summary?.hasRun) return { kind: 'never-run', note: 'No run yet — profile only' }
   const snap: CommoditySnap = { kind: 'commodity', chips: [] }
-  const v = str(summary.verdict)
+  const projection = commodityDecisionProjection(record)
+  const freshInvalid = typeof record?.decision_date === 'string' && record.decision_date >= '2026-08-10' && !projection
+  const v = projection?.action ?? (freshInvalid ? 'Research More' : str(summary.verdict))
   if (v) snap.verdict = v
-  const c = num(summary.confidence)
+  const c = projection?.confidence ?? (freshInvalid ? 0 : num(summary.confidence))
   if (c != null) snap.confidence = c
-  if ((summary as any).verdictIsPostMortemCapped === true || (summary as any).confidenceIsPostReview === true) {
+  if (projection ? (projection.action !== record?.action || projection.confidence !== num(record?.confidence))
+    : !freshInvalid && ((summary as any).verdictIsPostMortemCapped === true || (summary as any).confidenceIsPostReview === true)) {
     snap.capped = true
     const raw = num(record?.confidence)
     if (raw != null && raw !== snap.confidence) snap.confidenceRaw = raw
@@ -137,6 +145,17 @@ export function commoditySnapshot(summary: SwarmSubjectSummary | undefined, reco
   for (const k of ['curve', 'balance', 'net_macro', 'positioning'] as const) {
     const val = str(record?.[k])
     if (val) snap.chips.push(k === 'net_macro' ? `macro ${val}` : val)
+  }
+  if (projection) {
+    snap.targetExposure = projection.targetExposureRiskUnits
+    if (projection.coverageComplete != null) snap.coverageComplete = projection.coverageComplete
+    snap.conflict = projection.conflict
+    snap.horizons = projection.horizons.map((horizon) => ({
+      name: horizon.name,
+      classification: horizon.classification,
+      implementableReturnPct: horizon.implementableReturnPct,
+      targetDate: horizon.targetDate,
+    }))
   }
   return snap
 }

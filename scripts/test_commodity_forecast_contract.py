@@ -109,6 +109,11 @@ def _horizon(name: str, days: int, target: str) -> dict:
         "confidence": 62,
         "catalysts": ["dated catalyst"],
         "falsifiers": ["observable falsifier"],
+        "evidence_links": [{
+            "conclusion": "Independent cluster supports this horizon.",
+            "cluster_ids": [f"{name}.cluster-1"],
+            "source_vintage_ids": ["sha256:" + "a" * 64],
+        }],
         "not_assessable_reason": None,
     }
 
@@ -119,6 +124,7 @@ def _record() -> dict:
     return {
         "swarm": "commodity",
         "commodity": "GOLD",
+        "commodity_family": "precious-metals",
         "decision_date": "2026-08-10",
         "benchmark": "Gold spot proxy",
         "current_price": {"value": 100, "currency": "USD", "unit": "USD/oz", "as_of": "2026-08-10"},
@@ -133,6 +139,12 @@ def _record() -> dict:
         "target_exposure_risk_units": 0.5,
         "forecast_confidence": 62,
         "confidence": 60,
+        "signal_evidence": {
+            "path": "signal_evidence.json", "generated_at": "2026-08-10T00:00:00Z",
+            "artifact_sha256": "sha256:" + "b" * 64, "coverage_complete": True,
+            "raw_signal_count": 2, "independent_cluster_count": 2,
+            "conviction_eligible_cluster_count": 2, "contradiction_count": 0,
+        },
         "critical_risk_override": {"applied": False, "risk": None, "source": None},
         "forecast_horizons": {"tactical": tactical, "strategic": strategic},
         "relative_view": "Synthetic relative view.",

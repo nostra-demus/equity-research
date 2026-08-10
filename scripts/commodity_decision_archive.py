@@ -11,8 +11,9 @@ from pathlib import Path
 from typing import Any
 
 from commodity_forecast_contract import production_coverage_resolver, validate_decision_record
-from commodity_profile_coverage import PROFILE_PATH, structured_profile
-from repo_mutation import atomic_write_json
+from commodity_evidence_links import validate_signal_projection
+from commodity_profile_coverage import PROFILE_PATH, profile_family, structured_profile
+from repo_mutation import atomic_write_json, atomic_write_text
 
 
 class ArchiveError(RuntimeError):
@@ -47,6 +48,32 @@ def decision_id_for(record: dict[str, Any]) -> str:
     return f"CMD-{commodity}-{decision_date}-{digest}"
 
 
+def _create_or_verify(path: Path, value: Any, label: str) -> bool:
+    created = atomic_write_json(str(path), value, create_only=True)
+    if created:
+        return True
+    try:
+        existing = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ArchiveError(f"existing archived {label} is unreadable: {path}: {error}") from error
+    if existing != value:
+        raise ArchiveError(f"immutable {label} collision at {path}")
+    return False
+
+
+def _create_or_verify_text(path: Path, value: str, label: str) -> bool:
+    created = atomic_write_text(str(path), value, create_only=True)
+    if created:
+        return True
+    try:
+        existing = path.read_text(encoding="utf-8")
+    except OSError as error:
+        raise ArchiveError(f"existing archived {label} is unreadable: {path}: {error}") from error
+    if existing != value:
+        raise ArchiveError(f"immutable {label} collision at {path}")
+    return False
+
+
 def archive_decision(run_root: Path) -> tuple[str, Path, bool]:
     """Create the immutable snapshot before replacing the current UI projection."""
     run_root = run_root.resolve()
@@ -63,13 +90,19 @@ def archive_decision(run_root: Path) -> tuple[str, Path, bool]:
         raise ArchiveError("decision_record.json is not a commodity record")
     if record.get("commodity") != run_root.name:
         raise ArchiveError("record commodity does not match the run folder")
-    if isinstance(record.get("decision_date"), str) and record["decision_date"] >= "2026-08-11":
+    coverage = None
+    coverage_text = None
+    # The dual-horizon contract began on 2026-08-10. Required-series coverage has its own
+    # one-day-later cutover inside validate_decision_record, so an Aug-10 decision is still fully
+    # checked while legitimately carrying no coverage artifact.
+    if isinstance(record.get("decision_date"), str) and record["decision_date"] >= "2026-08-10":
         coverage = None
         coverage_sha256 = None
         coverage_path = run_root / "required_series_coverage.json"
         try:
             coverage_raw = coverage_path.read_bytes()
-            coverage = json.loads(coverage_raw.decode("utf-8"))
+            coverage_text = coverage_raw.decode("utf-8")
+            coverage = json.loads(coverage_text)
             coverage_sha256 = "sha256:" + hashlib.sha256(coverage_raw).hexdigest()
         except FileNotFoundError:
             pass
@@ -84,19 +117,42 @@ def archive_decision(run_root: Path) -> tuple[str, Path, bool]:
         )
         if contract_errors:
             raise ArchiveError(f"forecast contract failed: {contract_errors[0]}")
+        try:
+            expected_family = profile_family(str(record.get("commodity", "")))
+        except ValueError as error:
+            raise ArchiveError(f"commodity family cannot be resolved: {error}") from error
+        if record.get("commodity_family") != expected_family:
+            raise ArchiveError("decision commodity_family does not match its structured profile")
+
+    graph = None
+    graph_text = None
+    if isinstance(record.get("forecast_horizons"), dict):
+        graph_path = run_root / "signal_evidence.json"
+        try:
+            graph_raw = graph_path.read_bytes()
+            graph_text = graph_raw.decode("utf-8")
+            graph = json.loads(graph_text)
+        except FileNotFoundError:
+            raise ArchiveError("signal_evidence.json is required before archiving a dual-horizon decision") from None
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+            raise ArchiveError(f"signal evidence graph is unreadable: {error}") from error
+        actual_digest = "sha256:" + hashlib.sha256(graph_raw).hexdigest()
+        projection_errors = validate_signal_projection(record, graph, actual_digest)
+        if projection_errors:
+            raise ArchiveError(f"signal evidence projection failed: {projection_errors[0]}")
 
     decision_id = decision_id_for(record)
     archived_record = copy.deepcopy(record)
     archived_record["decision_id"] = decision_id
-    archive_path = run_root / "decisions" / decision_id / "decision_record.json"
-    created = atomic_write_json(str(archive_path), archived_record, create_only=True)
-    if not created:
-        try:
-            existing = json.loads(archive_path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError) as error:
-            raise ArchiveError(f"existing archive is unreadable: {archive_path}: {error}") from error
-        if existing != archived_record:
-            raise ArchiveError(f"immutable decision ID collision at {archive_path}")
+    archive_root = run_root / "decisions" / decision_id
+    archive_path = archive_root / "decision_record.json"
+    # Evidence-first: a decision snapshot is never published without the exact graph and coverage
+    # artifacts that made its evidence links and sufficiency gate auditable.
+    if graph_text is not None:
+        _create_or_verify_text(archive_root / "signal_evidence.json", graph_text, "signal evidence graph")
+    if coverage_text is not None:
+        _create_or_verify_text(archive_root / "required_series_coverage.json", coverage_text, "required-series coverage")
+    created = _create_or_verify(archive_path, archived_record, "decision record")
 
     # Archive-first publication: after a crash the UI may remain on its earlier projection, but it can
     # never point to a decision whose immutable snapshot does not exist.

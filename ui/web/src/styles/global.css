@@ -1391,6 +1391,52 @@ a { color: inherit; }
   font-variant-numeric: tabular-nums; white-space: nowrap;
 }
 .decision__munit { font-size: 10px; font-weight: 500; color: var(--text-faint); margin-left: 1px; }
+.decision--commodity { width: min(1240px, 100%); max-width: min(1240px, 100%); display: block; cursor: pointer; }
+.decision__commodity-lead {
+  display: grid; grid-template-columns: minmax(150px, 1fr) minmax(145px, auto) minmax(95px, auto) minmax(260px, 2fr);
+  align-items: center; gap: 18px; padding-bottom: 11px; border-bottom: 1px solid var(--hairline);
+}
+.decision__commodity-lead .decision__metric:last-child .decision__mval {
+  font-size: 11px; font-weight: 500; line-height: 1.35; white-space: normal; color: var(--text-muted);
+}
+.decision__conflict {
+  padding: 2px 7px; border: 1px solid var(--bad); border-radius: var(--r-pill);
+  color: var(--bad); font-size: 8.5px; font-weight: 700; letter-spacing: .35px; white-space: nowrap;
+}
+.decision__horizons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding-top: 10px; }
+.decision__horizon {
+  min-width: 0; padding: 10px 12px; border: 1px solid var(--hairline); border-radius: var(--r-md);
+  background: var(--surface-2);
+}
+.decision__horizon[data-classification="positive"] { border-color: color-mix(in srgb, var(--accent) 38%, var(--hairline)); }
+.decision__horizon[data-classification="negative"] { border-color: color-mix(in srgb, var(--bad) 45%, var(--hairline)); }
+.decision__horizon-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.decision__horizon-head > div { display: flex; flex-direction: column; gap: 3px; }
+.decision__horizon-class { font-size: 13px; font-weight: 650; text-transform: capitalize; color: var(--text); }
+.decision__horizon-date { font-size: 10px; color: var(--text-faint); white-space: nowrap; }
+.decision__horizon-metrics {
+  display: grid; grid-template-columns: repeat(6, minmax(70px, 1fr)); gap: 10px;
+  margin-top: 10px;
+}
+.decision__horizon-metrics .decision__mval { font-size: 12px; }
+.decision__horizon-na { min-height: 30px; margin: 9px 0 0; color: var(--text-muted); font-size: 11px; line-height: 1.45; }
+.decision__evidence { margin-top: 9px; padding-top: 8px; border-top: 1px solid var(--hairline); font-size: 10px; color: var(--text-muted); }
+.decision__evidence summary { width: fit-content; color: var(--accent-bright); cursor: pointer; }
+.decision__evidence-row { display: grid; grid-template-columns: minmax(180px, 1fr) auto auto; gap: 7px; align-items: center; margin-top: 6px; }
+.decision__evidence-row code {
+  max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  padding: 2px 5px; border-radius: var(--r-sm); background: var(--surface-3); color: var(--text-faint); font-size: 9px;
+}
+@container (max-width: 850px) {
+  .decision__commodity-lead { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .decision__horizons { grid-template-columns: 1fr; }
+  .decision__horizon-metrics { grid-template-columns: repeat(3, minmax(70px, 1fr)); }
+}
+@container (max-width: 520px) {
+  .decision__commodity-lead { grid-template-columns: 1fr; }
+  .decision__horizon-metrics { grid-template-columns: repeat(2, minmax(70px, 1fr)); }
+  .decision__evidence-row { grid-template-columns: 1fr; }
+}
 /* the sizing action hint (→ trim / add) — a quiet accent pill, an action next to the numbers */
 .decision__hint {
   align-self: center; font-size: 10.5px; font-weight: 500; color: var(--accent-bright);

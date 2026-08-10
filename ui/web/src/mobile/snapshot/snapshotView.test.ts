@@ -132,11 +132,40 @@ check('commodity: an uncapped record shows no "(before cap)" figure', () => {
   assert.deepEqual(s.chips, ['backwardation'])   // only what the record carries
 })
 
+check('commodity: fresh records expose separate horizon returns and target exposure, never a blend', () => {
+  const horizon = (name: string, classification: string, value: number) => ({
+    horizon: name, status: 'assessable', classification, horizon_days: name === 'tactical' ? 60 : 365,
+    target_date: name === 'tactical' ? '2026-10-09' : '2027-08-10', confidence: 60,
+    expected_return_components_pct: { implementable_return_pct: value }, loss_probability_pct: 30,
+    downside_pct: -8, risk_reward: 1, cash_hurdle: { return_pct: 1 },
+    evidence_links: [{ conclusion: 'Synthetic evidence.', cluster_ids: ['test.cluster'], source_vintage_ids: [`sha256:${'a'.repeat(64)}`] }],
+  })
+  const s: any = commoditySnapshot(
+    { subject: 'GOLD', hasRun: true, verdict: 'Hold', confidence: 60 } as any,
+    { swarm: 'commodity', decision_date: '2026-08-10', action: 'Hold', target_exposure_risk_units: 0.5, forecast_confidence: 60,
+      forecast_horizons: { tactical: horizon('tactical', 'positive', 8), strategic: horizon('strategic', 'mixed', 4) } },
+  )
+  assert.equal(s.targetExposure, 0.5)
+  assert.equal(s.conflict, true)
+  assert.deepEqual(s.horizons.map((h: any) => h.implementableReturnPct), [8, 4])
+  assert.equal('expectedReturnPct' in s, false)
+})
+
+check('commodity: malformed post-cutover records fail closed instead of reusing a legacy summary call', () => {
+  const s: any = commoditySnapshot(
+    { subject: 'GOLD', hasRun: true, verdict: 'Buy', confidence: 88 } as any,
+    { swarm: 'commodity', decision_date: '2026-08-10', action: 'Buy', confidence: 88 },
+  )
+  assert.equal(s.verdict, 'Research More')
+  assert.equal(s.confidence, 0)
+  assert.equal(s.targetExposure, undefined)
+})
+
 check('commodity: 8 of 12 have no run today — never-run is a first-class state', () => {
   const s = commoditySnapshot({ subject: 'SUGAR', hasRun: false, verdict: null, confidence: null } as any, null)
   assert.equal(s.kind, 'never-run')
 })
 
-const EXPECTED_CHECKS = 16
+const EXPECTED_CHECKS = 18
 assert.ok(passed >= EXPECTED_CHECKS, `only ${passed} checks ran, expected at least ${EXPECTED_CHECKS}`)
 console.log(`\nsnapshotView.test.ts: ${passed} checks passed`)

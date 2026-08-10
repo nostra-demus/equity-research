@@ -187,6 +187,7 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
 {
   "swarm": "commodity",
   "commodity": "{COMMODITY}",
+  "commodity_family": "copy the exact family slug from frameworks/commodity/profiles/{COMMODITY}.json",
   "decision_date": "{DATE}",
   "action": "Buy | Hold | Trim | Avoid | Research More",
   "target_exposure_risk_units": 0.5,
@@ -259,6 +260,13 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
       "confidence": 58,
       "catalysts": ["dated tactical catalyst"],
       "falsifiers": ["observable tactical falsifier"],
+      "evidence_links": [
+        {
+          "conclusion": "the material tactical conclusion supported by this evidence",
+          "cluster_ids": ["exact cluster_id from signal_evidence.json"],
+          "source_vintage_ids": ["sha256:exact source vintage ID from the linked evidence rows"]
+        }
+      ],
       "not_assessable_reason": null
     },
     "strategic": {
@@ -277,6 +285,13 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
       "confidence": 58,
       "catalysts": ["dated strategic catalyst"],
       "falsifiers": ["observable strategic falsifier"],
+      "evidence_links": [
+        {
+          "conclusion": "the material strategic conclusion supported by this evidence",
+          "cluster_ids": ["exact cluster_id from signal_evidence.json"],
+          "source_vintage_ids": ["sha256:exact source vintage ID from the linked evidence rows"]
+        }
+      ],
       "not_assessable_reason": null
     }
   },
@@ -285,6 +300,7 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
   "signal_evidence": {
     "path": "signal_evidence.json",
     "generated_at": "copy from signal_evidence.json",
+    "artifact_sha256": "sha256:<exact hash of signal_evidence.json bytes>",
     "coverage_complete": true,
     "raw_signal_count": 0,
     "independent_cluster_count": 0,
@@ -360,10 +376,16 @@ cockpit surfaces so a durable feed can be built for it. Rules:
 **Write the independent dual-horizon block into the record.** `forecast_horizons.tactical` and
 `forecast_horizons.strategic` are separate forecasts. Copy each independent pack into its matching report
 card and JSON object — same status, horizon, target date, probabilities, targets, return components,
-conjunction basis, falsifiers, cash hurdle, span audit, classification and confidence. The pack, prose and JSON are one
+conjunction basis, falsifiers, cash hurdle, span audit, classification and confidence. For every material
+conclusion, add an `evidence_links` row using exact cluster IDs and source-vintage IDs from
+`signal_evidence.json`; a prose citation without both machine identities does not satisfy this link. The pack, prose and JSON are one
 forecast stated in three places. `scripts/commodity_forecast_contract.py` re-derives every case component
 sum, probability-weighted component, expected implementable return, loss probability, worst downside,
 risk/reward, classification, action, exposure and lower-of-two confidence. A hand-typed disagreement fails.
+
+Compute `signal_evidence.artifact_sha256` from the exact adjacent file bytes after the graph is rebuilt
+(`shasum -a 256 commodity/runs/{COMMODITY}/signal_evidence.json`). The archive helper preserves those
+exact bytes and refuses publication if the projection digest differs.
 
 For `not_assessable`, retain `horizon`, permitted `horizon_days`, exact `target_date`, `status`,
 `classification: "not_assessable"`, `confidence: 0`, `not_assessable_reason`, and empty/absent `scenarios`;
@@ -385,6 +407,8 @@ single-horizon fields are forbidden on fresh decisions because consumers could m
 - [ ] §3b/§3c independently state tactical and strategic status, exact target date, cases, probabilities,
       five return components, expected implementable return, loss probability, downside, risk/reward, cash
       hurdle, classification, confidence, catalysts and falsifiers — or `not_assessable` with one reason.
+- [ ] Every assessable horizon links each material conclusion to independent evidence cluster IDs and exact
+      source-vintage IDs; no conclusion is linked only to a filename or prose citation.
 - [ ] Both scenario packs predate the action, pass their own volatility span/conjunction audits, and were
       copied rather than silently rewritten; no expected return is blended across horizons.
 - [ ] `scripts/commodity_forecast_contract.py` agrees with both classifications, the matrix action, target

@@ -82,6 +82,22 @@
       },
       "additionalProperties": false
     },
+    "horizonEvidenceLink": {
+      "type": "object",
+      "required": ["conclusion", "cluster_ids", "source_vintage_ids"],
+      "properties": {
+        "conclusion": { "type": "string", "minLength": 1 },
+        "cluster_ids": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" }
+        },
+        "source_vintage_ids": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+        }
+      },
+      "additionalProperties": false
+    },
     "horizonForecast": {
       "type": "object",
       "required": ["horizon", "status", "horizon_days", "target_date", "classification", "confidence"],
@@ -101,6 +117,10 @@
         "confidence": { "type": "number", "minimum": 0, "maximum": 100 },
         "catalysts": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
         "falsifiers": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "evidence_links": {
+          "type": "array", "minItems": 1,
+          "items": { "$ref": "#/definitions/horizonEvidenceLink" }
+        },
         "not_assessable_reason": { "type": ["string", "null"] }
       },
       "additionalProperties": false,
@@ -110,7 +130,7 @@
           "then": {
             "required": [
               "scenarios", "expected_return_components_pct", "loss_probability_pct", "downside_pct",
-              "risk_reward", "cash_hurdle", "span_audit", "catalysts", "falsifiers"
+              "risk_reward", "cash_hurdle", "span_audit", "catalysts", "falsifiers", "evidence_links"
             ]
           }
         },
@@ -124,6 +144,10 @@
   "properties": {
     "swarm": { "const": "commodity" },
     "commodity": { "type": "string", "minLength": 1, "pattern": "^[A-Z0-9_]+$" },
+    "commodity_family": {
+      "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$",
+      "description": "Profile-owned family frozen with the decision so historical family calibration cannot change when profiles evolve."
+    },
     "decision_date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
     "action": { "type": "string", "enum": ["Buy", "Hold", "Trim", "Avoid", "Research More"] },
     "decision_id": {
@@ -217,10 +241,11 @@
     "signal_evidence": {
       "type": "object",
       "description": "Run-level evidence graph projection. The full immutable rows and clusters live at path; these counts let the decision prove that conviction used independent clusters, preserved contradictions and did not promote an unvalidated statistical row.",
-      "required": ["path", "generated_at", "coverage_complete", "raw_signal_count", "independent_cluster_count", "conviction_eligible_cluster_count", "contradiction_count"],
+      "required": ["path", "generated_at", "artifact_sha256", "coverage_complete", "raw_signal_count", "independent_cluster_count", "conviction_eligible_cluster_count", "contradiction_count"],
       "properties": {
         "path": { "const": "signal_evidence.json" },
         "generated_at": { "type": "string", "format": "date-time" },
+        "artifact_sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
         "coverage_complete": { "type": "boolean" },
         "raw_signal_count": { "type": "integer", "minimum": 0 },
         "independent_cluster_count": { "type": "integer", "minimum": 0 },
@@ -357,5 +382,11 @@
         }
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": { "required": ["forecast_horizons"] },
+      "then": { "required": ["commodity_family", "signal_evidence"] }
+    }
+  ]
 }

@@ -129,6 +129,7 @@ jobs:
         run: |
           python3 scripts/test_commodity_forecast_contract.py
           python3 scripts/test_commodity_decision_archive.py
+          python3 scripts/test_commodity_review_contract.py
 
       - name: Commodity calibration scoreboard selftest (Phase 4 twin — fixture-free)
         run: python3 scripts/commodity_calibrate.py --selftest

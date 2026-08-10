@@ -2,6 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, type ReactNode } from 
 import { motion, useReducedMotion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { decisionColor, priceProvenance, priceQualifier, resolveConfidence, resolveVerdict, resolveVerdictOriginal, stampDayUTC, verdictIsCapped } from '../lib/format'
+import { commodityDecisionProjection, type CommodityHorizonCard } from '../lib/commodityDecision'
 import type { QuoteAbsentReason, WhatChangedRead } from '../lib/types'
 
 /**
@@ -147,6 +148,46 @@ function Metric({ label, value, unit, valueColor, title, sub }: {
       </span>
       {sub && <span className="decision__msub">{sub}</span>}
     </div>
+  )
+}
+
+function CommodityHorizon({ card }: { card: CommodityHorizonCard }) {
+  const percent = (value: number | null, signedValue = false) => value == null ? '—' : `${signedValue && value > 0 ? '+' : ''}${value}%`
+  const hasEvidence = card.evidenceLinks.some((link) => link.sourceVintageIds.length > 0)
+  return (
+    <section className="decision__horizon" data-classification={card.classification}>
+      <div className="decision__horizon-head">
+        <div>
+          <span className="decision__eyebrow">{card.name} · {card.horizonDays ?? '—'} days</span>
+          <strong className="decision__horizon-class">{card.classification.replace('_', ' ')}</strong>
+        </div>
+        <span className="decision__horizon-date">to {shortDate(card.targetDate)}</span>
+      </div>
+      {card.status === 'assessable' ? (
+        <div className="decision__horizon-metrics">
+          <Metric label="Implementable return" value={percent(card.implementableReturnPct, true)} valueColor={(card.implementableReturnPct ?? 0) >= 0 ? 'var(--accent-bright)' : 'var(--bad)'} />
+          <Metric label="Loss probability" value={percent(card.lossProbabilityPct)} />
+          <Metric label="Downside" value={percent(card.downsidePct, true)} valueColor="var(--bad)" />
+          <Metric label="Risk / reward" value={card.riskReward == null ? '—' : card.riskReward === 'unbounded' ? 'unbounded' : card.riskReward.toFixed(2)} />
+          <Metric label="Cash hurdle" value={percent(card.cashHurdlePct)} />
+          <Metric label="Confidence" value={card.confidence} unit="/100" />
+        </div>
+      ) : (
+        <p className="decision__horizon-na">{card.notAssessableReason || 'The evidence cannot support a forecast for this horizon.'}</p>
+      )}
+      {hasEvidence && (
+        <details className="decision__evidence" onClick={(event) => event.stopPropagation()}>
+          <summary>{card.evidenceLinks.length} evidence link{card.evidenceLinks.length === 1 ? '' : 's'}</summary>
+          {card.evidenceLinks.map((link, index) => (
+            <div className="decision__evidence-row" key={`${card.name}-${index}`}>
+              <span>{link.conclusion}</span>
+              <code title={link.clusterIds.join(', ')}>{link.clusterIds.join(' · ')}</code>
+              {link.sourceVintageIds.map((vintage) => <code key={vintage} title={vintage}>{vintage.slice(0, 19)}…</code>)}
+            </div>
+          ))}
+        </details>
+      )}
+    </section>
   )
 }
 
@@ -339,10 +380,11 @@ export function DecisionBanner() {
       </div>
     )
   }
-  const er = decision.expected_return_pct as number | undefined
+  const er = isResearch ? decision.expected_return_pct as number | undefined : undefined
   // Two-number confidence (scripts/confidence.py): show understanding + conviction + sizing when
   // the synthesizer emitted them; fall back to the old single confidence_score otherwise.
   const d = decision as any
+  const commodity = !isResearch ? commodityDecisionProjection(d) : null
   const twoNumber = typeof d.conviction === 'number' && typeof d.analysis_confidence === 'number'
   // EFFECTIVE confidence — the post-red-team score wins over the synthesizer's own when the record carries
   // one (fix F28), matching the capped verdict resolved above. Showing 52 beside a Trim the red-team cut to
@@ -381,6 +423,61 @@ export function DecisionBanner() {
   // The price-left-the-band alarm. Gated on a POSITIVE state (DESIGN.md §5 deploy-skew): an engine older
   // than this bundle sends no `band`, and absence must read as "no band", never as "inside".
   const band = call?.band && call.band.state !== 'inside' ? call.band : null
+
+  if (!isResearch && typeof d.decision_date === 'string' && d.decision_date >= '2026-08-10' && !commodity) {
+    return (
+      <div className="decision-dock" ref={dockRef}>
+        <div className="decision decision--commodity decision--notice-only">
+          <div className="decision__commodity-lead">
+            <Metric label="Action" value="Research More" />
+            <Metric label="Target exposure" value="Awaiting valid evidence" />
+            <Metric label="Confidence" value={0} unit="/100" />
+            <Metric label="Status" value="Invalid forecast contract" title="The dual-horizon record failed the action-first projection and is not safe to display as a directional call." />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (commodity) {
+    const exposure = commodity.targetExposureRiskUnits == null
+      ? 'Awaiting evidence'
+      : `${commodity.targetExposureRiskUnits} risk unit${commodity.targetExposureRiskUnits === 1 ? '' : 's'}`
+    const evidenceDay = commodity.evidenceFreshness?.slice(0, 10) ?? null
+    const freshness = [
+      commodity.priceFreshness ? `price ${shortDate(commodity.priceFreshness)}` : 'price unavailable',
+      evidenceDay ? `evidence ${shortDate(evidenceDay)}` : 'evidence timestamp unavailable',
+      commodity.coverageComplete === null ? null : commodity.coverageComplete ? 'coverage complete' : 'coverage incomplete',
+    ].filter(Boolean).join(' · ')
+    return (
+      <div className="decision-dock" ref={dockRef}>
+        <motion.div
+          className="decision decision--commodity"
+          initial={reduce ? false : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduce ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
+          onClick={openThesis}
+          title="Open the commodity dossier — the final synthesized view"
+        >
+          <div className="decision__commodity-lead">
+            <div className="decision__verdict">
+              <span className="decision__eyebrow">Action</span>
+              <span className="decision__callrow">
+                <span className="decision__call" style={{ color: decisionColor(commodity.action) }}>{commodity.action}</span>
+                {commodity.conflict && <span className="decision__conflict" title="The tactical and strategic classifications differ.">HORIZONS CONFLICT</span>}
+              </span>
+            </div>
+            <Metric label="Target exposure" value={exposure} />
+            <Metric label="Confidence" value={commodity.confidence} unit="/100" />
+            <Metric label="Freshness" value={freshness} title="Price date, evidence build date and required-series coverage. All are frozen with this decision." />
+          </div>
+          <div className="decision__horizons">
+            {commodity.horizons.map((horizon) => <CommodityHorizon key={horizon.name} card={horizon} />)}
+          </div>
+        </motion.div>
+      </div>
+    )
+  }
 
   return (
     // A static dock frames the animated card so its centring survives framer-motion (which rewrites the
