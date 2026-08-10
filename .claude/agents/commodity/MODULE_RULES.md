@@ -178,6 +178,29 @@ regimes and 30 non-overlapping outcomes, the expected sign in four of five folds
 cost-adjusted naive baseline, a positive out-of-sample block-bootstrap confidence interval, stable
 lookbacks, and 10% false-discovery control.
 
+### 8A. Profile evidence coverage is a decision gate
+
+The current commodity's `Required semantic series` table in
+`frameworks/commodity/COMMODITY_PROFILES.md` is binding. Inventory every row before analysis and again
+at terminal synthesis. A connector declaration, reachable URL, successful historical run, or file with
+no accepted provenance vintage is not evidence. A connector-backed row is usable only when its accepted
+current projection and sidecar agree, its connector-v2 status is `current` or `no_new_release`, and its
+retrieval was available at the decision time. A lawful shared market source named by the profile may
+satisfy a row without a duplicate connector, but it must carry its own as-of date and source identity.
+
+For each required row record: need ID, stable series ID, owner orb, status, as-of, retrieval/vintage ID,
+and the exact reason when unusable. `manual`, `no_pool`, `stalled`, `schema_failed`, `suspect`,
+`credentials_missing`, `broken`, or `quarantined` is a visible gap, never implicit coverage. An
+unvintaged live-web fact may explain context but cannot raise sufficiency or conviction. The causal owner
+must mark a missing required row as failed/not assessable and emit the data need rather than substitute a
+weaker source silently.
+
+After all orbs finish, any required semantic series that remains unusable makes every horizon materially
+dependent on it `not_assessable`. That mechanically produces `Research More`, unless independently proven
+critical risk forces `Avoid`. Never fall back to a stale dossier or to a methodology report. WILTW, its
+supporting files, and report-derived assertions are method-transfer material only and are forbidden as
+runtime evidence or Gold provenance.
+
 ## 9. Physical supply bridge and opacity cap
 
 Never equate gross production with supply available to the global buyer. The supply-demand synthesis

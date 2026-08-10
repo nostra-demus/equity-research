@@ -1,0 +1,43 @@
+{
+  "manifest_version": 2,
+  "schema_version": 1,
+  "id": "wgc-official-gold-reserves",
+  "dataset_id": "wgc.imf-ifs-official-gold-reserve-changes",
+  "series_id": "gold.official-reserve-changes",
+  "series": "Reported official-sector Gold reserve changes compiled from IMF IFS and central banks",
+  "satisfies": ["gold-official-reserve-changes", "official-sector-demand"],
+  "subjects": ["GOLD"],
+  "provider": "World Gold Council",
+  "authority_class": "industry_body_official",
+  "provider_priority": 100,
+  "acquisition": "manual",
+  "source_type": "vendor_export",
+  "tier": 5,
+  "license": "Public WGC workbook; internal use only, redistribution prohibited, WGC adjustments preserved",
+  "licensing": {"access": "public", "use": "allowed", "redistribution": "prohibited", "terms_url": "https://www.gold.org/terms-conditions"},
+  "host_allowlist": ["www.gold.org"],
+  "credential_env": [],
+  "release": {"cadence": "monthly", "timezone": "Europe/London", "expected_lag_days": 70, "grace_days": 15, "revision_policy": "revisable"},
+  "manual": true,
+  "manual_ingest": {"file_arg": "--from-file"},
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/world-gold-council/official_reserve_changes_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "reporting_lag_months": "int",
+    "changes": [{"institution": "string", "change_tonnes": "float", "status": "enum:reported|wgc_adjusted"}],
+    "net_reported_change_tonnes": "float",
+    "compilation_basis": "string",
+    "adjustments_preserved": true,
+    "source_url": "string",
+    "manual_source": true
+  },
+  "units": {
+    "reporting_lag_months": "months",
+    "changes[].change_tonnes": "metric_tonnes",
+    "net_reported_change_tonnes": "metric_tonnes"
+  },
+  "minimum_history": {"observations": 1}
+}

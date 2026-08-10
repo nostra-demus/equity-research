@@ -1,0 +1,39 @@
+{
+  "manifest_version": 2,
+  "schema_version": 1,
+  "id": "usgs-gold-mine-supply",
+  "dataset_id": "usgs.mineral-commodity-summaries-gold",
+  "series_id": "gold.mine-supply",
+  "series": "USGS Gold world mine production",
+  "satisfies": ["gold-mine-supply", "mine-supply"],
+  "subjects": ["GOLD"],
+  "provider": "U.S. Geological Survey",
+  "authority_class": "government_official",
+  "provider_priority": 100,
+  "acquisition": "official_api",
+  "source_type": "official_data",
+  "tier": 5,
+  "license": "public_domain",
+  "licensing": {"access": "public", "use": "allowed", "redistribution": "allowed", "terms_url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits"},
+  "host_allowlist": ["www.sciencebase.gov"],
+  "credential_env": [],
+  "release": {"cadence": "annual", "timezone": "America/New_York", "expected_lag_days": 60, "grace_days": 45, "revision_policy": "revisable"},
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/usgs/mine_supply_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "release_title": "string",
+    "world": [{"year": "int", "mine_production": "float", "estimated": "bool"}],
+    "countries_latest": [{"country": "string", "year": "int", "mine_production": "float", "estimated": "bool"}],
+    "source_urls": ["string"]
+  },
+  "units": {
+    "world[].year": "calendar_year",
+    "world[].mine_production": "metric_tonnes",
+    "countries_latest[].year": "calendar_year",
+    "countries_latest[].mine_production": "metric_tonnes"
+  },
+  "minimum_history": {"observations": 2, "path": "world"}
+}

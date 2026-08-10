@@ -51,6 +51,26 @@ Trends; weekly CFTC COT (Fridays); monthly central-bank purchase data; US jobs r
 `commodity-demand-inventory`; ETF holdings and flows → `commodity-positioning-flows`; real yields and
 the broad USD → `commodity-macro-drivers`; relative ratios → the cross-asset-regime orb when present.
 
+**Required semantic series (profile-owned; connector IDs are deliberately absent):**
+
+| Need ID | Stable series ID | Owner orb | Required history / freshness | Lawful source policy |
+|---|---|---|---|---|
+| `gold-managed-money-positioning` | `gold.managed-money-positioning` | commodity-positioning-flows | weekly; ≥1 current COT observation | CFTC public API |
+| `gold-real-yields` | `gold.us-treasury-real-yields` | commodity-macro-drivers | daily; ≥3 years for validation | US Treasury XML |
+| `gold-broad-usd` | `gold.broad-usd-index` | commodity-macro-drivers | daily; ≥3 years for validation | Federal Reserve/FRED public CSV |
+| `gold-comex-inventory-deliveries` | `gold.comex-inventory-deliveries` | commodity-demand-inventory | daily; current registered/eligible stocks and delivery notices | CME official report only; manual if no stable lawful machine route |
+| `gold-lbma-vault-clearing` | `gold.lbma-vault-clearing` | commodity-demand-inventory | monthly; vault and clearing releases | public LBMA vault/clearing statistics only; never the licensed price benchmark |
+| `gold-official-reserve-changes` | `gold.official-reserve-changes` | commodity-demand-inventory | monthly; reported purchases/sales with reporting lag | IMF/central-bank data or the WGC workbook compiled from them; preserve WGC adjustments |
+| `gold-mine-supply` | `gold.mine-supply` | commodity-supply-security | annual world and country production | USGS public-domain release |
+| `gold-issuer-etf-holdings` | `gold.issuer-etf-holdings` | commodity-positioning-flows | daily; issuer-reported tonnes/ounces and shares | lawful issuer download/page only |
+| `gold-current-price` | `gold.current-price` | commodity-price-curve | current quote | reuse the swarm pulse quote transport (`@GC.1`); no connector clone |
+| `gold-market-price-history` | `gold.market-price-history` | commodity-price-curve | point-in-time close history with source identity | reuse `data/_market/<provider>/` and `scripts/market_prices.py`; other orbs consume the owner's evidence; if no lawful feed exists, unavailable |
+
+**Availability is evidence, not configuration.** Declaring a required row does not lift sufficiency. A
+row is usable only when its semantic series has a current, validated vintage. Manual/unavailable rows
+remain visible gaps and can force `Research More`. The LBMA Gold Price history is not a permissible
+fallback: it requires an appropriate licence, so the engine records absence instead of scraping it.
+
 ---
 
 ## SUGAR

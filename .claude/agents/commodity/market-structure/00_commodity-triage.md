@@ -34,15 +34,26 @@ You DO NOT:
 
 1. Read the repo-root `CLAUDE.md` (cross-cutting doctrine) and `.claude/agents/commodity/MODULE_RULES.md`, and apply both.
 2. Read the `## {COMMODITY}` section of `frameworks/commodity/COMMODITY_PROFILES.md`. Record the commodity's benchmark, quote unit/currency, the instruments/tickers it lists, the lenses that apply, and the priority sources. If there is NO section for this commodity, say so — that is the main Insufficient trigger.
-3. If `data/{COMMODITY}/` exists, list any user notes there (they are supplementary, dated, lower-tier per §4). Documents under `data/{COMMODITY}/external/<provider>/` are externally sourced research (paid data notes, expert calls, the user's own channel checks) with a `.source.json` provenance sidecar — list each with `Provider · source_type · §4 tier · as-of` per `frameworks/EXTERNAL_DATA.md`. They enrich the read but never substitute a primary/official source in the sufficiency rule.
-4. Do ONE light reachability check: confirm a current benchmark price/quote and at least one supply-demand or positioning source named in the profile can be found from a primary/official source (a single WebSearch is enough — do not build the analysis here). Note what you found and its date.
-5. Apply the sufficiency rule below and write the verdict.
-6. Use the Write tool to save the report to `OUTPUT_PATH` (Mode A). The saved file must start with its `#` header and contain no chat-confirmation block. Then return only the CHAT CONFIRMATION block.
+3. Read every `Required semantic series` row in the profile. For connector-backed rows, inspect accepted
+   projections and `.source.json` sidecars under `data/{COMMODITY}/external/` plus connector-v2 health;
+   record series ID, status, as-of and vintage ID. For profile-declared shared market routes, record the
+   dated source identity supplied by that route. Do not treat connector code or a reachable URL as data.
+4. If `data/{COMMODITY}/` exists, list user notes separately (supplementary, dated, lower-tier per §4).
+   Documents under `data/{COMMODITY}/external/<provider>/` count only when their accepted sidecar passes
+   MODULE_RULES §8A. WILTW and report-derived assertions are forbidden runtime inputs.
+5. Only when a required source has no accepted current vintage, do ONE light reachability check to
+   distinguish `no_pool` from source disappearance. A WebSearch result remains unvintaged context and
+   cannot turn the row usable or lift sufficiency.
+6. Apply the sufficiency rule below and write the verdict.
+7. Use the Write tool to save the report to `OUTPUT_PATH` (Mode A). The saved file must start with its `#` header and contain no chat-confirmation block. Then return only the CHAT CONFIRMATION block.
 
 # SUFFICIENCY RULE
 
-- **Sufficient:** the commodity has a profile section AND a current benchmark price plus at least one applicable supply/demand or positioning source is reachable from a primary/official source.
-- **Partial:** it has a profile section but one major lens's primary data could not be reached today (note which).
+- **Sufficient:** the commodity has a profile section, a current benchmark price, and every required
+  semantic series is current and usable under MODULE_RULES §8A.
+- **Partial:** it has a profile section and enough accepted data to continue discovery, but one or more
+  required semantic series is not current/usable. Name every gap and its owner. Partial permits the
+  orbs to run; it does not permit a rated terminal forecast.
 - **Insufficient:** no profile section AND no usable local pool — we cannot say what this commodity is or how to price it. Write the literal line `Verdict: Insufficient data` so the orchestrator can fail-fast.
 
 # REPORT STRUCTURE
@@ -63,11 +74,11 @@ You DO NOT:
 |---|---|---|---|
 
 ## 3. Data Reachability
-| Lens | Primary source checked | Found? | As-of date |
-|---|---|---|---|
+| Need ID / shared route | Stable series ID | Owner | Status | As-of | Vintage/source identity | Gap reason |
+|---|---|---|---|---|---|---|
 
 ## 4. Local pool (data/{COMMODITY}/)
-- (files listed, or "none — running on live public sources")
+- (accepted vintages listed separately from supplementary user notes, or "none")
 
 ## 5. Sufficiency Verdict
 - **Verdict:** Sufficient / Partial / Insufficient
@@ -79,7 +90,8 @@ You DO NOT:
 
 - [ ] The `## {COMMODITY}` profile section was actually read (or its absence noted).
 - [ ] Identity + instruments come from the profile, not invented.
-- [ ] The reachability check names a real source and a date.
+- [ ] Every required semantic series has a status, date/source identity and explicit gap reason.
+- [ ] No connector declaration, URL reachability result or unvintaged live fact was counted as coverage.
 - [ ] The verdict renders a SINGLE chosen line (not the three-option menu); Insufficient uses the literal `Verdict: Insufficient data`.
 
 # CHAT CONFIRMATION
