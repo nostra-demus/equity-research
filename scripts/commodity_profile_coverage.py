@@ -250,7 +250,14 @@ def _market_sidecars(
     provider = history.get("provider")
     provider_dir = (market_root / str(provider)).resolve()
     records: list[dict[str, Any]] = []
-    for relative in history.get("source_files", []):
+    named_sources = [history.get("metadata_file"), *history.get("source_files", [])]
+    if not isinstance(named_sources[0], str) or not named_sources[0].strip():
+        return None, "shared market history names no provider metadata file"
+    if any(not isinstance(relative, str) or not relative.strip() for relative in named_sources):
+        return None, "shared market history names an invalid source file"
+    if len(named_sources) != len(set(named_sources)):
+        return None, "shared market history names duplicate source files"
+    for relative in named_sources:
         source = (REPO / relative).resolve()
         if source.parent != provider_dir or not source.is_file():
             return None, "shared market source path escapes its provider directory"

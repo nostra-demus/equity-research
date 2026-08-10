@@ -25,6 +25,15 @@ defects = validate_manifest(manifest["id"], HERE, manifest) + validate_staged_ou
 assert not defects, defects
 assert as_of == "2025-12-31" and payload["world"][-1]["mine_production"] == 3300
 assert len(payload["countries_latest"]) == 12 and all(row["estimated"] for row in payload["countries_latest"])
+duplicate_country_rows = rows + [
+    "GOLD,World Mine Production and Reserves:,Gold, country 0 ,Production,Mine production,metric tons,2025,999,Estimated.\n"
+]
+try:
+    mod.build(header + "".join(duplicate_country_rows), release_title="x", urls=urls)
+except RuntimeError as error:
+    assert "duplicate country/year" in str(error)
+else:
+    raise AssertionError("normalized duplicate country/year rows could fake country breadth")
 marker_rows = rows.copy()
 marker_rows[-1] = marker_rows[-1].replace(",Estimated.\n", ",\n").replace(",111,", ",e111,")
 _, marker_payload, _ = mod.build(header + "".join(marker_rows), release_title="x", urls=urls)

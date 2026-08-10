@@ -526,11 +526,33 @@ def validate_decision_record(
     ))
     current_price = record.get("current_price")
     price_value = current_price.get("value") if isinstance(current_price, dict) else None
-    if not _number(price_value) or float(price_value) <= 0:
-        errors.append("current_price.value must be a positive finite number")
     horizons = record.get("forecast_horizons")
     if not isinstance(horizons, dict):
         return ["forecast_horizons must contain tactical and strategic objects"]
+    price_series_unresolved = any(
+        isinstance(row, dict)
+        and str(row.get("series_id", "")).endswith(".current-price")
+        and row.get("status") != "usable"
+        for row in (
+            coverage_artifact.get("rows", [])
+            if isinstance(coverage_artifact, dict) and isinstance(coverage_artifact.get("rows"), list)
+            else []
+        )
+    )
+    horizon_statuses = [
+        horizons.get(name, {}).get("status") if isinstance(horizons.get(name), dict) else None
+        for name in ("tactical", "strategic")
+    ]
+    if price_value is None:
+        unavailable_reason = current_price.get("unavailable_reason") if isinstance(current_price, dict) else None
+        if not isinstance(unavailable_reason, str) or not unavailable_reason.strip():
+            errors.append("current_price.unavailable_reason is required when value is null")
+        if not price_series_unresolved:
+            errors.append("current_price.value may be null only when required current-price coverage is unresolved")
+        if horizon_statuses != ["not_assessable", "not_assessable"]:
+            errors.append("a null current_price.value forces both horizons to not_assessable")
+    elif not _number(price_value) or float(price_value) <= 0:
+        errors.append("current_price.value must be a positive finite number or a proven unavailable null")
     if set(horizons) != {"tactical", "strategic"}:
         errors.append("forecast_horizons must contain exactly tactical and strategic")
     for name in ("tactical", "strategic"):

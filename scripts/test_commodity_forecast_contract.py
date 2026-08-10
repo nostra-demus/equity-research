@@ -292,6 +292,50 @@ def main() -> int:
     assert validate_decision_record(fresh, artifact, artifact_digest, requirements) == [], validate_decision_record(
         fresh, artifact, artifact_digest, requirements,
     )
+    null_without_price_gap = copy.deepcopy(fresh)
+    null_without_price_gap["current_price"] = {
+        "value": None, "unavailable_reason": "quote missing",
+    }
+    assert any("required current-price coverage" in error for error in validate_decision_record(
+        null_without_price_gap, artifact, artifact_digest, requirements,
+    ))
+
+    price_artifact = copy.deepcopy(artifact)
+    price_artifact["unresolved_need_ids"] = ["gold-current-price"]
+    price_artifact["rows"][0].update({
+        "need_id": "gold-current-price", "series_id": "gold.current-price",
+        "required_history_freshness": "current quote", "lawful_source_policy": "pulse quote or unavailable",
+        "reason": "current quote unavailable",
+    })
+    price_artifact_bytes = (json.dumps(price_artifact, indent=2, ensure_ascii=False) + "\n").encode()
+    price_artifact_digest = "sha256:" + hashlib.sha256(price_artifact_bytes).hexdigest()
+    null_price = copy.deepcopy(fresh)
+    null_price["current_price"] = {
+        "value": None, "unavailable_reason": "current quote unavailable",
+    }
+    null_price["required_series_coverage"].update({
+        "artifact_sha256": price_artifact_digest,
+        "unresolved_need_ids": ["gold-current-price"],
+    })
+    price_requirements = [{
+        "need": "gold-current-price", "series": "gold.current-price",
+        "owner": "commodity-price-curve", "requirement": "current quote",
+        "policy": "pulse quote or unavailable", "resolver": {"kind": "pulse_quote"},
+    }]
+    assert validate_decision_record(
+        null_price, price_artifact, price_artifact_digest, price_requirements,
+    ) == [], validate_decision_record(
+        null_price, price_artifact, price_artifact_digest, price_requirements,
+    )
+    with tempfile.TemporaryDirectory() as temporary:
+        path = Path(temporary) / "null-price.json"
+        path.write_text(json.dumps(null_price), encoding="utf-8")
+        assert validate(str(schema), str(path)) == [], validate(str(schema), str(path))
+    missing_reason = copy.deepcopy(null_price)
+    del missing_reason["current_price"]["unavailable_reason"]
+    assert any("unavailable_reason" in error for error in validate_decision_record(
+        missing_reason, price_artifact, price_artifact_digest, price_requirements,
+    ))
     malformed_horizon = copy.deepcopy(fresh)
     malformed_horizon["forecast_horizons"]["tactical"] = None
     assert any("forces both horizons" in error for error in validate_decision_record(

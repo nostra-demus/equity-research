@@ -78,6 +78,7 @@ def build(csv_text: str, *, release_title: str, urls: list[str]):
     if not reader.fieldnames or not required.issubset(set(reader.fieldnames)):
         raise RuntimeError("USGS CSV schema changed")
     mine_rows = []
+    seen_country_years: set[tuple[str, int]] = set()
     for row in reader:
         if (row.get("MCS chapter") != "GOLD" or row.get("Commodity") != "Gold"
                 or row.get("Section") != "World Mine Production and Reserves:"
@@ -88,9 +89,16 @@ def build(csv_text: str, *, release_title: str, urls: list[str]):
             year = int(str(row.get("Year", "")))
         except ValueError as error:
             raise RuntimeError("USGS Gold row has a non-integer year") from error
+        country = str(row.get("Country", "")).strip()
+        if not country:
+            raise RuntimeError("USGS Gold row has an empty country")
+        country_year = (country.casefold(), year)
+        if country_year in seen_country_years:
+            raise RuntimeError("USGS Gold CSV has duplicate country/year observations")
+        seen_country_years.add(country_year)
         raw_value = str(row.get("Value", ""))
         estimated = raw_value.strip()[:1].casefold() == "e" or "estimated" in str(row.get("Notes", "")).casefold()
-        mine_rows.append({"country": str(row.get("Country", "")).strip(), "year": year,
+        mine_rows.append({"country": country, "year": year,
                           "mine_production": _number(raw_value), "estimated": estimated})
     world = [{"year": row["year"], "mine_production": row["mine_production"], "estimated": row["estimated"]}
              for row in mine_rows if row["country"] == "World total"]

@@ -104,7 +104,8 @@ def main() -> int:
         provider.mkdir(parents=True)
         csv_path = provider / "rows.csv"
         csv_path.write_text("date,symbol,close\n2026-08-08,TEST,10\n2026-08-10,TEST,11\n", encoding="utf-8")
-        (provider / "_symbols.json").write_text(json.dumps({
+        metadata_path = provider / "_symbols.json"
+        metadata_path.write_text(json.dumps({
             "TEST": {"kind": "benchmark", "exchange": "TEST", "currency": "USD", "price_basis": "split_adjusted"},
         }), encoding="utf-8")
         (provider / "rows.csv.source.json").write_text(json.dumps({
@@ -112,6 +113,14 @@ def main() -> int:
             "received": "2026-08-10T20:00:00Z", "content_sha256": hashlib.sha256(csv_path.read_bytes()).hexdigest(),
             "licensing": {"access": "public", "use": "allowed", "redistribution": "allowed", "terms_url": "https://example.test/terms"},
         }), encoding="utf-8")
+        metadata_sidecar_path = provider / "_symbols.json.source.json"
+        metadata_sidecar = {
+            "provider": "TestProvider", "source_type": "official_data", "tier": 5,
+            "received": "2026-08-10T20:00:00Z",
+            "content_sha256": hashlib.sha256(metadata_path.read_bytes()).hexdigest(),
+            "licensing": {"access": "public", "use": "allowed", "redistribution": "allowed", "terms_url": "https://example.test/terms"},
+        }
+        metadata_sidecar_path.write_text(json.dumps(metadata_sidecar), encoding="utf-8")
 
         state_root = root / "state"
         state_root.mkdir()
@@ -143,6 +152,29 @@ def main() -> int:
             market_root=market_root, state_root=state_root, reader=reader, manifests=manifests,
         )
         assert resolved and resolved["usable"] is True and resolved["vintage"]["acquisition"] == "file_drop"
+
+        original_metadata = metadata_path.read_bytes()
+        metadata_path.write_text(json.dumps({
+            "TEST": {"kind": "benchmark", "exchange": "CHANGED", "currency": "USD", "price_basis": "split_adjusted"},
+        }), encoding="utf-8")
+        rewritten_metadata = resolve_profile_series(
+            "gold.shared", "GOLD", "2026-08-11T00:00:00Z", profile_path=profile,
+            structured_root=structured_root, connectors_root=root, data_root=root,
+            market_root=market_root, state_root=state_root, reader=reader, manifests=manifests,
+        )
+        assert rewritten_metadata and rewritten_metadata["usable"] is False and rewritten_metadata["status"] == "suspect"
+        metadata_path.write_bytes(original_metadata)
+
+        metadata_sidecar["received"] = "2026-08-12T00:00:00Z"
+        metadata_sidecar_path.write_text(json.dumps(metadata_sidecar), encoding="utf-8")
+        late_metadata = resolve_profile_series(
+            "gold.shared", "GOLD", "2026-08-11T00:00:00Z", profile_path=profile,
+            structured_root=structured_root, connectors_root=root, data_root=root,
+            market_root=market_root, state_root=state_root, reader=reader, manifests=manifests,
+        )
+        assert late_metadata and late_metadata["usable"] is False and late_metadata["status"] == "suspect"
+        metadata_sidecar["received"] = "2026-08-10T20:00:00Z"
+        metadata_sidecar_path.write_text(json.dumps(metadata_sidecar), encoding="utf-8")
 
         sidecar_path = provider / "rows.csv.source.json"
         sidecar = json.loads(sidecar_path.read_text(encoding="utf-8"))

@@ -193,7 +193,7 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
   "forecast_confidence": 58,
   "critical_risk_override": { "applied": false, "risk": null, "source": null },
   "benchmark": "…",
-  "current_price": { "value": 0, "currency": "USD", "unit": "…", "as_of": "{DATE}" },
+  "current_price": { "value": 4393.6, "currency": "USD", "unit": "USD/oz", "as_of": "{DATE}" },
   "curve": "contango | backwardation",
   "balance": "surplus | deficit | balanced",
   "net_macro": "supportive | mixed | headwind",
@@ -326,6 +326,12 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
   ]
 }
 ```
+
+`current_price.value` above is a positive observed number, never a zero placeholder. If and only if
+the frozen `required_series_coverage.json` row whose stable series ID ends in `.current-price` is
+unresolved, write `"current_price": {"value": null, "unavailable_reason": "…"}` instead. In that
+case both horizons are `not_assessable` and the mechanical action is `Research More` unless a proven
+critical-risk override forces `Avoid`; do not invent currency, unit or as-of metadata for a missing quote.
 
 ## data_needs — surface what would sharpen this call
 

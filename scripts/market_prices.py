@@ -162,7 +162,8 @@ class MarketFeed:
 
     def __init__(self, closes, meta, providers, files, sources=None, volumes=None,
                  provider_series=None, provider_meta=None, provider_volumes=None,
-                 provider_row_claims=None, provider_files=None):
+                 provider_row_claims=None, provider_files=None,
+                 provider_metadata_files=None):
         self._closes = closes          # {symbol: [(date, close)] sorted by date}
         self._meta = meta              # {symbol: {kind, sector, benchmark, beta}}
         self.providers = providers     # [provider names present]
@@ -177,6 +178,7 @@ class MarketFeed:
         self._provider_volumes = provider_volumes or {}        # {provider: {(symbol,date): volume}}
         self._provider_row_claims = provider_row_claims or {}  # {provider: {symbol: {field: set(values)}}}
         self._provider_files = provider_files or {}            # {provider: {symbol: [repo-relative CSVs]}}
+        self._provider_metadata_files = provider_metadata_files or {}  # {provider: repo-relative _symbols.json}
 
     def available(self):
         return bool(self._closes)
@@ -382,12 +384,16 @@ class MarketFeed:
             terminal = None
 
         source_files = sorted(set(((self._provider_files.get(provider) or {}).get(symbol)) or []))
+        metadata_file = self._provider_metadata_files.get(provider)
         calendar_symbols = []
         calendar_days = set()
+        compatible_calendar_kinds = (
+            {"future"} if kind == "future" else {"equity", "benchmark", "sector"}
+        )
         for calendar_symbol, calendar_series in (self._provider_series.get(provider) or {}).items():
             calendar_meta = ((self._provider_meta.get(provider) or {}).get(calendar_symbol)) or {}
             if (calendar_meta.get("currency") != mc or
-                    calendar_meta.get("kind") not in ("equity", "benchmark", "sector", "future")):
+                    calendar_meta.get("kind") not in compatible_calendar_kinds):
                 continue
             usable = [day for day, _ in calendar_series if day <= today]
             if not usable:
@@ -406,6 +412,7 @@ class MarketFeed:
             "source": source,
             "provider": provider,
             "instrument_kind": kind,
+            "metadata_file": metadata_file,
             "source_files": source_files,
             "excluded_future_sessions": len(future_series),
             "as_of": _day_rfc3339(history_as_of),
@@ -613,6 +620,7 @@ def load_feed(feed_root=FEED_ROOT):
     provider_volumes = {}
     provider_row_claims = {}
     provider_files = {}
+    provider_metadata_files = {}
     if not os.path.isdir(feed_root):
         return MarketFeed(closes, meta, providers, files)
     for provider in sorted(os.listdir(feed_root)):
@@ -627,6 +635,7 @@ def load_feed(feed_root=FEED_ROOT):
                 with open(mpath, encoding="utf-8") as f:
                     m = json.load(f)
                 if isinstance(m, dict):
+                    provider_metadata_files[provider] = os.path.relpath(mpath, REPO)
                     for k, v in m.items():
                         if isinstance(v, dict):
                             key = str(k).strip()
@@ -678,7 +687,7 @@ def load_feed(feed_root=FEED_ROOT):
     sorted_closes = {sym: sorted(byd.items()) for sym, byd in closes.items()}
     return MarketFeed(sorted_closes, meta, providers, files, sources, volumes,
                       provider_series, provider_meta, provider_volumes,
-                      provider_row_claims, provider_files)
+                      provider_row_claims, provider_files, provider_metadata_files)
 
 
 IDEA_EVIDENCE_SNAPSHOT = "idea_market_evidence.json"
@@ -841,8 +850,9 @@ def selftest():
         hist = feed.adjusted_history("STK")
         check(hist is not None and hist["adjustment_basis"] == "split_adjusted_price" and
               hist["exchange"] == "NYSE" and hist["instrument_kind"] == "equity" and
+              hist["metadata_file"].endswith("SampleProvider/_symbols.json") and
               hist["session_calendar"]["source_symbols"] == ["BENCH", "STK"] and len(hist["points"]) == 2,
-              "strict adjusted-history export reuses the canonical feed")
+              "strict adjusted-history export binds provider metadata and reuses the canonical feed")
         bh = feed.adjusted_history("BENCH")
         check(bh is not None and bh["ticker"] == "BENCH" and bh["instrument_kind"] == "benchmark",
               "an explicitly identified split-adjusted benchmark can feed relative outcomes")
@@ -902,6 +912,30 @@ def selftest():
         check(futures.adjusted_history("@GC.1", instrument_kind="benchmark") is None and
               futures.adjusted_history("@GC.1", instrument_kind="future", price_basis="split_adjusted") is None,
               "a futures series cannot masquerade as a split-adjusted benchmark")
+
+    with tempfile.TemporaryDirectory() as td:
+        prov = os.path.join(td, "MixedCalendarProvider")
+        os.makedirs(prov)
+        with open(os.path.join(prov, "closes.csv"), "w", encoding="utf-8") as f:
+            f.write("date,symbol,close\n")
+            f.write("2026-06-05,EQ,100\n2026-06-08,EQ,101\n")
+            f.write("2026-06-05,FUT,200\n2026-06-07,FUT,202\n2026-06-08,FUT,203\n")
+        with open(os.path.join(prov, "_symbols.json"), "w", encoding="utf-8") as f:
+            json.dump({
+                "EQ": {"kind": "equity", "exchange": "NYSE", "currency": "USD",
+                       "price_basis": "split_adjusted"},
+                "FUT": {"kind": "future", "exchange": "COMEX", "currency": "USD",
+                        "price_basis": "front_contract"},
+            }, f)
+        mixed = load_feed(td)
+        equity_calendar = mixed.adjusted_history("EQ")["session_calendar"]
+        future_calendar = mixed.adjusted_history("FUT")["session_calendar"]
+        check(equity_calendar["source_symbols"] == ["EQ"] and
+              "2026-06-07T00:00:00Z" not in equity_calendar["dates"],
+              "futures-only Sunday sessions never contaminate an equity calendar")
+        check(future_calendar["source_symbols"] == ["FUT"] and
+              "2026-06-07T00:00:00Z" in future_calendar["dates"],
+              "a futures calendar remains provider-local and instrument-compatible")
 
     # Strict histories bind one provider's rows to that same provider's metadata. These regressions
     # guard the exact cross-provider flattening failures that can manufacture split-adjusted history.

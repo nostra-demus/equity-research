@@ -147,6 +147,13 @@ and says so** — nothing breaks; the scoreboard just uses the less-adjusted num
 ## Rules (EXTERNAL_DATA §8)
 
 - The as-of comes from inside the data, never a file mtime.
+- A strict export names both its contributing CSV files and the provider `_symbols.json` that proves
+  kind, exchange, currency and price basis. Commodity point-in-time admission requires a valid
+  `.source.json` sidecar for every named file; receipt time and content hash bind metadata and prices
+  into the same immutable vintage, so later metadata cannot retroactively bless earlier rows.
+- Session calendars are instrument-compatible: futures contribute only to futures calendars, while
+  equities, benchmarks and sectors share the cash-security calendar. A Sunday futures session cannot
+  make an equity outcome look missing.
 - A figure is cited with its provider + date, like any source.
 - Keys for a paid fetcher live in `~/.config/nostra-engine/providers.env`, never in the repo.
 - The `data/_market/` folder is part of the **Drive-backed pool**, not git. Like all of `data/`, it is the
