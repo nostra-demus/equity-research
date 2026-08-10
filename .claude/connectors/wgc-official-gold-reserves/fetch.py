@@ -41,23 +41,31 @@ def build(capture: dict):
         institution = row["institution"]
         value = row["change_tonnes"]
         status = row["status"]
-        if not isinstance(institution, str) or not institution.strip() or institution.casefold() in seen:
+        if not isinstance(institution, str) or not institution.strip():
+            raise RuntimeError("reserve change institutions must be non-empty and unique")
+        institution = institution.strip()
+        institution_key = institution.casefold()
+        if institution_key in seen:
             raise RuntimeError("reserve change institutions must be non-empty and unique")
         if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(float(value)):
             raise RuntimeError("reserve change tonnes must be finite")
         if status not in {"reported", "wgc_adjusted"}:
             raise RuntimeError("reserve change status must preserve reported vs WGC-adjusted identity")
-        seen.add(institution.casefold())
-        changes.append({"institution": institution.strip(), "change_tonnes": float(value), "status": status})
+        seen.add(institution_key)
+        changes.append({"institution": institution, "change_tonnes": float(value), "status": status})
     changes.sort(key=lambda row: row["institution"])
-    net = sum(row["change_tonnes"] for row in changes)
+    net_reported = sum(row["change_tonnes"] for row in changes if row["status"] == "reported")
+    net_adjusted = sum(row["change_tonnes"] for row in changes if row["status"] == "wgc_adjusted")
+    net_compiled = net_reported + net_adjusted
     payload = {"series": MANIFEST["series"], "as_of": day, "reporting_lag_months": lag,
-               "changes": changes, "net_reported_change_tonnes": net, "compilation_basis": BASIS,
+               "changes": changes, "net_reported_change_tonnes": net_reported,
+               "net_wgc_adjusted_change_tonnes": net_adjusted,
+               "net_compiled_change_tonnes": net_compiled, "compilation_basis": BASIS,
                "adjustments_preserved": True, "source_url": source_url, "manual_source": True}
     sidecar = provenance(
         MANIFEST, as_of=day, source_url=source_url,
-        note=(f"Reported official-sector net change {net:+.2f} tonnes across {len(changes)} institutions; "
-              f"lag {lag} month(s); WGC adjustments remain labelled."),
+        note=(f"Official-sector compiled net change {net_compiled:+.2f} tonnes across {len(changes)} institutions "
+              f"({net_reported:+.2f} reported; {net_adjusted:+.2f} WGC-adjusted); lag {lag} month(s)."),
     )
     return day, payload, sidecar
 

@@ -20,10 +20,14 @@ as_of, payload, sidecar = mod.build(capture)
 manifest = json.load(open(os.path.join(HERE, "connector.json"), encoding="utf-8"))
 defects = validate_manifest(manifest["id"], HERE, manifest) + validate_staged_output(manifest, "GOLD", payload, sidecar, as_of)
 assert not defects, defects
-assert payload["net_reported_change_tonnes"] == 3.5 and payload["adjustments_preserved"] is True
+assert payload["net_reported_change_tonnes"] == 4.5
+assert payload["net_wgc_adjusted_change_tonnes"] == -1.0
+assert payload["net_compiled_change_tonnes"] == 3.5 and payload["adjustments_preserved"] is True
 assert payload["changes"][1]["status"] == "wgc_adjusted"
 for bad in ({**capture, "source_url": "https://example.com"}, {**capture, "changes": []},
-            {**capture, "changes": [capture["changes"][0], capture["changes"][0]]}):
+            {**capture, "changes": [capture["changes"][0], capture["changes"][0]]},
+            {**capture, "changes": [capture["changes"][0],
+                                      {**capture["changes"][1], "institution": " bank a "}]}):
     try:
         mod.build(bad)
     except RuntimeError:

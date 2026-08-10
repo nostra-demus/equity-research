@@ -2070,12 +2070,15 @@ open(os.path.join(root, "shared.py"), "w").write("# shared\n")
 reader_ingest = os.path.join(root, ".claude", "tools", "ingest_external.py")
 reader_extract = os.path.join(root, ".claude", "tools", "extract_pool.py")
 canonicalizer_path = os.path.join(root, "scripts", "canonical_json.py")
+mutation_path = os.path.join(root, "scripts", "repo_mutation.py")
 open(reader_ingest, "w").write("# manual identity reader\n")
 open(reader_extract, "w").write("# document extraction reader\n")
 open(canonicalizer_path, "w").write("# cross-runtime canonicalizer\n")
+open(mutation_path, "w").write("# atomic publisher primitive\n")
 paths_file = os.path.join(root, "frameworks", "connector-publisher-files.json")
 json.dump({"paths": ["shared.py", ".claude/tools/ingest_external.py",
-                     ".claude/tools/extract_pool.py", "scripts/canonical_json.py"]}, open(paths_file, "w"))
+                     ".claude/tools/extract_pool.py", "scripts/canonical_json.py",
+                     "scripts/repo_mutation.py"]}, open(paths_file, "w"))
 subprocess.run(["git", "init", "-b", "main"], cwd=root, check=True, capture_output=True)
 subprocess.run(["git", "config", "user.email", "test@example.test"], cwd=root, check=True)
 subprocess.run(["git", "config", "user.name", "Test"], cwd=root, check=True)
@@ -2167,6 +2170,7 @@ check("manual identity readers and canonicalizer are fingerprinted and dirty rea
       and dirty_reader_fingerprint != clean_publisher_fingerprint
       and all(path in m.publisher_contract_paths(root, paths_file) for path in (
           ".claude/tools/ingest_external.py", ".claude/tools/extract_pool.py", "scripts/canonical_json.py",
+          "scripts/repo_mutation.py",
       )), repr({"dirty_reader": dirty_reader, "fingerprints": (
           clean_publisher_fingerprint, dirty_reader_fingerprint,
       )}))

@@ -33,10 +33,10 @@ def source_url() -> str:
 
 def _integer(row: dict, key: str) -> int:
     value = row.get(key)
-    if isinstance(value, bool) or not isinstance(value, (str, int)) or not re.fullmatch(r"-?(?:0|[1-9]\d*)", str(value)):
-        raise RuntimeError(f"CFTC field {key!r} is not a strict integer")
+    if isinstance(value, bool) or not isinstance(value, (str, int)) or not re.fullmatch(r"(?:0|[1-9]\d*)", str(value)):
+        raise RuntimeError(f"CFTC source count {key!r} is not a nonnegative strict integer")
     parsed = int(value)
-    if abs(parsed) > 9_007_199_254_740_991:
+    if parsed > 9_007_199_254_740_991:
         raise RuntimeError(f"CFTC field {key!r} exceeds exact JSON integer range")
     return parsed
 

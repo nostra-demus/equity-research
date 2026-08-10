@@ -81,7 +81,9 @@ fi
 4. **Compile evidence; freeze coverage once for the terminal:** after every module decision, including
    `SKIP`, run `python3 scripts/commodity_signal_evidence.py "<RUN_ROOT>"`. Any
    `SIGNAL-EVIDENCE-FAIL` stops before the next module. Immediately BEFORE the terminal synthesis resume
-   decision, run `python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --decision-time
+   decision, run `npx tsx scripts/refresh-swarm-pulse.ts commodity "<COMMODITY>"` to refresh the same
+   persisted pulse snapshot used by the cockpit. `PULSE-MISSING` is honest absence, not a reason to
+   fabricate or scrape a replacement. Then run `python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --decision-time
    "$(date -u +%Y-%m-%dT%H:%M:%SZ)"` exactly once. It binds every profile-required series to a vintage
    knowable at that cutoff. Compute its byte digest. If an existing `decision_record.json` does not carry
    that exact digest, force the terminal module to `RERUN:coverage-changed` even when its ordinary mtime

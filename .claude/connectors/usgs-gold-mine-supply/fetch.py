@@ -88,9 +88,10 @@ def build(csv_text: str, *, release_title: str, urls: list[str]):
             year = int(str(row.get("Year", "")))
         except ValueError as error:
             raise RuntimeError("USGS Gold row has a non-integer year") from error
+        raw_value = str(row.get("Value", ""))
+        estimated = raw_value.strip()[:1].casefold() == "e" or "estimated" in str(row.get("Notes", "")).casefold()
         mine_rows.append({"country": str(row.get("Country", "")).strip(), "year": year,
-                          "mine_production": _number(str(row.get("Value", ""))),
-                          "estimated": "estimated" in str(row.get("Notes", "")).casefold()})
+                          "mine_production": _number(raw_value), "estimated": estimated})
     world = [{"year": row["year"], "mine_production": row["mine_production"], "estimated": row["estimated"]}
              for row in mine_rows if row["country"] == "World total"]
     world.sort(key=lambda row: row["year"])

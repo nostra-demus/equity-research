@@ -32,7 +32,8 @@ assert len(payload["observations"]) == 160
 assert payload["observations"][-1]["managed_money_net"] == 80159
 assert payload["observations"][-1]["producer_net"] == -25159
 for bad in (rows[:149], [*rows[:159], {**rows[-1], "contract_market_name": "SILVER"}],
-            [*rows[:159], {**rows[-1], "open_interest_all": "3.5"}]):
+            [*rows[:159], {**rows[-1], "open_interest_all": "3.5"}],
+            [*rows[:159], {**rows[-1], "m_money_positions_short_all": "-1"}]):
     try:
         mod.build(bad)
     except RuntimeError:

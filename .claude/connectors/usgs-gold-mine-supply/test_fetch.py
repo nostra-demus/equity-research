@@ -25,6 +25,10 @@ defects = validate_manifest(manifest["id"], HERE, manifest) + validate_staged_ou
 assert not defects, defects
 assert as_of == "2025-12-31" and payload["world"][-1]["mine_production"] == 3300
 assert len(payload["countries_latest"]) == 12 and all(row["estimated"] for row in payload["countries_latest"])
+marker_rows = rows.copy()
+marker_rows[-1] = marker_rows[-1].replace(",Estimated.\n", ",\n").replace(",111,", ",e111,")
+_, marker_payload, _ = mod.build(header + "".join(marker_rows), release_title="x", urls=urls)
+assert next(row for row in marker_payload["countries_latest"] if row["country"] == "Country 11")["estimated"] is True
 item, title = mod.discover({"items": [{"id": "abc", "title": "Mineral Commodity Summaries 2026 Data Release - Commodity Salient U.S. and World Statistics"}]}, 2026)
 assert item == "abc" and "2026" in title
 try:

@@ -4,7 +4,7 @@
   "id": "wgc-official-gold-reserves",
   "dataset_id": "wgc.imf-ifs-official-gold-reserve-changes",
   "series_id": "gold.official-reserve-changes",
-  "series": "Reported official-sector Gold reserve changes compiled from IMF IFS and central banks",
+  "series": "Official-sector Gold reserve changes compiled from IMF IFS and central banks",
   "satisfies": ["gold-official-reserve-changes", "official-sector-demand"],
   "subjects": ["GOLD"],
   "provider": "User-transcribed WGC/IMF workbook",
@@ -29,6 +29,8 @@
     "reporting_lag_months": "int",
     "changes": [{"institution": "string", "change_tonnes": "float", "status": "enum:reported|wgc_adjusted"}],
     "net_reported_change_tonnes": "float",
+    "net_wgc_adjusted_change_tonnes": "float",
+    "net_compiled_change_tonnes": "float",
     "compilation_basis": "string",
     "adjustments_preserved": true,
     "source_url": "string",
@@ -37,7 +39,9 @@
   "units": {
     "reporting_lag_months": "months",
     "changes[].change_tonnes": "metric_tonnes",
-    "net_reported_change_tonnes": "metric_tonnes"
+    "net_reported_change_tonnes": "metric_tonnes",
+    "net_wgc_adjusted_change_tonnes": "metric_tonnes",
+    "net_compiled_change_tonnes": "metric_tonnes"
   },
   "minimum_history": {"observations": 1}
 }

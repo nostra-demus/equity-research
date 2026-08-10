@@ -20,7 +20,9 @@ If any is MISSING, warn the user that the thesis will run with lower conviction 
 One sentence per upstream module folder present under `<RUN_ROOT>`: `Market-structure cross-module path: <RUN_ROOT>/market-structure/.` etc. (capitalize the first letter). If none present, `none`.
 
 ## 4. Run the shared module pipeline
-First compile the machine coverage gate:
+First refresh the shared production pulse and compile the machine coverage gate:
+`npx tsx scripts/refresh-swarm-pulse.ts commodity "<COMMODITY>"`.
+`PULSE-MISSING` is honest absence and must not be replaced with a scraped or inferred quote.
 `python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --decision-time "$(date -u +%Y-%m-%dT%H:%M:%SZ)"`.
 Stop on `PROFILE-COVERAGE-FAIL`; incomplete coverage is valid and forces abstention downstream. Then follow
 `frameworks/MODULE_PIPELINE.md` with `<TICKER>` = `<COMMODITY>`, `<DATE>`, `<MODULE>` = `commodity-thesis`,
