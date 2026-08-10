@@ -167,7 +167,7 @@ if [ -n "$problem" ]; then
         now="$(date +%s)"
         last_heal="$(get_tunnel_heal_at)"
         cooldown_remaining="$(tunnel_heal_cooldown_remaining "$now" "$last_heal" "$TUNNEL_HEAL_COOLDOWN_SECONDS")"
-        if [ "$cooldown_remaining" -gt 0 ]; then
+        if [ "${cooldown_remaining:-0}" -gt 0 ]; then
           log "SUPPRESS HEAL $problem — tunnel convergence cooldown ${cooldown_remaining}s remaining"
           # Tunnel state has its own timestamp. Do not let its persistent failure count make the next
           # one-off local engine/bundle failure skip the existing two-check threshold.
