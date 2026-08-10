@@ -21,15 +21,15 @@ The section heading MUST be `## <COMMODITY>` where `<COMMODITY>` is the uppercas
   consumption balance. Classify the thesis `Commodity-conditional` (macro-conditional in practice).
 
 **Applicable lenses (apply ONLY these):**
-- Market structure: spot vs COMEX curve (gold is usually mild contango = the cost of carry); ETF holdings.
-- Supply/demand: mine supply + recycling (supply) vs jewellery / investment (bars, coins, ETFs) /
-  technology / **official-sector (central-bank) buying** (demand). The buffer is above-ground stocks +
-  ETF tonnes, not a tight stocks-to-use like an ag.
+- Market structure: spot vs COMEX curve (gold is usually mild contango = the cost of carry).
+- Supply/demand: mine supply + recycling (supply) vs jewellery / physical investment (bars, coins) /
+  technology / **official-sector (central-bank) buying** (demand). The buffer is above-ground and
+  accessible physical stocks, not a tight stocks-to-use measure like an agricultural commodity.
 - Weather/seasonality: NOT a weather commodity. Mild seasonality only — India festival/wedding demand
   (roughly Q3–Q4), Chinese New Year, Q1 restocking. Keep it short.
 - Macro drivers (the dominant lens): **10y real yields (TIPS)** — gold is a zero-coupon asset, so falling
-  real yields help and rising ones hurt; **US dollar (DXY)** — priced in USD, a weaker USD helps;
-  policy rates; **central-bank buying** (structural official demand); **geopolitical / safe-haven risk**.
+  real yields help and rising ones hurt; **broad trade-weighted US dollar** — priced in USD, a weaker USD helps;
+  policy rates; **geopolitical / safe-haven risk**. Central-bank buying is demand, not a second macro vote.
 - Positioning/flows: **COMEX managed-money net length (CFTC COT)**; **gold-ETF holdings** (total known
   tonnes; GLD/IAU flows).
 - Valuation/fair value: no cash-flow DCF. Anchor to the real-yield relationship, the USD, and long-run
@@ -42,10 +42,14 @@ The section heading MUST be `## <COMMODITY>` where `<COMMODITY>` is the uppercas
 - Gold-miner equities (`GDX`) are a LEVERED, equity-risk proxy — not the metal; note the difference.
 
 **Priority sources:** World Gold Council (Gold Demand Trends, central-bank stats), LBMA, CME/COMEX,
-CFTC COT, FRED (DFII10 real yield, DXY), US Treasury (TIPS), Fed (rate path).
+CFTC COT, FRED (DFII10 real yield), US Treasury (TIPS), Federal Reserve broad USD data and rate path.
 
 **Recurring reports (catalysts):** FOMC decisions + dot plot; US CPI / PCE; WGC quarterly Gold Demand
 Trends; weekly CFTC COT (Fridays); monthly central-bank purchase data; US jobs report.
+
+**Causal signal ownership (one fact, one owner):** official-sector / central-bank activity →
+`commodity-demand-inventory`; ETF holdings and flows → `commodity-positioning-flows`; real yields and
+the broad USD → `commodity-macro-drivers`; relative ratios → the cross-asset-regime orb when present.
 
 ---
 

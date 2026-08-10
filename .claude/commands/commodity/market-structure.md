@@ -20,14 +20,17 @@ Follow `frameworks/MODULE_PIPELINE.md` with `<TICKER>` = `<COMMODITY>`, `<DATE>`
 ## 4. Fail-fast
 This module has a `fail_fast` Layer-0 triage (`commodity-triage`). If the pipeline returns `fail_fast_triggered = true`, do NOT commit — report the abort (which agent, its output path) and stop.
 
-## 5. Commit
+## 5. Compile signal evidence
+Run `python3 scripts/commodity_signal_evidence.py "<RUN_ROOT>"`. Stop before commit on failure.
+
+## 6. Commit
 ```
-bash scripts/commit-run.sh "Commodity market-structure: <COMMODITY> <DATE>" -- "commodity/runs/<COMMODITY>/market-structure/"
+bash scripts/commit-run.sh "Commodity market-structure: <COMMODITY> <DATE>" -- "commodity/runs/<COMMODITY>/market-structure/" "commodity/runs/<COMMODITY>/signal_evidence.json"
 ```
 Capture the SHA (`COMMIT_SHA=…` or `NOOP=1`).
 
-## 6. Report
+## 7. Report
 Per-layer agent counts + names, any failures, fail-fast status, the synthesis path `commodity/runs/<COMMODITY>/market-structure/99_market-structure-synthesis.md`, and the commit SHA.
 
 ## Hard rules
-Do not hardcode agent names — the discovery/dispatch loop lives in `frameworks/MODULE_PIPELINE.md`. Write only inside `commodity/runs/<COMMODITY>/market-structure/`.
+Do not hardcode agent names — the discovery/dispatch loop lives in `frameworks/MODULE_PIPELINE.md`. Write only inside `commodity/runs/<COMMODITY>/market-structure/` plus the deterministic `<RUN_ROOT>/signal_evidence.json` aggregate.

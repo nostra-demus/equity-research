@@ -36,15 +36,15 @@ One sentence per upstream module folder that exists under `<RUN_ROOT>`, `<Dep> c
 
 ## 6. Dispatch the single agent
 
-Issue exactly ONE Task call using the `frameworks/MODULE_PIPELINE.md` Step 4A message template, binding `<TICKER>` = `<COMMODITY>` and data pool path `data/<COMMODITY>/` (the agent reads the `## <COMMODITY>` profile section itself and fetches live sources). Pass `<DATE>` and `<CROSS_MODULE_CONTEXT>` verbatim (unless `none`); instruct the agent to persist ONLY its report to `<OUTPUT_PATH>` (Mode A/B/C), with no chat-confirmation block, and **not to run git or commit**.
+Issue exactly ONE Task call using the `frameworks/MODULE_PIPELINE.md` Step 4A message template, binding `<TICKER>` = `<COMMODITY>` and data pool path `data/<COMMODITY>/` (the agent reads the `## <COMMODITY>` profile section itself and fetches live sources). Pass `<DATE>` and `<CROSS_MODULE_CONTEXT>` verbatim (unless `none`). If frontmatter declares `emits_signal_evidence: true`, also pass `<SIGNAL_OUTPUT_PATH>` and the Step 4A SignalEvidence instruction; otherwise instruct the agent to persist only its report. Require no chat-confirmation block and **no git or commit**.
 
 ## 7. Verify + report — do NOT commit
 
-Per `frameworks/MODULE_PIPELINE.md` Step 4B verify `<OUTPUT_PATH>` (`test -s`, starts with `#`, not truncated, no stray confirmation block); one recovery attempt if needed. Then print `<RUN_ROOT>`, `<OUTPUT_PATH>`, whether prerequisites were satisfied, and the agent's one-line Verdict. Do NOT run git — the cockpit/user own when a single output is committed.
+Per `frameworks/MODULE_PIPELINE.md` Step 4B verify `<OUTPUT_PATH>` and, for an emitting orb, `<SIGNAL_OUTPUT_PATH>`; one recovery attempt if needed. Then run `python3 scripts/commodity_signal_evidence.py "<RUN_ROOT>"` so the run-level graph reflects this orb. Print `<RUN_ROOT>`, `<OUTPUT_PATH>`, whether prerequisites were satisfied, and the agent's one-line Verdict. Do NOT run git — the cockpit/user own when a single output is committed.
 
 ---
 
 ## Hard rules
 
 - Do not hardcode agent names or layers — discover them from the file + frontmatter.
-- Write only `<OUTPUT_PATH>`. Do not modify sibling files or another commodity's folder. Do not commit or push.
+- Write only `<OUTPUT_PATH>`, its declared `<SIGNAL_OUTPUT_PATH>` when applicable, and the deterministic run-root `signal_evidence.json`. Do not modify other sibling files or another commodity's folder. Do not commit or push.

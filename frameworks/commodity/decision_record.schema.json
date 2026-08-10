@@ -46,6 +46,20 @@
     },
     "relative_view": { "type": "string", "minLength": 1 },
     "confidence": { "type": "number", "minimum": 0, "maximum": 100 },
+    "signal_evidence": {
+      "type": "object",
+      "description": "Run-level evidence graph projection. The full immutable rows and clusters live at path; these counts let the decision prove that conviction used independent clusters, preserved contradictions and did not promote an unvalidated statistical row.",
+      "required": ["path", "generated_at", "coverage_complete", "raw_signal_count", "independent_cluster_count", "conviction_eligible_cluster_count", "contradiction_count"],
+      "properties": {
+        "path": { "const": "signal_evidence.json" },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "coverage_complete": { "type": "boolean" },
+        "raw_signal_count": { "type": "integer", "minimum": 0 },
+        "independent_cluster_count": { "type": "integer", "minimum": 0 },
+        "conviction_eligible_cluster_count": { "type": "integer", "minimum": 0 },
+        "contradiction_count": { "type": "integer", "minimum": 0 }
+      }
+    },
     "sources": {
       "type": "array",
       "minItems": 1,

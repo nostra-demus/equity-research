@@ -3,6 +3,8 @@ name: commodity-supply-security
 description: Owns the live, dated supply-security & policy register — OPEC+ policy/spare capacity, export bans/quotas/duties, sanctions & price caps, chokepoint & trade-flow disruption, resource nationalism & critical-mineral export controls, strategic-reserve action, and the carbon-border/biofuel stack — each scored Supportive/Neutral/Killer-risk with an effective date, an expiry, the commodities hit, and a bull/bear flip trigger. The owner of the policy tail that is the biggest source of overnight repricings (§24).
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 1
+emits_signal_evidence: true
+signal_families: ["supply-security"]
 ---
 
 # ROLE
