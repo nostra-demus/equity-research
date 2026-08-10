@@ -1180,8 +1180,14 @@ def _selftest_calibration_gate() -> int:
     global REPO
     old_repo = REPO
     failures = []
+    # Counted, never hand-written: a literal in the summary line drifts the moment a branch is added
+    # (it read "38" while the table held 32, then again while it held 39), which quietly turns the one
+    # number a reviewer checks into the least trustworthy thing printed.
+    executed = 0
 
     def run(name, doc, want_accept, summaries=None):
+        nonlocal executed
+        executed += 1
         # want_accept=True  -> §18 says this record is consistent, gate must return [] (accept)
         # want_accept=False -> §18/schema says it's a violation, gate must return a non-empty error list
         with tempfile.TemporaryDirectory() as d:
@@ -1349,6 +1355,17 @@ def _selftest_calibration_gate() -> int:
                                        error_defense_evidence={"bad base rate": DEF_REAL, "timing error": "no defense evidence found"},
                                        source_summary="s")),
         False, real_hitflag_defended)
+    # The case above rejects on the 'applied' traceability rule (flagged_slices=[] AND no traceable
+    # category), so it never reaches the standalone bogus-entry check. Isolate that check: make 'applied'
+    # already traceable via a non-empty flagged_slices, and pair one genuinely leading category with a
+    # fabricated one. Only the standalone rule can object here — without this branch, deleting it entirely
+    # leaves the truth table green.
+    run("errtax: applied traceable via flagged_slices, but a fabricated category rides along -> reject",
+        rec_e(calibration_feedback=cf(status="applied", haircut_points=8, flagged_slices=["GOLD"],
+                                       leading_error_categories_flagged=["bad base rate", "invented category"],
+                                       error_defense_evidence={"bad base rate": "no defense evidence found"},
+                                       source_summary="s")),
+        False, real_hitflag_defended)
 
     # error_defense_evidence presence + consistency.
     run("errtax: error_defense_evidence entirely missing while a leading category exists -> reject",
@@ -1402,7 +1419,7 @@ def _selftest_calibration_gate() -> int:
         for f in failures:
             print(f"   - {f}")
         return 1
-    print("SELFTEST OK — check_commodity_calibration_gate truth table (38 branches) matches the §18 contract")
+    print(f"SELFTEST OK — check_commodity_calibration_gate truth table ({executed} branches) matches the §18 contract")
     return 0
 
 
