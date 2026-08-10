@@ -1,6 +1,6 @@
 ---
 name: commodity-thesis-synthesis
-description: Terminal commodity adjudicator. It consumes the module syntheses, fair-value analysis, catalysts and the independently built scenario pack; it may downgrade that pack but may not author a friendlier replacement distribution. Writes the dossier and decision_record.json.
+description: Terminal commodity adjudicator. It consumes the module syntheses, fair-value analysis, catalysts and independently built tactical/strategic scenario packs; it may downgrade them but may not author friendlier replacements. It derives one action mechanically and writes the dossier plus current decision projection.
 tools: Read, Glob, Grep, Bash, Write
 layer: 5
 depends_on:
@@ -46,11 +46,13 @@ You must:
 3. Compose the dossier (structure below).
    - The **thesis summary** ties price + balance + macro + positioning into one plain-English view of where the risk/reward sits.
    - The **fair-value band** carries the cost-curve orb's bear/base/bull levels and the **margin of safety** (discount to base, downside to the floor) — this is the §16 valuation range and §18 margin-of-safety input the verdict rests on. Keep the orb's anchor-grade labelling; if the orb was absent, mark margin of safety "Not assessable" (§11).
-   - The **scenario distribution** comes from `03_commodity-scenario-engine.md`, which was written before
-     and independently of this verdict. Copy its horizon, probabilities, targets, implementable returns,
-     conjunction basis, falsifiers and span-audit result exactly. You may lower a target/probability or mark
-     it not assessable when stronger evidence demands a more conservative read, but you must show the change
-     and reason; you may never widen expected return or replace the pack with a friendlier distribution.
+   - The **tactical and strategic scenario distributions** come from `03_commodity-scenario-engine.md`,
+     which was written before and independently of this verdict. Copy each status, exact target date,
+     probabilities, targets, five return components, expected implementable return, loss probability,
+     downside, risk/reward, duration-matched cash hurdle, classification, confidence, catalysts, falsifiers
+     and span-audit result exactly. You may lower a target/probability or mark a horizon not assessable when
+     stronger evidence demands a more conservative read, but you must show the change and reason; you may
+     never widen either expected return, replace either pack with a friendlier distribution, or blend them.
    - The **roll-adjusted view:** state whether the exposure earns or bleeds carry — carry the price-curve orb's roll-adjusted return so a bullish SPOT call in contango is not presented as a win on a roll-bearing vehicle (§15/§24).
    - The **risk summary** lists the strongest bear case, the single killer risk (fold in the **supply-security policy killer risk** the supply-demand synthesis carried forward — with its expiry and flip trigger), and what would flip the view (§8).
    - The **supply-demand score** carries its raw score, opacity level and deterministic cap. Never lift or
@@ -60,16 +62,32 @@ You must:
      strength. Preserve every `contradiction: true` cluster as a conflict; never net its bullish and
      bearish rows into a false neutral. A row with `signal_kind: statistical` may support confidence
      only when `validation_status: validated` and `conviction_eligible: true`; otherwise it is context.
-4. **Calibration feedback check (the commodity-scoped twin of `frameworks/DECISION_LEDGER.md` §18 — Phase 6).** Take the latest calibration summary read in RUNTIME INPUTS. This step now carries TWO independent triggers — the original hit-rate trigger, plus the error-taxonomy trigger (mirroring `frameworks/DECISION_LEDGER.md` §18 step 6, the research-swarm extension landed 2026-07-29 that this commodity twin predates and did not originally carry):
+4. Set `forecast_confidence` to the LOWER of tactical and strategic confidence (a not-assessable horizon
+   carries 0). Then run the **calibration feedback check** (the commodity-scoped twin of
+   `frameworks/DECISION_LEDGER.md` §18 — Phase 6). Take the latest calibration summary read in RUNTIME
+   INPUTS. This step carries TWO independent triggers — the original hit-rate trigger, plus the
+   error-taxonomy trigger (mirroring `frameworks/DECISION_LEDGER.md` §18 step 6):
    - **Hit-rate trigger.** Look up `calibration_by_commodity["{COMMODITY}"]` in the as-of summary (when one exists): if it is the string `"insufficient (N=k; floor …)"` (below its own floor), it contributes no flag for THIS commodity — there is a real ledger, just not enough history on this one commodity yet. If it is a real `{hit_rate, n}` object, it **flags** this commodity when `hit_rate < 0.40` (materially worse than a coin flip) — name `{COMMODITY}` with its `hit_rate`/`n` in `flagged_slices`.
    - **Error-taxonomy trigger — a different SHAPE of check, not a second slice-match.** `error_taxonomy_distribution` (CLAUDE.md §20 — a flat tally of WHY past calls went wrong) is computed by `scripts/commodity_calibrate.py` at ANY N and is honest even in a Pre-data summary — it is not gated by the hit-rate floor. This trigger runs whenever an as-of calibration summary exists at all (Pre-data or real). Find every **leading category** — a key in the summary's `error_taxonomy_distribution` with count ≥ 2. Write `error_defense_evidence` as an object whenever a calibration summary exists at all — `{}` at minimum when no category is currently leading, so an absent object is never indistinguishable from a synthesizer that skipped the check entirely. For each leading category, write one entry `error_defense_evidence[<category>]`: a concrete, cited sentence naming the specific check, finding, or artifact from THIS run that guards against that exact failure mode recurring (e.g. `"bad base rate (n=3) → §9 base rate explicitly reconciled against the commodity's own 5-yr cycle history in the supply-demand synthesis, not a single-period extrapolation"`), OR — if no such genuine defense exists — the literal string `"no defense evidence found"`. A category whose entry is that literal admission is a leading-category flag: add it to `leading_error_categories_flagged` — flag only categories that are actually leading right now.
    - **Resolve `status`.** If no calibration summary exists at all: `status = "not_available"`, no adjustment, and still write BOTH error-taxonomy fields empty — `error_defense_evidence = {}` and `leading_error_categories_flagged = []` (nothing to check yet). Write both on every status without exception: an absent field is what makes a check that ran indistinguishable from one silently skipped, so the validator rejects a missing one even here. Otherwise a summary exists, and exactly ONE of the following applies — take them in this order, because more than one clause can otherwise look true for the same summary:
      1. The verdict starts with `"Pre-data"` AND no error-taxonomy category is currently leading (count ≥ 2) → `status = "pre_data"`, no adjustment. This is the one case where genuinely nothing yet carries a usable signal.
      2. The commodity is flagged (hit-rate trigger) OR any category is flagged (error-taxonomy trigger) → apply a single fixed **8-point confidence haircut** (never additive, never below 0, never stacked even when both triggers fire) to the `confidence` you would otherwise have set, and set `status = "applied"`.
      3. Otherwise → `status = "checked_no_action"`. This is how a Pre-data summary that DOES have a leading category resolves once that category carries a real defense: the hit-rate trigger is inapplicable below its own floor, but the error-taxonomy check ran and found nothing to flag, so the run is `"checked_no_action"` rather than `"pre_data"` — the check happened, and the record has to say so. Never let this step *raise* confidence — a clean track record (or a clean error-taxonomy tally) is not evidence for THIS thesis (§12 `CLAUDE.md`: high scores require specific, cited evidence for this call). Carry the full `calibration_feedback` object, including `leading_error_categories_flagged` and `error_defense_evidence`, into `decision_record.json` (shape below).
-5. Decide the **Action** verdict from the allowed set: `Buy` (add / initiate), `Hold` (keep current exposure), `Trim` (reduce), `Avoid` (no exposure / exit), `Research More` (evidence too thin to act — the honest default when a module was Insufficient or key data was missing). Do not force a Buy; §24 prefers walking away to owning a bad setup.
+5. Derive the **Action** and `target_exposure_risk_units` mechanically from MODULE_RULES §11. Run the
+   classification/action inputs through `scripts/commodity_forecast_contract.py`; never choose an action
+   from prose. Any unassessable horizon means `Research More`, unless `critical_risk_override.applied=true`
+   names a proven critical risk and citation, which forces `Avoid`. Otherwise apply the exact two-by-two
+   matrix. Target exposure is Buy 1.0, Hold 0.5, Trim 0.25, Avoid 0, Research More `null`. Calibration and
+   later pre-mortem review may only lower confidence/action/exposure; they cannot upgrade the matrix result.
 6. Write the report to `OUTPUT_PATH` with the `## Routing` block carrying the verdict.
-7. Write the machine record `commodity/runs/{COMMODITY}/decision_record.json` (Bash/Write) in the shape below, including `calibration_feedback` from step 4. Then return the CHAT CONFIRMATION.
+7. Write the machine record `commodity/runs/{COMMODITY}/decision_record.json` (Bash/Write) in the shape
+   below, including `calibration_feedback` from step 4. Then run
+   `python3 scripts/commodity_forecast_contract.py "commodity/runs/{COMMODITY}/decision_record.json"`.
+   Any `FORECAST-CONTRACT-FAIL` stops the run before the pre-mortem; fix the record rather than rationalising
+   a disagreement. Do not assign `decision_id` here: the run command
+   applies the independent pre-mortem first, then `scripts/commodity_decision_archive.py` content-addresses
+   and archives that final reviewed record before atomically replacing this top-level UI projection. Then
+   return the CHAT CONFIRMATION.
 
 # REPORT STRUCTURE
 
@@ -77,7 +95,8 @@ You must:
 # {COMMODITY} — Commodity Dossier
 
 ## 1. Snapshot
-- Benchmark, current price + date, curve shape, net balance, net macro, positioning, fair-value band, roll-adjusted view — one line each, cited.
+- Action, target exposure, forecast confidence, tactical/strategic classifications and freshness first;
+  then benchmark, current price + date, curve shape, net balance, net macro, positioning and fair-value band.
 
 ## 2. Thesis Summary
 (what the risk/reward is and why, in plain English; the variant view if there is one, §7.)
@@ -87,19 +106,31 @@ You must:
 - Margin of safety: discount/premium to base fair value, and downside to the floor — two numbers (or "Not assessable", §11).
 - Roll-adjusted view: does the exposure earn or bleed carry (from the price-curve orb's roll-adjusted return)?
 
-## 3b. Independent Scenarios & Expected Return (§10)
-Carry forward the independently constructed scenario pack. Bear / base / bull, each with its probability, its return over ONE stated horizon, and the level it resolves to — then the expected return the probabilities actually imply. State `Independent scenario audit: PASS / FAIL / not_assessable` and the volatility span bounds used.
+## 3b. Tactical Forecast — {30–92 days; exact target date} (§10 / MODULE_RULES §11)
+Status: assessable | not_assessable — {exact reason}
 
-| Case | Probability | Target ({unit}) | Return | What must hold | Falsified if |
-|---|---|---|---|---|---|
+| Case | Probability | Target | Price return | Roll | Collateral | Fees | FX | Implementable return | Conditions / joint basis | Falsified if |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---|---|
 
-- **Probabilities sum to 100.** State them as numbers, never as words — §10 bans vague probability language, and that includes writing "not today's probability-weighted reality" over a dossier that carries no probabilities.
-- **Expected return = Sum(probability × return).** Do the arithmetic and print it. `check_commodity_scenario_math` re-derives it and FAILS a headline that disagrees with its own distribution, so a hand-typed number will not survive.
-- **One horizon for the whole table** (`scenario_horizon_days`), set to the window the catalyst chain actually resolves over — not a round number of convenience.
-- **Returns are roll-adjusted where the expression bleeds carry.** If the dossier prices a contango drag, that drag belongs INSIDE these returns; a spot call presented as the return on a roll-bearing vehicle is the §15/§16 error the price-curve orb exists to prevent.
-- **Every case carries a falsifier** — an observable tripwire, dated where the driver is a scheduled release, not the negation of its own condition restated. This is what `/commodity:review` grades the call against later (§19).
-- **A case joining several independent conditions states why it was priced as one** (`joint_probability_basis`) — a conjunction is less likely than its parts.
-- If the fair-value orb or scenario pack was absent, or the independent span audit failed, write "Not assessable (§11)" here and set NO expected return. Refusing to forecast is a valid output (§24); a distribution invented by the terminal thesis is not.
+- Weighted price / roll / collateral / fees / FX / implementable return: __ / __ / __ / __ / __ / __.
+- Loss probability: __%; worst downside: __%; risk/reward: __.
+- Duration-matched cash hurdle: __% [instrument, source, as-of].
+- Classification: positive | mixed | negative | not_assessable; confidence __/100.
+- Catalysts / falsifiers: __ / __.
+- Independent span/conjunction audit: PASS / FAIL / not_assessable; empirical bounds used: __.
+
+## 3c. Strategic Forecast — {182–548 days; exact target date} (§10 / MODULE_RULES §11)
+(Repeat the exact tactical structure independently. Do not reuse probabilities, components or confidence.)
+
+Rules for both forecast cards:
+
+- Each horizon's probabilities sum to 100 and its expected implementable return equals
+  `Sum(probability × (price + roll + collateral + fees + FX))`.
+- Never display or calculate a blended expected return. Tactical and strategic may disagree; that conflict
+  is an input to the matrix, not an arithmetic problem to average away.
+- Every case has an observable falsifier and any conjunction carries a joint-probability basis.
+- If one horizon lacks lawful evidence or fails its independent span audit, mark that horizon
+  `not_assessable` with confidence 0. Do not invent a placeholder distribution.
 
 ## 4. Risk Summary
 - Strongest bear case:
@@ -116,7 +147,9 @@ Carry forward the independently constructed scenario pack. Bear / base / bull, e
 
 ## 6. Action Discipline
 - **Action:** {Buy / Hold / Trim / Avoid / Research More}
-- Why this and not the neighbours (one paragraph), consistent with the margin of safety and the roll-adjusted view.
+- **Target exposure:** {1.0 / 0.5 / 0.25 / 0 / null} risk units.
+- Tactical / strategic classifications: __ / __; mechanical matrix cell: __.
+- Why this matrix cell applies (one paragraph); no discretionary upgrade is allowed.
 - Data sufficiency + conviction (capped: Commodity-conditional, §11/§14).
 - Calibration feedback (§18 twin, step 4): `status` and, if `applied`, the 8-point haircut and this commodity's own hit-rate/N and/or any leading error-taxonomy category that triggered it.
 
@@ -136,6 +169,9 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
   "commodity": "{COMMODITY}",
   "decision_date": "{DATE}",
   "action": "Buy | Hold | Trim | Avoid | Research More",
+  "target_exposure_risk_units": 0.5,
+  "forecast_confidence": 58,
+  "critical_risk_override": { "applied": false, "risk": null, "source": null },
   "benchmark": "…",
   "current_price": { "value": 0, "currency": "USD", "unit": "…", "as_of": "{DATE}" },
   "curve": "contango | backwardation",
@@ -145,25 +181,85 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
   "thesis_summary": "one or two sentences",
   "key_risks": ["…"],
   "key_levels": { "support": null, "resistance": null, "fair_value_range": null },
-  "scenario_horizon_days": 120,
-  "scenarios": [
-    {
-      "scenario_id": "bear-real-yields-hold",
-      "label": "bear",
-      "probability": 30,
-      "return_pct": -8.0,
-      "price_target": 0,
-      "conditions": ["the named driver stays where it is through the dated catalyst"],
-      "source": "cost-curve orb bear anchor; macro-positioning synthesis",
-      "joint_probability_basis": null,
-      "invalidated_if": "the observable tripwire that proves THIS case wrong, dated where the driver is a scheduled release"
+  "forecast_horizons": {
+    "tactical": {
+      "horizon": "tactical",
+      "status": "assessable",
+      "horizon_days": 60,
+      "target_date": "{DATE + 60 calendar days}",
+      "scenarios": [
+        {
+          "scenario_id": "tactical-bear-driver",
+          "label": "bear",
+          "probability": 30,
+          "price_target": 0,
+          "price_return_pct": -8.0,
+          "roll_return_pct": -0.5,
+          "collateral_return_pct": 0.6,
+          "fees_pct": -0.1,
+          "fx_adjustment_pct": 0.0,
+          "implementable_return_pct": -8.0,
+          "conditions": ["one observable tactical condition"],
+          "source": "independent scenario pack; cited upstream evidence",
+          "joint_probability_basis": null,
+          "invalidated_if": "the dated observable that disproves this tactical case"
+        },
+        { "scenario_id": "tactical-base-driver", "label": "base", "…": "same complete component shape" },
+        { "scenario_id": "tactical-bull-driver", "label": "bull", "…": "same complete component shape" }
+      ],
+      "expected_return_components_pct": {
+        "price_return_pct": 0,
+        "roll_return_pct": 0,
+        "collateral_return_pct": 0,
+        "fees_pct": 0,
+        "fx_adjustment_pct": 0,
+        "implementable_return_pct": 0
+      },
+      "loss_probability_pct": 0,
+      "downside_pct": -8.0,
+      "risk_reward": 0,
+      "cash_hurdle": {
+        "return_pct": 0,
+        "duration_days": 60,
+        "instrument": "duration-matched cash instrument",
+        "source": "primary rates source",
+        "as_of": "{DATE}"
+      },
+      "span_audit": {
+        "status": "pass",
+        "mapping": "exact_grid | conservative_bracketing",
+        "grid_days": [60],
+        "empirical_lower_bound_pct": -8.0,
+        "empirical_upper_bound_pct": 12.0,
+        "killer_risk_case_id": "tactical-bear-driver",
+        "killer_risk_required_bound_pct": -8.0,
+        "source": "commodity-volatility-distribution orb"
+      },
+      "classification": "positive | mixed | negative",
+      "confidence": 58,
+      "catalysts": ["dated tactical catalyst"],
+      "falsifiers": ["observable tactical falsifier"],
+      "not_assessable_reason": null
     },
-    { "label": "base", "…": "same shape" },
-    { "label": "bull", "…": "same shape" }
-  ],
-  "expected_return_pct": 0,
-  "downside_risk_pct": -8.0,
-  "risk_reward": 0,
+    "strategic": {
+      "horizon": "strategic",
+      "status": "assessable | not_assessable",
+      "horizon_days": 365,
+      "target_date": "{DATE + 365 calendar days}",
+      "scenarios": ["same complete, independently authored bear/base/bull component objects"],
+      "expected_return_components_pct": { "…": "same six numeric component fields" },
+      "loss_probability_pct": 0,
+      "downside_pct": 0,
+      "risk_reward": 0,
+      "cash_hurdle": { "return_pct": 0, "duration_days": 365, "instrument": "…", "source": "…", "as_of": "{DATE}" },
+      "span_audit": { "status": "pass", "mapping": "exact_grid", "grid_days": [365], "empirical_lower_bound_pct": 0, "empirical_upper_bound_pct": 0, "killer_risk_case_id": "strategic-bear-driver", "killer_risk_required_bound_pct": 0, "source": "commodity-volatility-distribution orb" },
+      "classification": "positive | mixed | negative | not_assessable",
+      "confidence": 58,
+      "catalysts": ["dated strategic catalyst"],
+      "falsifiers": ["observable strategic falsifier"],
+      "not_assessable_reason": null
+    }
+  },
   "relative_view": "how it ranks vs the other tracked commodities",
   "confidence": 0,
   "signal_evidence": {
@@ -226,11 +322,21 @@ cockpit surfaces so a durable feed can be built for it. Rules:
 
 **Populate `key_levels` from the cost-curve orb.** Set `fair_value_range` to the orb's bear/base/bull band as a free-text string (e.g. `"bear 15.0 / base 19.5 / bull 24.0 ¢/lb, anchor-grade"`). Prefer the orb's cash-cost / floor level for `support` and its demand-destruction / incentive ceiling for `resistance` (fall back to the price-curve orb's technical levels only if the fundamental anchor is absent). If the fair-value orb was missing, leave all three `null` and mark margin of safety "Not assessable" in the prose (§11) — do not invent a level.
 
-**Write the independent §10 scenario block into the record.** The record carries `scenario_horizon_days`, `scenarios[]`, `expected_return_pct`, `downside_risk_pct` and `risk_reward`, using the research swarm's field names verbatim (`frameworks/DECISION_LEDGER.md` §5) plus `invalidated_if` per case.
+**Write the independent dual-horizon block into the record.** `forecast_horizons.tactical` and
+`forecast_horizons.strategic` are separate forecasts. Copy each independent pack into its matching report
+card and JSON object — same status, horizon, target date, probabilities, targets, return components,
+conjunction basis, falsifiers, cash hurdle, span audit, classification and confidence. The pack, prose and JSON are one
+forecast stated in three places. `scripts/commodity_forecast_contract.py` re-derives every case component
+sum, probability-weighted component, expected implementable return, loss probability, worst downside,
+risk/reward, classification, action, exposure and lower-of-two confidence. A hand-typed disagreement fails.
 
-Copy the independent pack into §3b and then into `scenarios[]` — same probabilities, targets, returns, conjunction basis and falsifiers. The pack, prose and JSON are one forecast stated three times; `scripts/validate_screener_json.py`'s `check_commodity_scenario_math` re-derives the arithmetic from the record and fails any drift between them (probabilities that miss 100, an expected return that is not `Sum(p × ret)`, a `downside_risk_pct` that is not the bear case's own return, a `return_pct` that disagrees with its own `price_target` against `current_price`, a missing horizon, a missing falsifier, a duplicate id, an unexplained conjunction).
-
-If §3b concluded "Not assessable" (no fair-value orb, no independent pack, or failed span audit, §11), omit all five fields — do not ship a placeholder distribution. The gate allows an honest absence; what it refuses is a quantified return with no independently audited distribution behind it.
+For `not_assessable`, retain `horizon`, permitted `horizon_days`, exact `target_date`, `status`,
+`classification: "not_assessable"`, `confidence: 0`, `not_assessable_reason`, and empty/absent `scenarios`;
+omit arithmetic fields that cannot be calculated. One unassessable horizon forces top-level `action:
+"Research More"`, `target_exposure_risk_units: null`, `forecast_confidence: 0` and `confidence: 0`, unless
+the separately cited `critical_risk_override` forces `Avoid`/0. Never write the legacy top-level
+`scenario_horizon_days`, `scenarios`, `expected_return_pct`, `downside_risk_pct` or `risk_reward`: those
+single-horizon fields are forbidden on fresh decisions because consumers could mistake them for a blend.
 
 **`key_levels` field types (schema-enforced).** `support` and `resistance` are a SINGLE NUMBER — a bare price level in the benchmark's own units — or `null`; NEVER a range or a string with commentary. Reduce a support/resistance ZONE to one representative level (the floor for support, the ceiling for resistance). Any range, band, or caveat (e.g. "web unverified") goes in `fair_value_range` (free text) or the prose — NOT in `support`/`resistance`. A string in those two fails `frameworks/commodity/decision_record.schema.json` and red-lines CI.
 
@@ -241,12 +347,19 @@ If §3b concluded "Not assessable" (no fair-value orb, no independent pack, or f
 - [ ] The roll-adjusted view is stated — a bullish spot call in contango is not presented as a win on a roll-bearing vehicle.
 - [ ] The risk summary folds in the supply-security policy killer risk with its expiry/flip trigger.
 - [ ] `key_levels.fair_value_range` carries the band; `support`/`resistance` are single numbers (or `null`) from the fundamental anchors — not range-strings.
-- [ ] §3b states bear/base/bull with numeric probabilities summing to 100, one stated horizon, a falsifier per case, and an expected return whose arithmetic is printed — and `scenarios[]`/`expected_return_pct`/`downside_risk_pct`/`risk_reward`/`scenario_horizon_days` in the JSON match it exactly. No probability-weighted LANGUAGE anywhere in the dossier without the numbers behind it (§10). If the fair-value orb was absent, §3b says "Not assessable" and all five fields are omitted — never a placeholder distribution.
-- [ ] The scenario pack predates the action, passes the volatility span/conjunction audits, and was copied rather than silently rewritten; every conservative change is disclosed.
-- [ ] Scenario returns are roll-adjusted wherever the dossier prices a carry cost — the drag is inside the return, not a footnote beside it.
+- [ ] §3b/§3c independently state tactical and strategic status, exact target date, cases, probabilities,
+      five return components, expected implementable return, loss probability, downside, risk/reward, cash
+      hurdle, classification, confidence, catalysts and falsifiers — or `not_assessable` with one reason.
+- [ ] Both scenario packs predate the action, pass their own volatility span/conjunction audits, and were
+      copied rather than silently rewritten; no expected return is blended across horizons.
+- [ ] `scripts/commodity_forecast_contract.py` agrees with both classifications, the matrix action, target
+      exposure and lower-of-two forecast confidence; legacy single-horizon top-level fields are absent.
+- [ ] Scenario returns separate price, roll, collateral, fees and FX; their sum is the implementable return.
 - [ ] Every causal claim about what moved the price shows its arithmetic and names its residual (§15 / MODULE_RULES §4a), and no sensitivity was applied across a basis it was not measured on. No "tracks almost exactly" / "accounts for the bulk of" survives unless the printed numbers clear it; where the residual is large, the dossier says the move is mostly unexplained and caps conviction accordingly (§11/§12).
 - [ ] The `## Routing` block has a single `Action:` line matching one allowed verdict exactly.
 - [ ] `decision_record.json` was written and is valid JSON with the `action` matching the Routing line.
+- [ ] `decision_id` is deliberately absent at synthesis time; the run command archives only after the
+      pre-mortem finish-gate, then replaces the current projection with the archived record.
 - [ ] Risk summary names the killer risk and the flip condition; the relative read answers "are we in the right commodity?".
 - [ ] No forced Buy; conviction is capped as Commodity-conditional.
 - [ ] `calibration_feedback` was computed per WORKFLOW step 4 and written into `decision_record.json` — never omitted, never used to *raise* confidence, `status` one of the four literal strings, `haircut_points`/`flagged_slices` populated only when `status=="applied"`.

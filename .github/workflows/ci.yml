@@ -120,6 +120,11 @@ jobs:
       - name: Commodity analytical-orb and opacity-cap contract tests
         run: python3 scripts/test_commodity_analytical_orbs.py
 
+      - name: Commodity dual-horizon forecast, action-matrix and immutable-archive tests
+        run: |
+          python3 scripts/test_commodity_forecast_contract.py
+          python3 scripts/test_commodity_decision_archive.py
+
       - name: Commodity calibration scoreboard selftest (Phase 4 twin — fixture-free)
         run: python3 scripts/commodity_calibrate.py --selftest
 

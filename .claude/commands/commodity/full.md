@@ -101,7 +101,20 @@ When the step runs:
 python3 scripts/commodity_pre_mortem_haircut.py "<RUN_ROOT>" ${PRIOR_PM:+--prior "$PRIOR_PM"}
 ```
 
-The helper **fails closed**: it exits `0` and prints `RATING-CAP:` only when it actually propagated a fresh, complete pre-mortem; on `no_pre_mortem` / `read_error` / `incomplete_pre_mortem` / `stale_pre_mortem` / `no_fresh_pre_mortem` it prints `GATE-FAIL:` and exits **nonzero**, leaving `decision_record.json` unpatched. Because step 2 just generated a fresh pre-mortem against this run, a nonzero exit means the integrity gate genuinely could not run — **STOP before the step 6 commit and report the `GATE-FAIL:` reason; do not ship a `decision_record.json` whose `Action:` verdict was never red-teamed.** On success, record the printed `RATING-CAP:` line for step 7 (report). The patch is additive — `confidence_haircut`, `pre_mortem_verdict`, `post_review_confidence_score`, `post_mortem_action` — and never rewrites the synthesizer's own original `action`/`confidence` fields (CLAUDE.md §18/§22: caps are applied, never silently overridden; the original call stays visible for audit). The cap is enforced deterministically by the helper (a would-be conviction RAISE from a mis-authored pre-mortem is clamped/rejected), not trusted from the LLM-authored report.
+The helper **fails closed**: it exits `0` and prints `RATING-CAP:` only when it actually propagated a fresh, complete pre-mortem; on `no_pre_mortem` / `read_error` / `incomplete_pre_mortem` / `stale_pre_mortem` / `no_fresh_pre_mortem` it prints `GATE-FAIL:` and exits **nonzero**, leaving `decision_record.json` unpatched. Because step 2 just generated a fresh pre-mortem against this run, a nonzero exit means the integrity gate genuinely could not run — **STOP before the step 6 commit and report the `GATE-FAIL:` reason; do not ship a `decision_record.json` whose `Action:` verdict was never red-teamed.** On success, record the printed `RATING-CAP:` line for step 7 (report). The patch is additive — `confidence_haircut`, `pre_mortem_verdict`, `post_review_confidence_score`, `post_mortem_action`, `post_mortem_target_exposure_risk_units` — and never rewrites the synthesizer's own original `action`/`confidence` fields (CLAUDE.md §18/§22: caps are applied, never silently overridden; the original call stays visible for audit). The cap is enforced deterministically by the helper (a would-be conviction RAISE from a mis-authored pre-mortem is clamped/rejected), not trusted from the LLM-authored report.
+
+4. **Immutable decision publication — only after the record has a completed red-team.** Run this whenever
+step 5.5 ran OR the already-audited current record has no `decision_id` yet (one-time archive backfill).
+Archive the exact reviewed record, then atomically update the top-level UI projection:
+
+```bash
+python3 scripts/commodity_decision_archive.py "<RUN_ROOT>"
+```
+
+This helper writes `<RUN_ROOT>/decisions/<DECISION_ID>/decision_record.json` create-only, then replaces
+`<RUN_ROOT>/decision_record.json` with the identical record carrying that content-derived `decision_id`.
+It is archive-first: a crash may leave the prior UI projection in place, but can never publish a projection
+without its immutable snapshot. On `ARCHIVE-FAIL`, STOP before commit. Record the `DECISION-ARCHIVE:` line.
 
 ## 6. Commit the dossier
 
@@ -122,6 +135,9 @@ Print a final summary:
 - The terminal dossier: `commodity/runs/<COMMODITY>/commodity-thesis/99_commodity-thesis-synthesis.md`, its **Action** verdict (Buy / Hold / Trim / Avoid / Research More), and the one-line thesis.
 - Confirmation that `commodity/runs/<COMMODITY>/decision_record.json` was written.
 - **The integrity finish-gate result (step 5.5):** the `RATING-CAP:` line — the pre-mortem verdict, the confidence haircut (if any), and the `post_mortem_action` cap (if any); or "not run (already audited)" if step 5.5 was skipped; or, if the helper exited nonzero, the `GATE-FAIL:` reason and the fact that the run was HALTED before commit (no unaudited record shipped).
+- **The immutable publication result:** decision ID + archive path from `DECISION-ARCHIVE:`, or "already
+  archived and unchanged" only when an existing `decision_id` resolves to an identical archive; an archive
+  failure halts before commit.
 - The commit SHA pushed to `origin/main` (or NOOP).
 
 ---
@@ -131,4 +147,5 @@ Print a final summary:
 - Do not hardcode module or agent names — everything is discovered from the folders + frontmatter, exactly like `/research:full` and `frameworks/MODULE_PIPELINE.md`.
 - Adding a new module folder `.claude/agents/commodity/<new>/` (with a `99_<new>-synthesis.md` carrying `depends_on`) must require zero changes to this command.
 - Write only inside `commodity/runs/<COMMODITY>/`. Do not touch other commodities or any company run.
-- The integrity finish-gate (step 5.5) is the ONLY step in this command that mutates `decision_record.json` after the terminal module wrote it. `commodity:pre-mortem.md` itself stays strictly read-only — the mutation lives here, exactly mirroring the research swarm's split between `research:pre-mortem.md` (read-only) and `research:full.md` step 10B.2 (the mutator).
+- After the terminal module writes `decision_record.json`, only step 5.5 may mutate it: first the deterministic
+  pre-mortem cap, then immutable archive/publication. `commodity:pre-mortem.md` itself stays read-only.

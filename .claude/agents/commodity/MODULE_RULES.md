@@ -222,3 +222,36 @@ does not include the killer-risk tail/event gap, or hides several independent co
 without a joint-probability basis. Missing lawful history, fewer than 30 non-overlapping outcomes, or a
 failed span audit makes the distribution `not_assessable` and the action `Research More`, unless a proven
 critical risk independently forces `Avoid`.
+
+## 11. Dual-horizon forecast and mechanical action
+
+Every fresh commodity decision carries two independent forecasts:
+
+- **Tactical:** default 60 calendar days; any cited catalyst-driven horizon from 30 through 92 days.
+- **Strategic:** default 365 calendar days; any cited catalyst-driven horizon from 182 through 548 days.
+
+Each horizon is either `assessable` or `not_assessable` with one exact reason. An assessable horizon carries
+its own scenarios, probabilities, target date, price/roll/collateral/fees/FX return components, expected
+implementable return, loss probability, worst downside, risk/reward, duration-matched cash hurdle,
+confidence, catalysts and falsifiers. Never blend horizons, probabilities or expected returns.
+
+Classify each horizon mechanically:
+
+- `positive`: expected implementable return is above the duration-matched cash hurdle, risk/reward is at
+  least 0.5, and loss probability is below 50%;
+- `negative`: expected implementable return is below cash OR loss probability is at least 60%;
+- `mixed`: every assessable state between those boundaries.
+
+Then apply this matrix, with tactical down the rows and strategic across the columns:
+
+| Tactical / Strategic | Positive | Mixed | Negative |
+|---|---:|---:|---:|
+| Positive | Buy | Hold | Trim |
+| Mixed | Hold | Hold | Avoid |
+| Negative | Trim | Trim | Avoid |
+
+Any `not_assessable` horizon forces `Research More`, unless a proven critical risk with a cited source
+forces `Avoid`. Map the derived action to target exposure: Buy 1.0 risk unit, Hold 0.5, Trim 0.25, Avoid 0,
+Research More `null`. `forecast_confidence` is the lower horizon confidence; calibration, red flags and
+pre-mortems may lower confidence, action or exposure but can never raise them. The deterministic authority
+is `scripts/commodity_forecast_contract.py`; prose that disagrees with it fails validation.

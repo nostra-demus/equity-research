@@ -86,6 +86,17 @@ python3 scripts/commodity_pre_mortem_haircut.py "<RUN_ROOT>" ${PRIOR_PM:+--prior
 
 The helper **fails closed**: it exits `0` and prints `RATING-CAP:` only when it actually propagated a fresh, complete pre-mortem; on `no_pre_mortem` / `read_error` / `incomplete_pre_mortem` / `stale_pre_mortem` / `no_fresh_pre_mortem` it prints `GATE-FAIL:` and exits **nonzero**, leaving `decision_record.json` unpatched. Because this step just generated a fresh pre-mortem, a nonzero exit means the gate genuinely could not run — **STOP before the step 7 commit and report the `GATE-FAIL:` reason; do not ship a freshly rewritten but un-audited `decision_record.json`.** On success, record the printed `RATING-CAP:` line for step 8 (report).
 
+4. **Immutable publication — after the fresh pre-mortem only.** Run:
+
+```bash
+python3 scripts/commodity_decision_archive.py "<RUN_ROOT>"
+```
+
+The helper create-only archives the exact reviewed record under
+`<RUN_ROOT>/decisions/<DECISION_ID>/decision_record.json`, then atomically replaces the top-level current
+projection with the identical record carrying `decision_id`. On `ARCHIVE-FAIL`, STOP before step 7; never
+commit a rewritten decision without its immutable snapshot. Capture the `DECISION-ARCHIVE:` line.
+
 ## 7. Commit and push to main (one commit)
 
 Commodity run outputs are DATA (CLAUDE.md §25/§28 — the research-data stream). Commit once through the serialized helper (data pathspec only):
@@ -98,7 +109,7 @@ Capture the commit SHA (`git rev-parse HEAD`, or `NOOP=1` if nothing changed).
 
 ## 8. Report
 
-Print: the run root; the target (module or module/agent) re-run; the cascade order actually run; which module memos/dossiers refreshed (or "failed", best-effort); the terminal dossier path `commodity/runs/<COMMODITY>/commodity-thesis/99_commodity-thesis-synthesis.md`, its **Action** verdict, and the one-line thesis; confirmation that `decision_record.json` was rewritten; **the integrity finish-gate result (step 6.5)** — the pre-mortem verdict, confidence haircut, and `post_mortem_action` cap (or "skipped — decision_record.json not rewritten"; or, if the helper exited nonzero, the `GATE-FAIL:` reason and that the run was HALTED before commit); the commit SHA pushed to `origin/main` (or NOOP).
+Print: the run root; the target (module or module/agent) re-run; the cascade order actually run; which module memos/dossiers refreshed (or "failed", best-effort); the terminal dossier path `commodity/runs/<COMMODITY>/commodity-thesis/99_commodity-thesis-synthesis.md`, its **Action** verdict, and the one-line thesis; confirmation that `decision_record.json` was rewritten; **the integrity finish-gate result (step 6.5)** — the pre-mortem verdict, confidence haircut, and `post_mortem_action` cap; the immutable decision ID + archive path from `DECISION-ARCHIVE:`; or, on either gate failure, the reason and that the run HALTED before commit; the commit SHA pushed to `origin/main` (or NOOP).
 
 ---
 
@@ -107,4 +118,5 @@ Print: the run root; the target (module or module/agent) re-run; the cascade ord
 - Re-run ONLY the target (orb or whole module) and the synthesis chain its output flows into — never sibling modules' specialists whose inputs did not change.
 - Never create a new run folder. Never run the full pipeline. Never re-run the whole swarm.
 - The seeded note lives in `data/<COMMODITY>/` (the Drive pool, outside git) — the commit covers only `commodity/runs/<COMMODITY>/`.
-- Whenever this command rewrites `decision_record.json`, step 6.5 re-red-teams it before the commit — a re-run must never leave a stale pre-mortem verdict attached to a freshly-changed `action`/`confidence`. `commodity:pre-mortem.md` itself stays strictly read-only; the mutation lives in step 6.5, exactly like `commodity:full`.
+- Whenever this command rewrites `decision_record.json`, step 6.5 re-red-teams it and then archives that
+  exact reviewed record before commit. `commodity:pre-mortem.md` itself stays strictly read-only.

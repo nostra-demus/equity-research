@@ -21,10 +21,11 @@ confidence failure mode CLAUDE.md §1/§8/§24 exist to prevent.
 
 CONTRACT
   • Reads <RUN_ROOT>/pre_mortem*.json (the LATEST version, by _vN suffix) + <RUN_ROOT>/decision_record.json.
-  • Writes decision_record.json in place, ADDING four fields — never touching the synthesizer's own
+  • Writes decision_record.json in place, ADDING five fields — never touching the synthesizer's own
     original `action`/`confidence` (CLAUDE.md §18/§22: caps are applied, never silently overridden;
     the original call stays visible for audit):
-      confidence_haircut, pre_mortem_verdict, post_review_confidence_score, post_mortem_action
+      confidence_haircut, pre_mortem_verdict, post_review_confidence_score, post_mortem_action,
+      post_mortem_target_exposure_risk_units
   • The confidence and the action cap are BOTH enforced deterministically, not trusted from the
     LLM-authored report: post_review_confidence_score is clamped never to EXCEED the original
     (a pre-mortem may only hold or lower conviction), the haircut is derived purely from that delta
@@ -213,10 +214,16 @@ def patch(run_root, prior_path=None):
     post_action = orig_action
     if cap == "Research More":
         post_action = cap
+    elif orig_action == "Research More" and cap == "Avoid":
+        post_action = cap
     elif cap in _LADDER and orig_action in _LADDER:
         post_action = cap if _LADDER[cap] >= _LADDER[orig_action] else orig_action
     # else (no cap / unrecognized cap / non-ladder original): retain orig_action.
     dr["post_mortem_action"] = post_action
+    exposure_by_action = {
+        "Buy": 1.0, "Hold": 0.5, "Trim": 0.25, "Avoid": 0.0, "Research More": None,
+    }
+    dr["post_mortem_target_exposure_risk_units"] = exposure_by_action.get(post_action)
 
     with open(dr_path, "w", encoding="utf-8") as f:
         json.dump(dr, f, indent=2, ensure_ascii=False)
@@ -225,7 +232,8 @@ def patch(run_root, prior_path=None):
     msg = (
         f"pre_mortem={os.path.basename(pm_path)} verdict={verdict!r} | "
         f"confidence {orig_conf} -> {post_review} (-{haircut}) | "
-        f"action {orig_action!r} -> post_mortem_action={post_action!r}"
+        f"action {orig_action!r} -> post_mortem_action={post_action!r} "
+        f"(target={dr['post_mortem_target_exposure_risk_units']!r} risk units)"
     )
     return "patched", msg, dr
 
@@ -269,6 +277,7 @@ def _selftest():
         check("haircut applied", dr["confidence_haircut"] == 12)
         check("post_review_confidence_score", dr["post_review_confidence_score"] == 40)
         check("post_mortem_action capped to Trim", dr["post_mortem_action"] == "Trim")
+        check("Trim cap maps to 0.25 risk units", dr["post_mortem_target_exposure_risk_units"] == 0.25)
         check("pre_mortem_verdict recorded", dr["pre_mortem_verdict"] == "Does not survive — downgrade")
         check("original action untouched", dr["action"] == "Hold")
         check("original confidence untouched", dr["confidence"] == 52)
@@ -290,6 +299,7 @@ def _selftest():
         status, _msg, dr = patch(run)
         check("clean survival -> patched", status == "patched")
         check("clean survival -> post_mortem_action == original action", dr["post_mortem_action"] == "Buy")
+        check("clean Buy maps to 1.0 risk unit", dr["post_mortem_target_exposure_risk_units"] == 1.0)
         check("clean survival -> no haircut", dr["confidence_haircut"] == 0)
         check("clean survival -> post_review == original", dr["post_review_confidence_score"] == 70)
 
@@ -360,6 +370,7 @@ def _selftest():
         )
         status, _msg, dr = patch(run)
         check("less-cautious cap rejected -> original action retained", dr["post_mortem_action"] == "Avoid")
+        check("retained Avoid maps to zero risk units", dr["post_mortem_target_exposure_risk_units"] == 0.0)
 
         # 9. Action-cap ordering — "Research More" is an allowed cap from any action (insufficient evidence).
         run = os.path.join(tmp, "ZINC")
@@ -372,6 +383,21 @@ def _selftest():
         )
         status, _msg, dr = patch(run)
         check("Research More cap applied from Buy", dr["post_mortem_action"] == "Research More")
+        check("Research More maps to null exposure", dr["post_mortem_target_exposure_risk_units"] is None)
+
+        # A proven critical risk can turn abstention into zero exposure, but no other ladder action may
+        # turn Research More into a position.
+        run = os.path.join(tmp, "CRITICAL_RISK")
+        os.makedirs(run)
+        json.dump({"action": "Research More", "confidence": 0}, open(os.path.join(run, "decision_record.json"), "w"))
+        json.dump(
+            {"verdict": "Thesis broken", "original_action": "Research More", "original_confidence": 0,
+             "recommended_confidence": 0, "recommended_action_cap": "Avoid"},
+            open(os.path.join(run, "pre_mortem.json"), "w"),
+        )
+        status, _msg, dr = patch(run)
+        check("critical-risk cap moves Research More to Avoid", dr["post_mortem_action"] == "Avoid")
+        check("critical-risk Avoid maps to zero exposure", dr["post_mortem_target_exposure_risk_units"] == 0.0)
 
         # 10. Confidence never-RAISED — a report recommending a HIGHER confidence than the record is clamped
         #     back to the original (rule 1), and the derived haircut is 0 (never negative).
