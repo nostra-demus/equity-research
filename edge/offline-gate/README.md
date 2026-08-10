@@ -21,7 +21,8 @@ Then:
 - **transient fast throw** (connection reset/refused) on the health probe or a non-API document/asset →
   **one quick retry** before declaring offline (a budget *timeout* does **not** retry — the origin is alive
   but slow, so retrying only doubles the wait). Other API calls are not replayed merely because they use
-  `GET`: some historical GET routes spend provider budget and persist cache state. `POST` and SSE never retry.
+  `GET`: some historical GET routes spend provider budget and persist cache state. Encoded paths also fail
+  closed because the origin may decode them into an API route. `POST` and SSE never retry.
 - **raw `502`/`504` on exact `GET /api/health`** → wait **750ms**, then make **one fresh retry** under
   the same 8s overall health deadline. This lets a watchdog probe route around one stale, draining
   Tunnel connector while its healthy replacement is already connected. Replay-safe documents/assets keep

@@ -31,7 +31,12 @@ function isIdempotent(request) {
 function isReplaySafe(request, cls) {
   if (!isIdempotent(request) || cls === 'sse') return false
   if (cls === 'health') return true
-  return !new URL(request.url).pathname.startsWith('/api/')
+  const pathname = new URL(request.url).pathname
+  // URL.pathname deliberately preserves percent escapes, while the origin router decodes them. Treat any
+  // encoded path as unsafe instead of trying to duplicate every decode/canonicalization rule at the edge;
+  // otherwise /%61pi/... could masquerade as an asset here and become stateful /api/... at Fastify.
+  if (pathname.includes('%')) return false
+  return pathname !== '/api' && !pathname.startsWith('/api/')
 }
 
 function isRawGatewayFailure(status) {
