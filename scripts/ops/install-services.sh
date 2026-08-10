@@ -188,7 +188,7 @@ render() {
 }
 
 install_one() {
-  local label="$1" src="$HERE/$1.plist" dst="$AGENTS/$1.plist" i staged key cur ck
+  local label="$1" src="$HERE/$1.plist" dst="$AGENTS/$1.plist" i staged key cur ck claim=""
   local is_connector=0
   # SECRETS STAY OUT OF THE REPO. The fixed model-provider keys below live in their relevant INSTALLED
   # plists (~/Library/LaunchAgents) and are carried across reinstalls. Connector credentials are different:
@@ -217,18 +217,12 @@ install_one() {
         return 1
       fi
     fi
-    if [ -f "$dst" ] && ! "$PYTHON_BIN" "$HERE/migrate-connector-secrets.py" \
-      --plist "$dst" --providers-env "$CONNECTOR_PROVIDERS_ENV" >/dev/null; then
-      echo "  FAIL: could not preserve historical connector credentials — leaving existing install untouched" >&2
-      rm -f "$staged"
-      return 1
-    fi
     while IFS= read -r ck; do
       [ -z "$ck" ] || /usr/libexec/PlistBuddy -c "Delete :EnvironmentVariables:$ck" "$staged" 2>/dev/null || true
     done < <(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables" "$staged" 2>/dev/null \
                | sed -nE 's/^[[:space:]]*(CONNECTOR_[A-Za-z0-9_]+)[[:space:]]*=.*/\1/p')
   fi
-  if [ -f "$dst" ]; then
+  if [ "$is_connector" != 1 ] && [ -f "$dst" ]; then
     for sk in GROQ_API_KEY GEMINI_API_KEY OPENROUTER_API_KEY NVIDIA_API_KEY CEREBRAS_API_KEY MISTRAL_API_KEY; do
       key="$(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables:$sk" "$dst" 2>/dev/null || true)"
       { [ -z "$key" ] || [ "$key" = "__SET_YOUR_${sk}__" ]; } && continue   # each provider has its OWN placeholder
@@ -254,15 +248,25 @@ install_one() {
       rm -f "$staged"
       return 1
     fi
-  fi
-  if loaded "$label" && cmp -s "$staged" "$dst"; then
-    if [ "$is_connector" = 1 ] \
-      && ! nostra_validate_connector_plist "$dst" "$PROD" "$CONNECTOR_CONFIG_DIR"; then
-      echo "  FAIL: installed connector plist failed verification — running service left untouched" >&2
+    # Claim the exact installed inode only after the replacement is fully rendered and validated. The
+    # public pathname stays absent until activation commits or restores this private same-directory claim.
+    if ! claim="$(nostra_claim_connector_plist "$HERE/migrate-connector-secrets.py" \
+        "$dst" "$CONNECTOR_PROVIDERS_ENV")" || [ -z "$claim" ] || [ ! -f "$claim" ]; then
+      echo "  FAIL: could not claim prior connector file/absence — leaving existing install untouched" >&2
       rm -f "$staged"
       return 1
     fi
+  fi
+  if loaded "$label" \
+    && { { [ "$is_connector" = 1 ] && [ -n "$claim" ] && cmp -s "$staged" "$claim"; } \
+         || { [ "$is_connector" != 1 ] && cmp -s "$staged" "$dst"; }; }; then
     rm -f "$staged"
+    if [ "$is_connector" = 1 ] \
+      && ! nostra_restore_connector_claim "$HERE/migrate-connector-secrets.py" \
+        "$claim" "$dst" "$CONNECTOR_PROVIDERS_ENV"; then
+      echo "  FAIL: unchanged connector could not restore its exact credential claim: $claim" >&2
+      return 1
+    fi
     launchctl kickstart -k "$DOMAIN/$label" 2>/dev/null || true   # current + loaded: restart in place
     if [ "$is_connector" = 1 ]; then
       nostra_report_loaded "$label"
@@ -272,7 +276,8 @@ install_one() {
   fi
   if [ "$is_connector" = 1 ]; then
     nostra_activate_connector_plist "$label" "$staged" "$dst" \
-      "$PROD" "$CONNECTOR_CONFIG_DIR" "$AGENTS" "$DOMAIN"
+      "$PROD" "$CONNECTOR_CONFIG_DIR" "$AGENTS" "$DOMAIN" \
+      "$claim" "$HERE/migrate-connector-secrets.py" "$CONNECTOR_PROVIDERS_ENV"
     return $?
   fi
   cp "$staged" "$dst" && rm -f "$staged"
@@ -289,20 +294,37 @@ install_one() {
 
 # remove one agent entirely (used when demoting a machine to --role admin)
 remove_one() {
-  local label="$1" dst="$AGENTS/$1.plist"
+  local label="$1" dst="$AGENTS/$1.plist" claim="" i
   # A doer→admin demotion removes the connector agent entirely, so it must
   # preserve any historical plist-only CONNECTOR_* values before deletion just
   # like an in-place doer reinstall does. Refuse the removal on any unsafe path,
   # duplicate, or conflicting value rather than silently deleting the last copy.
-  if [ "$label" = com.nostradamus.connectors ] && { [ -e "$dst" ] || [ -L "$dst" ]; }; then
+  if [ "$label" = com.nostradamus.connectors ]; then
     prepare_connector_config || return 1
-    if ! "$PYTHON_BIN" "$HERE/migrate-connector-secrets.py" \
-      --plist "$dst" --providers-env "$CONNECTOR_PROVIDERS_ENV" >/dev/null; then
+    if ! claim="$(nostra_claim_connector_plist "$HERE/migrate-connector-secrets.py" \
+        "$dst" "$CONNECTOR_PROVIDERS_ENV")" || [ -z "$claim" ] || [ ! -f "$claim" ]; then
       echo "  FAIL: could not preserve historical connector credentials — connector agent was not removed" >&2
       return 1
     fi
   fi
-  if [ -f "$dst" ] || loaded "$label"; then
+  if [ -n "$claim" ]; then
+    launchctl bootout "$DOMAIN/$label" 2>/dev/null || true
+    for i in $(seq 1 40); do loaded "$label" || break; sleep 0.25; done
+    if loaded "$label"; then
+      if ! nostra_restore_connector_claim "$HERE/migrate-connector-secrets.py" \
+          "$claim" "$dst" "$CONNECTOR_PROVIDERS_ENV"; then
+        echo "  FAIL: connector stayed loaded and its exact plist remains retained at $claim" >&2
+      fi
+      echo "  FAIL: connector agent did not unload and was not removed" >&2
+      return 1
+    fi
+    if ! nostra_commit_connector_claim "$HERE/migrate-connector-secrets.py" \
+        "$claim" "$dst" "$CONNECTOR_PROVIDERS_ENV" absent; then
+      echo "  FAIL: connector pathname changed during removal; exact prior plist remains at $claim" >&2
+      return 1
+    fi
+    echo "  removed (admin role): $label"
+  elif [ -f "$dst" ] || loaded "$label"; then
     launchctl bootout "$DOMAIN/$label" 2>/dev/null || true
     rm -f "$dst" 2>/dev/null || true
     echo "  removed (admin role): $label"

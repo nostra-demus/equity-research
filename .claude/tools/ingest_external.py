@@ -27,8 +27,8 @@ CONTRACT
   Recommend-only — prints (and records in the ledger) a suggested
     /research:rerun per routed ticker; it NEVER launches a run (runs cost money).
   Drive-safe — the pool is a Google Drive FUSE mount: copies write contents only
-    (no attribute preservation), land via a temp file + rename, and a file still
-    syncing (young mtime / changing size) is skipped until the next pass.
+    (no attribute preservation), use a staged no-clobber claim with an O_EXCL
+    fallback where hardlinks are unavailable, and defer files still syncing.
   Idempotent — sha256 ledger; re-running is free. Singleton lock on LOCAL disk
     (never the mount, where O_EXCL is unreliable).
 
@@ -38,6 +38,7 @@ USAGE
 """
 import sys
 import os
+import errno
 import re
 import json
 import time
@@ -218,18 +219,177 @@ Rules of the road (frameworks/EXTERNAL_DATA.md in the repo):
 """
 
 
-def sha256_file(path):
-    h = hashlib.sha256()
+def _file_identity(info):
+    return (
+        info.st_dev, info.st_ino, info.st_size,
+        info.st_mtime_ns, info.st_ctime_ns, info.st_nlink,
+    )
+
+
+def _open_unique_regular(path):
+    before = os.lstat(path)
+    if (stat.S_ISLNK(before.st_mode) or not stat.S_ISREG(before.st_mode)
+            or before.st_nlink != 1):
+        raise ValueError("source must be a unique regular non-symlink file")
     flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
     fd = os.open(path, flags)
-    info = os.fstat(fd)
-    if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1:
+    try:
+        opened = os.fstat(fd)
+        if (not stat.S_ISREG(opened.st_mode) or opened.st_nlink != 1
+                or _file_identity(opened) != _file_identity(before)):
+            raise ValueError("source changed before read")
+        return fd, _file_identity(opened)
+    except Exception:
         os.close(fd)
-        raise ValueError("source must be a unique regular non-symlink file")
-    with os.fdopen(fd, "rb") as fh:
-        for chunk in iter(lambda: fh.read(1 << 20), b""):
-            h.update(chunk)
+        raise
+
+
+def _verify_unique_regular(path, fd, identity):
+    after_open = os.fstat(fd)
+    after_path = os.lstat(path)
+    if (not stat.S_ISREG(after_open.st_mode) or after_open.st_nlink != 1
+            or stat.S_ISLNK(after_path.st_mode) or not stat.S_ISREG(after_path.st_mode)
+            or after_path.st_nlink != 1
+            or _file_identity(after_open) != identity
+            or _file_identity(after_path) != identity):
+        raise ValueError("source changed during read")
+
+
+def _sha256_open_fd(path, fd, identity):
+    h = hashlib.sha256()
+    os.lseek(fd, 0, os.SEEK_SET)
+    remaining = identity[2]
+    while remaining:
+        chunk = os.read(fd, min(remaining, 1 << 20))
+        if not chunk:
+            raise ValueError("source truncated during hashing")
+        h.update(chunk)
+        remaining -= len(chunk)
+    if os.read(fd, 1):
+        raise ValueError("source grew during hashing")
+    _verify_unique_regular(path, fd, identity)
     return h.hexdigest()
+
+
+def _sha256_file_with_identity(path):
+    fd, identity = _open_unique_regular(path)
+    try:
+        return _sha256_open_fd(path, fd, identity), identity
+    finally:
+        os.close(fd)
+
+
+def sha256_file(path):
+    return _sha256_file_with_identity(path)[0]
+
+
+def _read_unique_regular_bytes(path):
+    fd, identity = _open_unique_regular(path)
+    try:
+        remaining = identity[2]
+        chunks = []
+        while remaining:
+            chunk = os.read(fd, min(remaining, 1 << 20))
+            if not chunk:
+                raise ValueError("file truncated during read")
+            chunks.append(chunk)
+            remaining -= len(chunk)
+        if os.read(fd, 1):
+            raise ValueError("file grew during read")
+        _verify_unique_regular(path, fd, identity)
+        return b"".join(chunks)
+    finally:
+        os.close(fd)
+
+
+def _recover_publication_alias(path, prefix):
+    """Remove only same-directory publisher temp aliases left by a hard death."""
+    observed = os.lstat(path)
+    if observed.st_nlink == 1:
+        return
+    if (stat.S_ISLNK(observed.st_mode) or not stat.S_ISREG(observed.st_mode)
+            or observed.st_nlink < 2):
+        raise ValueError("published path is not a unique regular file")
+    aliases = []
+    with os.scandir(os.path.dirname(path) or ".") as entries:
+        for entry in entries:
+            if entry.name == os.path.basename(path) or not entry.name.startswith(prefix):
+                continue
+            try:
+                info = entry.stat(follow_symlinks=False)
+            except OSError:
+                continue
+            if (stat.S_ISREG(info.st_mode)
+                    and (info.st_dev, info.st_ino) == (observed.st_dev, observed.st_ino)):
+                aliases.append(entry.path)
+    if len(aliases) != observed.st_nlink - 1:
+        raise ValueError("published path has an unaccounted hardlink")
+    for alias in aliases:
+        os.unlink(alias)
+    after = os.lstat(path)
+    if ((after.st_dev, after.st_ino) != (observed.st_dev, observed.st_ino)
+            or after.st_nlink != 1):
+        raise ValueError("published path changed during alias recovery")
+
+
+def _publish_temp_no_clobber(tmp, dst):
+    """Atomically claim an absent name without replacing concurrent evidence."""
+    try:
+        os.link(tmp, dst, follow_symlinks=False)
+        os.unlink(tmp)
+        return
+    except OSError as exc:
+        unsupported = {
+            errno.EXDEV, errno.EPERM, errno.EOPNOTSUPP,
+            getattr(errno, "ENOTSUP", errno.EOPNOTSUPP),
+        }
+        if isinstance(exc, FileExistsError) or exc.errno not in unsupported:
+            raise
+
+    # Google Drive File Stream and some FUSE mounts reject hard links. Claim
+    # the final name with O_EXCL, then copy the already-fsynced staged bytes
+    # into that exact inode. A live failure removes only our own inode; a hard
+    # death may leave a prefix, which retry treats as an unprovenanced collision
+    # and never overwrites.
+    source_fd, source_identity = _open_unique_regular(tmp)
+    target_fd = None
+    claimed_identity = None
+    try:
+        target_fd = os.open(dst, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        claimed = os.fstat(target_fd)
+        claimed_identity = (claimed.st_dev, claimed.st_ino)
+        remaining = source_identity[2]
+        while remaining:
+            chunk = os.read(source_fd, min(remaining, 1 << 20))
+            if not chunk:
+                raise ValueError("staged file truncated during FUSE publication")
+            view = memoryview(chunk)
+            while view:
+                written = os.write(target_fd, view)
+                if written <= 0:
+                    raise OSError("short write during FUSE publication")
+                view = view[written:]
+            remaining -= len(chunk)
+        if os.read(source_fd, 1):
+            raise ValueError("staged file grew during FUSE publication")
+        _verify_unique_regular(tmp, source_fd, source_identity)
+        os.fsync(target_fd)
+        os.close(target_fd)
+        target_fd = None
+        os.unlink(tmp)
+    except Exception:
+        if target_fd is not None:
+            os.close(target_fd)
+        if claimed_identity is not None:
+            try:
+                observed = os.lstat(dst)
+                if (observed.st_dev, observed.st_ino) == claimed_identity:
+                    os.unlink(dst)
+            except OSError:
+                pass
+        raise
+    finally:
+        os.close(source_fd)
 
 
 def _safe_beneath(root, candidate):
@@ -466,49 +626,157 @@ def is_stable(path, first_stat):
         return False
 
 
-def copy_contents(src, dst, root=None):
-    """Copy CONTENTS via a temp file + rename. Drive's file provider rejects attribute
-    preservation (see scripts/ops/news-archive.sh), and rename is the closest thing to an
-    atomic landing the mount offers."""
-    destination_root = os.path.realpath(os.path.abspath(root or os.path.dirname(dst)))
+def copy_contents(src, dst, root=None, expected_sha256=None):
+    """Copy stable bytes and atomically claim ``dst`` without overwriting it."""
+    dst_dir = os.path.dirname(dst) or "."
+    destination_root = os.path.realpath(os.path.abspath(root or dst_dir))
     if _safe_beneath(destination_root, dst) is None:
         raise ValueError("destination contains a symlinked or escaping component")
-    os.makedirs(os.path.dirname(dst), exist_ok=True)
-    if _safe_beneath(destination_root, os.path.dirname(dst)) is None:
+    os.makedirs(dst_dir, exist_ok=True)
+    if _safe_beneath(destination_root, dst_dir) is None:
         raise ValueError("destination parent contains a symlinked or escaping component")
-    source_fd = os.open(src, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
-    source_info = os.fstat(source_fd)
-    if not stat.S_ISREG(source_info.st_mode):
-        os.close(source_fd)
-        raise ValueError("source is not a regular non-symlink file")
-    temp_fd, tmp = tempfile.mkstemp(dir=os.path.dirname(dst), prefix=".tmp-route-")
-    with os.fdopen(source_fd, "rb") as fi, os.fdopen(temp_fd, "wb") as fo:
-        while True:
-            chunk = fi.read(1 << 20)
-            if not chunk:
-                break
-            fo.write(chunk)
-        fo.flush(); os.fsync(fo.fileno())
-    os.replace(tmp, dst)
-
-
-def move_to_routed(src, inbox):
-    rel = os.path.relpath(src, inbox)
-    dst = os.path.join(inbox, ROUTED_DIR, rel)
-    if _safe_beneath(inbox, src) is None or _safe_beneath(inbox, dst) is None:
-        raise ValueError("inbox archive path contains a symlinked or escaping component")
-    os.makedirs(os.path.dirname(dst), exist_ok=True)
-    if os.path.exists(dst):  # same name routed before — keep both, suffixed
-        base, ext = os.path.splitext(dst)
-        i = 2
-        while os.path.exists(f"{base} ({i}){ext}"):
-            i += 1
-        dst = f"{base} ({i}){ext}"
+    source_fd, source_identity = _open_unique_regular(src)
+    tmp = None
+    claimed = None
+    digest = hashlib.sha256()
     try:
-        os.rename(src, dst)
-    except OSError:  # cross-device / FUSE oddity: copy + unlink
-        copy_contents(src, dst, inbox)
-        os.unlink(src)
+        temp_fd, tmp = tempfile.mkstemp(dir=dst_dir, prefix=".tmp-route-")
+        with os.fdopen(source_fd, "rb", closefd=False) as fi, os.fdopen(temp_fd, "wb") as fo:
+            remaining = source_identity[2]
+            while remaining:
+                chunk = fi.read(min(remaining, 1 << 20))
+                if not chunk:
+                    raise ValueError("source truncated during copy")
+                fo.write(chunk)
+                digest.update(chunk)
+                remaining -= len(chunk)
+            if fi.read(1):
+                raise ValueError("source grew during copy")
+            _verify_unique_regular(src, source_fd, source_identity)
+            actual_sha256 = digest.hexdigest()
+            if expected_sha256 is not None and actual_sha256 != expected_sha256:
+                raise ValueError("source content changed after provenance hashing")
+            fo.flush(); os.fsync(fo.fileno())
+        staged = os.lstat(tmp)
+        _publish_temp_no_clobber(tmp, dst)
+        claimed = (staged.st_dev, staged.st_ino)
+        if sha256_file(dst) != actual_sha256:
+            raise ValueError("published copy does not match staged source bytes")
+        return actual_sha256, source_identity
+    except Exception:
+        if claimed is not None:
+            try:
+                current = os.lstat(dst)
+                if (current.st_dev, current.st_ino) == claimed:
+                    os.unlink(dst)
+            except OSError:
+                pass
+        raise
+    finally:
+        os.close(source_fd)
+        if tmp is not None:
+            try:
+                os.unlink(tmp)
+            except OSError:
+                pass
+
+
+def _same_source_after_rename(info, identity):
+    return (
+        stat.S_ISREG(info.st_mode)
+        and not stat.S_ISLNK(info.st_mode)
+        and info.st_nlink == 1
+        and (info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns, info.st_nlink)
+        == (identity[0], identity[1], identity[2], identity[3], identity[5])
+    )
+
+
+def _consume_source(src, source_identity, expected_sha256):
+    """Move the exact copied inode into a private hold before deleting it.
+
+    If the pathname was swapped after copying, the replacement is quarantined in
+    the hidden hold directory instead of being unlinked as though it were the
+    routed source.
+    """
+    parent = os.path.dirname(src) or "."
+    hold_dir = tempfile.mkdtemp(dir=parent, prefix=".route-consume-")
+    hold = os.path.join(hold_dir, os.path.basename(src))
+    moved = False
+    held_fd = None
+    try:
+        os.rename(src, hold)
+        moved = True
+        held_fd, held_identity = _open_unique_regular(hold)
+        held = os.fstat(held_fd)
+        if (not _same_source_after_rename(held, source_identity)
+                or _sha256_open_fd(hold, held_fd, held_identity) != expected_sha256):
+            raise ValueError(f"source changed before archival; replacement quarantined at {hold}")
+        # Keep the verified inode open through deletion. The private 0700 hold
+        # directory removes the original shared pathname from the race; the
+        # final lstat/fstat comparison immediately before unlink binds the name
+        # being removed to the descriptor whose bytes were hashed.
+        _verify_unique_regular(hold, held_fd, held_identity)
+        os.unlink(hold)
+        after_unlink = os.fstat(held_fd)
+        if after_unlink.st_nlink != 0:
+            raise ValueError("verified source has an unexpected link after deletion")
+        os.close(held_fd)
+        held_fd = None
+        moved = False
+        os.rmdir(hold_dir)
+    except Exception as exc:
+        if held_fd is not None:
+            os.close(held_fd)
+        if moved and os.path.lexists(hold):
+            raise ValueError(f"source changed during consumption; object quarantined at {hold}") from exc
+        if moved:
+            moved = False
+        if not moved:
+            try:
+                os.rmdir(hold_dir)
+            except OSError:
+                pass
+        raise
+
+
+def _next_suffixed(path, index):
+    base, ext = os.path.splitext(path)
+    return f"{base} ({index}){ext}"
+
+
+def move_to_routed(src, inbox, expected_sha256=None):
+    rel = os.path.relpath(src, inbox)
+    first_dst = os.path.join(inbox, ROUTED_DIR, rel)
+    if _safe_beneath(inbox, src) is None or _safe_beneath(inbox, first_dst) is None:
+        raise ValueError("inbox archive path contains a symlinked or escaping component")
+    os.makedirs(os.path.dirname(first_dst), exist_ok=True)
+    if expected_sha256 is None:
+        expected_sha256 = sha256_file(src)
+    index = 1
+    while True:
+        dst = first_dst if index == 1 else _next_suffixed(first_dst, index)
+        if os.path.lexists(dst):
+            try:
+                _recover_publication_alias(dst, ".tmp-route-")
+                if sha256_file(dst) == expected_sha256:
+                    _digest, source_identity = _sha256_file_with_identity(src)
+                    if _digest != expected_sha256:
+                        raise ValueError("source content changed before archival")
+                    break
+            except (OSError, ValueError):
+                pass
+            index += 1
+            continue
+        try:
+            _digest, source_identity = copy_contents(
+                src, dst, inbox, expected_sha256=expected_sha256,
+            )
+            break
+        except FileExistsError:
+            continue
+    if sha256_file(dst) != expected_sha256:
+        raise ValueError("archived copy does not match provenance hash")
+    _consume_source(src, source_identity, expected_sha256)
 
 
 def _write_json_safe(path, value, root):
@@ -518,15 +786,67 @@ def _write_json_safe(path, value, root):
     os.makedirs(directory, exist_ok=True)
     if _safe_beneath(root, directory) is None:
         raise ValueError("sidecar parent contains a symlinked or escaping component")
+    encoded = json.dumps(value, indent=2).encode("utf-8")
+    if os.path.lexists(path):
+        _recover_publication_alias(path, ".tmp-sidecar-")
+        if _read_unique_regular_bytes(path) == encoded:
+            return False
+        raise FileExistsError("different sidecar already exists")
     fd, tmp = tempfile.mkstemp(dir=directory, prefix=".tmp-sidecar-")
     try:
-        with os.fdopen(fd, "w", encoding="utf-8") as fh:
-            json.dump(value, fh, indent=2)
+        with os.fdopen(fd, "wb") as fh:
+            fh.write(encoded)
             fh.flush(); os.fsync(fh.fileno())
-        os.replace(tmp, path)
+        try:
+            _publish_temp_no_clobber(tmp, path)
+        except FileExistsError:
+            _recover_publication_alias(path, ".tmp-sidecar-")
+            if _read_unique_regular_bytes(path) != encoded:
+                raise FileExistsError("different sidecar won the publication race")
+            return False
+        if _read_unique_regular_bytes(path) != encoded:
+            raise ValueError("published sidecar does not match staged bytes")
+        return True
     finally:
-        try: os.unlink(tmp)
-        except OSError: pass
+        try:
+            os.unlink(tmp)
+        except OSError:
+            pass
+
+
+def _sidecar_binds_payload(path, digest, ticker):
+    try:
+        _recover_publication_alias(path, ".tmp-sidecar-")
+        value = json.loads(_read_unique_regular_bytes(path).decode("utf-8"))
+    except (OSError, ValueError, UnicodeError, json.JSONDecodeError):
+        return False
+    return (
+        isinstance(value, dict)
+        and value.get("sha256") == digest
+        and value.get("routed_by") == "ingest_external.py"
+        and ticker in value.get("tickers", [])
+    )
+
+
+def _ensure_routed_sidecar(dst, sidecar, ticker, root):
+    sidecar_path = dst + ".source.json"
+    if os.path.lexists(sidecar_path):
+        return _sidecar_binds_payload(sidecar_path, sidecar["sha256"], ticker)
+    try:
+        _write_json_safe(sidecar_path, sidecar, root)
+    except FileExistsError:
+        pass
+    return _sidecar_binds_payload(sidecar_path, sidecar["sha256"], ticker)
+
+
+def _existing_route_is_complete(dst, sidecar, ticker, root):
+    try:
+        _recover_publication_alias(dst, ".tmp-route-")
+        if sha256_file(dst) != sidecar["sha256"]:
+            return False
+    except (OSError, ValueError):
+        return False
+    return _ensure_routed_sidecar(dst, sidecar, ticker, root)
 
 
 # ---------- singleton lock (LOCAL disk — O_EXCL on the FUSE mount is unreliable) ----------
@@ -725,8 +1045,9 @@ def run(pool="data", dry_run=False, extractor=None):
             st = os.lstat(fp)
         except Exception:
             continue
-        if not stat.S_ISREG(st.st_mode) or stat.S_ISLNK(st.st_mode):
-            skipped.append((base, "symlink/special input rejected"))
+        if (not stat.S_ISREG(st.st_mode) or stat.S_ISLNK(st.st_mode)
+                or st.st_nlink != 1):
+            skipped.append((base, "symlink/hardlink/special input rejected"))
             continue
         if st.st_size == 0:
             skipped.append((base, "empty file"))
@@ -820,17 +1141,43 @@ def run(pool="data", dry_run=False, extractor=None):
                 raise RuntimeError(f"routed destination contains a symlinked component: {t}")
             # same-name collisions: keep EVERY distinct version — walk (2), (3), … until a free
             # slot or an identical copy (recurring vendor exports all named "report.pdf" must
-            # never overwrite the evidence history). Identical content already in place = no-op.
-            stem, ext = os.path.splitext(base)
-            i = 2
-            while os.path.exists(dst) and sha256_file(dst) != digest:
-                dst = os.path.join(pool, t, "external", pslug, f"{stem} ({i}){ext}")
-                i += 1
-            if os.path.exists(dst):  # identical copy already in this pool
-                continue
-            copy_contents(fp, dst, pool)
-            _write_json_safe(dst + ".source.json", sidecar, pool)
-        move_to_routed(fp, inbox)
+            # never overwrite the evidence history). An identical payload is complete only
+            # when an exact hash-bound sidecar exists; a crash between the two publications
+            # is repaired on retry rather than silently archived as success.
+            first_dst = dst
+            i = 1
+            while True:
+                dst = first_dst if i == 1 else _next_suffixed(first_dst, i)
+                if os.path.lexists(dst):
+                    if _existing_route_is_complete(dst, sidecar, t, pool):
+                        break
+                    i += 1
+                    continue
+                sidecar_path = dst + ".source.json"
+                # Commit provenance before exposing the payload name. On the
+                # FUSE O_EXCL path, a hard death can leave a strict payload
+                # prefix; with the expected sidecar already present the
+                # extractor hashes that prefix, marks the pair failed, and can
+                # never treat it as path-derived tier-9 evidence.
+                if os.path.lexists(sidecar_path):
+                    if not _sidecar_binds_payload(sidecar_path, digest, t):
+                        i += 1
+                        continue
+                else:
+                    try:
+                        _write_json_safe(sidecar_path, sidecar, pool)
+                    except FileExistsError:
+                        if not _sidecar_binds_payload(sidecar_path, digest, t):
+                            i += 1
+                            continue
+                try:
+                    copy_contents(fp, dst, pool, expected_sha256=digest)
+                except FileExistsError:
+                    continue
+                if not _sidecar_binds_payload(sidecar_path, digest, t):
+                    raise ValueError("published payload has no matching provenance sidecar")
+                break
+        move_to_routed(fp, inbox, expected_sha256=digest)
         with open(ledger_path, "a", encoding="utf-8") as fh:
             fh.write(json.dumps({**sidecar, "ts": int(time.time()), "suggested_reruns": hints}) + "\n")
         seen.add(digest)

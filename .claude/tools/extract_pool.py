@@ -421,6 +421,12 @@ def _collect_sidecars(data_path, decision_at):
         # unparseable one is: skip it so the doc falls to path-derived provenance, never a non-dict stored
         # in prov_map that the fold would later call .get() on (AttributeError). Only objects are provenance.
         if isinstance(parsed, dict):
+            # Internal verification state is earned below, never accepted from
+            # an untrusted sidecar that happens to use the same field name.
+            parsed = {
+                key: value for key, value in parsed.items()
+                if key not in {"_verified_content_sha256", "_verified_snapshot_sha256"}
+            }
             rel = os.path.relpath(p, data_path)[: -len(SIDECAR_SUFFIX)]
             try:
                 owner = _v2_projection_manifest(data_path, rel)
@@ -479,6 +485,7 @@ def _collect_sidecars(data_path, decision_at):
                     actual = hashlib.sha256(projected_bytes).hexdigest()
                     if not isinstance(expected, str) or actual != expected:
                         raise ValueError(f"content_sha256 mismatch (expected {expected!r}, got {actual})")
+                    parsed = {**parsed, "_verified_content_sha256": actual}
                 except Exception as exc:
                     parsed = {**parsed, "_integrity_error": f"bad connector projection: {exc}"}
             out[rel] = parsed
