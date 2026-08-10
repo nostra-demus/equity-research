@@ -3,7 +3,7 @@
 // which applies the desktop resume semantics: switch swarm+subject, restore transcript with computed
 // cards + conversationId (the next turn continues the same saved thread), and for research carry the
 // saved runRoot so a conversation about an older run answers from THAT run.
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { api } from '../../lib/api'
 import type { ChatConversationDetail, ChatConversationSummary } from '../../lib/types'
 import { Sheet } from '../sheets/Sheet'
@@ -19,9 +19,14 @@ export function HistorySheet({ open, onResume, onClose }: {
   const [q, setQ] = useState('')
   const [confirmDel, setConfirmDel] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  // Two taps on a slow link leave two loads in flight, and without a sequence the SLOWER one wins and
+  // opens a chat the user already moved off. Only the newest request may resume.
+  const openSeq = useRef(0)
 
   useEffect(() => {
-    if (!open) return
+    // leaving the sheet invalidates an in-flight resume too, so a late response cannot yank the user
+    // back into a chat they closed the sheet on
+    if (!open) { openSeq.current++; return }
     let dead = false
     setLoading(true)
     void (async () => {
@@ -45,8 +50,9 @@ export function HistorySheet({ open, onResume, onClose }: {
   }, [rows, mine, me, q])
 
   const openOne = async (id: string) => {
+    const seq = ++openSeq.current
     const c = await api.getChat(id).catch(() => null)
-    if (c) onResume(c)
+    if (c && seq === openSeq.current) onResume(c)
   }
   const del = async (id: string) => {
     await api.deleteChat(id).catch(() => null)

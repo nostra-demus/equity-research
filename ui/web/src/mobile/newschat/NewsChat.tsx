@@ -8,9 +8,14 @@
 //   - waiting state is typing dots, no thinking block, no computed cards
 // Desktop-only pieces stay desktop-only (stated in the plan): tapping a cited item opens it in the
 // wire, and "Run Signal Check" seeds the intake form — neither surface exists on the phone.
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { Suspense, lazy, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { api } from '../../lib/api'
+import { shouldStick } from '../chat/autoscroll'
 import type { ChatMessage, NewsChatEvidence, NewsChatReceipt } from '../../lib/types'
+
+// the same lazy renderer the run chat uses — a news answer carries the identical markdown (lists,
+// tables, emphasis), and a plain-text div renders that as literal punctuation
+const Markdown = lazy(() => import('../chat/Markdown'))
 
 const WINDOWS = [
   { id: '24h', label: '24h', greeting: 'the last 24 hours' },
@@ -29,9 +34,18 @@ export function NewsChat({ model }: { model: string }) {
   const [evidence, setEvidence] = useState<NewsChatEvidence[]>([])
   const [error, setError] = useState<string | null>(null)
   const abortRef = useRef<AbortController | null>(null)
+  const threadRef = useRef<HTMLDivElement>(null)
+  const stickRef = useRef(true)
   const baselineRef = useRef<ChatMessage[]>([])
 
   useEffect(() => () => abortRef.current?.abort(), [])
+
+  // follow the stream only while the user is inside the same 96px bottom band the run thread uses, so
+  // scrolling up to read an earlier answer is not yanked back on the next token
+  useLayoutEffect(() => {
+    const el = threadRef.current
+    if (el && stickRef.current) el.scrollTop = el.scrollHeight
+  }, [messages, streaming])
 
   const switchWindow = (w: WindowId) => {
     if (w === win) return
@@ -56,15 +70,21 @@ export function NewsChat({ model }: { model: string }) {
     const controller = new AbortController()
     abortRef.current?.abort()
     abortRef.current = controller
+    // Every callback is gated on this request still being the live one. Switching windows aborts the
+    // stream, and the abort itself arrives as onError — which would otherwise restore baselineRef, i.e.
+    // repopulate the thread the window switch just deliberately wiped, with the PREVIOUS window's
+    // messages and an error banner. The guard makes a superseded request silent instead.
+    const live = () => abortRef.current === controller && !controller.signal.aborted
     const idx = next.length - 1
     void api.newsChatStream(
       { window: win, model, messages: [...messages, { role: 'user', content: q }].slice(-NEWS_MAX) } as any,
       {
         signal: controller.signal,
-        onMeta: (m) => { setReceipt(m.receipt); setEvidence(m.evidence) },
-        onToken: (t) => setMessages((ms) => { const c = ms.slice(); if (c[idx]?.role === 'assistant') c[idx] = { ...c[idx], content: c[idx].content + t }; return c }),
-        onDone: () => { abortRef.current = null; setStreaming(false) },
+        onMeta: (m) => { if (live()) { setReceipt(m.receipt); setEvidence(m.evidence) } },
+        onToken: (t) => { if (live()) setMessages((ms) => { const c = ms.slice(); if (c[idx]?.role === 'assistant') c[idx] = { ...c[idx], content: c[idx].content + t }; return c }) },
+        onDone: () => { if (live()) { abortRef.current = null; setStreaming(false) } },
         onError: (msg) => {
+          if (!live()) return
           abortRef.current = null
           setStreaming(false)
           setMessages(baselineRef.current)
@@ -95,7 +115,11 @@ export function NewsChat({ model }: { model: string }) {
       {receipt && receipt.coverageWarnings.length > 0 && (
         <div className="mchat__static">{receipt.coverageWarnings[0]}</div>
       )}
-      <div className="mchat__thread">
+      <div
+        className="mchat__thread"
+        ref={threadRef}
+        onScroll={(e) => { const el = e.currentTarget; stickRef.current = shouldStick(el.scrollTop, el.scrollHeight, el.clientHeight) }}
+      >
         {messages.length === 0 && (
           <div className="mchat__starters">
             <div className="mchat__startershead">Or jump in</div>
@@ -107,7 +131,18 @@ export function NewsChat({ model }: { model: string }) {
         {messages.map((m, i) => (
           m.role === 'user'
             ? <div key={i} className="mchat__msg mchat__msg--user">{m.content}</div>
-            : <div key={i} className="mchat__msg mchat__msg--ai"><div className="mchat__md--plain">{m.content}{streaming && i === messages.length - 1 ? '…' : ''}</div></div>
+            : (
+              <div key={i} className="mchat__msg mchat__msg--ai">
+                {m.content
+                  ? (
+                    <Suspense fallback={<div className="mchat__md mchat__md--plain">{m.content}</div>}>
+                      <Markdown text={m.content} />
+                    </Suspense>
+                  )
+                  : null}
+                {streaming && i === messages.length - 1 ? <span className="mchat__md--plain">…</span> : null}
+              </div>
+            )
         ))}
         {cited.length > 0 && (
           <details className="mnews__cited">

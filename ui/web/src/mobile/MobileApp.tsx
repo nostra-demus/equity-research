@@ -81,7 +81,11 @@ export function MobileApp() {
     let dead = false
     void api.chatScopes(target.subject, target.swarm).then((sc) => {
       if (dead) return
-      setPresent(target.scope === 'run' ? sc.run.present : target.scope === 'module' ? !!sc.modules.find((m) => m.module === target.module)?.present : !!sc.orbs.find((o) => o.path === target.orbPath)?.present)
+      // Guard the arrays (DESIGN.md §5): an older server, or a partial response, otherwise turns a
+      // missing key into a TypeError that takes the whole phone shell down instead of one absent gate.
+      const modules = Array.isArray(sc.modules) ? sc.modules : []
+      const orbs = Array.isArray(sc.orbs) ? sc.orbs : []
+      setPresent(target.scope === 'run' ? !!sc.run?.present : target.scope === 'module' ? !!modules.find((m) => m.module === target.module)?.present : !!orbs.find((o) => o.path === target.orbPath)?.present)
     }).catch(() => { if (!dead) setPresent(true) /* fail open — the server 409s with its own hint */ })
     return () => { dead = true }
   }, [target, newsWire])
@@ -184,7 +188,11 @@ export function MobileApp() {
           onPick={(scope, module) => {
             setSheet(null)
             chat.reset()
-            setTarget({ ...target, scope, module, orbPath: undefined, orbKey: undefined, title: chatTitle(target.subject, scope, module) })
+            // Drop runRoot with the rest of the resumed conversation's state. It pins answers to the run
+            // that conversation belonged to, but the scope sheet lists availability for the CURRENT run —
+            // so keeping it makes a module the sheet just offered answer from an older run, or refuse as
+            // "not run" because it did not exist back then. Deliberately changing scope starts fresh.
+            setTarget({ ...target, scope, module, orbPath: undefined, orbKey: undefined, runRoot: undefined, title: chatTitle(target.subject, scope, module) })
           }}
           onClose={() => setSheet(null)}
         />

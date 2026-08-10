@@ -1,7 +1,7 @@
 // The message thread: bubbles, the live work strip, error + retry. Touch rules that differ from the
 // desktop drawer, each deliberate: Copy is ALWAYS visible (hover doesn't exist), Stop is a real button
 // (Esc doesn't exist), and the stick-to-bottom band is 96px (touch momentum overshoots a wheel).
-import { Suspense, lazy, useEffect, useRef } from 'react'
+import { Suspense, lazy, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import type { ChatMessage, ChatWork } from '../../lib/types'
 import { ComputedCard } from '../../components/chat/computed'
 import { shouldStick } from './autoscroll'
@@ -21,9 +21,19 @@ const WORK_LABELS: Record<ChatWork['stage'], string> = {
   writing: 'Writing the answer…',
 }
 
+const elapsedSince = (startedAt: number) => Math.max(0, Math.round((Date.now() - startedAt) / 1000))
+
 function WorkIndicator({ work, onStop }: { work: ChatWork; onStop: () => void }) {
-  // a 1 Hz stopwatch: real elapsed time, never simulated progress
-  const secs = Math.max(0, Math.round((Date.now() - work.startedAt) / 1000))
+  // A 1 Hz stopwatch: real elapsed time, never simulated progress. It has to own a timer rather than
+  // read the clock during render — this component re-renders on stream events, and the stages where the
+  // user most wants to see the clock moving ('starting', 'thinking') are exactly the ones that emit
+  // nothing for seconds at a time, so a render-time read freezes precisely when it matters.
+  const [secs, setSecs] = useState(() => elapsedSince(work.startedAt))
+  useEffect(() => {
+    setSecs(elapsedSince(work.startedAt))
+    const id = setInterval(() => setSecs(elapsedSince(work.startedAt)), 1000)
+    return () => clearInterval(id)
+  }, [work.startedAt])
   return (
     <div className="mchat__work" role="status">
       <span className="mchat__workdot" aria-hidden />
@@ -63,8 +73,10 @@ export function Thread({ chat, starters, onStarter }: { chat: MobileChat; starte
   const ref = useRef<HTMLDivElement>(null)
   const stickRef = useRef(true)
 
-  // follow the stream only while the user is inside the 96px bottom band
-  useEffect(() => {
+  // Follow the stream only while the user is inside the 96px bottom band. useLayoutEffect, not
+  // useEffect: the scroll has to land in the same frame as the DOM change, or each token paints once
+  // un-scrolled and the thread visibly judders while streaming.
+  useLayoutEffect(() => {
     const el = ref.current
     if (el && stickRef.current) el.scrollTop = el.scrollHeight
   }, [state.messages, state.work?.stage])

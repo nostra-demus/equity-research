@@ -18,13 +18,15 @@ export function ScopeSheet({ open, swarm, subject, current, onPick, onClose }: {
   onPick: (scope: 'run' | 'module', module?: string) => void
   onClose: () => void
 }) {
-  const [scopes, setScopes] = useState<ChatScopes | null>(null)
+  // null = still loading, undefined = the request failed. Collapsing the two is what makes a failed
+  // fetch sit on “Loading…” forever, which reads as a hung app rather than a retryable error.
+  const [scopes, setScopes] = useState<ChatScopes | null | undefined>(null)
 
   useEffect(() => {
     if (!open) return
     let dead = false
     setScopes(null)
-    void api.chatScopes(subject, swarm).then((s) => { if (!dead) setScopes(s) }).catch(() => { if (!dead) setScopes(null) })
+    void api.chatScopes(subject, swarm).then((s) => { if (!dead) setScopes(s) }).catch(() => { if (!dead) setScopes(undefined) })
     return () => { dead = true }
   }, [open, swarm, subject])
 
@@ -32,7 +34,8 @@ export function ScopeSheet({ open, swarm, subject, current, onPick, onClose }: {
     <Sheet open={open} onClose={onClose} label="Chat with">
       <div className="msheet__head">Chat with</div>
       <div className="msheet__list">
-        {!scopes && <div className="msheet__empty">Loading…</div>}
+        {scopes === null && <div className="msheet__empty">Loading…</div>}
+        {scopes === undefined && <div className="msheet__empty">Couldn’t load the scopes — close and reopen to retry.</div>}
         {scopes && (
           <>
             <button

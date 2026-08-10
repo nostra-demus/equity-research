@@ -4,6 +4,12 @@
    text — below 16px iOS Safari zooms the whole page on focus. Hover styles are gated behind a hover
    media query so they can never stick on touch. */
 
+/* The mobile entry deliberately does NOT import global.css (that is the whole point of the budget), so it
+   does not inherit the desktop's global border-box reset either. Without this, every `width: calc(100% - Npx)`
+   control adds its padding and border on top and overflows the viewport — the snapshot card alone runs 26px
+   wide. The reset has to live here because this stylesheet is the mobile surface's only global sheet. */
+*, *::before, *::after { box-sizing: border-box; }
+
 html, body, #root { height: 100%; margin: 0; }
 body { background: var(--bg); color: var(--text); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
 

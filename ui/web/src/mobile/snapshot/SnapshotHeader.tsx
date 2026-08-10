@@ -96,7 +96,9 @@ export function SnapshotHeader({ snap, onTap }: { snap: Snapshot | null; onTap: 
       </span>
       {snap.entry != null && (
         <span className="msnap__price mono">
-          entry {nfmt(snap.entry)}
+          {/* the currency is never optional decoration on a global book: 238.34 is a different number in
+              USD, INR and NOK, and the derivation already carries it (§27 — figures travel with their unit) */}
+          entry {snap.currency ? `${snap.currency} ` : ''}{nfmt(snap.entry)}
           {snap.live != null && <> → now {nfmt(snap.live)}</>}
           {snap.movePct != null && (
             <span className={snap.movePct < 0 ? 'msnap__neg' : 'msnap__pos'}> {snap.movePct > 0 ? '+' : ''}{nfmt(snap.movePct, 1)}%</span>
