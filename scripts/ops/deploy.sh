@@ -310,6 +310,65 @@ has_nondata_dirty() {
   return 1
 }
 
+# reconcile_runtime_ops — install the reviewed runtime scripts from the checked-out main commit, independent
+# of the deployed build marker. The marker describes ui/dist + the running engine; using it as the only ops
+# trigger can strand an old watchdog/deployer after a missing marker, an out-of-band checkout advance, or a
+# later migration/build gate failure. Callers hold the repository lease and have proved HEAD == origin/main
+# with no dirty non-data files, so these are reviewed immutable bytes. Content comparison keeps the common
+# path cheap; temp + chmod + rename publishes each script atomically. Any failed stage leaves the installed
+# file and deployed marker untouched so the next launchd tick retries.
+reconcile_runtime_ops() {
+  local opsscript source installed staged failed=0 step
+  for opsscript in watchdog.sh deploy.sh housekeeping.sh; do
+    source="$PROD/scripts/ops/$opsscript"
+    installed="$OPS/$opsscript"
+    if [ ! -f "$source" ] || [ -L "$source" ]; then
+      log "  WARN refused missing or symlinked runtime ops source scripts/ops/$opsscript"
+      failed=1
+      continue
+    fi
+    if { [ -e "$installed" ] || [ -L "$installed" ]; } \
+       && { [ -L "$installed" ] || [ ! -f "$installed" ] || [ ! -O "$installed" ]; }; then
+      log "  WARN refused symlinked, non-file, or foreign-owned installed ops/$opsscript"
+      failed=1
+      continue
+    fi
+    if [ -f "$installed" ] && [ ! -L "$installed" ] && [ -x "$installed" ] \
+       && cmp -s "$source" "$installed"; then
+      continue
+    fi
+    staged="$(mktemp "$OPS/.$opsscript.XXXXXX" 2>/dev/null)" || {
+      log "  WARN could not stage ops/$opsscript — installed copy unchanged; retry next cycle"
+      failed=1
+      continue
+    }
+    step=copy
+    if cp "$source" "$staged" 2>/dev/null; then
+      step=chmod
+      if chmod 700 "$staged" 2>/dev/null; then
+        step=rename
+        if mv "$staged" "$installed" 2>/dev/null; then
+          log "  refreshed ops/$opsscript (self-update)"
+          continue
+        fi
+      fi
+    fi
+    rm -f "$staged" 2>/dev/null || true
+    log "  WARN could not refresh ops/$opsscript during $step — installed copy unchanged; retry next cycle"
+    failed=1
+  done
+  [ "$failed" = 0 ]
+}
+
+# runtime_ops_changed_between <base> <target> — true only when the reviewed incoming delta changes a runtime
+# ops script. A mixed ui+ops commit may then fast-forward and install ops immediately while leaving the ui
+# build/restart behind the normal debounce. A diff error fails closed as "no": the ordinary retry path wins.
+runtime_ops_changed_between() {
+  "$GIT" diff --quiet "$1" "$2" -- \
+    scripts/ops/watchdog.sh scripts/ops/deploy.sh scripts/ops/housekeeping.sh 2>/dev/null
+  [ "$?" = 1 ]
+}
+
 # code_settling <base> <target> — rc 0 (DEFER the rebuild) when the base..target delta contains a ui/web or
 # ui/server change (the only paths that trigger a dist rebuild or engine restart — the offline blip) AND the
 # most recent such commit landed < DEBOUNCE_SECS ago. This coalesces a rapid burst of code merges into ONE
@@ -382,7 +441,8 @@ rollback_to_mark() {
 }
 
 # reconcile_build <changed-file-list> <target-sha> — rebuild ui/dist and/or restart the engine for the
-# changed files, self-update the installed ops scripts, then record <target-sha> as the deployed marker.
+# changed files, then record <target-sha> as the deployed marker. Runtime ops are reconciled separately before
+# this function so a build, health, migration, or circuit-breaker gate cannot strand their installed copies.
 # <target-sha> is the commit whose source the caller actually built (captured under the git lock), so the
 # marker can never record a SHA newer than what was compiled. Shared by BOTH the fast-forward merge path AND
 # the "checkout advanced without a deploy merge" sync path, so the built artifacts get rebuilt whenever they
@@ -446,17 +506,6 @@ reconcile_build() {
     fi
   fi
 
-  # self-update the installed ops shell scripts when they change on main (atomic temp+mv; safe mid-run).
-  # These scripts read their paths from env (ENGINE_REPO_ROOT/REPO) at runtime, so a straight copy is
-  # portable across machines / usernames — no per-host path rewriting is needed.
-  for opsscript in watchdog.sh deploy.sh housekeeping.sh; do
-    case "$changed" in
-      *scripts/ops/$opsscript*)
-        cp "$PROD/scripts/ops/$opsscript" "$OPS/$opsscript.tmp" 2>/dev/null \
-          && chmod +x "$OPS/$opsscript.tmp" && mv "$OPS/$opsscript.tmp" "$OPS/$opsscript" && log "  refreshed ops/$opsscript (self-update)" ;;
-    esac
-  done
-
   [ "$web" = 0 ] && [ "$server" = 0 ] && log "  (data/docs only — no rebuild)"
 
   # Advance the marker only when every attempted build/restart succeeded (record exactly the SHA we built,
@@ -498,6 +547,21 @@ CURRENT_BRANCH="$("$GIT" symbolic-ref --quiet --short HEAD 2>/dev/null || true)"
 }
 MARKER="$(cat "$MARK" 2>/dev/null || true)"   # SHA the built ui/dist + running engine were last reconciled to
 
+# When the checkout already equals reviewed origin/main, repair runtime ops by content before every other
+# stateful gate. This intentionally does not trust the build marker: a missing/current marker can coexist
+# with a stale installed watchdog or deployer. The clean-code check prevents local unreviewed bytes from ever
+# reaching ~/.nostra-ops.
+if [ "$LOCAL" = "$REMOTE" ]; then
+  if has_nondata_dirty; then
+    log "SKIP runtime ops and connector reconciliation because a dirty non-data (code/ops) file is present (§28)"
+    exit 0
+  fi
+  if ! reconcile_runtime_ops; then
+    log "WARN runtime ops reconciliation failed — leaving the deployed marker unchanged for retry"
+    exit 0
+  fi
+fi
+
 # Don't re-deploy a SHA we just rolled back FROM. After an auto-rollback, HEAD sits on last-good while
 # origin/main still points at the boot-broken commit — the ff path below would otherwise fast-forward the
 # worktree right back onto it and re-trigger the crash-loop. If origin/main IS the recently-failed target
@@ -511,14 +575,8 @@ if [ -f "$FAILMARK" ]; then
 fi
 
 if [ "$LOCAL" = "$REMOTE" ]; then
-  # Only execute tracked migration helpers after the shared repository lease,
-  # main/origin identity check, and the §28 clean-code gate. This guarantees
-  # the helper bytes cannot change between review, execution, and service
-  # activation, even on an otherwise up-to-date deploy tick.
-  if has_nondata_dirty; then
-    log "SKIP connector-agent reconciliation because a dirty non-data (code/ops) file is present (§28)"
-    exit 0
-  fi
+  # Runtime ops were already reconciled from the same immutable checkout above. Execute the remaining tracked
+  # migration only after that repair, so a migration-specific failure cannot strand an old deploy/watchdog.
   if ! migrate_connector_launchagent_v2; then
     log "WARN connector-agent reconciliation failed — leaving the deployed marker unchanged for retry"
     exit 0
@@ -536,11 +594,15 @@ if [ "$LOCAL" = "$REMOTE" ]; then
     exit 0
   fi
   if [ -z "$MARKER" ]; then
-    # Fresh install — no baseline yet. Adopt HEAD (the running engine + current ui/dist are presumed in sync;
-    # the installer rebuilds then seeds this) rather than risk a surprise rebuild/restart; future deltas heal
-    # from here. Written atomically.
-    printf '%s\n' "$LOCAL" > "$MARK.tmp" 2>/dev/null && mv "$MARK.tmp" "$MARK" 2>/dev/null || true
-    log "INIT deployed marker set to ${LOCAL:0:9} (no rebuild — fresh baseline)"
+    # Fresh install — no build baseline yet. The documented bootstrap builds ui/dist and starts the engine at
+    # this checkout before installing services. Adopt HEAD only after runtime ops + migration reconciliation;
+    # if marker publication fails, do not claim initialization and retry the whole proof next cycle.
+    if printf '%s\n' "$LOCAL" > "$MARK.tmp" 2>/dev/null && mv "$MARK.tmp" "$MARK" 2>/dev/null; then
+      log "INIT deployed marker set to ${LOCAL:0:9} after runtime reconciliation (no rebuild — fresh baseline)"
+    else
+      rm -f "$MARK.tmp" 2>/dev/null || true
+      log "WARN could not initialize deployed marker — retry next cycle"
+    fi
     exit 0
   fi
   force_full=0
@@ -596,11 +658,18 @@ fi
 
 # Debounce a burst of code merges into a single rebuild+restart (each restart is a ~15-30s offline blip in
 # every open cockpit). Measured against the deployed marker when it's an ancestor of origin, else HEAD.
-# Data-only incoming deltas never defer (code_settling returns proceed) — they fast-forward as before.
+# Data-only incoming deltas never defer. A mixed ui+runtime-ops delta may fast-forward while settling so the
+# reviewed watchdog/deployer can self-update immediately; its ui activation remains deferred below.
 db_base="$LOCAL"; [ -n "$MARKER" ] && "$GIT" merge-base --is-ancestor "$MARKER" "$REMOTE" 2>/dev/null && db_base="$MARKER"
+defer_activation_after_ops=0
 if code_settling "$db_base" "$REMOTE"; then
-  log "DEFER ${LOCAL:0:9} -> ${REMOTE:0:9} — newest ui/ commit < ${DEBOUNCE_SECS}s ago; coalescing burst, retry next cycle"
-  exit 0
+  if runtime_ops_changed_between "$db_base" "$REMOTE"; then
+    defer_activation_after_ops=1
+    log "SYNC-OPS ${LOCAL:0:9} -> ${REMOTE:0:9} — reviewed runtime ops changed; fast-forwarding them before deferred ui activation"
+  else
+    log "DEFER ${LOCAL:0:9} -> ${REMOTE:0:9} — newest ui/ commit < ${DEBOUNCE_SECS}s ago; coalescing burst, retry next cycle"
+    exit 0
+  fi
 fi
 
 # take the shared git lock so a concurrent engine data commit can't dirty the tree between this check and
@@ -658,6 +727,17 @@ log "DEPLOY ${LOCAL:0:9} -> ${REMOTE:0:9}"
 grep -vE 'gc\.log|loose objects|Auto packing|git help gc|Please correct|Automatic cleanup|^warning:|^$' "$OPS/.merge.out" >> "$LOG" 2>/dev/null || true
 if [ "$mrc" -ne 0 ]; then
   log "WARN ff-only merge failed (rc=$mrc) — retry next cycle"
+  exit 0
+fi
+
+# Install the now-checked-out reviewed runtime ops before connector migration, build, health, and circuit
+# breaker gates. Failure is a deployment failure: leave the marker unchanged so every later tick retries.
+if ! reconcile_runtime_ops; then
+  log "WARN runtime ops reconciliation failed after fast-forward — leaving the deployed marker unchanged for retry"
+  exit 0
+fi
+if [ "$defer_activation_after_ops" = 1 ]; then
+  log "DEFER ui activation at ${REMOTE:0:9} — runtime ops reconciled; debounce remains in force for build/restart"
   exit 0
 fi
 

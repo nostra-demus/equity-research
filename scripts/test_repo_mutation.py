@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -15,6 +16,7 @@ from repo_mutation import append_ndjson, atomic_write_json, repository_mutation
 HERE = os.path.dirname(os.path.abspath(__file__))
 APPEND = os.path.join(HERE, "append-ndjson.sh")
 DEPLOY = os.path.join(HERE, "ops", "deploy.sh")
+DEPLOY_SELF_UPDATE_TEST = os.path.join(HERE, "ops", "test-deploy-self-update.py")
 
 
 def check(condition: bool, message: str) -> None:
@@ -42,6 +44,11 @@ def test_deploy_holds_both_leases_through_build() -> None:
         run(["git", "init", "--bare", "-q", "-b", "main", origin], tmp, env)
         run(["git", "clone", "-q", origin, seed], tmp, env)
         os.makedirs(os.path.join(seed, "ui", "web", "src"), exist_ok=True)
+        os.makedirs(os.path.join(seed, "scripts", "ops"), exist_ok=True)
+        shutil.copyfile(DEPLOY, os.path.join(seed, "scripts", "ops", "deploy.sh"))
+        for ops_name in ("watchdog.sh", "housekeeping.sh"):
+            with open(os.path.join(seed, "scripts", "ops", ops_name), "w", encoding="utf-8") as handle:
+                handle.write("#!/bin/sh\n# deploy lease fixture\n")
         with open(os.path.join(seed, "ui", "web", "src", "version.ts"), "w", encoding="utf-8") as handle:
             handle.write("export const version = 1\n")
         run(["git", "add", "."], seed, env)
@@ -163,6 +170,7 @@ def main() -> int:
         )
         check(ignored.returncode == 0, "a SIGKILL orphan from atomic publication can never be committed")
     test_deploy_holds_both_leases_through_build()
+    subprocess.run([sys.executable, DEPLOY_SELF_UPDATE_TEST], check=True)
     print("repo mutation lease: inherited append, exclusion, atomic replace, and immutable deploy build passed")
     return 0
 
