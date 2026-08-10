@@ -50,8 +50,11 @@ def _metric(text: str, label: str) -> tuple[float, str]:
 
 
 def _whole_shares(value: str) -> int:
+    token = value.strip()
+    if not re.fullmatch(r"(?:(?:0|[1-9]\d*)|(?:[1-9]\d{0,2}(?:,\d{3})+))(?:\.0+)?", token):
+        raise RuntimeError("IAU Historical row has invalid shares")
     try:
-        parsed = Decimal(value.replace(",", ""))
+        parsed = Decimal(token.replace(",", ""))
     except InvalidOperation as error:
         raise RuntimeError("IAU Historical row has invalid shares") from error
     if (

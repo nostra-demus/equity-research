@@ -36,6 +36,12 @@ except RuntimeError:
     pass
 else:
     raise AssertionError("fractional IAU shares did not fail closed")
+try:
+    mod.parse_history(xml.replace(">782900000<", ">78,29,000<"))
+except RuntimeError:
+    pass
+else:
+    raise AssertionError("malformed comma grouping in IAU shares did not fail closed")
 single_day_page = page.replace("Aug 07, 2026", "Aug 7, 2026")
 assert mod.parse_page(single_day_page)[0] == "2026-08-07"
 try:
