@@ -27,7 +27,7 @@ Parse `$ARGUMENTS` as `COMMODITY_OR_RUN_ROOT`:
 
 Confirm `<RUN_ROOT>/decision_record.json` exists and `<RUN_ROOT>/commodity-thesis/99_commodity-thesis-synthesis.md` exists; if either is missing, STOP and report "No finished commodity run at `<RUN_ROOT>`." Capture `<COMMODITY>` (from `decision_record.json`'s `commodity` field) and `<DECISION_DATE>`.
 
-Read (read-only): `decision_record.json`, the terminal `commodity-thesis/99_commodity-thesis-synthesis.md`, and **every** upstream module synthesis — discover them dynamically with a glob (`<RUN_ROOT>/*/99_*-synthesis.md`, mirroring how `research:pre-mortem` globs `<RUN_ROOT>/*/99_*-synthesis.md`), never a fixed module list. This is the §26 zero-touch rule: a module added later through the swarm's convention (a fifth `<module>/99_<module>-synthesis.md`) is picked up automatically, so its evidence is never silently dropped from the adversarial pass. Also read the terminal thesis's own cited orbs where present — `commodity-thesis/01_commodity-catalysts.md` (the catalyst calendar) and `commodity-thesis/02_commodity-cost-curve-fair-value.md` (the fair-value orb) — and any other orb the terminal synthesis actually cites. Capture the `action`, `confidence`, `thesis_summary`, `key_risks`, `key_levels` (support/resistance/fair_value_range), `relative_view`, `curve`, `balance`, `net_macro`, `positioning`, and the dossier's stated killer risk + flip trigger (Risk Summary section).
+Read (read-only): `decision_record.json`, the terminal `commodity-thesis/99_commodity-thesis-synthesis.md`, and **every** upstream module synthesis — discover them dynamically with a glob (`<RUN_ROOT>/*/99_*-synthesis.md`, mirroring how `research:pre-mortem` globs `<RUN_ROOT>/*/99_*-synthesis.md`), never a fixed module list. This is the §26 zero-touch rule: a module added later through the swarm's convention (a fifth `<module>/99_<module>-synthesis.md`) is picked up automatically, so its evidence is never silently dropped from the adversarial pass. Also read the terminal thesis's own cited orbs where present — `commodity-thesis/01_commodity-catalysts.md` (the catalyst calendar) and `commodity-thesis/02_commodity-cost-curve-fair-value.md` (the fair-value orb) — and any other orb the terminal synthesis actually cites. Capture the `action`, `target_exposure_risk_units`, `forecast_confidence`, `confidence`, both `forecast_horizons`, `critical_risk_override`, `thesis_summary`, `key_risks`, `key_levels` (support/resistance/fair_value_range), `relative_view`, `curve`, `balance`, `net_macro`, `positioning`, and the dossier's stated killer risk + flip trigger (Risk Summary section).
 
 ## 2. Pick the adversarial direction (red-team the ACTUAL call)
 
@@ -49,7 +49,14 @@ Produce each of the following, grounded in the discovered module syntheses + the
 3. **Steelmanned other side** (`bull_case_steelman`) — the fairest, strongest version of the opposing case. Be honest, not strawman.
 3a. **Causal-math attack** (`causal_math_attack`) — before attacking any conclusion, re-derive the numbers the conclusion rests on. Arithmetic is the cheapest thing to check and the easiest for a fluent narrative to hide; every other attack below assumes the dossier's figures are what it says they are. Recompute, do not read:
    - **Driver attributions.** For each "X explains / accounts for / tracks the Y move" claim, do the multiplication yourself, convert to the price's own units, and compare with the observed move. Check the sensitivity's **basis** against the variable it is applied to (nominal yield vs real yield vs breakeven; trade-weighted vs bilateral FX; spot vs forward) — a basis mismatch invalidates the claim outright, however plausible the story reads (§15 / MODULE_RULES §4a).
-   - **The scenario distribution.** Probabilities sum to 100; `expected_return_pct` equals Sum(p × ret); `downside_risk_pct` is the bear case's own return; each `return_pct` agrees with its own `price_target` against `current_price`. `scripts/validate_screener_json.py` gates these, but a report that only ever agreed with itself would pass the gate and still be wrong — sanity-check that the distribution matches the PROSE's own bear/base/bull.
+   - **Both scenario distributions.** Independently for tactical and strategic: probabilities sum to 100;
+     every implementable return equals price + roll + collateral + fees + FX; every expected component and
+     expected implementable return equals `Sum(p × component)`; loss probability is the mass below zero;
+     downside is the worst implementable case; risk/reward is expected implementable return / absolute
+     downside; price return agrees with `price_target/current_price`; and the duration-matched cash hurdle
+     is sourced. Re-derive each positive/mixed/negative classification, the matrix action, target exposure,
+     and lower-of-two forecast confidence. Confirm there is NO blended expected return. A record that agrees
+     only with itself can still be conceptually wrong — compare both distributions with their prose cards.
    - **Unit and scale slips.** Percent vs percentage point, ¢/lb vs $/oz vs ₹/quintal, tonnes vs troy ounces, the local scale (lakh/crore) against the absolute number (§15/§27).
    - **The adjective against the number.** Any "the bulk of", "most of", "almost exactly", "largely" whose printed arithmetic does not clear it.
 
@@ -75,7 +82,7 @@ Produce each of the following, grounded in the discovered module syntheses + the
   - **Does not survive — downgrade** — the bear case dominates or the fair-value/carry claim is not real; recommend a more cautious action cap (e.g. `Buy` → `Hold`, `Hold` → `Trim`).
   - **Thesis broken** — the killer risk is effectively already triggered or the core balance/macro claim fails; recommend `Avoid` / `Research More`.
 - **`confidence_haircut`** (number ≥ 0) and **`recommended_confidence`** = `max(0, confidence − haircut)`. Never negative (rule 1).
-- **`recommended_action_cap`** — the most cautious action this pre-mortem justifies, using the ordering `Buy` (least cautious) → `Hold` → `Trim` → `Avoid` (most cautious), with `Research More` as a separate "insufficient evidence" outcome available from any starting action. Never recommend a LESS cautious cap than the run's own action. For `Avoid`/`Trim`, the cap can only ever stay put or move toward `Avoid` — never loosen toward `Buy` even when the steelmanned bull case is strong (rule 1); note the dismissed upside in `bull_case_steelman` instead. `""` if no cap is warranted beyond the run's own action.
+- **`recommended_action_cap`** — the most cautious action this pre-mortem justifies, using the ordering `Buy` (least cautious) → `Hold` → `Trim` → `Avoid` (most cautious), with `Research More` as a separate "insufficient evidence" outcome available from any starting action. Never recommend a LESS cautious cap than the run's own action. For `Avoid`/`Trim`, the cap can only ever stay put or move toward `Avoid` — never loosen toward `Buy` even when the steelmanned bull case is strong (rule 1); note the dismissed upside in `bull_case_steelman` instead. From `Research More`, only a proven critical risk may force `Avoid`; `Buy`/`Hold`/`Trim` would create exposure from an abstention and are forbidden. `""` if no cap is warranted beyond the run's own action.
 
 Sizing the haircut (guidance, not a formula to fake precision): a killer risk already partway triggered, a fair-value band resting on an absent cost-curve orb, or a forecast far outside its cycle base rate each warrant a meaningful haircut; a well-disconfirmed, already-cautious, low-confidence call warrants little or none.
 
@@ -99,7 +106,14 @@ Write `<RUN_ROOT>/pre_mortem.json`. If it exists, do NOT overwrite — use `pre_
   "pre_mortem_narrative": "",
   "bear_case": "",
   "bull_case_steelman": "",
-  "causal_math_attack": { "recomputed": [], "errors_found": [], "basis_mismatches": [], "scenario_math_reconciles": null, "severity": "" },
+  "causal_math_attack": {
+    "recomputed": [],
+    "errors_found": [],
+    "basis_mismatches": [],
+    "scenario_math_reconciles": null,
+    "horizon_math": { "tactical": null, "strategic": null, "action_matrix": null, "target_exposure": null, "no_blended_return": null },
+    "severity": ""
+  },
   "killer_risk_attack": { "stated_killer_risk": "", "closeness_to_trigger": "", "disconfirming_evidence_now": "", "second_risk_omitted": "", "severity": "" },
   "fair_value_attack": { "band_present": null, "margin_of_safety_durable": null, "detail": "" },
   "carry_attack": { "claim": "", "durable": null, "detail": "" },

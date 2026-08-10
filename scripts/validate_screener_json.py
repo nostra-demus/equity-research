@@ -48,6 +48,9 @@ import os
 import re
 import sys
 
+from commodity_decision_archive import ArchiveError, decision_id_for
+from commodity_forecast_contract import validate_decision_record as validate_dual_horizon_record
+
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 TYPES = {
@@ -369,6 +372,7 @@ def _commodity_leading_error_categories(calibration_summary):
 # 2026-07-02..07-18) predate the block entirely and are N/A — they are not retro-failed for missing
 # something the synthesizer was, at the time, explicitly told NOT to write.
 COMMODITY_SCENARIO_GATE_DATE = "2026-08-08"
+COMMODITY_DUAL_HORIZON_GATE_DATE = "2026-08-10"
 # §10 SPAN-check threshold — the commodity-scoped twin of eval.py's AT_MIN_BEST_PCT (check
 # eval_at_scenario_span). Same value and rationale as the research-swarm check: a scenario set can sum to
 # 100 and reconcile its expected return perfectly while still spanning nothing, if the bull case's
@@ -404,6 +408,52 @@ def commodity_signal_evidence() -> list[str]:
         os.path.relpath(p, REPO)
         for p in glob.glob(os.path.join(REPO, "commodity", "runs", "*", "signal_evidence.json"))
     )
+
+
+def check_commodity_dual_horizon(doc_path: str) -> list[str]:
+    """Require the independent tactical/strategic contract for decisions from its rollout date."""
+    try:
+        record = json.load(open(doc_path, encoding="utf-8"))
+    except Exception as error:
+        return [f"could not parse for dual-horizon cross-check: {error}"]
+    if not isinstance(record, dict):
+        return ["commodity decision_record is not a JSON object"]
+    decision_date = record.get("decision_date")
+    if not isinstance(decision_date, str) or decision_date < COMMODITY_DUAL_HORIZON_GATE_DATE:
+        return []
+    return validate_dual_horizon_record(record)
+
+
+def check_commodity_decision_archive(doc_path: str) -> list[str]:
+    """Bind every post-rollout current projection to an identical immutable archived decision."""
+    try:
+        record = json.load(open(doc_path, encoding="utf-8"))
+    except Exception as error:
+        return [f"could not parse for decision-archive cross-check: {error}"]
+    if not isinstance(record, dict):
+        return ["commodity decision_record is not a JSON object"]
+    decision_date = record.get("decision_date")
+    if not isinstance(decision_date, str) or decision_date < COMMODITY_DUAL_HORIZON_GATE_DATE:
+        return []
+    decision_id = record.get("decision_id")
+    if not isinstance(decision_id, str) or not decision_id:
+        return ["post-rollout decision_record must carry an immutable decision_id"]
+    try:
+        derived = decision_id_for(record)
+    except ArchiveError as error:
+        return [f"decision_id cannot be derived: {error}"]
+    if decision_id != derived:
+        return [f"decision_id={decision_id!r} does not match content-derived ID {derived!r}"]
+    archive_path = os.path.join(os.path.dirname(doc_path), "decisions", decision_id, "decision_record.json")
+    if not os.path.isfile(archive_path):
+        return [f"immutable decision archive is missing: {os.path.relpath(archive_path, REPO)}"]
+    try:
+        archived = json.load(open(archive_path, encoding="utf-8"))
+    except Exception as error:
+        return [f"immutable decision archive is unreadable: {error}"]
+    if archived != record:
+        return ["current decision projection differs from its immutable archived decision"]
+    return []
 
 
 def check_commodity_signal_projection(doc_path: str) -> list[str]:
@@ -1530,7 +1580,16 @@ def main(argv: list[str]) -> int:
         errs = validate(schema_p, doc_p)
         rel = os.path.relpath(doc_p, REPO)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_SCHEMA)):
-            errs = errs + check_commodity_routing(doc_p) + check_commodity_data_sufficiency(doc_p) + check_commodity_calibration_gate(doc_p) + check_commodity_scenario_math(doc_p) + check_commodity_signal_projection(doc_p)
+            errs = (
+                errs
+                + check_commodity_routing(doc_p)
+                + check_commodity_data_sufficiency(doc_p)
+                + check_commodity_calibration_gate(doc_p)
+                + check_commodity_scenario_math(doc_p)
+                + check_commodity_dual_horizon(doc_p)
+                + check_commodity_decision_archive(doc_p)
+                + check_commodity_signal_projection(doc_p)
+            )
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_REVIEW_SCHEMA)):
             errs = errs + check_commodity_review_anchors(doc_p)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, THESIS_INTEGRITY_SCHEMA)):

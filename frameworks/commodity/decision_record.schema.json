@@ -2,18 +2,165 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "frameworks/commodity/decision_record.schema.json",
   "title": "Commodity decision record",
-  "description": "The commodity swarm's terminal machine record — written by .claude/agents/commodity/commodity-thesis/99_commodity-thesis-synthesis.md to commodity/runs/<COMMODITY>/decision_record.json. This is the commodity-scoped twin of the research swarm's decision_record.json (frameworks/DECISION_LEDGER.md §5) — a smaller shape, but NOT one exempt from CLAUDE.md §10. It used to be: the record deliberately omitted a scenario/forecast ledger on the grounds that a single-verdict dossier did not need one. That was wrong under §23 (a module may add detail, never relax a root standard). The dossier already states a bear-case price (key_levels.support and the cost-curve orb's bear fair value), which is exactly the condition §10 attaches its requirements to — probabilities that sum to 100, an expected return that reconciles to Sum(probability x return), a stated risk/reward, a time window, and a falsification trigger per forecast. Without them the dossier could use probability-weighted LANGUAGE while carrying no distribution (the GOLD dossier's 'that is not today's probability-weighted reality' is the case in point) and no forecast the §19 ledger could ever grade. scenarios[]/expected_return_pct/downside_risk_pct/risk_reward/scenario_horizon_days below close that, reusing the research swarm's field names verbatim so one consumer reads both. Validated by scripts/validate_screener_json.py --fixture (schemas_root, per .claude/agents/commodity/SWARM.md), whose check_commodity_scenario_math is the commodity-scoped twin of eval.py check M.",
+  "description": "The commodity swarm's terminal machine record — written by .claude/agents/commodity/commodity-thesis/99_commodity-thesis-synthesis.md to commodity/runs/<COMMODITY>/decision_record.json. This is the commodity-scoped twin of the research swarm's decision_record.json (frameworks/DECISION_LEDGER.md §5) — a smaller shape, but NOT one exempt from CLAUDE.md §10. It used to be: the record deliberately omitted a scenario/forecast ledger on the grounds that a single-verdict dossier did not need one. That was wrong under §23 (a module may add detail, never relax a root standard). The dossier already states a bear-case price (key_levels.support and the cost-curve orb's bear fair value), which is exactly the condition §10 attaches its requirements to — probabilities that sum to 100, an expected return that reconciles to Sum(probability x return), a stated risk/reward, a time window, and a falsification trigger per forecast. Without them the dossier could use probability-weighted LANGUAGE while carrying no distribution (the GOLD dossier's 'that is not today's probability-weighted reality' is the case in point) and no forecast the §19 ledger could ever grade. The original scenarios[]/expected_return_pct/downside_risk_pct/risk_reward/scenario_horizon_days fields remain below only for pre-2026-08-10 records. Fresh decisions use forecast_horizons.tactical and forecast_horizons.strategic, never a blended expected return; scripts/commodity_forecast_contract.py re-derives both classifications, the action matrix, exposure and confidence, and scripts/commodity_decision_archive.py freezes the final red-teamed record before updating the current projection.",
   "type": "object",
   "required": [
     "swarm", "commodity", "decision_date", "action", "benchmark", "current_price",
     "curve", "balance", "net_macro", "positioning", "thesis_summary", "key_risks",
     "key_levels", "relative_view", "confidence", "sources"
   ],
+  "definitions": {
+    "dualHorizonScenario": {
+      "type": "object",
+      "required": [
+        "scenario_id", "label", "probability", "price_target", "price_return_pct",
+        "roll_return_pct", "collateral_return_pct", "fees_pct", "fx_adjustment_pct",
+        "implementable_return_pct", "conditions", "source", "invalidated_if"
+      ],
+      "properties": {
+        "scenario_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "label": { "type": "string", "enum": ["bear", "base", "bull"] },
+        "probability": { "type": "number", "minimum": 0, "maximum": 100 },
+        "price_target": { "type": "number" },
+        "price_return_pct": { "type": "number" },
+        "roll_return_pct": { "type": "number" },
+        "collateral_return_pct": { "type": "number" },
+        "fees_pct": { "type": "number" },
+        "fx_adjustment_pct": { "type": "number" },
+        "implementable_return_pct": { "type": "number" },
+        "conditions": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "source": { "type": "string", "minLength": 1 },
+        "joint_probability_basis": { "type": ["string", "null"] },
+        "invalidated_if": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "expectedReturnComponents": {
+      "type": "object",
+      "required": [
+        "price_return_pct", "roll_return_pct", "collateral_return_pct", "fees_pct",
+        "fx_adjustment_pct", "implementable_return_pct"
+      ],
+      "properties": {
+        "price_return_pct": { "type": "number" },
+        "roll_return_pct": { "type": "number" },
+        "collateral_return_pct": { "type": "number" },
+        "fees_pct": { "type": "number" },
+        "fx_adjustment_pct": { "type": "number" },
+        "implementable_return_pct": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "cashHurdle": {
+      "type": "object",
+      "required": ["return_pct", "duration_days", "instrument", "source", "as_of"],
+      "properties": {
+        "return_pct": { "type": "number" },
+        "duration_days": { "type": "integer", "minimum": 1 },
+        "instrument": { "type": "string", "minLength": 1 },
+        "source": { "type": "string", "minLength": 1 },
+        "as_of": { "type": "string", "format": "date" }
+      },
+      "additionalProperties": false
+    },
+    "spanAudit": {
+      "type": "object",
+      "required": [
+        "status", "mapping", "grid_days", "empirical_lower_bound_pct",
+        "empirical_upper_bound_pct", "killer_risk_case_id", "killer_risk_required_bound_pct",
+        "source"
+      ],
+      "properties": {
+        "status": { "const": "pass" },
+        "mapping": { "type": "string", "enum": ["exact_grid", "conservative_bracketing"] },
+        "grid_days": { "type": "array", "minItems": 1, "maxItems": 2, "items": { "type": "integer" } },
+        "empirical_lower_bound_pct": { "type": "number" },
+        "empirical_upper_bound_pct": { "type": "number" },
+        "killer_risk_case_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "killer_risk_required_bound_pct": { "type": "number" },
+        "source": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "horizonForecast": {
+      "type": "object",
+      "required": ["horizon", "status", "horizon_days", "target_date", "classification", "confidence"],
+      "properties": {
+        "horizon": { "type": "string", "enum": ["tactical", "strategic"] },
+        "status": { "type": "string", "enum": ["assessable", "not_assessable"] },
+        "horizon_days": { "type": "integer" },
+        "target_date": { "type": "string", "format": "date" },
+        "scenarios": { "type": "array", "minItems": 0, "maxItems": 7, "items": { "$ref": "#/definitions/dualHorizonScenario" } },
+        "expected_return_components_pct": { "$ref": "#/definitions/expectedReturnComponents" },
+        "loss_probability_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "downside_pct": { "type": "number" },
+        "risk_reward": { "oneOf": [{ "type": "number" }, { "const": "unbounded" }] },
+        "cash_hurdle": { "$ref": "#/definitions/cashHurdle" },
+        "span_audit": { "$ref": "#/definitions/spanAudit" },
+        "classification": { "type": "string", "enum": ["positive", "mixed", "negative", "not_assessable"] },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 100 },
+        "catalysts": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "falsifiers": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "not_assessable_reason": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "assessable" } } },
+          "then": {
+            "required": [
+              "scenarios", "expected_return_components_pct", "loss_probability_pct", "downside_pct",
+              "risk_reward", "cash_hurdle", "span_audit", "catalysts", "falsifiers"
+            ]
+          }
+        },
+        {
+          "if": { "properties": { "status": { "const": "not_assessable" } } },
+          "then": { "required": ["not_assessable_reason"] }
+        }
+      ]
+    }
+  },
   "properties": {
     "swarm": { "const": "commodity" },
     "commodity": { "type": "string", "minLength": 1, "pattern": "^[A-Z0-9_]+$" },
     "decision_date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
     "action": { "type": "string", "enum": ["Buy", "Hold", "Trim", "Avoid", "Research More"] },
+    "decision_id": {
+      "type": "string",
+      "pattern": "^CMD-[A-Z0-9_]+-[0-9]{4}-[0-9]{2}-[0-9]{2}-[a-f0-9]{12}$",
+      "description": "Immutable content-addressed decision ID assigned after the pre-mortem finish-gate by scripts/commodity_decision_archive.py. The matching archive lives at decisions/<decision_id>/decision_record.json; the top-level record is only the current UI projection."
+    },
+    "target_exposure_risk_units": {
+      "type": ["number", "null"],
+      "enum": [1.0, 0.5, 0.25, 0.0, null],
+      "description": "Mechanical action sizing: Buy 1.0, Hold 0.5, Trim 0.25, Avoid 0 and Research More null."
+    },
+    "forecast_confidence": {
+      "type": "number", "minimum": 0, "maximum": 100,
+      "description": "The lower of tactical and strategic confidence before calibration or pre-mortem downgrades."
+    },
+    "critical_risk_override": {
+      "type": "object",
+      "required": ["applied", "risk", "source"],
+      "properties": {
+        "applied": { "type": "boolean" },
+        "risk": { "type": ["string", "null"] },
+        "source": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false,
+      "description": "The only route from an unassessable horizon to Avoid rather than Research More. When applied, risk and source must prove a critical risk; it can never upgrade an action."
+    },
+    "forecast_horizons": {
+      "type": "object",
+      "required": ["tactical", "strategic"],
+      "properties": {
+        "tactical": { "$ref": "#/definitions/horizonForecast" },
+        "strategic": { "$ref": "#/definitions/horizonForecast" }
+      },
+      "additionalProperties": false,
+      "description": "Independent tactical (30–92 days, default 60) and strategic (182–548 days, default 365) forecasts. Never blend their expected returns."
+    },
     "benchmark": { "type": "string", "minLength": 1 },
     "current_price": {
       "type": "object",
@@ -99,16 +246,21 @@
       "enum": ["Buy", "Hold", "Trim", "Avoid", "Research More"],
       "description": "Additive — `action` above, capped by the pre-mortem's recommended_action_cap when the finish-gate ran and a cap was warranted (never a LESS cautious value than `action` — commodity:pre-mortem.md rule 1); equal to `action` when no cap fired or the finish-gate has not yet run. commodity:review.md and any calibration consumer should prefer this field over `action` when grading the call the engine actually holds, mirroring scripts/calibrate.py's basket_of() preference for the research swarm."
     },
+    "post_mortem_target_exposure_risk_units": {
+      "type": ["number", "null"],
+      "enum": [1.0, 0.5, 0.25, 0.0, null],
+      "description": "Target exposure after the pre-mortem action cap. It is deterministically mapped from post_mortem_action and can only be equal to or below the original exposure."
+    },
     "scenario_horizon_days": {
       "type": "integer",
       "minimum": 1,
-      "description": "Additive (§10 'every forecast has a time window'). The horizon EVERY scenarios[] return_pct and price_target below is measured over — one window for the whole distribution, so the probabilities are commensurable. Commodity theses are typically tactical (90-180 days); state the window the catalyst chain actually resolves over, not a convenient round number. Required once scenarios[] is present."
+      "description": "LEGACY ONLY for decisions before 2026-08-10. Additive (§10 'every forecast has a time window'). The horizon EVERY scenarios[] return_pct and price_target below is measured over — one window for the whole distribution. Fresh records use forecast_horizons and this field is forbidden."
     },
     "scenarios": {
       "type": "array",
       "minItems": 3,
       "maxItems": 7,
-      "description": "Additive (CLAUDE.md §10 / §19). The bear/base/bull distribution the dossier's fair-value band already implies, made explicit and machine-checkable: probabilities sum to 100, and expected_return_pct must equal Sum(probability/100 x return_pct). Field names are the research swarm's verbatim (frameworks/DECISION_LEDGER.md §5) so calibration and review consumers read one shape across swarms — with `invalidated_if` added, because a commodity forecast's falsification trigger is what /commodity:review grades it against later (§19). price_target is in the benchmark's own units (the unit named in current_price), NOT a per-share price; return_pct is measured from current_price.value over scenario_horizon_days.",
+      "description": "LEGACY ONLY for decisions before 2026-08-10. The former single bear/base/bull distribution. Fresh records use the two independent forecast_horizons objects and this field is forbidden.",
       "items": {
         "type": "object",
         "required": ["scenario_id", "label", "probability", "return_pct", "price_target", "conditions", "source", "invalidated_if"],
@@ -127,15 +279,15 @@
     },
     "expected_return_pct": {
       "type": "number",
-      "description": "Additive (§10). Sum(probability/100 x return_pct) across scenarios[], over scenario_horizon_days. Machine-reconciled by check_commodity_scenario_math — a hand-typed number that disagrees with its own distribution fails, so the arithmetic cannot drift from the prose."
+      "description": "LEGACY ONLY for decisions before 2026-08-10. Fresh records never carry a top-level expected return because that could be mistaken for a tactical/strategic blend."
     },
     "downside_risk_pct": {
       "type": "number",
-      "description": "Additive (§10). The bear case's return_pct — the loss the call accepts if the bear resolves. Signed the same way as return_pct (negative for a long that loses)."
+      "description": "LEGACY ONLY for decisions before 2026-08-10. Fresh records carry downside inside each independent horizon."
     },
     "risk_reward": {
       "type": "number",
-      "description": "Additive (§10 'risk/reward is stated where a bear-case price exists' — which a commodity dossier's bear fair value always is). expected_return_pct / |downside_risk_pct|, or the bull/bear ratio where the dossier states it that way; either convention is fine as long as the record and the prose agree."
+      "description": "LEGACY ONLY for decisions before 2026-08-10. Fresh records carry expected-return/absolute-downside risk/reward inside each independent horizon."
     },
     "data_needs": {
       "type": "array",

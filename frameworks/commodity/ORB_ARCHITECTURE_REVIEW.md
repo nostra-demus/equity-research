@@ -129,3 +129,13 @@ Every new component is free-public at anchor / proxy grade. The physical, vol, a
 gracefully and stay labelled** where free data thins — especially the four ICE softs (sugar/coffee/cocoa/
 cotton have no free vol index). A vendor-ranked cost curve is out of reach and out of scope; the fair-value
 orb ships an anchor-grade band, never a false-precise percentile (§11 cap enforced in the orb).
+
+## 8. 2026-08-10 predictive-programme supersession
+
+The earlier status above is historical, not the current runtime contract. The predictive upgrade subsequently
+added the cross-asset-regime, volatility-distribution and independent-scenario orbs; deepened the physical
+supply bridge, ownership map and fair-value separation; and replaced the transitional single-horizon fields
+with independent tactical and strategic forecasts. Fresh decisions now classify each horizon against a
+duration-matched cash hurdle, derive action/exposure from MODULE_RULES §11's matrix, and are archived under a
+content-derived immutable decision ID after the pre-mortem. The WILTW report informed analytical method only
+and is forbidden as a runtime input; none of its point-in-time assertions belong in `data/GOLD`.

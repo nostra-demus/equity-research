@@ -93,8 +93,8 @@ def test_predictive_depth_cannot_silently_regress() -> None:
     scenario = (ROOT / ".claude/agents/commodity/commodity-thesis/03_commodity-scenario-engine.md").read_text()
     scenario_normalized = " ".join(scenario.lower().split())
     for anchor in (
-        "independent of the terminal thesis", "before it can influence an action", "span audit",
-        "conjunction audit", "expected implementable return / absolute bear downside",
+        "independent of the terminal thesis", "before either can influence an action", "span audit",
+        "conjunction audit", "expected implementable return / absolute downside",
     ):
         assert anchor.lower() in scenario_normalized, anchor
 
