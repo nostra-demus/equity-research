@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+from decimal import Decimal, InvalidOperation
 import html
 from html.parser import HTMLParser
 import math
@@ -46,6 +47,19 @@ def _metric(text: str, label: str) -> tuple[float, str]:
     if not math.isfinite(value) or value <= 0:
         raise RuntimeError(f"IAU page has invalid {label}")
     return value, day
+
+
+def _whole_shares(value: str) -> int:
+    try:
+        parsed = Decimal(value.replace(",", ""))
+    except InvalidOperation as error:
+        raise RuntimeError("IAU Historical row has invalid shares") from error
+    if (
+        not parsed.is_finite() or parsed <= 0 or parsed != parsed.to_integral_value()
+        or parsed > 9_007_199_254_740_991
+    ):
+        raise RuntimeError("IAU Historical row has invalid shares")
+    return int(parsed)
 
 
 def parse_page(raw: str) -> tuple[str, dict]:
@@ -120,7 +134,7 @@ def parse_history(raw: str) -> list[dict]:
         if values[1] in {"", "--", "N/A", "n/a"} or values[3] in {"", "--", "N/A", "n/a"}:
             continue
         try:
-            nav = float(values[1]); shares = int(values[3])
+            nav = float(values[1]); shares = _whole_shares(values[3])
         except ValueError as error:
             raise RuntimeError("IAU Historical row has invalid NAV/shares") from error
         if not math.isfinite(nav) or nav <= 0 or shares <= 0:

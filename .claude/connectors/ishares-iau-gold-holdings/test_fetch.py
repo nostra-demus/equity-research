@@ -28,6 +28,14 @@ defects = validate_manifest(manifest["id"], HERE, manifest) + validate_staged_ou
 assert not defects, defects
 assert as_of == "2026-08-07" and payload["current"]["tonnes_in_trust"] == 457.89
 assert len(payload["share_history"]) == 600
+decimal_xml = xml.replace(">782900000<", ">782900000.0<")
+assert mod.build(page, decimal_xml)[1]["share_history"][-1]["shares_outstanding"] == 782900000
+try:
+    mod.parse_history(xml.replace(">782900000<", ">782900000.5<"))
+except RuntimeError:
+    pass
+else:
+    raise AssertionError("fractional IAU shares did not fail closed")
 single_day_page = page.replace("Aug 07, 2026", "Aug 7, 2026")
 assert mod.parse_page(single_day_page)[0] == "2026-08-07"
 try:
