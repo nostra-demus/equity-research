@@ -19,6 +19,7 @@ manifest = json.load(open(os.path.join(HERE, "connector.json"), encoding="utf-8"
 defects = validate_manifest(manifest["id"], HERE, manifest) + validate_staged_output(manifest, "GOLD", payload, sidecar, as_of)
 assert not defects, defects
 assert as_of == "2026-06-30" and payload["vault"]["gold_tonnes"] == 9464
+assert mod.parse_vault(vault.replace("a 0.77%", "an 8%"))[2]["change_mom_pct"] == 8.0
 try:
     mod.build(vault.replace("June 2026", "May 2026"), clearing)
 except RuntimeError as error:

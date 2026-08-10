@@ -155,6 +155,16 @@ def main() -> int:
         )
         assert late and late["usable"] is False and late["status"] == "suspect"
 
+        (state_root / "commodity-pulse.json").write_text(json.dumps({
+            "commodity": {"priceAt": 1786392000000, "prices": {"GOLD": "malformed"}},
+        }), encoding="utf-8")
+        malformed_pulse = resolve_profile_series(
+            "gold.price", "GOLD", "2026-08-11T00:00:00Z", profile_path=profile,
+            structured_root=structured_root, connectors_root=root, data_root=root,
+            market_root=market_root, state_root=state_root, reader=reader, manifests=manifests,
+        )
+        assert malformed_pulse and malformed_pulse["usable"] is False and malformed_pulse["status"] == "suspect"
+
         duplicate = manifests + [{**manifests[0], "id": "automatic-two", "dataset_id": "other.auto"}]
         ambiguous = compile_coverage(
             commodity="GOLD", decision_time="2026-08-11T00:00:00Z", profile_path=profile,

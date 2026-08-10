@@ -335,7 +335,7 @@ def _resolve_pulse(
     quote_at = _parse_instant(quote.get("as_of")) if isinstance(quote, dict) else None
     value = quote.get("last") if isinstance(quote, dict) else None
     if (
-        price_at > cutoff or quote_at is None or quote_at > price_at
+        not isinstance(quote, dict) or price_at > cutoff or quote_at is None or quote_at > price_at
         or quote.get("symbol") != resolver.get("symbol") or quote.get("source") != resolver.get("source")
         or not isinstance(value, (int, float)) or isinstance(value, bool) or not math.isfinite(value) or value <= 0
     ):

@@ -56,7 +56,7 @@ def _signed(value: str, direction: str) -> float:
 def parse_vault(raw: str) -> tuple[str, str, dict]:
     text = visible_text(raw)
     period_match = re.search(r"LBMA London Vault Holdings Data ([A-Z][a-z]+ \d{4})", text)
-    value_match = re.search(r"amount of gold held in London vaults was ([\d,.]+) tonnes \((?:a )?([\d.]+)% (increase|decrease)", text, re.I)
+    value_match = re.search(r"amount of gold held in London vaults was ([\d,.]+) tonnes \((?:an? )?([\d.]+)% (increase|decrease)", text, re.I)
     if not period_match or not value_match:
         raise RuntimeError("LBMA vault page shape changed")
     period, as_of = _period(period_match.group(1))
