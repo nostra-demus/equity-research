@@ -22,7 +22,7 @@ Arguments: `$ARGUMENTS`. Execute the steps below in order.
 
 Parse `$ARGUMENTS` as `COMMODITY_OR_RUN_ROOT`:
 - starts with `commodity/runs/`, or is an existing directory → that is `<RUN_ROOT>` (strip a trailing slash);
-- otherwise treat it as a commodity id (upper-case to match `^[A-Z0-9_]+$`) → `<RUN_ROOT>` = `commodity/runs/<ID>`;
+- otherwise treat it as a commodity id (upper-case to match `^[A-Z0-9]+(?:[-_][A-Z0-9]+)*$`) → `<RUN_ROOT>` = `commodity/runs/<ID>`;
 - empty → STOP and ask for a commodity id or run root (unlike the research/screener swarms there is no dated-folder-per-run convention to default from — `commodity/runs/<COMMODITY>/` is the one stable location).
 
 Confirm `<RUN_ROOT>/decision_record.json` exists and `<RUN_ROOT>/commodity-thesis/99_commodity-thesis-synthesis.md` exists; if either is missing, STOP and report "No finished commodity run at `<RUN_ROOT>`." Capture `<COMMODITY>` (from `decision_record.json`'s `commodity` field) and `<DECISION_DATE>`.

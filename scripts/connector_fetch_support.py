@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import os
 import urllib.request
+import urllib.parse
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -44,6 +45,51 @@ def fetch_bytes(
     with open_allowed_https(request, manifest["host_allowlist"], timeout=timeout) as response:
         if response.status != 200:
             raise RuntimeError(f"HTTP {response.status} from {url}")
+        return read_bounded_response(response, max_bytes=max_bytes)
+
+
+def fetch_bytes_with_query_credential(
+    source_url: str,
+    manifest: dict[str, Any],
+    *,
+    query_key: str,
+    credential: str,
+    max_bytes: int,
+    timeout: int = 20,
+) -> bytes:
+    """Fetch an API that requires query authentication without persisting its secret URL.
+
+    ``source_url`` is the durable credential-free identity. The caller supplies one
+    runner-injected secret, and this helper grants only that exact credential-semantic
+    query key to the HTTPS boundary. Errors intentionally name the provider rather than
+    the request URL because some APIs echo query credentials in request metadata.
+    """
+    if not isinstance(credential, str) or not credential or credential.strip() != credential:
+        raise RuntimeError("connector query credential is missing or malformed")
+    from connector_contract import credential_query_key
+    if not isinstance(query_key, str) or not credential_query_key(query_key):
+        raise RuntimeError("connector query credential key is not credential-semantic")
+    parsed = urllib.parse.urlsplit(source_url)
+    existing = urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
+    if any(key == query_key for key, _value in existing):
+        raise RuntimeError("durable source URL must not contain the query credential")
+    request_url = urllib.parse.urlunsplit((
+        parsed.scheme, parsed.netloc, parsed.path,
+        urllib.parse.urlencode([*existing, (query_key, credential)]), parsed.fragment,
+    ))
+    request = urllib.request.Request(
+        request_url,
+        headers={
+            "User-Agent": "NostraResearch/1.0 (+https://github.com/nostra-demus/equity-research)",
+            "X-Nostra-Connector": manifest["id"],
+        },
+    )
+    with open_allowed_https(
+        request, manifest["host_allowlist"], timeout=timeout,
+        credential_query_keys=frozenset({query_key}),
+    ) as response:
+        if response.status != 200:
+            raise RuntimeError(f"HTTP {response.status} from {manifest['provider']}")
         return read_bounded_response(response, max_bytes=max_bytes)
 
 

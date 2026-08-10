@@ -22,11 +22,11 @@
       "resolver": {"kind": "connector"}
     },
     {
-      "need": "gold-broad-usd",
-      "series": "gold.broad-usd-index",
+      "need": "macro-broad-usd-index",
+      "series": "macro.broad-usd-index",
       "owner": "commodity-macro-drivers",
       "requirement": "daily; ≥3 years for validation",
-      "policy": "Federal Reserve/FRED public CSV",
+      "policy": "shared Federal Reserve/FRED public CSV semantic series",
       "quality": {"path": "observations", "min_observations": 750, "min_span_days": 1095, "date_field": "date", "max_staleness_days": 7},
       "resolver": {"kind": "connector"}
     },

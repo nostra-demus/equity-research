@@ -7,6 +7,7 @@ import copy
 import datetime as dt
 import hashlib
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -20,6 +21,9 @@ class ArchiveError(RuntimeError):
     pass
 
 
+COMMODITY_ID_RE = re.compile(r"^[A-Z0-9]+(?:[-_][A-Z0-9]+)*$")
+
+
 def _canonical_without_id(record: dict[str, Any]) -> bytes:
     payload = copy.deepcopy(record)
     payload.pop("decision_id", None)
@@ -31,10 +35,8 @@ def _canonical_without_id(record: dict[str, Any]) -> bytes:
 def decision_id_for(record: dict[str, Any]) -> str:
     commodity = record.get("commodity")
     decision_date = record.get("decision_date")
-    if not isinstance(commodity, str) or not commodity or not commodity.replace("_", "").isalnum():
+    if not isinstance(commodity, str) or COMMODITY_ID_RE.fullmatch(commodity) is None:
         raise ArchiveError("commodity must be a non-empty uppercase identifier")
-    if commodity != commodity.upper():
-        raise ArchiveError("commodity must be uppercase")
     try:
         if len(decision_date) != 10:
             raise ValueError

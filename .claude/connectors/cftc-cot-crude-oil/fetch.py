@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch three years of COMEX Gold positioning from the CFTC public API."""
+"""Fetch three years of NYMEX WTI positioning from the CFTC public API."""
 from __future__ import annotations
 
 import os
@@ -16,8 +16,8 @@ from connector_fetch_support import load_manifest  # noqa: E402
 
 MANIFEST = load_manifest(__file__)
 SPEC = ContractSpec(
-    contract="GOLD", contract_code="088691", instrument_label="COMEX Gold",
-    filename_stem="cot_gold", verify_label="Gold",
+    contract="CRUDE OIL, LIGHT SWEET-WTI", contract_code="067411",
+    instrument_label="NYMEX WTI", filename_stem="cot_crude_oil", verify_label="WTI",
 )
 HOST, DATASET, CONTRACT, CONTRACT_CODE = SPEC.host, SPEC.dataset, SPEC.contract, SPEC.contract_code
 MAX_RESPONSE_BYTES = SPEC.max_response_bytes

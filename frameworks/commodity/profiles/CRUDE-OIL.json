@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "commodity": "CRUDE-OIL",
+  "family": "energy",
+  "requirements": [
+    {
+      "need": "crude-oil-managed-money-positioning",
+      "series": "crude-oil.managed-money-positioning",
+      "owner": "commodity-positioning-flows",
+      "requirement": "weekly; ≥3 years and current COT observation",
+      "policy": "CFTC public API; WTI futures-only disaggregated report",
+      "quality": {"path": "observations", "min_observations": 150, "min_span_days": 1000, "date_field": "date", "max_staleness_days": 14},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "crude-oil-ice-managed-money-positioning",
+      "series": "crude-oil.ice-managed-money-positioning",
+      "owner": "commodity-positioning-flows",
+      "requirement": "weekly; ≥3 years and current ICE Brent COT observation",
+      "policy": "lawful ICE COT route with source identity; otherwise unavailable",
+      "quality": {"path": "observations", "min_observations": 150, "min_span_days": 1000, "date_field": "date", "max_staleness_days": 14},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "crude-oil-etf-flows",
+      "series": "crude-oil.etf-flows",
+      "owner": "commodity-positioning-flows",
+      "requirement": "daily/weekly USO and BNO issuer shares or holdings",
+      "policy": "lawful issuer publications only; otherwise unavailable",
+      "quality": {"max_staleness_days": 14},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "crude-oil-us-inventory-buffer",
+      "series": "crude-oil.us-inventory-buffer",
+      "owner": "commodity-demand-inventory",
+      "requirement": "weekly; ≥3 years of commercial and SPR crude stocks",
+      "policy": "EIA public API v2; retain revised vintages",
+      "quality": {"path": "observations", "min_observations": 150, "min_span_days": 1000, "date_field": "date", "max_staleness_days": 14},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "crude-oil-oecd-global-inventory-days-cover",
+      "series": "crude-oil.oecd-global-inventory-days-cover",
+      "owner": "commodity-demand-inventory",
+      "requirement": "monthly OECD/global inventory level and days-cover history",
+      "policy": "primary EIA/IEA/OECD stock levels and demand denominator; reference but do not duplicate the US inventory series",
+      "quality": {"path": "observations", "min_observations": 60, "min_span_days": 1460, "date_field": "date", "max_staleness_days": 75},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "crude-oil-refinery-throughput-product-demand",
+      "series": "crude-oil.refinery-throughput-product-demand",
+      "owner": "commodity-demand-inventory",
+      "requirement": "weekly; ≥3 years of refinery throughput and major-product supplied",
+      "policy": "EIA primary weekly petroleum series; retain revised vintages and do not infer global demand from US data alone",
+      "quality": {"path": "observations", "min_observations": 150, "min_span_days": 1000, "date_field": "date", "max_staleness_days": 14},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "macro-broad-usd-index",
+      "series": "macro.broad-usd-index",
+      "owner": "commodity-macro-drivers",
+      "requirement": "daily; ≥3 years for oil/USD regimes",
+      "policy": "reuse one Federal Reserve/FRED semantic series across commodity profiles; no commodity-specific clone",
+      "quality": {"path": "observations", "min_observations": 750, "min_span_days": 1095, "date_field": "date", "max_staleness_days": 7},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "macro-global-activity-demand-proxy",
+      "series": "macro.global-activity-demand-proxy",
+      "owner": "commodity-macro-drivers",
+      "requirement": "monthly; ≥10 years with release vintage",
+      "policy": "primary global industrial-production/trade series or licensed PMI with source identity; unavailable otherwise",
+      "quality": {"path": "observations", "min_observations": 120, "min_span_days": 3285, "date_field": "date", "max_staleness_days": 75},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "crude-oil-current-price",
+      "series": "crude-oil.current-price",
+      "owner": "commodity-price-curve",
+      "requirement": "current front-month WTI futures quote",
+      "policy": "reuse the swarm pulse quote transport (`@CL.1`); label it futures; no connector clone",
+      "quality": {"max_staleness_days": 2},
+      "resolver": {"kind": "pulse_quote", "swarm": "commodity", "symbol": "@CL.1", "source": "cnbc"}
+    },
+    {
+      "need": "crude-oil-wti-price-history",
+      "series": "crude-oil.wti-price-history",
+      "owner": "commodity-price-curve",
+      "requirement": "point-in-time WTI close history with source identity",
+      "policy": "reuse lawful shared market history for `@CL.1`; continuous back-adjusted futures",
+      "quality": {"min_observations": 750, "min_span_days": 1095, "date_field": "date", "max_staleness_days": 10},
+      "resolver": {"kind": "shared_market", "symbol": "@CL.1", "instrument_kind": "future", "price_basis": "continuous_back_adjusted"}
+    },
+    {
+      "need": "crude-oil-brent-price-history",
+      "series": "crude-oil.brent-price-history",
+      "owner": "commodity-price-curve",
+      "requirement": "point-in-time Brent close history with source identity",
+      "policy": "reuse lawful shared market history for `@BZ.1`; unavailable if no licensed feed exists",
+      "quality": {"min_observations": 750, "min_span_days": 1095, "date_field": "date", "max_staleness_days": 10},
+      "resolver": {"kind": "shared_market", "symbol": "@BZ.1", "instrument_kind": "future", "price_basis": "continuous_back_adjusted"}
+    },
+    {
+      "need": "crude-oil-futures-curve",
+      "series": "crude-oil.futures-curve",
+      "owner": "commodity-price-curve",
+      "requirement": "current multi-tenor WTI settlement curve",
+      "policy": "lawful CME route with licence/source identity; otherwise manual or unavailable",
+      "quality": {"max_staleness_days": 3},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "crude-oil-cash-price",
+      "series": "crude-oil.cash-price",
+      "owner": "commodity-price-curve",
+      "requirement": "current deliverable WTI cash assessment aligned to Cushing grade, date and unit",
+      "policy": "lawful primary/licensed cash assessment; otherwise unavailable",
+      "quality": {"max_staleness_days": 3},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "crude-oil-cash-futures-basis",
+      "series": "crude-oil.cash-futures-basis",
+      "owner": "commodity-price-curve",
+      "requirement": "cash minus deliverable nearby future, as % of futures, with aligned timestamps",
+      "policy": "deterministic derivation from cash-price and futures-curve vintages; no independent vote",
+      "quality": {"max_staleness_days": 3, "max_parent_gap_days": 1},
+      "resolver": {
+        "kind": "derived",
+        "operation": "left_minus_right_pct_of_right",
+        "left": {"series": "crude-oil.cash-price", "path": "value"},
+        "right": {"series": "crude-oil.futures-curve", "path": "nearby_settlement"}
+      }
+    },
+    {
+      "need": "crude-oil-brent-wti-spread",
+      "series": "crude-oil.brent-wti-spread",
+      "owner": "commodity-price-curve",
+      "requirement": "current aligned Brent minus WTI spread and history",
+      "policy": "lawful exchange/market route with both legs and source identity; otherwise unavailable",
+      "quality": {"max_staleness_days": 3},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "crude-oil-crack-spreads",
+      "series": "crude-oil.crack-spreads",
+      "owner": "commodity-price-curve",
+      "requirement": "current 3-2-1 or declared refinery crack with aligned legs",
+      "policy": "lawful exchange settlements; otherwise manual or unavailable",
+      "quality": {"max_staleness_days": 3},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "crude-oil-opec-policy",
+      "series": "crude-oil.opec-policy",
+      "owner": "commodity-supply-security",
+      "requirement": "latest quotas, voluntary cuts and observed compliance",
+      "policy": "OPEC communiqués plus cited primary production data; manual if no stable lawful route",
+      "quality": {"max_staleness_days": 45},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "crude-oil-demand-stock-change",
+      "series": "crude-oil.demand-stock-change",
+      "owner": "commodity-demand-inventory",
+      "requirement": "current monthly demand and stock-change bridge",
+      "policy": "EIA/IEA/OPEC primary demand and stock releases with estimate identity; reference but do not duplicate supply-security production evidence",
+      "quality": {"max_staleness_days": 75},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "crude-oil-accessible-supply",
+      "series": "crude-oil.accessible-supply",
+      "owner": "commodity-supply-security",
+      "requirement": "monthly gross-to-accessible supply bridge",
+      "policy": "primary production, domestic absorption, sanctions/restrictions and rerouting evidence; otherwise unavailable",
+      "quality": {"max_staleness_days": 75},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "crude-oil-marginal-supply-cost",
+      "series": "crude-oil.marginal-supply-cost",
+      "owner": "commodity-cost-curve-fair-value",
+      "requirement": "current marginal shale/incremental barrel cost range with vintage",
+      "policy": "primary producer disclosures and government drilling/productivity data; third-party estimates stay contextual",
+      "quality": {"max_staleness_days": 190},
+      "resolver": {"kind": "connector"}
+    }
+  ]
+}
