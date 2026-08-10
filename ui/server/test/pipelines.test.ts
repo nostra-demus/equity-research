@@ -34,7 +34,9 @@ const ACQ = new Set(['official_api', 'free_key_api', 'paid_api', 'scrape', 'manu
 // `twelve_hourly` was added to BOTH runtime readers for the company-news bridge but was missing here, so a
 // connector declaring it would pass readPipelines yet fail this parity assertion — CI would block the very
 // cadence the runtime authorizes (Codex #359 r3673683056). Kept in lockstep with both runtime sets.
-const CAD = new Set(['realtime', 'twelve_hourly', 'daily', 'weekly', 'monthly', 'event_driven'])
+const CAD = new Set([
+  'twelve_hourly', 'daily', 'weekly', 'monthly', 'quarterly', 'semiannual', 'annual', 'event_driven',
+])
 
 // ---- the REAL repo tree (generic assertions only — never a connector id) ----
 const real = readPipelines(true)
@@ -47,10 +49,10 @@ check('discovers the committed connector manifests (>= 2) with zero drops', () =
 
 check('every discovered pipeline is structurally valid (slug id, enums, SLA, output shape, clamped tier)', () => {
   for (const p of real.pipelines) {
-    assert.match(p.id, /^[a-z0-9][a-z0-9-]*$/)
+    assert.match(p.id, /^[a-z0-9][a-z0-9_-]*$/)
     assert.ok(ACQ.has(p.acquisition), `${p.id}: acquisition ${p.acquisition}`)
     assert.ok(CAD.has(p.cadence), `${p.id}: cadence ${p.cadence}`)
-    assert.ok(p.stalenessSlaDays > 0)
+    assert.ok(Number.isFinite(p.releaseWindowDays) && p.releaseWindowDays >= 0)
     assert.ok(p.outputPath.startsWith('data/<SUBJECT>/external/'), `${p.id}: ${p.outputPath}`)
     assert.equal(path.posix.basename(p.outputPath).split('<as_of>').length, 2)
     assert.ok([5, 7, 9, 10].includes(p.tier), `${p.id}: served tier ${p.tier} outside the §4 ceilings`)
@@ -123,7 +125,9 @@ check('real repo join: helps/recommended stay consistent with the registry (gene
   for (const r of real.recommended) {
     assert.equal(r.key, `${r.swarm}/${r.subject}/${r.need_id}`, 'recommended key must be swarm/subject/need_id')
     assert.ok(!helpKeys.has(r.key), `${r.key} is BOTH covered and recommended — the join must be exclusive`)
-    assert.ok(!covers(r.need_id, r.subject), `${r.key} recommended although a discovered connector covers it`)
+    if (covers(r.need_id, r.subject)) {
+      assert.ok(r.connector_exists, `${r.key} has unusable coverage but does not name connector_exists`)
+    }
     recKeys.add(r.key)
   }
   // Completeness + non-vacuity. The two loops above validate only the entries that ARE present, so an
@@ -153,13 +157,42 @@ check('real repo join: helps/recommended stay consistent with the registry (gene
 // ---- tmpdir fixtures via subprocess probes ----
 function writeConn(repo: string, id: string, over: Record<string, unknown> = {}, dirname?: string) {
   const dir = path.join(repo, '.claude', 'connectors', dirname ?? id)
+  const frameworkDir = path.join(repo, 'frameworks')
+  fs.mkdirSync(dir, { recursive: true })
+  fs.mkdirSync(frameworkDir, { recursive: true })
+  const schemaTarget = path.join(frameworkDir, 'connector.schema.json')
+  if (!fs.existsSync(schemaTarget)) {
+    fs.copyFileSync(path.resolve(here, '../../../frameworks/connector.schema.json'), schemaTarget)
+  }
+  const base: Record<string, any> = {
+    manifest_version: 2, schema_version: 1, id,
+    dataset_id: `fixture.${id}`, series_id: `fixture.${id}`, series: `series ${id}`, satisfies: [], subjects: ['AAA'],
+    provider: 'Fixture provider', authority_class: 'government_official', provider_priority: 100,
+    acquisition: 'official_api', source_type: 'official_data', tier: 5, license: 'public_domain',
+    licensing: { access: 'public', use: 'allowed', redistribution: 'allowed', terms_url: 'https://x.test/terms' },
+    host_allowlist: ['x.test'], credential_env: [],
+    release: { cadence: 'weekly', timezone: 'UTC', expected_lag_days: 0, grace_days: 10, revision_policy: 'revisable' },
+    entry: 'fetch.py', verify: 'fetch.py --verify',
+    output_path: `data/<SUBJECT>/external/${id}/series_<as_of>.json`,
+    output_schema: { series: 'string', as_of: 'date', value: 'string' }, units: {},
+    minimum_history: { observations: 1 },
+  }
+  const release = over.release && typeof over.release === 'object' && !Array.isArray(over.release)
+    ? { ...base.release, ...over.release as Record<string, unknown> } : base.release
+  fs.writeFileSync(path.join(dir, 'connector.json'), JSON.stringify({ ...base, ...over, release }))
+  fs.writeFileSync(path.join(dir, 'fetch.py'), '# fixture fetcher\n')
+}
+
+function writeLegacyConn(repo: string, id: string, over: Record<string, unknown> = {}) {
+  const dir = path.join(repo, '.claude', 'connectors', id)
   fs.mkdirSync(dir, { recursive: true })
   fs.writeFileSync(path.join(dir, 'connector.json'), JSON.stringify({
-    id, series: `series ${id}`, provider: 'prov', acquisition: 'official_api', source_type: 'paid_api',
-    tier: 5, host_allowlist: ['x.test'], cadence: 'weekly', staleness_sla_days: 10, entry: 'fetch.py',
-    verify: 'fetch.py --verify', output_path: `data/<SUBJECT>/external/${id}/series_<as_of>.json`,
-    subjects: ['AAA'], satisfies: [], ...over,
+    id, series: `legacy series ${id}`, provider: 'legacy fixture', acquisition: 'official_api',
+    source_type: 'official_data', tier: 5, host_allowlist: ['x.test'], cadence: 'weekly',
+    staleness_sla_days: 10, entry: 'fetch.py', verify: 'fetch.py --verify',
+    output_path: `data/<SUBJECT>/external/${id}/series_<as_of>.json`, subjects: ['AAA'], satisfies: [], ...over,
   }))
+  fs.writeFileSync(path.join(dir, 'fetch.py'), '# legacy fixture fetcher\n')
 }
 
 function probeRead(repo: string): any {
@@ -180,7 +213,7 @@ function probeRead(repo: string): any {
   return JSON.parse(lines[lines.length - 1])
 }
 
-check('fixture: malformed + id-mismatch manifests drop with widened notes; the valid sibling still serves', () => {
+check('fixture: malformed + id-mismatch manifests fail closed; the valid sibling still serves', () => {
   const repo = tmp('pipefix-')
   fs.mkdirSync(path.join(repo, 'data', 'AAA'), { recursive: true })
   writeConn(repo, 'good-conn')
@@ -190,8 +223,19 @@ check('fixture: malformed + id-mismatch manifests drop with widened notes; the v
   writeConn(repo, 'other-id', {}, 'mismatch')
   const out = probeRead(repo)
   assert.deepEqual(out.pipelines.map((p: any) => p.id), ['good-conn'])
-  assert.ok(out.widened.some((w: string) => w.startsWith('dropped connector manifest badjson')))
-  assert.ok(out.widened.some((w: string) => w.startsWith('dropped connector manifest mismatch')))
+  assert.ok(out.widened.some((w: string) => w.startsWith('dropped connector manifest badjson:')), out.widened)
+  assert.ok(out.widened.some((w: string) => w.startsWith('dropped connector manifest mismatch:')), out.widened)
+})
+
+check('fixture: a v1/missing-version connector is rejected even when it declares a required need', () => {
+  const repo = tmp('pipelegacyshape-')
+  fs.mkdirSync(path.join(repo, 'data', 'AAA'), { recursive: true })
+  writeLegacyConn(repo, 'legacy-shape', {
+    satisfies: ['required-need'], output_path: 'data/<SUBJECT>/external/legacy/latest.json',
+  })
+  const out = probeRead(repo)
+  assert.equal(out.pipelines.length, 0)
+  assert.ok(out.widened.some((w: string) => w.includes('production registry requires manifest_version 2')), out.widened)
 })
 
 check('fixture: a connector declaring the twelve_hourly cadence validates (runtime ↔ parity-test agree)', () => {
@@ -202,20 +246,20 @@ check('fixture: a connector declaring the twelve_hourly cadence validates (runti
   assert.ok(CAD.has('twelve_hourly'), 'the parity CAD set must mirror the runtime cadence vocabulary')
   const repo = tmp('pipe12h-')
   fs.mkdirSync(path.join(repo, 'data', 'AAA'), { recursive: true })
-  writeConn(repo, 'twelve-h-conn', { cadence: 'twelve_hourly' })
+  writeConn(repo, 'twelve-h-conn', { release: { cadence: 'twelve_hourly' } })
   const out = probeRead(repo)
   assert.deepEqual(out.pipelines.map((p: any) => p.id), ['twelve-h-conn'], 'runtime accepts twelve_hourly (not dropped)')
   assert.equal(out.pipelines[0].cadence, 'twelve_hourly')
   assert.ok(CAD.has(out.pipelines[0].cadence), 'and the parity test accepts the same value the runtime served')
 })
 
-check('fixture: tier clamp — external_other declaring tier 5 serves 9 + tierCorrected', () => {
+check('fixture: v2 rejects an external_other connector that claims a tier above its tier-9 ceiling', () => {
   const repo = tmp('pipeclamp-')
   fs.mkdirSync(path.join(repo, 'data', 'AAA'), { recursive: true })
   writeConn(repo, 'clamp-conn', { source_type: 'external_other', tier: 5, acquisition: 'scrape' })
-  const p = probeRead(repo).pipelines[0]
-  assert.equal(p.tier, 9)
-  assert.equal(p.tierCorrected, true)
+  const out = probeRead(repo)
+  assert.equal(out.pipelines.length, 0)
+  assert.ok(out.widened.some((w: string) => w.includes('invalid connector contract')), out.widened)
 })
 
 check('fixture: external_other declaring tier 10 (more conservative than its ceiling) is NOT corrected', () => {
@@ -227,7 +271,7 @@ check('fixture: external_other declaring tier 10 (more conservative than its cei
   assert.equal(p.tierCorrected, undefined)
 })
 
-check('fixture: SLA boundaries — age==SLA fresh, age==SLA+1 stale, no file missing; as_of from filename not mtime', () => {
+check('fixture: loose materialized files cannot make v2 feeds current without canonical current identity', () => {
   const repo = tmp('pipesla-')
   writeConn(repo, 'fresh-conn')
   writeConn(repo, 'stale-conn')
@@ -242,9 +286,8 @@ check('fixture: SLA boundaries — age==SLA fresh, age==SLA+1 stale, no file mis
   fs.utimesSync(staleFile, new Date(), new Date()) // a NOW mtime must not rescue a stale filename date
   const out = probeRead(repo)
   const by = (id: string) => out.pipelines.find((p: any) => p.id === id).statuses[0]
-  assert.equal(by('fresh-conn').status, 'fresh')
-  assert.equal(by('stale-conn').status, 'stale')
-  assert.equal(by('stale-conn').latestAsOf, isoDaysAgo(11))
+  assert.equal(by('fresh-conn').status, 'missing')
+  assert.equal(by('stale-conn').status, 'missing')
   assert.equal(by('missing-conn').status, 'missing')
 })
 
@@ -256,10 +299,34 @@ check('fixture: absent data/ root → poolAvailable false + status unknown (neve
   assert.equal(out.pipelines[0].statuses[0].status, 'unknown')
 })
 
-check('fixture: recommendations join — covered need attaches to helps[], uncovered lands in recommended[]', () => {
+check('fixture: a ledger-integrity warning reaches a current pipeline status without replacing feed health', () => {
+  const repo = tmp('pipeledgerwarning-')
+  fs.mkdirSync(path.join(repo, 'data', 'AAA'), { recursive: true })
+  writeConn(repo, 'warning-conn')
+  const ledgerDir = path.join(repo, 'data', '_connectors')
+  fs.mkdirSync(ledgerDir, { recursive: true })
+  const warning = 'connector run ledger contains 1 malformed or contract-invalid row(s); valid prior attempt clocks were retained'
+  fs.writeFileSync(path.join(ledgerDir, 'run_ledger.ndjson'), JSON.stringify({
+    connector: 'warning-conn', subject: 'AAA', decision: 'fresh', outcome: 'current', attempts: 0,
+    ledger_integrity_warning: warning, ts: Math.floor(Date.now() / 1000),
+  }) + '\n')
+  const status = probeRead(repo).pipelines[0].statuses[0]
+  assert.equal(status.health, 'current')
+  assert.equal(status.ledgerIntegrityWarning, warning)
+})
+
+check('fixture: a declared-but-unusable v2 connector keeps its covered need open beside the uncovered need', () => {
   const repo = tmp('pipejoin-')
   fs.mkdirSync(path.join(repo, 'data', 'AAA'), { recursive: true })
   writeConn(repo, 'good-conn', { satisfies: ['covered-need'] })
+  const projectionDir = path.join(repo, 'data', 'AAA', 'external', 'good-conn')
+  fs.mkdirSync(projectionDir, { recursive: true })
+  fs.writeFileSync(path.join(projectionDir, `series_${isoDaysAgo(0)}.json`), '{}')
+  const ledgerDir = path.join(repo, 'data', '_connectors'); fs.mkdirSync(ledgerDir, { recursive: true })
+  fs.writeFileSync(path.join(ledgerDir, 'run_ledger.ndjson'), JSON.stringify({
+    connector: 'good-conn', subject: 'AAA', decision: 'fresh', outcome: 'current', attempts: 0,
+    ts: Math.floor(Date.now() / 1000),
+  }) + '\n')
   const swarmDir = path.join(repo, '.claude', 'agents', 'fixswarm')
   fs.mkdirSync(path.join(swarmDir, 'moda'), { recursive: true })
   fs.writeFileSync(path.join(swarmDir, 'SWARM.md'),
@@ -277,10 +344,11 @@ check('fixture: recommendations join — covered need attaches to helps[], uncov
     JSON.stringify({ data_needs: [need('covered-need'), need('uncovered-need')] }))
   const out = probeRead(repo)
   const good = out.pipelines.find((p: any) => p.id === 'good-conn')
-  assert.deepEqual(good.helps.map((h: any) => [h.swarm, h.subject, h.need_id]),
-    [['fixswarm', 'AAA', 'covered-need']])
-  assert.deepEqual(good.helps[0].entry_modules, ['moda'], 'entry_modules must survive the roster filter')
-  assert.deepEqual(out.recommended.map((r: any) => r.key), ['fixswarm/AAA/uncovered-need'])
+  assert.deepEqual(good.helps, [], 'a declaration plus loose file/legacy health is not current+usable proof')
+  assert.deepEqual(out.recommended.map((r: any) => [r.key, r.connector_exists]), [
+    ['fixswarm/AAA/covered-need', 'good-conn'],
+    ['fixswarm/AAA/uncovered-need', undefined],
+  ])
 })
 
 for (const d of tmpdirs) fs.rmSync(d, { recursive: true, force: true })

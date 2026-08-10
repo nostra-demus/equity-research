@@ -1,21 +1,13 @@
-// Shared worktree coding-agent runner — the isolation + PR plumbing that BOTH the connector build
-// (connector-dispatch.ts) and the auto-repair (connector-repair.ts) reuse, so the security-critical parts
-// live in exactly one place. It runs a coding agent in a FRESH git worktree on a namespaced branch cut from
-// origin/main (never the prod checkout, never main), authenticated with the fine-grained CODE_PR_TOKEN
-// (never the §28 data identity — dropped by buildChildEnv), reads a deterministic outcome file (a PR URL is
-// trusted only if it is a real PR on THIS repo), and tears the worktree down. Never throws to the caller.
+// Shared connector-agent surface. Automatic connector build and repair agents are deliberately unavailable:
+// this runtime has no OS/VM-enforced egress sandbox, and a bypassPermissions process cannot be contained by
+// prompt instructions or a DNS preflight. Keep the pure progress-display helpers and the minimal child env
+// used by read-only `gh pr view` repair verification; callers receive one deterministic assessed result.
 
-import { spawn, execFile } from 'node:child_process'
-import fs from 'node:fs'
-import path from 'node:path'
-import { promisify } from 'node:util'
-import { CLAUDE_BIN, CODE_PR_TOKEN, DEFAULT_MODEL, REPO_ROOT } from './config'
-import { buildChildEnv, isValidPrUrl } from './feedback-dispatch'
-
-const execFileAsync = promisify(execFile)
+import { CODE_PR_TOKEN, connectorAgentIsolationReady } from './config'
+import { buildChildEnv } from './feedback-dispatch'
 
 export interface WorktreeAgentResult {
-  outcome: 'pr_open' | 'assessed'
+  outcome: 'pr_open' | 'assessed' | 'source_gone'
   pr_url?: string
   note?: string
   connector_id?: string
@@ -62,50 +54,10 @@ export function connectorChildEnv(): NodeJS.ProcessEnv {
   return buildChildEnv(process.env, CODE_PR_TOKEN)
 }
 
-async function git(args: string[], cwd: string, env?: NodeJS.ProcessEnv): Promise<void> {
-  await execFileAsync('git', args, { cwd, env: env || process.env, maxBuffer: 8_000_000 })
-}
-
-/** Remove a worktree + its branch, best-effort (idempotent — safe if they don't exist). */
-export async function cleanupWorktree(branch: string, wt: string): Promise<void> {
-  try { await git(['worktree', 'remove', '--force', wt], REPO_ROOT) } catch { /* not registered */ }
-  try { fs.rmSync(wt, { recursive: true, force: true }) } catch { /* already gone */ }
-  try { await git(['worktree', 'prune'], REPO_ROOT) } catch { /* noop */ }
-  try { await git(['branch', '-D', branch], REPO_ROOT) } catch { /* no local branch */ }
-}
-
-/** Create a fresh worktree on <branch> from origin/main. Returns the worktree path. */
-async function createWorktree(branch: string, wt: string): Promise<void> {
-  fs.mkdirSync(path.dirname(wt), { recursive: true })
-  await cleanupWorktree(branch, wt) // clear any stale attempt
-  await git(['fetch', 'origin', 'main', '--quiet'], REPO_ROOT)
-  await git(['worktree', 'add', '-B', branch, wt, 'origin/main'], REPO_ROOT)
-}
-
-const CONNECTOR_SLUG_RE = /^[a-z0-9][a-z0-9_-]{0,120}$/
-const slugOrUndefined = (v: any): string | undefined =>
-  typeof v === 'string' && CONNECTOR_SLUG_RE.test(v) ? v : undefined
-
-async function readOutcome(wt: string, branch: string, outcomeFile: string, env: NodeJS.ProcessEnv): Promise<WorktreeAgentResult> {
-  try {
-    const o = JSON.parse(fs.readFileSync(path.join(wt, outcomeFile), 'utf8'))
-    if (o && o.outcome === 'pr_open') {
-      if (isValidPrUrl(o.pr_url)) return { outcome: 'pr_open', pr_url: o.pr_url, note: typeof o.note === 'string' ? o.note : '', connector_id: slugOrUndefined(o.connector_id) }
-      return { outcome: 'assessed', note: 'Agent reported a PR but its URL was not a valid nostra-demus/equity-research pull request — recorded as assessed.' }
-    }
-    if (o && o.outcome === 'assessed') return { outcome: 'assessed', note: typeof o.note === 'string' ? o.note : '', connector_id: slugOrUndefined(o.connector_id) }
-  } catch { /* no/invalid outcome file — fall back to detecting a PR */ }
-  try {
-    const { stdout } = await execFileAsync('gh', ['pr', 'list', '--head', branch, '--json', 'url', '--limit', '1'], { cwd: wt, env, maxBuffer: 4_000_000 })
-    const arr = JSON.parse(stdout || '[]')
-    if (Array.isArray(arr) && isValidPrUrl(arr[0]?.url)) return { outcome: 'pr_open', pr_url: arr[0].url, note: 'PR opened (outcome file missing).' }
-  } catch { /* gh unavailable or no PR */ }
-  return { outcome: 'assessed', note: 'The agent finished without opening a PR (no outcome file, no PR found).' }
-}
-
 /**
- * Run one coding agent in an isolated worktree and return its deterministic outcome. Never throws — a
- * worktree/spawn failure resolves to `assessed` with the error in the note. Cleans up the worktree always.
+ * Deterministic unavailable result for both build and repair callers. The options shape stays stable so a
+ * future, separately reviewed isolated-runner adapter can replace this implementation without rewiring the
+ * pipeline and repair lifecycle.
  */
 export async function runWorktreeAgent(opts: {
   branch: string
@@ -118,54 +70,14 @@ export async function runWorktreeAgent(opts: {
   log?: (m: string) => void
   onStep?: (s: AgentStep) => void // live progress: every tool call / line of prose, as it happens
 }): Promise<WorktreeAgentResult> {
-  const env = connectorChildEnv()
-  const log = opts.log ?? (() => {})
-  try {
-    await createWorktree(opts.branch, opts.worktree)
-    try { await execFileAsync('gh', ['auth', 'setup-git'], { cwd: opts.worktree, env }) } catch { /* gh may be absent; push then fails → assessed */ }
-    const args = ['--print', opts.prompt, '--output-format', 'stream-json', '--verbose',
-      '--permission-mode', 'bypassPermissions', '--model', DEFAULT_MODEL, '--max-turns', String(opts.maxTurns), '--max-budget-usd', String(opts.budgetUsd)]
-    // stdout is TEE'd: the raw stream-json still lands in the worktree log (unchanged), and each line is also
-    // parsed into a display step so the cockpit can show the build happening rather than a spinner. Parsing
-    // never affects the run — a malformed line is skipped, and onStep is called inside a try.
-    const logPath = path.join(opts.worktree, opts.logName)
-    const logStream = fs.createWriteStream(logPath, { flags: 'a' })
-    logStream.on('error', () => { /* a full/removed disk must not kill the build */ })
-    const code: number = await new Promise((resolve) => {
-      const child = spawn(CLAUDE_BIN, args, { cwd: opts.worktree, env, stdio: ['ignore', 'pipe', 'pipe'] })
-      child.stderr?.on('error', () => {})
-      child.stderr?.on('data', (c) => { logStream.write(c) })
-      let buf = ''
-      const handle = (line: string) => {
-        const t = line.trim()
-        if (!t) return
-        let o: any
-        try { o = JSON.parse(t) } catch { return }
-        for (const step of classifyAgentLine(o)) { try { opts.onStep?.(step) } catch { /* a bad subscriber must not kill the build */ } }
-      }
-      child.stdout?.on('error', () => {})
-      child.stdout?.setEncoding('utf8')
-      child.stdout?.on('data', (chunk: string) => {
-        logStream.write(chunk)
-        buf += chunk
-        let idx: number
-        while ((idx = buf.indexOf('\n')) >= 0) {
-          const line = buf.slice(0, idx)
-          buf = buf.slice(idx + 1)
-          handle(line)
-        }
-        if (buf.length > 1_000_000) buf = '' // a pathological unterminated line must not grow without bound
-      })
-      child.on('exit', (c) => { if (buf.trim()) handle(buf); resolve(c ?? -1) })
-      child.on('error', (e) => { log(`spawn error on ${opts.branch}: ${e.message}`); resolve(-1) })
-    })
-    try { logStream.end() } catch { /* already closed */ }
-    log(`agent on ${opts.branch} exited ${code}`)
-    return await readOutcome(opts.worktree, opts.branch, opts.outcomeFile, env)
-  } catch (e: any) {
-    log(`worktree agent failed on ${opts.branch}: ${e?.message || e}`)
-    return { outcome: 'assessed', note: `Run failed: ${e?.message || 'error'}` }
-  } finally {
-    await cleanupWorktree(opts.branch, opts.worktree)
+  void opts
+  // Keep the action-boundary assertion in the result path so a future implementation cannot silently make
+  // this callable merely by changing an outer UI/config gate.
+  const isolation = connectorAgentIsolationReady()
+  return {
+    outcome: 'assessed',
+    note: isolation
+      ? 'Automatic connector coding is unavailable: no isolated-runner adapter is installed.'
+      : 'Automatic connector coding agents are disabled until a network-enforced isolated runner is available; use the manual branch and pull-request workflow.',
   }
 }

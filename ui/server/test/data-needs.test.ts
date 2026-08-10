@@ -59,6 +59,10 @@ check('fixture: valid passes untouched; off-enum acquisition kept+labelled; tier
   fs.writeFileSync(path.join(runDir, 'decision_record.json'), JSON.stringify({
     data_needs: [
       { ...base, need_id: 'valid-need' },
+      { ...base, need_id: 'twelve-hourly-need', cadence: 'twelve_hourly' },
+      { ...base, need_id: 'quarterly-need', cadence: 'quarterly' },
+      { ...base, need_id: 'semiannual-need', cadence: 'semiannual' },
+      { ...base, need_id: 'annual-need', cadence: 'annual' },
       { ...base, need_id: 'offenum-acq', suggested_source: { name: 'Body', acquisition: 'vendor_or_paid_feed' } },
       { ...base, need_id: 'bad-tier', tier: 3 },
       { ...base, need_id: 'bad-cadence', cadence: 'sometimes' },
@@ -84,13 +88,16 @@ check('fixture: valid passes untouched; off-enum acquisition kept+labelled; tier
 
   const by = (id: string) => read.needs.find((n: any) => n.need_id === id)
   assert.equal(by('valid-need')?.suggested_source.acquisition, 'official_api', 'a valid enum passes untouched')
+  for (const id of ['twelve-hourly-need', 'quarterly-need', 'semiannual-need', 'annual-need']) {
+    assert.ok(by(id), `${id} must survive the data-needs reader`)
+  }
   assert.equal(by('offenum-acq')?.suggested_source.acquisition, 'unrecognized', 'off-enum acquisition kept + sentinel')
   assert.ok(read.widened.some((w: string) => w.includes("acquisition 'vendor_or_paid_feed'") && w.includes('kept')),
     `widened must audit the raw value: ${JSON.stringify(read.widened)}`)
   assert.equal(by('bad-tier'), undefined, 'off-enum tier still drops')
   assert.equal(by('bad-cadence'), undefined, 'off-enum cadence still drops')
   assert.ok(!read.needs.some((n: any) => n.need_id === 'BAD ID!'), 'bad need_id still drops')
-  assert.equal(read.needs.length, 2)
+  assert.equal(read.needs.length, 6)
 })
 
 for (const d of tmpdirs) fs.rmSync(d, { recursive: true, force: true })

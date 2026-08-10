@@ -110,43 +110,53 @@ export function feedbackDispatchReady(): boolean {
 //   • SCAN — an internal, READ-ONLY web agent (WebFetch/WebSearch/Read only; no repo write, no git) that
 //     judges whether a user-added source feeds the run's open data_needs. Cheap; authed like the Ask chat
 //     (host keychain OAuth), so it needs no PR token — only the enable flag below.
-//   • BUILD — the paid one-click "send it to Claude, which opens a PR authoring a .claude/connectors/<id>/
-//     bundle". Mirrors the feedback dispatch's isolation model EXACTLY (fresh worktree, fine-grained
-//     CODE_PR_TOKEN, untrusted-input boundary, its OWN caps/inflight/budget file) — never the §28 data
-//     identity. FAIL-CLOSED: needs the enable flag AND a PR token AND an admitted admin (checked at the route).
-// Default ON (set the flag to '0' to force off). The HARD safety gates are NOT these flags — they are (a) the
-// fine-grained PR token: nothing can open a PR without CODE_PR_TOKEN, and (b) the admin allowlist: nothing
-// that spawns a paid agent runs without an admitted email in ENGINE_DISPATCH_ADMINS. With neither configured,
-// a deploy behaves exactly as before (panel shows recommended data read-only; scan/build stay dark) — so
-// flipping the default to on is safe: the token + admin remain the real switches an operator must provide.
+//   • BUILD — a privileged coding agent that can author a connector PR. A fresh worktree, narrow PR token,
+//     and prompt instructions are useful containment, but they are NOT a network boundary: a
+//     bypassPermissions agent could resolve an admitted hostname again after the server's DNS preflight.
+//     Therefore automatic build/repair dispatch remains unavailable until the runtime ships and verifies an
+//     OS/container-enforced egress sandbox. The ordinary human branch → PR workflow remains available.
+//
+// The operator switch is explicit (only the exact value "1" requests dispatch), but it cannot override the
+// missing isolation primitive. Do not replace `connectorAgentIsolationReady()` with an environment assertion
+// or a one-time DNS check; neither enforces where the child process can connect.
 export const PIPELINE_SCAN_ENABLED = process.env.ENGINE_PIPELINE_SCAN_ENABLED !== '0'
-export const CONNECTOR_DISPATCH_ENABLED = process.env.ENGINE_CONNECTOR_DISPATCH_ENABLED !== '0'
+export const CONNECTOR_DISPATCH_ENABLED = process.env.ENGINE_CONNECTOR_DISPATCH_ENABLED === '1'
 /** The read-only relevance scan can run when it is enabled (it needs no PR token — keychain-authed like chat). */
 export function pipelineScanReady(): boolean {
   return PIPELINE_SCAN_ENABLED
 }
-/** The connector build → PR dispatch can run only when enabled AND a PR token is configured. */
-export function connectorDispatchReady(): boolean {
-  return CONNECTOR_DISPATCH_ENABLED && CODE_PR_TOKEN.length > 0
+/**
+ * No network-enforced connector-agent launcher is shipped in this runtime yet.
+ *
+ * This deliberately cannot be enabled with an environment variable: an assertion such as
+ * `ENGINE_CONNECTOR_EGRESS_ISOLATED=1` is not proof that the spawned process is actually isolated. When an
+ * enforceable launcher is added, its own executable preflight belongs here and this function can return its
+ * verified result.
+ */
+export function connectorAgentIsolationReady(): boolean {
+  return false
 }
 
-// The always-on layer — the cadence runner that keeps every built connector fresh (connector-runner.ts) and
-// the auto-repair that opens a fix-it PR when a source breaks (connector-repair.ts). Default ON (set the flag
-// to '0' to force off):
+/** Automatic connector build/repair dispatch needs explicit opt-in, a PR token, and enforced isolation. */
+export function connectorDispatchReady(): boolean {
+  return CONNECTOR_DISPATCH_ENABLED && CODE_PR_TOKEN.length > 0 && connectorAgentIsolationReady()
+}
+
+// Connector operations: the cadence runner that keeps built connectors fresh may default on; privileged
+// auto-repair is explicit opt-in and still cannot run without an enforceable isolation backend.
 //   • The RUNNER only fetches PUBLIC data on a cadence — no secret, no git — so it is safe to have on by
 //     default; that is what keeps feeds fresh "forever" with zero setup.
-//   • AUTO-REPAIR opens a PR, so it still cannot fire without CODE_PR_TOKEN (connectorAutoRepairReady checks
-//     it). Default-on here just means "the moment a PR token exists, a broken feed heals itself" — set
-//     ENGINE_CONNECTOR_AUTO_REPAIR=0 to keep the fresh-data loop but never let it open a repair PR.
+//   • AUTO-REPAIR opens a PR through the same privileged agent and is therefore held behind the same
+//     enforceable-isolation gate. The fetch runner remains independent and may stay on while repair is manual.
 export const CONNECTOR_RUNNER_ENABLED = process.env.ENGINE_CONNECTOR_RUNNER_ENABLED !== '0'
-export const CONNECTOR_AUTO_REPAIR_ENABLED = process.env.ENGINE_CONNECTOR_AUTO_REPAIR !== '0'
+export const CONNECTOR_AUTO_REPAIR_ENABLED = process.env.ENGINE_CONNECTOR_AUTO_REPAIR === '1'
 /** The cadence runner runs when it is enabled. */
 export function connectorRunnerReady(): boolean {
   return CONNECTOR_RUNNER_ENABLED
 }
-/** Auto-repair runs only when both the runner and auto-repair are on AND a PR token is configured. */
+/** Auto-repair runs only with runner + explicit repair opt-in + the complete isolated dispatch gate. */
 export function connectorAutoRepairReady(): boolean {
-  return CONNECTOR_RUNNER_ENABLED && CONNECTOR_AUTO_REPAIR_ENABLED && CODE_PR_TOKEN.length > 0
+  return CONNECTOR_RUNNER_ENABLED && CONNECTOR_AUTO_REPAIR_ENABLED && connectorDispatchReady()
 }
 // (PIPELINE_SCAN + CONNECTOR_BUILD + CONNECTOR_RUNNER + CONNECTOR_REPAIR guard objects are defined below,
 // after capNum is in scope.)

@@ -41,7 +41,7 @@ export interface ScanVerdict {
   entry_modules: string[] // the orb(s) it feeds — the modules that consume the series
   acquisition: string // official_api | free_key_api | paid_api | scrape | manual
   tier: number // 5 | 9 | 10 — the §4 tier a connector for this source would earn
-  cadence: string // realtime | daily | weekly | monthly | event_driven
+  cadence: string // connector release cadence; vocabulary is defined by connector-registry.ts CADENCE_MS
   host: string // the single host a connector may reach (the host_allowlist entry)
   endpoint_hint: string // the concrete URL / API endpoint to fetch
   verdict_note: string // plain-English why it does / doesn't help

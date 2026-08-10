@@ -69,5 +69,7 @@ check('prompt names the source URL', hasToken(prompt, 'https://api.example.com/g
 check('prompt includes the open need id', prompt.includes('n1'))
 check('prompt warns fetched pages are UNTRUSTED', /UNTRUSTED/.test(prompt))
 check('prompt demands a single JSON verdict', prompt.includes('"relevance"') && prompt.includes('"buildable"'))
+check('prompt can classify every slow connector cadence without dropping the source',
+  ['twelve_hourly', 'quarterly', 'semiannual', 'annual'].every((cadence) => prompt.includes(cadence)))
 
 console.log(`\n${passed} checks passed${process.exitCode ? ' (with failures)' : ''}`)

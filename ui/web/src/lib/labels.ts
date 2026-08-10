@@ -7,5 +7,6 @@ export const ACQ_LABEL: Record<string, string> = {
   unrecognized: 'source t.b.d.',
 }
 export const CADENCE_LABEL: Record<string, string> = {
-  realtime: 'realtime', daily: 'daily', weekly: 'weekly', monthly: 'monthly', event_driven: 'per release',
+  twelve_hourly: 'twice daily', daily: 'daily', weekly: 'weekly', monthly: 'monthly',
+  quarterly: 'quarterly', semiannual: 'twice yearly', annual: 'annual', event_driven: 'per release',
 }

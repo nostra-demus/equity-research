@@ -60,6 +60,7 @@ import glob
 import shutil
 import base64
 import hashlib
+import stat
 import subprocess
 import tempfile
 import urllib.request
@@ -67,7 +68,12 @@ import urllib.error
 import time as _time  # NB: `from datetime import ... time` below would shadow a bare `import time`
 import email as _email
 import html as _htmlmod
-from datetime import datetime, date, time
+from datetime import datetime, date, time, timezone
+
+TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO_ROOT = os.path.dirname(os.path.dirname(TOOLS_DIR))
+SCRIPTS_DIR = os.path.join(REPO_ROOT, "scripts")
+CONNECTOR_REGISTRY_ROOT = os.path.join(REPO_ROOT, ".claude", "connectors")
 
 WORKBOOK_EXTS = {"xls", "xlsx", "xlsm"}
 TEXT_EXTS = {"txt", "md", "csv", "tsv"}
@@ -78,6 +84,177 @@ IMAGE_EXTS = {"png", "jpg", "jpeg", "gif", "webp", "tif", "tiff", "bmp"}
 # Google Drive pointer stubs — tiny JSON, no real content
 POINTER_EXTS = {"gdoc", "gsheet", "gslides"}
 
+
+def _decision_time_utc(now=None):
+    """Capture one aware UTC instant for every release-eligibility decision."""
+    if now is None:
+        return datetime.now(timezone.utc)
+    if not isinstance(now, datetime) or now.tzinfo is None or now.utcoffset() is None:
+        raise ValueError("extraction now must be a timezone-aware datetime")
+    return now.astimezone(timezone.utc)
+
+
+def _read_regular_nofollow_bytes(path):
+    before = os.lstat(path)
+    if (stat.S_ISLNK(before.st_mode) or not stat.S_ISREG(before.st_mode)
+            or before.st_nlink != 1):
+        raise ValueError("connector projection must be a unique regular non-symlink file")
+    fd = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    try:
+        opened = os.fstat(fd)
+        identity = (
+            opened.st_dev, opened.st_ino, opened.st_size,
+            opened.st_mtime_ns, opened.st_ctime_ns, opened.st_nlink,
+        )
+        if opened.st_nlink != 1 or identity != (
+            before.st_dev, before.st_ino, before.st_size,
+            before.st_mtime_ns, before.st_ctime_ns, before.st_nlink,
+        ):
+            raise ValueError("connector projection changed before read")
+        chunks = []
+        remaining = opened.st_size
+        while remaining:
+            chunk = os.read(fd, min(remaining, 1024 * 1024))
+            if not chunk:
+                raise ValueError("connector projection truncated during read")
+            chunks.append(chunk)
+            remaining -= len(chunk)
+        if os.read(fd, 1):
+            raise ValueError("connector projection grew during read")
+        after_open = os.fstat(fd)
+        after = os.lstat(path)
+        if identity != (
+            after_open.st_dev, after_open.st_ino, after_open.st_size,
+            after_open.st_mtime_ns, after_open.st_ctime_ns, after_open.st_nlink,
+        ) or identity != (
+            after.st_dev, after.st_ino, after.st_size,
+            after.st_mtime_ns, after.st_ctime_ns, after.st_nlink,
+        ):
+            raise ValueError("connector projection changed during read")
+        return b"".join(chunks)
+    finally:
+        os.close(fd)
+
+
+def _pool_regular_descriptors(data_path, rel):
+    """Open one pool-relative file without trusting any descendant symlink.
+
+    The pool root itself may be a configured Drive symlink, so it is resolved
+    once. Every component below it is then opened relative to pinned directory
+    descriptors with ``O_NOFOLLOW``. The returned parent descriptor lets the
+    caller prove the filename still names the same inode after reading.
+    """
+    rel = str(rel).replace("/", os.sep)
+    components = rel.split(os.sep)
+    if (not components or any(part in {"", ".", ".."} for part in components)):
+        raise ValueError("pool-relative path is not canonical")
+    root = os.path.realpath(os.path.abspath(data_path))
+    root_info = os.lstat(root)
+    if stat.S_ISLNK(root_info.st_mode) or not stat.S_ISDIR(root_info.st_mode):
+        raise ValueError("pool root is not a real directory")
+    descriptors = []
+    try:
+        directory_fd = os.open(
+            root, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0) | getattr(os, "O_NOFOLLOW", 0),
+        )
+        descriptors.append(directory_fd)
+        opened_root = os.fstat(directory_fd)
+        if (opened_root.st_dev, opened_root.st_ino) != (root_info.st_dev, root_info.st_ino):
+            raise ValueError("pool root changed before read")
+        for component in components[:-1]:
+            info = os.stat(component, dir_fd=directory_fd, follow_symlinks=False)
+            if stat.S_ISLNK(info.st_mode) or not stat.S_ISDIR(info.st_mode):
+                raise ValueError("pool path contains a non-directory or symlink component")
+            next_fd = os.open(
+                component,
+                os.O_RDONLY | getattr(os, "O_DIRECTORY", 0) | getattr(os, "O_NOFOLLOW", 0),
+                dir_fd=directory_fd,
+            )
+            opened = os.fstat(next_fd)
+            if (opened.st_dev, opened.st_ino) != (info.st_dev, info.st_ino):
+                os.close(next_fd)
+                raise ValueError("pool directory changed before read")
+            descriptors.append(next_fd)
+            directory_fd = next_fd
+        name = components[-1]
+        before = os.stat(name, dir_fd=directory_fd, follow_symlinks=False)
+        if (stat.S_ISLNK(before.st_mode) or not stat.S_ISREG(before.st_mode)
+                or before.st_nlink != 1):
+            raise ValueError("pool input must be a unique regular non-symlink file")
+        file_fd = os.open(
+            name, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0), dir_fd=directory_fd,
+        )
+        opened = os.fstat(file_fd)
+        if ((opened.st_dev, opened.st_ino) != (before.st_dev, before.st_ino)
+                or opened.st_nlink != 1):
+            os.close(file_fd)
+            raise ValueError("pool input changed before read")
+        return descriptors, directory_fd, name, file_fd, opened
+    except BaseException:
+        for descriptor in reversed(descriptors):
+            os.close(descriptor)
+        raise
+
+
+def _read_pool_regular_bytes(data_path, rel):
+    descriptors, parent_fd, name, file_fd, opened = _pool_regular_descriptors(data_path, rel)
+    identity = (
+        opened.st_dev, opened.st_ino, opened.st_size,
+        opened.st_mtime_ns, opened.st_ctime_ns, opened.st_nlink,
+    )
+    try:
+        chunks = []
+        remaining = opened.st_size
+        while remaining:
+            chunk = os.read(file_fd, min(remaining, 1024 * 1024))
+            if not chunk:
+                raise ValueError("pool input truncated during read")
+            chunks.append(chunk)
+            remaining -= len(chunk)
+        if os.read(file_fd, 1):
+            raise ValueError("pool input grew during read")
+        after_open = os.fstat(file_fd)
+        after_path = os.stat(name, dir_fd=parent_fd, follow_symlinks=False)
+        if identity != (
+            after_open.st_dev, after_open.st_ino, after_open.st_size,
+            after_open.st_mtime_ns, after_open.st_ctime_ns, after_open.st_nlink,
+        ) or identity != (
+            after_path.st_dev, after_path.st_ino, after_path.st_size,
+            after_path.st_mtime_ns, after_path.st_ctime_ns, after_path.st_nlink,
+        ):
+            raise ValueError("pool input changed during read")
+        return b"".join(chunks)
+    finally:
+        os.close(file_fd)
+        for descriptor in reversed(descriptors):
+            os.close(descriptor)
+
+
+def _snapshot_pool_file(data_path, rel, snapshot_pool, attested_sha256=None):
+    """Snapshot one pool file for parsing, bound to the digest its provenance attested.
+
+    `_collect_sidecars` verifies a projection's bytes against `content_sha256` (and, for a v2
+    projection, against canonical current / the committed vintage) EARLIER than this snapshot read.
+    Without re-checking here, a Drive projection that is re-synced or tampered with in between is
+    read fresh, parsed, and emitted into the manifest under the earlier trusted provenance — the
+    sealed source's attribution applied to bytes it never attested. Re-hashing the snapshot against
+    the attested digest closes that window: a projection that changed after verification now FAILS
+    this row (`unsafe-input`) instead of inheriting someone else's provenance.
+    """
+    raw = _read_pool_regular_bytes(data_path, rel)
+    if attested_sha256 is not None:
+        actual = hashlib.sha256(raw).hexdigest()
+        if actual != attested_sha256:
+            raise ValueError(
+                "projection bytes changed after provenance verification "
+                f"(attested {attested_sha256!r}, snapshot {actual})"
+            )
+    target = os.path.join(snapshot_pool, *str(rel).replace("/", os.sep).split(os.sep))
+    os.makedirs(os.path.dirname(target), exist_ok=True)
+    with open(target, "wb") as fh:
+        fh.write(raw)
+    return target
+
 # ---------- external-data provenance (frameworks/EXTERNAL_DATA.md) ----------
 # Externally ingested documents live under data/<TICKER>/external/<provider>/ with a
 # `<file>.source.json` provenance sidecar (provider, source_type, §4 tier, as-of, license).
@@ -86,6 +263,25 @@ POINTER_EXTS = {"gdoc", "gsheet", "gslides"}
 # never inside iter_pool_files, which also feeds is_fresh (filtering there would blind the
 # freshness check to sidecar edits and external files).
 SIDECAR_SUFFIX = ".source.json"
+METHODOLOGY_ONLY_FIELD = "methodology_only"
+METHODOLOGY_ONLY_ERROR = "methodology-only WILTW source excluded from runtime evidence"
+METHODOLOGY_ONLY_SNIFF_CHARS = 60_000
+
+
+def _methodology_words(value):
+    """Compatibility wrapper around the canonical publication-boundary rule."""
+    if SCRIPTS_DIR not in sys.path:
+        sys.path.insert(0, SCRIPTS_DIR)
+    from connector_contract import _methodology_words as shared_methodology_words
+    return shared_methodology_words(value)
+
+
+def methodology_only_source_reason(name, text="", provenance=None):
+    """Return the same identity verdict used before canonical publication."""
+    if SCRIPTS_DIR not in sys.path:
+        sys.path.insert(0, SCRIPTS_DIR)
+    from connector_contract import methodology_only_source_reason as shared_reason
+    return shared_reason(name, text, provenance)
 
 
 def _is_sidecar(name):
@@ -97,7 +293,112 @@ def _is_external_rel(rel):
     return "external" in rel.replace(os.sep, "/").split("/")[:-1]
 
 
-def _collect_sidecars(data_path):
+def _v2_projection_manifest(data_path, rel):
+    """Return the v2 manifest which owns this subject projection path, if any."""
+    if SCRIPTS_DIR not in sys.path:
+        sys.path.insert(0, SCRIPTS_DIR)
+    from connector_contract import load_valid_manifests  # lazy: extractor remains standalone
+
+    subject = os.path.basename(os.path.realpath(data_path))
+    manifests, _skipped = load_valid_manifests(CONNECTOR_REGISTRY_ROOT)
+    owners = []
+    rel_posix = rel.replace(os.sep, "/")
+    for manifest in manifests:
+        if manifest.get("manifest_version") != 2 or subject not in manifest.get("subjects", []):
+            continue
+        template = manifest["output_path"].replace("<SUBJECT>", subject)
+        prefix = f"data/{subject}/"
+        if template.startswith(prefix):
+            template = template[len(prefix):]
+        pattern = "^" + re.escape(template).replace(re.escape("<as_of>"), r"\d{4}-\d{2}-\d{2}") + "$"
+        if re.fullmatch(pattern, rel_posix):
+            owners.append(manifest)
+    if len(owners) > 1:
+        raise ValueError("projection path has multiple v2 connector owners")
+    return owners[0] if owners else None
+
+
+def _verify_v2_projection(data_path, rel, parsed, manifest, decision_at):
+    """Return ``current``, ``expired``, or ``superseded`` for an exact projection."""
+    if SCRIPTS_DIR not in sys.path:
+        sys.path.insert(0, SCRIPTS_DIR)
+    if TOOLS_DIR not in sys.path:
+        sys.path.insert(0, TOOLS_DIR)
+    from connector_contract import canonical_json_bytes, connector_storage_paths
+    from connector_vintages import vintage_is_eligible_at
+    import run_connectors
+
+    pool_root = os.path.realpath(data_path)
+    subject = os.path.basename(pool_root)
+    data_root = os.path.dirname(pool_root)
+    rel_posix = rel.replace(os.sep, "/")
+    expected_legacy_path = f"{subject}/{rel_posix}"
+    if parsed.get("connector_id") != manifest["id"]:
+        raise ValueError("sidecar connector_id does not match projection owner")
+    doc = os.path.join(pool_root, rel)
+    projected_bytes = _read_pool_regular_bytes(data_path, rel)
+    projected_payload = json.loads(projected_bytes.decode("utf-8"))
+    if canonical_json_bytes(projected_payload) != projected_bytes:
+        raise ValueError("projection payload bytes are not canonical")
+    projected_hash = hashlib.sha256(projected_bytes).hexdigest()
+    if projected_hash != parsed.get("content_sha256"):
+        raise ValueError("projection payload does not match sidecar content_sha256")
+    sidecar_bytes = _read_pool_regular_bytes(data_path, rel + SIDECAR_SUFFIX)
+    if canonical_json_bytes(parsed) != sidecar_bytes:
+        raise ValueError("projection sidecar bytes are not canonical")
+
+    current_path = connector_storage_paths(data_root, manifest, subject)["current"]
+    current_bytes = _read_regular_nofollow_bytes(current_path)
+    current = json.loads(current_bytes.decode("utf-8"))
+    if canonical_json_bytes(current) != current_bytes:
+        raise ValueError("canonical current pointer bytes are not canonical")
+    is_current_claim = (
+        parsed.get("vintage_id") == current.get("vintage_id")
+        or current.get("legacy_path") == expected_legacy_path
+    )
+    if is_current_claim:
+        run_connectors.verify_current_pointer(manifest, subject, data_root, current)
+        if canonical_json_bytes(run_connectors._payload_from_current(data_root, current)) != projected_bytes:
+            raise ValueError("current projection payload bytes differ from sealed blob")
+        if current.get("legacy_path") != expected_legacy_path:
+            raise ValueError("current projection path does not match canonical legacy_path")
+        if not isinstance(current.get("provenance"), dict):
+            raise ValueError("canonical current has no provenance")
+        if canonical_json_bytes(parsed) != canonical_json_bytes(current["provenance"]):
+            raise ValueError("projection sidecar does not exactly match canonical current provenance")
+        if projected_hash != current.get("content_sha256"):
+            raise ValueError("current projection payload hash differs from canonical current")
+        if not vintage_is_eligible_at(current, decision_at):
+            return "expired"
+        return "current"
+
+    vintage_id = parsed.get("vintage_id")
+    resolved = run_connectors.resolve_vintage_id(
+        data_root, manifest["series_id"], subject, vintage_id,
+    )
+    if not isinstance(resolved, dict) or resolved.get("usable") is not True:
+        raise ValueError("projection does not resolve to one committed canonical vintage")
+    vintage = resolved.get("vintage")
+    if (not isinstance(vintage, dict)
+            or vintage.get("connector_id") != manifest["id"]
+            or vintage.get("dataset_id") != manifest["dataset_id"]
+            or vintage.get("series_id") != manifest["series_id"]
+            or vintage.get("subject") != subject):
+        raise ValueError("resolved vintage identity does not match projection owner")
+    if vintage.get("legacy_path") != expected_legacy_path:
+        raise ValueError("superseded projection path does not match committed legacy_path")
+    if not isinstance(vintage.get("provenance"), dict):
+        raise ValueError("resolved vintage has no provenance")
+    if canonical_json_bytes(parsed) != canonical_json_bytes(vintage["provenance"]):
+        raise ValueError("projection sidecar does not exactly match committed vintage provenance")
+    if projected_hash != vintage.get("content_sha256"):
+        raise ValueError("superseded projection payload hash differs from committed vintage")
+    if canonical_json_bytes(projected_payload) != canonical_json_bytes(resolved.get("payload")):
+        raise ValueError("superseded projection payload differs from committed blob")
+    return "superseded"
+
+
+def _collect_sidecars(data_path, decision_at):
     """{document relpath -> parsed sidecar dict} for every readable `<doc>.source.json`."""
     out = {}
     for p in iter_pool_files(data_path):
@@ -105,14 +406,97 @@ def _collect_sidecars(data_path):
         if not _is_sidecar(base):
             continue
         try:
-            parsed = json.load(open(p, encoding="utf-8"))
-        except Exception:  # noqa — a malformed sidecar degrades to path-derived provenance
+            rel_sidecar = os.path.relpath(p, data_path)
+            parsed = json.loads(_read_pool_regular_bytes(data_path, rel_sidecar).decode("utf-8"))
+        except Exception:  # noqa — ordinary malformed sidecars degrade; owned v2 projections are caught below
             continue
         # A sidecar that parses to a NON-object (a bare JSON array/scalar) is malformed the same way an
         # unparseable one is: skip it so the doc falls to path-derived provenance, never a non-dict stored
         # in prov_map that the fold would later call .get() on (AttributeError). Only objects are provenance.
         if isinstance(parsed, dict):
-            out[os.path.relpath(p, data_path)[: -len(SIDECAR_SUFFIX)]] = parsed
+            rel = os.path.relpath(p, data_path)[: -len(SIDECAR_SUFFIX)]
+            try:
+                owner = _v2_projection_manifest(data_path, rel)
+            except Exception as exc:
+                owner = None
+                parsed = {**parsed, "_integrity_error": f"bad connector projection: {exc}"}
+            claims_v2 = (parsed.get("manifest_version") == 2 or "vintage_id" in parsed
+                         or "publisher_contract_fingerprint" in parsed)
+            if owner is None and claims_v2 and "_integrity_error" not in parsed:
+                parsed = {**parsed, "_integrity_error": "bad connector projection: no valid v2 manifest owns this path"}
+            if owner is None and parsed.get("routed_by") == "ingest_external.py" \
+                    and "_integrity_error" not in parsed:
+                expected_raw = parsed.get("sha256")
+                doc = os.path.realpath(os.path.join(os.path.realpath(data_path), rel))
+                try:
+                    if (not isinstance(expected_raw, str)
+                            or not re.fullmatch(r"[0-9a-f]{64}", expected_raw)):
+                        raise ValueError("ordinary ingest sidecar lacks a valid raw sha256")
+                    projected_bytes = _read_pool_regular_bytes(data_path, rel)
+                    if hashlib.sha256(projected_bytes).hexdigest() != expected_raw:
+                        raise ValueError("ordinary ingest sha256 does not match routed bytes")
+                    parsed = {**parsed, "_ordinary_ingest_hash_verified": True,
+                              "_verified_content_sha256": expected_raw}
+                except Exception as exc:
+                    parsed = {**parsed, "_integrity_error": f"bad routed external input: {exc}"}
+            elif owner is None and "sha256" in parsed and parsed.get("routed_by") != "ingest_external.py":
+                # A hand-written or connector sidecar cannot self-assert a raw
+                # hash. Only the router contract above makes this field trusted.
+                parsed = {key: value for key, value in parsed.items() if key != "sha256"}
+            expected = parsed.get("content_sha256")
+            if owner is not None and "_integrity_error" not in parsed:
+                try:
+                    projection_state = _verify_v2_projection(
+                        data_path, rel, parsed, owner, decision_at,
+                    )
+                    # Carry the digest this verification actually attested, so the later
+                    # _snapshot_pool_file read can be bound to THESE bytes rather than trusting that
+                    # the projection did not change in between (see _snapshot_pool_file's re-check).
+                    parsed = {**parsed, "_projection_state": projection_state,
+                              "_verified_content_sha256": parsed.get("content_sha256")}
+                except Exception as exc:
+                    parsed = {**parsed, "_integrity_error": f"bad connector projection: {exc}"}
+            elif expected is not None and "_integrity_error" not in parsed:
+                doc = os.path.realpath(os.path.join(os.path.realpath(data_path), rel))
+                root = os.path.realpath(data_path)
+                try:
+                    if not (doc == root or doc.startswith(root + os.sep)):
+                        raise ValueError("projected document path escapes the pool")
+                    projected_bytes = _read_pool_regular_bytes(data_path, rel)
+                    payload = json.loads(projected_bytes.decode("utf-8"))
+                    if SCRIPTS_DIR not in sys.path:
+                        sys.path.insert(0, SCRIPTS_DIR)
+                    from connector_contract import canonical_json_bytes
+                    if canonical_json_bytes(payload) != projected_bytes:
+                        raise ValueError("projected document bytes are not canonical")
+                    actual = hashlib.sha256(projected_bytes).hexdigest()
+                    if not isinstance(expected, str) or actual != expected:
+                        raise ValueError(f"content_sha256 mismatch (expected {expected!r}, got {actual})")
+                except Exception as exc:
+                    parsed = {**parsed, "_integrity_error": f"bad connector projection: {exc}"}
+            out[rel] = parsed
+
+    # An ordinary hand-dropped external document may omit its sidecar and fall back to conservative,
+    # path-derived provenance. A v2 connector projection may not: its payload and sidecar are one materialized
+    # view of canonical current, so accepting the payload alone would turn a broken canonical projection into
+    # an unrelated tier-9 document. Scan documents after sidecars so missing, invalid-JSON, and non-object
+    # sidecars all fail closed when (and only when) a valid v2 manifest owns that exact projection path.
+    for p in iter_pool_files(data_path):
+        base = os.path.basename(p)
+        if _is_sidecar(base):
+            continue
+        rel = os.path.relpath(p, data_path)
+        if not _is_external_rel(rel) or rel in out:
+            continue
+        try:
+            owner = _v2_projection_manifest(data_path, rel)
+        except Exception as exc:
+            out[rel] = {"_integrity_error": f"bad connector projection: {exc}"}
+            continue
+        if owner is not None:
+            sidecar_path = p + SIDECAR_SUFFIX
+            reason = "missing sidecar" if not os.path.exists(sidecar_path) else "sidecar is unreadable or not a JSON object"
+            out[rel] = {"_integrity_error": f"bad connector projection: {reason}"}
     return out
 
 
@@ -122,7 +506,7 @@ def _collect_sidecars(data_path):
 # time, so no downstream specialist ever sees an over-claimed tier no matter who wrote the sidecar (a hand
 # drop, or an auto-built connector's fetcher whose self-reported tier is not to be trusted).
 SOURCE_TYPE_MAX_TRUST = {
-    "alt_data_panel": 5, "vendor_export": 5, "paid_api": 5,
+    "alt_data_panel": 5, "vendor_export": 5, "paid_api": 5, "official_data": 5,
     "broker_research": 7,
     "expert_call": 9, "channel_check": 9, "management_meeting": 9,
     "external_other": 9,
@@ -163,13 +547,30 @@ def _finish_row(row, rel, prov_map):
     if rel and _is_external_rel(rel):
         row["external"] = True
         prov = prov_map.get(rel)
+        if isinstance(prov, dict) and prov.get("_integrity_error"):
+            # Do not disguise an unusable connector projection as an ordinary sidecar-less tier-9 drop.
+            # The source row already carries status=fail + the exact error; this small marker makes the
+            # provenance state explicit without assigning it a citable source type or evidence tier.
+            row["provenance"] = {"integrity_status": "failed", "usable": False}
+            return row
+        if isinstance(prov, dict) and prov.get("_projection_state") == "superseded":
+            # Retain the immutable dated projection for audit/replay, but do
+            # not expose its provider fields as present-tense citable evidence.
+            row["provenance"] = {"integrity_status": "superseded", "usable": False}
+            return row
+        if isinstance(prov, dict) and prov.get("_projection_state") == "expired":
+            # Expiry is an expected release-clock state, not broken integrity.
+            # Keep the row visible for diagnosis without exposing citable
+            # provider fields or letting readiness count it as current data.
+            row["provenance"] = {"eligibility_status": "expired", "usable": False}
+            return row
         if not prov:
             parts = rel.replace(os.sep, "/").split("/")
             folder = parts[-2] if len(parts) >= 2 else ""
             prov = {"provider": folder if folder and folder != "external" else "unfiled",
                     "source_type": "external_other", "tier": 9,
                     "provenance_basis": "path-derived (no sidecar)"}
-        row["provenance"] = _enforce_tier_ceiling(prov)
+        row["provenance"] = _enforce_tier_ceiling({k: v for k, v in prov.items() if not k.startswith("_")})
     return row
 
 
@@ -516,14 +917,66 @@ def _vision_configured():
     return _vision_on and _VISION_PROVIDER == "claude" and bool(_anthropic_key())
 
 
-def _read_cache_path(path, tag):
-    """Cache key = file identity (abspath|size|mtime) + method tag, so tesseract vs Claude (and
-    different models) never collide, and an upgrade from OCR to vision writes a fresh entry."""
+def _visual_source_identity(path):
+    """Content identity shared by live-pool paths and their private snapshots.
+
+    Extraction parses a securely opened snapshot, never the mutable source
+    pathname. A path/mtime cache key would therefore hide an OCR result written
+    for the source from the byte-identical snapshot. Hashing one stable,
+    no-follow read makes both names converge without reopening an unverified
+    path in the parser.
+    """
+    descriptor = None
     try:
-        st = os.stat(path)
-        ident = f"{os.path.abspath(path)}|{st.st_size}|{int(st.st_mtime)}"
+        before = os.lstat(path)
+        if stat.S_ISLNK(before.st_mode) or not stat.S_ISREG(before.st_mode):
+            raise ValueError("visual source is not a regular file")
+        descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+        opened = os.fstat(descriptor)
+        expected = (
+            before.st_dev, before.st_ino, before.st_size,
+            before.st_mtime_ns, before.st_ctime_ns,
+        )
+        if expected != (
+            opened.st_dev, opened.st_ino, opened.st_size,
+            opened.st_mtime_ns, opened.st_ctime_ns,
+        ):
+            raise ValueError("visual source changed before cache identity read")
+        digest = hashlib.sha256()
+        remaining = opened.st_size
+        while remaining:
+            chunk = os.read(descriptor, min(remaining, 1024 * 1024))
+            if not chunk:
+                raise ValueError("visual source truncated during cache identity read")
+            digest.update(chunk)
+            remaining -= len(chunk)
+        if os.read(descriptor, 1):
+            raise ValueError("visual source grew during cache identity read")
+        after_open = os.fstat(descriptor)
+        after_path = os.lstat(path)
+        observed_open = (
+            after_open.st_dev, after_open.st_ino, after_open.st_size,
+            after_open.st_mtime_ns, after_open.st_ctime_ns,
+        )
+        observed_path = (
+            after_path.st_dev, after_path.st_ino, after_path.st_size,
+            after_path.st_mtime_ns, after_path.st_ctime_ns,
+        )
+        if expected != observed_open or expected != observed_path:
+            raise ValueError("visual source changed during cache identity read")
+        return f"sha256:{digest.hexdigest()}|size:{opened.st_size}"
     except Exception:
-        ident = os.path.abspath(path)
+        # The caller will fail the actual read separately. Keep an unusable
+        # path scoped to itself instead of ever sharing a speculative cache.
+        return f"unreadable:{os.path.abspath(path)}"
+    finally:
+        if descriptor is not None:
+            os.close(descriptor)
+
+
+def _read_cache_path(path, tag):
+    """Cache key = stable content identity + method/model tag."""
+    ident = _visual_source_identity(path)
     try:
         os.makedirs(_OCR_CACHE_DIR, exist_ok=True)
     except Exception:
@@ -848,6 +1301,12 @@ def _read_html(path):
 def list_file(path):
     base = os.path.basename(path)
     ext = base.lower().rsplit(".", 1)[-1] if "." in base else ""
+    methodology_reason = methodology_only_source_reason(
+        base, sniff_text(path, METHODOLOGY_ONLY_SNIFF_CHARS),
+    )
+    if methodology_reason:
+        return {"file": base, "ext": ext, "kind": "methodology-only", "status": "fail",
+                "error": f"{METHODOLOGY_ONLY_ERROR}: {methodology_reason}", "sheets": []}
     fmt = sniff_format(path)  # content, not extension — CIQ mislabels workbooks
     if fmt in ("ole2", "zip"):
         wbext = "xls" if fmt == "ole2" else "xlsx"
@@ -903,19 +1362,212 @@ def sniff_text(path, max_chars=16000):
 
 # ---------- full pool extract ----------
 
+_CACHE_GUARD_VERSION = 1
+
 def iter_pool_files(data_path):
-    for p in sorted(glob.glob(os.path.join(data_path, "**", "*"), recursive=True)):
-        if not os.path.isfile(p):
-            continue
-        # skip engine-written output folders (the memos/thesis/dossier saved back into the company's
-        # Drive folder), marked by a .nostradamus_output sentinel — so a run never re-ingests its own
-        # prior research as input data and contaminates the new analysis.
-        if os.path.exists(os.path.join(os.path.dirname(p), ".nostradamus_output")):
-            continue
-        yield p
+    # Resolve the configured root once (the root itself may intentionally be a
+    # Drive symlink), then never recurse through a descendant symlink. Yield
+    # the caller's lexical root so existing relpath/provenance labels remain
+    # stable. Every consumer that reads bytes re-opens through pinned dirfds.
+    lexical_root = os.path.abspath(data_path)
+    real_root = os.path.realpath(lexical_root)
+    try:
+        root_info = os.lstat(real_root)
+    except OSError:
+        return
+    if stat.S_ISLNK(root_info.st_mode) or not stat.S_ISDIR(root_info.st_mode):
+        return
+
+    def _raise_walk_error(exc):
+        raise exc
+
+    try:
+        walker = os.walk(real_root, topdown=True, followlinks=False, onerror=_raise_walk_error)
+        for directory, dirs, files in walker:
+            safe_dirs = []
+            for name in sorted(dirs):
+                try:
+                    info = os.lstat(os.path.join(directory, name))
+                except OSError:
+                    continue
+                if stat.S_ISDIR(info.st_mode) and not stat.S_ISLNK(info.st_mode):
+                    safe_dirs.append(name)
+            dirs[:] = safe_dirs
+            for name in sorted(files):
+                real_path = os.path.join(directory, name)
+                try:
+                    info = os.lstat(real_path)
+                except OSError:
+                    continue
+                if (stat.S_ISLNK(info.st_mode) or not stat.S_ISREG(info.st_mode)
+                        or info.st_nlink != 1):
+                    continue
+                rel = os.path.relpath(real_path, real_root)
+                if any(part in {"", ".", ".."} for part in rel.split(os.sep)):
+                    continue
+                p = os.path.join(lexical_root, rel)
+                # skip engine-written output folders (the memos/thesis/dossier saved back into the company's
+                # Drive folder), marked by a .nostradamus_output sentinel — so a run never re-ingests its own
+                # prior research as input data and contaminates the new analysis.
+                if os.path.exists(os.path.join(os.path.dirname(p), ".nostradamus_output")):
+                    continue
+                yield p
+    except OSError:
+        return
 
 
-def is_fresh(out_dir, data_path, script_path):
+def _file_guard_identity(path, *, content_hash=False):
+    """Stable local identity; hash only derived/cache text, never every raw filing."""
+    st = os.stat(path)
+    identity = {
+        "size": st.st_size,
+        "mtime_ns": st.st_mtime_ns,
+        "ctime_ns": st.st_ctime_ns,
+    }
+    if content_hash:
+        digest = hashlib.sha256()
+        with open(path, "rb") as fh:
+            for chunk in iter(lambda: fh.read(1024 * 1024), b""):
+                digest.update(chunk)
+        identity["sha256"] = digest.hexdigest()
+    return identity
+
+
+def _visual_cache_path(path, tag):
+    """Pure counterpart of `_read_cache_path` (does not create the cache dir)."""
+    ident = _visual_source_identity(path)
+    return os.path.join(
+        _OCR_CACHE_DIR, hashlib.sha1(f"{tag}|{ident}".encode()).hexdigest() + ".txt",
+    )
+
+
+def _tool_guard_identity(name):
+    path = shutil.which(name)
+    if not path:
+        return None
+    try:
+        return {"path": os.path.realpath(path), **_file_guard_identity(path)}
+    except OSError:
+        return {"path": os.path.realpath(path), "unreadable": True}
+
+
+def _cache_guard_snapshot(data_path, out_dir, manifest):
+    """Identity inputs which can change a cached manifest's evidence verdict.
+
+    Raw pool inputs use size + nanosecond mtime/ctime so an ordinary edit is
+    cheap to detect.  Derived extracts and OCR/vision caches are hashed because
+    downstream readers must never trust stale/tampered extracted text merely
+    because `manifest.json` is newer.  Reader availability is also part of the
+    identity: installing OCR can make a previously unreadable renamed scan
+    newly identifiable as methodology-only and therefore forces one rebuild.
+    """
+    pool_inputs = {}
+    visual_caches = {}
+    for path in iter_pool_files(data_path):
+        rel = os.path.relpath(path, data_path).replace(os.sep, "/")
+        pool_inputs[rel] = _file_guard_identity(path)
+        if _is_sidecar(os.path.basename(path)):
+            continue
+        ext = path.lower().rsplit(".", 1)[-1] if "." in os.path.basename(path) else ""
+        fmt = sniff_format(path)
+        if fmt not in {"pdf", "image"} and ext not in IMAGE_EXTS:
+            continue
+        for tag in ("tesseract", f"claude:{_VISION_MODEL}"):
+            cache = _visual_cache_path(path, tag)
+            if os.path.isfile(cache):
+                visual_caches[f"{rel}|{tag}"] = _file_guard_identity(cache, content_hash=True)
+
+    approved_extracts = {}
+    for source in (manifest or {}).get("sources", []):
+        names = []
+        extract = source.get("extract") if isinstance(source, dict) else None
+        if isinstance(extract, str) and extract.endswith(".txt"):
+            names.append(extract)
+        for sheet in ((source.get("sheets") or []) if isinstance(source, dict) else []):
+            sheet_extract = sheet.get("extract") if isinstance(sheet, dict) else None
+            if isinstance(sheet_extract, str) and sheet_extract.endswith(".txt"):
+                names.append(sheet_extract)
+        for name in names:
+            path = os.path.join(out_dir, name)
+            if not os.path.isfile(path):
+                approved_extracts[name] = {"missing": True}
+            else:
+                approved_extracts[name] = _file_guard_identity(path, content_hash=True)
+    return {
+        "version": _CACHE_GUARD_VERSION,
+        "pool_inputs": pool_inputs,
+        "approved_extracts": approved_extracts,
+        "visual_caches": visual_caches,
+        "reader_state": {
+            "ocr_enabled": bool(_OCR_ENABLED),
+            "tesseract": _tool_guard_identity("tesseract"),
+            "pdftoppm": _tool_guard_identity("pdftoppm"),
+            "vision_configured": bool(_vision_configured()),
+            "vision_model": _VISION_MODEL if _vision_configured() else None,
+        },
+    }
+
+
+def _cached_canonical_integrity(data_path, manifest, decision_at):
+    """Revalidate v2 projections against live heads, code, and release clocks."""
+    try:
+        if SCRIPTS_DIR not in sys.path:
+            sys.path.insert(0, SCRIPTS_DIR)
+        from connector_contract import canonical_json_bytes
+
+        provenance = _collect_sidecars(data_path, decision_at)
+        for source in (manifest or {}).get("sources", []):
+            if not isinstance(source, dict):
+                return False
+            rel = str(source.get("path") or source.get("file") or "").replace("/", os.sep)
+            if not rel:
+                continue
+            if not _is_external_rel(rel):
+                continue
+            owner = _v2_projection_manifest(data_path, rel)
+            prov = provenance.get(rel)
+            if owner is None:
+                # A cached v2 claim whose manifest is no longer valid must not
+                # degrade into an ordinary path-derived external document.
+                if isinstance(prov, dict) and prov.get("_integrity_error"):
+                    if not (source.get("status") == "fail"
+                            and source.get("provenance") == {"integrity_status": "failed", "usable": False}
+                            and prov["_integrity_error"] in str(source.get("error") or "")):
+                        return False
+                continue
+            if not isinstance(prov, dict) or prov.get("_integrity_error"):
+                if (isinstance(prov, dict) and prov.get("_integrity_error")
+                        and source.get("status") == "fail"
+                        and source.get("provenance") == {"integrity_status": "failed", "usable": False}
+                        and prov["_integrity_error"] in str(source.get("error") or "")):
+                    continue
+                return False
+            if prov.get("_projection_state") == "superseded":
+                if (source.get("status") != "skipped"
+                        or source.get("provenance") != {
+                            "integrity_status": "superseded", "usable": False,
+                        }):
+                    return False
+                continue
+            if prov.get("_projection_state") == "expired":
+                if (source.get("status") != "skipped"
+                        or source.get("provenance") != {
+                            "eligibility_status": "expired", "usable": False,
+                        }):
+                    return False
+                continue
+            current_provenance = _enforce_tier_ceiling(
+                {key: value for key, value in prov.items() if not key.startswith("_")}
+            )
+            if canonical_json_bytes(source.get("provenance")) != canonical_json_bytes(current_provenance):
+                return False
+        return True
+    except Exception:
+        return False
+
+
+def is_fresh(out_dir, data_path, script_path, now=None):
+    decision_at = _decision_time_utc(now)
     man = os.path.join(out_dir, "manifest.json")
     if not os.path.exists(man):
         return None
@@ -925,14 +1577,26 @@ def is_fresh(out_dir, data_path, script_path):
         newest = max(newest, os.path.getmtime(p))
     if man_m >= newest:
         try:
-            return json.load(open(man))
+            cached = json.load(open(man))
         except Exception:  # noqa
             return None
+        guard = cached.get("cache_guard") if isinstance(cached, dict) else None
+        if not isinstance(guard, dict) or guard.get("version") != _CACHE_GUARD_VERSION:
+            return None
+        try:
+            if guard != _cache_guard_snapshot(data_path, out_dir, cached):
+                return None
+        except Exception:
+            return None
+        if not _cached_canonical_integrity(data_path, cached, decision_at):
+            return None
+        return cached
     return None
 
 
-def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None):
+def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None, now=None):
     script_path = os.path.abspath(__file__)
+    decision_at = _decision_time_utc(now)
     # Vision (Claude) reads image-only PDFs + images. OFF in the readiness pre-flight (vision=False,
     # no token spend before the user proceeds); ON in-run (vision=None -> env default). tesseract stays
     # the offline floor either way.
@@ -942,7 +1606,7 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
     # the in-run extraction leaves it 0 = unbounded so every scan/image gets read + cached).
     _ocr_deadline = (_time.monotonic() + _OCR_POOL_BUDGET_S) if _OCR_POOL_BUDGET_S > 0 else None
     if not force:
-        cached = is_fresh(out_dir, data_path, script_path)
+        cached = is_fresh(out_dir, data_path, script_path, now=decision_at)
         if cached:
             # A manifest built WITHOUT vision (e.g. the tesseract-only pre-flight gate) must be rebuilt
             # when Claude vision is now AVAILABLE (key present) and there are visual sources to UPGRADE —
@@ -960,20 +1624,50 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
                       f"{t.get('workbooks',0)} workbook(s), {t.get('extracts_written',0)} "
                       f"extract(s) already in {out_dir} (use --force to rebuild)")
                 if corpus_path:
-                    _write_corpus(out_dir, data_path, corpus_path)
+                    _write_corpus(out_dir, data_path, corpus_path, cached)
                 return cached
             print("[extract_pool] upgrading image-only/scanned sources to Claude vision (was OCR/unread)")
 
     os.makedirs(out_dir, exist_ok=True)
+    snapshot_context = tempfile.TemporaryDirectory(prefix="nostra-pool-snapshot-")
+    snapshot_pool = os.path.join(
+        snapshot_context.name,
+        os.path.basename(os.path.realpath(os.path.abspath(data_path))) or "pool",
+    )
+    os.makedirs(snapshot_pool)
     used = set()
     sources = []
-    prov_map = _collect_sidecars(data_path)  # external provenance sidecars (EXTERNAL_DATA.md)
+    prov_map = _collect_sidecars(
+        data_path, decision_at,
+    )  # external provenance sidecars (EXTERNAL_DATA.md)
+    methodology_only_rels = set()
     rel = None
 
     def _add(row):
         """Append a source row, enriched with relpath / external flag / provenance.
         Reads the loop's current `rel` late-bound, so it always tags the file being processed."""
         sources.append(_finish_row(row, rel, prov_map))
+
+    def _reject_extracted_methodology(base, ext, text, provenance):
+        """Quarantine a methodology-only source discovered by its full extracted text.
+
+        The cheap pre-read above intentionally does not invoke vision/OCR and only
+        sniffs a bounded text head.  A renamed scanned PDF/image therefore has no
+        identity until its full reader returns.  This second gate runs *after* the
+        format-specific reader (including OCR/vision) and *before* an extract,
+        manifest-approved row, corpus entry, or citable provenance is written.
+        """
+        nonlocal n_fail
+        reason = methodology_only_source_reason(base, text, provenance)
+        if not reason:
+            return False
+        n_fail += 1
+        methodology_only_rels.add(rel)
+        error = f"{METHODOLOGY_ONLY_ERROR}: {reason}"
+        prov_map[rel] = {"_integrity_error": error}
+        _add({"file": base, "ext": ext, "kind": "methodology-only",
+              "status": "fail", "error": error})
+        return True
 
     n_workbooks = n_tabs = n_written = n_fail = 0
 
@@ -986,6 +1680,62 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
         rel = os.path.relpath(p, data_path)
         ext = base.lower().rsplit(".", 1)[-1] if "." in base else ""
         stem = _sanitize(base.rsplit(".", 1)[0] if "." in base else base, "file")
+
+        # Parse a private byte-for-byte snapshot opened through the pinned pool
+        # hierarchy. A descendant path swap can therefore only make this row
+        # fail; it can never redirect a parser or corpus read outside the pool.
+        try:
+            # Bind the snapshot to the digest _collect_sidecars actually attested for this path, so a
+            # projection re-synced or tampered with after verification cannot be parsed under the
+            # earlier sealed provenance (it fails this row instead).
+            _attested = (prov_map.get(rel) or {}).get("_verified_content_sha256")
+            p = _snapshot_pool_file(
+                data_path, rel, snapshot_pool,
+                _attested if isinstance(_attested, str) else None,
+            )
+        except (OSError, ValueError) as exc:
+            n_fail += 1
+            _add({"file": base, "ext": ext or "(none)", "kind": "unsafe-input",
+                  "status": "fail", "error": f"pool input rejected: {exc}"})
+            continue
+
+        provenance = prov_map.get(rel) or {}
+        if provenance.get("_projection_state") == "superseded":
+            _add({
+                "file": base, "ext": ext or "(none)", "kind": "external",
+                "status": "skipped",
+                "error": "superseded connector projection; retained only for audit/replay",
+            })
+            continue
+        if provenance.get("_projection_state") == "expired":
+            _add({
+                "file": base, "ext": ext or "(none)", "kind": "external",
+                "status": "skipped",
+                "error": "expired connector projection; excluded from current evidence",
+            })
+            continue
+        integrity_error = provenance.get("_integrity_error")
+        methodology_reason = methodology_only_source_reason(base, provenance=provenance)
+        if not methodology_reason and not integrity_error:
+            methodology_reason = methodology_only_source_reason(
+                base, sniff_text(p, METHODOLOGY_ONLY_SNIFF_CHARS), provenance,
+            )
+        if methodology_reason:
+            n_fail += 1
+            methodology_only_rels.add(rel)
+            error = f"{METHODOLOGY_ONLY_ERROR}: {methodology_reason}"
+            # Never attach the report's provider/title/sidecar as citable runtime
+            # provenance.  `_finish_row` maps this internal integrity marker to
+            # the same small unusable-provenance object as any quarantined input.
+            prov_map[rel] = {"_integrity_error": error}
+            _add({"file": base, "ext": ext, "kind": "methodology-only",
+                  "status": "fail", "error": error})
+            continue
+        if integrity_error:
+            n_fail += 1
+            _add({"file": base, "ext": ext, "kind": "external", "status": "fail",
+                  "error": integrity_error})
+            continue
 
         # Route by SNIFFED content, not extension — Capital IQ mislabels files
         # (a `.doc` that is MHTML, a `.rtf` that is binary Word, an `.xls` that is HTML).
@@ -1013,6 +1763,8 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
                 n_workbooks -= 1
                 txt, derr = _read_doc(p)
                 if txt:
+                    if _reject_extracted_methodology(base, ext, txt, provenance):
+                        continue
                     out_name = _unique(used, stem) + ".txt"
                     open(os.path.join(out_dir, out_name), "w").write(txt)
                     n_written += 1
@@ -1026,6 +1778,15 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
                                     "status": "fail",
                                     "error": f"not a workbook ({type(e).__name__}); doc fallback: {derr}",
                                     "sheets": []})
+                continue
+            # Test the complete workbook representation, not the bounded
+            # pre-sniff.  A title on a later tab must not evade the boundary.
+            workbook_text = "\n".join(
+                _tab_text(base, nm, i, len(sheets), rows, nc)
+                for i, (nm, _nr, nc, rows) in enumerate(sheets, 1)
+            )
+            if _reject_extracted_methodology(base, ext, workbook_text, provenance):
+                n_workbooks -= 1
                 continue
             sheet_meta = []
             for i, (nm, nr, nc, rows) in enumerate(sheets, 1):
@@ -1052,6 +1813,8 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
             else:
                 txt, err = _read_html(p); kind = "html"
             if txt:
+                if _reject_extracted_methodology(base, ext, txt, provenance):
+                    continue
                 out_name = _unique(used, stem) + ".txt"
                 open(os.path.join(out_dir, out_name), "w").write(txt)
                 n_written += 1
@@ -1078,6 +1841,8 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
             # standalone image (screenshot / photographed table / chart) — read via Claude vision or OCR
             txt, note, err = _read_image_file(p); kind = "image"
             if txt:
+                if _reject_extracted_methodology(base, ext or "(none)", txt, provenance):
+                    continue
                 out_name = _unique(used, stem) + ".txt"
                 open(os.path.join(out_dir, out_name), "w").write(txt)
                 n_written += 1
@@ -1097,6 +1862,12 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
                             "error": "Google Drive pointer stub — open in browser; no local content"})
 
         elif fmt == "text":
+            # `sniff_text` is deliberately bounded.  Read the complete original
+            # before approving an in-place source so an identity beyond that
+            # bound cannot enter the corpus.
+            full_text = open(p, encoding="utf-8", errors="ignore").read()
+            if _reject_extracted_methodology(base, ext or "(none)", full_text, provenance):
+                continue
             _add({"file": base, "ext": ext or "(none)", "kind": "text",
                             "status": "in-place", "extract": "(original)"})
 
@@ -1108,6 +1879,8 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
         else:  # unknown binary — last-ditch document conversion, else surface honestly
             txt, derr = _read_doc(p)
             if txt:
+                if _reject_extracted_methodology(base, ext or "(none)", txt, provenance):
+                    continue
                 out_name = _unique(used, stem) + ".txt"
                 open(os.path.join(out_dir, out_name), "w").write(txt)
                 n_written += 1
@@ -1127,11 +1900,14 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
         "totals": {"sources": len(sources), "workbooks": n_workbooks,
                    "tabs": n_tabs, "extracts_written": n_written, "failures": n_fail},
     }
+    manifest["cache_guard"] = _cache_guard_snapshot(data_path, out_dir, manifest)
     json.dump(manifest, open(os.path.join(out_dir, "manifest.json"), "w"), indent=2)
     open(os.path.join(out_dir, "manifest.md"), "w").write(_manifest_md(manifest))
-    _write_ciq_facts(data_path, out_dir)  # B3: deterministic CIQ facts sidecar, best-effort (never blocks extraction)
+    _write_ciq_facts(snapshot_pool, out_dir)  # B3: deterministic CIQ facts sidecar, best-effort (never blocks extraction)
     if corpus_path:
-        _write_corpus(out_dir, data_path, corpus_path)
+        _write_corpus(out_dir, snapshot_pool, corpus_path, manifest, methodology_only_rels)
+
+    snapshot_context.cleanup()
 
     print(f"[extract_pool] {len(sources)} source(s) | {n_workbooks} workbook(s) "
           f"-> {n_tabs} tab(s) | {n_written} extract(s) written | {n_fail} failure(s)")
@@ -1189,18 +1965,47 @@ def _html_xls_fallback(path):
     return txt or ""
 
 
-def _write_corpus(out_dir, data_path, corpus_path):
-    """Concatenate every extract + every original .txt into one searchable corpus."""
+def _write_corpus(out_dir, data_path, corpus_path, manifest, excluded_rels=None):
+    """Concatenate only manifest-approved extracts and original text sources.
+
+    Restricting the corpus to the current manifest also prevents a stale extract
+    from an earlier run from surviving after its source is quarantined.  Explicit
+    exclusions are the methodology-only files rejected during this same pass.
+    """
     parts = []
-    for p in sorted(glob.glob(os.path.join(out_dir, "*.txt"))):
+    excluded = {str(rel).replace(os.sep, "/") for rel in (excluded_rels or set())}
+    approved_extracts = set()
+    approved_originals = set()
+    for source in (manifest or {}).get("sources", []):
+        if source.get("status") not in ("ok", "in-place"):
+            continue
+        source_rel = str(source.get("path") or source.get("file") or "").replace(os.sep, "/")
+        extract = source.get("extract")
+        if extract == "(original)":
+            approved_originals.add(source_rel)
+        elif isinstance(extract, str) and extract.endswith(".txt"):
+            approved_extracts.add(extract)
+        for sheet in source.get("sheets") or []:
+            sheet_extract = sheet.get("extract") if isinstance(sheet, dict) else None
+            if isinstance(sheet_extract, str) and sheet_extract.endswith(".txt"):
+                approved_extracts.add(sheet_extract)
+
+    for name in sorted(approved_extracts):
+        p = os.path.join(out_dir, name)
+        if not os.path.isfile(p):
+            continue
         parts.append(f"\n===== EXTRACT: {os.path.basename(p)} =====\n")
         parts.append(open(p, errors="ignore").read())
     for p in iter_pool_files(data_path):
-        if p.lower().endswith(".txt"):
+        rel = os.path.relpath(p, data_path).replace(os.sep, "/")
+        if p.lower().endswith(".txt") and rel in approved_originals and rel not in excluded:
             # relpath, not basename — data/T/note.txt and data/T/external/x/note.txt must be
             # labelled distinctly, or verify-evidence attributes greps to the wrong source.
-            parts.append(f"\n===== SOURCE: {os.path.relpath(p, data_path)} =====\n")
-            parts.append(open(p, errors="ignore").read())
+            parts.append(f"\n===== SOURCE: {rel} =====\n")
+            try:
+                parts.append(_read_pool_regular_bytes(data_path, rel).decode("utf-8", "ignore"))
+            except (OSError, ValueError):
+                continue
     open(corpus_path, "w").write("".join(parts))
     print(f"[extract_pool] corpus: {corpus_path} ({sum(len(x) for x in parts)} chars)")
 

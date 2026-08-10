@@ -20,16 +20,26 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
 import sys
 import tempfile
 import urllib.request
 from datetime import datetime, timezone
 
+_SCRIPTS = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))), "scripts")
+if _SCRIPTS not in sys.path:
+    sys.path.append(_SCRIPTS)
+from connector_http import open_allowed_https, read_bounded_response  # noqa: E402
+
 HOST = "www.cpc.ncep.noaa.gov"            # the ONE host this connector may reach (its declared allowlist)
 URL = f"https://{HOST}/data/indices/oni.ascii.txt"
 PROVIDER = "noaa-cpc"
 CONNECTOR_ID = "noaa-cpc-oni"
+MAX_RESPONSE_BYTES = 2 * 1024 * 1024      # compact ASCII history; hard network-body cap
+_HERE = os.path.dirname(os.path.abspath(__file__))
+with open(os.path.join(_HERE, "connector.json"), encoding="utf-8") as _f:
+    MANIFEST = json.load(_f)
 
 # ONI is a centered 3-month running mean, labelled by the 3-letter season; the coverage ends in the LAST
 # month of that window. (NDJ spans a year boundary — its January is the following year.)
@@ -39,10 +49,10 @@ SEASON_END_MONTH = {"DJF": 2, "JFM": 3, "FMA": 4, "MAM": 5, "AMJ": 6, "MJJ": 7,
 
 def fetch_text(timeout: int = 20) -> str:
     req = urllib.request.Request(URL, headers={"User-Agent": f"nostradamus-connector/{CONNECTOR_ID}"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:  # noqa: S310 — fixed HTTPS host, not user input
+    with open_allowed_https(req, MANIFEST["host_allowlist"], timeout=timeout) as r:
         if r.status != 200:
             raise RuntimeError(f"HTTP {r.status} from {URL}")
-        return r.read().decode("utf-8", "replace")
+        return read_bounded_response(r, max_bytes=MAX_RESPONSE_BYTES).decode("utf-8", "replace")
 
 
 def parse(text: str):
@@ -50,17 +60,32 @@ def parse(text: str):
     rows = []
     for line in text.splitlines():
         parts = line.split()
-        if len(parts) != 4:  # the 'SEAS YR TOTAL ANOM' header + any stray lines
+        if not parts:
+            continue
+        if parts[0] in SEASON_END_MONTH and len(parts) != 4:
+            raise RuntimeError(f"recognized ONI row has {len(parts)} columns, expected 4 (fail closed)")
+        if len(parts) != 4:  # the 'SEAS YR TOTAL ANOM' header + unrelated prose
             continue
         seas, yr, total, anom = parts
         if seas not in SEASON_END_MONTH:
             continue
         try:
-            rows.append({"season": seas, "year": int(yr), "sst": float(total), "anom": float(anom)})
+            parsed = {"season": seas, "year": int(yr), "sst": float(total), "anom": float(anom)}
         except ValueError:
-            continue
+            raise RuntimeError(f"recognized ONI row contains a non-numeric value: {line!r} (fail closed)")
+        if (not 1900 <= parsed["year"] <= 2200
+                or not math.isfinite(parsed["sst"]) or not math.isfinite(parsed["anom"])):
+            raise RuntimeError(f"recognized ONI row contains an invalid numeric value: {line!r} (fail closed)")
+        rows.append(parsed)
     if not rows:
         raise RuntimeError("no ONI rows parsed — the feed shape may have changed (fail closed, write nothing)")
+    coverage_months = [
+        (row["year"] + (1 if row["season"] == "NDJ" else 0)) * 12
+        + SEASON_END_MONTH[row["season"]]
+        for row in rows
+    ]
+    if any(current != previous + 1 for previous, current in zip(coverage_months, coverage_months[1:])):
+        raise RuntimeError("ONI rows are missing, duplicated, or out of monthly season sequence (fail closed)")
     return rows, rows[-1]
 
 
@@ -84,7 +109,7 @@ def build(text: str):
     asof = as_of_date(latest)
     state = enso_state(latest["anom"])
     payload = {
-        "series": "NOAA CPC Oceanic Niño Index (ONI)",
+        "series": MANIFEST["series"],
         "as_of": asof,
         "latest": {**latest, "enso_state": state},
         "recent": rows[-12:],           # ~1 year of seasons for context
@@ -94,13 +119,16 @@ def build(text: str):
         "provider": "NOAA CPC",
         # §4 tier-5 "API pull, dated" bucket. This particular feed is free + public-domain, but the TIER is
         # what governs citation, and tier 5 is its correct ceiling (an official API pull, below any filing).
-        "source_type": "paid_api",
+        "source_type": "official_data",
         "tier": 5,
         "as_of": asof,
         "received": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         "source_url": URL,
-        "license": "public_domain (US Government work, 17 U.S.C. §105)",
+        "license": MANIFEST["license"],
         "connector_id": CONNECTOR_ID,
+        "dataset_id": MANIFEST["dataset_id"], "series_id": MANIFEST["series_id"],
+        "schema_version": MANIFEST["schema_version"],
+        "licensing": MANIFEST["licensing"],
         "note": f"Latest ONI {latest['anom']:+.2f} → {state} (El Niño ≥ +0.5, La Niña ≤ -0.5).",
     }
     return asof, latest, state, payload, sidecar

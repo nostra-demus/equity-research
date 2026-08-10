@@ -44,6 +44,7 @@ import time
 import hashlib
 import tempfile
 import importlib.util
+import stat
 from datetime import date
 
 # ---- shared venv re-exec (same .venv as extract_pool; own sentinel) ----
@@ -106,7 +107,7 @@ JUNK_SUFFIXES = (".tmp", ".crdownload", ".partial")
 
 # source_type -> CLAUDE.md §4 tier (the frameworks/EXTERNAL_DATA.md mapping)
 TIER = {
-    "alt_data_panel": 5, "vendor_export": 5, "paid_api": 5,
+    "alt_data_panel": 5, "vendor_export": 5, "paid_api": 5, "official_data": 5,
     "broker_research": 7,
     "expert_call": 9, "channel_check": 9, "management_meeting": 9, "external_other": 9,
 }
@@ -210,6 +211,8 @@ add precise `.aliases.json` entries) over loose drops.
 Rules of the road (frameworks/EXTERNAL_DATA.md in the repo):
 - external data is cited as what it is (estimate / expert view / channel check),
   never as a filing, and never replaces a filing's own number;
+- WILTW / "What I Learned This Week" is methodology-only and is rejected here;
+  use the lawful original provider source when a report points to useful evidence;
 - re-runs of a finished call stay YOURS to trigger — the engine recommends the
   exact command, it never spends on its own.
 """
@@ -217,10 +220,43 @@ Rules of the road (frameworks/EXTERNAL_DATA.md in the repo):
 
 def sha256_file(path):
     h = hashlib.sha256()
-    with open(path, "rb") as fh:
+    flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
+    fd = os.open(path, flags)
+    info = os.fstat(fd)
+    if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1:
+        os.close(fd)
+        raise ValueError("source must be a unique regular non-symlink file")
+    with os.fdopen(fd, "rb") as fh:
         for chunk in iter(lambda: fh.read(1 << 20), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def _safe_beneath(root, candidate):
+    root = os.path.realpath(os.path.abspath(root))
+    path = os.path.abspath(candidate)
+    try:
+        if os.path.commonpath([root, path]) != root:
+            return None
+    except ValueError:
+        return None
+    cursor = root
+    rel = os.path.relpath(path, root)
+    if rel == ".":
+        return root
+    for part in rel.split(os.sep):
+        if part in {"", ".", ".."}:
+            return None
+        cursor = os.path.join(cursor, part)
+        if not os.path.lexists(cursor):
+            continue
+        try:
+            info = os.lstat(cursor)
+        except OSError:
+            return None
+        if stat.S_ISLNK(info.st_mode):
+            return None
+    return path
 
 
 def slug(s, fallback="unfiled"):
@@ -315,7 +351,13 @@ def pool_tickers(pool):
         for n in sorted(os.listdir(pool)):
             if n.startswith(".") or n.lower() in RESERVED:
                 continue
-            if TICKER_SHAPE.match(n) and os.path.isdir(os.path.join(pool, n)):
+            candidate = os.path.join(pool, n)
+            try:
+                info = os.lstat(candidate)
+            except OSError:
+                continue
+            if (TICKER_SHAPE.match(n) and stat.S_ISDIR(info.st_mode)
+                    and not stat.S_ISLNK(info.st_mode) and _safe_beneath(pool, candidate)):
                 out.append(n)
     except Exception:
         pass
@@ -424,24 +466,37 @@ def is_stable(path, first_stat):
         return False
 
 
-def copy_contents(src, dst):
+def copy_contents(src, dst, root=None):
     """Copy CONTENTS via a temp file + rename. Drive's file provider rejects attribute
     preservation (see scripts/ops/news-archive.sh), and rename is the closest thing to an
     atomic landing the mount offers."""
+    destination_root = os.path.realpath(os.path.abspath(root or os.path.dirname(dst)))
+    if _safe_beneath(destination_root, dst) is None:
+        raise ValueError("destination contains a symlinked or escaping component")
     os.makedirs(os.path.dirname(dst), exist_ok=True)
-    tmp = os.path.join(os.path.dirname(dst), ".tmp-" + os.path.basename(dst))
-    with open(src, "rb") as fi, open(tmp, "wb") as fo:
+    if _safe_beneath(destination_root, os.path.dirname(dst)) is None:
+        raise ValueError("destination parent contains a symlinked or escaping component")
+    source_fd = os.open(src, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    source_info = os.fstat(source_fd)
+    if not stat.S_ISREG(source_info.st_mode):
+        os.close(source_fd)
+        raise ValueError("source is not a regular non-symlink file")
+    temp_fd, tmp = tempfile.mkstemp(dir=os.path.dirname(dst), prefix=".tmp-route-")
+    with os.fdopen(source_fd, "rb") as fi, os.fdopen(temp_fd, "wb") as fo:
         while True:
             chunk = fi.read(1 << 20)
             if not chunk:
                 break
             fo.write(chunk)
+        fo.flush(); os.fsync(fo.fileno())
     os.replace(tmp, dst)
 
 
 def move_to_routed(src, inbox):
     rel = os.path.relpath(src, inbox)
     dst = os.path.join(inbox, ROUTED_DIR, rel)
+    if _safe_beneath(inbox, src) is None or _safe_beneath(inbox, dst) is None:
+        raise ValueError("inbox archive path contains a symlinked or escaping component")
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     if os.path.exists(dst):  # same name routed before — keep both, suffixed
         base, ext = os.path.splitext(dst)
@@ -452,8 +507,26 @@ def move_to_routed(src, inbox):
     try:
         os.rename(src, dst)
     except OSError:  # cross-device / FUSE oddity: copy + unlink
-        copy_contents(src, dst)
+        copy_contents(src, dst, inbox)
         os.unlink(src)
+
+
+def _write_json_safe(path, value, root):
+    if _safe_beneath(root, path) is None:
+        raise ValueError("sidecar path contains a symlinked or escaping component")
+    directory = os.path.dirname(path)
+    os.makedirs(directory, exist_ok=True)
+    if _safe_beneath(root, directory) is None:
+        raise ValueError("sidecar parent contains a symlinked or escaping component")
+    fd, tmp = tempfile.mkstemp(dir=directory, prefix=".tmp-sidecar-")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as fh:
+            json.dump(value, fh, indent=2)
+            fh.flush(); os.fsync(fh.fileno())
+        os.replace(tmp, path)
+    finally:
+        try: os.unlink(tmp)
+        except OSError: pass
 
 
 # ---------- singleton lock (LOCAL disk — O_EXCL on the FUSE mount is unreliable) ----------
@@ -505,14 +578,24 @@ def load_ledger(path):
 
 
 def iter_inbox_files(inbox):
-    for root, dirs, files in os.walk(inbox):
-        dirs[:] = [d for d in dirs if d != ROUTED_DIR and not d.startswith(".")]
+    inbox = os.path.realpath(os.path.abspath(inbox))
+    for root, dirs, files in os.walk(inbox, topdown=True, followlinks=False):
+        dirs[:] = [d for d in dirs if d != ROUTED_DIR and not d.startswith(".")
+                   and _safe_beneath(inbox, os.path.join(root, d)) is not None]
         for n in sorted(files):
             if n in JUNK_NAMES or n.startswith(JUNK_PREFIXES) or n.lower().endswith(JUNK_SUFFIXES):
                 continue
             if n.lower().rsplit(".", 1)[-1] in ("gdoc", "gsheet", "gslides"):
                 continue  # Drive pointer stubs — no local content to route
-            yield os.path.join(root, n)
+            candidate = os.path.join(root, n)
+            try:
+                info = os.lstat(candidate)
+            except OSError:
+                continue
+            if (not stat.S_ISREG(info.st_mode) or stat.S_ISLNK(info.st_mode)
+                    or _safe_beneath(inbox, candidate) is None):
+                continue
+            yield candidate
 
 
 def classify_inbox_path(fp, inbox, tickers):
@@ -532,16 +615,105 @@ def classify_inbox_path(fp, inbox, tickers):
     return parts[0], forced
 
 
-def run(pool="data", dry_run=False):
-    ep = _load_extract_pool()
-    pool = os.path.abspath(pool)
+def _cached_visual_identity(ep, path):
+    """Return an existing OCR/vision transcription without making a network call.
+
+    The inbox router is deterministic and must never spend on an LLM.  A full
+    extractor run may already have produced a Claude-vision transcription for
+    this exact file identity, however, and the methodology boundary must honour
+    that stronger reading just as it honours the offline tesseract cache.
+    """
+    tags = [f"claude:{ep._VISION_MODEL}", "tesseract"]
+    for tag in tags:
+        try:
+            text = ep._cache_read(ep._visual_cache_path(path, tag))
+        except Exception:
+            text = None
+        if isinstance(text, str) and text.strip():
+            return text
+    return ""
+
+
+def _complete_identity_text(ep, path):
+    """Read the complete supported representation before routing anything.
+
+    Returns ``(text, format, error)``.  Unlike ``sniff_text`` this deliberately
+    has no character/page-head bound.  PDFs and images also use any existing
+    vision transcription and the extractor's offline OCR floor.  No pool file,
+    sidecar, ledger row, or rerun hint is produced until this preflight returns.
+    """
+    fmt = ep.sniff_format(path)
+    ext = os.path.basename(path).lower().rsplit(".", 1)[-1] if "." in os.path.basename(path) else ""
+    try:
+        if fmt in ("ole2", "zip"):
+            wbext = "xls" if fmt == "ole2" else "xlsx"
+            try:
+                sheets = ep.read_workbook(path, wbext)
+                text = "\n".join(
+                    ep._tab_text(os.path.basename(path), name, index, len(sheets), rows, ncols)
+                    for index, (name, _nrows, ncols, rows) in enumerate(sheets, 1)
+                )
+                return text, fmt, None
+            except Exception as workbook_error:
+                text, doc_error = ep._read_doc(path)
+                return text or "", fmt, doc_error or f"workbook: {type(workbook_error).__name__}"
+        if fmt == "pdf":
+            cached = _cached_visual_identity(ep, path)
+            if cached:
+                return cached, fmt, None
+            # The full read (max_pages=None) invokes the image-only OCR path.
+            text, error, _note = ep._read_pdf(path)
+            return text or "", fmt, error
+        if fmt == "image" or ext in getattr(ep, "IMAGE_EXTS", set()):
+            cached = _cached_visual_identity(ep, path)
+            if cached:
+                return cached, "image", None
+            text, _note, error = ep._read_image_file(path)
+            return text or "", "image", error
+        if fmt == "mime":
+            text, error = ep._read_mhtml(path)
+            return text or "", fmt, error
+        if fmt == "rtf":
+            text, error = ep._read_rtf(path)
+            return text or "", fmt, error
+        if fmt == "html":
+            text, error = ep._read_html(path)
+            return text or "", fmt, error
+        if fmt == "text":
+            with open(path, encoding="utf-8", errors="ignore") as fh:
+                return fh.read(), fmt, None
+        if fmt in ("empty", "unreadable"):
+            return "", fmt, fmt
+        text, error = ep._read_doc(path)
+        return text or "", fmt, error
+    except Exception as exc:  # a bad document is reported, never allowed to bypass the gate
+        return "", fmt, f"{type(exc).__name__}: {exc}"
+
+
+def _gold_sensitive_visual(base, forced, tickers, aliases):
+    """Whether an unreadable visual could otherwise enter GOLD runtime evidence."""
+    if forced == "GOLD":
+        return True
+    return any(ticker == "GOLD" for ticker, _score in match_tickers(base, "", tickers, aliases))
+
+
+def run(pool="data", dry_run=False, extractor=None):
+    ep = extractor or _load_extract_pool()
+    pool = os.path.realpath(os.path.abspath(pool))
     inbox = os.path.join(pool, INBOX_NAME)
+    if _safe_beneath(pool, inbox) is None:
+        raise RuntimeError("external inbox contains a symlinked or escaping component")
     os.makedirs(os.path.join(inbox, ROUTED_DIR), exist_ok=True)
+    if (_safe_beneath(pool, inbox) is None
+            or _safe_beneath(inbox, os.path.join(inbox, ROUTED_DIR)) is None):
+        raise RuntimeError("external inbox routing lane contains a symlinked component")
     readme = os.path.join(inbox, README_NAME)
+    ledger_path = os.path.join(inbox, LEDGER_NAME)
+    if _safe_beneath(inbox, readme) is None or _safe_beneath(inbox, ledger_path) is None:
+        raise RuntimeError("external inbox control file contains a symlinked component")
     if not os.path.exists(readme) and not dry_run:
         open(readme, "w", encoding="utf-8").write(README_TEXT)
 
-    ledger_path = os.path.join(inbox, LEDGER_NAME)
     seen = load_ledger(ledger_path)
     tickers = pool_tickers(pool)
     aliases = harvest_aliases(pool, tickers, ep)
@@ -550,8 +722,11 @@ def run(pool="data", dry_run=False):
     for fp in iter_inbox_files(inbox):
         base = os.path.basename(fp)
         try:
-            st = os.stat(fp)
+            st = os.lstat(fp)
         except Exception:
+            continue
+        if not stat.S_ISREG(st.st_mode) or stat.S_ISLNK(st.st_mode):
+            skipped.append((base, "symlink/special input rejected"))
             continue
         if st.st_size == 0:
             skipped.append((base, "empty file"))
@@ -561,6 +736,23 @@ def run(pool="data", dry_run=False):
             continue
         digest = sha256_file(fp)
         provider_folder, forced = classify_inbox_path(fp, inbox, tickers)
+        # Complete-content preflight.  The old bounded sniff admitted a renamed
+        # report when its title appeared after 60k characters, and an unreadable
+        # scan could be force-routed into GOLD on path metadata alone.
+        sniff, fmt, read_error = _complete_identity_text(ep, fp)
+        methodology_reason = ep.methodology_only_source_reason(
+            base,
+            sniff,
+            {"origin": base, "routed_from": os.path.relpath(fp, pool)},
+        )
+        if methodology_reason:
+            skipped.append((base, f"methodology-only source rejected — {methodology_reason}"))
+            continue
+        if fmt in ("pdf", "image") and not sniff.strip() \
+                and _gold_sensitive_visual(base, forced, tickers, aliases):
+            why = read_error or "no readable text from complete OCR/vision preflight"
+            skipped.append((base, f"unreadable GOLD-sensitive visual rejected — {why}"))
+            continue
         # sha256 dedup — but a FORCED drop is an explicit instruction: a doc auto-routed to one
         # ticker earlier can be force-added to another (the documented <Provider>/<TICKER>/ path
         # for a missed ticker). The per-target copy below still skips a pool that already holds
@@ -568,11 +760,6 @@ def run(pool="data", dry_run=False):
         if digest in seen and not forced:
             skipped.append((base, "already routed (ledger)"))
             continue
-        sniff = ""
-        try:
-            sniff = ep.sniff_text(fp, SNIFF_CHARS)
-        except Exception:
-            pass
 
         if forced:
             targets = [(forced, -1)]  # -1 = forced, no score
@@ -617,7 +804,20 @@ def run(pool="data", dry_run=False):
             continue
 
         for t in tick_list:
+            subject_dir = os.path.join(pool, t)
+            if os.path.lexists(subject_dir):
+                try:
+                    subject_info = os.lstat(subject_dir)
+                except OSError as exc:
+                    raise RuntimeError(f"subject pool is unreadable: {t}") from exc
+                if (not stat.S_ISDIR(subject_info.st_mode) or stat.S_ISLNK(subject_info.st_mode)
+                        or _safe_beneath(pool, subject_dir) is None):
+                    raise RuntimeError(f"subject pool contains a symlinked or invalid directory: {t}")
+            else:
+                os.makedirs(subject_dir)
             dst = os.path.join(pool, t, "external", pslug, base)
+            if _safe_beneath(pool, dst) is None:
+                raise RuntimeError(f"routed destination contains a symlinked component: {t}")
             # same-name collisions: keep EVERY distinct version — walk (2), (3), … until a free
             # slot or an identical copy (recurring vendor exports all named "report.pdf" must
             # never overwrite the evidence history). Identical content already in place = no-op.
@@ -628,8 +828,8 @@ def run(pool="data", dry_run=False):
                 i += 1
             if os.path.exists(dst):  # identical copy already in this pool
                 continue
-            copy_contents(fp, dst)
-            json.dump(sidecar, open(dst + ".source.json", "w", encoding="utf-8"), indent=2)
+            copy_contents(fp, dst, pool)
+            _write_json_safe(dst + ".source.json", sidecar, pool)
         move_to_routed(fp, inbox)
         with open(ledger_path, "a", encoding="utf-8") as fh:
             fh.write(json.dumps({**sidecar, "ts": int(time.time()), "suggested_reruns": hints}) + "\n")

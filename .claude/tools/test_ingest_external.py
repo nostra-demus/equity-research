@@ -45,6 +45,13 @@ def drop(root, rel, text):
     return fp
 
 
+def drop_bytes(root, rel, data):
+    fp = os.path.join(root, "EXTERNAL-INBOX", rel)
+    os.makedirs(os.path.dirname(fp), exist_ok=True)
+    open(fp, "wb").write(data)
+    return fp
+
+
 failures = []
 
 
@@ -217,7 +224,76 @@ def main():
           hints and hints[0].startswith("/research:rerun "), str(hints))
     shutil.rmtree(root)
 
-    # ---- 8c. review fixes (PR #210 P2s) ----
+    # ---- 8c. GOLD methodology boundary: WILTW is never routed; ordinary reports remain admissible ----
+    root = tempfile.mkdtemp()
+    build_pool(root)
+    named = drop(root, "WeeklyDesk/GOLD/WILTW_2026-07-30 (1).pdf",
+                 "A point-in-time gold view whose filename identifies the methodology source.")
+    renamed = drop(root, "WeeklyDesk/GOLD/renamed-metals-note.txt",
+                   "What I Learned This Week — point-in-time gold conclusions and assertions.")
+    late_title = drop(root, "WeeklyDesk/GOLD/late-title-note.txt",
+                      ("ordinary preamble " * 5000) +
+                      "\nWhat I Learned This Week — point-in-time assertions must not enter runtime data.")
+    renamed_scan = drop_bytes(root, "WeeklyDesk/GOLD/renamed-metals-scan.png",
+                              b"\x89PNG\r\n\x1a\nrenamed-scan-fixture")
+    unreadable_scan = drop_bytes(root, "WeeklyDesk/GOLD/unreadable-gold-scan.png",
+                                 b"\x89PNG\r\n\x1a\nunreadable-scan-fixture")
+    lawful_scan = drop_bytes(root, "WeeklyDesk/GOLD/lawful-gold-report-scan.png",
+                             b"\x89PNG\r\n\x1a\nlawful-scan-fixture")
+    drop(root, "WeeklyDesk/GOLD/lawful-gold-research-report.txt",
+         "Lawfully licensed gold-market research with original-provider provenance.")
+    ep = m._load_extract_pool()
+    original_image_reader = ep._read_image_file
+
+    def fixture_image_reader(path):
+        if os.path.basename(path) == "renamed-metals-scan.png":
+            return "What I Learned This Week — transcribed from the renamed scan.", "fixture vision", None
+        if os.path.basename(path) == "lawful-gold-report-scan.png":
+            return "Lawfully licensed gold-market research transcribed from its scan.", "fixture vision", None
+        if os.path.basename(path) == "unreadable-gold-scan.png":
+            return "", None, "fixture OCR/vision could not read the image"
+        return original_image_reader(path)
+
+    ep._read_image_file = fixture_image_reader
+    res = m.run(root, extractor=ep)
+    rejected = {base: why for base, why in res["skipped"] if "methodology-only source rejected" in why}
+    check("WILTW filename, late complete-text title, and OCR/vision identity are rejected before GOLD routing",
+          set(rejected) == {"WILTW_2026-07-30 (1).pdf", "renamed-metals-note.txt",
+                            "late-title-note.txt", "renamed-metals-scan.png"}, str(res))
+    check("rejected methodology files stay in the inbox for explicit operator handling",
+          os.path.exists(named) and os.path.exists(renamed) and os.path.exists(late_title)
+          and os.path.exists(renamed_scan), str(res))
+    check("unreadable GOLD visual fails closed before routing or provenance",
+          os.path.exists(unreadable_scan)
+          and any(base == "unreadable-gold-scan.png" and "unreadable GOLD-sensitive visual rejected" in why
+                  for base, why in res["skipped"]), str(res))
+    gold_external = os.path.join(root, "GOLD", "external", "weeklydesk")
+    check("WILTW creates no GOLD payload or provenance sidecar",
+          not os.path.exists(os.path.join(gold_external, "WILTW_2026-07-30 (1).pdf"))
+          and not os.path.exists(os.path.join(gold_external, "WILTW_2026-07-30 (1).pdf.source.json"))
+          and not os.path.exists(os.path.join(gold_external, "renamed-metals-note.txt"))
+          and not os.path.exists(os.path.join(gold_external, "renamed-metals-note.txt.source.json"))
+          and not os.path.exists(os.path.join(gold_external, "late-title-note.txt"))
+          and not os.path.exists(os.path.join(gold_external, "late-title-note.txt.source.json"))
+          and not os.path.exists(os.path.join(gold_external, "renamed-metals-scan.png"))
+          and not os.path.exists(os.path.join(gold_external, "renamed-metals-scan.png.source.json"))
+          and not os.path.exists(os.path.join(gold_external, "unreadable-gold-scan.png"))
+          and not os.path.exists(os.path.join(gold_external, "unreadable-gold-scan.png.source.json")),
+          str(res))
+    check("ordinary lawful readable GOLD text and scan remain admissible",
+          os.path.exists(os.path.join(gold_external, "lawful-gold-research-report.txt"))
+          and sidecar(root, "GOLD", "weeklydesk", "lawful-gold-research-report.txt") is not None
+          and os.path.exists(os.path.join(gold_external, "lawful-gold-report-scan.png"))
+          and sidecar(root, "GOLD", "weeklydesk", "lawful-gold-report-scan.png") is not None,
+          str(res))
+    ledger = open(os.path.join(root, "EXTERNAL-INBOX", ".ingest_ledger.ndjson"), encoding="utf-8").read()
+    check("WILTW rejection writes no GOLD runtime provenance ledger row",
+          "WILTW_2026-07-30" not in ledger and "renamed-metals-note" not in ledger
+          and "late-title-note" not in ledger and "renamed-metals-scan" not in ledger
+          and "unreadable-gold-scan" not in ledger, ledger)
+    shutil.rmtree(root)
+
+    # ---- 8d. review fixes (PR #210 P2s) ----
     # suffix loop: three DISTINCT docs with the same basename all survive
     root = tempfile.mkdtemp()
     build_pool(root)
@@ -296,6 +372,33 @@ def main():
     check("impossible date is dropped, not written",
           m._parse_dates("x.txt", "data through 45/77/2026")[0] is None)
 
+    # Symlinked inbox inputs and subject pools are never followed, including
+    # aliases whose target remains inside the nominal data root.
+    root = tempfile.mkdtemp(); build_pool(root)
+    outside = os.path.join(root, "outside-note.txt")
+    open(outside, "w").write("AMZN AMZN AMZN AMZN AMZN")
+    linked_input = os.path.join(root, "EXTERNAL-INBOX", "linked-note.txt")
+    os.symlink(outside, linked_input)
+    res = m.run(root)
+    check("symlinked inbox file is ignored without routing target bytes",
+          os.path.islink(linked_input)
+          and not os.path.exists(os.path.join(root, "AMZN", "external", "unknown", "linked-note.txt")),
+          str(res))
+    shutil.rmtree(root)
+
+    root = tempfile.mkdtemp(); build_pool(root)
+    real_subject = os.path.join(root, "real-amzn"); os.makedirs(real_subject)
+    shutil.rmtree(os.path.join(root, "AMZN")); os.symlink(real_subject, os.path.join(root, "AMZN"))
+    drop(root, "Vendor/AMZN/symlink-target.txt", "forced route")
+    try:
+        m.run(root)
+        subject_symlink_rejected = False
+    except RuntimeError as exc:
+        subject_symlink_rejected = "subject pool" in str(exc)
+    check("symlinked subject pool fails closed before any external write",
+          subject_symlink_rejected and not os.path.exists(os.path.join(real_subject, "external")))
+    shutil.rmtree(root)
+
     # ---- 9. dry-run writes nothing ----
     root = tempfile.mkdtemp()
     build_pool(root)
@@ -304,6 +407,33 @@ def main():
     check("dry-run reports the route", any(b == "dry.txt" for b, ts, *_ in res["routed"]), str(res))
     check("dry-run copies nothing", not os.path.exists(os.path.join(root, "AMZN", "external")))
     check("dry-run leaves the original", os.path.exists(os.path.join(root, "EXTERNAL-INBOX", "dry.txt")))
+    shutil.rmtree(root)
+
+    # ---- 10. sha256_file rejects a hardlinked source (TOCTOU) ----
+    # A file with st_nlink > 1 can be rewritten through its OTHER path between hashing and copying,
+    # so the recorded digest would not describe the bytes that land in the pool. The sibling reader
+    # extract_pool._read_regular_nofollow_bytes already enforces st_nlink != 1; this closes the same
+    # hole in the digest path (Gemini review on PR #407), matching the PR's stated integrity boundary
+    # that hard-link attacks fail closed.
+    root = tempfile.mkdtemp()
+    real_doc = os.path.join(root, "unique.json")
+    with open(real_doc, "wb") as fh:
+        fh.write(b'{"panel":"gold","value":1}')
+    hardlink_rejected = False
+    try:
+        m.sha256_file(real_doc)
+    except ValueError:
+        hardlink_rejected = True
+    check("a unique (nlink==1) regular file still hashes", not hardlink_rejected)
+
+    alias = os.path.join(root, "alias.json")
+    os.link(real_doc, alias)  # nlink == 2 — mutable through a second path
+    hardlink_rejected = False
+    try:
+        m.sha256_file(real_doc)
+    except ValueError as exc:
+        hardlink_rejected = "unique regular non-symlink file" in str(exc)
+    check("hardlinked source is rejected before hashing", hardlink_rejected)
     shutil.rmtree(root)
 
     print()

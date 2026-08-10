@@ -107,7 +107,11 @@ export interface DataNeed {
   tier: number
   cadence: string
   next_release?: string
-  built_by?: string // a .claude/connectors/<id> whose `satisfies` covers this need_id — the loop is closed
+  // `built_by` is deliberately stronger than "connector code exists": it is present only when that
+  // connector has a current, usable pool series for this subject.  During a repair the connector remains
+  // visible through `connector_exists`, but the need stays open.
+  built_by?: string
+  connector_exists?: string
 }
 export interface DataNeedsRead {
   subject: string
@@ -170,18 +174,39 @@ export interface AddPipelineSourceInput {
 // camelCase for manifest-derived fields. The whole read is fail-closed server-side (malformed
 // manifests dropped + audited in `widened`); a pool-less host serves poolAvailable:false + 'unknown'.
 // Two independent facts about the same feed, deliberately kept apart: `status` is the FILE side (is there a
-// recent file in the pool), `health` is the FETCH side (did the last sweep of the source succeed). A feed can
-// be fresh-but-broken or stale-but-healthy, and collapsing them would hide exactly the case worth seeing.
-export type FeedHealthState = 'ok' | 'failing' | 'broken' | 'no_pool' | 'manual' | 'pending' | 'never_run'
+// recent file in the pool), `health` is the FETCH/PUBLISH side (what the last sweep actually proved). A feed
+// can be fresh-but-quarantined or stale-but-clean, and collapsing them would hide exactly the case worth seeing.
+// Connector-v2's public outcomes.  These describe what the last sweep proved, not merely whether the
+// fetch process exited zero.  Keep the legacy wire values separate: the normalizer in
+// components/datalibrary/feedHealth.ts accepts them during the old-engine/new-bundle deploy window, while
+// every label and severity decision in the UI operates on this exact v2 vocabulary.
+export type FeedHealthState =
+  | 'current'
+  | 'no_new_release'
+  | 'stalled'
+  | 'schema_failed'
+  | 'suspect'
+  | 'credentials_missing'
+  | 'broken'
+  | 'quarantined'
+  | 'manual'
+  | 'no_pool'
+  | 'pending'
+  | 'never_run'
+export type LegacyFeedHealthState = 'ok' | 'failing'
+export type FeedHealthPayloadState = FeedHealthState | LegacyFeedHealthState
 export interface PipelineSubjectStatus {
   subject: string
   status: 'fresh' | 'stale' | 'missing' | 'unknown'
   latestAsOf?: string
   ageDays?: number
   latestFile?: string
-  health: FeedHealthState
+  projectionIntact?: boolean
+  health: FeedHealthPayloadState
+  fetchOutcome?: string
   lastSweepAt?: string
   lastError?: string
+  ledgerIntegrityWarning?: string
   failStreak: number
 }
 export interface PipelineHelp {
@@ -203,7 +228,7 @@ export interface PipelineEntry {
   license?: string
   hostAllowlist: string[]
   cadence: string
-  stalenessSlaDays: number
+  releaseWindowDays: number
   entry: string
   verify: string
   outputPath: string
@@ -214,10 +239,14 @@ export interface PipelineEntry {
   statuses: PipelineSubjectStatus[]
   verdict: PipelineVerdict
   verdictNote: string
-  repair: { status: 'none' | 'repairing' | 'pr_open' | 'assessed'; prUrl: string | null }
+  repair: { status: RepairStatus; prUrl: string | null }
+  // Subject-scoped repair lifecycle. Optional only for an old-server/new-bundle deploy window; `repair`
+  // remains the connector-wide compatibility projection.
+  repairs?: Record<string, { status: RepairStatus; prUrl: string | null }>
 }
 // The one-word answer to "is this feed working?" — rolled up across its subjects, server-side.
 export type PipelineVerdict = 'live' | 'attention' | 'broken' | 'unknown'
+export type RepairStatus = 'none' | 'repairing' | 'pr_open' | 'verified' | 'assessed' | 'source_gone'
 export interface RecommendedNeed {
   key: string
   swarm: string
@@ -231,6 +260,11 @@ export interface RecommendedNeed {
   cadence: string
   next_release?: string
   entry_modules: string[]
+  // Same split as DataNeed: `built_by` means current + usable; `connector_exists` means the code covers the
+  // need but may be waiting for its first fetch, stale, broken, or under repair.  Never invite a second
+  // connector build merely because the existing one is unhealthy.
+  built_by?: string
+  connector_exists?: string
 }
 export interface PipelinesRead {
   generatedAt: string
@@ -258,6 +292,7 @@ export interface DiscoveredFeed {
   why: string
   verdict: ScanVerdict
   building: boolean // the one-click path already sent this one to the build engine
+  connector_exists?: string // server-side coverage proof; blocks a duplicate build even on a stale UI read
 }
 // One thing the coding agent did, as it happens.
 export interface BuildStep {

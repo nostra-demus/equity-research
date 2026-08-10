@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nostra-demus/equity-research/frameworks/connector.schema.json",
+  "title": "Nostra connector manifest v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifest_version", "schema_version", "id", "dataset_id", "series_id", "series", "satisfies", "subjects",
+    "provider", "authority_class", "provider_priority", "acquisition", "source_type", "tier", "license", "licensing", "host_allowlist", "credential_env", "release",
+    "entry", "verify", "output_path", "output_schema", "units",
+    "minimum_history"
+  ],
+  "properties": {
+    "manifest_version": { "const": 2 },
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" },
+    "dataset_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" },
+    "series_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" },
+    "series": { "type": "string", "minLength": 1 },
+    "satisfies": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" }, "uniqueItems": true },
+    "subjects": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]*$" } },
+    "provider": { "type": "string", "minLength": 1 },
+    "authority_class": {
+      "enum": ["government_official", "exchange_official", "industry_body_official", "court_record_aggregator", "licensed_vendor", "news_aggregator", "other"]
+    },
+    "provider_priority": { "type": "integer", "minimum": 1 },
+    "acquisition": { "enum": ["official_api", "free_key_api", "paid_api", "scrape", "manual"] },
+    "source_type": {
+      "enum": ["alt_data_panel", "vendor_export", "paid_api", "official_data", "broker_research", "expert_call", "channel_check", "management_meeting", "external_other"]
+    },
+    "tier": { "type": "integer", "minimum": 1, "maximum": 10 },
+    "license": { "type": "string", "minLength": 1 },
+    "licensing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["access", "use", "redistribution", "terms_url"],
+      "properties": {
+        "access": { "enum": ["public", "licensed", "restricted", "unknown"] },
+        "use": { "enum": ["allowed", "entitlement_required", "unavailable"] },
+        "redistribution": { "enum": ["allowed", "derived_only", "prohibited", "unknown"] },
+        "terms_url": { "type": "string", "pattern": "^https://\\S+$" }
+      }
+    },
+    "host_allowlist": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^(?!localhost$)(?!.*\\.local$)(?=.{1,253}$)(?=.*[A-Za-z])(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\\.)+[A-Za-z](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?$"
+      }
+    },
+    "credential_env": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^CONNECTOR_[A-Z0-9_]+$" }
+    },
+    "release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cadence", "timezone", "expected_lag_days", "grace_days", "revision_policy"],
+      "properties": {
+        "cadence": { "enum": ["twelve_hourly", "daily", "weekly", "monthly", "quarterly", "semiannual", "annual", "event_driven"] },
+        "timezone": { "type": "string", "minLength": 1 },
+        "expected_lag_days": { "type": "number", "minimum": 0 },
+        "grace_days": { "type": "number", "minimum": 0 },
+        "revision_policy": { "enum": ["revisable", "append_only"] }
+      }
+    },
+    "entry": { "const": "fetch.py" },
+    "verify": { "const": "fetch.py --verify" },
+    "output_path": {
+      "type": "string",
+      "description": "Canonical POSIX-relative projection path. Lowercase ASCII segments only; no empty, dot, backslash, percent-encoded, or filesystem-normalizing aliases.",
+      "pattern": "^data/<SUBJECT>/external/(?:[a-z0-9][a-z0-9._-]*/)*[a-z0-9][a-z0-9._-]*<as_of>[a-z0-9._-]*\\.json$"
+    },
+    "output_schema": {},
+    "units": {
+      "type": "object",
+      "description": "Unit contract keyed by output_schema field path. Array items use [] and open numeric maps use .*; every numeric field requires one unit. Use explicit values such as dimensionless, identifier, documentary_count, index, percent, contracts, lots, kilotonnes, million_tonnes, degrees_celsius, days, or calendar_year.",
+      "propertyNames": { "pattern": "^[A-Za-z0-9_-]+(?:\\[\\])?(?:\\.(?:[A-Za-z0-9_-]+(?:\\[\\])?|\\*))*$" },
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "minimum_history": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["observations"],
+      "properties": {
+        "observations": { "type": "integer", "minimum": 1 },
+        "path": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["observations"],
+            "properties": { "observations": { "minimum": 2 } }
+          },
+          "then": { "required": ["path"] }
+        }
+      ]
+    },
+    "manual": { "type": "boolean" },
+    "fallback_for": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" }
+    ,
+    "manual_ingest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file_arg"],
+      "properties": { "file_arg": { "type": "string", "pattern": "^--[a-z0-9-]+$" } }
+    }
+  }
+}

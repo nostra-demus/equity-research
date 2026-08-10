@@ -21,6 +21,8 @@ import { useStore } from '../../lib/store'
 import { api } from '../../lib/api'
 import { ACQ_LABEL, CADENCE_LABEL } from '../../lib/labels'
 import type { BuildStep, DiscoveredFeed, PipelineEntry, PipelineView, RecommendedNeed, ScanVerdict } from '../../lib/types'
+import { connectorForCandidate, connectorIdForCandidate, pipelineIsUsable } from './feedHealth'
+import { AUTOMATIC_CONNECTOR_CODING_UNAVAILABLE } from './buildAvailability'
 
 const TOOL_VERB: Record<string, string> = {
   WebSearch: 'searching', WebFetch: 'reading', Read: 'reading', Write: 'writing', Edit: 'editing',
@@ -69,13 +71,16 @@ function ActivityFeed({ steps, running, startedAt, title }: { steps: BuildStep[]
 }
 
 /** One found feed, with the single button that turns it into a durable connector. */
-function CandidateCard({ feed, canBuild, state, onBuild }: {
+function CandidateCard({ feed, existingConnector, canBuild, state, onBuild, onOpenExisting }: {
   feed: DiscoveredFeed
+  existingConnector?: PipelineEntry
   canBuild: boolean
   state: 'idle' | 'building' | 'sent'
   onBuild: () => void
+  onOpenExisting: () => void
 }) {
   const v: ScanVerdict = feed.verdict
+  const existingId = existingConnector?.id || feed.connector_exists
   return (
     <div className="datalib__cand">
       <div className="datalib__candtop">
@@ -97,10 +102,18 @@ function CandidateCard({ feed, canBuild, state, onBuild }: {
           <span className="datalib__fine">No durable feed can be built for this one — it needs a login, is paywalled with no API, or has no stable address.</span>
         ) : state !== 'idle' ? (
           <span className="datalib__fine">{state === 'sent' ? 'sent to the build engine ✓' : 'building…'}</span>
+        ) : existingId ? (
+          <>
+            <span className="datalib__fine">
+              Connector <code>{existingId}</code> already covers this need. Repair or replace that
+              feed instead of creating a second primary.
+            </span>
+            {existingConnector && <button className="btn btn--ghost datalib__mini" onClick={onOpenExisting}>View existing feed ›</button>}
+          </>
         ) : canBuild ? (
           <button className="btn btn--amber datalib__mini" onClick={onBuild} title="Send this to Claude — it writes the connector, tests it, and opens a pull request">Build this feed ▸</button>
         ) : (
-          <span className="datalib__fine">Building is admin-only on this server.</span>
+          <span className="datalib__fine">{AUTOMATIC_CONNECTOR_CODING_UNAVAILABLE}</span>
         )}
       </div>
     </div>
@@ -133,9 +146,10 @@ export function stageIndexOf(b: TrackedBuild, wiredHealthy: boolean): number {
 }
 
 function BuildTracker({ build, pipelines, onDismiss }: { build: TrackedBuild; pipelines: PipelineEntry[]; onDismiss: () => void }) {
-  // the green light is EARNED: the connector the build named has to exist in the registry AND read live
+  // The green light is EARNED: the connector has to exist, carry a fresh file for this subject, and have a
+  // current/usable v2 fetch outcome. A legacy `ok` payload is adapted by pipelineIsUsable during deploy skew.
   const wired = build.connectorId ? pipelines.find((p) => p.id === build.connectorId) : undefined
-  const wiredHealthy = wired?.verdict === 'live'
+  const wiredHealthy = wired ? pipelineIsUsable(wired, build.subject) : false
   const stage = stageIndexOf(build, wiredHealthy)
   const failed = !build.running && build.outcome !== 'pr_open' && !wiredHealthy
   return (
@@ -184,6 +198,7 @@ export function DataLibraryBuild({ pipelines, recommended, canScan, canBuild, fo
   onRefresh: () => void
 }) {
   const setToast = useStore((s) => s.setToast)
+  const setSelected = useStore((s) => s.setDlSelected)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const selectedTicker = useStore((s) => s.selectedTicker)
   const swarmSubjectList = useStore((s) => s.swarmSubjectList)
@@ -261,6 +276,13 @@ export function DataLibraryBuild({ pipelines, recommended, canScan, canBuild, fo
   }, [watchBuild])
 
   const build = useCallback(async (feed: DiscoveredFeed, subj: string) => {
+    const existing = connectorForCandidate(feed, subj, pipelines)
+    const existingId = connectorIdForCandidate(feed, subj, pipelines)
+    if (existingId) {
+      if (existing) setSelected(existing.id)
+      setToast({ msg: `${existingId} already covers this need. Repair or replace it instead of building a duplicate.`, tone: 'info' })
+      return
+    }
     setSent((cur) => ({ ...cur, [feed.pipeline_id]: 'building' }))
     try {
       const res = await api.buildConnector(feed.pipeline_id)
@@ -274,7 +296,7 @@ export function DataLibraryBuild({ pipelines, recommended, canScan, canBuild, fo
       setSent((cur) => { const n = { ...cur }; delete n[feed.pipeline_id]; return n })
       setToast({ msg: `Could not start the build: ${e?.message || 'error'}`, tone: 'bad' })
     }
-  }, [setToast, track])
+  }, [pipelines, setSelected, setToast, track])
 
   const search = useCallback((subj: string, opts: { need_id?: string | null; want?: string; autoBuild?: boolean }) => {
     const target = subj.trim().toUpperCase()
@@ -321,7 +343,7 @@ export function DataLibraryBuild({ pipelines, recommended, canScan, canBuild, fo
       <div className="datalib__discover">
         <div className="datalib__dishead"><span className="datalib__distitle">Find more data feeds</span></div>
         <div className="datalib__fine">
-          Searching for feeds and building them are admin-only on this server. Everything above is still a live read.
+          Searching for feeds is admin-only on this server. Automatic connector coding is not available from this session. Everything above is still a live read.
         </div>
       </div>
     )
@@ -350,6 +372,7 @@ export function DataLibraryBuild({ pipelines, recommended, canScan, canBuild, fo
             ranked against what the runs said is missing and what is already here
           </span>
         </div>
+        {!canBuild && <div className="datalib__fine">{AUTOMATIC_CONNECTOR_CODING_UNAVAILABLE}</div>}
 
         <div className="datalib__disform">
           <input
@@ -384,8 +407,13 @@ export function DataLibraryBuild({ pipelines, recommended, canScan, canBuild, fo
         {found.length > 0 && (
           <div className="datalib__list">
             {found.map((f) => (
-              <CandidateCard key={f.pipeline_id} feed={f} canBuild={canBuild}
-                state={sent[f.pipeline_id] ?? 'idle'} onBuild={() => void build(f, searchedFor || subject)} />
+              <CandidateCard key={f.pipeline_id} feed={f}
+                existingConnector={connectorForCandidate(f, searchedFor || subject, pipelines)} canBuild={canBuild}
+                state={sent[f.pipeline_id] ?? 'idle'} onBuild={() => void build(f, searchedFor || subject)}
+                onOpenExisting={() => {
+                  const existing = connectorForCandidate(f, searchedFor || subject, pipelines)
+                  if (existing) setSelected(existing.id)
+                }} />
             ))}
           </div>
         )}

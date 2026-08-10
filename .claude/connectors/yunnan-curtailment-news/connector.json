@@ -1,16 +1,31 @@
 {
+  "manifest_version": 2,
+  "schema_version": 1,
   "id": "yunnan-curtailment-news",
+  "dataset_id": "google-news.rss-search",
+  "series_id": "aluminium.yunnan-curtailment-news-signal",
   "series": "Yunnan smelter-curtailment news scan — dry-season power-rationing signal for Chinese aluminium supply",
   "satisfies": ["yunnan-dry-season-curtailment"],
   "subjects": ["ALUMINIUM"],
   "provider": "Google News",
-  "acquisition": "scrape",
+  "authority_class": "news_aggregator",
+  "provider_priority": 100,
+  "acquisition": "manual",
   "source_type": "external_other",
   "tier": 10,
-  "license": "headline metadata + links only; articles are read at their publishers",
+  "license": "manual entitled input only — Google News automated access is disabled; publisher rights remain required",
+  "licensing": {"access": "restricted", "use": "entitlement_required", "redistribution": "prohibited", "terms_url": "https://policies.google.com/terms"},
   "host_allowlist": ["news.google.com"],
-  "cadence": "weekly",
-  "staleness_sla_days": 10,
+  "credential_env": [],
+  "release": {
+    "cadence": "weekly",
+    "timezone": "UTC",
+    "expected_lag_days": 0,
+    "grace_days": 10,
+    "revision_policy": "revisable"
+  },
+  "manual": true,
+  "manual_ingest": {"file_arg": "--from-file"},
   "entry": "fetch.py",
   "verify": "fetch.py --verify",
   "output_path": "data/<SUBJECT>/external/google-news/yunnan_curtailment_scan_<as_of>.json",
@@ -23,5 +38,9 @@
     "queries": ["string"],
     "scanned_at": "datetime",
     "note": "string"
-  }
+  },
+  "units": {
+    "window_days": "days"
+  },
+  "minimum_history": { "observations": 1 }
 }

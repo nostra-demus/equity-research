@@ -13,6 +13,7 @@ fronted by Cloudflare Access). macOS `launchd` user agents keep it up — **and 
 | `com.nostradamus.tunnel` | `cloudflared tunnel run nostradamus-engine` | **doer** | ✅ `RunAtLoad` | ✅ `KeepAlive` |
 | `com.nostradamus.news-archive` | `news-archive.sh` every 3h | **doer** | ✅ `RunAtLoad` | — |
 | `com.nostradamus.external-ingest` | `ingest_external.py` every 10m — routes `data/EXTERNAL-INBOX/` drops into per-ticker pools (`frameworks/EXTERNAL_DATA.md`) | **doer** | ✅ `RunAtLoad` | — |
+| `com.nostradamus.connectors` | `run_connectors.py` every 15m — due-aware staged retrievals and connector health | **doer** | ✅ `RunAtLoad` | — |
 | `com.nostradamus.news-ingester` | `npm run ingest:once` every 15m (opt-in: set `GROQ_API_KEY`) | **doer** | ✅ `RunAtLoad` | — |
 | `com.nostradamus.hk-review` | `housekeeping.sh /research:review-decisions due` daily 06:10 (DUE-gated) | **doer** | — | — |
 | `com.nostradamus.hk-track` | `housekeeping.sh /research:track all` daily 06:30 | **doer** | — | — |
@@ -46,6 +47,34 @@ Tune the cap by adding `HOUSEKEEPING_BUDGET_USD` (default `8`) to any `hk-*` pli
 (also `HOUSEKEEPING_MODEL`, `HOUSEKEEPING_MAX_TURNS`, `HOUSEKEEPING_TIMEOUT_SEC`). All housekeeping runs log
 to `~/Library/Logs/nostradamus-housekeeping.log`. New full research runs are **never** scheduled — they stay
 human-initiated.
+
+**Connector repair boundary.** The fifteen-minute connector sweep only fetches a series when its manifest release
+clock is due, through the staged publication
+contract in `frameworks/EXTERNAL_DATA.md`; it does not run a coding agent. Automatic connector build and
+repair agents are hard-disabled until the runtime has a separately reviewed OS/container/VM egress sandbox.
+The health and repair ledgers still identify broken feeds. Repair them through the normal human-authored
+`codex/...` branch → PR → CI/review workflow, then require a real post-merge refetch before the repair is
+marked verified. An environment flag or DNS preflight is not accepted as isolation.
+
+The first deploy after the connector-v2 upgrade atomically reconciles the already-installed connector
+LaunchAgent: it changes the scheduler to fifteen minutes, securely moves every historical `CONNECTOR_*` value
+into `providers.env` when that name is absent (and refuses a conflict), removes the migrated LaunchAgent entry,
+adds the `providers_env` credential-source lock, inserts Python isolated mode before the runner, validates only
+the exact known old/new executable shapes, and re-bootstrap/rechecks the
+service. The deploy log records activation without printing secret values. A routine installer rerun performs
+the same secret removal. Verify with `PlistBuddy -c 'Print :StartInterval'` (must be `900`) and confirm that
+`Print :ProgramArguments` contains `/usr/bin/env`, `python3`, `-I`, then the absolute `run_connectors.py`
+path in that order. Also confirm that `Print :EnvironmentVariables` contains no key beginning `CONNECTOR_`;
+connector credentials belong only in
+`~/.config/nostra-engine/providers.env` (file mode `0600`, containing directory mode `0700`). The installer
+creates/tightens those modes and refuses symlinked or foreign-owned paths. To prepare them manually:
+
+```
+mkdir -p "$HOME/.config/nostra-engine"
+chmod 700 "$HOME/.config/nostra-engine"
+touch "$HOME/.config/nostra-engine/providers.env"
+chmod 600 "$HOME/.config/nostra-engine/providers.env"
+```
 
 **Server-side feedback loops (on for the doer).** The engine plist
 (`com.nostradamus.engine.plist`) now sets two more flags so the closed loops run from the always-on

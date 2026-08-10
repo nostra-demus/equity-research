@@ -46,6 +46,8 @@ export function matchesDlPipeline(row: PipelineEntry, f: DlFilterState): boolean
 // need that has no pipeline yet — showing unwired needs under "stale" or "live" would fake a signal
 // (pinned by dlFilters.test.ts).
 export function matchesDlRecommended(row: RecommendedNeed, f: DlFilterState): boolean {
+  // Presence in server `recommended[]` is authoritative. Do not hide the row from a stale `built_by` field:
+  // the server deliberately re-opens a need when its projection or exact ledger binding is no longer usable.
   if (f.kind === 'wired') return false
   if (f.status || f.verdict) return false
   if (f.subject && row.subject !== f.subject) return false

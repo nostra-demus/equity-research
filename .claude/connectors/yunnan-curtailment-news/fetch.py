@@ -1,29 +1,25 @@
 #!/usr/bin/env python3
-"""Google News RSS connector — Yunnan smelter-curtailment news scan (Chinese aluminium supply signal).
+"""Manual Google News RSS transform — Yunnan smelter-curtailment signal.
 
-Scans three FIXED Google News RSS queries for headlines pairing Yunnan with a curtailment stem and an
+Transforms three FIXED, operator-supplied RSS captures for headlines pairing Yunnan with a curtailment term and an
 aluminium term — the dry-season power-rationing signal the aluminium supply thesis watches. The window that
-matters is roughly Nov-Apr (Yunnan hydro dry season); an off-season not_detected is the expected baseline.
-A file-writing fetcher per EXTERNAL_DATA.md §7 — zero engine wiring; keyless; headline metadata + links only
-(articles are read at their publishers). Every hit is a LEAD to verify at the publisher, never a measurement,
-so it folds in at §4 tier 10 (external_other — a dated, unverified web/news scan, not a user note). Fails CLOSED: a non-200 or malformed feed on ANY of the three
-queries writes NOTHING (a partial scan would understate). `as_of` is always the scan date — the honest
-"data through" of the scan (§7): it covers the wire up to now regardless of how old the newest match is, and
-each matched headline keeps its own pubDate in `matched[]`.
+matters is roughly Nov-Apr. Google disallows automated access to this path in its machine-readable policy,
+so this connector performs no network request. An entitled operator may route a JSON capture through the
+attested manual-ingest boundary. Every hit is a tier-10 lead to verify at the publisher, never a measurement.
 
 Usage:
-  python3 fetch.py --verify                # fetch + parse all three queries; print per-query counts + signal; write nothing
-  python3 fetch.py --subject ALUMINIUM     # write into data/ALUMINIUM/external/google-news/
+  python3 fetch.py --verify
+  python3 fetch.py --from-file entitled-rss-capture.json --subject ALUMINIUM
 """
 from __future__ import annotations
 
 import argparse
 import json
 import os
+import re
 import sys
 import tempfile
 import urllib.parse
-import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
@@ -32,28 +28,35 @@ HOST = "news.google.com"                 # the ONE host this connector may reach
 PROVIDER = "Google News"
 PROVIDER_SLUG = "google-news"
 CONNECTOR_ID = "yunnan-curtailment-news"
+MAX_INPUT_BYTES = 12 * 1024 * 1024
 SERIES = "Yunnan smelter-curtailment news scan — dry-season power-rationing signal for Chinese aluminium supply"
+_HERE = os.path.dirname(os.path.abspath(__file__))
+with open(os.path.join(_HERE, "connector.json"), encoding="utf-8") as _f:
+    MANIFEST = json.load(_f)
 QUERIES = (
     "Yunnan aluminium curtailment",
     "Yunnan smelter power rationing",
     "Yunnan hydropower aluminium production cut",
 )
-CURTAIL_STEMS = ("curtail", "cut", "ration", "halt", "suspend", "reduc")
-ALU_TERMS = ("aluminium", "aluminum", "smelt")
+CURTAIL_PATTERNS = (
+    ("curtail", re.compile(r"\bcurtail(?:s|ed|ing|ment|ments)?\b")),
+    ("cut", re.compile(r"\bcut(?:s|ting)?\b")),
+    ("ration", re.compile(r"\bration(?:s|ed|ing)?\b")),
+    ("halt", re.compile(r"\bhalt(?:s|ed|ing)?\b")),
+    ("suspend", re.compile(r"\bsuspend(?:s|ed|ing|sion|sions)?\b")),
+    ("reduc", re.compile(r"\breduc(?:e|es|ed|ing|tion|tions)\b")),
+)
+ALU_PATTERNS = (
+    ("aluminium", re.compile(r"\baluminium\b")),
+    ("aluminum", re.compile(r"\baluminum\b")),
+    ("smelt", re.compile(r"\bsmelt(?:er|ers|ing|ed|s)?\b")),
+)
 _SECOND_LEVEL = {"co", "com", "net", "org", "gov", "ac", "edu"}   # minimal registrable-domain heuristic
 
 
 def _url(query: str) -> str:
     q = {"q": query, "hl": "en-US", "gl": "US", "ceid": "US:en"}
     return f"https://{HOST}/rss/search?" + urllib.parse.urlencode(q)
-
-
-def fetch_feed(query: str, timeout: int = 20) -> str:
-    req = urllib.request.Request(_url(query), headers={"User-Agent": f"nostradamus-connector/{CONNECTOR_ID}"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:  # noqa: S310 — fixed HTTPS host, not user input
-        if r.status != 200:
-            raise RuntimeError(f"HTTP {r.status} from {HOST} for query {query!r} (fail closed)")
-        return r.read().decode("utf-8", "replace")
 
 
 def _registrable_domain(url: str) -> str:
@@ -70,8 +73,18 @@ def parse_feed(xml_text: str):
         root = ET.fromstring(xml_text)
     except ET.ParseError as e:
         raise RuntimeError(f"malformed RSS XML (fail closed — a partial scan would understate): {e}")
+    local = lambda tag: str(tag).rsplit("}", 1)[-1]
+    if local(root.tag).casefold() != "rss":
+        raise RuntimeError("capture root is not RSS (fail closed)")
+    channels = [child for child in list(root) if local(child.tag).casefold() == "channel"]
+    if len(channels) != 1:
+        raise RuntimeError("RSS capture must contain exactly one channel (fail closed)")
+    channel = channels[0]
+    if not any(local(child.tag).casefold() == "title" and (child.text or "").strip()
+               for child in list(channel)):
+        raise RuntimeError("RSS channel lacks an identity title (fail closed)")
     items = []
-    for it in root.iter("item"):
+    for it in (child for child in list(channel) if local(child.tag).casefold() == "item"):
         title = (it.findtext("title") or "").strip()
         link = (it.findtext("link") or "").strip()
         pub_raw = (it.findtext("pubDate") or "").strip()
@@ -93,8 +106,8 @@ def match_terms(title: str):
     t = title.lower()
     if "yunnan" not in t:
         return []
-    curtail_hits = [s for s in CURTAIL_STEMS if s in t]
-    alu_hits = [s for s in ALU_TERMS if s in t]
+    curtail_hits = [label for label, pattern in CURTAIL_PATTERNS if pattern.search(t)]
+    alu_hits = [label for label, pattern in ALU_PATTERNS if pattern.search(t)]
     if not curtail_hits or not alu_hits:
         return []
     return ["yunnan"] + curtail_hits + alu_hits
@@ -113,6 +126,8 @@ def build(feeds, window_days: int, now: datetime | None = None):
     matched, seen = [], set()
     for items in feeds:
         for it in items:
+            if it["published"] > now + timedelta(minutes=5):
+                raise RuntimeError("RSS item is dated after the capture time (fail closed)")
             if it["published"] < cutoff:
                 continue
             terms = match_terms(it["title"])
@@ -158,9 +173,19 @@ def build(feeds, window_days: int, now: datetime | None = None):
         "tier": 10,
         "as_of": asof,
         "received": now.strftime("%Y-%m-%d"),
-        "source_urls": [_url(q) for q in QUERIES],
-        "license": "headline metadata + links only; articles are read at their publishers",
+        # Every nested payload evidence URL is repeated in provenance so the
+        # shared staged-output validator can bind it to this exact retrieval.
+        # The connector never follows article links and the manifest permits
+        # only news.google.com, so an off-host RSS link fails publication.
+        "source_urls": list(dict.fromkeys([
+            *[_url(q) for q in QUERIES],
+            *[item["url"] for item in matched],
+        ])),
+        "license": MANIFEST["license"],
         "connector_id": CONNECTOR_ID,
+        "dataset_id": MANIFEST["dataset_id"], "series_id": MANIFEST["series_id"],
+        "schema_version": MANIFEST["schema_version"],
+        "licensing": MANIFEST["licensing"],
         "note": f"News scan, {signal}: {len(matched)} matched headline(s) in the last {window_days}d. "
                 "Each hit is a LEAD to verify at the publisher, never a measurement.",
     }
@@ -186,16 +211,61 @@ def _atomic_write_json(path: str, obj) -> None:
         raise
 
 
+def _load_capture(path: str):
+    try:
+        with open(path, "rb") as fh:
+            encoded = fh.read(MAX_INPUT_BYTES + 1)
+    except OSError as exc:
+        raise RuntimeError(f"cannot read manual RSS capture: {exc}") from exc
+    if len(encoded) > MAX_INPUT_BYTES:
+        raise RuntimeError(f"manual RSS capture exceeds {MAX_INPUT_BYTES} bytes")
+    try:
+        raw = json.loads(encoded.decode("utf-8"))
+    except (UnicodeError, json.JSONDecodeError) as exc:
+        raise RuntimeError(f"manual RSS capture is not UTF-8 JSON: {exc}") from exc
+    if not isinstance(raw, dict) or set(raw) != {"captured_at", "feeds"}:
+        raise RuntimeError("manual RSS capture must contain exactly captured_at and feeds")
+    captured_at = raw.get("captured_at")
+    try:
+        captured = datetime.fromisoformat(str(captured_at).replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise RuntimeError("captured_at must be a timezone-aware ISO datetime") from exc
+    if captured.tzinfo is None:
+        raise RuntimeError("captured_at must include a timezone")
+    captured = captured.astimezone(timezone.utc)
+    feeds = raw.get("feeds")
+    if not isinstance(feeds, list) or len(feeds) != len(QUERIES):
+        raise RuntimeError(f"manual capture requires exactly {len(QUERIES)} query feeds")
+    parsed = []
+    for expected_query, record in zip(QUERIES, feeds):
+        if (not isinstance(record, dict) or set(record) != {"query", "xml"}
+                or record.get("query") != expected_query or not isinstance(record.get("xml"), str)):
+            raise RuntimeError("manual capture query identity/order is incomplete or changed")
+        parsed.append(parse_feed(record["xml"]))
+    return parsed, captured
+
+
 def main() -> int:
-    ap = argparse.ArgumentParser(description="Scan Google News RSS for Yunnan smelter-curtailment headlines into a subject's external-data pool.")
+    ap = argparse.ArgumentParser(description="Transform an entitled manual RSS capture into a Yunnan signal.")
     ap.add_argument("--subject", help="the pool subject, e.g. ALUMINIUM (required unless --verify)")
     ap.add_argument("--data-root", default="data", help="pool root (default: data)")
     ap.add_argument("--window-days", type=int, default=30, help="match window in days (default: 30)")
-    ap.add_argument("--verify", action="store_true", help="fetch + parse all three queries; print counts + signal; write nothing")
+    ap.add_argument("--verify", action="store_true", help="prove unattended access is disabled; write nothing")
+    ap.add_argument("--from-file", help="entitled JSON capture containing all three fixed RSS feeds")
     a = ap.parse_args()
 
-    feeds = [parse_feed(fetch_feed(q)) for q in QUERIES]   # ANY query failing raises here — nothing written, non-zero exit
-    signal, asof, payload, sidecar = build(feeds, a.window_days)
+    if a.verify and not a.from_file:
+        print("OK verify: manual-only connector; automated Google News access is disabled")
+        return 0
+    if not a.from_file:
+        print("error: --from-file is required; automated Google News access is disabled", file=sys.stderr)
+        return 2
+    try:
+        feeds, captured = _load_capture(a.from_file)
+        signal, asof, payload, sidecar = build(feeds, a.window_days, now=captured)
+    except RuntimeError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
 
     if a.verify:
         for q, items in zip(QUERIES, feeds):

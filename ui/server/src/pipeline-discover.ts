@@ -15,6 +15,7 @@
 //   3. what is ALREADY wired — a duplicate of a live feed is not a find, and is dropped.
 
 import { PIPELINE_DISCOVER } from './config'
+import { bindConnectorUrls, safeConnectorSourceUrl } from './connector-url-policy'
 import type { DataNeed } from './data-needs'
 import { extractLastJsonObject, runReadOnlyAgent, type ScanSignal } from './pipeline-scan'
 import { sanitizeVerdict, type ScanVerdict } from './pipeline-store'
@@ -42,23 +43,23 @@ export interface DiscoverOutcome {
 
 const MAX_FEEDS = 6
 
-/** A source URL is only usable if a connector could fetch it: an absolute http(s) URL with a real host. */
+/** Connector-eligible needs which are still open; a proven `built_by` row must never be re-scouted. */
+export function openDiscoverNeeds(needs: DataNeed[], needId?: string | null): DataNeed[] {
+  const open = needs.filter((need) => !need.filing_required && !need.built_by)
+  return needId ? open.filter((need) => need.need_id === needId) : open
+}
+
+/** Pure first boundary; DNS is re-checked by the server before persistence/action. */
 export function usableSourceUrl(raw: any): string | null {
-  if (typeof raw !== 'string' || !raw.trim()) return null
-  try {
-    const u = new URL(raw.trim())
-    if (!/^https?:$/.test(u.protocol) || !u.hostname) return null
-    return u.toString().slice(0, 2000)
-  } catch {
-    return null
-  }
+  return safeConnectorSourceUrl(raw)?.url ?? null
 }
 
 /**
  * PURE: turn whatever the agent said into at most MAX_FEEDS clean candidates. Every field is re-derived and
  * clamped server-side (sanitizeVerdict) — the model's output is data, not a contract. A candidate without a
- * fetchable http(s) URL is dropped, and the host is re-derived FROM that URL rather than trusted from the
- * model, because the host is what a build pins into the connector's allowlist.
+ * fetchable public-DNS HTTPS URL is dropped, and the host is re-derived FROM that URL rather than trusted from the
+ * model, because the host is what a build pins into the connector's allowlist.  Unsafe or off-host endpoint
+ * hints reject the candidate; they are never silently replaced with a broader/safer-looking source URL.
  */
 export function parseDiscovered(text: string): DiscoveredFeed[] {
   const raw = extractLastJsonObject(text)
@@ -69,15 +70,18 @@ export function parseDiscovered(text: string): DiscoveredFeed[] {
     if (!item || typeof item !== 'object') continue
     const url = usableSourceUrl(item.source_url ?? item.endpoint_hint)
     if (!url) continue
-    let host = ''
-    try { host = new URL(url).hostname } catch { continue }
+    // An explicitly supplied endpoint is evidence, not a hint we may silently
+    // replace: reject it if unsafe or if it tries to expand the exact-host scope.
+    const bound = bindConnectorUrls(url, item.endpoint_hint)
+    if (!bound) continue
+    const host = bound.source.host
     const key = `${host}${new URL(url).pathname}`.toLowerCase()
     if (seen.has(key)) continue // the same endpoint found twice is one find
     seen.add(key)
     const verdict = sanitizeVerdict({
       ...item,
       host, // never the model's claimed host — the one the URL actually resolves to
-      endpoint_hint: usableSourceUrl(item.endpoint_hint) || url,
+      endpoint_hint: bound.endpoint.url,
     })
     out.push({
       source_url: url,
@@ -154,7 +158,7 @@ export function buildDiscoverPrompt(input: DiscoverInput): string {
     '      "entry_modules": ["<module>", ...],',
     '      "acquisition": "official_api" | "free_key_api" | "paid_api" | "scrape" | "manual",',
     '      "tier": 5 | 9 | 10,',
-    '      "cadence": "realtime" | "daily" | "weekly" | "monthly" | "event_driven",',
+    '      "cadence": "twelve_hourly" | "daily" | "weekly" | "monthly" | "quarterly" | "semiannual" | "annual" | "event_driven",',
     '      "verdict_note": "<why it helps, in plain English>",',
     '      "buildable": true | false',
     '    }',

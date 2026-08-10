@@ -12,10 +12,10 @@ function check(name: string, cond: boolean, detail = '') {
 const hasToken = (haystack: string, token: string) =>
   new RegExp(`(?<![\\w.])${token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![\\w])`).test(haystack)
 
-// dispatch explicitly disabled → repair must be not_ready even for an admin with a token (the flag defaults
-// ON now, so "disabled" means the operator set it to '0').
+// Even explicit build + auto-repair flags and a PR token cannot bypass the compile-time isolation hard stop.
 process.env.ENGINE_DISPATCH_ADMINS = 'boss@muns.io'
-process.env.ENGINE_CONNECTOR_DISPATCH_ENABLED = '0'
+process.env.ENGINE_CONNECTOR_DISPATCH_ENABLED = '1'
+process.env.ENGINE_CONNECTOR_AUTO_REPAIR = '1'
 process.env.GH_PR_TOKEN = 'ghp_test'
 
 const { buildRepairPrompt, startConnectorRepair } = await import('../src/connector-repair')
@@ -37,9 +37,13 @@ check('prompt allows an honest "source is gone" assessed outcome', /genuinely GO
 check('prompt opens a READY (non-draft) PR', prompt.includes('WITHOUT --draft'))
 check('prompt forbids weakening tests / committing data', /never weaken a test|never anything under data|NEVER/.test(prompt))
 check('prompt requires the outcome file', prompt.includes('.connector-repair-outcome.json'))
+check('prompt keeps manual bytes ephemeral and forbids file URLs as durable provenance',
+  prompt.includes('runner-attested local bytes') && prompt.includes('all `file:` URLs are forbidden')
+  && prompt.includes('durable payload/sidecar source URL'))
 
-// guard: with dispatch disabled, repair is not_ready (fail-closed) even though a token is present
+// guard: with every operator switch set, repair is still not_ready until enforced isolation exists
 const acc = startConnectorRepair(m, 'WHEAT', 'boom')
-check('repair is fail-closed when connector dispatch is disabled', acc.accepted === false && acc.status === 'not_ready')
+check('repair flags and token cannot bypass the enforced-isolation requirement',
+  acc.accepted === false && acc.status === 'not_ready' && /network-enforced isolated runner/.test(acc.message))
 
 console.log(`\n${passed} checks passed${process.exitCode ? ' (with failures)' : ''}`)

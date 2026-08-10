@@ -1,16 +1,31 @@
 {
+  "manifest_version": 2,
+  "schema_version": 1,
   "id": "iai-primary-aluminium-production",
+  "dataset_id": "iai.primary-aluminium-production",
+  "series_id": "aluminium.primary-production",
   "series": "IAI monthly primary aluminium production — world + China (Estimated), thousand tonnes",
-  "satisfies": ["iai-primary-production", "china-supply-cap-tracking"],
+  "satisfies": ["iai-primary-production"],
   "subjects": ["ALUMINIUM"],
   "provider": "IAI",
-  "acquisition": "official_api",
-  "source_type": "paid_api",
+  "authority_class": "industry_body_official",
+  "provider_priority": 100,
+  "acquisition": "manual",
+  "source_type": "official_data",
   "tier": 5,
-  "license": "free with attribution — (c) International Aluminium Institute; data may be revised",
+  "license": "IAI website material — prior written permission required for institutional use; manual ingest only",
+  "licensing": {"access": "restricted", "use": "entitlement_required", "redistribution": "prohibited", "terms_url": "https://international-aluminium.org/terms-conditions/"},
   "host_allowlist": ["international-aluminium.org", "alvis.international-aluminium.org"],
-  "cadence": "monthly",
-  "staleness_sla_days": 45,
+  "credential_env": [],
+  "release": {
+    "cadence": "monthly",
+    "timezone": "UTC",
+    "expected_lag_days": 25,
+    "grace_days": 20,
+    "revision_policy": "revisable"
+  },
+  "manual": true,
+  "manual_ingest": {"file_arg": "--from-file"},
   "entry": "fetch.py",
   "verify": "fetch.py --verify",
   "output_path": "data/<SUBJECT>/external/iai/primary_production_<as_of>.json",
@@ -22,13 +37,15 @@
     "latest": {
       "month": "YYYY-MM",
       "china_kt": "float",
-      "china_daily_avg_kt": "float",
-      "china_annualised_run_rate_mt": "float",
-      "china_yoy_pct": "float|null",
-      "world_kt": "float",
-      "china_share_pct": "float"
+      "world_kt": "float"
     },
-    "cap_reference": { "cap_mt": 45.0, "run_rate_vs_cap_pct": "float", "note": "string" },
     "source_url": "string"
-  }
+  },
+  "units": {
+    "months[].world_kt": "kilotonnes",
+    "months[].china_kt": "kilotonnes",
+    "latest.china_kt": "kilotonnes",
+    "latest.world_kt": "kilotonnes"
+  },
+  "minimum_history": { "observations": 13, "path": "months" }
 }

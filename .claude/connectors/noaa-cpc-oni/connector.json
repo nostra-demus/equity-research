@@ -1,16 +1,29 @@
 {
+  "manifest_version": 2,
+  "schema_version": 1,
   "id": "noaa-cpc-oni",
+  "dataset_id": "noaa-cpc.oceanic-nino-index",
+  "series_id": "climate.enso.oni",
   "series": "NOAA CPC Oceanic Niño Index (ONI) — the ENSO (El Niño / La Niña) signal",
   "satisfies": ["noaa-enso", "enso-probabilities"],
   "subjects": ["WHEAT", "CORN", "SOYBEAN", "SUGAR", "COFFEE", "COCOA"],
   "provider": "NOAA CPC",
+  "authority_class": "government_official",
+  "provider_priority": 100,
   "acquisition": "official_api",
-  "source_type": "paid_api",
+  "source_type": "official_data",
   "tier": 5,
   "license": "public_domain",
+  "licensing": {"access": "public", "use": "allowed", "redistribution": "allowed", "terms_url": "https://www.cpc.ncep.noaa.gov/"},
   "host_allowlist": ["www.cpc.ncep.noaa.gov"],
-  "cadence": "monthly",
-  "staleness_sla_days": 45,
+  "credential_env": [],
+  "release": {
+    "cadence": "monthly",
+    "timezone": "America/New_York",
+    "expected_lag_days": 15,
+    "grace_days": 30,
+    "revision_policy": "revisable"
+  },
   "entry": "fetch.py",
   "verify": "fetch.py --verify",
   "output_path": "data/<SUBJECT>/external/noaa-cpc/oni_<as_of>.json",
@@ -23,6 +36,24 @@
       "sst": "float",
       "anom": "float",
       "enso_state": "enum:el_nino|la_nina|neutral"
-    }
-  }
+    },
+    "recent": [
+      {
+        "season": "string",
+        "year": "int",
+        "sst": "float",
+        "anom": "float"
+      }
+    ],
+    "source_url": "string"
+  },
+  "units": {
+    "latest.year": "calendar_year",
+    "latest.sst": "degrees_celsius",
+    "latest.anom": "degrees_celsius",
+    "recent[].year": "calendar_year",
+    "recent[].sst": "degrees_celsius",
+    "recent[].anom": "degrees_celsius"
+  },
+  "minimum_history": { "observations": 12, "path": "recent" }
 }
