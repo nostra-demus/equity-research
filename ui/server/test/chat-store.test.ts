@@ -251,7 +251,10 @@ await check('one user cannot reserve the same turn id twice while it is pending'
     assert.equal(outcome.result.status, 'completed', 'an admitted racer replays the receipt, it never launches a second answer')
     if (outcome.result.status === 'completed') assert.equal(outcome.result.completed.assistantMessage.content, 'committed once')
   } else {
-    assert.equal(outcome.error?.code, 'TURN_ALREADY_PENDING', 'the only contractual rejection is the reservation the commit still holds')
+    // Carry the real error into the message: on an unexpected rejection the bare assertion reads
+    // "undefined == 'TURN_ALREADY_PENDING'", which hides the thing you actually need to debug.
+    assert.equal(outcome.error?.code, 'TURN_ALREADY_PENDING',
+      `the only contractual rejection is the reservation the commit still holds — got ${outcome.error?.stack || outcome.error}`)
   }
   // The receipt-wins rule itself is deterministic once the commit is durable: the release runs inside the
   // same mutation that published the receipt, so after `await commit` no interval remains in which a
