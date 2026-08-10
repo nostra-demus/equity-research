@@ -59,6 +59,7 @@ mkdir -p "$OPS" "$(dirname "$LOG")"
 
 ts()  { date '+%Y-%m-%d %H:%M:%S'; }
 log() { echo "$(ts) $*" >> "$LOG"; }
+loaded() { launchctl print "gui/$UID_NUM/$1" >/dev/null 2>&1; }
 
 # One-time + continuously idempotent connector LaunchAgent migration. PR1 changes the connector scheduler
 # from six-hourly to a due-aware fifteen-minute floor and moves every declared CONNECTOR_* secret out of the
@@ -73,19 +74,31 @@ migrate_connector_launchagent_v2() {
   local marker="$OPS/.connector-launchagent-v2"
   local providers_dir="${NOSTRA_ENGINE_CONFIG_DIR:-$HOME/.config/nostra-engine}"
   local providers_env="$providers_dir/providers.env"
-  local staged backup desired_interval source_isolated keys changed=0 loaded=0 i
-  [ -e "$installed" ] || return 0                       # admin/non-doer host: nothing to migrate
+  local secret_helper="$PROD/scripts/ops/migrate-connector-secrets.py"
+  local load_contract="$PROD/scripts/ops/service-load-contract.sh"
+  local staged claim desired_interval source_isolated changed=0 orphan_count=0
+  if [ ! -e "$installed" ] && [ ! -L "$installed" ]; then
+    orphan_count="$(find "$agents" -maxdepth 1 -type d \
+      -name '.com.nostradamus.connectors.plist.credential-claim-*' 2>/dev/null | wc -l | tr -d ' ')"
+    [ "$orphan_count" = 0 ] && return 0                 # admin/non-doer host: nothing to migrate
+  fi
   case "$providers_dir" in
     /*) ;;
     *) log "WARN connector-agent migration requires an absolute NOSTRA_ENGINE_CONFIG_DIR"; return 1 ;;
   esac
-  if [ -L "$installed" ] || [ ! -f "$installed" ] || [ ! -O "$installed" ]; then
+  if { [ -e "$installed" ] || [ -L "$installed" ]; } \
+    && { [ -L "$installed" ] || [ ! -f "$installed" ] || [ ! -O "$installed" ]; }; then
     log "WARN connector-agent migration refused a symlink, non-file, or foreign-owned installed plist"
     return 1
   fi
   [ -f "$source" ] || { log "WARN connector-agent migration source template is missing"; return 1; }
   [ -f "$PROD/scripts/ops/migrate-connector-launchagent.py" ] \
     || { log "WARN connector-agent LaunchAgent migration helper is missing"; return 1; }
+  [ -f "$secret_helper" ] && [ -f "$load_contract" ] \
+    || { log "WARN connector-agent credential transaction helpers are missing"; return 1; }
+  # shellcheck disable=SC1090
+  source "$load_contract"
+  PYTHON_BIN="$PYTHON"
   desired_interval="$(/usr/libexec/PlistBuddy -c 'Print :StartInterval' "$source" 2>/dev/null || true)"
   [ "$desired_interval" = 900 ] || {
     log "WARN connector-agent migration refused unexpected source StartInterval '$desired_interval'"
@@ -114,24 +127,35 @@ migrate_connector_launchagent_v2() {
     fi
     chmod 600 "$providers_env" 2>/dev/null || return 1
   fi
-  staged="$(mktemp "$agents/.com.nostradamus.connectors.plist.XXXXXX")" || return 1
-  if ! cp "$installed" "$staged"; then rm -f "$staged"; return 1; fi
-  chmod 600 "$staged" 2>/dev/null || true
-
-  keys="$(/usr/libexec/PlistBuddy -c 'Print :EnvironmentVariables' "$staged" 2>/dev/null \
-    | sed -nE 's/^[[:space:]]*(CONNECTOR_[A-Za-z0-9_]+)[[:space:]]*=.*/\1/p')"
-  # Old installations were explicitly told to keep connector credentials in this plist. Never delete the
-  # only copy. The shared, tested helper atomically preserves every exact historical CONNECTOR_* value first.
-  # Conflicts, duplicates, unsafe paths/modes, or unrepresentable values leave the installed service untouched.
-  if [ -n "$keys" ]; then
-    if ! "$PYTHON" "$PROD/scripts/ops/migrate-connector-secrets.py" \
-      --plist "$installed" --providers-env "$providers_env" >/dev/null
-    then
-      rm -f "$staged"
-      log "WARN connector-agent migration preserved installed CONNECTOR_* values because secure providers.env migration failed"
+  # The helper atomically moves the exact installed inode into a private 0700 directory beside the public
+  # pathname. From here until commit/restore, no caller may overwrite or remove `$installed` directly.
+  if ! claim="$(nostra_claim_connector_plist "$secret_helper" "$installed" "$providers_env")" \
+    || [ -z "$claim" ] || [ ! -f "$claim" ]; then
+    log "WARN connector-agent migration could not claim/preserve the exact installed plist"
+    return 1
+  fi
+  if [ "$(basename "$claim")" = prior-absent ]; then
+    if ! nostra_commit_connector_claim "$secret_helper" "$claim" "$installed" "$providers_env" absent; then
+      log "WARN connector-agent could not reconcile its orphan prior-absence transaction: $claim"
       return 1
     fi
+    log "connector-agent reconciled an orphan prior-absence transaction"
+    return 0
   fi
+  staged="$(mktemp "$agents/.com.nostradamus.connectors.plist.XXXXXX")" || {
+    if ! nostra_restore_connector_claim "$secret_helper" "$claim" "$installed" "$providers_env" >/dev/null 2>&1; then
+      log "WARN connector staging failed and exact prior plist remains retained at $claim"
+    fi
+    return 1
+  }
+  if ! cp "$claim" "$staged"; then
+    rm -f "$staged"
+    if ! nostra_restore_connector_claim "$secret_helper" "$claim" "$installed" "$providers_env" >/dev/null 2>&1; then
+      log "WARN connector copy failed and exact prior plist remains retained at $claim"
+    fi
+    return 1
+  fi
+  chmod 600 "$staged" 2>/dev/null || true
   # Apply the executable contract through the cross-platform tested helper. It
   # accepts only the exact historical/new command shapes, adds `-I`, strips
   # already-preserved connector keys, and sets the interval/source atomically.
@@ -140,12 +164,20 @@ migrate_connector_launchagent_v2() {
     --interval "$desired_interval" >/dev/null
   then
     rm -f "$staged"
+    if ! nostra_restore_connector_claim "$secret_helper" "$claim" "$installed" "$providers_env" >/dev/null 2>&1; then
+      log "WARN rejected connector transform left exact prior plist retained at $claim"
+    fi
     log "WARN connector-agent migration refused an unknown installed executable contract"
     return 1
   fi
-  cmp -s "$installed" "$staged" || changed=1
+  cmp -s "$claim" "$staged" || changed=1
   if ! plutil -lint "$staged" >/dev/null 2>&1; then
-    rm -f "$staged"; log "WARN connector-agent migration produced an invalid staged plist"; return 1
+    rm -f "$staged"
+    if ! nostra_restore_connector_claim "$secret_helper" "$claim" "$installed" "$providers_env" >/dev/null 2>&1; then
+      log "WARN invalid connector staging left exact prior plist retained at $claim"
+    fi
+    log "WARN connector-agent migration produced an invalid staged plist"
+    return 1
   fi
 
   # A clean on-disk file may still be loaded with the old interval/environment. The marker is written only
@@ -154,46 +186,18 @@ migrate_connector_launchagent_v2() {
      && [ "$(cat "$marker" 2>/dev/null || true)" = 'interval=900;credentials=providers_env;isolated=1' ] \
      && launchctl print "gui/$UID_NUM/com.nostradamus.connectors" >/dev/null 2>&1; then
     rm -f "$staged"
+    if ! nostra_restore_connector_claim "$secret_helper" "$claim" "$installed" "$providers_env"; then
+      log "WARN unchanged connector claim could not be restored; exact plist retained at $claim"
+      return 1
+    fi
     return 0
   fi
-  backup="$(mktemp "$agents/.com.nostradamus.connectors.plist.pre-v2.XXXXXX")" || { rm -f "$staged"; return 1; }
-  if ! cp "$installed" "$backup" || ! chmod 600 "$backup"; then
-    rm -f "$staged" "$backup"
+  if ! nostra_activate_connector_plist com.nostradamus.connectors "$staged" "$installed" \
+      "$PROD" "$providers_dir" "$agents" "gui/$UID_NUM" \
+      "$claim" "$secret_helper" "$providers_env"; then
+    log "WARN connector-agent v2 activation failed; exact pre-migration plist was restored or retained in its private claim"
     return 1
   fi
-  mv "$staged" "$installed" || { rm -f "$staged" "$backup"; return 1; }
-  chmod 600 "$installed" 2>/dev/null || true
-  launchctl bootout "gui/$UID_NUM/com.nostradamus.connectors" >/dev/null 2>&1 || true
-  for i in $(seq 1 40); do
-    launchctl print "gui/$UID_NUM/com.nostradamus.connectors" >/dev/null 2>&1 || break
-    sleep 0.25
-  done
-  for i in 1 2 3 4 5 6; do
-    launchctl bootstrap "gui/$UID_NUM" "$installed" >/dev/null 2>&1 && { loaded=1; break; }
-    sleep 0.5
-  done
-  if [ "$loaded" != 1 ] || ! launchctl print "gui/$UID_NUM/com.nostradamus.connectors" >/dev/null 2>&1; then
-    # Restore the exact pre-migration service definition so an availability failure never turns a safe
-    # credential migration into an outage. The backup is owner-only and is removed by the atomic restore.
-    if mv "$backup" "$installed" && chmod 600 "$installed"; then
-      loaded=0
-      for i in 1 2 3 4 5 6; do
-        launchctl bootstrap "gui/$UID_NUM" "$installed" >/dev/null 2>&1 && { loaded=1; break; }
-        sleep 0.5
-      done
-      if [ "$loaded" = 1 ] && launchctl print "gui/$UID_NUM/com.nostradamus.connectors" >/dev/null 2>&1; then
-        launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.connectors" >/dev/null 2>&1 || true
-        log "WARN connector-agent v2 bootstrap failed; restored and reloaded the pre-migration service"
-      else
-        log "WARN connector-agent v2 bootstrap failed and the restored pre-migration service did not reload"
-      fi
-    else
-      log "WARN connector-agent v2 bootstrap failed and its owner-only pre-migration plist could not be restored"
-    fi
-    return 1
-  fi
-  rm -f "$backup"
-  launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.connectors" >/dev/null 2>&1 || true
   printf '%s\n' 'interval=900;credentials=providers_env;isolated=1' > "$marker.tmp" 2>/dev/null \
     && mv "$marker.tmp" "$marker" 2>/dev/null || true
   log "connector-agent migration active: 15m due-aware scheduler; isolated Python; LaunchAgent CONNECTOR_* keys removed"

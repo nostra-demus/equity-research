@@ -6,6 +6,7 @@ pool in a tempdir, drops files in the inbox, runs the router in-process, and ass
 routing, sidecar, ledger-dedup, fan-out-cap, and stability behaviors. Run:
   python3 .claude/tools/test_ingest_external.py     (exit 0 = all pass)
 """
+import hashlib
 import importlib.util
 import json
 import os
@@ -304,6 +305,11 @@ def main():
     names = sorted(n for n in os.listdir(provdir) if not n.endswith(".source.json"))
     check("collision suffixes keep every distinct version",
           names == ["report (2).txt", "report (3).txt", "report.txt"], str(names))
+    archive_dir = os.path.join(root, "EXTERNAL-INBOX", "_routed", "Vendor", "AMZN")
+    archived_names = sorted(os.listdir(archive_dir))
+    check("archive collision suffixes also keep every distinct version",
+          archived_names == ["report (2).txt", "report (3).txt", "report.txt"],
+          str(archived_names))
     shutil.rmtree(root)
 
     # forced re-route: a doc auto-routed earlier can later be FORCED to a missed ticker
@@ -387,6 +393,213 @@ def main():
     shutil.rmtree(root)
 
     root = tempfile.mkdtemp(); build_pool(root)
+    original = drop(root, "hardlinked-note.txt", "AMZN AMZN AMZN AMZN AMZN")
+    alias = os.path.join(root, "hardlinked-alias.txt")
+    os.link(original, alias)
+    res = m.run(root)
+    check("hardlinked inbox input is rejected before hashing or routing",
+          any(base == "hardlinked-note.txt" and "hardlink" in why for base, why in res["skipped"])
+          and not os.path.exists(os.path.join(root, "AMZN", "external", "unfiled", "hardlinked-note.txt")),
+          str(res))
+    shutil.rmtree(root)
+
+    root = os.path.realpath(tempfile.mkdtemp()); build_pool(root)
+    src = drop(root, "copy-source.txt", "AMZN original evidence")
+    expected = hashlib.sha256(b"AMZN original evidence").hexdigest()
+    open(src, "w").write("AMZN modified evidence")
+    dst = os.path.join(root, "AMZN", "external", "unfiled", "copy-source.txt")
+    try:
+        m.copy_contents(src, dst, root, expected_sha256=expected)
+        changed_copy_rejected = False
+    except ValueError as exc:
+        changed_copy_rejected = "provenance hashing" in str(exc)
+    check("copy bytes must match the provenance hash before atomic publication",
+          changed_copy_rejected and not os.path.exists(dst))
+    shutil.rmtree(root)
+
+    root = os.path.realpath(tempfile.mkdtemp()); build_pool(root)
+    src = drop(root, "claim-source.txt", "new evidence")
+    dst = os.path.join(root, "AMZN", "external", "unfiled", "claim-source.txt")
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    open(dst, "w").write("incumbent evidence")
+    expected = hashlib.sha256(b"new evidence").hexdigest()
+    try:
+        m.copy_contents(src, dst, root, expected_sha256=expected)
+        no_clobber_rejected = False
+    except FileExistsError:
+        no_clobber_rejected = True
+    check("atomic copy claim never overwrites a concurrent incumbent",
+          no_clobber_rejected and open(dst).read() == "incumbent evidence")
+    shutil.rmtree(root)
+
+    root = os.path.realpath(tempfile.mkdtemp()); build_pool(root)
+    src = drop(root, "fuse-source.txt", "FUSE-compatible evidence")
+    dst = os.path.join(root, "AMZN", "external", "unfiled", "fuse-source.txt")
+    expected = hashlib.sha256(b"FUSE-compatible evidence").hexdigest()
+    real_link = m.os.link
+
+    def hardlinks_unsupported(*_args, **_kwargs):
+        raise OSError(m.errno.EOPNOTSUPP, "simulated Drive FUSE")
+
+    m.os.link = hardlinks_unsupported
+    try:
+        m.copy_contents(src, dst, root, expected_sha256=expected)
+        fuse_fallback_published = True
+    except Exception:
+        fuse_fallback_published = False
+    finally:
+        m.os.link = real_link
+    check("FUSE without hardlinks uses an O_EXCL no-clobber publication",
+          fuse_fallback_published and open(dst).read() == "FUSE-compatible evidence"
+          and not any(name.startswith(".tmp-route-") for name in os.listdir(os.path.dirname(dst))))
+    shutil.rmtree(root)
+
+    root = os.path.realpath(tempfile.mkdtemp()); build_pool(root)
+    src = drop(root, "Vendor/AMZN/recover-sidecar.txt", "recoverable evidence")
+    real_write_json = m._write_json_safe
+    injected = {"done": False}
+
+    def fail_first_sidecar(path, value, safe_root):
+        if path.endswith("recover-sidecar.txt.source.json") and not injected["done"]:
+            injected["done"] = True
+            raise OSError("simulated death after payload publication")
+        return real_write_json(path, value, safe_root)
+
+    m._write_json_safe = fail_first_sidecar
+    try:
+        m.run(root)
+        first_sidecar_failed = False
+    except OSError as exc:
+        first_sidecar_failed = "simulated death" in str(exc)
+    finally:
+        m._write_json_safe = real_write_json
+    payload = os.path.join(root, "AMZN", "external", "vendor", "recover-sidecar.txt")
+    check("a sidecar failure leaves no citable payload and keeps the source retryable",
+          first_sidecar_failed and not os.path.exists(payload)
+          and not os.path.exists(payload + ".source.json") and os.path.exists(src)
+          and not os.path.exists(os.path.join(root, "EXTERNAL-INBOX", ".ingest_ledger.ndjson")))
+    res = m.run(root)
+    check("retry repairs the missing hash-bound sidecar without a duplicate payload",
+          os.path.exists(payload + ".source.json")
+          and not os.path.exists(os.path.join(root, "AMZN", "external", "vendor", "recover-sidecar (2).txt"))
+          and any(base == "recover-sidecar.txt" for base, *_ in res["routed"]),
+          str(res))
+    shutil.rmtree(root)
+
+    root = os.path.realpath(tempfile.mkdtemp()); build_pool(root)
+    drop(root, "Vendor/AMZN/crash-prefix.txt", "complete routed evidence")
+    real_publish = m._publish_temp_no_clobber
+    crashed = {"done": False}
+
+    def hard_death_during_payload(_tmp, destination):
+        if destination.endswith("crash-prefix.txt") and not crashed["done"]:
+            crashed["done"] = True
+            with open(destination, "xb") as handle:
+                handle.write(b"strict prefix")
+                handle.flush()
+                os.fsync(handle.fileno())
+            raise SystemExit("simulated SIGKILL during FUSE payload write")
+        return real_publish(_tmp, destination)
+
+    m._publish_temp_no_clobber = hard_death_during_payload
+    try:
+        try:
+            m.run(root)
+        except SystemExit:
+            pass
+    finally:
+        m._publish_temp_no_clobber = real_publish
+    crashed_payload = os.path.join(root, "AMZN", "external", "vendor", "crash-prefix.txt")
+    ep = m._load_extract_pool()
+    with tempfile.TemporaryDirectory() as extracted:
+        manifest = ep.extract_pool(
+            os.path.join(root, "AMZN"), extracted, force=True, vision=False,
+        )
+    crashed_row = next(source for source in manifest["sources"]
+                       if source["file"] == "crash-prefix.txt")
+    check("sidecar-first publication makes a hard-death payload prefix non-citable",
+          os.path.exists(crashed_payload + ".source.json")
+          and crashed_row.get("status") == "fail"
+          and "ordinary ingest sha256" in crashed_row.get("error", "")
+          and crashed_row.get("provenance") == {"integrity_status": "failed", "usable": False},
+          str(crashed_row))
+    m.run(root)
+    with tempfile.TemporaryDirectory() as extracted:
+        retried_manifest = ep.extract_pool(
+            os.path.join(root, "AMZN"), extracted, force=True, vision=False,
+        )
+    retry_rows = {source["file"]: source for source in retried_manifest["sources"]}
+    check("retry preserves the failed prefix and publishes a separate complete pair",
+          retry_rows["crash-prefix.txt"].get("status") == "fail"
+          and retry_rows["crash-prefix (2).txt"].get("status") == "in-place",
+          str(retry_rows))
+    shutil.rmtree(root)
+
+    root = os.path.realpath(tempfile.mkdtemp()); build_pool(root)
+    src = drop(root, "swap-before-archive.txt", "original archive bytes")
+    expected = hashlib.sha256(b"original archive bytes").hexdigest()
+    real_copy = m.copy_contents
+
+    def swap_after_archive_copy(source, destination, safe_root=None, expected_sha256=None):
+        result = real_copy(source, destination, safe_root, expected_sha256)
+        replacement = source + ".replacement"
+        open(replacement, "w").write("replacement must survive")
+        os.replace(replacement, source)
+        return result
+
+    m.copy_contents = swap_after_archive_copy
+    try:
+        m.move_to_routed(src, os.path.join(root, "EXTERNAL-INBOX"), expected)
+        swapped_source_rejected = False
+    except ValueError as exc:
+        swapped_source_rejected = "quarantined" in str(exc)
+    finally:
+        m.copy_contents = real_copy
+    archived = os.path.join(root, "EXTERNAL-INBOX", "_routed", "swap-before-archive.txt")
+    quarantined = []
+    for directory, _dirs, files in os.walk(os.path.join(root, "EXTERNAL-INBOX")):
+        if os.path.basename(directory).startswith(".route-consume-"):
+            quarantined.extend(os.path.join(directory, name) for name in files)
+    check("a source swap cannot enter the archive or delete the replacement pathname",
+          swapped_source_rejected and open(archived).read() == "original archive bytes"
+          and len(quarantined) == 1 and open(quarantined[0]).read() == "replacement must survive",
+          str(quarantined))
+    shutil.rmtree(root)
+
+    root = os.path.realpath(tempfile.mkdtemp()); build_pool(root)
+    src = drop(root, "late-swap.txt", "verified source bytes")
+    expected, identity = m._sha256_file_with_identity(src)
+    real_pinned_hash = m._sha256_open_fd
+    swapped = {"done": False}
+
+    def swap_after_pinned_hash(path, fd, pinned_identity):
+        result = real_pinned_hash(path, fd, pinned_identity)
+        if ".route-consume-" in path and not swapped["done"]:
+            swapped["done"] = True
+            replacement = path + ".replacement"
+            open(replacement, "w").write("late replacement survives")
+            os.replace(replacement, path)
+        return result
+
+    m._sha256_open_fd = swap_after_pinned_hash
+    try:
+        m._consume_source(src, identity, expected)
+        late_swap_rejected = False
+    except ValueError as exc:
+        late_swap_rejected = "quarantined" in str(exc)
+    finally:
+        m._sha256_open_fd = real_pinned_hash
+    quarantined = []
+    for directory, _dirs, files in os.walk(os.path.join(root, "EXTERNAL-INBOX")):
+        if os.path.basename(directory).startswith(".route-consume-"):
+            quarantined.extend(os.path.join(directory, name) for name in files)
+    check("a swap after hashing is detected before the held pathname is unlinked",
+          late_swap_rejected and len(quarantined) == 1
+          and open(quarantined[0]).read() == "late replacement survives",
+          str(quarantined))
+    shutil.rmtree(root)
+
+    root = tempfile.mkdtemp(); build_pool(root)
     real_subject = os.path.join(root, "real-amzn"); os.makedirs(real_subject)
     shutil.rmtree(os.path.join(root, "AMZN")); os.symlink(real_subject, os.path.join(root, "AMZN"))
     drop(root, "Vendor/AMZN/symlink-target.txt", "forced route")
@@ -435,6 +648,37 @@ def main():
         hardlink_rejected = "unique regular non-symlink file" in str(exc)
     check("hardlinked source is rejected before hashing", hardlink_rejected)
     shutil.rmtree(root)
+
+    # ---- 11. basename-only relative paths retain same-directory atomicity ----
+    # dirname("file") is empty. Publication, hard-death alias recovery, and source
+    # consumption must treat that spelling as the current directory rather than
+    # falling back to the system temp directory or failing os.scandir/os.makedirs.
+    root = tempfile.mkdtemp()
+    previous_cwd = os.getcwd()
+    try:
+        os.chdir(root)
+        with open("relative-source.txt", "wb") as fh:
+            fh.write(b"relative-path payload")
+        expected = hashlib.sha256(b"relative-path payload").hexdigest()
+        actual, identity = m.copy_contents(
+            "relative-source.txt", "relative-destination.txt", expected_sha256=expected
+        )
+        check("basename-only destination is published in the current directory",
+              actual == expected and open("relative-destination.txt", "rb").read() == b"relative-path payload")
+
+        os.link("relative-destination.txt", ".tmp-route-recovery")
+        m._recover_publication_alias("relative-destination.txt", ".tmp-route-")
+        check("basename-only publication alias recovery scans the current directory",
+              not os.path.exists(".tmp-route-recovery")
+              and os.lstat("relative-destination.txt").st_nlink == 1)
+
+        m._consume_source("relative-source.txt", identity, expected)
+        check("basename-only source consumption uses a same-directory hold",
+              not os.path.exists("relative-source.txt")
+              and not any(name.startswith(".route-consume-") for name in os.listdir(".")))
+    finally:
+        os.chdir(previous_cwd)
+        shutil.rmtree(root)
 
     print()
     if failures:

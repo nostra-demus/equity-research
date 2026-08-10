@@ -171,15 +171,68 @@ except Exception as exc:  # malformed / unreadable plist
 PY
 }
 
+nostra_claim_connector_plist() {
+  local helper="$1" plist_path="$2" providers_env="$3"
+  local python_bin="${PYTHON_BIN:-python3}"
+  "$python_bin" "$helper" claim --plist "$plist_path" --providers-env "$providers_env" \
+    --owner-pid "$$"
+}
+
+nostra_restore_connector_claim() {
+  local helper="$1" claim_path="$2" plist_path="$3" providers_env="$4" replacement_anchor="${5:-}"
+  local python_bin="${PYTHON_BIN:-python3}"
+  if [ -n "$replacement_anchor" ]; then
+    "$python_bin" "$helper" restore --claim "$claim_path" --plist "$plist_path" \
+      --providers-env "$providers_env" --replacement-anchor "$replacement_anchor" \
+      --owner-pid "$$"
+  else
+    "$python_bin" "$helper" restore --claim "$claim_path" --plist "$plist_path" \
+      --providers-env "$providers_env" --owner-pid "$$"
+  fi
+}
+
+nostra_publish_connector_claim() {
+  local helper="$1" claim_path="$2" plist_path="$3" staged_path="$4"
+  local python_bin="${PYTHON_BIN:-python3}"
+  "$python_bin" "$helper" publish --claim "$claim_path" --plist "$plist_path" \
+    --staged "$staged_path" --owner-pid "$$"
+}
+
+nostra_commit_connector_claim() {
+  local helper="$1" claim_path="$2" plist_path="$3" providers_env="$4" installed_state="$5"
+  local replacement_anchor="${6:-}" python_bin="${PYTHON_BIN:-python3}"
+  if [ -n "$replacement_anchor" ]; then
+    "$python_bin" "$helper" commit --claim "$claim_path" --plist "$plist_path" \
+      --providers-env "$providers_env" --installed-state "$installed_state" \
+      --replacement-anchor "$replacement_anchor" --owner-pid "$$"
+  else
+    "$python_bin" "$helper" commit --claim "$claim_path" --plist "$plist_path" \
+      --providers-env "$providers_env" --installed-state "$installed_state" \
+      --owner-pid "$$"
+  fi
+}
+
 # Atomically activate a pre-rendered connector LaunchAgent. The caller owns the staged file until this
 # function is called; this function then either installs it successfully or removes/restores every file it
 # touched. Crucially, the installed bytes are verified before the currently loaded job is booted out.
 nostra_activate_connector_plist() {
   local label="$1" staged="$2" dst="$3" repo_root="$4" config_dir="$5" agents_dir="$6" domain="$7"
-  local backup="" had_prior=0 was_loaded=0 restore_ok=1 bootstrap_ok=0 i _wait
+  local prior_claim="${8:-}" secret_helper="${9:-}" providers_env="${10:-}"
+  local backup="" published_anchor="" had_prior=0 claim_mode=0 prior_was_absent=0
+  local was_loaded=0 restore_ok=1 bootstrap_ok=0 i _wait
 
   loaded "$label" && was_loaded=1
-  if [ -e "$dst" ] || [ -L "$dst" ]; then
+  if [ -n "$prior_claim" ]; then
+    had_prior=1
+    claim_mode=1
+    backup="$prior_claim"
+    [ "$(basename "$prior_claim")" = prior-absent ] && prior_was_absent=1
+    if [ -z "$secret_helper" ] || [ -z "$providers_env" ] || [ ! -f "$prior_claim" ]; then
+      echo "  FAIL: connector credential claim contract is incomplete — running service left untouched" >&2
+      rm -f "$staged"
+      return 1
+    fi
+  elif [ -e "$dst" ] || [ -L "$dst" ]; then
     had_prior=1
     backup="$(mktemp "$agents_dir/.${label}.backup.XXXXXX")" || { rm -f "$staged"; return 1; }
     if ! cp "$dst" "$backup" || ! chmod 600 "$backup" || ! nostra_plist_lint "$backup" >/dev/null; then
@@ -187,23 +240,47 @@ nostra_activate_connector_plist() {
       rm -f "$staged" "$backup"
       return 1
     fi
-  elif [ "$was_loaded" = 1 ]; then
-    echo "  FAIL: connector is loaded without an installed plist; refusing a change that cannot be rolled back" >&2
+  else
+    echo "  FAIL: initially absent connector activation requires an explicit absence claim" >&2
     rm -f "$staged"
     return 1
   fi
 
   # staged lives in agents_dir, so this is a same-filesystem atomic replacement rather than a partial copy.
-  if ! mv -f "$staged" "$dst"; then
+  if [ "$claim_mode" = 1 ]; then
+    if published_anchor="$(nostra_publish_connector_claim \
+        "$secret_helper" "$prior_claim" "$dst" "$staged")" \
+      && [ -n "$published_anchor" ] && [ -f "$published_anchor" ]; then
+      :
+    else
+      echo "  FAIL: could not publish connector plist without clobbering a concurrent pathname" >&2
+      [ -n "$published_anchor" ] \
+        || published_anchor="$(dirname "$prior_claim")/replacement-anchor.plist"
+      [ -f "$published_anchor" ] || published_anchor=""
+      if ! nostra_restore_connector_claim \
+          "$secret_helper" "$prior_claim" "$dst" "$providers_env" "$published_anchor"; then
+        echo "  FAIL: exact prior plist remains retained at $prior_claim" >&2
+      fi
+      rm -f "$staged"
+      return 1
+    fi
+  elif ! mv -f "$staged" "$dst"; then
     echo "  FAIL: could not atomically install connector plist — running service left untouched" >&2
     rm -f "$staged" "$backup"
     return 1
   fi
-  if ! chmod 600 "$dst" \
+  if { [ "$claim_mode" != 1 ] && ! chmod 600 "$dst"; } \
     || ! nostra_plist_lint "$dst" >/dev/null \
     || ! nostra_validate_connector_plist "$dst" "$repo_root" "$config_dir"; then
     echo "  FAIL: installed connector plist failed verification before bootout; restoring prior file" >&2
-    if [ "$had_prior" = 1 ]; then
+    if [ "$claim_mode" = 1 ]; then
+      if nostra_restore_connector_claim "$secret_helper" "$prior_claim" "$dst" "$providers_env" "$published_anchor"; then
+        backup=""
+        published_anchor=""
+      else
+        echo "  FAIL: exact prior plist/credential claim could not be fully restored; claim retained at $prior_claim" >&2
+      fi
+    elif [ "$had_prior" = 1 ]; then
       if mv -f "$backup" "$dst"; then
         backup=""
         chmod 600 "$dst" 2>/dev/null || true
@@ -223,15 +300,26 @@ nostra_activate_connector_plist() {
     # Do not confuse a prior job that ignored/asynchronously outlived bootout with a successfully loaded new
     # contract. The new plist has not been bootstrapped, so put the matching prior file back immediately.
     echo "  FAIL: prior connector did not unload; restoring its plist without activating the replacement" >&2
-    if [ "$had_prior" != 1 ] || ! mv -f "$backup" "$dst"; then
+    if [ "$had_prior" != 1 ]; then
+      echo "  FAIL: could not restore prior connector plist; rollback copy remains at $backup" >&2
+      return 1
+    fi
+    if [ "$claim_mode" = 1 ]; then
+      if ! nostra_restore_connector_claim "$secret_helper" "$prior_claim" "$dst" "$providers_env" "$published_anchor"; then
+        echo "  FAIL: exact prior plist remains retained at $prior_claim" >&2
+        return 1
+      fi
+      published_anchor=""
+    elif ! mv -f "$backup" "$dst"; then
       echo "  FAIL: could not restore prior connector plist; rollback copy remains at $backup" >&2
       return 1
     fi
     backup=""
-    chmod 600 "$dst" 2>/dev/null || restore_ok=0
+    if [ "$prior_was_absent" != 1 ]; then chmod 600 "$dst" 2>/dev/null || restore_ok=0; fi
     # bootout may finish between the last check and the atomic restore. If so, reload the now-restored prior
     # contract instead of leaving a service that was loaded when the installer began down.
-    if [ "$restore_ok" = 1 ] && ! loaded "$label" && [ "$was_loaded" = 1 ]; then
+    if [ "$restore_ok" = 1 ] && [ "$prior_was_absent" != 1 ] \
+      && ! loaded "$label" && [ "$was_loaded" = 1 ]; then
       for i in 1 2 3 4 5 6; do
         if launchctl bootstrap "$domain" "$dst" 2>/dev/null; then bootstrap_ok=1; break; fi
         sleep 0.5
@@ -249,11 +337,23 @@ nostra_activate_connector_plist() {
   if [ "$bootstrap_ok" = 1 ]; then
     launchctl kickstart -k "$domain/$label" 2>/dev/null || true
     if nostra_report_loaded "$label"; then
-      if [ -n "$backup" ] && ! rm -f "$backup"; then
+      if [ "$claim_mode" = 1 ]; then
+        if ! nostra_validate_connector_plist "$dst" "$repo_root" "$config_dir" \
+          || ! nostra_commit_connector_claim "$secret_helper" "$prior_claim" "$dst" \
+            "$providers_env" replacement "$published_anchor"; then
+          echo "  FAIL: post-bootstrap commit failed; rolling back the running replacement to $prior_claim" >&2
+          bootstrap_ok=0
+        else
+          backup=""
+          published_anchor=""
+          return 0
+        fi
+      elif [ -n "$backup" ] && ! rm -f "$backup"; then
         echo "  FAIL: connector loaded but its owner-only rollback copy could not be removed: $backup" >&2
         return 1
+      else
+        return 0
       fi
-      return 0
     fi
   else
     echo "  FAIL: launchd rejected the connector replacement" >&2
@@ -276,7 +376,16 @@ nostra_activate_connector_plist() {
     return 1
   fi
   if [ "$had_prior" = 1 ]; then
-    if mv -f "$backup" "$dst"; then
+    if [ "$claim_mode" = 1 ]; then
+      if nostra_restore_connector_claim "$secret_helper" "$prior_claim" "$dst" "$providers_env" "$published_anchor"; then
+        backup=""
+        published_anchor=""
+        if [ "$prior_was_absent" != 1 ]; then chmod 600 "$dst" 2>/dev/null || restore_ok=0; fi
+      else
+        restore_ok=0
+        echo "  FAIL: exact prior plist remains retained at $prior_claim" >&2
+      fi
+    elif mv -f "$backup" "$dst"; then
       backup=""
       chmod 600 "$dst" 2>/dev/null || restore_ok=0
     else
@@ -287,7 +396,7 @@ nostra_activate_connector_plist() {
     restore_ok=0
     echo "  FAIL: could not remove failed connector plist" >&2
   fi
-  if [ "$restore_ok" = 1 ] && [ "$was_loaded" = 1 ]; then
+  if [ "$restore_ok" = 1 ] && [ "$prior_was_absent" != 1 ] && [ "$was_loaded" = 1 ]; then
     for i in 1 2 3 4 5 6; do
       launchctl bootstrap "$domain" "$dst" 2>/dev/null && break
       sleep 0.5

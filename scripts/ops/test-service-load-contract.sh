@@ -9,11 +9,14 @@ TEST_TMP="$(mktemp -d)" || exit 1
 trap 'rm -rf "$TEST_TMP"' EXIT
 PYTHON_BIN="$(command -v python3)"
 
-# Portable file-size query. The `tools-tests` CI job runs this script on ubuntu-latest, where GNU stat
-# reads `-f` as --file-system and `%z` is not a valid file-size format (it errors), so `stat -f '%z'`
-# returned empty/garbage and the same-size race assertions below failed spuriously. os.stat via the
-# already-resolved PYTHON_BIN is byte-exact on both GNU and BSD/macOS.
-file_size() { "$PYTHON_BIN" -c 'import os,sys; print(os.stat(sys.argv[1]).st_size)' "$1"; }
+portable_file_size() {
+  "$PYTHON_BIN" -I - "$1" <<'PY'
+import os
+import sys
+
+print(os.lstat(sys.argv[1]).st_size)
+PY
+}
 
 expect_connector_rejection() {
   local description="$1" plist_path="$2" repo_root="$3" config_dir="$4"
@@ -30,6 +33,7 @@ TEST_REPO="$TEST_TMP/nostra-prod"
 TEST_CONFIG="$TEST_TMP/config"
 TEST_HOME="$TEST_TMP/home"
 mkdir -p "$TEST_REPO" "$TEST_CONFIG" "$TEST_HOME"
+chmod 700 "$TEST_CONFIG"
 VALID_PLIST="$TEST_TMP/connectors-valid.plist"
 "$PYTHON_BIN" -I - "$VALID_PLIST" "$TEST_REPO" "$TEST_CONFIG" "$TEST_HOME" <<'PY'
 import os
@@ -99,6 +103,34 @@ os.chmod(destination, 0o600)
 PY
 }
 
+credential_plist() {
+  local source="$1" destination="$2" value="$3"
+  "$PYTHON_BIN" -I - "$source" "$destination" "$value" <<'PY'
+import os
+import plistlib
+import sys
+
+source, destination, value = sys.argv[1:]
+with open(source, "rb") as handle:
+    contract = plistlib.load(handle)
+contract["EnvironmentVariables"]["CONNECTOR_TEST_TOKEN"] = value
+with open(destination, "wb") as handle:
+    plistlib.dump(contract, handle)
+os.chmod(destination, 0o600)
+PY
+}
+
+credential_value() {
+  "$PYTHON_BIN" -I - "$1" <<'PY'
+import plistlib
+import sys
+
+with open(sys.argv[1], "rb") as handle:
+    contract = plistlib.load(handle)
+print(contract.get("EnvironmentVariables", {}).get("CONNECTOR_TEST_TOKEN", ""))
+PY
+}
+
 for mutation in credential no-isolation cadence config; do
   MUTATED_PLIST="$TEST_TMP/connectors-$mutation.plist"
   mutate_plist "$VALID_PLIST" "$MUTATED_PLIST" "$mutation"
@@ -118,7 +150,7 @@ expect_connector_rejection "symlink connector plist" "$TEST_TMP/connectors-link.
 RACE_PLIST="$TEST_TMP/connectors-same-size-race.plist"
 cp "$VALID_PLIST" "$RACE_PLIST"
 chmod 600 "$RACE_PLIST"
-RACE_SIZE="$(file_size "$RACE_PLIST")"
+RACE_SIZE="$(portable_file_size "$RACE_PLIST")"
 RACE_SYNC="$TEST_TMP/validator-sync"
 mkdir -p "$RACE_SYNC"
 nostra_validate_connector_plist "$RACE_PLIST" "$TEST_REPO" "$TEST_CONFIG" "$RACE_SYNC" \
@@ -154,7 +186,7 @@ PY
   if [ "$RACE_RESULT" = 0 ]; then
     echo "  FAIL same-size in-place mutation escaped connector validation"
     failures=$((failures + 1))
-  elif [ "$(file_size "$RACE_PLIST")" != "$RACE_SIZE" ]; then
+  elif [ "$(portable_file_size "$RACE_PLIST")" != "$RACE_SIZE" ]; then
     echo "  FAIL timestamp regression did not preserve file size"
     failures=$((failures + 1))
   elif ! grep -Eq 'changed during secure read|changed during validation' "$TEST_TMP/race.err"; then
@@ -273,9 +305,181 @@ else
   echo "  ok  failed connector activation restores prior file and loaded state"
 fi
 
+# A credential-aware activation owns the exact pre-install inode through a private claim. If another plist
+# appears at the public pathname after the claim, activation must not overwrite either credential generation.
+CLAIM_COLLISION_AGENTS="$TEST_TMP/LaunchAgents-claim-collision"
+mkdir -p "$CLAIM_COLLISION_AGENTS"
+CLAIM_COLLISION_DST="$CLAIM_COLLISION_AGENTS/com.nostradamus.connectors.plist"
+CLAIM_COLLISION_PROVIDERS="$TEST_CONFIG/claim-collision-providers.env"
+credential_plist "$VALID_PLIST" "$CLAIM_COLLISION_DST" old-secret
+CLAIM_COLLISION_PATH="$(nostra_claim_connector_plist "$HERE/migrate-connector-secrets.py" \
+  "$CLAIM_COLLISION_DST" "$CLAIM_COLLISION_PROVIDERS")"
+credential_plist "$VALID_PLIST" "$CLAIM_COLLISION_DST" new-secret
+CLAIM_COLLISION_STAGED="$(mktemp "$CLAIM_COLLISION_AGENTS/.com.nostradamus.connectors.staged.XXXXXX")"
+cp "$VALID_PLIST" "$CLAIM_COLLISION_STAGED"
+chmod 600 "$CLAIM_COLLISION_STAGED"
+mock_loaded=1
+mock_launchctl_calls=0
+launchctl() { mock_launchctl_calls=$((mock_launchctl_calls + 1)); return 1; }
+if nostra_activate_connector_plist com.nostradamus.connectors "$CLAIM_COLLISION_STAGED" \
+    "$CLAIM_COLLISION_DST" "$TEST_REPO" "$TEST_CONFIG" "$CLAIM_COLLISION_AGENTS" gui/test \
+    "$CLAIM_COLLISION_PATH" "$HERE/migrate-connector-secrets.py" "$CLAIM_COLLISION_PROVIDERS" \
+    >"$TEST_TMP/activate.out" 2>"$TEST_TMP/activate.err"; then
+  CLAIM_COLLISION_RESULT=0
+else
+  CLAIM_COLLISION_RESULT=$?
+fi
+if [ "$CLAIM_COLLISION_RESULT" = 0 ] \
+  || [ "$mock_launchctl_calls" != 0 ] \
+  || [ ! -f "$CLAIM_COLLISION_PATH" ] \
+  || [ "$(credential_value "$CLAIM_COLLISION_PATH")" != old-secret ] \
+  || [ "$(credential_value "$CLAIM_COLLISION_DST")" != new-secret ] \
+  || ! grep -q '^CONNECTOR_TEST_TOKEN=old-secret$' "$CLAIM_COLLISION_PROVIDERS"; then
+  echo "  FAIL concurrent connector pathname replacement was clobbered or lost its private claim"
+  failures=$((failures + 1))
+else
+  echo "  ok  claimed activation refuses a concurrent pathname without losing either credential generation"
+fi
+
+# A fresh install claims absence with an owned guard. Replacing that guard before publication must retain the
+# unexpected file in the private transaction, never overwrite or remove it as though it were ours.
+ABSENT_COLLISION_AGENTS="$TEST_TMP/LaunchAgents-absence-collision"
+mkdir -p "$ABSENT_COLLISION_AGENTS"
+ABSENT_COLLISION_DST="$ABSENT_COLLISION_AGENTS/com.nostradamus.connectors.plist"
+ABSENT_COLLISION_PROVIDERS="$TEST_CONFIG/absence-collision-providers.env"
+ABSENT_COLLISION_CLAIM="$(nostra_claim_connector_plist "$HERE/migrate-connector-secrets.py" \
+  "$ABSENT_COLLISION_DST" "$ABSENT_COLLISION_PROVIDERS")"
+credential_plist "$VALID_PLIST" "$ABSENT_COLLISION_DST.new" must-survive
+mv -f "$ABSENT_COLLISION_DST.new" "$ABSENT_COLLISION_DST"
+ABSENT_COLLISION_STAGED="$(mktemp "$ABSENT_COLLISION_AGENTS/.com.nostradamus.connectors.staged.XXXXXX")"
+cp "$VALID_PLIST" "$ABSENT_COLLISION_STAGED"
+chmod 600 "$ABSENT_COLLISION_STAGED"
+mock_loaded=0
+mock_launchctl_calls=0
+launchctl() { mock_launchctl_calls=$((mock_launchctl_calls + 1)); return 1; }
+if nostra_activate_connector_plist com.nostradamus.connectors "$ABSENT_COLLISION_STAGED" \
+    "$ABSENT_COLLISION_DST" "$TEST_REPO" "$TEST_CONFIG" "$ABSENT_COLLISION_AGENTS" gui/test \
+    "$ABSENT_COLLISION_CLAIM" "$HERE/migrate-connector-secrets.py" "$ABSENT_COLLISION_PROVIDERS" \
+    >"$TEST_TMP/activate.out" 2>"$TEST_TMP/activate.err"; then
+  ABSENT_COLLISION_RESULT=0
+else
+  ABSENT_COLLISION_RESULT=$?
+fi
+ABSENT_RETAINED="$(find "$ABSENT_COLLISION_AGENTS" -type f -name public-entry -print -quit 2>/dev/null)"
+if [ "$ABSENT_COLLISION_RESULT" = 0 ] || [ "$mock_launchctl_calls" != 0 ] \
+  || [ -z "$ABSENT_RETAINED" ] || [ "$(credential_value "$ABSENT_RETAINED")" != must-survive ]; then
+  echo "  FAIL initially-absent activation deleted or overwrote an unowned concurrent pathname"
+  failures=$((failures + 1))
+else
+  echo "  ok  initially-absent activation retains an unowned concurrent pathname without launchd changes"
+fi
+
+# Ordinary bootstrap failure still restores and reloads the exact claimed prior plist, then removes the
+# private claim/anchor transaction artifacts.
+CLAIM_ROLLBACK_AGENTS="$TEST_TMP/LaunchAgents-claim-rollback"
+mkdir -p "$CLAIM_ROLLBACK_AGENTS"
+CLAIM_ROLLBACK_DST="$CLAIM_ROLLBACK_AGENTS/com.nostradamus.connectors.plist"
+CLAIM_ROLLBACK_PROVIDERS="$TEST_CONFIG/claim-rollback-providers.env"
+credential_plist "$VALID_PLIST" "$CLAIM_ROLLBACK_DST" rollback-secret
+CLAIM_ROLLBACK_HASH="$(shasum -a 256 "$CLAIM_ROLLBACK_DST" | awk '{print $1}')"
+CLAIM_ROLLBACK_PATH="$(nostra_claim_connector_plist "$HERE/migrate-connector-secrets.py" \
+  "$CLAIM_ROLLBACK_DST" "$CLAIM_ROLLBACK_PROVIDERS")"
+CLAIM_ROLLBACK_STAGED="$(mktemp "$CLAIM_ROLLBACK_AGENTS/.com.nostradamus.connectors.staged.XXXXXX")"
+cp "$VALID_PLIST" "$CLAIM_ROLLBACK_STAGED"
+chmod 600 "$CLAIM_ROLLBACK_STAGED"
+mock_loaded=1
+mock_bootstrap_attempts=0
+launchctl() {
+  case "$1" in
+    bootout) mock_loaded=0; return 0 ;;
+    bootstrap)
+      mock_bootstrap_attempts=$((mock_bootstrap_attempts + 1))
+      if [ "$mock_bootstrap_attempts" -le 6 ]; then return 1; fi
+      mock_loaded=1
+      return 0
+      ;;
+    kickstart) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+if nostra_activate_connector_plist com.nostradamus.connectors "$CLAIM_ROLLBACK_STAGED" \
+    "$CLAIM_ROLLBACK_DST" "$TEST_REPO" "$TEST_CONFIG" "$CLAIM_ROLLBACK_AGENTS" gui/test \
+    "$CLAIM_ROLLBACK_PATH" "$HERE/migrate-connector-secrets.py" "$CLAIM_ROLLBACK_PROVIDERS" \
+    >"$TEST_TMP/activate.out" 2>"$TEST_TMP/activate.err"; then
+  CLAIM_ROLLBACK_RESULT=0
+else
+  CLAIM_ROLLBACK_RESULT=$?
+fi
+if [ "$CLAIM_ROLLBACK_RESULT" = 0 ] \
+  || [ "$(shasum -a 256 "$CLAIM_ROLLBACK_DST" | awk '{print $1}')" != "$CLAIM_ROLLBACK_HASH" ] \
+  || [ -e "$CLAIM_ROLLBACK_PATH" ] \
+  || ! loaded com.nostradamus.connectors \
+  || [ "$mock_bootstrap_attempts" != 7 ]; then
+  echo "  FAIL claimed connector activation failure did not restore exact prior file/load state"
+  failures=$((failures + 1))
+else
+  echo "  ok  failed claimed activation restores and reloads the exact prior plist"
+fi
+
+# A failure at the irreversible boundary is still an activation failure: unload the replacement, restore
+# the exact claim without consulting providers.env, and reload the previously-running service.
+COMMIT_FAIL_AGENTS="$TEST_TMP/LaunchAgents-commit-fail"
+mkdir -p "$COMMIT_FAIL_AGENTS"
+COMMIT_FAIL_DST="$COMMIT_FAIL_AGENTS/com.nostradamus.connectors.plist"
+COMMIT_FAIL_PROVIDERS="$TEST_CONFIG/commit-fail-providers.env"
+credential_plist "$VALID_PLIST" "$COMMIT_FAIL_DST" commit-rollback-secret
+COMMIT_FAIL_HASH="$(shasum -a 256 "$COMMIT_FAIL_DST" | awk '{print $1}')"
+COMMIT_FAIL_CLAIM="$(nostra_claim_connector_plist "$HERE/migrate-connector-secrets.py" \
+  "$COMMIT_FAIL_DST" "$COMMIT_FAIL_PROVIDERS")"
+COMMIT_FAIL_UNKNOWN="$(dirname "$COMMIT_FAIL_CLAIM")/interrupted-replacement.plist"
+credential_plist "$VALID_PLIST" "$COMMIT_FAIL_UNKNOWN" retained-after-commit-failure
+COMMIT_FAIL_STAGED="$(mktemp "$COMMIT_FAIL_AGENTS/.com.nostradamus.connectors.staged.XXXXXX")"
+cp "$VALID_PLIST" "$COMMIT_FAIL_STAGED"
+chmod 600 "$COMMIT_FAIL_STAGED"
+mock_loaded=1
+mock_bootstrap_attempts=0
+launchctl() {
+  case "$1" in
+    bootout) mock_loaded=0; return 0 ;;
+    bootstrap)
+      mock_bootstrap_attempts=$((mock_bootstrap_attempts + 1))
+      mock_loaded=1
+      [ "$mock_bootstrap_attempts" = 1 ] && rm -f "$COMMIT_FAIL_PROVIDERS"
+      return 0
+      ;;
+    kickstart) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+if nostra_activate_connector_plist com.nostradamus.connectors "$COMMIT_FAIL_STAGED" \
+    "$COMMIT_FAIL_DST" "$TEST_REPO" "$TEST_CONFIG" "$COMMIT_FAIL_AGENTS" gui/test \
+    "$COMMIT_FAIL_CLAIM" "$HERE/migrate-connector-secrets.py" "$COMMIT_FAIL_PROVIDERS" \
+    >"$TEST_TMP/activate.out" 2>"$TEST_TMP/activate.err"; then
+  COMMIT_FAIL_RESULT=0
+else
+  COMMIT_FAIL_RESULT=$?
+fi
+COMMIT_FAIL_RETAINED="$(find "$COMMIT_FAIL_AGENTS" -type f \
+  -name interrupted-replacement.plist -print -quit 2>/dev/null)"
+if [ "$COMMIT_FAIL_RESULT" = 0 ] \
+  || [ "$(shasum -a 256 "$COMMIT_FAIL_DST" | awk '{print $1}')" != "$COMMIT_FAIL_HASH" ] \
+  || [ -e "$COMMIT_FAIL_CLAIM" ] || [ -e "$COMMIT_FAIL_PROVIDERS" ] \
+  || [ -z "$COMMIT_FAIL_RETAINED" ] \
+  || [ "$(credential_value "$COMMIT_FAIL_RETAINED")" != retained-after-commit-failure ] \
+  || ! loaded com.nostradamus.connectors || [ "$mock_bootstrap_attempts" != 2 ]; then
+  echo "  FAIL post-bootstrap commit failure left the replacement active or lost the prior claim"
+  sed 's/^/    /' "$TEST_TMP/activate.err" 2>/dev/null || true
+  failures=$((failures + 1))
+else
+  echo "  ok  post-bootstrap commit failure unloads replacement and restores/reloads exact prior claim"
+fi
+
 SUCCESS_AGENTS="$TEST_TMP/LaunchAgents-success"
 mkdir -p "$SUCCESS_AGENTS"
 SUCCESS_DST="$SUCCESS_AGENTS/com.nostradamus.connectors.plist"
+SUCCESS_PROVIDERS="$TEST_CONFIG/success-providers.env"
+SUCCESS_CLAIM="$(nostra_claim_connector_plist "$HERE/migrate-connector-secrets.py" \
+  "$SUCCESS_DST" "$SUCCESS_PROVIDERS")"
 SUCCESS_STAGED="$(mktemp "$SUCCESS_AGENTS/.com.nostradamus.connectors.staged.XXXXXX")"
 cp "$VALID_PLIST" "$SUCCESS_STAGED"
 chmod 600 "$SUCCESS_STAGED"
@@ -291,16 +495,21 @@ launchctl() {
   esac
 }
 if ! nostra_activate_connector_plist com.nostradamus.connectors "$SUCCESS_STAGED" "$SUCCESS_DST" \
-    "$TEST_REPO" "$TEST_CONFIG" "$SUCCESS_AGENTS" gui/test >"$TEST_TMP/activate.out" 2>"$TEST_TMP/activate.err"; then
+    "$TEST_REPO" "$TEST_CONFIG" "$SUCCESS_AGENTS" gui/test \
+    "$SUCCESS_CLAIM" "$HERE/migrate-connector-secrets.py" "$SUCCESS_PROVIDERS" \
+    >"$TEST_TMP/activate.out" 2>"$TEST_TMP/activate.err"; then
   echo "  FAIL valid connector contract did not activate"
   failures=$((failures + 1))
 elif [ "$(shasum -a 256 "$SUCCESS_DST" | awk '{print $1}')" != "$(shasum -a 256 "$VALID_PLIST" | awk '{print $1}')" ] \
-  || ! loaded com.nostradamus.connectors; then
+  || [ -e "$SUCCESS_CLAIM" ] || ! loaded com.nostradamus.connectors; then
   echo "  FAIL valid connector activation did not publish/load exact staged bytes"
   failures=$((failures + 1))
 elif find "$SUCCESS_AGENTS" -maxdepth 1 \( -name '.com.nostradamus.connectors.backup.*' \
-    -o -name '.com.nostradamus.connectors.staged.*' \) -print -quit | grep -q .; then
-  echo "  FAIL valid connector activation left a staging/backup artifact"
+    -o -name '.com.nostradamus.connectors.staged.*' \
+    -o -name '.com.nostradamus.connectors.plist.credential-claim-*' \
+    -o -name '.com.nostradamus.connectors.plist.credential-committed-*' \) \
+    -print -quit | grep -q .; then
+  echo "  FAIL valid connector activation left a staging/transaction artifact"
   failures=$((failures + 1))
 else
   echo "  ok  valid connector activation atomically publishes and loads"

@@ -651,6 +651,37 @@ def test_v2_projection_is_anchored_to_current() -> None:
             row = next(source for source in good["sources"] if source["file"] == "sealed_2026-08-01.json")
             check("v2 projection: verified current payload + exact provenance is usable",
                   row.get("status") == "in-place", str(row))
+            payload_path = pool / "external" / "official" / "sealed_2026-08-01.json"
+            original_payload = payload_path.read_bytes()
+
+            # Deterministically replace the live projection after sidecar/current
+            # verification but before extract_pool snapshots and parses it. The
+            # earlier provenance must never authenticate these later bytes.
+            raced_payload = _runner.canonical_json_bytes({**payload, "value": 999.0})
+            real_collect_sidecars = ep._collect_sidecars
+            def collect_then_replace(*args, **kwargs):
+                verified = real_collect_sidecars(*args, **kwargs)
+                payload_path.write_bytes(raced_payload)
+                return verified
+            ep._collect_sidecars = collect_then_replace
+            try:
+                raced = ep.extract_pool(
+                    str(pool), out_td, force=True, vision=False, now=eligible_now,
+                )
+            finally:
+                ep._collect_sidecars = real_collect_sidecars
+                payload_path.write_bytes(original_payload)
+            raced_row = next(source for source in raced["sources"]
+                             if source["file"] == "sealed_2026-08-01.json")
+            check("v2 projection: a post-verification snapshot race fails before parsing with old provenance",
+                  raced_row.get("status") == "fail"
+                  and "changed after provenance verification" in raced_row.get("error", ""),
+                  str(raced_row))
+            # Restore the clean manifest/cache baseline so the following cache
+            # invalidation checks still test their named condition independently.
+            ep.extract_pool(
+                str(pool), out_td, force=True, vision=False, now=eligible_now,
+            )
             check("v2 projection: unchanged canonical state is cache-eligible",
                   ep.is_fresh(
                       out_td, str(pool), str(_HERE / "extract_pool.py"), now=eligible_now,
@@ -736,8 +767,6 @@ def test_v2_projection_is_anchored_to_current() -> None:
                   row.get("status") == "fail" and "sidecar is unreadable" in row.get("error", "")
                   and "provenance_basis" not in (row.get("provenance") or {}), str(row))
             sidecar_path.write_text(original_sidecar)
-            payload_path = pool / "external" / "official" / "sealed_2026-08-01.json"
-            original_payload = payload_path.read_bytes()
             def duplicate_first_field(raw):
                 text = raw.decode("utf-8"); comma = text.find(",")
                 return ("{" + text[1:comma] + "," + text[1:]).encode("utf-8")
