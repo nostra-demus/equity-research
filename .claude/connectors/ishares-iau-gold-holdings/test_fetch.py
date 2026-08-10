@@ -45,6 +45,18 @@ else:
 single_day_page = page.replace("Aug 07, 2026", "Aug 7, 2026")
 assert mod.parse_page(single_day_page)[0] == "2026-08-07"
 try:
+    mod.parse_page(page.replace("Aug 07, 2026", "Feb 30, 2026"))
+except RuntimeError as error:
+    assert "invalid date" in str(error), f"Expected invalid calendar-date error, got: {error}"
+else:
+    raise AssertionError("an impossible issuer-page date did not fail closed")
+try:
+    mod.parse_history(xml.replace("Aug 07, 2026", "Foo 07, 2026"))
+except RuntimeError as error:
+    assert "invalid date" in str(error), f"Expected invalid English-month error, got: {error}"
+else:
+    raise AssertionError("an unknown Historical month did not fail closed")
+try:
     mod.build(page.replace("782,900,000", "782,800,000"), xml)
 except RuntimeError:
     pass

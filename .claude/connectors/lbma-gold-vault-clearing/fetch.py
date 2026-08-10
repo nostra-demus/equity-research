@@ -21,6 +21,11 @@ MANIFEST = load_manifest(__file__)
 VAULT_URL = "https://www.lbma.org.uk/prices-and-data/london-vault-data"
 CLEARING_URL = "https://www.lbma.org.uk/prices-and-data/clearing-data"
 MAX_RESPONSE_BYTES = 5 * 1024 * 1024
+MONTHS = {
+    "January": 1, "February": 2, "March": 3, "April": 4, "May": 5, "June": 6,
+    "July": 7, "August": 8, "September": 9, "October": 10, "November": 11,
+    "December": 12,
+}
 
 
 class Text(HTMLParser):
@@ -36,7 +41,14 @@ def visible_text(raw: str) -> str:
 
 
 def _period(value: str) -> tuple[str, str]:
-    parsed = dt.datetime.strptime(value, "%B %Y").date()
+    match = re.fullmatch(r"([A-Z][a-z]+) (\d{4})", value)
+    month_number = MONTHS.get(match.group(1)) if match else None
+    if match is None or month_number is None:
+        raise RuntimeError("LBMA period has an invalid English month/year")
+    try:
+        parsed = dt.date(int(match.group(2)), month_number, 1)
+    except ValueError as error:
+        raise RuntimeError("LBMA period has an invalid English month/year") from error
     month = f"{parsed.year:04d}-{parsed.month:02d}"
     return month, f"{month}-{calendar.monthrange(parsed.year, parsed.month)[1]:02d}"
 

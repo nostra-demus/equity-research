@@ -146,6 +146,14 @@ def main() -> int:
         assert artifact["complete"] is False
         assert artifact["unresolved_need_ids"] == ["manual-need", "missing-route"]
 
+        malformed_result = compile_coverage(
+            commodity="GOLD", decision_time="2026-08-11T00:00:00Z", profile_path=profile,
+            structured_root=structured_root, connectors_root=root, data_root=root,
+            market_root=market_root, state_root=state_root,
+            reader=lambda *_args, **_kwargs: ["malformed"], manifests=manifests,
+        )
+        assert malformed_result["rows"][0]["status"] == "suspect"
+
         resolved = resolve_profile_series(
             "gold.shared", "GOLD", "2026-08-11T00:00:00Z", profile_path=profile,
             structured_root=structured_root, connectors_root=root, data_root=root,

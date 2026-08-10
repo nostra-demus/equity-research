@@ -391,7 +391,7 @@ def _resolve_connector(
     if result is None:
         return {"usable": False, "status": "missing", "reason": "no eligible immutable vintage was knowable at decision time", "manifest": manifest}
     vintage = result.get("vintage") if isinstance(result, dict) else None
-    if result.get("usable") is not True or result.get("health") != "current" or not isinstance(vintage, dict):
+    if not isinstance(result, dict) or result.get("usable") is not True or result.get("health") != "current" or not isinstance(vintage, dict):
         return {"usable": False, "status": "suspect", "reason": "point-in-time reader rejected the available vintage", "manifest": manifest}
     if vintage.get("acquisition") == "manual" or not isinstance(vintage.get("tier"), int) or vintage.get("tier") > 5:
         return {"usable": False, "status": "manual", "reason": "selected vintage is not eligible primary/provider evidence", "manifest": manifest}

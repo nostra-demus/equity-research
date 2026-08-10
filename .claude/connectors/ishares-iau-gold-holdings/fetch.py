@@ -25,6 +25,10 @@ DOWNLOAD_URL = ("https://www.blackrock.com/varnish-api/blk-one01-product-data/pr
                 "component=fundDownload&userType=individual")
 MAX_RESPONSE_BYTES = 4 * 1024 * 1024
 SS = "{urn:schemas-microsoft-com:office:spreadsheet}"
+MONTHS = {
+    "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4, "May": 5, "Jun": 6,
+    "Jul": 7, "Aug": 8, "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12,
+}
 
 
 class Text(HTMLParser):
@@ -38,12 +42,23 @@ def _visible(raw: str) -> str:
     return re.sub(r"\s+", " ", html.unescape(" ".join(parser.parts))).strip()
 
 
+def _english_day(value: str, context: str) -> str:
+    match = re.fullmatch(r"([A-Z][a-z]{2}) (\d{1,2}), (\d{4})", value)
+    month = MONTHS.get(match.group(1)) if match else None
+    if match is None or month is None:
+        raise RuntimeError(f"{context} has an invalid date")
+    try:
+        return dt.date(int(match.group(3)), month, int(match.group(2))).isoformat()
+    except ValueError as error:
+        raise RuntimeError(f"{context} has an invalid date") from error
+
+
 def _metric(text: str, label: str) -> tuple[float, str]:
     match = re.search(re.escape(label) + r"\s+([\d,.]+)\s+as of ([A-Z][a-z]{2} \d{1,2}, \d{4})", text)
     if not match:
         raise RuntimeError(f"IAU page lacks {label}")
     value = float(match.group(1).replace(",", ""))
-    day = dt.datetime.strptime(match.group(2), "%b %d, %Y").date().isoformat()
+    day = _english_day(match.group(2), f"IAU page {label}")
     if not math.isfinite(value) or value <= 0:
         raise RuntimeError(f"IAU page has invalid {label}")
     return value, day
@@ -130,10 +145,7 @@ def parse_history(raw: str) -> list[dict]:
             if re.match(r"^(?:[A-Z][a-z]{2}\s|\d{4}-)", values[0]):
                 raise RuntimeError("IAU Historical row has an unrecognized date-shaped value")
             continue
-        try:
-            day = dt.datetime.strptime(values[0], "%b %d, %Y").date().isoformat()
-        except ValueError as error:
-            raise RuntimeError("IAU Historical row has an invalid date") from error
+        day = _english_day(values[0], "IAU Historical row")
         if values[1] in {"", "--", "N/A", "n/a"} or values[3] in {"", "--", "N/A", "n/a"}:
             continue
         try:

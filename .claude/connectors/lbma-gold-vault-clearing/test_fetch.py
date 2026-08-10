@@ -21,6 +21,12 @@ assert not defects, defects
 assert as_of == "2026-06-30" and payload["vault"]["gold_tonnes"] == 9464
 assert mod.parse_vault(vault.replace("a 0.77%", "an 8%"))[2]["change_mom_pct"] == 8.0
 try:
+    mod.parse_vault(vault.replace("June 2026", "Junuary 2026"))
+except RuntimeError as error:
+    assert "invalid English month" in str(error), f"Expected invalid English-month error, got: {error}"
+else:
+    raise AssertionError("an unknown LBMA English month did not fail closed")
+try:
     mod.build(vault.replace("June 2026", "May 2026"), clearing)
 except RuntimeError as error:
     assert "not aligned" in str(error), f"Expected period-alignment error, got: {error}"
