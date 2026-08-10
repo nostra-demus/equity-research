@@ -35,8 +35,10 @@ def build(document: object):
     if not isinstance(document, dict):
         raise RuntimeError("EIA response is not an object")
     response = document.get("response")
-    rows = response.get("data") if isinstance(response, dict) else None
-    if response is None or response.get("frequency") != "weekly" or not isinstance(rows, list) or len(rows) < 262:
+    if not isinstance(response, dict):
+        raise RuntimeError("EIA response lacks the required five-year weekly storage history")
+    rows = response.get("data")
+    if response.get("frequency") != "weekly" or not isinstance(rows, list) or len(rows) < 262:
         raise RuntimeError("EIA response lacks the required five-year weekly storage history")
     observations = []
     seen = set()

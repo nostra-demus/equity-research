@@ -126,9 +126,8 @@ for connector_id in ("federal-reserve-broad-usd",):
     assert "from fred_broad_usd import" in fetch_text and "csv.DictReader" not in fetch_text
 assert "scripts/fred_broad_usd.py" in publisher_paths
 retired_fred = os.path.join(CONNECTOR_ROOT, "federal-reserve-broad-usd-gold")
-assert os.path.isfile(os.path.join(retired_fred, "connector.retired.json"))
-assert not os.path.exists(os.path.join(retired_fred, "connector.json"))
-assert not os.path.exists(os.path.join(retired_fred, "fetch.py"))
+assert not os.path.exists(retired_fred), "retired connector directories must leave production discovery entirely"
+assert os.path.isfile(os.path.join(CONNECTOR_ROOT, "federal-reserve-broad-usd", "MIGRATION.md"))
 discovered, skipped = load_valid_manifests(CONNECTOR_ROOT)
 discovered_ids = {manifest["id"] for manifest in discovered}
 assert set(all_manifests) <= discovered_ids, {

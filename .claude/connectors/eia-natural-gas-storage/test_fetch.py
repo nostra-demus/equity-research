@@ -39,6 +39,7 @@ assert payload["observations"][-1]["working_gas_bcf"] == 2269
 assert "fixture-secret" not in json.dumps([payload, sidecar])
 assert "api_key" not in payload["source_url"]
 for bad in (
+    {"response": []},
     {"response": {"frequency": "weekly", "data": fixture["response"]["data"][:261]}},
     {"response": {"frequency": "daily", "data": fixture["response"]["data"]}},
     {"response": {"frequency": "weekly", "data": [{**row, "units": "MMCF"} for row in fixture["response"]["data"]]}},

@@ -38,6 +38,7 @@ assert payload["observations"][-1]["total_observed_crude_stocks_thousand_bbl"] =
 assert "fixture-secret" not in json.dumps([payload, sidecar])
 assert all("api_key" not in url for url in payload["source_urls"])
 for bad_commercial, bad_spr in (
+    ({"response": []}, spr),
     ({"response": {"frequency": "weekly", "data": commercial["response"]["data"][:149]}}, spr),
     ({"response": {"frequency": "daily", "data": commercial["response"]["data"]}}, spr),
     (commercial, {"response": {"frequency": "weekly", "data": spr["response"]["data"][:-1]}}),

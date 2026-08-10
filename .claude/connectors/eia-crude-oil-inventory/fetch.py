@@ -37,8 +37,10 @@ def _observations(document: object, expected_code: str) -> dict[str, int]:
     if not isinstance(document, dict):
         raise RuntimeError("EIA response is not an object")
     response = document.get("response")
-    rows = response.get("data") if isinstance(response, dict) else None
-    if response is None or response.get("frequency") != "weekly" or not isinstance(rows, list) or len(rows) < 150:
+    if not isinstance(response, dict):
+        raise RuntimeError("EIA response lacks the required weekly history")
+    rows = response.get("data")
+    if response.get("frequency") != "weekly" or not isinstance(rows, list) or len(rows) < 150:
         raise RuntimeError("EIA response lacks the required weekly history")
     observations: dict[str, int] = {}
     for row in rows:
