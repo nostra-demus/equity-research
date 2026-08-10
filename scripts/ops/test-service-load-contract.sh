@@ -9,6 +9,12 @@ TEST_TMP="$(mktemp -d)" || exit 1
 trap 'rm -rf "$TEST_TMP"' EXIT
 PYTHON_BIN="$(command -v python3)"
 
+# Portable file-size query. The `tools-tests` CI job runs this script on ubuntu-latest, where GNU stat
+# reads `-f` as --file-system and `%z` is not a valid file-size format (it errors), so `stat -f '%z'`
+# returned empty/garbage and the same-size race assertions below failed spuriously. os.stat via the
+# already-resolved PYTHON_BIN is byte-exact on both GNU and BSD/macOS.
+file_size() { "$PYTHON_BIN" -c 'import os,sys; print(os.stat(sys.argv[1]).st_size)' "$1"; }
+
 expect_connector_rejection() {
   local description="$1" plist_path="$2" repo_root="$3" config_dir="$4"
   if nostra_validate_connector_plist "$plist_path" "$repo_root" "$config_dir" \
@@ -112,7 +118,7 @@ expect_connector_rejection "symlink connector plist" "$TEST_TMP/connectors-link.
 RACE_PLIST="$TEST_TMP/connectors-same-size-race.plist"
 cp "$VALID_PLIST" "$RACE_PLIST"
 chmod 600 "$RACE_PLIST"
-RACE_SIZE="$(stat -f '%z' "$RACE_PLIST")"
+RACE_SIZE="$(file_size "$RACE_PLIST")"
 RACE_SYNC="$TEST_TMP/validator-sync"
 mkdir -p "$RACE_SYNC"
 nostra_validate_connector_plist "$RACE_PLIST" "$TEST_REPO" "$TEST_CONFIG" "$RACE_SYNC" \
@@ -148,7 +154,7 @@ PY
   if [ "$RACE_RESULT" = 0 ]; then
     echo "  FAIL same-size in-place mutation escaped connector validation"
     failures=$((failures + 1))
-  elif [ "$(stat -f '%z' "$RACE_PLIST")" != "$RACE_SIZE" ]; then
+  elif [ "$(file_size "$RACE_PLIST")" != "$RACE_SIZE" ]; then
     echo "  FAIL timestamp regression did not preserve file size"
     failures=$((failures + 1))
   elif ! grep -Eq 'changed during secure read|changed during validation' "$TEST_TMP/race.err"; then

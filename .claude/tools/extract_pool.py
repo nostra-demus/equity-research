@@ -230,8 +230,25 @@ def _read_pool_regular_bytes(data_path, rel):
             os.close(descriptor)
 
 
-def _snapshot_pool_file(data_path, rel, snapshot_pool):
+def _snapshot_pool_file(data_path, rel, snapshot_pool, attested_sha256=None):
+    """Snapshot one pool file for parsing, bound to the digest its provenance attested.
+
+    `_collect_sidecars` verifies a projection's bytes against `content_sha256` (and, for a v2
+    projection, against canonical current / the committed vintage) EARLIER than this snapshot read.
+    Without re-checking here, a Drive projection that is re-synced or tampered with in between is
+    read fresh, parsed, and emitted into the manifest under the earlier trusted provenance — the
+    sealed source's attribution applied to bytes it never attested. Re-hashing the snapshot against
+    the attested digest closes that window: a projection that changed after verification now FAILS
+    this row (`unsafe-input`) instead of inheriting someone else's provenance.
+    """
     raw = _read_pool_regular_bytes(data_path, rel)
+    if attested_sha256 is not None:
+        actual = hashlib.sha256(raw).hexdigest()
+        if actual != attested_sha256:
+            raise ValueError(
+                "projection bytes changed after provenance verification "
+                f"(attested {attested_sha256!r}, snapshot {actual})"
+            )
     target = os.path.join(snapshot_pool, *str(rel).replace("/", os.sep).split(os.sep))
     os.makedirs(os.path.dirname(target), exist_ok=True)
     with open(target, "wb") as fh:
@@ -418,7 +435,8 @@ def _collect_sidecars(data_path, decision_at):
                     projected_bytes = _read_pool_regular_bytes(data_path, rel)
                     if hashlib.sha256(projected_bytes).hexdigest() != expected_raw:
                         raise ValueError("ordinary ingest sha256 does not match routed bytes")
-                    parsed = {**parsed, "_ordinary_ingest_hash_verified": True}
+                    parsed = {**parsed, "_ordinary_ingest_hash_verified": True,
+                              "_verified_content_sha256": expected_raw}
                 except Exception as exc:
                     parsed = {**parsed, "_integrity_error": f"bad routed external input: {exc}"}
             elif owner is None and "sha256" in parsed and parsed.get("routed_by") != "ingest_external.py":
@@ -431,7 +449,11 @@ def _collect_sidecars(data_path, decision_at):
                     projection_state = _verify_v2_projection(
                         data_path, rel, parsed, owner, decision_at,
                     )
-                    parsed = {**parsed, "_projection_state": projection_state}
+                    # Carry the digest this verification actually attested, so the later
+                    # _snapshot_pool_file read can be bound to THESE bytes rather than trusting that
+                    # the projection did not change in between (see _snapshot_pool_file's re-check).
+                    parsed = {**parsed, "_projection_state": projection_state,
+                              "_verified_content_sha256": parsed.get("content_sha256")}
                 except Exception as exc:
                     parsed = {**parsed, "_integrity_error": f"bad connector projection: {exc}"}
             elif expected is not None and "_integrity_error" not in parsed:
@@ -1663,7 +1685,14 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None,
         # hierarchy. A descendant path swap can therefore only make this row
         # fail; it can never redirect a parser or corpus read outside the pool.
         try:
-            p = _snapshot_pool_file(data_path, rel, snapshot_pool)
+            # Bind the snapshot to the digest _collect_sidecars actually attested for this path, so a
+            # projection re-synced or tampered with after verification cannot be parsed under the
+            # earlier sealed provenance (it fails this row instead).
+            _attested = (prov_map.get(rel) or {}).get("_verified_content_sha256")
+            p = _snapshot_pool_file(
+                data_path, rel, snapshot_pool,
+                _attested if isinstance(_attested, str) else None,
+            )
         except (OSError, ValueError) as exc:
             n_fail += 1
             _add({"file": base, "ext": ext or "(none)", "kind": "unsafe-input",

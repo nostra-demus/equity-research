@@ -153,6 +153,24 @@ except (ContractError, ValueError) as error:
 PY
 }
 
+# Portable plist well-formedness check. macOS ships `plutil -lint`, but the tools-tests CI job runs this
+# contract on ubuntu-latest where plutil does not exist, so a plutil call errored and the activation
+# function bailed out before touching launchd — failing the required job. plistlib parses both XML and
+# binary plists and is available wherever python3 is (macOS and Linux alike), so it matches plutil -lint's
+# well-formedness intent on every runner. Nonzero exit on any parse error.
+nostra_plist_lint() {
+  local python_bin="${PYTHON_BIN:-python3}"
+  "$python_bin" -I - "$1" <<'PY'
+import plistlib, sys
+try:
+    with open(sys.argv[1], "rb") as fh:
+        plistlib.load(fh)
+except Exception as exc:  # malformed / unreadable plist
+    sys.stderr.write("plist lint failed: %s\n" % exc)
+    raise SystemExit(1)
+PY
+}
+
 # Atomically activate a pre-rendered connector LaunchAgent. The caller owns the staged file until this
 # function is called; this function then either installs it successfully or removes/restores every file it
 # touched. Crucially, the installed bytes are verified before the currently loaded job is booted out.
@@ -164,7 +182,7 @@ nostra_activate_connector_plist() {
   if [ -e "$dst" ] || [ -L "$dst" ]; then
     had_prior=1
     backup="$(mktemp "$agents_dir/.${label}.backup.XXXXXX")" || { rm -f "$staged"; return 1; }
-    if ! cp "$dst" "$backup" || ! chmod 600 "$backup" || ! plutil -lint "$backup" >/dev/null; then
+    if ! cp "$dst" "$backup" || ! chmod 600 "$backup" || ! nostra_plist_lint "$backup" >/dev/null; then
       echo "  FAIL: could not create a usable connector plist rollback copy — running service left untouched" >&2
       rm -f "$staged" "$backup"
       return 1
@@ -182,7 +200,7 @@ nostra_activate_connector_plist() {
     return 1
   fi
   if ! chmod 600 "$dst" \
-    || ! plutil -lint "$dst" >/dev/null \
+    || ! nostra_plist_lint "$dst" >/dev/null \
     || ! nostra_validate_connector_plist "$dst" "$repo_root" "$config_dir"; then
     echo "  FAIL: installed connector plist failed verification before bootout; restoring prior file" >&2
     if [ "$had_prior" = 1 ]; then

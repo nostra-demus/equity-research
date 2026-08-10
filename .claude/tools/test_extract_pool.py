@@ -802,6 +802,52 @@ def test_v2_projection_is_anchored_to_current() -> None:
             ep.CONNECTOR_REGISTRY_ROOT = previous_registry
 
 
+def test_snapshot_bound_to_attested_digest() -> None:
+    """A projection that changes AFTER its provenance was verified must not be parsed under it.
+
+    _collect_sidecars verifies a projection's bytes against content_sha256 (and, for a v2 projection,
+    against canonical current / the committed vintage) strictly before _snapshot_pool_file reads them.
+    Without binding the snapshot to that attested digest, a Drive projection re-synced or tampered with
+    in between is parsed and emitted into the manifest under the earlier trusted provenance — the sealed
+    source's attribution applied to bytes it never attested (Codex review on PR #407).
+    """
+    import hashlib
+
+    verified = b'{"series":"gold","value":1}'
+    tampered = b'{"series":"gold","value":9}'
+    attested = hashlib.sha256(verified).hexdigest()
+    rel = "external/acme/projection.json"
+
+    with tempfile.TemporaryDirectory() as pool, tempfile.TemporaryDirectory() as snap:
+        doc = Path(pool) / rel
+        doc.parent.mkdir(parents=True, exist_ok=True)
+        doc.write_bytes(verified)
+        snapshot = ep._snapshot_pool_file(pool, rel, snap, attested)
+        check("unchanged projection snapshots under its attested digest",
+              Path(snapshot).read_bytes() == verified)
+
+    with tempfile.TemporaryDirectory() as pool, tempfile.TemporaryDirectory() as snap:
+        doc = Path(pool) / rel
+        doc.parent.mkdir(parents=True, exist_ok=True)
+        doc.write_bytes(verified)          # what verification attested
+        doc.write_bytes(tampered)          # re-synced/tampered before the snapshot read
+        try:
+            ep._snapshot_pool_file(pool, rel, snap, attested)
+            changed_rejected = False
+            detail = "tampered projection was snapshotted under the verified provenance"
+        except ValueError as exc:
+            changed_rejected = "changed after provenance verification" in str(exc)
+            detail = str(exc)
+        check("projection changed after verification fails closed", changed_rejected, detail)
+
+    with tempfile.TemporaryDirectory() as pool, tempfile.TemporaryDirectory() as snap:
+        plain = Path(pool) / "ordinary.txt"
+        plain.write_bytes(b"hello")
+        snapshot = ep._snapshot_pool_file(pool, "ordinary.txt", snap)
+        check("a file with no attested digest still snapshots (backward compatible)",
+              Path(snapshot).read_bytes() == b"hello")
+
+
 def main() -> int:
     print("== sniff: content beats extension ==")
     test_sniff()
@@ -825,6 +871,8 @@ def main() -> int:
     test_routed_raw_hash_binding()
     print("== v2 connector projection anchored to canonical current ==")
     test_v2_projection_is_anchored_to_current()
+    print("== snapshot bound to the attested projection digest ==")
+    test_snapshot_bound_to_attested_digest()
     print(f"\n{_passed} passed, {_failed} failed, {_skipped} skipped")
     return 1 if _failed else 0
 

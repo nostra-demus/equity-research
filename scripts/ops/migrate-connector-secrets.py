@@ -58,6 +58,21 @@ class MigrationError(RuntimeError):
     pass
 
 
+def _identity(info: os.stat_result) -> tuple[int, int, int, int, int, int]:
+    """Full change-detecting identity: device, inode, size, mtime, ctime, link count.
+
+    Comparing only (dev, ino, size) accepts a SAME-SIZE in-place rewrite — another installer or
+    operator overwriting the plist with equal-length bytes while migration reads it — so the helper
+    could return stale or mixed credential bytes as "successfully preserved", after which callers
+    replace the installed plist with a keyless version and may delete the new credential's only copy.
+    mtime_ns/ctime_ns catch the in-place edit; st_nlink != 1 rejects a hardlink alias that could be
+    mutated through another path. Mirrors the stricter identity() in
+    scripts/ops/service-load-contract.sh's secure_read and _read_regular_nofollow_bytes.
+    """
+    return (info.st_dev, info.st_ino, info.st_size,
+            info.st_mtime_ns, info.st_ctime_ns, info.st_nlink)
+
+
 def _owner_only_regular(path: str) -> tuple[os.stat_result, bytes]:
     try:
         before = os.lstat(path)
@@ -65,6 +80,7 @@ def _owner_only_regular(path: str) -> tuple[os.stat_result, bytes]:
         raise MigrationError(f"cannot inspect {os.path.basename(path)}") from error
     if (not stat.S_ISREG(before.st_mode) or stat.S_ISLNK(before.st_mode)
             or before.st_uid != os.getuid() or before.st_mode & 0o077
+            or before.st_nlink != 1
             or before.st_size > MAX_FILE_BYTES):
         raise MigrationError(f"{os.path.basename(path)} must be an owner-only regular file <=1MiB")
     flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
@@ -74,9 +90,9 @@ def _owner_only_regular(path: str) -> tuple[os.stat_result, bytes]:
         raise MigrationError(f"cannot open {os.path.basename(path)} safely") from error
     try:
         opened = os.fstat(descriptor)
-        if ((opened.st_dev, opened.st_ino) != (before.st_dev, before.st_ino)
+        if (_identity(opened) != _identity(before)
                 or opened.st_uid != os.getuid() or opened.st_mode & 0o077
-                or not stat.S_ISREG(opened.st_mode) or opened.st_size != before.st_size):
+                or not stat.S_ISREG(opened.st_mode)):
             raise MigrationError(f"{os.path.basename(path)} changed during secure open")
         remaining = opened.st_size
         chunks: list[bytes] = []
@@ -86,13 +102,20 @@ def _owner_only_regular(path: str) -> tuple[os.stat_result, bytes]:
                 raise MigrationError(f"short read from {os.path.basename(path)}")
             chunks.append(chunk)
             remaining -= len(chunk)
+        # Re-check the OPEN DESCRIPTOR after the read as well: a same-size in-place rewrite through
+        # this very inode changes mtime/ctime without changing (dev, ino, size), so only an fstat
+        # comparison here can prove the bytes just read were never mixed with a concurrent write.
+        finished = os.fstat(descriptor)
+        if (_identity(finished) != _identity(before)
+                or finished.st_uid != os.getuid() or finished.st_mode & 0o077):
+            raise MigrationError(f"{os.path.basename(path)} changed during secure read")
     finally:
         os.close(descriptor)
     try:
         after = os.lstat(path)
     except OSError as error:
         raise MigrationError(f"cannot re-check {os.path.basename(path)}") from error
-    if ((after.st_dev, after.st_ino, after.st_size) != (before.st_dev, before.st_ino, before.st_size)
+    if (_identity(after) != _identity(before)
             or after.st_uid != os.getuid() or after.st_mode & 0o077):
         raise MigrationError(f"{os.path.basename(path)} changed during read")
     return before, b"".join(chunks)

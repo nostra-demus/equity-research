@@ -105,5 +105,62 @@ with tempfile.TemporaryDirectory() as root:
         linked = True
     check("symlinked config directory is refused", linked)
 
+# A same-size in-place rewrite DURING the secure read must fail closed. Comparing only
+# (dev, ino, size) accepted it, so the helper could hand back stale or mixed credential bytes as
+# "successfully preserved" — after which callers install a keyless plist and may delete the new
+# credential's only copy (Codex review on PR #407). Hooking os.read gives a deterministic interleave
+# point inside the read window rather than a flaky thread race.
+with tempfile.TemporaryDirectory() as root:
+    target = os.path.join(root, "connectors.plist")
+    original = b"CONNECTOR_TEST_TOKEN=old-secret-value-aaaaaaaaaaaa\n"
+    replacement = b"CONNECTOR_TEST_TOKEN=NEW-secret-value-bbbbbbbbbbbb\n"
+    assert len(original) == len(replacement)  # same size: only mtime/ctime can reveal the swap
+    with open(target, "wb") as handle:
+        handle.write(original)
+    os.chmod(target, 0o600)
+    baseline = os.stat(target)
+    real_read = os.read
+    mutated = {"done": False}
+
+    def _mutating_read(fd: int, size: int) -> bytes:
+        if not mutated["done"]:
+            mutated["done"] = True
+            with open(target, "r+b", buffering=0) as handle:
+                handle.seek(0)
+                handle.write(replacement)
+            os.utime(target, ns=(baseline.st_atime_ns, baseline.st_mtime_ns + 1_000_000_000))
+        return real_read(fd, size)
+
+    os.read = _mutating_read
+    try:
+        MOD._owner_only_regular(target)
+        raced = False
+    except MOD.MigrationError as error:
+        raced = "changed during" in str(error)
+    finally:
+        os.read = real_read
+    check("same-size in-place rewrite during the secure read is refused", raced)
+
+# A hardlinked plist can be mutated through its other path, so it must never be treated as a
+# stable credential source (same integrity boundary as the symlink refusal above).
+with tempfile.TemporaryDirectory() as root:
+    target = os.path.join(root, "connectors.plist")
+    write_plist(target, {"CONNECTOR_TEST_TOKEN": "secret"})
+    os.chmod(target, 0o600)
+    clean = True
+    try:
+        MOD._owner_only_regular(target)
+    except MOD.MigrationError:
+        clean = False
+    check("a unique owner-only plist is still readable", clean)
+
+    os.link(target, os.path.join(root, "alias.plist"))  # nlink == 2
+    try:
+        MOD._owner_only_regular(target)
+        hardlinked = False
+    except MOD.MigrationError:
+        hardlinked = True
+    check("hardlinked plist is refused", hardlinked)
+
 print(f"\n{'PASS' if not failures else 'FAIL'}: connector secret migration — {failures} failures")
 raise SystemExit(1 if failures else 0)

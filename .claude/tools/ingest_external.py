@@ -223,9 +223,9 @@ def sha256_file(path):
     flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
     fd = os.open(path, flags)
     info = os.fstat(fd)
-    if not stat.S_ISREG(info.st_mode):
+    if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1:
         os.close(fd)
-        raise ValueError("source is not a regular non-symlink file")
+        raise ValueError("source must be a unique regular non-symlink file")
     with os.fdopen(fd, "rb") as fh:
         for chunk in iter(lambda: fh.read(1 << 20), b""):
             h.update(chunk)

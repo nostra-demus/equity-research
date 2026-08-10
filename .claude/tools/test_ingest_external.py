@@ -409,6 +409,33 @@ def main():
     check("dry-run leaves the original", os.path.exists(os.path.join(root, "EXTERNAL-INBOX", "dry.txt")))
     shutil.rmtree(root)
 
+    # ---- 10. sha256_file rejects a hardlinked source (TOCTOU) ----
+    # A file with st_nlink > 1 can be rewritten through its OTHER path between hashing and copying,
+    # so the recorded digest would not describe the bytes that land in the pool. The sibling reader
+    # extract_pool._read_regular_nofollow_bytes already enforces st_nlink != 1; this closes the same
+    # hole in the digest path (Gemini review on PR #407), matching the PR's stated integrity boundary
+    # that hard-link attacks fail closed.
+    root = tempfile.mkdtemp()
+    real_doc = os.path.join(root, "unique.json")
+    with open(real_doc, "wb") as fh:
+        fh.write(b'{"panel":"gold","value":1}')
+    hardlink_rejected = False
+    try:
+        m.sha256_file(real_doc)
+    except ValueError:
+        hardlink_rejected = True
+    check("a unique (nlink==1) regular file still hashes", not hardlink_rejected)
+
+    alias = os.path.join(root, "alias.json")
+    os.link(real_doc, alias)  # nlink == 2 — mutable through a second path
+    hardlink_rejected = False
+    try:
+        m.sha256_file(real_doc)
+    except ValueError as exc:
+        hardlink_rejected = "unique regular non-symlink file" in str(exc)
+    check("hardlinked source is rejected before hashing", hardlink_rejected)
+    shutil.rmtree(root)
+
     print()
     if failures:
         print(f"FAILED: {len(failures)} check(s): {failures}")
