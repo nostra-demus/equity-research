@@ -292,6 +292,11 @@ def main() -> int:
     assert validate_decision_record(fresh, artifact, artifact_digest, requirements) == [], validate_decision_record(
         fresh, artifact, artifact_digest, requirements,
     )
+    malformed_horizon = copy.deepcopy(fresh)
+    malformed_horizon["forecast_horizons"]["tactical"] = None
+    assert any("forces both horizons" in error for error in validate_decision_record(
+        malformed_horizon, artifact, artifact_digest, requirements,
+    ))
     stronger = copy.deepcopy(fresh)
     stronger["forecast_horizons"]["strategic"] = copy.deepcopy(record["forecast_horizons"]["strategic"])
     stronger["forecast_horizons"]["strategic"]["target_date"] = "2027-08-11"

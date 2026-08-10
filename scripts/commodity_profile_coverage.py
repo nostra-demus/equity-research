@@ -211,7 +211,7 @@ def _quality_error(payload: Any, as_of: Any, quality: dict[str, Any], cutoff: dt
         )
         date_field = quality.get("date_field", "date")
         dates = [
-            _parse_instant(item.get(date_field)) for item in points or []
+            _parse_instant(item.get(date_field)) for item in (points if isinstance(points, list) else [])
             if isinstance(item, dict)
         ]
         dates = [value for value in dates if value is not None and value <= cutoff]

@@ -2,13 +2,14 @@
 """Fail-closed tests for typed profile coverage and point-in-time selection."""
 from __future__ import annotations
 
+import copy
+import datetime as dt
 import hashlib
 import json
-import copy
 import tempfile
 from pathlib import Path
 
-from commodity_profile_coverage import compile_coverage, resolve_profile_series, structured_profile
+from commodity_profile_coverage import _quality_error, compile_coverage, resolve_profile_series, structured_profile
 
 
 ROWS = [
@@ -19,6 +20,12 @@ ROWS = [
     ("basis-need", "gold.basis", "commodity-price-curve", "current basis", "deterministic derivation"),
     ("missing-route", "gold.missing", "commodity-cross-asset-regime", "weekly", "lawful connector"),
 ]
+
+assert _quality_error(
+    {"points": {"unexpected": "mapping"}}, "2026-08-10",
+    {"min_span_days": 1, "date_field": "date"},
+    dt.datetime(2026, 8, 11, tzinfo=dt.timezone.utc),
+) == "history spans fewer than 1 required days"
 
 
 def markdown() -> str:

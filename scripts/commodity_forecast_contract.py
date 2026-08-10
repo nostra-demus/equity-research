@@ -498,7 +498,9 @@ def _coverage_errors(
     if unresolved:
         horizons = record.get("forecast_horizons")
         horizon_statuses = [
-            horizons.get(name, {}).get("status") if isinstance(horizons, dict) else None
+            horizons.get(name).get("status")
+            if isinstance(horizons, dict) and isinstance(horizons.get(name), dict)
+            else None
             for name in ("tactical", "strategic")
         ]
         if horizon_statuses != ["not_assessable", "not_assessable"]:
