@@ -2,7 +2,7 @@
 
 The shared `federal-reserve-broad-usd` connector replaces the former
 `federal-reserve-broad-usd-gold` connector and owns the common
-`macro.broad-usd-index` series for Gold and Crude Oil.
+`macro.broad-usd-index` series across Gold, Crude Oil, Copper and Aluminium.
 
 The former connector directory was removed so directory-based production
 discovery cannot treat a retired identity as a malformed live connector.

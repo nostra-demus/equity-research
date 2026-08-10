@@ -310,6 +310,46 @@ Wood Mackenzie / CRU (dated, labelled), CFTC COT.
 **Recurring reports (catalysts):** ICSG monthly + biannual forecast; LME/COMEX/SHFE weekly stocks; China
 monthly activity + PMI; major-miner quarterly production; CFTC COT.
 
+**Family-specific physical-market rules:** align grade, warehouse eligibility, currency, unit and timestamp
+before comparing LME, COMEX and SHFE. Never add exchange stocks without separating on-warrant,
+cancelled-warrant and bonded/off-exchange material. TC/RC evidence belongs to `commodity-supply` and is
+not a second vote for the same mine disruption. `commodity-supply` builds the pre-policy bridge from mine
+and scrap output through domestic absorption and stock change; `commodity-supply-security` then applies
+restrictions, sanctions, chokepoints and verified rerouting without duplicating those tonnes. China activity
+is a demand input, not proof of copper demand without a primary end-use or refined-balance series.
+Cross-asset ratios are computed from the declared price histories and count once under the correlation-cluster rule.
+
+**Required semantic series (profile-owned; connector IDs are deliberately absent):**
+
+| Need ID | Stable series ID | Owner orb | Required history / freshness | Lawful source policy |
+|---|---|---|---|---|
+| `copper-managed-money-positioning` | `copper.managed-money-positioning` | commodity-positioning-flows | weekly; ≥3 years and current COMEX COT observation | CFTC public API; Copper #1 futures-only disaggregated report |
+| `copper-lme-investment-fund-positioning` | `copper.lme-investment-fund-positioning` | commodity-positioning-flows | weekly; ≥3 years of LME investment-fund positioning | lawful LME COTR publication or licensed feed; otherwise manual or unavailable |
+| `copper-etf-flows` | `copper.etf-flows` | commodity-positioning-flows | daily/weekly CPER issuer shares or holdings | lawful issuer publications only; otherwise unavailable |
+| `macro-broad-usd-index` | `macro.broad-usd-index` | commodity-macro-drivers | daily; ≥3 years for copper/USD regimes | reuse one Federal Reserve/FRED semantic series across commodity profiles; no commodity-specific clone |
+| `macro-china-industrial-activity` | `macro.china-industrial-activity` | commodity-macro-drivers | monthly; ≥10 years with release vintage | primary official industrial production, fixed-asset investment and property completions; licensed PMI stays contextual |
+| `macro-global-activity-demand-proxy` | `macro.global-activity-demand-proxy` | commodity-macro-drivers | monthly; ≥10 years with release vintage | primary global industrial-production/trade series or licensed PMI with source identity; unavailable otherwise |
+| `macro-us-10y-real-yield` | `macro.us-10y-real-yield` | commodity-macro-drivers | daily; ≥3 years for real-rate regime validation | primary US Treasury or Federal Reserve/FRED series with release vintage; reuse one semantic series across profiles |
+| `copper-current-price` | `copper.current-price` | commodity-price-curve | current front-month COMEX Copper futures quote | reuse the swarm pulse quote transport (`@HG.1`); label it USD/lb futures; no connector clone |
+| `copper-comex-price-history` | `copper.comex-price-history` | commodity-price-curve | point-in-time COMEX Copper close history with source identity | reuse lawful shared market history for `@HG.1`; continuous back-adjusted futures |
+| `copper-gold-price-history` | `copper.gold-price-history` | commodity-cross-asset-regime | point-in-time Gold close history aligned to copper | reuse lawful shared market history for `@GC.1`; continuous back-adjusted futures |
+| `copper-miner-equity-history` | `copper.miner-equity-history` | commodity-cross-asset-regime | split-adjusted COPX history aligned to copper | lawful shared equity history; miners are a levered confirmation, not the metal |
+| `copper-lme-cash-three-month-curve` | `copper.lme-cash-three-month-curve` | commodity-price-curve | current LME cash and 3-month prices plus spread history | lawful LME publication or licensed feed with exact prompt dates; otherwise manual or unavailable |
+| `copper-visible-inventory` | `copper.visible-inventory` | commodity-demand-inventory | weekly; ≥5 years of LME, COMEX and SHFE eligible stocks | primary exchange warehouse reports; preserve warrant status and do not infer hidden stocks |
+| `copper-inventory-accessibility-opacity` | `copper.inventory-accessibility-opacity` | commodity-demand-inventory | current off-warrant, bonded and off-exchange inventory evidence with estimate dispersion | primary warehouse/customs disclosures or licensed estimates; never infer hidden stocks as zero and apply opacity caps when coverage is weak |
+| `copper-regional-arbitrage` | `copper.regional-arbitrage` | commodity-price-curve | aligned LME, COMEX and SHFE prices net of FX, tax and freight | lawful exchange/licensed prices with cited conversion assumptions; otherwise unavailable |
+| `copper-concentrate-tcrc` | `copper.concentrate-tcrc` | commodity-supply | current spot and benchmark TC/RC with dispersion | primary smelter/miner contract disclosures or licensed assessment; otherwise unavailable |
+| `copper-mine-prepolicy-supply` | `copper.mine-prepolicy-supply` | commodity-supply | monthly gross mine and scrap output bridge through domestic absorption and stock change | ICSG/USGS and producer/customs disclosures with disruptions and revisions retained; exclude restrictions and rerouting from this row |
+| `copper-supply-restrictions-routing` | `copper.supply-restrictions-routing` | commodity-supply-security | current restricted, sanctioned or stranded tonnage and verified rerouting bridge | primary government, customs and producer evidence; start from the pre-policy bridge and do not recount production |
+| `copper-refined-balance` | `copper.refined-balance` | commodity-demand-inventory | monthly refined production, use and stock-change bridge | ICSG or equivalent primary balance with revisions retained; otherwise unavailable |
+| `copper-scrap-supply` | `copper.scrap-supply` | commodity-supply | current secondary supply and scrap-spread evidence | primary customs/industry data with grade and geography; estimates require dispersion |
+| `copper-energy-transition-demand` | `copper.energy-transition-demand` | commodity-demand-inventory | current grid, EV and renewable copper demand bridge | primary deployment and intensity data; avoid double counting inside the refined balance |
+| `copper-cost-incentive-range` | `copper.cost-incentive-range` | commodity-cost-curve-fair-value | current 90th-percentile cash cost and new-mine incentive range | primary producer studies and lawful cost data; observed price, implied range and market expectation stay separate |
+
+Declaring these rows does not make them usable. Missing LME/SHFE rights, visible-stock breadth, TC/RC,
+China demand or accessible-supply evidence remains explicit and forces incomplete coverage rather than a
+COMEX-only global conclusion.
+
 ---
 
 ## ALUMINIUM
@@ -341,6 +381,47 @@ monthly activity + PMI; major-miner quarterly production; CFTC COT.
 
 **Recurring reports (catalysts):** IAI monthly production; LME/SHFE weekly stocks; China output data;
 premium assessments (Platts/Fastmarkets).
+
+**Family-specific physical-market rules:** keep the LME benchmark separate from Midwest and European
+physical premiums. Align alloy/grade, duty status, delivery location, currency and timestamp before any
+regional comparison. Separate on-warrant, cancelled-warrant, off-warrant and bonded stocks; visible LME
+stocks are not global inventory. Treat bauxite, alumina, power and smelter output as successive causal
+stages owned by `commodity-supply`, not four independent votes. That orb builds the pre-policy bridge;
+`commodity-supply-security` alone applies sanctions, trade restrictions, financing chokepoints and verified
+rerouting without recounting output. A dead or stale `@ALI.1` quote is missing data and can never be replaced
+by a remembered report price.
+
+**Required semantic series (profile-owned; connector IDs are deliberately absent):**
+
+| Need ID | Stable series ID | Owner orb | Required history / freshness | Lawful source policy |
+|---|---|---|---|---|
+| `aluminium-lme-investment-fund-positioning` | `aluminium.investment-fund-positioning` | commodity-positioning-flows | weekly; ≥3 years of LME investment-fund positioning | lawful LME COTR publication; manual ingest if licence terms prohibit automation |
+| `aluminium-shfe-positioning` | `aluminium.shfe-positioning` | commodity-positioning-flows | weekly; ≥3 years of observable SHFE positioning | primary exchange publication or licensed feed; otherwise unavailable |
+| `macro-broad-usd-index` | `macro.broad-usd-index` | commodity-macro-drivers | daily; ≥3 years for aluminium/USD regimes | reuse one Federal Reserve/FRED semantic series across commodity profiles; no commodity-specific clone |
+| `macro-china-industrial-activity` | `macro.china-industrial-activity` | commodity-macro-drivers | monthly; ≥10 years with release vintage | primary official industrial production, fixed-asset investment and property completions; licensed PMI stays contextual |
+| `macro-global-activity-demand-proxy` | `macro.global-activity-demand-proxy` | commodity-macro-drivers | monthly; ≥10 years with release vintage | primary global industrial-production/trade series or licensed PMI with source identity; unavailable otherwise |
+| `macro-us-10y-real-yield` | `macro.us-10y-real-yield` | commodity-macro-drivers | daily; ≥3 years for real-rate regime validation | primary US Treasury or Federal Reserve/FRED series with release vintage; reuse one semantic series across profiles |
+| `aluminium-current-price` | `aluminium.current-price` | commodity-price-curve | current front-month aluminium futures quote | reuse the swarm pulse route (`@ALI.1`) only if live and correctly identified; stale/dead contracts are unavailable |
+| `aluminium-market-price-history` | `aluminium.market-price-history` | commodity-price-curve | point-in-time aluminium close history with source identity | reuse lawful shared market history for `@ALI.1` only when the contract identity is live and continuous |
+| `aluminium-copper-price-history` | `aluminium.copper-price-history` | commodity-cross-asset-regime | point-in-time COMEX Copper close history aligned to aluminium | reuse lawful shared market history for `@HG.1`; copper/aluminium is one relative-cycle cluster |
+| `aluminium-producer-equity-history` | `aluminium.producer-equity-history` | commodity-cross-asset-regime | split-adjusted Alcoa history aligned to aluminium | lawful shared equity history; one producer is a levered confirmation and never substitutes for the metal |
+| `aluminium-lme-cash-three-month-curve` | `aluminium.lme-cash-three-month-curve` | commodity-price-curve | current LME cash and 3-month prices plus spread history | lawful LME publication or licensed feed with exact prompt dates; otherwise manual or unavailable |
+| `aluminium-visible-inventory` | `aluminium.visible-inventory` | commodity-demand-inventory | weekly; ≥5 years of LME and SHFE eligible stocks | primary exchange warehouse reports; preserve warrant/bonded status and do not infer hidden stocks |
+| `aluminium-inventory-accessibility-opacity` | `aluminium.inventory-accessibility-opacity` | commodity-demand-inventory | current cancelled-warrant, off-warrant, bonded and off-exchange inventory evidence with estimate dispersion | primary warehouse/customs disclosures or licensed estimates; never infer hidden stocks as zero and apply opacity caps when coverage is weak |
+| `aluminium-regional-premiums` | `aluminium.regional-premiums` | commodity-price-curve | current Midwest and European duty-paid physical premiums | licensed assessment with grade, duty and delivery basis; otherwise unavailable |
+| `aluminium-lme-shfe-arbitrage` | `aluminium.lme-shfe-arbitrage` | commodity-price-curve | aligned LME and SHFE prices net of FX, VAT, duty and freight | lawful exchange/licensed prices with cited conversion assumptions; otherwise unavailable |
+| `aluminium-primary-production` | `aluminium.primary-production` | commodity-supply | monthly; ≥3 years of world and China primary output | IAI entitled publication; manual ingest only under current terms, retain revised vintages |
+| `aluminium-china-capacity-power` | `aluminium.china-capacity-power` | commodity-supply | current capacity-cap, hydro and curtailment evidence | primary Chinese central/provincial, grid and producer releases; news scans are contextual only |
+| `aluminium-bauxite-alumina` | `aluminium.bauxite-alumina` | commodity-supply | monthly bauxite, alumina and refinery-disruption bridge | USGS/customs/producer primary data with geography; restrictions belong only in the supply-security bridge |
+| `aluminium-energy-input-cost` | `aluminium.energy-input-cost` | commodity-cost-curve-fair-value | current regional power and carbon cost curve for smelters | primary tariff, fuel and carbon-market data; state assumptions and dispersion |
+| `aluminium-prepolicy-supply` | `aluminium.prepolicy-supply` | commodity-supply | monthly gross primary and secondary output bridge through domestic absorption and stock change | primary IAI, customs and producer evidence with revisions retained; exclude restrictions and rerouting from this row |
+| `aluminium-supply-restrictions-routing` | `aluminium.supply-restrictions-routing` | commodity-supply-security | current restricted, sanctioned or stranded metal and verified rerouting bridge | primary government, customs and producer evidence; start from the pre-policy bridge and do not recount production |
+| `aluminium-end-use-demand` | `aluminium.end-use-demand` | commodity-demand-inventory | monthly transport, packaging and construction demand plus stock change | primary end-use and trade data; do not infer world demand from China output alone |
+| `aluminium-scrap-supply` | `aluminium.scrap-supply` | commodity-supply | current secondary production and scrap-spread evidence | primary customs/industry data with alloy and geography; estimates require dispersion |
+| `aluminium-marginal-smelter-cost` | `aluminium.marginal-smelter-cost` | commodity-cost-curve-fair-value | current marginal smelter cash-cost range | primary producer disclosures and lawful power/alumina inputs; separate observed price, model range and market expectation |
+
+Declaring these rows does not make them usable. Missing live benchmark prices, LME/SHFE stocks, regional
+premium rights, China capacity evidence or accessible-supply bridges stays explicit and forces Research More.
 
 ---
 
