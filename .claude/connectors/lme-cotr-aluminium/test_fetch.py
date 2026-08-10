@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Unit test for the LME Aluminium COTR connector — XLSX parse/transform + fail-closed + manifest
-consistency, NO network (a synthetic in-memory workbook reproducing the observed MiFID-II layout, including
-inline strings, a sharedStrings cell, and the one-cell-per-<row> quirk). No real LME file is committed
-(licensing); the live path is proven by `fetch.py --verify` / `--from-file` at merge time.
+consistency, NO network (a wholly synthetic in-memory workbook exercising the MiFID-II table structure,
+inline strings, a sharedStrings cell, and a one-cell-per-<row> parser edge). Dates and values are invented
+test data; no captured LME row or table is committed because redistribution is prohibited. The live path is
+proven only by an entitled operator's `fetch.py --verify` / `--from-file` run.
 Run: python3 test_fetch.py
 """
 from __future__ import annotations
@@ -71,10 +72,27 @@ def _xlsx(cells: dict, shared=("AH",)) -> bytes:
     return buf.getvalue()
 
 
+def _with_extra_member(base: bytes, name: str, body: bytes, compression=zipfile.ZIP_DEFLATED) -> bytes:
+    buf = io.BytesIO(base)
+    with zipfile.ZipFile(buf, "a", compression) as z:
+        z.writestr(name, body, compress_type=compression)
+    return buf.getvalue()
+
+
+def _policy_rejected(data: bytes, message_fragment: str = "") -> bool:
+    try:
+        mod.grid_from_xlsx(data)
+    except mod.WorkbookPolicyError as exc:
+        return not message_fragment or message_fragment in str(exc)
+    return False
+
+
 def _fixture_cells(contract_via_shared=True) -> dict:
+    # Deliberately round, invented values and a historical dummy date. These test arithmetic and structural
+    # selection only; they are not sampled, rounded, or transformed from an LME publication.
     cells = {
         "A1": ("is", "LME Commitments of Traders Report"),
-        "A3": ("is", "2026-07-10"),
+        "A3": ("is", "2000-01-14"),
         "A5": ("is", "Aluminium High Grade"),
         "A6": ("s", "0") if contract_via_shared else ("is", "AH"),
         # category header row + Long/Short pair row
@@ -91,22 +109,21 @@ def _fixture_cells(contract_via_shared=True) -> dict:
         "A11": ("is", "Risk Reducing"),
         "A12": ("is", "Other"),
         "A13": ("is", "Total"),
-        "B13": ("n", "1000.5"), "C13": ("n", "2000.25"),
-        "D13": ("n", "50263.57"), "E13": ("n", "82051.65"),
-        "F13": ("n", "700"), "G13": ("n", "300"),
-        "H13": ("n", "5000"), "I13": ("n", "4000"),
+        "B13": ("n", "110"), "C13": ("n", "210"),
+        "D13": ("n", "1234"), "E13": ("n", "2345"),
+        "F13": ("n", "330"), "G13": ("n", "130"),
+        "H13": ("n", "800"), "I13": ("n", "500"),
         # Change since the previous report
         "A15": ("is", "Change since the previous report"),
         "A16": ("is", "Risk Reducing"),
         "A17": ("is", "Other"),
         "A18": ("is", "Total"),
-        "D18": ("n", "1200.50"), "E18": ("n", "3400.25"),
-        # Percentage of the total open interest — the sheet stores this section as a raw fraction of 1,
-        # not a pre-scaled percentage (confirmed against a real LME export: the long-side fractions
-        # across all categories sum to 1.0)
+        "D18": ("n", "90"), "E18": ("n", "120"),
+        # Exercise the connector contract that percentage cells arrive as fractions of one. The chosen
+        # fractions are synthetic and intentionally simple.
         "A20": ("is", "Percentage of the total open interest"),
         "A21": ("is", "Total"),
-        "D21": ("n", "0.186"), "E21": ("n", "0.304"),
+        "D21": ("n", "0.125"), "E21": ("n", "0.25"),
     }
     return cells
 
@@ -114,33 +131,49 @@ def _fixture_cells(contract_via_shared=True) -> dict:
 FIX = _xlsx(_fixture_cells())
 grid = mod.grid_from_xlsx(FIX)
 asof, net, stance, payload, sidecar = mod.build(grid, "https://www.lme.com/-/media/test.xlsx")
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(_HERE))), "scripts"))
+from connector_contract import validate_manifest, validate_staged_output  # noqa: E402
+_manifest = json.load(open(os.path.join(_HERE, "connector.json")))
+_contract_defects = validate_manifest(_manifest["id"], _HERE, _manifest) + validate_staged_output(
+    _manifest, "ALUMINIUM", payload, sidecar, asof,
+)
+check("shared v2 manifest/staged-output contract accepts the production transform", not _contract_defects)
 inv = payload["investment_funds"]
 
-check("net = long - short (net short)", net == -31788.08 and inv["net"] == -31788.08)
+check("net = long - short (net short)", net == -1111.0 and inv["net"] == -1111.0)
 check("stance net_short", stance == "net_short" and inv["stance"] == "net_short")
-check("net_change_wow from the change-block Total", inv["net_change_wow"] == round(1200.50 - 3400.25, 2) == -2199.75)
+check("net_change_wow from the change-block Total", inv["net_change_wow"] == 90 - 120 == -30.0)
 check("as_of is the preamble position date, read from the data",
-      asof == "2026-07-10" and payload["as_of"] == "2026-07-10" and sidecar["as_of"] == "2026-07-10")
+      asof == "2000-01-14" and payload["as_of"] == "2000-01-14" and sidecar["as_of"] == "2000-01-14")
 check("pct of OI pair scaled from raw fraction to percentage points",
-      inv["pct_of_oi_long"] == 18.6 and inv["pct_of_oi_short"] == 30.4)
+      inv["pct_of_oi_long"] == 12.5 and inv["pct_of_oi_short"] == 25.0)
+
+bad_percentage = _fixture_cells()
+bad_percentage["D21"] = ("n", "50")
+raised = False
+try:
+    mod.build(mod.grid_from_xlsx(_xlsx(bad_percentage)), "u")
+except RuntimeError:
+    raised = True
+check("raw percentage points cannot be multiplied into impossible 5000% exposure", raised)
 check("contract AH in lots", payload["contract"] == "AH" and payload["notation"] == "lots")
 check("categories_net covers every category with a Long/Short pair",
       payload["categories_net"] == {
-          "investment_firms_or_credit_institutions": -999.75,
-          "investment_funds": -31788.08,
-          "other_financial_institutions": 400.0,
-          "commercial_undertakings": 1000.0,
+          "investment_firms_or_credit_institutions": -100.0,
+          "investment_funds": -1111.0,
+          "other_financial_institutions": 200.0,
+          "commercial_undertakings": 300.0,
       })
-check("default acquired_via is direct_fetch", payload["acquired_via"] == "direct_fetch")
-check("sidecar tier 5 + vendor_export + connector_id",
-      sidecar["tier"] == 5 and sidecar["source_type"] == "vendor_export"
+check("the pure transform is manual_file-only", payload["acquired_via"] == "manual_file")
+check("sidecar tier 5 + official_data + connector_id",
+      sidecar["tier"] == 5 and sidecar["source_type"] == "official_data"
       and sidecar["connector_id"] == "lme-cotr-aluminium")
 
 # stance flips when long > short
 flip = _fixture_cells()
-flip["D13"], flip["E13"] = ("n", "90000"), ("n", "10000")
+flip["D13"], flip["E13"] = ("n", "3000"), ("n", "1000")
 _, net_l, stance_l, _, _ = mod.build(mod.grid_from_xlsx(_xlsx(flip)), "u")
-check("net_long when long > short", net_l == 80000.0 and stance_l == "net_long")
+check("net_long when long > short", net_l == 2000.0 and stance_l == "net_long")
 
 # LME's real exporter names the sheet part "xl/worksheets/sheet.xml" (no digit) and provides workbook
 # rels pointing at it — grid_from_xlsx must resolve the part dynamically, not assume sheet1.xml
@@ -165,6 +198,66 @@ grid_lme_named = mod.grid_from_xlsx(lme_named.getvalue())
 check("resolves the worksheet part via workbook rels when it isn't named sheet1.xml",
       grid_lme_named.get((1, 1)) == "LME Commitments of Traders Report")
 
+# Archive safety is checked against the entire central directory before grid_from_xlsx reads even one
+# member. The fixtures below are synthetic ZIP metadata/payloads, not redistributed LME content.
+traversal = _with_extra_member(FIX, "xl/worksheets/../outside.xml", b"synthetic")
+check("rejects traversal-shaped ZIP member names before OOXML parsing",
+      _policy_rejected(traversal, "non-canonical ZIP member path"))
+
+case_alias = _with_extra_member(FIX, "XL/WORKBOOK.XML", b"synthetic")
+check("rejects case-aliased ZIP member names before OOXML parsing",
+      _policy_rejected(case_alias, "case-aliased ZIP members"))
+
+unsafe_rels = (
+    '<?xml version="1.0"?><Relationships '
+    'xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+    '<Relationship Id="rId1" '
+    'Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" '
+    'Target="../worksheets/sheet1.xml"/></Relationships>'
+).encode()
+unsafe_target = _with_extra_member(FIX, "xl/_rels/workbook.xml.rels", unsafe_rels)
+check("unsafe relationship policy failure propagates instead of falling back to sheet1.xml",
+      _policy_rejected(unsafe_target, "non-canonical ZIP member path"))
+
+high_ratio = _with_extra_member(FIX, "xl/synthetic-high-ratio.xml", b"A" * (1024 * 1024))
+check("rejects a highly compressed member before decompression",
+      _policy_rejected(high_ratio, "compression-ratio limit"))
+
+with zipfile.ZipFile(io.BytesIO(FIX)) as _base_zip:
+    _base_infos = _base_zip.infolist()
+    _base_count = len(_base_infos)
+    _base_total = sum(info.file_size for info in _base_infos)
+    _base_largest = max(info.file_size for info in _base_infos)
+
+_old_member_cap = mod.MAX_MEMBER_UNCOMPRESSED_BYTES
+try:
+    mod.MAX_MEMBER_UNCOMPRESSED_BYTES = _base_largest + 16
+    oversized = _with_extra_member(
+        FIX, "xl/synthetic-oversized.xml", b"Z" * (_base_largest + 17), zipfile.ZIP_STORED
+    )
+    check("rejects a member over the per-member uncompressed cap",
+          _policy_rejected(oversized, "limit is"))
+finally:
+    mod.MAX_MEMBER_UNCOMPRESSED_BYTES = _old_member_cap
+
+_old_count_cap = mod.MAX_WORKBOOK_MEMBERS
+try:
+    mod.MAX_WORKBOOK_MEMBERS = _base_count
+    too_many = _with_extra_member(FIX, "xl/synthetic-count.xml", b"x", zipfile.ZIP_STORED)
+    check("rejects an archive over the member-count cap",
+          _policy_rejected(too_many, "ZIP members; limit"))
+finally:
+    mod.MAX_WORKBOOK_MEMBERS = _old_count_cap
+
+_old_total_cap = mod.MAX_WORKBOOK_UNCOMPRESSED_BYTES
+try:
+    mod.MAX_WORKBOOK_UNCOMPRESSED_BYTES = _base_total + 10
+    too_large_total = _with_extra_member(FIX, "xl/synthetic-total.xml", b"T" * 11, zipfile.ZIP_STORED)
+    check("rejects an archive over the cumulative uncompressed cap",
+          _policy_rejected(too_large_total, "expands beyond"))
+finally:
+    mod.MAX_WORKBOOK_UNCOMPRESSED_BYTES = _old_total_cap
+
 # real LME layout: the section header sits in col A but its "Risk Reducing / Other / Total" sub-rows
 # sit in a different column (col N here — clear of every category's Long/Short data columns) —
 # total_row must not assume the Total label shares the header's own column
@@ -173,7 +266,7 @@ for key in ("A11", "A12", "A13"):
     offset_col[f"N{key[1:]}"] = offset_col.pop(key)
 _, net_o, stance_o, payload_o, _ = mod.build(mod.grid_from_xlsx(_xlsx(offset_col)), "u")
 check("Total row found when its label is offset from the section header's column",
-      net_o == -31788.08 and stance_o == "net_short" and payload_o["as_of"] == "2026-07-10")
+      net_o == -1111.0 and stance_o == "net_short" and payload_o["as_of"] == "2000-01-14")
 
 wrong = _fixture_cells()
 wrong["A6"] = ("is", "CA")
@@ -206,30 +299,41 @@ with tempfile.TemporaryDirectory() as td:
     r = subprocess.run([sys.executable, os.path.join(_HERE, "fetch.py"),
                         "--from-file", xlsx_path, "--subject", "ALUMINIUM", "--data-root", data_root],
                        capture_output=True, text=True)
-    out_path = os.path.join(data_root, "ALUMINIUM", "external", "lme", "cotr_aluminium_2026-07-10.json")
+    out_path = os.path.join(data_root, "ALUMINIUM", "external", "lme", "cotr_aluminium_2000-01-14.json")
     ok = r.returncode == 0 and os.path.exists(out_path) and os.path.exists(out_path + ".source.json")
     check("--from-file writes the manifest-templated output + sidecar", ok)
     if ok:
         written = json.load(open(out_path, encoding="utf-8"))
         side = json.load(open(out_path + ".source.json", encoding="utf-8"))
         check("--from-file payload is acquired_via manual_file", written["acquired_via"] == "manual_file")
-        check("--from-file sidecar note names the original filename", "AH-cotr-download.xlsx" in side["note"])
+        check("--from-file provenance keeps the lawful LME page URL and no local path",
+              side["source_url"] == mod.PAGE_URL and "file://" not in json.dumps(side)
+              and td not in json.dumps(side))
     v = subprocess.run([sys.executable, os.path.join(_HERE, "fetch.py"),
                         "--from-file", xlsx_path, "--verify", "--data-root", data_root],
                        capture_output=True, text=True)
     check("--verify writes nothing", v.returncode == 0
           and not os.path.exists(os.path.join(data_root, "ALUMINIUM", "external", "lme",
-                                              "cotr_aluminium_2026-07-10.json.tmp")))
+                                              "cotr_aluminium_2000-01-14.json.tmp")))
+
+disabled = subprocess.run(
+    [sys.executable, os.path.join(_HERE, "fetch.py"), "--verify"],
+    capture_output=True, text=True,
+)
+check("bare --verify proves unattended LME access is disabled",
+      disabled.returncode == 0 and "manual-only" in disabled.stdout)
+check("manual-only implementation exposes no network fetch function",
+      not hasattr(mod, "fetch_workbook"))
 
 man = json.load(open(os.path.join(_HERE, "connector.json"), encoding="utf-8"))
 check("connector.json tier/source_type agree with the sidecar the fetcher writes",
-      man["tier"] == sidecar["tier"] == 5 and man["source_type"] == sidecar["source_type"] == "vendor_export")
+      man["tier"] == sidecar["tier"] == 5 and man["source_type"] == sidecar["source_type"] == "official_data")
 check("connector.json declares an exact-host allowlist containing the fetch host",
       isinstance(man.get("host_allowlist"), list) and mod.HOST in man["host_allowlist"])
 check("connector.json entry/verify point at fetch.py",
       man["entry"] == "fetch.py" and man["verify"].startswith("fetch.py"))
 check("output basename follows the manifest template",
-      man["output_path"].rsplit("/", 1)[-1].replace("<as_of>", "2026-07-10") == "cotr_aluminium_2026-07-10.json")
+      man["output_path"].rsplit("/", 1)[-1].replace("<as_of>", "2000-01-14") == "cotr_aluminium_2000-01-14.json")
 
 print(f"\n{'PASS' if not _fails else 'FAIL'}: lme-cotr-aluminium connector — {_fails} failing case(s)")
 raise SystemExit(1 if _fails else 0)

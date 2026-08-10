@@ -144,7 +144,7 @@
             }
           },
           "tier": { "type": "integer", "enum": [5, 9, 10], "description": "§4 source-tier ceiling this series can earn — NEVER 1-4 (a live feed is not a filing). An API / vendor feed is 5; a dated web scrape is 9 or 10." },
-          "cadence": { "type": "string", "enum": ["realtime", "daily", "weekly", "monthly", "event_driven"] },
+          "cadence": { "type": "string", "enum": ["twelve_hourly", "daily", "weekly", "monthly", "quarterly", "semiannual", "annual", "event_driven"] },
           "next_release": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$", "description": "for a scheduled / event-driven release (optional)" }
         }
       }

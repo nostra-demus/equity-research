@@ -9,17 +9,55 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { CONNECTOR_RUNNER, DATA_DIR, connectorAutoRepairReady, connectorRunnerReady } from './config'
+import { execFileSync } from 'node:child_process'
+import { CONNECTOR_RUNNER, DATA_DIR, REPO_ROOT, connectorAutoRepairReady, connectorRunnerReady } from './config'
 import { listConnectors } from './connector-registry'
-import { latestRepairStatus } from './connector-health'
+import { latestRepairStatusForSubject, readAll as readRepairEvents, recordRepair, repairLifecycleTransitionsFromLedger, repairVerificationsFromLedger } from './connector-health'
 import { startConnectorRepair } from './connector-repair'
 import { BROKEN_THRESHOLD, feedHealthFromLedger } from './feed-health'
+import { connectorChildEnv } from './connector-agent'
 
 const log = (m: string) => console.log(`[connector-runner] ${m}`) // eslint-disable-line no-console
+const RUNNER_STARTED_AT = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
 
 let timer: ReturnType<typeof setInterval> | null = null
 let sweeping = false
 let lastSweepAt: string | null = null
+const verificationWrites = new Set<string>()
+const PR_URL_RE = /^https:\/\/github\.com\/nostra-demus\/equity-research\/pull\/\d+$/
+
+/** Fail-closed runtime proof that this exact PR is merged into the commit which performed the fetch. */
+export function inspectRepairPr(prUrl: string): { state: 'OPEN' | 'CLOSED' | 'MERGED'; mergedAt?: string; mergeCommit?: string } | null {
+  if (!PR_URL_RE.test(prUrl)) return null
+  try {
+    const raw = execFileSync('gh', ['pr', 'view', prUrl, '--json', 'state,mergedAt,mergeCommit'], {
+      cwd: REPO_ROOT, encoding: 'utf8', timeout: 15_000, stdio: ['ignore', 'pipe', 'ignore'],
+      env: connectorChildEnv(),
+    })
+    const parsed = JSON.parse(raw)
+    const state = String(parsed?.state || '')
+    if (!['OPEN', 'CLOSED', 'MERGED'].includes(state)) return null
+    return {
+      state: state as 'OPEN' | 'CLOSED' | 'MERGED',
+      mergedAt: parsed?.mergedAt ? String(parsed.mergedAt) : undefined,
+      mergeCommit: parsed?.mergeCommit?.oid ? String(parsed.mergeCommit.oid) : undefined,
+    }
+  } catch { return null }
+}
+
+export function resolveMergedRepairPr(prUrl: string, deployedCommit: string) {
+  if (!PR_URL_RE.test(prUrl) || !/^[0-9a-f]{40,64}$/.test(deployedCommit)) return null
+  try {
+    const parsed = inspectRepairPr(prUrl)
+    const mergeCommit = String(parsed?.mergeCommit || '')
+    const mergedAt = String(parsed?.mergedAt || '')
+    if (parsed?.state !== 'MERGED' || !mergedAt || !/^[0-9a-f]{40,64}$/.test(mergeCommit)) return null
+    execFileSync('git', ['merge-base', '--is-ancestor', mergeCommit, deployedCommit], {
+      cwd: REPO_ROOT, timeout: 5_000, stdio: 'ignore',
+    })
+    return { mergedAt, mergeCommit, deployedCommit }
+  } catch { return null }
+}
 
 // A feed is treated as broken only after this many CONSECUTIVE failed sweeps — the definition (and the reason
 // for it) lives with the ledger parse in feed-health.ts, which the Data Library reads too. Re-exported here
@@ -38,7 +76,7 @@ export function brokenFromLedger(
 ): { connector: string; subject: string; message: string }[] {
   const out: { connector: string; subject: string; message: string }[] = []
   for (const v of feedHealthFromLedger(ledgerText, threshold).values()) {
-    if (v.failStreak >= threshold) out.push({ connector: v.connector, subject: v.subject, message: v.message })
+    if (v.state === 'broken') out.push({ connector: v.connector, subject: v.subject, message: v.message })
   }
   return out
 }
@@ -81,15 +119,41 @@ export function lastLedgerError(connector: string, subject: string): string {
 export function sweep(): { broken: number; repairs: number } {
   let text = ''
   try { text = fs.readFileSync(ledgerPath(), 'utf8') } catch { text = '' }
+  const repairEvents = readRepairEvents()
+  for (const transition of repairLifecycleTransitionsFromLedger(
+    text, repairEvents, inspectRepairPr, resolveMergedRepairPr,
+    { automationAvailable: connectorAutoRepairReady(), runnerStartedAt: RUNNER_STARTED_AT },
+  )) {
+    const key = `assessed:${transition.connector_id}:${transition.subject ?? '*'}:${transition.pr_url}`
+    if (verificationWrites.has(key)) continue
+    verificationWrites.add(key)
+    void recordRepair(transition.connector_id, 'assessed', {
+      subject: transition.subject, pr_url: transition.pr_url, note: transition.note,
+      base_fingerprint: transition.base_fingerprint, base_commit: transition.base_commit,
+    }).finally(() => verificationWrites.delete(key))
+  }
+  for (const verified of repairVerificationsFromLedger(text, repairEvents, resolveMergedRepairPr)) {
+    const key = `verified:${verified.connector_id}:${verified.subject}:${verified.pr_url ?? ''}`
+    if (verificationWrites.has(key)) continue
+    verificationWrites.add(key)
+    void recordRepair(verified.connector_id, 'verified', {
+      subject: verified.subject, pr_url: verified.pr_url,
+      note: `Verified by a successful staged fetch of ${verified.subject} after the repair PR opened.`,
+    }).finally(() => verificationWrites.delete(key))
+  }
   const broken = brokenFromLedger(text)
+  const health = feedHealthFromLedger(text)
   let repairs = 0
   if (connectorAutoRepairReady()) {
     const connectors = listConnectors()
     for (const b of broken) {
       const m = connectors.find((c) => c.id === b.connector)
       if (!m || !m.subjects.includes(b.subject)) continue
-      const rep = latestRepairStatus(m.id)
+      const rep = latestRepairStatusForSubject(m.id, b.subject)
       if (rep.status === 'repairing' || rep.status === 'pr_open') continue
+      const feed = health.get(`${m.id}::${b.subject}`)
+      if ((rep.status === 'assessed' || rep.status === 'source_gone') && rep.base_fingerprint
+          && rep.base_fingerprint === feed?.connectorFingerprint) continue
       if (startConnectorRepair(m, b.subject, b.message).accepted) repairs++
     }
   }

@@ -1,30 +1,19 @@
-// Data-pipelines reader — the SERVER-side registry over `.claude/connectors/*/connector.json`, the
-// self-describing durable-feed manifests (frameworks/EXTERNAL_DATA.md §7). It joins three existing truths
-// into one read: (1) the discovered connector manifests, (2) live pool freshness computed from each
-// manifest's own output_path filenames (as_of from FILENAMES, never mtime — fix F23), and (3) the runs'
-// data_needs[] demand (readDataNeeds), so an unmet need surfaces as a recommended-to-add row and a met
-// need attaches to its covering pipeline as `helps`. It launches nothing and writes nothing.
-//   - Fail-closed discovery: a manifest with ANY defect is dropped whole and audited in `widened` —
-//     the cockpit never renders a malformed pipeline card (same posture as readDataNeeds).
-//   - Tier clamp mirror (§4): a fetcher's self-declared tier is UNTRUSTED — the served tier is clamped
-//     DOWN to the ceiling its source_type earns, exactly like extract_pool.py clamps the pool sidecars.
-//   - Honest degradation: a host without the Drive pool mount serves poolAvailable:false and status
-//     'unknown' — never a fabricated 'missing'.
-//   - Single directory scan (§2): the raw `.claude/connectors/*/connector.json` walk + JSON.parse lives in
-//     ONE place, connector-registry.ts's listConnectorDirs() — this reader consumes that same raw scan and
-//     layers its own stricter, UI-facing validation (tier ceiling, id/folder match, output_path shape) on
-//     top, rather than re-walking the directory. The cadence runner / health store / data-needs "feed built"
-//     marker read connector-registry.ts's OWN (more lenient, operational) parse of the same raw scan.
+// Read-only Data Library projection over the shared connector registry. It joins three truths:
+// (1) strictly validated manifests, (2) canonical v2 current-pointer eligibility (legacy v1 alone uses
+// filename/SLA freshness), and (3) each run's declared data_needs[]. No fetch or write occurs here.
+// Malformed connectors fail closed in the registry, source tiers remain conservatively clamped for display,
+// and a host without the pool mount reports `unknown` rather than inventing missing data.
 import fs from 'node:fs'
 import path from 'node:path'
-import { listConnectorDirs, type ConnectorDirEntry } from './connector-registry'
+import {
+  connectorCurrentStatus, discoverConnectors, healthyBuiltBySatisfies, type ConnectorManifest,
+} from './connector-registry'
 import { CONNECTOR_RUNNER, DATA_DIR, REPO_ROOT, connectorAutoRepairReady, connectorRunnerReady } from './config'
 import { readDataNeeds } from './data-needs'
-import { latestRepairStatus, type RepairStatus } from './connector-health'
+import { latestRepairStatus, latestRepairStatusForSubject, type RepairStatus } from './connector-health'
 import { feedHealthOf, readFeedHealth, type FeedHealth, type FeedHealthState } from './feed-health'
 import { listSwarms } from './swarms'
 import { swarmSubjects } from './roster'
-import { TICKER_RE, isValidTicker } from './sandbox'
 
 export interface PipelineSubjectStatus {
   subject: string
@@ -32,11 +21,14 @@ export interface PipelineSubjectStatus {
   latestAsOf?: string
   ageDays?: number
   latestFile?: string
+  projectionIntact?: boolean
   // The FETCH side of the same feed, from #287's run ledger — a different fact from the file freshness above
   // (a feed can be fresh-but-broken, or stale-but-healthy because the source published nothing new).
   health: FeedHealthState
+  fetchOutcome?: string
   lastSweepAt?: string
   lastError?: string
+  ledgerIntegrityWarning?: string
   failStreak: number
 }
 export interface PipelineHelp {
@@ -58,7 +50,7 @@ export interface PipelineEntry {
   license?: string
   hostAllowlist: string[]
   cadence: string
-  stalenessSlaDays: number
+  releaseWindowDays: number
   entry: string
   verify: string
   outputPath: string
@@ -72,6 +64,7 @@ export interface PipelineEntry {
   verdict: PipelineVerdict
   verdictNote: string
   repair: { status: RepairStatus; prUrl: string | null }
+  repairs: Record<string, { status: RepairStatus; prUrl: string | null }>
 }
 export type PipelineVerdict = 'live' | 'attention' | 'broken' | 'unknown'
 export interface RecommendedNeed {
@@ -87,6 +80,8 @@ export interface RecommendedNeed {
   cadence: string
   next_release?: string
   entry_modules: string[]
+  built_by?: string
+  connector_exists?: string
 }
 export interface PipelinesRead {
   generatedAt: string
@@ -106,23 +101,21 @@ export interface RunnerStatus {
   lastFetchSweepAt: string | null
 }
 
-// Enums mirrored from the decision_record schema / connector convention — a manifest outside them is
-// dropped at read time, never surfaced malformed.
-const ACQUISITION = new Set(['official_api', 'free_key_api', 'paid_api', 'scrape', 'manual'])
-// Kept in step with connector-registry.ts's CADENCE_MS keys — two readers, one vocabulary. (Deliberately a
-// separate literal: this validator is the STRICTER §4-tier-ceiling gate and must not import its schema from
-// the permissive reader. pipelines.test.ts fails the moment a committed manifest names a cadence either
-// side does not know, which is exactly how the twelve_hourly addition was caught.)
-const CADENCE = new Set(['realtime', 'twelve_hourly', 'daily', 'weekly', 'monthly', 'event_driven'])
-const SLUG_RE = /^[a-z0-9][a-z0-9-]*$/
-const SATISFIES_RE = /^[a-z0-9][a-z0-9_-]*$/
+/**
+ * A durable `repairing` row is only proof that work was active in the process which wrote it. When this
+ * runtime cannot run the isolated coding agent, project that orphan honestly as assessed even if the repair
+ * watchdog itself is disabled and therefore cannot append the terminal ledger row yet.
+ */
+export function runtimeRepairStatus(status: RepairStatus, automationAvailable: boolean): RepairStatus {
+  return status === 'repairing' && !automationAvailable ? 'assessed' : status
+}
 
 // EXTERNAL_DATA.md §4 tier ceilings by source_type — unknown/missing fails closed to 9. A sidecar may
 // still self-declare a MORE conservative tier than its ceiling (e.g. a web-scrape connector under the
 // external_other ceiling of 9 self-labelling as the even-more-conservative tier-10 "reputable web source,
 // unverified" per CLAUDE.md §4) — the clamp below only ever pushes a tier DOWN to its ceiling, never up.
 const TIER_CEILING: Record<string, number> = {
-  alt_data_panel: 5, vendor_export: 5, paid_api: 5,
+  alt_data_panel: 5, vendor_export: 5, paid_api: 5, official_data: 5,
   broker_research: 7,
   expert_call: 9, channel_check: 9, management_meeting: 9,
   external_other: 9,
@@ -139,7 +132,7 @@ interface ParsedManifest {
   license?: string
   hostAllowlist: string[]
   cadence: string
-  stalenessSlaDays: number
+  releaseWindowDays: number
   entry: string
   verify: string
   outputPath: string
@@ -148,77 +141,57 @@ interface ParsedManifest {
   satisfies: string[]
 }
 
-function parseManifest(entry: ConnectorDirEntry, widened: string[]): ParsedManifest | null {
-  const folder = entry.id
-  const drop = (why: string) => {
-    widened.push(`dropped connector manifest ${folder}: ${why}`)
-    return null
-  }
-  if (entry.parseError) return drop(`does not parse (${entry.parseError})`)
-  const m = entry.raw
-  if (!m || typeof m !== 'object' || Array.isArray(m)) return drop('not an object')
-  const id = String(m.id ?? '')
-  if (!SLUG_RE.test(id) || id !== folder) return drop(`id ${JSON.stringify(m.id)} is not a slug matching its folder`)
-  const series = String(m.series ?? '').trim()
-  const provider = String(m.provider ?? '').trim()
-  if (!series || !provider) return drop('series/provider missing')
-  const subjects = Array.isArray(m.subjects) ? m.subjects.map(String) : []
-  if (!subjects.length || !subjects.every((s: string) => TICKER_RE.test(s) && isValidTicker(s))) {
-    return drop('subjects must be a non-empty list of valid subject names')
-  }
-  const acquisition = String(m.acquisition ?? '')
-  if (!ACQUISITION.has(acquisition)) return drop(`acquisition '${acquisition}' outside the schema enum`)
-  const cadence = String(m.cadence ?? '')
-  if (!CADENCE.has(cadence)) return drop(`cadence '${cadence}' outside the schema enum`)
-  const sla = Number(m.staleness_sla_days)
-  if (!Number.isFinite(sla) || sla <= 0) return drop(`staleness_sla_days ${m.staleness_sla_days} must be > 0`)
-  const outputPath = String(m.output_path ?? '')
-  const basename = path.posix.basename(outputPath)
-  if (!outputPath.startsWith('data/<SUBJECT>/external/')
-      || basename.split('<as_of>').length !== 2
-      || path.posix.dirname(outputPath).includes('<as_of>')
-      || outputPath.split('/').includes('..')) {
-    return drop(`output_path ${JSON.stringify(outputPath)} must be data/<SUBJECT>/external/... with one <as_of> in its basename`)
-  }
-  const satisfiesRaw = m.satisfies ?? []
-  if (!Array.isArray(satisfiesRaw) || !satisfiesRaw.every((s: any) => typeof s === 'string' && SATISFIES_RE.test(s))) {
-    return drop('satisfies must be a list of need-id slugs')
-  }
-  const sourceType = String(m.source_type ?? '')
-  const ceiling = TIER_CEILING[sourceType] ?? 9
-  const declared = Number(m.tier)
-  const tier = Number.isFinite(declared) ? Math.max(declared, ceiling) : ceiling
-  const tierCorrected = Number.isFinite(declared) && declared < ceiling ? true : undefined
+function fromRegistry(m: ConnectorManifest): ParsedManifest | null {
+  if (m.manifest_version === 1 && m.staleness_sla_days == null) return null
+  const ceiling = TIER_CEILING[m.source_type] ?? 9
+  const tier = Math.max(m.tier, ceiling)
+  // Compatibility display field only for v2. Freshness itself is computed
+  // from cadence -> next period + lag + grace in connectorCurrentStatus.
+  const displayWindow = m.manifest_version === 2
+    ? m.release.expected_lag_days + m.release.grace_days
+    : m.staleness_sla_days!
   return {
-    id, series, provider, acquisition, sourceType, tier, tierCorrected,
-    license: m.license ? String(m.license) : undefined,
-    hostAllowlist: Array.isArray(m.host_allowlist) ? m.host_allowlist.map(String) : [],
-    cadence, stalenessSlaDays: sla,
-    entry: String(m.entry ?? 'fetch.py'),
-    verify: String(m.verify ?? ''),
-    outputPath,
-    outputSchema: m.output_schema,
-    subjects, satisfies: satisfiesRaw as string[],
+    id: m.id, series: m.series, provider: m.provider, acquisition: m.acquisition,
+    sourceType: m.source_type, tier, tierCorrected: m.tier < ceiling ? true : undefined,
+    license: m.license, hostAllowlist: m.host_allowlist, cadence: m.cadence,
+    releaseWindowDays: displayWindow, entry: m.entry, verify: m.verify,
+    outputPath: m.output_path, outputSchema: m.output_schema,
+    subjects: m.subjects, satisfies: m.satisfies,
   }
 }
 
 function subjectStatus(
   p: ParsedManifest, subject: string, poolAvailable: boolean, widened: string[], feed: FeedHealth,
+  canonical: { asOf: string; retrievedAt: string; usable: boolean; projectionIntact: boolean } | null | undefined,
 ): PipelineSubjectStatus {
   const fetchSide = {
     health: feed.state,
+    fetchOutcome: feed.outcome || undefined,
     lastSweepAt: feed.lastSweepAt || undefined,
-    lastError: feed.state === 'failing' || feed.state === 'broken' ? (feed.message || undefined) : undefined,
+    lastError: ['stalled', 'schema_failed', 'suspect', 'credentials_missing', 'broken', 'quarantined'].includes(feed.state) ? (feed.message || undefined) : undefined,
+    ledgerIntegrityWarning: feed.ledgerIntegrityWarning || undefined,
     failStreak: feed.failStreak,
   }
   if (!poolAvailable) return { subject, status: 'unknown', ...fetchSide }
+  if (canonical === null) return { subject, status: 'missing', ...fetchSide }
+  if (canonical !== undefined && !canonical.projectionIntact) {
+    return {
+      subject, status: 'missing', projectionIntact: false, latestAsOf: canonical.asOf,
+      ageDays: Math.floor((Date.now() - Date.parse(canonical.asOf)) / 86_400_000), ...fetchSide,
+    }
+  }
   const rel = p.outputPath.replaceAll('<SUBJECT>', subject)
   const dirAbs = path.resolve(REPO_ROOT, path.dirname(rel))
   if (dirAbs !== DATA_DIR && !dirAbs.startsWith(DATA_DIR + path.sep)) {
     widened.push(`${p.id}: output dir for ${subject} escapes the pool — status unknown`)
     return { subject, status: 'unknown', ...fetchSide }
   }
-  const [pre, post] = path.posix.basename(rel).split('<as_of>')
+  const pieces = path.posix.basename(rel).split('<as_of>')
+  if (pieces.length !== 2) {
+    widened.push(`${p.id}: output_path for ${subject} has no single <as_of> filename token — freshness unknown`)
+    return { subject, status: 'unknown', ...fetchSide }
+  }
+  const [pre, post] = pieces
   const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
   const pattern = new RegExp('^' + esc(pre) + '(\\d{4}-\\d{2}-\\d{2})' + esc(post) + '$')
   let names: string[] = []
@@ -241,19 +214,21 @@ function subjectStatus(
   const ageDays = Math.floor((Date.now() - Date.parse(latest)) / 86_400_000)
   return {
     subject,
-    status: ageDays <= p.stalenessSlaDays ? 'fresh' : 'stale',
+    status: canonical === undefined ? (ageDays <= p.releaseWindowDays ? 'fresh' : 'stale')
+      : (latest === canonical.asOf && canonical.usable && canonical.projectionIntact ? 'fresh' : 'stale'),
     latestAsOf: latest,
     ageDays,
     latestFile,
+    projectionIntact: canonical === undefined ? undefined : true,
     ...fetchSide,
   }
 }
 
 // The row's headline, in the order a reader cares about: a dead fetcher outranks a stale file, and a stale
-// file outranks a clean one. Every branch names the SPECIFIC evidence (the error, the age, the SLA) — a
+// file outranks a clean one. Every branch names the specific evidence (the error, age, or release window) — a
 // coloured dot with no sentence behind it is what made the old surface unreadable.
 export function rollUpVerdict(
-  statuses: PipelineSubjectStatus[], slaDays: number, poolAvailable: boolean,
+  statuses: PipelineSubjectStatus[], _slaDays: number, poolAvailable: boolean,
 ): { verdict: PipelineVerdict; note: string } {
   if (!poolAvailable) return { verdict: 'unknown', note: 'the data pool is not mounted on this host — freshness and fetch health are computed on the always-on machine' }
   if (!statuses.length) return { verdict: 'unknown', note: 'the manifest names no subject to check' }
@@ -262,12 +237,39 @@ export function rollUpVerdict(
   if (broken) {
     return { verdict: 'broken', note: `the last ${broken.failStreak} fetches of ${broken.subject} failed${broken.lastError ? ` — ${broken.lastError}` : ''}` }
   }
-  const failing = statuses.find((s) => s.health === 'failing')
-  if (failing) {
-    return { verdict: 'attention', note: `the last fetch of ${failing.subject} failed${failing.lastError ? ` — ${failing.lastError}` : ''}; it retries on the next sweep` }
+  const stalled = statuses.find((s) => s.health === 'stalled')
+  if (stalled) {
+    return { verdict: 'attention', note: `the ${stalled.subject} release is stalled${stalled.lastError ? ` — ${stalled.lastError}` : ''}; it retries on the next sweep` }
+  }
+  const schemaFailed = statuses.find((s) => s.health === 'schema_failed')
+  if (schemaFailed) {
+    return { verdict: 'attention', note: `the last ${schemaFailed.subject} payload failed schema/provenance validation${schemaFailed.lastError ? ` — ${schemaFailed.lastError}` : ''}` }
+  }
+  const credentials = statuses.find((s) => s.health === 'credentials_missing')
+  if (credentials) {
+    return { verdict: 'attention', note: `${credentials.subject} cannot fetch because credentials are missing or rejected${credentials.lastError ? ` — ${credentials.lastError}` : ''}` }
+  }
+  const held = statuses.find((s) => s.health === 'suspect' || s.health === 'quarantined')
+  if (held) {
+    return { verdict: 'attention', note: `${held.subject} data is ${held.health} and was not published${held.lastError ? ` — ${held.lastError}` : ''}` }
   }
   const noPool = statuses.find((s) => s.health === 'no_pool')
   if (noPool) return { verdict: 'attention', note: `there is no data folder for ${noPool.subject} on the fetching host, so nothing can be written` }
+
+  // A filename inside its date window is not a fetch attestation. Automatic feeds remain non-usable until
+  // a real sweep has either validated the current vintage or published one. Explicit manual feeds are the
+  // sole fresh-file exception and carry the distinct `manual` health state handled by the live branch below.
+  const unattested = statuses.find((s) => s.health === 'never_run' || s.health === 'pending')
+  if (unattested) {
+    return unattested.health === 'never_run'
+      ? { verdict: 'attention', note: `${unattested.subject} has not been swept by the fetcher; any existing file is not usable for data sufficiency` }
+      : { verdict: 'attention', note: `${unattested.subject} has only a pending/dry-run fetch; any existing file is not usable for data sufficiency` }
+  }
+
+  const damagedProjection = statuses.find((s) => s.projectionIntact === false)
+  if (damagedProjection) {
+    return { verdict: 'attention', note: `${damagedProjection.subject} pool projection or provenance sidecar is missing or does not match canonical current data` }
+  }
 
   const missing = statuses.find((s) => s.status === 'missing')
   if (missing) {
@@ -276,15 +278,15 @@ export function rollUpVerdict(
       : { verdict: 'attention', note: `no file yet for ${missing.subject}` }
   }
   const stale = statuses.find((s) => s.status === 'stale')
-  if (stale) return { verdict: 'attention', note: `${stale.subject} is ${stale.ageDays} days old, past its ${slaDays}-day freshness window` }
+  if (stale) return { verdict: 'attention', note: `${stale.subject} is past its expected release plus grace deadline` }
 
   const oldest = statuses.reduce((w, s) => ((s.ageDays ?? 0) > (w.ageDays ?? 0) ? s : w), statuses[0])
   const manual = statuses.every((s) => s.health === 'manual')
   return {
     verdict: 'live',
     note: manual
-      ? `hand-staged by its own manifest; newest file is ${oldest.ageDays ?? 0} days old, inside its ${slaDays}-day window`
-      : `fetching cleanly; newest file is ${oldest.ageDays ?? 0} days old, inside its ${slaDays}-day window`,
+      ? `hand-staged by its own manifest; newest file is ${oldest.ageDays ?? 0} days old and inside its declared release window`
+      : `fetching cleanly; newest file is ${oldest.ageDays ?? 0} days old and inside its declared release window`,
   }
 }
 
@@ -294,6 +296,9 @@ const TTL_MS = 10_000
 export function readPipelines(force = false): PipelinesRead {
   if (cache && !force && Date.now() - cache.at < TTL_MS) return cache.read
   const widened: string[] = []
+  const discovery = discoverConnectors()
+  const manifests = discovery.connectors
+  widened.push(...discovery.widened)
 
   let poolAvailable = true
   try {
@@ -304,29 +309,42 @@ export function readPipelines(force = false): PipelinesRead {
 
   // ONE ledger fold for the whole read (§2) — every pipeline × subject looks its fetch health up in this map.
   const feedHealth = readFeedHealth()
+  const repairAutomationAvailable = connectorAutoRepairReady()
   let lastFetchSweepAt: string | null = null
   for (const h of feedHealth.values()) {
     if (h.lastSweepAt && (!lastFetchSweepAt || h.lastSweepAt > lastFetchSweepAt)) lastFetchSweepAt = h.lastSweepAt
   }
 
   const pipelines: PipelineEntry[] = []
-  for (const entry of listConnectorDirs()) {
-    const p = parseManifest(entry, widened)
+  for (const manifest of manifests) {
+    const p = fromRegistry(manifest)
     if (!p) continue
-    const statuses = p.subjects.map((s) => subjectStatus(p, s, poolAvailable, widened, feedHealthOf(feedHealth, p.id, s)))
-    const { verdict, note } = rollUpVerdict(statuses, p.stalenessSlaDays, poolAvailable)
+    const statuses = p.subjects.map((s) => subjectStatus(
+      p, s, poolAvailable, widened, feedHealthOf(feedHealth, p.id, s),
+      manifest.manifest_version === 2 ? connectorCurrentStatus(manifest, s) : undefined,
+    ))
+    const { verdict, note } = rollUpVerdict(statuses, p.releaseWindowDays, poolAvailable)
     const repair = latestRepairStatus(p.id)
+    const repairs = Object.fromEntries(p.subjects.map((subject) => {
+      const value = latestRepairStatusForSubject(p.id, subject)
+      return [subject, { status: runtimeRepairStatus(value.status, repairAutomationAvailable), prUrl: value.pr_url }]
+    }))
+    const connectorWideRepair = repair.subject == null ? repair : null
     pipelines.push({
       ...p,
       helps: [],
       statuses,
       verdict,
       verdictNote: note,
-      repair: { status: repair.status, prUrl: repair.pr_url },
+      repair: connectorWideRepair
+        ? { status: runtimeRepairStatus(connectorWideRepair.status, repairAutomationAvailable), prUrl: connectorWideRepair.pr_url }
+        : { status: 'none', prUrl: null },
+      repairs,
     })
   }
 
   const recommended: RecommendedNeed[] = []
+  const healthyBySubject = new Map<string, Map<string, string>>()
   for (const swarm of listSwarms()) {
     let subjects: string[] = []
     try {
@@ -343,25 +361,36 @@ export function readPipelines(force = false): PipelinesRead {
       }
       if (!read) continue
       widened.push(...read.widened)
+      let healthy = healthyBySubject.get(read.subject)
+      if (!healthy) {
+        healthy = healthyBuiltBySatisfies(read.subject, { connectors: manifests, health: feedHealth })
+        healthyBySubject.set(read.subject, healthy)
+      }
       for (const need of read.needs) {
         if (need.filing_required) continue // advisory — no connector can satisfy a statutory-filing gap
         const covering = pipelines.filter(
           (p) => p.satisfies.includes(need.need_id) && p.subjects.includes(read.subject),
         )
-        if (covering.length) {
-          for (const p of covering) {
+        // `built_by` is an evidence assertion, not a display heuristic: the registry helper proves exact
+        // ledger↔canonical identity, intact projection+sidecar, release eligibility, and provider agreement.
+        const healthyConnectorId = healthy.get(need.need_id)
+        const usable = healthyConnectorId ? covering.filter((p) => p.id === healthyConnectorId) : []
+        if (usable.length) {
+          for (const p of usable) {
             p.helps.push({
               swarm: swarm.id, subject: read.subject, need_id: need.need_id,
               series: need.series, why_it_caps: need.why_it_caps, entry_modules: need.entry_modules,
             })
           }
-        } else {
+        }
+        if (!usable.length) {
           recommended.push({
             key: `${swarm.id}/${read.subject}/${need.need_id}`,
             swarm: swarm.id, subject: read.subject, need_id: need.need_id,
             series: need.series, why_it_caps: need.why_it_caps, cap_lifted: need.cap_lifted,
             suggested_source: need.suggested_source, tier: need.tier, cadence: need.cadence,
             next_release: need.next_release, entry_modules: need.entry_modules,
+            connector_exists: need.connector_exists ?? covering[0]?.id,
           })
         }
       }
@@ -376,7 +405,7 @@ export function readPipelines(force = false): PipelinesRead {
     widened,
     runner: {
       watchdogOn: connectorRunnerReady(),
-      autoRepairOn: connectorAutoRepairReady(),
+      autoRepairOn: repairAutomationAvailable,
       pollIntervalMin: CONNECTOR_RUNNER.pollIntervalMin,
       lastFetchSweepAt,
     },

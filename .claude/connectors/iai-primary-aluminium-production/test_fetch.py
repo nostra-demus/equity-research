@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Unit test for the IAI primary-aluminium-production connector — parse/transform + fail-closed + manifest
 consistency, NO network (a shape-faithful synthetic ALVIS matrix incl. decoy labels and the undeclared
-total column; plus the generic labeled-dataset variants). If a live-captured `test_fixture_alvis.json`
-exists beside this test it is ALSO built and sanity-checked (adds coverage, never replaces the synthetic).
+total column; plus the generic labeled-dataset variants). Tests use synthetic structures only because the
+provider permits derived redistribution, not repository publication of captured raw API responses.
 Run: python3 test_fetch.py
 """
 from __future__ import annotations
@@ -10,6 +10,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import os
+import sys
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _spec = importlib.util.spec_from_file_location("iai_fetch", os.path.join(_HERE, "fetch.py"))
@@ -62,35 +63,29 @@ def _matrix(china=CHINA, regions=REGIONS, europe_split_value=0):
 WORLD_MONTH = sum(REGIONS.values()) + 0  # + china added per month below
 
 asof, latest, payload, sidecar = mod.build(_matrix())
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(_HERE))), "scripts"))
+from connector_contract import validate_manifest, validate_staged_output  # noqa: E402
+_manifest = json.load(open(os.path.join(_HERE, "connector.json")))
+_contract_defects = validate_manifest(_manifest["id"], _HERE, _manifest) + validate_staged_output(
+    _manifest, "ALUMINIUM", payload, sidecar, asof,
+)
+check("shared v2 manifest/staged-output contract accepts the production transform", not _contract_defects)
 check("trailing 13 of 14 months kept, ascending",
       len(payload["months"]) == 13 and payload["months"][0]["month"] == "2025-05"
       and payload["months"][-1]["month"] == "2026-05")
 check("as_of = last calendar day of the latest data month", asof == "2026-05-31" and sidecar["as_of"] == asof)
-check("31-day month annualisation exact",
-      latest["china_daily_avg_kt"] == 100.0 and latest["china_annualised_run_rate_mt"] == 36.5)
 check("world = sum of labeled regions (undeclared total col ignored)",
       latest["world_kt"] == float(sum(REGIONS.values()) + 3100))
-check("china share arithmetic",
-      latest["china_share_pct"] == round(3100 / (sum(REGIONS.values()) + 3100) * 100, 2))
-check("YoY vs the in-window prior-year month",
-      latest["china_yoy_pct"] == round((3100 / 2900 - 1) * 100, 2))
-check("run-rate vs the 45 Mt analyst-reference cap",
-      payload["cap_reference"]["run_rate_vs_cap_pct"] == round(36.5 / 45.0 * 100, 2)
-      and "analyst reference" in payload["cap_reference"]["note"])
-check("unit + sidecar tier 5 + paid_api + connector_id",
+check("source payload contains only raw IAI observations, with no analyst cap or calculated latest fields",
+      set(latest) == {"month", "china_kt", "world_kt"} and "cap_reference" not in payload)
+check("unit + sidecar tier 5 + official_data + connector_id",
       payload["unit"] == "thousand tonnes" and sidecar["tier"] == 5
-      and sidecar["source_type"] == "paid_api" and sidecar["connector_id"] == "iai-primary-aluminium-production")
+      and sidecar["source_type"] == "official_data" and sidecar["connector_id"] == "iai-primary-aluminium-production")
 
-# 30-day month as the latest (drop May) — daily/annualised math again exact
+# 30-day month as the latest (drop May) — as-of remains the source period's calendar end
 asof30, latest30, _, _ = mod.build(_matrix(china={k: v for k, v in CHINA.items() if k != "2026-05"}))
-check("30-day month annualisation exact",
-      asof30 == "2026-04-30" and latest30["china_daily_avg_kt"] == 100.0
-      and latest30["china_annualised_run_rate_mt"] == 36.5)
-
-# YoY is None when the prior-year month is outside the kept window
-short = {k: CHINA[k] for k in ("2026-03", "2026-04", "2026-05")}
-_, latest_short, _, _ = mod.build(_matrix(china=short))
-check("YoY None when the prior-year month is absent", latest_short["china_yoy_pct"] is None)
+check("30-day month resolves to calendar month-end without manufacturing daily/run-rate fields",
+      asof30 == "2026-04-30" and set(latest30) == {"month", "china_kt", "world_kt"})
 
 # Generic month-keyed variant: a LABELED world total wins over summing
 gen = {"charts": [
@@ -127,26 +122,46 @@ for raw, label in [
 
 man = json.load(open(os.path.join(_HERE, "connector.json"), encoding="utf-8"))
 check("connector.json tier/source_type agree with the sidecar the fetcher writes",
-      man["tier"] == sidecar["tier"] == 5 and man["source_type"] == sidecar["source_type"] == "paid_api")
-check("connector.json allowlists BOTH hosts the fetcher reaches",
+      man["tier"] == sidecar["tier"] == 5 and man["source_type"] == sidecar["source_type"] == "official_data")
+check("connector.json preserves both official source hosts for manual provenance validation",
       mod.STATS_HOST in man["host_allowlist"] and mod.API_HOST in man["host_allowlist"])
+check("IAI terms are enforced as entitlement-required manual ingest, never an automatic API pull",
+      man.get("manual") is True and man.get("acquisition") == "manual"
+      and man.get("manual_ingest", {}).get("file_arg") == "--from-file"
+      and man["licensing"]["use"] == "entitlement_required")
 check("connector.json entry/verify point at fetch.py",
       man["entry"] == "fetch.py" and man["verify"].startswith("fetch.py"))
 check("output path follows the manifest template",
       mod._output_path("data", "ALUMINIUM", "2026-05-31").replace(os.sep, "/")
       == "data/ALUMINIUM/external/iai/primary_production_2026-05-31.json")
 
-# Live-captured fixture (if present) — real-shape invariants on top of the synthetic coverage
-_fix = os.path.join(_HERE, "test_fixture_alvis.json")
-if os.path.exists(_fix):
-    la, ll, lp, _ = mod.build(json.load(open(_fix, encoding="utf-8")))
-    check("live fixture: 13 months kept, world ≥ china > 0",
-          len(lp["months"]) == 13 and ll["world_kt"] >= ll["china_kt"] > 0)
-    check("live fixture: cap math internally consistent",
-          lp["cap_reference"]["run_rate_vs_cap_pct"]
-          == round(ll["china_annualised_run_rate_mt"] / 45.0 * 100, 2))
-else:
-    print("  (live fixture test_fixture_alvis.json not present — synthetic coverage only)")
+# A response-wide auxiliary chart cannot donate a Total series to a different
+# China chart. Chart scopes remain causal units and economic coherence is hard.
+scoped = {"charts": [
+    {"label": "China (Estimated)", "data": {"2026-04": 100, "2026-05": 101}},
+], "auxiliary": {"charts": [
+    {"label": "Total", "data": {"2026-04": 7, "2026-05": 7}},
+]}}
+for raw, label in [
+    (scoped, "unrelated auxiliary Total is not merged across chart scopes"),
+    ({"charts": [
+        {"label": "World Total", "data": {"2026-04": 90, "2026-05": 90}},
+        {"label": "China", "data": {"2026-04": 100, "2026-05": 101}},
+    ]}, "world production below China is incoherent"),
+]:
+    raised = False
+    try:
+        mod.build(raw)
+    except RuntimeError:
+        raised = True
+    check(f"fail-closed when {label}", raised)
+
+verify = __import__("subprocess").run(
+    [sys.executable, os.path.join(_HERE, "fetch.py"), "--verify"],
+    capture_output=True, text=True,
+)
+check("--verify performs no live IAI retrieval and states the manual-only boundary",
+      verify.returncode == 0 and "manual-only" in verify.stdout and "disabled" in verify.stdout)
 
 print(f"\n{'PASS' if not _fails else 'FAIL'}: iai-primary-aluminium-production connector — {_fails} failing case(s)")
 raise SystemExit(1 if _fails else 0)

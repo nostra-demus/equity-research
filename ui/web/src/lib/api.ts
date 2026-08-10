@@ -82,7 +82,7 @@ async function post<T>(url: string, body?: any): Promise<T> {
     body: body !== undefined ? JSON.stringify(body) : undefined,
   })
   const j = await r.json().catch(() => ({}))
-  if (!r.ok) throw Object.assign(new Error((j as any)?.error || `${r.status}`), { status: r.status, body: j })
+  if (!r.ok) throw Object.assign(new Error((j as any)?.message || (j as any)?.error || `${r.status}`), { status: r.status, body: j })
   return j as T
 }
 
@@ -1004,6 +1004,7 @@ export const api = {
           cb.onFound({
             pipeline_id: parsed.pipeline_id, source_url: parsed.source_url, why: parsed.why ?? '',
             verdict: parsed.verdict, building: parsed.building === true,
+            connector_exists: typeof parsed.connector_exists === 'string' ? parsed.connector_exists : undefined,
           })
         } else if (ev === 'discover-done') { cb.onDone({ found: parsed.found ?? 0, autoBuilt: parsed.autoBuilt ?? 0 }); return 'stop' }
         else if (ev === 'discover-error') { cb.onError(parsed.message || 'the search failed'); return 'stop' }

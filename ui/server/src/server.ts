@@ -79,8 +79,9 @@ import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-change
 import { readDataNeeds } from './data-needs'
 import { appendPipelineEvent, getPipelineSource, getPipelineView, isPipelineId, listPipelineForSubject, listRecentPipeline, writePipelineSource, type PipelineSourceKind } from './pipeline-store'
 import { runRelevanceScan, type ScanSignal } from './pipeline-scan'
-import { runFeedDiscovery } from './pipeline-discover'
-import { getBuildProgress, startConnectorDispatch, subscribeBuild } from './connector-dispatch'
+import { openDiscoverNeeds, runFeedDiscovery } from './pipeline-discover'
+import { existingConnectorFor, getBuildProgress, startConnectorDispatch, subscribeBuild } from './connector-dispatch'
+import { resolveBoundConnectorUrls, resolvedConnectorSourceUrl } from './connector-url-policy'
 import { getConnector } from './connector-registry'
 import { startConnectorRunner, lastLedgerError } from './connector-runner'
 import { startConnectorRepair } from './connector-repair'
@@ -889,14 +890,16 @@ app.post('/api/pipeline/:subject/source', { config: { rateLimit: { max: 120, tim
   if (!swarmById(swarmId)) return reply.code(400).send({ error: 'unknown swarm' })
   const body = AddSourceBody.safeParse(req.body)
   if (!body.success) return reply.code(400).send({ error: 'invalid body', detail: body.error.flatten() })
-  // A source must be an http(s) URL — the scan fetches it, and the build pins its host into an allowlist.
-  try { const u = new URL(body.data.source_url); if (!/^https?:$/.test(u.protocol) || !u.hostname) throw new Error('bad') } catch { return reply.code(400).send({ error: 'source_url must be an http(s) URL' }) }
+  // Persist only an exact public-DNS HTTPS origin with globally routable A/AAAA answers.
+  // The generic failure never reflects a query string which may have contained a credential.
+  const safeSource = await resolvedConnectorSourceUrl(body.data.source_url)
+  if (!safeSource) return reply.code(400).send({ error: 'source_url must be a public HTTPS URL without embedded credentials' })
   const { user } = identify(req)
   const item = await writePipelineSource({
     subject, swarm: swarmId,
     need_id: body.data.need_id ?? null,
     series_hint: body.data.series_hint,
-    source_url: body.data.source_url,
+    source_url: safeSource.url,
     source_kind: (body.data.source_kind ?? 'web') as PipelineSourceKind,
     sample: body.data.sample,
     note: body.data.note,
@@ -920,6 +923,9 @@ app.post('/api/pipeline/:subject/scan', { config: { rateLimit: { max: 60, timeWi
   const id = String((req.body as any)?.pipeline_id ?? '')
   const source = getPipelineSource(id)
   if (!source || source.subject !== subject.toUpperCase() || source.swarm !== swarmId) return reply.code(404).send({ error: 'no such source for this subject' })
+  // Old ledger rows pre-date the admission policy; revalidate before a web-capable agent sees one.
+  const safeSource = await resolvedConnectorSourceUrl(source.source_url)
+  if (!safeSource) return reply.code(400).send({ error: 'source is not an allowed public HTTPS destination' })
   const read = readDataNeeds(swarmId, subject)
   const needs = (read?.needs ?? []).filter((n) => !n.filing_required)
 
@@ -933,7 +939,7 @@ app.post('/api/pipeline/:subject/scan', { config: { rateLimit: { max: 60, timeWi
     const out = await runRelevanceScan({
       input: {
         subject, swarm: swarmId, needs,
-        source: { source_url: source.source_url, source_kind: source.source_kind, sample: source.sample, note: source.note, need_id: source.need_id, series_hint: source.series_hint },
+        source: { source_url: safeSource.url, source_kind: source.source_kind, sample: source.sample, note: source.note, need_id: source.need_id, series_hint: source.series_hint },
       },
       signal: ac.signal,
       onSignal: (s: ScanSignal) => {
@@ -946,8 +952,15 @@ app.post('/api/pipeline/:subject/scan', { config: { rateLimit: { max: 60, timeWi
       send({ type: 'scan-error', message: out.error })
       await appendPipelineEvent(id, 'scanned', { note: `Scan failed: ${out.error}`, user }).catch(() => null)
     } else if (!out.error && out.verdict) {
-      send({ type: 'scan-verdict', verdict: out.verdict, costUsd: out.costUsd })
-      await appendPipelineEvent(id, 'scanned', { verdict: out.verdict, note: out.verdict.verdict_note, user }).catch(() => null)
+      const bound = await resolveBoundConnectorUrls(safeSource.url, out.verdict.endpoint_hint)
+      if (!bound) {
+        send({ type: 'scan-error', message: 'The proposed endpoint is not on the admitted public HTTPS host.' })
+        await appendPipelineEvent(id, 'scanned', { note: 'Scan endpoint failed the connector URL boundary.', user }).catch(() => null)
+      } else {
+        const verdict = { ...out.verdict, host: bound.source.host, endpoint_hint: bound.endpoint.url }
+        send({ type: 'scan-verdict', verdict, costUsd: out.costUsd })
+        await appendPipelineEvent(id, 'scanned', { verdict, note: verdict.verdict_note, user }).catch(() => null)
+      }
     }
   } catch (e: any) {
     if (!closed) send({ type: 'scan-error', message: String(e?.message || e) })
@@ -969,7 +982,7 @@ app.post('/api/pipeline/source/:id/build', { config: { rateLimit: { max: 30, tim
   const view = getPipelineView(id)
   if (!source || !view) return reply.code(404).send({ error: 'no such source' })
   if (!view.verdict) return reply.code(409).send({ error: 'scan this source before building a connector for it' })
-  const outcome = startConnectorDispatch(source, view.verdict, user)
+  const outcome = await startConnectorDispatch(source, view.verdict, user)
   return reply.code(outcome.accepted ? 202 : 409).send({ ok: outcome.accepted, ...outcome })
 })
 
@@ -1004,8 +1017,9 @@ app.post('/api/pipelines/discover', { config: { rateLimit: { max: 20, timeWindow
 
   // relevance inputs: what the runs said is missing, and what is already wired (so nothing is proposed twice)
   const needsRead = readDataNeeds(swarmId, subject)
-  const allNeeds = (needsRead?.needs ?? []).filter((n) => !n.filing_required)
-  const needs = body.data.need_id ? allNeeds.filter((n) => n.need_id === body.data.need_id) : allNeeds
+  // Discovery is for OPEN needs. `built_by` is the registry's exact current+usable proof; sending one back
+  // to the scouting agent wastes a paid search and can propose a duplicate primary for a closed gap.
+  const needs = openDiscoverNeeds(needsRead?.needs ?? [], body.data.need_id)
   const wired = readPipelines().pipelines.map((p) => ({ series: p.series, provider: p.provider, subjects: p.subjects }))
 
   const { res, send, ping } = startSSE(reply)
@@ -1027,28 +1041,37 @@ app.post('/api/pipelines/discover', { config: { rateLimit: { max: 20, timeWindow
     if (out.error && out.error !== 'aborted') { send({ type: 'discover-error', message: out.error }); return }
 
     let built = 0
+    let found = 0
     for (const feed of out.feeds) {
+      // Discovery parsing is structural-only. DNS and exact-host admission happen
+      // here, immediately before either model output is persisted or dispatched.
+      const bound = await resolveBoundConnectorUrls(feed.source_url, feed.verdict.endpoint_hint)
+      if (!bound) continue
+      const verdict = { ...feed.verdict, host: bound.source.host, endpoint_hint: bound.endpoint.url }
       // persist as an ordinary source + its verdict, so it is indistinguishable downstream from a hand-added
       // source that was scanned — one ledger, one build path (§2)
       const item = await writePipelineSource({
         subject, swarm: swarmId,
         need_id: feed.verdict.matched_need_ids[0] ?? body.data.need_id ?? null,
         series_hint: feed.verdict.series,
-        source_url: feed.source_url,
-        source_kind: feed.verdict.acquisition === 'scrape' ? 'scrape' : feed.verdict.acquisition === 'manual' ? 'web' : 'api',
+        source_url: bound.source.url,
+        source_kind: verdict.acquisition === 'scrape' ? 'scrape' : verdict.acquisition === 'manual' ? 'web' : 'api',
         note: feed.why,
       }, user).catch(() => null)
       if (!item) continue
-      await appendPipelineEvent(item.pipeline_id, 'scanned', { verdict: feed.verdict, note: feed.why || feed.verdict.verdict_note, user }).catch(() => null)
+      found++
+      await appendPipelineEvent(item.pipeline_id, 'scanned', { verdict, note: feed.why || verdict.verdict_note, user }).catch(() => null)
       let building = false
+      const connectorExists = existingConnectorFor(item, verdict)
       // one-click: build the strongest buildable candidate straight away, and say so in the stream
-      if (body.data.autoBuild && mayBuild && built === 0 && feed.verdict.buildable && feed.verdict.relevance !== 'none') {
-        building = startConnectorDispatch(item, feed.verdict, user).accepted
+      if (!connectorExists && body.data.autoBuild && mayBuild && built === 0 && verdict.buildable && verdict.relevance !== 'none') {
+        building = (await startConnectorDispatch(item, verdict, user)).accepted
         if (building) built++
       }
-      send({ type: 'discover-found', pipeline_id: item.pipeline_id, source_url: feed.source_url, why: feed.why, verdict: feed.verdict, building })
+      send({ type: 'discover-found', pipeline_id: item.pipeline_id, source_url: bound.source.url, why: feed.why,
+        verdict, building, connector_exists: connectorExists })
     }
-    send({ type: 'discover-done', found: out.feeds.length, costUsd: out.costUsd, autoBuilt: built })
+    send({ type: 'discover-done', found, costUsd: out.costUsd, autoBuilt: built })
   } catch (e: any) {
     if (!closed) send({ type: 'discover-error', message: String(e?.message || e) })
   } finally {
@@ -1094,15 +1117,15 @@ app.get('/api/pipelines/build/:id/stream', { config: { rateLimit: { max: 120, ti
   if (!current.running) { clearInterval(ping); unsubscribe(); try { res.end() } catch { /* already closed */ } }
 })
 
-// ---------- connectors: the auto-repair watchdog ----------
+// ---------- connectors: health watchdog and manual repair request ----------
 // #287's run_connectors.py (launchd) is the sole fetcher and owns every feed's freshness/health; the cockpit
-// read surface for that is GET /api/pipelines (pipelines.ts). What remains here is the manual auto-repair
-// trigger. A connector id is matched against the discovered manifests (never joined into a path), so an
-// injected id simply 404s.
+// read surface for that is GET /api/pipelines (pipelines.ts). This endpoint preserves the repair request
+// contract but fails closed until an OS/VM-isolated coding-agent adapter exists. A connector id is matched
+// against the discovered manifests (never joined into a path), so an injected id simply 404s.
 const CONNECTOR_ID_RE = /^[a-z0-9][a-z0-9_-]{0,120}$/
 
-// Manual auto-repair — send a broken connector to the coding agent to fix + open a PR. Admin + PR-token gated
-// (opens a PR). Body: { subject? } to name the failing subject (else the first one).
+// Admin repair request. It currently returns not_ready without starting an agent; future activation still
+// requires the hard isolation gate. Body: { subject? } names the failing subject (else the first one).
 app.post('/api/connectors/:id/repair', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
   const id = (req.params as any).id as string
@@ -3492,9 +3515,9 @@ app
     // plan-limit reset / dropped connection / reboot. OFF unless RESUME_SUPERVISOR_ENABLED=1 (the cloud
     // host sets it; a dev laptop stays dark). Never spends overage; waits for the plan limit to reset.
     startResumeSupervisor()
-    // forever-living connector repair watchdog: reads #287's run_connectors.py fetch ledger and (when
-    // auto-repair is on) opens a fix-it PR for any feed whose latest fetch failed. #287 does the fetching.
-    // OFF unless ENGINE_CONNECTOR_RUNNER_ENABLED=1.
+    // Forever-living connector health loop: reads run_connectors.py's ledger, keeps cadence fetch state
+    // visible, and can dispatch repair only after explicit opt-in plus a verified isolated-agent backend.
+    // The current runtime deliberately has no such backend; fetching remains independent and defaults on.
     startConnectorRunner()
   })
   .catch((err: any) => {

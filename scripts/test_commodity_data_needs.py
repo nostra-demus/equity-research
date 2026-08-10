@@ -30,6 +30,7 @@ def _load_checker():
 
 MOD = _load_checker()
 SCHEMA = json.load(open(os.path.join(_REPO, "frameworks/commodity/decision_record.schema.json"), encoding="utf-8"))
+CONNECTOR_SCHEMA = json.load(open(os.path.join(_REPO, "frameworks/connector.schema.json"), encoding="utf-8"))
 
 
 def errs(doc: dict) -> list[str]:
@@ -87,6 +88,13 @@ expect("record with empty data_needs validates", errs({**BASE, "data_needs": []}
 
 # 2. a well-formed need validates
 expect("a well-formed data_need validates", errs(rec(VALID_NEED)) == [])
+decision_cadences = SCHEMA["properties"]["data_needs"]["items"]["properties"]["cadence"]["enum"]
+connector_cadences = CONNECTOR_SCHEMA["properties"]["release"]["properties"]["cadence"]["enum"]
+expect("data-needs and connector manifests expose the same complete cadence vocabulary",
+       decision_cadences == connector_cadences)
+for cadence in connector_cadences:
+    expect(f"data_need accepts connector cadence {cadence}",
+           errs(rec({**VALID_NEED, "cadence": cadence})) == [])
 
 # 3. structural guards are enforced (each violation must produce >=1 error)
 expect("tier=1 (a filing) is rejected — a connector can never produce a filing",

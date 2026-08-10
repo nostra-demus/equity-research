@@ -8,14 +8,40 @@ function check(name: string, cond: boolean, detail = '') {
   else { console.error(`FAIL  ${name}  ${detail}`); process.exitCode = 1 }
 }
 
-const { parseDiscovered, usableSourceUrl, buildDiscoverPrompt } = await import('../src/pipeline-discover')
+const { parseDiscovered, usableSourceUrl, buildDiscoverPrompt, openDiscoverNeeds } = await import('../src/pipeline-discover')
 
-// ── usableSourceUrl: only an absolute http(s) URL with a host survives (a build pins that host) ──
+const needs = [
+  { need_id: 'open', filing_required: false },
+  { need_id: 'closed', filing_required: false, built_by: 'healthy-connector' },
+  { need_id: 'filing', filing_required: true },
+] as any[]
+check('discovery receives only open connector-eligible needs',
+  openDiscoverNeeds(needs).map((need: any) => need.need_id).join(',') === 'open')
+check('a targeted already-closed need is not smuggled back into discovery', openDiscoverNeeds(needs, 'closed').length === 0)
+
+// ── usableSourceUrl: pure structural admission; DNS is checked before persistence/dispatch ──
 check('accepts an https URL', usableSourceUrl('https://api.example.com/v1/data') === 'https://api.example.com/v1/data')
+check('accepts a non-credential query on the standard HTTPS origin',
+  usableSourceUrl('https://api.example.com/v1/data?series=gold') === 'https://api.example.com/v1/data?series=gold')
+check('rejects plain HTTP', usableSourceUrl('http://api.example.com/v1/data') === null)
 check('rejects a non-http scheme', usableSourceUrl('ftp://x.example.com/f') === null)
 check('rejects a bare path (no host)', usableSourceUrl('/some/path') === null)
 check('rejects a non-string', usableSourceUrl(42 as any) === null && usableSourceUrl(null) === null)
 check('rejects empty / whitespace', usableSourceUrl('   ') === null)
+check('rejects IP literals, localhost and .local names',
+  usableSourceUrl('https://127.0.0.1/data') === null
+  && usableSourceUrl('https://[::1]/data') === null
+  && usableSourceUrl('https://localhost/data') === null
+  && usableSourceUrl('https://feed.internal.local/data') === null)
+check('rejects userinfo, nonstandard ports and credential query parameters',
+  usableSourceUrl('https://user:pass@api.example.com/data') === null
+  && usableSourceUrl('https://api.example.com:8443/data') === null
+  && usableSourceUrl('https://api.example.com/data?api_key=do-not-persist') === null
+  && usableSourceUrl('https://api.example.com/data?X-Amz-Credential=do-not-persist') === null
+  && usableSourceUrl('https://api.example.com/data?X-Amz-Signature=do-not-persist') === null
+  && usableSourceUrl('https://api.example.com/data?X-Amz-Security-Token=do-not-persist') === null
+  && usableSourceUrl('https://api.example.com/data?subscription-key=do-not-persist') === null
+  && usableSourceUrl('https://api.example.com/data?client_secret=do-not-persist') === null)
 
 // ── parseDiscovered: happy path ──
 const good = JSON.stringify({
@@ -45,6 +71,11 @@ const dup = JSON.stringify({ feeds: [
 ] })
 check('a duplicate endpoint is de-duplicated', parseDiscovered(dup).length === 1)
 
+const offHost = JSON.stringify({ feeds: [
+  { source_url: 'https://api.good.com/a', endpoint_hint: 'https://private.other.com/a', series: 'unsafe expansion', buildable: true },
+] })
+check('an off-host endpoint hint drops the discovery candidate', parseDiscovered(offHost).length === 0)
+
 // ── robustness: no feeds / no JSON / garbage never throws ──
 check('an object with no feeds array → []', parseDiscovered(JSON.stringify({ nope: true })).length === 0)
 check('no JSON at all → []', parseDiscovered('the search found nothing worth wiring').length === 0)
@@ -63,5 +94,7 @@ check('prompt carries the open need', prompt.includes('need-x'))
 check('prompt lists what is already wired (do-not-duplicate)', prompt.includes('Existing feed'))
 check('prompt carries the user steer', prompt.includes('inventory data'))
 check('prompt forbids tiers 1-4 (a feed is not a filing)', /NEVER 1-4/.test(prompt))
+check('prompt can discover every slow connector cadence without collapsing it to monthly',
+  ['twelve_hourly', 'quarterly', 'semiannual', 'annual'].every((cadence) => prompt.includes(cadence)))
 
 console.log(`\npipeline-discover.test.ts: ${passed} passed${process.exitCode ? ' (with failures)' : ''}`)

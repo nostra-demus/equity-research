@@ -2,15 +2,16 @@
 """CourtListener docket-entries connector — FTC v. Amazon.com, Inc. (2:23-cv-01495, W.D. Wash.).
 
 Fetches the latest federal docket entries (motions, orders, scheduling, trial date) for the FTC's core
-antitrust suit against Amazon and writes them into the AMZN subject's external pool as a typed, §4 tier-9
+antitrust suit against Amazon and writes them into the AMZN subject's external pool as a typed, §4 tier-5
 API pull, for the management-governance module. A file-writing fetcher per EXTERNAL_DATA.md §7 — zero
-engine wiring. Gives a dated, primary read on the docket without waiting for news coverage to summarize a
-filing.
+engine wiring. Gives a dated aggregator read of the docket index without waiting for news coverage to
+summarize a filing; it is not a substitute for the underlying court filing.
 
 Acquisition is free_key_api: CourtListener's REST v4 `docket-entries` endpoint requires a free, self-service
 API token (Authorization: Token <token>, obtained at https://www.courtlistener.com/profile/), unlike its
-public anonymous search endpoint. The token is never stored in this repo — it is read from the
-COURTLISTENER_API_TOKEN environment variable, or from ~/.config/nostra-engine/providers.env (§7, §28). With
+public anonymous search endpoint. The token is never stored in this repo. The fetcher reads only the
+CONNECTOR_COURTLISTENER_API_TOKEN environment variable; the production runner securely loads that declared
+name from the owner-only providers.env before creating the isolated child (§7, §28). With
 no token configured, this fetcher fails closed: it writes nothing and exits non-zero with instructions,
 exactly like any other unmet precondition. Fails CLOSED on top of that: a non-200, an empty result, a docket
 mismatch, or a shape mismatch also writes NOTHING. `as_of` is the latest entry's filing date, read from the
@@ -33,6 +34,11 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 
+_SCRIPTS = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))), "scripts")
+if _SCRIPTS not in sys.path:
+    sys.path.append(_SCRIPTS)
+from connector_http import ResponseBodyError, open_allowed_https, read_bounded_response  # noqa: E402
+
 HOST = "www.courtlistener.com"           # the ONE host this connector may reach
 DOCKET_ID = 67828404                      # FTC v. Amazon.com, Inc., 2:23-cv-01495 (W.D. Wash.)
 CASE_NAME = "Federal Trade Commission v. Amazon.com, Inc."
@@ -43,28 +49,18 @@ SUBJECTS = ("AMZN",)                      # the pool(s) this series may be writt
 PROVIDER = "courtlistener"
 CONNECTOR_ID = "courtlistener-ftc-amazon-docket"
 MAX_ENTRIES = 20                          # most-recent entries carried in the payload
-TOKEN_ENV = "COURTLISTENER_API_TOKEN"
-PROVIDERS_ENV_PATH = os.path.expanduser("~/.config/nostra-engine/providers.env")
+MAX_RESPONSE_BYTES = 4 * 1024 * 1024      # one capped docket page; hard network-body cap
+MAX_ERROR_RESPONSE_BYTES = 64 * 1024      # enough diagnostics without trusting an error server
+_HERE = os.path.dirname(os.path.abspath(__file__))
+with open(os.path.join(_HERE, "connector.json"), encoding="utf-8") as _f:
+    MANIFEST = json.load(_f)
+TOKEN_ENV = "CONNECTOR_COURTLISTENER_API_TOKEN"
 
 
 def load_token() -> str | None:
-    """Read the free CourtListener API token from the environment, falling back to the shared
-    providers.env (§7, §28) — the key never lives in the repo."""
+    """Read only the runner-injected credential; never parse secret files here."""
     tok = os.environ.get(TOKEN_ENV)
-    if tok:
-        return tok.strip()
-    try:
-        with open(PROVIDERS_ENV_PATH, encoding="utf-8") as f:
-            for line in f:
-                line = line.strip()
-                if not line or line.startswith("#") or "=" not in line:
-                    continue
-                k, _, v = line.partition("=")
-                if k.strip() == TOKEN_ENV:
-                    return v.strip().strip('"').strip("'") or None
-    except OSError:
-        pass
-    return None
+    return tok if tok and tok == tok.strip() else None
 
 
 def _url() -> str:
@@ -82,12 +78,21 @@ def fetch_json(token: str, timeout: int = 20):
         },
     )
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:  # noqa: S310 — fixed HTTPS host, not user input
+        with open_allowed_https(req, MANIFEST["host_allowlist"], timeout=timeout) as r:
             if r.status != 200:
                 raise RuntimeError(f"HTTP {r.status} from {HOST}")
-            return json.loads(r.read().decode("utf-8", "replace"))
+            body = read_bounded_response(r, max_bytes=MAX_RESPONSE_BYTES)
+            return json.loads(body.decode("utf-8", "replace"))
     except urllib.error.HTTPError as e:
-        raise RuntimeError(f"HTTP {e.code} from {HOST}: {e.read().decode('utf-8', 'replace')[:300]}") from e
+        try:
+            detail = read_bounded_response(e, max_bytes=MAX_ERROR_RESPONSE_BYTES)
+        except ResponseBodyError as body_error:
+            raise RuntimeError(
+                f"HTTP {e.code} from {HOST}; rejected unsafe error response body: {body_error}"
+            ) from e
+        finally:
+            e.close()
+        raise RuntimeError(f"HTTP {e.code} from {HOST}: {detail.decode('utf-8', 'replace')[:300]}") from e
 
 
 def _docket_id_from(rec: dict):
@@ -113,21 +118,36 @@ def build(data):
     if not results:
         raise RuntimeError("no docket entries returned (fail closed)")
 
-    matched = [rec for rec in results if _docket_id_from(rec) == DOCKET_ID]
-    if not matched:
-        raise RuntimeError(f"no entries matched docket {DOCKET_ID} (fail closed — contract mismatch)")
-
-    dated = [rec for rec in matched if rec.get("date_filed")]
-    if not dated:
-        raise RuntimeError("no entry carried a date_filed (fail closed)")
+    dated = []
+    for index, rec in enumerate(results):
+        if not isinstance(rec, dict):
+            raise RuntimeError(f"docket result {index} is not an object (fail closed)")
+        observed_docket = _docket_id_from(rec)
+        if observed_docket != DOCKET_ID:
+            raise RuntimeError(
+                f"docket result {index} belongs to {observed_docket!r}, not {DOCKET_ID} "
+                "(fail closed — a filtered endpoint must never mix cases)"
+            )
+        filed_value = rec.get("date_filed")
+        if not isinstance(filed_value, str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", filed_value):
+            raise RuntimeError(f"docket result {index} lacks a canonical date_filed (fail closed)")
+        try:
+            datetime.strptime(filed_value, "%Y-%m-%d")
+        except ValueError as exc:
+            raise RuntimeError(f"docket result {index} has an invalid date_filed (fail closed)") from exc
+        if not isinstance(rec.get("description"), str):
+            raise RuntimeError(f"docket result {index} has no string description (fail closed)")
+        if not isinstance(rec.get("recap_documents"), list):
+            raise RuntimeError(f"docket result {index} has malformed recap_documents (fail closed)")
+        dated.append(rec)
 
     # VERIFY the ordering contract rather than repairing it locally. We ask for `order_by=-date_filed`, and
     # everything downstream depends on this page being the docket's NEWEST entries: `latest_entries` and
     # `as_of` both assume it. Sorting the page ourselves would hide the one failure that matters — if the API
     # ignores or rejects that ordering, we would receive some OTHER page (plausibly the oldest entries) and
     # then publish it, correctly sorted, as "latest_entries" with a stale `as_of`. Nothing downstream could
-    # catch it: `staleness_sla_days` compares against `as_of`, which is derived from this same data, so a
-    # silently-old page reads as a quiet docket. So: fail closed unless the API already returned it
+    # catch it: the frozen release window is calculated from `as_of`, which is derived from this same data,
+    # so a silently-old page reads as a quiet docket. Fail closed unless the API already returned it
     # newest-first. Non-strict, because same-day entries may come back in any relative order.
     filed = [str(r["date_filed"])[:10] for r in dated]
     if any(a < b for a, b in zip(filed, filed[1:])):
@@ -168,17 +188,23 @@ def build(data):
         "provider": "CourtListener",
         "source_type": "paid_api",
         # Tier 5 — the band `paid_api` earns in frameworks/EXTERNAL_DATA.md ("vendor_export, paid_api → 5"),
-        # matching every sibling connector. The extract-time clamp only ever clamps DOWN, so a self-declared
-        # 9 here would have stuck: it would have folded a primary US federal court record into the pool below
-        # a rating-agency opinion (§4 tier 8) and level-capped it at §6 — the §20 bad-extraction failure of
-        # discounting a real primary source, and a contradiction of this connector's own `license` field.
+        # matching the API/vendor evidence band. `authority_class: court_record_aggregator` remains explicit:
+        # this row is CourtListener-derived docket metadata, not the underlying court filing, and must be cited
+        # as CourtListener rather than silently promoted to primary evidence.
         "tier": 5,
         "as_of": as_of,
         "received": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         "docket_url": DOCKET_URL,
         "source_url": _url(),
+        # Both URLs are evidence carried by the payload.  The API URL is the
+        # retrieval identity; the human-openable docket URL is the citation
+        # route.  Freeze both in the top-level provenance URL set.
+        "source_urls": [_url(), DOCKET_URL],
         "license": "public_domain (US federal court record); accessed via CourtListener API under its Terms of Use",
         "connector_id": CONNECTOR_ID,
+        "dataset_id": MANIFEST["dataset_id"], "series_id": MANIFEST["series_id"],
+        "schema_version": MANIFEST["schema_version"],
+        "licensing": MANIFEST["licensing"],
         "note": f"{len(entries)} most-recent docket entries through {as_of}; latest: entry "
                 f"{entries[0]['entry_number']} — {entries[0]['description'][:120]}",
     }
@@ -226,7 +252,7 @@ def main() -> int:
         print(
             f"error: no CourtListener API token configured. Fails closed — writes nothing. "
             f"Register a free account and get a token at https://www.courtlistener.com/profile/, "
-            f"then set {TOKEN_ENV} (env or {PROVIDERS_ENV_PATH}).",
+            f"then set {TOKEN_ENV}; the production runner loads it securely from providers.env.",
             file=sys.stderr,
         )
         return 2
@@ -253,7 +279,7 @@ def main() -> int:
     data_path = os.path.join(out_dir, f"ftc_v_amazon_docket_{as_of}.json")
     _atomic_write_json(data_path, payload)
     _atomic_write_json(data_path + ".source.json", sidecar)
-    print(f"wrote {data_path} ({len(entries)} entries, as_of {as_of}) + .source.json sidecar (tier 9)")
+    print(f"wrote {data_path} ({len(entries)} entries, as_of {as_of}) + .source.json sidecar (tier 5)")
     return 0
 
 

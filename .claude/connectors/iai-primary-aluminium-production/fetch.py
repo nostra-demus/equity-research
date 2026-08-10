@@ -1,31 +1,26 @@
 #!/usr/bin/env python3
-"""IAI primary-aluminium-production connector — world + China (Estimated) monthly output.
+"""Manual IAI primary-aluminium-production transform.
 
-Fetches the International Aluminium Institute's monthly primary-production series (the "is China running
-above its 45 Mt/yr cap" watch) and writes the trailing 13 months plus a China annualised-run-rate read into
-a subject's external pool as a typed, §4 tier-5 API pull. A file-writing fetcher per EXTERNAL_DATA.md §7 —
-zero engine wiring. The ALVIS API token is bootstrapped from the public stats page on every run and never
-stored anywhere. Fails CLOSED: a missing token, a non-200, no confidently-matched China series, or empty
-months writes NOTHING. `as_of` is the last day of the latest data month, read from the data, never mtime.
-
-The 45 Mt cap in `cap_reference` is an analyst reference (China's policy cap), NOT IAI data — labelled so
-in the payload and sidecar.
+IAI's published terms limit ordinary downloads to personal, non-commercial use. This connector therefore
+performs no unattended network access. An operator with prior written permission may supply an entitled
+ALVIS JSON export through the runner's attested manual-ingest path. The transform writes the trailing 13
+months plus the latest observations as typed tier-5 official data. `as_of` is the last day of the latest
+data month, read from the supplied data, never mtime.
 
 Usage:
-  python3 fetch.py --verify                        # prove fetch + parse works; write nothing
-  python3 fetch.py --verify --dump-raw raw.json    # also capture the raw API response (fixture capture)
-  python3 fetch.py --subject ALUMINIUM             # write into data/ALUMINIUM/external/iai/
+  python3 fetch.py --verify                        # prove automatic access is disabled
+  python3 fetch.py --from-file entitled.json --subject ALUMINIUM
 """
 from __future__ import annotations
 
 import argparse
 import calendar
 import json
+import math
 import os
 import re
 import sys
 import tempfile
-import urllib.request
 from datetime import datetime, timezone
 
 STATS_HOST = "international-aluminium.org"       # token bootstrap page
@@ -34,8 +29,7 @@ STATS_URL = f"https://{STATS_HOST}/statistics/primary-aluminium-production/"
 API_URL = f"https://{API_HOST}/api/publication/?publication=primary-aluminium-production"
 PROVIDER = "iai"
 CONNECTOR_ID = "iai-primary-aluminium-production"
-CAP_MT = 45.0                                    # analyst reference — China policy cap, not IAI data
-TOKEN_RE = re.compile(r'window\.ALVIS_API_TOKEN\s*=\s*"([^"]+)"')
+MAX_INPUT_BYTES = 16 * 1024 * 1024
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 with open(os.path.join(_HERE, "connector.json"), encoding="utf-8") as _f:
@@ -43,31 +37,6 @@ with open(os.path.join(_HERE, "connector.json"), encoding="utf-8") as _f:
 
 _MONTH_NAMES = {m.lower(): i for i, m in enumerate(calendar.month_name) if m}
 _MONTH_ABBRS = {m.lower(): i for i, m in enumerate(calendar.month_abbr) if m}
-
-
-def _get(url: str, headers: dict, timeout: int = 30) -> bytes:
-    req = urllib.request.Request(url, headers=headers)
-    with urllib.request.urlopen(req, timeout=timeout) as r:  # noqa: S310 — fixed HTTPS hosts, not user input
-        if r.status != 200:
-            raise RuntimeError(f"HTTP {r.status} from {url}")
-        return r.read()
-
-
-def fetch_token() -> str:
-    page = _get(STATS_URL, {"User-Agent": f"nostradamus-connector/{CONNECTOR_ID}"}).decode("utf-8", "replace")
-    m = TOKEN_RE.search(page)
-    if not m:
-        raise RuntimeError("ALVIS_API_TOKEN not found on the stats page — IAI page changed? (fail closed)")
-    return m.group(1)
-
-
-def fetch_raw(token: str):
-    text = _get(API_URL, {"User-Agent": f"nostradamus-connector/{CONNECTOR_ID}",
-                          "X-AUTH-TOKEN": token}).decode("utf-8", "replace")
-    try:
-        return text, json.loads(text)
-    except json.JSONDecodeError as e:
-        raise RuntimeError(f"ALVIS response is not JSON (fail closed): {e}")
 
 
 def _norm_month(s) -> str | None:
@@ -109,43 +78,61 @@ def _series_from_matrix(node) -> dict:
                 if name is None:
                     continue
                 v = cell.get("value") if isinstance(cell, dict) else cell
-                if isinstance(v, (int, float)) and not isinstance(v, bool):
+                if (isinstance(v, (int, float)) and not isinstance(v, bool)
+                        and math.isfinite(float(v)) and float(v) >= 0):
                     out[name][month] = float(v)
     return {k: v for k, v in out.items() if v}
 
 
-def _collect(node, matrices: list, generic: dict) -> None:
-    """Defensive walker — collects the ALVIS matrix shape plus generic labeled datasets
-    (month-keyed dicts or parallel arrays). Non-numeric values are skipped, never coerced."""
+def _generic_series(node) -> tuple[str, dict] | None:
+    if not isinstance(node, dict):
+        return None
+    label = node.get("label") if isinstance(node.get("label"), str) else (
+        node.get("name") if isinstance(node.get("name"), str) else None)
+    vals = node.get("data") if node.get("data") is not None else node.get("values")
+    series = {}
+    if label and isinstance(vals, dict):
+        for key, value in vals.items():
+            month = _norm_month(key)
+            if (month and isinstance(value, (int, float)) and not isinstance(value, bool)
+                    and math.isfinite(float(value)) and float(value) >= 0):
+                series[month] = float(value)
+    elif label and isinstance(vals, list):
+        months = node.get("months") or node.get("labels") or node.get("categories")
+        if isinstance(months, list) and len(months) == len(vals):
+            for key, value in zip(months, vals):
+                month = _norm_month(key)
+                if (month and isinstance(value, (int, float)) and not isinstance(value, bool)
+                        and math.isfinite(float(value)) and float(value) >= 0):
+                    series[month] = float(value)
+    return (label.strip(), series) if label and series else None
+
+
+def _collect_candidates(node, candidates: list[tuple[dict, bool]]) -> None:
+    """Keep sibling chart scopes separate; never merge a response-wide auxiliary chart."""
     if isinstance(node, dict):
         if isinstance(node.get("columns"), list) and isinstance(node.get("data"), list):
-            matrices.append(node)
-        label = node.get("label") if isinstance(node.get("label"), str) else (
-            node.get("name") if isinstance(node.get("name"), str) else None)
-        vals = node.get("data") if node.get("data") is not None else node.get("values")
-        if label and isinstance(vals, dict):
-            series = {}
-            for k, v in vals.items():
-                month = _norm_month(k)
-                if month and isinstance(v, (int, float)) and not isinstance(v, bool):
-                    series[month] = float(v)
-            if series:
-                generic.setdefault(label.strip(), series)
-        elif label and isinstance(vals, list):
-            months = node.get("months") or node.get("labels") or node.get("categories")
-            if isinstance(months, list) and len(months) == len(vals):
-                series = {}
-                for k, v in zip(months, vals):
-                    month = _norm_month(k)
-                    if month and isinstance(v, (int, float)) and not isinstance(v, bool):
-                        series[month] = float(v)
-                if series:
-                    generic.setdefault(label.strip(), series)
-        for v in node.values():
-            _collect(v, matrices, generic)
+            matrix = _series_from_matrix(node)
+            if matrix:
+                candidates.append((matrix, True))
+        for value in node.values():
+            if isinstance(value, list):
+                siblings = {}
+                duplicate = False
+                for child in value:
+                    parsed = _generic_series(child)
+                    if parsed is None:
+                        continue
+                    label, series = parsed
+                    if label in siblings:
+                        duplicate = True
+                    siblings[label] = series
+                if siblings and not duplicate:
+                    candidates.append((siblings, False))
+            _collect_candidates(value, candidates)
     elif isinstance(node, list):
-        for v in node:
-            _collect(v, matrices, generic)
+        for value in node:
+            _collect_candidates(value, candidates)
 
 
 def _pick(labels, exact: set, word_re: str, extra_exact: str | None = None) -> str | None:
@@ -170,20 +157,20 @@ def _pick(labels, exact: set, word_re: str, extra_exact: str | None = None) -> s
 
 def build(raw):
     """Pure transform (parsed ALVIS JSON → payload + sidecar). Label-driven, never positional."""
-    matrices, generic = [], {}
-    _collect(raw, matrices, generic)
-    matrix_series = {}
-    for m in matrices:
-        for label, series in _series_from_matrix(m).items():
-            matrix_series.setdefault(label, {}).update(series)
-    all_series = dict(generic)
-    all_series.update(matrix_series)  # matrix wins on a label collision
-    if not all_series:
+    candidates: list[tuple[dict, bool]] = []
+    _collect_candidates(raw, candidates)
+    if not candidates:
         raise RuntimeError("no labeled series found in the ALVIS response (fail closed)")
-
-    china_label = _pick(all_series, exact={"china"}, word_re=r"china\b", extra_exact="china (estimated)")
-    if china_label is None:
+    selected = []
+    for series, is_matrix in candidates:
+        china_label = _pick(series, exact={"china"}, word_re=r"china\b", extra_exact="china (estimated)")
+        if china_label is not None:
+            selected.append((series, is_matrix, china_label))
+    if not selected:
         raise RuntimeError("no China series found (decoys like 'Chinese Taipei' do not count; fail closed)")
+    if len(selected) != 1:
+        raise RuntimeError("more than one chart scope contains a China series (fail closed)")
+    all_series, is_matrix, china_label = selected[0]
     china = all_series[china_label]
 
     world_label = _pick(all_series, exact={"world", "total", "world total", "grand total"},
@@ -195,37 +182,34 @@ def build(raw):
         # The live feed has NO labeled world/total — its total column is undeclared. World = the sum of
         # all labeled matrix series per month (verified equal to the feed's own total), guarded against
         # double-counting the two mutually-exclusive Europe representations.
-        if not matrix_series:
+        if not is_matrix:
             raise RuntimeError("no labeled world series and no matrix to sum (fail closed)")
-        combined_eu = [l for l in matrix_series if "europe" in l.casefold() and "inc" in l.casefold()]
-        split_eu = [l for l in matrix_series if "europe" in l.casefold() and l not in combined_eu]
+        combined_eu = [l for l in all_series if "europe" in l.casefold() and "inc" in l.casefold()]
+        split_eu = [l for l in all_series if "europe" in l.casefold() and l not in combined_eu]
         world = {}
-        for label, series in matrix_series.items():
+        for label, series in all_series.items():
             for month, v in series.items():
                 world[month] = world.get(month, 0.0) + v
 
-    months = sorted(m for m in china if m in world)[-13:]  # latest + its prior-year month, so YoY resolves
+    months = sorted(m for m in china if m in world)[-13:]  # a stable one-year-plus history window
     if not months:
         raise RuntimeError("no months with both China and world values (fail closed)")
     if world_label is None:
         for month in months:
-            comb = sum(matrix_series[l].get(month, 0.0) for l in combined_eu)
-            split = sum(matrix_series[l].get(month, 0.0) for l in split_eu)
+            comb = sum(all_series[l].get(month, 0.0) for l in combined_eu)
+            split = sum(all_series[l].get(month, 0.0) for l in split_eu)
             if comb and split:
                 raise RuntimeError(f"Europe series double-count in {month} — layout changed? (fail closed)")
+    if any(not math.isfinite(world[month]) or world[month] < china[month] or china[month] < 0
+           for month in months):
+        raise RuntimeError("world/China production values are not economically coherent (fail closed)")
 
     latest_month = months[-1]
     y, mo = int(latest_month[:4]), int(latest_month[5:7])
     days = calendar.monthrange(y, mo)[1]
     asof = f"{latest_month}-{days:02d}"
     china_kt = china[latest_month]
-    daily = round(china_kt / days, 3)
-    ann_mt = round(daily * 365 / 1000, 3)
-    prior = f"{y - 1}-{mo:02d}"
-    yoy = round((china_kt / china[prior] - 1) * 100, 2) if prior in months and china.get(prior) else None
     world_kt = world[latest_month]
-    share = round(china_kt / world_kt * 100, 2) if world_kt else None
-    vs_cap = round(ann_mt / CAP_MT * 100, 2)
 
     payload = {
         "series": MANIFEST["series"],
@@ -235,30 +219,23 @@ def build(raw):
         "latest": {
             "month": latest_month,
             "china_kt": round(china_kt, 2),
-            "china_daily_avg_kt": daily,
-            "china_annualised_run_rate_mt": ann_mt,
-            "china_yoy_pct": yoy,
             "world_kt": round(world_kt, 2),
-            "china_share_pct": share,
-        },
-        "cap_reference": {
-            "cap_mt": CAP_MT,
-            "run_rate_vs_cap_pct": vs_cap,
-            "note": "45 Mt/yr cap is an analyst reference (China policy cap), not IAI data",
         },
         "source_url": API_URL,
     }
     sidecar = {
         "provider": "IAI",
-        "source_type": "paid_api",          # §4 tier-5 "API pull, dated" bucket; this feed is free + attributed
+        "source_type": "official_data",     # first-party industry-body series; §4 tier-5 external-data ceiling
         "tier": 5,
         "as_of": asof,
         "received": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         "source_url": API_URL,
         "license": MANIFEST["license"],
         "connector_id": CONNECTOR_ID,
-        "note": f"{latest_month}: China {china_kt:,.0f} kt → annualised {ann_mt:.2f} Mt "
-                f"({vs_cap:.1f}% of the 45 Mt analyst-reference cap); world {world_kt:,.0f} kt.",
+        "dataset_id": MANIFEST["dataset_id"], "series_id": MANIFEST["series_id"],
+        "schema_version": MANIFEST["schema_version"],
+        "licensing": MANIFEST["licensing"],
+        "note": f"{latest_month}: IAI China (Estimated) {china_kt:,.0f} kt; world {world_kt:,.0f} kt.",
     }
     return asof, payload["latest"], payload, sidecar
 
@@ -290,29 +267,34 @@ def _output_path(data_root: str, subject: str, asof: str) -> str:
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="Fetch IAI primary-aluminium production into a subject's pool.")
+    ap = argparse.ArgumentParser(description="Transform an entitled IAI production export into a subject's pool.")
     ap.add_argument("--subject", help="the pool subject, e.g. ALUMINIUM (required unless --verify)")
     ap.add_argument("--data-root", default="data", help="pool root (default: data)")
-    ap.add_argument("--verify", action="store_true", help="prove fetch + parse works; write nothing")
-    ap.add_argument("--dump-raw", metavar="FILE", help="save the raw API response verbatim (fixture capture)")
+    ap.add_argument("--verify", action="store_true", help="prove unattended access is disabled; write nothing")
+    ap.add_argument("--from-file", help="entitled IAI ALVIS JSON export supplied by the operator")
     a = ap.parse_args()
 
+    if a.verify and not a.from_file:
+        print("OK verify: manual-only connector; unattended IAI retrieval is disabled")
+        return 0
+    if not a.from_file:
+        print("error: --from-file is required; IAI terms do not permit unattended institutional retrieval",
+              file=sys.stderr)
+        return 2
     try:
-        text, raw = fetch_raw(fetch_token())
-        if a.dump_raw:
-            with open(a.dump_raw, "w", encoding="utf-8") as f:
-                f.write(text)
-            print(f"raw response saved to {a.dump_raw}")
+        with open(a.from_file, "rb") as fh:
+            encoded = fh.read(MAX_INPUT_BYTES + 1)
+        if len(encoded) > MAX_INPUT_BYTES:
+            raise RuntimeError(f"manual IAI input exceeds {MAX_INPUT_BYTES} bytes")
+        raw = json.loads(encoded.decode("utf-8"))
         asof, latest, payload, sidecar = build(raw)
-    except RuntimeError as e:
+    except (OSError, UnicodeError, json.JSONDecodeError, RuntimeError) as e:
         print(f"error: {e}", file=sys.stderr)
         return 1
 
     if a.verify:
-        print(f"OK verify: {latest['month']} China {latest['china_kt']:,.0f} kt → "
-              f"annualised {latest['china_annualised_run_rate_mt']:.2f} Mt "
-              f"({payload['cap_reference']['run_rate_vs_cap_pct']:.1f}% of the 45 Mt reference cap), "
-              f"as_of {asof}")
+        print(f"OK verify: {latest['month']} IAI China (Estimated) {latest['china_kt']:,.0f} kt; "
+              f"world {latest['world_kt']:,.0f} kt, as_of {asof}")
         return 0
 
     if not a.subject:
@@ -323,8 +305,8 @@ def main() -> int:
     os.makedirs(os.path.dirname(data_path), exist_ok=True)
     _atomic_write_json(data_path, payload)
     _atomic_write_json(data_path + ".source.json", sidecar)
-    print(f"wrote {data_path} ({latest['month']} China {latest['china_kt']:,.0f} kt, "
-          f"annualised {latest['china_annualised_run_rate_mt']:.2f} Mt) + .source.json sidecar (tier 5)")
+    print(f"wrote {data_path} ({latest['month']} IAI China (Estimated) {latest['china_kt']:,.0f} kt, "
+          f"world {latest['world_kt']:,.0f} kt) + .source.json sidecar (tier 5)")
     return 0
 
 

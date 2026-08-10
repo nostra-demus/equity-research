@@ -208,7 +208,7 @@ export function buildScanPrompt(input: ScanInput): string {
     '  "entry_modules": ["<module>", ...],       // the orb(s) it feeds; [] if none',
     '  "acquisition": "official_api" | "free_key_api" | "paid_api" | "scrape" | "manual",',
     '  "tier": 5 | 9 | 10,',
-    '  "cadence": "realtime" | "daily" | "weekly" | "monthly" | "event_driven",',
+    '  "cadence": "twelve_hourly" | "daily" | "weekly" | "monthly" | "quarterly" | "semiannual" | "annual" | "event_driven",',
     '  "host": "<the single hostname a connector would fetch, e.g. api.example.com>",',
     '  "endpoint_hint": "<the concrete URL / API endpoint to fetch the data>",',
     '  "verdict_note": "<1-3 sentences: why it does or does not help, in plain English>",',

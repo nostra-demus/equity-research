@@ -6,6 +6,17 @@ import type { PipelineEntry, PipelineSubjectStatus, PipelineVerdict, Recommended
 import { ACQ_LABEL, CADENCE_LABEL } from '../../lib/labels'
 import { DataLibraryFilters, dlFiltersActive, emptyDlFilters, matchesDlPipeline, matchesDlRecommended } from './DataLibraryFilters'
 import { DataLibraryBuild } from './DataLibraryBuild'
+import { recommendedDiscoveryAction } from './buildAvailability'
+import {
+  connectorForNeed,
+  existingConnectorGuidance,
+  feedHealthDisplayOf,
+  ledgerIntegrityWarningOf,
+  repairForSubject,
+  REPAIR_DISPLAY,
+  worstPipelineRepair,
+  worstPipelineStatus,
+} from './feedHealth'
 import './DataLibrary.css'
 
 // The Data Library — the cockpit's cross-swarm view over the connector registry: every wired data
@@ -35,16 +46,6 @@ const STATUS_HINT: Record<string, string> = {
   missing: 'no file in the pool for this subject yet',
   unknown: 'the data pool is not mounted on this host',
 }
-const HEALTH_HINT: Record<string, string> = {
-  ok: 'the last fetch of this source succeeded',
-  failing: 'the last fetch failed — it retries on the next sweep',
-  broken: 'the fetch has failed repeatedly; the source has likely changed or died',
-  no_pool: 'there is no data folder for this subject on the fetching host',
-  manual: 'auto-fetch is off for this feed by its own manifest — a human stages the file',
-  pending: 'a sweep decided it needs refetching; no attempt recorded yet',
-  never_run: 'the fetcher has never swept this feed',
-}
-
 function ago(iso: string | null): string {
   const t = iso ? Date.parse(iso) : NaN
   if (!t) return ''
@@ -58,8 +59,12 @@ function VerdictBadge({ verdict, title }: { verdict: PipelineVerdict; title?: st
   return <span className="datalib__verdict" data-v={verdict} title={title}>{VERDICT_LABEL[verdict]}</span>
 }
 
-function StatusDot({ status, health }: { status: string; health?: string }) {
-  const hint = [`${status} — ${STATUS_HINT[status] || ''}`, health ? `fetch: ${health} — ${HEALTH_HINT[health] || ''}` : '']
+function StatusDot({ status, feed }: { status: string; feed?: PipelineSubjectStatus }) {
+  const fetch = feed ? feedHealthDisplayOf(feed) : null
+  const fileHint = feed?.projectionIntact === false
+    ? 'the pool projection or provenance sidecar does not match canonical current data'
+    : STATUS_HINT[status] || ''
+  const hint = [`${status} — ${fileHint}`, fetch ? `fetch: ${fetch.label} — ${fetch.hint}` : '']
     .filter(Boolean).join('\n')
   return (
     <span className="datalib__dot" title={hint}
@@ -84,8 +89,11 @@ function latestStatus(p: PipelineEntry): PipelineSubjectStatus | undefined {
 
 function WiredRow({ p, onOpen }: { p: PipelineEntry; onOpen: () => void }) {
   const latest = latestStatus(p)
-  const worst = p.statuses.reduce<PipelineSubjectStatus | undefined>(
-    (w, s) => (!w || (s.health !== 'ok' && w.health === 'ok') ? s : w), undefined)
+  const worst = worstPipelineStatus(p.statuses)
+  const worstHealth = worst ? feedHealthDisplayOf(worst) : null
+  const ledgerWarning = ledgerIntegrityWarningOf(p.statuses)
+  const repairState = worstPipelineRepair(p)
+  const repair = REPAIR_DISPLAY[repairState.repair.status]
   return (
     <button className={`datalib__row datalib__row--${p.verdict}`} onClick={onOpen}>
       <span className={`datalib__dot${p.verdict === 'live' ? ' datalib__dot--live' : ''}`}
@@ -102,25 +110,40 @@ function WiredRow({ p, onOpen }: { p: PipelineEntry; onOpen: () => void }) {
         <div className="datalib__fine">{helpsLine(p)}</div>
       </div>
       <div className="datalib__rowmeta">
-        <VerdictBadge verdict={p.verdict} title={worst?.health ? HEALTH_HINT[worst.health] : undefined} />
+        <VerdictBadge verdict={p.verdict} title={worst && worstHealth ? `${worst.subject}: ${worstHealth.label} — ${worstHealth.hint}` : undefined} />
+        {worstHealth && <span title={worstHealth.hint}>{worstHealth.label}</span>}
+        {ledgerWarning && <span className="chip" title={ledgerWarning}>Ledger warning</span>}
         <span className="datalib__asof" title="latest as-of in the pool (from the filename, never mtime)">
           {latest?.latestAsOf ? `${latest.latestAsOf}${typeof latest.ageDays === 'number' ? ` · ${latest.ageDays}d` : ''}` : 'no file yet'}
         </span>
-        {p.repair.status === 'repairing' && <span>auto-repair running</span>}
-        {p.repair.status === 'pr_open' && p.repair.prUrl && (
-          <a className="datalib__prlink" href={p.repair.prUrl} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>repair PR ↗</a>
-        )}
+        {repairState.repair.status !== 'none' && (repairState.repair.status === 'pr_open' && repairState.repair.prUrl ? (
+          <a className="datalib__prlink" title={repair.detail ?? undefined} href={repairState.repair.prUrl} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>{repairState.subject}: {repair.row} ↗</a>
+        ) : <span title={repair.detail ?? undefined}>{repairState.subject}: {repair.row}</span>)}
         <span className="datalib__chev" aria-hidden>›</span>
       </div>
     </button>
   )
 }
 
-function RecommendedRow({ r, canScan, onBuild }: { r: RecommendedNeed; canScan: boolean; onBuild: () => void }) {
+function RecommendedRow({ r, pipelines, canScan, canBuild, onBuild, onOpenExisting }: {
+  r: RecommendedNeed
+  pipelines: PipelineEntry[]
+  canScan: boolean
+  canBuild: boolean
+  onBuild: () => void
+  onOpenExisting: (id: string) => void
+}) {
   const src = r.suggested_source
+  const existing = connectorForNeed(r, pipelines)
+  const guidance = existingConnectorGuidance(r, pipelines)
+  const discovery = recommendedDiscoveryAction(canBuild)
   return (
     <div className="datalib__row datalib__row--rec">
-      <span className="datalib__dot datalib__dot--rec" title="not wired yet — a durable connector can be built for this" aria-label="recommended" />
+      <span className="datalib__dot datalib__dot--rec"
+        title={guidance ? `connector ${guidance.id} exists — ${guidance.message}`
+          : canBuild ? 'not wired yet — the isolated builder can implement a durable connector'
+            : 'not wired yet — source discovery is available, but automatic connector coding is unavailable'}
+        aria-label={guidance ? 'connector exists but data is not usable' : 'recommended'} />
       <div className="datalib__rowbody">
         <div className="datalib__series">{r.series}</div>
         <div className="datalib__chips">
@@ -131,18 +154,28 @@ function RecommendedRow({ r, canScan, onBuild }: { r: RecommendedNeed; canScan: 
         </div>
         <div className="datalib__why">{r.why_it_caps}</div>
         {r.cap_lifted && <div className="datalib__fine">wiring it lifts: {r.cap_lifted}</div>}
+        {guidance && (
+          <div className="datalib__fine datalib__existing">
+            Connector <code>{guidance.id}</code> exists · {guidance.message}.
+          </div>
+        )}
       </div>
       <div className="datalib__rowmeta">
         <span title={src.licensing ? `licensing: ${src.licensing}` : undefined}>
           {src.name || 'source t.b.d.'} · {ACQ_LABEL[src.acquisition] ?? src.acquisition}
         </span>
         {r.next_release && <span title="next scheduled release">next: {r.next_release}</span>}
-        {canScan && (
-          <button className="btn btn--amber datalib__mini" onClick={onBuild}
-            title="Find the source for this and send it to Claude to build — you watch every step below">
-            Find &amp; build ▸
+        {guidance && existing ? (
+          <button className="btn btn--ghost datalib__mini" onClick={() => onOpenExisting(existing.id)}
+            title="Open the existing connector and its repair state">
+            View existing feed ›
           </button>
-        )}
+        ) : !guidance && canScan ? (
+          <button className="btn btn--amber datalib__mini" onClick={onBuild}
+            title={discovery.title}>
+            {discovery.label}
+          </button>
+        ) : null}
       </div>
     </div>
   )
@@ -150,6 +183,9 @@ function RecommendedRow({ r, canScan, onBuild }: { r: RecommendedNeed; canScan: 
 
 function PipelineDetail({ p, poolAvailable }: { p: PipelineEntry; poolAvailable: boolean }) {
   const back = useStore((s) => s.setDlSelected)
+  const ledgerWarning = ledgerIntegrityWarningOf(p.statuses)
+  const subjectRepairs = p.subjects.map((subject) => ({ subject, repair: repairForSubject(p, subject) }))
+    .filter(({ repair }) => repair.status !== 'none')
   return (
     <div className="datalib__detail">
       <div className="datalib__col">
@@ -165,12 +201,17 @@ function PipelineDetail({ p, poolAvailable }: { p: PipelineEntry; poolAvailable:
         {!poolAvailable && (
           <div className="datalib__banner">the data pool isn’t mounted on this host — freshness and fetch health are computed on the always-on machine</div>
         )}
-        {p.repair.status !== 'none' && (
-          <div className="datalib__banner">
-            auto-repair {p.repair.status === 'repairing' ? 'is running on this feed' : p.repair.status === 'pr_open' ? 'has opened a fix' : 'looked at this feed and made no change'}
-            {p.repair.prUrl && <> — <a className="datalib__prlink" href={p.repair.prUrl} target="_blank" rel="noreferrer">see the pull request ↗</a></>}
+        {ledgerWarning && (
+          <div className="datalib__banner" title={ledgerWarning}>
+            connector ledger warning: {ledgerWarning}
           </div>
         )}
+        {subjectRepairs.map(({ subject, repair }) => (
+          <div className="datalib__banner" key={`${subject}/${repair.status}`}>
+            {subject}: {REPAIR_DISPLAY[repair.status].detail}
+            {repair.prUrl && <> — <a className="datalib__prlink" href={repair.prUrl} target="_blank" rel="noreferrer">see the pull request ↗</a></>}
+          </div>
+        ))}
 
         <section>
           <h4>Manifest</h4>
@@ -188,7 +229,7 @@ function PipelineDetail({ p, poolAvailable }: { p: PipelineEntry; poolAvailable:
                 </tr>
                 {p.license && <tr><td>license</td><td>{p.license}</td></tr>}
                 <tr><td>hosts</td><td>{p.hostAllowlist.join(', ') || '—'}</td></tr>
-                <tr><td>cadence · SLA</td><td>{CADENCE_LABEL[p.cadence] ?? p.cadence} · {p.stalenessSlaDays} days</td></tr>
+                <tr><td>cadence · release window</td><td>{CADENCE_LABEL[p.cadence] ?? p.cadence} · {p.releaseWindowDays} days</td></tr>
                 <tr><td>run</td><td><code>{p.entry}</code> · verify: <code>{p.verify || '—'}</code></td></tr>
                 <tr><td>writes</td><td><code>{p.outputPath}</code></td></tr>
               </tbody>
@@ -204,14 +245,15 @@ function PipelineDetail({ p, poolAvailable }: { p: PipelineEntry; poolAvailable:
               <tbody>
                 {p.statuses.map((s) => (
                   <tr key={s.subject}>
-                    <td><StatusDot status={poolAvailable ? s.status : 'unknown'} health={s.health} /></td>
+                    <td><StatusDot status={poolAvailable ? s.status : 'unknown'} feed={s} /></td>
                     <td>{s.subject}</td>
                     <td>{s.latestAsOf || '—'}</td>
                     <td>{typeof s.ageDays === 'number' ? `${s.ageDays}d` : '—'}</td>
-                    <td title={s.lastError || HEALTH_HINT[s.health] || ''}>
-                      {s.health === 'never_run' ? 'never swept' : s.health}
+                    <td title={[s.lastError || feedHealthDisplayOf(s).hint, s.ledgerIntegrityWarning].filter(Boolean).join('\n')}>
+                      {feedHealthDisplayOf(s).label}
                       {s.failStreak > 1 ? ` ×${s.failStreak}` : ''}
                       {s.lastSweepAt ? <div className="datalib__fine">{ago(s.lastSweepAt)}</div> : null}
+                      {s.ledgerIntegrityWarning ? <div className="datalib__fine">ledger warning</div> : null}
                     </td>
                     <td className="datalib__file">{s.latestFile || '—'}</td>
                   </tr>
@@ -348,6 +390,8 @@ export function DataLibrary() {
   }, [close])
 
   const pipelines = useMemo(() => read?.pipelines ?? [], [read])
+  // The server emits only open needs. Do not second-guess that list from a possibly stale `built_by` field:
+  // a damaged/missing projection must remain visible even if an older server projection still names a builder.
   const recommended = useMemo(() => read?.recommended ?? [], [read])
   const poolAvailable = read?.poolAvailable === true // deploy-skew fail-closed (§5): absent field → not mounted
   const wired = useMemo(() => pipelines.filter((p) => matchesDlPipeline(p, filters)), [pipelines, filters])
@@ -408,6 +452,12 @@ export function DataLibrary() {
                     <button className="btn btn--ghost" onClick={doRefresh}>retry</button>
                   </div>
                 )}
+                {read.widened.length > 0 && (
+                  <details className="datalib__degraded">
+                    <summary>{read.widened.length} connector/data contract warning{read.widened.length === 1 ? '' : 's'}</summary>
+                    {read.widened.map((warning, index) => <div className="datalib__fine" key={`${index}/${warning}`}>{warning}</div>)}
+                  </details>
+                )}
                 <div className="datalib__controls">
                   <div className="seg" role="radiogroup" aria-label="Which feeds to show">
                     <button className={`seg__btn${!bucket ? ' seg__btn--on' : ''}`} role="radio" aria-checked={!bucket} onClick={() => setBucket({})}>All {pipelines.length + recommended.length}</button>
@@ -426,7 +476,10 @@ export function DataLibrary() {
                 {filters.kind !== 'recommended' && !wired.length && !pipelines.length && (
                   <div className="bookempty">
                     <div className="bookempty__title">No feeds wired yet</div>
-                    <div className="bookempty__body">nothing under .claude/connectors/ on this engine — a feed is a connector folder with a connector.json manifest and a fetch.py. Find one below and it gets built for you.</div>
+                    <div className="bookempty__body">
+                      nothing under .claude/connectors/ on this engine — a feed is a connector folder with a connector.json manifest and a fetch.py.
+                      {canBuild ? ' Find a source below and the isolated builder can implement it.' : ' Find a primary source below, then implement it through the manual branch and pull-request workflow.'}
+                    </div>
                   </div>
                 )}
 
@@ -434,11 +487,14 @@ export function DataLibrary() {
                   <>
                     <div className="datalib__sechead">
                       Missing data
-                      <span className="datalib__fine">— the runs said these would sharpen a call, and nothing feeds them yet</span>
+                      <span className="datalib__fine">— the runs said these would sharpen a call, and no current, usable feed closes them yet</span>
                     </div>
                     {recs.length > 0 ? (
                       <div className="datalib__list">
-                        {recs.map((r) => <RecommendedRow key={r.key} r={r} canScan={canScan} onBuild={() => setFocusNeed(r)} />)}
+                        {recs.map((r) => (
+                          <RecommendedRow key={r.key} r={r} pipelines={pipelines} canScan={canScan} canBuild={canBuild}
+                            onBuild={() => setFocusNeed(r)} onOpenExisting={setSelected} />
+                        ))}
                       </div>
                     ) : recommended.length === 0 ? (
                       <div className="bookempty bookempty--slim">

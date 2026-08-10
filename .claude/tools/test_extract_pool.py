@@ -124,7 +124,8 @@ def test_pipeline() -> None:
     # the 'fail' status, which cannot tell 'tool missing' from 'tool present but produced nothing').
     reader_present = {"textlayer.pdf": _pdf_reader_available(), "transcript.rtf": _rtf_reader_available()}
     with tempfile.TemporaryDirectory() as td:
-        manifest = ep.extract_pool(str(_FX), td, vision=False)
+        corpus = Path(td) / "corpus.txt"
+        manifest = ep.extract_pool(str(_FX), td, corpus_path=str(corpus), vision=False)
         by = {s["file"]: s for s in manifest["sources"]}
         for f in _ALWAYS | _PLATFORM:
             s = by.get(f, {})
@@ -140,6 +141,75 @@ def test_pipeline() -> None:
         blob = "".join(p.read_text(errors="ignore") for p in Path(td).rglob("*") if p.is_file())
         check("pipeline: HTML-as-.xls value reaches the corpus (sniff beats extension)",
               "Sniff Test Revenue" in blob)
+        corpus_text = corpus.read_text()
+        check("pipeline: manifest-approved workbook sheets and original text reach the corpus",
+              "Net Debt" in corpus_text and "watch the covenant headroom" in corpus_text, corpus_text[-800:])
+        check("pipeline: unchanged guarded extracts are cache-eligible",
+              ep.is_fresh(td, str(_FX), str(_HERE / "extract_pool.py")) is not None)
+        html_extract = next(s["extract"] for s in manifest["sources"] if s["file"] == "mislabeled.xls")
+        (Path(td) / html_extract).write_text("What I Learned This Week — stale derived output")
+        check("pipeline: tampered/stale derived text invalidates the cached manifest",
+              ep.is_fresh(td, str(_FX), str(_HERE / "extract_pool.py")) is None)
+
+
+def test_pool_path_boundary() -> None:
+    """A configured root symlink is valid; no descendant link/special file is evidence."""
+    import os
+
+    with tempfile.TemporaryDirectory() as td, tempfile.TemporaryDirectory() as out_td:
+        base = Path(td)
+        real_pool = base / "real-pool"
+        real_pool.mkdir()
+        alias_pool = base / "pool-alias"
+        alias_pool.symlink_to(real_pool, target_is_directory=True)
+        (real_pool / "safe.txt").write_text("safe pool evidence")
+        outside_file = base / "outside-secret.txt"
+        outside_file.write_text("OUTSIDE-CANARY-MUST-NOT-ENTER")
+        outside_dir = base / "outside-dir"
+        outside_dir.mkdir()
+        (outside_dir / "nested.txt").write_text("OUTSIDE-NESTED-CANARY")
+        (real_pool / "leak.txt").symlink_to(outside_file)
+        (real_pool / "linked-dir").symlink_to(outside_dir, target_is_directory=True)
+        fifo = real_pool / "blocking.fifo"
+        if hasattr(os, "mkfifo"):
+            os.mkfifo(fifo)
+
+        corpus = Path(out_td) / "corpus.txt"
+        manifest = ep.extract_pool(
+            str(alias_pool), out_td, force=True, corpus_path=str(corpus), vision=False,
+        )
+        serialized = __import__("json").dumps(manifest) + corpus.read_text()
+        check("pool boundary: configured root symlink remains supported",
+              any(row.get("file") == "safe.txt" and row.get("status") == "in-place"
+                  for row in manifest["sources"]), str(manifest["sources"]))
+        check("pool boundary: descendant file/directory symlinks and special files are not ingested",
+              "OUTSIDE-CANARY-MUST-NOT-ENTER" not in serialized
+              and "OUTSIDE-NESTED-CANARY" not in serialized
+              and not any(row.get("file") in {"leak.txt", "nested.txt", "blocking.fifo"}
+                          for row in manifest["sources"]), serialized[-1000:])
+        refused = False
+        try:
+            ep._read_pool_regular_bytes(str(alias_pool), "leak.txt")
+        except ValueError:
+            refused = True
+        check("pool boundary: direct safe-reader use rejects a descendant symlink", refused)
+
+        # A second hard-link name is a writable alias to the same inode. Even
+        # when both names stay inside the pool, neither the pool reader nor the
+        # canonical-pointer reader may return those bytes as settled evidence.
+        hardlink_alias = real_pool / "safe-hardlink-alias.txt"
+        os.link(real_pool / "safe.txt", hardlink_alias)
+        pool_multilink_refused = canonical_multilink_refused = False
+        try:
+            ep._read_pool_regular_bytes(str(alias_pool), "safe.txt")
+        except ValueError:
+            pool_multilink_refused = True
+        try:
+            ep._read_regular_nofollow_bytes(str(real_pool / "safe.txt"))
+        except ValueError:
+            canonical_multilink_refused = True
+        check("pool boundary: writable hard-link aliases are never accepted as settled evidence",
+              pool_multilink_refused and canonical_multilink_refused)
 
 
 def test_external_provenance() -> None:
@@ -331,6 +401,407 @@ def test_malformed_sidecar() -> None:
               "boom" not in md, md[-400:])
 
 
+def test_wiltw_gold_runtime_exclusion() -> None:
+    """Golden boundary: WILTW is a methodology source, never GOLD runtime evidence.
+
+    Exercise all deterministic identities: the shipped filename family, the
+    expanded title in renamed content and post-OCR image text, and the explicit
+    sidecar marker.  A normal lawfully-provenanced research report (including a
+    scanned image) in the same folder must remain usable, proving this is not a
+    blanket broker/research-report or visual-source ban.
+    """
+    import base64 as _base64
+    import json as _json
+
+    with tempfile.TemporaryDirectory() as root_td, tempfile.TemporaryDirectory() as out_td:
+        gold = Path(root_td) / "data" / "GOLD"
+        ext = gold / "external" / "weeklydesk"
+        ext.mkdir(parents=True)
+
+        named = ext / "WILTW_2026-07-30 (1).pdf"
+        named.write_text("FORBIDDEN_NAMED_GOLD_ASSERTION=5597")
+        (ext / f"{named.name}.source.json").write_text(_json.dumps({
+            "provider": "Weekly Desk", "source_type": "broker_research", "tier": 7,
+            "origin": named.name,
+        }))
+
+        renamed = ext / "renamed-metals-note.txt"
+        renamed.write_text("What I Learned This Week\nFORBIDDEN_RENAMED_GOLD_ASSERTION=4192")
+
+        marked = ext / "methods-only-input.txt"
+        marked.write_text("FORBIDDEN_MARKED_GOLD_ASSERTION=1405")
+        (ext / f"{marked.name}.source.json").write_text(_json.dumps({
+            "provider": "Research Methods", "source_type": "external_other", "tier": 9,
+            "methodology_only": True,
+        }))
+
+        # A real PNG path has no text for the bounded pre-sniff.  Stub only the
+        # fragile OCR engine's deterministic return, so the test still drives
+        # format sniffing and the complete standalone-image extraction branch.
+        one_pixel_png = _base64.b64decode(
+            "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk"
+            "+A8AAQUBAScY42YAAAAASUVORK5CYII="
+        )
+        renamed_scan = ext / "renamed-metals-scan.png"
+        renamed_scan.write_bytes(one_pixel_png)
+        lawful_scan = ext / "lawful-market-scan.png"
+        lawful_scan.write_bytes(one_pixel_png)
+        for image_path in (renamed_scan, lawful_scan):
+            (ext / f"{image_path.name}.source.json").write_text(_json.dumps({
+                "provider": "Lawful Scanned Research", "source_type": "broker_research", "tier": 7,
+                "as_of": "2026-07-30", "license": "subscriber-only",
+            }))
+
+        lawful = ext / "lawful-gold-research-report.txt"
+        lawful.write_text("LAWFUL_GOLD_SOURCE=official-provider-observation")
+        (ext / f"{lawful.name}.source.json").write_text(_json.dumps({
+            "provider": "Lawful Research", "source_type": "broker_research", "tier": 7,
+            "as_of": "2026-07-30", "license": "subscriber-only",
+        }))
+
+        corpus = Path(root_td) / "gold-corpus.txt"
+        real_image_reader = ep._read_image_file
+
+        def fixture_image_reader(path):
+            if Path(path).name == renamed_scan.name:
+                return ("What I Learned This Week\nFORBIDDEN_SCANNED_GOLD_ASSERTION=7000",
+                        "OCR'd image (fixture)", None)
+            if Path(path).name == lawful_scan.name:
+                return ("LAWFUL_SCANNED_GOLD_SOURCE=primary-market-observation",
+                        "OCR'd image (fixture)", None)
+            return real_image_reader(path)
+        ep._read_image_file = fixture_image_reader
+        try:
+            manifest = ep.extract_pool(
+                str(gold), out_td, force=True, corpus_path=str(corpus), vision=False,
+            )
+        finally:
+            ep._read_image_file = real_image_reader
+        by = {source["file"]: source for source in manifest["sources"]}
+        forbidden = [by[named.name], by[renamed.name], by[marked.name], by[renamed_scan.name]]
+        check("WILTW filename, expanded title, post-OCR scan, and explicit marker all fail GOLD extraction",
+              all(row.get("status") == "fail" and row.get("kind") == "methodology-only"
+                  and ep.METHODOLOGY_ONLY_ERROR in row.get("error", "") for row in forbidden),
+              str(forbidden))
+        check("rejected WILTW rows expose no citable report provenance",
+              all(row.get("provenance") == {"integrity_status": "failed", "usable": False}
+                  for row in forbidden), str(forbidden))
+        check("ordinary lawful GOLD research remains usable with its provenance",
+              by[lawful.name].get("status") == "in-place"
+              and (by[lawful.name].get("provenance") or {}).get("provider") == "Lawful Research",
+              str(by[lawful.name]))
+        check("ordinary lawful scanned GOLD research remains usable after the post-OCR gate",
+              by[lawful_scan.name].get("status") == "ok"
+              and (by[lawful_scan.name].get("provenance") or {}).get("provider") == "Lawful Scanned Research"
+              and by[lawful_scan.name].get("extract"), str(by[lawful_scan.name]))
+        check("post-OCR rejected scan writes no manifest-approved extract",
+              not by[renamed_scan.name].get("extract"), str(by[renamed_scan.name]))
+        corpus_text = corpus.read_text()
+        check("GOLD corpus contains the lawful report but no WILTW/report-derived assertions",
+              "LAWFUL_GOLD_SOURCE" in corpus_text
+              and "LAWFUL_SCANNED_GOLD_SOURCE" in corpus_text
+              and "FORBIDDEN_NAMED_GOLD_ASSERTION" not in corpus_text
+              and "FORBIDDEN_RENAMED_GOLD_ASSERTION" not in corpus_text
+              and "FORBIDDEN_MARKED_GOLD_ASSERTION" not in corpus_text
+              and "FORBIDDEN_SCANNED_GOLD_ASSERTION" not in corpus_text,
+              corpus_text)
+
+    # A visual source can be unreadable at pre-flight and become identifiable
+    # later when OCR/vision finishes.  Adding that full-text cache must break
+    # manifest freshness and drive the post-reader quarantine on the next call.
+    with tempfile.TemporaryDirectory() as root_td, tempfile.TemporaryDirectory() as out_td:
+        gold = Path(root_td) / "data" / "GOLD"; gold.mkdir(parents=True)
+        scan = gold / "renamed-weekly-scan.png"
+        scan.write_bytes(_base64.b64decode(
+            "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk"
+            "+A8AAQUBAScY42YAAAAASUVORK5CYII="
+        ))
+        real_image_reader = ep._read_image_file
+        ep._read_image_file = lambda _path: ("", None, "fixture OCR not ready")
+        try:
+            first = ep.extract_pool(str(gold), out_td, force=True, vision=False)
+        finally:
+            ep._read_image_file = real_image_reader
+        check("visual cache: initially unreadable renamed scan is cached only as a failed source",
+              first["sources"][0].get("status") == "fail", str(first["sources"]))
+        cache_path = Path(ep._visual_cache_path(str(scan), "tesseract"))
+        cache_path.parent.mkdir(parents=True, exist_ok=True)
+        cache_path.write_text(
+            "What I Learned This Week\nFORBIDDEN_LATE_OCR_GOLD_ASSERTION=8000",
+        )
+        check("visual cache: newly available OCR identity invalidates prior manifest freshness",
+              ep.is_fresh(out_td, str(gold), str(_HERE / "extract_pool.py")) is None)
+        rebuilt = ep.extract_pool(str(gold), out_td, vision=False)
+        row = rebuilt["sources"][0]
+        check("visual cache: rebuilt manifest quarantines late-discovered WILTW content",
+              row.get("kind") == "methodology-only" and row.get("status") == "fail"
+              and "FORBIDDEN_LATE_OCR_GOLD_ASSERTION" not in "".join(
+                  p.read_text(errors="ignore") for p in Path(out_td).glob("*.txt")
+              ), str(row))
+        cache_path.unlink(missing_ok=True)
+
+
+def test_connector_projection_integrity() -> None:
+    """A canonical connector sidecar seals the projected JSON; partial/mismatched pairs are unusable."""
+    import hashlib as _hashlib
+    import json as _json
+    import sys as _sys
+    if ep.SCRIPTS_DIR not in _sys.path:
+        _sys.path.insert(0, ep.SCRIPTS_DIR)
+    from connector_contract import canonical_json_bytes as _connector_json_bytes
+
+    with tempfile.TemporaryDirectory() as pool_td, tempfile.TemporaryDirectory() as out_td:
+        ext = Path(pool_td) / "external" / "official"
+        ext.mkdir(parents=True)
+        payload = {"series": "sealed", "as_of": "2026-08-01", "value": 1.0}
+        doc = ext / "sealed.json"
+        canonical = _connector_json_bytes(payload)
+        doc.write_bytes(canonical)
+        sidecar = {"provider": "Official", "source_type": "official_data", "tier": 5,
+                   "as_of": "2026-08-01", "content_sha256": "0" * 64}
+        (ext / "sealed.json.source.json").write_text(_json.dumps(sidecar))
+        bad = ep.extract_pool(pool_td, out_td, force=True, vision=False)
+        row = next(s for s in bad["sources"] if s["file"] == "sealed.json")
+        check("connector projection: mismatched payload/sidecar hash is rejected as bad extraction",
+              row.get("status") == "fail" and "content_sha256 mismatch" in row.get("error", ""), str(row))
+
+        sidecar["content_sha256"] = _hashlib.sha256(canonical).hexdigest()
+        (ext / "sealed.json.source.json").write_text(_json.dumps(sidecar))
+        good = ep.extract_pool(pool_td, out_td, force=True, vision=False)
+        row = next(s for s in good["sources"] if s["file"] == "sealed.json")
+        check("connector projection: matching canonical payload/sidecar pair is usable",
+              row.get("status") == "in-place", str(row))
+
+
+def test_routed_raw_hash_binding() -> None:
+    """The inbox router's raw-byte hash is rechecked at consumption time."""
+    import hashlib as _hashlib
+    import json as _json
+
+    with tempfile.TemporaryDirectory() as root_td, tempfile.TemporaryDirectory() as out_td:
+        pool = Path(root_td) / "AAA"
+        ext = pool / "external" / "vendor"
+        ext.mkdir(parents=True)
+        doc = ext / "routed-note.txt"
+        original = b"lawful original channel-check bytes\n"
+        doc.write_bytes(original)
+        sidecar = {
+            "provider": "Vendor", "source_type": "channel_check", "tier": 9,
+            "as_of": "2026-08-01", "license": "user-supplied",
+            "routed_by": "ingest_external.py", "sha256": _hashlib.sha256(original).hexdigest(),
+        }
+        (ext / "routed-note.txt.source.json").write_text(_json.dumps(sidecar))
+        good = ep.extract_pool(str(pool), out_td, force=True, vision=False)
+        good_row = next(row for row in good["sources"] if row["file"] == "routed-note.txt")
+        doc.write_bytes(b"mutated after ingest\n")
+        bad = ep.extract_pool(str(pool), out_td, force=True, vision=False)
+        bad_row = next(row for row in bad["sources"] if row["file"] == "routed-note.txt")
+        check("ordinary routed bytes are usable only while their ingest sha256 still matches",
+              good_row.get("status") != "fail"
+              and bad_row.get("status") == "fail"
+              and "sha256 does not match" in bad_row.get("error", ""), str(bad_row))
+
+
+def test_v2_projection_is_anchored_to_current() -> None:
+    """A self-consistent sidecar cannot impersonate a different canonical current."""
+    import json as _json
+    import sys as _sys
+    from datetime import datetime as _datetime, timezone as _timezone
+
+    if str(_HERE) not in _sys.path:
+        _sys.path.insert(0, str(_HERE))
+    import run_connectors as _runner
+
+    with tempfile.TemporaryDirectory() as root_td, tempfile.TemporaryDirectory() as out_td:
+        root = Path(root_td); data = root / "data"; pool = data / "AAA"; pool.mkdir(parents=True)
+        croot = root / ".claude" / "connectors"; cdir = croot / "anchored"; cdir.mkdir(parents=True)
+        manifest = {
+            "manifest_version": 2, "schema_version": 1, "id": "anchored",
+            "dataset_id": "test.anchored", "series_id": "test.anchored", "series": "Anchored series",
+            "satisfies": ["anchored"], "subjects": ["AAA"], "provider": "Official",
+            "authority_class": "government_official", "provider_priority": 100,
+            "acquisition": "official_api", "source_type": "official_data", "tier": 5,
+            "license": "test", "licensing": {"access": "public", "use": "allowed",
+                "redistribution": "allowed", "terms_url": "https://example.test/terms"},
+            "host_allowlist": ["example.test"], "credential_env": [],
+            "release": {"cadence": "daily", "timezone": "UTC", "expected_lag_days": 0,
+                "grace_days": 10, "revision_policy": "revisable"},
+            "entry": "fetch.py", "verify": "fetch.py --verify",
+            "output_path": "data/<SUBJECT>/external/official/sealed_<as_of>.json",
+            "output_schema": {"series": "string", "as_of": "date", "value": "float"},
+            "units": {"value": "index"}, "minimum_history": {"observations": 1},
+        }
+        (cdir / "connector.json").write_text(_json.dumps(manifest)); (cdir / "fetch.py").write_text("# fixture\n")
+        payload = {"series": manifest["series"], "as_of": "2026-08-01", "value": 1.0}
+        fetched = {"payload": payload, "as_of": payload["as_of"], "sidecar": {
+            "provider": manifest["provider"], "source_type": manifest["source_type"], "tier": 5,
+            "license": manifest["license"], "licensing": manifest["licensing"], "connector_id": manifest["id"],
+            "dataset_id": manifest["dataset_id"], "series_id": manifest["series_id"], "schema_version": 1,
+            "as_of": payload["as_of"], "source_url": "https://example.test/source",
+        }}
+        _runner.publish_validated(manifest, "AAA", str(data), fetched,
+                                  _datetime(2026, 8, 2, tzinfo=_timezone.utc),
+                                  connector_hash=_runner.connector_fingerprint(str(cdir)), commit="fixture")
+        eligible_now = _datetime(2026, 8, 4, tzinfo=_timezone.utc)
+        previous_registry = ep.CONNECTOR_REGISTRY_ROOT; ep.CONNECTOR_REGISTRY_ROOT = str(croot)
+        try:
+            good = ep.extract_pool(
+                str(pool), out_td, force=True, vision=False, now=eligible_now,
+            )
+            row = next(source for source in good["sources"] if source["file"] == "sealed_2026-08-01.json")
+            check("v2 projection: verified current payload + exact provenance is usable",
+                  row.get("status") == "in-place", str(row))
+            check("v2 projection: unchanged canonical state is cache-eligible",
+                  ep.is_fresh(
+                      out_td, str(pool), str(_HERE / "extract_pool.py"), now=eligible_now,
+                  ) is not None)
+            current_path = Path(_runner.connector_storage_paths(
+                str(data), {**manifest, "_dir": str(cdir)}, "AAA",
+            )["current"])
+            current_bytes = current_path.read_bytes()
+            current_path.write_text("{corrupt")
+            check("v2 projection: canonical corruption outside the subject pool invalidates cached extraction",
+                  ep.is_fresh(
+                      out_td, str(pool), str(_HERE / "extract_pool.py"), now=eligible_now,
+                  ) is None)
+            current_path.write_bytes(current_bytes)
+            sidecar_path = pool / "external" / "official" / "sealed_2026-08-01.json.source.json"
+            original_sidecar = sidecar_path.read_text()
+            sidecar_path.unlink()
+            missing = ep.extract_pool(
+                str(pool), out_td, force=True, vision=False, now=eligible_now,
+            )
+            row = next(source for source in missing["sources"] if source["file"] == "sealed_2026-08-01.json")
+            check("v2 projection: missing sidecar fails extraction, never degrades to an ordinary tier-9 drop",
+                  row.get("status") == "fail" and "missing sidecar" in row.get("error", "")
+                  and row.get("provenance") == {"integrity_status": "failed", "usable": False}, str(row))
+            sidecar_path.write_text("{not-json")
+            corrupt = ep.extract_pool(
+                str(pool), out_td, force=True, vision=False, now=eligible_now,
+            )
+            row = next(source for source in corrupt["sources"] if source["file"] == "sealed_2026-08-01.json")
+            check("v2 projection: corrupt sidecar fails extraction, never degrades to path-derived provenance",
+                  row.get("status") == "fail" and "sidecar is unreadable" in row.get("error", "")
+                  and "provenance_basis" not in (row.get("provenance") or {}), str(row))
+            sidecar_path.write_text(original_sidecar)
+            payload_path = pool / "external" / "official" / "sealed_2026-08-01.json"
+            original_payload = payload_path.read_bytes()
+            def duplicate_first_field(raw):
+                text = raw.decode("utf-8"); comma = text.find(",")
+                return ("{" + text[1:comma] + "," + text[1:]).encode("utf-8")
+            payload_path.write_bytes(duplicate_first_field(original_payload))
+            duplicate_payload = ep.extract_pool(
+                str(pool), out_td, force=True, vision=False, now=eligible_now,
+            )
+            row = next(source for source in duplicate_payload["sources"]
+                       if source["file"] == "sealed_2026-08-01.json")
+            check("v2 projection: duplicate-key payload bytes fail exact canonical binding",
+                  row.get("status") == "fail" and "not canonical" in row.get("error", ""), str(row))
+            payload_path.write_bytes(original_payload)
+            sidecar_path.write_bytes(duplicate_first_field(original_sidecar.encode("utf-8")))
+            duplicate_sidecar = ep.extract_pool(
+                str(pool), out_td, force=True, vision=False, now=eligible_now,
+            )
+            row = next(source for source in duplicate_sidecar["sources"]
+                       if source["file"] == "sealed_2026-08-01.json")
+            check("v2 projection: duplicate-key sidecar bytes fail exact canonical binding",
+                  row.get("status") == "fail" and "not canonical" in row.get("error", ""), str(row))
+            sidecar_path.write_text(original_sidecar)
+            (cdir / "fetch.py").write_text("# changed transform\n")
+            drifted = ep.extract_pool(str(pool), out_td, vision=False, now=eligible_now)
+            row = next(source for source in drifted["sources"] if source["file"] == "sealed_2026-08-01.json")
+            check("v2 projection: live connector-transform drift is rejected until a new retrieval",
+                  row.get("status") == "fail" and "different connector transform" in row.get("error", ""), str(row))
+            (cdir / "fetch.py").write_text("# fixture\n")
+            forged = _json.loads(sidecar_path.read_text()); forged["provider"] = "Forged"
+            sidecar_path.write_bytes(_runner.canonical_json_bytes(forged))
+            bad = ep.extract_pool(
+                str(pool), out_td, force=True, vision=False, now=eligible_now,
+            )
+            row = next(source for source in bad["sources"] if source["file"] == "sealed_2026-08-01.json")
+            check("v2 projection: self-consistent payload hash cannot bypass canonical-current provenance",
+                  row.get("status") == "fail" and "exactly match canonical current" in row.get("error", ""), str(row))
+
+            # A dated output template intentionally leaves prior projections in
+            # the pool. Once the next commit becomes current, the exact older
+            # pair is audit/replay material: valid but not citable, not a failed
+            # extraction, and never copied into the research corpus.
+            sidecar_path.write_text(original_sidecar)
+            payload2 = {"series": manifest["series"], "as_of": "2026-08-02", "value": 2.0}
+            fetched2 = {"payload": payload2, "as_of": payload2["as_of"], "sidecar": {
+                "provider": manifest["provider"], "source_type": manifest["source_type"], "tier": 5,
+                "license": manifest["license"], "licensing": manifest["licensing"],
+                "connector_id": manifest["id"], "dataset_id": manifest["dataset_id"],
+                "series_id": manifest["series_id"], "schema_version": 1,
+                "as_of": payload2["as_of"], "source_url": "https://example.test/source",
+            }}
+            _runner.publish_validated(manifest, "AAA", str(data), fetched2,
+                                      _datetime(2026, 8, 3, tzinfo=_timezone.utc),
+                                      connector_hash=_runner.connector_fingerprint(str(cdir)), commit="fixture")
+            corpus = Path(out_td) / "corpus.txt"
+            superseded = ep.extract_pool(
+                str(pool), out_td, force=True, vision=False, corpus_path=str(corpus),
+                now=eligible_now,
+            )
+            old_row = next(source for source in superseded["sources"]
+                           if source["file"] == "sealed_2026-08-01.json")
+            new_row = next(source for source in superseded["sources"]
+                           if source["file"] == "sealed_2026-08-02.json")
+            corpus_text = corpus.read_text()
+            check("v2 projection: an exact older committed projection is non-citable, not a failure",
+                  old_row.get("status") == "skipped"
+                  and old_row.get("provenance") == {"integrity_status": "superseded", "usable": False}
+                  and new_row.get("status") == "in-place"
+                  and superseded["totals"]["failures"] == 0, str(superseded["sources"]))
+            check("v2 projection: superseded payload is excluded from the corpus",
+                  '"value": 1.0' not in corpus_text, corpus_text)
+
+            # File mtimes and canonical integrity are unchanged at the release
+            # boundary. The decision clock alone must invalidate the formerly
+            # usable cache and make the latest projection non-citable.
+            expired_now = _datetime(2026, 8, 14, tzinfo=_timezone.utc)
+            check("v2 projection: crossing the frozen release deadline invalidates an eligible cache",
+                  ep.is_fresh(
+                      out_td, str(pool), str(_HERE / "extract_pool.py"), now=expired_now,
+                  ) is None)
+            expired_corpus = Path(out_td) / "expired-corpus.txt"
+            expired = ep.extract_pool(
+                str(pool), out_td, vision=False, corpus_path=str(expired_corpus),
+                now=expired_now,
+            )
+            expired_row = next(source for source in expired["sources"]
+                               if source["file"] == "sealed_2026-08-02.json")
+            check("v2 projection: latest-but-expired current is visible but unusable evidence",
+                  expired_row.get("status") == "skipped"
+                  and expired_row.get("provenance") == {
+                      "eligibility_status": "expired", "usable": False,
+                  }
+                  and "expired connector projection" in expired_row.get("error", "")
+                  and expired["totals"]["failures"] == 0, str(expired_row))
+            check("v2 projection: expired current cannot enter corpus or usable source count",
+                  '"value": 2.0' not in expired_corpus.read_text()
+                  and not any(source.get("status") in ep.USABLE_STATUSES
+                              for source in expired["sources"]), str(expired["sources"]))
+            check("v2 projection: an unchanged expired manifest remains cache-eligible as unusable",
+                  ep.is_fresh(
+                      out_td, str(pool), str(_HERE / "extract_pool.py"), now=expired_now,
+                  ) is not None)
+
+            old_payload_path = pool / "external" / "official" / "sealed_2026-08-01.json"
+            old_payload_path.write_bytes(_runner.canonical_json_bytes({**payload, "value": 999.0}))
+            tampered_old = ep.extract_pool(
+                str(pool), out_td, force=True, vision=False, now=eligible_now,
+            )
+            tampered_old_row = next(source for source in tampered_old["sources"]
+                                    if source["file"] == "sealed_2026-08-01.json")
+            check("v2 projection: only an exact superseded pair is ignored; mutation fails closed",
+                  tampered_old_row.get("status") == "fail"
+                  and "payload does not match sidecar" in tampered_old_row.get("error", "")
+                  and tampered_old["totals"]["failures"] == 1, str(tampered_old_row))
+        finally:
+            ep.CONNECTOR_REGISTRY_ROOT = previous_registry
+
+
 def main() -> int:
     print("== sniff: content beats extension ==")
     test_sniff()
@@ -338,12 +809,22 @@ def main() -> int:
     test_readers()
     print("== full extract_pool pipeline (statuses + corpus) ==")
     test_pipeline()
+    print("== pool filesystem boundary (root alias allowed; descendants pinned) ==")
+    test_pool_path_boundary()
     print("== external-data provenance (sidecars, paths, entity-gate skip) ==")
     test_external_provenance()
     print("== external tier-ceiling masquerade guard (§4/§5) ==")
     test_external_tier_ceiling()
     print("== malformed sidecar fails closed (non-object / non-dict tier_corrected) ==")
     test_malformed_sidecar()
+    print("== GOLD methodology-only WILTW runtime exclusion ==")
+    test_wiltw_gold_runtime_exclusion()
+    print("== connector projection integrity (canonical content hash) ==")
+    test_connector_projection_integrity()
+    print("== ordinary ingest raw-byte hash binding ==")
+    test_routed_raw_hash_binding()
+    print("== v2 connector projection anchored to canonical current ==")
+    test_v2_projection_is_anchored_to_current()
     print(f"\n{_passed} passed, {_failed} failed, {_skipped} skipped")
     return 1 if _failed else 0
 

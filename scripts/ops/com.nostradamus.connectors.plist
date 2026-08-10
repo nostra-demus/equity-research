@@ -2,18 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!-- Machine-agnostic TEMPLATE: placeholder tokens rendered by scripts/ops/install-services.sh at install time.
      DOER-ONLY: only the always-on host sweeps the shared Drive pool — two machines running the same
-     connectors would race on the run ledger and double-fetch. Every 6 hours (and once at load) it runs
-     the self-heal connector runner (.claude/tools/run_connectors.py): each .claude/connectors/<id>/
-     manifest's pool series is checked against its own staleness_sla_days and fetch.py re-runs ONLY when
-     the series is missing or past SLA — a fresh pool is a no-op sweep, so the 6h interval is safe for
-     weekly/monthly cadences. A failed fetch writes nothing (the fetcher contract); the stale pool IS the
-     alert, surfaced by the cockpit Data Library. MaterializeDatalessFiles is REQUIRED — the pool is a
+     connectors would race on the run ledger and double-fetch. Every 15 minutes (and once at load) it runs
+     the connector runner (.claude/tools/run_connectors.py). Each v2 manifest declares a release cadence,
+     expected source-publication lag, and grace window. The runner fetches only when that release clock is
+     due; event-driven sources instead use grace_days as the interval from the last accepted retrieval to
+     the next recheck. A current series is a no-op sweep and persisted attempt throttles prevent repeated
+     requests throughout a slow release's grace window. Realtime quotes use a separate price service; this
+     evidence lane starts at twelve-hourly. A failed staged fetch advances no visible
+     canonical data; its exact health state is surfaced
+     by the cockpit Data Library. MaterializeDatalessFiles is REQUIRED — the pool is a
      Google Drive CloudStorage mount and a launchd job cannot read streamed (dataless) files without it.
-     KEYED CONNECTORS: a connector the interactive builder generates with acquisition `free_key_api` or
-     `paid_api` reads its own credential from a `CONNECTOR_*`-prefixed env var. Add it directly to the
-     INSTALLED copy of this plist (~/Library/LaunchAgents/com.nostradamus.connectors.plist), the same way an
-     LLM provider key is added to com.nostradamus.news-ingester.plist — install-services.sh carries any
-     `CONNECTOR_*` key already there forward on every reinstall, so it survives a routine re-render. -->
+     KEYED CONNECTORS: a v2 manifest with acquisition `free_key_api` or `paid_api` declares its credential
+     name in credential_env using the `CONNECTOR_*` prefix. Connector credentials live only in
+     ~/.config/nostra-engine/providers.env. They must not be added to this plist; the runner parses only the
+     declared names from that file and passes only those values to the connector child. -->
 <plist version="1.0">
 <dict>
 	<key>Label</key>
@@ -24,6 +26,14 @@
 		<string>{{HOME}}</string>
 		<key>PATH</key>
 		<string>{{PLIST_PATH}}</string>
+		<!-- In production the runner discards any inherited declared connector secret before loading the
+		     same name from providers.env. This closes historical LaunchAgent credential persistence. -->
+		<key>NOSTRA_CONNECTOR_CREDENTIAL_SOURCE</key>
+		<string>providers_env</string>
+		<!-- Keep installer migration and launched-runner credential lookup on the same absolute path,
+		     including an explicit NOSTRA_ENGINE_CONFIG_DIR override. -->
+		<key>NOSTRA_ENGINE_CONFIG_DIR</key>
+		<string>{{CONNECTOR_CONFIG_DIR}}</string>
 	</dict>
 	<key>WorkingDirectory</key>
 	<string>{{ENGINE_REPO_ROOT}}</string>
@@ -31,6 +41,7 @@
 	<array>
 		<string>/usr/bin/env</string>
 		<string>python3</string>
+		<string>-I</string>
 		<string>{{ENGINE_REPO_ROOT}}/.claude/tools/run_connectors.py</string>
 		<string>--data-root</string>
 		<string>{{ENGINE_REPO_ROOT}}/data</string>
@@ -40,7 +51,7 @@
 	<key>RunAtLoad</key>
 	<true/>
 	<key>StartInterval</key>
-	<integer>21600</integer>
+	<integer>900</integer>
 	<key>StandardOutPath</key>
 	<string>{{HOME}}/Library/Logs/nostradamus-connectors.log</string>
 	<key>StandardErrorPath</key>

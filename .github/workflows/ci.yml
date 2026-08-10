@@ -197,6 +197,26 @@ jobs:
           else
             echo "skip: run_connectors.py not on this ref yet (lands with the connector-runner PR)"
           fi
+          # Connector credential migration — tied to the helper. Once present,
+          # preserving historical plist-only secrets is a required release gate.
+          if [ -f "scripts/ops/migrate-connector-secrets.py" ]; then
+            echo "== test-migrate-connector-secrets.py =="
+            python3 scripts/ops/test-migrate-connector-secrets.py || rc=1
+          else
+            echo "skip: connector secret migration helper not on this ref yet"
+          fi
+          if [ -f "scripts/ops/migrate-connector-launchagent.py" ]; then
+            echo "== test-migrate-connector-launchagent.py =="
+            python3 scripts/ops/test-migrate-connector-launchagent.py || rc=1
+          else
+            echo "skip: connector LaunchAgent migration helper not on this ref yet"
+          fi
+          if [ -f "scripts/ops/service-load-contract.sh" ]; then
+            echo "== test-service-load-contract.sh =="
+            bash scripts/ops/test-service-load-contract.sh || rc=1
+          else
+            echo "skip: service load result contract not on this ref yet"
+          fi
           exit $rc
 
       # Connector unit tests — zero-touch (§26): every .claude/connectors/*/test_*.py runs automatically, so

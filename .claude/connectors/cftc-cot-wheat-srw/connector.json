@@ -1,16 +1,29 @@
 {
+  "manifest_version": 2,
+  "schema_version": 1,
   "id": "cftc-cot-wheat-srw",
+  "dataset_id": "cftc.disaggregated-cot-futures-only",
+  "series_id": "wheat.managed-money-positioning",
   "series": "CFTC Disaggregated COT — WHEAT-SRW managed-money positioning",
   "satisfies": ["cftc-cot", "managed-money-positioning"],
   "subjects": ["WHEAT"],
   "provider": "CFTC",
+  "authority_class": "government_official",
+  "provider_priority": 100,
   "acquisition": "official_api",
-  "source_type": "paid_api",
+  "source_type": "official_data",
   "tier": 5,
   "license": "public_domain",
+  "licensing": {"access": "public", "use": "allowed", "redistribution": "allowed", "terms_url": "https://publicreporting.cftc.gov/"},
   "host_allowlist": ["publicreporting.cftc.gov"],
-  "cadence": "weekly",
-  "staleness_sla_days": 12,
+  "credential_env": [],
+  "release": {
+    "cadence": "weekly",
+    "timezone": "America/New_York",
+    "expected_lag_days": 3,
+    "grace_days": 9,
+    "revision_policy": "revisable"
+  },
   "entry": "fetch.py",
   "verify": "fetch.py --verify",
   "output_path": "data/<SUBJECT>/external/cftc/cot_wheat_srw_<as_of>.json",
@@ -24,9 +37,20 @@
       "net": "int",
       "stance": "enum:net_short|net_long|flat",
       "net_change_wow": "int",
-      "pct_of_oi_long": "float",
-      "pct_of_oi_short": "float"
+      "pct_of_oi_long": "float|null",
+      "pct_of_oi_short": "float|null"
     },
-    "open_interest_all": "int"
-  }
+    "open_interest_all": "int",
+    "source_url": "string"
+  },
+  "units": {
+    "managed_money.long": "contracts",
+    "managed_money.short": "contracts",
+    "managed_money.net": "contracts",
+    "managed_money.net_change_wow": "contracts",
+    "managed_money.pct_of_oi_long": "percent",
+    "managed_money.pct_of_oi_short": "percent",
+    "open_interest_all": "contracts"
+  },
+  "minimum_history": { "observations": 1 }
 }

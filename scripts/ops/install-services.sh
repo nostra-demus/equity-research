@@ -35,6 +35,8 @@
 #   ENGINE_REPO_ROOT=/path/to/nostra-prod NEWS_ARCHIVE_DIR="/path/to/Drive/news-archive" bash scripts/ops/install-services.sh
 set -uo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
+# shellcheck source=service-load-contract.sh
+source "$HERE/service-load-contract.sh"
 AGENTS="$HOME/Library/LaunchAgents"
 DOMAIN="gui/$(id -u)"
 mkdir -p "$AGENTS" "$HOME/Library/Logs"
@@ -104,6 +106,7 @@ NPM_BIN="$(resolve_bin npm /usr/local/bin/npm)"
 # `kickstart -k` reaches the node process, whose graceful-shutdown handler then drains SSE + closes sockets
 # cleanly (npm/tsx do NOT forward the signal — the child would just be SIGKILLed, dropping connections).
 NODE_BIN="$(resolve_bin node /usr/local/bin/node)"
+PYTHON_BIN="$(resolve_bin python3 /usr/bin/python3)"
 CLOUDFLARED_BIN="$(resolve_bin cloudflared /usr/local/bin/cloudflared)"
 
 OPS="$HOME/.nostra-ops"; mkdir -p "$OPS"
@@ -121,6 +124,33 @@ fi
 
 loaded() { launchctl print "$DOMAIN/$1" >/dev/null 2>&1; }
 
+# Connector v2 reads credentials only from this real owner-only directory/file. Normalize safe, owned paths
+# up front; refuse symlinks/foreign ownership rather than following or replacing them. An absent providers.env
+# is valid for public connectors and will be created by the migration helper only when an old plist has keys.
+CONNECTOR_CONFIG_DIR="${NOSTRA_ENGINE_CONFIG_DIR:-$HOME/.config/nostra-engine}"
+case "$CONNECTOR_CONFIG_DIR" in
+  /*) ;;
+  *) echo "ERROR: NOSTRA_ENGINE_CONFIG_DIR must be an absolute path" >&2; exit 1 ;;
+esac
+CONNECTOR_PROVIDERS_ENV="$CONNECTOR_CONFIG_DIR/providers.env"
+prepare_connector_config() {
+  if [ -e "$CONNECTOR_CONFIG_DIR" ] || [ -L "$CONNECTOR_CONFIG_DIR" ]; then
+    [ ! -L "$CONNECTOR_CONFIG_DIR" ] && [ -d "$CONNECTOR_CONFIG_DIR" ] && [ -O "$CONNECTOR_CONFIG_DIR" ] \
+      || { echo "ERROR: connector config directory must be a real current-user directory: $CONNECTOR_CONFIG_DIR" >&2; return 1; }
+  else
+    ( umask 077; mkdir -p "$CONNECTOR_CONFIG_DIR" ) \
+      || { echo "ERROR: cannot create connector config directory: $CONNECTOR_CONFIG_DIR" >&2; return 1; }
+  fi
+  chmod 700 "$CONNECTOR_CONFIG_DIR" \
+    || { echo "ERROR: cannot set connector config directory mode 0700" >&2; return 1; }
+  if [ -e "$CONNECTOR_PROVIDERS_ENV" ] || [ -L "$CONNECTOR_PROVIDERS_ENV" ]; then
+    [ ! -L "$CONNECTOR_PROVIDERS_ENV" ] && [ -f "$CONNECTOR_PROVIDERS_ENV" ] && [ -O "$CONNECTOR_PROVIDERS_ENV" ] \
+      || { echo "ERROR: providers.env must be a real current-user file" >&2; return 1; }
+    chmod 600 "$CONNECTOR_PROVIDERS_ENV" \
+      || { echo "ERROR: cannot set providers.env mode 0600" >&2; return 1; }
+  fi
+}
+
 # render <plist-path> — substitute the {{TOKENS}} in an installed/staged plist with this machine's real
 # values, then FAIL LOUD if any token is left unrendered (a typo'd placeholder must not ship a broken plist).
 # '#' is the sed delimiter because every value is a filesystem path (contains '/', never '#').
@@ -135,10 +165,11 @@ xesc() {
   printf '%s' "$s" | sed -e 's/\\/\\\\/g' -e 's/[&#]/\\&/g'   # 2) sed-RHS escape
 }
 render() {
-  local f="$1" e_home e_prod e_state e_path e_npm e_node e_cf e_news e_bridge
+  local f="$1" e_home e_prod e_state e_path e_npm e_node e_cf e_news e_bridge e_connector_config
   e_home="$(xesc "$HOME")"; e_prod="$(xesc "$PROD")"; e_state="$(xesc "$STATE_DIR")"; e_path="$(xesc "$PLIST_PATH")"
   e_npm="$(xesc "$NPM_BIN")"; e_node="$(xesc "$NODE_BIN")"; e_cf="$(xesc "$CLOUDFLARED_BIN")"; e_news="$(xesc "$NEWS_ARCHIVE_DIR")"
   e_bridge="$(xesc "$BRIDGE_MODE_VALUE")"
+  e_connector_config="$(xesc "$CONNECTOR_CONFIG_DIR")"
   sed -i '' \
     -e "s#{{HOME}}#$e_home#g" \
     -e "s#{{ENGINE_REPO_ROOT}}#$e_prod#g" \
@@ -149,6 +180,7 @@ render() {
     -e "s#{{CLOUDFLARED_BIN}}#$e_cf#g" \
     -e "s#{{NEWS_ARCHIVE_DIR}}#$e_news#g" \
     -e "s#{{BRIDGE_MODE}}#$e_bridge#g" \
+    -e "s#{{CONNECTOR_CONFIG_DIR}}#$e_connector_config#g" \
     "$f"
   if grep -q '{{' "$f"; then
     echo "ERROR: unrendered placeholder(s) in $(basename "$f"):" >&2; grep -n '{{' "$f" >&2; return 1
@@ -156,17 +188,46 @@ render() {
 }
 
 install_one() {
-  local label="$1" src="$HERE/$1.plist" dst="$AGENTS/$1.plist" i staged key cur
-  # SECRETS STAY OUT OF THE REPO: real API keys live only in the INSTALLED plists
-  # (~/Library/LaunchAgents), never in these versioned copies. On reinstall, carry EVERY provider key
-  # over from the installed plist when the repo copy lacks it (or only has the placeholder) — otherwise
-  # a routine reinstall would silently drop keys and turn providers / the news ingester off.
-  staged="$(mktemp)" || return 1
+  local label="$1" src="$HERE/$1.plist" dst="$AGENTS/$1.plist" i staged key cur ck
+  local is_connector=0
+  # SECRETS STAY OUT OF THE REPO. The fixed model-provider keys below live in their relevant INSTALLED
+  # plists (~/Library/LaunchAgents) and are carried across reinstalls. Connector credentials are different:
+  # every CONNECTOR_* value lives only in ~/.config/nostra-engine/providers.env and is deliberately neither
+  # embedded nor carried here, so reinstalling the connector agent removes any historical plist duplicate.
+  if [ "$label" = com.nostradamus.connectors ]; then
+    is_connector=1
+    # The staged connector must live beside its destination: mv(1) is then a same-filesystem atomic replace.
+    staged="$(mktemp "$AGENTS/.${label}.staged.XXXXXX")" || return 1
+  else
+    staged="$(mktemp)" || return 1
+  fi
   if ! cp "$src" "$staged" || [ ! -s "$staged" ]; then
     echo "  FAIL: missing/empty source plist $src — leaving existing install untouched" >&2; rm -f "$staged"; return 1
   fi
   # render the placeholder tokens to this machine's real paths BEFORE the secret carry + idempotency compare
   render "$staged" || { echo "  FAIL: could not render $label — leaving existing install untouched"; rm -f "$staged"; return 1; }
+  # An older installed connector plist may still be the only credential copy. Preserve every exact key via
+  # the same tested atomic helper deploy.sh uses before replacing that plist. Any conflict/unsafe path leaves
+  # the existing install untouched. Then, defense in depth, strip connector keys from the new staged template.
+  if [ "$is_connector" = 1 ]; then
+    if [ -e "$dst" ] || [ -L "$dst" ]; then
+      if [ -L "$dst" ] || [ ! -f "$dst" ] || [ ! -O "$dst" ]; then
+        echo "  FAIL: installed connector plist must be a real current-user file — leaving existing install untouched" >&2
+        rm -f "$staged"
+        return 1
+      fi
+    fi
+    if [ -f "$dst" ] && ! "$PYTHON_BIN" "$HERE/migrate-connector-secrets.py" \
+      --plist "$dst" --providers-env "$CONNECTOR_PROVIDERS_ENV" >/dev/null; then
+      echo "  FAIL: could not preserve historical connector credentials — leaving existing install untouched" >&2
+      rm -f "$staged"
+      return 1
+    fi
+    while IFS= read -r ck; do
+      [ -z "$ck" ] || /usr/libexec/PlistBuddy -c "Delete :EnvironmentVariables:$ck" "$staged" 2>/dev/null || true
+    done < <(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables" "$staged" 2>/dev/null \
+               | sed -nE 's/^[[:space:]]*(CONNECTOR_[A-Za-z0-9_]+)[[:space:]]*=.*/\1/p')
+  fi
   if [ -f "$dst" ]; then
     for sk in GROQ_API_KEY GEMINI_API_KEY OPENROUTER_API_KEY NVIDIA_API_KEY CEREBRAS_API_KEY MISTRAL_API_KEY; do
       key="$(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables:$sk" "$dst" 2>/dev/null || true)"
@@ -178,27 +239,41 @@ install_one() {
         /usr/libexec/PlistBuddy -c "Set :EnvironmentVariables:$sk $key" "$staged" 2>/dev/null || true
       fi
     done
-    # A connector the interactive builder (#298) generates with acquisition `free_key_api`/`paid_api` reads
-    # its own credential from a `CONNECTOR_*`-prefixed env var, hand-added to the INSTALLED
-    # com.nostradamus.connectors.plist the same way an LLM key is added above — but the key's exact NAME
-    # is open-ended (the builder names it per-connector), so it can't be a fixed list like the LLM keys.
-    # Sweep every EnvironmentVariables key already in the installed plist and carry forward any that starts
-    # with CONNECTOR_ and isn't already in the freshly-rendered copy — otherwise a routine reinstall silently
-    # drops it, and that connector fails (and can spuriously trip the repair watchdog) on every sweep after.
-    while IFS= read -r ck; do
-      [ -z "$ck" ] && continue
-      key="$(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables:$ck" "$dst" 2>/dev/null || true)"
-      [ -z "$key" ] && continue
-      cur="$(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables:$ck" "$staged" 2>/dev/null || true)"
-      [ -z "$cur" ] && { /usr/libexec/PlistBuddy -c "Add :EnvironmentVariables:$ck string $key" "$staged" 2>/dev/null || true; }
-    done < <(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables" "$dst" 2>/dev/null \
-               | grep -E '^[[:space:]]+CONNECTOR_[A-Za-z0-9_]+[[:space:]]*=' \
-               | sed -E 's/^[[:space:]]*([A-Za-z0-9_]+)[[:space:]]*=.*/\1/')
+    # Connector credentials deliberately are NOT carried from an installed plist. Their sole persisted
+    # source is ~/.config/nostra-engine/providers.env; replacing the old plist removes any historical
+    # CONNECTOR_* duplication while the runner loads only names declared by each connector manifest.
+  fi
+  if [ "$is_connector" = 1 ]; then
+    # Validate the fully rendered, post-migration contract before comparing or touching the installed file.
+    # plutil catches platform plist defects; the stricter helper also proves the runner/config/secret contract
+    # and uses an owner-only, no-follow, race-checked read.
+    if ! chmod 600 "$staged" \
+      || ! plutil -lint "$staged" >/dev/null \
+      || ! nostra_validate_connector_plist "$staged" "$PROD" "$CONNECTOR_CONFIG_DIR"; then
+      echo "  FAIL: staged connector plist failed its production contract — leaving existing install untouched" >&2
+      rm -f "$staged"
+      return 1
+    fi
   fi
   if loaded "$label" && cmp -s "$staged" "$dst"; then
+    if [ "$is_connector" = 1 ] \
+      && ! nostra_validate_connector_plist "$dst" "$PROD" "$CONNECTOR_CONFIG_DIR"; then
+      echo "  FAIL: installed connector plist failed verification — running service left untouched" >&2
+      rm -f "$staged"
+      return 1
+    fi
     rm -f "$staged"
     launchctl kickstart -k "$DOMAIN/$label" 2>/dev/null || true   # current + loaded: restart in place
+    if [ "$is_connector" = 1 ]; then
+      nostra_report_loaded "$label"
+      return $?
+    fi
     echo "  ok (in place): $label"; return
+  fi
+  if [ "$is_connector" = 1 ]; then
+    nostra_activate_connector_plist "$label" "$staged" "$dst" \
+      "$PROD" "$CONNECTOR_CONFIG_DIR" "$AGENTS" "$DOMAIN"
+    return $?
   fi
   cp "$staged" "$dst" && rm -f "$staged"
   chmod 600 "$dst" 2>/dev/null || true
@@ -209,16 +284,27 @@ install_one() {
     sleep 0.5                                                            # tolerate the errno-5 race
   done
   launchctl kickstart -k "$DOMAIN/$label" 2>/dev/null || true
-  if loaded "$label"; then echo "  ok (reloaded): $label"
-  else echo "  WARN: $label did NOT load — re-run this installer"; fi
+  nostra_report_loaded "$label"
 }
 
 # remove one agent entirely (used when demoting a machine to --role admin)
 remove_one() {
-  local label="$1"
-  if [ -f "$AGENTS/$label.plist" ] || loaded "$label"; then
+  local label="$1" dst="$AGENTS/$1.plist"
+  # A doer→admin demotion removes the connector agent entirely, so it must
+  # preserve any historical plist-only CONNECTOR_* values before deletion just
+  # like an in-place doer reinstall does. Refuse the removal on any unsafe path,
+  # duplicate, or conflicting value rather than silently deleting the last copy.
+  if [ "$label" = com.nostradamus.connectors ] && { [ -e "$dst" ] || [ -L "$dst" ]; }; then
+    prepare_connector_config || return 1
+    if ! "$PYTHON_BIN" "$HERE/migrate-connector-secrets.py" \
+      --plist "$dst" --providers-env "$CONNECTOR_PROVIDERS_ENV" >/dev/null; then
+      echo "  FAIL: could not preserve historical connector credentials — connector agent was not removed" >&2
+      return 1
+    fi
+  fi
+  if [ -f "$dst" ] || loaded "$label"; then
     launchctl bootout "$DOMAIN/$label" 2>/dev/null || true
-    rm -f "$AGENTS/$label.plist" 2>/dev/null || true
+    rm -f "$dst" 2>/dev/null || true
     echo "  removed (admin role): $label"
   fi
 }
@@ -231,11 +317,15 @@ DOER_ONLY=(com.nostradamus.tunnel com.nostradamus.news-archive com.nostradamus.e
 NEWS_INGESTER=com.nostradamus.news-ingester   # doer-only AND opt-in (needs a real GROQ key in its plist)
 
 echo "installing role=$ROLE (prod=$PROD)"
+if [ "$ROLE" = doer ]; then
+  prepare_connector_config || exit 1
+fi
 LABELS=("${BASE[@]}")
 [ "$ROLE" = doer ] && LABELS+=("${DOER_ONLY[@]}")
+install_failed=0
 for label in "${LABELS[@]}"; do
   echo "installing $label"
-  install_one "$label"
+  install_one "$label" || install_failed=1
 done
 
 # Optional autonomous news ingester (standalone 24/7 mode) — DOER ONLY, and only once you've put your
@@ -247,17 +337,22 @@ if [ "$ROLE" = doer ]; then
     echo "skipping $NEWS_INGESTER (set your GROQ_API_KEY in its plist to enable)"
   else
     echo "installing $NEWS_INGESTER"
-    install_one "$NEWS_INGESTER"
+    install_one "$NEWS_INGESTER" || install_failed=1
   fi
 fi
 
 # admin role: strip any doer-only agents this machine may have had, so a doer→admin demotion is clean
 # (otherwise a stale tunnel/timer would keep running and fight the real doer).
 if [ "$ROLE" = admin ]; then
-  for label in "${DOER_ONLY[@]}" "$NEWS_INGESTER"; do remove_one "$label"; done
+  remove_failed=0
+  for label in "${DOER_ONLY[@]}" "$NEWS_INGESTER"; do
+    remove_one "$label" || remove_failed=1
+  done
+  [ "$remove_failed" = 0 ] || exit 1
 fi
 
 echo
 echo "status (each should show a PID):"
 launchctl list | grep -i nostradamus || echo "  (none loaded!)"
 echo "logs: ~/Library/Logs/nostradamus-{engine,tunnel,deploy,watchdog,news-archive,caffeinate,housekeeping}.log"
+[ "$install_failed" = 0 ] || exit 1

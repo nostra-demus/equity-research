@@ -60,6 +60,146 @@ mkdir -p "$OPS" "$(dirname "$LOG")"
 ts()  { date '+%Y-%m-%d %H:%M:%S'; }
 log() { echo "$(ts) $*" >> "$LOG"; }
 
+# One-time + continuously idempotent connector LaunchAgent migration. PR1 changes the connector scheduler
+# from six-hourly to a due-aware fifteen-minute floor and moves every declared CONNECTOR_* secret out of the
+# installed plist into ~/.config/nostra-engine/providers.env. Merely changing the tracked template does not
+# update an already-installed LaunchAgent: deploy.sh is the only reviewed path guaranteed to run after a
+# merge. Reconcile just this plist atomically, validate it before replacement, then re-bootstrap only this
+# label so the new interval/environment are active. Never print a secret value (only key names are parsed).
+migrate_connector_launchagent_v2() {
+  local agents="$HOME/Library/LaunchAgents"
+  local installed="$agents/com.nostradamus.connectors.plist"
+  local source="$PROD/scripts/ops/com.nostradamus.connectors.plist"
+  local marker="$OPS/.connector-launchagent-v2"
+  local providers_dir="${NOSTRA_ENGINE_CONFIG_DIR:-$HOME/.config/nostra-engine}"
+  local providers_env="$providers_dir/providers.env"
+  local staged backup desired_interval source_isolated keys changed=0 loaded=0 i
+  [ -e "$installed" ] || return 0                       # admin/non-doer host: nothing to migrate
+  case "$providers_dir" in
+    /*) ;;
+    *) log "WARN connector-agent migration requires an absolute NOSTRA_ENGINE_CONFIG_DIR"; return 1 ;;
+  esac
+  if [ -L "$installed" ] || [ ! -f "$installed" ] || [ ! -O "$installed" ]; then
+    log "WARN connector-agent migration refused a symlink, non-file, or foreign-owned installed plist"
+    return 1
+  fi
+  [ -f "$source" ] || { log "WARN connector-agent migration source template is missing"; return 1; }
+  [ -f "$PROD/scripts/ops/migrate-connector-launchagent.py" ] \
+    || { log "WARN connector-agent LaunchAgent migration helper is missing"; return 1; }
+  desired_interval="$(/usr/libexec/PlistBuddy -c 'Print :StartInterval' "$source" 2>/dev/null || true)"
+  [ "$desired_interval" = 900 ] || {
+    log "WARN connector-agent migration refused unexpected source StartInterval '$desired_interval'"
+    return 1
+  }
+  source_isolated="$(/usr/libexec/PlistBuddy -c 'Print :ProgramArguments:2' "$source" 2>/dev/null || true)"
+  [ "$source_isolated" = -I ] || {
+    log "WARN connector-agent migration refused a source template without isolated Python"
+    return 1
+  }
+  # Strict runtime loading requires the config directory and optional provider file to be real, current-user
+  # owned, and private even when this old plist contains no credential to migrate.
+  if [ -e "$providers_dir" ] || [ -L "$providers_dir" ]; then
+    if [ -L "$providers_dir" ] || [ ! -d "$providers_dir" ] || [ ! -O "$providers_dir" ]; then
+      log "WARN connector-agent migration refused unsafe connector config directory"
+      return 1
+    fi
+  else
+    ( umask 077; mkdir -p "$providers_dir" ) 2>/dev/null || return 1
+  fi
+  chmod 700 "$providers_dir" 2>/dev/null || return 1
+  if [ -e "$providers_env" ] || [ -L "$providers_env" ]; then
+    if [ -L "$providers_env" ] || [ ! -f "$providers_env" ] || [ ! -O "$providers_env" ]; then
+      log "WARN connector-agent migration refused unsafe providers.env"
+      return 1
+    fi
+    chmod 600 "$providers_env" 2>/dev/null || return 1
+  fi
+  staged="$(mktemp "$agents/.com.nostradamus.connectors.plist.XXXXXX")" || return 1
+  if ! cp "$installed" "$staged"; then rm -f "$staged"; return 1; fi
+  chmod 600 "$staged" 2>/dev/null || true
+
+  keys="$(/usr/libexec/PlistBuddy -c 'Print :EnvironmentVariables' "$staged" 2>/dev/null \
+    | sed -nE 's/^[[:space:]]*(CONNECTOR_[A-Za-z0-9_]+)[[:space:]]*=.*/\1/p')"
+  # Old installations were explicitly told to keep connector credentials in this plist. Never delete the
+  # only copy. The shared, tested helper atomically preserves every exact historical CONNECTOR_* value first.
+  # Conflicts, duplicates, unsafe paths/modes, or unrepresentable values leave the installed service untouched.
+  if [ -n "$keys" ]; then
+    if ! "$PYTHON" "$PROD/scripts/ops/migrate-connector-secrets.py" \
+      --plist "$installed" --providers-env "$providers_env" >/dev/null
+    then
+      rm -f "$staged"
+      log "WARN connector-agent migration preserved installed CONNECTOR_* values because secure providers.env migration failed"
+      return 1
+    fi
+  fi
+  # Apply the executable contract through the cross-platform tested helper. It
+  # accepts only the exact historical/new command shapes, adds `-I`, strips
+  # already-preserved connector keys, and sets the interval/source atomically.
+  if ! "$PYTHON" "$PROD/scripts/ops/migrate-connector-launchagent.py" \
+    --plist "$staged" --repo-root "$PROD" --config-dir "$providers_dir" \
+    --interval "$desired_interval" >/dev/null
+  then
+    rm -f "$staged"
+    log "WARN connector-agent migration refused an unknown installed executable contract"
+    return 1
+  fi
+  cmp -s "$installed" "$staged" || changed=1
+  if ! plutil -lint "$staged" >/dev/null 2>&1; then
+    rm -f "$staged"; log "WARN connector-agent migration produced an invalid staged plist"; return 1
+  fi
+
+  # A clean on-disk file may still be loaded with the old interval/environment. The marker is written only
+  # after a successful re-bootstrap, so the first v2 deploy always reloads once; later runs are no-ops.
+  if [ "$changed" = 0 ] \
+     && [ "$(cat "$marker" 2>/dev/null || true)" = 'interval=900;credentials=providers_env;isolated=1' ] \
+     && launchctl print "gui/$UID_NUM/com.nostradamus.connectors" >/dev/null 2>&1; then
+    rm -f "$staged"
+    return 0
+  fi
+  backup="$(mktemp "$agents/.com.nostradamus.connectors.plist.pre-v2.XXXXXX")" || { rm -f "$staged"; return 1; }
+  if ! cp "$installed" "$backup" || ! chmod 600 "$backup"; then
+    rm -f "$staged" "$backup"
+    return 1
+  fi
+  mv "$staged" "$installed" || { rm -f "$staged" "$backup"; return 1; }
+  chmod 600 "$installed" 2>/dev/null || true
+  launchctl bootout "gui/$UID_NUM/com.nostradamus.connectors" >/dev/null 2>&1 || true
+  for i in $(seq 1 40); do
+    launchctl print "gui/$UID_NUM/com.nostradamus.connectors" >/dev/null 2>&1 || break
+    sleep 0.25
+  done
+  for i in 1 2 3 4 5 6; do
+    launchctl bootstrap "gui/$UID_NUM" "$installed" >/dev/null 2>&1 && { loaded=1; break; }
+    sleep 0.5
+  done
+  if [ "$loaded" != 1 ] || ! launchctl print "gui/$UID_NUM/com.nostradamus.connectors" >/dev/null 2>&1; then
+    # Restore the exact pre-migration service definition so an availability failure never turns a safe
+    # credential migration into an outage. The backup is owner-only and is removed by the atomic restore.
+    if mv "$backup" "$installed" && chmod 600 "$installed"; then
+      loaded=0
+      for i in 1 2 3 4 5 6; do
+        launchctl bootstrap "gui/$UID_NUM" "$installed" >/dev/null 2>&1 && { loaded=1; break; }
+        sleep 0.5
+      done
+      if [ "$loaded" = 1 ] && launchctl print "gui/$UID_NUM/com.nostradamus.connectors" >/dev/null 2>&1; then
+        launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.connectors" >/dev/null 2>&1 || true
+        log "WARN connector-agent v2 bootstrap failed; restored and reloaded the pre-migration service"
+      else
+        log "WARN connector-agent v2 bootstrap failed and the restored pre-migration service did not reload"
+      fi
+    else
+      log "WARN connector-agent v2 bootstrap failed and its owner-only pre-migration plist could not be restored"
+    fi
+    return 1
+  fi
+  rm -f "$backup"
+  launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.connectors" >/dev/null 2>&1 || true
+  printf '%s\n' 'interval=900;credentials=providers_env;isolated=1' > "$marker.tmp" 2>/dev/null \
+    && mv "$marker.tmp" "$marker" 2>/dev/null || true
+  log "connector-agent migration active: 15m due-aware scheduler; isolated Python; LaunchAgent CONNECTOR_* keys removed"
+  return 0
+}
+
 # keep the log bounded
 if [ -f "$LOG" ] && [ "$(wc -l < "$LOG" 2>/dev/null || echo 0)" -gt 4000 ]; then
   tail -n 800 "$LOG" > "$LOG.tmp" 2>/dev/null && mv "$LOG.tmp" "$LOG"
@@ -109,6 +249,7 @@ then
   exec 8>&-
   exit 0
 fi
+
 # ---- shared repository-mutation flock (engine commits + tracked-ledger appends) ----
 # commit-run.sh and append-ndjson.sh use the same persistent file in this worktree's Git directory.
 # Python applies flock on fd 9, then exits; this shell retains the locked open-file description until
@@ -346,6 +487,11 @@ fi
 LOCAL="$("$GIT" rev-parse HEAD 2>/dev/null)"
 REMOTE="$("$GIT" rev-parse origin/main 2>/dev/null)"
 [ -n "$LOCAL" ] && [ -n "$REMOTE" ] || { log "WARN cannot resolve revs"; exit 0; }
+CURRENT_BRANCH="$("$GIT" symbolic-ref --quiet --short HEAD 2>/dev/null || true)"
+[ "$CURRENT_BRANCH" = main ] || {
+  log "SKIP production checkout is not on main (found '${CURRENT_BRANCH:-detached}')"
+  exit 0
+}
 MARKER="$(cat "$MARK" 2>/dev/null || true)"   # SHA the built ui/dist + running engine were last reconciled to
 
 # Don't re-deploy a SHA we just rolled back FROM. After an auto-rollback, HEAD sits on last-good while
@@ -361,6 +507,18 @@ if [ -f "$FAILMARK" ]; then
 fi
 
 if [ "$LOCAL" = "$REMOTE" ]; then
+  # Only execute tracked migration helpers after the shared repository lease,
+  # main/origin identity check, and the §28 clean-code gate. This guarantees
+  # the helper bytes cannot change between review, execution, and service
+  # activation, even on an otherwise up-to-date deploy tick.
+  if has_nondata_dirty; then
+    log "SKIP connector-agent reconciliation because a dirty non-data (code/ops) file is present (§28)"
+    exit 0
+  fi
+  if ! migrate_connector_launchagent_v2; then
+    log "WARN connector-agent reconciliation failed — leaving the deployed marker unchanged for retry"
+    exit 0
+  fi
   # The checkout is level with origin/main — but that does NOT mean the BUILT artifacts are current.
   # The engine commits research data into THIS worktree and, when origin has moved, rebases onto
   # origin/main before pushing (scripts/commit-run.sh) — which pulls freshly MERGED CODE into the checkout
@@ -496,6 +654,14 @@ log "DEPLOY ${LOCAL:0:9} -> ${REMOTE:0:9}"
 grep -vE 'gc\.log|loose objects|Auto packing|git help gc|Please correct|Automatic cleanup|^warning:|^$' "$OPS/.merge.out" >> "$LOG" 2>/dev/null || true
 if [ "$mrc" -ne 0 ]; then
   log "WARN ff-only merge failed (rc=$mrc) — retry next cycle"
+  exit 0
+fi
+
+# The fast-forwarded, reviewed source is now immutable under fd 9. Activate
+# its connector service contract before advancing any deployed marker; a
+# failure leaves the old service and marker in place so the next tick retries.
+if ! migrate_connector_launchagent_v2; then
+  log "WARN connector-agent reconciliation failed after fast-forward — leaving the deployed marker unchanged for retry"
   exit 0
 fi
 

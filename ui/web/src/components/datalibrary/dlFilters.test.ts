@@ -12,7 +12,7 @@ function check(name: string, fn: () => void) {
 
 const mkPipeline = (over: Partial<PipelineEntry> = {}): PipelineEntry => ({
   id: 'acme-panel', series: 'Acme weekly panel', provider: 'Acme', acquisition: 'official_api',
-  sourceType: 'paid_api', tier: 5, hostAllowlist: ['x.test'], cadence: 'weekly', stalenessSlaDays: 10,
+  sourceType: 'paid_api', tier: 5, hostAllowlist: ['x.test'], cadence: 'weekly', releaseWindowDays: 10,
   entry: 'fetch.py', verify: 'fetch.py --verify', outputPath: 'data/<SUBJECT>/external/acme/a_<as_of>.json',
   subjects: ['AAA', 'BBB'], satisfies: [], helps: [],
   statuses: [
@@ -60,6 +60,12 @@ check("verdict: 'live' keeps only live feeds; 'problem' keeps attention AND brok
 check('a set verdict filter always excludes recommended (an unwired need has no feed health)', () => {
   assert.equal(matchesDlRecommended(mkRecommended(), { ...emptyDlFilters(), verdict: 'live' }), false)
   assert.equal(matchesDlRecommended(mkRecommended(), { ...emptyDlFilters(), verdict: 'problem' }), false)
+})
+
+check('a server-recommended row stays visible even with stale built_by; connector_exists also stays open', () => {
+  const f = emptyDlFilters()
+  assert.equal(matchesDlRecommended(mkRecommended({ built_by: 'fixture-live-feed', connector_exists: 'fixture-live-feed' }), f), true)
+  assert.equal(matchesDlRecommended(mkRecommended({ connector_exists: 'fixture-unhealthy-feed' }), f), true)
 })
 
 check("kind: 'wired' excludes recommended, 'recommended' excludes wired, '' passes both", () => {

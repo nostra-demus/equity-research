@@ -16,18 +16,29 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
+import re
 import sys
 import tempfile
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 
+_SCRIPTS = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))), "scripts")
+if _SCRIPTS not in sys.path:
+    sys.path.append(_SCRIPTS)
+from connector_http import open_allowed_https, read_bounded_response  # noqa: E402
+
 HOST = "publicreporting.cftc.gov"        # the ONE host this connector may reach
 DATASET = "72hh-3qpy"                    # CFTC Disaggregated Futures-Only COT
 CONTRACT = "WHEAT-SRW"
 PROVIDER = "cftc"
 CONNECTOR_ID = "cftc-cot-wheat-srw"
+MAX_RESPONSE_BYTES = 1024 * 1024          # one latest-row JSON response; hard network-body cap
+_HERE = os.path.dirname(os.path.abspath(__file__))
+with open(os.path.join(_HERE, "connector.json"), encoding="utf-8") as _f:
+    MANIFEST = json.load(_f)
 
 
 def _url() -> str:
@@ -37,22 +48,40 @@ def _url() -> str:
 
 def fetch_json(timeout: int = 20):
     req = urllib.request.Request(_url(), headers={"User-Agent": f"nostradamus-connector/{CONNECTOR_ID}"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:  # noqa: S310 — fixed HTTPS host, not user input
+    with open_allowed_https(req, MANIFEST["host_allowlist"], timeout=timeout) as r:
         if r.status != 200:
             raise RuntimeError(f"HTTP {r.status} from {HOST}")
-        return json.loads(r.read().decode("utf-8", "replace"))
+        return json.loads(read_bounded_response(r, max_bytes=MAX_RESPONSE_BYTES).decode("utf-8", "replace"))
 
 
 def _int(rec: dict, k: str) -> int:
     v = rec.get(k)
     if v is None:
         raise RuntimeError(f"missing field {k!r} (fail closed — CFTC shape may have changed)")
-    return int(float(v))
+    if isinstance(v, bool):
+        raise RuntimeError(f"field {k!r} is not an integer count (fail closed)")
+    if isinstance(v, int):
+        value = v
+    elif isinstance(v, str) and re.fullmatch(r"-?(?:0|[1-9]\d*)", v):
+        value = int(v)
+    else:
+        raise RuntimeError(f"field {k!r} is not a strict integer count: {v!r} (fail closed)")
+    if abs(value) > 9_007_199_254_740_991:
+        raise RuntimeError(f"field {k!r} exceeds the exact cross-runtime integer range (fail closed)")
+    return value
 
 
 def _float(rec: dict, k: str):
     v = rec.get(k)
-    return float(v) if v is not None else None
+    if v is None or isinstance(v, bool):
+        raise RuntimeError(f"missing or invalid field {k!r} (fail closed)")
+    try:
+        value = float(v)
+    except (TypeError, ValueError) as exc:
+        raise RuntimeError(f"field {k!r} is not numeric (fail closed)") from exc
+    if not math.isfinite(value) or value < 0 or value > 100:
+        raise RuntimeError(f"field {k!r} is outside 0..100 percent (fail closed)")
+    return value
 
 
 def build(records):
@@ -83,13 +112,16 @@ def build(records):
     }
     sidecar = {
         "provider": "CFTC",
-        "source_type": "paid_api",          # §4 tier-5 "API pull, dated" bucket; this feed is free + public-domain
+        "source_type": "official_data",     # government-published raw data; §4 tier-5 external-data ceiling
         "tier": 5,
         "as_of": asof,
         "received": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         "source_url": _url(),
-        "license": "public_domain (US Government work, 17 U.S.C. §105)",
+        "license": MANIFEST["license"],
         "connector_id": CONNECTOR_ID,
+        "dataset_id": MANIFEST["dataset_id"], "series_id": MANIFEST["series_id"],
+        "schema_version": MANIFEST["schema_version"],
+        "licensing": MANIFEST["licensing"],
         "note": f"Managed money net {net:+,} ({stance}) as of {asof}; OI {oi:,}.",
     }
     return asof, net, stance, payload, sidecar

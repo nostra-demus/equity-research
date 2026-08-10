@@ -1,14 +1,21 @@
-// connector-agent step classifier — the PURE parse of the coding agent's stream-json into the live
-// "what is happening right now" steps the Data Library shows during a build. No filesystem, no spawn.
+// Connector-agent display helpers plus the action-boundary hard stop. The fixture creates only its own temp
+// parent; the forbidden worktree path must remain absent and no process/GitHub action can run.
 // Run: npx tsx test/connector-agent-steps.test.ts.
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
+process.env.ENGINE_CONNECTOR_DISPATCH_ENABLED = '1'
+process.env.GH_PR_TOKEN = 'ghp_test'
 let passed = 0
 function check(name: string, cond: boolean, detail = '') {
   if (cond) { passed++; console.log(`  ok  ${name}`) }
   else { console.error(`FAIL  ${name}  ${detail}`); process.exitCode = 1 }
 }
 
-const { classifyAgentLine, stepTarget } = await import('../src/connector-agent')
+const { classifyAgentLine, runWorktreeAgent, stepTarget } = await import('../src/connector-agent')
+const { connectorAgentIsolationReady } = await import('../src/config')
 
 const assistant = (content: any[]) => ({ type: 'assistant', message: { content } })
 
@@ -41,5 +48,20 @@ check('an empty text block is dropped (no empty say)', classifyAgentLine(assista
 // stepTarget clamps and falls back
 check('stepTarget on a long command is clamped', stepTarget('Bash', { command: 'x'.repeat(400) }).length <= 110)
 check('stepTarget with no recognizable input → empty (caller shows the tool name)', stepTarget('SomeTool', {}) === '')
+
+const root = fs.mkdtempSync(path.join(os.tmpdir(), 'connector-agent-hard-stop-'))
+try {
+  const forbiddenWorktree = path.join(root, 'must-not-exist')
+  const result = await runWorktreeAgent({
+    branch: 'connector/must-not-run', worktree: forbiddenWorktree, prompt: 'untrusted source',
+    outcomeFile: '.outcome.json', logName: '.log', maxTurns: 1, budgetUsd: 1,
+  })
+  check('direct runner invocation is assessed before worktree/GitHub/spawn even when flags and token exist',
+    connectorAgentIsolationReady() === false && result.outcome === 'assessed'
+    && /manual branch and pull-request workflow/.test(result.note || '')
+    && !fs.existsSync(forbiddenWorktree))
+} finally {
+  fs.rmSync(root, { recursive: true, force: true })
+}
 
 console.log(`\nconnector-agent-steps.test.ts: ${passed} passed${process.exitCode ? ' (with failures)' : ''}`)

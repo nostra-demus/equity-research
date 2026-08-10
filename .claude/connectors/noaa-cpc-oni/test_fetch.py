@@ -11,6 +11,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import os
+import sys
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _spec = importlib.util.spec_from_file_location("noaa_fetch", os.path.join(_HERE, "fetch.py"))
@@ -18,7 +19,7 @@ mod = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(mod)
 
 ELNINO = """ SEAS  YR   TOTAL   ANOM
-  DJF 1950  24.72  -1.53
+  FMA 2026  27.72   0.31
   MAM 2026  28.08   0.51
   AMJ 2026  28.71   0.98
 """
@@ -46,13 +47,25 @@ def check(name: str, cond: bool) -> None:
 
 
 asof, latest, state, payload, sidecar = mod.build(ELNINO)
+_CONTRACT_TEXT = " SEAS YR TOTAL ANOM\n" + "\n".join(
+    f" {season} 2025 27.00 0.10" for season in mod.SEASON_END_MONTH
+)
+_contract_asof, _, _, _contract_payload, _contract_sidecar = mod.build(_CONTRACT_TEXT)
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(_HERE))), "scripts"))
+from connector_contract import validate_manifest, validate_staged_output  # noqa: E402
+_manifest = json.load(open(os.path.join(_HERE, "connector.json")))
+_contract_defects = validate_manifest(_manifest["id"], _HERE, _manifest) + validate_staged_output(
+    _manifest, "WHEAT", _contract_payload, _contract_sidecar, _contract_asof,
+)
+check("shared v2 manifest/staged-output contract accepts the production transform", not _contract_defects)
 check("latest row is the last valid ONI row",
       latest["season"] == "AMJ" and latest["year"] == 2026 and latest["anom"] == 0.98)
 check("as_of derived from the season end-month (AMJ → June), not the fetch clock", asof == "2026-06-01")
 check("enso_state el_nino at +0.98", state == "el_nino" and payload["latest"]["enso_state"] == "el_nino")
+check("payload series is manifest-owned (cannot drift from staged validation)", payload["series"] == mod.MANIFEST["series"])
 check("sidecar as_of matches the payload (read from the data)", sidecar["as_of"] == asof)
-check("sidecar carries tier 5 + source_type paid_api + a connector_id",
-      sidecar["tier"] == 5 and sidecar["source_type"] == "paid_api" and sidecar["connector_id"] == "noaa-cpc-oni")
+check("sidecar carries tier 5 + source_type official_data + a connector_id",
+      sidecar["tier"] == 5 and sidecar["source_type"] == "official_data" and sidecar["connector_id"] == "noaa-cpc-oni")
 
 _, l2, s2, _, _ = mod.build(LANINA)
 check("la_nina at -0.72", s2 == "la_nina" and l2["anom"] == -0.72)
@@ -70,11 +83,25 @@ except Exception:
     raised = True
 check("fail-closed: a feed with no parseable rows raises (never a bogus fresh row)", raised)
 
+for broken, label in [
+    (ELNINO + "  MJJ 2026 N/A N/A\n", "recognized newest row with unavailable numerics"),
+    (" SEAS YR TOTAL ANOM\n  DJF 2026 27.0 0.1\n  MAM 2026 27.1 0.2\n",
+     "missing intermediate season"),
+    (" SEAS YR TOTAL ANOM\n  MAM 2026 27.0 0.1\n  MAM 2026 27.1 0.2\n",
+     "duplicate season"),
+]:
+    raised = False
+    try:
+        mod.parse(broken)
+    except RuntimeError:
+        raised = True
+    check(f"fail-closed on {label}", raised)
+
 # manifest consistency — the sidecar's tier/source_type must match the connector.json declaration, and the
-# declared tier must be the §4 ceiling paid_api earns (5), so nothing over-claims at write time.
+# declared tier must be the §4 ceiling official_data earns (5), so nothing over-claims at write time.
 man = json.load(open(os.path.join(_HERE, "connector.json"), encoding="utf-8"))
 check("connector.json is valid + tier/source_type agree with the sidecar the fetcher writes",
-      man["tier"] == sidecar["tier"] == 5 and man["source_type"] == sidecar["source_type"] == "paid_api")
+      man["tier"] == sidecar["tier"] == 5 and man["source_type"] == sidecar["source_type"] == "official_data")
 check("connector.json declares an exact-host allowlist that contains the fetch host",
       isinstance(man.get("host_allowlist"), list) and mod.HOST in man["host_allowlist"])
 check("connector.json entry/verify point at this fetcher",

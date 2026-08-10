@@ -180,7 +180,7 @@ cockpit surfaces so a durable feed can be built for it. Rules:
   **Never 1–4** — a live feed is not a filing.
 - **Enums are exact (fail-closed downstream):** `suggested_source.acquisition` MUST be one of
   `official_api | free_key_api | paid_api | scrape | manual`, and `cadence` one of
-  `realtime | daily | weekly | monthly | event_driven` — any other string (e.g. 'vendor_or_paid_feed',
+  `twelve_hourly | daily | weekly | monthly | quarterly | semiannual | annual | event_driven` — any other string (e.g. 'vendor_or_paid_feed',
   'free_public_data') fails the schema and the need never surfaces on the cockpit.
 - Set `filing_required: true` ONLY when the gap can be closed solely by a statutory filing (an audited figure,
   a formal disclosure). Such a need is advisory — no connector can satisfy it — so mark it and move on.

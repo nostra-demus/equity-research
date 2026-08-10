@@ -15,7 +15,7 @@
 // so the dock stays hidden rather than showing a fabricated need.
 import fs from 'node:fs'
 import path from 'node:path'
-import { builtBySatisfies } from './connector-registry'
+import { builtBySatisfies, CADENCE_MS, healthyBuiltBySatisfies, listConnectors } from './connector-registry'
 import { findRunRootForSubject, listModuleNames } from './roster'
 
 export interface DataNeedSource {
@@ -35,6 +35,7 @@ export interface DataNeed {
   cadence: string
   next_release?: string
   built_by?: string // the id of a .claude/connectors/<id> whose `satisfies` covers this need_id (loop closed)
+  connector_exists?: string // code declares coverage, but may not be current/usable yet
 }
 export interface DataNeedsRead {
   subject: string
@@ -49,7 +50,7 @@ export interface DataNeedsRead {
 // forces 9/10. Mirrored here so a malformed emit is dropped at read time, not surfaced.
 const ACQUISITION = new Set(['official_api', 'free_key_api', 'paid_api', 'scrape', 'manual'])
 const TIERS = new Set([5, 9, 10])
-const CADENCE = new Set(['realtime', 'daily', 'weekly', 'monthly', 'event_driven'])
+const CADENCE = new Set(Object.keys(CADENCE_MS))
 const NEED_ID_RE = /^[a-z0-9][a-z0-9_-]*$/
 
 export function readDataNeeds(swarmId: string, subject: string): DataNeedsRead | null {
@@ -68,7 +69,8 @@ export function readDataNeeds(swarmId: string, subject: string): DataNeedsRead |
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null
 
   const modules = new Set(listModuleNames(swarmId))
-  const built = builtBySatisfies() // need_id → connector id, for the "feed built" loop-close marker
+  const exists = builtBySatisfies(listConnectors().filter((c) => c.subjects.includes(subject.toUpperCase())))
+  const built = healthyBuiltBySatisfies(subject.toUpperCase())
   const widened: string[] = []
   const seen = new Set<string>()
   const arr: any[] = Array.isArray(raw.data_needs) ? raw.data_needs : []
@@ -120,6 +122,7 @@ export function readDataNeeds(swarmId: string, subject: string): DataNeedsRead |
       cadence,
       next_release: n.next_release ? String(n.next_release) : undefined,
       built_by: built.get(need_id),
+      connector_exists: exists.get(need_id),
     })
   }
 
