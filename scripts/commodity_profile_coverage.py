@@ -516,9 +516,9 @@ def compile_coverage(
         compiled.append(_result_row(requirement, result or {"status": "suspect", "reason": "resolver returned no result"}))
     unresolved = [row["need_id"] for row in compiled if row["status"] != "usable"]
     try:
-        profile_identity = str(profile_path.resolve().relative_to(REPO))
+        profile_identity = profile_path.resolve().relative_to(REPO).as_posix()
     except ValueError:
-        profile_identity = str(profile_path.resolve())
+        profile_identity = profile_path.resolve().as_posix()
     return {
         "schema_version": 1, "commodity": commodity, "decision_time": cutoff,
         "generated_at": _iso(dt.datetime.now(dt.timezone.utc)), "profile_path": profile_identity,

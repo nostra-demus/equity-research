@@ -98,12 +98,12 @@ def main() -> int:
     parser.add_argument("--data-root", default="data")
     parser.add_argument("--verify", action="store_true")
     args = parser.parse_args()
+    if not args.verify and not args.subject:
+        parser.error("--subject is required unless --verify")
     as_of, payload, sidecar = build(fetch_documents())
     if args.verify:
         print(f"OK verify: {len(payload['observations'])} Treasury real-yield rows through {as_of}")
         return 0
-    if not args.subject:
-        parser.error("--subject is required unless --verify")
     path = publish_pair(data_root=args.data_root, subject=args.subject, provider_slug="us-treasury",
                         filename=f"real_yields_{as_of}.json", payload=payload, sidecar=sidecar)
     print(f"wrote {path}")

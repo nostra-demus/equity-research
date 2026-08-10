@@ -109,14 +109,14 @@ def main() -> int:
     parser.add_argument("--data-root", default="data")
     parser.add_argument("--verify", action="store_true")
     args = parser.parse_args()
+    if not args.verify and not args.subject:
+        parser.error("--subject is required unless --verify")
     vault = fetch_bytes(VAULT_URL, MANIFEST, max_bytes=MAX_RESPONSE_BYTES).decode("utf-8", "replace")
     clearing = fetch_bytes(CLEARING_URL, MANIFEST, max_bytes=MAX_RESPONSE_BYTES).decode("utf-8", "replace")
     as_of, payload, sidecar = build(vault, clearing)
     if args.verify:
         print(f"OK verify: LBMA public vault/clearing aggregates through {as_of}; benchmark excluded")
         return 0
-    if not args.subject:
-        parser.error("--subject is required unless --verify")
     path = publish_pair(data_root=args.data_root, subject=args.subject, provider_slug="lbma",
                         filename=f"vault_clearing_{as_of}.json", payload=payload, sidecar=sidecar)
     print(f"wrote {path}")

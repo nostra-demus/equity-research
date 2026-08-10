@@ -35,12 +35,19 @@ def build(documents: list[tuple[str, dict]], *, today: dt.date | None = None):
             raise RuntimeError("BLS API request did not succeed")
         results = document.get("Results")
         series = results.get("series") if isinstance(results, dict) else None
-        if not isinstance(series, list) or len(series) != 1 or series[0].get("seriesID") != SERIES_ID:
+        if (
+            not isinstance(series, list)
+            or len(series) != 1
+            or not isinstance(series[0], dict)
+            or series[0].get("seriesID") != SERIES_ID
+        ):
             raise RuntimeError("BLS API returned the wrong series identity")
         rows = series[0].get("data")
         if not isinstance(rows, list):
             raise RuntimeError("BLS API data rows are missing")
         for row in rows:
+            if not isinstance(row, dict):
+                raise RuntimeError("BLS API returned a malformed CPI row")
             year, period = str(row.get("year", "")), str(row.get("period", ""))
             if period == "M13":
                 continue
@@ -50,7 +57,7 @@ def build(documents: list[tuple[str, dict]], *, today: dt.date | None = None):
             if date > current.isoformat() or date in observations:
                 raise RuntimeError("BLS API returned a future or duplicate CPI period")
             raw_value = row.get("value")
-            if raw_value in {None, "", "-"}:
+            if raw_value is None or raw_value == "" or raw_value == "-":
                 continue
             try:
                 value = float(raw_value)
@@ -83,6 +90,8 @@ def main() -> int:
     parser.add_argument("--data-root", default="data")
     parser.add_argument("--verify", action="store_true")
     args = parser.parse_args()
+    if not args.verify and not args.subject:
+        parser.error("--subject is required unless --verify")
     current_year = dt.date.today().year
     windows = [(current_year - 10, current_year - 1), (current_year, current_year)]
     documents = []
@@ -97,8 +106,6 @@ def main() -> int:
     if args.verify:
         print(f"OK verify: {len(payload['observations'])} BLS CPI observations through {as_of}")
         return 0
-    if not args.subject:
-        parser.error("--subject is required unless --verify")
     path = publish_pair(
         data_root=args.data_root, subject=args.subject, provider_slug="bls",
         filename=f"consumer_price_index_{as_of}.json", payload=payload, sidecar=sidecar,
