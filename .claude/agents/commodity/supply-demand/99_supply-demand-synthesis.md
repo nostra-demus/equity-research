@@ -26,7 +26,7 @@ You DO NOT issue the action verdict. Do NOT write a line beginning `Action:`.
 # WORKFLOW
 
 1. Read `CLAUDE.md` and `.claude/agents/commodity/MODULE_RULES.md`.
-2. Read the four specialist files. Compose: (a) the balance — surplus or deficit this year, quantified if the specialists gave enough; (b) the buffer (stocks-to-use / exchange stocks / ETF holdings) tight or comfortable vs history; (c) the direction and the single biggest swing factor (often weather); (d) the **policy killer risk** from `04_commodity-supply-security` — the single highest-magnitude policy/geopolitical entry, its expiry, and its flip trigger — carried forward for the thesis §8 risk summary; (e) reconcile any contradiction per §4.
+2. Read the four specialist files. Compose: (a) the balance — surplus or deficit this year, quantified if the specialists gave enough; (b) the buffer (stocks-to-use / exchange stocks / accessible physical inventory) tight or comfortable vs history; (c) the direction and the single biggest swing factor (often weather); (d) the **policy killer risk** from `04_commodity-supply-security` — the single highest-magnitude policy/geopolitical entry, its expiry, and its flip trigger — carried forward for the thesis §8 risk summary; (e) reconcile any contradiction per §4. ETF holdings/flows remain in the positioning synthesis and must not become a second balance vote.
 3. Keep every number cited to its specialist file. Save to `OUTPUT_PATH` (Mode A); return CHAT CONFIRMATION.
 
 # REPORT STRUCTURE

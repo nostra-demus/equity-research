@@ -27,6 +27,9 @@ cross-checking each review's commodity/original_decision_date/original_action ag
 decision_record.json it reviews — the commodity-scoped twin of the anchor-consistency
 discipline frameworks/DECISION_LEDGER.md §8 already requires of the research swarm's reviews.
 
+Also validates every committed commodity/runs/<COMMODITY>/signal_evidence.json and binds its summary
+back to decision_record.json. A run with incomplete evidence coverage can only publish `Research More`.
+
 Usage:
     python3 scripts/validate_screener_json.py <schema.json> <doc.json> [...more pairs]
     python3 scripts/validate_screener_json.py --fixture   # validate the committed fixture set
@@ -322,6 +325,7 @@ def check_thesis_integrity_anchors(doc_path: str) -> list[str]:
 
 COMMODITY_SCHEMA = "frameworks/commodity/decision_record.schema.json"
 COMMODITY_REVIEW_SCHEMA = "frameworks/commodity/decision_review.schema.json"
+COMMODITY_SIGNAL_SCHEMA = "frameworks/commodity/signal_evidence.schema.json"
 REVIEW_WINDOW_DAYS = {"30d": 30, "90d": 90, "180d": 180, "365d": 365}
 COMMODITY_DOSSIER = "commodity-thesis/99_commodity-thesis-synthesis.md"
 COMMODITY_TRIAGE = "market-structure/00_commodity-triage.md"
@@ -392,6 +396,50 @@ def commodity_decision_reviews() -> list[str]:
         os.path.relpath(p, REPO)
         for p in glob.glob(os.path.join(REPO, "commodity", "runs", "*", "reviews", "*_decision_review*.json"))
     )
+
+
+def commodity_signal_evidence() -> list[str]:
+    """Every committed run-level commodity signal graph (repo-relative)."""
+    return sorted(
+        os.path.relpath(p, REPO)
+        for p in glob.glob(os.path.join(REPO, "commodity", "runs", "*", "signal_evidence.json"))
+    )
+
+
+def check_commodity_signal_projection(doc_path: str) -> list[str]:
+    """Bind a decision's evidence counts and abstention gate to the compiled graph."""
+    record = json.load(open(doc_path, encoding="utf-8"))
+    if not isinstance(record, dict):
+        return ["commodity decision_record is not a JSON object"]
+    graph_path = os.path.join(os.path.dirname(doc_path), "signal_evidence.json")
+    projection = record.get("signal_evidence")
+    if not os.path.exists(graph_path):
+        return ["decision references signal_evidence but signal_evidence.json is missing"] if projection is not None else []
+    graph = json.load(open(graph_path, encoding="utf-8"))
+    if not isinstance(graph, dict):
+        return ["signal_evidence.json is not a JSON object"]
+    if not isinstance(projection, dict):
+        return ["decision_record must project the run's signal_evidence summary"]
+    summary = graph.get("summary") if isinstance(graph.get("summary"), dict) else {}
+    coverage = graph.get("coverage") if isinstance(graph.get("coverage"), dict) else {}
+    expected = {
+        "path": "signal_evidence.json",
+        "generated_at": graph.get("generated_at"),
+        "coverage_complete": coverage.get("complete"),
+        "raw_signal_count": summary.get("raw_signal_count"),
+        "independent_cluster_count": summary.get("independent_cluster_count"),
+        "conviction_eligible_cluster_count": summary.get("conviction_eligible_cluster_count"),
+        "contradiction_count": summary.get("contradiction_count"),
+    }
+    errors = [f"signal_evidence.{key} {projection.get(key)!r} != graph {value!r}"
+              for key, value in expected.items() if projection.get(key) != value]
+    if graph.get("commodity") != record.get("commodity"):
+        errors.append(f"signal graph commodity {graph.get('commodity')!r} != decision commodity {record.get('commodity')!r}")
+    if coverage.get("complete") is not True and record.get("action") != "Research More":
+        errors.append("incomplete SignalEvidence coverage requires action 'Research More'")
+    if summary.get("conviction_eligible_cluster_count") == 0 and record.get("action") != "Research More":
+        errors.append("zero conviction-eligible evidence clusters requires action 'Research More'")
+    return errors
 
 
 def check_commodity_review_anchors(doc_path: str) -> list[str]:
@@ -1471,6 +1519,7 @@ def main(argv: list[str]) -> int:
         pairs += [(os.path.join(REPO, THESIS_INTEGRITY_SCHEMA), os.path.join(REPO, d)) for d in screener_integrity_reviews()]
         pairs += [(os.path.join(REPO, COMMODITY_SCHEMA), os.path.join(REPO, d)) for d in commodity_decision_records()]
         pairs += [(os.path.join(REPO, COMMODITY_REVIEW_SCHEMA), os.path.join(REPO, d)) for d in commodity_decision_reviews()]
+        pairs += [(os.path.join(REPO, COMMODITY_SIGNAL_SCHEMA), os.path.join(REPO, d)) for d in commodity_signal_evidence()]
     elif len(argv) >= 3 and len(argv) % 2 == 1:
         pairs = list(zip(argv[1::2], argv[2::2]))
     else:
@@ -1481,7 +1530,7 @@ def main(argv: list[str]) -> int:
         errs = validate(schema_p, doc_p)
         rel = os.path.relpath(doc_p, REPO)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_SCHEMA)):
-            errs = errs + check_commodity_routing(doc_p) + check_commodity_data_sufficiency(doc_p) + check_commodity_calibration_gate(doc_p) + check_commodity_scenario_math(doc_p)
+            errs = errs + check_commodity_routing(doc_p) + check_commodity_data_sufficiency(doc_p) + check_commodity_calibration_gate(doc_p) + check_commodity_scenario_math(doc_p) + check_commodity_signal_projection(doc_p)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_REVIEW_SCHEMA)):
             errs = errs + check_commodity_review_anchors(doc_p)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, THESIS_INTEGRITY_SCHEMA)):

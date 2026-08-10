@@ -25,7 +25,7 @@ Follow `frameworks/MODULE_PIPELINE.md` with `<TICKER>` = `<COMMODITY>`, `<DATE>`
 ## 5. Commit
 Commit BOTH the module folder and the run-root decision record:
 ```
-bash scripts/commit-run.sh "Commodity thesis: <COMMODITY> <DATE>" -- "commodity/runs/<COMMODITY>/commodity-thesis/" "commodity/runs/<COMMODITY>/decision_record.json"
+bash scripts/commit-run.sh "Commodity thesis: <COMMODITY> <DATE>" -- "commodity/runs/<COMMODITY>/commodity-thesis/" "commodity/runs/<COMMODITY>/decision_record.json" "commodity/runs/<COMMODITY>/signal_evidence.json"
 ```
 Capture the SHA.
 

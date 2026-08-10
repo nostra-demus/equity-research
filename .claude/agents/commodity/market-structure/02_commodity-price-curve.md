@@ -3,6 +3,8 @@ name: commodity-price-curve
 description: Establishes where the price is and what the market is paying across time — the recent price trend and key technical levels, the futures curve / term structure (contango vs backwardation), the carry placed in its own history, the storage-vs-convenience-yield read, a real (deflated) price value line, and the named roll-adjusted expected-return contribution a long on a roll-bearing vehicle actually earns.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 1
+emits_signal_evidence: true
+signal_families: ["price-trend", "curve-carry", "real-price-regime"]
 ---
 
 # ROLE

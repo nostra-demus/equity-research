@@ -12,6 +12,13 @@ runs_root: commodity/runs
 board_index: commodity/board/index.json
 schemas_root: frameworks/commodity
 subjects_source: frameworks/commodity/COMMODITY_PROFILES.md
+signal_evidence:
+  emitted_suffix: .signals.json
+  aggregate: signal_evidence.json
+  schema: frameworks/commodity/signal_evidence.schema.json
+  compiler: scripts/commodity_signal_evidence.py
+  validator: scripts/commodity_signal_validation.py
+  validation_registry: frameworks/commodity/validated_signals.json
 # The swarm's news-wire capability (CLAUDE.md §26: self-declared, interpreted generically — the engine
 # hardcodes nothing). Declaring this gives the commodities cockpit the SAME shared wire surface the
 # screener uses (ui/web components/wire/*), scoped to commodity news: the rail groups + filters by this
@@ -102,8 +109,8 @@ commodity (which lenses apply, which sources, which recurring reports) is declar
 2. `supply-demand` — supply, demand, inventory, weather/seasonality, and the supply-security / policy
    register (OPEC+, export bans, sanctions, chokepoints, resource nationalism, reserves, carbon/biofuel —
    the §24 policy killer risk). (points 4, 5, 6)
-3. `macro-positioning` — macro drivers (rates, USD, real yields, policy, geopolitics, central-bank
-   buying) and positioning/flows (CFTC COT both sides — speculators as a percentile + producer hedgers —
+3. `macro-positioning` — macro drivers (rates, USD, real yields, policy and geopolitics) and
+   positioning/flows (CFTC COT both sides — speculators as a percentile + producer hedgers —
    and ETF flows). (points 7, 8)
 4. `commodity-thesis` — terminal module (`depends_on` the three above): the cost-curve / fair-value
    band + margin of safety (§16/§18), upcoming reports/events, thesis summary, risk summary, relative

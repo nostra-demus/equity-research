@@ -3,6 +3,8 @@ name: commodity-positioning-flows
 description: Reads speculative positioning and investment flows — CFTC Commitments of Traders across BOTH sides (managed-money speculators AND producer/merchant hedgers), the managed-money net placed as a percentile/z-score vs its own range, the futures-and-options combined read, and ETF/ETC holdings flows — to judge whether the trade is crowded, which way the hedgers lean, and whether flows are confirming or fading the price. A contrarian/confirmation overlay, honestly labelled if data is thin.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 1
+emits_signal_evidence: true
+signal_families: ["futures-positioning", "etf-flows"]
 ---
 
 # ROLE

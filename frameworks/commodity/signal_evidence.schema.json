@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/commodity/signal_evidence.schema.json",
+  "title": "Commodity signal-evidence bundle",
+  "description": "Deterministic run-level evidence contract. Specialist orbs emit sibling *.signals.json files; scripts/commodity_signal_evidence.py validates causal ownership, provenance, correlation clustering and statistical eligibility, then writes commodity/runs/<COMMODITY>/signal_evidence.json. Contradictory rows remain separate and a statistical row is conviction-eligible only through the committed validation registry.",
+  "type": "object",
+  "required": ["schema_version", "commodity", "generated_at", "records", "clusters", "coverage", "summary"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "commodity": { "type": "string", "pattern": "^[A-Z0-9_]+$" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "records": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/signalEvidence" }
+    },
+    "clusters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["cluster_id", "signal_ids", "economic_clusters", "directions", "contradiction", "median_strength", "conviction_eligible"],
+        "properties": {
+          "cluster_id": { "type": "string", "minLength": 1 },
+          "signal_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string" } },
+          "economic_clusters": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string" } },
+          "directions": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["bullish", "bearish", "neutral"] } },
+          "contradiction": { "type": "boolean" },
+          "median_strength": { "type": "number", "minimum": 0, "maximum": 1 },
+          "conviction_eligible": { "type": "boolean" },
+          "merge_reasons": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "correlation_edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["signal_a", "signal_b", "correlation", "window_start", "window_end", "observation_count", "frequency", "method", "source_vintage_ids", "source_vintage_refs"],
+        "properties": {
+          "signal_a": { "type": "string" },
+          "signal_b": { "type": "string" },
+          "correlation": { "type": "number", "minimum": -1, "maximum": 1 },
+          "window_start": { "type": "string", "format": "date" },
+          "window_end": { "type": "string", "format": "date" },
+          "observation_count": { "type": "integer", "minimum": 1 },
+          "frequency": { "const": "weekly" },
+          "method": { "const": "pearson" },
+          "source_vintage_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^(sha256:[0-9a-f]{64}|(unvintaged|missing|manual-unverified):.+)$" } },
+          "source_vintage_refs": { "type": "array", "items": { "$ref": "#/$defs/vintageRef" } }
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "required": ["expected_for_completed_orbs", "emitted", "missing", "issues", "complete"],
+      "properties": {
+        "expected_for_completed_orbs": { "type": "array", "items": { "type": "string" } },
+        "emitted": { "type": "array", "items": { "type": "string" } },
+        "missing": { "type": "array", "items": { "type": "string" } },
+        "issues": { "type": "array", "items": { "type": "string" } },
+        "complete": { "type": "boolean" }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["raw_signal_count", "independent_cluster_count", "conviction_eligible_cluster_count", "contradiction_count", "contextual_statistical_count"],
+      "properties": {
+        "raw_signal_count": { "type": "integer", "minimum": 0 },
+        "independent_cluster_count": { "type": "integer", "minimum": 0 },
+        "conviction_eligible_cluster_count": { "type": "integer", "minimum": 0 },
+        "contradiction_count": { "type": "integer", "minimum": 0 },
+        "contextual_statistical_count": { "type": "integer", "minimum": 0 }
+      }
+    }
+  },
+  "$defs": {
+    "signalEvidence": {
+      "type": "object",
+      "required": ["signal_id", "owner_orb", "economic_cluster", "role", "horizon", "direction", "strength", "as_of", "expiry", "source_vintage_ids", "source_vintage_refs", "signal_kind", "validation_status", "conviction_eligible"],
+      "properties": {
+        "signal_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" },
+        "owner_orb": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "economic_cluster": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "role": { "enum": ["driver", "confirmation", "risk", "catalyst", "context"] },
+        "horizon": { "enum": ["tactical", "strategic", "both"] },
+        "direction": { "enum": ["bullish", "bearish", "neutral"] },
+        "strength": { "type": "number", "minimum": 0, "maximum": 1 },
+        "as_of": { "type": "string", "format": "date-time" },
+        "expiry": { "type": ["string", "null"], "format": "date-time" },
+        "source_vintage_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^(sha256:[0-9a-f]{64}|(unvintaged|missing|manual-unverified):.+)$" } },
+        "source_vintage_refs": { "type": "array", "items": { "$ref": "#/$defs/vintageRef" } },
+        "signal_kind": { "enum": ["observational", "statistical"] },
+        "validation_ref": { "type": ["string", "null"] },
+        "validation_status": { "enum": ["not_applicable", "contextual", "validated", "failed", "source_unverified", "expired"] },
+        "conviction_eligible": { "type": "boolean" },
+        "numerator_series_id": { "type": ["string", "null"] },
+        "denominator_series_id": { "type": ["string", "null"] },
+        "contradicts": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "notes": { "type": "string" }
+      }
+    },
+    "vintageRef": {
+      "type": "object",
+      "required": ["dataset_id", "series_id", "subject", "vintage_id"],
+      "properties": {
+        "dataset_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" },
+        "series_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" },
+        "subject": { "type": "string", "minLength": 1 },
+        "vintage_id": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    }
+  }
+}

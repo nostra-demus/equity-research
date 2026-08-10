@@ -3,6 +3,8 @@ name: commodity-catalysts
 description: Builds the dated calendar of upcoming reports and events that move the commodity — USDA WASDE, CFTC COT, FOMC, WGC quarterly demand, UNICA/Conab crop updates, monsoon bulletins, harvest milestones — each with its bullish and bearish trigger and whether the timing is proven or vague (§17).
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 1
+emits_signal_evidence: true
+signal_families: ["catalyst-calendar"]
 ---
 
 # ROLE

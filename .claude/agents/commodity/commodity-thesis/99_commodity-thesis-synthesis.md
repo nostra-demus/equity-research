@@ -34,17 +34,24 @@ You must:
   - `commodity/runs/{COMMODITY}/commodity-thesis/01_commodity-catalysts.md` — REQUIRED
   - `commodity/runs/{COMMODITY}/commodity-thesis/02_commodity-cost-curve-fair-value.md` — OPTIONAL (present in a fresh full run, where this orb runs in the same module before the synthesis; on a legacy run predating this orb it may be absent — then say so and mark margin of safety "Not assessable", §11 — never improvise a floor. Not a hard upstream: its absence never blocks the synthesis, matching the graceful read above.)
 - **Latest calibration summary** — `Glob commodity/performance/*_calibration_summary.json`, filtered to files dated on or before `DATE`, latest wins (ties broken by filename, so a `_v2` correction wins over its base file for the same date). This is the Phase 6 calibration-feedback input (mirrors `frameworks/DECISION_LEDGER.md` §18 exactly, scoped to `scripts/commodity_calibrate.py`'s output), NOT one of the five required upstream module/orb inputs above — read it before WORKFLOW step 4, since that step needs it. If none exists yet, that is expected and non-blocking (the ledger has no resolved history yet); proceed and record that honestly.
+- **Signal evidence graph** — `commodity/runs/{COMMODITY}/signal_evidence.json`, rebuilt deterministically
+  in workflow step 2 from the self-declared orb sidecars. It is the only source of evidence breadth,
+  causal ownership, contradiction state and statistical conviction eligibility.
 
 # WORKFLOW
 
 1. Read `CLAUDE.md` and `.claude/agents/commodity/MODULE_RULES.md`.
-2. Read the five required inputs. If any module synthesis or the fair-value orb is missing, say so and lower conviction — do not fabricate a balance, a macro read, or a floor.
+2. Rebuild the evidence graph before adjudicating: `python3 scripts/commodity_signal_evidence.py "commodity/runs/{COMMODITY}"`. Then read `signal_evidence.json`. If compilation fails, `coverage.complete` is false, or no independent cluster is conviction-eligible, the verdict is capped at `Research More`; do not fall back to counting prose bullets. Read the five required inputs. If any module synthesis or the fair-value orb is missing, say so and lower conviction — do not fabricate a balance, a macro read, or a floor.
 3. Compose the dossier (structure below).
    - The **thesis summary** ties price + balance + macro + positioning into one plain-English view of where the risk/reward sits.
    - The **fair-value band** carries the cost-curve orb's bear/base/bull levels and the **margin of safety** (discount to base, downside to the floor) — this is the §16 valuation range and §18 margin-of-safety input the verdict rests on. Keep the orb's anchor-grade labelling; if the orb was absent, mark margin of safety "Not assessable" (§11).
    - The **roll-adjusted view:** state whether the exposure earns or bleeds carry — carry the price-curve orb's roll-adjusted return so a bullish SPOT call in contango is not presented as a win on a roll-bearing vehicle (§15/§24).
    - The **risk summary** lists the strongest bear case, the single killer risk (fold in the **supply-security policy killer risk** the supply-demand synthesis carried forward — with its expiry and flip trigger), and what would flip the view (§8).
    - The **relative** read compares this commodity's setup to the OTHER commodities in the profile (are we in the right one?).
+   - The **evidence breadth** names independent clusters, not raw signals. Use each cluster's median
+     strength. Preserve every `contradiction: true` cluster as a conflict; never net its bullish and
+     bearish rows into a false neutral. A row with `signal_kind: statistical` may support confidence
+     only when `validation_status: validated` and `conviction_eligible: true`; otherwise it is context.
 4. **Calibration feedback check (the commodity-scoped twin of `frameworks/DECISION_LEDGER.md` §18 — Phase 6).** Take the latest calibration summary read in RUNTIME INPUTS. This step now carries TWO independent triggers — the original hit-rate trigger, plus the error-taxonomy trigger (mirroring `frameworks/DECISION_LEDGER.md` §18 step 6, the research-swarm extension landed 2026-07-29 that this commodity twin predates and did not originally carry):
    - **Hit-rate trigger.** Look up `calibration_by_commodity["{COMMODITY}"]` in the as-of summary (when one exists): if it is the string `"insufficient (N=k; floor …)"` (below its own floor), it contributes no flag for THIS commodity — there is a real ledger, just not enough history on this one commodity yet. If it is a real `{hit_rate, n}` object, it **flags** this commodity when `hit_rate < 0.40` (materially worse than a coin flip) — name `{COMMODITY}` with its `hit_rate`/`n` in `flagged_slices`.
    - **Error-taxonomy trigger — a different SHAPE of check, not a second slice-match.** `error_taxonomy_distribution` (CLAUDE.md §20 — a flat tally of WHY past calls went wrong) is computed by `scripts/commodity_calibrate.py` at ANY N and is honest even in a Pre-data summary — it is not gated by the hit-rate floor. This trigger runs whenever an as-of calibration summary exists at all (Pre-data or real). Find every **leading category** — a key in the summary's `error_taxonomy_distribution` with count ≥ 2. Write `error_defense_evidence` as an object whenever a calibration summary exists at all — `{}` at minimum when no category is currently leading, so an absent object is never indistinguishable from a synthesizer that skipped the check entirely. For each leading category, write one entry `error_defense_evidence[<category>]`: a concrete, cited sentence naming the specific check, finding, or artifact from THIS run that guards against that exact failure mode recurring (e.g. `"bad base rate (n=3) → §9 base rate explicitly reconciled against the commodity's own 5-yr cycle history in the supply-demand synthesis, not a single-period extrapolation"`), OR — if no such genuine defense exists — the literal string `"no defense evidence found"`. A category whose entry is that literal admission is a leading-category flag: add it to `leading_error_categories_flagged` — flag only categories that are actually leading right now.
@@ -90,6 +97,11 @@ Turn the band above into a distribution. Bear / base / bull, each with its proba
 - Strongest bear case:
 - Single killer risk (incl. the supply-security policy killer risk + its expiry/flip trigger):
 - What would flip the view / force a downgrade:
+
+## 4b. Independent Evidence Clusters
+- Raw signals vs independent clusters vs conviction-eligible clusters (from `signal_evidence.json`).
+- Every contradictory cluster, with both directions shown.
+- Statistical signals still contextual because they failed or have not cleared validation.
 
 ## 5. Relative — are we in the right commodity?
 (this commodity's setup vs the other tracked commodities, with the reason.)
@@ -146,6 +158,15 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
   "risk_reward": 0,
   "relative_view": "how it ranks vs the other tracked commodities",
   "confidence": 0,
+  "signal_evidence": {
+    "path": "signal_evidence.json",
+    "generated_at": "copy from signal_evidence.json",
+    "coverage_complete": true,
+    "raw_signal_count": 0,
+    "independent_cluster_count": 0,
+    "conviction_eligible_cluster_count": 0,
+    "contradiction_count": 0
+  },
   "calibration_feedback": {
     "source_summary": "commodity/performance/<DATE>_calibration_summary.json or null",
     "status": "not_available | pre_data | checked_no_action | applied",

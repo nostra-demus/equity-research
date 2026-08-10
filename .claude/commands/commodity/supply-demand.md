@@ -15,14 +15,17 @@ You are the orchestrator for the commodity `supply-demand` module, invoked stand
 ## 3. Run the shared module pipeline
 Follow `frameworks/MODULE_PIPELINE.md` with `<TICKER>` = `<COMMODITY>`, `<DATE>`, `<MODULE>` = `supply-demand`, `<RUN_ROOT>` = `commodity/runs/<COMMODITY>`, `<CROSS_MODULE_CONTEXT>` = `none`. SKIP Step 1.5 unless `data/<COMMODITY>/` has files; agents read the `## <COMMODITY>` profile and fetch live sources.
 
-## 4. Commit
+## 4. Compile signal evidence
+Run `python3 scripts/commodity_signal_evidence.py "<RUN_ROOT>"`. Stop before commit on failure.
+
+## 5. Commit
 ```
-bash scripts/commit-run.sh "Commodity supply-demand: <COMMODITY> <DATE>" -- "commodity/runs/<COMMODITY>/supply-demand/"
+bash scripts/commit-run.sh "Commodity supply-demand: <COMMODITY> <DATE>" -- "commodity/runs/<COMMODITY>/supply-demand/" "commodity/runs/<COMMODITY>/signal_evidence.json"
 ```
 Capture the SHA.
 
-## 5. Report
+## 6. Report
 Per-layer counts + names, failures, the synthesis path `commodity/runs/<COMMODITY>/supply-demand/99_supply-demand-synthesis.md`, and the commit SHA.
 
 ## Hard rules
-Do not hardcode agent names. Write only inside `commodity/runs/<COMMODITY>/supply-demand/`.
+Do not hardcode agent names. Write only inside `commodity/runs/<COMMODITY>/supply-demand/` plus the deterministic `<RUN_ROOT>/signal_evidence.json` aggregate.

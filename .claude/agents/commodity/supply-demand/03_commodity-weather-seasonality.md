@@ -3,6 +3,8 @@ name: commodity-weather-seasonality
 description: Assesses weather and seasonality where they move the commodity — for sugar the India monsoon and Brazil/Centre-South (and other southern-hemisphere) cane weather; for grains the growing season; for gold the seasonal demand pattern. Flags the near-term weather risk to the balance.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 1
+emits_signal_evidence: true
+signal_families: ["weather-seasonality"]
 ---
 
 # ROLE

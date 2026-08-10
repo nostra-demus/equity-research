@@ -118,3 +118,62 @@ would justify it, or drop it.
 Weather is a RISK to the balance, not a certainty. State the current observed condition (with the met
 agency + date) and the range of outcomes — never present a seasonal forecast as a settled fact. ENSO
 (El Niño/La Niña) signals are probabilistic; label them so.
+
+## 8. Signal evidence contract — one fact, one causal owner
+
+An orb whose frontmatter declares `emits_signal_evidence: true` writes TWO sibling outputs: its normal
+markdown report at `OUTPUT_PATH`, and strict JSON at `SIGNAL_OUTPUT_PATH` (same basename,
+`.signals.json`). The sidecar is not optional. It is the machine evidence behind the prose. Use only one
+of the orb's declared `signal_families` as each row's `economic_cluster`; the deterministic compiler
+rejects a family claimed by any other owner. This prevents the same fact from voting twice. In Gold,
+official-sector activity is demand/inventory, ETF holdings/flows are positioning, real yields and the
+broad USD are macro, and relative ratios belong to the cross-asset-regime orb when that orb exists.
+
+Write this exact envelope:
+
+```json
+{
+  "schema_version": 1,
+  "commodity": "GOLD",
+  "owner_orb": "commodity-macro-drivers",
+  "generated_at": "2026-08-10T00:00:00Z",
+  "signals": [],
+  "correlation_edges": []
+}
+```
+
+Each `signals[]` row is a `SignalEvidence` record with:
+
+- `signal_id`: stable lowercase slug, not a date-specific label;
+- `economic_cluster`: one family declared by this orb;
+- `role`: `driver`, `confirmation`, `risk`, `catalyst`, or `context`;
+- `horizon`: `tactical`, `strategic`, or `both`;
+- `direction`: `bullish`, `bearish`, or `neutral`; and `strength` from 0 to 1;
+- `as_of` and nullable `expiry`, both full ISO-8601 timestamps;
+- `source_vintage_ids`: the immutable IDs of the observations used. A live/manual fact without an
+  accepted connector vintage uses an explicit `unvintaged:<source>:<as-of>` token. It remains visible
+  but cannot lift conviction;
+- `source_vintage_refs`: one `{dataset_id, series_id, subject, vintage_id}` locator for every accepted
+  `sha256:` vintage ID, so the evidence can be resolved rather than merely named. Use `[]` for explicit
+  unvintaged/missing/manual-unverified tokens; those rows remain non-conviction context. The compiler
+  resolves each locator through the connector-v2 history and rejects it for conviction if its retrieval
+  occurred after this evidence bundle's `generated_at` decision time;
+- `signal_kind`: `observational` or `statistical`; a statistical row also names its stable
+  `validation_ref` (normally equal to `signal_id`). Never self-label it validated — only
+  `scripts/commodity_signal_validation.py` can put it in the committed validation registry;
+- optional `numerator_series_id` and `denominator_series_id` for a ratio, plus `contradicts[]` naming
+  incompatible signal IDs. Emit opposing facts as separate rows and link them; never average them away.
+
+`correlation_edges[]` is optional and may only contain a measured relationship between two emitted
+signal IDs: `signal_a`, `signal_b`, `correlation`, `window_start`, `window_end`,
+`observation_count`, `frequency: weekly`, `method: pearson`, and the immutable
+`source_vintage_ids` and matching `source_vintage_refs` for the histories used. The compiler merges it only at absolute correlation >= 0.70 with at least three
+years and 150 weekly observations. A claimed coefficient without that span stays non-merging context.
+
+The compiler writes `<RUN_ROOT>/signal_evidence.json`, aggregates each independent cluster by median
+strength, and counts clusters rather than raw rows. A cluster containing both bullish and bearish
+directions is explicitly `contradiction: true` and is never conviction-eligible. A statistical signal
+is contextual unless the registry proves point-in-time walk-forward validation across at least three
+regimes and 30 non-overlapping outcomes, the expected sign in four of five folds, improvement over a
+cost-adjusted naive baseline, a positive out-of-sample block-bootstrap confidence interval, stable
+lookbacks, and 10% false-discovery control.

@@ -3,6 +3,8 @@ name: commodity-cost-curve
 description: Builds the intrinsic value anchor a no-cash-flow commodity has — cash-cost floor, ~90th-percentile all-in cost, the incentive price that sanctions new supply, and the demand-destruction / substitution ceiling — then a bear/base/bull fair-value band, a reverse "what is the strip pricing in" read, and a stated margin of safety vs the current price. The valuation orb the commodity swarm was missing.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 1
+emits_signal_evidence: true
+signal_families: ["fair-value"]
 ---
 
 # ROLE
