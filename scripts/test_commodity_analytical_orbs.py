@@ -104,6 +104,9 @@ def test_predictive_depth_cannot_silently_regress() -> None:
     assert "globally accessible supply" in supply_normalized
     assert "inter-origin import/export" in supply_normalized
     assert "directional-conviction score" in supply_normalized
+    module_rules = (ROOT / ".claude/agents/commodity/MODULE_RULES.md").read_text().lower()
+    assert "sum of all origins' net imports is zero" in module_rules
+    assert "− all inter-origin imports/exports" not in module_rules
     assert all(anchor in fair_value.lower() for anchor in (
         "observed market price", "model-implied fair-value band",
         "what the market appears to expect", "mean-reversion evidence test",

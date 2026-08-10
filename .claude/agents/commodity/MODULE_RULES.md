@@ -187,8 +187,9 @@ must reconcile one physical bridge, in consistent units, with a visible residual
 origin gross production + releases/recycling + net imports
 − origin domestic absorption − origin stock build
 = origin pre-policy exportable supply
-− all inter-origin imports/exports on world consolidation
-= world production + releases/recycling − world absorption − world stock build
+
+On world consolidation, the sum of all origins' net imports is zero:
+world production + releases/recycling − world absorption − world stock build
 − restricted/sanctioned volume − physically stranded volume
 + verified rerouting that reaches an unrestricted buyer
 = globally accessible supply
