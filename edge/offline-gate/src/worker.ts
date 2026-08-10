@@ -24,11 +24,16 @@
 //   - everything else (other /api/*, documents, assets): a generous budget that covers a cold engine
 //     start + the tunnel hop + heavy JSON under load.
 // A genuine Cloudflare origin-down (status >= 520) is still instant-offline with no wait. A transient
-// fast throw (connection reset/refused) on an idempotent GET/HEAD gets ONE quick retry; a budget TIMEOUT
-// does not retry (the origin is alive but slow — retrying just doubles the wait).
+// fast throw (connection reset/refused) gets ONE quick retry only for the health probe and non-API
+// documents/assets; method alone is not enough because some historical GET API routes have side effects.
+// A budget TIMEOUT does not retry (the origin is alive but slow — retrying just doubles the wait). Raw
+// 502/504 follows the same narrow allowlist; exact GET /api/health waits 750ms first so a watchdog probe can
+// route around a stale, draining Tunnel connector. Both health attempts share ONE deadline, and other API
+// calls, POST, and SSE are never replayed.
 import OFFLINE_HTML from '../offline.html'
 import { STATE_VERSION, initialState, interpretProbe, decide } from './monitor.mjs'
 import { alertText, sendAlert } from './alert.mjs'
+import { classifyRequest, proxyOrigin } from './proxy.mjs'
 
 // ── external uptime monitor (see monitor.mjs / alert.mjs) ──────────────────────────────────────
 // The `fetch` proxy (below) only REACTS to visitors; this adds a cron-driven heartbeat that watches
@@ -156,7 +161,11 @@ async function runMonitorTick(env: Env, ctx: ExecutionContext): Promise<void> {
   for (const a of alerts) {
     const text = alertText(a, host)
     ctx.waitUntil(
-      sendAlert(env, text).then((r) => console.log(`[monitor] alert kind=${a.kind} -> ${JSON.stringify(r)}`)),
+      // alert.mjs reads only string-valued channel settings; MONITOR_STATE is the one non-string Env
+      // member and is never inspected there. Keep that JS boundary explicit for standalone tsc checks.
+      sendAlert(env as unknown as Record<string, string | undefined>, text).then((r) =>
+        console.log(`[monitor] alert kind=${a.kind} -> ${JSON.stringify(r)}`),
+      ),
     )
   }
 }
@@ -190,20 +199,11 @@ async function statusResponse(env: Env): Promise<Response> {
   }
 }
 
-type ReqClass = 'sse' | 'health' | 'other'
-
-const T_HEALTH_MS = 8000 // > app heartbeat (4s) and ensureMode (6s) so the Worker never gives up first
+const T_HEALTH_MS = 8000 // one shared deadline: > app probes (4s/6s), < watchdog's 12s public limit
 const T_OTHER_MS = 15000 // cold engine start + tunnel hop + heavy control-plane JSON under load
 // SSE has NO budget (0) — never abort a stream.
 
-function classify(request: Request): ReqClass {
-  const accept = request.headers.get('accept') || ''
-  if (accept.includes('text/event-stream')) return 'sse'
-  if (new URL(request.url).pathname === '/api/health') return 'health'
-  return 'other'
-}
-
-function budgetFor(cls: ReqClass): number {
+function budgetFor(cls: ReturnType<typeof classifyRequest>): number {
   if (cls === 'sse') return 0
   if (cls === 'health') return T_HEALTH_MS
   return T_OTHER_MS
@@ -222,45 +222,13 @@ export default {
       return new Response('not found — try /__status', { status: 404, headers: { 'content-type': 'text/plain; charset=utf-8' } })
     }
 
-    const cls = classify(request)
+    const cls = classifyRequest(request)
     const budget = budgetFor(cls)
-    const idempotent = request.method === 'GET' || request.method === 'HEAD'
-    // Retry once only for an idempotent, non-stream request — never replay a POST /api/launch, and never
-    // re-open an SSE stream from here (a thrown stream is a real failure the client reconnects itself).
-    const maxAttempts = cls === 'sse' || !idempotent ? 1 : 2
 
-    for (let attempt = 0; attempt < maxAttempts; attempt++) {
-      const ac = new AbortController()
-      let timedOut = false
-      const timer = budget ? setTimeout(() => { timedOut = true; ac.abort() }, budget) : null
-      try {
-        // fetch() on the incoming request goes to the application-server origin defined in DNS (the
-        // cloudflared tunnel), not back to this Worker. Preserve method/headers/body; return unchanged.
-        const res = await fetch(new Request(request, { signal: ac.signal }))
-        // Cloudflare origin-down statuses: 521/522/523/525/526, and 530/1033 for a dead tunnel.
-        if (res.status >= 520) return offline(request) // genuinely unreachable — no retry
-        // A raw 502 (origin refused the connection) / 504 (origin too slow to answer) from cloudflared is
-        // exactly what the ~15-30s engine restart looks like (`kickstart -k` kills the process; the tunnel
-        // has no origin for the cold-start window). Treat it like origin-down so the visitor sees the branded
-        // auto-reloading "reconnecting" page (documents) or an honest 503 + x-engine-status:offline (/api/*)
-        // that the in-app heartbeat understands — NOT Cloudflare's raw 502. Retry once first on an idempotent
-        // GET/HEAD (the engine may already be back). 503 is deliberately NOT intercepted: the engine can emit
-        // a legitimate 503, and offline() itself returns 503 for /api.
-        if (res.status === 502 || res.status === 504) {
-          if (idempotent && attempt < maxAttempts - 1) continue // one quick retry — catches the restart tail
-          return offline(request)
-        }
-        return res // healthy (even if slow) — pass through unchanged (SSE bodies continue after headers)
-      } catch {
-        // threw / aborted / timed out waiting for the origin. A budget timeout means the origin is alive
-        // but slow, so a retry only doubles the wait — give up. A fast throw is a transient blip worth one
-        // quick retry on an idempotent request.
-        if (timedOut || attempt === maxAttempts - 1) return offline(request)
-      } finally {
-        if (timer) clearTimeout(timer) // only bounds time-to-headers; once res is returned SSE continues
-      }
-    }
-    return offline(request) // unreachable (loop always returns) — keeps the type-checker happy
+    // proxyOrigin constructs a fresh Request for its one safe retry, while one AbortController deadline
+    // covers the complete sequence. Successful responses are always the actual origin Response.
+    const result = await proxyOrigin(request, fetch, { budgetMs: budget })
+    return result.kind === 'response' ? result.response : offline(request)
   },
 
   // Cron heartbeat (wrangler.toml [triggers].crons). Wrapped so a monitor failure can never surface
