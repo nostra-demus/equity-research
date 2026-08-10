@@ -42,6 +42,14 @@ async function check(name: string, fn: () => void | Promise<void>) {
   }
 }
 
+// A rejection that settles before its `await` attaches escapes every check() and, by default, kills the
+// process mid-file: the remaining checks never run and the failure reads as whatever ran last. Fail the
+// run loudly and keep going, so an escape is diagnosable instead of a truncated suite.
+process.on('unhandledRejection', (reason: any) => {
+  console.error(`FAIL  unhandled rejection\n      ${reason?.stack || reason?.message || reason}`)
+  process.exitCode = 1
+})
+
 const meta = (over: Partial<Parameters<typeof recordUserMessage>[0]> = {}) => ({
   user: 'alice@example.com', userVia: 'cf-access' as const,
   swarm: 'research', subject: 'EMAR', scope: 'run' as const,
@@ -223,14 +231,36 @@ await check('one user cannot reserve the same turn id twice while it is pending'
   )
   assert.equal(await rollbackUserMessage(first.rollback), true)
   const afterRollback = await reservePending(meta(), 'allowed after rollback', c.id, turnId)
-  // Queue commit before replay. Admission must observe the receipt published
-  // by commit, never the tiny interval after pending state is released as permission to reserve again. Omit
-  // the conversation id so the retry uses a different lock and proves the user+turn admission is global.
+  // Queue a re-admission against the in-flight commit. BOTH interleavings are contractual: the commit
+  // publishes its receipt before releasing the reservation, so a concurrent admission observes either that
+  // published receipt (replay) or the reservation the commit still holds (TURN_ALREADY_PENDING). Which one
+  // it lands on is the scheduler's choice, not the store's — pinning a single branch asserts machine load,
+  // and under CPU pressure the racer arrives first often enough to fail the suite. Assert instead what has
+  // to hold either way: no second paid answer, and no duplicated durable pair. Settle the outcome at
+  // creation, because a contractual rejection that lands while the commit is still awaited escapes as an
+  // unhandled rejection. Omit the conversation id so the retry uses a different lock and proves the
+  // user+turn admission is global.
   const commit = recordAssistantMessageForPending(afterRollback.rollback, 'committed once')
-  const replay = recordPendingUserMessage(meta(), 'allowed after rollback', undefined, turnId)
+  const raced = recordPendingUserMessage(meta(), 'allowed after rollback', undefined, turnId).then(
+    (result) => ({ ok: true as const, result }),
+    (error: any) => ({ ok: false as const, error }),
+  )
   assert.equal(await commit, true)
-  const afterCommit = await replay
-  assert.equal(afterCommit.status, 'completed', 'completion receipt wins the commit/re-admission race')
+  const outcome = await raced
+  if (outcome.ok) {
+    assert.equal(outcome.result.status, 'completed', 'an admitted racer replays the receipt, it never launches a second answer')
+    if (outcome.result.status === 'completed') assert.equal(outcome.result.completed.assistantMessage.content, 'committed once')
+  } else {
+    // Carry the real error into the message: on an unexpected rejection the bare assertion reads
+    // "undefined == 'TURN_ALREADY_PENDING'", which hides the thing you actually need to debug.
+    assert.equal(outcome.error?.code, 'TURN_ALREADY_PENDING',
+      `the only contractual rejection is the reservation the commit still holds — got ${outcome.error?.stack || outcome.error}`)
+  }
+  // The receipt-wins rule itself is deterministic once the commit is durable: the release runs inside the
+  // same mutation that published the receipt, so after `await commit` no interval remains in which a
+  // re-admission could still be handed a fresh reservation.
+  const afterCommit = await recordPendingUserMessage(meta(), 'allowed after rollback', undefined, turnId)
+  assert.equal(afterCommit.status, 'completed', 'completion receipt wins re-admission once the commit is durable')
   if (afterCommit.status === 'completed') assert.equal(afterCommit.completed.assistantMessage.content, 'committed once')
   assert.equal(getConversation(c.id)!.messages.filter((message) => message.turnId === turnId).length, 2, 'the raced retry cannot duplicate the durable pair')
   await assert.rejects(
@@ -541,9 +571,22 @@ await check('reverse completion keeps arrival order, atomic adjacency, unique ti
 await check('a slow turn crossing the retention boundary is pruned whole, never left as an orphan answer', async () => {
   const c = await recordUserMessage(meta(), 'retention seed question')
   await recordAssistantMessage(c.id, 'retention seed answer')
-  const slow = await reservePending(meta(), 'slow boundary question', c.id)
+  const slowTurnId = 'turn_retention_slow_000000'
+  const slow = await reservePending(meta(), 'slow boundary question', c.id, slowTurnId)
+  // `slow` holds its reservation for the whole loop. Reservations are a bounded pool of shared lock shards,
+  // so an unrelated turn id can hash onto slow's shard and be refused. Production accepts that by design
+  // (the documented ceiling is three simultaneous chats, and the refusal costs a retry, never duplicate paid
+  // work) — but 200 sequential turns against one long-held lease is far outside that envelope, and a random
+  // id collides here roughly one run in twenty. Pick ids that miss slow's shard so this check measures
+  // retention pruning, which is what it is for, rather than shard luck.
+  const slowShard = turnLockFile(meta().user, slowTurnId)
+  const fastTurnIds: string[] = []
+  for (let i = 0; fastTurnIds.length < 200; i++) {
+    const candidate = `turn_retention_fast_${String(i).padStart(6, '0')}`
+    if (turnLockFile(meta().user, candidate) !== slowShard) fastTurnIds.push(candidate)
+  }
   for (let i = 0; i < 200; i++) {
-    const fast = await reservePending(meta(), `fast question ${i}`, c.id)
+    const fast = await reservePending(meta(), `fast question ${i}`, c.id, fastTurnIds[i])
     assert.equal(await recordAssistantMessageForPending(fast.rollback, `fast answer ${i}`), true)
   }
   const beforeSlowCompletion = structuredClone(getConversation(c.id)!)
