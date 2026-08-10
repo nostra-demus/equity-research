@@ -7,7 +7,7 @@
   "required": ["schema_version", "commodity", "generated_at", "records", "clusters", "coverage", "summary"],
   "properties": {
     "schema_version": { "const": 1 },
-    "commodity": { "type": "string", "pattern": "^[A-Z0-9_]+$" },
+    "commodity": { "type": "string", "pattern": "^[A-Z0-9]+(?:[-_][A-Z0-9]+)*$" },
     "generated_at": { "type": "string", "format": "date-time" },
     "records": {
       "type": "array",

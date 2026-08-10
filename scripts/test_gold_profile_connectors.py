@@ -22,7 +22,7 @@ CONNECTOR_ROOT = os.path.join(REPO, ".claude", "connectors")
 CONNECTOR_IDS = {
     "cftc-cot-gold",
     "treasury-real-yields-gold",
-    "federal-reserve-broad-usd-gold",
+    "federal-reserve-broad-usd",
     "bls-cpi-gold",
     "cme-gold-inventory-deliveries",
     "lbma-gold-vault-clearing",
@@ -33,7 +33,7 @@ CONNECTOR_IDS = {
 REQUIRED_CONNECTOR_NEEDS = {
     "gold-managed-money-positioning",
     "gold-real-yields",
-    "gold-broad-usd",
+    "macro-broad-usd-index",
     "gold-consumer-price-index",
     "gold-comex-inventory-deliveries",
     "gold-lbma-vault-clearing",
@@ -77,7 +77,7 @@ def load_connector(connector_id: str) -> tuple[dict, str]:
     manifest = json.loads(manifest_text)
     defects = validate_manifest(connector_id, root, manifest)
     assert not defects, f"{connector_id}: {defects}"
-    assert manifest["subjects"] == ["GOLD"], connector_id
+    assert "GOLD" in manifest["subjects"], connector_id
     combined = (manifest_text + "\n" + fetch_text).casefold()
     for forbidden in FORBIDDEN:
         assert forbidden not in combined, f"{connector_id}: forbidden runtime identity {forbidden!r}"
@@ -86,7 +86,7 @@ def load_connector(connector_id: str) -> tuple[dict, str]:
 
 profile = gold_section()
 profile_rows = re.findall(
-    r"\| `([a-z0-9._-]+)` \| `(gold\.[a-z0-9._-]+)` \| ([a-z0-9._-]+) \|",
+    r"\| `([a-z0-9._-]+)` \| `([a-z0-9._-]+)` \| ([a-z0-9._-]+) \|",
     profile,
 )
 profile_needs = {need for need, _series_id, _owner in profile_rows}
@@ -149,5 +149,9 @@ bls_manifest = manifests["bls-cpi-gold"]
 assert bls_manifest["dataset_id"] == "bls.cuur0000sa0"
 assert bls_manifest["minimum_history"] == {"observations": 120, "path": "observations"}
 assert bls_manifest["credential_env"] == [] and bls_manifest["host_allowlist"] == ["api.bls.gov"]
+
+shared_usd = manifests["federal-reserve-broad-usd"]
+assert shared_usd["series_id"] == "macro.broad-usd-index"
+assert set(shared_usd["subjects"]) == {"GOLD", "CRUDE-OIL"}
 
 print("PASS: Gold profile semantic coverage, lawful route reuse and WILTW runtime exclusion")

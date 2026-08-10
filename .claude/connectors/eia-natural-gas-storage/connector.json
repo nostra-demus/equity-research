@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+  "schema_version": 1,
+  "id": "eia-natural-gas-storage",
+  "dataset_id": "eia.natural-gas.weekly-lower48-working-storage",
+  "series_id": "natural-gas.lower48-storage",
+  "series": "EIA weekly Lower 48 working natural-gas storage",
+  "satisfies": ["natural-gas-lower48-storage"],
+  "subjects": ["NATURAL-GAS"],
+  "provider": "US Energy Information Administration",
+  "authority_class": "government_official",
+  "provider_priority": 100,
+  "acquisition": "free_key_api",
+  "source_type": "official_data",
+  "tier": 5,
+  "license": "us_government_public_domain",
+  "licensing": {"access": "public", "use": "allowed", "redistribution": "allowed", "terms_url": "https://www.eia.gov/about/copyrights_reuse.php"},
+  "host_allowlist": ["api.eia.gov"],
+  "credential_env": ["CONNECTOR_EIA_NATURAL_GAS_STORAGE_API_KEY"],
+  "release": {"cadence": "weekly", "timezone": "America/New_York", "expected_lag_days": 6, "grace_days": 9, "revision_policy": "revisable"},
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/eia/natural_gas_storage_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "series_code": "string",
+    "observations": [{"date": "date", "working_gas_bcf": "int"}],
+    "source_url": "string"
+  },
+  "units": {"observations[].working_gas_bcf": "billion_cubic_feet"},
+  "minimum_history": {"observations": 262, "path": "observations"}
+}

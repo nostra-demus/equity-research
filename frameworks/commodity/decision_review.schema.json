@@ -31,11 +31,11 @@
   "properties": {
     "schema_version": { "type": "string", "enum": ["1.0", "2.0"] },
     "swarm": { "const": "commodity" },
-    "commodity": { "type": "string", "minLength": 1, "pattern": "^[A-Z0-9_]+$" },
+    "commodity": { "type": "string", "minLength": 1, "pattern": "^[A-Z0-9]+(?:[-_][A-Z0-9]+)*$" },
     "original_decision_date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
     "review_date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
     "review_window": { "type": "string", "enum": ["30d", "90d", "180d", "365d", "ad-hoc", "tactical", "strategic"] },
-    "decision_id": { "type": "string", "pattern": "^CMD-[A-Z0-9_]+-[0-9]{4}-[0-9]{2}-[0-9]{2}-[a-f0-9]{12}$" },
+    "decision_id": { "type": "string", "pattern": "^CMD-[A-Z0-9]+(?:[-_][A-Z0-9]+)*-[0-9]{4}-[0-9]{2}-[0-9]{2}-[a-f0-9]{12}$" },
     "forecast_horizon": { "type": "string", "enum": ["tactical", "strategic"] },
     "target_date": { "type": "string", "format": "date" },
     "outcome_as_of": { "type": "string", "format": "date" },

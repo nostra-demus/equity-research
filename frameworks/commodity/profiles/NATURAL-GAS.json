@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "commodity": "NATURAL-GAS",
+  "family": "energy",
+  "requirements": [
+    {
+      "need": "natural-gas-managed-money-positioning",
+      "series": "natural-gas.managed-money-positioning",
+      "owner": "commodity-positioning-flows",
+      "requirement": "weekly; ≥3 years and current COT observation",
+      "policy": "CFTC public API; Henry Hub futures-only disaggregated report",
+      "quality": {"path": "observations", "min_observations": 150, "min_span_days": 1000, "date_field": "date", "max_staleness_days": 14},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "natural-gas-etf-flows",
+      "series": "natural-gas.etf-flows",
+      "owner": "commodity-positioning-flows",
+      "requirement": "daily/weekly UNG issuer shares or holdings",
+      "policy": "lawful issuer publications only; otherwise unavailable",
+      "quality": {"max_staleness_days": 14},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "natural-gas-lower48-storage",
+      "series": "natural-gas.lower48-storage",
+      "owner": "commodity-demand-inventory",
+      "requirement": "weekly; ≥5 full years of Lower 48 working gas for the seasonal band",
+      "policy": "EIA public API v2; retain revised vintages",
+      "quality": {"path": "observations", "min_observations": 262, "min_span_days": 1825, "date_field": "date", "max_staleness_days": 14},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "natural-gas-current-price",
+      "series": "natural-gas.current-price",
+      "owner": "commodity-price-curve",
+      "requirement": "current front-month Henry Hub futures quote",
+      "policy": "reuse the swarm pulse quote transport (`@NG.1`); label it futures; no connector clone",
+      "quality": {"max_staleness_days": 2},
+      "resolver": {"kind": "pulse_quote", "swarm": "commodity", "symbol": "@NG.1", "source": "cnbc"}
+    },
+    {
+      "need": "natural-gas-market-price-history",
+      "series": "natural-gas.market-price-history",
+      "owner": "commodity-price-curve",
+      "requirement": "point-in-time Henry Hub close history with source identity",
+      "policy": "reuse lawful shared market history for `@NG.1`; continuous back-adjusted futures",
+      "quality": {"min_observations": 750, "min_span_days": 1095, "date_field": "date", "max_staleness_days": 10},
+      "resolver": {"kind": "shared_market", "symbol": "@NG.1", "instrument_kind": "future", "price_basis": "continuous_back_adjusted"}
+    },
+    {
+      "need": "natural-gas-futures-curve",
+      "series": "natural-gas.futures-curve",
+      "owner": "commodity-price-curve",
+      "requirement": "current multi-tenor Henry Hub settlement curve",
+      "policy": "lawful CME route with licence/source identity; otherwise manual or unavailable",
+      "quality": {"max_staleness_days": 3},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "natural-gas-cash-price",
+      "series": "natural-gas.cash-price",
+      "owner": "commodity-price-curve",
+      "requirement": "current deliverable Henry Hub cash assessment aligned by date and unit",
+      "policy": "lawful primary/licensed cash assessment; otherwise unavailable",
+      "quality": {"max_staleness_days": 3},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "natural-gas-cash-futures-basis",
+      "series": "natural-gas.cash-futures-basis",
+      "owner": "commodity-price-curve",
+      "requirement": "cash minus deliverable nearby future, as % of futures, with aligned timestamps",
+      "policy": "deterministic derivation from cash-price and futures-curve vintages; no independent vote",
+      "quality": {"max_staleness_days": 3, "max_parent_gap_days": 1},
+      "resolver": {
+        "kind": "derived",
+        "operation": "left_minus_right_pct_of_right",
+        "left": {"series": "natural-gas.cash-price", "path": "value"},
+        "right": {"series": "natural-gas.futures-curve", "path": "nearby_settlement"}
+      }
+    },
+    {
+      "need": "natural-gas-dry-production",
+      "series": "natural-gas.dry-production",
+      "owner": "commodity-supply-security",
+      "requirement": "current daily/weekly dry production and upstream/pipeline production outages",
+      "policy": "EIA plus primary pipeline releases where lawful; otherwise unavailable",
+      "quality": {"max_staleness_days": 14},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "natural-gas-lng-feedgas-demand",
+      "series": "natural-gas.lng-feedgas-demand",
+      "owner": "commodity-demand-inventory",
+      "requirement": "current daily/weekly LNG feedgas and realised export demand",
+      "policy": "EIA plus primary pipeline flow releases where lawful; otherwise unavailable",
+      "quality": {"max_staleness_days": 14},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "natural-gas-lng-export-capacity-availability",
+      "series": "natural-gas.lng-export-capacity-availability",
+      "owner": "commodity-supply-security",
+      "requirement": "current liquefaction capacity, commissioning and terminal availability/outages",
+      "policy": "EIA/DOE/FERC and primary terminal notices; otherwise unavailable",
+      "quality": {"max_staleness_days": 14},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "natural-gas-sector-demand",
+      "series": "natural-gas.sector-demand",
+      "owner": "commodity-demand-inventory",
+      "requirement": "current power burn, residential/commercial and industrial demand, weather-normalised",
+      "policy": "EIA primary sector-consumption data with weather vintage; otherwise unavailable",
+      "quality": {"max_staleness_days": 14},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "natural-gas-europe-storage-balance",
+      "series": "natural-gas.europe-storage-balance",
+      "owner": "commodity-demand-inventory",
+      "requirement": "current European storage level, capacity fill and seasonal comparison",
+      "policy": "primary/industry-body storage data with lawful access and vintage; otherwise unavailable",
+      "quality": {"max_staleness_days": 7},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "natural-gas-russian-pipeline-availability",
+      "series": "natural-gas.russian-pipeline-availability",
+      "owner": "commodity-supply-security",
+      "requirement": "current Russian pipeline capacity, nominations and restriction status into Europe",
+      "policy": "primary pipeline/operator and official restriction data; otherwise unavailable",
+      "quality": {"max_staleness_days": 7},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "natural-gas-weather-degree-days",
+      "series": "natural-gas.weather-degree-days",
+      "owner": "commodity-weather-seasonality",
+      "requirement": "realised and forecast HDD/CDD with vintage and normal",
+      "policy": "NOAA/CPC primary releases; forecasts must be frozen by retrieval time",
+      "quality": {"max_staleness_days": 3},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "natural-gas-regional-lng-arbitrage",
+      "series": "natural-gas.regional-lng-arbitrage",
+      "owner": "commodity-price-curve",
+      "requirement": "aligned Henry Hub, TTF and JKM netback after physical costs",
+      "policy": "lawful exchange/licensed prices and cited transport assumptions; otherwise unavailable",
+      "quality": {"max_staleness_days": 3},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "natural-gas-cost-switching-range",
+      "series": "natural-gas.cost-switching-range",
+      "owner": "commodity-cost-curve-fair-value",
+      "requirement": "current producer-breakeven and coal-to-gas switching range",
+      "policy": "primary producer cost disclosures and government utility-fuel data; estimate methods and dispersion required",
+      "quality": {"max_staleness_days": 190},
+      "resolver": {"kind": "connector"}
+    }
+  ]
+}

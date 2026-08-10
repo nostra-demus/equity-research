@@ -1,0 +1,41 @@
+{
+  "manifest_version": 2,
+  "schema_version": 1,
+  "id": "eia-crude-oil-inventory",
+  "dataset_id": "eia.petroleum.weekly-crude-stocks",
+  "series_id": "crude-oil.us-inventory-buffer",
+  "series": "EIA weekly US commercial and Strategic Petroleum Reserve crude stocks",
+  "satisfies": ["crude-oil-us-inventory-buffer"],
+  "subjects": ["CRUDE-OIL"],
+  "provider": "US Energy Information Administration",
+  "authority_class": "government_official",
+  "provider_priority": 100,
+  "acquisition": "free_key_api",
+  "source_type": "official_data",
+  "tier": 5,
+  "license": "us_government_public_domain",
+  "licensing": {"access": "public", "use": "allowed", "redistribution": "allowed", "terms_url": "https://www.eia.gov/about/copyrights_reuse.php"},
+  "host_allowlist": ["api.eia.gov"],
+  "credential_env": ["CONNECTOR_EIA_CRUDE_OIL_INVENTORY_API_KEY"],
+  "release": {"cadence": "weekly", "timezone": "America/New_York", "expected_lag_days": 5, "grace_days": 9, "revision_policy": "revisable"},
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/eia/crude_inventory_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "observations": [{
+      "date": "date",
+      "commercial_crude_stocks_thousand_bbl": "int",
+      "spr_crude_stocks_thousand_bbl": "int",
+      "total_observed_crude_stocks_thousand_bbl": "int"
+    }],
+    "source_urls": ["string"]
+  },
+  "units": {
+    "observations[].commercial_crude_stocks_thousand_bbl": "thousand_barrels",
+    "observations[].spr_crude_stocks_thousand_bbl": "thousand_barrels",
+    "observations[].total_observed_crude_stocks_thousand_bbl": "thousand_barrels"
+  },
+  "minimum_history": {"observations": 150, "path": "observations"}
+}

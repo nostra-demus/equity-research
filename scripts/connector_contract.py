@@ -263,6 +263,7 @@ def credential_query_key(value: Any) -> bool:
 
 def connector_https_url_host(
     raw: Any, host_allowlist: list[str] | tuple[str, ...] | None = None,
+    *, credential_query_keys: frozenset[str] = frozenset(),
 ) -> str:
     """Validate one durable/request URL through the shared Python boundary.
 
@@ -295,8 +296,10 @@ def connector_https_url_host(
         )]
     except ValueError as exc:
         raise ValueError("connector URL query is malformed") from exc
-    if any(credential_query_key(key) for key in query_keys):
+    if any(credential_query_key(key) and key not in credential_query_keys for key in query_keys):
         raise ValueError("connector URL query contains a credential-semantic key")
+    if any(key in credential_query_keys and not credential_query_key(key) for key in query_keys):
+        raise ValueError("declared credential query key is not credential-semantic")
     if host_allowlist is not None:
         allowed = {str(value).lower() for value in host_allowlist}
         if host not in allowed:

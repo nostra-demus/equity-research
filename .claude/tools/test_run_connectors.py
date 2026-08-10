@@ -1781,6 +1781,44 @@ check("allowed cross-host redirects strip credential headers while same-host red
       and cross_host_redirect.get_header("User-agent") == "fixture"
       and cross_host_redirect.get_header("Accept") == "application/json"
       and same_host_redirect.get_header("Authorization") == "Bearer secret")
+query_credential_request = http_policy.urllib.request.Request(
+    "https://api.example.test/start?api_key=secret",
+)
+query_credential_handler = http_policy.AllowlistRedirectHandler(
+    ["api.example.test", "download.example.test"],
+    credential_query_keys=frozenset({"api_key"}),
+)
+try:
+    query_credential_handler.redirect_request(
+        query_credential_request, None, 302, "redirect", {},
+        "https://download.example.test/file?api_key=secret",
+    )
+    rejected_cross_host_query_credential = False
+except http_policy.URLPolicyError:
+    rejected_cross_host_query_credential = True
+renamed_query_rejected = False
+renamed_path_rejected = False
+for destination, label in (
+    ("https://download.example.test/file?download=secret", "query"),
+    ("https://download.example.test/file/secret", "path"),
+):
+    try:
+        query_credential_handler.redirect_request(
+            query_credential_request, None, 302, "redirect", {}, destination,
+        )
+    except http_policy.URLPolicyError:
+        if label == "query":
+            renamed_query_rejected = True
+        else:
+            renamed_path_rejected = True
+same_host_query_credential = query_credential_handler.redirect_request(
+    query_credential_request, None, 302, "redirect", {},
+    "https://api.example.test/file?api_key=secret",
+)
+check("query credentials may survive only same-origin redirects",
+      rejected_cross_host_query_credential
+      and renamed_query_rejected and renamed_path_rejected
+      and "api_key=secret" in same_host_query_credential.full_url)
 class _RedirectedResponse:
     closed = False
     def geturl(self): return "https://evil.example.test/final"

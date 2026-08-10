@@ -57,7 +57,7 @@ the broad USD → `commodity-macro-drivers`; relative ratios → the cross-asset
 |---|---|---|---|---|
 | `gold-managed-money-positioning` | `gold.managed-money-positioning` | commodity-positioning-flows | weekly; ≥1 current COT observation | CFTC public API |
 | `gold-real-yields` | `gold.us-treasury-real-yields` | commodity-macro-drivers | daily; ≥3 years for validation | US Treasury XML |
-| `gold-broad-usd` | `gold.broad-usd-index` | commodity-macro-drivers | daily; ≥3 years for validation | Federal Reserve/FRED public CSV |
+| `macro-broad-usd-index` | `macro.broad-usd-index` | commodity-macro-drivers | daily; ≥3 years for validation | shared Federal Reserve/FRED public CSV semantic series |
 | `gold-consumer-price-index` | `gold.consumer-price-index` | commodity-cross-asset-regime | monthly; ≥10 years for real-price regimes | BLS public API; non-seasonally-adjusted CPI-U; point-in-time use is limited to already-retrieved connector vintages |
 | `gold-equity-index-history` | `gold.equity-index-history` | commodity-cross-asset-regime | weekly; ≥3 years for Gold/equities regimes | lawful shared market history with source identity; broad US equity benchmark |
 | `gold-miner-equity-history` | `gold.miner-equity-history` | commodity-cross-asset-regime | weekly; ≥3 years for miners/Gold confirmation | lawful shared market history with source identity; `GDX` or equivalent declared proxy |
@@ -159,6 +159,48 @@ Report), OPEC (Monthly Oil Market Report + meeting communiqués), Baker Hughes r
 **Recurring reports (catalysts):** EIA weekly inventories (Wed) + monthly STEO; IEA and OPEC monthly
 reports; **OPEC+ ministerial meetings**; API weekly (Tue); Baker Hughes rig count (Fri); weekly CFTC COT.
 
+**Family-specific physical-market rules:** US inventory is one observable part of a global barrel
+balance, never a proxy for the whole balance. Bridge OPEC+ production and compliance, non-OPEC supply,
+refinery runs, trade rerouting, sanctions/restrictions, domestic absorption and stock changes before
+claiming globally accessible surplus or deficit. Align cash grade, delivery location and timestamp to the
+nearby future before computing basis. Treat a curve move without cash/physical confirmation as market
+structure evidence, not proof of a shortage. A global supply conclusion inherits the supply-opacity cap
+when primary coverage, estimate dispersion or release lags fail the common commodity thresholds.
+
+**Causal signal ownership (one fact, one owner):** CFTC managed-money positioning →
+`commodity-positioning-flows`; EIA commercial/SPR stocks → `commodity-demand-inventory`; physical
+production and accessible-supply bridges → `commodity-supply-security`; curves, basis, Brent–WTI and
+crack spreads → `commodity-price-curve`; broad growth/USD inputs → `commodity-macro-drivers`.
+
+**Required semantic series (profile-owned; connector IDs are deliberately absent):**
+
+| Need ID | Stable series ID | Owner orb | Required history / freshness | Lawful source policy |
+|---|---|---|---|---|
+| `crude-oil-managed-money-positioning` | `crude-oil.managed-money-positioning` | commodity-positioning-flows | weekly; ≥3 years and current COT observation | CFTC public API; WTI futures-only disaggregated report |
+| `crude-oil-ice-managed-money-positioning` | `crude-oil.ice-managed-money-positioning` | commodity-positioning-flows | weekly; ≥3 years and current ICE Brent COT observation | lawful ICE COT route with source identity; otherwise unavailable |
+| `crude-oil-etf-flows` | `crude-oil.etf-flows` | commodity-positioning-flows | daily/weekly USO and BNO issuer shares or holdings | lawful issuer publications only; otherwise unavailable |
+| `crude-oil-us-inventory-buffer` | `crude-oil.us-inventory-buffer` | commodity-demand-inventory | weekly; ≥3 years of commercial and SPR crude stocks | EIA public API v2; retain revised vintages |
+| `crude-oil-oecd-global-inventory-days-cover` | `crude-oil.oecd-global-inventory-days-cover` | commodity-demand-inventory | monthly OECD/global inventory level and days-cover history | primary EIA/IEA/OECD stock levels and demand denominator; reference but do not duplicate the US inventory series |
+| `crude-oil-refinery-throughput-product-demand` | `crude-oil.refinery-throughput-product-demand` | commodity-demand-inventory | weekly; ≥3 years of refinery throughput and major-product supplied | EIA primary weekly petroleum series; retain revised vintages and do not infer global demand from US data alone |
+| `macro-broad-usd-index` | `macro.broad-usd-index` | commodity-macro-drivers | daily; ≥3 years for oil/USD regimes | reuse one Federal Reserve/FRED semantic series across commodity profiles; no commodity-specific clone |
+| `macro-global-activity-demand-proxy` | `macro.global-activity-demand-proxy` | commodity-macro-drivers | monthly; ≥10 years with release vintage | primary global industrial-production/trade series or licensed PMI with source identity; unavailable otherwise |
+| `crude-oil-current-price` | `crude-oil.current-price` | commodity-price-curve | current front-month WTI futures quote | reuse the swarm pulse quote transport (`@CL.1`); label it futures; no connector clone |
+| `crude-oil-wti-price-history` | `crude-oil.wti-price-history` | commodity-price-curve | point-in-time WTI close history with source identity | reuse lawful shared market history for `@CL.1`; continuous back-adjusted futures |
+| `crude-oil-brent-price-history` | `crude-oil.brent-price-history` | commodity-price-curve | point-in-time Brent close history with source identity | reuse lawful shared market history for `@BZ.1`; unavailable if no licensed feed exists |
+| `crude-oil-futures-curve` | `crude-oil.futures-curve` | commodity-price-curve | current multi-tenor WTI settlement curve | lawful CME route with licence/source identity; otherwise manual or unavailable |
+| `crude-oil-cash-price` | `crude-oil.cash-price` | commodity-price-curve | current deliverable WTI cash assessment aligned to Cushing grade, date and unit | lawful primary/licensed cash assessment; otherwise unavailable |
+| `crude-oil-cash-futures-basis` | `crude-oil.cash-futures-basis` | commodity-price-curve | cash minus deliverable nearby future, as % of futures, with aligned timestamps | deterministic derivation from cash-price and futures-curve vintages; no independent vote |
+| `crude-oil-brent-wti-spread` | `crude-oil.brent-wti-spread` | commodity-price-curve | current aligned Brent minus WTI spread and history | lawful exchange/market route with both legs and source identity; otherwise unavailable |
+| `crude-oil-crack-spreads` | `crude-oil.crack-spreads` | commodity-price-curve | current 3-2-1 or declared refinery crack with aligned legs | lawful exchange settlements; otherwise manual or unavailable |
+| `crude-oil-opec-policy` | `crude-oil.opec-policy` | commodity-supply-security | latest quotas, voluntary cuts and observed compliance | OPEC communiqués plus cited primary production data; manual if no stable lawful route |
+| `crude-oil-demand-stock-change` | `crude-oil.demand-stock-change` | commodity-demand-inventory | current monthly demand and stock-change bridge | EIA/IEA/OPEC primary demand and stock releases with estimate identity; reference but do not duplicate supply-security production evidence |
+| `crude-oil-accessible-supply` | `crude-oil.accessible-supply` | commodity-supply-security | monthly gross-to-accessible supply bridge | primary production, domestic absorption, sanctions/restrictions and rerouting evidence; otherwise unavailable |
+| `crude-oil-marginal-supply-cost` | `crude-oil.marginal-supply-cost` | commodity-cost-curve-fair-value | current marginal shale/incremental barrel cost range with vintage | primary producer disclosures and government drilling/productivity data; third-party estimates stay contextual |
+
+Declaring these rows does not make them usable. Missing licensed cash, curve, demand/stock-change or OPEC
+inputs remain visible gaps and can force `Research More`; US inventory alone cannot lift global supply
+sufficiency.
+
 ---
 
 ## NATURAL-GAS
@@ -193,6 +235,45 @@ weather (HDD/CDD forecasts), CFTC COT, CME/ICE.
 
 **Recurring reports (catalysts):** **EIA weekly storage (Thu 10:30 ET)** — the single biggest scheduled
 mover; EIA STEO monthly; NOAA 6–10 / 8–14 day + seasonal outlooks; weekly CFTC COT.
+
+**Family-specific physical-market rules:** Henry Hub, TTF and JKM are regional prices, not interchangeable
+spot quotes. Any arbitrage must deduct liquefaction, shipping, boil-off, regasification and capacity limits,
+with units and FX aligned. Judge storage against a weather-normalised injection/withdrawal expectation and
+the five-year seasonal band, not the absolute stock level alone. Separate dry-gas production, pipeline
+flows, LNG feedgas, power burn and residential/commercial weather demand; a single cold or hot forecast is
+a scenario input until realised degree days and storage confirm it.
+
+**Causal signal ownership (one fact, one owner):** CFTC managed-money positioning →
+`commodity-positioning-flows`; EIA storage and realised injections/withdrawals →
+`commodity-demand-inventory`; LNG feedgas/export demand → `commodity-demand-inventory`; production and
+infrastructure constraints → `commodity-supply-security`;
+degree days → `commodity-weather-seasonality`; curves, cash basis and regional arbitrage →
+`commodity-price-curve`.
+
+**Required semantic series (profile-owned; connector IDs are deliberately absent):**
+
+| Need ID | Stable series ID | Owner orb | Required history / freshness | Lawful source policy |
+|---|---|---|---|---|
+| `natural-gas-managed-money-positioning` | `natural-gas.managed-money-positioning` | commodity-positioning-flows | weekly; ≥3 years and current COT observation | CFTC public API; Henry Hub futures-only disaggregated report |
+| `natural-gas-etf-flows` | `natural-gas.etf-flows` | commodity-positioning-flows | daily/weekly UNG issuer shares or holdings | lawful issuer publications only; otherwise unavailable |
+| `natural-gas-lower48-storage` | `natural-gas.lower48-storage` | commodity-demand-inventory | weekly; ≥5 full years of Lower 48 working gas for the seasonal band | EIA public API v2; retain revised vintages |
+| `natural-gas-current-price` | `natural-gas.current-price` | commodity-price-curve | current front-month Henry Hub futures quote | reuse the swarm pulse quote transport (`@NG.1`); label it futures; no connector clone |
+| `natural-gas-market-price-history` | `natural-gas.market-price-history` | commodity-price-curve | point-in-time Henry Hub close history with source identity | reuse lawful shared market history for `@NG.1`; continuous back-adjusted futures |
+| `natural-gas-futures-curve` | `natural-gas.futures-curve` | commodity-price-curve | current multi-tenor Henry Hub settlement curve | lawful CME route with licence/source identity; otherwise manual or unavailable |
+| `natural-gas-cash-price` | `natural-gas.cash-price` | commodity-price-curve | current deliverable Henry Hub cash assessment aligned by date and unit | lawful primary/licensed cash assessment; otherwise unavailable |
+| `natural-gas-cash-futures-basis` | `natural-gas.cash-futures-basis` | commodity-price-curve | cash minus deliverable nearby future, as % of futures, with aligned timestamps | deterministic derivation from cash-price and futures-curve vintages; no independent vote |
+| `natural-gas-dry-production` | `natural-gas.dry-production` | commodity-supply-security | current daily/weekly dry production and upstream/pipeline production outages | EIA plus primary pipeline releases where lawful; otherwise unavailable |
+| `natural-gas-lng-feedgas-demand` | `natural-gas.lng-feedgas-demand` | commodity-demand-inventory | current daily/weekly LNG feedgas and realised export demand | EIA plus primary pipeline flow releases where lawful; otherwise unavailable |
+| `natural-gas-lng-export-capacity-availability` | `natural-gas.lng-export-capacity-availability` | commodity-supply-security | current liquefaction capacity, commissioning and terminal availability/outages | EIA/DOE/FERC and primary terminal notices; otherwise unavailable |
+| `natural-gas-sector-demand` | `natural-gas.sector-demand` | commodity-demand-inventory | current power burn, residential/commercial and industrial demand, weather-normalised | EIA primary sector-consumption data with weather vintage; otherwise unavailable |
+| `natural-gas-europe-storage-balance` | `natural-gas.europe-storage-balance` | commodity-demand-inventory | current European storage level, capacity fill and seasonal comparison | primary/industry-body storage data with lawful access and vintage; otherwise unavailable |
+| `natural-gas-russian-pipeline-availability` | `natural-gas.russian-pipeline-availability` | commodity-supply-security | current Russian pipeline capacity, nominations and restriction status into Europe | primary pipeline/operator and official restriction data; otherwise unavailable |
+| `natural-gas-weather-degree-days` | `natural-gas.weather-degree-days` | commodity-weather-seasonality | realised and forecast HDD/CDD with vintage and normal | NOAA/CPC primary releases; forecasts must be frozen by retrieval time |
+| `natural-gas-regional-lng-arbitrage` | `natural-gas.regional-lng-arbitrage` | commodity-price-curve | aligned Henry Hub, TTF and JKM netback after physical costs | lawful exchange/licensed prices and cited transport assumptions; otherwise unavailable |
+| `natural-gas-cost-switching-range` | `natural-gas.cost-switching-range` | commodity-cost-curve-fair-value | current producer-breakeven and coal-to-gas switching range | primary producer cost disclosures and government utility-fuel data; estimate methods and dispersion required |
+
+Declaring these rows does not make them usable. Missing cash, curve, weather, production/LNG or regional
+price rights remain explicit gaps; the engine must not scrape them or infer them from Henry Hub alone.
 
 ---
 

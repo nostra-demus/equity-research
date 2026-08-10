@@ -114,10 +114,16 @@ jobs:
       - name: Commodity data_needs schema unit tests (optional field + tier/acquisition/slug guards)
         run: python3 scripts/test_commodity_data_needs.py
 
-      - name: Gold profile connector coverage + methodology-source exclusion
+      - name: Commodity family profile connector coverage + methodology-source exclusion
         run: |
           python3 scripts/test_gold_profile_connectors.py
+          python3 scripts/test_energy_profile_connectors.py
           python3 scripts/test_commodity_profile_coverage.py
+          python3 .claude/connectors/cftc-cot-crude-oil/test_fetch.py
+          python3 .claude/connectors/cftc-cot-natural-gas/test_fetch.py
+          python3 .claude/connectors/eia-crude-oil-inventory/test_fetch.py
+          python3 .claude/connectors/eia-natural-gas-storage/test_fetch.py
+          python3 .claude/connectors/federal-reserve-broad-usd/test_fetch.py
 
       - name: Commodity signal evidence + statistical-validation contract tests
         run: python3 scripts/test_commodity_signal_evidence.py

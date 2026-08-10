@@ -26,7 +26,7 @@ Execute the steps in order. Arguments: `$ARGUMENTS`.
 
 - `<TARGET>` empty, or `due` → **mode `due`** (safest — act only on what is scheduled and unreviewed).
 - `<TARGET>` == `all` → **mode `all`**.
-- otherwise → **mode `commodity`**, treating `<TARGET>` as the commodity id (upper-cased to match `^[A-Z0-9_]+$`).
+- otherwise → **mode `commodity`**, treating `<TARGET>` as the commodity id (upper-cased to match `^[A-Z0-9]+(?:[-_][A-Z0-9]+)*$`).
 
 `<WINDOW_ARG>`, if present, must be one of `tactical` / `strategic` / `30d` / `90d` / `180d` / `365d` / `ad-hoc`. Anything else: ignore and warn. Fresh archived decisions accept only `tactical` or `strategic`; the dated windows are legacy-only.
 

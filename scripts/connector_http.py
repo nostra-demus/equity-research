@@ -125,6 +125,7 @@ def require_allowed_https(
     host_allowlist: list[str] | tuple[str, ...],
     *,
     resolutions: _ResolutionCache | None = None,
+    credential_query_keys: frozenset[str] = frozenset(),
 ) -> str:
     """Validate URL identity and pin its fully-public DNS answer.
 
@@ -133,7 +134,9 @@ def require_allowed_https(
     resolution also succeeded and every returned address was globally routable.
     """
     try:
-        host = connector_https_url_host(url, host_allowlist)
+        host = connector_https_url_host(
+            url, host_allowlist, credential_query_keys=credential_query_keys,
+        )
     except ValueError as exc:
         raise URLPolicyError(f"connector URL violates policy: {exc}") from exc
     (resolutions or _ResolutionCache(host_allowlist)).resolve(host)
@@ -224,16 +227,23 @@ class _PinnedHTTPSConnection(http.client.HTTPSConnection):
 
 
 class _PinnedHTTPSHandler(urllib.request.HTTPSHandler):
-    def __init__(self, host_allowlist: list[str] | tuple[str, ...], resolutions: _ResolutionCache):
+    def __init__(
+        self,
+        host_allowlist: list[str] | tuple[str, ...],
+        resolutions: _ResolutionCache,
+        credential_query_keys: frozenset[str],
+    ):
         super().__init__()
         self.host_allowlist = tuple(host_allowlist)
         self.resolutions = resolutions
+        self.credential_query_keys = credential_query_keys
 
     def https_open(self, req: Any):
         if req.has_proxy() or getattr(req, "_tunnel_host", None):
             raise URLPolicyError("connector HTTP proxies/tunnels are disabled at the SSRF boundary")
         hostname = require_allowed_https(
             req.full_url, self.host_allowlist, resolutions=self.resolutions,
+            credential_query_keys=self.credential_query_keys,
         )
         endpoints = self.resolutions.resolve(hostname)
 
@@ -257,18 +267,40 @@ class AllowlistRedirectHandler(urllib.request.HTTPRedirectHandler):
         self,
         host_allowlist: list[str] | tuple[str, ...],
         resolutions: _ResolutionCache | None = None,
+        credential_query_keys: frozenset[str] = frozenset(),
     ):
         super().__init__()
         self.host_allowlist = tuple(host_allowlist)
         self.resolutions = resolutions or _ResolutionCache(host_allowlist)
+        self.credential_query_keys = credential_query_keys
 
     def redirect_request(self, req: Any, fp: Any, code: int, msg: str, headers: Any, newurl: str):
         new_host = require_allowed_https(
             newurl, self.host_allowlist, resolutions=self.resolutions,
+            credential_query_keys=self.credential_query_keys,
         )
         old_host = require_allowed_https(
             req.full_url, self.host_allowlist, resolutions=self.resolutions,
+            credential_query_keys=self.credential_query_keys,
         )
+        if new_host != old_host:
+            origin_query_keys = {
+                key for key, _value in urllib.parse.parse_qsl(
+                    urllib.parse.urlsplit(req.full_url).query, keep_blank_values=True,
+                )
+            }
+            redirected_query_keys = {
+                key for key, _value in urllib.parse.parse_qsl(
+                    urllib.parse.urlsplit(newurl).query, keep_blank_values=True,
+                )
+            }
+            if (
+                origin_query_keys & self.credential_query_keys
+                or redirected_query_keys & self.credential_query_keys
+            ):
+                raise URLPolicyError(
+                    "connector query credentials cannot cross an origin redirect"
+                )
         redirected = super().redirect_request(req, fp, code, msg, headers, newurl)
         if redirected is not None and new_host != old_host:
             # Both hosts may be lawful sources for one connector, but that is
@@ -291,6 +323,7 @@ def open_allowed_https(
     host_allowlist: list[str] | tuple[str, ...],
     *,
     timeout: int = 20,
+    credential_query_keys: frozenset[str] = frozenset(),
 ):
     initial_url = request.full_url if isinstance(request, urllib.request.Request) else str(request)
     if isinstance(request, urllib.request.Request) and (
@@ -298,17 +331,23 @@ def open_allowed_https(
     ):
         raise URLPolicyError("connector HTTP proxies/tunnels are disabled at the SSRF boundary")
     resolutions = _ResolutionCache(host_allowlist)
-    require_allowed_https(initial_url, host_allowlist, resolutions=resolutions)
+    require_allowed_https(
+        initial_url, host_allowlist, resolutions=resolutions,
+        credential_query_keys=credential_query_keys,
+    )
     # Disable environment proxies explicitly.  A proxy would re-resolve the
     # hostname and make the connect-time IP pin unenforceable.
     active = urllib.request.build_opener(
         urllib.request.ProxyHandler({}),
-        AllowlistRedirectHandler(host_allowlist, resolutions),
-        _PinnedHTTPSHandler(host_allowlist, resolutions),
+        AllowlistRedirectHandler(host_allowlist, resolutions, credential_query_keys),
+        _PinnedHTTPSHandler(host_allowlist, resolutions, credential_query_keys),
     )
     response = active.open(request, timeout=timeout)
     try:
-        require_allowed_https(response.geturl(), host_allowlist, resolutions=resolutions)
+        require_allowed_https(
+            response.geturl(), host_allowlist, resolutions=resolutions,
+            credential_query_keys=credential_query_keys,
+        )
     except Exception:
         try:
             response.close()
