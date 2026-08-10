@@ -196,6 +196,24 @@ const terminalCandidates = [
   ...repairLifecycleTransitionsFromLedger(successThenBroken, [repaired], mergedPr, deployedRepair)
     .map((item) => ({ ...item, terminal: 'assessed' })),
 ]
+// The due-attempt throttle interleaves `deferred` rows between real acquisitions, so this is the SHAPE a
+// sustained post-merge break actually has on disk. feed-health.ts is the authority on the rule and treats
+// `deferred` as preserving the streak because no acquisition ran; the repair fold has to agree, or a merged
+// repair that keeps failing never reaches BROKEN_THRESHOLD, stays stuck at pr_open, and blocks the next
+// repair even while the same feed is displayed as broken.
+const brokenWithDeferrals = [0, 1, 2].flatMap((offset) => [
+  row({
+    connector: 'prices', subject: 'WHEAT', decision: 'failed', outcome: 'broken',
+    ts: afterMerge + offset * 2, connector_commit: 'deployed-commit', connector_fingerprint: 'new-fingerprint',
+  }),
+  row({
+    connector: 'prices', subject: 'WHEAT', decision: 'deferred', outcome: 'broken',
+    ts: afterMerge + offset * 2 + 1, connector_commit: 'deployed-commit', connector_fingerprint: 'new-fingerprint',
+  }),
+]).join('\n')
+check('deferred scheduler rows preserve the post-merge failure streak, matching feed health',
+  repairLifecycleTransitionsFromLedger(brokenWithDeferrals, [repaired], mergedPr, deployedRepair).length === 1)
+
 check('a later sustained deployed break supersedes an older qualifying success with one terminal candidate',
   terminalCandidates.length === 1 && terminalCandidates[0].subject === 'WHEAT'
     && terminalCandidates[0].terminal === 'assessed')

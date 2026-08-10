@@ -552,6 +552,14 @@ code_bypass = rows_for(m.run(
 check("force and connector-code changes bypass the due-attempt throttle",
       forced_bypass["decision"] == "refetched" and code_bypass["decision"] == "refetched"
       and len(os.listdir(monthly_vintages)) == 5)
+# A no-fetch health row is deliberately rebound to the canonical vintage's code identity, but a row that
+# actually PUBLISHED must carry the identity it published under. Otherwise the refetched row claims the old
+# fingerprint and commit: healthyBuiltBySatisfies rejects the new current until a later `fresh` sweep, and —
+# because repair verification resolves deployment through connector_commit — the one real post-merge refetch
+# is invisible to it, so a merged repair can never be verified by the fetch that proves it works.
+check("a refetch published under changed code records the NEW code identity, not the old vintage's",
+      code_bypass["connector_fingerprint"] == m.connector_fingerprint(d)
+      and code_bypass["publisher_contract_fingerprint"] == m.publisher_contract_fingerprint())
 # A malformed append is skipped without erasing the valid prior attempt clock.
 # The degradation remains explicit in the next accepted row so operators can
 # repair the ledger without the scheduler hammering a slow upstream source.
@@ -3604,6 +3612,100 @@ check("exact crash aliases recover, but an alias write can never mutate accepted
       recovered_exact_alias and mutated_hidden and mutated_replay_rejected
       and os.path.lexists(mutating_alias) and os.lstat(blob_target).st_nlink == 2)
 shutil.rmtree(root)
+
+
+# ---- a same-size in-place credential rotation during the read must fail closed ----
+# The post-read verification compared device, inode, size, uid and mode but not mtime/ctime, so an operator
+# or rotation tool rewriting providers.env in place with equal-length bytes while the loader reads it was
+# accepted: the loader then exported the STALE value and the connector authenticated with the wrong secret.
+# Deterministic interleave (not a thread race): os.read returns the original bytes, and the file is rotated
+# through the same inode before the verification runs — exactly the window described.
+_cred_root = tempfile.mkdtemp()
+os.chmod(_cred_root, 0o700)
+_cred_path = os.path.join(_cred_root, "providers.env")
+_ORIGINAL = b"CONNECTOR_ROTATE_TEST=originalvalue\n"
+_ROTATED = b"CONNECTOR_ROTATE_TEST=rotatedvalue0\n"  # byte-identical length
+assert len(_ORIGINAL) == len(_ROTATED)
+with open(_cred_path, "wb") as _fh:
+    _fh.write(_ORIGINAL)
+os.chmod(_cred_path, 0o600)
+
+_prev_cfg = os.environ.get("NOSTRA_ENGINE_CONFIG_DIR")
+os.environ["NOSTRA_ENGINE_CONFIG_DIR"] = _cred_root
+os.environ.pop("CONNECTOR_ROTATE_TEST", None)
+_real_read = os.read
+_rotated_once = {"done": False}
+
+
+def _rotating_read(fd, size):  # noqa: ANN001 — test shim
+    data = _real_read(fd, size)
+    if not _rotated_once["done"] and data:
+        _rotated_once["done"] = True
+        with open(_cred_path, "r+b") as _rot:
+            _rot.write(_ROTATED)
+            _rot.flush()
+            os.fsync(_rot.fileno())
+    return data
+
+
+os.read = _rotating_read
+try:
+    m.load_declared_credentials({"credential_env": ["CONNECTOR_ROTATE_TEST"]})
+finally:
+    os.read = _real_read
+_rotate_result = os.environ.get("CONNECTOR_ROTATE_TEST")
+os.environ.pop("CONNECTOR_ROTATE_TEST", None)
+check("a same-size in-place providers.env rotation during the read is refused, not exported stale",
+      _rotated_once["done"] and _rotate_result is None)
+
+# control: an untouched file of the same shape still loads, so the check above is not vacuous
+with open(_cred_path, "wb") as _fh:
+    _fh.write(_ORIGINAL)
+os.chmod(_cred_path, 0o600)
+os.environ.pop("CONNECTOR_ROTATE_TEST", None)
+m.load_declared_credentials({"credential_env": ["CONNECTOR_ROTATE_TEST"]})
+check("an unmodified providers.env still exports its declared credential",
+      os.environ.get("CONNECTOR_ROTATE_TEST") == "originalvalue")
+os.environ.pop("CONNECTOR_ROTATE_TEST", None)
+if _prev_cfg is None:
+    os.environ.pop("NOSTRA_ENGINE_CONFIG_DIR", None)
+else:
+    os.environ["NOSTRA_ENGINE_CONFIG_DIR"] = _prev_cfg
+shutil.rmtree(_cred_root)
+
+
+# ---- the throttle clock is an ACTUAL-attempt clock ----
+# A keyed connector with no credential returns credentials_missing BEFORE any network call, so its row
+# records attempts: 0. Letting that advance the clock defers the next sweep for the whole cadence — up to a
+# month on a monthly feed — so supplying the missing credential does not bring the feed back until the
+# interval expires on its own. Only a row that really tried may move the clock.
+_att_root = tempfile.mkdtemp()
+os.makedirs(os.path.join(_att_root, m.LEDGER_DIR), exist_ok=True)
+_att_base = {
+    "connector": "prices", "dataset_id": "d1", "series_id": "s1", "provider": "p1", "subject": "WHEAT",
+    "connector_commit": "c1",
+}
+_att_rows = [
+    # no credential: no network attempt happened
+    {**_att_base, "decision": "failed", "outcome": "credentials_missing", "attempts": 0,
+     "checked_at": "2026-08-01T00:00:00+00:00"},
+    # a different series that genuinely tried and failed — the control
+    {**_att_base, "series_id": "s2", "decision": "failed", "outcome": "broken", "attempts": 3,
+     "checked_at": "2026-08-01T00:00:00+00:00"},
+]
+with open(os.path.join(_att_root, m.LEDGER_DIR, m.LEDGER_NAME), "w", encoding="utf-8") as _fh:
+    for _r in _att_rows:
+        _fh.write(json.dumps(_r) + "\n")
+_att_history, _att_latest, _att_warn = m._read_attempt_history(_att_root)
+_missing_key = ("prices", "d1", "s1", "p1", "WHEAT")
+_tried_key = ("prices", "d1", "s2", "p1", "WHEAT")
+check("a zero-attempt credentials_missing failure does not start the due-attempt throttle clock",
+      _missing_key not in _att_history and _att_warn is None)
+check("a failure that really attempted still moves the throttle clock",
+      _tried_key in _att_history)
+check("a zero-attempt failure is still the latest public row for its feed",
+      _att_latest.get(_missing_key, {}).get("outcome") == "credentials_missing")
+shutil.rmtree(_att_root)
 
 
 print(f"\n{'ALL PASS' if not failures else 'FAIL'}: run_connectors — {failures} failing case(s)")

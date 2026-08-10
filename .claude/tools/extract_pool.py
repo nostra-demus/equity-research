@@ -319,7 +319,7 @@ def _v2_projection_manifest(data_path, rel):
 
 
 def _verify_v2_projection(data_path, rel, parsed, manifest, decision_at):
-    """Return ``current``, ``expired``, or ``superseded`` for an exact projection."""
+    """Return ``current``, ``expired``, ``disputed``, or ``superseded`` for an exact projection."""
     if SCRIPTS_DIR not in sys.path:
         sys.path.insert(0, SCRIPTS_DIR)
     if TOOLS_DIR not in sys.path:
@@ -370,6 +370,13 @@ def _verify_v2_projection(data_path, rel, parsed, manifest, decision_at):
             raise ValueError("current projection payload hash differs from canonical current")
         if not vintage_is_eligible_at(current, decision_at):
             return "expired"
+        # Integrity and expiry are not the whole admission test. When a primary and a fallback publish
+        # different payloads for the same release, run_connectors records provider_disagreement only AFTER
+        # both vintages and projections are already published, and read_point_in_time then answers
+        # usable: false for the series. Without re-asking at decision_at, extraction would hand research
+        # both conflicting projections as citable present-tense evidence — each individually well-formed.
+        if run_connectors._point_in_time_disagreement(data_root, manifest, subject, decision_at):
+            return "disputed"
         return "current"
 
     vintage_id = parsed.get("vintage_id")
@@ -557,6 +564,11 @@ def _finish_row(row, rel, prov_map):
             # Retain the immutable dated projection for audit/replay, but do
             # not expose its provider fields as present-tense citable evidence.
             row["provenance"] = {"integrity_status": "superseded", "usable": False}
+            return row
+        if isinstance(prov, dict) and prov.get("_projection_state") == "disputed":
+            # Two providers disagree for this release: the series has no single answer, so nothing here is
+            # citable until an operator resolves it. Visible for diagnosis, never usable as evidence.
+            row["provenance"] = {"integrity_status": "disputed", "usable": False}
             return row
         if isinstance(prov, dict) and prov.get("_projection_state") == "expired":
             # Expiry is an expected release-clock state, not broken integrity.
@@ -1362,7 +1374,7 @@ def sniff_text(path, max_chars=16000):
 
 # ---------- full pool extract ----------
 
-_CACHE_GUARD_VERSION = 1
+_CACHE_GUARD_VERSION = 2
 
 def iter_pool_files(data_path):
     # Resolve the configured root once (the root itself may intentionally be a
@@ -1493,11 +1505,28 @@ def _cache_guard_snapshot(data_path, out_dir, manifest):
                 approved_extracts[name] = {"missing": True}
             else:
                 approved_extracts[name] = _file_guard_identity(path, content_hash=True)
+    # Extraction imports its methodology-only identity rules, manifest validation, eligibility clock and
+    # projection verification from these shared modules at run time, so they are as much a part of the
+    # verdict as the pool bytes are. is_fresh only mtime-checks extract_pool.py itself, so without hashing
+    # them a TIGHTENED policy left every cached manifest valid: evidence that has just become forbidden
+    # keeps being served as usable until something unrelated happens to touch the pool.
+    policy_modules = {}
+    for policy_path in (
+        os.path.join(SCRIPTS_DIR, "connector_contract.py"),
+        os.path.join(SCRIPTS_DIR, "connector_vintages.py"),
+        os.path.join(TOOLS_DIR, "run_connectors.py"),
+    ):
+        rel = os.path.relpath(policy_path, REPO_ROOT).replace(os.sep, "/")
+        policy_modules[rel] = (
+            _file_guard_identity(policy_path, content_hash=True)
+            if os.path.isfile(policy_path) else {"missing": True}
+        )
     return {
         "version": _CACHE_GUARD_VERSION,
         "pool_inputs": pool_inputs,
         "approved_extracts": approved_extracts,
         "visual_caches": visual_caches,
+        "policy_modules": policy_modules,
         "reader_state": {
             "ocr_enabled": bool(_OCR_ENABLED),
             "tesseract": _tool_guard_identity("tesseract"),
@@ -1546,6 +1575,13 @@ def _cached_canonical_integrity(data_path, manifest, decision_at):
                 if (source.get("status") != "skipped"
                         or source.get("provenance") != {
                             "integrity_status": "superseded", "usable": False,
+                        }):
+                    return False
+                continue
+            if prov.get("_projection_state") == "disputed":
+                if (source.get("status") != "skipped"
+                        or source.get("provenance") != {
+                            "integrity_status": "disputed", "usable": False,
                         }):
                     return False
                 continue
@@ -1705,6 +1741,13 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None,
                 "file": base, "ext": ext or "(none)", "kind": "external",
                 "status": "skipped",
                 "error": "superseded connector projection; retained only for audit/replay",
+            })
+            continue
+        if provenance.get("_projection_state") == "disputed":
+            _add({
+                "file": base, "ext": ext or "(none)", "kind": "external",
+                "status": "skipped",
+                "error": "disputed connector series (providers disagree); excluded from current evidence",
             })
             continue
         if provenance.get("_projection_state") == "expired":

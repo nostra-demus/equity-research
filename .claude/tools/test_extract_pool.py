@@ -655,6 +655,58 @@ def test_v2_projection_is_anchored_to_current() -> None:
                   ep.is_fresh(
                       out_td, str(pool), str(_HERE / "extract_pool.py"), now=eligible_now,
                   ) is not None)
+            # is_fresh mtime-checks extract_pool.py alone, but the verdict also depends on policy imported
+            # at run time from the shared modules. Tightening one of those (e.g. a new methodology-only
+            # rule) previously left every cached manifest valid, so evidence that had just become forbidden
+            # kept being served as usable until something unrelated touched the pool. Asserted on the guard
+            # itself rather than through is_fresh, because file identity includes mtime/ctime: restoring the
+            # bytes cannot restore the identity, so an is_fresh round-trip could not isolate this rule.
+            _policy_rels = {
+                "scripts/connector_contract.py",
+                "scripts/connector_vintages.py",
+                ".claude/tools/run_connectors.py",
+            }
+            _guard_now = ep._cache_guard_snapshot(str(pool), out_td, {})
+            check("cache guard: the shared policy modules are part of the cache identity",
+                  _policy_rels <= set((_guard_now.get("policy_modules") or {}).keys()),
+                  str(sorted((_guard_now.get("policy_modules") or {}).keys())))
+            _policy_src = _HERE.parent.parent / "scripts" / "connector_contract.py"
+            _policy_before = _policy_src.read_bytes()
+            try:
+                _policy_src.write_bytes(_policy_before + b"\n# policy tightened\n")
+                _guard_after = ep._cache_guard_snapshot(str(pool), out_td, {})
+            finally:
+                _policy_src.write_bytes(_policy_before)
+            check("cache guard: tightening a shared policy changes the guard, forcing one rebuild",
+                  _guard_after != _guard_now
+                  and _guard_after.get("policy_modules") != _guard_now.get("policy_modules"))
+            # A projection can be individually perfect — canonical bytes, exact provenance, in date — and
+            # still be one half of a contradiction: run_connectors records provider_disagreement only after
+            # BOTH providers have published, so integrity and expiry alone cannot catch it. Detection of the
+            # disagreement itself is covered in test_run_connectors; what is pinned here is that extraction
+            # actually re-asks at decision_at and refuses to serve a disputed series as citable evidence.
+            _real_disagreement = _runner._point_in_time_disagreement
+            _runner._point_in_time_disagreement = (
+                lambda data_root, man, subject, cutoff=None: {"kind": "provider_disagreement"}
+            )
+            try:
+                disputed = ep.extract_pool(
+                    str(pool), out_td, force=True, vision=False, now=eligible_now,
+                )
+            finally:
+                _runner._point_in_time_disagreement = _real_disagreement
+            disputed_row = next(source for source in disputed["sources"]
+                                if source["file"] == "sealed_2026-08-01.json")
+            check("v2 projection: a disputed series is visible but never citable evidence",
+                  disputed_row.get("status") == "skipped"
+                  and disputed_row.get("provenance") == {
+                      "integrity_status": "disputed", "usable": False,
+                  }
+                  and "disputed connector series" in disputed_row.get("error", "")
+                  and disputed["totals"]["failures"] == 0, str(disputed_row))
+            check("v2 projection: a disputed series cannot count as a usable source",
+                  not any(source.get("status") in ep.USABLE_STATUSES
+                          for source in disputed["sources"]), str(disputed["sources"]))
             current_path = Path(_runner.connector_storage_paths(
                 str(data), {**manifest, "_dir": str(cdir)}, "AAA",
             )["current"])
