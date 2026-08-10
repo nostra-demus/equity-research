@@ -21,6 +21,11 @@ Then:
 - **transient fast throw** (connection reset/refused) on an idempotent `GET`/`HEAD` → **one quick retry**
   before declaring offline (a budget *timeout* does **not** retry — the origin is alive but slow, so
   retrying only doubles the wait; `POST` and SSE are never retried).
+- **raw `502`/`504` on exact `GET /api/health`** → wait **750ms**, then make **one fresh retry** under
+  the same 8s overall health deadline. This lets a watchdog probe route around one stale, draining
+  Tunnel connector while its healthy replacement is already connected. Other idempotent requests keep
+  their prior one immediate retry; `POST` and SSE are never replayed. If the retry also fails, the gate
+  still returns the honest marked offline response below — it never manufactures or caches a success.
 - **origin down** (Cloudflare `>= 520`, incl. `530`/`1033` tunnel-down — instant, no wait; or a budget timeout) → an **intent-aware** offline response:
   | Request | Response |
   |---|---|
