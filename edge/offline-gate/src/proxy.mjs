@@ -57,9 +57,10 @@ function abortableSleep(ms, signal) {
 }
 
 /**
- * Proxy one request under a single deadline. Every retry constructs a fresh Request but shares the same
- * AbortController, so the timeout covers the first attempt, the health backoff, and the retry together.
- * The function returns either a real origin Response or an offline decision; it never invents success.
+ * Proxy one request. Every retry constructs a fresh Request. Exact GET health retries share one overall
+ * AbortController/deadline so the first attempt, health backoff, and retry stay inside the watchdog's public
+ * timeout. Other requests preserve the prior per-attempt budget. The function returns either a real origin
+ * Response or an offline decision; it never invents success.
  *
  * Raw gateway responses keep the established one retry for idempotent, non-SSE requests. Only an exact
  * GET /api/health inserts a delay before that retry. POST/other unsafe methods and SSE never replay.
@@ -67,7 +68,7 @@ function abortableSleep(ms, signal) {
  *
  * @param {Request} request
  * @param {(request:Request) => Promise<Response>} fetchImpl
- * @param {{budgetMs:number, sleepImpl?:(ms:number, signal:AbortSignal)=>Promise<void>}} options
+ * @param {{budgetMs:number, sleepImpl?:(ms:number, signal:AbortSignal)=>Promise<void>, controllerFactory?:()=>AbortController}} options
  * @returns {Promise<{kind:'response', response:Response}|{kind:'offline'}>}
  */
 export async function proxyOrigin(request, fetchImpl, options) {
@@ -75,27 +76,40 @@ export async function proxyOrigin(request, fetchImpl, options) {
   const idempotent = isIdempotent(request)
   const canRetry = cls !== 'sse' && idempotent
   const maxAttempts = canRetry ? 2 : 1
-  const controller = new AbortController()
+  const sharesHealthDeadline = isDelayedHealthRetry(request, cls)
+  const controllerFactory = options.controllerFactory || (() => new AbortController())
+  const sharedController = sharesHealthDeadline ? controllerFactory() : null
   const sleepImpl = options.sleepImpl || abortableSleep
-  let timedOut = false
-  const deadline = options.budgetMs > 0
+  let sharedTimedOut = false
+  const sharedDeadline = sharesHealthDeadline && options.budgetMs > 0
     ? setTimeout(() => {
-        timedOut = true
-        controller.abort()
+        sharedTimedOut = true
+        sharedController?.abort()
       }, options.budgetMs)
     : null
 
   try {
     for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+      const controller = sharedController || controllerFactory()
+      let attemptTimedOut = false
+      const attemptDeadline = !sharesHealthDeadline && options.budgetMs > 0
+        ? setTimeout(() => {
+            attemptTimedOut = true
+            controller.abort()
+          }, options.budgetMs)
+        : null
       let response
       try {
         // A new Request is required for the retry; safe because canRetry excludes methods with bodies.
         response = await fetchImpl(new Request(request, { signal: controller.signal }))
       } catch {
-        // A budget timeout means the origin was slow. Do not multiply its load or exceed the one shared
+        // A budget timeout means the origin was slow. Do not multiply its load or overrun the applicable
         // deadline. Fast connection throws retain the established one retry for safe requests.
+        const timedOut = sharesHealthDeadline ? sharedTimedOut : attemptTimedOut
         if (timedOut || controller.signal.aborted || attempt === maxAttempts - 1) return { kind: 'offline' }
         continue
+      } finally {
+        if (attemptDeadline) clearTimeout(attemptDeadline)
       }
 
       // Cloudflare origin-down statuses: 521/522/523/525/526 and 530/1033. These are already a firm
@@ -113,7 +127,7 @@ export async function proxyOrigin(request, fetchImpl, options) {
         // prior immediate retry, while POST/SSE never reach this branch with another attempt available.
         if (isDelayedHealthRetry(request, cls)) {
           await sleepImpl(HEALTH_GATEWAY_RETRY_DELAY_MS, controller.signal)
-          if (timedOut || controller.signal.aborted) return { kind: 'offline' }
+          if (sharedTimedOut || controller.signal.aborted) return { kind: 'offline' }
         }
         continue
       }
@@ -125,6 +139,6 @@ export async function proxyOrigin(request, fetchImpl, options) {
 
     return { kind: 'offline' }
   } finally {
-    if (deadline) clearTimeout(deadline)
+    if (sharedDeadline) clearTimeout(sharedDeadline)
   }
 }

@@ -88,17 +88,48 @@ test('only exact GET health receives the delayed retry; other safe requests keep
     const healthy = new Response('ok', { status: 200 })
     const origin = sequence([gatewayResponse(502, 'first', cancelled), healthy])
     const sleeps = []
+    const controllers = []
     const result = await proxyOrigin(req, origin.fetch, {
       budgetMs: 8000,
       sleepImpl: async (ms) => { sleeps.push(ms) },
+      controllerFactory: () => {
+        const controller = new AbortController()
+        controllers.push(controller)
+        return controller
+      },
     })
 
     assert.equal(result.kind, 'response', `${req.method} ${req.url}`)
     assert.equal(result.response, healthy, `${req.method} ${req.url}`)
     assert.equal(origin.requests.length, 2, `${req.method} ${req.url}`)
+    assert.equal(controllers.length, 2, `${req.method} ${req.url} must retain a fresh per-attempt deadline`)
     assert.deepEqual(sleeps, [], `${req.method} ${req.url}`)
     assert.deepEqual(cancelled, ['first'], `${req.method} ${req.url}`)
   }
+})
+
+test('exact GET health shares one deadline signal across its delayed retry', async () => {
+  const cancelled = []
+  const origin = sequence([
+    gatewayResponse(502, 'first', cancelled),
+    new Response('ok', { status: 200 }),
+  ])
+  const controllers = []
+
+  const result = await proxyOrigin(request(), origin.fetch, {
+    budgetMs: 8000,
+    sleepImpl: noWait,
+    controllerFactory: () => {
+      const controller = new AbortController()
+      controllers.push(controller)
+      return controller
+    },
+  })
+
+  assert.equal(result.kind, 'response')
+  assert.equal(origin.requests.length, 2)
+  assert.equal(controllers.length, 1, 'health attempts and backoff must stay under one overall deadline')
+  assert.deepEqual(cancelled, ['first'])
 })
 
 test('non-idempotent and SSE gateway responses never retry', async () => {
