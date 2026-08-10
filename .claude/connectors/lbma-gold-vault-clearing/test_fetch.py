@@ -23,7 +23,7 @@ assert mod.parse_vault(vault.replace("a 0.77%", "an 8%"))[2]["change_mom_pct"] =
 try:
     mod.build(vault.replace("June 2026", "May 2026"), clearing)
 except RuntimeError as error:
-    assert "not aligned" in str(error)
+    assert "not aligned" in str(error), f"Expected period-alignment error, got: {error}"
 else:
     raise AssertionError("mismatched LBMA component periods did not fail closed")
 assert payload["clearing"]["value_change_mom_pct"] == -3.8 and payload["benchmark_price_included"] is False

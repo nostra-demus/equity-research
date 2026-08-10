@@ -31,7 +31,7 @@ duplicate_country_rows = rows + [
 try:
     mod.build(header + "".join(duplicate_country_rows), release_title="x", urls=urls)
 except RuntimeError as error:
-    assert "duplicate country/year" in str(error)
+    assert "duplicate country/year" in str(error), f"Expected country/year duplicate error, got: {error}"
 else:
     raise AssertionError("normalized duplicate country/year rows could fake country breadth")
 marker_rows = rows.copy()

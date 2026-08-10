@@ -213,7 +213,7 @@ def main() -> int:
             structured_profile("GOLD", profile_path=profile, structured_root=structured_root)
             raise AssertionError("markdown/structured policy mismatch must fail")
         except ValueError as error:
-            assert "mirror" in str(error)
+            assert "mirror" in str(error), f"Expected profile-mirror error, got: {error}"
         typo = copy.deepcopy(baseline)
         typo["requirements"][0]["quality"]["max_staleness_day"] = typo["requirements"][0]["quality"].pop("max_staleness_days")
         (structured_root / "GOLD.json").write_text(json.dumps(typo), encoding="utf-8")
@@ -221,7 +221,7 @@ def main() -> int:
             structured_profile("GOLD", profile_path=profile, structured_root=structured_root)
             raise AssertionError("a misspelled quality control must fail")
         except ValueError as error:
-            assert "quality controls" in str(error)
+            assert "quality controls" in str(error), f"Expected quality-control error, got: {error}"
         typo = copy.deepcopy(baseline)
         shared = typo["requirements"][2]["resolver"]
         shared["instrument_knd"] = shared.pop("instrument_kind")
@@ -230,7 +230,7 @@ def main() -> int:
             structured_profile("GOLD", profile_path=profile, structured_root=structured_root)
             raise AssertionError("a misspelled resolver control must fail")
         except ValueError as error:
-            assert "resolver shape" in str(error)
+            assert "resolver shape" in str(error), f"Expected resolver-shape error, got: {error}"
     print("PASS: commodity profile coverage has typed, point-in-time, provenance-bound resolvers")
     return 0
 

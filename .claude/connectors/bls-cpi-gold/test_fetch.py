@@ -36,14 +36,14 @@ def main() -> int:
         MODULE.build(duplicate, today=today)
         raise AssertionError("duplicate periods must fail")
     except RuntimeError as error:
-        assert "duplicate" in str(error)
+        assert "duplicate" in str(error), f"Expected duplicate-period error, got: {error}"
     wrong = document(2026, 2026, 7)
     wrong["Results"]["series"][0]["seriesID"] = "WRONG"
     try:
         MODULE.build([(docs[1][0], wrong)], today=today)
         raise AssertionError("wrong series must fail")
     except RuntimeError as error:
-        assert "identity" in str(error)
+        assert "identity" in str(error), f"Expected series-identity error, got: {error}"
     print("PASS: bls-cpi-gold")
     return 0
 
