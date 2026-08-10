@@ -220,6 +220,8 @@ jobs:
           else
             echo "skip: service load result contract not on this ref yet"
           fi
+          echo "== test-watchdog-cooldown.sh =="
+          bash scripts/ops/test-watchdog-cooldown.sh || rc=1
           exit $rc
 
       # Connector unit tests — zero-touch (§26): every .claude/connectors/*/test_*.py runs automatically, so

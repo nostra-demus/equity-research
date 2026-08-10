@@ -158,9 +158,12 @@ Every 30s it checks (1) `/api/health`, (2) that the served `index-*.js` comes ba
 `x-engine-status` header so it can tell a dead tunnel (code `000`/`>=520`) apart from the edge serving
 *offline* while the local engine is fine (`x-engine-status: offline` or `503` → `public-offline`) apart
 from a merely slow-but-working origin (logged as `SLOW`, never healed). Engine/bundle repairs fire after
-**2** consecutive failures (anti-flicker); **tunnel/public failures heal on the FIRST** (re-`kickstart`
-the tunnel) so the public URL recovers fast. It also kills a **stray second engine** on a non-`:8787`
-port (the load-doubling failure mode). Every incident + repair is logged to
+**2** consecutive failures (anti-flicker); the first **tunnel/public failure heals immediately** by
+re-`kickstart`ing the tunnel. The watchdog then persists a **300-second convergence cooldown**, including
+across an intervening healthy check, and logs `SUPPRESS HEAL` instead of repeatedly restarting a tunnel
+whose old connector is still draining. A failed restart command does not start the cooldown. Override the
+window with `WATCHDOG_TUNNEL_HEAL_COOLDOWN_SECONDS` (`0` disables suppression). It also kills a **stray
+second engine** on a non-`:8787` port (the load-doubling failure mode). Every incident + repair is logged to
 `~/Library/Logs/nostradamus-watchdog.log`. **You do nothing; it fixes itself and keeps a track.**
 
 ### Keeping the Mac awake (`caffeinate`)

@@ -4,12 +4,40 @@
 #   - a non-launchd process squatting :8787 (KeepAlive keeps EADDRINUSE-ing)
 #   - the engine "up" but serving BROKEN content (the blank page: HTML returned for the JS bundle)
 #   - the cloudflared tunnel being unreachable
-# Repairs automatically after 2 consecutive failures (so a single transient blip doesn't flap),
-# and logs every check/incident/repair to ~/Library/Logs/nostradamus-watchdog.log ("keep a track").
+# Local failures repair after 2 consecutive checks. A public/tunnel failure gets one immediate repair,
+# then a convergence cooldown prevents repeated tunnel restarts from extending an edge rollout flap.
+# Every check/incident/repair is logged to ~/Library/Logs/nostradamus-watchdog.log ("keep a track").
 set -uo pipefail
+
+# Pure decision helper. Keeping this above the source guard lets the test exercise cooldown boundaries
+# without running the watchdog (and therefore without touching launchctl or the network).
+tunnel_heal_cooldown_remaining() {
+  local now_raw="${1:-}" last_raw="${2:-}" cooldown_raw="${3:-}"
+  local now last cooldown elapsed
+  case "$now_raw" in ''|*[!0-9]*) return 2;; esac
+  case "$last_raw" in ''|*[!0-9]*) return 2;; esac
+  case "$cooldown_raw" in ''|*[!0-9]*) return 2;; esac
+  now=$((10#$now_raw)); last=$((10#$last_raw)); cooldown=$((10#$cooldown_raw))
+  elapsed=$((now - last))
+  # No prior heal, an expired/disabled cooldown, or a backwards clock step all permit one heal.
+  # A heal after a clock step rewrites the timestamp, avoiding an accidentally unbounded suppression.
+  if [ "$last" -eq 0 ] || [ "$elapsed" -lt 0 ] || [ "$elapsed" -ge "$cooldown" ]; then
+    printf '0\n'
+  else
+    printf '%s\n' "$((cooldown - elapsed))"
+  fi
+}
+
+if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
+  return 0
+fi
 
 REPO="${ENGINE_REPO_ROOT:-$HOME/nostra-prod}"
 PORT=8787
+TUNNEL_HEAL_COOLDOWN_SECONDS="${WATCHDOG_TUNNEL_HEAL_COOLDOWN_SECONDS:-300}"
+case "$TUNNEL_HEAL_COOLDOWN_SECONDS" in
+  ''|*[!0-9]*) TUNNEL_HEAL_COOLDOWN_SECONDS=300;;
+esac
 # resolve npm to an absolute path (launchd has a minimal PATH; brew is /opt/homebrew on Apple-Silicon, /usr/local on Intel)
 NPM="$(command -v npm 2>/dev/null || true)"; [ -n "$NPM" ] || for c in /opt/homebrew/bin/npm /usr/local/bin/npm; do [ -x "$c" ] && NPM="$c" && break; done; NPM="${NPM:-/opt/homebrew/bin/npm}"
 UID_NUM="$(id -u)"
@@ -17,19 +45,27 @@ AGENTS_DIR="$HOME/Library/LaunchAgents"
 LOG="$HOME/Library/Logs/nostradamus-watchdog.log"
 STATE_DIR="$HOME/Library/Application Support/nostradamus"
 FAILS="$STATE_DIR/watchdog.fails"
+TUNNEL_HEAL_AT="$STATE_DIR/tunnel-heal.at"
 mkdir -p "$STATE_DIR" "$(dirname "$LOG")"
 
 ts() { date '+%Y-%m-%d %H:%M:%S'; }
 log() { echo "$(ts) $*" >> "$LOG"; }
 get_fails() { cat "$FAILS" 2>/dev/null || echo 0; }
 set_fails() { echo "$1" > "$FAILS"; }
+get_tunnel_heal_at() {
+  local value
+  value="$(cat "$TUNNEL_HEAL_AT" 2>/dev/null || true)"
+  case "$value" in ''|*[!0-9]*) echo 0;; *) echo "$value";; esac
+}
+set_tunnel_heal_at() { echo "$1" > "$TUNNEL_HEAL_AT"; }
 # Recover an agent even if it was booted OUT (not just crashed): `kickstart` cannot start an
 # unloaded agent, so bootstrap first when it is gone, THEN (re)start. This is exactly what was
 # missing when a failed installer left the engine booted-out and the watchdog could not bring it back.
 ensure_up() {
-  launchctl print "gui/$UID_NUM/$1" >/dev/null 2>&1 \
-    || launchctl bootstrap "gui/$UID_NUM" "$AGENTS_DIR/$1.plist" 2>/dev/null || true
-  launchctl kickstart -k "gui/$UID_NUM/$1" 2>/dev/null || true
+  if ! launchctl print "gui/$UID_NUM/$1" >/dev/null 2>&1; then
+    launchctl bootstrap "gui/$UID_NUM" "$AGENTS_DIR/$1.plist" 2>/dev/null || return 1
+  fi
+  launchctl kickstart -k "gui/$UID_NUM/$1" 2>/dev/null
 }
 
 # keep the log bounded (~last 1000 lines once it passes 5000)
@@ -104,34 +140,52 @@ fi
 if [ -n "$problem" ]; then
   n=$(( $(get_fails) + 1 )); set_fails "$n"
   log "FAIL($n) $problem${detail:+ [$detail]}"
-  # Tunnel/public failures are unambiguous and cheap to heal idempotently → act on the FIRST fail so the
-  # public URL recovers fast. Engine/bundle wait for 2 (a single transient local blip shouldn't trigger a
-  # rebuild/restart).
+  # Tunnel/public failures get one immediate heal so the public URL recovers fast. Further tunnel heals
+  # wait for the persistent cooldown; engine/bundle repairs still wait for 2 local failures.
   thresh=2; case "$problem" in tunnel-down|public-offline) thresh=1;; esac
   if [ "$n" -ge "$thresh" ]; then
-    log "HEAL $problem"
     case "$problem" in
       bundle-not-js|no-bundle-ref)
+        log "HEAL $problem"
         log "  rebuilding ui/web (dist looks corrupt/missing)"
         ( cd "$REPO" && "$NPM" --prefix ui/web run build ) >> "$LOG" 2>&1 || log "  WARN web build failed"
         lsof -ti:"$PORT" 2>/dev/null | xargs kill -9 2>/dev/null || true
         ensure_up com.nostradamus.engine
+        set_fails 0
+        : > "$STATE_DIR/healing"
         ;;
       engine-down)
+        log "HEAL $problem"
         # clear any non-launchd squatter holding the port, then ensure launchd owns it again —
         # bootstrap if the agent was booted OUT, not merely crashed (kickstart alone can't).
         lsof -ti:"$PORT" 2>/dev/null | xargs kill -9 2>/dev/null || true
         ensure_up com.nostradamus.engine
+        set_fails 0
+        : > "$STATE_DIR/healing"
         ;;
       tunnel-down|public-offline)
-        # the local engine is fine but the public path isn't — re-kick the tunnel (the lever we own). The
-        # edge Worker is stateless, so if public-offline persists after this the only remaining cause is the
-        # edge timeout (a code fix), and it just keeps getting logged each cycle.
-        ensure_up com.nostradamus.tunnel
+        now="$(date +%s)"
+        last_heal="$(get_tunnel_heal_at)"
+        cooldown_remaining="$(tunnel_heal_cooldown_remaining "$now" "$last_heal" "$TUNNEL_HEAL_COOLDOWN_SECONDS")"
+        if [ "${cooldown_remaining:-0}" -gt 0 ]; then
+          log "SUPPRESS HEAL $problem — tunnel convergence cooldown ${cooldown_remaining}s remaining"
+          # Tunnel state has its own timestamp. Do not let its persistent failure count make the next
+          # one-off local engine/bundle failure skip the existing two-check threshold.
+          set_fails 0
+        else
+          log "HEAL $problem"
+          if ensure_up com.nostradamus.tunnel; then
+            set_tunnel_heal_at "$now"
+            : > "$STATE_DIR/healing"
+          else
+            # A failed launchctl command did not start convergence. Leave the timestamp untouched so the
+            # next watchdog cycle retries instead of suppressing recovery for the whole cooldown.
+            log "HEAL-FAILED $problem — tunnel restart command failed; retry remains armed"
+          fi
+          set_fails 0
+        fi
         ;;
     esac
-    set_fails 0                  # reset so the repair gets a cycle to take effect before any re-heal
-    : > "$STATE_DIR/healing"     # marker: the next healthy check writes an explicit RECOVERED line
   fi
 else
   if [ "$(get_fails)" != "0" ] || [ -f "$STATE_DIR/healing" ]; then
