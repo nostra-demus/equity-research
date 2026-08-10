@@ -88,6 +88,7 @@ import { startConnectorRepair } from './connector-repair'
 import { readPipelines } from './pipelines'
 import { SubjectBusyError, withSubjectLock } from './subject-lock'
 import { acquireSingletonLock, releaseSingletonLock } from './singleton-lock'
+import { shellForUrl } from './static-shell'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
 
@@ -3406,19 +3407,40 @@ if (fs.existsSync(WEB_DIST)) {
   // Read index.html FRESH per request (it's ~0.5 KB) and inject the live marker. Reading it once at
   // startup desyncs the served HTML from the on-disk hashed assets the moment ui/dist is rebuilt
   // while the server is running — the browser then requests a stale hash that 404s and the app blanks.
-  const sendIndex = (_req: any, reply: any) => {
+  const sendShell = (rel: string) => (_req: any, reply: any) => {
     let html = ''
-    try { html = fs.readFileSync(WEB_DIST + '/index.html', 'utf8') } catch {}
+    try { html = fs.readFileSync(`${WEB_DIST}/${rel}`, 'utf8') } catch {}
+    // Deploy skew: a NEW engine in front of an OLD dist has no m/index.html yet. Serve the desktop
+    // shell instead of an empty 200 — the phone gets the full app for one deploy cycle, which is
+    // ugly but working; a blank page is neither.
+    if (!html && rel !== 'index.html') {
+      try { html = fs.readFileSync(`${WEB_DIST}/index.html`, 'utf8') } catch {}
+    }
     html = html.replace('</head>', '<script>window.__ENGINE_LIVE__=true</script></head>')
     return reply.header('cache-control', 'no-cache').type('text/html').send(html)
   }
-  app.get('/', sendIndex)
+  const sendIndex = sendShell('index.html')
+  const sendMobile = sendShell('m/index.html')
+  // Every shell route reads its HTML from disk per request, so each carries the same explicit per-route
+  // limit the other filesystem-backed handlers use (same budget as the global cap, which still applies on
+  // top). Declared once and shared so a future shell cannot be added without it. Clears CodeQL
+  // js/missing-rate-limiting, which sees the global onRequest hook but not per-route.
+  const shellRoute = { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }
+  app.get('/', shellRoute, sendIndex)
+  // The phone chat shell. All three spellings need the marker-injecting route: the static plugin's
+  // wildcard would otherwise serve m/index.html as a plain file (no __ENGINE_LIVE__ marker), sending
+  // every mobile boot through the 6-second /api/health probe in ensureMode().
+  app.get('/m', shellRoute, sendMobile)
+  app.get('/m/', shellRoute, sendMobile)
+  app.get('/m/index.html', shellRoute, sendMobile)
   app.setNotFoundHandler((req, reply) => {
     // Never fall back to index.html for an API path or a static asset (anything with a file
     // extension): returning HTML for a missing .js/.css makes the browser reject the module and
     // blanks the whole app. A missing hashed asset must fail loudly as a 404.
     if (req.url.startsWith('/api/') || /\.[a-z0-9]+(?:\?|$)/i.test(req.url)) return reply.code(404).send({ error: 'not found' })
-    return sendIndex(req, reply)
+    // Two shells, one fallback rule: /m/* deep links land on the phone shell, everything else on the
+    // desktop one (static-shell.ts owns the prefix test — /m/history is mobile, /moo is not).
+    return (shellForUrl(req.url) === 'mobile' ? sendMobile : sendIndex)(req, reply)
   })
 }
 

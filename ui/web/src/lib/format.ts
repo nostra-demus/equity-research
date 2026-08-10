@@ -17,6 +17,11 @@ export function decisionTone(decision?: string | null): DecisionTone {
   if (/avoid|short/.test(d)) return 'negative'
   if (/watchlist|pair|hedge/.test(d)) return 'neutral'
   if (/insufficient/.test(d)) return 'none'
+  // the commodity vocabulary (SWARM.md routing Action): Hold reads positive-ish? No — Hold is neutral,
+  // Trim is a sell-down (negative), Research More is an honest not-yet (neutral). Without these cases
+  // half the commodity verdicts rendered colorless.
+  if (/trim/.test(d)) return 'negative'
+  if (/hold|research more/.test(d)) return 'neutral'
   return 'neutral'
 }
 export function decisionColor(decision?: string | null): string {

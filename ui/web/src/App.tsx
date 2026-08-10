@@ -151,6 +151,24 @@ function ScreenerStage() {
   return <WireSurface config={wireConfig ?? FLOW_WIRE_CONFIG} home={<ScreenerField />} />
 }
 
+// The return door to the phone chat shell. Rendered only on a coarse-pointer viewport ≤820px (the CSS
+// gates it), i.e. a phone user who chose "Use desktop site" — clearing the flag sends them back. The
+// topbar cannot host this: its children are nowrap + flex-shrink:0, so on a phone the bar's right side
+// is physically off-screen.
+function MobileViewPill() {
+  return (
+    <button
+      className="mobilepill"
+      onClick={() => {
+        try { localStorage.removeItem('nsw.forceDesktop') } catch { /* private mode */ }
+        location.href = '/m/'
+      }}
+    >
+      📱 Mobile view
+    </button>
+  )
+}
+
 export function App() {
   const init = useStore((s) => s.init)
   const openOutput = useStore((s) => s.openOutput)
@@ -244,6 +262,7 @@ export function App() {
           </motion.div>
         )}
       </AnimatePresence>
+      <MobileViewPill />
     </div>
   )
 }

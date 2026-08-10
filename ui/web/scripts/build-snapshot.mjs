@@ -209,6 +209,45 @@ function resolveRecordVerdict(dr, verdictField) {
   return typeof v === 'string' && v ? v : null
 }
 
+// Which key a record's verdict lands under — mirrors server roster.resolveVerdictKey: prefer `decision`
+// (research) when it's actually populated, else the swarm's own declared field (or its lowercase form)
+// when THAT is populated, else null (no verdict written yet).
+function resolveVerdictKey(dr, verdictField) {
+  if (dr && typeof dr.decision === 'string' && dr.decision) return 'decision'
+  if (!verdictField) return null
+  if (typeof dr?.[verdictField] === 'string' && dr[verdictField]) return verdictField
+  const lower = verdictField.toLowerCase()
+  if (typeof dr?.[lower] === 'string' && dr[lower]) return lower
+  return null
+}
+
+// The record key a swarm's verdict actually lands on — mirrors server ledger-corrections.verdictRecordKey.
+function verdictRecordKey(rec, verdictField) {
+  const f = (verdictField || '').trim()
+  if (!f) return 'decision'
+  if (Object.prototype.hasOwnProperty.call(rec, f)) return f
+  const lower = f.toLowerCase()
+  if (Object.prototype.hasOwnProperty.call(rec, lower)) return lower
+  return lower
+}
+
+// Post-mortem-capped display fields — mirrors server ledger-corrections.resolveDisplayFields exactly, so
+// the static snapshot can never publish an uncapped verdict/confidence the live server would show capped
+// (e.g. GOLD's pre_mortem-downgraded Trim/39 rendering as the original, uncapped Hold/52).
+function resolveDisplayFields(record, verdictField) {
+  const rec = record ?? {}
+  const key = verdictRecordKey(rec, verdictField)
+  const original = rec[key]
+  const pmDecision = rec[`post_mortem_${key}`]
+  const decision = (typeof pmDecision === 'string' && pmDecision ? pmDecision : null) ?? (typeof original === 'string' && original ? original : null)
+  const decisionIsPostMortemCapped = typeof pmDecision === 'string' && pmDecision !== '' && pmDecision !== original
+  const postReview = typeof rec.post_review_confidence_score === 'number' ? rec.post_review_confidence_score : null
+  const originalConfidence = typeof rec.confidence_score === 'number' ? rec.confidence_score
+    : typeof rec.confidence === 'number' ? rec.confidence : null
+  const confidence = postReview !== null ? postReview : originalConfidence
+  return { decision, decisionIsPostMortemCapped, confidence, confidenceIsPostReview: postReview !== null }
+}
+
 // Per-subject run summaries for a non-research swarm (mirrors roster.swarmSubjectSummaries): for each
 // subject, read its single run folder's decision_record.json (when present) and surface the routing
 // verdict/confidence/date so the static picker shows runs the way the live one does.
@@ -220,7 +259,7 @@ function swarmSubjectSummariesFor(sw) {
     // Normalise backslashes before the posix join: on Windows sw.runsRoot (derived via path.dirname) can
     // carry `\`, and path.posix.join would then emit a mixed-separator path (commodity\runs/GOLD) the web
     // client can't resolve. Forward slashes only for the served runRoot.
-    const summary = { subject, hasRun, runRoot: hasRun ? path.posix.join(sw.runsRoot.replace(/\\/g, '/'), subject) : null, verdict: null, decisionDate: null, confidence: null, lastChangeAt: null }
+    const summary = { subject, hasRun, runRoot: hasRun ? path.posix.join(sw.runsRoot.replace(/\\/g, '/'), subject) : null, verdict: null, decisionDate: null, confidence: null, verdictIsPostMortemCapped: false, confidenceIsPostReview: false, lastChangeAt: null }
     if (hasRun) {
       try { summary.lastChangeAt = fs.statSync(runAbs).mtimeMs } catch { /* folder vanished */ }
       const drPath = path.join(runAbs, 'decision_record.json')
@@ -229,8 +268,11 @@ function swarmSubjectSummariesFor(sw) {
         if (dr && typeof dr === 'object' && !Array.isArray(dr)) {
           summary.verdict = resolveRecordVerdict(dr, sw.verdictField)
           summary.decisionDate = typeof dr.decision_date === 'string' ? dr.decision_date : null
-          summary.confidence = typeof dr.confidence_score === 'number' ? dr.confidence_score
-            : typeof dr.confidence === 'number' ? dr.confidence : null
+          const disp = resolveDisplayFields(dr, resolveVerdictKey(dr, sw.verdictField))
+          if (disp.decision) summary.verdict = disp.decision
+          summary.verdictIsPostMortemCapped = disp.decisionIsPostMortemCapped
+          summary.confidence = disp.confidence
+          summary.confidenceIsPostReview = disp.confidenceIsPostReview
         }
         try { summary.lastChangeAt = fs.statSync(drPath).mtimeMs } catch { /* keep the folder mtime */ }
       } catch { /* no or malformed decision record — hasRun stays true, verdict null */ }

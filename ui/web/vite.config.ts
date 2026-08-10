@@ -1,3 +1,4 @@
+import path from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -9,11 +10,23 @@ export default defineConfig({
   build: {
     outDir: '../dist',
     emptyOutDir: true,
-    // Keep the heavy 3D stack (three.js + react-three) in its OWN chunk so it never bloats the main
-    // bundle — combined with the lazy import of GlobeStage, it downloads only when the globe is opened.
     rollupOptions: {
+      // Two pages, one build: the desktop cockpit and the phone chat shell (served at /m/ by the
+      // engine). The mobile entry imports only tokens.css + api/types/format — never store.ts or
+      // global.css — so its graph stays tiny; see ui/web/DESIGN.md §8.
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        mobile: path.resolve(__dirname, 'm/index.html'),
+      },
       output: {
         manualChunks(id) {
+          // React (and its scheduler) pinned to their OWN chunk. Without this, rolldown hoisted the
+          // react runtime INTO the 'three' chunk (their shared dependency), which made three-*.js a
+          // static import of the desktop entry — 971 KB fetched on every cold boot despite the lazy
+          // GlobeStage — and any second entry importing React would inherit it. The trailing slash
+          // keeps react-markdown/react-dom-adjacent packages out of the pin.
+          if (/node_modules\/(?:react|react-dom|scheduler)\//.test(id)) return 'react'
+          // The heavy 3D stack stays in its own chunk so it downloads only when the globe is opened.
           if (id.includes('node_modules/three')) return 'three'
           if (id.includes('@react-three')) return 'three'
         },

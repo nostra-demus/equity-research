@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark light" />
     <title>Nostradamus Swarm · Equity Research Cockpit</title>
+    <!-- Phone-sized touch clients get the chat shell at /m/ instead of this 550 KB cockpit. FIRST
+         script on purpose: bailing before any asset work matters. Three guards make it safe:
+         pathname must be exactly '/' (so a deploy-skew /m/ that fell back to this shell can never
+         redirect again — no loop), the user's "use desktop site" choice (nsw.forceDesktop, set by the
+         mobile shell) always wins, and it needs BOTH a coarse pointer and a narrow viewport — a
+         touch-screen laptop stays here. location.replace keeps Back working. -->
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem('nsw.forceDesktop') === '1') return
+          if (location.pathname !== '/') return
+          if (matchMedia('(pointer: coarse)').matches && matchMedia('(max-width: 820px)').matches) {
+            location.replace('/m/' + location.search + location.hash)
+          }
+        } catch (e) {}
+      })()
+    </script>
     <!-- Apply the saved theme before first paint so there's no flash. Default (unset) = dark. -->
     <script>
       (function () {

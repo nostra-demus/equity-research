@@ -1,0 +1,243 @@
+/* The phone stylesheet. Token-consuming only (DESIGN.md §1 — no hex here; a value that differs between
+   themes is a token by definition). Layout contract: one full-width column, 100dvh so the iOS URL bar
+   collapse can't clip the composer, safe-area insets on the chrome, 44px touch targets, and 16px input
+   text — below 16px iOS Safari zooms the whole page on focus. Hover styles are gated behind a hover
+   media query so they can never stick on touch. */
+
+/* The mobile entry deliberately does NOT import global.css (that is the whole point of the budget), so it
+   does not inherit the desktop's global border-box reset either. Without this, every `width: calc(100% - Npx)`
+   control adds its padding and border on top and overflows the viewport — the snapshot card alone runs 26px
+   wide. The reset has to live here because this stylesheet is the mobile surface's only global sheet. */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root { height: 100%; margin: 0; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+
+.m-root {
+  display: flex; flex-direction: column;
+  height: 100dvh;
+  background: var(--bg);
+}
+
+/* ---- header ---- */
+.mchat__bar {
+  flex: none;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: calc(10px + env(safe-area-inset-top)) 14px 10px;
+  border-bottom: 1px solid var(--hairline);
+  background: var(--bg);
+}
+.mchat__subject {
+  display: flex; align-items: center; gap: 8px;
+  min-height: 44px; padding: 0 6px;
+  background: none; border: 0; color: var(--text);
+  font: 500 16px var(--font-sans); cursor: pointer;
+}
+.mchat__swarmname { color: var(--text-muted); font-weight: 400; }
+.mchat__caret { color: var(--text-muted); font-size: 12px; }
+.mchat__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; }
+
+/* ---- static-showcase notice ---- */
+.mchat__static {
+  flex: none; margin: 10px 12px 0; padding: 10px 12px;
+  background: var(--surface-1); border: 1px solid var(--hairline); border-radius: var(--r-md);
+  color: var(--text-muted); font-size: 13px;
+}
+
+/* ---- thread ---- */
+.mchat__thread {
+  flex: 1; overflow-y: auto; overscroll-behavior: contain;
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 12px 12px 8px;
+}
+.mchat__msg { max-width: 88%; font-size: 15px; line-height: 1.5; border-radius: 16px; padding: 9px 13px; }
+.mchat__msg--user { align-self: flex-end; background: var(--surface-3); color: var(--text); border-bottom-right-radius: 5px; }
+.mchat__msg--ai { align-self: flex-start; max-width: 94%; background: var(--surface-1); border: 1px solid var(--hairline); color: var(--md-body); border-bottom-left-radius: 5px; }
+.mchat__md :is(p, ul, ol) { margin: 0 0 8px; }
+.mchat__md :is(p, ul, ol):last-child { margin-bottom: 0; }
+.mchat__md code { font-family: var(--font-mono); font-size: 13px; }
+.mchat__md table { border-collapse: collapse; font-size: 13px; display: block; overflow-x: auto; }
+.mchat__md td, .mchat__md th { border: 1px solid var(--hairline); padding: 4px 8px; }
+.mchat__md--plain { white-space: pre-wrap; }
+
+.mchat__think { margin-bottom: 8px; font-size: 13px; color: var(--text-muted); }
+.mchat__think summary { cursor: pointer; min-height: 28px; }
+.mchat__thinkbody { max-height: 190px; overflow-y: auto; white-space: pre-wrap; padding-top: 4px; }
+
+.mchat__msgacts { margin-top: 8px; display: flex; gap: 12px; }
+/* Copy is ALWAYS visible — on desktop it is hover-revealed, which on touch means invisible forever */
+.mchat__copy { background: none; border: 0; padding: 6px 4px; min-height: 32px; color: var(--text-muted); font: 400 13px var(--font-sans); cursor: pointer; }
+
+.mchat__starters { display: flex; flex-direction: column; gap: 8px; padding: 8px 2px; }
+.mchat__startershead { color: var(--text-faint); font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
+.mchat__starter {
+  text-align: left; min-height: 44px; padding: 10px 14px;
+  background: var(--surface-1); border: 1px solid var(--hairline); border-radius: var(--r-md);
+  color: var(--text); font: 400 15px var(--font-sans); cursor: pointer;
+}
+
+/* ---- live work strip ---- */
+.mchat__work { display: flex; align-items: center; gap: 8px; padding: 2px 4px; color: var(--text-muted); font-size: 13px; }
+.mchat__workdot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: mchat-pulse 1.2s ease-in-out infinite; }
+@keyframes mchat-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+@media (prefers-reduced-motion: reduce) { .mchat__workdot { animation: none; } }
+.mchat__workmodel { color: var(--text-faint); font-size: 12px; }
+.mchat__worktime { color: var(--text-faint); font-size: 12px; }
+.mono { font-family: var(--font-mono); }
+.mchat__stop {
+  margin-left: auto; min-height: 36px; padding: 4px 14px;
+  background: none; border: 1px solid var(--hairline-strong); border-radius: var(--r-pill);
+  color: var(--text); font: 400 13px var(--font-sans); cursor: pointer;
+}
+
+/* ---- error + retry ---- */
+.mchat__error {
+  align-self: stretch; padding: 10px 12px;
+  background: var(--bad-wash); border: 1px solid var(--bad); border-radius: var(--r-md);
+  color: var(--text); font-size: 13px;
+}
+.mchat__retry { margin-top: 8px; min-height: 40px; padding: 6px 16px; background: none; border: 1px solid var(--hairline-strong); border-radius: var(--r-pill); color: var(--text); font: 400 14px var(--font-sans); cursor: pointer; }
+
+.mchat__stopped { align-self: flex-start; display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: 13px; padding: 2px 4px; }
+.mchat__stopped .mchat__retry { margin-top: 0; }
+
+/* ---- composer ---- */
+.mchat__composer {
+  flex: none; display: flex; align-items: flex-end; gap: 8px;
+  padding: 8px 12px calc(10px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--hairline); background: var(--bg);
+}
+.mchat__input {
+  flex: 1; resize: none; min-height: 44px; max-height: 144px;
+  padding: 11px 14px;
+  background: var(--surface-2); border: 1px solid var(--hairline); border-radius: 18px;
+  color: var(--text);
+  font: 400 16px var(--font-sans); /* 16px is load-bearing: smaller and iOS zooms on focus */
+  line-height: 1.4;
+}
+.mchat__input::placeholder { color: var(--text-faint); }
+.mchat__input:focus { outline: none; border-color: var(--hairline-strong); }
+.mchat__send {
+  flex: none; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--accent); color: var(--accent-ink); border: 0;
+  font-size: 18px; cursor: pointer;
+}
+.mchat__send:disabled { opacity: 0.4; }
+.mchat__send--stop { background: var(--surface-3); color: var(--text); border: 1px solid var(--hairline-strong); font-size: 14px; }
+.mchat__send:active { transform: scale(0.97); }
+
+/* ---- footer ---- */
+.mchat__foot { flex: none; display: flex; justify-content: center; padding: 2px 0 calc(4px + env(safe-area-inset-bottom)); }
+.mchat__desktoplink { background: none; border: 0; min-height: 36px; color: var(--text-faint); font: 400 13px var(--font-sans); cursor: pointer; }
+
+@media (hover: hover) and (pointer: fine) {
+  .mchat__starter:hover, .mchat__stop:hover, .mchat__retry:hover { background: var(--btn-hover-bg); }
+  .mchat__copy:hover { color: var(--text); }
+}
+
+/* ---- header icon buttons ---- */
+.mchat__baricons { display: flex; align-items: center; gap: 4px; }
+.mchat__iconbtn {
+  min-height: 44px; min-width: 40px; padding: 0 10px;
+  background: none; border: 0; color: var(--text-muted);
+  font: 400 14px var(--font-sans); cursor: pointer;
+}
+
+/* ---- snapshot card ---- */
+.msnap {
+  flex: none; display: flex; flex-direction: column; align-items: flex-start; gap: 7px;
+  margin: 10px 12px 2px; padding: 11px 12px; width: calc(100% - 24px); text-align: left;
+  background: var(--surface-1); border: 1px solid var(--hairline); border-radius: var(--r-md);
+  color: var(--text); cursor: pointer;
+}
+.msnap__rowline { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.msnap__pill { background: var(--accent-wash); color: var(--accent-bright); font-size: 12px; padding: 3px 10px; border-radius: var(--r-pill); }
+.msnap__sub { color: var(--text-muted); font-size: 13px; }
+.msnap__faint { color: var(--text-faint); }
+.msnap__price { font-size: 13px; color: var(--md-body); }
+.msnap__pos { color: var(--live); }
+.msnap__neg { color: var(--bad); }
+.msnap__headline { font-size: 14px; line-height: 1.4; color: var(--md-body); }
+.msnap__chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.msnap__chip { border: 1px solid var(--hairline); color: var(--text-muted); font-size: 11.5px; padding: 2px 9px; border-radius: var(--r-pill); }
+
+/* ---- bottom sheets ---- */
+.msheet__scrim { position: fixed; inset: 0; background: var(--scrim); display: flex; align-items: flex-end; z-index: 50; }
+.msheet {
+  background: var(--surface-2); border-top: 1px solid var(--hairline-strong);
+  border-radius: 18px 18px 0 0; width: 100%; max-height: 82dvh;
+  display: flex; flex-direction: column;
+  padding: 8px 0 calc(10px + env(safe-area-inset-bottom));
+  animation: msheet-up var(--dur) var(--ease-out);
+}
+@keyframes msheet-up { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .msheet { animation: none; } }
+.msheet__grab { width: 36px; height: 4px; background: var(--hairline-strong); border-radius: var(--r-pill); margin: 4px auto 12px; flex: none; }
+.msheet__head { padding: 4px 16px 8px; color: var(--text-faint); font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; flex: none; }
+.msheet__headrow { display: flex; align-items: center; justify-content: space-between; padding: 4px 16px 10px; flex: none; }
+.msheet__tabs { display: flex; gap: 7px; padding: 0 14px 11px; flex: none; overflow-x: auto; }
+.msheet__tab {
+  min-height: 36px; padding: 5px 14px; flex: none;
+  background: none; border: 1px solid var(--hairline-strong); border-radius: var(--r-pill);
+  color: var(--text-muted); font: 400 14px var(--font-sans); cursor: pointer;
+}
+.msheet__tab--on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 500; }
+.msheet__search {
+  margin: 0 14px 10px; padding: 10px 13px; flex: none;
+  background: var(--surface-3); border: 1px solid var(--hairline); border-radius: var(--r-md);
+  color: var(--text); font: 400 16px var(--font-sans); /* 16px: iOS zoom guard */
+}
+.msheet__search::placeholder { color: var(--text-faint); }
+.msheet__list { overflow-y: auto; overscroll-behavior: contain; }
+.msheet__list--tight { flex: none; }
+.msheet__row {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  width: 100%; min-height: 48px; padding: 10px 16px; text-align: left;
+  background: none; border: 0; border-bottom: 1px solid var(--hairline);
+  color: var(--text); font: 400 15px var(--font-sans); cursor: pointer;
+}
+.msheet__row:disabled { opacity: 0.55; }
+.msheet__row--on { background: var(--accent-wash-soft); }
+.msheet__row--wire .msheet__rowlabel { color: var(--accent-bright); }
+.msheet__rowlabel { flex: none; max-width: 60%; }
+.msheet__rowlabel--wrap { flex: 1; max-width: none; font-size: 14px; line-height: 1.35; }
+.msheet__rowsub { color: var(--text-faint); font-size: 12.5px; text-align: right; }
+.msheet__pill { background: var(--accent-wash); color: var(--accent-bright); font-size: 12px; padding: 3px 10px; border-radius: var(--r-pill); flex: none; }
+.msheet__pill--off { background: none; border: 1px solid var(--hairline); color: var(--text-faint); }
+.msheet__empty { padding: 22px 16px; color: var(--text-faint); font-size: 14px; }
+.msheet__foot { flex: none; min-height: 44px; margin-top: 4px; background: none; border: 0; color: var(--text-faint); font: 400 13px var(--font-sans); cursor: pointer; }
+
+/* ---- history rows ---- */
+.mhist__row { display: flex; align-items: stretch; border-bottom: 1px solid var(--hairline); }
+.mhist__main { flex: 1; padding: 11px 4px 11px 16px; background: none; border: 0; text-align: left; color: var(--text); cursor: pointer; }
+.mhist__title { display: block; font-size: 14.5px; line-height: 1.35; }
+.mhist__meta { display: flex; gap: 9px; margin-top: 4px; color: var(--text-faint); font-size: 12px; }
+.mhist__subj { color: var(--accent-bright); }
+.mhist__del { flex: none; width: 52px; background: none; border: 0; color: var(--text-faint); font-size: 15px; cursor: pointer; }
+.mhist__del--confirm { background: var(--bad); color: #fff; font-size: 13px; border-radius: 0; }
+
+/* ---- news wire ---- */
+.mnews__bar { flex: none; display: flex; gap: 7px; padding: 10px 14px 0; }
+.mnews__receipt { flex: none; padding: 8px 14px; border-bottom: 1px solid var(--hairline); color: var(--text-faint); font-size: 12px; }
+.mnews__cited { align-self: stretch; background: var(--surface-1); border: 1px solid var(--hairline); border-radius: var(--r-md); padding: 9px 11px; font-size: 12.5px; color: var(--text-muted); }
+.mnews__cited summary { cursor: pointer; min-height: 28px; }
+.mnews__citedrow { display: flex; gap: 8px; padding: 6px 0 0; }
+.mnews__ref { color: var(--accent-bright); flex: none; }
+.mnews__citedbody { color: var(--md-body); line-height: 1.4; }
+
+@media (hover: hover) and (pointer: fine) {
+  .msheet__row:hover:not(:disabled), .mhist__main:hover { background: var(--btn-hover-bg); }
+  .mchat__iconbtn:hover { color: var(--text); }
+}
+
+/* ---- run-first empty state ---- */
+.mrunfirst { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 0 26px; color: var(--text-muted); font-size: 14.5px; line-height: 1.55; text-align: center; }
+.mrunfirst__h { color: var(--text); font-size: 17px; font-weight: 500; }
+.mrunfirst__hint { color: var(--text-faint); font-size: 13px; }
+.mrunfirst__btn {
+  align-self: center; min-height: 46px; padding: 10px 22px;
+  background: var(--accent); color: var(--accent-ink); border: 0; border-radius: var(--r-pill);
+  font: 500 15px var(--font-sans); cursor: pointer;
+}
+.mrunfirst__btn:disabled { opacity: 0.5; }
+.mrunfirst__btn:active { transform: scale(0.97); }
