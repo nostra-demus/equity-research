@@ -120,9 +120,15 @@ export function sweep(): { broken: number; repairs: number } {
   let text = ''
   try { text = fs.readFileSync(ledgerPath(), 'utf8') } catch { text = '' }
   const repairEvents = readRepairEvents()
+  const automationAvailable = connectorAutoRepairReady()
+  // PR inspection uses synchronous gh/git subprocesses. When automatic repair is hard-disabled, defer that
+  // remote reconciliation instead of blocking the server event loop. The append-only pr_open state remains
+  // intact for a later enabled sweep, while the local fold below still releases orphaned `repairing` rows.
+  const inspectPr = automationAvailable ? inspectRepairPr : () => null
+  const resolveMerged = automationAvailable ? resolveMergedRepairPr : () => null
   for (const transition of repairLifecycleTransitionsFromLedger(
-    text, repairEvents, inspectRepairPr, resolveMergedRepairPr,
-    { automationAvailable: connectorAutoRepairReady(), runnerStartedAt: RUNNER_STARTED_AT },
+    text, repairEvents, inspectPr, resolveMerged,
+    { automationAvailable, runnerStartedAt: RUNNER_STARTED_AT },
   )) {
     const key = `assessed:${transition.connector_id}:${transition.subject ?? '*'}:${transition.pr_url}`
     if (verificationWrites.has(key)) continue
@@ -132,7 +138,7 @@ export function sweep(): { broken: number; repairs: number } {
       base_fingerprint: transition.base_fingerprint, base_commit: transition.base_commit,
     }).finally(() => verificationWrites.delete(key))
   }
-  for (const verified of repairVerificationsFromLedger(text, repairEvents, resolveMergedRepairPr)) {
+  for (const verified of repairVerificationsFromLedger(text, repairEvents, resolveMerged)) {
     const key = `verified:${verified.connector_id}:${verified.subject}:${verified.pr_url ?? ''}`
     if (verificationWrites.has(key)) continue
     verificationWrites.add(key)
@@ -144,7 +150,7 @@ export function sweep(): { broken: number; repairs: number } {
   const broken = brokenFromLedger(text)
   const health = feedHealthFromLedger(text)
   let repairs = 0
-  if (connectorAutoRepairReady()) {
+  if (automationAvailable) {
     const connectors = listConnectors()
     for (const b of broken) {
       const m = connectors.find((c) => c.id === b.connector)
