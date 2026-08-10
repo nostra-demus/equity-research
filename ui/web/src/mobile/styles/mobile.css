@@ -223,3 +223,15 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-sans);
   .msheet__row:hover:not(:disabled), .mhist__main:hover { background: var(--btn-hover-bg); }
   .mchat__iconbtn:hover { color: var(--text); }
 }
+
+/* ---- run-first empty state ---- */
+.mrunfirst { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 0 26px; color: var(--text-muted); font-size: 14.5px; line-height: 1.55; text-align: center; }
+.mrunfirst__h { color: var(--text); font-size: 17px; font-weight: 500; }
+.mrunfirst__hint { color: var(--text-faint); font-size: 13px; }
+.mrunfirst__btn {
+  align-self: center; min-height: 46px; padding: 10px 22px;
+  background: var(--accent); color: var(--accent-ink); border: 0; border-radius: var(--r-pill);
+  font: 500 15px var(--font-sans); cursor: pointer;
+}
+.mrunfirst__btn:disabled { opacity: 0.5; }
+.mrunfirst__btn:active { transform: scale(0.97); }

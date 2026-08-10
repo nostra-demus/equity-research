@@ -12,6 +12,7 @@ import { useMobileChat, type ChatTarget } from './chat/useMobileChat'
 import { HistorySheet } from './history/HistorySheet'
 import { NewsChat } from './newschat/NewsChat'
 import { readChatStyle, readSavedSubject, saveSubject, useDesktopSite, type ChatStyle } from './prefs'
+import { RunFirst } from './chat/RunFirst'
 import { PrefsSheet } from './sheets/PrefsSheet'
 import { ScopeSheet } from './sheets/ScopeSheet'
 import { SubjectSheet, type SubjectChoice } from './sheets/SubjectSheet'
@@ -70,6 +71,20 @@ export function MobileApp() {
 
   const swarm = useMemo(() => swarms.find((s) => s.id === (target?.swarm ?? 'research')), [swarms, target])
   const chat = useMobileChat(target, model, style)
+
+  // present = the desktop's run-first gate, from the server's own availability rules. A resumed
+  // conversation is ALWAYS chat-able (its runRoot answers), matching ChatPanel's rule.
+  const [present, setPresent] = useState(true)
+  useEffect(() => {
+    if (!target || newsWire) { setPresent(true); return }
+    if (target.runRoot) { setPresent(true); return }
+    let dead = false
+    void api.chatScopes(target.subject, target.swarm).then((sc) => {
+      if (dead) return
+      setPresent(target.scope === 'run' ? sc.run.present : target.scope === 'module' ? !!sc.modules.find((m) => m.module === target.module)?.present : !!sc.orbs.find((o) => o.path === target.orbPath)?.present)
+    }).catch(() => { if (!dead) setPresent(true) /* fail open — the server 409s with its own hint */ })
+    return () => { dead = true }
+  }, [target, newsWire])
   const snap = useSnapshot(newsWire ? undefined : target?.swarm, newsWire ? undefined : target?.subject, swarm?.layout)
 
   const pick = (c: SubjectChoice) => {
@@ -137,10 +152,14 @@ export function MobileApp() {
       ) : (
         <>
           <SnapshotHeader snap={snap} onTap={() => setSheet('subject')} />
-          <Thread chat={chat} starters={target ? SUGGESTIONS[target.scope] : undefined} onStarter={(q) => chat.send(q)} />
+          {target && !present ? (
+            <RunFirst swarm={target.swarm} subject={target.subject} scope={target.scope} module={target.module} isFlow={swarm?.layout === 'flow'} staticMode={staticMode} />
+          ) : (
+            <Thread chat={chat} starters={target ? SUGGESTIONS[target.scope] : undefined} onStarter={(q) => chat.send(q)} />
+          )}
           <Composer
-            placeholder={target ? `Ask about ${shortSubject(target.subject)}…` : 'Ask…'}
-            disabled={!target || staticMode}
+            placeholder={target ? (present ? `Ask about ${shortSubject(target.subject)}…` : 'Run this output first to chat with it') : 'Ask…'}
+            disabled={!target || staticMode || !present}
             streaming={chat.state.streaming}
             onSend={chat.send}
             onStop={chat.stop}

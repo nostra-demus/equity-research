@@ -119,6 +119,8 @@ merging.**
 | `src/components/CommandBar.tsx` | top bar: swarm switcher, theme toggle, status | all swarms |
 | `src/components/datalibrary/*` — `DataLibrary`, `DataLibraryFilters` | the cross-swarm data-pipeline library: connector registry + pool freshness + recommended-to-add (guarded by `ui/server/test/datalibrary-purity.test.ts`) | all swarms |
 | `src/styles/tokens.css` + `src/styles/global.css` | the theming contract + every component class | all swarms |
+| `src/styles/computed-card.css` + `src/components/chat/computed.tsx` | the what-if / target-reprice card — ONE component + stylesheet rendered by BOTH the desktop ChatPanel and the mobile chat | all swarms, both surfaces |
+| `m/**` + `src/mobile/**` + `public/m/**` | the phone chat shell served at `/m/` — consumes `tokens.css`, `api.ts`, `types.ts`, `format.ts` | all swarms |
 
 ## 7. Wire component contract
 
@@ -135,6 +137,41 @@ The wire is ONE surface rented to many swarms. The manifest is the only thing th
   `'screener'` / `'commodity'` / `'research'` anywhere inside `components/wire/**` or
   `lib/wire.ts`; `ui/server/test/wire-manifest.test.ts` asserts the manifest `wire:` block
   round-trips unchanged from `SWARM.md` through the server to the client config.
+
+## 8. Mobile surface (`/m/`)
+
+The phone chat shell is a SECOND Vite input (`m/index.html` → `src/mobile/**`), served by the engine at
+`/m/` on the same origin — same Cloudflare Access identity, same API, zero CORS. It exists to be light
+and chat-first; the rules that keep it that way:
+
+- **Dependency contract.** The mobile graph imports `tokens.css`, `computed-card.css`, `api.ts`,
+  `types.ts`, `format.ts` — and NEVER `store.ts` (5k lines, hydrates whole swarm graphs) or
+  `global.css` (362 KB). Scope availability comes from `GET /api/chat/scopes`, not the graph.
+- **Budget: ≤ 100 KB gzip JS on the boot path.** Review check is one command:
+  `grep -o 'modulepreload[^>]*' ui/dist/m/index.html` — the page may preload the runtime, the react
+  chunk and the shared api slice, and nothing else. `react-markdown` stays behind a lazy import.
+  (The react chunk pin in `vite.config.ts` is load-bearing for BOTH pages: without it rolldown hoists
+  React into the three.js chunk and every desktop boot downloads 971 KB of 3-D engine again.)
+- **Touch contract** (each the deliberate opposite of the desktop drawer): a visible Stop while
+  streaming + a "Stopped. Ask again" chip after (Esc has no finger; the rolled-back question must not
+  vanish); Copy always visible (hover-revealed = invisible on touch); the send button sends and Enter
+  newlines on a coarse pointer (a fine pointer keeps Enter-sends); pickers are bottom sheets in thumb
+  reach; ≥44px targets; **16px input text** — one point smaller and iOS Safari zooms the page on focus;
+  `100dvh` + `env(safe-area-inset-*)` on the chrome.
+- **Parity, not reinvention.** The chat behaves as `ChatPanel` does: same scopes (orb chats resume but
+  aren't created here — that needs the document reader), same starters/models/styles, the same
+  computed/reprice cards via the SHARED component above, the same run-first empty state (the module
+  button fires the same paid `POST /api/launch`, no confirm — desktop's own behavior), the same error
+  and turn-id-idempotent retry semantics, the news wire as the screener's second book. Divergences are
+  touch-driven, listed above, and deliberate.
+- **Zero-touch swarms (§26).** Tabs, labels and accents derive from `/api/swarms` (`data-swarm` +
+  inline `--swarm-color`, the same `.app` contract as desktop). Subject rows come from the source each
+  swarm's data actually lives in: research `/api/tickers`, a `flow` swarm its board index, anything
+  else `/api/swarm/subjects`. A new swarm must appear with no `src/mobile/**` edits.
+- **The two-way switch.** `/` redirects coarse-pointer ≤820px clients to `/m/` (first head script,
+  loop-safe, `nsw.forceDesktop` wins); the mobile footer's "Use desktop site" sets that flag; the
+  desktop's floating "Mobile view" pill (coarse ≤820px only — the topbar never wraps, so it cannot
+  host the way back) clears it.
 
 ---
 
