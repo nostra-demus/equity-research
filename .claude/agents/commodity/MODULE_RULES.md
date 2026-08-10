@@ -184,9 +184,11 @@ Never equate gross production with supply available to the global buyer. The sup
 must reconcile one physical bridge, in consistent units, with a visible residual:
 
 ```
-gross production + releases/recycling/import availability
-− domestic absorption − stock build
-= pre-policy exportable supply
+origin gross production + releases/recycling + net imports
+− origin domestic absorption − origin stock build
+= origin pre-policy exportable supply
+− all inter-origin imports/exports on world consolidation
+= world production + releases/recycling − world absorption − world stock build
 − restricted/sanctioned volume − physically stranded volume
 + verified rerouting that reaches an unrestricted buyer
 = globally accessible supply
@@ -196,12 +198,16 @@ The supply orb owns production and domestic absorption; supply-security owns res
 chokepoints and rerouting. The synthesis adjudicates the bridge and rejects double-counting. Exchange
 delivery ineligibility is not automatically lost production, and a rerouted unit is not fully accessible
 unless destination, discount, transport delay and settlement/insurance limits support that conclusion.
+Imports and exports may reconcile an individual origin, but they are transfers and cancel from the
+consolidated world bridge. A produced unit cannot re-enter world supply merely because it was traded.
 
 Supply opacity is measured, never described from vibes. The synthesis passes primary-source production
 coverage, estimate dispersion and release-cycle lateness to `scripts/commodity_analytical_contracts.py`.
 High opacity — primary coverage below 70%, estimate dispersion above 15%, over two release cycles late,
 or any unmeasured audit input — caps the supply-demand score at 45. Medium opacity caps it at 65. The
-cap can only reduce the raw score.
+cap can only reduce the raw score. This is a **directional-conviction score**: higher means stronger
+evidence for the separately stated surplus/deficit direction. It never means more bullish, tighter supply,
+or better availability; a well-proven surplus and a well-proven deficit can both score highly.
 
 ## 10. Independent distribution before action
 
