@@ -553,6 +553,15 @@ def validate_decision_record(
             errors.append("a null current_price.value forces both horizons to not_assessable")
     elif not _number(price_value) or float(price_value) <= 0:
         errors.append("current_price.value must be a positive finite number or a proven unavailable null")
+    if price_series_unresolved and price_value is not None:
+        errors.append("unresolved required current-price coverage forces current_price.value to null")
+    if price_value is None and isinstance(current_price, dict):
+        forbidden_labels = sorted(set(current_price).intersection({"currency", "unit", "as_of"}))
+        if forbidden_labels:
+            errors.append(
+                "a null current_price.value cannot carry invented price labels: "
+                f"{forbidden_labels}"
+            )
     if set(horizons) != {"tactical", "strategic"}:
         errors.append("forecast_horizons must contain exactly tactical and strategic")
     for name in ("tactical", "strategic"):

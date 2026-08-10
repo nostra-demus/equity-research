@@ -10,6 +10,7 @@ import json
 import math
 import os
 import sys
+import unicodedata
 import urllib.parse
 
 SCRIPTS = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))), "scripts")
@@ -89,7 +90,7 @@ def build(csv_text: str, *, release_title: str, urls: list[str]):
             year = int(str(row.get("Year", "")))
         except ValueError as error:
             raise RuntimeError("USGS Gold row has a non-integer year") from error
-        country = str(row.get("Country", "")).strip()
+        country = " ".join(unicodedata.normalize("NFKC", str(row.get("Country", ""))).split())
         if not country:
             raise RuntimeError("USGS Gold row has an empty country")
         country_year = (country.casefold(), year)

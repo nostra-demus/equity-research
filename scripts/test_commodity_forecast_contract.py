@@ -327,6 +327,18 @@ def main() -> int:
     ) == [], validate_decision_record(
         null_price, price_artifact, price_artifact_digest, price_requirements,
     )
+    fabricated_price = copy.deepcopy(null_price)
+    fabricated_price["current_price"] = {
+        "value": 100, "currency": "USD", "unit": "USD/oz", "as_of": "2026-08-11",
+    }
+    assert any("forces current_price.value to null" in error for error in validate_decision_record(
+        fabricated_price, price_artifact, price_artifact_digest, price_requirements,
+    ))
+    labeled_null = copy.deepcopy(null_price)
+    labeled_null["current_price"]["currency"] = "USD"
+    assert any("cannot carry invented price labels" in error for error in validate_decision_record(
+        labeled_null, price_artifact, price_artifact_digest, price_requirements,
+    ))
     with tempfile.TemporaryDirectory() as temporary:
         path = Path(temporary) / "null-price.json"
         path.write_text(json.dumps(null_price), encoding="utf-8")
@@ -423,6 +435,9 @@ def main() -> int:
         artifact_bytes = (json.dumps(cli_artifact, indent=2, ensure_ascii=False) + "\n").encode()
         cli_digest = "sha256:" + hashlib.sha256(artifact_bytes).hexdigest()
         cli_fresh = copy.deepcopy(fresh)
+        cli_fresh["current_price"] = {
+            "value": None, "unavailable_reason": "synthetic current quote is unresolved",
+        }
         cli_fresh["required_series_coverage"].update({
             "artifact_sha256": cli_digest,
             "required_count": len(actual_requirements),

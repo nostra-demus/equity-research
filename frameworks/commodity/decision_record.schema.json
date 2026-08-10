@@ -180,7 +180,16 @@
         },
         {
           "if": { "properties": { "value": { "type": "null" } } },
-          "then": { "required": ["unavailable_reason"] }
+          "then": {
+            "required": ["unavailable_reason"],
+            "not": {
+              "anyOf": [
+                { "required": ["currency"] },
+                { "required": ["unit"] },
+                { "required": ["as_of"] }
+              ]
+            }
+          }
         }
       ]
     },
