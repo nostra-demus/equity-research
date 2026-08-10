@@ -146,7 +146,7 @@ def _validate_horizon(
             errors.append(f"{prefix}.scenarios must be absent/empty when not assessable")
         stale_fields = (
             "expected_return_components_pct", "loss_probability_pct", "downside_pct", "risk_reward",
-            "cash_hurdle", "span_audit", "catalysts", "falsifiers",
+            "cash_hurdle", "span_audit", "catalysts", "falsifiers", "evidence_links",
         )
         for field in stale_fields:
             if horizon.get(field) not in (None, []):
@@ -324,6 +324,28 @@ def _validate_horizon(
             errors.append(f"{prefix}.{field} must be a non-empty array")
         elif any(not isinstance(value, str) or not value.strip() for value in horizon[field]):
             errors.append(f"{prefix}.{field} entries must be non-empty strings")
+    evidence_links = horizon.get("evidence_links")
+    if not isinstance(evidence_links, list) or not evidence_links:
+        errors.append(f"{prefix}.evidence_links must be a non-empty array")
+    else:
+        for index, link in enumerate(evidence_links):
+            lp = f"{prefix}.evidence_links[{index}]"
+            if not isinstance(link, dict) or set(link) != {"conclusion", "cluster_ids", "source_vintage_ids"}:
+                errors.append(f"{lp} must contain exactly conclusion, cluster_ids and source_vintage_ids")
+                continue
+            if not isinstance(link.get("conclusion"), str) or not link["conclusion"].strip():
+                errors.append(f"{lp}.conclusion must be non-empty")
+            for field, pattern in (
+                ("cluster_ids", r"^[a-z0-9][a-z0-9._-]*$"),
+                ("source_vintage_ids", r"^sha256:[a-f0-9]{64}$"),
+            ):
+                values = link.get(field)
+                if not isinstance(values, list) or not values:
+                    errors.append(f"{lp}.{field} must be a non-empty array")
+                elif len(values) != len(set(values)) or any(
+                    not isinstance(value, str) or re.fullmatch(pattern, value) is None for value in values
+                ):
+                    errors.append(f"{lp}.{field} must contain unique valid IDs")
     return errors
 
 
@@ -333,6 +355,8 @@ def _coverage_errors(
     coverage_resolver: Callable[[str, str, str], dict[str, Any] | None] | None,
 ) -> list[str]:
     errors: list[str] = []
+    if not isinstance(record.get("commodity_family"), str) or re.fullmatch(r"[a-z0-9][a-z0-9-]*", record["commodity_family"]) is None:
+        errors.append("commodity_family must be the frozen lowercase profile-family slug")
     try:
         is_fresh = dt.date.fromisoformat(str(record.get("decision_date"))) >= COVERAGE_CUTOVER
     except ValueError:

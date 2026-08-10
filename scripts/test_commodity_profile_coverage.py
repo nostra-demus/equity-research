@@ -9,7 +9,7 @@ import json
 import tempfile
 from pathlib import Path
 
-from commodity_profile_coverage import _quality_error, compile_coverage, resolve_profile_series, structured_profile
+from commodity_profile_coverage import _quality_error, compile_coverage, profile_family, resolve_profile_series, structured_profile
 
 
 ROWS = [
@@ -68,9 +68,21 @@ def main() -> int:
             requirement(ROWS[5], {"max_staleness_days": 10}, {"kind": "connector"}),
         ]
         (structured_root / "GOLD.json").write_text(json.dumps({
-            "schema_version": 1, "commodity": "GOLD", "requirements": requirements,
+            "schema_version": 1, "commodity": "GOLD", "family": "precious-metals", "requirements": requirements,
         }), encoding="utf-8")
         assert len(structured_profile("GOLD", profile_path=profile, structured_root=structured_root)) == 6
+        assert profile_family("GOLD", structured_root=structured_root) == "precious-metals"
+        wrong_identity = json.loads((structured_root / "GOLD.json").read_text(encoding="utf-8"))
+        wrong_identity["commodity"] = "OIL"
+        (structured_root / "GOLD.json").write_text(json.dumps(wrong_identity), encoding="utf-8")
+        try:
+            profile_family("GOLD", structured_root=structured_root)
+            raise AssertionError("family lookup accepted a different commodity identity")
+        except ValueError as error:
+            assert "identity" in str(error)
+        (structured_root / "GOLD.json").write_text(json.dumps({
+            "schema_version": 1, "commodity": "GOLD", "family": "precious-metals", "requirements": requirements,
+        }), encoding="utf-8")
 
         manifests = [
             {

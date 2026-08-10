@@ -74,6 +74,8 @@ export function SnapshotHeader({ snap, onTap }: { snap: Snapshot | null; onTap: 
               {snap.confidenceRaw != null && <span className="msnap__faint"> ({snap.confidenceRaw} before red-team cap)</span>}
             </span>
           )}
+          {snap.targetExposure !== undefined && <span className="msnap__sub">target {snap.targetExposure == null ? 'awaiting evidence' : `${snap.targetExposure} risk units`}</span>}
+          {snap.conflict && <span className="msnap__conflict">horizons conflict</span>}
         </span>
         {snap.price != null && (
           <span className="msnap__price mono">
@@ -83,6 +85,17 @@ export function SnapshotHeader({ snap, onTap }: { snap: Snapshot | null; onTap: 
         )}
         {snap.chips.length > 0 && (
           <span className="msnap__chips">{snap.chips.map((c) => <span key={c} className="msnap__chip">{c}</span>)}</span>
+        )}
+        {snap.horizons && (
+          <span className="msnap__horizons">
+            {snap.horizons.map((horizon) => (
+              <span className="msnap__horizon" key={horizon.name}>
+                <b>{horizon.name}</b> · {horizon.classification}
+                {horizon.implementableReturnPct != null && <> · {horizon.implementableReturnPct > 0 ? '+' : ''}{horizon.implementableReturnPct}% implementable</>}
+                {horizon.targetDate && <span className="msnap__faint"> · to {horizon.targetDate}</span>}
+              </span>
+            ))}
+          </span>
         )}
       </button>
     )

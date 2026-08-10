@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import datetime as dt
+import hashlib
 import importlib.util
 import json
 import tempfile
@@ -227,6 +228,7 @@ def test_decision_abstention_gate() -> None:
         (run / "signal_evidence.json").write_text(json.dumps(graph), encoding="utf-8")
         projection = {
             "path": "signal_evidence.json", "generated_at": graph["generated_at"],
+            "artifact_sha256": "sha256:" + hashlib.sha256((run / "signal_evidence.json").read_bytes()).hexdigest(),
             "coverage_complete": False, "raw_signal_count": 2, "independent_cluster_count": 1,
             "conviction_eligible_cluster_count": 0, "contradiction_count": 1,
         }
@@ -238,6 +240,40 @@ def test_decision_abstention_gate() -> None:
         decision.write_text(json.dumps({"commodity": "GOLD", "action": "Research More", "signal_evidence": projection}), encoding="utf-8")
         assert schema_validator.check_commodity_signal_projection(str(decision)) == []
         print("PASS: incomplete evidence coverage deterministically forces Research More")
+
+
+def test_horizon_links_bind_to_graph() -> None:
+    with tempfile.TemporaryDirectory() as temp:
+        run = Path(temp) / "GOLD"
+        run.mkdir()
+        vintage = "sha256:" + "a" * 64
+        graph = {
+            "commodity": "GOLD", "generated_at": "2026-08-10T00:00:00Z",
+            "coverage": {"complete": True},
+            "summary": {"raw_signal_count": 1, "independent_cluster_count": 1,
+                        "conviction_eligible_cluster_count": 1, "contradiction_count": 0},
+            "records": [{"signal_id": "real-yields", "source_vintage_ids": [vintage]}],
+            "clusters": [{"cluster_id": "macro-1", "signal_ids": ["real-yields"]}],
+        }
+        (run / "signal_evidence.json").write_text(json.dumps(graph), encoding="utf-8")
+        projection = {
+            "path": "signal_evidence.json", "generated_at": graph["generated_at"],
+            "artifact_sha256": "sha256:" + hashlib.sha256((run / "signal_evidence.json").read_bytes()).hexdigest(),
+            "coverage_complete": True, "raw_signal_count": 1, "independent_cluster_count": 1,
+            "conviction_eligible_cluster_count": 1, "contradiction_count": 0,
+        }
+        link = {"conclusion": "Real yields drive the horizon.", "cluster_ids": ["macro-1"], "source_vintage_ids": [vintage]}
+        decision = {"commodity": "GOLD", "action": "Hold", "signal_evidence": projection,
+                    "forecast_horizons": {"tactical": {"status": "assessable", "evidence_links": [link]},
+                                          "strategic": {"status": "assessable", "evidence_links": [link]}}}
+        path = run / "decision_record.json"
+        path.write_text(json.dumps(decision), encoding="utf-8")
+        assert schema_validator.check_commodity_signal_projection(str(path)) == []
+        decision["forecast_horizons"]["tactical"]["evidence_links"][0]["source_vintage_ids"] = ["sha256:" + "b" * 64]
+        path.write_text(json.dumps(decision), encoding="utf-8")
+        errors = schema_validator.check_commodity_signal_projection(str(path))
+        assert any("not carried by the linked clusters" in error for error in errors), errors
+        print("PASS: horizon conclusions bind to exact graph clusters and their source vintages")
 
 
 def test_malformed_source_refs_fail_cleanly() -> None:
@@ -288,6 +324,7 @@ def main() -> int:
     registry = test_validation_gate()
     test_evidence_compiler(registry)
     test_decision_abstention_gate()
+    test_horizon_links_bind_to_graph()
     test_malformed_source_refs_fail_cleanly()
     print("ALL PASS")
     return 0

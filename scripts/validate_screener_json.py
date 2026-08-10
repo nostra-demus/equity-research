@@ -42,6 +42,7 @@ from __future__ import annotations
 
 import datetime
 import glob
+import hashlib
 import json
 import math
 import os
@@ -49,6 +50,7 @@ import re
 import sys
 
 from commodity_decision_archive import ArchiveError, decision_id_for
+from commodity_evidence_links import validate_horizon_evidence_links, validate_signal_projection
 from commodity_forecast_contract import validate_decision_record as validate_dual_horizon_record
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -394,6 +396,14 @@ def commodity_decision_records() -> list[str]:
     )
 
 
+def commodity_archived_decision_records() -> list[str]:
+    """Every immutable commodity decision snapshot (repo-relative)."""
+    return sorted(
+        os.path.relpath(path, REPO)
+        for path in glob.glob(os.path.join(REPO, "commodity", "runs", "*", "decisions", "*", "decision_record.json"))
+    )
+
+
 def commodity_decision_reviews() -> list[str]:
     """Every committed commodity/runs/<COMMODITY>/reviews/*_decision_review*.json (repo-relative)."""
     return sorted(
@@ -403,10 +413,10 @@ def commodity_decision_reviews() -> list[str]:
 
 
 def commodity_signal_evidence() -> list[str]:
-    """Every committed run-level commodity signal graph (repo-relative)."""
+    """Every current or immutable archived commodity signal graph (repo-relative)."""
     return sorted(
         os.path.relpath(p, REPO)
-        for p in glob.glob(os.path.join(REPO, "commodity", "runs", "*", "signal_evidence.json"))
+        for p in glob.glob(os.path.join(REPO, "commodity", "runs", "**", "signal_evidence.json"), recursive=True)
     )
 
 
@@ -453,7 +463,101 @@ def check_commodity_decision_archive(doc_path: str) -> list[str]:
         return [f"immutable decision archive is unreadable: {error}"]
     if archived != record:
         return ["current decision projection differs from its immutable archived decision"]
-    return []
+    errors = []
+    archive_graph_path = os.path.join(os.path.dirname(archive_path), "signal_evidence.json")
+    if not os.path.isfile(archive_graph_path):
+        errors.append("immutable decision archive is missing signal_evidence.json")
+    else:
+        try:
+            archive_graph = json.load(open(archive_graph_path, encoding="utf-8"))
+        except Exception as error:
+            errors.append(f"archived signal_evidence.json is unreadable: {error}")
+        else:
+            errors.extend(check_commodity_signal_projection(archive_path))
+            current_graph_path = os.path.join(os.path.dirname(doc_path), "signal_evidence.json")
+            if os.path.isfile(current_graph_path):
+                try:
+                    current_graph_raw = open(current_graph_path, "rb").read()
+                    current_graph = json.loads(current_graph_raw.decode("utf-8"))
+                except Exception:
+                    current_graph = None
+                if current_graph is not None and current_graph_raw != open(archive_graph_path, "rb").read():
+                    errors.append("current signal evidence graph differs from the current decision's archived graph")
+    coverage_projection = record.get("required_series_coverage")
+    if isinstance(coverage_projection, dict):
+        archive_coverage_path = os.path.join(os.path.dirname(archive_path), "required_series_coverage.json")
+        if not os.path.isfile(archive_coverage_path):
+            errors.append("immutable decision archive is missing required_series_coverage.json")
+        else:
+            digest = "sha256:" + hashlib.sha256(open(archive_coverage_path, "rb").read()).hexdigest()
+            if digest != coverage_projection.get("artifact_sha256"):
+                errors.append("archived required-series coverage digest does not match the decision projection")
+    return errors
+
+
+def check_commodity_archived_snapshot(doc_path: str) -> list[str]:
+    """Validate an old archive from its own frozen evidence, never the current run projection."""
+    try:
+        record = json.load(open(doc_path, encoding="utf-8"))
+    except Exception as error:
+        return [f"archived decision is unreadable: {error}"]
+    if not isinstance(record, dict):
+        return ["archived decision is not an object"]
+    errors = []
+    archive_id = os.path.basename(os.path.dirname(doc_path))
+    if record.get("decision_id") != archive_id:
+        errors.append("archived decision_id does not match its directory")
+    try:
+        derived = decision_id_for(record)
+    except ArchiveError as error:
+        errors.append(f"archived decision ID cannot be derived: {error}")
+    else:
+        if derived != archive_id:
+            errors.append("archived decision ID does not match its content")
+    graph_path = os.path.join(os.path.dirname(doc_path), "signal_evidence.json")
+    if not os.path.isfile(graph_path):
+        errors.append("archived signal_evidence.json is missing")
+    else:
+        try:
+            graph = json.load(open(graph_path, encoding="utf-8"))
+        except Exception as error:
+            errors.append(f"archived signal evidence is unreadable: {error}")
+        else:
+            errors.extend(check_commodity_signal_projection(doc_path))
+    projection = record.get("required_series_coverage")
+    if isinstance(projection, dict):
+        coverage_path = os.path.join(os.path.dirname(doc_path), "required_series_coverage.json")
+        if not os.path.isfile(coverage_path):
+            errors.append("archived required_series_coverage.json is missing")
+        else:
+            digest = "sha256:" + hashlib.sha256(open(coverage_path, "rb").read()).hexdigest()
+            if digest != projection.get("artifact_sha256"):
+                errors.append("archived required-series coverage digest mismatch")
+    return errors
+
+
+def _point_in_time_review_source_errors(source: object, label: str, target: object, review_day: object) -> list[str]:
+    """Reject outcome inputs that use observations/publications beyond the graded cutoff."""
+    if not isinstance(source, dict) or not isinstance(target, str) or not isinstance(review_day, str):
+        return []  # Shape/type failures belong to the schema validator.
+    try:
+        target_date = datetime.date.fromisoformat(target)
+        filed_date = datetime.date.fromisoformat(review_day)
+        observation_date = datetime.date.fromisoformat(source["observation_as_of"])
+        published = datetime.datetime.fromisoformat(re.sub(r"[Zz]$", "+00:00", source["published_at"]))
+        retrieved = datetime.datetime.fromisoformat(re.sub(r"[Zz]$", "+00:00", source["retrieved_at"]))
+    except (KeyError, AttributeError, TypeError, ValueError):
+        return [f"{label} has invalid point-in-time dates or timestamps"]
+    errors = []
+    if observation_date > target_date:
+        errors.append(f"{label}.observation_as_of cannot be after target_date")
+    if published.date() > target_date:
+        errors.append(f"{label}.published_at cannot be after target_date — later releases/revisions are not point-in-time outcomes")
+    if retrieved.date() > filed_date:
+        errors.append(f"{label}.retrieved_at cannot be after review_date")
+    if retrieved < published:
+        errors.append(f"{label}.retrieved_at cannot predate published_at")
+    return errors
 
 
 def check_commodity_signal_projection(doc_path: str) -> list[str]:
@@ -470,26 +574,8 @@ def check_commodity_signal_projection(doc_path: str) -> list[str]:
         return ["signal_evidence.json is not a JSON object"]
     if not isinstance(projection, dict):
         return ["decision_record must project the run's signal_evidence summary"]
-    summary = graph.get("summary") if isinstance(graph.get("summary"), dict) else {}
-    coverage = graph.get("coverage") if isinstance(graph.get("coverage"), dict) else {}
-    expected = {
-        "path": "signal_evidence.json",
-        "generated_at": graph.get("generated_at"),
-        "coverage_complete": coverage.get("complete"),
-        "raw_signal_count": summary.get("raw_signal_count"),
-        "independent_cluster_count": summary.get("independent_cluster_count"),
-        "conviction_eligible_cluster_count": summary.get("conviction_eligible_cluster_count"),
-        "contradiction_count": summary.get("contradiction_count"),
-    }
-    errors = [f"signal_evidence.{key} {projection.get(key)!r} != graph {value!r}"
-              for key, value in expected.items() if projection.get(key) != value]
-    if graph.get("commodity") != record.get("commodity"):
-        errors.append(f"signal graph commodity {graph.get('commodity')!r} != decision commodity {record.get('commodity')!r}")
-    if coverage.get("complete") is not True and record.get("action") != "Research More":
-        errors.append("incomplete SignalEvidence coverage requires action 'Research More'")
-    if summary.get("conviction_eligible_cluster_count") == 0 and record.get("action") != "Research More":
-        errors.append("zero conviction-eligible evidence clusters requires action 'Research More'")
-    return errors
+    digest = "sha256:" + hashlib.sha256(open(graph_path, "rb").read()).hexdigest()
+    return validate_signal_projection(record, graph, digest)
 
 
 def check_commodity_review_anchors(doc_path: str) -> list[str]:
@@ -508,16 +594,20 @@ def check_commodity_review_anchors(doc_path: str) -> list[str]:
     date) report a graceful error instead of crashing."""
     reviews_dir = os.path.dirname(doc_path)
     run_dir = os.path.dirname(reviews_dir)
-    record_path = os.path.join(run_dir, "decision_record.json")
     doc = json.load(open(doc_path, encoding="utf-8"))
     if not isinstance(doc, dict):
         return ["review document is not a JSON object"]
+    record_path = os.path.join(run_dir, "decision_record.json")
+    if doc.get("schema_version") == "2.0" and isinstance(doc.get("decision_id"), str):
+        record_path = os.path.join(run_dir, "decisions", doc["decision_id"], "decision_record.json")
     if not os.path.exists(record_path):
-        return [f"decision_record.json not found at {os.path.relpath(record_path, REPO)} — cannot cross-check anchors"]
+        return [f"immutable decision record not found at {os.path.relpath(record_path, REPO)} — cannot cross-check anchors"]
     record = json.load(open(record_path, encoding="utf-8"))
     if not isinstance(record, dict):
         return [f"decision_record.json at {os.path.relpath(record_path, REPO)} is not a JSON object — cannot cross-check anchors"]
     errs = []
+    if doc.get("schema_version") == "2.0" and doc.get("decision_id") != record.get("decision_id"):
+        errs.append(f"review decision_id {doc.get('decision_id')!r} != archived decision_id {record.get('decision_id')!r}")
     if doc.get("commodity") != record.get("commodity"):
         errs.append(f"review commodity {doc.get('commodity')!r} != decision_record commodity {record.get('commodity')!r}")
     if doc.get("original_decision_date") != record.get("decision_date"):
@@ -563,6 +653,13 @@ def check_commodity_review_anchors(doc_path: str) -> list[str]:
     # formula), never a hand-typed number, or a mis-keyed return silently corrupts the loop (§20 bad-math)
     rvp = doc.get("review_price")
     stored_ret = doc.get("absolute_return_pct")
+    if doc.get("schema_version") == "2.0" and isinstance(ref, dict) and isinstance(rvp, dict):
+        for field in ("currency", "unit"):
+            if ref.get(field) != rvp.get(field):
+                errs.append(
+                    f"review_price.{field} {rvp.get(field)!r} != reference_price.{field} {ref.get(field)!r} "
+                    "— returns cannot mix quote currencies or units"
+                )
     if isinstance(ref, dict) and isinstance(rvp, dict) and isinstance(stored_ret, (int, float)) \
             and not isinstance(stored_ret, bool):
         rvv, rfv = rvp.get("value"), ref.get("value")
@@ -574,6 +671,80 @@ def check_commodity_review_anchors(doc_path: str) -> list[str]:
                     f"absolute_return_pct {stored_ret} != recomputed {computed:.4f} from "
                     f"(review_price {rvv} − reference_price {rfv}) / {rfv} × 100 (§20 bad-math)"
                 )
+    if doc.get("schema_version") == "2.0":
+        horizon_name = doc.get("forecast_horizon")
+        horizon = record.get("forecast_horizons", {}).get(horizon_name) \
+            if isinstance(record.get("forecast_horizons"), dict) and isinstance(horizon_name, str) else None
+        if not isinstance(horizon, dict):
+            errs.append(f"archived decision has no {horizon_name!r} forecast horizon")
+        else:
+            target_date = horizon.get("target_date")
+            if doc.get("target_date") != target_date:
+                errs.append(f"review target_date {doc.get('target_date')!r} != archived horizon target_date {target_date!r}")
+            if doc.get("review_window") != horizon_name:
+                errs.append("version 2.0 review_window must equal forecast_horizon")
+            if doc.get("outcome_as_of") != target_date:
+                errs.append("outcome_as_of must equal the archived forecast's exact target_date")
+            if isinstance(rvp, dict) and isinstance(rvp.get("as_of"), str) and isinstance(target_date, str):
+                try:
+                    price_day = datetime.date.fromisoformat(rvp["as_of"])
+                    target_day = datetime.date.fromisoformat(target_date)
+                    lag = (target_day - price_day).days
+                    if lag < 0 or lag > 4:
+                        errs.append("review_price.as_of must be the latest official observation on/before target_date (maximum four-calendar-day market closure)")
+                except ValueError:
+                    errs.append("review_price.as_of and target_date must be real calendar dates")
+            if isinstance(review_date, str) and isinstance(target_date, str) and review_date < target_date:
+                errs.append("review_date cannot predate the archived forecast target_date")
+
+            components = doc.get("realized_return_components_pct")
+            component_sources = doc.get("realized_return_component_sources")
+            component_names = (
+                "price_return_pct", "roll_return_pct", "collateral_return_pct", "fees_pct", "fx_adjustment_pct",
+            )
+            if isinstance(component_sources, dict):
+                for name in component_names:
+                    errs.extend(_point_in_time_review_source_errors(
+                        component_sources.get(name), f"realized_return_component_sources.{name}",
+                        target_date, review_date,
+                    ))
+            errs.extend(_point_in_time_review_source_errors(
+                doc.get("max_adverse_excursion_source"), "max_adverse_excursion_source",
+                target_date, review_date,
+            ))
+            if isinstance(components, dict) and all(
+                isinstance(components.get(name), (int, float)) and not isinstance(components.get(name), bool)
+                for name in (*component_names, "implementable_return_pct")
+            ):
+                calculated = sum(float(components[name]) for name in component_names)
+                if abs(float(components["implementable_return_pct"]) - calculated) > 0.05:
+                    errs.append("realized implementable_return_pct does not equal price + roll + collateral + fees + FX")
+                if isinstance(stored_ret, (int, float)) and not isinstance(stored_ret, bool) \
+                        and abs(float(components["price_return_pct"]) - float(stored_ret)) > 0.05:
+                    errs.append("realized price_return_pct must equal absolute_return_pct")
+
+                scenarios = horizon.get("scenarios")
+                scenario_rows = [row for row in scenarios if isinstance(row, dict)] if isinstance(scenarios, list) else []
+                outcomes = [
+                    (row.get("label"), float(row["implementable_return_pct"]))
+                    for row in scenario_rows
+                    if row.get("label") in {"bear", "base", "bull"}
+                    and isinstance(row.get("implementable_return_pct"), (int, float))
+                    and not isinstance(row.get("implementable_return_pct"), bool)
+                ]
+                if len(outcomes) == 3:
+                    actual = float(components["implementable_return_pct"])
+                    # Distance is the primary key; label order is a deterministic tie-break.
+                    nearest = min(outcomes, key=lambda item: (abs(item[1] - actual), {"bear": 0, "base": 1, "bull": 2}[item[0]]))
+                    if doc.get("scenario_outcome") != nearest[0]:
+                        errs.append(f"scenario_outcome must be nearest archived scenario label {nearest[0]!r}")
+                    lower, upper = min(value for _, value in outcomes), max(value for _, value in outcomes)
+                    expected_miss = "below" if actual < lower else ("above" if actual > upper else "inside")
+                    if doc.get("range_miss") != expected_miss:
+                        errs.append(f"range_miss must be {expected_miss!r} from the archived scenario span")
+                mae = doc.get("max_adverse_excursion_pct")
+                if isinstance(mae, (int, float)) and not isinstance(mae, bool) and mae > min(0.0, actual) + 0.05:
+                    errs.append("max_adverse_excursion_pct cannot be better than zero or the final implementable return")
     # one risk_result per original key_risk — an empty array would skip the falsification checks
     # the review exists to run (each key_risk must be resolved materialized/not/partial/pending)
     rr = doc.get("risk_results")
@@ -620,17 +791,20 @@ def check_commodity_review_anchors(doc_path: str) -> list[str]:
     # keys "already reviewed" on the FILENAME window, so a file named *_365d_* whose review_window is
     # 'ad-hoc' (or any other) would make it mask the real 365d checkpoint — the two must agree.
     base = os.path.basename(doc_path)
-    fname_m = re.match(r"^\d{4}-\d{2}-\d{2}_(30d|90d|180d|365d|ad-hoc)_decision_review(?:_v\d+)?\.json$", base)
+    fname_m = re.match(r"^(\d{4}-\d{2}-\d{2})_(30d|90d|180d|365d|ad-hoc|tactical|strategic)_decision_review(?:_v\d+)?\.json$", base)
     if fname_m is None:
         errs.append(
             f"review filename {base!r} does not match <YYYY-MM-DD>_<window>_decision_review[_vN].json "
             f"— the due-scanner keys on this name"
         )
-    elif isinstance(window, str) and fname_m.group(1) != window:
-        errs.append(
-            f"filename window {fname_m.group(1)!r} != review_window field {window!r} — they must match "
-            f"so the due-scanner can't mistake this file for a different checkpoint"
-        )
+    else:
+        if isinstance(review_date, str) and fname_m.group(1) != review_date:
+            errs.append(f"filename date {fname_m.group(1)!r} != review_date field {review_date!r}")
+        if isinstance(window, str) and fname_m.group(2) != window:
+            errs.append(
+                f"filename window {fname_m.group(2)!r} != review_window field {window!r} — they must match "
+                f"so the due-scanner can't mistake this file for a different checkpoint"
+            )
     return errs
 
 
@@ -1568,6 +1742,7 @@ def main(argv: list[str]) -> int:
         pairs = [(os.path.join(REPO, s), os.path.join(REPO, d)) for s, d in FIXTURE_PAIRS]
         pairs += [(os.path.join(REPO, THESIS_INTEGRITY_SCHEMA), os.path.join(REPO, d)) for d in screener_integrity_reviews()]
         pairs += [(os.path.join(REPO, COMMODITY_SCHEMA), os.path.join(REPO, d)) for d in commodity_decision_records()]
+        pairs += [(os.path.join(REPO, COMMODITY_SCHEMA), os.path.join(REPO, d)) for d in commodity_archived_decision_records()]
         pairs += [(os.path.join(REPO, COMMODITY_REVIEW_SCHEMA), os.path.join(REPO, d)) for d in commodity_decision_reviews()]
         pairs += [(os.path.join(REPO, COMMODITY_SIGNAL_SCHEMA), os.path.join(REPO, d)) for d in commodity_signal_evidence()]
     elif len(argv) >= 3 and len(argv) % 2 == 1:
@@ -1580,16 +1755,22 @@ def main(argv: list[str]) -> int:
         errs = validate(schema_p, doc_p)
         rel = os.path.relpath(doc_p, REPO)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_SCHEMA)):
-            errs = (
-                errs
-                + check_commodity_routing(doc_p)
-                + check_commodity_data_sufficiency(doc_p)
-                + check_commodity_calibration_gate(doc_p)
-                + check_commodity_scenario_math(doc_p)
-                + check_commodity_dual_horizon(doc_p)
-                + check_commodity_decision_archive(doc_p)
-                + check_commodity_signal_projection(doc_p)
-            )
+            if f"{os.sep}decisions{os.sep}" in os.path.abspath(doc_p):
+                # An old immutable snapshot is validated only against evidence frozen beside it.
+                # Run-level routing, current coverage and current signal projection are intentionally
+                # excluded: applying today's mutable artifacts would break point-in-time replay.
+                errs = errs + check_commodity_dual_horizon(doc_p) + check_commodity_archived_snapshot(doc_p)
+            else:
+                errs = (
+                    errs
+                    + check_commodity_routing(doc_p)
+                    + check_commodity_data_sufficiency(doc_p)
+                    + check_commodity_calibration_gate(doc_p)
+                    + check_commodity_scenario_math(doc_p)
+                    + check_commodity_dual_horizon(doc_p)
+                    + check_commodity_decision_archive(doc_p)
+                    + check_commodity_signal_projection(doc_p)
+                )
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_REVIEW_SCHEMA)):
             errs = errs + check_commodity_review_anchors(doc_p)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, THESIS_INTEGRITY_SCHEMA)):

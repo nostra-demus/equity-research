@@ -103,10 +103,12 @@ def structured_profile(
         raw = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
         raise ValueError(f"structured profile is missing or invalid: {path}") from error
-    if not isinstance(raw, dict) or set(raw) != {"schema_version", "commodity", "requirements"}:
-        raise ValueError("structured profile must contain exactly schema_version, commodity and requirements")
+    if not isinstance(raw, dict) or set(raw) != {"schema_version", "commodity", "family", "requirements"}:
+        raise ValueError("structured profile must contain exactly schema_version, commodity, family and requirements")
     if raw.get("schema_version") != 1 or raw.get("commodity") != commodity.upper():
         raise ValueError("structured profile identity mismatch")
+    if not isinstance(raw.get("family"), str) or re.fullmatch(r"[a-z0-9][a-z0-9-]*", raw["family"]) is None:
+        raise ValueError("structured profile family must be a lowercase slug")
     requirements = raw.get("requirements")
     if not isinstance(requirements, list) or not requirements:
         raise ValueError("structured profile requirements must be a non-empty array")
@@ -185,6 +187,21 @@ def structured_profile(
                 if dependency["series"] not in series_ids or dependency["series"] == requirement["series"]:
                     raise ValueError(f"derived resolver {requirement['series']} has an invalid dependency")
     return requirements
+
+
+def profile_family(commodity: str, *, structured_root: Path = STRUCTURED_PROFILE_ROOT) -> str:
+    """Return the profile-owned family slug without introducing engine family switches."""
+    path = Path(structured_root) / f"{commodity.upper()}.json"
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"structured profile is missing or invalid: {path}") from error
+    if not isinstance(raw, dict) or raw.get("schema_version") != 1 or raw.get("commodity") != commodity.upper():
+        raise ValueError("structured profile identity mismatch")
+    family = raw.get("family")
+    if not isinstance(family, str) or re.fullmatch(r"[a-z0-9][a-z0-9-]*", family) is None:
+        raise ValueError("structured profile family must be a lowercase slug")
+    return family
 
 
 def _value_at(value: Any, dotted_path: str | None) -> Any:

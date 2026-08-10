@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "frameworks/commodity/decision_review.schema.json",
   "title": "Commodity decision review",
-  "description": "The commodity-scoped twin of the research swarm's outcome-review schema (frameworks/DECISION_LEDGER.md §8), deliberately smaller — the commodity decision_record.json has no entry_price/basket/forecast_ledger (decision_record.schema.json's own description explains why: CLAUDE.md §10 scenario math does not apply to the single-verdict commodity dossier). Written by .claude/commands/commodity/review.md to commodity/runs/<COMMODITY>/reviews/<REVIEW_DATE>_<WINDOW>_decision_review.json — APPEND-ONLY, one file per review, never overwritten (collisions get a _v2/_v3 suffix, same convention as frameworks/DECISION_LEDGER.md §8). The original decision_record.json is never edited by any review. Validated by scripts/validate_screener_json.py --fixture (schemas_root, per .claude/agents/commodity/SWARM.md), which also cross-checks a review's commodity/original_decision_date/original_action against the decision_record.json it reviews.",
+  "description": "Append-only commodity outcome review. Version 1.0 preserves legacy single-action checkpoints. Version 2.0 grades one tactical or strategic forecast from its immutable archived decision on the forecast's exact target date and reconciles implementable total return from price, roll, collateral, fees and FX. Two horizons remain two observations under one decision ID, never two independent headline calls.",
   "type": "object",
   "required": [
     "schema_version", "swarm", "commodity", "original_decision_date", "review_date",
@@ -10,13 +10,35 @@
     "absolute_return_pct", "price_vs_levels", "thesis_status", "action_outcome",
     "decision_quality", "risk_results", "error_taxonomy", "lessons", "notes"
   ],
+  "definitions": {
+    "pointInTimeSource": {
+      "type": "object",
+      "description": "Immutable source identity for one realised-return or path input. Observation and publication cannot be later than the forecast target; retrieval cannot be later than the review filing date.",
+      "required": ["provider", "dataset_id", "series_id", "vintage_id", "observation_as_of", "published_at", "retrieved_at", "calculation_basis"],
+      "properties": {
+        "provider": { "type": "string", "minLength": 1 },
+        "dataset_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" },
+        "series_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" },
+        "vintage_id": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "observation_as_of": { "type": "string", "format": "date" },
+        "published_at": { "type": "string", "format": "date-time" },
+        "retrieved_at": { "type": "string", "format": "date-time" },
+        "calculation_basis": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  },
   "properties": {
-    "schema_version": { "const": "1.0" },
+    "schema_version": { "type": "string", "enum": ["1.0", "2.0"] },
     "swarm": { "const": "commodity" },
     "commodity": { "type": "string", "minLength": 1, "pattern": "^[A-Z0-9_]+$" },
     "original_decision_date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
     "review_date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
-    "review_window": { "type": "string", "enum": ["30d", "90d", "180d", "365d", "ad-hoc"] },
+    "review_window": { "type": "string", "enum": ["30d", "90d", "180d", "365d", "ad-hoc", "tactical", "strategic"] },
+    "decision_id": { "type": "string", "pattern": "^CMD-[A-Z0-9_]+-[0-9]{4}-[0-9]{2}-[0-9]{2}-[a-f0-9]{12}$" },
+    "forecast_horizon": { "type": "string", "enum": ["tactical", "strategic"] },
+    "target_date": { "type": "string", "format": "date" },
+    "outcome_as_of": { "type": "string", "format": "date" },
     "original_action": { "type": "string", "enum": ["Buy", "Hold", "Trim", "Avoid", "Research More"] },
     "original_confidence": {
       "type": "number",
@@ -63,6 +85,35 @@
       ]
     },
     "absolute_return_pct": { "type": ["number", "null"] },
+    "realized_return_components_pct": {
+      "type": "object",
+      "required": ["price_return_pct", "roll_return_pct", "collateral_return_pct", "fees_pct", "fx_adjustment_pct", "implementable_return_pct"],
+      "properties": {
+        "price_return_pct": { "type": "number" },
+        "roll_return_pct": { "type": "number" },
+        "collateral_return_pct": { "type": "number" },
+        "fees_pct": { "type": "number" },
+        "fx_adjustment_pct": { "type": "number" },
+        "implementable_return_pct": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "realized_return_component_sources": {
+      "type": "object",
+      "required": ["price_return_pct", "roll_return_pct", "collateral_return_pct", "fees_pct", "fx_adjustment_pct"],
+      "properties": {
+        "price_return_pct": { "$ref": "#/definitions/pointInTimeSource" },
+        "roll_return_pct": { "$ref": "#/definitions/pointInTimeSource" },
+        "collateral_return_pct": { "$ref": "#/definitions/pointInTimeSource" },
+        "fees_pct": { "$ref": "#/definitions/pointInTimeSource" },
+        "fx_adjustment_pct": { "$ref": "#/definitions/pointInTimeSource" }
+      },
+      "additionalProperties": false
+    },
+    "max_adverse_excursion_pct": { "type": "number", "maximum": 0 },
+    "max_adverse_excursion_source": { "$ref": "#/definitions/pointInTimeSource" },
+    "scenario_outcome": { "type": "string", "enum": ["bear", "base", "bull"] },
+    "range_miss": { "type": "string", "enum": ["below", "inside", "above"] },
     "price_vs_levels": {
       "type": "object",
       "description": "Checks review_price against decision_record.json's own key_levels (copied here, not re-derived).",
@@ -121,5 +172,28 @@
       "type": "string",
       "description": "Free text: web-source labels, boundary-case justification for action_outcome, anything that doesn't fit a typed field. Never used to smuggle an unlabeled number."
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "schema_version": { "const": "2.0" } } },
+      "then": {
+        "required": [
+          "decision_id", "forecast_horizon", "target_date", "outcome_as_of",
+          "realized_return_components_pct", "realized_return_component_sources",
+          "max_adverse_excursion_pct", "max_adverse_excursion_source",
+          "scenario_outcome", "range_miss"
+        ],
+        "properties": {
+          "review_window": { "enum": ["tactical", "strategic"] },
+          "absolute_return_pct": { "type": "number" },
+          "reference_price": {
+            "properties": { "value": { "type": "number", "exclusiveMinimum": 0 } }
+          },
+          "review_price": {
+            "properties": { "value": { "type": "number", "exclusiveMinimum": 0 } }
+          }
+        }
+      }
+    }
+  ]
 }
