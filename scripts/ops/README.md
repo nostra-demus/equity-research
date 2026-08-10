@@ -136,29 +136,18 @@ from `ENGINE_REPO_ROOT` / `ENGINE_STATE_DIR`, so moving machines is the usual "c
 The engine does **not** serve this dev checkout. Live runs from a dedicated git worktree pinned to
 `main` at **`$HOME/nostra-prod`** (e.g. `/Users/admin/nostra-prod`), so feature-branch work and uncommitted
 edits can never leak to the public site. The engine runs `tsx` straight from source there (so the live API = `main`),
-and serves `nostra-prod/ui/dist`. Runtime state (`ui/server/.state`, gitignored) and the ops shell scripts
-(`~/.nostra-ops/{deploy,watchdog,housekeeping}.sh`) live outside the tree so a fast-forward never disturbs a
-running invocation; `deploy.sh` reconciles those installed copies atomically from reviewed `main`.
+and serves `nostra-prod/ui/dist`. Runtime state (`ui/server/.state`, gitignored) and the ops shell
+scripts (`~/.nostra-ops/{deploy,watchdog}.sh`) live outside the tree so a fast-forward never disturbs them.
 
 ### How a change goes live (auto-deploy — `deploy.sh`)
-**Merge a PR to `main` → it deploys without a manual step.** Every 120s `deploy.sh`:
+**Merge a PR to `main` → it's live in ≤~2 min. No manual step.** Every 120s `deploy.sh`:
 1. `git fetch`; if `origin/main` is ahead, **fast-forward only** (never resets — an unpushed local data
    commit makes it *skip*, never discard) and skips entirely if a run is mid-write;
-2. reconciles `~/.nostra-ops/{deploy,watchdog,housekeeping}.sh` by content from the clean, reviewed `main`
-   checkout, before connector migration/build/health gates. This is independent of `.deployed.sha`, so a
-   missing/current marker cannot hide a stale runtime script. Each replacement is staged, made executable,
-   and atomically renamed; failure leaves the prior installed file and deployed marker unchanged for retry;
-3. acts on *what* changed: `ui/web/**` → rebuild `ui/dist` (served instantly, no restart);
+2. acts on *what* changed: `ui/web/**` → rebuild `ui/dist` (served instantly, no restart);
    `ui/server/**` → `kickstart` the engine; a changed `package-lock` → `npm ci` first; data/docs only
    (`analyses/**`, `screener/**`, `*.md`) → nothing to rebuild;
-4. logs every deploy to `~/Library/Logs/nostradamus-deploy.log`. Single-flight (kernel lock), always
+3. logs every deploy to `~/Library/Logs/nostradamus-deploy.log`. Single-flight (mkdir lock), always
    exits 0 so launchd never marks it failed. Force one now: `bash ~/.nostra-ops/deploy.sh`.
-
-Data/docs and ops-only merges normally reconcile on the next 120-second tick. UI code deliberately waits for
-180 seconds of quiet so a merge burst causes one restart, with a hard 20-minute cap measured from the oldest
-pending UI commit; allow the next 120-second tick and up to ~60 seconds for the engine health gate. When one
-commit mixes UI and runtime-ops changes, deploy fast-forwards and installs the reviewed ops immediately while
-leaving the UI build/restart behind that debounce and keeping `.deployed.sha` at the last activated build.
 
 ### Self-healing watchdog (`watchdog.sh`)
 `KeepAlive` only restarts a **crashed** process. The watchdog covers what it can't: a non-launchd
@@ -192,8 +181,7 @@ the engine's 15s SSE ping so idle streams aren't reaped, `disableChunkedEncoding
 that block into your config and `launchctl kickstart -k gui/$(id -u)/com.nostradamus.tunnel` to apply.
 
 The source-of-truth plists + scripts live here (`scripts/ops/*`). Installed copies: plists in
-`~/Library/LaunchAgents/`, the `deploy.sh`/`watchdog.sh`/`housekeeping.sh` runtime copies in
-`~/.nostra-ops/`. **First-time
+`~/Library/LaunchAgents/`, the `deploy.sh`/`watchdog.sh` runtime copies in `~/.nostra-ops/`. **First-time
 setup** creates the prod worktree, then installs the agents:
 
 ```
@@ -219,8 +207,8 @@ NEWS_ARCHIVE_DIR="$HOME/Library/CloudStorage/GoogleDrive-<you>/My Drive/equity-r
 1. **Never run the server manually** (`npm run dev` / `npm start` in a terminal). launchd already owns
    `:8787`; a second server collides on the port (`EADDRINUSE`) and one of them fails. If you must
    debug locally, `launchctl bootout gui/$(id -u)/com.nostradamus.engine` first, and re-install after.
-2. **To deploy a change**: just **merge it to `main`** — `com.nostradamus.deploy` applies the cadence and
-   UI-debounce windows described above. Building `ui/dist` in *this dev tree* no longer affects the
+2. **To deploy a change**: just **merge it to `main`** — `com.nostradamus.deploy` rebuilds prod within
+   ≤~2 min (see "How a change goes live"). Building `ui/dist` in *this dev tree* no longer affects the
    live site. No engine restart is needed for web changes: the server reads `index.html` **fresh per
    request**, so new asset hashes are served immediately (the fix for the blank-page-after-rebuild bug —
    the server used to cache `index.html` at startup and desync from the on-disk hashes).
