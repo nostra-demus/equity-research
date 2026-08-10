@@ -57,6 +57,12 @@ except RuntimeError as error:
 else:
     raise AssertionError("an unknown Historical month did not fail closed")
 try:
+    mod.parse_history(xml.replace("Aug 07, 2026", "September 07, 2026"))
+except RuntimeError as error:
+    assert "invalid date" in str(error), f"Expected unsupported month-token error, got: {error}"
+else:
+    raise AssertionError("a longer date-like Historical month was silently skipped")
+try:
     mod.build(page.replace("782,900,000", "782,800,000"), xml)
 except RuntimeError:
     pass

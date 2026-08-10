@@ -136,13 +136,17 @@ def parse_history(raw: str) -> list[dict]:
         for cell in row.findall(f"{SS}Cell"):
             data = cell.find(f"{SS}Data")
             values.append((data.text or "").strip() if data is not None else "")
+        date_like = bool(values and re.fullmatch(r"[A-Za-z]+ \d{1,2}, \d{4}", values[0]))
         if len(values) < 4:
-            if values and re.fullmatch(r"[A-Z][a-z]{2} \d{1,2}, \d{4}", values[0]):
+            if date_like:
                 raise RuntimeError("IAU dated Historical row has fewer than four cells")
             continue
         date_shape = re.fullmatch(r"[A-Z][a-z]{2} \d{1,2}, \d{4}", values[0])
         if not date_shape:
-            if re.match(r"^(?:[A-Z][a-z]{2}\s|\d{4}-)", values[0]):
+            if date_like:
+                _english_day(values[0], "IAU Historical row")
+                raise RuntimeError("IAU Historical row has an unrecognized date-shaped value")
+            if re.match(r"^\d{4}-", values[0]):
                 raise RuntimeError("IAU Historical row has an unrecognized date-shaped value")
             continue
         day = _english_day(values[0], "IAU Historical row")
