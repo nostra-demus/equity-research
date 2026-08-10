@@ -6,7 +6,7 @@ async function main(): Promise<void> {
   const [swarm, rawSubject] = process.argv.slice(2)
   const subject = rawSubject?.trim().toUpperCase()
   if (!swarm || !subject) {
-    console.error('usage: npx tsx scripts/refresh-swarm-pulse.ts <swarm> <subject>')
+    console.error('usage: bash scripts/refresh-swarm-pulse.sh <swarm> <subject>')
     process.exitCode = 2
     return
   }

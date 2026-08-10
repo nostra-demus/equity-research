@@ -21,7 +21,7 @@ One sentence per upstream module folder present under `<RUN_ROOT>`: `Market-stru
 
 ## 4. Run the shared module pipeline
 First refresh the shared production pulse and compile the machine coverage gate:
-`npx tsx scripts/refresh-swarm-pulse.ts commodity "<COMMODITY>"`.
+`bash scripts/refresh-swarm-pulse.sh commodity "<COMMODITY>"`.
 `PULSE-MISSING` is honest absence and must not be replaced with a scraped or inferred quote.
 `python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --decision-time "$(date -u +%Y-%m-%dT%H:%M:%SZ)"`.
 Stop on `PROFILE-COVERAGE-FAIL`; incomplete coverage is valid and forces abstention downstream. Then follow
