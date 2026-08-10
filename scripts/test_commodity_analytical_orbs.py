@@ -84,17 +84,29 @@ def test_predictive_depth_cannot_silently_regress() -> None:
 
     volatility = (ROOT / ".claude/agents/commodity/market-structure/03_commodity-volatility-distribution.md").read_text()
     volatility_normalized = " ".join(volatility.lower().split())
-    for anchor in ("point-in-time", "event-gap ledger", "10th/90th", "peak-to-trough drawdown"):
+    for anchor in (
+        "point-in-time", "event-gap ledger", "10th/90th", "peak-to-trough drawdown",
+        "conservative bracketing", "30, 45, 60, 75, 92, 182, 273",
+    ):
         assert anchor.lower() in volatility_normalized, anchor
 
     scenario = (ROOT / ".claude/agents/commodity/commodity-thesis/03_commodity-scenario-engine.md").read_text()
     scenario_normalized = " ".join(scenario.lower().split())
-    for anchor in ("independent of the terminal thesis", "before it can influence an action", "span audit", "conjunction audit"):
+    for anchor in (
+        "independent of the terminal thesis", "before it can influence an action", "span audit",
+        "conjunction audit", "expected implementable return / absolute bear downside",
+    ):
         assert anchor.lower() in scenario_normalized, anchor
 
     supply = (ROOT / ".claude/agents/commodity/supply-demand/99_supply-demand-synthesis.md").read_text()
+    supply_normalized = " ".join(supply.lower().split())
     fair_value = (ROOT / ".claude/agents/commodity/commodity-thesis/02_commodity-cost-curve-fair-value.md").read_text()
-    assert "globally accessible supply" in supply.lower()
+    assert "globally accessible supply" in supply_normalized
+    assert "inter-origin import/export" in supply_normalized
+    assert "directional-conviction score" in supply_normalized
+    module_rules = (ROOT / ".claude/agents/commodity/MODULE_RULES.md").read_text().lower()
+    assert "sum of all origins' net imports is zero" in module_rules
+    assert "− all inter-origin imports/exports" not in module_rules
     assert all(anchor in fair_value.lower() for anchor in (
         "observed market price", "model-implied fair-value band",
         "what the market appears to expect", "mean-reversion evidence test",

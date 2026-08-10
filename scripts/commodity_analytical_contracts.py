@@ -3,6 +3,8 @@
 
 The research prompts decide what evidence belongs in each input. This helper owns only
 the arithmetic boundary so an opacity cap cannot vary with prose or commodity family.
+The capped value is confidence in a separately stated surplus/deficit direction. It is
+never a bullishness, tightness, scarcity, or availability score.
 """
 from __future__ import annotations
 
@@ -92,6 +94,7 @@ def assess_supply_opacity(
 
 
 def capped_supply_demand_score(raw_score: object, opacity: SupplyOpacity) -> float:
+    """Cap directional conviction; the balance sign remains a separate field."""
     score = _finite_number(raw_score, "raw_score")
     if not 0 <= score <= 100:
         raise ValueError("raw_score must be between 0 and 100")
