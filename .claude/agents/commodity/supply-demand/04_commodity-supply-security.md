@@ -55,10 +55,20 @@ You DO NOT:
    **Supportive / Neutral / Killer-risk** score for the price, and the **bull trigger** and **bear trigger**
    (what escalation vs de-escalation would do). Name the single highest-magnitude entry as the **policy killer
    risk** for the §8 disconfirmation list.
-4. Hand the DATED entries forward for the catalyst calendar and the killer-risk entry forward for the thesis
+4. Quantify the policy/trade-flow bridge wherever public data permits. Start with the supply orb's
+   pre-policy exportable availability (or restate it as an explicitly sourced input if running solo), then
+   show: − legally restricted/sanctioned volume − physically stranded volume + verified rerouting that
+   reaches an unrestricted destination = globally accessible supply. A rerouted cargo is not automatically
+   accessible to every buyer; state destination, discount, transport delay and settlement/insurance limits.
+   Separate a ban on exchange delivery from a loss of global production. Never count the same restricted
+   tonne/barrel twice across sanctions, chokepoint and exchange rules.
+5. For every bridge adjustment, give a current primary-source coverage share, the dispersion across two or
+   more credible estimates where available, and expected-versus-actual release timing. These feed the
+   synthesis opacity cap; `not measurable` is preferable to a guessed percentage.
+6. Hand the DATED entries forward for the catalyst calendar and the killer-risk entry forward for the thesis
    risk summary. If no material policy is live for this commodity, say so plainly (a clean register is a valid
    result — do not manufacture risk, §24).
-5. Cite every entry `[Source, date]` (§5). Save to `OUTPUT_PATH` (Mode A); return the CHAT CONFIRMATION.
+7. Cite every entry `[Source, date]` (§5). Save to `OUTPUT_PATH` (Mode A); return the CHAT CONFIRMATION.
 
 # REPORT STRUCTURE
 
@@ -72,7 +82,11 @@ You DO NOT:
 ## 2. Policy killer risk (for the §8 disconfirmation list)
 - The single highest-magnitude entry, why it dominates, and the dated flip that would change it.
 
-## 3. Clean families
+## 3. Pre-Policy to Globally Accessible Supply Bridge
+| Origin/route | Pre-policy exportable | − restricted/sanctioned | − stranded | + verified rerouting | Globally accessible | Coverage/dispersion/timing | Source/date |
+|---|---:|---:|---:|---:|---:|---|---|
+
+## 4. Clean families
 - Which of the seven families are NOT live for this commodity (one line — honest, not padded).
 ```
 
@@ -80,6 +94,8 @@ You DO NOT:
 - [ ] Only live/scheduled entries for THIS commodity are listed; non-applicable families are named as clean, not force-filled.
 - [ ] Every entry carries an effective date, an expiry (or "open-ended"), a score, and BOTH triggers.
 - [ ] The single policy killer risk is named for the risk summary.
+- [ ] Restricted, stranded and rerouted volumes reconcile to globally accessible supply without double-counting.
+- [ ] Rerouting identifies destination, discount/delay and access limits; exchange eligibility is not confused with lost production.
 - [ ] Chokepoint flow shares are coarse free-source only; every figure is dated + labelled (§5). No manufactured risk (§24).
 
 # CHAT CONFIRMATION

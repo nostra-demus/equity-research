@@ -1,6 +1,6 @@
 ---
 name: commodity-cost-curve
-description: Builds the intrinsic value anchor a no-cash-flow commodity has — cash-cost floor, ~90th-percentile all-in cost, the incentive price that sanctions new supply, and the demand-destruction / substitution ceiling — then a bear/base/bull fair-value band, a reverse "what is the strip pricing in" read, and a stated margin of safety vs the current price. The valuation orb the commodity swarm was missing.
+description: Separates observed market price, model-implied anchor range, market-implied expectations and the evidence required for mean reversion — using cost/incentive/substitution anchors where relevant and monetary/regime anchors where they are not.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 1
 emits_signal_evidence: true
@@ -53,23 +53,33 @@ You DO NOT:
      the polyester ceiling for cotton). State the substitute and the switch level.
    For a monetary metal (gold) there is NO cost floor that binds price — say so plainly and anchor instead to
    the profile's real-yield / long-run real-price range, labelled as a monetary anchor, not a cost floor.
-3. **Assemble the fair-value band:** bear / base / bull fair-value LEVELS built from the anchors above (e.g.
+3. **Observed price is an input, not fair value:** print the exact observed spot/front/strip price, date,
+   contract, quote unit and source separately from every model output. Never call the observed price a
+   model anchor or use a stale close against a current model range.
+4. **Assemble the model-implied fair-value band:** bear / base / bull fair-value LEVELS built from the anchors above (e.g.
    base ≈ mid-cycle incentive price; bear ≈ 90th-pct cash cost; bull ≈ demand-destruction ceiling). A range,
-   never a false-precise single number (§16). Note which anchor sets each end.
-4. **Reverse read — what is priced in:** given the current price and the curve, state what the market is
-   implicitly assuming (e.g. "the strip prices sugar ~2¢ above Brazil cash cost → a small-deficit assumption",
-   or "copper is ~15% above the incentive price → the market already pays for the electrification bid"). This
-   is the §7 "what the market may be missing" check for a commodity.
-5. **Margin of safety:** current price vs the base fair value and vs the bear/floor level — as two separate
+   never a false-precise single number (§16). Note which anchor sets each end, the model form, calibration
+   window, uncertainty range and out-of-sample status. An unvalidated statistical model is contextual and
+   cannot lift conviction under MODULE_RULES §8.
+5. **Reverse read — what the market appears to expect:** solve from the observed price/curve to the
+   underlying assumption in the same model (required deficit, real yield, utilisation, incentive price or
+   substitution threshold). Show the arithmetic. Call it `market-implied expectation`, not consensus and
+   not fact. If the model cannot uniquely invert price to an assumption, state the set of assumptions rather
+   than choosing one.
+6. **Mean-reversion burden of proof:** for each gap between observed price and the model-implied range,
+   list (a) the economic mechanism that closes it, (b) the observable evidence required, (c) the catalyst
+   window, (d) the historical/base-rate support, and (e) what falsifies reversion. A gap alone is not a trade;
+   if no mechanism and catalyst exist, label the anchor `descriptive only` and cap confidence.
+7. **Margin of safety:** current price vs the base fair value and vs the bear/floor level — as two separate
    numbers (discount/premium to base; downside to the floor). If the current price is missing, say
    "margin of safety Not assessable" (§11) — do not fake it.
-6. **§11 sufficiency cap + anchor-grade labelling (MANDATORY).** Free public sources give an *anchor-grade
+8. **§11 sufficiency cap + anchor-grade labelling (MANDATORY).** Free public sources give an *anchor-grade
    BAND* (WGC Goldhub AISC, Dallas Fed shale breakeven survey, USDA ERS Costs & Returns, disclosed producer
    AISC, published parity math), NOT a vendor-ranked percentile curve (Wood Mackenzie / CRU are paywalled).
    Label every cost level **anchor-grade** and present the floor as a BAND, never a precise percentile. If the
    anchor could not be reached for this commodity, say so and cap the fair-value confidence — a missing anchor
    is a gap, not a guess.
-7. Cite every level `[Source, period, date]` (§5). Save to `OUTPUT_PATH` with Write (Mode A); return only the
+9. Cite every level `[Source, period, date]` (§5). Save to `OUTPUT_PATH` with Write (Mode A); return only the
    CHAT CONFIRMATION.
 
 # REPORT STRUCTURE
@@ -77,7 +87,11 @@ You DO NOT:
 ```
 # Cost Curve & Fair Value — {COMMODITY}
 
-## 1. Anchor Levels (profile-relevant only)
+## 1. Observed Market Price (not model output)
+| Spot/front/strip | Level (unit) | Contract/date | Source |
+|---|---:|---|---|
+
+## 2. Model Anchor Levels (profile-relevant only)
 | Anchor | Level (unit) | Grade | What it means | Source, date |
 |---|---|---|---|---|
 | Cash-cost floor | | anchor-grade band | supply self-corrects below here | |
@@ -86,22 +100,27 @@ You DO NOT:
 | Demand-destruction / substitution ceiling | | parity math | buyers switch/cut above here | |
 (For gold: replace cost floors with the monetary / real-yield anchor, labelled as such.)
 
-## 2. Fair-Value Band
-| Case | Fair value (unit) | Set by which anchor |
-|---|---|---|
+## 3. Model-Implied Fair-Value Band
+| Case | Fair value (unit) | Set by which anchor | Model/window | Uncertainty / validation status |
+|---|---|---|---|---|
 | Bear | | |
 | Base | | |
 | Bull | | |
 
-## 3. Reverse Read — what is priced in
-- Current price {x} vs the anchors → the market is implicitly assuming {…}.
+## 4. Reverse Read — what the market appears to expect
+- Observed price {x} inverted through {model/arithmetic} → market-implied expectation {…}.
+- Non-unique assumptions / residual uncertainty.
 
-## 4. Margin of Safety
+## 5. Mean-Reversion Evidence Test
+| Observed-vs-model gap | Closing mechanism | Evidence required | Catalyst window | Base rate | Falsifier | Status |
+|---|---|---|---|---|---|---|
+
+## 6. Margin of Safety
 - Discount/premium to base fair value: __%
 - Downside to the floor (bear/cash-cost): __%
 - (or "Not assessable — current price missing", §11)
 
-## 5. Sufficiency & Grade
+## 7. Sufficiency & Grade
 - Anchors reached? Which are anchor-grade band vs missing? Fair-value confidence cap applied.
 ```
 
@@ -109,6 +128,8 @@ You DO NOT:
 - [ ] Only profile-relevant anchors are built (no cost floor forced onto gold; no real-yield anchor onto sugar).
 - [ ] Every cost level is labelled anchor-grade and shown as a BAND, never a false-precise percentile.
 - [ ] The fair-value band is a range with each end tied to a named anchor.
+- [ ] Observed price, model-implied range and market-implied expectation are three separate labelled objects.
+- [ ] Every mean-reversion claim has mechanism, evidence, window, base rate and falsifier; an unsupported gap is descriptive only.
 - [ ] Margin of safety is two numbers (to base, to floor), or "Not assessable" if no current price (§11).
 - [ ] Every level carries a source and date (§5); a missing anchor is stated, not guessed.
 
