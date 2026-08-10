@@ -184,6 +184,12 @@ function trailingPostMergeFailureStreak(
     if (row.connector !== event.connector_id || row.subject !== subject) continue
     const at = ledgerRowAt(row)
     if (!at || at <= mergedAt) continue
+    // `deferred` means the due-attempt throttle skipped this wake — no acquisition ran, so it can neither
+    // advance the streak nor reset it. feed-health.ts owns this rule ("`deferred` preserves that streak
+    // because no acquisition ran") and this fold must not diverge: the throttle interleaves deferred rows
+    // between real failures, so resetting on them meant a merged repair that kept failing never reached
+    // BROKEN_THRESHOLD, stayed at pr_open, and blocked the next repair while the feed showed as broken.
+    if (String(row.decision || '') === 'deferred') continue
     const deployed = typeof row.connector_commit === 'string'
       ? resolveMerged(event.pr_url || '', row.connector_commit) : null
     if (!deployed) { streak = 0; continue }

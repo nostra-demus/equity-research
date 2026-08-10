@@ -696,7 +696,15 @@ def _read_attempt_history(
                 continue
             latest[key] = row
             checked = _checked_at(row.get("checked_at"))
-            if (checked is not None and decision in {"refetched", "failed", "manual_ingested"}
+            # A `failed` row can record ZERO attempts: a keyed connector with no credential resolves to
+            # credentials_missing before any network call. Advancing the clock on it defers the next sweep
+            # for the whole cadence — up to a month on a monthly feed — so an operator who then supplies the
+            # credential still waits out the interval. Only an actual attempt moves an actual-attempt clock.
+            # Absent/non-numeric `attempts` keeps the historical behaviour (older rows predate the field).
+            tried = row.get("attempts")
+            no_attempt_made = isinstance(tried, (int, float)) and not isinstance(tried, bool) and tried <= 0
+            if (checked is not None and not no_attempt_made
+                    and decision in {"refetched", "failed", "manual_ingested"}
                     and (key not in attempts or checked > attempts[key])):
                 attempts[key] = checked
         warning = None
@@ -735,6 +743,19 @@ def _deferred_attempt_row(
 # ---------- execution (retry with backoff; a failed fetch writes nothing by contract) ----------
 
 _RUNTIME_ENV = ("PATH", "LANG", "LC_ALL", "LC_CTYPE", "TMPDIR", "TZ", "SSL_CERT_FILE", "SSL_CERT_DIR")
+
+
+def _credential_file_identity(info: os.stat_result) -> tuple[int, int, int, int, int, int]:
+    """Full change-detecting identity for the private credential file.
+
+    Device, inode and size alone accept a SAME-SIZE in-place rewrite: an operator or rotation tool
+    overwriting providers.env with equal-length bytes while this loader reads it passes every check, and
+    the loader then exports the STALE value as the connector's credential. mtime_ns/ctime_ns catch the
+    in-place edit through the same inode; st_nlink != 1 rejects a hardlink alias that could be mutated
+    through another path. Mirrors _identity() in scripts/ops/migrate-connector-secrets.py.
+    """
+    return (info.st_dev, info.st_ino, info.st_size,
+            info.st_mtime_ns, info.st_ctime_ns, info.st_nlink)
 
 
 def load_declared_credentials(man: dict) -> None:
@@ -777,15 +798,16 @@ def load_declared_credentials(man: dict) -> None:
         info = os.stat("providers.env", dir_fd=dir_fd, follow_symlinks=False)
         if (not stat.S_ISREG(info.st_mode) or stat.S_ISLNK(info.st_mode)
                 or info.st_uid != current_uid or stat.S_IMODE(info.st_mode) & 0o077
+                or info.st_nlink != 1
                 or info.st_size > 1024 * 1024):
             return
         file_fd = os.open(
             "providers.env", os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0), dir_fd=dir_fd,
         )
         opened = os.fstat(file_fd)
-        if ((opened.st_dev, opened.st_ino) != (info.st_dev, info.st_ino)
+        if (_credential_file_identity(opened) != _credential_file_identity(info)
                 or not stat.S_ISREG(opened.st_mode) or opened.st_uid != current_uid
-                or stat.S_IMODE(opened.st_mode) & 0o077 or opened.st_size != info.st_size):
+                or stat.S_IMODE(opened.st_mode) & 0o077):
             return
         chunks: list[bytes] = []
         remaining = opened.st_size
@@ -803,9 +825,8 @@ def load_declared_credentials(man: dict) -> None:
         if ((after_dir.st_dev, after_dir.st_ino) != (opened_dir.st_dev, opened_dir.st_ino)
                 or (path_dir.st_dev, path_dir.st_ino) != (opened_dir.st_dev, opened_dir.st_ino)
                 or path_dir.st_uid != current_uid or stat.S_IMODE(path_dir.st_mode) & 0o077
-                or (after_file.st_dev, after_file.st_ino) != (opened.st_dev, opened.st_ino)
-                or (path_file.st_dev, path_file.st_ino) != (opened.st_dev, opened.st_ino)
-                or after_file.st_size != opened.st_size or path_file.st_size != opened.st_size
+                or _credential_file_identity(after_file) != _credential_file_identity(opened)
+                or _credential_file_identity(path_file) != _credential_file_identity(opened)
                 or after_file.st_uid != current_uid or path_file.st_uid != current_uid
                 or stat.S_IMODE(after_file.st_mode) & 0o077
                 or stat.S_IMODE(path_file.st_mode) & 0o077):
@@ -2615,9 +2636,18 @@ def run(data_root: str, only: str | None = None, force: bool = False, dry_run: b
                             "ts": int(completed_at.timestamp()),
                             "latest_as_of": refreshed.isoformat() if refreshed else row["latest_as_of"]})
                 if publish_meta:
+                    # Rebind the CODE identity too. The no-fetch branch above deliberately overwrites this
+                    # row with the canonical vintage's fingerprints/commit, which is right for a row that
+                    # attests to existing evidence — but this row published new evidence, so it must claim
+                    # the code that produced it. Leaving the old identity makes healthyBuiltBySatisfies
+                    # reject the new current until a later `fresh` sweep, and hides the only real post-merge
+                    # refetch from repair verification, which resolves deployment via connector_commit.
                     row.update({"content_sha256": publish_meta["content_sha256"], "vintage_id": publish_meta["vintage_id"],
                                 "vintage_path": publish_meta["committed_head"]["path"],
-                                "retrieved_at": publish_meta["retrieved_at"]})
+                                "retrieved_at": publish_meta["retrieved_at"],
+                                "connector_fingerprint": publish_meta.get("connector_fingerprint"),
+                                "publisher_contract_fingerprint": publish_meta.get("publisher_contract_fingerprint"),
+                                "connector_commit": publish_meta.get("connector_commit")})
             elif latest and sla is not None and age <= sla and not force:
                 row["decision"] = "fresh"
                 row["outcome"] = "current"
@@ -2687,9 +2717,18 @@ def run(data_root: str, only: str | None = None, force: bool = False, dry_run: b
                             "ts": int(completed_at.timestamp()),
                             "latest_as_of": refreshed.isoformat() if refreshed else row["latest_as_of"]})
                 if publish_meta:
+                    # Rebind the CODE identity too. The no-fetch branch above deliberately overwrites this
+                    # row with the canonical vintage's fingerprints/commit, which is right for a row that
+                    # attests to existing evidence — but this row published new evidence, so it must claim
+                    # the code that produced it. Leaving the old identity makes healthyBuiltBySatisfies
+                    # reject the new current until a later `fresh` sweep, and hides the only real post-merge
+                    # refetch from repair verification, which resolves deployment via connector_commit.
                     row.update({"content_sha256": publish_meta["content_sha256"], "vintage_id": publish_meta["vintage_id"],
                                 "vintage_path": publish_meta["committed_head"]["path"],
-                                "retrieved_at": publish_meta["retrieved_at"]})
+                                "retrieved_at": publish_meta["retrieved_at"],
+                                "connector_fingerprint": publish_meta.get("connector_fingerprint"),
+                                "publisher_contract_fingerprint": publish_meta.get("publisher_contract_fingerprint"),
+                                "connector_commit": publish_meta.get("connector_commit")})
             rows.append(row)
             age_s = f"{age}d" if age is not None else "—"
             _log(f"{man['id']} × {subject}: latest {row['latest_as_of'] or '—'} (age {age_s}) "
