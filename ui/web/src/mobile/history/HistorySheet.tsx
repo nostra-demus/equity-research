@@ -24,30 +24,35 @@ export function HistorySheet({ open, onResume, onClose }: {
   const openSeq = useRef(0)
 
   useEffect(() => {
-    // leaving the sheet invalidates an in-flight resume too, so a late response cannot yank the user
-    // back into a chat they closed the sheet on
-    if (!open) { openSeq.current++; return }
+    if (!open) { setMe(null); return }
     let dead = false
-    setLoading(true)
-    void (async () => {
-      const who = await api.whoami().catch(() => null)
-      if (dead) return
-      setMe(who?.user ?? null)
-      const r = await api.listChats({ limit: 200 }).catch(() => null)
-      if (dead) return
-      setRows(r?.conversations ?? [])
-      setLoading(false)
-    })()
+    void api.whoami().then((who) => { if (!dead) setMe(who?.user ?? null) }).catch(() => { if (!dead) setMe(null) })
     return () => { dead = true }
   }, [open])
 
+  useEffect(() => {
+    // leaving the sheet invalidates an in-flight resume too, so a late response cannot yank the user
+    // back into a chat they closed the sheet on
+    if (!open) { openSeq.current++; return }
+    // Mine needs the signed-in identity to filter by SERVER-SIDE — otherwise the newest-200-across-
+    // everyone response can omit this user's own older chats entirely on a shared, busy engine (mirrors
+    // desktop ChatHistory.load: `user: mineOnly && whoami ? whoami.user : undefined`). Hold the load
+    // until whoami resolves for Mine, exactly as desktop does, so the list never flashes everyone's chats.
+    if (mine && me == null) return
+    let dead = false
+    setLoading(true)
+    void api.listChats({ user: mine ? me ?? undefined : undefined, limit: 200 })
+      .then((r) => { if (!dead) { setRows(r?.conversations ?? []); setLoading(false) } })
+      .catch(() => { if (!dead) { setRows([]); setLoading(false) } })
+    return () => { dead = true }
+  }, [open, mine, me])
+
   const filtered = useMemo(() => {
     let r = rows
-    if (mine && me) r = r.filter((c) => c.user === me)
     const t = q.trim().toLowerCase()
     if (t) r = r.filter((c) => (c.title + ' ' + c.subject + ' ' + c.preview).toLowerCase().includes(t))
     return r
-  }, [rows, mine, me, q])
+  }, [rows, q])
 
   const openOne = async (id: string) => {
     const seq = ++openSeq.current

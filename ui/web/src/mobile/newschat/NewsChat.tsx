@@ -26,17 +26,19 @@ type WindowId = (typeof WINDOWS)[number]['id']
 
 const NEWS_MAX = 30
 
-export function NewsChat({ model }: { model: string }) {
+export function NewsChat({ model, staticMode }: { model: string; staticMode?: boolean }) {
   const [win, setWin] = useState<WindowId>('24h')
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [streaming, setStreaming] = useState(false)
   const [receipt, setReceipt] = useState<NewsChatReceipt | null>(null)
   const [evidence, setEvidence] = useState<NewsChatEvidence[]>([])
   const [error, setError] = useState<string | null>(null)
+  const [retryText, setRetryText] = useState<string | null>(null)
   const abortRef = useRef<AbortController | null>(null)
   const threadRef = useRef<HTMLDivElement>(null)
   const stickRef = useRef(true)
   const baselineRef = useRef<ChatMessage[]>([])
+  const pendingTextRef = useRef('')
 
   useEffect(() => () => abortRef.current?.abort(), [])
 
@@ -56,17 +58,25 @@ export function NewsChat({ model }: { model: string }) {
     setReceipt(null)
     setEvidence([])
     setError(null)
+    setRetryText(null)
     setStreaming(false)
   }
 
   const send = useCallback((text: string) => {
     const q = text.trim()
-    if (!q || streaming) return
-    baselineRef.current = messages
-    const next = [...messages, { role: 'user' as const, content: q }, { role: 'assistant' as const, content: '' }]
+    if (!q || streaming || staticMode) return
+    // Trim the baseline to an even count BEFORE appending the new turn (mirrors desktop store.ts
+    // sendNewsChatMessage's `messages.slice(-(NEWS_CHAT_MAX_MESSAGES - 2))`). Slicing to NEWS_MAX only
+    // after appending removes just the oldest USER message once history exceeds the cap, so every
+    // later request starts with an orphaned assistant answer and the model sees mispaired history.
+    const baseline = messages.slice(-(NEWS_MAX - 2))
+    baselineRef.current = baseline
+    pendingTextRef.current = q
+    const next = [...baseline, { role: 'user' as const, content: q }, { role: 'assistant' as const, content: '' }]
     setMessages(next)
     setStreaming(true)
     setError(null)
+    setRetryText(null)
     const controller = new AbortController()
     abortRef.current?.abort()
     abortRef.current = controller
@@ -77,7 +87,7 @@ export function NewsChat({ model }: { model: string }) {
     const live = () => abortRef.current === controller && !controller.signal.aborted
     const idx = next.length - 1
     void api.newsChatStream(
-      { window: win, model, messages: [...messages, { role: 'user', content: q }].slice(-NEWS_MAX) } as any,
+      { window: win, model, messages: [...baseline, { role: 'user', content: q }].slice(-NEWS_MAX) } as any,
       {
         signal: controller.signal,
         onMeta: (m) => { if (live()) { setReceipt(m.receipt); setEvidence(m.evidence) } },
@@ -89,10 +99,24 @@ export function NewsChat({ model }: { model: string }) {
           setStreaming(false)
           setMessages(baselineRef.current)
           setError(msg)
+          // Keep the failed question retrievable instead of forcing a retype on a transient 429 or a
+          // dropped stream (matches the regular mobile chat's stop/error retry chip).
+          setRetryText(pendingTextRef.current)
         },
       },
     )
-  }, [messages, streaming, win, model])
+  }, [messages, streaming, win, model, staticMode])
+
+  const stop = useCallback(() => {
+    if (!streaming) return
+    abortRef.current?.abort()
+    abortRef.current = null
+    setStreaming(false)
+    setMessages(baselineRef.current)
+    setRetryText(pendingTextRef.current)
+  }, [streaming])
+
+  const retry = useCallback(() => { if (retryText) send(retryText) }, [retryText, send])
 
   // refs in the LAST completed answer only (the desktop rule)
   const last = [...messages].reverse().find((m) => m.role === 'assistant' && m.content)
@@ -109,11 +133,11 @@ export function NewsChat({ model }: { model: string }) {
       </div>
       <div className="mnews__receipt">
         {receipt
-          ? `${receipt.retrievalMode === 'hybrid_neural' ? 'Hybrid + neural' : 'Hybrid search'} · ${receipt.itemsSearched} items · ${receipt.sourceCount} sources · used ${receipt.evidenceCount}`
+          ? `${receipt.retrievalMode === 'hybrid_neural' ? 'Hybrid + neural' : 'Hybrid search'} · ${receipt.itemsSearched} items · ${receipt.sourceCount} sources · used ${receipt.evidenceCount + receipt.historicalEvidenceCount}`
           : `Ask about ${WINDOWS.find((w) => w.id === win)?.greeting}`}
       </div>
       {receipt && receipt.coverageWarnings.length > 0 && (
-        <div className="mchat__static">{receipt.coverageWarnings[0]}</div>
+        <div className="mchat__static">{receipt.coverageWarnings.join(' ')}</div>
       )}
       <div
         className="mchat__thread"
@@ -124,7 +148,7 @@ export function NewsChat({ model }: { model: string }) {
           <div className="mchat__starters">
             <div className="mchat__startershead">Or jump in</div>
             {['What moved today that matters?', 'Anything on the companies we cover?', 'Biggest supply-side story this week?'].map((q) => (
-              <button key={q} className="mchat__starter" onClick={() => send(q)}>{q}</button>
+              <button key={q} className="mchat__starter" disabled={staticMode} onClick={() => send(q)}>{q}</button>
             ))}
           </div>
         )}
@@ -158,13 +182,32 @@ export function NewsChat({ model }: { model: string }) {
             ))}
           </details>
         )}
-        {error && <div className="mchat__error" role="alert">{error}</div>}
+        {/* keeps the surface's own "typing dots, no thinking block" waiting state (the inline "…" above)
+            while still giving a phone user a real way to stop a long or unwanted request — previously
+            only switching windows or leaving the surface could interrupt a stream */}
+        {streaming && (
+          <div className="mchat__work" role="status">
+            <button className="mchat__stop" onClick={stop}>◼ Stop</button>
+          </div>
+        )}
+        {error && (
+          <div className="mchat__error" role="alert">
+            <div>{error}</div>
+            {retryText && <button className="mchat__retry" onClick={retry}>Retry</button>}
+          </div>
+        )}
+        {!streaming && !error && retryText && (
+          <div className="mchat__stopped">
+            Stopped. <button className="mchat__retry" onClick={retry}>Ask again</button>
+          </div>
+        )}
       </div>
       <div className="mchat__composer">
         <textarea
           className="mchat__input"
           rows={1}
-          placeholder={`Ask ${WINDOWS.find((w) => w.id === win)?.greeting}…`}
+          disabled={staticMode}
+          placeholder={staticMode ? 'Chat runs live — start the engine to ask questions' : `Ask ${WINDOWS.find((w) => w.id === win)?.greeting}…`}
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey && matchMedia('(hover: hover) and (pointer: fine)').matches) {
               e.preventDefault()
@@ -175,7 +218,7 @@ export function NewsChat({ model }: { model: string }) {
         />
         <button
           className="mchat__send"
-          disabled={streaming}
+          disabled={streaming || staticMode}
           onClick={(e) => {
             const ta = (e.currentTarget.parentElement?.querySelector('.mchat__input') as HTMLTextAreaElement)
             if (ta) { send(ta.value); ta.value = '' }

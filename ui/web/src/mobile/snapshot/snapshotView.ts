@@ -15,6 +15,13 @@ export interface ResearchSnap {
   entry?: number
   currency?: string
   live?: number
+  /** When the price is a settled last close rather than a live tick (mirrors desktop's "Last close" label). */
+  liveIsClose?: boolean
+  /** Exchange-delayed feed — nothing on screen may claim to be real-time. */
+  liveDelayed?: boolean
+  /** A real price, but not a fresh one: the last refresh failed. Desktop suppresses movePct in this case. */
+  liveStale?: boolean
+  liveAsOf?: string
   movePct?: number
 }
 export interface SignalSnap {
@@ -57,9 +64,21 @@ export function researchSnapshot(decision: any, quote: QuoteRead | null): Resear
   const cur = str(decision.currency)
   if (cur) snap.currency = cur
   const live = num(quote?.quote?.price)
-  if (live != null) snap.live = live
-  const mv = num(quote?.call?.move_since_call_pct)
-  if (mv != null) snap.movePct = mv
+  if (live != null) {
+    snap.live = live
+    if (quote?.quote?.as_of_is_close === true) snap.liveIsClose = true
+    if (quote?.quote?.delayed === true) snap.liveDelayed = true
+    if (quote?.quote?.stale === true) snap.liveStale = true
+    const asOf = str(quote?.quote?.as_of)
+    if (asOf) snap.liveAsOf = asOf
+    // Desktop suppresses the vs-entry move% once the price is known stale — a stale price re-based
+    // against entry would show a "move" that is really just how old the cached tick is (format.ts
+    // priceQualifier: `if (quote.stale) return ' · not current'`, never the move%).
+    if (!snap.liveStale) {
+      const mv = num(quote?.call?.move_since_call_pct)
+      if (mv != null) snap.movePct = mv
+    }
+  }
   return snap
 }
 

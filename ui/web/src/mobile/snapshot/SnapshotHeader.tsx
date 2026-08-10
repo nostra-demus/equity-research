@@ -99,7 +99,15 @@ export function SnapshotHeader({ snap, onTap }: { snap: Snapshot | null; onTap: 
           {/* the currency is never optional decoration on a global book: 238.34 is a different number in
               USD, INR and NOK, and the derivation already carries it (§27 — figures travel with their unit) */}
           entry {snap.currency ? `${snap.currency} ` : ''}{nfmt(snap.entry)}
-          {snap.live != null && <> → now {nfmt(snap.live)}</>}
+          {snap.live != null && (
+            <>
+              {' '}→ {snap.liveIsClose ? 'last close' : 'now'} {nfmt(snap.live)}
+              {/* Freshness qualifiers travel with the price — a stale or delayed tick must never read as a
+                  current one (mirrors desktop DecisionBanner's quote.delayed / quote.stale tooltip text). */}
+              {snap.liveStale && <span className="msnap__faint"> · not current</span>}
+              {!snap.liveStale && snap.liveDelayed && <span className="msnap__faint"> · delayed</span>}
+            </>
+          )}
           {snap.movePct != null && (
             <span className={snap.movePct < 0 ? 'msnap__neg' : 'msnap__pos'}> {snap.movePct > 0 ? '+' : ''}{nfmt(snap.movePct, 1)}%</span>
           )}

@@ -152,7 +152,7 @@ export function MobileApp() {
       {staticMode && <div className="mchat__static">Chat runs live — start the engine with npm run dev to ask questions.</div>}
 
       {newsWire ? (
-        <NewsChat model={model} />
+        <NewsChat model={model} staticMode={staticMode} />
       ) : (
         <>
           <SnapshotHeader snap={snap} onTap={() => setSheet('subject')} />

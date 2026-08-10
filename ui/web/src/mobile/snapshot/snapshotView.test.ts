@@ -36,6 +36,35 @@ check('research: no decision record at all → never-run', () => {
   assert.equal(researchSnapshot(null, null).kind, 'never-run')
 })
 
+check('research: a stale quote suppresses movePct and flags liveStale (mirrors desktop priceQualifier)', () => {
+  const s: any = researchSnapshot(
+    { decision: 'Watchlist', confidence_score: 57, entry_price: 238.34, currency: 'USD' },
+    { ticker: 'AMZN', quote: { price: 235.5, stale: true }, call: { move_since_call_pct: -1.2 } } as any,
+  )
+  assert.equal(s.live, 235.5)
+  assert.equal(s.liveStale, true)
+  assert.equal(s.movePct, undefined) // a stale price re-based against entry is not a real "move"
+})
+
+check('research: a delayed-but-fresh quote keeps movePct and flags liveDelayed', () => {
+  const s: any = researchSnapshot(
+    { decision: 'Watchlist', confidence_score: 57, entry_price: 238.34, currency: 'USD' },
+    { ticker: 'AMZN', quote: { price: 235.5, delayed: true }, call: { move_since_call_pct: -1.2 } } as any,
+  )
+  assert.equal(s.liveDelayed, true)
+  assert.equal(s.liveStale, undefined)
+  assert.equal(s.movePct, -1.2)
+})
+
+check('research: a settled close is flagged liveIsClose, not left indistinguishable from a live tick', () => {
+  const s: any = researchSnapshot(
+    { decision: 'Watchlist', confidence_score: 57, entry_price: 238.34, currency: 'USD' },
+    { ticker: 'AMZN', quote: { price: 235.5, as_of_is_close: true, as_of: '2026-08-07T21:00:00Z' } } as any,
+  )
+  assert.equal(s.liveIsClose, true)
+  assert.equal(s.liveAsOf, '2026-08-07T21:00:00Z')
+})
+
 check('signal: thesis headline beats the signal headline (which can be empty on the board)', () => {
   const s: any = signalSnapshot(
     { signal_id: 'SIG-1', headline: '', status: 'promoted' } as any,
@@ -83,6 +112,6 @@ check('commodity: 8 of 12 have no run today — never-run is a first-class state
   assert.equal(s.kind, 'never-run')
 })
 
-const EXPECTED_CHECKS = 10
+const EXPECTED_CHECKS = 13
 assert.ok(passed >= EXPECTED_CHECKS, `only ${passed} checks ran, expected at least ${EXPECTED_CHECKS}`)
 console.log(`\nsnapshotView.test.ts: ${passed} checks passed`)
