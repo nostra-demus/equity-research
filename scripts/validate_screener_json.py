@@ -334,6 +334,30 @@ TRIAGE_VERDICT_RE = re.compile(r"\*\*Verdict:\*\*\s*(Sufficient|Partial|Insuffic
 # date (ALUMINIUM/COPPER/GOLD/WHEAT, all dated 2026-07-02..07-18) genuinely predate the gate and are N/A.
 COMMODITY_CALIBRATION_GATE_DATE = "2026-07-21"
 CALIBRATION_STATUSES = {"not_available", "pre_data", "checked_no_action", "applied"}
+# Error-taxonomy extension — the commodity-scoped twin of eval.py's AG_ERRTAX_DATE (2026-07-29). The
+# commodity calibration gate above landed 2026-07-21, eight days BEFORE the research swarm gained its
+# error-taxonomy trigger, and was never backported: scripts/commodity_calibrate.py has computed
+# error_taxonomy_distribution (CLAUDE.md §20) since it shipped, but it was read back only in
+# .claude/commands/commodity/calibrate.md step 3's human-facing narration ("the leading tag(s) if any
+# count >= 2 ... never gated by the floor") — never by a gate that changes behavior on a live commodity
+# run. Same "measured but never consumed" gap eval.py's AG_ERRTAX_DATE closed for research, ported here.
+# Forward-looking: commodity decision_record.json dated before this date is not held to the two new
+# schema fields (leading_error_categories_flagged, error_defense_evidence) that did not exist when it
+# shipped, mirroring the AG_ERRTAX_DATE convention exactly.
+COMMODITY_CALIBRATION_ERRTAX_DATE = "2026-08-10"
+
+
+def _commodity_leading_error_categories(calibration_summary):
+    """Categories in the as-of commodity calibration summary's error_taxonomy_distribution with count
+    >= 2 — the same threshold commodity/calibrate.md's own human-facing narration already uses ("the
+    leading tag(s) if any count >= 2"). Sorted for a deterministic violation message. Non-dict/non-numeric
+    entries are ignored, never crash. Mirrors eval.py's _ag_leading_error_categories exactly."""
+    dist = (calibration_summary or {}).get("error_taxonomy_distribution")
+    if not isinstance(dist, dict):
+        return []
+    def _isnum(v):
+        return isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v)
+    return sorted(cat for cat, n in dist.items() if isinstance(cat, str) and _isnum(n) and n >= 2)
 # Rollout date for check_commodity_scenario_math (CLAUDE.md §10, the commodity-scoped twin of eval.py
 # check M). Same forward-looking convention as COMMODITY_CALIBRATION_GATE_DATE above: every commodity
 # decision_record.json dated on/after this date must carry the scenario distribution its own expected
@@ -822,9 +846,17 @@ def check_commodity_calibration_gate(doc_path: str) -> list[str]:
     here before it can ever ship (unlike AI/AK, which the research swarm discovered only after a defect
     had already shipped). Forward-looking: N/A for any decision_date before COMMODITY_CALIBRATION_GATE_DATE.
 
-    This is a presence/consistency check, not a re-derivation of hit rates — it cannot judge WHICH
-    commodity slice should have been flagged, only that the gate ran and recorded a status consistent
-    with what the as-of summary's own verdict made possible."""
+    On/after COMMODITY_CALIBRATION_ERRTAX_DATE this also enforces the error-taxonomy trigger (the
+    commodity-scoped twin of eval.py's AG_ERRTAX_DATE extension): every leading error_taxonomy_distribution
+    category (count >= 2) in the as-of summary must carry a traceable, non-trivial defense in
+    error_defense_evidence, or the admitted literal "no defense evidence found" — in which case it must
+    also appear in leading_error_categories_flagged, which independently justifies status=='applied'
+    alongside (never additive to) the original hit-rate trigger.
+
+    This is a presence/consistency check, not a re-derivation of hit rates or a judgment on whether a
+    written defense is TRUE — it cannot judge WHICH commodity slice or error category should have been
+    flagged, only that the gate ran and recorded a status/shape consistent with what the as-of summary
+    itself made possible."""
     try:
         doc = json.load(open(doc_path, encoding="utf-8"))
     except Exception as e:
@@ -842,9 +874,14 @@ def check_commodity_calibration_gate(doc_path: str) -> list[str]:
         return []  # forward-looking; pre-gate runs N/A (never a violation)
     summary = _commodity_calib_summary_asof(decision_date)
     verdict = (summary or {}).get("verdict") or ""
+    errtax_gate = decision_date >= COMMODITY_CALIBRATION_ERRTAX_DATE
+    # error_taxonomy_distribution is a flat, always-honest tally at ANY N (commodity/calibrate.md's own
+    # narration: "never gated by the floor") — unlike the hit-rate slice, a Pre-data verdict does not
+    # excuse skipping the error-taxonomy check once it has rolled out.
+    lec = _commodity_leading_error_categories(summary) if errtax_gate else []
     if summary is None:
         expected = "not_available"
-    elif verdict.startswith("Pre-data"):
+    elif verdict.startswith("Pre-data") and not lec:
         expected = "pre_data"
     else:
         expected = "checked"  # covers checked_no_action / applied — this script can't judge which is correct
@@ -864,16 +901,104 @@ def check_commodity_calibration_gate(doc_path: str) -> list[str]:
         errs.append(f"as-of calibration_summary verdict={verdict!r} is Pre-data but status={status!r} (expected 'pre_data')")
     elif expected == "checked" and status not in ("checked_no_action", "applied"):
         errs.append(f"as-of calibration_summary has real signal (verdict={verdict!r}) but status={status!r} (expected 'checked_no_action' or 'applied')")
+    lecf = cf.get("leading_error_categories_flagged")
+    ede = cf.get("error_defense_evidence")
     if status == "applied":
         hp, fs = cf.get("haircut_points"), cf.get("flagged_slices")
-        if not (isinstance(hp, (int, float)) and not isinstance(hp, bool) and hp > 0):
-            errs.append(f"status='applied' but haircut_points={hp!r} is not a positive number")
-        if not (isinstance(fs, list) and len(fs) > 0):
+        # The haircut is a single FIXED constant, never "any positive number": decision_record.schema.json
+        # pins haircut_points to "the fixed constant (8)" and 99_commodity-thesis-synthesis.md step 4 to
+        # "a single fixed 8-point confidence haircut … never additive". Accepting any hp>0 let a malformed
+        # record keep up to seven points of confidence while claiming 'applied' (Codex r3746510840 — P2);
+        # this mirrors eval.py check AG's identical `hp==8` guard for the research-swarm twin.
+        if not (isinstance(hp, (int, float)) and not isinstance(hp, bool) and hp == 8):
+            errs.append(f"status='applied' but haircut_points={hp!r} is not the fixed 8-point constant "
+                        f"(decision_record.schema.json: 'the fixed constant (8)'; synthesis step 4: 'a single fixed "
+                        f"8-point confidence haircut … never additive' — mirrors eval.py check AG's hp==8)")
+        if errtax_gate:
+            fs_ok = isinstance(fs, list) and len(fs) > 0
+            # A flagged category is only a traceable trigger if it names one the as-of summary's OWN
+            # error_taxonomy_distribution is actually leading (count >= 2) right now — an unrelated or
+            # stale entry must not grant a free pass (mirrors eval.py check AG's identical guard).
+            lecf_str = [x for x in lecf if isinstance(x, str)] if isinstance(lecf, list) else []
+            lecf_ok = any(x in lec for x in lecf_str)
+            if not (fs_ok or lecf_ok):
+                errs.append(f"status='applied' but neither flagged_slices={fs!r} nor "
+                            f"leading_error_categories_flagged={lecf!r} is a non-empty/traceable list — the "
+                            f"haircut must be traceable to a flagged commodity slice or a leading error-taxonomy category")
+        elif not (isinstance(fs, list) and len(fs) > 0):
             errs.append(f"status='applied' but flagged_slices={fs!r} is empty/not a list")
+    elif status in ("not_available", "pre_data", "checked_no_action"):
+        # The schema pins haircut_points to "0 unless status=='applied'": a haircut only ever accompanies
+        # an applied flag, so any non-zero value on a non-applied status is a malformed record silently
+        # claiming a phantom haircut (Codex r3746510840 — the fixed-haircut twin of the applied hp==8 check).
+        hp = cf.get("haircut_points")
+        if not (isinstance(hp, (int, float)) and not isinstance(hp, bool) and hp == 0):
+            errs.append(f"status={status!r} but haircut_points={hp!r} is not 0 — the schema pins "
+                        f"haircut_points to '0 unless status==\"applied\"'")
     if status == "checked_no_action":
         fs = cf.get("flagged_slices")
         if isinstance(fs, list) and len(fs) > 0:
             errs.append(f"status='checked_no_action' but flagged_slices={fs!r} is non-empty")
+        if errtax_gate and isinstance(lecf, list) and len(lecf) > 0:
+            errs.append(f"status='checked_no_action' but leading_error_categories_flagged={lecf!r} is non-empty")
+    if errtax_gate:
+        # PRESENCE, on EVERY status (Gemini r3746502179 / Codex r3746510842 — P2). The synthesis record
+        # shape (99_commodity-thesis-synthesis.md step 4 + decision_record.schema.json) carries
+        # leading_error_categories_flagged and error_defense_evidence UNCONDITIONALLY once the extension is
+        # live — {}/[] at minimum even for pre_data/not_available. Enforcing both present regardless of
+        # status is what keeps a completed error-taxonomy check distinguishable from one silently skipped:
+        # an absent field would otherwise pass identically to a present-and-empty one, and an 'applied'
+        # record flagged via flagged_slices could omit the flagged-category list entirely. Real synthesizer
+        # output always emits both keys, so this rejects only malformed records, never a clean run.
+        if not isinstance(lecf, list):
+            errs.append(f"on/after {COMMODITY_CALIBRATION_ERRTAX_DATE} calibration_feedback.leading_error_categories_flagged={lecf!r} "
+                        f"is missing/not a list — the error-taxonomy trigger must prove it ran on every status by recording a "
+                        f"list ([] when nothing flagged; a clean check must be distinguishable from a silently skipped one)")
+        if not isinstance(ede, dict):
+            errs.append(f"on/after {COMMODITY_CALIBRATION_ERRTAX_DATE} calibration_feedback.error_defense_evidence={ede!r} "
+                        f"is missing/not an object — every run must record a defense-evidence object on every status "
+                        f"(empty '{{}}' when no category is currently leading) to prove the error-taxonomy trigger ran")
+        # Standalone structural validation of leading_error_categories_flagged — runs whenever the field
+        # is present as a list at all, catching malformed values inside 'applied' too.
+        if isinstance(lecf, list):
+            non_str = [x for x in lecf if not isinstance(x, str)]
+            if non_str:
+                errs.append(f"leading_error_categories_flagged contains non-string entr{'y' if len(non_str)==1 else 'ies'} "
+                            f"{non_str!r} — every flagged category must be a string naming an error_taxonomy_distribution key")
+            bogus = [x for x in lecf if isinstance(x, str) and x not in lec]
+            if bogus:
+                errs.append(f"leading_error_categories_flagged includes {bogus!r} which "
+                            f"{'is' if len(bogus)==1 else 'are'} not among the as-of summary's actual leading "
+                            f"categories {lec!r} (count >= 2) — a flagged category must be one currently leading, "
+                            f"not an unrelated or stale one")
+        # Per-category defense consistency — only leading categories (count >= 2) need an entry, so this
+        # only does real work for checked/applied (pre_data/not_available carry an empty `lec`). Runs
+        # whenever error_defense_evidence is a dict, independent of status.
+        if isinstance(ede, dict) and lec:
+            flagged_set = set(x for x in lecf if isinstance(x, str)) if isinstance(lecf, list) else set()
+            for cat in lec:
+                val = ede.get(cat)
+                val_s = val.strip().lower() if isinstance(val, str) else None
+                admits_none = (val_s == "no defense evidence found")
+                if cat in flagged_set:
+                    if not admits_none:
+                        errs.append(f"leading_error_categories_flagged includes {cat!r} but "
+                                    f"error_defense_evidence[{cat!r}]={val!r} is not the literal 'no defense "
+                                    f"evidence found' — a flagged category must admit it has no defense, not "
+                                    f"carry a contradicting claim of one")
+                else:
+                    if val is None:
+                        errs.append(f"leading error-taxonomy category {cat!r} (count >= 2) has no entry in "
+                                    f"error_defense_evidence and is not in leading_error_categories_flagged — "
+                                    f"the check must be provably run on every leading category")
+                    elif admits_none:
+                        errs.append(f"error_defense_evidence[{cat!r}]='no defense evidence found' but {cat!r} "
+                                    f"is not in leading_error_categories_flagged — an admitted-no-defense "
+                                    f"category must be flagged, not silently passed")
+                    elif not (isinstance(val, str) and len(val.strip()) >= 20):
+                        errs.append(f"error_defense_evidence[{cat!r}]={val!r} is not a concrete, non-trivial "
+                                    f"defense statement (>= 20 chars) — a vague or empty entry is "
+                                    f"indistinguishable from no defense and must be flagged instead")
     return errs
 
 
@@ -1044,14 +1169,25 @@ def _selftest_calibration_gate() -> int:
     frameworks/commodity/decision_record.schema.json's calibration_feedback enum
     (statuses {not_available, pre_data, checked_no_action, applied}; haircut_points>0 and non-empty
     flagged_slices only when status=='applied') — NOT to the gate's current behaviour.
+
+    On/after COMMODITY_CALIBRATION_ERRTAX_DATE it also pins the error-taxonomy trigger (leading
+    error_taxonomy_distribution categories, error_defense_evidence, leading_error_categories_flagged) —
+    same reason: --fixture's four pre-gate runs predate both extensions, so these branches would ship
+    untested by CI without this table.
     """
     import tempfile
 
     global REPO
     old_repo = REPO
     failures = []
+    # Counted, never hand-written: a literal in the summary line drifts the moment a branch is added
+    # (it read "38" while the table held 32, then again while it held 39), which quietly turns the one
+    # number a reviewer checks into the least trustworthy thing printed.
+    executed = 0
 
     def run(name, doc, want_accept, summaries=None):
+        nonlocal executed
+        executed += 1
         # want_accept=True  -> §18 says this record is consistent, gate must return [] (accept)
         # want_accept=False -> §18/schema says it's a violation, gate must return a non-empty error list
         with tempfile.TemporaryDirectory() as d:
@@ -1072,7 +1208,8 @@ def _selftest_calibration_gate() -> int:
 
     GATE = COMMODITY_CALIBRATION_GATE_DATE
     pre = (datetime.date.fromisoformat(GATE) - datetime.timedelta(days=1)).isoformat()   # < gate -> N/A
-    post = (datetime.date.fromisoformat(GATE) + datetime.timedelta(days=4)).isoformat()  # >= gate
+    post = (datetime.date.fromisoformat(GATE) + datetime.timedelta(days=4)).isoformat()  # >= gate, < errtax gate
+    post_errtax = (datetime.date.fromisoformat(COMMODITY_CALIBRATION_ERRTAX_DATE) + datetime.timedelta(days=2)).isoformat()  # >= errtax gate
 
     def rec(**kw):
         b = {"swarm": "commodity", "commodity": "GOLD", "decision_date": post, "action": "Hold", "confidence": 50}
@@ -1115,12 +1252,174 @@ def _selftest_calibration_gate() -> int:
     # checked_no_action must carry no flagged slices (a flag implies a haircut => 'applied')
     run("checked_no_action, flagged non-empty -> reject", rec(calibration_feedback=cf(status="checked_no_action", flagged_slices=["GOLD"], source_summary="s")), False, real)
 
+    # ── Error-taxonomy extension (COMMODITY_CALIBRATION_ERRTAX_DATE) ──
+    DEF_REAL = "the supply-security synthesis names the specific policy check that guards against this exact miss recurring"
+    real_hitflag_defended = {f"{pre}_calibration_summary.json": {
+        "verdict": "12 decisive resolved calls · hit-rate 55%.",
+        "calibration_by_commodity": {"GOLD": {"hit_rate": 0.3, "n": 6}},  # flags GOLD (hit-rate trigger)
+        "error_taxonomy_distribution": {"bad base rate": 3, "timing error": 1}}}  # only "bad base rate" leads
+    real_no_hitflag = {f"{pre}_calibration_summary.json": {
+        "verdict": "12 decisive resolved calls · hit-rate 55%.",
+        "calibration_by_commodity": {"GOLD": {"hit_rate": 0.6, "n": 6}},  # does NOT flag GOLD
+        "error_taxonomy_distribution": {"bad base rate": 3, "timing error": 1}}}
+    real_no_errtax_lead = {f"{pre}_calibration_summary.json": {
+        "verdict": "12 decisive resolved calls · hit-rate 55%.",
+        "calibration_by_commodity": {"GOLD": {"hit_rate": 0.6, "n": 6}},
+        "error_taxonomy_distribution": {"timing error": 1}}}  # no category >= 2
+    predata_no_lead = {f"{pre}_calibration_summary.json": {
+        "verdict": "Pre-data — 3 of 10 decisive resolved calls needed.",
+        "calibration_by_commodity": {}, "error_taxonomy_distribution": {"timing error": 1}}}
+    predata_with_lead = {f"{pre}_calibration_summary.json": {
+        "verdict": "Pre-data — 3 of 10 decisive resolved calls needed.",
+        "calibration_by_commodity": {}, "error_taxonomy_distribution": {"bad base rate": 2}}}
+
+    def rec_e(**kw):
+        return rec(decision_date=post_errtax, **kw)
+
+    # Backward compatibility: before COMMODITY_CALIBRATION_ERRTAX_DATE, the two new fields may be
+    # entirely absent and the original hit-rate-only contract still governs (already exercised above via
+    # `post`/`real`/`predata`, which never set the new fields — this just makes the intent explicit).
+    run("pre-errtax date, applied via hit-rate trigger only, no errtax fields -> accept",
+        rec(calibration_feedback=cf(status="applied", haircut_points=8, flagged_slices=["GOLD"], source_summary="s")), True, real)
+
+    # Errtax trigger fires ALONGSIDE a fired hit-rate trigger: GOLD flagged (fs non-empty) AND a leading
+    # category exists but is genuinely (>=20 char) defended — not flagged. status='applied' is traceable
+    # via flagged_slices alone; error_defense_evidence for the leading category must still be present+real.
+    run("errtax: hit-rate flags GOLD, leading category genuinely defended -> accept",
+        rec_e(calibration_feedback=cf(status="applied", haircut_points=8, flagged_slices=["GOLD"],
+                                       leading_error_categories_flagged=[],
+                                       error_defense_evidence={"bad base rate": DEF_REAL}, source_summary="s")),
+        True, real_hitflag_defended)
+
+    # Errtax trigger fires ALONE (hit-rate does not flag GOLD): an admitted "no defense evidence found"
+    # for the leading category must independently justify status='applied' even with flagged_slices=[].
+    run("errtax: hit-rate clean, leading category admits no defense -> applied via errtax alone -> accept",
+        rec_e(calibration_feedback=cf(status="applied", haircut_points=8, flagged_slices=[],
+                                       leading_error_categories_flagged=["bad base rate"],
+                                       error_defense_evidence={"bad base rate": "no defense evidence found", "timing error": DEF_REAL},
+                                       source_summary="s")),
+        True, real_no_hitflag)
+    run("errtax: same as above but forgot to flag the admitted-no-defense category -> reject",
+        rec_e(calibration_feedback=cf(status="applied", haircut_points=8, flagged_slices=[],
+                                       leading_error_categories_flagged=[],
+                                       error_defense_evidence={"bad base rate": "no defense evidence found", "timing error": DEF_REAL},
+                                       source_summary="s")),
+        False, real_no_hitflag)
+
+    # checked_no_action: no leading category at all -> leading_error_categories_flagged=[] + ede={} accept.
+    run("errtax: checked_no_action, no leading category -> accept",
+        rec_e(calibration_feedback=cf(status="checked_no_action", leading_error_categories_flagged=[],
+                                       error_defense_evidence={}, source_summary="s")),
+        True, real_no_errtax_lead)
+    # PRESENCE, not just emptiness: an absent leading_error_categories_flagged must not pass identically
+    # to a present-and-empty one (the field itself is the proof the trigger ran).
+    run("errtax: checked_no_action, leading_error_categories_flagged absent -> reject",
+        rec_e(calibration_feedback=cf(status="checked_no_action", error_defense_evidence={}, source_summary="s")),
+        False, real_no_errtax_lead)
+    run("errtax: checked_no_action, leading_error_categories_flagged non-empty -> reject",
+        rec_e(calibration_feedback=cf(status="checked_no_action", leading_error_categories_flagged=["bad base rate"],
+                                       error_defense_evidence={"bad base rate": "no defense evidence found"}, source_summary="s")),
+        False, real_no_hitflag)
+
+    # Pre-data-but-errtax-active: a leading category exists even though the overall verdict is Pre-data,
+    # so status must NOT stay 'pre_data' — it must resolve via the errtax trigger like any other check.
+    # Post-extension the record shape carries both fields on EVERY status ({}/[]), including pre_data.
+    run("errtax: Pre-data verdict, no leading category, fields present -> pre_data accept",
+        rec_e(calibration_feedback=cf(status="pre_data", leading_error_categories_flagged=[],
+                                       error_defense_evidence={}, source_summary="s")), True, predata_no_lead)
+    # PRESENCE on pre_data too (Codex r3746510842): a post-gate pre_data record that omits both new fields
+    # is a silently-skipped error-taxonomy check, indistinguishable from one that ran and found nothing.
+    run("errtax: Pre-data verdict, errtax fields entirely absent -> reject",
+        rec_e(calibration_feedback=cf(status="pre_data", source_summary="s")), False, predata_no_lead)
+    run("errtax: Pre-data verdict WITH leading category, status still 'pre_data' -> reject",
+        rec_e(calibration_feedback=cf(status="pre_data", source_summary="s")), False, predata_with_lead)
+    run("errtax: Pre-data verdict WITH leading category, genuinely defended, checked_no_action -> accept",
+        rec_e(calibration_feedback=cf(status="checked_no_action", leading_error_categories_flagged=[],
+                                       error_defense_evidence={"bad base rate": DEF_REAL}, source_summary="s")),
+        True, predata_with_lead)
+
+    # Structural validation of leading_error_categories_flagged, independent of status. This fixture MUST
+    # isolate the non-string element check (Codex r3746510846 — P2): a 'checked_no_action' record with a
+    # non-empty list is already rejected by the "must be empty" rule, so it would stay red even if the
+    # element-type check were deleted. Use status='applied' with a SEPARATE valid flagged_slices trigger
+    # (GOLD, flagged by hit-rate) and a well-formed error_defense_evidence for the leading category, so the
+    # ONLY thing that can reject this record is the non-string entry in leading_error_categories_flagged.
+    run("errtax: applied (traceable via flagged_slices), leading_error_categories_flagged has a non-string entry -> reject",
+        rec_e(calibration_feedback=cf(status="applied", haircut_points=8, flagged_slices=["GOLD"],
+                                       leading_error_categories_flagged=[{"category": "bad base rate"}],
+                                       error_defense_evidence={"bad base rate": DEF_REAL}, source_summary="s")),
+        False, real_hitflag_defended)
+    run("errtax: leading_error_categories_flagged names a category that is not actually leading -> reject",
+        rec_e(calibration_feedback=cf(status="applied", haircut_points=8, flagged_slices=[],
+                                       leading_error_categories_flagged=["timing error"],  # count=1, not leading
+                                       error_defense_evidence={"bad base rate": DEF_REAL, "timing error": "no defense evidence found"},
+                                       source_summary="s")),
+        False, real_hitflag_defended)
+    # The case above rejects on the 'applied' traceability rule (flagged_slices=[] AND no traceable
+    # category), so it never reaches the standalone bogus-entry check. Isolate that check: make 'applied'
+    # already traceable via a non-empty flagged_slices, and pair one genuinely leading category with a
+    # fabricated one. Only the standalone rule can object here — without this branch, deleting it entirely
+    # leaves the truth table green.
+    run("errtax: applied traceable via flagged_slices, but a fabricated category rides along -> reject",
+        rec_e(calibration_feedback=cf(status="applied", haircut_points=8, flagged_slices=["GOLD"],
+                                       leading_error_categories_flagged=["bad base rate", "invented category"],
+                                       error_defense_evidence={"bad base rate": "no defense evidence found"},
+                                       source_summary="s")),
+        False, real_hitflag_defended)
+
+    # error_defense_evidence presence + consistency.
+    run("errtax: error_defense_evidence entirely missing while a leading category exists -> reject",
+        rec_e(calibration_feedback=cf(status="checked_no_action", leading_error_categories_flagged=[], source_summary="s")),
+        False, real_hitflag_defended)
+    run("errtax: leading category has no error_defense_evidence entry at all -> reject",
+        rec_e(calibration_feedback=cf(status="checked_no_action", leading_error_categories_flagged=[],
+                                       error_defense_evidence={"timing error": DEF_REAL}, source_summary="s")),
+        False, real_hitflag_defended)
+    run("errtax: defense text under 20 chars -> reject (indistinguishable from no defense)",
+        rec_e(calibration_feedback=cf(status="checked_no_action", leading_error_categories_flagged=[],
+                                       error_defense_evidence={"bad base rate": "fixed it"}, source_summary="s")),
+        False, real_hitflag_defended)
+    run("errtax: category admits no defense but is not in leading_error_categories_flagged -> reject",
+        rec_e(calibration_feedback=cf(status="checked_no_action", leading_error_categories_flagged=[],
+                                       error_defense_evidence={"bad base rate": "no defense evidence found"}, source_summary="s")),
+        False, real_hitflag_defended)
+
+    # PRESENCE on 'applied' too (Gemini r3746502179 / Codex r3746510842): an applied record traceable via
+    # flagged_slices that OMITS leading_error_categories_flagged silently passed before this fix — the
+    # error-taxonomy check is indistinguishable from one never run. ede is present here, so ONLY the
+    # missing leading_error_categories_flagged can reject it.
+    run("errtax: applied via flagged_slices but leading_error_categories_flagged absent -> reject",
+        rec_e(calibration_feedback=cf(status="applied", haircut_points=8, flagged_slices=["GOLD"],
+                                       error_defense_evidence={"bad base rate": DEF_REAL}, source_summary="s")),
+        False, real_hitflag_defended)
+
+    # Fixed 8-point haircut (Codex r3746510840): 'applied' must carry EXACTLY 8, not any positive number.
+    # haircut_points=5 passed the old `hp>0` check while keeping three points of confidence — now rejected.
+    run("errtax: applied with haircut_points=5 (positive but not the fixed 8) -> reject",
+        rec_e(calibration_feedback=cf(status="applied", haircut_points=5, flagged_slices=["GOLD"],
+                                       leading_error_categories_flagged=[],
+                                       error_defense_evidence={"bad base rate": DEF_REAL}, source_summary="s")),
+        False, real_hitflag_defended)
+    # ...and a non-applied status must carry haircut_points==0 (schema: "0 unless status=='applied'").
+    run("errtax: checked_no_action with a non-zero haircut_points -> reject",
+        rec_e(calibration_feedback=cf(status="checked_no_action", haircut_points=3, leading_error_categories_flagged=[],
+                                       error_defense_evidence={}, source_summary="s")),
+        False, real_no_errtax_lead)
+
+    # not_available on/after the errtax gate still carries the two fields ({}/[]) — contract: "no calibration
+    # summary exists at all: status='not_available' … error_defense_evidence = {}". Present -> accept; absent -> reject.
+    run("errtax: not_available (no as-of summary), fields present -> accept",
+        rec_e(calibration_feedback=cf(status="not_available", leading_error_categories_flagged=[],
+                                       error_defense_evidence={})), True)
+    run("errtax: not_available (no as-of summary), errtax fields absent -> reject",
+        rec_e(calibration_feedback=cf(status="not_available")), False)
+
     if failures:
         print("SELFTEST FAIL (calibration gate):")
         for f in failures:
             print(f"   - {f}")
         return 1
-    print("SELFTEST OK — check_commodity_calibration_gate truth table (16 branches) matches the §18 contract")
+    print(f"SELFTEST OK — check_commodity_calibration_gate truth table ({executed} branches) matches the §18 contract")
     return 0
 
 
