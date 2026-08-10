@@ -1161,6 +1161,29 @@ check('a renamed older receipt poisons the lane even when receipt count still eq
     unexpectedReceiptName.connector, 'WHEAT', unexpectedReceiptName.dataDir, deadline,
   ) === null)
 
+// The receipt's own content_sha256/retrieved_at are the two fields NOT covered by any hash: the vintage
+// bytes are pinned by head.metadata_sha256 and the chain hash binds head to prior_head, but neither
+// covers what the receipt claims about the blob or the retrieval instant. Only the direct receipt↔vintage
+// equality does — so without these two branches, deleting that comparison leaves the suite green while a
+// receipt is free to disagree with the evidence it certifies.
+const receiptContentDrift = canonicalFixture()
+const driftedContentReceipt = JSON.parse(fs.readFileSync(receiptContentDrift.receiptPaths[1], 'utf8'))
+driftedContentReceipt.content_sha256 = 'f'.repeat(64)
+fs.writeFileSync(receiptContentDrift.receiptPaths[1], `${canonicalJson(driftedContentReceipt)}\n`)
+check('a receipt claiming a different content hash than its vintage is rejected',
+  connectorCurrentStatus(
+    receiptContentDrift.connector, 'WHEAT', receiptContentDrift.dataDir, deadline,
+  ) === null)
+
+const receiptRetrievedDrift = canonicalFixture()
+const driftedRetrievedReceipt = JSON.parse(fs.readFileSync(receiptRetrievedDrift.receiptPaths[1], 'utf8'))
+driftedRetrievedReceipt.retrieved_at = '2026-07-11T00:00:00Z' // a valid instant, but not the vintage's
+fs.writeFileSync(receiptRetrievedDrift.receiptPaths[1], `${canonicalJson(driftedRetrievedReceipt)}\n`)
+check('a receipt claiming a different retrieval instant than its vintage is rejected',
+  connectorCurrentStatus(
+    receiptRetrievedDrift.connector, 'WHEAT', receiptRetrievedDrift.dataDir, deadline,
+  ) === null)
+
 const rollback = canonicalFixture()
 const firstVintage = JSON.parse(fs.readFileSync(rollback.vintagePaths[0], 'utf8'))
 const rolledBackCurrent = {
