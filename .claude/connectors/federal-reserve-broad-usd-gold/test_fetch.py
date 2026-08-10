@@ -20,6 +20,8 @@ manifest = json.load(open(os.path.join(HERE, "connector.json"), encoding="utf-8"
 defects = validate_manifest(manifest["id"], HERE, manifest) + validate_staged_output(manifest, "GOLD", payload, sidecar, as_of)
 assert not defects, defects
 assert len(payload["observations"]) == 800 and payload["observations"][-1]["index"] == 100.799
+test_today = dt.date(2026, 8, 10)
+assert mod.source_url(test_today).endswith(f"cosd={(test_today - dt.timedelta(days=5 * 366)).isoformat()}")
 for bad in ("date,value\n2026-01-01,1", "observation_date,DTWEXBGS\n2026-01-01,NaN"):
     try:
         mod.build(bad)

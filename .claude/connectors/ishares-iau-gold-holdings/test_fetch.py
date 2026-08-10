@@ -20,17 +20,27 @@ for i in range(600):
     day = start + dt.timedelta(days=i)
     shares = 782900000 if i == 599 else 700000000 + i
     rows.append(f"<ss:Row><ss:Cell><ss:Data ss:Type='String'>{day.strftime('%b %d, %Y')}</ss:Data></ss:Cell><ss:Cell><ss:Data ss:Type='Number'>{70 + i / 100}</ss:Data></ss:Cell><ss:Cell><ss:Data ss:Type='String'>--</ss:Data></ss:Cell><ss:Cell><ss:Data ss:Type='Number'>{shares}</ss:Data></ss:Cell></ss:Row>")
-xml = "<?xml version='1.0'?><ss:Workbook xmlns:ss='urn:schemas-microsoft-com:office:spreadsheet'><ss:Worksheet ss:Name='Historical'><ss:Table><ss:Row><ss:Cell ss:HRef=\"https://issuer.example/history?a=1&b=2\"><ss:Data ss:Type='String'>As Of</ss:Data></ss:Cell></ss:Row>" + "".join(rows) + "</ss:Table></ss:Worksheet></ss:Workbook>"
+footer = "<ss:Row/><ss:Row><ss:Cell><ss:Data ss:Type='String'>Issuer legal disclaimer © 2026</ss:Data></ss:Cell></ss:Row>"
+xml = "<?xml version='1.0'?><ss:Workbook xmlns:ss='urn:schemas-microsoft-com:office:spreadsheet'><ss:Worksheet ss:Name='Historical'><ss:Table><ss:Row><ss:Cell ss:HRef=\"https://issuer.example/history?a=1&b=2\"><ss:Data ss:Type='String'>As Of</ss:Data></ss:Cell></ss:Row>" + "".join(rows) + footer + "</ss:Table></ss:Worksheet></ss:Workbook>"
 as_of, payload, sidecar = mod.build(page, xml)
 manifest = json.load(open(os.path.join(HERE, "connector.json"), encoding="utf-8"))
 defects = validate_manifest(manifest["id"], HERE, manifest) + validate_staged_output(manifest, "GOLD", payload, sidecar, as_of)
 assert not defects, defects
 assert as_of == "2026-08-07" and payload["current"]["tonnes_in_trust"] == 457.89
 assert len(payload["share_history"]) == 600
+single_day_page = page.replace("Aug 07, 2026", "Aug 7, 2026")
+assert mod.parse_page(single_day_page)[0] == "2026-08-07"
 try:
     mod.build(page.replace("782,900,000", "782,800,000"), xml)
 except RuntimeError:
     pass
 else:
     raise AssertionError("issuer page/download disagreement did not fail closed")
+bad_dated_row = "<ss:Row><ss:Cell><ss:Data ss:Type='String'>Aug 8, 2026</ss:Data></ss:Cell></ss:Row>"
+try:
+    mod.parse_history(xml.replace(footer, bad_dated_row + footer))
+except RuntimeError:
+    pass
+else:
+    raise AssertionError("a truncated dated IAU row did not fail closed")
 print("PASS: ishares-iau-gold-holdings")

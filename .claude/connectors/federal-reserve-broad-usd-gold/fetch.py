@@ -18,12 +18,15 @@ from connector_fetch_support import fetch_bytes, load_manifest, provenance, publ
 
 MANIFEST = load_manifest(__file__)
 SERIES_ID = "DTWEXBGS"
-START_DATE = date.today() - timedelta(days=5 * 366)
-URL = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={SERIES_ID}&cosd={START_DATE.isoformat()}"
 MAX_RESPONSE_BYTES = 4 * 1024 * 1024
 
 
-def build(text: str):
+def source_url(today: date | None = None) -> str:
+    start_date = (today or date.today()) - timedelta(days=5 * 366)
+    return f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={SERIES_ID}&cosd={start_date.isoformat()}"
+
+
+def build(text: str, *, url: str | None = None):
     reader = csv.DictReader(io.StringIO(text))
     if reader.fieldnames != ["observation_date", SERIES_ID]:
         raise RuntimeError(f"unexpected FRED CSV header {reader.fieldnames!r}")
@@ -48,9 +51,10 @@ def build(text: str):
     if len(rows) < 750:
         raise RuntimeError("FRED response lacks 750 usable daily observations")
     as_of = rows[-1]["date"]
+    url = url or source_url()
     payload = {"series": MANIFEST["series"], "as_of": as_of, "fred_series_id": SERIES_ID,
-               "observations": rows, "source_url": URL}
-    sidecar = provenance(MANIFEST, as_of=as_of, source_url=URL,
+               "observations": rows, "source_url": url}
+    sidecar = provenance(MANIFEST, as_of=as_of, source_url=url,
                          note=f"Broad dollar index {rows[-1]['index']:.4f} on {as_of}; higher means USD appreciation.")
     return as_of, payload, sidecar
 
@@ -61,8 +65,9 @@ def main() -> int:
     parser.add_argument("--data-root", default="data")
     parser.add_argument("--verify", action="store_true")
     args = parser.parse_args()
-    text = fetch_bytes(URL, MANIFEST, max_bytes=MAX_RESPONSE_BYTES).decode("utf-8", "strict")
-    as_of, payload, sidecar = build(text)
+    url = source_url()
+    text = fetch_bytes(url, MANIFEST, max_bytes=MAX_RESPONSE_BYTES).decode("utf-8", "strict")
+    as_of, payload, sidecar = build(text, url=url)
     if args.verify:
         print(f"OK verify: {len(payload['observations'])} DTWEXBGS rows through {as_of}")
         return 0

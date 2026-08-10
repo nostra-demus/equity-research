@@ -23,6 +23,10 @@ MAX_METADATA_BYTES = 2 * 1024 * 1024
 MAX_CSV_BYTES = 8 * 1024 * 1024
 
 
+class ReleaseNotFound(RuntimeError):
+    """The searched calendar-year release is not published yet."""
+
+
 def search_url(year: int) -> str:
     query = urllib.parse.urlencode({"q": f"Mineral Commodity Summaries {year} Data Release", "format": "json", "max": "20"})
     return f"https://{HOST}/catalog/items?{query}"
@@ -37,8 +41,10 @@ def discover(search: object, year: int) -> tuple[str, str]:
     if not isinstance(search, dict) or not isinstance(search.get("items"), list):
         raise RuntimeError("USGS search response has no items")
     matches = [item for item in search["items"] if isinstance(item, dict) and item.get("title") == expected]
+    if not matches:
+        raise ReleaseNotFound(f"USGS {year} commodity-statistics release is not published")
     if len(matches) != 1 or not isinstance(matches[0].get("id"), str):
-        raise RuntimeError("USGS search did not return exactly one current commodity-statistics release")
+        raise RuntimeError("USGS search returned an ambiguous current commodity-statistics release")
     return matches[0]["id"], expected
 
 
@@ -103,8 +109,7 @@ def build(csv_text: str, *, release_title: str, urls: list[str]):
     return as_of, payload, sidecar
 
 
-def fetch_all():
-    year = dt.datetime.now(dt.timezone.utc).year
+def fetch_release(year: int):
     search = search_url(year)
     search_json = json.loads(fetch_bytes(search, MANIFEST, max_bytes=MAX_METADATA_BYTES).decode("utf-8"))
     item_id, title = discover(search_json, year)
@@ -113,6 +118,14 @@ def fetch_all():
     data = csv_url(metadata)
     text = fetch_bytes(data, MANIFEST, max_bytes=MAX_CSV_BYTES).decode("cp1252")
     return build(text, release_title=title, urls=[search, item, data])
+
+
+def fetch_all():
+    year = dt.datetime.now(dt.timezone.utc).year
+    try:
+        return fetch_release(year)
+    except ReleaseNotFound:
+        return fetch_release(year - 1)
 
 
 def main() -> int:

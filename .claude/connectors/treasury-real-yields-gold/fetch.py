@@ -63,8 +63,6 @@ def parse_xml(text: str) -> list[dict]:
                 raise RuntimeError(f"Treasury entry lacks {source}")
             row[output] = _number(node.text, source)
         rows.append(row)
-    if not rows:
-        raise RuntimeError("Treasury XML contains no real-yield observations")
     return rows
 
 

@@ -28,6 +28,18 @@ assert len(payload["countries_latest"]) == 12 and all(row["estimated"] for row i
 item, title = mod.discover({"items": [{"id": "abc", "title": "Mineral Commodity Summaries 2026 Data Release - Commodity Salient U.S. and World Statistics"}]}, 2026)
 assert item == "abc" and "2026" in title
 try:
+    mod.discover({"items": []}, 2026)
+except mod.ReleaseNotFound:
+    pass
+else:
+    raise AssertionError("missing annual release did not expose the narrow fallback signal")
+try:
+    mod.discover({"items": [{"id": "a", "title": title}, {"id": "b", "title": title}]}, 2026)
+except RuntimeError as error:
+    assert not isinstance(error, mod.ReleaseNotFound)
+else:
+    raise AssertionError("ambiguous annual releases did not fail closed")
+try:
     mod.build(header + rows[0], release_title="x", urls=urls)
 except RuntimeError:
     pass

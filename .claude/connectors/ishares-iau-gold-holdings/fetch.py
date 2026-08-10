@@ -38,7 +38,7 @@ def _visible(raw: str) -> str:
 
 
 def _metric(text: str, label: str) -> tuple[float, str]:
-    match = re.search(re.escape(label) + r"\s+([\d,.]+)\s+as of ([A-Z][a-z]{2} \d{2}, \d{4})", text)
+    match = re.search(re.escape(label) + r"\s+([\d,.]+)\s+as of ([A-Z][a-z]{2} \d{1,2}, \d{4})", text)
     if not match:
         raise RuntimeError(f"IAU page lacks {label}")
     value = float(match.group(1).replace(",", ""))
@@ -105,7 +105,14 @@ def parse_history(raw: str) -> list[dict]:
             data = cell.find(f"{SS}Data")
             values.append((data.text or "").strip() if data is not None else "")
         if len(values) < 4:
-            raise RuntimeError("IAU Historical row has fewer than four cells")
+            if values and re.fullmatch(r"[A-Z][a-z]{2} \d{1,2}, \d{4}", values[0]):
+                raise RuntimeError("IAU dated Historical row has fewer than four cells")
+            continue
+        date_shape = re.fullmatch(r"[A-Z][a-z]{2} \d{1,2}, \d{4}", values[0])
+        if not date_shape:
+            if re.match(r"^(?:[A-Z][a-z]{2}\s|\d{4}-)", values[0]):
+                raise RuntimeError("IAU Historical row has an unrecognized date-shaped value")
+            continue
         try:
             day = dt.datetime.strptime(values[0], "%b %d, %Y").date().isoformat()
         except ValueError as error:
