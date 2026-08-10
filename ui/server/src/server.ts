@@ -3421,13 +3421,18 @@ if (fs.existsSync(WEB_DIST)) {
   }
   const sendIndex = sendShell('index.html')
   const sendMobile = sendShell('m/index.html')
-  app.get('/', sendIndex)
+  // Every shell route reads its HTML from disk per request, so each carries the same explicit per-route
+  // limit the other filesystem-backed handlers use (same budget as the global cap, which still applies on
+  // top). Declared once and shared so a future shell cannot be added without it. Clears CodeQL
+  // js/missing-rate-limiting, which sees the global onRequest hook but not per-route.
+  const shellRoute = { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }
+  app.get('/', shellRoute, sendIndex)
   // The phone chat shell. All three spellings need the marker-injecting route: the static plugin's
   // wildcard would otherwise serve m/index.html as a plain file (no __ENGINE_LIVE__ marker), sending
   // every mobile boot through the 6-second /api/health probe in ensureMode().
-  app.get('/m', sendMobile)
-  app.get('/m/', sendMobile)
-  app.get('/m/index.html', sendMobile)
+  app.get('/m', shellRoute, sendMobile)
+  app.get('/m/', shellRoute, sendMobile)
+  app.get('/m/index.html', shellRoute, sendMobile)
   app.setNotFoundHandler((req, reply) => {
     // Never fall back to index.html for an API path or a static asset (anything with a file
     // extension): returning HTML for a missing .js/.css makes the browser reject the module and
