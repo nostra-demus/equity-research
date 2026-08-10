@@ -6,12 +6,16 @@
 //   commodity — action verdict (pre-mortem-capped server-side) + current_price + four state fields
 // Rule (deploy skew §5 + §3): every field is positively matched; an absent field is OMITTED from the
 // card, never invented, never defaulted.
+import { resolveConfidence, resolveVerdict, verdictIsCapped } from '../../lib/format'
 import type { BoardSignal, BoardThesis, QuoteRead, SwarmSubjectSummary } from '../../lib/types'
 
 export interface ResearchSnap {
   kind: 'research'
   verdict?: string
   confidence?: number
+  /** the record's raw confidence when a post-red-team review changed it — shown as "(NN before cap)" */
+  confidenceRaw?: number
+  capped?: boolean
   entry?: number
   currency?: string
   live?: number
@@ -55,10 +59,21 @@ const str = (v: unknown): string | undefined => (typeof v === 'string' && v.trim
 export function researchSnapshot(decision: any, quote: QuoteRead | null): ResearchSnap | NeverRunSnap {
   if (!decision || typeof decision !== 'object') return { kind: 'never-run', note: 'No finished run yet' }
   const snap: ResearchSnap = { kind: 'research' }
-  const v = str(decision.decision)
+  // EFFECTIVE verdict/confidence — the run's own post-mortem cap / post-review score wins over the
+  // synthesizer's original when one applies (same client-side resolver desktop surfaces use), so a call
+  // the engine's own red-team downgraded can never render on the phone as the original, uncapped one.
+  const v = resolveVerdict(decision)
   if (v) snap.verdict = v
-  const c = num(decision.confidence_score)
-  if (c != null) snap.confidence = c
+  if (verdictIsCapped(decision)) snap.capped = true
+  const { value: c, isPostReview } = resolveConfidence(decision)
+  if (c != null) {
+    snap.confidence = c
+    if (isPostReview) {
+      snap.capped = true
+      const raw = num(decision.confidence_score)
+      if (raw != null && raw !== c) snap.confidenceRaw = raw
+    }
+  }
   const e = num(decision.entry_price)
   if (e != null) snap.entry = e
   const cur = str(decision.currency)

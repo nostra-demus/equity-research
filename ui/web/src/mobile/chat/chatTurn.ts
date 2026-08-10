@@ -147,5 +147,13 @@ export function turnReduce(s: TurnState, e: TurnEvent): TurnState {
 
 /** the transcript actually sent: baseline + the new user turn, windowed to the server's 40-turn cap */
 export function windowMessages(baseline: ChatMessage[], text: string, turnId: string): ChatMessage[] {
-  return [...baseline, { role: 'user' as const, content: text.trim(), turnId }].slice(-CHAT_MAX_SEND)
+  // Trim the baseline to an EVEN number of messages (whole Q&A pairs) BEFORE appending the new question,
+  // reserving room for it. Slicing the combined array to CHAT_MAX_SEND after appending instead removes
+  // only the oldest USER message once history exceeds the cap, so the request starts with an orphaned
+  // assistant answer and every later turn gives the model mispaired history (same class of bug fixed in
+  // NewsChat.tsx's windowing).
+  const room = CHAT_MAX_SEND - 1
+  const evenRoom = room - (room % 2)
+  const trimmedBaseline = baseline.slice(-evenRoom)
+  return [...trimmedBaseline, { role: 'user' as const, content: text.trim(), turnId }]
 }

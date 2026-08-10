@@ -127,9 +127,10 @@ check('done commits: streaming off, retry cleared, transcript kept', () => {
 check('the wire transcript is windowed to the last 40 turns (the server rejects more)', () => {
   const long: ChatMessage[] = Array.from({ length: 60 }, (_, i) => ({ role: i % 2 ? 'assistant' : 'user', content: `m${i}` }) as ChatMessage)
   const w = windowMessages(long, 'newest q', 'turn_z')
-  assert.equal(w.length, CHAT_MAX_SEND)
+  assert.ok(w.length <= CHAT_MAX_SEND)
   assert.equal(w[w.length - 1].content, 'newest q')
-  assert.equal(w[0].content, 'm21') // oldest turns dropped, newest kept
+  assert.equal(w[0].role, 'user') // never an orphaned leading assistant answer — whole pairs only
+  assert.equal(w[0].content, 'm22') // oldest PAIRS dropped, not just the oldest message
 })
 
 check('hydrate installs a saved conversation with its computed cards; reset clears it', () => {

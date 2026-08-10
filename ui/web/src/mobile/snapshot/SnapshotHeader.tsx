@@ -92,7 +92,12 @@ export function SnapshotHeader({ snap, onTap }: { snap: Snapshot | null; onTap: 
     <button className="msnap" onClick={onTap}>
       <span className="msnap__rowline">
         {snap.verdict && <span className="msnap__pill" style={{ color: decisionColor(snap.verdict) }}>{snap.verdict}</span>}
-        {snap.confidence != null && <span className="msnap__sub">confidence {snap.confidence}/100</span>}
+        {snap.confidence != null && (
+          <span className="msnap__sub">
+            confidence {snap.confidence}/100
+            {snap.confidenceRaw != null && <span className="msnap__faint"> ({snap.confidenceRaw} before cap)</span>}
+          </span>
+        )}
       </span>
       {snap.entry != null && (
         <span className="msnap__price mono">

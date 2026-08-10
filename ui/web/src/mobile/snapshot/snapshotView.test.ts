@@ -36,6 +36,31 @@ check('research: no decision record at all → never-run', () => {
   assert.equal(researchSnapshot(null, null).kind, 'never-run')
 })
 
+check('research: TSLA-shaped — a post-review confidence (60 raw, 50 post-review) shows capped + raw', () => {
+  const s: any = researchSnapshot(
+    { decision: 'Watchlist', confidence_score: 60, post_review_confidence_score: 50, entry_price: 238.34, currency: 'USD' },
+    null,
+  )
+  assert.equal(s.confidence, 50)       // never the uncapped 60
+  assert.equal(s.confidenceRaw, 60)
+  assert.equal(s.capped, true)
+})
+
+check('research: a post-mortem-capped decision shows the CAPPED verdict, never the original', () => {
+  const s: any = researchSnapshot(
+    { decision: 'Strong Buy', post_mortem_decision: 'Watchlist', confidence_score: 82, entry_price: 100 },
+    null,
+  )
+  assert.equal(s.verdict, 'Watchlist')
+  assert.equal(s.capped, true)
+})
+
+check('research: an uncapped record shows no "(before cap)" figure', () => {
+  const s: any = researchSnapshot({ decision: 'Watchlist', confidence_score: 57, entry_price: 238.34 }, null)
+  assert.equal(s.capped, undefined)
+  assert.equal(s.confidenceRaw, undefined)
+})
+
 check('research: a stale quote suppresses movePct and flags liveStale (mirrors desktop priceQualifier)', () => {
   const s: any = researchSnapshot(
     { decision: 'Watchlist', confidence_score: 57, entry_price: 238.34, currency: 'USD' },
@@ -112,6 +137,6 @@ check('commodity: 8 of 12 have no run today — never-run is a first-class state
   assert.equal(s.kind, 'never-run')
 })
 
-const EXPECTED_CHECKS = 13
+const EXPECTED_CHECKS = 16
 assert.ok(passed >= EXPECTED_CHECKS, `only ${passed} checks ran, expected at least ${EXPECTED_CHECKS}`)
 console.log(`\nsnapshotView.test.ts: ${passed} checks passed`)

@@ -93,7 +93,10 @@ export function MobileApp() {
 
   const pick = (c: SubjectChoice) => {
     setSheet(null)
-    if (c.newsWire) { setNewsWire(true); return }
+    // useMobileChat stays mounted (and its stream, if any, stays live) regardless of newsWire — without
+    // resetting it here too, a run chat streaming when the user opens the news wire keeps consuming the
+    // model in the background and can commit an answer into a conversation the user has already left.
+    if (c.newsWire) { chat.reset(); setNewsWire(true); return }
     setNewsWire(false)
     chat.reset()
     setTarget({ swarm: c.swarm, subject: c.subject, scope: 'run', title: chatTitle(c.subject, 'run') })
