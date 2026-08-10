@@ -85,9 +85,13 @@ def parse_clearing(raw: str) -> tuple[str, str, dict]:
 
 
 def build(vault_html: str, clearing_html: str):
-    _vp, vault_as_of, vault = parse_vault(vault_html)
-    _cp, clearing_as_of, clearing = parse_clearing(clearing_html)
-    as_of = max(vault_as_of, clearing_as_of)
+    vault_period, vault_as_of, vault = parse_vault(vault_html)
+    clearing_period, clearing_as_of, clearing = parse_clearing(clearing_html)
+    if vault_period != clearing_period or vault_as_of != clearing_as_of:
+        raise RuntimeError(
+            "LBMA vault and clearing releases are not aligned; publish neither component"
+        )
+    as_of = vault_as_of
     urls = [VAULT_URL, CLEARING_URL]
     payload = {"series": MANIFEST["series"], "as_of": as_of, "vault": vault, "clearing": clearing,
                "source_urls": urls, "benchmark_price_included": False}

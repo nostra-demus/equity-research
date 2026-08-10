@@ -115,7 +115,9 @@ jobs:
         run: python3 scripts/test_commodity_data_needs.py
 
       - name: Gold profile connector coverage + methodology-source exclusion
-        run: python3 scripts/test_gold_profile_connectors.py
+        run: |
+          python3 scripts/test_gold_profile_connectors.py
+          python3 scripts/test_commodity_profile_coverage.py
 
       - name: Commodity signal evidence + statistical-validation contract tests
         run: python3 scripts/test_commodity_signal_evidence.py

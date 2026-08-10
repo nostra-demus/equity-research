@@ -42,7 +42,7 @@ The section heading MUST be `## <COMMODITY>` where `<COMMODITY>` is the uppercas
 - Gold-miner equities (`GDX`) are a LEVERED, equity-risk proxy — not the metal; note the difference.
 
 **Priority sources:** World Gold Council (Gold Demand Trends, central-bank stats), LBMA, CME/COMEX,
-CFTC COT, FRED (DFII10 real yield), US Treasury (TIPS), Federal Reserve broad USD data and rate path.
+CFTC COT, BLS (CPI-U), FRED (DFII10 real yield), US Treasury (TIPS), Federal Reserve broad USD data and rate path.
 
 **Recurring reports (catalysts):** FOMC decisions + dot plot; US CPI / PCE; WGC quarterly Gold Demand
 Trends; weekly CFTC COT (Fridays); monthly central-bank purchase data; US jobs report.
@@ -58,13 +58,22 @@ the broad USD → `commodity-macro-drivers`; relative ratios → the cross-asset
 | `gold-managed-money-positioning` | `gold.managed-money-positioning` | commodity-positioning-flows | weekly; ≥1 current COT observation | CFTC public API |
 | `gold-real-yields` | `gold.us-treasury-real-yields` | commodity-macro-drivers | daily; ≥3 years for validation | US Treasury XML |
 | `gold-broad-usd` | `gold.broad-usd-index` | commodity-macro-drivers | daily; ≥3 years for validation | Federal Reserve/FRED public CSV |
+| `gold-consumer-price-index` | `gold.consumer-price-index` | commodity-cross-asset-regime | monthly; ≥10 years for real-price regimes | BLS public API; non-seasonally-adjusted CPI-U; point-in-time use is limited to already-retrieved connector vintages |
+| `gold-equity-index-history` | `gold.equity-index-history` | commodity-cross-asset-regime | weekly; ≥3 years for Gold/equities regimes | lawful shared market history with source identity; broad US equity benchmark |
+| `gold-miner-equity-history` | `gold.miner-equity-history` | commodity-cross-asset-regime | weekly; ≥3 years for miners/Gold confirmation | lawful shared market history with source identity; `GDX` or equivalent declared proxy |
+| `gold-silver-price-history` | `gold.silver-price-history` | commodity-cross-asset-regime | weekly; ≥3 years for silver/Gold confirmation | lawful shared market history with source identity; physical silver or declared bullion proxy |
+| `gold-silver-miner-history` | `gold.silver-miner-history` | commodity-cross-asset-regime | weekly; ≥3 years for silver-miner confirmation | lawful shared market history with source identity; `SIL` or equivalent declared proxy |
 | `gold-comex-inventory-deliveries` | `gold.comex-inventory-deliveries` | commodity-demand-inventory | daily; current registered/eligible stocks and delivery notices | CME official report only; manual if no stable lawful machine route |
 | `gold-lbma-vault-clearing` | `gold.lbma-vault-clearing` | commodity-demand-inventory | monthly; vault and clearing releases | public LBMA vault/clearing statistics only; never the licensed price benchmark |
 | `gold-official-reserve-changes` | `gold.official-reserve-changes` | commodity-demand-inventory | monthly; reported purchases/sales with reporting lag | IMF/central-bank data or the WGC workbook compiled from them; preserve WGC adjustments |
 | `gold-mine-supply` | `gold.mine-supply` | commodity-supply-security | annual world and country production | USGS public-domain release |
 | `gold-issuer-etf-holdings` | `gold.issuer-etf-holdings` | commodity-positioning-flows | daily; issuer-reported tonnes/ounces and shares | lawful issuer download/page only |
-| `gold-current-price` | `gold.current-price` | commodity-price-curve | current quote | reuse the swarm pulse quote transport (`@GC.1`); no connector clone |
+| `gold-current-price` | `gold.current-price` | commodity-price-curve | current front-month futures quote | reuse the swarm pulse quote transport (`@GC.1`); label it futures, never cash/spot; no connector clone |
 | `gold-market-price-history` | `gold.market-price-history` | commodity-price-curve | point-in-time close history with source identity | reuse `data/_market/<provider>/` and `scripts/market_prices.py`; other orbs consume the owner's evidence; if no lawful feed exists, unavailable |
+| `gold-futures-curve` | `gold.futures-curve` | commodity-price-curve | current multi-tenor COMEX settlement curve | lawful CME route with licence/source identity; otherwise manual or unavailable |
+| `gold-cash-spot-price` | `gold.cash-spot-price` | commodity-price-curve | current deliverable cash/spot assessment aligned to COMEX grade, location, date and unit | lawful primary/licensed cash assessment; LBMA benchmark only with an existing licence; otherwise unavailable |
+| `gold-cash-futures-basis` | `gold.cash-futures-basis` | commodity-price-curve | cash/spot minus deliverable nearby futures, as % of futures, with aligned timestamps | deterministic derivation from cash-spot and futures-curve vintages; no independent vote |
+| `gold-regional-physical-premiums` | `gold.regional-physical-premiums` | commodity-price-curve | current observable premiums with region and quote basis | primary exchange/trade-body publication where lawful; otherwise manual or unavailable |
 
 **Availability is evidence, not configuration.** Declaring a required row does not lift sufficiency. A
 row is usable only when its semantic series has a current, validated vintage. Manual/unavailable rows

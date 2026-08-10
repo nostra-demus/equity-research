@@ -10,7 +10,8 @@ import json
 from pathlib import Path
 from typing import Any
 
-from commodity_forecast_contract import validate_decision_record
+from commodity_forecast_contract import production_coverage_resolver, validate_decision_record
+from commodity_profile_coverage import PROFILE_PATH, structured_profile
 from repo_mutation import atomic_write_json
 
 
@@ -62,8 +63,25 @@ def archive_decision(run_root: Path) -> tuple[str, Path, bool]:
         raise ArchiveError("decision_record.json is not a commodity record")
     if record.get("commodity") != run_root.name:
         raise ArchiveError("record commodity does not match the run folder")
-    if isinstance(record.get("decision_date"), str) and record["decision_date"] >= "2026-08-10":
-        contract_errors = validate_decision_record(record)
+    if isinstance(record.get("decision_date"), str) and record["decision_date"] >= "2026-08-11":
+        coverage = None
+        coverage_sha256 = None
+        coverage_path = run_root / "required_series_coverage.json"
+        try:
+            coverage_raw = coverage_path.read_bytes()
+            coverage = json.loads(coverage_raw.decode("utf-8"))
+            coverage_sha256 = "sha256:" + hashlib.sha256(coverage_raw).hexdigest()
+        except FileNotFoundError:
+            pass
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+            raise ArchiveError(f"required-series coverage artifact is unreadable: {error}") from error
+        try:
+            requirements = structured_profile(str(record.get("commodity", "")), profile_path=PROFILE_PATH)
+        except (OSError, ValueError):
+            requirements = None
+        contract_errors = validate_decision_record(
+            record, coverage, coverage_sha256, requirements, production_coverage_resolver,
+        )
         if contract_errors:
             raise ArchiveError(f"forecast contract failed: {contract_errors[0]}")
 

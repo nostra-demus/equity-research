@@ -78,7 +78,17 @@ fi
    Report each module's SKIP / RERUN decision and its reason in step 7 — a resume that silently skipped a module carrying a missing orb is exactly the failure this check exists to make visible. Note also that `/commodity:intake` covers the OTHER staleness axis (new documents landing in `data/<COMMODITY>/`) and writes a scoped rerun plan; this check covers structural staleness — orbs and upstream syntheses — and neither substitutes for the other.
 2. **Cross-module context:** build `<CROSS_MODULE_CONTEXT>` exactly as `frameworks/MODULE_PIPELINE.md` Step 4A specifies — one sentence per dependency module that is DONE in this run, `<Dep> cross-module path: <RUN_ROOT>/<dep>/.` (capitalize the dep's first letter). If the module has no deps, set it to `none`.
 3. **Run the module pipeline:** follow `frameworks/MODULE_PIPELINE.md` with `<TICKER>` = `<COMMODITY>`, `<DATE>`, `<MODULE>` = the module, `<RUN_ROOT>` = `commodity/runs/<COMMODITY>`, and `<CROSS_MODULE_CONTEXT>` as built. **Commodity deviations:** (a) SKIP Step 1.5 (`extract_pool.py`) unless `data/<COMMODITY>/` exists with files; (b) in the Step 4A Task message the "Data pool path: data/<COMMODITY>/" line is fine — agents read the profile, consume current accepted connector vintages and lawful shared market routes first, and use live public facts only as explicitly unvintaged context. Connector existence or URL reachability never raises sufficiency. WILTW and report-derived assertions are forbidden runtime inputs.
-4. **Compile evidence:** run `python3 scripts/commodity_signal_evidence.py "<RUN_ROOT>"` after every module decision, including `SKIP`. The compiler discovers emitting orbs and causal ownership from frontmatter. Any `SIGNAL-EVIDENCE-FAIL` stops before the next module; never let the terminal synthesis fall back to prose vote-counting. An incomplete `coverage` is allowed mid-run and is recompiled as later modules finish.
+4. **Compile evidence; freeze coverage once for the terminal:** after every module decision, including
+   `SKIP`, run `python3 scripts/commodity_signal_evidence.py "<RUN_ROOT>"`. Any
+   `SIGNAL-EVIDENCE-FAIL` stops before the next module. Immediately BEFORE the terminal synthesis resume
+   decision, run `python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --decision-time
+   "$(date -u +%Y-%m-%dT%H:%M:%SZ)"` exactly once. It binds every profile-required series to a vintage
+   knowable at that cutoff. Compute its byte digest. If an existing `decision_record.json` does not carry
+   that exact digest, force the terminal module to `RERUN:coverage-changed` even when its ordinary mtime
+   checks said `SKIP`. Do NOT regenerate the coverage artifact after terminal synthesis: the terminal
+   hashes those exact bytes. Any `PROFILE-COVERAGE-FAIL` stops before terminal synthesis. Incomplete
+   coverage is valid, but forces both horizons to `not_assessable` and `Research More` unless a proven
+   critical risk forces `Avoid`.
 5. **Fail-fast:** if the module's Layer-0 triage returns Insufficient (only `market-structure` has a `fail_fast` triage), the pipeline reports `fail_fast_triggered = true`. Stop the run: commit what exists (step 6) and report the abort — do NOT run downstream modules, since the commodity could not be identified/priced.
 
 ## 5.5. Integrity finish-gate — pre-mortem haircut propagation
@@ -93,9 +103,12 @@ Otherwise (already done AND already carries `post_review_confidence_score`) skip
 
 When the step runs:
 
-1. Before invoking the command below, capture whatever pre-mortem report already exists (case (b) — the backfill of a pre-existing run — routinely already has one; case (a) usually does not): `PRIOR_PM=$(ls -t "<RUN_ROOT>"/pre_mortem*.json 2>/dev/null | head -1)`.
-2. Follow `.claude/commands/commodity/pre-mortem.md` against `<RUN_ROOT>` in full — produce ONLY `<RUN_ROOT>/pre_mortem*.json` (adversarial red-team; per its rule 1 it can only HOLD or LOWER conviction, never raise it). Skip its own step 7 commit — this command's step 6 below commits the whole run folder in one place.
-3. **Haircut propagation** — patch `decision_record.json` with the pre-mortem's verdict via the shared, tested helper (mirrors research/full.md 10B.2's F28/F28b exactly, in the commodity schema — `action`/`confidence`, not `decision`/`basket`/`confidence_score`). Pass `--prior` whenever step 1 found an existing report — the helper proves step 2 actually wrote a NEW one rather than silently reusing that old file (a `no_fresh_pre_mortem` gate failure otherwise indistinguishable from a genuine, value-consistent report):
+1. Run `python3 scripts/commodity_forecast_contract.py "<RUN_ROOT>/decision_record.json"`. It re-resolves
+   every `usable` row at the frozen decision cutoff and proves the artifact digest, profile, dual-horizon
+   math and action. On failure, STOP before pre-mortem or commit.
+2. Before invoking the command below, capture whatever pre-mortem report already exists (case (b) — the backfill of a pre-existing run — routinely already has one; case (a) usually does not): `PRIOR_PM=$(ls -t "<RUN_ROOT>"/pre_mortem*.json 2>/dev/null | head -1)`.
+3. Follow `.claude/commands/commodity/pre-mortem.md` against `<RUN_ROOT>` in full — produce ONLY `<RUN_ROOT>/pre_mortem*.json` (adversarial red-team; per its rule 1 it can only HOLD or LOWER conviction, never raise it). Skip its own step 7 commit — this command's step 6 below commits the whole run folder in one place.
+4. **Haircut propagation** — patch `decision_record.json` with the pre-mortem's verdict via the shared, tested helper (mirrors research/full.md 10B.2's F28/F28b exactly, in the commodity schema — `action`/`confidence`, not `decision`/`basket`/`confidence_score`). Pass `--prior` whenever step 2 found an existing report — the helper proves step 3 actually wrote a NEW one rather than silently reusing that old file (a `no_fresh_pre_mortem` gate failure otherwise indistinguishable from a genuine, value-consistent report):
 
 ```bash
 python3 scripts/commodity_pre_mortem_haircut.py "<RUN_ROOT>" ${PRIOR_PM:+--prior "$PRIOR_PM"}
@@ -103,7 +116,7 @@ python3 scripts/commodity_pre_mortem_haircut.py "<RUN_ROOT>" ${PRIOR_PM:+--prior
 
 The helper **fails closed**: it exits `0` and prints `RATING-CAP:` only when it actually propagated a fresh, complete pre-mortem; on `no_pre_mortem` / `read_error` / `incomplete_pre_mortem` / `stale_pre_mortem` / `no_fresh_pre_mortem` it prints `GATE-FAIL:` and exits **nonzero**, leaving `decision_record.json` unpatched. Because step 2 just generated a fresh pre-mortem against this run, a nonzero exit means the integrity gate genuinely could not run — **STOP before the step 6 commit and report the `GATE-FAIL:` reason; do not ship a `decision_record.json` whose `Action:` verdict was never red-teamed.** On success, record the printed `RATING-CAP:` line for step 7 (report). The patch is additive — `confidence_haircut`, `pre_mortem_verdict`, `post_review_confidence_score`, `post_mortem_action`, `post_mortem_target_exposure_risk_units` — and never rewrites the synthesizer's own original `action`/`confidence` fields (CLAUDE.md §18/§22: caps are applied, never silently overridden; the original call stays visible for audit). The cap is enforced deterministically by the helper (a would-be conviction RAISE from a mis-authored pre-mortem is clamped/rejected), not trusted from the LLM-authored report.
 
-4. **Immutable decision publication — only after the record has a completed red-team.** Run this whenever
+5. **Immutable decision publication — only after the record has a completed red-team.** Run this whenever
 step 5.5 ran OR the already-audited current record has no `decision_id` yet (one-time archive backfill).
 Archive the exact reviewed record, then atomically update the top-level UI projection:
 

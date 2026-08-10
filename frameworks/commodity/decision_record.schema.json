@@ -207,6 +207,25 @@
         "contradiction_count": { "type": "integer", "minimum": 0 }
       }
     },
+    "required_series_coverage": {
+      "type": "object",
+      "description": "Deterministic projection of required_series_coverage.json. Fresh decisions on/after 2026-08-11 must carry it; scripts/commodity_forecast_contract.py verifies the adjacent artifact and forces both horizons to not_assessable when any profile requirement is unresolved.",
+      "required": ["path", "generated_at", "artifact_sha256", "complete", "required_count", "usable_count", "unresolved_need_ids"],
+      "properties": {
+        "path": { "const": "required_series_coverage.json" },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "artifact_sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "complete": { "type": "boolean" },
+        "required_count": { "type": "integer", "minimum": 1 },
+        "usable_count": { "type": "integer", "minimum": 0 },
+        "unresolved_need_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" }
+        }
+      },
+      "additionalProperties": false
+    },
     "sources": {
       "type": "array",
       "minItems": 1,

@@ -38,14 +38,26 @@ You must:
 - **Signal evidence graph** — `commodity/runs/{COMMODITY}/signal_evidence.json`, rebuilt deterministically
   in workflow step 2 from the self-declared orb sidecars. It is the only source of evidence breadth,
   causal ownership, contradiction state and statistical conviction eligibility.
-- **Profile evidence coverage** — every `Required semantic series` row in the current commodity's profile,
-  reconciled to accepted connector-v2 projections/sidecars or the lawful shared market route named there.
-  This is a terminal decision gate, not a connector-discovery score.
+- **Profile evidence coverage** — `commodity/runs/{COMMODITY}/required_series_coverage.json`, compiled
+  deterministically from every `Required semantic series` row, accepted connector-v2 vintages and the
+  decision-time cutoff. This artifact—not prose reconciliation—is the terminal decision gate.
 
 # WORKFLOW
 
 1. Read `CLAUDE.md` and `.claude/agents/commodity/MODULE_RULES.md`.
-2. Rebuild the evidence graph before adjudicating: `python3 scripts/commodity_signal_evidence.py "commodity/runs/{COMMODITY}"`. Then read `signal_evidence.json`. If compilation fails, `coverage.complete` is false, or no independent cluster is conviction-eligible, the verdict is capped at `Research More`; do not fall back to counting prose bullets. Read all six analytical inputs. Reconcile every profile-required semantic series under MODULE_RULES §8A and write the coverage table into the dossier. If any required row is not current/usable, mark each materially dependent horizon `not_assessable`; this forces `Research More` unless a proven critical risk requires `Avoid`. If a module synthesis, the fair-value orb or the independent scenario pack is missing/stale/failed, apply the same rule — do not fabricate a balance, a macro read, a floor or a distribution, and never reuse a stale legacy Gold output.
+2. Rebuild `signal_evidence.json` with
+   `python3 scripts/commodity_signal_evidence.py "commodity/runs/{COMMODITY}"`, then read it and the
+   caller-frozen `required_series_coverage.json`. The caller MUST compile coverage immediately before
+   dispatch; if it is absent or unreadable, stop instead of creating it here. Do not regenerate it during
+   synthesis: the final record must hash the exact point-in-time artifact supplied as input. If compilation fails,
+   evidence coverage is incomplete, or no independent cluster is conviction-eligible, the verdict is
+   capped at `Research More`; do not fall back to counting prose bullets. Copy every machine coverage row
+   into the dossier. If any required row is not `usable`, BOTH horizons are `not_assessable`; this forces
+   `Research More` unless a proven critical risk requires `Avoid`. Compute the coverage artifact's exact
+   byte digest with `shasum -a 256 required_series_coverage.json` and copy the artifact summary plus
+   `sha256:<digest>` into `decision_record.json`. If a module synthesis, the fair-value orb or independent
+   scenario pack is missing/stale/failed, apply the same rule—never fabricate a balance, macro read, floor
+   or distribution, and never reuse a stale legacy Gold output.
 3. Compose the dossier (structure below).
    - The **thesis summary** ties price + balance + macro + positioning into one plain-English view of where the risk/reward sits.
    - The **fair-value band** carries the cost-curve orb's bear/base/bull levels and the **margin of safety** (discount to base, downside to the floor) — this is the §16 valuation range and §18 margin-of-safety input the verdict rests on. Keep the orb's anchor-grade labelling; if the orb was absent, mark margin of safety "Not assessable" (§11).
@@ -278,6 +290,15 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
     "independent_cluster_count": 0,
     "conviction_eligible_cluster_count": 0,
     "contradiction_count": 0
+  },
+  "required_series_coverage": {
+    "path": "required_series_coverage.json",
+    "generated_at": "copy from required_series_coverage.json",
+    "artifact_sha256": "sha256:<exact hash of artifact bytes>",
+    "complete": false,
+    "required_count": 0,
+    "usable_count": 0,
+    "unresolved_need_ids": ["copy in artifact row order"]
   },
   "calibration_feedback": {
     "source_summary": "commodity/performance/<DATE>_calibration_summary.json or null",

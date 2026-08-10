@@ -15,6 +15,7 @@ import sys
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO, "scripts"))
 from connector_contract import validate_manifest  # noqa: E402
+from commodity_profile_coverage import structured_profile  # noqa: E402
 
 PROFILE_PATH = os.path.join(REPO, "frameworks", "commodity", "COMMODITY_PROFILES.md")
 CONNECTOR_ROOT = os.path.join(REPO, ".claude", "connectors")
@@ -22,6 +23,7 @@ CONNECTOR_IDS = {
     "cftc-cot-gold",
     "treasury-real-yields-gold",
     "federal-reserve-broad-usd-gold",
+    "bls-cpi-gold",
     "cme-gold-inventory-deliveries",
     "lbma-gold-vault-clearing",
     "wgc-official-gold-reserves",
@@ -32,13 +34,25 @@ REQUIRED_CONNECTOR_NEEDS = {
     "gold-managed-money-positioning",
     "gold-real-yields",
     "gold-broad-usd",
+    "gold-consumer-price-index",
     "gold-comex-inventory-deliveries",
     "gold-lbma-vault-clearing",
     "gold-official-reserve-changes",
     "gold-mine-supply",
     "gold-issuer-etf-holdings",
 }
-SHARED_NEEDS = {"gold-current-price", "gold-market-price-history"}
+SHARED_NEEDS = {
+    "gold-equity-index-history",
+    "gold-miner-equity-history",
+    "gold-silver-price-history",
+    "gold-silver-miner-history",
+    "gold-current-price",
+    "gold-market-price-history",
+    "gold-futures-curve",
+    "gold-cash-spot-price",
+    "gold-cash-futures-basis",
+    "gold-regional-physical-premiums",
+}
 FORBIDDEN = (
     "wiltw",
     "what i learned this week",
@@ -82,6 +96,24 @@ for need, _series_id, owner in profile_rows:
     matches = glob.glob(os.path.join(REPO, ".claude", "agents", "commodity", "*", f"[0-9][0-9]_{owner}.md"))
     assert len(matches) == 1, f"{need}: causal owner {owner!r} must resolve to exactly one orb"
 
+typed_requirements = structured_profile("GOLD")
+assert [row["need"] for row in typed_requirements] == [row[0] for row in profile_rows]
+resolver_by_need = {row["need"]: row["resolver"]["kind"] for row in typed_requirements}
+assert resolver_by_need["gold-current-price"] == "pulse_quote"
+assert resolver_by_need["gold-market-price-history"] == "shared_market"
+assert resolver_by_need["gold-cash-spot-price"] == "connector"
+assert resolver_by_need["gold-cash-futures-basis"] == "derived"
+assert resolver_by_need["gold-futures-curve"] == "connector"
+assert resolver_by_need["gold-regional-physical-premiums"] == "connector"
+market_history = next(row for row in typed_requirements if row["need"] == "gold-market-price-history")
+assert market_history["resolver"] == {
+    "kind": "shared_market", "symbol": "@GC.1", "instrument_kind": "future",
+    "price_basis": "continuous_back_adjusted",
+}
+basis = next(row for row in typed_requirements if row["need"] == "gold-cash-futures-basis")
+assert basis["resolver"]["operation"] == "left_minus_right_pct_of_right"
+assert basis["resolver"]["left"]["series"] == "gold.cash-spot-price"
+
 manifests: dict[str, dict] = {}
 covered: dict[str, list[str]] = {need: [] for need in REQUIRED_CONNECTOR_NEEDS}
 for connector_id in sorted(CONNECTOR_IDS):
@@ -104,10 +136,18 @@ for connector_id in ("cme-gold-inventory-deliveries", "wgc-official-gold-reserve
     assert manifest.get("manual") is True, connector_id
     assert manifest["acquisition"] == "manual", connector_id
     assert manifest.get("manual_ingest", {}).get("file_arg") == "--from-file", connector_id
+    assert manifest["source_type"] == "external_other" and manifest["tier"] == 9, connector_id
+    assert manifest["authority_class"] == "other", connector_id
+    assert "context-only" in manifest["license"], connector_id
 
 lbma_manifest, lbma_text = load_connector("lbma-gold-vault-clearing")
 assert lbma_manifest["output_schema"].get("benchmark_price_included") is False
 assert "benchmark prices" in lbma_manifest["license"].casefold()
 assert "lbma-gold-price" not in lbma_text and "gold-prices" not in lbma_text
+
+bls_manifest = manifests["bls-cpi-gold"]
+assert bls_manifest["dataset_id"] == "bls.cuur0000sa0"
+assert bls_manifest["minimum_history"] == {"observations": 120, "path": "observations"}
+assert bls_manifest["credential_env"] == [] and bls_manifest["host_allowlist"] == ["api.bls.gov"]
 
 print("PASS: Gold profile semantic coverage, lawful route reuse and WILTW runtime exclusion")

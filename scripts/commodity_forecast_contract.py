@@ -4,11 +4,12 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
 import json
 import math
 import re
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 
 HORIZON_RANGES = {"tactical": (30, 92), "strategic": (182, 548)}
@@ -40,6 +41,21 @@ COMPONENTS = (
 )
 EMPIRICAL_GRID = (30, 45, 60, 75, 92, 182, 273, 365, 456, 548)
 SCENARIO_ID_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
+COVERAGE_CUTOVER = dt.date(2026, 8, 11)
+COVERAGE_STATUSES = {"usable", "missing", "manual", "unavailable", "suspect"}
+COVERAGE_ARTIFACT_FIELDS = {
+    "schema_version", "commodity", "decision_time", "generated_at", "profile_path",
+    "required_count", "usable_count", "complete", "unresolved_need_ids", "rows",
+}
+COVERAGE_ROW_FIELDS = {
+    "need_id", "series_id", "owner_orb", "required_history_freshness", "lawful_source_policy",
+    "status", "as_of", "vintage_id", "dataset_id", "connector_id", "provider", "reason",
+}
+
+
+def production_coverage_resolver(series_id: str, commodity: str, decision_time: str) -> dict[str, Any] | None:
+    from commodity_profile_coverage import resolve_profile_series
+    return resolve_profile_series(series_id, commodity, decision_time)
 
 
 def _number(value: Any) -> bool:
@@ -311,11 +327,201 @@ def _validate_horizon(
     return errors
 
 
-def validate_decision_record(record: Any) -> list[str]:
+def _coverage_errors(
+    record: dict[str, Any], artifact: Any | None, artifact_sha256: str | None,
+    profile_requirements: list[dict[str, str]] | None,
+    coverage_resolver: Callable[[str, str, str], dict[str, Any] | None] | None,
+) -> list[str]:
+    errors: list[str] = []
+    try:
+        is_fresh = dt.date.fromisoformat(str(record.get("decision_date"))) >= COVERAGE_CUTOVER
+    except ValueError:
+        is_fresh = False
+    projection = record.get("required_series_coverage")
+    if projection is None:
+        return ["required_series_coverage is required for fresh commodity decisions"] if is_fresh else []
+    required_projection = {
+        "path", "generated_at", "artifact_sha256", "complete", "required_count",
+        "usable_count", "unresolved_need_ids",
+    }
+    if not isinstance(projection, dict) or set(projection) != required_projection:
+        return ["required_series_coverage must contain exactly the deterministic coverage projection fields"]
+    if projection.get("path") != "required_series_coverage.json":
+        errors.append("required_series_coverage.path must be required_series_coverage.json")
+    digest = projection.get("artifact_sha256")
+    if not isinstance(digest, str) or not re.fullmatch(r"sha256:[a-f0-9]{64}", digest):
+        errors.append("required_series_coverage.artifact_sha256 must be a sha256 digest")
+    if artifact is None or artifact_sha256 is None:
+        if is_fresh:
+            errors.append("required_series_coverage artifact is required for deterministic validation")
+        return errors
+    if digest != artifact_sha256:
+        errors.append("required_series_coverage artifact digest does not match the decision projection")
+    if not isinstance(artifact, dict):
+        return [*errors, "required_series_coverage artifact must be an object"]
+    if set(artifact) != COVERAGE_ARTIFACT_FIELDS:
+        errors.append("required_series_coverage artifact must contain exactly the contract fields")
+    if artifact.get("schema_version") != 1 or artifact.get("commodity") != record.get("commodity"):
+        errors.append("required_series_coverage artifact identity does not match the decision")
+    decision_time = artifact.get("decision_time")
+    try:
+        parsed_decision_time = dt.datetime.fromisoformat(str(decision_time).replace("Z", "+00:00"))
+        if parsed_decision_time.tzinfo is None:
+            raise ValueError
+        parsed_decision_time = parsed_decision_time.astimezone(dt.timezone.utc)
+    except ValueError:
+        parsed_decision_time = None
+    if parsed_decision_time is None or parsed_decision_time.date().isoformat() != record.get("decision_date"):
+        errors.append("required_series_coverage decision_time must fall on decision_date")
+    try:
+        generated_at = dt.datetime.fromisoformat(str(artifact.get("generated_at")).replace("Z", "+00:00"))
+        if generated_at.tzinfo is None:
+            raise ValueError
+        generated_at = generated_at.astimezone(dt.timezone.utc)
+    except ValueError:
+        generated_at = None
+    if generated_at is None or (parsed_decision_time is not None and generated_at < parsed_decision_time):
+        errors.append("required_series_coverage generated_at must be a timezone-aware instant at/after decision_time")
+    rows = artifact.get("rows")
+    if not isinstance(rows, list) or not rows:
+        errors.append("required_series_coverage artifact must contain rows")
+        return errors
+    resolver_kinds: dict[str, Any] = {}
+    if profile_requirements is None:
+        if is_fresh:
+            errors.append("current profile requirements are required for deterministic coverage validation")
+    else:
+        resolver_kinds = {
+            str(row.get("series")): (
+                row.get("resolver", {}).get("kind") if isinstance(row.get("resolver"), dict) else None
+            )
+            for row in profile_requirements
+        }
+        if artifact.get("profile_path") != "frameworks/commodity/COMMODITY_PROFILES.md":
+            errors.append("required_series_coverage profile_path is not the canonical commodity profile")
+        expected_rows = [
+            (
+                row.get("need"), row.get("series"), row.get("owner"),
+                row.get("requirement"), row.get("policy"),
+            )
+            for row in profile_requirements
+        ]
+        artifact_rows = [
+            (
+                row.get("need_id"), row.get("series_id"), row.get("owner_orb"),
+                row.get("required_history_freshness"), row.get("lawful_source_policy"),
+            )
+            if isinstance(row, dict) else (None, None, None, None, None)
+            for row in rows
+        ]
+        if artifact_rows != expected_rows:
+            errors.append("required_series_coverage rows do not exactly match the current commodity profile")
+    need_ids: list[str] = []
+    unresolved: list[str] = []
+    for index, row in enumerate(rows):
+        if not isinstance(row, dict):
+            errors.append(f"required_series_coverage.rows[{index}] must be an object")
+            continue
+        if set(row) != COVERAGE_ROW_FIELDS:
+            errors.append(f"required_series_coverage.rows[{index}] must contain exactly the contract fields")
+        need_id = row.get("need_id")
+        status = row.get("status")
+        if not isinstance(need_id, str) or not need_id:
+            errors.append(f"required_series_coverage.rows[{index}].need_id is invalid")
+            continue
+        need_ids.append(need_id)
+        if status not in COVERAGE_STATUSES:
+            errors.append(f"required_series_coverage.rows[{index}].status is invalid")
+        elif status != "usable":
+            unresolved.append(need_id)
+        if status == "usable" and (
+            not isinstance(row.get("vintage_id"), str)
+            or not re.fullmatch(r"sha256:[a-f0-9]{64}", row["vintage_id"])
+            or not isinstance(row.get("as_of"), str)
+        ):
+            errors.append(f"required_series_coverage.rows[{index}] usable row lacks a vintage/as-of identity")
+        elif status == "usable":
+            if coverage_resolver is None:
+                if is_fresh:
+                    errors.append(f"required_series_coverage.rows[{index}] has no point-in-time resolver")
+            else:
+                resolved = coverage_resolver(str(row.get("series_id")), str(record.get("commodity")), str(decision_time))
+                vintage = resolved.get("vintage") if isinstance(resolved, dict) else None
+                expected_resolver_kind = resolver_kinds.get(str(row.get("series_id")))
+                acquisition = vintage.get("acquisition") if isinstance(vintage, dict) else None
+                tier = vintage.get("tier") if isinstance(vintage, dict) else None
+                rank_allowed = (
+                    isinstance(tier, int) and not isinstance(tier, bool) and tier <= 10
+                    and acquisition != "manual"
+                    and (
+                        (expected_resolver_kind == "pulse_quote" and acquisition == "public_quote")
+                        or (expected_resolver_kind == "derived" and acquisition == "derived")
+                        or (
+                            expected_resolver_kind not in {"pulse_quote", "derived"}
+                            and acquisition not in {"public_quote", "derived"}
+                            and tier <= 5
+                        )
+                    )
+                )
+                if (
+                    not isinstance(resolved, dict) or resolved.get("usable") is not True
+                    or resolved.get("health") != "current"
+                    or resolved.get("vintage_id") != row.get("vintage_id")
+                    or not isinstance(vintage, dict)
+                    or vintage.get("as_of") != row.get("as_of")
+                    or vintage.get("dataset_id") != row.get("dataset_id")
+                    or vintage.get("connector_id") != row.get("connector_id")
+                    or vintage.get("provider") != row.get("provider")
+                    or not rank_allowed
+                ):
+                    errors.append(
+                        f"required_series_coverage.rows[{index}] usable vintage does not resolve at decision_time"
+                    )
+    if len(need_ids) != len(set(need_ids)):
+        errors.append("required_series_coverage artifact has duplicate need IDs")
+    expected = {
+        "generated_at": artifact.get("generated_at"),
+        "complete": not unresolved,
+        "required_count": len(rows),
+        "usable_count": len(rows) - len(unresolved),
+        "unresolved_need_ids": unresolved,
+    }
+    for field, value in expected.items():
+        if projection.get(field) != value:
+            errors.append(f"required_series_coverage.{field} does not match the artifact")
+    if artifact.get("complete") != expected["complete"]:
+        errors.append("required_series_coverage artifact complete flag is inconsistent")
+    if artifact.get("required_count") != len(rows) or artifact.get("usable_count") != len(rows) - len(unresolved):
+        errors.append("required_series_coverage artifact counts are inconsistent")
+    if artifact.get("unresolved_need_ids") != unresolved:
+        errors.append("required_series_coverage artifact unresolved list is inconsistent")
+    if unresolved:
+        horizons = record.get("forecast_horizons")
+        horizon_statuses = [
+            horizons.get(name, {}).get("status") if isinstance(horizons, dict) else None
+            for name in ("tactical", "strategic")
+        ]
+        if horizon_statuses != ["not_assessable", "not_assessable"]:
+            errors.append("incomplete required-series coverage forces both horizons to not_assessable")
+        override = record.get("critical_risk_override")
+        expected_action = "Avoid" if isinstance(override, dict) and override.get("applied") is True else "Research More"
+        if record.get("action") != expected_action:
+            errors.append(f"incomplete required-series coverage forces action {expected_action}")
+    return errors
+
+
+def validate_decision_record(
+    record: Any, coverage_artifact: Any | None = None, coverage_sha256: str | None = None,
+    profile_requirements: list[dict[str, str]] | None = None,
+    coverage_resolver: Callable[[str, str, str], dict[str, Any] | None] | None = None,
+) -> list[str]:
     """Validate the post-rollout dual-horizon forecast and its mechanically derived action."""
     if not isinstance(record, dict):
         return ["commodity decision_record must be an object"]
     errors: list[str] = []
+    errors.extend(_coverage_errors(
+        record, coverage_artifact, coverage_sha256, profile_requirements, coverage_resolver,
+    ))
     current_price = record.get("current_price")
     price_value = current_price.get("value") if isinstance(current_price, dict) else None
     if not _number(price_value) or float(price_value) <= 0:
@@ -407,7 +613,27 @@ def main() -> int:
     except (OSError, json.JSONDecodeError) as error:
         print(f"FORECAST-CONTRACT-FAIL: {error}")
         return 1
-    errors = validate_decision_record(record)
+    coverage_path = args.decision_record.parent / "required_series_coverage.json"
+    coverage = None
+    coverage_sha256 = None
+    try:
+        raw_coverage = coverage_path.read_bytes()
+        coverage = json.loads(raw_coverage.decode("utf-8"))
+        coverage_sha256 = "sha256:" + hashlib.sha256(raw_coverage).hexdigest()
+    except FileNotFoundError:
+        pass
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        print(f"FORECAST-CONTRACT-FAIL: required_series_coverage artifact: {error}")
+        return 1
+    profile_requirements = None
+    try:
+        from commodity_profile_coverage import PROFILE_PATH, structured_profile
+        profile_requirements = structured_profile(str(record.get("commodity", "")), profile_path=PROFILE_PATH)
+    except (OSError, ValueError):
+        pass
+    errors = validate_decision_record(
+        record, coverage, coverage_sha256, profile_requirements, production_coverage_resolver,
+    )
     if errors:
         for error in errors:
             print(f"FORECAST-CONTRACT-FAIL: {error}")

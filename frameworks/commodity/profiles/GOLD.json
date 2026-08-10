@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "commodity": "GOLD",
+  "requirements": [
+    {
+      "need": "gold-managed-money-positioning",
+      "series": "gold.managed-money-positioning",
+      "owner": "commodity-positioning-flows",
+      "requirement": "weekly; ≥1 current COT observation",
+      "policy": "CFTC public API",
+      "quality": {"path": "observations", "min_observations": 1, "max_staleness_days": 14},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "gold-real-yields",
+      "series": "gold.us-treasury-real-yields",
+      "owner": "commodity-macro-drivers",
+      "requirement": "daily; ≥3 years for validation",
+      "policy": "US Treasury XML",
+      "quality": {"path": "observations", "min_observations": 750, "min_span_days": 1095, "date_field": "date", "max_staleness_days": 7},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "gold-broad-usd",
+      "series": "gold.broad-usd-index",
+      "owner": "commodity-macro-drivers",
+      "requirement": "daily; ≥3 years for validation",
+      "policy": "Federal Reserve/FRED public CSV",
+      "quality": {"path": "observations", "min_observations": 750, "min_span_days": 1095, "date_field": "date", "max_staleness_days": 7},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "gold-consumer-price-index",
+      "series": "gold.consumer-price-index",
+      "owner": "commodity-cross-asset-regime",
+      "requirement": "monthly; ≥10 years for real-price regimes",
+      "policy": "BLS public API; non-seasonally-adjusted CPI-U; point-in-time use is limited to already-retrieved connector vintages",
+      "quality": {"path": "observations", "min_observations": 120, "min_span_days": 3285, "date_field": "date", "max_staleness_days": 80},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "gold-equity-index-history",
+      "series": "gold.equity-index-history",
+      "owner": "commodity-cross-asset-regime",
+      "requirement": "weekly; ≥3 years for Gold/equities regimes",
+      "policy": "lawful shared market history with source identity; broad US equity benchmark",
+      "quality": {"min_observations": 150, "min_span_days": 1095, "date_field": "date", "max_staleness_days": 10},
+      "resolver": {"kind": "shared_market", "symbol": "SPY", "instrument_kind": "equity", "price_basis": "split_adjusted"}
+    },
+    {
+      "need": "gold-miner-equity-history",
+      "series": "gold.miner-equity-history",
+      "owner": "commodity-cross-asset-regime",
+      "requirement": "weekly; ≥3 years for miners/Gold confirmation",
+      "policy": "lawful shared market history with source identity; `GDX` or equivalent declared proxy",
+      "quality": {"min_observations": 150, "min_span_days": 1095, "date_field": "date", "max_staleness_days": 10},
+      "resolver": {"kind": "shared_market", "symbol": "GDX", "instrument_kind": "equity", "price_basis": "split_adjusted"}
+    },
+    {
+      "need": "gold-silver-price-history",
+      "series": "gold.silver-price-history",
+      "owner": "commodity-cross-asset-regime",
+      "requirement": "weekly; ≥3 years for silver/Gold confirmation",
+      "policy": "lawful shared market history with source identity; physical silver or declared bullion proxy",
+      "quality": {"min_observations": 150, "min_span_days": 1095, "date_field": "date", "max_staleness_days": 10},
+      "resolver": {"kind": "shared_market", "symbol": "SLV", "instrument_kind": "equity", "price_basis": "split_adjusted"}
+    },
+    {
+      "need": "gold-silver-miner-history",
+      "series": "gold.silver-miner-history",
+      "owner": "commodity-cross-asset-regime",
+      "requirement": "weekly; ≥3 years for silver-miner confirmation",
+      "policy": "lawful shared market history with source identity; `SIL` or equivalent declared proxy",
+      "quality": {"min_observations": 150, "min_span_days": 1095, "date_field": "date", "max_staleness_days": 10},
+      "resolver": {"kind": "shared_market", "symbol": "SIL", "instrument_kind": "equity", "price_basis": "split_adjusted"}
+    },
+    {
+      "need": "gold-comex-inventory-deliveries",
+      "series": "gold.comex-inventory-deliveries",
+      "owner": "commodity-demand-inventory",
+      "requirement": "daily; current registered/eligible stocks and delivery notices",
+      "policy": "CME official report only; manual if no stable lawful machine route",
+      "quality": {"max_staleness_days": 7},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "gold-lbma-vault-clearing",
+      "series": "gold.lbma-vault-clearing",
+      "owner": "commodity-demand-inventory",
+      "requirement": "monthly; vault and clearing releases",
+      "policy": "public LBMA vault/clearing statistics only; never the licensed price benchmark",
+      "quality": {"max_staleness_days": 90},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "gold-official-reserve-changes",
+      "series": "gold.official-reserve-changes",
+      "owner": "commodity-demand-inventory",
+      "requirement": "monthly; reported purchases/sales with reporting lag",
+      "policy": "IMF/central-bank data or the WGC workbook compiled from them; preserve WGC adjustments",
+      "quality": {"max_staleness_days": 180},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "gold-mine-supply",
+      "series": "gold.mine-supply",
+      "owner": "commodity-supply-security",
+      "requirement": "annual world and country production",
+      "policy": "USGS public-domain release",
+      "quality": {"path": "world", "min_observations": 2, "max_staleness_days": 550},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "gold-issuer-etf-holdings",
+      "series": "gold.issuer-etf-holdings",
+      "owner": "commodity-positioning-flows",
+      "requirement": "daily; issuer-reported tonnes/ounces and shares",
+      "policy": "lawful issuer download/page only",
+      "quality": {"path": "share_history", "min_observations": 500, "min_span_days": 700, "date_field": "date", "max_staleness_days": 7},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "gold-current-price",
+      "series": "gold.current-price",
+      "owner": "commodity-price-curve",
+      "requirement": "current front-month futures quote",
+      "policy": "reuse the swarm pulse quote transport (`@GC.1`); label it futures, never cash/spot; no connector clone",
+      "quality": {"max_staleness_days": 2},
+      "resolver": {"kind": "pulse_quote", "swarm": "commodity", "symbol": "@GC.1", "source": "cnbc"}
+    },
+    {
+      "need": "gold-market-price-history",
+      "series": "gold.market-price-history",
+      "owner": "commodity-price-curve",
+      "requirement": "point-in-time close history with source identity",
+      "policy": "reuse `data/_market/<provider>/` and `scripts/market_prices.py`; other orbs consume the owner's evidence; if no lawful feed exists, unavailable",
+      "quality": {"min_observations": 750, "min_span_days": 1095, "date_field": "date", "max_staleness_days": 10},
+      "resolver": {"kind": "shared_market", "symbol": "@GC.1", "instrument_kind": "future", "price_basis": "continuous_back_adjusted"}
+    },
+    {
+      "need": "gold-futures-curve",
+      "series": "gold.futures-curve",
+      "owner": "commodity-price-curve",
+      "requirement": "current multi-tenor COMEX settlement curve",
+      "policy": "lawful CME route with licence/source identity; otherwise manual or unavailable",
+      "quality": {"max_staleness_days": 3},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "gold-cash-spot-price",
+      "series": "gold.cash-spot-price",
+      "owner": "commodity-price-curve",
+      "requirement": "current deliverable cash/spot assessment aligned to COMEX grade, location, date and unit",
+      "policy": "lawful primary/licensed cash assessment; LBMA benchmark only with an existing licence; otherwise unavailable",
+      "quality": {"max_staleness_days": 3},
+      "resolver": {"kind": "connector"}
+    },
+    {
+      "need": "gold-cash-futures-basis",
+      "series": "gold.cash-futures-basis",
+      "owner": "commodity-price-curve",
+      "requirement": "cash/spot minus deliverable nearby futures, as % of futures, with aligned timestamps",
+      "policy": "deterministic derivation from cash-spot and futures-curve vintages; no independent vote",
+      "quality": {"max_staleness_days": 3, "max_parent_gap_days": 1},
+      "resolver": {
+        "kind": "derived",
+        "operation": "left_minus_right_pct_of_right",
+        "left": {"series": "gold.cash-spot-price", "path": "value"},
+        "right": {"series": "gold.futures-curve", "path": "nearby_settlement"}
+      }
+    },
+    {
+      "need": "gold-regional-physical-premiums",
+      "series": "gold.regional-physical-premiums",
+      "owner": "commodity-price-curve",
+      "requirement": "current observable premiums with region and quote basis",
+      "policy": "primary exchange/trade-body publication where lawful; otherwise manual or unavailable",
+      "quality": {"max_staleness_days": 14},
+      "resolver": {"kind": "connector"}
+    }
+  ]
+}

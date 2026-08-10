@@ -195,8 +195,10 @@ unvintaged live-web fact may explain context but cannot raise sufficiency or con
 must mark a missing required row as failed/not assessable and emit the data need rather than substitute a
 weaker source silently.
 
-After all orbs finish, any required semantic series that remains unusable makes every horizon materially
-dependent on it `not_assessable`. That mechanically produces `Research More`, unless independently proven
+After all orbs finish, run `scripts/commodity_profile_coverage.py` at the decision-time cutoff. Its
+`required_series_coverage.json` is binding and is hash-linked from the decision record. Any required
+semantic series that remains unusable makes BOTH horizons `not_assessable`. The deterministic forecast
+contract rejects any stronger call and mechanically produces `Research More`, unless independently proven
 critical risk forces `Avoid`. Never fall back to a stale dossier or to a methodology report. WILTW, its
 supporting files, and report-derived assertions are method-transfer material only and are forbidden as
 runtime evidence or Gold provenance.

@@ -19,6 +19,12 @@ manifest = json.load(open(os.path.join(HERE, "connector.json"), encoding="utf-8"
 defects = validate_manifest(manifest["id"], HERE, manifest) + validate_staged_output(manifest, "GOLD", payload, sidecar, as_of)
 assert not defects, defects
 assert as_of == "2026-06-30" and payload["vault"]["gold_tonnes"] == 9464
+try:
+    mod.build(vault.replace("June 2026", "May 2026"), clearing)
+except RuntimeError as error:
+    assert "not aligned" in str(error)
+else:
+    raise AssertionError("mismatched LBMA component periods did not fail closed")
 assert payload["clearing"]["value_change_mom_pct"] == -3.8 and payload["benchmark_price_included"] is False
 assert "benchmark" in sidecar["note"].casefold()
 for bad in ("<html>price only</html>", ""):
