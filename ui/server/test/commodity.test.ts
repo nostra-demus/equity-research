@@ -61,7 +61,8 @@ check('commodity agent names are commodity-* prefixed and globally unique (no co
   const idx = agentNameIndexAllSwarms()
   const g = buildSwarmGraph('commodity')
   const names = g.modules.flatMap((m) => Object.values(m.layers).flat().map((a) => a.name))
-  assert.equal(names.length, 15)
+  assert.ok(names.length > 0, 'commodity swarm discovered no agents')
+  assert.equal(new Set(names).size, names.length, 'commodity agent names are not unique within the swarm')
   for (const n of names) {
     assert.ok(n.startsWith('commodity-'), `${n} is not commodity-prefixed`)
     assert.equal(idx.get(n)?.swarmId, 'commodity', `${n} did not resolve to the commodity swarm (name collision?)`)
@@ -78,12 +79,13 @@ check('requiredUpstream is run-root-relative (no commodity/ or analyses/ hardcod
 })
 
 // ---- per-subject graph over the committed GOLD fixture ----
-check('graphForSubject resolves the GOLD fixture: deps complete + terminal synthesis runnable', () => {
+check('graphForSubject fails legacy GOLD closed when newly required analytical orbs are absent', () => {
   const g = graphForSubject('commodity', 'GOLD')
   const thesis = g.modules.find((m) => m.name === 'commodity-thesis')!
   assert.equal(thesis.depsComplete, true) // the three module syntheses exist in the fixture
   const synth = Object.values(thesis.layers).flat().find((a) => a.name === 'commodity-thesis-synthesis')!
-  assert.equal(synth.soloRunnable, true) // all requiredUpstream present in the fixture
+  assert.ok(synth.requiredUpstream.includes('commodity-thesis/03_commodity-scenario-engine.md'))
+  assert.equal(synth.soloRunnable, false) // the stale fixture cannot bypass the new scenario/coverage contract
 })
 
 // ---- subject picker source ----

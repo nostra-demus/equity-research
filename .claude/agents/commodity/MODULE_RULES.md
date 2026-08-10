@@ -177,3 +177,41 @@ is contextual unless the registry proves point-in-time walk-forward validation a
 regimes and 30 non-overlapping outcomes, the expected sign in four of five folds, improvement over a
 cost-adjusted naive baseline, a positive out-of-sample block-bootstrap confidence interval, stable
 lookbacks, and 10% false-discovery control.
+
+## 9. Physical supply bridge and opacity cap
+
+Never equate gross production with supply available to the global buyer. The supply-demand synthesis
+must reconcile one physical bridge, in consistent units, with a visible residual:
+
+```
+gross production + releases/recycling/import availability
+− domestic absorption − stock build
+= pre-policy exportable supply
+− restricted/sanctioned volume − physically stranded volume
++ verified rerouting that reaches an unrestricted buyer
+= globally accessible supply
+```
+
+The supply orb owns production and domestic absorption; supply-security owns restrictions, sanctions,
+chokepoints and rerouting. The synthesis adjudicates the bridge and rejects double-counting. Exchange
+delivery ineligibility is not automatically lost production, and a rerouted unit is not fully accessible
+unless destination, discount, transport delay and settlement/insurance limits support that conclusion.
+
+Supply opacity is measured, never described from vibes. The synthesis passes primary-source production
+coverage, estimate dispersion and release-cycle lateness to `scripts/commodity_analytical_contracts.py`.
+High opacity — primary coverage below 70%, estimate dispersion above 15%, over two release cycles late,
+or any unmeasured audit input — caps the supply-demand score at 45. Medium opacity caps it at 65. The
+cap can only reduce the raw score.
+
+## 10. Independent distribution before action
+
+The volatility-distribution orb owns the empirical return envelope, drawdowns, skew and event gaps. The
+scenario-engine orb then constructs bear/base/bull independently of the terminal thesis and before any
+action exists. The terminal synthesis consumes that pack; it may make a disclosed conservative downgrade,
+but it may not replace it with a narrower or more favourable distribution.
+
+A scenario set fails when it does not cover the applicable matching-regime 10th/90th percentile bounds,
+does not include the killer-risk tail/event gap, or hides several independent conditions inside one case
+without a joint-probability basis. Missing lawful history, fewer than 30 non-overlapping outcomes, or a
+failed span audit makes the distribution `not_assessable` and the action `Research More`, unless a proven
+critical risk independently forces `Avoid`.

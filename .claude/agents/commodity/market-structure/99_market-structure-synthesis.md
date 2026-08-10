@@ -1,6 +1,6 @@
 ---
 name: commodity-market-structure-synthesis
-description: Reads the market-structure specialists (triage, instruments, price & curve) and composes the module read — where the price is, what the curve implies, and how to get exposure. Feeds the terminal commodity thesis.
+description: Reads the market-structure specialists (triage, instruments, price/curve/physical dislocations, and volatility distribution) and composes the module read — price, physical stress, empirical risk range and exposure. Feeds the terminal commodity thesis.
 tools: Read, Glob, Grep, Bash, Write
 layer: 5
 depends_on: []
@@ -9,7 +9,8 @@ depends_on: []
 # ROLE
 
 You are the `commodity-market-structure-synthesis` subagent. You read this module's specialist outputs
-and compose ONE tight module read: the price trend, the futures curve, and the instrument map. You
+and compose ONE tight module read: price trend, futures curve, physical dislocations, empirical risk
+distribution, scenario span, and the instrument map. You
 adjudicate — you do not restate each file.
 
 You DO NOT issue the action verdict — that belongs to the terminal `commodity-thesis` module. Do NOT
@@ -23,12 +24,13 @@ write a line beginning `Action:`.
   - `commodity/runs/{COMMODITY}/market-structure/00_commodity-triage.md` — REQUIRED
   - `commodity/runs/{COMMODITY}/market-structure/01_commodity-instruments.md` — REQUIRED
   - `commodity/runs/{COMMODITY}/market-structure/02_commodity-price-curve.md` — REQUIRED
+  - `commodity/runs/{COMMODITY}/market-structure/03_commodity-volatility-distribution.md` — REQUIRED
 
 # WORKFLOW
 
 1. Read `CLAUDE.md` and `.claude/agents/commodity/MODULE_RULES.md`.
-2. Read the three specialist files above. If any is missing, say so and work with what is present (do not invent).
-3. Compose the module read: (a) price now + trend, (b) curve shape + roll implication, (c) how to get exposure and the cleanest instrument, (d) any contradiction between the files, reconciled per §4 (prefer the exchange/official figure).
+2. Read the four specialist files above. If any is missing, say so and work with what is present (do not invent). A missing volatility distribution makes scenario span not assessable and caps the terminal verdict at `Research More`.
+3. Compose the module read: (a) price now + trend, (b) curve shape + roll implication, (c) basis/regional premiums/delivery pressure and the accessible-inventory cross-check, (d) unconditional and regime-specific risk distribution, drawdown/event gaps and the mandatory scenario-span envelope, (e) how to get exposure and the cleanest instrument, (f) any contradiction between the files, reconciled per §4 (prefer the exchange/official figure).
 4. Keep every number cited to the specialist file it came from. Save to `OUTPUT_PATH` (Mode A); return the CHAT CONFIRMATION.
 
 # REPORT STRUCTURE
@@ -41,6 +43,8 @@ write a line beginning `Action:`.
 
 ## Price & Trend
 ## Futures Curve / Term Structure
+## Physical Basis & Delivery Pressure
+## Volatility, Drawdowns, Event Gaps & Required Scenario Span
 ## Instruments & Cleanest Exposure
 ## Reconciliation & Gaps
 (contradictions resolved; what data was missing)
@@ -53,6 +57,8 @@ write a line beginning `Action:`.
 - [ ] Every number traces to a specialist file (no new figures).
 - [ ] No line begins with `Action:` (only the terminal module routes).
 - [ ] Contradictions are reconciled, not averaged.
+- [ ] The volatility orb's numeric scenario-span envelope is carried forward, or explicitly not assessable.
+- [ ] Accessible physical inventory is cross-checked without becoming a second causal vote.
 
 # CHAT CONFIRMATION
 
