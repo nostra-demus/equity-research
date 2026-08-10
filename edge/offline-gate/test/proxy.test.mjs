@@ -78,10 +78,10 @@ test('502 -> 502 is bounded at one retry and becomes an honest offline result', 
   assert.deepEqual(cancelled, ['first', 'second'])
 })
 
-test('only exact GET health receives the delayed retry; other safe requests keep the immediate retry', async () => {
+test('only exact GET health receives the delayed retry; replay-safe non-API/HEAD requests stay immediate', async () => {
   for (const req of [
-    request('/api/swarm'),
     request('/', { headers: { accept: 'text/html' } }),
+    request('/assets/app.js'),
     request('/api/health', { method: 'HEAD' }),
   ]) {
     const cancelled = []
@@ -106,6 +106,29 @@ test('only exact GET health receives the delayed retry; other safe requests keep
     assert.deepEqual(sleeps, [], `${req.method} ${req.url}`)
     assert.deepEqual(cancelled, ['first'], `${req.method} ${req.url}`)
   }
+})
+
+test('stateful or unclassified API GETs are not replayed after a gateway response or fast throw', async () => {
+  const cancelled = []
+  const gatewayOrigin = sequence([
+    gatewayResponse(502, 'only', cancelled),
+    new Response('must not run', { status: 200 }),
+  ])
+  const gateway = await proxyOrigin(request('/api/news/enrich'), gatewayOrigin.fetch, {
+    budgetMs: 15000,
+    sleepImpl: noWait,
+  })
+  assert.deepEqual(gateway, { kind: 'offline' })
+  assert.equal(gatewayOrigin.requests.length, 1)
+  assert.deepEqual(cancelled, ['only'])
+
+  const thrownOrigin = sequence([new Error('connection reset'), new Response('must not run', { status: 200 })])
+  const thrown = await proxyOrigin(request('/api/swarm'), thrownOrigin.fetch, {
+    budgetMs: 15000,
+    sleepImpl: noWait,
+  })
+  assert.deepEqual(thrown, { kind: 'offline' })
+  assert.equal(thrownOrigin.requests.length, 1)
 })
 
 test('exact GET health shares one deadline signal across its delayed retry', async () => {
@@ -187,7 +210,7 @@ test('firm Cloudflare origin-down status goes offline immediately', async () => 
 test('fast idempotent throw still retries once, while POST and SSE throws never retry', async () => {
   const recovered = new Response('ok', { status: 200 })
   const safeOrigin = sequence([new Error('connection reset'), recovered])
-  const safe = await proxyOrigin(request('/api/swarm'), safeOrigin.fetch, { budgetMs: 8000, sleepImpl: noWait })
+  const safe = await proxyOrigin(request('/assets/app.js'), safeOrigin.fetch, { budgetMs: 8000, sleepImpl: noWait })
   assert.equal(safe.kind, 'response')
   assert.equal(safe.response, recovered)
   assert.equal(safeOrigin.requests.length, 2)

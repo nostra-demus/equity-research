@@ -24,11 +24,12 @@
 //   - everything else (other /api/*, documents, assets): a generous budget that covers a cold engine
 //     start + the tunnel hop + heavy JSON under load.
 // A genuine Cloudflare origin-down (status >= 520) is still instant-offline with no wait. A transient
-// fast throw (connection reset/refused) on an idempotent GET/HEAD gets ONE quick retry; a budget TIMEOUT
-// does not retry (the origin is alive but slow — retrying just doubles the wait). The existing one raw
-// 502/504 retry stays immediate for ordinary idempotent traffic; exact GET /api/health waits 750ms first,
-// so a watchdog probe can route around a stale, draining Tunnel connector. Both attempts share ONE
-// deadline, and POST/SSE are never replayed.
+// fast throw (connection reset/refused) gets ONE quick retry only for the health probe and non-API
+// documents/assets; method alone is not enough because some historical GET API routes have side effects.
+// A budget TIMEOUT does not retry (the origin is alive but slow — retrying just doubles the wait). Raw
+// 502/504 follows the same narrow allowlist; exact GET /api/health waits 750ms first so a watchdog probe can
+// route around a stale, draining Tunnel connector. Both health attempts share ONE deadline, and other API
+// calls, POST, and SSE are never replayed.
 import OFFLINE_HTML from '../offline.html'
 import { STATE_VERSION, initialState, interpretProbe, decide } from './monitor.mjs'
 import { alertText, sendAlert } from './alert.mjs'
