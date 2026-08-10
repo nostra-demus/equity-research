@@ -1,0 +1,38 @@
+{
+  "manifest_version": 2,
+  "schema_version": 1,
+  "id": "treasury-real-yields-gold",
+  "dataset_id": "ustreasury.daily-real-par-yield-curve",
+  "series_id": "gold.us-treasury-real-yields",
+  "series": "U.S. Treasury daily real par yield curve for Gold macro analysis",
+  "satisfies": ["gold-real-yields", "real-yields"],
+  "subjects": ["GOLD"],
+  "provider": "U.S. Department of the Treasury",
+  "authority_class": "government_official",
+  "provider_priority": 100,
+  "acquisition": "official_api",
+  "source_type": "official_data",
+  "tier": 5,
+  "license": "United States Government public data",
+  "licensing": {"access": "public", "use": "allowed", "redistribution": "allowed", "terms_url": "https://home.treasury.gov/utility/policies-and-notices"},
+  "host_allowlist": ["home.treasury.gov"],
+  "credential_env": [],
+  "release": {"cadence": "daily", "timezone": "America/New_York", "expected_lag_days": 1, "grace_days": 4, "revision_policy": "revisable"},
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/us-treasury/real_yields_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "observations": [{"date": "date", "five_year": "float", "seven_year": "float", "ten_year": "float", "twenty_year": "float", "thirty_year": "float"}],
+    "source_urls": ["string"]
+  },
+  "units": {
+    "observations[].five_year": "percent",
+    "observations[].seven_year": "percent",
+    "observations[].ten_year": "percent",
+    "observations[].twenty_year": "percent",
+    "observations[].thirty_year": "percent"
+  },
+  "minimum_history": {"observations": 750, "path": "observations"}
+}

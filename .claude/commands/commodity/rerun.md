@@ -51,11 +51,14 @@ Confirm `<MODULE>` is one of the discovered modules; else STOP and list them. Th
 
 **Whole-module mode (no `<AGENT>`):** run the module's specialist pipeline via `frameworks/MODULE_PIPELINE.md` with `<TICKER>` = `<COMMODITY>`, `<MODULE>`, `<RUN_ROOT>` = `commodity/runs/<COMMODITY>`, `<CROSS_MODULE_CONTEXT>` built as in step 6 for THIS module's `depends_on`. **Run Step 1.5 (`extract_pool.py`) unconditionally** when `data/<COMMODITY>/` has files — re-ingesting the pool is the whole point. Do NOT run the module's `99_*-synthesis` here (it heads the cascade in step 6). Persist each specialist to its own output path; instruct agents **not to run git**.
 
-**Single-orb mode (`<AGENT>` given):** glob `.claude/agents/commodity/<MODULE>/[0-9][0-9]_*.md`; select the file whose slug or frontmatter `name` = `<AGENT>` (else STOP and list valid names). Read its `name` (= `subagent_type`), `layer`, `<NN>`, `emits_signal_evidence`, `signal_families`, and `UPSTREAM_INPUTS`. Prerequisite-check each `REQUIRED` upstream against `<RUN_ROOT>` (`test -s`); if any is missing, STOP and say which. Dispatch ONE Task (the `MODULE_PIPELINE.md` Step 4A template, data pool `data/<COMMODITY>/`, `<DATE>`, cross-module context), persisting the report to `<RUN_ROOT>/<MODULE>/<NN>_<AGENT_SLUG>.md` and, when declared, its sibling `.signals.json`, no confirmation block, **not running git**. Verify both per Step 4B; one recovery attempt if either fails. Note whether `<AGENT>` IS the module synthesis (`<NN>` = `99`) — if so, don't re-run it again in step 6. **If that directly-targeted `99` is the terminal `commodity-thesis-synthesis`, its own workflow just rewrote `<RUN_ROOT>/decision_record.json` even though the Step 6 downstream cascade is empty (nothing depends on the terminal) — record that `decision_record.json` was rewritten this invocation, so Step 6.5's finish-gate still fires (it keys off the record being rewritten, not off the cascade).**
+**Single-orb mode (`<AGENT>` given):** glob `.claude/agents/commodity/<MODULE>/[0-9][0-9]_*.md`; select the file whose slug or frontmatter `name` = `<AGENT>` (else STOP and list valid names). Read its `name` (= `subagent_type`), `layer`, `<NN>`, `emits_signal_evidence`, `signal_families`, and `UPSTREAM_INPUTS`. Prerequisite-check each `REQUIRED` upstream against `<RUN_ROOT>` (`test -s`); if any is missing, STOP and say which. If this is the directly-targeted terminal `99`, FIRST run `bash scripts/refresh-swarm-pulse.sh commodity "<COMMODITY>"`, then compile `required_series_coverage.json` at the current UTC cutoff; the synthesis must hash those exact bytes. `PULSE-MISSING` is honest absence. Dispatch ONE Task (the `MODULE_PIPELINE.md` Step 4A template, data pool `data/<COMMODITY>/`, `<DATE>`, cross-module context), persisting the report to `<RUN_ROOT>/<MODULE>/<NN>_<AGENT_SLUG>.md` and, when declared, its sibling `.signals.json`, no confirmation block, **not running git**. Verify both per Step 4B; one recovery attempt if either fails. Note whether `<AGENT>` IS the module synthesis (`<NN>` = `99`) — if so, don't re-run it again in step 6. **If that directly-targeted `99` is the terminal `commodity-thesis-synthesis`, its own workflow just rewrote `<RUN_ROOT>/decision_record.json` even though the Step 6 downstream cascade is empty (nothing depends on the terminal) — record that `decision_record.json` was rewritten this invocation, so Step 6.5's finish-gate still fires (it keys off the record being rewritten, not off the cascade).**
 
-After either mode, run `python3 scripts/commodity_signal_evidence.py "<RUN_ROOT>"`. Stop before the
-downstream cascade on any `SIGNAL-EVIDENCE-FAIL`; a refreshed orb may not feed a synthesis through stale
-or structurally invalid evidence.
+After either mode, run `python3 scripts/commodity_signal_evidence.py "<RUN_ROOT>"`. Unless the terminal
+`99` was the direct target (its coverage was frozen immediately before dispatch), also run
+`bash scripts/refresh-swarm-pulse.sh commodity "<COMMODITY>"`, then run
+`python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --decision-time "$(date -u +%Y-%m-%dT%H:%M:%SZ)"`
+exactly once for the downstream terminal to consume. Stop before the cascade on either compiler failure.
+Never regenerate coverage after terminal synthesis; its decision record hashes those exact bytes.
 
 ## 6. Compute the downstream cascade and re-run each synthesis (data-driven)
 
@@ -64,7 +67,14 @@ Build `<CASCADE>` from the `depends_on` graph (step 4):
 2. Add the **transitive downstream module set**: every module `M` whose `depends_on` (transitively) includes `<MODULE>`. For any of the three parallel modules that tail is exactly `{commodity-thesis}`; for `commodity-thesis` itself it is empty.
 3. Order `<CASCADE>` in the topological order from step 4.
 
-For each `<M>` in `<CASCADE>` order, first rerun `python3 scripts/commodity_signal_evidence.py "<RUN_ROOT>"`, then dispatch ONE Task: `subagent_type` = `<M>`'s `99_*-synthesis` frontmatter `name`; build its `<CROSS_MODULE_CONTEXT>` from `<M>`'s `depends_on` (one line per dependency whose `99_*-synthesis.md` exists under `<RUN_ROOT>`); instruct it to read its module folder's specialist outputs under `<RUN_ROOT>/<M>/` plus the cross-module paths and persist its refreshed synthesis to `<RUN_ROOT>/<M>/99_<...>-synthesis.md`; **do not run git**. Verify per Step 4B. Then refresh that module's two other tiers per `MODULE_PIPELINE.md` Step 4.9 (module memo via `module-memo-writer`, module dossier via the Step 4.9B concatenation) — both best-effort, never abort.
+For each `<M>` in `<CASCADE>` order, first rerun `python3 scripts/commodity_signal_evidence.py "<RUN_ROOT>"`,
+then dispatch ONE Task: `subagent_type` = `<M>`'s `99_*-synthesis` frontmatter `name`; build its
+`<CROSS_MODULE_CONTEXT>` from `<M>`'s `depends_on` (one line per dependency whose `99_*-synthesis.md`
+exists under `<RUN_ROOT>`); instruct it to read its module folder's specialist outputs under
+`<RUN_ROOT>/<M>/` plus the cross-module paths and persist its refreshed synthesis to
+`<RUN_ROOT>/<M>/99_<...>-synthesis.md`; **do not run git**. Verify per Step 4B. Then refresh that module's
+two other tiers per `MODULE_PIPELINE.md` Step 4.9 (module memo via `module-memo-writer`, module dossier via
+the Step 4.9B concatenation) — both best-effort, never abort.
 
 **When `<M>` = `commodity-thesis`:** after it returns, confirm BOTH `<RUN_ROOT>/commodity-thesis/99_commodity-thesis-synthesis.md` AND `<RUN_ROOT>/decision_record.json` were rewritten (`test -s`). If `decision_record.json` is missing, STOP before committing and report the failure. Record that `decision_record.json` was rewritten this invocation (Step 6.5 keys off this).
 
@@ -73,6 +83,10 @@ There is no master synthesizer, run-level memo, or audit dossier to regenerate �
 ## 6.5. Integrity finish-gate — pre-mortem haircut propagation
 
 **Run this step iff `decision_record.json` was rewritten this invocation** — i.e. `commodity-thesis`'s `99` synthesis ran, whether it appeared in the Step 6 cascade (any rerun of a non-terminal module or orb, whose tail is `{commodity-thesis}`) OR it was the direct Step 5 target (`/commodity:rerun commodity-thesis commodity-thesis-synthesis <COMMODITY>`, whose cascade is empty because nothing depends on the terminal — the case Step 5's note flags). Keying off the *record being rewritten*, not off the cascade, is what stops a directly-rerun terminal verdict from shipping un-red-teamed. Under normal rerun semantics some upstream-or-terminal synthesis always re-runs, so this gate essentially always fires; only genuinely skip it if `decision_record.json` was NOT rewritten this invocation.
+
+0. Before red-teaming, run `python3 scripts/commodity_forecast_contract.py "<RUN_ROOT>/decision_record.json"`.
+It must verify the frozen coverage digest and every point-in-time resolver. On failure, STOP before
+pre-mortem, archive or commit.
 
 A freshly rewritten record is FRESH — a stale, un-red-teamed prior `pre_mortem.json` no longer describes this run's `action`/`confidence`, and the finish-gate's staleness guard (`scripts/commodity_pre_mortem_haircut.py`) will REJECT a prior report whose `original_action`/`original_confidence` no longer match, exiting nonzero rather than mislabeling the new call. Same gate as `commodity:full` step 5.5 (no backfill condition needed — this invocation just rewrote the record, so it is never "already audited"):
 

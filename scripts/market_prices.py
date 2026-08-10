@@ -34,7 +34,7 @@ CONTRACT (mirrors ledger_records.py / extract_pool.py):
 CLI:
   python3 scripts/market_prices.py --print          # summarise what feed is present
   python3 scripts/market_prices.py --history TICKER [--exchange X --currency CCC]
-                                                 # strict, unambiguous split-adjusted history JSON
+                                                 # strict, provider/basis-bound history JSON
   python3 scripts/market_prices.py --idea-evidence TICKER # quote/liquidity/ordinary-move evidence
   python3 scripts/market_prices.py --write-idea-evidence TICKER RUN_ROOT
                                                  # atomically freeze canonical evidence + digest
@@ -162,7 +162,8 @@ class MarketFeed:
 
     def __init__(self, closes, meta, providers, files, sources=None, volumes=None,
                  provider_series=None, provider_meta=None, provider_volumes=None,
-                 provider_row_claims=None, provider_files=None):
+                 provider_row_claims=None, provider_files=None,
+                 provider_metadata_files=None):
         self._closes = closes          # {symbol: [(date, close)] sorted by date}
         self._meta = meta              # {symbol: {kind, sector, benchmark, beta}}
         self.providers = providers     # [provider names present]
@@ -177,6 +178,7 @@ class MarketFeed:
         self._provider_volumes = provider_volumes or {}        # {provider: {(symbol,date): volume}}
         self._provider_row_claims = provider_row_claims or {}  # {provider: {symbol: {field: set(values)}}}
         self._provider_files = provider_files or {}            # {provider: {symbol: [repo-relative CSVs]}}
+        self._provider_metadata_files = provider_metadata_files or {}  # {provider: repo-relative _symbols.json}
 
     def available(self):
         return bool(self._closes)
@@ -261,7 +263,7 @@ class MarketFeed:
         return dict(m) if isinstance(m, dict) else {}
 
     def _strict_history_selection(self, symbol, exchange=None, currency=None, require_equity=False,
-                                  provider=None, instrument_kind=None):
+                                  provider=None, instrument_kind=None, price_basis=None):
         """Resolve exactly one provider-local listing, or fail closed with a stable reason code.
 
         The compatibility reader historically flattened providers by `(symbol,date)`. That is fine for
@@ -273,10 +275,16 @@ class MarketFeed:
         wanted_exchange = exchange.strip().upper() if isinstance(exchange, str) and exchange.strip() else None
         wanted_currency = currency.strip().upper() if isinstance(currency, str) and currency.strip() else None
         wanted_provider = provider.strip() if isinstance(provider, str) and provider.strip() else None
+        wanted_price_basis = price_basis.strip().lower() if isinstance(price_basis, str) and price_basis.strip() else None
         if provider is not None and wanted_provider is None:
             return None, None, "invalid_provider_selector"
-        if instrument_kind is not None and instrument_kind not in ("equity", "benchmark", "sector"):
+        if instrument_kind is not None and instrument_kind not in ("equity", "benchmark", "sector", "future"):
             return None, None, "invalid_instrument_kind_selector"
+        allowed_price_bases = {
+            "split_adjusted", "front_contract", "continuous_back_adjusted", "continuous_ratio_adjusted",
+        }
+        if price_basis is not None and wanted_price_basis not in allowed_price_bases:
+            return None, None, "invalid_price_basis_selector"
         if currency is not None and (wanted_currency is None or len(wanted_currency) != 3 or not wanted_currency.isalpha()):
             return None, None, "invalid_currency_selector"
         if exchange is not None and wanted_exchange is None:
@@ -305,6 +313,8 @@ class MarketFeed:
                     continue
                 if wanted_currency and mc.strip().upper() != wanted_currency:
                     continue
+            if wanted_price_basis and meta.get("price_basis") != wanted_price_basis:
+                continue
             records.append({"provider": provider_name, "series": series, "meta": meta})
 
         if unresolved_identity:
@@ -327,11 +337,17 @@ class MarketFeed:
         record["series"] = series
         record["excluded_future_sessions"] = len(future_series)
         kind = meta.get("kind")
-        allowed_kinds = (instrument_kind,) if instrument_kind else (("equity",) if require_equity else ("equity", "benchmark", "sector"))
+        allowed_kinds = (instrument_kind,) if instrument_kind else (("equity",) if require_equity else ("equity", "benchmark", "sector", "future"))
         if kind not in allowed_kinds:
             return None, None, "instrument_kind_not_allowed"
-        if meta.get("price_basis") != "split_adjusted":
-            return None, None, "split_adjustment_unproven"
+        actual_price_basis = meta.get("price_basis")
+        kind_bases = {
+            "equity": {"split_adjusted"}, "benchmark": {"split_adjusted"},
+            "sector": {"split_adjusted"},
+            "future": {"front_contract", "continuous_back_adjusted", "continuous_ratio_adjusted"},
+        }
+        if actual_price_basis not in kind_bases[kind]:
+            return None, None, "price_basis_unproven"
         mx, mc = meta.get("exchange"), meta.get("currency")
         if not (isinstance(mx, str) and mx.strip() and isinstance(mc, str) and
                 len(mc.strip()) == 3 and mc.strip().isalpha()):
@@ -343,7 +359,7 @@ class MarketFeed:
         expected = {
             "exchange": mx.strip().upper(),
             "currency": mc.strip().upper(),
-            "price_basis": "split_adjusted",
+            "price_basis": actual_price_basis,
         }
         for field, expected_value in expected.items():
             values = claims.get(field) or set()
@@ -368,12 +384,16 @@ class MarketFeed:
             terminal = None
 
         source_files = sorted(set(((self._provider_files.get(provider) or {}).get(symbol)) or []))
+        metadata_file = self._provider_metadata_files.get(provider)
         calendar_symbols = []
         calendar_days = set()
+        compatible_calendar_kinds = (
+            {"future"} if kind == "future" else {"equity", "benchmark", "sector"}
+        )
         for calendar_symbol, calendar_series in (self._provider_series.get(provider) or {}).items():
             calendar_meta = ((self._provider_meta.get(provider) or {}).get(calendar_symbol)) or {}
             if (calendar_meta.get("currency") != mc or
-                    calendar_meta.get("kind") not in ("equity", "benchmark", "sector")):
+                    calendar_meta.get("kind") not in compatible_calendar_kinds):
                 continue
             usable = [day for day, _ in calendar_series if day <= today]
             if not usable:
@@ -387,11 +407,12 @@ class MarketFeed:
             "ticker": symbol,
             "exchange": mx.strip(),
             "currency": mc.strip().upper(),
-            "adjusted": True,
-            "adjustment_basis": "split_adjusted_price",
+            "adjusted": actual_price_basis in {"split_adjusted", "continuous_back_adjusted", "continuous_ratio_adjusted"},
+            "adjustment_basis": "split_adjusted_price" if actual_price_basis == "split_adjusted" else actual_price_basis,
             "source": source,
             "provider": provider,
             "instrument_kind": kind,
+            "metadata_file": metadata_file,
             "source_files": source_files,
             "excluded_future_sessions": len(future_series),
             "as_of": _day_rfc3339(history_as_of),
@@ -415,13 +436,13 @@ class MarketFeed:
         return out, record, None
 
     def adjusted_history(self, symbol, exchange=None, currency=None, require_equity=False,
-                         provider=None, instrument_kind=None):
+                         provider=None, instrument_kind=None, price_basis=None):
         """Export exactly one provider-bound `market-history/v1`, or None when identity/provenance/basis
-        is ambiguous. `exchange` and `currency` narrow a ticker collision and are verified, never copied
-        into the output. A symbol-only call remains supported only when one provider listing is possible.
+        is ambiguous. Equities require split-adjusted prices; futures carry an explicit front-contract,
+        continuous back-adjusted or continuous ratio-adjusted basis. Selectors are verified, never copied.
         """
         history, _, _ = self._strict_history_selection(
-            symbol, exchange, currency, require_equity, provider, instrument_kind)
+            symbol, exchange, currency, require_equity, provider, instrument_kind, price_basis)
         return history
 
     def idea_evidence(self, symbol, exchange=None, currency=None):
@@ -599,6 +620,7 @@ def load_feed(feed_root=FEED_ROOT):
     provider_volumes = {}
     provider_row_claims = {}
     provider_files = {}
+    provider_metadata_files = {}
     if not os.path.isdir(feed_root):
         return MarketFeed(closes, meta, providers, files)
     for provider in sorted(os.listdir(feed_root)):
@@ -613,6 +635,7 @@ def load_feed(feed_root=FEED_ROOT):
                 with open(mpath, encoding="utf-8") as f:
                     m = json.load(f)
                 if isinstance(m, dict):
+                    provider_metadata_files[provider] = os.path.relpath(mpath, REPO)
                     for k, v in m.items():
                         if isinstance(v, dict):
                             key = str(k).strip()
@@ -664,7 +687,7 @@ def load_feed(feed_root=FEED_ROOT):
     sorted_closes = {sym: sorted(byd.items()) for sym, byd in closes.items()}
     return MarketFeed(sorted_closes, meta, providers, files, sources, volumes,
                       provider_series, provider_meta, provider_volumes,
-                      provider_row_claims, provider_files)
+                      provider_row_claims, provider_files, provider_metadata_files)
 
 
 IDEA_EVIDENCE_SNAPSHOT = "idea_market_evidence.json"
@@ -827,8 +850,9 @@ def selftest():
         hist = feed.adjusted_history("STK")
         check(hist is not None and hist["adjustment_basis"] == "split_adjusted_price" and
               hist["exchange"] == "NYSE" and hist["instrument_kind"] == "equity" and
+              hist["metadata_file"].endswith("SampleProvider/_symbols.json") and
               hist["session_calendar"]["source_symbols"] == ["BENCH", "STK"] and len(hist["points"]) == 2,
-              "strict adjusted-history export reuses the canonical feed")
+              "strict adjusted-history export binds provider metadata and reuses the canonical feed")
         bh = feed.adjusted_history("BENCH")
         check(bh is not None and bh["ticker"] == "BENCH" and bh["instrument_kind"] == "benchmark",
               "an explicitly identified split-adjusted benchmark can feed relative outcomes")
@@ -867,6 +891,51 @@ def selftest():
         check(feed3.symbols().count("JUNK") == 1 and feed3.as_of() == "2026-09-05",
               "inf/-5/0/impossible-date rows skipped; only the good JUNK row (42 @ 2026-09-05) survives")
         check(feed3.close_on("JUNK", "2026-09-06") == 42.0, "close_on never returns a skipped bad price (the good 42 @ 09-05)")
+
+    with tempfile.TemporaryDirectory() as td:
+        prov = os.path.join(td, "FuturesProvider")
+        os.makedirs(prov)
+        with open(os.path.join(prov, "closes.csv"), "w", encoding="utf-8") as f:
+            f.write("date,symbol,close,exchange,currency,price_basis\n")
+            f.write("2026-06-01,@GC.1,3300,COMEX,USD,continuous_back_adjusted\n")
+            f.write("2026-07-01,@GC.1,3400,COMEX,USD,continuous_back_adjusted\n")
+        with open(os.path.join(prov, "_symbols.json"), "w", encoding="utf-8") as f:
+            json.dump({"@GC.1": {"kind": "future", "exchange": "COMEX", "currency": "USD",
+                                   "price_basis": "continuous_back_adjusted"}}, f)
+        futures = load_feed(td)
+        future_history = futures.adjusted_history(
+            "@GC.1", instrument_kind="future", price_basis="continuous_back_adjusted")
+        check(future_history is not None and future_history["instrument_kind"] == "future" and
+              future_history["adjustment_basis"] == "continuous_back_adjusted" and
+              future_history["adjusted"] is True,
+              "futures history carries an explicit continuous adjustment basis")
+        check(futures.adjusted_history("@GC.1", instrument_kind="benchmark") is None and
+              futures.adjusted_history("@GC.1", instrument_kind="future", price_basis="split_adjusted") is None,
+              "a futures series cannot masquerade as a split-adjusted benchmark")
+
+    with tempfile.TemporaryDirectory() as td:
+        prov = os.path.join(td, "MixedCalendarProvider")
+        os.makedirs(prov)
+        with open(os.path.join(prov, "closes.csv"), "w", encoding="utf-8") as f:
+            f.write("date,symbol,close\n")
+            f.write("2026-06-05,EQ,100\n2026-06-08,EQ,101\n")
+            f.write("2026-06-05,FUT,200\n2026-06-07,FUT,202\n2026-06-08,FUT,203\n")
+        with open(os.path.join(prov, "_symbols.json"), "w", encoding="utf-8") as f:
+            json.dump({
+                "EQ": {"kind": "equity", "exchange": "NYSE", "currency": "USD",
+                       "price_basis": "split_adjusted"},
+                "FUT": {"kind": "future", "exchange": "COMEX", "currency": "USD",
+                        "price_basis": "front_contract"},
+            }, f)
+        mixed = load_feed(td)
+        equity_calendar = mixed.adjusted_history("EQ")["session_calendar"]
+        future_calendar = mixed.adjusted_history("FUT")["session_calendar"]
+        check(equity_calendar["source_symbols"] == ["EQ"] and
+              "2026-06-07T00:00:00Z" not in equity_calendar["dates"],
+              "futures-only Sunday sessions never contaminate an equity calendar")
+        check(future_calendar["source_symbols"] == ["FUT"] and
+              "2026-06-07T00:00:00Z" in future_calendar["dates"],
+              "a futures calendar remains provider-local and instrument-compatible")
 
     # Strict histories bind one provider's rows to that same provider's metadata. These regressions
     # guard the exact cross-provider flattening failures that can manufacture split-adjusted history.
@@ -1145,7 +1214,7 @@ def main(argv):
         history, _, reason = feed._strict_history_selection(
             symbol, exchange, currency, provider=provider, instrument_kind=role_kind)
         if history is None:
-            print(json.dumps({"error": "no unambiguous provider-bound split-adjusted history for symbol",
+            print(json.dumps({"error": "no unambiguous provider-bound, basis-qualified history for symbol",
                               "symbol": symbol, "exchange": exchange, "currency": currency,
                               "reason": reason}, separators=(",", ":")))
             return 3

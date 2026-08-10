@@ -1,0 +1,43 @@
+{
+  "manifest_version": 2,
+  "schema_version": 1,
+  "id": "lbma-gold-vault-clearing",
+  "dataset_id": "lbma.public-vault-and-clearing-statistics",
+  "series_id": "gold.lbma-vault-clearing",
+  "series": "LBMA public London gold vault holdings and clearing activity",
+  "satisfies": ["gold-lbma-vault-clearing", "accessible-physical-inventory", "physical-market-activity"],
+  "subjects": ["GOLD"],
+  "provider": "London Bullion Market Association",
+  "authority_class": "industry_body_official",
+  "provider_priority": 100,
+  "acquisition": "scrape",
+  "source_type": "official_data",
+  "tier": 5,
+  "license": "Public aggregate vault and clearing statistics only; excludes LBMA benchmark prices",
+  "licensing": {"access": "public", "use": "allowed", "redistribution": "derived_only", "terms_url": "https://www.lbma.org.uk/prices-and-data/lbma-daily-trade-reporting-data/lbma-trade-data-reporting-disclaimer"},
+  "host_allowlist": ["www.lbma.org.uk"],
+  "credential_env": [],
+  "release": {"cadence": "monthly", "timezone": "Europe/London", "expected_lag_days": 35, "grace_days": 12, "revision_policy": "revisable"},
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/lbma/vault_clearing_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "vault": {"period": "YYYY-MM", "gold_tonnes": "float", "change_mom_pct": "float"},
+    "clearing": {"period": "YYYY-MM", "daily_average_volume_million_oz": "float", "volume_change_mom_pct": "float", "daily_average_value_billion_usd": "float", "value_change_mom_pct": "float", "daily_average_transfers": "int", "transfers_change_mom_pct": "float"},
+    "source_urls": ["string"],
+    "benchmark_price_included": false
+  },
+  "units": {
+    "vault.gold_tonnes": "metric_tonnes",
+    "vault.change_mom_pct": "percent",
+    "clearing.daily_average_volume_million_oz": "million_troy_ounces",
+    "clearing.volume_change_mom_pct": "percent",
+    "clearing.daily_average_value_billion_usd": "billion_usd",
+    "clearing.value_change_mom_pct": "percent",
+    "clearing.daily_average_transfers": "transfers",
+    "clearing.transfers_change_mom_pct": "percent"
+  },
+  "minimum_history": {"observations": 1}
+}

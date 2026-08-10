@@ -1,0 +1,40 @@
+{
+  "manifest_version": 2,
+  "schema_version": 1,
+  "id": "ishares-iau-gold-holdings",
+  "dataset_id": "ishares.iau-fund-download",
+  "series_id": "gold.issuer-etf-holdings",
+  "series": "iShares Gold Trust issuer-reported gold holdings and shares outstanding",
+  "satisfies": ["gold-issuer-etf-holdings", "gold-etf-flows"],
+  "subjects": ["GOLD"],
+  "provider": "iShares / BlackRock",
+  "authority_class": "licensed_vendor",
+  "provider_priority": 100,
+  "acquisition": "scrape",
+  "source_type": "vendor_export",
+  "tier": 5,
+  "license": "Public issuer fund data; issuer terms and derived-only redistribution apply",
+  "licensing": {"access": "public", "use": "allowed", "redistribution": "derived_only", "terms_url": "https://www.blackrock.com/corporate/compliance/terms-and-conditions"},
+  "host_allowlist": ["www.ishares.com", "www.blackrock.com"],
+  "credential_env": [],
+  "release": {"cadence": "daily", "timezone": "America/New_York", "expected_lag_days": 1, "grace_days": 4, "revision_policy": "revisable"},
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/ishares/iau_holdings_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "fund": "string",
+    "current": {"ounces_in_trust": "float", "tonnes_in_trust": "float", "shares_outstanding": "int"},
+    "share_history": [{"date": "date", "nav_per_share": "float", "shares_outstanding": "int"}],
+    "source_urls": ["string"]
+  },
+  "units": {
+    "current.ounces_in_trust": "troy_ounces",
+    "current.tonnes_in_trust": "metric_tonnes",
+    "current.shares_outstanding": "shares",
+    "share_history[].nav_per_share": "usd_per_share",
+    "share_history[].shares_outstanding": "shares"
+  },
+  "minimum_history": {"observations": 500, "path": "share_history"}
+}

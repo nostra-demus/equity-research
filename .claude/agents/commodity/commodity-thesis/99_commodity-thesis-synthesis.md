@@ -38,11 +38,26 @@ You must:
 - **Signal evidence graph** — `commodity/runs/{COMMODITY}/signal_evidence.json`, rebuilt deterministically
   in workflow step 2 from the self-declared orb sidecars. It is the only source of evidence breadth,
   causal ownership, contradiction state and statistical conviction eligibility.
+- **Profile evidence coverage** — `commodity/runs/{COMMODITY}/required_series_coverage.json`, compiled
+  deterministically from every `Required semantic series` row, accepted connector-v2 vintages and the
+  decision-time cutoff. This artifact—not prose reconciliation—is the terminal decision gate.
 
 # WORKFLOW
 
 1. Read `CLAUDE.md` and `.claude/agents/commodity/MODULE_RULES.md`.
-2. Rebuild the evidence graph before adjudicating: `python3 scripts/commodity_signal_evidence.py "commodity/runs/{COMMODITY}"`. Then read `signal_evidence.json`. If compilation fails, `coverage.complete` is false, or no independent cluster is conviction-eligible, the verdict is capped at `Research More`; do not fall back to counting prose bullets. Read all six analytical inputs. If a module synthesis, the fair-value orb or the independent scenario pack is missing/stale/failed, say so and return `Research More` unless primary evidence proves a critical risk requiring `Avoid` — do not fabricate a balance, a macro read, a floor or a distribution.
+2. Rebuild `signal_evidence.json` with
+   `python3 scripts/commodity_signal_evidence.py "commodity/runs/{COMMODITY}"`, then read it and the
+   caller-frozen `required_series_coverage.json`. The caller MUST compile coverage immediately before
+   dispatch; if it is absent or unreadable, stop instead of creating it here. Do not regenerate it during
+   synthesis: the final record must hash the exact point-in-time artifact supplied as input. If compilation fails,
+   evidence coverage is incomplete, or no independent cluster is conviction-eligible, the verdict is
+   capped at `Research More`; do not fall back to counting prose bullets. Copy every machine coverage row
+   into the dossier. If any required row is not `usable`, BOTH horizons are `not_assessable`; this forces
+   `Research More` unless a proven critical risk requires `Avoid`. Compute the coverage artifact's exact
+   byte digest with `shasum -a 256 required_series_coverage.json` and copy the artifact summary plus
+   `sha256:<digest>` into `decision_record.json`. If a module synthesis, the fair-value orb or independent
+   scenario pack is missing/stale/failed, apply the same rule—never fabricate a balance, macro read, floor
+   or distribution, and never reuse a stale legacy Gold output.
 3. Compose the dossier (structure below).
    - The **thesis summary** ties price + balance + macro + positioning into one plain-English view of where the risk/reward sits.
    - The **fair-value band** carries the cost-curve orb's bear/base/bull levels and the **margin of safety** (discount to base, downside to the floor) — this is the §16 valuation range and §18 margin-of-safety input the verdict rests on. Keep the orb's anchor-grade labelling; if the orb was absent, mark margin of safety "Not assessable" (§11).
@@ -142,6 +157,11 @@ Rules for both forecast cards:
 - Every contradictory cluster, with both directions shown.
 - Statistical signals still contextual because they failed or have not cleared validation.
 
+## 4c. Required Semantic-Series Coverage
+- One row for every profile requirement: need ID, stable series ID, owner, status, as-of,
+  vintage/source identity and exact gap reason.
+- Material horizon affected by each unusable row; no declaration/reachability credit.
+
 ## 5. Relative — are we in the right commodity?
 (this commodity's setup vs the other tracked commodities, with the reason.)
 
@@ -173,7 +193,7 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
   "forecast_confidence": 58,
   "critical_risk_override": { "applied": false, "risk": null, "source": null },
   "benchmark": "…",
-  "current_price": { "value": 0, "currency": "USD", "unit": "…", "as_of": "{DATE}" },
+  "current_price": { "value": 4393.6, "currency": "USD", "unit": "USD/oz", "as_of": "{DATE}" },
   "curve": "contango | backwardation",
   "balance": "surplus | deficit | balanced",
   "net_macro": "supportive | mixed | headwind",
@@ -271,6 +291,15 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
     "conviction_eligible_cluster_count": 0,
     "contradiction_count": 0
   },
+  "required_series_coverage": {
+    "path": "required_series_coverage.json",
+    "generated_at": "copy from required_series_coverage.json",
+    "artifact_sha256": "sha256:<exact hash of artifact bytes>",
+    "complete": false,
+    "required_count": 0,
+    "usable_count": 0,
+    "unresolved_need_ids": ["copy in artifact row order"]
+  },
   "calibration_feedback": {
     "source_summary": "commodity/performance/<DATE>_calibration_summary.json or null",
     "status": "not_available | pre_data | checked_no_action | applied",
@@ -297,6 +326,12 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
   ]
 }
 ```
+
+`current_price.value` above is a positive observed number, never a zero placeholder. If and only if
+the frozen `required_series_coverage.json` row whose stable series ID ends in `.current-price` is
+unresolved, write `"current_price": {"value": null, "unavailable_reason": "…"}` instead. In that
+case both horizons are `not_assessable` and the mechanical action is `Research More` unless a proven
+critical-risk override forces `Avoid`; do not invent currency, unit or as-of metadata for a missing quote.
 
 ## data_needs — surface what would sharpen this call
 
