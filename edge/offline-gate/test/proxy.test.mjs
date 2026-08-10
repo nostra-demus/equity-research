@@ -131,6 +131,22 @@ test('stateful or unclassified API GETs are not replayed after a gateway respons
   assert.equal(thrownOrigin.requests.length, 1)
 })
 
+test('encoded or ambiguous paths fail closed instead of bypassing the API replay guard', async () => {
+  for (const path of ['/%61pi/news/enrich', '/api%2fnews/enrich', '/assets/%ZZ/app.js', '/api']) {
+    const cancelled = []
+    const origin = sequence([
+      gatewayResponse(502, 'only', cancelled),
+      new Response('must not run', { status: 200 }),
+    ])
+
+    const result = await proxyOrigin(request(path), origin.fetch, { budgetMs: 15000, sleepImpl: noWait })
+
+    assert.deepEqual(result, { kind: 'offline' }, path)
+    assert.equal(origin.requests.length, 1, path)
+    assert.deepEqual(cancelled, ['only'], path)
+  }
+})
+
 test('exact GET health shares one deadline signal across its delayed retry', async () => {
   const cancelled = []
   const origin = sequence([
