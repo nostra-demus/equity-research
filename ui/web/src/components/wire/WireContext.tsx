@@ -10,6 +10,7 @@ import type { WireConfig } from '../../lib/wire'
 export const FLOW_WIRE_CONFIG: WireConfig = {
   swarmId: '', // identity intentionally blank in the fallback — components must not branch on it anyway
   flow: true,
+  gauntlet: true,
   groupBy: null,
   subjects: [],
   pulse: false,
@@ -20,7 +21,7 @@ const WireConfigContext = createContext<WireConfig>(FLOW_WIRE_CONFIG)
 
 export const WireProvider = WireConfigContext.Provider
 
-/** The active wire's capabilities. Branch on these (flow / groupBy / eventScope / pulse) — never on
+/** The active wire's capabilities. Branch on these (flow / gauntlet / groupBy / eventScope / pulse) — never on
  *  a swarm id (enforced by ui/server/test/wire-purity.test.ts). */
 export function useWireConfig(): WireConfig {
   return useContext(WireConfigContext)

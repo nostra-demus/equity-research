@@ -731,7 +731,11 @@ export function EventDetail({ it }: { it: FeedItem }) {
                 the event (the state-aware split button); a subject-grouped wire launches the full
                 research pipeline on the event's subject(s) instead (WireLaunchBar) — same slot,
                 per-wire behavior via config only */}
-            {cfg.flow ? <RunChecksMenu it={it} /> : <WireLaunchBar it={it} />}
+            {cfg.gauntlet
+              ? <RunChecksMenu it={it} />
+              : !cfg.flow
+                ? <WireLaunchBar it={it} />
+                : null}
             <div className="evdetail__utility">
               <div className={`evdetail__rate${rated ? ' evdetail__rate--rated' : ''}`} role="group" aria-label="Was this worth surfacing?">
                 <button

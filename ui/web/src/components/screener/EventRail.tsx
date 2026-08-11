@@ -334,7 +334,8 @@ export function EventRail() {
   const ideasSummary = summarizeIdeasSurface(scBoard)
   // A cold board failure must not hide the only surface that explains the failure. Keep Ideas openable
   // so the user sees an explicit retry state instead of a missing tab that looks like "no ideas".
-  const ideasAvailable = cfg.flow && (ideasSummary.available || scBoardFetch.status === 'error')
+  const ownsScreenerActions = cfg.gauntlet
+  const ideasAvailable = ownsScreenerActions && (ideasSummary.available || scBoardFetch.status === 'error')
 
   // ARCHIVE MODE: any structured filter (geography / sector / theme / size / text) flips the rail from the
   // live 2-day SSE wire to a server-side search over the WHOLE since-inception archive — so a sparse
@@ -598,7 +599,7 @@ export function EventRail() {
             </button>
             {/* the paid top-up sweep is a flow-stage (gauntlet) action — wire-only swarms read the same
                 stream but don't own the sweep */}
-            {!staticMode && cfg.flow && (
+            {!staticMode && ownsScreenerActions && (
               <button
                 type="button"
                 className={`evrail__scanbtn evrail__scanbtn--primary${armScan ? ' evrail__scanbtn--armed' : ''}`}

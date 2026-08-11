@@ -8,6 +8,13 @@
 
 export const HEALTH_GATEWAY_RETRY_DELAY_MS = 750
 
+// These exact GET/HEAD routes are bootstrap discovery reads. Their server handlers only inspect manifests
+// and filesystem state; all corresponding writes live on separate POST routes. Keep this list exact and
+// short: query strings are allowed because URL.pathname excludes them, while subpaths and lookalikes fail
+// closed. Never broaden it to all GET APIs — some historical GET routes spend provider budget or persist
+// cache state.
+const REPLAY_SAFE_API_PATHS = new Set(['/api/swarms', '/api/swarm', '/api/tickers'])
+
 /** @typedef {'sse'|'health'|'other'} RequestClass */
 
 /**
@@ -26,8 +33,8 @@ function isIdempotent(request) {
 }
 
 // Method alone is not proof that replay is safe: this API has historical GET routes that spend provider
-// budget and persist cache state. Limit automatic replay to the proven read-only health probe and to
-// documents/assets outside /api/. Other API callers own their idempotency rules.
+// budget and persist cache state. Limit automatic replay to the proven read-only health/bootstrap probes
+// and to documents/assets outside /api/. Other API callers own their idempotency rules.
 function isReplaySafe(request, cls) {
   if (!isIdempotent(request) || cls === 'sse') return false
   if (cls === 'health') return true
@@ -36,6 +43,7 @@ function isReplaySafe(request, cls) {
   // encoded path as unsafe instead of trying to duplicate every decode/canonicalization rule at the edge;
   // otherwise /%61pi/... could masquerade as an asset here and become stateful /api/... at Fastify.
   if (pathname.includes('%')) return false
+  if (REPLAY_SAFE_API_PATHS.has(pathname)) return true
   return pathname !== '/api' && !pathname.startsWith('/api/')
 }
 
@@ -76,9 +84,10 @@ function abortableSleep(ms, signal) {
  * timeout. Other requests preserve the prior per-attempt budget. The function returns either a real origin
  * Response or an offline decision; it never invents success.
  *
- * Raw gateway responses get one retry only for the health probe and non-API documents/assets. Only an exact
- * GET /api/health inserts a delay before that retry. Other API calls, unsafe methods, and SSE never replay.
- * A fast throw follows the same replay allowlist; a deadline abort never retries.
+ * Raw gateway responses get one retry only for the health probe, canonical read-only bootstrap routes, and
+ * non-API documents/assets. Only an exact GET /api/health inserts a delay before that retry. Other API calls,
+ * unsafe methods, and SSE never replay. A fast throw follows the same replay allowlist; a deadline abort
+ * never retries.
  *
  * @param {Request} request
  * @param {(request:Request) => Promise<Response>} fetchImpl
@@ -136,8 +145,9 @@ export async function proxyOrigin(request, fetchImpl, options) {
         await discard(response)
         if (attempt === maxAttempts - 1) return { kind: 'offline' }
 
-        // Only the watchdog's exact GET health probe gets backoff. Replay-safe documents/assets and HEAD
-        // health stay immediate; other API calls, POST, and SSE have no second attempt available.
+        // Only the watchdog's exact GET health probe gets backoff. Replay-safe bootstrap reads,
+        // documents/assets, and HEAD health stay immediate; other API calls, POST, and SSE have no second
+        // attempt available.
         if (isDelayedHealthRetry(request, cls)) {
           await sleepImpl(HEALTH_GATEWAY_RETRY_DELAY_MS, controller.signal)
           if (sharedTimedOut || controller.signal.aborted) return { kind: 'offline' }

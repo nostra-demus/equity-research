@@ -20,7 +20,7 @@ const check = (name: string, fn: () => void) => { fn(); passed++ }
 // ---- deriveWireConfig ----
 check('flow layout → grandfathered default (no manifest needed)', () => {
   const cfg = deriveWireConfig(meta({ layout: 'flow' }), [])
-  assert.ok(cfg && cfg.flow && cfg.groupBy === null && !cfg.pulse)
+  assert.ok(cfg && cfg.flow && !cfg.gauntlet && cfg.groupBy === null && !cfg.pulse)
 })
 check('constellation + NO wire meta → null (old server fail-closed)', () => {
   assert.strictEqual(deriveWireConfig(meta({}), ['GOLD']), null)
@@ -30,7 +30,7 @@ check('undefined meta → null (first frame safe)', () => {
 })
 check('declared wire → manifest-driven config', () => {
   const cfg = deriveWireConfig(meta({ wire: { eventScope: 'commodity', groupBy: 'subject', subjectField: 'commodity', pulse: 'frameworks/x.json', defaultView: 'latest' } }), ['GOLD', 'SUGAR'])
-  assert.ok(cfg && !cfg.flow)
+  assert.ok(cfg && !cfg.flow && !cfg.gauntlet)
   assert.strictEqual(cfg!.eventScope, 'commodity')
   assert.strictEqual(cfg!.groupBy, 'subject')
   assert.deepStrictEqual(cfg!.subjects, ['GOLD', 'SUGAR'])

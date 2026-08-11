@@ -595,11 +595,13 @@ interface State {
   _enterSwarm: (to: string) => void
   _advanceWarp: () => void
   scInit: () => Promise<void>
-  scRefreshBoard: () => Promise<void>
+  // Ordinary refreshes surface errors in scBoardFetch and resolve. Bootstrap asks this one call to
+  // propagate a cold failure so scInit can schedule recovery instead of accepting a half-loaded stage.
+  scRefreshBoard: (propagateColdFailure?: boolean, bootstrapEpoch?: number) => Promise<void>
   scPromoteIdea: (idea: BoardIdea) => Promise<void>
   scRateIdea: (idea: BoardIdea, polarity: 'up' | 'down' | 'clear', reason?: string) => Promise<void>
   _maybeAutoResume: (resumable: ScreenerBoard['resumable']) => Promise<void>
-  scSelectSignal: (sigId: string | null) => Promise<void>
+  scSelectSignal: (sigId: string | null, bootstrapEpoch?: number) => Promise<void>
   scNodeStatus: (key: string) => NodeStatus
   openSignalIntake: () => void
   openSignalIntakeWith: (seed: SignalIntakeInput) => void
@@ -628,7 +630,7 @@ interface State {
   _handleScreenerEvent: (e: SseEvent) => void
   // the persistent event rail: keep the wire backfilled+streaming whenever the screener stage is mounted,
   // let the user open one event to read it, and run the paid checks straight from that event
-  scEnsureNewsStream: () => Promise<void>
+  scEnsureNewsStream: (bootstrapEpoch?: number) => Promise<void>
   scSelectEvent: (it: FeedItem | null) => void
   scFocusCompany: (c: FocusedCompany | null) => void
   // `until` = run only THROUGH that stage then stop; `override` = force past a PARK/LOG gate (§ human override).
@@ -842,6 +844,135 @@ function withWireClause(s: { swarms: SwarmMeta[]; activeSwarm: string; swarmSubj
 // board/gauntlet are flow-stage features, not tied to a hardcoded swarm id beyond that grandfathered default)
 export function isFlowActive(s: { swarms: SwarmMeta[]; activeSwarm: string }): boolean {
   return (s.swarms.find((m) => m.id === s.activeSwarm)?.layout ?? (s.activeSwarm === 'screener' ? 'flow' : 'constellation')) === 'flow'
+}
+
+const RESEARCH_SWARM: SwarmMeta = { id: 'research', label: 'Research', color: '#c0851d', unit: 'ticker', order: 1, layout: 'constellation' }
+export const BOOTSTRAP_RETRY_MS = 3000
+let swarmDiscoveryRetryTimer: any = null
+let swarmDiscoveryPromise: Promise<void> | null = null
+let screenerInitRetryTimer: any = null
+let screenerInitPromise: Promise<void> | null = null
+let screenerOwnershipEpoch = 0
+let screenerReconnectRefreshPending = false
+let screenerSignalHydrationPending: string | null = null
+let screenerSignalFetchGeneration = 0
+let lastStreamBootstrapHealAt = 0
+
+// A missing/unsupported endpoint is an authoritative old-server answer, while a gateway failure,
+// timeout, rate limit, network exception, or expired Access session says nothing about which swarms the
+// live engine serves. The health loop owns the session-expired banner; discovery preserves its current
+// view and retries rather than misreporting authentication as a research-only engine.
+function isTransientBootstrapFailure(error: unknown): boolean {
+  const status = typeof (error as any)?.status === 'number' ? (error as any).status as number : null
+  return status === null || status === 408 || status === 425 || status === 429 || status >= 500
+}
+
+export function shouldRetrySwarmDiscovery(staticMode: boolean, error: unknown): boolean {
+  return !staticMode && isTransientBootstrapFailure(error)
+}
+
+export function shouldPreserveSwarmDiscovery(staticMode: boolean, error: unknown): boolean {
+  const status = typeof (error as any)?.status === 'number' ? (error as any).status as number : null
+  return !staticMode && (status === 401 || status === 403 || isTransientBootstrapFailure(error))
+}
+
+export function bootstrapSwarmId(staticMode: boolean, swarms: SwarmMeta[]): string {
+  return !staticMode && swarms.some((swarm) => swarm.id === 'screener') ? 'screener' : 'research'
+}
+
+function clearSwarmDiscoveryRetry(): void {
+  if (!swarmDiscoveryRetryTimer) return
+  clearTimeout(swarmDiscoveryRetryTimer)
+  swarmDiscoveryRetryTimer = null
+}
+
+function scheduleSwarmDiscoveryRetry(): void {
+  if (swarmDiscoveryRetryTimer) return
+  swarmDiscoveryRetryTimer = setTimeout(() => {
+    swarmDiscoveryRetryTimer = null
+    const state = useStore.getState()
+    if (!state.staticMode && state.health !== 'session-expired') void discoverSwarms(false)
+  }, BOOTSTRAP_RETRY_MS)
+}
+
+async function discoverSwarms(staticMode: boolean): Promise<void> {
+  if (swarmDiscoveryPromise) return swarmDiscoveryPromise
+  const attempt = (async () => {
+    try {
+      const swarms = await api.swarms()
+      clearSwarmDiscoveryRetry()
+      const activeSwarm = bootstrapSwarmId(staticMode, swarms)
+      if (useStore.getState().activeSwarm === 'screener' && activeSwarm !== 'screener') invalidateScreenerBootstrap()
+      useStore.setState({ swarms, activeSwarm })
+      if (activeSwarm === 'screener') void useStore.getState().scInit()
+    } catch (error) {
+      if (shouldPreserveSwarmDiscovery(staticMode, error)) {
+        // Keep the live HTML marker's screener seed. A transient failure or expired session is absence
+        // of evidence, not evidence that the live engine is research-only.
+        if (shouldRetrySwarmDiscovery(staticMode, error)) scheduleSwarmDiscoveryRetry()
+        else clearSwarmDiscoveryRetry() // auth is retried by the heartbeat after sign-in, never every 3s
+        return
+      }
+      clearSwarmDiscoveryRetry()
+      if (useStore.getState().activeSwarm === 'screener') invalidateScreenerBootstrap()
+      useStore.setState({ swarms: [RESEARCH_SWARM], activeSwarm: 'research' })
+    }
+  })()
+  swarmDiscoveryPromise = attempt
+  try {
+    await attempt
+  } finally {
+    if (swarmDiscoveryPromise === attempt) swarmDiscoveryPromise = null
+  }
+}
+
+function clearScreenerInitRetry(): void {
+  if (!screenerInitRetryTimer) return
+  clearTimeout(screenerInitRetryTimer)
+  screenerInitRetryTimer = null
+}
+
+function invalidateScreenerBootstrap(): void {
+  screenerOwnershipEpoch++
+  clearScreenerInitRetry()
+  screenerReconnectRefreshPending = false
+  // The underlying fetch cannot always be aborted, but it is epoch-guarded. Detach it so returning to the
+  // screener can start a new owner attempt immediately; the old handled promise remains safe for callers.
+  screenerInitPromise = null
+}
+
+function scheduleScreenerInitRetry(): void {
+  if (screenerInitRetryTimer) return
+  const state = useStore.getState()
+  if (state.staticMode || state.health === 'session-expired' || state.activeSwarm !== 'screener') return
+  screenerInitRetryTimer = setTimeout(() => {
+    screenerInitRetryTimer = null
+    const current = useStore.getState()
+    if (!current.staticMode && current.health !== 'session-expired' && current.activeSwarm === 'screener') void current.scInit()
+  }, BOOTSTRAP_RETRY_MS)
+}
+
+// A healthy poll is already paced at HEALTH_OK_MS, so every one may repair missing bootstrap state; a true
+// reconnect also refreshes an existing board to preserve run-resume behavior. SSE messages can be far more
+// frequent, so cap their repair attempts to the same cadence. In-flight calls coalesce independently.
+function healMissingLiveBootstrap(proof: 'health' | 'stream', refreshScreener = false): void {
+  const state = useStore.getState()
+  if (state.staticMode || state.health === 'session-expired') return
+  const discoveryMissing = state.swarms.length === 0
+  const screenerNeedsHeal = state.activeSwarm === 'screener'
+    && (refreshScreener || !state.scGraph || !state.scBoard || screenerSignalHydrationPending !== null)
+  if (!discoveryMissing && !screenerNeedsHeal) return
+  if (proof === 'stream' && !refreshScreener) {
+    const now = Date.now()
+    if (now - lastStreamBootstrapHealAt < HEALTH_OK_MS) return
+    lastStreamBootstrapHealAt = now
+  }
+  if (discoveryMissing) void discoverSwarms(false)
+  // If initialization is already beyond its board read (for example, waiting on the wire backfill), a
+  // reconnect must not disappear into the coalesced promise. Drain one newest-board refresh after that
+  // owner finishes. Multiple reconnect signals while it is in flight collapse into this single bit.
+  if (refreshScreener && state.activeSwarm === 'screener' && screenerInitPromise) screenerReconnectRefreshPending = true
+  if (screenerNeedsHeal) void state.scInit()
 }
 
 // The subject a chat answers about, for the active swarm — the ONE accessor the chat slice keys off so it
@@ -1119,18 +1250,10 @@ export const useStore = create<State>((set, get) => ({
     // swarm list, so the swarms:[] seed can never misfire and a research-only engine never strands the
     // user on an empty, unswitchable screener. Independent of the heavy company data, so a slow graph/
     // tickers load never delays the landing decision. scInit is idempotent + self-guarded.
-    api.swarms()
-      .then((swarms) => {
-        set({ swarms })
-        const screenerDefault = !stat && swarms.some((s) => s.id === 'screener')
-        set({ activeSwarm: screenerDefault ? 'screener' : 'research' })
-        if (screenerDefault) void get().scInit()
-      })
-      .catch(() => {
-        // couldn't load the swarm list → only research is reachable (the switcher hides with one
-        // swarm), so the active view MUST be research or the user is stranded with no way back
-        set({ swarms: [{ id: 'research', label: 'Research', color: '#c0851d', unit: 'ticker', order: 1, layout: 'constellation' }], activeSwarm: 'research' })
-      })
+    // A transient gateway/network failure is not an authoritative research-only answer. In live mode,
+    // preserve the HTML marker's first-frame screener seed and rediscover in the background; static mode,
+    // an explicit unsupported response, and a successful research-only list still fail closed to research.
+    void discoverSwarms(stat)
     // Load the heavy core data (graph + ticker list) resiliently: each part sets as it resolves, the
     // still-missing parts retry in the background, and NONE of it touches connected/health (the heartbeat
     // owns those). No auto-select — the cockpit opens on the "Select a company" placeholder until the user
@@ -2635,15 +2758,29 @@ export const useStore = create<State>((set, get) => ({
     }
 
     if (outcome === 'ok') {
-      const reconnected = get().health !== 'online' // down → up (or the first connect)
+      const reconnected = get().health !== 'online'
       outageStartedAt = 0 // engine answered — end any grace clock
       set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
-      // connection is back — re-pull the flow-stage board so any run the engine forgot during the break
-      // resumes on its own (scRefreshBoard → _maybeAutoResume). The cooldown/live guards stop doubles.
-      if (reconnected && isFlowActive(get())) void get().scRefreshBoard()
+      // Every proven-healthy poll repairs ONLY missing bootstrap pieces. This must not depend on a health
+      // transition: /api/swarms can return an auth response while health was already online. The health
+      // cadence bounds these attempts, and the underlying calls coalesce.
+      healMissingLiveBootstrap('health', reconnected)
     } else if (outcome === 'session') {
       outageStartedAt = 0 // an Access/session issue, not an engine outage
-      set({ health: 'session-expired', connected: false })
+      clearSwarmDiscoveryRetry() // sign-in recovery owns the next attempt; never hammer Access every 3s
+      invalidateScreenerBootstrap()
+      // A Themes request belongs to the authenticated screener bootstrap too. Invalidate it explicitly:
+      // activeSwarm/wireSwarm do not change on session expiry, so their normal ownership guards alone
+      // cannot reject a pre-expiry response. Resetting the view lets the first healthy recovery reopen it.
+      themesRequestSeq++
+      cancelThemeDetailRequest()
+      if (themesGeoRefetchTimer) { clearTimeout(themesGeoRefetchTimer); themesGeoRefetchTimer = null }
+      lastStreamBootstrapHealAt = 0 // the first proven-live event after sign-in may heal immediately
+      set({
+        health: 'session-expired', connected: false,
+        themesView: null, themesStatus: 'idle', themesLoading: false, themeBriefLoading: false,
+        selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null,
+      })
     } else {
       // The SSE data plane is the ground truth. If a stream event arrived very recently, OR the news
       // stream socket is still OPEN (the server's 15s keep-alive holds it open and the browser would flip
@@ -2655,7 +2792,7 @@ export const useStore = create<State>((set, get) => ({
         const reconnected = get().health !== 'online'
         outageStartedAt = 0 // the live wire proves the engine is up — end any grace clock
         set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
-        if (reconnected && isFlowActive(get())) void get().scRefreshBoard()
+        healMissingLiveBootstrap('health', reconnected)
       } else {
         const n = get().healthFailCount + 1
         if (!outageStartedAt) outageStartedAt = Date.now() // first genuine fail of this outage → start the grace clock
@@ -2919,8 +3056,21 @@ export const useStore = create<State>((set, get) => ({
   },
 
   _enterSwarm: (to) => {
+    if (to !== 'screener') invalidateScreenerBootstrap()
     const layout = get().swarms.find((s) => s.id === to)?.layout
-    if (layout === 'flow') { get()._enterWire(to); void get().scInit(); return } // the flow stage boots its own board + wire
+    if (layout === 'flow') {
+      get()._enterWire(to)
+      // Flow is a layout contract, not a screener identity. Future flow swarms own their own graph/board;
+      // only the discovered screener may enter this hardcoded screener initialization path.
+      if (to === 'screener') void get().scInit()
+      else set({
+        // Fail closed until a non-screener flow declares its own graph/board adapter. Never show the
+        // previous screener's gauntlet, selected signal, or board under a different swarm's identity.
+        scGraph: null, scNodesByKey: new Map(), scRuntime: {}, scRouted: {}, scSelectedSignal: null,
+        scBoard: null, scBoardFetch: { status: 'idle', error: null, lastSuccessAt: null },
+      })
+      return
+    }
     // constellation swarm (research or commodity): both share the graph/selectedTicker slices, so reset
     // the selection when the owner changes (a screener detour leaves constellationSwarm untouched, so
     // returning to research keeps its selection). Then load the swarm's subject list (commodity only).
@@ -2997,37 +3147,80 @@ export const useStore = create<State>((set, get) => ({
 
   // ================= screener slice =================
   scInit: async () => {
-    try {
+    if (get().activeSwarm !== 'screener') return
+    if (screenerInitPromise) return screenerInitPromise
+    const ownershipEpoch = screenerOwnershipEpoch
+    const stillOwnsBootstrap = () => get().activeSwarm === 'screener' && screenerOwnershipEpoch === ownershipEpoch
+    const attempt = (async () => {
       if (!get().scGraph) {
         const g = await api.swarmGraph('screener')
+        if (!stillOwnsBootstrap()) return
         set({ scGraph: g, scNodesByKey: flatten(g) })
       }
-      await get().scRefreshBoard()
-      // auto-show the most recent signal on the gauntlet so the stage is never empty
-      if (!get().scSelectedSignal) {
+      await get().scRefreshBoard(true, ownershipEpoch)
+      if (!stillOwnsBootstrap()) return
+      // A concurrent board refresh may supersede this generation before either response commits. A cold
+      // bootstrap is not complete without a board; turn that silent supersession into bounded recovery.
+      if (!get().scBoard) throw new Error('Screener board bootstrap did not commit')
+      // Auto-show the most recent signal on a fresh gauntlet. If a prior owner was invalidated while its
+      // selected signal was hydrating, preserve the selection but re-read its saved run on return.
+      if (get().scSelectedSignal && screenerSignalHydrationPending === get().scSelectedSignal) {
+        await get().scSelectSignal(get().scSelectedSignal, ownershipEpoch)
+      } else if (!get().scSelectedSignal) {
         const latest = get().scBoard?.signals?.[0]?.signal_id || get().scBoard?.live?.find((l) => l.kind === 'signal')?.subjectId || null
-        if (latest) await get().scSelectSignal(latest)
+        if (latest) await get().scSelectSignal(latest, ownershipEpoch)
       }
+      if (!stillOwnsBootstrap()) return
       // attach to any screener runs already in flight
       const live = get().scBoard?.live || []
       for (const l of live) if (!scRunSources.has(l.runId)) connectScreenerRun(get, l.runId)
       // the event rail is part of the screener stage now — keep the wire backfilled + streaming live
-      void get().scEnsureNewsStream()
+      await get().scEnsureNewsStream(ownershipEpoch)
+      if (!stillOwnsBootstrap()) return
       // Themes is the screener's default landing view — open it on entry (the user can switch to
       // Ranked/Latest/Everything from the rail, which closes it). Guarded so it never clobbers a
       // deep-link into a specific event/company already in focus.
       if (get().themesView === null && !get().scSelectedEvent && !get().scFocusedCompany) void get().openThemes('board')
-    } catch {}
+    })()
+    // Store the HANDLED promise, not the raw attempt: every concurrent caller observes the same fulfilled
+    // recovery contract even when the underlying graph/board request rejects. Returning the raw attempt to
+    // followers was an unhandled-rejection race hidden by the first caller's catch.
+    const handled: Promise<void> = attempt
+      .then(() => {
+        if (!stillOwnsBootstrap()) return
+        clearScreenerInitRetry()
+        // A real reconnect that landed while this coalesced init was already past its board read owns one
+        // follow-up refresh. Clear before starting it so another reconnect can queue the next generation.
+        if (screenerReconnectRefreshPending) {
+          screenerReconnectRefreshPending = false
+          void get().scRefreshBoard(false, ownershipEpoch)
+        }
+      })
+      .catch((error) => {
+        // A cold graph or board gateway failure used to disappear here forever, leaving a permanently
+        // partial screener until a full reload. Only the screener owns this hardcoded initialization path;
+        // a future flow-layout swarm must never be contaminated with screener graph/board state.
+        if (!get().staticMode && stillOwnsBootstrap() && isTransientBootstrapFailure(error)) scheduleScreenerInitRetry()
+      })
+      .finally(() => {
+        if (screenerInitPromise === handled) screenerInitPromise = null
+      })
+    screenerInitPromise = handled
+    return handled
   },
 
   // Backfill the wire from disk (restart-proof) and attach the live SSE stream, WITHOUT opening the old
   // overlay. Idempotent: connectNewsStream guards a single global source, and we only backfill when empty
   // so we never clobber items already streamed in. Drives the persistent left-rail feed.
-  scEnsureNewsStream: async () => {
+  scEnsureNewsStream: async (bootstrapEpoch?: number) => {
+    const stillOwnsBootstrap = () => bootstrapEpoch === undefined
+      || (get().activeSwarm === 'screener' && screenerOwnershipEpoch === bootstrapEpoch)
+    if (!stillOwnsBootstrap()) return
     void get().refreshNewsStatus()
     if (!get().newsItems.length || !get().lastScan) {
       try {
         const { items, cycles } = await api.newsFeed(2)
+        if (!stillOwnsBootstrap()) return
         const patch: Partial<State> = {}
         if (!get().newsItems.length) patch.newsItems = items
         // seed the live map from the most recent scan's RAW fetch volume so it's alive on open (not dead
@@ -3036,6 +3229,7 @@ export const useStore = create<State>((set, get) => ({
         if (Object.keys(patch).length) set(patch)
       } catch {}
     }
+    if (!stillOwnsBootstrap()) return
     // first-ever visit: everything already on the wire counts as seen (once-only; see seedReadBaseline)
     if (get().newsItems.length) get().seedReadBaseline(get().newsItems)
     if (!get().staticMode) connectNewsStream(get)
@@ -3613,7 +3807,12 @@ export const useStore = create<State>((set, get) => ({
     // and reconciles the scorecard without depending on the deferred generated-board rebuild.
   },
 
-  scRefreshBoard: async () => {
+  scRefreshBoard: async (propagateColdFailure = false, bootstrapEpoch?: number) => {
+    // Every board read has a screener owner, including ordinary manual/news/SSE refreshes. Capturing the
+    // current epoch prevents a response started on Screener from repopulating its cache after navigation.
+    const ownerEpoch = bootstrapEpoch ?? screenerOwnershipEpoch
+    const stillOwnsBootstrap = () => get().activeSwarm === 'screener' && screenerOwnershipEpoch === ownerEpoch
+    if (!stillOwnsBootstrap()) return
     const generation = ++scBoardFetchGeneration
     // A cold fetch owns the skeleton. A background refresh keeps the last board and any prior failure
     // visible until a successful response replaces both; clicking Retry must not briefly paint green.
@@ -3626,15 +3825,18 @@ export const useStore = create<State>((set, get) => ({
     }))
     try {
       const scBoard = await api.screenerBoard()
-      if (generation !== scBoardFetchGeneration) return
+      if (generation !== scBoardFetchGeneration || !stillOwnsBootstrap()) return
       set({ scBoard, scBoardFetch: { status: 'ready', error: null, lastSuccessAt: Date.now() } })
       // a partial run the engine forgot (it came back after a break) shows up here as resumable — pick
       // it back up on its own so the user never has to hunt for a "failed" run and click Continue.
       void get()._maybeAutoResume(scBoard.resumable)
     } catch (e: any) {
-      if (generation !== scBoardFetchGeneration) return
+      if (generation !== scBoardFetchGeneration || !stillOwnsBootstrap()) return
       const message = typeof e?.message === 'string' && e.message ? e.message : 'The board request failed.'
       set((s) => ({ scBoardFetch: { status: 'error', error: message, lastSuccessAt: s.scBoardFetch.lastSuccessAt } }))
+      // Keep every ordinary refresh's long-standing resolve-and-render-error contract. Only scInit opts
+      // into rejection, and only when no prior board can keep the stage usable while a refresh recovers.
+      if (propagateColdFailure && !get().scBoard) throw e
     }
   },
 
@@ -3643,7 +3845,12 @@ export const useStore = create<State>((set, get) => ({
   // connection is back. Capped + cooled-down so a genuinely-broken run can't loop, and capacity rejects
   // are retried (not counted) on the next fetch. The selected run animates; the rest run in the background.
   _maybeAutoResume: async (resumable) => {
-    if (get().staticMode || HARD_DOWN.has(get().health) || !isFlowActive(get())) return
+    if (get().staticMode || HARD_DOWN.has(get().health) || get().activeSwarm !== 'screener') return
+    const ownerEpoch = screenerOwnershipEpoch
+    const stillOwnsResume = () => get().activeSwarm === 'screener'
+      && screenerOwnershipEpoch === ownerEpoch
+      && !get().staticMode
+      && !HARD_DOWN.has(get().health)
     const list = (resumable || []).filter((r) => {
       const t = autoResumeTries.get(r.sigId)
       if (t && t.count >= AUTO_RESUME_MAX) return false // gave up — manual Continue from here
@@ -3653,10 +3860,13 @@ export const useStore = create<State>((set, get) => ({
     if (!list.length) return
     let resumed = 0
     for (const r of list.slice(0, AUTO_RESUME_BATCH)) {
+      if (!stillOwnsResume()) break
       const prev = autoResumeTries.get(r.sigId)
       autoResumeTries.set(r.sigId, { count: (prev?.count || 0) + 1, lastAt: Date.now() })
       try {
         const { runId } = await api.launchSignal({ sigId: r.sigId })
+        resumed++ // the server accepted it even if the user navigated while this await was pending
+        if (!stillOwnsResume()) break
         // if this is the run the user is watching, keep its finished orbs and re-queue the rest so the
         // constellation animates exactly where it stopped (mirrors continueSignal). Background runs just
         // run server-side; the board reflects them on the next fetch (we don't wire their SSE into the
@@ -3668,7 +3878,6 @@ export const useStore = create<State>((set, get) => ({
           set({ scRuntime: rt })
           connectScreenerRun(get, runId)
         }
-        resumed++
       } catch (e: any) {
         // no slot right now (cap) or it's already in flight — not a real failure; un-count so the next
         // board fetch retries it as soon as capacity frees, instead of burning a try.
@@ -3677,10 +3886,11 @@ export const useStore = create<State>((set, get) => ({
           if (prev) autoResumeTries.set(r.sigId, prev)
           else autoResumeTries.delete(r.sigId)
         }
+        if (!stillOwnsResume()) break
       }
     }
-    if (resumed) {
-      void get().refreshActiveRuns()
+    if (resumed) void get().refreshActiveRuns() // global activity truth still matters after navigation
+    if (resumed && stillOwnsResume()) {
       get().setToast({
         msg: resumed === 1 ? 'Resuming an interrupted run — picking up where the connection dropped' : `Resuming ${resumed} interrupted runs — picking up where they left off`,
         tone: 'good',
@@ -3689,7 +3899,20 @@ export const useStore = create<State>((set, get) => ({
   },
 
   // load one signal's run folder onto the gauntlet: seed orb states from its saved outputs
-  scSelectSignal: async (sigId) => {
+  scSelectSignal: async (sigId, bootstrapEpoch?: number) => {
+    const ownerEpoch = bootstrapEpoch ?? screenerOwnershipEpoch
+    const stillOwnsBootstrap = () => get().activeSwarm === 'screener' && screenerOwnershipEpoch === ownerEpoch
+    if (!stillOwnsBootstrap()) return
+    // Epoch ownership prevents writes after navigation; this generation also orders overlapping reads
+    // inside the same Screener visit. Two requests for the same signal are otherwise indistinguishable,
+    // so an older response could clear the newer recovery intent or replace its runtime.
+    const generation = ++screenerSignalFetchGeneration
+    const stillOwnsRequest = () => generation === screenerSignalFetchGeneration
+      && get().scSelectedSignal === sigId
+      && stillOwnsBootstrap()
+    // Every owned signal read carries rehydration intent, not only cold bootstrap reads. If navigation or
+    // session expiry invalidates the request after we clear runtime, returning to Screener must retry it.
+    screenerSignalHydrationPending = sigId
     // a different signal is a different run — reset chat state exactly like selectTicker does, so an open
     // (or saved) conversation can't keep posting against the signal it was opened for after the board moves
     // on to another one (cross-run answer contamination: wrong SIG context + wrong saved thread/id).
@@ -3699,7 +3922,7 @@ export const useStore = create<State>((set, get) => ({
     if (!sigId) return
     try {
       const m = await api.screenerRun(sigId)
-      if (get().scSelectedSignal !== sigId) return
+      if (!stillOwnsRequest()) return
       const seed: Record<string, NodeRuntime> = {}
       const routed: Record<string, { route: string; terminal: boolean }> = {}
       for (const [mod, agents] of Object.entries<any>(m?.modules || {})) {
@@ -3712,8 +3935,18 @@ export const useStore = create<State>((set, get) => ({
       const status = m?.thesisRecord?.meta?.status
       if (status) routed['__thesis__'] = { route: status, terminal: true }
       set({ scRuntime: seed, scRouted: routed })
-    } catch {
-      if (get().scSelectedSignal === sigId) set({ scRuntime: {}, scRouted: {} })
+      if (stillOwnsRequest() && screenerSignalHydrationPending === sigId) screenerSignalHydrationPending = null
+    } catch (error) {
+      if (!stillOwnsRequest()) return
+      set({ scRuntime: {}, scRouted: {} })
+      // An authoritative client error (for example, a genuinely missing saved run) ends hydration. Keep
+      // intent only for network/gateway/rate-limit and Access-session failures that may heal later.
+      if (!shouldPreserveSwarmDiscovery(false, error) && screenerSignalHydrationPending === sigId) {
+        screenerSignalHydrationPending = null
+      }
+      // During scInit, a transient saved-run failure is a failed bootstrap, not an empty successful
+      // gauntlet. Propagate it into scInit's handled retry path; explicit 4xx absence remains fail-closed.
+      if (bootstrapEpoch !== undefined && stillOwnsBootstrap() && isTransientBootstrapFailure(error)) throw error
     }
   },
 
@@ -4307,7 +4540,9 @@ export const useStore = create<State>((set, get) => ({
     // a live SSE event is the data plane proving itself — flip to online INSTANTLY (don't wait for the next
     // health poll). This is what makes recovery feel instant and stops a false "offline" while events flow.
     // Guarded so it only writes state on an actual transition (no re-render churn when already online).
-    if (get().health !== 'online') set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
+    const reconnected = get().health !== 'online'
+    if (reconnected) set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
+    healMissingLiveBootstrap('stream', reconnected)
   },
   // Wake / tab-refocus / network-return: pull everything back to live at once instead of waiting for the
   // next 20s health beat (and, for the news status + stream, which had no wake hook at all, ever).
@@ -4368,7 +4603,7 @@ export const useStore = create<State>((set, get) => ({
         if (intensityRefetchTimer) clearTimeout(intensityRefetchTimer)
         intensityRefetchTimer = setTimeout(() => void get().setIntensityWindow(get().scIntensityWindow), 1200)
       }
-      if (isFlowActive(get())) void get().scRefreshBoard() // the board is flow-stage UI — don't refetch it from a constellation swarm every cycle
+      if (get().activeSwarm === 'screener') void get().scRefreshBoard()
       void get().refreshWirePulse() // TTL-gated no-op unless the active wire declares a pulse and it's due
     } else if (e?.type === 'theme-remove' && e.removal) {
       const removal = e.removal as ThemeRemoval
@@ -4528,6 +4763,41 @@ export const useStore = create<State>((set, get) => ({
 
   // screener SSE -> the screener slice (the research handler stays untouched)
   _handleScreenerEvent: (e) => {
+    // The EventSource can deliver one queued frame after navigation. The board/manifest will catch up when
+    // Screener is entered again; never let that late frame repopulate another swarm's cleared gauntlet.
+    if (get().activeSwarm !== 'screener') {
+      if (e.type === 'run-done' || e.type === 'run-error') {
+        closeScreenerRunSource(e.runId)
+        void get().refreshActiveRuns()
+        const handoff = scHandoffWatch.get(e.runId)
+        if (handoff) {
+          scHandoffWatch.delete(e.runId)
+          get().setToast(e.type === 'run-done'
+            ? {
+                msg: handoff.poolPresent
+                  ? `${handoff.ticker} is ready ✓ — its idea memo is saved. Start the deep research run when you want.`
+                  : `${handoff.ticker} idea memo saved ✓ — but its data folder has no filings yet. Add them before starting research.`,
+                tone: 'good',
+              }
+            : { msg: `Sending ${handoff.ticker} to research failed (${e.reason}) — the memo may not be saved. Try again from the idea board.`, tone: 'bad' })
+        } else if (scSweepWatch.has(e.runId)) {
+          scSweepWatch.delete(e.runId)
+          if (e.type === 'run-done') {
+            void get().refreshNewsFeed()
+            get().setToast({ msg: 'Scan finished — fresh leads are on the wire and in the Inbox.', tone: 'good' })
+          } else if (/cancel/i.test(String(e.reason || ''))) {
+            get().setToast({ msg: 'Scan stopped. Nothing was charged for the part that did not run.', tone: 'info' })
+          } else {
+            get().setToast({
+              msg: `The scan could not finish — ${plainReason(e.reason, e.message)} (${e.reason || 'unknown'}).`,
+              tone: 'bad',
+              action: { label: 'Try again', onClick: () => void get().runSweep() },
+            })
+          }
+        }
+      }
+      return
+    }
     const rt = { ...get().scRuntime }
     const stream = get().runStream.slice()
     const upsert = (runId: string, key: string, name: string, module: string, layer: number, status: NodeStatus, verdict?: string | null) => {

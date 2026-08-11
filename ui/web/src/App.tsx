@@ -148,7 +148,25 @@ function ResearchStage() {
 // this stage just supplies the flow config + the gauntlet as home.
 function ScreenerStage() {
   const wireConfig = useActiveWireConfig()
-  return <WireSurface config={wireConfig ?? FLOW_WIRE_CONFIG} home={<ScreenerField />} />
+  const activeSwarm = useStore((s) => s.activeSwarm)
+  const label = useStore((s) => s.swarms.find((swarm) => swarm.id === s.activeSwarm)?.label ?? s.activeSwarm)
+  // The swarm-specific wrapper grants the gauntlet capability. `layout: flow` alone only grants the
+  // shared wire; this keeps the shared component tree free of swarm-id behavior branches.
+  const config = { ...(wireConfig ?? { ...FLOW_WIRE_CONFIG, swarmId: activeSwarm }), gauntlet: activeSwarm === 'screener' }
+  // `layout: flow` supplies the shared wire composition, but the gauntlet/board adapter currently belongs
+  // only to the screener. A newly declared flow can still show its own wire; fail closed in the main pane
+  // instead of painting cached screener state under another swarm's name.
+  const home = activeSwarm === 'screener'
+    ? <ScreenerField />
+    : (
+      <div className="empty">
+        <div className="empty__card">
+          <div className="empty__title">{label}</div>
+          <div className="empty__body">This flow has no compatible stage adapter yet. Its event wire remains available.</div>
+        </div>
+      </div>
+    )
+  return <WireSurface config={config} home={home} />
 }
 
 // The return door to the phone chat shell. Rendered only on a coarse-pointer viewport ≤820px (the CSS
