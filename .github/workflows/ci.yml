@@ -119,13 +119,20 @@ jobs:
           python3 scripts/test_gold_profile_connectors.py
           python3 scripts/test_energy_profile_connectors.py
           python3 scripts/test_industrial_metals_profile_connectors.py
+          python3 scripts/test_grains_profile_connectors.py
           python3 scripts/test_commodity_profile_coverage.py
+          python3 scripts/test_connector_http.py
           python3 .claude/connectors/cftc-cot-crude-oil/test_fetch.py
           python3 .claude/connectors/cftc-cot-natural-gas/test_fetch.py
           python3 .claude/connectors/eia-crude-oil-inventory/test_fetch.py
           python3 .claude/connectors/eia-natural-gas-storage/test_fetch.py
           python3 .claude/connectors/federal-reserve-broad-usd/test_fetch.py
           python3 .claude/connectors/cftc-cot-copper/test_fetch.py
+          python3 .claude/connectors/cftc-cot-wheat-srw/test_fetch.py
+          python3 .claude/connectors/cftc-cot-corn/test_fetch.py
+          python3 .claude/connectors/cftc-cot-soybeans/test_fetch.py
+          python3 .claude/connectors/noaa-cpc-oni/test_fetch.py
+          python3 .claude/connectors/usda-wasde-grains-balance/test_fetch.py
 
       - name: Commodity signal evidence + statistical-validation contract tests
         run: python3 scripts/test_commodity_signal_evidence.py

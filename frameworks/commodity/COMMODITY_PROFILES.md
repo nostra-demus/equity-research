@@ -438,12 +438,16 @@ premium rights, China capacity evidence or accessible-supply bridges stays expli
 **Applicable lenses (apply ONLY these):**
 - Market structure: the CBOT curve; the SRW–HRW–spring **spreads** (protein/quality); the
   CBOT–MATIF–Black Sea spreads.
+- Cross-asset regime: the wheat/corn ratio as one relative-demand confirmation cluster; it cannot also
+  vote in market structure.
 - Supply/demand: global production (Russia, EU, US, Canada, Australia, Ukraine, Argentina) vs food/feed;
   USDA WASDE + IGC world balance; **major-exporter stocks-to-use** (matters more than China's stockpile).
 - Weather/seasonality (DOMINANT): NH winter-wheat dormancy/**winterkill**, spring planting, the SH
   (Australia/Argentina) crop; drought monitors; harvest windows.
-- Macro drivers: **Black Sea export policy + war risk** (Russia/Ukraine), export taxes/quotas, exporter FX
-  (RUB, AUD), energy/fertilizer costs.
+- Supply security: dated Black Sea war/logistics constraints, export bans, taxes/quotas and verified
+  rerouting through the accessible-supply bridge.
+- Macro drivers: the broad **US dollar**, exporter FX (RUB, EUR, AUD, CAD, ARS) and non-policy
+  energy/fertilizer input-cost context.
 - Positioning/flows: CBOT **managed-money net length (CFTC COT)**; WEAT flows.
 - Valuation/fair value: cost-of-production + export-parity; a range.
 
@@ -457,6 +461,43 @@ UkrAgroConsult trade data (dated, labelled), CFTC COT.
 **Recurring reports (catalysts):** USDA WASDE (monthly), Crop Progress (weekly in season), Grain Stocks +
 Prospective Plantings (quarterly / spring), weekly Export Sales; IGC Grain Market Report; CFTC COT.
 
+**Family-specific physical-market rules:** keep old-crop and new-crop contracts separate and align crop
+year, grade, protein, location, currency, unit and timestamp before comparing prices or balances. Weather
+evidence must be yield-weighted to the growing region and matched to the crop's live phenological stage;
+a seasonal forecast is a probability distribution, never realised yield. The WASDE balance belongs to
+`commodity-demand-inventory`; acreage, yield and production belong to `commodity-supply`, and the same
+USDA production number cannot vote twice. `commodity-supply-security` alone owns export bans, taxes,
+war/logistics chokepoints and verified rerouting. Major-exporter stocks matter separately from inaccessible
+stockpiles, and low country coverage or stale estimates trigger the supply-opacity cap.
+
+**Required semantic series (profile-owned; connector IDs are deliberately absent):**
+
+| Need ID | Stable series ID | Owner orb | Required history / freshness | Lawful source policy |
+|---|---|---|---|---|
+| `wheat-managed-money-positioning` | `wheat.managed-money-positioning` | commodity-positioning-flows | weekly; ≥3 years and current CBOT SRW COT observation | CFTC public API; exact WHEAT-SRW futures-only disaggregated contract |
+| `wheat-etf-flows` | `wheat.etf-flows` | commodity-positioning-flows | daily/weekly WEAT issuer shares or holdings | lawful issuer publications only; otherwise unavailable |
+| `climate-enso-oni` | `climate.enso.oni` | commodity-weather-seasonality | monthly; ≥30 years of dated ONI history | NOAA CPC official ONI; ENSO is context and cannot substitute for crop-region weather |
+| `macro-broad-usd-index` | `macro.broad-usd-index` | commodity-macro-drivers | daily; ≥3 years for grain/USD regimes | reuse one Federal Reserve/FRED semantic series across commodity profiles; no commodity-specific clone |
+| `wheat-exporter-fx` | `wheat.exporter-fx` | commodity-macro-drivers | daily; ≥3 years of RUB, EUR, AUD, CAD and ARS against USD | primary central-bank or lawful market history with exact FX bases; otherwise unavailable |
+| `wheat-current-price` | `wheat.current-price` | commodity-price-curve | current front-month CBOT SRW Wheat futures quote | reuse the swarm pulse quote transport (`@W.1`); label it US¢/bu futures; no connector clone |
+| `wheat-cbot-price-history` | `wheat.cbot-price-history` | commodity-price-curve | point-in-time CBOT SRW close history with source identity | reuse lawful shared market history for `@W.1`; continuous back-adjusted futures |
+| `wheat-corn-price-history` | `wheat.corn-price-history` | commodity-cross-asset-regime | point-in-time CBOT Corn close history aligned to wheat | reuse lawful shared market history for `@C.1`; the wheat/corn ratio is one relative-demand cluster |
+| `wheat-cbot-forward-curve` | `wheat.cbot-forward-curve` | commodity-price-curve | current old-crop/new-crop CBOT settlements with ≥3 years of curve snapshots | CME official or licensed settlements with exact contracts; otherwise unavailable |
+| `wheat-protein-quality-spreads` | `wheat.protein-quality-spreads` | commodity-price-curve | current SRW, HRW and HRS prices with grade and protein basis | lawful CME/MGEX or licensed prices; never compare unaligned grades |
+| `wheat-export-parity` | `wheat.export-parity` | commodity-price-curve | current CBOT, MATIF and Black Sea export prices net of FX and freight | lawful exchange and primary export quotations; Black Sea estimates require source dispersion |
+| `grains-usda-wasde-balance` | `grains.usda-wasde-balance` | commodity-demand-inventory | monthly; current point-in-time US and world supply/use tables | USDA WAOB official XML; revisions retained; production cells are bridge inputs and cannot cast a second demand vote |
+| `wheat-major-exporter-stocks-use` | `wheat.major-exporter-stocks-use` | commodity-demand-inventory | monthly; ≥10 years of major-exporter ending stocks and use | USDA/IGC primary balance with China and inaccessible stocks shown separately; otherwise unavailable |
+| `wheat-crop-progress-condition` | `wheat.crop-progress-condition` | commodity-weather-seasonality | weekly in season; ≥10 years by class and state/region | USDA NASS and equivalent primary crop reports with release vintage; otherwise unavailable |
+| `wheat-weather-phenology` | `wheat.weather-phenology` | commodity-weather-seasonality | current plus ≥30 years of daily yield-weighted weather aligned to live crop stage | primary meteorological observations/forecasts with geography, model run and expiry; otherwise unavailable |
+| `wheat-acreage-yield-production` | `wheat.acreage-yield-production` | commodity-supply | current acreage, yield and output by major origin with estimate dispersion | USDA, Statistics Canada, ABARES, EU and other primary crop releases; do not duplicate WASDE balance signals |
+| `wheat-export-sales-shipments` | `wheat.export-sales-shipments` | commodity-demand-inventory | weekly/current exports by major origin and destination | USDA FAS and primary customs/port data with cancellations separated from shipments |
+| `wheat-supply-restrictions-routing` | `wheat.supply-restrictions-routing` | commodity-supply-security | current export bans/taxes, Black Sea capacity and verified rerouting | primary government, customs and port evidence; start from pre-policy supply and do not recount production |
+| `wheat-cost-export-parity-range` | `wheat.cost-export-parity-range` | commodity-cost-curve | current farm cash-cost and marginal export-parity range | primary farm budgets/input prices and lawful freight/FX; separate observed price, model range and market expectation |
+
+Declaring these rows does not make them usable. A current CBOT quote, CFTC row and WASDE table cannot
+stand in for crop-stage weather, exporter stocks, physical export parity or accessible Black Sea supply;
+any missing required series keeps both horizons not assessable and forces Research More.
+
 ---
 
 ## CORN
@@ -468,13 +509,18 @@ Prospective Plantings (quarterly / spring), weekly Export Sales; IGC Grain Marke
   soybeans (acreage competition) and energy (ethanol). Classify the thesis `Commodity-conditional`.
 
 **Applicable lenses (apply ONLY these):**
-- Market structure: the CBOT curve; the **corn–soybean ratio** (acreage signal); the corn–ethanol + DDG margins.
+- Market structure: the CBOT old-crop/new-crop curve, local basis and implementable corn–ethanol/DDG
+  processing margins.
+- Cross-asset regime: the corn/soybean ratio (acreage confirmation) and corn/crude breadth; each is one
+  clustered confirmation and cannot vote in market structure or physical ethanol demand.
 - Supply/demand: US + Brazil (safrinha second crop) + Argentina + Ukraine production vs feed/ethanol/export;
   USDA WASDE; ending stocks + stocks-to-use.
 - Weather/seasonality (DOMINANT): US Corn Belt planting (Apr–May), **pollination (July — the critical
   weather window)**, harvest; Brazil safrinha weather; drought monitor; ENSO.
-- Macro drivers: **ethanol / energy policy + crude** (ethanol parity), China demand, export competition +
-  FX (BRL, ARS), fertilizer cost.
+- Supply security: dated biofuel mandates/credits, export restrictions, port constraints and verified
+  rerouting through the accessible-supply bridge.
+- Macro drivers: the broad **US dollar**, producer FX (BRL, ARS, UAH) and non-policy fertilizer/input-cost
+  context.
 - Positioning/flows: CBOT **managed-money net length (CFTC COT)**; CORN flows.
 - Valuation/fair value: cost-of-production + ethanol/feed value; a range.
 
@@ -488,6 +534,45 @@ CONAB (Brazil), CFTC COT, EIA (ethanol).
 **Recurring reports (catalysts):** USDA WASDE (monthly), Crop Progress (weekly), Grain Stocks +
 Prospective Plantings + Acreage (Mar/Jun), weekly Export Sales; CFTC COT.
 
+**Family-specific physical-market rules:** separate old-crop from new-crop and US from Brazil safrinha and
+Argentina crop years. Align grade, delivery location, currency, unit and timestamp before computing basis or
+export parity. Weather must be yield-weighted and matched to planting, pollination or grain fill; an ENSO
+label is not a yield forecast. The WASDE balance belongs to `commodity-demand-inventory`; acreage, yield
+and production belong to `commodity-supply`. Ethanol demand is counted once from physical grind/output,
+not again from crude correlation or policy headlines. `commodity-supply-security` owns biofuel mandates
+and credits, export restrictions, logistics and rerouting, while low origin coverage triggers the
+supply-opacity cap.
+
+**Required semantic series (profile-owned; connector IDs are deliberately absent):**
+
+| Need ID | Stable series ID | Owner orb | Required history / freshness | Lawful source policy |
+|---|---|---|---|---|
+| `corn-managed-money-positioning` | `corn.managed-money-positioning` | commodity-positioning-flows | weekly; ≥3 years and current CBOT Corn COT observation | CFTC public API; exact CORN futures-only disaggregated contract |
+| `corn-etf-flows` | `corn.etf-flows` | commodity-positioning-flows | daily/weekly CORN issuer shares or holdings | lawful issuer publications only; otherwise unavailable |
+| `climate-enso-oni` | `climate.enso.oni` | commodity-weather-seasonality | monthly; ≥30 years of dated ONI history | NOAA CPC official ONI; ENSO is context and cannot substitute for crop-region weather |
+| `macro-broad-usd-index` | `macro.broad-usd-index` | commodity-macro-drivers | daily; ≥3 years for grain/USD regimes | reuse one Federal Reserve/FRED semantic series across commodity profiles; no commodity-specific clone |
+| `corn-exporter-fx` | `corn.exporter-fx` | commodity-macro-drivers | daily; ≥3 years of BRL, ARS and UAH against USD | primary central-bank or lawful market history with exact FX bases; otherwise unavailable |
+| `corn-current-price` | `corn.current-price` | commodity-price-curve | current front-month CBOT Corn futures quote | reuse the swarm pulse quote transport (`@C.1`); label it US¢/bu futures; no connector clone |
+| `corn-cbot-price-history` | `corn.cbot-price-history` | commodity-price-curve | point-in-time CBOT Corn close history with source identity | reuse lawful shared market history for `@C.1`; continuous back-adjusted futures |
+| `corn-soybeans-price-history` | `corn.soybeans-price-history` | commodity-cross-asset-regime | point-in-time CBOT Soybeans close history aligned to corn | reuse lawful shared market history for `@S.1`; the corn/soybean ratio is one acreage cluster |
+| `corn-crude-price-history` | `corn.crude-price-history` | commodity-cross-asset-regime | point-in-time WTI close history aligned to corn | reuse lawful shared market history for `@CL.1`; crude is an ethanol-demand confirmation, not corn itself |
+| `corn-cbot-forward-curve` | `corn.cbot-forward-curve` | commodity-price-curve | current old-crop/new-crop CBOT settlements with ≥3 years of curve snapshots | CME official or licensed settlements with exact contracts; otherwise unavailable |
+| `corn-local-basis-export-parity` | `corn.local-basis-export-parity` | commodity-price-curve | current US interior/Gulf, Brazil and Argentina basis net of FX and freight | primary AMS/customs/port data or licensed assessments with location and grade; otherwise unavailable |
+| `grains-usda-wasde-balance` | `grains.usda-wasde-balance` | commodity-demand-inventory | monthly; current point-in-time US and world supply/use tables | USDA WAOB official XML; revisions retained; production cells are bridge inputs and cannot cast a second demand vote |
+| `corn-stocks-use` | `corn.stocks-use` | commodity-demand-inventory | quarterly/monthly; ≥10 years of on-farm/off-farm stocks and stocks-to-use | USDA NASS/WASDE primary data; reconcile quarterly stocks to the balance and preserve revisions |
+| `corn-crop-progress-condition` | `corn.crop-progress-condition` | commodity-weather-seasonality | weekly in season; ≥10 years by state | USDA NASS and equivalent primary crop reports with release vintage; otherwise unavailable |
+| `corn-weather-phenology` | `corn.weather-phenology` | commodity-weather-seasonality | current plus ≥30 years of daily yield-weighted weather aligned to planting/pollination/grain fill | primary meteorological observations/forecasts with geography, model run and expiry; otherwise unavailable |
+| `corn-acreage-yield-production` | `corn.acreage-yield-production` | commodity-supply | current US, Brazil, Argentina and Ukraine acreage/yield/output with dispersion | USDA, CONAB and other primary crop releases; do not duplicate WASDE balance signals |
+| `corn-export-sales-china-demand` | `corn.export-sales-china-demand` | commodity-demand-inventory | weekly/current sales, cancellations and shipments by destination | USDA FAS and primary customs data; separate announced sales from physical shipment |
+| `corn-ethanol-demand` | `corn.ethanol-demand` | commodity-demand-inventory | weekly/monthly physical ethanol output, stocks and corn grind plus margin inputs | EIA/USDA primary data; policy or crude-price moves are context and cannot replace physical grind |
+| `corn-biofuel-policy` | `corn.biofuel-policy` | commodity-supply-security | current dated mandates, credits and blend-rule changes | primary regulator publications with effective date and expiry; policy cannot cast a physical-demand vote |
+| `corn-supply-restrictions-routing` | `corn.supply-restrictions-routing` | commodity-supply-security | current export restrictions, port capacity and verified rerouting | primary government, customs and port evidence; start from pre-policy supply and do not recount production |
+| `corn-cost-value-range` | `corn.cost-value-range` | commodity-cost-curve | current marginal farm cash-cost and feed/ethanol/export-parity range | primary farm budgets/input prices and lawful physical values; separate observed price, model range and market expectation |
+
+Declaring these rows does not make them usable. US weather or stocks alone cannot establish the global
+balance, and a crude-price correlation cannot manufacture ethanol demand. Missing physical basis, crop-stage
+weather or major-origin production keeps both horizons not assessable and forces Research More.
+
 ---
 
 ## SOYBEANS
@@ -500,13 +585,18 @@ Prospective Plantings + Acreage (Mar/Jun), weekly Export Sales; CFTC COT.
   (meal for feed, oil for food/biodiesel). Classify the thesis `Commodity-conditional`.
 
 **Applicable lenses (apply ONLY these):**
-- Market structure: the CBOT curve; the **board crush** spread; bean oil's biofuel bid; the soy–corn ratio.
+- Market structure: the CBOT old-crop/new-crop curve, export basis and the implementable **board crush**
+  using aligned bean, meal and oil contract months.
+- Cross-asset regime: the soybean/corn acreage ratio and meal/oil breadth confirmations; correlated product
+  legs remain one crush cluster and cannot also vote in market structure.
 - Supply/demand: US + Brazil + Argentina production vs China imports + domestic crush; USDA WASDE;
   stocks-to-use (Brazil is now the swing supplier).
 - Weather/seasonality (DOMINANT): US growing season (**Aug pod-fill** the key window), Brazil (Nov–Mar) +
   Argentina weather; ENSO (La Niña = SA drought risk).
-- Macro drivers: **China demand + trade policy / tariffs**, biodiesel / renewable-diesel policy (bean
-  oil), BRL/ARS FX, Argentine export taxes.
+- Supply security: dated biofuel mandates/credits, tariffs, export taxes, port constraints and verified
+  rerouting through the accessible-supply bridge.
+- Macro drivers: the broad **US dollar**, producer/importer FX (BRL, ARS, CNY) and non-policy input-cost
+  context.
 - Positioning/flows: CBOT **managed-money net length (CFTC COT)**; SOYB flows.
 - Valuation/fair value: cost-of-production + crush value; a range.
 
@@ -519,6 +609,47 @@ Rosario / Buenos Aires grain exchanges (Argentina), CFTC COT.
 
 **Recurring reports (catalysts):** USDA WASDE (monthly), weekly Export Sales (watch the China cadence),
 Crop Progress; CONAB monthly; CFTC COT.
+
+**Family-specific physical-market rules:** separate old-crop/new-crop and US, Brazil and Argentina crop
+years. Align beans, meal and oil contract months, conversion yields, currency and units before computing the
+board crush; meal and oil are joint products, not two independent soybean-demand votes. Weather evidence
+must be yield-weighted and matched to planting, flowering and pod fill. The WASDE balance belongs to
+`commodity-demand-inventory`; acreage, yield and production belong to `commodity-supply`. China purchase
+announcements are not shipments, and `commodity-supply-security` alone owns biofuel mandates/credits,
+tariffs, export taxes, logistics and verified rerouting. Low origin coverage triggers the supply-opacity cap.
+
+**Required semantic series (profile-owned; connector IDs are deliberately absent):**
+
+| Need ID | Stable series ID | Owner orb | Required history / freshness | Lawful source policy |
+|---|---|---|---|---|
+| `soybeans-managed-money-positioning` | `soybeans.managed-money-positioning` | commodity-positioning-flows | weekly; ≥3 years and current CBOT Soybeans COT observation | CFTC public API; exact SOYBEANS futures-only disaggregated contract |
+| `soybeans-etf-flows` | `soybeans.etf-flows` | commodity-positioning-flows | daily/weekly SOYB issuer shares or holdings | lawful issuer publications only; otherwise unavailable |
+| `climate-enso-oni` | `climate.enso.oni` | commodity-weather-seasonality | monthly; ≥30 years of dated ONI history | NOAA CPC official ONI; ENSO is context and cannot substitute for crop-region weather |
+| `macro-broad-usd-index` | `macro.broad-usd-index` | commodity-macro-drivers | daily; ≥3 years for grain/USD regimes | reuse one Federal Reserve/FRED semantic series across commodity profiles; no commodity-specific clone |
+| `soybeans-trade-fx` | `soybeans.trade-fx` | commodity-macro-drivers | daily; ≥3 years of producer BRL/ARS and importer CNY against USD | primary central-bank or lawful market history with exact FX bases and roles; otherwise unavailable |
+| `soybeans-current-price` | `soybeans.current-price` | commodity-price-curve | current front-month CBOT Soybeans futures quote | reuse the swarm pulse quote transport (`@S.1`); label it US¢/bu futures; no connector clone |
+| `soybeans-cbot-price-history` | `soybeans.cbot-price-history` | commodity-price-curve | point-in-time CBOT Soybeans close history with source identity | reuse lawful shared market history for `@S.1`; continuous back-adjusted futures |
+| `soybeans-corn-price-history` | `soybeans.corn-price-history` | commodity-cross-asset-regime | point-in-time CBOT Corn close history aligned to soybeans | reuse lawful shared market history for `@C.1`; the soybean/corn ratio is one acreage cluster |
+| `soybeans-meal-price-history` | `soybeans.meal-price-history` | commodity-cross-asset-regime | point-in-time CBOT Soybean Meal close history aligned to beans | reuse lawful shared market history for `@SM.1`; meal is one crush-product confirmation |
+| `soybeans-oil-price-history` | `soybeans.oil-price-history` | commodity-cross-asset-regime | point-in-time CBOT Soybean Oil close history aligned to beans | reuse lawful shared market history for `@BO.1`; oil is one crush-product confirmation |
+| `soybeans-cbot-forward-curve` | `soybeans.cbot-forward-curve` | commodity-price-curve | current old-crop/new-crop CBOT settlements with ≥3 years of curve snapshots | CME official or licensed settlements with exact contracts; otherwise unavailable |
+| `soybeans-board-crush` | `soybeans.board-crush` | commodity-price-curve | current and historical bean/meal/oil crush using aligned contract months | lawful CME settlements with stated conversion yields and fees; reject mismatched months |
+| `soybeans-export-basis-parity` | `soybeans.export-basis-parity` | commodity-price-curve | current US Gulf, Brazil and Argentina basis net of FX, taxes and freight | primary customs/port data or licensed assessments with location and grade; otherwise unavailable |
+| `grains-usda-wasde-balance` | `grains.usda-wasde-balance` | commodity-demand-inventory | monthly; current point-in-time US and world supply/use tables | USDA WAOB official XML; revisions retained; production cells are bridge inputs and cannot cast a second demand vote |
+| `soybeans-stocks-use` | `soybeans.stocks-use` | commodity-demand-inventory | monthly; ≥10 years of US, world and major-exporter ending stocks and stocks-to-use | USDA primary balances with inaccessible China stocks separated and revisions retained; otherwise unavailable |
+| `soybeans-crop-progress-condition` | `soybeans.crop-progress-condition` | commodity-weather-seasonality | weekly in season; ≥10 years by state/region | USDA NASS and equivalent primary crop reports with release vintage; otherwise unavailable |
+| `soybeans-weather-phenology` | `soybeans.weather-phenology` | commodity-weather-seasonality | current plus ≥30 years of daily yield-weighted weather aligned to flowering/pod fill | primary meteorological observations/forecasts with geography, model run and expiry; otherwise unavailable |
+| `soybeans-acreage-yield-production` | `soybeans.acreage-yield-production` | commodity-supply | current US, Brazil and Argentina acreage/yield/output with dispersion | USDA, CONAB and other primary crop releases; do not duplicate WASDE balance signals |
+| `soybeans-china-imports-export-sales` | `soybeans.china-imports-export-sales` | commodity-demand-inventory | weekly/monthly purchases, cancellations, shipments and China arrivals | USDA FAS and primary Chinese/customs data; announced sales cannot substitute for shipment |
+| `soybeans-crush-product-stocks` | `soybeans.crush-product-stocks` | commodity-demand-inventory | monthly physical crush, meal/oil output and product stocks | USDA NASS/EIA and primary industry releases; reconcile joint-product yields and avoid double counting |
+| `soybeans-biofuel-physical-use` | `soybeans.biofuel-physical-use` | commodity-demand-inventory | monthly realised soybean-oil biofuel use and feedstock share | EIA/USDA primary physical-use data; mandates and credits cannot cast this demand vote |
+| `soybeans-biofuel-policy` | `soybeans.biofuel-policy` | commodity-supply-security | current dated mandates, credits and blend-rule changes | primary regulator publications with effective date and expiry; policy cannot cast a physical-demand vote |
+| `soybeans-supply-restrictions-routing` | `soybeans.supply-restrictions-routing` | commodity-supply-security | current tariffs/export taxes, port constraints and verified rerouting | primary government, customs and port evidence; start from pre-policy supply and do not recount production |
+| `soybeans-cost-crush-value-range` | `soybeans.cost-crush-value-range` | commodity-cost-curve | current marginal farm cash-cost and crush/export-parity range | primary farm budgets/input prices and lawful product values; separate observed price, model range and market expectation |
+
+Declaring these rows does not make them usable. A CBOT quote, ONI state and WASDE table cannot replace
+crop-stage weather, South American production, China arrivals or a contract-aligned crush. Missing required
+physical evidence keeps both horizons not assessable and forces Research More.
 
 ---
 

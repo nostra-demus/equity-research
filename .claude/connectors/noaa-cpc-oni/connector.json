@@ -1,12 +1,12 @@
 {
   "manifest_version": 2,
-  "schema_version": 1,
+  "schema_version": 2,
   "id": "noaa-cpc-oni",
   "dataset_id": "noaa-cpc.oceanic-nino-index",
   "series_id": "climate.enso.oni",
   "series": "NOAA CPC Oceanic Niño Index (ONI) — the ENSO (El Niño / La Niña) signal",
-  "satisfies": ["noaa-enso", "enso-probabilities"],
-  "subjects": ["WHEAT", "CORN", "SOYBEAN", "SUGAR", "COFFEE", "COCOA"],
+  "satisfies": ["climate-enso-oni", "noaa-enso"],
+  "subjects": ["WHEAT", "CORN", "SOYBEAN", "SOYBEANS", "SUGAR", "COFFEE", "COCOA"],
   "provider": "NOAA CPC",
   "authority_class": "government_official",
   "provider_priority": 100,
@@ -33,14 +33,26 @@
     "latest": {
       "season": "string",
       "year": "int",
+      "date": "date",
       "sst": "float",
       "anom": "float",
-      "enso_state": "enum:el_nino|la_nina|neutral"
+      "anomaly_state": "enum:warm_threshold|cool_threshold|neutral",
+      "episode_state": "enum:el_nino|la_nina|pending_el_nino|pending_la_nina|neutral"
     },
     "recent": [
       {
         "season": "string",
         "year": "int",
+        "date": "date",
+        "sst": "float",
+        "anom": "float"
+      }
+    ],
+    "observations": [
+      {
+        "season": "string",
+        "year": "int",
+        "date": "date",
         "sst": "float",
         "anom": "float"
       }
@@ -53,7 +65,10 @@
     "latest.anom": "degrees_celsius",
     "recent[].year": "calendar_year",
     "recent[].sst": "degrees_celsius",
-    "recent[].anom": "degrees_celsius"
+    "recent[].anom": "degrees_celsius",
+    "observations[].year": "calendar_year",
+    "observations[].sst": "degrees_celsius",
+    "observations[].anom": "degrees_celsius"
   },
-  "minimum_history": { "observations": 12, "path": "recent" }
+  "minimum_history": {"observations": 360, "path": "observations"}
 }

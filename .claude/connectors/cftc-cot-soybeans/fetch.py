@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch three years of CBOT SRW Wheat positioning from the CFTC public API."""
+"""Fetch three years of CBOT Soybeans positioning from the CFTC public API."""
 from __future__ import annotations
 
 import os
@@ -16,8 +16,8 @@ from connector_fetch_support import load_manifest  # noqa: E402
 
 MANIFEST = load_manifest(__file__)
 SPEC = ContractSpec(
-    contract="WHEAT-SRW", contract_code="001602",
-    instrument_label="CBOT SRW Wheat", filename_stem="cot_wheat_srw", verify_label="SRW Wheat",
+    contract="SOYBEANS", contract_code="005602", instrument_label="CBOT Soybeans",
+    filename_stem="cot_soybeans", verify_label="Soybeans",
 )
 HOST, DATASET, CONTRACT, CONTRACT_CODE = SPEC.host, SPEC.dataset, SPEC.contract, SPEC.contract_code
 MAX_RESPONSE_BYTES = SPEC.max_response_bytes

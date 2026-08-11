@@ -7,6 +7,7 @@ import json
 import re
 import urllib.parse
 from dataclasses import dataclass
+from datetime import date
 from typing import Any
 
 from connector_fetch_support import fetch_bytes, provenance, publish_pair
@@ -23,6 +24,7 @@ class ContractSpec:
     dataset: str = "72hh-3qpy"
     history_length: int = 160
     minimum_history: int = 150
+    minimum_span_days: int = 1095
     max_response_bytes: int = 4 * 1024 * 1024
 
 
@@ -74,6 +76,15 @@ def build(rows: object, manifest: dict[str, Any], spec: ContractSpec):
             "producer_net": producer_long - producer_short,
         })
     observations.sort(key=lambda row: row["date"])
+    span_days = (
+        date.fromisoformat(observations[-1]["date"])
+        - date.fromisoformat(observations[0]["date"])
+    ).days
+    if span_days < spec.minimum_span_days:
+        raise RuntimeError(
+            f"CFTC {spec.verify_label} response spans {span_days} days; "
+            f"at least {spec.minimum_span_days} are required"
+        )
     as_of = observations[-1]["date"]
     url = source_url(spec)
     payload = {

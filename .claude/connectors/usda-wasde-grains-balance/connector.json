@@ -1,0 +1,43 @@
+{
+  "manifest_version": 2,
+  "schema_version": 1,
+  "id": "usda-wasde-grains-balance",
+  "dataset_id": "usda.waob.wasde-xml",
+  "series_id": "grains.usda-wasde-balance",
+  "series": "USDA WASDE point-in-time supply-and-use balance",
+  "satisfies": ["grains-usda-wasde-balance"],
+  "subjects": ["CORN", "SOYBEANS", "WHEAT"],
+  "provider": "USDA World Agricultural Outlook Board",
+  "authority_class": "government_official",
+  "provider_priority": 100,
+  "acquisition": "official_api",
+  "source_type": "official_data",
+  "tier": 5,
+  "license": "public_domain",
+  "licensing": {"access": "public", "use": "allowed", "redistribution": "allowed", "terms_url": "https://www.usda.gov/policies-and-links"},
+  "host_allowlist": ["www.usda.gov"],
+  "credential_env": [],
+  "release": {"cadence": "monthly", "timezone": "America/New_York", "expected_lag_days": 12, "grace_days": 15, "revision_policy": "revisable"},
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/usda/wasde_balance_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "commodity": "string",
+    "report_month": "string",
+    "rows": [{
+      "table": "string",
+      "scope": "string",
+      "market_year": "string",
+      "estimate_status": "enum:actual|estimate|projection",
+      "forecast_month": "string",
+      "attribute": "string",
+      "value": "float",
+      "unit": "string"
+    }],
+    "source_url": "string"
+  },
+  "units": {"rows[].value": "source_declared"},
+  "minimum_history": {"observations": 30, "path": "rows"}
+}

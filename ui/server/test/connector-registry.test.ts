@@ -310,11 +310,11 @@ check('external_other cannot claim a tier above its conservative tier-9 ceiling'
 const externalAtCeiling = clone(externalTooHigh); externalAtCeiling.tier = 9
 check('external_other parses at tier 9', !!parsedV2(externalAtCeiling))
 
-const missingUnit = clone(referenceRaw); delete missingUnit.units['managed_money.long']
+const missingUnit = clone(referenceRaw); delete missingUnit.units['observations[].managed_money_long']
 check('every numeric output field requires a unit', parsedV2(missingUnit) === null)
 const strayUnit = clone(referenceRaw); strayUnit.units.contract = 'identifier'
 check('a unit cannot be attached to a non-numeric closed field', parsedV2(strayUnit) === null)
-const nonStringUnit = clone(referenceRaw); nonStringUnit.units['managed_money.long'] = 1
+const nonStringUnit = clone(referenceRaw); nonStringUnit.units['observations[].managed_money_long'] = 1
 check('unit values are non-empty strings', parsedV2(nonStringUnit) === null)
 const invalidUnitPath = clone(referenceRaw)
 invalidUnitPath.output_schema['bad path'] = 'float'; invalidUnitPath.units['bad path'] = 'index'
@@ -349,6 +349,7 @@ for (const [label, schema] of [
   check(`compact output_schema rejects ${label}`, parsedV2(invalidSchema) === null)
 }
 const nullableEnum = clone(referenceRaw); nullableEnum.output_schema = { state: 'enum:a|b|null' }; nullableEnum.units = {}
+nullableEnum.minimum_history = { observations: 1 }
 check('compact output_schema accepts an explicitly nullable enum', parsedV2(nullableEnum) !== null)
 const independentSla = clone(referenceRaw)
 independentSla.release.expected_lag_days = 1; independentSla.release.grace_days = 2
@@ -409,7 +410,7 @@ const unitDriftRaw = clone(fallbackRaw)
 for (const key of Object.keys(unitDriftRaw.units)) unitDriftRaw.units[key] = 'lots'
 check('fallback unit drift is rejected',
   honestCoverage([primary, parsedV2(unitDriftRaw)!]).map((c) => c.id).join(',') === primary.id)
-const historyDriftRaw = clone(fallbackRaw); historyDriftRaw.minimum_history.path = 'managed_money'
+const historyDriftRaw = clone(fallbackRaw); historyDriftRaw.minimum_history = { observations: 1 }
 check('fallback minimum-history drift is rejected',
   honestCoverage([primary, parsedV2(historyDriftRaw)!]).map((c) => c.id).join(',') === primary.id)
 const projectionCollisionRaw = clone(fallbackRaw); projectionCollisionRaw.output_path = primaryRaw.output_path
