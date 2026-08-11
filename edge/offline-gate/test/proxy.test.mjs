@@ -108,6 +108,49 @@ test('only exact GET health receives the delayed retry; replay-safe non-API/HEAD
   }
 })
 
+test('canonical GET/HEAD bootstrap reads retry one raw gateway response immediately, including with queries', async () => {
+  for (const [path, method] of [
+    ['/api/swarms?boot=1', 'GET'],
+    ['/api/swarms?boot=1', 'HEAD'],
+    ['/api/swarm?swarm=screener', 'GET'],
+    ['/api/swarm?swarm=screener', 'HEAD'],
+    ['/api/tickers?include=coverage', 'GET'],
+    ['/api/tickers?include=coverage', 'HEAD'],
+  ]) {
+    const req = request(path, { method })
+    const cancelled = []
+    const healthy = new Response(null, { status: 200 })
+    const origin = sequence([gatewayResponse(502, 'first', cancelled), healthy])
+    const sleeps = []
+
+    const result = await proxyOrigin(req, origin.fetch, {
+      budgetMs: 15000,
+      sleepImpl: async (ms) => { sleeps.push(ms) },
+    })
+
+    assert.equal(result.kind, 'response', `${method} ${path}`)
+    assert.equal(result.response, healthy, `${method} ${path}`)
+    assert.equal(origin.requests.length, 2, `${method} ${path}`)
+    assert.notEqual(origin.requests[0], origin.requests[1], `${method} ${path} must use a fresh Request`)
+    assert.equal(origin.requests[1].url, req.url, `${method} ${path} must preserve the query`)
+    assert.equal(origin.requests[1].method, method, `${method} ${path} must preserve the method`)
+    assert.deepEqual(sleeps, [], `${method} ${path} must retry immediately`)
+    assert.deepEqual(cancelled, ['first'], `${method} ${path}`)
+  }
+})
+
+test('canonical bootstrap reads retry once after a fast connection throw', async () => {
+  for (const path of ['/api/swarms', '/api/swarm?swarm=screener', '/api/tickers']) {
+    const healthy = new Response('ok', { status: 200 })
+    const origin = sequence([new Error('connection reset'), healthy])
+    const result = await proxyOrigin(request(path), origin.fetch, { budgetMs: 15000, sleepImpl: noWait })
+
+    assert.equal(result.kind, 'response', path)
+    assert.equal(result.response, healthy, path)
+    assert.equal(origin.requests.length, 2, path)
+  }
+})
+
 test('stateful or unclassified API GETs are not replayed after a gateway response or fast throw', async () => {
   const cancelled = []
   const gatewayOrigin = sequence([
@@ -123,7 +166,7 @@ test('stateful or unclassified API GETs are not replayed after a gateway respons
   assert.deepEqual(cancelled, ['only'])
 
   const thrownOrigin = sequence([new Error('connection reset'), new Response('must not run', { status: 200 })])
-  const thrown = await proxyOrigin(request('/api/swarm'), thrownOrigin.fetch, {
+  const thrown = await proxyOrigin(request('/api/swarm/pulse'), thrownOrigin.fetch, {
     budgetMs: 15000,
     sleepImpl: noWait,
   })
@@ -131,8 +174,20 @@ test('stateful or unclassified API GETs are not replayed after a gateway respons
   assert.equal(thrownOrigin.requests.length, 1)
 })
 
-test('encoded or ambiguous paths fail closed instead of bypassing the API replay guard', async () => {
-  for (const path of ['/%61pi/news/enrich', '/api%2fnews/enrich', '/assets/%ZZ/app.js', '/api']) {
+test('encoded, non-canonical, or lookalike paths fail closed instead of entering the replay allowlist', async () => {
+  for (const path of [
+    '/%61pi/swarms',
+    '/api/%73warms',
+    '/api/swarms%2f',
+    '/api/%73warm?swarm=screener',
+    '/api/t%69ckers',
+    '/api/swarms/',
+    '/api/swarm/pulse',
+    '/api/tickers/ABC',
+    '/api/SWARMS',
+    '/api',
+    '/assets/%ZZ/app.js',
+  ]) {
     const cancelled = []
     const origin = sequence([
       gatewayResponse(502, 'only', cancelled),
@@ -171,10 +226,13 @@ test('exact GET health shares one deadline signal across its delayed retry', asy
   assert.deepEqual(cancelled, ['first'])
 })
 
-test('non-idempotent and SSE gateway responses never retry', async () => {
+test('unsafe methods and SSE never retry, including on allowlisted bootstrap paths', async () => {
   for (const req of [
     request('/api/health', { method: 'POST' }),
     request('/api/health', { headers: { accept: 'text/event-stream' } }),
+    request('/api/swarms', { method: 'POST' }),
+    request('/api/swarm?swarm=screener', { headers: { accept: 'text/event-stream' } }),
+    request('/api/tickers', { method: 'DELETE' }),
   ]) {
     const cancelled = []
     const origin = sequence([gatewayResponse(502, 'only', cancelled), new Response('must not run', { status: 200 })])

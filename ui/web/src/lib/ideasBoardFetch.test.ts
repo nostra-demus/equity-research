@@ -4,12 +4,14 @@ import { useStore } from './store'
 import type { ScreenerBoard } from './types'
 
 const original = api.screenerBoard
+const originalActiveSwarm = useStore.getState().activeSwarm
 const emptyBoard = {
   generated_at: null, inbox: [], signals: [], theses: [], handoffs: [], ideas: [], counts: {}, resumable: [],
 } as ScreenerBoard
 
 try {
   useStore.setState({
+    activeSwarm: 'screener',
     scBoard: null,
     scBoardFetch: { status: 'idle', error: null, lastSuccessAt: null },
   })
@@ -58,4 +60,5 @@ try {
   console.log('ideas board fetch: ready, stale-data error, and cold error states passed')
 } finally {
   api.screenerBoard = original
+  useStore.setState({ activeSwarm: originalActiveSwarm })
 }

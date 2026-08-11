@@ -18,16 +18,19 @@ healthy-but-slow engine is never falsely called offline):
 
 Then:
 - **origin up** → pass the response through **unchanged** (SPA, hashed assets, SSE streams, `POST /api/launch` — all identical to today).
-- **transient fast throw** (connection reset/refused) on the health probe or a non-API document/asset →
-  **one quick retry** before declaring offline (a budget *timeout* does **not** retry — the origin is alive
-  but slow, so retrying only doubles the wait). Other API calls are not replayed merely because they use
-  `GET`: some historical GET routes spend provider budget and persist cache state. Encoded paths also fail
-  closed because the origin may decode them into an API route. `POST` and SSE never retry.
+- **transient fast throw** (connection reset/refused) on the health probe, an exact read-only bootstrap
+  route (`GET`/`HEAD /api/swarms`, `/api/swarm`, or `/api/tickers`; query strings allowed), or a non-API
+  document/asset → **one quick retry** before declaring offline (a budget *timeout* does **not** retry — the
+  origin is alive but slow, so retrying only doubles the wait). Other API calls are not replayed merely
+  because they use `GET`: some historical GET routes spend provider budget and persist cache state.
+  Encoded paths also fail closed because the origin may decode them into an API route. Unsafe methods and
+  SSE never retry.
 - **raw `502`/`504` on exact `GET /api/health`** → wait **750ms**, then make **one fresh retry** under
   the same 8s overall health deadline. This lets a watchdog probe route around one stale, draining
-  Tunnel connector while its healthy replacement is already connected. Replay-safe documents/assets keep
-  one immediate retry with a fresh per-attempt budget. If the health retry also fails, the gate still
-  returns the honest marked offline response below — it never manufactures or caches a success.
+  Tunnel connector while its healthy replacement is already connected. The exact bootstrap reads above
+  and replay-safe documents/assets keep one immediate retry with a fresh per-attempt budget. If the health
+  retry also fails, the gate still returns the honest marked offline response below — it never manufactures
+  or caches a success.
 - **origin down** (Cloudflare `>= 520`, incl. `530`/`1033` tunnel-down — instant, no wait; or a budget timeout) → an **intent-aware** offline response:
   | Request | Response |
   |---|---|

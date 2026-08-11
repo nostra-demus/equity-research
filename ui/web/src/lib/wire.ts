@@ -6,7 +6,7 @@
 // Rules of the contract (ui/web/DESIGN.md "wire component contract", enforced by
 // ui/server/test/wire-purity.test.ts):
 //  - wire components read this config via useWireConfig() (components/wire/WireContext.tsx);
-//  - they branch on CAPABILITIES (flow / groupBy / eventScope / pulse), never on swarm ids;
+//  - they branch on CAPABILITIES (flow / gauntlet / groupBy / eventScope / pulse), never on swarm ids;
 //  - a new wire feature must be expressible as manifest config, or it lives in a swarm-specific
 //    wrapper outside the shared tree.
 //
@@ -19,8 +19,10 @@ import { extractCommodities } from './taxonomy'
 export interface WireConfig {
   /** provider identity — for keying caches/persistence ONLY, never for behavior branches */
   swarmId: string
-  /** the grandfathered flow stage (the screener): gauntlet CTA, board hooks, sweep controls */
+  /** full-stage flow composition; swarm-specific actions still require an explicit capability */
   flow: boolean
+  /** this wrapper owns the gauntlet/Ideas/paid sweep actions; layout alone never grants them */
+  gauntlet: boolean
   /** server-side scope clause appended to feed/search/facets/themes queries (e.g. 'commodity') */
   eventScope?: string
   /** 'subject' => the rail replaces scope chips with the swarm's canonical subject chips */
@@ -47,7 +49,7 @@ const VIEWS = ['themes', 'ranked', 'latest'] as const
 export function deriveWireConfig(meta: SwarmMeta | undefined, subjects: string[] = []): WireConfig | null {
   if (!meta) return null
   if (meta.layout === 'flow') {
-    return { swarmId: meta.id, flow: true, groupBy: null, subjects: [], pulse: false, defaultView: 'latest' }
+    return { swarmId: meta.id, flow: true, gauntlet: false, groupBy: null, subjects: [], pulse: false, defaultView: 'latest' }
   }
   const w = meta.wire
   if (!w) return null
@@ -55,6 +57,7 @@ export function deriveWireConfig(meta: SwarmMeta | undefined, subjects: string[]
   return {
     swarmId: meta.id,
     flow: false,
+    gauntlet: false,
     eventScope: w.eventScope || undefined,
     groupBy: w.groupBy === 'subject' ? 'subject' : null,
     subjectField: w.subjectField || undefined,

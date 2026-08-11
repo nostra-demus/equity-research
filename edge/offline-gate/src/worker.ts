@@ -24,12 +24,13 @@
 //   - everything else (other /api/*, documents, assets): a generous budget that covers a cold engine
 //     start + the tunnel hop + heavy JSON under load.
 // A genuine Cloudflare origin-down (status >= 520) is still instant-offline with no wait. A transient
-// fast throw (connection reset/refused) gets ONE quick retry only for the health probe and non-API
+// fast throw (connection reset/refused) gets ONE quick retry only for the health probe, the exact read-only
+// bootstrap routes (GET/HEAD /api/swarms, /api/swarm, /api/tickers; queries allowed), and non-API
 // documents/assets; method alone is not enough because some historical GET API routes have side effects.
 // A budget TIMEOUT does not retry (the origin is alive but slow — retrying just doubles the wait). Raw
 // 502/504 follows the same narrow allowlist; exact GET /api/health waits 750ms first so a watchdog probe can
-// route around a stale, draining Tunnel connector. Both health attempts share ONE deadline, and other API
-// calls, POST, and SSE are never replayed.
+// route around a stale, draining Tunnel connector. Both health attempts share ONE deadline; the bootstrap
+// reads and documents/assets retry immediately, while other API calls, unsafe methods, and SSE never replay.
 import OFFLINE_HTML from '../offline.html'
 import { STATE_VERSION, initialState, interpretProbe, decide } from './monitor.mjs'
 import { alertText, sendAlert } from './alert.mjs'
@@ -225,8 +226,9 @@ export default {
     const cls = classifyRequest(request)
     const budget = budgetFor(cls)
 
-    // proxyOrigin constructs a fresh Request for its one safe retry, while one AbortController deadline
-    // covers the complete sequence. Successful responses are always the actual origin Response.
+    // proxyOrigin constructs a fresh Request for any permitted retry. Exact GET health shares one
+    // AbortController deadline across its backoff + retry; other permitted reads retain their per-attempt
+    // budget. Successful responses are always the actual origin Response.
     const result = await proxyOrigin(request, fetch, { budgetMs: budget })
     return result.kind === 'response' ? result.response : offline(request)
   },
