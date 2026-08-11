@@ -85,7 +85,8 @@ for commodity in CONTRACTS:
     }
     assert all(lenses.values())
     assert not re.search(
-        r"(?i)eudr|export quota|biofuel mandate|farmgate|living income|china reserve|farm support|crude|grinding",
+        r"(?i)\b(?:eudr|export[\s_-]+quota|biofuel[\s_-]+mandate|farmgate|"
+        r"living[\s_-]+income|china[\s_-]+reserve|farm[\s_-]+support|crude|grinding)\b",
         lenses["Macro drivers"].group(1),
     ), f"{commodity}: macro lens duplicates another owner"
     relative = {
