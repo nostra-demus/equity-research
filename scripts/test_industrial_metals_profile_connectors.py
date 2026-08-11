@@ -112,7 +112,8 @@ assert any(row["need"] == "aluminium-inventory-accessibility-opacity" for row in
 shared = all_manifests["federal-reserve-broad-usd"]
 assert shared["series_id"] == "macro.broad-usd-index"
 assert set(shared["subjects"]) == {
-    "ALUMINIUM", "COPPER", "CORN", "CRUDE-OIL", "GOLD", "SOYBEANS", "WHEAT",
+    "ALUMINIUM", "COCOA", "COFFEE", "COPPER", "CORN", "COTTON", "CRUDE-OIL",
+    "GOLD", "SOYBEANS", "SUGAR", "WHEAT",
 }
 cftc = all_manifests["cftc-cot-copper"]
 assert cftc["dataset_id"] == "cftc.disaggregated-cot-futures-only"

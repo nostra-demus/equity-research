@@ -152,7 +152,10 @@ macro_agent = open(os.path.join(
 assert "For grains, own only broad-USD, producer-FX and non-policy input-cost context" in macro_agent
 assert "Gold's safe-haven/geopolitical-demand lens" in macro_agent
 
-expected_subjects = {"ALUMINIUM", "COPPER", "CORN", "CRUDE-OIL", "GOLD", "SOYBEANS", "WHEAT"}
+expected_subjects = {
+    "ALUMINIUM", "COCOA", "COFFEE", "COPPER", "CORN", "COTTON", "CRUDE-OIL",
+    "GOLD", "SOYBEANS", "SUGAR", "WHEAT",
+}
 assert set(all_manifests["federal-reserve-broad-usd"]["subjects"]) == expected_subjects
 oni = all_manifests["noaa-cpc-oni"]
 assert {"SOYBEAN", "SOYBEANS"} <= set(oni["subjects"])

@@ -153,7 +153,8 @@ assert bls_manifest["credential_env"] == [] and bls_manifest["host_allowlist"] =
 shared_usd = manifests["federal-reserve-broad-usd"]
 assert shared_usd["series_id"] == "macro.broad-usd-index"
 assert set(shared_usd["subjects"]) == {
-    "GOLD", "CRUDE-OIL", "COPPER", "ALUMINIUM", "CORN", "SOYBEANS", "WHEAT",
+    "ALUMINIUM", "COCOA", "COFFEE", "COPPER", "CORN", "COTTON", "CRUDE-OIL",
+    "GOLD", "SOYBEANS", "SUGAR", "WHEAT",
 }
 
 print("PASS: Gold profile semantic coverage, lawful route reuse and WILTW runtime exclusion")

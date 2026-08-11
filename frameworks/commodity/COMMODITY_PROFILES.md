@@ -94,15 +94,17 @@ fallback: it requires an appropriate licence, so the engine records absence inst
 **Applicable lenses (apply ONLY these):**
 - Market structure: ICE #11 curve (backwardation = near-term tightness; contango = ample supply and roll
   drag on a long ETF); the #11↔#5 white premium.
+- Cross-asset regime: crude/sugar as one ethanol-parity confirmation cluster; it cannot also cast the
+  physical mill-allocation vote.
 - Supply/demand: production by Brazil (Centre-South), India, Thailand, EU (supply) vs food + ethanol
   demand; the balance is a **global surplus/deficit** and **stocks-to-use ratio** (the key buffer).
 - Weather/seasonality (a DOMINANT lens): **India monsoon** (IMD rainfall vs the long-period average,
   reservoir levels — drives Indian cane), **Brazil Centre-South** cane weather + harvest pace (UNICA
   bi-weekly), and the **ENSO (El Niño / La Niña)** signal. Harvest calendars: Brazil C-S ~Apr–Nov,
   India/Thailand ~Oct–Apr.
-- Macro drivers: **crude oil / ethanol parity** — Brazilian mills flex cane between sugar and ethanol
-  with crude + domestic gasoline, so energy prices move sugar supply; **export policy** (India export
-  quotas/bans, Thailand); **Brazilian real (BRL)** — a weak BRL pushes Brazil to export more sugar.
+- Supply security: dated export quotas/bans, biofuel mandates and verified rerouting through the
+  accessible-supply bridge.
+- Macro drivers: the broad **US dollar**, producer FX (BRL, INR, THB) and non-policy freight/input costs.
 - Positioning/flows: **ICE #11 managed-money net length (CFTC COT)**; sugar-ETF shares outstanding.
 - Valuation/fair value: cost-of-production floors (Brazil C-S cash cost) and the ethanol-parity price
   as a soft floor/ceiling; treat as a range.
@@ -122,6 +124,42 @@ ISMA, IMD (monsoon), ICE (prices/curve), CFTC COT, EIA (crude/ethanol).
 **Recurring reports (catalysts):** USDA WASDE (monthly) + semi-annual Sugar & Sweeteners Outlook; UNICA
 Centre-South bi-weekly cane/sugar/ethanol data; Conab crop surveys; India monsoon onset + progress
 bulletins (IMD, Jun–Sep) and export-policy notifications; weekly CFTC COT; ISO quarterly market outlook.
+
+**Family-specific physical-market rules:** align raw/white sugar, crop year, polarization, location, unit,
+currency and contract month before comparing prices. `commodity-demand-inventory` owns observed mill cane
+allocation and realised food/ethanol use; `commodity-supply-security` owns mandates, export quotas/bans and
+routing, so policy cannot cast a second physical vote. Weather must be yield-weighted and stage-aligned.
+Production and the global balance share bridge inputs but cannot duplicate one output signal. Low origin
+coverage, stale mill data or conflicting estimates trigger the supply-opacity cap.
+
+**Required semantic series (profile-owned; connector IDs are deliberately absent):**
+
+| Need ID | Stable series ID | Owner orb | Required history / freshness | Lawful source policy |
+|---|---|---|---|---|
+| `sugar-managed-money-positioning` | `sugar.managed-money-positioning` | commodity-positioning-flows | weekly; ≥3 years and current ICE Sugar No. 11 COT observation | CFTC public API; exact SUGAR NO. 11 futures-only disaggregated contract |
+| `sugar-fund-etn-flows` | `sugar.fund-etn-flows` | commodity-positioning-flows | weekly current lawful CANE fund shares/AUM and observable listed sugar-ETN issuance or flows | issuer/sponsor primary holdings and share/notes data only; if lawful history is unavailable mark manual or unavailable, never infer flows from price |
+| `climate-enso-oni` | `climate.enso.oni` | commodity-weather-seasonality | monthly; ≥30 years of dated ONI history | NOAA CPC observed ONI only; it cannot substitute for regional weather or a probabilistic outlook |
+| `macro-broad-usd-index` | `macro.broad-usd-index` | commodity-macro-drivers | daily; ≥3 years for sugar/USD regimes | reuse one Federal Reserve/FRED semantic series; no commodity-specific clone |
+| `sugar-trade-fx` | `sugar.trade-fx` | commodity-macro-drivers | daily; ≥3 years of producer BRL/INR/THB against USD | primary central-bank or lawful market history with exact FX bases and roles |
+| `sugar-current-price` | `sugar.current-price` | commodity-price-curve | current front-month ICE Sugar No. 11 quote | reuse swarm pulse quote transport (`@SB.1`); label US¢/lb futures |
+| `sugar-price-history` | `sugar.price-history` | commodity-price-curve | point-in-time ICE No. 11 close history with source identity | reuse lawful shared market history for `@SB.1`; continuous back-adjusted futures |
+| `sugar-crude-price-history` | `sugar.crude-price-history` | commodity-cross-asset-regime | point-in-time WTI history aligned to sugar | reuse lawful `@CL.1` history; crude is one ethanol-parity confirmation, not physical cane allocation |
+| `sugar-ice-forward-curve` | `sugar.ice-forward-curve` | commodity-price-curve | current No. 11 old/new-crop settlements with ≥3 years of snapshots | lawful ICE settlements with exact contracts; otherwise unavailable |
+| `sugar-white-premium` | `sugar.white-premium` | commodity-price-curve | current aligned No. 11/No. 5 white premium net of conversion and freight | lawful ICE prices with exact contract months and units |
+| `sugar-regional-physical-basis` | `sugar.regional-physical-basis` | commodity-price-curve | current Brazil/India/Thailand raw-sugar physical basis aligned by grade, location, unit, FX and contract month | primary producer/market authority or licensed lawful quotations; otherwise manual or unavailable |
+| `sugar-ice-delivery-pressure` | `sugar.ice-delivery-pressure` | commodity-price-curve | current ICE No. 11 delivery notices, load-out queue and concentration by delivery point | lawful ICE delivery notices; preserve report date and contract identity, otherwise unavailable |
+| `sugar-accessible-physical-inventory` | `sugar.accessible-physical-inventory` | commodity-demand-inventory | current exchange-deliverable and independently accessible raw-sugar inventory by location | primary exchange/warehouse/market-authority reports; do not treat national stocks as globally accessible |
+| `sugar-global-balance-stocks-use` | `sugar.global-balance-stocks-use` | commodity-demand-inventory | monthly/quarterly; ≥10 years of global balance and accessible stocks-to-use | USDA/ISO primary releases with country coverage, revisions and inaccessible stocks separated |
+| `sugar-brazil-mill-allocation` | `sugar.brazil-mill-allocation` | commodity-demand-inventory | bi-weekly current cane crush, sugar mix and ethanol output | UNICA primary releases; physical allocation owns the demand/supply split and policy cannot duplicate it |
+| `sugar-weather-phenology` | `sugar.weather-phenology` | commodity-weather-seasonality | current plus ≥30 years of yield-weighted India/Brazil/Thailand weather aligned to crop stage | primary meteorological observations/forecasts with geography, run time and expiry |
+| `sugar-production` | `sugar.production` | commodity-supply | current cane area, yield, recovery and sugar output by major origin with dispersion | CONAB/USDA/national primary crop releases; do not recount mill allocation |
+| `sugar-physical-demand` | `sugar.physical-demand` | commodity-demand-inventory | current food use, ethanol offtake and destination imports | primary customs/industry data; separate realised use from mandates and announced purchases |
+| `sugar-policy-routing` | `sugar.policy-routing` | commodity-supply-security | current dated export quotas/bans, biofuel mandates and verified rerouting | primary government/customs evidence with effective date and expiry; bridge to globally accessible supply |
+| `sugar-cost-ethanol-parity-range` | `sugar.cost-ethanol-parity-range` | commodity-cost-curve | current marginal cash-cost and ethanol/export-parity range | primary farm/mill costs and lawful energy/FX inputs; separate observed price, model range and market expectation |
+
+Declaring these rows does not make them usable. CFTC, ONI, USD and a quote cannot replace the physical
+balance, mill allocation, crop-stage weather or accessible-export bridge. Missing required physical evidence
+keeps both horizons not assessable and forces Research More.
 
 ---
 
@@ -663,14 +701,14 @@ physical evidence keeps both horizons not assessable and forces Research More.
   weather + biennial-bearing cycle plus export FX. Classify the thesis `Commodity-conditional`.
 
 **Applicable lenses (apply ONLY these):**
-- Market structure: the ICE Arabica curve; the **Arabica–Robusta spread** (substitution); **certified
-  exchange stocks** (the buffer).
+- Market structure: the ICE Arabica curve and delivery/quality basis.
+- Cross-asset regime: the unit/FX-aligned **Arabica–Robusta spread** as one substitution cluster.
 - Supply/demand: Brazil + Vietnam + Colombia production (the biennial "on/off" cycle) vs global
   consumption; ICO balance; certified stocks.
 - Weather/seasonality (DOMINANT): **Brazil frost (May–Aug)** and drought at flowering (Sep–Oct), Vietnam
   monsoon; the biennial-bearing year.
-- Macro drivers: the **Brazilian real (BRL — a weak BRL pushes Brazil to sell)**, Vietnam dong, freight,
-  the EU deforestation regulation (EUDR).
+- Supply security: dated EUDR/compliance rules, port constraints and verified rerouting.
+- Macro drivers: the broad **US dollar**, producer FX (BRL, VND, COP) and non-policy freight/input costs.
 - Positioning/flows: ICE Arabica **managed-money net length (CFTC COT)**; JO ETN flows.
 - Valuation/fair value: Brazilian cash cost + export-parity; a range.
 
@@ -684,6 +722,40 @@ GSO, ICE, CFTC COT, INMET (Brazil weather).
 **Recurring reports (catalysts):** USDA FAS semi-annual coffee reports; CONAB Brazil crop surveys; Cecafé
 monthly exports; ICO monthly report; the Brazil frost season (May–Aug); CFTC COT.
 
+**Family-specific physical-market rules:** align Arabica/Robusta grade, defects, location, unit, FX and
+contract month before computing spreads. Certified ICE stock is an accessible buffer, not total inventory.
+Weather must be yield-weighted and tied to flowering, cherry development, frost or harvest. The production
+orb owns crop output and the biennial cycle; demand/inventory owns exports, consumption and certified stocks;
+supply security alone owns EUDR/compliance and routing. Low country coverage or stale estimates trigger the
+supply-opacity cap.
+
+**Required semantic series (profile-owned; connector IDs are deliberately absent):**
+
+| Need ID | Stable series ID | Owner orb | Required history / freshness | Lawful source policy |
+|---|---|---|---|---|
+| `coffee-managed-money-positioning` | `coffee.managed-money-positioning` | commodity-positioning-flows | weekly; ≥3 years and current ICE Coffee C COT observation | CFTC public API; exact COFFEE C futures-only disaggregated contract |
+| `coffee-fund-etn-flows` | `coffee.fund-etn-flows` | commodity-positioning-flows | weekly current lawful JO and other listed coffee-vehicle notes/shares, AUM and observable flows | issuer/sponsor primary data only; if lawful history is unavailable mark manual or unavailable, never infer flows from price |
+| `climate-enso-oni` | `climate.enso.oni` | commodity-weather-seasonality | monthly; ≥30 years of dated ONI history | NOAA CPC observed ONI only; it cannot substitute for regional weather or a probabilistic outlook |
+| `macro-broad-usd-index` | `macro.broad-usd-index` | commodity-macro-drivers | daily; ≥3 years for coffee/USD regimes | reuse one Federal Reserve/FRED semantic series; no commodity-specific clone |
+| `coffee-trade-fx` | `coffee.trade-fx` | commodity-macro-drivers | daily; ≥3 years of producer BRL/VND/COP against USD | primary central-bank or lawful market history with exact FX bases and roles |
+| `coffee-current-price` | `coffee.current-price` | commodity-price-curve | current front-month ICE Coffee C quote | reuse swarm pulse quote transport (`@KC.1`); label US¢/lb futures |
+| `coffee-price-history` | `coffee.price-history` | commodity-price-curve | point-in-time ICE Coffee C close history with source identity | reuse lawful shared market history for `@KC.1`; continuous back-adjusted futures |
+| `coffee-ice-forward-curve` | `coffee.ice-forward-curve` | commodity-price-curve | current Coffee C settlements with ≥3 years of curve snapshots | lawful ICE settlements with exact contracts; otherwise unavailable |
+| `coffee-arabica-robusta-spread` | `coffee.arabica-robusta-spread` | commodity-cross-asset-regime | daily; ≥3 years of unit/FX-aligned Arabica-Robusta spread history and a current observation | lawful ICE prices; one substitution cluster after conversion to a common unit |
+| `coffee-delivery-quality-basis` | `coffee.delivery-quality-basis` | commodity-price-curve | current Coffee C physical basis by deliverable grade, origin and location | lawful ICE/primary trade quotations with grade, defects, location, unit and contract month; otherwise unavailable |
+| `coffee-delivery-pressure` | `coffee.delivery-pressure` | commodity-price-curve | current ICE Coffee C delivery notices, pending grading and load-out pressure by location | lawful ICE delivery/warehouse reports with contract and report date; otherwise unavailable |
+| `coffee-certified-stocks` | `coffee.certified-stocks` | commodity-demand-inventory | daily current ICE certified stocks by grade/location and pending grading | lawful ICE warehouse reports; preserve revisions and never infer off-exchange stocks |
+| `coffee-global-balance` | `coffee.global-balance` | commodity-demand-inventory | quarterly/semiannual; ≥10 years of production, consumption and stocks | ICO/USDA primary balances with vintage and Arabica/Robusta split |
+| `coffee-export-shipments` | `coffee.export-shipments` | commodity-demand-inventory | monthly current Brazil/Vietnam/Colombia shipments by destination | Cecafe/national customs/ICO primary data; announced sales cannot replace shipment |
+| `coffee-weather-phenology` | `coffee.weather-phenology` | commodity-weather-seasonality | current plus ≥30 years of yield-weighted frost/drought/monsoon weather aligned to crop stage | primary meteorological observations/forecasts with geography, run time and expiry |
+| `coffee-production-cycle` | `coffee.production-cycle` | commodity-supply | current area, yield, tree age and biennial-cycle output by major origin with dispersion | CONAB/USDA/national primary crop releases; distinguish observed crop from forecast |
+| `coffee-policy-routing` | `coffee.policy-routing` | commodity-supply-security | current EUDR/compliance, port constraints and verified rerouting | primary regulator/customs/port evidence with effective date and expiry |
+| `coffee-cost-export-parity-range` | `coffee.cost-export-parity-range` | commodity-cost-curve | current marginal farm cash-cost and export-parity range | primary farm budgets and lawful freight/FX; separate observed price, model range and market expectation |
+
+Declaring these rows does not make them usable. CFTC, ONI, USD and a quote cannot replace certified-stock,
+crop-stage weather, export shipment or major-origin crop evidence. Missing required physical evidence keeps
+both horizons not assessable and forces Research More.
+
 ---
 
 ## COCOA
@@ -696,14 +768,15 @@ monthly exports; ICO monthly report; the Brazil frost season (May–Aug); CFTC C
   disease, weather, and aging trees; a recent structural deficit. Classify the thesis `Commodity-conditional`.
 
 **Applicable lenses (apply ONLY these):**
-- Market structure: the ICE curve (deep backwardation in the recent deficit); the NY–London spread;
-  **exchange (certified) stocks + the stocks-to-grindings ratio** (the buffer).
+- Market structure: the ICE US curve and delivery/quality basis.
+- Cross-asset regime: the FX/unit-aligned NY–London spread as one regional-quality confirmation cluster.
 - Supply/demand: Ivory Coast + Ghana + Ecuador + Nigeria production (**port arrivals** the key tell),
   disease (swollen shoot, black pod), tree age; demand = **grindings** (Europe/Asia/N. America); the deficit/surplus.
 - Weather/seasonality (DOMINANT): West Africa main crop (Oct–Mar) + mid crop (Apr–Sep); **Harmattan** dry
   season (Dec–Feb); rainfall + disease pressure.
-- Macro drivers: Ivory Coast / Ghana farmgate pricing + the **Living Income Differential**, GBP/USD
-  (NY–London), the grinding-demand cycle.
+- Supply security: dated Ivory Coast/Ghana farmgate and Living Income Differential rules, export controls
+  and verified rerouting.
+- Macro drivers: the broad **US dollar**, GBP/USD and producer GHS/XOF currency context.
 - Positioning/flows: ICE **managed-money net length (CFTC COT)**; NIB ETN flows.
 - Valuation/fair value: farmgate + replacement economics; a range (recent prices sit far above historical
   cost — deficit-driven, label it as such).
@@ -716,6 +789,40 @@ Cocobod, port-arrivals data, ICE, CFTC COT.
 
 **Recurring reports (catalysts):** ICCO quarterly bulletin + supply/demand estimates; Ivory Coast weekly
 port arrivals; quarterly grindings (ECA Europe, NCA N. America, Asia); the Harmattan season (Dec–Feb); CFTC COT.
+
+**Family-specific physical-market rules:** align NY/London grade, delivery location, unit, GBP/USD and
+contract month before comparing prices. Port arrivals are realised flow, not the crop itself; production owns
+crop output while demand/inventory owns arrivals, grindings and accessible stocks. Weather/disease evidence
+must be regional and crop-stage specific. Supply security alone owns farmgate/LID rules, export controls and
+routing. High concentration and uncertain farm surveys feed the supply-opacity cap rather than false precision.
+
+**Required semantic series (profile-owned; connector IDs are deliberately absent):**
+
+| Need ID | Stable series ID | Owner orb | Required history / freshness | Lawful source policy |
+|---|---|---|---|---|
+| `cocoa-managed-money-positioning` | `cocoa.managed-money-positioning` | commodity-positioning-flows | weekly; ≥3 years and current ICE Cocoa COT observation | CFTC public API; exact COCOA futures-only disaggregated contract |
+| `cocoa-fund-etn-flows` | `cocoa.fund-etn-flows` | commodity-positioning-flows | weekly current lawful NIB and other listed cocoa-vehicle notes/shares, AUM and observable flows | issuer/sponsor primary data only; if lawful history is unavailable mark manual or unavailable, never infer flows from price |
+| `climate-enso-oni` | `climate.enso.oni` | commodity-weather-seasonality | monthly; ≥30 years of dated ONI history | NOAA CPC observed ONI only; it cannot substitute for West African weather |
+| `macro-broad-usd-index` | `macro.broad-usd-index` | commodity-macro-drivers | daily; ≥3 years for cocoa/USD regimes | reuse one Federal Reserve/FRED semantic series; no commodity-specific clone |
+| `cocoa-trade-fx` | `cocoa.trade-fx` | commodity-macro-drivers | daily; ≥3 years of GBP/USD and producer GHS/XOF roles | primary central-bank or lawful market history; note XOF peg and exact bases |
+| `cocoa-current-price` | `cocoa.current-price` | commodity-price-curve | current front-month ICE US Cocoa quote | reuse swarm pulse quote transport (`@CC.1`); label USD/t futures |
+| `cocoa-price-history` | `cocoa.price-history` | commodity-price-curve | point-in-time ICE US Cocoa close history with source identity | reuse lawful shared market history for `@CC.1`; continuous back-adjusted futures |
+| `cocoa-ice-forward-curve` | `cocoa.ice-forward-curve` | commodity-price-curve | current ICE US settlements with ≥3 years of curve snapshots | lawful ICE settlements with exact contracts; otherwise unavailable |
+| `cocoa-ny-london-spread` | `cocoa.ny-london-spread` | commodity-cross-asset-regime | daily; ≥3 years of FX/unit-aligned NY-London spread history and a current observation | lawful ICE prices; one regional-quality cluster after GBP/USD conversion |
+| `cocoa-delivery-quality-basis` | `cocoa.delivery-quality-basis` | commodity-price-curve | current ICE cocoa physical basis by deliverable grade, origin and location | lawful ICE/primary trade quotations with grade, location, unit, FX and contract month; otherwise unavailable |
+| `cocoa-delivery-pressure` | `cocoa.delivery-pressure` | commodity-price-curve | current ICE cocoa delivery notices and load-out pressure by location | lawful ICE delivery/warehouse reports with contract and report date; otherwise unavailable |
+| `cocoa-certified-stocks` | `cocoa.certified-stocks` | commodity-demand-inventory | daily current exchange stocks by location/grade | lawful ICE warehouse reports; do not infer off-exchange inventories |
+| `cocoa-stocks-grindings` | `cocoa.stocks-grindings` | commodity-demand-inventory | quarterly; ≥10 years of stocks-to-grindings and regional grindings | ICCO/ECA/NCA/CAA primary releases with revisions and region coverage |
+| `cocoa-port-arrivals` | `cocoa.port-arrivals` | commodity-demand-inventory | weekly current Ivory Coast/Ghana arrivals and exports | primary regulator/port/customs data; distinguish arrivals from crop forecast |
+| `cocoa-weather-phenology` | `cocoa.weather-phenology` | commodity-weather-seasonality | current plus ≥30 years of yield-weighted rainfall and Harmattan weather aligned to crop stage | primary meteorological observations/forecasts with geography, run time and expiry |
+| `cocoa-disease-pressure` | `cocoa.disease-pressure` | commodity-weather-seasonality | current regional swollen-shoot, black-pod and other material disease incidence with affected area | primary crop regulator/agronomic surveillance with geography, observation date and expiry; weather cannot substitute |
+| `cocoa-production` | `cocoa.production` | commodity-supply | current area, yield, tree age and output by major origin with dispersion | ICCO/national regulator/USDA primary releases; disease adjustments must be explicit |
+| `cocoa-farmgate-policy-routing` | `cocoa.farmgate-policy-routing` | commodity-supply-security | current dated farmgate/LID rules, export controls and verified rerouting | Conseil du Cafe-Cacao/Cocobod/government/customs evidence with effective date and expiry |
+| `cocoa-cost-replacement-range` | `cocoa.cost-replacement-range` | commodity-cost-curve | current farmgate, rehabilitation and replacement-economics range | primary farm/regulator costs; separate observed price, deficit premium, model range and market expectation |
+
+Declaring these rows does not make them usable. CFTC, ONI, USD and a quote cannot replace port arrivals,
+grindings, certified stocks, crop-stage weather or disease-adjusted supply. Missing required physical evidence
+keeps both horizons not assessable and forces Research More.
 
 ---
 
@@ -730,12 +837,13 @@ port arrivals; quarterly grindings (ECA Europe, NCA N. America, Asia); the Harma
   Classify the thesis `Commodity-conditional`.
 
 **Applicable lenses (apply ONLY these):**
-- Market structure: the ICE curve; the **ICE–Cotlook A basis**; certified stocks.
+- Market structure: the ICE curve and **ICE–Cotlook A basis** aligned by grade and delivery location.
+- Cross-asset regime: crude/polyester substitution as one confirmation cluster, not physical cotton demand.
 - Supply/demand: US + India + China + Brazil production vs mill use + China imports/reserve policy;
   USDA WASDE; stocks-to-use (**China's reserve** is the big swing).
 - Weather/seasonality (DOMINANT): US (Texas / West) planting + drought, India monsoon, harvest; ENSO.
-- Macro drivers: **apparel / consumer demand + global growth**, China reserve + import policy,
-  polyester/crude substitution, INR/BRL FX, US farm support.
+- Supply security: dated China reserve/import policy, farm support, restrictions and verified rerouting.
+- Macro drivers: the broad **US dollar**, global activity and producer/importer FX (INR, BRL, CNY).
 - Positioning/flows: ICE **managed-money net length (CFTC COT)**; BAL ETN flows.
 - Valuation/fair value: cost-of-production + the polyester-substitution ceiling; a range.
 
@@ -747,3 +855,38 @@ port arrivals; quarterly grindings (ECA Europe, NCA N. America, Asia); the Harma
 
 **Recurring reports (catalysts):** USDA WASDE (monthly) + weekly Export Sales; ICAC monthly; the Cotlook A
 Index (daily); US Crop Progress; CFTC COT.
+
+**Family-specific physical-market rules:** align grade, staple, location, bale/weight unit, FX and crop year
+before comparing ICE, Cotlook or China prices. China reserve stocks remain separate from accessible stocks.
+Production owns area/abandonment/yield/output; demand/inventory owns mill use, shipments and the balance;
+supply security owns reserve/import policy, support and routing. Weather must be yield-weighted and aligned to
+planting, boll development and harvest. Polyester/crude is one cross-asset confirmation, not cotton demand.
+
+**Required semantic series (profile-owned; connector IDs are deliberately absent):**
+
+| Need ID | Stable series ID | Owner orb | Required history / freshness | Lawful source policy |
+|---|---|---|---|---|
+| `cotton-managed-money-positioning` | `cotton.managed-money-positioning` | commodity-positioning-flows | weekly; ≥3 years and current ICE Cotton No. 2 COT observation | CFTC public API; exact COTTON NO. 2 futures-only disaggregated contract |
+| `cotton-fund-etn-flows` | `cotton.fund-etn-flows` | commodity-positioning-flows | weekly current lawful BAL and other listed cotton-vehicle notes/shares, AUM and observable flows | issuer/sponsor primary data only; if lawful history is unavailable mark manual or unavailable, never infer flows from price |
+| `climate-enso-oni` | `climate.enso.oni` | commodity-weather-seasonality | monthly; ≥30 years of dated ONI history | NOAA CPC observed ONI only; it cannot substitute for regional crop weather |
+| `macro-broad-usd-index` | `macro.broad-usd-index` | commodity-macro-drivers | daily; ≥3 years for cotton/USD regimes | reuse one Federal Reserve/FRED semantic series; no commodity-specific clone |
+| `macro-global-activity-demand-proxy` | `macro.global-activity-demand-proxy` | commodity-macro-drivers | monthly; ≥10 years with release vintage | primary global industrial-production/trade series; licensed PMI remains contextual |
+| `cotton-trade-fx` | `cotton.trade-fx` | commodity-macro-drivers | daily; ≥3 years of producer/importer INR/BRL/CNY against USD | primary central-bank or lawful market history with exact bases and roles |
+| `cotton-current-price` | `cotton.current-price` | commodity-price-curve | current front-month ICE Cotton No. 2 quote | reuse swarm pulse quote transport (`@CT.1`); label US¢/lb futures |
+| `cotton-price-history` | `cotton.price-history` | commodity-price-curve | point-in-time ICE Cotton No. 2 close history with source identity | reuse lawful shared market history for `@CT.1`; continuous back-adjusted futures |
+| `cotton-crude-price-history` | `cotton.crude-price-history` | commodity-cross-asset-regime | point-in-time WTI history aligned to cotton | reuse lawful `@CL.1` history; crude/polyester is one substitution confirmation |
+| `cotton-ice-forward-curve` | `cotton.ice-forward-curve` | commodity-price-curve | current old/new-crop settlements with ≥3 years of curve snapshots | lawful ICE settlements with exact contracts; otherwise unavailable |
+| `cotton-physical-basis` | `cotton.physical-basis` | commodity-price-curve | current ICE-Cotlook A-China basis aligned by grade/unit/FX | lawful Cotlook/exchange/primary quotations; licensed data remains manual or unavailable |
+| `cotton-delivery-pressure` | `cotton.delivery-pressure` | commodity-price-curve | current ICE Cotton No. 2 delivery notices and load-out pressure by certified location | lawful ICE delivery/warehouse reports with contract and report date; otherwise unavailable |
+| `cotton-certified-stocks` | `cotton.certified-stocks` | commodity-demand-inventory | current ICE certified cotton stocks by grade and location | lawful ICE warehouse reports; preserve revisions and do not infer non-certified inventory |
+| `cotton-global-balance-stocks-use` | `cotton.global-balance-stocks-use` | commodity-demand-inventory | monthly; ≥10 years of world balance and stocks-to-use with China reserve separated | USDA official cotton balance with release vintage and revisions |
+| `cotton-export-mill-use` | `cotton.export-mill-use` | commodity-demand-inventory | weekly/monthly current exports, imports and physical mill use | USDA FAS/national customs/ICAC primary data; orders cannot replace shipments or mill consumption |
+| `cotton-weather-phenology` | `cotton.weather-phenology` | commodity-weather-seasonality | current plus ≥30 years of yield-weighted weather aligned to planting, squaring, boll and harvest stages | primary meteorological observations/forecasts with geography, run time and expiry |
+| `cotton-crop-progress` | `cotton.crop-progress` | commodity-weather-seasonality | weekly; ≥10 years of regional planting, condition, boll and harvest progress with current observation | USDA/national primary crop-progress reports aligned by region and crop year; weather cannot substitute |
+| `cotton-production` | `cotton.production` | commodity-supply | current area, abandonment, yield and output by major origin with dispersion | USDA/India/China/Brazil primary releases; do not duplicate balance production |
+| `cotton-policy-routing` | `cotton.policy-routing` | commodity-supply-security | current dated China reserve/import policy, farm support, restrictions and verified rerouting | primary regulator/government/customs evidence with effective date and expiry |
+| `cotton-cost-substitution-range` | `cotton.cost-substitution-range` | commodity-cost-curve | current marginal farm cost and polyester-substitution range | primary farm budgets and lawful polyester/energy/FX inputs; separate observed price, model range and market expectation |
+
+Declaring these rows does not make them usable. CFTC, ONI, USD and a quote cannot replace the cotton
+balance, China reserve split, crop-stage weather, physical basis or mill-use evidence. Missing required
+physical evidence keeps both horizons not assessable and forces Research More.
