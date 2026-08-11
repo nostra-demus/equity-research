@@ -70,7 +70,11 @@ def parse(text: str):
         if seas not in SEASON_END_MONTH:
             continue
         try:
-            parsed = {"season": seas, "year": int(yr), "sst": float(total), "anom": float(anom)}
+            year = int(yr)
+            parsed = {
+                "season": seas, "year": year, "date": observation_date(seas, year),
+                "sst": float(total), "anom": float(anom),
+            }
         except ValueError:
             raise RuntimeError(f"recognized ONI row contains a non-numeric value: {line!r} (fail closed)")
         if (not 1900 <= parsed["year"] <= 2200
@@ -89,30 +93,52 @@ def parse(text: str):
     return rows, rows[-1]
 
 
+def observation_date(season: str, year: int) -> str:
+    month = SEASON_END_MONTH[season]
+    end_year = year + (1 if season == "NDJ" else 0)
+    return f"{end_year:04d}-{month:02d}-01"
+
+
 def as_of_date(latest: dict) -> str:
-    m = SEASON_END_MONTH[latest["season"]]
-    y = latest["year"] + (1 if latest["season"] == "NDJ" else 0)
-    return f"{y:04d}-{m:02d}-01"
+    return latest["date"]
 
 
-def enso_state(anom: float) -> str:
+def anomaly_state(anom: float) -> str:
     if anom >= 0.5:
-        return "el_nino"
+        return "warm_threshold"
     if anom <= -0.5:
-        return "la_nina"
+        return "cool_threshold"
     return "neutral"
+
+
+def episode_state(rows: list[dict], persistence: int = 5) -> str:
+    """Classify an episode only after NOAA's five-overlapping-season persistence test."""
+    latest = anomaly_state(rows[-1]["anom"])
+    if latest == "neutral":
+        return "neutral"
+    run = 0
+    for row in reversed(rows):
+        if anomaly_state(row["anom"]) != latest:
+            break
+        run += 1
+    warm = latest == "warm_threshold"
+    if run >= persistence:
+        return "el_nino" if warm else "la_nina"
+    return "pending_el_nino" if warm else "pending_la_nina"
 
 
 def build(text: str):
     """Pure transform (fetch → payload + sidecar). Separated from I/O so it is unit-testable without network."""
     rows, latest = parse(text)
     asof = as_of_date(latest)
-    state = enso_state(latest["anom"])
+    anomaly = anomaly_state(latest["anom"])
+    state = episode_state(rows)
     payload = {
         "series": MANIFEST["series"],
         "as_of": asof,
-        "latest": {**latest, "enso_state": state},
+        "latest": {**latest, "anomaly_state": anomaly, "episode_state": state},
         "recent": rows[-12:],           # ~1 year of seasons for context
+        "observations": rows,
         "source_url": URL,
     }
     sidecar = {
@@ -129,7 +155,10 @@ def build(text: str):
         "dataset_id": MANIFEST["dataset_id"], "series_id": MANIFEST["series_id"],
         "schema_version": MANIFEST["schema_version"],
         "licensing": MANIFEST["licensing"],
-        "note": f"Latest ONI {latest['anom']:+.2f} → {state} (El Niño ≥ +0.5, La Niña ≤ -0.5).",
+        "note": (
+            f"Latest ONI {latest['anom']:+.2f} ({anomaly}); episode state {state}. "
+            "El Niño/La Niña requires five consecutive overlapping seasons at or beyond ±0.5."
+        ),
     }
     return asof, latest, state, payload, sidecar
 

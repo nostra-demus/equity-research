@@ -5,6 +5,7 @@ import importlib.util
 import json
 import os
 import sys
+from datetime import date, timedelta
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 spec = importlib.util.spec_from_file_location("cftc_gold_fetch", os.path.join(HERE, "fetch.py"))
@@ -14,7 +15,7 @@ from connector_contract import validate_manifest, validate_staged_output  # noqa
 
 
 def row(index: int) -> dict:
-    day = f"2023-{1 + index // 28:02d}-{1 + index % 28:02d}"
+    day = (date(2023, 1, 3) + timedelta(weeks=index)).isoformat()
     return {
         "contract_market_name": "GOLD", "cftc_contract_market_code": "088691",
         "report_date_as_yyyy_mm_dd": day + "T00:00:00.000", "open_interest_all": "300000",
