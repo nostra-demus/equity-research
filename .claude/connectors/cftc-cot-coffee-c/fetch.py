@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+"""Fetch three years of ICE Coffee C positioning from the CFTC public API."""
+from __future__ import annotations
+import os, sys
+SCRIPTS = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))), "scripts")
+if SCRIPTS not in sys.path: sys.path.append(SCRIPTS)
+from cftc_disaggregated_cot import ContractSpec, build as build_contract, fetch as fetch_contract, main as contract_main, source_url as contract_source_url  # noqa: E402
+from connector_fetch_support import load_manifest  # noqa: E402
+MANIFEST = load_manifest(__file__)
+SPEC = ContractSpec(contract="COFFEE C", contract_code="083731", instrument_label="ICE Coffee C", filename_stem="cot_coffee_c", verify_label="Coffee C")
+HOST, DATASET, CONTRACT, CONTRACT_CODE = SPEC.host, SPEC.dataset, SPEC.contract, SPEC.contract_code
+MAX_RESPONSE_BYTES = SPEC.max_response_bytes
+def source_url(): return contract_source_url(SPEC)
+def build(rows): return build_contract(rows, MANIFEST, SPEC)
+def fetch(): return fetch_contract(MANIFEST, SPEC)
+def main(): return contract_main(MANIFEST, SPEC)
+if __name__ == "__main__": raise SystemExit(main())
