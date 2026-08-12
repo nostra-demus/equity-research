@@ -135,6 +135,12 @@ const CLAUSE_UNCERTAIN_SCHEDULE = new RegExp(
   'i',
 )
 const CLAUSE_SEPARATORS = ['.', ';', '!', '?', '|', '\n'] as const
+// Commas and spaced dashes are NOT clause separators — they keep one headline as a single clause — but
+// they DO separate independent facts. The schedule-revision/uncertainty test is scoped to the segment
+// that actually contains the event↔date binding, so an unrelated fact sharing the headline ("Amazon
+// changes CFO, AGM confirmed for 2026-09-09") cannot veto a source-proven date. A bare "-" is never a
+// break: it lives inside ISO dates (2026-09-09) and hyphenated words; only a spaced dash breaks a segment.
+const SEGMENT_BREAKS = [',', ' - ', ' – ', ' — '] as const
 
 function validCalendarDay(year: number, month: number, day: number): boolean {
   if (![year, month, day].every(Number.isInteger) || year < 2000 || month < 1 || month > 12 || day < 1 || day > 31) return false
@@ -231,9 +237,22 @@ function bindingIsNegated(
   window: SourceBoundWindow,
   clause: { start: number; end: number },
 ): boolean {
-  const clauseText = lower.slice(clause.start, clause.end)
-  if (CLAUSE_REVISES_SCHEDULE.test(clauseText) || CLAUSE_UNCERTAIN_SCHEDULE.test(clauseText)) return true
-  const relationStartAt = Math.min(term.index, window.index)
+  // Scope the revise/uncertainty scan to the comma/dash-delimited SEGMENT that holds the event↔date
+  // binding. Testing the whole punctuation-bounded clause let an unrelated fact in another segment
+  // ("Amazon changes CFO, AGM confirmed for <date>") veto a source-proven date via a word like "changes".
+  const bindStart = Math.min(term.index, window.index)
+  const bindEnd = Math.max(term.end, window.end)
+  let segStart = clause.start
+  let segEnd = clause.end
+  for (const brk of SEGMENT_BREAKS) {
+    const left = lower.lastIndexOf(brk, bindStart)
+    if (left >= clause.start && left + brk.length <= bindStart && left + brk.length > segStart) segStart = left + brk.length
+    const right = lower.indexOf(brk, bindEnd)
+    if (right >= bindEnd && right < segEnd) segEnd = right
+  }
+  const segText = lower.slice(segStart, segEnd)
+  if (CLAUSE_REVISES_SCHEDULE.test(segText) || CLAUSE_UNCERTAIN_SCHEDULE.test(segText)) return true
+  const relationStartAt = bindStart
   const priorComma = lower.lastIndexOf(',', relationStartAt)
   const relationStart = Math.max(clause.start, priorComma + 1, relationStartAt - 64)
   const relationEnd = Math.max(term.end, window.end)

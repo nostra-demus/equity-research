@@ -163,6 +163,26 @@ check('dated catalyst evidence is source-bound, complete, valid, and never infer
     ['results_date on 2026-08-06', 'shareholder_meeting on 2026-09-09'],
     'nearby events bind one-to-one to their own nearest dates',
   )
+  // Regression (§17 Catalyst Discipline): a revision/uncertainty word about a DIFFERENT fact in a
+  // separate comma- or spaced-dash segment must NOT veto a source-proven dated catalyst. Before the
+  // segment-scoping fix, "changes"/"revises" (about the CFO or guidance) leaked across the comma and
+  // discarded the AGM date, wrongly charging the missing-catalyst penalty.
+  for (const headline of [
+    'Amazon changes CFO, AGM confirmed for 2026-09-09',
+    'Amazon changes CFO - AGM confirmed for 2026-09-09',
+    'Amazon revises guidance, AGM confirmed for 2026-09-09',
+  ]) {
+    assert.deepEqual(
+      deriveScheduledEventEvidence({ headline }),
+      ['shareholder_meeting on 2026-09-09'],
+      `${headline}: an unrelated revision in another segment cannot suppress the live AGM`,
+    )
+  }
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Amazon postpones AGM, now due 2026-09-09' }),
+    [],
+    'a revision bound to the AGM itself still fails closed even across a comma',
+  )
   assert.deepEqual(
     deriveScheduledEventEvidence({ headline: 'On 2026-08-06, Amazon will report results' }),
     ['results_date on 2026-08-06'],
