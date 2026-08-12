@@ -954,6 +954,13 @@ export function readTopSweep(
     const start = day ? Date.parse(`${day}T00:00:00Z`) : NaN
     return Number.isFinite(start) && start <= ceilingMs && start + 86_400_000 > floorMs
   }
+  const partitionDayImmediatelyPrecedes = (name: string, floorMs: number): boolean => {
+    if (!Number.isFinite(floorMs)) return false
+    const day = name.match(/^(\d{4}-\d{2}-\d{2})_sweep\.json$/)?.[1]
+    const start = day ? Date.parse(`${day}T00:00:00Z`) : NaN
+    const floorDayStart = Math.floor(floorMs / 86_400_000) * 86_400_000
+    return Number.isFinite(start) && start + 86_400_000 === floorDayStart
+  }
 
   // Preserve the existing fail-closed boundary for the newest partition. An older file cannot stand in
   // for current state when the newest write is unreadable: it may contain a consume/dismiss action that
@@ -1029,7 +1036,13 @@ export function readTopSweep(
   const humanFloor = freshness ? freshness.nowMs - Math.max(1, freshness.maxAgeMs) : Number.NEGATIVE_INFINITY
   const humanCeiling = freshness ? freshness.nowMs + Math.max(0, freshness.futureSkewMs ?? 5 * 60_000) : Number.POSITIVE_INFINITY
   const humanFiles = freshness
-    ? [sweepFiles[0], ...sweepFiles.slice(1).filter((name) => partitionDayOverlaps(name, humanFloor, humanCeiling))].slice(0, humanSweepLookback)
+    ? [sweepFiles[0], ...sweepFiles.slice(1).filter((name) => (
+      partitionDayOverlaps(name, humanFloor, humanCeiling)
+      // A floor just after midnight excludes the preceding partition by a few minutes even though a
+      // consume/dismiss at 23:59 must remain durable. Include exactly that adjacent calendar partition,
+      // never the latest arbitrary archive file across a sparse history.
+      || partitionDayImmediatelyPrecedes(name, humanFloor)
+    ))].slice(0, humanSweepLookback)
     : sweepFiles.slice(0, humanSweepLookback)
   for (const [index, name] of humanFiles.entries()) {
     const partition = index === 0 ? newest : readPartition(name)

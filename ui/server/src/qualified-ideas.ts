@@ -80,6 +80,8 @@ export const DEFAULT_QUALIFICATION_POLICY = PRECAL_V1_POLICY
 
 export interface CalibrationRankingRule {
   positiveReturnRetention: number
+  evidenceInputFloor: number
+  evidenceConfidenceAtFloor: number
   evidenceConfidenceCap: number
   rationale: string
 }
@@ -88,27 +90,39 @@ export interface CalibrationRankingRule {
 // return gate while its scenario probabilities are still priors. We therefore retain only part of a
 // positive forecast until exact-horizon outcomes validate the probability model. Negative forecasts are
 // never reduced: shrinking a forecast loss toward zero would make a weak idea look safer. Evidence
-// confidence is the weaker of data sufficiency and proven edge, then capped by calibration maturity.
-// These are conservative policy constants, not fitted coefficients; changing them requires a new policy
-// version so an earlier frontier remains reproducible.
+// confidence starts with the weaker of data sufficiency and proven edge. A hard 50 cap alone would make
+// every production-qualified idea tie at exactly 50 because the admission floor is already 50. Instead,
+// the uncalibrated input is monotonically compressed: the 50-point evidence floor maps to 40, perfect
+// evidence maps to the 50-point cap, and sub-floor evidence is scaled down on the same conservative
+// basis. This preserves evidence ordering without pretending probability calibration is proven. These
+// are policy constants, not fitted coefficients; changing them requires a new policy version so an
+// earlier frontier remains reproducible.
 const CALIBRATION_SHRINKAGE_V1_RULES: Readonly<Record<IdeaCalibrationStatus, Readonly<CalibrationRankingRule>>> = Object.freeze({
   pre_data: Object.freeze({
     positiveReturnRetention: 0.35,
+    evidenceInputFloor: 50,
+    evidenceConfidenceAtFloor: 40,
     evidenceConfidenceCap: 50,
-    rationale: 'No exact-horizon outcomes have resolved, so 65% of claimed upside is removed and confidence cannot exceed mixed.',
+    rationale: 'No exact-horizon outcomes have resolved, so 65% of claimed upside is removed and evidence is compressed into a conservative 0-50 confidence band.',
   }),
   insufficient: Object.freeze({
     positiveReturnRetention: 0.35,
+    evidenceInputFloor: 50,
+    evidenceConfidenceAtFloor: 40,
     evidenceConfidenceCap: 50,
     rationale: 'Some outcomes exist but the cohort is too small or narrow to learn from, so the pre-data haircut remains in force.',
   }),
   measured: Object.freeze({
     positiveReturnRetention: 0.35,
+    evidenceInputFloor: 50,
+    evidenceConfidenceAtFloor: 40,
     evidenceConfidenceCap: 50,
     rationale: 'The sample is large enough to measure, but measurement alone does not prove forecast skill, so the pre-data haircut remains in force.',
   }),
   calibrated: Object.freeze({
     positiveReturnRetention: 0.35,
+    evidenceInputFloor: 50,
+    evidenceConfidenceAtFloor: 40,
     evidenceConfidenceCap: 50,
     rationale: 'Calibrated is reserved until an out-of-sample quality gate exists; the pre-data haircut remains in force.',
   }),
@@ -535,6 +549,11 @@ function rankingFor(candidate: QualifiedIdeaCandidate, metrics: QualifiedIdeaMet
     ? rawExpectedReturn * rule.positiveReturnRetention
     : rawExpectedReturn
   const uncappedEvidenceConfidence = Math.min(dataSufficiency, edge)
+  const evidenceConfidence = uncappedEvidenceConfidence <= rule.evidenceInputFloor
+    ? uncappedEvidenceConfidence * (rule.evidenceConfidenceAtFloor / rule.evidenceInputFloor)
+    : rule.evidenceConfidenceAtFloor +
+      ((uncappedEvidenceConfidence - rule.evidenceInputFloor) / (100 - rule.evidenceInputFloor)) *
+      (rule.evidenceConfidenceCap - rule.evidenceConfidenceAtFloor)
   return {
     policy_version: QUALIFIED_IDEA_RANKING_POLICY_VERSION,
     calibration_status: calibrationStatus,
@@ -544,7 +563,7 @@ function rankingFor(candidate: QualifiedIdeaCandidate, metrics: QualifiedIdeaMet
     conservative_expected_return_pct: round(conservativeExpectedReturn),
     uncapped_evidence_confidence_score: round(uncappedEvidenceConfidence),
     evidence_confidence_cap: rule.evidenceConfidenceCap,
-    evidence_confidence_score: round(Math.min(uncappedEvidenceConfidence, rule.evidenceConfidenceCap)),
+    evidence_confidence_score: round(Math.min(evidenceConfidence, rule.evidenceConfidenceCap)),
     rationale: rule.rationale,
   }
 }

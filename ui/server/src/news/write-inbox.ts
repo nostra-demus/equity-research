@@ -1,6 +1,6 @@
 // The write stage: land triaged items into the SAME inbox contract /screener:sweep already fills, so
 // the cockpit and the gauntlet pick them up with zero changes. Three jobs:
-//   - mergeInbox: idempotent merge into screener/inbox/<DATE>_sweep.json (by URL), PRESERVING any
+//   - mergeInbox: idempotent merge into screener/inbox/<DATE>_sweep.json (by URL + revision lane), PRESERVING any
 //     human state (consumed / launched_signal_id), ranked by triage score and capped;
 //   - appendFirehoseSummary: one compact line per cycle into <DATE>_firehose.ndjson (powers the
 //     "seen / picked / dropped" board header without bloating the inbox with dropped items);
@@ -36,6 +36,19 @@ export interface MergeOptions {
 }
 
 const tierRank = (t?: string | null): number => (t ? SOURCE_TIERS[t as SourceTierId]?.rank ?? 0 : 0)
+
+/** A publisher can correct or retract an article in place at the same URL. URL-only identity would
+ * overwrite that falsifying observation with the old headline before revision-aware story collapse can
+ * see it. Keep URL idempotence within each canonical ordinary/correction/reversal lane instead. */
+function inboxUrlRevisionKey(row: { url: string; headline?: unknown; headline_en?: unknown; event_types?: unknown }): string {
+  const lane = themeStoryKey({
+    dedup_group: '__url_revision__',
+    headline: row.headline,
+    headline_en: row.headline_en,
+    event_types: row.event_types,
+  })
+  return `${row.url}\u0000${lane}`
+}
 
 /**
  * Collapse rows sharing a story-cluster id (news/dedup.ts) to one representative per canonical revision
@@ -75,7 +88,9 @@ function collapseInboxByGroup(rows: InboxRow[]): InboxRow[] {
 
 /**
  * Merge pick/watch items into today's inbox file. Existing rows keep their consumed/launched state;
- * a re-seen URL refreshes its triage fields only. Returns the number of rows the inbox now holds.
+ * a re-seen URL in the same revision lane replaces the prior source observation and triage payload while
+ * preserving only its inbox id and human lifecycle. A correction or reversal at that URL remains a
+ * distinct observation. Returns the number of rows the inbox now holds.
  */
 export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[], opts: MergeOptions = {}): number {
   const maxRows = opts.maxRows && opts.maxRows > 0 ? Math.floor(opts.maxRows) : 40
@@ -83,19 +98,27 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
   const fp = inboxPath(repoRoot, date)
   let existing: { rows?: InboxRow[] } = {}
   try { existing = JSON.parse(fs.readFileSync(fp, 'utf8')) } catch { existing = {} }
-  const byUrl = new Map<string, InboxRow>()
-  for (const r of existing.rows || []) if (r && r.url) byUrl.set(r.url, r)
+  const byUrlRevision = new Map<string, InboxRow>()
+  for (const r of existing.rows || []) if (r && r.url) byUrlRevision.set(inboxUrlRevisionKey(r), r)
 
   const dateCompact = date.replace(/-/g, '')
   let seq = nextInboxSeq(existing.rows || [])
 
   for (const it of items) {
-    const prior = byUrl.get(it.url)
+    const urlRevisionKey = inboxUrlRevisionKey(it)
+    const prior = byUrlRevision.get(urlRevisionKey)
+    const sourceFields = {
+      headline: it.headline,
+      headline_en: it.headline_en, // latest translated content, not the first copy seen at this URL
+      headline_lang: it.headline_lang,
+      url: it.url,
+      source_name: it.source_name,
+      input_nature: it.input_nature,
+      found_at: it.found_at,
+    }
     const triageFields = {
       triage_score: it.triage_score,
       triage_reason: it.triage_reason,
-      headline_en: it.headline_en, // English translation of a non-English headline (news/lang.ts)
-      headline_lang: it.headline_lang, // the source language named, for the "original · X" label
       region: it.region,
       relevance: it.relevance,
       materiality_pre_score: it.materiality_pre_score,
@@ -114,15 +137,23 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
       dedup_group: it.dedup_group, // story-cluster id — collapse duplicate stories below
     }
     if (prior) {
-      Object.assign(prior, triageFields) // refresh score; NEVER touch consumed / launched_signal_id
+      // A publisher may rewrite the correction text in place. Retaining the old source fields would pair
+      // a new score with stale evidence. Rebuild the owned row from the newest observation, carrying only
+      // stable identity and explicit human state across the refresh.
+      byUrlRevision.set(urlRevisionKey, {
+        ...sourceFields,
+        ...triageFields,
+        inbox_id: prior.inbox_id,
+        consumed: prior.consumed === true,
+        launched_signal_id: prior.launched_signal_id ?? null,
+        ...(typeof prior.dismissed === 'boolean' ? { dismissed: prior.dismissed } : {}),
+        ...(typeof prior.dismissed_at === 'string' ? { dismissed_at: prior.dismissed_at } : {}),
+        ...(typeof prior.dismissed_by === 'string' ? { dismissed_by: prior.dismissed_by } : {}),
+      })
     } else {
-      byUrl.set(it.url, {
+      byUrlRevision.set(urlRevisionKey, {
         inbox_id: `INB-${dateCompact}-${String(seq++).padStart(3, '0')}`,
-        headline: it.headline,
-        url: it.url,
-        source_name: it.source_name,
-        input_nature: it.input_nature,
-        found_at: it.found_at,
+        ...sourceFields,
         consumed: false,
         launched_signal_id: null,
         ...triageFields,
@@ -132,7 +163,7 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
 
   // rank by score; always keep consumed AND dismissed rows (human state is history — never evicted,
   // never resurrected by a re-seen URL), cap only the live unconsumed tail
-  const all = [...byUrl.values()]
+  const all = [...byUrlRevision.values()]
   all.sort((a, b) => (b.triage_score ?? -1) - (a.triage_score ?? -1))
   const humanState = all.filter((r) => r.consumed || r.dismissed)
   // collapse duplicate STORIES before the cap, so one story never eats several inbox slots and the cap

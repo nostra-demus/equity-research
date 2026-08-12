@@ -12,6 +12,7 @@ import {
   qualifiedIdeaJsonSha256,
 } from '../src/qualified-ideas-store'
 import { qualifiedIdeaOutcomeHealthPath } from '../src/qualified-idea-outcome-runner'
+import { createRun, finishRun, setActiveTickerRun } from '../src/registry'
 import type { QualifiedIdeaCandidate } from '../src/qualified-ideas'
 
 const NOW = Date.parse('2026-08-03T12:00:00Z')
@@ -335,6 +336,17 @@ assert.ok(
   'the live ranking gate must not rewrite the immutable admission or select the observation out of outcome grading',
 )
 
+writeRun('LOWRANKMIX_2026-08-01', {
+  verify: true,
+  lowConservativeReturn: true,
+  correction: { schema: 'corrections/v1', errata: [{ field: 'final_thesis', kind: 'research_correction' }] },
+})
+const mixedIssueBoard = buildQualifiedIdeasBoard(root, { nowMs: NOW })
+const mixedIssueLowReturn = mixedIssueBoard.does_not_clear.find((x) => x.candidate.instrument.ticker === 'LOWRANKMIX')
+assert.ok(mixedIssueLowReturn?.issues.some((x) => x.code === 'research_not_verified'), 'fixture carries an independent research-only defect')
+assert.ok(mixedIssueLowReturn?.issues.some((x) => x.code === 'conservative_return_below_bar'), 'a deterministic below-bar return remains a reject even when another issue already requires research')
+assert.equal(mixedIssueLowReturn?.status, 'does_not_clear')
+
 // The newest standing directional call wins; it cannot inherit the older run's clean verification.
 writeRun('TEST_2026-08-02', { createdAt: '2026-08-02T10:00:00Z' })
 const newerUnaudited = buildQualifiedIdeasBoard(root, { nowMs: NOW })
@@ -644,6 +656,90 @@ const relabeled = JSON.parse(fs.readFileSync(relabeledPath, 'utf8'))
 relabeled.status = 'not_assessable'; relabeled.gaps = ['Later mutable relabel']; relabeled.candidate = null
 fs.writeFileSync(relabeledPath, JSON.stringify(relabeled))
 assert.ok(listFrozenQualifiedIdeaEvaluations(root).some((x) => x.candidate.instrument.ticker === 'RELABELED'), 'changing a mutable wrapper to not_assessable cannot erase admission')
+
+// Isolated publication-grace regression: the synthesizer writes final_thesis/decision_record before
+// idea_3_6m. While the owning run has recent trustworthy progress, that normal interval must neither be
+// called a failure nor hide the prior sealed call. The exact same state fails closed once progress ages
+// beyond the six-hour publication window.
+const graceRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-publication-grace-'))
+writeRun('GRACE_2026-08-02', { verify: true, createdAt: '2026-08-02T10:00:00Z' }, graceRoot)
+const gracePendingDir = path.join(graceRoot, 'analyses', 'GRACE_2026-08-03')
+fs.mkdirSync(gracePendingDir, { recursive: true })
+fs.writeFileSync(path.join(gracePendingDir, 'final_thesis.md'), '# New GRACE thesis\n')
+fs.writeFileSync(path.join(gracePendingDir, 'decision_record.json'), JSON.stringify({ ticker: 'GRACE', company_name: 'Grace Holdings' }))
+const graceRun = createRun({
+  kind: 'full', ticker: 'GRACE', model: 'sonnet', prompt: '/research:full GRACE',
+  runRoot: 'analyses/GRACE_2026-08-03', willCommitToMain: true,
+  writeTargetsAbs: [gracePendingDir], coveredModules: [], readDepsAbs: [],
+})
+graceRun.status = 'running'
+graceRun.startedAt = NOW - 60 * 60_000
+setActiveTickerRun(graceRun.runId, 'GRACE')
+const insidePublicationGrace = buildQualifiedIdeasBoard(graceRoot, { nowMs: NOW })
+assert.equal(insidePublicationGrace.health.publishing_count, 1)
+assert.ok(insidePublicationGrace.qualified.some((row) => row.candidate.instrument.ticker === 'GRACE'), 'a missing preliminary assessment inside grace does not hide the prior sealed card')
+assert.ok(!insidePublicationGrace.not_assessable.some((row) => row.ticker === 'GRACE'), 'normal pre-assessment production is not mislabeled as failed')
+
+graceRun.startedAt = NOW - 7 * 60 * 60_000
+const afterPublicationGrace = buildQualifiedIdeasBoard(graceRoot, { nowMs: NOW })
+assert.equal(afterPublicationGrace.health.publishing_count, 0)
+assert.ok(!afterPublicationGrace.qualified.some((row) => row.candidate.instrument.ticker === 'GRACE'), 'the newer incomplete run shadows the old card after grace expires')
+assert.ok(afterPublicationGrace.not_assessable.some((row) => row.ticker === 'GRACE' && row.gaps.some((gap) => /publication did not finish/.test(gap))))
+finishRun(graceRun, 'done')
+fs.rmSync(graceRoot, { recursive: true, force: true })
+
+const terminalRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-terminal-publication-'))
+writeRun('TERMINAL_2026-08-02', { verify: true, createdAt: '2026-08-02T10:00:00Z' }, terminalRoot)
+const terminalPendingDir = path.join(terminalRoot, 'analyses', 'TERMINAL_2026-08-03')
+fs.mkdirSync(terminalPendingDir, { recursive: true })
+fs.writeFileSync(path.join(terminalPendingDir, 'final_thesis.md'), '# Terminal thesis\n')
+fs.writeFileSync(path.join(terminalPendingDir, 'decision_record.json'), JSON.stringify({ ticker: 'TERMINAL', company_name: 'Terminal Holdings' }))
+const terminalPublicationBoard = buildQualifiedIdeasBoard(terminalRoot, {
+  nowMs: NOW,
+  readActivityRows: () => ({
+    rows: [
+      {
+        runId: 'qualified-ideas-terminal-publication-newer', user: 'local', userVia: 'local', kind: 'full',
+        ticker: 'TERMINAL', runRoot: 'analyses/TERMINAL_2026-08-03', model: 'sonnet',
+        launchedAt: NOW - 2 * 60 * 60_000, finishedAt: NOW - 60 * 60_000, status: 'done',
+      },
+      {
+        runId: 'qualified-ideas-terminal-publication-orphan', user: 'local', userVia: 'local', kind: 'full',
+        ticker: 'TERMINAL', runRoot: 'analyses/TERMINAL_2026-08-03', model: 'sonnet',
+        launchedAt: NOW - 3 * 60 * 60_000, status: 'running',
+      },
+    ],
+    total: 2, allTime: 2, users: ['local'], tickers: ['TERMINAL'], tickerLabels: {}, earliest: NOW - 3 * 60 * 60_000,
+  }),
+})
+assert.equal(terminalPublicationBoard.health.publishing_count, 0, 'an older orphaned launch cannot hold grace open after a newer retry ended')
+assert.ok(!terminalPublicationBoard.qualified.some((row) => row.candidate.instrument.ticker === 'TERMINAL'), 'the latest terminal attempt fails closed instead of leaving the older sealed card active')
+assert.ok(terminalPublicationBoard.not_assessable.some((row) => row.ticker === 'TERMINAL' && row.gaps.some((gap) => /stopped before immutable idea publication finished/.test(gap))))
+fs.rmSync(terminalRoot, { recursive: true, force: true })
+
+const terminalPreliminaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-terminal-preliminary-'))
+writeRun('TERMPRE_2026-08-02', { verify: true, createdAt: '2026-08-02T10:00:00Z' }, terminalPreliminaryRoot)
+const terminalPreliminary = writeRun(
+  'TERMPRE_2026-08-03', { verify: true, createdAt: '2026-08-03T11:30:00Z' }, terminalPreliminaryRoot,
+)
+fs.unlinkSync(path.join(terminalPreliminary.dir, 'idea_admission.json'))
+const stoppedAfterPreliminary = buildQualifiedIdeasBoard(terminalPreliminaryRoot, {
+  nowMs: NOW,
+  readActivityRows: () => ({
+    rows: [{
+      runId: 'qualified-ideas-terminal-after-preliminary', user: 'local', userVia: 'local', kind: 'full',
+      ticker: 'TERMPRE', runRoot: 'analyses/TERMPRE_2026-08-03', model: 'sonnet',
+      launchedAt: NOW - 60 * 60_000, finishedAt: NOW - 10 * 60_000, status: 'error',
+    }],
+    total: 1, allTime: 1, users: ['local'], tickers: ['TERMPRE'], tickerLabels: {}, earliest: NOW - 60 * 60_000,
+  }),
+})
+assert.equal(stoppedAfterPreliminary.health.publishing_count, 0, 'a terminal producer closes grace even after writing a recent preliminary assessment')
+assert.ok(!stoppedAfterPreliminary.qualified.some((row) => row.candidate.instrument.ticker === 'TERMPRE'), 'a stopped newer producer quarantines the prior sealed card')
+assert.ok(stoppedAfterPreliminary.not_assessable.some((row) => (
+  row.ticker === 'TERMPRE' && row.gaps.some((gap) => /stopped before immutable idea publication finished/.test(gap))
+)))
+fs.rmSync(terminalPreliminaryRoot, { recursive: true, force: true })
 
 writeRun('MISSINGIDEA_2026-08-02', { verify: true, createdAt: '2026-08-02T10:00:00Z' })
 const missingIdeaNew = path.join(root, 'analyses', 'MISSINGIDEA_2026-08-03')

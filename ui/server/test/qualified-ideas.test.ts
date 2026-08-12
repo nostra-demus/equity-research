@@ -76,8 +76,8 @@ assert.deepEqual(valid.ranking, {
   conservative_expected_return_pct: 6.13,
   uncapped_evidence_confidence_score: 66,
   evidence_confidence_cap: 50,
-  evidence_confidence_score: 50,
-  rationale: 'No exact-horizon outcomes have resolved, so 65% of claimed upside is removed and confidence cannot exceed mixed.',
+  evidence_confidence_score: 43.2,
+  rationale: 'No exact-horizon outcomes have resolved, so 65% of claimed upside is removed and evidence is compressed into a conservative 0-50 confidence band.',
 })
 assert.equal(valid.metrics?.expected_return_pct, 17.5, 'ranking shrinkage must not rewrite the raw scenario math used for qualification and outcome grading')
 assert.match(valid.calibration_note, /Pre-data/)
@@ -326,6 +326,23 @@ merelyMeasured.research.edge_score = 90
 const measuredResult = evaluateQualifiedIdea(merelyMeasured, { nowMs: NOW })
 assert.equal(measuredResult.ranking!.positive_return_retention, 0.35, 'enough outcomes to measure must not be mistaken for proven calibration skill')
 assert.equal(measuredResult.ranking!.evidence_confidence_cap, 50)
+assert.equal(measuredResult.ranking!.evidence_confidence_score, 48, 'above-floor evidence remains distinguishable without breaking the pre-calibration cap')
+
+const productionFloorEvidence = candidate('QIDEA-production-floor-evidence')
+productionFloorEvidence.research.data_sufficiency_score = 70
+productionFloorEvidence.research.edge_score = 50
+const productionHighEvidence = candidate('QIDEA-production-high-evidence')
+productionHighEvidence.research.data_sufficiency_score = 95
+productionHighEvidence.research.edge_score = 90
+const productionEvidenceRanking = rankQualifiedIdeas([
+  evaluateQualifiedIdea(productionFloorEvidence, { nowMs: NOW }),
+  evaluateQualifiedIdea(productionHighEvidence, { nowMs: NOW }),
+])
+assert.deepEqual(
+  productionEvidenceRanking.map((row) => [row.candidate.idea_id, row.ranking!.evidence_confidence_score]),
+  [['QIDEA-production-high-evidence', 48], ['QIDEA-production-floor-evidence', 40]],
+  'the actual production admission floor and a stronger evidence packet must not collapse to the same pre-data confidence',
+)
 
 const evidenceFirstLowRisk = candidate('QIDEA-evidence-first-low-risk')
 evidenceFirstLowRisk.research.data_sufficiency_score = 95

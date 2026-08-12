@@ -21,7 +21,7 @@ import {
 } from './ideas-store'
 import { IDEA_LEARNING_HORIZON_DAYS, learnIdeaAdjustment } from './idea-learning'
 import { directionMatchesEvidence, scoreTradeCluster, TRADE_SCORE_POLICY_VERSION, type TradeEvidence } from '../trade-score'
-import { normTicker, verifyEquityListing } from '../symbology'
+import { coreCompanyName, normTicker, verifyEquityListing, type VerifiedEquityListing } from '../symbology'
 import { normName } from '../text-match'
 import { eventIdFor } from '../normalize'
 import {
@@ -109,6 +109,56 @@ export function tradeEvidenceForIdeaRows(rows: IdeaInputRow[]): TradeEvidence[] 
     scheduled_events: s.scheduled_events,
     event_direction: s.event_direction,
   }))
+}
+
+type EvidenceDirection = 'long' | 'short' | 'mixed' | 'unknown'
+
+/** Bind event sentiment to a proposed single-name position only when the server row names exactly that
+ * independently verified primary issuer. The triage label describes the event as a whole; it is not the
+ * sign of every supplier, customer, rival, or pair expression the PM may select. Ambiguous/secondary
+ * mappings therefore remain informational instead of falsely vetoing a valid beneficiary or harmed name. */
+export function directionBoundToVerifiedListing(
+  rows: IdeaInputRow[],
+  listing: VerifiedEquityListing | null,
+): EvidenceDirection {
+  if (!listing) return 'unknown'
+  const ticker = normTicker(listing.ticker)
+  // Keep identity-bearing words such as Group and Holdings. coreCompanyName removes only legal forms,
+  // so "Acme Corp" can match "Acme Corporation" without collapsing distinct issuers such as
+  // "Man Holdings" and "Man Group plc" onto the same generic stem.
+  const company = coreCompanyName(listing.companyName)
+  if (!ticker || !company) return 'unknown'
+  const boundRows = rows.filter((row) => {
+    if ((row.origin_type || 'wire') !== 'wire' || row.issuer_linkage !== 'primary') return false
+    const named = (row.companies || []).filter((candidate) => {
+      const candidateTicker = normTicker(candidate.ticker)
+      // An exact verified symbol is the stronger identity key and must not be defeated by harmless display-
+      // name differences ("Amazon" vs "Amazon.com Inc"). If title-only triage honestly leaves the ticker
+      // null, exact issuer-core identity may still bind. A conflicting non-null symbol is contrary evidence.
+      return candidateTicker ? candidateTicker === ticker : coreCompanyName(candidate.name) === company
+    })
+    // Multiple named issuers make an event-level sign ambiguous even if one happens to match the trade.
+    return row.companies.length === 1 && named.length === 1
+  })
+  const directions = new Set(boundRows
+    .map((row) => row.event_direction)
+    .filter((direction) => direction && direction !== 'neutral' && direction !== 'unknown'))
+  if (directions.size !== 1) return directions.size ? 'mixed' : 'unknown'
+  const direction = [...directions][0]
+  return direction === 'positive' ? 'long' : direction === 'negative' ? 'short' : 'mixed'
+}
+
+/** Self-trade detection requires either the exact normalized listing or an independently returned issuer
+ * identity on both legs. A shared base symbol across venues is deliberately absent: venues reuse symbols
+ * for unrelated companies, so baseTicker equality is not evidence of a cross-listing alias. */
+export function verifiedListingsIdentifySameIssuer(
+  primary: VerifiedEquityListing,
+  pair: VerifiedEquityListing,
+): boolean {
+  if (normTicker(primary.ticker) === normTicker(pair.ticker)) return true
+  const primaryCompany = coreCompanyName(primary.companyName)
+  const pairCompany = coreCompanyName(pair.companyName)
+  return Boolean(primaryCompany && pairCompany && primaryCompany === pairCompany)
 }
 
 /** Derive provenance only after the model has selected raw source indices. Theme rows elsewhere in the
@@ -641,7 +691,7 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
           pairCompanyName || undefined,
           deps.fetchFn || fetch,
         )
-        if (!verifiedPairListing) continue
+        if (!verifiedPairListing || verifiedListingsIdentifySameIssuer(verifiedListing, verifiedPairListing)) continue
       }
       const persistedPairTicker = raw.direction === 'pair' ? verifiedPairListing!.ticker : null
       const version = ideaVersion({
@@ -672,9 +722,14 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
         whyNow: raw.why_now,
         learningAdjustment: learning.adjustment,
       })
-      // Provider prose cannot reverse the server-read evidence. A rejected row must not reserve the stable
-      // id: a later provider row for the same call may bind the direction correctly.
-      if (!directionMatchesEvidence(raw.direction, trade.direction)) continue
+      // A Theme already binds beneficiary/harmed sides through its qualified expression proof. A wire pair
+      // necessarily maps two instruments, so one event-level sign cannot describe both legs. For a naked
+      // wire call, veto reversal only when the row uniquely names the exact verified primary issuer.
+      const boundDirection = lineage.origin_type === 'wire' && raw.direction !== 'pair'
+        ? directionBoundToVerifiedListing(srcRows, verifiedListing)
+        : 'unknown'
+      // A rejected row must not reserve the stable id: a later provider row may bind the issuer correctly.
+      if (!directionMatchesEvidence(raw.direction, boundDirection)) continue
       seen.add(id)
       const coverage = priorCoverage(deps.repoRoot, raw.ticker)
       let saved = false

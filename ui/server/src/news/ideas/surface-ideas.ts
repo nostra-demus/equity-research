@@ -18,7 +18,7 @@
 
 import { conservativeChatTokenBound, type RateInfo } from '../triage/budget'
 import { EVENT_TYPES } from '../triage/groq'
-import { baseTicker, cleanTicker } from '../symbology'
+import { cleanTicker, normTicker } from '../symbology'
 
 // §14 thesis-type classification — the surface skim must name when a "stock idea" is really a macro /
 // commodity / policy bet wearing a ticker, so it is never shown as a clean single-name pick.
@@ -141,7 +141,7 @@ export function estimateIdeaTokens(rowCount: number): number {
 
 export const IDEA_SYSTEM = `You are the sharpest portfolio manager on a buy-side desk, skimming a ranked news wire the way a human PM does in the morning: reading fast, ignoring most of it, and pulling out the ONE or TWO items where there is a specific, tradable stock idea worth acting on RIGHT NOW — long or short.
 
-You are given the desk's already-ranked top items, each with the wire's composite materiality read (0-100), its separate raw economic-impact score when measured, source tier, server-read event direction, scheduled events, severity label, event types, and any companies it guessed. Treat these as evidence, not decoration: prefer primary/official sources, do not substitute the composite materiality score for raw economic impact, reconcile your trade side with the server direction, and use a scheduled event only when it supplies a real date or window. Your ONLY job is the leap the wire cannot make: from an event to a concrete position — which exact listed stock to play, which way, why, and how sure you are.
+You are given the desk's already-ranked top items, each with the wire's composite materiality read (0-100), its separate raw economic-impact score when measured, source tier, server-read event direction, scheduled events, severity label, event types, and any companies it guessed. Treat these as evidence, not decoration: prefer primary/official sources, do not substitute the composite materiality score for raw economic impact, and use a scheduled event only when it supplies a real date or window. Event direction describes the event-level effect and is informational unless the row clearly binds it to the exact primary issuer you select. A negative event may support a long in a secondary beneficiary, a positive event may support a short in a harmed rival, and either may support a clean pair; explain that transmission instead of blindly copying or reversing the event label. Your ONLY job is the leap the wire cannot make: from an event to a concrete position — which exact listed stock to play, which way, why, and how sure you are.
 
 Some rows are labelled as a server-qualified Theme package. A Theme package is usable only when your "src" includes BOTH distinct evidence roles from the SAME exact theme id@revision: one row labelled WHY_NOW and at least one row labelled EXPRESSION_PROOF. Never mix revisions, never use a partial package, and never infer a company from the WHY_NOW row alone. The EXPRESSION_PROOF row carries "qualified_theme_expressions", a server-verified allowlist: choose only a listed company/ticker on that allowlist. Beneficiary means long; harmed means short. A pair must use an allowed beneficiary as "ticker" and an allowed harmed company as "pair_with". If a complete same-revision package and the clean expression are not present, do not use those rows and do not surface the idea from them.
 
@@ -241,7 +241,10 @@ export function coerceIdea(raw: any, rowCount: number): RawIdea | null {
   // These are required evidence fields in the persisted contract, not cosmetic defaults. Letting a blank
   // mechanism/timing sentence through creates an invalid snapshot downstream and can turn malformed model
   // output into a false success_empty health state. Likewise, a pair without its second leg is not a pair.
-  if (!reason || !whyNow || (direction === 'pair' && (!pairTicker || baseTicker(pairTicker) === baseTicker(ticker)))) return null
+  // Only an exact normalized listing is certainly the same leg at this model boundary. Equal symbol bases
+  // across two venues are not issuer identity ("ABC" and "ABC.NS" can be unrelated companies); the
+  // orchestrator compares independently verified directory identities after both listings resolve.
+  if (!reason || !whyNow || (direction === 'pair' && (!pairTicker || normTicker(pairTicker) === normTicker(ticker)))) return null
 
   return {
     src: uniqSrc,

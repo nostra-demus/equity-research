@@ -17,7 +17,10 @@ import {
   isSurfacedIdeaSnapshot, readIdeaById, readIdeaSnapshotStore, readTopSweep, readTopSweepRows, releaseIdeaPromotion,
   reserveIdeaPromotion, retireUnadmittedThemeIdeas, topNEffectHash, topNHash, updateIdeaSnapshot, writeIdea, writeIdeaIfRevision,
 } from '../src/news/ideas/ideas-store'
-import { ideaLineageForRows, themeProofForIdea, tradeEvidenceForIdeaRows } from '../src/news/ideas/run-idea-pass'
+import {
+  directionBoundToVerifiedListing, ideaLineageForRows, themeProofForIdea, tradeEvidenceForIdeaRows,
+  verifiedListingsIdentifySameIssuer,
+} from '../src/news/ideas/run-idea-pass'
 import { scoreTradeCluster } from '../src/news/trade-score'
 import { eventIdFor } from '../src/news/normalize'
 import { createTheme } from '../src/news/themes/discover'
@@ -181,7 +184,45 @@ check('coerceIdea keeps pair_with only for a pair', () => {
   assert.equal(coerceIdea({ ...evidence, direction: 'long', pair_with: 'BBB' }, 2)!.pair_with, null)
   assert.equal(coerceIdea({ ...evidence, direction: 'pair', pair_with: 'bbb' }, 2)!.pair_with, 'BBB')
   assert.equal(coerceIdea({ ...evidence, direction: 'pair', pair_with: 'AAA' }, 2), null)
-  assert.equal(coerceIdea({ ...evidence, ticker: 'ACME', direction: 'pair', pair_with: 'ACME.NS' }, 2), null, 'cross-listing aliases cannot form both legs')
+  assert.equal(coerceIdea({ ...evidence, ticker: 'BRK-B', direction: 'pair', pair_with: 'BRK.B' }, 2), null, 'normalized spellings of the exact listing cannot form both legs')
+  assert.equal(coerceIdea({ ...evidence, ticker: 'ACME', direction: 'pair', pair_with: 'ACME.NS' }, 2)?.pair_with, 'ACME.NS', 'a shared symbol base across venues is not issuer identity before listing verification')
+})
+check('verified pair identity rejects exact listings and directory-proven aliases, not unrelated same-base issuers', () => {
+  const primary = { ticker: 'ACME', exchange: 'NYSE', companyName: 'Acme Holdings Inc', source: 'yahoo_symbol_directory' as const }
+  assert.equal(verifiedListingsIdentifySameIssuer(primary, { ...primary, ticker: 'ACME' }), true)
+  assert.equal(verifiedListingsIdentifySameIssuer(primary, {
+    ticker: 'ACME.NS', exchange: 'NSE', companyName: 'Acme Holdings Limited', source: 'yahoo_symbol_directory',
+  }), true, 'independently returned matching issuer names prove a cross-list alias')
+  assert.equal(verifiedListingsIdentifySameIssuer(primary, {
+    ticker: 'ACME.NS', exchange: 'NSE', companyName: 'Acme Motors Limited', source: 'yahoo_symbol_directory',
+  }), false, 'the same symbol base on another venue does not prove the same issuer')
+})
+check('event direction binds only to one exact verified primary issuer', () => {
+  const listing = { ticker: 'AAA', exchange: 'NYSE', companyName: 'Alpha Corp', source: 'yahoo_symbol_directory' as const }
+  const direct: IdeaInputRow = {
+    ...ROWS[0], issuer_linkage: 'primary', companies: [{ name: 'Alpha Corporation', ticker: 'AAA', listing_country: 'US' }],
+    event_direction: 'negative', origin_type: 'wire', source_themes: [],
+  }
+  assert.equal(directionBoundToVerifiedListing([direct], listing), 'short')
+  assert.equal(directionBoundToVerifiedListing([{ ...direct, companies: [
+    { name: 'Alpha Corporation', ticker: null, listing_country: 'US' },
+  ] }], listing), 'short', 'an exact sole primary company still binds when title-only triage honestly omitted its ticker')
+  assert.equal(directionBoundToVerifiedListing([{ ...direct, companies: [
+    { name: 'Amazon', ticker: 'AMZN', listing_country: 'US' },
+  ] }], { ...listing, ticker: 'AMZN', companyName: 'Amazon.com Inc' }), 'short', 'an exact verified ticker binds despite a different valid display-name spelling')
+  assert.equal(directionBoundToVerifiedListing([{ ...direct, companies: [
+    { name: 'Alpha Corporation', ticker: 'BBB', listing_country: 'US' },
+  ] }], listing), 'unknown', 'a conflicting non-null ticker keeps the event sign ambiguous')
+  assert.equal(directionBoundToVerifiedListing([{ ...direct, companies: [
+    { name: 'Alpha Limited', ticker: null, listing_country: 'US' },
+  ] }], { ...listing, companyName: 'Alpha Corp' }), 'short', 'legal-form variants bind to the verified issuer')
+  assert.equal(directionBoundToVerifiedListing([{ ...direct, companies: [
+    { name: 'Man Holdings', ticker: null, listing_country: 'GB' },
+  ] }], { ...listing, ticker: 'EMG.L', companyName: 'Man Group plc', exchange: 'LSE' }), 'unknown', 'identity-bearing Holdings and Group names must not collapse into one issuer')
+  assert.equal(directionBoundToVerifiedListing([{ ...direct, issuer_linkage: 'secondary' }], listing), 'unknown', 'secondary beneficiary/harmed mappings keep the event sign informational')
+  assert.equal(directionBoundToVerifiedListing([{ ...direct, companies: [
+    ...direct.companies, { name: 'Beta Corp', ticker: 'BBB', listing_country: 'US' },
+  ] }], listing), 'unknown', 'a multi-company event sign is not uniquely bound to the selected instrument')
 })
 check('coerceIdea accepts the canonical global ticker contract for both legs', () => {
   const evidence = { src: [0], reason: 'Demand shifts market share', why_now: 'Results are due this month', direction: 'long', thesis_type: 'company_specific' }
@@ -560,6 +601,7 @@ check('buildIdeaUserMessage carries the pre-computed materiality + names', () =>
   assert.match(IDEA_SYSTEM, /separate raw economic-impact score/)
   assert.match(IDEA_SYSTEM, /source tier/)
   assert.match(IDEA_SYSTEM, /server-read event direction/)
+  assert.match(IDEA_SYSTEM, /event-level effect and is informational/)
   assert.match(IDEA_SYSTEM, /scheduled events/)
 })
 check('estimateIdeaTokens grows with the row count', () => {
@@ -823,6 +865,35 @@ check('prior-partition human decisions remain blocking just outside the candidat
     nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
   })
   assert.deepEqual(got.rows.map((row) => row.headline), ['Unblocked current story'])
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('a post-midnight freshness floor still reads the immediately preceding human-state partition', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-midnight-human-state-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-03T23:59:30Z',
+    rows: [{
+      headline: 'Dismissed just before midnight', url: 'https://primary.test/midnight-dismissed',
+      dedup_group: 'STORY-midnight-dismissed', triage_score: 98,
+      found_at: '2026-08-03T23:59:00Z', dismissed: true,
+    }],
+  }))
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T06:04:30Z',
+    rows: [
+      {
+        headline: 'Current copy of midnight dismissal', url: 'https://copy.test/midnight-dismissed',
+        dedup_group: 'STORY-midnight-dismissed', triage_score: 100, found_at: '2026-08-04T06:04:00Z',
+      },
+      { headline: 'Unblocked morning story', url: 'https://news.test/morning', triage_score: 90, found_at: '2026-08-04T06:04:00Z' },
+    ],
+  }))
+
+  const got = readTopSweep(dir, 5, {
+    nowMs: Date.parse('2026-08-04T06:05:00Z'), maxAgeMs: 6 * 3_600_000,
+  })
+  assert.deepEqual(got.rows.map((row) => row.headline), ['Unblocked morning story'])
   fs.rmSync(dir, { recursive: true, force: true })
 })
 check('readTopSweep reserves at most one-third for actionable theme evidence and dedupes publisher copies', () => {

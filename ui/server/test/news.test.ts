@@ -378,13 +378,22 @@ await check('mergeInbox is idempotent by URL and PRESERVES human consumed/launch
   doc1.rows[0].consumed = true
   doc1.rows[0].launched_signal_id = 'SIG-20260612-deadbeef'
   fs.writeFileSync(fp, JSON.stringify(doc1))
-  // re-seen with a NEW score: the row updates its score but keeps consumed + launched id, and is not duplicated
-  mergeInbox(root, '2026-06-12', [triagedItem('https://r/1', 91, 'H1 updated')], { maxRows: 10 })
+  // re-seen with a NEW observation: source/content + score refresh, lifecycle + inbox identity stay fixed
+  const refreshed = {
+    ...triagedItem('https://r/1', 91, 'H1 updated'),
+    found_at: '2026-06-12T10:15:00Z', source_name: 'Reuters Updated', input_nature: 'exchange_announcement',
+  }
+  mergeInbox(root, '2026-06-12', [refreshed], { maxRows: 10 })
   const doc2 = JSON.parse(fs.readFileSync(fp, 'utf8'))
   assert.equal(doc2.rows.length, 1)
+  assert.equal(doc2.rows[0].inbox_id, doc1.rows[0].inbox_id)
   assert.equal(doc2.rows[0].consumed, true)
   assert.equal(doc2.rows[0].launched_signal_id, 'SIG-20260612-deadbeef')
   assert.equal(doc2.rows[0].triage_score, 91) // score refreshed
+  assert.equal(doc2.rows[0].headline, 'H1 updated')
+  assert.equal(doc2.rows[0].found_at, '2026-06-12T10:15:00Z')
+  assert.equal(doc2.rows[0].source_name, 'Reuters Updated')
+  assert.equal(doc2.rows[0].input_nature, 'exchange_announcement')
 })
 await check('mergeInbox preserves ordinary, correction, and reversal lanes while choosing each lane\'s best source', () => {
   const root = tmp()
@@ -427,6 +436,40 @@ await check('mergeInbox preserves ordinary, correction, and reversal lanes while
     new Set(['primary_filing', 'company']),
     'each lane selects its own highest-ranked source rather than the family-wide highest score',
   )
+})
+await check('mergeInbox preserves an in-place correction or reversal that reuses the original URL', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const url = 'https://news.test/live-article'
+  const story = 'EVT-in-place-revision'
+  const revision = (headline: string, score: number, foundAt = '2026-06-12T09:00:00Z'): TriagedItem => ({
+    ...triagedItem(url, score, headline),
+    found_at: foundAt,
+    dedup_group: story,
+  })
+
+  mergeInbox(root, date, [revision('Issuer reports approval', 80)], { maxRows: 10 })
+  mergeInbox(root, date, [revision('Correction: approval remains conditional', 90)], { maxRows: 10 })
+  mergeInbox(root, date, [revision('Issuer retracts approval report', 95)], { maxRows: 10 })
+  mergeInbox(root, date, [{
+    ...revision('Correction: final approval remains conditional', 99, '2026-06-12T11:45:00Z'),
+    headline_en: 'Correction: final approval remains conditional',
+    source_name: 'Updated Exchange Wire',
+    input_nature: 'exchange_announcement',
+  }], { maxRows: 10 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.equal(doc.rows.length, 3, 'one URL keeps one ordinary, correction, and reversal observation')
+  assert.deepEqual(
+    new Set(doc.rows.map((row: any) => row.headline)),
+    new Set(['Issuer reports approval', 'Correction: final approval remains conditional', 'Issuer retracts approval report']),
+  )
+  const correction = doc.rows.find((row: any) => row.headline.startsWith('Correction:'))
+  assert.equal(correction?.triage_score, 99, 're-seeing the same correction lane remains idempotent and refreshes its score')
+  assert.equal(correction?.found_at, '2026-06-12T11:45:00Z', 'the newest correction observation replaces the old source clock')
+  assert.equal(correction?.headline_en, 'Correction: final approval remains conditional')
+  assert.equal(correction?.source_name, 'Updated Exchange Wire')
+  assert.equal(correction?.input_nature, 'exchange_announcement')
 })
 
 // ---- orchestrator (end-to-end with mocked GDELT + Groq) ----

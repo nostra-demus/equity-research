@@ -9,6 +9,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
 import { z } from 'zod'
+import { readActivity, type ActivityRow } from './activity-log'
+import { inFlightRunsForTicker } from './registry'
 import { readCorrections, resolveIntegrityStatus, supersededTarget } from './ledger-corrections'
 import { qualifiedIdeaCalibrationStatusFor, summarizeQualifiedIdeaCalibration, type QualifiedIdeaCalibrationSummary } from './qualified-idea-calibration'
 import { assessQualifiedIdeaOutcomeHealth, qualifiedIdeaOutcomeHealthPath, type QualifiedIdeaOutcomeHealth } from './qualified-idea-outcome-runner'
@@ -393,7 +395,61 @@ function candidateEnvelope(v: unknown): v is QualifiedIdeaCandidate {
   return qualifiedIdeaCandidateRuntimeSchema.safeParse(v).success
 }
 
-function discover(repoRoot: string, nowMs = Date.now()): {
+interface PublicationProgress {
+  lastProgressMs: number
+  status: 'running' | 'terminal'
+}
+
+function researchPublicationRun(kind: string, chained: boolean | undefined, swarm: string | undefined): boolean {
+  return (swarm === undefined || swarm === 'research') && (kind === 'full' || kind === 'rerun' || chained === true)
+}
+
+/**
+ * Find a trustworthy, restart-safe clock for the short interval between the synthesizer writing its
+ * terminal thesis/decision and writing the preliminary idea assessment. Filesystem mtimes are not a
+ * clock here: a checkout rewrites them. The live registry is authoritative while this process owns the
+ * run; after a restart, an unmatched launch in the append-only activity ledger supplies a durable clock.
+ */
+function publicationProgressForRun(
+  expectedRoot: string,
+  ticker: string,
+  activityRows: () => ActivityRow[],
+): PublicationProgress | null {
+  const active = inFlightRunsForTicker(ticker)
+    .filter((run) => run.runRoot === expectedRoot && researchPublicationRun(run.kind, run.chained, run.swarmId))
+    .filter((run) => Number.isFinite(run.startedAt))
+    .sort((a, b) => b.startedAt - a.startedAt || b.runId.localeCompare(a.runId))
+  const latestActive = active[0]
+
+  // Choose the latest ATTEMPT before inspecting status. Filtering to `running` first would let an older
+  // orphaned launch hold grace open after a newer retry for the same root had already ended.
+  const latestDurable = activityRows()
+    .filter((row) => Number.isFinite(row.launchedAt) && row.runRoot === expectedRoot && researchPublicationRun(row.kind, row.chained, row.swarm))
+    .sort((a, b) => b.launchedAt - a.launchedAt || b.runId.localeCompare(a.runId))[0]
+
+  // A newly claimed in-memory attempt may precede its durable launch line by a few milliseconds. It is
+  // authoritative only when it is strictly newer than every durable attempt; an older orphan cannot
+  // override a newer terminal ledger row.
+  if (latestActive && (!latestDurable || latestActive.startedAt > latestDurable.launchedAt)) {
+    return {
+      lastProgressMs: Math.max(latestActive.startedAt, latestActive.lastStdoutAt ?? -Infinity, latestActive.lastActivity?.ts ?? -Infinity),
+      status: 'running',
+    }
+  }
+  if (!latestDurable) return null
+  if (latestDurable.status !== 'running') {
+    return { lastProgressMs: latestDurable.finishedAt ?? latestDurable.launchedAt, status: 'terminal' }
+  }
+  const liveAttempt = active.find((run) => run.runId === latestDurable.runId)
+  return {
+    lastProgressMs: liveAttempt
+      ? Math.max(latestDurable.launchedAt, liveAttempt.lastStdoutAt ?? -Infinity, liveAttempt.lastActivity?.ts ?? -Infinity)
+      : latestDurable.launchedAt,
+    status: 'running',
+  }
+}
+
+function discover(repoRoot: string, nowMs = Date.now(), readActivityRows: typeof readActivity = readActivity): {
   rows: Discovered[]
   gaps: GapAssessment[]
   artifacts: number
@@ -418,11 +474,20 @@ function discover(repoRoot: string, nowMs = Date.now()): {
   const rows: Discovered[] = []
   const gaps: GapAssessment[] = []
   const latestStandingRunByTicker = new Map<string, string>()
+  const latestPublicationRunByTicker = new Map<string, string>()
   let artifacts = 0
   let assessments = 0
   const invalidRunRoots = new Set<string>()
   const incompleteRunRoots = new Set<string>()
   const publishingRunRoots = new Set<string>()
+  const activityRowsByTicker = new Map<string, ActivityRow[]>()
+  const activityRowsFor = (ticker: string): ActivityRow[] => {
+    const cached = activityRowsByTicker.get(ticker)
+    if (cached) return cached
+    const rows = readActivityRows({ ticker, limit: 5_000 }).rows
+    activityRowsByTicker.set(ticker, rows)
+    return rows
+  }
   for (const runName of runNames) {
     const runAbs = path.resolve(analyses, runName)
     if (!runAbs.startsWith(analyses + path.sep)) continue
@@ -465,7 +530,11 @@ function discover(repoRoot: string, nowMs = Date.now()): {
     // witness was later deleted. Such a damaged run must quarantine the older card, never disappear.
     const publicationStarted = completed || admissionFileExists || projectionMarkerExists
     const publicationUnsealed = immutableRequired && publicationStarted && !admissionRead.admission
-    if (finalized || publicationUnsealed) advanceStanding()
+    if (!corrections.superseded && (finalized || publicationUnsealed)) {
+      const prior = latestPublicationRunByTicker.get(inferredTicker)
+      if (!prior || expectedRunName(prior) < runName) latestPublicationRunByTicker.set(inferredTicker, expectedRoot)
+    }
+    if (finalized) advanceStanding()
     if (publicationUnsealed) {
       if (!corrections.superseded) artifacts++
       let preliminary: IdeaAssessment | null = null
@@ -484,25 +553,41 @@ function discover(repoRoot: string, nowMs = Date.now()): {
           preliminaryError = String(error?.message || error)
         }
       }
-      // Git checkouts reset filesystem mtimes, so they cannot be the durable publication clock. The
-      // preliminary assessment is required by the producer and carries the run's canonical RFC3339 time.
-      // A missing/malformed preliminary assessment is itself a producer failure and is quarantined now.
-      const lastProgressMs = Date.parse(preliminary?.created_at || '')
-      const preliminaryClockInvalid = Number.isFinite(lastProgressMs) && lastProgressMs > nowMs + IDEA_PUBLICATION_CLOCK_SKEW_MS
+      // The assessment's canonical timestamp is the strongest publication clock. During the normal
+      // producer interval before that file exists, use the cockpit's live run progress or its durable
+      // activity ledger. A run with neither proof is not granted grace, and a future clock fails closed.
+      const producerProgress = publicationProgressForRun(
+        expectedRoot, inferredTicker, () => activityRowsFor(inferredTicker),
+      )
+      const preliminaryCreatedMs = preliminary ? Date.parse(preliminary.created_at) : NaN
+      const lastProgressMs = producerProgress?.status === 'running'
+        ? Number.isFinite(preliminaryCreatedMs)
+          ? Math.max(preliminaryCreatedMs, producerProgress.lastProgressMs)
+          : producerProgress.lastProgressMs
+        : preliminaryCreatedMs
+      const producerTerminated = producerProgress?.status === 'terminal'
+      const publicationClockInvalid = Number.isFinite(lastProgressMs) && lastProgressMs > nowMs + IDEA_PUBLICATION_CLOCK_SKEW_MS
       const completionWitnessMissing = !completed && (admissionFileExists || projectionMarkerExists)
-      const publicationFailed = completionWitnessMissing || admissionFileExists || preliminaryError !== null || !preliminary
-        || !Number.isFinite(lastProgressMs) || preliminaryClockInvalid || nowMs - lastProgressMs > IDEA_PUBLICATION_GRACE_MS
+      const publicationFailed = completionWitnessMissing || admissionFileExists || preliminaryError !== null
+        || producerTerminated || !Number.isFinite(lastProgressMs) || publicationClockInvalid
+        || nowMs - lastProgressMs > IDEA_PUBLICATION_GRACE_MS
       if (publicationFailed) incompleteRunRoots.add(expectedRoot)
       if (admissionFileExists) markInvalid()
       const publicationGap = completionWitnessMissing
         ? 'Immutable idea publication is damaged: a downstream marker exists but the final thesis or decision record is missing.'
-        : preliminaryClockInvalid
-          ? 'Immutable idea publication failed: the preliminary assessment timestamp is in the future.'
+        : publicationClockInvalid
+          ? `Immutable idea publication failed: the ${preliminary ? 'preliminary assessment' : 'producer progress'} timestamp is in the future.`
         : admissionFileExists
         ? `Immutable idea publication failed: ${admissionRead.error || 'the admission snapshot is invalid.'}`
+        : producerTerminated
+          ? 'Research stopped before immutable idea publication finished.'
         : publicationFailed
           ? 'Research finished, but immutable idea publication did not finish.'
           : 'Research finished and immutable idea publication is still in progress; no idea is shown until admission seals.'
+      // A semantic preliminary result (or a failed terminal sequence) supersedes the older call. Merely
+      // seeing final_thesis + decision_record while the same run is still producing its assessment does
+      // not: keep the older sealed card live until the new result exists or the grace window expires.
+      if (preliminary || publicationFailed) advanceStanding()
       if (!publicationFailed) {
         publishingRunRoots.add(expectedRoot)
         continue
@@ -650,7 +735,11 @@ function discover(repoRoot: string, nowMs = Date.now()): {
     return latestStandingRunByTicker.get(ticker) === runRoot
   }
   const currentIncompleteRunRoots = new Set([...incompleteRunRoots].filter(isCurrentRoot))
-  const currentPublishingRunRoots = new Set([...publishingRunRoots].filter(isCurrentRoot))
+  const currentPublishingRunRoots = new Set([...publishingRunRoots].filter((runRoot) => {
+    const name = expectedRunName(runRoot)
+    const ticker = name.slice(0, -11).toUpperCase()
+    return latestPublicationRunByTicker.get(ticker) === runRoot
+  }))
   const invalid = [...invalidRunRoots].filter(isCurrentRoot).length
   return {
     rows, gaps, artifacts, assessments, invalid, incomplete: currentIncompleteRunRoots.size,
@@ -874,14 +963,13 @@ function evaluateRow(
     }
   }
   if (!row.admission || (mode === 'live' && row.admissionError)) {
-    return addExternalIssue(evaluation, {
+    addExternalIssue(evaluation, {
       code: 'authoritative_research_mismatch',
       message: row.admissionError || 'This candidate has no immutable post-audit admission snapshot.',
       disposition: 'research',
     })
-  }
-  if (row.admission.status !== 'admitted') {
-    return addExternalIssue(evaluation, {
+  } else if (row.admission.status !== 'admitted') {
+    addExternalIssue(evaluation, {
       code: 'authoritative_research_mismatch',
       message: `Post-audit admission failed: ${row.admission.gaps.join('; ')}`,
       disposition: 'research',
@@ -890,10 +978,9 @@ function evaluateRow(
   if (mode === 'live') {
     const liveReturnBar = policyOverrides?.minExpectedReturnPct ?? DEFAULT_QUALIFICATION_POLICY.minExpectedReturnPct
     if (
-      evaluation.status === 'qualified' && evaluation.ranking
-      && evaluation.ranking.conservative_expected_return_pct < liveReturnBar
+      evaluation.ranking && evaluation.ranking.conservative_expected_return_pct < liveReturnBar
     ) {
-      return addExternalIssue(evaluation, {
+      addExternalIssue(evaluation, {
         code: 'conservative_return_below_bar',
         message: `Calibration-adjusted expected return ${evaluation.ranking.conservative_expected_return_pct}% is below the ${liveReturnBar}% live ranking bar; raw scenarios remain frozen for outcome grading.`,
         disposition: 'reject',
@@ -930,11 +1017,16 @@ export function listFrozenQualifiedIdeaEvaluations(
 
 export function buildQualifiedIdeasBoard(
   repoRoot: string,
-  opts: { nowMs?: number; policy?: Partial<QualificationPolicy> } = {},
+  opts: {
+    nowMs?: number
+    policy?: Partial<QualificationPolicy>
+    /** Deterministic test seam; production always uses the append-only cockpit activity reader. */
+    readActivityRows?: typeof readActivity
+  } = {},
 ): QualifiedIdeasBoard {
   const nowMs = opts.nowMs ?? Date.now()
   const policy: QualificationPolicy = { ...DEFAULT_QUALIFICATION_POLICY, ...(opts.policy ?? {}) }
-  const found = discover(repoRoot, nowMs)
+  const found = discover(repoRoot, nowMs, opts.readActivityRows ?? readActivity)
   // Calibration is anchored to the immutable cohort ledger, not today's mutable analyses tree. A settled
   // winner or loser therefore remains in the denominator even if its original research folder is moved.
   const calibration = summarizeQualifiedIdeaCalibration(repoRoot, nowMs)
