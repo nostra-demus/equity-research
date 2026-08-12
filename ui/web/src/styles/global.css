@@ -4132,6 +4132,12 @@ a { color: inherit; }
 .bideas__tab--short.bideas__tab--on { color: var(--bad); background: color-mix(in srgb, var(--bad) 11%, var(--surface-3)); }
 .bideas__panel, .bideas__list { display: flex; flex-direction: column; gap: 12px; }
 .bideas__panel[hidden] { display: none; }
+.bideas__truthwarn {
+  margin: -5px 0 14px; padding: 7px 10px; border: 1px solid color-mix(in srgb, var(--conv-warn) 36%, var(--hairline));
+  border-radius: var(--r-md); background: color-mix(in srgb, var(--conv-warn) 7%, var(--surface-2));
+  color: var(--conv-warn); font-size: 10.5px; line-height: 1.35;
+}
+.bideas__truthwarn span { font-weight: 800; margin-right: 3px; }
 .bideas__fetch { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; padding: 10px 12px; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-2); font-size: 10.5px; line-height: 1.45; }
 .bideas__fetch strong { color: var(--text); }
 .bideas__fetch button { border: 0; background: transparent; color: var(--accent-bright); font: inherit; font-weight: 650; cursor: pointer; }

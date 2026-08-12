@@ -62,6 +62,15 @@ assert.equal(qualified.liveLeadCount, 1)
 assert.equal(qualified.qualifiedCount, 2)
 assert.equal(qualified.headerLabel, '2 qualified')
 
+const qualifiedV2 = summarizeIdeasSurface(board({
+  qualified_ideas: {
+    schema_version: 'qualified-ideas-board/v2',
+    health: { outcome: 'none_clear', qualified_count: 0 },
+  } as ScreenerBoard['qualified_ideas'],
+}))
+assert.equal(qualifiedV2.available, true)
+assert.equal(qualifiedV2.headerLabel, 'none qualified')
+
 assert.equal(ideaIsStaleNow({ stale: false, decay_at: '2026-08-03T10:00:00Z' } as NonNullable<ScreenerBoard['ideas']>[number], Date.parse('2026-08-03T11:00:00Z')), true)
 assert.equal(ideaIsStaleNow({ stale: false, decay_at: '2026-08-03T12:00:00Z' } as NonNullable<ScreenerBoard['ideas']>[number], Date.parse('2026-08-03T11:00:00Z')), false)
 

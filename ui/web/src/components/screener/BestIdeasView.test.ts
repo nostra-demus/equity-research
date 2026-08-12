@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import type { BoardIdea, QualifiedIdeaEvaluation, QualifiedIdeasBoard } from '../../lib/types'
-import { IdeasTabs, ideaThemeAttribution, ideasEmptyMessage, ideasForSide, qualifiedIdeasForSide } from './BestIdeasView'
+import { IdeasTabs, ideaThemeAttribution, ideasEmptyMessage, ideasForSide, qualifiedIdeaReturnTag, qualifiedIdeasForSide, qualifiedIdeasWarning } from './BestIdeasView'
 
 const tabsHtml = renderToStaticMarkup(createElement(IdeasTabs, { active: 'long', onSelect: () => {} }))
 assert.equal(tabsHtml.match(/role="tab"/g)?.length, 2, 'the Ideas surface has exactly two tabs')
@@ -50,6 +50,32 @@ const qualifiedBoard = {
 } as QualifiedIdeasBoard
 assert.deepEqual(qualifiedIdeasForSide(qualifiedBoard, 'long', nowMs).map((row) => row.candidate.idea_id), ['qualified-long'])
 assert.deepEqual(qualifiedIdeasForSide(qualifiedBoard, 'short', nowMs).map((row) => row.candidate.idea_id), ['qualified-short'])
+
+assert.deepEqual(qualifiedIdeaReturnTag({
+  metrics: { expected_return_pct: 24.8 },
+  ranking: { conservative_expected_return_pct: 8.7 },
+} as QualifiedIdeaEvaluation), {
+  label: 'policy-adjusted +8.7%',
+  title: 'Raw scenario return +24.8%',
+})
+assert.deepEqual(qualifiedIdeaReturnTag({
+  metrics: { expected_return_pct: 12.5 },
+} as QualifiedIdeaEvaluation), { label: 'expected return +12.5%' })
+assert.equal(qualifiedIdeaReturnTag({ metrics: null } as QualifiedIdeaEvaluation), null)
+
+assert.deepEqual(qualifiedIdeasWarning({
+  health: { status: 'degraded', incomplete_count: 2, reason: 'Admission artifacts missing.' },
+} as QualifiedIdeasBoard), {
+  label: '2 research runs not published',
+  title: 'Admission artifacts missing.',
+})
+assert.deepEqual(qualifiedIdeasWarning({
+  health: { status: 'degraded', reason: 'Storage read failed.' },
+} as QualifiedIdeasBoard), {
+  label: 'Research results incomplete',
+  title: 'Storage read failed.',
+})
+assert.equal(qualifiedIdeasWarning({ health: { status: 'healthy' } } as QualifiedIdeasBoard), null)
 
 assert.equal(ideasEmptyMessage('long', true, false, { status: 'healthy' }), 'No LONG ideas.')
 assert.equal(ideasEmptyMessage('short', true, false, { status: 'running' }), 'Checking for ideas…')

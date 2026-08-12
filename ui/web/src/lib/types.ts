@@ -1205,11 +1205,25 @@ export interface QualifiedIdeaMetrics {
   probability_sum_pct: number
   scenario_returns: { label: string; probability_pct: number; return_pct: number }[]
 }
+export interface QualifiedIdeaRanking {
+  policy_version: string
+  calibration_status: 'pre_data' | 'insufficient' | 'measured' | 'calibrated'
+  raw_expected_return_pct: number
+  positive_return_retention: number
+  return_haircut_pct: number
+  conservative_expected_return_pct: number
+  uncapped_evidence_confidence_score: number
+  evidence_confidence_cap: number
+  evidence_confidence_score: number
+  rationale: string
+}
 export interface QualifiedIdeaEvaluation {
   candidate: QualifiedIdeaCandidate
   status: 'qualified' | 'needs_research' | 'does_not_clear'
   issues: QualifiedIdeaIssue[]
   metrics: QualifiedIdeaMetrics | null
+  /** Optional while old and new server bundles overlap during a deploy. */
+  ranking?: QualifiedIdeaRanking | null
   pareto_layer: number | null
   calibration_note: string
   admission?: { admission_id: string; admission_sha256: string; candidate_sha256: string; frozen_at: string }
@@ -1248,15 +1262,17 @@ export interface QualifiedIdeasPolicy {
   returnReconciliationTolerancePct: number
 }
 export interface QualifiedIdeasBoard {
-  schema_version: 'qualified-ideas-board/v1'
+  schema_version: 'qualified-ideas-board/v1' | 'qualified-ideas-board/v2'
   generated_at: string
   policy_version: string
+  /** Introduced in v2; optional so a v1 server remains readable during a rolling deploy. */
+  ranking_policy_version?: string
   policy: QualifiedIdeasPolicy
   health: {
     status: 'pre_data' | 'healthy' | 'degraded'
     outcome: 'no_artifacts' | 'none_clear' | 'qualified' | 'invalid_artifacts' | 'storage_error'
     reason: string
-    artifact_count: number; assessment_count: number; parsed_count: number; invalid_count: number
+    artifact_count: number; assessment_count: number; parsed_count: number; invalid_count: number; incomplete_count?: number
     not_assessable_count: number; qualified_count: number; needs_research_count: number
     does_not_clear_count: number; measured_count: number
   }

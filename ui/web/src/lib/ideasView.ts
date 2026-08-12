@@ -87,7 +87,9 @@ export function qualifiedIdeaFreshnessNow(
  * capabilities during a rolling deploy; any one keeps the tab inspectable.
  */
 export function summarizeIdeasSurface(board?: ScreenerBoard | null): IdeasSurfaceSummary {
-  const qualified = board?.qualified_ideas?.schema_version === 'qualified-ideas-board/v1'
+  const qualified = board?.qualified_ideas
+    && (board.qualified_ideas.schema_version === 'qualified-ideas-board/v1'
+      || board.qualified_ideas.schema_version === 'qualified-ideas-board/v2')
     ? board.qualified_ideas
     : null
   const healthAvailable = board?.ideas_health?.schema_version === 'ideas-health/v1'

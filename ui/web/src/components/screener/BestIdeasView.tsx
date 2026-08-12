@@ -227,9 +227,35 @@ function PromoteButton({ idea }: { idea: BoardIdea }) {
 
 function signedPct(value: number): string { return `${value > 0 ? '+' : ''}${value.toFixed(1)}%` }
 
+export function qualifiedIdeaReturnTag(idea: Pick<QualifiedIdeaEvaluation, 'metrics' | 'ranking'>): { label: string; title?: string } | null {
+  const raw = idea.metrics?.expected_return_pct
+  const adjusted = idea.ranking?.conservative_expected_return_pct
+  if (typeof adjusted === 'number' && Number.isFinite(adjusted)) {
+    return {
+      label: `policy-adjusted ${signedPct(adjusted)}`,
+      title: typeof raw === 'number' && Number.isFinite(raw) ? `Raw scenario return ${signedPct(raw)}` : undefined,
+    }
+  }
+  return typeof raw === 'number' && Number.isFinite(raw)
+    ? { label: `expected return ${signedPct(raw)}` }
+    : null
+}
+
+export function qualifiedIdeasWarning(board: QualifiedIdeasBoard | null | undefined): { label: string; title?: string } | null {
+  if (board?.health.status !== 'degraded') return null
+  const incomplete = board.health.incomplete_count ?? 0
+  return {
+    label: incomplete > 0
+      ? `${incomplete} research run${incomplete === 1 ? '' : 's'} not published`
+      : 'Research results incomplete',
+    title: board.health.reason || undefined,
+  }
+}
+
 function QualifiedIdeaCard({ idea }: { idea: QualifiedIdeaEvaluation }) {
   const candidate = idea.candidate
   const metrics = idea.metrics
+  const returnTag = qualifiedIdeaReturnTag(idea)
   return (
     <article className="bidea">
       <div className="bidea__head">
@@ -240,7 +266,7 @@ function QualifiedIdeaCard({ idea }: { idea: QualifiedIdeaEvaluation }) {
       <p className="bidea__why"><span className="bidea__whylabel">catalyst —</span> {candidate.catalyst.name}</p>
       <div className="bidea__tags">
         <span className="bidea__tag bidea__tag--rated">full research</span>
-        {metrics && <span className="bidea__tag">expected return {signedPct(metrics.expected_return_pct)}</span>}
+        {returnTag && <span className="bidea__tag" title={returnTag.title}>{returnTag.label}</span>}
         {metrics && <span className="bidea__tag">worst case {metrics.worst_case_loss_pct.toFixed(1)}% loss</span>}
       </div>
     </article>
@@ -331,10 +357,16 @@ export function BestIdeasView() {
   const leadRows = leadsAvailable ? scBoard!.ideas! : []
   const hasAnyLiveLead = leadRows.some((idea) => !ideaIsStaleNow(idea))
   const coldError = !scBoard && boardFetch.status === 'error'
+  const qualifiedWarning = qualifiedIdeasWarning(scBoard?.qualified_ideas)
 
   return (
     <div className="bideas">
       <IdeasTabs active={side} onSelect={setSide} />
+      {qualifiedWarning && (
+        <div className="bideas__truthwarn" role="status" title={qualifiedWarning.title}>
+          <span aria-hidden>!</span> {qualifiedWarning.label}
+        </div>
+      )}
       {(coldError || (scBoard && boardFetch.error)) && (
         <div className={`bideas__fetch ${coldError ? 'bideas__fetch--bad' : 'bideas__fetch--warn'}`} role={coldError ? 'alert' : 'status'} aria-live={coldError ? 'assertive' : 'polite'} title={boardFetch.error || undefined}>
           <strong>{coldError ? 'Could not load ideas.' : boardFetch.status === 'refreshing' ? 'Refreshing…' : 'Could not refresh. Showing saved ideas.'}</strong>
