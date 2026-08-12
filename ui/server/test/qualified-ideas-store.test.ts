@@ -828,8 +828,10 @@ let activityReads = 0
 let uncommittedScans = 0
 const directFreshBoard = buildQualifiedIdeasBoard(directRoot, {
   nowMs: NOW,
-  readActivityRows: () => {
+  readActivityRows: (query) => {
     activityReads++
+    assert.equal(query.limit, null, 'publication reads all rows only after applying its ticker batch')
+    assert.deepEqual(new Set(query.tickers), new Set(['DIRECTA', 'DIRECTB']))
     return { rows: [], total: 0, allTime: 0, users: [], tickers: [], tickerLabels: {}, earliest: null }
   },
   readUncommittedPublicationRuns: () => {
@@ -861,6 +863,35 @@ const malformedLedgerBoard = buildQualifiedIdeasBoard(directRoot, {
 })
 assert.equal(malformedLedgerBoard.health.publishing_count, 0, 'a malformed activity row cannot crash the board or make the ledger look complete enough for direct grace')
 assert.ok(!malformedLedgerBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'))
+
+const unboundPublicationLedgerBoard = buildQualifiedIdeasBoard(directRoot, {
+  nowMs: NOW,
+  readActivityRows: () => ({
+    rows: [{
+      runId: 'unbound-publication-row', user: 'local', userVia: 'local', kind: 'full', ticker: 'DIRECTA',
+      launchedAt: NOW - 60_000, status: 'done',
+    }],
+    total: 1, allTime: 1, users: [], tickers: ['DIRECTA'], tickerLabels: {}, earliest: NOW - 60_000,
+  }),
+  readUncommittedPublicationRuns: () => new Set(['analyses/DIRECTA_2026-08-03', 'analyses/DIRECTB_2026-08-03']),
+})
+assert.equal(unboundPublicationLedgerBoard.health.publishing_count, 0, 'a publication row with no ticker-bound run root makes direct grace fail closed')
+assert.ok(!unboundPublicationLedgerBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'))
+
+const mislabeledTerminalLedgerBoard = buildQualifiedIdeasBoard(directRoot, {
+  nowMs: NOW,
+  readActivityRows: () => ({
+    rows: [{
+      runId: 'mislabeled-terminal-row', user: 'local', userVia: 'local', kind: 'full', ticker: 'DIRECTA',
+      swarm: 'commodity', runRoot: 'analyses/DIRECTA_2026-08-03', launchedAt: NOW - 120_000,
+      finishedAt: NOW - 60_000, status: 'error',
+    }],
+    total: 1, allTime: 1, users: [], tickers: ['DIRECTA'], tickerLabels: {}, earliest: NOW - 120_000,
+  }),
+  readUncommittedPublicationRuns: () => new Set(['analyses/DIRECTA_2026-08-03', 'analyses/DIRECTB_2026-08-03']),
+})
+assert.equal(mislabeledTerminalLedgerBoard.health.publishing_count, 0, 'a foreign swarm tag cannot hide a terminal retry for the exact research run root')
+assert.ok(!mislabeledTerminalLedgerBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'))
 
 const readerRejectedLedgerBoard = buildQualifiedIdeasBoard(directRoot, {
   nowMs: NOW,

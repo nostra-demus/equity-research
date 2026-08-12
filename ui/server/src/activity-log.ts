@@ -90,11 +90,15 @@ export interface ActivityQuery {
   from?: number // epoch ms (inclusive)
   to?: number // epoch ms (inclusive)
   ticker?: string
+  /** Internal batch filter. The public route continues to expose the single-ticker query above. */
+  tickers?: readonly string[]
   kind?: RunKind
   user?: string
   status?: RunStatus
   q?: string // free-text across user/ticker/module/agent
-  limit?: number // rows returned (default 500)
+  /** Rows returned (default 500). `null` is an internal no-truncation sentinel used only after a
+   * narrowly scoped ticker filter; HTTP callers never receive this capability. */
+  limit?: number | null
 }
 
 export interface ActivityResult {
@@ -135,6 +139,27 @@ function validOptionalString(value: unknown): boolean {
   return value === undefined || typeof value === 'string'
 }
 
+function canonicalIdentity(value: unknown): value is string {
+  return typeof value === 'string' && value.length > 0 && value === value.trim()
+}
+
+function activityRunIdentityMatches(event: Record<string, unknown>): boolean {
+  if (event.runRoot === undefined) return true
+  const runRoot = event.runRoot as string
+  const researchRoot = /^analyses\/([-A-Z0-9.]+)_\d{4}-\d{2}-\d{2}$/.exec(runRoot)
+  // The folder is the durable authority. An explicit foreign swarm cannot turn a research terminal row
+  // invisible, and the ticker must name the same issuer as the dated analysis folder.
+  if (researchRoot) {
+    return researchRoot[1] === (event.ticker as string).toUpperCase() &&
+      (event.swarm === undefined || event.swarm === 'research')
+  }
+  const publicationKind = event.kind === 'full' || event.kind === 'rerun' || event.chained === true
+  // New research publication rows always use an analyses/<TICKER>_<DATE> root. Preserve old finish rows
+  // with no swarm (their launch supplies the identity), including commodity runs, but reject an explicit
+  // research publication whose folder contradicts that declaration.
+  return !(publicationKind && event.swarm === 'research')
+}
+
 /** JSONL is an external persistence boundary. Validate every required field before folding so a
  * syntactically valid legacy/torn row can neither throw during label resolution nor manufacture a
  * publication clock. Optional fields are also type-checked because they flow into the public API. */
@@ -143,14 +168,17 @@ function isActivityEvent(value: unknown): value is ActivityEvent {
   const event = value as Record<string, unknown>
   if (event.v !== 1 || !ACTIVITY_EVENT_TYPES.has(event.event as ActivityEventType)) return false
   if (typeof event.ts !== 'number' || !Number.isFinite(event.ts)) return false
-  if (typeof event.runId !== 'string' || !event.runId.trim()) return false
-  if (typeof event.user !== 'string' || !event.user.trim()) return false
+  if (!canonicalIdentity(event.runId)) return false
+  if (!canonicalIdentity(event.user)) return false
   if (!ACTIVITY_USER_VIA.has(event.userVia as ActivityEvent['userVia'])) return false
   if (!ACTIVITY_FILTER_KINDS.includes(event.kind as RunKind)) return false
-  if (typeof event.ticker !== 'string' || !event.ticker.trim()) return false
+  if (!canonicalIdentity(event.ticker)) return false
   if (event.status !== undefined && !ACTIVITY_RUN_STATUSES.has(event.status as RunStatus)) return false
   if (event.chained !== undefined && typeof event.chained !== 'boolean') return false
   if (![event.swarm, event.runRoot, event.module, event.agent, event.model, event.note].every(validOptionalString)) return false
+  if (event.swarm !== undefined && !canonicalIdentity(event.swarm)) return false
+  if (event.runRoot !== undefined && !canonicalIdentity(event.runRoot)) return false
+  if (!activityRunIdentityMatches(event)) return false
   if ([event.costUsd, event.durationMs, event.numTurns].some((number) =>
     number !== undefined && (typeof number !== 'number' || !Number.isFinite(number)))) return false
   return true
@@ -256,10 +284,17 @@ export function readActivity(query: ActivityQuery = {}, sigLabels?: Map<string, 
   )
 
   const q = query.q?.trim().toLowerCase()
+  // An explicitly supplied empty batch means "match no tickers", not "drop the filter". That keeps
+  // malformed/unkeyable analysis folders from accidentally turning the board's internal read into an
+  // unbounded global result.
+  const tickerBatch = query.tickers
+    ? new Set(query.tickers.map((ticker) => ticker.trim().toUpperCase()).filter(Boolean))
+    : null
   const matched = allRows.filter((r) => {
     if (query.from != null && r.launchedAt < query.from) return false
     if (query.to != null && r.launchedAt > query.to) return false
     if (query.ticker && r.ticker !== query.ticker) return false
+    if (tickerBatch && !tickerBatch.has(r.ticker.toUpperCase())) return false
     if (query.kind && r.kind !== query.kind) return false
     if (query.user && r.user !== query.user) return false
     if (query.status && r.status !== query.status) return false
@@ -270,7 +305,7 @@ export function readActivity(query: ActivityQuery = {}, sigLabels?: Map<string, 
     return true
   })
 
-  const limit = Math.max(1, Math.min(5000, query.limit ?? 500))
+  const limit = query.limit === null ? matched.length : Math.max(1, Math.min(5000, query.limit ?? 500))
   return {
     rows: matched.slice(0, limit),
     total: matched.length,

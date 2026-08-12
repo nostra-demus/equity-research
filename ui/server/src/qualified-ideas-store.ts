@@ -549,8 +549,12 @@ interface PublicationProgress {
   status: 'running' | 'terminal'
 }
 
-function researchPublicationRun(kind: string, chained: boolean | undefined, swarm: string | undefined): boolean {
-  return (swarm === undefined || swarm === 'research') && (kind === 'full' || kind === 'rerun' || chained === true)
+function publicationRunKind(kind: string, chained: boolean | undefined): boolean {
+  return kind === 'full' || kind === 'rerun' || chained === true
+}
+
+function liveResearchPublicationRun(kind: string, chained: boolean | undefined, swarm: string | undefined): boolean {
+  return (swarm === undefined || swarm === 'research') && publicationRunKind(kind, chained)
 }
 
 /**
@@ -565,7 +569,7 @@ function publicationProgressForRun(
   activityRows: () => ActivityRow[],
 ): PublicationProgress | null {
   const active = inFlightRunsForTicker(ticker)
-    .filter((run) => run.runRoot === expectedRoot && researchPublicationRun(run.kind, run.chained, run.swarmId))
+    .filter((run) => run.runRoot === expectedRoot && liveResearchPublicationRun(run.kind, run.chained, run.swarmId))
     .filter((run) => Number.isFinite(run.startedAt))
     .sort((a, b) => b.startedAt - a.startedAt || b.runId.localeCompare(a.runId))
   const latestActive = active[0]
@@ -573,7 +577,9 @@ function publicationProgressForRun(
   // Choose the latest ATTEMPT before inspecting status. Filtering to `running` first would let an older
   // orphaned launch hold grace open after a newer retry for the same root had already ended.
   const latestDurable = activityRows()
-    .filter((row) => Number.isFinite(row.launchedAt) && row.runRoot === expectedRoot && researchPublicationRun(row.kind, row.chained, row.swarm))
+    // Exact run-root identity is stronger than the optional legacy swarm label. Never let a malformed
+    // foreign tag hide a terminal retry for this research folder.
+    .filter((row) => Number.isFinite(row.launchedAt) && row.runRoot === expectedRoot && publicationRunKind(row.kind, row.chained))
     .sort((a, b) => b.launchedAt - a.launchedAt || b.runId.localeCompare(a.runId))[0]
 
   // A newly claimed in-memory attempt may precede its durable launch line by a few milliseconds. It is
@@ -686,12 +692,18 @@ function discover(
   const invalidRunRoots = new Set<string>()
   const incompleteRunRoots = new Set<string>()
   const publishingRunRoots = new Set<string>()
+  const activityTickers = [...new Set(runNames
+    .map((runName) => runName.slice(0, -11).toUpperCase())
+    .filter((ticker) => /^[-A-Z0-9.]{1,24}$/.test(ticker)))]
   let activityRowsByTicker: Map<string, ActivityRow[]> | null = null
   let activityLedgerComplete = false
   const activityRowsFor = (ticker: string): ActivityRow[] => {
     if (!activityRowsByTicker) {
       activityRowsByTicker = new Map()
-      const activity = readActivityRows({ limit: 5_000 })
+      // readActivity already parses/folds the ledger once. Filter that one pass to board tickers before
+      // returning every matching row, so 5,000 unrelated runs cannot permanently disable publication
+      // grace while terminal retries for a relevant ticker remain hidden beyond the global slice.
+      const activity = readActivityRows({ tickers: activityTickers, limit: null })
       activityLedgerComplete = (activity.invalid_event_count ?? 0) === 0 && activity.total <= activity.rows.length
       for (const row of activity.rows) {
         // The append-only log is a runtime trust boundary: a syntactically valid legacy/corrupt JSON
@@ -703,6 +715,23 @@ function discover(
           continue
         }
         const key = row.ticker.toUpperCase()
+        // Production validates this before folding, but keep the injected/test boundary defensive too.
+        // A publication row with no canonical, ticker-matching run root could be a hidden terminal retry;
+        // it must disable the weaker Git-mtime grace rather than let an older sealed call remain live.
+        if (publicationRunKind(row.kind, row.chained)) {
+          const root = typeof row.runRoot === 'string'
+            ? /^analyses\/([-A-Z0-9.]+)_\d{4}-\d{2}-\d{2}$/.exec(row.runRoot)
+            : null
+          if (root) {
+            if (root[1] !== key || (row.swarm !== undefined && row.swarm !== 'research')) {
+              activityLedgerComplete = false
+            }
+          } else if (row.swarm === 'research' || row.runRoot === undefined) {
+            // An explicitly research-tagged row with a foreign root, or a legacy publication row with
+            // no root at all, may conceal a terminal attempt. It cannot authorize the weaker mtime clock.
+            activityLedgerComplete = false
+          }
+        }
         const grouped = activityRowsByTicker.get(key) ?? []
         grouped.push(row)
         activityRowsByTicker.set(key, grouped)

@@ -241,6 +241,8 @@ export function finishRun(run: RunState, status: RunStatus) {
       userVia: run.userVia,
       kind: run.kind,
       ticker: run.ticker,
+      swarm: run.swarmId,
+      chained: run.chained,
       // the authoritative run folder rides the finished event too: a row folded from a finish-only
       // event (its launched line lost) could otherwise never open its reports
       runRoot: run.runRoot ?? undefined,
