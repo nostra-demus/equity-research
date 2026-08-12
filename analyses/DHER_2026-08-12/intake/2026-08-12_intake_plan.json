@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "ticker": "DHER",
+  "run_root": "analyses/DHER_2026-08-12",
+  "scan_date": "2026-08-12",
+  "scanned_at": "2026-08-12T16:04:34Z",
+  "watermark": "analyses/DHER_2026-08-12/final_thesis.md",
+  "new_docs": [],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [],
+    "commands": [],
+    "note_only": []
+  },
+  "verdict": "note_only",
+  "summary": "No new documents since the last run. The only files in the data pool newer than final_thesis.md are the engine's own routed output (Memos 2026-08-12 21-33-53/, marked with .nostradamus_output) — every source document predates the watermark."
+}
