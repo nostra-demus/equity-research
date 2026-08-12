@@ -68,16 +68,16 @@ assert.deepEqual(valid.metrics, {
   ],
 })
 assert.deepEqual(valid.ranking, {
-  policy_version: 'ideas-ranking/calibration-shrinkage-v1',
+  policy_version: 'ideas-ranking/calibration-shrinkage-v2',
   calibration_status: 'pre_data',
   raw_expected_return_pct: 17.5,
   positive_return_retention: 0.35,
   return_haircut_pct: 65,
-  conservative_expected_return_pct: 6.13,
+  conservative_expected_return_pct: 4.56,
   uncapped_evidence_confidence_score: 66,
   evidence_confidence_cap: 50,
   evidence_confidence_score: 43.2,
-  rationale: 'No exact-horizon outcomes have resolved, so 65% of claimed upside is removed and evidence is compressed into a conservative 0-50 confidence band.',
+  rationale: 'No exact-horizon outcomes have resolved, so only 35% of each positive scenario return is retained while losses remain fully counted; evidence is compressed into a conservative 0-50 confidence band.',
 })
 assert.equal(valid.metrics?.expected_return_pct, 17.5, 'ranking shrinkage must not rewrite the raw scenario math used for qualification and outcome grading')
 assert.match(valid.calibration_note, /Pre-data/)
@@ -308,8 +308,27 @@ optimisticPreData.scenarios = [
 const preDataResult = evaluateQualifiedIdea(optimisticPreData, { nowMs: NOW })
 assert.equal(preDataResult.metrics!.expected_return_pct, 44.6, 'raw expected return continues to reconcile directly to the scenario distribution')
 assert.equal(preDataResult.ranking!.raw_expected_return_pct, preDataResult.metrics!.expected_return_pct, 'the ranking object preserves the raw qualification metric')
-assert.equal(preDataResult.ranking!.conservative_expected_return_pct, 15.61)
+assert.equal(preDataResult.ranking!.conservative_expected_return_pct, 14.05)
 assert.equal(preDataResult.ranking!.evidence_confidence_score, 50, 'pre-data confidence is capped even when raw evidence inputs claim 100')
+
+const lossBearingHaircut = candidate('QIDEA-loss-bearing-haircut')
+lossBearingHaircut.scenarios = [
+  { scenario_id: 'bull', label: 'bull', probability_pct: 25, price_target: 180, source_price_target: 180, conditions: ['KPI reaches 160'], source: 'frozen event model' },
+  { scenario_id: 'base', label: 'base', probability_pct: 25, price_target: 220, source_price_target: 220, conditions: ['KPI reaches 200'], source: 'frozen event model' },
+  { scenario_id: 'bear', label: 'bear', probability_pct: 50, price_target: 60, source_price_target: 60, conditions: ['KPI falls below 80'], source: 'frozen event model' },
+]
+const lossBearingResult = evaluateQualifiedIdea(lossBearingHaircut, { nowMs: NOW })
+assert.equal(lossBearingResult.metrics!.expected_return_pct, 30)
+assert.equal(
+  lossBearingResult.ranking!.conservative_expected_return_pct,
+  -2.5,
+  'ranking retains only 35% of positive scenario returns but counts every forecast loss in full',
+)
+assert.notEqual(
+  lossBearingResult.ranking!.conservative_expected_return_pct,
+  10.5,
+  'haircutting the net expected return would incorrectly shrink the negative scenarios toward zero',
+)
 
 const reservedCalibrated = candidate('QIDEA-reserved-calibrated')
 reservedCalibrated.research.calibration_status = 'calibrated'

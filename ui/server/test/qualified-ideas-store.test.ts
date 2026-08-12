@@ -114,7 +114,7 @@ function writeRun(name: string, opts: {
   const c = candidate(runRoot, opts.createdAt)
   if (!opts.lowConservativeReturn) {
     c.scenarios[0].price_target = c.scenarios[0].source_price_target = 160
-    c.scenarios[1].price_target = c.scenarios[1].source_price_target = 135
+    c.scenarios[1].price_target = c.scenarios[1].source_price_target = 138
   }
   if (opts.entryStartsEarly) c.horizon.start = '2026-08-01T10:00:00Z'
   const authorityScenarios = c.scenarios.map((row) => ({
@@ -448,7 +448,7 @@ const lowRankingBoard = buildQualifiedIdeasBoard(root, { nowMs: NOW })
 const lowRanking = lowRankingBoard.does_not_clear.find((x) => x.candidate.instrument.ticker === 'LOWRANK')
 assert.ok(lowRanking?.issues.some((x) => x.code === 'conservative_return_below_bar'), 'a raw-qualified prior cannot appear live when its calibration-adjusted return misses the bar')
 assert.equal(lowRanking?.metrics?.expected_return_pct, 17.5, 'the raw immutable scenario math remains visible and unchanged')
-assert.equal(lowRanking?.ranking?.conservative_expected_return_pct, 6.13)
+assert.equal(lowRanking?.ranking?.conservative_expected_return_pct, 4.56)
 assert.ok(
   listFrozenQualifiedIdeaEvaluations(root).some((x) => x.candidate.run_root === lowRankingRun.candidate.run_root),
   'the live ranking gate must not rewrite the immutable admission or select the observation out of outcome grading',

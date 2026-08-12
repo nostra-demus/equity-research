@@ -116,16 +116,16 @@ const qualified = (ideaId: string, direction: 'long' | 'short', horizonEnd = '20
     ],
   },
   ranking: {
-    policy_version: 'ideas-ranking/calibration-shrinkage-v1',
+    policy_version: 'ideas-ranking/calibration-shrinkage-v2',
     calibration_status: 'pre_data',
     raw_expected_return_pct: 34,
     positive_return_retention: 0.35,
     return_haircut_pct: 65,
-    conservative_expected_return_pct: 11.9,
+    conservative_expected_return_pct: 10.6,
     uncapped_evidence_confidence_score: 60,
     evidence_confidence_cap: 50,
     evidence_confidence_score: 42,
-    rationale: 'No exact-horizon outcomes have resolved, so 65% of claimed upside is removed and evidence is compressed into a conservative 0-50 confidence band.',
+    rationale: 'No exact-horizon outcomes have resolved, so only 35% of each positive scenario return is retained while losses remain fully counted; evidence is compressed into a conservative 0-50 confidence band.',
   },
   pareto_layer: 1,
   admission: {
@@ -191,7 +191,7 @@ const qualifiedBoard = {
   schema_version: 'qualified-ideas-board/v1',
   generated_at: '2026-08-12T10:00:00Z',
   policy_version: 'ideas-policy/precal-v1',
-  ranking_policy_version: 'ideas-ranking/calibration-shrinkage-v1',
+  ranking_policy_version: 'ideas-ranking/calibration-shrinkage-v2',
   policy: qualifiedPolicy,
   health: {
     status: 'healthy', outcome: 'qualified', reason: 'One or more ideas qualified.',
@@ -293,8 +293,12 @@ const impossibleRankingScoreRow = structuredClone(qualified('ranking-score-999',
 impossibleRankingScoreRow.ranking!.evidence_confidence_score = 999
 assert.equal(normalizeQualifiedIdeaRow(impossibleRankingScoreRow, qualifiedBoard.policy), null, 'an impossible 999 evidence-confidence score fails closed')
 const mismatchedRankingMathRow = structuredClone(qualified('ranking-math-mismatch', 'long')) as unknown as QualifiedIdeaEvaluation
-mismatchedRankingMathRow.ranking!.conservative_expected_return_pct = 11
-assert.equal(normalizeQualifiedIdeaRow(mismatchedRankingMathRow, qualifiedBoard.policy), null, 'conservative return must reconcile to raw return and retention')
+mismatchedRankingMathRow.ranking!.conservative_expected_return_pct = 11.9
+assert.equal(
+  normalizeQualifiedIdeaRow(mismatchedRankingMathRow, qualifiedBoard.policy),
+  null,
+  'the client rejects the old net-return haircut because it softens losses instead of retaining only positive scenario returns',
+)
 const mismatchedRankingHaircutRow = structuredClone(qualified('ranking-haircut-mismatch', 'long')) as unknown as QualifiedIdeaEvaluation
 mismatchedRankingHaircutRow.ranking!.return_haircut_pct = 5
 assert.equal(normalizeQualifiedIdeaRow(mismatchedRankingHaircutRow, qualifiedBoard.policy), null, 'the printed haircut must reconcile to retention')
@@ -381,7 +385,7 @@ lowConservativeReturn.metrics = {
     { label: 'Bull', probability_pct: 30, return_pct: 60 },
   ],
 }
-lowConservativeReturn.ranking = { ...lowConservativeReturn.ranking!, raw_expected_return_pct: 26, conservative_expected_return_pct: 9.1 }
+lowConservativeReturn.ranking = { ...lowConservativeReturn.ranking!, raw_expected_return_pct: 26, conservative_expected_return_pct: 7.8 }
 assert.equal(normalizeQualifiedIdeaRow(lowConservativeReturn, qualifiedBoard.policy, nowMs), null, 'raw upside cannot qualify when its policy-adjusted return misses the live bar')
 
 const excessiveLoss = structuredClone(qualified('loss-budget', 'long')) as QualifiedIdeaEvaluation
@@ -399,7 +403,7 @@ excessiveLoss.metrics = {
     { label: 'Bull', probability_pct: 30, return_pct: 80 },
   ],
 }
-excessiveLoss.ranking = { ...excessiveLoss.ranking!, raw_expected_return_pct: 36, conservative_expected_return_pct: 12.6 }
+excessiveLoss.ranking = { ...excessiveLoss.ranking!, raw_expected_return_pct: 36, conservative_expected_return_pct: 7.4 }
 assert.equal(normalizeQualifiedIdeaRow(excessiveLoss, qualifiedBoard.policy, nowMs), null, 'tail and worst-case loss budgets remain hard gates')
 
 const roundedLossBoundary = structuredClone(qualified('rounded-loss-boundary', 'long')) as QualifiedIdeaEvaluation
@@ -417,7 +421,7 @@ roundedLossBoundary.metrics = {
     { label: 'Bull', probability_pct: 30, return_pct: 80 },
   ],
 }
-roundedLossBoundary.ranking = { ...roundedLossBoundary.ranking!, raw_expected_return_pct: 40, conservative_expected_return_pct: 14 }
+roundedLossBoundary.ranking = { ...roundedLossBoundary.ranking!, raw_expected_return_pct: 40, conservative_expected_return_pct: 11.4 }
 assert.ok(normalizeQualifiedIdeaRow(roundedLossBoundary, qualifiedBoard.policy, nowMs), 'eligibility gates use the same rounded metrics as the server at an exact loss-budget boundary')
 
 assert.equal(normalizeQualifiedIdeasBoard({
@@ -697,7 +701,7 @@ qualifiedCardIdea.ranking = {
   ...qualifiedCardIdea.ranking!,
   calibration_status: 'pre_data',
   raw_expected_return_pct: 34,
-  conservative_expected_return_pct: 11.9,
+  conservative_expected_return_pct: 10.6,
   evidence_confidence_score: 42,
 }
 qualifiedCardIdea.calibration_note = 'Pre-data: probabilities and policy thresholds are auditable priors until enough exact-horizon outcomes resolve.'
@@ -728,7 +732,7 @@ const qualifiedCardHtml = renderToStaticMarkup(createElement(QualifiedIdeaCard, 
   policy: qualifiedBoard.policy,
   nowMs,
 }))
-assert.match(qualifiedCardHtml, /policy-adjusted \+11\.9%/)
+assert.match(qualifiedCardHtml, /policy-adjusted \+10\.6%/)
 assert.match(qualifiedCardHtml, /pre-data probabilities · not calibrated · evidence confidence 42\/100/)
 assert.match(qualifiedCardHtml, /Calibration note —<\/span> Pre-data: probabilities and policy thresholds are auditable priors until enough exact-horizon outcomes resolve\./)
 assert.match(qualifiedCardHtml, /frozen quote USD 123\.45 · as of Aug 12, 2026/)

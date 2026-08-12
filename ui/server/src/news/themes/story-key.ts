@@ -11,16 +11,21 @@ export interface ThemeStoryIdentity {
 }
 
 const CORRECTION_RE = /\b(correct(?:s|ed|ion)?|clarif(?:y|ies|ied|ication)|revis(?:e|es|ed|ion)|restat(?:e|es|ed|ement))\b/i
-const REVERSAL_RE = /\b(retract(?:s|ed|ion)?|withdraw(?:s|n|al)?|revers(?:e|es|ed|al)|den(?:y|ies|ied|ial)|refut(?:e|es|ed)|rescinds?|cancel(?:s|l?ed|lation|l?ing)?|postpon(?:e(?:s|d)?|ement|ing))\b/i
+const REVERSAL_RE = /\b(retract(?:s|ed|ion)?|withdraw(?:s|n|al)?|revers(?:e|es|ed|al)|den(?:y|ies|ied|ial)|refut(?:e|es|ed)|rescinds?|cancel(?:s|l?ed|lations?|l?ing)?|postpon(?:e(?:s|d)?|ements?|ing))\b/i
 
 /** Corrections and reversals may share a wire dedup family with the original report, but suppressing them
- * as publisher copies would hide exactly the row that can falsify a thesis. Keep one canonical correction
- * and one canonical reversal lane per family; ordinary rewrites remain one observation. */
-function revisionLane(item: ThemeStoryIdentity): '' | 'correction' | 'reversal' {
+ * as publisher copies would hide exactly the row that can falsify a thesis. A correction that explicitly
+ * negates a reversal is a fourth state: folding it back into the reversal lane can preserve the obsolete
+ * cancellation and discard the restoration. Keep each state distinct; ordinary rewrites remain one
+ * observation. */
+function revisionLane(item: ThemeStoryIdentity): '' | 'correction' | 'reversal' | 'correction-reversal' {
   const headline = String((typeof item.headline_en === 'string' && item.headline_en.trim()) || item.headline || '')
   const eventTypes = Array.isArray(item.event_types) ? item.event_types.map(String) : []
-  if (REVERSAL_RE.test(headline)) return 'reversal'
-  if (CORRECTION_RE.test(headline) || eventTypes.includes('accounting_restatement')) return 'correction'
+  const correction = CORRECTION_RE.test(headline) || eventTypes.includes('accounting_restatement')
+  const reversal = REVERSAL_RE.test(headline)
+  if (correction && reversal) return 'correction-reversal'
+  if (correction) return 'correction'
+  if (reversal) return 'reversal'
   return ''
 }
 

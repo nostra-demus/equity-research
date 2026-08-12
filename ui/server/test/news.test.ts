@@ -18,6 +18,7 @@ import { mergeInbox } from '../src/news/write-inbox'
 import { runIngestCycle, triageGroqTokenBound } from '../src/news/runCycle'
 import { anthropicDrainReady, backlogTrend, drainBatchEst, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS } from '../src/config'
+import { themeStoryKey } from '../src/news/themes/story-key'
 import type { FeedItem, RawArticle, TriagedItem } from '../src/news/types'
 
 let passed = 0
@@ -514,7 +515,13 @@ await check('mergeInbox preserves an in-place correction or reversal that reuses
   assert.equal(correction?.input_nature, 'exchange_announcement')
 })
 
-await check('mergeInbox never collapses cancelled or postponed updates into their original story', () => {
+await check('story identity recognizes plural reversals and isolates a correction that restores a cancelled event', () => {
+  assert.equal(themeStoryKey({ dedup_group: 'EVT-cancel', headline: 'Issuer announces AGM cancellations' }), 'EVT-cancel:reversal')
+  assert.equal(themeStoryKey({ dedup_group: 'EVT-postpone', headline: 'Issuer announces results postponements' }), 'EVT-postpone:reversal')
+  assert.equal(themeStoryKey({ dedup_group: 'EVT-cancel', headline: 'Correction: issuer AGM was not cancelled' }), 'EVT-cancel:correction-reversal')
+})
+
+await check('mergeInbox never collapses cancelled, postponed, or corrective-restoration updates', () => {
   const root = tmp()
   const date = '2026-06-12'
   const revision = (group: string, url: string, headline: string, score: number): TriagedItem => ({
@@ -524,6 +531,7 @@ await check('mergeInbox never collapses cancelled or postponed updates into thei
   mergeInbox(root, date, [
     revision('EVT-cancel', 'https://filing.test/agm-original', 'Issuer confirms AGM for September 9', 99),
     revision('EVT-cancel', 'https://news.test/agm-cancelled', 'Issuer AGM cancelled', 70),
+    revision('EVT-cancel', 'https://news.test/agm-restored', 'Correction: issuer AGM was not cancelled', 60),
     revision('EVT-postpone', 'https://filing.test/results-original', 'Issuer confirms results for September 10', 98),
     revision('EVT-postpone', 'https://news.test/results-postponed', 'Issuer results have been postponed', 69),
   ], { maxRows: 10 })
@@ -534,10 +542,11 @@ await check('mergeInbox never collapses cancelled or postponed updates into thei
     new Set([
       'Issuer confirms AGM for September 9',
       'Issuer AGM cancelled',
+      'Correction: issuer AGM was not cancelled',
       'Issuer confirms results for September 10',
       'Issuer results have been postponed',
     ]),
-    'lower-tier thesis-falsifying updates remain visible beside higher-tier originals',
+    'lower-score thesis-falsifying updates and their corrective restoration remain visible beside the original',
   )
 })
 

@@ -18,7 +18,7 @@ import { z } from 'zod'
 export const QUALIFIED_IDEA_SCHEMA = 'qualified-idea/v1' as const
 export const IDEA_ASSESSMENT_SCHEMA = 'idea-assessment/v1' as const
 export const QUALIFICATION_POLICY_VERSION = 'ideas-policy/precal-v1' as const
-export const QUALIFIED_IDEA_RANKING_POLICY_VERSION = 'ideas-ranking/calibration-shrinkage-v1' as const
+export const QUALIFIED_IDEA_RANKING_POLICY_VERSION = 'ideas-ranking/calibration-shrinkage-v2' as const
 
 export type IdeaDirection = 'long' | 'short'
 export type QualificationStatus = 'qualified' | 'needs_research' | 'does_not_clear'
@@ -97,42 +97,42 @@ export interface CalibrationRankingRule {
 // basis. This preserves evidence ordering without pretending probability calibration is proven. These
 // are policy constants, not fitted coefficients; changing them requires a new policy version so an
 // earlier frontier remains reproducible.
-const CALIBRATION_SHRINKAGE_V1_RULES: Readonly<Record<IdeaCalibrationStatus, Readonly<CalibrationRankingRule>>> = Object.freeze({
+const CALIBRATION_SHRINKAGE_V2_RULES: Readonly<Record<IdeaCalibrationStatus, Readonly<CalibrationRankingRule>>> = Object.freeze({
   pre_data: Object.freeze({
     positiveReturnRetention: 0.35,
     evidenceInputFloor: 50,
     evidenceConfidenceAtFloor: 40,
     evidenceConfidenceCap: 50,
-    rationale: 'No exact-horizon outcomes have resolved, so 65% of claimed upside is removed and evidence is compressed into a conservative 0-50 confidence band.',
+    rationale: 'No exact-horizon outcomes have resolved, so only 35% of each positive scenario return is retained while losses remain fully counted; evidence is compressed into a conservative 0-50 confidence band.',
   }),
   insufficient: Object.freeze({
     positiveReturnRetention: 0.35,
     evidenceInputFloor: 50,
     evidenceConfidenceAtFloor: 40,
     evidenceConfidenceCap: 50,
-    rationale: 'Some outcomes exist but the cohort is too small or narrow to learn from, so the pre-data haircut remains in force.',
+    rationale: 'Some outcomes exist but the cohort is too small or narrow to learn from, so the scenario-level upside haircut remains in force and losses remain fully counted.',
   }),
   measured: Object.freeze({
     positiveReturnRetention: 0.35,
     evidenceInputFloor: 50,
     evidenceConfidenceAtFloor: 40,
     evidenceConfidenceCap: 50,
-    rationale: 'The sample is large enough to measure, but measurement alone does not prove forecast skill, so the pre-data haircut remains in force.',
+    rationale: 'The sample is large enough to measure, but measurement alone does not prove forecast skill, so the scenario-level upside haircut remains in force and losses remain fully counted.',
   }),
   calibrated: Object.freeze({
     positiveReturnRetention: 0.35,
     evidenceInputFloor: 50,
     evidenceConfidenceAtFloor: 40,
     evidenceConfidenceCap: 50,
-    rationale: 'Calibrated is reserved until an out-of-sample quality gate exists; the pre-data haircut remains in force.',
+    rationale: 'Calibrated is reserved until an out-of-sample quality gate exists; the scenario-level upside haircut remains in force and losses remain fully counted.',
   }),
 })
 export const QUALIFIED_IDEA_RANKING_POLICIES: Readonly<Record<string, Readonly<Record<IdeaCalibrationStatus, Readonly<CalibrationRankingRule>>>>> = Object.freeze({
-  [QUALIFIED_IDEA_RANKING_POLICY_VERSION]: CALIBRATION_SHRINKAGE_V1_RULES,
+  [QUALIFIED_IDEA_RANKING_POLICY_VERSION]: CALIBRATION_SHRINKAGE_V2_RULES,
 })
 // Backward-compatible name for callers that inspect the active policy. The versioned registry above is
 // the replay boundary: changing these constants requires a new policy key, never an in-place relabel.
-export const QUALIFIED_IDEA_CALIBRATION_RANKING_RULES = CALIBRATION_SHRINKAGE_V1_RULES
+export const QUALIFIED_IDEA_CALIBRATION_RANKING_RULES = CALIBRATION_SHRINKAGE_V2_RULES
 
 export interface QualifiedIdeaCandidate {
   schema_version: typeof QUALIFIED_IDEA_SCHEMA
@@ -545,9 +545,12 @@ function rankingFor(candidate: QualifiedIdeaCandidate, metrics: QualifiedIdeaMet
   if (!rule || !finite(dataSufficiency) || !finite(edge)) return null
 
   const rawExpectedReturn = metrics.expected_return_pct
-  const conservativeExpectedReturn = rawExpectedReturn > 0
-    ? rawExpectedReturn * rule.positiveReturnRetention
-    : rawExpectedReturn
+  const conservativeExpectedReturn = metrics.scenario_returns.reduce((sum, scenario) => {
+    const adjustedReturn = scenario.return_pct > 0
+      ? scenario.return_pct * rule.positiveReturnRetention
+      : scenario.return_pct
+    return sum + (scenario.probability_pct / 100) * adjustedReturn
+  }, 0)
   const uncappedEvidenceConfidence = Math.min(dataSufficiency, edge)
   const evidenceConfidence = uncappedEvidenceConfidence <= rule.evidenceInputFloor
     ? uncappedEvidenceConfidence * (rule.evidenceConfidenceAtFloor / rule.evidenceInputFloor)

@@ -30,7 +30,7 @@ const QUALIFIED_HEALTH_OUTCOMES = new Set(['no_artifacts', 'publishing', 'none_c
 const OUTCOME_HEALTH_STATUSES = new Set(['pre_data', 'healthy', 'degraded', 'error'])
 const OUTCOME_HEALTH_OUTCOMES = new Set(['no_qualified_ideas', 'nothing_due', 'endpoint_pending', 'resolved', 'history_missing', 'admission_failed', 'provider_failed', 'failed'])
 const QUALIFICATION_POLICY_VERSION = 'ideas-policy/precal-v1'
-const RANKING_POLICY_VERSION = 'ideas-ranking/calibration-shrinkage-v1'
+const RANKING_POLICY_VERSION = 'ideas-ranking/calibration-shrinkage-v2'
 const DEFAULT_PROBABILITY_TOLERANCE_PCT = 0.05
 const DEFAULT_RETURN_RECONCILIATION_TOLERANCE_PCT = 0.15
 const SERVER_ROUNDING_TOLERANCE = 1e-7
@@ -46,9 +46,9 @@ const CALIBRATION_NOTES = Object.freeze({
   measured: 'Sample floor met: calibration diagnostics are measurable, but that alone does not prove the probabilities accurate.',
 })
 const RANKING_RATIONALES = Object.freeze({
-  pre_data: 'No exact-horizon outcomes have resolved, so 65% of claimed upside is removed and evidence is compressed into a conservative 0-50 confidence band.',
-  insufficient: 'Some outcomes exist but the cohort is too small or narrow to learn from, so the pre-data haircut remains in force.',
-  measured: 'The sample is large enough to measure, but measurement alone does not prove forecast skill, so the pre-data haircut remains in force.',
+  pre_data: 'No exact-horizon outcomes have resolved, so only 35% of each positive scenario return is retained while losses remain fully counted; evidence is compressed into a conservative 0-50 confidence band.',
+  insufficient: 'Some outcomes exist but the cohort is too small or narrow to learn from, so the scenario-level upside haircut remains in force and losses remain fully counted.',
+  measured: 'The sample is large enough to measure, but measurement alone does not prove forecast skill, so the scenario-level upside haircut remains in force and losses remain fully counted.',
 })
 const FROZEN_QUALIFICATION_POLICY: Readonly<QualifiedIdeasBoard['policy']> = Object.freeze({
   horizonMinDays: 90,
@@ -456,7 +456,10 @@ export function normalizeQualifiedIdeaRow(
   const evidenceConfidence = uncappedEvidence <= 50
     ? uncappedEvidence * 0.8
     : 40 + ((uncappedEvidence - 50) / 50) * 10
-  const expectedConservative = raw > 0 ? raw * 0.35 : raw
+  const expectedConservative = roundedReturns.reduce((sum, scenario) => {
+    const adjustedReturn = scenario.return_pct > 0 ? scenario.return_pct * 0.35 : scenario.return_pct
+    return sum + (scenario.probability_pct / 100) * adjustedReturn
+  }, 0)
   if (!closeTo(raw, Number(metrics.expected_return_pct))
     || !closeTo(ranking.conservative_expected_return_pct, serverRound(expectedConservative))
     || ranking.conservative_expected_return_pct < activePolicy.minExpectedReturnPct
