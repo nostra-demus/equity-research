@@ -1,0 +1,518 @@
+{
+  "schema_version": "1.0",
+  "ticker": "DHER",
+  "company_name": "Delivery Hero SE",
+  "exchange": "XTRA (Deutsche Börse Xetra)",
+  "currency": "EUR",
+  "decision_date": "2026-08-12",
+  "run_root": "analyses/DHER_2026-08-12",
+  "final_thesis_path": "analyses/DHER_2026-08-12/final_thesis.md",
+  "decision": "Avoid",
+  "suggested_action": "Do not initiate a position. Track as a merger-arbitrage watch item pending (1) primary confirmation of Uber's offer price/terms and (2) the FY2025 audited Annual Report's going-concern language on Glovo Spain.",
+  "paper_treatment": "No trade, track avoided/foregone return",
+  "basket": "Rejected",
+  "entry_price": 37.2,
+  "entry_price_source": "Capital IQ (Delivery Hero SE XTRA:DHER Financials.xls, Key Stats tab / Multiples tab); cross-checked to $43.01 (Company Comparable Analysis workbook, 2026-08-10)",
+  "entry_price_timestamp": "2026-08-07",
+  "benchmark": "STOXX Europe 600",
+  "sector_benchmark": "STOXX Europe 600 Travel & Leisure / global online-delivery peer basket (Uber, DoorDash, Meituan, Swiggy, Eternal)",
+  "time_horizon": "12-18 months (near-term earnings/regulatory catalysts inside 90 days; dominant catalyst -- Uber deal completion -- guided to H2 2027, ~14 months out)",
+  "scenario_horizon_days": 415,
+  "expected_return_pct": -8.68,
+  "downside_risk_pct": 89.25,
+  "margin_of_safety_pct": 10.36,
+  "risk_reward": -0.17,
+  "scenarios": [
+    {
+      "scenario_id": "bull",
+      "label": "bull",
+      "probability": 8,
+      "return_pct": 26.34,
+      "price_target": 47.0,
+      "conditions": [
+        "A competing bidder (e.g. DoorDash, which has previously explored acquiring DHER -- web, unverified) emerges and tops Uber's terms, or Uber raises its bid under competitive/shareholder pressure"
+      ],
+      "source": "Master-synthesis scenario model, 2026-08-12 (self-added case; anchored between the disclosed unverified Uber offer of ~EUR41.50 and valuation/07's standalone bull fair value of EUR49.01)",
+      "joint_probability_basis": null
+    },
+    {
+      "scenario_id": "base",
+      "label": "base",
+      "probability": 52,
+      "return_pct": 11.56,
+      "price_target": 41.5,
+      "conditions": [
+        "Uber's tender completes on/near the guided H2 2027 timeline at the currently reported (web-sourced, UNVERIFIED -- not in the data pool) ~EUR41.50/share cash terms"
+      ],
+      "source": "Master-synthesis scenario model, 2026-08-12 (self-added case; price level per catalyst/99_catalyst-synthesis.md Section 2, sourced only to Web: Bloomberg/Reuters via Prosus press releases, retrieved 2026-08-12, unverified)",
+      "joint_probability_basis": null
+    },
+    {
+      "scenario_id": "deal_breaks_standalone",
+      "label": "deal_breaks_standalone",
+      "probability": 22,
+      "return_pct": -24.73,
+      "price_target": 28.0,
+      "conditions": [
+        "Uber's tender is blocked, delayed materially, or abandoned by either party on regulatory grounds",
+        "Standalone operating fundamentals remain resilient (no incremental rider-cost or going-concern shock)",
+        "Market applies a broken-deal discount to valuation/99's standalone base fair value (EUR39.65) reflecting renewed focus on the going-concern note, the 2029 debt-maturity cluster, and loss of the takeover premium"
+      ],
+      "source": "Master-synthesis scenario model, 2026-08-12 (self-added case; discount judgment applied to valuation/99_valuation-synthesis.md's standalone base of EUR39.65)",
+      "joint_probability_basis": "Both a deal break AND continued standalone resilience are required; price level reflects a discount to the module's own standalone base case for broken-deal sentiment, not a clean reversion"
+    },
+    {
+      "scenario_id": "bear",
+      "label": "bear",
+      "probability": 12,
+      "return_pct": -50.03,
+      "price_target": 18.59,
+      "conditions": [
+        "Uber's tender breaks/stalls",
+        "The standalone 12-month operating bear case materializes concurrently (rider-cost/employment-classification shock, ~EUR344.5m stress case, no pricing offset)"
+      ],
+      "source": "valuation/07_scenario-and-fair-value.md Section 3 (bear_cyclical, EUR18.59) -- adopted verbatim as this run's headline 12-month bear, per valuation/99's handoff instruction; deal-break condition added by master synthesis",
+      "joint_probability_basis": "Conjunction of a deal break AND the standalone operating bear case (rider-cost/regulatory shock) both realizing; treated as a genuine compound case, not additive"
+    },
+    {
+      "scenario_id": "tail_structural_avoid_ruin",
+      "label": "tail_structural_avoid_ruin",
+      "probability": 6,
+      "return_pct": -89.25,
+      "price_target": 4.0,
+      "conditions": [
+        "Uber's tender breaks",
+        "The Glovo Spain contingent liability crystallizes near the top of its disclosed EUR520-860m range",
+        "Standalone operating conditions deteriorate structurally (revenue growth fading toward 2%, Adjusted EBITDA margin compressing to 4.2%)"
+      ],
+      "source": "Master-synthesis scenario model, 2026-08-12 (self-added tail case; informed by valuation/07's structural/avoid-ruin DCF floor of -EUR2.84/share, expressed here as a realistic distressed-equity price rather than the model's literal negative value, since equity floors at zero, not below)",
+      "joint_probability_basis": "Compound of a deal break, a top-of-range Glovo Spain payment, AND structural operating deterioration all occurring together -- the balance-sheet-survival module's own compound stress test shows this exact combination converts a EUR507.8m liquidity surplus into a EUR352.2m breach"
+    }
+  ],
+  "idea_valuation_bridge": {
+    "source_horizon_days": 415,
+    "method": "catalyst_partial_convergence",
+    "convergence_fraction": 0.4,
+    "rationale": "The dominant catalyst (Uber deal completion) is a binary event guided to H2 2027 (~415 days out), materially longer than a 90-183 day Ideas window. No clean linear-convergence assumption is defensible for a binary M&A outcome; 0.40 is a conservative placeholder reflecting that most of the re-rating is back-loaded to actual deal-completion or deal-break news, not a smooth drift. Not used to generate a live candidate this run (see idea_3_6m.json, status not_assessable).",
+    "source": "Master synthesis Section 8 (Scenario Model), 2026-08-12"
+  },
+  "confidence_score": 35.0,
+  "data_sufficiency_score": 72,
+  "confidence_inputs": {
+    "data_sufficiency": 72,
+    "corroboration": 78,
+    "evidence_tier": 55,
+    "staleness_penalty": 5,
+    "edge_score": 45,
+    "edge_proof_present": true,
+    "decision": "Avoid",
+    "expected_return_pct": -8.68,
+    "modules_absent": [
+      "options"
+    ],
+    "critical_governance_unresolved": true,
+    "catalyst_timing_weak": true,
+    "rating_cap_ceiling": 55,
+    "downgrades": [
+      {
+        "type": "macro_or_policy_conditional",
+        "points": 8,
+        "reason": "Deal completion depends on multi-jurisdiction regulatory approval; thesis is partly policy-conditional"
+      },
+      {
+        "type": "scenario_sensitivity",
+        "points": 7,
+        "reason": "Scenario math highly sensitive to a single unverified assumption -- the disclosed offer price is web-sourced, not confirmed in the data pool"
+      },
+      {
+        "type": "stale_data",
+        "points": 5,
+        "reason": "No FY2025 audited Annual Report in the pool; FY2024 filing is 15.6 months old"
+      }
+    ],
+    "calibration_haircut": 0
+  },
+  "analysis_confidence": 64.2,
+  "conviction": 35.0,
+  "sizing_hint": {
+    "band": "low",
+    "action": "lean avoid -- monitor, no position"
+  },
+  "confidence_breakdown": {
+    "analysis_confidence": 64.2,
+    "analysis_confidence_build": "0.5*dataSuff(72) + 0.25*corrob(78) + 0.25*tier(55) - stale(5) = 64.2",
+    "direction": "downside",
+    "documented_ceiling": 55.0,
+    "documented_ceiling_sources": [
+      100.0,
+      80.0,
+      60.0,
+      70.0,
+      55.0,
+      100.0
+    ],
+    "direction_ceiling": 55.0,
+    "direction_ceiling_reason": "downside: min(documented 55, analysis_conf 64) -- NOT edge-gated",
+    "understanding_capped_to_ceiling": 55.0,
+    "downgrade_points_total": 20.0,
+    "conviction_hard_max": 85.0,
+    "conviction": 35.0,
+    "formula": "conviction = clamp( min( min(analysis_confidence, direction_ceiling) - sum(max(0,downgrades)) - max(0,calibration_haircut), direction_ceiling ), 0, hard_max )"
+  },
+  "rating_cap": "Governance hard disqualifier (auditor going-concern note, Glovo Spain) caps headline at Watchlist/Avoid (CLAUDE.md §18); valuation confidence independently capped at 55 (+215% unreconciled method spread); cross-module forensic mosaic (RF-EQ-002 + RF-OBS-001 + RF-DISC-001 + RF-DISC-002, 4 tags across 3 modules) noted per §13 but non-binding since Avoid is already more restrictive than its Starter-Position-Only ceiling",
+  "thesis_type": [
+    "Company-specific",
+    "Policy-conditional",
+    "Balance-sheet survival"
+  ],
+  "variant_perception_summary": "The market has re-rated DHER >130% on Uber's acquisition approach and is pricing an ~11.6% arbitrage spread to an offer price that is NOT confirmed anywhere in the primary data pool. Layered underneath that unverified spread sits a hard auditor going-concern disqualifier, GAAP-basis leverage already past an illustrative 6x refinancing ceiling, 'Poor'-quality cash-light earnings (Critical concerns), and a serial-acquirer capital-allocation record -- a risk cluster that deal euphoria appears to be discounting less than the primary evidence supports.",
+  "what_everyone_knows": "Uber announced an acquisition approach for Delivery Hero on 2026-07-16; Prosus/Naspers has irrevocably committed to tender its stake; the deal is guided to close in H2 2027; DHER stock has risen from EUR15.73 (pre-announcement) to EUR37.20.",
+  "what_is_priced_in": "A high probability of deal completion near a widely-reported (but not primary-sourced) ~EUR41.50/share cash price, reflected in an ~11.6% arbitrage spread and a Target Price consensus (EUR37.97 mean) that the earnings module itself flags as deal-contaminated.",
+  "what_market_may_be_missing": "(1) The offer price itself is unverified in every primary source reviewed -- no M&A call transcript, filing, or exchange notice in this pool states a fixed per-share consideration; (2) the auditor's own going-concern note on Glovo Spain, the GAAP-basis leverage already past the balance-sheet module's own stress-test ceiling, and management's personal change-of-control vesting conflict are all live, unresolved risks that a clean arbitrage read tends to discount away once a deal is announced.",
+  "edge_score": 45,
+  "edge_proof": "Falsifiable test: if Uber's tender completes within the guided H2 2027 window at a confirmed cash price at or above EUR41.50/share, with no minority squeeze-out dispute and the FY2025 audited Annual Report (once published) shows the Glovo Spain going-concern language resolved or removed, this thesis's risk read is wrong and the engine underweighted a well-flagged, well-committed strategic transaction. If the deal stalls, breaks, or completes materially below EUR41.50, or the going-concern language persists/escalates, the thesis is confirmed.",
+  "killer_risk": "A blocked or broken Uber deal (no confirmed price, no disclosed break fee in the pool) sending the stock back toward standalone risk, while the auditor-flagged Glovo Spain going-concern liability (up to EUR770m) and GAAP-basis net leverage (8.24x, already above the balance-sheet module's own illustrative 6.0x refinancing ceiling) remain unresolved.",
+  "kill_criteria": [
+    {
+      "criterion": "Uber's tender is blocked, delayed materially past H2 2027, or abandoned with no replacement bidder",
+      "meaning": "Removes the deal-completion premium; standalone risk (going-concern, leverage, earnings quality) reasserts as the dominant driver",
+      "monitor": "BaFin Offer Document publication, merger-control filings/decisions in EU/MENA/Asia/Americas jurisdictions, joint DHER/Uber press releases",
+      "module_source": "catalyst"
+    },
+    {
+      "criterion": "FY2025 audited Annual Report (once published) shows the Glovo Spain going-concern language escalated, or the contingent liability crystallizes near the top of the EUR520-860m range",
+      "meaning": "Confirms the auditor's concern was not resolved and the cash cost is real and growing (FY2025 cash outflow of EUR524.0m already exceeded the FY2024 provision)",
+      "monitor": "FY2025 Annual Report Independent Auditor's Report; interim contingent-liability disclosures",
+      "module_source": "business-model / balance-sheet-survival"
+    },
+    {
+      "criterion": "An Italy (or other EU jurisdiction) rider-employment ruling follows Spain's precedent",
+      "meaning": "Crystallizes a cost on the scale of the company's own disclosed stress case (~EUR344.5m, ~38% of FY2025 Adjusted EBITDA) with no disclosed pass-through mechanism",
+      "monitor": "EU Platform Work Directive national transposition (~Nov 2026 deadline), Italian labor-court/regulatory rulings",
+      "module_source": "earnings / balance-sheet-survival"
+    },
+    {
+      "criterion": "FY2026 free cash flow misses the >EUR200m guided floor via the same 'extraordinary items' exclusion methodology that produced a -EUR366m swing against guide in FY2025",
+      "meaning": "Confirms the FY2025 cash-quality problem is structural and recurring, not a one-off",
+      "monitor": "FY2026 results release (~March 2027)",
+      "module_source": "earnings"
+    },
+    {
+      "criterion": "The Uber deal closes without a full (95%) squeeze-out, leaving a minority stub under a majority owner pursuing its own value-maximization objective, or any post-closing valuation sits below the tender terms",
+      "meaning": "Confirms the forward RF-OWN-004 watch item and the change-of-control incentive conflict (management's equity fully vests on resignation) worked against remaining minority holders",
+      "monitor": "Tender-acceptance rate disclosure; any domination-agreement or squeeze-out announcement",
+      "module_source": "management-governance"
+    }
+  ],
+  "forecast_ledger": [
+    {
+      "prediction": "FQ2 2026 reported revenue prints below EUR3,750m (the material-miss threshold), consistent with the CIQ-computed reported-currency growth trend rather than management's higher like-for-like framing.",
+      "probability": 55,
+      "time_window": "By 2026-08-27",
+      "evidence_today": "Street consensus EUR3,903m, flat for 90 days; CIQ-computed reported-currency growth 4.7% (Q4'25) to 5.8% (Q1'26) vs management's stated 18%-23%; no bridge disclosed anywhere in the pool",
+      "confirmation_trigger": "FQ2 2026 reported revenue prints below EUR3,750m (approx. -4% vs consensus) [FQ2 2026 results release, 2026-08-27]",
+      "falsification_trigger": "FQ2 2026 reported revenue prints above EUR4,050m (approx. +4% vs consensus), resolving toward management's LFL framing [FQ2 2026 results release, 2026-08-27]. A print between EUR3,750m-EUR4,050m is in-line and leaves the growth-rate reconciliation gap open/unresolved as of this date.",
+      "owner_module": "earnings",
+      "confidence_score": 60,
+      "status": "open",
+      "forecast_type": "revenue",
+      "forecast_id": "DHER-2026-08-12-F01",
+      "window_start": "2026-08-12",
+      "window_end": "2026-08-27",
+      "status_as_of": "2026-08-12",
+      "source_citation": "earnings/05_beat-miss-setup.md Section 4 (Revenue FQ2 2026 magnitude table); earnings/04_guidance-consensus.md Section 4",
+      "metric": "FQ2 2026 reported revenue (EUR millions)",
+      "threshold": "Confirm <3750; Falsify >4050; consensus 3903",
+      "causal_steps": [
+        "Own-delivery take-rate tailwind fades in FY2026 per management's own guidance",
+        "GMV/order growth (7.9%->8.8% LFL Q4'25->Q1'26) must fully offset the fading take-rate driver to hold reported-currency growth near management's LFL framing",
+        "An unreconciled 12+pt gap between stated and CIQ-computed growth resolves one way or the other at this print"
+      ],
+      "stock_bullish_trigger": "Revenue prints above EUR4,050m, validating management's growth framing and easing the earnings-quality concern",
+      "stock_bearish_trigger": "Revenue prints below EUR3,750m, confirming the lower reported-currency trend and reinforcing the earnings-quality red flag"
+    },
+    {
+      "prediction": "H1 2026 Adjusted EBITDA prints above EUR460m, consistent with an on-pace-for-upper-half FY2026 result.",
+      "probability": 60,
+      "time_window": "By 2026-08-27",
+      "evidence_today": "Management raised confidence to the upper half of the EUR910m-960m FY2026 guide only 35 days after setting it (2026-04-30); 3-year in-line-or-better Adjusted EBITDA guidance track record (FY2023 +1.4%, FY2024 -0.1%, FY2025 near low end)",
+      "confirmation_trigger": "H1 2026 Adjusted EBITDA prints above EUR460m [FQ2 2026 results release, 2026-08-27]",
+      "falsification_trigger": "H1 2026 Adjusted EBITDA prints below EUR390m [FQ2 2026 results release, 2026-08-27]. A print between EUR390m-EUR460m is in-line/inconclusive for this specific pace test.",
+      "owner_module": "earnings",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "margin_or_cost",
+      "forecast_id": "DHER-2026-08-12-F02",
+      "window_start": "2026-08-12",
+      "window_end": "2026-08-27",
+      "status_as_of": "2026-08-12",
+      "source_citation": "earnings/05_beat-miss-setup.md Section 4 (Adjusted EBITDA H1 2026 magnitude table)",
+      "metric": "H1 2026 Adjusted EBITDA (EUR millions)",
+      "threshold": "Confirm >460; Falsify <390; inferred H1 pace ~425",
+      "causal_steps": [
+        "Integrated Verticals and Americas margin-rate gains (71% of the FY2025 EBITDA increase) must hold or extend into H1 2026",
+        "MENA must defend its 13.4%-13.5% segment margin against the new Saudi discount entrant"
+      ],
+      "stock_bullish_trigger": "H1 Adjusted EBITDA prints above EUR460m",
+      "stock_bearish_trigger": "H1 Adjusted EBITDA prints below EUR390m"
+    },
+    {
+      "prediction": "FY2026 reported (unadjusted) free cash flow misses the >EUR200m guided floor, repeating the same 'extraordinary items' exclusion pattern that produced a -EUR366m swing against guide in FY2025.",
+      "probability": 55,
+      "time_window": "By FY2026 results release (expected ~March 2027, per the FY2025 Earnings Call date of 2026-03-26)",
+      "evidence_today": "FY2025 guided ~EUR120m point vs reported -EUR246m actual (a -EUR366m swing) from the identical exclusion construct, now standing as FY2026 guidance policy; FCF consensus (EUR220.14m) already revised down ~EUR22m since guidance was set",
+      "confirmation_trigger": "FY2026 reported (CFO minus capex, unadjusted) free cash flow prints below EUR200m [FY2026 results release]",
+      "falsification_trigger": "FY2026 reported free cash flow prints at or above EUR200m on an unadjusted basis [FY2026 results release]",
+      "owner_module": "earnings",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "cash_flow",
+      "forecast_id": "DHER-2026-08-12-F03",
+      "window_start": "2026-08-12",
+      "window_end": "2027-03-31",
+      "status_as_of": "2026-08-12",
+      "source_citation": "earnings/04_guidance-consensus.md Section 6; earnings/06_earnings-quality.md Section 5",
+      "metric": "FY2026 reported free cash flow (EUR millions, CFO - capex)",
+      "threshold": "Confirm <200; Falsify >=200",
+      "causal_steps": [
+        "A comparable legal/regulatory extraordinary outflow (Glovo Spain or an EU antitrust item) recurs in FY2026",
+        "The company again excludes it from the guided figure per standing policy, but it is captured in the reported/unadjusted GAAP cash flow statement"
+      ],
+      "stock_bullish_trigger": "Reported FCF prints at or above EUR200m with no comparable extraordinary exclusion",
+      "stock_bearish_trigger": "Reported FCF misses EUR200m via a repeat of the FY2025 exclusion pattern"
+    },
+    {
+      "prediction": "The BaFin-approved Offer Document for Uber's tender is published within 2026, opening the WpUeG acceptance period.",
+      "probability": 50,
+      "time_window": "By 2026-12-31",
+      "evidence_today": "Deal announced 2026-07-16; Prosus/Naspers irrevocably committed to tender; no disclosed publication date anywhere in the pool",
+      "confirmation_trigger": "DHER/Uber jointly announce BaFin approval and publication of the Offer Document, opening the WpUeG acceptance period, on or before 2026-12-31 [joint press release / German exchange ad-hoc disclosure]",
+      "falsification_trigger": "No Offer Document is published by 2026-12-31 [same source]",
+      "owner_module": "catalyst",
+      "confidence_score": 40,
+      "status": "open",
+      "forecast_type": "catalyst_or_estimate_revision",
+      "forecast_id": "DHER-2026-08-12-F04",
+      "window_start": "2026-08-12",
+      "window_end": "2026-12-31",
+      "status_as_of": "2026-08-12",
+      "source_citation": "catalyst/99_catalyst-synthesis.md Section 2 (Offer Document publication row)",
+      "metric": "Offer Document publication (binary)",
+      "threshold": "Published by 2026-12-31 = confirm",
+      "causal_steps": [
+        "Multi-jurisdiction merger-control pre-clearance discussions (including the unverified SSW Partners divestiture of 14 overlapping markets) progress far enough for BaFin to approve the Offer Document"
+      ],
+      "stock_bullish_trigger": "Early publication signals a smoother-than-expected regulatory path",
+      "stock_bearish_trigger": "No publication by year-end signals regulatory friction consistent with the H2 2027 close guidance being at risk"
+    },
+    {
+      "prediction": "When published, the FY2025 audited Annual Report's Independent Auditor's Report retains the 'Material Uncertainty about the Ability of Subsidiaries to Continue as a Going Concern' language on Glovo Spain rather than removing it.",
+      "probability": 60,
+      "time_window": "By 2026-12-31 (already overdue relative to the FY2024 report's ~4-month post-fiscal-year-end publication cadence)",
+      "evidence_today": "FY2024 Annual Report (Apr 25 2025) carried the note; FY2025 cash outflow for this matter (EUR524.0m) already exceeded the FY2024 provision balance (EUR492.2m), evidence the exposure is generating real costs above what was booked",
+      "confirmation_trigger": "The published FY2025 audited Annual Report's Independent Auditor's Report retains a going-concern/material-uncertainty paragraph naming Glovo Spain [FY2025 Annual Report, Independent Auditor's Report]",
+      "falsification_trigger": "The published FY2025 audited Annual Report's Independent Auditor's Report removes or does not repeat the going-concern/material-uncertainty language on Glovo Spain [FY2025 Annual Report, Independent Auditor's Report]",
+      "owner_module": "business-model",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "governance_or_accounting",
+      "forecast_id": "DHER-2026-08-12-F05",
+      "window_start": "2026-08-12",
+      "window_end": "2026-12-31",
+      "status_as_of": "2026-08-12",
+      "source_citation": "business-model/01_disqualifier-scan.md Section 2; balance-sheet-survival/05_off-balance-sheet-and-contingencies.md",
+      "metric": "Going-concern language in FY2025 Independent Auditor's Report (binary)",
+      "threshold": "Retained = confirm; removed = falsify",
+      "causal_steps": [
+        "The Spanish social-security rider-classification investigation and litigation remain unresolved through FY2025",
+        "The auditor's assessment of subsidiary-level uncertainty is unchanged or worsened"
+      ],
+      "stock_bullish_trigger": "Going-concern language is removed, materially de-risking the standalone credit story",
+      "stock_bearish_trigger": "Going-concern language is retained or escalated"
+    },
+    {
+      "prediction": "Uber's tender offer for Delivery Hero completes within the guided H2 2027 window at a per-share cash consideration at or above the currently reported (unverified) ~EUR41.50.",
+      "probability": 55,
+      "time_window": "2027-07-01 to 2027-12-31",
+      "evidence_today": "Prosus/Naspers irrevocable tender commitment; Uber already holds 37% economic exposure to DHER; management guided H2 2027 close on the 2026-07-16 M&A call",
+      "confirmation_trigger": "Uber's tender offer for DHER settles (shares delivered, cash paid) within 2027-07-01 to 2027-12-31, at a per-share cash consideration at or above EUR41.50 [DHER/Uber joint completion announcement / exchange filing]",
+      "falsification_trigger": "The deal is blocked, abandoned, or terminated by either party, or completes at a per-share cash consideration below EUR41.50, or completion slips past 2027-12-31 [same source]",
+      "owner_module": "catalyst",
+      "confidence_score": 45,
+      "status": "open",
+      "forecast_type": "valuation_or_price_return",
+      "forecast_id": "DHER-2026-08-12-F06",
+      "window_start": "2027-07-01",
+      "window_end": "2027-12-31",
+      "status_as_of": "2026-08-12",
+      "source_citation": "Uber Technologies, Inc., Delivery Hero SE M&A Call transcript, 2026-07-16; catalyst/99_catalyst-synthesis.md Section 2",
+      "metric": "Deal completion price and date (binary + threshold)",
+      "threshold": "Completes 2027-07-01 to 2027-12-31 at >=EUR41.50 = confirm",
+      "causal_steps": [
+        "Multi-jurisdiction merger-control approvals (EU, MENA, Asia, Americas) clear within the guided window",
+        "No competing bid or price renegotiation occurs",
+        "No squeeze-out dispute delays final settlement"
+      ],
+      "stock_bullish_trigger": "Clean, on-time completion at or above EUR41.50",
+      "stock_bearish_trigger": "Delay past 2027, price cut, or deal termination"
+    }
+  ],
+  "module_scores": {
+    "business-model": {
+      "verdict": "Low-quality business -- avoid deeper work (disqualifier-lock)",
+      "overall_usefulness": 15,
+      "business_quality": 34,
+      "moat": 45,
+      "data_quality": 72
+    },
+    "earnings": {
+      "verdict": "Mixed earnings setup",
+      "earnings_quality": 36,
+      "earnings_volatility_inverted": 66,
+      "consensus_setup": 50
+    },
+    "valuation": {
+      "verdict": "Fairly valued (deal-contaminated)",
+      "overall_usefulness": 82,
+      "valuation_confidence_capped": 55,
+      "margin_of_safety": 38,
+      "data_quality": 73
+    },
+    "balance-sheet-survival": {
+      "verdict": "Stretched",
+      "overall_usefulness": 72,
+      "solvency_strength": 45,
+      "liquidity_runway": 58,
+      "data_quality": 78
+    },
+    "management-governance": {
+      "verdict": "Serious governance concerns",
+      "overall_usefulness": 85,
+      "governance_score": 50,
+      "confidence_adjusted_governance_score": 36,
+      "governance_rating": "Weak",
+      "data_quality": 78
+    },
+    "catalyst": {
+      "verdict": "Catalysts exist but timing vague",
+      "overall_usefulness": 80,
+      "catalyst_strength": 62,
+      "timing_visibility": 42,
+      "data_quality": 76
+    }
+  },
+  "red_flags": [
+    {
+      "id": "DISQ-01",
+      "module": "business-model",
+      "severity": "Critical",
+      "description": "Auditor going-concern note (KPMG) -- subsidiary-level 'Material Uncertainty about the Ability of Subsidiaries to Continue as a Going Concern,' Glovo Spain rider-classification risk, contingent liability EUR440-770m; hard disqualifier locks the business-model verdict at 'Low-quality business -- avoid deeper work.'"
+    },
+    {
+      "id": "GOV-DISQ",
+      "module": "management-governance",
+      "severity": "Critical",
+      "description": "Governance risk floored at 80/100 via Disqualifier Deference on the same going-concern note; stewardship verdict capped at 'Serious governance concerns.'"
+    },
+    {
+      "id": "EARN-CRIT-1",
+      "module": "earnings",
+      "severity": "Critical",
+      "description": "FY2025 cash-conversion collapse (CFO/Adjusted EBITDA 8.8%) and the '+EUR250m FCF' headline exclude an implied ~EUR600-650m cash outflow tied to the same going-concern-adjacent Glovo Spain exposure -- the connection was made only by 08_earnings-red-flags, not by earnings agents 00-07."
+    },
+    {
+      "id": "EARN-CRIT-2",
+      "module": "earnings",
+      "severity": "Critical",
+      "description": "The identical FCF-exclusion methodology stands as FY2026 guidance policy; a recurring outflow could let the FY2026 print look 'on guide' while cash generation disappoints."
+    },
+    {
+      "id": "RF-CAP-004",
+      "module": "business-model / management-governance",
+      "severity": "High",
+      "description": "Serial-acquirer pattern -- EUR2,054m cumulative goodwill impairment FY2021-2025 against the Woowa (~$4.0bn) and Glovo (EUR2.3bn) mega-deals; caps capital allocation at 50 and floors governance risk at 60 (superseded by the higher disqualifier floor of 80)."
+    },
+    {
+      "id": "RF-MGT-004",
+      "module": "management-governance",
+      "severity": "High",
+      "description": "Turnaround claimed without >=2-3 years delivered operating inflection on the statutory metric -- only 1 clean fiscal year (FY2025) of positive GAAP operating profit after 4 years of losses; management quality capped at 60."
+    },
+    {
+      "id": "RF-CAP-001",
+      "module": "management-governance",
+      "severity": "High",
+      "description": "Change-of-control provision fully and unconditionally vests all Management Board members' unvested equity on resignation within 3 months of a change of control -- a personal, price-independent incentive to see the pending Uber deal close."
+    },
+    {
+      "id": "RF-DISC-001",
+      "module": "management-governance",
+      "severity": "High",
+      "description": "The absolute FY2025 statutory net loss (-EUR782.9m) was never spoken aloud on the earnings call; only the EUR183m YoY improvement was verbalized."
+    },
+    {
+      "id": "RF-DISC-002",
+      "module": "management-governance",
+      "severity": "High",
+      "description": "Goodwill impairment recorded in every one of the last 5 fiscal years; GAAP-to-Adjusted-EBITDA gap is 66% of the adjusted figure in FY2025 and exceeds 100% in FY2024."
+    },
+    {
+      "id": "RF-EQ-002",
+      "module": "earnings",
+      "severity": "High",
+      "description": "Cash conversion (CFO/Adjusted EBITDA) at 8.8% FY2025; 2 of the last 3 fiscal years below 50%."
+    },
+    {
+      "id": "RF-OBS-001",
+      "module": "balance-sheet-survival",
+      "severity": "High",
+      "description": "Spain rider-reclassification contingent liability: EUR520-860m unrecognized (FY2025) on top of EUR492.2m already provisioned (FY2024) and EUR524.0m already paid (FY2025) for the same matter."
+    },
+    {
+      "id": "RF-BQ-005",
+      "module": "business-model",
+      "severity": "High",
+      "description": "Fast-changing industry / disruption risk (rate-of-change score 26/100, <=40 threshold, CLAUDE.md Section 24 Filter 5) -- thesis flagged as a sector/technology-cycle bet; the industry is still being sorted by live M&A (DoorDash-Deliveroo, Uber-DHER itself)."
+    },
+    {
+      "id": "MOSAIC-2026-08-12",
+      "module": "master-synthesis (cross-module)",
+      "severity": "High",
+      "description": "Cross-module forensic mosaic per CLAUDE.md Section 13: RF-EQ-002 (earnings) + RF-OBS-001 (balance-sheet-survival) + RF-DISC-001 + RF-DISC-002 (management-governance) = 4 distinct tags across 3 modules. Compounds into a single High accounting-integrity flag. Does not further restrict the headline since 'Avoid' is already more conservative than the 'Starter Position Only' ceiling this cap would otherwise impose on a Buy-side rating."
+    }
+  ],
+  "missing_data": [
+    "FY2025 audited Annual Report (period-end 2026-12-31 [sic, 2025-12-31]) -- not in the pool; every FY2025 figure across all six modules rests on Capital IQ vendor extracts (Tier 5) or earnings-call transcripts (Tier 6), not an audited filing",
+    "A confirmed, primary-sourced Uber offer price and deal terms (cash/stock/mix, break fee) -- the widely used ~EUR41.50/share figure is web-sourced and unverified; not found in the M&A call transcript or anywhere else in the pool",
+    "The six convertible-bond tranches' conversion prices/ratios (EUR2,588.4m face, ~23% of market cap) -- without them, every per-share fair-value figure in the valuation module is a ceiling, not a fully diluted read",
+    "The exact numeric minimum-liquidity covenant threshold (currently a management-transcript-sourced EUR800m estimate, not confirmed in an audited filing)",
+    "A PDMR (insider) buy/sell transaction log for 2025-2026, to test whether insiders were selling ahead of, or buying into, the events that led to the takeover offer",
+    "Guarantor-level detail for the Dollar and KRW Term Facilities (structural subordination question)"
+  ],
+  "review_schedule": {
+    "30d": "2026-09-11",
+    "90d": "2026-11-10",
+    "180d": "2027-02-08",
+    "365d": "2027-08-12"
+  },
+  "created_by": "synthesizer",
+  "notes": "This is fundamentally a merger-arbitrage situation layered on top of a hard-disqualified standalone business. The current price is deal-contaminated (up >130% since the pre-announcement close of EUR15.73); every valuation/margin-of-safety read in this file is as much a bet on Uber's undisclosed deal terms as on DHER's own fundamentals. Expected return, downside risk, and risk/reward are all computed off a scenario set that blends deal-completion odds (self-constructed by the master synthesizer, since no module assigns deal probabilities) with the valuation module's own standalone bull/base/bear levels. The single most fragile assumption in this file is the ~EUR41.50/share reported offer price -- it is UNVERIFIED and not in the data pool; every base-case/bull-case number here inherits that fragility.",
+  "business_type": "On-demand delivery marketplace + quick-commerce retailer (no exact SECTOR_OVERLAYS.md match; nearest analogue Retail/consumer; company's own GMV/take-rate/Adjusted EBITDA framework used as primary KPI grammar)",
+  "primary_valuation_method": "Own-history EV/Sales reversion, cross-validated by FCFF DCF and sum-of-the-parts (peer-relative method discounted for peer-set composition effects)",
+  "calibration_feedback": {
+    "source_summary": "analyses/performance/2026-08-01_calibration_summary.json",
+    "status": "pre_data",
+    "haircut_points": 0,
+    "modules_flagged": [],
+    "flagged_forecast_types": [],
+    "flagged_thesis_types": [],
+    "leading_error_categories_flagged": [],
+    "error_defense_evidence": {},
+    "rationale": "2026-08-01 calibration summary verdict begins 'Pre-data' (7 decisions, 7 reviews, 1 resolved forecast, 1 resolved directional call -- all skill metrics below floor and withheld). error_taxonomy_distribution has 4 categories, each at count=1 -- no category reaches the count>=2 leading-category threshold, so the error-taxonomy check (which is not gated by the Pre-data floor) also finds nothing actionable. No module, forecast-type, or thesis-type slice check applies since all are gated by the same Pre-data floor. No adjustment applied."
+  },
+  "confidence_haircut": 8.0,
+  "pre_mortem_verdict": "Survives with haircut",
+  "post_review_confidence_score": 27.0,
+  "post_mortem_decision": "Avoid",
+  "post_mortem_basket": "Rejected"
+}

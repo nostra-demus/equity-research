@@ -1,0 +1,282 @@
+{
+  "schema_version": "1.0",
+  "ticker": "DHER",
+  "run_root": "analyses/DHER_2026-08-12",
+  "verified_at": "2026-08-12T00:00:00Z",
+  "verifier": "verify-evidence",
+  "final_thesis_path": "analyses/DHER_2026-08-12/final_thesis.md",
+  "decision_record_path": "analyses/DHER_2026-08-12/decision_record.json",
+  "final_thesis_sha256": "4ff8d9b56ada354d50418aba631540a47451313eb8981162ed9928415a208057",
+  "decision_record_sha256": "94e80667096855341cb90eca1e3e6d4ecccf9878c7254fa7cd9cfadc30cb5a6d",
+  "claims_checked": 13,
+  "claim_checks": [
+    {
+      "claim": "Net debt (strict basis), FY2025: total debt €4,625.5m − cash & equivalents €2,112.7m = €2,512.8m",
+      "citation": "balance-sheet-survival/01_capital-structure-and-leverage.md; final_thesis.md §18",
+      "source_checked": "Delivery Hero SE XTRA DHER Financials.xls, Balance Sheet tab (via /tmp/corpus_dher.txt)",
+      "status": "verified",
+      "evidence": "resolve_citations.py hit_count: total_debt_4625.5=7, cash_2112.7=5, net_debt_2512.8=2, all found in the CIQ Balance Sheet extract ('Total Debt ... 4625.5', '- Cash & Short Term Investments ... 2112.7', 'Net Debt ... 2512.8'). Recompute: 4625.5-2112.7=2512.8, ties exactly. §15 strict basis correctly labeled.",
+      "severity": "info"
+    },
+    {
+      "claim": "GAAP-basis (Reported EBITDA) net leverage = 8.24x",
+      "citation": "balance-sheet-survival/99 §1; final_thesis.md §2, §9b",
+      "source_checked": "Derived ratio; inputs from Delivery Hero SE XTRA DHER Financials.xls Income Statement/Ratios tabs",
+      "status": "verified",
+      "evidence": "resolve_citations.py: '8.24' hit_count=0 (a computed ratio is never a literal filing line, expected). Underlying inputs independently confirmed: net debt 2512.8 (hit_count=2) and Reported EBITDA 304.9 (hit_count=2, 'EBITDA ... 304.9' FY2025 column). Recompute: 2512.8/304.9=8.2414, rounds to 8.24x -- ties.",
+      "severity": "info"
+    },
+    {
+      "claim": "Group ROIC 0.8%-1.6% (FY2025 best year) vs company-disclosed cost of capital 10.7%-13.7% -- moat verdict driver",
+      "citation": "business-model/09_moat.md §3; final_thesis.md Chapter A, §9A",
+      "source_checked": "business-model/09_moat.md's own shown derivation; FY24 Annual Report Note F.1.b (goodwill impairment testing) via corpus",
+      "status": "verified",
+      "evidence": "WACC figures directly confirmed in corpus: 'Average discount rate in planning period / WACC 10.7' and 'average discount rate (13.7%)' (both from the FY24 AR IAS 36 goodwill-testing note). ROIC 0.8% ties to CIQ's own 'Return on Capital %' of 0.79% (FY2025); ROIC 1.6% ties to 09_moat's own shown calc (EBIT €93.7m [corpus-confirmed: 'EBIT ... 93.7'] × (1-25% inferred tax) / cash-netted avg invested capital ≈ 1.58%, rounds to 1.6%). Methodology and tax-rate inference explicitly labeled 'Inference, not from filings' per §3.",
+      "severity": "info"
+    },
+    {
+      "claim": "Killer risk: Glovo Spain rider-classification contingent liability, cited in the dossier as both €440-770m and €520-860m",
+      "citation": "business-model/01, /11, /99; management-governance/99; earnings/99 cite €440-770m (FY24 Annual Report, Auditor's Report p.222-224, Note H.5); balance-sheet-survival/05, /99 and final_thesis §9 Risk Register / §10 Kill Criteria cite €520-860m",
+      "source_checked": "FY24 Annual Report extract (corpus) for €440-770m; Q1 2026 Trading Statement Call transcript (corpus) for €520-860m",
+      "status": "miscited",
+      "evidence": "Both figures individually verified in the corpus -- '€ 440.0 million and € 770.0 million' appears twice verbatim in the FY24 Annual Report text; 'for Spain, we have a range of EUR 520 million to EUR 860 million' appears verbatim in the Q1 2026 call transcript (a later, updated management figure). Neither figure is fabricated, but final_thesis.md uses both as if interchangeable for its own stated 'killer risk' without ever telling the reader one supersedes the other (the FY24 AR figure vs. a later verbal FY2025-period update). This is the single figure CLAUDE.md §5 rating-critical citation care applies to most directly in this run.",
+      "severity": "high"
+    },
+    {
+      "claim": "Adjusted EBITDA, FY2025 = €903.0m (leverage/coverage denominator)",
+      "citation": "balance-sheet-survival/99 §1, §3",
+      "source_checked": "Delivery Hero SE 2025 Earnings Call transcript, Mar 26 2026 (via corpus)",
+      "status": "verified",
+      "evidence": "resolve_citations.py hit_count=0 on '903.0' (tool requires a literal decimal point; false negative). Manual grep confirms: 'Adjusted EBITDA grew by a strong 30% year-over-year, reaching EUR 903 million' -- upgraded to verified per the command's manual-read-upgrade rule.",
+      "severity": "info"
+    },
+    {
+      "claim": "Reported (GAAP-derived) EBITDA, FY2025 = €304.9m",
+      "citation": "balance-sheet-survival/99 §1, §3",
+      "source_checked": "Delivery Hero SE XTRA DHER Financials.xls, Income Statement tab (via corpus)",
+      "status": "verified",
+      "evidence": "resolve_citations.py hit_count=2: 'EBITDA -800.8 -1438.1 -1154.6 -451.1 -24.3 304.9' (FY2020-FY2025 trend row) -- the FY2025 column value 304.9 matches exactly.",
+      "severity": "info"
+    },
+    {
+      "claim": "expected_return_pct = -8.68% (probability-weighted scenario return)",
+      "citation": "decision_record.json; final_thesis.md §8, §14",
+      "source_checked": "decision_record.json scenarios array (self-contained recompute)",
+      "status": "verified",
+      "evidence": "Independently recomputed both paths: Sum(p×r) = 0.08(26.34)+0.52(11.56)+0.22(-24.73)+0.12(-50.03)+0.06(-89.25) = -8.68%. Target-price basis: weighted target = 0.08(47.00)+0.52(41.50)+0.22(28.00)+0.12(18.59)+0.06(4.00) = €33.97; (33.97-37.20)/37.20 = -8.68%. Both paths tie exactly to the reported figure.",
+      "severity": "info"
+    },
+    {
+      "claim": "downside_risk_pct = 89.25% (worst modeled scenario, tail_structural_avoid_ruin)",
+      "citation": "decision_record.json; final_thesis.md §2, §8",
+      "source_checked": "decision_record.json scenarios array (self-contained recompute)",
+      "status": "verified",
+      "evidence": "(4.00-37.20)/37.20 = -89.25% (tail_structural_avoid_ruin price target €4.00 vs. current price €37.20). Ties to the reported return_pct (-89.25) and to downside_risk_pct (89.25).",
+      "severity": "info"
+    },
+    {
+      "claim": "Current price €37.20 (2026-08-07, pool-verified)",
+      "citation": "valuation/01_price-and-capital-structure.md; decision_record.json entry_price",
+      "source_checked": "Delivery Hero SE XTRA DHER Financials.xls, Key Stats tab (via corpus)",
+      "status": "verified",
+      "evidence": "resolve_citations.py hit_count=5: 'Share Price 37.2' and 'Latest Price/Last Close Price 37.18/37.20' confirm the EUR figure directly. Separately, decision_record.json's cross-check to '$43.01 (Company Comparable Analysis workbook, 2026-08-10)' traces to a workbook row whose own 'LTM Filing Date' field reads 2026-03-26 (pre-Uber-announcement) and is USD-denominated (43.01 x 303.7m shares = market cap 13,062.8, ties internally) -- the $ sign is correctly labeled so this is not a §27 FX error, but the cross-check does not actually validate the current €37.20 print since it is a different period and currency; the decision record does not flag this distinction.",
+      "severity": "low"
+    },
+    {
+      "claim": "Cash conversion (CFO / Adjusted EBITDA) collapsed to 8.8% in FY2025",
+      "citation": "earnings/06_earnings-quality.md; balance-sheet-survival/99 §1A",
+      "source_checked": "Delivery Hero SE XTRA DHER Financials.xls, Cash Flow tab (via corpus); recompute",
+      "status": "verified",
+      "evidence": "CFO €79.5m confirmed ('Cash from Ops. ... 79.5', FY2025 column, hit_count=6); Adjusted EBITDA €903.0m confirmed via transcript (above). Recompute: 79.5/903.0=8.80%, ties to the reported 8.8%.",
+      "severity": "info"
+    },
+    {
+      "claim": "Cumulative goodwill impairment FY2021-FY2025 = €2,054.0m (serial-acquirer / Filter 4 evidence)",
+      "citation": "business-model/11_capital-allocation-governance.md; management-governance/02_capital-allocation-scorecard.md, /99",
+      "source_checked": "FY24 Annual Report (via corpus) for individual-year figures; Delivery Hero SE XTRA DHER Financials.xls Income Statement tab",
+      "status": "verified",
+      "evidence": "Component years as cited: €85.9m(2021)+€760.9m(2022)+€857.8m(2023)+€89.7m(2024)+€259.7m(2025). FY2023 (€857.8m) and FY2024 (€89.7m) figures directly confirmed in the FY24 AR extract: 'goodwill impairment losses of € 89.7 million (previous year: losses of € 857.8 million)'. Sum of all five cited components = 2054.0, ties exactly to the reported cumulative figure.",
+      "severity": "info"
+    },
+    {
+      "claim": "FY2025 statutory net loss = -€782.9m, never spoken aloud on the earnings call (RF-DISC-001)",
+      "citation": "management-governance/06_candor-and-disclosure-quality.md; management-governance/99",
+      "source_checked": "Delivery Hero SE XTRA DHER Financials.xls, Income Statement tab (via corpus)",
+      "status": "verified",
+      "evidence": "resolve_citations.py hit_count=0 on '782.9' -- the tool's negative-lookbehind pattern intentionally excludes a leading '-' (avoids sign confusion), producing a false negative. Manual grep confirms multiple exact matches: 'Net Income -1409.1 -1124.3 -3008.4 -2297.5 -882.4 -782.9' (FY2025 column) and 'Net Income (GAAP) ... -782.9 ...'. Sign and magnitude both verified.",
+      "severity": "info"
+    },
+    {
+      "claim": "€2,588.4m convertible-bond overhang (~23% of market cap, unquantified dilution risk)",
+      "citation": "valuation/99 §1, §7",
+      "source_checked": "Delivery Hero SE XTRA DHER Financials.xls, Capital Structure Details tab (via corpus)",
+      "status": "verified",
+      "evidence": "resolve_citations.py hit_count=3: 'Total Convertible Debt 4183.2 ... 3403.6 ... 2588.4' -- FY2025 column matches exactly.",
+      "severity": "info"
+    }
+  ],
+  "math_checks": [
+    {
+      "quantity": "Net debt (strict): total debt − cash",
+      "reported": "€2,512.8m",
+      "recomputed": "4625.5 - 2112.7 = 2512.8",
+      "ties": true,
+      "detail": "Exact tie; §15 strict basis correctly and consistently labeled across balance-sheet-survival, valuation, and final_thesis."
+    },
+    {
+      "quantity": "GAAP-basis net leverage (net debt / Reported EBITDA)",
+      "reported": "8.24x",
+      "recomputed": "2512.8 / 304.9 = 8.2414",
+      "ties": true,
+      "detail": "Rounds to 8.24x, ties."
+    },
+    {
+      "quantity": "Adjusted-basis net leverage (net debt / Adjusted EBITDA)",
+      "reported": "2.78x",
+      "recomputed": "2512.8 / 903.0 = 2.7827",
+      "ties": true,
+      "detail": "Rounds to 2.78x, ties."
+    },
+    {
+      "quantity": "Gross debt / Adjusted EBITDA",
+      "reported": "5.12x",
+      "recomputed": "4625.5 / 903.0 = 5.1223",
+      "ties": true,
+      "detail": "Rounds to 5.12x, ties."
+    },
+    {
+      "quantity": "Cash conversion (CFO / Adjusted EBITDA)",
+      "reported": "8.8%",
+      "recomputed": "79.5 / 903.0 = 0.0880",
+      "ties": true,
+      "detail": "Exact tie to reported 8.8%."
+    },
+    {
+      "quantity": "Cumulative goodwill impairment FY2021-FY2025 (sum of yearly figures)",
+      "reported": "€2,054.0m",
+      "recomputed": "85.9+760.9+857.8+89.7+259.7 = 2054.0",
+      "ties": true,
+      "detail": "Exact tie; two of five yearly components (FY2023, FY2024) directly corroborated in the FY24 AR text."
+    },
+    {
+      "quantity": "Scenario probabilities sum to 100%",
+      "reported": "100%",
+      "recomputed": "8+52+22+12+6 = 100",
+      "ties": true,
+      "detail": "Ties."
+    },
+    {
+      "quantity": "Expected return = Sum(probability x scenario return)",
+      "reported": "-8.68%",
+      "recomputed": "0.08(26.34)+0.52(11.56)+0.22(-24.73)+0.12(-50.03)+0.06(-89.25) = -8.6808",
+      "ties": true,
+      "detail": "Rounds to -8.68%, ties both computation paths (Sum(p*r) and target-price basis)."
+    },
+    {
+      "quantity": "Probability-weighted target price",
+      "reported": "€33.97",
+      "recomputed": "0.08(47.00)+0.52(41.50)+0.22(28.00)+0.12(18.59)+0.06(4.00) = 33.9708",
+      "ties": true,
+      "detail": "Rounds to €33.97, ties."
+    },
+    {
+      "quantity": "Risk/reward = (target - price) / (price - bear)",
+      "reported": "-0.17",
+      "recomputed": "(33.97-37.20)/(37.20-18.59) = -0.1736",
+      "ties": true,
+      "detail": "Rounds to -0.17, ties."
+    },
+    {
+      "quantity": "Margin of safety (base = €41.50)",
+      "reported": "10.36%",
+      "recomputed": "(41.50-37.20)/41.50 = 0.10361",
+      "ties": true,
+      "detail": "Rounds to 10.36%, ties."
+    },
+    {
+      "quantity": "Valuation bull/base/bear fair-value levels (forward metric x multiple), traced from valuation/07",
+      "reported": "Bull €49.01 (€15,957.6m x 1.10x); Base €39.65 (€15,648.3m x 0.94x); Bear €18.59 (€15,114.1m x 0.55x); all bridged with fixed net debt €2,512.8m and minority interest €154.2m",
+      "recomputed": "Verified against valuation/07_scenario-and-fair-value.md §3's own shown per-share build; minority interest €154.2m independently corpus-confirmed (hit_count=7).",
+      "ties": true,
+      "detail": "These levels reproduce cleanly from valuation/07's documented derivation and are correctly carried into decision_record.json's own scenario price targets (bull €47.00 explicitly anchored between the unverified Uber price and €49.01; base €41.50 = the unverified Uber offer, distinct from valuation's own base of €39.65; bear €18.59 adopted verbatim)."
+    },
+    {
+      "quantity": "decision_record.json scenario self-reproducibility (own automated finish-gate check, embedded verbatim as a banner at the top of final_thesis.md)",
+      "reported": "final_thesis.md line 1-4: run 'committed UNVERIFIED' -- finish-gate lists derivation-chain mismatches (scenario 'bull'/'base'/'bear_cyclical' chains give 0.0 != recorded levels), missing sotp_segments array, missing peers_internals.anchors, scenario label mismatches (thesis calls a case 'bear', decision_record schema expected 'bear_cyclical'/'bear_structural'), and net_debt_basis field value not matching the required enum",
+      "recomputed": "Confirmed by direct grep: 'sotp_segments', 'peers_internals', and 'net_debt_basis' are ALL ABSENT from decision_record.json (grep, no matches). The underlying VALUES independently tie out (see prior math_checks rows and the valuation-levels row above) when traced through valuation/07 and final_thesis §8's documented two-layer construction (deal-odds blended with valuation's standalone fair-value levels) -- but decision_record.json itself does not carry the per-scenario forward_metric/multiple fields or the sotp_segments/peers_internals blocks an automated downstream checker requires to reproduce it standalone.",
+      "ties": false,
+      "detail": "This is a genuine, self-disclosed completeness gap in decision_record.json's schema (not a wrong-number problem -- every value independently reconciles against source documents). It is the reason this run shipped in a PROVISIONAL/UNVERIFIED state per its own finish-gate. Classified as a math break per CLAUDE.md §10 (scenario math must be reconciled and checkable as shipped)."
+    }
+  ],
+  "anchor_checks": [
+    {
+      "anchor": "Net debt (strict basis), FY2025",
+      "values_by_module": {
+        "balance-sheet-survival/99": "€2,512.8m (strict: total debt €4,625.5m − cash €2,112.7m)",
+        "valuation/07_scenario-and-fair-value.md": "€2,512.8m (strict, fixed bridge input for all bull/base/bear cases)",
+        "valuation/99": "€2,512.8m (strict, per 01's canonical anchor)",
+        "final_thesis.md §18": "€2,512.8m (strict basis, total debt €4,625.5m − cash €2,112.7m)"
+      },
+      "consistent": true,
+      "detail": "Identical figure, identical strict-basis label, across every module that uses net debt. No conflict."
+    },
+    {
+      "anchor": "Adjusted EBITDA and Reported (GAAP) EBITDA, FY2025",
+      "values_by_module": {
+        "balance-sheet-survival/99": "Adjusted €903.0m; Reported €304.9m (both bases explicitly labeled, gap €598.1m/66% flagged)",
+        "earnings/99": "Implies same Adjusted EBITDA base via 2.78x leverage figure and 8.8% cash-conversion figure (79.5/903.0)",
+        "business-model/99": "FY2024 Group Adjusted EBITDA €692.5m (different period, correctly labeled FY2024, reconciles to segment sum 472.9+385.1-98.7-77.0+10.3=692.6)"
+      },
+      "consistent": true,
+      "detail": "No conflict once periods are matched: FY2024 €692.5m growing +30% YoY (per transcript) to FY2025 €903.0m ties (692.5x1.303=902.4approx903). business-model/99 itself already self-flagged and resolved an internal FY2024 EBITDA disagreement (€692.5m vs €791.3m from one sub-agent) in its own §3 Reconciliation -- good practice, noted."
+    },
+    {
+      "anchor": "Group ROIC vs cost of capital (WACC)",
+      "values_by_module": {
+        "business-model/09_moat.md": "ROIC 0.8%-1.6% (FY2025 best year) / -6.1% (5-yr avg) vs WACC 10.7%-13.7%",
+        "business-model/99": "Same figures, same framing",
+        "valuation/99": "Same figures cited in §1A disconfirmation and §5"
+      },
+      "consistent": true,
+      "detail": "Identical figures and methodology cross-referenced consistently across both modules that use this anchor."
+    },
+    {
+      "anchor": "Diluted / outstanding share count",
+      "values_by_module": {
+        "valuation/07_scenario-and-fair-value.md": "303.744978m shares (used in the -€2.84/share structural-reset per-share calc; traces to Company Comparable Analysis workbook 'Shares Outstanding Latest', dated LTM 2026-03-26)",
+        "management-governance/02_capital-allocation-scorecard.md": "298.227538m shares (Total Shares Out. on Balance Sheet Date, Dec-31-2025, used for the 49.6% five-year dilution finding)"
+      },
+      "consistent": false,
+      "detail": "Two different share-count figures (303.7m vs 298.2m, a 1.9% gap) are used as denominators across modules without cross-reference. Neither is fully diluted per §15 (both explicitly exclude the €2,588.4m convertible-bond overhang, already flagged as a known gap in valuation/99 and final_thesis §6/§15). Not rating-driving on its own, but an unreconciled anchor."
+    },
+    {
+      "anchor": "Glovo Spain rider-classification contingent liability (the run's own stated killer risk)",
+      "values_by_module": {
+        "business-model/01_disqualifier-scan.md, /11, /99": "€440-770m (FY24 Annual Report, Auditor's Report p.222-224 / Note H.5)",
+        "management-governance/99": "€440-770m (same FY24 AR citation)",
+        "earnings/99": "€440-770m (same FY24 AR citation)",
+        "balance-sheet-survival/05_off-balance-sheet-and-contingencies.md, /99": "€520-860m (Q1 2026 Trading Statement Call transcript, an updated later figure)",
+        "final_thesis.md §2 (killer risk line)": "€770m (upper bound of the FY24 AR figure)",
+        "final_thesis.md §10 Kill Criteria / decision_record.json kill_criteria": "€520-860m range (balance-sheet-survival's later figure)"
+      },
+      "consistent": false,
+      "detail": "Genuine, unreconciled anchor conflict on the dossier's own named killer-risk figure. Both ranges are independently verified in the corpus (FY24 AR text and the Q1 2026 call transcript respectively), so neither is fabricated, and the balance-sheet-survival figure is plausibly a legitimate later update -- but final_thesis.md never explicitly tells the reader that the €520-860m figure supersedes the €440-770m figure, and uses both as if interchangeable across different sections of the same headline scorecard/risk register."
+    },
+    {
+      "anchor": "Cumulative goodwill impairment FY2021-FY2025",
+      "values_by_module": {
+        "business-model/11_capital-allocation-governance.md": "€2,054.0m (yearly breakdown shown)",
+        "management-governance/02_capital-allocation-scorecard.md, /99": "€2,054.0m (identical figure and yearly breakdown)"
+      },
+      "consistent": true,
+      "detail": "Identical figure, identical component breakdown, across both modules."
+    }
+  ],
+  "integrity_score": 59,
+  "verdict": "Material issues",
+  "blocking_findings": [
+    "decision_record.json fails its own automated finish-gate schema check (missing sotp_segments array; missing peers_internals.anchors; per-scenario forward_metric/multiple fields absent; net_debt_basis value not conforming to the required enum) -- confirmed independently by grep (all three field names are wholly absent from decision_record.json). This run was committed and pushed with a bold PROVISIONAL/UNVERIFIED banner already embedded at the top of final_thesis.md. This audit independently reconciled the underlying scenario arithmetic end-to-end against valuation/07's documented derivation and found it correct -- the defect is decision_record.json's own self-certifiability as shipped, not a wrong number.",
+    "Cross-module anchor conflict on the Glovo Spain contingent liability -- the report's own stated killer risk -- with four modules (business-model, management-governance, earnings, and most of final_thesis.md) citing €440-770m (FY24 Annual Report) against balance-sheet-survival (and final_thesis's own Risk Register / Kill Criteria) citing €520-860m (a later Q1 2026 transcript figure), used interchangeably without a reconciling note."
+  ],
+  "notes": "No fabricated or unsupported rating-driving figure was found. Every load-bearing arithmetic check performed (net debt, both leverage bases, cash conversion, cumulative goodwill impairment, all five scenario returns, the probability-weighted target price, expected return, risk/reward, and margin of safety) independently reconciled exactly or within rounding. Two claim-level figures (Adjusted EBITDA €903.0m and net loss -€782.9m) returned hit_count=0 from resolve_citations.py due to tool pattern quirks (a required trailing decimal point, and a negative-lookbehind that excludes a leading minus sign respectively) -- both were confirmed present and correct by direct grep of the corpus and are recorded as verified, not unverified, per the command's manual-read-upgrade rule. The material findings are process/completeness issues (decision_record.json's schema gap versus its own finish-gate, and an unreconciled dual-figure citation for the killer-risk number) rather than evidence fabrication or broken math, which is why the verdict is 'Material issues' rather than 'Failed'. No run artifact besides this new verification_report.json was created or modified."
+}
