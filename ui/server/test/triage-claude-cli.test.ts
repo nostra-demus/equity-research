@@ -10,7 +10,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { triageBatchClaudeCli, isUsageLimit, isPlanQuotaNote, isTerminalApiNote, type ClaudeCliRunner } from '../src/news/triage/claude-cli'
+import { triageBatchClaudeCli, isUsageLimit, isAuthExpiredNote, isPlanQuotaNote, isTerminalApiNote, type ClaudeCliRunner } from '../src/news/triage/claude-cli'
 import { UsdBudget } from '../src/news/triage/budget'
 import { NEWS } from '../src/config'
 import { DEFERRED_CAP } from '../src/news/runCycle'
@@ -309,6 +309,41 @@ await check('finding 2: an abort DURING attempt 1 stops the retry (one call, not
   const r = await triageBatchClaudeCli(items, { ...opts, signal: ac.signal }, run)
   assert.equal(calls, 1, 'the second attempt is skipped because the cycle was aborted mid-flight (red-on-old: 2 calls)')
   assert.equal(r.ok, false)
+})
+
+// ---- an EXPIRED SIGN-IN is its own failure class: un-retryable in-call, but recoverable across cycles ----
+// The exact note the real CLI produces (reproduced against claude 2.1.150 with an expired keychain token).
+const AUTH_NOTE = 'claude cli: HTTP 401 — Failed to authenticate. API Error: 401 OAuth access token has expired. Re-authenticate to continue.'
+
+await check('the real expired-token note is classified as an expired sign-in', () => {
+  assert.equal(isAuthExpiredNote(AUTH_NOTE), true)
+  assert.equal(isAuthExpiredNote('claude cli: HTTP 401 — Unauthorized'), true, 'a bare 401 counts')
+  assert.equal(isAuthExpiredNote('claude cli: authentication_failed'), true, 'so does the worded form, with no HTTP code')
+})
+
+await check('an expired sign-in is NOT confused with the other failure classes', () => {
+  assert.equal(isPlanQuotaNote(AUTH_NOTE), false, "an expired sign-in is not the plan's quota being spent")
+  assert.equal(isUsageLimit({ api_error_status: 401, result: 'OAuth access token has expired.' }), false)
+  for (const n of ['claude cli: timed out', 'claude cli: no output', 'claude cli: HTTP 500 — upstream', 'claude cli: usage limit reached — plan quota spent']) {
+    assert.equal(isAuthExpiredNote(n), false, `must not match: ${n}`)
+  }
+})
+
+await check('a 401 is STILL terminal in-call, so the adapter stops rather than re-spawning a doomed CLI', () => {
+  // The two predicates deliberately overlap on 401: in-call it must stop retrying (nothing changes between
+  // two spawns a second apart), while runCycle tests isAuthExpiredNote FIRST for the cross-cycle response.
+  assert.equal(isTerminalApiNote(AUTH_NOTE), true, 'keep 401 terminal here — the retry loop depends on it')
+})
+
+await check('an expired sign-in defers the batch after ONE call (no wasted second spawn)', async () => {
+  let calls = 0
+  const run: ClaudeCliRunner = async () => { calls++; return { text: '', costUsd: 0, error: AUTH_NOTE } }
+  const r = await triageBatchClaudeCli(items, opts, run)
+  assert.equal(calls, 1, 'a dead sign-in will not fix itself between two spawns — do not retry in-call')
+  assert.equal(r.ok, false, 'the batch DEFERS (unscored), never scored zero')
+  assert.equal(r.byIndex.size, 0)
+  assert.equal(r.costUsd, 0, 'a rejected call bills nothing')
+  assert.equal(isAuthExpiredNote(r.note || ''), true, 'the note reaches the caller intact so it can classify')
 })
 
 console.log(`\n${passed} checks passed`)

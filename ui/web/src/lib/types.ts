@@ -774,7 +774,7 @@ export interface NewsCycle {
 // ui/server/src/news/types.ts). Kept as string unions so an older server sending an unknown value degrades
 // to the raw note rather than crashing the panel.
 export type DeferReason = 'aborted' | 'free-budget-spent' | 'groq-cooldown' | 'paced' | 'batch-failed'
-export type LastResortState = 'off' | 'scored' | 'usd-cap' | 'plan-quota' | 'cooling' | 'available'
+export type LastResortState = 'off' | 'scored' | 'usd-cap' | 'plan-quota' | 'auth-expired' | 'cooling' | 'available'
 
 // One ingest cycle's outcome, streamed live over /api/news/stream as `news-cycle`. Mirrors the server's
 // CycleSummary (ui/server/src/news/types.ts). Every field past `dropped` is optional so an OLDER engine

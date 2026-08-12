@@ -1228,6 +1228,66 @@ await check('plan usage limit → the batch defers AND a cross-cycle cooldown st
   assert.equal(cliCalls, 1, 'still 1 — the cooldown suppressed the re-spawn while the plan is out')
 })
 
+// An EXPIRED SIGN-IN is the one last-resort failure a human fixes in seconds (`claude login` on the host),
+// so it must not be handled like a revoked key. It used to match the terminal-4xx branch, which force-marks
+// the day's $ ledger as fully spent: the tier then stayed dark until the UTC rollover even after the sign-in
+// was repaired, AND the cockpit reported the entire daily ceiling as spent when the failing calls cost $0.
+// This is the regression guard for all three halves — the $ ledger, the recovery, and the honest message.
+await check('expired sign-in → the $ ceiling is NOT falsely burned, and the tier RECOVERS once signed back in', async () => {
+  resetSharedLimiters()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('upstream sad', 503)
+    if (u.includes('gdelt')) return res({ articles: [{ url: 'https://reuters.com/auth', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  let cliCalls = 0
+  let signedIn = false // flipped when the operator runs `claude login` on the host
+  // the EXACT note the real CLI produces for an expired OAuth token (reproduced against claude 2.1.150)
+  const claudeCliRunner = async () => {
+    cliCalls++
+    return signedIn
+      ? { text: '[{"i":0,"relevance":"material","materiality_pre_score":84,"issuer_linkage":"macro","why":"a 50 bps cut lowers funding costs"}]', costUsd: 0.004 }
+      : { text: '', costUsd: 0, error: 'claude cli: HTTP 401 — Failed to authenticate. API Error: 401 OAuth access token has expired. Re-authenticate to continue.' }
+  }
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
+    overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 5, anthropicRpm: 6000, anthropicMinPriority: 0 } as any
+  let nowMs = Date.parse('2026-06-12T09:30:00Z')
+  const now = () => new Date(nowMs)
+
+  const s1 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
+  assert.equal(cliCalls, 1)
+  assert.equal(s1.picked + s1.watched + s1.dropped, 0, 'nothing scored — the sign-in was dead')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1, 'the item is kept, not lost')
+  // (a) the $0 actually spent stays $0 — red on old: exhaust() wrote usd == the $5 cap
+  const ledger = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+  assert.ok(ledger.usd < 5, `the daily ceiling must not be falsely marked spent (got usd=${ledger.usd} of 5)`)
+  // (b) the state + note name the real cause and the fix — red on old: 'cooling' / "backing off after an error"
+  assert.equal(s1.last_resort, 'auth-expired', "the state names the expired sign-in, not a vague 'cooling'")
+  assert.match(s1.note || '', /claude login/, 'the operator is told the one command that fixes it')
+
+  // while still signed out it must not hammer the host — the short cooldown holds the very next cycle
+  nowMs += 30_000
+  await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
+  assert.equal(cliCalls, 1, 'still 1 — the cooldown suppressed the re-spawn')
+
+  // a LATER cycle keeps naming the real cause, read off the cooldown marker rather than this cycle's note
+  const s2 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
+  assert.equal(s2.last_resort, 'auth-expired', 'the reason survives the cycle that produced it')
+
+  // the operator signs back in; past the short cooldown the tier re-probes and the backlog drains itself.
+  // Red on old: the ledger was marked spent, so canSpend() stayed false and the tier never fired again today.
+  signedIn = true
+  nowMs += 61_000
+  const s3 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
+  assert.equal(cliCalls, 2, 're-probed after the short cooldown instead of staying dark until the UTC rollover')
+  assert.equal(s3.picked + s3.watched + s3.dropped, 1, 'the deferred item finally scores — recovery is automatic')
+  assert.equal(readCooldownUntil(state, 'anthropic-triage'), 0, 'the marker is cleared once the tier recovers')
+})
+
 // ---- end-to-end transparency: the defer note is honest about EVERY blocker, not just Groq ----
 
 await check('the cycle summary carries the transparency fields (fresh/carryover/backlog/backlog_cap/last_resort)', async () => {
