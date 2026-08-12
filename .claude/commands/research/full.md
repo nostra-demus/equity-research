@@ -389,7 +389,7 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 ### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
 
-Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — and the Headline Scorecard ↔ decision_record.json reconciliation plus red-flag severity reconciliation (checks AI/AK, via `scripts/headline_checks.py`). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation plus red-flag severity reconciliation (checks AI/AK, via `scripts/headline_checks.py`) — and the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
@@ -642,6 +642,25 @@ if os.path.exists(_vs_path):
     try: _vs_sidecar = json.load(open(_vs_path, encoding="utf-8"))
     except Exception as _e: viol.append(f"valuation_summary.json exists but is not readable/valid JSON ({_e}) — integrity failure, not soft-absence")
     else: viol.extend(vsc.eval_ap_valuation_summary_integrity(_vs_sidecar, d) or [])
+# checks AT/AU/AV — §10 scenario-span check, sign-check presence, §10 conjunction-disclosure check
+# (live pre-publish; mirrors eval.py checks AT/AU/AV via scripts/scenario_integrity_checks.py, the
+# same shared-detection-module pattern as rating_caps.py / headline_checks.py / valuation_summary_checks.py
+# above). Until this block existed, these three were post-hoc eval.py checks nobody was required to run
+# before commit — the exact hole already closed for §24/§13/AI/AK/AP. The defect class is the CLAUDE.md
+# §10 worked example itself: AMZN_2026-07-10 shipped a scenario set (bull +3.6% / base -11.9% / bear
+# -38.7%) that summed to 100% and reconciled perfectly (the scenario-math block above would have PASSED
+# it), yet its best case sat inside one ordinary week's move — no case in the set contained the good
+# quarter that actually happened, and the stock closed 15% up two days later, above the entire
+# distribution (AT). That same bull case needed four conditions to hold at once with no written basis
+# for why they would move together (AV). And the thesis headlined a margin story the engine's own
+# margin-drivers module contradicted, with no line anywhere recording the disagreement (AU). All three
+# sat undetected until a later manual `/research:eval` run. This block closes that hole for every future
+# run, standalone rerun included (rerun.md Step 8A runs this file verbatim), the same way the blocks
+# above already close it for §24/§13/AI/AK/AP.
+import scenario_integrity_checks as sic
+viol.extend(sic.eval_at_scenario_span(ddte, scen) or [])
+viol.extend(sic.eval_au_sign_check_recorded(ddte, _thesis_text_ak) or [])
+viol.extend(sic.eval_av_conjunction_disclosure(ddte, scen) or [])
 # [PR#9 review fix] idempotent banner: ALWAYS strip any prior finish-gate banner first, then re-stamp
 # fresh if still failing, or write the clean thesis if it now passes. The old code only prepended-if-
 # absent, so a fixed re-run in the same folder kept a stale PROVISIONAL banner with outdated reasons.
@@ -659,7 +678,7 @@ if viol:
     print("GATE: PROVISIONAL — " + "; ".join(viol))
 else:
     open(ft, "w", encoding="utf-8").write(body)   # write back the cleaned thesis (strips any now-stale banner)
-    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), and red-flag severity reconciliation (§13) all satisfied")
+    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, and sign-check presence all satisfied")
 PY
 ```
 
