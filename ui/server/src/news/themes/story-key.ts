@@ -11,7 +11,7 @@ export interface ThemeStoryIdentity {
 }
 
 const CORRECTION_RE = /\b(correct(?:s|ed|ion)?|clarif(?:y|ies|ied|ication)|revis(?:e|es|ed|ion)|restat(?:e|es|ed|ement))\b/i
-const REVERSAL_RE = /\b(retract(?:s|ed|ion)?|withdraw(?:s|n|al)?|revers(?:e|es|ed|al)|den(?:y|ies|ied|ial)|refut(?:e|es|ed)|rescinds?|cancels?)\b/i
+const REVERSAL_RE = /\b(retract(?:s|ed|ion)?|withdraw(?:s|n|al)?|revers(?:e|es|ed|al)|den(?:y|ies|ied|ial)|refut(?:e|es|ed)|rescinds?|cancel(?:s|l?ed|lation|l?ing)?|postpon(?:e(?:s|d)?|ement|ing))\b/i
 
 /** Corrections and reversals may share a wire dedup family with the original report, but suppressing them
  * as publisher copies would hide exactly the row that can falsify a thesis. Keep one canonical correction

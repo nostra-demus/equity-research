@@ -514,6 +514,33 @@ await check('mergeInbox preserves an in-place correction or reversal that reuses
   assert.equal(correction?.input_nature, 'exchange_announcement')
 })
 
+await check('mergeInbox never collapses cancelled or postponed updates into their original story', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const revision = (group: string, url: string, headline: string, score: number): TriagedItem => ({
+    ...triagedItem(url, score, headline),
+    dedup_group: group,
+  })
+  mergeInbox(root, date, [
+    revision('EVT-cancel', 'https://filing.test/agm-original', 'Issuer confirms AGM for September 9', 99),
+    revision('EVT-cancel', 'https://news.test/agm-cancelled', 'Issuer AGM cancelled', 70),
+    revision('EVT-postpone', 'https://filing.test/results-original', 'Issuer confirms results for September 10', 98),
+    revision('EVT-postpone', 'https://news.test/results-postponed', 'Issuer results have been postponed', 69),
+  ], { maxRows: 10 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.deepEqual(
+    new Set(doc.rows.map((row: any) => row.headline)),
+    new Set([
+      'Issuer confirms AGM for September 9',
+      'Issuer AGM cancelled',
+      'Issuer confirms results for September 10',
+      'Issuer results have been postponed',
+    ]),
+    'lower-tier thesis-falsifying updates remain visible beside higher-tier originals',
+  )
+})
+
 // ---- orchestrator (end-to-end with mocked GDELT + Groq) ----
 await check('runIngestCycle: fetch → triage → ranked inbox; second run skips seen items', async () => {
   const root = tmp()
