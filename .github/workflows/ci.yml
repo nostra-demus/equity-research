@@ -209,6 +209,16 @@ jobs:
           else
             echo "skip: ciq_facts.py not on this ref yet (lands with the CIQ-facts sidecar PR)"
           fi
+          # Supply-chain graph — tied to the parser. Its failure modes are SILENT (a wholly-owned sales
+          # subsidiary surfaced as a second-order idea, a ticker invented for an unlisted counterparty, the
+          # export's two-year disclosure scope dropped), so once relationship_graph.py reaches main its test
+          # is REQUIRED. Synthetic sheets only — no workbook readers needed.
+          if [ -f ".claude/tools/relationship_graph.py" ]; then
+            echo "== test_relationship_graph.py =="
+            python3 .claude/tools/test_relationship_graph.py || rc=1
+          else
+            echo "skip: relationship_graph.py not on this ref yet (lands with the supply-chain-ideas PR)"
+          fi
           # Extraction bench — tied to its committed fixtures. Once testdata/extract_bench reaches main, required.
           if [ -d ".claude/tools/testdata/extract_bench" ]; then
             echo "== test_extract_pool.py =="

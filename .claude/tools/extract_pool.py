@@ -1954,6 +1954,7 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None,
     json.dump(manifest, open(os.path.join(out_dir, "manifest.json"), "w"), indent=2)
     open(os.path.join(out_dir, "manifest.md"), "w").write(_manifest_md(manifest))
     _write_ciq_facts(snapshot_pool, out_dir)  # B3: deterministic CIQ facts sidecar, best-effort (never blocks extraction)
+    _write_relationships(snapshot_pool, out_dir)  # supply-chain graph sidecar, best-effort (never blocks extraction)
     if corpus_path:
         _write_corpus(out_dir, snapshot_pool, corpus_path, manifest, methodology_only_rels)
 
@@ -1982,6 +1983,34 @@ def _write_ciq_facts(data_path, out_dir):
               f"({facts.get('concepts_resolved', 0)} CIQ concepts resolved)")
     except Exception as e:  # noqa: BLE001 — best-effort; a facts failure must never fail extraction
         print(f"[extract_pool] ciq_facts: skipped ({type(e).__name__}: {e})")
+
+
+def _write_relationships(data_path, out_dir):
+    """Emit relationships.json — the deterministic supply-chain graph parsed from any CIQ
+    Suppliers / Customers export in the pool, next to manifest.json and ciq_facts.json.
+
+    Wired here for the same reason the facts sidecar is: the graph is then produced automatically
+    wherever the pool is built (every module's 00-triage full extract), with no prompt change and no
+    LLM spend. A pool with no relationship export writes a valid, empty graph — that is a real answer
+    ("no supplier/customer list has been provided"), not a failure, and downstream readers need to be
+    able to tell the two apart. Fully best-effort: a parse failure must NEVER fail the pool extract."""
+    try:
+        from pathlib import Path as _Path
+        from relationship_graph import build_graph  # same tools dir (on sys.path when run as a script)
+        ticker = os.path.basename(os.path.normpath(data_path))
+        graph = build_graph(_Path(data_path), ticker)
+        json.dump(graph, open(os.path.join(out_dir, "relationships.json"), "w"), indent=2, default=str)
+        c = graph.get("concentration", {})
+        n_sheets = len(graph.get("sources", []))
+        if n_sheets:
+            print(f"[extract_pool] relationships.json: {n_sheets} relationship sheet(s) -> "
+                  f"{c.get('relationship_rows', 0)} disclosed row(s), "
+                  f"{c.get('third_party_entities', 0)} outside part(y/ies) "
+                  f"({c.get('listed_third_parties', 0)} listed)")
+        else:
+            print("[extract_pool] relationships.json: no CIQ supplier/customer export in the pool")
+    except Exception as e:  # noqa: BLE001 — best-effort; a graph failure must never fail extraction
+        print(f"[extract_pool] relationships: skipped ({type(e).__name__}: {e})")
 
 
 def _manifest_md(m):

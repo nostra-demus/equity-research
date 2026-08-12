@@ -389,6 +389,12 @@ echo "== extract_pool.py: per-format extraction bench (xls/xlsx/pdf/rtf/txt + co
 # platform reader (textutil/pdf) SKIPS, never false-fails.
 "$PY" "$DIR/test_extract_pool.py" || rc=1
 
+echo "== relationship_graph.py: CIQ supplier/customer graph (group vs third party, no invented tickers) =="
+# The supply-chain lane's parser. Its failure modes are silent, not loud: a wholly-owned sales subsidiary
+# surfaced as a "second-order idea", a ticker invented for an unlisted counterparty, or the export's
+# two-year disclosure scope dropped. Synthetic sheets only — no workbook readers needed.
+"$PY" "$DIR/test_relationship_graph.py" || rc=1
+
 echo "== ingest_external.py: EXTERNAL-INBOX router (routing, sidecars, dedup, fan-out cap) =="
 # The external-data lane's entry point (frameworks/EXTERNAL_DATA.md): files dropped in the Drive inbox
 # are matched to ticker pools, copied to data/<T>/external/<provider>/ with provenance sidecars, and

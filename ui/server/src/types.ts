@@ -97,6 +97,10 @@ export type FileType =
   | 'proxy_comp'
   | 'financials'
   | 'guidance'
+  // a Capital IQ Suppliers / Customers export — the only pool document that NAMES the company's
+  // counterparties. Readiness-NEUTRAL by design (no rule keys on it): it enriches the value-chain and
+  // customer reads and feeds the Ideas board's chain lane, but it can never fill a filing slot.
+  | 'business_relationships'
   | 'user_note'
   // externally ingested research under data/<TICKER>/external/ (frameworks/EXTERNAL_DATA.md):
   // alt-data panels, expert calls, channel checks, broker notes, paid-API pulls. Deliberately ONE

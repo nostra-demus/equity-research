@@ -42,6 +42,7 @@ If `02_business-identity.md` is missing, write at the top:
 # WHAT TO READ (priority for this agent)
 
 - **Upstream business-identity output** — what the company actually does
+- **`<RUN_ROOT>/_pool_extracts/relationships.json`** — the deterministic supply-chain graph, when the pool carries a Capital IQ Suppliers/Customers export. This is the only place the chain is NAMED; read it before the prose sources so you argue about real counterparties instead of categories. Follow the MODULE_RULES section on it: tier-5 vendor export, carry its `scope_notes`, only `third_party` rows are outside parties, and it proves a relationship EXISTS but never how big it is.
 - **Supplier risk** in Risk Factors
 - **Raw material / input cost** disclosures in MD&A
 - **Pass-through pricing clauses** in segment notes or MD&A
@@ -83,6 +84,21 @@ One paragraph. Does the company pass input cost increases to customers? With wha
 
 **Supplier / input concentration (quantify).** Beyond pass-through, size the supply-side dependency — the share of COGS or purchases from the largest supplier and the top 3 (where disclosed), any single-source / sole-source inputs or key components, and concentration in a critical raw material. Flag a single supplier or input that is a *material* dependency: this is the supply-side parallel to customer concentration, and a material single-source dependency is itself a bargaining risk to carry into §5. Where the disclosure does not quantify it, say so — do not invent a percentage.
 
+## 2A. Named Counterparties (only when `_pool_extracts/relationships.json` exists)
+
+Omit this section entirely when the pool carries no Capital IQ Suppliers/Customers export — do NOT write an empty table or a placeholder.
+
+State the graph's `scope_notes` in one line first (these lists cover only recently disclosed relationships, not the full base), then table the `third_party` counterparties, strongest link first:
+
+| Counterparty | Listing | What it supplies / buys | Which group entity | Who disclosed it | Why it matters here |
+|---|---|---|---|---|---|
+| ... | EXCH:SYM or *unlisted* | industry from the graph | the company or a named subsidiary | its own filing / the company's | one line — the bargaining implication |
+
+Then, in at most four lines:
+- **Concentration of disclosure.** How many outside parties are named, how many are listed, and across how many markets. If most disclosed relationships are with the company's own group (`concentration.intragroup_row_share_pct`), say so plainly — it means little of the chain shown here is arm's-length, and it is a related-party observation to hand to `capital-allocation-governance`.
+- **Where the spend clusters.** Any `industry_clusters` entry with two or more outside parties — that is where the company's input spend concentrates, which is a bargaining fact.
+- **The honest limit.** The export names relationships; it never says what share of either side's business they represent. Do not convert a name into a dependency percentage.
+
 ## 3. Customer Pricing Power
 
 One paragraph. Can the company raise prices without losing volume? Cite any explicit pricing actions in the last 24 months and the volume reaction.
@@ -102,6 +118,9 @@ One line: which value-chain relationship would, if it deteriorated, hurt the com
 
 # SELF-CHECK
 
+- [ ] If `relationships.json` exists, §2A names its outside counterparties and quotes the export's scope; if it does not exist, §2A is absent (not an empty table).
+- [ ] No counterparty the graph marks `group` or `likely_group` is presented as an outside party.
+- [ ] No named relationship has been turned into a dependency percentage the export does not disclose.
 - [ ] The company's role in each stage is stated in one sentence, with evidence.
 - [ ] Bargaining power scores are explicit (Strong / Mid / Weak) — no waffling.
 - [ ] Pass-through and pricing-power claims are evidenced by specific filings or transcript lines.

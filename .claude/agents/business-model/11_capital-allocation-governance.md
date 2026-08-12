@@ -42,6 +42,7 @@ The disqualifier-scan agent runs in parallel and already covers the hardest gove
 - **Cash flow statement** — acquisition spend, capex, dividends, buybacks
 - **Statement of changes in equity** — issuance, dilution
 - **Related-party transactions note**
+- **`<RUN_ROOT>/_pool_extracts/relationships.json` → `concentration`** — when the pool carries a Capital IQ Suppliers/Customers export. `intragroup_row_share_pct` is the share of the company's DISCLOSED trading relationships that are with entities inside its own group. A high share (say, half or more) means most of the chain the vendor can see is not arm's-length: read it into the Related-party row as corroborating evidence beside the filing's own RPT note, quantified and cited as a vendor export (never as a filing). It is a scope-limited view of *recently disclosed* relationships — say so, and never treat it as a measured share of revenue or spend.
 - **Auditor's report and key audit matters**
 - **Shareholding pattern** (BSE/NSE for Indian listings) — promoter pledging
 - **Notes on contingent liabilities and off-balance-sheet items**

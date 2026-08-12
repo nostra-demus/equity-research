@@ -4117,8 +4117,10 @@ a { color: inherit; }
 .bideas { height: 100%; overflow-y: auto; padding: 18px 20px 44px; }
 .bideas > * { max-width: 720px; margin-inline: auto; }
 
+/* Auto-columns, not a fixed count: the CHAIN tab only exists when the server sends a chain board, so the
+   strip has to lay out correctly at two OR three tabs without a count class. */
 .bideas__tabs {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
   padding: 3px; margin-bottom: 18px; border: 1px solid var(--hairline);
   border-radius: var(--r-md); background: var(--surface-2);
 }
@@ -4130,6 +4132,8 @@ a { color: inherit; }
 .bideas__tab:focus-visible { outline: none; box-shadow: inset 0 0 0 1px var(--accent); }
 .bideas__tab--long.bideas__tab--on { color: var(--good); background: color-mix(in srgb, var(--good) 11%, var(--surface-3)); }
 .bideas__tab--short.bideas__tab--on { color: var(--bad); background: color-mix(in srgb, var(--bad) 11%, var(--surface-3)); }
+/* CHAIN carries no direction, so it takes the neutral accent rather than the good/bad pair. */
+.bideas__tab--chain.bideas__tab--on { color: var(--accent-bright); background: color-mix(in srgb, var(--accent) 11%, var(--surface-3)); }
 .bideas__panel, .bideas__list { display: flex; flex-direction: column; gap: 12px; }
 .bideas__panel[hidden] { display: none; }
 .bideas__truthwarn {
@@ -4226,6 +4230,68 @@ a { color: inherit; }
   @keyframes bideaFade { from { opacity: 0; } to { opacity: 1; } }
   .bidea--skeleton { animation: none; }
   .bidea__cta:active { transform: none; }
+}
+
+/* ---- Ideas · CHAIN lane (supply-chain leads) -------------------------------------------------------
+   Reuses the .bidea card shell so a chain row sits in the same visual family as a directional one, and
+   adds only what the chain needs: the anchor map strip, the hop path, and the order grouping. */
+.chain__maps { display: flex; flex-direction: column; gap: 6px; margin: 0 0 16px; padding: 0; list-style: none; }
+.chain__map {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px;
+  padding: 9px 12px; border: 1px solid var(--hairline); border-radius: var(--r-md);
+  background: var(--surface-2); font-size: 11px; color: var(--text-muted);
+}
+.chain__mapticker { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--text); }
+.chain__mapfact strong { color: var(--text); font-weight: 600; }
+.chain__mapfact--warn { color: var(--conv-warn); }
+.chain__mapfact--warn strong { color: var(--conv-warn); }
+.chain__mapscope {
+  flex: 1 1 100%; min-width: 0; color: var(--text-faint); font-size: 10.5px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.chain__group + .chain__group { margin-top: 22px; }
+.chain__grouphead {
+  display: flex; align-items: center; gap: 8px; margin: 0 0 2px;
+  font: 700 10.5px/1 var(--font-mono); letter-spacing: .8px; text-transform: uppercase; color: var(--text-muted);
+}
+.chain__groupcount {
+  min-width: 18px; padding: 2px 6px; border-radius: var(--r-pill);
+  background: var(--surface-3); color: var(--text-faint); font-size: 10px; letter-spacing: 0; text-align: center;
+}
+.chain__groupnote { margin: 0 0 10px; font-size: 11px; line-height: 1.4; color: var(--text-faint); }
+.chain__note { margin: 0 0 14px; font-size: 11.5px; line-height: 1.45; color: var(--text-faint); }
+
+.chain__card--live { border-color: color-mix(in srgb, var(--accent) 30%, var(--hairline)); }
+.chain__country { margin-left: auto; font-size: 11px; color: var(--text-faint); white-space: nowrap; }
+
+.chain__path { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 6px; margin: -2px 0 0; font-size: 11px; line-height: 1.5; }
+.chain__step { display: inline-flex; align-items: baseline; gap: 5px; min-width: 0; }
+.chain__arrow { color: var(--text-faint); }
+.chain__stepname { color: var(--text-muted); }
+.chain__stepname--anchor { color: var(--text); font-weight: 600; }
+.chain__steprole { padding: 1px 6px; border-radius: var(--r-pill); background: var(--surface-3); color: var(--text-faint); font-size: 10px; }
+
+.chain__anchor { font-size: 11px; color: var(--text-faint); white-space: nowrap; }
+.chain__anchor strong { font-family: var(--font-mono); font-weight: 600; color: var(--text-muted); }
+.chain__anchor em { font-style: normal; color: var(--text-muted); }
+.chain__anchor .chain__anchor--none { color: var(--text-faint); }
+
+.chain__more {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  width: 100%; margin-top: 18px; padding: 10px 12px; cursor: pointer; text-align: left;
+  border: 1px dashed var(--hairline); border-radius: var(--r-md); background: transparent;
+  color: var(--text-muted); font: inherit; font-size: 11.5px;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.chain__more:active { transform: scale(0.99); }
+.chain__more:focus-visible { outline: none; border-color: var(--accent); color: var(--text); }
+.chain__morewhy:not(:empty) { color: var(--text-faint); font-size: 10.5px; }
+@media (hover: hover) and (pointer: fine) {
+  .chain__more:hover { color: var(--text); border-color: color-mix(in srgb, var(--accent) 34%, var(--hairline)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chain__more:active { transform: none; }
 }
 
 /* ---- Best-ideas rating (self-grading) ------------------------------------------------------------- */
