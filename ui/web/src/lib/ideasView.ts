@@ -87,7 +87,9 @@ export function qualifiedIdeaFreshnessNow(
  * capabilities during a rolling deploy; any one keeps the tab inspectable.
  */
 export function summarizeIdeasSurface(board?: ScreenerBoard | null): IdeasSurfaceSummary {
-  const qualified = board?.qualified_ideas?.schema_version === 'qualified-ideas-board/v1'
+  const qualified = board?.qualified_ideas
+    && (board.qualified_ideas.schema_version === 'qualified-ideas-board/v1'
+      || board.qualified_ideas.schema_version === 'qualified-ideas-board/v2')
     ? board.qualified_ideas
     : null
   const healthAvailable = board?.ideas_health?.schema_version === 'ideas-health/v1'
@@ -99,6 +101,7 @@ export function summarizeIdeasSurface(board?: ScreenerBoard | null): IdeasSurfac
 
   let headerLabel = 'qualification unavailable'
   if (qualified?.health.outcome === 'no_artifacts') headerLabel = 'no assessments yet'
+  else if (qualified?.health.outcome === 'publishing') headerLabel = 'research publishing'
   else if (qualified?.health.outcome === 'invalid_artifacts' || qualified?.health.outcome === 'storage_error') headerLabel = 'assessment error'
   else if (qualified?.health.outcome === 'none_clear') headerLabel = 'none qualified'
   else if (qualified?.health.outcome === 'qualified') headerLabel = qualifiedCount ? `${qualifiedCount} qualified` : 'refresh required'
