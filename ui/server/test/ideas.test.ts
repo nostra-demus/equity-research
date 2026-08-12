@@ -671,6 +671,29 @@ check('readTopSweep collapses one story repeated across current sweep partitions
   assert.equal(got.rows.filter((row) => row.dedup_group === 'STORY-shared').length, 1)
   fs.rmSync(dir, { recursive: true, force: true })
 })
+check('readTopSweep ranks invalid source times behind valid evidence with a stable dedupe order', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-invalid-time-order-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  const candidates = [
+    { headline: 'Same story alpha', url: 'https://news.test/time-alpha' },
+    { headline: 'Same story beta', url: 'https://news.test/time-beta' },
+  ].map((row) => ({ ...row, eventId: eventIdFor(row.headline, row.url) }))
+    .sort((a, b) => a.eventId.localeCompare(b.eventId))
+  const [invalidTime, validTime] = candidates
+  fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-03T12:00:00Z',
+    rows: [
+      { ...invalidTime, dedup_group: 'STORY-time-order', triage_score: 90, source_tier: 'news', found_at: 'not-a-time' },
+      { ...validTime, dedup_group: 'STORY-time-order', triage_score: 90, source_tier: 'news', found_at: '2026-08-03T11:00:00Z' },
+    ],
+  }))
+
+  const got = readTopSweep(dir, 5)
+  assert.equal(got.rows.length, 1)
+  assert.equal(got.rows[0].event_id, validTime.eventId, 'a malformed time cannot win via event-id fallback')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
 check('readTopSweep preserves correction and reversal lanes inside one publisher-copy family', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-revision-lanes-'))
   const inbox = path.join(dir, 'screener', 'inbox')

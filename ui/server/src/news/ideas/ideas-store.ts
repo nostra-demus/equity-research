@@ -586,12 +586,18 @@ function sameIdeaStory(left: IdeaInputRow, right: IdeaInputRow): boolean {
 
 function dedupeIdeaRows(rows: IdeaInputRow[]): IdeaInputRow[] {
   const tierRank = (tier?: string): number => tier ? SOURCE_TIERS[tier as SourceTierId]?.rank ?? 0 : 0
-  const ordered = [...rows].sort((a, b) =>
-    tierRank(b.source_tier) - tierRank(a.source_tier)
-    || b.materiality - a.materiality
-    || parseRfc3339Ms(b.found_at) - parseRfc3339Ms(a.found_at)
-    || a.event_id.localeCompare(b.event_id),
-  )
+  const ordered = [...rows].sort((a, b) => {
+    const tierDiff = tierRank(b.source_tier) - tierRank(a.source_tier)
+    if (tierDiff !== 0) return tierDiff
+    const materialityDiff = b.materiality - a.materiality
+    if (materialityDiff !== 0) return materialityDiff
+    const parsedA = parseRfc3339Ms(a.found_at)
+    const parsedB = parseRfc3339Ms(b.found_at)
+    const timeA = Number.isFinite(parsedA) ? parsedA : 0
+    const timeB = Number.isFinite(parsedB) ? parsedB : 0
+    if (timeB !== timeA) return timeB - timeA
+    return a.event_id.localeCompare(b.event_id)
+  })
   const seenStoryIds = new Set<string>()
   return ordered.filter((row) => {
     const keys = ideaStoryKeys(row)
