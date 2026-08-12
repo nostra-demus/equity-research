@@ -4,7 +4,9 @@
 // index_change anchor on scheduling language, while the inherently-forward nouns (ex-dividend, lock-up,
 // AGM, investor day) are safe on their own.
 import assert from 'node:assert'
-import { deriveScheduledEvents, SCHEDULED_EVENTS, SCHEDULED_EVENT_ORDER, scheduledEventLabel } from '../src/news/schedule'
+import {
+  deriveScheduledEventEvidence, deriveScheduledEvents, SCHEDULED_EVENTS, SCHEDULED_EVENT_ORDER, scheduledEventLabel,
+} from '../src/news/schedule'
 import { matchesFeedFilters, parseFeedFilterQuery, hasAnyFilter } from '../src/news/feed-filter'
 import type { FeedItem } from '../src/news/types'
 
@@ -32,6 +34,145 @@ check('a past-tense report is NOT flagged as a forward results date', () => {
   assert.deepEqual(sched('Company posted record annual profit'), [], 'a results recap is not a scheduled event')
   // but the scheduling framing IS caught
   assert.ok(sched('Company to report earnings after the close').includes('results_date'))
+})
+
+check('dated catalyst evidence is source-bound, complete, valid, and never inferred from display translation', () => {
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Amazon to report earnings on August 6, 2026' }),
+    ['results_date on 2026-08-06'],
+  )
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Amazon earnings date for Q2 2026 is August 6, 2026' }),
+    ['results_date on 2026-08-06'],
+    'a complete calendar day outranks the reporting quarter for the same event',
+  )
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Amazon earnings date for Q2 2026 on 2026-08-06' }),
+    ['results_date on 2026-08-06'],
+    'an ISO calendar day also outranks the reporting quarter for the same event',
+  )
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Amazon earnings date for Q2 2026 is August 6, 2026, AGM announced' }),
+    ['results_date on 2026-08-06'],
+    'an adjacent undated event cannot steal the exact day or inherit the leftover quarter',
+  )
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Amazon earnings date for Q2 2026, AGM on August 6, 2026' }),
+    ['results_date on Q2 2026', 'shareholder_meeting on 2026-08-06'],
+    'a separately dated adjacent event keeps its own exact day',
+  )
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Acme AGM scheduled for 06/08/2026' }),
+    ['shareholder_meeting on 06/08/2026'],
+  )
+  assert.deepEqual(deriveScheduledEventEvidence({ headline: 'Amazon to report earnings after the close' }), [], 'a category is not a date')
+  assert.deepEqual(deriveScheduledEventEvidence({ headline: 'Amazon to report earnings on 2026-02-30' }), [], 'an impossible date is rejected')
+  assert.deepEqual(deriveScheduledEventEvidence({ headline: 'Amazon says no earnings date within 30 days' }), [], 'a negated window is rejected')
+  assert.deepEqual(deriveScheduledEventEvidence({ headline: 'Amazon to report earnings tomorrow' }), [], 'an unanchored relative window is not timeless evidence')
+  assert.deepEqual(deriveScheduledEventEvidence({ headline: 'Amazon to report earnings in 2 days' }), [], 'a numeric relative window is not persisted without a source-time anchor')
+  assert.deepEqual(deriveScheduledEventEvidence({ headline: 'Amazon to report earnings on 2026-09-09 cancelled' }), [], 'a trailing cancellation invalidates the date')
+  assert.deepEqual(deriveScheduledEventEvidence({ headline: 'Amazon AGM on 2026-09-09 postponed' }), [], 'a trailing postponement invalidates the date')
+  assert.deepEqual(deriveScheduledEventEvidence({ headline: 'Amazon AGM on 2026-09-09 but later cancelled' }), [], 'a trailing status clause invalidates the date')
+  assert.deepEqual(deriveScheduledEventEvidence({ headline: 'Amazon AGM on 2026-09-09; later cancelled' }), [], 'a semicolon cannot hide an immediate cancellation')
+  assert.deepEqual(deriveScheduledEventEvidence({ headline: 'Amazon AGM on 2026-09-09. The event was cancelled' }), [], 'a period cannot hide an immediate cancellation')
+  assert.deepEqual(deriveScheduledEventEvidence({ headline: 'Amazon AGM on 2026-09-09. It has since been postponed' }), [], 'an immediate cross-sentence postponement invalidates the date')
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Amazon AGM on 2026-09-09; Investor day on 2026-10-10 cancelled' }),
+    ['shareholder_meeting on 2026-09-09'],
+    'a separately named cancelled event cannot invalidate the prior live event',
+  )
+  for (const headline of [
+    'Amazon AGM on 2026-09-09 has since been postponed',
+    'Amazon AGM on 2026-09-09 will be postponed',
+    'Amazon AGM on 2026-09-09 was rescheduled',
+    'Amazon AGM on 2026-09-09 moved to 2026-10-10',
+    'Amazon AGM cancellation on 2026-09-09',
+    'Amazon postpones AGM scheduled for 2026-09-09',
+    'Amazon delays AGM from 2026-09-09',
+    'Amazon reschedules AGM previously set for 2026-09-09',
+    'Amazon withdraws notice of AGM for 2026-09-09',
+    'Amazon moved AGM from 2026-09-09',
+    'Amazon moved the AGM from 2026-09-09',
+    'Amazon moves its AGM from 2026-09-09',
+    'Amazon moved AGM from 2026-09-09 to 2026-10-10',
+    'Amazon AGM shifted from 2026-09-09',
+    'Amazon defers AGM scheduled for 2026-09-09',
+    'Amazon AGM on 2026-09-09 pushed back',
+    'Amazon AGM on 2026-09-09 pushed-back',
+    'Amazon puts off AGM scheduled for 2026-09-09',
+    'Amazon puts-off AGM scheduled for 2026-09-09',
+    'Amazon AGM on 2026-09-09 adjourned',
+    'Amazon scraps AGM scheduled for 2026-09-09',
+    'Amazon AGM on 2026-09-09 suspended',
+    'Amazon AGM on 2026-09-09 called-off',
+    'Amazon denies AGM on 2026-09-09',
+    'Amazon denied the AGM would be held on 2026-09-09',
+    'Amazon rules out AGM on 2026-09-09',
+    'Amazon ruled out AGM on 2026-09-09',
+    'Amazon changes AGM date from 2026-09-09 to 2026-10-10',
+    'Amazon AGM date changed from 2026-09-09 to 2026-10-10',
+    'Amazon revises AGM date from 2026-09-09 to 2026-10-10',
+    'Amazon AGM date revised from 2026-09-09 to 2026-10-10',
+    'Amazon may hold AGM on 2026-09-09',
+    'Amazon might hold AGM on 2026-09-09',
+    'Amazon could hold AGM on 2026-09-09',
+    'Amazon will possibly hold AGM on 2026-09-09',
+    'Amazon potentially holds AGM on 2026-09-09',
+    'Amazon tentative AGM on 2026-09-09',
+    'Amazon AGM date unconfirmed for 2026-09-09',
+  ]) {
+    assert.deepEqual(
+      deriveScheduledEventEvidence({ headline }),
+      [],
+      `${headline}: a revised, cancelled, delayed, or withdrawn schedule is not a live catalyst`,
+    )
+  }
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Amazon AGM scheduled for 2026-09-09' }),
+    ['shareholder_meeting on 2026-09-09'],
+    'an unrevised schedule remains valid',
+  )
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Amazon AGM scheduled for 2026-09-09. Investor day on 2026-10-10' }),
+    ['shareholder_meeting on 2026-09-09', 'investor_day on 2026-10-10'],
+    'separate unrevised clauses keep their own live dates',
+  )
+  for (const headline of [
+    'Amazon denies acquisition rumors. AGM on 2026-09-09',
+    'Amazon rules out layoffs; AGM on 2026-09-09',
+    'Amazon changed its CEO. AGM on 2026-09-09',
+    'Amazon revises guidance. AGM on 2026-09-09',
+    'Amazon may refinance debt. AGM confirmed for 2026-09-09',
+    'Amazon could raise guidance; AGM confirmed for 2026-09-09',
+    'Amazon tentative product launch. AGM confirmed for 2026-09-09',
+    'Amazon reports unconfirmed acquisition rumor. AGM confirmed for 2026-09-09',
+  ]) {
+    assert.deepEqual(
+      deriveScheduledEventEvidence({ headline }),
+      ['shareholder_meeting on 2026-09-09'],
+      `${headline}: unrelated text in a separate clause cannot suppress the live AGM`,
+    )
+  }
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Amazon AGM scheduled for May 9, 2026' }),
+    ['shareholder_meeting on 2026-05-09'],
+    'the month May is not mistaken for the uncertainty modal',
+  )
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Amazon to report earnings on 2026-08-06, AGM on 2026-09-09' }),
+    ['results_date on 2026-08-06', 'shareholder_meeting on 2026-09-09'],
+    'nearby events bind one-to-one to their own nearest dates',
+  )
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'On 2026-08-06, Amazon will report results' }),
+    ['results_date on 2026-08-06'],
+    'a genuinely nearest leading date remains supported',
+  )
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Amazon earnings date announced', headline_en: 'Amazon earnings on 2026-08-06' }),
+    [],
+    'model-authored translation text cannot manufacture source evidence',
+  )
 })
 
 // ---- multilabel + empty + order-stable + foreign-language ----

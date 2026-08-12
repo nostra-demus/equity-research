@@ -8,6 +8,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
+import { spawnSync } from 'node:child_process'
 import { z } from 'zod'
 import { readActivity, type ActivityRow } from './activity-log'
 import { inFlightRunsForTicker } from './registry'
@@ -40,6 +41,7 @@ export const QUALIFIED_IDEAS_BOARD_SCHEMA = 'qualified-ideas-board/v1' as const
 const IMMUTABLE_IDEA_PUBLICATION_REQUIRED_FROM = '2026-08-03'
 const IDEA_PUBLICATION_GRACE_MS = 6 * 60 * 60_000
 const IDEA_PUBLICATION_CLOCK_SKEW_MS = 5 * 60_000
+const DIRECT_PUBLICATION_FILE_SKEW_MS = 15 * 60_000
 const CURRENT_AUTHORITY_MISMATCH = 'The standing decision record no longer matches the frozen admission authority; a new run is required.'
 
 export interface QualifiedIdeasBoard {
@@ -449,7 +451,64 @@ function publicationProgressForRun(
   }
 }
 
-function discover(repoRoot: string, nowMs = Date.now(), readActivityRows: typeof readActivity = readActivity): {
+/**
+ * Return only run roots whose thesis and decision are both different from the Git index. This makes
+ * the files' mtimes useful as a short-lived direct-producer clock without letting a clean checkout (or
+ * merely touching already-committed files) manufacture a fresh publication window. One bounded Git
+ * read covers the entire board projection; failure is deliberately an empty, fail-closed result.
+ */
+function readUncommittedPublicationRuns(repoRoot: string): ReadonlySet<string> {
+  const result = spawnSync('git', ['status', '--porcelain=v1', '-z', '--untracked-files=all', '--', 'analyses'], {
+    cwd: repoRoot, encoding: 'utf8', timeout: 1_500, maxBuffer: 2 * 1024 * 1024,
+  })
+  if (result.status !== 0 || result.error) return new Set()
+  const dirtyFiles = new Set<string>()
+  for (const entry of result.stdout.split('\0')) {
+    if (entry.length < 4) continue
+    const rel = entry.slice(3).replaceAll('\\', '/')
+    if (rel.startsWith('analyses/')) dirtyFiles.add(rel)
+  }
+  const witnesses = new Map<string, Set<string>>()
+  for (const rel of dirtyFiles) {
+    const match = /^(analyses\/[-A-Z0-9.]+_\d{4}-\d{2}-\d{2})\/(final_thesis\.md|decision_record\.json)$/.exec(rel)
+    if (!match) continue
+    const names = witnesses.get(match[1]) ?? new Set<string>()
+    names.add(match[2])
+    witnesses.set(match[1], names)
+  }
+  return new Set([...witnesses].filter(([, names]) => names.size === 2).map(([runRoot]) => runRoot))
+}
+
+function directPublicationClock(
+  runAbs: string,
+  expectedRoot: string,
+  ticker: string,
+  uncommittedRuns: ReadonlySet<string>,
+): number | null {
+  if (!uncommittedRuns.has(expectedRoot)) return null
+  const thesis = path.join(runAbs, 'final_thesis.md')
+  const decisionFile = path.join(runAbs, 'decision_record.json')
+  try {
+    const decision = JSON.parse(fs.readFileSync(decisionFile, 'utf8'))
+    const runDate = expectedRunName(expectedRoot).slice(-10)
+    if (
+      !record(decision) || decision.run_root !== expectedRoot || decision.ticker !== ticker ||
+      decision.decision_date !== runDate
+    ) return null
+    const thesisMtime = fs.statSync(thesis).mtimeMs
+    const decisionMtime = fs.statSync(decisionFile).mtimeMs
+    if (!Number.isFinite(thesisMtime) || !Number.isFinite(decisionMtime)) return null
+    if (Math.abs(thesisMtime - decisionMtime) > DIRECT_PUBLICATION_FILE_SKEW_MS) return null
+    return Math.max(thesisMtime, decisionMtime)
+  } catch { return null }
+}
+
+function discover(
+  repoRoot: string,
+  nowMs = Date.now(),
+  readActivityRows: typeof readActivity = readActivity,
+  readUncommittedRuns: (repoRoot: string) => ReadonlySet<string> = readUncommittedPublicationRuns,
+): {
   rows: Discovered[]
   gaps: GapAssessment[]
   artifacts: number
@@ -480,13 +539,34 @@ function discover(repoRoot: string, nowMs = Date.now(), readActivityRows: typeof
   const invalidRunRoots = new Set<string>()
   const incompleteRunRoots = new Set<string>()
   const publishingRunRoots = new Set<string>()
-  const activityRowsByTicker = new Map<string, ActivityRow[]>()
+  let activityRowsByTicker: Map<string, ActivityRow[]> | null = null
+  let activityLedgerComplete = false
   const activityRowsFor = (ticker: string): ActivityRow[] => {
-    const cached = activityRowsByTicker.get(ticker)
-    if (cached) return cached
-    const rows = readActivityRows({ ticker, limit: 5_000 }).rows
-    activityRowsByTicker.set(ticker, rows)
-    return rows
+    if (!activityRowsByTicker) {
+      activityRowsByTicker = new Map()
+      const activity = readActivityRows({ limit: 5_000 })
+      activityLedgerComplete = activity.total <= activity.rows.length
+      for (const row of activity.rows) {
+        // The append-only log is a runtime trust boundary: a syntactically valid legacy/corrupt JSON
+        // line can fold into a row even when its ticker is absent or not a string. Never let one bad
+        // historical row take down the board, and do not call the ledger complete after skipping it —
+        // that row could otherwise conceal a terminal attempt and manufacture direct-producer grace.
+        if (typeof row?.ticker !== 'string') {
+          activityLedgerComplete = false
+          continue
+        }
+        const key = row.ticker.toUpperCase()
+        const grouped = activityRowsByTicker.get(key) ?? []
+        grouped.push(row)
+        activityRowsByTicker.set(key, grouped)
+      }
+    }
+    return activityRowsByTicker.get(ticker.toUpperCase()) ?? []
+  }
+  let uncommittedPublicationRuns: ReadonlySet<string> | null = null
+  const directClockFor = (runAbs: string, expectedRoot: string, ticker: string): number | null => {
+    uncommittedPublicationRuns ??= readUncommittedRuns(repoRoot)
+    return directPublicationClock(runAbs, expectedRoot, ticker, uncommittedPublicationRuns)
   }
   for (const runName of runNames) {
     const runAbs = path.resolve(analyses, runName)
@@ -560,11 +640,16 @@ function discover(repoRoot: string, nowMs = Date.now(), readActivityRows: typeof
         expectedRoot, inferredTicker, () => activityRowsFor(inferredTicker),
       )
       const preliminaryCreatedMs = preliminary ? Date.parse(preliminary.created_at) : NaN
+      // If the one bounded ledger read was truncated, an omitted terminal retry may exist. In that
+      // case artifact mtimes cannot safely overrule the unknown history, so direct grace fails closed.
+      const directProducerMs = !producerProgress && !preliminary && activityLedgerComplete
+        ? directClockFor(runAbs, expectedRoot, inferredTicker)
+        : null
       const lastProgressMs = producerProgress?.status === 'running'
         ? Number.isFinite(preliminaryCreatedMs)
           ? Math.max(preliminaryCreatedMs, producerProgress.lastProgressMs)
           : producerProgress.lastProgressMs
-        : preliminaryCreatedMs
+        : Number.isFinite(preliminaryCreatedMs) ? preliminaryCreatedMs : (directProducerMs ?? NaN)
       const producerTerminated = producerProgress?.status === 'terminal'
       const publicationClockInvalid = Number.isFinite(lastProgressMs) && lastProgressMs > nowMs + IDEA_PUBLICATION_CLOCK_SKEW_MS
       const completionWitnessMissing = !completed && (admissionFileExists || projectionMarkerExists)
@@ -1022,11 +1107,16 @@ export function buildQualifiedIdeasBoard(
     policy?: Partial<QualificationPolicy>
     /** Deterministic test seam; production always uses the append-only cockpit activity reader. */
     readActivityRows?: typeof readActivity
+    /** Deterministic test seam for direct producers whose terminal artifacts are still uncommitted. */
+    readUncommittedPublicationRuns?: (repoRoot: string) => ReadonlySet<string>
   } = {},
 ): QualifiedIdeasBoard {
   const nowMs = opts.nowMs ?? Date.now()
   const policy: QualificationPolicy = { ...DEFAULT_QUALIFICATION_POLICY, ...(opts.policy ?? {}) }
-  const found = discover(repoRoot, nowMs, opts.readActivityRows ?? readActivity)
+  const found = discover(
+    repoRoot, nowMs, opts.readActivityRows ?? readActivity,
+    opts.readUncommittedPublicationRuns ?? readUncommittedPublicationRuns,
+  )
   // Calibration is anchored to the immutable cohort ledger, not today's mutable analyses tree. A settled
   // winner or loser therefore remains in the denominator even if its original research folder is moved.
   const calibration = summarizeQualifiedIdeaCalibration(repoRoot, nowMs)

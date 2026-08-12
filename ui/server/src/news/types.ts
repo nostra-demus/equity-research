@@ -145,6 +145,10 @@ export interface InboxRow {
   event_materiality_label?: EventMaterialityLabel
   event_direction?: EventDirection
   event_scope?: EventScope
+  // Source-bound, validated dated/window evidence for the Ideas timing gate. Unlike the wire's derived
+  // category chips, these strings are persisted only when the ORIGINAL source headline contains both a
+  // forward-event term and a complete date/window (news/schedule.ts).
+  scheduled_events?: string[]
   rank_factors?: import('./rank').RankFactors // composite-priority breakdown (triage_score is the composite)
   dedup_group?: string // story-cluster id (news/dedup.ts) — collapse rows sharing it to one
   // --- additive: human state (set only via the cockpit; merge/eviction must preserve these) ---

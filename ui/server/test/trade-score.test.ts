@@ -90,7 +90,48 @@ for (const impossibleDate of ['earnings 99/99/2026', 'earnings 2026-02-30']) {
   assert.ok(malformedDate.reasons.includes('timing not proven'))
 }
 
-for (const absentWindow of ['earnings in 0 days', 'no earnings within 30 days']) {
+const numericNow = Date.parse('2026-08-12T12:00:00Z')
+const scoreNumericDate = (value: string) => scoreTradeCluster([
+  { ...evidence(`E-date-${value}`, 'SEC', 'primary_filing'), scheduled_events: [`earnings on ${value}`] },
+], { ...marketOpts, nowMs: numericNow, pricedIn: 'room' })
+const ambiguousPastOrFuture = scoreNumericDate('09/08/2026')
+assert.ok(
+  ambiguousPastOrFuture.missingChecks.includes('dated catalyst'),
+  'an ambiguous numeric date cannot choose future 8-Sep over already-past 9-Aug',
+)
+for (const futureDate of ['13/08/2026', '08/13/2026', '09/10/2026']) {
+  const future = scoreNumericDate(futureDate)
+  assert.ok(!future.missingChecks.includes('dated catalyst'), `${futureDate}: every valid interpretation is future`)
+  assert.equal(future.breakdown.timing, 15)
+}
+const unambiguousPast = scoreNumericDate('13/07/2026')
+assert.ok(unambiguousPast.missingChecks.includes('dated catalyst'), 'an unambiguous past date remains past')
+
+const horizonNow = Date.parse('2026-08-12T12:00:00Z')
+const isoAtOffset = (days: number) => new Date(Date.UTC(2026, 7, 12 + days)).toISOString().slice(0, 10)
+const scoreHorizonDate = (days: number) => scoreTradeCluster([
+  { ...evidence(`E-horizon-${days}`, 'SEC', 'primary_filing'), scheduled_events: [`earnings on ${isoAtOffset(days)}`] },
+], { ...marketOpts, nowMs: horizonNow, pricedIn: 'room' })
+for (const days of [182, 183]) {
+  assert.ok(!scoreHorizonDate(days).missingChecks.includes('dated catalyst'), `${days}d: inside/boundary catalyst is live`)
+}
+for (const days of [184, 1_000]) {
+  assert.ok(scoreHorizonDate(days).missingChecks.includes('dated catalyst'), `${days}d: outside/far-future catalyst is not live now`)
+}
+
+const quarterBoundaryNow = Date.parse('2026-07-01T12:00:00Z')
+const scoreQuarter = (quarter: string) => scoreTradeCluster([
+  { ...evidence(`E-quarter-${quarter}`, 'SEC', 'primary_filing'), scheduled_events: [`earnings in ${quarter}`] },
+], { ...marketOpts, nowMs: quarterBoundaryNow, pricedIn: 'room' })
+assert.ok(!scoreQuarter('Q3 2026').missingChecks.includes('dated catalyst'), 'a quarter just inside the horizon is live')
+assert.ok(!scoreQuarter('Q4 2026').missingChecks.includes('dated catalyst'), 'a quarter ending exactly 183 days out is live')
+assert.ok(scoreQuarter('Q1 2027').missingChecks.includes('dated catalyst'), 'the next quarter outside the horizon is not live')
+assert.ok(scoreQuarter('Q4 2099').missingChecks.includes('dated catalyst'), 'a far-future quarter is not live')
+
+for (const absentWindow of [
+  'earnings in 0 days', 'no earnings within 30 days',
+  'earnings tomorrow', 'earnings in 1 day', 'earnings next week',
+]) {
   const noCatalyst = scoreTradeCluster([
     { ...evidence('E-no-window', 'SEC', 'primary_filing'), scheduled_events: [absentWindow] },
   ], { ...marketOpts, pricedIn: 'room' })

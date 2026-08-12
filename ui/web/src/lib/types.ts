@@ -1206,7 +1206,8 @@ export interface QualifiedIdeaMetrics {
   scenario_returns: { label: string; probability_pct: number; return_pct: number }[]
 }
 export interface QualifiedIdeaRanking {
-  policy_version: 'ideas-ranking/calibration-shrinkage-v1'
+  /** Runtime validation owns the policy allowlist so malformed/future payload tests remain expressible. */
+  policy_version: string
   calibration_status: 'pre_data' | 'insufficient' | 'measured' | 'calibrated'
   raw_expected_return_pct: number
   positive_return_retention: number

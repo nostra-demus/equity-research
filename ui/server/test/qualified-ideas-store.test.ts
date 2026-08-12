@@ -4,6 +4,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
+import { execFileSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import {
   buildQualifiedIdeasBoard,
@@ -687,6 +688,117 @@ assert.ok(!afterPublicationGrace.qualified.some((row) => row.candidate.instrumen
 assert.ok(afterPublicationGrace.not_assessable.some((row) => row.ticker === 'GRACE' && row.gaps.some((gap) => /publication did not finish/.test(gap))))
 finishRun(graceRun, 'done')
 fs.rmSync(graceRoot, { recursive: true, force: true })
+
+// Direct /research:full producers can write the terminal thesis and decision without ever entering the
+// cockpit registry/activity ledger. Their two still-uncommitted artifacts supply a durable restart-safe
+// grace clock, but only while their identities agree and their writes are close together. A clean
+// checkout/replay is not uncommitted, so refreshing its mtimes cannot revive grace.
+const directRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-direct-publication-'))
+for (const ticker of ['DIRECTA', 'DIRECTB']) {
+  writeRun(`${ticker}_2026-08-02`, { verify: true, createdAt: '2026-08-02T10:00:00Z' }, directRoot)
+  const pending = path.join(directRoot, 'analyses', `${ticker}_2026-08-03`)
+  fs.mkdirSync(pending, { recursive: true })
+  fs.writeFileSync(path.join(pending, 'final_thesis.md'), `# New ${ticker} thesis\n`)
+  fs.writeFileSync(path.join(pending, 'decision_record.json'), JSON.stringify({
+    run_root: `analyses/${ticker}_2026-08-03`, decision_date: '2026-08-03', ticker,
+    company_name: `${ticker} Holdings`,
+  }))
+  const fresh = new Date(NOW - 60 * 60_000)
+  fs.utimesSync(path.join(pending, 'final_thesis.md'), fresh, fresh)
+  fs.utimesSync(path.join(pending, 'decision_record.json'), fresh, fresh)
+}
+let activityReads = 0
+let uncommittedScans = 0
+const directFreshBoard = buildQualifiedIdeasBoard(directRoot, {
+  nowMs: NOW,
+  readActivityRows: () => {
+    activityReads++
+    return { rows: [], total: 0, allTime: 0, users: [], tickers: [], tickerLabels: {}, earliest: null }
+  },
+  readUncommittedPublicationRuns: () => {
+    uncommittedScans++
+    return new Set(['analyses/DIRECTA_2026-08-03', 'analyses/DIRECTB_2026-08-03'])
+  },
+})
+assert.equal(activityReads, 1, 'one board projection reads and groups the activity ledger once across unsealed tickers')
+assert.equal(uncommittedScans, 1, 'one board projection runs at most one bounded Git scan across unsealed tickers')
+assert.equal(directFreshBoard.health.publishing_count, 2)
+assert.ok(directFreshBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'), 'a fresh direct producer retains the older sealed card during grace')
+assert.ok(directFreshBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTB'))
+
+const truncatedLedgerBoard = buildQualifiedIdeasBoard(directRoot, {
+  nowMs: NOW,
+  readActivityRows: () => ({ rows: [], total: 5_001, allTime: 5_001, users: [], tickers: [], tickerLabels: {}, earliest: NOW - 1 }),
+  readUncommittedPublicationRuns: () => new Set(['analyses/DIRECTA_2026-08-03', 'analyses/DIRECTB_2026-08-03']),
+})
+assert.equal(truncatedLedgerBoard.health.publishing_count, 0, 'a truncated global ledger read cannot hide a terminal retry and grant artifact-clock grace')
+assert.ok(!truncatedLedgerBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'))
+
+const malformedLedgerBoard = buildQualifiedIdeasBoard(directRoot, {
+  nowMs: NOW,
+  readActivityRows: () => ({
+    rows: [{ runId: 'malformed-valid-json-row', ticker: null } as any], total: 1, allTime: 1,
+    users: [], tickers: [], tickerLabels: {}, earliest: NOW - 1,
+  }),
+  readUncommittedPublicationRuns: () => new Set(['analyses/DIRECTA_2026-08-03', 'analyses/DIRECTB_2026-08-03']),
+})
+assert.equal(malformedLedgerBoard.health.publishing_count, 0, 'a malformed activity row cannot crash the board or make the ledger look complete enough for direct grace')
+assert.ok(!malformedLedgerBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'))
+
+const directGitRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-direct-git-positive-'))
+writeRun('DIRECTGIT_2026-08-02', { verify: true, createdAt: '2026-08-02T10:00:00Z' }, directGitRoot)
+execFileSync('git', ['init', '-q'], { cwd: directGitRoot })
+execFileSync('git', ['add', 'analyses'], { cwd: directGitRoot })
+execFileSync('git', ['-c', 'user.name=Test', '-c', 'user.email=test@example.invalid', 'commit', '-qm', 'sealed baseline'], { cwd: directGitRoot })
+const directGitPending = path.join(directGitRoot, 'analyses', 'DIRECTGIT_2026-08-03')
+fs.mkdirSync(directGitPending, { recursive: true })
+fs.writeFileSync(path.join(directGitPending, 'final_thesis.md'), '# New DIRECTGIT thesis\n')
+fs.writeFileSync(path.join(directGitPending, 'decision_record.json'), JSON.stringify({
+  run_root: 'analyses/DIRECTGIT_2026-08-03', decision_date: '2026-08-03', ticker: 'DIRECTGIT',
+  company_name: 'Direct Git Holdings',
+}))
+const directGitFresh = new Date(NOW - 60 * 60_000)
+fs.utimesSync(path.join(directGitPending, 'final_thesis.md'), directGitFresh, directGitFresh)
+fs.utimesSync(path.join(directGitPending, 'decision_record.json'), directGitFresh, directGitFresh)
+const directGitBoard = buildQualifiedIdeasBoard(directGitRoot, {
+  nowMs: NOW,
+  readActivityRows: () => ({ rows: [], total: 0, allTime: 0, users: [], tickers: [], tickerLabels: {}, earliest: null }),
+})
+assert.equal(directGitBoard.health.publishing_count, 1, 'the production Git parser recognizes two fresh untracked direct-producer artifacts')
+assert.ok(directGitBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTGIT'))
+fs.rmSync(directGitRoot, { recursive: true, force: true })
+
+const stale = new Date(NOW - 7 * 60 * 60_000)
+for (const ticker of ['DIRECTA', 'DIRECTB']) {
+  const pending = path.join(directRoot, 'analyses', `${ticker}_2026-08-03`)
+  fs.utimesSync(path.join(pending, 'final_thesis.md'), stale, stale)
+  fs.utimesSync(path.join(pending, 'decision_record.json'), stale, stale)
+}
+const directStaleBoard = buildQualifiedIdeasBoard(directRoot, {
+  nowMs: NOW,
+  readUncommittedPublicationRuns: () => new Set([
+    'analyses/DIRECTA_2026-08-03', 'analyses/DIRECTB_2026-08-03',
+  ]),
+})
+assert.equal(directStaleBoard.health.publishing_count, 0, 'an abandoned direct producer fails closed after grace')
+assert.ok(!directStaleBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'))
+assert.ok(directStaleBoard.not_assessable.some((row) => row.ticker === 'DIRECTA' && row.gaps.some((gap) => /publication did not finish/.test(gap))))
+
+const replayFresh = new Date(NOW - 10 * 60_000)
+execFileSync('git', ['init', '-q'], { cwd: directRoot })
+execFileSync('git', ['add', 'analyses'], { cwd: directRoot })
+execFileSync('git', ['-c', 'user.name=Test', '-c', 'user.email=test@example.invalid', 'commit', '-qm', 'fixture'], { cwd: directRoot })
+for (const ticker of ['DIRECTA', 'DIRECTB']) {
+  const pending = path.join(directRoot, 'analyses', `${ticker}_2026-08-03`)
+  fs.utimesSync(path.join(pending, 'final_thesis.md'), replayFresh, replayFresh)
+  fs.utimesSync(path.join(pending, 'decision_record.json'), replayFresh, replayFresh)
+}
+const replayBoard = buildQualifiedIdeasBoard(directRoot, {
+  nowMs: NOW,
+})
+assert.equal(replayBoard.health.publishing_count, 0, 'fresh checkout/replay mtimes cannot reset grace when Git reports clean artifacts')
+assert.ok(!replayBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'))
+fs.rmSync(directRoot, { recursive: true, force: true })
 
 const terminalRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-terminal-publication-'))
 writeRun('TERMINAL_2026-08-02', { verify: true, createdAt: '2026-08-02T10:00:00Z' }, terminalRoot)

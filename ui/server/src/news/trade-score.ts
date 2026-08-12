@@ -85,6 +85,7 @@ export function directionMatchesEvidence(
 
 function hasFutureDateOrWindow(text: string, nowMs: number): boolean {
   if (!text.trim()) return false
+  const CATALYST_HORIZON_DAYS = 183
   const utcDayEnd = (year: number, month: number, day: number): number => {
     if (![year, month, day].every(Number.isInteger) || month < 1 || month > 12 || day < 1 || day > 31) return NaN
     const parsed = Date.UTC(year, month - 1, day, 23, 59, 59)
@@ -92,32 +93,35 @@ function hasFutureDateOrWindow(text: string, nowMs: number): boolean {
     return roundTrip.getUTCFullYear() === year && roundTrip.getUTCMonth() === month - 1 && roundTrip.getUTCDate() === day
       ? parsed : NaN
   }
-  // A relative window is useful only when it is both positive and genuinely forward. This rejects
-  // model/source strings such as "in 0 days" and "no earnings within 30 days" that state no catalyst.
-  const relative = text.match(/\b(?:tomorrow|next\s+(?:week|month|quarter)|(?:within|in)\s+(\d+)\s+(?:day|week|month)s?)\b/i)
-  if (relative) {
-    const clausePrefix = text.slice(Math.max(0, (relative.index ?? 0) - 80), relative.index ?? 0).split(/[.!;:]/).pop() || ''
-    const negated = /\b(?:no|not|none|without)\b/i.test(clausePrefix)
-    const count = relative[1] === undefined ? 1 : Number(relative[1])
-    if (!negated && Number.isInteger(count) && count > 0) return true
-  }
+  const now = new Date(nowMs)
+  if (!Number.isFinite(nowMs) || Number.isNaN(now.getTime())) return false
+  // Compare complete UTC calendar days so a catalyst on the 183rd date is admitted regardless of the
+  // current time of day; the next date is not. This matches the qualified board's 90–183 day horizon.
+  const horizonEnd = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + CATALYST_HORIZON_DAYS, 23, 59, 59)
+  const isLiveCatalyst = (parsed: number): boolean => Number.isFinite(parsed) && parsed >= nowMs && parsed <= horizonEnd
+  // Relative words have no usable clock once persisted by themselves: "tomorrow" and "in 1 day" can
+  // outlive their source event and become permanently future. Only absolute dates/year-bound quarters
+  // clear this deterministic gate. A future implementation may accept a relative phrase only after it is
+  // anchored to the source timestamp and persisted as an absolute expiry.
   const isoDates = text.match(/\b20\d{2}-\d{1,2}-\d{1,2}\b/g) || []
   if (isoDates.some((value) => {
     const [year, month, day] = value.split('-').map(Number)
     const parsed = utcDayEnd(year, month, day)
-    return Number.isFinite(parsed) && parsed >= nowMs
+    return isLiveCatalyst(parsed)
   })) return true
   const numericDates = text.match(/\b\d{1,2}[/-]\d{1,2}[/-]20\d{2}\b/g) || []
   if (numericDates.some((value) => {
     const [a, b, year] = value.split(/[/-]/).map(Number)
-    // Accept either common ordering; the later valid interpretation must still be in the future.
-    const candidates = [utcDayEnd(year, a, b), utcDayEnd(year, b, a)]
-    return candidates.some((parsed) => Number.isFinite(parsed) && parsed >= nowMs)
+    // Do not choose the optimistic reading of an ambiguous source date. If both DD/MM and MM/DD are
+    // valid, BOTH must still be future; otherwise `09/08/2026` could resurrect a past 9-Aug catalyst as
+    // a future 8-Sep event. An unambiguous value has one valid interpretation and behaves normally.
+    const validCandidates = [utcDayEnd(year, a, b), utcDayEnd(year, b, a)].filter(Number.isFinite)
+    return validCandidates.length > 0 && validCandidates.every(isLiveCatalyst)
   })) return true
   const quarter = text.match(/\bQ([1-4])\s*(20\d{2})\b/i)
   if (quarter) {
     const end = Date.UTC(Number(quarter[2]), Number(quarter[1]) * 3, 0, 23, 59, 59)
-    if (end >= nowMs) return true
+    if (isLiveCatalyst(end)) return true
   }
   return false
 }

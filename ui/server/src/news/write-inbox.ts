@@ -12,6 +12,7 @@ import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import type { CycleSummary, InboxRow, TriagedItem } from './types'
 import { deriveScope, deriveSourceTier, SOURCE_TIERS, type SourceTierId } from './scope'
+import { deriveScheduledEventEvidence } from './schedule'
 import { themeStoryKey } from './themes/story-key'
 
 function inboxPath(repoRoot: string, date: string): string {
@@ -131,6 +132,9 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
       event_materiality_label: it.event_materiality_label,
       event_direction: it.event_direction,
       event_scope: it.event_scope,
+      // Trade timing must come from the source row, never from the later model-authored `why_now`.
+      // Category-only schedule tags are useful UI facets but are not dated catalyst evidence.
+      scheduled_events: deriveScheduledEventEvidence({ headline: it.headline }),
       rank_factors: it.rank_factors, // composite-priority breakdown; triage_score IS the composite
       prelim_note: it.triage_reason, // keep the legacy field populated for any reader that uses it
       dedup_status: it.dedup_status,

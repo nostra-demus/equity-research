@@ -1033,6 +1033,7 @@ export function readTopSweep(
     ? Math.max(2, Math.ceil(freshness.maxAgeMs / 86_400_000) + 2)
     : 2
   const humanPartitions: SweepPartition[] = []
+  let humanStateUnavailable = false
   const humanFloor = freshness ? freshness.nowMs - Math.max(1, freshness.maxAgeMs) : Number.NEGATIVE_INFINITY
   const humanCeiling = freshness ? freshness.nowMs + Math.max(0, freshness.futureSkewMs ?? 5 * 60_000) : Number.POSITIVE_INFINITY
   const humanFiles = freshness
@@ -1047,6 +1048,11 @@ export function readTopSweep(
   for (const [index, name] of humanFiles.entries()) {
     const partition = index === 0 ? newest : readPartition(name)
     if (!partition) {
+      // This bounded file may contain the only consume/dismiss veto for a current publisher copy. An
+      // unreadable file therefore makes human state unknown even when its date is just outside the
+      // positive-candidate window. Never call that fail-closed while continuing to rank candidates: that
+      // would resurrect exactly the action this extra partition read exists to preserve.
+      humanStateUnavailable = true
       noteInvalidPartition(name)
       continue
     }
@@ -1062,7 +1068,16 @@ export function readTopSweep(
         ? row.event_id
         : typeof row.headline === 'string' && row.headline && typeof row.url === 'string' && row.url
           ? eventIdFor(row.headline, row.url) : ''
-      if (!eventId) continue
+      if (!eventId) {
+        // A readable JSON file can still contain a torn/legacy human-action row. Silently skipping an
+        // unidentified dismissal is the same resurrection bug as skipping a corrupt partition: we no
+        // longer know which current publisher copy the person vetoed. Non-human malformed rows remain
+        // harmless and are ignored above; only an unknowable consume/dismiss pauses the surface.
+        humanStateUnavailable = true
+        status = 'degraded'
+        invalidTimeCount++
+        continue
+      }
       for (const key of ideaStoryKeys({
         event_id: eventId,
         dedup_group: typeof row.dedup_group === 'string' && row.dedup_group.trim() ? row.dedup_group.trim() : undefined,
@@ -1169,7 +1184,9 @@ export function readTopSweep(
   }
   const projected = projectWith(reserved).sort((a, b) => b.materiality - a.materiality)
   return {
-    rows: projected,
+    // Status-aware production callers already pause a degraded sweep. Emptying the projection as well
+    // protects row-only/legacy callers from spending on a lead whose human veto history is unknowable.
+    rows: humanStateUnavailable ? [] : projected,
     status,
     sweep_updated_at: sweepUpdatedAt,
     candidate_count: candidates.length,

@@ -370,6 +370,48 @@ await check('mergeInbox: writes ranked rows, caps unconsumed, assigns INB ids', 
   assert.match(doc.rows[0].inbox_id, /^INB-20260612-\d{3}$/)
   assert.equal(doc.rows[0].prelim_note, 'score 80') // legacy field kept populated for old readers
 })
+await check('mergeInbox persists only source-bound dated catalyst evidence', () => {
+  const root = tmp()
+  mergeInbox(root, '2026-08-02', [
+    triagedItem('https://r/future', 90, 'Amazon to report earnings on 2026-08-06'),
+    triagedItem('https://r/future-quarter-day', 90, 'Amazon earnings date for Q2 2026 is August 6, 2026'),
+    triagedItem('https://r/future-quarter-day-undated-neighbor', 90, 'Amazon earnings date for Q2 2026 is August 6, 2026, AGM announced'),
+    triagedItem('https://r/category', 89, 'Amazon to report earnings after the close'),
+    triagedItem('https://r/malformed', 88, 'Amazon to report earnings on 2026-02-30'),
+    triagedItem('https://r/negated', 87, 'Amazon says no earnings date within 30 days'),
+    triagedItem('https://r/cancelled', 86, 'Amazon to report earnings on 2026-09-09 cancelled'),
+    triagedItem('https://r/relative', 85, 'Amazon to report earnings tomorrow'),
+    triagedItem('https://r/two-events', 84, 'Amazon to report earnings on 2026-08-06, AGM on 2026-09-09'),
+    triagedItem('https://r/postpones', 83, 'Amazon postpones AGM scheduled for 2026-09-09'),
+    triagedItem('https://r/cancellation', 82, 'Amazon AGM cancellation on 2026-09-09'),
+    triagedItem('https://r/reschedules', 81, 'Amazon reschedules AGM previously set for 2026-09-09'),
+    triagedItem('https://r/moved', 80, 'Amazon AGM on 2026-09-09 moved to 2026-10-10'),
+    triagedItem('https://r/withdraws', 79, 'Amazon withdraws notice of AGM for 2026-09-09'),
+    triagedItem('https://r/moved-before', 78, 'Amazon moved the AGM from 2026-09-09 to 2026-10-10'),
+    triagedItem('https://r/shifted', 77, 'Amazon AGM shifted from 2026-09-09'),
+    triagedItem('https://r/deferred', 76, 'Amazon defers AGM scheduled for 2026-09-09'),
+    triagedItem('https://r/put-off', 75, 'Amazon puts off AGM scheduled for 2026-09-09'),
+    triagedItem('https://r/denies', 74, 'Amazon denies AGM on 2026-09-09'),
+    triagedItem('https://r/changed', 73, 'Amazon AGM date changed from 2026-09-09 to 2026-10-10'),
+    triagedItem('https://r/might', 72, 'Amazon might hold AGM on 2026-09-09'),
+    triagedItem('https://r/unconfirmed', 71, 'Amazon AGM date unconfirmed for 2026-09-09'),
+    triagedItem('https://r/cancelled-next-sentence', 70, 'Amazon AGM on 2026-09-09. The event was cancelled'),
+  ], { maxRows: 30, now: () => new Date('2026-08-02T12:00:00Z') })
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-08-02_sweep.json'), 'utf8'))
+  const events = new Map(doc.rows.map((row: any) => [row.url, row.scheduled_events]))
+  assert.deepEqual(events.get('https://r/future'), ['results_date on 2026-08-06'])
+  assert.deepEqual(events.get('https://r/future-quarter-day'), ['results_date on 2026-08-06'])
+  assert.deepEqual(events.get('https://r/future-quarter-day-undated-neighbor'), ['results_date on 2026-08-06'])
+  assert.deepEqual(events.get('https://r/category'), [])
+  assert.deepEqual(events.get('https://r/malformed'), [])
+  assert.deepEqual(events.get('https://r/negated'), [])
+  assert.deepEqual(events.get('https://r/cancelled'), [])
+  assert.deepEqual(events.get('https://r/relative'), [])
+  assert.deepEqual(events.get('https://r/two-events'), ['results_date on 2026-08-06', 'shareholder_meeting on 2026-09-09'])
+  for (const slug of ['postpones', 'cancellation', 'reschedules', 'moved', 'withdraws', 'moved-before', 'shifted', 'deferred', 'put-off', 'denies', 'changed', 'might', 'unconfirmed', 'cancelled-next-sentence']) {
+    assert.deepEqual(events.get(`https://r/${slug}`), [], `${slug}: obsolete dates are not persisted`)
+  }
+})
 await check('mergeInbox is idempotent by URL and PRESERVES human consumed/launched state', () => {
   const root = tmp()
   mergeInbox(root, '2026-06-12', [triagedItem('https://r/1', 80, 'H1')], { maxRows: 10 })

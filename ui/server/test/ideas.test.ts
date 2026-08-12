@@ -23,6 +23,7 @@ import {
 } from '../src/news/ideas/run-idea-pass'
 import { scoreTradeCluster } from '../src/news/trade-score'
 import { eventIdFor } from '../src/news/normalize'
+import { mergeInbox } from '../src/news/write-inbox'
 import { createTheme } from '../src/news/themes/discover'
 import { appendThemeMutations, buildThemesIndex } from '../src/news/themes/store'
 import type { ThemeItemView } from '../src/news/themes/types'
@@ -894,6 +895,135 @@ check('a post-midnight freshness floor still reads the immediately preceding hum
     nowMs: Date.parse('2026-08-04T06:05:00Z'), maxAgeMs: 6 * 3_600_000,
   })
   assert.deepEqual(got.rows.map((row) => row.headline), ['Unblocked morning story'])
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('a corrupt human-state-only partition pauses candidates so an unknown dismissal cannot resurrect', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-corrupt-human-only-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  // At 06:05 with a six-hour input window, 2026-08-03 is read only for a possible just-before-midnight
+  // human decision. Corruption means we cannot prove that either current story was not dismissed there.
+  fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), '{')
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T06:04:30Z',
+    rows: [
+      { headline: 'Healthy current leader', url: 'https://news.test/healthy-current', triage_score: 91, found_at: '2026-08-04T06:04:00Z' },
+      { headline: 'Healthy current comparison', url: 'https://news.test/healthy-comparison', triage_score: 88, found_at: '2026-08-04T06:03:00Z' },
+    ],
+  }))
+
+  const got = readTopSweep(dir, 5, {
+    nowMs: Date.parse('2026-08-04T06:05:00Z'), maxAgeMs: 6 * 3_600_000,
+  })
+  assert.equal(got.status, 'degraded')
+  assert.deepEqual(got.rows, [], 'unknown veto state withholds every candidate instead of resurrecting one')
+  assert.equal(got.invalid_time_count, 1, 'the missing human-state partition is disclosed')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('an unidentified human-action row pauses candidates, while a malformed non-human row does not', () => {
+  const makeRoot = (humanRow: Record<string, unknown>) => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-corrupt-human-row-'))
+    const inbox = path.join(dir, 'screener', 'inbox')
+    fs.mkdirSync(inbox, { recursive: true })
+    fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
+      updated_at: '2026-08-03T23:59:30Z', rows: [humanRow],
+    }))
+    fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+      updated_at: '2026-08-04T06:04:30Z',
+      rows: [
+        { headline: 'Healthy current leader', url: 'https://news.test/healthy-current', triage_score: 91, found_at: '2026-08-04T06:04:00Z' },
+        { headline: 'Healthy current comparison', url: 'https://news.test/healthy-comparison', triage_score: 88, found_at: '2026-08-04T06:03:00Z' },
+      ],
+    }))
+    return dir
+  }
+  const freshness = { nowMs: Date.parse('2026-08-04T06:05:00Z'), maxAgeMs: 6 * 3_600_000 }
+
+  const corruptHuman = makeRoot({ dismissed: true, headline: 'Unknown prior dismissal' })
+  const paused = readTopSweep(corruptHuman, 5, freshness)
+  assert.equal(paused.status, 'degraded')
+  assert.deepEqual(paused.rows, [], 'a dismissal with no event id or canonical headline+URL cannot be skipped')
+  assert.equal(paused.invalid_time_count, 1, 'the corrupt human row is disclosed as one integrity defect')
+  fs.rmSync(corruptHuman, { recursive: true, force: true })
+
+  const corruptNonHuman = makeRoot({ headline: 'Malformed archival candidate', triage_score: 'bad' })
+  const healthy = readTopSweep(corruptNonHuman, 5, freshness)
+  assert.equal(healthy.status, 'ok', 'a malformed row with no human action does not manufacture an unknown veto')
+  assert.deepEqual(healthy.rows.map((row) => row.headline), ['Healthy current leader', 'Healthy current comparison'])
+  fs.rmSync(corruptNonHuman, { recursive: true, force: true })
+})
+check('mergeInbox -> readTopSweep -> trade score uses only real source-dated catalyst evidence', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-source-catalyst-'))
+  const nowMs = Date.parse('2026-08-02T12:00:00Z')
+  const triaged = (url: string, headline: string, score: number): any => ({
+    event_id: eventIdFor(headline, url), headline, url, domain: 'reuters.com', source_name: 'Reuters',
+    region: 'US', input_nature: 'news_headline', found_at: '2026-08-02T10:00:00Z', dedup_status: 'new',
+    triage_score: score, triage_reason: 'material source headline', relevance: 'material',
+    materiality_pre_score: 72, event_types: ['earnings_revenue_margin'], issuer_linkage: 'primary',
+    companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }], size_bucket: 'mega', band: 'pick',
+    event_materiality_label: 'high', event_direction: 'positive', event_scope: 'company_specific',
+  })
+  mergeInbox(dir, '2026-08-02', [
+    triaged('https://news.test/future', 'Amazon to report earnings on 2026-08-06', 94),
+    triaged('https://news.test/future-quarter-day', 'Amazon earnings date for Q2 2026 on 2026-08-06', 94),
+    triaged('https://news.test/future-quarter-day-undated-neighbor', 'Amazon earnings date for Q2 2026 on 2026-08-06, AGM announced', 94),
+    triaged('https://news.test/category', 'Amazon to report earnings after the close', 93),
+    triaged('https://news.test/malformed', 'Amazon to report earnings on 2026-02-30', 92),
+    triaged('https://news.test/negated', 'Amazon says no earnings date within 30 days', 91),
+    triaged('https://news.test/cancelled', 'Amazon to report earnings on 2026-09-09 cancelled', 90),
+    triaged('https://news.test/relative', 'Amazon to report earnings tomorrow', 89),
+    triaged('https://news.test/absent', 'Amazon launches a new shopping feature', 88),
+    triaged('https://news.test/postponed', 'Amazon AGM on 2026-09-09 has since been postponed', 87),
+    triaged('https://news.test/rescheduled', 'Amazon reschedules AGM previously set for 2026-09-09', 86),
+    triaged('https://news.test/moved', 'Amazon moved the AGM from 2026-09-09 to 2026-10-10', 85),
+    triaged('https://news.test/deferred', 'Amazon defers AGM scheduled for 2026-09-09', 84),
+    triaged('https://news.test/denied', 'Amazon denied the AGM would be held on 2026-09-09', 83),
+    triaged('https://news.test/revised', 'Amazon AGM date revised from 2026-09-09 to 2026-10-10', 82),
+    triaged('https://news.test/might', 'Amazon might hold AGM on 2026-09-09', 81),
+    triaged('https://news.test/tentative', 'Amazon tentative AGM on 2026-09-09', 80),
+    triaged('https://news.test/cancelled-next-sentence', 'Amazon AGM on 2026-09-09. The event was cancelled', 79),
+  ], { maxRows: 20, now: () => new Date(nowMs) })
+  const sweep = readTopSweep(dir, 20, { nowMs, maxAgeMs: 36 * 3_600_000 })
+  assert.equal(sweep.status, 'ok')
+  const byHeadline = new Map(sweep.rows.map((row) => [row.headline, row]))
+  const scored = (headline: string) => scoreTradeCluster(
+    tradeEvidenceForIdeaRows([byHeadline.get(headline)!]),
+    {
+      nowMs, ticker: 'AMZN', exchange: 'NASDAQ', tickerVerified: true,
+      listingLiquidityVerified: true, pricedIn: 'room',
+    },
+  )
+
+  const future = scored('Amazon to report earnings on 2026-08-06')
+  assert.equal(future.breakdown.timing, 15)
+  assert.ok(!future.missingChecks.includes('dated catalyst'))
+  const preciseFuture = scored('Amazon earnings date for Q2 2026 on 2026-08-06')
+  assert.equal(preciseFuture.breakdown.timing, 15)
+  assert.ok(!preciseFuture.missingChecks.includes('dated catalyst'))
+  const preciseFutureWithNeighbor = scored('Amazon earnings date for Q2 2026 on 2026-08-06, AGM announced')
+  assert.equal(preciseFutureWithNeighbor.breakdown.timing, 15)
+  assert.ok(!preciseFutureWithNeighbor.missingChecks.includes('dated catalyst'))
+  for (const headline of [
+    'Amazon to report earnings after the close',
+    'Amazon to report earnings on 2026-02-30',
+    'Amazon says no earnings date within 30 days',
+    'Amazon to report earnings on 2026-09-09 cancelled',
+    'Amazon to report earnings tomorrow',
+    'Amazon launches a new shopping feature',
+    'Amazon AGM on 2026-09-09 has since been postponed',
+    'Amazon reschedules AGM previously set for 2026-09-09',
+    'Amazon moved the AGM from 2026-09-09 to 2026-10-10',
+    'Amazon defers AGM scheduled for 2026-09-09',
+    'Amazon denied the AGM would be held on 2026-09-09',
+    'Amazon AGM date revised from 2026-09-09 to 2026-10-10',
+    'Amazon might hold AGM on 2026-09-09',
+    'Amazon tentative AGM on 2026-09-09',
+    'Amazon AGM on 2026-09-09. The event was cancelled',
+  ]) {
+    const result = scored(headline)
+    assert.equal(result.breakdown.timing, 10, `${headline}: fresh news alone gets recency timing, not catalyst timing`)
+    assert.ok(result.missingChecks.includes('dated catalyst'), `${headline}: no source-bound dated catalyst`)
+  }
   fs.rmSync(dir, { recursive: true, force: true })
 })
 check('readTopSweep reserves at most one-third for actionable theme evidence and dedupes publisher copies', () => {
