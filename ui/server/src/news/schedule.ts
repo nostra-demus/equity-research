@@ -144,7 +144,7 @@ const CLAUSE_UNCERTAIN_SCHEDULE = new RegExp(
   'i',
 )
 const PAST_EVENT_VERBS = String.raw`(?:held|conducted|convened|concluded|completed)`
-const CLAUSE_SEPARATORS = ['.', ';', '!', '?', '|', '\n'] as const
+const CLAUSE_SEPARATORS = ['.', ';', '!', '?', '？', '|', '\n'] as const
 // Commas and spaced dashes are NOT clause separators — they keep one headline as a single clause — but
 // they DO separate independent facts. The schedule-revision/uncertainty test is scoped to the segment
 // that actually contains the event↔date binding, so an unrelated fact sharing the headline ("Amazon
@@ -288,10 +288,11 @@ function bindingIsNegated(
 }
 
 /** Source-bound catalyst evidence for the Ideas scorer. Every returned value is deterministically tied
- * to BOTH a forward-event term and a valid date/window in the same source-headline clause. Category-only,
- * malformed, translated, and negated claims return no evidence, so model prose can never manufacture the
- * scorer's timing points. */
-export function deriveScheduledEventEvidence(it: { headline?: string | null; headline_en?: string | null }): string[] {
+ * to BOTH a forward-event term and a valid date/window in the original source headline. This API accepts
+ * no translated copy by design: `headline_en` is model-authored display/discovery text and cannot create
+ * timing points. A later native-language parser may add evidence only by parsing both event and date from
+ * the original bytes. Category-only, malformed, translated, and negated claims return no evidence. */
+export function deriveScheduledEventEvidence(it: { headline?: string | null }): string[] {
   const raw = typeof it.headline === 'string' ? it.headline.trim() : ''
   if (!raw) return []
   const lower = raw.toLowerCase()
@@ -339,7 +340,7 @@ export function deriveScheduledEventEvidence(it: { headline?: string | null; hea
       || a.relationRank - b.relationRank || a.distance - b.distance || a.window.index - b.window.index
     ))[0]
     if (!candidate) continue
-    if (bindingIsNegated(lower, candidate.term, candidate.window, candidate.clause)) continue
+    if (['?', '？'].includes(lower[candidate.clause.end] || '') || bindingIsNegated(lower, candidate.term, candidate.window, candidate.clause)) continue
     bound.push({ term, value: `${term.id} on ${candidate.window.value}` })
   }
   const sourceOrdered = bound

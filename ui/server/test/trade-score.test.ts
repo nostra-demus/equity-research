@@ -77,6 +77,17 @@ for (const [tier, expected] of expectedEvidenceByTier) {
 const malformedTier = scoreTradeCluster([{ ...evidence('tier-bad', 'Source'), source_tier: 'garbage' as any }], { nowMs: now })
 assert.equal(malformedTier.breakdown.evidence, 0, 'unknown runtime source tiers fail closed to the evidence floor')
 
+const tinyMeasuredImpact = scoreTradeCluster([
+  { ...evidence('E-tiny-impact', 'Reuters'), materiality_pre_score: 1 },
+], { nowMs: now })
+assert.equal(tinyMeasuredImpact.breakdown.impact, 1, 'a measured positive impact cannot round into the zero/not-measured sentinel')
+assert.ok(!tinyMeasuredImpact.missingChecks.includes('raw economic impact'))
+const missingImpact = scoreTradeCluster([
+  { ...evidence('E-missing-impact', 'Reuters'), materiality_pre_score: 0 },
+], { nowMs: now })
+assert.equal(missingImpact.breakdown.impact, 0)
+assert.ok(missingImpact.missingChecks.includes('raw economic impact'), 'zero impact always carries the explicit evidence gap')
+
 const categoryOnly = scoreTradeCluster([
   { ...evidence('E7', 'SEC', 'primary_filing'), scheduled_events: ['earnings'], companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }] },
 ], { nowMs: now, ticker: 'AMZN', exchange: 'NASDAQ', tickerVerified: true, listingLiquidityVerified: true, pricedIn: 'room' })

@@ -489,6 +489,11 @@ check('V2 persistence binds mandatory and conditional missing checks', () => {
   assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({
     trade_score: 42,
     trade_score_breakdown: { impact: 0 },
+    missing_checks: base.missing_checks,
+  })), false, 'zero measured impact cannot hide the matching raw-impact evidence gap')
+  assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({
+    trade_score: 42,
+    trade_score_breakdown: { impact: 0 },
     missing_checks: [...base.missing_checks, 'raw economic impact'],
   })), true)
   assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({ missing_checks: [...base.missing_checks, 'independent confirmation'] })), false)
@@ -1415,6 +1420,10 @@ check('mergeInbox -> readTopSweep -> trade score uses only real source-dated cat
     triaged('https://news.test/might', 'Amazon might hold AGM on 2026-09-09', 81),
     triaged('https://news.test/tentative', 'Amazon tentative AGM on 2026-09-09', 80),
     triaged('https://news.test/cancelled-next-sentence', 'Amazon AGM on 2026-09-09. The event was cancelled', 79),
+    {
+      ...triaged('https://news.test/translated', 'アマゾン株主総会は2026-09-09に開催', 78),
+      headline_en: 'Amazon AGM confirmed for 2026-09-09',
+    },
   ], { maxRows: 20, now: () => new Date(nowMs) })
   const sweep = readTopSweep(dir, 20, { nowMs, maxAgeMs: 36 * 3_600_000 })
   assert.equal(sweep.status, 'ok')
@@ -1452,6 +1461,7 @@ check('mergeInbox -> readTopSweep -> trade score uses only real source-dated cat
     'Amazon might hold AGM on 2026-09-09',
     'Amazon tentative AGM on 2026-09-09',
     'Amazon AGM on 2026-09-09. The event was cancelled',
+    'Amazon AGM confirmed for 2026-09-09',
   ]) {
     const result = scored(headline)
     assert.equal(result.breakdown.timing, 10, `${headline}: fresh news alone gets recency timing, not catalyst timing`)

@@ -144,7 +144,9 @@ export function scoreTradeCluster(items: TradeEvidence[], opts: ScoreTradeOption
   const labelledImpact = Math.max(0, ...unique.map((i) => i.impact_magnitude ? impactLabels[i.impact_magnitude] : 0))
   const topImpact = Math.max(rawImpact, labelledImpact)
   const evidence = Math.min(25, Math.max(0, ...unique.map(sourcePoints)))
-  const impact = Math.round(Math.min(25, topImpact / 4))
+  // Keep zero reserved for "not measured" so the compact persisted card can prove the corresponding
+  // missing-data gap exactly. A real but tiny measured input must not round back to the same sentinel.
+  const impact = topImpact > 0 ? Math.max(1, Math.round(Math.min(25, topImpact / 4))) : 0
   const companyRows = unique.flatMap((i) => i.companies || [])
   const guessedTicker = opts.ticker || companyRows.find((c) => c.ticker)?.ticker || null
   const ticker = opts.tickerVerified === true ? opts.ticker || null : null

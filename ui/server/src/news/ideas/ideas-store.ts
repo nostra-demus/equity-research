@@ -446,7 +446,7 @@ function validEvidenceGateV2State(value: Record<string, unknown>): boolean {
   if (has('verified listed ticker') !== !listingVerified || has('verified listing') !== !listingVerified) return false
   if (!has('live liquidity') || !has(V2_LIVE_DATA_GAP)) return false
   if (has('dated catalyst') !== (breakdown.timing !== 15)) return false
-  if (has('raw economic impact') && breakdown.impact !== 0) return false
+  if (has('raw economic impact') !== (breakdown.impact === 0)) return false
   if (has('independent confirmation') !== (breakdown.corroboration === 0 && breakdown.evidence < 23)) return false
   if (has('priced-in risk') !== (value.priced_in === 'priced')) return false
   if (has('price and market expectations') !== (value.priced_in === 'unknown')) return false

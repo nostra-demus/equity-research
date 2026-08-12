@@ -36,7 +36,7 @@ check('a past-tense report is NOT flagged as a forward results date', () => {
   assert.ok(sched('Company to report earnings after the close').includes('results_date'))
 })
 
-check('dated catalyst evidence is source-bound, complete, valid, and never inferred from display translation', () => {
+check('dated catalyst evidence is source-bound, complete, valid, and translation cannot invent its date', () => {
   assert.deepEqual(
     deriveScheduledEventEvidence({ headline: 'Amazon to report earnings on August 6, 2026' }),
     ['results_date on 2026-08-06'],
@@ -120,6 +120,8 @@ check('dated catalyst evidence is source-bound, complete, valid, and never infer
     'Amazon potentially holds AGM on 2026-09-09',
     'Amazon tentative AGM on 2026-09-09',
     'Amazon AGM date unconfirmed for 2026-09-09',
+    'Amazon AGM on 2026-09-09?',
+    'Amazon AGM on 2026-09-09？',
   ]) {
     assert.deepEqual(
       deriveScheduledEventEvidence({ headline }),
@@ -223,11 +225,55 @@ check('dated catalyst evidence is source-bound, complete, valid, and never infer
     ['results_date on 2026-08-06'],
     'a genuinely nearest leading date remains supported',
   )
-  assert.deepEqual(
-    deriveScheduledEventEvidence({ headline: 'Amazon earnings date announced', headline_en: 'Amazon earnings on 2026-08-06' }),
-    [],
-    'model-authored translation text cannot manufacture source evidence',
+  const translated = {
+    headline: 'アマゾン株主総会は2026-09-09に開催',
+    headline_en: 'Amazon AGM confirmed for 2026-09-09',
+  }
+  assert.ok(
+    deriveScheduledEvents(translated).includes('shareholder_meeting'),
+    'translation remains available to discovery and visible calendar chips',
   )
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: translated.headline }),
+    [],
+    'model-authored translation is display-only and cannot create timing evidence',
+  )
+  for (const headline_en of [
+    'Amazon AGM confirmed for 2026-09-09',
+    'Amazon AGM confirmed for 2026-10-10',
+    'Amazon earnings confirmed for 2026-09-09',
+  ]) {
+    assert.deepEqual(
+      deriveScheduledEventEvidence({ headline: translated.headline, headline_en } as any),
+      [],
+      'even an untyped runtime caller cannot give translated copy scoring authority',
+    )
+  }
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Amazon earnings date announced' }),
+    [],
+    'a source headline without a date remains unproven even when display translation supplies one',
+  )
+  for (const headline of [
+    'AGM cancelled — 株主総会 2026-09-09',
+    'AGM postponed — 株主総会 2026-09-09',
+    'AGM not confirmed — 株主総会 2026-09-09',
+    '株主総会は延期 2026-09-09',
+    '株主総会は未定 2026-09-09',
+    '株主総会は開催しない 2026-09-09',
+    '株主総会は2026-09-09に開催予定なし',
+    '株主総会は2026-09-09に開催予定か？',
+    '株主総会は2026-09-09に開催予定の可能性',
+    '股东大会可能于2026-09-09召开',
+    'assemblée générale non confirmée le 2026-09-09',
+    'hauptversammlung nicht geplant für 2026-09-09',
+  ]) {
+    assert.deepEqual(
+      deriveScheduledEventEvidence({ headline }),
+      [],
+      `${headline}: untranslated or ambiguous grammar cannot receive deterministic timing evidence`,
+    )
+  }
 })
 
 // ---- multilabel + empty + order-stable + foreign-language ----

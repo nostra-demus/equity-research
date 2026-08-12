@@ -397,6 +397,10 @@ await check('mergeInbox persists only source-bound dated catalyst evidence', () 
     triagedItem('https://r/might', 72, 'Amazon might hold AGM on 2026-09-09'),
     triagedItem('https://r/unconfirmed', 71, 'Amazon AGM date unconfirmed for 2026-09-09'),
     triagedItem('https://r/cancelled-next-sentence', 70, 'Amazon AGM on 2026-09-09. The event was cancelled'),
+    {
+      ...triagedItem('https://r/translated', 69, 'アマゾン株主総会は2026-09-09に開催'),
+      headline_en: 'Amazon AGM confirmed for 2026-09-09',
+    },
   ], { maxRows: 30, now: () => new Date('2026-08-02T12:00:00Z') })
   const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-08-02_sweep.json'), 'utf8'))
   const events = new Map(doc.rows.map((row: any) => [row.url, row.scheduled_events]))
@@ -409,6 +413,7 @@ await check('mergeInbox persists only source-bound dated catalyst evidence', () 
   assert.deepEqual(events.get('https://r/cancelled'), [])
   assert.deepEqual(events.get('https://r/relative'), [])
   assert.deepEqual(events.get('https://r/two-events'), ['results_date on 2026-08-06', 'shareholder_meeting on 2026-09-09'])
+  assert.deepEqual(events.get('https://r/translated'), [], 'translated display copy cannot create scored timing evidence')
   for (const slug of ['postpones', 'cancellation', 'reschedules', 'moved', 'withdraws', 'moved-before', 'shifted', 'deferred', 'put-off', 'denies', 'changed', 'might', 'unconfirmed', 'cancelled-next-sentence']) {
     assert.deepEqual(events.get(`https://r/${slug}`), [], `${slug}: obsolete dates are not persisted`)
   }
