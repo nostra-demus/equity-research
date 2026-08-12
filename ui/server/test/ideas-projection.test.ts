@@ -29,6 +29,7 @@ try {
   }
   fs.writeFileSync(path.join(dir, `${liveId}.json`), JSON.stringify(validIdeaSnapshot('LIVE', 'long', {
     decay_at: '2026-08-03T08:00:00Z', origin_type: 'mixed',
+    trade_score: 99, trade_readiness: 'check_now', trade_score_basis: 'evidence_gate_v1',
     source_event_ids: [liveBase.source_event_ids[0], liveExpressionEventId],
     source_headlines: [liveBase.source_headlines[0], liveExpressionHeadline],
     source_themes: [liveTheme],
@@ -60,6 +61,9 @@ try {
   assert.equal((projected.ideas[0] as any).feedback, null, 'latest clear vote wins')
   assert.equal((projected.ideas[1] as any).feedback, 'down')
   assert.equal((projected.ideas[0] as any).origin_type, 'mixed')
+  assert.equal((projected.ideas[0] as any).trade_score, 44, 'legacy V1 scores are not comparable with the stricter V2 ranking ceiling')
+  assert.equal((projected.ideas[0] as any).trade_readiness, 'watch_only', 'a cached V1 check_now can never survive a rolling deploy')
+  assert.ok((projected.ideas[0] as any).missing_checks.includes('live price, liquidity, and consensus'))
   assert.deepEqual((projected.ideas[0] as any).source_themes, [liveTheme])
   assert.equal((projected.ideas[1] as any).origin_type, 'wire', 'current wire snapshots keep their explicit lineage')
   assert.deepEqual((projected.ideas[1] as any).source_themes, [])

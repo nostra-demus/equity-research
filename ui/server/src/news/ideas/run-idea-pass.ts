@@ -20,7 +20,7 @@ import {
   type SurfacedIdea,
 } from './ideas-store'
 import { IDEA_LEARNING_HORIZON_DAYS, learnIdeaAdjustment } from './idea-learning'
-import { scoreTradeCluster, type TradeEvidence } from '../trade-score'
+import { directionMatchesEvidence, scoreTradeCluster, TRADE_SCORE_POLICY_VERSION, type TradeEvidence } from '../trade-score'
 import { normTicker, verifyEquityListing } from '../symbology'
 import { normName } from '../text-match'
 import { eventIdFor } from '../normalize'
@@ -454,11 +454,16 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       themesEnabled: c.themesEnabled !== false,
     })
     const rows = sweep.rows
-    // Reconcile Theme-only snapshots before every cache, interval, or row-count exit. A quiet provider
-    // lane must not leave a withdrawn Theme thesis looking live. Mixed calls retain independent wire
-    // support; promoted and in-flight calls remain lifecycle-owned and are never removed here.
-    const retired = retireUnadmittedThemeIdeas(deps.repoRoot, rows)
-    if (retired > 0) await deps.refreshBoard()
+    if (sweep.status === 'degraded') {
+      const counts = inspectIdeaSnapshots(deps.repoRoot, inputAt)
+      const cached = counts.live_count + counts.stale_count > 0
+      const reason = 'A recent wire partition is unreadable or has no trustworthy clock; the lead skim is paused rather than ranking an incomplete source set.'
+      health({
+        enabled: true, status: cached ? 'degraded' : 'error', outcome: 'skipped', reason_code: 'stale_inputs',
+        reason, next_eligible_at: null, input_count: rows.length, produced_count: 0,
+      }, inputAt)
+      return { ran: false, produced: 0, note: reason, reason_code: 'stale_inputs' }
+    }
     if (rows.length < 2) {
       const staleInput = sweep.status === 'stale' || sweep.status === 'corrupt'
       const counts = inspectIdeaSnapshots(deps.repoRoot, inputAt)
@@ -480,6 +485,12 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       }, inputAt)
       return { ran: false, produced: 0, note: reason, reason_code: staleInput ? 'stale_inputs' : 'insufficient_inputs' }
     }
+
+    // Reconcile Theme-only snapshots only after the complete input set clears every integrity/freshness
+    // guard. An unreadable partition must not make a valid theme appear withdrawn and trigger deletion.
+    // Mixed calls retain independent wire support; promoted and in-flight calls remain lifecycle-owned.
+    const retired = retireUnadmittedThemeIdeas(deps.repoRoot, rows)
+    if (retired > 0) await deps.refreshBoard()
 
     const hash = topNHash(rows)
     const effectHash = topNEffectHash(rows)
@@ -632,9 +643,6 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
         )
         if (!verifiedPairListing) continue
       }
-      // Listing rejection must not reserve the stable idea id: a later provider row for the same primary
-      // call may carry a valid independently verified pair leg.
-      seen.add(id)
       const persistedPairTicker = raw.direction === 'pair' ? verifiedPairListing!.ticker : null
       const version = ideaVersion({
         ticker: verifiedListing?.ticker || raw.ticker,
@@ -664,6 +672,10 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
         whyNow: raw.why_now,
         learningAdjustment: learning.adjustment,
       })
+      // Provider prose cannot reverse the server-read evidence. A rejected row must not reserve the stable
+      // id: a later provider row for the same call may bind the direction correctly.
+      if (!directionMatchesEvidence(raw.direction, trade.direction)) continue
+      seen.add(id)
       const coverage = priorCoverage(deps.repoRoot, raw.ticker)
       let saved = false
       for (let attempt = 0; attempt < 3 && !saved; attempt++) {
@@ -694,7 +706,7 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
           conviction: raw.conviction,
           conviction_basis: 'pre_edge_proxy',
           trade_score: trade.score,
-          trade_score_basis: 'evidence_gate_v1',
+          trade_score_basis: TRADE_SCORE_POLICY_VERSION,
           trade_score_breakdown: trade.breakdown,
           trade_readiness: trade.readiness,
           missing_checks: trade.missingChecks,

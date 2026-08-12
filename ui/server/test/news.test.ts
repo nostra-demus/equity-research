@@ -386,6 +386,48 @@ await check('mergeInbox is idempotent by URL and PRESERVES human consumed/launch
   assert.equal(doc2.rows[0].launched_signal_id, 'SIG-20260612-deadbeef')
   assert.equal(doc2.rows[0].triage_score, 91) // score refreshed
 })
+await check('mergeInbox preserves ordinary, correction, and reversal lanes while choosing each lane\'s best source', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const story = 'EVT-shared-story'
+  const revisionItem = (url: string, score: number, headline: string, inputNature: string): TriagedItem => ({
+    ...triagedItem(url, score, headline),
+    input_nature: inputNature,
+    dedup_group: story,
+  })
+
+  // The initial merge leaves the primary filing as the ordinary lane's representative even though the
+  // publisher copy has the higher score.
+  mergeInbox(root, date, [
+    revisionItem('https://news.test/original-copy', 98, 'Issuer reports approval', 'news_headline'),
+    revisionItem('https://filing.test/original', 80, 'Issuer reports approval', 'regulatory_filing'),
+  ], { maxRows: 10 })
+
+  // Later revisions share the same dedup family. Each lane still applies the source hierarchy locally.
+  mergeInbox(root, date, [
+    revisionItem('https://news.test/correction-copy', 96, 'Correction: approval remains conditional', 'news_headline'),
+    revisionItem('https://company.test/correction', 75, 'Correction: approval remains conditional', 'company_press_release'),
+    revisionItem('https://news.test/retraction-copy', 97, 'Issuer retracts approval report', 'news_headline'),
+    revisionItem('https://filing.test/retraction', 70, 'Issuer retracts approval report', 'exchange_announcement'),
+  ], { maxRows: 10 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.equal(doc.rows.length, 3)
+  assert.deepEqual(
+    new Set(doc.rows.map((row: any) => row.url)),
+    new Set([
+      'https://filing.test/original',
+      'https://company.test/correction',
+      'https://filing.test/retraction',
+    ]),
+    'the original and both thesis-changing revision lanes remain downstream-readable',
+  )
+  assert.deepEqual(
+    new Set(doc.rows.map((row: any) => row.source_tier)),
+    new Set(['primary_filing', 'company']),
+    'each lane selects its own highest-ranked source rather than the family-wide highest score',
+  )
+})
 
 // ---- orchestrator (end-to-end with mocked GDELT + Groq) ----
 await check('runIngestCycle: fetch → triage → ranked inbox; second run skips seen items', async () => {

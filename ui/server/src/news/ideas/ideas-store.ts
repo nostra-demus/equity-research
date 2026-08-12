@@ -13,7 +13,9 @@ import { fileURLToPath } from 'node:url'
 import { eventIdFor } from '../normalize'
 import { readFeed } from '../feed'
 import { cleanTicker, normTicker } from '../symbology'
+import { SOURCE_TIERS, type SourceTierId } from '../scope'
 import { createThemesIndexReader } from '../themes/api-index'
+import { themeStoryKey } from '../themes/story-key'
 import { loadThemes, readThemesIndex, themesLedgerPath } from '../themes/store'
 import type { Theme, ThemeMember } from '../themes/types'
 import type { FeedItem } from '../types'
@@ -60,7 +62,7 @@ export interface SurfacedIdea {
   conviction: number // 0-100 pre-edge PROXY
   conviction_basis: 'pre_edge_proxy' // hard label — never the locked edge score (§7)
   trade_score: number // strict, capped readiness score; still not expected return or a verdict
-  trade_score_basis: 'evidence_gate_v1'
+  trade_score_basis: 'evidence_gate_v1' | 'evidence_gate_v2'
   trade_score_breakdown: TradeScoreBreakdown
   trade_readiness: 'check_now' | 'needs_data' | 'watch_only'
   missing_checks: string[]
@@ -102,7 +104,7 @@ export interface IdeaSnapshotStoreRead {
   error: string | null
 }
 
-export type TopSweepStatus = 'ok' | 'missing' | 'corrupt' | 'stale'
+export type TopSweepStatus = 'ok' | 'missing' | 'corrupt' | 'stale' | 'degraded'
 export interface TopSweepRead {
   rows: IdeaInputRow[]
   status: TopSweepStatus
@@ -487,7 +489,7 @@ export function isSurfacedIdeaSnapshot(value: unknown, expectedIdeaId?: string):
   if (direction === 'pair' ? value.pair_with === null : value.pair_with !== null) return false
   if (!exactString(value.reason, 280) || !exactString(value.why_now, 240)) return false
   if (!boundedNumber(value.conviction, 0, 100, true) || value.conviction_basis !== 'pre_edge_proxy') return false
-  if (!boundedNumber(value.trade_score, 0, 100, true) || value.trade_score_basis !== 'evidence_gate_v1') return false
+  if (!boundedNumber(value.trade_score, 0, 100, true) || !['evidence_gate_v1', 'evidence_gate_v2'].includes(String(value.trade_score_basis))) return false
   if (!validTradeBreakdown(value.trade_score_breakdown) || !READINESS.has(value.trade_readiness as SurfacedIdea['trade_readiness'])) return false
   if (!exactStringArray(value.missing_checks, 32, 160, true, true) || !validLearning(value.learning)) return false
   if (!PRICED_IN.has(value.priced_in as PricedIn) || !THESIS_TYPE_SET.has(String(value.thesis_type))) return false
@@ -559,10 +561,6 @@ export function isSurfacedIdeaSnapshot(value: unknown, expectedIdeaId?: string):
   return true
 }
 
-function ideaStoryKey(row: IdeaInputRow): string {
-  return row.dedup_group?.trim() || row.event_id
-}
-
 /** `dedup_group` is the earliest member's event id. Treat both fields as aliases so a legacy anchor
  * without a persisted group still joins a newer publisher copy whose group points at that anchor. */
 function ideaStoryIds(row: Pick<IdeaInputRow, 'event_id' | 'dedup_group'>): string[] {
@@ -570,17 +568,35 @@ function ideaStoryIds(row: Pick<IdeaInputRow, 'event_id' | 'dedup_group'>): stri
   return group && group !== row.event_id ? [row.event_id, group] : [row.event_id]
 }
 
+/** Preserve a separate correction/reversal lane inside one publisher-copy family. Otherwise a highly
+ * trusted original can suppress the later row that falsifies it before the model ever sees the change. */
+function ideaStoryKeys(row: Pick<IdeaInputRow, 'event_id' | 'dedup_group' | 'headline' | 'headline_orig' | 'event_types'>): string[] {
+  return ideaStoryIds(row).map((id) => themeStoryKey({
+    event_id: id,
+    headline: row.headline_orig || row.headline,
+    headline_en: row.headline,
+    event_types: row.event_types,
+  }))
+}
+
 function sameIdeaStory(left: IdeaInputRow, right: IdeaInputRow): boolean {
-  const rightIds = new Set(ideaStoryIds(right))
-  return ideaStoryIds(left).some((id) => rightIds.has(id))
+  const rightKeys = new Set(ideaStoryKeys(right))
+  return ideaStoryKeys(left).some((key) => rightKeys.has(key))
 }
 
 function dedupeIdeaRows(rows: IdeaInputRow[]): IdeaInputRow[] {
+  const tierRank = (tier?: string): number => tier ? SOURCE_TIERS[tier as SourceTierId]?.rank ?? 0 : 0
+  const ordered = [...rows].sort((a, b) =>
+    tierRank(b.source_tier) - tierRank(a.source_tier)
+    || b.materiality - a.materiality
+    || parseRfc3339Ms(b.found_at) - parseRfc3339Ms(a.found_at)
+    || a.event_id.localeCompare(b.event_id),
+  )
   const seenStoryIds = new Set<string>()
-  return rows.filter((row) => {
-    const ids = ideaStoryIds(row)
-    if (!row.event_id || ids.some((id) => seenStoryIds.has(id))) return false
-    for (const id of ids) seenStoryIds.add(id)
+  return ordered.filter((row) => {
+    const keys = ideaStoryKeys(row)
+    if (!row.event_id || keys.some((key) => seenStoryIds.has(key))) return false
+    for (const key of keys) seenStoryIds.add(key)
     return true
   })
 }
@@ -890,10 +906,11 @@ function readActionableThemeRows(
 }
 
 /**
- * Read the freshest curated sweep (the top-N the auto-ingester writes every cycle) into skim input rows,
- * sorted by materiality, capped at `topN`. Drops nothing but consumed/dismissed rows and the low tail:
- * a surfacing candidate must have cleared the wire's own pick/watch bar (triage_score present). Never
- * throws — a missing sweep yields [].
+ * Read every trustworthy curated sweep that overlaps the source-freshness window into skim input rows,
+ * sorted by materiality and capped at `topN`. Daily files are storage partitions, not freshness
+ * boundaries: a 23:59 story must remain eligible after midnight until its source timestamp ages out.
+ * Drops consumed/dismissed rows, duplicate story families, and the low tail. Never throws — a missing
+ * sweep yields []. Callers without a freshness contract keep the legacy newest-file-only read.
  */
 export function readTopSweep(
   repoRoot: string,
@@ -901,84 +918,164 @@ export function readTopSweep(
   freshness?: TopSweepFreshnessOptions,
 ): TopSweepRead {
   const inboxDir = path.join(repoRoot, 'screener', 'inbox')
-  let file: string | null = null
   let sweepFiles: string[] = []
   try {
     sweepFiles = fs.readdirSync(inboxDir).filter((f) => f.endsWith('_sweep.json')).sort().reverse()
-    file = sweepFiles.length ? path.join(inboxDir, sweepFiles[0]) : null
   } catch { return { rows: [], status: 'missing', sweep_updated_at: null, candidate_count: 0, stale_row_count: 0, invalid_time_count: 0 } }
-  if (!file) return { rows: [], status: 'missing', sweep_updated_at: null, candidate_count: 0, stale_row_count: 0, invalid_time_count: 0 }
-  let doc: any
-  try { doc = JSON.parse(fs.readFileSync(file, 'utf8')) } catch {
+  if (!sweepFiles.length) return { rows: [], status: 'missing', sweep_updated_at: null, candidate_count: 0, stale_row_count: 0, invalid_time_count: 0 }
+
+  interface SweepPartition {
+    rows: any[]
+    updatedAt: string | null
+    updatedMs: number
+  }
+  const partitionCache = new Map<string, SweepPartition | null>()
+  const readPartition = (name: string): SweepPartition | null => {
+    if (partitionCache.has(name)) return partitionCache.get(name) ?? null
+    let partition: SweepPartition | null = null
+    try {
+      const doc = JSON.parse(fs.readFileSync(path.join(inboxDir, name), 'utf8'))
+      if (Array.isArray(doc?.rows)) {
+        const updatedAt = typeof doc.updated_at === 'string' ? doc.updated_at : null
+        partition = { rows: doc.rows, updatedAt, updatedMs: parseRfc3339Ms(updatedAt) }
+      }
+    } catch {}
+    partitionCache.set(name, partition)
+    return partition
+  }
+  const partitionDayOverlaps = (name: string, floorMs: number, ceilingMs: number): boolean => {
+    const day = name.match(/^(\d{4}-\d{2}-\d{2})_sweep\.json$/)?.[1]
+    const start = day ? Date.parse(`${day}T00:00:00Z`) : NaN
+    return Number.isFinite(start) && start <= ceilingMs && start + 86_400_000 > floorMs
+  }
+
+  // Preserve the existing fail-closed boundary for the newest partition. An older file cannot stand in
+  // for current state when the newest write is unreadable: it may contain a consume/dismiss action that
+  // would otherwise be silently reversed.
+  const newest = readPartition(sweepFiles[0])
+  if (!newest) {
     return { rows: [], status: 'corrupt', sweep_updated_at: null, candidate_count: 0, stale_row_count: 0, invalid_time_count: 0 }
   }
-  if (!Array.isArray(doc?.rows)) {
-    return {
-      rows: [], status: 'corrupt',
-      sweep_updated_at: typeof doc?.updated_at === 'string' ? doc.updated_at : null,
-      candidate_count: 0, stale_row_count: 0, invalid_time_count: 0,
-    }
-  }
-  const rows: any[] = doc.rows
-  const blockedStoryIds = new Set<string>()
-  const humanSweepLookback = freshness && Number.isFinite(freshness.maxAgeMs) && freshness.maxAgeMs > 0
-    // One daily file per name: the extra two cover both clock/date boundaries around a partial-day window.
-    ? Math.max(2, Math.ceil(freshness.maxAgeMs / 86_400_000) + 2)
-    : 2
-  // Human state is durable across the midnight file rollover. Scan only files that can overlap the source
-  // freshness window; malformed historical files are skipped and cannot poison the healthy current sweep.
-  for (const sweepName of sweepFiles.slice(0, humanSweepLookback)) {
-    let humanRows: any[]
-    if (path.join(inboxDir, sweepName) === file) humanRows = rows
-    else {
-      try {
-        const priorDoc = JSON.parse(fs.readFileSync(path.join(inboxDir, sweepName), 'utf8'))
-        humanRows = Array.isArray(priorDoc?.rows) ? priorDoc.rows : []
-      } catch { continue }
-    }
-    for (const row of humanRows) {
-      if (!row || (!row.consumed && !row.dismissed)) continue
-      if (typeof row.event_id === 'string' && EVENT_ID_RE.test(row.event_id)) blockedStoryIds.add(row.event_id)
-      if (typeof row.headline === 'string' && row.headline && typeof row.url === 'string' && row.url) {
-        blockedStoryIds.add(eventIdFor(row.headline, row.url))
-      }
-      if (typeof row.dedup_group === 'string' && row.dedup_group.trim()) blockedStoryIds.add(row.dedup_group.trim())
-    }
-  }
-  const candidates = rows
-    .filter((r) => r && r.url && !r.consumed && !r.dismissed && typeof r.triage_score === 'number')
-    .sort((a, b) => (b.triage_score ?? -1) - (a.triage_score ?? -1))
-  const sweepUpdatedAt = typeof doc?.updated_at === 'string' ? doc.updated_at : null
   let staleRowCount = 0
   let invalidTimeCount = 0
   let status: TopSweepStatus = 'ok'
-  let eligible = candidates
-  const sweepMs = sweepUpdatedAt ? parseRfc3339Ms(sweepUpdatedAt) : NaN
+  const invalidPartitionNames = new Set<string>()
+  const noteInvalidPartition = (name: string): void => {
+    if (!invalidPartitionNames.has(name)) {
+      invalidPartitionNames.add(name)
+      invalidTimeCount++
+    }
+    status = 'degraded'
+  }
+  let partitions: SweepPartition[] = [newest]
+  let sweepUpdatedAt = newest.updatedAt
+  let sweepMs = newest.updatedMs
   if (freshness) {
     const futureSkewMs = Math.max(0, freshness.futureSkewMs ?? 5 * 60_000)
     const maxAgeMs = Number.isFinite(freshness.maxAgeMs) && freshness.maxAgeMs > 0 ? freshness.maxAgeMs : 1
     const floor = freshness.nowMs - maxAgeMs
     const ceiling = freshness.nowMs + futureSkewMs
-    if (!Number.isFinite(sweepMs)) {
-      status = 'corrupt'
-      invalidTimeCount++
-      eligible = []
-    } else if (sweepMs < floor || sweepMs > ceiling) {
-      status = 'stale'
-      eligible = []
-    } else {
-      eligible = candidates.filter((r) => {
-        const foundMs = typeof r.found_at === 'string' ? parseRfc3339Ms(r.found_at) : NaN
-        if (!Number.isFinite(foundMs)) { invalidTimeCount++; return false }
-        if (foundMs < floor || foundMs > ceiling) { staleRowCount++; return false }
-        return true
-      })
-      if (!eligible.length && candidates.length && (staleRowCount || invalidTimeCount)) status = 'stale'
+    if (!Number.isFinite(newest.updatedMs)) {
+      return {
+        rows: [], status: 'corrupt', sweep_updated_at: newest.updatedAt,
+        candidate_count: 0, stale_row_count: 0, invalid_time_count: 1,
+      }
     }
+    if (newest.updatedMs < floor || newest.updatedMs > ceiling) {
+      return {
+        rows: [], status: 'stale', sweep_updated_at: newest.updatedAt,
+        candidate_count: 0, stale_row_count: 0, invalid_time_count: 0,
+      }
+    }
+
+    partitions = []
+    sweepUpdatedAt = null
+    sweepMs = Number.NEGATIVE_INFINITY
+    // One partition per day; the extra two cover both date/clock boundaries around a partial-day
+    // freshness window. Never synchronously re-read an unbounded archive on the live Ideas route.
+    const candidateSweepLookback = Math.max(1, Math.ceil(maxAgeMs / 86_400_000) + 2)
+    const candidateFiles = [sweepFiles[0], ...sweepFiles.slice(1).filter((name) => partitionDayOverlaps(name, floor, ceiling))]
+      .slice(0, candidateSweepLookback)
+    for (let index = 0; index < candidateFiles.length; index++) {
+      const partitionName = candidateFiles[index]
+      const partition = index === 0 ? newest : readPartition(partitionName)
+      // Historical malformed partitions cannot contribute candidates or human state. The newest
+      // partition was checked above; skipping an older unreadable file avoids letting archival debris
+      // poison a healthy current wire.
+      if (!partition) { noteInvalidPartition(partitionName); continue }
+      if (!Number.isFinite(partition.updatedMs)) { noteInvalidPartition(partitionName); continue }
+      if (partition.updatedMs < floor || partition.updatedMs > ceiling) continue
+      partitions.push(partition)
+      if (partition.updatedMs > sweepMs) {
+        sweepMs = partition.updatedMs
+        sweepUpdatedAt = partition.updatedAt
+      }
+    }
+  }
+
+  const blockedStoryIds = new Set<string>()
+  const humanSweepLookback = freshness && Number.isFinite(freshness.maxAgeMs) && freshness.maxAgeMs > 0
+    // Human actions have no separate durable clock on every legacy row. Retain the prior bounded
+    // partition lookback so a decision just before the source-time floor still blocks a current copy.
+    ? Math.max(2, Math.ceil(freshness.maxAgeMs / 86_400_000) + 2)
+    : 2
+  const humanPartitions: SweepPartition[] = []
+  const humanFloor = freshness ? freshness.nowMs - Math.max(1, freshness.maxAgeMs) : Number.NEGATIVE_INFINITY
+  const humanCeiling = freshness ? freshness.nowMs + Math.max(0, freshness.futureSkewMs ?? 5 * 60_000) : Number.POSITIVE_INFINITY
+  const humanFiles = freshness
+    ? [sweepFiles[0], ...sweepFiles.slice(1).filter((name) => partitionDayOverlaps(name, humanFloor, humanCeiling))].slice(0, humanSweepLookback)
+    : sweepFiles.slice(0, humanSweepLookback)
+  for (const [index, name] of humanFiles.entries()) {
+    const partition = index === 0 ? newest : readPartition(name)
+    if (!partition) {
+      noteInvalidPartition(name)
+      continue
+    }
+    humanPartitions.push(partition)
+  }
+  // Human state is durable across midnight and deliberately does not inherit candidate freshness. A
+  // stale/invalid partition cannot add a positive candidate, but a readable negative decision still
+  // vetoes re-entry. This keeps a current publisher copy from reversing a recent human action.
+  for (const partition of humanPartitions) {
+    for (const row of partition.rows) {
+      if (!row || (!row.consumed && !row.dismissed)) continue
+      const eventId = typeof row.event_id === 'string' && EVENT_ID_RE.test(row.event_id)
+        ? row.event_id
+        : typeof row.headline === 'string' && row.headline && typeof row.url === 'string' && row.url
+          ? eventIdFor(row.headline, row.url) : ''
+      if (!eventId) continue
+      for (const key of ideaStoryKeys({
+        event_id: eventId,
+        dedup_group: typeof row.dedup_group === 'string' && row.dedup_group.trim() ? row.dedup_group.trim() : undefined,
+        headline: row.headline_en || row.headline || '',
+        headline_orig: row.headline || '',
+        event_types: Array.isArray(row.event_types) ? row.event_types : [],
+      })) blockedStoryIds.add(key)
+    }
+  }
+
+  const candidates = partitions
+    .flatMap((partition) => partition.rows
+      .filter((row) => row && row.url && !row.consumed && !row.dismissed && typeof row.triage_score === 'number')
+      .map((row) => ({ row, sweepUpdatedAt: partition.updatedAt || '' })))
+    .sort((a, b) => (b.row.triage_score ?? -1) - (a.row.triage_score ?? -1))
+  let eligible = candidates
+  if (freshness) {
+    const futureSkewMs = Math.max(0, freshness.futureSkewMs ?? 5 * 60_000)
+    const maxAgeMs = Number.isFinite(freshness.maxAgeMs) && freshness.maxAgeMs > 0 ? freshness.maxAgeMs : 1
+    const floor = freshness.nowMs - maxAgeMs
+    const ceiling = freshness.nowMs + futureSkewMs
+    eligible = candidates.filter(({ row }) => {
+      const foundMs = typeof row.found_at === 'string' ? parseRfc3339Ms(row.found_at) : NaN
+      if (!Number.isFinite(foundMs)) { invalidTimeCount++; return false }
+      if (foundMs < floor || foundMs > ceiling) { staleRowCount++; return false }
+      return true
+    })
+    if (!eligible.length && candidates.length && (staleRowCount || invalidTimeCount)) status = 'stale'
   }
   const cap = Math.max(1, Math.floor(topN))
   const wireRows = eligible
-    .map((r): IdeaInputRow => ({
+    .map(({ row: r, sweepUpdatedAt: partitionUpdatedAt }): IdeaInputRow => ({
       // event_id isn't stored on the inbox row; re-derive it with the CANONICAL recipe (eventIdFor over the
       // ORIGINAL headline, lower-cased + whitespace-collapsed) so the idea's source ids match the
       // firehose/enrich/ledger join key exactly — a bespoke hash over the translation would never line up.
@@ -994,7 +1091,7 @@ export function readTopSweep(
       event_types: Array.isArray(r.event_types) ? r.event_types : [],
       issuer_linkage: r.issuer_linkage || '',
       companies: Array.isArray(r.companies) ? r.companies : [],
-      found_at: r.found_at || doc?.updated_at || '',
+      found_at: r.found_at || partitionUpdatedAt,
       source_tier: r.source_tier,
       scheduled_events: Array.isArray(r.scheduled_events) ? r.scheduled_events : [],
       event_direction: r.event_direction,
@@ -1006,14 +1103,14 @@ export function readTopSweep(
   // Human state applies to the ordinary wire as well as the Theme reserve. A current unconsumed
   // publisher copy cannot resurrect a prior-day consumed/dismissed canonical event or story alias.
   const ordinaryWireRows = dedupeIdeaRows(wireRows.filter((row) => (
-    !ideaStoryIds(row).some((id) => blockedStoryIds.has(id))
-  ))).slice(0, cap)
+    !ideaStoryKeys(row).some((key) => blockedStoryIds.has(key))
+  ))).sort((a, b) => b.materiality - a.materiality || a.event_id.localeCompare(b.event_id)).slice(0, cap)
   const reserveCap = Math.floor(cap / 3)
   // Themes may widen a healthy wire input; they may never manufacture one. In particular, a cached theme
   // must not turn a stale/corrupt sweep or the provider's fewer-than-two-row refusal into a paid call.
   const themeRows = freshness?.themesEnabled !== false && status === 'ok' && ordinaryWireRows.length >= 2 && reserveCap > 0
     ? readActionableThemeRows(repoRoot, freshness, sweepMs).filter((row) => {
-      return !ideaStoryIds(row).some((id) => blockedStoryIds.has(id))
+      return !ideaStoryKeys(row).some((key) => blockedStoryIds.has(key))
     })
     : []
 

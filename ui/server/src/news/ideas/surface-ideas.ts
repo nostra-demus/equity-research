@@ -18,7 +18,7 @@
 
 import { conservativeChatTokenBound, type RateInfo } from '../triage/budget'
 import { EVENT_TYPES } from '../triage/groq'
-import { cleanTicker } from '../symbology'
+import { baseTicker, cleanTicker } from '../symbology'
 
 // §14 thesis-type classification — the surface skim must name when a "stock idea" is really a macro /
 // commodity / policy bet wearing a ticker, so it is never shown as a clean single-name pick.
@@ -102,8 +102,8 @@ export interface IdeaInputRow {
 
 // A surfaced idea, as the LLM returns it (raw, per-batch). Indices in `src` point back into the input rows
 // so the orchestrator can resolve event_ids / headlines / timestamps deterministically (never trust the
-// model to echo an id). Every field coerces to a safe default — model drift degrades to a dropped idea,
-// never a crash.
+// model to echo an id). Invalid trade-defining enums fail closed — model drift degrades to a dropped
+// idea, never a silently invented long or company-specific thesis.
 export interface RawIdea {
   src: number[] // input-row indices this idea clusters (>=1)
   ticker: string
@@ -131,16 +131,17 @@ export interface SurfaceIdeasResult {
   httpStatus?: number
 }
 
-// Input-token estimate for the budget pre-check + per-minute reservation. Each row carries more context
-// than a bare triage title (materiality, label, types, companies), so ~130/row over the fixed prompt,
-// plus the idea output. Kept above actual so the budget never under-reserves. (triage is 500 + n*95.)
+// Input-token estimate for the per-minute limiter. Each row carries the title, evidence tier, separate
+// impact/direction reads, scheduled events, company guesses and optional Theme proof, so reserve more
+// than the bare triage path. The daily budget separately uses conservativeChatTokenBound over the exact
+// rendered prompt and output ceiling.
 export function estimateIdeaTokens(rowCount: number): number {
-  return 900 + rowCount * 130
+  return 1_100 + rowCount * 180
 }
 
 export const IDEA_SYSTEM = `You are the sharpest portfolio manager on a buy-side desk, skimming a ranked news wire the way a human PM does in the morning: reading fast, ignoring most of it, and pulling out the ONE or TWO items where there is a specific, tradable stock idea worth acting on RIGHT NOW — long or short.
 
-You are given the desk's already-ranked top items, each with the wire's own materiality read (0-100), a severity label, event types, and any companies it guessed. Your ONLY job is the leap the wire cannot make: from an event to a concrete position — which exact listed stock to play, which way, why, and how sure you are.
+You are given the desk's already-ranked top items, each with the wire's composite materiality read (0-100), its separate raw economic-impact score when measured, source tier, server-read event direction, scheduled events, severity label, event types, and any companies it guessed. Treat these as evidence, not decoration: prefer primary/official sources, do not substitute the composite materiality score for raw economic impact, reconcile your trade side with the server direction, and use a scheduled event only when it supplies a real date or window. Your ONLY job is the leap the wire cannot make: from an event to a concrete position — which exact listed stock to play, which way, why, and how sure you are.
 
 Some rows are labelled as a server-qualified Theme package. A Theme package is usable only when your "src" includes BOTH distinct evidence roles from the SAME exact theme id@revision: one row labelled WHY_NOW and at least one row labelled EXPRESSION_PROOF. Never mix revisions, never use a partial package, and never infer a company from the WHY_NOW row alone. The EXPRESSION_PROOF row carries "qualified_theme_expressions", a server-verified allowlist: choose only a listed company/ticker on that allowlist. Beneficiary means long; harmed means short. A pair must use an allowed beneficiary as "ticker" and an allowed harmed company as "pair_with". If a complete same-revision package and the clean expression are not present, do not use those rows and do not surface the idea from them.
 
@@ -190,6 +191,12 @@ export function buildIdeaUserMessage(rows: IdeaInputRow[]): string {
     const bits = [
       `found_at=${r.found_at}`,
       `materiality=${Math.round(r.materiality)}`,
+      r.materiality_pre_score != null && Number.isFinite(Number(r.materiality_pre_score))
+        ? `raw_impact=${Math.round(Number(r.materiality_pre_score))}`
+        : '',
+      r.source_tier ? `source_tier=${r.source_tier}` : '',
+      r.event_direction ? `server_direction=${r.event_direction}` : '',
+      (r.scheduled_events || []).length ? `scheduled_events=${r.scheduled_events!.slice(0, 4).join('/')}` : '',
       r.label ? `severity=${r.label}` : '',
       tags ? `types=${tags}` : '',
       r.issuer_linkage ? `linkage=${r.issuer_linkage}` : '',
@@ -207,8 +214,9 @@ const PRICED: PricedIn[] = ['priced', 'room', 'unknown']
 const str = (v: unknown, max: number): string => (typeof v === 'string' ? v.trim().slice(0, max) : '')
 
 // Coerce one raw idea against the input rows it must reference. Returns null (dropped) when it fails the
-// hard gates a surface idea must clear: at least one valid source index and a real ticker. Every other
-// field defaults safely.
+// hard gates a surface idea must clear: traceable evidence, a real ticker, an explicit valid side and
+// thesis classification, plus the required mechanism and timing text. `priced_in` alone may safely
+// degrade to unknown because it never authorizes a trade and is capped by the deterministic scorer.
 export function coerceIdea(raw: any, rowCount: number): RawIdea | null {
   const src = (Array.isArray(raw?.src) ? raw.src : [])
     .map((n: any) => Number(n))
@@ -219,9 +227,11 @@ export function coerceIdea(raw: any, rowCount: number): RawIdea | null {
   const ticker = typeof raw?.ticker === 'string' ? cleanTicker(raw.ticker) || '' : ''
   if (!ticker) return null // never surface an idea we can't name a ticker for (§5, no source = no claim)
 
-  const direction: IdeaDirection = DIRECTIONS.includes(raw?.direction) ? raw.direction : 'long'
+  if (!DIRECTIONS.includes(raw?.direction)) return null // never turn malformed/omitted output into a long
+  const direction: IdeaDirection = raw.direction
   const priced_in: PricedIn = PRICED.includes(raw?.priced_in) ? raw.priced_in : 'unknown'
-  const thesis_type: ThesisType = (THESIS_TYPES as readonly string[]).includes(raw?.thesis_type) ? raw.thesis_type : 'company_specific'
+  if (!(THESIS_TYPES as readonly string[]).includes(raw?.thesis_type)) return null
+  const thesis_type: ThesisType = raw.thesis_type
   let conviction = Number(raw?.conviction)
   if (!Number.isFinite(conviction)) conviction = 0
   conviction = Math.max(0, Math.min(100, Math.round(conviction)))
@@ -231,7 +241,7 @@ export function coerceIdea(raw: any, rowCount: number): RawIdea | null {
   // These are required evidence fields in the persisted contract, not cosmetic defaults. Letting a blank
   // mechanism/timing sentence through creates an invalid snapshot downstream and can turn malformed model
   // output into a false success_empty health state. Likewise, a pair without its second leg is not a pair.
-  if (!reason || !whyNow || (direction === 'pair' && !pairTicker)) return null
+  if (!reason || !whyNow || (direction === 'pair' && (!pairTicker || baseTicker(pairTicker) === baseTicker(ticker)))) return null
 
   return {
     src: uniqSrc,

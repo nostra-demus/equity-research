@@ -41,6 +41,14 @@ const preData = summarizeIdeasSurface(board({
 assert.equal(preData.available, true)
 assert.equal(preData.headerLabel, 'no assessments yet')
 
+const publishing = summarizeIdeasSurface(board({
+  qualified_ideas: {
+    schema_version: 'qualified-ideas-board/v2',
+    health: { outcome: 'publishing', publishing_count: 1, qualified_count: 0 },
+  } as ScreenerBoard['qualified_ideas'],
+}))
+assert.equal(publishing.headerLabel, 'research publishing')
+
 const rejected = summarizeIdeasSurface(board({
   qualified_ideas: {
     schema_version: 'qualified-ideas-board/v1',

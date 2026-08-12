@@ -67,6 +67,19 @@ assert.deepEqual(valid.metrics, {
     { label: 'bear', probability_pct: 20, return_pct: -12 },
   ],
 })
+assert.deepEqual(valid.ranking, {
+  policy_version: 'ideas-ranking/calibration-shrinkage-v1',
+  calibration_status: 'pre_data',
+  raw_expected_return_pct: 17.5,
+  positive_return_retention: 0.35,
+  return_haircut_pct: 65,
+  conservative_expected_return_pct: 6.13,
+  uncapped_evidence_confidence_score: 66,
+  evidence_confidence_cap: 50,
+  evidence_confidence_score: 50,
+  rationale: 'No exact-horizon outcomes have resolved, so 65% of claimed upside is removed and confidence cannot exceed mixed.',
+})
+assert.equal(valid.metrics?.expected_return_pct, 17.5, 'ranking shrinkage must not rewrite the raw scenario math used for qualification and outcome grading')
 assert.match(valid.calibration_note, /Pre-data/)
 
 const wrongPolicy = candidate('QIDEA-policy') as any
@@ -283,5 +296,89 @@ dominated.scenarios = [
 const ranked = rankQualifiedIdeas([highReturn, lowRisk, dominated].map((x) => evaluateQualifiedIdea(x, { nowMs: NOW })))
 assert.deepEqual(ranked.filter((x) => x.pareto_layer === 1).map((x) => x.candidate.idea_id), ['QIDEA-high-return', 'QIDEA-low-risk'])
 assert.equal(ranked.find((x) => x.candidate.idea_id === 'QIDEA-dominated')?.pareto_layer, 2)
+
+const optimisticPreData = candidate('QIDEA-optimistic-pre-data')
+optimisticPreData.research.data_sufficiency_score = 100
+optimisticPreData.research.edge_score = 100
+optimisticPreData.scenarios = [
+  { scenario_id: 'bull', label: 'bull', probability_pct: 25, price_target: 200, source_price_target: 200, conditions: ['KPI reaches 180'], source: 'frozen event model' },
+  { scenario_id: 'base', label: 'base', probability_pct: 55, price_target: 140, source_price_target: 140, conditions: ['KPI reaches 130'], source: 'frozen event model' },
+  { scenario_id: 'bear', label: 'bear', probability_pct: 20, price_target: 88, source_price_target: 88, conditions: ['KPI misses 100'], source: 'frozen event model' },
+]
+const preDataResult = evaluateQualifiedIdea(optimisticPreData, { nowMs: NOW })
+assert.equal(preDataResult.metrics!.expected_return_pct, 44.6, 'raw expected return continues to reconcile directly to the scenario distribution')
+assert.equal(preDataResult.ranking!.raw_expected_return_pct, preDataResult.metrics!.expected_return_pct, 'the ranking object preserves the raw qualification metric')
+assert.equal(preDataResult.ranking!.conservative_expected_return_pct, 15.61)
+assert.equal(preDataResult.ranking!.evidence_confidence_score, 50, 'pre-data confidence is capped even when raw evidence inputs claim 100')
+
+const reservedCalibrated = candidate('QIDEA-reserved-calibrated')
+reservedCalibrated.research.calibration_status = 'calibrated'
+const reservedCalibratedResult = evaluateQualifiedIdea(reservedCalibrated, { nowMs: NOW })
+assert.equal(reservedCalibratedResult.status, 'needs_research')
+assert.ok(reservedCalibratedResult.issues.some((issue) => issue.code === 'invalid_calibration_state'), 'no unimplemented quality state can remove shrinkage')
+assert.equal(reservedCalibratedResult.ranking!.positive_return_retention, 0.35)
+assert.equal(reservedCalibratedResult.ranking!.evidence_confidence_cap, 50)
+
+const merelyMeasured = candidate('QIDEA-merely-measured')
+merelyMeasured.research.calibration_status = 'measured'
+merelyMeasured.research.data_sufficiency_score = 95
+merelyMeasured.research.edge_score = 90
+const measuredResult = evaluateQualifiedIdea(merelyMeasured, { nowMs: NOW })
+assert.equal(measuredResult.ranking!.positive_return_retention, 0.35, 'enough outcomes to measure must not be mistaken for proven calibration skill')
+assert.equal(measuredResult.ranking!.evidence_confidence_cap, 50)
+
+const evidenceFirstLowRisk = candidate('QIDEA-evidence-first-low-risk')
+evidenceFirstLowRisk.research.data_sufficiency_score = 95
+evidenceFirstLowRisk.research.edge_score = 90
+evidenceFirstLowRisk.scenarios = [
+  { scenario_id: 'bull', label: 'bull', probability_pct: 25, price_target: 125, source_price_target: 125, conditions: ['KPI reaches 120'], source: 'frozen event model' },
+  { scenario_id: 'base', label: 'base', probability_pct: 55, price_target: 110, source_price_target: 110, conditions: ['KPI reaches 108'], source: 'frozen event model' },
+  { scenario_id: 'bear', label: 'bear', probability_pct: 20, price_target: 92, source_price_target: 92, conditions: ['KPI misses 100'], source: 'frozen event model' },
+]
+const lowerEvidenceHighReturn = JSON.parse(JSON.stringify(optimisticPreData)) as QualifiedIdeaCandidate
+lowerEvidenceHighReturn.idea_id = 'QIDEA-lower-evidence-high-return'
+lowerEvidenceHighReturn.research.edge_score = 40
+const evidenceOrderedFrontier = rankQualifiedIdeas([
+  evaluateQualifiedIdea(lowerEvidenceHighReturn, { nowMs: NOW, policy: { minEdgeScore: 30 } }),
+  evaluateQualifiedIdea(evidenceFirstLowRisk, { nowMs: NOW }),
+])
+assert.deepEqual(
+  evidenceOrderedFrontier.filter((x) => x.pareto_layer === 1).map((x) => x.candidate.idea_id),
+  ['QIDEA-evidence-first-low-risk', 'QIDEA-lower-evidence-high-return'],
+  'inside one return/risk frontier, evidence confidence takes priority over conservative return',
+)
+
+assert.equal(
+  evidenceOrderedFrontier.find((x) => x.candidate.idea_id === lowerEvidenceHighReturn.idea_id)?.pareto_layer,
+  1,
+  'a lower-evidence idea cannot dominate a stronger-evidence idea merely by claiming more return',
+)
+
+const higherEvidenceInferior = candidate('QIDEA-higher-evidence-inferior')
+higherEvidenceInferior.research.data_sufficiency_score = 95
+higherEvidenceInferior.research.edge_score = 90
+higherEvidenceInferior.scenarios = [
+  { scenario_id: 'bull', label: 'bull', probability_pct: 25, price_target: 200, source_price_target: 200, conditions: ['KPI reaches 180'], source: 'frozen event model' },
+  { scenario_id: 'base', label: 'base', probability_pct: 55, price_target: 95, source_price_target: 95, conditions: ['KPI reaches 95'], source: 'frozen event model' },
+  { scenario_id: 'bear', label: 'bear', probability_pct: 20, price_target: 80, source_price_target: 80, conditions: ['KPI misses 90'], source: 'frozen event model' },
+]
+const lowerEvidenceStrictlySuperior = candidate('QIDEA-lower-evidence-strictly-superior')
+lowerEvidenceStrictlySuperior.research.data_sufficiency_score = 40
+lowerEvidenceStrictlySuperior.research.edge_score = 40
+lowerEvidenceStrictlySuperior.scenarios = [
+  { scenario_id: 'bull', label: 'bull', probability_pct: 25, price_target: 180, source_price_target: 180, conditions: ['KPI reaches 170'], source: 'frozen event model' },
+  { scenario_id: 'base', label: 'base', probability_pct: 55, price_target: 120, source_price_target: 120, conditions: ['KPI reaches 115'], source: 'frozen event model' },
+  { scenario_id: 'bear', label: 'bear', probability_pct: 20, price_target: 90, source_price_target: 90, conditions: ['KPI misses 100'], source: 'frozen event model' },
+]
+const strictRiskReturnFrontier = rankQualifiedIdeas([
+  evaluateQualifiedIdea(higherEvidenceInferior, { nowMs: NOW }),
+  evaluateQualifiedIdea(lowerEvidenceStrictlySuperior, { nowMs: NOW, policy: { minEdgeScore: 30, minDataSufficiency: 40 } }),
+])
+assert.equal(strictRiskReturnFrontier.find((x) => x.candidate.idea_id === lowerEvidenceStrictlySuperior.idea_id)?.pareto_layer, 1)
+assert.equal(
+  strictRiskReturnFrontier.find((x) => x.candidate.idea_id === higherEvidenceInferior.idea_id)?.pareto_layer,
+  2,
+  'evidence orders one frontier but cannot keep a strictly worse risk/return idea non-dominated',
+)
 
 console.log('\n1 qualified-ideas test file passed')

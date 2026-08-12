@@ -1206,7 +1206,7 @@ export interface QualifiedIdeaMetrics {
   scenario_returns: { label: string; probability_pct: number; return_pct: number }[]
 }
 export interface QualifiedIdeaRanking {
-  policy_version: string
+  policy_version: 'ideas-ranking/calibration-shrinkage-v1'
   calibration_status: 'pre_data' | 'insufficient' | 'measured' | 'calibrated'
   raw_expected_return_pct: number
   positive_return_retention: number
@@ -1222,7 +1222,7 @@ export interface QualifiedIdeaEvaluation {
   status: 'qualified' | 'needs_research' | 'does_not_clear'
   issues: QualifiedIdeaIssue[]
   metrics: QualifiedIdeaMetrics | null
-  /** Optional while old and new server bundles overlap during a deploy. */
+  /** Optional during a rolling server/web deploy; present on engines with conservative ranking. */
   ranking?: QualifiedIdeaRanking | null
   pareto_layer: number | null
   calibration_note: string

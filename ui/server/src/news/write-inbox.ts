@@ -12,6 +12,7 @@ import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import type { CycleSummary, InboxRow, TriagedItem } from './types'
 import { deriveScope, deriveSourceTier, SOURCE_TIERS, type SourceTierId } from './scope'
+import { themeStoryKey } from './themes/story-key'
 
 function inboxPath(repoRoot: string, date: string): string {
   return path.join(repoRoot, 'screener', 'inbox', `${date}_sweep.json`)
@@ -37,11 +38,13 @@ export interface MergeOptions {
 const tierRank = (t?: string | null): number => (t ? SOURCE_TIERS[t as SourceTierId]?.rank ?? 0 : 0)
 
 /**
- * Collapse rows sharing a story-cluster id (news/dedup.ts) to ONE representative, so the curated inbox
- * shows one row per story like the wire does. Rows with no dedup_group stay standalone. A group that
- * already touched a run (any member launched) is left intact — never silently drop a row that spawned
- * work. Representative = best §4 source tier, then highest triage score. The caller has already removed
- * consumed/dismissed rows, so this only ever folds away fresh, never-acted-on duplicates.
+ * Collapse rows sharing a story-cluster id (news/dedup.ts) to one representative per canonical revision
+ * lane. Ordinary publisher copies share one lane, while corrections and reversals must survive as their
+ * own observations so downstream Theme/Ideas readers can see thesis-changing evidence. Rows with no
+ * dedup_group stay standalone. A group that already touched a run (any member launched) is left intact —
+ * never silently drop a row that spawned work. Representative = best §4 source tier, then highest triage
+ * score within that lane. The caller has already removed consumed/dismissed rows, so this only ever folds
+ * away fresh, never-acted-on duplicates.
  */
 function collapseInboxByGroup(rows: InboxRow[]): InboxRow[] {
   const byGroup = new Map<string, InboxRow[]>()
@@ -55,8 +58,17 @@ function collapseInboxByGroup(rows: InboxRow[]): InboxRow[] {
   }
   for (const members of byGroup.values()) {
     if (members.length === 1 || members.some((m) => m.launched_signal_id)) { kept.push(...members); continue }
-    const rep = members.slice().sort((a, b) => tierRank(b.source_tier) - tierRank(a.source_tier) || (b.triage_score ?? -1) - (a.triage_score ?? -1))[0]
-    kept.push(rep)
+    const byRevisionLane = new Map<string, InboxRow[]>()
+    for (const member of members) {
+      const key = themeStoryKey(member)
+      const lane = byRevisionLane.get(key)
+      if (lane) lane.push(member)
+      else byRevisionLane.set(key, [member])
+    }
+    for (const lane of byRevisionLane.values()) {
+      const rep = lane.slice().sort((a, b) => tierRank(b.source_tier) - tierRank(a.source_tier) || (b.triage_score ?? -1) - (a.triage_score ?? -1))[0]
+      kept.push(rep)
+    }
   }
   return kept
 }

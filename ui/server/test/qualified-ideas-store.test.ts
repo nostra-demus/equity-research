@@ -103,12 +103,17 @@ function writeRun(name: string, opts: {
   expectationsExploitable?: boolean
   expectationsEdge?: number
   unnamedNegative?: boolean
-} = {}) {
-  const dir = path.join(root, 'analyses', name)
+  lowConservativeReturn?: boolean
+} = {}, repoRoot = root) {
+  const dir = path.join(repoRoot, 'analyses', name)
   fs.mkdirSync(dir, { recursive: true })
   fs.writeFileSync(path.join(dir, 'final_thesis.md'), '# Thesis\n')
   const runRoot = `analyses/${name}`
   const c = candidate(runRoot, opts.createdAt)
+  if (!opts.lowConservativeReturn) {
+    c.scenarios[0].price_target = c.scenarios[0].source_price_target = 160
+    c.scenarios[1].price_target = c.scenarios[1].source_price_target = 135
+  }
   if (opts.entryStartsEarly) c.horizon.start = '2026-08-01T10:00:00Z'
   const authorityScenarios = c.scenarios.map((row) => ({
     scenario_id: row.scenario_id, label: row.label, probability_pct: row.probability_pct,
@@ -280,6 +285,56 @@ assert.equal(one.health.assessment_count, 1)
 assert.equal(one.qualified.length, 1)
 assert.equal(one.qualified[0].candidate.research.integrity_status, 'verified')
 
+// Use a clean, isolated board so these health assertions cannot be satisfied by malformed fixtures
+// created elsewhere in this cumulative test file.
+const mutableDriftRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-mutable-drift-'))
+writeRun('STANDING_2026-08-03', { verify: true }, mutableDriftRoot)
+const mutableDrift = writeRun('MUTABLEDRIFT_2026-08-03', { verify: true }, mutableDriftRoot)
+const cleanMutableBoard = buildQualifiedIdeasBoard(mutableDriftRoot, { nowMs: NOW })
+assert.equal(cleanMutableBoard.health.status, 'healthy')
+assert.equal(cleanMutableBoard.health.invalid_count, 0)
+const mutableDriftAssessment = JSON.parse(fs.readFileSync(path.join(mutableDrift.dir, 'idea_3_6m.json'), 'utf8'))
+mutableDriftAssessment.candidate.scenarios[0].price_target = 190
+mutableDriftAssessment.candidate.scenarios[0].source_price_target = 190
+fs.writeFileSync(path.join(mutableDrift.dir, 'idea_3_6m.json'), JSON.stringify(mutableDriftAssessment))
+const mutableDriftBoard = buildQualifiedIdeasBoard(mutableDriftRoot, { nowMs: NOW })
+assert.equal(mutableDriftBoard.health.status, 'degraded', 'mutable assessment drift degrades current board health')
+assert.equal(mutableDriftBoard.health.invalid_count, 1)
+assert.equal(mutableDriftBoard.health.outcome, 'qualified', 'the unrelated clean standing idea still clears')
+assert.match(mutableDriftBoard.health.reason, /1 invalid current run/, 'the qualified warning tooltip names the integrity defect count')
+assert.ok(mutableDriftBoard.needs_research.find((x) => x.candidate.instrument.ticker === 'MUTABLEDRIFT')?.issues
+  .some((x) => x.code === 'authoritative_research_mismatch'))
+assert.equal(
+  listFrozenQualifiedIdeaEvaluations(mutableDriftRoot).find((x) => x.candidate.instrument.ticker === 'MUTABLEDRIFT')
+    ?.candidate.scenarios[0].price_target,
+  160,
+  'mutable drift does not rewrite the admitted scenario used for outcome grading',
+)
+fs.rmSync(mutableDriftRoot, { recursive: true, force: true })
+
+const authorityDriftRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-authority-drift-'))
+const authorityDrift = writeRun('AUTHORITYDRIFT_2026-08-03', { verify: true }, authorityDriftRoot)
+assert.equal(buildQualifiedIdeasBoard(authorityDriftRoot, { nowMs: NOW }).health.status, 'healthy')
+fs.appendFileSync(path.join(authorityDrift.dir, 'final_thesis.md'), '\nRetrospective edit.\n')
+const authorityDriftBoard = buildQualifiedIdeasBoard(authorityDriftRoot, { nowMs: NOW })
+assert.equal(authorityDriftBoard.health.status, 'degraded', 'current manifest or decision drift degrades board health')
+assert.equal(authorityDriftBoard.health.invalid_count, 1)
+assert.ok(authorityDriftBoard.needs_research[0]?.issues.some((x) => x.code === 'authoritative_research_mismatch'))
+assert.ok(listFrozenQualifiedIdeaEvaluations(authorityDriftRoot)
+  .some((x) => x.candidate.instrument.ticker === 'AUTHORITYDRIFT'), 'authority drift leaves the frozen outcome cohort intact')
+fs.rmSync(authorityDriftRoot, { recursive: true, force: true })
+
+const lowRankingRun = writeRun('LOWRANK_2026-08-01', { verify: true, lowConservativeReturn: true })
+const lowRankingBoard = buildQualifiedIdeasBoard(root, { nowMs: NOW })
+const lowRanking = lowRankingBoard.does_not_clear.find((x) => x.candidate.instrument.ticker === 'LOWRANK')
+assert.ok(lowRanking?.issues.some((x) => x.code === 'conservative_return_below_bar'), 'a raw-qualified prior cannot appear live when its calibration-adjusted return misses the bar')
+assert.equal(lowRanking?.metrics?.expected_return_pct, 17.5, 'the raw immutable scenario math remains visible and unchanged')
+assert.equal(lowRanking?.ranking?.conservative_expected_return_pct, 6.13)
+assert.ok(
+  listFrozenQualifiedIdeaEvaluations(root).some((x) => x.candidate.run_root === lowRankingRun.candidate.run_root),
+  'the live ranking gate must not rewrite the immutable admission or select the observation out of outcome grading',
+)
+
 // The newest standing directional call wins; it cannot inherit the older run's clean verification.
 writeRun('TEST_2026-08-02', { createdAt: '2026-08-02T10:00:00Z' })
 const newerUnaudited = buildQualifiedIdeasBoard(root, { nowMs: NOW })
@@ -298,6 +353,21 @@ writeRun('GAP_2026-08-01', { notAssessable: true })
 const gap = buildQualifiedIdeasBoard(root, { nowMs: NOW })
 assert.equal(gap.health.not_assessable_count, 1)
 assert.deepEqual(gap.not_assessable[0].gaps, ['Fresh measured liquidity is missing.'])
+
+// A completed run that stopped before its projection manifest/admission is a production gap, not an
+// empty Ideas data plane. It stays out of candidate evaluation and makes board health visibly degraded
+// until a genuinely new run completes the immutable sequence.
+const unfinished = writeRun('UNFINISHED_2026-08-03', { notAssessable: true, createdAt: '2026-08-03T04:00:00Z' })
+fs.rmSync(path.join(unfinished.dir, 'idea_admission.json'))
+fs.rmSync(path.join(unfinished.dir, 'idea_projection_manifest.json'))
+const unfinishedBoard = buildQualifiedIdeasBoard(root, { nowMs: NOW })
+assert.equal(unfinishedBoard.health.incomplete_count, 1)
+assert.equal(unfinishedBoard.health.status, 'degraded')
+assert.match(unfinishedBoard.health.reason, /did not finish immutable publication/)
+const unfinishedGap = unfinishedBoard.not_assessable.find((x) => x.ticker === 'UNFINISHED')
+assert.ok(unfinishedGap?.gaps.some((message) => /immutable idea publication did not finish/i.test(message)))
+assert.ok(![...unfinishedBoard.qualified, ...unfinishedBoard.needs_research, ...unfinishedBoard.does_not_clear]
+  .some((x) => x.candidate.instrument.ticker === 'UNFINISHED'), 'a mutable preliminary result is never evaluated as an investment idea')
 
 // Python's authority normalizes a blank decision company to null. The reader must do the same so an
 // honestly unnamed not-assessable result does not become an integrity defect at recovery time.
@@ -555,7 +625,7 @@ fs.writeFileSync(mutableAssessmentPath, JSON.stringify(mutableAssessment))
 const mutatedBoard = buildQualifiedIdeasBoard(root, { nowMs: NOW })
 assert.ok(!mutatedBoard.qualified.some((x) => x.candidate.instrument.ticker === 'MUTATED'), 'post-admission scenario edits quarantine the live card')
 const frozenMutated = listFrozenQualifiedIdeaEvaluations(root).find((x) => x.candidate.instrument.ticker === 'MUTATED')
-assert.equal(frozenMutated?.candidate.scenarios[0].price_target, 140, 'outcomes retain the exact ex-ante admitted scenario')
+assert.equal(frozenMutated?.candidate.scenarios[0].price_target, 160, 'outcomes retain the exact ex-ante admitted scenario')
 
 writeRun('DELETED_2026-08-03', { verify: true })
 fs.unlinkSync(path.join(root, 'analyses', 'DELETED_2026-08-03', 'idea_3_6m.json'))
@@ -580,12 +650,71 @@ const missingIdeaNew = path.join(root, 'analyses', 'MISSINGIDEA_2026-08-03')
 fs.mkdirSync(missingIdeaNew, { recursive: true })
 fs.writeFileSync(path.join(missingIdeaNew, 'final_thesis.md'), '# Newer thesis\n')
 fs.writeFileSync(path.join(missingIdeaNew, 'decision_record.json'), JSON.stringify({ ticker: 'MISSINGIDEA', company_name: 'Newer Holdings' }))
-const incompleteDoesNotShadow = buildQualifiedIdeasBoard(root, { nowMs: NOW })
-assert.ok(incompleteDoesNotShadow.qualified.some((x) => x.candidate.instrument.ticker === 'MISSINGIDEA'), 'an incomplete newer run cannot indefinitely shadow the last finalized idea')
+const abandonedAt = new Date(NOW - 7 * 60 * 60_000)
+fs.utimesSync(path.join(missingIdeaNew, 'final_thesis.md'), abandonedAt, abandonedAt)
+fs.utimesSync(path.join(missingIdeaNew, 'decision_record.json'), abandonedAt, abandonedAt)
+const incompleteShadows = buildQualifiedIdeasBoard(root, { nowMs: NOW })
+assert.ok(!incompleteShadows.qualified.some((x) => x.candidate.instrument.ticker === 'MISSINGIDEA'), 'a newer unsealed research result quarantines the older live call')
+assert.ok(incompleteShadows.not_assessable.some((x) => x.ticker === 'MISSINGIDEA' && x.gaps.some((gap) => /publication did not finish/.test(gap))))
 fs.writeFileSync(path.join(missingIdeaNew, 'idea_projection_manifest.json'), JSON.stringify({ schema_version: 'idea-projection-manifest/v1' }))
-const shadowedByMissing = buildQualifiedIdeasBoard(root, { nowMs: NOW })
-assert.ok(!shadowedByMissing.qualified.some((x) => x.candidate.instrument.ticker === 'MISSINGIDEA'), 'a newer completed run missing its assessment shadows the old card')
-assert.ok(shadowedByMissing.not_assessable.some((x) => x.ticker === 'MISSINGIDEA' && x.gaps.some((gap) => /missing the required/.test(gap))))
+fs.utimesSync(path.join(missingIdeaNew, 'idea_projection_manifest.json'), abandonedAt, abandonedAt)
+const markerOnly = buildQualifiedIdeasBoard(root, { nowMs: NOW })
+assert.ok(!markerOnly.qualified.some((x) => x.candidate.instrument.ticker === 'MISSINGIDEA'), 'a post-cutoff marker without admission never authorizes mutable candidate data')
+assert.ok(markerOnly.not_assessable.some((x) => x.ticker === 'MISSINGIDEA' && x.gaps.some((gap) => /not available/.test(gap))))
+fs.writeFileSync(path.join(missingIdeaNew, 'idea_admission.json'), '{bad')
+const malformedAdmission = buildQualifiedIdeasBoard(root, { nowMs: NOW })
+assert.ok(!malformedAdmission.qualified.some((x) => x.candidate.instrument.ticker === 'MISSINGIDEA'))
+assert.ok(malformedAdmission.not_assessable.some((x) => x.ticker === 'MISSINGIDEA' && x.gaps.some((gap) => /publication failed/.test(gap))))
+fs.unlinkSync(path.join(missingIdeaNew, 'final_thesis.md'))
+const damagedMarkerChain = buildQualifiedIdeasBoard(root, { nowMs: NOW })
+assert.ok(!damagedMarkerChain.qualified.some((x) => x.candidate.instrument.ticker === 'MISSINGIDEA'), 'a downstream marker still quarantines the old card when an earlier completion witness is deleted')
+assert.ok(damagedMarkerChain.not_assessable.some((x) => x.ticker === 'MISSINGIDEA' && x.gaps.some((gap) => /downstream marker exists/.test(gap))))
+
+writeRun('MISSINGIDEA_2026-08-04', { verify: true, createdAt: '2026-08-04T10:00:00Z' })
+const recoveredPublication = buildQualifiedIdeasBoard(root, { nowMs: Date.parse('2026-08-04T12:00:00Z') })
+assert.ok(recoveredPublication.qualified.some((x) => x.candidate.instrument.ticker === 'MISSINGIDEA'), 'a later sealed run clears the older publication gap')
+assert.ok(!recoveredPublication.not_assessable.some((x) => x.ticker === 'MISSINGIDEA'), 'historical incomplete runs do not accumulate on the live board')
+const incompleteBeforePending = recoveredPublication.health.incomplete_count
+
+const pendingRun = path.join(root, 'analyses', 'PENDING_2026-08-04')
+fs.mkdirSync(pendingRun, { recursive: true })
+fs.writeFileSync(path.join(pendingRun, 'final_thesis.md'), '# Pending thesis\n')
+fs.writeFileSync(path.join(pendingRun, 'decision_record.json'), JSON.stringify({ ticker: 'PENDING', company_name: 'Pending Holdings' }))
+fs.writeFileSync(path.join(pendingRun, 'idea_3_6m.json'), JSON.stringify({
+  schema_version: 'idea-assessment/v1', assessment_id: 'PENDING-2026-08-04-3-6m',
+  run_root: 'analyses/PENDING_2026-08-04', created_at: '2026-08-04T11:00:00Z',
+  ticker: 'PENDING', company: 'Pending Holdings', status: 'not_assessable',
+  gaps: ['Pending post-audit projection manifest and canonical market evidence.'], candidate: null,
+}))
+const publicationPending = buildQualifiedIdeasBoard(root, { nowMs: Date.parse('2026-08-04T12:00:00Z') })
+assert.equal(publicationPending.health.publishing_count, 1)
+assert.ok(!publicationPending.not_assessable.some((x) => x.ticker === 'PENDING'))
+assert.equal(publicationPending.health.incomplete_count, incompleteBeforePending, 'a normal in-flight publication inside the grace window is not called failed')
+
+const publishingOnlyRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-publishing-'))
+const publishingOnlyRun = path.join(publishingOnlyRoot, 'analyses', 'PENDING_2026-08-04')
+fs.mkdirSync(publishingOnlyRun, { recursive: true })
+for (const name of ['final_thesis.md', 'decision_record.json', 'idea_3_6m.json']) {
+  fs.copyFileSync(path.join(pendingRun, name), path.join(publishingOnlyRun, name))
+}
+const publishingOnly = buildQualifiedIdeasBoard(publishingOnlyRoot, { nowMs: Date.parse('2026-08-04T12:00:00Z') })
+assert.equal(publishingOnly.health.outcome, 'publishing', 'an in-grace run is process state, not an investment rejection')
+assert.equal(publishingOnly.health.not_assessable_count, 0)
+fs.rmSync(publishingOnlyRoot, { recursive: true, force: true })
+
+fs.writeFileSync(path.join(pendingRun, 'idea_3_6m.json'), '{')
+const malformedPending = buildQualifiedIdeasBoard(root, { nowMs: Date.parse('2026-08-04T12:00:00Z') })
+assert.equal(malformedPending.health.publishing_count, 0)
+assert.ok(malformedPending.not_assessable.some((x) => x.ticker === 'PENDING'), 'a malformed preliminary write fails closed instead of exposing or reviving an idea')
+
+fs.writeFileSync(path.join(pendingRun, 'idea_3_6m.json'), JSON.stringify({
+  schema_version: 'idea-assessment/v1', assessment_id: 'PENDING-2026-08-04-3-6m',
+  run_root: 'analyses/PENDING_2026-08-04', created_at: '2099-08-04T11:00:00Z',
+  ticker: 'PENDING', company: 'Pending Holdings', status: 'not_assessable', gaps: ['Pending publication.'], candidate: null,
+}))
+const futurePublication = buildQualifiedIdeasBoard(root, { nowMs: Date.parse('2026-08-04T12:00:00Z') })
+assert.equal(futurePublication.health.publishing_count, 0, 'a future producer clock can never hold grace open forever')
+assert.ok(futurePublication.not_assessable.some((x) => x.ticker === 'PENDING' && x.gaps.some((gap) => /timestamp is in the future/.test(gap))))
 
 writeRun('SCHEMAFAIL_2026-08-03', { verify: true })
 const schemaFailPath = path.join(root, 'analyses', 'SCHEMAFAIL_2026-08-03', 'idea_3_6m.json')

@@ -480,6 +480,30 @@ const staleRowsState = path.join(staleRowsRoot, '.state')
 const staleRows = await runIdeaPass({ repoRoot: staleRowsRoot, stateDir: staleRowsState, config: cfg, refreshBoard: async () => {}, now: () => NOW, persistHealth: true })
 assert.equal(staleRows.reason_code, 'stale_inputs', 'a fresh sweep wrapper cannot launder old found_at timestamps')
 
+const degradedRoot = rootWithRows(2)
+const degradedState = path.join(degradedRoot, '.state')
+fs.writeFileSync(path.join(degradedRoot, 'screener', 'inbox', '2026-08-02_sweep.json'), '{')
+const themeLead = validIdeaSnapshot('THEMEKEEP', 'long', {
+  origin_type: 'theme',
+  source_themes: [{
+    theme_id: 'THM-a1b2c3d4', theme_rev: 1,
+    evidence_event_ids: validIdeaSnapshot('THEMEKEEP').source_event_ids,
+    why_now_event_id: validIdeaSnapshot('THEMEKEEP').source_event_ids[0],
+  }],
+  decay_at: '2026-08-04T17:00:00Z',
+})
+const degradedIdeasDir = path.join(degradedRoot, 'screener', 'ledger', 'ideas')
+fs.mkdirSync(degradedIdeasDir, { recursive: true })
+fs.writeFileSync(path.join(degradedIdeasDir, `${themeLead.idea_id}.json`), JSON.stringify(themeLead))
+let degradedRefreshes = 0
+const degradedPass = await runIdeaPass({
+  repoRoot: degradedRoot, stateDir: degradedState, config: cfg,
+  refreshBoard: async () => { degradedRefreshes++ }, now: () => NOW, persistHealth: true,
+})
+assert.equal(degradedPass.reason_code, 'stale_inputs')
+assert.equal(degradedRefreshes, 0)
+assert.ok(fs.existsSync(path.join(degradedIdeasDir, `${themeLead.idea_id}.json`)), 'an incomplete degraded source set cannot retire a valid live Theme idea')
+
 const brokenStoreRoot = rootWithRows(0)
 const brokenStoreState = path.join(brokenStoreRoot, '.state')
 const ideasDir = path.join(brokenStoreRoot, 'screener', 'ledger', 'ideas')

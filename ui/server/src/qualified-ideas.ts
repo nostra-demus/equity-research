@@ -8,7 +8,8 @@
 // This module intentionally does NOT emit one opaque "idea score". With little realised history, a
 // weighted score would turn uncalibrated preferences into false precision. Qualified ideas are placed on
 // risk/return Pareto layers instead: an idea is dominated only when another offers at least as much
-// expected return with no more tail loss, worst-case loss, or loss probability. That makes the
+// calibration-haircut expected return with no more tail loss, worst-case loss, or loss probability.
+// Within each frontier, independently bounded evidence confidence orders the ideas. That keeps the
 // "maximum upside / minimum downside" trade-off visible without hiding one risk dimension in a score.
 
 import { parseRfc3339Ms } from './rfc3339'
@@ -17,9 +18,11 @@ import { z } from 'zod'
 export const QUALIFIED_IDEA_SCHEMA = 'qualified-idea/v1' as const
 export const IDEA_ASSESSMENT_SCHEMA = 'idea-assessment/v1' as const
 export const QUALIFICATION_POLICY_VERSION = 'ideas-policy/precal-v1' as const
+export const QUALIFIED_IDEA_RANKING_POLICY_VERSION = 'ideas-ranking/calibration-shrinkage-v1' as const
 
 export type IdeaDirection = 'long' | 'short'
 export type QualificationStatus = 'qualified' | 'needs_research' | 'does_not_clear'
+export type IdeaCalibrationStatus = 'pre_data' | 'insufficient' | 'measured' | 'calibrated'
 
 export interface QualificationPolicy {
   horizonMinDays: number
@@ -74,6 +77,48 @@ export const QUALIFICATION_POLICIES: Readonly<Record<string, Readonly<Qualificat
   [QUALIFICATION_POLICY_VERSION]: PRECAL_V1_POLICY,
 })
 export const DEFAULT_QUALIFICATION_POLICY = PRECAL_V1_POLICY
+
+export interface CalibrationRankingRule {
+  positiveReturnRetention: number
+  evidenceConfidenceCap: number
+  rationale: string
+}
+
+// Ranking is deliberately more skeptical than admission. A candidate may clear the raw 10% expected-
+// return gate while its scenario probabilities are still priors. We therefore retain only part of a
+// positive forecast until exact-horizon outcomes validate the probability model. Negative forecasts are
+// never reduced: shrinking a forecast loss toward zero would make a weak idea look safer. Evidence
+// confidence is the weaker of data sufficiency and proven edge, then capped by calibration maturity.
+// These are conservative policy constants, not fitted coefficients; changing them requires a new policy
+// version so an earlier frontier remains reproducible.
+const CALIBRATION_SHRINKAGE_V1_RULES: Readonly<Record<IdeaCalibrationStatus, Readonly<CalibrationRankingRule>>> = Object.freeze({
+  pre_data: Object.freeze({
+    positiveReturnRetention: 0.35,
+    evidenceConfidenceCap: 50,
+    rationale: 'No exact-horizon outcomes have resolved, so 65% of claimed upside is removed and confidence cannot exceed mixed.',
+  }),
+  insufficient: Object.freeze({
+    positiveReturnRetention: 0.35,
+    evidenceConfidenceCap: 50,
+    rationale: 'Some outcomes exist but the cohort is too small or narrow to learn from, so the pre-data haircut remains in force.',
+  }),
+  measured: Object.freeze({
+    positiveReturnRetention: 0.35,
+    evidenceConfidenceCap: 50,
+    rationale: 'The sample is large enough to measure, but measurement alone does not prove forecast skill, so the pre-data haircut remains in force.',
+  }),
+  calibrated: Object.freeze({
+    positiveReturnRetention: 0.35,
+    evidenceConfidenceCap: 50,
+    rationale: 'Calibrated is reserved until an out-of-sample quality gate exists; the pre-data haircut remains in force.',
+  }),
+})
+export const QUALIFIED_IDEA_RANKING_POLICIES: Readonly<Record<string, Readonly<Record<IdeaCalibrationStatus, Readonly<CalibrationRankingRule>>>>> = Object.freeze({
+  [QUALIFIED_IDEA_RANKING_POLICY_VERSION]: CALIBRATION_SHRINKAGE_V1_RULES,
+})
+// Backward-compatible name for callers that inspect the active policy. The versioned registry above is
+// the replay boundary: changing these constants requires a new policy key, never an in-place relabel.
+export const QUALIFIED_IDEA_CALIBRATION_RANKING_RULES = CALIBRATION_SHRINKAGE_V1_RULES
 
 export interface QualifiedIdeaCandidate {
   schema_version: typeof QUALIFIED_IDEA_SCHEMA
@@ -137,7 +182,7 @@ export interface QualifiedIdeaCandidate {
     hard_cap_active: boolean
     hard_cap_reason: string | null
     unresolved_red_flags: Array<{ id: string; severity: 'Critical' | 'High' | 'Medium' | 'Low'; description: string }>
-    calibration_status: 'pre_data' | 'insufficient' | 'measured' | 'calibrated'
+    calibration_status: IdeaCalibrationStatus
   }
   catalyst: {
     forecast_id: string
@@ -353,6 +398,7 @@ export type QualificationIssueCode =
   | 'scenario_no_real_loss'
   | 'scenario_span_too_narrow'
   | 'expected_return_below_bar'
+  | 'conservative_return_below_bar'
   | 'tail_loss_above_budget'
   | 'worst_case_loss_above_budget'
 
@@ -372,11 +418,25 @@ export interface QualifiedIdeaMetrics {
   scenario_returns: Array<{ label: string; probability_pct: number; return_pct: number }>
 }
 
+export interface QualifiedIdeaRanking {
+  policy_version: typeof QUALIFIED_IDEA_RANKING_POLICY_VERSION
+  calibration_status: IdeaCalibrationStatus
+  raw_expected_return_pct: number
+  positive_return_retention: number
+  return_haircut_pct: number
+  conservative_expected_return_pct: number
+  uncapped_evidence_confidence_score: number
+  evidence_confidence_cap: number
+  evidence_confidence_score: number
+  rationale: string
+}
+
 export interface QualifiedIdeaEvaluation {
   candidate: QualifiedIdeaCandidate
   status: QualificationStatus
   issues: QualificationIssue[]
   metrics: QualifiedIdeaMetrics | null
+  ranking: QualifiedIdeaRanking | null
   pareto_layer: number | null
   calibration_note: string
   admission?: {
@@ -459,6 +519,33 @@ function metricsFor(candidate: QualifiedIdeaCandidate, policy: QualificationPoli
     best_case_return_pct: round(best),
     probability_sum_pct: round(probabilitySum, 4),
     scenario_returns: returns.map((s) => ({ ...s, return_pct: round(s.return_pct) })),
+  }
+}
+
+function rankingFor(candidate: QualifiedIdeaCandidate, metrics: QualifiedIdeaMetrics | null): QualifiedIdeaRanking | null {
+  if (!metrics) return null
+  const calibrationStatus = candidate?.research?.calibration_status
+  const rule = QUALIFIED_IDEA_RANKING_POLICIES[QUALIFIED_IDEA_RANKING_POLICY_VERSION]?.[calibrationStatus]
+  const dataSufficiency = candidate?.research?.data_sufficiency_score
+  const edge = candidate?.research?.edge_score
+  if (!rule || !finite(dataSufficiency) || !finite(edge)) return null
+
+  const rawExpectedReturn = metrics.expected_return_pct
+  const conservativeExpectedReturn = rawExpectedReturn > 0
+    ? rawExpectedReturn * rule.positiveReturnRetention
+    : rawExpectedReturn
+  const uncappedEvidenceConfidence = Math.min(dataSufficiency, edge)
+  return {
+    policy_version: QUALIFIED_IDEA_RANKING_POLICY_VERSION,
+    calibration_status: calibrationStatus,
+    raw_expected_return_pct: rawExpectedReturn,
+    positive_return_retention: rule.positiveReturnRetention,
+    return_haircut_pct: round((1 - rule.positiveReturnRetention) * 100),
+    conservative_expected_return_pct: round(conservativeExpectedReturn),
+    uncapped_evidence_confidence_score: round(uncappedEvidenceConfidence),
+    evidence_confidence_cap: rule.evidenceConfidenceCap,
+    evidence_confidence_score: round(Math.min(uncappedEvidenceConfidence, rule.evidenceConfidenceCap)),
+    rationale: rule.rationale,
   }
 }
 
@@ -583,6 +670,8 @@ export function evaluateQualifiedIdea(
   }
   if (!['pre_data', 'insufficient', 'measured', 'calibrated'].includes(String(research?.calibration_status ?? ''))) {
     add(issues, 'invalid_calibration_state', 'Calibration state must be explicit; missing history is pre-data, not calibrated.', 'research')
+  } else if (research?.calibration_status === 'calibrated') {
+    add(issues, 'invalid_calibration_state', 'Calibrated is reserved until a registered out-of-sample quality gate can produce it.', 'research')
   }
   if (!finite(research?.data_sufficiency_score) || research.data_sufficiency_score < 0 || research.data_sufficiency_score > 100 || research.data_sufficiency_score < policy.minDataSufficiency) add(issues, 'low_data_sufficiency', `Data sufficiency must be a 0-100 score of at least ${policy.minDataSufficiency}.`, 'research')
   if (!finite(research?.edge_score) || research.edge_score < 0 || research.edge_score > 100 || research.edge_score < policy.minEdgeScore) add(issues, 'low_edge', `Proven edge must be a 0-100 score of at least ${policy.minEdgeScore}.`, 'reject')
@@ -685,36 +774,41 @@ export function evaluateQualifiedIdea(
   const hasReject = issues.some((x) => x.disposition === 'reject')
   const status: QualificationStatus = issues.length === 0 ? 'qualified' : hasReject ? 'does_not_clear' : 'needs_research'
   const calibrationNote = research?.calibration_status === 'calibrated'
-    ? 'Scenario probabilities cleared a resolved-cohort calibration-quality test.'
+    ? 'Reserved state: no live calibration-quality gate exists, so the candidate cannot qualify.'
     : research?.calibration_status === 'measured'
       ? 'Sample floor met: calibration diagnostics are measurable, but that alone does not prove the probabilities accurate.'
       : 'Pre-data: probabilities and policy thresholds are auditable priors until enough exact-horizon outcomes resolve.'
-  return { candidate, status, issues, metrics, pareto_layer: null, calibration_note: calibrationNote }
+  return { candidate, status, issues, metrics, ranking: rankingFor(candidate, metrics), pareto_layer: null, calibration_note: calibrationNote }
 }
 
 function dominates(a: QualifiedIdeaEvaluation, b: QualifiedIdeaEvaluation): boolean {
   const A = a.metrics
   const B = b.metrics
-  if (!A || !B) return false
-  const noLessReturn = A.expected_return_pct >= B.expected_return_pct
+  const ARank = a.ranking
+  const BRank = b.ranking
+  if (!A || !B || !ARank || !BRank) return false
+  const noLessReturn = ARank.conservative_expected_return_pct >= BRank.conservative_expected_return_pct
   const noMoreRisk = A.tail_loss_pct <= B.tail_loss_pct &&
     A.worst_case_loss_pct <= B.worst_case_loss_pct && A.loss_probability_pct <= B.loss_probability_pct
-  const strictlyBetter = A.expected_return_pct > B.expected_return_pct || A.tail_loss_pct < B.tail_loss_pct ||
+  const strictlyBetter = ARank.conservative_expected_return_pct > BRank.conservative_expected_return_pct ||
+    A.tail_loss_pct < B.tail_loss_pct ||
     A.worst_case_loss_pct < B.worst_case_loss_pct || A.loss_probability_pct < B.loss_probability_pct
   return noLessReturn && noMoreRisk && strictlyBetter
 }
 
-/** Assign non-dominated risk/return layers and return qualified ideas in a deterministic order. */
+/** Assign non-dominated conservative-return/risk layers, then order each frontier by evidence quality. */
 export function rankQualifiedIdeas(evaluations: QualifiedIdeaEvaluation[]): QualifiedIdeaEvaluation[] {
   const remaining: QualifiedIdeaEvaluation[] = evaluations
     .filter((x) => x.status === 'qualified' && x.metrics)
-    .map((x): QualifiedIdeaEvaluation => ({ ...x, pareto_layer: null }))
+    .map((x): QualifiedIdeaEvaluation => ({ ...x, ranking: rankingFor(x.candidate, x.metrics), pareto_layer: null }))
+    .filter((x) => x.ranking)
   const ranked: QualifiedIdeaEvaluation[] = []
   let layer = 1
   while (remaining.length) {
     const frontier = remaining.filter((candidate) => !remaining.some((other) => other !== candidate && dominates(other, candidate)))
     frontier.sort((a, b) =>
-      (b.metrics!.expected_return_pct - a.metrics!.expected_return_pct) ||
+      (b.ranking!.evidence_confidence_score - a.ranking!.evidence_confidence_score) ||
+      (b.ranking!.conservative_expected_return_pct - a.ranking!.conservative_expected_return_pct) ||
       (a.metrics!.tail_loss_pct - b.metrics!.tail_loss_pct) ||
       (a.metrics!.worst_case_loss_pct - b.metrics!.worst_case_loss_pct) ||
       (a.metrics!.loss_probability_pct - b.metrics!.loss_probability_pct) ||

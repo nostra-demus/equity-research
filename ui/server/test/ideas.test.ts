@@ -9,7 +9,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import {
-  buildIdeaUserMessage, coerceIdea, estimateIdeaTokens, surfaceIdeasBatch,
+  buildIdeaUserMessage, coerceIdea, estimateIdeaTokens, IDEA_SYSTEM, surfaceIdeasBatch,
   type IdeaInputRow, type IdeaThemeExpression, type RawIdea,
 } from '../src/news/ideas/surface-ideas'
 import {
@@ -47,7 +47,7 @@ function stubFetch(body: any, opts: { ok?: boolean; status?: number; finish?: st
 const OPTS = { model: 'm', baseUrl: 'http://x', apiKey: 'k' }
 const ROWS: IdeaInputRow[] = [
   { event_id: 'EVT-1', headline: 'A closes strait', headline_orig: 'A closes strait', url: 'http://a', source_name: 'Reuters', region: 'GLOBAL', materiality: 100, label: 'critical', event_types: ['macro_sector'], issuer_linkage: 'macro', companies: [], found_at: '2026-07-12T12:00:00Z' },
-  { event_id: 'EVT-2', dedup_group: 'STORY-B', headline: 'B expands refinery', headline_orig: 'B expands refinery', url: 'http://b', source_name: 'BusinessLine', region: 'IN', materiality: 88, materiality_pre_score: 71, label: 'high', event_types: ['capex'], issuer_linkage: 'primary', companies: [{ name: 'B', ticker: 'BBB', listing_country: 'IN' }], found_at: '2026-07-12T11:00:00Z' },
+  { event_id: 'EVT-2', dedup_group: 'STORY-B', headline: 'B expands refinery', headline_orig: 'B expands refinery', url: 'http://b', source_name: 'BusinessLine', source_tier: 'official_data', region: 'IN', materiality: 88, materiality_pre_score: 71, label: 'high', event_types: ['capex'], issuer_linkage: 'primary', companies: [{ name: 'B', ticker: 'BBB', listing_country: 'IN' }], scheduled_events: ['results on 2026-08-13'], event_direction: 'positive', found_at: '2026-07-12T11:00:00Z' },
 ]
 const qualifiedExpression = (
   evidenceEventIds: string[],
@@ -159,42 +159,52 @@ check('coerceIdea drops an idea with no valid ticker (no source = no claim)', ()
   assert.equal(coerceIdea({ src: [0], ticker: '' }, 2), null)
   assert.equal(coerceIdea({ src: [0], ticker: 'this is not a ticker' }, 2), null)
 })
-check('coerceIdea clamps conviction and defaults side/priced/type safely', () => {
-  const i = coerceIdea({ src: [0, 0, 9], ticker: 'stng', reason: 'Rates lift cash earnings', why_now: 'Results are due this month', conviction: 250, direction: 'sideways', priced_in: 'maybe', thesis_type: 'nonsense' }, 2)
+check('coerceIdea clamps conviction and defaults only priced-in uncertainty safely', () => {
+  const i = coerceIdea({ src: [0, 0, 9], ticker: 'stng', reason: 'Rates lift cash earnings', why_now: 'Results are due this month', conviction: 250, direction: 'long', priced_in: 'maybe', thesis_type: 'company_specific' }, 2)
   assert.ok(i)
   assert.equal(i!.conviction, 100)
   assert.equal(i!.ticker, 'STNG')            // uppercased
   assert.deepEqual(i!.src, [0])              // deduped, out-of-range 9 dropped
-  assert.equal(i!.direction, 'long')          // bad enum -> safe default
+  assert.equal(i!.direction, 'long')
   assert.equal(i!.priced_in, 'unknown')
   assert.equal(i!.thesis_type, 'company_specific')
 })
+check('coerceIdea fails closed when side or thesis type is missing or invalid', () => {
+  const evidence = { src: [0], ticker: 'AAA', reason: 'Demand lifts revenue', why_now: 'Results are due this month' }
+  assert.equal(coerceIdea({ ...evidence, thesis_type: 'company_specific' }, 2), null)
+  assert.equal(coerceIdea({ ...evidence, direction: 'sideways', thesis_type: 'company_specific' }, 2), null)
+  assert.equal(coerceIdea({ ...evidence, direction: 'long' }, 2), null)
+  assert.equal(coerceIdea({ ...evidence, direction: 'long', thesis_type: 'nonsense' }, 2), null)
+})
 check('coerceIdea keeps pair_with only for a pair', () => {
-  const evidence = { src: [0], ticker: 'AAA', reason: 'Demand shifts market share', why_now: 'Results are due this month' }
+  const evidence = { src: [0], ticker: 'AAA', reason: 'Demand shifts market share', why_now: 'Results are due this month', thesis_type: 'company_specific' }
   assert.equal(coerceIdea({ ...evidence, direction: 'long', pair_with: 'BBB' }, 2)!.pair_with, null)
   assert.equal(coerceIdea({ ...evidence, direction: 'pair', pair_with: 'bbb' }, 2)!.pair_with, 'BBB')
+  assert.equal(coerceIdea({ ...evidence, direction: 'pair', pair_with: 'AAA' }, 2), null)
+  assert.equal(coerceIdea({ ...evidence, ticker: 'ACME', direction: 'pair', pair_with: 'ACME.NS' }, 2), null, 'cross-listing aliases cannot form both legs')
 })
 check('coerceIdea accepts the canonical global ticker contract for both legs', () => {
-  const evidence = { src: [0], reason: 'Demand shifts market share', why_now: 'Results are due this month' }
+  const evidence = { src: [0], reason: 'Demand shifts market share', why_now: 'Results are due this month', direction: 'long', thesis_type: 'company_specific' }
   assert.equal(coerceIdea({ ...evidence, ticker: 'm&m.ns' }, 2)!.ticker, 'M&M.NS')
   assert.equal(coerceIdea({ ...evidence, ticker: 'ABCDEFGHIJKLMNO' }, 2)!.ticker, 'ABCDEFGHIJKLMNO')
   assert.equal(coerceIdea({ ...evidence, ticker: 'ACME', direction: 'pair', pair_with: 'm&m.ns' }, 2)!.pair_with, 'M&M.NS')
 })
 check('coerceIdea negative/NaN conviction floors at 0', () => {
-  const evidence = { src: [0], ticker: 'AAA', reason: 'Demand lifts revenue', why_now: 'Results are due this month' }
+  const evidence = { src: [0], ticker: 'AAA', reason: 'Demand lifts revenue', why_now: 'Results are due this month', direction: 'long', thesis_type: 'company_specific' }
   assert.equal(coerceIdea({ ...evidence, conviction: -5 }, 2)!.conviction, 0)
   assert.equal(coerceIdea({ ...evidence, conviction: 'x' }, 2)!.conviction, 0)
 })
 check('coerceIdea rejects missing mechanism/timing evidence and an incomplete pair', () => {
-  assert.equal(coerceIdea({ src: [0], ticker: 'AAA', why_now: 'Results are due this month' }, 2), null)
-  assert.equal(coerceIdea({ src: [0], ticker: 'AAA', reason: 'Demand lifts revenue' }, 2), null)
-  assert.equal(coerceIdea({ src: [0], ticker: 'AAA', direction: 'pair', reason: 'Demand shifts share', why_now: 'Results are due this month' }, 2), null)
+  const classification = { direction: 'long', thesis_type: 'company_specific' }
+  assert.equal(coerceIdea({ ...classification, src: [0], ticker: 'AAA', why_now: 'Results are due this month' }, 2), null)
+  assert.equal(coerceIdea({ ...classification, src: [0], ticker: 'AAA', reason: 'Demand lifts revenue' }, 2), null)
+  assert.equal(coerceIdea({ ...classification, src: [0], ticker: 'AAA', direction: 'pair', reason: 'Demand shifts share', why_now: 'Results are due this month' }, 2), null)
 })
 
 // ---- surfaceIdeasBatch (fetch-stubbed; never throws, honors the reliability contract) ----
 check('surfaceIdeasBatch parses ideas and drops the invalid ones', async () => {
   const r = await surfaceIdeasBatch(ROWS, OPTS, stubFetch({ ideas: [
-    { src: [0], ticker: 'STNG', direction: 'long', reason: 'Freight disruption lifts tanker rates', why_now: 'The strait closure is live now', conviction: 61 },
+    { src: [0], ticker: 'STNG', direction: 'long', reason: 'Freight disruption lifts tanker rates', why_now: 'The strait closure is live now', conviction: 61, thesis_type: 'macro_conditional' },
     { src: [1], ticker: '', direction: 'long' },        // dropped: no ticker
     { ticker: 'ZZZ' },                                    // dropped: no src
   ] }), noSleep)
@@ -543,6 +553,14 @@ check('buildIdeaUserMessage carries the pre-computed materiality + names', () =>
   assert.match(msg, /materiality=100/)
   assert.match(msg, /B \(BBB\)/)      // company name+ticker
   assert.match(msg, /severity=critical/)
+  assert.match(msg, /raw_impact=71/)
+  assert.match(msg, /source_tier=official_data/)
+  assert.match(msg, /server_direction=positive/)
+  assert.match(msg, /scheduled_events=results on 2026-08-13/)
+  assert.match(IDEA_SYSTEM, /separate raw economic-impact score/)
+  assert.match(IDEA_SYSTEM, /source tier/)
+  assert.match(IDEA_SYSTEM, /server-read event direction/)
+  assert.match(IDEA_SYSTEM, /scheduled events/)
 })
 check('estimateIdeaTokens grows with the row count', () => {
   assert.ok(estimateIdeaTokens(12) > estimateIdeaTokens(2))
@@ -599,6 +617,189 @@ check('readTopSweep enforces both sweep and per-row freshness when an operationa
   assert.deepEqual(got.rows.map((r) => r.headline), ['fresh'])
   assert.equal(got.stale_row_count, 1)
   assert.equal(got.invalid_time_count, 1)
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('readTopSweep keeps a still-current previous-day candidate after the daily file rolls over', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-rollover-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-03T23:59:00Z',
+    rows: [{ headline: 'Previous-day leader', url: 'https://news.test/previous', triage_score: 96, found_at: '2026-08-03T23:50:00Z' }],
+  }))
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T00:06:00Z',
+    rows: [{ headline: 'New-day candidate', url: 'https://news.test/current', triage_score: 88, found_at: '2026-08-04T00:04:00Z' }],
+  }))
+
+  const got = readTopSweep(dir, 5, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.equal(got.status, 'ok')
+  assert.equal(got.sweep_updated_at, '2026-08-04T00:06:00Z')
+  assert.deepEqual(got.rows.map((row) => row.headline), ['Previous-day leader', 'New-day candidate'])
+  assert.equal(got.rows[0].found_at, '2026-08-03T23:50:00Z', 'freshness stays anchored to source time, not the newer partition')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('readTopSweep collapses one story repeated across current sweep partitions before topN', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-cross-file-dedup-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-03T23:59:00Z',
+    rows: [
+      { headline: 'Older publisher copy', url: 'https://copy.test/story', dedup_group: 'STORY-shared', triage_score: 97, source_tier: 'news', found_at: '2026-08-03T23:48:00Z' },
+      { headline: 'Distinct prior-day story', url: 'https://news.test/distinct', triage_score: 91, found_at: '2026-08-03T23:49:00Z' },
+    ],
+  }))
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T00:06:00Z',
+    rows: [
+      { headline: 'New primary filing', url: 'https://primary.test/story', dedup_group: 'STORY-shared', triage_score: 93, source_tier: 'primary_filing', found_at: '2026-08-04T00:04:00Z' },
+      { headline: 'Distinct current-day story', url: 'https://news.test/current', triage_score: 89, found_at: '2026-08-04T00:05:00Z' },
+    ],
+  }))
+
+  const got = readTopSweep(dir, 3, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.deepEqual(
+    got.rows.map((row) => row.headline),
+    ['New primary filing', 'Distinct prior-day story', 'Distinct current-day story'],
+    'the §4 source hierarchy chooses the filing before score and the publisher copy consumes no top-N slot',
+  )
+  assert.equal(got.rows.filter((row) => row.dedup_group === 'STORY-shared').length, 1)
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('readTopSweep preserves correction and reversal lanes inside one publisher-copy family', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-revision-lanes-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-03T23:59:00Z',
+    rows: [{ headline: 'Company wins regulator approval', url: 'https://filing.test/original', dedup_group: 'STORY-revised', triage_score: 97, source_tier: 'primary_filing', found_at: '2026-08-03T23:48:00Z' }],
+  }))
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T00:06:00Z',
+    rows: [
+      { headline: 'Correction: approval remains conditional', url: 'https://news.test/correction', dedup_group: 'STORY-revised', triage_score: 88, source_tier: 'news', found_at: '2026-08-04T00:03:00Z' },
+      { headline: 'Regulator withdraws approval', url: 'https://news.test/reversal', dedup_group: 'STORY-revised', triage_score: 90, source_tier: 'news', found_at: '2026-08-04T00:04:00Z' },
+    ],
+  }))
+  const got = readTopSweep(dir, 5, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.deepEqual(
+    new Set(got.rows.map((row) => row.headline)),
+    new Set(['Company wins regulator approval', 'Correction: approval remains conditional', 'Regulator withdraws approval']),
+    'the original source hierarchy winner cannot hide a later falsifying correction or reversal',
+  )
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('readTopSweep never admits rows through stale or malformed historical partition clocks', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-untrusted-clock-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-08-02_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-02T20:00:00Z',
+    rows: [{ headline: 'Stale partition row', url: 'https://news.test/stale-partition', triage_score: 100, found_at: '2026-08-04T00:05:00Z' }],
+  }))
+  fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
+    updated_at: 'not-a-time',
+    rows: [{ headline: 'Malformed partition row', url: 'https://news.test/bad-partition', triage_score: 99, found_at: '2026-08-04T00:05:00Z' }],
+  }))
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T00:06:00Z',
+    rows: [{ headline: 'Trusted row', url: 'https://news.test/trusted', triage_score: 80, found_at: '2026-08-04T00:05:00Z' }],
+  }))
+
+  const got = readTopSweep(dir, 5, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.equal(got.status, 'degraded')
+  assert.equal(got.invalid_time_count, 1)
+  assert.deepEqual(got.rows.map((row) => row.headline), ['Trusted row'])
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('readTopSweep exposes a lost recent partition even when the newest partition is empty', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-degraded-empty-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({ updated_at: 'not-a-time', rows: [] }))
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({ updated_at: '2026-08-04T00:06:00Z', rows: [] }))
+  const got = readTopSweep(dir, 5, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.equal(got.status, 'degraded')
+  assert.equal(got.invalid_time_count, 1)
+  assert.deepEqual(got.rows, [])
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('readTopSweep bounds historical partition reads to the freshness window', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-bounded-history-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  for (let day = 1; day <= 20; day++) {
+    const dd = String(day).padStart(2, '0')
+    fs.writeFileSync(path.join(inbox, `2026-07-${dd}_sweep.json`), JSON.stringify({
+      updated_at: `2026-07-${dd}T12:00:00Z`, rows: [],
+    }))
+  }
+  fs.writeFileSync(path.join(inbox, '2026-07-01_sweep.json'), '{')
+  fs.writeFileSync(path.join(inbox, '2026-07-20_sweep.json'), JSON.stringify({
+    updated_at: '2026-07-20T12:00:00Z',
+    rows: [{ headline: 'Current bounded row', url: 'https://news.test/current-bounded', triage_score: 80, found_at: '2026-07-20T11:59:00Z' }],
+  }))
+
+  const got = readTopSweep(dir, 5, {
+    nowMs: Date.parse('2026-07-20T12:05:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.equal(got.status, 'ok')
+  assert.deepEqual(got.rows.map((row) => row.headline), ['Current bounded row'])
+  assert.equal(got.invalid_time_count, 0, 'far archival debris is outside the bounded partition scan')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('readTopSweep ignores a sparse archival corrupt file whose date cannot overlap freshness', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-sparse-archive-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-01-01_sweep.json'), '{')
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T00:06:00Z',
+    rows: [{ headline: 'Current sparse row', url: 'https://news.test/current-sparse', triage_score: 80, found_at: '2026-08-04T00:05:00Z' }],
+  }))
+  const got = readTopSweep(dir, 5, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.equal(got.status, 'ok')
+  assert.equal(got.invalid_time_count, 0)
+  assert.deepEqual(got.rows.map((row) => row.headline), ['Current sparse row'])
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('prior-partition human decisions remain blocking just outside the candidate freshness floor', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-durable-human-state-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-03T22:09:59Z',
+    rows: [
+      { headline: 'Consumed source', url: 'https://primary.test/consumed', dedup_group: 'STORY-consumed-floor', triage_score: 98, found_at: '2026-08-03T22:00:00Z', consumed: true },
+      { headline: 'Dismissed source', url: 'https://primary.test/dismissed', dedup_group: 'STORY-dismissed-floor', triage_score: 97, found_at: '2026-08-03T22:00:00Z', dismissed: true },
+    ],
+  }))
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T00:06:00Z',
+    rows: [
+      { headline: 'Current copy of consumed story', url: 'https://copy.test/consumed', dedup_group: 'STORY-consumed-floor', triage_score: 100, found_at: '2026-08-04T00:04:00Z' },
+      { headline: 'Current copy of dismissed story', url: 'https://copy.test/dismissed', dedup_group: 'STORY-dismissed-floor', triage_score: 99, found_at: '2026-08-04T00:04:00Z' },
+      { headline: 'Unblocked current story', url: 'https://news.test/unblocked', triage_score: 90, found_at: '2026-08-04T00:05:00Z' },
+    ],
+  }))
+
+  const got = readTopSweep(dir, 5, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.deepEqual(got.rows.map((row) => row.headline), ['Unblocked current story'])
   fs.rmSync(dir, { recursive: true, force: true })
 })
 check('readTopSweep reserves at most one-third for actionable theme evidence and dedupes publisher copies', () => {
