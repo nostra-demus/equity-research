@@ -25,6 +25,7 @@ const mixedIdeas = [
   idea('long-live', 'long'),
   idea('short-live', 'short'),
   idea('pair-live', 'pair', { pair_with: 'PAIR-SHORT' }),
+  idea('pair-missing-leg', 'pair', { pair_with: null }),
   idea('long-stale-flag', 'long', { stale: true }),
   idea('short-expired', 'short', { decay_at: '2026-08-11T12:00:00Z' }),
 ]

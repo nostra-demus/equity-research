@@ -29,7 +29,7 @@ export function ideasForSide(ideas: readonly BoardIdea[], side: IdeaSide, nowMs 
   return ideas.filter((idea) => {
     if (ideaIsStaleNow(idea, nowMs)) return false
     if (idea.direction === side) return true
-    return idea.direction === 'pair' && (side === 'long' || Boolean(idea.pair_with))
+    return idea.direction === 'pair' && Boolean(idea.pair_with)
   })
 }
 
