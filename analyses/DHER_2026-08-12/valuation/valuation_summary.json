@@ -1,0 +1,209 @@
+{
+  "schema_version": "1.4",
+  "ticker": "DHER",
+  "date": "2026-08-12",
+  "basis": "ev",
+  "is_developed_mega_cap": false,
+  "price_state": "pool-verified",
+  "current_price": 37.20,
+  "price_as_of": "2026-08-07",
+  "shares": 303744978,
+  "net_debt": 2512.8,
+  "net_debt_basis": "strict (total debt €4,625.5m − cash & equivalents €2,112.7m, FY2025)",
+  "methods": {
+    "own_history": 25.10,
+    "peers": 79.2,
+    "dcf": 33.31,
+    "sotp": 32.59
+  },
+  "method_weights": {
+    "own_history": 0.45,
+    "peers": 0.22,
+    "dcf": 0.15,
+    "sotp": 0.18
+  },
+  "method_basis": {
+    "own_history": "LTM",
+    "peers": "LTM",
+    "dcf": "NTM",
+    "sotp": "FY+1"
+  },
+  "discount_rate": {
+    "rf": 0.0320,
+    "erp": 0.0417,
+    "beta": 1.2,
+    "cost_of_equity": 0.0820,
+    "wacc": 0.0745,
+    "after_tax_kd": 0.0562
+  },
+  "dcf_grid": {
+    "wacc": [0.0645, 0.0745, 0.0845],
+    "growth": [0.025, 0.030, 0.035],
+    "values": [
+      [40.11, 29.85, 23.06],
+      [46.02, 33.31, 25.28],
+      [53.92, 37.64, 27.95]
+    ],
+    "base": {"wacc": 0.0745, "growth": 0.03, "value": 33.31},
+    "source": "04_intrinsic-dcf.md §7 sensitivity grid"
+  },
+  "sotp_segments": [
+    {"segment": "MENA", "metric": "FY2026E Adj. EBITDA", "metric_value": 507.5, "multiple": 12.0, "comparable": "Talabat Holding plc (DFM:TALABAT)"},
+    {"segment": "Asia", "metric": "FY2026E Adj. EBITDA", "metric_value": 309.6, "multiple": 14.2, "comparable": "Meituan (SEHK:3690)"},
+    {"segment": "Europe", "metric": "FY2026E Revenue", "metric_value": 2768.2, "multiple": 1.2, "comparable": "DoorDash acquisition of Deliveroo plc"},
+    {"segment": "Americas", "metric": "FY2026E Revenue", "metric_value": 1177.5, "multiple": 1.8, "comparable": "Swiggy Limited (NSEI:SWIGGY)"},
+    {"segment": "Integrated Verticals", "metric": "FY2026E Revenue", "metric_value": 3550.6, "multiple": 0.95, "comparable": "Eternal Limited / Zomato-Blinkit (NSEI:ETERNAL)"}
+  ],
+  "sotp_bridge": {
+    "gross_ev": 19300.7,
+    "net_debt": 2512.8,
+    "net_debt_basis": "strict (total debt − cash & equivalents, FY2025, per 01 canonical anchor)",
+    "minority": 1207.0,
+    "minority_basis": "fair value of talabat's public 20% stake (DHER owns 80% of talabat but consolidates 100% of its economics) — departs from 01's book-value minority figure (€154.2m) with a stated segment-specific reason, per Reconciliation Gate 1",
+    "other": -5681.1,
+    "other_basis": "capitalized unallocated corporate costs (-€4,830.0m, €483.0m/yr @ 10% cap rate) + conglomerate/complexity discount (-€860.9m, 8%) + equity-method investments (+€9.8m)",
+    "shares": 303744978,
+    "equity_value": 9899.8,
+    "value_per_share": 32.59,
+    "source": "06_sum-of-the-parts.md §3-4"
+  },
+  "peers_internals": {
+    "median_multiple": 3.60,
+    "applied_multiple": 1.90,
+    "discount_pct": 0.472,
+    "multiple_basis": "EV/LTM Revenue",
+    "anchors": [
+      {"multiple": 1.90, "label": "quality-adjusted (Meituan+Swiggy median) — base case", "implied_value_per_share": 79.2},
+      {"multiple": 3.60, "label": "raw 6-peer median (unadjusted, dispersion upper bound)", "implied_value_per_share": 157.9}
+    ],
+    "source": "03_relative-valuation-peers.md §5"
+  },
+  "scenarios": [
+    {
+      "label": "bull",
+      "level": 49.01,
+      "forward_metric": "FY2026E Revenue",
+      "metric_basis": "FY2026E",
+      "multiple": 1.10,
+      "multiple_basis": "EV/FY2026E Revenue",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 2512.8,
+        "net_debt_basis": "strict (total debt − cash & equivalents, FY2025, per 01 canonical anchor)",
+        "minority": 154.2,
+        "other": 0,
+        "shares": 303744978
+      },
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 17553.36,
+        "net_debt": 2512.8,
+        "net_debt_basis": "strict (total debt − cash & equivalents, FY2025, per 01 canonical anchor)",
+        "minority": 154.2,
+        "other": 0,
+        "shares": 303744978,
+        "stated_drivers": [
+          {"label": "GMV like-for-like growth", "value": "top of guided range (10% vs. 9% midpoint)", "note": "qualitative driver behind the revenue metric; mapping to the exact FY2026E revenue figure not separately tabulated"},
+          {"label": "Asia segment margin", "value": "+192bps toward FY2024 level", "note": "qualitative driver; not separately mapped to the multiple"}
+        ],
+        "source": "07_scenario-and-fair-value.md §3"
+      },
+      "source": "07_scenario-and-fair-value.md §3 scenario table"
+    },
+    {
+      "label": "base",
+      "level": 39.65,
+      "forward_metric": "FY2026E Revenue",
+      "metric_basis": "FY2026E",
+      "multiple": 0.94,
+      "multiple_basis": "EV/FY2026E Revenue",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 2512.8,
+        "net_debt_basis": "strict (total debt − cash & equivalents, FY2025, per 01 canonical anchor)",
+        "minority": 154.2,
+        "other": 0,
+        "shares": 303744978
+      },
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 14709.402,
+        "net_debt": 2512.8,
+        "net_debt_basis": "strict (total debt − cash & equivalents, FY2025, per 01 canonical anchor)",
+        "minority": 154.2,
+        "other": 0,
+        "shares": 303744978,
+        "stated_drivers": [
+          {"label": "Street-consensus FY2026 revenue growth", "value": "11.3% (14 analysts)", "note": "consensus figure, directly tabulated"},
+          {"label": "Adjusted EBITDA guidance midpoint", "value": "€935m", "note": "company guidance; supports the multiple choice, not separately mapped"}
+        ],
+        "source": "07_scenario-and-fair-value.md §2-3"
+      },
+      "source": "07_scenario-and-fair-value.md §3 scenario table"
+    },
+    {
+      "label": "bear_cyclical",
+      "level": 18.59,
+      "forward_metric": "FY2026E Revenue",
+      "metric_basis": "FY2026E",
+      "multiple": 0.55,
+      "multiple_basis": "EV/FY2026E Revenue",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 2512.8,
+        "net_debt_basis": "strict (total debt − cash & equivalents, FY2025, per 01 canonical anchor)",
+        "minority": 154.2,
+        "other": 0,
+        "shares": 303744978
+      },
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 8312.755,
+        "net_debt": 2512.8,
+        "net_debt_basis": "strict (total debt − cash & equivalents, FY2025, per 01 canonical anchor)",
+        "minority": 154.2,
+        "other": 0,
+        "shares": 303744978,
+        "stated_drivers": [
+          {"label": "GMV like-for-like growth", "value": "bottom of guided range (8%)", "note": "qualitative driver; not separately mapped to the multiple"},
+          {"label": "rider-cost/employment-classification shock", "value": "-€344.5m (≈38% of FY2025 Adj. EBITDA)", "note": "company's own disclosed stress test, per earnings/07_earnings-sensitivity.md §6"}
+        ],
+        "source": "07_scenario-and-fair-value.md §3"
+      },
+      "source": "07_scenario-and-fair-value.md §3 scenario table",
+      "horizon": "12 months (FY2026) — 12-month operating trough, distinct from the multi-year bear_structural case below"
+    },
+    {
+      "label": "bear_structural",
+      "level": -2.84,
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 2512.8,
+        "net_debt_basis": "strict (total debt − cash & equivalents, FY2025, per 01 canonical anchor)",
+        "minority": 154.2,
+        "other": 0,
+        "shares": 303744978
+      },
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 1803.4,
+        "net_debt": 2512.8,
+        "net_debt_basis": "strict (total debt − cash & equivalents, FY2025, per 01 canonical anchor)",
+        "minority": 154.2,
+        "other": 0,
+        "shares": 303744978,
+        "stated_drivers": [
+          {"label": "revenue growth fade", "value": "8% → 2%", "note": "declining-perpetuity runoff path"},
+          {"label": "Adjusted EBITDA margin", "value": "compressing 5.5% → 4.2%", "note": "cumulative rider-cost stress case with no pricing offset"},
+          {"label": "terminal growth g", "value": "1.0% nominal", "note": "below ECB inflation target — a real-terms decline"}
+        ],
+        "source": "04_intrinsic-dcf.md §5 (structural-reset runoff terminal); reproduced in 07_scenario-and-fair-value.md §3"
+      },
+      "source": "07_scenario-and-fair-value.md §3",
+      "horizon": "multi-year (24–36 months), permanent-impairment / avoid-ruin floor — not the 12-month headline bear, demoted per the graduated routing rule since the moat trajectory is 'widening' and 04's weighted base case already caps terminal margin for the lost-excess-return effect"
+    }
+  ]
+}
