@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "ticker": "HAIER",
+  "run_root": "analyses/HAIER_2026-08-13",
+  "scan_date": "2026-08-13",
+  "scanned_at": "2026-08-12T23:23:17Z",
+  "watermark": "analyses/HAIER_2026-08-13/final_thesis.md",
+  "new_docs": [],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [],
+    "commands": [],
+    "note_only": []
+  },
+  "verdict": "note_only",
+  "summary": "No new documents since the last run. The only files in the data pool newer than the run's final_thesis.md are the engine's own routed output (the Memos 2026-08-13 04-52-38/ folder, marked by its .nostradamus_output sentinel), which is excluded by design. Nothing invalidates the current thesis."
+}
