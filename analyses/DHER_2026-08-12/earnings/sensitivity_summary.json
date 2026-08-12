@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "ticker": "DHER",
+  "as_of": "2026-08-12",
+  "currency": "EUR",
+  "base_metric": "adjusted_ebitda_eur_m",
+  "base_value": 903.0,
+  "base_value_source": "01_historical-financials.md §1, footnote 1 (FY2025 Adjusted EBITDA €903.0m, management-stated on the FY2025 Earnings Call, Mar 26 2026, cross-checked to the Capital IQ Estimates workbook EBITDA actual line)",
+  "base_period": "FY2025",
+  "revenue_base": 14059.6,
+  "revenue_period": "FY2025",
+  "sensitivities": [
+    {
+      "variable": "fy2026_gmv_lfl_growth",
+      "label": "FY2026 GMV like-for-like growth",
+      "unit": "pp of GMV LFL growth",
+      "base_value": 9.0,
+      "coefficient": 25.0,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": 8.0, "high": 10.0},
+      "non_linearity": "Coefficient pairs two ranges management disclosed together as FY2026 guidance (GMV LFL 8%-10% and Adjusted EBITDA €910m-€960m) but does not itself state a formal 1:1 linkage - the linkage is this agent's inference. A break below 8% (a demand shock) is untested by the guided range and could convert at a steeper marginal EBITDA hit via fixed-cost deleverage than this linear scale implies.",
+      "source": "04_guidance-consensus.md §2 (FY2025 Earnings Call, prepared remarks, Mar 26 2026)"
+    },
+    {
+      "variable": "delivery_expense_ratio_pp_of_revenue",
+      "label": "Delivery-expense cost-of-sales ratio (rider/logistics cost, % of revenue)",
+      "unit": "pp of revenue",
+      "base_value": 49.0,
+      "coefficient": -140.596,
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": {"low": -1.0, "high": 2.45},
+      "non_linearity": "No disclosed contractual pass-through mechanism for rider-cost inflation - cost increases flow straight to margin with no demonstrated offsetting price lever. A reclassification event (e.g. Italy following Spain) could be a discrete step-change rather than a gradual ratio move, and carries a separate disclosed contingent liability of EUR440m-EUR770m in Spain alone, not captured by this linear per-pp scale.",
+      "source": "03_margin-drivers.md §2, §8 (FY24 Annual Report, Note 15/2 'Cost of Sales,' p.109; Note H.5 'Contingencies - Rider Status,' p.203-204)"
+    },
+    {
+      "variable": "usd_eur_fx_move",
+      "label": "USD/EUR FX move (monetary/transaction exposure)",
+      "unit": "% move in USD/EUR",
+      "base_value": null,
+      "coefficient": 2.68,
+      "impact_metric": "fx_monetary_exposure_pnl_eur_m",
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": {"low": -10.0, "high": 10.0},
+      "non_linearity": "Disclosed figure covers only monetary/transaction exposure, not full income-statement translation of the ~85% of Group revenue earned outside the eurozone (inference on the translation scale, not from filings) - actual earnings sensitivity to USD/EUR is likely larger than this coefficient implies.",
+      "source": "business-model/10_external-dependency.md §2 (FY24 Annual Report, Note H.3.b 'Sensitivity Analysis of Foreign Exchange Rate Changes,' p.201 - 10% USD/EUR move = +/-EUR26.8m P&L effect, Dec-31-2024)"
+    },
+    {
+      "variable": "krw_eur_fx_move",
+      "label": "KRW/EUR FX move (monetary/transaction exposure)",
+      "unit": "% move in KRW/EUR",
+      "base_value": null,
+      "coefficient": 7.2,
+      "impact_metric": "fx_monetary_exposure_pnl_eur_m",
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": {"low": -10.0, "high": 10.0},
+      "non_linearity": "Same translation-exposure caveat as USD/EUR. KRW exposure is concentrated in the Asia segment, currently in a competitive/margin recovery (see asia_segment_ebitda_margin_pp) - a KRW depreciation coinciding with a Korea-driven Asia margin improvement would partly offset in euro-reported terms.",
+      "source": "business-model/10_external-dependency.md §2 (FY24 Annual Report, Note H.3.b, p.201 - 10% KRW/EUR move = +/-EUR72.0m P&L effect, Dec-31-2024)"
+    },
+    {
+      "variable": "asia_segment_ebitda_margin_pp",
+      "label": "Asia segment Adjusted EBITDA margin (competitive intensity, Korea/Southeast Asia)",
+      "unit": "pp (percentage points)",
+      "base_value": 7.5,
+      "coefficient": 44.186,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": -1.92, "high": 1.92},
+      "non_linearity": "Asia's FY2025 margin decline was driven by a discrete competitive event (a new entrant's Sept-2024 market entry in Korea) and a ~2-year platform rebuild, not a smooth continuous variable - the same magnitude move in either direction is not guaranteed to be linear beyond the +/-192bps range already observed.",
+      "source": "03_margin-drivers.md §6, §7a-ii (Asia segment margin -192bps FY2025 vs FY2024; segment revenue EUR4,418.6m, CIQ Segments tab); FY24 Annual Report p.4, p.105-106"
+    },
+    {
+      "variable": "integrated_verticals_ebitda_margin_pp",
+      "label": "Integrated Verticals (Dmarts) Adjusted EBITDA margin",
+      "unit": "pp (percentage points)",
+      "base_value": 0.09,
+      "coefficient": 31.89,
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": {"low": -2.0, "high": 2.0},
+      "non_linearity": "Segment swung +373bps in a single year off a near-zero base - management guides only to 'slight positive EBITDA' while continuing to reinvest, so further large positive moves are capped near-term by the company's own stated reinvestment intent; a reversal toward negative margin is not bounded by the same cap.",
+      "source": "03_margin-drivers.md §6, §7a-ii (Integrated Verticals margin-rate effect EUR119.0m on EUR3,189.0m FY2025 segment revenue, +373bps FY2025 vs FY2024)"
+    }
+  ]
+}
