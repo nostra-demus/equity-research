@@ -2990,6 +2990,11 @@ if scope=="selftest":
         ("2026-08-01",[{"label":"a"},{"label":"b"}],None),                     # no usable returns → N/A
         ("2026-08-01",None,None),                                               # no scenarios → N/A
         ("2026-08-01","nope",None),                                             # malformed → N/A, never crash
+        # [PR#427 review fix] numeric-STRING return_pct coerces the same as the live math block → pass
+        ("2026-08-01",[{"label":"bull","return_pct":"40.0"},{"label":"bear","return_pct":"-25.0"}],[]),
+        # a present-but-non-coercible return_pct is a data-integrity failure, not a soft N/A
+        ("2026-08-01",[{"label":"bull","return_pct":"n/a"},{"label":"bear","return_pct":-25.0}],
+         ["non-numeric/non-coercible"]),
     ]
     for _dd,_scn,_want in atcases:
         got=eval_at_scenario_span(_dd,_scn)

@@ -69,13 +69,25 @@ AT_DATE = "2026-08-01"
 AT_MIN_BEST_PCT = 5.0  # an ordinary weekly move on a large liquid name — below this the set spans nothing
 
 def eval_at_scenario_span(decision_date, scenarios):
-    """Check AT. None = N/A (pre-gate / no usable scenarios); [] = spans; [violation] = too narrow."""
+    """Check AT. None = N/A (pre-gate / no usable scenarios); [] = spans; [violation] = too narrow or
+    a present return_pct is not numeric/coercible."""
     if not (_isdate(decision_date) and decision_date >= AT_DATE):
         return None
     if not isinstance(scenarios, list) or len(scenarios) < 2:
         return None  # a single case is not a set — check A/T owns the structural complaint
-    rets = [s.get("return_pct") for s in scenarios
-            if isinstance(s, dict) and isinstance(s.get("return_pct"), (int, float)) and not isinstance(s.get("return_pct"), bool)]
+    present = [s.get("return_pct") for s in scenarios if isinstance(s, dict) and s.get("return_pct") is not None]
+    # [PR#427 review fix] the live scenario-math block (full.md) coerces return_pct via float(...), so a
+    # JSON-string value like "3.6" reconciles cleanly there. This check used to require the value already
+    # be int/float and silently DROP anything else — a numeric-string scenario set would fall under 2
+    # usable returns and go N/A, skipping the span check entirely on data the reconciliation block itself
+    # accepted. Coerce the same way; a value that is present but still not coercible is a data-integrity
+    # failure in its own right, not a soft absence.
+    bad = [v for v in present if _tonum(v) is None]
+    if bad:
+        return [f"scenario return_pct contains {len(bad)} non-numeric/non-coercible value(s) ({bad[:3]!r}) "
+                f"— the §10 span check cannot be evaluated on a value the live scenario-math reconciliation "
+                f"would itself fail to parse cleanly"]
+    rets = [_tonum(v) for v in present]
     if len(rets) < 2:
         return None  # no usable returns → nothing to measure
     best = max(rets)
@@ -185,3 +197,18 @@ def _isdate(s):
         return True
     except Exception:
         return False
+
+
+def _tonum(v):
+    """Coerce an int/float (non-bool) or a numeric string to float; None if not coercible. Mirrors the
+    float(...) coercion the live scenario-math block already applies to return_pct/probability."""
+    if isinstance(v, bool):
+        return None
+    if isinstance(v, (int, float)):
+        return float(v)
+    if isinstance(v, str):
+        try:
+            return float(v.strip())
+        except (ValueError, TypeError):
+            return None
+    return None
