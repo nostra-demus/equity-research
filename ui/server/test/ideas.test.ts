@@ -212,6 +212,18 @@ check('event direction binds only to one exact verified primary issuer', () => {
     { name: 'Amazon', ticker: 'AMZN', listing_country: 'US' },
   ] }], { ...listing, ticker: 'AMZN', companyName: 'Amazon.com Inc' }), 'short', 'an exact verified ticker binds despite a different valid display-name spelling')
   assert.equal(directionBoundToVerifiedListing([{ ...direct, companies: [
+    { name: 'Norsk Hydro ASA', ticker: 'NHY', listing_country: 'NO' },
+  ] }], { ...listing, ticker: 'NHY.OL', companyName: 'Norsk Hydro ASA', exchange: 'Oslo' }), 'short', 'an exact issuer binds when triage carries the unambiguous base of its verified suffixed listing')
+  assert.equal(directionBoundToVerifiedListing([{ ...direct, companies: [
+    { name: 'Norsk Hydrogen AS', ticker: 'NHY', listing_country: 'NO' },
+  ] }], { ...listing, ticker: 'NHY.OL', companyName: 'Norsk Hydro ASA', exchange: 'Oslo' }), 'unknown', 'same-base cross-issuer collisions stay ambiguous')
+  assert.equal(directionBoundToVerifiedListing([{ ...direct, companies: [
+    { name: 'Norsk Hydro ASA', ticker: 'NHY.ST', listing_country: 'SE' },
+  ] }], { ...listing, ticker: 'NHY.OL', companyName: 'Norsk Hydro ASA', exchange: 'Oslo' }), 'unknown', 'two suffixed venue symbols never borrow direction through their shared base')
+  assert.equal(directionBoundToVerifiedListing([{ ...direct, companies: [
+    { name: 'A Holdings Inc', ticker: 'A', listing_country: 'US' },
+  ] }], { ...listing, ticker: 'A.OL', companyName: 'A Holdings ASA', exchange: 'Oslo' }), 'unknown', 'a one-character base is too collision-prone to bind')
+  assert.equal(directionBoundToVerifiedListing([{ ...direct, companies: [
     { name: 'Alpha Corporation', ticker: 'BBB', listing_country: 'US' },
   ] }], listing), 'unknown', 'a conflicting non-null ticker keeps the event sign ambiguous')
   assert.equal(directionBoundToVerifiedListing([{ ...direct, companies: [
@@ -408,6 +420,24 @@ check('ideaVersion binds the exact thesis and source snapshot', () => {
     originType: 'wire', sourceThemes: [],
   }), 'IDEAV-f7194ed98c4f8fc9', 'TypeScript and the static Python verifier share one canonical pair-version vector')
 })
+
+function validV2Snapshot(patch: Record<string, any> = {}) {
+  const base = validIdeaSnapshot('BOUNDV2', 'long', {
+    trade_score_basis: 'evidence_gate_v2',
+    trade_score: 45,
+    trade_readiness: 'watch_only',
+    missing_checks: [
+      'verified listed ticker', 'verified listing', 'live liquidity', 'dated catalyst',
+      'price and market expectations', 'live price, liquidity, and consensus',
+    ],
+  })
+  return {
+    ...base,
+    ...patch,
+    trade_score_breakdown: { ...base.trade_score_breakdown, ...(patch.trade_score_breakdown || {}) },
+  }
+}
+
 check('persisted snapshot validation binds the complete shape, identity, sources, scores, and lifecycle', () => {
   const valid = validIdeaSnapshot('BOUND')
   assert.equal(isSurfacedIdeaSnapshot(valid), true)
@@ -423,6 +453,70 @@ check('persisted snapshot validation binds the complete shape, identity, sources
   assert.equal(isSurfacedIdeaSnapshot(validIdeaSnapshot('M&M.NS')), true, 'NSE ampersand tickers survive persistence')
   assert.equal(isSurfacedIdeaSnapshot(validIdeaSnapshot('ABCDEFGHIJKLMNO')), true, '15-character global tickers survive persistence')
   assert.equal(isSurfacedIdeaSnapshot(validIdeaSnapshot('ACME', 'pair', { pair_with: 'M&M.NS' })), true, 'pair legs use the same global ticker contract')
+
+  const validV2 = validV2Snapshot()
+  assert.equal(isSurfacedIdeaSnapshot(validV2), true, 'a scorer-produced V2 card satisfies the strict persisted policy')
+  assert.equal(isSurfacedIdeaSnapshot({
+    ...validV2,
+    trade_score: 100,
+    trade_readiness: 'check_now',
+    missing_checks: [],
+  }), false, 'recomputed card hashes cannot turn a V2 news lead into impossible 100/check-now readiness')
+})
+check('V2 persistence rejects impossible scorer arithmetic and discrete components', () => {
+  assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({ trade_score: 44 })), false)
+  assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({ trade_score_breakdown: { evidence: 24 } })), false)
+  assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({ trade_score_breakdown: { timing: 9 } })), false)
+  assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({ trade_score_breakdown: { corroboration: 8 } })), false)
+})
+check('V2 persistence binds the learning adjustment to its resolved ledger summary', () => {
+  assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({ trade_score_breakdown: { learning_adjustment: 1 } })), false)
+})
+check('V2 persistence binds directory listing state to its deterministic score fields', () => {
+  assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({ ticker_verified: true })), false)
+  assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({ trade_score_breakdown: { specificity: 15 } })), false)
+})
+check('V2 persistence binds mandatory and conditional missing checks', () => {
+  const base = validV2Snapshot()
+  assert.equal(isSurfacedIdeaSnapshot({ ...base, missing_checks: base.missing_checks.filter((gap: string) => gap !== 'live liquidity') }), false)
+  assert.equal(isSurfacedIdeaSnapshot({ ...base, missing_checks: base.missing_checks.filter((gap: string) => gap !== 'dated catalyst') }), false)
+  assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({ trade_score_breakdown: { timing: 15 } })), false)
+  assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({
+    trade_score_breakdown: { timing: 15 },
+    missing_checks: base.missing_checks.filter((gap: string) => gap !== 'dated catalyst'),
+  })), true)
+  assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({ missing_checks: [...base.missing_checks, 'raw economic impact'] })), false)
+  assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({
+    trade_score: 42,
+    trade_score_breakdown: { impact: 0 },
+    missing_checks: [...base.missing_checks, 'raw economic impact'],
+  })), true)
+  assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({ missing_checks: [...base.missing_checks, 'independent confirmation'] })), false)
+
+  const lowEvidenceMissingConfirmation = validV2Snapshot({
+    trade_score_breakdown: { evidence: 18 },
+    missing_checks: [...base.missing_checks, 'independent confirmation'],
+  })
+  assert.equal(isSurfacedIdeaSnapshot(lowEvidenceMissingConfirmation), true)
+  assert.equal(isSurfacedIdeaSnapshot({
+    ...lowEvidenceMissingConfirmation,
+    missing_checks: base.missing_checks,
+  }), false, 'low-tier uncorroborated evidence cannot silently omit independent confirmation')
+  assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({
+    trade_score_breakdown: { evidence: 18, corroboration: 6 },
+    missing_checks: [...base.missing_checks, 'independent confirmation'],
+  })), false, 'real corroboration cannot retain a contradictory confirmation gap')
+})
+check('V2 persistence allows only the readiness state implied by verified listing and score', () => {
+  assert.equal(isSurfacedIdeaSnapshot(validV2Snapshot({ trade_readiness: 'check_now' })), false)
+  const verified = validV2Snapshot({
+    exchange: 'NYSE', ticker_verified: true, listing_verified: true,
+    listing_verification_source: 'yahoo_symbol_directory', trade_score: 60, trade_readiness: 'needs_data',
+    trade_score_breakdown: { specificity: 15, expression: 6 },
+    missing_checks: ['live liquidity', 'dated catalyst', 'price and market expectations', 'live price, liquidity, and consensus'],
+  })
+  assert.equal(isSurfacedIdeaSnapshot(verified), true)
+  assert.equal(isSurfacedIdeaSnapshot({ ...verified, trade_readiness: 'watch_only' }), false)
 })
 check('snapshot validation accepts only field-absent legacy lineage and binds every new Theme edge', () => {
   const legacy = validIdeaSnapshot('LINEAGE')

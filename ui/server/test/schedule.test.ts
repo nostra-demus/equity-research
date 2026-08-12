@@ -133,6 +133,36 @@ check('dated catalyst evidence is source-bound, complete, valid, and never infer
     'an unrevised schedule remains valid',
   )
   assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'S&P announces index constituent changes effective September 20, 2026' }),
+    ['index_change on 2026-09-20'],
+    'ordinary index-change wording is not mistaken for a schedule revision',
+  )
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Acme index change effective on September 8, 2026' }),
+    ['index_change on 2026-09-08'],
+    'the explicit singular index-change term remains source-bound dated evidence',
+  )
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Company held AGM and set analyst target price for September 30, 2026' }),
+    [],
+    'a completed AGM cannot steal an unrelated analyst-target date later in the same clause',
+  )
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Company will hold AGM on September 30, 2026' }),
+    ['shareholder_meeting on 2026-09-30'],
+    'the past-event guard retains an explicitly forward AGM',
+  )
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Acme moves ex-dividend on September 20, 2026' }),
+    ['ex_dividend on 2026-09-20'],
+    'ordinary forward-event use of moves is not mistaken for retiming',
+  )
+  assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'S&P moves index rebalance from September 20, 2026 to October 1, 2026' }),
+    [],
+    'an explicit move from one complete date to another remains a rejected revision',
+  )
+  assert.deepEqual(
     deriveScheduledEventEvidence({ headline: 'Amazon AGM scheduled for 2026-09-09. Investor day on 2026-10-10' }),
     ['shareholder_meeting on 2026-09-09', 'investor_day on 2026-10-10'],
     'separate unrevised clauses keep their own live dates',

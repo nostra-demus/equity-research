@@ -65,7 +65,7 @@ function candidate(runRoot: string, createdAt?: string): QualifiedIdeaCandidate 
       causal_steps: ['Company files the KPI result.', 'Consensus revises the same KPI and valuation.'],
       bullish_trigger: 'KPI is at least 112 against 100 consensus.', bearish_trigger: 'KPI is below 100 consensus.',
     },
-    falsifier: { condition: 'The edge is falsified when the filed KPI is below 100.', metric: 'filed KPI', threshold: '< 100', deadline: '2026-10-25T00:00:00Z', source: 'Q3 filing' },
+    falsifier: { condition: 'The edge is falsified when the filed KPI is below 100.', metric: 'filed KPI', threshold: '< 100', deadline: '2026-10-25T00:00:00Z', source: 'company calendar' },
     valuation_bridge: { source_horizon_days: 180, method: 'same_horizon', convergence_fraction: null, rationale: 'The targets come directly from the event payoff inside this holding window.', source: 'event model' },
     scenarios: [
       { scenario_id: 'bull', label: 'bull', probability_pct: 25, price_target: 140, source_price_target: 140, conditions: ['KPI is at least 120'], source: 'frozen event model' },
@@ -190,6 +190,12 @@ function writeRun(name: string, opts: {
   manifest.manifest_sha256 = digest(manifest)
   fs.writeFileSync(path.join(dir, 'idea_projection_manifest.json'), JSON.stringify(manifest))
   c.projection_manifest_sha256 = manifest.manifest_sha256
+  const evidence = marketEvidence(c)
+  fs.writeFileSync(path.join(dir, 'idea_market_evidence.json'), JSON.stringify({
+    schema_version: 'idea-market-evidence-snapshot/v1', captured_at: c.created_at,
+    projection_manifest_sha256: manifest.manifest_sha256,
+    evidence, evidence_sha256: digest(evidence),
+  }))
 
   const preCap = preMortem.recommended_rating_cap.trim() || null
   const auditCapReasons: string[] = []
@@ -325,6 +331,117 @@ assert.ok(authorityDriftBoard.needs_research[0]?.issues.some((x) => x.code === '
 assert.ok(listFrozenQualifiedIdeaEvaluations(authorityDriftRoot)
   .some((x) => x.candidate.instrument.ticker === 'AUTHORITYDRIFT'), 'authority drift leaves the frozen outcome cohort intact')
 fs.rmSync(authorityDriftRoot, { recursive: true, force: true })
+
+const marketReplayRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-market-replay-'))
+const marketDrift = writeRun('MARKETDRIFT_2026-08-03', { verify: true }, marketReplayRoot)
+const marketMissing = writeRun('MARKETMISSING_2026-08-03', { verify: true }, marketReplayRoot)
+assert.equal(buildQualifiedIdeasBoard(marketReplayRoot, { nowMs: NOW }).health.status, 'healthy')
+const driftedSidecar = JSON.parse(fs.readFileSync(path.join(marketDrift.dir, 'idea_market_evidence.json'), 'utf8'))
+driftedSidecar.evidence.quote.price = 999
+driftedSidecar.evidence_sha256 = digest(driftedSidecar.evidence)
+fs.writeFileSync(path.join(marketDrift.dir, 'idea_market_evidence.json'), JSON.stringify(driftedSidecar))
+fs.unlinkSync(path.join(marketMissing.dir, 'idea_market_evidence.json'))
+const marketReplayBoard = buildQualifiedIdeasBoard(marketReplayRoot, { nowMs: NOW })
+assert.equal(marketReplayBoard.health.invalid_count, 2, 'a rehashed or missing current sidecar quarantines both live cards')
+assert.ok(marketReplayBoard.needs_research.every((row) => row.issues.some((issue) => issue.code === 'authoritative_research_mismatch')))
+const marketReplayFrozen = listFrozenQualifiedIdeaEvaluations(marketReplayRoot)
+assert.equal(marketReplayFrozen.length, 2, 'later sidecar drift cannot select a valid frozen admission out of outcomes')
+assert.equal(marketReplayFrozen.find((row) => row.candidate.instrument.ticker === 'MARKETDRIFT')?.candidate.quote.price, 100)
+fs.rmSync(marketReplayRoot, { recursive: true, force: true })
+
+const marketForgeryRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-market-forgery-'))
+const marketForgery = writeRun('MARKETFORGERY_2026-08-03', { verify: true }, marketForgeryRoot)
+const forgedMarketAdmission = JSON.parse(JSON.stringify(marketForgery.admission))
+forgedMarketAdmission.candidate.quote.price = 999
+forgedMarketAdmission.market_evidence.quote.price = 999
+forgedMarketAdmission.market_evidence_sha256 = digest(forgedMarketAdmission.market_evidence)
+forgedMarketAdmission.candidate.market_evidence_sha256 = forgedMarketAdmission.market_evidence_sha256
+forgedMarketAdmission.assessment.candidate = forgedMarketAdmission.candidate
+forgedMarketAdmission.candidate_sha256 = digest(forgedMarketAdmission.candidate)
+forgedMarketAdmission.assessment_sha256 = digest(forgedMarketAdmission.assessment)
+forgedMarketAdmission.admission_id = `${forgedMarketAdmission.candidate.idea_id}|${forgedMarketAdmission.candidate_sha256.slice(0, 16)}`
+delete forgedMarketAdmission.admission_sha256
+forgedMarketAdmission.admission_sha256 = digest(forgedMarketAdmission)
+fs.writeFileSync(path.join(marketForgery.dir, 'idea_3_6m.json'), JSON.stringify(forgedMarketAdmission.assessment))
+fs.writeFileSync(path.join(marketForgery.dir, 'idea_admission.json'), JSON.stringify(forgedMarketAdmission))
+const marketForgeryBoard = buildQualifiedIdeasBoard(marketForgeryRoot, { nowMs: NOW })
+assert.equal(marketForgeryBoard.qualified.length, 0, 'recomputed admission hashes cannot diverge from the canonical current sidecar live')
+assert.equal(marketForgeryBoard.health.invalid_count, 1)
+fs.rmSync(marketForgeryRoot, { recursive: true, force: true })
+
+const preManifestRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-pre-manifest-'))
+const preManifest = writeRun('PREMANIFEST_2026-08-03', { verify: true }, preManifestRoot)
+const preManifestAdmission = JSON.parse(JSON.stringify(preManifest.admission))
+preManifestAdmission.candidate.created_at = '2026-08-03T09:59:59Z'
+preManifestAdmission.assessment.created_at = preManifestAdmission.candidate.created_at
+preManifestAdmission.assessment.candidate = preManifestAdmission.candidate
+preManifestAdmission.candidate_sha256 = digest(preManifestAdmission.candidate)
+preManifestAdmission.assessment_sha256 = digest(preManifestAdmission.assessment)
+preManifestAdmission.admission_id = `${preManifestAdmission.candidate.idea_id}|${preManifestAdmission.candidate_sha256.slice(0, 16)}`
+delete preManifestAdmission.admission_sha256
+preManifestAdmission.admission_sha256 = digest(preManifestAdmission)
+fs.writeFileSync(path.join(preManifest.dir, 'idea_3_6m.json'), JSON.stringify(preManifestAdmission.assessment))
+fs.writeFileSync(path.join(preManifest.dir, 'idea_admission.json'), JSON.stringify(preManifestAdmission))
+const preManifestBoard = buildQualifiedIdeasBoard(preManifestRoot, { nowMs: NOW })
+assert.equal(preManifestBoard.qualified.length, 0, 'a fully rehashed candidate timestamp cannot precede its pinned manifest')
+assert.equal(preManifestBoard.health.invalid_count, 1)
+assert.equal(listFrozenQualifiedIdeaEvaluations(preManifestRoot).length, 0)
+fs.rmSync(preManifestRoot, { recursive: true, force: true })
+
+const forgedWrapperRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-forged-wrapper-'))
+const forgedWrapper = writeRun('FORGEDWRAPPER_2026-08-03', { verify: true }, forgedWrapperRoot)
+const forgedWrapperAssessment = JSON.parse(JSON.stringify(forgedWrapper.assessment))
+const forgedWrapperAdmission = JSON.parse(JSON.stringify(forgedWrapper.admission))
+forgedWrapperAssessment.ticker = 'DIFFERENT'
+forgedWrapperAdmission.assessment = forgedWrapperAssessment
+forgedWrapperAdmission.assessment_sha256 = digest(forgedWrapperAssessment)
+delete forgedWrapperAdmission.admission_sha256
+forgedWrapperAdmission.admission_sha256 = digest(forgedWrapperAdmission)
+fs.writeFileSync(path.join(forgedWrapper.dir, 'idea_3_6m.json'), JSON.stringify(forgedWrapperAssessment))
+fs.writeFileSync(path.join(forgedWrapper.dir, 'idea_admission.json'), JSON.stringify(forgedWrapperAdmission))
+const forgedWrapperBoard = buildQualifiedIdeasBoard(forgedWrapperRoot, { nowMs: NOW })
+assert.equal(forgedWrapperBoard.qualified.length, 0, 'a rehashed wrapper cannot name a different ticker from its candidate')
+assert.equal(forgedWrapperBoard.health.invalid_count, 1)
+assert.ok(!listFrozenQualifiedIdeaEvaluations(forgedWrapperRoot)
+  .some((x) => x.candidate.instrument.ticker === 'FORGEDWRAPPER'), 'an intrinsically forged wrapper never enters the frozen outcome cohort')
+fs.rmSync(forgedWrapperRoot, { recursive: true, force: true })
+
+const forgedAuthorityRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-forged-authority-'))
+const forgedAuthority = writeRun('FORGEDAUTHORITY_2026-08-03', { verify: true }, forgedAuthorityRoot)
+const forgedAdmission = JSON.parse(JSON.stringify(forgedAuthority.admission))
+const inflatedCandidate = forgedAdmission.candidate
+inflatedCandidate.research.data_sufficiency_score = 100
+inflatedCandidate.research.edge_score = 100
+inflatedCandidate.research.edge_proof = 'A forged edge claims certainty even though the pinned decision record still says 66.'
+inflatedCandidate.scenarios[0].price_target = inflatedCandidate.scenarios[0].source_price_target = 1_000
+inflatedCandidate.scenarios[1].price_target = inflatedCandidate.scenarios[1].source_price_target = 800
+forgedAdmission.decision_authority.data_sufficiency_score = 100
+forgedAdmission.decision_authority.edge_score = 100
+forgedAdmission.decision_authority.edge_proof = inflatedCandidate.research.edge_proof
+forgedAdmission.decision_authority.post_audit.expectations_gap.edge_score = 100
+forgedAdmission.decision_authority.scenarios = inflatedCandidate.scenarios.map((row: any) => ({
+  scenario_id: row.scenario_id, label: row.label, probability_pct: row.probability_pct,
+  source_price_target: row.source_price_target, conditions: row.conditions, source: row.source,
+  joint_probability_basis: row.joint_probability_basis ?? null,
+})).sort((a: any, b: any) => a.scenario_id.localeCompare(b.scenario_id))
+forgedAdmission.integrity_evidence.verification_report_sha256 = 'f'.repeat(64)
+forgedAdmission.integrity_evidence.final_thesis_sha256 = 'a'.repeat(64)
+forgedAdmission.assessment.candidate = inflatedCandidate
+forgedAdmission.candidate_sha256 = digest(inflatedCandidate)
+forgedAdmission.assessment_sha256 = digest(forgedAdmission.assessment)
+forgedAdmission.decision_authority_sha256 = digest(forgedAdmission.decision_authority)
+forgedAdmission.integrity_evidence_sha256 = digest(forgedAdmission.integrity_evidence)
+forgedAdmission.admission_id = `${inflatedCandidate.idea_id}|${forgedAdmission.candidate_sha256.slice(0, 16)}`
+delete forgedAdmission.admission_sha256
+forgedAdmission.admission_sha256 = digest(forgedAdmission)
+fs.writeFileSync(path.join(forgedAuthority.dir, 'idea_3_6m.json'), JSON.stringify(forgedAdmission.assessment))
+fs.writeFileSync(path.join(forgedAuthority.dir, 'idea_admission.json'), JSON.stringify(forgedAdmission))
+const forgedAuthorityBoard = buildQualifiedIdeasBoard(forgedAuthorityRoot, { nowMs: NOW })
+assert.equal(forgedAuthorityBoard.qualified.length, 0, 'recomputed hashes cannot replace the pinned decision and integrity evidence with an inflated admission')
+assert.equal(forgedAuthorityBoard.health.invalid_count, 1)
+assert.ok(!listFrozenQualifiedIdeaEvaluations(forgedAuthorityRoot)
+  .some((x) => x.candidate.instrument.ticker === 'FORGEDAUTHORITY'), 'a fully rehashed forged authority never enters the frozen outcome cohort')
+fs.rmSync(forgedAuthorityRoot, { recursive: true, force: true })
 
 const lowRankingRun = writeRun('LOWRANK_2026-08-01', { verify: true, lowConservativeReturn: true })
 const lowRankingBoard = buildQualifiedIdeasBoard(root, { nowMs: NOW })
@@ -744,6 +861,17 @@ const malformedLedgerBoard = buildQualifiedIdeasBoard(directRoot, {
 })
 assert.equal(malformedLedgerBoard.health.publishing_count, 0, 'a malformed activity row cannot crash the board or make the ledger look complete enough for direct grace')
 assert.ok(!malformedLedgerBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'))
+
+const readerRejectedLedgerBoard = buildQualifiedIdeasBoard(directRoot, {
+  nowMs: NOW,
+  readActivityRows: () => ({
+    rows: [], total: 0, allTime: 0, invalid_event_count: 1,
+    users: [], tickers: [], tickerLabels: {}, earliest: NOW - 1,
+  }),
+  readUncommittedPublicationRuns: () => new Set(['analyses/DIRECTA_2026-08-03', 'analyses/DIRECTB_2026-08-03']),
+})
+assert.equal(readerRejectedLedgerBoard.health.publishing_count, 0, 'a runtime-rejected JSONL event makes the durable ledger incomplete and cannot grant direct grace')
+assert.ok(!readerRejectedLedgerBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'))
 
 const directGitRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-direct-git-positive-'))
 writeRun('DIRECTGIT_2026-08-02', { verify: true, createdAt: '2026-08-02T10:00:00Z' }, directGitRoot)

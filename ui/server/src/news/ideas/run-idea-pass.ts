@@ -21,7 +21,7 @@ import {
 } from './ideas-store'
 import { IDEA_LEARNING_HORIZON_DAYS, learnIdeaAdjustment } from './idea-learning'
 import { directionMatchesEvidence, scoreTradeCluster, TRADE_SCORE_POLICY_VERSION, type TradeEvidence } from '../trade-score'
-import { coreCompanyName, normTicker, verifyEquityListing, type VerifiedEquityListing } from '../symbology'
+import { baseTicker, coreCompanyName, normTicker, verifyEquityListing, type VerifiedEquityListing } from '../symbology'
 import { normName } from '../text-match'
 import { eventIdFor } from '../normalize'
 import {
@@ -123,6 +123,7 @@ export function directionBoundToVerifiedListing(
 ): EvidenceDirection {
   if (!listing) return 'unknown'
   const ticker = normTicker(listing.ticker)
+  const tickerBase = baseTicker(ticker)
   // Keep identity-bearing words such as Group and Holdings. coreCompanyName removes only legal forms,
   // so "Acme Corp" can match "Acme Corporation" without collapsing distinct issuers such as
   // "Man Holdings" and "Man Group plc" onto the same generic stem.
@@ -133,9 +134,15 @@ export function directionBoundToVerifiedListing(
     const named = (row.companies || []).filter((candidate) => {
       const candidateTicker = normTicker(candidate.ticker)
       // An exact verified symbol is the stronger identity key and must not be defeated by harmless display-
-      // name differences ("Amazon" vs "Amazon.com Inc"). If title-only triage honestly leaves the ticker
-      // null, exact issuer-core identity may still bind. A conflicting non-null symbol is contrary evidence.
-      return candidateTicker ? candidateTicker === ticker : coreCompanyName(candidate.name) === company
+      // name differences ("Amazon" vs "Amazon.com Inc"). Triage may also carry the listing-agnostic base
+      // (NHY) while the independently verified directory returns its suffixed venue symbol (NHY.OL). Bind
+      // that one-way alias only when the verified symbol really has a known exchange suffix, the base is not
+      // degenerate, and the exact issuer core agrees. Never equate two suffixed venues or a same-base issuer
+      // with a different name. If triage honestly leaves ticker null, exact issuer-core identity may bind.
+      if (!candidateTicker) return coreCompanyName(candidate.name) === company
+      if (candidateTicker === ticker) return true
+      return tickerBase !== ticker && tickerBase.length >= 2 && candidateTicker === tickerBase &&
+        coreCompanyName(candidate.name) === company
     })
     // Multiple named issuers make an event-level sign ambiguous even if one happens to match the trade.
     return row.companies.length === 1 && named.length === 1

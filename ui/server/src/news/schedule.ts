@@ -78,7 +78,7 @@ const SCHEDULE_TERMS: Record<ScheduledEventKind, string[]> = {
     'end of lockup', 'lock-up release', 'lock-up ends', 'lockup ends',
   ],
   index_change: [
-    'index inclusion', 'added to the index', 'removed from the index', 'index rebalance', 'index reshuffle',
+    'index change', 'index changes', 'index inclusion', 'added to the index', 'removed from the index', 'index rebalance', 'index reshuffle',
     'to join the s&p', 'to join the nifty', 'to join the ftse', 'index constituent', 'index reconstitution',
     'added to the s&p', 'dropped from the', 'to be added to the',
   ],
@@ -125,7 +125,16 @@ const TRAILING_NEGATED_WINDOW = /^\s*(?:[,:;.!?\-|–—]\s*)?(?:but\s+)?(?:late
 // and moved headlines remain fail-closed even when they print a replacement date: this parser cannot prove
 // which of multiple dates is now operative without source-time/state semantics.
 const CLAUSE_REVISES_SCHEDULE = new RegExp(
-  String.raw`\b(?:cancell?(?:ation(?:s)?|ed|ing|s)?|postpon(?:e|es|ed|ement(?:s)?|ing)|delay(?:s|ed|ing)?|defer(?:s|red|ring|ral(?:s)?|ment(?:s)?)?|reschedul(?:e|es|ed|ing)|withdraw(?:s|n|ing|al(?:s)?)?|withdrew|mov(?:e|es|ed|ing)|shift(?:s|ed|ing)?|push(?:es|ed|ing)?[\s-]+back|put(?:s|ting)?[\s-]+off|adjourn(?:s|ed|ing|ment(?:s)?)?|scrap(?:s|ped|ping)?|suspend(?:s|ed|ing|ion(?:s)?)?|call(?:s|ed|ing)?[\s-]+off|den(?:y|ies|ied|ying)|rul(?:e|es|ed|ing)[\s-]+out|chang(?:e|es|ed|ing)|revis(?:e|es|ed|ing|ion(?:s)?)|no\s+longer)\b`,
+  String.raw`\b(?:cancell?(?:ation(?:s)?|ed|ing|s)?|postpon(?:e|es|ed|ement(?:s)?|ing)|delay(?:s|ed|ing)?|defer(?:s|red|ring|ral(?:s)?|ment(?:s)?)?|reschedul(?:e|es|ed|ing)|withdraw(?:s|n|ing|al(?:s)?)?|withdrew|shift(?:s|ed|ing)?|push(?:es|ed|ing)?[\s-]+back|put(?:s|ting)?[\s-]+off|adjourn(?:s|ed|ing|ment(?:s)?)?|scrap(?:s|ped|ping)?|suspend(?:s|ed|ing|ion(?:s)?)?|call(?:s|ed|ing)?[\s-]+off|den(?:y|ies|ied|ying)|rul(?:e|es|ed|ing)[\s-]+out|revis(?:e|es|ed|ing|ion(?:s)?)|no\s+longer)\b`,
+  'i',
+)
+// `change` and `move` are ordinary forward-event words too: index providers announce constituent
+// "changes effective DATE", and a company can "move ex-dividend on DATE". Treat them as a revision only
+// when the same clause explicitly moves the schedule FROM/TO another complete date. This retains the
+// fail-closed treatment of "AGM moved from X to Y" without deleting valid catalysts by vocabulary alone.
+const COMPLETE_DATE_START = String.raw`(?:20\d{2}-\d{1,2}-\d{1,2}|\d{1,2}[\/-]\d{1,2}[\/-]20\d{2}|${MONTH_WORD}\s+\d{1,2}(?:st|nd|rd|th)?,?\s+20\d{2}|\d{1,2}(?:st|nd|rd|th)?\s+${MONTH_WORD},?\s+20\d{2}|Q[1-4]\s*20\d{2})`
+const CLAUSE_RETIMES_SCHEDULE = new RegExp(
+  String.raw`\b(?:mov(?:e|es|ed|ing)|chang(?:e|es|ed|ing))\b(?=[^.;!?|\n]{0,96}\b(?:from|to)\s+${COMPLETE_DATE_START})`,
   'i',
 )
 // A complete date does not make a merely possible/tentative event proven. Keep `may` contextual because
@@ -134,6 +143,7 @@ const CLAUSE_UNCERTAIN_SCHEDULE = new RegExp(
   String.raw`\b(?:might|could|possibly|potentially|tentative(?:ly)?|unconfirmed)\b|\bmay\s+(?:(?:still|now)\s+)?(?:be|hold|take|occur|happen|meet|convene|schedule|report|announce|release|declare|consider|join|host|set|start|end|expire|trade|go)\b`,
   'i',
 )
+const PAST_EVENT_VERBS = String.raw`(?:held|conducted|convened|concluded|completed)`
 const CLAUSE_SEPARATORS = ['.', ';', '!', '?', '|', '\n'] as const
 // Commas and spaced dashes are NOT clause separators — they keep one headline as a single clause — but
 // they DO separate independent facts. The schedule-revision/uncertainty test is scoped to the segment
@@ -251,10 +261,23 @@ function bindingIsNegated(
     if (right >= bindEnd && right < segEnd) segEnd = right
   }
   const segText = lower.slice(segStart, segEnd)
-  if (CLAUSE_REVISES_SCHEDULE.test(segText) || CLAUSE_UNCERTAIN_SCHEDULE.test(segText)) return true
+  if (
+    CLAUSE_REVISES_SCHEDULE.test(segText)
+    || CLAUSE_RETIMES_SCHEDULE.test(segText)
+    || CLAUSE_UNCERTAIN_SCHEDULE.test(segText)
+  ) return true
+  // An event named in the past tense cannot borrow a later date from a different claim in the same
+  // compact headline (for example, "held AGM and set analyst target price for September 30"). Keep this
+  // local to the bound event segment so an unrelated past-tense fact cannot suppress a real schedule.
+  const termPrefix = lower.slice(Math.max(segStart, term.index - 48), term.index)
+  const termSuffix = lower.slice(term.end, Math.min(segEnd, term.end + 48))
+  if (
+    new RegExp(String.raw`\b${PAST_EVENT_VERBS}\s+(?:(?:its|the)\s+)?$`, 'i').test(termPrefix)
+    || new RegExp(String.raw`^\s+(?:(?:was|has\s+been)\s+)?${PAST_EVENT_VERBS}\b`, 'i').test(termSuffix)
+  ) return true
   const relationStartAt = bindStart
   const priorComma = lower.lastIndexOf(',', relationStartAt)
-  const relationStart = Math.max(clause.start, priorComma + 1, relationStartAt - 64)
+  const relationStart = Math.max(segStart, priorComma + 1, relationStartAt - 64)
   const relationEnd = Math.max(term.end, window.end)
   if (NEGATED_WINDOW.test(lower.slice(relationStart, relationEnd))) return true
   // A cancellation normally follows the date ("earnings on Sep 9 cancelled"). Keep this check anchored

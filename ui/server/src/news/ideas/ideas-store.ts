@@ -407,6 +407,66 @@ function validTradeBreakdown(value: unknown): value is TradeScoreBreakdown {
     && boundedNumber(value.learning_adjustment, -8, 8, true)
 }
 
+const V2_LIVE_DATA_GAP = 'live price, liquidity, and consensus'
+const V2_MISSING_CHECKS = new Set([
+  'verified listed ticker', 'verified listing', 'live liquidity', 'dated catalyst',
+  'raw economic impact', 'priced-in risk', 'price and market expectations',
+  'independent confirmation', V2_LIVE_DATA_GAP,
+])
+
+/** V2 snapshots cannot be fully replayed from the compact card record because the individual source rows
+ * are intentionally not duplicated there. Bind every field that *is* deterministic at this boundary:
+ * exact scorer arithmetic, the directory-only listing state, the permanent news-only cap, and all missing
+ * checks implied by persisted state. A malformed cache may become less prominent; it may never claim a
+ * readiness state the V2 producer cannot emit. */
+function validEvidenceGateV2State(value: Record<string, unknown>): boolean {
+  if (value.trade_score_basis !== 'evidence_gate_v2') return true
+  if (!validTradeBreakdown(value.trade_score_breakdown) || !Array.isArray(value.missing_checks)) return false
+  const breakdown = value.trade_score_breakdown
+  const missing = value.missing_checks as string[]
+  const has = (check: string): boolean => missing.includes(check)
+  if (missing.some((check) => !V2_MISSING_CHECKS.has(check))) return false
+
+  // runIdeaPass uses one exact directory result for ticker + listing and deliberately leaves liquidity
+  // unverified. Any other combination was not produced by evidence_gate_v2.
+  const listingVerified = value.listing_verified === true
+  if (value.ticker_verified !== listingVerified || value.liquidity_verified !== false) return false
+  if (breakdown.specificity !== (listingVerified ? 15 : 7)) return false
+  if (breakdown.expression !== (listingVerified ? 6 : 0)) return false
+  if (breakdown.learning_adjustment !== (value.learning as IdeaLearning).adjustment) return false
+  if (![0, 3, 7, 14, 18, 23, 25].includes(breakdown.evidence)) return false
+  if (![2, 6, 10, 15].includes(breakdown.timing)) return false
+  if (![0, 6, 10].includes(breakdown.corroboration)) return false
+
+  if (has('verified listed ticker') !== !listingVerified || has('verified listing') !== !listingVerified) return false
+  if (!has('live liquidity') || !has(V2_LIVE_DATA_GAP)) return false
+  if (has('dated catalyst') !== (breakdown.timing !== 15)) return false
+  if (has('raw economic impact') && breakdown.impact !== 0) return false
+  if (has('independent confirmation') !== (breakdown.corroboration === 0 && breakdown.evidence < 23)) return false
+  if (has('priced-in risk') !== (value.priced_in === 'priced')) return false
+  if (has('price and market expectations') !== (value.priced_in === 'unknown')) return false
+
+  let cap = 100
+  if (!listingVerified) cap = Math.min(cap, 45)
+  if (!listingVerified) cap = Math.min(cap, 55)
+  cap = Math.min(cap, 62) // liquidity is deliberately unverified in V2
+  if (has('dated catalyst')) cap = Math.min(cap, 65)
+  if (has('raw economic impact')) cap = Math.min(cap, 65)
+  if (value.priced_in === 'priced') cap = Math.min(cap, 55)
+  else if (value.priced_in === 'unknown') cap = Math.min(cap, 60)
+  else cap = Math.min(cap, 62)
+  if (has('independent confirmation')) cap = Math.min(cap, 62)
+  cap = Math.min(cap, 62) // every news-only row carries the explicit live-data ceiling
+
+  const uncapped = Math.max(0, Math.min(100,
+    breakdown.evidence + breakdown.impact + breakdown.specificity + breakdown.timing +
+    breakdown.expression + breakdown.corroboration + breakdown.learning_adjustment,
+  ))
+  if (value.trade_score !== Math.min(uncapped, cap)) return false
+  const expectedReadiness = listingVerified && value.trade_score >= 45 ? 'needs_data' : 'watch_only'
+  return value.trade_readiness === expectedReadiness
+}
+
 function validLearning(value: unknown): value is IdeaLearning {
   if (!record(value)) return false
   const counts = [value.resolved, value.positive, value.negative, value.neutral]
@@ -492,6 +552,7 @@ export function isSurfacedIdeaSnapshot(value: unknown, expectedIdeaId?: string):
   if (!boundedNumber(value.trade_score, 0, 100, true) || !['evidence_gate_v1', 'evidence_gate_v2'].includes(String(value.trade_score_basis))) return false
   if (!validTradeBreakdown(value.trade_score_breakdown) || !READINESS.has(value.trade_readiness as SurfacedIdea['trade_readiness'])) return false
   if (!exactStringArray(value.missing_checks, 32, 160, true, true) || !validLearning(value.learning)) return false
+  if (!validEvidenceGateV2State(value)) return false
   if (!PRICED_IN.has(value.priced_in as PricedIn) || !THESIS_TYPE_SET.has(String(value.thesis_type))) return false
   if (!exactStringArray(value.source_event_ids, 64, 16, false, true) || !value.source_event_ids.every((id) => EVENT_ID_RE.test(id))) return false
   const hasPrimarySource = Object.prototype.hasOwnProperty.call(value, 'primary_source_event_id')

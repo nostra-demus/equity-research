@@ -43,6 +43,7 @@ const IDEA_PUBLICATION_GRACE_MS = 6 * 60 * 60_000
 const IDEA_PUBLICATION_CLOCK_SKEW_MS = 5 * 60_000
 const DIRECT_PUBLICATION_FILE_SKEW_MS = 15 * 60_000
 const CURRENT_AUTHORITY_MISMATCH = 'The standing decision record no longer matches the frozen admission authority; a new run is required.'
+const CURRENT_MARKET_EVIDENCE_MISMATCH = 'The current canonical market-evidence sidecar no longer matches the frozen admission; a new run is required.'
 
 export interface QualifiedIdeasBoard {
   schema_version: typeof QUALIFIED_IDEAS_BOARD_SCHEMA
@@ -176,6 +177,122 @@ export function qualifiedIdeaJsonSha256(value: unknown): string {
 }
 
 function digest(value: unknown): string { return qualifiedIdeaJsonSha256(value) }
+
+function candidateMatchesDecisionAuthority(
+  candidate: QualifiedIdeaCandidate,
+  authority: z.infer<typeof decisionAuthoritySchema>,
+): boolean {
+  const instrument = candidate.instrument
+  const research = candidate.research
+  if (
+    instrument.ticker !== authority.ticker || instrument.company !== authority.company ||
+    instrument.exchange !== authority.exchange || instrument.currency !== authority.currency ||
+    research.decision !== authority.decision ||
+    research.data_sufficiency_score !== authority.data_sufficiency_score ||
+    research.edge_score !== authority.edge_score || research.edge_proof !== authority.edge_proof ||
+    research.hard_cap_active !== authority.hard_cap_required ||
+    research.hard_cap_reason !== authority.rating_cap_reason
+  ) return false
+
+  const candidateFlags = new Set(research.unresolved_red_flags.map((flag) => digest(flag)))
+  if (authority.red_flags.some((flag) => !candidateFlags.has(digest(flag)))) return false
+
+  const candidateScenarios = candidate.scenarios.map((scenario) => ({
+    scenario_id: scenario.scenario_id,
+    label: scenario.label,
+    probability_pct: scenario.probability_pct,
+    source_price_target: scenario.source_price_target,
+    conditions: scenario.conditions,
+    source: scenario.source,
+    joint_probability_basis: scenario.joint_probability_basis ?? null,
+  })).sort((left, right) => pythonTextCompare(left.scenario_id, right.scenario_id))
+  if (digest(candidateScenarios) !== digest(authority.scenarios ?? [])) return false
+  if (
+    digest(candidate.valuation_bridge) !== digest(authority.idea_valuation_bridge) ||
+    candidate.valuation_bridge.source_horizon_days !== authority.scenario_horizon_days
+  ) return false
+
+  const forecast = authority.selected_forecast
+  if (!forecast) return false
+  const expectedCatalyst = {
+    forecast_id: forecast.forecast_id,
+    name: forecast.prediction,
+    window_start: forecast.window_start,
+    window_end: forecast.window_end,
+    source: forecast.source_citation,
+    status_at_admission: 'scheduled_unresolved',
+    status_as_of: forecast.status_as_of,
+    causal_steps: forecast.causal_steps,
+    bullish_trigger: forecast.stock_bullish_trigger,
+    bearish_trigger: forecast.stock_bearish_trigger,
+  }
+  const expectedFalsifier = {
+    condition: forecast.falsification_trigger,
+    metric: forecast.metric,
+    threshold: forecast.threshold,
+    deadline: forecast.window_end,
+    source: forecast.source_citation,
+  }
+  return digest(candidate.catalyst) === digest(expectedCatalyst) && digest(candidate.falsifier) === digest(expectedFalsifier)
+}
+
+function admittedIntegrityIsSelfConsistent(integrity: z.infer<typeof integrityEvidenceSchema>): boolean {
+  return integrity.status === 'verified' &&
+    ['clean', 'minor issues'].includes(String(integrity.verification_verdict || '').trim().toLowerCase()) &&
+    typeof integrity.verification_report_sha256 === 'string' &&
+    typeof integrity.final_thesis_sha256 === 'string'
+}
+
+function candidatePublicationOrderIsValid(
+  expectedRoot: string,
+  manifestCreatedAtText: unknown,
+  candidateCreatedAtText: string,
+  frozenAtText: string,
+): boolean {
+  const runDate = expectedRoot.match(/_(\d{4}-\d{2}-\d{2})$/)?.[1]
+  if (!runDate || !isRfc3339(String(manifestCreatedAtText)) || !isRfc3339(candidateCreatedAtText) || !isRfc3339(frozenAtText)) return false
+  const dayStart = Date.parse(`${runDate}T00:00:00Z`)
+  const manifestCreatedAt = Date.parse(String(manifestCreatedAtText))
+  const candidateCreatedAt = Date.parse(candidateCreatedAtText)
+  const frozenAt = Date.parse(frozenAtText)
+  if (![dayStart, manifestCreatedAt, candidateCreatedAt, frozenAt].every(Number.isFinite)) return false
+  const runMin = dayStart - 14 * 60 * 60_000
+  const runMax = dayStart + (24 + 14) * 60 * 60_000
+  return runMin <= manifestCreatedAt && manifestCreatedAt <= candidateCreatedAt &&
+    candidateCreatedAt <= frozenAt && frozenAt <= runMax
+}
+
+/** Replay the producer's immutable sidecar contract for the live card. The admission remains the
+ * historical outcome witness if this later sidecar is missing or drifts; only the live projection is
+ * quarantined. */
+function currentMarketEvidenceMatchesAdmission(
+  runAbs: string,
+  expectedRoot: string,
+  admission: CandidateIdeaAdmission,
+): boolean {
+  try {
+    const validated = validateProjectionManifest(runAbs, expectedRoot)
+    if (!validated || validated.manifest.manifest_sha256 !== admission.projection_manifest_sha256) return false
+    const snapshot = JSON.parse(fs.readFileSync(path.join(runAbs, 'idea_market_evidence.json'), 'utf8'))
+    if (!exactKeys(snapshot, ['schema_version', 'captured_at', 'projection_manifest_sha256', 'evidence', 'evidence_sha256'])) return false
+    if (
+      snapshot.schema_version !== 'idea-market-evidence-snapshot/v1' ||
+      snapshot.projection_manifest_sha256 !== admission.projection_manifest_sha256 ||
+      !isRfc3339(snapshot.captured_at)
+    ) return false
+    const capturedAt = Date.parse(snapshot.captured_at)
+    const manifestCreatedAt = Date.parse(validated.manifest.created_at)
+    const candidateCreatedAt = Date.parse(admission.candidate.created_at)
+    if (
+      ![capturedAt, manifestCreatedAt, candidateCreatedAt].every(Number.isFinite) ||
+      manifestCreatedAt > capturedAt || capturedAt > candidateCreatedAt
+    ) return false
+    const evidence = snapshot.evidence
+    return record(evidence) && snapshot.evidence_sha256 === digest(evidence) &&
+      snapshot.evidence_sha256 === admission.market_evidence_sha256 &&
+      digest(evidence) === digest(admission.market_evidence)
+  } catch { return false }
+}
 
 function fileDigest(file: string): string {
   return createHash('sha256').update(fs.readFileSync(file)).digest('hex')
@@ -364,10 +481,17 @@ function readAdmission(runAbs: string, expectedRoot: string): { admission: IdeaA
     const createdAt = Date.parse(admission.candidate.created_at)
     const horizonStart = Date.parse(admission.candidate.horizon.start)
     const catalystStart = Date.parse(admission.candidate.catalyst.window_start)
+    const wrapperMatchesCandidate = admission.assessment.status === 'candidate' && admission.assessment.gaps.length === 0 &&
+      digest(admission.assessment.candidate) === digest(admission.candidate) &&
+      admission.assessment.run_root === admission.candidate.run_root &&
+      admission.assessment.ticker === admission.candidate.instrument.ticker &&
+      admission.assessment.company === admission.candidate.instrument.company &&
+      admission.assessment.created_at === admission.candidate.created_at
     if (
-      admission.assessment.status !== 'candidate' || digest(admission.assessment.candidate) !== digest(admission.candidate) ||
+      !wrapperMatchesCandidate ||
       admission.candidate.run_root !== expectedRoot ||
       admission.candidate_sha256 !== digest(admission.candidate) ||
+      admission.admission_id !== `${admission.candidate.idea_id}|${admission.candidate_sha256.slice(0, 16)}` ||
       admission.decision_authority_sha256 !== digest(admission.decision_authority) ||
       admission.integrity_evidence_sha256 !== digest(admission.integrity_evidence) ||
       admission.market_evidence_sha256 !== admission.candidate.market_evidence_sha256 || admission.market_evidence_sha256 !== digest(evidence) ||
@@ -381,9 +505,32 @@ function readAdmission(runAbs: string, expectedRoot: string): { admission: IdeaA
       ![frozenAt, createdAt, horizonStart, catalystStart].every(Number.isFinite) || createdAt > frozenAt || frozenAt > horizonStart || frozenAt > catalystStart ||
       (admission.status === 'admitted' && (admission.gaps.length > 0 || admission.integrity_evidence.status !== 'verified' ||
         !admission.decision_authority.scenarios || !admission.decision_authority.scenario_horizon_days ||
-        !admission.decision_authority.idea_valuation_bridge || !admission.decision_authority.selected_forecast)) ||
+        !admission.decision_authority.idea_valuation_bridge || !admission.decision_authority.selected_forecast ||
+        !candidateMatchesDecisionAuthority(admission.candidate, admission.decision_authority) ||
+        !admittedIntegrityIsSelfConsistent(admission.integrity_evidence))) ||
       (admission.status === 'not_admitted' && admission.gaps.length === 0)
     ) return { admission: null, error: 'The post-audit admission snapshot failed digest or state reconciliation.' }
+
+    // If the pinned projection is still byte-for-byte valid, it is safe to replay the producer contract and
+    // prove the embedded authority/integrity came from those exact files. If later research files drift, the
+    // manifest stops validating: live projection quarantines that drift, while the original frozen outcome
+    // cohort stays intact. This distinction blocks a fully rehashed forged admission without hindsight edits
+    // selecting genuine historical admissions out of the denominator.
+    if (admission.status === 'admitted') {
+      const pinned = validateProjectionManifest(runAbs, expectedRoot)
+      if (pinned?.manifest.manifest_sha256 === admission.projection_manifest_sha256) {
+        if (!candidatePublicationOrderIsValid(
+          expectedRoot, pinned.manifest.created_at, admission.candidate.created_at, admission.frozen_at,
+        )) return { admission: null, error: 'The post-audit admission snapshot failed producer publication order.' }
+        const current = currentDecisionAuthority(
+          runAbs, expectedRoot, admission.candidate, admission.projection_manifest_sha256,
+        )
+        if (
+          !current || digest(current.decision) !== admission.decision_authority_sha256 ||
+          digest(current.integrity) !== admission.integrity_evidence_sha256
+        ) return { admission: null, error: 'The post-audit admission snapshot failed pinned producer reconciliation.' }
+      }
+    }
     return { admission, error: null }
   } catch {
     return { admission: null, error: 'The post-audit admission snapshot is unreadable.' }
@@ -545,7 +692,7 @@ function discover(
     if (!activityRowsByTicker) {
       activityRowsByTicker = new Map()
       const activity = readActivityRows({ limit: 5_000 })
-      activityLedgerComplete = activity.total <= activity.rows.length
+      activityLedgerComplete = (activity.invalid_event_count ?? 0) === 0 && activity.total <= activity.rows.length
       for (const row of activity.rows) {
         // The append-only log is a runtime trust boundary: a syntactically valid legacy/corrupt JSON
         // line can fold into a row even when its ticker is absent or not a string. Never let one bad
@@ -802,8 +949,13 @@ function discover(
           const current = currentDecisionAuthority(
             runAbs, candidate.run_root, candidate, candidateAdmission.projection_manifest_sha256,
           )
-          if (!current || digest(current) !== candidateAdmission.decision_authority_sha256) {
+          if (
+            !current || digest(current.decision) !== candidateAdmission.decision_authority_sha256 ||
+            digest(current.integrity) !== candidateAdmission.integrity_evidence_sha256
+          ) {
             admissionError = CURRENT_AUTHORITY_MISMATCH
+          } else if (!currentMarketEvidenceMatchesAdmission(runAbs, candidate.run_root, candidateAdmission)) {
+            admissionError = CURRENT_MARKET_EVIDENCE_MISMATCH
           }
         }
       }
@@ -856,6 +1008,27 @@ function pythonTextCompare(left: string, right: string): number {
   return a.length - b.length
 }
 
+function currentIntegrityEvidence(
+  runAbs: string,
+  validated: ValidatedProjectionManifest,
+): z.infer<typeof integrityEvidenceSchema> | null {
+  try {
+    const verdict = validated.audits.verification.verdict
+    const opening = fs.readFileSync(path.join(runAbs, 'final_thesis.md'), 'utf8')
+      .slice(0, 4_096).split(/\r?\n/).map((line) => line.trim()).find(Boolean) ?? ''
+    const upper = opening.toUpperCase()
+    const provisional = upper.startsWith('> ⚠️ **PROVISIONAL —') || upper.startsWith('> **PROVISIONAL —')
+    const evidence = {
+      status: ['Clean', 'Minor issues'].includes(verdict) && !provisional ? 'verified' : 'provisional',
+      verification_verdict: verdict,
+      verification_report_sha256: validated.manifest.artifacts.verification.sha256,
+      final_thesis_sha256: validated.manifest.artifacts.final_thesis.sha256,
+    }
+    const parsed = integrityEvidenceSchema.safeParse(evidence)
+    return parsed.success ? parsed.data : null
+  } catch { return null }
+}
+
 function readOutcomeHealth(repoRoot: string, nowMs: number): { health: QualifiedIdeaOutcomeHealth | null; state: 'valid' | 'expired' | 'unknown' } {
   try {
     const v = JSON.parse(fs.readFileSync(qualifiedIdeaOutcomeHealthPath(repoRoot), 'utf8'))
@@ -886,7 +1059,10 @@ function currentDecisionAuthority(
   expectedRoot: string,
   candidate: QualifiedIdeaCandidate,
   expectedManifestSha: string,
-): z.infer<typeof decisionAuthoritySchema> | null {
+): {
+  decision: z.infer<typeof decisionAuthoritySchema>
+  integrity: z.infer<typeof integrityEvidenceSchema>
+} | null {
   try {
     const validated = validateProjectionManifest(runAbs, expectedRoot)
     if (!validated || validated.manifest.manifest_sha256 !== expectedManifestSha) return null
@@ -1010,7 +1186,8 @@ function currentDecisionAuthority(
       (decisionCapRequired && !ratingCap) || scenarios === null || selectedForecast === null || bridge === null
     ) return null
     const parsed = decisionAuthoritySchema.safeParse(authority)
-    return parsed.success ? parsed.data : null
+    const integrity = currentIntegrityEvidence(runAbs, validated)
+    return parsed.success && integrity ? { decision: parsed.data, integrity } : null
   } catch { return null }
 }
 

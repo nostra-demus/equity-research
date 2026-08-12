@@ -415,6 +415,12 @@ fs.writeFileSync(path.join(directionInbox, '2026-08-03_sweep.json'), JSON.string
         { name: 'Benefit Corp', ticker: 'BENEFIT', listing_country: 'US' },
       ],
     },
+    {
+      headline: 'Norsk Hydro loses a material power contract', url: 'https://exchange.test/norsk-hydro-contract',
+      source_name: 'Exchange', found_at: '2026-08-03T12:03:00Z', triage_score: 92,
+      issuer_linkage: 'primary', event_direction: 'negative',
+      companies: [{ name: 'Norsk Hydro ASA', ticker: 'NHY', listing_country: 'NO' }],
+    },
   ],
 }))
 invalidateSymbolCache()
@@ -426,6 +432,8 @@ const directionFetch = (async (input: Parameters<typeof fetch>[0]) => {
       ? { quoteType: 'EQUITY', symbol: 'HARMED', longname: 'Harmed Corp', exchDisp: 'NYSE' }
       : q === 'BENEFIT'
         ? { quoteType: 'EQUITY', symbol: 'BENEFIT', longname: 'Benefit Corp', exchDisp: 'NASDAQ' }
+        : q === 'NHY.OL'
+          ? { quoteType: 'EQUITY', symbol: 'NHY.OL', longname: 'Norsk Hydro ASA', exchDisp: 'Oslo' }
         : null
     return new Response(JSON.stringify({ quotes: quote ? [quote] : [] }), { status: 200 })
   }
@@ -442,6 +450,16 @@ const directionFetch = (async (input: Parameters<typeof fetch>[0]) => {
         why_now: 'The regulator filed the licence decision today',
         conviction: 67, priced_in: 'room', thesis_type: 'company_specific',
       },
+      {
+        src: [2], ticker: 'NHY.OL', company: 'Norsk Hydro ASA', exchange: 'Oslo', direction: 'long',
+        reason: 'The contract loss can lift revenue', why_now: 'The exchange disclosed the loss today',
+        conviction: 66, priced_in: 'room', thesis_type: 'company_specific',
+      },
+      {
+        src: [2], ticker: 'NHY.OL', company: 'Norsk Hydro ASA', exchange: 'Oslo', direction: 'short',
+        reason: 'The contract loss can reduce revenue', why_now: 'The exchange disclosed the loss today',
+        conviction: 66, priced_in: 'room', thesis_type: 'company_specific',
+      },
     ] }) } }], usage: { total_tokens: 100 },
   }), { status: 200, headers: { 'content-type': 'application/json' } })
 }) as typeof fetch
@@ -450,12 +468,16 @@ try {
     repoRoot: directionRoot, stateDir: directionState, config, refreshBoard: async () => {}, now: () => DIRECTION_NOW,
     fetchFn: directionFetch, sleep: async () => {}, persistHealth: true,
   })
-  assert.equal(result.produced, 1, JSON.stringify(result))
+  assert.equal(result.produced, 2, JSON.stringify(result))
   assert.equal(readIdeaById(directionRoot, ideaId('HARMED', 'long')), null, 'an exact negative primary company still rejects a naked long when title triage omitted its ticker')
   const beneficiary = readIdeaById(directionRoot, ideaId('BENEFIT', 'long'))
   assert.equal(beneficiary?.ticker, 'BENEFIT', 'a negative event can persist its verified secondary beneficiary as a long')
   assert.equal(beneficiary?.direction, 'long')
   assert.deepEqual(beneficiary?.source_event_ids, [eventIdFor('Licence loss shifts orders to the named secondary supplier', 'https://regulator.test/beneficiary-orders')])
+  assert.equal(readIdeaById(directionRoot, ideaId('NHY.OL', 'long')), null, 'a negative issuer event cannot reverse direction just because triage used its unsuffixed base symbol')
+  const suffixedShort = readIdeaById(directionRoot, ideaId('NHY.OL', 'short'))
+  assert.equal(suffixedShort?.ticker, 'NHY.OL')
+  assert.equal(suffixedShort?.direction, 'short', 'the same safely bound evidence admits its aligned direction')
 } finally {
   fs.rmSync(directionRoot, { recursive: true, force: true })
   invalidateSymbolCache()

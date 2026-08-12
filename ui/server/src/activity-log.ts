@@ -101,6 +101,9 @@ export interface ActivityResult {
   rows: ActivityRow[]
   total: number // rows matching the filter (before limit)
   allTime: number // total runs ever recorded
+  /** Non-blank JSONL records that could not satisfy the v1 runtime contract. Additive API diagnostic;
+   * callers that use the ledger as a publication clock must treat any non-zero value as incomplete. */
+  invalid_event_count?: number
   users: string[] // distinct users (for the filter dropdown)
   tickers: string[] // distinct subject ids (the Company filter dropdown's values)
   tickerLabels: Record<string, string> // subject id -> human-readable label, for the rows/dropdown that have one
@@ -113,6 +116,7 @@ export interface ActivityResult {
 // built by the caller from the swarm's event ledger), or a `thesisId::TICKER` handoff id, whose
 // company is the part after "::". Returns undefined when nothing better than the raw id is known.
 export function resolveSubjectLabel(ticker: string, sigLabels?: Map<string, string>): string | undefined {
+  if (typeof ticker !== 'string' || !ticker) return undefined
   const fromLedger = sigLabels?.get(ticker)
   if (fromLedger) return fromLedger
   const sep = ticker.indexOf('::')
@@ -120,25 +124,59 @@ export function resolveSubjectLabel(ticker: string, sigLabels?: Map<string, stri
   return undefined
 }
 
-function readAllEvents(): ActivityEvent[] {
+const ACTIVITY_EVENT_TYPES = new Set<ActivityEventType>(['launched', 'finished'])
+const ACTIVITY_USER_VIA = new Set<ActivityEvent['userVia']>(['cf-access', 'local'])
+const ACTIVITY_RUN_STATUSES = new Set<RunStatus>([
+  'starting', 'readiness-checking', 'awaiting-readiness-decision',
+  'running', 'done', 'error', 'cancelled', 'incomplete',
+])
+
+function validOptionalString(value: unknown): boolean {
+  return value === undefined || typeof value === 'string'
+}
+
+/** JSONL is an external persistence boundary. Validate every required field before folding so a
+ * syntactically valid legacy/torn row can neither throw during label resolution nor manufacture a
+ * publication clock. Optional fields are also type-checked because they flow into the public API. */
+function isActivityEvent(value: unknown): value is ActivityEvent {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const event = value as Record<string, unknown>
+  if (event.v !== 1 || !ACTIVITY_EVENT_TYPES.has(event.event as ActivityEventType)) return false
+  if (typeof event.ts !== 'number' || !Number.isFinite(event.ts)) return false
+  if (typeof event.runId !== 'string' || !event.runId.trim()) return false
+  if (typeof event.user !== 'string' || !event.user.trim()) return false
+  if (!ACTIVITY_USER_VIA.has(event.userVia as ActivityEvent['userVia'])) return false
+  if (!ACTIVITY_FILTER_KINDS.includes(event.kind as RunKind)) return false
+  if (typeof event.ticker !== 'string' || !event.ticker.trim()) return false
+  if (event.status !== undefined && !ACTIVITY_RUN_STATUSES.has(event.status as RunStatus)) return false
+  if (event.chained !== undefined && typeof event.chained !== 'boolean') return false
+  if (![event.swarm, event.runRoot, event.module, event.agent, event.model, event.note].every(validOptionalString)) return false
+  if ([event.costUsd, event.durationMs, event.numTurns].some((number) =>
+    number !== undefined && (typeof number !== 'number' || !Number.isFinite(number)))) return false
+  return true
+}
+
+function readAllEvents(): { events: ActivityEvent[]; invalidEventCount: number } {
   let raw: string
   try {
     raw = fs.readFileSync(ACTIVITY_LOG_PATH, 'utf8')
   } catch {
-    return [] // no log yet
+    return { events: [], invalidEventCount: 0 } // no log yet
   }
   const out: ActivityEvent[] = []
+  let invalidEventCount = 0
   for (const line of raw.split('\n')) {
     const t = line.trim()
     if (!t) continue
     try {
-      const ev = JSON.parse(t) as ActivityEvent
-      if (ev && ev.runId && ev.event) out.push(ev)
+      const ev = JSON.parse(t)
+      if (isActivityEvent(ev)) out.push(ev)
+      else invalidEventCount++
     } catch {
-      // skip a corrupt/partial line rather than failing the whole read
+      invalidEventCount++ // skip a corrupt/partial line rather than failing the whole read
     }
   }
-  return out
+  return { events: out, invalidEventCount }
 }
 
 // Fold events into one row per run (launched seeds it; finished overlays outcome).
@@ -195,7 +233,7 @@ function foldRows(events: ActivityEvent[]): ActivityRow[] {
 // free of any swarm-specific path or schema. With it, swarm runs show a readable Company name instead
 // of the opaque subject id, and free-text search matches that name too.
 export function readActivity(query: ActivityQuery = {}, sigLabels?: Map<string, string>): ActivityResult {
-  const events = readAllEvents()
+  const { events, invalidEventCount } = readAllEvents()
   const allRows = foldRows(events).sort((a, b) => b.launchedAt - a.launchedAt)
   for (const r of allRows) {
     const label = resolveSubjectLabel(r.ticker, sigLabels)
@@ -209,7 +247,13 @@ export function readActivity(query: ActivityQuery = {}, sigLabels?: Map<string, 
     const label = resolveSubjectLabel(t, sigLabels)
     if (label) tickerLabels[t] = label
   }
-  const earliest = events.length ? Math.min(...events.map((e) => e.ts)) : null
+  // This ledger is deliberately perpetual. Spreading every timestamp into Math.min eventually exceeds
+  // the runtime's function-argument limit and can take down both /api/activity and the Ideas board while
+  // it is checking publication progress. Fold in constant stack space instead.
+  const earliest = events.reduce<number | null>(
+    (minimum, event) => minimum === null || event.ts < minimum ? event.ts : minimum,
+    null,
+  )
 
   const q = query.q?.trim().toLowerCase()
   const matched = allRows.filter((r) => {
@@ -231,6 +275,7 @@ export function readActivity(query: ActivityQuery = {}, sigLabels?: Map<string, 
     rows: matched.slice(0, limit),
     total: matched.length,
     allTime: allRows.length,
+    invalid_event_count: invalidEventCount,
     users,
     tickers,
     tickerLabels,

@@ -103,11 +103,17 @@ fs.writeFileSync(
     logLine({ v: 1, event: 'launched', ts: t0 + 3000, runId: 'r3', user: 'u', userVia: 'local', kind: 'handoff', ticker: 'THS-1::MSFT' }),
 )
 
+// A syntactically valid torn/legacy line used to reach foldRows with ticker=undefined and crash
+// resolveSubjectLabel. It must now be counted and skipped before any public field is dereferenced.
+fs.appendFileSync(path.join(STATE, 'activity-log.jsonl'), logLine({ v: 1, event: 'launched', ts: t0 + 3500, runId: 'bad-missing-identity' }))
+
 check('readActivity enriches each row with subjectLabel', () => {
   const res = readActivity({}, sigLabels)
   assert.equal(res.rows.find((r) => r.runId === 'r1')!.subjectLabel, 'Schneider Electric SE')
   assert.equal(res.rows.find((r) => r.runId === 'r3')!.subjectLabel, 'MSFT')
   assert.equal(res.rows.find((r) => r.runId === 'r2')!.subjectLabel, undefined)
+  assert.equal(res.rows.some((r) => r.runId === 'bad-missing-identity'), false)
+  assert.equal(res.invalid_event_count, 1)
 })
 check('readActivity builds tickerLabels only for ids that resolve', () => {
   const res = readActivity({}, sigLabels)
@@ -143,6 +149,19 @@ check('foldRows preserves `swarm` — a commodity run carries its swarm id so Re
   const res = readActivity({})
   assert.equal(res.rows.find((r) => r.runId === 'r6')!.swarm, 'commodity')
   assert.equal(res.rows.find((r) => r.runId === 'r4')!.swarm, 'research')
+})
+
+check('a perpetual activity history does not exceed the runtime argument limit', () => {
+  // V8 rejects Math.min(...timestamps) around this size. Reuse one run id so the regression exercises
+  // the unbounded event history without also manufacturing 125,000 public rows.
+  const repeated = logLine({
+    v: 1, event: 'finished', ts: t0 + 7000, runId: 'bulk', user: 'u', userVia: 'local',
+    kind: 'full', ticker: 'AAPL', status: 'done',
+  }).repeat(125_000)
+  fs.appendFileSync(path.join(STATE, 'activity-log.jsonl'), repeated)
+  const res = readActivity({ limit: 1 })
+  assert.equal(res.earliest, t0)
+  assert.equal(res.allTime, 7)
 })
 
 console.log(`\n${passed} checks passed`)
